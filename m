@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 430D523EC8A
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 13:32:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD7A23EC8B
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 13:33:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k40c3-0007KW-HG; Fri, 07 Aug 2020 11:32:39 +0000
+	id 1k40cQ-0007Pp-Sb; Fri, 07 Aug 2020 11:33:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ERlR=BR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k40c1-0007KB-HU
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 11:32:37 +0000
-X-Inumbo-ID: 747ef8fc-e896-4c9f-a028-0debb54bf08f
+ id 1k40cP-0007Pb-FU
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 11:33:01 +0000
+X-Inumbo-ID: 52495dac-76c0-45e7-a5eb-cace31abca90
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 747ef8fc-e896-4c9f-a028-0debb54bf08f;
- Fri, 07 Aug 2020 11:32:36 +0000 (UTC)
+ id 52495dac-76c0-45e7-a5eb-cace31abca90;
+ Fri, 07 Aug 2020 11:32:59 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EF04BAFB4;
- Fri,  7 Aug 2020 11:32:53 +0000 (UTC)
-Subject: [PATCH v2 2/7] x86: don't build with EFI support in shim-exclusive
- mode
+ by mx2.suse.de (Postfix) with ESMTP id CB14FAFB4;
+ Fri,  7 Aug 2020 11:33:16 +0000 (UTC)
+Subject: [PATCH v2 3/7] x86: shrink struct arch_{vcpu,domain} when !HVM
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <3a8356a9-313c-6de8-f409-977eae1fbfa5@suse.com>
-Message-ID: <1a501ca8-8cf0-6fd0-547e-30b709fec6fc@suse.com>
-Date: Fri, 7 Aug 2020 13:32:38 +0200
+Message-ID: <014a655b-7080-3804-3a56-5e00851a2a7d@suse.com>
+Date: Fri, 7 Aug 2020 13:33:01 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
@@ -52,55 +51,106 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's no need for xen.efi at all, and there's also no need for EFI
-support in xen.gz since the shim runs in PVH mode, i.e. without any
-firmware (and hence by implication also without EFI one).
-
-The slightly odd looking use of $(space) is to ensure the new ifneq()
-evaluates consistently between "build" and "install" invocations of
-make.
+While this won't affect overall memory overhead (struct vcpu as well as
+struct domain get allocated as single pages) nor code size (the offsets
+into the base structures are too large to be representable as signed 8-
+bit displacements), it'll allow the tail of struct pv_{domain,vcpu} to
+share a cache line with subsequent struct arch_{domain,vcpu} fields.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-There are further anomalies associated with the need to use $(space)
-here:
-- xen.efi rebuilding gets suppressed when installing (typically as
-  root) from a non-root-owned tree. I think we should similarly suppress
-  re-building of xen.gz as well in this case, as tool chains available
-  may vary (and hence a partial or full re-build may mistakenly occur).
-- xen.lds (re-)generation has a dependency issue: The value of
-  XEN_BUILD_EFI changing between builds (like would happen on a pre-
-  built tree with a shim-exclusive config, on which then this patch
-  would be applied) does not cause it to be re-built. Anthony's
-  switching to Linux'es build system will address this afaict, so I
-  didn't see a need to supply a separate patch.
+RFC: There is a risk associated with this: If we still have code
+     somewhere accessing the HVM parts of the structures without a prior
+     type check of the guest, this going to end up worse than the so far
+     not uncommon case of the access simply going to space unused by PV.
+     We may therefore want to consider whether to further restrict when
+     this conversion to union gets done.
+     And of course there's also the risk of future compilers complaining
+     about this abuse of unions. But this is limited to code that's dead
+     in !HVM configs, so only an apparent problem.
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -80,7 +80,9 @@ x86_emulate.o: x86_emulate/x86_emulate.c
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -709,7 +709,7 @@ long arch_do_domctl(
+         unsigned int fmp = domctl->u.ioport_mapping.first_mport;
+         unsigned int np = domctl->u.ioport_mapping.nr_ports;
+         unsigned int add = domctl->u.ioport_mapping.add_mapping;
+-        struct hvm_domain *hvm;
++        hvm_domain_t *hvm;
+         struct g2m_ioport *g2m_ioport;
+         int found = 0;
  
- efi-y := $(shell if [ ! -r $(BASEDIR)/include/xen/compile.h -o \
-                       -O $(BASEDIR)/include/xen/compile.h ]; then \
--                         echo '$(TARGET).efi'; fi)
-+                         echo '$(TARGET).efi'; fi) \
-+         $(space)
-+efi-$(CONFIG_PV_SHIM_EXCLUSIVE) :=
+--- a/xen/include/asm-x86/domain.h
++++ b/xen/include/asm-x86/domain.h
+@@ -319,7 +319,7 @@ struct arch_domain
  
- ifneq ($(build_id_linker),)
- notes_phdrs = --notes
-@@ -113,11 +115,13 @@ $(TARGET): $(TARGET)-syms $(efi-y) boot/
- 		{ echo "No Multiboot2 header found" >&2; false; }
- 	mv $(TMP) $(TARGET)
+     union {
+         struct pv_domain pv;
+-        struct hvm_domain hvm;
++        hvm_domain_t hvm;
+     };
  
-+ifneq ($(efi-y),)
- # Check if the compiler supports the MS ABI.
- export XEN_BUILD_EFI := $(shell $(CC) $(XEN_CFLAGS) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
- # Check if the linker supports PE.
- XEN_BUILD_PE := $(if $(XEN_BUILD_EFI),$(shell $(LD) -mi386pep --subsystem=10 -o efi/check.efi efi/check.o 2>/dev/null && echo y))
- CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
-+endif
+     struct paging_domain paging;
+@@ -582,7 +582,7 @@ struct arch_vcpu
+     /* Virtual Machine Extensions */
+     union {
+         struct pv_vcpu pv;
+-        struct hvm_vcpu hvm;
++        hvm_vcpu_t hvm;
+     };
  
- ALL_OBJS := $(BASEDIR)/arch/x86/boot/built_in.o $(BASEDIR)/arch/x86/efi/built_in.o $(ALL_OBJS)
- EFI_OBJS-$(XEN_BUILD_EFI) := efi/relocs-dummy.o
+     /*
+--- a/xen/include/asm-x86/hvm/domain.h
++++ b/xen/include/asm-x86/hvm/domain.h
+@@ -99,7 +99,13 @@ struct hvm_pi_ops {
+ 
+ #define MAX_NR_IOREQ_SERVERS 8
+ 
+-struct hvm_domain {
++typedef
++#ifdef CONFIG_HVM
++struct
++#else
++union
++#endif
++hvm_domain {
+     /* Guest page range used for non-default ioreq servers */
+     struct {
+         unsigned long base;
+@@ -203,7 +209,7 @@ struct hvm_domain {
+ #ifdef CONFIG_MEM_SHARING
+     struct mem_sharing_domain mem_sharing;
+ #endif
+-};
++} hvm_domain_t;
+ 
+ #endif /* __ASM_X86_HVM_DOMAIN_H__ */
+ 
+--- a/xen/include/asm-x86/hvm/vcpu.h
++++ b/xen/include/asm-x86/hvm/vcpu.h
+@@ -149,7 +149,13 @@ struct altp2mvcpu {
+ 
+ #define vcpu_altp2m(v) ((v)->arch.hvm.avcpu)
+ 
+-struct hvm_vcpu {
++typedef
++#ifdef CONFIG_HVM
++struct
++#else
++union
++#endif
++hvm_vcpu {
+     /* Guest control-register and EFER values, just as the guest sees them. */
+     unsigned long       guest_cr[5];
+     unsigned long       guest_efer;
+@@ -213,7 +219,7 @@ struct hvm_vcpu {
+     struct x86_event     inject_event;
+ 
+     struct viridian_vcpu *viridian;
+-};
++} hvm_vcpu_t;
+ 
+ #endif /* __ASM_X86_HVM_VCPU_H__ */
+ 
 
 
