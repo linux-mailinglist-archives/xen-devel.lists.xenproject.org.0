@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8089923EE91
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 16:05:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D549123EEBC
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 16:10:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k430G-0004ZE-8j; Fri, 07 Aug 2020 14:05:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k4345-0004lI-R7; Fri, 07 Aug 2020 14:09:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ERlR=BR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k430E-0004Z4-ML
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 14:05:46 +0000
-X-Inumbo-ID: a2639879-7456-4c42-9ec3-2504e0af3fe9
+ id 1k4344-0004lD-Is
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 14:09:44 +0000
+X-Inumbo-ID: 86808189-a9db-4cbe-8328-a32fa1c8fdd5
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2639879-7456-4c42-9ec3-2504e0af3fe9;
- Fri, 07 Aug 2020 14:05:45 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 86808189-a9db-4cbe-8328-a32fa1c8fdd5;
+ Fri, 07 Aug 2020 14:09:43 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F329EAC41;
- Fri,  7 Aug 2020 14:06:02 +0000 (UTC)
-Subject: Re: [PATCH v8 03/15] x86/mm: rewrite virt_to_xen_l*e
+ by mx2.suse.de (Postfix) with ESMTP id 17AA3B5E9;
+ Fri,  7 Aug 2020 14:10:01 +0000 (UTC)
+Subject: Re: [PATCH v8 07/15] x86_64/mm: switch to new APIs in paging_init
 To: Hongyan Xia <hx242@xen.org>
 References: <cover.1595857947.git.hongyxia@amazon.com>
- <e7963f6d8cab8e4d5d4249b12a8175405d888bba.1595857947.git.hongyxia@amazon.com>
+ <9919850a82a7f189de2b5dcc62c55bc9d5337c4b.1595857947.git.hongyxia@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <41d9d8d4-d5cb-8350-c118-c9e1fe73b6d0@suse.com>
-Date: Fri, 7 Aug 2020 16:05:46 +0200
+Message-ID: <249246be-fcf4-a610-24e8-ca85963f00d0@suse.com>
+Date: Fri, 7 Aug 2020 16:09:45 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <e7963f6d8cab8e4d5d4249b12a8175405d888bba.1595857947.git.hongyxia@amazon.com>
+In-Reply-To: <9919850a82a7f189de2b5dcc62c55bc9d5337c4b.1595857947.git.hongyxia@amazon.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -47,24 +46,16 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- jgrall@amazon.com, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, jgrall@amazon.com,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 27.07.2020 16:21, Hongyan Xia wrote:
 > From: Wei Liu <wei.liu2@citrix.com>
 > 
-> Rewrite those functions to use the new APIs. Modify its callers to unmap
-> the pointer returned. Since alloc_xen_pagetable_new() is almost never
-> useful unless accompanied by page clearing and a mapping, introduce a
-> helper alloc_map_clear_xen_pt() for this sequence.
-> 
-> Note that the change of virt_to_xen_l1e() also requires vmap_to_mfn() to
-> unmap the page, which requires domain_page.h header in vmap.
+> Map and unmap pages instead of relying on the direct map.
 > 
 > Signed-off-by: Wei Liu <wei.liu2@citrix.com>
 > Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
@@ -72,52 +63,47 @@ On 27.07.2020 16:21, Hongyan Xia wrote:
 > 
 > ---
 > Changed in v8:
-> - s/virtual address/linear address/.
-> - BUG_ON() on NULL return in vmap_to_mfn().
+> - replace l3/2_ro_mpt_mfn with just mfn since their lifetimes do not
+>   overlap
 
-The justification for this should be recorded in the description. In
-reply to v7 I did even suggest how to easily address the issue you
-did notice with large pages, as well as alternative behavior for
-vmap_to_mfn().
+Good, but ...
 
-> --- a/xen/include/asm-x86/page.h
-> +++ b/xen/include/asm-x86/page.h
-> @@ -291,7 +291,15 @@ void copy_page_sse2(void *, const void *);
->  #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
->  #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
->  #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
-> -#define vmap_to_mfn(va)     _mfn(l1e_get_pfn(*virt_to_xen_l1e((unsigned long)(va))))
-> +
-> +#define vmap_to_mfn(va) ({                                                  \
-> +        const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned long)(va));   \
-> +        mfn_t mfn_;                                                         \
-> +        BUG_ON(!pl1e_);                                                     \
-> +        mfn_ = l1e_get_mfn(*pl1e_);                                         \
-> +        unmap_domain_page(pl1e_);                                           \
-> +        mfn_; })
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -481,6 +481,7 @@ void __init paging_init(void)
+>      l3_pgentry_t *l3_ro_mpt;
+>      l2_pgentry_t *pl2e = NULL, *l2_ro_mpt = NULL;
+>      struct page_info *l1_pg;
+> +    mfn_t mfn;
+>  
+>      /*
+>       * We setup the L3s for 1:1 mapping if host support memory hotplug
+> @@ -493,22 +494,23 @@ void __init paging_init(void)
+>          if ( !(l4e_get_flags(idle_pg_table[l4_table_offset(va)]) &
+>                _PAGE_PRESENT) )
+>          {
+> -            l3_pgentry_t *pl3t = alloc_xen_pagetable();
+> +            mfn_t l3mfn;
 
-Additionally - no idea why I only notice this now, this wants some
-further formatting adjustment: Either
+... what about this one? It's again only used ...
 
-#define vmap_to_mfn(va) ({                                                \
-        const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned long)(va)); \
-        mfn_t mfn_;                                                       \
-        BUG_ON(!pl1e_);                                                   \
-        mfn_ = l1e_get_mfn(*pl1e_);                                       \
-        unmap_domain_page(pl1e_);                                         \
-        mfn_;                                                             \
-    })
+> +            l3_pgentry_t *pl3t = alloc_map_clear_xen_pt(&l3mfn);
+>  
+>              if ( !pl3t )
+>                  goto nomem;
+> -            clear_page(pl3t);
+> +            UNMAP_DOMAIN_PAGE(pl3t);
+>              l4e_write(&idle_pg_table[l4_table_offset(va)],
+> -                      l4e_from_paddr(__pa(pl3t), __PAGE_HYPERVISOR_RW));
+> +                      l4e_from_mfn(l3mfn, __PAGE_HYPERVISOR_RW));
+>          }
+>      }
+>  
+>      /* Create user-accessible L2 directory to map the MPT for guests. */
+> -    if ( (l3_ro_mpt = alloc_xen_pagetable()) == NULL )
+> +    l3_ro_mpt = alloc_map_clear_xen_pt(&mfn);
 
-or (preferably imo)
-
-#define vmap_to_mfn(va) ({                                            \
-    const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned long)(va)); \
-    mfn_t mfn_;                                                       \
-    BUG_ON(!pl1e_);                                                   \
-    mfn_ = l1e_get_mfn(*pl1e_);                                       \
-    unmap_domain_page(pl1e_);                                         \
-    mfn_;                                                             \
-})
+... without colliding with this first use of mfn.
 
 Jan
 
