@@ -2,45 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6708C23F192
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 18:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D91D23F1C7
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 19:14:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k45fa-00042e-Hg; Fri, 07 Aug 2020 16:56:38 +0000
+	id 1k45wa-0005mq-4n; Fri, 07 Aug 2020 17:14:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tr6f=BR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k45fZ-00042Z-BR
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 16:56:37 +0000
-X-Inumbo-ID: 893ed4c8-0c39-429e-8975-f20b523d7f7f
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=1r1P=BR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k45wZ-0005ml-3f
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 17:14:11 +0000
+X-Inumbo-ID: 37846215-4723-44f4-90ea-dc4faf91d2cb
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 893ed4c8-0c39-429e-8975-f20b523d7f7f;
- Fri, 07 Aug 2020 16:56:36 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9C48920866;
- Fri,  7 Aug 2020 16:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596819396;
- bh=L4Oo2e9/6G/FSJhkz8IPjwKYaQ0EbVwCkTFCedj4wbg=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=hbqQRAcqeRAIK1Pip7I+BPWcgWaSSbDBQEA9p1KOM2bNPvCMF1KrrgnNFw5DffbwN
- q/ti0TCOEzMXEFhbe+CZQxfcb7QMPqB+tYySqYqfMPwp6mze4dckzl+B4BFTgbCple
- uADLkJ9QotGDM4lx8H2aZC+drxBJ34fiv6Ut8vfY=
-Date: Fri, 7 Aug 2020 09:56:35 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 00/14] kernel-doc: public/arch-arm.h
-In-Reply-To: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
-Message-ID: <alpine.DEB.2.21.2008070953090.16004@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 37846215-4723-44f4-90ea-dc4faf91d2cb;
+ Fri, 07 Aug 2020 17:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596820449;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=YOv9m0OA/Njj00Z8OLpL/M86vtvTEEo/iImQR6upzVE=;
+ b=XfSZjtlFJEX603sk+nth7vm7NEFEcrpDIRlqjP4wfXDQx+hCqi9RznsM
+ CPe68pp1Fif3jzi9xk+kb/E/4aggIESavAhCfAcByTvMgzyRSUBL9XqIs
+ Z9Mu3yIRXJc2VJ2UXDG8up6TWgfjxAd4O8Nz4H95sZLmd3hfrIObpEt0n o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: yr4h3eRYOVSRdXPMgdRowVeJMPmBfN3D987wTz6jkjI8us0o1k3CX5W5mcRBKizGuE6iJbPDl2
+ igK9F/vry0+r5yzwS7CVk6K45dhKeGX1Gay476bsUMt713AfEKoMgXdfZOpGxZG67CFyDUgf24
+ C0dGBdxqprpgWrCk6Bw1rNwaD23F+t4bOjM7HJmHRQY1XuWTgNAN4onW+IftoMfmvJcBV3Y0Be
+ MfeV5UTnm+H0HL00jdnL7KuexmyPQzESJnwh0kF7MiutpVvZDxu0A0MEHhE402288uWw+uSZda
+ kiw=
+X-SBRS: 2.7
+X-MesageID: 24398669
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,446,1589256000"; d="scan'208";a="24398669"
+Subject: Re: [PATCH v2 3/7] x86: shrink struct arch_{vcpu,domain} when !HVM
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <3a8356a9-313c-6de8-f409-977eae1fbfa5@suse.com>
+ <014a655b-7080-3804-3a56-5e00851a2a7d@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <306cec0c-93e6-4b45-f68c-3808309478bf@citrix.com>
+Date: Fri, 7 Aug 2020 18:14:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <014a655b-7080-3804-3a56-5e00851a2a7d@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,172 +66,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: julien@xen.org, wl@xen.org, andrew.cooper3@citrix.com,
- ian.jackson@eu.citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-I am replying to this email as I have been told that the original was
-filtered as spam due to the tarball attachment. The tarball contains
-some example html output document files from sphinx.
+On 07/08/2020 12:33, Jan Beulich wrote:
+> While this won't affect overall memory overhead (struct vcpu as well as
+> struct domain get allocated as single pages) nor code size (the offsets
+> into the base structures are too large to be representable as signed 8-
+> bit displacements), it'll allow the tail of struct pv_{domain,vcpu} to
+> share a cache line with subsequent struct arch_{domain,vcpu} fields.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> RFC: There is a risk associated with this: If we still have code
+>      somewhere accessing the HVM parts of the structures without a prior
+>      type check of the guest, this going to end up worse than the so far
+>      not uncommon case of the access simply going to space unused by PV.
+>      We may therefore want to consider whether to further restrict when
+>      this conversion to union gets done.
+>      And of course there's also the risk of future compilers complaining
+>      about this abuse of unions. But this is limited to code that's dead
+>      in !HVM configs, so only an apparent problem.
+>
+> --- a/xen/include/asm-x86/hvm/domain.h
+> +++ b/xen/include/asm-x86/hvm/domain.h
+> @@ -99,7 +99,13 @@ struct hvm_pi_ops {
+>  
+>  #define MAX_NR_IOREQ_SERVERS 8
+>  
+> -struct hvm_domain {
+> +typedef
+> +#ifdef CONFIG_HVM
+> +struct
+> +#else
+> +union
+> +#endif
+> +hvm_domain {
+>      /* Guest page range used for non-default ioreq servers */
+>      struct {
+>          unsigned long base;
+> @@ -203,7 +209,7 @@ struct hvm_domain {
+>  #ifdef CONFIG_MEM_SHARING
+>      struct mem_sharing_domain mem_sharing;
+>  #endif
+> -};
+> +} hvm_domain_t;
 
-I have uploaded the tarball here for your convenience:
+Honestly, I'd say no to this patch even it resulted in a 100x speedup,
+because I am totally lost for words about this construct, and the effect
+it comprehensibility of our code.
 
-http://xenbits.xenproject.org/people/sstabellini/html.tar.gz
+Seeing as improved cache locality appears to be the sole benefit,
+marginal as it is, you can achieve that in a better way by rearranging
+struct domain/vcpu to put the pv/hvm union at the end.
 
-You can read the original email below.
-
-
-On Thu, 6 Aug 2020, Stefano Stabellini wrote:
-> Hi all,
-> 
-> This patch series convert Xen in-code comments to the kernel-doc format:
-> 
-> https://www.kernel.org/doc/html/latest/doc-guide/kernel-doc.html
-> 
-> 
-> # WHAT WAS CONVERTED
-> 
-> I started from the public/ header files as I thought they are the most
-> important to generated documentation for.
-> 
-> I didn't cover all files under xen/include/public/, but we don't have to
-> boil the ocean in one go.
-> 
-> For the header files I addressed, I did cover all in-code comments
-> except for very few exceptions where the conversion to kernel-doc format
-> wasn't easily doable without major changes to the comments/code.
-> 
-> The conversion was done by hand (sigh!) but was mechanical, and only
-> stylistic: I didn't change the content of the comments (only in a couple
-> of places to make the English work right, e.g. when a comment has been
-> split into two comments.)
-> 
-> 
-> # THE KERNEL-DOC KEYWORDS USED
-> 
-> I used the "struct" keyword for structures, i.e.:
-> 
-> /**
->  * struct foobar
->  */
-> 
-> "struct" makes kernel-doc go and look at the following struct in the
-> code, parses struct members comments, and generate a doc optimized to
-> describe a struct. Note that in these cases the struct needs to follow
-> immediately the comment. Thus, I had to move an #define between the
-> comment and the struct in a few places.
-> 
-> Also note that kernel-doc supports nested structs but due to a quirk,
-> comments for nested struct members cannot be on a single line. They have
-> to be:
-> 
->   struct foo {
->       struct {
->           /**
->            * @u.bar: foobar
->            */
->           bar;
->       } u;
->   }
-> 
-> Otherwise for normal struct the single line comment works fine:
-> 
->   struct foo {
->       /** @bar: foobar */
->       bar;
->   }
-> 
-> 
-> I used the "DOC" keyword otherwise. "DOC" is freeform, not particularly
-> tied to anything following (functions, enums, etc.) I kept a black line
-> between "DOC" and the following comment if multiline and no blank line
-> if it is single line.
-> 
->   /**
->    * DOC: doc1
->    * single line comment
->    */
-> 
->    /**
->     * DOC: doc2
->     *
->     * this is
->     * multiline
->     */
-> 
-> DOC doesn't generate any cross-documents links but it is still a great
-> place to start as it makes the in-code comments immediately available as
-> documents. Linking and references can be added later.
-> 
-> 
-> # HOW TO TEST IT
-> 
-> Simply run kernel-doc on a header file, for instance:
-> 
->   ../linux/scripts/kernel-doc xen/include/public/event_channel.h > /tmp/doc.rst
-> 
-> You can inspect the rst file and also generate a html file out of it with
-> sphinx:
-> 
->   sphinx-quickstart
->   sphinx-build . /path/to/out
-> 
-> I am attaching two example output html files together with the static CSS
-> and images to render them correctly. Note that of course I haven't
-> worked on the CSS at all, clearly the style can be vastly improved, but
-> I wanted to give you an idea of how readable they actually are even like
-> this.
-> 
-> 
-> Cheers,
-> 
-> Stefano
-> 
-> 
-> The following changes since commit 81fd0d3ca4b2cd309403c6e8da662c325dd35750:
-> 
->   x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt() (2020-07-31 17:43:31 +0200)
-> 
-> are available in the Git repository at:
-> 
->   http://xenbits.xenproject.org/git-http/people/sstabellini/xen-unstable.git hyp-docs-1 
-> 
-> for you to fetch changes up to abbd21dfa0ff14a7eb5faa57aaf3db24f83a149f:
-> 
->   kernel-doc: public/hvm/params.h (2020-08-06 16:27:22 -0700)
-> 
-> ----------------------------------------------------------------
-> Stefano Stabellini (14):
->       kernel-doc: public/arch-arm.h
->       kernel-doc: public/hvm/hvm_op.h
->       kernel-doc: public/device_tree_defs.h
->       kernel-doc: public/event_channel.h
->       kernel-doc: public/features.h
->       kernel-doc: public/grant_table.h
->       kernel-doc: public/hypfs.h
->       kernel-doc: public/memory.h
->       kernel-doc: public/sched.h
->       kernel-doc: public/vcpu.h
->       kernel-doc: public/version.h
->       kernel-doc: public/xen.h
->       kernel-doc: public/elfnote.h
->       kernel-doc: public/hvm/params.h
-> 
->  xen/include/public/arch-arm.h         |  43 ++-
->  xen/include/public/device_tree_defs.h |  24 +-
->  xen/include/public/elfnote.h          | 109 +++++--
->  xen/include/public/event_channel.h    | 188 +++++++----
->  xen/include/public/features.h         |  78 +++--
->  xen/include/public/grant_table.h      | 443 +++++++++++++++-----------
->  xen/include/public/hvm/hvm_op.h       |  20 +-
->  xen/include/public/hvm/params.h       | 158 ++++++++--
->  xen/include/public/hypfs.h            |  72 +++--
->  xen/include/public/memory.h           | 232 +++++++++-----
->  xen/include/public/sched.h            | 129 +++++---
->  xen/include/public/vcpu.h             | 180 ++++++++---
->  xen/include/public/version.h          |  74 ++++-
->  xen/include/public/xen.h              | 567 ++++++++++++++++++++++------------
->  14 files changed, 1564 insertions(+), 753 deletions(-)
+~Andrew
 
