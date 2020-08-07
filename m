@@ -2,52 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF7B23F496
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 23:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9D723F49A
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 23:51:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k4AGH-0004kC-Ao; Fri, 07 Aug 2020 21:50:49 +0000
+	id 1k4AGR-0004ke-JP; Fri, 07 Aug 2020 21:50:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tr6f=BR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k4AGG-0004k7-Ca
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 21:50:48 +0000
-X-Inumbo-ID: 45022f6d-0751-4755-b529-ea264dbe6131
+ id 1k4AGQ-0004kZ-EI
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 21:50:58 +0000
+X-Inumbo-ID: ffb5e211-c1d8-426a-9af0-6e8b40d0b556
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 45022f6d-0751-4755-b529-ea264dbe6131;
- Fri, 07 Aug 2020 21:50:46 +0000 (UTC)
+ id ffb5e211-c1d8-426a-9af0-6e8b40d0b556;
+ Fri, 07 Aug 2020 21:50:57 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 084392177B;
- Fri,  7 Aug 2020 21:50:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3742B2177B;
+ Fri,  7 Aug 2020 21:50:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596837045;
- bh=d8HaMhlTaGM01v77iK+nJX2tQA+46Ioxn1SY+g1hQcw=;
+ s=default; t=1596837056;
+ bh=CG9QwhsLJfw504BN17t/b6iO0h5SQDJspA7AuuEQLzE=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=Zm/4TetZWuR2g+Ua9OGU61GhTPMowUQXuPQMp7n45X3abkUGCoivS6sSv1N1jSE95
- BmNT8rRiXOBVCc+WzfJaTlrY+CbBts4WAeYo5SG4VFz2flUZ8ktAlLinPfVAVKn5zZ
- /0BrT+GCvyoRl1li3PbiApdx9OHa3mQaEWs5quXc=
-Date: Fri, 7 Aug 2020 14:50:44 -0700 (PDT)
+ b=h7kqbL5Y5/HQcE/JUcQ320EUR2zVtfQQjXwZXHyGFzmg8VqZgbuoXUU7rZwm3Bu3Z
+ wJUtq78ZjrKyN7vYfoN6y7suSCmz3kcptDBqm6PC9sBhdM2h+/vIpcgI3Vg7vq4Mdd
+ KKc9YAkATqT2L/+E/C+vG0e0onh93BsnczQ6NfUs=
+Date: Fri, 7 Aug 2020 14:50:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature
- common
-In-Reply-To: <013b142d-5296-5bbe-7d19-903f59e0c974@gmail.com>
-Message-ID: <alpine.DEB.2.21.2008071259580.16004@sstabellini-ThinkPad-T480s>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
+ xendevicemodel_set_irq_level DM op
+In-Reply-To: <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
+Message-ID: <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
- <000c01d66a33$2bd56510$83802f30$@xen.org>
- <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
- <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
- <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
- <2ab4c567-8efa-1b9d-ab00-4ea7e1ab323e@suse.com>
- <alpine.DEB.2.21.2008051253230.5748@sstabellini-ThinkPad-T480s>
- <013b142d-5296-5bbe-7d19-903f59e0c974@gmail.com>
+ <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
+ <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
+ <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
+ <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
+ <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
+ <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -61,88 +60,139 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Kevin Tian' <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>, paul@xen.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Julien Grall' <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 7 Aug 2020, Oleksandr wrote:
-> On 06.08.20 03:37, Stefano Stabellini wrote:
+On Fri, 7 Aug 2020, Jan Beulich wrote:
+> On 07.08.2020 01:49, Stefano Stabellini wrote:
+> > On Thu, 6 Aug 2020, Julien Grall wrote:
+> >> On 06/08/2020 01:37, Stefano Stabellini wrote:
+> >>> On Wed, 5 Aug 2020, Julien Grall wrote:
+> >>>> On 05/08/2020 00:22, Stefano Stabellini wrote:
+> >>>>> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+> >>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >>>>>>
+> >>>>>> This patch adds ability to the device emulator to notify otherend
+> >>>>>> (some entity running in the guest) using a SPI and implements Arm
+> >>>>>> specific bits for it. Proposed interface allows emulator to set
+> >>>>>> the logical level of a one of a domain's IRQ lines.
+> >>>>>>
+> >>>>>> Please note, this is a split/cleanup of Julien's PoC:
+> >>>>>> "Add support for Guest IO forwarding to a device emulator"
+> >>>>>>
+> >>>>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> >>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >>>>>> ---
+> >>>>>>    tools/libs/devicemodel/core.c                   | 18
+> >>>>>> ++++++++++++++++++
+> >>>>>>    tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
+> >>>>>>    tools/libs/devicemodel/libxendevicemodel.map    |  1 +
+> >>>>>>    xen/arch/arm/dm.c                               | 22
+> >>>>>> +++++++++++++++++++++-
+> >>>>>>    xen/common/hvm/dm.c                             |  1 +
+> >>>>>>    xen/include/public/hvm/dm_op.h                  | 15
+> >>>>>> +++++++++++++++
+> >>>>>>    6 files changed, 60 insertions(+), 1 deletion(-)
+> >>>>>>
+> >>>>>> diff --git a/tools/libs/devicemodel/core.c
+> >>>>>> b/tools/libs/devicemodel/core.c
+> >>>>>> index 4d40639..30bd79f 100644
+> >>>>>> --- a/tools/libs/devicemodel/core.c
+> >>>>>> +++ b/tools/libs/devicemodel/core.c
+> >>>>>> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
+> >>>>>>        return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+> >>>>>>    }
+> >>>>>>    +int xendevicemodel_set_irq_level(
+> >>>>>> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
+> >>>>>> +    unsigned int level)
+> >>>>>
+> >>>>> It is a pity that having xen_dm_op_set_pci_intx_level and
+> >>>>> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
+> >>>>> the names alone I don't think we can reuse either of them.
+> >>>>
+> >>>> The problem is not the name...
+> >>>>
+> >>>>>
+> >>>>> It is very similar to set_isa_irq_level. We could almost rename
+> >>>>> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
+> >>>>> better, just add an alias to it so that xendevicemodel_set_irq_level is
+> >>>>> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
+> >>>>> not sure if it is worth doing it though. Any other opinions?
+> >>>>
+> >>>> ... the problem is the interrupt field is only 8-bit. So we would only be
+> >>>> able
+> >>>> to cover IRQ 0 - 255.
+> >>>
+> >>> Argh, that's not going to work :-(  I wasn't sure if it was a good idea
+> >>> anyway.
+> >>>
+> >>>
+> >>>> It is not entirely clear how the existing subop could be extended without
+> >>>> breaking existing callers.
+> >>>>
+> >>>>> But I think we should plan for not needing two calls (one to set level
+> >>>>> to 1, and one to set it to 0):
+> >>>>> https://marc.info/?l=xen-devel&m=159535112027405
+> >>>>
+> >>>> I am not sure to understand your suggestion here? Are you suggesting to
+> >>>> remove
+> >>>> the 'level' parameter?
+> >>>
+> >>> My hope was to make it optional to call the hypercall with level = 0,
+> >>> not necessarily to remove 'level' from the struct.
+> >>
+> >> From my understanding, the hypercall is meant to represent the status of the
+> >> line between the device and the interrupt controller (either low or high).
+> >>
+> >> This is then up to the interrupt controller to decide when the interrupt is
+> >> going to be fired:
+> >>   - For edge interrupt, this will fire when the line move from low to high (or
+> >> vice versa).
+> >>   - For level interrupt, this will fire when line is high (assuming level
+> >> trigger high) and will keeping firing until the device decided to lower the
+> >> line.
+> >>
+> >> For a device, it is common to keep the line high until an OS wrote to a
+> >> specific register.
+> >>
+> >> Furthermore, technically, the guest OS is in charge to configure how an
+> >> interrupt is triggered. Admittely this information is part of the DT, but
+> >> nothing prevent a guest to change it.
+> >>
+> >> As side note, we have a workaround in Xen for some buggy DT (see the arch
+> >> timer) exposing the wrong trigger type.
+> >>
+> >> Because of that, I don't really see a way to make optional. Maybe you have
+> >> something different in mind?
+> > 
+> > For level, we need the level parameter. For edge, we are only interested
+> > in the "edge", right?
 > 
-> Hi Stefano
-> 
-> Trying to simulate IO_RETRY handling mechanism (according to model below) I
-> continuously get IO_RETRY from try_fwd_ioserv() ...
-> 
-> > OK, thanks for the details. My interpretation seems to be correct.
-> > 
-> > In which case, it looks like xen/arch/arm/io.c:try_fwd_ioserv should
-> > return IO_RETRY. Then, xen/arch/arm/traps.c:do_trap_stage2_abort_guest
-> > also needs to handle try_handle_mmio returning IO_RETRY the first
-> > around, and IO_HANDLED when after QEMU does its job.
-> > 
-> > What should do_trap_stage2_abort_guest do on IO_RETRY? Simply return
-> > early and let the scheduler do its job? Something like:
-> > 
-> >              enum io_state state = try_handle_mmio(regs, hsr, gpa);
-> > 
-> >              switch ( state )
-> >              {
-> >              case IO_ABORT:
-> >                  goto inject_abt;
-> >              case IO_HANDLED:
-> >                  advance_pc(regs, hsr);
-> >                  return;
-> >              case IO_RETRY:
-> >                  /* finish later */
-> >                  return;
-> >              case IO_UNHANDLED:
-> >                  /* IO unhandled, try another way to handle it. */
-> >                  break;
-> >              default:
-> >                  ASSERT_UNREACHABLE();
-> >              }
-> > 
-> > Then, xen/arch/arm/ioreq.c:handle_mmio() gets called by
-> > handle_hvm_io_completion() after QEMU completes the emulation. Today,
-> > handle_mmio just sets the user register with the read value.
-> > 
-> > But it would be better if it called again the original function
-> > do_trap_stage2_abort_guest to actually retry the original operation.
-> > This time do_trap_stage2_abort_guest calls try_handle_mmio() and gets
-> > IO_HANDLED instead of IO_RETRY,
-> I may miss some important point, but I failed to see why try_handle_mmio
-> (try_fwd_ioserv) will return IO_HANDLED instead of IO_RETRY at this stage.
-> Or current try_fwd_ioserv() logic needs rework?
+> I don't think so, unless Arm has special restrictions. Edges can be
+> both rising and falling ones.
 
-I think you should check the ioreq->state in try_fwd_ioserv(), if the
-result is ready, then ioreq->state should be STATE_IORESP_READY, and you
-can return IO_HANDLED.
+And the same is true for level interrupts too: they could be active-low
+or active-high.
 
-That is assuming that you are looking at the live version of the ioreq
-shared with QEMU instead of a private copy of it, which I am not sure.
-Looking at try_fwd_ioserv() it would seem that vio->io_req is just a
-copy? The live version is returned by get_ioreq() ?
 
-Even in handle_hvm_io_completion, instead of setting vio->io_req.state
-to STATE_IORESP_READY by hand, it would be better to look at the live
-version of the ioreq because QEMU will have already set ioreq->state
-to STATE_IORESP_READY (hw/i386/xen/xen-hvm.c:cpu_handle_ioreq).
+Instead of modelling the state of the line, which seems to be a bit
+error prone especially in the case of a single-device emulator that
+might not have enough information about the rest of the system (it might
+not know if the interrupt is active-high or active-low), we could model
+the triggering of the interrupt instead.
 
- 
-> > thus, it will advance_pc (the program
-> > counter) completing the handling of this instruction.
-> > 
-> > The user register with the read value could be set by try_handle_mmio if
-> > try_fwd_ioserv returns IO_HANDLED instead of IO_RETRY.
-> > 
-> > Is that how the state machine is expected to work?
+In the case of level=1, it would mean that the interrupt line is active,
+no matter if it is active-low or active-high. In the case of level=0, it
+would mean that it is inactive.
+
+Similarly, in the case of an edge interrupt edge=1 or level=1 would mean
+that there is an edge, no matter if it is a rising or falling.
 
