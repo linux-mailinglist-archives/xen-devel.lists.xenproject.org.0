@@ -2,74 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DDE7241141
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 21:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5939D2411B9
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 22:30:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5DwS-0003gW-Qk; Mon, 10 Aug 2020 19:58:44 +0000
+	id 1k5EQH-0006Hy-6a; Mon, 10 Aug 2020 20:29:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qWL+=BU=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k5DwQ-0003gR-Vf
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 19:58:43 +0000
-X-Inumbo-ID: 24964a00-df77-414f-a720-671093d12bc3
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ id 1k5EQF-0006Ht-1g
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 20:29:31 +0000
+X-Inumbo-ID: dadc102b-93cb-4dd0-92dc-4f0f9d4275c5
+Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24964a00-df77-414f-a720-671093d12bc3;
- Mon, 10 Aug 2020 19:58:41 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id m22so10908097ljj.5
- for <xen-devel@lists.xenproject.org>; Mon, 10 Aug 2020 12:58:41 -0700 (PDT)
+ id dadc102b-93cb-4dd0-92dc-4f0f9d4275c5;
+ Mon, 10 Aug 2020 20:29:29 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id k13so5449960lfo.0
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Aug 2020 13:29:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Wg6R239/TK4XmUBof9QhqJaWi5XLLO9Eo+nnF7br/6c=;
- b=VpeNb1/oydOvdrHOyc26PqpFkDVPGjTqEg9GxRX6YDO3yYcmUWXNdu+BawQkdZWSf8
- C987833IHBFVXN+iV/0igmYBmggCDugEkjGv/THoYBS9Prw1fLiGA1yLZCUI4CElN3zM
- VOj0XnZbDVaYIFboJSTDRtpKqlV4bByiPKCaMFfm6sNCIgOEk/99gk4Hbj7VcgCO2Dz/
- 2K7ZPGMmPYSSXugIhEg7NzhrKxdIC45vhKXwJU+PiII58KrzEzSUnbuFPiBnubHQ+ow6
- yDGazYMCtmCEMES6X+iqCuXG2tX6uREpLCPpe8K78Xlr4iFwCO7/1iMFHCr7JcgzyzKp
- LWeQ==
+ bh=BD3Vbwi+oq2LFO2ToiTTgKWN0QCnSaB8lgbwysBqW58=;
+ b=bQK33hiwmvWSB0PSKI0qgzCS975J2m4mttz1+ObwWo5jkCGHcmhoErzAks0mxXEg5r
+ sTmwUgY+fPmhMMu3msHi6wP6dXgb2Ry5PivXrNFP5QtWCvnj8xkYYrGqRpmLZ7s1L1JN
+ z/qqJ2QcxZgFsMykcr4PxM0so99tJWLnCt6mvsGp8Kob6Tys/4N2QMpM8TQo3m+PuGvH
+ 4Cv2HKldaVX/5RXiwrKXzVBj0VUQ0if+ADJpUCuQ1uUPqI32xLxHByl8M7Qnm37HCq3w
+ sbNV2t2W9CntBXjHqjRxlF6YwJ5yLT2V2UDGEfKGkHNuZBqckp39p9qBv1wgR3FaGtNx
+ Rjtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=Wg6R239/TK4XmUBof9QhqJaWi5XLLO9Eo+nnF7br/6c=;
- b=PiHudjIl8YceCY9Gpu2RhWL0cgIkzXQWTZSMb3nTLpGqpBFx6F9VbPG/251i2/vZlJ
- wboEljTN0NKOlVOnkvVQFxa2/9R3Z7Id0exzraEAiK+eIDEjwPmP/NMh0Hky/2IPXbZk
- 95i4zIdBIEZu1lUop7WpQn5HC/zHRlO5r8Fga+iDNHuSrX+mYXm7s2CmpWV03WPnAVVW
- PZc0Er+8dzQ3t87PpEBG2WQM447Wr3MWFmlTM2rN/Z0u/RjU9qoKTIIi9HQM8LCRJ6Il
- 3HLWUkq6B98K/+kdXgxsrd9n9nDS6W4LSJMh/fWpakKY1PBwcUk2/RXUDNn9Ov/FfXne
- 6rGg==
-X-Gm-Message-State: AOAM530Ge5KzXwYnYRLKHiFtrvYmwTaGpX5OO9tXLdxspx9Hui1eBvI+
- eWBe0H8sinS5MoqVWSO8XOY=
-X-Google-Smtp-Source: ABdhPJyMBP5aRLQ5DGnwa9VBPVDzbp0psVJ2QUC2v7udl0oXAhyUx+8NZrbUKM6sUemxfvufGoxl5g==
-X-Received: by 2002:a2e:80d8:: with SMTP id r24mr1255384ljg.305.1597089520692; 
- Mon, 10 Aug 2020 12:58:40 -0700 (PDT)
+ bh=BD3Vbwi+oq2LFO2ToiTTgKWN0QCnSaB8lgbwysBqW58=;
+ b=PZbq/7gWeHKH0VjvqNM1bL/C8/RhFdLqSqlhLdbK0GJ4Vfu1EEW+NBEb8zTVcyIf7l
+ BlyrdFWKTaZ+py1mFyZ0mMJVcDCGXs7SzsQXOw0ndWHh23KG1hPcdpIqG7CdLucc8RDF
+ qXRkjvIjliwZdzapp6+Mpe6IYeJS4RVTM5mRfWLdZFohXgf/Bzm3g64At2pWuwYuuotW
+ p6SU/Ebrqa1KAbmRF38DgP3WcZ9ZaVeDKUeGfMfpPPKh0PxmhxdijKk2zRzalxMMayDT
+ 0EWQpqIWO/akvr8ROZfASl8I97rb3sukCuj40jQIzB+CFGKI9xD/nMuOfBqdsXQ/XY2h
+ BfrA==
+X-Gm-Message-State: AOAM530EjTc4zdJZqHhSYBlULLFZa0runItjexCuN4bxBqbScUFVArRT
+ yrICKS6vPYRlj+A+kehzs/s=
+X-Google-Smtp-Source: ABdhPJylUbJdP83G68k67pcp+SNO2xrODP/C/otX700w96K1H1511nNo0RPaTSRCG3IkjyL6bRlNjg==
+X-Received: by 2002:ac2:4c05:: with SMTP id t5mr1404300lfq.89.1597091368413;
+ Mon, 10 Aug 2020 13:29:28 -0700 (PDT)
 Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id b81sm11050828lfg.60.2020.08.10.12.58.39
+ by smtp.gmail.com with ESMTPSA id j6sm10563647ljc.18.2020.08.10.13.29.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Aug 2020 12:58:39 -0700 (PDT)
+ Mon, 10 Aug 2020 13:29:27 -0700 (PDT)
 Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
  IOREQ/DM features
 To: Julien Grall <julien@xen.org>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
  <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
- <11eaa2f0-84c7-5972-d14c-4cb02458e882@xen.org>
- <3ee50c66-8761-6c86-3fab-a4c23622d2b8@gmail.com>
- <e8b0cccf-76cd-1be8-be75-33ccd571195e@xen.org>
- <952392d9-22cc-af66-c1af-f82360b75cf4@gmail.com>
- <31914fc1-9a00-ef1c-2935-20ced2a2b574@xen.org>
+ <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
+ <8e8a394c-bd2a-4444-9f4b-e022c59e0f81@xen.org>
+ <a1a1fcca-e840-3c02-dc9c-742c3e397836@gmail.com>
+ <659a5b45-a37a-5cf2-0bcd-ba1ea3d47cc4@xen.org>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <19ecf924-1b34-1582-97ad-83c47741109f@gmail.com>
-Date: Mon, 10 Aug 2020 22:58:34 +0300
+Message-ID: <48a130dc-57fd-0627-d188-ddff4abf6778@gmail.com>
+Date: Mon, 10 Aug 2020 23:29:26 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <31914fc1-9a00-ef1c-2935-20ced2a2b574@xen.org>
+In-Reply-To: <659a5b45-a37a-5cf2-0bcd-ba1ea3d47cc4@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -93,64 +92,86 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 10.08.20 21:25, Julien Grall wrote:
+On 10.08.20 22:00, Julien Grall wrote:
 
 Hi Julien
 
 >
 >>>
->>> Do you mind to provide more details?
->> Previous patch "xen/mm: Make x86's XENMEM_resource_ioreq_server 
->> handling common" breaks build on Arm as it includes xen/hvm/ioreq.h 
->> which requires arch header
->> to be present (asm/hvm/ioreq.h). But the missing arch header together 
->> with other arch specific bits are introduced here in current patch. 
->
-> I understand that both Arm and x86 now implement the asm/hvm/ioreq.h.
-> However, please keep in mind that there might be other architectures 
-> in the future.
->
-> With your change here, you would impose a new arch to implement 
-> asm/hvm/ioreq.h even if the developper have no plan to use the feature.
->
->> Probably I should have rearranged
->> changes in a way to not introduce #ifdef and then remove it...
->
-> Ideally we want to avoid #ifdef in the common code. But if this can't 
-> be done in an header, then the #ifdef here would be fine.
-
-Got it.
-
-
->
->>>>> I understand that the x86 version is more complex as it check 
->>>>> p->df. However, aside reducing the complexity, I am not sure why 
->>>>> we would want to diverge it.
->>>>>
->>>>> After all, IOREQ is now meant to be a common feature.
->>>> Well, no objections at all.
->>>> Could you please clarify how could 'df' (Direction Flag?) be 
->>>> handled/used on Arm?
+>>>>> @@ -2275,6 +2282,16 @@ static void check_for_vcpu_work(void)
+>>>>>    */
+>>>>>   void leave_hypervisor_to_guest(void)
+>>>>>   {
+>>>>> +#ifdef CONFIG_IOREQ_SERVER
+>>>>> +    /*
+>>>>> +     * XXX: Check the return. Shall we call that in
+>>>>> +     * continue_running and context_switch instead?
+>>>>> +     * The benefits would be to avoid calling
+>>>>> +     * handle_hvm_io_completion on every return.
+>>>>> +     */
+>>>>
+>>>> Yeah, that could be a simple and good optimization
 >>>
->>> On x86, this is used by 'rep' instruction to tell the direction to 
->>> iterate (forward or backward).
+>>> Well, it is not simple as it is sounds :). 
+>>> handle_hvm_io_completion() is the function in charge to mark the 
+>>> vCPU as waiting for I/O. So we would at least need to split the 
+>>> function.
 >>>
->>> On Arm, all the accesses to MMIO region will do a single memory 
->>> access. So for now, we can safely always set to 0.
+>>> I wrote this TODO because I wasn't sure about the complexity of 
+>>> handle_hvm_io_completion(current). Looking at it again, the main 
+>>> complexity is the looping over the IOREQ servers.
 >>>
->>>> I see that try_fwd_ioserv() always sets it 0. Or I need to just 
->>>> reuse x86's helpers as is,
->>>> which (together with count = df = 0) will result in what we 
->>>> actually have here?
->>> AFAIU, both count and df should be 0 on Arm.
->>
->> Thanks for the explanation. The only one question remains where to 
->> put common helpers hvm_mmio_first_byte/hvm_mmio_last_byte (common 
->> io.h?)?
+>>> I think it would be better to optimize handle_hvm_io_completion() 
+>>> rather than trying to hack the context_switch() or continue_running().
+>> Well, is the idea in proposed dirty test patch below close to what 
+>> you expect? Patch optimizes handle_hvm_io_completion() to avoid extra 
+>> actions if vcpu's domain doesn't have ioreq_server, alternatively
+>> the check could be moved out of handle_hvm_io_completion() to avoid 
+>> calling that function at all.
 >
-> It feels to me it should be part of the common ioreq.h.
+> This looks ok to me.
+>
+>> BTW, TODO also suggests checking the return value of 
+>> handle_hvm_io_completion(), but I am completely sure we can simply
+>> just return from leave_hypervisor_to_guest() at this point. Could you 
+>> please share your opinion?
+>
+> From my understanding, handle_hvm_io_completion() may return false if 
+> there is pending I/O or a failure.
 
-ok, will move.
+It seems, yes
+
+
+>
+> In the former case, I think we want to call handle_hvm_io_completion() 
+> later on. Possibly after we call do_softirq().
+>
+> I am wondering whether check_for_vcpu_work() could return whether 
+> there are more work todo on the behalf of the vCPU.
+>
+> So we could have:
+>
+> do
+> {
+>   check_for_pcpu_work();
+> } while (check_for_vcpu_work())
+>
+> The implementation of check_for_vcpu_work() would be:
+>
+> if ( !handle_hvm_io_completion() )
+>   return true;
+>
+> /* Rest of the existing code */
+>
+> return false;
+
+Thank you, will give it a try.
+
+Can we behave the same way for both "pending I/O" and "failure" or we 
+need to distinguish them?
+
+Probably we need some sort of safe timeout/number attempts in order to 
+not spin forever?
 
 
 -- 
