@@ -2,60 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B58FE240CE0
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 20:21:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C56240CE9
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 20:22:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5CPR-000422-VH; Mon, 10 Aug 2020 18:20:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k5CQt-00048x-Aj; Mon, 10 Aug 2020 18:22:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l8LE=BU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k5CPQ-00041x-Jz
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 18:20:32 +0000
-X-Inumbo-ID: e38137c7-a0a7-425c-b319-cd2eb10df800
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e38137c7-a0a7-425c-b319-cd2eb10df800;
- Mon, 10 Aug 2020 18:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Fg8NRnp0STkuQeb0N92kQUhAtHRoALYIgYC9b95OEgI=; b=mdjWIhCcw6K/pNwZYlvSL2Ytj
- 9shFeaufbe7JCLtUAoOb51yjJGl6XdIl67OFKH0DCOoKL797oTLIfb8TuCbEEeD9afjRcZISO03rv
- +mVUk9s4A/Qbovdxg2IYnhK3EgIxzpxe8WCq0q5I2M2fp5vgUsGQZJQt7dOPgIfSCQnrI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k5CPN-00058b-Th; Mon, 10 Aug 2020 18:20:29 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k5CPN-0007nS-KA; Mon, 10 Aug 2020 18:20:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k5CPN-0002pQ-Je; Mon, 10 Aug 2020 18:20:29 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152553-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=qWL+=BU=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1k5CQs-00048q-73
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 18:22:02 +0000
+X-Inumbo-ID: 28c427e4-5203-4baf-97a4-9b7c74f2f84c
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 28c427e4-5203-4baf-97a4-9b7c74f2f84c;
+ Mon, 10 Aug 2020 18:22:01 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id m15so5239493lfp.7
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Aug 2020 11:22:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=HgKgbfmapv2awSuIkdFWqh6I3NOLVUpRMGCZLQRgbvU=;
+ b=o4BHEQHLQVzhxOQIpuCS0N0fjZEQLNKzceFZXiMeDHQbekjBQ2BrADsjWgaMsFt3fK
+ 6xW2Gxn9Vmfv4KqMZbVGf3eCIpj6mErgYR/Cpm42RESW4bsLgjHBiX0iEz7tZTYqVLRq
+ FWlu/TjqSYDpbC4O1zAgAlqU3bls7yIOsY4RzJlBGHSzvqHSDUoACi+xRdY+8a382juF
+ VAYFRcE5Tb1jSRQL2PKd4m0crwc1j7psOcrKnXNe/mqvBWo7F15Cbg6o1aOTlC9kFm6q
+ fY1Q+UAMbsl0OgZtg4XSfMij8zBqZgyE1tiPBzLGC4bMqAfthFTTQuWz2p++51zf344z
+ mbFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=HgKgbfmapv2awSuIkdFWqh6I3NOLVUpRMGCZLQRgbvU=;
+ b=PITKP/wX9SWHJ4IdY8ldorvvF0BrWVFVKcnjDHOSntrAoHYjydh/Vyvgl9AyHOk6lU
+ 7jbD/jw2PmPaDjvlw74M6/JNryh1DEDi7d1sjNhHQJC58BY3PGSMtRTTfgzDZ/aVCL0s
+ ka1/a6L0WwILxvcsP9W3C+PaEN8QdKbfOlR/FwgCr4kB7S+Kc+ZufRbYz6axEggQ10WP
+ dFAPCqsSVKOYi8foSYvW3qP/oBghgSo7zjOCpricg/wpSsoWpnAtLPY2IsgPjkdkKu7Z
+ eglxuJTRoo0IqV1OdFy5xJVgTJgTYxzGMEJxZwq3R7ycQNxplAwhlHByEWL73SKlK0lW
+ dKsw==
+X-Gm-Message-State: AOAM531d0E+dGhVjvbY0QDGcELQriQzWp6vmFxBFY+k8hZsGX0+nGTVB
+ wooJitL7HKz4ABMxdlLB7hY=
+X-Google-Smtp-Source: ABdhPJyf4+dPC7Vy5zvO7YwkLzPG7rvMvMuOPYbhu2xkp+evAhFVOBxNnRBuBf6rhbhBfd9qApbQDQ==
+X-Received: by 2002:a19:f808:: with SMTP id a8mr1197210lff.62.1597083720172;
+ Mon, 10 Aug 2020 11:22:00 -0700 (PDT)
+Received: from [192.168.1.2] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id m15sm9394695ljh.62.2020.08.10.11.21.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Aug 2020 11:21:59 -0700 (PDT)
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
+From: Oleksandr <olekstysh@gmail.com>
+To: Julien Grall <julien@xen.org>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
+ <8e8a394c-bd2a-4444-9f4b-e022c59e0f81@xen.org>
+ <a1a1fcca-e840-3c02-dc9c-742c3e397836@gmail.com>
+Message-ID: <6a5022c9-ad55-1513-e808-e74e58442551@gmail.com>
+Date: Mon, 10 Aug 2020 21:21:58 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152553: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=7a4dd361d10718608ad37f969df0a3cf5bc17b12
-X-Osstest-Versions-That: xen=90c7eee53fcc0b48bd51aa3a7d1d0d9980ce1a7a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 10 Aug 2020 18:20:29 +0000
+In-Reply-To: <a1a1fcca-e840-3c02-dc9c-742c3e397836@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,62 +79,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152553 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152553/
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  7a4dd361d10718608ad37f969df0a3cf5bc17b12
-baseline version:
- xen                  90c7eee53fcc0b48bd51aa3a7d1d0d9980ce1a7a
-
-Last test of basis   152532  2020-08-07 17:04:43 Z    3 days
-Testing same since   152553  2020-08-10 15:34:58 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Hi
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>
+>>
+>>>> @@ -2275,6 +2282,16 @@ static void check_for_vcpu_work(void)
+>>>>    */
+>>>>   void leave_hypervisor_to_guest(void)
+>>>>   {
+>>>> +#ifdef CONFIG_IOREQ_SERVER
+>>>> +    /*
+>>>> +     * XXX: Check the return. Shall we call that in
+>>>> +     * continue_running and context_switch instead?
+>>>> +     * The benefits would be to avoid calling
+>>>> +     * handle_hvm_io_completion on every return.
+>>>> +     */
+>>>
+>>> Yeah, that could be a simple and good optimization
+>>
+>> Well, it is not simple as it is sounds :). handle_hvm_io_completion() 
+>> is the function in charge to mark the vCPU as waiting for I/O. So we 
+>> would at least need to split the function.
+>>
+>> I wrote this TODO because I wasn't sure about the complexity of 
+>> handle_hvm_io_completion(current). Looking at it again, the main 
+>> complexity is the looping over the IOREQ servers.
+>>
+>> I think it would be better to optimize handle_hvm_io_completion() 
+>> rather than trying to hack the context_switch() or continue_running().
+> Well, is the idea in proposed dirty test patch below close to what you 
+> expect? Patch optimizes handle_hvm_io_completion() to avoid extra 
+> actions if vcpu's domain doesn't have ioreq_server, alternatively
+> the check could be moved out of handle_hvm_io_completion() to avoid 
+> calling that function at all. BTW, TODO also suggests checking the 
+> return value of handle_hvm_io_completion(), but I am completely sure 
+> we can simply
+> just return from leave_hypervisor_to_guest() at this point. 
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Sorry, made a mistake in last sentence).  s / I am completely sure / I 
+am not completely sure
 
 
-Pushing revision :
+-- 
+Regards,
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   90c7eee53f..7a4dd361d1  7a4dd361d10718608ad37f969df0a3cf5bc17b12 -> smoke
+Oleksandr Tyshchenko
+
 
