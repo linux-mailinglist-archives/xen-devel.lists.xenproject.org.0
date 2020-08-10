@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A7C240C67
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C9D2240C66
 	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 19:52:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5Bwz-00019v-FS; Mon, 10 Aug 2020 17:51:09 +0000
+	id 1k5BxT-0001Bc-Pz; Mon, 10 Aug 2020 17:51:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BwXP=BU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k5Bwy-00019q-Tl
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 17:51:08 +0000
-X-Inumbo-ID: d18c217a-cd09-4a8e-8c60-8daf9e806c93
+ id 1k5BxS-0001BV-Ol
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 17:51:38 +0000
+X-Inumbo-ID: 3044a447-b355-425a-8068-c62f4393274b
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d18c217a-cd09-4a8e-8c60-8daf9e806c93;
- Mon, 10 Aug 2020 17:51:07 +0000 (UTC)
+ id 3044a447-b355-425a-8068-c62f4393274b;
+ Mon, 10 Aug 2020 17:51:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597081867;
+ d=citrix.com; s=securemail; t=1597081898;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=XX1/rTgTk+ljHUeylRrlCmjlLIl+c2a4VtaC9LrINfQ=;
- b=EhnSGj9x22nEdGwvd09i/YOmgF3vypXoN9Xy/gR0WewEmN4OpxQoG35b
- NlPHDBabECnOE/sdLl/7N/wA3FRw8bqcKU+6j8L14+ABqqX6T6jCLHlpY
- 3JdUn6gLdfqNPwf6F03I65NnkuUWP6Jwvqv9QKvxCQhi5gamdnBn+pCf6 0=;
+ bh=KkYNIp5BI1P9vw8nTLp+dFkkzlA7M9TvIj9SgxC4PmM=;
+ b=JOOsrQ+2wkm5JZhsZbXnPePTNIdL5K6CnBXUVmF7iXxEdp5T3rwUcufy
+ xZl8pAmmS4Bm2kPtmprAXcexKIestyVNg1SlKrGW2TAbUfgCY+682aij3
+ xfO/77v2XW+lbVj+HwvdYW1uTDMTaoB3DydUAGPkWOycGNsr/7MpPlDN+ 8=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: UzGXBFmxAbZgzvdn4UK35Ly06bpm+QHLygvmTSkXh8ckNK3mW4ns46o6/wbKQTMClZuvM6yKAT
- NNLa0smxPXD3JrTYOdIpRfcT902pZHPVvep5zHGxAPAPx3zFDCJ93+YtjzBHHauNrRlso3xqJa
- 37WnKC9TGtNGNX7ksXYulF7Ug8sWfMlhnu1/V0sepwhjL0dgzGKHf5k8+g54frmWpVpskA3BmE
- euFVYDO7yKjtEfhfbxXkBWPa3DVRLLYW1TQnkKVgu7f/uf6905LpEgzXx07PKvunIzBekbV0RH
- uBE=
+IronPort-SDR: fYuSZd2x8vS2u4Apf7Hd/jn9yAdSa7b7/A5OqwkAfS/LizD5KAu/1+oPivauIhDScqcz0qvEk+
+ EzCRHuYm2AyOO9wjY1N3n5XUpOlyvxZA84Rnj64bAPjhaHpDtUXAvadHaG3bgMORzGYwnzX0t/
+ eyQf0rGkw4JZrmedirC3YFhDvp4sCI+gVOJVrr1m9LNA1ECRX/GqQO2D9JlW3orv7g2p6olX1Q
+ wzpn1wg8WjErVlBJHuWUJK6D3rlX1iPw8A7rpUpCnchaTVBFv2XrloXUSZcqXneM8KqUMVG7g6
+ brE=
 X-SBRS: 2.7
-X-MesageID: 24193490
+X-MesageID: 24193531
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,458,1589256000"; d="scan'208";a="24193490"
+X-IronPort-AV: E=Sophos;i="5.75,458,1589256000"; d="scan'208";a="24193531"
 Subject: Re: [PATCH 3/4] build: also check for empty .bss.* in .o -> .init.o
  conversion
 To: Jan Beulich <jbeulich@suse.com>
@@ -49,8 +49,8 @@ References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
  <9a3cd872-bc6c-3113-fdf9-2f80ad8fabce@citrix.com>
  <039916f1-c9f2-710f-8f46-3ff9d91a9109@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <ec93160a-82f5-4a32-78ae-96eb941f1d48@citrix.com>
-Date: Mon, 10 Aug 2020 18:51:00 +0100
+Message-ID: <039a6c48-8825-1e3e-44d8-23c7de4ac159@citrix.com>
+Date: Mon, 10 Aug 2020 18:51:32 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -58,7 +58,7 @@ In-Reply-To: <039916f1-c9f2-710f-8f46-3ff9d91a9109@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -104,7 +104,7 @@ On 07/08/2020 16:40, Jan Beulich wrote:
 > been, now after-the-fact) be started by whoever wants to introduce
 > a new feature.
 
-It would have been better to raise a concern/objectection before you
+It would have been better to raise a concern/objection before you
 committed the feature.
 
 It was a very clear intent of upgrading Kconfig and switching to Kbuild,
