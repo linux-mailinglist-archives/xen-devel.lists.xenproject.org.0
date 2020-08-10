@@ -2,65 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A2524134D
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 00:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818022413DB
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 01:34:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5GQd-00008s-NN; Mon, 10 Aug 2020 22:38:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k5HJ0-00055f-Vq; Mon, 10 Aug 2020 23:34:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=clbu=BU=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1k5GQc-00008n-V4
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 22:38:03 +0000
-X-Inumbo-ID: 3ea5796a-7e7c-4262-9a14-29338de17ed8
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3ea5796a-7e7c-4262-9a14-29338de17ed8;
- Mon, 10 Aug 2020 22:38:01 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id f18so897436wmc.0
- for <xen-devel@lists.xenproject.org>; Mon, 10 Aug 2020 15:38:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fDsiuLPQ59OP1+i2xJ/jl++wqzTXI6dpK6NdpqI0a28=;
- b=aYw4TuF/9xzpkpCvhbHDgrmbLO7ufHfKK5m5btLFjv/da3idv1CJ+0k3u5i0759LYU
- McNRMdKAru+g2rLq30sESl/nK3qxyvX5NtTabp/nNZraiav7FMFdZcOZSFWejLde7X1f
- YuK4YDKdXy4D05mQW82m+hp4nZTaElzcxoRWUpw94mkdqkRurveE02/qSwQpaJoSNY7q
- iDuPkx5RaUQWjGMDFqzcHduyHIs4BLjKWrMxILyisvlj599eYdLJ+eVMnMH3msptDpYE
- rx0uFP0Cu2R1XPEW+0WIIyCPCmcsrz0RzKDuFgBD5k62DkgqTKl/i0paXgcS4iB3XXoh
- +pyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fDsiuLPQ59OP1+i2xJ/jl++wqzTXI6dpK6NdpqI0a28=;
- b=CzGR1QFzwOQR8pG4vDTmppDR7ClQAzZCVvYO3Ixez/0u2nEk1brArviMpdlnEVDdNn
- 7jDkjVQCxe7sHXZbpwuknqdtjRtDTErV7YwGZf88tE+gKOiPlXFf/mJq5HjtdlokvsJa
- 0hv3GDVfWB152NJk92px4IYrVlck//Pmxp7WMX6rcRJxvbC3z8XAXXFOppdHzoPmJ0/c
- /2/c+1gpl8p/eTjBhSmgV4qyfKLmf04Ypz6I1glBVU1oy6I/ecM3FA+MdEFd/HP+/M2O
- 5KMhklnjsNVRAiwfSwd8DXMwU2gYM0utLpba6VK0qx1/tDjVuln+yfFdHmz89+Rh8rWb
- O+3g==
-X-Gm-Message-State: AOAM5336ljEJzSWC8z/5jDJyENMBJJfbTXQ012KsZY96xGoOTXXYGob5
- naF6HaCtLd2jf5VZ/pKpH+zhI1VJ5kGmgJQ0yaw=
-X-Google-Smtp-Source: ABdhPJyJFZKkVxDdmu7DqL8Zc4lYiAm68TbqKneMEczWt/q/Ui/nTACz/yxfM96NFcyTe4RTjkTJVBWb/YZzZ1i7/E0=
-X-Received: by 2002:a7b:cc90:: with SMTP id p16mr1260039wma.79.1597099080842; 
- Mon, 10 Aug 2020 15:38:00 -0700 (PDT)
-MIME-Version: 1.0
+ <SRS0=RcVj=BU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k5HIz-00055a-9e
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 23:34:13 +0000
+X-Inumbo-ID: bf34b211-bbce-4357-b72e-ba6cd6f4d004
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bf34b211-bbce-4357-b72e-ba6cd6f4d004;
+ Mon, 10 Aug 2020 23:34:12 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id F1207206DA;
+ Mon, 10 Aug 2020 23:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597102451;
+ bh=tVD2FJ00WBqm2ZG05dmvzk6bspKQ4r+EHqC9bGPgIBY=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=o+ylv8hhpuSfbUEMTkPPiTZDpPOXd7VXwRUvypdvYCZirh/8blnURJuOyCur7uz/f
+ LP5guFGvDfQnCMRRoQwUjsVyKoZeTtowTdOTKdmJnYRV38WNKhLQW7zEGCjeOx45Ry
+ 4STD2X5GNokEytC8tHgz7v7h+Qyx93GNNV1cdKg4=
+Date: Mon, 10 Aug 2020 16:34:10 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall.oss@gmail.com>
+Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
+ xendevicemodel_set_irq_level DM op
+In-Reply-To: <CAJ=z9a3ngzDS6Fu5DwdRSzWaMASPgp3cZLnpazMQzUbH-9_EEw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2008101142500.16004@sstabellini-ThinkPad-T480s>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
- <8e8a394c-bd2a-4444-9f4b-e022c59e0f81@xen.org>
- <a1a1fcca-e840-3c02-dc9c-742c3e397836@gmail.com>
- <659a5b45-a37a-5cf2-0bcd-ba1ea3d47cc4@xen.org>
- <48a130dc-57fd-0627-d188-ddff4abf6778@gmail.com>
-In-Reply-To: <48a130dc-57fd-0627-d188-ddff4abf6778@gmail.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Mon, 10 Aug 2020 23:37:49 +0100
-Message-ID: <CAJ=z9a3x7LgztG2KQKza8n3Y7xJsoO+DSmyi8Pxm1BgQOBs=xQ@mail.gmail.com>
-Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
- IOREQ/DM features
-To: Oleksandr <olekstysh@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
+ <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
+ <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
+ <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
+ <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
+ <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
+ <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a3ngzDS6Fu5DwdRSzWaMASPgp3cZLnpazMQzUbH-9_EEw@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,126 +66,179 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
  xen-devel <xen-devel@lists.xenproject.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, 10 Aug 2020 at 21:29, Oleksandr <olekstysh@gmail.com> wrote:
->
->
-> On 10.08.20 22:00, Julien Grall wrote:
->
-> Hi Julien
->
+On Sat, 8 Aug 2020, Julien Grall wrote:
+> On Fri, 7 Aug 2020 at 22:51, Stefano Stabellini <sstabellini@kernel.org> wrote:
 > >
-> >>>
-> >>>>> @@ -2275,6 +2282,16 @@ static void check_for_vcpu_work(void)
-> >>>>>    */
-> >>>>>   void leave_hypervisor_to_guest(void)
-> >>>>>   {
-> >>>>> +#ifdef CONFIG_IOREQ_SERVER
-> >>>>> +    /*
-> >>>>> +     * XXX: Check the return. Shall we call that in
-> >>>>> +     * continue_running and context_switch instead?
-> >>>>> +     * The benefits would be to avoid calling
-> >>>>> +     * handle_hvm_io_completion on every return.
-> >>>>> +     */
-> >>>>
-> >>>> Yeah, that could be a simple and good optimization
-> >>>
-> >>> Well, it is not simple as it is sounds :).
-> >>> handle_hvm_io_completion() is the function in charge to mark the
-> >>> vCPU as waiting for I/O. So we would at least need to split the
-> >>> function.
-> >>>
-> >>> I wrote this TODO because I wasn't sure about the complexity of
-> >>> handle_hvm_io_completion(current). Looking at it again, the main
-> >>> complexity is the looping over the IOREQ servers.
-> >>>
-> >>> I think it would be better to optimize handle_hvm_io_completion()
-> >>> rather than trying to hack the context_switch() or continue_running().
-> >> Well, is the idea in proposed dirty test patch below close to what
-> >> you expect? Patch optimizes handle_hvm_io_completion() to avoid extra
-> >> actions if vcpu's domain doesn't have ioreq_server, alternatively
-> >> the check could be moved out of handle_hvm_io_completion() to avoid
-> >> calling that function at all.
+> > On Fri, 7 Aug 2020, Jan Beulich wrote:
+> > > On 07.08.2020 01:49, Stefano Stabellini wrote:
+> > > > On Thu, 6 Aug 2020, Julien Grall wrote:
+> > > >> On 06/08/2020 01:37, Stefano Stabellini wrote:
+> > > >>> On Wed, 5 Aug 2020, Julien Grall wrote:
+> > > >>>> On 05/08/2020 00:22, Stefano Stabellini wrote:
+> > > >>>>> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+> > > >>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > >>>>>>
+> > > >>>>>> This patch adds ability to the device emulator to notify otherend
+> > > >>>>>> (some entity running in the guest) using a SPI and implements Arm
+> > > >>>>>> specific bits for it. Proposed interface allows emulator to set
+> > > >>>>>> the logical level of a one of a domain's IRQ lines.
+> > > >>>>>>
+> > > >>>>>> Please note, this is a split/cleanup of Julien's PoC:
+> > > >>>>>> "Add support for Guest IO forwarding to a device emulator"
+> > > >>>>>>
+> > > >>>>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> > > >>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > >>>>>> ---
+> > > >>>>>>    tools/libs/devicemodel/core.c                   | 18
+> > > >>>>>> ++++++++++++++++++
+> > > >>>>>>    tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
+> > > >>>>>>    tools/libs/devicemodel/libxendevicemodel.map    |  1 +
+> > > >>>>>>    xen/arch/arm/dm.c                               | 22
+> > > >>>>>> +++++++++++++++++++++-
+> > > >>>>>>    xen/common/hvm/dm.c                             |  1 +
+> > > >>>>>>    xen/include/public/hvm/dm_op.h                  | 15
+> > > >>>>>> +++++++++++++++
+> > > >>>>>>    6 files changed, 60 insertions(+), 1 deletion(-)
+> > > >>>>>>
+> > > >>>>>> diff --git a/tools/libs/devicemodel/core.c
+> > > >>>>>> b/tools/libs/devicemodel/core.c
+> > > >>>>>> index 4d40639..30bd79f 100644
+> > > >>>>>> --- a/tools/libs/devicemodel/core.c
+> > > >>>>>> +++ b/tools/libs/devicemodel/core.c
+> > > >>>>>> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
+> > > >>>>>>        return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+> > > >>>>>>    }
+> > > >>>>>>    +int xendevicemodel_set_irq_level(
+> > > >>>>>> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
+> > > >>>>>> +    unsigned int level)
+> > > >>>>>
+> > > >>>>> It is a pity that having xen_dm_op_set_pci_intx_level and
+> > > >>>>> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
+> > > >>>>> the names alone I don't think we can reuse either of them.
+> > > >>>>
+> > > >>>> The problem is not the name...
+> > > >>>>
+> > > >>>>>
+> > > >>>>> It is very similar to set_isa_irq_level. We could almost rename
+> > > >>>>> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
+> > > >>>>> better, just add an alias to it so that xendevicemodel_set_irq_level is
+> > > >>>>> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
+> > > >>>>> not sure if it is worth doing it though. Any other opinions?
+> > > >>>>
+> > > >>>> ... the problem is the interrupt field is only 8-bit. So we would only be
+> > > >>>> able
+> > > >>>> to cover IRQ 0 - 255.
+> > > >>>
+> > > >>> Argh, that's not going to work :-(  I wasn't sure if it was a good idea
+> > > >>> anyway.
+> > > >>>
+> > > >>>
+> > > >>>> It is not entirely clear how the existing subop could be extended without
+> > > >>>> breaking existing callers.
+> > > >>>>
+> > > >>>>> But I think we should plan for not needing two calls (one to set level
+> > > >>>>> to 1, and one to set it to 0):
+> > > >>>>> https://marc.info/?l=xen-devel&m=159535112027405
+> > > >>>>
+> > > >>>> I am not sure to understand your suggestion here? Are you suggesting to
+> > > >>>> remove
+> > > >>>> the 'level' parameter?
+> > > >>>
+> > > >>> My hope was to make it optional to call the hypercall with level = 0,
+> > > >>> not necessarily to remove 'level' from the struct.
+> > > >>
+> > > >> From my understanding, the hypercall is meant to represent the status of the
+> > > >> line between the device and the interrupt controller (either low or high).
+> > > >>
+> > > >> This is then up to the interrupt controller to decide when the interrupt is
+> > > >> going to be fired:
+> > > >>   - For edge interrupt, this will fire when the line move from low to high (or
+> > > >> vice versa).
+> > > >>   - For level interrupt, this will fire when line is high (assuming level
+> > > >> trigger high) and will keeping firing until the device decided to lower the
+> > > >> line.
+> > > >>
+> > > >> For a device, it is common to keep the line high until an OS wrote to a
+> > > >> specific register.
+> > > >>
+> > > >> Furthermore, technically, the guest OS is in charge to configure how an
+> > > >> interrupt is triggered. Admittely this information is part of the DT, but
+> > > >> nothing prevent a guest to change it.
+> > > >>
+> > > >> As side note, we have a workaround in Xen for some buggy DT (see the arch
+> > > >> timer) exposing the wrong trigger type.
+> > > >>
+> > > >> Because of that, I don't really see a way to make optional. Maybe you have
+> > > >> something different in mind?
+> > > >
+> > > > For level, we need the level parameter. For edge, we are only interested
+> > > > in the "edge", right?
+> > >
+> > > I don't think so, unless Arm has special restrictions. Edges can be
+> > > both rising and falling ones.
 > >
-> > This looks ok to me.
+> > And the same is true for level interrupts too: they could be active-low
+> > or active-high.
 > >
-> >> BTW, TODO also suggests checking the return value of
-> >> handle_hvm_io_completion(), but I am completely sure we can simply
-> >> just return from leave_hypervisor_to_guest() at this point. Could you
-> >> please share your opinion?
 > >
-> > From my understanding, handle_hvm_io_completion() may return false if
-> > there is pending I/O or a failure.
->
-> It seems, yes
->
->
+> > Instead of modelling the state of the line, which seems to be a bit
+> > error prone especially in the case of a single-device emulator that
+> > might not have enough information about the rest of the system (it might
+> > not know if the interrupt is active-high or active-low), we could model
+> > the triggering of the interrupt instead.
+> 
+> I am not sure to understand why the single (or event multiple) device
+> emulator needs to know the trigger type. The information of the
+> trigger type of the interrupt would be described in the firmware table
+> and it is expected to be the same as what the emulator expects.
+> 
+> If the guest OS decided to configure wrongly the interrupt trigger
+> type, then it may not work properly. But, from my understanding, this
+> doesn't differ from the HW behavior.
+> 
 > >
-> > In the former case, I think we want to call handle_hvm_io_completion()
-> > later on. Possibly after we call do_softirq().
+> > In the case of level=1, it would mean that the interrupt line is active,
+> > no matter if it is active-low or active-high. In the case of level=0, it
+> > would mean that it is inactive.
 > >
-> > I am wondering whether check_for_vcpu_work() could return whether
-> > there are more work todo on the behalf of the vCPU.
-> >
-> > So we could have:
-> >
-> > do
-> > {
-> >   check_for_pcpu_work();
-> > } while (check_for_vcpu_work())
-> >
-> > The implementation of check_for_vcpu_work() would be:
-> >
-> > if ( !handle_hvm_io_completion() )
-> >   return true;
-> >
-> > /* Rest of the existing code */
-> >
-> > return false;
->
-> Thank you, will give it a try.
->
-> Can we behave the same way for both "pending I/O" and "failure" or we
-> need to distinguish them?
+> > Similarly, in the case of an edge interrupt edge=1 or level=1 would mean
+> > that there is an edge, no matter if it is rising or falling.
+> 
+> TBH, I think your approach is only going to introduce more headache in
+> Xen if a guest OS decides to change the trigger type.
+> 
+> It feels much easier to just ask the emulator to let us know the level
+> of the line. Then if the guest OS decides to change the trigger type,
+> we only need to resample the line.
 
-We don't need to distinguish them. In both cases, we will want to
-process softirqs. In all the failure cases, the domain will have
-crashed. Therefore the vCPU will be unscheduled.
+Emulators, at least the ones in QEMU, don't model the hardware so
+closely to care about trigger type. The only thing they typically care
+about is to fire a notification.
 
->
-> Probably we need some sort of safe timeout/number attempts in order to
-> not spin forever?
+The trigger type only comes into the picture when there is a bug or a
+disagreement between Xen and QEMU. Imagine a device that can be both
+level active-high or active-low, if the guest kernel changes the
+configuration, Xen would know about it, but QEMU wouldn't. I vaguely
+recall a bug 10+ years ago about this with QEMU on x86 and a line that
+could be both active-high and active-low. So QEMU would raise the
+interrupt but Xen would actually think that QEMU stopped the interrupt.
 
-Well, anything based on timeout/number of attempts is flaky. How do
-you know whether the I/O is just taking a "long time" to complete?
+To do this right, we would have to introduce an interface between Xen
+and QEMU to propagate the trigger type. Xen would have to tell QEMU when
+the guest changed the configuration. That would work, but it would be
+better if we can figure out a way to do without it to reduce complexity.
 
-But a vCPU shouldn't continue until an I/O has completed. This is
-nothing very different than what a processor would do.
-
-In Xen case, if an I/O never completes then it most likely means that
-something went horribly wrong with the Device Emulator. So it is most
-likely not safe to continue. In HW, when there is a device failure,
-the OS may receive an SError (this is implementation defined) and
-could act accordingly if it is able to recognize the issue.
-
-It *might* be possible to send a virtual SError but there are a couple
-of issues with it:
-     * How do you detect a failure?
-     * SErrors are implementations defined. You would need to teach
-your OS (or the firmware) how to deal with them.
-
-I would expect quite a bit of effort in order to design and implement
-it. For now, it is probably best to just let the vCPU spin forever.
-
-This wouldn't be an issue for Xen as do_softirq() would be called at
-every loop.
-
-Cheers,
+Instead, given that QEMU and other emulators don't actually care about
+active-high or active-low, if we have a Xen interface that just says
+"fire the interrupt" we get away from this kind of troubles. It would
+also be more efficient because the total number of hypercalls required
+would be lower.
 
