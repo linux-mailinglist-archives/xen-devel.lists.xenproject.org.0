@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271E8240193
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 06:37:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C047240190
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 06:37:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k4zYU-0001Vs-OH; Mon, 10 Aug 2020 04:37:02 +0000
+	id 1k4zZ3-0001Zf-2O; Mon, 10 Aug 2020 04:37:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0BFG=BU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k4zYT-0001V9-En
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 04:37:01 +0000
-X-Inumbo-ID: 27ce598d-ce4b-4ee0-a72b-100320c92d83
+ id 1k4zZ1-0001ZX-UP
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 04:37:35 +0000
+X-Inumbo-ID: d015c87b-02de-4088-aa5e-20b7ad5c27b6
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27ce598d-ce4b-4ee0-a72b-100320c92d83;
- Mon, 10 Aug 2020 04:37:00 +0000 (UTC)
+ id d015c87b-02de-4088-aa5e-20b7ad5c27b6;
+ Mon, 10 Aug 2020 04:37:35 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DAF34ABE2;
- Mon, 10 Aug 2020 04:37:19 +0000 (UTC)
-Subject: Re: [PATCH v3 2/7] x86/xen: eliminate xen-asm_64.S
+ by mx2.suse.de (Postfix) with ESMTP id 57B1FABE2;
+ Mon, 10 Aug 2020 04:37:54 +0000 (UTC)
+Subject: Re: [PATCH v3 3/7] x86/xen: drop tests for highmem in pv code
 To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
 References: <20200807083826.16794-1-jgross@suse.com>
- <20200807083826.16794-3-jgross@suse.com>
- <b0c1c8cf-7a7e-33be-2b83-7895bcb9c36b@oracle.com>
+ <20200807083826.16794-4-jgross@suse.com>
+ <60f40558-a3a8-2c1e-2c32-09f93bfca724@oracle.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <7358d7c4-37a6-c304-e569-bd7069884681@suse.com>
-Date: Mon, 10 Aug 2020 06:36:59 +0200
+Message-ID: <a7ba056c-bbf0-5855-e0c3-fd835e1d6792@suse.com>
+Date: Mon, 10 Aug 2020 06:37:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <b0c1c8cf-7a7e-33be-2b83-7895bcb9c36b@oracle.com>
+In-Reply-To: <60f40558-a3a8-2c1e-2c32-09f93bfca724@oracle.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -54,10 +54,11 @@ Cc: Thomas Gleixner <tglx@linutronix.de>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.08.20 04:04, Boris Ostrovsky wrote:
+On 09.08.20 04:22, Boris Ostrovsky wrote:
 > On 8/7/20 4:38 AM, Juergen Gross wrote:
->> With 32-bit pv-guest support removed xen-asm_64.S can be merged with
->> xen-asm.S
+>> With support for 32-bit pv guests gone pure pv-code no longer needs to
+>> test for highmem. Dropping those tests removes the need for flushing
+>> in some places.
 >>
 >> Signed-off-by: Juergen Gross <jgross@suse.com>
 > 
@@ -65,31 +66,28 @@ On 09.08.20 04:04, Boris Ostrovsky wrote:
 > Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 > 
 > 
-> except for
+> with a suggestion
 > 
 > 
->> diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
->> index c59d077510bf..d1272a63f097 100644
->> --- a/arch/x86/xen/xen-asm.S
->> +++ b/arch/x86/xen/xen-asm.S
->> @@ -6,12 +6,19 @@
->>    * operations here; the indirect forms are better handled in C.
->>    */
->>   
->> +#include <asm/errno.h>
->>   #include <asm/asm-offsets.h>
->>   #include <asm/percpu.h>
->>   #include <asm/processor-flags.h>
->> +#include <asm/segment.h>
->> +#include <asm/thread_info.h>
->> +#include <asm/asm.h>
->>   #include <asm/frame.h>
->>   #include <asm/asm.h>
+>> ---
+>>   arch/x86/xen/enlighten_pv.c |  11 ++-
+>>   arch/x86/xen/mmu_pv.c       | 138 ++++++++++++++----------------------
+>>   2 files changed, 57 insertions(+), 92 deletions(-)
+>>
+>> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+>> index 7d90b3da8bb4..9fec952f84f3 100644
+>> --- a/arch/x86/xen/enlighten_pv.c
+>> +++ b/arch/x86/xen/enlighten_pv.c
+>> @@ -347,6 +347,7 @@ static void set_aliased_prot(void *v, pgprot_t prot)
+>>   	unsigned long pfn;
+>>   	struct page *page;
+>>   	unsigned char dummy;
+>> +	void *av;
 > 
 > 
-> asm/asm.h included twice now.
+> to rename this to va since you are modifying those lines anyway.
 
-Right, will drop that.
+Yes.
 
 
 Juergen
