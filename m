@@ -2,72 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F93240BEE
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 19:28:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32A7C240C67
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Aug 2020 19:52:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5Bav-00078t-Oh; Mon, 10 Aug 2020 17:28:21 +0000
+	id 1k5Bwz-00019v-FS; Mon, 10 Aug 2020 17:51:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qWL+=BU=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k5Bau-00078o-7t
- for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 17:28:20 +0000
-X-Inumbo-ID: 4da25352-ed87-4dca-ad4d-6e68e0de9c8f
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ <SRS0=BwXP=BU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k5Bwy-00019q-Tl
+ for xen-devel@lists.xenproject.org; Mon, 10 Aug 2020 17:51:08 +0000
+X-Inumbo-ID: d18c217a-cd09-4a8e-8c60-8daf9e806c93
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4da25352-ed87-4dca-ad4d-6e68e0de9c8f;
- Mon, 10 Aug 2020 17:28:18 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id j22so5163746lfm.2
- for <xen-devel@lists.xenproject.org>; Mon, 10 Aug 2020 10:28:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=OfDLlFqJUG7ZuiZEqW5c6ioQLjjFvuKwk1+W93IdMac=;
- b=YW+wIbIjx+YCudCZHMtvmQ9lHyviX5URgIGkTEJUapmLvWG2eJnjy37upFo6trobcI
- fO0I98LxE3O5ls8JqAy6dY+gV6WFCvCWBHgJywBQQqP105T6nklDjQli5kMgO69sjvde
- OtHQbp1kbKg5WamTVnzyvmG/R45LL3tePGJszCt4x/llOKO9pckeuB5wnQUJl+4OzwyT
- aICm8rwARBkB/4tClqneJePu9+BTE985Sm/6B4UVKJYLCUtM94sx/upyZKUFMQGO5VQL
- ifn59XINmeAvcrfv30HuuIFCU8Up6gSCg5bLL3xRoDvgriSUcWwbludfMuARbzdpWWqj
- rpIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=OfDLlFqJUG7ZuiZEqW5c6ioQLjjFvuKwk1+W93IdMac=;
- b=umQW0bpX77i9HBpUCFVXWR2UHRmovZBaMqngLIkS+XrlRiyX6LbodiOQ7MZx7WV9UA
- FbqFDHEy/vj/ldnDc6dsEBoiw3HDBDYE3Gtk8C3BZe1h+cDJ/LVHZEV4US7lOAhDTfAz
- tYP9oa1ZCfVwiSBs79C/diPsX4K6p4zroWvm6fQb3DffFENfW9gY2m2a7t9YLOQxCTRF
- 3nQ14rt14KTDGr+pVdt069raKJzEWhttqsi0a+gvWPbJoqheyAJjvC+N6GtP35QF9R+H
- WDfCZQoHJqdKSaVMc9eUWYSBURiki/SbmKl1hgZ82zXaw5NyK3Qh/wz1YfYpuoYp5pbE
- 43bw==
-X-Gm-Message-State: AOAM533NAl6E5fqMNo4Rxbo7S10t1xOt2x+RM92BxG0IzGdfcPOtfbyB
- A9sPpF2vjGJ35WB82j3gqC8=
-X-Google-Smtp-Source: ABdhPJw6e3CoQUn2MTFVZrYtb1GKVSjwn6vXSfsRV+Pjqg3xb9dCFc3Nnpdtw+wXbWm/p65JY8wByw==
-X-Received: by 2002:a19:ef0d:: with SMTP id n13mr1087860lfh.102.1597080496771; 
- Mon, 10 Aug 2020 10:28:16 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id y9sm9448046ljm.89.2020.08.10.10.28.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Aug 2020 10:28:16 -0700 (PDT)
-Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
- <6bfc3920-8f29-188c-cff4-2b99dabe166f@xen.org>
- <b0103c16-0cec-1734-93a6-3a4169448179@gmail.com>
- <c5cb0196-f761-52f5-ef32-d0a560bd559c@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <5b79b86a-abb8-3b37-baa1-1bcc43034eab@gmail.com>
-Date: Mon, 10 Aug 2020 20:28:14 +0300
+ id d18c217a-cd09-4a8e-8c60-8daf9e806c93;
+ Mon, 10 Aug 2020 17:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597081867;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=XX1/rTgTk+ljHUeylRrlCmjlLIl+c2a4VtaC9LrINfQ=;
+ b=EhnSGj9x22nEdGwvd09i/YOmgF3vypXoN9Xy/gR0WewEmN4OpxQoG35b
+ NlPHDBabECnOE/sdLl/7N/wA3FRw8bqcKU+6j8L14+ABqqX6T6jCLHlpY
+ 3JdUn6gLdfqNPwf6F03I65NnkuUWP6Jwvqv9QKvxCQhi5gamdnBn+pCf6 0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: UzGXBFmxAbZgzvdn4UK35Ly06bpm+QHLygvmTSkXh8ckNK3mW4ns46o6/wbKQTMClZuvM6yKAT
+ NNLa0smxPXD3JrTYOdIpRfcT902pZHPVvep5zHGxAPAPx3zFDCJ93+YtjzBHHauNrRlso3xqJa
+ 37WnKC9TGtNGNX7ksXYulF7Ug8sWfMlhnu1/V0sepwhjL0dgzGKHf5k8+g54frmWpVpskA3BmE
+ euFVYDO7yKjtEfhfbxXkBWPa3DVRLLYW1TQnkKVgu7f/uf6905LpEgzXx07PKvunIzBekbV0RH
+ uBE=
+X-SBRS: 2.7
+X-MesageID: 24193490
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,458,1589256000"; d="scan'208";a="24193490"
+Subject: Re: [PATCH 3/4] build: also check for empty .bss.* in .o -> .init.o
+ conversion
+To: Jan Beulich <jbeulich@suse.com>
+References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
+ <c99cf808-0710-51b1-c07c-07bf237e22a3@suse.com>
+ <5b2bbc31-0095-c3e2-9e34-20453ea2aa5f@citrix.com>
+ <61481966-3052-ebf2-e23b-aac292cd09a1@suse.com>
+ <9a3cd872-bc6c-3113-fdf9-2f80ad8fabce@citrix.com>
+ <039916f1-c9f2-710f-8f46-3ff9d91a9109@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <ec93160a-82f5-4a32-78ae-96eb941f1d48@citrix.com>
+Date: Mon, 10 Aug 2020 18:51:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <c5cb0196-f761-52f5-ef32-d0a560bd559c@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <039916f1-c9f2-710f-8f46-3ff9d91a9109@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,107 +70,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jun Nakajima <jun.nakajima@intel.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-On 10.08.20 19:29, Julien Grall wrote:
-> Hi,
-
-Hi Julien
-
-
->
-> On 06/08/2020 12:37, Oleksandr wrote:
+On 07/08/2020 16:40, Jan Beulich wrote:
+> On 07.08.2020 17:12, Andrew Cooper wrote:
+>> On 07/08/2020 11:56, Jan Beulich wrote:
+>>> On 06.08.2020 18:16, Andrew Cooper wrote:
+>>>> On 06/08/2020 10:05, Jan Beulich wrote:
+>>>> Can't we remove all of this by having CONFIG_XEN_PE expressed/selectable
+>>>> properly in Kconfig, and gathering all the objects normally, rather than
+>>>> bodging all of common/efi/ through arch/efi/ ?
+>>> _If_ we settle on Kconfig to be allowed to check compiler (and linker)
+>>> features, then yes. This continues to be a pending topic though, so
+>>> the switch can't be made like this at this point in time. (It could be
+>>> made a Kconfig item now - which, when enabled, implies the assertion
+>>> that a capable tool chain is in use.)
+>> I am still of the opinion that nothing needs discussing, but you are
+>> obviously not.
 >>
->> On 05.08.20 16:30, Julien Grall wrote:
->>> Hi,
->>
->> Hi Julien
->>
->>
->>>
->>> On 03/08/2020 19:21, Oleksandr Tyshchenko wrote:
->>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>
->>>> As a lot of x86 code can be re-used on Arm later on, this patch
->>>> splits IOREQ support into common and arch specific parts.
->>>>
->>>> This support is going to be used on Arm to be able run device
->>>> emulator outside of Xen hypervisor.
->>>>
->>>> Please note, this is a split/cleanup of Julien's PoC:
->>>> "Add support for Guest IO forwarding to a device emulator"
->>>>
->>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
->>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>> ---
->>>>   xen/arch/x86/Kconfig            |    1 +
->>>>   xen/arch/x86/hvm/dm.c           |    2 +-
->>>>   xen/arch/x86/hvm/emulate.c      |    2 +-
->>>>   xen/arch/x86/hvm/hvm.c          |    2 +-
->>>>   xen/arch/x86/hvm/io.c           |    2 +-
->>>>   xen/arch/x86/hvm/ioreq.c        | 1431 
->>>> +--------------------------------------
->>>>   xen/arch/x86/hvm/stdvga.c       |    2 +-
->>>>   xen/arch/x86/hvm/vmx/realmode.c |    1 +
->>>>   xen/arch/x86/hvm/vmx/vvmx.c     |    2 +-
->>>>   xen/arch/x86/mm.c               |    2 +-
->>>>   xen/arch/x86/mm/shadow/common.c |    2 +-
->>>>   xen/common/Kconfig              |    3 +
->>>>   xen/common/Makefile             |    1 +
->>>>   xen/common/hvm/Makefile         |    1 +
->>>>   xen/common/hvm/ioreq.c          | 1430 
->>>> ++++++++++++++++++++++++++++++++++++++
->>>>   xen/include/asm-x86/hvm/ioreq.h |   45 +-
->>>>   xen/include/asm-x86/hvm/vcpu.h  |    7 -
->>>>   xen/include/xen/hvm/ioreq.h     |   89 +++
->>>>   18 files changed, 1575 insertions(+), 1450 deletions(-)
->>>
->>> That's quite a lot of code moved in a single patch. How can we check 
->>> the code moved is still correct? Is it a verbatim copy?
->> In this patch I mostly tried to separate a common IOREQ part which 
->> also resulted in updating x86 sources to include new header.  Also I 
->> moved hvm_ioreq_needs_completion() to common header (which probably 
->> wanted to be in a separate patch). It was a verbatim copy initially 
->> (w/o hvm_map_mem_type_to_ioreq_server) and then updated to deal with 
->> arch specific parts.
->
-> I would prefer if the two parts are done separately. IOW, the code 
-> movement be nearly a verbatim copy.
->
->> In which way do you want me to split this patch?
->>
->> I could think of the following:
->>
->> 1. Copy of x86's ioreq.c/ioreq.h to common code > 2. Update common 
->> ioreq.c/ioreq.h
->> 3. Update x86's parts to be able to deal with common code
->> 4. Move hvm_ioreq_needs_completion() to common code
->>
->
-> Ideally the code movement should be done in the same patch. This helps 
-> to check the patch is only moving code and also avoids mistakes on 
-> rebase.
->
-> So my preference would be to first modify the x86 code (e.g. renaming) 
-> to make it common and then have one patch that will move the code.
+>> Please raise this as a topic and lets discuss it, because it has a
+>> meaningful impacting on a large number of pending series.
+> Preferably I would have put this on this month's community meeting
+> agenda, but I'll be ooo next week, so that's not going to help, I'm
+> afraid. I guess I should put it up in email form when I'm back,
+> albeit I wasn't thinking it should need to be me to start the
+> discussion. Instead my view was that such a discussion should (have
+> been, now after-the-fact) be started by whoever wants to introduce
+> a new feature.
 
-ok, will try to split accordingly. Thank you
+It would have been better to raise a concern/objectection before you
+committed the feature.
 
+It was a very clear intent of upgrading Kconfig and switching to Kbuild,
+to clean up the total and chronic mess we call a build system.  It has
+been discussed multiple times in person, and on xen-devel, without
+apparent objection at the time.
 
--- 
-Regards,
+The state of 4.14 and later is that we have the feature, and it is
+already in use, with a lot more use expected to continue fixing the
+build system.
 
-Oleksandr Tyshchenko
+You are currently blocking work to fix aspects of the build system based
+on a dislike of this feature, *and* expecting someone else to justify
+why using this feature as intended is ok in the first place.
 
+I do not consider that a reasonable expectation of how to proceed.
+
+If you wish to undo what was a deliberate intention of the
+Kconfig/Kbuild work, then it is you who must start the conversation on
+why we should revert the improvements.
+
+~Andrew
 
