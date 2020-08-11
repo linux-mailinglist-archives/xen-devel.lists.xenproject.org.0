@@ -2,54 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C9ED2421EF
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 23:26:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC0982422A1
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 00:48:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5blu-0005q3-TS; Tue, 11 Aug 2020 21:25:26 +0000
+	id 1k5d3T-00046j-M0; Tue, 11 Aug 2020 22:47:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZDC2=BV=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1k5blt-0005py-Mz
- for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 21:25:25 +0000
-X-Inumbo-ID: 8f72a595-63e2-4fea-9769-41d16458a3fb
-Received: from galois.linutronix.de (unknown [193.142.43.55])
+ <SRS0=6luX=BV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k5d3S-00046e-2c
+ for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 22:47:38 +0000
+X-Inumbo-ID: 1c9444ad-7cf5-4253-958d-2d1b83e68e29
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8f72a595-63e2-4fea-9769-41d16458a3fb;
- Tue, 11 Aug 2020 21:25:23 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1597181121;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m7u9iZM4bgu8PK3FkxHuv+64l2WKnfoRB2cXVRaJnw4=;
- b=hHMPyBCCFhlvypwiG0tlGoOocC/6/w0Nr1YrzlsbqBj4aPtPO/SivNrJhDJEsTmJyGBIdn
- wK0wPPSyrn7SNhuGozY7SxeMQGtH3iWuZKg1GkBrbc8IlgZ2Gx3o6VXa3NqbhOwIfzBaRX
- DDw0wFU1fbPEzxG7beKNyXGeTrMpfuk2yUHezKaaKjlqKA7w5mpEXFXBx76TWqQTGw4fVl
- ChhvpDvDISgZQd4H5KwPka7VdwhciDFvo1qFJDfsKn/qZvzrO8XXhGQCqQFRBZ2c1Gi7gs
- 3EM4eZN6+l+aw+/4T6WNsCaZ0eoOLyv/0QwkRGu2PU270twsSL5THasIK9zWdw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1597181121;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m7u9iZM4bgu8PK3FkxHuv+64l2WKnfoRB2cXVRaJnw4=;
- b=ELIHt1uF/dwRXMv9lB5SfQSoe8rLSoQwm3SbukE5hxSYXAPouA1PkOj1GSCxGPJ4+5QGfT
- SzYNpK6OM0WGwOBw==
-To: "Dey\, Megha" <megha.dey@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- "gregkh\@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH RFC v2 02/18] irq/dev-msi: Add support for a new DEV_MSI
- irq domain
-In-Reply-To: <8a8a853c-cbe6-b19c-f6ba-c8cdeda84a36@intel.com>
-References: <87h7tcgbs2.fsf@nanos.tec.linutronix.de> <87ft8uxjga.fsf@nanos>
- <87d03x5x0k.fsf@nanos.tec.linutronix.de>
- <8a8a853c-cbe6-b19c-f6ba-c8cdeda84a36@intel.com>
-Date: Tue, 11 Aug 2020 23:25:20 +0200
-Message-ID: <87bljg7u4f.fsf@nanos.tec.linutronix.de>
+ id 1c9444ad-7cf5-4253-958d-2d1b83e68e29;
+ Tue, 11 Aug 2020 22:47:37 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A7330206DA;
+ Tue, 11 Aug 2020 22:47:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597186056;
+ bh=8H+qNstykGmUfhCFE3cLgeILQfeMFVGhPT6xJlj9ybE=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=GvAOviaWvpy9a/7ypxqtdnv3eAtydaruX++P8PC3ka4boSc78wm3PHq7tMTPas6Fw
+ OqPP16f31QF9q+52gESnfY/fwQvsboyjeYhc/+oA9OxSivAwIE6QqVpNXapM+HRnrH
+ RmX/ygt7Eib8ByP4FvDrrAQZIT4SkUZQ44q93zNA=
+Date: Tue, 11 Aug 2020 15:47:26 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr <olekstysh@gmail.com>
+Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature
+ common
+In-Reply-To: <dc6de2f4-8f9d-aa96-8513-aecedb11e0ef@gmail.com>
+Message-ID: <alpine.DEB.2.21.2008111433520.15669@sstabellini-ThinkPad-T480s>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
+ <000c01d66a33$2bd56510$83802f30$@xen.org>
+ <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
+ <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
+ <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
+ <2ab4c567-8efa-1b9d-ab00-4ea7e1ab323e@suse.com>
+ <alpine.DEB.2.21.2008051253230.5748@sstabellini-ThinkPad-T480s>
+ <013b142d-5296-5bbe-7d19-903f59e0c974@gmail.com>
+ <alpine.DEB.2.21.2008071259580.16004@sstabellini-ThinkPad-T480s>
+ <06f78323-b8f5-fd11-486a-437267eccc29@gmail.com>
+ <27513b2b-e59b-d446-7e68-eac4bc503409@gmail.com>
+ <alpine.DEB.2.21.2008101200230.16004@sstabellini-ThinkPad-T480s>
+ <441f4413-b746-035e-948e-da3ff76a9a3b@xen.org>
+ <dc6de2f4-8f9d-aa96-8513-aecedb11e0ef@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/mixed; BOUNDARY="8323329-1210949560-1597182301=:15669"
+Content-ID: <alpine.DEB.2.21.2008111445160.15669@sstabellini-ThinkPad-T480s>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,181 +67,165 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "rafael@kernel.org" <rafael@kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "Kumar, 
- Sanjay K" <sanjay.k.kumar@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Hansen,
- Dave" <dave.hansen@intel.com>, "kwankhede@nvidia.com" <kwankhede@nvidia.com>,
- "hpa@zytor.com" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "Liu, Yi L" <yi.l.liu@intel.com>, "Jiang, Dave" <dave.jiang@intel.com>, "Raj,
- Ashok" <ashok.raj@intel.com>, "netanelg@mellanox.com" <netanelg@mellanox.com>,
- Marc Zyngier <maz@kernel.org>, "Lin, Jing" <jing.lin@intel.com>,
- "x86@kernel.org" <x86@kernel.org>, "Ortiz, Samuel" <samuel.ortiz@intel.com>,
- "yan.y.zhao@linux.intel.com" <yan.y.zhao@linux.intel.com>,
- xen-devel@lists.xenproject.org, "shahafs@mellanox.com" <shahafs@mellanox.com>,
- "Tian, Kevin" <kevin.tian@intel.com>,
- "parav@mellanox.com" <parav@mellanox.com>,
- "eric.auger@redhat.com" <eric.auger@redhat.com>,
- "alex.williamson@redhat.com" <alex.williamson@redhat.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "Lu, 
- Baolu" <baolu.lu@intel.com>, Juergen Gross <jgross@suse.com>, "Luck,
- Tony" <tony.luck@intel.com>, "Hossain, Mona" <mona.hossain@intel.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>, "Pan,
- Jacob jun" <jacob.jun.pan@intel.com>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>
+Cc: 'Kevin Tian' <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>, paul@xen.org,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Julien Grall' <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-"Dey, Megha" <megha.dey@intel.com> writes:
-> On 8/11/2020 2:53 AM, Thomas Gleixner wrote:
->>> And the annoying fact that you need XEN support which opens another can
->>> of worms...
->
-> hmm I am not sure why we need Xen support... are you referring to idxd 
-> using xen?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-What about using IDXD when you are running on XEN? I might be missing
-something and IDXD/IMS is hypervisor only, but that still does not solve
-this problem on bare metal:
+--8323329-1210949560-1597182301=:15669
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2008111445161.15669@sstabellini-ThinkPad-T480s>
 
->> x86 still does not associate the irq domain to devices at device
->> discovery time, i.e. the device::msi_domain pointer is never
->> populated.
+On Tue, 11 Aug 2020, Oleksandr wrote:
+> On 11.08.20 12:19, Julien Grall wrote:
+> > On 11/08/2020 00:34, Stefano Stabellini wrote:
+> > > On Mon, 10 Aug 2020, Oleksandr wrote:
+> > > > On 08.08.20 01:19, Oleksandr wrote:
+> > > > > On 08.08.20 00:50, Stefano Stabellini wrote:
+> > > > > > On Fri, 7 Aug 2020, Oleksandr wrote:
+> > > > > > > On 06.08.20 03:37, Stefano Stabellini wrote:
+> > > > > > > 
+> > > > > > > Hi Stefano
+> > > > > > > 
+> > > > > > > Trying to simulate IO_RETRY handling mechanism (according to model
+> > > > > > > below) I
+> > > > > > > continuously get IO_RETRY from try_fwd_ioserv() ...
+> > > > > > > 
+> > > > > > > > OK, thanks for the details. My interpretation seems to be
+> > > > > > > > correct.
+> > > > > > > > 
+> > > > > > > > In which case, it looks like xen/arch/arm/io.c:try_fwd_ioserv
+> > > > > > > > should
+> > > > > > > > return IO_RETRY. Then,
+> > > > > > > > xen/arch/arm/traps.c:do_trap_stage2_abort_guest
+> > > > > > > > also needs to handle try_handle_mmio returning IO_RETRY the
+> > > > > > > > first
+> > > > > > > > around, and IO_HANDLED when after QEMU does its job.
+> > > > > > > > 
+> > > > > > > > What should do_trap_stage2_abort_guest do on IO_RETRY? Simply
+> > > > > > > > return
+> > > > > > > > early and let the scheduler do its job? Something like:
+> > > > > > > > 
+> > > > > > > >                enum io_state state = try_handle_mmio(regs, hsr,
+> > > > > > > > gpa);
+> > > > > > > > 
+> > > > > > > >                switch ( state )
+> > > > > > > >                {
+> > > > > > > >                case IO_ABORT:
+> > > > > > > >                    goto inject_abt;
+> > > > > > > >                case IO_HANDLED:
+> > > > > > > >                    advance_pc(regs, hsr);
+> > > > > > > >                    return;
+> > > > > > > >                case IO_RETRY:
+> > > > > > > >                    /* finish later */
+> > > > > > > >                    return;
+> > > > > > > >                case IO_UNHANDLED:
+> > > > > > > >                    /* IO unhandled, try another way to handle
+> > > > > > > > it. */
+> > > > > > > >                    break;
+> > > > > > > >                default:
+> > > > > > > >                    ASSERT_UNREACHABLE();
+> > > > > > > >                }
+> > > > > > > > 
+> > > > > > > > Then, xen/arch/arm/ioreq.c:handle_mmio() gets called by
+> > > > > > > > handle_hvm_io_completion() after QEMU completes the emulation.
+> > > > > > > > Today,
+> > > > > > > > handle_mmio just sets the user register with the read value.
+> > > > > > > > 
+> > > > > > > > But it would be better if it called again the original function
+> > > > > > > > do_trap_stage2_abort_guest to actually retry the original
+> > > > > > > > operation.
+> > > > > > > > This time do_trap_stage2_abort_guest calls try_handle_mmio() and
+> > > > > > > > gets
+> > > > > > > > IO_HANDLED instead of IO_RETRY,
+> > > > > > > I may miss some important point, but I failed to see why
+> > > > > > > try_handle_mmio
+> > > > > > > (try_fwd_ioserv) will return IO_HANDLED instead of IO_RETRY at
+> > > > > > > this
+> > > > > > > stage.
+> > > > > > > Or current try_fwd_ioserv() logic needs rework?
+> > > > > > I think you should check the ioreq->state in try_fwd_ioserv(), if
+> > > > > > the
+> > > > > > result is ready, then ioreq->state should be STATE_IORESP_READY, and
+> > > > > > you
+> > > > > > can return IO_HANDLED.
+> > > > > 
+> > > > 
+> > > > I optimized test patch a bit (now it looks much simpler). I didn't face
+> > > > any
+> > > > issues during a quick test.
+> > > 
+> > > Both patches get much closer to following the proper state machine,
+> > > great! I think this patch is certainly a good improvement. I think the
+> > > other patch you sent earlier, slightly larger, is even better. It makes
+> > > the following additional changes that would be good to have:
+> > > 
+> > > - try_fwd_ioserv returns IO_HANDLED on state == STATE_IORESP_READY
+> > > - handle_mmio simply calls do_trap_stage2_abort_guest
+> > 
+> > I don't think we should call do_trap_stage2_abort_guest() as part of the
+> > completion because:
+> >     * The function do_trap_stage2_abort_guest() is using registers that are
+> > not context switched (such as FAR_EL2). I/O handling is split in two with
+> > likely a context switch in the middle. The second part is the completion
+> > (i.e call to handle_mmio()). So the system registers will be incorrect.
+> >     * A big chunk of do_trap_stage2_abort_guest() is not necessary for the
+> > completion. For instance, there is no need to try to translate the guest
+> > virtual address to a guest physical address.
+> > 
+> > Therefore the version below is probably the best approach.
+> 
+> 
+> Indeed, the first version (with calling do_trap_stage2_abort_guest() for a
+> completion) is a racy. When testing it more heavily I faced an issue
+> (sometimes) which resulted in DomU got stuck completely.
+> 
+> (XEN) d2v1: vGICD: bad read width 0 r11 offset 0x000f00
+> 
+> I didn't investigate an issue in detail, but I assumed that code in
+> do_trap_stage2_abort_guest() caused that. This was the main reason why I
+> decided to optimize an initial patch (and took only advance_pc).
+> Reading Julien's answer I understand now what could happen.
 
-We can't do that right now due to the way how X86 PCI/MSI allocation
-works and being able to do so would make things consistent and way
-simpler even for your stuff.
+From your and Julien's feedback it is clear that calling
+do_trap_stage2_abort_guest() is not possible and not a good idea.
 
->> The right thing to do is to convert XEN MSI support over to proper irq
->> domains. This allows to populate device::msi_domain which makes a lot of
->> things simpler and also more consistent.
->
-> do you think this cleanup is to be a precursor to my patches? I could 
-> look into it but I am not familiar with the background of Xen
->
-> and this stuff. Can you please provide further guidance on where to
-> look
 
-As I said:
+The reason for my suggestion was to complete the implementation of the
+state machine so that "RETRY" actually means "let's try again the
+emulation" but the second time it will return "HANDLED".
 
->> So to support this new fangled device MSI stuff we'd need yet more
->> x86/xen specific arch_*msi_irqs() indirection and hackery, which is not
->> going to happen.
+Looking at this again, we could achieve the same goal in a better way by
+moving the register setting from "handle_mmio" to "try_handle_mmio" and
+also calling "try_handle_mmio" from "handle_mmio". Note that handle_mmio
+would become almost empty like on x86.
 
-  git grep arch_.*msi_irq arch/x86
+1) do_trap_stage2_abort_guest ->
+       try_handle_mmio ->
+            try_fwd_ioserv ->
+                IO_RETRY
 
-This indirection prevents storing the irq_domain pointer in the device
-at probe/detection time. Native code already uses irq domains for
-PCI/MSI but we can't exploit the full potential because then
-pci_msi_setup_msi_irqs() would never end up in arch_setup_msi_irqs()
-which breaks XEN.
+2) handle_hvm_io_completion ->
+       handle_mmio ->
+           try_handle_mmio ->
+               try_fwd_ioserv ->
+                   IO_HANDLED
 
-I was reminded of that nastiness when I was looking at sensible ways to
-integrate this device MSI maze proper.
 
-From a conceptual POV this stuff, which is not restricted to IDXD at all,
-looks like this:
-
-           ]-------------------------------------------|
-PCI BUS -- | PCI device                                |
-           ]-------------------|                       |
-           | Physical function |                       |
-           ]-------------------|                       |
-           ]-------------------|----------|            |
-           | Control block for subdevices |            |
-           ]------------------------------|            |
-           |            | <- "Subdevice BUS"           |
-           |            |                              |
-           |            |-- Subddevice 0               | 
-           |            |-- Subddevice 1               | 
-           |            |-- ...                        | 
-           |            |-- Subddevice N               | 
-           ]-------------------------------------------|
-
-It does not matter whether this is IDXD with it's magic devices or a
-network card with a gazillion of queues. Conceptually we need to look at
-them as individual subdevices.
-
-And obviously the above picture gives you the topology. The physical
-function device belongs to PCI in all aspects including the MSI
-interrupt control. The control block is part of the PCI device as well
-and it even can have regular PCI/MSI interrupts for its own
-purposes. There might be devices where the Physical function device does
-not exist at all and the only true PCI functionality is the control
-block to manage subdevices. That does not matter and does not change the
-concept.
-
-Now the subdevices belong topology wise NOT to the PCI part. PCI is just
-the transport they utilize. And their irq domain is distinct from the
-PCI/MSI domain for reasons I explained before.
-
-So looking at it from a Linux perspective:
-
-  pci-bus -> PCI device (managed by PCI/MSI domain)
-               - PF device
-               - CB device (hosts DEVMSI domain)
-                    | "Subdevice bus"
-                    | - subdevice
-                    | - subdevice
-                    | - subdevice
-
-Now you would assume that figuring out the irq domain which the DEVMSI
-domain serving the subdevices on the subdevice bus should take as parent
-is pretty trivial when looking at the topology, right?
-
-CB device's parent is PCI device and we know that PCI device MSI is
-handled by the PCI/MSI domain which is either system wide or per IR
-unit.
-
-So getting the relevant PCI/MSI irq domain is as simple as doing:
-
-   pcimsi_domain = pcidevice->device->msi_domain;
-
-and then because we know that this is a hierarchy the parent domain of
-pcimsi_domain is the one which is the parent of our DEVMSI domain, i.e.:
-
-   parent = pcmsi_domain->parent;
-
-Obvious, right?
-
-What's not so obvious is that pcidevice->device->msi_domain is not
-populated on x86 and trying to get the parent from there is a NULL
-pointer dereference which does not work well.
-
-So you surely can hack up some workaround for this, but that's just
-proliferating crap. We want this to be consistent and there is
-absolutely no reason why that network card with the MSI storage in the
-queue data should not work on any other architecture.
-
-We do the correct association already for IOMMU and whatever topological
-stuff is attached to (PCI) devices on probe/detection time so making it
-consistent for irq domains is just a logical consequence and matter of
-consistency.
-
-Back in the days when x86 was converted to hierarchical irq domains in
-order to support I/O APIC hotplug this workaround was accepted to make
-progress and it was meant as a transitional step. Of course after the
-goal was achieved nobody @Intel cared anymore and so far this did not
-cause big problems. But now it does and we really want to make this
-consistent first.
-
-And no we are not making an exception for IDXD either just because
-that's Intel only. Intel is not special and not exempt from cleaning
-stuff up before adding new features especially not when the stuff to
-cleanup is a leftover from Intel itself. IOW, we are not adding more
-crap on top of crap which should not exists anymore.
-
-It's not rocket science to fix this. All it needs is to let XEN create
-irq domains and populate them during init.
-
-On device detection/probe the proper domain needs to be determined which
-is trivial and then stored in device->msi_domain. That makes
-arch_.*_msi_irq() go away and a lot of code just simpler.
-
-Thanks,
-
-        tglx
+It is very similar to your second patch with a small change on calling
+try_handle_mmio from handle_mmio and setting the register there. Do you
+think that would work?
+--8323329-1210949560-1597182301=:15669--
 
