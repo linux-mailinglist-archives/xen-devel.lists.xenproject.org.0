@@ -2,46 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE052417D0
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 10:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD2CD2417D5
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 10:02:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5PEe-0003v7-5x; Tue, 11 Aug 2020 08:02:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k5PEh-0003wN-HP; Tue, 11 Aug 2020 08:02:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L6lB=BV=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k5PEc-0003tc-5m
- for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 08:02:14 +0000
-X-Inumbo-ID: 53e06020-7d57-44ed-b070-05e1453e4c9f
+ id 1k5PEf-0003tU-GT
+ for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 08:02:17 +0000
+X-Inumbo-ID: 6a799ae5-b692-48b2-8791-240e05f53c63
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53e06020-7d57-44ed-b070-05e1453e4c9f;
- Tue, 11 Aug 2020 08:02:09 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6a799ae5-b692-48b2-8791-240e05f53c63;
+ Tue, 11 Aug 2020 08:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eSmprS1bsesB0cQvNRI38Z139gI/ZjEmaiUVzzjZXv4=; b=S5x8KVbrxbU9txM7PfsxBvEg8M
- DtAJMTFQUnLErPOfvE3R48IX7bhErJxl2xNZGUF1cHx86gsUajNc91q7eoxOkfKJxD4LvRXD0zK9W
- DCitwEVJzOreK/ov6feZIwaKrt6nbBH51/ag+nF66bJEEny1RUMCC596PW+GCRBi/Rts=;
+ bh=aHjZE/ipDyZpIQn2BBAjOYE1vFoNpiNeV+OmHeWemBA=; b=gOto8wyhSFIt+KkuFzEr1CEguq
+ hexDYyKMppmfnbBmJ6NEW007SqlYPp1CV5QQkqQ2FOdjCWToC8EH17EM7EO2D/fFDnAXgHUqydWBT
+ yvpFwCA07dGpA7RwQY7mFWLvuScZAu4Pldj+Pt8dPOBTNNOUn021M8YqPEMveegpH974=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k5PEX-0003un-6K; Tue, 11 Aug 2020 08:02:09 +0000
+ id 1k5PEY-0003vL-2m; Tue, 11 Aug 2020 08:02:10 +0000
 Received: from host86-143-223-30.range86-143.btcentralplus.com
  ([86.143.223.30] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k5PEW-0000k5-Ul; Tue, 11 Aug 2020 08:02:09 +0000
+ id 1k5PEX-0000k5-RY; Tue, 11 Aug 2020 08:02:10 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 3/8] tools/hotplug/Linux: add remove_from_bridge()
-Date: Tue, 11 Aug 2020 09:01:57 +0100
-Message-Id: <20200811080202.31163-4-paul@xen.org>
+Subject: [PATCH v3 4/8] tools/hotplug/Linux: remove code duplication in
+ vif-bridge
+Date: Tue, 11 Aug 2020 09:01:58 +0100
+Message-Id: <20200811080202.31163-5-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200811080202.31163-1-paul@xen.org>
 References: <20200811080202.31163-1-paul@xen.org>
@@ -64,9 +66,12 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-This patch adds a remove_from_bridge() function into xen-network-common.sh
-to partner with the existing add_to_bridge() function. The vif-bridge
-script is then modified to use it.
+The 'add' and 'online' cases do exactly the same thing so have 'add' simply
+fall through to 'online'.
+
+NOTE: This patch also adds in the missing 'remove' case, which falls though
+      to 'offline'. (The former is passed for 'tap' devices, the latter for
+      'vif' devices).
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
@@ -74,62 +79,42 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Cc: Wei Liu <wl@xen.org>
 
 v3:
- - Re-factored from "tools/hotplug: add remove_from_bridge() and improve
-   debug output" and "tools/hotplug: combine add/online and remove/offline
+ - Re-factored from "tools/hotplug: combine add/online and remove/offline
    in vif-bridge..." in v2
 ---
- tools/hotplug/Linux/vif-bridge            |  7 +------
- tools/hotplug/Linux/xen-network-common.sh | 19 +++++++++++++++++++
- 2 files changed, 20 insertions(+), 6 deletions(-)
+ tools/hotplug/Linux/vif-bridge | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/tools/hotplug/Linux/vif-bridge b/tools/hotplug/Linux/vif-bridge
-index e722090ca8..c3e409926d 100644
+index c3e409926d..e1d7c49788 100644
 --- a/tools/hotplug/Linux/vif-bridge
 +++ b/tools/hotplug/Linux/vif-bridge
-@@ -84,12 +84,7 @@ case "$command" in
-         ;;
+@@ -77,21 +77,18 @@ then
+ fi
  
+ case "$command" in
++    add)
++        ;&
+     online)
+         setup_virtual_bridge_port "$dev"
+         set_mtu "$bridge" "$dev"
+         add_to_bridge "$bridge" "$dev"
+         ;;
+-
++    remove)
++        ;&
      offline)
--        if which brctl >&/dev/null; then
--            do_without_error brctl delif "$bridge" "$dev"
--        else
--            do_without_error ip link set "$dev" nomaster
--        fi
--        do_without_error ifconfig "$dev" down
-+        remove_from_bridge "$bridge" "$dev"
+         remove_from_bridge "$bridge" "$dev"
          ;;
+-
+-    add)
+-        setup_virtual_bridge_port "$dev"
+-        set_mtu "$bridge" "$dev"
+-        add_to_bridge "$bridge" "$dev"
+-        ;;
+ esac
  
-     add)
-diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
-index ec3bd4ec4a..6a0904361f 100644
---- a/tools/hotplug/Linux/xen-network-common.sh
-+++ b/tools/hotplug/Linux/xen-network-common.sh
-@@ -141,6 +141,25 @@ add_to_bridge () {
-     ip link set dev ${dev} up
- }
- 
-+remove_from_bridge () {
-+    local bridge=$1
-+    local dev=$2
-+
-+    do_without_error ip link set dev ${dev} down
-+
-+    # Don't remove $dev from $bridge if it's not on the bridge.
-+    if [ -e "/sys/class/net/${bridge}/brif/${dev}" ]; then
-+        log debug "removing $dev from bridge $bridge"
-+        if which brctl >&/dev/null; then
-+            do_without_error brctl delif ${bridge} ${dev}
-+        else
-+            do_without_error ip link set ${dev} nomaster
-+        fi
-+    else
-+        log debug "$dev not on bridge $bridge"
-+    fi
-+}
-+
- # Usage: set_mtu bridge dev
- set_mtu () {
-     local bridge=$1
+ handle_iptable
 -- 
 2.20.1
 
