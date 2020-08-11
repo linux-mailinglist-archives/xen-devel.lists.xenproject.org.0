@@ -2,52 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBACF241B8D
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 15:26:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17009241CB4
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 16:48:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5UHS-0007Ha-Ls; Tue, 11 Aug 2020 13:25:30 +0000
+	id 1k5VYg-0005cw-Ty; Tue, 11 Aug 2020 14:47:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+xK0=BV=merlin.srs.infradead.org=batv+15f5bd3e8430479a8e90+6197+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1k5UHO-0007HP-N2
- for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 13:25:29 +0000
-X-Inumbo-ID: 0ceee8d8-5dd2-4bd8-9276-265d330ad40d
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+4EG=BV=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1k5VYf-0005cr-15
+ for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 14:47:21 +0000
+X-Inumbo-ID: 6cf5ab0e-753d-4022-92e3-eeed1bb83e07
+Received: from mail1.protonmail.ch (unknown [185.70.40.18])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0ceee8d8-5dd2-4bd8-9276-265d330ad40d;
- Tue, 11 Aug 2020 13:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=tXNYIywZjMnT73Cw5SMCL+2q6kZzBjr4+zG62GiEUmA=; b=Hn3+xOu7xdY+fpCU/Gdvrp1bk6
- PidiPUB5ahmz1xd3X1ROv5LxDkr8sA4yTzWHwASy69vHN5ABwNelMsASkuMystGoqfhsKn33GYYdY
- +hly+cxiK4nCcVdMJDWc4+zDpjHNx4t6zPGN3IL/j2IcNlQc+fMaB9Iq2HUJOhBSyY4KDDfkvx1G6
- Nkly1ZA1AWc3ein6jQTxJhmv9w6ytwNTQ+6Nmqp6rfxF5wyn9+igddYrG44HES9R5AAzwzexwylJE
- +TGSde/wSPs5GBeTMSwxaS1tJ+dO6Md1QEQttDkfcmsHgxD9V9hsqJPM6EKOvJkjbeqHE5qmRK2bu
- EHKVJjjA==;
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=u3832b3a9db3152.ant.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k5UHG-0000yd-Tx; Tue, 11 Aug 2020 13:25:19 +0000
-Message-ID: <7547be305e3ede9edb897e2be898fe54e0b4065c.camel@infradead.org>
-Subject: Re: [Xen-devel] [PATCH v2] x86/hvm: re-work viridian APIC assist code
-From: David Woodhouse <dwmw2@infradead.org>
-To: Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org, 
- Roger Pau Monne <roger.pau@citrix.com>
-Date: Tue, 11 Aug 2020 14:25:16 +0100
-In-Reply-To: <1535153880.24926.28.camel@infradead.org>
-References: <20180118151059.1336-1-paul.durrant@citrix.com>
- <1535153880.24926.28.camel@infradead.org>
-Content-Type: multipart/signed; micalg="sha-256";
- protocol="application/x-pkcs7-signature";
- boundary="=-dgjdl+CAat6uZSRISdi7"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- merlin.infradead.org. See http://www.infradead.org/rpr.html
+ id 6cf5ab0e-753d-4022-92e3-eeed1bb83e07;
+ Tue, 11 Aug 2020 14:47:17 +0000 (UTC)
+Date: Tue, 11 Aug 2020 14:47:04 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
+ s=protonmail; t=1597157235;
+ bh=1bj2mENroGCRB+/A1DX5xD7jEWBz0ibf2sqMew+vKd4=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=bHSSd2QhWY0Sl0hwiKxtb2jRpA05nxfgm5NW1RLJhGegrjdu4eDrdoAKCrfTmPIp6
+ y886e58VxjuPffZ6HW9EM82S3cCPROdB5DfTKw2je0G+FMmRF6Yd77pVpUp9vGWwad
+ uet1gooxMTUX3ozOrqxFRIlppYDFrCfFubt5jQac=
+To: Jan Beulich <jbeulich@suse.com>
+From: Trammell Hudson <hudson@trmm.net>
+Subject: Re: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot
+ support
+Message-ID: <R7aUb5x20WJaKNC0-ug_5CtqyrJQlSd8J1jy1urYoEiU10J2yTd9PmNX72ZNDP01-HrVBi0r18HlkUGXGGOI2oVgWJU4Yrjel1y_W8GtYo4=@trmm.net>
+In-Reply-To: <1489916a-24cc-3e2c-98a0-1f35186e4b06@suse.com>
+References: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
+ <1bd2d79e-5bef-835c-f6cc-9fd367e8beb7@suse.com>
+ <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
+ <5e3b16b3-0f93-4683-dcc7-852c805870c8@suse.com>
+ <y5v76XS6whE9vu9FqI2eN6ieuvXkjnAJ1oaBXdXyKKNjJxvbLqaRnHi99iq_AIknqaQ9V18cLCLy9v3dV8YIEsfyrQq9apJRcWiQeFXuGuk=@trmm.net>
+ <1489916a-24cc-3e2c-98a0-1f35186e4b06@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mail.protonmail.ch
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,246 +55,636 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Eslam Elnikety <elnikety@amazon.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Shan Haitao <haitao.shan@intel.com>,
- Jan Beulich <jbeulich@suse.com>
+Reply-To: Trammell Hudson <hudson@trmm.net>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Friday, August 7, 2020 2:23 PM, Jan Beulich <jbeulich@suse.com> wrote:
+> On 06.08.2020 16:15, Trammell Hudson wrote:
+> > --- /dev/null
+> > +++ b/xen/arch/x86/efi/pe.c
+> > @@ -0,0 +1 @@
+> > +../../../common/efi/pe.c
+> > \ No newline at end of file
+>
+> This isn't supposed to be part of the patch; the symlinks get
+> created in the course of building.
 
---=-dgjdl+CAat6uZSRISdi7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Fixed -- had to add the pe.c to the xen/Makefile to create the symlink.
 
-Resending this straw man patch at Roger's request, to restart discussion.
+> > -   s2w(&name_string);
+> > -   PrintStr(name_string.w);
+> > -   PrintStr(L": ");
+> > -   DisplayUint(file->addr, 2 * sizeof(file->addr));
+> > -   PrintStr(L"-");
+> > -   DisplayUint(file->addr + file->size, 2 * sizeof(file->addr));
+> > -   PrintStr(newline);
+> > -
+> > -   efi_arch_handle_module(file, name_string.w, options);
+>
+> This is a copy of existing code - please make a helper function
+> instead of duplicating (preferably in a separate, prereq patch, but
+> I guess there's anyway the open question on whether this change
+> can/should be split into smaller pieces).
 
-Redux: In order to cope with the relatively rare case of unmaskable
-legacy MSIs, each vlapic EOI takes a domain-global spinlock just to
-iterate over all IRQs and determine that there's actually nothing to
-do.
+Fixed -- split into separate display file info function.
 
-In my testing, I observe that this drops Windows performance on passed-
-through NVMe from 2.2M IOPS down to about 1.0M IOPS.
+> > -   static const EFI_GUID global_guid =3D EFI_GLOBAL_VARIABLE;
+>
+> Also __initconst please.
 
-I have a variant of this patch which just has a single per-domain "I
-attached legacy unmaskable MSIs" flag, which is never cleared. The
-patch below is per-vector (but Roger points out it should be per-vCPU
-per-vector). I don't know that we really care enough to do more than
-the single per-domain flag, which in real life would never happen
-anyway unless you have crappy hardware, at which point you get back to
-today's status quo.
+Fixed.  I'm a little surprised that constant strings don't also need
+some sort of annotation, but perhaps there is magic that I don't see.
 
-My main concern is that this code is fairly sparsely documented and I'm
-only 99% sure that this code path really *is* only for unmaskable MSIs,
-and doesn't have some other esoteric use. A second opinion on that
-would be particularly welcome.
+> > -   if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, N=
+ULL, &size, buf) !=3D EFI_SUCCESS )
+> > -          return false;
+>
+> Judging from Linux code you also need to evaluate the SetupMode var.
 
+Fixed.  Added a note to maintain sync with the Linux code (which has its
+own note about maintaining sync with other Linux code).
 
-(NB: APIC assist was a red herring here, except that it had a bug which
-stopped the gratuitous EOI work from ever happening at all =E2=80=94 which
-nobody ever cared about since it doesn't matter on sane hardware, but
-then when Paul *fixed* it, we saw it as a performance regression.)
+> > -   if ( loaded_image )
+> > -          image_base =3D loaded_image->ImageBase;
+>
+> There's no point in having the if() - efi_arch_load_addr_check()
+> has already de-referenced loaded_image. If HandleProtocol() fails
+> we won't make it here.
 
+Fixed.  Also removed the variable to use EFI_LOADED_IMAGE struct instead.
 
-On Sat, 2018-08-25 at 00:38 +0100, David Woodhouse wrote:
-> On Thu, 2018-01-18 at 10:10 -0500, Paul Durrant wrote:
-> > Lastly the previous code did not properly emulate an EOI if a missed EO=
-I
-> > was discovered in vlapic_has_pending_irq(); it merely cleared the bit i=
-n
-> > the ISR. The new code instead calls vlapic_EOI_set().
->=20
-> Hm, this *halves* my observed performance running a 32-thread
-> 'diskspd.exe' on a Windows box with attached NVME devices, which makes
-> me sad.
->=20
-> It's the call to hvm_dpci_msi_eoi() that does it.
->=20
-> Commenting out the call to pt_pirq_iterate() and leaving *just* the
-> domain-global spinlock bouncing cache lines between all my CPUs, it's
-> already down to 1.6MIOPS/s from 2.2M on my test box before it does
-> *anything* at all.
->=20
-> Calling an *inline* version of pt_pirq_iterate so no retpoline for the
-> indirect calls, and I'm down to 1.1M even when I've nopped out the
-> whole of the _hvm_dpci_msi_eoi function that it's calling. Put it all
-> back, and I'm down to about 1.0M. So it's worse than halved.
->=20
-> And what's all this for? The code here is making my eyes bleed but I
-> believe it's for unmaskable MSIs, and these aren't unmaskable.
->=20
-> Tempted to make it all go away by having a per-domain bitmap of vectors
-> for which all this work is actually required, and bypassing the whole
-> bloody lot in hvm_dpci_msi_eoi() if the corresponding in bit that
-> bitmap isn't set.
->=20
-> The hackish version of that (which seems to work, but would probably
-> want testing with an actual unmaskable MSI in the system, and I have
-> absolutely no confidence I understand what's going on here) looks
-> something like this:
->=20
-> diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/io.c
-> index bab3aa3..24df008 100644
-> --- a/xen/drivers/passthrough/io.c
-> +++ b/xen/drivers/passthrough/io.c
-> @@ -24,6 +24,7 @@
->  #include <asm/hvm/irq.h>
->  #include <asm/hvm/support.h>
->  #include <asm/io_apic.h>
-> +#include <asm/msi.h>
-> =20
->  static DEFINE_PER_CPU(struct list_head, dpci_list);
-> =20
-> @@ -282,6 +283,7 @@ int pt_irq_create_bind(
->      struct hvm_pirq_dpci *pirq_dpci;
->      struct pirq *info;
->      int rc, pirq =3D pt_irq_bind->machine_irq;
-> +    irq_desc_t *desc;
-> =20
->      if ( pirq < 0 || pirq >=3D d->nr_pirqs )
->          return -EINVAL;
-> @@ -422,6 +425,13 @@ int pt_irq_create_bind(
-> =20
->          dest_vcpu_id =3D hvm_girq_dest_2_vcpu_id(d, dest, dest_mode);
->          pirq_dpci->gmsi.dest_vcpu_id =3D dest_vcpu_id;
-> +        BUG_ON(!local_irq_is_enabled());
-> +        desc =3D pirq_spin_lock_irq_desc(info, NULL);
-> +        if ( desc && desc->msi_desc && !msi_maskable_irq(desc-
-> >msi_desc) )
-> +            set_bit(pirq_dpci->gmsi.gvec,
-> +                    hvm_domain_irq(d)->unmaskable_msi_vecs);
-> +        spin_unlock_irq(&desc->lock);
-> +
->          spin_unlock(&d->event_lock);
-> =20
->          pirq_dpci->gmsi.posted =3D false;
-> @@ -869,7 +874,8 @@ static int _hvm_dpci_msi_eoi(struct domain *d,
-> =20
->  void hvm_dpci_msi_eoi(struct domain *d, int vector)
->  {
-> -    if ( !iommu_enabled || !hvm_domain_irq(d)->dpci )
-> +    if ( !iommu_enabled || !hvm_domain_irq(d)->dpci ||
-> +         !test_bit(vector, hvm_domain_irq(d)->unmaskable_msi_vecs) )
->         return;
-> =20
->      spin_lock(&d->event_lock);
-> diff --git a/xen/include/asm-x86/hvm/irq.h b/xen/include/asm-
-> x86/hvm/irq.h
-> index 8a43cb9..d9d4652 100644
-> --- a/xen/include/asm-x86/hvm/irq.h
-> +++ b/xen/include/asm-x86/hvm/irq.h
-> @@ -78,6 +78,7 @@ struct hvm_irq {
->      u8 round_robin_prev_vcpu;
-> =20
->      struct hvm_irq_dpci *dpci;
-> +    DECLARE_BITMAP(unmaskable_msi_vecs, 256);
-> =20
->      /*
->       * Number of wires asserting each GSI.
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
+> [...]
+> As said before, I think we want an all-or-nothing approach. You
+> want to first establish whether the image is a unified one, and
+> if so not fall back to reading from disk. Otherwise the claim
+> of secure boot above is liable to be wrong.
+>
+> I'm also unconvinced of reporting the secure boot status only in
+> the case you're interested in.
 
+Andrew had similar comments on this flow; I'll respond to both
+in a separate reply.
 
---=-dgjdl+CAat6uZSRISdi7
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> > -   const CHAR8 * const base =3D image_base;
+>
+> Why the extra variable? The more that ...
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-ODExMTMyNTE2WjAvBgkqhkiG9w0BCQQxIgQgBx8g8QjxtqTECMtsO2Tz/QfYwy+1L/tiNHjL21ce
-YBYwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAAGxvGHpK4PBq2aL6p4wBX4i3rTLCtkil1TECG9u8vpzJZybbHtVNSu+kXyhquyX
-nTE/uVjbIglg2VnZ5+WT6LKCYaZuHO1aXSMFvfr1s7AYP+3MoLSbzYkN4QzgzS3ePpMLFZ5IMsz0
-J7GFuia11a/iHEe5M+/jpSs7s6J9vvYmawVripIoBNiVk45IDXo+sejIMNviiFriLQ7I5FtJVelN
-p10Gqu5c7OLYFaJnZAoBEkkLU+5UkqPcrMELjwTOQOImCZbIXi3rVjQ1nsOPFr6YRUUVpRVT5K2D
-VUqRxRzAK52m8ZZYjsWj13D2EUkOzEa2WSrRVCRF09XAZeGIM54AAAAAAAA=
+Fixed (by passing the EFI_LOADED_IMAGE instead so that we can
+check sizes, etc).
 
+> > -   if ( pe->FileHeader.NumberOfSections > 96 )
+> > -          return NULL;
+>
+> Besides there still needing to be an explanation for this apparently
+> arbitrary limit, I also find the amount of consistency checking
+> insufficient. At the very least I'd like to see you check the COFF
+> magic value (0x020b).
 
---=-dgjdl+CAat6uZSRISdi7--
+I've removed the 96 limit, which came from the original systemd-boot.
+And I also added more extensive bounds checking on the PE structures to
+ensure that they all are within the loaded image region.  An attacker
+probably couldn't exploit it, since the signature is already checked,
+but better than weird memory errors.
+
+> > -              if ( size_out )
+> > -                  *size_out =3D sect->VirtualSize;
+>
+> Is this correct in all cases? Iirc zero tail padding can be
+> expressed by SizeOfRawData < VirtualSize, in which case there
+> won't be as many bytes to copy / use as you tell your caller.
+
+I don't know, perhaps objcopy doesn't do that?  This logic is also copied d=
+irectly
+from the systemd-boot PE parser:
+
+https://github.com/systemd/systemd/blob/master/src/boot/efi/pe.c#L101
+
+> > -              return (void*)(sect->VirtualAddress + (uintptr_t) image_=
+base);
+>
+> Again no need for the cast; the function should return
+> const void * anyway, as the caller isn't supposed to alter
+> section contents (I hope).
+
+Fixed and the signature changed to return const void *.  This does require
+a dangerous const-discarding cast since struct file has a void *.  In gener=
+al
+the edk2-derived code base is really bad about const-correctness, which mig=
+ht
+be worth a separate cleanup pass.
+
+> > --- /dev/null
+> > +++ b/xen/scripts/unify-xen
+> > @@ -0,0 +1,89 @@
+> > +#!/bin/bash
+> > +# Build a "unified Xen" image.
+> > +# Usage
+> > +# unify xen.efi xen.cfg bzimage initrd [xsm [ucode]]
+> > [...]
+>
+> With all these hard coded size restrictions I take it this still is
+> just an example, not something that is to eventually get committed.
+
+I'm wondering if for the initial merge if it is better to include just
+the objcopy command line to show how to do it in the documentation, similar
+to how systemd-boot documents it, rather than providing a tool.  At a later
+time a more correct unify script could be merged.
+
+Updated patch follows:
+
+diff --git a/xen/Makefile b/xen/Makefile
+index a87bb225dc..e4e4c6d5c1 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -355,7 +355,7 @@ $(TARGET): delete-unfresh-files
+ =09$(MAKE) -C tools
+ =09$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/compile.h
+ =09[ -e include/asm ] || ln -sf asm-$(TARGET_ARCH) include/asm
+-=09[ -e arch/$(TARGET_ARCH)/efi ] && for f in boot.c runtime.c compat.c ef=
+i.h;\
++=09[ -e arch/$(TARGET_ARCH)/efi ] && for f in boot.c pe.c runtime.c compat=
+.c efi.h;\
+ =09=09do test -r arch/$(TARGET_ARCH)/efi/$$f || \
+ =09=09   ln -nsf ../../../common/efi/$$f arch/$(TARGET_ARCH)/efi/; \
+ =09=09done; \
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index 6527cb0bdf..483dec465d 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -395,7 +395,7 @@ static void __init efi_arch_cfg_file_early(EFI_FILE_HAN=
+DLE dir_handle, char *sec
+         blexit(L"Unable to create new FDT");
+ }
+
+-static void __init efi_arch_cfg_file_late(EFI_FILE_HANDLE dir_handle, char=
+ *section)
++static void __init efi_arch_cfg_file_late(EFI_LOADED_IMAGE * image, EFI_FI=
+LE_HANDLE dir_handle, char *section)
+ {
+ }
+
+diff --git a/xen/arch/x86/efi/Makefile b/xen/arch/x86/efi/Makefile
+index 4b2b010a80..ae666aa14c 100644
+--- a/xen/arch/x86/efi/Makefile
++++ b/xen/arch/x86/efi/Makefile
+@@ -8,7 +8,7 @@ cmd_objcopy_o_ihex =3D $(OBJCOPY) -I ihex -O binary $< $@
+
+ boot.init.o: buildid.o
+
+-EFIOBJ :=3D boot.init.o compat.o runtime.o
++EFIOBJ :=3D boot.init.o pe.init.o compat.o runtime.o
+
+ $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=
+=3D4)
+ $(EFIOBJ): CFLAGS-stack-boundary :=3D $(cflags-stack-boundary)
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 7188c9a551..e2650c0440 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -276,9 +276,11 @@ static void __init efi_arch_cfg_file_early(EFI_FILE_HA=
+NDLE dir_handle, char *sec
+ {
+ }
+
+-static void __init efi_arch_cfg_file_late(EFI_FILE_HANDLE dir_handle, char=
+ *section)
++static void __init efi_arch_cfg_file_late(EFI_LOADED_IMAGE * image, EFI_FI=
+LE_HANDLE dir_handle, char *section)
+ {
+     union string name;
++    if ( read_section(image, ".ucode", &ucode, NULL) )
++        return;
+
+     name.s =3D get_value(&cfg, section, "ucode");
+     if ( !name.s )
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 5a520bf21d..72ef472297 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -102,6 +102,7 @@ union string {
+
+ struct file {
+     UINTN size;
++    bool need_to_free;
+     union {
+         EFI_PHYSICAL_ADDRESS addr;
+         void *ptr;
+@@ -121,6 +122,8 @@ static CHAR16 *s2w(union string *str);
+ static char *w2s(const union string *str);
+ static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+                       struct file *file, char *options);
++static bool read_section(EFI_LOADED_IMAGE * image,
++        char * name, struct file *file, char *options);
+ static size_t wstrlen(const CHAR16 * s);
+ static int set_color(u32 mask, int bpp, u8 *pos, u8 *sz);
+ static bool match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2);
+@@ -330,13 +333,13 @@ static void __init noreturn blexit(const CHAR16 *str)
+     if ( !efi_bs )
+         efi_arch_halt();
+
+-    if ( cfg.addr )
++    if ( cfg.addr && cfg.need_to_free)
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+-    if ( kernel.addr )
++    if ( kernel.addr && kernel.need_to_free)
+         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+-    if ( ramdisk.addr )
++    if ( ramdisk.addr && ramdisk.need_to_free)
+         efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+-    if ( xsm.addr )
++    if ( xsm.addr && xsm.need_to_free)
+         efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
+
+     efi_arch_blexit();
+@@ -589,6 +592,21 @@ static char * __init split_string(char *s)
+     return NULL;
+ }
+
++static void __init display_file_info(CHAR16 * name, struct file * file, ch=
+ar * options)
++{
++    if ( file =3D=3D &cfg )
++        return;
++
++    PrintStr(name);
++    PrintStr(L": ");
++    DisplayUint(file->addr, 2 * sizeof(file->addr));
++    PrintStr(L"-");
++    DisplayUint(file->addr + file->size, 2 * sizeof(file->addr));
++    PrintStr(newline);
++
++    efi_arch_handle_module(file, name, options);
++}
++
+ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+                              struct file *file, char *options)
+ {
+@@ -619,6 +637,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
+, CHAR16 *name,
+         what =3D what ?: L"Seek";
+     else
+     {
++        file->need_to_free =3D true;
+         file->addr =3D min(1UL << (32 + PAGE_SHIFT),
+                          HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
+         ret =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
+@@ -632,16 +651,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
+e, CHAR16 *name,
+     else
+     {
+         file->size =3D size;
+-        if ( file !=3D &cfg )
+-        {
+-            PrintStr(name);
+-            PrintStr(L": ");
+-            DisplayUint(file->addr, 2 * sizeof(file->addr));
+-            PrintStr(L"-");
+-            DisplayUint(file->addr + size, 2 * sizeof(file->addr));
+-            PrintStr(newline);
+-            efi_arch_handle_module(file, name, options);
+-        }
++        display_file_info(name, file, options);
+
+         ret =3D FileHandle->Read(FileHandle, &file->size, file->ptr);
+         if ( !EFI_ERROR(ret) && file->size !=3D size )
+@@ -665,6 +675,24 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
+e, CHAR16 *name,
+     return true;
+ }
+
++static bool __init read_section(EFI_LOADED_IMAGE * image,
++                                char * const name, struct file *file, char=
+ *options)
++{
++    union string name_string =3D { .s =3D name + 1 };
++
++    file->ptr =3D (void*) pe_find_section(image->ImageBase, image->ImageSi=
+ze, name, &file->size);
++    if ( !file->ptr )
++        return false;
++
++    file->need_to_free =3D false;
++
++    s2w(&name_string);
++    display_file_info(name_string.w, file, options);
++    efi_bs->FreePool(name_string.w);
++
++    return true;
++}
++
+ static void __init pre_parse(const struct file *cfg)
+ {
+     char *ptr =3D cfg->ptr, *end =3D ptr + cfg->size;
+@@ -968,6 +996,26 @@ static void __init setup_efi_pci(void)
+     efi_bs->FreePool(handles);
+ }
+
++/*
++ * Logic should remain sync'ed with linux/arch/x86/xen/efi.c
++ * Secure Boot is enabled iff 'SecureBoot' is set and the system is
++ * not in Setup Mode.
++ */
++static bool __init efi_secure_boot(void)
++{
++    static const __initconst EFI_GUID global_guid =3D EFI_GLOBAL_VARIABLE;
++    uint8_t secboot, setupmode;
++    UINTN secboot_size =3D sizeof(secboot);
++    UINTN setupmode_size =3D sizeof(setupmode);
++
++    if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, NULL=
+, &secboot_size, &secboot) !=3D EFI_SUCCESS )
++        return false;
++    if ( efi_rs->GetVariable(L"SetupMode", (EFI_GUID *)&global_guid, NULL,=
+ &setupmode_size, &setupmode) !=3D EFI_SUCCESS )
++        return false;
++
++    return secboot =3D=3D 1 && setupmode =3D=3D 0;
++}
++
+ static void __init efi_variables(void)
+ {
+     EFI_STATUS status;
+@@ -1144,8 +1192,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
+ystemTable)
+     static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUID;
+     EFI_LOADED_IMAGE *loaded_image;
+     EFI_STATUS status;
+-    unsigned int i, argc;
+-    CHAR16 **argv, *file_name, *cfg_file_name =3D NULL, *options =3D NULL;
++    unsigned int i, argc =3D 0;
++    CHAR16 **argv =3D NULL, *file_name, *cfg_file_name =3D NULL, *options =
+=3D NULL;
+     UINTN gop_mode =3D ~0;
+     EFI_SHIM_LOCK_PROTOCOL *shim_lock;
+     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop =3D NULL;
+@@ -1153,6 +1201,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
+ystemTable)
+     bool base_video =3D false;
+     char *option_str;
+     bool use_cfg_file;
++    bool secure =3D false;
+
+     __set_bit(EFI_BOOT, &efi_flags);
+     __set_bit(EFI_LOADER, &efi_flags);
+@@ -1171,8 +1220,10 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
+SystemTable)
+         PrintErrMesg(L"No Loaded Image Protocol", status);
+
+     efi_arch_load_addr_check(loaded_image);
++    secure =3D efi_secure_boot();
+
+-    if ( use_cfg_file )
++    /* If UEFI Secure Boot is enabled, do not parse the command line */
++    if ( use_cfg_file && !secure )
+     {
+         UINTN offset =3D 0;
+
+@@ -1249,9 +1300,15 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
+SystemTable)
+         /* Get the file system interface. */
+         dir_handle =3D get_parent_handle(loaded_image, &file_name);
+
+-        /* Read and parse the config file. */
+-        if ( !cfg_file_name )
++        if ( read_section(loaded_image, ".config", &cfg, NULL) )
+         {
++            if ( secure )
++                PrintStr(L"Secure Boot enabled: ");
++            PrintStr(L"Using unified config file\r\n");
++        }
++        else if ( !cfg_file_name )
++        {
++            /* Read and parse the config file. */
+             CHAR16 *tail;
+
+             while ( (tail =3D point_tail(file_name)) !=3D NULL )
+@@ -1303,26 +1360,36 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE =
+*SystemTable)
+         efi_arch_cfg_file_early(dir_handle, section.s);
+
+         option_str =3D split_string(name.s);
+-        read_file(dir_handle, s2w(&name), &kernel, option_str);
+-        efi_bs->FreePool(name.w);
+-
+-        if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+-                        (void **)&shim_lock)) &&
+-             (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D =
+EFI_SUCCESS )
+-            PrintErrMesg(L"Dom0 kernel image could not be verified", statu=
+s);
+
+-        name.s =3D get_value(&cfg, section.s, "ramdisk");
+-        if ( name.s )
++        if ( !read_section(loaded_image, ".kernel", &kernel, option_str) )
+         {
+-            read_file(dir_handle, s2w(&name), &ramdisk, NULL);
++            read_file(dir_handle, s2w(&name), &kernel, option_str);
+             efi_bs->FreePool(name.w);
++
++            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
++                            (void **)&shim_lock)) &&
++                 (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=
+=3D EFI_SUCCESS )
++                PrintErrMesg(L"Dom0 kernel image could not be verified", s=
+tatus);
+         }
+
+-        name.s =3D get_value(&cfg, section.s, "xsm");
+-        if ( name.s )
++        if ( !read_section(loaded_image, ".ramdisk", &ramdisk, NULL) )
+         {
+-            read_file(dir_handle, s2w(&name), &xsm, NULL);
+-            efi_bs->FreePool(name.w);
++            name.s =3D get_value(&cfg, section.s, "ramdisk");
++            if ( name.s )
++            {
++                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
++                efi_bs->FreePool(name.w);
++            }
++        }
++
++        if ( !read_section(loaded_image, ".xsm", &xsm, NULL) )
++        {
++            name.s =3D get_value(&cfg, section.s, "xsm");
++            if ( name.s )
++            {
++                read_file(dir_handle, s2w(&name), &xsm, NULL);
++                efi_bs->FreePool(name.w);
++            }
+         }
+
+         /*
+@@ -1358,7 +1425,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
+ystemTable)
+             }
+         }
+
+-        efi_arch_cfg_file_late(dir_handle, section.s);
++        efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
+
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+         cfg.addr =3D 0;
+diff --git a/xen/common/efi/efi.h b/xen/common/efi/efi.h
+index 2e38d05f3d..d3018f81a1 100644
+--- a/xen/common/efi/efi.h
++++ b/xen/common/efi/efi.h
+@@ -41,3 +41,6 @@ extern UINT64 efi_apple_properties_addr;
+ extern UINTN efi_apple_properties_len;
+
+ const CHAR16 *wmemchr(const CHAR16 *s, CHAR16 c, UINTN n);
++
++const void * pe_find_section(const UINT8 * image_base, const size_t image_=
+size,
++        const char * section_name, UINTN * size_out);
+diff --git a/xen/common/efi/pe.c b/xen/common/efi/pe.c
+new file mode 100644
+index 0000000000..c70bb4566a
+--- /dev/null
++++ b/xen/common/efi/pe.c
+@@ -0,0 +1,139 @@
++/*
++ * xen/common/efi/pe.c
++ *
++ * PE executable header parser.
++ *
++ * Derived from https://github.com/systemd/systemd/blob/master/src/boot/ef=
+i/pe.c
++ *
++ * Copyright (C) 2015 Kay Sievers <kay@vrfy.org>
++ *
++ * This program is free software; you can redistribute it and/or modify it
++ * under the terms of the GNU Lesser General Public License as published b=
+y
++ * the Free Software Foundation; either version 2.1 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful, but
++ * WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++ * Lesser General Public License for more details.
++ */
++
++
++#include "efi.h"
++
++struct DosFileHeader {
++    UINT8   Magic[2];
++    UINT16  LastSize;
++    UINT16  nBlocks;
++    UINT16  nReloc;
++    UINT16  HdrSize;
++    UINT16  MinAlloc;
++    UINT16  MaxAlloc;
++    UINT16  ss;
++    UINT16  sp;
++    UINT16  Checksum;
++    UINT16  ip;
++    UINT16  cs;
++    UINT16  RelocPos;
++    UINT16  nOverlay;
++    UINT16  reserved[4];
++    UINT16  OEMId;
++    UINT16  OEMInfo;
++    UINT16  reserved2[10];
++    UINT32  ExeHeader;
++} __attribute__((packed));
++
++#define PE_HEADER_MACHINE_ARM64         0xaa64
++#define PE_HEADER_MACHINE_X64           0x8664
++#define PE_HEADER_MACHINE_I386          0x014c
++
++struct PeFileHeader {
++    UINT16  Machine;
++    UINT16  NumberOfSections;
++    UINT32  TimeDateStamp;
++    UINT32  PointerToSymbolTable;
++    UINT32  NumberOfSymbols;
++    UINT16  SizeOfOptionalHeader;
++    UINT16  Characteristics;
++} __attribute__((packed));
++
++struct PeHeader {
++    UINT8   Magic[4];
++    struct PeFileHeader FileHeader;
++} __attribute__((packed));
++
++struct PeSectionHeader {
++    UINT8   Name[8];
++    UINT32  VirtualSize;
++    UINT32  VirtualAddress;
++    UINT32  SizeOfRawData;
++    UINT32  PointerToRawData;
++    UINT32  PointerToRelocations;
++    UINT32  PointerToLinenumbers;
++    UINT16  NumberOfRelocations;
++    UINT16  NumberOfLinenumbers;
++    UINT32  Characteristics;
++} __attribute__((packed));
++
++const void * __init pe_find_section(const CHAR8 * image, const UINTN image=
+_size,
++                              const char * section_name, UINTN * size_out)
++{
++    const struct DosFileHeader * dos =3D (const void*) image;
++    const struct PeHeader * pe;
++    const struct PeSectionHeader * sect;
++    const UINTN name_len =3D strlen(section_name);
++    UINTN offset =3D 0;
++
++    if ( name_len > sizeof(sect->Name) )
++        return NULL;
++
++    if ( image_size < sizeof(*dos) )
++        return NULL;
++    if ( memcmp(dos->Magic, "MZ", 2) !=3D 0 )
++        return NULL;
++
++    offset =3D dos->ExeHeader;
++    pe =3D (const void *) &image[offset];
++
++    offset +=3D sizeof(*pe);
++    if ( image_size < offset)
++        return NULL;
++
++    if ( memcmp(pe->Magic, "PE\0\0", 4) !=3D 0 )
++        return NULL;
++
++    /* PE32+ Subsystem type */
++#if defined(__ARM__)
++    if (pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_ARM64)
++        return NULL;
++#elif defined(__x86_64__)
++    if (pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_X64)
++        return NULL;
++#else
++    /* unknown architecture */
++    return NULL;
++#endif
++
++    offset +=3D pe->FileHeader.SizeOfOptionalHeader;
++
++    for (UINTN i =3D 0 ; i < pe->FileHeader.NumberOfSections ; i++)
++    {
++        sect =3D (const void *) &image[offset];
++        if ( image_size < offset + sizeof(*sect) )
++            return NULL;
++
++        if ( memcmp(sect->Name, section_name, name_len) !=3D 0
++        ||   image_size < sect->VirtualSize + sect->VirtualAddress )
++        {
++            offset +=3D sizeof(*sect);
++            continue;
++        }
++
++        if ( size_out )
++            *size_out =3D sect->VirtualSize;
++
++        return &image[sect->VirtualAddress];
++    }
++
++    return NULL;
++}
 
 
