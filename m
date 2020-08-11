@@ -2,65 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65123241B5A
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 15:05:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D582241B66
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 15:09:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5TxE-0005S4-Je; Tue, 11 Aug 2020 13:04:36 +0000
+	id 1k5U1O-0005bn-7h; Tue, 11 Aug 2020 13:08:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/4+w=BV=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k5TxD-0005Rz-DL
- for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 13:04:35 +0000
-X-Inumbo-ID: d0868c39-f24f-4185-b147-6b46f4aa36ac
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Gn/D=BV=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k5U1M-0005bM-7K
+ for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 13:08:52 +0000
+X-Inumbo-ID: f06c4297-0980-4c9f-97ab-6ce271171fd4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d0868c39-f24f-4185-b147-6b46f4aa36ac;
- Tue, 11 Aug 2020 13:04:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ id f06c4297-0980-4c9f-97ab-6ce271171fd4;
+ Tue, 11 Aug 2020 13:08:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JiIu+tzLXhcxNlimkbB7Y76be1cJB5oyitWkUh8s/QM=; b=AOqJg3G/Hs2IYw/bU3HjpawUyX
- YNEcea96wPLWcs/7GzhwgSnjkMNBMbHHjw5dNhI1FenDaGEAcIxW2Tjg+XEY7CQtLZkWrx55y46+3
- bqG5RRjFw1z9QubFjRYxfKCrZFErwJJufRWKgHuucexZvGtA9PiWGJvda5IE/CJFzmlw=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=7gtVWajjr/vzJ1ViF8+ACqW/uqxLQVeQMpp3xtKv27o=; b=hak6JDFGbkSjHf7cLirkcY6nh
+ fw1J8uNBat/3RkNcxuR3R3Sf32ILP6ohhVcyDOwoHO4vqMllE+kqjqQEUVMD2xwb/I74maop45/fD
+ N6qctVb3FCQB9VZABKR2DufpezGFirijZOTesGB+qCPonj7BDhra84COng/srGAYsKmJo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k5Tx7-0001kr-NN; Tue, 11 Aug 2020 13:04:29 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k5Tx7-0006vd-8M; Tue, 11 Aug 2020 13:04:29 +0000
-Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
- xendevicemodel_set_irq_level DM op
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
- <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
- <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
- <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
- <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
- <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
- <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
- <CAJ=z9a3ngzDS6Fu5DwdRSzWaMASPgp3cZLnpazMQzUbH-9_EEw@mail.gmail.com>
- <alpine.DEB.2.21.2008101142500.16004@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <97b477a9-3945-9c5d-671d-ab5cbb2d0468@xen.org>
-Date: Tue, 11 Aug 2020 14:04:26 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5U1F-0001oy-5C; Tue, 11 Aug 2020 13:08:45 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5U1E-00021l-Rf; Tue, 11 Aug 2020 13:08:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5U1E-0002QJ-Qo; Tue, 11 Aug 2020 13:08:44 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152558-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2008101142500.16004@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 152558: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=4ae4e991e0d7f2b815752c7ff5666b0e928bae78
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 11 Aug 2020 13:08:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,213 +78,144 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+flight 152558 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152558/
 
-On 11/08/2020 00:34, Stefano Stabellini wrote:
-> On Sat, 8 Aug 2020, Julien Grall wrote:
->> On Fri, 7 Aug 2020 at 22:51, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>
->>> On Fri, 7 Aug 2020, Jan Beulich wrote:
->>>> On 07.08.2020 01:49, Stefano Stabellini wrote:
->>>>> On Thu, 6 Aug 2020, Julien Grall wrote:
->>>>>> On 06/08/2020 01:37, Stefano Stabellini wrote:
->>>>>>> On Wed, 5 Aug 2020, Julien Grall wrote:
->>>>>>>> On 05/08/2020 00:22, Stefano Stabellini wrote:
->>>>>>>>> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
->>>>>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>>>>>>>
->>>>>>>>>> This patch adds ability to the device emulator to notify otherend
->>>>>>>>>> (some entity running in the guest) using a SPI and implements Arm
->>>>>>>>>> specific bits for it. Proposed interface allows emulator to set
->>>>>>>>>> the logical level of a one of a domain's IRQ lines.
->>>>>>>>>>
->>>>>>>>>> Please note, this is a split/cleanup of Julien's PoC:
->>>>>>>>>> "Add support for Guest IO forwarding to a device emulator"
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
->>>>>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>>>>>>> ---
->>>>>>>>>>     tools/libs/devicemodel/core.c                   | 18
->>>>>>>>>> ++++++++++++++++++
->>>>>>>>>>     tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
->>>>>>>>>>     tools/libs/devicemodel/libxendevicemodel.map    |  1 +
->>>>>>>>>>     xen/arch/arm/dm.c                               | 22
->>>>>>>>>> +++++++++++++++++++++-
->>>>>>>>>>     xen/common/hvm/dm.c                             |  1 +
->>>>>>>>>>     xen/include/public/hvm/dm_op.h                  | 15
->>>>>>>>>> +++++++++++++++
->>>>>>>>>>     6 files changed, 60 insertions(+), 1 deletion(-)
->>>>>>>>>>
->>>>>>>>>> diff --git a/tools/libs/devicemodel/core.c
->>>>>>>>>> b/tools/libs/devicemodel/core.c
->>>>>>>>>> index 4d40639..30bd79f 100644
->>>>>>>>>> --- a/tools/libs/devicemodel/core.c
->>>>>>>>>> +++ b/tools/libs/devicemodel/core.c
->>>>>>>>>> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
->>>>>>>>>>         return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
->>>>>>>>>>     }
->>>>>>>>>>     +int xendevicemodel_set_irq_level(
->>>>>>>>>> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
->>>>>>>>>> +    unsigned int level)
->>>>>>>>>
->>>>>>>>> It is a pity that having xen_dm_op_set_pci_intx_level and
->>>>>>>>> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
->>>>>>>>> the names alone I don't think we can reuse either of them.
->>>>>>>>
->>>>>>>> The problem is not the name...
->>>>>>>>
->>>>>>>>>
->>>>>>>>> It is very similar to set_isa_irq_level. We could almost rename
->>>>>>>>> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
->>>>>>>>> better, just add an alias to it so that xendevicemodel_set_irq_level is
->>>>>>>>> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
->>>>>>>>> not sure if it is worth doing it though. Any other opinions?
->>>>>>>>
->>>>>>>> ... the problem is the interrupt field is only 8-bit. So we would only be
->>>>>>>> able
->>>>>>>> to cover IRQ 0 - 255.
->>>>>>>
->>>>>>> Argh, that's not going to work :-(  I wasn't sure if it was a good idea
->>>>>>> anyway.
->>>>>>>
->>>>>>>
->>>>>>>> It is not entirely clear how the existing subop could be extended without
->>>>>>>> breaking existing callers.
->>>>>>>>
->>>>>>>>> But I think we should plan for not needing two calls (one to set level
->>>>>>>>> to 1, and one to set it to 0):
->>>>>>>>> https://marc.info/?l=xen-devel&m=159535112027405
->>>>>>>>
->>>>>>>> I am not sure to understand your suggestion here? Are you suggesting to
->>>>>>>> remove
->>>>>>>> the 'level' parameter?
->>>>>>>
->>>>>>> My hope was to make it optional to call the hypercall with level = 0,
->>>>>>> not necessarily to remove 'level' from the struct.
->>>>>>
->>>>>>  From my understanding, the hypercall is meant to represent the status of the
->>>>>> line between the device and the interrupt controller (either low or high).
->>>>>>
->>>>>> This is then up to the interrupt controller to decide when the interrupt is
->>>>>> going to be fired:
->>>>>>    - For edge interrupt, this will fire when the line move from low to high (or
->>>>>> vice versa).
->>>>>>    - For level interrupt, this will fire when line is high (assuming level
->>>>>> trigger high) and will keeping firing until the device decided to lower the
->>>>>> line.
->>>>>>
->>>>>> For a device, it is common to keep the line high until an OS wrote to a
->>>>>> specific register.
->>>>>>
->>>>>> Furthermore, technically, the guest OS is in charge to configure how an
->>>>>> interrupt is triggered. Admittely this information is part of the DT, but
->>>>>> nothing prevent a guest to change it.
->>>>>>
->>>>>> As side note, we have a workaround in Xen for some buggy DT (see the arch
->>>>>> timer) exposing the wrong trigger type.
->>>>>>
->>>>>> Because of that, I don't really see a way to make optional. Maybe you have
->>>>>> something different in mind?
->>>>>
->>>>> For level, we need the level parameter. For edge, we are only interested
->>>>> in the "edge", right?
->>>>
->>>> I don't think so, unless Arm has special restrictions. Edges can be
->>>> both rising and falling ones.
->>>
->>> And the same is true for level interrupts too: they could be active-low
->>> or active-high.
->>>
->>>
->>> Instead of modelling the state of the line, which seems to be a bit
->>> error prone especially in the case of a single-device emulator that
->>> might not have enough information about the rest of the system (it might
->>> not know if the interrupt is active-high or active-low), we could model
->>> the triggering of the interrupt instead.
->>
->> I am not sure to understand why the single (or event multiple) device
->> emulator needs to know the trigger type. The information of the
->> trigger type of the interrupt would be described in the firmware table
->> and it is expected to be the same as what the emulator expects.
->>
->> If the guest OS decided to configure wrongly the interrupt trigger
->> type, then it may not work properly. But, from my understanding, this
->> doesn't differ from the HW behavior.
->>
->>>
->>> In the case of level=1, it would mean that the interrupt line is active,
->>> no matter if it is active-low or active-high. In the case of level=0, it
->>> would mean that it is inactive.
->>>
->>> Similarly, in the case of an edge interrupt edge=1 or level=1 would mean
->>> that there is an edge, no matter if it is rising or falling.
->>
->> TBH, I think your approach is only going to introduce more headache in
->> Xen if a guest OS decides to change the trigger type.
->>
->> It feels much easier to just ask the emulator to let us know the level
->> of the line. Then if the guest OS decides to change the trigger type,
->> we only need to resample the line.
-> 
-> Emulators, at least the ones in QEMU, don't model the hardware so
-> closely to care about trigger type. The only thing they typically care
-> about is to fire a notification.
+Regressions :-(
 
-I don't think I agree with this. Devices in QEMU will set the level 
-(high or low) of the line. This is then up to the interrupt controller 
-to decide how to act with it. See the function qemu_set_irq().
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-In the case of active-high level interrupt, the interrupt would fire 
-until the line has been lowered.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-> 
-> The trigger type only comes into the picture when there is a bug or a
-> disagreement between Xen and QEMU. Imagine a device that can be both
-> level active-high or active-low, if the guest kernel changes the
-> configuration, Xen would know about it, but QEMU wouldn't.
+version targeted for testing:
+ libvirt              4ae4e991e0d7f2b815752c7ff5666b0e928bae78
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Lets take a step back. From my understanding, on real HW, the OS will 
-have to configure the device *and* the interrupt controller in order to 
-switch from level active-low to level active-high. Otherwise, there 
-would be discrepancy between the two.
+Last test of basis   151777  2020-07-10 04:19:19 Z   32 days
+Failing since        151818  2020-07-11 04:18:52 Z   31 days   32 attempts
+Testing same since   152558  2020-08-11 04:20:03 Z    0 days    1 attempts
 
-In our situation, Xen is basically the interrupt controller and QEMU the 
-device. So both should be aware of any change here. Did I miss anything?
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
 
->  I vaguely
-> recall a bug 10+ years ago about this with QEMU on x86 and a line that
-> could be both active-high and active-low. So QEMU would raise the
-> interrupt but Xen would actually think that QEMU stopped the interrupt.
-> 
-> To do this right, we would have to introduce an interface between Xen
-> and QEMU to propagate the trigger type. Xen would have to tell QEMU when
-> the guest changed the configuration. That would work, but it would be
-> better if we can figure out a way to do without it to reduce complexity.
-Per above, I don't think this is necessary.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-> 
-> Instead, given that QEMU and other emulators don't actually care about
-> active-high or active-low, if we have a Xen interface that just says
-> "fire the interrupt" we get away from this kind of troubles. It would
-> also be more efficient because the total number of hypercalls required
-> would be lower.
 
-I read "fire interrupt" the interrupt as "Please generate an interrupt 
-once". Is it what you definition you expect?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Cheers,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-Julien Grall
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 9261 lines long.)
 
