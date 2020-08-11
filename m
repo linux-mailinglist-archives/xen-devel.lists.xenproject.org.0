@@ -2,51 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32CE241CF2
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 17:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CFC241EF8
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Aug 2020 19:11:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5Vud-0007dT-PI; Tue, 11 Aug 2020 15:10:03 +0000
+	id 1k5XmN-0000z8-IU; Tue, 11 Aug 2020 17:09:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+4EG=BV=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1k5Vuc-0007Ru-AM
- for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 15:10:02 +0000
-X-Inumbo-ID: 8dd4bd82-9843-4502-93e7-b47e6b37f51a
-Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SWDt=BV=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1k5XmL-0000z2-AF
+ for xen-devel@lists.xenproject.org; Tue, 11 Aug 2020 17:09:37 +0000
+X-Inumbo-ID: cd4b5a62-77fd-4f86-b376-22386475a761
+Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8dd4bd82-9843-4502-93e7-b47e6b37f51a;
- Tue, 11 Aug 2020 15:10:00 +0000 (UTC)
-Date: Tue, 11 Aug 2020 15:09:47 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1597158598;
- bh=vYpsPTDzCHkpN5A1GiHJ+4fofC5s7pInH+jhMDsL7lY=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=eRQkykCDvL8Nc+l6wnuEr0jvlIropxisiaYKu8K3QRoDjBJpvG0GOH4ApOQYMRtsv
- SRO+W0Y1P3GaH4/mioHoixmgcKqQSGJM/j2L7QUEnTre5TOwVOEcX0cCyfF40SlJlJ
- tNQfgMylosGoQBxD2ejykoRJ97OJwnZ1YCGfZTJo=
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-From: Trammell Hudson <hudson@trmm.net>
-Subject: Re: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot
- support
-Message-ID: <LBx_CDon_LLjarWEqQRek_tyyaUZEHCu_K1HSb5jIuhDzFntslc03mL0YRYVwJ8Ng-jU5J7QZ92X6_iFl1474ddRMv46Vr09OJWBlSBnrcI=@trmm.net>
-In-Reply-To: <2afa43a1-d29e-32db-1583-a752b4a122e9@citrix.com>
-References: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
- <1bd2d79e-5bef-835c-f6cc-9fd367e8beb7@suse.com>
- <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
- <5e3b16b3-0f93-4683-dcc7-852c805870c8@suse.com>
- <y5v76XS6whE9vu9FqI2eN6ieuvXkjnAJ1oaBXdXyKKNjJxvbLqaRnHi99iq_AIknqaQ9V18cLCLy9v3dV8YIEsfyrQq9apJRcWiQeFXuGuk=@trmm.net>
- <132b5b88-c78d-01cf-df27-6430689570e4@citrix.com>
- <CXSQq8DgbTTtEtGG6W67lvGVMmT92dpQQWdC5bHKya9WwRwKZmcI3Oy4clutRHjY7BjDay5i-Iy5QVc6PAQsOKmIGvrI1MrfuN7RLnOnG1E=@trmm.net>
- <2afa43a1-d29e-32db-1583-a752b4a122e9@citrix.com>
+ id cd4b5a62-77fd-4f86-b376-22386475a761;
+ Tue, 11 Aug 2020 17:09:35 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id t6so14362913ljk.9
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Aug 2020 10:09:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=9CcF5tHbKiZI0Z+gJaQJaHgogDyIgZQAVS6fg4BKJlI=;
+ b=Pdw+DJSfy7fowF1bX45oTfJ+WWAmN8Y/huWvJbWToFEdh+oAPqpiPadPMHcV6IxXDL
+ UcorgQRLuY/TsrS40RnJx6YTgLubsi8EPkhccw+0kwd66ylowWqFwN2fn6xf5ssHh5M/
+ Ii4pcvHib8t6qeYQYg4VCRv/43ewnvcGhFj6gjX8rFW0hEoZUIdhbdeqw7gW+XxuMwx7
+ CImVXXsnz6Ui8dB0Fwh1NpQ7eEX0N7vzi5AOBlGXcRKp0lQvcfXVTRhqBS8yCkEGgL1K
+ 0uexumb2IkQrJbEDTiluwj6tsk+YvcDA1UNEGdaYosw7uVjURZ8BZDiQgiNMDjQrN+w7
+ yIUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=9CcF5tHbKiZI0Z+gJaQJaHgogDyIgZQAVS6fg4BKJlI=;
+ b=YeKQl6Z6aEu04EuHw+Yed4YBdmWrXlxjotlmZAwa0aVCXjET+pcTVuzhYGr1R3KMH/
+ YRkCusDLR7+Xo5V1IECK+pLC8HjQ8rYk32WhTpDLSrz/opSn66hMSL8cRibYyZDPUUb6
+ ifX98Lv76YoaYbPnrsyGLbmV4iHP3TfKnahS4DDTAByUdI2zRmxqQzV/+8//5TfJR5MM
+ KzZV+W8QZ65LxqvEdFkmitMxP3wtDrd8hbqjYvPi0bPxH3MApSId34mSbWRaLrjPhVp6
+ HI+fjhIXYDpPYd2SDdkV5TXD3hrBhPdZzjkjgyqPCDLzHl+uQYWuo7B6aVz5qJZ6CdxP
+ CaKw==
+X-Gm-Message-State: AOAM530NbaVH8PD9E9NZe7mJlq+bgM+2T/7yQVnsAWyscIoI8eLjohRn
+ +M/gdA6W256XL+o4bIM0FP4=
+X-Google-Smtp-Source: ABdhPJyWvDGzMWq0WKI05TtZGVb6EyRdreoyH/EKKXTJdx7zBT7lhzaMOshsFn6KmkV/3Oo0PA3JPA==
+X-Received: by 2002:a2e:81c7:: with SMTP id s7mr3684362ljg.395.1597165774726; 
+ Tue, 11 Aug 2020 10:09:34 -0700 (PDT)
+Received: from [192.168.1.2] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id q29sm11784666lfb.94.2020.08.11.10.09.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Aug 2020 10:09:34 -0700 (PDT)
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
+To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
+ <8e8a394c-bd2a-4444-9f4b-e022c59e0f81@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <02f6a5cf-46c3-c216-ad52-707e3409f156@gmail.com>
+Date: Tue, 11 Aug 2020 20:09:27 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mail.protonmail.ch
+In-Reply-To: <8e8a394c-bd2a-4444-9f4b-e022c59e0f81@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,78 +78,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Trammell Hudson <hudson@trmm.net>
-Cc: Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-[ Responding to both Jan and Andrew's comments about config parsing
-and file sources when secure boot is enabled ]
 
-On Friday, August 7, 2020 2:23 PM, Jan Beulich <jbeulich@suse.com> wrote:
-> [...]
-> As said before, I think we want an all-or-nothing approach. You
-> want to first establish whether the image is a unified one, and
-> if so not fall back to reading from disk. Otherwise the claim
-> of secure boot above is liable to be wrong.
+On 05.08.20 12:32, Julien Grall wrote:
 
-It seems that the system owner who signs the unified Xen image can
-choose to use a config, kernel, initrd, microcode, or xsm from the disk
-if they a) reference it in the config file and b) do not embed a named
-section in the unified image, in which case the code will
-fall back to the read_file() function.
+Hi Julien, Stefano
 
-This is essentially the status-quo today, including the shim verification
-of the kernel, in that all of the other values are essentially untrusted.
+>
+>>> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+>>> index 5fdb6e8..5823f11 100644
+>>> --- a/xen/include/asm-arm/p2m.h
+>>> +++ b/xen/include/asm-arm/p2m.h
+>>> @@ -385,10 +385,11 @@ static inline int set_foreign_p2m_entry(struct 
+>>> domain *d, unsigned long gfn,
+>>>                                           mfn_t mfn)
+>>>   {
+>>>       /*
+>>> -     * NOTE: If this is implemented then proper reference counting of
+>>> -     *       foreign entries will need to be implemented.
+>>> +     * XXX: handle properly reference. It looks like the page may 
+>>> not always
+>>> +     * belong to d.
+>>
+>> Just as a reference, and without taking away anything from the comment,
+>> I think that QEMU is doing its own internal reference counting for these
+>> mappings.
+>
+> I am not sure how this matters here? We can't really trust the DM to 
+> do the right thing if it is not running in dom0.
+>
+> But, IIRC, the problem is some of the pages doesn't belong to do a 
+> domain, so it is not possible to treat them as foreign mapping (e.g. 
+> you wouldn't be able to grab a reference). This investigation was done 
+> a couple of years ago, so this may have changed in recent Xen.
 
-However, as Andrew points out:
+Well, emulator is going to be used in driver domain, so this TODO must 
+be resolved. I suspect that the check for a hardware domain in 
+acquire_resource() which I skipped in a hackish way [1] could be simply 
+removed once proper reference counting is implemented in Xen, correct?
 
-On Monday, August 10, 2020 3:31 PM, Andrew Cooper <andrew.cooper3@citrix.co=
-m> wrote:
-> > On Thursday, August 6, 2020 8:14 PM, Andrew Cooper andrew.cooper3@citri=
-x.com wrote:
-> > > [...]
-> > > In the absence of a full audit of all our command line arguments, and
-> > > extra vigilance reviewing code coming in, the safer alternative is to
-> > > prohibit use of the command line, and only accept it in its Kconfig
-> > > embedded form for now.
-> [...]
-> With the proposal here, there are two signed sources; one in Kconfig,
-> and one in the embedded xen.cfg file.
+Could you please provide some pointers on that problem? Maybe some 
+questions need to be investigated again? Unfortunately, it is not 
+completely clear to me the direction to follow...
 
-I added code that turns off argc/argv parsing if UEFI Secure Boot is
-enabled, although it doesn't enforce a config file.  The system owner
-could sign a unified image without a config file embedded, in which case
-the x86 code path will do the read_file() approach for it and load an
-attacker controlled config.
+***
+I am wondering whether the similar problem exists on x86 as well? The 
+FIXME tag (before checking for a hardware domain in acquire_resource()) 
+in the common code makes me think it is a common issue. From other side 
+x86's
+implementation of set_foreign_p2m_entry() is exists unlike Arm's one 
+(which returned -EOPNOTSUPP so far). Or these are unrelated?
+***
 
-Much like the kexec and live patching options, it is a very caveat lector
-sort of thing.  The owner of the machine can build and sign an insecure
-hypervisor, kernel, etc configuration, if they want to, although it would
-be nice to have some defaults to aim the footguns away from their shoes.
-Adding runtime checks out of the early EFI boot path for secure boot status
-and turning off some of the obviously risky pieces would be a good next ste=
-p.
+[1] https://lists.xen.org/archives/html/xen-devel/2020-08/msg00075.html
 
-> [...]
-> My main concern is simply to avoid giving any kind of impression that
-> UEFI SecureBoot is generally usable at the moment.
 
-"Generally usable with Microsoft's signing key and UEFI ecocsystem",
-yeah, we're not really there yet.  There are still open issues in the
-wider Linux distributions as well about how to handle things like kernel
-command lines and initrd validation, so it's not just Xen.
 
-"Generally usable for users enrolling their own platform key and reviewing
-the system configuration details", however, I think we're fairly close to
-having the building blocks to put together slightly more secure systems.
+-- 
+Regards,
 
-Thanks for all of you're detailed comments and thoughts on this patch
-discussion!  Hopefully we can converge on something soon.
-
---
-Trammell
+Oleksandr Tyshchenko
 
 
