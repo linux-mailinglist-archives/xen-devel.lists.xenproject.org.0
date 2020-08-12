@@ -2,106 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9902426E5
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 10:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88D6C2427B4
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 11:37:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5mMJ-0002LM-0y; Wed, 12 Aug 2020 08:43:43 +0000
+	id 1k5nBx-0007G4-0J; Wed, 12 Aug 2020 09:37:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OV9a=BW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k5mMG-0002K6-TU
- for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 08:43:40 +0000
-X-Inumbo-ID: b53ac766-6aa6-4ef8-b18c-8163278107ab
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=fTRk=BW=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1k5nBv-0007Fz-Lq
+ for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 09:37:03 +0000
+X-Inumbo-ID: 5dede812-6c1e-4de2-ba53-5b11ea1eaa96
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b53ac766-6aa6-4ef8-b18c-8163278107ab;
- Wed, 12 Aug 2020 08:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=pVX8QpPomszbmTzvUNr9sqsMktYFGihiQoBSJ5meEm4=; b=sPEeSGJMsD8QmtB6lUpNJaGj3
- n7yuP5wXUFzKkpYApTSlcM+AfE4UZGIOgLFZiRILaG919t4kXs3ov5LWtaU5BQkdEF4Whh6BbloEE
- kYFwetCLrEsRifH8D6Brfe53I9N/QScRGAW2O4TSnTyBNM3PMlrx49hxBvsFMkARvl7rg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k5mM9-0008Sz-3r; Wed, 12 Aug 2020 08:43:33 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k5mM8-0000Ca-SL; Wed, 12 Aug 2020 08:43:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k5mM8-0005N1-Pm; Wed, 12 Aug 2020 08:43:32 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152562-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 5dede812-6c1e-4de2-ba53-5b11ea1eaa96;
+ Wed, 12 Aug 2020 09:37:02 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id r2so1372545wrs.8
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Aug 2020 02:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=u2E6rgHbknxNJ3RvXVF0jrVyxriVGKW63mfbg0Yk8FE=;
+ b=HeyxICiRRGR5FgJ2GolXxeF+ZUhDBVEwxCfzO0ie2mppJjmRLP7+/exOy0j2aNFmpP
+ AUfikjQwlm1nOy7c+RdtyuVLkOkK0+IVMwo0OGHSoZ7k0viZLbhrXHbOxBGYyrNg3yUh
+ xRnLwn9SF6T9124TxR4INuMfWuhJWPHCLRsEupeICxiV1ReEbW76sWfEa2e5e0+JwMEV
+ BphUhfUF7rKpRv6SE/64U6VBi+nwes9v9CWYCFZZPW0z3pX/kZCs96A96CkrbzFuMcvc
+ Lv8qE1OTs4CVddL2rh5wDTRP42yjdWhC03wNYejqP4t3+Rjqah/FYBXwoXxjBtQ+jgH6
+ 4lGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=u2E6rgHbknxNJ3RvXVF0jrVyxriVGKW63mfbg0Yk8FE=;
+ b=YCEUKs72ENzELI66sr8bhm+HDhHt7fd2+Y/ZEfQm/VVTwTIm5Gj8UNR9K5Yjiww4cF
+ I08o7g7xp2YJlvqkoBvIDbMETiqmbgYLoINKYdjenHetrMS1BxDtX0RghNmjOGndzXc4
+ UD/1R+pMHVjGeEZAEvlQiu7Q+q6mPGEmDO+/tmz+VDMyDKykeljBf6a2ptc5o9V/1b76
+ v0Cc1MmJEgspruGZhRIGMcmHd1e0RZD5HBd7kZ0h9HkOAWcG8vV8s1HqmkVT0hkwUw5j
+ IopzGjy9TCByrTAvUu/P3wvE8sns0efjwxWOHN0hC0bR80eMwvjJs4xuYXxeOpbGIg+/
+ /u+Q==
+X-Gm-Message-State: AOAM530hYAQI9hdjT9AzAnPd4+jz11YaV3QPioXr40ElsemwEjPkPiJF
+ x2y/8Io270b9OOqaTXAqi2A=
+X-Google-Smtp-Source: ABdhPJwBbbCAvy9cFMhOA+HMFNZfZJBmHPoZ8ka8YBfCokYgR7pGEliphtrRHqdqo6DCQxVADxxf5Q==
+X-Received: by 2002:adf:e8ca:: with SMTP id k10mr9656804wrn.110.1597225021323; 
+ Wed, 12 Aug 2020 02:37:01 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-143-223-30.range86-143.btcentralplus.com.
+ [86.143.223.30])
+ by smtp.gmail.com with ESMTPSA id z12sm3199040wrp.20.2020.08.12.02.37.00
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 12 Aug 2020 02:37:00 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	"'Paul Durrant'" <paul@xen.org>
+Cc: <xen-devel@lists.xenproject.org>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>,
+ "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
+ "'Julien Grall'" <julien@xen.org>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>,
+ "'Jun Nakajima'" <jun.nakajima@intel.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>
+References: <20200804134209.8717-1-paul@xen.org>
+ <20200804134209.8717-9-paul@xen.org>
+ <9d5a59cd-9e4e-2299-bc1c-af3c00a8719f@suse.com>
+In-Reply-To: <9d5a59cd-9e4e-2299-bc1c-af3c00a8719f@suse.com>
+Subject: RE: [EXTERNAL] [PATCH v4 08/14] remove remaining uses of
+ iommu_legacy_map/unmap
+Date: Wed, 12 Aug 2020 10:36:59 +0100
+Message-ID: <000001d6708c$20c5e1e0$6251a5a0$@xen.org>
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 152562: tolerable FAIL - PUSHED
-X-Osstest-Failures: linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-X-Osstest-Versions-This: linux=cad17feaf0d05e60f7fe3c29908f9e2d07fbb7ee
-X-Osstest-Versions-That: linux=d9939285fc818425ae92bd99f8c97b6b9ef3bb88
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 12 Aug 2020 08:43:32 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGtxlp5X/CuH2IzEhv/FXA8KDRK/wH9EygUAhlxY0epZNY14A==
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,298 +91,331 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152562 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152562/
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 06 August 2020 11:29
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Durrant, Paul =
+<pdurrant@amazon.co.uk>; Andrew Cooper
+> <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; Roger Pau =
+Monn=C3=A9 <roger.pau@citrix.com>; George
+> Dunlap <george.dunlap@citrix.com>; Ian Jackson =
+<ian.jackson@eu.citrix.com>; Julien Grall
+> <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Jun =
+Nakajima <jun.nakajima@intel.com>;
+> Kevin Tian <kevin.tian@intel.com>
+> Subject: RE: [EXTERNAL] [PATCH v4 08/14] remove remaining uses of =
+iommu_legacy_map/unmap
+>=20
+> CAUTION: This email originated from outside of the organization. Do =
+not click links or open
+> attachments unless you can confirm the sender and know the content is =
+safe.
+>=20
+>=20
+>=20
+> On 04.08.2020 15:42, Paul Durrant wrote:
+> > The 'legacy' functions do implicit flushing so amend the callers to =
+do the
+> > appropriate flushing.
+> >
+> > Unfortunately, because of the structure of the P2M code, we cannot =
+remove
+> > the per-CPU 'iommu_dont_flush_iotlb' global and the optimization it
+> > facilitates. It is now checked directly iommu_iotlb_flush(). Also, =
+it is
+> > now declared as bool (rather than bool_t) and setting/clearing it =
+are no
+> > longer pointlessly gated on is_iommu_enabled() returning true. =
+(Arguably
+> > it is also pointless to gate the call to iommu_iotlb_flush() on that
+> > condition - since it is a no-op in that case - but the if clause =
+allows
+> > the scope of a stack variable to be restricted).
+> >
+> > NOTE: The code in memory_add() now fails if the number of pages =
+passed to
+> >       a single call overflows an unsigned int. I don't believe this =
+will
+> >       ever happen in practice.
+>=20
+> I.e. you don't think adding 16Tb of memory in one go is possible?
+> I wouldn't bet on that ...
+>=20
 
-Failures :-/ but no regressions.
+I've re-worked previous patches to use unsigned long so I don't need =
+this restriction any more.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 152514
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -2446,10 +2446,16 @@ static int cleanup_page_mappings(struct =
+page_info *page)
+> >
+> >          if ( d && unlikely(need_iommu_pt_sync(d)) && =
+is_pv_domain(d) )
+> >          {
+> > -            int rc2 =3D iommu_legacy_unmap(d, _dfn(mfn), =
+PAGE_ORDER_4K);
+> > +            unsigned int flush_flags =3D 0;
+> > +            int err;
+> >
+> > +            err =3D iommu_unmap(d, _dfn(mfn), PAGE_ORDER_4K, 1, =
+&flush_flags);
+> >              if ( !rc )
+> > -                rc =3D rc2;
+> > +                rc =3D err;
+> > +
+> > +            err =3D iommu_iotlb_flush(d, _dfn(mfn), PAGE_ORDER_4K, =
+1, flush_flags);
+> > +            if ( !rc )
+> > +                rc =3D err;
+> >          }
+>=20
+> Wasn't the earlier change to add flushing in the error case to
+> allow to simplify code like this to
+>=20
+>         if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
+>         {
+>             unsigned int flush_flags =3D 0;
+>             int err;
+>=20
+>             err =3D iommu_unmap(d, _dfn(mfn), PAGE_ORDER_4K, 1, =
+&flush_flags);
+>             if ( !err )
+>                 err =3D iommu_iotlb_flush(d, _dfn(mfn), PAGE_ORDER_4K, =
+1, flush_flags);
+>             if ( !rc )
+>                 rc =3D err;
+>         }
+>=20
+> ?
 
-version targeted for testing:
- linux                cad17feaf0d05e60f7fe3c29908f9e2d07fbb7ee
-baseline version:
- linux                d9939285fc818425ae92bd99f8c97b6b9ef3bb88
+Yes.
 
-Last test of basis   152514  2020-08-07 07:44:50 Z    5 days
-Testing same since   152562  2020-08-11 13:43:24 Z    0 days    1 attempts
+>=20
+> > @@ -1441,9 +1446,16 @@ int clear_identity_p2m_entry(struct domain =
+*d, unsigned long gfn_l)
+> >
+> >      if ( !paging_mode_translate(d) )
+> >      {
+> > -        if ( !is_iommu_enabled(d) )
+> > -            return 0;
+> > -        return iommu_legacy_unmap(d, _dfn(gfn_l), PAGE_ORDER_4K);
+> > +        unsigned int flush_flags =3D 0;
+> > +        int err;
+> > +
+> > +        ret =3D iommu_unmap(d, _dfn(gfn_l), PAGE_ORDER_4K, 1, =
+&flush_flags);
+> > +
+> > +        err =3D iommu_iotlb_flush(d, _dfn(gfn_l), PAGE_ORDER_4K, 1, =
+flush_flags);
+> > +        if ( !ret )
+> > +            ret =3D err;
+> > +
+> > +        return ret;
+> >      }
+>=20
+> Similarly here then.
+>=20
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Aaron Brown <aaron.f.brown@intel.com>
-  Adam Ford <aford173@gmail.com>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-  Ben Skeggs <bskeggs@redhat.com>
-  Bruno Meneguele <bmeneg@redhat.com>
-  Casey Schaufler <casey@schaufler-ca.com>
-  Christoph Hellwig <hch@lst.de>
-  Christophe Leroy <christophe.leroy@csgroup.eu>
-  Chuck Lever <chuck.lever@oracle.com>
-  Colin Ian King <colin.king@canonical.com>
-  Cong Wang <xiyou.wangcong@gmail.com>
-  Connor McAdams <conmanx360@gmail.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  David Howells <dhowells@redhat.com>
-  David S. Miller <davem@davemloft.net>
-  David Woodhouse <dwmw2@infradead.org>
-  Dean Nelson <dnelson@redhat.com>
-  Dexuan Cui <decui@microsoft.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Dominique Martinet <asmadeus@codewreck.org>
-  Eric Biggers <ebiggers@google.com>
-  Eric Dumazet <edumazet@google.com>
-  Erik Ekman <erik@kryo.se>
-  Forest Crossman <cyrozap@gmail.com>
-  Francesco Ruggeri <fruggeri@arista.com>
-  Frank van der Linden <fllinden@amazon.com>
-  Frank Wunderlich <frank-w@public-files.de>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guillaume Nault <gnault@redhat.com>
-  Guoyu Huang <hgy5945@gmail.com>
-  Hangbin Liu <liuhangbin@gmail.com>
-  Huacai Chen <chenhc@lemote.com>
-  Hui Wang <hui.wang@canonical.com>
-  Ido Schimmel <idosch@mellanox.com>
-  Jann Horn <jannh@google.com>
-  Jens Axboe <axboe@kernel.dk>
-  Jianfeng Wang <jfwang@google.com>
-  Johan Hovold <johan@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Julia Lawall <julia.lawall@inria.fr>
-  Julian Squires <julian@cipht.net>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kan Liang <kan.liang@linux.intel.com>
-  Kevin Yang <yyd@google.com>
-  Landen Chao <landen.chao@mediatek.com>
-  Liu Yong <pkfxxxing@gmail.com>
-  Lorenzo Bianconi <lorenzo@kernel.org>
-  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
-  Lukas Wunner <lukas@wunner.de>
-  Marcel Holtmann <marcel@holtmann.org>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Mathias Nyman <mathias.nyman@linux.intel.com>
-  Matthias Maennich <maennich@google.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Mimi Zohar <zohar@linux.ibm.com>
-  Neal Cardwell <ncardwell@google.com>
-  Nicolas Chauvet <kwizart@gmail.com>
-  Pavel Machek <pavel@ucw.cz>
-  Peilin Ye <yepeilin.cs@gmail.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Peter Zijlstra <peterz@infradead.org>
-  Philippe Duplessis-Guindon <pduplessis@efficios.com>
-  Qiushi Wu <wu000273@umn.edu>
-  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-  René van Dorst <opensource@vdorst.com>
-  Richard Weinberger <richard@nod.at>
-  Rustam Kovhaev <rkovhaev@gmail.com>
-  Sam Ravnborg <sam@ravnborg.org>
-  Sasha Levin <sashal@kernel.org>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Stephen Hemminger <stephen@networkplumber.org>
-  Suren Baghdasaryan <surenb@google.com>
-  Takashi Iwai <tiwai@suse.de>
-  Todd Kjos <tkjos@google.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Vincent Duvert <vincent.ldev@duvert.net>
-  Willem de Bruijn <willemb@google.com>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xin Long <lucien.xin@gmail.com>
-  Xin Tan <tanxin.ctf@gmail.com>
-  Xin Xiong <xiongx18@fudan.edu.cn>
-  Xiyu Yang <xiyuyang19@fudan.edu.cn>
-  Yuchung Cheng <ycheng@google.com>
-  YueHaibing <yuehaibing@huawei.com>
-  Yunhai Zhang <zhangyunhai@nsfocus.com>
+Yes.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+> > --- a/xen/arch/x86/x86_64/mm.c
+> > +++ b/xen/arch/x86/x86_64/mm.c
+> > @@ -1413,21 +1413,22 @@ int memory_add(unsigned long spfn, unsigned =
+long epfn, unsigned int pxm)
+> >           !iommu_use_hap_pt(hardware_domain) &&
+> >           !need_iommu_pt_sync(hardware_domain) )
+> >      {
+> > -        for ( i =3D spfn; i < epfn; i++ )
+> > -            if ( iommu_legacy_map(hardware_domain, _dfn(i), =
+_mfn(i),
+> > -                                  PAGE_ORDER_4K,
+> > -                                  IOMMUF_readable | =
+IOMMUF_writable) )
+> > -                break;
+> > -        if ( i !=3D epfn )
+> > -        {
+> > -            while (i-- > old_max)
+> > -                /* If statement to satisfy __must_check. */
+> > -                if ( iommu_legacy_unmap(hardware_domain, _dfn(i),
+> > -                                        PAGE_ORDER_4K) )
+> > -                    continue;
+> > +        unsigned int flush_flags =3D 0;
+> > +        unsigned int n =3D epfn - spfn;
+> > +        int rc;
+> >
+> > +        ret =3D -EOVERFLOW;
+> > +        if ( spfn + n !=3D epfn )
+> > +            goto destroy_m2p;
+> > +
+> > +        rc =3D iommu_map(hardware_domain, _dfn(i), _mfn(i),
+> > +                       PAGE_ORDER_4K, n, IOMMUF_readable | =
+IOMMUF_writable,
+> > +                       &flush_flags);
+> > +        if ( !rc )
+> > +            rc =3D iommu_iotlb_flush(hardware_domain, _dfn(i), =
+PAGE_ORDER_4K, n,
+> > +                                       flush_flags);
+> > +        if ( rc )
+> >              goto destroy_m2p;
+> > -        }
+> >      }
+>=20
+> Did you mean to use "ret" here instead of introducing "rc"?
+>=20
 
+The previous code did not set ret in the case of an iommu op failure but =
+that does appear to be a mistake. I will use ret, as you suggest, but I =
+will call it out in the commit description too.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > --- a/xen/common/grant_table.c
+> > +++ b/xen/common/grant_table.c
+> > @@ -1225,11 +1225,23 @@ map_grant_ref(
+> >              kind =3D IOMMUF_readable;
+> >          else
+> >              kind =3D 0;
+> > -        if ( kind && iommu_legacy_map(ld, _dfn(mfn_x(mfn)), mfn, 0, =
+kind) )
+> > +        if ( kind )
+> >          {
+> > -            double_gt_unlock(lgt, rgt);
+> > -            rc =3D GNTST_general_error;
+> > -            goto undo_out;
+> > +            dfn_t dfn =3D _dfn(mfn_x(mfn));
+> > +            unsigned int flush_flags =3D 0;
+> > +            int err;
+> > +
+> > +            err =3D iommu_map(ld, dfn, mfn, 0, 1, kind, =
+&flush_flags);
+> > +            if ( !err )
+> > +                err =3D iommu_iotlb_flush(ld, dfn, 0, 1, =
+flush_flags);
+>=20
+> Question of 0 vs PAGE_ORDER_4K again.
+>=20
+> > @@ -1473,21 +1485,25 @@ unmap_common(
+> >      if ( rc =3D=3D GNTST_okay && gnttab_need_iommu_mapping(ld) )
+> >      {
+> >          unsigned int kind;
+> > +        dfn_t dfn =3D _dfn(mfn_x(op->mfn));
+> > +        unsigned int flush_flags =3D 0;
+> >          int err =3D 0;
+> >
+> >          double_gt_lock(lgt, rgt);
+> >
+> >          kind =3D mapkind(lgt, rd, op->mfn);
+> >          if ( !kind )
+> > -            err =3D iommu_legacy_unmap(ld, _dfn(mfn_x(op->mfn)), =
+0);
+> > +            err =3D iommu_unmap(ld, dfn, 0, 1, &flush_flags);
+> >          else if ( !(kind & MAPKIND_WRITE) )
+> > -            err =3D iommu_legacy_map(ld, _dfn(mfn_x(op->mfn)), =
+op->mfn, 0,
+> > -                                   IOMMUF_readable);
+> > -
+> > -        double_gt_unlock(lgt, rgt);
+> > +            err =3D iommu_map(ld, dfn, op->mfn, 0, 1, =
+IOMMUF_readable,
+> > +                            &flush_flags);
+> >
+> > +        if ( !err )
+> > +            err =3D iommu_iotlb_flush(ld, dfn, 0, 1, flush_flags);
+> >          if ( err )
+> >              rc =3D GNTST_general_error;
+> > +
+> > +        double_gt_unlock(lgt, rgt);
+> >      }
+>=20
+> While moving the unlock ahead of the flush would be somewhat =
+troublesome
+> in the map case, it seems straightforward here. Even if this gets =
+further
+> adjusted by a later patch, it should imo be done here - the later =
+patch
+> may also go in much later.
+>=20
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Ok.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> > --- a/xen/common/memory.c
+> > +++ b/xen/common/memory.c
+> > @@ -824,8 +824,7 @@ int xenmem_add_to_physmap(struct domain *d, =
+struct xen_add_to_physmap *xatp,
+> >      xatp->gpfn +=3D start;
+> >      xatp->size -=3D start;
+> >
+> > -    if ( is_iommu_enabled(d) )
+> > -       this_cpu(iommu_dont_flush_iotlb) =3D 1;
+> > +    this_cpu(iommu_dont_flush_iotlb) =3D true;
+>=20
+> Just like you replace the original instance here, ...
+>=20
+> > @@ -845,6 +844,8 @@ int xenmem_add_to_physmap(struct domain *d, =
+struct xen_add_to_physmap *xatp,
+> >          }
+> >      }
+> >
+> > +    this_cpu(iommu_dont_flush_iotlb) =3D false;
+> > +
+> >      if ( is_iommu_enabled(d) )
+> >      {
+> >          int ret;
+>=20
+> ... I'm sure you meant to also remove the original instance from
+> down below here.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I did indeed. Thanks for spotting.
 
+>=20
+> > @@ -364,7 +341,7 @@ int iommu_iotlb_flush(struct domain *d, dfn_t =
+dfn, unsigned int page_order,
+> >      int rc;
+> >
+> >      if ( !is_iommu_enabled(d) || !hd->platform_ops->iotlb_flush ||
+> > -         !page_count || !flush_flags )
+> > +         !page_count || !flush_flags || =
+this_cpu(iommu_dont_flush_iotlb) )
+> >          return 0;
+>=20
+> The patch description ought to assure the safety of this change: So
+> far, despite the flag set callers of iommu_iotlb_flush() (which
+> may be unaware of the flag's state) did get what they did ask for.
+> The change relies on there not being any such uses.
+>=20
 
-Pushing revision :
+Ok, I'll call it out.
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   d9939285fc81..cad17feaf0d0  cad17feaf0d05e60f7fe3c29908f9e2d07fbb7ee -> tested/linux-5.4
+> > @@ -370,15 +362,12 @@ void iommu_dev_iotlb_flush_timeout(struct =
+domain *d, struct pci_dev *pdev);
+> >
+> >  /*
+> >   * The purpose of the iommu_dont_flush_iotlb optional cpu flag is =
+to
+> > - * avoid unecessary iotlb_flush in the low level IOMMU code.
+> > - *
+> > - * iommu_map_page/iommu_unmap_page must flush the iotlb but =
+somethimes
+> > - * this operation can be really expensive. This flag will be set by =
+the
+> > - * caller to notify the low level IOMMU code to avoid the iotlb =
+flushes.
+> > - * iommu_iotlb_flush/iommu_iotlb_flush_all will be explicitly =
+called by
+> > - * the caller.
+> > + * avoid unecessary IOMMU flushing while updating the P2M.
+>=20
+> Correct the spelling of "unnecessary" at the same time?
+>=20
+
+Oh yes. Will do.
+
+  Paul
+
+> Jan
+
 
