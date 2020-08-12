@@ -2,52 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CCC82429A5
+	by mail.lfdr.de (Postfix) with ESMTPS id 61C892429A6
 	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 14:48:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5qAR-0006a9-3B; Wed, 12 Aug 2020 12:47:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k5qAV-0006cd-Fp; Wed, 12 Aug 2020 12:47:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rOR4=BW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k5qAQ-0006ZO-0h
- for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 12:47:42 +0000
-X-Inumbo-ID: 880b2dae-fce3-4085-9756-7bb5ee8b7757
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 880b2dae-fce3-4085-9756-7bb5ee8b7757;
- Wed, 12 Aug 2020 12:47:40 +0000 (UTC)
+ id 1k5qAU-0006Z7-48
+ for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 12:47:46 +0000
+X-Inumbo-ID: 7de72e45-4428-4e23-921a-9cbfaa54810d
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7de72e45-4428-4e23-921a-9cbfaa54810d;
+ Wed, 12 Aug 2020 12:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597236460;
+ d=citrix.com; s=securemail; t=1597236462;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q3MiLHAhAHNiPwuVE11OtW79xlxcO35A8P9+Xd2bmlQ=;
- b=MTNrXx73lNaLMwa2SdaNMU5tqZW+/9EUtrgZUtAx4sPkV28/ast94eZU
- FKcwf1MDocVPjuHlWGMGY6fPKBQ/wt5ZvYhBPdiGkw4zSHe/ju2A/8v+/
- 1m+aEjKCKAUFJkPfYLNy4uzyR9nOyt45iAdydbqaAc3rK7FGZbfeWdkLX Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=dRrun04ltOsR3Kur95ASzIsUrKz96b+1KdggwxKtE5U=;
+ b=fqxQtOZQSYltAN4PGX5EeNGP1cAwMtrt+tDxhHrXg4ORmX0fs4rkqp7Z
+ g3TrRCEhIvBPxQzOp3onrXqqTfQbNj8+trVWA1iQN6ZedAvfhZLPzrCSx
+ zPIpb2/VcYndvXqEL9FNYJs23Raz32ATLzY8rjckK2AO0XiFSh/CcjS6d s=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: dtcbon7iAF4f7uIC/Vdr/f6tq7McFktUGHksYldFf1xu8RHOatLyn2AByPEg6wgTReynZ6abef
- W84EL90Fzi6ueeVFkGs3XILIaohQBhXuSDb3GOolIsftCrXwSnhIwIxv47L9TWkqpD+vUhnNly
- iOXQGUqOPcgop31QsJo5CcL5kI+jTJHz/Aj653LBFWr5aqEenEuium+Gww1Fgy8K82X3w7tb7E
- R8YQMX6ZkGCJdlNI+NkEWepkIO0KTr3ojeHHZmXum5zlG5LhOEzOxX2kACaEMbfTrH3nxoYGY7
- DLo=
+IronPort-SDR: TfO4erpf8SzeMgcK6TRhMjdHaCjmFPBeLC3UsnNZILnzA3uUHzDaw1DlqzdBOL1TRfUS/X0Ekf
+ 1QPNl1YBGbKh/8r0QJUCUcExYk0cHw3ICzI8zBXUm7QXnO4clBtQDG+iIINhjQ4shatDESnz/X
+ ozH/rfpmMNaUaSQxrQ8rXdpofdlDYhT5hulfaoC+8X/f8jhEhqsV/of3bLBUjy9EIcTXuz38Ng
+ BthB61aW+a2AaF6eP6XNMEfTZgxYKfKq2rgRKAmtOY9IaqWt8FlssWTzKNrXdIM+m/AowRlryR
+ vgw=
 X-SBRS: 2.7
-X-MesageID: 24344723
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24374217
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,304,1592884800"; d="scan'208";a="24344723"
+X-IronPort-AV: E=Sophos;i="5.76,304,1592884800"; d="scan'208";a="24374217"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>, "Wei
- Liu" <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>
-Subject: [PATCH 4/5] x86/viridian: switch synic to use the new EOI callback
-Date: Wed, 12 Aug 2020 14:47:08 +0200
-Message-ID: <20200812124709.4165-5-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 5/5] x86/vioapic: switch to use the EOI callback mechanism
+Date: Wed, 12 Aug 2020 14:47:09 +0200
+Message-ID: <20200812124709.4165-6-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200812124709.4165-1-roger.pau@citrix.com>
 References: <20200812124709.4165-1-roger.pau@citrix.com>
@@ -67,106 +65,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Switch synic interrupts to use an EOI callback in order to execute the
-logic tied to the end of interrupt. This allows to remove the synic
-call in vlapic_handle_EOI.
+Switch the emulated IO-APIC code to use the local APIC EOI callback
+mechanism. This allows to remove the last hardcoded callback from
+vlapic_handle_EOI.
 
-Move and rename viridian_synic_ack_sint now that it can be made
-static.
+Move and rename the vioapic_update_EOI now that it can be made static.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-I'm unsure about the logic in viridian_synic_deliver_timer_msg, as it
-seems to only set the vector in msg_pending when the message is
-already pending?
----
- xen/arch/x86/hvm/viridian/synic.c  | 28 +++++++++++++++-------------
- xen/arch/x86/hvm/vlapic.c          |  4 ----
- xen/include/asm-x86/hvm/viridian.h |  1 -
- 3 files changed, 15 insertions(+), 18 deletions(-)
+ xen/arch/x86/hvm/vioapic.c | 90 +++++++++++++++++++-------------------
+ xen/arch/x86/hvm/vlapic.c  |  7 +--
+ 2 files changed, 47 insertions(+), 50 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/viridian/synic.c
-index 94a2b88733..250f0353cf 100644
---- a/xen/arch/x86/hvm/viridian/synic.c
-+++ b/xen/arch/x86/hvm/viridian/synic.c
-@@ -315,6 +315,19 @@ void viridian_synic_poll(struct vcpu *v)
-     viridian_time_poll_timers(v);
- }
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+index 67d4a6237f..58a85cf9de 100644
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -375,6 +375,50 @@ static const struct hvm_mmio_ops vioapic_mmio_ops = {
+     .write = vioapic_write
+ };
  
-+static void synic_ack_sint(struct vcpu *v, unsigned int vector, void *data)
++static void eoi_callback(struct vcpu *v, unsigned int vector, void *data)
 +{
-+    struct viridian_vcpu *vv = v->arch.hvm.viridian;
-+    unsigned int sintx = vv->vector_to_sintx[vector];
++    struct domain *d = v->domain;
++    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
++    union vioapic_redir_entry *ent;
++    unsigned int i;
 +
-+    ASSERT(v == current);
++    ASSERT(has_vioapic(d));
 +
-+    if ( sintx < ARRAY_SIZE(vv->sint) )
-+        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
-+                    &vv->msg_pending);
++    spin_lock(&d->arch.hvm.irq_lock);
++
++    for ( i = 0; i < d->arch.hvm.nr_vioapics; i++ )
++    {
++        struct hvm_vioapic *vioapic = domain_vioapic(d, i);
++        unsigned int pin;
++
++        for ( pin = 0; pin < vioapic->nr_pins; pin++ )
++        {
++            ent = &vioapic->redirtbl[pin];
++            if ( ent->fields.vector != vector )
++                continue;
++
++            ent->fields.remote_irr = 0;
++
++            if ( is_iommu_enabled(d) )
++            {
++                spin_unlock(&d->arch.hvm.irq_lock);
++                hvm_dpci_eoi(d, vioapic->base_gsi + pin, ent);
++                spin_lock(&d->arch.hvm.irq_lock);
++            }
++
++            if ( (ent->fields.trig_mode == VIOAPIC_LEVEL_TRIG) &&
++                 !ent->fields.mask &&
++                 hvm_irq->gsi_assert_count[vioapic->base_gsi + pin] )
++            {
++                ent->fields.remote_irr = 1;
++                vioapic_deliver(vioapic, pin);
++            }
++        }
++    }
++
++    spin_unlock(&d->arch.hvm.irq_lock);
 +}
 +
-+
- bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
-                                       unsigned int index,
-                                       uint64_t expiration,
-@@ -361,7 +374,8 @@ bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
-     memcpy(msg->u.payload, &payload, sizeof(payload));
+ static void ioapic_inj_irq(
+     struct hvm_vioapic *vioapic,
+     struct vlapic *target,
+@@ -388,7 +432,8 @@ static void ioapic_inj_irq(
+     ASSERT((delivery_mode == dest_Fixed) ||
+            (delivery_mode == dest_LowestPrio));
  
-     if ( !vs->masked )
--        vlapic_set_irq(vcpu_vlapic(v), vs->vector, 0);
-+        vlapic_set_irq_callback(vcpu_vlapic(v), vs->vector, 0,
-+                                synic_ack_sint, NULL);
- 
-     return true;
- }
-@@ -380,18 +394,6 @@ bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
-     return vs->auto_eoi;
+-    vlapic_set_irq(target, vector, trig_mode);
++    vlapic_set_irq_callback(target, vector, trig_mode,
++                            trig_mode ? eoi_callback : NULL, NULL);
  }
  
--void viridian_synic_ack_sint(const struct vcpu *v, unsigned int vector)
+ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+@@ -495,49 +540,6 @@ void vioapic_irq_positive_edge(struct domain *d, unsigned int irq)
+     }
+ }
+ 
+-void vioapic_update_EOI(struct domain *d, u8 vector)
 -{
--    struct viridian_vcpu *vv = v->arch.hvm.viridian;
--    unsigned int sintx = vv->vector_to_sintx[vector];
+-    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+-    union vioapic_redir_entry *ent;
+-    unsigned int i;
 -
--    ASSERT(v == current);
+-    ASSERT(has_vioapic(d));
 -
--    if ( sintx < ARRAY_SIZE(vv->sint) )
--        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
--                    &vv->msg_pending);
+-    spin_lock(&d->arch.hvm.irq_lock);
+-
+-    for ( i = 0; i < d->arch.hvm.nr_vioapics; i++ )
+-    {
+-        struct hvm_vioapic *vioapic = domain_vioapic(d, i);
+-        unsigned int pin;
+-
+-        for ( pin = 0; pin < vioapic->nr_pins; pin++ )
+-        {
+-            ent = &vioapic->redirtbl[pin];
+-            if ( ent->fields.vector != vector )
+-                continue;
+-
+-            ent->fields.remote_irr = 0;
+-
+-            if ( is_iommu_enabled(d) )
+-            {
+-                spin_unlock(&d->arch.hvm.irq_lock);
+-                hvm_dpci_eoi(d, vioapic->base_gsi + pin, ent);
+-                spin_lock(&d->arch.hvm.irq_lock);
+-            }
+-
+-            if ( (ent->fields.trig_mode == VIOAPIC_LEVEL_TRIG) &&
+-                 !ent->fields.mask &&
+-                 hvm_irq->gsi_assert_count[vioapic->base_gsi + pin] )
+-            {
+-                ent->fields.remote_irr = 1;
+-                vioapic_deliver(vioapic, pin);
+-            }
+-        }
+-    }
+-
+-    spin_unlock(&d->arch.hvm.irq_lock);
 -}
 -
- void viridian_synic_save_vcpu_ctxt(const struct vcpu *v,
-                                    struct hvm_viridian_vcpu_context *ctxt)
+ int vioapic_get_mask(const struct domain *d, unsigned int gsi)
  {
+     unsigned int pin = 0; /* See gsi_vioapic */
 diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 3b3b3d7621..701ff942e6 100644
+index 701ff942e6..129b20ff10 100644
 --- a/xen/arch/x86/hvm/vlapic.c
 +++ b/xen/arch/x86/hvm/vlapic.c
-@@ -489,12 +489,8 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
+@@ -483,22 +483,17 @@ void vlapic_EOI_set(struct vlapic *vlapic)
+ 
+ void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
+ {
+-    struct vcpu *v = vlapic_vcpu(vlapic);
+-    struct domain *d = v->domain;
+     vlapic_eoi_callback_t *callback;
      void *data;
      unsigned long flags;
  
--    /* All synic SINTx vectors are edge triggered */
+-    if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
+-        vioapic_update_EOI(d, vector);
 -
-     if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
-         vioapic_update_EOI(d, vector);
--    else if ( has_viridian_synic(d) )
--        viridian_synic_ack_sint(v, vector);
- 
      spin_lock_irqsave(&vlapic->callback_lock, flags);
      callback = vlapic->callbacks[vector].callback;
-diff --git a/xen/include/asm-x86/hvm/viridian.h b/xen/include/asm-x86/hvm/viridian.h
-index 844e56b38f..d387d11ce0 100644
---- a/xen/include/asm-x86/hvm/viridian.h
-+++ b/xen/include/asm-x86/hvm/viridian.h
-@@ -89,7 +89,6 @@ void viridian_apic_assist_clear(const struct vcpu *v);
- void viridian_synic_poll(struct vcpu *v);
- bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
-                                      unsigned int vector);
--void viridian_synic_ack_sint(const struct vcpu *v, unsigned int vector);
+     data = vlapic->callbacks[vector].data;
+     spin_unlock_irqrestore(&vlapic->callback_lock, flags);
  
- #endif /* __ASM_X86_HVM_VIRIDIAN_H__ */
+     if ( callback )
+-        callback(v, vector, data);
++        callback(vlapic_vcpu(vlapic), vector, data);
+ }
  
+ static bool_t is_multicast_dest(struct vlapic *vlapic, unsigned int short_hand,
 -- 
 2.28.0
 
