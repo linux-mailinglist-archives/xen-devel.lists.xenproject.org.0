@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97B422427F1
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 11:56:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 231F8242814
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 12:11:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5nTw-0000XO-S2; Wed, 12 Aug 2020 09:55:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k5niz-0002MA-C0; Wed, 12 Aug 2020 10:11:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rnXN=BW=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1k5nTv-0000Wc-84
- for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 09:55:39 +0000
-X-Inumbo-ID: ee43593f-25d8-473c-9728-f88a27570c80
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee43593f-25d8-473c-9728-f88a27570c80;
- Wed, 12 Aug 2020 09:55:38 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id k8so1345027wma.2
- for <xen-devel@lists.xenproject.org>; Wed, 12 Aug 2020 02:55:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lDUAzQ1oJy7PFmryfuc7OfGKGaMTx/e+9bB0gY1fjxI=;
- b=I1V6xQVSpM0Bh1vViU8ICFTiObKdqERid7V/3buAZOeN3D6c3LNZwEh0xplO52r9m+
- oPfsBJPPbh9g4vgPPQUYUHMUfGQRwER9tzyFxzWkJtX1c9d/IkSUgP7+BwBEbjzh5QOW
- VYFPiRKEcf3U0A4yHLW4e3m7+79gID2aqa/GOSO83f4lu0+7mif19tjHg3cPCGUaLMiS
- CgArjpWnLiQPgqYG/tUbFB7ODr4e6CBmm/YjipGrDmu4HEdSwiKHNyEVUs2BoW+Rs8RG
- gfuFg+R7XNnB0cYGvr6i/QqO7cRFesqKPBecv5XcuL7b29qwAJjn5v+1Gn3sfzKnf3Ns
- NVtw==
-X-Gm-Message-State: AOAM5336ZeZX254B9y/Zv32q6DxmDokjyNRie08i08bO5VWp3Xlr+wPm
- BZROxqnpYZZRveU7StZaDyBJZp0Y
-X-Google-Smtp-Source: ABdhPJxyrjsxlXtyZGruI+Gj/Iy4FwS+X5tptIdOp0k/eM+hZFitwwGJaKgC+q+/fwgK9IgYMZp1Gw==
-X-Received: by 2002:a1c:1d91:: with SMTP id d139mr8137035wmd.144.1597226136905; 
- Wed, 12 Aug 2020 02:55:36 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id v8sm3033618wmb.24.2020.08.12.02.55.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2020 02:55:36 -0700 (PDT)
-From: Wei Liu <wl@xen.org>
-To: Xen Development List <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools: bump library version numbers
-Date: Wed, 12 Aug 2020 09:55:34 +0000
-Message-Id: <20200812095534.107510-1-wl@xen.org>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
+ <SRS0=OV9a=BW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k5nix-0002Lm-2h
+ for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 10:11:11 +0000
+X-Inumbo-ID: 89a82109-32ad-41d2-b005-d3b23c4ee42b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 89a82109-32ad-41d2-b005-d3b23c4ee42b;
+ Wed, 12 Aug 2020 10:11:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LqVsGpE1I2HTMq+8r0hfPbpziAXAWSUSo8cnOkBJkK8=; b=4AuZQXqZt4bR8DuMSztcCEIB9
+ V9pFo9/BLAzui6HYlLdWssHXfB2ZXxqa12BiRGFXydfgoB8GmgwFTL0l/hgZrl+hopffg+rohyQVL
+ QWFXD/v/7OuSJbemx6Lrx4YKv8Co/yJW80M1ez91zSpJsTfqZSqgaz/nUCTHyczQbKcoA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5nim-0001xR-0E; Wed, 12 Aug 2020 10:11:00 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5nil-00031Q-Hu; Wed, 12 Aug 2020 10:10:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k5nil-0008Ja-H1; Wed, 12 Aug 2020 10:10:59 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152564-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xtf test] 152564: all pass - PUSHED
+X-Osstest-Versions-This: xtf=17d372b763cb0b2e2e6b5a637c11f3997d2533fa
+X-Osstest-Versions-That: xtf=ba5923110c2f562170b82f955d9ace70f6a4a8e2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 12 Aug 2020 10:10:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,85 +64,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Signed-off-by: Wei Liu <wl@xen.org>
----
- tools/libfsimage/common/Makefile  | 2 +-
- tools/libvchan/Makefile           | 2 +-
- tools/libxc/Makefile              | 2 +-
- tools/libxl/Makefile              | 4 ++--
- tools/xenstat/libxenstat/Makefile | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+flight 152564 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152564/
 
-diff --git a/tools/libfsimage/common/Makefile b/tools/libfsimage/common/Makefile
-index 8c8ba09f12d2..060f029ca94d 100644
---- a/tools/libfsimage/common/Makefile
-+++ b/tools/libfsimage/common/Makefile
-@@ -1,7 +1,7 @@
- XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/libfsimage/Rules.mk
- 
--MAJOR = 4.14
-+MAJOR = 4.15
- MINOR = 0
- 
- LDFLAGS-$(CONFIG_SunOS) = -Wl,-M -Wl,mapfile-SunOS
-diff --git a/tools/libvchan/Makefile b/tools/libvchan/Makefile
-index 913bcc888462..d99a6137e17f 100644
---- a/tools/libvchan/Makefile
-+++ b/tools/libvchan/Makefile
-@@ -15,7 +15,7 @@ $(LIBVCHAN_OBJS) $(LIBVCHAN_PIC_OBJS): CFLAGS += $(CFLAGS_libxenstore) $(CFLAGS_
- $(NODE_OBJS) $(NODE2_OBJS): CFLAGS += $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
- vchan-socket-proxy.o: CFLAGS += $(CFLAGS_libxenstore) $(CFLAGS_libxenctrl) $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
- 
--MAJOR = 4.14
-+MAJOR = 4.15
- MINOR = 0
- 
- CFLAGS += -I../include -I.
-diff --git a/tools/libxc/Makefile b/tools/libxc/Makefile
-index fae5969a737c..955cd5ab185d 100644
---- a/tools/libxc/Makefile
-+++ b/tools/libxc/Makefile
-@@ -1,7 +1,7 @@
- XEN_ROOT = $(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--MAJOR    = 4.14
-+MAJOR    = 4.15
- MINOR    = 0
- 
- ifeq ($(CONFIG_LIBXC_MINIOS),y)
-diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
-index 38cd43abae1c..0e8dfc61935b 100644
---- a/tools/libxl/Makefile
-+++ b/tools/libxl/Makefile
-@@ -5,10 +5,10 @@
- XEN_ROOT = $(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--MAJOR = 4.14
-+MAJOR = 4.15
- MINOR = 0
- 
--XLUMAJOR = 4.14
-+XLUMAJOR = 4.15
- XLUMINOR = 0
- 
- CFLAGS += -Werror -Wno-format-zero-length -Wmissing-declarations \
-diff --git a/tools/xenstat/libxenstat/Makefile b/tools/xenstat/libxenstat/Makefile
-index 03cb212e3b87..ab980852da7b 100644
---- a/tools/xenstat/libxenstat/Makefile
-+++ b/tools/xenstat/libxenstat/Makefile
-@@ -18,7 +18,7 @@ include $(XEN_ROOT)/tools/Rules.mk
- LDCONFIG=ldconfig
- MAKE_LINK=ln -sf
- 
--MAJOR=4.14
-+MAJOR=4.15
- MINOR=0
- 
- LIB=src/libxenstat.a
--- 
-2.20.1
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xtf                  17d372b763cb0b2e2e6b5a637c11f3997d2533fa
+baseline version:
+ xtf                  ba5923110c2f562170b82f955d9ace70f6a4a8e2
 
+Last test of basis   152049  2020-07-20 15:10:26 Z   22 days
+Testing same since   152564  2020-08-11 19:41:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xtf.git
+   ba59231..17d372b  17d372b763cb0b2e2e6b5a637c11f3997d2533fa -> xen-tested-master
 
