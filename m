@@ -2,54 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8F12429A7
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A6332429A4
 	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 14:48:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5qAI-0006Z1-0g; Wed, 12 Aug 2020 12:47:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k5qAP-0006Zr-QJ; Wed, 12 Aug 2020 12:47:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rOR4=BW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k5qAG-0006Yw-BK
- for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 12:47:32 +0000
-X-Inumbo-ID: 43f13c03-38a8-47d2-8814-59f2f9223e2b
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 43f13c03-38a8-47d2-8814-59f2f9223e2b;
- Wed, 12 Aug 2020 12:47:31 +0000 (UTC)
+ id 1k5qAP-0006Z7-3x
+ for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 12:47:41 +0000
+X-Inumbo-ID: f5f021b3-5d2f-4934-8d3f-ec34eef62537
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f5f021b3-5d2f-4934-8d3f-ec34eef62537;
+ Wed, 12 Aug 2020 12:47:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597236451;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=uF/F2yfIT/eAfPrCDzbbPjkHRrxoZJW5fvYYO14wnvo=;
- b=J0r75XcS9564BZidoP+ETHYQZGng3bCyOiMqXxzkGraeob53kjhVLIe3
- xNJA0n4ASSVHeSzAgzFx6R1B9yU0nfZ2VAa5hGK7K4uMjLDCWZx9buEtx
- N4e1vWoLgTojrjJyoxDnIuLlkJHKZna4XjnPqcl6l/zDOlf6w89olwaJC s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597236456;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/CXQgceqtYbB9GXFemr8LYcWqBzM3eTccW3m7nVwexM=;
+ b=ie4bxRVPfaW7gsQxbAvygcb1i50hi5At7U3rw3Hh0fG870W4sh1dNCUD
+ BQJeW5B2K0FiShLvp2e0lHt39Ve/2KzU2mS/+0X4r1HQ+YwPBWqZnVY/g
+ AXMs7VRdPR0VPAt3oq01yTwdSlBtau+fChWFXIPgUyx8iViobOcjUTDsK Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: eQF8/pzrQcNFuF6uJe2x0NvD3NslssVOzSaYIGeejvp0pJr7qNHkfYYMe1jMYB9SLgszFr13vJ
- xRpSI6z3GNIFpdrflqNkLzOIdaDxoBiyD2jsIrDTxwKR4wfhXSpcDCRvFITpJDzU7T05YJjqr4
- 2RPc1R3y3uyuWk+WJCnq/1gDjAhCOBw0+Qqc6NQpXd4Q7XUf44vmkW4bJRjNn50zlgSTGCqXuf
- hCkFHLbG7kptRIekcRDhv8oIyeawjt1/bugvwcBuqX2yBgDn5RQIS95Xnii7SGNkVKbAiENbaT
- LBU=
+IronPort-SDR: Im807mCdRVkf/6+5h0C8CiM0JY5v/yVXC2+UUsKsuVXglE56Z0LdzyuRnIysBhJZ3D2ZWpy8/0
+ c8OIcfGMGx38PRfQztnn5Wcq6nQWZ3b/VB6vjhqGSutp9pAoHc/m3ktAKZTzt7BjtRPPhIEWY0
+ fqAzrNrSYjaqjFmJX5xNNCJ7PQnx1u/Z1XfCozP8NkVk0vzbUxUez7PJPGab/SEdK2ZMW7cfkL
+ oP17Y/0kTmEIBakzUdjCKWnp2tDP9qkNtw7bojNCskCr4Sa3vLsA2iMG0PH6LNDNiyCKf8vK+K
+ gsg=
 X-SBRS: 2.7
-X-MesageID: 24344708
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24673476
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,304,1592884800"; d="scan'208";a="24344708"
+X-IronPort-AV: E=Sophos;i="5.76,304,1592884800"; d="scan'208";a="24673476"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jun Nakajima
  <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
  <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>
-Subject: [PATCH 0/5] x86/vlapic: implement EOI callbacks
-Date: Wed, 12 Aug 2020 14:47:04 +0200
-Message-ID: <20200812124709.4165-1-roger.pau@citrix.com>
+ <wl@xen.org>
+Subject: [PATCH 1/5] x86/hvm: change EOI exit bitmap helper parameter
+Date: Wed, 12 Aug 2020 14:47:05 +0200
+Message-ID: <20200812124709.4165-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200812124709.4165-1-roger.pau@citrix.com>
+References: <20200812124709.4165-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -66,47 +67,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
+Change the last parameter of the update_eoi_exit_bitmap helper to be a
+set/clear boolean instead of a triggering field. This is already
+inline with how the function is implemented, and will allow deciding
+whether an exit is required by the higher layers that call into
+update_eoi_exit_bitmap. Note that the current behavior is not changed
+by this patch.
 
-The following series attempts to implement EOI callbacks for vlapic
-injected vectors, this allows to remove the hardcoded callbacks in
-vlapic_handle_EOI. Instead a new vlapic vector injection helper is
-provided, that takes two extra parameters in order to pass a callback and
-an opaque data blob that will be called once the vector is EOI'ed by the
-guest.
+No functional change intended.
 
-My plan with this is to be able to provide EOI callbacks for all
-interrupt types that we inject to the guest, this is only the first step
-of that work by changing the emulated lapic to use this model. The
-IO-APIC and PIC still need to be switched to a similar model.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/hvm/vmx/vmx.c    | 4 ++--
+ xen/include/asm-x86/hvm/hvm.h | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Long term having such callbacks would greatly simplify the virtual
-periodic timers code, as being able to get a callback when the injected
-interrupt is EOI'ed simplifies the handling of missed ticks, as we would
-no longer need to check at each vmentry whether a virtual interrupt
-timer is being injected.
-
-Thanks, Roger.
-
-Roger Pau Monne (5):
-  x86/hvm: change EOI exit bitmap helper parameter
-  x86/vlapic: introduce an EOI callback mechanism
-  x86/vmsi: use the newly introduced EOI callbacks
-  x86/viridian: switch synic to use the new EOI callback
-  x86/vioapic: switch to use the EOI callback mechanism
-
- xen/arch/x86/hvm/vioapic.c         | 90 +++++++++++++++---------------
- xen/arch/x86/hvm/viridian/synic.c  | 28 +++++-----
- xen/arch/x86/hvm/vlapic.c          | 61 ++++++++++++++++----
- xen/arch/x86/hvm/vmsi.c            | 36 +++++++-----
- xen/arch/x86/hvm/vmx/vmx.c         |  4 +-
- xen/drivers/passthrough/io.c       |  4 +-
- xen/include/asm-x86/hvm/hvm.h      |  2 +-
- xen/include/asm-x86/hvm/io.h       |  2 +-
- xen/include/asm-x86/hvm/viridian.h |  1 -
- xen/include/asm-x86/hvm/vlapic.h   | 10 ++++
- 10 files changed, 150 insertions(+), 88 deletions(-)
-
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index eb54aadfba..1c04a7e3fc 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -1885,9 +1885,9 @@ static void vmx_set_info_guest(struct vcpu *v)
+     vmx_vmcs_exit(v);
+ }
+ 
+-static void vmx_update_eoi_exit_bitmap(struct vcpu *v, u8 vector, u8 trig)
++static void vmx_update_eoi_exit_bitmap(struct vcpu *v, uint8_t vector, bool set)
+ {
+-    if ( trig )
++    if ( set )
+         vmx_set_eoi_exit_bitmap(v, vector);
+     else
+         vmx_clear_eoi_exit_bitmap(v, vector);
+diff --git a/xen/include/asm-x86/hvm/hvm.h b/xen/include/asm-x86/hvm/hvm.h
+index 1eb377dd82..be0d8b0a4d 100644
+--- a/xen/include/asm-x86/hvm/hvm.h
++++ b/xen/include/asm-x86/hvm/hvm.h
+@@ -192,7 +192,7 @@ struct hvm_function_table {
+     void (*nhvm_domain_relinquish_resources)(struct domain *d);
+ 
+     /* Virtual interrupt delivery */
+-    void (*update_eoi_exit_bitmap)(struct vcpu *v, u8 vector, u8 trig);
++    void (*update_eoi_exit_bitmap)(struct vcpu *v, uint8_t vector, bool set);
+     void (*process_isr)(int isr, struct vcpu *v);
+     void (*deliver_posted_intr)(struct vcpu *v, u8 vector);
+     void (*sync_pir_to_irr)(struct vcpu *v);
 -- 
 2.28.0
 
