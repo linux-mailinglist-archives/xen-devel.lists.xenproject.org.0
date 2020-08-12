@@ -2,75 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DB84242A92
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 15:47:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D999D242A98
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Aug 2020 15:49:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k5r63-000427-EG; Wed, 12 Aug 2020 13:47:15 +0000
+	id 1k5r7v-0004A1-Ta; Wed, 12 Aug 2020 13:49:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fTRk=BW=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1k5r62-000422-4A
- for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 13:47:14 +0000
-X-Inumbo-ID: 02c8e610-c318-4d52-a2b6-c4928df6c583
-Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ id 1k5r7v-00049w-5D
+ for xen-devel@lists.xenproject.org; Wed, 12 Aug 2020 13:49:11 +0000
+X-Inumbo-ID: bcbd956b-a92a-4773-8d57-1bd04ff66c91
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 02c8e610-c318-4d52-a2b6-c4928df6c583;
- Wed, 12 Aug 2020 13:47:13 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id y3so2106455wrl.4
- for <xen-devel@lists.xenproject.org>; Wed, 12 Aug 2020 06:47:13 -0700 (PDT)
+ id bcbd956b-a92a-4773-8d57-1bd04ff66c91;
+ Wed, 12 Aug 2020 13:49:10 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id z18so2081714wrm.12
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Aug 2020 06:49:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:thread-index
  :content-language;
- bh=Vtyk3D7InXpBJ/6vfrCo+x2Vl1lx2LfXZf2sJc4/r+g=;
- b=kJc5RDFSfXtaz7aBn9oKEdYpnZ5/WEWMD+4MWk3GKZerjhG/pzqnfZKVN2rOd4dXSP
- s4Mw8lMH60phEEVUFN6kFcq7o4g38jYdAjDyteXUZ89tAcRXENAa+TeHwtSpZjbrYYXK
- 7NCQG51SdsXmKNf/PbBwBu2t+mJ0VuNC/6k9zE3K7JcE+N4HOiY55Y7x3eHdX1Untd/z
- 3DYj9khTZ0s3gpNZrcNix14ajvD7J6KdvINSDSxyoddN2ugOaVSih50TF2+qgOrGtQKp
- MMJs2G3UVgYNE0oCRRHLv8u5GRqnkUKjV1xz8a3YCDYOvhWp2hm9nEC4p8me4maVl12i
- VN8g==
+ bh=B+K/F9zTWabTlMfuT8Q8J7uqeCLpmF3XHAFxcwcJVDQ=;
+ b=OTkIb2znAwtxjrTuIbdxlR7ys2FJVdovAKJzKB35lGwTfnfhDq378FqYbEytVAgQ8T
+ eCVb00PQ5GxlX06CnUee2bb4oeHoRhMBa6rEFAbs05Wn+mZX2V8amMLa+ESsRZTMBaId
+ 06vV2VXAHkTzVYe8aLGQWYkC50mTB0WOJCXmdS032I6310poxIZxivdMv5JQ4TX91kBc
+ FwekV7J2exgS0dxDrotgm1Nftx1ww3VIAKhAK0BaTK20JM+c4vq6wgtQ3oHtcDSUJZ29
+ xUYUmKzQAj7SrvT/kZbshvmvNr9sMgrlPyGC8s9rlufKwyqinnrEaocWJZcW/cNSoQMG
+ J+Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :thread-index:content-language;
- bh=Vtyk3D7InXpBJ/6vfrCo+x2Vl1lx2LfXZf2sJc4/r+g=;
- b=r9fg0WRAde29/Ra1M38RdTJ3U7kmbLE+HwMR+aD5DZYdyctNh5kW01vErQ6yBFf1HA
- qkC4uw7Ba3riKslZUqKwW3EJGCLA5GjVlKmmoahRnbArhm5CArnDYXJDZ2hSo9x25yzJ
- 5CpmVhNvIgN0o1JTuTe9kMuqpOeNG4By28MK/9EqhDBi3JD0sWA5XVpTseaakvvO3l4W
- js8wBlz6A5xSMgZoWAcg2msksZ6BoivcKjmTq96uhEh4GEXv5j1wHcujOeSFbH4e+4MM
- Gg/gm9ifY4GOK5aq6Ku9DsmMq4sbA35FxjOpDvvVQC3xBcMr5f1V6XAiAvwsBdr2RZsA
- RyyA==
-X-Gm-Message-State: AOAM532MSUoQyOwA76FSzMI4W47haFj460tjHfUjuLvwFb/U03GYr7ic
- r1ozD27LLZ+zXJg28ymPXEA=
-X-Google-Smtp-Source: ABdhPJypuBG0ogJHeL3ii+IUYyD/6QrH/2YD8WlxlJEMCcYGsKa3yybUM5fas+j2P7c9EaAWt/ZLEw==
-X-Received: by 2002:adf:a112:: with SMTP id o18mr5643841wro.73.1597240032282; 
- Wed, 12 Aug 2020 06:47:12 -0700 (PDT)
+ bh=B+K/F9zTWabTlMfuT8Q8J7uqeCLpmF3XHAFxcwcJVDQ=;
+ b=Woz4soU2R6mK3s+lOBM+wUaEvtCoAXOm/Tll0IC23stcu7rhRo4M/Eo+mOP13dprZV
+ o+1GnZv5doAkGBGmjP8WUeZbmBeq40VK8ll7ZrjaQVb6vPWsoSviRRl5QqAzsVQZuA+r
+ vYwerUk/TKJONUiT4iFF4mHQz0fnJwwRaItl+xrWP3ugz2sML9QVdOg3ycrEYCahGfcv
+ 7Hc9W0PP7vCe1AzO5JQicEO0UmsNFaJ9o6WOVCkHN51XcxyrP3eav9md5bK+dknSPTPp
+ cLCP1JjQ/xAMK1nqufmD2uQlEbgmQh0Hon0ZWLxwcIFPr6iw9+gxwtF/arP1jXD5Ux6C
+ IoZQ==
+X-Gm-Message-State: AOAM53142pZO1PqW3R3Wsvpk9pIqH1zlSNozeUUQ7Yod8K19E3/QRFEa
+ 5CB34HqoDwUUiIoeLr0hNiA=
+X-Google-Smtp-Source: ABdhPJzR5UtNlFT+bTv3NE5dHWvVTTftNtzyno+hhp4PyCzdTpGmBQ2k/wWPCn6spjamN7KvpEjVVA==
+X-Received: by 2002:a05:6000:118e:: with SMTP id
+ g14mr35054938wrx.139.1597240149565; 
+ Wed, 12 Aug 2020 06:49:09 -0700 (PDT)
 Received: from CBGR90WXYV0 (host86-143-223-30.range86-143.btcentralplus.com.
  [86.143.223.30])
- by smtp.gmail.com with ESMTPSA id m20sm13161689wmc.1.2020.08.12.06.47.11
+ by smtp.gmail.com with ESMTPSA id g145sm5462472wmg.23.2020.08.12.06.49.08
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Aug 2020 06:47:11 -0700 (PDT)
+ Wed, 12 Aug 2020 06:49:08 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
 To: "'Jan Beulich'" <jbeulich@suse.com>
 Cc: <xen-devel@lists.xenproject.org>, "'Paul Durrant'" <pdurrant@amazon.com>,
  "'Kevin Tian'" <kevin.tian@intel.com>
 References: <20200804134209.8717-1-paul@xen.org>
- <20200804134209.8717-14-paul@xen.org>
- <6de24196-019c-f91c-5cca-0971676a9b38@suse.com>
-In-Reply-To: <6de24196-019c-f91c-5cca-0971676a9b38@suse.com>
-Subject: RE: [PATCH v4 13/14] vtd: use a bit field for context_entry
-Date: Wed, 12 Aug 2020 14:47:10 +0100
-Message-ID: <000801d670af$14046b70$3c0d4250$@xen.org>
+ <20200804134209.8717-15-paul@xen.org>
+ <918260ba-0241-80eb-567c-a2d48419c12a@suse.com>
+In-Reply-To: <918260ba-0241-80eb-567c-a2d48419c12a@suse.com>
+Subject: RE: [PATCH v4 14/14] vtd: use a bit field for dma_pte
+Date: Wed, 12 Aug 2020 14:49:07 +0100
+Message-ID: <000901d670af$59d705e0$0d8511a0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGtxlp5X/CuH2IzEhv/FXA8KDRK/wJqlKGkAnHLE1OpXuXhoA==
+Thread-Index: AQGtxlp5X/CuH2IzEhv/FXA8KDRK/wDXgLP2ATS60cSpdW+7cA==
 Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -88,130 +89,52 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
 > From: Jan Beulich <jbeulich@suse.com>
-> Sent: 06 August 2020 13:47
+> Sent: 06 August 2020 13:54
 > To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Paul Durrant =
-<pdurrant@amazon.com>; Kevin Tian
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Kevin Tian
 > <kevin.tian@intel.com>
-> Subject: Re: [PATCH v4 13/14] vtd: use a bit field for context_entry
->=20
+> Subject: Re: [PATCH v4 14/14] vtd: use a bit field for dma_pte
+> 
 > On 04.08.2020 15:42, Paul Durrant wrote:
-> > @@ -208,35 +209,53 @@ struct root_entry {
-> >      do { (r).ctp =3D ((val) >> PAGE_SHIFT_4K); } while (0)
+> > --- a/xen/drivers/passthrough/vtd/iommu.c
+> > +++ b/xen/drivers/passthrough/vtd/iommu.c
+> > @@ -1772,13 +1772,14 @@ static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
+> >      old = *pte;
 > >
-> >  struct context_entry {
-> > -    u64 lo;
-> > -    u64 hi;
-> > +    union {
-> > +        __uint128_t val;
-> > +        struct { uint64_t lo, hi; };
-> > +        struct {
-> > +            /* 0 - 63 */
-> > +            uint64_t p:1;
-> > +            uint64_t fpd:1;
-> > +            uint64_t tt:2;
-> > +            uint64_t reserved0:8;
-> > +            uint64_t slptp:52;
-> > +
-> > +            /* 64 - 127 */
-> > +            uint64_t aw:3;
-> > +            uint64_t ignored:4;
-> > +            uint64_t reserved1:1;
-> > +            uint64_t did:16;
-> > +            uint64_t reserved2:40;
-> > +        };
-> > +    };
-> >  };
-> > -#define ROOT_ENTRY_NR (PAGE_SIZE_4K/sizeof(struct root_entry))
-> > -#define context_present(c) ((c).lo & 1)
-> > -#define context_fault_disable(c) (((c).lo >> 1) & 1)
-> > -#define context_translation_type(c) (((c).lo >> 2) & 3)
-> > -#define context_address_root(c) ((c).lo & PAGE_MASK_4K)
-> > -#define context_address_width(c) ((c).hi &  7)
-> > -#define context_domain_id(c) (((c).hi >> 8) & ((1 << 16) - 1))
-> > -
-> > -#define context_set_present(c) do {(c).lo |=3D 1;} while(0)
-> > -#define context_clear_present(c) do {(c).lo &=3D ~1;} while(0)
-> > -#define context_set_fault_enable(c) \
-> > -    do {(c).lo &=3D (((u64)-1) << 2) | 1;} while(0)
-> > -
-> > -#define context_set_translation_type(c, val) do { \
-> > -        (c).lo &=3D (((u64)-1) << 4) | 3; \
-> > -        (c).lo |=3D (val & 3) << 2; \
-> > -    } while(0)
-> > +
-> > +#define context_present(c) (c).p
-> > +#define context_set_present(c) do { (c).p =3D 1; } while (0)
-> > +#define context_clear_present(c) do { (c).p =3D 0; } while (0)
-> > +
-> > +#define context_fault_disable(c) (c).fpd
-> > +#define context_set_fault_enable(c) do { (c).fpd =3D 1; } while (0)
-> > +
-> > +#define context_translation_type(c) (c).tt
-> > +#define context_set_translation_type(c, val) do { (c).tt =3D val; } =
-while (0)
-> >  #define CONTEXT_TT_MULTI_LEVEL 0
-> >  #define CONTEXT_TT_DEV_IOTLB   1
-> >  #define CONTEXT_TT_PASS_THRU   2
+> >      dma_set_pte_addr(new, mfn_to_maddr(mfn));
+> > -    dma_set_pte_prot(new,
+> > -                     ((flags & IOMMUF_readable) ? DMA_PTE_READ  : 0) |
+> > -                     ((flags & IOMMUF_writable) ? DMA_PTE_WRITE : 0));
+> > +    if ( flags & IOMMUF_readable )
+> > +        dma_set_pte_readable(new);
+> > +    if ( flags & IOMMUF_writable )
+> > +        dma_set_pte_writable(new);
 > >
-> > -#define context_set_address_root(c, val) \
-> > -    do {(c).lo &=3D 0xfff; (c).lo |=3D (val) & PAGE_MASK_4K ;} =
-while(0)
-> > +#define context_slptp(c) ((c).slptp << PAGE_SHIFT_4K)
-> > +#define context_set_slptp(c, val) \
-> > +    do { (c).slptp =3D (val) >> PAGE_SHIFT_4K; } while (0)
->=20
-> Presumably "slptp" is in line with the doc, but "address_root" is
-> quite a bit more readable. I wonder if I could talk you into
-> restoring the old (or some similar) names.
+> >      /* Set the SNP on leaf page table if Snoop Control available */
+> >      if ( iommu_snoop )
+> > -        dma_set_pte_snp(new);
+> > +        dma_set_pte_snoop(new);
+> 
+> Perhaps simply use an initializer:
+> 
+>     new = (struct dma_ptr){
+>             .r = flags & IOMMUF_readable,
+>             .w = flags & IOMMUF_writable,
+>             .snp = iommu_snoop,
+>             .addr = mfn_x(mfn),
+>         };
+> 
+> ? This also points out that the "addr" field isn't really an address,
+> and hence may want renaming.
 
-The problem with 'root' in the VT-d code is that it is ambiguous between =
-this case and manipulations of 'root entries', which is why I moved away =
-from it. The spec refers to 'slptptr' but I shortened it to 'slptp' for =
-consistency with the root 'ctp'... I should really use the name from the =
-spec. though.
-I will add a comment above the macro stating what the 'slptptr' is too.=20
-
->=20
-> More generally, and more so here than perhaps already on the previous
-> patch - are these helper macros useful to have anymore?
->=20
-
-Less useful. I was worried about ditching them causing the patches to =
-balloon in size but maybe they won't... I'll see.
-
-> > +#define context_address_width(c) (c).aw
-> >  #define context_set_address_width(c, val) \
-> > -    do {(c).hi &=3D 0xfffffff8; (c).hi |=3D (val) & 7;} while(0)
-> > -#define context_clear_entry(c) do {(c).lo =3D 0; (c).hi =3D 0;} =
-while(0)
-> > +    do { (c).aw =3D (val); } while (0)
-> > +
-> > +#define context_did(c) (c).did
-> > +#define context_set_did(c, val) \
-> > +    do { (c).did =3D (val); } while (0)
-> > +
-> > +#define context_clear_entry(c) do { (c).val =3D 0; } while (0)
->=20
-> While this is in line with previous code, I'm concerned:
-> domain_context_unmap_one() has
->=20
->     context_clear_present(*context);
->     context_clear_entry(*context);
->=20
-> No barrier means no guarantee of ordering. I'd drop clear_present()
-> here and make clear_entry() properly ordered. This, I think, will at
-> the same time render the __uint128_t field unused and hence
-> unnecessary again.
-
-I'd prefer to keep both with a barrier, particularly if I get rid of the =
-macros.
+If I am getting rid of macros then this makes more sense.
 
   Paul
 
->=20
-> Also comments given on the previous patch apply respectively here.
->=20
+> 
+> Again comments on the two earlier patch apply here respectively (or
+> else part of the suggestion above isn't going to work as is).
+> 
 > Jan
 
 
