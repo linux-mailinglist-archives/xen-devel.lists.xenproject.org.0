@@ -2,26 +2,26 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5DD243640
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 10:37:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A6C24364D
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 10:37:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k68jQ-0006Pf-Vf; Thu, 13 Aug 2020 08:37:04 +0000
+	id 1k68jW-0006TF-JF; Thu, 13 Aug 2020 08:37:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cOQw=BX=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1k68jP-0006LO-L4
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 08:37:03 +0000
-X-Inumbo-ID: cf03c668-75f3-40e5-abed-99006242c24b
+ id 1k68jU-0006LO-Lt
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 08:37:08 +0000
+X-Inumbo-ID: aaf766cb-3db9-4d36-ac1d-c9b32363fe1f
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cf03c668-75f3-40e5-abed-99006242c24b;
- Thu, 13 Aug 2020 08:36:54 +0000 (UTC)
+ id aaf766cb-3db9-4d36-ac1d-c9b32363fe1f;
+ Thu, 13 Aug 2020 08:36:55 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 757D3AFCD;
- Thu, 13 Aug 2020 08:37:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 611F6B594;
+ Thu, 13 Aug 2020 08:37:16 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -51,9 +51,9 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
  xen-devel@lists.xenproject.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 03/20] drm/etnaviv: Introduce GEM object functions
-Date: Thu, 13 Aug 2020 10:36:27 +0200
-Message-Id: <20200813083644.31711-4-tzimmermann@suse.de>
+Subject: [PATCH 04/20] drm/exynos: Introduce GEM object functions
+Date: Thu, 13 Aug 2020 10:36:28 +0200
+Message-Id: <20200813083644.31711-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200813083644.31711-1-tzimmermann@suse.de>
 References: <20200813083644.31711-1-tzimmermann@suse.de>
@@ -74,106 +74,81 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 GEM object functions deprecate several similar callback interfaces in
 struct drm_driver. This patch replaces the per-driver callbacks with
-per-instance callbacks in etnaviv. The only exception is gem_prime_mmap,
+per-instance callbacks in exynos. The only exception is gem_prime_mmap,
 which is non-trivial to convert.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 13 -------------
- drivers/gpu/drm/etnaviv/etnaviv_drv.h |  1 -
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 19 ++++++++++++++++++-
- 3 files changed, 18 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_drv.c | 10 ----------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c | 15 +++++++++++++++
+ 2 files changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index a9a3afaef9a1..aa270b79e585 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -468,12 +468,6 @@ static const struct drm_ioctl_desc etnaviv_ioctls[] = {
- 	ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
- };
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index dbd80f1e4c78..fe46680ca208 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -75,11 +75,6 @@ static void exynos_drm_postclose(struct drm_device *dev, struct drm_file *file)
+ 	file->driver_priv = NULL;
+ }
  
--static const struct vm_operations_struct vm_ops = {
--	.fault = etnaviv_gem_fault,
+-static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
 -	.open = drm_gem_vm_open,
 -	.close = drm_gem_vm_close,
 -};
 -
- static const struct file_operations fops = {
- 	.owner              = THIS_MODULE,
- 	.open               = drm_open,
-@@ -490,16 +484,9 @@ static struct drm_driver etnaviv_drm_driver = {
- 	.driver_features    = DRIVER_GEM | DRIVER_RENDER,
- 	.open               = etnaviv_open,
- 	.postclose           = etnaviv_postclose,
--	.gem_free_object_unlocked = etnaviv_gem_free_object,
--	.gem_vm_ops         = &vm_ops,
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
--	.gem_prime_pin      = etnaviv_gem_prime_pin,
--	.gem_prime_unpin    = etnaviv_gem_prime_unpin,
--	.gem_prime_get_sg_table = etnaviv_gem_prime_get_sg_table,
- 	.gem_prime_import_sg_table = etnaviv_gem_prime_import_sg_table,
--	.gem_prime_vmap     = etnaviv_gem_prime_vmap,
--	.gem_prime_vunmap   = etnaviv_gem_prime_vunmap,
- 	.gem_prime_mmap     = etnaviv_gem_prime_mmap,
- #ifdef CONFIG_DEBUG_FS
- 	.debugfs_init       = etnaviv_debugfs_init,
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-index 4d8dc9236e5f..914f0867ff71 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-@@ -49,7 +49,6 @@ int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		struct drm_file *file);
- 
- int etnaviv_gem_mmap(struct file *filp, struct vm_area_struct *vma);
--vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf);
- int etnaviv_gem_mmap_offset(struct drm_gem_object *obj, u64 *offset);
- struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj);
- void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj);
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index f06e19e7be04..66de9f299c76 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -170,7 +170,7 @@ int etnaviv_gem_mmap(struct file *filp, struct vm_area_struct *vma)
- 	return obj->ops->mmap(obj, vma);
+ static const struct drm_ioctl_desc exynos_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(EXYNOS_GEM_CREATE, exynos_drm_gem_create_ioctl,
+ 			DRM_RENDER_ALLOW),
+@@ -124,16 +119,11 @@ static struct drm_driver exynos_drm_driver = {
+ 	.open			= exynos_drm_open,
+ 	.lastclose		= drm_fb_helper_lastclose,
+ 	.postclose		= exynos_drm_postclose,
+-	.gem_free_object_unlocked = exynos_drm_gem_free_object,
+-	.gem_vm_ops		= &exynos_drm_gem_vm_ops,
+ 	.dumb_create		= exynos_drm_gem_dumb_create,
+ 	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import	= exynos_drm_gem_prime_import,
+-	.gem_prime_get_sg_table	= exynos_drm_gem_prime_get_sg_table,
+ 	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
+-	.gem_prime_vmap		= exynos_drm_gem_prime_vmap,
+-	.gem_prime_vunmap	= exynos_drm_gem_prime_vunmap,
+ 	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
+ 	.ioctls			= exynos_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+index efa476858db5..69a5cf28b4ae 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+@@ -129,6 +129,19 @@ void exynos_drm_gem_destroy(struct exynos_drm_gem *exynos_gem)
+ 	kfree(exynos_gem);
  }
  
--vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf)
-+static vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct drm_gem_object *obj = vma->vm_private_data;
-@@ -560,6 +560,22 @@ void etnaviv_gem_obj_add(struct drm_device *dev, struct drm_gem_object *obj)
- 	mutex_unlock(&priv->gem_lock);
- }
- 
-+static const struct vm_operations_struct vm_ops = {
-+	.fault = etnaviv_gem_fault,
++static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
 +	.open = drm_gem_vm_open,
 +	.close = drm_gem_vm_close,
 +};
 +
-+static const struct drm_gem_object_funcs etnaviv_gem_object_funcs = {
-+	.free = etnaviv_gem_free_object,
-+	.pin = etnaviv_gem_prime_pin,
-+	.unpin = etnaviv_gem_prime_unpin,
-+	.get_sg_table = etnaviv_gem_prime_get_sg_table,
-+	.vmap = etnaviv_gem_prime_vmap,
-+	.vunmap = etnaviv_gem_prime_vunmap,
-+	.vm_ops = &vm_ops,
++static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
++	.free = exynos_drm_gem_free_object,
++	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
++	.vmap = exynos_drm_gem_prime_vmap,
++	.vunmap	= exynos_drm_gem_prime_vunmap,
++	.vm_ops = &exynos_drm_gem_vm_ops,
 +};
 +
- static int etnaviv_gem_new_impl(struct drm_device *dev, u32 size, u32 flags,
- 	const struct etnaviv_gem_ops *ops, struct drm_gem_object **obj)
+ static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
+ 						  unsigned long size)
  {
-@@ -594,6 +610,7 @@ static int etnaviv_gem_new_impl(struct drm_device *dev, u32 size, u32 flags,
- 	INIT_LIST_HEAD(&etnaviv_obj->vram_list);
+@@ -143,6 +156,8 @@ static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
+ 	exynos_gem->size = size;
+ 	obj = &exynos_gem->base;
  
- 	*obj = &etnaviv_obj->base;
-+	(*obj)->funcs = &etnaviv_gem_object_funcs;
- 
- 	return 0;
- }
++	obj->funcs = &exynos_drm_gem_object_funcs;
++
+ 	ret = drm_gem_object_init(dev, obj, size);
+ 	if (ret < 0) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to initialize gem object\n");
 -- 
 2.28.0
 
