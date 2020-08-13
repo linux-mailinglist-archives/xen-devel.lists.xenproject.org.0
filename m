@@ -2,66 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82E642440E3
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 23:51:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3490D244124
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 00:15:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6L6Q-0002Iw-RA; Thu, 13 Aug 2020 21:49:38 +0000
+	id 1k6LUz-0004lp-VB; Thu, 13 Aug 2020 22:15:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rQHj=BX=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k6L6P-0002Ir-HU
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 21:49:37 +0000
-X-Inumbo-ID: f2a317fc-7aa5-47c7-b8c3-21f1af6f1906
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ <SRS0=ksh8=BX=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1k6LUy-0004lj-MK
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 22:15:00 +0000
+X-Inumbo-ID: 78a7faf3-888b-4368-bffb-a89543a40957
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2a317fc-7aa5-47c7-b8c3-21f1af6f1906;
- Thu, 13 Aug 2020 21:49:35 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id m22so7823560ljj.5
- for <xen-devel@lists.xenproject.org>; Thu, 13 Aug 2020 14:49:35 -0700 (PDT)
+ id 78a7faf3-888b-4368-bffb-a89543a40957;
+ Thu, 13 Aug 2020 22:14:59 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id z18so6628157wrm.12
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Aug 2020 15:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=1reioAEya9AXm2DWo94UJq2OCj5qBzdpCFkA3WTgHdw=;
- b=jxIUTz96Iskszg3C5D7slyRLLwhfFq/1KCwdGm/OxpP3zILxp/XpVl5I/0FOJMm8aO
- 7JLLtwan/FtfOKn7zYn+GV/HKKn0xPGarKWPY2rUBTxgtUUccTNAtOjUohc7GCgPEg6W
- bmTe3dWFL5BCjVGvQmj9SOv+hVVzBfBVVGFy9zzh6ZZZQegmq80qMDZCGzlXFCuUiWJR
- +NZtnrreVmo8xxWH53JW2aOaqg0kr6CbElXROKbSqVdx016slhXHX/3LROkKsGyaFmdC
- ceZtLnO0xS/FppgoWtV2j03msS0yKEWSjjChEMBP9IccdF/Sr0ziYZV936A2IiyD/0FM
- moGw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Kt5mea4P8K0ACP7R2e0ywPlzkbSskZxbv+lm0Wsva10=;
+ b=L2ueC9srosB0RmQvIan392c+OaGLS0/mC4pCCOAvIPI/qBYlGJ5k64Tn37DnI9Z0pc
+ T87yuadzkArRoxWeio8PTim32+Or0AhaAmtGMUh/zPJQLpnS7RKtzLq/eB7ygk2LvoO0
+ S1dHIjQRBT1SPqa1CZ/CcCg/pBNYxfRFt72hI4nF2GPgi6zuM7wwyuyiqb+v3F8i1dWq
+ vonYPAiFSWRQgZg8cau7r93/azKWLWMZAIet+Q4nQusUyKVQC9qHos2JAVhQB5trOW7e
+ UcE6LI9L3Yx2VWrvQhWW3oD8EH9dOMxrHvkyCTFatlBrB6tBac0r246RpLUXgt1Vb33i
+ 5sig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=1reioAEya9AXm2DWo94UJq2OCj5qBzdpCFkA3WTgHdw=;
- b=JK6UVbXzO1gRSRFGrLRuC+uqscT7Mo/C/C66UFfzMUXRKavWQ7nPgBm74o1bmureBX
- TkG5SFijcepq9L8moHiFk0X96MbhK9RphqWfXRuC1Q59OSo//n3/2ZZ47Oh81eJ+Mqij
- RMHprAPpgP0rMopP3eWmk5IkHe3SeDkDaLhcd+8cloT0CRCEhv7q53FIn4FBJR/2CIWb
- Zfqgyu/EmXZnbcEfgzUUAYIUk6d+QzmqqqQV+/G2FOpjOyQIS0KBkIEGivaoj5XY5whk
- hkKhHMUJ8a5YkuuSaSyuPClz3B+3pQYpAaVHqnoufz9XEZ91iwM0Zor5UCNi8QH/bEMM
- w2Nw==
-X-Gm-Message-State: AOAM531bnRufnvk6R6Rts8dJVxH2eRvuq18n6xgzf0W8LJXi+e2kmZ3w
- hGW+7NLPHa4JEIlxYLCEIzc=
-X-Google-Smtp-Source: ABdhPJw0+dSSbdpnExsnxsP/ibS0j5fEwrAtpwevEDiWT7ZZSC2Tquzo2zwa41vvadYZVm3EcuV4Xw==
-X-Received: by 2002:a2e:9b8f:: with SMTP id z15mr2797740lji.215.1597355373994; 
- Thu, 13 Aug 2020 14:49:33 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id t1sm1434895lfc.52.2020.08.13.14.49.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Aug 2020 14:49:33 -0700 (PDT)
-Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Julien Grall <julien.grall@arm.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Kt5mea4P8K0ACP7R2e0ywPlzkbSskZxbv+lm0Wsva10=;
+ b=KHtPo4nR8MOcmbkCDKtfR8uesHZdmwTIKRqOCDz9+SrkdvZu98Exz/msDbLma+200I
+ zrhfAcg2AKmeOPlcKK+m+6EVgNIGcCNPtjqdcl6GRQw0B5unnAKe8ean7F+xQicyOm2T
+ cJmT/to5ZDxtPMXWq3GVQ2DGAsWHu+jTV/yGImvleb5hBinfTqy4tgEtMBMNY3gs67gL
+ m3CHJ0xrgVLFocMWorI9P3+rMrnUmon2QtxHhpraLartoQgWRyj1XblMJhfVOXcVsnKb
+ hVZLWiEy+8ndozFmPYkAnYXQKBUY67vhVhaP9SSIaNBIfkLXE6duVg1DlJb+IN8Gi06u
+ 2wsg==
+X-Gm-Message-State: AOAM531h2IIjuiABzfBi43vcGhaeehwCb2z+vgdSB4WGGfiyPn7tKijU
+ qoxjLh8+PZnRrc/L+Uh3uBOQ3fafGvF35negC4U=
+X-Google-Smtp-Source: ABdhPJy0CpiIbnG2FVoFQOYtAgTaxsbPZxtLlfgHEM9TiOJhLvB/DwbcQ/JoYvxQ7AtOSWgPT2Z5jJI8bELevrT/ejY=
+X-Received: by 2002:a5d:55d2:: with SMTP id i18mr5665530wrw.378.1597356897961; 
+ Thu, 13 Aug 2020 15:14:57 -0700 (PDT)
+MIME-Version: 1.0
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
  <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
  <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
@@ -69,17 +53,24 @@ References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
  <02f6a5cf-46c3-c216-ad52-707e3409f156@gmail.com>
  <88b80010-2c56-c038-800a-3abd44f46ca5@xen.org>
  <b5497b00-2ee9-e6d8-ea4d-583a14b54522@gmail.com>
- <35c657d0-a0a9-0188-5f0c-9bd7047bca02@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <693c5c17-a744-b0f0-3bcb-9dae4b172b7f@gmail.com>
-Date: Fri, 14 Aug 2020 00:49:27 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <35c657d0-a0a9-0188-5f0c-9bd7047bca02@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+ <CAPD2p-n3ErCo0uFrW57P22409baU0Uq3s-7z4y+Q3xjKzX3j4g@mail.gmail.com>
+In-Reply-To: <CAPD2p-n3ErCo0uFrW57P22409baU0Uq3s-7z4y+Q3xjKzX3j4g@mail.gmail.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Thu, 13 Aug 2020 23:14:48 +0100
+Message-ID: <CAJ=z9a2ejEbMnoJEkv5b7cdGb7UtURTWj5Bky0B0uBktdWjaTg@mail.gmail.com>
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel <xen-devel@lists.xenproject.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, 
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
+ Julien Grall <julien.grall@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,99 +84,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-On 13.08.20 23:36, Julien Grall wrote:
-
-Hi Julien
-
+On Thu, 13 Aug 2020 at 21:40, Oleksandr Tyshchenko <olekstysh@gmail.com> wrote:
 >
 >
-> On 13/08/2020 19:41, Oleksandr wrote:
+> Hi
+>
+> Sorry for the possible format issue.
+>
+> On Thu, Aug 13, 2020 at 9:42 PM Oleksandr <olekstysh@gmail.com> wrote:
+>>
+>>
+>> On 11.08.20 20:50, Julien Grall wrote:
+>>
+>> Hi Julien
+>>
+>> >
+>> >
+>> > On 11/08/2020 18:09, Oleksandr wrote:
+>> >>
+>> >> On 05.08.20 12:32, Julien Grall wrote:
+>> >>
+>> >> Hi Julien, Stefano
+>> >>
+>> >>>
+>> >>>>> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+>> >>>>> index 5fdb6e8..5823f11 100644
+>> >>>>> --- a/xen/include/asm-arm/p2m.h
+>> >>>>> +++ b/xen/include/asm-arm/p2m.h
+>> >>>>> @@ -385,10 +385,11 @@ static inline int
+>> >>>>> set_foreign_p2m_entry(struct domain *d, unsigned long gfn,
+>> >>>>>                                           mfn_t mfn)
+>> >>>>>   {
+>> >>>>>       /*
+>> >>>>> -     * NOTE: If this is implemented then proper reference
+>> >>>>> counting of
+>> >>>>> -     *       foreign entries will need to be implemented.
+>> >>>>> +     * XXX: handle properly reference. It looks like the page may
+>> >>>>> not always
+>> >>>>> +     * belong to d.
+>> >>>>
+>> >>>> Just as a reference, and without taking away anything from the
+>> >>>> comment,
+>> >>>> I think that QEMU is doing its own internal reference counting for
+>> >>>> these
+>> >>>> mappings.
+>> >>>
+>> >>> I am not sure how this matters here? We can't really trust the DM to
+>> >>> do the right thing if it is not running in dom0.
+>> >>>
+>> >>> But, IIRC, the problem is some of the pages doesn't belong to do a
+>> >>> domain, so it is not possible to treat them as foreign mapping (e.g.
+>> >>> you wouldn't be able to grab a reference). This investigation was
+>> >>> done a couple of years ago, so this may have changed in recent Xen.
+>> >>
+>> >> Well, emulator is going to be used in driver domain, so this TODO
+>> >> must be resolved. I suspect that the check for a hardware domain in
+>> >> acquire_resource() which I skipped in a hackish way [1] could be
+>> >> simply removed once proper reference counting is implemented in Xen,
+>> >> correct?
+>> >
+>> > It depends how you are going to solve it. If you manage to solve it in
+>> > a generic way, then yes you could resolve. If not (i.e. it is solved
+>> > in an arch-specific way), we would need to keep the check on arch that
+>> > are not able to deal with it. See more below.
+>> >
+>> >>
+>> >> Could you please provide some pointers on that problem? Maybe some
+>> >> questions need to be investigated again? Unfortunately, it is not
+>> >> completely clear to me the direction to follow...
+>> >>
+>> >> ***
+>> >> I am wondering whether the similar problem exists on x86 as well?
+>> >
+>> > It is somewhat different. On Arm, we are able to handle properly
+>> > foreign mapping (i.e. mapping page from a another domain) as we would
+>> > grab a reference on the page (see XENMAPSPACE_gmfn_foreign handling in
+>> > xenmem_add_to_physmap()). The reference will then be released when the
+>> > entry is removed from the P2M (see p2m_free_entry()).
+>> >
+>> > If all the pages given to set_foreign_p2m_entry() belong to a domain,
+>> > then you could use the same approach.
+>> >
+>> > However, I remember to run into some issues in some of the cases. I
+>> > had a quick looked at the caller and I wasn't able to find any use
+>> > cases that may be an issue.
+>> >
+>> > The refcounting in the IOREQ code has changed after XSA-276 (this was
+>> > found while working on the Arm port). Probably the best way to figure
+>> > out if it works would be to try it and see if it fails.
+>> >
+>> > Note that set_foreign_p2m_entry() doesn't have a parameter for the
+>> > foreign domain. You would need to add a extra parameter for this.
+>> >
+>> >> The FIXME tag (before checking for a hardware domain in
+>> >> acquire_resource()) in the common code makes me think it is a common
+>> >> issue. From other side x86's
+>> >> implementation of set_foreign_p2m_entry() is exists unlike Arm's one
+>> >> (which returned -EOPNOTSUPP so far). Or these are unrelated?
+>> >
+>> > At the moment, x86 doesn't support refcounting for foreign mapping.
+>> > Hence the reason to restrict them to the hardware domain.
+>>
+>>
+>> Thank you for the pointers!
+>>
+>>
+>> I checked that all pages given to set_foreign_p2m_entry() belonged to a
+>> domain (at least in my use-case). I noticed two calls for acquiring
+>> resource at the DomU creation time, the first call was for grant table
+>> (single gfn)
+>> and the second for ioreq server which carried 2 gfns (for shared and
+>> buffered rings I assume). For the test purpose, I passed these gfns to
+>> get_page_from_gfn() in order to grab references on the pages, after that
+>> I tried to destroy DomU without calling put_page() for these pages. The
+>> fact that I couldn't destroy DomU completely (a zombie domain was
+>> observed) made me think that references were still taken, so worked as
+>> expected.
+>>
+>>
+>> I implemented a test patch (which uses approach from
+>> xenmem_add_to_physmap_one() for XENMAPSPACE_gmfn_foreign case) to check
+>> whether it would work.
+>>
+>>
+>> ---
+>>   xen/arch/arm/p2m.c        | 30 ++++++++++++++++++++++++++++++
+>>   xen/common/memory.c       |  2 +-
+>>   xen/include/asm-arm/p2m.h | 12 ++----------
+>>   3 files changed, 33 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>> index e9ccba8..7359715 100644
+>> --- a/xen/arch/arm/p2m.c
+>> +++ b/xen/arch/arm/p2m.c
+>> @@ -1385,6 +1385,36 @@ int guest_physmap_remove_page(struct domain *d,
+>> gfn_t gfn, mfn_t mfn,
+>>       return p2m_remove_mapping(d, gfn, (1 << page_order), mfn);
+>>   }
+>>
+>> +int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
+>> +                          unsigned long gfn, mfn_t mfn)
+>> +{
+>> +    struct page_info *page;
+>> +    p2m_type_t p2mt;
+>> +    int rc;
+>> +
+>> +    /*
+>> +     * Take reference to the foreign domain page. Reference will be
+>> released
+>> +     * in p2m_put_l3_page().
+>> +     */
+>> +    page = get_page_from_gfn(fd, gfn, &p2mt, P2M_ALLOC);
+>> +    if ( !page )
+>> +        return -EINVAL;
+>> +
+>> +    if ( p2m_is_ram(p2mt) )
+>> +        p2mt = (p2mt == p2m_ram_rw) ? p2m_map_foreign_rw :
+>> p2m_map_foreign_ro;
+>> +    else
+>> +    {
+>> +        put_page(page);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    rc = guest_physmap_add_entry(d, _gfn(gfn), mfn, 0, p2mt);
+>> +    if ( rc )
+>> +        put_page(page);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static struct page_info *p2m_allocate_root(void)
+>>   {
+>>       struct page_info *page;
+>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>> index 8d9f0a8..1de1d4f 100644
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -1171,7 +1171,7 @@ static int acquire_resource(
+>>
+>>           for ( i = 0; !rc && i < xmar.nr_frames; i++ )
+>>           {
+>> -            rc = set_foreign_p2m_entry(currd, gfn_list[i],
+>> +            rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
+>>                                          _mfn(mfn_list[i]));
+>>               /* rc should be -EIO for any iteration other than the first */
+>>               if ( rc && i )
+>> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+>> index 5823f11..53ce373 100644
+>> --- a/xen/include/asm-arm/p2m.h
+>> +++ b/xen/include/asm-arm/p2m.h
+>> @@ -381,16 +381,8 @@ static inline gfn_t gfn_next_boundary(gfn_t gfn,
+>> unsigned int order)
+>>       return gfn_add(gfn, 1UL << order);
+>>   }
+>>
+>> -static inline int set_foreign_p2m_entry(struct domain *d, unsigned long
+>> gfn,
+>> -                                        mfn_t mfn)
+>> -{
+>> -    /*
+>> -     * XXX: handle properly reference. It looks like the page may not
+>> always
+>> -     * belong to d.
+>> -     */
+>> -
+>> -    return guest_physmap_add_entry(d, _gfn(gfn), mfn, 0, p2m_ram_rw);
+>> -}
+>> +int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
+>> +                          unsigned long gfn,  mfn_t mfn);
+>>
+>>   /*
+>>    * A vCPU has cache enabled only when the MMU is enabled and data cache
+>> --
+>> 2.7.4
+>>
+>>
+>> And with that patch applied I was facing a BUG when destroying/rebooting
+>> DomU. The call of put_page_alloc_ref() in hvm_free_ioreq_mfn() triggered
+>> that BUG:
+>>
+>>
 >> Rebooting domain 2
->> root@generic-armv8-xt-dom0:~# (XEN) Xen BUG at 
+>> root@generic-armv8-xt-dom0:~# (XEN) Xen BUG at
 >> ...tAUTOINC+bb71237a55-r0/git/xen/include/xen/mm.h:683
->> (XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
->> (XEN) CPU:    3
->> (XEN) PC:     0000000000246f28 ioreq.c#hvm_free_ioreq_mfn+0x68/0x6c
->> (XEN) LR:     0000000000246ef0
->> (XEN) SP:     0000800725eafd80
->> (XEN) CPSR:   60000249 MODE:64-bit EL2h (Hypervisor, handler)
->> (XEN)      X0: 0000000000000001  X1: 403fffffffffffff  X2: 
->> 000000000000001f
->> (XEN)      X3: 0000000080000000  X4: 0000000000000000  X5: 
->> 0000000000400000
->> (XEN)      X6: 0000800725eafe24  X7: 0000ffffd1ef3e08  X8: 
->> 0000000000000020
->> (XEN)      X9: 0000000000000000 X10: 00e800008ecebf53 X11: 
->> 0400000000000000
->> (XEN)     X12: ffff7e00013b3ac0 X13: 0000000000000002 X14: 
->> 0000000000000001
->> (XEN)     X15: 0000000000000001 X16: 0000000000000029 X17: 
->> 0000ffff9badb3d0
->> (XEN)     X18: 000000000000010f X19: 0000000810e60e38 X20: 
->> 0000800725e68ec0
->> (XEN)     X21: 0000000000000000 X22: 00008004dc0404a0 X23: 
->> 000000005a000ea1
->> (XEN)     X24: ffff8000460ec280 X25: 0000000000000124 X26: 
->> 000000000000001d
->> (XEN)     X27: ffff000008ad1000 X28: ffff800052e65100  FP: 
->> ffff0000223dbd20
+>> (XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
+>> (XEN) CPU:    3
+>> (XEN) PC:     0000000000246f28 ioreq.c#hvm_free_ioreq_mfn+0x68/0x6c
+>> (XEN) LR:     0000000000246ef0
+>> (XEN) SP:     0000800725eafd80
+>> (XEN) CPSR:   60000249 MODE:64-bit EL2h (Hypervisor, handler)
+>> (XEN)      X0: 0000000000000001  X1: 403fffffffffffff  X2: 000000000000001f
+>> (XEN)      X3: 0000000080000000  X4: 0000000000000000  X5: 0000000000400000
+>> (XEN)      X6: 0000800725eafe24  X7: 0000ffffd1ef3e08  X8: 0000000000000020
+>> (XEN)      X9: 0000000000000000 X10: 00e800008ecebf53 X11: 0400000000000000
+>> (XEN)     X12: ffff7e00013b3ac0 X13: 0000000000000002 X14: 0000000000000001
+>> (XEN)     X15: 0000000000000001 X16: 0000000000000029 X17: 0000ffff9badb3d0
+>> (XEN)     X18: 000000000000010f X19: 0000000810e60e38 X20: 0000800725e68ec0
+>> (XEN)     X21: 0000000000000000 X22: 00008004dc0404a0 X23: 000000005a000ea1
+>> (XEN)     X24: ffff8000460ec280 X25: 0000000000000124 X26: 000000000000001d
+>> (XEN)     X27: ffff000008ad1000 X28: ffff800052e65100  FP: ffff0000223dbd20
 >> (XEN)
->> (XEN)   VTCR_EL2: 80023558
->> (XEN)  VTTBR_EL2: 0002000765f04000
+>> (XEN)   VTCR_EL2: 80023558
+>> (XEN)  VTTBR_EL2: 0002000765f04000
 >> (XEN)
->> (XEN)  SCTLR_EL2: 30cd183d
->> (XEN)    HCR_EL2: 000000008078663f
->> (XEN)  TTBR0_EL2: 00000000781c5000
+>> (XEN)  SCTLR_EL2: 30cd183d
+>> (XEN)    HCR_EL2: 000000008078663f
+>> (XEN)  TTBR0_EL2: 00000000781c5000
 >> (XEN)
->> (XEN)    ESR_EL2: f2000001
->> (XEN)  HPFAR_EL2: 0000000000030010
->> (XEN)    FAR_EL2: ffff000008005f00
+>> (XEN)    ESR_EL2: f2000001
+>> (XEN)  HPFAR_EL2: 0000000000030010
+>> (XEN)    FAR_EL2: ffff000008005f00
 >> (XEN)
 >> (XEN) Xen stack trace from sp=0000800725eafd80:
->> (XEN)    0000800725e68ec0 0000000000247078 00008004dc040000 
->> 00000000002477c8
->> (XEN)    ffffffffffffffea 0000000000000001 ffff8000460ec500 
->> 0000000000000002
->> (XEN)    000000000024645c 00000000002462dc 0000800725eafeb0 
->> 0000800725eafeb0
->> (XEN)    0000800725eaff30 0000000060000145 000000000027882c 
->> 0000800725eafeb0
->> (XEN)    0000800725eafeb0 01ff00000935de80 00008004dc040000 
->> 0000000000000006
->> (XEN)    ffff800000000000 0000000000000002 000000005a000ea1 
->> 000000019bc60002
->> (XEN)    0000ffffd1ef3e08 0000000000000020 0000000000000004 
->> 000000000027c7d8
->> (XEN)    000000005a000ea1 0000800725eafeb0 000000005a000ea1 
->> 0000000000279f98
->> (XEN)    0000000000000000 ffff8000460ec200 0000800725eaffb8 
->> 0000000000262c58
->> (XEN)    0000000000262c4c 07e0000160000249 0000000000000002 
->> 0000000000000001
->> (XEN)    ffff8000460ec500 ffff8000460ec508 ffff8000460ec208 
->> ffff800052e65100
->> (XEN)    000000005060b478 0000ffffd20f3000 ffff7e00013c77e0 
->> 0000000000000000
->> (XEN)    00e800008ecebf53 0400000000000000 ffff7e00013b3ac0 
->> 0000000000000002
->> (XEN)    0000000000000001 0000000000000001 0000000000000029 
->> 0000ffff9badb3d0
->> (XEN)    000000000000010f ffff8000460ec210 ffff8000460ec200 
->> ffff8000460ec210
->> (XEN)    0000000000000001 ffff8000460ec500 ffff8000460ec280 
->> 0000000000000124
->> (XEN)    000000000000001d ffff000008ad1000 ffff800052e65100 
->> ffff0000223dbd20
->> (XEN)    ffff000008537004 ffffffffffffffff ffff0000080c17e4 
->> 5a000ea160000145
->> (XEN)    0000000060000000 0000000000000000 0000000000000000 
->> ffff800052e65100
->> (XEN)    ffff0000223dbd20 0000ffff9badb3dc 0000000000000000 
->> 0000000000000000
+>> (XEN)    0000800725e68ec0 0000000000247078 00008004dc040000 00000000002477c8
+>> (XEN)    ffffffffffffffea 0000000000000001 ffff8000460ec500 0000000000000002
+>> (XEN)    000000000024645c 00000000002462dc 0000800725eafeb0 0000800725eafeb0
+>> (XEN)    0000800725eaff30 0000000060000145 000000000027882c 0000800725eafeb0
+>> (XEN)    0000800725eafeb0 01ff00000935de80 00008004dc040000 0000000000000006
+>> (XEN)    ffff800000000000 0000000000000002 000000005a000ea1 000000019bc60002
+>> (XEN)    0000ffffd1ef3e08 0000000000000020 0000000000000004 000000000027c7d8
+>> (XEN)    000000005a000ea1 0000800725eafeb0 000000005a000ea1 0000000000279f98
+>> (XEN)    0000000000000000 ffff8000460ec200 0000800725eaffb8 0000000000262c58
+>> (XEN)    0000000000262c4c 07e0000160000249 0000000000000002 0000000000000001
+>> (XEN)    ffff8000460ec500 ffff8000460ec508 ffff8000460ec208 ffff800052e65100
+>> (XEN)    000000005060b478 0000ffffd20f3000 ffff7e00013c77e0 0000000000000000
+>> (XEN)    00e800008ecebf53 0400000000000000 ffff7e00013b3ac0 0000000000000002
+>> (XEN)    0000000000000001 0000000000000001 0000000000000029 0000ffff9badb3d0
+>> (XEN)    000000000000010f ffff8000460ec210 ffff8000460ec200 ffff8000460ec210
+>> (XEN)    0000000000000001 ffff8000460ec500 ffff8000460ec280 0000000000000124
+>> (XEN)    000000000000001d ffff000008ad1000 ffff800052e65100 ffff0000223dbd20
+>> (XEN)    ffff000008537004 ffffffffffffffff ffff0000080c17e4 5a000ea160000145
+>> (XEN)    0000000060000000 0000000000000000 0000000000000000 ffff800052e65100
+>> (XEN)    ffff0000223dbd20 0000ffff9badb3dc 0000000000000000 0000000000000000
 >> (XEN) Xen call trace:
->> (XEN)    [<0000000000246f28>] ioreq.c#hvm_free_ioreq_mfn+0x68/0x6c (PC)
->> (XEN)    [<0000000000246ef0>] ioreq.c#hvm_free_ioreq_mfn+0x30/0x6c (LR)
+>> (XEN)    [<0000000000246f28>] ioreq.c#hvm_free_ioreq_mfn+0x68/0x6c (PC)
+>> (XEN)    [<0000000000246ef0>] ioreq.c#hvm_free_ioreq_mfn+0x30/0x6c (LR)
 >> (XEN)
 >> (XEN)
 >> (XEN) ****************************************
@@ -204,271 +378,38 @@ Hi Julien
 >>
 >>
 >>
->> Either I did something wrong (most likely) or there is an issue with 
->> page ref-counting in the IOREQ code. I am still trying to understand 
+>> Either I did something wrong (most likely) or there is an issue with
+>> page ref-counting in the IOREQ code. I am still trying to understand
 >> what is going on.
->
-> At a first glance, the implement of set_foreign_p2m_entry() looks fine 
-> to me.
->
 >> Some notes on that:
->> 1. I checked that put_page() was called for these pages in 
->> p2m_put_l3_page() when destroying domain. This happened before 
+>> 1. I checked that put_page() was called for these pages in
+>> p2m_put_l3_page() when destroying domain. This happened before
 >> hvm_free_ioreq_mfn() execution.
->> 2. There was no BUG detected if I passed "p2m_ram_rw" instead of 
->> "p2m_map_foreign_rw" in guest_physmap_add_entry(), but the DomU 
->> couldn't be fully destroyed because of the reference taken.
+>> 2. There was no BUG detected if I passed "p2m_ram_rw" instead of
+>> "p2m_map_foreign_rw" in guest_physmap_add_entry(), but the DomU couldn't
+>> be fully destroyed because of the reference taken.
 >
-> This definitely looks like a page reference issue. Would it be 
-> possible to print where the page reference are dropped? A WARN() in 
-> put_page() would help.
 >
-> To avoid a lot of message, I tend to use a global variable that store 
-> the page I want to watch.
+> I think I understand why BUG is triggered.
+>
+> I checked "page->count_info & PGC_count_mask" and noticed that get_page_from_gfn() doesn't seem to increase ref counter (but it should?)
+>
+> 1. hvm_alloc_ioreq_mfn() -> ref 2
+> 2. set_foreign_p2m_entry() -> ref still 2
+> 3. p2m_put_l3_page() -> ref 1
+> 4. hvm_free_ioreq_mfn() calls put_page_alloc_ref() with ref 1 which triggers BUG
 
+I looked again at your diff. It is actually not doing the right thing.
+The parameter 'gfn' is a physical frame from 'd' (your current domain)
+not 'fd'.
+So you will end up grabbing a reference count on the wrong page. You
+are quite lucky the 'gfn' is also valid for your foreign domain.
 
-Unfortunately it is unclear from the log who calls put_page() two times. 
-One of the call is made by p2m_put_l3_page() I assume, but who makes a 
-second call? Needs debugging.
+But in this case, you already have the MFN in hand. So what you want
+to do is something like:
 
+if (!get_page(mfn_to_page(mfn), fd))
+  return -EINVAL;
 
-Rebooting domain 2
-
-root@generic-armv8-xt-dom0:~#
-
-(XEN) put_page[1553] 0000000810e60e38 ---> ref = 3
-
-(XEN) Xen WARN at mm.c:1554
-(XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
-(XEN) CPU:    2
-(XEN) PC:     0000000000272a48 put_page+0xa0/0xc4
-(XEN) LR:     0000000000272a48
-(XEN) SP:     0000800725eaf990
-(XEN) CPSR:   80000249 MODE:64-bit EL2h (Hypervisor, handler)
-(XEN)      X0: 0000000000310028  X1: 0000000000000001  X2: 0000800725ca4000
-(XEN)      X3: 0000000000000020  X4: 0000000000000000  X5: 0000000000000020
-(XEN)      X6: 0080808080808080  X7: fefefefefefeff09  X8: 7f7f7f7f7f7f7f7f
-(XEN)      X9: 756e6c64513d313b X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
-(XEN)     X12: 0000000000000008 X13: 000000000028b7d0 X14: 0000800725eaf6e8
-(XEN)     X15: 0000000000000020 X16: 0000000000000000 X17: 0000ffffb5eaf070
-(XEN)     X18: 000000000000010f X19: 8040000000000003 X20: 0000000810e60e38
-(XEN)     X21: 0000800725f07208 X22: 0000800725f07208 X23: 000000000051c041
-(XEN)     X24: 0000000000000001 X25: 0000800725eafa78 X26: 000000000009c041
-(XEN)     X27: 0000000000000000 X28: 0000000000000007  FP: ffff00002212bd50
-(XEN)
-(XEN)   VTCR_EL2: 80023558
-(XEN)  VTTBR_EL2: 0002000765f04000
-(XEN)
-(XEN)  SCTLR_EL2: 30cd183d
-(XEN)    HCR_EL2: 000000008078663f
-(XEN)  TTBR0_EL2: 00000000781c5000
-(XEN)
-(XEN)    ESR_EL2: f2000001
-(XEN)  HPFAR_EL2: 0000000000030010
-(XEN)    FAR_EL2: ffff000008005f00
-(XEN)
-(XEN) Xen stack trace from sp=0000800725eaf990:
-(XEN)    034000051c0417ff 0000000000000000 00000000002743e8 0000800725f07208
-(XEN)    034000051c0417ff 0000000000000000 0000800725e6d208 0000800725f07208
-(XEN)    0000000000000003 0000000000274910 0000000000000000 ffffffffffffffff
-(XEN)    0000000000000001 000000000009c041 0000800725f07208 0000000000000000
-(XEN)    0000000000000012 0000000000000007 0000000000000001 0000000000000009
-(XEN)    0000000000274e00 0000800725f07208 ffffffffffffffff 0000000025eafb0c
-(XEN)    0000800725f07000 ffff000008f86528 0000000000000000 0000000200000000
-(XEN)    00000041000000e0 0000800725e6d000 0000000000000001 0000800725f07208
-(XEN)    000000000009c041 0000000000000000 0000800725f07000 ffff000008f86528
-(XEN)    ffff8000501b6540 ffff8000501b6550 ffff8000517bdb40 ffff800052784380
-(XEN)    0000000000275770 0000800725eafb08 0000000000000000 0000000025f07000
-(XEN)    fffffffffffffffe 0000800725f07000 0000000810e60e38 000000000021a930
-(XEN)    0000000000236d18 0000800725f1b990 0000800725eafeb0 0000800725eafeb0
-(XEN)    0000800725eaff30 00000000a0000145 000000005a000ea1 ffff000008f86528
-(XEN)    0000800725f566a0 00000000002a9088 ffff00000814acc0 0000000a55bb542d
-(XEN)    00000000002789d8 0000800725f1b990 00000000002b6cb8 0000800725f03920
-(XEN)    00000000002b6cb8 0000000c9084be29 0000000000310228 0000800725eafbf0
-(XEN)    ffff00000814f160 0000800725eafbe0 0000000000310228 0000800725eafbf0
-(XEN)    0000000000310228 0000000100000002 00000000002b6cb8 0000000000237aa8
-(XEN)    0000000000000002 0000000000000000 0000000000000000 0000800725eafc70
-(XEN)    0000800725ecd6c8 0000800725ecddf0 00000000000000a0 0000000000000240
-(XEN)    000000000026c920 0000800725ecd128 0000000000000002 0000000000000000
-(XEN)    0000800725ecd000 0000000000000001 000000000026bfa8 0000000c90bf0b49
-(XEN)    0000000000000002 0000000000000000 0000000000276fc4 0000000000000001
-(XEN)    0000800725e64000 0000800725e68a60 0000800725e64000 0000800725f566a0
-(XEN)    000000000023f53c 000000000027dc14 0000000000311390 0000000000346008
-(XEN)    000000000027651c 0000800725eafdd8 0000000000240e44 0000000000000004
-(XEN)    0000000000311390 0000000000240e80 0000800725e64000 0000000000240f20
-(XEN)    ffff000022127ff0 000000000009c041 000000005a000ea1 ffff800011ae9800
-(XEN)    0000000000000124 0000000000240f2c fffffffffffffff2 0000000000000001
-(XEN)    0000800725e68ec0 0000800725e68ed0 000000000024694c 00008004dc040000
-(XEN)    0000800725e68ec0 00008004dc040000 0000000000247c88 0000000000247c7c
-(XEN)    ffffffffffffffea 0000000000000001 ffff800011ae9e80 0000000000000002
-(XEN)    000000005a000ea1 0000ffffc52989c0 00000000002463b8 000000000024613c
-(XEN)    0000800725eafeb0 0000800725eafeb0 0000800725eaff30 0000000060000145
-(XEN)    00000000002789d8 0000800725eafeb0 0000800725eafeb0 01ff00000935de80
-(XEN)    0000800725eca000 0000000000310280 0000000000000000 0000000000000000
-(XEN)    000000005a000ea1 ffff800011ae9800 0000000000000124 000000000000001d
-(XEN)    0000000000000004 000000000027c984 000000005a000ea1 0000800725eafeb0
-(XEN)    000000005a000ea1 000000000027a144 0000000000000000 ffff80004e381f80
-(XEN) Xen call trace:
-(XEN)    [<0000000000272a48>] put_page+0xa0/0xc4 (PC)
-(XEN)    [<0000000000272a48>] put_page+0xa0/0xc4 (LR)
-(XEN)
-
-(XEN) put_page[1553] 0000000810e60e38 ---> ref = 2
-
-(XEN) Xen WARN at mm.c:1554
-(XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
-(XEN) CPU:    2
-(XEN) PC:     0000000000272a48 put_page+0xa0/0xc4
-(XEN) LR:     0000000000272a48
-(XEN) SP:     0000800725eafaf0
-(XEN) CPSR:   80000249 MODE:64-bit EL2h (Hypervisor, handler)
-(XEN)      X0: 0000000000310028  X1: 0000000000000000  X2: 0000800725ca4000
-(XEN)      X3: 0000000000000020  X4: 0000000000000000  X5: 0000000000000021
-(XEN)      X6: 0080808080808080  X7: fefefefefefeff09  X8: 7f7f7f7f7f7f7f7f
-(XEN)      X9: 756e6c64513d313b X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
-(XEN)     X12: 0000000000000008 X13: 000000000028b7d0 X14: 0000800725eaf848
-(XEN)     X15: 0000000000000020 X16: 0000000000000000 X17: 0000ffffb5eaf070
-(XEN)     X18: 000000000000010f X19: 8040000000000002 X20: 0000000810e60e38
-(XEN)     X21: 0000000810e60e38 X22: 0000000000000000 X23: 0000800725f07000
-(XEN)     X24: ffff000008f86528 X25: ffff8000501b6540 X26: ffff8000501b6550
-(XEN)     X27: ffff8000517bdb40 X28: ffff800052784380  FP: ffff00002212bd50
-(XEN)
-(XEN)   VTCR_EL2: 80023558
-(XEN)  VTTBR_EL2: 0002000765f04000
-(XEN)
-(XEN)  SCTLR_EL2: 30cd183d
-(XEN)    HCR_EL2: 000000008078663f
-(XEN)  TTBR0_EL2: 00000000781c5000
-(XEN)
-(XEN)    ESR_EL2: f2000001
-(XEN)  HPFAR_EL2: 0000000000030010
-(XEN)    FAR_EL2: ffff000008005f00
-(XEN)
-(XEN) Xen stack trace from sp=0000800725eafaf0:
-(XEN)    0000000000000000 0000800725f07000 000000000021a93c 000000000021a930
-(XEN)    0000000000236d18 0000800725f1b990 0000800725eafeb0 0000800725eafeb0
-(XEN)    0000800725eaff30 00000000a0000145 000000005a000ea1 ffff000008f86528
-(XEN)    0000800725f566a0 00000000002a9088 ffff00000814acc0 0000000a55bb542d
-(XEN)    00000000002789d8 0000800725f1b990 00000000002b6cb8 0000800725f03920
-(XEN)    00000000002b6cb8 0000000c9084be29 0000000000310228 0000800725eafbf0
-(XEN)    ffff00000814f160 0000800725eafbe0 0000000000310228 0000800725eafbf0
-(XEN)    0000000000310228 0000000100000002 00000000002b6cb8 0000000000237aa8
-(XEN)    0000000000000002 0000000000000000 0000000000000000 0000800725eafc70
-(XEN)    0000800725ecd6c8 0000800725ecddf0 00000000000000a0 0000000000000240
-(XEN)    000000000026c920 0000800725ecd128 0000000000000002 0000000000000000
-(XEN)    0000800725ecd000 0000000000000001 000000000026bfa8 0000000c90bf0b49
-(XEN)    0000000000000002 0000000000000000 0000000000276fc4 0000000000000001
-(XEN)    0000800725e64000 0000800725e68a60 0000800725e64000 0000800725f566a0
-(XEN)    000000000023f53c 000000000027dc14 0000000000311390 0000000000346008
-(XEN)    000000000027651c 0000800725eafdd8 0000000000240e44 0000000000000004
-(XEN)    0000000000311390 0000000000240e80 0000800725e64000 0000000000240f20
-(XEN)    ffff000022127ff0 000000000009c041 000000005a000ea1 ffff800011ae9800
-(XEN)    0000000000000124 0000000000240f2c fffffffffffffff2 0000000000000001
-(XEN)    0000800725e68ec0 0000800725e68ed0 000000000024694c 00008004dc040000
-(XEN)    0000800725e68ec0 00008004dc040000 0000000000247c88 0000000000247c7c
-(XEN)    ffffffffffffffea 0000000000000001 ffff800011ae9e80 0000000000000002
-(XEN)    000000005a000ea1 0000ffffc52989c0 00000000002463b8 000000000024613c
-(XEN)    0000800725eafeb0 0000800725eafeb0 0000800725eaff30 0000000060000145
-(XEN)    00000000002789d8 0000800725eafeb0 0000800725eafeb0 01ff00000935de80
-(XEN)    0000800725eca000 0000000000310280 0000000000000000 0000000000000000
-(XEN)    000000005a000ea1 ffff800011ae9800 0000000000000124 000000000000001d
-(XEN)    0000000000000004 000000000027c984 000000005a000ea1 0000800725eafeb0
-(XEN)    000000005a000ea1 000000000027a144 0000000000000000 ffff80004e381f80
-(XEN)    0000800725eaffb8 0000000000262c58 0000000000262c4c 07e0000160000249
-(XEN)    000000000000000f ffff00002212bd90 ffff80004e381f80 000000000009c041
-(XEN)    ffff7dffff000000 0000ffffb603d000 0000000000000000 0000ffffb603c000
-(XEN)    ffff8000521fdc08 0000000000000200 ffff8000517bdb60 0000000000000000
-(XEN)    0000000000000000 0000ffffc529614f 000000000000001b 0000000000000001
-(XEN)    000000000000000c 0000ffffb5eaf070 000000000000010f 0000000000000002
-(XEN)    ffff80004e381f80 0000000000007ff0 ffff7e0000000000 0000000000000001
-(XEN)    ffff000008f86528 ffff8000501b6540 ffff8000501b6550 ffff8000517bdb40
-(XEN)    ffff800052784380 ffff00002212bd50 ffff000008537ab8 ffffffffffffffff
-(XEN)    ffff0000080c1790 5a000ea1a0000145 0000000060000000 0000000000000000
-(XEN)    0000000000000000 ffff800052784380 ffff00002212bd50 0000ffffb5eaf078
-(XEN) Xen call trace:
-(XEN)    [<0000000000272a48>] put_page+0xa0/0xc4 (PC)
-(XEN)    [<0000000000272a48>] put_page+0xa0/0xc4 (LR)
-(XEN)
-
-
-(XEN) hvm_free_ioreq_mfn[417] ---> ref = 1
-
-(XEN) Xen BUG at ...tAUTOINC+bb71237a55-r0/git/xen/include/xen/mm.h:683
-(XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
-(XEN) CPU:    2
-(XEN) PC:     0000000000246e2c ioreq.c#hvm_free_ioreq_mfn+0xbc/0xc0
-(XEN) LR:     0000000000246dcc
-(XEN) SP:     0000800725eafd70
-(XEN) CPSR:   60000249 MODE:64-bit EL2h (Hypervisor, handler)
-(XEN)      X0: 0000000000000001  X1: 403fffffffffffff  X2: 000000000000001f
-(XEN)      X3: 0000000080000000  X4: 0000000000000000  X5: 0000000000400000
-(XEN)      X6: 0080808080808080  X7: fefefefefefeff09  X8: 7f7f7f7f7f7f7f7f
-(XEN)      X9: 756e6c64513d313b X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
-(XEN)     X12: 0000000000000008 X13: 000000000028b7d0 X14: 0000800725eafac8
-(XEN)     X15: 0000000000000020 X16: 0000000000000000 X17: 0000ffffb5eab3d0
-(XEN)     X18: 000000000000010f X19: 0000000810e60e38 X20: 0000000810e60e48
-(XEN)     X21: 0000000000000000 X22: 00008004dc0404a0 X23: 000000005a000ea1
-(XEN)     X24: ffff800011ae9800 X25: 0000000000000124 X26: 000000000000001d
-(XEN)     X27: ffff000008ad1000 X28: ffff800052784380  FP: ffff00002212bd20
-(XEN)
-(XEN)   VTCR_EL2: 80023558
-(XEN)  VTTBR_EL2: 0002000765f04000
-(XEN)
-(XEN)  SCTLR_EL2: 30cd183d
-(XEN)    HCR_EL2: 000000008078663f
-(XEN)  TTBR0_EL2: 00000000781c5000
-(XEN)
-(XEN)    ESR_EL2: f2000001
-(XEN)  HPFAR_EL2: 0000000000030010
-(XEN)    FAR_EL2: ffff000008005f00
-(XEN)
-(XEN) Xen stack trace from sp=0000800725eafd70:
-(XEN)    0000800725e68ec0 0000800725e68ec0 0000000000246f7c 0000800725e68ec0
-(XEN)    00008004dc040000 00000000002476cc ffffffffffffffea 0000000000000001
-(XEN)    ffff800011ae9e80 0000000000000002 00000000002462bc 000000000024613c
-(XEN)    0000800725eafeb0 0000800725eafeb0 0000800725eaff30 0000000060000145
-(XEN)    00000000002789d8 0000800725fb50a4 00000000ffffffff 0100000000277704
-(XEN)    00008004dc040000 0000000000000006 0000000000000000 0000000000310288
-(XEN)    0000000000000004 0000000125ec0002 0000ffffc52989a8 0000000000000020
-(XEN)    0000000000000004 000000000027c984 000000005a000ea1 0000800725eafeb0
-(XEN)    000000005a000ea1 000000000027a144 0000000000000000 ffff800011ae9100
-(XEN)    0000800725eaffb8 0000000000262c58 0000000000262c4c 07e0000160000249
-(XEN)    0000000000000002 0000000000000001 ffff800011ae9e80 ffff800011ae9e88
-(XEN)    ffff800011ae9108 ffff800052784380 000000005068e148 0000ffffc5498000
-(XEN)    ffff80005156ac10 0000000000000000 00e800008f88bf53 0400000000000000
-(XEN)    ffff7e00013e22c0 0000000000000002 0000000000000001 0000000000000001
-(XEN)    0000000000000029 0000ffffb5eab3d0 000000000000010f ffff800011ae9110
-(XEN)    ffff800011ae9100 ffff800011ae9110 0000000000000001 ffff800011ae9e80
-(XEN)    ffff800011ae9800 0000000000000124 000000000000001d ffff000008ad1000
-(XEN)    ffff800052784380 ffff00002212bd20 ffff000008537004 ffffffffffffffff
-(XEN)    ffff0000080c17e4 5a000ea160000145 0000000060000000 0000000000000000
-(XEN)    0000000000000000 ffff800052784380 ffff00002212bd20 0000ffffb5eab3dc
-(XEN)    0000000000000000 0000000000000000
-(XEN) Xen call trace:
-(XEN)    [<0000000000246e2c>] ioreq.c#hvm_free_ioreq_mfn+0xbc/0xc0 (PC)
-(XEN)    [<0000000000246dcc>] ioreq.c#hvm_free_ioreq_mfn+0x5c/0xc0 (LR)
-(XEN)
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 2:
-(XEN) Xen BUG at ...tAUTOINC+bb71237a55-r0/git/xen/include/xen/mm.h:683
-(XEN) ****************************************
-(XEN)
-(XEN) Reboot in five seconds...
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) PSCI cpu off failed for CPU0 err=-3
-(XEN) ****************************************
-(XEN)
-(XEN) Reboot in five seconds...
-
-
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+/* Map page */
 
