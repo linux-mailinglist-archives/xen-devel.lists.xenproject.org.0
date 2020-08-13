@@ -2,68 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D265324382F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 12:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68A1D24384B
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 12:16:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6A4C-0008Dn-TZ; Thu, 13 Aug 2020 10:02:36 +0000
+	id 1k6AHM-0000lU-37; Thu, 13 Aug 2020 10:16:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lIW0=BX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k6A4B-0008Di-QH
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 10:02:35 +0000
-X-Inumbo-ID: 157eb5a9-ca11-4808-bdf3-7cd3763e4473
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1k6AHL-0000lM-0W
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 10:16:11 +0000
+X-Inumbo-ID: 0cd77151-f906-4593-9459-2a5d3b2b12f5
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 157eb5a9-ca11-4808-bdf3-7cd3763e4473;
- Thu, 13 Aug 2020 10:02:34 +0000 (UTC)
+ id 0cd77151-f906-4593-9459-2a5d3b2b12f5;
+ Thu, 13 Aug 2020 10:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597312954;
+ d=citrix.com; s=securemail; t=1597313770;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=kkFMyNBbOdtaKP3s0IKVuqUHyo7Vk4EymQC6D+Rwakc=;
- b=Rc188J3Ps3oRYU00AsDTa1+Y+SB2tH10tfMeBK/g8iYgSv4+pcrwka9q
- DVknnN1SulQYeo1DKWY4HVnM3T/e51Of7gdbvcdHqP3FJcT1GwByHOMgL
- weBVYWy/QJ1Kd9R+OC+RUQ3P4tqdwFGutcwtnqNHqD6OL8TOVsDI5Kqsr w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=N5iJJLS+SNUowJnpCrGqMzDNvIcyVATD++2NJIVUZfk=;
+ b=ZvBjG5gWFJ80lfJgaK2C3/6UVV+n06vyX981/Up0tozxOp3aOfLIheT9
+ nng74vEXYH1IWDTncxQ9g8vBM0aUV6/Jrr024+yKXq68rUCwK61381jK5
+ BWNCwQfOC/QOGAuQlLSOuuENYcyF+bifykzp7VoG9pzTrKr7pudRmY536 g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: wDtbUOGkC+v+QIiO9GW5InSj95+N5bZvHh0cz2sCfx8x8/0y/wKXIBeFTsdWA5IVAl9fHYeLN9
- bkgatnmpc6dbgREHUynY40qpDjj/p707iFysIZlm+vriXLDuiKG2hWjEZM5lJMCBJKbBHnmRzT
- Ek4wVev1cfJou5ZUSJS2/wZJUJSBFN8IxZXcndS/Kdi0ZOoHWEwqy1VaqoDA1I5FfmKdrqia00
- lv846+KFNsoIoemtWsa3un39WI8J3cPm1e5CBVfxjR5zuJsQM3Dozc/9+9CouCiP2ZBQIjfCnw
- Sa8=
+IronPort-SDR: WP4kH+OdkP0qw0RmUj9Oh7b3TYkHjG8h724gHTWT/jPkKOPFtYKiiyIOUQlHYW+KOzKszIVDaQ
+ 7VDvBN/GYLYtCVGVkujlaaqJH2D3mMWnySgnexy6S9KOfF7J6mhIZewyL8rEpRkbwM4RxXk9yf
+ l2djRadaQn4p25nAJuvKBwXGNbNDojtrxVbhNJRWQ32SnKuSX4fhfk8cKFCt52qPlr4ipE+5dN
+ DMqyKoSB55qQAMUdwtL8wMBvwMGpnaR4m3I7v8bI0ryz3SSM8hVMaiePjTo6nyMexdGxCbp+X8
+ CcQ=
 X-SBRS: 2.7
-X-MesageID: 24601489
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 24422935
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,307,1592884800"; d="scan'208";a="24601489"
-Date: Thu, 13 Aug 2020 12:02:26 +0200
+X-IronPort-AV: E=Sophos;i="5.76,307,1592884800"; d="scan'208";a="24422935"
+Date: Thu, 13 Aug 2020 12:15:49 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, David Airlie
- <airlied@linux.ie>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, "Juergen
- Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Dan
- Carpenter" <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>, Yan Yankovskyi
- <yyankovskyi@gmail.com>, <dri-devel@lists.freedesktop.org>,
- <xen-devel@lists.xenproject.org>, <linux-mm@kvack.org>, David Hildenbrand
- <david@redhat.com>, Michal Hocko <mhocko@kernel.org>, Dan Williams
- <dan.j.williams@intel.com>
-Subject: Re: [PATCH v4 2/2] xen: add helpers to allocate unpopulated memory
-Message-ID: <20200813100226.GG975@Air-de-Roger>
-References: <20200811094447.31208-1-roger.pau@citrix.com>
- <20200811094447.31208-3-roger.pau@citrix.com>
- <20200813073337.GA16160@infradead.org>
- <20200813075420.GC975@Air-de-Roger>
- <20200813094946.GJ2352366@phenom.ffwll.local>
+To: Paul Durrant <paul@xen.org>
+CC: <xen-devel@lists.xenproject.org>, Paul Durrant <pdurrant@amazon.com>, "Wei
+ Liu" <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86 / viridian: remove the viridian_vcpu msg_pending bit
+ mask
+Message-ID: <20200813101549.GH975@Air-de-Roger>
+References: <20200813095723.1429-1-paul@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200813094946.GJ2352366@phenom.ffwll.local>
+In-Reply-To: <20200813095723.1429-1-paul@xen.org>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -79,37 +70,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Your email client seems to set 'Reply-to:' to point to everyone on the
-'Cc:' field, but not yourself, which is kind of weird. I've manually
-fixed it on this reply by moving everyone to the 'Cc:' field and
-setting you on 'To:'.
-
-On Thu, Aug 13, 2020 at 11:49:46AM +0200, Daniel Vetter wrote:
-> On Thu, Aug 13, 2020 at 09:54:20AM +0200, Roger Pau Monné wrote:
-> > On Thu, Aug 13, 2020 at 08:33:37AM +0100, Christoph Hellwig wrote:
-> > > On Tue, Aug 11, 2020 at 11:44:47AM +0200, Roger Pau Monne wrote:
-> > > > If enabled (because ZONE_DEVICE is supported) the usage of the new
-> > > > functionality untangles Xen balloon and RAM hotplug from the usage of
-> > > > unpopulated physical memory ranges to map foreign pages, which is the
-> > > > correct thing to do in order to avoid mappings of foreign pages depend
-> > > > on memory hotplug.
-> > > 
-> > > So please just select ZONE_DEVICE if this is so much better rather
-> > > than maintaining two variants.
-> > 
-> > We still need to other variant for Arm at least, so both need to be
-> > maintained anyway, even if we force ZONE_DEVICE on x86.
+On Thu, Aug 13, 2020 at 10:57:23AM +0100, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> Why does arm not have ZONE_DEVICE?
+> The mask does not actually serve a useful purpose as we only use the SynIC
+> for timer messages.
 
-It's not that Arm doesn't have ZONE_DEVICE, it's just that the
-approach used here won't work correctly on an Arm Xen dom0 as-is.
+Oh, I see. I assume it doesn't make sense because there can only be a
+single message pending (a timer one), and hence there isn't much value
+in doing this SynIC pending tracking? 
 
-This is due to the usage of an identity second stage translation in
-order to workaround the lack of an IOMMU in some Arm boards.
+> Dropping the mask means that the EOM MSR handler
+> essentially becomes a no-op. This means we can avoid setting 'message_pending'
+> for timer messages and hence avoid a VMEXIT for the EOM.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-It can be made to work on Arm, but will likely require someone from
-the Arm side doing that.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Roger.
+I've got some question below and one nit.
+
+> ---
+> Cc: Wei Liu <wl@xen.org>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> 
+> This should hopefully simplify Roger's "x86/vlapic: implement EOI callbacks"
+> series a little.
+> ---
+>  xen/arch/x86/hvm/viridian/synic.c  | 24 +-----------------------
+>  xen/arch/x86/hvm/vlapic.c          |  2 --
+>  xen/include/asm-x86/hvm/viridian.h |  2 --
+>  3 files changed, 1 insertion(+), 27 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/viridian/synic.c
+> index 94a2b88733..22e2df27e5 100644
+> --- a/xen/arch/x86/hvm/viridian/synic.c
+> +++ b/xen/arch/x86/hvm/viridian/synic.c
+> @@ -137,7 +137,6 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
+>          if ( !(viridian_feature_mask(d) & HVMPV_synic) )
+>              return X86EMUL_EXCEPTION;
+>  
+> -        vv->msg_pending = 0;
+>          break;
+>  
+>      case HV_X64_MSR_SINT0 ... HV_X64_MSR_SINT15:
+> @@ -168,9 +167,6 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
+>          printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %x\n", v, sintx,
+>                 vector);
+>  
+> -        if ( new.polling )
+> -            __clear_bit(sintx, &vv->msg_pending);
+> -
+>          *vs = new;
+>          break;
+>      }
+> @@ -334,9 +330,6 @@ bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
+>          .DeliveryTime = delivery,
+>      };
+>  
+> -    if ( test_bit(sintx, &vv->msg_pending) )
+> -        return false;
+> -
+>      /*
+>       * To avoid using an atomic test-and-set, and barrier before calling
+>       * vlapic_set_irq(), this function must be called in context of the
+> @@ -346,12 +339,9 @@ bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
+>  
+>      msg += sintx;
+>  
+> +    /* There is no need to set message_pending as we do not require an EOM */
+>      if ( msg->header.message_type != HVMSG_NONE )
+
+I think it's fine to use HVMSG_NONE ATM because Xen only knows about
+timer messages, but long term wouldn't it be better to use
+HVMSG_TIMER_EXPIRED?
+
+> -    {
+> -        msg->header.message_flags.msg_pending = 1;
+> -        __set_bit(sintx, &vv->msg_pending);
+>          return false;
+> -    }
+>  
+>      msg->header.message_type = HVMSG_TIMER_EXPIRED;
+>      msg->header.message_flags.msg_pending = 0;
+> @@ -380,18 +370,6 @@ bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
+>      return vs->auto_eoi;
+>  }
+>  
+> -void viridian_synic_ack_sint(const struct vcpu *v, unsigned int vector)
+> -{
+> -    struct viridian_vcpu *vv = v->arch.hvm.viridian;
+> -    unsigned int sintx = vv->vector_to_sintx[vector];
+> -
+> -    ASSERT(v == current);
+> -
+> -    if ( sintx < ARRAY_SIZE(vv->sint) )
+> -        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
+> -                    &vv->msg_pending);
+> -}
+> -
+>  void viridian_synic_save_vcpu_ctxt(const struct vcpu *v,
+>                                     struct hvm_viridian_vcpu_context *ctxt)
+>  {
+> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> index 7b5c633033..1aff4cf989 100644
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -466,8 +466,6 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
+>  
+>      if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
+>          vioapic_update_EOI(d, vector);
+> -    else if ( has_viridian_synic(d) )
+> -        viridian_synic_ack_sint(v, vector);
+
+Please also clean the comment above about SynIC SINTx being edge
+triggered.
+
+Thanks, Roger.
 
