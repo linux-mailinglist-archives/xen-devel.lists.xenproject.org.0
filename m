@@ -2,56 +2,118 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3671A243D04
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 18:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC49243D68
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 18:31:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6Fm6-00076S-JT; Thu, 13 Aug 2020 16:08:18 +0000
+	id 1k6G8B-000152-Fg; Thu, 13 Aug 2020 16:31:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i/wp=BX=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1k6Fm5-00076N-Kd
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 16:08:17 +0000
-X-Inumbo-ID: 5930b436-51a6-47c9-9e2c-bf788eb8fffe
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hvId=BX=epam.com=prvs=6494ee471d=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1k6G89-00014x-If
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 16:31:05 +0000
+X-Inumbo-ID: 6d121e83-bc8a-4ed3-9169-563cd30dc74d
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5930b436-51a6-47c9-9e2c-bf788eb8fffe;
- Thu, 13 Aug 2020 16:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=fRXsCMnHeCL45oRiqTqbmcw2ZCFsrC4CUPxeyTuRxro=; b=uQXgvqaX8g31PFspvHsmkR+gyQ
- xXTQ4swqMDgDpqgs9llujRCqj96tUX9c4ZYoyc9YBGkHw7/gdk4tSollhKr8aCMmG6dJFSLMVxcva
- 4HKZZVVZm3Dns4tYqSWfQ9sPaB7wG4o+LlHGgZbIU1uxC/EOa17f7g9IybXvqe0U31H8=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k6Fm2-0005cW-Id; Thu, 13 Aug 2020 16:08:14 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=iad7-dhcp-95-154-75.iad7.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k6Fm2-0002Eu-3i; Thu, 13 Aug 2020 16:08:14 +0000
-Message-ID: <a4f02c292a369cfd771790b1d164f139fec6bead.camel@xen.org>
-Subject: Re: [PATCH v8 03/15] x86/mm: rewrite virt_to_xen_l*e
-From: Hongyan Xia <hx242@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, jgrall@amazon.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Date: Thu, 13 Aug 2020 17:08:11 +0100
-In-Reply-To: <41d9d8d4-d5cb-8350-c118-c9e1fe73b6d0@suse.com>
-References: <cover.1595857947.git.hongyxia@amazon.com>
- <e7963f6d8cab8e4d5d4249b12a8175405d888bba.1595857947.git.hongyxia@amazon.com>
- <41d9d8d4-d5cb-8350-c118-c9e1fe73b6d0@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ id 6d121e83-bc8a-4ed3-9169-563cd30dc74d;
+ Thu, 13 Aug 2020 16:31:01 +0000 (UTC)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 07DGQsjV006014; Thu, 13 Aug 2020 16:30:57 GMT
+Received: from eur04-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54])
+ by mx0b-0039f301.pphosted.com with ESMTP id 32w215sqj0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Aug 2020 16:30:57 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OfN30pMtihY4CZwvcijOrWllZkIpz1Jgd2T5OVA4YNm8HYfR/gWz6SCJkJ7eV4AHwcqFFRKDHdhsbvQNf5+mtVRy6QSSsP8rIWg/SUWSAdUsz6FChSZBMRu8o/bEPBCgEPNDhFBc0/TrLSJB/nES1RnsPmWC98EgyspzwnNJOshD4r3THPp4a+YPSfIo2TfM4IDjb73+x1F7SbyHXjsSzCz5V9JChUq+z5lvBl38jsu7ShmZROSGa/8mvP4yfUrau5AANo+mNdlgW2qdGs1fXAaGU9kUgu62/xlIuh3QlRcXnmGKfrU80W7dWxKUa4PEwWW/bKnRqLz1dXCUFJSH7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J0BRes2kv5VyYulwL1rNMQfS7B1ywuFciCS+jE/h/u4=;
+ b=lZDsIkxXQc9SrbGT/NUJWiAgErw390XXQhQpaOojTL7q/c45Km/kpetYwL/7maHNwx/ykNG+1JOY1AqtcNzZaqyKaTcXaG+gH4sB/NO0LLY4hguneL9qPcYURfKWVl5UZo8eUyTntjhujCVRNnWPhjDY2xe7aWt90HNvsV8RTDSrW4ATcrk1M1CrVSnVSjgJq82diJmWmoZ6YAcdt3nOxrM5AxJtgK+9EW6epGvVzACBOclhUdG9GHNVdLLLRHqOcZohvLRXLc7dAYbq026g0nq1czunF2ldzSmvKwBvLPRaU/f8LrSkOclHvg/HU/jhWUDIP0Z4u01bhq70++qF5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J0BRes2kv5VyYulwL1rNMQfS7B1ywuFciCS+jE/h/u4=;
+ b=hSJ+cy3k1uZD1b3w4VfdvFhYt//4krQbgHwo4QQ+dDiAF9tyWHqHasDUeAlRkUTAgiPbidRL7vvOIiyjlVu6pp6LmfujI92y380LPRD1Ka4odc/9TbyWnq4oNMK7QejTFPiXz8Pq3HkBG548/nRHfkf7eApOgOjsHg0PlvEZcq3xg/iUMVBDiQ0fmlQtnm4WQoqtAK0f8jqIINb0XklHhv5XT24xHUXNC8M4g0lR17VaLxs/CXALOODRj7LiYUFAgX0eF8J3XZ3o/mZldg6lmfFtrMZUy8xYw4rKAIKcMeuQtMrX58kj6RhNie+nJSt+93pZXblwOEXYjm5FQWP+iw==
+Received: from AM7PR03MB6325.eurprd03.prod.outlook.com (2603:10a6:20b:13c::18)
+ by AM6PR03MB4453.eurprd03.prod.outlook.com (2603:10a6:20b:10::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.20; Thu, 13 Aug
+ 2020 16:30:54 +0000
+Received: from AM7PR03MB6325.eurprd03.prod.outlook.com
+ ([fe80::1c2:462c:58b8:7ee9]) by AM7PR03MB6325.eurprd03.prod.outlook.com
+ ([fe80::1c2:462c:58b8:7ee9%7]) with mapi id 15.20.3283.018; Thu, 13 Aug 2020
+ 16:30:54 +0000
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Oleksandr
+ Andrushchenko <andr2000@gmail.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "boris.ostrovsky@oracle.com"
+ <boris.ostrovsky@oracle.com>, "airlied@linux.ie" <airlied@linux.ie>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>
+CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2 0/5] Fixes and improvements for Xen pvdrm
+Thread-Topic: [PATCH v2 0/5] Fixes and improvements for Xen pvdrm
+Thread-Index: AQHWcTn137mCP9TL7kicuRLSt2qi/qk2IyIAgAACToCAAACzgIAAFaKA
+Date: Thu, 13 Aug 2020 16:30:54 +0000
+Message-ID: <cd20468d-8469-8a7f-8630-5e7c63e2f73f@epam.com>
+References: <20200813062113.11030-1-andr2000@gmail.com>
+ <366f5998-4346-6140-b133-23c9abef6589@suse.com>
+ <5a71bca8-df90-a239-6a5e-cbc9af30771e@epam.com>
+ <2b7568cd-a3e6-a672-e9c4-3e58eecde43b@suse.com>
+In-Reply-To: <2b7568cd-a3e6-a672-e9c4-3e58eecde43b@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [185.199.97.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7ddfb8d7-3fe1-4db3-9df7-08d83fa64050
+x-ms-traffictypediagnostic: AM6PR03MB4453:
+x-microsoft-antispam-prvs: <AM6PR03MB4453D84921C9AE0814AAFAC5E7430@AM6PR03MB4453.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eB1k35EnZz/XR6f0fMgnns1w0bxfeTS4Lse7P2mK3If1FnI/DHvREcp9TkjnaBs3dBCHUAw+bm1a0nmIOewMeldBsVR6Z0vIAA7t3M+U4THJJRVNjpq+QfkA9qIO1412nRozedOcH8hKkAfnciwLcflBCXaD87PEviXi/otQaAiaedn9EPYiOxkIGF+zXpYF4oxsOz3SydJuxnA/QpA5xy064g4W5o28TE32YgoCFw23NQDEHkfKA1PzwJh27/ygOaPF7b20Uhajj1r1ktcpTLnDWs6JTznDy/BDFunY1HqZlzzG3Q7DI8Eiziv0D+yVsa/HygC3HoFU2Q+rLpIJ6h4XmUqYYUFAa/CT/JVxyXidB+M6Gp/aDZ5u6c1RH6Lr
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR03MB6325.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(86362001)(66556008)(66446008)(66476007)(71200400001)(66946007)(76116006)(2616005)(7416002)(4326008)(64756008)(54906003)(316002)(6506007)(110136005)(6512007)(53546011)(8936002)(8676002)(31686004)(186003)(5660300002)(31696002)(36756003)(26005)(6486002)(4744005)(2906002)(478600001)(17423001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: pEdu3Qa/5zpqGycwMON7QxILy54e04XoBoso3g/XhbZTrT+VTi5xlEm73U4qzDBcWGjbRNXMFJu+MR+d33DmgtTHWin8BQLs3MHGvxicen8Du1vniCJETelyshRqwCS3j8zcYx/Te6yptMYumkFYjNJZpaymk6Tta+CD0XtDzlff3Uw3+KtR/aFUcAJuYFpop4xrluFBSzLtljc9pu5haJBRC/c+Jfmfdn6cfTZeeBSs/a6npyVO8xrhLQ3P5quj8FH8uqMySo0Oo1WIYLVi5ZaCSde1Ls2IiLh+BNYhSbJF9sLqQWzE/TLcg+hxyLn6W0divsRzCximiM5d8Ga528Ax9QFfytXfE6bIAK5fkhD/ybk07QKCM8j2WEZUpWM3YlTQp960c/8ntbjD7js7NSnSRKD43lbOqZLadhNDH/BCZOyuk1UdnImbUp77muXlfFlYG6G9szKFS+Y7lea6NPrv8Yu5BTaZDCwNF5Ie4gtukqbhiE7SMgRkBZAg24YAdqLG79im7d8CtoX18gFrTu9wktyMsostnT1VCJQ1eUzEup/4x/jad+lkkQl8pTDbOKBd3Bi0NoL9Hw+Amdc6QqPq7agThS4LmVKUzWaHw4Y1G53cRaCct4SXxKuPhb1gt5mPhOgPNIYK+gpfqMinyA==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2C396F522A21914492F920C0B051592F@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR03MB6325.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ddfb8d7-3fe1-4db3-9df7-08d83fa64050
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2020 16:30:54.8553 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QcAqkli8+FEuRFBfVCJW53LSh/iXHSz/Vcg0SrbyjmyywqU76s+2ylJVPYfjEA4KvwCCL2qYJe1+T2u0Pv28Od6X+mWnDJAuLwinWVoVllWCHtKj551okIof80K64LWo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR03MB4453
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-08-13_14:2020-08-13,
+ 2020-08-13 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=999 impostorscore=0 malwarescore=0
+ priorityscore=1501 mlxscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008130119
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,106 +127,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 2020-08-07 at 16:05 +0200, Jan Beulich wrote:
-> On 27.07.2020 16:21, Hongyan Xia wrote:
-> > From: Wei Liu <wei.liu2@citrix.com>
-> > 
-> > Rewrite those functions to use the new APIs. Modify its callers to
-> > unmap
-> > the pointer returned. Since alloc_xen_pagetable_new() is almost
-> > never
-> > useful unless accompanied by page clearing and a mapping, introduce
-> > a
-> > helper alloc_map_clear_xen_pt() for this sequence.
-> > 
-> > Note that the change of virt_to_xen_l1e() also requires
-> > vmap_to_mfn() to
-> > unmap the page, which requires domain_page.h header in vmap.
-> > 
-> > Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-> > Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > ---
-> > Changed in v8:
-> > - s/virtual address/linear address/.
-> > - BUG_ON() on NULL return in vmap_to_mfn().
-> 
-> The justification for this should be recorded in the description. In
-
-Will do.
-
-> reply to v7 I did even suggest how to easily address the issue you
-> did notice with large pages, as well as alternative behavior for
-> vmap_to_mfn().
-
-One thing about adding SMALL_PAGES is that vmap is common code and I am
-not sure if the Arm side is happy with it.
-
-> 
-> > --- a/xen/include/asm-x86/page.h
-> > +++ b/xen/include/asm-x86/page.h
-> > @@ -291,7 +291,15 @@ void copy_page_sse2(void *, const void *);
-> >  #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
-> >  #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
-> >  #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
-> > -#define
-> > vmap_to_mfn(va)     _mfn(l1e_get_pfn(*virt_to_xen_l1e((unsigned
-> > long)(va))))
-> > +
-> > +#define vmap_to_mfn(va)
-> > ({                                                  \
-> > +        const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned
-> > long)(va));   \
-> > +        mfn_t
-> > mfn_;                                                         \
-> > +        BUG_ON(!pl1e_);                                           
-> >           \
-> > +        mfn_ =
-> > l1e_get_mfn(*pl1e_);                                         \
-> > +        unmap_domain_page(pl1e_);                                 
-> >           \
-> > +        mfn_; })
-> 
-> Additionally - no idea why I only notice this now, this wants some
-> further formatting adjustment: Either
-> 
-> #define vmap_to_mfn(va)
-> ({                                                \
->         const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned
-> long)(va)); \
->         mfn_t
-> mfn_;                                                       \
->         BUG_ON(!pl1e_);                                              
->      \
->         mfn_ =
-> l1e_get_mfn(*pl1e_);                                       \
->         unmap_domain_page(pl1e_);                                    
->      \
->         mfn_;                                                        
->      \
->     })
-> 
-> or (preferably imo)
-> 
-> #define vmap_to_mfn(va)
-> ({                                            \
->     const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned long)(va));
-> \
->     mfn_t
-> mfn_;                                                       \
->     BUG_ON(!pl1e_);                                                  
->  \
->     mfn_ =
-> l1e_get_mfn(*pl1e_);                                       \
->     unmap_domain_page(pl1e_);                                        
->  \
->     mfn_;                                                            
->  \
-> })
-
-Will do so in the next rev.
-
-Hongyan
-
+DQpPbiA4LzEzLzIwIDY6MTMgUE0sIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+IE9uIDEzLjA4LjIw
+IDE3OjEwLCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90ZToNCj4+DQo+PiBPbiA4LzEzLzIw
+IDY6MDIgUE0sIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+Pj4gT24gMTMuMDguMjAgMDg6MjEsIE9s
+ZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+PiBGcm9tOiBPbGVrc2FuZHIgQW5kcnVz
+aGNoZW5rbyA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+Pj4NCj4+PiBTZXJp
+ZXMgcHVzaGVkIHRvOg0KPj4+DQo+Pj4geGVuL3RpcC5naXQgZm9yLWxpbnVzLTUuOQ0KPj4+DQo+
+PiBUaGUgdG9wIHBhdGNoIGhhcyBzdHJhbmdlIHRpdGxlIHRob3VnaDoNCj4+DQo+PiAiU3ViamVj
+dDogW1BBVENIIHYyIDUvNV0gZHJtL3hlbi1mcm9udDogUGFzcyBkdW1iIGJ1ZmZlciBkYXRhIG9m
+ZnNldCB0byB0aGUgYmFja2VuZCINCj4NCj4gT2gsIGluZGVlZC4gSSBoYWQgdG8gcmVwYWlyIGl0
+IG1hbnVhbGx5IGFzIGl0IHNlZW1zIHNvbWUgbWFpbCBzeXN0ZW0NCj4gKHByb2JhYmx5IG9uIG15
+IGVuZCkgbWFuZ2xlZCBpdCBhIGxpdHRsZSBiaXQuDQo+DQo+IFdpbGwgcmVwYWlyIGl0Lg0KPg0K
+Tm93IGV2ZXJ5dGhpbmcgaXMgZ3JlYXQsDQoNClRoYW5rIHlvdSENCg0KPg0KPiBKdWVyZ2Vu
 
