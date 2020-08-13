@@ -2,61 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABC5A2436FC
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 10:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 280EB24374D
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 11:09:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k693Q-0001pq-6V; Thu, 13 Aug 2020 08:57:44 +0000
+	id 1k69EF-0002nS-8D; Thu, 13 Aug 2020 09:08:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lIW0=BX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k693O-0001pl-DC
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 08:57:42 +0000
-X-Inumbo-ID: 81e505d2-e6b6-4243-9ee8-3c8b47f0c5a9
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=jQUZ=BX=intel.com=jani.nikula@srs-us1.protection.inumbo.net>)
+ id 1k69ED-0002nN-6L
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 09:08:53 +0000
+X-Inumbo-ID: 9d5796f4-79e7-41d5-97d9-9a6540722eab
+Received: from mga04.intel.com (unknown [192.55.52.120])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 81e505d2-e6b6-4243-9ee8-3c8b47f0c5a9;
- Thu, 13 Aug 2020 08:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597309060;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=w1FVKwGlour2InEfliYNgG5NoRs9YlR9YU4vXjOe2GM=;
- b=NUBfucHoteH57O4xqCz7D42METgeFxsH62rPDPyCwxsbHEyf11IgygQz
- gsq8eln+xqC8pYSpJywZuU9uWv6sfJOPLLtvRIt73WPrY4L3Y32VRnKU7
- N3S73sBD8DrUBYuwBkeGDdl1BzftH8Yr/fW+E/qA1OrqSaqOgVvcKdOFj Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: N1E274Bfx39ftsY8xSJNmie4beVNLdEhct3Z7l8IeAvutlUf5ogm6GR32VLz1khYUYWloAZw7O
- oiLTfHIFw0gnaBqG0KEOE7rTVvvrcV/lTh2MTYfwIGPFYm3IMIXg7inLNDXAvs7/jNV1enhhU2
- qTqvSQ8YY1Z3EWe/hpzz52Dz2ZeB7JEWnKIz9aO1b/yFy2NkS1ZEg+HHqevEcGrgHoDx47kcA5
- wn32XUg8kPp4LxKSQ/bUEAgvUc1WfaQfWTEGcOzflJoLjXlqHevvEHV4E7hz+CM3YTI8VdVQM7
- hMU=
-X-SBRS: 2.7
-X-MesageID: 24750817
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,307,1592884800"; d="scan'208";a="24750817"
-Date: Thu, 13 Aug 2020 10:57:32 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: <paul@xen.org>
-CC: <xen-devel@lists.xenproject.org>, 'Wei Liu' <wl@xen.org>, 'Jan Beulich'
- <jbeulich@suse.com>, 'Andrew Cooper' <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 4/5] x86/viridian: switch synic to use the new EOI callback
-Message-ID: <20200813085732.GE975@Air-de-Roger>
-References: <20200812124709.4165-1-roger.pau@citrix.com>
- <20200812124709.4165-5-roger.pau@citrix.com>
- <004e01d6714c$748450d0$5d8cf270$@xen.org>
+ id 9d5796f4-79e7-41d5-97d9-9a6540722eab;
+ Thu, 13 Aug 2020 09:08:50 +0000 (UTC)
+IronPort-SDR: Vw7Un8fqmSSosPt3gtyVobF+SHq8mkEYNNN+iByvocHA3ATrZtoVKsy3Z/eVXwh8R2RPU4w6Zm
+ lvbv9vqEiSCA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="151605606"
+X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="151605606"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 02:08:49 -0700
+IronPort-SDR: MzLdBg29y17Qw947zHTwHA+CSmHBs2Zvn+6Bs6sqi/aBfHd1F5a0YahIdS8U60Hdv6sgpLlMWW
+ /z+PVkWCy4qA==
+X-IronPort-AV: E=Sophos;i="5.76,307,1592895600"; d="scan'208";a="470144306"
+Received: from jgronski-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.50.170])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 02:08:15 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ matthias.bgg@gmail.com, robdclark@gmail.com, sean@poorly.run,
+ bskeggs@redhat.com, tomi.valkeinen@ti.com, eric@anholt.net,
+ hjc@rock-chips.com, heiko@sntech.de, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, rodrigosiqueiramelo@gmail.com,
+ hamohammed.sa@gmail.com, oleksandr_andrushchenko@epam.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com, sumit.semwal@linaro.org, evan.quan@amd.com,
+ Hawking.Zhang@amd.com, tianci.yin@amd.com, marek.olsak@amd.com,
+ hdegoede@redhat.com, andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
+ chris@chris-wilson.co.uk, matthew.auld@intel.com,
+ abdiel.janulgue@linux.intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 06/20] drm/i915: Introduce GEM object functions
+In-Reply-To: <20200813083644.31711-7-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-7-tzimmermann@suse.de>
+Date: Thu, 13 Aug 2020 12:08:12 +0300
+Message-ID: <877du2j4lf.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <004e01d6714c$748450d0$5d8cf270$@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,50 +87,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 13, 2020 at 09:33:43AM +0100, Paul Durrant wrote:
-> > -----Original Message-----
-> > From: Roger Pau Monne <roger.pau@citrix.com>
-> > Sent: 12 August 2020 13:47
-> > To: xen-devel@lists.xenproject.org
-> > Cc: Roger Pau Monne <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>; Wei Liu <wl@xen.org>; Jan
-> > Beulich <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>
-> > Subject: [PATCH 4/5] x86/viridian: switch synic to use the new EOI callback
-> > 
-> > Switch synic interrupts to use an EOI callback in order to execute the
-> > logic tied to the end of interrupt. This allows to remove the synic
-> > call in vlapic_handle_EOI.
-> > 
-> > Move and rename viridian_synic_ack_sint now that it can be made
-> > static.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > I'm unsure about the logic in viridian_synic_deliver_timer_msg, as it
-> > seems to only set the vector in msg_pending when the message is
-> > already pending?
-> 
-> See section 11.10.3 of the TLFS (SynIC Message Flags)...
-> 
-> "The MessagePending flag indicates whether or not there are any
-> messages pending in the message queue of the synthetic interrupt
-> source. If there are, then an “end of message” must be performed by
-> the guest after emptying the message slot. This allows for
-> opportunistic writes to the EOM MSR (only when required). Note that
-> this flag may be set by the hypervisor upon message delivery or at
-> any time afterwards. The flag should be tested after the message
-> slot has been emptied and if set, then there are one or more pending
-> messages and the “end of message” should be performed."
-> 
-> IOW it's a bit like APIC assist in that it tries to avoid a VMEXIT
-> (in this case an access to the EOM MSR) unless it is necessary.
-> 
-> Reading the code again I think it may well be possible to get rid of
-> the 'msg_pending' flag since it only appears to be an optimization
-> to avoid testing 'message_type'. I'll try dropping it and see what
-> breaks.
+On Thu, 13 Aug 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in i915.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c       |  9 ++++++++-
+>  drivers/gpu/drm/i915/i915_drv.c                  | 10 ++++++----
+>  drivers/gpu/drm/i915/i915_drv.h                  |  1 +
+>  drivers/gpu/drm/i915/selftests/mock_gem_device.c |  3 ---
+>  4 files changed, 15 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index c8421fd9d2dc..bc15ee4f2bd5 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -41,7 +41,14 @@ static struct i915_global_object {
+>  
+>  struct drm_i915_gem_object *i915_gem_object_alloc(void)
+>  {
+> -	return kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	struct drm_i915_gem_object *obj;
+> +
+> +	obj = kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
+> +	if (!obj)
+> +		return NULL;
+> +	obj->base.funcs = &i915_gem_object_funcs;
+> +
+> +	return obj;
+>  }
+>  
+>  void i915_gem_object_free(struct drm_i915_gem_object *obj)
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 068447f565a9..b09eee11c540 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -1840,6 +1840,12 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+>  	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
+>  };
+>  
+> +const struct drm_gem_object_funcs i915_gem_object_funcs = {
+> +	.free = i915_gem_free_object,
+> +	.close = i915_gem_close_object,
+> +	.export = i915_gem_prime_export,
+> +};
+> +
 
-Ack, I think the current approach in this patch would keep the same
-behavior.
+Any reason not to make this static in i915_gem_object.c next to its only
+user?
 
-Thanks, Roger.
+BR,
+Jani.
+
+
+>  static struct drm_driver driver = {
+>  	/* Don't use MTRRs here; the Xserver or userspace app should
+>  	 * deal with them for Intel hardware.
+> @@ -1853,12 +1859,8 @@ static struct drm_driver driver = {
+>  	.lastclose = i915_driver_lastclose,
+>  	.postclose = i915_driver_postclose,
+>  
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+> -
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> -	.gem_prime_export = i915_gem_prime_export,
+>  	.gem_prime_import = i915_gem_prime_import,
+>  
+>  	.dumb_create = i915_gem_dumb_create,
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index bacb4c762f5b..666db65fe69e 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -1736,6 +1736,7 @@ intel_ggtt_update_needs_vtd_wa(struct drm_i915_private *dev_priv)
+>  
+>  /* i915_drv.c */
+>  extern const struct dev_pm_ops i915_pm_ops;
+> +extern const struct drm_gem_object_funcs i915_gem_object_funcs;
+>  
+>  int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+>  void i915_driver_remove(struct drm_i915_private *i915);
+> diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> index ce4d4303229c..4725dad63e0a 100644
+> --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+> @@ -86,9 +86,6 @@ static struct drm_driver mock_driver = {
+>  	.name = "mock",
+>  	.driver_features = DRIVER_GEM,
+>  	.release = mock_device_release,
+> -
+> -	.gem_close_object = i915_gem_close_object,
+> -	.gem_free_object_unlocked = i915_gem_free_object,
+>  };
+>  
+>  static void release_dev(struct device *dev)
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
 
