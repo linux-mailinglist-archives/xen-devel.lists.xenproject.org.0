@@ -2,75 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE0C2435DD
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 10:20:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C61DC2435FD
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 10:34:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k68SV-0004Ya-L7; Thu, 13 Aug 2020 08:19:35 +0000
+	id 1k68gG-0006Cg-1p; Thu, 13 Aug 2020 08:33:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JVDZ=BX=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1k68SU-0004YV-4q
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 08:19:34 +0000
-X-Inumbo-ID: ca670f37-9e7c-46e0-aa09-11f243651cde
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ id 1k68gE-0006Cb-R3
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 08:33:46 +0000
+X-Inumbo-ID: 6cc30f48-4264-4761-afdd-e66e663dfc94
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca670f37-9e7c-46e0-aa09-11f243651cde;
- Thu, 13 Aug 2020 08:19:33 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id z18so4407571wrm.12
- for <xen-devel@lists.xenproject.org>; Thu, 13 Aug 2020 01:19:33 -0700 (PDT)
+ id 6cc30f48-4264-4761-afdd-e66e663dfc94;
+ Thu, 13 Aug 2020 08:33:45 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id x5so3973014wmi.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Aug 2020 01:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:thread-index
  :content-language;
- bh=+pgThj4ttDQD7a/1xgCNzLTCnoiMCUkfQ/JgRbmg3DA=;
- b=EBtQInEHAyyIfm0PWtuLIoE9vAnjJaxqCS3Z1Q3G1AWj+7Dxt8W3RU1UmllpUGE0M7
- Ow8ODjrrZZ/dQthe9lym+UCP9UsCWVVy9O91oKv2M599Jgk6SBGC55L5tSw/kwMe4wzM
- L4zxlLaS8nzDIrh/IfqRQR3QBtRA4y+SrzgtzOm/QqgaUuRhO5zeK2x6l9Nb9+3HNQzd
- Vby/6SD27wCJ/fu3Si+yCBxgOTZUap08Qf2OObKDiq17jCzY75Xo399UFWtBc37Zj5XU
- yr5z5gn66vYERCUqFEl0fXmSqI3kNHWTqxg8Af5fz3/Hk9FISKknFc99R5cy/d3BVDYX
- V2Fg==
+ bh=rpQzT81yG9oculy0yH22eNr0uNmpBDk/TugSd6rMMWA=;
+ b=Qmw6EYIpk0aS+SiWKArRMYxW3kYf+KbgzuUk7ieboKbuYzhmhY5KXMCy4IXUIknQpV
+ Vd5wniO2n+2pPgVGVblVvtZpOYFXJF84JUcyQ4pwUfNi6pfGo4w7bcZROwNqbNfurBPh
+ zcXgg8EZ9U0IJiMo86H0m5vSQqIqYxjxL1gwSQZt9yzdpD77F2VENs3MV8OwJXqIsDhF
+ GzVFanTuW1U+WWABi2GJLL9Hoz5i/C3lnDtK2xuPwJIli4jYZaFUy08y64TwAeIpIb84
+ MVlFuBYAyuZ7Zz2fn7fPHFiYLiLojxxHow7ilVlzEltwPNRyoIqcGDwVTGex2/Zl7t74
+ ivrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :thread-index:content-language;
- bh=+pgThj4ttDQD7a/1xgCNzLTCnoiMCUkfQ/JgRbmg3DA=;
- b=bUEFoqPMekI3UkK6B+HdA8hniFapFCQM/rBUiizinKB3jhGJMn35diis8tg982Dr1W
- 4lnF7cOVmZ9SlauOEOwZwAvxo9ugh4AowPEniQexB+93lghr38wPTJnVlXIXs1L4Zc/4
- 7F8Ql01qxrqdIM94c++rdrPt3GHkwUDWQeBlFym7xFb7QsnznSt1+7n7AV+gUCXztVM1
- actubZb7Ueseq4a/EpsFKAo3KwR/Cwg9aiGH6JacftmOahIKOC//QuwkdPOxAUQfqf1J
- gQ4TTewZfNJzs8w9Z4WWz9uKJQodd+HQnhN15RjVUvAlO6MfBUtSZB5LQLGLadoux+4H
- d56w==
-X-Gm-Message-State: AOAM5309k7D+Umnq3C9bzelV+TPZ0rsTMlklc66GiIGW/PvGf065oAYm
- wmM5Be7JUlrXV/NrYNvcWkU=
-X-Google-Smtp-Source: ABdhPJz+dxcOmrUA+djJyTOga40Oi7nxXAphzYj+w9RrWJ2EyqxIzPWtiwJBXmrIK4PWlavNguIMrQ==
-X-Received: by 2002:adf:e550:: with SMTP id z16mr2844195wrm.329.1597306772054; 
- Thu, 13 Aug 2020 01:19:32 -0700 (PDT)
+ bh=rpQzT81yG9oculy0yH22eNr0uNmpBDk/TugSd6rMMWA=;
+ b=DPMQw+xwSaCRplj/W2EuVTY7uAVmz38WglzPcN7XIkp5bSMuuAqnLw44Ui3WY6b5Iy
+ 7Ds+aQdbdQHsKwOovio7Dg8SItsDVz6PuXyD1f61nNaiOVBBUaUAw94TNMsBAhpEpPw1
+ RkQ/3iWDk1emMN+AkmxiAGR05gcH/kcOoio4ahNfKGRxm6xZjZdhNXEdA6gMqM3oOP/o
+ ckoJNt3QZAFmU1YI09lxsR29Ocf4y2Q6N/uCOLfRFMJcVsEOtOf0M1D38i1sD+93YUv0
+ 7Lv4kp6YMgyk1NGHAbzFGeASJiNvcWIChKWlzeXoE193Rbh8tpNV3B+dxZgKJg902LCI
+ iEWw==
+X-Gm-Message-State: AOAM530p8Mmg/HUlk5YBWDXpWR5FpGM619kxp/aZFIxGP3juRfmdYGoI
+ BmxCmJpuwwBLSpNY2W6Hcw0=
+X-Google-Smtp-Source: ABdhPJxUmf0WNRn9L8sWZSxcR2CM8KBL/LXD5dYW2LokWeDiD1EHwR/uEWml0hj6MOv9PpMwZgUnzQ==
+X-Received: by 2002:a1c:4409:: with SMTP id r9mr3169463wma.114.1597307624866; 
+ Thu, 13 Aug 2020 01:33:44 -0700 (PDT)
 Received: from CBGR90WXYV0 (host86-143-223-30.range86-143.btcentralplus.com.
  [86.143.223.30])
- by smtp.gmail.com with ESMTPSA id g3sm9742239wrb.59.2020.08.13.01.19.31
+ by smtp.gmail.com with ESMTPSA id s206sm8412895wmf.40.2020.08.13.01.33.43
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 13 Aug 2020 01:19:31 -0700 (PDT)
+ Thu, 13 Aug 2020 01:33:44 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
 To: "'Roger Pau Monne'" <roger.pau@citrix.com>,
  <xen-devel@lists.xenproject.org>
-Cc: "'Jan Beulich'" <jbeulich@suse.com>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>
+Cc: "'Wei Liu'" <wl@xen.org>, "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>
 References: <20200812124709.4165-1-roger.pau@citrix.com>
- <20200812124709.4165-4-roger.pau@citrix.com>
-In-Reply-To: <20200812124709.4165-4-roger.pau@citrix.com>
-Subject: RE: [PATCH 3/5] x86/vmsi: use the newly introduced EOI callbacks
-Date: Thu, 13 Aug 2020 09:19:30 +0100
-Message-ID: <004b01d6714a$782dbbb0$68893310$@xen.org>
+ <20200812124709.4165-5-roger.pau@citrix.com>
+In-Reply-To: <20200812124709.4165-5-roger.pau@citrix.com>
+Subject: RE: [PATCH 4/5] x86/viridian: switch synic to use the new EOI callback
+Date: Thu, 13 Aug 2020 09:33:43 +0100
+Message-ID: <004e01d6714c$748450d0$5d8cf270$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHtt6hyfd7HfGtbm1qQjI5TC+nvgAHOUNRrqPixmOA=
+Thread-Index: AQHtt6hyfd7HfGtbm1qQjI5TC+nvgAFzOaW4qPuMi9A=
 Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -90,181 +90,145 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 > From: Roger Pau Monne <roger.pau@citrix.com>
 > Sent: 12 August 2020 13:47
 > To: xen-devel@lists.xenproject.org
-> Cc: Roger Pau Monne <roger.pau@citrix.com>; Jan Beulich =
-<jbeulich@suse.com>; Andrew Cooper
-> <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; Paul Durrant =
-<paul@xen.org>
-> Subject: [PATCH 3/5] x86/vmsi: use the newly introduced EOI callbacks
+> Cc: Roger Pau Monne <roger.pau@citrix.com>; Paul Durrant =
+<paul@xen.org>; Wei Liu <wl@xen.org>; Jan
+> Beulich <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>
+> Subject: [PATCH 4/5] x86/viridian: switch synic to use the new EOI =
+callback
 >=20
-> Remove the unconditional call to hvm_dpci_msi_eoi in vlapic_handle_EOI
-> and instead use the newly introduced EOI callback mechanism in order
-> to register a callback for MSI vectors injected from passed through
-> devices.
+> Switch synic interrupts to use an EOI callback in order to execute the
+> logic tied to the end of interrupt. This allows to remove the synic
+> call in vlapic_handle_EOI.
+>=20
+> Move and rename viridian_synic_ack_sint now that it can be made
+> static.
 >=20
 > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > ---
->  xen/arch/x86/hvm/vlapic.c    |  2 --
->  xen/arch/x86/hvm/vmsi.c      | 36 =
-++++++++++++++++++++++--------------
->  xen/drivers/passthrough/io.c |  4 +++-
->  xen/include/asm-x86/hvm/io.h |  2 +-
->  4 files changed, 26 insertions(+), 18 deletions(-)
+> I'm unsure about the logic in viridian_synic_deliver_timer_msg, as it
+> seems to only set the vector in msg_pending when the message is
+> already pending?
+
+See section 11.10.3 of the TLFS (SynIC Message Flags)...
+
+"The MessagePending flag indicates whether or not there are any messages =
+pending in the message queue of the synthetic interrupt source. If there =
+are, then an =E2=80=9Cend of message=E2=80=9D must be performed by the =
+guest after emptying the message slot. This allows for opportunistic =
+writes to the EOM MSR (only when required). Note that this flag may be =
+set by the hypervisor upon message delivery or at any time afterwards. =
+The flag should be tested after the message slot has been emptied and if =
+set, then there are one or more pending messages and the =E2=80=9Cend of =
+message=E2=80=9D should be performed."
+
+IOW it's a bit like APIC assist in that it tries to avoid a VMEXIT (in =
+this case an access to the EOM MSR) unless it is necessary.
+
+Reading the code again I think it may well be possible to get rid of the =
+'msg_pending' flag since it only appears to be an optimization to avoid =
+testing 'message_type'. I'll try dropping it and see what breaks.
+
+  Paul
+
+> ---
+>  xen/arch/x86/hvm/viridian/synic.c  | 28 +++++++++++++++-------------
+>  xen/arch/x86/hvm/vlapic.c          |  4 ----
+>  xen/include/asm-x86/hvm/viridian.h |  1 -
+>  3 files changed, 15 insertions(+), 18 deletions(-)
 >=20
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index 7369be468b..3b3b3d7621 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -496,8 +496,6 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 =
-vector)
->      else if ( has_viridian_synic(d) )
->          viridian_synic_ack_sint(v, vector);
->=20
-> -    hvm_dpci_msi_eoi(d, vector);
-> -
->      spin_lock_irqsave(&vlapic->callback_lock, flags);
->      callback =3D vlapic->callbacks[vector].callback;
->      data =3D vlapic->callbacks[vector].data;
-> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-> index 7ca19353ab..e192c4c6da 100644
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -44,11 +44,9 @@
->  #include <asm/event.h>
->  #include <asm/io_apic.h>
->=20
-> -static void vmsi_inj_irq(
-> -    struct vlapic *target,
-> -    uint8_t vector,
-> -    uint8_t trig_mode,
-> -    uint8_t delivery_mode)
-> +static void vmsi_inj_irq(struct vlapic *target, uint8_t vector,
-> +                         uint8_t trig_mode, uint8_t delivery_mode,
-> +                         vlapic_eoi_callback_t *callback, void *data)
->  {
->      HVM_DBG_LOG(DBG_LEVEL_VLAPIC, "vmsi_inj_irq: vec %02x trig %d dm =
-%d\n",
->                  vector, trig_mode, delivery_mode);
-> @@ -57,17 +55,17 @@ static void vmsi_inj_irq(
->      {
->      case dest_Fixed:
->      case dest_LowestPrio:
-> -        vlapic_set_irq(target, vector, trig_mode);
-> +        vlapic_set_irq_callback(target, vector, trig_mode, callback, =
-data);
->          break;
->      default:
->          BUG();
->      }
+> diff --git a/xen/arch/x86/hvm/viridian/synic.c =
+b/xen/arch/x86/hvm/viridian/synic.c
+> index 94a2b88733..250f0353cf 100644
+> --- a/xen/arch/x86/hvm/viridian/synic.c
+> +++ b/xen/arch/x86/hvm/viridian/synic.c
+> @@ -315,6 +315,19 @@ void viridian_synic_poll(struct vcpu *v)
+>      viridian_time_poll_timers(v);
 >  }
 >=20
-> -int vmsi_deliver(
-> -    struct domain *d, int vector,
-> -    uint8_t dest, uint8_t dest_mode,
-> -    uint8_t delivery_mode, uint8_t trig_mode)
-> +static int vmsi_deliver_callback(struct domain *d, int vector, =
-uint8_t dest,
-> +                                 uint8_t dest_mode, uint8_t =
-delivery_mode,
-> +                                 uint8_t trig_mode,
-> +                                 vlapic_eoi_callback_t *callback, =
-void *data)
->  {
->      struct vlapic *target;
->      struct vcpu *v;
-> @@ -78,7 +76,8 @@ int vmsi_deliver(
->          target =3D vlapic_lowest_prio(d, NULL, 0, dest, dest_mode);
->          if ( target !=3D NULL )
->          {
-> -            vmsi_inj_irq(target, vector, trig_mode, delivery_mode);
-> +            vmsi_inj_irq(target, vector, trig_mode, delivery_mode, =
-callback,
-> +                         data);
->              break;
->          }
->          HVM_DBG_LOG(DBG_LEVEL_VLAPIC, "null MSI round robin: =
-vector=3D%02x\n",
-> @@ -89,8 +88,8 @@ int vmsi_deliver(
->          for_each_vcpu ( d, v )
->              if ( vlapic_match_dest(vcpu_vlapic(v), NULL,
->                                     0, dest, dest_mode) )
-> -                vmsi_inj_irq(vcpu_vlapic(v), vector,
-> -                             trig_mode, delivery_mode);
-> +                vmsi_inj_irq(vcpu_vlapic(v), vector, trig_mode, =
-delivery_mode,
-> +                             callback, data);
->          break;
->=20
->      default:
-> @@ -103,6 +102,14 @@ int vmsi_deliver(
->      return 0;
->  }
->=20
-> +
-> +int vmsi_deliver(struct domain *d, int vector, uint8_t dest, uint8_t =
-dest_mode,
-> +                 uint8_t delivery_mode, uint8_t trig_mode)
+> +static void synic_ack_sint(struct vcpu *v, unsigned int vector, void =
+*data)
 > +{
-> +    return vmsi_deliver_callback(d, vector, dest, dest_mode, =
-delivery_mode,
-> +                                 trig_mode, NULL, NULL);
+> +    struct viridian_vcpu *vv =3D v->arch.hvm.viridian;
+> +    unsigned int sintx =3D vv->vector_to_sintx[vector];
+> +
+> +    ASSERT(v =3D=3D current);
+> +
+> +    if ( sintx < ARRAY_SIZE(vv->sint) )
+> +        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
+> +                    &vv->msg_pending);
 > +}
 > +
->  void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci =
-*pirq_dpci)
->  {
->      uint32_t flags =3D pirq_dpci->gmsi.gflags;
-> @@ -119,7 +126,8 @@ void vmsi_deliver_pirq(struct domain *d, const =
-struct hvm_pirq_dpci *pirq_dpci)
->=20
->      ASSERT(pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI);
->=20
-> -    vmsi_deliver(d, vector, dest, dest_mode, delivery_mode, =
-trig_mode);
-> +    vmsi_deliver_callback(d, vector, dest, dest_mode, delivery_mode, =
-trig_mode,
-> +                          hvm_dpci_msi_eoi, NULL);
->  }
->=20
->  /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id =
-*/
-> diff --git a/xen/drivers/passthrough/io.c =
-b/xen/drivers/passthrough/io.c
-> index 6b1305a3e5..3793029b29 100644
-> --- a/xen/drivers/passthrough/io.c
-> +++ b/xen/drivers/passthrough/io.c
-> @@ -874,8 +874,10 @@ static int _hvm_dpci_msi_eoi(struct domain *d,
->      return 0;
->  }
->=20
-> -void hvm_dpci_msi_eoi(struct domain *d, int vector)
-> +void hvm_dpci_msi_eoi(struct vcpu *v, unsigned int vector, void =
-*data)
->  {
-> +    struct domain *d =3D v->domain;
 > +
-
-Could we actually drop the vcpu parameter here... i.e. is there any case =
-where this code will be invoked with v !=3D current?
-
-
->      if ( !is_iommu_enabled(d) ||
->           (!hvm_domain_irq(d)->dpci && !is_hardware_domain(d)) )
->         return;
-> diff --git a/xen/include/asm-x86/hvm/io.h =
-b/xen/include/asm-x86/hvm/io.h
-> index 558426b772..450c7c8acb 100644
-> --- a/xen/include/asm-x86/hvm/io.h
-> +++ b/xen/include/asm-x86/hvm/io.h
-> @@ -159,7 +159,7 @@ struct hvm_hw_stdvga {
->  void stdvga_init(struct domain *d);
->  void stdvga_deinit(struct domain *d);
+>  bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int =
+sintx,
+>                                        unsigned int index,
+>                                        uint64_t expiration,
+> @@ -361,7 +374,8 @@ bool viridian_synic_deliver_timer_msg(struct vcpu =
+*v, unsigned int sintx,
+>      memcpy(msg->u.payload, &payload, sizeof(payload));
 >=20
-> -extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
-> +void hvm_dpci_msi_eoi(struct vcpu *v, unsigned int vector, void =
-*data);
+>      if ( !vs->masked )
+> -        vlapic_set_irq(vcpu_vlapic(v), vs->vector, 0);
+> +        vlapic_set_irq_callback(vcpu_vlapic(v), vs->vector, 0,
+> +                                synic_ack_sint, NULL);
 >=20
->  /* Decode a PCI port IO access into a bus/slot/func/reg. */
->  unsigned int hvm_pci_decode_addr(unsigned int cf8, unsigned int addr,
+>      return true;
+>  }
+> @@ -380,18 +394,6 @@ bool viridian_synic_is_auto_eoi_sint(const struct =
+vcpu *v,
+>      return vs->auto_eoi;
+>  }
+>=20
+> -void viridian_synic_ack_sint(const struct vcpu *v, unsigned int =
+vector)
+> -{
+> -    struct viridian_vcpu *vv =3D v->arch.hvm.viridian;
+> -    unsigned int sintx =3D vv->vector_to_sintx[vector];
+> -
+> -    ASSERT(v =3D=3D current);
+> -
+> -    if ( sintx < ARRAY_SIZE(vv->sint) )
+> -        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
+> -                    &vv->msg_pending);
+> -}
+> -
+>  void viridian_synic_save_vcpu_ctxt(const struct vcpu *v,
+>                                     struct hvm_viridian_vcpu_context =
+*ctxt)
+>  {
+> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> index 3b3b3d7621..701ff942e6 100644
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -489,12 +489,8 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 =
+vector)
+>      void *data;
+>      unsigned long flags;
+>=20
+> -    /* All synic SINTx vectors are edge triggered */
+> -
+>      if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
+>          vioapic_update_EOI(d, vector);
+> -    else if ( has_viridian_synic(d) )
+> -        viridian_synic_ack_sint(v, vector);
+>=20
+>      spin_lock_irqsave(&vlapic->callback_lock, flags);
+>      callback =3D vlapic->callbacks[vector].callback;
+> diff --git a/xen/include/asm-x86/hvm/viridian.h =
+b/xen/include/asm-x86/hvm/viridian.h
+> index 844e56b38f..d387d11ce0 100644
+> --- a/xen/include/asm-x86/hvm/viridian.h
+> +++ b/xen/include/asm-x86/hvm/viridian.h
+> @@ -89,7 +89,6 @@ void viridian_apic_assist_clear(const struct vcpu =
+*v);
+>  void viridian_synic_poll(struct vcpu *v);
+>  bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
+>                                       unsigned int vector);
+> -void viridian_synic_ack_sint(const struct vcpu *v, unsigned int =
+vector);
+>=20
+>  #endif /* __ASM_X86_HVM_VIRIDIAN_H__ */
+>=20
 > --
 > 2.28.0
 
