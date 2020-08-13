@@ -2,53 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EADE12438A8
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 12:36:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969832438CB
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 12:42:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6AaU-0002xV-MJ; Thu, 13 Aug 2020 10:35:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1tBP=BX=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k6AaT-0002ws-Nf
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 10:35:57 +0000
-X-Inumbo-ID: c3cfa848-05c5-40c3-abe2-b574304f0c53
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3cfa848-05c5-40c3-abe2-b574304f0c53;
- Thu, 13 Aug 2020 10:35:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From;
- bh=50p6OzRTuSBM3up5x9LmYqhFMZcT1lwZSCCGTtAVrnE=; b=UP5R6mtuJrHCD9Cb6JEMHA7efh
- kB1l28EJQmsOtIC7PwGylPLR+UG0ppVUTF/Cxov9WTLVx+uwIPSKBJ6TQIDpLHS/bmYctxq9dibe/
- quLjmQYooKGludhElRuZpnUuFatXXJR7i4pjGyXBiPBW7nLPD31wOFS2GuZPmqXuYifM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k6AaR-0006Ya-Im; Thu, 13 Aug 2020 10:35:55 +0000
-Received: from host86-143-223-30.range86-143.btcentralplus.com
- ([86.143.223.30] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k6AaR-0007eh-82; Thu, 13 Aug 2020 10:35:55 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2] x86 / viridian: remove the viridian_vcpu msg_pending bit
- mask
-Date: Thu, 13 Aug 2020 11:35:53 +0100
-Message-Id: <20200813103553.29177-1-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
+	id 1k6AgH-0003nm-BW; Thu, 13 Aug 2020 10:41:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cOQw=BX=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1k6AgG-0003ng-5i
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 10:41:56 +0000
+X-Inumbo-ID: afdb127e-fe0a-49ad-8d36-a53c4901d7f7
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id afdb127e-fe0a-49ad-8d36-a53c4901d7f7;
+ Thu, 13 Aug 2020 10:41:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CFEBFB66A;
+ Thu, 13 Aug 2020 10:42:15 +0000 (UTC)
+Subject: Re: [PATCH 12/20] drm/radeon: Introduce GEM object functions
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
+ miaoqinglang@huawei.com, emil.velikov@collabora.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-13-tzimmermann@suse.de>
+ <fb070238-b6ca-8e31-e559-51eda489915e@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <5372b2ef-b7cf-f4e9-9199-6dee5bf6696f@suse.de>
+Date: Thu, 13 Aug 2020 12:41:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <fb070238-b6ca-8e31-e559-51eda489915e@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="dvpyWKt9GfZXVkJReqmxwaKg1xVlNTKmH"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,134 +78,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--dvpyWKt9GfZXVkJReqmxwaKg1xVlNTKmH
+Content-Type: multipart/mixed; boundary="oRxCNe57YCRejXLT0jiYdnWGOkpGgvM5x";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
+ miaoqinglang@huawei.com, emil.velikov@collabora.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Message-ID: <5372b2ef-b7cf-f4e9-9199-6dee5bf6696f@suse.de>
+Subject: Re: [PATCH 12/20] drm/radeon: Introduce GEM object functions
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-13-tzimmermann@suse.de>
+ <fb070238-b6ca-8e31-e559-51eda489915e@amd.com>
+In-Reply-To: <fb070238-b6ca-8e31-e559-51eda489915e@amd.com>
 
-The mask does not actually serve a useful purpose as we only use the SynIC
-for timer messages. Dropping the mask means that the EOM MSR handler
-essentially becomes a no-op. This means we can avoid setting 'message_pending'
-for timer messages and hence avoid a VMEXIT for the EOM.
+--oRxCNe57YCRejXLT0jiYdnWGOkpGgvM5x
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Reviewed-by: "Roger Pau Monné" <roger.pau@citrix.com>
----
-Cc: Wei Liu <wl@xen.org>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi
 
-v2:
- - Clean up now extraneous comment noticed by Roger
+Am 13.08.20 um 12:24 schrieb Christian K=C3=B6nig:
+> Am 13.08.20 um 10:36 schrieb Thomas Zimmermann:
+>> GEM object functions deprecate several similar callback interfaces in
+>> struct drm_driver. This patch replaces the per-driver callbacks with
+>> per-instance callbacks in radeon.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>> =C2=A0 drivers/gpu/drm/radeon/radeon_drv.c=C2=A0=C2=A0=C2=A0 | 23 +---=
+-------------------
+>> =C2=A0 drivers/gpu/drm/radeon/radeon_object.c | 26 +++++++++++++++++++=
++++++++
+>> =C2=A0 2 files changed, 27 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c
+>> b/drivers/gpu/drm/radeon/radeon_drv.c
+>> index 4cd30613fa1d..65061c949aee 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+>> @@ -124,13 +124,6 @@ void radeon_driver_irq_preinstall_kms(struct
+>> drm_device *dev);
+>> =C2=A0 int radeon_driver_irq_postinstall_kms(struct drm_device *dev);
+>> =C2=A0 void radeon_driver_irq_uninstall_kms(struct drm_device *dev);
+>> =C2=A0 irqreturn_t radeon_driver_irq_handler_kms(int irq, void *arg);
+>> -void radeon_gem_object_free(struct drm_gem_object *obj);
+>> -int radeon_gem_object_open(struct drm_gem_object *obj,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
+>> -void radeon_gem_object_close(struct drm_gem_object *obj,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
+>> -struct dma_buf *radeon_gem_prime_export(struct drm_gem_object *gobj,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int flags);
+>> =C2=A0 extern int radeon_get_crtc_scanoutpos(struct drm_device *dev,
+>> unsigned int crtc,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsign=
+ed int flags, int *vpos, int *hpos,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ktime_=
+t *stime, ktime_t *etime,
+>> @@ -145,14 +138,9 @@ int radeon_mode_dumb_mmap(struct drm_file *filp,
+>> =C2=A0 int radeon_mode_dumb_create(struct drm_file *file_priv,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_device *dev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_mode_create_dumb *args);
+>> -struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object
+>> *obj);
+>> =C2=A0 struct drm_gem_object *radeon_gem_prime_import_sg_table(struct
+>> drm_device *dev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_buf_attachment *,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct sg_table *sg);
+>> -int radeon_gem_prime_pin(struct drm_gem_object *obj);
+>> -void radeon_gem_prime_unpin(struct drm_gem_object *obj);
+>> -void *radeon_gem_prime_vmap(struct drm_gem_object *obj);
+>> -void radeon_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)=
+;
+>> =C2=A0 =C2=A0 /* atpx handler */
+>> =C2=A0 #if defined(CONFIG_VGA_SWITCHEROO)
+>> @@ -550,7 +538,7 @@ long radeon_drm_ioctl(struct file *filp,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D drm_ioctl(filp, cmd, arg=
+);
+>> -=C2=A0=C2=A0=C2=A0
+>> +
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pm_runtime_mark_last_busy(dev->dev);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pm_runtime_put_autosuspend(dev->dev);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> @@ -609,22 +597,13 @@ static struct drm_driver kms_driver =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .irq_uninstall =3D radeon_driver_irq_un=
+install_kms,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .irq_handler =3D radeon_driver_irq_hand=
+ler_kms,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ioctls =3D radeon_ioctls_kms,
+>> -=C2=A0=C2=A0=C2=A0 .gem_free_object_unlocked =3D radeon_gem_object_fr=
+ee,
+>> -=C2=A0=C2=A0=C2=A0 .gem_open_object =3D radeon_gem_object_open,
+>> -=C2=A0=C2=A0=C2=A0 .gem_close_object =3D radeon_gem_object_close,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_create =3D radeon_mode_dumb_creat=
+e,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_map_offset =3D radeon_mode_dumb_m=
+map,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .fops =3D &radeon_driver_kms_fops,
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_handle_to_fd =3D drm_gem_=
+prime_handle_to_fd,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_fd_to_handle =3D drm_gem_prime_f=
+d_to_handle,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_export =3D radeon_gem_prime_export,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_pin =3D radeon_gem_prime_pin,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_unpin =3D radeon_gem_prime_unpin,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_get_sg_table =3D radeon_gem_prime_get_s=
+g_table,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_import_sg_table =3D radeon_g=
+em_prime_import_sg_table,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_vmap =3D radeon_gem_prime_vmap,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_vunmap =3D radeon_gem_prime_vunmap,
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .name =3D DRIVER_NAME,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .desc =3D DRIVER_DESC,
+>> diff --git a/drivers/gpu/drm/radeon/radeon_object.c
+>> b/drivers/gpu/drm/radeon/radeon_object.c
+>> index bb7582afd803..882390e15dfe 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_object.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+>> @@ -45,6 +45,19 @@ int radeon_ttm_init(struct radeon_device *rdev);
+>> =C2=A0 void radeon_ttm_fini(struct radeon_device *rdev);
+>> =C2=A0 static void radeon_bo_clear_surface_reg(struct radeon_bo *bo);
+>> =C2=A0 +void radeon_gem_object_free(struct drm_gem_object *obj);
+>> +int radeon_gem_object_open(struct drm_gem_object *obj,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
+>> +void radeon_gem_object_close(struct drm_gem_object *obj,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
+>> +struct dma_buf *radeon_gem_prime_export(struct drm_gem_object *gobj,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int flags);
+>> +struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object
+>> *obj);
+>> +int radeon_gem_prime_pin(struct drm_gem_object *obj);
+>> +void radeon_gem_prime_unpin(struct drm_gem_object *obj);
+>> +void *radeon_gem_prime_vmap(struct drm_gem_object *obj);
+>> +void radeon_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)=
+;
+>> +
+>> =C2=A0 /*
+>> =C2=A0=C2=A0 * To exclude mutual BO access we rely on bo_reserve exclu=
+sion, as all
+>> =C2=A0=C2=A0 * function are calling it.
+>> @@ -180,6 +193,18 @@ void radeon_ttm_placement_from_domain(struct
+>> radeon_bo *rbo, u32 domain)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> =C2=A0 }
+>> =C2=A0 +static const struct drm_gem_object_funcs radeon_gem_object_fun=
+cs =3D {
+>> +=C2=A0=C2=A0=C2=A0 .free =3D radeon_gem_object_free,
+>> +=C2=A0=C2=A0=C2=A0 .open =3D radeon_gem_object_open,
+>> +=C2=A0=C2=A0=C2=A0 .close =3D radeon_gem_object_close,
+>> +=C2=A0=C2=A0=C2=A0 .export =3D radeon_gem_prime_export,
+>> +=C2=A0=C2=A0=C2=A0 .pin =3D radeon_gem_prime_pin,
+>> +=C2=A0=C2=A0=C2=A0 .unpin =3D radeon_gem_prime_unpin,
+>> +=C2=A0=C2=A0=C2=A0 .get_sg_table =3D radeon_gem_prime_get_sg_table,
+>> +=C2=A0=C2=A0=C2=A0 .vmap =3D radeon_gem_prime_vmap,
+>> +=C2=A0=C2=A0=C2=A0 .vunmap =3D radeon_gem_prime_vunmap,
+>> +};
+>> +
+>=20
+> Same comment as for amdgpu, please put that into radeon_gem.c instead.
 
-This should hopefully simplify Roger's "x86/vlapic: implement EOI callbacks"
-series a little.
----
- xen/arch/x86/hvm/viridian/synic.c  | 24 +-----------------------
- xen/arch/x86/hvm/vlapic.c          |  4 ----
- xen/include/asm-x86/hvm/viridian.h |  2 --
- 3 files changed, 1 insertion(+), 29 deletions(-)
+There's no good header file to put the declarations, right? I'm asking
+because checkpatch warns about declarations in the source files.
 
-diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/viridian/synic.c
-index 94a2b88733..22e2df27e5 100644
---- a/xen/arch/x86/hvm/viridian/synic.c
-+++ b/xen/arch/x86/hvm/viridian/synic.c
-@@ -137,7 +137,6 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
-         if ( !(viridian_feature_mask(d) & HVMPV_synic) )
-             return X86EMUL_EXCEPTION;
- 
--        vv->msg_pending = 0;
-         break;
- 
-     case HV_X64_MSR_SINT0 ... HV_X64_MSR_SINT15:
-@@ -168,9 +167,6 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
-         printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %x\n", v, sintx,
-                vector);
- 
--        if ( new.polling )
--            __clear_bit(sintx, &vv->msg_pending);
--
-         *vs = new;
-         break;
-     }
-@@ -334,9 +330,6 @@ bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
-         .DeliveryTime = delivery,
-     };
- 
--    if ( test_bit(sintx, &vv->msg_pending) )
--        return false;
--
-     /*
-      * To avoid using an atomic test-and-set, and barrier before calling
-      * vlapic_set_irq(), this function must be called in context of the
-@@ -346,12 +339,9 @@ bool viridian_synic_deliver_timer_msg(struct vcpu *v, unsigned int sintx,
- 
-     msg += sintx;
- 
-+    /* There is no need to set message_pending as we do not require an EOM */
-     if ( msg->header.message_type != HVMSG_NONE )
--    {
--        msg->header.message_flags.msg_pending = 1;
--        __set_bit(sintx, &vv->msg_pending);
-         return false;
--    }
- 
-     msg->header.message_type = HVMSG_TIMER_EXPIRED;
-     msg->header.message_flags.msg_pending = 0;
-@@ -380,18 +370,6 @@ bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
-     return vs->auto_eoi;
- }
- 
--void viridian_synic_ack_sint(const struct vcpu *v, unsigned int vector)
--{
--    struct viridian_vcpu *vv = v->arch.hvm.viridian;
--    unsigned int sintx = vv->vector_to_sintx[vector];
--
--    ASSERT(v == current);
--
--    if ( sintx < ARRAY_SIZE(vv->sint) )
--        __clear_bit(array_index_nospec(sintx, ARRAY_SIZE(vv->sint)),
--                    &vv->msg_pending);
--}
--
- void viridian_synic_save_vcpu_ctxt(const struct vcpu *v,
-                                    struct hvm_viridian_vcpu_context *ctxt)
- {
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 7b5c633033..4e3861eb7d 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -462,12 +462,8 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
-     struct vcpu *v = vlapic_vcpu(vlapic);
-     struct domain *d = v->domain;
- 
--    /* All synic SINTx vectors are edge triggered */
--
-     if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
-         vioapic_update_EOI(d, vector);
--    else if ( has_viridian_synic(d) )
--        viridian_synic_ack_sint(v, vector);
- 
-     hvm_dpci_msi_eoi(d, vector);
- }
-diff --git a/xen/include/asm-x86/hvm/viridian.h b/xen/include/asm-x86/hvm/viridian.h
-index 844e56b38f..cbf77d9c76 100644
---- a/xen/include/asm-x86/hvm/viridian.h
-+++ b/xen/include/asm-x86/hvm/viridian.h
-@@ -31,7 +31,6 @@ struct viridian_vcpu
-     struct viridian_page vp_assist;
-     bool apic_assist_pending;
-     bool polled;
--    unsigned int msg_pending;
-     uint64_t scontrol;
-     uint64_t siefp;
-     struct viridian_page simp;
-@@ -89,7 +88,6 @@ void viridian_apic_assist_clear(const struct vcpu *v);
- void viridian_synic_poll(struct vcpu *v);
- bool viridian_synic_is_auto_eoi_sint(const struct vcpu *v,
-                                      unsigned int vector);
--void viridian_synic_ack_sint(const struct vcpu *v, unsigned int vector);
- 
- #endif /* __ASM_X86_HVM_VIRIDIAN_H__ */
- 
--- 
-2.20.1
+Best regards
+Thomas
 
+>=20
+> Christian.
+>=20
+>> =C2=A0 int radeon_bo_create(struct radeon_device *rdev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 unsigned long size, int byte_align, bool kernel,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 u32 domain, u32 flags, struct sg_table *sg,
+>> @@ -209,6 +234,7 @@ int radeon_bo_create(struct radeon_device *rdev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo =3D kzalloc(sizeof(struct radeon_bo)=
+, GFP_KERNEL);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bo =3D=3D NULL)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;=
+
+>> +=C2=A0=C2=A0=C2=A0 bo->tbo.base.funcs =3D &radeon_gem_object_funcs;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_gem_private_object_init(rdev->ddev,=
+ &bo->tbo.base, size);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo->rdev =3D rdev;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo->surface_reg =3D -1;
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--oRxCNe57YCRejXLT0jiYdnWGOkpGgvM5x--
+
+--dvpyWKt9GfZXVkJReqmxwaKg1xVlNTKmH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl81GO8UHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiOA6ggAuUVnmM68uUP4+aYhVogVE45exMl2
+eaX7AfXNkklfKJwgOpnqu8g00U134y52xRGfOU1teV/kar0YzgqlKL2Af+YLw5Yp
+7QFKDQpwjXX+MQzei9GtyC9OMfz6nwQgt28MqaMrkaSPyIvqibwF4fzR/nXSTDCQ
+1PpwCVQ1TWGST7SZFdUfHo+v3vdJuOyw0ucRceiJoEX4RQorEqFWXOHx/kR4Z1em
+POPUqdQAxWu8nlX+VUsN9ga3/QtTQ82ZEKfinfr0+ZNobJDIMznNeNTA1uDOwi8O
+RaXxxoYxdOEfvAZatFluUpOPE5T5zrt45Y1jpksTKhfmKPbSZ8ItAAqDhA==
+=qHmz
+-----END PGP SIGNATURE-----
+
+--dvpyWKt9GfZXVkJReqmxwaKg1xVlNTKmH--
 
