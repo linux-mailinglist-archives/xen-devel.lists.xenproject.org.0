@@ -2,58 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488A7243508
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 09:34:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9372B243538
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Aug 2020 09:49:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k67kN-0000HZ-Uo; Thu, 13 Aug 2020 07:33:59 +0000
+	id 1k67yP-0001Gd-8J; Thu, 13 Aug 2020 07:48:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ccX4=BX=casper.srs.infradead.org=batv+f680953178fe677ce029+6199+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1k67kM-0000HU-OG
- for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 07:33:59 +0000
-X-Inumbo-ID: 25567889-5515-40f9-bb85-013ec6f67839
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ <SRS0=hrUg=BX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k67yO-0001GY-7A
+ for xen-devel@lists.xenproject.org; Thu, 13 Aug 2020 07:48:28 +0000
+X-Inumbo-ID: e54ad12f-1246-49fe-8123-61465c795d9d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 25567889-5515-40f9-bb85-013ec6f67839;
- Thu, 13 Aug 2020 07:33:56 +0000 (UTC)
+ id e54ad12f-1246-49fe-8123-61465c795d9d;
+ Thu, 13 Aug 2020 07:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=n009f/kUZMBxeE9pa5fT61XhvAWtOw5mBgdxS83PReo=; b=ewJyWfwnC0ik8H5uYBiEUgc8qw
- K63WWJCeQW4URaGKnP3bJMPhOeNmCl2r9HBvMuBF5dnPSDi8IguASNmb9WnUMfX35v7tUdKgFGFCW
- Dtj3+9pGtaUNV1A0c9hR3AuKvEvmwPsTGz7CdUiiK72F1NKLNVYLne0AFgg3IxB84iFmDaBPPqdCN
- 98A2cAaqK05f0BcTc/VKFvGqXMkJDnpSnL0u8/j7l7/KKtWqcE/WeKXf9jtab+8IXs8AoM2QX86Rw
- M7XZhcIHa7215LpMf+9bwNqMSJV4NC2heYZc0INb8N2zFJgS3OXmU9ZX71SIlSr+dz2hYCatmYO7x
- NvJ0/4jQ==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1k67k1-0004FT-VS; Thu, 13 Aug 2020 07:33:38 +0000
-Date: Thu, 13 Aug 2020 08:33:37 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, David Hildenbrand <david@redhat.com>,
- Michal Hocko <mhocko@kernel.org>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH v4 2/2] xen: add helpers to allocate unpopulated memory
-Message-ID: <20200813073337.GA16160@infradead.org>
-References: <20200811094447.31208-1-roger.pau@citrix.com>
- <20200811094447.31208-3-roger.pau@citrix.com>
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=qIV2c9rsCEE2Eyn9ZITkOXF2+D507p7m1Udv4YrZS2Q=; b=6mhoVgYNmjXouBR9nsn/cZSChX
+ GSVNKJ4AhnMWy3LOoMNOVDacOHS/BBwe2MgsBUzkiJt7tmwMEBRqGvoCNCOkv1xvtQj2Ttdic/J5L
+ k2GMsg0v/WKI5U5RjMT/xLJs4EvVB6c5YV4IRcKmn8AvXQhHTVXTDwfPHD/cExe8aILk=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k67yM-0002MV-B6; Thu, 13 Aug 2020 07:48:26 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k67yM-00066W-02; Thu, 13 Aug 2020 07:48:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k67yL-0003Fy-VI; Thu, 13 Aug 2020 07:48:25 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152568-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200811094447.31208-3-roger.pau@citrix.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [ovmf test] 152568: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=e6042aec1bc2bf3a2eaf4f2d3bfe9b90ef95948e
+X-Osstest-Versions-That: ovmf=a3741780fe3535e19e02efa869a7cac481891129
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 13 Aug 2020 07:48:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,13 +60,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Aug 11, 2020 at 11:44:47AM +0200, Roger Pau Monne wrote:
-> If enabled (because ZONE_DEVICE is supported) the usage of the new
-> functionality untangles Xen balloon and RAM hotplug from the usage of
-> unpopulated physical memory ranges to map foreign pages, which is the
-> correct thing to do in order to avoid mappings of foreign pages depend
-> on memory hotplug.
+flight 152568 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152568/
 
-So please just select ZONE_DEVICE if this is so much better rather
-than maintaining two variants.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 e6042aec1bc2bf3a2eaf4f2d3bfe9b90ef95948e
+baseline version:
+ ovmf                 a3741780fe3535e19e02efa869a7cac481891129
+
+Last test of basis   152536  2020-08-08 05:47:10 Z    5 days
+Testing same since   152568  2020-08-12 04:10:50 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Liming Gao <liming.gao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   a3741780fe..e6042aec1b  e6042aec1bc2bf3a2eaf4f2d3bfe9b90ef95948e -> xen-tested-master
 
