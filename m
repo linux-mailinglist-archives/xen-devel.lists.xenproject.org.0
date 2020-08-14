@@ -2,49 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B38244D74
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21148244D8E
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:26:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dPI-000257-8n; Fri, 14 Aug 2020 17:22:20 +0000
+	id 1k6dTI-0003we-An; Fri, 14 Aug 2020 17:26:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dPH-00024Q-F1
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:19 +0000
-X-Inumbo-ID: 2adde251-d036-4faf-ae7a-63afdc966da3
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1k6dRD-00024Q-If
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:24:19 +0000
+X-Inumbo-ID: f4f114e6-1d08-43f4-b415-2d9859f6ebdf
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2adde251-d036-4faf-ae7a-63afdc966da3;
- Fri, 14 Aug 2020 17:22:14 +0000 (UTC)
+ id f4f114e6-1d08-43f4-b415-2d9859f6ebdf;
+ Fri, 14 Aug 2020 17:22:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425734;
+ d=citrix.com; s=securemail; t=1597425758;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=VWuuAPMerjfMQAsxmPr3Y+nXxd0ZATQLLz4PXLvUE9U=;
- b=YrJY1nvko0fjO0IZERJQxmkp3VdMXWs54jZe9HKhqtJZHQF4d51Kk2Fm
- Is6e+ezuT23abNQRP7o4MGoSLBJy2XuHYJ2gZWaNOtLAn3+BT38DhDIDi
- 7DRUf9+/t5NzmNap2vTzgesNLmRxpTYkk0yuwpXzoZkO5SZUjWVqo5x5m k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=61fqw6PWoI8qd0n3NohAsqlw4/F+FMTnN5CsL+5lnzE=;
+ b=UMVWrE6WP9gORRpA3oKGYAznPfC20E5VXlXRX+BhdTA0CfbfPF2VQ0Fl
+ okEaQCTjVla+IHNBmp+qKHmvSsDVVw31uemTaS8aWmDkVUEviaTvbSOOS
+ toN5Z1eo642wOytij1V3wxzfhgbD4h3IodKFR4yqNE5X8A9iiWg9s93XR U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: DLrvCt/pkEFSxhXfX8rOcRGnPb5aQSF+z8NJjaw7a8W9P5aUSkw3ZbIQc6wRQyASHExuQ4RkZ8
- IvkiOLxVoVRbMv0BCpAdpelnF2xgYIpLHr8ZkyP9xEHamLeqYwTzbrwz7tcbMvQLzfD/szbsid
- A1TkjlJADSwh9MPqSgA/pIDsF7+sm2XmOELnUO3SaDfaoNZ+PFBs9vfHVU03B8T8bURWbBiaAs
- 0cln33AU7NfAvPjcQk+g+YkrEbIM0EooWc3W948bzeSM8faPnyeITWwBPBBiQUsAPk/3+eUwax
- cYw=
+IronPort-SDR: +rFNKiVJx0Vt65WitQUTUDeTRO/vq1k9/eu2nbxSeSjfE44/mzExFUmXeZ4AECk6N4rQkySLaC
+ HsO3etkG5Lw9jnoQ+EtGutB6OB2/ZDOAdVVGFmhOGXooGMuWy1MNyTdKNxqv2wkcY4NNwsa/xF
+ Xv3RKkUEKYj+6uC3Cpk3jOqHpxF1FlU/NH04pirUliFFXn9Hpkrk6L85LoR/Rfg17tDXiUwVKY
+ OcG+vTBPCd36NhUsV/vzMvrujBP4Fx3mmK0q7wf6UXSxNjLwRdOd/Rm4e7i6V8fd27Mw9hS8Az
+ 6ZE=
 X-SBRS: 2.7
-X-MesageID: 24900364
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 24576911
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24900364"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24576911"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 09/60] history reporting (nfc): Provide cacheable_fn
-Date: Fri, 14 Aug 2020 18:21:14 +0100
-Message-ID: <20200814172205.9624-10-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 10/60] history reporting (nfc): Bind by name in
+ cacheable_query
+Date: Fri, 14 Aug 2020 18:21:15 +0100
+Message-ID: <20200814172205.9624-11-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -63,49 +64,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Prep work.
+cacheable_query used to simply pass $jr->{flight} and ->{job}.  But we
+want this to be reuseable for other kinds of query, with different
+cache keys.
+
+So bind by name: we expect the caller to use :name placeholders in the
+query.  We can then look through the prepared query parameters, and
+fish the corresponding values out of $jr.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-host-history | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ sg-report-host-history | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/sg-report-host-history b/sg-report-host-history
-index f37dd4a2..90369ce4 100755
+index 90369ce4..8c5cd105 100755
 --- a/sg-report-host-history
 +++ b/sg-report-host-history
-@@ -181,20 +181,27 @@ END
- our $jqcachemisses = 0;
- our $jqtotal = 0;
- 
--sub cacheable_query ($$$) {
--    my ($q, $jr, $cachekey) = @_;
-+sub cacheable_fn ($$$) {
-+    my ($jr, $cachekey, $fn) = @_;
-     $jqtotal++;
-     $cachekey = '%'.$cachekey;
-     my $cached = $jr->{$cachekey};
-     if (!$cached) {
- 	$jqcachemisses++;
+@@ -197,7 +197,11 @@ sub cacheable_fn ($$$) {
+ sub cacheable_query ($$$) {
+     my ($q, $jr, $cachekey) = @_;
+     cacheable_fn($jr, $cachekey, sub {
 -	$q->execute($jr->{flight}, $jr->{job});
--	$cached = $q->fetchrow_hashref();
-+	$cached = $fn->();
- 	$jr->{$cachekey} = $cached;
-     }
-     return $cached;
++	foreach my $k (keys %{ $q->{ParamTypes} }) {
++	    $k =~ m/^:/ or die "$k ?";
++	    $q->bind_param($k, $jr->{$'} // die "$k ?");
++	}
++	$q->execute();
+ 	return $q->fetchrow_hashref();
+     });
  }
+@@ -259,7 +263,7 @@ sub reporthost ($) {
+     our $endedq //= db_prepare(<<END);
+ 	SELECT finished, testid, status AS laststepstatus
+ 	  FROM steps
+-	 WHERE flight=? AND job=? AND finished IS NOT NULL
++	 WHERE flight=:flight AND job=:job AND finished IS NOT NULL
+ 	 ORDER BY finished DESC
+ 	 LIMIT 1
+ END
+@@ -267,13 +271,13 @@ END
+     our $infoq //= db_prepare(<<END);
+ 	SELECT blessing, branch, intended
+ 	  FROM flights
+-	 WHERE flight=? AND ?!='X'
++	 WHERE flight=:flight AND :job != 'X'
+ END
  
-+sub cacheable_query ($$$) {
-+    my ($q, $jr, $cachekey) = @_;
-+    cacheable_fn($jr, $cachekey, sub {
-+	$q->execute($jr->{flight}, $jr->{job});
-+	return $q->fetchrow_hashref();
-+    });
-+}
-+
- our %hosts;
- 
- sub mainquery ($) {
+     our $allocdq //= db_prepare(<<END);
+ 	SELECT testid, finished, status
+ 	  FROM steps
+-	 WHERE flight=? AND job=?
++	 WHERE flight=:flight AND job=:job
+ 	   AND (testid='hosts-allocate' OR step='ts-hosts-allocate')
+ 	 ORDER BY finished ASC
+ 	 LIMIT 1
 -- 
 2.11.0
 
