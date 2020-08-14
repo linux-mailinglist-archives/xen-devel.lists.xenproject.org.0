@@ -2,50 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F0C244D9A
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:26:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CC69244DAA
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dTb-0004L2-8V; Fri, 14 Aug 2020 17:26:47 +0000
+	id 1k6dTx-0005FO-VJ; Fri, 14 Aug 2020 17:27:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dQO-00024H-0H
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:23:28 +0000
-X-Inumbo-ID: daa8a508-c75e-4f20-aff3-e79041e9cc43
+ id 1k6dQY-00024H-0Y
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:23:38 +0000
+X-Inumbo-ID: fe115fab-4164-4cf4-a2e1-fd75a7cc3094
 Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id daa8a508-c75e-4f20-aff3-e79041e9cc43;
- Fri, 14 Aug 2020 17:22:18 +0000 (UTC)
+ id fe115fab-4164-4cf4-a2e1-fd75a7cc3094;
+ Fri, 14 Aug 2020 17:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425738;
+ d=citrix.com; s=securemail; t=1597425739;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=Cb4uZBmyPAuwXWIZ5X4FCPlExKibgY6AbAI+s7FEbxM=;
- b=Qiw9NEXOVWOoiiq26utDZV1x396xP6pLIk8y/MWC+kvB2rlGoupfjdJr
- 4WX7+aH5Vv0QmHXW7M1sDY8JfIRGH4fgOiPJ0lGzyzvG8kqv+IoMvyOuT
- vq45plBzz/K4hSlrsnlGQqU19R5ZYoUk+RKWG7Utp7MgPtq8MY/xoO5s6 I=;
+ bh=0DVXE2AqFVp60oYFsg0RponXDX/ELl0fuRQ+BVVXl9o=;
+ b=HzWNdqZkyV0t5uHJQkeXWZWg78UeprqYbDqqwTtXsYBUmZmxkiCZj82s
+ tHtwuunSxWX0d9iVQR80FYx26KKW/OnpilEhN04vO4AvJUiyJgfRZo6DX
+ I3b6qvtaBIdtfwnaU1O9rqtth+6Vdfq/JIG0oKTlFDqv6EsJim4uyr6lP Q=;
 Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: bAJhGQySFnlcl+mQrLKaBRSO9NFhcConVYT6M9+EgceM8Wg+EOnZ1bETigIBj70kHwyKhqRkVA
- 5PmKrbd0iNhKJUPGjMRPDHeeMbVk+koXDgG6Tb6YiBdRbb5/WUUDplxpq17Eo8OWgdcQ8i9IXh
- WzbkXgA1KW/zXrENHfa3BZCWXe3gy1iNOSIizrESui2vUVN7eHX4xJUQ1CejK1AvKRs6wyRgnb
- rsrY4TOmu1iKP1Hji/YIk+0HahDQbyPp913ZrEdxPG6zRElI2BLZGCP0qWnCMW6Bdbk4blK0ZI
- Pes=
+IronPort-SDR: 9BULI4WaFnmOP0IWATDe50lEkRiAS7v+k23D/fvybUNsECBZfnrUx7zmA/yS9oUAUzi3cngFFh
+ KLi9kzPWUexJx9iAIdYN7KSa28buvQUut7rC6cYqI06sMB8Aas5tKTrTJnXGXPvcUV9A0TgP2W
+ Fx4k/thKN3yAZH44l5lCwQmHyFKVr4GoRj/6ekHxYvoa5BMnjvaAIOrPMLk1mpyHjRvfjNFhE8
+ oukIIb3S+yIzoS9d2iT0NywaUd7ls4UkXBujJMv2CNAMJZSDLd2oClxdrBr8Fpl/il5tYZUHhm
+ ehY=
 X-SBRS: 2.7
-X-MesageID: 25487824
+X-MesageID: 25487826
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="25487824"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="25487826"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 30/60] parallel by fork: Fix a variable name to $task
-Date: Fri, 14 Aug 2020 18:21:35 +0100
-Message-ID: <20200814172205.9624-31-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 31/60] sg-report-job-history: Prep for fork: Move
+ $buildsq query
+Date: Fri, 14 Aug 2020 18:21:36 +0100
+Message-ID: <20200814172205.9624-32-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -64,35 +65,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This code came from sg-report-host-history where tasks were hosts.
-But in the more general context, the names are wrong.
+We will need to prepare this once per (job,branch) so that it works
+when we do each of those in a different process.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/HistoryReport.pm | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sg-report-job-history | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Osstest/HistoryReport.pm b/Osstest/HistoryReport.pm
-index f0571189..695d744a 100644
---- a/Osstest/HistoryReport.pm
-+++ b/Osstest/HistoryReport.pm
-@@ -226,13 +226,13 @@ sub wait_for_max_children ($) {
-     while (keys(%children) > $lim) {
- 	$!=0; $?=0; my $got = wait;
- 	die "$! $got $?" unless exists $children{$got};
--	my $host = $children{$got};
-+	my $task = $children{$got};
- 	delete $children{$got};
- 	$worst = $? if $? > $worst;
- 	if ($?) {
--	    print STDERR $whoami."[$$]: [$got] failed for $host: $?\n";
-+	    print STDERR $whoami."[$$]: [$got] failed for $task: $?\n";
- 	} else {
--	    print ::DEBUG "REAPED [$got] $host\n";
-+	    print ::DEBUG "REAPED [$got] $task\n";
- 	}
+diff --git a/sg-report-job-history b/sg-report-job-history
+index 6008ca72..47fc7a62 100755
+--- a/sg-report-job-history
++++ b/sg-report-job-history
+@@ -106,15 +106,15 @@ sub add_revisions ($$$$) {
      }
  }
+ 
+-our $buildsq= db_prepare(<<END);
++sub processjobbranch ($$) {
++    my ($j,$bra) = @_;
++
++    my $buildsq= db_prepare(<<END);
+         SELECT * FROM runvars
+          WHERE flight=? AND job=?
+            AND name LIKE '%buildjob'
+ END
+ 
+-sub processjobbranch ($$) {
+-    my ($j,$bra) = @_;
+-
+     print DEBUG "processjobbranch('$j',", ($bra ? "'$bra'" : 'undef'), ")\n";
+ 
+     my %rev_grid_col;
 -- 
 2.11.0
 
