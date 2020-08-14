@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01844244DA7
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA9F244DA0
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:26:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dTt-00053q-Hi; Fri, 14 Aug 2020 17:27:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k6dTg-0004Xa-F9; Fri, 14 Aug 2020 17:26:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dRR-00024H-36
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:24:33 +0000
-X-Inumbo-ID: 1a689d73-2d84-4814-9b5c-03cf1c59b582
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a689d73-2d84-4814-9b5c-03cf1c59b582;
+ id 1k6dQZ-00024Q-Gy
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:23:39 +0000
+X-Inumbo-ID: 1d35dbac-2730-4307-8984-dfc8985cc8d2
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1d35dbac-2730-4307-8984-dfc8985cc8d2;
  Fri, 14 Aug 2020 17:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425746;
+ d=citrix.com; s=securemail; t=1597425745;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=vk1erg2EhIozZ671QuB2WFTSrxHDQXDO2TUsLVUzIrA=;
- b=VYkpXh6qyq/3nOnPnhqHd5XrTOxc09fxGuTuAbwZYbp05i40Vzu765Cf
- yv0MeqW0O1UZqw4oE80JcCsFwG97mkrNKAUjzmyFMnK63zDj2u2AHSP/E
- 1QWF4ukj42v3HLQmiR/ZSV5qVoYs33TkDbIAgtS54ocL8p5Bew923soeU o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=HuGiUl9r9GZbvDQ8LofQzM7tXyOp/3WzRBA9aRRSObY=;
+ b=UGWE1S45GUao3fFbrNyfRPnFwXgou8DQJQBzvIJ6LjDG2uBSWV6xMils
+ USPuLkZfV1i3/RmWrJECkap5x+Eb0HsodW5/LMNt1lk1QAJ24Z2eIbSXV
+ b6qbn37kwi+onxHlRN8o+/AByyt4e+E4wH+zt6oFgHxEqgN20A+LcAwEc w=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 2GK7l3G/uOcKXbY4SjRQWQUlQEzoo5dZmdQlsaPFIRd6/Bs+9n55B0Vghq5A0xGQtUfKni4ICU
- +5qZt2lVKqGkOPDCXSNi1JSmSP74g64HGAmdZBJsyBSPgHzfpv+97ea9FKR6uNd3KPsY7qbpah
- YxR9GumtmQbVyhm4RVuTe1YGNXeU2YCtSQ5dR6efxtAteefE5L8ygiEcm8YAYPjijw9RGgi/s6
- 38kto9Jv2O2LiOnVD2QR7G5cvLGQSd3pa5LvemQ4jabUThiukgOzTlOvbDAru1PCzlvnrecGKb
- Ma0=
+IronPort-SDR: V6otqD9WK/PLcAD9hC3YWrdxwFbF1aLBK+Y0vWEvhBSBJiGErkW+Q8MjVFZUyWBx1MkWGwguTG
+ vRRFn5hybXX+hFJbOwaljfjIW2J3qyRlrukSZdl37xavPM9IaiNraWqvRHLeJm0aAPUXyfUpj+
+ Vo2e9YUviAX5nh59y6KmX87skxjY08lt9Tcq9iqUNiE90PTzI8NNOisoniFjKHhCYbEaeS+YLr
+ HBkRzD/fjY/8IQChshxOPLSmyWQ358KN9AEKCtwiewf8OexZfHhUFno2xp2khx4RCkumloIuEb
+ rFw=
 X-SBRS: 2.7
-X-MesageID: 24545479
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24879752
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24545479"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24879752"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 59/60] sg-report-job-history: Provide --time-limit
-Date: Fri, 14 Aug 2020 18:22:04 +0100
-Message-ID: <20200814172205.9624-60-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 60/60] sg-report-job-history: Increase default limit
+Date: Fri, 14 Aug 2020 18:22:05 +0100
+Message-ID: <20200814172205.9624-61-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -64,53 +63,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Calculate a minflight based on the time limit, and set the time limit
-to a year ago by default.
+Now this is a *lot* faster, we can print a lot more history.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-job-history | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sg-report-job-history | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sg-report-job-history b/sg-report-job-history
-index 5d2a7e15..e09c694f 100755
+index e09c694f..843dd776 100755
 --- a/sg-report-job-history
 +++ b/sg-report-job-history
-@@ -30,6 +30,7 @@ use Osstest::HistoryReport;
+@@ -29,7 +29,7 @@ use Osstest::Executive;
+ use Osstest::HistoryReport;
  
  our (@blessings,@branches);
- our $limit= 100;
-+our $timelimit= 86400 * (366 + 14);
+-our $limit= 100;
++our $limit= 2000;
+ our $timelimit= 86400 * (366 + 14);
  our $htmlout = '.';
  our $flight;
- our $maxjobs=10;
-@@ -44,6 +45,8 @@ while (@ARGV && $ARGV[0] =~ m/^-/) {
-         $$1= $2;
-     } elsif (m/^--(limit)\=([1-9]\d*)$/) {
-         $$1= $2;
-+    } elsif (m/^--time-limit\=([1-9]\d*)$/) {
-+        $timelimit= $1;
-     } elsif (restrictflight_arg($_)) {
- 	# Handled by Executive
-     } elsif (m/^--html-dir=(.*)$/) {
-@@ -67,6 +70,9 @@ csreadconfig();
- 
- our @jobs;
- 
-+our $minflight = minflight_by_time($timelimit);
-+print DEBUG "MINFLIGHT $minflight\n";
-+
- sub findflight () {
-     my $branches= $dbh_tests->selectcol_arrayref(<<END, {}, $flight);
-         SELECT branch FROM flights WHERE flight=?
-@@ -144,6 +150,7 @@ END
-         SELECT * 
-           FROM jobs JOIN flights USING (flight)
-          WHERE ($cond)
-+           AND flight > $minflight
-       ORDER BY flight DESC
-          LIMIT $limit
- END
 -- 
 2.11.0
 
