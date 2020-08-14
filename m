@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7207244DB4
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76873244D99
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:26:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dUB-0005qZ-QN; Fri, 14 Aug 2020 17:27:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k6dTc-0004MF-0a; Fri, 14 Aug 2020 17:26:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dQK-00024Q-Gg
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:23:24 +0000
-X-Inumbo-ID: dbd1591f-7a00-40b0-a763-8771cac475ea
+ id 1k6dR2-00024H-26
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:24:08 +0000
+X-Inumbo-ID: 7b739c17-12e3-4632-90be-eecd9e270004
 Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dbd1591f-7a00-40b0-a763-8771cac475ea;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7b739c17-12e3-4632-90be-eecd9e270004;
  Fri, 14 Aug 2020 17:22:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=citrix.com; s=securemail; t=1597425741;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=mO+R3Wi2onO1YjU9v4vCILxbaexYwro9M3qETJvjXTI=;
- b=ZLNkcwUji82rzZS1vLKsNzPoQVPFmrJoNmhW/WSpOohTC0SPK+r3mIPW
- u+ahElsvLV3zGeO4FZTdbE2Ea//gw9cIhzk3Hmx+4lprQ4R/l1hY90LtX
- yZzgSIJkYtKYN3AP/dMdeWoQsy/NC26BgV/Z9Sh56JJlCdaSCrkIpilcB 4=;
+ bh=Dc1iYPOHo/sW4uoJCyRT7Y63wrTdDiuAqSFl61F0cNU=;
+ b=LgSS+yI0toLrPxfqDkOoe7XZ433ev0DfLpvroZ9DOE9XBEHULzOv95+q
+ AY0fOR9aK9SEwM+U15Ys46IRZUJo79pYQEQHPgHPxIJyQhI+mTQa3haP3
+ MKRxeoBUsFKyG9yVNFc0fqjW+TNfVZnjwtkzBGa348bFj+YKL7yb1bbxl A=;
 Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: CZn+kKqSsQyEdTyVBEs3tVph5l12B1LN6jB3G80PxBt8N3bnVtvqWSvbDQol7OEFVL4j55WbaX
- ayn1TYKpmouIWRoNY4992zWPPc5hBrjgIJl8xDswnDS+qpFxNZwr440YJDZouh4w2mXfDeeFlo
- 4EVhgq4GnmZDwIfHBUzOqq3QCrkZ/ukXtKdqXex/Ehg3gtFzE05qhtxl4e+BN3ofCjJE3neYup
- KorGP3npk7s701bFqTwx80cBCrO32A9KztZlRHE1epJAYYWk8VJU3IbIEWTQ39RmcaITZxBALA
- QhI=
+IronPort-SDR: xzcpiXWt2MDVKaH0+t+J4BZz9NNgtQGsKmhYOQJLttcwgGR3o5z8fbi0gMFW2gQn7P7+MJHKEK
+ ER6TZN8QdXnN0vZBVX5IgVQVzQY4jJxeZp8E4tLTuptYKpLmdY5jqhTUT7ptP7y344zVRm74s0
+ d/Bxrv6FkTecUoP3127/WnShj4n7CrEK77uM5WOCiHcIexj6oVUmooTZCLD8U1/ZP46GqHVVYx
+ Ak3cb7sIiBvOZWicDdAVaH2me1QkHnZfw45LCM+H0LvpcfOtTtd01/CcMCZf9PENghJf4w/9kw
+ A2E=
 X-SBRS: 2.7
-X-MesageID: 24879745
+X-MesageID: 24879747
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24879745"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24879747"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 44/60] sg-report-job-history (nfc): Drop $hostsq query
-Date: Fri, 14 Aug 2020 18:21:49 +0100
-Message-ID: <20200814172205.9624-45-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 45/60] history reporting (nfc): Provide
+ cache_set_task_print
+Date: Fri, 14 Aug 2020 18:21:50 +0100
+Message-ID: <20200814172205.9624-46-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -63,57 +65,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We have eliminated all the users of @hostvarcols before @hostvarcols2
-is calculated from the row data.
+This takes a string which gets added to the cache messages.  This
+will allow us to distinguish the output from different processes
+when using parallel by fork.
 
-The query which produces this is very slow and can't be cached.  We
-can abolish it now and just use the @hostvarcols2 calculation.
+Nothing sets this yet.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-job-history | 22 +---------------------
- 1 file changed, 1 insertion(+), 21 deletions(-)
+ Osstest/HistoryReport.pm | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sg-report-job-history b/sg-report-job-history
-index 5d913b96..5684ac02 100755
---- a/sg-report-job-history
-+++ b/sg-report-job-history
-@@ -147,25 +147,6 @@ END
- END
-     $flightsq->execute(@params);
+diff --git a/Osstest/HistoryReport.pm b/Osstest/HistoryReport.pm
+index 5d2c83b7..bfbee28c 100644
+--- a/Osstest/HistoryReport.pm
++++ b/Osstest/HistoryReport.pm
+@@ -29,6 +29,7 @@ BEGIN {
+     @ISA         = qw(Exporter);
+     @EXPORT      = qw(
+ 			 cache_set_key_cols
++			 cache_set_task_print
+ 			 cache_read_previous
+ 			 cache_row_lookup_prep
+ 			 cacheable_query
+@@ -46,6 +47,7 @@ use POSIX;
  
--    my $hostsq= db_prepare(<<END);
--        SELECT DISTINCT name
--	 FROM runvars
--	 JOIN flights USING (flight)
--	WHERE ($cond)
--	  AND flight >= COALESCE(
--             (
--	      SELECT flight $fromstuff
--	      LIMIT 1 OFFSET $offset
--	     ), 0)
--     ORDER BY name;
--END
--    $hostsq->execute(@params, @params); # sql text contains $cond twice
--    my @hostvarcols;
--    while (my ($hostvar) = $hostsq->fetchrow_array()) {
--	next unless $hostvar =~ m/(^|_)host$/;
--	push @hostvarcols, $hostvar;
--    }
--
-     my $hostq= db_prepare(<<END);
-         SELECT name, val
-           FROM runvars
-@@ -213,8 +194,7 @@ END
-     foreach my $ri (@test_rows) {
- 	$hostvarnames{$_}=1 foreach keys %{ $ri->{Hosts} }
+ our @key_cols;
+ 
++our $taskprint='';
+ our %cache;
+ our @previous;
+ 
+@@ -91,6 +93,7 @@ our $rows_extra = 0;
+ 
+ 
+ sub cache_set_key_cols { @key_cols = @_; }
++sub cache_set_task_print ($) { ($taskprint)=@_; $taskprint =~ s/\s*$/ /; }
+ 
+ sub key ($) {
+     my ($jr) = @_;
+@@ -162,7 +165,7 @@ sub cache_row_lookup_prep ($) {
+ 	$$jrr = $cacherow;
+ 	$rows_hit++;
+     } else {
+-	print ::DEBUG "CACHE MISS ",
++	print ::DEBUG "CACHE MISS $taskprint",
+ 	    (join " ", map { $$jrr->{$_} } @key_cols), "\n";
      }
--    my @hostvarcols2 = sort keys %hostvarnames;
--    die unless "@hostvarcols" eq "@hostvarcols2";
-+    my @hostvarcols = sort keys %hostvarnames;
+ }
+@@ -209,7 +212,7 @@ sub cache_finish ($$) {
+     }
  
-     my $osstestverq= db_prepare(<<END);
-         SELECT DISTINCT harness
+     print ::DEBUG
+-	"CACHE $what read=$nprevious hits $rows_hit/$rows_today";
++	"CACHE $taskprint$what read=$nprevious hits $rows_hit/$rows_today";
+     for my $cachekey (sort keys %q_count) {
+ 	my $total = $q_count{$cachekey};
+ 	my $hits = $total - ($q_misses{$cachekey} // 0);
 -- 
 2.11.0
 
