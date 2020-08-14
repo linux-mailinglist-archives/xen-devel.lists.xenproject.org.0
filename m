@@ -2,60 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85D52445D6
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 09:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029BE2445DF
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 09:35:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6U9m-0007gT-R4; Fri, 14 Aug 2020 07:29:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k6UFI-0008Vm-HW; Fri, 14 Aug 2020 07:35:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oiW5=BY=casper.srs.infradead.org=batv+5626d0999dc7e381dd57+6200+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1k6U9k-0007gO-GG
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 07:29:41 +0000
-X-Inumbo-ID: ef56681e-4833-4a39-9639-40c520018e59
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef56681e-4833-4a39-9639-40c520018e59;
- Fri, 14 Aug 2020 07:29:38 +0000 (UTC)
+ <SRS0=c45b=BY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k6UFG-0008VS-W1
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 07:35:23 +0000
+X-Inumbo-ID: 8f63891d-2456-4321-bdfb-3316f44cfb5e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8f63891d-2456-4321-bdfb-3316f44cfb5e;
+ Fri, 14 Aug 2020 07:35:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=AfrMrkrA2HZxTkg5Cv0NWjTzaYh5Z28RiUGGto0tVJU=; b=R3lBnAZpajlKS+ZYCmzCTpzXZE
- WGskKYnrQlnWOI08brF1QFByRNy9vewCqurBe8Sf7S6fS7hkYLfKSbxupKlE9RPQT9NbuzcWIwtfe
- +5b6TguaGGXn5Lcg34eWFhwMbYdHtbmQAHk8+UgjKsuOR5zYxZthbEqKTZgd7Q+IXKUIaTDTTy6hi
- EKm9u0BgGFiEAtjVzo/4P5mO2SjqiAw7Pb8SEMSUEqUKekpbo6VERpfF1Eai1/PwpiNTcC7tdq8M2
- 5DDK5kk5wuflH/Kkdc/b25Aln3IQ3Kt2ErsOFEzjpFNp7ioD/PZIfZc2H1Ob+lJhV/YbogoRFnlP0
- SXuEMMGw==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1k6U9Q-0001lh-7m; Fri, 14 Aug 2020 07:29:20 +0000
-Date: Fri, 14 Aug 2020 08:29:20 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: Roger Pau Monn?? <roger.pau@citrix.com>
-Cc: Christoph Hellwig <hch@infradead.org>, linux-kernel@vger.kernel.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, David Hildenbrand <david@redhat.com>,
- Michal Hocko <mhocko@kernel.org>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH v4 2/2] xen: add helpers to allocate unpopulated memory
-Message-ID: <20200814072920.GA6126@infradead.org>
-References: <20200811094447.31208-1-roger.pau@citrix.com>
- <20200811094447.31208-3-roger.pau@citrix.com>
- <20200813073337.GA16160@infradead.org>
- <20200813075420.GC975@Air-de-Roger>
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=hHgvMR3aSspvgkZuNKYmnR37tV4UUAEuVDCJtjbUSho=; b=klQdhc4kwC2ddQUNYvg1zxFM1n
+ 9N2h58wBtdNVwfWYPY3lzZE4QdqoKfw7PBcGo0LWAXYbhSbOZV79LiUNEOBCtaiOSVu1kIyAwmpBG
+ 9LU1xEwec/7RxzWoJIQHBMfLL8/AD9Bc8sTyqma0xjwe/jTmp/zZCpGfGA3Jq8sfYTw8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k6UF9-0006AU-US; Fri, 14 Aug 2020 07:35:15 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k6UF9-0002ZH-79; Fri, 14 Aug 2020 07:35:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k6UF9-00023Y-6X; Fri, 14 Aug 2020 07:35:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152594-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200813075420.GC975@Air-de-Roger>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [ovmf test] 152594: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=7f7f511c5a74676523ed48435350f6e35282b62b
+X-Osstest-Versions-That: ovmf=3633d5309f67550e2369776b37220674ad1b623c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 14 Aug 2020 07:35:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,25 +61,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 13, 2020 at 09:54:20AM +0200, Roger Pau Monn?? wrote:
-> On Thu, Aug 13, 2020 at 08:33:37AM +0100, Christoph Hellwig wrote:
-> > On Tue, Aug 11, 2020 at 11:44:47AM +0200, Roger Pau Monne wrote:
-> > > If enabled (because ZONE_DEVICE is supported) the usage of the new
-> > > functionality untangles Xen balloon and RAM hotplug from the usage of
-> > > unpopulated physical memory ranges to map foreign pages, which is the
-> > > correct thing to do in order to avoid mappings of foreign pages depend
-> > > on memory hotplug.
-> > 
-> > So please just select ZONE_DEVICE if this is so much better rather
-> > than maintaining two variants.
-> 
-> We still need to other variant for Arm at least, so both need to be
-> maintained anyway, even if we force ZONE_DEVICE on x86.
+flight 152594 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152594/
 
-Well, it still really helps reproducability if you stick to one
-implementation of x86.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7f7f511c5a74676523ed48435350f6e35282b62b
+baseline version:
+ ovmf                 3633d5309f67550e2369776b37220674ad1b623c
 
-The alternative would be an explicit config option to opt into it,
-but just getting a different implementation based on a random
-kernel option is strange.
+Last test of basis   152587  2020-08-13 07:51:44 Z    0 days
+Testing same since   152594  2020-08-14 03:13:03 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bob Feng <bob.c.feng@intel.com>
+  Cole Robinson <crobinso@redhat.com>
+  Liming Gao <liming.gao@intel.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   3633d5309f..7f7f511c5a  7f7f511c5a74676523ed48435350f6e35282b62b -> xen-tested-master
 
