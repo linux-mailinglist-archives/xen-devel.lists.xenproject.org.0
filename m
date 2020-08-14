@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF148244D72
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E90244D75
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dPR-00029z-BB; Fri, 14 Aug 2020 17:22:29 +0000
+	id 1k6dPV-0002DF-Vx; Fri, 14 Aug 2020 17:22:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dPP-00024H-Um
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:27 +0000
-X-Inumbo-ID: 7cfade94-bd8a-4f7c-9479-4c87aaef6b90
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1k6dPU-00024H-Up
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:32 +0000
+X-Inumbo-ID: bbb23550-a72b-4c89-89ff-240451d07c14
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7cfade94-bd8a-4f7c-9479-4c87aaef6b90;
+ id bbb23550-a72b-4c89-89ff-240451d07c14;
  Fri, 14 Aug 2020 17:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425733;
+ d=citrix.com; s=securemail; t=1597425734;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=JGVZgUM9Ou32fNfhr7w/FMv9cNbdn7S2Jl2MIBunzZQ=;
- b=cGY9juJrgezOfICmiqUbGeVTxrbXt5WqfkYrMtNZcVAvgVUFtgRsJdeN
- Plr+hsgpEU/vJG0B88etnO+jWF4FHKzbnKbIY8Fnt1cxIqD3WC9wy20Td
- 0E2J7q/EOYhsFcgpSGA4F9lUeS0GpFXF1qMnug7ATqdkhBC+xmWi8hLST 4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=Cz4cBcsHyi+A9DH1w0U0E75BDnFx0uYZsqrpI0k8hFo=;
+ b=A53ykD5Lh80fLfkXZLGye8ElXPZlvlvhbU6+o6k2O8FuTIG9z79EW99B
+ k27MKpWxZ7u0ylv1EKoT3lrh/icmQYjnLWUNnYCFA9bUpeqUFxgu85Nkx
+ uAK6xWaSLn4yiuclHR7fL8Zex3WRbe95LxdiG+4qUL24NN56n5Rwudfvo A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: gGBUpPHDUEVc/bmQu3o7aloOTSEwnX+ETtRovKb0ZTBHJzZzwYL1Qmy7ht8vRXIHRBjFWIvx+c
- DEGKDM9B8g6IRsFsHl4y3u64j6OUh2xsfj+pJ4uc11DveaHaG6ziaoy6ejSfzHcY1XeYGSVYCY
- 4fRHCIkn335Rdxk6F6XBJUAbC+MWd9YyT0yg4ykiiA8zDvzRnLpLAi4X3VDILwrPrgxj5ERn2t
- 6WOzpaGoDMbjDcXF4bDWNdVQi3yf9xdDCSISjL7+C+7luuB/P1Ubo1jWVLrIgk6TSne/i2iGZr
- wAQ=
+IronPort-SDR: 8iGfY8QFR2avWHYEtqT6dGVdVUz6q/afE0+qO2U3QHO8PKN2InrRhkXaKXDQ4kWgBKX1HvBttX
+ x1qHx8+o859XfnFAf40MpNmG7NhFYUsv3l/PGF+iYeKTUTyQHM54E7bjmM/zF6fVOB4jy5bgBK
+ e9vRn32A5Sw+y7IWB5hYw5fy5/hCPTRdxGMOyEki745V9fC8eTJKPA3eVs0d0erHwRdqO88O2d
+ alFU+cO4LvH+bPKMk2TCy0AspzKl9sPyrlez5Y1qRVcF8DxyM/Q9wpCqlIsSmHrxOyMSB5oU2A
+ 45g=
 X-SBRS: 2.7
-X-MesageID: 24879728
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 24900363
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24879728"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24900363"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 05/60] history reporting (nfc): Make cache_write_entry
- into a top-level sub
-Date: Fri, 14 Aug 2020 18:21:10 +0100
-Message-ID: <20200814172205.9624-6-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 06/60] history reporting (nfc): Rename jobquery to
+ cacheable_query
+Date: Fri, 14 Aug 2020 18:21:11 +0100
+Message-ID: <20200814172205.9624-7-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -65,89 +65,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Prep work.
+
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-host-history | 46 +++++++++++++++++++++++-----------------------
- 1 file changed, 23 insertions(+), 23 deletions(-)
+ sg-report-host-history | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sg-report-host-history b/sg-report-host-history
-index 83344a40..fe5b7cc2 100755
+index fe5b7cc2..a8dae159 100755
 --- a/sg-report-host-history
 +++ b/sg-report-host-history
-@@ -112,6 +112,27 @@ sub cache_read_existing ($) {
-     close H;
- }
+@@ -171,7 +171,7 @@ END
+ our $jqcachemisses = 0;
+ our $jqtotal = 0;
  
-+sub cache_write_entry ($$) {
-+    my ($fh, $jr) = @_;
-+    print $fh "<!-- osstest-report-reuseable";
-+    my $whash = sub {
-+	my ($h) = @_;
-+	foreach my $k (sort keys %$h) {
-+	    next if $k =~ m/^\%/;
-+	    $_ = $h->{$k};
-+	    s{[^-+=/~:;_.,\w]}{ sprintf "%%%02x", ord $& }ge;
-+	    printf $fh " %s=%s", $k, $_;
-+	}
-+    };
-+    $whash->($jr);
-+    foreach my $hk (sort keys %$jr) {
-+	next unless $hk =~ m/^\%/;
-+	print $fh " $'";
-+	$whash->($jr->{$hk});
-+    }
-+    print $fh " -->\n";
-+}
-+
- sub computeflightsrange () {
-     if ($flightlimit) {
- 	my $minflightsq = db_prepare(<<END);
-@@ -285,27 +306,6 @@ END
-     print DEBUG "CACHE $hostname $cachehits / ".(scalar @rows)
- 	." of ".(scalar %cache)."\n";
- 
--    my $write_cache_entry = sub {
--	my ($jr) = @_;
--        print H "<!-- osstest-report-reuseable";
--	my $whash = sub {
--	    my ($h) = @_;
--	    foreach my $k (sort keys %$h) {
--		next if $k =~ m/^\%/;
--		$_ = $h->{$k};
--		s{[^-+=/~:;_.,\w]}{ sprintf "%%%02x", ord $& }ge;
--		printf H " %s=%s", $k, $_;
--	    }
--	};
--	$whash->($jr);
--	foreach my $hk (sort keys %$jr) {
--	    next unless $hk =~ m/^\%/;
--	    print H " $'";
--	    $whash->($jr->{$hk});
--	}
--	print H " -->\n";
--    };
--
-     @rows = sort { $b->{finished} <=> $a->{finished} } @rows;
- 
-     print DEBUG "SORTED\n";
-@@ -317,7 +317,7 @@ END
- 
-     foreach my $jr (@rows) {
- 	if ($wrote++ >= $limit) {
--	    $write_cache_entry->($jr);
-+	    cache_write_entry(\*H, $jr);
- 	    next;
+-sub jobquery ($$$) {
++sub cacheable_query ($$$) {
+     my ($q, $jr, $cachekey) = @_;
+     $jqtotal++;
+     $cachekey = '%'.$cachekey;
+@@ -292,7 +292,7 @@ END
+ 	    $cachehits++;
  	}
  
-@@ -417,7 +417,7 @@ END
-         print H "<td>" if !$any_power;
- 	print H "</td>\n";
+-	my $endedrow = jobquery($endedq, $jr, 'e');
++	my $endedrow = cacheable_query($endedq, $jr, 'e');
+ 	if (!$endedrow) {
+ 	    #print DEBUG "no-finished\n";
+ 	    next;
+@@ -322,8 +322,8 @@ END
+ 	}
  
--	$write_cache_entry->($jr);
-+	cache_write_entry(\*H, $jr);
+         #print DEBUG "JR $jr->{flight}.$jr->{job}\n";
+-	my $ir = jobquery($infoq, $jr, 'i');
+-	my $ar = jobquery($allocdq, $jr, 'a');
++	my $ir = cacheable_query($infoq, $jr, 'i');
++	my $ar = cacheable_query($allocdq, $jr, 'a');
+ 	my $ident = $jr->{name};
  
- 	print H "</tr>\n\n";
- 	$alternate ^= 1;
+ 	my $altcolour = report_altcolour($alternate);
 -- 
 2.11.0
 
