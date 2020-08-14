@@ -2,53 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88EB2447FC
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 12:28:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A6724484E
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 12:53:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6Wvx-0006tC-Gp; Fri, 14 Aug 2020 10:27:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UNK8=BY=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k6Wvw-0006t7-1h
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 10:27:36 +0000
-X-Inumbo-ID: 266627a0-6e53-47a0-abfa-8a4ffe82f77d
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 266627a0-6e53-47a0-abfa-8a4ffe82f77d;
- Fri, 14 Aug 2020 10:27:34 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5DBB0AF8F;
- Fri, 14 Aug 2020 10:27:56 +0000 (UTC)
-Subject: Re: [PATCH v4 2/2] xen: add helpers to allocate unpopulated memory
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Christoph Hellwig <hch@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>, dri-devel@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- David Hildenbrand <david@redhat.com>, Michal Hocko <mhocko@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>
-References: <20200811094447.31208-1-roger.pau@citrix.com>
- <20200811094447.31208-3-roger.pau@citrix.com>
- <20200813073337.GA16160@infradead.org> <20200813075420.GC975@Air-de-Roger>
- <20200814072920.GA6126@infradead.org> <20200814095629.GJ975@Air-de-Roger>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <a907ff4a-c887-7d02-1d45-140d7749afa4@suse.com>
-Date: Fri, 14 Aug 2020 12:27:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 1k6XKE-0000t5-Jk; Fri, 14 Aug 2020 10:52:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S5ir=BY=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1k6XKC-0000sz-OY
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 10:52:40 +0000
+X-Inumbo-ID: 324423b1-97c1-4336-b572-bfc4d04c9a3a
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 324423b1-97c1-4336-b572-bfc4d04c9a3a;
+ Fri, 14 Aug 2020 10:52:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597402358;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=kx2i6VHvG4dcECBbCCmZGcqn7OynD5vm0NKSaxsmyI0=;
+ b=RmWZuW1TOTNrZjynVdPeA6dg71OdWGqIVliNpJT06+xnT9haqpu4YKM8
+ 0hnVWf4YAa+MnRZA3NVz/UeAvKA/RqeAYa+13CRDBK4qCzKd0Kfx3yX0q
+ +poQKswy7VX8aiwYiR/5zP6s0lVPaXXZJ1BViB2oyFZ1gIuaonw2gTURm Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: SjQcVFCbLuoCYHRLuMhDta5Aepq+H8kFIZSterso4c85tqNUEOmEyLu+rd6WY2D3iKYcVT1rPK
+ 9Lf5Q8vBOLT4z5gQ6aC7ae/CYy6DNLzOTlN8jASbAffVgYxfNRbBC6BsOslnVozlpkVQOikVBF
+ WZWfgsk0qbll0SPZniv6PwWPeOmUYk7sn22FSctfwOpQNpuuAvKxZZzv77Y/O53/RCE5y3CULg
+ ZtuYeprabFQYOZM9PljtzmOFYVZppW7bQQOnHofTPpEpazV2eFTvN0NyKET4vEVFNgCLikVh4/
+ A4Q=
+X-SBRS: 2.7
+X-MesageID: 24695500
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,312,1592884800"; d="scan'208";a="24695500"
+Date: Fri, 14 Aug 2020 11:52:33 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, <george.dunlap@citrix.com>, "Nick
+ Rosbrook" <rosbrookn@ainfosec.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
+Subject: Re: [RFC PATCH 1/2] libxl: add Function class to IDL
+Message-ID: <20200814105233.GD2024@perard.uk.xensource.com>
+References: <cover.1595854292.git.rosbrookn@ainfosec.com>
+ <7e1774dffe69c702f738566abeb04a3a9d29e21b.1595854292.git.rosbrookn@ainfosec.com>
 MIME-Version: 1.0
-In-Reply-To: <20200814095629.GJ975@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <7e1774dffe69c702f738566abeb04a3a9d29e21b.1595854292.git.rosbrookn@ainfosec.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,52 +67,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14.08.20 11:56, Roger Pau Monné wrote:
-> On Fri, Aug 14, 2020 at 08:29:20AM +0100, Christoph Hellwig wrote:
->> On Thu, Aug 13, 2020 at 09:54:20AM +0200, Roger Pau Monn?? wrote:
->>> On Thu, Aug 13, 2020 at 08:33:37AM +0100, Christoph Hellwig wrote:
->>>> On Tue, Aug 11, 2020 at 11:44:47AM +0200, Roger Pau Monne wrote:
->>>>> If enabled (because ZONE_DEVICE is supported) the usage of the new
->>>>> functionality untangles Xen balloon and RAM hotplug from the usage of
->>>>> unpopulated physical memory ranges to map foreign pages, which is the
->>>>> correct thing to do in order to avoid mappings of foreign pages depend
->>>>> on memory hotplug.
->>>>
->>>> So please just select ZONE_DEVICE if this is so much better rather
->>>> than maintaining two variants.
->>>
->>> We still need to other variant for Arm at least, so both need to be
->>> maintained anyway, even if we force ZONE_DEVICE on x86.
->>
->> Well, it still really helps reproducability if you stick to one
->> implementation of x86.
->>
->> The alternative would be an explicit config option to opt into it,
->> but just getting a different implementation based on a random
->> kernel option is strange.
+On Mon, Jul 27, 2020 at 09:26:32AM -0400, Nick Rosbrook wrote:
+> Add a Function and CtxFunction classes to idl.py to allow generator
+> scripts to generate wrappers which are repetitive and straight forward
+> when doing so by hand. Examples of such functions are the
+> device_add/remove functions.
 > 
-> Would adding something like the chunk below to the patch be OK?
+> To start, a Function has attributes for namespace, name, parameters,
+> return type, and an indication if the return value should be interpreted as
+> a status code. The CtxFunction class extends this by indicating that a
+> libxl_ctx is a required parmeter, and can optionally be an async
+> function.
 > 
-> ---8<---
-> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-> index 018020b91baa..5f321a1319e6 100644
-> --- a/drivers/xen/Kconfig
-> +++ b/drivers/xen/Kconfig
-> @@ -328,7 +328,14 @@ config XEN_FRONT_PGDIR_SHBUF
->   	tristate
->   
->   config XEN_UNPOPULATED_ALLOC
-> -	bool
-> -	default y if ZONE_DEVICE && !ARM && !ARM64
-> +	bool "Use unpopulated memory ranges for guest mappings"
-> +	depends on X86
-> +	select ZONE_DEVICE
-> +	default y
+> Also, add logic to idl.parse to return the list of functions found in an
+> IDL file. For now, have users of idl.py -- i.e. libxl/gentypes.py and
+> golang/xenlight/gengotypes.py -- ignore the list of functions returned.
+> 
+> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+> ---
+>  
+> +class Function(object):
+> +    """
+> +    A general description of a function signature.
+> +
+> +    Attributes:
+> +      name (str): name of the function, excluding namespace.
+> +      params (list of (str,Type)): list of function parameters.
+> +      return_type (Type): the Type (if any), returned by the function.
+> +      return_is_status (bool): Indicates that the return value should be
+> +                               interpreted as an error/status code.
 
-I'd rather use "default XEN_BACKEND" here, as mappings of other guest's
-memory is rarely used for non-backend guests.
+Can we get away without `return_is_status`? Couldn't we try to have
+return_type=libxl_error to indicate that return is a kind of status?
 
+> +    """
+> +class CtxFunction(Function):
+> +    """
+> +    A function that requires a libxl_ctx.
+> +
+> +    Attributes:
+> +      is_asyncop (bool): indicates that the function accepts a
+> +                         libxl_asyncop_how parameter.
 
-Juergen
+While CtxFunction can be a function that takes `libxl_ctx` as first
+parameter, I don't think `is_asyncop` can be used. We can't know if
+`ao_how` will be last or not. For some function, `ao_how` is second to
+last. So, I guess `ao_how` might need to be listed in `params`
 
+What do you think?
+
+Thanks,
+
+-- 
+Anthony PERARD
 
