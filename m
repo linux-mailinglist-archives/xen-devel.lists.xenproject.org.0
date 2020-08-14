@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B686F244DA3
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B38244D74
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dTj-0004ft-Ra; Fri, 14 Aug 2020 17:26:55 +0000
+	id 1k6dPI-000257-8n; Fri, 14 Aug 2020 17:22:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dR8-00024Q-Ih
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:24:14 +0000
-X-Inumbo-ID: 6b5755eb-4432-4471-9473-e8db0f7611cc
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1k6dPH-00024Q-F1
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:19 +0000
+X-Inumbo-ID: 2adde251-d036-4faf-ae7a-63afdc966da3
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6b5755eb-4432-4471-9473-e8db0f7611cc;
- Fri, 14 Aug 2020 17:22:37 +0000 (UTC)
+ id 2adde251-d036-4faf-ae7a-63afdc966da3;
+ Fri, 14 Aug 2020 17:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425757;
+ d=citrix.com; s=securemail; t=1597425734;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=XmWan6OFdoSDp1zEPNim1kFyWC0CH8DOuEHNE4WvvE4=;
- b=M5h0ExAPZVnrWTFUNrE89pkZsws3f3haiic7K9iAV9x8fgSaxAP3Y3vZ
- LNXZPohjnOVhTOjifiIgyp/lgK0NwWnVoVnVxpXZqD6pm/URIiujQus5J
- 3bdA1UahD1OH0LL/7DYe7qQxCVlzKeFnFY8wYE4O9BYINXEnEY+8mEx05 o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ bh=VWuuAPMerjfMQAsxmPr3Y+nXxd0ZATQLLz4PXLvUE9U=;
+ b=YrJY1nvko0fjO0IZERJQxmkp3VdMXWs54jZe9HKhqtJZHQF4d51Kk2Fm
+ Is6e+ezuT23abNQRP7o4MGoSLBJy2XuHYJ2gZWaNOtLAn3+BT38DhDIDi
+ 7DRUf9+/t5NzmNap2vTzgesNLmRxpTYkk0yuwpXzoZkO5SZUjWVqo5x5m k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: RbQPsOt4BO8h0D6vJ8aPEhpNu3oLmc0qdbt0ewN4gzhFQPkSIpR2DEJ7yr1jiUYcuislsWGmg3
- FbLC48Wdj29gtostV3Fb6dN+PO/Wdrru0yIZm/zrfeOND5XZfE5i2bL0sF7lVw9DErTMxnW0OQ
- hN3A0TQ24Fls56aOCx3L8AFVpMYtWAEbUm4NUdOpRB5GKpI7BnPvAuCqdVaetgCLb3/48hhciJ
- 5C5h4DkY57nUe+fwmHW4YlBAkWFGGUlxJaC4Aids1Ef6SFLNDNvU4KMi9o4Zh+bZbqToVtbsVw
- UG4=
+IronPort-SDR: DLrvCt/pkEFSxhXfX8rOcRGnPb5aQSF+z8NJjaw7a8W9P5aUSkw3ZbIQc6wRQyASHExuQ4RkZ8
+ IvkiOLxVoVRbMv0BCpAdpelnF2xgYIpLHr8ZkyP9xEHamLeqYwTzbrwz7tcbMvQLzfD/szbsid
+ A1TkjlJADSwh9MPqSgA/pIDsF7+sm2XmOELnUO3SaDfaoNZ+PFBs9vfHVU03B8T8bURWbBiaAs
+ 0cln33AU7NfAvPjcQk+g+YkrEbIM0EooWc3W948bzeSM8faPnyeITWwBPBBiQUsAPk/3+eUwax
+ cYw=
 X-SBRS: 2.7
-X-MesageID: 24576910
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 24900364
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24576910"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24900364"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 08/60] history reporting (nfc): Rename "existing" to
- "previous"
-Date: Fri, 14 Aug 2020 18:21:13 +0100
-Message-ID: <20200814172205.9624-9-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 09/60] history reporting (nfc): Provide cacheable_fn
+Date: Fri, 14 Aug 2020 18:21:14 +0100
+Message-ID: <20200814172205.9624-10-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -64,53 +63,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This seems more idiomatic use of English.
+Prep work.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-host-history | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sg-report-host-history | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/sg-report-host-history b/sg-report-host-history
-index 2724ef27..f37dd4a2 100755
+index f37dd4a2..90369ce4 100755
 --- a/sg-report-host-history
 +++ b/sg-report-host-history
-@@ -32,7 +32,7 @@ our $limit= 2000;
- our $timelimit= 86400 * (366 + 14);
- our $flightlimit;
- our $htmlout = ".";
--our $read_existing=1;
-+our $read_previous=1;
- our $doinstall=1;
- our $maxjobs=10;
- our @blessings;
-@@ -58,7 +58,7 @@ while (@ARGV && $ARGV[0] =~ m/^-/) {
-     } elsif (m/^--html-dir=(.*)$/) {
-         $htmlout= $1;
-     } elsif (m/^--regenerate$/) {
--        $read_existing= 0;
-+        $read_previous= 0;
-     } elsif (m/^--no-install$/) {
-         $doinstall= 0;
-     } elsif (m/^--debug/) {
-@@ -84,7 +84,7 @@ sub cache_row_key ($) {
-     return join $; , map { $jr->{$_} } @cache_row_key_cols;
+@@ -181,20 +181,27 @@ END
+ our $jqcachemisses = 0;
+ our $jqtotal = 0;
+ 
+-sub cacheable_query ($$$) {
+-    my ($q, $jr, $cachekey) = @_;
++sub cacheable_fn ($$$) {
++    my ($jr, $cachekey, $fn) = @_;
+     $jqtotal++;
+     $cachekey = '%'.$cachekey;
+     my $cached = $jr->{$cachekey};
+     if (!$cached) {
+ 	$jqcachemisses++;
+-	$q->execute($jr->{flight}, $jr->{job});
+-	$cached = $q->fetchrow_hashref();
++	$cached = $fn->();
+ 	$jr->{$cachekey} = $cached;
+     }
+     return $cached;
  }
  
--sub cache_read_existing ($) {
-+sub cache_read_previous ($) {
-     my ($html_file) = @_;
-     if (!open H, $html_file) {
-         return if $!==ENOENT;
-@@ -501,7 +501,7 @@ foreach my $host (sort keys %hosts) {
-     my $pid = fork // die $!;
-     if (!$pid) {
- 	opendb_tests();
--	cache_read_existing("$htmlout/$host.html") if $read_existing;
-+	cache_read_previous("$htmlout/$host.html") if $read_previous;
- 	db_retry($dbh_tests, [], sub {
-             mainquery($host);
- 	    reporthost $host;
++sub cacheable_query ($$$) {
++    my ($q, $jr, $cachekey) = @_;
++    cacheable_fn($jr, $cachekey, sub {
++	$q->execute($jr->{flight}, $jr->{job});
++	return $q->fetchrow_hashref();
++    });
++}
++
+ our %hosts;
+ 
+ sub mainquery ($) {
 -- 
 2.11.0
 
