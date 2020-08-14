@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95540244D2D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 18:56:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB278244D73
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6cz8-0007yg-AC; Fri, 14 Aug 2020 16:55:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k6dPM-00026w-JL; Fri, 14 Aug 2020 17:22:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6cz6-0007yb-SX
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 16:55:16 +0000
-X-Inumbo-ID: 6b07fecd-dba9-4a01-b5a0-36f4ea2c7962
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6b07fecd-dba9-4a01-b5a0-36f4ea2c7962;
- Fri, 14 Aug 2020 16:55:15 +0000 (UTC)
+ id 1k6dPK-00024H-UU
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:22 +0000
+X-Inumbo-ID: 024a05e7-f430-4e32-aa4e-fd8279454bf4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 024a05e7-f430-4e32-aa4e-fd8279454bf4;
+ Fri, 14 Aug 2020 17:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597424115;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:subject:in-reply-to:references;
- bh=fPlJ9+aKoFusmKdB1ZVmmkGMFH2I0gczxz3s3mNbj+U=;
- b=b0ouzRvOOWhlIv3UojlNa8uPzI8vmAE6XXLtng5vg4Msz0MQvOx9+PGV
- cH8qV5pNdKCwpTqBAmmq74FY0cgmM0f/wtmOiCoRDlEOu4zhByWSgcALG
- ZXzhso7rbGxWs6RAN5177PHZoT6RgCwiPLqUrdxal7eQiVyfTBVEF9K5l 4=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597425733;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=6Yh1gTjmkgvYSEZGqFd7rRT5aw5d6Kjp6VoJ1bNZQdE=;
+ b=HGYPvM5Edri/EuIFt4TsbUneJyvk1xTIi+t/f2rMy69L60vMtzI4jE/4
+ cyp45Ioij+RS7PKI2+hN800pOQJ/LnuhyEaOMjxzNTukJn7cdUsBv8nL7
+ KVStY2wvoHPpN6vr8DHLCL93J156SLTw4AXgkFEAllSVjNVPHEwq3hqsV k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 4NG30KvVOXdApYEiq8xVOQ83F6dSfdOKqm8Ca2qImadeTUqbUpIh+Rg0ClPlmLUdm9+h5Ud9ty
- qh8CRruKL+y5AIPsIeel59pWKyVC5C9Uy2iv+RGWd7wb6jPEWZkT39s4ixq0/aPbPWbRfi2xJm
- rjXO7gDNFwEWm1CB5kanFR+f5mAVi41YiQlkZNJdBEInjT41NHUIEO7rfLb0z7477sI6HmLjaF
- tALKeDx6nDUqC1Es+0MnymDB+SRN0/NS7a9QzXobYZjwTUc8WuClWCmMJ9GyI2gmMIRwokV0wE
- oks=
+IronPort-SDR: +LaL0UoATh1NAWrkxc8gBxJvvWQ9SjdIqXc0kuVH++Mv5JJLJ1gfT1USLNKX3UKZzX7z4F2bLP
+ WuS/L40YB1ZPo0w58ac7lkpZbO9DlghgA2p0Kj9KYbgaaUcOsF+JFiHK+PFWV9NR3hee1rNpgi
+ aJb650NIPCqSzI6pzR74TOfBt9wmfhoUzvu8hEgSYYJHP35YtV4pyOf9O032rnxsgoTn05uzzW
+ +qaWvcK09RAu4tUXbqP8cCJaoQ3Ot+bb2Zk75PvWt2HPcozgOaOH87BkCc6fghHI0o4CFcWjJx
+ g14=
 X-SBRS: 2.7
-X-MesageID: 24543199
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24879727
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24543199"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24879727"
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 00/60] Speed up sg-report-job-history
+Date: Fri, 14 Aug 2020 18:21:05 +0100
+Message-ID: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24374.49647.650481.677464@mariner.uk.xensource.com>
-Date: Fri, 14 Aug 2020 17:55:11 +0100
-To: "committers@xenproject.org" <committers@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Planned osstest outage, around 17th August
-In-Reply-To: <24371.64746.743317.606471@mariner.uk.xensource.com>
-References: <24371.64746.743317.606471@mariner.uk.xensource.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,21 +61,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ian Jackson writes ("Planned osstest outage, around 17th August"):
-> osstest's infrastructure hosts need upgrading to Debian "buster" (aka
-> Debian "stable").  We are planning to do this on Monday the 17th of
-> August.
-> 
-> This will involve telling osstest to start draining its queues some
-> time around the 15th of August.  If all goes well, it will be back in
-> operation late on the 17th.  But it is possible that difficulties will
-> arise, in which case it might be out of operation, or operating in a
-> degraded way, for perhaps the rest of that week.
-> 
-> Please let me know if you think this is a bad time.
+I think this is the final section of my work to speed up osstest's
+reporting db queries etc.
 
-I have dropped stop files which means that osstest will not pick up
-new work until service is (hopefully!) restored on Monday.
+After this is pushed and working, I will look and see what the
+interval is now, between one flight finishing and the next starting,
+to see ig there is more to be done.
 
-Ian.
+Ian Jackson (60):
+  history reporting (nfc): Do not key cache on hostname any more
+  history reporting (nfc): Add some test runes to the notes
+  history reporting: Delete two debug prints
+  history reporting (nfc): Refactor to generalise, cache_read_existing
+  history reporting (nfc): Make cache_write_entry into a top-level sub
+  history reporting (nfc): Rename jobquery to cacheable_query
+  history reporting (nfc): Break out cache_row_lookup_prep
+  history reporting (nfc): Rename "existing" to "previous"
+  history reporting (nfc): Provide cacheable_fn
+  history reporting (nfc): Bind by name in cacheable_query
+  history reporting (nfc): Rename $cachehits to $rows_hit
+  history reporting (nfc): Record query-specific stats
+  history reporting (nfc): Move cacheable_* further up the file
+  history reporting (nfc): Use cacheable_fn for power methods
+  history reporting (nfc): Introduce cache_set_key_cols
+  history reporting (nfc): Record more row-specific stats
+  history reporting: Cache stats reporting: Centralise and rework
+  history reporting (nfc): Remove now-obsolete stats variables
+  history reporting (nfc): Introduce empty HistoryReport module
+  history reporting (nfc): Move cache code into HistoryReport module
+  history reporting (nfc): Rename some module variables, remove "cache"
+  history reporting: Skip undefined keys
+  history reporting (nfc): Documentation for the new module
+  history reporting: Cache data limit now in History module
+  history reporting: Print debug for cache misses
+  history reporting: Improve an error message slightly
+  sg-report-host-history: Write cache entry for unfinished jobs
+  parallel by fork: Break out into HistoryReport
+  parallel by fork: Disconnect $dbh_tests as well as undefing it
+  parallel by fork: Fix a variable name to $task
+  sg-report-job-history: Prep for fork: Move $buildsq query
+  sg-report-job-history: Prep for fork: Move $revisionsq query
+  sg-report-job-history: Use fork-based parallelism
+  sg-report-job-history: Use one child per report
+  sg-report-job-history (nfc): Have main program decide HTML filename
+  sg-report-job-history: Always write HTML output
+  sg-report-job-history (nfc): Remove needless conditional
+  history reporting (nfc): Add another test rune to the notes
+  history reporting (nfc): Make cacheable_fn work without cache
+  sg-report-job-history: Refactor "ALL" handling
+  sg-report-job-history (nfc): Make $ri->{Hosts} a hash
+  sg-report-job-history (nfc): Add new hostvarcols calculation
+  sg-report-job-history (nfc): Query hosts runvars in one go
+  sg-report-job-history (nfc): Drop $hostsq query
+  history reporting (nfc): Provide cache_set_task_print
+  sg-report-job-history: Introduce use of cache, for hosts query
+  history reporting (nfc): Break out url_quote
+  history reporting (nfc): Break out url_unquote
+  history reporting (nfc): Break out $url_ok_chars
+  history reporting (nfc): url-quoting: quote = too
+  history reporting (nfc): Quote keys too
+  sg-report-job-history: Cache the per-flight revisions
+  sg-report-job-history (nfc): Refactor osstestrevs code
+  sg-report-job-history: Cache osstestrevs
+  history reporting: Break out minflight_by_time
+  sg-report-job-history (nfc): Abolish $fromstuff
+  sg-report-job-history: Cache report_run_getinfo
+  sg-report-host-history: Cache report_run_getinfo
+  sg-report-job-history: Provide --time-limit
+  sg-report-job-history: Increase default limit
+
+ Osstest/HistoryReport.pm | 301 +++++++++++++++++++++++++++++++++++++++++++++
+ runes                    |  10 ++
+ sg-report-host-history   | 216 +++++++-------------------------
+ sg-report-job-history    | 313 +++++++++++++++++++++++++----------------------
+ 4 files changed, 520 insertions(+), 320 deletions(-)
+ create mode 100644 Osstest/HistoryReport.pm
+
+-- 
+2.11.0
+
 
