@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B19CA244D76
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99E7F244D70
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:22:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dPO-000285-0u; Fri, 14 Aug 2020 17:22:26 +0000
+	id 1k6dPY-0002Ev-9u; Fri, 14 Aug 2020 17:22:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dPM-00024Q-F3
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:24 +0000
-X-Inumbo-ID: e752ff3c-c5c0-466e-9851-32d936877fe4
+ id 1k6dPW-00024Q-FH
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:22:34 +0000
+X-Inumbo-ID: 612ec8ec-6fbc-49ed-9c60-9cca7b539642
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e752ff3c-c5c0-466e-9851-32d936877fe4;
+ id 612ec8ec-6fbc-49ed-9c60-9cca7b539642;
  Fri, 14 Aug 2020 17:22:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=citrix.com; s=securemail; t=1597425735;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=yzvvWPvs19JE/ETvoMiV0rNkq4oq3GlQAVyUogvXSnU=;
- b=JNXUX/WJqveNUCCI5qUF/ral5cm/5sfvH6TKSiQFLqlJUE5PAkWuQAoO
- sNpj8Bf6JSdIqLPyCWrsCAaSETw4g6zTS8ZBrQbmUalVY4Ln2sfxyNkMO
- YJidUzJZ0EnyoJGQqk+XAsNc/p1wC7vyHmdrTjefCDpRJV1bif8wxf6Tc k=;
+ bh=nYDls4pSAxC6Us+znyNlTaQYDrDAw64aEjMsGqXSd1A=;
+ b=TK2CRvTV5PUax2W9gJmLviMY34hwX17ahwhC1SWoyp94cj4T6WwUgREg
+ sbpIFYTlCV+azlXlHpZM+9FEBLOg2x5OcoOxX1YnP3Jfib5JOjq0m7WRp
+ xnfE1/8BwFGdNCJX6VZXMJi9yikREsiAtapiv99NsPOjdNzbL8jW2APSS I=;
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: lpIon3J5lLZzhK5HxqvZYGJlKd6KgNNT71qxQZ3tB9E6jR+Krz3Kp5+yFiZwdXWC8dblRPHbjZ
- IEXmGweZP5VpLgMXa2HjCKY8o2YMa8wuKiF7UcSSyCop6mPLaUCQVpsu9Y8I6nLhmmhwD2C2sW
- tOJXvWdRNNVG9BVKKkl1W70YNbKFUZ37weFvQadWO/UlAgzFi42nCSdbbuZTNZVFlUCZNkguLN
- upWAPd0b85DP5rv69KpYaQ4nHdGAnitYw2TaKUKleFMtgwNdMaSj6VoRdl9egtBH3+O08RcBPz
- fko=
+IronPort-SDR: emOl40wtKzR+YEaTIaVVp0vVYkyYGC6MTh755ARD8q+YYCtoqukf7tCT321KCe5aIX2L6/wgxn
+ bxyRWqAOYra8sAGIo4R6lEXdvuhTWj0DhBXlcQscDQclgBoFRCPytz9PzjJU7Z6xkW3/CczWhc
+ mAUZiqfJHcW3/3alnt7gfMqirZgjdV/JliXMjDpLM4saNTFIQaiPRLQDPga6WRShmWay0KbPDs
+ av3gHgp/euKlVRR4LjOgdim9bFWVLtP+gX4FEWbvApeFnYji42DRo7hwVb27wtIc+NnfDlGZZo
+ pXA=
 X-SBRS: 2.7
-X-MesageID: 24900366
+X-MesageID: 24900367
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24900366"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="24900367"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 11/60] history reporting (nfc): Rename $cachehits to
- $rows_hit
-Date: Fri, 14 Aug 2020 18:21:16 +0100
-Message-ID: <20200814172205.9624-12-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 12/60] history reporting (nfc): Record query-specific
+ stats
+Date: Fri, 14 Aug 2020 18:21:17 +0100
+Message-ID: <20200814172205.9624-13-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -64,44 +64,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Prep work.
+Prep work.  Nothing uses these yet.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-host-history | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sg-report-host-history | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/sg-report-host-history b/sg-report-host-history
-index 8c5cd105..705367cf 100755
+index 705367cf..32414322 100755
 --- a/sg-report-host-history
 +++ b/sg-report-host-history
-@@ -118,7 +118,7 @@ sub cache_row_lookup_prep ($) {
-     my $cacherow = $cache{cache_row_key($$jrr)};
-     if ($cacherow) {
- 	$$jrr = $cacherow;
--	$cachehits++;
-+	$rows_hit++;
+@@ -77,6 +77,10 @@ our $flightcond;
+ our $minflight;
+ 
+ our %cache;
++
++our %q_count;
++our %q_misses;
++
+ our @cache_row_key_cols = qw(flight job status name);
+ 
+ sub cache_row_key ($) {
+@@ -186,8 +190,10 @@ sub cacheable_fn ($$$) {
+     $jqtotal++;
+     $cachekey = '%'.$cachekey;
+     my $cached = $jr->{$cachekey};
++    $q_count{$cachekey}++;
+     if (!$cached) {
+ 	$jqcachemisses++;
++	$q_misses{$cachekey}++;
+ 	$cached = $fn->();
+ 	$jr->{$cachekey} = $cached;
      }
- }
- 
-@@ -303,7 +303,7 @@ END
-     # The contents of $jr for each job is cached across runs.
- 
-     my @rows;
--    my $cachehits = 0;
-+    my $rows_hit = 0;
-     foreach my $jr (@$inrows) {
- 	#print DEBUG "JOB $jr->{flight}.$jr->{job} ";
- 
-@@ -320,7 +320,7 @@ END
- 	push @rows, { %$jr, %$endedrow };
-     }
- 
--    print DEBUG "CACHE $hostname $cachehits / ".(scalar @rows)
-+    print DEBUG "CACHE $hostname $rows_hit / ".(scalar @rows)
- 	." of ".(scalar %cache)."\n";
- 
-     @rows = sort { $b->{finished} <=> $a->{finished} } @rows;
 -- 
 2.11.0
 
