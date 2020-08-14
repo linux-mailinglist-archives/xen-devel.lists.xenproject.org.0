@@ -2,53 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BCA7244B1D
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 16:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C037244B30
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 16:23:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6aT7-0001Qe-Nt; Fri, 14 Aug 2020 14:14:05 +0000
+	id 1k6ac3-0002KT-PW; Fri, 14 Aug 2020 14:23:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mPii=BY=merlin.srs.infradead.org=batv+60fe71d3c34d6db4d44c+6200+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1k6aT5-0001QZ-HD
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 14:14:04 +0000
-X-Inumbo-ID: 91c05911-af9d-4a53-8283-bf705358506a
+ id 1k6ac2-0002KO-66
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 14:23:18 +0000
+X-Inumbo-ID: 5fa8fd2a-fa68-44c3-a036-e1215111b714
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 91c05911-af9d-4a53-8283-bf705358506a;
- Fri, 14 Aug 2020 14:14:01 +0000 (UTC)
+ id 5fa8fd2a-fa68-44c3-a036-e1215111b714;
+ Fri, 14 Aug 2020 14:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=CfIj3x2vL5eBfQB1HcjPWo5BFeX/jcwSWoYS+6IhKzA=; b=gcYd/8PPyHYcppVnTaZ9tkTpqC
- MlE6ZfCrR1Z/6EUpCTolYz8eimUYhYTrpWKIZPVmEp778HJzP8MuzWTE3Q1u3/1SViATrddSCH1U5
- QRH1n5uq6/2K5tlK3NowNrgpT+Jl0JHHXUPqPBvBrY0fAa9N2LJOtTK+AsDVDfVV9dl+oDr/xVi+b
- XoHzyg2oatKFKxSQYmutSCBColVrAeGEWGSoq3l3sC0b+T5Ne4WEKMnHVh40xt0KxV/TETvHegQLm
- Lc7fJakdHtx86uuaWegUh7cJSMwd4SZzU9uUL7Y9NhBisI2bn2vbsCnekzR7Ear5zl/lKu+3nLLUf
- /v2KnPRA==;
+ bh=x3Yxnug3Xv0A828hzPCIMuWHa1hX3TpvEx1+VlvN7O4=; b=fK2j0JZnpQIlOQmutGrTVk2uxq
+ enu4tip4LOIja2u8Rr8goIG/dlwkSk9y32yIl0IYyOFr8+stt3ZbmBOruR/107jFR1cbPey+PZzHF
+ I9OR5YlDcTFBiOm+IxMFTeDBYJ07Q8Mud1wAUUVJJv4qkPzcFb/WOeCM3zKtPwFP6OGGRj5L0hUn4
+ cbv+b7cluY28o6QNG+2Jjjw4xWRdaIFf5Lbm9kS4pwrM4Cl6cQCFKSjgdKTpcjirGWsC9Db8mv+W7
+ uCjcXeTbOveuubHj2L+GJo0SigiC6BSJk87OUuAr5lTwJUQ6vwaHdOG7JH1DhAHINVzSM3tTLBe+z
+ TqYnFfgw==;
 Received: from 54-240-197-230.amazon.com ([54.240.197.230]
  helo=freeip.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k6aSv-0006py-CQ; Fri, 14 Aug 2020 14:13:53 +0000
-Message-ID: <999f185404fcedc03d8cf1bd1f47a492219b8e9b.camel@infradead.org>
-Subject: Re: [Xen-devel] [PATCH v2] x86/hvm: re-work viridian APIC assist code
+ id 1k6abv-0007aM-Sb; Fri, 14 Aug 2020 14:23:12 +0000
+Message-ID: <f139a3378b46a9d9ec84da26d40e3431384c49f2.camel@infradead.org>
+Subject: Re: [Xen-devel] [PATCH 1/2] tools/xenstore: Do not abort
+ xenstore-ls if a node disappears while iterating
 From: David Woodhouse <dwmw2@infradead.org>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Eslam Elnikety' <elnikety@amazon.de>, 
- 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Shan Haitao'
- <haitao.shan@intel.com>, 'Jan Beulich' <jbeulich@suse.com>
-Date: Fri, 14 Aug 2020 15:13:51 +0100
-In-Reply-To: <20200813094555.GF975@Air-de-Roger>
-References: <20180118151059.1336-1-paul.durrant@citrix.com>
- <1535153880.24926.28.camel@infradead.org>
- <7547be305e3ede9edb897e2be898fe54e0b4065c.camel@infradead.org>
- <002d01d67149$37404b00$a5c0e100$@xen.org>
- <20200813094555.GF975@Air-de-Roger>
+To: Ian Jackson <ian.jackson@citrix.com>, =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
+ <jgross@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Date: Fri, 14 Aug 2020 15:23:10 +0100
+In-Reply-To: <24194.8458.419698.4513@mariner.uk.xensource.com>
+References: <20200319204025.2649661-1-dwmw2@infradead.org>
+ <6ff2589e-3cb9-a8a3-ea22-0798b0574eb0@suse.com>
+ <b9535ad9a1cc8a7c3a9aeb2fc5e7ea7560966ebb.camel@infradead.org>
+ <336e14a1-2c8b-8257-de40-3c6305a4ffcb@suse.com>
+ <24180.53085.835170.696701@mariner.uk.xensource.com>
+ <8c5ccb8d5f3cb3426b5782cc80391c9f8bcb71b8.camel@infradead.org>
+ <af5af47c-31ab-09bd-2f05-e5e2ce34780d@suse.com>
+ <24194.8279.169315.476575@mariner.uk.xensource.com>
+ <24194.8458.419698.4513@mariner.uk.xensource.com>
 Content-Type: multipart/signed; micalg="sha-256";
  protocol="application/x-pkcs7-signature";
- boundary="=-vIdiQ002Xf9wMKagiTMP"
+ boundary="=-1MjAyJG+3Rwoh1wRrS0E"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
@@ -67,42 +71,41 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---=-vIdiQ002Xf9wMKagiTMP
+--=-1MjAyJG+3Rwoh1wRrS0E
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2020-08-13 at 11:45 +0200, Roger Pau Monn=C3=A9 wrote:
-> > The loop appears to be there to handle the case where multiple
-> > devices assigned to a domain have MSIs programmed with the same
-> > dest/vector... which seems like an odd thing for a guest to do but I
-> > guess it is at liberty to do it. Does it matter whether they are
-> > maskable or not?
+On Mon, 2020-03-30 at 17:40 +0100, Ian Jackson wrote:
+> Ian Jackson writes ("Re: [Xen-devel] [PATCH 1/2] tools/xenstore: Do
+> not abort xenstore-ls if a node disappears while iterating"):
+> > And making a node visible by XS_DIRECTORY[_PART] doesn't count as
+> > reading it.  But it does count as reading the parent ?
+> > In principle adding or removing a node could be made to count as a
+> > change to the containing directory.  But I don't think doing this
+> > as a
+> > response to David's issue is sensible.
 >=20
-> Such configuration would never work properly, as lapic vectors are
-> edge triggered and thus can't be safely shared between devices?
+> So, err, putting that together and reviewing the state of the world:
 >=20
-> I think the iteration is there in order to get the hvm_pirq_dpci
-> struct that injected that specific vector, so that you can perform the
-> ack if required. Having lapic EOI callbacks should simply this, as you
-> can pass a hvm_pirq_dpci when injecting a vector, and that would be
-> forwarded to the EOI callback, so there should be no need to iterate
-> over the list of hvm_pirq_dpci for a domain.
+> I still think David's 1/ patch is good.
+>=20
+> I think my comments on 2/ are still applicable, apart from the
+> bits where I suggest using a transaction will fix all this.
+>=20
+> David: do you now intend to revise 2/ according to our comments ?
 
-If we didn't have the loop =E2=80=94 or more to the point if we didn't grab=
- the
-domain-global d->event_lock that protects it =E2=80=94 then I wouldn't even
-care about optimising the whole thing away for the modern MSI case.
+I confess to having slightly lost the will to live, but sure. If #1
+gets applied and actually fixes the bug that was biting us in
+production and which I started trying to upstream in March 2019, I'll
+happily revisit those subsequent cleanups you asked for.
 
-It isn't the act of not doing any work in the _hvm_dpci_msi_eoi()
-function that takes the time. It's that domain-global lock, and a
-little bit the retpoline-stalled indirect call from pt_pirq_interate().
+> Everyone else: is there some reason we shouldn't commit 1/
+> immediately ?
 
-I suppose with Roger's series, we'll still suffer the retpoline stall
-for a callback that ultimately does nothing, but it's nowhere near as
-expensive as the lock.
+It was deliberately split out so that it could indeed be applied
+immediately when it was posted in March.
 
-
---=-vIdiQ002Xf9wMKagiTMP
+--=-1MjAyJG+3Rwoh1wRrS0E
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -185,21 +188,21 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-ODE0MTQxMzUxWjAvBgkqhkiG9w0BCQQxIgQg65A5qvlNp5b1PDK7mAxd0BJUPZ9mSSkvSKDKTGJj
-EZkwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODE0MTQyMzEwWjAvBgkqhkiG9w0BCQQxIgQg1mFMJ/MPa0GeIT7OvPOePTzqb4wkobcet1dETANc
+D0Iwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAKFX7rJGPudOh5YEd9q4DGgdhTECPfBg0ag2E5HUzYTe8QBNm/TZzudezDKN+F13
-J05EhwNYB9xUf5CqpQ472j1rpu8eRijT9R3NELM+5Jw87kiO7CaRWUfbSIOd3akPHurP3AGMbt3G
-/szweLIJZNiwozQ4MAgYEzv/VEGdkDDUQLpTI1cZGt0wpFZhkIuENCH5c8U2ryiQRPmxDFkQDnHF
-spQ8Dc9uXNWbFN+bW1RlqlIFvscsxJwZY1QqESLVpEJcEvtzlTGCguSvd5jD2eqRpEa7Nv6qiES8
-yFD8m2Lt0TuwbZeVYo4f5CkDrEXDDIDqqKToajD6OgsU81f0qPsAAAAAAAA=
+DQEBAQUABIIBABt+P1eBJuWvdQdsvgZV+MAd8fRGcFY2KT37PampFv59XfM0xZmZmio2EWcbAhAC
+BGuzmsL88Mpbo5r42SqBK09AU/OVoNzL7LOYrRK6lOagTj9H+UILve9rnkWcXMs2QFADEeShfMs4
+5hPsJuj+5rY3qVQ5k/L0bh9Kp+4Vsfp88dJEb7ry+OHQJTaRmzs7Vf0Lr2giGCIUOx2EXWvBezHK
+1aJZsvOWKAad/qXvlFnkDaoTGTNNjeAPSJaWWr34V65JiklG8my8am9B9ZRjY6P8qaOsAEh/vQ+X
+xcWEJuBm6w2k60SIeSNWCI3se/C4Z8HVlYBTBi2La9gtZ5xwJNoAAAAAAAA=
 
 
---=-vIdiQ002Xf9wMKagiTMP--
+--=-1MjAyJG+3Rwoh1wRrS0E--
 
 
