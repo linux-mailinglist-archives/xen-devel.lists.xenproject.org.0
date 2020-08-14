@@ -2,61 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C037244B30
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 16:23:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAFDA244B4A
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 16:42:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6ac3-0002KT-PW; Fri, 14 Aug 2020 14:23:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k6atl-00041C-Ad; Fri, 14 Aug 2020 14:41:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mPii=BY=merlin.srs.infradead.org=batv+60fe71d3c34d6db4d44c+6200+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1k6ac2-0002KO-66
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 14:23:18 +0000
-X-Inumbo-ID: 5fa8fd2a-fa68-44c3-a036-e1215111b714
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5fa8fd2a-fa68-44c3-a036-e1215111b714;
- Fri, 14 Aug 2020 14:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
- In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=x3Yxnug3Xv0A828hzPCIMuWHa1hX3TpvEx1+VlvN7O4=; b=fK2j0JZnpQIlOQmutGrTVk2uxq
- enu4tip4LOIja2u8Rr8goIG/dlwkSk9y32yIl0IYyOFr8+stt3ZbmBOruR/107jFR1cbPey+PZzHF
- I9OR5YlDcTFBiOm+IxMFTeDBYJ07Q8Mud1wAUUVJJv4qkPzcFb/WOeCM3zKtPwFP6OGGRj5L0hUn4
- cbv+b7cluY28o6QNG+2Jjjw4xWRdaIFf5Lbm9kS4pwrM4Cl6cQCFKSjgdKTpcjirGWsC9Db8mv+W7
- uCjcXeTbOveuubHj2L+GJo0SigiC6BSJk87OUuAr5lTwJUQ6vwaHdOG7JH1DhAHINVzSM3tTLBe+z
- TqYnFfgw==;
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=freeip.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k6abv-0007aM-Sb; Fri, 14 Aug 2020 14:23:12 +0000
-Message-ID: <f139a3378b46a9d9ec84da26d40e3431384c49f2.camel@infradead.org>
-Subject: Re: [Xen-devel] [PATCH 1/2] tools/xenstore: Do not abort
- xenstore-ls if a node disappears while iterating
-From: David Woodhouse <dwmw2@infradead.org>
-To: Ian Jackson <ian.jackson@citrix.com>, =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
- <jgross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Date: Fri, 14 Aug 2020 15:23:10 +0100
-In-Reply-To: <24194.8458.419698.4513@mariner.uk.xensource.com>
-References: <20200319204025.2649661-1-dwmw2@infradead.org>
- <6ff2589e-3cb9-a8a3-ea22-0798b0574eb0@suse.com>
- <b9535ad9a1cc8a7c3a9aeb2fc5e7ea7560966ebb.camel@infradead.org>
- <336e14a1-2c8b-8257-de40-3c6305a4ffcb@suse.com>
- <24180.53085.835170.696701@mariner.uk.xensource.com>
- <8c5ccb8d5f3cb3426b5782cc80391c9f8bcb71b8.camel@infradead.org>
- <af5af47c-31ab-09bd-2f05-e5e2ce34780d@suse.com>
- <24194.8279.169315.476575@mariner.uk.xensource.com>
- <24194.8458.419698.4513@mariner.uk.xensource.com>
-Content-Type: multipart/signed; micalg="sha-256";
- protocol="application/x-pkcs7-signature";
- boundary="=-1MjAyJG+3Rwoh1wRrS0E"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- merlin.infradead.org. See http://www.infradead.org/rpr.html
+ <SRS0=CCCI=BY=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k6atk-000417-Dg
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 14:41:36 +0000
+X-Inumbo-ID: 0cd10582-c7a2-4501-95ed-07eb079c7aa5
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0cd10582-c7a2-4501-95ed-07eb079c7aa5;
+ Fri, 14 Aug 2020 14:41:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597416095;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Kv2fF5No4N9w7Vh3RTqjk2kqqDXatSINmrbuDIuVnqE=;
+ b=LFBBCT1rKVdrP3VkREG0NptgP+QDkzYO/msZBa6lpboc/NHuZgGgtNCk
+ Wut86/6zRmf8A2MM56BCmJdEzyu//VOr1P4+2uSVF2YXhBsBoBb/1UaoD
+ o53rzCr9nVjYV0vEDvyjDDzLbR+RJhVoXAGcskPDy/bG5IbcJ5a9Q2bxU k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 0rwV0jQmHtZzFWESy+q57kZeD3Z3tEyfds1g/tW+HpA58+xr/4Z8xUVj4ilEKuSCtKecYhsMAn
+ ZpFV6/cH/eXJypxSsNYR+HSyCxJVrxKJwf/QB3X8zHpEv1hHDR9S8+ydHMj1fz0ZoHXyFOPReZ
+ 2rpAm2dHty5u+KLTbR9TFtm9/E2anrOpxNwSXZS0MTKexWbnw7XLcCCXYjjjyN/UgBI4/C3hSr
+ 9YFQKJJ1B6Fe/pObleXHgadMK5R9rvQvmo4L7VXPcTGL12j8OtO6C1v3L926qb+YYpcYclpkf7
+ WBw=
+X-SBRS: 2.7
+X-MesageID: 24563432
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,312,1592884800"; d="scan'208";a="24563432"
+Date: Fri, 14 Aug 2020 16:41:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: David Woodhouse <dwmw2@infradead.org>
+CC: <paul@xen.org>, <xen-devel@lists.xenproject.org>, 'Eslam Elnikety'
+ <elnikety@amazon.de>, 'Andrew Cooper' <andrew.cooper3@citrix.com>, "'Shan
+ Haitao'" <haitao.shan@intel.com>, 'Jan Beulich' <jbeulich@suse.com>
+Subject: Re: [Xen-devel] [PATCH v2] x86/hvm: re-work viridian APIC assist code
+Message-ID: <20200814144126.GM975@Air-de-Roger>
+References: <20180118151059.1336-1-paul.durrant@citrix.com>
+ <1535153880.24926.28.camel@infradead.org>
+ <7547be305e3ede9edb897e2be898fe54e0b4065c.camel@infradead.org>
+ <002d01d67149$37404b00$a5c0e100$@xen.org>
+ <20200813094555.GF975@Air-de-Roger>
+ <999f185404fcedc03d8cf1bd1f47a492219b8e9b.camel@infradead.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <999f185404fcedc03d8cf1bd1f47a492219b8e9b.camel@infradead.org>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,139 +74,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Fri, Aug 14, 2020 at 03:13:51PM +0100, David Woodhouse wrote:
+> On Thu, 2020-08-13 at 11:45 +0200, Roger Pau Monné wrote:
+> > > The loop appears to be there to handle the case where multiple
+> > > devices assigned to a domain have MSIs programmed with the same
+> > > dest/vector... which seems like an odd thing for a guest to do but I
+> > > guess it is at liberty to do it. Does it matter whether they are
+> > > maskable or not?
+> > 
+> > Such configuration would never work properly, as lapic vectors are
+> > edge triggered and thus can't be safely shared between devices?
+> > 
+> > I think the iteration is there in order to get the hvm_pirq_dpci
+> > struct that injected that specific vector, so that you can perform the
+> > ack if required. Having lapic EOI callbacks should simply this, as you
+> > can pass a hvm_pirq_dpci when injecting a vector, and that would be
+> > forwarded to the EOI callback, so there should be no need to iterate
+> > over the list of hvm_pirq_dpci for a domain.
+> 
+> If we didn't have the loop — or more to the point if we didn't grab the
+> domain-global d->event_lock that protects it — then I wouldn't even
+> care about optimising the whole thing away for the modern MSI case.
+> 
+> It isn't the act of not doing any work in the _hvm_dpci_msi_eoi()
+> function that takes the time. It's that domain-global lock, and a
+> little bit the retpoline-stalled indirect call from pt_pirq_interate().
+> 
+> I suppose with Roger's series, we'll still suffer the retpoline stall
+> for a callback that ultimately does nothing, but it's nowhere near as
+> expensive as the lock.
 
---=-1MjAyJG+3Rwoh1wRrS0E
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I think we could ultimately avoid the callback (and the vmexit when
+running on Intel with virtual interrupt delivery) by not registering
+any callback when injecting a vector that originated from a source
+that doesn't require any Ack, the diff below should be applied on top
+of my series and I think should remove the execution of a callback
+when there's no Ack to perform. Still pretty much a proof of concept
+and could do with some further cleanup.
 
-On Mon, 2020-03-30 at 17:40 +0100, Ian Jackson wrote:
-> Ian Jackson writes ("Re: [Xen-devel] [PATCH 1/2] tools/xenstore: Do
-> not abort xenstore-ls if a node disappears while iterating"):
-> > And making a node visible by XS_DIRECTORY[_PART] doesn't count as
-> > reading it.  But it does count as reading the parent ?
-> > In principle adding or removing a node could be made to count as a
-> > change to the containing directory.  But I don't think doing this
-> > as a
-> > response to David's issue is sensible.
->=20
-> So, err, putting that together and reviewing the state of the world:
->=20
-> I still think David's 1/ patch is good.
->=20
-> I think my comments on 2/ are still applicable, apart from the
-> bits where I suggest using a transaction will fix all this.
->=20
-> David: do you now intend to revise 2/ according to our comments ?
-
-I confess to having slightly lost the will to live, but sure. If #1
-gets applied and actually fixes the bug that was biting us in
-production and which I started trying to upstream in March 2019, I'll
-happily revisit those subsequent cleanups you asked for.
-
-> Everyone else: is there some reason we shouldn't commit 1/
-> immediately ?
-
-It was deliberately split out so that it could indeed be applied
-immediately when it was posted in March.
-
---=-1MjAyJG+3Rwoh1wRrS0E
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-ODE0MTQyMzEwWjAvBgkqhkiG9w0BCQQxIgQg1mFMJ/MPa0GeIT7OvPOePTzqb4wkobcet1dETANc
-D0Iwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBABt+P1eBJuWvdQdsvgZV+MAd8fRGcFY2KT37PampFv59XfM0xZmZmio2EWcbAhAC
-BGuzmsL88Mpbo5r42SqBK09AU/OVoNzL7LOYrRK6lOagTj9H+UILve9rnkWcXMs2QFADEeShfMs4
-5hPsJuj+5rY3qVQ5k/L0bh9Kp+4Vsfp88dJEb7ry+OHQJTaRmzs7Vf0Lr2giGCIUOx2EXWvBezHK
-1aJZsvOWKAad/qXvlFnkDaoTGTNNjeAPSJaWWr34V65JiklG8my8am9B9ZRjY6P8qaOsAEh/vQ+X
-xcWEJuBm6w2k60SIeSNWCI3se/C4Z8HVlYBTBi2La9gtZ5xwJNoAAAAAAAA=
-
-
---=-1MjAyJG+3Rwoh1wRrS0E--
+---8<---
+diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+index e192c4c6da..483c69deb3 100644
+--- a/xen/arch/x86/hvm/vmsi.c
++++ b/xen/arch/x86/hvm/vmsi.c
+@@ -110,7 +110,7 @@ int vmsi_deliver(struct domain *d, int vector, uint8_t dest, uint8_t dest_mode,
+                                  trig_mode, NULL, NULL);
+ }
+ 
+-void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
++void vmsi_deliver_pirq(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+ {
+     uint32_t flags = pirq_dpci->gmsi.gflags;
+     int vector = pirq_dpci->gmsi.gvec;
+@@ -118,6 +118,7 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
+     bool dest_mode = flags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+     uint8_t delivery_mode = MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_DELIV_MASK);
+     bool trig_mode = flags & XEN_DOMCTL_VMSI_X86_TRIG_MASK;
++    struct pirq *pirq = dpci_pirq(pirq_dpci);
+ 
+     HVM_DBG_LOG(DBG_LEVEL_IOAPIC,
+                 "msi: dest=%x dest_mode=%x delivery_mode=%x "
+@@ -127,7 +128,7 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
+     ASSERT(pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI);
+ 
+     vmsi_deliver_callback(d, vector, dest, dest_mode, delivery_mode, trig_mode,
+-                          hvm_dpci_msi_eoi, NULL);
++                          pirq->masked ? hvm_dpci_msi_eoi : NULL, pirq_dpci);
+ }
+ 
+ /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id */
+diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/io.c
+index 3793029b29..2a0b7014f2 100644
+--- a/xen/drivers/passthrough/io.c
++++ b/xen/drivers/passthrough/io.c
+@@ -851,29 +851,6 @@ static void __msi_pirq_eoi(struct hvm_pirq_dpci *pirq_dpci)
+     }
+ }
+ 
+-static int _hvm_dpci_msi_eoi(struct domain *d,
+-                             struct hvm_pirq_dpci *pirq_dpci, void *arg)
+-{
+-    int vector = (long)arg;
+-
+-    if ( (pirq_dpci->flags & HVM_IRQ_DPCI_MACH_MSI) &&
+-         (pirq_dpci->gmsi.gvec == vector) )
+-    {
+-        unsigned int dest = MASK_EXTR(pirq_dpci->gmsi.gflags,
+-                                      XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
+-        bool dest_mode = pirq_dpci->gmsi.gflags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+-
+-        if ( vlapic_match_dest(vcpu_vlapic(current), NULL, 0, dest,
+-                               dest_mode) )
+-        {
+-            __msi_pirq_eoi(pirq_dpci);
+-            return 1;
+-        }
+-    }
+-
+-    return 0;
+-}
+-
+ void hvm_dpci_msi_eoi(struct vcpu *v, unsigned int vector, void *data)
+ {
+     struct domain *d = v->domain;
+@@ -883,7 +860,7 @@ void hvm_dpci_msi_eoi(struct vcpu *v, unsigned int vector, void *data)
+        return;
+ 
+     spin_lock(&d->event_lock);
+-    pt_pirq_iterate(d, _hvm_dpci_msi_eoi, (void *)(long)vector);
++    __msi_pirq_eoi(data);
+     spin_unlock(&d->event_lock);
+ }
+ 
+diff --git a/xen/include/asm-x86/hvm/hvm.h b/xen/include/asm-x86/hvm/hvm.h
+index be0d8b0a4d..c28fbf96f9 100644
+--- a/xen/include/asm-x86/hvm/hvm.h
++++ b/xen/include/asm-x86/hvm/hvm.h
+@@ -264,7 +264,7 @@ int vmsi_deliver(
+     uint8_t dest, uint8_t dest_mode,
+     uint8_t delivery_mode, uint8_t trig_mode);
+ struct hvm_pirq_dpci;
+-void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *);
++void vmsi_deliver_pirq(struct domain *d, struct hvm_pirq_dpci *);
+ int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
+ 
+ enum hvm_intblk
 
 
