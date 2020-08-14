@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D700244EAC
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 21:10:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDE68244EB5
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 21:15:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6f63-0000nP-Iu; Fri, 14 Aug 2020 19:10:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k6fA6-0000xZ-4R; Fri, 14 Aug 2020 19:14:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=osIB=BY=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k6f61-0000nK-D1
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 19:10:33 +0000
-X-Inumbo-ID: 4650cc06-6580-45ae-a0c4-28de85c397ae
+ id 1k6fA5-0000xU-9V
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 19:14:45 +0000
+X-Inumbo-ID: 9008d7f4-3ff1-4554-9d46-10332a8bcb08
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4650cc06-6580-45ae-a0c4-28de85c397ae;
- Fri, 14 Aug 2020 19:10:32 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9008d7f4-3ff1-4554-9d46-10332a8bcb08;
+ Fri, 14 Aug 2020 19:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=8QKY2s8aXmdPF0FCx/9Nfsv5XHoKdhBpp+wbemNRimk=; b=bPWSXfj2O6AGY2egC4JhPXixAX
- gYp91Hteo5uA5b2ucxX1cpFEcO1s5VspV6dtKmX9sDms5HFXWJ8mExcFa00+n2KTwpoZULvkhzysS
- ePk7jJVY9lNfuZMETQsvdP55mAcYD1E3Fkp7dCovC8TnVCFr2WiU0AMc5C/Tx6d5aTis=;
+ bh=d7UCQrvO7D9DoLD3bgQzFhBcOYJ5ZhVaOhl+/fr0P+8=; b=6SKf6EKhZhYYt/BRemYcH6E3fL
+ MLlfDpknKqPWPuVsxDr7a/xNDPSZ+Bzy/IDTqEfvapZKKC0WwLT6313msOkaVZZcnVhaavsFoA2E1
+ uDNAn2cAAKjkUzVLru8LXptDZkrOlFDcWe2ZuemZm4UlUaDUKnFvd7nQ9YQzXfqh5b34=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k6f5w-0004pf-Mm; Fri, 14 Aug 2020 19:10:28 +0000
+ id 1k6fA0-0004v8-Vz; Fri, 14 Aug 2020 19:14:40 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k6f5w-0001rT-En; Fri, 14 Aug 2020 19:10:28 +0000
+ id 1k6fA0-0002Bz-N4; Fri, 14 Aug 2020 19:14:40 +0000
 Subject: Re: [RESEND][PATCH v2 6/7] xen/guest_access: Consolidate guest access
  helpers in xen/guest_access.h
-To: Stefano Stabellini <sstabellini@kernel.org>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <20200730181827.1670-1-julien@xen.org>
  <20200730181827.1670-7-julien@xen.org>
- <alpine.DEB.2.21.2007301234180.1767@sstabellini-ThinkPad-T480s>
+ <17a7da1c-78eb-a86b-85f1-2372af93476e@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <1f397467-5e57-7a8a-f121-19eef25dd26d@xen.org>
-Date: Fri, 14 Aug 2020 20:10:26 +0100
+Message-ID: <9850d74b-7ec1-7c11-7093-2cc0b69ec2af@xen.org>
+Date: Fri, 14 Aug 2020 20:14:38 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007301234180.1767@sstabellini-ThinkPad-T480s>
+In-Reply-To: <17a7da1c-78eb-a86b-85f1-2372af93476e@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -69,26 +69,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+Hi Jan,
 
-On 30/07/2020 20:37, Stefano Stabellini wrote:
-> On Thu, 30 Jul 2020, Julien Grall wrote:
+On 31/07/2020 12:45, Jan Beulich wrote:
+> On 30.07.2020 20:18, Julien Grall wrote:
 >> From: Julien Grall <jgrall@amazon.com>
 >>
 >> Most of the helpers to access guest memory are implemented the same way
 >> on Arm and x86. The only differences are:
 >>      - guest_handle_{from, to}_param(): while on x86 XEN_GUEST_HANDLE()
-> 
-> It is actually just guest_handle_to_param() ?
-
-Yes. I forgot Jan recently removed the helper in commit dd5520f9df05 
-"x86: adjustments to guest handle treatment". I will update the commit 
-message.
-
-> 
-> 
 >>        and XEN_GUEST_HANDLE_PARAM() are the same, they are not on Arm. It
 >>        is still fine to use the Arm implementation on x86.
+> 
+> Is the description stale? I don't think there's any guest_handle_from_param()
+> anymore.
+
+Yes, I forgot you removed it. I will update the commit message.
+
+> 
 >>      - __clear_guest_offset(): Interestingly the prototype does not match
 >>        between the x86 and Arm. However, the Arm one is bogus. So the x86
 >>        implementation can be used.
@@ -113,11 +111,10 @@ message.
 >>
 >> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> Looks good to me
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Apart from the above
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Thank you!
+Thanks!
 
 Cheers,
 
