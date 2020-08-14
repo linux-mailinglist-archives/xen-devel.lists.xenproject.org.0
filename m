@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAA9F244DA4
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 882B5244DAB
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Aug 2020 19:27:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6dTk-0004iA-Kd; Fri, 14 Aug 2020 17:26:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k6dU2-0005Qj-8q; Fri, 14 Aug 2020 17:27:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gClF=BY=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k6dR7-00024H-2N
- for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:24:13 +0000
-X-Inumbo-ID: 0cc4a31a-a8ff-42df-9468-3999946ea39f
+ id 1k6dQP-00024Q-Gh
+ for xen-devel@lists.xenproject.org; Fri, 14 Aug 2020 17:23:29 +0000
+X-Inumbo-ID: a375254f-663b-4e62-9d4e-3d9ccfa6426a
 Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0cc4a31a-a8ff-42df-9468-3999946ea39f;
- Fri, 14 Aug 2020 17:22:21 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a375254f-663b-4e62-9d4e-3d9ccfa6426a;
+ Fri, 14 Aug 2020 17:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597425741;
+ d=citrix.com; s=securemail; t=1597425742;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=K4MIaKessBz20HyGZXTzw+K8QuBXZ4UICpsMkuTqCYc=;
- b=b1aac2nP9l8qvgqxMWMXp7BNgrx5Qr1qsmlYeXTspp0ml44haC9t7aJa
- 2D2oMglJjlUxeFZvbJH3hkuZreClYTg9m8KecBGxtY1hhtcWw2jp561tZ
- NU2VNqhmxOHEkwiCilqhQMbK6slOTuDiSndn0XyDJtJeIMEJ73EL1+7rX w=;
+ bh=CxW4jAZ/vIcg8LNWdKZ3/W4BiUjaoX6Yw8o5gSt9P7U=;
+ b=FIze4JOfdeWO1QKm59nyYj9vlMnz/7KyV6qEF8ZlY6u5vtdgo5eBGtZf
+ 9B3R6zvDPDf8pJiXXGRwVu/tHZ9ZRi/uzr7GB9JpUi8LnIRE8NUr3acKW
+ TBUVFxW1xuc8X+nZFkSmvOUQNsuJ8EnTw62tzxnW1+qdhIHoAdzo78JO5 U=;
 Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: tOXW0E1ASfq6vWuXstSZBpN89HTycJbZPlMC4UcJIvO32tDN6HB4Vn4dSHJSCzArMaHVFRl8Ff
- ii/oz83F8N2JgFYgmDZhls9FzVfl51Ez3mS7SGcmwLSK5F9Kbl8D+bqFCDeZBvT0mqDERp5JXS
- RTjWNAHmrB0uGAZO/gnQzgToY0XOf2fYSLQWGtHF3qXj1vGtFY6xfoM1Sk+fjzk0eTgOGqoFl+
- YId1riTVqEJhVYC+o+L0GeZfRPLOJNjmpAj+62VViNl3q5qhMdevKA17THPZS9BHNR/NPAkFE6
- N4M=
+IronPort-SDR: W0PWBOGcTaOh5PxF3EZHPnw60gTjk5P744aQzgHSdUZ9MmyDCS2OFSUwCRJdLgyDSNRire5bPW
+ SpBE8KyJ5swUsmKC5n5EA79AnNS7BWpodpwJZ+mvQo9WUL3zn5jyO0w7299UEZI8UBq/Be0RQf
+ vc5UQf4qSkjf/s1UDEkpEi0eYJYFkITn55SYQ5e5txpYtPNKkux9/MxwqaNNzGSpCfhQSa3OOh
+ odA77Gl3CuVaOtmq6rlk/R7HGmkG/x/eRwJBcVEvUsCE6rRDqym7sIM6QmzuWhxpe9iKbCB5xP
+ LZM=
 X-SBRS: 2.7
-X-MesageID: 25487831
+X-MesageID: 25487833
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="25487831"
+X-IronPort-AV: E=Sophos;i="5.76,313,1592884800"; d="scan'208";a="25487833"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 46/60] sg-report-job-history: Introduce use of cache,
- for hosts query
-Date: Fri, 14 Aug 2020 18:21:51 +0100
-Message-ID: <20200814172205.9624-47-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 47/60] history reporting (nfc): Break out url_quote
+Date: Fri, 14 Aug 2020 18:21:52 +0100
+Message-ID: <20200814172205.9624-48-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
 References: <20200814172205.9624-1-ian.jackson@eu.citrix.com>
@@ -65,69 +63,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-* Set up the cache.
-* Call the per-row setup hook.
-* Cache the computation of $ri->{Hosts}.
-* Call the per-row cache write hook.
-* Finalise the cache.
-
-Output is the same, but with cache information in the output html, and
-faster.
-
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-job-history | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ Osstest/HistoryReport.pm | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sg-report-job-history b/sg-report-job-history
-index 5684ac02..9f1216a6 100755
---- a/sg-report-job-history
-+++ b/sg-report-job-history
-@@ -121,6 +121,10 @@ sub processjobbranch ($$$) {
-            AND name LIKE '%buildjob'
- END
+diff --git a/Osstest/HistoryReport.pm b/Osstest/HistoryReport.pm
+index bfbee28c..f30ded5b 100644
+--- a/Osstest/HistoryReport.pm
++++ b/Osstest/HistoryReport.pm
+@@ -156,6 +156,12 @@ sub cache_read_previous ($) {
+     close H;
+ }
  
-+    cache_set_task_print("$j $branch_or_all");
-+    cache_set_key_cols(qw(flight status)); # we process one job per process
-+    cache_read_previous("$htmlout/$html_file");
++sub url_quote ($) {
++    local ($_) = "$_[0]";
++    s{[^-+=/~:;_.,\w]}{ sprintf "%%%02x", ord $& }ge;
++    $_;
++}
 +
-     print DEBUG "processjobbranch('$j',", ($bra ? "'$bra'" : 'undef'), ")\n";
+ sub cache_row_lookup_prep ($) {
+     my ($jrr) = @_;
  
-     my %rev_grid_col;
-@@ -156,13 +160,17 @@ END
- END
- 
-     while (my $f= $flightsq->fetchrow_hashref()) {
-+	cache_row_lookup_prep(\$f);
-         my $ri= report_run_getinfo($f);
- 
--	$ri->{Hosts} = { };
--	$hostq->execute($f->{flight}, $f->{job});
--	while (my ($hostvar,$host) = $hostq->fetchrow_array()) {
--	    $ri->{Hosts}{$hostvar} = $host;
--	}
-+	$ri->{Hosts} = cacheable_fn($f, 'h', sub {
-+            my %hosts;
-+	    $hostq->execute($f->{flight}, $f->{job});
-+	    while (my ($hostvar,$host) = $hostq->fetchrow_array()) {
-+		$hosts{$hostvar} = $host;
-+	    }
-+	    \%hosts;
-+	});
- 
-         my %revisions;
-         add_revisions(\%revisions, $f->{flight}, $f->{job}, '');
-@@ -276,8 +284,10 @@ END
- 	    print H "</td>";
+@@ -179,8 +185,7 @@ sub cache_write_entry ($$) {
+ 	    next if $k =~ m/^\%/;
+ 	    $_ = $h->{$k};
+ 	    next unless defined;
+-	    s{[^-+=/~:;_.,\w]}{ sprintf "%%%02x", ord $& }ge;
+-	    printf $fh " %s=%s", $k, $_;
++	    printf $fh " %s=%s", $k, url_quote($_);
  	}
- 	print H "</tr>\n";
-+	cache_write_entry(\*H, $r->{Flight});
- 	$alternate ^= 1;
-     }
-+    cache_finish(\*H, "");
-     print H "</table></body></html>\n";
-     H->error and die $!;
-     close H or die $!;
+     };
+     $whash->($jr);
 -- 
 2.11.0
 
