@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D422245108
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Aug 2020 15:04:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A76245105
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Aug 2020 15:04:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6vqu-0006Sr-As; Sat, 15 Aug 2020 13:04:04 +0000
+	id 1k6vqz-0006V7-Kj; Sat, 15 Aug 2020 13:04:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ceF6=BZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k6vqt-0006R1-5s
- for xen-devel@lists.xenproject.org; Sat, 15 Aug 2020 13:04:03 +0000
-X-Inumbo-ID: 1045f604-88e3-414d-b10f-d82fccd01c9d
+ id 1k6vqy-0006R1-64
+ for xen-devel@lists.xenproject.org; Sat, 15 Aug 2020 13:04:08 +0000
+X-Inumbo-ID: 36133b7e-3190-42d0-857b-32e0418b48e3
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1045f604-88e3-414d-b10f-d82fccd01c9d;
+ id 36133b7e-3190-42d0-857b-32e0418b48e3;
  Sat, 15 Aug 2020 13:03:53 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6362CB57B;
+ by mx2.suse.de (Postfix) with ESMTP id 8A595B584;
  Sat, 15 Aug 2020 13:04:14 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH I v2 5/6] tools: define ROUNDUP() in
- tools/include/xen-tools/libs.h
-Date: Sat, 15 Aug 2020 15:03:40 +0200
-Message-Id: <20200815130341.27147-6-jgross@suse.com>
+ Wei Liu <wl@xen.org>
+Subject: [PATCH I v2 6/6] tools: generate most contents of library make
+ variables
+Date: Sat, 15 Aug 2020 15:03:41 +0200
+Message-Id: <20200815130341.27147-7-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200815130341.27147-1-jgross@suse.com>
 References: <20200815130341.27147-1-jgross@suse.com>
@@ -49,150 +49,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Today there are multiple copies of the ROUNDUP() macro in various
-sources and headers. Define it once in tools/include/xen-tools/libs.h.
+Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
+and SHLIB_lib*) mostly have a common pattern for their values. Generate
+most of this content automatically by adding a new per-library variable
+defining on which other libraries a lib is depending.
 
-Using xen-tools/libs.h enables removing copies of MIN() and MAX(), too.
+This in turn makes it possible to drop the USELIB variable from each
+library Makefile.
+
+The LIBNAME variable can be dropped, too, as it can be derived from the
+directory name the library is residing in.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/console/daemon/io.c        | 6 +-----
- tools/include/xen-tools/libs.h   | 4 ++++
- tools/libs/call/buffer.c         | 3 +--
- tools/libs/foreignmemory/linux.c | 3 +--
- tools/libs/gnttab/private.h      | 3 ---
- tools/libxc/xg_private.h         | 1 -
- tools/libxl/libxl_internal.h     | 3 ---
- tools/xenstore/xenstored_core.c  | 2 --
- 8 files changed, 7 insertions(+), 18 deletions(-)
+ tools/Rules.mk                    | 70 ++++++++++---------------------
+ tools/libs/call/Makefile          |  2 -
+ tools/libs/devicemodel/Makefile   |  2 -
+ tools/libs/evtchn/Makefile        |  2 -
+ tools/libs/foreignmemory/Makefile |  2 -
+ tools/libs/gnttab/Makefile        |  2 -
+ tools/libs/hypfs/Makefile         |  2 -
+ tools/libs/libs.mk                |  8 ++--
+ tools/libs/toolcore/Makefile      |  1 -
+ tools/libs/toollog/Makefile       |  1 -
+ 10 files changed, 27 insertions(+), 65 deletions(-)
 
-diff --git a/tools/console/daemon/io.c b/tools/console/daemon/io.c
-index a43c57edad..4af27ffc5d 100644
---- a/tools/console/daemon/io.c
-+++ b/tools/console/daemon/io.c
-@@ -49,9 +49,7 @@
- #include <sys/ioctl.h>
- #include <libutil.h>
- #endif
--
--#define MAX(a, b) (((a) > (b)) ? (a) : (b))
--#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-+#include <xen-tools/libs.h>
+diff --git a/tools/Rules.mk b/tools/Rules.mk
+index 5d699cfd39..06827ad1d8 100644
+--- a/tools/Rules.mk
++++ b/tools/Rules.mk
+@@ -12,14 +12,24 @@ INSTALL = $(XEN_ROOT)/tools/cross-install
+ LDFLAGS += $(PREPEND_LDFLAGS_XEN_TOOLS)
  
- /* Each 10 bits takes ~ 3 digits, plus one, plus one for nul terminator. */
- #define MAX_STRLEN(x) ((sizeof(x) * CHAR_BIT + CHAR_BIT-1) / 10 * 3 + 2)
-@@ -80,8 +78,6 @@ static struct pollfd  *fds;
- static unsigned int current_array_size;
- static unsigned int nr_fds;
- 
--#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
--
- struct buffer {
- 	char *data;
- 	size_t consumed;
-diff --git a/tools/include/xen-tools/libs.h b/tools/include/xen-tools/libs.h
-index cc7dfc8c64..a16e0c3807 100644
---- a/tools/include/xen-tools/libs.h
-+++ b/tools/include/xen-tools/libs.h
-@@ -59,4 +59,8 @@
-     })
- #endif
- 
-+#ifndef ROUNDUP
-+#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
-+#endif
+ XEN_INCLUDE        = $(XEN_ROOT)/tools/include
+-XEN_libxentoolcore = $(XEN_ROOT)/tools/libs/toolcore
+-XEN_libxentoollog  = $(XEN_ROOT)/tools/libs/toollog
+-XEN_libxenevtchn   = $(XEN_ROOT)/tools/libs/evtchn
+-XEN_libxengnttab   = $(XEN_ROOT)/tools/libs/gnttab
+-XEN_libxencall     = $(XEN_ROOT)/tools/libs/call
+-XEN_libxenforeignmemory = $(XEN_ROOT)/tools/libs/foreignmemory
+-XEN_libxendevicemodel = $(XEN_ROOT)/tools/libs/devicemodel
+-XEN_libxenhypfs    = $(XEN_ROOT)/tools/libs/hypfs
 +
- #endif	/* __XEN_TOOLS_LIBS__ */
-diff --git a/tools/libs/call/buffer.c b/tools/libs/call/buffer.c
-index 0b6af2db60..085674d882 100644
---- a/tools/libs/call/buffer.c
-+++ b/tools/libs/call/buffer.c
-@@ -16,14 +16,13 @@
- #include <errno.h>
- #include <string.h>
- #include <pthread.h>
-+#include <xen-tools/libs.h>
++LIBS_LIBS += toolcore
++USELIBS_toolcore :=
++LIBS_LIBS += toollog
++USELIBS_toollog :=
++LIBS_LIBS += evtchn
++USELIBS_evtchn := toollog toolcore
++LIBS_LIBS += gnttab
++USELIBS_gnttab := toollog toolcore
++LIBS_LIBS += call
++USELIBS_call := toollog toolcore
++LIBS_LIBS += foreignmemory
++USELIBS_foreignmemory := toollog toolcore
++LIBS_LIBS += devicemodel
++USELIBS_devicemodel := toollog toolcore call
++LIBS_LIBS += hypfs
++USELIBS_hypfs := toollog toolcore call
++
+ XEN_libxenctrl     = $(XEN_ROOT)/tools/libxc
+ # Currently libxenguest lives in the same directory as libxenctrl
+ XEN_libxenguest    = $(XEN_libxenctrl)
+@@ -99,45 +109,11 @@ endif
+ # Consumers of libfoo should not directly use $(SHDEPS_libfoo) or
+ # $(SHLIB_libfoo)
  
- #include "private.h"
- 
- #define DBGPRINTF(_m...) \
-     xtl_log(xcall->logger, XTL_DEBUG, -1, "xencall:buffer", _m)
- 
--#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
+-CFLAGS_libxentoollog = -I$(XEN_libxentoollog)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxentoollog =
+-LDLIBS_libxentoollog = $(SHDEPS_libxentoollog) $(XEN_libxentoollog)/libxentoollog$(libextension)
+-SHLIB_libxentoollog  = $(SHDEPS_libxentoollog) -Wl,-rpath-link=$(XEN_libxentoollog)
 -
- pthread_mutex_t cache_mutex = PTHREAD_MUTEX_INITIALIZER;
- 
- static void cache_lock(xencall_handle *xcall)
-diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
-index 8daa5828e3..fe73d5ab72 100644
---- a/tools/libs/foreignmemory/linux.c
-+++ b/tools/libs/foreignmemory/linux.c
-@@ -25,11 +25,10 @@
- 
- #include <sys/mman.h>
- #include <sys/ioctl.h>
-+#include <xen-tools/libs.h>
- 
- #include "private.h"
- 
--#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
+-CFLAGS_libxentoolcore = -I$(XEN_libxentoolcore)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxentoolcore =
+-LDLIBS_libxentoolcore = $(SHDEPS_libxentoolcore) $(XEN_libxentoolcore)/libxentoolcore$(libextension)
+-SHLIB_libxentoolcore  = $(SHDEPS_libxentoolcore) -Wl,-rpath-link=$(XEN_libxentoolcore)
 -
- #ifndef O_CLOEXEC
- #define O_CLOEXEC 0
- #endif
-diff --git a/tools/libs/gnttab/private.h b/tools/libs/gnttab/private.h
-index c5e23639b1..eb6a6abe54 100644
---- a/tools/libs/gnttab/private.h
-+++ b/tools/libs/gnttab/private.h
-@@ -5,9 +5,6 @@
- #include <xentoolcore_internal.h>
- #include <xengnttab.h>
- 
--/* Set of macros/defines used by both Linux and FreeBSD */
--#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
+-CFLAGS_libxenevtchn = -I$(XEN_libxenevtchn)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenevtchn = $(SHLIB_libxentoolcore)
+-LDLIBS_libxenevtchn = $(SHDEPS_libxenevtchn) $(XEN_libxenevtchn)/libxenevtchn$(libextension)
+-SHLIB_libxenevtchn  = $(SHDEPS_libxenevtchn) -Wl,-rpath-link=$(XEN_libxenevtchn)
 -
- #define GTERROR(_l, _f...) xtl_log(_l, XTL_ERROR, errno, "gnttab", _f)
- #define GSERROR(_l, _f...) xtl_log(_l, XTL_ERROR, errno, "gntshr", _f)
- 
-diff --git a/tools/libxc/xg_private.h b/tools/libxc/xg_private.h
-index f0a4b2c616..40b5baecde 100644
---- a/tools/libxc/xg_private.h
-+++ b/tools/libxc/xg_private.h
-@@ -95,7 +95,6 @@ typedef uint64_t x86_pgentry_t;
- #define PAGE_SIZE_X86           (1UL << PAGE_SHIFT_X86)
- #define PAGE_MASK_X86           (~(PAGE_SIZE_X86-1))
- 
--#define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
- #define NRPAGES(x) (ROUNDUP(x, PAGE_SHIFT) >> PAGE_SHIFT)
- 
- 
-diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
-index 94a23179d3..c63d0686fd 100644
---- a/tools/libxl/libxl_internal.h
-+++ b/tools/libxl/libxl_internal.h
-@@ -132,9 +132,6 @@
- #define MB(_mb)     (_AC(_mb, ULL) << 20)
- #define GB(_gb)     (_AC(_gb, ULL) << 30)
- 
--#define ROUNDUP(_val, _order)                                           \
--    (((unsigned long)(_val)+(1UL<<(_order))-1) & ~((1UL<<(_order))-1))
+-CFLAGS_libxengnttab = -I$(XEN_libxengnttab)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxengnttab = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore)
+-LDLIBS_libxengnttab = $(SHDEPS_libxengnttab) $(XEN_libxengnttab)/libxengnttab$(libextension)
+-SHLIB_libxengnttab  = $(SHDEPS_libxengnttab) -Wl,-rpath-link=$(XEN_libxengnttab)
 -
- #define DIV_ROUNDUP(n, d) (((n) + (d) - 1) / (d))
- 
- #define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 7bd959f28b..9700772d40 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -73,8 +73,6 @@ static unsigned int nr_fds;
- static int sock = -1;
- static int ro_sock = -1;
- 
--#define ROUNDUP(_x, _w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
+-CFLAGS_libxencall = -I$(XEN_libxencall)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxencall = $(SHLIB_libxentoolcore)
+-LDLIBS_libxencall = $(SHDEPS_libxencall) $(XEN_libxencall)/libxencall$(libextension)
+-SHLIB_libxencall  = $(SHDEPS_libxencall) -Wl,-rpath-link=$(XEN_libxencall)
 -
- static bool verbose = false;
- LIST_HEAD(connections);
- int tracefd = -1;
+-CFLAGS_libxenforeignmemory = -I$(XEN_libxenforeignmemory)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore)
+-LDLIBS_libxenforeignmemory = $(SHDEPS_libxenforeignmemory) $(XEN_libxenforeignmemory)/libxenforeignmemory$(libextension)
+-SHLIB_libxenforeignmemory  = $(SHDEPS_libxenforeignmemory) -Wl,-rpath-link=$(XEN_libxenforeignmemory)
+-
+-CFLAGS_libxendevicemodel = -I$(XEN_libxendevicemodel)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxendevicemodel = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
+-LDLIBS_libxendevicemodel = $(SHDEPS_libxendevicemodel) $(XEN_libxendevicemodel)/libxendevicemodel$(libextension)
+-SHLIB_libxendevicemodel  = $(SHDEPS_libxendevicemodel) -Wl,-rpath-link=$(XEN_libxendevicemodel)
+-
+-CFLAGS_libxenhypfs = -I$(XEN_libxenhypfs)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenhypfs = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
+-LDLIBS_libxenhypfs = $(SHDEPS_libxenhypfs) $(XEN_libxenhypfs)/libxenhypfs$(libextension)
+-SHLIB_libxenhypfs  = $(SHDEPS_libxenhypfs) -Wl,-rpath-link=$(XEN_libxenhypfs)
++$(foreach lib,$(LIBS_LIBS),$(eval XEN_libxen$(lib) = $(XEN_ROOT)/tools/libs/$(lib)))
++$(foreach lib,$(LIBS_LIBS),$(eval CFLAGS_libxen$(lib) = -I$(XEN_libxen$(lib))/include $(CFLAGS_xeninclude)))
++$(foreach lib,$(LIBS_LIBS),$(eval SHDEPS_libxen$(lib) = $(foreach use,$(USELIBS_$(lib)),$(SHLIB_libxen$(use)))))
++$(foreach lib,$(LIBS_LIBS),$(eval LDLIBS_libxen$(lib) = $(SHDEPS_libxen$(lib)) $(XEN_libxen$(lib))/libxen$(lib)$(libextension)))
++$(foreach lib,$(LIBS_LIBS),$(eval SHLIB_libxen$(lib) = $(SHDEPS_libxen$(lib)) -Wl,-rpath-link=$(XEN_libxen$(lib))))
+ 
+ # code which compiles against libxenctrl get __XEN_TOOLS__ and
+ # therefore sees the unstable hypercall interfaces.
+diff --git a/tools/libs/call/Makefile b/tools/libs/call/Makefile
+index 7994b411fa..81c7478efd 100644
+--- a/tools/libs/call/Makefile
++++ b/tools/libs/call/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 2
+-LIBNAME  := call
+-USELIBS  := toollog toolcore
+ 
+ SRCS-y                 += core.c buffer.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/devicemodel/Makefile b/tools/libs/devicemodel/Makefile
+index d9d1d1b850..42417958f2 100644
+--- a/tools/libs/devicemodel/Makefile
++++ b/tools/libs/devicemodel/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 3
+-LIBNAME  := devicemodel
+-USELIBS  := toollog toolcore call
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/evtchn/Makefile b/tools/libs/evtchn/Makefile
+index d7aa4d402f..aec76641e8 100644
+--- a/tools/libs/evtchn/Makefile
++++ b/tools/libs/evtchn/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 1
+-LIBNAME  := evtchn
+-USELIBS  := toollog toolcore
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
+index 823989681d..cf444d3c1a 100644
+--- a/tools/libs/foreignmemory/Makefile
++++ b/tools/libs/foreignmemory/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 3
+-LIBNAME  := foreignmemory
+-USELIBS  := toollog toolcore
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/gnttab/Makefile b/tools/libs/gnttab/Makefile
+index c0fffdac71..d8d4d55e27 100644
+--- a/tools/libs/gnttab/Makefile
++++ b/tools/libs/gnttab/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 2
+-LIBNAME  := gnttab
+-USELIBS  := toollog toolcore
+ 
+ SRCS-GNTTAB            += gnttab_core.c
+ SRCS-GNTSHR            += gntshr_core.c
+diff --git a/tools/libs/hypfs/Makefile b/tools/libs/hypfs/Makefile
+index b4c41f6189..668d68853f 100644
+--- a/tools/libs/hypfs/Makefile
++++ b/tools/libs/hypfs/Makefile
+@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+ MINOR    = 0
+-LIBNAME  := hypfs
+-USELIBS  := toollog toolcore call
+ 
+ APPEND_LDFLAGS += -lz
+ 
+diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
+index 764f5441e2..19efc5e743 100644
+--- a/tools/libs/libs.mk
++++ b/tools/libs/libs.mk
+@@ -1,18 +1,18 @@
+ # Common Makefile for building a lib.
+ #
+ # Variables taken as input:
+-#   LIBNAME: name of lib to build, will be prepended with "libxen"
+ #   MAJOR:   major version of lib
+ #   MINOR:   minor version of lib
+-#   USELIBS: xen libs to use (e.g. "toolcore toollog")
++
++LIBNAME := $(notdir $(CURDIR))
+ 
+ SHLIB_LDFLAGS += -Wl,--version-script=libxen$(LIBNAME).map
+ 
+ CFLAGS   += -Werror -Wmissing-prototypes
+ CFLAGS   += -I./include $(CFLAGS_xeninclude)
+-CFLAGS   += $(foreach lib, $(USELIBS), $(CFLAGS_libxen$(lib)))
++CFLAGS   += $(foreach lib, $(USELIBS_$(LIBNAME)), $(CFLAGS_libxen$(lib)))
+ 
+-LDUSELIBS = $(foreach lib, $(USELIBS), $(LDLIBS_libxen$(lib)))
++LDUSELIBS = $(foreach lib, $(USELIBS_$(LIBNAME)), $(LDLIBS_libxen$(lib)))
+ 
+ LIB_OBJS := $(SRCS-y:.c=.o)
+ PIC_OBJS := $(SRCS-y:.c=.opic)
+diff --git a/tools/libs/toolcore/Makefile b/tools/libs/toolcore/Makefile
+index 85ff2b26fd..34b08a4236 100644
+--- a/tools/libs/toolcore/Makefile
++++ b/tools/libs/toolcore/Makefile
+@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR	= 1
+ MINOR	= 0
+-LIBNAME  := toolcore
+ AUTOINCS := include/_xentoolcore_list.h
+ 
+ SRCS-y	+= handlereg.c
+diff --git a/tools/libs/toollog/Makefile b/tools/libs/toollog/Makefile
+index 2d3ae4e627..3f986835d6 100644
+--- a/tools/libs/toollog/Makefile
++++ b/tools/libs/toollog/Makefile
+@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR	= 1
+ MINOR	= 0
+-LIBNAME  := toollog
+ 
+ SRCS-y	+= xtl_core.c
+ SRCS-y	+= xtl_logger_stdio.c
 -- 
 2.26.2
 
