@@ -2,40 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A76245105
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Aug 2020 15:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07262245195
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Aug 2020 19:23:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k6vqz-0006V7-Kj; Sat, 15 Aug 2020 13:04:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k6zsV-0003le-EX; Sat, 15 Aug 2020 17:21:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ceF6=BZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k6vqy-0006R1-64
- for xen-devel@lists.xenproject.org; Sat, 15 Aug 2020 13:04:08 +0000
-X-Inumbo-ID: 36133b7e-3190-42d0-857b-32e0418b48e3
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36133b7e-3190-42d0-857b-32e0418b48e3;
- Sat, 15 Aug 2020 13:03:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8A595B584;
- Sat, 15 Aug 2020 13:04:14 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
+ (envelope-from <SRS0=zz9Y=BZ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k6zsT-0003lW-Ro
+ for xen-devel@lists.xenproject.org; Sat, 15 Aug 2020 17:21:58 +0000
+X-Inumbo-ID: e8e9d94b-8820-442e-abc9-b50428cb91a9
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e8e9d94b-8820-442e-abc9-b50428cb91a9;
+ Sat, 15 Aug 2020 17:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+ bh=tPzKSht7eVf0HHEel/f7t6E900p2xQCbgR89IQzEsBA=; b=AtqZOxddJDKSdb0fBtfZtU9AXL
+ deppBYSZ6fj+8UEu8NBncki9+lcTwRHPlsA+2JtwAKhMoNlLJpvM0xOHezuD/PiFCDUIlL8o5sqxD
+ pGh6AsejMywpd4kcysxRwzlZvZGU+NRXq7PJM7E86E4EO+Hd3RFXq2BL8uBnERurKnhM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k6zsQ-0006DO-KP; Sat, 15 Aug 2020 17:21:54 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k6zsP-0002bh-Mw; Sat, 15 Aug 2020 17:21:54 +0000
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
-Subject: [PATCH I v2 6/6] tools: generate most contents of library make
- variables
-Date: Sat, 15 Aug 2020 15:03:41 +0200
-Message-Id: <20200815130341.27147-7-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200815130341.27147-1-jgross@suse.com>
-References: <20200815130341.27147-1-jgross@suse.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Cc: julien@xen.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
+Date: Sat, 15 Aug 2020 18:21:43 +0100
+Message-Id: <20200815172143.1327-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,249 +59,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
-and SHLIB_lib*) mostly have a common pattern for their values. Generate
-most of this content automatically by adding a new per-library variable
-defining on which other libraries a lib is depending.
+From: Julien Grall <jgrall@amazon.com>
 
-This in turn makes it possible to drop the USELIB variable from each
-library Makefile.
+The IOREQ code is using cmpxchg() with 64-bit value. At the moment, this
+is x86 code, but there is plan to make it common.
 
-The LIBNAME variable can be dropped, too, as it can be derived from the
-directory name the library is residing in.
+To cater 32-bit arch, introduce two new helpers to deal with 64-bit
+cmpxchg.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
+The Arm 32-bit implementation of cmpxchg64() is based on the __cmpxchg64
+in Linux v5.8 (arch/arm/include/asm/cmpxchg.h).
+
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
- tools/Rules.mk                    | 70 ++++++++++---------------------
- tools/libs/call/Makefile          |  2 -
- tools/libs/devicemodel/Makefile   |  2 -
- tools/libs/evtchn/Makefile        |  2 -
- tools/libs/foreignmemory/Makefile |  2 -
- tools/libs/gnttab/Makefile        |  2 -
- tools/libs/hypfs/Makefile         |  2 -
- tools/libs/libs.mk                |  8 ++--
- tools/libs/toolcore/Makefile      |  1 -
- tools/libs/toollog/Makefile       |  1 -
- 10 files changed, 27 insertions(+), 65 deletions(-)
+ xen/include/asm-arm/arm32/cmpxchg.h | 68 +++++++++++++++++++++++++++++
+ xen/include/asm-arm/arm64/cmpxchg.h |  5 +++
+ xen/include/asm-arm/guest_atomics.h | 22 ++++++++++
+ xen/include/asm-x86/guest_atomics.h |  2 +
+ xen/include/asm-x86/x86_64/system.h |  2 +
+ 5 files changed, 99 insertions(+)
 
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 5d699cfd39..06827ad1d8 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -12,14 +12,24 @@ INSTALL = $(XEN_ROOT)/tools/cross-install
- LDFLAGS += $(PREPEND_LDFLAGS_XEN_TOOLS)
+diff --git a/xen/include/asm-arm/arm32/cmpxchg.h b/xen/include/asm-arm/arm32/cmpxchg.h
+index 0770f272ee99..5e2fa6ee38a0 100644
+--- a/xen/include/asm-arm/arm32/cmpxchg.h
++++ b/xen/include/asm-arm/arm32/cmpxchg.h
+@@ -87,6 +87,38 @@ __CMPXCHG_CASE(b, 1)
+ __CMPXCHG_CASE(h, 2)
+ __CMPXCHG_CASE( , 4)
  
- XEN_INCLUDE        = $(XEN_ROOT)/tools/include
--XEN_libxentoolcore = $(XEN_ROOT)/tools/libs/toolcore
--XEN_libxentoollog  = $(XEN_ROOT)/tools/libs/toollog
--XEN_libxenevtchn   = $(XEN_ROOT)/tools/libs/evtchn
--XEN_libxengnttab   = $(XEN_ROOT)/tools/libs/gnttab
--XEN_libxencall     = $(XEN_ROOT)/tools/libs/call
--XEN_libxenforeignmemory = $(XEN_ROOT)/tools/libs/foreignmemory
--XEN_libxendevicemodel = $(XEN_ROOT)/tools/libs/devicemodel
--XEN_libxenhypfs    = $(XEN_ROOT)/tools/libs/hypfs
++static inline bool __cmpxchg_case_8(volatile uint64_t *ptr,
++			 	    uint64_t *old,
++			 	    uint64_t new,
++			 	    bool timeout,
++				    unsigned int max_try)
++{
++	uint64_t oldval;
++	uint64_t res;
 +
-+LIBS_LIBS += toolcore
-+USELIBS_toolcore :=
-+LIBS_LIBS += toollog
-+USELIBS_toollog :=
-+LIBS_LIBS += evtchn
-+USELIBS_evtchn := toollog toolcore
-+LIBS_LIBS += gnttab
-+USELIBS_gnttab := toollog toolcore
-+LIBS_LIBS += call
-+USELIBS_call := toollog toolcore
-+LIBS_LIBS += foreignmemory
-+USELIBS_foreignmemory := toollog toolcore
-+LIBS_LIBS += devicemodel
-+USELIBS_devicemodel := toollog toolcore call
-+LIBS_LIBS += hypfs
-+USELIBS_hypfs := toollog toolcore call
++	do {
++		asm volatile(
++		"	ldrexd		%1, %H1, [%3]\n"
++		"	teq		%1, %4\n"
++		"	teqeq		%H1, %H4\n"
++		"	movne		%0, #0\n"
++		"	movne		%H0, #0\n"
++		"	bne		2f\n"
++		"	strexd		%0, %5, %H5, [%3]\n"
++		"	teq		%0, #0\n"
++		"2:"
++		: "=&r" (res), "=&r" (oldval), "+Qo" (*ptr)
++		: "r" (ptr), "r" (*old), "r" (new)
++		: "memory", "cc");
++		if (!res)
++			break;
++	} while (!timeout || ((--max_try) > 0));
 +
- XEN_libxenctrl     = $(XEN_ROOT)/tools/libxc
- # Currently libxenguest lives in the same directory as libxenctrl
- XEN_libxenguest    = $(XEN_libxenctrl)
-@@ -99,45 +109,11 @@ endif
- # Consumers of libfoo should not directly use $(SHDEPS_libfoo) or
- # $(SHLIB_libfoo)
- 
--CFLAGS_libxentoollog = -I$(XEN_libxentoollog)/include $(CFLAGS_xeninclude)
--SHDEPS_libxentoollog =
--LDLIBS_libxentoollog = $(SHDEPS_libxentoollog) $(XEN_libxentoollog)/libxentoollog$(libextension)
--SHLIB_libxentoollog  = $(SHDEPS_libxentoollog) -Wl,-rpath-link=$(XEN_libxentoollog)
--
--CFLAGS_libxentoolcore = -I$(XEN_libxentoolcore)/include $(CFLAGS_xeninclude)
--SHDEPS_libxentoolcore =
--LDLIBS_libxentoolcore = $(SHDEPS_libxentoolcore) $(XEN_libxentoolcore)/libxentoolcore$(libextension)
--SHLIB_libxentoolcore  = $(SHDEPS_libxentoolcore) -Wl,-rpath-link=$(XEN_libxentoolcore)
--
--CFLAGS_libxenevtchn = -I$(XEN_libxenevtchn)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenevtchn = $(SHLIB_libxentoolcore)
--LDLIBS_libxenevtchn = $(SHDEPS_libxenevtchn) $(XEN_libxenevtchn)/libxenevtchn$(libextension)
--SHLIB_libxenevtchn  = $(SHDEPS_libxenevtchn) -Wl,-rpath-link=$(XEN_libxenevtchn)
--
--CFLAGS_libxengnttab = -I$(XEN_libxengnttab)/include $(CFLAGS_xeninclude)
--SHDEPS_libxengnttab = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore)
--LDLIBS_libxengnttab = $(SHDEPS_libxengnttab) $(XEN_libxengnttab)/libxengnttab$(libextension)
--SHLIB_libxengnttab  = $(SHDEPS_libxengnttab) -Wl,-rpath-link=$(XEN_libxengnttab)
--
--CFLAGS_libxencall = -I$(XEN_libxencall)/include $(CFLAGS_xeninclude)
--SHDEPS_libxencall = $(SHLIB_libxentoolcore)
--LDLIBS_libxencall = $(SHDEPS_libxencall) $(XEN_libxencall)/libxencall$(libextension)
--SHLIB_libxencall  = $(SHDEPS_libxencall) -Wl,-rpath-link=$(XEN_libxencall)
--
--CFLAGS_libxenforeignmemory = -I$(XEN_libxenforeignmemory)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore)
--LDLIBS_libxenforeignmemory = $(SHDEPS_libxenforeignmemory) $(XEN_libxenforeignmemory)/libxenforeignmemory$(libextension)
--SHLIB_libxenforeignmemory  = $(SHDEPS_libxenforeignmemory) -Wl,-rpath-link=$(XEN_libxenforeignmemory)
--
--CFLAGS_libxendevicemodel = -I$(XEN_libxendevicemodel)/include $(CFLAGS_xeninclude)
--SHDEPS_libxendevicemodel = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
--LDLIBS_libxendevicemodel = $(SHDEPS_libxendevicemodel) $(XEN_libxendevicemodel)/libxendevicemodel$(libextension)
--SHLIB_libxendevicemodel  = $(SHDEPS_libxendevicemodel) -Wl,-rpath-link=$(XEN_libxendevicemodel)
--
--CFLAGS_libxenhypfs = -I$(XEN_libxenhypfs)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenhypfs = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
--LDLIBS_libxenhypfs = $(SHDEPS_libxenhypfs) $(XEN_libxenhypfs)/libxenhypfs$(libextension)
--SHLIB_libxenhypfs  = $(SHDEPS_libxenhypfs) -Wl,-rpath-link=$(XEN_libxenhypfs)
-+$(foreach lib,$(LIBS_LIBS),$(eval XEN_libxen$(lib) = $(XEN_ROOT)/tools/libs/$(lib)))
-+$(foreach lib,$(LIBS_LIBS),$(eval CFLAGS_libxen$(lib) = -I$(XEN_libxen$(lib))/include $(CFLAGS_xeninclude)))
-+$(foreach lib,$(LIBS_LIBS),$(eval SHDEPS_libxen$(lib) = $(foreach use,$(USELIBS_$(lib)),$(SHLIB_libxen$(use)))))
-+$(foreach lib,$(LIBS_LIBS),$(eval LDLIBS_libxen$(lib) = $(SHDEPS_libxen$(lib)) $(XEN_libxen$(lib))/libxen$(lib)$(libextension)))
-+$(foreach lib,$(LIBS_LIBS),$(eval SHLIB_libxen$(lib) = $(SHDEPS_libxen$(lib)) -Wl,-rpath-link=$(XEN_libxen$(lib))))
- 
- # code which compiles against libxenctrl get __XEN_TOOLS__ and
- # therefore sees the unstable hypercall interfaces.
-diff --git a/tools/libs/call/Makefile b/tools/libs/call/Makefile
-index 7994b411fa..81c7478efd 100644
---- a/tools/libs/call/Makefile
-+++ b/tools/libs/call/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 2
--LIBNAME  := call
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c buffer.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/devicemodel/Makefile b/tools/libs/devicemodel/Makefile
-index d9d1d1b850..42417958f2 100644
---- a/tools/libs/devicemodel/Makefile
-+++ b/tools/libs/devicemodel/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 3
--LIBNAME  := devicemodel
--USELIBS  := toollog toolcore call
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/evtchn/Makefile b/tools/libs/evtchn/Makefile
-index d7aa4d402f..aec76641e8 100644
---- a/tools/libs/evtchn/Makefile
-+++ b/tools/libs/evtchn/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 1
--LIBNAME  := evtchn
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
-index 823989681d..cf444d3c1a 100644
---- a/tools/libs/foreignmemory/Makefile
-+++ b/tools/libs/foreignmemory/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 3
--LIBNAME  := foreignmemory
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/gnttab/Makefile b/tools/libs/gnttab/Makefile
-index c0fffdac71..d8d4d55e27 100644
---- a/tools/libs/gnttab/Makefile
-+++ b/tools/libs/gnttab/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 2
--LIBNAME  := gnttab
--USELIBS  := toollog toolcore
- 
- SRCS-GNTTAB            += gnttab_core.c
- SRCS-GNTSHR            += gntshr_core.c
-diff --git a/tools/libs/hypfs/Makefile b/tools/libs/hypfs/Makefile
-index b4c41f6189..668d68853f 100644
---- a/tools/libs/hypfs/Makefile
-+++ b/tools/libs/hypfs/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 0
--LIBNAME  := hypfs
--USELIBS  := toollog toolcore call
- 
- APPEND_LDFLAGS += -lz
- 
-diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
-index 764f5441e2..19efc5e743 100644
---- a/tools/libs/libs.mk
-+++ b/tools/libs/libs.mk
-@@ -1,18 +1,18 @@
- # Common Makefile for building a lib.
- #
- # Variables taken as input:
--#   LIBNAME: name of lib to build, will be prepended with "libxen"
- #   MAJOR:   major version of lib
- #   MINOR:   minor version of lib
--#   USELIBS: xen libs to use (e.g. "toolcore toollog")
++	*old = oldval;
 +
-+LIBNAME := $(notdir $(CURDIR))
++	return !res;
++}
++
+ static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
+ 					unsigned long new, int size,
+ 					bool timeout, unsigned int max_try)
+@@ -156,6 +188,30 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+ 	return ret;
+ }
  
- SHLIB_LDFLAGS += -Wl,--version-script=libxen$(LIBNAME).map
++/*
++ * The helper may fail to update the memory if the action takes too long.
++ *
++ * @old: On call the value pointed contains the expected old value. It will be
++ * updated to the actual old value.
++ * @max_try: Maximum number of iterations
++ *
++ * The helper will return true when the update has succeeded (i.e no
++ * timeout) and false if the update has failed.
++ */
++static always_inline bool __cmpxchg64_mb_timeout(volatile uint64_t *ptr,
++						 uint64_t *old,
++						 uint64_t new,
++						 unsigned int max_try)
++{
++	bool ret;
++
++	smp_mb();
++	ret = __cmpxchg_case_8(ptr, old, new, true, max_try);
++	smp_mb();
++
++	return ret;
++}
++
+ #define cmpxchg(ptr,o,n)						\
+ 	((__typeof__(*(ptr)))__cmpxchg_mb((ptr),			\
+ 					  (unsigned long)(o),		\
+@@ -167,6 +223,18 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+ 				       (unsigned long)(o),		\
+ 				       (unsigned long)(n),		\
+ 				       sizeof(*(ptr))))
++
++static inline uint64_t cmpxchg64(volatile uint64_t *ptr,
++				 uint64_t old,
++				 uint64_t new)
++{
++	smp_mb();
++	if (!__cmpxchg_case_8(ptr, &old, new, false, 0))
++		ASSERT_UNREACHABLE();
++
++	return old;
++}
++
+ #endif
+ /*
+  * Local variables:
+diff --git a/xen/include/asm-arm/arm64/cmpxchg.h b/xen/include/asm-arm/arm64/cmpxchg.h
+index fc5c60f0bd74..de9cd0ee2b07 100644
+--- a/xen/include/asm-arm/arm64/cmpxchg.h
++++ b/xen/include/asm-arm/arm64/cmpxchg.h
+@@ -187,6 +187,11 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+ 	__ret; \
+ })
  
- CFLAGS   += -Werror -Wmissing-prototypes
- CFLAGS   += -I./include $(CFLAGS_xeninclude)
--CFLAGS   += $(foreach lib, $(USELIBS), $(CFLAGS_libxen$(lib)))
-+CFLAGS   += $(foreach lib, $(USELIBS_$(LIBNAME)), $(CFLAGS_libxen$(lib)))
++#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
++
++#define __cmpxchg64_mb_timeout(ptr, old, new, max_try) \
++	__cmpxchg_mb_timeout(ptr, old, new, 8, max_try)
++
+ #endif
+ /*
+  * Local variables:
+diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+index af27cc627bf3..28ce402bea79 100644
+--- a/xen/include/asm-arm/guest_atomics.h
++++ b/xen/include/asm-arm/guest_atomics.h
+@@ -115,6 +115,28 @@ static inline unsigned long __guest_cmpxchg(struct domain *d,
+                                          (unsigned long)(n),\
+                                          sizeof (*(ptr))))
  
--LDUSELIBS = $(foreach lib, $(USELIBS), $(LDLIBS_libxen$(lib)))
-+LDUSELIBS = $(foreach lib, $(USELIBS_$(LIBNAME)), $(LDLIBS_libxen$(lib)))
++static inline uint64_t guest_cmpxchg64(struct domain *d,
++                                       volatile uint64_t *ptr,
++                                       uint64_t old,
++                                       uint64_t new)
++{
++    uint64_t oldval = old;
++
++    perfc_incr(atomics_guest);
++
++    if ( __cmpxchg64_mb_timeout(ptr, &oldval, new,
++                                this_cpu(guest_safe_atomic_max)) )
++        return oldval;
++
++    perfc_incr(atomics_guest_paused);
++
++    domain_pause_nosync(d);
++    oldval = cmpxchg64(ptr, old, new);
++    domain_unpause(d);
++
++    return oldval;
++}
++
+ #endif /* _ARM_GUEST_ATOMICS_H */
+ /*
+  * Local variables:
+diff --git a/xen/include/asm-x86/guest_atomics.h b/xen/include/asm-x86/guest_atomics.h
+index 029417c8ffc1..f4de9d3631ff 100644
+--- a/xen/include/asm-x86/guest_atomics.h
++++ b/xen/include/asm-x86/guest_atomics.h
+@@ -20,6 +20,8 @@
+     ((void)(d), test_and_change_bit(nr, p))
  
- LIB_OBJS := $(SRCS-y:.c=.o)
- PIC_OBJS := $(SRCS-y:.c=.opic)
-diff --git a/tools/libs/toolcore/Makefile b/tools/libs/toolcore/Makefile
-index 85ff2b26fd..34b08a4236 100644
---- a/tools/libs/toolcore/Makefile
-+++ b/tools/libs/toolcore/Makefile
-@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ #define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
++#define guest_cmpxchg64(d, ptr, o, n) ((void)(d), cmpxchg64(ptr, o, n))
++
  
- MAJOR	= 1
- MINOR	= 0
--LIBNAME  := toolcore
- AUTOINCS := include/_xentoolcore_list.h
+ #endif /* _X86_GUEST_ATOMICS_H */
+ /*
+diff --git a/xen/include/asm-x86/x86_64/system.h b/xen/include/asm-x86/x86_64/system.h
+index f471859c19cc..c1b16105e9f2 100644
+--- a/xen/include/asm-x86/x86_64/system.h
++++ b/xen/include/asm-x86/x86_64/system.h
+@@ -5,6 +5,8 @@
+     ((__typeof__(*(ptr)))__cmpxchg((ptr),(unsigned long)(o),            \
+                                    (unsigned long)(n),sizeof(*(ptr))))
  
- SRCS-y	+= handlereg.c
-diff --git a/tools/libs/toollog/Makefile b/tools/libs/toollog/Makefile
-index 2d3ae4e627..3f986835d6 100644
---- a/tools/libs/toollog/Makefile
-+++ b/tools/libs/toollog/Makefile
-@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR	= 1
- MINOR	= 0
--LIBNAME  := toollog
- 
- SRCS-y	+= xtl_core.c
- SRCS-y	+= xtl_logger_stdio.c
++#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
++
+ /*
+  * Atomic 16 bytes compare and exchange.  Compare OLD with MEM, if
+  * identical, store NEW in MEM.  Return the initial value in MEM.
 -- 
-2.26.2
+2.17.1
 
 
