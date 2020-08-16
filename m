@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F27824579B
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Aug 2020 14:35:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C509124583E
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Aug 2020 16:56:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7Hrb-00077n-2Q; Sun, 16 Aug 2020 12:34:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7K3Z-0001va-On; Sun, 16 Aug 2020 14:54:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=thk9=B2=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k7HrZ-00077i-JB
- for xen-devel@lists.xenproject.org; Sun, 16 Aug 2020 12:34:13 +0000
-X-Inumbo-ID: 376ac304-acb7-4c44-a4cc-45b4877d780d
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 376ac304-acb7-4c44-a4cc-45b4877d780d;
- Sun, 16 Aug 2020 12:34:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11902ADA2;
- Sun, 16 Aug 2020 12:34:36 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
-Subject: [PATCH I v2.1 6/6] tools: generate most contents of library make
- variables
-Date: Sun, 16 Aug 2020 14:34:10 +0200
-Message-Id: <20200816123410.27462-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+ (envelope-from <SRS0=0HP3=B2=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k7K3Y-0001vV-0f
+ for xen-devel@lists.xenproject.org; Sun, 16 Aug 2020 14:54:44 +0000
+X-Inumbo-ID: e0a77e73-d05d-4be2-8254-f03b2266a778
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e0a77e73-d05d-4be2-8254-f03b2266a778;
+ Sun, 16 Aug 2020 14:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=vFDgtrkSMvXEwh7NUU2p4398/GwSYKSSJMdWtlzGazI=; b=r7/VvWAM6fbXB3CZ6fImmTCe1H
+ dOUpr10368GhcSNX/X9GB9bwgIjWJNfV1YGLMQ2UbYMv/s5ZvtJSBJV8RhbRJQEBJbjFzk9ab15bh
+ n95c1Fe39lCLv6tyrcNnczvQJTEE16pqnNQxgqKRHniMYKcBquCi2yZXfO+casZLY1kU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7K3W-0006ep-2f; Sun, 16 Aug 2020 14:54:42 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7K3V-0006KQ-R8; Sun, 16 Aug 2020 14:54:41 +0000
+Subject: Re: u-boot vs. uefi as boot loaders on ARM
+To: Roman Shaposhnik <roman@zededa.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: vicooodin@gmail.com, Stefano Stabellini <sstabellini@kernel.org>
+References: <CAMmSBy-EduiWV-rZfykc8Xh6GyOBAe5VNF44p6HjR8kn_bDZjA@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8a01a6e3-a786-2d68-5640-343bcc084b45@xen.org>
+Date: Sun, 16 Aug 2020 15:54:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMmSBy-EduiWV-rZfykc8Xh6GyOBAe5VNF44p6HjR8kn_bDZjA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,253 +61,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
-and SHLIB_lib*) mostly have a common pattern for their values. Generate
-most of this content automatically by adding a new per-library variable
-defining on which other libraries a lib is depending.
 
-This in turn makes it possible to drop the USELIB variable from each
-library Makefile.
 
-The LIBNAME variable can be dropped, too, as it can be derived from the
-directory name the library is residing in.
+On 15/08/2020 21:43, Roman Shaposhnik wrote:
+> Hi!
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/Rules.mk                    | 74 +++++++++++--------------------
- tools/libs/call/Makefile          |  2 -
- tools/libs/devicemodel/Makefile   |  2 -
- tools/libs/evtchn/Makefile        |  2 -
- tools/libs/foreignmemory/Makefile |  2 -
- tools/libs/gnttab/Makefile        |  2 -
- tools/libs/hypfs/Makefile         |  2 -
- tools/libs/libs.mk                |  8 ++--
- tools/libs/toolcore/Makefile      |  1 -
- tools/libs/toollog/Makefile       |  1 -
- 10 files changed, 31 insertions(+), 65 deletions(-)
+Hi,
 
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 5d699cfd39..b36818bcaa 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -12,14 +12,24 @@ INSTALL = $(XEN_ROOT)/tools/cross-install
- LDFLAGS += $(PREPEND_LDFLAGS_XEN_TOOLS)
- 
- XEN_INCLUDE        = $(XEN_ROOT)/tools/include
--XEN_libxentoolcore = $(XEN_ROOT)/tools/libs/toolcore
--XEN_libxentoollog  = $(XEN_ROOT)/tools/libs/toollog
--XEN_libxenevtchn   = $(XEN_ROOT)/tools/libs/evtchn
--XEN_libxengnttab   = $(XEN_ROOT)/tools/libs/gnttab
--XEN_libxencall     = $(XEN_ROOT)/tools/libs/call
--XEN_libxenforeignmemory = $(XEN_ROOT)/tools/libs/foreignmemory
--XEN_libxendevicemodel = $(XEN_ROOT)/tools/libs/devicemodel
--XEN_libxenhypfs    = $(XEN_ROOT)/tools/libs/hypfs
-+
-+LIBS_LIBS += toolcore
-+USELIBS_toolcore :=
-+LIBS_LIBS += toollog
-+USELIBS_toollog :=
-+LIBS_LIBS += evtchn
-+USELIBS_evtchn := toollog toolcore
-+LIBS_LIBS += gnttab
-+USELIBS_gnttab := toollog toolcore
-+LIBS_LIBS += call
-+USELIBS_call := toollog toolcore
-+LIBS_LIBS += foreignmemory
-+USELIBS_foreignmemory := toollog toolcore
-+LIBS_LIBS += devicemodel
-+USELIBS_devicemodel := toollog toolcore call
-+LIBS_LIBS += hypfs
-+USELIBS_hypfs := toollog toolcore call
-+
- XEN_libxenctrl     = $(XEN_ROOT)/tools/libxc
- # Currently libxenguest lives in the same directory as libxenctrl
- XEN_libxenguest    = $(XEN_libxenctrl)
-@@ -99,45 +109,15 @@ endif
- # Consumers of libfoo should not directly use $(SHDEPS_libfoo) or
- # $(SHLIB_libfoo)
- 
--CFLAGS_libxentoollog = -I$(XEN_libxentoollog)/include $(CFLAGS_xeninclude)
--SHDEPS_libxentoollog =
--LDLIBS_libxentoollog = $(SHDEPS_libxentoollog) $(XEN_libxentoollog)/libxentoollog$(libextension)
--SHLIB_libxentoollog  = $(SHDEPS_libxentoollog) -Wl,-rpath-link=$(XEN_libxentoollog)
--
--CFLAGS_libxentoolcore = -I$(XEN_libxentoolcore)/include $(CFLAGS_xeninclude)
--SHDEPS_libxentoolcore =
--LDLIBS_libxentoolcore = $(SHDEPS_libxentoolcore) $(XEN_libxentoolcore)/libxentoolcore$(libextension)
--SHLIB_libxentoolcore  = $(SHDEPS_libxentoolcore) -Wl,-rpath-link=$(XEN_libxentoolcore)
--
--CFLAGS_libxenevtchn = -I$(XEN_libxenevtchn)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenevtchn = $(SHLIB_libxentoolcore)
--LDLIBS_libxenevtchn = $(SHDEPS_libxenevtchn) $(XEN_libxenevtchn)/libxenevtchn$(libextension)
--SHLIB_libxenevtchn  = $(SHDEPS_libxenevtchn) -Wl,-rpath-link=$(XEN_libxenevtchn)
--
--CFLAGS_libxengnttab = -I$(XEN_libxengnttab)/include $(CFLAGS_xeninclude)
--SHDEPS_libxengnttab = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore)
--LDLIBS_libxengnttab = $(SHDEPS_libxengnttab) $(XEN_libxengnttab)/libxengnttab$(libextension)
--SHLIB_libxengnttab  = $(SHDEPS_libxengnttab) -Wl,-rpath-link=$(XEN_libxengnttab)
--
--CFLAGS_libxencall = -I$(XEN_libxencall)/include $(CFLAGS_xeninclude)
--SHDEPS_libxencall = $(SHLIB_libxentoolcore)
--LDLIBS_libxencall = $(SHDEPS_libxencall) $(XEN_libxencall)/libxencall$(libextension)
--SHLIB_libxencall  = $(SHDEPS_libxencall) -Wl,-rpath-link=$(XEN_libxencall)
--
--CFLAGS_libxenforeignmemory = -I$(XEN_libxenforeignmemory)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore)
--LDLIBS_libxenforeignmemory = $(SHDEPS_libxenforeignmemory) $(XEN_libxenforeignmemory)/libxenforeignmemory$(libextension)
--SHLIB_libxenforeignmemory  = $(SHDEPS_libxenforeignmemory) -Wl,-rpath-link=$(XEN_libxenforeignmemory)
--
--CFLAGS_libxendevicemodel = -I$(XEN_libxendevicemodel)/include $(CFLAGS_xeninclude)
--SHDEPS_libxendevicemodel = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
--LDLIBS_libxendevicemodel = $(SHDEPS_libxendevicemodel) $(XEN_libxendevicemodel)/libxendevicemodel$(libextension)
--SHLIB_libxendevicemodel  = $(SHDEPS_libxendevicemodel) -Wl,-rpath-link=$(XEN_libxendevicemodel)
--
--CFLAGS_libxenhypfs = -I$(XEN_libxenhypfs)/include $(CFLAGS_xeninclude)
--SHDEPS_libxenhypfs = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
--LDLIBS_libxenhypfs = $(SHDEPS_libxenhypfs) $(XEN_libxenhypfs)/libxenhypfs$(libextension)
--SHLIB_libxenhypfs  = $(SHDEPS_libxenhypfs) -Wl,-rpath-link=$(XEN_libxenhypfs)
-+define LIB_defs =
-+ XEN_libxen$(1) = $$(XEN_ROOT)/tools/libs/$(1)
-+ CFLAGS_libxen$(1) = -I$$(XEN_libxen$(1))/include $$(CFLAGS_xeninclude)
-+ SHDEPS_libxen$(1) = $$(foreach use,$$(USELIBS_$(1)),$$(SHLIB_libxen$$(use)))
-+ LDLIBS_libxen$(1) = $$(SHDEPS_libxen$(1)) $$(XEN_libxen$(1))/libxen$(1)$$(libextension)
-+ SHLIB_libxen$(1) = $$(SHDEPS_libxen$(1)) -Wl,-rpath-link=$$(XEN_libxen$(1))
-+endef
-+
-+$(foreach lib,$(LIBS_LIBS),$(eval $(call LIB_defs,$(lib))))
- 
- # code which compiles against libxenctrl get __XEN_TOOLS__ and
- # therefore sees the unstable hypercall interfaces.
-diff --git a/tools/libs/call/Makefile b/tools/libs/call/Makefile
-index 7994b411fa..81c7478efd 100644
---- a/tools/libs/call/Makefile
-+++ b/tools/libs/call/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 2
--LIBNAME  := call
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c buffer.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/devicemodel/Makefile b/tools/libs/devicemodel/Makefile
-index d9d1d1b850..42417958f2 100644
---- a/tools/libs/devicemodel/Makefile
-+++ b/tools/libs/devicemodel/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 3
--LIBNAME  := devicemodel
--USELIBS  := toollog toolcore call
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/evtchn/Makefile b/tools/libs/evtchn/Makefile
-index d7aa4d402f..aec76641e8 100644
---- a/tools/libs/evtchn/Makefile
-+++ b/tools/libs/evtchn/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 1
--LIBNAME  := evtchn
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
-index 823989681d..cf444d3c1a 100644
---- a/tools/libs/foreignmemory/Makefile
-+++ b/tools/libs/foreignmemory/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 3
--LIBNAME  := foreignmemory
--USELIBS  := toollog toolcore
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/gnttab/Makefile b/tools/libs/gnttab/Makefile
-index c0fffdac71..d8d4d55e27 100644
---- a/tools/libs/gnttab/Makefile
-+++ b/tools/libs/gnttab/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 2
--LIBNAME  := gnttab
--USELIBS  := toollog toolcore
- 
- SRCS-GNTTAB            += gnttab_core.c
- SRCS-GNTSHR            += gntshr_core.c
-diff --git a/tools/libs/hypfs/Makefile b/tools/libs/hypfs/Makefile
-index b4c41f6189..668d68853f 100644
---- a/tools/libs/hypfs/Makefile
-+++ b/tools/libs/hypfs/Makefile
-@@ -3,8 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
- MINOR    = 0
--LIBNAME  := hypfs
--USELIBS  := toollog toolcore call
- 
- APPEND_LDFLAGS += -lz
- 
-diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
-index 764f5441e2..19efc5e743 100644
---- a/tools/libs/libs.mk
-+++ b/tools/libs/libs.mk
-@@ -1,18 +1,18 @@
- # Common Makefile for building a lib.
- #
- # Variables taken as input:
--#   LIBNAME: name of lib to build, will be prepended with "libxen"
- #   MAJOR:   major version of lib
- #   MINOR:   minor version of lib
--#   USELIBS: xen libs to use (e.g. "toolcore toollog")
-+
-+LIBNAME := $(notdir $(CURDIR))
- 
- SHLIB_LDFLAGS += -Wl,--version-script=libxen$(LIBNAME).map
- 
- CFLAGS   += -Werror -Wmissing-prototypes
- CFLAGS   += -I./include $(CFLAGS_xeninclude)
--CFLAGS   += $(foreach lib, $(USELIBS), $(CFLAGS_libxen$(lib)))
-+CFLAGS   += $(foreach lib, $(USELIBS_$(LIBNAME)), $(CFLAGS_libxen$(lib)))
- 
--LDUSELIBS = $(foreach lib, $(USELIBS), $(LDLIBS_libxen$(lib)))
-+LDUSELIBS = $(foreach lib, $(USELIBS_$(LIBNAME)), $(LDLIBS_libxen$(lib)))
- 
- LIB_OBJS := $(SRCS-y:.c=.o)
- PIC_OBJS := $(SRCS-y:.c=.opic)
-diff --git a/tools/libs/toolcore/Makefile b/tools/libs/toolcore/Makefile
-index 85ff2b26fd..34b08a4236 100644
---- a/tools/libs/toolcore/Makefile
-+++ b/tools/libs/toolcore/Makefile
-@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR	= 1
- MINOR	= 0
--LIBNAME  := toolcore
- AUTOINCS := include/_xentoolcore_list.h
- 
- SRCS-y	+= handlereg.c
-diff --git a/tools/libs/toollog/Makefile b/tools/libs/toollog/Makefile
-index 2d3ae4e627..3f986835d6 100644
---- a/tools/libs/toollog/Makefile
-+++ b/tools/libs/toollog/Makefile
-@@ -3,7 +3,6 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR	= 1
- MINOR	= 0
--LIBNAME  := toollog
- 
- SRCS-y	+= xtl_core.c
- SRCS-y	+= xtl_logger_stdio.c
+> with the recent excellent work by Anastasiia committed to the u-boot's
+> main line, we now have two different ways of bringing ARM DomUs.
+> 
+> Is there any chance someone can educate the general public on pros
+> and cons of both approaches?
+> 
+> In Project EVE we're still using uefi on ARM (to stay closer to the more
+> "ARM in the cloud" use case) but perhaps the situation now is more
+> nuanced?
+
+UEFI is just standard, so I am guessing you are referring to 
+Tianocore/EDK2. am I correct?
+
+Recent version of U-boot are also able to partially UEFI. This means you 
+could easily use GRUB with U-boot.
+
+ From my understanding, U-boot is just a bootloader. Therefore it will 
+not provide runtime services (such as date & time). Furthermore, the 
+interface is less user friendly, you will have to know the memory layout 
+in order to load binaries.
+
+On the other hand, Tianocore/EDK2 is very similar to what non-embedded 
+may be used to. It will not require you to know your memory layout. But 
+this comes at the cost of a more complex bootloader to debug.
+
+Cheers,
+
 -- 
-2.26.2
-
+Julien Grall
 
