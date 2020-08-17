@@ -2,56 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07112472AB
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 20:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D5B2472B2
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 20:46:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7k9I-0007BD-5I; Mon, 17 Aug 2020 18:46:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7k9b-0007Mk-BS; Mon, 17 Aug 2020 18:46:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mm75=B3=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1k7k9G-00077W-75
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 18:46:22 +0000
-X-Inumbo-ID: 6ef2805e-1acc-4e5f-a61a-c504d5ab3eaa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6ef2805e-1acc-4e5f-a61a-c504d5ab3eaa;
- Mon, 17 Aug 2020 18:46:12 +0000 (UTC)
+ id 1k7k9Z-0007Lz-Hf
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 18:46:41 +0000
+X-Inumbo-ID: a21ea6da-cccc-46f3-a18b-332b70516022
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a21ea6da-cccc-46f3-a18b-332b70516022;
+ Mon, 17 Aug 2020 18:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597689973;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+Bs+Fxq+yO/S2L4Mgyr+mCqf669K6A0XW3wC71rhZYE=;
- b=YarQVwnhk4b4IT1LUe6IKMhdmpF+AOec++vuHWXWlikwJpnDdVhLJ7OR
- 5sDCC4wKSq07V6D7I6M8ObwXtDlgolXig9sGB6PQXta0utuDsEuCLzfqT
- S346eg+zx5ezZedSOwx5rp1pFyFiE6SP1714ePYhuZl2hPsZCvCx661G4 0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597690000;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=8lBQLMc6oqjKZdPxCrlQd/S3engilfunN/kPSy11ovs=;
+ b=CMFoF0v/uFUp6VmVx0Vfx7c2dk4pRSCO6UcSczbtajHN1jlUo7kTGDkd
+ Luxs7CAwCzMHv3/7wwX6+UdeQ16ysKpZuyBOqGBh/nRe2aB5bosC6+CXs
+ CGTBcTIBdq/SbUmD3ak86boT0mdKs5fwBL+1HkCut1HnrKEhe/fGUINe5 M=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: BuaZh/DF1t0UIsGC8/rozmT7BIXmNHCeYw9ecpYu2h7H91NleIEeqlXDsinXhBXChQXo6Ach1g
- QVY96YuNEylQoCtBcaEOrxY820A9JC3Wb7jq06gWN+ZFgE8O/4NQS6YFjHwLoB+jqZcGxHMfsn
- y6AKM/09sm3W9/N4X8lr9vG8RgzCSismBYui7hfpZ/ERg1C2xs5NPr2E4npnpGQ2wE1MC5xA/0
- q7EdMiM9ljEM3nLUM9xugZzpd0pb9pTMvfq6VZDLwvEyCebkhZeqswIpUazFJ7VVua0yq8kVJI
- wUU=
+IronPort-SDR: vMu41rJidYjrtdWv6dR4Bb0i1M5kRbtoSMPDXiIsWcV3v7/qKNs4uKfn0i9tnaPIHidMdYe+Ax
+ VKKGzJ90MbfBDS3hwBodFicXPBL9D6hsw52EWrxsvqb3lUGYRNUcUcDLu7NzH4wA7fh/BjjXGZ
+ TS3t3sJYvNVD+0emjxdNrF41DFm9iqpu1L44jFTkMmxPXY5EaGFBp0RW+Qbk9aEbr4ISBwI+TH
+ 53XWN6lXioUvAV9N/5ChFdU/2PHJwNhdzU5twA7eWE+lac0ds1Zq1gU0/TPVIoJ+4p16CIy7PR
+ ZUQ=
 X-SBRS: 2.7
-X-MesageID: 24693226
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24868152
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,324,1592884800"; d="scan'208";a="24693226"
-From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
-Subject: [PATCH v3 6/6] tools/ocaml/xenstored: use more efficient tries
-Date: Mon, 17 Aug 2020 19:45:49 +0100
-Message-ID: <d05ab27779525bfcd4c7d397efbff5d5cde41d02.1597689796.git.edvin.torok@citrix.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1597689796.git.edvin.torok@citrix.com>
-References: <cover.1597689796.git.edvin.torok@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.76,324,1592884800"; d="scan'208";a="24868152"
+From: Edwin Torok <edvin.torok@citrix.com>
+To: Christian Lindig <christian.lindig@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>, "dave@recoil.org" <dave@recoil.org>, 
+ "wl@xen.org" <wl@xen.org>
+Subject: Re: [PATCH v1 5/6] tools/ocaml/xenstored: use more efficient node
+ trees
+Thread-Topic: [PATCH v1 5/6] tools/ocaml/xenstored: use more efficient node
+ trees
+Thread-Index: AQHWcohKODHsXl6Aq0qOV1QolADvZqk8I/0AgABi4wA=
+Date: Mon, 17 Aug 2020 18:46:36 +0000
+Message-ID: <0e945fc2685e5cba61c614c47af6b071d203053d.camel@citrix.com>
+References: <cover.1597442238.git.edvin.torok@citrix.com> ,
+ <f2aff7b39137518d56ef99ea9faf7ce959c81ab9.1597442238.git.edvin.torok@citrix.com>
+ <1597668760460.95626@citrix.com>
+In-Reply-To: <1597668760460.95626@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C74EF694234D02498995DAB7ECFDFFC1@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,250 +78,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-No functional change, just an optimization.
-
-Signed-off-by: Edwin Török <edvin.torok@citrix.com>
----
-Changed since v1:
- * fix missing 'set_node' in 'set' that got lost in conversion to map
- * simplify 'compare' function
----
- tools/ocaml/xenstored/connections.ml |  2 +-
- tools/ocaml/xenstored/symbol.ml      |  6 +--
- tools/ocaml/xenstored/trie.ml        | 59 ++++++++++++----------------
- tools/ocaml/xenstored/trie.mli       | 26 ++++++------
- 4 files changed, 43 insertions(+), 50 deletions(-)
-
-diff --git a/tools/ocaml/xenstored/connections.ml b/tools/ocaml/xenstored/connections.ml
-index f02ef6b526..4983c7370b 100644
---- a/tools/ocaml/xenstored/connections.ml
-+++ b/tools/ocaml/xenstored/connections.ml
-@@ -21,7 +21,7 @@ type t = {
- 	anonymous: (Unix.file_descr, Connection.t) Hashtbl.t;
- 	domains: (int, Connection.t) Hashtbl.t;
- 	ports: (Xeneventchn.t, Connection.t) Hashtbl.t;
--	mutable watches: (string, Connection.watch list) Trie.t;
-+	mutable watches: Connection.watch list Trie.t;
- }
- 
- let create () = {
-diff --git a/tools/ocaml/xenstored/symbol.ml b/tools/ocaml/xenstored/symbol.ml
-index 2697915623..85b3f265de 100644
---- a/tools/ocaml/xenstored/symbol.ml
-+++ b/tools/ocaml/xenstored/symbol.ml
-@@ -31,9 +31,9 @@ let equal a b =
-   (* compare using physical equality, both members have to be part of the above weak table *)
-   a == b
- 
--let compare a b =
--  if equal a b then 0
--  else -(String.compare a b)
-+(* the sort order is reversed here, so that Map.fold constructs a list
-+   in ascending order *)
-+let compare a b = String.compare b a
- 
- let stats () =
-   let len, entries, _, _, _, _ = WeakTable.stats tbl in
-diff --git a/tools/ocaml/xenstored/trie.ml b/tools/ocaml/xenstored/trie.ml
-index dc42535092..5b4831cf02 100644
---- a/tools/ocaml/xenstored/trie.ml
-+++ b/tools/ocaml/xenstored/trie.ml
-@@ -13,24 +13,26 @@
-  * GNU Lesser General Public License for more details.
-  *)
- 
-+module StringMap = Map.Make(String)
-+
- module Node =
- struct
--	type ('a,'b) t =  {
--		key: 'a;
--		value: 'b option;
--		children: ('a,'b) t list;
-+	type 'a t =  {
-+		key: string;
-+		value: 'a option;
-+		children: 'a t StringMap.t;
- 	}
- 
- 	let _create key value = {
- 		key = key;
- 		value = Some value;
--		children = [];
-+		children = StringMap.empty;
- 	}
- 
- 	let empty key = {
- 		key = key;
- 		value = None;
--		children = []
-+		children = StringMap.empty;
- 	}
- 
- 	let _get_key node = node.key
-@@ -47,41 +49,31 @@ struct
- 		{ node with children = children }
- 
- 	let _add_child node child =
--		{ node with children = child :: node.children }
-+		{ node with children = StringMap.add child.key child node.children }
- end
- 
--type ('a,'b) t = ('a,'b) Node.t list
-+type 'a t = 'a Node.t StringMap.t
- 
- let mem_node nodes key =
--	List.exists (fun n -> n.Node.key = key) nodes
-+	StringMap.mem key nodes
- 
- let find_node nodes key =
--	List.find (fun n -> n.Node.key = key) nodes
-+	StringMap.find key nodes
- 
- let replace_node nodes key node =
--	let rec aux = function
--		| []                            -> []
--		| h :: tl when h.Node.key = key -> node :: tl
--		| h :: tl                       -> h :: aux tl
--	in
--	aux nodes
-+	StringMap.update key (function None -> None | Some _ -> Some node) nodes
- 
- let remove_node nodes key =
--	let rec aux = function
--		| []                            -> raise Not_found
--		| h :: tl when h.Node.key = key -> tl
--		| h :: tl                       -> h :: aux tl
--	in
--	aux nodes
-+	StringMap.update key (function None -> raise Not_found | Some _ -> None) nodes
- 
--let create () = []
-+let create () = StringMap.empty
- 
- let rec iter f tree =
--	let aux node =
--		f node.Node.key node.Node.value;
-+	let aux key node =
-+		f key node.Node.value;
- 		iter f node.Node.children
- 	in
--	List.iter aux tree
-+	StringMap.iter aux tree
- 
- let rec map f tree =
- 	let aux node =
-@@ -92,13 +84,14 @@ let rec map f tree =
- 		in
- 		{ node with Node.value = value; Node.children = map f node.Node.children }
- 	in
--	List.filter (fun n -> n.Node.value <> None || n.Node.children <> []) (List.map aux tree)
-+	tree |> StringMap.map aux
-+	|> StringMap.filter (fun _ n -> n.Node.value <> None || not (StringMap.is_empty n.Node.children) )
- 
- let rec fold f tree acc =
--	let aux accu node =
--		fold f node.Node.children (f node.Node.key node.Node.value accu)
-+	let aux key node accu =
-+		fold f node.Node.children (f key node.Node.value accu)
- 	in
--	List.fold_left aux acc tree
-+	StringMap.fold aux tree acc
- 
- (* return a sub-trie *)
- let rec sub_node tree = function
-@@ -115,7 +108,7 @@ let rec sub_node tree = function
- 
- let sub tree path =
- 	try (sub_node tree path).Node.children
--	with Not_found -> []
-+	with Not_found -> StringMap.empty
- 
- let find tree path =
- 	Node.get_value (sub_node tree path)
-@@ -159,7 +152,7 @@ and set tree path value =
- 				  replace_node tree h (set_node node t value)
- 			  end else begin
- 				  let node = Node.empty h in
--				  set_node node t value :: tree
-+				  StringMap.add node.Node.key (set_node node t value) tree
- 			  end
- 
- let rec unset tree = function
-@@ -174,7 +167,7 @@ let rec unset tree = function
- 				  then Node.set_children (Node.empty h) children
- 				  else Node.set_children node children
- 			  in
--			  if children = [] && new_node.Node.value = None
-+			  if StringMap.is_empty children && new_node.Node.value = None
- 			  then remove_node tree h
- 			  else replace_node tree h new_node
- 		  end else
-diff --git a/tools/ocaml/xenstored/trie.mli b/tools/ocaml/xenstored/trie.mli
-index 5dc53c1cb1..27785154f5 100644
---- a/tools/ocaml/xenstored/trie.mli
-+++ b/tools/ocaml/xenstored/trie.mli
-@@ -15,46 +15,46 @@
- 
- (** Basic Implementation of polymorphic tries (ie. prefix trees) *)
- 
--type ('a, 'b) t
--(** The type of tries. ['a list] is the type of keys, ['b] the type of values.
-+type 'a t
-+(** The type of tries. ['a] the type of values.
- 	Internally, a trie is represented as a labeled tree, where node contains values
--	of type ['a * 'b option]. *)
-+	of type [string * 'a option]. *)
- 
--val create : unit -> ('a,'b) t
-+val create : unit -> 'a t
- (** Creates an empty trie. *)
- 
--val mem : ('a,'b) t -> 'a list -> bool
-+val mem : 'a t -> string list -> bool
- (** [mem t k] returns true if a value is associated with the key [k] in the trie [t].
- 	Otherwise, it returns false. *)
- 
--val find : ('a, 'b) t -> 'a list -> 'b
-+val find : 'a t -> string list -> 'a
- (** [find t k] returns the value associated with the key [k] in the trie [t].
- 	Returns [Not_found] if no values are associated with [k] in [t]. *)
- 
--val set : ('a, 'b) t -> 'a list -> 'b -> ('a, 'b) t
-+val set : 'a t -> string list -> 'a -> 'a t
- (** [set t k v] associates the value [v] with the key [k] in the trie [t]. *)
- 
--val unset : ('a, 'b) t -> 'a list -> ('a, 'b) t
-+val unset : 'a t -> string list -> 'a t
- (** [unset k v] removes the association of value [v] with the key [k] in the trie [t].
- 	Moreover, it automatically clean the trie, ie. it removes recursively
- 	every nodes of [t] containing no values and having no chil. *)
- 
--val iter : ('a -> 'b option -> unit) -> ('a, 'b) t -> unit
-+val iter : (string -> 'a option -> unit) -> 'a t -> unit
- (** [iter f t] applies the function [f] to every node of the trie [t].
- 	As nodes of the trie [t] do not necessary contains a value, the second argument of
- 	[f] is an option type. *)
- 
--val iter_path : ('a -> 'b option -> unit) -> ('a, 'b) t -> 'a list -> unit
-+val iter_path : (string -> 'a option -> unit) -> 'a t -> string list -> unit
- (** [iter_path f t p] iterates [f] over nodes associated with the path [p] in the trie [t].
- 	If [p] is not a valid path of [t], it iterates on the longest valid prefix of [p]. *)
- 
--val fold : ('a -> 'b option -> 'c -> 'c) -> ('a, 'b) t -> 'c -> 'c
-+val fold : (string -> 'a option -> 'c -> 'c) -> 'a t -> 'c -> 'c
- (** [fold f t x] fold [f] over every nodes of [t], with [x] as initial value. *)
- 
--val map : ('b -> 'c option) -> ('a,'b) t -> ('a,'c) t
-+val map : ('a -> 'b option) -> 'a t -> 'b t
- (** [map f t] maps [f] over every values stored in [t]. The return value of [f] is of type 'c option
- 	as one may wants to remove value associated to a key. This function is not tail-recursive. *)
- 
--val sub : ('a, 'b) t -> 'a list -> ('a,'b) t
-+val sub : 'a t -> string list -> 'a t
- (** [sub t p] returns the sub-trie associated with the path [p] in the trie [t].
- 	If [p] is not a valid path of [t], it returns an empty trie. *)
--- 
-2.25.1
-
+T24gTW9uLCAyMDIwLTA4LTE3IGF0IDE0OjUyICswMjAwLCBDaHJpc3RpYW4gTGluZGlnIHdyb3Rl
+Og0KPiArbGV0IGNvbXBhcmUgYSBiID0NCj4gKyAgaWYgZXF1YWwgYSBiIHRoZW4gMA0KPiArICBl
+bHNlIC0oU3RyaW5nLmNvbXBhcmUgYSBiKQ0KPiANCj4gSSB0aGluayB0aGlzIGJpdCBjb3VsZCB1
+c2UgYW4gaW5saW5lIGNvbW1lbnQgd2h5IHRoZSBzb3J0IG9yZGVyIGlzDQo+IHJldmVyc2VkLiBU
+aGlzIGNvdWxkIGJlIGFsc28gc2ltcGxpZmllZCB0byAtKFN0cmluZy5jb21wYXJlIGEgYikNCj4g
+YmVjYXVzZSB0aGlzIGdvZXMgdG8gdGhlIGludGVybmFsIChwb2x5bW9ycGhpYykgY29tcGFyZSBp
+bXBsZW1lbnRlZA0KPiBpbiBDIHdoaWNoIGRvZXMgYSBwaHlzaWNhbCBlcXVpdmFsZW5jZSBjaGVj
+ayBmaXJzdC4NCg0KR29vZCBwb2ludCwgSSd2ZSBkcm9wcGVkIHRoZSBlcXVhbCwgYW5kIGluc3Rl
+YWQgb2YgbmVnYXRpbmcgdGhlIGNvbXBhcmUNCkkgc3dhcHBlZCBpdHMgYXJndW1lbnRzLg0KDQpT
+ZWUgVjMgb2YgdGhlIHBhdGNoIChpZ25vcmUgVjIsIGZvciBzb21lIHJlYXNvbiBpdCBsb29rZWQg
+bmVhcmx5DQppZGVudGljYWwgdG8gVjEsIG5vdCBtYXRjaGluZyB3aGF0IEkgaGFkIGluIG15IGdp
+dCB0cmVlLA0KcGVyaGFwcyBnaXQtZm9ybWF0LXBhdGNoIGRpZG4ndCBvdmVyd3JpdGUgdGhlIHBh
+dGNoZXM/KS4NCg0KQmVzdCByZWdhcmRzLA0KLS1FZHdpbg0KDQo+IA0KPiAtLSBDDQo+IA0KPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IEZyb206IEVkd2luIFRv
+cm9rDQo+IFNlbnQ6IDE0IEF1Z3VzdCAyMDIwIDIzOjE0DQo+IFRvOiB4ZW4tZGV2ZWxAbGlzdHMu
+eGVucHJvamVjdC5vcmcNCj4gQ2M6IEVkd2luIFRvcm9rOyBDaHJpc3RpYW4gTGluZGlnOyBEYXZp
+ZCBTY290dDsgSWFuIEphY2tzb247IFdlaSBMaXUNCj4gU3ViamVjdDogW1BBVENIIHYxIDUvNl0g
+dG9vbHMvb2NhbWwveGVuc3RvcmVkOiB1c2UgbW9yZSBlZmZpY2llbnQNCj4gbm9kZSB0cmVlcw0K
+PiANCj4gVGhpcyBjaGFuZ2VzIHRoZSBvdXRwdXQgb2YgeGVuc3RvcmUtbHMgdG8gYmUgc29ydGVk
+Lg0KPiBQcmV2aW91c2x5IHRoZSBrZXlzIHdlcmUgbGlzdGVkIGluIHRoZSBvcmRlciBpbiB3aGlj
+aCB0aGV5IHdlcmUNCj4gaW5zZXJ0ZWQNCj4gaW4uDQo+IGRvY3MvbWlzYy94ZW5zdG9yZS50eHQg
+ZG9lc24ndCBzcGVjaWZ5IGluIHdoYXQgb3JkZXIga2V5cyBhcmUgbGlzdGVkLg0KPiANCj4gTWFw
+LnVwZGF0ZSBpcyB1c2VkIHRvIHJldGFpbiBzZW1hbnRpY3Mgd2l0aCByZXBsYWNlX2NoaWxkOg0K
+PiBvbmx5IGFuIGV4aXN0aW5nIGNoaWxkIGlzIHJlcGxhY2VkLCBpZiBpdCB3YXNuJ3QgcGFydCBv
+ZiB0aGUgb3JpZ2luYWwNCj4gbWFwIHdlIGRvbid0IGFkZCBpdC4NCj4gU2ltaWxhcmx5IGV4Y2Vw
+dGlvbiBiZWhhdmlvdXIgaXMgcmV0YWluZWQgZm9yIGRlbF9jaGlsZG5hbWUgYW5kDQo+IHJlbGF0
+ZWQNCj4gZnVuY3Rpb25zLg0KPiANCj4gRW50cmllcyBhcmUgc3RvcmVkIGluIHJldmVyc2Ugc29y
+dCBvcmRlciwgc28gdGhhdCB1cG9uIE1hcC5mb2xkIHRoZQ0KPiBjb25zdHJ1Y3RlZCBsaXN0IGlz
+IHNvcnRlZCBpbiBhc2NlbmRpbmcgb3JkZXIgYW5kIHRoZXJlIGlzIG5vIG5lZWQNCj4gZm9yIGEN
+Cj4gTGlzdC5yZXYuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBFZHdpbiBUw7Zyw7ZrIDxlZHZpbi50
+b3Jva0BjaXRyaXguY29tPg0KPiAtLS0NCj4gIHRvb2xzL29jYW1sL3hlbnN0b3JlZC9zdG9yZS5t
+bCAgIHwgNDYgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tDQo+IC0tDQo+ICB0b29scy9v
+Y2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1sICB8ICA0ICsrKw0KPiAgdG9vbHMvb2NhbWwveGVuc3Rv
+cmVkL3N5bWJvbC5tbGkgfCAgMyArKysNCj4gIDMgZmlsZXMgY2hhbmdlZCwgMjkgaW5zZXJ0aW9u
+cygrKSwgMjQgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvb2NhbWwveGVu
+c3RvcmVkL3N0b3JlLm1sDQo+IGIvdG9vbHMvb2NhbWwveGVuc3RvcmVkL3N0b3JlLm1sDQo+IGlu
+ZGV4IDQ1NjU5YTIzZWUuLmQ5ZGZhMzYwNDUgMTAwNjQ0DQo+IC0tLSBhL3Rvb2xzL29jYW1sL3hl
+bnN0b3JlZC9zdG9yZS5tbA0KPiArKysgYi90b29scy9vY2FtbC94ZW5zdG9yZWQvc3RvcmUubWwN
+Cj4gQEAgLTE2LDE3ICsxNiwxOSBAQA0KPiAgICopDQo+ICBvcGVuIFN0ZGV4dA0KPiANCj4gK21v
+ZHVsZSBTeW1ib2xNYXAgPSBNYXAuTWFrZShTeW1ib2wpDQo+ICsNCj4gIG1vZHVsZSBOb2RlID0g
+c3RydWN0DQo+IA0KPiAgdHlwZSB0ID0gew0KPiAgICAgICAgIG5hbWU6IFN5bWJvbC50Ow0KPiAg
+ICAgICAgIHBlcm1zOiBQZXJtcy5Ob2RlLnQ7DQo+ICAgICAgICAgdmFsdWU6IHN0cmluZzsNCj4g
+LSAgICAgICBjaGlsZHJlbjogdCBsaXN0Ow0KPiArICAgICAgIGNoaWxkcmVuOiB0IFN5bWJvbE1h
+cC50Ow0KPiAgfQ0KPiANCj4gIGxldCBjcmVhdGUgX25hbWUgX3Blcm1zIF92YWx1ZSA9DQo+IC0g
+ICAgICAgeyBuYW1lID0gU3ltYm9sLm9mX3N0cmluZyBfbmFtZTsgcGVybXMgPSBfcGVybXM7IHZh
+bHVlID0NCj4gX3ZhbHVlOyBjaGlsZHJlbiA9IFtdOyB9DQo+ICsgICAgICAgeyBuYW1lID0gU3lt
+Ym9sLm9mX3N0cmluZyBfbmFtZTsgcGVybXMgPSBfcGVybXM7IHZhbHVlID0NCj4gX3ZhbHVlOyBj
+aGlsZHJlbiA9IFN5bWJvbE1hcC5lbXB0eTsgfQ0KPiANCj4gIGxldCBnZXRfb3duZXIgbm9kZSA9
+IFBlcm1zLk5vZGUuZ2V0X293bmVyIG5vZGUucGVybXMNCj4gIGxldCBnZXRfY2hpbGRyZW4gbm9k
+ZSA9IG5vZGUuY2hpbGRyZW4NCj4gQEAgLTQyLDM4ICs0NCwzNCBAQCBsZXQgc2V0X3ZhbHVlIG5v
+ZGUgbnZhbHVlID0NCj4gIGxldCBzZXRfcGVybXMgbm9kZSBucGVybXMgPSB7IG5vZGUgd2l0aCBw
+ZXJtcyA9IG5wZXJtcyB9DQo+IA0KPiAgbGV0IGFkZF9jaGlsZCBub2RlIGNoaWxkID0NCj4gLSAg
+ICAgICB7IG5vZGUgd2l0aCBjaGlsZHJlbiA9IGNoaWxkIDo6IG5vZGUuY2hpbGRyZW4gfQ0KPiAr
+ICAgICAgIGxldCBjaGlsZHJlbiA9IFN5bWJvbE1hcC5hZGQgY2hpbGQubmFtZSBjaGlsZCBub2Rl
+LmNoaWxkcmVuDQo+IGluDQo+ICsgICAgICAgeyBub2RlIHdpdGggY2hpbGRyZW4gfQ0KPiANCj4g
+IGxldCBleGlzdHMgbm9kZSBjaGlsZG5hbWUgPQ0KPiAgICAgICAgIGxldCBjaGlsZG5hbWUgPSBT
+eW1ib2wub2Zfc3RyaW5nIGNoaWxkbmFtZSBpbg0KPiAtICAgICAgIExpc3QuZXhpc3RzIChmdW4g
+biAtPiBTeW1ib2wuZXF1YWwgbi5uYW1lIGNoaWxkbmFtZSkNCj4gbm9kZS5jaGlsZHJlbg0KPiAr
+ICAgICAgIFN5bWJvbE1hcC5tZW0gY2hpbGRuYW1lIG5vZGUuY2hpbGRyZW4NCj4gDQo+ICBsZXQg
+ZmluZCBub2RlIGNoaWxkbmFtZSA9DQo+ICAgICAgICAgbGV0IGNoaWxkbmFtZSA9IFN5bWJvbC5v
+Zl9zdHJpbmcgY2hpbGRuYW1lIGluDQo+IC0gICAgICAgTGlzdC5maW5kIChmdW4gbiAtPiBTeW1i
+b2wuZXF1YWwgbi5uYW1lIGNoaWxkbmFtZSkNCj4gbm9kZS5jaGlsZHJlbg0KPiArICAgICAgIFN5
+bWJvbE1hcC5maW5kIGNoaWxkbmFtZSBub2RlLmNoaWxkcmVuDQo+IA0KPiAgbGV0IHJlcGxhY2Vf
+Y2hpbGQgbm9kZSBjaGlsZCBuY2hpbGQgPQ0KPiAtICAgICAgICgqIHRoaXMgaXMgdGhlIG9uLXN0
+ZXJvaWQgdmVyc2lvbiBvZiB0aGUgZmlsdGVyIG9uZS1yZXBsYWNlDQo+IG9uZSAqKQ0KPiAtICAg
+ICAgIGxldCByZWMgcmVwbGFjZV9vbmVfaW5fbGlzdCBsID0NCj4gLSAgICAgICAgICAgICAgIG1h
+dGNoIGwgd2l0aA0KPiAtICAgICAgICAgICAgICAgfCBbXSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAtPiBbXQ0KPiAtICAgICAgICAgICAgICAgfCBoIDo6IHRsIHdoZW4gU3ltYm9sLmVx
+dWFsIGgubmFtZSBjaGlsZC5uYW1lIC0+DQo+IG5jaGlsZCA6OiB0bA0KPiAtICAgICAgICAgICAg
+ICAgfCBoIDo6IHRsICAgICAgICAgICAgICAgICAgICAgICAgICAtPiBoIDo6DQo+IHJlcGxhY2Vf
+b25lX2luX2xpc3QgdGwNCj4gLSAgICAgICAgICAgICAgIGluDQo+IC0gICAgICAgeyBub2RlIHdp
+dGggY2hpbGRyZW4gPSAocmVwbGFjZV9vbmVfaW5fbGlzdCBub2RlLmNoaWxkcmVuKSB9DQo+ICsg
+ICAgICAgeyBub2RlIHdpdGgNCj4gKyAgICAgICAgIGNoaWxkcmVuID0gU3ltYm9sTWFwLnVwZGF0
+ZSBjaGlsZC5uYW1lDQo+ICsgICAgICAgICAgICAgICAgICAgIChmdW5jdGlvbiBOb25lIC0+IE5v
+bmUgfCBTb21lIF8gLT4gU29tZSBuY2hpbGQpDQo+ICsgICAgICAgICAgICAgICAgICAgIG5vZGUu
+Y2hpbGRyZW4NCj4gKyAgICAgICB9DQo+IA0KPiAgbGV0IGRlbF9jaGlsZG5hbWUgbm9kZSBjaGls
+ZG5hbWUgPQ0KPiAgICAgICAgIGxldCBzeW0gPSBTeW1ib2wub2Zfc3RyaW5nIGNoaWxkbmFtZSBp
+bg0KPiAtICAgICAgIGxldCByZWMgZGVsZXRlX29uZV9pbl9saXN0IGwgPQ0KPiAtICAgICAgICAg
+ICAgICAgbWF0Y2ggbCB3aXRoDQo+IC0gICAgICAgICAgICAgICB8IFtdICAgICAgICAgICAgICAg
+ICAgICAgICAgLT4gcmFpc2UgTm90X2ZvdW5kDQo+IC0gICAgICAgICAgICAgICB8IGggOjogdGwg
+d2hlbiBTeW1ib2wuZXF1YWwgaC5uYW1lIHN5bSAtPiB0bA0KPiAtICAgICAgICAgICAgICAgfCBo
+IDo6IHRsICAgICAgICAgICAgICAgICAgIC0+IGggOjoNCj4gZGVsZXRlX29uZV9pbl9saXN0IHRs
+DQo+IC0gICAgICAgICAgICAgICBpbg0KPiAtICAgICAgIHsgbm9kZSB3aXRoIGNoaWxkcmVuID0g
+KGRlbGV0ZV9vbmVfaW5fbGlzdCBub2RlLmNoaWxkcmVuKSB9DQo+ICsgICAgICAgeyBub2RlIHdp
+dGggY2hpbGRyZW4gPQ0KPiArICAgICAgICAgICAgICAgU3ltYm9sTWFwLnVwZGF0ZSBzeW0NCj4g
+KyAgICAgICAgICAgICAgICAgKGZ1bmN0aW9uIE5vbmUgLT4gcmFpc2UgTm90X2ZvdW5kIHwgU29t
+ZSBfIC0+IE5vbmUpDQo+ICsgICAgICAgICAgICAgICAgIG5vZGUuY2hpbGRyZW4NCj4gKyAgICAg
+ICB9DQo+IA0KPiAgbGV0IGRlbF9hbGxfY2hpbGRyZW4gbm9kZSA9DQo+IC0gICAgICAgeyBub2Rl
+IHdpdGggY2hpbGRyZW4gPSBbXSB9DQo+ICsgICAgICAgeyBub2RlIHdpdGggY2hpbGRyZW4gPSBT
+eW1ib2xNYXAuZW1wdHkgfQ0KPiANCj4gICgqIGNoZWNrIGlmIHRoZSBjdXJyZW50IG5vZGUgY2Fu
+IGJlIGFjY2Vzc2VkIGJ5IHRoZSBjdXJyZW50DQo+IGNvbm5lY3Rpb24gd2l0aCBycGVybSBwZXJt
+aXNzaW9ucyAqKQ0KPiAgbGV0IGNoZWNrX3Blcm0gbm9kZSBjb25uZWN0aW9uIHJlcXVlc3QgPQ0K
+PiBAQCAtODcsNyArODUsNyBAQCBsZXQgY2hlY2tfb3duZXIgbm9kZSBjb25uZWN0aW9uID0NCj4g
+ICAgICAgICAgICAgICAgIHJhaXNlIERlZmluZS5QZXJtaXNzaW9uX2RlbmllZDsNCj4gICAgICAg
+ICBlbmQNCj4gDQo+IC1sZXQgcmVjIHJlY3Vyc2UgZmN0IG5vZGUgPSBmY3Qgbm9kZTsgTGlzdC5p
+dGVyIChyZWN1cnNlIGZjdCkNCj4gbm9kZS5jaGlsZHJlbg0KPiArbGV0IHJlYyByZWN1cnNlIGZj
+dCBub2RlID0gZmN0IG5vZGU7IFN5bWJvbE1hcC5pdGVyIChmdW4gXyAtPg0KPiByZWN1cnNlIGZj
+dCkgbm9kZS5jaGlsZHJlbg0KPiANCj4gIGxldCB1bnBhY2sgbm9kZSA9IChTeW1ib2wudG9fc3Ry
+aW5nIG5vZGUubmFtZSwgbm9kZS5wZXJtcywNCj4gbm9kZS52YWx1ZSkNCj4gDQo+IEBAIC0zMjEs
+NyArMzE5LDcgQEAgbGV0IGxzIHN0b3JlIHBlcm0gcGF0aCA9DQo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgTm9kZS5jaGVja19wZXJtIGNub2RlIHBlcm0NCj4gUGVybXMuUkVBRDsN
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbm9kZS5Ob2RlLmNoaWxkcmVuIGlu
+DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIFBhdGguYXBwbHkgc3RvcmUucm9vdCBwYXRoIGRv
+X2xzIGluDQo+IC0gICAgICAgTGlzdC5yZXYgKExpc3QubWFwIChmdW4gbiAtPiBTeW1ib2wudG9f
+c3RyaW5nIG4uTm9kZS5uYW1lKQ0KPiBjaGlsZHJlbikNCj4gKyAgICAgICBTeW1ib2xNYXAuZm9s
+ZCAoZnVuIGsgXyBhY2N1IC0+IFN5bWJvbC50b19zdHJpbmcgayA6OiBhY2N1KQ0KPiBjaGlsZHJl
+biBbXQ0KPiANCj4gIGxldCBnZXRwZXJtcyBzdG9yZSBwZXJtIHBhdGggPQ0KPiAgICAgICAgIGlm
+IHBhdGggPSBbXSB0aGVuDQo+IEBAIC0zNTAsNyArMzQ4LDcgQEAgbGV0IHRyYXZlcnNhbCByb290
+X25vZGUgZiA9DQo+ICAgICAgICAgbGV0IHJlYyBfdHJhdmVyc2FsIHBhdGggbm9kZSA9DQo+ICAg
+ICAgICAgICAgICAgICBmIHBhdGggbm9kZTsNCj4gICAgICAgICAgICAgICAgIGxldCBub2RlX3Bh
+dGggPSBQYXRoLm9mX3BhdGhfYW5kX25hbWUgcGF0aA0KPiAoU3ltYm9sLnRvX3N0cmluZyBub2Rl
+Lk5vZGUubmFtZSkgaW4NCj4gLSAgICAgICAgICAgICAgIExpc3QuaXRlciAoX3RyYXZlcnNhbCBu
+b2RlX3BhdGgpIG5vZGUuTm9kZS5jaGlsZHJlbg0KPiArICAgICAgICAgICAgICAgU3ltYm9sTWFw
+Lml0ZXIgKGZ1biBfIC0+IF90cmF2ZXJzYWwgbm9kZV9wYXRoKQ0KPiBub2RlLk5vZGUuY2hpbGRy
+ZW4NCj4gICAgICAgICAgICAgICAgIGluDQo+ICAgICAgICAgX3RyYXZlcnNhbCBbXSByb290X25v
+ZGUNCj4gDQo+IGRpZmYgLS1naXQgYS90b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1sDQo+
+IGIvdG9vbHMvb2NhbWwveGVuc3RvcmVkL3N5bWJvbC5tbA0KPiBpbmRleCBkYWM2ZjlmODE5Li4y
+Njk3OTE1NjIzIDEwMDY0NA0KPiAtLS0gYS90b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1s
+DQo+ICsrKyBiL3Rvb2xzL29jYW1sL3hlbnN0b3JlZC9zeW1ib2wubWwNCj4gQEAgLTMxLDYgKzMx
+LDEwIEBAIGxldCBlcXVhbCBhIGIgPQ0KPiAgICAoKiBjb21wYXJlIHVzaW5nIHBoeXNpY2FsIGVx
+dWFsaXR5LCBib3RoIG1lbWJlcnMgaGF2ZSB0byBiZSBwYXJ0DQo+IG9mIHRoZSBhYm92ZSB3ZWFr
+IHRhYmxlICopDQo+ICAgIGEgPT0gYg0KPiANCj4gK2xldCBjb21wYXJlIGEgYiA9DQo+ICsgIGlm
+IGVxdWFsIGEgYiB0aGVuIDANCj4gKyAgZWxzZSAtKFN0cmluZy5jb21wYXJlIGEgYikNCj4gKw0K
+PiAgbGV0IHN0YXRzICgpID0NCj4gICAgbGV0IGxlbiwgZW50cmllcywgXywgXywgXywgXyA9IFdl
+YWtUYWJsZS5zdGF0cyB0YmwgaW4NCj4gICAgbGVuLCBlbnRyaWVzDQo+IGRpZmYgLS1naXQgYS90
+b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1saQ0KPiBiL3Rvb2xzL29jYW1sL3hlbnN0b3Jl
+ZC9zeW1ib2wubWxpDQo+IGluZGV4IDU4NmFiNTc1MDcuLmRkMGYwMTQ3OTYgMTAwNjQ0DQo+IC0t
+LSBhL3Rvb2xzL29jYW1sL3hlbnN0b3JlZC9zeW1ib2wubWxpDQo+ICsrKyBiL3Rvb2xzL29jYW1s
+L3hlbnN0b3JlZC9zeW1ib2wubWxpDQo+IEBAIC0zMiw2ICszMiw5IEBAIHZhbCB0b19zdHJpbmcg
+OiB0IC0+IHN0cmluZw0KPiAgdmFsIGVxdWFsOiB0IC0+IHQgLT4gYm9vbA0KPiAgKCoqIENvbXBh
+cmUgdHdvIHN5bWJvbHMgZm9yIGVxdWFsaXR5ICopDQo+IA0KPiArdmFsIGNvbXBhcmU6IHQgLT4g
+dCAtPiBpbnQNCj4gKygqKiBDb21wYXJlIHR3byBzeW1ib2xzICopDQo+ICsNCj4gICgqKiB7NiBT
+dGF0aXN0aWNzIH0gKikNCj4gDQo+ICB2YWwgc3RhdHMgOiB1bml0IC0+IGludCAqIGludA0KPiAt
+LQ0KPiAyLjI1LjENCj4gDQo=
 
