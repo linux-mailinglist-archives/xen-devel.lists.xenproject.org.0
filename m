@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FC42469D2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D62246A39
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:32:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7h1w-0003qP-Ae; Mon, 17 Aug 2020 15:26:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7h7M-0004m3-1f; Mon, 17 Aug 2020 15:32:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jdix=B3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k7h1v-0003qI-Jb
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:26:35 +0000
-X-Inumbo-ID: 3f781db2-e86d-4871-ac20-c5bf2975b09d
+ id 1k7h7L-0004lw-3e
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:32:11 +0000
+X-Inumbo-ID: edd55dce-6fda-4a37-afd1-cb9db1c06808
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3f781db2-e86d-4871-ac20-c5bf2975b09d;
- Mon, 17 Aug 2020 15:26:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id edd55dce-6fda-4a37-afd1-cb9db1c06808;
+ Mon, 17 Aug 2020 15:32:10 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0476AAC24;
- Mon, 17 Aug 2020 15:26:59 +0000 (UTC)
-Subject: Re: [PATCH 05/14] kernel-doc: public/features.h
+ by mx2.suse.de (Postfix) with ESMTP id 46961AC24;
+ Mon, 17 Aug 2020 15:32:34 +0000 (UTC)
+Subject: Re: [PATCH 08/14] kernel-doc: public/memory.h
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
  george.dunlap@citrix.com, ian.jackson@eu.citrix.com, julien@xen.org,
  wl@xen.org, Stefano Stabellini <stefano.stabellini@xilinx.com>
 References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
- <20200806234933.16448-5-sstabellini@kernel.org>
- <ab1a0562-6fe0-9613-b6c9-a09714af02cf@suse.com>
- <alpine.DEB.2.21.2008071239130.16004@sstabellini-ThinkPad-T480s>
+ <20200806234933.16448-8-sstabellini@kernel.org>
+ <5567ef5a-35c4-6dd8-38f5-348c7c3713b1@suse.com>
+ <alpine.DEB.2.21.2008071217590.16004@sstabellini-ThinkPad-T480s>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8b8a63fb-5b79-42ba-7d6f-d1538775033a@suse.com>
-Date: Mon, 17 Aug 2020 17:26:32 +0200
+Message-ID: <73419983-5300-32ca-2f12-7d3673ad543d@suse.com>
+Date: Mon, 17 Aug 2020 17:32:07 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2008071239130.16004@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2008071217590.16004@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -54,99 +55,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.08.2020 23:52, Stefano Stabellini wrote:
+On 07.08.2020 23:51, Stefano Stabellini wrote:
 > On Fri, 7 Aug 2020, Jan Beulich wrote:
 >> On 07.08.2020 01:49, Stefano Stabellini wrote:
->>> @@ -41,19 +41,25 @@
->>>   * XENFEAT_dom0 MUST be set if the guest is to be booted as dom0,
->>>   */
+>>> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>
+>>> Convert in-code comments to kernel-doc format wherever possible.
+>>>
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>> ---
+>>>  xen/include/public/memory.h | 232 ++++++++++++++++++++++++------------
+>>>  1 file changed, 155 insertions(+), 77 deletions(-)
+>>>
+>>> diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+>>> index 21057ed78e..4c57ed213c 100644
+>>> --- a/xen/include/public/memory.h
+>>> +++ b/xen/include/public/memory.h
+>>> @@ -30,7 +30,9 @@
+>>>  #include "xen.h"
+>>>  #include "physdev.h"
 >>>  
 >>> -/*
->>> - * If set, the guest does not need to write-protect its pagetables, and can
->>> - * update them via direct writes.
 >>> +/**
->>> + * DOC: XENFEAT_writable_page_tables
+>>> + * DOC: XENMEM_increase_reservation and XENMEM_decrease_reservation
 >>> + *
->>> + * If set, the guest does not need to write-protect its pagetables, and
->>> + * can update them via direct writes.
->>>   */
->>>  #define XENFEAT_writable_page_tables       0
+>>>   * Increase or decrease the specified domain's memory reservation. Returns the
+>>>   * number of extents successfully allocated or freed.
+>>>   * arg == addr of struct xen_memory_reservation.
+>>> @@ -40,29 +42,37 @@
+>>>  #define XENMEM_populate_physmap     6
+>>>  
+>>>  #if __XEN_INTERFACE_VERSION__ >= 0x00030209
+>>> -/*
+>>> - * Maximum # bits addressable by the user of the allocated region (e.g., I/O
+>>> - * devices often have a 32-bit limitation even in 64-bit systems). If zero
+>>> - * then the user has no addressing restriction. This field is not used by
+>>> - * XENMEM_decrease_reservation.
+>>> +/**
+>>> + * DOC: XENMEMF_*
+>>> + *
+>>> + * - XENMEMF_address_bits, XENMEMF_get_address_bits:
+>>> + *       Maximum # bits addressable by the user of the allocated region
+>>> + *       (e.g., I/O devices often have a 32-bit limitation even in 64-bit
+>>> + *       systems). If zero then the user has no addressing restriction. This
+>>> + *       field is not used by XENMEM_decrease_reservation.
+>>> + * - XENMEMF_node, XENMEMF_get_node: NUMA node to allocate from
+>>> + * - XENMEMF_populate_on_demand: Flag to populate physmap with populate-on-demand entries
+>>> + * - XENMEMF_exact_node_request, XENMEMF_exact_node: Flag to request allocation only from the node specified
 >>
->> I dislike such redundancy (and it's more noticable here than with
->> the struct-s). Is there really no way for the tool to find the
->> right item, the more that in the cover letter you say that you
->> even need to get the placement right, i.e. there can't be e.g.
->> intervening #define-s?
+>> Nit: overly long line
 > 
-> Let me clarify that the right placement (nothing between the comment and
-> the following structure) is important for structs, typedefs, etc., but
-> not for "DOC". DOC is freeform and doesn't have to be followed by
-> anything specifically.
+> I'll fix
 > 
 > 
-> In regards to the redundancy, there is only another option, that I
-> didn't choose because it leads to worse documents being generated.
-> However, they are still readable, so if the agreement is to use the
-> other format, I would be OK with it.
+>>> + * - XENMEMF_vnode: Flag to indicate the node specified is virtual node
+>>>   */
+>>>  #define XENMEMF_address_bits(x)     (x)
+>>>  #define XENMEMF_get_address_bits(x) ((x) & 0xffu)
+>>> -/* NUMA node to allocate from. */
+>>>  #define XENMEMF_node(x)     (((x) + 1) << 8)
+>>>  #define XENMEMF_get_node(x) ((((x) >> 8) - 1) & 0xffu)
+>>> -/* Flag to populate physmap with populate-on-demand entries */
+>>>  #define XENMEMF_populate_on_demand (1<<16)
+>>> -/* Flag to request allocation only from the node specified */
+>>>  #define XENMEMF_exact_node_request  (1<<17)
+>>>  #define XENMEMF_exact_node(n) (XENMEMF_node(n) | XENMEMF_exact_node_request)
+>>> -/* Flag to indicate the node specified is virtual node */
+>>>  #define XENMEMF_vnode  (1<<18)
+>>>  #endif
+>>>  
+>>> +/**
+>>> + * struct xen_memory_reservation
+>>> + */
+>>>  struct xen_memory_reservation {
+>>>  
+>>> -    /*
+>>> +    /**
+>>> +     * @extent_start:
+>>> +     *
+>>
+>> Take the opportunity and drop the stray blank line?
+>  
+> Sure
 > 
 > 
-> The other format is the keyword "macro" (this one would have to have the
-> right placement, straight on top of the #define):
+>>> @@ -200,90 +236,115 @@ DEFINE_XEN_GUEST_HANDLE(xen_machphys_mfn_list_t);
+>>>   */
+>>>  #define XENMEM_machphys_compat_mfn_list     25
+>>>  
+>>> -/*
+>>> +#define XENMEM_machphys_mapping     12
+>>> +/**
+>>> + * struct xen_machphys_mapping - XENMEM_machphys_mapping
+>>> + *
+>>>   * Returns the location in virtual address space of the machine_to_phys
+>>>   * mapping table. Architectures which do not have a m2p table, or which do not
+>>>   * map it by default into guest address space, do not implement this command.
+>>>   * arg == addr of xen_machphys_mapping_t.
+>>>   */
+>>> -#define XENMEM_machphys_mapping     12
+>>>  struct xen_machphys_mapping {
+>>> +    /** @v_start: Start virtual address */
+>>>      xen_ulong_t v_start, v_end; /* Start and end virtual addresses.   */
+>>> -    xen_ulong_t max_mfn;        /* Maximum MFN that can be looked up. */
+>>> +    /** @v_end: End virtual addresses */
+>>> +    xen_ulong_t v_end;
+>>> +    /** @max_mfn: Maximum MFN that can be looked up */
+>>> +    xen_ulong_t max_mfn;
+>>>  };
+>>>  typedef struct xen_machphys_mapping xen_machphys_mapping_t;
+>>>  DEFINE_XEN_GUEST_HANDLE(xen_machphys_mapping_t);
+>>>  
+>>> -/* Source mapping space. */
+>>> +/**
+>>> + * DOC: Source mapping space.
+>>> + *
+>>> + * - XENMAPSPACE_shared_info:  shared info page
+>>> + * - XENMAPSPACE_grant_table:  grant table page
+>>> + * - XENMAPSPACE_gmfn:         GMFN
+>>> + * - XENMAPSPACE_gmfn_range:   GMFN range, XENMEM_add_to_physmap only.
+>>> + * - XENMAPSPACE_gmfn_foreign: GMFN from another dom,
+>>> + *                             XENMEM_add_to_physmap_batch only.
+>>> + * - XENMAPSPACE_dev_mmio:     device mmio region ARM only; the region is mapped
+>>> + *                             in Stage-2 using the Normal MemoryInner/Outer
+>>> + *                             Write-Back Cacheable memory attribute.
+>>> + */
+>>>  /* ` enum phys_map_space { */
+>>
+>> Isn't this and ...
+>>
+>>> -#define XENMAPSPACE_shared_info  0 /* shared info page */
+>>> -#define XENMAPSPACE_grant_table  1 /* grant table page */
+>>> -#define XENMAPSPACE_gmfn         2 /* GMFN */
+>>> -#define XENMAPSPACE_gmfn_range   3 /* GMFN range, XENMEM_add_to_physmap only. */
+>>> -#define XENMAPSPACE_gmfn_foreign 4 /* GMFN from another dom,
+>>> -                                    * XENMEM_add_to_physmap_batch only. */
+>>> -#define XENMAPSPACE_dev_mmio     5 /* device mmio region
+>>> -                                      ARM only; the region is mapped in
+>>> -                                      Stage-2 using the Normal Memory
+>>> -                                      Inner/Outer Write-Back Cacheable
+>>> -                                      memory attribute. */
+>>> +#define XENMAPSPACE_shared_info  0
+>>> +#define XENMAPSPACE_grant_table  1
+>>> +#define XENMAPSPACE_gmfn         2
+>>> +#define XENMAPSPACE_gmfn_range   3
+>>> +#define XENMAPSPACE_gmfn_foreign 4
+>>> +#define XENMAPSPACE_dev_mmio     5
+>>>  /* ` } */
+>>
+>> ... this also something that wants converting?
+> 
+> For clarity, I take you are talking about these two enum-related
+> comments:
+> 
+> /* ` enum phys_map_space { */
+> [... various #defines ... ]
+> /* ` } */
+> 
+> Is this something we want to convert to kernel-doc? I don't know. I
+> couldn't see an obvious value in doing it, in the sense that it doesn't
+> necessarely make things clearer.
+> 
+> I took a second look at the header and the following would work:
 > 
 > /**
->  * macro XENFEAT_writable_page_tables
+>  * DOC: Source mapping space.
 >  *
->  * If set, the guest does not need to write-protect its pagetables, and
->  * can update them via direct writes.
+>  * enum phys_map_space {
+>  *
+>  * - XENMAPSPACE_shared_info:  shared info page
+>  * - XENMAPSPACE_grant_table:  grant table page
+>  * - XENMAPSPACE_gmfn:         GMFN
+>  * - XENMAPSPACE_gmfn_range:   GMFN range, XENMEM_add_to_physmap only.
+>  * - XENMAPSPACE_gmfn_foreign: GMFN from another dom,
+>  *                             XENMEM_add_to_physmap_batch only.
+>  * - XENMAPSPACE_dev_mmio:     device mmio region ARM only; the region is mapped
+>  *                             in Stage-2 using the Normal MemoryInner/Outer
+>  *                             Write-Back Cacheable memory attribute.
+>  * }
 >  */
 > 
-> 
-> Which could be further simplified to:
-> 
-> /**
->  * macro
->  *
->  * If set, the guest does not need to write-protect its pagetables, and
->  * can update them via direct writes.
->  */
+> Note the blank line after "enum phys_map_space {" is required.
 > 
 > 
-> In terms of redundancy, that's the best we can do.
-> 
-> The reason why I say it is not optimal is that with DOC the pleudo-html
-> generated via sphinx is:
-> 
-> ---
-> * XENFEAT_writable_page_tables *
-> 
-> If set, the guest does not need to write-protect its pagetables, and
-> can update them via direct writes.
-> ---
-> 
-> While with macro, two () parenthesis gets added to the title, and also an
-> empty "Parameters" section gets added, like this:
-> 
-> ---
-> * XENFEAT_writable_page_tables() *
-> 
-> ** Parameters **
-> 
-> ** Description **
-> 
-> If set, the guest does not need to write-protect its pagetables, and
-> can update them via direct writes.
-> ---
-> 
-> 
-> I think it could be confusing to the user: it looks like a macro with
-> parameters, which is not what we want.
+> All in all I am in favor of *not* converting the enum comment to
+> kernel-doc, but I'd be OK with it anyway.
 
-Agreed, so ...
+Iirc the enum comments were added for documentation purposes. This to
+me means there are two options at this point:
+- retain them in a way that the new doc model consumes them,
+- drop them at the same time as adding the new doc comments.
 
-> For that reason, I think we should stick with "DOC" for now.
-
-... if there are no (better) alternatives we'll have to live with the
-redundancy.
+Their (presumed) value is that they identify #define-s which supposed
+to be enum-like without actually being able to use enums in the public
+headers (with some exceptions).
 
 Jan
 
