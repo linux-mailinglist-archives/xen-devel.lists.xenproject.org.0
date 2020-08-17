@@ -2,69 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D5B2472B2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 20:46:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FAA247AC7
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 00:57:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7k9b-0007Mk-BS; Mon, 17 Aug 2020 18:46:43 +0000
+	id 1k7o3H-0003Zi-UK; Mon, 17 Aug 2020 22:56:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mm75=B3=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1k7k9Z-0007Lz-Hf
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 18:46:41 +0000
-X-Inumbo-ID: a21ea6da-cccc-46f3-a18b-332b70516022
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=Ksrr=B3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k7o3F-0003Ya-Ph
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 22:56:25 +0000
+X-Inumbo-ID: c6ab1b40-ca85-4d0b-9e3e-da082d720e46
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a21ea6da-cccc-46f3-a18b-332b70516022;
- Mon, 17 Aug 2020 18:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597690000;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=8lBQLMc6oqjKZdPxCrlQd/S3engilfunN/kPSy11ovs=;
- b=CMFoF0v/uFUp6VmVx0Vfx7c2dk4pRSCO6UcSczbtajHN1jlUo7kTGDkd
- Luxs7CAwCzMHv3/7wwX6+UdeQ16ysKpZuyBOqGBh/nRe2aB5bosC6+CXs
- CGTBcTIBdq/SbUmD3ak86boT0mdKs5fwBL+1HkCut1HnrKEhe/fGUINe5 M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vMu41rJidYjrtdWv6dR4Bb0i1M5kRbtoSMPDXiIsWcV3v7/qKNs4uKfn0i9tnaPIHidMdYe+Ax
- VKKGzJ90MbfBDS3hwBodFicXPBL9D6hsw52EWrxsvqb3lUGYRNUcUcDLu7NzH4wA7fh/BjjXGZ
- TS3t3sJYvNVD+0emjxdNrF41DFm9iqpu1L44jFTkMmxPXY5EaGFBp0RW+Qbk9aEbr4ISBwI+TH
- 53XWN6lXioUvAV9N/5ChFdU/2PHJwNhdzU5twA7eWE+lac0ds1Zq1gU0/TPVIoJ+4p16CIy7PR
- ZUQ=
-X-SBRS: 2.7
-X-MesageID: 24868152
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,324,1592884800"; d="scan'208";a="24868152"
-From: Edwin Torok <edvin.torok@citrix.com>
-To: Christian Lindig <christian.lindig@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Ian Jackson <Ian.Jackson@citrix.com>, "dave@recoil.org" <dave@recoil.org>, 
- "wl@xen.org" <wl@xen.org>
-Subject: Re: [PATCH v1 5/6] tools/ocaml/xenstored: use more efficient node
- trees
-Thread-Topic: [PATCH v1 5/6] tools/ocaml/xenstored: use more efficient node
- trees
-Thread-Index: AQHWcohKODHsXl6Aq0qOV1QolADvZqk8I/0AgABi4wA=
-Date: Mon, 17 Aug 2020 18:46:36 +0000
-Message-ID: <0e945fc2685e5cba61c614c47af6b071d203053d.camel@citrix.com>
-References: <cover.1597442238.git.edvin.torok@citrix.com> ,
- <f2aff7b39137518d56ef99ea9faf7ce959c81ab9.1597442238.git.edvin.torok@citrix.com>
- <1597668760460.95626@citrix.com>
-In-Reply-To: <1597668760460.95626@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C74EF694234D02498995DAB7ECFDFFC1@citrix.com>
-Content-Transfer-Encoding: base64
+ id c6ab1b40-ca85-4d0b-9e3e-da082d720e46;
+ Mon, 17 Aug 2020 22:56:25 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E7E82063A;
+ Mon, 17 Aug 2020 22:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597704984;
+ bh=5+BGwVWOEwpj8TByUvwM8p5P9w7m9OJjeJCPyCDh13o=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=Di/60dHn5yZYWDvo9riozOXwuZ1GCghjiX26Ll7ejPYmQsjDbLwdTeyGAl18re3cN
+ tcluUN4B+bPJMinezftXgqjlIHE9blRb1KMXqa21PTpKqb2Engar9MxhCNH6ZKbwKP
+ CneL1Kox6tBhQrZYh5T6obxZs7eITn5Miol/yH2Q=
+Date: Mon, 17 Aug 2020 15:56:23 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ Wei Liu <wl@xen.org>, 
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
+In-Reply-To: <20200815172143.1327-1-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2008171327020.15985@sstabellini-ThinkPad-T480s>
+References: <20200815172143.1327-1-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,138 +61,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCAyMDIwLTA4LTE3IGF0IDE0OjUyICswMjAwLCBDaHJpc3RpYW4gTGluZGlnIHdyb3Rl
-Og0KPiArbGV0IGNvbXBhcmUgYSBiID0NCj4gKyAgaWYgZXF1YWwgYSBiIHRoZW4gMA0KPiArICBl
-bHNlIC0oU3RyaW5nLmNvbXBhcmUgYSBiKQ0KPiANCj4gSSB0aGluayB0aGlzIGJpdCBjb3VsZCB1
-c2UgYW4gaW5saW5lIGNvbW1lbnQgd2h5IHRoZSBzb3J0IG9yZGVyIGlzDQo+IHJldmVyc2VkLiBU
-aGlzIGNvdWxkIGJlIGFsc28gc2ltcGxpZmllZCB0byAtKFN0cmluZy5jb21wYXJlIGEgYikNCj4g
-YmVjYXVzZSB0aGlzIGdvZXMgdG8gdGhlIGludGVybmFsIChwb2x5bW9ycGhpYykgY29tcGFyZSBp
-bXBsZW1lbnRlZA0KPiBpbiBDIHdoaWNoIGRvZXMgYSBwaHlzaWNhbCBlcXVpdmFsZW5jZSBjaGVj
-ayBmaXJzdC4NCg0KR29vZCBwb2ludCwgSSd2ZSBkcm9wcGVkIHRoZSBlcXVhbCwgYW5kIGluc3Rl
-YWQgb2YgbmVnYXRpbmcgdGhlIGNvbXBhcmUNCkkgc3dhcHBlZCBpdHMgYXJndW1lbnRzLg0KDQpT
-ZWUgVjMgb2YgdGhlIHBhdGNoIChpZ25vcmUgVjIsIGZvciBzb21lIHJlYXNvbiBpdCBsb29rZWQg
-bmVhcmx5DQppZGVudGljYWwgdG8gVjEsIG5vdCBtYXRjaGluZyB3aGF0IEkgaGFkIGluIG15IGdp
-dCB0cmVlLA0KcGVyaGFwcyBnaXQtZm9ybWF0LXBhdGNoIGRpZG4ndCBvdmVyd3JpdGUgdGhlIHBh
-dGNoZXM/KS4NCg0KQmVzdCByZWdhcmRzLA0KLS1FZHdpbg0KDQo+IA0KPiAtLSBDDQo+IA0KPiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IEZyb206IEVkd2luIFRv
-cm9rDQo+IFNlbnQ6IDE0IEF1Z3VzdCAyMDIwIDIzOjE0DQo+IFRvOiB4ZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmcNCj4gQ2M6IEVkd2luIFRvcm9rOyBDaHJpc3RpYW4gTGluZGlnOyBEYXZp
-ZCBTY290dDsgSWFuIEphY2tzb247IFdlaSBMaXUNCj4gU3ViamVjdDogW1BBVENIIHYxIDUvNl0g
-dG9vbHMvb2NhbWwveGVuc3RvcmVkOiB1c2UgbW9yZSBlZmZpY2llbnQNCj4gbm9kZSB0cmVlcw0K
-PiANCj4gVGhpcyBjaGFuZ2VzIHRoZSBvdXRwdXQgb2YgeGVuc3RvcmUtbHMgdG8gYmUgc29ydGVk
-Lg0KPiBQcmV2aW91c2x5IHRoZSBrZXlzIHdlcmUgbGlzdGVkIGluIHRoZSBvcmRlciBpbiB3aGlj
-aCB0aGV5IHdlcmUNCj4gaW5zZXJ0ZWQNCj4gaW4uDQo+IGRvY3MvbWlzYy94ZW5zdG9yZS50eHQg
-ZG9lc24ndCBzcGVjaWZ5IGluIHdoYXQgb3JkZXIga2V5cyBhcmUgbGlzdGVkLg0KPiANCj4gTWFw
-LnVwZGF0ZSBpcyB1c2VkIHRvIHJldGFpbiBzZW1hbnRpY3Mgd2l0aCByZXBsYWNlX2NoaWxkOg0K
-PiBvbmx5IGFuIGV4aXN0aW5nIGNoaWxkIGlzIHJlcGxhY2VkLCBpZiBpdCB3YXNuJ3QgcGFydCBv
-ZiB0aGUgb3JpZ2luYWwNCj4gbWFwIHdlIGRvbid0IGFkZCBpdC4NCj4gU2ltaWxhcmx5IGV4Y2Vw
-dGlvbiBiZWhhdmlvdXIgaXMgcmV0YWluZWQgZm9yIGRlbF9jaGlsZG5hbWUgYW5kDQo+IHJlbGF0
-ZWQNCj4gZnVuY3Rpb25zLg0KPiANCj4gRW50cmllcyBhcmUgc3RvcmVkIGluIHJldmVyc2Ugc29y
-dCBvcmRlciwgc28gdGhhdCB1cG9uIE1hcC5mb2xkIHRoZQ0KPiBjb25zdHJ1Y3RlZCBsaXN0IGlz
-IHNvcnRlZCBpbiBhc2NlbmRpbmcgb3JkZXIgYW5kIHRoZXJlIGlzIG5vIG5lZWQNCj4gZm9yIGEN
-Cj4gTGlzdC5yZXYuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBFZHdpbiBUw7Zyw7ZrIDxlZHZpbi50
-b3Jva0BjaXRyaXguY29tPg0KPiAtLS0NCj4gIHRvb2xzL29jYW1sL3hlbnN0b3JlZC9zdG9yZS5t
-bCAgIHwgNDYgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tDQo+IC0tDQo+ICB0b29scy9v
-Y2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1sICB8ICA0ICsrKw0KPiAgdG9vbHMvb2NhbWwveGVuc3Rv
-cmVkL3N5bWJvbC5tbGkgfCAgMyArKysNCj4gIDMgZmlsZXMgY2hhbmdlZCwgMjkgaW5zZXJ0aW9u
-cygrKSwgMjQgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvb2NhbWwveGVu
-c3RvcmVkL3N0b3JlLm1sDQo+IGIvdG9vbHMvb2NhbWwveGVuc3RvcmVkL3N0b3JlLm1sDQo+IGlu
-ZGV4IDQ1NjU5YTIzZWUuLmQ5ZGZhMzYwNDUgMTAwNjQ0DQo+IC0tLSBhL3Rvb2xzL29jYW1sL3hl
-bnN0b3JlZC9zdG9yZS5tbA0KPiArKysgYi90b29scy9vY2FtbC94ZW5zdG9yZWQvc3RvcmUubWwN
-Cj4gQEAgLTE2LDE3ICsxNiwxOSBAQA0KPiAgICopDQo+ICBvcGVuIFN0ZGV4dA0KPiANCj4gK21v
-ZHVsZSBTeW1ib2xNYXAgPSBNYXAuTWFrZShTeW1ib2wpDQo+ICsNCj4gIG1vZHVsZSBOb2RlID0g
-c3RydWN0DQo+IA0KPiAgdHlwZSB0ID0gew0KPiAgICAgICAgIG5hbWU6IFN5bWJvbC50Ow0KPiAg
-ICAgICAgIHBlcm1zOiBQZXJtcy5Ob2RlLnQ7DQo+ICAgICAgICAgdmFsdWU6IHN0cmluZzsNCj4g
-LSAgICAgICBjaGlsZHJlbjogdCBsaXN0Ow0KPiArICAgICAgIGNoaWxkcmVuOiB0IFN5bWJvbE1h
-cC50Ow0KPiAgfQ0KPiANCj4gIGxldCBjcmVhdGUgX25hbWUgX3Blcm1zIF92YWx1ZSA9DQo+IC0g
-ICAgICAgeyBuYW1lID0gU3ltYm9sLm9mX3N0cmluZyBfbmFtZTsgcGVybXMgPSBfcGVybXM7IHZh
-bHVlID0NCj4gX3ZhbHVlOyBjaGlsZHJlbiA9IFtdOyB9DQo+ICsgICAgICAgeyBuYW1lID0gU3lt
-Ym9sLm9mX3N0cmluZyBfbmFtZTsgcGVybXMgPSBfcGVybXM7IHZhbHVlID0NCj4gX3ZhbHVlOyBj
-aGlsZHJlbiA9IFN5bWJvbE1hcC5lbXB0eTsgfQ0KPiANCj4gIGxldCBnZXRfb3duZXIgbm9kZSA9
-IFBlcm1zLk5vZGUuZ2V0X293bmVyIG5vZGUucGVybXMNCj4gIGxldCBnZXRfY2hpbGRyZW4gbm9k
-ZSA9IG5vZGUuY2hpbGRyZW4NCj4gQEAgLTQyLDM4ICs0NCwzNCBAQCBsZXQgc2V0X3ZhbHVlIG5v
-ZGUgbnZhbHVlID0NCj4gIGxldCBzZXRfcGVybXMgbm9kZSBucGVybXMgPSB7IG5vZGUgd2l0aCBw
-ZXJtcyA9IG5wZXJtcyB9DQo+IA0KPiAgbGV0IGFkZF9jaGlsZCBub2RlIGNoaWxkID0NCj4gLSAg
-ICAgICB7IG5vZGUgd2l0aCBjaGlsZHJlbiA9IGNoaWxkIDo6IG5vZGUuY2hpbGRyZW4gfQ0KPiAr
-ICAgICAgIGxldCBjaGlsZHJlbiA9IFN5bWJvbE1hcC5hZGQgY2hpbGQubmFtZSBjaGlsZCBub2Rl
-LmNoaWxkcmVuDQo+IGluDQo+ICsgICAgICAgeyBub2RlIHdpdGggY2hpbGRyZW4gfQ0KPiANCj4g
-IGxldCBleGlzdHMgbm9kZSBjaGlsZG5hbWUgPQ0KPiAgICAgICAgIGxldCBjaGlsZG5hbWUgPSBT
-eW1ib2wub2Zfc3RyaW5nIGNoaWxkbmFtZSBpbg0KPiAtICAgICAgIExpc3QuZXhpc3RzIChmdW4g
-biAtPiBTeW1ib2wuZXF1YWwgbi5uYW1lIGNoaWxkbmFtZSkNCj4gbm9kZS5jaGlsZHJlbg0KPiAr
-ICAgICAgIFN5bWJvbE1hcC5tZW0gY2hpbGRuYW1lIG5vZGUuY2hpbGRyZW4NCj4gDQo+ICBsZXQg
-ZmluZCBub2RlIGNoaWxkbmFtZSA9DQo+ICAgICAgICAgbGV0IGNoaWxkbmFtZSA9IFN5bWJvbC5v
-Zl9zdHJpbmcgY2hpbGRuYW1lIGluDQo+IC0gICAgICAgTGlzdC5maW5kIChmdW4gbiAtPiBTeW1i
-b2wuZXF1YWwgbi5uYW1lIGNoaWxkbmFtZSkNCj4gbm9kZS5jaGlsZHJlbg0KPiArICAgICAgIFN5
-bWJvbE1hcC5maW5kIGNoaWxkbmFtZSBub2RlLmNoaWxkcmVuDQo+IA0KPiAgbGV0IHJlcGxhY2Vf
-Y2hpbGQgbm9kZSBjaGlsZCBuY2hpbGQgPQ0KPiAtICAgICAgICgqIHRoaXMgaXMgdGhlIG9uLXN0
-ZXJvaWQgdmVyc2lvbiBvZiB0aGUgZmlsdGVyIG9uZS1yZXBsYWNlDQo+IG9uZSAqKQ0KPiAtICAg
-ICAgIGxldCByZWMgcmVwbGFjZV9vbmVfaW5fbGlzdCBsID0NCj4gLSAgICAgICAgICAgICAgIG1h
-dGNoIGwgd2l0aA0KPiAtICAgICAgICAgICAgICAgfCBbXSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAtPiBbXQ0KPiAtICAgICAgICAgICAgICAgfCBoIDo6IHRsIHdoZW4gU3ltYm9sLmVx
-dWFsIGgubmFtZSBjaGlsZC5uYW1lIC0+DQo+IG5jaGlsZCA6OiB0bA0KPiAtICAgICAgICAgICAg
-ICAgfCBoIDo6IHRsICAgICAgICAgICAgICAgICAgICAgICAgICAtPiBoIDo6DQo+IHJlcGxhY2Vf
-b25lX2luX2xpc3QgdGwNCj4gLSAgICAgICAgICAgICAgIGluDQo+IC0gICAgICAgeyBub2RlIHdp
-dGggY2hpbGRyZW4gPSAocmVwbGFjZV9vbmVfaW5fbGlzdCBub2RlLmNoaWxkcmVuKSB9DQo+ICsg
-ICAgICAgeyBub2RlIHdpdGgNCj4gKyAgICAgICAgIGNoaWxkcmVuID0gU3ltYm9sTWFwLnVwZGF0
-ZSBjaGlsZC5uYW1lDQo+ICsgICAgICAgICAgICAgICAgICAgIChmdW5jdGlvbiBOb25lIC0+IE5v
-bmUgfCBTb21lIF8gLT4gU29tZSBuY2hpbGQpDQo+ICsgICAgICAgICAgICAgICAgICAgIG5vZGUu
-Y2hpbGRyZW4NCj4gKyAgICAgICB9DQo+IA0KPiAgbGV0IGRlbF9jaGlsZG5hbWUgbm9kZSBjaGls
-ZG5hbWUgPQ0KPiAgICAgICAgIGxldCBzeW0gPSBTeW1ib2wub2Zfc3RyaW5nIGNoaWxkbmFtZSBp
-bg0KPiAtICAgICAgIGxldCByZWMgZGVsZXRlX29uZV9pbl9saXN0IGwgPQ0KPiAtICAgICAgICAg
-ICAgICAgbWF0Y2ggbCB3aXRoDQo+IC0gICAgICAgICAgICAgICB8IFtdICAgICAgICAgICAgICAg
-ICAgICAgICAgLT4gcmFpc2UgTm90X2ZvdW5kDQo+IC0gICAgICAgICAgICAgICB8IGggOjogdGwg
-d2hlbiBTeW1ib2wuZXF1YWwgaC5uYW1lIHN5bSAtPiB0bA0KPiAtICAgICAgICAgICAgICAgfCBo
-IDo6IHRsICAgICAgICAgICAgICAgICAgIC0+IGggOjoNCj4gZGVsZXRlX29uZV9pbl9saXN0IHRs
-DQo+IC0gICAgICAgICAgICAgICBpbg0KPiAtICAgICAgIHsgbm9kZSB3aXRoIGNoaWxkcmVuID0g
-KGRlbGV0ZV9vbmVfaW5fbGlzdCBub2RlLmNoaWxkcmVuKSB9DQo+ICsgICAgICAgeyBub2RlIHdp
-dGggY2hpbGRyZW4gPQ0KPiArICAgICAgICAgICAgICAgU3ltYm9sTWFwLnVwZGF0ZSBzeW0NCj4g
-KyAgICAgICAgICAgICAgICAgKGZ1bmN0aW9uIE5vbmUgLT4gcmFpc2UgTm90X2ZvdW5kIHwgU29t
-ZSBfIC0+IE5vbmUpDQo+ICsgICAgICAgICAgICAgICAgIG5vZGUuY2hpbGRyZW4NCj4gKyAgICAg
-ICB9DQo+IA0KPiAgbGV0IGRlbF9hbGxfY2hpbGRyZW4gbm9kZSA9DQo+IC0gICAgICAgeyBub2Rl
-IHdpdGggY2hpbGRyZW4gPSBbXSB9DQo+ICsgICAgICAgeyBub2RlIHdpdGggY2hpbGRyZW4gPSBT
-eW1ib2xNYXAuZW1wdHkgfQ0KPiANCj4gICgqIGNoZWNrIGlmIHRoZSBjdXJyZW50IG5vZGUgY2Fu
-IGJlIGFjY2Vzc2VkIGJ5IHRoZSBjdXJyZW50DQo+IGNvbm5lY3Rpb24gd2l0aCBycGVybSBwZXJt
-aXNzaW9ucyAqKQ0KPiAgbGV0IGNoZWNrX3Blcm0gbm9kZSBjb25uZWN0aW9uIHJlcXVlc3QgPQ0K
-PiBAQCAtODcsNyArODUsNyBAQCBsZXQgY2hlY2tfb3duZXIgbm9kZSBjb25uZWN0aW9uID0NCj4g
-ICAgICAgICAgICAgICAgIHJhaXNlIERlZmluZS5QZXJtaXNzaW9uX2RlbmllZDsNCj4gICAgICAg
-ICBlbmQNCj4gDQo+IC1sZXQgcmVjIHJlY3Vyc2UgZmN0IG5vZGUgPSBmY3Qgbm9kZTsgTGlzdC5p
-dGVyIChyZWN1cnNlIGZjdCkNCj4gbm9kZS5jaGlsZHJlbg0KPiArbGV0IHJlYyByZWN1cnNlIGZj
-dCBub2RlID0gZmN0IG5vZGU7IFN5bWJvbE1hcC5pdGVyIChmdW4gXyAtPg0KPiByZWN1cnNlIGZj
-dCkgbm9kZS5jaGlsZHJlbg0KPiANCj4gIGxldCB1bnBhY2sgbm9kZSA9IChTeW1ib2wudG9fc3Ry
-aW5nIG5vZGUubmFtZSwgbm9kZS5wZXJtcywNCj4gbm9kZS52YWx1ZSkNCj4gDQo+IEBAIC0zMjEs
-NyArMzE5LDcgQEAgbGV0IGxzIHN0b3JlIHBlcm0gcGF0aCA9DQo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgTm9kZS5jaGVja19wZXJtIGNub2RlIHBlcm0NCj4gUGVybXMuUkVBRDsN
-Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbm9kZS5Ob2RlLmNoaWxkcmVuIGlu
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIFBhdGguYXBwbHkgc3RvcmUucm9vdCBwYXRoIGRv
-X2xzIGluDQo+IC0gICAgICAgTGlzdC5yZXYgKExpc3QubWFwIChmdW4gbiAtPiBTeW1ib2wudG9f
-c3RyaW5nIG4uTm9kZS5uYW1lKQ0KPiBjaGlsZHJlbikNCj4gKyAgICAgICBTeW1ib2xNYXAuZm9s
-ZCAoZnVuIGsgXyBhY2N1IC0+IFN5bWJvbC50b19zdHJpbmcgayA6OiBhY2N1KQ0KPiBjaGlsZHJl
-biBbXQ0KPiANCj4gIGxldCBnZXRwZXJtcyBzdG9yZSBwZXJtIHBhdGggPQ0KPiAgICAgICAgIGlm
-IHBhdGggPSBbXSB0aGVuDQo+IEBAIC0zNTAsNyArMzQ4LDcgQEAgbGV0IHRyYXZlcnNhbCByb290
-X25vZGUgZiA9DQo+ICAgICAgICAgbGV0IHJlYyBfdHJhdmVyc2FsIHBhdGggbm9kZSA9DQo+ICAg
-ICAgICAgICAgICAgICBmIHBhdGggbm9kZTsNCj4gICAgICAgICAgICAgICAgIGxldCBub2RlX3Bh
-dGggPSBQYXRoLm9mX3BhdGhfYW5kX25hbWUgcGF0aA0KPiAoU3ltYm9sLnRvX3N0cmluZyBub2Rl
-Lk5vZGUubmFtZSkgaW4NCj4gLSAgICAgICAgICAgICAgIExpc3QuaXRlciAoX3RyYXZlcnNhbCBu
-b2RlX3BhdGgpIG5vZGUuTm9kZS5jaGlsZHJlbg0KPiArICAgICAgICAgICAgICAgU3ltYm9sTWFw
-Lml0ZXIgKGZ1biBfIC0+IF90cmF2ZXJzYWwgbm9kZV9wYXRoKQ0KPiBub2RlLk5vZGUuY2hpbGRy
-ZW4NCj4gICAgICAgICAgICAgICAgIGluDQo+ICAgICAgICAgX3RyYXZlcnNhbCBbXSByb290X25v
-ZGUNCj4gDQo+IGRpZmYgLS1naXQgYS90b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1sDQo+
-IGIvdG9vbHMvb2NhbWwveGVuc3RvcmVkL3N5bWJvbC5tbA0KPiBpbmRleCBkYWM2ZjlmODE5Li4y
-Njk3OTE1NjIzIDEwMDY0NA0KPiAtLS0gYS90b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1s
-DQo+ICsrKyBiL3Rvb2xzL29jYW1sL3hlbnN0b3JlZC9zeW1ib2wubWwNCj4gQEAgLTMxLDYgKzMx
-LDEwIEBAIGxldCBlcXVhbCBhIGIgPQ0KPiAgICAoKiBjb21wYXJlIHVzaW5nIHBoeXNpY2FsIGVx
-dWFsaXR5LCBib3RoIG1lbWJlcnMgaGF2ZSB0byBiZSBwYXJ0DQo+IG9mIHRoZSBhYm92ZSB3ZWFr
-IHRhYmxlICopDQo+ICAgIGEgPT0gYg0KPiANCj4gK2xldCBjb21wYXJlIGEgYiA9DQo+ICsgIGlm
-IGVxdWFsIGEgYiB0aGVuIDANCj4gKyAgZWxzZSAtKFN0cmluZy5jb21wYXJlIGEgYikNCj4gKw0K
-PiAgbGV0IHN0YXRzICgpID0NCj4gICAgbGV0IGxlbiwgZW50cmllcywgXywgXywgXywgXyA9IFdl
-YWtUYWJsZS5zdGF0cyB0YmwgaW4NCj4gICAgbGVuLCBlbnRyaWVzDQo+IGRpZmYgLS1naXQgYS90
-b29scy9vY2FtbC94ZW5zdG9yZWQvc3ltYm9sLm1saQ0KPiBiL3Rvb2xzL29jYW1sL3hlbnN0b3Jl
-ZC9zeW1ib2wubWxpDQo+IGluZGV4IDU4NmFiNTc1MDcuLmRkMGYwMTQ3OTYgMTAwNjQ0DQo+IC0t
-LSBhL3Rvb2xzL29jYW1sL3hlbnN0b3JlZC9zeW1ib2wubWxpDQo+ICsrKyBiL3Rvb2xzL29jYW1s
-L3hlbnN0b3JlZC9zeW1ib2wubWxpDQo+IEBAIC0zMiw2ICszMiw5IEBAIHZhbCB0b19zdHJpbmcg
-OiB0IC0+IHN0cmluZw0KPiAgdmFsIGVxdWFsOiB0IC0+IHQgLT4gYm9vbA0KPiAgKCoqIENvbXBh
-cmUgdHdvIHN5bWJvbHMgZm9yIGVxdWFsaXR5ICopDQo+IA0KPiArdmFsIGNvbXBhcmU6IHQgLT4g
-dCAtPiBpbnQNCj4gKygqKiBDb21wYXJlIHR3byBzeW1ib2xzICopDQo+ICsNCj4gICgqKiB7NiBT
-dGF0aXN0aWNzIH0gKikNCj4gDQo+ICB2YWwgc3RhdHMgOiB1bml0IC0+IGludCAqIGludA0KPiAt
-LQ0KPiAyLjI1LjENCj4gDQo=
+On Sat, 15 Aug 2020, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The IOREQ code is using cmpxchg() with 64-bit value. At the moment, this
+> is x86 code, but there is plan to make it common.
+> 
+> To cater 32-bit arch, introduce two new helpers to deal with 64-bit
+> cmpxchg.
+> 
+> The Arm 32-bit implementation of cmpxchg64() is based on the __cmpxchg64
+> in Linux v5.8 (arch/arm/include/asm/cmpxchg.h).
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>  xen/include/asm-arm/arm32/cmpxchg.h | 68 +++++++++++++++++++++++++++++
+>  xen/include/asm-arm/arm64/cmpxchg.h |  5 +++
+>  xen/include/asm-arm/guest_atomics.h | 22 ++++++++++
+>  xen/include/asm-x86/guest_atomics.h |  2 +
+>  xen/include/asm-x86/x86_64/system.h |  2 +
+>  5 files changed, 99 insertions(+)
+> 
+> diff --git a/xen/include/asm-arm/arm32/cmpxchg.h b/xen/include/asm-arm/arm32/cmpxchg.h
+> index 0770f272ee99..5e2fa6ee38a0 100644
+> --- a/xen/include/asm-arm/arm32/cmpxchg.h
+> +++ b/xen/include/asm-arm/arm32/cmpxchg.h
+> @@ -87,6 +87,38 @@ __CMPXCHG_CASE(b, 1)
+>  __CMPXCHG_CASE(h, 2)
+>  __CMPXCHG_CASE( , 4)
+>  
+> +static inline bool __cmpxchg_case_8(volatile uint64_t *ptr,
+> +			 	    uint64_t *old,
+> +			 	    uint64_t new,
+> +			 	    bool timeout,
+> +				    unsigned int max_try)
+> +{
+> +	uint64_t oldval;
+> +	uint64_t res;
+> +
+> +	do {
+> +		asm volatile(
+> +		"	ldrexd		%1, %H1, [%3]\n"
+> +		"	teq		%1, %4\n"
+> +		"	teqeq		%H1, %H4\n"
+> +		"	movne		%0, #0\n"
+> +		"	movne		%H0, #0\n"
+> +		"	bne		2f\n"
+> +		"	strexd		%0, %5, %H5, [%3]\n"
+> +		"	teq		%0, #0\n"
+
+Apologies if I am misreading this code, but this last "teq" instruction
+doesn't seem to be useful?
+
+
+> +		"2:"
+> +		: "=&r" (res), "=&r" (oldval), "+Qo" (*ptr)
+                                              ^ not used ?
+
+
+> +		: "r" (ptr), "r" (*old), "r" (new)
+> +		: "memory", "cc");
+> +		if (!res)
+> +			break;
+> +	} while (!timeout || ((--max_try) > 0));
+> +
+> +	*old = oldval;
+> +
+> +	return !res;
+> +}
+> +
+>  static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
+>  					unsigned long new, int size,
+>  					bool timeout, unsigned int max_try)
+> @@ -156,6 +188,30 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>  	return ret;
+>  }
+>  
+> +/*
+> + * The helper may fail to update the memory if the action takes too long.
+> + *
+> + * @old: On call the value pointed contains the expected old value. It will be
+> + * updated to the actual old value.
+> + * @max_try: Maximum number of iterations
+> + *
+> + * The helper will return true when the update has succeeded (i.e no
+> + * timeout) and false if the update has failed.
+> + */
+> +static always_inline bool __cmpxchg64_mb_timeout(volatile uint64_t *ptr,
+> +						 uint64_t *old,
+> +						 uint64_t new,
+> +						 unsigned int max_try)
+> +{
+> +	bool ret;
+> +
+> +	smp_mb();
+> +	ret = __cmpxchg_case_8(ptr, old, new, true, max_try);
+> +	smp_mb();
+> +
+> +	return ret;
+> +}
+> +
+>  #define cmpxchg(ptr,o,n)						\
+>  	((__typeof__(*(ptr)))__cmpxchg_mb((ptr),			\
+>  					  (unsigned long)(o),		\
+> @@ -167,6 +223,18 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>  				       (unsigned long)(o),		\
+>  				       (unsigned long)(n),		\
+>  				       sizeof(*(ptr))))
+> +
+> +static inline uint64_t cmpxchg64(volatile uint64_t *ptr,
+> +				 uint64_t old,
+> +				 uint64_t new)
+> +{
+> +	smp_mb();
+
+I was looking at the existing code I noticed that we don't have a
+corresponding smp_mb(); in this position. Is it needed here because of
+the 64bit-ness?
+
+
+> +	if (!__cmpxchg_case_8(ptr, &old, new, false, 0))
+> +		ASSERT_UNREACHABLE();
+> +
+> +	return old;
+> +}
+> +
+>  #endif
+>  /*
+>   * Local variables:
+> diff --git a/xen/include/asm-arm/arm64/cmpxchg.h b/xen/include/asm-arm/arm64/cmpxchg.h
+> index fc5c60f0bd74..de9cd0ee2b07 100644
+> --- a/xen/include/asm-arm/arm64/cmpxchg.h
+> +++ b/xen/include/asm-arm/arm64/cmpxchg.h
+> @@ -187,6 +187,11 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>  	__ret; \
+>  })
+>  
+> +#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
+> +
+> +#define __cmpxchg64_mb_timeout(ptr, old, new, max_try) \
+> +	__cmpxchg_mb_timeout(ptr, old, new, 8, max_try)
+> +
+>  #endif
+>  /*
+>   * Local variables:
+> diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+> index af27cc627bf3..28ce402bea79 100644
+> --- a/xen/include/asm-arm/guest_atomics.h
+> +++ b/xen/include/asm-arm/guest_atomics.h
+> @@ -115,6 +115,28 @@ static inline unsigned long __guest_cmpxchg(struct domain *d,
+>                                           (unsigned long)(n),\
+>                                           sizeof (*(ptr))))
+>  
+> +static inline uint64_t guest_cmpxchg64(struct domain *d,
+> +                                       volatile uint64_t *ptr,
+> +                                       uint64_t old,
+> +                                       uint64_t new)
+> +{
+> +    uint64_t oldval = old;
+> +
+> +    perfc_incr(atomics_guest);
+> +
+> +    if ( __cmpxchg64_mb_timeout(ptr, &oldval, new,
+> +                                this_cpu(guest_safe_atomic_max)) )
+> +        return oldval;
+> +
+> +    perfc_incr(atomics_guest_paused);
+> +
+> +    domain_pause_nosync(d);
+> +    oldval = cmpxchg64(ptr, old, new);
+> +    domain_unpause(d);
+> +
+> +    return oldval;
+> +}
+> +
+>  #endif /* _ARM_GUEST_ATOMICS_H */
+>  /*
+>   * Local variables:
+> diff --git a/xen/include/asm-x86/guest_atomics.h b/xen/include/asm-x86/guest_atomics.h
+> index 029417c8ffc1..f4de9d3631ff 100644
+> --- a/xen/include/asm-x86/guest_atomics.h
+> +++ b/xen/include/asm-x86/guest_atomics.h
+> @@ -20,6 +20,8 @@
+>      ((void)(d), test_and_change_bit(nr, p))
+>  
+>  #define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
+> +#define guest_cmpxchg64(d, ptr, o, n) ((void)(d), cmpxchg64(ptr, o, n))
+> +
+>  
+>  #endif /* _X86_GUEST_ATOMICS_H */
+>  /*
+> diff --git a/xen/include/asm-x86/x86_64/system.h b/xen/include/asm-x86/x86_64/system.h
+> index f471859c19cc..c1b16105e9f2 100644
+> --- a/xen/include/asm-x86/x86_64/system.h
+> +++ b/xen/include/asm-x86/x86_64/system.h
+> @@ -5,6 +5,8 @@
+>      ((__typeof__(*(ptr)))__cmpxchg((ptr),(unsigned long)(o),            \
+>                                     (unsigned long)(n),sizeof(*(ptr))))
+>  
+> +#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
+> +
+>  /*
+>   * Atomic 16 bytes compare and exchange.  Compare OLD with MEM, if
+>   * identical, store NEW in MEM.  Return the initial value in MEM.
+> -- 
+> 2.17.1
+> 
 
