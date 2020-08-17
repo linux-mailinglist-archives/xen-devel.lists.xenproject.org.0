@@ -2,82 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179CA24687E
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 16:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B3BA246889
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 16:40:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7gFV-0007Xp-QN; Mon, 17 Aug 2020 14:36:33 +0000
+	id 1k7gIo-0007fP-Am; Mon, 17 Aug 2020 14:39:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EDHT=B3=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k7gFU-0007Xk-8L
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 14:36:32 +0000
-X-Inumbo-ID: 9df3d565-7e41-4cfa-b6df-0d37b0134149
-Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GDTU=B3=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k7gIm-0007fK-Fx
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 14:39:56 +0000
+X-Inumbo-ID: bdaed4a1-5394-4c66-a0e1-aacfd9540468
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9df3d565-7e41-4cfa-b6df-0d37b0134149;
- Mon, 17 Aug 2020 14:36:31 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id s9so8495126lfs.4
- for <xen-devel@lists.xenproject.org>; Mon, 17 Aug 2020 07:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=3GRDJVGVpDXm6do0rjuBrYqkIhLXQugX1AhjFdE7Z1Y=;
- b=gQ3oK9mPTW9JJme1hZx7ZxA02Uds1q0cQPmC+lr/iIWXX0hf3gfFumOWth1KAdIN0I
- l/l13xb8mlTUgllAsC67CLhijjhOVEzooOFGt0iw9TZJP6bMnHSVk0PApMGX1G2tFSEm
- gJhMGDb/l+jhojbpktgUKoMVMJMrsTf7XB672B+EJc40IqTzjZuLG/yLBdkHeKdPusS4
- VsKlgL12PgcxNF5osE00CaUXdmHCwYfAz02KlZbhFe30P/f2VDUIHJSNoKYtjkUEfqxK
- dFzW0hzf57zcbGQyGgZcI/lq9CHHgt3sjn+sMigev3xyN33Dc2bALcKlPO5XOFzuFHy8
- kXvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=3GRDJVGVpDXm6do0rjuBrYqkIhLXQugX1AhjFdE7Z1Y=;
- b=Hs0cu7D4Y+i2aYtc6WUUxUh+XA7ALRpXXYWQnFr4B709/6FmeOXXrF8EmqnFhtmYZI
- sR3o+kDAkElCBJiU+HnHoZifW9UAjpIR/UGBsuplLzdLEpw/hkOPVx+s1hxhkbudECcb
- ZsJ/S9cg7zU1g5J8LnX6LZ1SEl8lR88QiW6l1q1av1NuAHeqS3LbwD9m2lFzs0buMHKH
- J6Z5i369b8oKw4qVeKCOB+YAMKslr2k5q/E0HicHRvzWMCLoFFxS+gTCzEvSp/IHUwrb
- 0uD36cdidmchKhgRJZtcbtbdDQ56G46zmqf/tnKEgGXYLTN5HXrJiSMVXrIb5tcSP7Z5
- xAQA==
-X-Gm-Message-State: AOAM532nmEP4EjFDlq/UgX0UHTnnb+3ZR4eR6vi/qJdc4am5RrD0bZ1e
- LWPC1yxHN628Lmqa/ETuvDI=
-X-Google-Smtp-Source: ABdhPJyEnL4nMhh9aPdd882zIyhGDOeJZc/sH1jwY0TqL5vWDwckXKozX9X3wCbn05mhgnHD9bnaEA==
-X-Received: by 2002:a19:8c4b:: with SMTP id i11mr7528519lfj.32.1597674989514; 
- Mon, 17 Aug 2020 07:36:29 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d13sm5555396lfl.89.2020.08.17.07.36.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Aug 2020 07:36:28 -0700 (PDT)
-Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>
-Cc: paul@xen.org, xen-devel@lists.xenproject.org,
- 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Julien Grall' <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
- 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
- <001101d66a33$bba44670$32ecd350$@xen.org>
- <6c4f7698-a015-91c7-83ec-203f63d48900@xen.org>
- <70241cb7-1b04-d3be-90d5-b075ee13ca8c@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <0003868f-c96c-8f31-d0ba-97cf9fd368ed@gmail.com>
-Date: Mon, 17 Aug 2020 17:36:22 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id bdaed4a1-5394-4c66-a0e1-aacfd9540468;
+ Mon, 17 Aug 2020 14:39:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=wriyhnKXNEG6zVc2REy21AXoeSpQQ46OugJPkosi6Vs=; b=rVKlMAxLdzUEi/ToD9zeYik0dL
+ zjkMv743zQ4sN9HADpbEAWyOAzG60ZpWjzAqgAY+Sk5a8InRYpZdzTHCv9LIPDCHbwfHHnEdlKUJS
+ Wrl7nrdGw0rexsBnwCI7XOYLIMs5ISh78ESexAtLJ4F1Lq/YKoi8vjuUWx6g0zlaUXew=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7gIk-0002Hv-Gn; Mon, 17 Aug 2020 14:39:54 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7gIk-0005WE-A9; Mon, 17 Aug 2020 14:39:54 +0000
+Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
+ pirq_spin_lock_irq_desc()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>
+References: <20200722165300.22655-1-julien@xen.org>
+ <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
+ <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+ <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
+ <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
+ <20200817124600.GC828@Air-de-Roger>
+ <9375f5f2-7cbd-1344-ae03-51909dfd41e9@xen.org>
+ <20200817140125.GD828@Air-de-Roger>
+From: Julien Grall <julien@xen.org>
+Message-ID: <53eeaa9f-3a4f-525e-a07f-d36ef245925a@xen.org>
+Date: Mon, 17 Aug 2020 15:39:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <70241cb7-1b04-d3be-90d5-b075ee13ca8c@xen.org>
+In-Reply-To: <20200817140125.GD828@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,77 +71,90 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 15.08.20 20:56, Julien Grall wrote:
 
-Hi Julien.
-
-> Hi,
->
-> On 04/08/2020 15:01, Julien Grall wrote:
->> On 04/08/2020 08:49, Paul Durrant wrote:
->>>> diff --git a/tools/libxc/xc_dom_arm.c b/tools/libxc/xc_dom_arm.c
->>>> index 931404c..b5fc066 100644
->>>> --- a/tools/libxc/xc_dom_arm.c
->>>> +++ b/tools/libxc/xc_dom_arm.c
->>>> @@ -26,11 +26,19 @@
->>>>   #include "xg_private.h"
->>>>   #include "xc_dom.h"
+On 17/08/2020 15:01, Roger Pau Monné wrote:
+> On Mon, Aug 17, 2020 at 02:14:01PM +0100, Julien Grall wrote:
+>> Hi,
+>>
+>> On 17/08/2020 13:46, Roger Pau Monné wrote:
+>>> On Fri, Aug 14, 2020 at 08:25:28PM +0100, Julien Grall wrote:
+>>>> Hi Andrew,
 >>>>
->>>> -#define NR_MAGIC_PAGES 4
->>>> +
->>>>   #define CONSOLE_PFN_OFFSET 0
->>>>   #define XENSTORE_PFN_OFFSET 1
->>>>   #define MEMACCESS_PFN_OFFSET 2
->>>>   #define VUART_PFN_OFFSET 3
->>>> +#define IOREQ_SERVER_PFN_OFFSET 4
->>>> +
->>>> +#define NR_IOREQ_SERVER_PAGES 8
->>>> +#define NR_MAGIC_PAGES (4 + NR_IOREQ_SERVER_PAGES)
->>>> +
->>>> +#define GUEST_MAGIC_BASE_PFN (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT)
->>>> +
->>>> +#define special_pfn(x)  (GUEST_MAGIC_BASE_PFN + (x))
+>>>> Sorry for the late answer.
+>>>>
+>>>> On 23/07/2020 14:59, Andrew Cooper wrote:
+>>>>> On 23/07/2020 14:22, Julien Grall wrote:
+>>>>>> Hi Jan,
+>>>>>>
+>>>>>> On 23/07/2020 12:23, Jan Beulich wrote:
+>>>>>>> On 22.07.2020 18:53, Julien Grall wrote:
+>>>>>>>> --- a/xen/arch/x86/irq.c
+>>>>>>>> +++ b/xen/arch/x86/irq.c
+>>>>>>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+>>>>>>>>            for ( ; ; )
+>>>>>>>>          {
+>>>>>>>> -        int irq = pirq->arch.irq;
+>>>>>>>> +        int irq = read_atomic(&pirq->arch.irq);
+>>>>>>>
+>>>>>>> There we go - I'd be fine this way, but I'm pretty sure Andrew
+>>>>>>> would want this to be ACCESS_ONCE(). So I guess now is the time
+>>>>>>> to settle which one to prefer in new code (or which criteria
+>>>>>>> there are to prefer one over the other).
+>>>>>>
+>>>>>> I would prefer if we have a single way to force the compiler to do a
+>>>>>> single access (read/write).
+>>>>>
+>>>>> Unlikely to happen, I'd expect.
+>>>>>
+>>>>> But I would really like to get rid of (or at least rename)
+>>>>> read_atomic()/write_atomic() specifically because they've got nothing to
+>>>>> do with atomic_t's and the set of functionality who's namespace they share.
+>>>>
+>>>> Would you be happy if I rename both to READ_ONCE() and WRITE_ONCE()? I would
+>>>> also suggest to move them implementation in a new header asm/lib.h.
 >>>
->>> Why introduce 'magic pages' for Arm? It's quite a horrible hack that 
->>> we have begun to do away with by adding resource mapping.
+>>> Maybe {READ/WRITE}_SINGLE (to note those should be implemented using a
+>>> single instruction)?
 >>
->> This would require us to mandate at least Linux 4.17 in a domain that 
->> will run an IOREQ server. If we don't mandate this, the minimum 
->> version would be 4.10 where DM OP was introduced.
+>> The asm volatile statement contains only one instruction, but this doesn't
+>> mean the helper will generate a single instruction.
+> 
+> Well, the access should be done using a single instruction, which is
+> what we care about when using this helpers.
+> 
+>> You may have other instructions to get the registers ready for the access.
 >>
->> Because of XSA-300, we could technically not safely run an IOREQ 
->> server with existing Linux. So it is probably OK to enforce the use 
->> of the acquire interface.
-> One more thing. We are using atomic operations on the IOREQ pages. As 
-> our implementation is based on LL/SC instructions so far, we have 
-> mitigation in place to prevent a domain DoS Xen. However, this relies 
-> on the page to be mapped in a single domain at the time.
->
-> AFAICT, with the legacy interface, the pages will be mapped in both 
-> the target and the emulator. So this would defeat the mitigation we 
-> have in place.
->
-> Because the legacy interface is relying on foreign mapping, the page 
-> has to be mapped in the target P2M. It might be possible to restrict 
-> the access for the target by setting the p2m bits r, w to 0. This 
-> would still allow the foreign mapping to work as we only check the p2m 
-> type during mapping.
->
-> Anyway, I think we agreed that we want to avoid to introduce the 
-> legacy interface. But I wanted to answer just for completeness and 
-> keep a record of potential pitfalls with the legacy interface on Arm.
-ok, the HVMOP plumbing on Arm will be dropped for non-RFC series. It 
-seems that xenforeignmemory_map_resource() does needed things. Of 
-course, the corresponding Linux patch to support 
-IOCTL_PRIVCMD_MMAP_RESOURCE was cherry-picked for that purpose (I am 
-currently using v4.14).
+>>>
+>>> ACCESS_ONCE (which also has the _ONCE suffix) IIRC could be
+>>> implemented using several instructions, and hence doesn't seem right
+>>> that they all have the _ONCE suffix.
+>>
+>> The goal here is the same, we want to access the variable *only* once.
+> 
+> Right, but this is not guaranteed by the current implementation of
+> ACCESS_ONCE AFAICT, as the compiler *might* split the access into two
+> (or more) instructions, and hence won't be an atomic access anymore?
+ From my understanding, at least on GCC/Clang, ACCESS_ONCE() should be 
+atomic if you are using aligned address and the size smaller than a 
+register size.
 
-Thank you.
+> 
+>> May I ask why we would want to expose the difference to the user?
+> 
+> I'm not saying we should, but naming them using the _ONCE suffix seems
+> misleading IMO, as they have different guarantees than what
+> ACCESS_ONCE currently provides.
 
+Lets leave aside how ACCESS_ONCE() is implemented for a moment.
+
+If ACCESS_ONCE() doesn't guarantee atomicy, then it means you may read a 
+mix of the old and new value. This would most likely break quite a few 
+of the users because the result wouldn't be coherent.
+
+Do you have place in mind where the non-atomicity would be useful?
+
+Cheers,
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Julien Grall
 
