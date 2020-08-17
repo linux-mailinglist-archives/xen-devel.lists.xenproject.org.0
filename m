@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8062472AD
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 20:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38A42472A7
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 20:46:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7k9M-0007Dp-F6; Mon, 17 Aug 2020 18:46:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7k9C-00078m-Ie; Mon, 17 Aug 2020 18:46:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mm75=B3=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1k7k9K-00078A-W5
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 18:46:27 +0000
-X-Inumbo-ID: bb848584-6c41-40c2-bd63-a4c2475781c8
+ id 1k7k9B-00077W-6w
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 18:46:17 +0000
+X-Inumbo-ID: 8845624d-2fd2-4170-a630-9b91c4da73b4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bb848584-6c41-40c2-bd63-a4c2475781c8;
- Mon, 17 Aug 2020 18:46:20 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8845624d-2fd2-4170-a630-9b91c4da73b4;
+ Mon, 17 Aug 2020 18:46:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597689981;
+ d=citrix.com; s=securemail; t=1597689972;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Jwr6W7VdvDSBzVBwOidlGCgXyRsM0JTbKS0k1mHOFbY=;
- b=c/pQbrLSSlpCdG1IijVqPu52kFsbxRQMEivgvj9jNV0BtJj4LgpDNFup
- xEiZgkZ+zTqRAaWtjPGAZhtgCuy9VY9S/TNH3dikgrSkfJRR7t4kvFdAC
- maQ7YU7uWKRJsDqALKZh/y5J/CmaDMei7137/UTClMrDY3YumRCAyjA9O E=;
+ bh=0Q7mZezmkZDXxgdfVrSnPIVAXJc1OwrHZVcWnmgusxs=;
+ b=DVeDuCty+UhY9xS0+jO+Vsv5Z8qN4EmaPPeaQSGlAG9yiQpr/DP+M5Fo
+ RsBcajEodeJiThPYGwNG6Oi/ZwsPnkGI86Yny1boL8nnFRpGxbr9/nq8h
+ 3uVbun/NDgBWI9l3NWyymuun31GFqhR/r7x5kvC4E9+KXgOHEoy+xc8g+ I=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: clY59/0462dpma5dCVjD3FxzhG8/IoPdXnQ492U90Z/31pFleXMZhfsymHRAKOJ+8NbLfdOWqO
- oIAC/Yg4xTSWxeFAXRnnQcbNw1pyzIi62XAVvddzRXfEG1YpNhGdMa8ZTubNXBaXr0cpdYCMFX
- YNKCpopOVd8A14f5eYfwRoOdP+ahyicJw6lkTkx17EhLxlfZc9y3SIfWqwbex2agpHxe6UyTjz
- qqRSARMbik7IlhFEUkOadeZN7IN+UCH03YUhT/gny55e4/f6FcH0CodCAvVguqFmy0ghqkV+Dm
- EVE=
+IronPort-SDR: PgIs/TnBiUf2teGp1uBfYwKa5Y9oTd4pGCsjQ9IgUbourgJeyQYMFGyvI0aAgDDixwZM6M6nZI
+ aBpxydnKaVGWy3v/3GMM73kM7xsNb8Kg1/4dF3enCJEcxE9VTehWBi8k341l6q4vBxDU5v0zku
+ V6awyOaZDuM3opGNPFKZx9olV1lErTBM3pS235jd9pEWFCVVuDlRrbddtgxYbifoe9LTHyvj1Q
+ NJ2Y/9M6N2XiTztpb49Q/Buoq2SQRYbBSb+ytX8MVolF7E3rKP+NO+pMsXEt40voR4sK9zI9mU
+ onA=
 X-SBRS: 2.7
-X-MesageID: 24693238
+X-MesageID: 24693220
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,324,1592884800"; d="scan'208";a="24693238"
+X-IronPort-AV: E=Sophos;i="5.76,324,1592884800"; d="scan'208";a="24693220"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
-Subject: [PATCH v3 4/6] tools/ocaml/xenstored: drop select based socket
- watching
-Date: Mon, 17 Aug 2020 19:45:47 +0100
-Message-ID: <bb1423a37560bbb9b655fef116c7c31346665529.1597689796.git.edvin.torok@citrix.com>
+Subject: [PATCH v3 5/6] tools/ocaml/xenstored: use more efficient node trees
+Date: Mon, 17 Aug 2020 19:45:48 +0100
+Message-ID: <b0b4093cc7360ed013af1f17b7aabfb5c9f0cf9c.1597689796.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1597689796.git.edvin.torok@citrix.com>
 References: <cover.1597689796.git.edvin.torok@citrix.com>
@@ -65,174 +65,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Poll has been the default since 2014, I think we can safely say by now
-that poll() works and we don't need to fall back to select().
+This changes the output of xenstore-ls to be sorted.
+Previously the keys were listed in the order in which they were inserted
+in.
+docs/misc/xenstore.txt doesn't specify in what order keys are listed.
 
-This will allow fixing up the way we call poll to be more efficient
-(and pave the way for introducing epoll support):
-currently poll wraps the select API, which is inefficient.
+Map.update is used to retain semantics with replace_child:
+only an existing child is replaced, if it wasn't part of the original
+map we don't add it.
+Similarly exception behaviour is retained for del_childname and related
+functions.
+
+Entries are stored in reverse sort order, so that upon Map.fold the
+constructed list is sorted in ascending order and there is no need for a
+List.rev.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
-Changed since v1:
- * fix commit title
----
- tools/ocaml/xenstored/Makefile                 | 12 ++++++------
- tools/ocaml/xenstored/parse_arg.ml             |  7 ++-----
- tools/ocaml/xenstored/{select.ml => poll.ml}   | 14 ++------------
- tools/ocaml/xenstored/{select.mli => poll.mli} | 12 ++----------
- tools/ocaml/xenstored/xenstored.ml             |  4 +---
- 5 files changed, 13 insertions(+), 36 deletions(-)
- rename tools/ocaml/xenstored/{select.ml => poll.ml} (85%)
- rename tools/ocaml/xenstored/{select.mli => poll.mli} (58%)
+ tools/ocaml/xenstored/store.ml   | 46 +++++++++++++++-----------------
+ tools/ocaml/xenstored/symbol.ml  |  4 +++
+ tools/ocaml/xenstored/symbol.mli |  3 +++
+ 3 files changed, 29 insertions(+), 24 deletions(-)
 
-diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-index 68d35c483a..692a62584e 100644
---- a/tools/ocaml/xenstored/Makefile
-+++ b/tools/ocaml/xenstored/Makefile
-@@ -18,12 +18,12 @@ OCAMLINCLUDE += \
- 	-I $(OCAML_TOPLEVEL)/libs/xc \
- 	-I $(OCAML_TOPLEVEL)/libs/eventchn
+diff --git a/tools/ocaml/xenstored/store.ml b/tools/ocaml/xenstored/store.ml
+index 45659a23ee..d9dfa36045 100644
+--- a/tools/ocaml/xenstored/store.ml
++++ b/tools/ocaml/xenstored/store.ml
+@@ -16,17 +16,19 @@
+  *)
+ open Stdext
  
--LIBS = syslog.cma syslog.cmxa select.cma select.cmxa
-+LIBS = syslog.cma syslog.cmxa poll.cma poll.cmxa
- syslog_OBJS = syslog
- syslog_C_OBJS = syslog_stubs
--select_OBJS = select
--select_C_OBJS = select_stubs
--OCAML_LIBRARY = syslog select
-+poll_OBJS = poll
-+poll_C_OBJS = select_stubs
-+OCAML_LIBRARY = syslog poll
++module SymbolMap = Map.Make(Symbol)
++
+ module Node = struct
  
- LIBS += systemd.cma systemd.cmxa
- systemd_OBJS = systemd
-@@ -58,13 +58,13 @@ OBJS = paths \
- 	process \
- 	xenstored
- 
--INTF = symbol.cmi trie.cmi syslog.cmi systemd.cmi select.cmi
-+INTF = symbol.cmi trie.cmi syslog.cmi systemd.cmi poll.cmi
- 
- XENSTOREDLIBS = \
- 	unix.cmxa \
- 	-ccopt -L -ccopt . syslog.cmxa \
- 	-ccopt -L -ccopt . systemd.cmxa \
--	-ccopt -L -ccopt . select.cmxa \
-+	-ccopt -L -ccopt . poll.cmxa \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/mmap $(OCAML_TOPLEVEL)/libs/mmap/xenmmap.cmxa \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/eventchn $(OCAML_TOPLEVEL)/libs/eventchn/xeneventchn.cmxa \
- 	-ccopt -L -ccopt $(OCAML_TOPLEVEL)/libs/xc $(OCAML_TOPLEVEL)/libs/xc/xenctrl.cmxa \
-diff --git a/tools/ocaml/xenstored/parse_arg.ml b/tools/ocaml/xenstored/parse_arg.ml
-index 1803c3eda0..2c4b5a8528 100644
---- a/tools/ocaml/xenstored/parse_arg.ml
-+++ b/tools/ocaml/xenstored/parse_arg.ml
-@@ -25,7 +25,6 @@ type config =
- 	tracefile: string option; (* old xenstored compatibility *)
- 	restart: bool;
- 	disable_socket: bool;
--	use_select: bool;
+ type t = {
+ 	name: Symbol.t;
+ 	perms: Perms.Node.t;
+ 	value: string;
+-	children: t list;
++	children: t SymbolMap.t;
  }
  
- let do_argv =
-@@ -37,7 +36,7 @@ let do_argv =
- 	and config_file = ref ""
- 	and restart = ref false
- 	and disable_socket = ref false
--	and use_select = ref false in
-+	in
+ let create _name _perms _value =
+-	{ name = Symbol.of_string _name; perms = _perms; value = _value; children = []; }
++	{ name = Symbol.of_string _name; perms = _perms; value = _value; children = SymbolMap.empty; }
  
- 	let speclist =
- 		[ ("--no-domain-init", Arg.Unit (fun () -> domain_init := false),
-@@ -54,9 +53,8 @@ let do_argv =
- 		  ("-T", Arg.Set_string tracefile, ""); (* for compatibility *)
- 		  ("--restart", Arg.Set restart, "Read database on starting");
- 		  ("--disable-socket", Arg.Unit (fun () -> disable_socket := true), "Disable socket");
--		  ("--use-select", Arg.Unit (fun () -> use_select := true), "Use select instead of poll"); (* for backward compatibility and testing *)
- 		] in
--	let usage_msg = "usage : xenstored [--config-file <filename>] [--no-domain-init] [--help] [--no-fork] [--reraise-top-level] [--restart] [--disable-socket] [--use-select]" in
-+	let usage_msg = "usage : xenstored [--config-file <filename>] [--no-domain-init] [--help] [--no-fork] [--reraise-top-level] [--restart] [--disable-socket]" in
- 	Arg.parse speclist (fun _ -> ()) usage_msg;
- 	{
- 		domain_init = !domain_init;
-@@ -68,5 +66,4 @@ let do_argv =
- 		tracefile = if !tracefile <> "" then Some !tracefile else None;
- 		restart = !restart;
- 		disable_socket = !disable_socket;
--		use_select = !use_select;
- 	}
-diff --git a/tools/ocaml/xenstored/select.ml b/tools/ocaml/xenstored/poll.ml
-similarity index 85%
-rename from tools/ocaml/xenstored/select.ml
-rename to tools/ocaml/xenstored/poll.ml
-index 0455e163e3..26f8620dfc 100644
---- a/tools/ocaml/xenstored/select.ml
-+++ b/tools/ocaml/xenstored/poll.ml
-@@ -63,15 +63,5 @@ let poll_select in_fds out_fds exc_fds timeout =
- 			 (if event.except then fd :: x else x))
- 			a r
+ let get_owner node = Perms.Node.get_owner node.perms
+ let get_children node = node.children
+@@ -42,38 +44,34 @@ let set_value node nvalue =
+ let set_perms node nperms = { node with perms = nperms }
  
--(* If the use_poll function is not called at all, we default to the original Unix.select behavior *)
--let select_fun = ref Unix.select
--
--let use_poll yes =
--	let sel_fun, max_fd =
--		if yes then poll_select, get_sys_fs_nr_open ()
--		else Unix.select, 1024 in
--	select_fun := sel_fun;
--	set_fd_limit max_fd
--
--let select in_fds out_fds exc_fds timeout =
--	(!select_fun) in_fds out_fds exc_fds timeout
-+let () =
-+        set_fd_limit (get_sys_fs_nr_open ())
-diff --git a/tools/ocaml/xenstored/select.mli b/tools/ocaml/xenstored/poll.mli
-similarity index 58%
-rename from tools/ocaml/xenstored/select.mli
-rename to tools/ocaml/xenstored/poll.mli
-index 3912779172..f73465b99f 100644
---- a/tools/ocaml/xenstored/select.mli
-+++ b/tools/ocaml/xenstored/poll.mli
-@@ -13,15 +13,7 @@
-  *)
+ let add_child node child =
+-	{ node with children = child :: node.children }
++	let children = SymbolMap.add child.name child node.children in
++	{ node with children }
  
+ let exists node childname =
+ 	let childname = Symbol.of_string childname in
+-	List.exists (fun n -> Symbol.equal n.name childname) node.children
++	SymbolMap.mem childname node.children
  
--(** Same interface and semantics as [Unix.select] but with an extra alternative
--    implementation based on poll. Switching implementations is done by calling
--     the [use_poll] function. *)
--val select:
-+(** Same interface and semantics as [Unix.select], implemented using poll(3). *)
-+val poll_select:
- 	Unix.file_descr list -> Unix.file_descr list -> Unix.file_descr list -> float
- 	-> Unix.file_descr list * Unix.file_descr list * Unix.file_descr list
--
--(** [use_poll true] will use poll based select with max fds number limitation
--   eliminated; [use_poll false] will use standard [Unix.select] with max fd
--   number set to 1024; not calling this function at all equals to use the
--   standard [Unix.select] with max fd number setting untouched. *)
--val use_poll: bool -> unit
-diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
-index 047e093555..f3e4697dea 100644
---- a/tools/ocaml/xenstored/xenstored.ml
-+++ b/tools/ocaml/xenstored/xenstored.ml
-@@ -308,8 +308,6 @@ let _ =
- 		);
- 	);
+ let find node childname =
+ 	let childname = Symbol.of_string childname in
+-	List.find (fun n -> Symbol.equal n.name childname) node.children
++	SymbolMap.find childname node.children
  
--	Select.use_poll (not cf.use_select);
--
- 	Sys.set_signal Sys.sighup (Sys.Signal_handle sighup_handler);
- 	Sys.set_signal Sys.sigterm (Sys.Signal_handle (fun _ -> quit := true));
- 	Sys.set_signal Sys.sigusr1 (Sys.Signal_handle (fun _ -> sigusr1_handler store));
-@@ -441,7 +439,7 @@ let _ =
- 		let inset, outset = Connections.select ~only_if:is_peaceful cons in
- 		let rset, wset, _ =
- 		try
--			Select.select (spec_fds @ inset) outset [] timeout
-+			Poll.poll_select (spec_fds @ inset) outset [] timeout
- 		with Unix.Unix_error(Unix.EINTR, _, _) ->
- 			[], [], [] in
- 		let sfds, cfds =
+ let replace_child node child nchild =
+-	(* this is the on-steroid version of the filter one-replace one *)
+-	let rec replace_one_in_list l =
+-		match l with
+-		| []                               -> []
+-		| h :: tl when Symbol.equal h.name child.name -> nchild :: tl
+-		| h :: tl                          -> h :: replace_one_in_list tl
+-		in
+-	{ node with children = (replace_one_in_list node.children) }
++	{ node with
++	  children = SymbolMap.update child.name
++		     (function None -> None | Some _ -> Some nchild)
++		     node.children
++	}
+ 
+ let del_childname node childname =
+ 	let sym = Symbol.of_string childname in
+-	let rec delete_one_in_list l =
+-		match l with
+-		| []                        -> raise Not_found
+-		| h :: tl when Symbol.equal h.name sym -> tl
+-		| h :: tl                   -> h :: delete_one_in_list tl
+-		in
+-	{ node with children = (delete_one_in_list node.children) }
++	{ node with children =
++		SymbolMap.update sym
++		  (function None -> raise Not_found | Some _ -> None)
++		  node.children
++	}
+ 
+ let del_all_children node =
+-	{ node with children = [] }
++	{ node with children = SymbolMap.empty }
+ 
+ (* check if the current node can be accessed by the current connection with rperm permissions *)
+ let check_perm node connection request =
+@@ -87,7 +85,7 @@ let check_owner node connection =
+ 		raise Define.Permission_denied;
+ 	end
+ 
+-let rec recurse fct node = fct node; List.iter (recurse fct) node.children
++let rec recurse fct node = fct node; SymbolMap.iter (fun _ -> recurse fct) node.children
+ 
+ let unpack node = (Symbol.to_string node.name, node.perms, node.value)
+ 
+@@ -321,7 +319,7 @@ let ls store perm path =
+ 				Node.check_perm cnode perm Perms.READ;
+ 				cnode.Node.children in
+ 			Path.apply store.root path do_ls in
+-	List.rev (List.map (fun n -> Symbol.to_string n.Node.name) children)
++	SymbolMap.fold (fun k _ accu -> Symbol.to_string k :: accu) children []
+ 
+ let getperms store perm path =
+ 	if path = [] then
+@@ -350,7 +348,7 @@ let traversal root_node f =
+ 	let rec _traversal path node =
+ 		f path node;
+ 		let node_path = Path.of_path_and_name path (Symbol.to_string node.Node.name) in
+-		List.iter (_traversal node_path) node.Node.children
++		SymbolMap.iter (fun _ -> _traversal node_path) node.Node.children
+ 		in
+ 	_traversal [] root_node
+ 
+diff --git a/tools/ocaml/xenstored/symbol.ml b/tools/ocaml/xenstored/symbol.ml
+index dac6f9f819..2697915623 100644
+--- a/tools/ocaml/xenstored/symbol.ml
++++ b/tools/ocaml/xenstored/symbol.ml
+@@ -31,6 +31,10 @@ let equal a b =
+   (* compare using physical equality, both members have to be part of the above weak table *)
+   a == b
+ 
++let compare a b =
++  if equal a b then 0
++  else -(String.compare a b)
++
+ let stats () =
+   let len, entries, _, _, _, _ = WeakTable.stats tbl in
+   len, entries
+diff --git a/tools/ocaml/xenstored/symbol.mli b/tools/ocaml/xenstored/symbol.mli
+index 586ab57507..dd0f014796 100644
+--- a/tools/ocaml/xenstored/symbol.mli
++++ b/tools/ocaml/xenstored/symbol.mli
+@@ -32,6 +32,9 @@ val to_string : t -> string
+ val equal: t -> t -> bool
+ (** Compare two symbols for equality *)
+ 
++val compare: t -> t -> int
++(** Compare two symbols *)
++
+ (** {6 Statistics } *)
+ 
+ val stats : unit -> int * int
 -- 
 2.25.1
 
