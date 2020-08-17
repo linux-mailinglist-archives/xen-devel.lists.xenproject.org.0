@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83902463C2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 11:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F125A2463BF
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 11:49:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7bm8-0004QV-Ve; Mon, 17 Aug 2020 09:49:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7bm0-0004IY-OC; Mon, 17 Aug 2020 09:49:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YVS9=B3=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k7bm7-00046Z-BW
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 09:49:55 +0000
-X-Inumbo-ID: 3aaad613-d3e2-4ead-bebb-35a69a30ab5d
+ id 1k7blz-00046j-0P
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 09:49:47 +0000
+X-Inumbo-ID: 15fd8fe1-3080-47ed-947f-38b1ff40de51
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3aaad613-d3e2-4ead-bebb-35a69a30ab5d;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 15fd8fe1-3080-47ed-947f-38b1ff40de51;
  Mon, 17 Aug 2020 09:49:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 551CAAEF9;
+ by mx2.suse.de (Postfix) with ESMTP id 7C47BAEFA;
  Mon, 17 Aug 2020 09:49:51 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
  Wei Liu <wl@xen.org>
-Subject: [PATCH II v2 08/17] tools/misc: don't include xg_save_restore.h from
- xen-mfndump.c
-Date: Mon, 17 Aug 2020 11:49:13 +0200
-Message-Id: <20200817094922.15768-9-jgross@suse.com>
+Subject: [PATCH II v2 09/17] tools/misc: replace PAGE_SIZE with XC_PAGE_SIZE
+ in xen-mfndump.c
+Date: Mon, 17 Aug 2020 11:49:14 +0200
+Message-Id: <20200817094922.15768-10-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200817094922.15768-1-jgross@suse.com>
 References: <20200817094922.15768-1-jgross@suse.com>
@@ -49,47 +48,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-xen-mfndump.c is including the libxc private header xg_save_restore.h.
-Avoid that by moving the definition of is_mapped() to xen-mfndump.c
-(it is used there only) and by duplicating the definition of
-M2P_SIZE() in xen-mfndump.c.
+The definition of PAGE_SIZE comes from xc_private.h, which shouldn't be
+used by xen-mfndump.c. Replace PAGE_SIZE by XC_PAGE_SIZE, as
+xc_private.h contains:
+
+#define PAGE_SIZE XC_PAGE_SIZE
+
+For the same reason PAGE_SHIFT_X86 needs to replaced with
+XC_PAGE_SHIFT.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/libxc/xg_save_restore.h | 4 ----
- tools/misc/xen-mfndump.c      | 5 ++++-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ tools/misc/xen-mfndump.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/tools/libxc/xg_save_restore.h b/tools/libxc/xg_save_restore.h
-index 303081df0d..b904296997 100644
---- a/tools/libxc/xg_save_restore.h
-+++ b/tools/libxc/xg_save_restore.h
-@@ -109,10 +109,6 @@ static inline int get_platform_info(xc_interface *xch, uint32_t dom,
- #define M2P_SIZE(_m)    ROUNDUP(((_m) * sizeof(xen_pfn_t)), M2P_SHIFT)
- #define M2P_CHUNKS(_m)  (M2P_SIZE((_m)) >> M2P_SHIFT)
- 
--/* Returns TRUE if the PFN is currently mapped */
--#define is_mapped(pfn_type) (!((pfn_type) & 0x80000000UL))
--
--
- #define GET_FIELD(_p, _f, _w) (((_w) == 8) ? ((_p)->x64._f) : ((_p)->x32._f))
- 
- #define SET_FIELD(_p, _f, _v, _w) do {          \
 diff --git a/tools/misc/xen-mfndump.c b/tools/misc/xen-mfndump.c
-index 858bd0e26b..cb15d08c7e 100644
+index cb15d08c7e..92bc954ce0 100644
 --- a/tools/misc/xen-mfndump.c
 +++ b/tools/misc/xen-mfndump.c
-@@ -5,7 +5,10 @@
- #include <unistd.h>
- #include <inttypes.h>
+@@ -207,7 +207,7 @@ int dump_ptes_func(int argc, char *argv[])
+         goto out;
+     }
  
--#include "xg_save_restore.h"
-+#include <xen-tools/libs.h>
-+
-+#define M2P_SIZE(_m)    ROUNDUP(((_m) * sizeof(xen_pfn_t)), 21)
-+#define is_mapped(pfn_type) (!((pfn_type) & 0x80000000UL))
+-    page = xc_map_foreign_range(xch, domid, PAGE_SIZE, PROT_READ,
++    page = xc_map_foreign_range(xch, domid, XC_PAGE_SIZE, PROT_READ,
+                                 minfo.p2m_table[pfn]);
+     if ( !page )
+     {
+@@ -216,7 +216,7 @@ int dump_ptes_func(int argc, char *argv[])
+         goto out;
+     }
  
- static xc_interface *xch;
+-    pte_num = PAGE_SIZE / 8;
++    pte_num = XC_PAGE_SIZE / 8;
+ 
+     printf(" --- Dumping %d PTEs for domain %d ---\n", pte_num, domid);
+     printf(" Guest Width: %u, PT Levels: %u P2M size: = %lu\n",
+@@ -252,7 +252,7 @@ int dump_ptes_func(int argc, char *argv[])
+ 
+  out:
+     if ( page )
+-        munmap(page, PAGE_SIZE);
++        munmap(page, XC_PAGE_SIZE);
+     xc_unmap_domain_meminfo(xch, &minfo);
+     munmap(m2p_table, M2P_SIZE(max_mfn));
+     return rc;
+@@ -290,7 +290,7 @@ int lookup_pte_func(int argc, char *argv[])
+         return -1;
+     }
+ 
+-    pte_num = PAGE_SIZE / 8;
++    pte_num = XC_PAGE_SIZE / 8;
+ 
+     printf(" --- Lookig for PTEs mapping mfn 0x%lx for domain %d ---\n",
+            mfn, domid);
+@@ -302,7 +302,7 @@ int lookup_pte_func(int argc, char *argv[])
+         if ( !(minfo.pfn_type[i] & XEN_DOMCTL_PFINFO_LTABTYPE_MASK) )
+             continue;
+ 
+-        page = xc_map_foreign_range(xch, domid, PAGE_SIZE, PROT_READ,
++        page = xc_map_foreign_range(xch, domid, XC_PAGE_SIZE, PROT_READ,
+                                     minfo.p2m_table[i]);
+         if ( !page )
+             continue;
+@@ -312,15 +312,15 @@ int lookup_pte_func(int argc, char *argv[])
+             uint64_t pte = ((const uint64_t*)page)[j];
+ 
+ #define __MADDR_BITS_X86  ((minfo.guest_width == 8) ? 52 : 44)
+-#define __MFN_MASK_X86    ((1ULL << (__MADDR_BITS_X86 - PAGE_SHIFT_X86)) - 1)
+-            if ( ((pte >> PAGE_SHIFT_X86) & __MFN_MASK_X86) == mfn)
++#define __MFN_MASK_X86    ((1ULL << (__MADDR_BITS_X86 - XC_PAGE_SHIFT)) - 1)
++            if ( ((pte >> XC_PAGE_SHIFT) & __MFN_MASK_X86) == mfn)
+                 printf("  0x%lx <-- [0x%lx][%lu]: 0x%"PRIx64"\n",
+                        mfn, minfo.p2m_table[i], j, pte);
+ #undef __MADDR_BITS_X86
+ #undef __MFN_MASK_X8
+         }
+ 
+-        munmap(page, PAGE_SIZE);
++        munmap(page, XC_PAGE_SIZE);
+         page = NULL;
+     }
+ 
+@@ -355,8 +355,8 @@ int memcmp_mfns_func(int argc, char *argv[])
+         return -1;
+     }
+ 
+-    page1 = xc_map_foreign_range(xch, domid1, PAGE_SIZE, PROT_READ, mfn1);
+-    page2 = xc_map_foreign_range(xch, domid2, PAGE_SIZE, PROT_READ, mfn2);
++    page1 = xc_map_foreign_range(xch, domid1, XC_PAGE_SIZE, PROT_READ, mfn1);
++    page2 = xc_map_foreign_range(xch, domid2, XC_PAGE_SIZE, PROT_READ, mfn2);
+     if ( !page1 || !page2 )
+     {
+         ERROR("Failed to map either 0x%lx[dom %d] or 0x%lx[dom %d]\n",
+@@ -368,13 +368,13 @@ int memcmp_mfns_func(int argc, char *argv[])
+     printf(" --- Comparing the content of 2 MFNs ---\n");
+     printf(" 1: 0x%lx[dom %d], 2: 0x%lx[dom %d]\n",
+            mfn1, domid1, mfn2, domid2);
+-    printf("  memcpy(1, 2) = %d\n", memcmp(page1, page2, PAGE_SIZE));
++    printf("  memcpy(1, 2) = %d\n", memcmp(page1, page2, XC_PAGE_SIZE));
+ 
+  out:
+     if ( page1 )
+-        munmap(page1, PAGE_SIZE);
++        munmap(page1, XC_PAGE_SIZE);
+     if ( page2 )
+-        munmap(page2, PAGE_SIZE);
++        munmap(page2, XC_PAGE_SIZE);
+     return rc;
+ }
  
 -- 
 2.26.2
