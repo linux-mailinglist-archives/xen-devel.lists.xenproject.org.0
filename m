@@ -2,49 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40209246BF2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 18:05:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9EB2246C25
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 18:11:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7hcv-0000dp-E2; Mon, 17 Aug 2020 16:04:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7hj2-0001Xy-8m; Mon, 17 Aug 2020 16:11:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jdix=B3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k7hct-0000dk-Uz
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 16:04:47 +0000
-X-Inumbo-ID: ba934d44-8411-4680-81e8-4fbbf39ed1eb
+ id 1k7hj1-0001Xt-Eq
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 16:11:07 +0000
+X-Inumbo-ID: c6e52a19-c8a5-4af1-ac3b-9b668f641ecc
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ba934d44-8411-4680-81e8-4fbbf39ed1eb;
- Mon, 17 Aug 2020 16:04:46 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c6e52a19-c8a5-4af1-ac3b-9b668f641ecc;
+ Mon, 17 Aug 2020 16:11:06 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4C354AD46;
- Mon, 17 Aug 2020 16:05:10 +0000 (UTC)
-Subject: Re: [PATCH 3/4] build: also check for empty .bss.* in .o -> .init.o
- conversion
+ by mx2.suse.de (Postfix) with ESMTP id E92DCB79D;
+ Mon, 17 Aug 2020 16:11:30 +0000 (UTC)
+Subject: Re: [PATCH 3/3] x86: don't override INVALID_M2P_ENTRY with
+ SHARED_M2P_ENTRY
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
- <c99cf808-0710-51b1-c07c-07bf237e22a3@suse.com>
- <5b2bbc31-0095-c3e2-9e34-20453ea2aa5f@citrix.com>
- <61481966-3052-ebf2-e23b-aac292cd09a1@suse.com>
- <9a3cd872-bc6c-3113-fdf9-2f80ad8fabce@citrix.com>
- <039916f1-c9f2-710f-8f46-3ff9d91a9109@suse.com>
- <ec93160a-82f5-4a32-78ae-96eb941f1d48@citrix.com>
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <a2b8f0e9-77ea-6127-a25e-d8fd3dcbb866@suse.com>
+ <1d83fd35-6ea5-289c-d8db-029c50957f85@suse.com>
+ <b54b2eb2-f663-e597-1d80-f7fb37e3b39a@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9be0a02c-2192-3c6f-1c99-0e0c51a2f1d0@suse.com>
-Date: Mon, 17 Aug 2020 18:04:43 +0200
+Message-ID: <7a3612a4-90c5-9147-ded4-612b9bf812df@suse.com>
+Date: Mon, 17 Aug 2020 18:11:00 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <ec93160a-82f5-4a32-78ae-96eb941f1d48@citrix.com>
+In-Reply-To: <b54b2eb2-f663-e597-1d80-f7fb37e3b39a@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -61,88 +53,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.08.2020 19:51, Andrew Cooper wrote:
-> On 07/08/2020 16:40, Jan Beulich wrote:
->> On 07.08.2020 17:12, Andrew Cooper wrote:
->>> On 07/08/2020 11:56, Jan Beulich wrote:
->>>> On 06.08.2020 18:16, Andrew Cooper wrote:
->>>>> On 06/08/2020 10:05, Jan Beulich wrote:
->>>>> Can't we remove all of this by having CONFIG_XEN_PE expressed/selectable
->>>>> properly in Kconfig, and gathering all the objects normally, rather than
->>>>> bodging all of common/efi/ through arch/efi/ ?
->>>> _If_ we settle on Kconfig to be allowed to check compiler (and linker)
->>>> features, then yes. This continues to be a pending topic though, so
->>>> the switch can't be made like this at this point in time. (It could be
->>>> made a Kconfig item now - which, when enabled, implies the assertion
->>>> that a capable tool chain is in use.)
->>> I am still of the opinion that nothing needs discussing, but you are
->>> obviously not.
->>>
->>> Please raise this as a topic and lets discuss it, because it has a
->>> meaningful impacting on a large number of pending series.
->> Preferably I would have put this on this month's community meeting
->> agenda, but I'll be ooo next week, so that's not going to help, I'm
->> afraid. I guess I should put it up in email form when I'm back,
->> albeit I wasn't thinking it should need to be me to start the
->> discussion. Instead my view was that such a discussion should (have
->> been, now after-the-fact) be started by whoever wants to introduce
->> a new feature.
+On 10.08.2020 18:42, Andrew Cooper wrote:
+> On 06/08/2020 10:29, Jan Beulich wrote:
+>> While in most cases code ahead of the invocation of set_gpfn_from_mfn()
+>> deals with shared pages, at least in set_typed_p2m_entry() I can't spot
+>> such handling (it's entirely possible there's code missing there). Let's
+>> try to play safe and add an extra check.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/include/asm-x86/mm.h
+>> +++ b/xen/include/asm-x86/mm.h
+>> @@ -525,9 +525,14 @@ extern const unsigned int *const compat_
+>>  #endif /* CONFIG_PV32 */
+>>  
+>>  #define _set_gpfn_from_mfn(mfn, pfn) ({                        \
+>> -    struct domain *d = page_get_owner(mfn_to_page(_mfn(mfn))); \
+>> -    unsigned long entry = (d && (d == dom_cow)) ?              \
+>> -        SHARED_M2P_ENTRY : (pfn);                              \
+>> +    unsigned long entry = (pfn);                               \
+>> +    if ( entry != INVALID_M2P_ENTRY )                          \
+>> +    {                                                          \
+>> +        const struct domain *d;                                \
+>> +        d = page_get_owner(mfn_to_page(_mfn(mfn)));            \
+>> +        if ( d && (d == dom_cow) )                             \
+>> +            entry = SHARED_M2P_ENTRY;                          \
+>> +    }                                                          \
+>>      set_compat_m2p(mfn, (unsigned int)(entry));                \
+>>      machine_to_phys_mapping[mfn] = (entry);                    \
+>>  })
+>>
 > 
-> It would have been better to raise a concern/objectection before you
-> committed the feature.
+> Hmm - we already have a lot of callers, and this is already too
+> complicated to be a define.
 
-I did, and I committed the whole lot because of not wanting to block
-the many improvements over this one aspect I disagree with. Recall
-me asking what happens if the compiler (or any part of the tool chain)
-gets upgraded (or, possibly worse, downgraded) between two
-(incremental) builds?
+I did consider moving this into an out-of-line function, yes.
 
-> It was a very clear intent of upgrading Kconfig and switching to Kbuild,
-> to clean up the total and chronic mess we call a build system.  It has
-> been discussed multiple times in person, and on xen-devel, without
-> apparent objection at the time.
-
-The change to Kbuild was discussed. The use (and, depending on how one
-views it, abuse) of Kconfig to determine tool chain capabilities wasn't,
-iirc. At least not in a way that it would have been noticeable to me.
-
-> The state of 4.14 and later is that we have the feature, and it is
-> already in use, with a lot more use expected to continue fixing the
-> build system.
-
-If I'm not mistaken I did make my ack on the first use of the new
-behavior (in your CET series) dependent upon a subsequent discussion
-(that should have occurred up front), again in an attempt to get
-certain things taken care of for 4.14. This was, again iirc, in turn
-referring to the earlier ack on Anthony's series, which was given in
-a similarly conditional manner. (But I may be mis-remembering.)
-Therefore ...
-
-> You are currently blocking work to fix aspects of the build system based
-> on a dislike of this feature, *and* expecting someone else to justify
-> why using this feature as intended is ok in the first place.
-
-... I'm pretty puzzled: Am I now being told that I shouldn't have
-made the compromises, and rather should have blocked things earlier
-on? I.e. is my attempt to show reasonable behavior now being turned
-back into an argument against me? If so, I can certainly draw the
-obvious conclusions from that, for the future.
-
-> I do not consider that a reasonable expectation of how to proceed.
+> We have x86 which uses M2P, and ARM which doesn't.  We have two more
+> architectures on the way which probably won't want M2P, and certainly
+> won't in the beginning.
 > 
-> If you wish to undo what was a deliberate intention of the
-> Kconfig/Kbuild work, then it is you who must start the conversation on
-> why we should revert the improvements.
+> Can we introduce CONFIG_M2P which is selected by x86, rename this
+> infrastructure to set_m2p() or something, provide a no-op fallback in
+> common code, and move this implementation into x86/mm.c ?
 
-If I hadn't voiced my reservations long before, this _may_ indeed be
-a valid position to take. But given all that had been said already
-before any of this went in, I don't think it is. Anyway - despite me
-not thinking it should be me (and hence it not having happened so
-far), I intend (as said) to start a discussion. To be honest, I'll
-be curious to see how it'll go, both in terms of number of
-responses received and in terms of everyone honoring the fact that
-it should _not_ matter that the logic in question was already
-committed.
+We can, sure. Question is whether this isn't more scope creep than
+is acceptable considering the purpose of this change.
+
+> In particular, silently clobbering pfn to SHARED_M2P_ENTRY is rude
+> behaviour.  It would be better to ASSERT() the right one is passed in,
+> which also simplifies release builds.
+
+Now this is, irrespective of me agreeing with the point you make,
+a change I'm not going to make: There's no way I could guarantee
+I wouldn't break mem-sharing. A change like this can imo only
+possibly be done by someone actively working on and with
+mem-sharing.
 
 Jan
 
