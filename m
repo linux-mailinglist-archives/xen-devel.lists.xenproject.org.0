@@ -2,71 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B31F2469C6
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:26:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FC42469D2
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:26:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7h1X-0003nF-1y; Mon, 17 Aug 2020 15:26:11 +0000
+	id 1k7h1w-0003qP-Ae; Mon, 17 Aug 2020 15:26:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gW6M=B3=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1k7h1V-0003n9-GD
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:26:09 +0000
-X-Inumbo-ID: 072ebe8f-1bbf-4a75-b547-90d8285f74a8
-Received: from mail-qv1-xf41.google.com (unknown [2607:f8b0:4864:20::f41])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jdix=B3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k7h1v-0003qI-Jb
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:26:35 +0000
+X-Inumbo-ID: 3f781db2-e86d-4871-ac20-c5bf2975b09d
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 072ebe8f-1bbf-4a75-b547-90d8285f74a8;
- Mon, 17 Aug 2020 15:26:08 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id cs12so7962335qvb.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Aug 2020 08:26:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=xHM3aMczrtxEGiBnoEaBfsbBuzD5kJs1HBfhKOSpU34=;
- b=RUAtOcNWvYbl07SIFU75BKfAiO78oHIkX4P8tZjPRzsrhCWVZROvVDVccUckRRQ1Rn
- rZ69qgzKuQvwwu6+2SEJTAsGCEXMhRs+YI6B7RjIS8vPjAKgz83uuDt3hI7MPIR87d0v
- BLCc+MyxYZHmylHZJM4QXQMnD+kb7MBM98P9d6Ug6gyvJxOtYLTsG6osnDVB5BqevdBp
- gCKuckElzcLNRaQQ5RW4Mq48Agg7ZqrmPB6Mmri4zWEiGuN4HpxOlvOJhLHzsZw5qxw3
- hPnBONVeHecrB8x8fLu5yrZTEkH/V17uagOAqH+hgxQDw4Ypifqtk3Cb2CqnVAwIoYYo
- k0iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xHM3aMczrtxEGiBnoEaBfsbBuzD5kJs1HBfhKOSpU34=;
- b=VN+0+A0dI2NuzmUTIZdWtQ/KTda4nb6HtaLvjhj2FBAV2e1oObrE5RBlJ2m5JMrMRu
- ycw9dIJ6y6Ula4pYXy/ttfOMYJalsKqrxKskX1KCYPFtQklw2dT8AWOlJJ8EULJ+XDyu
- sxPrpxdS6IRvgtyoUlFGl+OSEkp1Q4bxN0DG57l5wRRqlEzRQ4aUhfNvMMknDJUNY0Ij
- GC+iIeaXe+755cOEG91gqD64edqlLmk/IW3/MXqOsbUOjs2AAQIXjoWrCRF08W1s+Z8X
- +pW1E7xLKWPaJhTWl9n4JdirKmJTjdFM4axvWtctocTrOYtv0a3B1uqvIxmTLilIo9i3
- aRaw==
-X-Gm-Message-State: AOAM530ST2PVVn6qM1PkuOF3CvjwnsKCxephURwnwjn9+qZrF+HaNWpj
- T+wd94Yrv+nfqK1DownCllc=
-X-Google-Smtp-Source: ABdhPJw1an/NsgmTM6Pi6ls3gS8oTJmEm1/LqA/wn1vHA/87x2ocxQoig39pjY30TDSg7wFjcKS0lQ==
-X-Received: by 2002:ad4:560f:: with SMTP id
- ca15mr15225946qvb.144.1597677968122; 
- Mon, 17 Aug 2020 08:26:08 -0700 (PDT)
-Received: from four (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
- by smtp.gmail.com with ESMTPSA id b131sm17623318qkc.121.2020.08.17.08.26.06
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 17 Aug 2020 08:26:07 -0700 (PDT)
-Date: Mon, 17 Aug 2020 11:26:04 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, george.dunlap@citrix.com,
- Nick Rosbrook <rosbrookn@ainfosec.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [RFC PATCH 1/2] libxl: add Function class to IDL
-Message-ID: <20200817152604.GA6441@four>
-References: <cover.1595854292.git.rosbrookn@ainfosec.com>
- <7e1774dffe69c702f738566abeb04a3a9d29e21b.1595854292.git.rosbrookn@ainfosec.com>
- <20200814105233.GD2024@perard.uk.xensource.com>
+ id 3f781db2-e86d-4871-ac20-c5bf2975b09d;
+ Mon, 17 Aug 2020 15:26:34 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0476AAC24;
+ Mon, 17 Aug 2020 15:26:59 +0000 (UTC)
+Subject: Re: [PATCH 05/14] kernel-doc: public/features.h
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ george.dunlap@citrix.com, ian.jackson@eu.citrix.com, julien@xen.org,
+ wl@xen.org, Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
+ <20200806234933.16448-5-sstabellini@kernel.org>
+ <ab1a0562-6fe0-9613-b6c9-a09714af02cf@suse.com>
+ <alpine.DEB.2.21.2008071239130.16004@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8b8a63fb-5b79-42ba-7d6f-d1538775033a@suse.com>
+Date: Mon, 17 Aug 2020 17:26:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200814105233.GD2024@perard.uk.xensource.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <alpine.DEB.2.21.2008071239130.16004@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,65 +54,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Aug 14, 2020 at 11:52:33AM +0100, Anthony PERARD wrote:
-> On Mon, Jul 27, 2020 at 09:26:32AM -0400, Nick Rosbrook wrote:
-> > Add a Function and CtxFunction classes to idl.py to allow generator
-> > scripts to generate wrappers which are repetitive and straight forward
-> > when doing so by hand. Examples of such functions are the
-> > device_add/remove functions.
-> > 
-> > To start, a Function has attributes for namespace, name, parameters,
-> > return type, and an indication if the return value should be interpreted as
-> > a status code. The CtxFunction class extends this by indicating that a
-> > libxl_ctx is a required parmeter, and can optionally be an async
-> > function.
-> > 
-> > Also, add logic to idl.parse to return the list of functions found in an
-> > IDL file. For now, have users of idl.py -- i.e. libxl/gentypes.py and
-> > golang/xenlight/gengotypes.py -- ignore the list of functions returned.
-> > 
-> > Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> > ---
-> >  
-> > +class Function(object):
-> > +    """
-> > +    A general description of a function signature.
-> > +
-> > +    Attributes:
-> > +      name (str): name of the function, excluding namespace.
-> > +      params (list of (str,Type)): list of function parameters.
-> > +      return_type (Type): the Type (if any), returned by the function.
-> > +      return_is_status (bool): Indicates that the return value should be
-> > +                               interpreted as an error/status code.
+On 07.08.2020 23:52, Stefano Stabellini wrote:
+> On Fri, 7 Aug 2020, Jan Beulich wrote:
+>> On 07.08.2020 01:49, Stefano Stabellini wrote:
+>>> @@ -41,19 +41,25 @@
+>>>   * XENFEAT_dom0 MUST be set if the guest is to be booted as dom0,
+>>>   */
+>>>  
+>>> -/*
+>>> - * If set, the guest does not need to write-protect its pagetables, and can
+>>> - * update them via direct writes.
+>>> +/**
+>>> + * DOC: XENFEAT_writable_page_tables
+>>> + *
+>>> + * If set, the guest does not need to write-protect its pagetables, and
+>>> + * can update them via direct writes.
+>>>   */
+>>>  #define XENFEAT_writable_page_tables       0
+>>
+>> I dislike such redundancy (and it's more noticable here than with
+>> the struct-s). Is there really no way for the tool to find the
+>> right item, the more that in the cover letter you say that you
+>> even need to get the placement right, i.e. there can't be e.g.
+>> intervening #define-s?
 > 
-> Can we get away without `return_is_status`? Couldn't we try to have
-> return_type=libxl_error to indicate that return is a kind of status?
+> Let me clarify that the right placement (nothing between the comment and
+> the following structure) is important for structs, typedefs, etc., but
+> not for "DOC". DOC is freeform and doesn't have to be followed by
+> anything specifically.
 > 
-Yes, I think that is much better.
+> 
+> In regards to the redundancy, there is only another option, that I
+> didn't choose because it leads to worse documents being generated.
+> However, they are still readable, so if the agreement is to use the
+> other format, I would be OK with it.
+> 
+> 
+> The other format is the keyword "macro" (this one would have to have the
+> right placement, straight on top of the #define):
+> 
+> /**
+>  * macro XENFEAT_writable_page_tables
+>  *
+>  * If set, the guest does not need to write-protect its pagetables, and
+>  * can update them via direct writes.
+>  */
+> 
+> 
+> Which could be further simplified to:
+> 
+> /**
+>  * macro
+>  *
+>  * If set, the guest does not need to write-protect its pagetables, and
+>  * can update them via direct writes.
+>  */
+> 
+> 
+> In terms of redundancy, that's the best we can do.
+> 
+> The reason why I say it is not optimal is that with DOC the pleudo-html
+> generated via sphinx is:
+> 
+> ---
+> * XENFEAT_writable_page_tables *
+> 
+> If set, the guest does not need to write-protect its pagetables, and
+> can update them via direct writes.
+> ---
+> 
+> While with macro, two () parenthesis gets added to the title, and also an
+> empty "Parameters" section gets added, like this:
+> 
+> ---
+> * XENFEAT_writable_page_tables() *
+> 
+> ** Parameters **
+> 
+> ** Description **
+> 
+> If set, the guest does not need to write-protect its pagetables, and
+> can update them via direct writes.
+> ---
+> 
+> 
+> I think it could be confusing to the user: it looks like a macro with
+> parameters, which is not what we want.
 
-> > +    """
-> > +class CtxFunction(Function):
-> > +    """
-> > +    A function that requires a libxl_ctx.
-> > +
-> > +    Attributes:
-> > +      is_asyncop (bool): indicates that the function accepts a
-> > +                         libxl_asyncop_how parameter.
-> 
-> While CtxFunction can be a function that takes `libxl_ctx` as first
-> parameter, I don't think `is_asyncop` can be used. We can't know if
-> `ao_how` will be last or not. For some function, `ao_how` is second to
-> last. So, I guess `ao_how` might need to be listed in `params`
-> 
-> What do you think?
-That's a good point. Do you think it would make sense to add `Builtin`
-definitions to libxl_types.idl for `libxl_asyncop_how`,
-`libxl_asyncprogress_how`, etc.? That way the generation scripts could
-work with those types more easily. But, I guess since those definitions
-aren't known until parse time we couldn't use them in the
-`DeviceFunction` class definition (but maybe that's not a big deal).
+Agreed, so ...
 
-Thank you for the feedback.
+> For that reason, I think we should stick with "DOC" for now.
 
--NR
+... if there are no (better) alternatives we'll have to live with the
+redundancy.
+
+Jan
 
