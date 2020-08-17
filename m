@@ -2,69 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D494246905
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:05:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D174424690D
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 17:07:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7gfO-0001ic-8k; Mon, 17 Aug 2020 15:03:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7gj9-0001s9-Q2; Mon, 17 Aug 2020 15:07:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AGoP=B3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k7gfN-0001iX-DD
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:03:17 +0000
-X-Inumbo-ID: 82bb11dd-386e-446c-a9f5-726fe25a286c
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82bb11dd-386e-446c-a9f5-726fe25a286c;
- Mon, 17 Aug 2020 15:03:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597676596;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7+aKi/igvpmlVCbNGbsuMcEq9wmnP5GOPd+Ily3Thqc=;
- b=IAks7vtrkRXWOkLlwiUF+MHd4VlsuziAF4c1Gwhjkcq7WKNk+GJHDQXp
- C9Xg0KDlteKUtf6bqsnDnuJar36ryvvGnSimC+RM3osZTC0vKeYdT9Fkg
- 2ydo1mhdxh2/aeUexjc4jEJGrEKmo9F70dKuK/ZgxG0uesj77rUtymDzP k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 9kqX3oJfWGYmX0GXWhRaK/qhIlu3WPLIoXBdExntDz2gKetK9vjYxPlVrwMUoDP27sX0uaNtJ5
- Lx7e45CVMtmeyvJNoBlBLAeJ3mLHPVvPGuu6NWyq6Ob/TVXcJ/Mqc+W5xAJNyhPi8mC3pmH78F
- jHqSoAiaTIVxdIexxbDjcDIJvBpqJio4gS12HHG8Sd5DVYsiw0Moj40nGfkZSseXtSAj2vgKT+
- /sRPK8d2Xl51FQoYdXNWPKI9U/ZcAzKVrVISzf7LiiCbhjzJbVkEgfmbShAkIetfdtpVAPIPvt
- fVw=
-X-SBRS: 2.7
-X-MesageID: 25022655
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,322,1592884800"; d="scan'208";a="25022655"
-Date: Mon, 17 Aug 2020 17:03:07 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+ <SRS0=EDHT=B3=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1k7gj8-0001s2-Mj
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 15:07:10 +0000
+X-Inumbo-ID: 73d57f06-bd6e-4c5d-a438-81a6bf4720d6
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 73d57f06-bd6e-4c5d-a438-81a6bf4720d6;
+ Mon, 17 Aug 2020 15:07:09 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id b30so8531833lfj.12
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Aug 2020 08:07:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=V+5/d/ZQWPakGrpuamUUpx382oO1V+iKKtl5F+a3kuE=;
+ b=UwTWn+DjpGqss9/XO5QsZkmjb/x/+h7HCUmL2sVbhF7/cos19+o+VSC7LVIaQk8HBQ
+ hbu3j3o8gtWsoD+U4TCk7MqKINRwmSQPTOg5MpgX09Ko2EcgJdZ9EIxc30FD3Dgv3xAQ
+ UlQ5QXS2YEEGKw84iMpHUmZbPLEmFqC8TAx5w62whrkjpQVEI93VFl3LjgEoEMKylnRc
+ TyG9BgtOGjDc0qBBbCtBUusI/zCBVYJatY8kW7SrqYTyNE0Y8Sd/eIjP4b4UZlCigLQx
+ oONP4PJ77s1pzDrR87B4tGTKXtvpQbdoljNPLzYlVhQtLyOez+PokiJTItQ8i2rPbEcb
+ CDyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=V+5/d/ZQWPakGrpuamUUpx382oO1V+iKKtl5F+a3kuE=;
+ b=swwhjUg3a8BUaWCZYD2YDHw+mMWS6M+3W9o2ZL6sr3KwrZPxnb1wWGlbo/8FwNj0ZS
+ frwqYy/1IbV7PKWgx7zlB1ntzOdmoK0NYQdF74IXQEzW1RZC7bBXUFj0aP8KDeLth+09
+ ivE8Qn0XtEdJ0PVbtLeR9Nf219tuGK3lXh7uQVFnM3SgmIbQjAMCv7+2sOEHm5xy5Q3q
+ aBSVAv1LNN0SnA+0DE9bzr2dy0Y8WaqS8ExwpCpfRl2/oMix4eUfPUP/uIU4cRXIM8SU
+ gGKVQw6r5EvbjvWNwEI5TsP/k/GdNePh6eaWT/DM1JL9POcwXVwdIteSlO+h5MuoOg0L
+ XLWQ==
+X-Gm-Message-State: AOAM532gh5tIZTMZsvNFoLw9Hzewsi7ejX42OHuWIamWtrVWLenn+wl6
+ 0TXXS82SSEgkqdp2gSKHbSQ=
+X-Google-Smtp-Source: ABdhPJzBPavcluM+xxuyMh8Eb6A4IV/6Xbn6ffQPK+9x3wPphfuuroVHySANo//9X5A9vbyUcSJGow==
+X-Received: by 2002:ac2:46d4:: with SMTP id p20mr7717519lfo.109.1597676828467; 
+ Mon, 17 Aug 2020 08:07:08 -0700 (PDT)
+Received: from [192.168.1.2] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id i16sm5054017ljn.100.2020.08.17.08.07.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Aug 2020 08:07:07 -0700 (PDT)
+Subject: Re: [RFC PATCH V1 07/12] A collection of tweaks to be able to run
+ emulator in driver domain
 To: Julien Grall <julien@xen.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>, Julien Grall
- <jgrall@amazon.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
- pirq_spin_lock_irq_desc()
-Message-ID: <20200817150307.GF828@Air-de-Roger>
-References: <20200722165300.22655-1-julien@xen.org>
- <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
- <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
- <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
- <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
- <20200817124600.GC828@Air-de-Roger>
- <9375f5f2-7cbd-1344-ae03-51909dfd41e9@xen.org>
- <20200817140125.GD828@Air-de-Roger>
- <53eeaa9f-3a4f-525e-a07f-d36ef245925a@xen.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ paul@xen.org, 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-8-git-send-email-olekstysh@gmail.com>
+ <4ffa6434-3ad6-04dc-bfde-f75196930fb4@suse.com>
+ <005f01d66b47$1c58ccc0$550a6640$@xen.org>
+ <a9a8a3fb-10ad-96f7-651b-9bed46310ba2@gmail.com>
+ <e8105d18-338f-bd90-39a2-eb37e37345a7@suse.com>
+ <17fbc16e-6db8-66e3-967c-85b652df571a@gmail.com>
+ <a6fcc96e-9f28-0934-21b9-4cb655c3467a@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <fde63471-c02c-53bf-e93c-66942eabec97@gmail.com>
+Date: Mon, 17 Aug 2020 18:07:02 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <a6fcc96e-9f28-0934-21b9-4cb655c3467a@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <53eeaa9f-3a4f-525e-a07f-d36ef245925a@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,103 +92,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Aug 17, 2020 at 03:39:52PM +0100, Julien Grall wrote:
-> 
-> 
-> On 17/08/2020 15:01, Roger Pau Monné wrote:
-> > On Mon, Aug 17, 2020 at 02:14:01PM +0100, Julien Grall wrote:
-> > > Hi,
-> > > 
-> > > On 17/08/2020 13:46, Roger Pau Monné wrote:
-> > > > On Fri, Aug 14, 2020 at 08:25:28PM +0100, Julien Grall wrote:
-> > > > > Hi Andrew,
-> > > > > 
-> > > > > Sorry for the late answer.
-> > > > > 
-> > > > > On 23/07/2020 14:59, Andrew Cooper wrote:
-> > > > > > On 23/07/2020 14:22, Julien Grall wrote:
-> > > > > > > Hi Jan,
-> > > > > > > 
-> > > > > > > On 23/07/2020 12:23, Jan Beulich wrote:
-> > > > > > > > On 22.07.2020 18:53, Julien Grall wrote:
-> > > > > > > > > --- a/xen/arch/x86/irq.c
-> > > > > > > > > +++ b/xen/arch/x86/irq.c
-> > > > > > > > > @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
-> > > > > > > > >            for ( ; ; )
-> > > > > > > > >          {
-> > > > > > > > > -        int irq = pirq->arch.irq;
-> > > > > > > > > +        int irq = read_atomic(&pirq->arch.irq);
-> > > > > > > > 
-> > > > > > > > There we go - I'd be fine this way, but I'm pretty sure Andrew
-> > > > > > > > would want this to be ACCESS_ONCE(). So I guess now is the time
-> > > > > > > > to settle which one to prefer in new code (or which criteria
-> > > > > > > > there are to prefer one over the other).
-> > > > > > > 
-> > > > > > > I would prefer if we have a single way to force the compiler to do a
-> > > > > > > single access (read/write).
-> > > > > > 
-> > > > > > Unlikely to happen, I'd expect.
-> > > > > > 
-> > > > > > But I would really like to get rid of (or at least rename)
-> > > > > > read_atomic()/write_atomic() specifically because they've got nothing to
-> > > > > > do with atomic_t's and the set of functionality who's namespace they share.
-> > > > > 
-> > > > > Would you be happy if I rename both to READ_ONCE() and WRITE_ONCE()? I would
-> > > > > also suggest to move them implementation in a new header asm/lib.h.
-> > > > 
-> > > > Maybe {READ/WRITE}_SINGLE (to note those should be implemented using a
-> > > > single instruction)?
-> > > 
-> > > The asm volatile statement contains only one instruction, but this doesn't
-> > > mean the helper will generate a single instruction.
-> > 
-> > Well, the access should be done using a single instruction, which is
-> > what we care about when using this helpers.
-> > 
-> > > You may have other instructions to get the registers ready for the access.
-> > > 
-> > > > 
-> > > > ACCESS_ONCE (which also has the _ONCE suffix) IIRC could be
-> > > > implemented using several instructions, and hence doesn't seem right
-> > > > that they all have the _ONCE suffix.
-> > > 
-> > > The goal here is the same, we want to access the variable *only* once.
-> > 
-> > Right, but this is not guaranteed by the current implementation of
-> > ACCESS_ONCE AFAICT, as the compiler *might* split the access into two
-> > (or more) instructions, and hence won't be an atomic access anymore?
-> From my understanding, at least on GCC/Clang, ACCESS_ONCE() should be atomic
-> if you are using aligned address and the size smaller than a register size.
 
-Yes, any sane compiler shouldn't split such access, but this is not
-guaranteed by the current code in ACCESS_ONCE.
+On 16.08.20 18:36, Julien Grall wrote:
 
-> > 
-> > > May I ask why we would want to expose the difference to the user?
-> > 
-> > I'm not saying we should, but naming them using the _ONCE suffix seems
-> > misleading IMO, as they have different guarantees than what
-> > ACCESS_ONCE currently provides.
-> 
-> Lets leave aside how ACCESS_ONCE() is implemented for a moment.
-> 
-> If ACCESS_ONCE() doesn't guarantee atomicy, then it means you may read a mix
-> of the old and new value. This would most likely break quite a few of the
-> users because the result wouldn't be coherent.
-> 
-> Do you have place in mind where the non-atomicity would be useful?
+Hi Julien.
 
-Not that I'm aware, I think they could all be safely switched to use
-the atomic variants
+>
+>
+> On 14/08/2020 17:30, Oleksandr wrote:
+>>
+>> Hello all.
+>>
+>>
+>>>>>> -----Original Message-----
+>>>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>>>> Sent: 05 August 2020 17:20
+>>>>>> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; Paul Durrant 
+>>>>>> <paul@xen.org>
+>>>>>> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko 
+>>>>>> <oleksandr_tyshchenko@epam.com>; Andrew
+>>>>>> Cooper <andrew.cooper3@citrix.com>; George Dunlap 
+>>>>>> <george.dunlap@citrix.com>; Ian Jackson
+>>>>>> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; 
+>>>>>> Stefano Stabellini
+>>>>>> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Daniel De Graaf 
+>>>>>> <dgdegra@tycho.nsa.gov>
+>>>>>> Subject: Re: [RFC PATCH V1 07/12] A collection of tweaks to be 
+>>>>>> able to run emulator in driver domain
+>>>>>>
+>>>>>> On 03.08.2020 20:21, Oleksandr Tyshchenko wrote:
+>>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>>
+>>>>>>> Trying to run emulator in driver domain I ran into various issues
+>>>>>>> mostly policy-related. So this patch tries to resolve all them
+>>>>>>> plobably in a hackish way. I would like to get feedback how
+>>>>>>> to implement them properly as having an emulator in driver domain
+>>>>>>> is a completely valid use-case.
+>>>>>>   From going over the comments I can only derive you want to run
+>>>>>> an emulator in a driver domain, which doesn't really make sense
+>>>>>> to me. A driver domain has a different purpose after all. If
+>>>>>> instead you mean it to be run in just some other domain (which
+>>>>>> also isn't the domain controlling the target), then there may
+>>>>>> be more infrastructure changes needed.
+>>>>>>
+>>>>>> Paul - was/is your standalone ioreq server (demu?) able to run
+>>>>>> in other than the domain controlling a guest?
+>>>>>>
+>>>>> Not something I've done yet, but it was always part of the idea so 
+>>>>> that we could e.g. pass through a device to a dedicated domain and 
+>>>>> then run multiple demu instances there to virtualize it for many 
+>>>>> domUs. (I'm thinking here of a device that is not SR-IOV and hence 
+>>>>> would need some bespoke emulation code to share it out).That 
+>>>>> dedicated domain would be termed the 'driver domain' simply 
+>>>>> because it is running the device driver for the h/w that underpins 
+>>>>> the emulation.
+>>>> I may abuse "driver domain" terminology, but indeed in our use-case we
+>>>> pass through a set of H/W devices to a dedicated domain which is 
+>>>> running
+>>>> the device drivers for that H/Ws. Our target system comprises a thin
+>>>> Dom0 (without H/W devices at all), DomD (which owns most of the H/W
+>>>> devices) and DomU which runs on virtual devices. This patch tries to
+>>>> make changes at Xen side to be able run standalone ioreq server
+>>>> (emulator) in that dedicated (driver?) domain.
+>>> Okay, in which case I'm fine with the term. I simply wasn't aware of 
+>>> the
+>>> targeted scenario, sorry.
+>>
+>>
+>> May I kindly ask to suggest me the pointers how to *properly* resolve 
+>> various policy related issues described in that patch? Without having 
+>> them resolved it wouldn't be able to run standalone IOREQ server in 
+>> driver domain.
+>
+> You could already do that by writing your own XSM policy. Did you 
+> explore it? If so, may I ask why this wouldn't be suitable?
+>
+> Also, I would like to emphasis that because of XSA-295 (Unlimited Arm 
+> Atomics Operations), you can only run emulators in trusted domain on Arm.
+>
+> There would be more work to do if you wanted to run them in 
+> non-trusted environment.
 
-In fact I wouldn't be surprised if users of ACCESS_ONCE break if the
-access was split into multiple instructions.
+Thank you for the explanation. Yes, we consider driver domain as a 
+trusted domain, there is no plan to run emulator in non-trusted domains. 
+Indeed, it worth trying to write our own policy which will cover our use 
+case (with emulator in driver domain) rather than tweak Xen's default one.
 
-My comment was to notice that just renaming the atomic read/write
-helpers to use the _ONCE prefix is IMO weird as they offer different
-properties than ACCESS_ONCE, and hence might confuse users. Just
-looking at READ_ONCE users could assume all _ONCE helpers would
-guarantee atomicity, which is not the case.
 
-Thanks, Roger.
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
