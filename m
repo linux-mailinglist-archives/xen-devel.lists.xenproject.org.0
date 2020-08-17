@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A5082463C4
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 11:50:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E4A2463DC
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 11:57:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7bmE-0004eF-La; Mon, 17 Aug 2020 09:50:02 +0000
+	id 1k7bss-0006n6-26; Mon, 17 Aug 2020 09:56:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YVS9=B3=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k7bmE-00046j-0v
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 09:50:02 +0000
-X-Inumbo-ID: c495a367-0ebd-40d4-a65a-ab916c5567d6
+ id 1k7bmT-00046j-1M
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 09:50:17 +0000
+X-Inumbo-ID: 6fbcaa63-1b30-4132-b980-518286e87702
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c495a367-0ebd-40d4-a65a-ab916c5567d6;
+ id 6fbcaa63-1b30-4132-b980-518286e87702;
  Mon, 17 Aug 2020 09:49:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 405B1AF0B;
+ by mx2.suse.de (Postfix) with ESMTP id 751CBAD33;
  Mon, 17 Aug 2020 09:49:52 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
-Subject: [PATCH II v2 14/17] tools/libxc: rename libxenguest internal headers
-Date: Mon, 17 Aug 2020 11:49:19 +0200
-Message-Id: <20200817094922.15768-15-jgross@suse.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Subject: [PATCH II v2 15/17] tools/misc: rename xc_dom.h do xenctrl_dom.h
+Date: Mon, 17 Aug 2020 11:49:20 +0200
+Message-Id: <20200817094922.15768-16-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200817094922.15768-1-jgross@suse.com>
 References: <20200817094922.15768-1-jgross@suse.com>
@@ -47,313 +51,407 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Rename the header files private to libxenguest from xc_*.h to xg_*.h.
+For being able to disentangle lixenctrl and libxenguest headers
+xc_dom.h will need to be public. Prepare that by renaming xc_dom.h
+to xenctrl_dom.h.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/libxc/xg_dom_bzimageloader.c                              | 2 +-
- tools/libxc/{xc_dom_decompress.h => xg_dom_decompress.h}        | 2 +-
- tools/libxc/xg_dom_decompress_lz4.c                             | 2 +-
- tools/libxc/xg_dom_decompress_unsafe.c                          | 2 +-
- .../{xc_dom_decompress_unsafe.h => xg_dom_decompress_unsafe.h}  | 0
- tools/libxc/xg_dom_decompress_unsafe_bzip2.c                    | 2 +-
- tools/libxc/xg_dom_decompress_unsafe_lzma.c                     | 2 +-
- tools/libxc/xg_dom_decompress_unsafe_lzo1x.c                    | 2 +-
- tools/libxc/xg_dom_decompress_unsafe_xz.c                       | 2 +-
- tools/libxc/xg_sr_common.c                                      | 2 +-
- tools/libxc/{xc_sr_common.h => xg_sr_common.h}                  | 2 +-
- tools/libxc/xg_sr_common_x86.c                                  | 2 +-
- tools/libxc/{xc_sr_common_x86.h => xg_sr_common_x86.h}          | 2 +-
- tools/libxc/xg_sr_common_x86_pv.c                               | 2 +-
- tools/libxc/{xc_sr_common_x86_pv.h => xg_sr_common_x86_pv.h}    | 2 +-
- tools/libxc/xg_sr_restore.c                                     | 2 +-
- tools/libxc/xg_sr_restore_x86_hvm.c                             | 2 +-
- tools/libxc/xg_sr_restore_x86_pv.c                              | 2 +-
- tools/libxc/xg_sr_save.c                                        | 2 +-
- tools/libxc/xg_sr_save_x86_hvm.c                                | 2 +-
- tools/libxc/xg_sr_save_x86_pv.c                                 | 2 +-
- tools/libxc/{xc_sr_stream_format.h => xg_sr_stream_format.h}    | 0
- 22 files changed, 20 insertions(+), 20 deletions(-)
- rename tools/libxc/{xc_dom_decompress.h => xg_dom_decompress.h} (77%)
- rename tools/libxc/{xc_dom_decompress_unsafe.h => xg_dom_decompress_unsafe.h} (100%)
- rename tools/libxc/{xc_sr_common.h => xg_sr_common.h} (99%)
- rename tools/libxc/{xc_sr_common_x86.h => xg_sr_common_x86.h} (98%)
- rename tools/libxc/{xc_sr_common_x86_pv.h => xg_sr_common_x86_pv.h} (98%)
- rename tools/libxc/{xc_sr_stream_format.h => xg_sr_stream_format.h} (100%)
+ stubdom/grub/kexec.c                            | 2 +-
+ tools/helpers/init-xenstore-domain.c            | 2 +-
+ tools/libxc/include/{xc_dom.h => xenctrl_dom.h} | 0
+ tools/libxc/xc_core.c                           | 2 +-
+ tools/libxc/xc_private.c                        | 2 +-
+ tools/libxc/xg_dom_arm.c                        | 2 +-
+ tools/libxc/xg_dom_armzimageloader.c            | 2 +-
+ tools/libxc/xg_dom_binloader.c                  | 2 +-
+ tools/libxc/xg_dom_boot.c                       | 2 +-
+ tools/libxc/xg_dom_compat_linux.c               | 2 +-
+ tools/libxc/xg_dom_core.c                       | 2 +-
+ tools/libxc/xg_dom_decompress.h                 | 2 +-
+ tools/libxc/xg_dom_decompress_unsafe.h          | 2 +-
+ tools/libxc/xg_dom_elfloader.c                  | 2 +-
+ tools/libxc/xg_dom_hvmloader.c                  | 2 +-
+ tools/libxc/xg_dom_x86.c                        | 2 +-
+ tools/libxc/xg_offline_page.c                   | 2 +-
+ tools/libxc/xg_sr_common.h                      | 2 +-
+ tools/libxl/libxl_arm.c                         | 2 +-
+ tools/libxl/libxl_arm.h                         | 2 +-
+ tools/libxl/libxl_create.c                      | 2 +-
+ tools/libxl/libxl_dm.c                          | 2 +-
+ tools/libxl/libxl_dom.c                         | 2 +-
+ tools/libxl/libxl_internal.h                    | 2 +-
+ tools/libxl/libxl_vnuma.c                       | 2 +-
+ tools/libxl/libxl_x86.c                         | 2 +-
+ tools/libxl/libxl_x86_acpi.c                    | 2 +-
+ tools/python/xen/lowlevel/xc/xc.c               | 2 +-
+ tools/xcutils/readnotes.c                       | 2 +-
+ 29 files changed, 28 insertions(+), 28 deletions(-)
+ rename tools/libxc/include/{xc_dom.h => xenctrl_dom.h} (100%)
 
-diff --git a/tools/libxc/xg_dom_bzimageloader.c b/tools/libxc/xg_dom_bzimageloader.c
-index a7d70cc7c6..f959a77602 100644
---- a/tools/libxc/xg_dom_bzimageloader.c
-+++ b/tools/libxc/xg_dom_bzimageloader.c
-@@ -32,7 +32,7 @@
- #include <inttypes.h>
+diff --git a/stubdom/grub/kexec.c b/stubdom/grub/kexec.c
+index 0e68b969a2..24001220a9 100644
+--- a/stubdom/grub/kexec.c
++++ b/stubdom/grub/kexec.c
+@@ -20,7 +20,7 @@
+ #include <sys/mman.h>
+ 
+ #include <xenctrl.h>
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ 
+ #include <kernel.h>
+ #include <console.h>
+diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
+index 4ce8299c3c..5bdb48dc80 100644
+--- a/tools/helpers/init-xenstore-domain.c
++++ b/tools/helpers/init-xenstore-domain.c
+@@ -8,7 +8,7 @@
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
+ #include <xenctrl.h>
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ #include <xenstore.h>
+ #include <xen/sys/xenbus_dev.h>
+ #include <xen-xsm/flask/flask.h>
+diff --git a/tools/libxc/include/xc_dom.h b/tools/libxc/include/xenctrl_dom.h
+similarity index 100%
+rename from tools/libxc/include/xc_dom.h
+rename to tools/libxc/include/xenctrl_dom.h
+diff --git a/tools/libxc/xc_core.c b/tools/libxc/xc_core.c
+index 2ee1d205b4..7df1fccd62 100644
+--- a/tools/libxc/xc_core.c
++++ b/tools/libxc/xc_core.c
+@@ -62,7 +62,7 @@
  
  #include "xg_private.h"
--#include "xc_dom_decompress.h"
-+#include "xg_dom_decompress.h"
+ #include "xc_core.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include <stdlib.h>
+ #include <unistd.h>
  
+diff --git a/tools/libxc/xc_private.c b/tools/libxc/xc_private.c
+index 90974d572e..6ecdf6953f 100644
+--- a/tools/libxc/xc_private.c
++++ b/tools/libxc/xc_private.c
+@@ -19,7 +19,7 @@
+ 
+ #include "xc_private.h"
+ #include "xg_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include <stdarg.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+diff --git a/tools/libxc/xg_dom_arm.c b/tools/libxc/xg_dom_arm.c
+index 931404c222..3f66f1d890 100644
+--- a/tools/libxc/xg_dom_arm.c
++++ b/tools/libxc/xg_dom_arm.c
+@@ -24,7 +24,7 @@
  #include <xen-tools/libs.h>
  
-diff --git a/tools/libxc/xc_dom_decompress.h b/tools/libxc/xg_dom_decompress.h
-similarity index 77%
-rename from tools/libxc/xc_dom_decompress.h
-rename to tools/libxc/xg_dom_decompress.h
-index 42cefa3f0e..d9a21cf297 100644
---- a/tools/libxc/xc_dom_decompress.h
-+++ b/tools/libxc/xg_dom_decompress.h
-@@ -1,7 +1,7 @@
- #ifndef __MINIOS__
- # include "xc_dom.h"
- #else
--# include "xc_dom_decompress_unsafe.h"
-+# include "xg_dom_decompress_unsafe.h"
- #endif
- 
- int xc_try_lz4_decode(struct xc_dom_image *dom, void **blob, size_t *size);
-diff --git a/tools/libxc/xg_dom_decompress_lz4.c b/tools/libxc/xg_dom_decompress_lz4.c
-index b6a33f27a8..97ba620d86 100644
---- a/tools/libxc/xg_dom_decompress_lz4.c
-+++ b/tools/libxc/xg_dom_decompress_lz4.c
-@@ -4,7 +4,7 @@
- #include <stdint.h>
- 
  #include "xg_private.h"
--#include "xc_dom_decompress.h"
-+#include "xg_dom_decompress.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  
- #define CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS
- 
-diff --git a/tools/libxc/xg_dom_decompress_unsafe.c b/tools/libxc/xg_dom_decompress_unsafe.c
-index 164e35558f..21d964787d 100644
---- a/tools/libxc/xg_dom_decompress_unsafe.c
-+++ b/tools/libxc/xg_dom_decompress_unsafe.c
-@@ -3,7 +3,7 @@
+ #define NR_MAGIC_PAGES 4
+ #define CONSOLE_PFN_OFFSET 0
+diff --git a/tools/libxc/xg_dom_armzimageloader.c b/tools/libxc/xg_dom_armzimageloader.c
+index 0df8c2a4b1..4246c8e5fa 100644
+--- a/tools/libxc/xg_dom_armzimageloader.c
++++ b/tools/libxc/xg_dom_armzimageloader.c
+@@ -25,7 +25,7 @@
  #include <inttypes.h>
  
  #include "xg_private.h"
--#include "xc_dom_decompress_unsafe.h"
-+#include "xg_dom_decompress_unsafe.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  
- static struct xc_dom_image *unsafe_dom;
- static unsigned char *output_blob;
-diff --git a/tools/libxc/xc_dom_decompress_unsafe.h b/tools/libxc/xg_dom_decompress_unsafe.h
-similarity index 100%
-rename from tools/libxc/xc_dom_decompress_unsafe.h
-rename to tools/libxc/xg_dom_decompress_unsafe.h
-diff --git a/tools/libxc/xg_dom_decompress_unsafe_bzip2.c b/tools/libxc/xg_dom_decompress_unsafe_bzip2.c
-index 4dcabe4061..9d3709e6cc 100644
---- a/tools/libxc/xg_dom_decompress_unsafe_bzip2.c
-+++ b/tools/libxc/xg_dom_decompress_unsafe_bzip2.c
-@@ -3,7 +3,7 @@
+ #include <arpa/inet.h> /* XXX ntohl is not the right function... */
+ 
+diff --git a/tools/libxc/xg_dom_binloader.c b/tools/libxc/xg_dom_binloader.c
+index d6f7f2a500..870a921427 100644
+--- a/tools/libxc/xg_dom_binloader.c
++++ b/tools/libxc/xg_dom_binloader.c
+@@ -83,7 +83,7 @@
  #include <inttypes.h>
  
  #include "xg_private.h"
--#include "xc_dom_decompress_unsafe.h"
-+#include "xg_dom_decompress_unsafe.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  
- #include "../../xen/common/bunzip2.c"
- 
-diff --git a/tools/libxc/xg_dom_decompress_unsafe_lzma.c b/tools/libxc/xg_dom_decompress_unsafe_lzma.c
-index 4ee8cdbab1..5d178f0c43 100644
---- a/tools/libxc/xg_dom_decompress_unsafe_lzma.c
-+++ b/tools/libxc/xg_dom_decompress_unsafe_lzma.c
-@@ -3,7 +3,7 @@
- #include <inttypes.h>
- 
- #include "xg_private.h"
--#include "xc_dom_decompress_unsafe.h"
-+#include "xg_dom_decompress_unsafe.h"
- 
- #include "../../xen/common/unlzma.c"
- 
-diff --git a/tools/libxc/xg_dom_decompress_unsafe_lzo1x.c b/tools/libxc/xg_dom_decompress_unsafe_lzo1x.c
-index 59888b9da2..a4f8ebd42d 100644
---- a/tools/libxc/xg_dom_decompress_unsafe_lzo1x.c
-+++ b/tools/libxc/xg_dom_decompress_unsafe_lzo1x.c
-@@ -5,7 +5,7 @@
- #include <stdint.h>
+ #define round_pgup(_p)    (((_p)+(PAGE_SIZE_X86-1))&PAGE_MASK_X86)
+ #define round_pgdown(_p)  ((_p)&PAGE_MASK_X86)
+diff --git a/tools/libxc/xg_dom_boot.c b/tools/libxc/xg_dom_boot.c
+index bb599b33ba..1e31e92244 100644
+--- a/tools/libxc/xg_dom_boot.c
++++ b/tools/libxc/xg_dom_boot.c
+@@ -31,7 +31,7 @@
+ #include <zlib.h>
  
  #include "xg_private.h"
--#include "xc_dom_decompress_unsafe.h"
-+#include "xg_dom_decompress_unsafe.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "xc_core.h"
+ #include <xen/hvm/params.h>
+ #include <xen/grant_table.h>
+diff --git a/tools/libxc/xg_dom_compat_linux.c b/tools/libxc/xg_dom_compat_linux.c
+index b3d43feed9..b645f0b14b 100644
+--- a/tools/libxc/xg_dom_compat_linux.c
++++ b/tools/libxc/xg_dom_compat_linux.c
+@@ -30,7 +30,7 @@
  
- typedef uint8_t u8;
- typedef uint32_t u32;
-diff --git a/tools/libxc/xg_dom_decompress_unsafe_xz.c b/tools/libxc/xg_dom_decompress_unsafe_xz.c
-index fe7a7f49b4..ff6824b38d 100644
---- a/tools/libxc/xg_dom_decompress_unsafe_xz.c
-+++ b/tools/libxc/xg_dom_decompress_unsafe_xz.c
-@@ -6,7 +6,7 @@
- #include <inttypes.h>
- 
+ #include "xenctrl.h"
  #include "xg_private.h"
--#include "xc_dom_decompress_unsafe.h"
-+#include "xg_dom_decompress_unsafe.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  
- // TODO
- #define XZ_DEC_X86
-diff --git a/tools/libxc/xg_sr_common.c b/tools/libxc/xg_sr_common.c
-index 7c54b03414..17567ab133 100644
---- a/tools/libxc/xg_sr_common.c
-+++ b/tools/libxc/xg_sr_common.c
-@@ -1,6 +1,6 @@
+ /* ------------------------------------------------------------------------ */
+ 
+diff --git a/tools/libxc/xg_dom_core.c b/tools/libxc/xg_dom_core.c
+index 327c8a8575..1c91cce315 100644
+--- a/tools/libxc/xg_dom_core.c
++++ b/tools/libxc/xg_dom_core.c
+@@ -32,7 +32,7 @@
  #include <assert.h>
  
--#include "xc_sr_common.h"
-+#include "xg_sr_common.h"
+ #include "xg_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "_paths.h"
  
- #include <xen-tools/libs.h>
+ /* ------------------------------------------------------------------------ */
+diff --git a/tools/libxc/xg_dom_decompress.h b/tools/libxc/xg_dom_decompress.h
+index d9a21cf297..c5ab2e59eb 100644
+--- a/tools/libxc/xg_dom_decompress.h
++++ b/tools/libxc/xg_dom_decompress.h
+@@ -1,5 +1,5 @@
+ #ifndef __MINIOS__
+-# include "xc_dom.h"
++# include "xenctrl_dom.h"
+ #else
+ # include "xg_dom_decompress_unsafe.h"
+ #endif
+diff --git a/tools/libxc/xg_dom_decompress_unsafe.h b/tools/libxc/xg_dom_decompress_unsafe.h
+index 64f68864b1..fb84b6add8 100644
+--- a/tools/libxc/xg_dom_decompress_unsafe.h
++++ b/tools/libxc/xg_dom_decompress_unsafe.h
+@@ -1,4 +1,4 @@
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  
-diff --git a/tools/libxc/xc_sr_common.h b/tools/libxc/xg_sr_common.h
-similarity index 99%
-rename from tools/libxc/xc_sr_common.h
-rename to tools/libxc/xg_sr_common.h
-index f3bdea8006..35f23fabb5 100644
---- a/tools/libxc/xc_sr_common.h
-+++ b/tools/libxc/xg_sr_common.h
-@@ -8,7 +8,7 @@
- #include "xc_dom.h"
+ typedef int decompress_fn(unsigned char *inbuf, unsigned int len,
+                           int (*fill)(void*, unsigned int),
+diff --git a/tools/libxc/xg_dom_elfloader.c b/tools/libxc/xg_dom_elfloader.c
+index b327db219d..7043c3bbba 100644
+--- a/tools/libxc/xg_dom_elfloader.c
++++ b/tools/libxc/xg_dom_elfloader.c
+@@ -26,7 +26,7 @@
+ #include <inttypes.h>
+ 
+ #include "xg_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
  #include "xc_bitops.h"
  
--#include "xc_sr_stream_format.h"
-+#include "xg_sr_stream_format.h"
+ #define XEN_VER "xen-3.0"
+diff --git a/tools/libxc/xg_dom_hvmloader.c b/tools/libxc/xg_dom_hvmloader.c
+index 3f0bd65547..995a0f3dc3 100644
+--- a/tools/libxc/xg_dom_hvmloader.c
++++ b/tools/libxc/xg_dom_hvmloader.c
+@@ -26,7 +26,7 @@
+ #include <assert.h>
  
- /* String representation of Domain Header types. */
- const char *dhdr_type_to_str(uint32_t type);
-diff --git a/tools/libxc/xg_sr_common_x86.c b/tools/libxc/xg_sr_common_x86.c
-index 77ea044a74..6f12483907 100644
---- a/tools/libxc/xg_sr_common_x86.c
-+++ b/tools/libxc/xg_sr_common_x86.c
-@@ -1,4 +1,4 @@
--#include "xc_sr_common_x86.h"
-+#include "xg_sr_common_x86.h"
+ #include "xg_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "xc_bitops.h"
  
- int write_x86_tsc_info(struct xc_sr_context *ctx)
+ /* ------------------------------------------------------------------------ */
+diff --git a/tools/libxc/xg_dom_x86.c b/tools/libxc/xg_dom_x86.c
+index 9439805eaa..842dbcccdd 100644
+--- a/tools/libxc/xg_dom_x86.c
++++ b/tools/libxc/xg_dom_x86.c
+@@ -38,7 +38,7 @@
+ #include <xen-tools/libs.h>
+ 
+ #include "xg_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "xenctrl.h"
+ 
+ /* ------------------------------------------------------------------------ */
+diff --git a/tools/libxc/xg_offline_page.c b/tools/libxc/xg_offline_page.c
+index 19538fc436..77e8889b11 100644
+--- a/tools/libxc/xg_offline_page.c
++++ b/tools/libxc/xg_offline_page.c
+@@ -28,7 +28,7 @@
+ #include <xc_core.h>
+ 
+ #include "xc_private.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "xg_private.h"
+ #include "xg_save_restore.h"
+ 
+diff --git a/tools/libxc/xg_sr_common.h b/tools/libxc/xg_sr_common.h
+index 35f23fabb5..13fcc47420 100644
+--- a/tools/libxc/xg_sr_common.h
++++ b/tools/libxc/xg_sr_common.h
+@@ -5,7 +5,7 @@
+ 
+ #include "xg_private.h"
+ #include "xg_save_restore.h"
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include "xc_bitops.h"
+ 
+ #include "xg_sr_stream_format.h"
+diff --git a/tools/libxl/libxl_arm.c b/tools/libxl/libxl_arm.c
+index 34f8a29056..975a4d730a 100644
+--- a/tools/libxl/libxl_arm.c
++++ b/tools/libxl/libxl_arm.c
+@@ -3,7 +3,7 @@
+ #include "libxl_libfdt_compat.h"
+ #include "libxl_arm.h"
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ #include <stdbool.h>
+ #include <libfdt.h>
+ #include <assert.h>
+diff --git a/tools/libxl/libxl_arm.h b/tools/libxl/libxl_arm.h
+index 8aef210d4c..52c2ab5e3a 100644
+--- a/tools/libxl/libxl_arm.h
++++ b/tools/libxl/libxl_arm.h
+@@ -17,7 +17,7 @@
+ #include "libxl_internal.h"
+ #include "libxl_arch.h"
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ 
+ _hidden
+ int libxl__prepare_acpi(libxl__gc *gc, libxl_domain_build_info *info,
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index 2814818e34..1031b75159 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -20,7 +20,7 @@
+ #include "libxl_internal.h"
+ #include "libxl_arch.h"
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ #include <xenguest.h>
+ #include <xen/hvm/hvm_info_table.h>
+ #include <xen/hvm/e820.h>
+diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+index f2dc5696b9..fec4e0fbe5 100644
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -19,7 +19,7 @@
+ 
+ #include "libxl_internal.h"
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ #include <xen/hvm/e820.h>
+ #include <sys/types.h>
+ #include <pwd.h>
+diff --git a/tools/libxl/libxl_dom.c b/tools/libxl/libxl_dom.c
+index f8661e90d4..e2dca64aa1 100644
+--- a/tools/libxl/libxl_dom.c
++++ b/tools/libxl/libxl_dom.c
+@@ -20,7 +20,7 @@
+ #include "libxl_internal.h"
+ #include "libxl_arch.h"
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ #include <xen/hvm/hvm_info_table.h>
+ #include <xen/hvm/hvm_xs_strings.h>
+ #include <xen/hvm/e820.h>
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index c63d0686fd..e16ae9630b 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -57,7 +57,7 @@
+ #include <xenctrl.h>
+ #include <xenguest.h>
+ #include <xenhypfs.h>
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ 
+ #include <xen-tools/libs.h>
+ 
+diff --git a/tools/libxl/libxl_vnuma.c b/tools/libxl/libxl_vnuma.c
+index 8ec2abb2e6..c2e144ceae 100644
+--- a/tools/libxl/libxl_vnuma.c
++++ b/tools/libxl/libxl_vnuma.c
+@@ -17,7 +17,7 @@
+ #include "libxl_arch.h"
+ #include <stdlib.h>
+ 
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
+ 
+ bool libxl__vnuma_configured(const libxl_domain_build_info *b_info)
  {
-diff --git a/tools/libxc/xc_sr_common_x86.h b/tools/libxc/xg_sr_common_x86.h
-similarity index 98%
-rename from tools/libxc/xc_sr_common_x86.h
-rename to tools/libxc/xg_sr_common_x86.h
-index e08d81e0e7..b55758c96d 100644
---- a/tools/libxc/xc_sr_common_x86.h
-+++ b/tools/libxc/xg_sr_common_x86.h
+diff --git a/tools/libxl/libxl_x86.c b/tools/libxl/libxl_x86.c
+index e57f63282e..7d95506e00 100644
+--- a/tools/libxl/libxl_x86.c
++++ b/tools/libxl/libxl_x86.c
 @@ -1,7 +1,7 @@
- #ifndef __COMMON_X86__H
- #define __COMMON_X86__H
+ #include "libxl_internal.h"
+ #include "libxl_arch.h"
  
--#include "xc_sr_common.h"
-+#include "xg_sr_common.h"
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
  
- /*
-  * Obtains a domains TSC information from Xen and writes a X86_TSC_INFO record
-diff --git a/tools/libxc/xg_sr_common_x86_pv.c b/tools/libxc/xg_sr_common_x86_pv.c
-index d3d425cb82..cd33406aab 100644
---- a/tools/libxc/xg_sr_common_x86_pv.c
-+++ b/tools/libxc/xg_sr_common_x86_pv.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
+ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+                                       libxl_domain_config *d_config,
+diff --git a/tools/libxl/libxl_x86_acpi.c b/tools/libxl/libxl_x86_acpi.c
+index ed6610c84e..3df86c7be5 100644
+--- a/tools/libxl/libxl_x86_acpi.c
++++ b/tools/libxl/libxl_x86_acpi.c
+@@ -18,7 +18,7 @@
+ #include <xen/hvm/e820.h>
+ #include "libacpi/libacpi.h"
  
--#include "xc_sr_common_x86_pv.h"
-+#include "xg_sr_common_x86_pv.h"
+-#include <xc_dom.h>
++#include <xenctrl_dom.h>
  
- xen_pfn_t mfn_to_pfn(struct xc_sr_context *ctx, xen_pfn_t mfn)
- {
-diff --git a/tools/libxc/xc_sr_common_x86_pv.h b/tools/libxc/xg_sr_common_x86_pv.h
-similarity index 98%
-rename from tools/libxc/xc_sr_common_x86_pv.h
-rename to tools/libxc/xg_sr_common_x86_pv.h
-index 2ed03309af..953b5bfb8d 100644
---- a/tools/libxc/xc_sr_common_x86_pv.h
-+++ b/tools/libxc/xg_sr_common_x86_pv.h
-@@ -1,7 +1,7 @@
- #ifndef __COMMON_X86_PV_H
- #define __COMMON_X86_PV_H
- 
--#include "xc_sr_common_x86.h"
-+#include "xg_sr_common_x86.h"
- 
- /* Virtual address ranges reserved for hypervisor. */
- #define HYPERVISOR_VIRT_START_X86_64 0xFFFF800000000000ULL
-diff --git a/tools/libxc/xg_sr_restore.c b/tools/libxc/xg_sr_restore.c
-index bc811e6e3a..b57a787519 100644
---- a/tools/libxc/xg_sr_restore.c
-+++ b/tools/libxc/xg_sr_restore.c
-@@ -2,7 +2,7 @@
- 
- #include <assert.h>
- 
--#include "xc_sr_common.h"
-+#include "xg_sr_common.h"
- 
- /*
-  * Read and validate the Image and Domain headers.
-diff --git a/tools/libxc/xg_sr_restore_x86_hvm.c b/tools/libxc/xg_sr_restore_x86_hvm.c
-index a77624cc9d..d6ea6f3012 100644
---- a/tools/libxc/xg_sr_restore_x86_hvm.c
-+++ b/tools/libxc/xg_sr_restore_x86_hvm.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
+  /* Number of pages holding ACPI tables */
+ #define NUM_ACPI_PAGES 16
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index 8fde5f311f..8c7b184f0b 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -17,7 +17,7 @@
  #include <arpa/inet.h>
  
--#include "xc_sr_common_x86.h"
-+#include "xg_sr_common_x86.h"
- 
- /*
-  * Process an HVM_CONTEXT record from the stream.
-diff --git a/tools/libxc/xg_sr_restore_x86_pv.c b/tools/libxc/xg_sr_restore_x86_pv.c
-index d086271efb..dc50b0f5a8 100644
---- a/tools/libxc/xg_sr_restore_x86_pv.c
-+++ b/tools/libxc/xg_sr_restore_x86_pv.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xc_sr_common_x86_pv.h"
-+#include "xg_sr_common_x86_pv.h"
- 
- static xen_pfn_t pfn_to_mfn(const struct xc_sr_context *ctx, xen_pfn_t pfn)
- {
-diff --git a/tools/libxc/xg_sr_save.c b/tools/libxc/xg_sr_save.c
-index 80b1d5de1f..d74c72cba6 100644
---- a/tools/libxc/xg_sr_save.c
-+++ b/tools/libxc/xg_sr_save.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
- #include <arpa/inet.h>
- 
--#include "xc_sr_common.h"
-+#include "xg_sr_common.h"
- 
- /*
-  * Writes an Image header and Domain header into the stream.
-diff --git a/tools/libxc/xg_sr_save_x86_hvm.c b/tools/libxc/xg_sr_save_x86_hvm.c
-index 0b2abb26bd..1634a7bc43 100644
---- a/tools/libxc/xg_sr_save_x86_hvm.c
-+++ b/tools/libxc/xg_sr_save_x86_hvm.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xc_sr_common_x86.h"
-+#include "xg_sr_common_x86.h"
- 
+ #include <xen/elfnote.h>
+-#include "xc_dom.h"
++#include "xenctrl_dom.h"
+ #include <xen/hvm/hvm_info_table.h>
  #include <xen/hvm/params.h>
  
-diff --git a/tools/libxc/xg_sr_save_x86_pv.c b/tools/libxc/xg_sr_save_x86_pv.c
-index c7e246ef4f..4964f1f7b8 100644
---- a/tools/libxc/xg_sr_save_x86_pv.c
-+++ b/tools/libxc/xg_sr_save_x86_pv.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
- #include <limits.h>
+diff --git a/tools/xcutils/readnotes.c b/tools/xcutils/readnotes.c
+index e682dd1a21..a6b7358e70 100644
+--- a/tools/xcutils/readnotes.c
++++ b/tools/xcutils/readnotes.c
+@@ -12,7 +12,7 @@
+ #include <sys/mman.h>
  
--#include "xc_sr_common_x86_pv.h"
-+#include "xg_sr_common_x86_pv.h"
+ #include <xg_private.h>
+-#include <xc_dom.h> /* gunzip bits */
++#include <xenctrl_dom.h> /* gunzip bits */
  
- /* Check a 64 bit virtual address for being canonical. */
- static inline bool is_canonical_address(xen_vaddr_t vaddr)
-diff --git a/tools/libxc/xc_sr_stream_format.h b/tools/libxc/xg_sr_stream_format.h
-similarity index 100%
-rename from tools/libxc/xc_sr_stream_format.h
-rename to tools/libxc/xg_sr_stream_format.h
+ #include <xen/libelf/libelf.h>
+ 
 -- 
 2.26.2
 
