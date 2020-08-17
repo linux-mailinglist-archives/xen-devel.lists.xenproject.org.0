@@ -2,70 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A1224643E
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 12:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA4B246493
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Aug 2020 12:33:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7cCW-00014E-Bw; Mon, 17 Aug 2020 10:17:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7cSC-0002ql-77; Mon, 17 Aug 2020 10:33:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KDWc=B3=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1k7cCV-000149-KQ
- for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 10:17:11 +0000
-X-Inumbo-ID: 2e47fe83-72c3-4a8d-9098-a292693a18ff
-Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2e47fe83-72c3-4a8d-9098-a292693a18ff;
- Mon, 17 Aug 2020 10:17:10 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id ECC633159;
- Mon, 17 Aug 2020 12:17:09 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id x3KhW64Hhigc; Mon, 17 Aug 2020 12:17:09 +0200 (CEST)
-Received: from function (lfbn-bor-1-797-11.w86-234.abo.wanadoo.fr
- [86.234.239.11])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 44E69309B;
- Mon, 17 Aug 2020 12:17:09 +0200 (CEST)
-Received: from samy by function with local (Exim 4.94)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1k7cCS-001Xzg-40; Mon, 17 Aug 2020 12:17:08 +0200
-Date: Mon, 17 Aug 2020 12:17:08 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH II v2 17/17] tools: move libxenctrl below tools/libs
-Message-ID: <20200817101708.widu6u4p35x35cbi@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- xen-devel@dornerworks.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20200817094922.15768-1-jgross@suse.com>
- <20200817094922.15768-18-jgross@suse.com>
+ <SRS0=AGoP=B3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k7cSA-0002qe-L9
+ for xen-devel@lists.xenproject.org; Mon, 17 Aug 2020 10:33:22 +0000
+X-Inumbo-ID: 5364051e-affb-47f5-9449-86e669d68ccc
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5364051e-affb-47f5-9449-86e669d68ccc;
+ Mon, 17 Aug 2020 10:33:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597660401;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tcGZvPtk62e+7PdIPH2Lbk1Icj8Lf77VLfoW+25sYDA=;
+ b=ShDZgv44CAVVBfHFda/E6MHH+L1dT36vrMH68QlJQc4SFhhvDi54FlYb
+ S9S64WMcntTQUluyc9zsXVpOg1e9KoWvlf796cXnzxJ6rUZAs8xxKwjpX
+ EzkMFn2uOgh7sZ3WEigJUR0TbJe4yCcfZcFMjaOIBwXD7PLmXx19uAnHy k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4722xQKZ4zb4gn3Jvwx/mW3US4wZiJ9VMzu6J1Msd9ONQg4TIhl02nWie6GCrRpyFuUtnxb/Gm
+ tVdE7MFGT+tJTQLmzl1kcAUky9GhJ+oPIxsHFWsaDzo3p9MfOUkTgu5aogHVX1Tho6MsE4U8KB
+ pud1v5g1FIMdWjFS48O0sC1KdrimSk755nD/YiLmm6Ma106jUQQeBXvxmQdAwae5cvarxdtQTE
+ HZMvg63rUYulux5D8x726VC5l+oBepfL0vyd35iuEKQrW2RoAq1MSlpAgMcmRBT6HiUb5fQpKX
+ LmQ=
+X-SBRS: 2.7
+X-MesageID: 24820439
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,322,1592884800"; d="scan'208";a="24820439"
+Date: Mon, 17 Aug 2020 12:33:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Julien Grall <julien@xen.org>
+CC: <xen-devel@lists.xenproject.org>, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
+Message-ID: <20200817103306.GA828@Air-de-Roger>
+References: <20200815172143.1327-1-julien@xen.org>
+ <20200817092406.GO975@Air-de-Roger>
+ <b620dc46-7446-a440-5fd2-fd1cc7f8ffa7@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200817094922.15768-18-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+In-Reply-To: <b620dc46-7446-a440-5fd2-fd1cc7f8ffa7@xen.org>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,18 +73,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Juergen Gross, le lun. 17 août 2020 11:49:22 +0200, a ecrit:
-> diff --git a/stubdom/Makefile b/stubdom/Makefile
-> index 6fcecadeb9..440adc2eb4 100644
-> --- a/stubdom/Makefile
-> +++ b/stubdom/Makefile
+On Mon, Aug 17, 2020 at 10:42:54AM +0100, Julien Grall wrote:
+> Hi,
+> 
+> On 17/08/2020 10:24, Roger Pau Monné wrote:
+> > On Sat, Aug 15, 2020 at 06:21:43PM +0100, Julien Grall wrote:
+> > > From: Julien Grall <jgrall@amazon.com>
+> > > 
+> > > The IOREQ code is using cmpxchg() with 64-bit value. At the moment, this
+> > > is x86 code, but there is plan to make it common.
+> > > 
+> > > To cater 32-bit arch, introduce two new helpers to deal with 64-bit
+> > > cmpxchg.
+> > > 
+> > > The Arm 32-bit implementation of cmpxchg64() is based on the __cmpxchg64
+> > > in Linux v5.8 (arch/arm/include/asm/cmpxchg.h).
+> > > 
+> > > Signed-off-by: Julien Grall <jgrall@amazon.com>
+> > > Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > ---
+> > > diff --git a/xen/include/asm-x86/guest_atomics.h b/xen/include/asm-x86/guest_atomics.h
+> > > index 029417c8ffc1..f4de9d3631ff 100644
+> > > --- a/xen/include/asm-x86/guest_atomics.h
+> > > +++ b/xen/include/asm-x86/guest_atomics.h
+> > > @@ -20,6 +20,8 @@
+> > >       ((void)(d), test_and_change_bit(nr, p))
+> > >   #define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
+> > > +#define guest_cmpxchg64(d, ptr, o, n) ((void)(d), cmpxchg64(ptr, o, n))
+> > > +
+> > >   #endif /* _X86_GUEST_ATOMICS_H */
+> > >   /*
+> > > diff --git a/xen/include/asm-x86/x86_64/system.h b/xen/include/asm-x86/x86_64/system.h
+> > > index f471859c19cc..c1b16105e9f2 100644
+> > > --- a/xen/include/asm-x86/x86_64/system.h
+> > > +++ b/xen/include/asm-x86/x86_64/system.h
+> > > @@ -5,6 +5,8 @@
+> > >       ((__typeof__(*(ptr)))__cmpxchg((ptr),(unsigned long)(o),            \
+> > >                                      (unsigned long)(n),sizeof(*(ptr))))
+> > > +#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
+> > 
+> > Why do you need to introduce an explicitly sized version of cmpxchg
+> > for 64bit values?
+> > 
+> > There's no cmpxchg{8,16,32}, so I would expect cmpxchg64 to just be
+> > handled by cmpxchg detecting the size of the parameter passed to the
+> > function.
+> That works quite well for 64-bit arches. However, for 32-bit, you would need
+> to take some detour so 32-bit and 64-bit can cohabit (you cannot simply
+> replace unsigned long with uint64_t).
 
-> diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
-> index 32528bb91f..b1387df3f8 100644
-> --- a/stubdom/mini-os.mk
-> +++ b/stubdom/mini-os.mk
+Oh, I see. Switching __cmpxchg on Arm 32 to use unsigned long long or
+uint64_t would be bad, as you would then need two registers to pass
+the value to the function, or push it on the stack?
 
-For these,
+Maybe do something like:
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+#define cmpxchg(ptr,o,n) ({						\
+	typeof(*(ptr)) tmp;						\
+									\
+	switch ( sizeof(*(ptr)) )					\
+	{								\
+	case 8:								\
+		tmp = __cmpxchg_mb64((ptr), (uint64_t)(o),		\
+				(uint64_t)(n), sizeof(*(ptr))))		\
+		break;							\
+	default:							\
+		tmp = __cmpxchg_mb((ptr), (unsigned long)(o),		\
+				(unsigned long)(n), sizeof(*(ptr))))	\
+		break;							\
+	}								\
+	tmp;								\
+})
+
+Roger.
 
