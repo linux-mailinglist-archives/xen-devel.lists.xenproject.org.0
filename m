@@ -2,46 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C75D0248304
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 12:31:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65AE02482FF
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 12:31:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7ytH-00067M-Jj; Tue, 18 Aug 2020 10:30:51 +0000
+	id 1k7ytM-0006Ah-7M; Tue, 18 Aug 2020 10:30:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pr8P=B4=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k7ytF-0005zo-Mw
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 10:30:49 +0000
-X-Inumbo-ID: 9e8c31ba-2ac6-408d-a3f2-7ae4f002bea8
+ id 1k7ytK-0005zo-Mz
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 10:30:54 +0000
+X-Inumbo-ID: 4963137f-f75f-4163-8652-b2aba8a3af45
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9e8c31ba-2ac6-408d-a3f2-7ae4f002bea8;
- Tue, 18 Aug 2020 10:30:43 +0000 (UTC)
+ id 4963137f-f75f-4163-8652-b2aba8a3af45;
+ Tue, 18 Aug 2020 10:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
- bh=nABtIpE3ocPIbmrY/Y6TR8lqLGhPX2t/r6AUyXMJ7rQ=; b=IoU2922M7bsU8yeqsYH6tiihY2
- MshAGFNsqPc9jChRx63ddW1Tnzs1arwkJnNJf/hsJPYzd3UfT7dD8BL+cNST851In1hjxrAJPJ/Fm
- FfBQNVMEeuTNM5S1jG/VeVXy+7K3Z2M4gD3+GkSxUqNkRaduD9aUP/K8NUnoH/rp/vgc=;
+ bh=TOWerHJHjID6iOKKVnPbdbazPZUTu0OfzhxePXc84AM=; b=b5sTrGH2/4YSg+6kB0IaWF9eBG
+ F4Rx6pWURhOoJ8ItUPMEt+VQJFfP8invYcHEOHdvtQTji1EhgQ9tO66+N+yaLwqkIXnxPw6U7y9xT
+ aKD8Ge3RRZZ6YogxO+5NCAASbVKdMa6tU53bw/jRC/Oqpw4/eWekWjWfdoi9mCkQ/+1k=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k7yt9-000145-1w; Tue, 18 Aug 2020 10:30:43 +0000
+ id 1k7ytA-00014F-FY; Tue, 18 Aug 2020 10:30:44 +0000
 Received: from host31-48-92-96.range31-48.btcentralplus.com ([31.48.92.96]
  helo=u2f063a87eabd5f.home) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k7yt8-0003Rw-Ql; Tue, 18 Aug 2020 10:30:43 +0000
+ id 1k7ytA-0003Rw-83; Tue, 18 Aug 2020 10:30:44 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v7 6/9] tools/libxc: split restore handler
- handle_shared_info() functionality
-Date: Tue, 18 Aug 2020 11:30:29 +0100
-Message-Id: <20200818103032.3050-7-paul@xen.org>
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v7 7/9] common/domain: add a domain context record for
+ shared_info...
+Date: Tue, 18 Aug 2020 11:30:30 +0100
+Message-Id: <20200818103032.3050-8-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200818103032.3050-1-paul@xen.org>
 References: <20200818103032.3050-1-paul@xen.org>
@@ -62,86 +65,312 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-The code is invoked when a SHARED_INFO record is processed but actually
-performs two functions:
+... and update xen-domctx to dump some information describing the record.
 
-[1] Copy the 'vcpu_info' and 'arch' substructures from the record into the
-    new domain's shared_info
-[2] Clear out any pending event channel state, mask all channels and also
-    clear 'arch.pfn_to_mfn_frame_list_list'
-
-To facilitate deprecation of the SHARED_INFO record in version 4 of the
-migration stream, this patch splits the functionality, leaving [1] in
-handle_shared_info() and adding update_shared_info() (called from
-x86_pv_stream_complete()) to deal with [2].
+NOTE: Processing of the content during restore is currently limited to
+      PV domains, and matches processing of the PV-only SHARED_INFO record
+      done by libxc. All content is, however, saved such that restore
+      processing can be modified in future without requiring a new record
+      format.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Cc: Wei Liu <wl@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
 
 v7:
- - New in v7
----
- tools/libxc/xc_sr_restore_x86_pv.c | 31 +++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ - Only restore vcpu_info and arch sub-structures for PV domains, to match
+   processing of SHARED_INFO in xc_sr_restore_x86_pv.c
+ - Use additional option to domain_load_end() to ignore the record for
+   HVM domains
 
-diff --git a/tools/libxc/xc_sr_restore_x86_pv.c b/tools/libxc/xc_sr_restore_x86_pv.c
-index d086271efb..1ed8cc66ca 100644
---- a/tools/libxc/xc_sr_restore_x86_pv.c
-+++ b/tools/libxc/xc_sr_restore_x86_pv.c
-@@ -880,7 +880,6 @@ static int handle_shared_info(struct xc_sr_context *ctx,
-                               struct xc_sr_record *rec)
- {
-     xc_interface *xch = ctx->xch;
--    unsigned int i;
-     int rc = -1;
-     shared_info_any_t *guest_shinfo = NULL;
-     const shared_info_any_t *old_shinfo = rec->data;
-@@ -911,6 +910,32 @@ static int handle_shared_info(struct xc_sr_context *ctx,
-     MEMCPY_FIELD(guest_shinfo, old_shinfo, vcpu_info, ctx->x86.pv.width);
-     MEMCPY_FIELD(guest_shinfo, old_shinfo, arch, ctx->x86.pv.width);
+v6:
+ - Only save compat_shared_info buffer if has_32bit_shinfo is set
+ - Validate flags field in load handler
+
+v5:
+ - Addressed comments from Julien
+
+v4:
+ - Addressed comments from Jan
+
+v3:
+ - Actually dump some of the content of shared_info
+
+v2:
+ - Drop the header change to define a 'Xen' page size and instead use a
+   variable length struct now that the framework makes this is feasible
+ - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
+---
+ tools/misc/xen-domctx.c   |  78 ++++++++++++++++++++++++++
+ xen/common/domain.c       | 114 ++++++++++++++++++++++++++++++++++++++
+ xen/include/public/save.h |  13 ++++-
+ 3 files changed, 204 insertions(+), 1 deletion(-)
+
+diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
+index 243325dfce..6ead7ea89d 100644
+--- a/tools/misc/xen-domctx.c
++++ b/tools/misc/xen-domctx.c
+@@ -31,6 +31,7 @@
+ #include <errno.h>
  
-+    rc = 0;
+ #include <xenctrl.h>
++#include <xen-tools/libs.h>
+ #include <xen/xen.h>
+ #include <xen/domctl.h>
+ #include <xen/save.h>
+@@ -61,6 +62,82 @@ static void dump_header(void)
+ 
+ }
+ 
++static void print_binary(const char *prefix, const void *val, size_t size,
++                         const char *suffix)
++{
++    printf("%s", prefix);
 +
-+ err:
-+    if ( guest_shinfo )
-+        munmap(guest_shinfo, PAGE_SIZE);
++    while ( size-- )
++    {
++        uint8_t octet = *(const uint8_t *)val++;
++        unsigned int i;
++
++        for ( i = 0; i < 8; i++ )
++        {
++            printf("%u", octet & 1);
++            octet >>= 1;
++        }
++    }
++
++    printf("%s", suffix);
++}
++
++static void dump_shared_info(void)
++{
++    DOMAIN_SAVE_TYPE(SHARED_INFO) *s;
++    bool has_32bit_shinfo;
++    shared_info_any_t *info;
++    unsigned int i, n;
++
++    GET_PTR(s);
++    has_32bit_shinfo = s->flags & DOMAIN_SAVE_32BIT_SHINFO;
++
++    printf("    SHARED_INFO: has_32bit_shinfo: %s buffer_size: %u\n",
++           has_32bit_shinfo ? "true" : "false", s->buffer_size);
++
++    info = (shared_info_any_t *)s->buffer;
++
++#define GET_FIELD_PTR(_f)            \
++    (has_32bit_shinfo ?              \
++     (const void *)&(info->x32._f) : \
++     (const void *)&(info->x64._f))
++#define GET_FIELD_SIZE(_f) \
++    (has_32bit_shinfo ? sizeof(info->x32._f) : sizeof(info->x64._f))
++#define GET_FIELD(_f) \
++    (has_32bit_shinfo ? info->x32._f : info->x64._f)
++
++    n = has_32bit_shinfo ?
++        ARRAY_SIZE(info->x32.evtchn_pending) :
++        ARRAY_SIZE(info->x64.evtchn_pending);
++
++    for ( i = 0; i < n; i++ )
++    {
++        const char *prefix = !i ?
++            "                 evtchn_pending: " :
++            "                                 ";
++
++        print_binary(prefix, GET_FIELD_PTR(evtchn_pending[0]),
++                 GET_FIELD_SIZE(evtchn_pending[0]), "\n");
++    }
++
++    for ( i = 0; i < n; i++ )
++    {
++        const char *prefix = !i ?
++            "                    evtchn_mask: " :
++            "                                 ";
++
++        print_binary(prefix, GET_FIELD_PTR(evtchn_mask[0]),
++                 GET_FIELD_SIZE(evtchn_mask[0]), "\n");
++    }
++
++    printf("                 wc: version: %u sec: %u nsec: %u\n",
++           GET_FIELD(wc_version), GET_FIELD(wc_sec), GET_FIELD(wc_nsec));
++
++#undef GET_FIELD
++#undef GET_FIELD_SIZE
++#undef GET_FIELD_PTR
++}
++
+ static void dump_end(void)
+ {
+     DOMAIN_SAVE_TYPE(END) *e;
+@@ -173,6 +250,7 @@ int main(int argc, char **argv)
+             switch (desc->typecode)
+             {
+             case DOMAIN_SAVE_CODE(HEADER): dump_header(); break;
++            case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(); break;
+             case DOMAIN_SAVE_CODE(END): dump_end(); break;
+             default:
+                 printf("Unknown type %u: skipping\n", desc->typecode);
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index f0f9c62feb..9ac2158d6c 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -33,6 +33,7 @@
+ #include <xen/xenoprof.h>
+ #include <xen/irq.h>
+ #include <xen/argo.h>
++#include <xen/save.h>
+ #include <asm/debugger.h>
+ #include <asm/p2m.h>
+ #include <asm/processor.h>
+@@ -1659,6 +1660,119 @@ int continue_hypercall_on_cpu(
+     return 0;
+ }
+ 
++static int save_shared_info(const struct domain *d, struct domain_context *c,
++                            bool dry_run)
++{
++    struct domain_shared_info_context ctxt = {
++#ifdef CONFIG_COMPAT
++        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
++        .buffer_size = has_32bit_shinfo(d) ?
++                       sizeof(struct compat_shared_info) :
++                       sizeof(struct shared_info),
++#else
++        .buffer_size = sizeof(struct shared_info),
++#endif
++    };
++    size_t hdr_size = offsetof(typeof(ctxt), buffer);
++    int rc;
++
++    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, 0);
++    if ( rc )
++        return rc;
++
++    rc = domain_save_data(c, &ctxt, hdr_size);
++    if ( rc )
++        return rc;
++
++    rc = domain_save_data(c, d->shared_info, ctxt.buffer_size);
++    if ( rc )
++        return rc;
++
++    return domain_save_end(c);
++}
++
++static int load_shared_info(struct domain *d, struct domain_context *c)
++{
++    struct domain_shared_info_context ctxt;
++    size_t hdr_size = offsetof(typeof(ctxt), buffer);
++    unsigned int i;
++    int rc;
++
++    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
++    if ( rc )
++        return rc;
++
++    if ( i ) /* expect only a single instance */
++        return -ENXIO;
++
++    rc = domain_load_data(c, &ctxt, hdr_size);
++    if ( rc )
++        return rc;
++
++    if ( ctxt.buffer_size > sizeof(shared_info_t) ||
++         (ctxt.flags & ~DOMAIN_SAVE_32BIT_SHINFO) )
++        return -EINVAL;
++
++    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
++    {
++#ifdef CONFIG_COMPAT
++        has_32bit_shinfo(d) = true;
++#else
++        return -EINVAL;
++#endif
++    }
++
++    if ( is_pv_domain(d) )
++    {
++        shared_info_t *shinfo = xmalloc(shared_info_t);
++
++        rc = domain_load_data(c, shinfo, sizeof(*shinfo));
++        if ( rc )
++        {
++            xfree(shinfo);
++            return rc;
++        }
++
++#ifdef CONFIG_COMPAT
++        if ( has_32bit_shinfo(d) )
++        {
++            memcpy(&d->shared_info->compat.vcpu_info,
++                   &shinfo->compat.vcpu_info,
++                   sizeof(d->shared_info->compat.vcpu_info));
++            memcpy(&d->shared_info->compat.arch,
++                   &shinfo->compat.arch,
++                   sizeof(d->shared_info->compat.vcpu_info));
++        }
++        else
++        {
++            memcpy(&d->shared_info->native.vcpu_info,
++                   &shinfo->native.vcpu_info,
++                   sizeof(d->shared_info->native.vcpu_info));
++            memcpy(&d->shared_info->native.arch,
++                   &shinfo->native.arch,
++                   sizeof(d->shared_info->native.arch));
++        }
++#else
++        memcpy(&d->shared_info->vcpu_info,
++               &shinfo->vcpu_info,
++               sizeof(d->shared_info->vcpu_info));
++        memcpy(&d->shared_info->arch,
++               &shinfo->arch,
++               sizeof(d->shared_info->shared));
++#endif
++
++        xfree(shinfo);
++
++        rc = domain_load_end(c, false);
++    }
++    else
++        rc = domain_load_end(c, true);
 +
 +    return rc;
 +}
 +
-+static int update_shared_info(struct xc_sr_context *ctx)
-+{
-+    xc_interface *xch = ctx->xch;
-+    unsigned int i;
-+    int rc = -1;
-+    shared_info_any_t *guest_shinfo = NULL;
++DOMAIN_REGISTER_SAVE_LOAD(SHARED_INFO, save_shared_info, load_shared_info);
 +
-+    guest_shinfo = xc_map_foreign_range(
-+        xch, ctx->domid, PAGE_SIZE, PROT_READ | PROT_WRITE,
-+        ctx->dominfo.shared_info_frame);
-+    if ( !guest_shinfo )
-+    {
-+        PERROR("Failed to map Shared Info at mfn %#lx",
-+               ctx->dominfo.shared_info_frame);
-+        goto err;
-+    }
-+
-     SET_FIELD(guest_shinfo, arch.pfn_to_mfn_frame_list_list,
-               0, ctx->x86.pv.width);
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/public/save.h b/xen/include/public/save.h
+index 551dbbddb8..0e855a4b97 100644
+--- a/xen/include/public/save.h
++++ b/xen/include/public/save.h
+@@ -82,7 +82,18 @@ struct domain_save_header {
+ };
+ DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
  
-@@ -1122,6 +1147,10 @@ static int x86_pv_stream_complete(struct xc_sr_context *ctx)
-     xc_interface *xch = ctx->xch;
-     int rc;
- 
-+    rc = update_shared_info(ctx);
-+    if ( rc )
-+        return rc;
+-#define DOMAIN_SAVE_CODE_MAX 1
++struct domain_shared_info_context {
++    uint32_t flags;
 +
-     rc = update_vcpu_context(ctx);
-     if ( rc )
-         return rc;
++#define DOMAIN_SAVE_32BIT_SHINFO 0x00000001
++
++    uint32_t buffer_size;
++    uint8_t buffer[XEN_FLEX_ARRAY_DIM]; /* Implementation specific size */
++};
++
++DECLARE_DOMAIN_SAVE_TYPE(SHARED_INFO, 2, struct domain_shared_info_context);
++
++#define DOMAIN_SAVE_CODE_MAX 2
+ 
+ #endif /* defined(__XEN__) || defined(__XEN_TOOLS__) */
+ 
 -- 
 2.20.1
 
