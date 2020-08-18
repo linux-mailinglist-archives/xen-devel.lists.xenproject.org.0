@@ -2,54 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0912483DE
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 13:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 894BA24841C
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 13:46:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7zqg-00044R-Oy; Tue, 18 Aug 2020 11:32:14 +0000
+	id 1k803T-00056A-22; Tue, 18 Aug 2020 11:45:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RgDL=B4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k7zqf-00044K-9o
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 11:32:13 +0000
-X-Inumbo-ID: 30f99218-bacb-40fa-8675-218fca795f78
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/1vP=B4=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1k803R-000565-MD
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 11:45:25 +0000
+X-Inumbo-ID: 161147bf-87ba-4ff1-8f24-596d53d9ffc1
+Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30f99218-bacb-40fa-8675-218fca795f78;
- Tue, 18 Aug 2020 11:32:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5172CACB5;
- Tue, 18 Aug 2020 11:32:37 +0000 (UTC)
-Subject: Re: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather
- than asm/guest_access.h
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>
-References: <20200730181827.1670-1-julien@xen.org>
- <20200730181827.1670-6-julien@xen.org>
- <0874b4c7-13d4-61c1-c076-c9d7cf3720c7@suse.com>
- <b2c77386-69a7-b6ee-8311-b2dd25e5ddcd@xen.org>
- <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
- <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6474b805-dda6-56ac-cbed-65e4b399081c@suse.com>
-Date: Tue, 18 Aug 2020 13:32:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 161147bf-87ba-4ff1-8f24-596d53d9ffc1;
+ Tue, 18 Aug 2020 11:45:24 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 152A0B70;
+ Tue, 18 Aug 2020 07:45:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Tue, 18 Aug 2020 07:45:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=u0/uCy
+ /0jYOzVUR6bLEIJYYHx2p0pFbcL5YM13UhPbw=; b=kMS/bm7h9E8v793HxF5HlS
+ reFVSpsTJ9LRnb5in6cSE7CDNZCPkmoI5Gb+8ZAKAfCy4/Wrhlcc7S4gE842yc6t
+ 37rYkXMerl4JbdInFdjeG0fM+9PYC4FgJViUnPTegInWSAdYPSqkjIZ6qmLv8264
+ RkT9CwBFBRlZFoprfE1155gOkgB8k3cifqfH3BwIB9A0lfIbsRZ/DrzzLrTbh429
+ hcoGlvsn/uP3JPxU/45N6XtsT6gREbGruWLEhuP1Z6WMQkCXzIpUp5xhUDHP/eSz
+ +MAU7UqNPVXDDWS9thoX7oe+dlq0ZwZeSZ8aqfXxAdwGQecyh5KnQx1rBfz+tNeg
+ ==
+X-ME-Sender: <xms:Ur87X731USiQLlJTdDBntxwlig2jdEDb0bLCC_JJVQjyZwY68_3igA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtiedggeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+ iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+ durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+ rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+ drtghomh
+X-ME-Proxy: <xmx:Ur87X6GL34WQFUkFrb3xFf0fmNskIBHixMCifeOxvg7hF5YV-2l9EA>
+ <xmx:Ur87X75xbSUfYvUNU4Oyy8SAR2hmpqxqrcaqp2FH26vi_tUclutW0A>
+ <xmx:Ur87Xw2O1Schc_99pT6-FWa2nL-Lvf4X8PNMQmvxrIoYOwVlQryyMg>
+ <xmx:Ur87X5PIg2eleK1py02bENxJhXX4zDg0jcnduRdkQeC5FucSGTq2_w>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 512F23280065;
+ Tue, 18 Aug 2020 07:45:21 -0400 (EDT)
+Date: Tue, 18 Aug 2020 13:45:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi <linux-efi@vger.kernel.org>, norbert.kaminski@3mdeb.com,
+ xen-devel@lists.xenproject.org, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+Message-ID: <20200818114518.GA226001@mail-itl>
+References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
+ <CAMj1kXEQ2mpmcNke0K2MZPAAo9wGZ4h3pCmMg9Hm7CPXOCV7fQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="cWoXeonUoKmBZSoM"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXEQ2mpmcNke0K2MZPAAo9wGZ4h3pCmMg9Hm7CPXOCV7fQ@mail.gmail.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +81,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.08.2020 10:58, Julien Grall wrote:
-> 
-> 
-> On 18/08/2020 09:50, Jan Beulich wrote:
->> On 14.08.2020 21:07, Julien Grall wrote:
->>> Hi Jan,
->>>
->>> On 31/07/2020 12:36, Jan Beulich wrote:
->>>> On 30.07.2020 20:18, Julien Grall wrote:
->>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> Only a few places are actually including asm/guest_access.h. While this
->>>>> is fine today, a follow-up patch will want to move most of the helpers
->>>>> from asm/guest_access.h to xen/guest_access.h.
->>>>>
->>>>> To prepare the move, everyone should include xen/guest_access.h rather
->>>>> than asm/guest_access.h.
->>>>>
->>>>> Interestingly, asm-arm/guest_access.h includes xen/guest_access.h. The
->>>>> inclusion is now removed as no-one but the latter should include the
->>>>> former.
->>>>>
->>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>
->>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> Is there any chance you could take measures to avoid new inclusions
->>>> of asm/guest_access.h to appear?
->>>
->>> It should be possible.
->>>
->>> How about this:
->>>
->>> diff --git a/xen/include/asm-arm/guest_access.h b/xen/include/asm-arm/guest_access.h
->>> index b9a89c495527..d8dbc7c973b4 100644
->>> --- a/xen/include/asm-arm/guest_access.h
->>> +++ b/xen/include/asm-arm/guest_access.h
->>> @@ -1,3 +1,7 @@
->>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>> +#error "asm/guest_access.h should not be included directly"
->>> +#endif
->>> +
->>>   #ifndef __ASM_ARM_GUEST_ACCESS_H__
->>>   #define __ASM_ARM_GUEST_ACCESS_H__
->>>
->>> diff --git a/xen/include/asm-x86/guest_access.h b/xen/include/asm-x86/guest_access.h
->>> index 369676f31ac3..e665ca3a27af 100644
->>> --- a/xen/include/asm-x86/guest_access.h
->>> +++ b/xen/include/asm-x86/guest_access.h
->>> @@ -4,6 +4,10 @@
->>>    * Copyright (c) 2006, K A Fraser
->>>    */
->>>
->>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>> +#error "asm/guest_access.h should not be included directly"
->>> +#endif
->>> +
->>>   #ifndef __ASM_X86_GUEST_ACCESS_H__
->>>   #define __ASM_X86_GUEST_ACCESS_H__
->>>
->>> diff --git a/xen/include/xen/guest_access.h b/xen/include/xen/guest_access.h
->>> index 75103d30c8be..814e31329de9 100644
->>> --- a/xen/include/xen/guest_access.h
->>> +++ b/xen/include/xen/guest_access.h
->>> @@ -7,7 +7,9 @@
->>>   #ifndef __XEN_GUEST_ACCESS_H__
->>>   #define __XEN_GUEST_ACCESS_H__
->>>
->>> +#define ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>>   #include <asm/guest_access.h>
->>> +#undef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>>   #include <xen/types.h>
->>>   #include <public/xen.h>
->>
->> One option. Personally I'd prefer to avoid introduction of yet another
->> constant, by leveraging __XEN_GUEST_ACCESS_H__ instead.
-> 
-> I thought about it but it doesn't prevent new inclusions of asm/guest_access.h. For instance, the following would still compile:
-> 
-> #include <xen/guest_access.h>
-> 
-> [...]
-> 
-> #include <asm/guest_access.h>
 
-But where's the problem with this? The first #include will already
-have resulted in the inclusion of asm/guest_access.h, so the second
-#include is simply a no-op.
+--cWoXeonUoKmBZSoM
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
 
-Jan
+On Mon, Aug 17, 2020 at 10:16:07AM +0200, Ard Biesheuvel wrote:
+> > @@ -331,7 +333,8 @@ void __init efi_esrt_init(void)
+> >
+> >         end =3D esrt_data + size;
+> >         pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, =
+&end);
+> > -       if (md.type =3D=3D EFI_BOOT_SERVICES_DATA)
+> > +
+> > +       if (efi_enabled(EFI_MEMMAP) && md.type =3D=3D EFI_BOOT_SERVICES=
+_DATA)
+> >                 efi_mem_reserve(esrt_data, esrt_data_size);
+> >
+>=20
+> This does not look correct to me. Why doesn't the region need to be
+> reserved on a Xen boot? The OS may overwrite it otherwise.
+
+In case of Xen, it is Xen responsibility to do that. Otherwise even if dom0
+would not use it, Xen could allocate that physical memory to another
+guest.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--cWoXeonUoKmBZSoM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl87v04ACgkQ24/THMrX
+1ywRDAgAgL6lTfIrcAbuddaDfuNoozejb/lFN0VlxjT6NKiJX9lpQRA/YRCe1TaL
+xq6ELDuC0y9T7tn8smiyhnZ4t1oXKvk85uQBGfozl2vW2Zb6EEsNQOwa7HQF2Eh0
+xvhMtxHrFWtWQk+KT0cVHnQHQ5lkNh0V4ARPUjN8Cbb4g285XMMo0DHzUYYUJOxj
+55eRZbrVZhCiQHgAXDcdjJVrhCoCEfXWhS9L++HWcCnR42elRBuaX5Mrzx6PrYIT
+xnWW37aUUO42wIeRiMw9unqAbyB6V34ApjF1zGGgvCKQDRES2I2mg7EidBkmMZaO
+fzRSp3FZxlTusI1ZV8EFQ+uAEAdEdg==
+=wVff
+-----END PGP SIGNATURE-----
+
+--cWoXeonUoKmBZSoM--
 
