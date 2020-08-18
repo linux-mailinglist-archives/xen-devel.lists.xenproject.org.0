@@ -2,65 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5008F24813B
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:59:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB50F248145
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 11:01:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7xSY-0004H0-Pz; Tue, 18 Aug 2020 08:59:10 +0000
+	id 1k7xUN-00056G-8H; Tue, 18 Aug 2020 09:01:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k7xSW-0004Gq-Si
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:59:08 +0000
-X-Inumbo-ID: c809065a-babb-429f-944d-20908c8c1c6a
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c809065a-babb-429f-944d-20908c8c1c6a;
- Tue, 18 Aug 2020 08:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=sS/gfdWD8WjvMLTzwmfCYw8hF3ENSWWnKEUT8uH0y9s=; b=P4Onybnp93747ZgXK0JFXzdfey
- IqOg+X9mRj0ngjzTOlrcmllnvH2x3m/hHrs3V6z2UERdRCGlG/5F2pEik/mgOQA2HLPNOw20RoF97
- 1jfpPZLAtaRDCSHGPy+7WyzKqLJXektI6RvHf2BRjhijT1ViJlZnSZhPeg8AT6GY4ehA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k7xSP-0007Su-Sk; Tue, 18 Aug 2020 08:59:01 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k7xSP-0007gy-GT; Tue, 18 Aug 2020 08:59:01 +0000
-Subject: Re: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather
- than asm/guest_access.h
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>
-References: <20200730181827.1670-1-julien@xen.org>
- <20200730181827.1670-6-julien@xen.org>
- <0874b4c7-13d4-61c1-c076-c9d7cf3720c7@suse.com>
- <b2c77386-69a7-b6ee-8311-b2dd25e5ddcd@xen.org>
- <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
-Date: Tue, 18 Aug 2020 09:58:58 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ (envelope-from <SRS0=z68W=B4=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
+ id 1k7xUM-00056A-Ee
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 09:01:02 +0000
+X-Inumbo-ID: 79a519f0-7af2-4ff4-b6a3-10ef5e08ce16
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 79a519f0-7af2-4ff4-b6a3-10ef5e08ce16;
+ Tue, 18 Aug 2020 09:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1597741261;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=LwYlioqpHS/gmxgOcffqAwVxuvHCLYruQxEepn5wr38=;
+ b=brekEtiubhn089zUnXdUhyElBn+swpGj+xb4HJIPMUZa9I33U2xhMMriwzAifF7n9Bv/zB
+ afT3VylL3J4nVI+7x+qLw4qKiBhjvV2m4xg9/KgdDqmp0rPZ6PZQWdQVDhYYhWBF0y38IL
+ I5CKNfXtF5WKK5wQ0r2wXsjat3G0ho4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-132-mlrecaKvN2iRk-aKQOmtPQ-1; Tue, 18 Aug 2020 05:00:57 -0400
+X-MC-Unique: mlrecaKvN2iRk-aKQOmtPQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5813A0BC2;
+ Tue, 18 Aug 2020 09:00:53 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-112-195.ams2.redhat.com
+ [10.36.112.195])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EFEDA5D9D2;
+ Tue, 18 Aug 2020 09:00:49 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 078151753B; Tue, 18 Aug 2020 11:00:49 +0200 (CEST)
+Date: Tue, 18 Aug 2020 11:00:49 +0200
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Sandy Huang <hjc@rock-chips.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
+ <etnaviv@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
+ <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm: allow limiting the scatter list size.
+Message-ID: <20200818090049.qomgyyw6hif4cmah@sirius.home.kraxel.org>
+References: <20200818074828.9509-1-kraxel@redhat.com>
+ <20200818074828.9509-2-kraxel@redhat.com>
+ <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
+ <20200818082703.7z6fcvoymiqow5kw@sirius.home.kraxel.org>
+ <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,96 +93,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+  Hi,
 
-
-On 18/08/2020 09:50, Jan Beulich wrote:
-> On 14.08.2020 21:07, Julien Grall wrote:
->> Hi Jan,
->>
->> On 31/07/2020 12:36, Jan Beulich wrote:
->>> On 30.07.2020 20:18, Julien Grall wrote:
->>>> From: Julien Grall <jgrall@amazon.com>
->>>>
->>>> Only a few places are actually including asm/guest_access.h. While this
->>>> is fine today, a follow-up patch will want to move most of the helpers
->>>> from asm/guest_access.h to xen/guest_access.h.
->>>>
->>>> To prepare the move, everyone should include xen/guest_access.h rather
->>>> than asm/guest_access.h.
->>>>
->>>> Interestingly, asm-arm/guest_access.h includes xen/guest_access.h. The
->>>> inclusion is now removed as no-one but the latter should include the
->>>> former.
->>>>
->>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>
->>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Is there any chance you could take measures to avoid new inclusions
->>> of asm/guest_access.h to appear?
->>
->> It should be possible.
->>
->> How about this:
->>
->> diff --git a/xen/include/asm-arm/guest_access.h b/xen/include/asm-arm/guest_access.h
->> index b9a89c495527..d8dbc7c973b4 100644
->> --- a/xen/include/asm-arm/guest_access.h
->> +++ b/xen/include/asm-arm/guest_access.h
->> @@ -1,3 +1,7 @@
->> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->> +#error "asm/guest_access.h should not be included directly"
->> +#endif
->> +
->>   #ifndef __ASM_ARM_GUEST_ACCESS_H__
->>   #define __ASM_ARM_GUEST_ACCESS_H__
->>
->> diff --git a/xen/include/asm-x86/guest_access.h b/xen/include/asm-x86/guest_access.h
->> index 369676f31ac3..e665ca3a27af 100644
->> --- a/xen/include/asm-x86/guest_access.h
->> +++ b/xen/include/asm-x86/guest_access.h
->> @@ -4,6 +4,10 @@
->>    * Copyright (c) 2006, K A Fraser
->>    */
->>
->> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->> +#error "asm/guest_access.h should not be included directly"
->> +#endif
->> +
->>   #ifndef __ASM_X86_GUEST_ACCESS_H__
->>   #define __ASM_X86_GUEST_ACCESS_H__
->>
->> diff --git a/xen/include/xen/guest_access.h b/xen/include/xen/guest_access.h
->> index 75103d30c8be..814e31329de9 100644
->> --- a/xen/include/xen/guest_access.h
->> +++ b/xen/include/xen/guest_access.h
->> @@ -7,7 +7,9 @@
->>   #ifndef __XEN_GUEST_ACCESS_H__
->>   #define __XEN_GUEST_ACCESS_H__
->>
->> +#define ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>   #include <asm/guest_access.h>
->> +#undef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
->>   #include <xen/types.h>
->>   #include <public/xen.h>
+> > > I'm missing an explanation why this should be useful (it certainly is).
+> > virtio-gpu needs this to work properly with SEV (see patch 2/2 of this
+> > series).
 > 
-> One option. Personally I'd prefer to avoid introduction of yet another
-> constant, by leveraging __XEN_GUEST_ACCESS_H__ instead.
+> Yeah, that's the problem patch 2/2 never showed up here :)
 
-I thought about it but it doesn't prevent new inclusions of 
-asm/guest_access.h. For instance, the following would still compile:
+The list should have everything.
 
-#include <xen/guest_access.h>
+Your inbox probably has 1/2 only because 2/2 doesn't touch amd code and
+'git send-email' evaluates sendemail.cccmd (pointing to
+get_maintainer.pl) for each patch individually.
 
-[...]
+I've found this behavior confusing at times before.  Is there some way
+to send the whole series to everybody?  Or at least the cover letter?
+The git-send-email manpage doesn't give a clue :(
 
-#include <asm/guest_access.h>
+> > Placing it in drm_device instead would indeed work for virtio-gpu, so I
+> > guess you are suggesting that instead?
+> 
+> That is probably the best approach, yes.
 
-If we want to completely prevent new inclusion, then we need a new 
-temporary constant.
+Ok, I'll go that route then.
 
-Cheers,
+thanks,
+  Gerd
 
--- 
-Julien Grall
 
