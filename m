@@ -2,84 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB50F248145
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 11:01:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9CB7248150
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 11:04:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7xUN-00056G-8H; Tue, 18 Aug 2020 09:01:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7xWp-0005EL-Mj; Tue, 18 Aug 2020 09:03:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z68W=B4=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
- id 1k7xUM-00056A-Ee
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 09:01:02 +0000
-X-Inumbo-ID: 79a519f0-7af2-4ff4-b6a3-10ef5e08ce16
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 79a519f0-7af2-4ff4-b6a3-10ef5e08ce16;
- Tue, 18 Aug 2020 09:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1597741261;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LwYlioqpHS/gmxgOcffqAwVxuvHCLYruQxEepn5wr38=;
- b=brekEtiubhn089zUnXdUhyElBn+swpGj+xb4HJIPMUZa9I33U2xhMMriwzAifF7n9Bv/zB
- afT3VylL3J4nVI+7x+qLw4qKiBhjvV2m4xg9/KgdDqmp0rPZ6PZQWdQVDhYYhWBF0y38IL
- I5CKNfXtF5WKK5wQ0r2wXsjat3G0ho4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-132-mlrecaKvN2iRk-aKQOmtPQ-1; Tue, 18 Aug 2020 05:00:57 -0400
-X-MC-Unique: mlrecaKvN2iRk-aKQOmtPQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5813A0BC2;
- Tue, 18 Aug 2020 09:00:53 +0000 (UTC)
-Received: from sirius.home.kraxel.org (ovpn-112-195.ams2.redhat.com
- [10.36.112.195])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EFEDA5D9D2;
- Tue, 18 Aug 2020 09:00:49 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 078151753B; Tue, 18 Aug 2020 11:00:49 +0200 (CEST)
-Date: Tue, 18 Aug 2020 11:00:49 +0200
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Sandy Huang <hjc@rock-chips.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- Ben Skeggs <bskeggs@redhat.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- open list <linux-kernel@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm: allow limiting the scatter list size.
-Message-ID: <20200818090049.qomgyyw6hif4cmah@sirius.home.kraxel.org>
-References: <20200818074828.9509-1-kraxel@redhat.com>
- <20200818074828.9509-2-kraxel@redhat.com>
- <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
- <20200818082703.7z6fcvoymiqow5kw@sirius.home.kraxel.org>
- <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
+ (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k7xWo-0005EC-18
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 09:03:34 +0000
+X-Inumbo-ID: 85325473-ab79-4c08-9396-9f501f6134a0
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 85325473-ab79-4c08-9396-9f501f6134a0;
+ Tue, 18 Aug 2020 09:03:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=lQL5wLFQZPFX4fDLtS8bYUsSbL9YGcn0KjHdng6qvn4=; b=PHb1ODZ2fejKUNVHn2frFd1E5D
+ 7vzuu6IoTUVrFHUCL5iKuJ9JDdCmYo5x65tIMe50Wk79LXrFJ4D5q8ajjQIGrexwBsRg1hVkrRaWO
+ QBgiFTW90ugsLoGkGdWxhZpBV6hC1Es4WuvKQYIi4stZ7PHmp3reTpmFkTo1ss+oBMdY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7xWm-0007ZV-7O; Tue, 18 Aug 2020 09:03:32 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7xWm-0007yo-14; Tue, 18 Aug 2020 09:03:32 +0000
+Subject: Re: [RESEND][PATCH v2 7/7] xen/guest_access: Fix coding style in
+ xen/guest_access.h
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-8-julien@xen.org>
+ <3bafb97f-45a3-7203-3e73-37e73c453de6@suse.com>
+ <28c7d999-52da-cc96-533b-264c749c7f88@xen.org>
+ <3d63c930-24f4-da8d-cbae-1a88c90bad99@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c5feaef4-a985-8deb-8793-3c235f18d39d@xen.org>
+Date: Tue, 18 Aug 2020 10:03:29 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <03c03129-db27-c6da-df8f-909141d2a3f7@amd.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <3d63c930-24f4-da8d-cbae-1a88c90bad99@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,32 +68,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  Hi,
+Hi Jan,
 
-> > > I'm missing an explanation why this should be useful (it certainly is).
-> > virtio-gpu needs this to work properly with SEV (see patch 2/2 of this
-> > series).
+On 18/08/2020 09:52, Jan Beulich wrote:
+> On 14.08.2020 21:18, Julien Grall wrote:
+>> On 31/07/2020 12:41, Jan Beulich wrote:
+>>> On 30.07.2020 20:18, Julien Grall wrote:
+>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>
+>>>>       * Add space before and after operator
+>>>>       * Align \
+>>>>       * Format comments
+>>>
+>>> How about also
+>>>
+>>>       * remove/replace leading underscores
+>>>
+>>> ?
+>>
+>> I don't have any plan for this. You are welcome to send a patch for this.
 > 
-> Yeah, that's the problem patch 2/2 never showed up here :)
+> In which case may I ask that you replace "Fix" by "Improve" or some
+> such in the title?
 
-The list should have everything.
+I will do it if. Although, this doesn't mean I agree with your implicit 
+coding style.
 
-Your inbox probably has 1/2 only because 2/2 doesn't touch amd code and
-'git send-email' evaluates sendemail.cccmd (pointing to
-get_maintainer.pl) for each patch individually.
+Cheers,
 
-I've found this behavior confusing at times before.  Is there some way
-to send the whole series to everybody?  Or at least the cover letter?
-The git-send-email manpage doesn't give a clue :(
-
-> > Placing it in drm_device instead would indeed work for virtio-gpu, so I
-> > guess you are suggesting that instead?
-> 
-> That is probably the best approach, yes.
-
-Ok, I'll go that route then.
-
-thanks,
-  Gerd
-
+-- 
+Julien Grall
 
