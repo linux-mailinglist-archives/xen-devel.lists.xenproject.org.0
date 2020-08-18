@@ -2,64 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71063248D09
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 19:34:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0529B248E0F
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 20:41:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k85V4-0005w7-8K; Tue, 18 Aug 2020 17:34:18 +0000
+	id 1k86X6-0003Vv-Dp; Tue, 18 Aug 2020 18:40:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k85V2-0005w2-Rt
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 17:34:16 +0000
-X-Inumbo-ID: a819dd2f-90f5-4106-b638-184706a473e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/1vP=B4=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1k86X4-0003Vq-MC
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 18:40:26 +0000
+X-Inumbo-ID: c9f7ee12-5088-40ad-8509-82b7527a1015
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a819dd2f-90f5-4106-b638-184706a473e4;
- Tue, 18 Aug 2020 17:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=kI6U4rq8oCZ2qU6MqUIKWM4W5IHxs9H1gqT8TYh/4h0=; b=KnErkbahuxlra9tmu3tXO8sh9v
- hoGYfV3DydR5iJ0dpZqhQNXmlZ8UQiUgmg9rDiKqJ4LnUINNBANOc9irA4I3vs7gx36hPHxtQ/jGs
- osG62jaKRHAN9bV/ZHH6HXiri0xydcCjo6+om/YYRW49NQTL6f5Y35b5Ib2pWSNkCgis=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k85Uq-0002AK-Vv; Tue, 18 Aug 2020 17:34:04 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k85Uq-0004Mo-Hs; Tue, 18 Aug 2020 17:34:04 +0000
-Subject: Re: [PATCH 1/2] xen/arm: entry: Place a speculation barrier following
- an ret instruction
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "security@xenproject.org" <security@xenproject.org>,
- Paul Durrant <paul@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andre Przywara <Andre.Przywara@arm.com>, Julien Grall <jgrall@amazon.com>,
- nd <nd@arm.com>
-References: <20200616175913.7368-1-julien@xen.org>
- <20200616175913.7368-2-julien@xen.org>
- <alpine.DEB.2.21.2006161422240.24982@sstabellini-ThinkPad-T480s>
- <57696b4d-da83-a4d6-4d82-41a6f6c9174c@xen.org>
- <5c3a2407-3e76-3a30-7f93-036706e00f73@xen.org>
- <9DFF73C4-5141-47AF-A0DB-331787007F37@arm.com>
- <5a406d61-293b-8dd7-44c2-d4f5dde4856f@xen.org>
- <7EAB4E0A-338C-4DCF-80A4-A426BC95C051@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5dceeedf-9982-37c5-553e-76f22d9d6db2@xen.org>
-Date: Tue, 18 Aug 2020 18:34:02 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ id c9f7ee12-5088-40ad-8509-82b7527a1015;
+ Tue, 18 Aug 2020 18:40:25 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2EF325C0103;
+ Tue, 18 Aug 2020 14:40:25 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 18 Aug 2020 14:40:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=DLEOdn
+ 0ZYH7rfqxZIVt9qEq5wO+o1yaDM7tmzdVy9bA=; b=SSQsUiDQHx32Bo+0i+QyGD
+ RioGu7LADwWEY+v7JGo2rp1E4bWhXwKf/0nVvfoKUFBnInJeyhmcXuYIx9Cicmru
+ QmXDG9LWmXtrIWzS/2A2CVUBj3iIruilidp2x6Usq1pVXiNN/VAzmfEjCDn0Xrcq
+ xiq3sxX0eLxb3q6bj2QT6yiu0rkZdT+K5V8bzI1JdpQQaoP3Wi7YMmvAlPuM09ZE
+ 5zh4pQNLR1q83a21wG51vM88Fz2SEb61CSPOfk+UN8eoQ5ht0GeXeRIJEdwQ1FzF
+ 8MlyMnEE0auEhx3KGqfrGsD80TUGgd2obGR9qo4G2N5IzKeYDguRnYYoX4ul6lrQ
+ ==
+X-ME-Sender: <xms:mCA8X5EFwgouVL0bwhFIA_yIoP-aU9CVqiqhoinL1VdSBKcZjv9eiA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtiedguddtjecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+ khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+ hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteev
+ ffeigffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecukfhppe
+ eluddrieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+ mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+ gsrdgtohhm
+X-ME-Proxy: <xmx:mCA8X-XAPg1dICFKWXcU84bswEGrc09dlJXR5LCspxS8QX_gkcemXQ>
+ <xmx:mCA8X7I3gmV5pcaQ1igFgTJEM2aTcbNHasD-KktkTW3Ca3nQ4baI-g>
+ <xmx:mCA8X_EOdy8p6UFP5STgge7CgyXhRBEwbjetuhb1ulwLobA0V7cbSw>
+ <xmx:mSA8X2enzAPIUAZ-60kTvVEC3rCYgRBFLwsorxaz_o4nCsmKXBxvlQ>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 73B8230600A3;
+ Tue, 18 Aug 2020 14:40:23 -0400 (EDT)
+Date: Tue, 18 Aug 2020 20:40:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
+ norbert.kaminski@3mdeb.com, xen-devel@lists.xenproject.org,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+Message-ID: <20200818184018.GN1679@mail-itl>
+References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
+ <20200817090013.GN975@Air-de-Roger>
+ <20200818120135.GK1679@mail-itl>
+ <20200818124710.GK828@Air-de-Roger>
+ <20200818150020.GL1679@mail-itl>
+ <20200818172114.GO828@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <7EAB4E0A-338C-4DCF-80A4-A426BC95C051@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="zPXeIxDajdrcF2en"
+Content-Disposition: inline
+In-Reply-To: <20200818172114.GO828@Air-de-Roger>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,110 +86,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Bertrand,
 
-On 18/08/2020 18:06, Bertrand Marquis wrote:
-> 
-> 
->> On 18 Aug 2020, at 17:43, Julien Grall <julien@xen.org> wrote:
->>
->>
->>
->> On 18/08/2020 17:35, Bertrand Marquis wrote:
->>> Hi Julien,
->>
->> Hi Bertrand,
->>
->>> Somehow we stopped on this thread and you did already most of the work so I think we should try to finish what you started
->>
->> Sorry this fell-through the cracks. I have a new version for patch #1, but not yet patch #2.
-> 
-> No problem this came back while trying to reduce my todolist stack :-)
-> 
->>
->> I am still debating with myself where the speculation barrier should be added after the SMC :).
-> 
-> I think that we should unless the SMC is in the context switch path (as all other calls should not have a performance impact).
-I will introduce *_unsafe() helpers that will not contain the 
-speculation barrier. It could then be used in place where we think the 
-barrier is unnecessary.
+--zPXeIxDajdrcF2en
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
 
-> 
->>
->>>> On 4 Jul 2020, at 17:07, Julien Grall <julien@xen.org> wrote:
->>>>
->>>> On 17/06/2020 17:23, Julien Grall wrote:
->>>>> Hi,
->>>>> On 16/06/2020 22:24, Stefano Stabellini wrote:
->>>>>> On Tue, 16 Jun 2020, Julien Grall wrote:
->>>>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>>>
->>>>>>> Some CPUs can speculate past a RET instruction and potentially perform
->>>>>>> speculative accesses to memory before processing the return.
->>>>>>>
->>>>>>> There is no known gadget available after the RET instruction today.
->>>>>>> However some of the registers (such as in check_pending_guest_serror())
->>>>>>> may contain a value provided the guest.
->>>>>>                                 ^ by
->>>>>>
->>>>>>
->>>>>>> In order to harden the code, it would be better to add a speculation
->>>>>>> barrier after each RET instruction. The performance is meant to be
->>>>>>> negligeable as the speculation barrier is not meant to be archicturally
->>>>>>> executed.
->>>>>>>
->>>>>>> Note that on arm32, the ldmia instruction will act as a return from the
->>>>>>> function __context_switch(). While the whitepaper doesn't suggest it is
->>>>>>> possible to speculate after the instruction, add preventively a
->>>>>>> speculation barrier after it as well.
->>>>>>>
->>>>>>> This is part of the work to mitigate straight-line speculation.
->>>>>>>
->>>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>>
->>>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>>>
->>>>>> I did a compile-test on the patch too.
->>>>>>
->>>>>>
->>>>>>> ---
->>>>>>>
->>>>>>> I am still unsure whether we preventively should add a speculation barrier
->>>>>>> preventively after all the RET instructions in arm*/lib/. The smc call be
->>>>>>> taken care in a follow-up patch.
->>>>>>
->>>>>> SMC is great to have but it seems to be overkill to do the ones under
->>>>>> lib/.
->>>>>  From my understanding, the compiler will add a speculation barrier preventively after each 'ret' when the mitigation are turned on.So it feels to me we want to follow the same approach.
->>>>> Obviously, we can avoid them but I would like to have a justification for not adding them (nothing is overkilled against speculation ;)).
->>>>
->>>> I finally found some time to look at arm*/lib in more details. Some of the helpers can definitely be called with guest inputs.
->>>>
->>>> For instance, memchr() is called from hypfs_get_path_user() with the 3rd argument controlled by the guest. In both 32-bit and 64-bit implementation, you will reach the end of the function memchr() with r2/w2 and r3/w3 (it contains a character from the buffer) controlled by the guest.
->>>>
->>>> As this is the only function in the unit, we don't know what will be the instructions right after RET. So it would be safer to add a speculation barrier there too.
->>> How about adding a speculation barrier directly in the ENDPROC macro ?
->>
->> This would unfortunately not cover all the cases because you can return in the middle of the function. I will have a look to see if we can leverage it.
-> 
-> I agree that it would not solve all of them but a big part would be solved by it.
-> An other solution might be to have a RETURN macro encoded as "mov pc,lr; sb" and "ret; sb”.
+On Tue, Aug 18, 2020 at 07:21:14PM +0200, Roger Pau Monn=C3=A9 wrote:
+> > Let me draw the picture from the beginning.
+>=20
+> Thanks, greatly appreciated.
+>=20
+> > EFI memory map contains various memory regions. Some of them are marked
+> > as not needed after ExitBootServices() call (done in Xen before
+> > launching dom0). This includes EFI_BOOT_SERVICES_DATA and
+> > EFI_BOOT_SERVICES_CODE.
+> >=20
+> > EFI SystemTable contains pointers to various ConfigurationTables -
+> > physical addresses (at least in this case). Xen does interpret some of
+> > them, but not ESRT. Xen pass the whole (address of) SystemTable to Linux
+> > dom0 (at least in PV case). Xen doesn't do anything about tables it
+> > doesn't understand.
+> >=20
+> > Now, the code in Linux takes the (ESRT) table address early and checks
+> > the memory map for it. We have 3 cases:
+> >  - it points at area marked as neither EFI_*_SERVICES_DATA, nor with
+> >    EFI_MEMORY_RUNTIME attribute -> Linux refuse to use it
+> >  - it points to EFI_RUNTIME_SERVICES_DATA or with EFI_MEMORY_RUNTIME
+> >    attribute - Linux uses the table; memory map already says the area
+> >    belongs to EFI and the OS should not use it for something else
+> >  - it points to EFI_BOOT_SERVICES_DATA - Linux mark the area as reserved
+> >    to not release it after calling ExitBootServices()
+> >=20
+> > The problematic is the third case - at the time when Linux dom0 is run,
+> > ExitBootServices() was already called and EFI_BOOT_SERVICES_* memory was
+> > already released. It could be already used for something else (for
+> > example Xen could overwrite it while loading dom0).
+> >=20
+> > Note the problematic case should be the most common - UEFI specification
+> > says "The ESRT shall be stored in memory of type EfiBootServicesData"
+> > (chapter 22.3 of UEFI Spec v2.6).
+> >=20
+> > For this reason, to use ESRT in dom0, Xen should do something about it
+> > before ExitBootServices() call. While analyzing all the EFI tables is
+> > probably not a viable option, it can do some simple action:
+> >  - retains all the EFI_BOOT_SERVICES_* areas - there is already code
+> >    for that, controlled with /mapbs boot switch (to xen.efi, would need
+> >    another option for multiboot2+efi)
+> >  - have a list of tables to retain - since Xen already do analyze some
+> >    of the ConfigurationTables, it can also have a list of those to
+> >    preserve even if they live in EFI_BOOT_SERVICES_DATA. In this case,
+> >    while Xen doesn't need to parse the whole table, it need to parse it=
+'s
+> >    header to get the table size - to reserve that memory and not reuse
+> >    it after ExitBootServices().
+>=20
+> Xen seems to already contain skeleton
+> XEN_EFI_query_capsule_capabilities and XEN_EFI_update_capsule
+> hypercalls which is what should be used in order to perform the
+> updates?
 
-This is a bit messy on Arm32 because not all the return are using "mov 
-pc,lr".  Anyway, I will explore the two approaches.
+I think those covers only runtime service calls similarly named. But you
+need also ESRT table to collect info about devices that you can even
+attempt to update.
 
-> 
-> The patch sounds good, i just need to find a way to analyse if you missed a ret or not which is not easy with such a patch :-)
+TBH, I'm not sure if those runtime services are really needed. I think
+Norbert succeeded UEFI update from within Xen PV dom0 with just access
+to the ESRT table, but without those services.
 
-I did struggle to find all the instances. The directory lib/ is actually 
-quite difficult to go through on 32-bit because they are multiple way to
-implement a return.
+> So yes, I agree Xen should make sure the region of the table is not
+> freed when exiting boot services, and that dom0 can access it. I
+> guess we should move the checks done by Linux to Xen, and then only
+> provide the ESRT table to dom0 if the checks (now done by Xen) pass.
 
-Finding a way to reduce manual speculation barrier would definitely be 
-helpful. I will try to revise the patch during this week.
+Yes, something like this. But note currently in the (PV) dom0 case, Xen
+provides dom0 with a pointer to the whole SystemTable, not individual
+ConfigurationTables. Making it filter what dom0 gets would require Xen
+to re-construct the whole thing with just those elements that are
+desired. Not exactly sure if worth the effort given the privilege dom0
+has.
 
-Cheers,
+BTW How does it look in PVH dom0 case? Does it also get unmodified host
+EFI SystemTable? In that case, it would be more tricky, because (IIUC)
+physical addresses (like the one for ESRT table) are not meaningful to
+PVH dom0.
 
--- 
-Julien Grall
+> It might be helpful to see the whole picture here with the hooks to
+> perform the updates also implemented, as those are missing in Xen (and
+> Linux?). That would give a clearer view of what you are trying to
+> achieve IMO.
+
+Norbert, can you shed some light on this process?
+
+While those two runtime services seems relevant, I see also an update
+process involving simply dropping some file into ESP (/boot/efi). I'm
+not sure if some runtime services were involved.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--zPXeIxDajdrcF2en
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl88IJIACgkQ24/THMrX
+1yyGUQf/XyHSwgWMa3bAf29o+euHtEQX2Y9xDY4JNgw+kpV0yXiMFfrif5G09dvF
+Ix4e1v0hWImfDv+qzQ+jIpRtwLq6SAa5sMe3v9lCM+dRcj8xc9AxIY1fL7zPXPOt
+UXaEiUL6JAXsbVWj/fg8iSyuZKb2EBqVLgk5Gbysq+YRNC1GY5Wf057OLbAFmz0S
+yqwHJsBsBk9Tan5qk83oTse4c4azt0AglO+Uw2mzlIvch2Xvu3aSebnyHFpqx3m0
+lpWtJ6Zgi7bfcOme7fYi8fNh+09NCQYjP6r+9R2qP32cg4XBRSVGC5g/kFODMFMs
+PUP0VVZfphqLpaDlUG/ztaoJ1ZxrwQ==
+=iwo+
+-----END PGP SIGNATURE-----
+
+--zPXeIxDajdrcF2en--
 
