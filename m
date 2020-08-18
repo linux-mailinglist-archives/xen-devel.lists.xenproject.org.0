@@ -2,64 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00301247D77
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 06:25:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E5D9247F83
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 09:30:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7t9w-0004JA-6P; Tue, 18 Aug 2020 04:23:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7w2i-000347-0m; Tue, 18 Aug 2020 07:28:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hT7/=B4=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
- id 1k7t9v-0004J5-1E
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 04:23:39 +0000
-X-Inumbo-ID: 38c5a14f-a077-4ebd-8abc-e16c9d7a97b8
-Received: from mail-pl1-x642.google.com (unknown [2607:f8b0:4864:20::642])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 38c5a14f-a077-4ebd-8abc-e16c9d7a97b8;
- Tue, 18 Aug 2020 04:23:38 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id t10so8603872plz.10
- for <xen-devel@lists.xenproject.org>; Mon, 17 Aug 2020 21:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=MjCY8rpgvZIeePV2ZEI1OaZrnaoZS1f7YHPkOunmzDc=;
- b=JzErDCndyn4Rs/n2yd72DenQUw5racpwxvZ1Ai1HpU3yj7zIG2QnNfnHu43RR+Cg+w
- V3zlNo08arB101kV9OHzc1RnEm7y6wcZ8p7iXNgIr1n6pJLLBqRBZUonNisA4LMrFNC0
- P/EIToB8UUqqOp1IAzZkBG6Sj4ODm0xNLVVOKgLfZhp37P6GV9BU4XEWg1g5n5fiZRZl
- 7PHN8olAJXN1cE2cw68ylMEgpuSzn5IKMPQ8JdVxlVdmifPDEv5e7KPl6sXtC7r23mbA
- unHDZmfHu6EbnjNY4cJddVzM9WJoNIZE6I72vvIIAo2raZWYhJAJXgF2SaL9I7LfmWNH
- Xpqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=MjCY8rpgvZIeePV2ZEI1OaZrnaoZS1f7YHPkOunmzDc=;
- b=MN5zBRI/ArTOt3wJhpSVOcfcdaDAb0xSiR2ElHTa6WCpGanpT4nNkydQjPIYs7VifU
- xXIWV86HIn3zXi7QtoaswaQLYfMkMGcMAqIfekm9gcKtaKh4HRsiQHE68VwnJTCKjJEM
- +KO+4sz24JQadhHULVukNnYd+sKEM5L90Rkk8kL0PltkDI8871LxnsuwnwlXYCH3OfWD
- X25t91JXZzUM5R4XhNqAm54ztSJYwetN85kHDslgML5ZKMq/TqogVewIQAa52T3qV5hS
- 5+n/Ylna3f5jdLRCa0WgraKBnzC6WG0+M8IFXCQH+UJAKRnsZpcBnvOMEGN2FnJh8DZG
- HUkg==
-X-Gm-Message-State: AOAM530IacMo4ScjYmd7VkvJ17/oZfM42lHmSbwDiFRPdlMeHe3QTQhO
- gASYc6SoQufHAPNpvkbQE+M=
-X-Google-Smtp-Source: ABdhPJy46eUmLUGChVfbGRKdcZHHpjR7Pc2RNX+ASKQP3uknc0mEbY3nkewlaClqzNjO8hXMRV4xhg==
-X-Received: by 2002:a17:902:7293:: with SMTP id
- d19mr14270101pll.303.1597724617198; 
- Mon, 17 Aug 2020 21:23:37 -0700 (PDT)
-Received: from jordon-HP-15-Notebook-PC.domain.name ([122.172.185.173])
- by smtp.gmail.com with ESMTPSA id s6sm19622206pjn.48.2020.08.17.21.23.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 17 Aug 2020 21:23:36 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Souptick Joarder <jrdr.linux@gmail.com>, John Hubbard <jhubbard@nvidia.com>
-Subject: [RFC PATCH] xen/gntdev.c: Convert get_user_pages*() to
- pin_user_pages*()
-Date: Tue, 18 Aug 2020 10:02:20 +0530
-Message-Id: <1597725140-8310-1-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ <SRS0=PQEp=B4=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+ id 1k7w2h-000342-4n
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 07:28:23 +0000
+X-Inumbo-ID: fe177771-9ff1-475f-9215-2af75cdc2d9e
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fe177771-9ff1-475f-9215-2af75cdc2d9e;
+ Tue, 18 Aug 2020 07:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597735701;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=TRx1dfPB+QSkAXi67BSO4blis1i3SlIqfdZLBHboldc=;
+ b=g4loh6RuoOCvNphmAgUNpF45htp4XQAXONeJhYWysQNFtIScEZMtvbAp
+ 0B6sRRQ7Cm0HP9DPQxCkQG8n8OE0Evu4d8foSChK0A4aenCt4ZfxRi6pz
+ XXHr5s6mVeVTTPRZQrLdfa/zndE9xUObm0yGjbrMPWuMtBw7pKxVXTDug Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: +Sp4U2FRuovTkPtBuRGFYHD0FnmAiNas+VaJhVSRk5Fjwu/YyScDfhYNZKsLSaOw4QN+j+MzHh
+ /c4DY91SzMyoHBc0ef5W1sH8I/bU94xqGkjgb0ZUE1c3yR1gTCEh8prYt5qPUHVwAr1cap8Ejx
+ 7i00GiIRmgWRfUY+03TFKq59JRZ9LGopKHqA13pRJPet8esN1TSAN/iKM25yDv8EfpGPZj/B6o
+ g145SATX9s9RM0q8xJZssAVS4REWv0nC91elOvst0cwr25FAT/qcJpA8cHEN7KHbQI6lbnfMuR
+ h9U=
+X-SBRS: 2.7
+X-MesageID: 25080370
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,326,1592884800"; d="scan'208";a="25080370"
+From: Edwin Torok <edvin.torok@citrix.com>
+To: Christian Lindig <christian.lindig@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>, "dave@recoil.org" <dave@recoil.org>, 
+ "wl@xen.org" <wl@xen.org>
+Subject: Re: [PATCH v1 0/6] tools/ocaml/xenstored: simplify code
+Thread-Topic: [PATCH v1 0/6] tools/ocaml/xenstored: simplify code
+Thread-Index: AQHWcof9A1jzs+tlWE2C9n9b/FTKaqk8JPMAgAE2tIA=
+Date: Tue, 18 Aug 2020 07:28:10 +0000
+Message-ID: <cbb2742191e9c1303fdfd95feef4d829ecf33a0d.camel@citrix.com>
+References: <cover.1597439193.git.edvin.torok@citrix.com>
+ <1597668966374.91968@citrix.com>
+In-Reply-To: <1597668966374.91968@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <BEBCEC6C7A4EC9438CF758789E048E97@citrix.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +76,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In 2019, we introduced pin_user_pages*() and now we are converting
-get_user_pages*() to the new API as appropriate. [1] & [2] could
-be referred for more information. This is case 5 as per document [1].
-
-[1] Documentation/core-api/pin_user_pages.rst
-
-[2] "Explicit pinning of user-space pages":
-        https://lwn.net/Articles/807108/
-
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
----
- drivers/xen/gntdev.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 64a9025a..e480509 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -730,7 +730,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
- 	unsigned long xen_pfn;
- 	int ret;
- 
--	ret = get_user_pages_fast(addr, 1, writeable ? FOLL_WRITE : 0, &page);
-+	ret = pin_user_pages_fast(addr, 1, writeable ? FOLL_WRITE : 0, &page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -744,10 +744,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
- 
- static void gntdev_put_pages(struct gntdev_copy_batch *batch)
- {
--	unsigned int i;
--
--	for (i = 0; i < batch->nr_pages; i++)
--		put_page(batch->pages[i]);
-+	unpin_user_pages(batch->pages, batch->nr_pages);
- 	batch->nr_pages = 0;
- }
- 
--- 
-1.9.1
-
+T24gTW9uLCAyMDIwLTA4LTE3IGF0IDE0OjU2ICswMjAwLCBDaHJpc3RpYW4gTGluZGlnIHdyb3Rl
+Og0KPiBUaGlzIGFsbCBsb29rcyBnb29kIC0gSSBsZWZ0IGEgc21hbGwgY29tbWVudCBvbiBvbmUg
+b2YgdGhlIHBhdGNoZXMNCj4gYW5kIEkgYWdyZWUgdGhhdCB0aGlzIG5lZWRzIHRlc3RpbmcuIEkg
+YWxzbyB3b25kZXIgYWJvdXQNCj4gY29tcGF0aWJpbGl0eSB3aXRoIGVhcmxpZXIgT0NhbWwgcmVs
+ZWFzZXMgdGhhdCB3ZSBzdXBwb3J0IGJ1dCBJIHNlZQ0KPiBubyByZWFsIG9ic3RhY2xlcy4NCj4g
+DQoNCkkndmUgZGV2ZWxvcGVkIHRoZSBzZXJpZXMgdXNpbmcgT0NhbWwgNC4wOC4xLiBJIHRoaW5r
+IHRoZSBuZXdlc3QNCmZlYXR1cmUgSSB1c2VkIHdhcyBNYXAudXBkYXRlIChPQ2FtbCA0LjA2LCBu
+ZWFybHkgMyB5ZWFycyBhZ28pLg0KTG9va2luZyB0aHJvdWdoIGh0dHBzOi8vcmVwb2xvZ3kub3Jn
+L3Byb2plY3Qvb2NhbWwvdmVyc2lvbnMgSSdtIG5vdA0Kc3VyZSBpZiB3ZSBjYW4gcmVxdWlyZSBt
+b3JlIHRoYW4gNC4wNSB0aG91Z2guDQpUaGUgUkVBRE1FIGluIFhlbiBkb2Vzbid0IHNwZWNpZnkg
+YSBtaW5pbXVtIHZlcnNpb24sIGJ1dCBjb25maWd1cmUNCmNoZWNrcyBmb3IgPj00LjAyLg0KDQpJ
+IGNhbiB0cnkgdG8gYmFja3BvcnQgbXkgc2VyaWVzIHRvIE9DYW1sIDQuMDUgKHRvIHVzZSBNYXAu
+ZmluZF9vcHQNCmluc3RlYWQgb2YgTWFwLnVwZGF0ZSkgYW5kIHVwZGF0ZSB0aGUgY29uZmlndXJl
+IGNoZWNrIHRvIHJlcXVpcmUgNC4wNS4NCkl0IHdvdWxkIGJlIHBvc3NpYmxlIHRvIGJhY2twb3J0
+IGV2ZW4gZnVydGhlciB0byA0LjAyIGJ5IGludHJvZHVjaW5nDQphZGRpdGlvbmFsIGluZWZmaWNp
+ZW5jaWVzIChNYXAubWVtICsgTWFwLmZpbmQgd291bGQgdHJhdmVyc2UgdGhlIG1hcA0KdHdpY2Us
+IGFuZCBNYXAuZmluZCBvbiBpdHMgb3duIHdvdWxkIHJhaXNlIGFuIGV4Y2VwdGlvbiBvbiBOb3Qg
+Zm91bmQsDQp3aGljaCBpcyBtb3JlIGNvc3RseSB0aGFuIHJldHVybmluZyBOb25lIGluIE1hcC5m
+aW5kX29wdCksIEknZCBhdm9pZA0KZG9pbmcgdGhhdC4NCg0KWGVuJ3MgQ0kgZnJvbSBhdXRvbWF0
+aW9uIG1pZ2h0IG5lZWQgc29tZSB1cGRhdGVzIHRvIHVzZSBsYXRlc3Qgc3RhYmxlDQp2ZXJzaW9u
+czoNCiogRmVkb3JhIDI5IGlzIEVPTCwgc2hvdWxkIHVzZSBhdCBsZWFzdCBGZWRvcmEgMzENCiog
+RGViaWFuIEplc3NpZSBpcyBFT0wuIFN0cmV0Y2ggaXMgcHJlc2VudCwgYnV0IEJ1c3RlciBpcyBt
+aXNzaW5nDQoNCkJlc3QgcmVnYXJkcywNCi0tRWR3aW4NCg==
 
