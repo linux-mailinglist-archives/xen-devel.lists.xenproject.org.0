@@ -2,48 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C9DE24811D
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5008F24813B
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:59:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7xRV-0004Cb-FT; Tue, 18 Aug 2020 08:58:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7xSY-0004H0-Pz; Tue, 18 Aug 2020 08:59:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RgDL=B4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k7xRU-0004CW-7s
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:58:04 +0000
-X-Inumbo-ID: 323ac7de-cc98-4559-9cf5-8c2c94ff3a2c
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 323ac7de-cc98-4559-9cf5-8c2c94ff3a2c;
- Tue, 18 Aug 2020 08:58:03 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0347CABF4;
- Tue, 18 Aug 2020 08:58:28 +0000 (UTC)
-Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
- pirq_spin_lock_irq_desc()
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200722165300.22655-1-julien@xen.org>
- <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
- <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
- <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
- <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
- <ca67035b-437b-382f-c3eb-93327042b3d7@suse.com>
- <7b30d0d7-24d4-b38a-6b97-d6b450574b15@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <17176e45-abc9-8b90-50b7-50aacb0e19bf@suse.com>
-Date: Tue, 18 Aug 2020 10:57:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k7xSW-0004Gq-Si
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:59:08 +0000
+X-Inumbo-ID: c809065a-babb-429f-944d-20908c8c1c6a
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c809065a-babb-429f-944d-20908c8c1c6a;
+ Tue, 18 Aug 2020 08:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=sS/gfdWD8WjvMLTzwmfCYw8hF3ENSWWnKEUT8uH0y9s=; b=P4Onybnp93747ZgXK0JFXzdfey
+ IqOg+X9mRj0ngjzTOlrcmllnvH2x3m/hHrs3V6z2UERdRCGlG/5F2pEik/mgOQA2HLPNOw20RoF97
+ 1jfpPZLAtaRDCSHGPy+7WyzKqLJXektI6RvHf2BRjhijT1ViJlZnSZhPeg8AT6GY4ehA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7xSP-0007Su-Sk; Tue, 18 Aug 2020 08:59:01 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k7xSP-0007gy-GT; Tue, 18 Aug 2020 08:59:01 +0000
+Subject: Re: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather
+ than asm/guest_access.h
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-6-julien@xen.org>
+ <0874b4c7-13d4-61c1-c076-c9d7cf3720c7@suse.com>
+ <b2c77386-69a7-b6ee-8311-b2dd25e5ddcd@xen.org>
+ <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
+Date: Tue, 18 Aug 2020 09:58:58 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <7b30d0d7-24d4-b38a-6b97-d6b450574b15@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -58,55 +74,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.08.2020 10:53, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 18/08/2020 09:39, Jan Beulich wrote:
->> On 14.08.2020 21:25, Julien Grall wrote:
->>> Hi Andrew,
->>>
->>> Sorry for the late answer.
->>>
->>> On 23/07/2020 14:59, Andrew Cooper wrote:
->>>> On 23/07/2020 14:22, Julien Grall wrote:
->>>>> Hi Jan,
->>>>>
->>>>> On 23/07/2020 12:23, Jan Beulich wrote:
->>>>>> On 22.07.2020 18:53, Julien Grall wrote:
->>>>>>> --- a/xen/arch/x86/irq.c
->>>>>>> +++ b/xen/arch/x86/irq.c
->>>>>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
->>>>>>>           for ( ; ; )
->>>>>>>         {
->>>>>>> -        int irq = pirq->arch.irq;
->>>>>>> +        int irq = read_atomic(&pirq->arch.irq);
->>>>>>
->>>>>> There we go - I'd be fine this way, but I'm pretty sure Andrew
->>>>>> would want this to be ACCESS_ONCE(). So I guess now is the time
->>>>>> to settle which one to prefer in new code (or which criteria
->>>>>> there are to prefer one over the other).
->>>>>
->>>>> I would prefer if we have a single way to force the compiler to do a
->>>>> single access (read/write).
->>>>
->>>> Unlikely to happen, I'd expect.
->>>>
->>>> But I would really like to get rid of (or at least rename)
->>>> read_atomic()/write_atomic() specifically because they've got nothing to
->>>> do with atomic_t's and the set of functionality who's namespace they share.
->>>
->>> Would you be happy if I rename both to READ_ONCE() and WRITE_ONCE()?
+
+
+On 18/08/2020 09:50, Jan Beulich wrote:
+> On 14.08.2020 21:07, Julien Grall wrote:
+>> Hi Jan,
 >>
->> Wouldn't this lead to confusion with Linux'es macros of the same names?
+>> On 31/07/2020 12:36, Jan Beulich wrote:
+>>> On 30.07.2020 20:18, Julien Grall wrote:
+>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>
+>>>> Only a few places are actually including asm/guest_access.h. While this
+>>>> is fine today, a follow-up patch will want to move most of the helpers
+>>>> from asm/guest_access.h to xen/guest_access.h.
+>>>>
+>>>> To prepare the move, everyone should include xen/guest_access.h rather
+>>>> than asm/guest_access.h.
+>>>>
+>>>> Interestingly, asm-arm/guest_access.h includes xen/guest_access.h. The
+>>>> inclusion is now removed as no-one but the latter should include the
+>>>> former.
+>>>>
+>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>
+>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Is there any chance you could take measures to avoid new inclusions
+>>> of asm/guest_access.h to appear?
+>>
+>> It should be possible.
+>>
+>> How about this:
+>>
+>> diff --git a/xen/include/asm-arm/guest_access.h b/xen/include/asm-arm/guest_access.h
+>> index b9a89c495527..d8dbc7c973b4 100644
+>> --- a/xen/include/asm-arm/guest_access.h
+>> +++ b/xen/include/asm-arm/guest_access.h
+>> @@ -1,3 +1,7 @@
+>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>> +#error "asm/guest_access.h should not be included directly"
+>> +#endif
+>> +
+>>   #ifndef __ASM_ARM_GUEST_ACCESS_H__
+>>   #define __ASM_ARM_GUEST_ACCESS_H__
+>>
+>> diff --git a/xen/include/asm-x86/guest_access.h b/xen/include/asm-x86/guest_access.h
+>> index 369676f31ac3..e665ca3a27af 100644
+>> --- a/xen/include/asm-x86/guest_access.h
+>> +++ b/xen/include/asm-x86/guest_access.h
+>> @@ -4,6 +4,10 @@
+>>    * Copyright (c) 2006, K A Fraser
+>>    */
+>>
+>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>> +#error "asm/guest_access.h should not be included directly"
+>> +#endif
+>> +
+>>   #ifndef __ASM_X86_GUEST_ACCESS_H__
+>>   #define __ASM_X86_GUEST_ACCESS_H__
+>>
+>> diff --git a/xen/include/xen/guest_access.h b/xen/include/xen/guest_access.h
+>> index 75103d30c8be..814e31329de9 100644
+>> --- a/xen/include/xen/guest_access.h
+>> +++ b/xen/include/xen/guest_access.h
+>> @@ -7,7 +7,9 @@
+>>   #ifndef __XEN_GUEST_ACCESS_H__
+>>   #define __XEN_GUEST_ACCESS_H__
+>>
+>> +#define ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>   #include <asm/guest_access.h>
+>> +#undef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>   #include <xen/types.h>
+>>   #include <public/xen.h>
 > 
-> From my understanding, the purpose of READ_ONCE()/WRITE_ONCE() in Linux is the same as our read_atomic()/write_atomic().
-> 
-> So I think it would be fine to rename them. An alternative would be port the Linux version in Xen and drop ours.
+> One option. Personally I'd prefer to avoid introduction of yet another
+> constant, by leveraging __XEN_GUEST_ACCESS_H__ instead.
 
-The port of Linux'es {READ,WRITE}_ONCE() is our ACCESS_ONCE(). As pointed
-out before, ACCESS_ONCE() and {read,write}_atomic() serve slightly
-different purposes, and so far it looks like all of us are lacking ideas
-on how to construct something that catches all cases by one single approach.
+I thought about it but it doesn't prevent new inclusions of 
+asm/guest_access.h. For instance, the following would still compile:
 
-Jan
+#include <xen/guest_access.h>
+
+[...]
+
+#include <asm/guest_access.h>
+
+If we want to completely prevent new inclusion, then we need a new 
+temporary constant.
+
+Cheers,
+
+-- 
+Julien Grall
 
