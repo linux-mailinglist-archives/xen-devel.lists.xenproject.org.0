@@ -2,123 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47927248015
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 09:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410C624801E
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:04:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7wVa-0005lM-NN; Tue, 18 Aug 2020 07:58:14 +0000
+	id 1k7wb6-0007AW-Ui; Tue, 18 Aug 2020 08:03:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tbtu=B4=amd.com=christian.koenig@srs-us1.protection.inumbo.net>)
- id 1k7wVY-0005lH-Rl
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 07:58:13 +0000
-X-Inumbo-ID: ef7c751c-bc8f-4362-a5af-fe631099860f
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (unknown
- [40.107.92.76]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef7c751c-bc8f-4362-a5af-fe631099860f;
- Tue, 18 Aug 2020 07:58:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eZs8fIUbZD7GbH+Wq+6a5fpD6XsRqDl8h3dY4m1woQBlu19iIha4EiWF9Kdm+1hg0im+r5Di/6K6hcEZJ7ZSVRRKtAma+/2zRpOyoUhHvT5aFDCmYfL6y2go7sWo6p7mjU7rmepCzBYwMUt4TEdXJft6cBhvgUG4XGXS+uLuJmC9wHzPFY2iWzPOjrSvcKz9Py7WWNuR85YWw5F2iKmnvhfmEJzx09a931xBisP/7M3qbjUq6kWy8O7fAEKx+jQai7jcYaesFMjUqvdoxVE06cyZKFMAjvfWN9m7Es2z2SwkIQQChJlIs5fBvFilIAVwgSjQAFThXqbWHi++ILINjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7EK3lX3GavvNjO3+ZjPDvyQVZn6K0CH5jRYSdwxdRs8=;
- b=fE3zIDS4LX2Ku9CxkxQjK1CKVhYq3m0Zjoo4ZLh8V4MDhYiHKCzR2KTCtQLNX9AmaDmHWEwi8iyE5nfCtx9WX52QHH76kvFbn68wIYd1jYID8yVLWV8z2x9spyjpRSNQ172ZxRT8kM68dWuDH8sXAE4ICxrXrPAnGTu8i/QAh8uAfj66kpnaUc9Gd89rGimUNgZ+g/gNLv8RVURsDZb4X05YzVY0RfuX70Xits8o/KSS6AHxSN4WH4zHt+pAx1bAdfQLAOMGmrpZkz4YS4DKztNA2lVXf1gfYfyYkiAltc9lWxdab63bNkqtbN8iAJY9hQygMbNazReCWpyDHZNFUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7EK3lX3GavvNjO3+ZjPDvyQVZn6K0CH5jRYSdwxdRs8=;
- b=zbCYQdEVC3hKC33YhhQECD43R9+w4pQ4Nq8irQ4eXhiYboCF7Ps372F/ysmOC8EagGhR/QDnUrPE9Qs9YNsQ6GWagmwpK0TDLMudkeF6Ftt6p3RHpRjHp1l5OrNxBmdx74ZKayKgsyjuXNckBLTsbTT5SumN1Zvm8Gzpf8AzRyI=
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3696.namprd12.prod.outlook.com (2603:10b6:208:169::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.16; Tue, 18 Aug
- 2020 07:58:06 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3283.028; Tue, 18 Aug 2020
- 07:58:06 +0000
-Subject: Re: [PATCH 1/2] drm: allow limiting the scatter list size.
-To: Gerd Hoffmann <kraxel@redhat.com>, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-References: <20200818074828.9509-1-kraxel@redhat.com>
- <20200818074828.9509-2-kraxel@redhat.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
-Date: Tue, 18 Aug 2020 09:57:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200818074828.9509-2-kraxel@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR04CA0061.eurprd04.prod.outlook.com
- (2603:10a6:208:1::38) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RgDL=B4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k7wb5-0007AR-Jh
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:03:55 +0000
+X-Inumbo-ID: a1c05f49-c3cc-4ba4-a9f5-ecf5cc6b1adf
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a1c05f49-c3cc-4ba4-a9f5-ecf5cc6b1adf;
+ Tue, 18 Aug 2020 08:03:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0F9F9AD9A;
+ Tue, 18 Aug 2020 08:04:18 +0000 (UTC)
+Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
+ xendevicemodel_set_irq_level DM op
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, Oleksandr Tyshchenko
+ <olekstysh@gmail.com>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <julien.grall@arm.com>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
+ <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
+ <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
+ <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
+ <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
+ <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
+ <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
+ <21da3195-f43a-ebc7-cbc6-986d5a3a1e67@suse.com>
+ <alpine.DEB.2.21.2008171502390.15985@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <75c07fb2-f1bd-eb4c-7e8d-71a85f347d4f@suse.com>
+Date: Tue, 18 Aug 2020 10:03:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR04CA0061.eurprd04.prod.outlook.com (2603:10a6:208:1::38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Tue, 18 Aug 2020 07:58:02 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 36acc88a-ea0c-4a23-69c9-08d8434c7067
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3696:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB36969E49B6CBE62456F3C3FF835C0@MN2PR12MB3696.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jJICQZ3vvUC4qYRzVNIOVqMXwL/+LNv5lZtjFzTQjNwObH0kgjsE7yvI2pxg4XO5NBuwnR7kd3VESzYYGrad9apkwXaN69Hg75mKzwJbp4nOqNpOZGtve4KZEfzl8GtCiwL2tyJqPuyo5iXRIVJSxx/HMRSobk+JfFm2SLbNIwMFYUwo6eJeD/WckmWYC86bgM6Iu559vakJ4aAZMixOM3IY+sTfcWjtO1/fn7EvgwtAlJPpVzSZO0H1U2gF1lytAGJPedJKLftV+d26QTVaNYJwYISy2IMpyhxwcOZKhEq9kNwlNB590qR2H4sBoRAApHJoMxIFPJTp/hgfe8CY0OKUFDaAQBEXPrz6j8rRs8Z1M6Ai2U/5snLsd2ENMfCF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(366004)(39860400002)(31696002)(186003)(8676002)(478600001)(2616005)(86362001)(52116002)(66476007)(83380400001)(66556008)(66946007)(54906003)(8936002)(31686004)(5660300002)(316002)(36756003)(16526019)(4326008)(7416002)(2906002)(6666004)(30864003)(6486002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 09Pu6O3+2dUkDSYKZtIndy6NYcL9CdYi/HAycGaO4ooDsRNLJg0RJxl6jmYSi1bX0o4mDR0IMW7IAz+6pbjkSGVzK6g26HcOLzr1RT/fs5J/F4HbZz8y5SKDv2gcI7Jg3GPV8N146v7po4R4DrZITRZqrQe/QAUdmNQtLUfTs3gt3xDElNe8T09Rv7j2SGDoYOH/UvnIxNv8VNqG6TQzVhUGDqxpjoRo8h8HpEQCZ607DbpyhW23gK6tmnxSBTng/sC6f+T6IMEc4Y+zdDSqv1UJxG5NeHyrNHBPFyaI9GE30uI350ZEuP+xUiMbWOUOHNlC4R5ME60+iq6sbpHExL/zQQvIq9sSBFiIFoPS1nGI4GQ1ztAgvUPpIdTi+u8YPebhrYUMbu6XrDGpbU1DyWByO9i38lEJNhX5JiP8gX9QF1oO7HSebvPcIho3qvj0sNhtLFCkaXG1yL0ijQY9RmozJmQbd2XRiSlsQOb2V3cuZWsIW+czaZ7Oyci9XiE/HWAU15iCBkcPsOTZEYNb6c73N2I5qesFpIYWpnxlYKDyxhEMnwAGxnK6k5L8TZP4q5ItU4HutfU+uPHIRChEKMIJ/to7Tgb71yxf4u7SMshFRfbmm533e0ZWWDmzHnldBl5n0rrTpXEK8pGYa15EcSf6LHUkZYLaQGe3itrAbIAQSEzVdsv5gRcRgiaEkVRPsJurA7FUHwJA1hUgxX6fIQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36acc88a-ea0c-4a23-69c9-08d8434c7067
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2020 07:58:05.8774 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z4VJmiF3KGPP5fNKMfyzPdSkIDfSPdlh7Bt+1JDU+qYuLI5f6uclcHajsFQnLHmO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3696
+In-Reply-To: <alpine.DEB.2.21.2008171502390.15985@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,279 +67,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Am 18.08.20 um 09:48 schrieb Gerd Hoffmann:
-> Add max_segment argument to drm_prime_pages_to_sg().  When set pass it
-> through to the __sg_alloc_table_from_pages() call, otherwise use
-> SCATTERLIST_MAX_SEGMENT.
->
-> Also add max_segment field to gem objects and pass it to
-> drm_prime_pages_to_sg() calls in drivers and helpers.
->
-> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+On 18.08.2020 00:56, Stefano Stabellini wrote:
+> On Mon, 17 Aug 2020, Jan Beulich wrote:
+>> On 07.08.2020 23:50, Stefano Stabellini wrote:
+>>> On Fri, 7 Aug 2020, Jan Beulich wrote:
+>>>> On 07.08.2020 01:49, Stefano Stabellini wrote:
+>>>>> On Thu, 6 Aug 2020, Julien Grall wrote:
+>>>>>> On 06/08/2020 01:37, Stefano Stabellini wrote:
+>>>>>>> On Wed, 5 Aug 2020, Julien Grall wrote:
+>>>>>>>> On 05/08/2020 00:22, Stefano Stabellini wrote:
+>>>>>>>>> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+>>>>>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>>>>>
+>>>>>>>>>> This patch adds ability to the device emulator to notify otherend
+>>>>>>>>>> (some entity running in the guest) using a SPI and implements Arm
+>>>>>>>>>> specific bits for it. Proposed interface allows emulator to set
+>>>>>>>>>> the logical level of a one of a domain's IRQ lines.
+>>>>>>>>>>
+>>>>>>>>>> Please note, this is a split/cleanup of Julien's PoC:
+>>>>>>>>>> "Add support for Guest IO forwarding to a device emulator"
+>>>>>>>>>>
+>>>>>>>>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+>>>>>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>>>>> ---
+>>>>>>>>>>    tools/libs/devicemodel/core.c                   | 18
+>>>>>>>>>> ++++++++++++++++++
+>>>>>>>>>>    tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
+>>>>>>>>>>    tools/libs/devicemodel/libxendevicemodel.map    |  1 +
+>>>>>>>>>>    xen/arch/arm/dm.c                               | 22
+>>>>>>>>>> +++++++++++++++++++++-
+>>>>>>>>>>    xen/common/hvm/dm.c                             |  1 +
+>>>>>>>>>>    xen/include/public/hvm/dm_op.h                  | 15
+>>>>>>>>>> +++++++++++++++
+>>>>>>>>>>    6 files changed, 60 insertions(+), 1 deletion(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/tools/libs/devicemodel/core.c
+>>>>>>>>>> b/tools/libs/devicemodel/core.c
+>>>>>>>>>> index 4d40639..30bd79f 100644
+>>>>>>>>>> --- a/tools/libs/devicemodel/core.c
+>>>>>>>>>> +++ b/tools/libs/devicemodel/core.c
+>>>>>>>>>> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
+>>>>>>>>>>        return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+>>>>>>>>>>    }
+>>>>>>>>>>    +int xendevicemodel_set_irq_level(
+>>>>>>>>>> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
+>>>>>>>>>> +    unsigned int level)
+>>>>>>>>>
+>>>>>>>>> It is a pity that having xen_dm_op_set_pci_intx_level and
+>>>>>>>>> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
+>>>>>>>>> the names alone I don't think we can reuse either of them.
+>>>>>>>>
+>>>>>>>> The problem is not the name...
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> It is very similar to set_isa_irq_level. We could almost rename
+>>>>>>>>> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
+>>>>>>>>> better, just add an alias to it so that xendevicemodel_set_irq_level is
+>>>>>>>>> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
+>>>>>>>>> not sure if it is worth doing it though. Any other opinions?
+>>>>>>>>
+>>>>>>>> ... the problem is the interrupt field is only 8-bit. So we would only be
+>>>>>>>> able
+>>>>>>>> to cover IRQ 0 - 255.
+>>>>>>>
+>>>>>>> Argh, that's not going to work :-(  I wasn't sure if it was a good idea
+>>>>>>> anyway.
+>>>>>>>
+>>>>>>>
+>>>>>>>> It is not entirely clear how the existing subop could be extended without
+>>>>>>>> breaking existing callers.
+>>>>>>>>
+>>>>>>>>> But I think we should plan for not needing two calls (one to set level
+>>>>>>>>> to 1, and one to set it to 0):
+>>>>>>>>> https://marc.info/?l=xen-devel&m=159535112027405
+>>>>>>>>
+>>>>>>>> I am not sure to understand your suggestion here? Are you suggesting to
+>>>>>>>> remove
+>>>>>>>> the 'level' parameter?
+>>>>>>>
+>>>>>>> My hope was to make it optional to call the hypercall with level = 0,
+>>>>>>> not necessarily to remove 'level' from the struct.
+>>>>>>
+>>>>>> From my understanding, the hypercall is meant to represent the status of the
+>>>>>> line between the device and the interrupt controller (either low or high).
+>>>>>>
+>>>>>> This is then up to the interrupt controller to decide when the interrupt is
+>>>>>> going to be fired:
+>>>>>>   - For edge interrupt, this will fire when the line move from low to high (or
+>>>>>> vice versa).
+>>>>>>   - For level interrupt, this will fire when line is high (assuming level
+>>>>>> trigger high) and will keeping firing until the device decided to lower the
+>>>>>> line.
+>>>>>>
+>>>>>> For a device, it is common to keep the line high until an OS wrote to a
+>>>>>> specific register.
+>>>>>>
+>>>>>> Furthermore, technically, the guest OS is in charge to configure how an
+>>>>>> interrupt is triggered. Admittely this information is part of the DT, but
+>>>>>> nothing prevent a guest to change it.
+>>>>>>
+>>>>>> As side note, we have a workaround in Xen for some buggy DT (see the arch
+>>>>>> timer) exposing the wrong trigger type.
+>>>>>>
+>>>>>> Because of that, I don't really see a way to make optional. Maybe you have
+>>>>>> something different in mind?
+>>>>>
+>>>>> For level, we need the level parameter. For edge, we are only interested
+>>>>> in the "edge", right?
+>>>>
+>>>> I don't think so, unless Arm has special restrictions. Edges can be
+>>>> both rising and falling ones.
+>>>
+>>> And the same is true for level interrupts too: they could be active-low
+>>> or active-high.
+>>>
+>>>
+>>> Instead of modelling the state of the line, which seems to be a bit
+>>> error prone especially in the case of a single-device emulator that
+>>> might not have enough information about the rest of the system (it might
+>>> not know if the interrupt is active-high or active-low), we could model
+>>> the triggering of the interrupt instead.
+>>>
+>>> In the case of level=1, it would mean that the interrupt line is active,
+>>> no matter if it is active-low or active-high. In the case of level=0, it
+>>> would mean that it is inactive.
+>>>
+>>> Similarly, in the case of an edge interrupt edge=1 or level=1 would mean
+>>> that there is an edge, no matter if it is a rising or falling.
+>>
+>> Am I understanding right that you propose to fold two properties into
+>> a single bit?
+> 
+> I don't think I understand what are the two properties that my proposal
+> is merging into a single bit.
+> 
+> The hypercall specifies the state of the line in terms of "high" and
+> "low". My proposal is to replace it with "fire the interrupt" for edge
+> interrupts, and "interrupt enabled/disabled" for level, abstracting away
+> the state of the line in terms of high/low and instead focusing on
+> whether the interrupt should be injected or not.
 
-I'm missing an explanation why this should be useful (it certainly is).
+Okay, I realize I misunderstood. There's a naming issue that I think
+gets in the way here: Since this is about triggering an IRQ without
+"setting" its specific properties, perhaps "trigger_irq" would be a
+better name, with your boolean distinguishing the "assert" and
+"deassert" cases (and the other one telling "edge" vs "level")?
 
-And the maximum segment size seems misplaced in the GEM object. This is 
-usually a property of the device or even completely constant.
-
-Christian.
-
-> ---
->   include/drm/drm_gem.h                       |  8 ++++++++
->   include/drm/drm_prime.h                     |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 ++-
->   drivers/gpu/drm/drm_gem_shmem_helper.c      |  3 ++-
->   drivers/gpu/drm/drm_prime.c                 | 10 +++++++---
->   drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 ++-
->   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
->   drivers/gpu/drm/msm/msm_gem.c               |  3 ++-
->   drivers/gpu/drm/msm/msm_gem_prime.c         |  3 ++-
->   drivers/gpu/drm/nouveau/nouveau_prime.c     |  3 ++-
->   drivers/gpu/drm/radeon/radeon_prime.c       |  3 ++-
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++++--
->   drivers/gpu/drm/tegra/gem.c                 |  3 ++-
->   drivers/gpu/drm/vgem/vgem_drv.c             |  3 ++-
->   drivers/gpu/drm/xen/xen_drm_front_gem.c     |  3 ++-
->   15 files changed, 43 insertions(+), 17 deletions(-)
->
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 337a48321705..dea5e92e745b 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -241,6 +241,14 @@ struct drm_gem_object {
->   	 */
->   	size_t size;
->   
-> +	/**
-> +	 * @max_segment:
-> +	 *
-> +	 * Max size for scatter list segments.  When unset the default
-> +	 * (SCATTERLIST_MAX_SEGMENT) is used.
-> +	 */
-> +	size_t max_segment;
-> +
->   	/**
->   	 * @name:
->   	 *
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index 9af7422b44cf..2c3689435cb4 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -88,7 +88,8 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr);
->   int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->   int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
->   
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages);
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment);
->   struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->   				     int flags);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 519ce4427fce..5e8a9760b33f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -303,7 +303,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->   	switch (bo->tbo.mem.mem_type) {
->   	case TTM_PL_TT:
->   		sgt = drm_prime_pages_to_sg(bo->tbo.ttm->pages,
-> -					    bo->tbo.num_pages);
-> +					    bo->tbo.num_pages,
-> +					    obj->max_segment);
->   		if (IS_ERR(sgt))
->   			return sgt;
->   
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 4b7cfbac4daa..cfb979d808fd 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -656,7 +656,8 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_object *obj)
->   
->   	WARN_ON(shmem->base.import_attach);
->   
-> -	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT,
-> +				     obj->max_segment);
->   }
->   EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
->   
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 1693aa7c14b5..27c783fd6633 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -802,7 +802,8 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
->    *
->    * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
->    */
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages)
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment)
->   {
->   	struct sg_table *sg = NULL;
->   	int ret;
-> @@ -813,8 +814,11 @@ struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_page
->   		goto out;
->   	}
->   
-> -	ret = sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> -				nr_pages << PAGE_SHIFT, GFP_KERNEL);
-> +	if (max_segment == 0 || max_segment > SCATTERLIST_MAX_SEGMENT)
-> +		max_segment = SCATTERLIST_MAX_SEGMENT;
-> +	ret = __sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> +					  nr_pages << PAGE_SHIFT,
-> +					  max_segment, GFP_KERNEL);
->   	if (ret)
->   		goto out;
->   
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> index f06e19e7be04..e5b6e7996f80 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> @@ -103,7 +103,8 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
->   		int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
->   		struct sg_table *sgt;
->   
-> -		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +					    etnaviv_obj->base.max_segment);
->   		if (IS_ERR(sgt)) {
->   			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
->   				PTR_ERR(sgt));
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> index 6d9e5c3c4dd5..f327676450bd 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
->   		return ERR_PTR(-EINVAL);
->   
-> -	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index b2f49152b4d4..f805419bb84a 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -126,7 +126,8 @@ static struct page **get_pages(struct drm_gem_object *obj)
->   
->   		msm_obj->pages = p;
->   
-> -		msm_obj->sgt = drm_prime_pages_to_sg(p, npages);
-> +		msm_obj->sgt = drm_prime_pages_to_sg(p, npages,
-> +						     obj->max_segment);
->   		if (IS_ERR(msm_obj->sgt)) {
->   			void *ptr = ERR_CAST(msm_obj->sgt);
->   
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-> index d7c8948427fe..a5a412564c7f 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
->   		return NULL;
->   
-> -	return drm_prime_pages_to_sg(msm_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(msm_obj->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *msm_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> index bae6a3eccee0..56a2e916d51a 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> @@ -32,7 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
->   	int npages = nvbo->bo.num_pages;
->   
-> -	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *nouveau_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-> index b906e8fbd5f3..503e35625045 100644
-> --- a/drivers/gpu/drm/radeon/radeon_prime.c
-> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
-> @@ -36,7 +36,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	struct radeon_bo *bo = gem_to_radeon_bo(obj);
->   	int npages = bo->tbo.num_pages;
->   
-> -	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *radeon_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index b9275ba7c5a5..444657e03c16 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -85,7 +85,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
->   
->   	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
->   
-> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					    rk_obj->base.max_segment);
->   	if (IS_ERR(rk_obj->sgt)) {
->   		ret = PTR_ERR(rk_obj->sgt);
->   		goto err_put_pages;
-> @@ -442,7 +443,8 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	int ret;
->   
->   	if (rk_obj->pages)
-> -		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					     obj->max_segment);
->   
->   	sgt = kzalloc(sizeof(*sgt), GFP_KERNEL);
->   	if (!sgt)
-> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-> index 723df142a981..8d98b02a8d21 100644
-> --- a/drivers/gpu/drm/tegra/gem.c
-> +++ b/drivers/gpu/drm/tegra/gem.c
-> @@ -284,7 +284,8 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
->   
->   	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
->   
-> -	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages);
-> +	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages,
-> +					bo->gem.max_segment);
->   	if (IS_ERR(bo->sgt)) {
->   		err = PTR_ERR(bo->sgt);
->   		goto put_pages;
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> index 313339bbff90..d25c93b5a2c1 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -321,7 +321,8 @@ static struct sg_table *vgem_prime_get_sg_table(struct drm_gem_object *obj)
->   {
->   	struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
->   
-> -	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT,
-> +				     obj->max_segment);
->   }
->   
->   static struct drm_gem_object* vgem_prime_import(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> index f0b85e094111..362fe5311b1b 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -179,7 +179,8 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
->   	if (!xen_obj->pages)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages);
-> +	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages,
-> +				     gem_obj->max_segment);
->   }
->   
->   struct drm_gem_object *
-
+Jan
 
