@@ -2,61 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF5292480C3
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:36:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 912E32480D7
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 10:40:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7x6m-0001qs-V2; Tue, 18 Aug 2020 08:36:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SD0B=B4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k7x6k-0001qi-Pw
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:36:38 +0000
-X-Inumbo-ID: b00ef5b5-4fde-4437-8123-d13ed935007a
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b00ef5b5-4fde-4437-8123-d13ed935007a;
- Tue, 18 Aug 2020 08:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597739797;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=02irrjygnVlE9mzK5xqI+Am879Afo4diMX05U7Q1tR8=;
- b=Wbsio8Hy7A9CrZd3gGBui3Pwtxrcn+2YHiarV0ppQvzuBEfp/6PX/iyO
- S4qDWRx6/VdO4AK9MehGX/yvDxNaxz28V1LRFtQpYh/F6KJC35E4dZjGP
- ROvp3/2kOaAvGoon1qLR75wrJRNacEs2bGYgMtmSe6EUW0oZZwM4SEfLT o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: SNAk1/gmMEVLxcqnLwNTWkAQjAu2086RryKL1HcF/zko64L1O8UD5k7KrBeGgfAr0iDGjyoYfq
- ZUgORpOtqgDT7DctkLE3K+kjzAhbbgSpPwZ3bu/xTWtI6PtImwcgooNd3zZJ6o4u4ePlpj4DE+
- unAcs/aYJfLRFmkBqkGXQojGXodjeNzp3lMIQPZxXhGg9lKqJvXu4ya87xdG4mJ8UKSC47S3sd
- Lz/LSkTtIqKtLJxCHaQCQJiCwHuspclyIHUuMMEm0KW6aIE9xXDdL2+FnFLlk+0l7gEsudQgCr
- XuI=
-X-SBRS: 2.7
-X-MesageID: 25063952
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,326,1592884800"; d="scan'208";a="25063952"
-Date: Tue, 18 Aug 2020 10:36:29 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <jgrall@amazon.com>, "Jan
- Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Wei
- Liu" <wl@xen.org>
+	id 1k7x9v-00020S-Ea; Tue, 18 Aug 2020 08:39:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RgDL=B4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k7x9u-00020N-Hd
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 08:39:54 +0000
+X-Inumbo-ID: 2cce0555-c29a-4797-a5c6-72bb859bb8bf
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2cce0555-c29a-4797-a5c6-72bb859bb8bf;
+ Tue, 18 Aug 2020 08:39:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 91BB1B62E;
+ Tue, 18 Aug 2020 08:40:18 +0000 (UTC)
 Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
  pirq_spin_lock_irq_desc()
-Message-ID: <20200818083629.GI828@Air-de-Roger>
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <20200722165300.22655-1-julien@xen.org>
+ <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
+ <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+ <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
+ <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ca67035b-437b-382f-c3eb-93327042b3d7@suse.com>
+Date: Tue, 18 Aug 2020 10:39:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200722165300.22655-1-julien@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,21 +56,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 22, 2020 at 05:53:00PM +0100, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 14.08.2020 21:25, Julien Grall wrote:
+> Hi Andrew,
 > 
-> Even if we assigned pirq->arch.irq to a variable, a compile is still
-> allowed to read pirq->arch.irq multiple time. This means that the value
-> checked may be different from the value used to get the desc.
+> Sorry for the late answer.
 > 
-> Force the compiler to only do one read access by using read_atomic().
+> On 23/07/2020 14:59, Andrew Cooper wrote:
+>> On 23/07/2020 14:22, Julien Grall wrote:
+>>> Hi Jan,
+>>>
+>>> On 23/07/2020 12:23, Jan Beulich wrote:
+>>>> On 22.07.2020 18:53, Julien Grall wrote:
+>>>>> --- a/xen/arch/x86/irq.c
+>>>>> +++ b/xen/arch/x86/irq.c
+>>>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+>>>>>          for ( ; ; )
+>>>>>        {
+>>>>> -        int irq = pirq->arch.irq;
+>>>>> +        int irq = read_atomic(&pirq->arch.irq);
+>>>>
+>>>> There we go - I'd be fine this way, but I'm pretty sure Andrew
+>>>> would want this to be ACCESS_ONCE(). So I guess now is the time
+>>>> to settle which one to prefer in new code (or which criteria
+>>>> there are to prefer one over the other).
+>>>
+>>> I would prefer if we have a single way to force the compiler to do a
+>>> single access (read/write).
+>>
+>> Unlikely to happen, I'd expect.
+>>
+>> But I would really like to get rid of (or at least rename)
+>> read_atomic()/write_atomic() specifically because they've got nothing to
+>> do with atomic_t's and the set of functionality who's namespace they share.
 > 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Would you be happy if I rename both to READ_ONCE() and WRITE_ONCE()?
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Wouldn't this lead to confusion with Linux'es macros of the same names?
 
-The whole discussion about renaming {write/read}_atomic is orthogonal
-to this patch IMO.
+> I would also suggest to move them implementation in a new header asm/lib.h.
 
-Thanks, Roger.
+Probably.
+
+Jan
 
