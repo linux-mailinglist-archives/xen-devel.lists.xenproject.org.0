@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB35A2483D7
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 13:31:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED0912483DE
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 13:32:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7zpY-0003zb-Dd; Tue, 18 Aug 2020 11:31:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k7zqg-00044R-Oy; Tue, 18 Aug 2020 11:32:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RgDL=B4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k7zpW-0003zW-RA
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 11:31:02 +0000
-X-Inumbo-ID: 7c6bbde0-86b5-45b8-af18-da3014c47e29
+ id 1k7zqf-00044K-9o
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 11:32:13 +0000
+X-Inumbo-ID: 30f99218-bacb-40fa-8675-218fca795f78
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7c6bbde0-86b5-45b8-af18-da3014c47e29;
- Tue, 18 Aug 2020 11:31:00 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 30f99218-bacb-40fa-8675-218fca795f78;
+ Tue, 18 Aug 2020 11:32:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7F9E9ACA7;
- Tue, 18 Aug 2020 11:31:25 +0000 (UTC)
-Subject: Re: [PATCH v8 03/15] x86/mm: rewrite virt_to_xen_l*e
+ by mx2.suse.de (Postfix) with ESMTP id 5172CACB5;
+ Tue, 18 Aug 2020 11:32:37 +0000 (UTC)
+Subject: Re: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather
+ than asm/guest_access.h
 To: Julien Grall <julien@xen.org>
-Cc: Hongyan Xia <hx242@xen.org>, xen-devel@lists.xenproject.org,
- jgrall@amazon.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1595857947.git.hongyxia@amazon.com>
- <e7963f6d8cab8e4d5d4249b12a8175405d888bba.1595857947.git.hongyxia@amazon.com>
- <41d9d8d4-d5cb-8350-c118-c9e1fe73b6d0@suse.com>
- <a4f02c292a369cfd771790b1d164f139fec6bead.camel@xen.org>
- <f25e278f-2d63-d806-4650-983df490556f@xen.org>
- <d75fd45c-3f66-63c9-90c7-90dc10fc5763@suse.com>
- <8bb9eb92-ede4-0fa4-d21f-c7976fe70acf@xen.org>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-6-julien@xen.org>
+ <0874b4c7-13d4-61c1-c076-c9d7cf3720c7@suse.com>
+ <b2c77386-69a7-b6ee-8311-b2dd25e5ddcd@xen.org>
+ <70f7a5c0-3f41-e3a7-00ea-0e620a5506e9@suse.com>
+ <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <622a8319-a439-72f2-c045-15e7611a22e7@suse.com>
-Date: Tue, 18 Aug 2020 13:30:58 +0200
+Message-ID: <6474b805-dda6-56ac-cbed-65e4b399081c@suse.com>
+Date: Tue, 18 Aug 2020 13:32:09 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <8bb9eb92-ede4-0fa4-d21f-c7976fe70acf@xen.org>
+In-Reply-To: <8e4685b1-157b-a7ce-72aa-75352c4985b9@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,83 +63,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.08.2020 12:13, Julien Grall wrote:
-> Hi Jan,
+On 18.08.2020 10:58, Julien Grall wrote:
 > 
-> On 18/08/2020 09:49, Jan Beulich wrote:
->> On 13.08.2020 19:22, Julien Grall wrote:
->>> Hi,
+> 
+> On 18/08/2020 09:50, Jan Beulich wrote:
+>> On 14.08.2020 21:07, Julien Grall wrote:
+>>> Hi Jan,
 >>>
->>> On 13/08/2020 17:08, Hongyan Xia wrote:
->>>> On Fri, 2020-08-07 at 16:05 +0200, Jan Beulich wrote:
->>>>> On 27.07.2020 16:21, Hongyan Xia wrote:
->>>>>> From: Wei Liu <wei.liu2@citrix.com>
->>>>>>
->>>>>> Rewrite those functions to use the new APIs. Modify its callers to
->>>>>> unmap
->>>>>> the pointer returned. Since alloc_xen_pagetable_new() is almost
->>>>>> never
->>>>>> useful unless accompanied by page clearing and a mapping, introduce
->>>>>> a
->>>>>> helper alloc_map_clear_xen_pt() for this sequence.
->>>>>>
->>>>>> Note that the change of virt_to_xen_l1e() also requires
->>>>>> vmap_to_mfn() to
->>>>>> unmap the page, which requires domain_page.h header in vmap.
->>>>>>
->>>>>> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
->>>>>> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
->>>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> ---
->>>>>> Changed in v8:
->>>>>> - s/virtual address/linear address/.
->>>>>> - BUG_ON() on NULL return in vmap_to_mfn().
+>>> On 31/07/2020 12:36, Jan Beulich wrote:
+>>>> On 30.07.2020 20:18, Julien Grall wrote:
+>>>>> From: Julien Grall <jgrall@amazon.com>
 >>>>>
->>>>> The justification for this should be recorded in the description. In
+>>>>> Only a few places are actually including asm/guest_access.h. While this
+>>>>> is fine today, a follow-up patch will want to move most of the helpers
+>>>>> from asm/guest_access.h to xen/guest_access.h.
+>>>>>
+>>>>> To prepare the move, everyone should include xen/guest_access.h rather
+>>>>> than asm/guest_access.h.
+>>>>>
+>>>>> Interestingly, asm-arm/guest_access.h includes xen/guest_access.h. The
+>>>>> inclusion is now removed as no-one but the latter should include the
+>>>>> former.
+>>>>>
+>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
 >>>>
->>>> Will do.
+>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
 >>>>
->>>>> reply to v7 I did even suggest how to easily address the issue you
->>>>> did notice with large pages, as well as alternative behavior for
->>>>> vmap_to_mfn().
->>>>
->>>> One thing about adding SMALL_PAGES is that vmap is common code and I am
->>>> not sure if the Arm side is happy with it.
+>>>> Is there any chance you could take measures to avoid new inclusions
+>>>> of asm/guest_access.h to appear?
 >>>
->>> At the moment, Arm is only using small mapping but I plan to change that soon because we have regions that can be fairly big.
+>>> It should be possible.
 >>>
->>> Regardless that, the issue with vmap_to_mfn() is rather x86 specific. So I don't particularly like the idea to expose such trick in common code.
+>>> How about this:
 >>>
->>> Even on x86, I think this is not the right approach. Such band-aid will impact the performance as, assuming superpages are used, it will take longer to map and add pressure on the TLBs.
+>>> diff --git a/xen/include/asm-arm/guest_access.h b/xen/include/asm-arm/guest_access.h
+>>> index b9a89c495527..d8dbc7c973b4 100644
+>>> --- a/xen/include/asm-arm/guest_access.h
+>>> +++ b/xen/include/asm-arm/guest_access.h
+>>> @@ -1,3 +1,7 @@
+>>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>> +#error "asm/guest_access.h should not be included directly"
+>>> +#endif
+>>> +
+>>>   #ifndef __ASM_ARM_GUEST_ACCESS_H__
+>>>   #define __ASM_ARM_GUEST_ACCESS_H__
 >>>
->>> I am aware that superpages will be useful for LiveUpdate, but is there any use cases in upstream?
+>>> diff --git a/xen/include/asm-x86/guest_access.h b/xen/include/asm-x86/guest_access.h
+>>> index 369676f31ac3..e665ca3a27af 100644
+>>> --- a/xen/include/asm-x86/guest_access.h
+>>> +++ b/xen/include/asm-x86/guest_access.h
+>>> @@ -4,6 +4,10 @@
+>>>    * Copyright (c) 2006, K A Fraser
+>>>    */
+>>>
+>>> +#ifndef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>> +#error "asm/guest_access.h should not be included directly"
+>>> +#endif
+>>> +
+>>>   #ifndef __ASM_X86_GUEST_ACCESS_H__
+>>>   #define __ASM_X86_GUEST_ACCESS_H__
+>>>
+>>> diff --git a/xen/include/xen/guest_access.h b/xen/include/xen/guest_access.h
+>>> index 75103d30c8be..814e31329de9 100644
+>>> --- a/xen/include/xen/guest_access.h
+>>> +++ b/xen/include/xen/guest_access.h
+>>> @@ -7,7 +7,9 @@
+>>>   #ifndef __XEN_GUEST_ACCESS_H__
+>>>   #define __XEN_GUEST_ACCESS_H__
+>>>
+>>> +#define ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>>   #include <asm/guest_access.h>
+>>> +#undef ALLOW_INCLUDE_ASM_GUEST_ACCESS_H
+>>>   #include <xen/types.h>
+>>>   #include <public/xen.h>
 >>
->> Superpage use by vmalloc() is purely occasional: You'd have to vmalloc()
->> 2Mb or more _and_ the page-wise allocation ought to return 512
->> consecutive pages in the right order. Getting 512 consecutive pages is
->> possible in practice, but with the page allocator allocating top-down it
->> is very unlikely for them to be returned in increasing-sorted order.
-> So your assumption here is vmap_to_mfn() can only be called on vmalloc-ed() area. While this may be the case in Xen today, the name clearly suggest it can be called on all vmap-ed region.
-
-No, I don't make this assumption, and I did spell this out in an earlier
-reply to Hongyan: Parties using vmap() on a sufficiently large address
-range with consecutive MFNs simply have to be aware that they may not
-call vmap_to_mfn(). And why would they? They had the MFNs in their hands
-at the time of mapping, so no need to (re-)obtain them by looking up the
-translation.
-
->>> If not, could we just use the BUG_ON() and implement correctly vmap_to_mfn() in a follow-up?
->>
->> My main concern with the BUG_ON() is that it detects a problem long after
->> it was introduced (when the mapping was established). I'd rather see a
->> BUG_ON() added there if use of MAP_SMALL_PAGES is deemed unsuitable.
+>> One option. Personally I'd prefer to avoid introduction of yet another
+>> constant, by leveraging __XEN_GUEST_ACCESS_H__ instead.
 > 
-> From what you wrote, I would agree that vmalloc() is unlikely going to use superpages. But this is not going to solve the underlying problem with the rest of the vmap area.
+> I thought about it but it doesn't prevent new inclusions of asm/guest_access.h. For instance, the following would still compile:
 > 
-> So are you suggesting to use MAP_SMALL_PAGES for *all* the vmap()?
+> #include <xen/guest_access.h>
+> 
+> [...]
+> 
+> #include <asm/guest_access.h>
 
-As per above - no.
+But where's the problem with this? The first #include will already
+have resulted in the inclusion of asm/guest_access.h, so the second
+#include is simply a no-op.
 
 Jan
 
