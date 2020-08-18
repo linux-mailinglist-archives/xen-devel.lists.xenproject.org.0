@@ -2,60 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 900AA2486BE
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 16:10:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B4482486C3
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 16:11:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k82JN-0002Hw-W1; Tue, 18 Aug 2020 14:10:01 +0000
+	id 1k82KH-00031o-AQ; Tue, 18 Aug 2020 14:10:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gypu=B4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k82JM-0002GH-7e
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 14:10:00 +0000
-X-Inumbo-ID: 532b64a0-447f-400e-b233-a23b02aab92f
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k82KF-00031b-C6
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 14:10:55 +0000
+X-Inumbo-ID: 86699ee7-48f0-450d-863f-fc4ab182929d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 532b64a0-447f-400e-b233-a23b02aab92f;
- Tue, 18 Aug 2020 14:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597759799;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=NZkaUE1y1OwumNJhVA2gDfK1fhYYaogK8ZhyvKY2K/8=;
- b=KJIcaYm1oYykk5opzKz5Et1Afmx9rUGt0aTTCPCvUrBPI4EToBUw/t3G
- Op6Uj+XLaHAUKdUJcfWaJocbw7b3DTaBZfpcck//t2JVaXwxlWt3964uj
- +c2MihfGT61d5BFWDaeBvHZbjuhG5lzFRsgcKFdXmXave6LtRbrTpxxkr s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: +ZScw5BJCA7ImaDabjNeBHxNE6bOR52MVrXBBUDVUe3HsUHbSeqv3PMqxkLEzehz5jovF8UJ7z
- bA5h/05PTz3ZlAUF2dZ3zxDvyJXnculG+eDl2d73YAJCHC3wdNYB81AUcc8Qm/DBN9sQlt5aVt
- wWt0SaZ0TZGLuBf52Kxp3qOsLrAePpcVczQvOllIdVqFBMfFUAW7mKq7GAiPNxapscL06X3ok8
- YknwBJTafP6yCXBkirs+r91T6Q32tFVALI0yel6O8zQYU4p6V/Ays4xZ/QhhG/VR2Xx2NSLBwX
- rU8=
-X-SBRS: 2.7
-X-MesageID: 25698870
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,327,1592884800"; d="scan'208";a="25698870"
-Subject: Re: [PATCH 6/8] x86/pv: allow reading FEATURE_CONTROL MSR
-To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <20200817155757.3372-1-roger.pau@citrix.com>
- <20200817155757.3372-7-roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <154d6899-c8e7-76e0-659a-bc284e52a834@citrix.com>
-Date: Tue, 18 Aug 2020 15:09:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 86699ee7-48f0-450d-863f-fc4ab182929d;
+ Tue, 18 Aug 2020 14:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=aL4Rg8K5HNIGuYExzkkI06tvJt9tK7eOfI+6xbri5Jk=; b=L3KyVaBkh3h7hD1tspJ7tzDUOG
+ EpF1m9m/YvymQKX7q00hipKZFIXsjBKI04TaXtC1Nr9npNo7q+oMnpGS/ge6npyqKbyMLTAMJv7oZ
+ 26lch82fdzPL1joAFW/S+6XfI1ar2yRCDeClsLHxxLQt+joorqcqp2pcdlQ9uVqFHo/M=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k82KC-0005ob-N4; Tue, 18 Aug 2020 14:10:52 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k82KC-0005qe-Gm; Tue, 18 Aug 2020 14:10:52 +0000
+Subject: Re: [PATCH 2/2] xen/arm: Enable CPU Errata 1165522 for Neoverse
+To: Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+Cc: nd@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>,
+ Andre Przywara <andre.przywara@arm.com>
+References: <cover.1597740876.git.bertrand.marquis@arm.com>
+ <8680961067334f6049eb5215b3939195d3da00d8.1597740876.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <dde51d6b-faf8-02af-9b84-ba665538a3b5@xen.org>
+Date: Tue, 18 Aug 2020 15:10:50 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200817155757.3372-7-roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <8680961067334f6049eb5215b3939195d3da00d8.1597740876.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,35 +63,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17/08/2020 16:57, Roger Pau Monne wrote:
-> Linux PV guests will attempt to read the FEATURE_CONTROL MSR, report
-> no features enabled or available, and that the MSR is already locked.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi Bertrand,
+
+There is only one. So it should be erratum :).
+
+On 18/08/2020 14:47, Bertrand Marquis wrote:
+> Enable CPU errata of Speculative AT on the Neoverse N1 processor
+
+Ditto.
+
+> versions r0p0 to r2p0.
+> Also Fix Cortex A76 Errata string which had a wrong errata number.
+
+Ditto.
+
+And good catch for the typo :).
+
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+All the NITs can be fixed during commit:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
 > ---
->  xen/arch/x86/pv/emul-priv-op.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-> index 554a95ae8d..76c878b677 100644
-> --- a/xen/arch/x86/pv/emul-priv-op.c
-> +++ b/xen/arch/x86/pv/emul-priv-op.c
-> @@ -879,6 +879,10 @@ static int read_msr(unsigned int reg, uint64_t *val,
->              *val |= APIC_BASE_BSP;
->          return X86EMUL_OKAY;
->  
-> +    case MSR_IA32_FEATURE_CONTROL:
-> +        *val = IA32_FEATURE_CONTROL_LOCK;
-> +        return X86EMUL_OKAY;
+>   xen/arch/arm/cpuerrata.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+> index 0248893de0..6c09017515 100644
+> --- a/xen/arch/arm/cpuerrata.c
+> +++ b/xen/arch/arm/cpuerrata.c
+> @@ -476,9 +476,15 @@ static const struct arm_cpu_capabilities arm_errata[] = {
+>           .matches = has_ssbd_mitigation,
+>       },
+>   #endif
+> +    {
+> +        /* Neoverse r0p0 - r2p0 */
+> +        .desc = "ARM erratum 1165522",
+> +        .capability = ARM64_WORKAROUND_AT_SPECULATE,
+> +        MIDR_RANGE(MIDR_NEOVERSE_N1, 0, 2 << MIDR_VARIANT_SHIFT),
+> +    },
+>       {
+>           /* Cortex-A76 r0p0 - r2p0 */
+> -        .desc = "ARM erratum 116522",
+> +        .desc = "ARM erratum 1165522",
+>           .capability = ARM64_WORKAROUND_AT_SPECULATE,
+>           MIDR_RANGE(MIDR_CORTEX_A76, 0, 2 << MIDR_VARIANT_SHIFT),
+>       },
+> 
 
-This isn't quite right.  This is an Intel-like MSR only, and should #GP
-for AMD/Hygon.
-
-It would be better to move it to the common guest_rdmsr() function, as
-the two helpers (vmce_lmce, and nested_virt) used to construct it in the
-vmx code are already generic.
-
-This also helps progress the work to drop all the legacy MSR handling.
-
-~Andrew
+-- 
+Julien Grall
 
