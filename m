@@ -2,61 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C91CF248190
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 11:13:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AB802481AA
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 11:15:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7xfv-0006Fy-38; Tue, 18 Aug 2020 09:12:59 +0000
+	id 1k7xi9-0006Ly-GS; Tue, 18 Aug 2020 09:15:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k7xft-0006Fr-4q
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 09:12:57 +0000
-X-Inumbo-ID: 72843621-1f0c-4e00-acca-03c61f702d9b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 72843621-1f0c-4e00-acca-03c61f702d9b;
- Tue, 18 Aug 2020 09:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=jts/aXK2mePMCabusT7cNEYrUqS1GvlvXkQgfWryjU4=; b=64CHBOpD9fXWyHU9ra+JLD6n4s
- uHp5O0Gl2V7CerL0DiZsEk35v4ULHXPbjkfFr3X3E50J8AgGnDHh4xaFOXDywjWGGWIsqkjfRkkXI
- Q8ThxU8DE6Z7qFcOkun7QStc+Nes7BGTTqEvsZnaCSHE2y9/Y3CqtMTlB/sZt5raGUBs=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k7xfq-0007lt-V2; Tue, 18 Aug 2020 09:12:54 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k7xfq-0008NQ-LZ; Tue, 18 Aug 2020 09:12:54 +0000
-Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
- pirq_spin_lock_irq_desc()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200722165300.22655-1-julien@xen.org>
- <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
- <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
- <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
- <5a11fa4e-1d57-ad12-ef43-08ed9c5c79dd@xen.org>
- <ca67035b-437b-382f-c3eb-93327042b3d7@suse.com>
- <7b30d0d7-24d4-b38a-6b97-d6b450574b15@xen.org>
- <17176e45-abc9-8b90-50b7-50aacb0e19bf@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <09367b86-50ee-37c5-f0ec-74698f4f4e71@xen.org>
-Date: Tue, 18 Aug 2020 10:12:52 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5IsI=B4=arm.com=andre.przywara@srs-us1.protection.inumbo.net>)
+ id 1k7xi8-0006Lt-F9
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 09:15:16 +0000
+X-Inumbo-ID: 94b72946-2211-4329-a4d8-eb83f38ea798
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 94b72946-2211-4329-a4d8-eb83f38ea798;
+ Tue, 18 Aug 2020 09:15:15 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EEC891FB;
+ Tue, 18 Aug 2020 02:15:14 -0700 (PDT)
+Received: from [192.168.2.22] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06D2D3F6CF;
+ Tue, 18 Aug 2020 02:15:13 -0700 (PDT)
+Subject: Re: [PATCH] xen/arm: Missing N1/A76/A75 FP registers in vCPU context
+ switch
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org, julien@xen.org
+Cc: Bertrand.Marquis@arm.com, steve.capper@arm.com, Kaly.Xin@arm.com
+References: <20200818031112.7038-1-wei.chen@arm.com>
+From: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>
+Autocrypt: addr=andre.przywara@arm.com; prefer-encrypt=mutual; keydata=
+ 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
+ i4aIXCH3Wv6K
+Organization: ARM Ltd.
+Message-ID: <ef6a40d7-7def-3726-870c-f9bf22e2a388@arm.com>
+Date: Tue, 18 Aug 2020 10:14:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <17176e45-abc9-8b90-50b7-50aacb0e19bf@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200818031112.7038-1-wei.chen@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,86 +97,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+On 18/08/2020 04:11, Wei Chen wrote:
 
-On 18/08/2020 09:57, Jan Beulich wrote:
-> On 18.08.2020 10:53, Julien Grall wrote:
->> Hi Jan,
->>
->> On 18/08/2020 09:39, Jan Beulich wrote:
->>> On 14.08.2020 21:25, Julien Grall wrote:
->>>> Hi Andrew,
->>>>
->>>> Sorry for the late answer.
->>>>
->>>> On 23/07/2020 14:59, Andrew Cooper wrote:
->>>>> On 23/07/2020 14:22, Julien Grall wrote:
->>>>>> Hi Jan,
->>>>>>
->>>>>> On 23/07/2020 12:23, Jan Beulich wrote:
->>>>>>> On 22.07.2020 18:53, Julien Grall wrote:
->>>>>>>> --- a/xen/arch/x86/irq.c
->>>>>>>> +++ b/xen/arch/x86/irq.c
->>>>>>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
->>>>>>>>            for ( ; ; )
->>>>>>>>          {
->>>>>>>> -        int irq = pirq->arch.irq;
->>>>>>>> +        int irq = read_atomic(&pirq->arch.irq);
->>>>>>>
->>>>>>> There we go - I'd be fine this way, but I'm pretty sure Andrew
->>>>>>> would want this to be ACCESS_ONCE(). So I guess now is the time
->>>>>>> to settle which one to prefer in new code (or which criteria
->>>>>>> there are to prefer one over the other).
->>>>>>
->>>>>> I would prefer if we have a single way to force the compiler to do a
->>>>>> single access (read/write).
->>>>>
->>>>> Unlikely to happen, I'd expect.
->>>>>
->>>>> But I would really like to get rid of (or at least rename)
->>>>> read_atomic()/write_atomic() specifically because they've got nothing to
->>>>> do with atomic_t's and the set of functionality who's namespace they share.
->>>>
->>>> Would you be happy if I rename both to READ_ONCE() and WRITE_ONCE()?
->>>
->>> Wouldn't this lead to confusion with Linux'es macros of the same names?
->>
->>  From my understanding, the purpose of READ_ONCE()/WRITE_ONCE() in Linux is the same as our read_atomic()/write_atomic().
->>
->> So I think it would be fine to rename them. An alternative would be port the Linux version in Xen and drop ours.
+Hi Wei,
+
+> Xen has cpu_has_fp/cpu_has_simd to detect whether the CPU supports
+> FP/SIMD or not. But currently, this two MACROs only consider value 0
+> of ID_AA64PFR0_EL1.FP/SIMD as FP/SIMD features enabled. But for CPUs
+> that support FP/SIMD and half-precision floating-point features, the
+> ID_AA64PFR0_EL1.FP/SIMD are 1. For these CPUs, xen will treat them as
+> no FP/SIMD support. In this case, the vfp_save/restore_state will not
+> take effect.
 > 
-> The port of Linux'es {READ,WRITE}_ONCE() is our ACCESS_ONCE().
+> Unfortunately, Cortex-N1/A76/A75 are the CPUs support FP/SIMD and
+> half-precision floatiing-point. Their ID_AA64PFR0_EL1.FP/SMID are 1
+> (see Arm ARM DDI0487F.b, D13.2.64). In this case, on N1/A76/A75
+> platforms, Xen will always miss the float pointer registers save/restore.
+> If different vCPUs are running on the same pCPU, the float pointer
+> registers will be corrupted randomly.
 
-Not really... Our ACCESS_ONCE() only supports scalar type. {READ, 
-WRITE}_ONCE() are able to support non-scalar type as well.
+That's a good catch, thanks for working this out!
 
-> As pointed
-> out before, ACCESS_ONCE() and {read,write}_atomic() serve slightly
-> different purposes, and so far it looks like all of us are lacking ideas
-> on how to construct something that catches all cases by one single approach.
+One thing below...
 
-I am guessing you are referring to [1], right?
+> This patch fixes Xen on these new cores.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>  xen/include/asm-arm/cpufeature.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index 674beb0353..588089e5ae 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -13,8 +13,8 @@
+>  #define cpu_has_el2_64    (boot_cpu_feature64(el2) >= 1)
+>  #define cpu_has_el3_32    (boot_cpu_feature64(el3) == 2)
+>  #define cpu_has_el3_64    (boot_cpu_feature64(el3) >= 1)
+> -#define cpu_has_fp        (boot_cpu_feature64(fp) == 0)
+> -#define cpu_has_simd      (boot_cpu_feature64(simd) == 0)
+> +#define cpu_has_fp        (boot_cpu_feature64(fp) <= 1)
+> +#define cpu_has_simd      (boot_cpu_feature64(simd) <= 1)
 
-If you read the documentation of READ_ONCE()/WRITE_ONCE(), they are 
-meant to be atomic in some cases. The cases are exactly the same as 
-{read, write}_atomic().
-
-I will ask the same thing as I asked to Roger. If Linux can rely on it, 
-why can't we?
-
-Although, I agree that the implementation is not portable to another 
-compiler. But that's why they are implemented in compiler.h.
+But this is only good until the next feature bump. I think we should be
+more future-proof here. The architecture describes those two fields as
+"signed"[1], and guarantees that "if value >= 0" is a valid test for the
+feature. Which means we are good as long as the sign bit (bit 3) is
+clear, which translates into:
+#define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
+Same for simd.
 
 Cheers,
+Andre.
 
-[1] <d3ba0dad-63db-06ad-ff3f-f90fe8649845@suse.com>
+[1] ARMv8 ARM (ARM DDI 0487F.b), section D13.1.3
 
+>  #define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
+>  #endif
+>  
 > 
 
-
-> Jan
-> 
-
--- 
-Julien Grall
 
