@@ -2,73 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44926248455
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 14:02:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A43B72484E6
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 14:41:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k80JD-0006vr-TG; Tue, 18 Aug 2020 12:01:43 +0000
+	id 1k80ug-0001wG-Sv; Tue, 18 Aug 2020 12:40:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/1vP=B4=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1k80JB-0006vm-SW
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 12:01:41 +0000
-X-Inumbo-ID: 9581559f-8133-4f49-88b4-aea153600c28
-Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
+ <SRS0=Gypu=B4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k80uf-0001wB-3f
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 12:40:25 +0000
+X-Inumbo-ID: 474d6a36-5dd8-45d3-b2f3-78ce3d3d0b27
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9581559f-8133-4f49-88b4-aea153600c28;
- Tue, 18 Aug 2020 12:01:40 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 4D77F30B;
- Tue, 18 Aug 2020 08:01:39 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Tue, 18 Aug 2020 08:01:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=DgoXOv
- nAOt0cGqmOdg039r1P/dHBMWwyVQaa74CZls4=; b=aSAH6WZLWPnkk1fhq6tIR3
- g73TSoS6N5bVGgHJuri/uTGC47X8vUbyy8eVRTpT/22wN+PNNfP9P3ANIsmylid+
- wpuFFzeQiMrLq2xR0m4VhItx0C7shUUy2X+cl3GGMaBGUrafKDEt0sDkRGciqqQ7
- 38DWuM71IfVvxz+RvinEIAXpeNhyEcyiOSJdmiFC99UV3dGt5uskCltPU2gHfhqK
- ZCT152ku1Gt9OT+aeRG11JFjL+XPDsRmm2kk2BK1XNj94BV6Vf6lv8rI0EjRirmL
- TGo/4Ks1tmzkUH6dhfDKNGrt2CO4i0TiLp4DBzEKFHR/M05D+jEEWRD6F0NvnuMg
- ==
-X-ME-Sender: <xms:IsM7X2ak7jBHrjY_mNOXC8hPeAYK9NFN3zg8rvZ2DdQbWqSqJMZRBQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtiedggeegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
- iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
- durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
- rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
- drtghomh
-X-ME-Proxy: <xmx:IsM7X5a_TYfI2Mv3j_UAiOtPJAE6NE6K4wpB5ZIl8Vtdhsz8_sD_kA>
- <xmx:IsM7Xw-v4x9VqZASt4XkgsldVELcfKP9TA02V3mj1tQJEquWI25t5w>
- <xmx:IsM7X4pv8MtVgI26QDwP7sW-1VHJRrFBunHgsLI7WHIeNrLtzeL2rg>
- <xmx:IsM7XyAijo-bMl4qqhvqofDJZptiNDzv5S_gFuKqChyrBciCcxivRA>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id B7A6030600B9;
- Tue, 18 Aug 2020 08:01:37 -0400 (EDT)
-Date: Tue, 18 Aug 2020 14:01:35 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
- norbert.kaminski@3mdeb.com, xen-devel@lists.xenproject.org,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
-Message-ID: <20200818120135.GK1679@mail-itl>
-References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
- <20200817090013.GN975@Air-de-Roger>
+ id 474d6a36-5dd8-45d3-b2f3-78ce3d3d0b27;
+ Tue, 18 Aug 2020 12:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597754423;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=jGhNuXZWs6l5vILHVgLNpgCN/EgznOx2kpLZQgHamCc=;
+ b=MDEHFEpvFp6Gdzs6ppNGB7ESwBjgdU/S+3YUysKl865911wT34AnUH4M
+ gUfv1Zpp3jL4pBJ656+sePZh9XJEpo9MIEw83AV4EQx6uvcSxWQ+DZ+Ya
+ 7gzWrZvfngyfnPWHO7t+EHMNZ+puQYocsTjRFN9SHsucNMpt+6cTPiZJL A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Wn2tfHIJ7FEaxMb7GdsleuEyCSYi9fUEd5LNe1oYqwBiKG2L//yzbKG5tZx+l9/Vteryx2QBBQ
+ 8B8Da5xf9ZCIbHU2KwAMT4Qr5tr25EZU4lPXbaBTdJWRXHD+h9ZK2vUYOtxVydSto7WgiUSRPw
+ MN3i/wUPNdPKono3DCnVGnB0W7uSu2Xj005/YMUE4NHONdK8Vw1W5Hr8DIgsaJFBFUEM38Zb+E
+ G8cnH1OWH/8aEB23ieO9Prr0PJAl3nFicIyicnlJl/ucJ9XnCYq3gsdr2IqEpBcwrM2+O//qj0
+ Fk8=
+X-SBRS: 2.7
+X-MesageID: 25689174
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,327,1592884800"; d="scan'208";a="25689174"
+Subject: Re: [PATCH v1 0/6] tools/ocaml/xenstored: simplify code
+To: Christian Lindig <christian.lindig@citrix.com>, Edwin Torok
+ <edvin.torok@citrix.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>, "dave@recoil.org" <dave@recoil.org>, 
+ "wl@xen.org" <wl@xen.org>
+References: <cover.1597439193.git.edvin.torok@citrix.com>
+ <1597668966374.91968@citrix.com>
+ <cbb2742191e9c1303fdfd95feef4d829ecf33a0d.camel@citrix.com>
+ <1597742707142.74318@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <cd17508f-b170-3e3c-d8d3-26e827f7492a@citrix.com>
+Date: Tue, 18 Aug 2020 13:40:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="fmEUq8M7S0s+Fl0V"
-Content-Disposition: inline
-In-Reply-To: <20200817090013.GN975@Air-de-Roger>
+In-Reply-To: <1597742707142.74318@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,134 +74,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---fmEUq8M7S0s+Fl0V
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
-
-On Mon, Aug 17, 2020 at 11:00:13AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Sun, Aug 16, 2020 at 02:19:49AM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > In case of Xen PV dom0, Xen passes along info about system tables (see
-> > arch/x86/xen/efi.c), but not the memory map from EFI.
->=20
-> I think that's because the memory map returned by
-> XENMEM_machine_memory_map is in e820 form, and doesn't contain the
-> required information about the EFI regions due to the translation done
-> by efi_arch_process_memory_map in Xen?
-
-Yes, I think so.
-
-> > This makes sense
-> > as it is Xen responsible for managing physical memory address space.
-> > In this case, it doesn't make sense to condition using ESRT table on
-> > availability of EFI memory map, as it isn't Linux kernel responsible for
-> > it.
->=20
-> PV dom0 is kind of special in that regard as it can create mappings to
-> (almost) any MMIO regions, and hence can change it's memory map
-> substantially.
-
-Do you mean PV dom0 should receive full EFI memory map? Jan already
-objected this as it would be a layering violation.
-
-> > Skip this part on Xen PV (let Xen do the right thing if it deems
-> > necessary) and use ESRT table normally.
->=20
-> Maybe it would be better to introduce a new hypercall (or add a
-> parameter to XENMEM_machine_memory_map) in order to be able to fetch
-> the EFI memory map?
+On 18/08/2020 10:25, Christian Lindig wrote:
+> I see little reason to support old OCaml releases and requiring OCaml 4.06 would be fine with me but I assume that the project might have its own ideas about this.
 >
-> That should allow a PV dom0 to check the ESRT is correct and thus not
-> diverge from bate metal.
+> ________________________________________
+> From: Edwin Torok
+> Sent: 18 August 2020 08:28
+> To: Christian Lindig; xen-devel@lists.xenproject.org
+> Cc: Ian Jackson; dave@recoil.org; wl@xen.org
+> Subject: Re: [PATCH v1 0/6] tools/ocaml/xenstored: simplify code
+>
+> On Mon, 2020-08-17 at 14:56 +0200, Christian Lindig wrote:
+>> This all looks good - I left a small comment on one of the patches
+>> and I agree that this needs testing. I also wonder about
+>> compatibility with earlier OCaml releases that we support but I see
+>> no real obstacles.
+>>
+> I've developed the series using OCaml 4.08.1. I think the newest
+> feature I used was Map.update (OCaml 4.06, nearly 3 years ago).
+> Looking through https://repology.org/project/ocaml/versions I'm not
+> sure if we can require more than 4.05 though.
+> The README in Xen doesn't specify a minimum version, but configure
+> checks for >=4.02.
+>
+> I can try to backport my series to OCaml 4.05 (to use Map.find_opt
+> instead of Map.update) and update the configure check to require 4.05.
+> It would be possible to backport even further to 4.02 by introducing
+> additional inefficiencies (Map.mem + Map.find would traverse the map
+> twice, and Map.find on its own would raise an exception on Not found,
+> which is more costly than returning None in Map.find_opt), I'd avoid
+> doing that.
+>
+> Xen's CI from automation might need some updates to use latest stable
+> versions:
+> * Fedora 29 is EOL, should use at least Fedora 31
+> * Debian Jessie is EOL. Stretch is present, but Buster is missing
 
-Note the EFI memory map there is used not just to check things, but to
-actually modify it to reserve the region. I think that's rather Xen
-responsibility, not dom0. See the comment from Ard.
-=20
-> >=20
-> > This is a requirement for using fwupd in PV dom0 to update UEFI using
-> > capsules.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> >  drivers/firmware/efi/esrt.c | 47 ++++++++++++++++++++-----------------
-> >  1 file changed, 25 insertions(+), 22 deletions(-)
-> >=20
-> > diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
-> > index d5915272141f..5c49f2aaa4b1 100644
-> > --- a/drivers/firmware/efi/esrt.c
-> > +++ b/drivers/firmware/efi/esrt.c
-> > @@ -245,36 +245,38 @@ void __init efi_esrt_init(void)
-> >  	int rc;
-> >  	phys_addr_t end;
-> > =20
-> > -	if (!efi_enabled(EFI_MEMMAP))
-> > +	if (!efi_enabled(EFI_MEMMAP) && !efi_enabled(EFI_PARAVIRT))
-> >  		return;
-> > =20
-> >  	pr_debug("esrt-init: loading.\n");
-> >  	if (!esrt_table_exists())
-> >  		return;
-> > =20
-> > -	rc =3D efi_mem_desc_lookup(efi.esrt, &md);
-> > -	if (rc < 0 ||
-> > -	    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
-> > -	     md.type !=3D EFI_BOOT_SERVICES_DATA &&
-> > -	     md.type !=3D EFI_RUNTIME_SERVICES_DATA)) {
-> > -		pr_warn("ESRT header is not in the memory map.\n");
-> > -		return;
-> > -	}
-> > +	if (efi_enabled(EFI_MEMMAP)) {
-> > +		rc =3D efi_mem_desc_lookup(efi.esrt, &md);
-> > +		if (rc < 0 ||
-> > +		    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
-> > +		     md.type !=3D EFI_BOOT_SERVICES_DATA &&
-> > +		     md.type !=3D EFI_RUNTIME_SERVICES_DATA)) {
-> > +			pr_warn("ESRT header is not in the memory map.\n");
-> > +			return;
-> > +		}
->=20
-> Here you blindly trust the data in the ESRT in the PV case, without
-> checking it matches the regions on the memory map, which could lead to
-> errors if ESRT turns to be wrong.
+We're working on the CI loop.
 
-I don't think checking merely if ESRT lives somewhere in
-EFI_{BOOT,RUNTIME}_SERVICES_DATA area guarantees its correctness.
+As maintainer, it is ultimately Christian's choice to as to if/when to
+bump the minimum versions.
 
-On the other hand, this seems to be done to prevent overwriting that
-memory with something else (see that in case of EFI_BOOT_SERVICES_DATA
-it is later marked as reserved. I think it should be rather done by Xen,
-not dom0. Either by moving this whole check into dom0 (for this table
-only? or perhaps for other tables too?), or by simply reserving the whole
-EFI_BOOT_SERVICES_DATA (like the /mapbs boot switch does).
-Then, I think dom0 could use e820 map to verify that this is reserved,
-but do not modify the map anymore.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+As a general rule, we don't want to be sufficiently bleeding edge to
+rule out in-use distros.  I have no idea if 4.06 is ok there, or whether
+it is too new.  Then again, the Ocaml components are strictly optional
+so it is perhaps less important.
 
---fmEUq8M7S0s+Fl0V
-Content-Type: application/pgp-signature; name="signature.asc"
+Whatever happens WRT version, the configure change should occur before
+changes in the code which would fail on older versions.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl87wx4ACgkQ24/THMrX
-1ywa9wgAgKzWnowpaC/HqWkusUfY8KwPv+HFBqfhymqQhkcwbVgUcfBGo+yS3qhk
-iR+89eSE/gjoqIZXCQsHB5LIpsdwCOZnG8dSM1FFHCW3wfOqTZzu1y9lkVFM8Isv
-SBVX9sm0l9TmlcD2fq/nBe6E4QCdG9lKZ975zUPr1sWpYLj6+Q2cNVh5nv/rEpxs
-LbohqVLdlLLcj/G14e+gJZ7f70p1fu6ge49VWiOMc8pL7J9Y1qzfalso5iRxXuta
-fgKCpbBdkk6hXuhZiAJphdVIneCDc0oDwees8pdntUe8HjjQ+Qx7JtzQAjn4VuW4
-+IvWBvscI+CTmBAPjKgPXkSVoLk20A==
-=wEjx
------END PGP SIGNATURE-----
-
---fmEUq8M7S0s+Fl0V--
+~Andrew
 
