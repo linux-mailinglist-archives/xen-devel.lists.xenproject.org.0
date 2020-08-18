@@ -2,58 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D632482B2
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 12:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958CD248303
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Aug 2020 12:31:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k7ycv-00045z-At; Tue, 18 Aug 2020 10:13:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k7ysw-0005yi-4N; Tue, 18 Aug 2020 10:30:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ffgU=B4=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k7ycu-00045q-DM
- for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 10:13:56 +0000
-X-Inumbo-ID: 9ed926a7-f731-4a90-951a-06b24bbb496b
+ id 1k7ysu-0005yd-GM
+ for xen-devel@lists.xenproject.org; Tue, 18 Aug 2020 10:30:28 +0000
+X-Inumbo-ID: 71c0fa40-3762-4240-b803-51bbd5eb9d3c
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ed926a7-f731-4a90-951a-06b24bbb496b;
- Tue, 18 Aug 2020 10:13:55 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 71c0fa40-3762-4240-b803-51bbd5eb9d3c;
+ Tue, 18 Aug 2020 10:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=u8PuyfT3uUb0vqwtvLyAhKRPcN5QZF1AfHi7Z/baUj4=; b=S8XXh/1w82eRKiCGMvzy7xYsO5
- cy7HinQFuBARpWA7wNC73VqBguH+z58F8XCGfKNRNjYJcg4c8CSp6HbdVQlPINW8A52IL5st86WvG
- AQ/R79lmz/kpRZgTbbLojrlt+5PyUBcw6uHHRVkjfe5BDXIpmcbyRj6Pe4Wm+1/x3zOs=;
+ bh=f1pmey4EnpbKuP3+oQnc/lqjqTrrMuLbdtbG/UI6VVs=; b=3Gi4EHWdRNEfCOWITjGuogmXC4
+ XUA9JEPwsa55fed849Z3ObxOA/V5g27uB0PLfWLejzmjKdAQlzyBLck8D/I2pp543xgZOtSwtTToy
+ a2YVql6Zkf6kk5R5+h4qJnNmuHMEzM1DpLQmkbwhE+q1o01qCADBLZD591o74AqQbgi0=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k7ycq-0000hL-Ml; Tue, 18 Aug 2020 10:13:52 +0000
+ id 1k7yso-000133-L0; Tue, 18 Aug 2020 10:30:22 +0000
 Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k7ycq-0002na-BZ; Tue, 18 Aug 2020 10:13:52 +0000
-Subject: Re: [PATCH v8 03/15] x86/mm: rewrite virt_to_xen_l*e
-To: Jan Beulich <jbeulich@suse.com>, Hongyan Xia <hx242@xen.org>
-Cc: xen-devel@lists.xenproject.org, jgrall@amazon.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1595857947.git.hongyxia@amazon.com>
- <e7963f6d8cab8e4d5d4249b12a8175405d888bba.1595857947.git.hongyxia@amazon.com>
- <41d9d8d4-d5cb-8350-c118-c9e1fe73b6d0@suse.com>
- <a4f02c292a369cfd771790b1d164f139fec6bead.camel@xen.org>
- <f25e278f-2d63-d806-4650-983df490556f@xen.org>
- <d75fd45c-3f66-63c9-90c7-90dc10fc5763@suse.com>
+ id 1k7yso-0003QG-7i; Tue, 18 Aug 2020 10:30:22 +0000
+Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20200815172143.1327-1-julien@xen.org>
+ <alpine.DEB.2.21.2008171327020.15985@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <8bb9eb92-ede4-0fa4-d21f-c7976fe70acf@xen.org>
-Date: Tue, 18 Aug 2020 11:13:48 +0100
+Message-ID: <d59e1aa8-b88b-41d9-bad1-18a42ca57cb8@xen.org>
+Date: Tue, 18 Aug 2020 11:30:20 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <d75fd45c-3f66-63c9-90c7-90dc10fc5763@suse.com>
+In-Reply-To: <alpine.DEB.2.21.2008171327020.15985@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -70,78 +66,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+Hi Stefano,
 
-On 18/08/2020 09:49, Jan Beulich wrote:
-> On 13.08.2020 19:22, Julien Grall wrote:
->> Hi,
+On 17/08/2020 23:56, Stefano Stabellini wrote:
+> On Sat, 15 Aug 2020, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
 >>
->> On 13/08/2020 17:08, Hongyan Xia wrote:
->>> On Fri, 2020-08-07 at 16:05 +0200, Jan Beulich wrote:
->>>> On 27.07.2020 16:21, Hongyan Xia wrote:
->>>>> From: Wei Liu <wei.liu2@citrix.com>
->>>>>
->>>>> Rewrite those functions to use the new APIs. Modify its callers to
->>>>> unmap
->>>>> the pointer returned. Since alloc_xen_pagetable_new() is almost
->>>>> never
->>>>> useful unless accompanied by page clearing and a mapping, introduce
->>>>> a
->>>>> helper alloc_map_clear_xen_pt() for this sequence.
->>>>>
->>>>> Note that the change of virt_to_xen_l1e() also requires
->>>>> vmap_to_mfn() to
->>>>> unmap the page, which requires domain_page.h header in vmap.
->>>>>
->>>>> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
->>>>> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
->>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>
->>>>> ---
->>>>> Changed in v8:
->>>>> - s/virtual address/linear address/.
->>>>> - BUG_ON() on NULL return in vmap_to_mfn().
->>>>
->>>> The justification for this should be recorded in the description. In
->>>
->>> Will do.
->>>
->>>> reply to v7 I did even suggest how to easily address the issue you
->>>> did notice with large pages, as well as alternative behavior for
->>>> vmap_to_mfn().
->>>
->>> One thing about adding SMALL_PAGES is that vmap is common code and I am
->>> not sure if the Arm side is happy with it.
+>> The IOREQ code is using cmpxchg() with 64-bit value. At the moment, this
+>> is x86 code, but there is plan to make it common.
 >>
->> At the moment, Arm is only using small mapping but I plan to change that soon because we have regions that can be fairly big.
+>> To cater 32-bit arch, introduce two new helpers to deal with 64-bit
+>> cmpxchg.
 >>
->> Regardless that, the issue with vmap_to_mfn() is rather x86 specific. So I don't particularly like the idea to expose such trick in common code.
+>> The Arm 32-bit implementation of cmpxchg64() is based on the __cmpxchg64
+>> in Linux v5.8 (arch/arm/include/asm/cmpxchg.h).
 >>
->> Even on x86, I think this is not the right approach. Such band-aid will impact the performance as, assuming superpages are used, it will take longer to map and add pressure on the TLBs.
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>>   xen/include/asm-arm/arm32/cmpxchg.h | 68 +++++++++++++++++++++++++++++
+>>   xen/include/asm-arm/arm64/cmpxchg.h |  5 +++
+>>   xen/include/asm-arm/guest_atomics.h | 22 ++++++++++
+>>   xen/include/asm-x86/guest_atomics.h |  2 +
+>>   xen/include/asm-x86/x86_64/system.h |  2 +
+>>   5 files changed, 99 insertions(+)
 >>
->> I am aware that superpages will be useful for LiveUpdate, but is there any use cases in upstream?
+>> diff --git a/xen/include/asm-arm/arm32/cmpxchg.h b/xen/include/asm-arm/arm32/cmpxchg.h
+>> index 0770f272ee99..5e2fa6ee38a0 100644
+>> --- a/xen/include/asm-arm/arm32/cmpxchg.h
+>> +++ b/xen/include/asm-arm/arm32/cmpxchg.h
+>> @@ -87,6 +87,38 @@ __CMPXCHG_CASE(b, 1)
+>>   __CMPXCHG_CASE(h, 2)
+>>   __CMPXCHG_CASE( , 4)
+>>   
+>> +static inline bool __cmpxchg_case_8(volatile uint64_t *ptr,
+>> +			 	    uint64_t *old,
+>> +			 	    uint64_t new,
+>> +			 	    bool timeout,
+>> +				    unsigned int max_try)
+>> +{
+>> +	uint64_t oldval;
+>> +	uint64_t res;
+>> +
+>> +	do {
+>> +		asm volatile(
+>> +		"	ldrexd		%1, %H1, [%3]\n"
+>> +		"	teq		%1, %4\n"
+>> +		"	teqeq		%H1, %H4\n"
+>> +		"	movne		%0, #0\n"
+>> +		"	movne		%H0, #0\n"
+>> +		"	bne		2f\n"
+>> +		"	strexd		%0, %5, %H5, [%3]\n"
+>> +		"	teq		%0, #0\n"
 > 
-> Superpage use by vmalloc() is purely occasional: You'd have to vmalloc()
-> 2Mb or more _and_ the page-wise allocation ought to return 512
-> consecutive pages in the right order. Getting 512 consecutive pages is
-> possible in practice, but with the page allocator allocating top-down it
-> is very unlikely for them to be returned in increasing-sorted order.
-So your assumption here is vmap_to_mfn() can only be called on 
-vmalloc-ed() area. While this may be the case in Xen today, the name 
-clearly suggest it can be called on all vmap-ed region.
+> Apologies if I am misreading this code, but this last "teq" instruction
+> doesn't seem to be useful?
+
+Urgh, I forgot to remove it. The Linux version is looping in assembly 
+but I had to convert to C in order to cater the timeout.
+
+I will remove it in the next version.
 
 > 
->> If not, could we just use the BUG_ON() and implement correctly vmap_to_mfn() in a follow-up?
 > 
-> My main concern with the BUG_ON() is that it detects a problem long after
-> it was introduced (when the mapping was established). I'd rather see a
-> BUG_ON() added there if use of MAP_SMALL_PAGES is deemed unsuitable.
+>> +		"2:"
+>> +		: "=&r" (res), "=&r" (oldval), "+Qo" (*ptr)
+>                                                ^ not used ?
+> 
+> 
+>> +		: "r" (ptr), "r" (*old), "r" (new)
+>> +		: "memory", "cc");
+>> +		if (!res)
+>> +			break;
+>> +	} while (!timeout || ((--max_try) > 0));
+>> +
+>> +	*old = oldval;
+>> +
+>> +	return !res;
+>> +}
+>> +
+>>   static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
+>>   					unsigned long new, int size,
+>>   					bool timeout, unsigned int max_try)
+>> @@ -156,6 +188,30 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>>   	return ret;
+>>   }
+>>   
+>> +/*
+>> + * The helper may fail to update the memory if the action takes too long.
+>> + *
+>> + * @old: On call the value pointed contains the expected old value. It will be
+>> + * updated to the actual old value.
+>> + * @max_try: Maximum number of iterations
+>> + *
+>> + * The helper will return true when the update has succeeded (i.e no
+>> + * timeout) and false if the update has failed.
+>> + */
+>> +static always_inline bool __cmpxchg64_mb_timeout(volatile uint64_t *ptr,
+>> +						 uint64_t *old,
+>> +						 uint64_t new,
+>> +						 unsigned int max_try)
+>> +{
+>> +	bool ret;
+>> +
+>> +	smp_mb();
+>> +	ret = __cmpxchg_case_8(ptr, old, new, true, max_try);
+>> +	smp_mb();
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   #define cmpxchg(ptr,o,n)						\
+>>   	((__typeof__(*(ptr)))__cmpxchg_mb((ptr),			\
+>>   					  (unsigned long)(o),		\
+>> @@ -167,6 +223,18 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>>   				       (unsigned long)(o),		\
+>>   				       (unsigned long)(n),		\
+>>   				       sizeof(*(ptr))))
+>> +
+>> +static inline uint64_t cmpxchg64(volatile uint64_t *ptr,
+>> +				 uint64_t old,
+>> +				 uint64_t new)
+>> +{
+>> +	smp_mb();
+> 
+> I was looking at the existing code I noticed that we don't have a
+> corresponding smp_mb(); in this position. Is it needed here because of
+> the 64bit-ness?
 
- From what you wrote, I would agree that vmalloc() is unlikely going to 
-use superpages. But this is not going to solve the underlying problem 
-with the rest of the vmap area.
+We have barriers also in the existing. The code can be a bit confusing 
+because __cmpxchg() refers to a local cmpxchg.
 
-So are you suggesting to use MAP_SMALL_PAGES for *all* the vmap()?
+In our case, the corresponding version if __cmpxchg_mb().
+
+To be honest, the existing naming is a bit confusing. I am thinking to 
+drop cmpxcgh_local() completely as this is not used. This would also 
+make the cod easier to read. What do you think?
+
+
+> 
+> 
+>> +	if (!__cmpxchg_case_8(ptr, &old, new, false, 0))
+>> +		ASSERT_UNREACHABLE();
+
+And I forgot the smp_mb() here :(.
+
+>> +
+>> +	return old;
+>> +}
+>> +
+>>   #endif
+>>   /*
+>>    * Local variables:
+>> diff --git a/xen/include/asm-arm/arm64/cmpxchg.h b/xen/include/asm-arm/arm64/cmpxchg.h
+>> index fc5c60f0bd74..de9cd0ee2b07 100644
+>> --- a/xen/include/asm-arm/arm64/cmpxchg.h
+>> +++ b/xen/include/asm-arm/arm64/cmpxchg.h
+>> @@ -187,6 +187,11 @@ static always_inline bool __cmpxchg_mb_timeout(volatile void *ptr,
+>>   	__ret; \
+>>   })
+>>   
+>> +#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
+>> +
+>> +#define __cmpxchg64_mb_timeout(ptr, old, new, max_try) \
+>> +	__cmpxchg_mb_timeout(ptr, old, new, 8, max_try)
+>> +
+>>   #endif
+>>   /*
+>>    * Local variables:
+>> diff --git a/xen/include/asm-arm/guest_atomics.h b/xen/include/asm-arm/guest_atomics.h
+>> index af27cc627bf3..28ce402bea79 100644
+>> --- a/xen/include/asm-arm/guest_atomics.h
+>> +++ b/xen/include/asm-arm/guest_atomics.h
+>> @@ -115,6 +115,28 @@ static inline unsigned long __guest_cmpxchg(struct domain *d,
+>>                                            (unsigned long)(n),\
+>>                                            sizeof (*(ptr))))
+>>   
+>> +static inline uint64_t guest_cmpxchg64(struct domain *d,
+>> +                                       volatile uint64_t *ptr,
+>> +                                       uint64_t old,
+>> +                                       uint64_t new)
+>> +{
+>> +    uint64_t oldval = old;
+>> +
+>> +    perfc_incr(atomics_guest);
+>> +
+>> +    if ( __cmpxchg64_mb_timeout(ptr, &oldval, new,
+>> +                                this_cpu(guest_safe_atomic_max)) )
+>> +        return oldval;
+>> +
+>> +    perfc_incr(atomics_guest_paused);
+>> +
+>> +    domain_pause_nosync(d);
+>> +    oldval = cmpxchg64(ptr, old, new);
+>> +    domain_unpause(d);
+>> +
+>> +    return oldval;
+>> +}
+>> +
+>>   #endif /* _ARM_GUEST_ATOMICS_H */
+>>   /*
+>>    * Local variables:
+>> diff --git a/xen/include/asm-x86/guest_atomics.h b/xen/include/asm-x86/guest_atomics.h
+>> index 029417c8ffc1..f4de9d3631ff 100644
+>> --- a/xen/include/asm-x86/guest_atomics.h
+>> +++ b/xen/include/asm-x86/guest_atomics.h
+>> @@ -20,6 +20,8 @@
+>>       ((void)(d), test_and_change_bit(nr, p))
+>>   
+>>   #define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
+>> +#define guest_cmpxchg64(d, ptr, o, n) ((void)(d), cmpxchg64(ptr, o, n))
+>> +
+>>   
+>>   #endif /* _X86_GUEST_ATOMICS_H */
+>>   /*
+>> diff --git a/xen/include/asm-x86/x86_64/system.h b/xen/include/asm-x86/x86_64/system.h
+>> index f471859c19cc..c1b16105e9f2 100644
+>> --- a/xen/include/asm-x86/x86_64/system.h
+>> +++ b/xen/include/asm-x86/x86_64/system.h
+>> @@ -5,6 +5,8 @@
+>>       ((__typeof__(*(ptr)))__cmpxchg((ptr),(unsigned long)(o),            \
+>>                                      (unsigned long)(n),sizeof(*(ptr))))
+>>   
+>> +#define cmpxchg64(ptr, o, n) cmpxchg(ptr, o, n)
+>> +
+>>   /*
+>>    * Atomic 16 bytes compare and exchange.  Compare OLD with MEM, if
+>>    * identical, store NEW in MEM.  Return the initial value in MEM.
+>> -- 
+>> 2.17.1
+>>
 
 Cheers,
 
