@@ -2,56 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447D724A47C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 18:57:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E28C24A48B
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 19:00:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8ROr-0004mL-FM; Wed, 19 Aug 2020 16:57:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8RRf-0005bp-UG; Wed, 19 Aug 2020 17:00:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+gIA=B5=prgmr.com=srn@srs-us1.protection.inumbo.net>)
- id 1k8ROp-0004mG-JG
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 16:57:19 +0000
-X-Inumbo-ID: 68738fc2-c8f7-436b-be0f-1710e2977c05
-Received: from mail.prgmr.com (unknown [2605:2700:0:5::4713:9506])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68738fc2-c8f7-436b-be0f-1710e2977c05;
- Wed, 19 Aug 2020 16:57:17 +0000 (UTC)
-Received: from [192.168.2.47] (c-174-62-72-237.hsd1.ca.comcast.net
- [174.62.72.237]) (Authenticated sender: srn)
- by mail.prgmr.com (Postfix) with ESMTPSA id EAEE572008F;
- Wed, 19 Aug 2020 12:57:16 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.prgmr.com EAEE572008F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=prgmr.com;
- s=default; t=1597856237;
- bh=2r1GNU0H8os19xjCLWaRQsjGgDumTpm3LaeH/eL3IN0=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=T8y2i7442tpD8xy5qzTSZFzgCURZKfzWFIY135VZC9wjNkcqjVJ/XD5hja0u8C3g/
- QDSQZYGHqrraFW6fABpL6LUmfeA0Ank+0HrqjGRX+d/Iu4jIMC6eA6nMgFxksZh+0m
- OGAVo3OHtw6KV2DW5kfj9YcTRFiPfwGBfYLjj0L4=
-Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Chris Brannon <cmb@prgmr.com>
-References: <20200710075050.4769-1-jgross@suse.com>
- <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
- <742457cf-4892-0e85-2fc8-d2eb9f8a3a51@suse.com>
- <af6db1b7-7802-0b2e-eb5f-ce69533b771f@suse.com>
- <97b15bd2-11f0-b530-dc07-b7d523bf88a2@suse.com>
-From: Sarah Newman <srn@prgmr.com>
-Message-ID: <9b822b7b-5bbe-1714-843f-3ec5a0d1673b@prgmr.com>
-Date: Wed, 19 Aug 2020 09:57:16 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <SRS0=BZrp=B5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1k8RRe-0005bk-LD
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 17:00:14 +0000
+X-Inumbo-ID: dc1fc70d-e7ac-4386-b396-f879ff58bed4
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dc1fc70d-e7ac-4386-b396-f879ff58bed4;
+ Wed, 19 Aug 2020 17:00:13 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 07JH00bg038153
+ (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Wed, 19 Aug 2020 13:00:06 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 07JH00Gc038152;
+ Wed, 19 Aug 2020 10:00:00 -0700 (PDT) (envelope-from ehem)
+Date: Wed, 19 Aug 2020 10:00:00 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Cc: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
+ libxl__prepare_sockaddr_un
+Message-ID: <20200819170000.GA37849@mattapan.m5p.com>
+References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
+ <20200819020036.599065-2-marmarek@invisiblethingslab.com>
+ <20200819034356.GA29116@mattapan.m5p.com>
+ <20200819094123.GO1626@mail-itl>
+ <24380.65377.44583.51170@mariner.uk.xensource.com>
 MIME-Version: 1.0
-In-Reply-To: <97b15bd2-11f0-b530-dc07-b7d523bf88a2@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <24380.65377.44583.51170@mariner.uk.xensource.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+ autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,128 +60,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 7/10/20 5:01 AM, Jürgen Groß wrote:
-> On 10.07.20 13:55, Jan Beulich wrote:
->> On 10.07.2020 12:50, Jürgen Groß wrote:
->>> On 10.07.20 11:49, Jan Beulich wrote:
->>>> On 10.07.2020 09:50, Juergen Gross wrote:
->>>>> For support of long running hypercalls xen_maybe_preempt_hcall() is
->>>>> calling cond_resched() in case a hypercall marked as preemptible has
->>>>> been interrupted.
->>>>>
->>>>> Normally this is no problem, as only hypercalls done via some ioctl()s
->>>>> are marked to be preemptible. In rare cases when during such a
->>>>> preemptible hypercall an interrupt occurs and any softirq action is
->>>>> started from irq_exit(), a further hypercall issued by the softirq
->>>>> handler will be regarded to be preemptible, too. This might lead to
->>>>> rescheduling in spite of the softirq handler potentially having set
->>>>> preempt_disable(), leading to splats like:
->>>>>
->>>>> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
->>>>> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
->>>>> INFO: lockdep is turned off.
->>>>> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
->>>>> Call Trace:
->>>>> <IRQ>
->>>>> dump_stack+0x8f/0xd0
->>>>> ___might_sleep.cold.76+0xb2/0x103
->>>>> xen_maybe_preempt_hcall+0x48/0x70
->>>>> xen_do_hypervisor_callback+0x37/0x40
->>>>> RIP: e030:xen_hypercall_xen_version+0xa/0x20
->>>>> Code: ...
->>>>> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
->>>>> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
->>>>> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
->>>>> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
->>>>> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
->>>>> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
->>>>> ? xen_hypercall_xen_version+0xa/0x20
->>>>> ? xen_force_evtchn_callback+0x9/0x10
->>>>> ? check_events+0x12/0x20
->>>>> ? xen_restore_fl_direct+0x1f/0x20
->>>>> ? _raw_spin_unlock_irqrestore+0x53/0x60
->>>>> ? debug_dma_sync_single_for_cpu+0x91/0xc0
->>>>> ? _raw_spin_unlock_irqrestore+0x53/0x60
->>>>> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
->>>>> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
->>>>> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
->>>>> ? net_rx_action+0x151/0x4a0
->>>>> ? __do_softirq+0xed/0x55b
->>>>> ? irq_exit+0xea/0x100
->>>>> ? xen_evtchn_do_upcall+0x2c/0x40
->>>>> ? xen_do_hypervisor_callback+0x29/0x40
->>>>> </IRQ>
->>>>> ? xen_hypercall_domctl+0xa/0x20
->>>>> ? xen_hypercall_domctl+0x8/0x20
->>>>> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
->>>>> ? do_vfs_ioctl+0xa5/0x6f0
->>>>> ? ksys_ioctl+0x60/0x90
->>>>> ? trace_hardirqs_off_thunk+0x1a/0x20
->>>>> ? __x64_sys_ioctl+0x16/0x20
->>>>> ? do_syscall_64+0x62/0x250
->>>>> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
->>>>>
->>>>> Fix that by testing preempt_count() before calling cond_resched().
->>>>>
->>>>> In kernel 5.8 this can't happen any more due to the entry code rework.
->>>>>
->>>>> Reported-by: Sarah Newman <srn@prgmr.com>
->>>>> Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
->>>>> Cc: Sarah Newman <srn@prgmr.com>
->>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>>> ---
->>>>>    drivers/xen/preempt.c | 2 +-
->>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/xen/preempt.c b/drivers/xen/preempt.c
->>>>> index 17240c5325a3..6ad87b5c95ed 100644
->>>>> --- a/drivers/xen/preempt.c
->>>>> +++ b/drivers/xen/preempt.c
->>>>> @@ -27,7 +27,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
->>>>>    asmlinkage __visible void xen_maybe_preempt_hcall(void)
->>>>>    {
->>>>>        if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
->>>>> -             && need_resched())) {
->>>>> +             && need_resched() && !preempt_count())) {
->>>>
->>>> Doesn't this have the at least latent risk of hiding issues in
->>>> other call trees (by no longer triggering logging like the one
->>>> that has propmted this change)? Wouldn't it be better to save,
->>>> clear, and restore the flag in one of xen_evtchn_do_upcall() or
->>>> xen_do_hypervisor_callback()?
->>>
->>> First regarding "risk of hiding issues": it seems as if lots of kernels
->>> aren't even configured to trigger this logging. It would need
->>> CONFIG_DEBUG_ATOMIC_SLEEP to be enabled and at least SUSE kernels don't
->>> seem to have it on. I suspect the occasional xen_mc_flush() failures we
->>> have seen are related to this problem.
->>>
->>> And in theory saving, clearing and restoring the flag would be fine, but
->>> it can't be done in a single function with the code flow as up to 5.7.
->>> What would need to be done is to save and clear the flag in e.g.
->>> __xen_evtchn_do_upcall() and to pass it to xen_maybe_preempt_hcall() as
->>> a parameter. In xen_maybe_preempt_hcall() the passed flag value would
->>> need to be used for the decision whether to call cond_resched() and then
->>> the flag could be restored (after the cond_resched() call).
->>
->> I'm afraid I don't follow: If __xen_evtchn_do_upcall() cleared the flag,
->> xen_maybe_preempt_hcall() would amount to a no-op (up and until the
->> flag's prior value would get restored), wouldn't it? No need to pass
->> anything into there.
+On Wed, Aug 19, 2020 at 11:30:57AM +0100, Ian Jackson wrote:
+> Marek Marczykowski-G??recki writes ("Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in libxl__prepare_sockaddr_un"):
+> > On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
+> > > On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wrote:
+> > > > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
+> > > > index f360f5e228..b039143b8a 100644
+> > > > --- a/tools/libxl/libxl_utils.c
+> > > > +++ b/tools/libxl/libxl_utils.c
+> > > 
+> > > 
+> > > >      }
+> > > >      memset(un, 0, sizeof(struct sockaddr_un));
+> > > >      un->sun_family = AF_UNIX;
+> > > > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
+> > > > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
+> > > >      return 0;
+> > > >  }
+> > > 
+> > > While the earlier lines are okay, this line introduces an error.  
+> > 
+> > Why exactly? strncpy() copies up to n characters, quoting its manual
+> > page:
+> > 
+> >     If there is no null byte among the first n bytes of src, the string
+> >     placed in dest will not be null-terminated
+> > 
+> > But since the whole struct is zeroed out initially, this should still
+> > result in a null terminated string, as the last byte of that buffer will
+> > not be touched by the strncpy.
 > 
-> The problem is after __xen_evtchn_do_upcall() restoring the flag.
-> As soon as irq_exit() is being called (either by xen_evtchn_do_upcall()
-> or by the caller of xen_hvm_evtchn_do_upcall()) softirq handling might
-> be executed resulting in another hypercall, which might be preempted
-> afterwards. And this is the case which happened in the original
-> report by Sarah.
+> Everyone here so far, including the compiler, seems to be assuming
+> that sun_path must be nul-terminated.  But that is not strictly
+> correct.  So the old code is not buggy and the compiler is wrong.
 
-Tested-by: Chris Brannon <cmb@prgmr.com>
+For portability it /should/ be nul-terminated.  According to the man
+pages for both Linux and FreeBSD, neither actually depends on the
+nul-byte.
 
-We're no longer observing this bug. We've been running this on a test system for about 3 weeks. Is it possible to merge?
+I would argue for using either strcpy(), memcpy(), or merging things
+together with strlcpy().
 
-Thanks, Sarah
+Rereading, the log message is "Path must be less than...".  If it said
+"no more than", then subtracting 1 would be correct, but with "less" it
+should state the buffer length.
 
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
 
