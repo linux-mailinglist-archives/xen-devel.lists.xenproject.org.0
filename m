@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C98724939B
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 05:45:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4825D2496D9
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 09:13:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8F1M-0005f7-Vt; Wed, 19 Aug 2020 03:44:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k8IGV-0007KN-EY; Wed, 19 Aug 2020 07:12:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BZrp=B5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1k8F1L-0005f2-Ce
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 03:44:15 +0000
-X-Inumbo-ID: bbd03ac8-b88b-401b-a345-1002a9f24ea4
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bbd03ac8-b88b-401b-a345-1002a9f24ea4;
- Wed, 19 Aug 2020 03:44:13 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 07J3hvZP032450
- (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
- Tue, 18 Aug 2020 23:44:03 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 07J3huQE032449;
- Tue, 18 Aug 2020 20:43:56 -0700 (PDT) (envelope-from ehem)
-Date: Tue, 18 Aug 2020 20:43:56 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
-Message-ID: <20200819034356.GA29116@mattapan.m5p.com>
-References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
- <20200819020036.599065-2-marmarek@invisiblethingslab.com>
+ (envelope-from <SRS0=b5Wx=B5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k8IGT-0007KI-Co
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 07:12:05 +0000
+X-Inumbo-ID: b79dfb94-fbb7-4c02-8855-b471468e9539
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b79dfb94-fbb7-4c02-8855-b471468e9539;
+ Wed, 19 Aug 2020 07:12:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B2377B598;
+ Wed, 19 Aug 2020 07:12:29 +0000 (UTC)
+Subject: Re: [Xen-devel] [PATCH v2] x86/hvm: re-work viridian APIC assist code
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: paul@xen.org, 'David Woodhouse' <dwmw2@infradead.org>,
+ 'Paul Durrant' <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org,
+ 'Eslam Elnikety' <elnikety@amazon.de>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Shan Haitao' <haitao.shan@intel.com>
+References: <20180118151059.1336-1-paul.durrant@citrix.com>
+ <1535153880.24926.28.camel@infradead.org>
+ <7547be305e3ede9edb897e2be898fe54e0b4065c.camel@infradead.org>
+ <002d01d67149$37404b00$a5c0e100$@xen.org> <20200813094555.GF975@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f2aa0cd1-61c9-c788-56fb-b2546feed74b@suse.com>
+Date: Wed, 19 Aug 2020 09:12:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200819020036.599065-2-marmarek@invisiblethingslab.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
- autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <20200813094555.GF975@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +56,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wrote:
-> diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
-> index f360f5e228..b039143b8a 100644
-> --- a/tools/libxl/libxl_utils.c
-> +++ b/tools/libxl/libxl_utils.c
+On 13.08.2020 11:45, Roger Pau Monné wrote:
+> On Thu, Aug 13, 2020 at 09:10:31AM +0100, Paul Durrant wrote:
+>>> -----Original Message-----
+>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of David Woodhouse
+>>> Sent: 11 August 2020 14:25
+>>> To: Paul Durrant <paul.durrant@citrix.com>; xen-devel@lists.xenproject.org; Roger Pau Monne
+>>> <roger.pau@citrix.com>
+>>> Cc: Eslam Elnikety <elnikety@amazon.de>; Andrew Cooper <andrew.cooper3@citrix.com>; Shan Haitao
+>>> <haitao.shan@intel.com>; Jan Beulich <jbeulich@suse.com>
+>>> Subject: Re: [Xen-devel] [PATCH v2] x86/hvm: re-work viridian APIC assist code
+>>>
+>>> Resending this straw man patch at Roger's request, to restart discussion.
+>>>
+>>> Redux: In order to cope with the relatively rare case of unmaskable
+>>> legacy MSIs, each vlapic EOI takes a domain-global spinlock just to
+>>> iterate over all IRQs and determine that there's actually nothing to
+>>> do.
+>>>
+>>> In my testing, I observe that this drops Windows performance on passed-
+>>> through NVMe from 2.2M IOPS down to about 1.0M IOPS.
+>>>
+>>> I have a variant of this patch which just has a single per-domain "I
+>>> attached legacy unmaskable MSIs" flag, which is never cleared. The
+>>> patch below is per-vector (but Roger points out it should be per-vCPU
+>>> per-vector). I don't know that we really care enough to do more than
+>>> the single per-domain flag, which in real life would never happen
+>>> anyway unless you have crappy hardware, at which point you get back to
+>>> today's status quo.
+>>>
+>>> My main concern is that this code is fairly sparsely documented and I'm
+>>> only 99% sure that this code path really *is* only for unmaskable MSIs,
+>>> and doesn't have some other esoteric use. A second opinion on that
+>>> would be particularly welcome.
+>>>
+>>
+>> The loop appears to be there to handle the case where multiple
+>> devices assigned to a domain have MSIs programmed with the same
+>> dest/vector... which seems like an odd thing for a guest to do but I
+>> guess it is at liberty to do it. Does it matter whether they are
+>> maskable or not?
+> 
+> Such configuration would never work properly, as lapic vectors are
+> edge triggered and thus can't be safely shared between devices?
 
+Wait - there are two aspects here: Vectors are difficult to be shared
+on the same CPU (but it's not impossible if the devices and their
+drivers meet certain conditions). But the bitmap gets installed as a
+per-domain rather than a per-vcpu one, and using the same vector on
+different CPUs is definitely possible, as demonstrated by both Xen
+itself as well as Linux.
 
->      }
->      memset(un, 0, sizeof(struct sockaddr_un));
->      un->sun_family = AF_UNIX;
-> -    strncpy(un->sun_path, path, sizeof(un->sun_path));
-> +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
->      return 0;
->  }
-
-While the earlier lines are okay, this line introduces an error.  If the
-compiler complains once the earlier lines are fixed, something might need
-to be done about this.
-
-I would be tempted to switch to strlcpy() since this doesn't look like it
-needs un->sun_path to be zeroed out.  (note I'm not familiar with this
-code, so someone else needs to check me on this)
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Jan
 
