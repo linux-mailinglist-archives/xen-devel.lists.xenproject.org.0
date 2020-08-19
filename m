@@ -2,75 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7FFB249B36
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:52:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C96249BE1
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 13:35:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8LhO-0003y0-H4; Wed, 19 Aug 2020 10:52:06 +0000
+	id 1k8MLp-0007je-6x; Wed, 19 Aug 2020 11:33:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tsRI=B5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1k8LhM-0003xv-D3
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:52:04 +0000
-X-Inumbo-ID: 10864455-789a-4fa5-a8d8-93fd3925181c
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
+ <SRS0=Rnaj=B5=3mdeb.com=norbert.kaminski@srs-us1.protection.inumbo.net>)
+ id 1k8MLn-0007jZ-TO
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 11:33:51 +0000
+X-Inumbo-ID: 886fc66b-3248-4267-b7fc-bf8ce437179b
+Received: from 1.mo1.mail-out.ovh.net (unknown [178.32.127.22])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 10864455-789a-4fa5-a8d8-93fd3925181c;
- Wed, 19 Aug 2020 10:52:03 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 210884D6;
- Wed, 19 Aug 2020 06:52:02 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 19 Aug 2020 06:52:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=cbw57/
- KKaayG8iK+SYPqiQPgZDltKLmJKvOXUN8KeDk=; b=N4qyO5EVZR+UUwvnFNBEyN
- rv9tnM5lpVrRXNEB7JnZh85sU+nntAY0DelogapX1oefshLPSs2TTTcjfSdIYL4w
- SkHk6YeUVghI/JcIsOxSwXSBGMP1bUQTvqclW/6lL5coFoQt/qkbXjEG7EPX3irg
- UBG/pSBuHUs78udKDzx9fVtuwzzx9xXSyc6yiz3uVqDhpOOXrWhTaZ2+gXCQLXw6
- KyEKnX1O9h6eSIJ4+F2ZslW8V3HHBcGzgmb+Izx3SP8dUCufPJgox7Qf4DMKYQU4
- V+P1krdFKAZg2pAJDwjMpRbwcYqt5/P3FZbVZSfZtKaIiRyLnp/YzIx8eyEySHVg
- ==
-X-ME-Sender: <xms:UQQ9X4wEo4PvkQ-dl10tXPkp0kq0BzaJBJIe-Ex63matlephL3-1gA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtkedgvdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqiferrehrvggtkhhiuceomhgrrhhmrghrvghksehinh
- hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuddv
- jeekieelgfeljefgjeelffefleduheehvdehfeehffeuveejvdevveeufeehnecukfhppe
- eluddrieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
- mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
- gsrdgtohhm
-X-ME-Proxy: <xmx:UQQ9X8TThGMGyGBO4GvJM0-OGggGyQO9cXMNP0XnUnan6Y_EZXS4_A>
- <xmx:UQQ9X6Wa4N2QnoZi7Onlq22dZuopczYuqIuZ-Y8UkGm6d9mlEvajQw>
- <xmx:UQQ9X2iCkS7287Fk0eHfOtLhlcoUGn3mWwSrjqGxP4PvqnxlhqkuiQ>
- <xmx:UQQ9X1qHJhc_E-uBqIU5u6aFFkCy6QVsh9fY6SW-JzW1DcuRvxJ0Ig>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id BEFAD3280060;
- Wed, 19 Aug 2020 06:52:00 -0400 (EDT)
-Date: Wed, 19 Aug 2020 12:51:57 +0200
-From: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
-To: Ian Jackson <ian.jackson@citrix.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
-Message-ID: <20200819105157.GP1626@mail-itl>
-References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
- <20200819020036.599065-2-marmarek@invisiblethingslab.com>
- <20200819034356.GA29116@mattapan.m5p.com>
- <20200819094123.GO1626@mail-itl>
- <24380.65377.44583.51170@mariner.uk.xensource.com>
+ id 886fc66b-3248-4267-b7fc-bf8ce437179b;
+ Wed, 19 Aug 2020 11:33:49 +0000 (UTC)
+Received: from player774.ha.ovh.net (unknown [10.110.171.40])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 9BBA21D1445
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Aug 2020 13:33:48 +0200 (CEST)
+Received: from 3mdeb.com (85-222-117-222.dynamic.chello.pl [85.222.117.222])
+ (Authenticated sender: norbert.kaminski@3mdeb.com)
+ by player774.ha.ovh.net (Postfix) with ESMTPSA id 4F755156DFC42;
+ Wed, 19 Aug 2020 11:33:40 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-101G0044e7cd190-6ab3-4129-814e-8667b55db14d,
+ B5113B1F129CC0B9F1E0060F55C82130F969EC62) smtp.auth=norbert.kaminski@3mdeb.com
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
+ xen-devel@lists.xenproject.org, open list <linux-kernel@vger.kernel.org>,
+ Maciej Pijanowski <maciej.pijanowski@3mdeb.com>, piotr.krol@3mdeb.com
+References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
+ <20200817090013.GN975@Air-de-Roger> <20200818120135.GK1679@mail-itl>
+ <20200818124710.GK828@Air-de-Roger> <20200818150020.GL1679@mail-itl>
+ <20200818172114.GO828@Air-de-Roger> <20200818184018.GN1679@mail-itl>
+ <20200819081930.GQ828@Air-de-Roger>
+From: Norbert Kaminski <norbert.kaminski@3mdeb.com>
+Message-ID: <3d405b0c-4e2b-0d29-56bb-e315f4c21d03@3mdeb.com>
+Date: Wed, 19 Aug 2020 13:33:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="udOl8koJG4PSVcOF"
-Content-Disposition: inline
-In-Reply-To: <24380.65377.44583.51170@mariner.uk.xensource.com>
+In-Reply-To: <20200819081930.GQ828@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Ovh-Tracer-Id: 1016687616953653708
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedruddtkedgfedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepuffvfhfhkffffgggjggtgfesthekredttdefjeenucfhrhhomheppfhorhgsvghrthcumfgrmhhinhhskhhiuceonhhorhgsvghrthdrkhgrmhhinhhskhhiseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelveehudekjedtkedtgefggfeijeelhfefvdevuefhjeehgeetgfevvdeufeduleenucffohhmrghinhepfehmuggvsgdrtghomhenucfkpheptddrtddrtddrtddpkeehrddvvddvrdduudejrddvvddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeejgedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehnohhrsggvrhhtrdhkrghmihhnshhkihesfehmuggvsgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,91 +67,129 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---udOl8koJG4PSVcOF
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
-
-On Wed, Aug 19, 2020 at 11:30:57AM +0100, Ian Jackson wrote:
-> Marek Marczykowski-G??recki writes ("Re: [PATCH 2/2] libxl: fix -Werror=
-=3Dstringop-truncation in libxl__prepare_sockaddr_un"):
-> > On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
-> > > On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki=
- wrote:
-> > > > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
-> > > > index f360f5e228..b039143b8a 100644
-> > > > --- a/tools/libxl/libxl_utils.c
-> > > > +++ b/tools/libxl/libxl_utils.c
-> > >=20
-> > >=20
-> > > >      }
-> > > >      memset(un, 0, sizeof(struct sockaddr_un));
-> > > >      un->sun_family =3D AF_UNIX;
-> > > > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
-> > > > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
-> > > >      return 0;
-> > > >  }
-> > >=20
-> > > While the earlier lines are okay, this line introduces an error. =20
-> >=20
-> > Why exactly? strncpy() copies up to n characters, quoting its manual
-> > page:
-> >=20
-> >     If there is no null byte among the first n bytes of src, the string
-> >     placed in dest will not be null-terminated
-> >=20
-> > But since the whole struct is zeroed out initially, this should still
-> > result in a null terminated string, as the last byte of that buffer will
-> > not be touched by the strncpy.
->=20
-> Everyone here so far, including the compiler, seems to be assuming
-> that sun_path must be nul-terminated.  But that is not strictly
-> correct.  So the old code is not buggy and the compiler is wrong.
+On 19.08.2020 10:19, Roger Pau Monné wrote:
+> On Tue, Aug 18, 2020 at 08:40:18PM +0200, Marek Marczykowski-Górecki wrote:
+>> On Tue, Aug 18, 2020 at 07:21:14PM +0200, Roger Pau Monné wrote:
+>>>> Let me draw the picture from the beginning.
+>>> Thanks, greatly appreciated.
+>>>
+>>>> EFI memory map contains various memory regions. Some of them are marked
+>>>> as not needed after ExitBootServices() call (done in Xen before
+>>>> launching dom0). This includes EFI_BOOT_SERVICES_DATA and
+>>>> EFI_BOOT_SERVICES_CODE.
+>>>>
+>>>> EFI SystemTable contains pointers to various ConfigurationTables -
+>>>> physical addresses (at least in this case). Xen does interpret some of
+>>>> them, but not ESRT. Xen pass the whole (address of) SystemTable to Linux
+>>>> dom0 (at least in PV case). Xen doesn't do anything about tables it
+>>>> doesn't understand.
+>>>>
+>>>> Now, the code in Linux takes the (ESRT) table address early and checks
+>>>> the memory map for it. We have 3 cases:
+>>>>   - it points at area marked as neither EFI_*_SERVICES_DATA, nor with
+>>>>     EFI_MEMORY_RUNTIME attribute -> Linux refuse to use it
+>>>>   - it points to EFI_RUNTIME_SERVICES_DATA or with EFI_MEMORY_RUNTIME
+>>>>     attribute - Linux uses the table; memory map already says the area
+>>>>     belongs to EFI and the OS should not use it for something else
+>>>>   - it points to EFI_BOOT_SERVICES_DATA - Linux mark the area as reserved
+>>>>     to not release it after calling ExitBootServices()
+>>>>
+>>>> The problematic is the third case - at the time when Linux dom0 is run,
+>>>> ExitBootServices() was already called and EFI_BOOT_SERVICES_* memory was
+>>>> already released. It could be already used for something else (for
+>>>> example Xen could overwrite it while loading dom0).
+>>>>
+>>>> Note the problematic case should be the most common - UEFI specification
+>>>> says "The ESRT shall be stored in memory of type EfiBootServicesData"
+>>>> (chapter 22.3 of UEFI Spec v2.6).
+>>>>
+>>>> For this reason, to use ESRT in dom0, Xen should do something about it
+>>>> before ExitBootServices() call. While analyzing all the EFI tables is
+>>>> probably not a viable option, it can do some simple action:
+>>>>   - retains all the EFI_BOOT_SERVICES_* areas - there is already code
+>>>>     for that, controlled with /mapbs boot switch (to xen.efi, would need
+>>>>     another option for multiboot2+efi)
+>>>>   - have a list of tables to retain - since Xen already do analyze some
+>>>>     of the ConfigurationTables, it can also have a list of those to
+>>>>     preserve even if they live in EFI_BOOT_SERVICES_DATA. In this case,
+>>>>     while Xen doesn't need to parse the whole table, it need to parse it's
+>>>>     header to get the table size - to reserve that memory and not reuse
+>>>>     it after ExitBootServices().
+>>> Xen seems to already contain skeleton
+>>> XEN_EFI_query_capsule_capabilities and XEN_EFI_update_capsule
+>>> hypercalls which is what should be used in order to perform the
+>>> updates?
+>> I think those covers only runtime service calls similarly named. But you
+>> need also ESRT table to collect info about devices that you can even
+>> attempt to update.
+> Right, the ESRT must be available so that dom0 can discover the
+> resources.
 >
-> Some systems insist on sun_path being nul-terminated, but I don't
-> think that includes any we care about.  AFAICT from the manpage
-> FreeBSD doesn't and uses a variable socklen for AF_UNIX.
+>> TBH, I'm not sure if those runtime services are really needed. I think
+>> Norbert succeeded UEFI update from within Xen PV dom0 with just access
+>> to the ESRT table, but without those services.
+>>
+Marek is right here. I was able to successfully update and downgrade
+UFEI when the ESRT table was provided to the Xen PV dom0. I didn't
+need any extra services to make the UEFI capsule update work.
+> OK, by reading the UEFI spec I assumed that you needed access to
+> QueryCapsuleCapabilities and UpdateCapsule in order to perform the
+> updates, and those should be proxied using hyopercalls. Maybe this is
+> not mandatory and there's a side-band mechanism of doing this?
+>
+> I think we need more info here.
+>
+>>> So yes, I agree Xen should make sure the region of the table is not
+>>> freed when exiting boot services, and that dom0 can access it. I
+>>> guess we should move the checks done by Linux to Xen, and then only
+>>> provide the ESRT table to dom0 if the checks (now done by Xen) pass.
+>> Yes, something like this. But note currently in the (PV) dom0 case, Xen
+>> provides dom0 with a pointer to the whole SystemTable, not individual
+>> ConfigurationTables. Making it filter what dom0 gets would require Xen
+>> to re-construct the whole thing with just those elements that are
+>> desired. Not exactly sure if worth the effort given the privilege dom0
+>> has.
+> We already do this for ACPI in PVH dom0, where Xen rebuilds the RSDT
+> in order to filter out tables that shouldn't be exposed to dom0. If
+> possible using something similar for UEFI would be my preference, but
+> I certainly haven't investigated at all whether this is feasible.
+>
+>> BTW How does it look in PVH dom0 case? Does it also get unmodified host
+>> EFI SystemTable? In that case, it would be more tricky, because (IIUC)
+>> physical addresses (like the one for ESRT table) are not meaningful to
+>> PVH dom0.
+> For PVH dom0 we should make sure the ESRT is identity mapped into the
+> physmap, so that dom0 has access to it. PVH dom0 gets a physical
+> memory map that's basically the native one with the RAM regions
+> adjusted to match the assigned memory.
+>
+> We already identity map a bunch of stuff there, so identity mapping
+> the ESRT would be likely fine.
+>
+>>> It might be helpful to see the whole picture here with the hooks to
+>>> perform the updates also implemented, as those are missing in Xen (and
+>>> Linux?). That would give a clearer view of what you are trying to
+>>> achieve IMO.
+>> Norbert, can you shed some light on this process?
+>>
+>> While those two runtime services seems relevant, I see also an update
+>> process involving simply dropping some file into ESP (/boot/efi). I'm
+>> not sure if some runtime services were involved.
+> So then the update is done when rebooting? If we expose the ESRT we
+> should also make sure the run-time services related to it are
+> available.
 
-unix(7) indeed says it varies across implementations and for example
-Linux would add the nul byte itself (being 109th character there). But
-it generally recommends to include the nul byte to avoid hitting some
-corner cases (an example given there is getsockname() returning larger
-buffer than normally, to accommodate that one extra byte).
+Fwupd uses system firmware GUID to recognize its type. UEFI GUID is
+provided in the ESRT. Then fwupd checks if the updates/downgrades are
+available. In the next step the tool downloads and extracts cabinet
+archives in the EFI capsule file format and the capsule updates firmware
+after the OS reboot.
 
-> OTOH I don't think there is much benefit in the additional byte so I
-> don't mind if we take some version of these changes.
->=20
-> I think Marek is right that his patch does leave sun_path
-> nul-terminated, so, for that original patch:
->=20
-> Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
->=20
-> Thanks,
-> Ian.
-
---=20
+---
 Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+Norbert Kamiński
+Embedded Systems Engineer
+GPG key ID: 9E9F90AFE10F466A
+3mdeb.com
 
---udOl8koJG4PSVcOF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl89BE0ACgkQ24/THMrX
-1yyzXQf+L20tpXP/dplQaiZ/uhx2NQF+K9RcT98sqP+KyR89fkDpkbzHsGNZnFK2
-hbWWjZQOGpKKPXYui8QUJoyTBnOX+YjDaGJ19wLh4Xy/G8JoQlxr4tVWZhc5xOqH
-IrivoUDYTDcj6nles8kBy9MXTjS8CaOeDvCU2GgAdM8+5ep6z1GrcYNIpN+n8jgH
-bQwzmp62WQBVbB2BZjZOJDZf9GFEQFAJkFIPzzyiRc5VRTbPEQLcJic/kHWb3O7N
-QFJeoa6Iw5fYsgb6AFErDL9cyEQBAcQSzUlawWh3a5ejV84tFaVAV9ZpegpmFPNL
-eXSs5sQQwnpd+lmtTpIfoWA2/XaNMg==
-=Q/Vn
------END PGP SIGNATURE-----
-
---udOl8koJG4PSVcOF--
 
