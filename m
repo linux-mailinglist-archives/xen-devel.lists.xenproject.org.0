@@ -2,58 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F42249A6C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C88249A6B
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:32:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8LN4-0001q6-Nh; Wed, 19 Aug 2020 10:31:06 +0000
+	id 1k8LNs-0001su-2H; Wed, 19 Aug 2020 10:31:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N7ZT=B5=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k8LN3-0001q0-25
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:31:05 +0000
-X-Inumbo-ID: af386eca-bdd1-4cd8-97bb-3bd6163fab5b
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1k8LNq-0001sk-8f
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:31:54 +0000
+X-Inumbo-ID: e62ed67c-37d2-4533-8dd7-13cae789eb11
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af386eca-bdd1-4cd8-97bb-3bd6163fab5b;
- Wed, 19 Aug 2020 10:31:03 +0000 (UTC)
+ id e62ed67c-37d2-4533-8dd7-13cae789eb11;
+ Wed, 19 Aug 2020 10:31:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597833063;
+ d=citrix.com; s=securemail; t=1597833113;
  h=from:mime-version:content-transfer-encoding:message-id:
  date:to:cc:subject:in-reply-to:references;
- bh=T27VgrL2uYw+iPe1gGhmI7/jEHit1OD703MIIQ5Z7+A=;
- b=UqrF7eBxn428hIPCHSey5rEimqcFxrseSjCSYt5c/38d1MIGdmWaY99/
- KGM9lV7PmSODVoseeH2vcLjpsystpR14Vg0R1bxdiRbNqNZFEQTcjFWOh
- /bZa30WkiKCrYP+EcKpG6WCJ8Hv2u3EwI5VVP16M0D+HSdA2jsAkbcoPN Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ bh=kI3tYAd/ormFSqd2M04V7UvqQImI9Xpbk/LZv4Bco3E=;
+ b=WK4UfuyW2lQIc8dUz22gYhLjpcmkp7U0djR2QT8rpnP7FNKHeUo7oVDW
+ /BBO8Y9FWZh4IUmdGUwpc2jcOq+uJ3yKltUF4AhKfyCRmCoOS1qXkV4Ly
+ 3fCj+G1cLW2BBbqb2o21dO3SmsSBqoVk/pY3aWFUyPrAaB3nsqBAW7Qhr c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 4vKh1Zl9xUMMnfXu4oxN2NHUcaV2FFB9STVHE2rmPgbGa6rFi9VLL/QejBqz/Ys/V7+Vh6BvCb
- 8uIq+hisSNG0WbYY0qA+9wkCGBRj++bsnhQ+al6ifA1TxmiUtDnpML/TUuzuwbcBcemgSXFH/P
- VChVEFYM92sZO9GhtHdk3PCfcMlmijgjHR/bwJONRRs2/3MfRJTbphTzRz96Qwq+rDq+h6Tx5j
- wqw2mNCeyRg/QpSJLhSwsj9zhhnWzZzZT6+axuaWRge7espdv7YqAboWDaG+kDGXg8KSaEWBnZ
- 0Tk=
+IronPort-SDR: h85FN4YJ7R1yXJbHrwzw9maVb4BP5n+F+3mm7EokYrppIjQEBWq61wvmUHZQg6a0kX0fPu7dnB
+ uDBCfyI7m50+twe7U1+NZq2UqIXXqGjk3YRTNh/Z5PFKX+HWDV6uAlIlRekZXwsTHuekQC8SNA
+ EHnq9Sf/tseS+Il6tg7JGuoPOmD+KmOQ+ytYPWLSfiU8mfmyI7k0FngJaSs+zFdUEunnLXp67r
+ ekmf8C7TwGZAq1PQRcIJ4BGyDnTHl88mXSsoPfxzpfujitraFZa4RciugWAhaImV7woIxMTSKQ
+ 5xE=
 X-SBRS: 2.7
-X-MesageID: 25770585
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 25157725
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,331,1592884800"; d="scan'208";a="25770585"
+X-IronPort-AV: E=Sophos;i="5.76,331,1592884800"; d="scan'208";a="25157725"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24380.65377.44583.51170@mariner.uk.xensource.com>
-Date: Wed, 19 Aug 2020 11:30:57 +0100
-To: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
-CC: Elliott Mitchell <ehem+xen@m5p.com>, <xen-devel@lists.xenproject.org>,
- "Wei Liu" <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
-In-Reply-To: <20200819094123.GO1626@mail-itl>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24380.65427.975310.515324@mariner.uk.xensource.com>
+Date: Wed, 19 Aug 2020 11:31:47 +0100
+To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Wei
+ Liu" <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>
+Subject: Re: [PATCH 1/2] libxl: workaround gcc 10.2 maybe-uninitialized warning
+In-Reply-To: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
 References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
- <20200819020036.599065-2-marmarek@invisiblethingslab.com>
- <20200819034356.GA29116@mattapan.m5p.com>	<20200819094123.GO1626@mail-itl>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -68,51 +66,9 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Marek Marczykowski-G??recki writes ("Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in libxl__prepare_sockaddr_un"):
-> On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
-> > On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wrote:
-> > > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
-> > > index f360f5e228..b039143b8a 100644
-> > > --- a/tools/libxl/libxl_utils.c
-> > > +++ b/tools/libxl/libxl_utils.c
-> > 
-> > 
-> > >      }
-> > >      memset(un, 0, sizeof(struct sockaddr_un));
-> > >      un->sun_family = AF_UNIX;
-> > > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
-> > > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
-> > >      return 0;
-> > >  }
-> > 
-> > While the earlier lines are okay, this line introduces an error.  
-> 
-> Why exactly? strncpy() copies up to n characters, quoting its manual
-> page:
-> 
->     If there is no null byte among the first n bytes of src, the string
->     placed in dest will not be null-terminated
-> 
-> But since the whole struct is zeroed out initially, this should still
-> result in a null terminated string, as the last byte of that buffer will
-> not be touched by the strncpy.
-
-Everyone here so far, including the compiler, seems to be assuming
-that sun_path must be nul-terminated.  But that is not strictly
-correct.  So the old code is not buggy and the compiler is wrong.
-
-Some systems insist on sun_path being nul-terminated, but I don't
-think that includes any we care about.  AFAICT from the manpage
-FreeBSD doesn't and uses a variable socklen for AF_UNIX.
-
-OTOH I don't think there is much benefit in the additional byte so I
-don't mind if we take some version of these changes.
-
-I think Marek is right that his patch does leave sun_path
-nul-terminated, so, for that original patch:
+Marek Marczykowski-Górecki writes ("[PATCH 1/2] libxl: workaround gcc 10.2 maybe-uninitialized warning"):
+> It seems xlu_pci_parse_bdf has a state machine that is too complex for
+> gcc to understand. The build fails with:
 
 Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-Thanks,
-Ian.
 
