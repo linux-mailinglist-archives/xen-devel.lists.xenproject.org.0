@@ -2,52 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AE82499D6
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:05:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00F42249A6C
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:32:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8KxS-0007hO-Ic; Wed, 19 Aug 2020 10:04:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k8LN4-0001q6-Nh; Wed, 19 Aug 2020 10:31:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1c0J=B5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k8KxQ-0007h4-ND
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:04:36 +0000
-X-Inumbo-ID: 52f9e1d0-4c86-4e64-963f-9d35821bd732
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 52f9e1d0-4c86-4e64-963f-9d35821bd732;
- Wed, 19 Aug 2020 10:04:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=g2I1/oELVILprT2LZiWVoJdxN8uPYos/t3O+b/VXVEo=; b=QTRShhfpYpJ2b3MgL/WUK4Spnb
- JbHYbEZq0tmRPdzmmbYzZBZW9vsmPHbZWB/kyHb3stcLH37I0ufTkviGelzmHrtAfVrv57VkxtJ6b
- PLfLYY6QjZKJflt6WItdKOBiZMjCkWEZxb1Ft90a+e8Fo2XiPC/pH0/0VMo3VyHDxx+8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k8KxJ-0004j0-Gn; Wed, 19 Aug 2020 10:04:29 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k8KxJ-00025e-85; Wed, 19 Aug 2020 10:04:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1k8KxJ-0007Ce-67; Wed, 19 Aug 2020 10:04:29 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152618-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=N7ZT=B5=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1k8LN3-0001q0-25
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:31:05 +0000
+X-Inumbo-ID: af386eca-bdd1-4cd8-97bb-3bd6163fab5b
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af386eca-bdd1-4cd8-97bb-3bd6163fab5b;
+ Wed, 19 Aug 2020 10:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597833063;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=T27VgrL2uYw+iPe1gGhmI7/jEHit1OD703MIIQ5Z7+A=;
+ b=UqrF7eBxn428hIPCHSey5rEimqcFxrseSjCSYt5c/38d1MIGdmWaY99/
+ KGM9lV7PmSODVoseeH2vcLjpsystpR14Vg0R1bxdiRbNqNZFEQTcjFWOh
+ /bZa30WkiKCrYP+EcKpG6WCJ8Hv2u3EwI5VVP16M0D+HSdA2jsAkbcoPN Q=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4vKh1Zl9xUMMnfXu4oxN2NHUcaV2FFB9STVHE2rmPgbGa6rFi9VLL/QejBqz/Ys/V7+Vh6BvCb
+ 8uIq+hisSNG0WbYY0qA+9wkCGBRj++bsnhQ+al6ifA1TxmiUtDnpML/TUuzuwbcBcemgSXFH/P
+ VChVEFYM92sZO9GhtHdk3PCfcMlmijgjHR/bwJONRRs2/3MfRJTbphTzRz96Qwq+rDq+h6Tx5j
+ wqw2mNCeyRg/QpSJLhSwsj9zhhnWzZzZT6+axuaWRge7espdv7YqAboWDaG+kDGXg8KSaEWBnZ
+ 0Tk=
+X-SBRS: 2.7
+X-MesageID: 25770585
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,331,1592884800"; d="scan'208";a="25770585"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 152618: all pass - PUSHED
-X-Osstest-Versions-This: xen=391a8b6d20b72c4f24f8511f78ef75a6119cbe22
-X-Osstest-Versions-That: xen=7a4dd361d10718608ad37f969df0a3cf5bc17b12
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 19 Aug 2020 10:04:29 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24380.65377.44583.51170@mariner.uk.xensource.com>
+Date: Wed, 19 Aug 2020 11:30:57 +0100
+To: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
+CC: Elliott Mitchell <ehem+xen@m5p.com>, <xen-devel@lists.xenproject.org>,
+ "Wei Liu" <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
+ libxl__prepare_sockaddr_un
+In-Reply-To: <20200819094123.GO1626@mail-itl>
+References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
+ <20200819020036.599065-2-marmarek@invisiblethingslab.com>
+ <20200819034356.GA29116@mattapan.m5p.com>	<20200819094123.GO1626@mail-itl>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +68,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152618 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152618/
+Marek Marczykowski-G??recki writes ("Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in libxl__prepare_sockaddr_un"):
+> On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
+> > On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wrote:
+> > > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
+> > > index f360f5e228..b039143b8a 100644
+> > > --- a/tools/libxl/libxl_utils.c
+> > > +++ b/tools/libxl/libxl_utils.c
+> > 
+> > 
+> > >      }
+> > >      memset(un, 0, sizeof(struct sockaddr_un));
+> > >      un->sun_family = AF_UNIX;
+> > > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
+> > > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
+> > >      return 0;
+> > >  }
+> > 
+> > While the earlier lines are okay, this line introduces an error.  
+> 
+> Why exactly? strncpy() copies up to n characters, quoting its manual
+> page:
+> 
+>     If there is no null byte among the first n bytes of src, the string
+>     placed in dest will not be null-terminated
+> 
+> But since the whole struct is zeroed out initially, this should still
+> result in a null terminated string, as the last byte of that buffer will
+> not be touched by the strncpy.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  391a8b6d20b72c4f24f8511f78ef75a6119cbe22
-baseline version:
- xen                  7a4dd361d10718608ad37f969df0a3cf5bc17b12
+Everyone here so far, including the compiler, seems to be assuming
+that sun_path must be nul-terminated.  But that is not strictly
+correct.  So the old code is not buggy and the compiler is wrong.
 
-Last test of basis   152570  2020-08-12 09:22:20 Z    7 days
-Testing same since   152618  2020-08-19 09:19:03 Z    0 days    1 attempts
+Some systems insist on sun_path being nul-terminated, but I don't
+think that includes any we care about.  AFAICT from the manpage
+FreeBSD doesn't and uses a variable socklen for AF_UNIX.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Paul Durrant <pdurrant@amazon.com>
-  Trammell hudson <hudson@trmm.net>
-  Wei Liu <wl@xen.org>
+OTOH I don't think there is much benefit in the additional byte so I
+don't mind if we take some version of these changes.
 
-jobs:
- coverity-amd64                                               pass    
+I think Marek is right that his patch does leave sun_path
+nul-terminated, so, for that original patch:
 
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   7a4dd361d1..391a8b6d20  391a8b6d20b72c4f24f8511f78ef75a6119cbe22 -> coverity-tested/smoke
+Thanks,
+Ian.
 
