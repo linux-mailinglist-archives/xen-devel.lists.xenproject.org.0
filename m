@@ -2,74 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1094324998A
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 11:42:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC272499C6
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 11:56:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8KbC-0005fH-4t; Wed, 19 Aug 2020 09:41:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tsRI=B5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1k8KbA-0005fC-VR
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 09:41:37 +0000
-X-Inumbo-ID: 1a937cde-7277-4200-94b2-3e41ee1ec85c
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a937cde-7277-4200-94b2-3e41ee1ec85c;
- Wed, 19 Aug 2020 09:41:36 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id B808A509;
- Wed, 19 Aug 2020 05:41:34 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 19 Aug 2020 05:41:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8lFhNE
- j3oA3/9/vfgwXkaTZyQc77f+mXCbIE3SgW8dM=; b=H9jEqWNiJYkN+6AskHoz73
- YA7OAWwTaM5cIG75JgHh9pcI4kDb5XwEr8RoKG1EqIJT3ESXQBiut2VXVfNRsB+A
- I8+AZkDxJbdUnrfW0ZTdjKJoAd4ZDgurn1vSSV8mhTKgRfjtbW51W7K/xBJ6wtZy
- zwRYBnYUHMjYV8Xubv1aVDjaJ7Z5i5BxuctWrEDsUoh9Cp/z5oUmY2Hg2jdmJ4EC
- 6hFFK76AVCgN3U2SCuTtyxrnYlnOFpzLfkmFOTXXtE7UwgwurzmmYylhbsTb+e5L
- +QvLFEjXXUpnjibqZkoCnLF4ZZQJ3Nt3I7QQ2DjtdVNOF9OA/2JVsCKjYW4HDtIg
- ==
-X-ME-Sender: <xms:zfM8X2MUaX2KY4ul_Hw8HVpt-YFNVsir7iruTQsKRnMCBOrwrOoMgQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtkedgudeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqiferrehrvggtkhhiuceomhgrrhhmrghrvghksehinh
- hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuddv
- jeekieelgfeljefgjeelffefleduheehvdehfeehffeuveejvdevveeufeehnecukfhppe
- eluddrieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
- mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
- gsrdgtohhm
-X-ME-Proxy: <xmx:zfM8X0-8SLtRJUqaPvgvX3png4A65DeaNAJLprnrOU6zZfOSptcGRQ>
- <xmx:zfM8X9R_Wykpy1d-CfCKnb5cCkxD41xB34v-nT2rzBELPOZMP8zfTg>
- <xmx:zfM8X2tRIcUk6Is2ImaRX08tPbeQsxfXpwQkBvTV8KdbX6dMRZAAqw>
- <xmx:zvM8X2lDIXcTc02LlLLMC2q9N1EdSofgLN00OhgGy9uCM9Tqiq9sJw>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id 19502328005D;
- Wed, 19 Aug 2020 05:41:33 -0400 (EDT)
-Date: Wed, 19 Aug 2020 11:41:23 +0200
-From: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
-Message-ID: <20200819094123.GO1626@mail-itl>
-References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
- <20200819020036.599065-2-marmarek@invisiblethingslab.com>
- <20200819034356.GA29116@mattapan.m5p.com>
+	id 1k8KpU-0006hj-MP; Wed, 19 Aug 2020 09:56:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ayQ0=B5=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k8KpT-0006he-1P
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 09:56:23 +0000
+X-Inumbo-ID: 74df0640-1cf9-4ae4-9254-c40d12e66156
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 74df0640-1cf9-4ae4-9254-c40d12e66156;
+ Wed, 19 Aug 2020 09:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=0OPeoYX2YY7zq6Pyrc4CtVsnY2FPb0AEUpVJ0XanIJ4=; b=qzNsgJBNXdL4HWG8fCCa3LU0Z9
+ GrxmljaojmJomVc4vncY5bQzItmp76cui1mgyY5kkfhqpZb6mjoE83znCB6n7Dg+bmbCbSqLW2QHb
+ gPToZM20/uTJnNFNhqqhorjzg0h7kUMHQUT0jZ1Ab1KQ6WL2aVi7DcraU1wpwtjGYu70=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8KpQ-0004T7-SA; Wed, 19 Aug 2020 09:56:20 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8KpQ-00005A-K6; Wed, 19 Aug 2020 09:56:20 +0000
+Subject: Re: [PATCH 1/2] xen/arm: entry: Place a speculation barrier following
+ an ret instruction
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andre Przywara <Andre.Przywara@arm.com>, Julien Grall <jgrall@amazon.com>
+References: <20200616175913.7368-1-julien@xen.org>
+ <20200616175913.7368-2-julien@xen.org>
+ <alpine.DEB.2.21.2006161422240.24982@sstabellini-ThinkPad-T480s>
+ <57696b4d-da83-a4d6-4d82-41a6f6c9174c@xen.org>
+ <5c3a2407-3e76-3a30-7f93-036706e00f73@xen.org>
+ <9DFF73C4-5141-47AF-A0DB-331787007F37@arm.com>
+ <5a406d61-293b-8dd7-44c2-d4f5dde4856f@xen.org>
+ <7EAB4E0A-338C-4DCF-80A4-A426BC95C051@arm.com>
+ <5dceeedf-9982-37c5-553e-76f22d9d6db2@xen.org>
+ <B2AFB28F-0D54-45D4-AFAA-8C495A6D9054@arm.com>
+ <75e13b0b-07fc-1e30-42e8-e11a65fa1c81@suse.com>
+ <52ce222b-2d48-8824-aac6-6240dbe30ebf@xen.org>
+ <7276d345-606f-7560-5bc7-b23780ae3e7e@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7cb38caa-d97f-22c1-d7c4-90753db43e07@xen.org>
+Date: Wed, 19 Aug 2020 10:56:18 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="3199z2xwsLUuj0Hj"
-Content-Disposition: inline
-In-Reply-To: <20200819034356.GA29116@mattapan.m5p.com>
+In-Reply-To: <7276d345-606f-7560-5bc7-b23780ae3e7e@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +77,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 19/08/2020 09:58, Jan Beulich wrote:
+> On 19.08.2020 10:50, Julien Grall wrote:
+>> On 19/08/2020 09:02, Jan Beulich wrote:
+>>> On 19.08.2020 09:59, Bertrand Marquis wrote:
+>>>>> On 18 Aug 2020, at 18:34, Julien Grall <julien@xen.org> wrote:
+>>>
+>>> Btw - is there any need for this thread to be cross posted to both
+>>> xen-devel@ and security@? (I've dropped the latter here.)
+>>
+>>   From the cover letter:
+>>
+>> "The patch series is directly sent on the mailing list as the
+>> security team has been aware of the issues after the whitepaper was
+>> publicly released."
+>>
+>> This is technically still a security issue except this is discussed in
+>> the open as it is a zero day for us. An XSA will have to be issued in
+>> due course. Hence why security@ is added to keep track of the conversation.
+> 
+> I thought cross-posting is generally considered bad practice. I can't
+> see what extra "keeping track of the conversation" gets added by CCing
+> security@: Everything will already be recorded in the list archives of
+> xen-devel.
 
---3199z2xwsLUuj0Hj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
- libxl__prepare_sockaddr_un
+The "keep track of the conversation" wasn't in the sense of recording 
+but that we are aware that there is a pending 0-day discussion and take 
+action one the discussion as settled.
 
-On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
-> On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wro=
-te:
-> > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
-> > index f360f5e228..b039143b8a 100644
-> > --- a/tools/libxl/libxl_utils.c
-> > +++ b/tools/libxl/libxl_utils.c
->=20
->=20
-> >      }
-> >      memset(un, 0, sizeof(struct sockaddr_un));
-> >      un->sun_family =3D AF_UNIX;
-> > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
-> > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
-> >      return 0;
-> >  }
->=20
-> While the earlier lines are okay, this line introduces an error. =20
+> 
+> For some background of my original question: The cross posting confuses
+> the rules I have set up in my mail client - the mail gets moved back
+> and forth between the two distinct folders for each of the lists. I
+> haven't been able to figure a non-clumsy way yet to avoid this
+> happening. The mail client we used to use until about a year ago did
+> not have any issue with the same scenario.
 
-Why exactly? strncpy() copies up to n characters, quoting its manual
-page:
+I am sorry to hear your e-mail client is not capable to do basic 
+filtering. However, this is not the first place where we do that (see 
+Linux or QEMU patches).
 
-    If there is no null byte among the first n bytes of src, the string
-    placed in dest will not be null-terminated
+Cheers,
 
-But since the whole struct is zeroed out initially, this should still
-result in a null terminated string, as the last byte of that buffer will
-not be touched by the strncpy.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---3199z2xwsLUuj0Hj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl8888MACgkQ24/THMrX
-1ywL3gf+PgsKuJBztYVTYMi8PsYElBgBxvvdpURU84bpoftXgNEzyh6SWcziAHS9
-6po5djImLUV3LL+pNskcoB3Mg9FMqaKUOWSTMZm791Q8yZwW8ypV5UV7kbe0wF5S
-0MYibcZjJ1D8ZPC95cDySacoeG4XbXn8q+OQYxJH144AXfUZZBJzqEUzw5kHQAPU
-Moz5GJkAOytrX3vs8OAsM0yWhK+FX6MFI7+r2fHUVcCeRX8vG7HsYyq3qdyP7TmU
-YEXSXbbCyzq3d9o3BEO7hok2hdqth7IQ6BxhxysnW87h1SMn+voF54IETbg70ywB
-pd456NQNvXEDyRUCw0r468hXOWclSA==
-=wOMb
------END PGP SIGNATURE-----
-
---3199z2xwsLUuj0Hj--
+-- 
+Julien Grall
 
