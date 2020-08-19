@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB18224A462
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 18:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BE424A465
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 18:53:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8RKG-0003oW-ON; Wed, 19 Aug 2020 16:52:36 +0000
+	id 1k8RKM-0003qq-1u; Wed, 19 Aug 2020 16:52:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qP9Y=B5=gmail.com=don.slutz@srs-us1.protection.inumbo.net>)
- id 1k8RKF-0003kZ-KZ
- for xen-devel@lists.xen.org; Wed, 19 Aug 2020 16:52:35 +0000
-X-Inumbo-ID: 701a3ca8-835e-4475-a585-f8387a64ef99
-Received: from mail-qt1-x844.google.com (unknown [2607:f8b0:4864:20::844])
+ id 1k8RKK-0003kZ-Kn
+ for xen-devel@lists.xen.org; Wed, 19 Aug 2020 16:52:40 +0000
+X-Inumbo-ID: 2bf223f3-0ce9-4e2a-9b85-eb2b6b95b286
+Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 701a3ca8-835e-4475-a585-f8387a64ef99;
- Wed, 19 Aug 2020 16:52:21 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id h21so18273845qtp.11
- for <xen-devel@lists.xen.org>; Wed, 19 Aug 2020 09:52:21 -0700 (PDT)
+ id 2bf223f3-0ce9-4e2a-9b85-eb2b6b95b286;
+ Wed, 19 Aug 2020 16:52:23 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id b14so22211524qkn.4
+ for <xen-devel@lists.xen.org>; Wed, 19 Aug 2020 09:52:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :in-reply-to:references;
- bh=cWulFsHkNsMNGC2uvEY33xRgo78iJDptDGbhfvQXNSY=;
- b=nt34M22LhQ1cPr4+nW9rwrLB32z5vE3SvLB0ziE3HRWakRRfJKH3MoxzP8nCtY1+XN
- cTbINjuAKiky9/Nwa3dPldHvY5ITG3DnEmwteyijN6RB1NK6IZ4uDyoTvmrClSeWlWEK
- CKAa5wI1mtlRKgYoC+7GjvsVMKNpx0dyQDCpJRVXLum7rwGgQvAH78k1+S5AwxCnCunW
- x34sfJfjlUnA4bschugwDTCpLP99IPl1IdvXzOHGBI8Rq5T8GMPdyALA0KH316urzWt6
- qHMzrPMYAmKnbQ/j+jWTpJuQlOZ6sDFCe7nK8tVoiqYYqBQcIjf/Qtwck0aizipMcx3V
- M3yg==
+ bh=6C+ZIJoI1PsBZMJzrNzQwCmQ7sAP4OyoP8B6cjIdktU=;
+ b=n0kFbvpwyM1iYynN6VtyJen+8NqgKEWhuNT3yBk7aQOsUiMYqmBNjsVARL6HtUps+y
+ Ge74397hH7J6pU4OXb+LJSWPWTBR3il9BchBTgfOb4RP+PIodWJVT9Al6x3MY5I549nh
+ f5a1Y088uEMWBgqw6hssX7nCqTWPE0jICg+VVXCKY6NmlMGjnTiDsAD3yWBY3F7BIYy4
+ +DG9X3iLDtuamxhbhqdA7IcDUFMd9Wt1H28AMGZxXkDs5tk1JHD3SEZDyTD5NMvVvcaT
+ yECip05DA6ECwyiOLJ7fO0zy6OI2vAnBPReyN7tZ0b9LGL1R0W1tEuFgJFgh067BbPx0
+ HOjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:in-reply-to:references;
- bh=cWulFsHkNsMNGC2uvEY33xRgo78iJDptDGbhfvQXNSY=;
- b=iAxrzDkarXqXJf8sQ0MRVkvImdtrsBkIyVVmpNK7r9X/3+TP7ptgN8VXl+X5p2KLrs
- zpLdWMCVoeO31Ql5kd+DcJqezl2SLGWbybYFd4BrV9mAA/6q3Pah6ke40LD8OKDupc1Z
- JA9ynGa5pakxu1z7ep2pP+2uMMnQaJvb0Uh6RtxcEBNvBK11zF5zh1jJBd2tk4j67DvZ
- RhZezLRgj+58tFYStDTFnXmqenzgPN21QZfyOqig7Tw5/KCKBDflhZNua9b2x9iSiPE/
- uy/2RsS1VqIZ6JZN9a/IUDKyPkBSo4EPK21u/5dQywtsXwCgJxyjpyG9wrUDJx+GFmaq
- /oVQ==
-X-Gm-Message-State: AOAM533JYwL/U7QdHDkCZzJKgayAixcPXmj1pRv0+6uChBEr269dqNe0
- 3HDjRUMtym3wwY72sHzNvLN3mLg3yvPHwmPZ
-X-Google-Smtp-Source: ABdhPJyREnuFIxcunzazKQW44dQPm0Jfaa9gruk7tvcOZ9HQbKF2VbFaQdLSNdDsZ5SvI8HHCiXFfA==
-X-Received: by 2002:ac8:1788:: with SMTP id o8mr22064948qtj.330.1597855941268; 
- Wed, 19 Aug 2020 09:52:21 -0700 (PDT)
+ bh=6C+ZIJoI1PsBZMJzrNzQwCmQ7sAP4OyoP8B6cjIdktU=;
+ b=LtFYqR3lJZzqqw3QBaGZhwt1COTOt7iK6jJmMBrqiBg7wpA7Lwm6bHzwCNncwGFV1I
+ 97h0XSttaVN5jEvbUrgB2F1fZa9ZgUgRo/Vf5YMt/OCYCieH1yEDNPRdK6m1B1zcqoN6
+ ymRRB1C5BfKyHPNLcBZLuvVQvH7VgJxqfiM9s4uOSa+psns5qj7gWBofmMfMVSeDoywt
+ 2/r9cTOv1c7iPp6wLmJ2Ls2Md6RfWLvdncUyz35mOkDQWVh/PPMKO6IrGv6UMi17KjEY
+ oc3dP1fMRKgJ1km/HXHqsrbg8U+QdKN3loM+mCb6o27FQL11zUORxg5Dp6fXqXgtzDSR
+ fR6A==
+X-Gm-Message-State: AOAM531hqi9agLU9JBaLa8XkrEgVgfn0T8azUSo43Lp4eUYk0K31C7Bg
+ 77+lHvHw+vver5Z5xaYb2Gf0+NUXx6GFGiCc
+X-Google-Smtp-Source: ABdhPJwS8r/9078r661P22XKgOEaRtXY0xrQBs1NCKEuestB5XCPV/oE+kw5qFqW14sOBnTgk7lRjA==
+X-Received: by 2002:a37:a655:: with SMTP id p82mr21987290qke.92.1597855943108; 
+ Wed, 19 Aug 2020 09:52:23 -0700 (PDT)
 Received: from TestCloud1.don.dslutz.org.zatium.us
  (pool-96-230-225-98.bstnma.fios.verizon.net. [96.230.225.98])
  by smtp.googlemail.com with ESMTPSA id
- 128sm25105832qkk.101.2020.08.19.09.52.20
+ 128sm25105832qkk.101.2020.08.19.09.52.21
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 Aug 2020 09:52:20 -0700 (PDT)
+ Wed, 19 Aug 2020 09:52:22 -0700 (PDT)
 From: Don Slutz <don.slutz@gmail.com>
 X-Google-Original-From: Don Slutz <Don.Slutz@Gmail.com
 To: xen-devel@lists.xen.org
@@ -67,14 +67,16 @@ Cc: Aravind Gopalakrishnan <Aravind.Gopalakrishnan@amd.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Don Slutz <dslutz@verizon.com>, Don Slutz <don.slutz@gmail.com>
-Subject: [Xen-devel] [XEN PATCH v14 3/8] tools: Add vmware_hwver support
-Date: Wed, 19 Aug 2020 12:51:57 -0400
-Message-Id: <c1560bc4cecae1c40de5f5cfc39832394f77c5ed.1597854907.git.don.slutz@gmail.com>
+Subject: [Xen-devel] [XEN PATCH v14 4/8] vmware: Add VMware provided include
+ file.
+Date: Wed, 19 Aug 2020 12:51:58 -0400
+Message-Id: <ce3e037dc51581629fdb158f71f8f2e9e56d9eae.1597854907.git.don.slutz@gmail.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <67b90d11eae2c88faab22d458e7e38db0f5aada4.1597854907.git.don.slutz@gmail.com>
+In-Reply-To: <c1560bc4cecae1c40de5f5cfc39832394f77c5ed.1597854907.git.don.slutz@gmail.com>
 References: <cover.1597854907.git.don.slutz@gmail.com>
  <34a50dc69e4c5722597e02a4df4e3da6d6586ec7.1597854907.git.don.slutz@gmail.com>
  <67b90d11eae2c88faab22d458e7e38db0f5aada4.1597854907.git.don.slutz@gmail.com>
+ <c1560bc4cecae1c40de5f5cfc39832394f77c5ed.1597854907.git.don.slutz@gmail.com>
 In-Reply-To: <cover.1597854907.git.don.slutz@gmail.com>
 References: <cover.1597854907.git.don.slutz@gmail.com>
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -92,155 +94,222 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Don Slutz <dslutz@verizon.com>
 
-This is used to set xen_arch_domainconfig vmware_hw. It is set to
-the emulated VMware virtual hardware version.
+This file: backdoor_def.h comes from:
 
-Currently 0, 3-4, 6-11 are good values.  However the code only
-checks for == 0, != 0, or < 7.
+http://packages.vmware.com/tools/esx/3.5latest/rhel4/SRPMS/index.html
+ open-vm-tools-kmod-7.4.8-396269.423167.src.rpm
+  open-vm-tools-kmod-7.4.8.tar.gz
+   vmhgfs/backdoor_def.h
+
+and is unchanged.
+
+Added the badly named include file includeCheck.h also.  It only has
+a comment and is provided so that backdoor_def.h can be used without
+change.
 
 Signed-off-by: Don Slutz <dslutz@verizon.com>
 CC: Don Slutz <don.slutz@gmail.com>
 ---
-Acked-by: Ian Campbell <ian.campbell@citrix.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-v14:
-  Reworked to current code.
-
-v13:
-  Added: Acked-by: Ian Campbell
-
-v12:
-    I'm not sure this hunk has anything to do with this patch, nor
-    what the semantic difference between the old and new text is
-    supposed to be.
-      Dropped comment change.
-
-
-v11:
-  Dropped "If non-zero then default VGA to VMware's VGA"
+v11,v12,v13,v14:
+  No change
 
 v10:
-    LIBXL_HAVE_LIBXL_VGA_INTERFACE_TYPE_VMWARE &
-    LIBXL_HAVE_BUILDINFO_HVM_VMWARE_HWVER are arriving together
-    a single umbrella could be used.
-      Since I split the LIBXL_VGA_INTERFACE_TYPE_VMWARE into
-      it's own patch, this is not longer true.
-      But I did use 1 for the 2 c_info changes.
-    Please use GCSPRINTF.
-  Remove vga=vmware from here.
+   Add Acked-by: Andrew Cooper
 
 v9:
-      I assumed that s/vmware_hw/vmware_hwver/ is not a big enough
-      change to drop the Reviewed-by.  Did a minor edit to the
-      commit message to add 7 to the list of values checked.
+    Either the description is wrong, or the patch is stale.
+      stale commit message -- fixed.
+    I'd say a file with a single comment line in it would suffice.
+      Done.
 
-v7:
-    Default handling of hvm.vga.kind bad.
-      Fixed.
-    Default of vmware_port should be based on vmware_hw.
-      Done. 
+ xen/arch/x86/hvm/vmware/backdoor_def.h | 167 +++++++++++++++++++++++++++++++++
+ xen/arch/x86/hvm/vmware/includeCheck.h |   1 +
+ 2 files changed, 168 insertions(+)
+ create mode 100644 xen/arch/x86/hvm/vmware/backdoor_def.h
+ create mode 100644 xen/arch/x86/hvm/vmware/includeCheck.h
 
-v5:
-      Anything looking for Xen according to the Xen cpuid instructions...
-        Adjusted doc to new wording.
-
- docs/man/xl.cfg.5.pod.in    | 17 +++++++++++++++++
- tools/libxl/libxl_create.c  |  4 +++-
- tools/libxl/libxl_types.idl |  1 +
- tools/libxl/libxl_x86.c     |  3 +--
- tools/xl/xl_parse.c         |  3 +++
- 5 files changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index a9eae96..10eac33 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2353,6 +2353,23 @@ The viridian option can be specified as a boolean. A value of true (1)
- is equivalent to the list [ "defaults" ], and a value of false (0) is
- equivalent to an empty list.
- 
-+=item B<vmware_hwver=NUMBER>
+diff --git a/xen/arch/x86/hvm/vmware/backdoor_def.h b/xen/arch/x86/hvm/vmware/backdoor_def.h
+new file mode 100644
+index 0000000..e76795f
+--- /dev/null
++++ b/xen/arch/x86/hvm/vmware/backdoor_def.h
+@@ -0,0 +1,167 @@
++/* **********************************************************
++ * Copyright 1998 VMware, Inc.  All rights reserved. 
++ * **********************************************************
++ *
++ * This program is free software; you can redistribute it and/or modify it
++ * under the terms of the GNU General Public License as published by the
++ * Free Software Foundation version 2 and no later version.
++ *
++ * This program is distributed in the hope that it will be useful, but
++ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
++ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++ * for more details.
++ *
++ * You should have received a copy of the GNU General Public License along
++ * with this program; if not, write to the Free Software Foundation, Inc.,
++ * 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
++ */
 +
-+Turns on or off the exposure of VMware cpuid.  The number is
-+VMware's hardware version number, where 0 is off.  A number >= 7
-+is needed to enable exposure of VMware cpuid.
++/*
++ * backdoor_def.h --
++ *
++ * This contains backdoor defines that can be included from
++ * an assembly language file.
++ */
 +
-+The hardware version number (vmware_hwver) comes from VMware config files.
 +
-+=over 4
 +
-+In a .vmx it is virtualHW.version
++#ifndef _BACKDOOR_DEF_H_
++#define _BACKDOOR_DEF_H_
 +
-+In a .ovf it is part of the value of vssd:VirtualSystemType.
-+For vssd:VirtualSystemType == vmx-07, vmware_hwver = 7.
++#define INCLUDE_ALLOW_MODULE
++#define INCLUDE_ALLOW_USERLEVEL
++#define INCLUDE_ALLOW_VMMEXT
++#define INCLUDE_ALLOW_VMCORE
++#define INCLUDE_ALLOW_VMKERNEL
++#include "includeCheck.h"
 +
-+=back
++/*
++ * If you want to add a new low-level backdoor call for a guest userland
++ * application, please consider using the GuestRpc mechanism instead. --hpreg
++ */
 +
- =back
- 
- =head3 Emulated VGA Graphics Device
-diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
-index 2814818..e28d175 100644
---- a/tools/libxl/libxl_create.c
-+++ b/tools/libxl/libxl_create.c
-@@ -499,7 +499,7 @@ int libxl__domain_build(libxl__gc *gc,
-         vments[4] = "start_time";
-         vments[5] = GCSPRINTF("%lu.%02d", start_time.tv_sec,(int)start_time.tv_usec/10000);
- 
--        localents = libxl__calloc(gc, 13, sizeof(char *));
-+        localents = libxl__calloc(gc, 15, sizeof(char *));
-         i = 0;
-         localents[i++] = "platform/acpi";
-         localents[i++] = libxl__acpi_defbool_val(info) ? "1" : "0";
-@@ -509,6 +509,8 @@ int libxl__domain_build(libxl__gc *gc,
-         localents[i++] = libxl_defbool_val(info->u.hvm.acpi_s4) ? "1" : "0";
-         localents[i++] = "platform/acpi_laptop_slate";
-         localents[i++] = libxl_defbool_val(info->u.hvm.acpi_laptop_slate) ? "1" : "0";
-+        localents[i++] = "platform/vmware_hwver";
-+        localents[i++] = GCSPRINTF("%d", d_config->c_info.vmware_hwver);
-         if (info->u.hvm.mmio_hole_memkb) {
-             uint64_t max_ram_below_4g =
-                 (1ULL << 32) - (info->u.hvm.mmio_hole_memkb << 10);
-diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
-index 36350d2..89a9ee7 100644
---- a/tools/libxl/libxl_types.idl
-+++ b/tools/libxl/libxl_types.idl
-@@ -420,6 +420,7 @@ libxl_domain_create_info = Struct("domain_create_info",[
-     ("driver_domain",libxl_defbool),
-     ("passthrough",  libxl_passthrough),
-     ("xend_suspend_evtchn_compat",libxl_defbool),
-+    ("vmware_hwver", uint32),
-     ], dir=DIR_IN)
- 
- libxl_domain_restore_params = Struct("domain_restore_params", [
-diff --git a/tools/libxl/libxl_x86.c b/tools/libxl/libxl_x86.c
-index 3418a81..0ee7418 100644
---- a/tools/libxl/libxl_x86.c
-+++ b/tools/libxl/libxl_x86.c
-@@ -21,8 +21,7 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-         abort();
-     }
- 
--    /* Note: will be changed in next patch (tools: Add ...). */
--    config->arch.vmware_hwver = 0;
-+    config->arch.vmware_hwver = d_config->c_info.vmware_hwver;
-     return 0;
- }
- 
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index c74a9e3..4794398 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1573,6 +1573,9 @@ void parse_config_data(const char *config_source,
-     b_info->cmdline = parse_cmdline(config);
- 
-     xlu_cfg_get_defbool(config, "driver_domain", &c_info->driver_domain, 0);
-+    if (!xlu_cfg_get_long(config, "vmware_hwver",  &l, 1))
-+        c_info->vmware_hwver = l;
++#define BDOOR_MAGIC 0x564D5868
 +
-     xlu_cfg_get_defbool(config, "acpi", &b_info->acpi, 0);
- 
-     xlu_cfg_replace_string (config, "bootloader", &b_info->bootloader, 0);
++/* Low-bandwidth backdoor port. --hpreg */
++
++#define BDOOR_PORT 0x5658
++
++#define BDOOR_CMD_GETMHZ      		   1
++/*
++ * BDOOR_CMD_APMFUNCTION is used by:
++ *
++ * o The FrobOS code, which instead should either program the virtual chipset
++ *   (like the new BIOS code does, matthias offered to implement that), or not
++ *   use any VM-specific code (which requires that we correctly implement
++ *   "power off on CLI HLT" for SMP VMs, boris offered to implement that)
++ *
++ * o The old BIOS code, which will soon be jettisoned
++ *
++ *  --hpreg
++ */
++#define BDOOR_CMD_APMFUNCTION 		   2
++#define BDOOR_CMD_GETDISKGEO  		   3
++#define BDOOR_CMD_GETPTRLOCATION	      4
++#define BDOOR_CMD_SETPTRLOCATION	      5
++#define BDOOR_CMD_GETSELLENGTH		   6
++#define BDOOR_CMD_GETNEXTPIECE		   7
++#define BDOOR_CMD_SETSELLENGTH		   8
++#define BDOOR_CMD_SETNEXTPIECE		   9
++#define BDOOR_CMD_GETVERSION		      10
++#define BDOOR_CMD_GETDEVICELISTELEMENT	11
++#define BDOOR_CMD_TOGGLEDEVICE		   12
++#define BDOOR_CMD_GETGUIOPTIONS		   13
++#define BDOOR_CMD_SETGUIOPTIONS		   14
++#define BDOOR_CMD_GETSCREENSIZE		   15
++#define BDOOR_CMD_MONITOR_CONTROL       16
++#define BDOOR_CMD_GETHWVERSION          17
++#define BDOOR_CMD_OSNOTFOUND            18
++#define BDOOR_CMD_GETUUID               19
++#define BDOOR_CMD_GETMEMSIZE            20
++#define BDOOR_CMD_HOSTCOPY              21 /* Devel only */
++/* BDOOR_CMD_GETOS2INTCURSOR, 22, is very old and defunct. Reuse. */
++#define BDOOR_CMD_GETTIME               23 /* Deprecated. Use GETTIMEFULL. */
++#define BDOOR_CMD_STOPCATCHUP           24
++#define BDOOR_CMD_PUTCHR	        25 /* Devel only */
++#define BDOOR_CMD_ENABLE_MSG	        26 /* Devel only */
++#define BDOOR_CMD_GOTO_TCL	        27 /* Devel only */
++#define BDOOR_CMD_INITPCIOPROM		28
++#define BDOOR_CMD_INT13			29
++#define BDOOR_CMD_MESSAGE               30
++#define BDOOR_CMD_RSVD0                 31
++#define BDOOR_CMD_RSVD1                 32
++#define BDOOR_CMD_RSVD2                 33
++#define BDOOR_CMD_ISACPIDISABLED	34
++#define BDOOR_CMD_TOE			35 /* Not in use */
++/* BDOOR_CMD_INITLSIOPROM, 36, was merged with 28. Reuse. */
++#define BDOOR_CMD_PATCH_SMBIOS_STRUCTS  37
++#define BDOOR_CMD_MAPMEM                38 /* Devel only */
++#define BDOOR_CMD_ABSPOINTER_DATA	39
++#define BDOOR_CMD_ABSPOINTER_STATUS	40
++#define BDOOR_CMD_ABSPOINTER_COMMAND	41
++#define BDOOR_CMD_TIMER_SPONGE          42
++#define BDOOR_CMD_PATCH_ACPI_TABLES	43
++/* Catch-all to allow synchronous tests */
++#define BDOOR_CMD_DEVEL_FAKEHARDWARE	44 /* Debug only - needed in beta */
++#define BDOOR_CMD_GETHZ      		45
++#define BDOOR_CMD_GETTIMEFULL           46
++#define BDOOR_CMD_STATELOGGER           47
++#define BDOOR_CMD_CHECKFORCEBIOSSETUP	48
++#define BDOOR_CMD_LAZYTIMEREMULATION    49
++#define BDOOR_CMD_BIOSBBS               50
++#define BDOOR_CMD_MAX                   51
++
++/* 
++ * IMPORTANT NOTE: When modifying the behavior of an existing backdoor command,
++ * you must adhere to the semantics expected by the oldest Tools who use that
++ * command. Specifically, do not alter the way in which the command modifies 
++ * the registers. Otherwise backwards compatibility will suffer.
++ */
++
++/* High-bandwidth backdoor port. --hpreg */
++
++#define BDOORHB_PORT 0x5659
++
++#define BDOORHB_CMD_MESSAGE 0
++#define BDOORHB_CMD_MAX 1
++
++/*
++ * There is another backdoor which allows access to certain TSC-related
++ * values using otherwise illegal PMC indices when the pseudo_perfctr
++ * control flag is set.
++ */
++
++#define BDOOR_PMC_HW_TSC      0x10000
++#define BDOOR_PMC_REAL_NS     0x10001
++#define BDOOR_PMC_APPARENT_NS 0x10002
++
++#define IS_BDOOR_PMC(index)  (((index) | 3) == 0x10003)
++#define BDOOR_CMD(ecx)       ((ecx) & 0xffff)
++
++
++#ifdef VMM
++/*
++ *----------------------------------------------------------------------
++ *
++ * Backdoor_CmdRequiresFullyValidVCPU --
++ *
++ *    A few backdoor commands require the full VCPU to be valid
++ *    (including GDTR, IDTR, TR and LDTR). The rest get read/write
++ *    access to GPRs and read access to Segment registers (selectors).
++ *
++ * Result:
++ *    True iff VECX contains a command that require the full VCPU to
++ *    be valid.
++ *
++ *----------------------------------------------------------------------
++ */
++static INLINE Bool
++Backdoor_CmdRequiresFullyValidVCPU(unsigned cmd)
++{
++   return cmd == BDOOR_CMD_RSVD0 ||
++          cmd == BDOOR_CMD_RSVD1 ||
++          cmd == BDOOR_CMD_RSVD2;
++}
++#endif
++
++#endif
+diff --git a/xen/arch/x86/hvm/vmware/includeCheck.h b/xen/arch/x86/hvm/vmware/includeCheck.h
+new file mode 100644
+index 0000000..3b63fa4
+--- /dev/null
++++ b/xen/arch/x86/hvm/vmware/includeCheck.h
+@@ -0,0 +1 @@
++/* Nothing here.  Just to use backdoor_def.h without change. */
 -- 
 1.8.3.1
 
