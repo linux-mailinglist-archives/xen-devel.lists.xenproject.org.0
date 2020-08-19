@@ -2,67 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 297FC249890
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 10:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D53742498E2
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 10:57:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8Jnw-0000fs-BW; Wed, 19 Aug 2020 08:50:44 +0000
+	id 1k8Ju9-0000rx-2T; Wed, 19 Aug 2020 08:57:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ayQ0=B5=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k8Jnv-0000fn-GR
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 08:50:43 +0000
-X-Inumbo-ID: 41a01c17-85f6-45d3-998f-3396aa079ddb
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N7ZT=B5=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1k8Ju7-0000rs-J5
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 08:57:07 +0000
+X-Inumbo-ID: 2a67d0a6-19e7-435c-9c8e-e154b4f24ff2
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 41a01c17-85f6-45d3-998f-3396aa079ddb;
- Wed, 19 Aug 2020 08:50:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=ZMDcc6r34hoTtpjy5/O3oIfAqo66PmaMoTUPV6E9FnE=; b=K/mxkwYVIYrjISIw8nP3c00TCA
- n97WmAkq5Zs0+x3z+T2VWAS66Epwgenf3axbgghGymETWElZhoB1R5dwO269v848sKyD6vTMPHcxj
- 7Yrlrgt5JfKmnrvSvO3ea9p6ZsnrYOfb3uFL2bUUA5df6FNNJ3VsKxAC4rVRBGgDtNqc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8Jnn-00035v-Lw; Wed, 19 Aug 2020 08:50:35 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8Jnn-0004ii-EM; Wed, 19 Aug 2020 08:50:35 +0000
-Subject: Re: [PATCH 1/2] xen/arm: entry: Place a speculation barrier following
- an ret instruction
-To: Jan Beulich <jbeulich@suse.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, 
- Xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andre Przywara <Andre.Przywara@arm.com>, Julien Grall <jgrall@amazon.com>,
- "security@xenproject.org" <security@xen.org>
-References: <20200616175913.7368-1-julien@xen.org>
- <20200616175913.7368-2-julien@xen.org>
- <alpine.DEB.2.21.2006161422240.24982@sstabellini-ThinkPad-T480s>
- <57696b4d-da83-a4d6-4d82-41a6f6c9174c@xen.org>
- <5c3a2407-3e76-3a30-7f93-036706e00f73@xen.org>
- <9DFF73C4-5141-47AF-A0DB-331787007F37@arm.com>
- <5a406d61-293b-8dd7-44c2-d4f5dde4856f@xen.org>
- <7EAB4E0A-338C-4DCF-80A4-A426BC95C051@arm.com>
- <5dceeedf-9982-37c5-553e-76f22d9d6db2@xen.org>
- <B2AFB28F-0D54-45D4-AFAA-8C495A6D9054@arm.com>
- <75e13b0b-07fc-1e30-42e8-e11a65fa1c81@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <52ce222b-2d48-8824-aac6-6240dbe30ebf@xen.org>
-Date: Wed, 19 Aug 2020 09:50:31 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ id 2a67d0a6-19e7-435c-9c8e-e154b4f24ff2;
+ Wed, 19 Aug 2020 08:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597827425;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:subject:in-reply-to:references;
+ bh=rGNKek+e5cQ8lfjsLBK8A/BYM86/uMFMCXAgEwLMyu8=;
+ b=cuvdVkdCDWkAi/jPlzzOT6HA0Lzb3bWmgwyODaaspC+Czbk6fREf1snH
+ DBmKQ5gbO7fpiEPKc8GZVVvg0FXaDXXB4cqvkSYd/h2MLQBVyokFuAQNX
+ ROR18flb/Y8Iz3PoS7dHxaCfiV9t/z4YCiJXj+BG9XvQCILDJmKixvt1G s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: lfj6K7JNO0kvCVEWhbiumEYlrzav2/st23MdYtaCVhLIYHZQ9SXaWs6tVEUoOmYqm0q1c8hsaX
+ 68i8RBE23/ewRn0xd0vmi/PuTOvFOylkxJoht6loCB+rEXRstxIazbW5ijfTtuBK1F8Y9bBwK6
+ E6cuAdaJIRvA/3JfkfAnZ3XpJiKmBYbi1YSU6NpM1Mspd9lPgpXh6/rWWF3sYCyVBJu3fw51Ba
+ DyavBVHx83bZXbwD7yGR1Urj9/FLEVMCzgRH9Z5SAUfBqBg19Si9WKLWjSCMgLTNYyxCf3QRlQ
+ IoU=
+X-SBRS: 2.7
+X-MesageID: 24825539
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,330,1592884800"; d="scan'208";a="24825539"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <75e13b0b-07fc-1e30-42e8-e11a65fa1c81@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Message-ID: <24380.59740.291926.170706@mariner.uk.xensource.com>
+Date: Wed, 19 Aug 2020 09:57:00 +0100
+To: "committers@xenproject.org" <committers@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Planned osstest outage, around 17th August
+In-Reply-To: <24380.3250.48843.989049@mariner.uk.xensource.com>
+References: <24371.64746.743317.606471@mariner.uk.xensource.com>
+ <24374.49647.650481.677464@mariner.uk.xensource.com>
+ <24378.47981.601974.542481@mariner.uk.xensource.com>
+ <24380.3250.48843.989049@mariner.uk.xensource.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,29 +67,11 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-(Adding back security)
+The upgrades are now done and I have just restarted osstest.
 
-Hi Jan,
+There are still some loose ends but I think we should be able to deal
+with them without another big outage.
 
-On 19/08/2020 09:02, Jan Beulich wrote:
-> On 19.08.2020 09:59, Bertrand Marquis wrote:
->>> On 18 Aug 2020, at 18:34, Julien Grall <julien@xen.org> wrote:
-> 
-> Btw - is there any need for this thread to be cross posted to both
-> xen-devel@ and security@? (I've dropped the latter here.)
-
- From the cover letter:
-
-"The patch series is directly sent on the mailing list as the
-security team has been aware of the issues after the whitepaper was
-publicly released."
-
-This is technically still a security issue except this is discussed in 
-the open as it is a zero day for us. An XSA will have to be issued in 
-due course. Hence why security@ is added to keep track of the conversation.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks,
+Ian.
 
