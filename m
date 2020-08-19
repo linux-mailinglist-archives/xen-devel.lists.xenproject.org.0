@@ -2,52 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2733A24993A
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 11:22:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1094324998A
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 11:42:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8KIY-0003s8-Eh; Wed, 19 Aug 2020 09:22:22 +0000
+	id 1k8KbC-0005fH-4t; Wed, 19 Aug 2020 09:41:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b5Wx=B5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k8KIW-0003s3-JD
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 09:22:20 +0000
-X-Inumbo-ID: 595ac4ee-0e08-4ec5-93fc-12f16adf939b
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tsRI=B5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1k8KbA-0005fC-VR
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 09:41:37 +0000
+X-Inumbo-ID: 1a937cde-7277-4200-94b2-3e41ee1ec85c
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 595ac4ee-0e08-4ec5-93fc-12f16adf939b;
- Wed, 19 Aug 2020 09:22:18 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A844FAE17;
- Wed, 19 Aug 2020 09:22:43 +0000 (UTC)
-Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
-To: Julien Grall <julien@xen.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20200815172143.1327-1-julien@xen.org>
- <20200817092406.GO975@Air-de-Roger>
- <b620dc46-7446-a440-5fd2-fd1cc7f8ffa7@xen.org>
- <20200817103306.GA828@Air-de-Roger>
- <f8b9a884-79e3-bd9d-d7bc-94fb9ee9906d@xen.org>
- <20200817114730.GB828@Air-de-Roger>
- <67e0c0f1-d85f-ad4d-d6bb-cee3603962f4@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0fc30c51-9a7b-6421-ecdf-dbdbb76480f7@suse.com>
-Date: Wed, 19 Aug 2020 11:22:16 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 1a937cde-7277-4200-94b2-3e41ee1ec85c;
+ Wed, 19 Aug 2020 09:41:36 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id B808A509;
+ Wed, 19 Aug 2020 05:41:34 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Wed, 19 Aug 2020 05:41:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8lFhNE
+ j3oA3/9/vfgwXkaTZyQc77f+mXCbIE3SgW8dM=; b=H9jEqWNiJYkN+6AskHoz73
+ YA7OAWwTaM5cIG75JgHh9pcI4kDb5XwEr8RoKG1EqIJT3ESXQBiut2VXVfNRsB+A
+ I8+AZkDxJbdUnrfW0ZTdjKJoAd4ZDgurn1vSSV8mhTKgRfjtbW51W7K/xBJ6wtZy
+ zwRYBnYUHMjYV8Xubv1aVDjaJ7Z5i5BxuctWrEDsUoh9Cp/z5oUmY2Hg2jdmJ4EC
+ 6hFFK76AVCgN3U2SCuTtyxrnYlnOFpzLfkmFOTXXtE7UwgwurzmmYylhbsTb+e5L
+ +QvLFEjXXUpnjibqZkoCnLF4ZZQJ3Nt3I7QQ2DjtdVNOF9OA/2JVsCKjYW4HDtIg
+ ==
+X-ME-Sender: <xms:zfM8X2MUaX2KY4ul_Hw8HVpt-YFNVsir7iruTQsKRnMCBOrwrOoMgQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddtkedgudeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqiferrehrvggtkhhiuceomhgrrhhmrghrvghksehinh
+ hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuddv
+ jeekieelgfeljefgjeelffefleduheehvdehfeehffeuveejvdevveeufeehnecukfhppe
+ eluddrieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+ mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+ gsrdgtohhm
+X-ME-Proxy: <xmx:zfM8X0-8SLtRJUqaPvgvX3png4A65DeaNAJLprnrOU6zZfOSptcGRQ>
+ <xmx:zfM8X9R_Wykpy1d-CfCKnb5cCkxD41xB34v-nT2rzBELPOZMP8zfTg>
+ <xmx:zfM8X2tRIcUk6Is2ImaRX08tPbeQsxfXpwQkBvTV8KdbX6dMRZAAqw>
+ <xmx:zvM8X2lDIXcTc02LlLLMC2q9N1EdSofgLN00OhgGy9uCM9Tqiq9sJw>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 19502328005D;
+ Wed, 19 Aug 2020 05:41:33 -0400 (EDT)
+Date: Wed, 19 Aug 2020 11:41:23 +0200
+From: Marek Marczykowski-G??recki <marmarek@invisiblethingslab.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
+ libxl__prepare_sockaddr_un
+Message-ID: <20200819094123.GO1626@mail-itl>
+References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
+ <20200819020036.599065-2-marmarek@invisiblethingslab.com>
+ <20200819034356.GA29116@mattapan.m5p.com>
 MIME-Version: 1.0
-In-Reply-To: <67e0c0f1-d85f-ad4d-d6bb-cee3603962f4@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="3199z2xwsLUuj0Hj"
+Content-Disposition: inline
+In-Reply-To: <20200819034356.GA29116@mattapan.m5p.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,26 +83,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.08.2020 15:03, Julien Grall wrote:
-> On 17/08/2020 12:50, Roger Pau Monné wrote:
->> On Mon, Aug 17, 2020 at 12:05:54PM +0100, Julien Grall wrote:
->>> The only way I could see to make it work would be to use the same trick as
->>> we do for {read, write}_atomic() (see asm-arm/atomic.h). We are using union
->>> and void pointer to prevent explicit cast.
->>
->> I'm mostly worried about common code having assumed that cmpxchg
->> does also handle 64bit sized parameters, and thus failing to use
->> cmpxchg64 when required. I assume this is not much of a deal as then
->> the Arm 32 build would fail, so it should be fairly easy to catch
->> those.
-> FWIW, this is not very different to the existing approach. If one would 
-> use cmpxchg() with 64-bit, then it would fail to compile.
 
-A somewhat related question then: Do you really need both the
-guest_* and the non-guest variants? Limiting things to plain
-cmpxchg() would further reduce the risk of someone picking the
-wrong one without right away noticing the build issue on Arm32.
-For guest_cmpxchg{,64}() I think there's less of a risk.
+--3199z2xwsLUuj0Hj
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] libxl: fix -Werror=stringop-truncation in
+ libxl__prepare_sockaddr_un
 
-Jan
+On Tue, Aug 18, 2020 at 08:43:56PM -0700, Elliott Mitchell wrote:
+> On Wed, Aug 19, 2020 at 04:00:36AM +0200, Marek Marczykowski-G??recki wro=
+te:
+> > diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
+> > index f360f5e228..b039143b8a 100644
+> > --- a/tools/libxl/libxl_utils.c
+> > +++ b/tools/libxl/libxl_utils.c
+>=20
+>=20
+> >      }
+> >      memset(un, 0, sizeof(struct sockaddr_un));
+> >      un->sun_family =3D AF_UNIX;
+> > -    strncpy(un->sun_path, path, sizeof(un->sun_path));
+> > +    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
+> >      return 0;
+> >  }
+>=20
+> While the earlier lines are okay, this line introduces an error. =20
+
+Why exactly? strncpy() copies up to n characters, quoting its manual
+page:
+
+    If there is no null byte among the first n bytes of src, the string
+    placed in dest will not be null-terminated
+
+But since the whole struct is zeroed out initially, this should still
+result in a null terminated string, as the last byte of that buffer will
+not be touched by the strncpy.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--3199z2xwsLUuj0Hj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl8888MACgkQ24/THMrX
+1ywL3gf+PgsKuJBztYVTYMi8PsYElBgBxvvdpURU84bpoftXgNEzyh6SWcziAHS9
+6po5djImLUV3LL+pNskcoB3Mg9FMqaKUOWSTMZm791Q8yZwW8ypV5UV7kbe0wF5S
+0MYibcZjJ1D8ZPC95cDySacoeG4XbXn8q+OQYxJH144AXfUZZBJzqEUzw5kHQAPU
+Moz5GJkAOytrX3vs8OAsM0yWhK+FX6MFI7+r2fHUVcCeRX8vG7HsYyq3qdyP7TmU
+YEXSXbbCyzq3d9o3BEO7hok2hdqth7IQ6BxhxysnW87h1SMn+voF54IETbg70ywB
+pd456NQNvXEDyRUCw0r468hXOWclSA==
+=wOMb
+-----END PGP SIGNATURE-----
+
+--3199z2xwsLUuj0Hj--
 
