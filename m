@@ -2,57 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C88249A6B
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:32:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9024249A97
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 12:41:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8LNs-0001su-2H; Wed, 19 Aug 2020 10:31:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8LWq-0002tt-4D; Wed, 19 Aug 2020 10:41:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N7ZT=B5=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k8LNq-0001sk-8f
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:31:54 +0000
-X-Inumbo-ID: e62ed67c-37d2-4533-8dd7-13cae789eb11
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e62ed67c-37d2-4533-8dd7-13cae789eb11;
- Wed, 19 Aug 2020 10:31:53 +0000 (UTC)
+ id 1k8LWp-0002to-8F
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 10:41:11 +0000
+X-Inumbo-ID: 50e6b973-a8e0-4d2e-af14-40300ef1ad02
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 50e6b973-a8e0-4d2e-af14-40300ef1ad02;
+ Wed, 19 Aug 2020 10:41:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597833113;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=kI3tYAd/ormFSqd2M04V7UvqQImI9Xpbk/LZv4Bco3E=;
- b=WK4UfuyW2lQIc8dUz22gYhLjpcmkp7U0djR2QT8rpnP7FNKHeUo7oVDW
- /BBO8Y9FWZh4IUmdGUwpc2jcOq+uJ3yKltUF4AhKfyCRmCoOS1qXkV4Ly
- 3fCj+G1cLW2BBbqb2o21dO3SmsSBqoVk/pY3aWFUyPrAaB3nsqBAW7Qhr c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597833669;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=Ma7Xfj8gw1gvbhitAODawue641E/hETwMkNTzYrjp0w=;
+ b=Rz0rz4usmkUGHdeLA4fnCoxovQImDrAs5gb/FcMcmoK2wdZk1bhxBiiT
+ Ofjv1aB+meb9Jj4mHumESv4gTOd/VNWe56vQKYgqQfpIsQgWw7DCWvDHh
+ SVI8l3HyXXIHfjDGcukQv4rQNu8uWJCC6FDZ3euEBEF+936UzL+GvnOJG k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: h85FN4YJ7R1yXJbHrwzw9maVb4BP5n+F+3mm7EokYrppIjQEBWq61wvmUHZQg6a0kX0fPu7dnB
- uDBCfyI7m50+twe7U1+NZq2UqIXXqGjk3YRTNh/Z5PFKX+HWDV6uAlIlRekZXwsTHuekQC8SNA
- EHnq9Sf/tseS+Il6tg7JGuoPOmD+KmOQ+ytYPWLSfiU8mfmyI7k0FngJaSs+zFdUEunnLXp67r
- ekmf8C7TwGZAq1PQRcIJ4BGyDnTHl88mXSsoPfxzpfujitraFZa4RciugWAhaImV7woIxMTSKQ
- 5xE=
+IronPort-SDR: ONaHGzhYJhDU+v/Zyf3eoztmrzmU1zHvBaEyGc+VZl0zG1rtcf8wFs+UEJppSi7ZRyCxi1PyQE
+ c5rwctvCJMQsx2hd8sAiotNdMfLxdh7wv3tmFUZZmjRYDJqaosu4I/6zPY2cvegsEW2d1zbMkA
+ 7UzyBRWTbexGL1EuwK1Hyft81IQeZqkTe2qJFytvbRDqk12OegKjz5AVyPL1JpYCh83nt36Usi
+ 9/K21gt5SKIxYYj8rb/T8bg27IgHirL4t6+n3DHebOalY7YB9uIBKnQS+WSLgq7OX9nVQa3LZA
+ BNQ=
 X-SBRS: 2.7
-X-MesageID: 25157725
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 24999055
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,331,1592884800"; d="scan'208";a="25157725"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.76,331,1592884800"; d="scan'208";a="24999055"
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH] production-config: Use infra.t, not infra
+Date: Wed, 19 Aug 2020 11:41:02 +0100
+Message-ID: <20200819104102.9245-1-ian.jackson@eu.citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8bit
-Message-ID: <24380.65427.975310.515324@mariner.uk.xensource.com>
-Date: Wed, 19 Aug 2020 11:31:47 +0100
-To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Wei
- Liu" <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [PATCH 1/2] libxl: workaround gcc 10.2 maybe-uninitialized warning
-In-Reply-To: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
-References: <20200819020036.599065-1-marmarek@invisiblethingslab.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,9 +61,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Marek Marczykowski-Górecki writes ("[PATCH 1/2] libxl: workaround gcc 10.2 maybe-uninitialized warning"):
-> It seems xlu_pci_parse_bdf has a state machine that is too complex for
-> gcc to understand. The build fails with:
+This works better with some quirk of the networking we seem to now
+have after the buster upgrade to the colo systems.
 
-Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+To avoid blocking on resolving that issue, change the the config.
+
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+---
+ production-config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/production-config b/production-config
+index b7b9a062..6055bd18 100644
+--- a/production-config
++++ b/production-config
+@@ -131,6 +131,7 @@ CoverityToolsStripComponents 1
+ #DebianMirrorHost 10.80.16.196
+ DebianMirrorProxy http://cache:3143/
+ 
++HostProp_DhcpWatchMethod leases dhcp3 infra.t:5556
+ HostProp_NtpServer infra.test-lab.xenproject.org
+ 
+ DebianPreseed= <<'END'
+-- 
+2.11.0
+
 
