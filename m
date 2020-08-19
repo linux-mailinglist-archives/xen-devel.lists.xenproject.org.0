@@ -2,42 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12B37249707
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 09:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 987F1249789
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 09:34:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8IP9-0008Fb-BC; Wed, 19 Aug 2020 07:21:03 +0000
+	id 1k8IbX-0000nL-Ce; Wed, 19 Aug 2020 07:33:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=b5Wx=B5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k8IP7-0008FW-Tv
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 07:21:01 +0000
-X-Inumbo-ID: 64a95741-7b7a-41cb-bc66-7ff6eb403070
+ id 1k8IbV-0000nG-SK
+ for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 07:33:49 +0000
+X-Inumbo-ID: f02f0121-ac8d-483c-9b32-9f57642722af
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 64a95741-7b7a-41cb-bc66-7ff6eb403070;
- Wed, 19 Aug 2020 07:21:01 +0000 (UTC)
+ id f02f0121-ac8d-483c-9b32-9f57642722af;
+ Wed, 19 Aug 2020 07:33:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 804ADB5C3;
- Wed, 19 Aug 2020 07:21:26 +0000 (UTC)
-Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+ by mx2.suse.de (Postfix) with ESMTP id 82315AD5C;
+ Wed, 19 Aug 2020 07:34:14 +0000 (UTC)
+Subject: Re: [PATCH v2 2/7] x86: don't build with EFI support in
+ shim-exclusive mode
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Ard Biesheuvel <ardb@kernel.org>,
- linux-efi@vger.kernel.org, norbert.kaminski@3mdeb.com,
- xen-devel@lists.xenproject.org, open list <linux-kernel@vger.kernel.org>
-References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
- <20200817090013.GN975@Air-de-Roger> <20200818120135.GK1679@mail-itl>
- <20200818124710.GK828@Air-de-Roger>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <3a8356a9-313c-6de8-f409-977eae1fbfa5@suse.com>
+ <1a501ca8-8cf0-6fd0-547e-30b709fec6fc@suse.com>
+ <20200818130028.GL828@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c04fd081-2a13-93bb-fa0b-f9781062fb58@suse.com>
-Date: Wed, 19 Aug 2020 09:20:59 +0200
+Message-ID: <09fc953e-0b20-07f4-7af3-6221675e1d4d@suse.com>
+Date: Wed, 19 Aug 2020 09:33:47 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200818124710.GK828@Air-de-Roger>
+In-Reply-To: <20200818130028.GL828@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -54,43 +53,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.08.2020 14:47, Roger Pau Monné wrote:
-> On Tue, Aug 18, 2020 at 02:01:35PM +0200, Marek Marczykowski-Górecki wrote:
->> On Mon, Aug 17, 2020 at 11:00:13AM +0200, Roger Pau Monné wrote:
->>> On Sun, Aug 16, 2020 at 02:19:49AM +0200, Marek Marczykowski-Górecki wrote:
->>>> In case of Xen PV dom0, Xen passes along info about system tables (see
->>>> arch/x86/xen/efi.c), but not the memory map from EFI.
->>>
->>> I think that's because the memory map returned by
->>> XENMEM_machine_memory_map is in e820 form, and doesn't contain the
->>> required information about the EFI regions due to the translation done
->>> by efi_arch_process_memory_map in Xen?
+On 18.08.2020 15:00, Roger Pau Monné wrote:
+> On Fri, Aug 07, 2020 at 01:32:38PM +0200, Jan Beulich wrote:
+>> There's no need for xen.efi at all, and there's also no need for EFI
+>> support in xen.gz since the shim runs in PVH mode, i.e. without any
+>> firmware (and hence by implication also without EFI one).
 >>
->> Yes, I think so.
->>
->>>> This makes sense
->>>> as it is Xen responsible for managing physical memory address space.
->>>> In this case, it doesn't make sense to condition using ESRT table on
->>>> availability of EFI memory map, as it isn't Linux kernel responsible for
->>>> it.
->>>
->>> PV dom0 is kind of special in that regard as it can create mappings to
->>> (almost) any MMIO regions, and hence can change it's memory map
->>> substantially.
->>
->> Do you mean PV dom0 should receive full EFI memory map? Jan already
->> objected this as it would be a layering violation.
+>> The slightly odd looking use of $(space) is to ensure the new ifneq()
+>> evaluates consistently between "build" and "install" invocations of
+>> make.
 > 
-> dom0 is already capable of getting the native e820 memory map using
-> XENMEM_machine_memory_map, I'm not sure why allowing to return the
-> memory map in EFI form would be any different (or a layering
-> violation in the PV dom0 case).
+> I would likely add a comment to the code itself, as it's not obvious
+> without a hint IMO.
 
-The EFI memory map exposes more information than the E820 one, and
-this extra information should remain private to Xen if at all
-possible. I actually think that exposing the raw E820 map was a
-layering violation, too. Instead hypercalls should have been added
-for the specific legitimate uses that Dom0 may have for the memmap.
+I did indeed consider this, as I agree in principle. The problem is
+where to put such a comment - ahead of the entire macro is not a
+good place imo, and I can't see any other good place either. As a
+result I thought that the use being odd looking will either make
+readers think of why it's there by itself, or direct them towards
+the commit introducing it.
+
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+> I wonder however if there would be a less tricky way to arrange all
+> this. Maybe the Kconfig work will remove some of this hacks?
+
+Not sure.
 
 Jan
 
