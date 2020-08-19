@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22B624A45F
+	by mail.lfdr.de (Postfix) with ESMTPS id C712824A461
 	for <lists+xen-devel@lfdr.de>; Wed, 19 Aug 2020 18:53:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8RKR-0003tr-Hc; Wed, 19 Aug 2020 16:52:47 +0000
+	id 1k8RKV-0003vb-RU; Wed, 19 Aug 2020 16:52:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qP9Y=B5=gmail.com=don.slutz@srs-us1.protection.inumbo.net>)
- id 1k8RKP-0003kZ-Kt
- for xen-devel@lists.xen.org; Wed, 19 Aug 2020 16:52:45 +0000
-X-Inumbo-ID: 7a440347-f763-4d42-ba2f-9bfd17d2a484
-Received: from mail-qk1-x744.google.com (unknown [2607:f8b0:4864:20::744])
+ id 1k8RKU-0003kZ-Kz
+ for xen-devel@lists.xen.org; Wed, 19 Aug 2020 16:52:50 +0000
+X-Inumbo-ID: 8d9f3e11-7a99-4f01-a346-8ef0fadff7fb
+Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a440347-f763-4d42-ba2f-9bfd17d2a484;
- Wed, 19 Aug 2020 16:52:24 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id d14so22197009qke.13
- for <xen-devel@lists.xen.org>; Wed, 19 Aug 2020 09:52:24 -0700 (PDT)
+ id 8d9f3e11-7a99-4f01-a346-8ef0fadff7fb;
+ Wed, 19 Aug 2020 16:52:26 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id 77so22205427qkm.5
+ for <xen-devel@lists.xen.org>; Wed, 19 Aug 2020 09:52:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :in-reply-to:references;
- bh=tr8ETHyk66gli0Zs0a+x97izMEXltG1WJae06N0roAU=;
- b=CbLvWNpvPqhn3VjusMp1+/de+9zSLTgYwFU1GZeKVrnf8kn5fMlx+A224iVQZTsv9n
- jYqr/mP+V29NmRyAMu/fBSKzuFKW5qsPAez63iyV5Nr1EcljZu/+PLpI+ZshTBGmnAgD
- IEDPatqPOJpXlnfXYWHKpFutVGWzGCN7WekpJ0xX72DGnir7s8IH69BRcZtbf5FLjNHD
- OsvOko17uUEXd4+BvH/7neI851/5o/7xRDw2KcMl1OsGywNVFzYRL1yQxTmh7pVHbEcZ
- 1hHcexFUeUvfFMDYVfYWVY15D4sW74CQbaKHRDRZN7YXenhnMSev0FGfSmcyhW6Oa28D
- jl0A==
+ bh=jZijM2ydIAX1ShIOsC2gPV47fryOmcc2JmO97Kfe7LY=;
+ b=OO1JkZ2Gchr4DVF5qVUN29stIRb4h+6OZDeWgaK9+oVHn0j3lMJuskVmVVrxnSzdLl
+ un0nbB8n/dl5jteLLfhh+FBD7HWF+z9JwD94Y4AgPpOCwL0fHr7VDKkiAUOUeT+GpFte
+ 7sRWsd+Xwf9iqsnii3u6z6bFpjVbcWJdebWmYFOTEY/o1ehGSnujMRZd9SQg9h6kbKVN
+ Zkpd6Hm9AF0LGMVaQbi3Exryz676b+RAeX8xhHkk8E/iBdeJLvcpCt+IUVFc/K1cXg06
+ dKSlUdqRboblMBI2zHWgs56ODsJ47unoKt/mdYFRQ3yH3i9nD9u7OZMCSEdrTYjU+sWg
+ pImA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:in-reply-to:references;
- bh=tr8ETHyk66gli0Zs0a+x97izMEXltG1WJae06N0roAU=;
- b=f2FybRUjpXOa7tLx7GVFtCj37npJe6hgnTKusTYBe1TljkS4D5Ov9cs4Ek5pz8FLDu
- UoRkF5HNp5Rwnc79RqqxEajNpnXhztDjEBKgBuqx06BmwJyYMGx6LpP+IRplFNO0qNVo
- 82E9Sj4BRi4s8zs287mu3SmiogbQbXRu1HrAoke+R/hVnS6gInOE57j+u7e7DF9iaX07
- SJpAR+Jq1+ZrJPpD23RZyCxaNgm0/BK5YPOhdLJzcrht16dlo8uOc9iRv3yv7p4NAvd6
- q7N4TxHQZTpEvkt/pawlXA6Rq3Uih3AyQjgz+0xlQsRRpPgHUHYBdg07mxNcrBPhy/Bt
- BGAA==
-X-Gm-Message-State: AOAM5301H47bZJP+zqNWZhwXCbaYxv9B8S79/zbMuM237qP+rAsh01kl
- pQoNhiV2z1e0w2sRJyrKk/qelMVMI8SFazfP
-X-Google-Smtp-Source: ABdhPJwuUvKu9Gs03eick4zQO79sPn0/g0zNWlBgsDydJbkTyGo/Cu+nO3obuSX4gRUyoKET28oKdA==
-X-Received: by 2002:ae9:e505:: with SMTP id w5mr22040124qkf.282.1597855944154; 
- Wed, 19 Aug 2020 09:52:24 -0700 (PDT)
+ bh=jZijM2ydIAX1ShIOsC2gPV47fryOmcc2JmO97Kfe7LY=;
+ b=sSkJYDfQXUgDWP26+XSF/0K0wUIz1D5I1r3zsRi/bcr/I9Y6pdurt79FPL/m4SNKa3
+ VAie2hW6kGb1NC5cR0eeGkSZ2TSouJt1dkZygzRF3Bb1rXghHk9nAqwaL/pmtCR8yVt2
+ X0D69q8IUq664MMTvzuXMffkFvL/AyrNAS1zOpv1/toV9tKy3TQSB5kOMW0MZndWmEhR
+ 4JNls3LaqBalbLJJ28aX5weq3O+GA2bt01PtEO++1KPSM3Es/A0WvYhdANdSiGVMUNwD
+ rpfqa78v1k9aLo2H/FiACI1eaZSpN3KzZ32KKBja+ZjZw0FXrB6wNwZzwybIR5gXzpQJ
+ L6Iw==
+X-Gm-Message-State: AOAM531t9D6W/ock4cszQ7FONBiiRns2HUK7+NA9h7Fhz6hdryDPwISe
+ dQh3og60wOm0cKACh/TWn2A5+9A5rLXYVsg4
+X-Google-Smtp-Source: ABdhPJzYnGB/7HHTOm9L5j1Ev22Cr1Ka+T02F2CLeULNpa3lQO4GBFw9zAi5FvQISQVHJp6bQx0otg==
+X-Received: by 2002:a37:a09:: with SMTP id 9mr21999640qkk.290.1597855945546;
+ Wed, 19 Aug 2020 09:52:25 -0700 (PDT)
 Received: from TestCloud1.don.dslutz.org.zatium.us
  (pool-96-230-225-98.bstnma.fios.verizon.net. [96.230.225.98])
  by smtp.googlemail.com with ESMTPSA id
- 128sm25105832qkk.101.2020.08.19.09.52.23
+ 128sm25105832qkk.101.2020.08.19.09.52.24
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 Aug 2020 09:52:23 -0700 (PDT)
+ Wed, 19 Aug 2020 09:52:24 -0700 (PDT)
 From: Don Slutz <don.slutz@gmail.com>
 X-Google-Original-From: Don Slutz <Don.Slutz@Gmail.com
 To: xen-devel@lists.xen.org
@@ -66,17 +66,18 @@ Cc: Aravind Gopalakrishnan <Aravind.Gopalakrishnan@amd.com>,
  Tim Deegan <tim@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
- Don Slutz <dslutz@verizon.com>, Don Slutz <don.slutz@gmail.com>
-Subject: [Xen-devel] [XEN PATCH v14 5/8] xen: Add vmware_port support
-Date: Wed, 19 Aug 2020 12:51:59 -0400
-Message-Id: <5d2e424a19ea4934be3be962cdbe6a0ec8db9a6c.1597854907.git.don.slutz@gmail.com>
+ Don Slutz <don.slutz@gmail.com>, Don Slutz <dslutz@verizon.com>
+Subject: [Xen-devel] [XEN PATCH v14 6/8] tools: Add vmware_port support
+Date: Wed, 19 Aug 2020 12:52:00 -0400
+Message-Id: <4780b5be94be7820861f29fb618a2420effe26f5.1597854907.git.don.slutz@gmail.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <ce3e037dc51581629fdb158f71f8f2e9e56d9eae.1597854907.git.don.slutz@gmail.com>
+In-Reply-To: <5d2e424a19ea4934be3be962cdbe6a0ec8db9a6c.1597854907.git.don.slutz@gmail.com>
 References: <cover.1597854907.git.don.slutz@gmail.com>
  <34a50dc69e4c5722597e02a4df4e3da6d6586ec7.1597854907.git.don.slutz@gmail.com>
  <67b90d11eae2c88faab22d458e7e38db0f5aada4.1597854907.git.don.slutz@gmail.com>
  <c1560bc4cecae1c40de5f5cfc39832394f77c5ed.1597854907.git.don.slutz@gmail.com>
  <ce3e037dc51581629fdb158f71f8f2e9e56d9eae.1597854907.git.don.slutz@gmail.com>
+ <5d2e424a19ea4934be3be962cdbe6a0ec8db9a6c.1597854907.git.don.slutz@gmail.com>
 In-Reply-To: <cover.1597854907.git.don.slutz@gmail.com>
 References: <cover.1597854907.git.don.slutz@gmail.com>
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -92,430 +93,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Don Slutz <dslutz@verizon.com>
+From: Don Slutz <don.slutz@gmail.com>
 
-This includes adding is_vmware_port_enabled
+This new libxl_domain_create_info field is used to set
+XEN_DOMCTL_CONFIG_VMWARE_PORT_MASK in the xc_domain_configuration_t
+for x86.
 
-This is a new xen_arch_domainconfig flag,
-XEN_DOMCTL_CONFIG_VMWARE_PORT_MASK.
+In xen it is is_vmware_port_enabled.
 
-This enables limited support of VMware's hyper-call.
-
-This is both a more complete support then in currently provided by
-QEMU and/or KVM and less.  The missing part requires QEMU changes
-and has been left out until the QEMU patches are accepted upstream.
+If is_vmware_port_enabled then
+  enable a limited support of VMware's hyper-call.
 
 VMware's hyper-call is also known as VMware Backdoor I/O Port.
 
-Note: this support does not depend on vmware_hw being non-zero.
+if vmware_port is not specified in the config file, let
+"vmware_hwver != 0" be the default value.  This means that only
+vmware_hwver = 7 needs to be specified to enable both features.
 
-Summary is that VMware treats "in (%dx),%eax" (or "out %eax,(%dx)")
-to port 0x5658 specially.  Note: since many operations return data
-in EAX, "in (%dx),%eax" is the one to use.  The other lengths like
-"in (%dx),%al" will still do things, only AL part of EAX will be
-changed.  For "out %eax,(%dx)" of all lengths, EAX will remain
-unchanged.
+vmware_hwver = 7 is special because that is what controls the
+enable of CPUID leaves for VMware (vmware_hwver >= 7).
 
-An open source example of using this is:
-
-http://open-vm-tools.sourceforge.net/
-
-Which only uses "inl (%dx)".  Also
-
-http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1009458
-
-Some of the best info is at:
-
-https://sites.google.com/site/chitchatvmback/backdoor
+Note: vmware_port and nestedhvm cannot be specified at the
+same time.
 
 Signed-off-by: Don Slutz <dslutz@verizon.com>
 CC: Don Slutz <don.slutz@gmail.com>
 ---
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Ian Campbell <ian.campbell@citrix.com>
 
 v14:
   Reworked to current code.
-  Drop arch_flags and use XEN_X86_EMU_VMWARE_PORT which will not be
-    added to "all".
 
 v13:
-  Changed to uint32_t arch_flags, since the emulation_flags is this.
+  Added Acked-by: Ian Campbell
 
 v12:
-     Surrounding code avoiding the use of "break" makes the result
-     look rather inconsistent. Please move this up immediately after
-     the XSM check, or drop the "break".
-       Moved it up.
+    s/come/comes/
+
+      In v11 this seems to have morphed into only
+    LIBXL_HAVE_LIBXL_VGA_INTERFACE_TYPE_VMWARE being provided, which
+    is clearly not an appropriate umbrella #define.
+
+    "#define LIBXL_HAVE_CREATEINFO_VMWARE 1"
+    Lets just have a single one of these indicating support for
+    vmware, it should be added at the end of the series after all
+    the baseline vmware functionality is in place. I think that
+    means hwver, vga=vmware and this port stuff.
+
+      Make (tools: Add vga=vmware) no longer independent.
+      Change the #define to "LIBXL_HAVE_VMWARE"
+
 
 v11:
-   Dropped ASSERT(is_hvm_domain(currd))
-    Newline after break;
+  Dropped "If non-zero then default VGA to VMware's VGA"
 
 v10:
-    Probably better as EOPNOTSUPP, as it is a configuration problem.
-    This function looks as if it should be static.
-    I would suggest putting vmport_register declaration in hvm.h ...
-    As indicated before, I don't think this is a good use case for a
-    domain creation flag.
-      Switch to the new config way.
-    struct domain *d => struct domain *currd
-    Are you sure you don't want to zero the high halves of 64-bit ...
-      Comment added.
-   Then just have this handled into the default case.
-      Reworked new_eax handling.
-   is_hvm_domain(currd)
-   And - why here rather than before the switch() or even right at the
-   start of the function?
-      Moved to start.
-   With that, is it really correct that OUT updates the other registers
-   just like IN? If so, this deserves a comment, so that readers won't
-   think this is in error.
-     All done in comment at start.
+    If..." at the start of the sentence ...
+    Also, why is 7 special?
 
 
-v9:
-  Switch to x86_emulator to handle #GP code moved to next patch.
-    Can you explain why a HVM param isn't suitable here?
-      Issue with changing QEMU on the fly.
-      Andrew Cooper: My recommendation is still to use a creation flag
-        So no change.
-    Please move SVM's identical definition into ...
-      Did this as #1.  No longer needed, but since the patch was ready
-      I have included it.
-    --Lots of questions about code that no long is part of this patch. --
-    With this, is handling other than 32-bit in/out really
-    meaningful/correct?
-      Added comment about this.
-    Since you can't get here for PV, I can't see what you need this.
-      Changed to an ASSERT.
-    Why version 4?
-      Added comment about this.
-    -- Several questions about register changes.
-      Re-coded to use new_eax and set *val to this.
-      Change to generealy use reg->_e..
-    These ei1/ei2 checks belong in the callers imo -
-      Moved.
-    the "port" function parameter isn't even checked
-      Add check for exact match.
-    If dropping the code is safe without also forbidding the
-    combination of nested and VMware emulation.
-      Added the forbidding the combination of nested and VMware.
-      Mostly do to the cases of the nested virtual code is the one
-      to handle VMware stuff if needed, not the root one.  Also I am
-      having issues testing xen nested in xen and using hvm.
+ docs/man/xl.cfg.5.pod.in    | 15 +++++++++++++++
+ tools/libxl/libxl.h         |  5 +++++
+ tools/libxl/libxl_create.c  | 10 ++++++++++
+ tools/libxl/libxl_types.idl |  1 +
+ tools/libxl/libxl_x86.c     |  2 ++
+ tools/xl/xl_parse.c         |  1 +
+ 6 files changed, 34 insertions(+)
 
-v7:
-      More on AMD in the commit message.
-      Switch to only change 32bit part of registers, what VMware
-        does.
-    Too much logging and tracing.
-      Dropped a lot of it.  This includes vmport_debug=
-
-v6:
-      Dropped the attempt to use svm_nextrip_insn_length via
-      __get_instruction_length (added in v2).  Just always look
-      at upto 15 bytes on AMD.
-
-v5:
-      we should make sure that svm_vmexit_gp_intercept is not executed for
-      any other guest.
-        Added an ASSERT on is_vmware_port_enabled.
-      magic integers?
-        Added #define for them.
-      I am fairly certain that you need some brackets here.
-        Added brackets.
-
- xen/arch/x86/domain.c             |  15 ++--
- xen/arch/x86/hvm/hvm.c            |   9 +++
- xen/arch/x86/hvm/vmware/Makefile  |   1 +
- xen/arch/x86/hvm/vmware/vmport.c  | 148 ++++++++++++++++++++++++++++++++++++++
- xen/include/asm-x86/hvm/domain.h  |   3 +
- xen/include/asm-x86/hvm/hvm.h     |   2 +
- xen/include/public/arch-x86/xen.h |   4 ++
- 7 files changed, 177 insertions(+), 5 deletions(-)
- create mode 100644 xen/arch/x86/hvm/vmware/vmport.c
-
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index a317907..0cf73ef 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -504,6 +504,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 10eac33..3c73985 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -2359,6 +2359,8 @@ Turns on or off the exposure of VMware cpuid.  The number is
+ VMware's hardware version number, where 0 is off.  A number >= 7
+ is needed to enable exposure of VMware cpuid.
  
- static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
- {
-+    uint32_t all_emflags = emflags & XEN_X86_EMU_ALL;
++If not zero it changes the default for vmware_port to on.
 +
- #ifdef CONFIG_HVM
-     /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
-     BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
-@@ -512,14 +514,15 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
-     if ( is_hvm_domain(d) )
-     {
-         if ( is_hardware_domain(d) &&
--             emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
-+             all_emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
-             return false;
-         if ( !is_hardware_domain(d) &&
--             emflags != (X86_EMU_ALL & ~X86_EMU_VPCI) &&
--             emflags != X86_EMU_LAPIC )
-+             all_emflags != (X86_EMU_ALL & ~X86_EMU_VPCI) &&
-+             all_emflags != X86_EMU_LAPIC )
-             return false;
-     }
--    else if ( emflags != 0 && emflags != X86_EMU_PIT )
-+    else if ( emflags & XEN_X86_EMU_VMWARE_PORT ||
-+              (all_emflags != 0 && all_emflags != X86_EMU_PIT) )
-     {
-         /* PV or classic PVH. */
-         return false;
-@@ -581,7 +584,7 @@ int arch_domain_create(struct domain *d,
-     if ( is_hardware_domain(d) && is_pv_domain(d) )
-         emflags |= XEN_X86_EMU_PIT;
+ The hardware version number (vmware_hwver) comes from VMware config files.
  
--    if ( emflags & ~XEN_X86_EMU_ALL )
-+    if ( emflags & ~(XEN_X86_EMU_ALL | XEN_X86_EMU_VMWARE_PORT) )
-     {
-         printk(XENLOG_G_ERR "d%d: Invalid emulation bitmap: %#x\n",
-                d->domain_id, emflags);
-@@ -600,6 +603,8 @@ int arch_domain_create(struct domain *d,
-     if ( is_hvm_domain(d) )
-     {
-         d->arch.hvm.vmware_hwver = config->arch.vmware_hwver;
-+        d->arch.hvm.is_vmware_port_enabled =
-+            !!(emflags & XEN_X86_EMU_VMWARE_PORT);
-     }
+ =over 4
+@@ -2370,6 +2372,19 @@ For vssd:VirtualSystemType == vmx-07, vmware_hwver = 7.
  
-     HYPERVISOR_COMPAT_VIRT_START(d) =
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index e91169f..42d96b1 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -697,6 +697,9 @@ int hvm_domain_initialise(struct domain *d)
-     if ( hvm_tsc_scaling_supported )
-         d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
+ =back
  
-+    if ( d->arch.hvm.is_vmware_port_enabled )
-+        vmport_register(d);
++=item B<vmware_port=BOOLEAN>
 +
-     rc = viridian_domain_init(d);
-     if ( rc )
-         goto fail2;
-@@ -4214,6 +4217,12 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
-         rc = xsm_hvm_param_nested(XSM_PRIV, d);
-         if ( rc )
-             break;
-+        /* Prevent nestedhvm enable with vmport */
-+        if ( value && d->arch.hvm.is_vmware_port_enabled )
-+        {
-+            rc = -EOPNOTSUPP;
-+            break;
-+        }
-         if ( value > 1 )
-             rc = -EINVAL;
-         /*
-diff --git a/xen/arch/x86/hvm/vmware/Makefile b/xen/arch/x86/hvm/vmware/Makefile
-index f864486..74aea16 100644
---- a/xen/arch/x86/hvm/vmware/Makefile
-+++ b/xen/arch/x86/hvm/vmware/Makefile
-@@ -1 +1,2 @@
- obj-y += vmware.o
-+obj-y += vmport.o
-diff --git a/xen/arch/x86/hvm/vmware/vmport.c b/xen/arch/x86/hvm/vmware/vmport.c
-new file mode 100644
-index 0000000..863ec50
---- /dev/null
-+++ b/xen/arch/x86/hvm/vmware/vmport.c
-@@ -0,0 +1,148 @@
-+/*
-+ * HVM VMPORT emulation
-+ *
-+ * Copyright (C) 2012 Verizon Corporation
-+ *
-+ * This file is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License Version 2 (GPLv2)
-+ * as published by the Free Software Foundation.
-+ *
-+ * This file is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * General Public License for more details. <http://www.gnu.org/licenses/>.
-+ */
++Turns on or off the exposure of VMware port.  This is known as
++vmport in QEMU.  Also called VMware Backdoor I/O Port.  Not all
++defined VMware backdoor commands are implemented.  All of the
++ones that Linux kernel uses are defined.
 +
-+#include <xen/lib.h>
-+#include <asm/hvm/hvm.h>
-+#include <asm/hvm/support.h>
++Defaults to enabled if vmware_hwver is non-zero (i.e. enabled)
++otherwise defaults to disabled.
 +
-+#include "backdoor_def.h"
++Note: vmware_port and nestedhvm cannot be specified at the
++same time.
 +
-+static int vmport_ioport(int dir, uint32_t port, uint32_t bytes, uint32_t *val)
-+{
-+    struct cpu_user_regs *regs = guest_cpu_user_regs();
-+
-+    /*
-+     * While VMware expects only 32-bit in, they do support using
-+     * other sizes and out.  However they do require only the 1 port
-+     * and the correct value in eax.  Since some of the data
-+     * returned in eax is smaller the 32 bits and/or you only need
-+     * the other registers the dir and bytes do not need any
-+     * checking.  The caller will handle the bytes, and dir is
-+     * handled below for eax.
-+     */
-+    if ( port == BDOOR_PORT && regs->eax == BDOOR_MAGIC )
-+    {
-+        uint32_t new_eax = ~0u;
-+        uint64_t value;
-+        struct vcpu *curr = current;
-+        struct domain *currd = curr->domain;
-+
-+        /*
-+         * VMware changes the other (non eax) registers ignoring dir
-+         * (IN vs OUT).  It also changes only the 32-bit part
-+         * leaving the high 32-bits unchanged, unlike what one would
-+         * expect to happen.
-+         */
-+        switch ( regs->ecx & 0xffff )
-+        {
-+        case BDOOR_CMD_GETMHZ:
-+            new_eax = currd->arch.tsc_khz / 1000;
-+            break;
-+
-+        case BDOOR_CMD_GETVERSION:
-+            /* MAGIC */
-+            regs->ebx = BDOOR_MAGIC;
-+            /* VERSION_MAGIC */
-+            new_eax = 6;
-+            /* Claim we are an ESX. VMX_TYPE_SCALABLE_SERVER */
-+            regs->ecx = 2;
-+            break;
-+
-+        case BDOOR_CMD_GETHWVERSION:
-+            /* vmware_hw */
-+            new_eax = currd->arch.hvm.vmware_hwver;
-+            /*
-+             * Returning zero is not the best.  VMware was not at
-+             * all consistent in the handling of this command until
-+             * VMware hardware version 4.  So it is better to claim
-+             * 4 then 0.  This should only happen in strange configs.
-+             */
-+            if ( !new_eax )
-+                new_eax = 4;
-+            break;
-+
-+        case BDOOR_CMD_GETHZ:
-+        {
-+            struct segment_register sreg;
-+
-+            hvm_get_segment_register(curr, x86_seg_ss, &sreg);
-+            if ( sreg.dpl == 0 )
-+            {
-+                value = currd->arch.tsc_khz * 1000;
-+                /* apic-frequency (bus speed) */
-+                regs->ecx = 1000000000ULL / APIC_BUS_CYCLE_NS;
-+                /* High part of tsc-frequency */
-+                regs->ebx = value >> 32;
-+                /* Low part of tsc-frequency */
-+                new_eax = value;
-+            }
-+            break;
-+
-+        }
-+        case BDOOR_CMD_GETTIME:
-+            value = get_localtime_us(currd) -
-+                currd->time_offset.seconds * 1000000ULL;
-+            /* hostUsecs */
-+            regs->ebx = value % 1000000UL;
-+            /* hostSecs */
-+            new_eax = value / 1000000ULL;
-+            /* maxTimeLag */
-+            regs->ecx = 1000000;
-+            /* offset to GMT in minutes */
-+            regs->edx = currd->time_offset.seconds / 60;
-+            break;
-+
-+        case BDOOR_CMD_GETTIMEFULL:
-+            /* BDOOR_MAGIC */
-+            new_eax = BDOOR_MAGIC;
-+            value = get_localtime_us(currd) -
-+                currd->time_offset.seconds * 1000000ULL;
-+            /* hostUsecs */
-+            regs->ebx = value % 1000000UL;
-+            /* hostSecs low 32 bits */
-+            regs->edx = value / 1000000ULL;
-+            /* hostSecs high 32 bits */
-+            regs->esi = (value / 1000000ULL) >> 32;
-+            /* maxTimeLag */
-+            regs->ecx = 1000000;
-+            break;
-+
-+        default:
-+            /* Let backing DM handle */
-+            return X86EMUL_UNHANDLEABLE;
-+        }
-+        if ( dir == IOREQ_READ )
-+            *val = new_eax;
-+    }
-+    else if ( dir == IOREQ_READ )
-+        *val = ~0u;
-+
-+    return X86EMUL_OKAY;
-+}
-+
-+void vmport_register(struct domain *d)
-+{
-+    register_portio_handler(d, BDOOR_PORT, 4, vmport_ioport);
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-set-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/asm-x86/hvm/domain.h b/xen/include/asm-x86/hvm/domain.h
-index 0f64a4b..355777c 100644
---- a/xen/include/asm-x86/hvm/domain.h
-+++ b/xen/include/asm-x86/hvm/domain.h
-@@ -162,6 +162,9 @@ struct hvm_domain {
-     spinlock_t             uc_lock;
-     bool_t                 is_in_uc_mode;
+ =back
  
-+    /* VMware backdoor port available */
-+    bool_t                 is_vmware_port_enabled;
-+
-     /* hypervisor intercepted msix table */
-     struct list_head       msixtbl_list;
- 
-diff --git a/xen/include/asm-x86/hvm/hvm.h b/xen/include/asm-x86/hvm/hvm.h
-index cb55dfb..74a9590 100644
---- a/xen/include/asm-x86/hvm/hvm.h
-+++ b/xen/include/asm-x86/hvm/hvm.h
-@@ -789,6 +789,8 @@ static inline bool hvm_has_set_descriptor_access_exiting(void)
- 
- #endif  /* CONFIG_HVM */
- 
-+void vmport_register(struct domain *d);
-+
- #endif /* __ASM_X86_HVM_HVM_H__ */
+ =head3 Emulated VGA Graphics Device
+diff --git a/tools/libxl/libxl.h b/tools/libxl/libxl.h
+index 1cd6c38..48ab231 100644
+--- a/tools/libxl/libxl.h
++++ b/tools/libxl/libxl.h
+@@ -439,6 +439,11 @@
+ #define LIBXL_HAVE_CREATEINFO_PASSTHROUGH 1
  
  /*
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index 54b1c4d..105c6a3 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -296,6 +296,10 @@ struct xen_arch_domainconfig {
- #define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
- #define _XEN_X86_EMU_VPCI           10
- #define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
-+/* Enable use of vmware backdoor port.
-+ * Not part of XEN_X86_EMU_ALL */
-+#define _XEN_X86_EMU_VMWARE_PORT    11
-+#define XEN_X86_EMU_VMWARE_PORT     (1U<<_XEN_X86_EMU_VMWARE_PORT)
++ * libxl has VMware changes.
++ */
++#define LIBXL_HAVE_VMWARE 1
++
++/*
+  * libxl ABI compatibility
+  *
+  * The only guarantee which libxl makes regarding ABI compatibility
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index e28d175..6689443 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -51,6 +51,7 @@ int libxl__domain_create_info_setdefault(libxl__gc *gc,
+         libxl_defbool_setdefault(&c_info->oos, true);
+     }
  
- #define XEN_X86_EMU_ALL             (XEN_X86_EMU_LAPIC | XEN_X86_EMU_HPET |  \
-                                      XEN_X86_EMU_PM | XEN_X86_EMU_RTC |      \
++    libxl_defbool_setdefault(&c_info->vmware_port, c_info->vmware_hwver != 0);
+     libxl_defbool_setdefault(&c_info->run_hotplug_scripts, true);
+     libxl_defbool_setdefault(&c_info->driver_domain, false);
+ 
+@@ -1185,6 +1186,15 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
+         goto error_out;
+     }
+ 
++    if (d_config->c_info.type == LIBXL_DOMAIN_TYPE_HVM &&
++        libxl_defbool_val(d_config->b_info.nested_hvm) &&
++        libxl_defbool_val(d_config->c_info.vmware_port)) {
++        ret = ERROR_INVAL;
++        LOGD(ERROR, domid,
++            "vmware_port and nestedhvm cannot be enabled simultaneously\n");
++        goto error_out;
++    }
++
+     if (d_config->c_info.type != LIBXL_DOMAIN_TYPE_PV &&
+         (libxl_defbool_val(d_config->b_info.nested_hvm) &&
+         ((d_config->c_info.type == LIBXL_DOMAIN_TYPE_HVM &&
+diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
+index 89a9ee7..f563980 100644
+--- a/tools/libxl/libxl_types.idl
++++ b/tools/libxl/libxl_types.idl
+@@ -421,6 +421,7 @@ libxl_domain_create_info = Struct("domain_create_info",[
+     ("passthrough",  libxl_passthrough),
+     ("xend_suspend_evtchn_compat",libxl_defbool),
+     ("vmware_hwver", uint32),
++    ("vmware_port",  libxl_defbool),
+     ], dir=DIR_IN)
+ 
+ libxl_domain_restore_params = Struct("domain_restore_params", [
+diff --git a/tools/libxl/libxl_x86.c b/tools/libxl/libxl_x86.c
+index 0ee7418..8da9913 100644
+--- a/tools/libxl/libxl_x86.c
++++ b/tools/libxl/libxl_x86.c
+@@ -22,6 +22,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+     }
+ 
+     config->arch.vmware_hwver = d_config->c_info.vmware_hwver;
++    if (libxl_defbool_val(d_config->c_info.vmware_port))
++        config->arch.emulation_flags |= XEN_X86_EMU_VMWARE_PORT;
+     return 0;
+ }
+ 
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 4794398..b655e25 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -1321,6 +1321,7 @@ void parse_config_data(const char *config_source,
+     }
+ 
+     xlu_cfg_get_defbool(config, "oos", &c_info->oos, 0);
++    xlu_cfg_get_defbool(config, "vmware_port", &c_info->vmware_port, 0);
+ 
+     if (!xlu_cfg_get_string (config, "pool", &buf, 0))
+         xlu_cfg_replace_string(config, "pool", &c_info->pool_name, 0);
 -- 
 1.8.3.1
 
