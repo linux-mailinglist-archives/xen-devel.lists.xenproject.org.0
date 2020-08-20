@@ -2,60 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791E624C363
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 18:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FB9824C42F
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 19:09:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8nVh-0004pi-9j; Thu, 20 Aug 2020 16:33:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k8o3f-0007W4-4o; Thu, 20 Aug 2020 17:08:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k8nVf-0004pd-VL
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 16:33:51 +0000
-X-Inumbo-ID: c9da658c-86d7-421e-a3f3-140f28e4df5d
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c9da658c-86d7-421e-a3f3-140f28e4df5d;
- Thu, 20 Aug 2020 16:33:50 +0000 (UTC)
+ <SRS0=SJFq=B6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k8o3e-0007Vz-Kc
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 17:08:58 +0000
+X-Inumbo-ID: c64b0ca1-1f73-4c9d-abad-02dec4af7bc1
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c64b0ca1-1f73-4c9d-abad-02dec4af7bc1;
+ Thu, 20 Aug 2020 17:08:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597941231;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=c+A+sm925m170y3AZR+V3Zlr8nGEk0PENvCXbHZyrBM=;
- b=DN58R2LRkmfslN3WEotpvPKCKZk08W6crA/8WO2T+uRV8MuU6NtUVeL/
- kAegMnK75Sip5zJoJChWp3xlBtBwDfA3xDSzby4ALHMf2zztY6NR76utN
- 5lsWP3v3jAwyLhm0FJ6RbaEVi9j4eV2tlZru5nA4+bHaWaG9WOg/OOOKb E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597943338;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=kZjMNFFxzZ/CdrkPSTnbydQR2foJt+gO5rD5taRft5k=;
+ b=MYh9bfMsODrLrHLVlFhnN/07HIBKyMDm64pgQltSGiyt/ZjRu4BoWUbt
+ ajBtzu/RL7BxozXj8gugH1Fc5y94CtiEEd5+iKAKDlT9jXNbty/gttltn
+ IoiUgZf29pFB1LJYkdI1Nu7xcW29woZJ/FSfujRzJICaHduToAl5JympE o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 2iBLv8LY7tOcI99mHVNIrFjliobHunU37dZY699zGtMqnSgFsGZLRAk+f1hvPlwBfAUvL6wHeo
- tUupAJDgxhu+aHqUFAbXPi0ewuo1JJ7uaash90jJu2IjadUV3FbYLmNpxz+jZVExN2EXbnbWI/
- IkN/JWmQzR2ubXoov4bwPcQ5Oa7SqT7fMBZUeDqzvJf4lNGHeuPtbpJMZHl9H/XPwd92S+n9zM
- 04ZgedIfiBiJfW5WtI4q4jKUE5JpusdJaFOW8Z7PUO2TusMR5XXzrBEM9J+F6cqMzXT4yLMasr
- 71E=
+IronPort-SDR: JIxLo2ZKGcHSCHqB3EPerHxF2TgrQcYSKbFLGCBaLFy4iPpRHu3qI+LlHPvG4zWqHssE4GFCPm
+ aY97eEBTouedY6Ziz/NMCi+K7qwRCkqbotpHov6KVEPcl1oDvsH2BoQkRtQxXSxnqj1m8nZj7C
+ ZMfX+6QVim3axFOOCcMljoBLTH9FoWJbiR7FDQGNSgshyft5POVagXoEZL1r3+YFgEAkbUa1jY
+ H+xE2HrJ8c4iCkHcbDflBOBpaFKdvaoghsJ0gOMxWj5E8OwLJPBEsFRmCcUfL8VhpyW+fGOVI8
+ 6Uk=
 X-SBRS: 2.7
-X-MesageID: 24952376
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24979179
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="24952376"
-Date: Thu, 20 Aug 2020 18:33:43 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
- <wl@xen.org>
-Subject: Re: [PATCH 2/2] x86/vpic: also execute dpci callback for
- non-specific EOI
-Message-ID: <20200820163343.GW828@Air-de-Roger>
-References: <20200820153442.28305-1-roger.pau@citrix.com>
- <20200820153442.28305-3-roger.pau@citrix.com>
- <625060e6-bdd0-c72c-c7fc-9a31588511b3@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="24979179"
+Subject: Re: [PATCH v2 3/8] x86/msr: explicitly handle AMD DE_CFG
+To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20200820150835.27440-1-roger.pau@citrix.com>
+ <20200820150835.27440-4-roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <50eef25c-8054-89e7-3b83-a233a0faa6f8@citrix.com>
+Date: Thu, 20 Aug 2020 18:08:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20200820150835.27440-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <625060e6-bdd0-c72c-c7fc-9a31588511b3@citrix.com>
+Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -71,44 +69,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 20, 2020 at 05:28:21PM +0100, Andrew Cooper wrote:
-> On 20/08/2020 16:34, Roger Pau Monne wrote:
-> > Currently the dpci EOI callback is only executed for specific EOIs.
-> > This is wrong as non-specific EOIs will also clear the ISR bit and
-> > thus end the interrupt. Re-arrange the code a bit so that the common
-> > EOI handling path can be shared between all EOI modes.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  xen/arch/x86/hvm/vpic.c | 10 +++++-----
-> >  1 file changed, 5 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
-> > index feb1db2ee3..3cf12581e9 100644
-> > --- a/xen/arch/x86/hvm/vpic.c
-> > +++ b/xen/arch/x86/hvm/vpic.c
-> > @@ -249,15 +249,15 @@ static void vpic_ioport_write(
-> >                  if ( priority == VPIC_PRIO_NONE )
-> >                      break;
-> >                  pin = (priority + vpic->priority_add) & 7;
-> > -                vpic->isr &= ~(1 << pin);
-> > -                if ( cmd == 5 )
-> > -                    vpic->priority_add = (pin + 1) & 7;
-> > -                break;
-> > +                goto common_eoi;
-> > +
-> >              case 3: /* Specific EOI                */
-> >              case 7: /* Specific EOI & Rotate       */
-> >                  pin = val & 7;
-> 
-> You'll need a /* Fallthrough */ here to keep various things happy.
-> 
-> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Can fix on commit if you're happy.
+On 20/08/2020 16:08, Roger Pau Monne wrote:
 
-Sure, I was borderline to add it but somehow assumed that
-/* Fallthrough */ was required for cases but not labels.
+> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+> index ca4307e19f..a890cb9976 100644
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -274,6 +274,14 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>          *val = msrs->tsc_aux;
+>          break;
+>  
+> +    case MSR_AMD64_DE_CFG:
+> +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) ||
+> +             !(boot_cpu_data.x86_vendor & (X86_VENDOR_AMD |
+> +                                           X86_VENDOR_HYGON)) ||
+> +             rdmsr_safe(MSR_AMD64_DE_CFG, *val) )
+> +            goto gp_fault;
+> +        break;
 
-Thanks, Roger.
+Ah.  What I intended was to read just bit 2 and nothing else.
+
+Leaking the full value is non-ideal from a migration point of view, and
+in this case, you can avoid querying hardware entirely.
+
+Just return AMD64_DE_CFG_LFENCE_SERIALISE here.  The only case where it
+won't be true is when the hypervisor running us (i.e. Xen) failed to set
+it up, and the CPU boot path failed to adjust it, at which point the
+whole system has much bigger problems.
+
+> +
+>      case MSR_AMD64_DR0_ADDRESS_MASK:
+>      case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
+>          if ( !cp->extd.dbext )
+> @@ -499,6 +507,12 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+>              wrmsr_tsc_aux(val);
+>          break;
+>  
+> +    case MSR_AMD64_DE_CFG:
+> +        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) ||
+> +             !(boot_cpu_data.x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+> +            goto gp_fault;
+> +        break;
+
+There should be no problem yielding #GP here (i.e. dropping this hunk).
+
+IIRC, it was the behaviour of certain hypervisors when Spectre hit, so
+all guests ought to cope.  (And indeed, not try to redundantly set the
+bit to start with).
+
+~Andrew
+
+> +
+>      case MSR_AMD64_DR0_ADDRESS_MASK:
+>      case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
+>          if ( !cp->extd.dbext || val != (uint32_t)val )
+
 
