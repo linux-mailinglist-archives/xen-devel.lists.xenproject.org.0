@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 045A524C612
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 21:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE2124C620
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 21:06:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8ppI-0001D7-E4; Thu, 20 Aug 2020 19:02:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8psf-0001N3-1n; Thu, 20 Aug 2020 19:05:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ewgh=B6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k8ppG-0001D2-AF
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 19:02:14 +0000
-X-Inumbo-ID: 511bd6b1-0422-4e04-9f58-561742ed947d
+ id 1k8psd-0001My-Ru
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 19:05:43 +0000
+X-Inumbo-ID: 958985c3-ef7c-4763-b840-b9f2d79a718a
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 511bd6b1-0422-4e04-9f58-561742ed947d;
- Thu, 20 Aug 2020 19:02:13 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 958985c3-ef7c-4763-b840-b9f2d79a718a;
+ Thu, 20 Aug 2020 19:05:43 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA4B32075E;
- Thu, 20 Aug 2020 19:02:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2819F2075E;
+ Thu, 20 Aug 2020 19:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597950133;
- bh=421pDM+G59wNXvAmtzK8+IFTuOUuuHkosvx4IX2cqZk=;
+ s=default; t=1597950342;
+ bh=2v4Mnxlh57Qnx/NifdW8X409lUetGRUdGrkuT0Gdd1k=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=bJdgZ7mVgJ38HDTx8gf1H3ca1ARaWqNmRVICLX/Ay5I10NpgkQiGDQwGf/aietH2x
- ehl9cc3OZhFrJzyfLVPFtb0zJqIcmAlLrRjbpYKgdybtzA2OpzLs9GLanZ+i0D9UnO
- Gn+oukfgduWlCMJ4TKbXz1b9z8R8qO4+2uR5qHh0=
-Date: Thu, 20 Aug 2020 12:02:12 -0700 (PDT)
+ b=c+yoP2YU4/8ih+Ql8Uyji7ikZTKegUImXKto30QGsBQoHBkNy4AmfOV9FinFitQCm
+ QozUSt8XbYitzZgQ5sOgWkPa0RyuOHj5YLciH/pF0vdG8kqzfcUXnEhihAIbaOscTp
+ mNg1mhixJiU1jhKFl694tOS/+IHMThko32AeyKGg=
+Date: Thu, 20 Aug 2020 12:05:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Ian Jackson <ian.jackson@citrix.com>
@@ -39,13 +40,14 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <Andrew.Cooper3@citrix.com>, 
  George Dunlap <George.Dunlap@citrix.com>, 
  "jbeulich@suse.com" <jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>, 
- "wl@xen.org" <wl@xen.org>
-Subject: Re: [PATCH 00/14] kernel-doc: public/arch-arm.h
-In-Reply-To: <24379.52996.179242.596298@mariner.uk.xensource.com>
-Message-ID: <alpine.DEB.2.21.2008201149500.6005@sstabellini-ThinkPad-T480s>
+ "wl@xen.org" <wl@xen.org>, 
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH 01/14] kernel-doc: public/arch-arm.h
+In-Reply-To: <24379.52418.438897.155721@mariner.uk.xensource.com>
+Message-ID: <alpine.DEB.2.21.2008201157520.6005@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2008070953090.16004@sstabellini-ThinkPad-T480s>
- <24379.52996.179242.596298@mariner.uk.xensource.com>
+ <20200806234933.16448-1-sstabellini@kernel.org>
+ <24379.52418.438897.155721@mariner.uk.xensource.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -63,34 +65,45 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On Tue, 18 Aug 2020, Ian Jackson wrote:
-> Stefano Stabellini writes ("Re: [PATCH 00/14] kernel-doc: public/arch-arm.h"):
-> > I am replying to this email as I have been told that the original was
-> > filtered as spam due to the tarball attachment. The tarball contains
-> > some example html output document files from sphinx.
+> Stefano Stabellini writes ("[PATCH 01/14] kernel-doc: public/arch-arm.h"):
+> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > Convert in-code comments to kernel-doc format wherever possible.
 > 
-> Thanks.
+> Thanks.  But, err, I think there is not yet any in-tree machinery for
+> actually building and publishing these kernel-doc comments ?
+
+No, there isn't. But you can call kernel-doc on the headers manually and
+it will produce fully readable docs in RST format. (Then you can covert
+RST docs to HTML with Sphinx.) Like:
+
+  kernel-doc xen/include/public/features.h > readme-features.rst
+
+I also gave a few more details on the plan I had in my other email
+reply.
+
+
+> As I said I think replacing our ad-hoc in-tree system with kernel-doc
+> is a good idea, but...
 > 
-> Thanks for all your work.  This is definiteely going in the right
-> direection.  I skimread all the patches and have nothing further to
-> add to what others have said.
+> > -/*
+> > - * `incontents 50 arm_abi Hypercall Calling Convention
+> > +/**
+> > + * DOC: Hypercall Calling Convention
+> 
+> ... let us not replace the in-tree markup for that system until we
+> have its replacement.
 
-Thanks for looking into it!
+Ah! I didn't know what 
 
+  `incontents 50 arm_abi
 
-> How soon can we arrange for this processing to be done automatically
-> (on xenbits, I guess) ?  Would you be prepared to set this up if I add
-> your ssh key to the "xendocs" account which builds the existing docs ?
+was for. I assumed it was a relic of another era and removed it.
 
-Yes, I can do that.
+Is it actually used (and the other markups like that)? Is there
+a script somewhere that parses it in xen.git or on xenbits already?
 
-This series was only meant to provide the basic groundwork, I wasn't
-thinking of adding the kernel-doc script to xen.git or the automatic
-docs build as part of it. However, I do have work in the pipeline to do
-that too: right now I am experimenting with some kernel-doc changes to
-produce better output docs for Xen. I am planning on sending that out
-soon after this series gets in, so maybe in few weeks or a month.
-
-Since I am here, I'd like to give you a heads up that I'll need your
-help reviewing or maybe making some changes to kernel-doc because my
-perl is nonexistent so I am probably doing something awful :-)
+If they are in-use, then I can try to retain them for now until we have
+the kernel-doc infrastructure on xenbits -- they should be compatible
+with the kernel-doc syntax.
 
