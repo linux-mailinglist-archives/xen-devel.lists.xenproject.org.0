@@ -2,62 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A29C24B7AC
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 13:02:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E7F24B859
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 13:18:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8iLH-0007a4-2P; Thu, 20 Aug 2020 11:02:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4RSJ=B6=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1k8iLG-0007Zv-74
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 11:02:46 +0000
-X-Inumbo-ID: 90a2eb07-8fba-475c-b02b-116862d3b3c7
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 90a2eb07-8fba-475c-b02b-116862d3b3c7;
- Thu, 20 Aug 2020 11:02:45 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id p20so1636027wrf.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Aug 2020 04:02:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XE6Gq1mZO7mZoivJyY+LGN392tpD4hCYS1oZJHwiQXg=;
- b=kDUG+QDF5IeSmWujXXRLoFo6x1Y2XE/OjI9364DtS3RmXh2ZQ1wPVrDLVURBYPTFXP
- btbpa0BVe+g9d5+L3kZW512WSJ1r2WU+ar3o716rPejXhWhfc76zK+NUO/X51iuTNBxO
- XwXmPWy29zNtmvLR9nT+sm2GzaBlPlG5UvUJhz8nYjZdJ5wi1W5JiXKnVY+hnthwB9m3
- xew9naIgb3VWlAPZhU0jOZGyDsnQDWG1RsNEnOhSmSKDF3+qp4BLLp5+aPs6Y//SUjGu
- xd59CzsmKNgYo/VFShlQtZ3T+ejKGt9t8RVR49dhb0GKS+9qgCDo+w3GiHGSzUVTHMCe
- cARg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XE6Gq1mZO7mZoivJyY+LGN392tpD4hCYS1oZJHwiQXg=;
- b=DmBtxAydwSS7WsHxs4rtyQDwzNTyBZL8/ZleOCpsVdv+ieOLTERzw4FFvPuV5+rJda
- uKDG3JQeHc2g8bFA0izWMHecZpqkeo/6XfAoPlx6XGDMKVKLb6yTIxoya8zhU1WChp0l
- hJ9h3ASB6LTpluLpYq+0VI87Pynlcf1zZORDd12FqUQfvAcTa0OCDNMqWkSZsO2qKWnA
- ZoFNMiB1ecWHpOdtXlWyLtAWnosx3QDGBeFZdiwLtZaDtJcmUWyCpRU+8RVpF9M/0x11
- PbVnQ4lnnin0tmxujgMul8bfnXjeiGt/DcV0eMBTPkFmV6RmZ0u2L2sKG7rAluAwRb5l
- gCIA==
-X-Gm-Message-State: AOAM53109KfAkTca+IUTSb37fs9tm4N0dVCeqcmDufqGp7jmV0VUfJrc
- 0EPi1ekU4cY23f0qXnuEDWgWwNNzza7CsXDm5BI=
-X-Google-Smtp-Source: ABdhPJzf7aaYw4w5oGfQjit6LcnJq37zT/EeAWXfEioHazh79D800++rP3BeASB52htgs1Mw2U/VwuEVaKAybJOb1E4=
-X-Received: by 2002:adf:a287:: with SMTP id s7mr2879754wra.103.1597921364605; 
- Thu, 20 Aug 2020 04:02:44 -0700 (PDT)
+	id 1k8iZt-0000Fa-D1; Thu, 20 Aug 2020 11:17:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bq9Y=B6=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k8iZr-0000FV-UZ
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 11:17:52 +0000
+X-Inumbo-ID: db4ac1dd-8fd4-4733-a382-a46ca6734964
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id db4ac1dd-8fd4-4733-a382-a46ca6734964;
+ Thu, 20 Aug 2020 11:17:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject;
+ bh=//5swmDdkmyt4Stx7SSQlWGi44x1Tkmr0zx5b/QM824=; b=BYH9pPLQTEm7UMYdTHGfocDxuz
+ XClWfet/qWuiYlBX5wpU4qqmpjbZvyKcGYglrcm9bI0v1F4UcIkZuLWdXWv/RyiKGOObLfGFiy4e1
+ 8Btj5/ThLIpeUSgxRstjgILD0v3+qgHs45///Q+VZkr6L5xn5hxt1BsghyQqj5cUqfbQ=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8iZp-0001KI-8q; Thu, 20 Aug 2020 11:17:49 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8iZo-0001iL-Vc; Thu, 20 Aug 2020 11:17:49 +0000
+Subject: Re: [Linux] [ARM] Granting memory obtained from the DMA API
+To: Simon Leiner <simon@leiner.me>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
+References: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
+Date: Thu, 20 Aug 2020 12:17:47 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <CAK-iXTF3F05+RH=ttOhwpOfcngfPY_bAp73fYprxg__QB+fD2w@mail.gmail.com>
- <62cabf58-b889-4f60-8065-634db3eaea66@xen.org>
-In-Reply-To: <62cabf58-b889-4f60-8065-634db3eaea66@xen.org>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Thu, 20 Aug 2020 12:02:33 +0100
-Message-ID: <CAJ=z9a0g2Ygv+ehVdiHAAJne64mQOMECOnonca502H7YfMehMA@mail.gmail.com>
-Subject: Re: About VIRTIO support on Xen
-To: Jedi Chen <jedix81@gmail.com>, xen-devel <xen-devel@lists.xenproject.org>, 
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,45 +64,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 20 Aug 2020 at 11:59, Julien Grall <julien@xen.org> wrote:
->
->
->
-> On 20/08/2020 05:45, Jedi Chen wrote:
-> > Hi xen-devel,
->
-> Hi,
->
-> >
-> > I am very interesting about the VIRTIO on Xen. And from one meeting
-> > report of AGL Virtualization Expert Group (EG-VIRT)
-> > https://wiki.automotivelinux.org/eg-virt-meetings#pm_cest_meeting4, I
-> > got the information that ARM and Linaro are
-> > upstreaming XEN work incorporating VirtIO. But I can't find any
-> > information in the mailing list. Is there any
-> > architecture overview or design doc about it?
->
-> There is some discussion on xen-devel [1] to add support for Virtio MMIO
-> on Arm. This is still in early development, but you should be able to
-> get a PoC setup with the work.
->
-> Best regards,
->
-> [1] <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
 
-Sorry I should have added a direct link:
 
-https://lore.kernel.org/xen-devel/1596478888-23030-1-git-send-email-olekstysh@gmail.com/
+On 19/08/2020 12:04, Simon Leiner wrote:
+> Hi everyone,
 
->
-> >
-> > Thanks,
-> >
-> >
-> >
->
->
->
-> --
-> Julien Grall
+Hi Simon,
+
+> 
+> I'm working on a virtio driver for the Linux kernel that supports the
+> dynamic connection of devices via the Xenbus (as part of a research
+> project at the Karlsruhe Institute of Technology).
+
+There is a lot of interest to get Virtio working on Xen at the moment. 
+Is this going to be a new transport layer for Virtio?
+
+> My question concerns the Xenbus client API in the Linux kernel. As this
+> is my first time posting on the Xen mailing lists, I'm not entirely
+> sure if this is the right place for this question. If not, feel free to
+> point me to the right place :-)
+
+Xen-devel is probably most suitable for this discussion, so I moved the 
+discussion there. I have also CCed a couple of Linux maintainers that 
+should be able to provide feedbacks on the approaches.
+
+> 
+> Part of virtio is having shared memory. So naturally, I'm using Xen's
+> grant system for that. Part of the Xenbus client API is the function
+> xenbus_grant_ring which, by its documentation grants access to a block
+> of memory starting at vaddr to another domain. I tried using this in my
+> driver which created the grants and returned without any error, but
+> after mounting the grants on another domain, it turns out that some
+> other location in memory was actually granted instead of the one behind
+> the original vaddr.
+> 
+> So I found the problem: The vaddr that I was using xenbus_grant_ring
+> with was obtained by dma_alloc_coherent (whereas the other split
+> drivers included in the mainline kernel use Xen IO rings allocated by
+> the "regular" mechanisms such as __get_free_page, alloc_page etc.).
+> But xenbus_grant_ring uses virt_to_gfn to get the GFN for the vaddr
+> which on ARM(64) must not be used for DMA addresses. So I could fix the
+> problem by providing a modified version of xenbus_grant_ring as part of
+> my driver which takes a dma_addr_t instead of a void* for the start
+> address, gets the PFN via dma_to_phys, converts it to a GFN and then
+> delegates to gnttab_grant_foreign_access, just like xenbus_grant_ring.
+> I can confirm that this works on Linux 5.4.0.
+> 
+> My question to you is: How can this be fixed "the right way"?
+> Is there anything that can be done to prevent others from debugging
+> the same problem (which for me, took some hours...)?
+> 
+> I can see multiple approaches:
+> 1. Have xenbus_grant_ring "just work" even with DMA addresses on ARM
+>     This would certainly be the nicest solution, but I don't see how
+>     it could be implemented. I don't know how to check whether some
+>     address actually is a DMA address and even if there was a way to
+>     know, dma_to_phys still requires a pointer to the device struct
+>     which was used for allocation.
+> 2. Provide another version which takes a dma_addr_t instead of void*
+>     This can be easily done, but things get complicated when the device
+>     for which the DMA memory was allocated is not the xenbus_device
+>     which is passed anyway. So, it would be necessary to include an
+>     additional argument pointing the actual device struct which was used
+>     for allocation.
+> 3. Just use gnttab_grant_foreign_access which works with GFNs anyway
+>     Which is essentially what I'm doing currently, as in my driver I
+>     know from which the device the DMA addresses were allocated.
+>     If this is the preferred solution to this problem, I propose adding
+>     a warning to the documentation of xenbus_grant_ring that forbids
+>     using this for vaddrs obtained from the DMA API as it will not work
+>     (at least on ARM).
+> 
+> What do you think?
+> 
+> Greetings from Germany,
+> Simon
+
+Best regards,
+
+-- 
+Julien Grall
 
