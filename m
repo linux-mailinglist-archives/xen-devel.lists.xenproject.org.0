@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB0A24C176
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 17:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C32E24C249
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 17:35:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8mCR-0003zE-K9; Thu, 20 Aug 2020 15:09:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8mai-00073n-3k; Thu, 20 Aug 2020 15:35:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k8mCQ-0003lg-2a
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 15:09:54 +0000
-X-Inumbo-ID: 9b9d86af-17a7-4d72-a21f-c75d8547d178
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b9d86af-17a7-4d72-a21f-c75d8547d178;
- Thu, 20 Aug 2020 15:09:40 +0000 (UTC)
+ id 1k8mag-00073R-O0
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 15:34:58 +0000
+X-Inumbo-ID: 8c83216e-21ec-4ccb-b24e-b628c12e5959
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8c83216e-21ec-4ccb-b24e-b628c12e5959;
+ Thu, 20 Aug 2020 15:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597936180;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=u63m2tXhuuAu/gd/zkG4g8sb+Z+3RgZGzbLxlSgXxBo=;
- b=FLLQf6MNAmDy3kbMwrc49GPRFtRK+OR72K5NZ5F/l1fXmfNDEpeRGPny
- 0euUCjH34cNgfmpDBoKqLo0L3T7JkrLVoOPm0KInOF01uRGJTF6x1c1AA
- bTdZEM9QZwxSPoGd0n6G6OeKdT9MihoF+KKJ4nj6TVuIY9caxPc1UFaOq E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597937698;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=WJLwJ4E/RqhURG/hBP5llvAxz6xHQJx0t50Z8hMyykA=;
+ b=WCEDYnzEoTXZSOMuhn2HDqQuQdL5/Xwttmbc3oIOOU8DHJ7XModaNCE8
+ utIG9Ee8qUZFHDVZ6e0eKfHWSObpl+gqZrdtgp7lxEMGyofw0vmKSn7vC
+ wFnGI1P2bRXHkuHEOHTovjgN68BnWjkjUckiVFsRCLjl0p8zyZvr91m92 o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: UE5O4/bvrPO/wv6B7XMDrVbV0sbAZ/kXCKUsOfw6/1lDaYcLKz2Sdy4k5yZr/ZSMdlcWtOl4iV
- qKor7pxl+zI/EYgrSrH7XTRTJ9w8bgZJvitq8wWnyxZQ0w0GKupz0kBuGAhELMASFCmp9G9KhT
- EOTfkpPKrzb5aGcxj1A2fQhMYmcAZBpwKSNY4Pt30sNbjG2qqj902Uo4RLUN6vlRqwGKInbdZ1
- dZIThQ07DymCgvxh1PB6J5xHBE2zoqZjPAl1T5bJur2LwF3T79vbIJM3Hjqc3qw0ktsh2mOgEM
- yBI=
+IronPort-SDR: 7/GqR1IFiEvPXxPVgQEfx28s2s+rKv/PM84EFp6gwRXTSYDOTzD4U7W80UxMd+G5frTQnob6i4
+ W44SRlCmnaOY9Of8UdQa9S1pC6wmoAMd0sWhMQXIW/G4oanpFvwYyqzoJd1F4Bc1UMxqBO6VZc
+ lwfgv2EBsv423RkCdCm7afcDA0sk6l9/gEtyhZKHFNz3G8bEe9JGWpDBOwYtMg7CcKXhheHEZq
+ oTHx3YkW4WcVaeIM5RmCxQZC4EsTnI0jugYKhnPZouogsei07ixX17Z8zzgL9AY8IUAc2agRM4
+ JQE=
 X-SBRS: 2.7
-X-MesageID: 25108129
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 25269809
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="25108129"
+X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="25269809"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 8/8] x86/msr: Drop compatibility #GP handling in guest_{rd,
- wr}msr()
-Date: Thu, 20 Aug 2020 17:08:35 +0200
-Message-ID: <20200820150835.27440-9-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 0/2] x86/vpic: minor fixes
+Date: Thu, 20 Aug 2020 17:34:40 +0200
+Message-ID: <20200820153442.28305-1-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200820150835.27440-1-roger.pau@citrix.com>
-References: <20200820150835.27440-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -67,84 +64,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+Hello,
 
-Now that the main PV/HVM MSR handlers raise #GP for all unknown MSRs, there is
-no need to special case these MSRs any more.
+This series contains one non-functional change and one small fix for
+pci-passthrough when using the 8259A PIC. I very much doubt anyone has
+done pci-passthrough on guests using the legacy PIC, but nonetheless
+let's aim for it to be correct.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
- xen/arch/x86/msr.c | 46 ----------------------------------------------
- 1 file changed, 46 deletions(-)
+Thanks, Roger.
 
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index bb0dd5ff0a..560719c2aa 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -159,29 +159,6 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
- 
-     switch ( msr )
-     {
--    case MSR_AMD_PATCHLOADER:
--    case MSR_IA32_UCODE_WRITE:
--    case MSR_PRED_CMD:
--    case MSR_FLUSH_CMD:
--        /* Write-only */
--    case MSR_TEST_CTRL:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_IA32_FEATURE_CONTROL:
-         if ( !(cp->x86_vendor & X86_VENDOR_INTEL) )
-             goto gp_fault;
-@@ -349,29 +326,6 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-     {
-         uint64_t rsvd;
- 
--    case MSR_IA32_PLATFORM_ID:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_INTEL_CORE_THREAD_COUNT:
--    case MSR_INTEL_PLATFORM_INFO:
--    case MSR_ARCH_CAPABILITIES:
--        /* Read-only */
--    case MSR_TEST_CTRL:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_AMD_PATCHLEVEL:
-         BUILD_BUG_ON(MSR_IA32_UCODE_REV != MSR_AMD_PATCHLEVEL);
-         /*
+Roger Pau Monne (2):
+  x86/vpic: rename irq to pin in vpic_ioport_write
+  x86/vpic: also execute dpci callback for non-specific EOI
+
+ xen/arch/x86/hvm/vpic.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
 -- 
 2.28.0
 
