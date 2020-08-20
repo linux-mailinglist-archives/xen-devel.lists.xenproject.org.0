@@ -2,111 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12BD124B8CA
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 13:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEF0C24B904
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 13:38:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8ijO-0001G7-JM; Thu, 20 Aug 2020 11:27:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8itE-0002B9-JK; Thu, 20 Aug 2020 11:37:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rX0G=B6=epam.com=prvs=65010a7043=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1k8ijM-0001G2-M1
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 11:27:40 +0000
-X-Inumbo-ID: 11d49223-9f17-4989-910a-9e2aec525571
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11d49223-9f17-4989-910a-9e2aec525571;
- Thu, 20 Aug 2020 11:27:39 +0000 (UTC)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07KBQYGm031062; Thu, 20 Aug 2020 11:27:37 GMT
-Received: from eur05-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177])
- by mx0a-0039f301.pphosted.com with ESMTP id 330x6wm39f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Aug 2020 11:27:36 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P9iBC6ROncfY5oB2x1uWZqlcDQ+HFfmsDB1qohnawwCoYe2j25qjgU9Sh5zXyE4YE14JRJsTfP3G4/cnCPWVUu4G37h0qrEyMn0xT95ZkS53oVy7kEefDNZE3zb7Wt5TqzO3rh9jstA8TKb8jdpu2vAHJalPbNVNlQtV4MMeKXPk6yz5ljMlnNo0CD4M0H1pCVi7KyL4nPAywwPDaYwWBOd/BDxQLUY3OMSbE9Xwau8ihFgGVaqubs5TM/qdXe5xtYRHNKMDMaIIj3PexcqJVaBNuYupjE/YhAnkturV6DSg2UShPmdqLMj+fFjJZw9v7ce0rpJijRgIxuqxLTkS/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L1ypKjiIQTjQ7BvzCv83/urzdOxzndZ6G4zxaiXelns=;
- b=WDHLn8U0m8iQkMfcvlWKQN8Umu2OalzPzKbXaTwi8UhBbIpz4QkNXYG9rOL02YUFtTasQ7l/6dvy7Cvo24VsIFBUtc+54BxxJEi48bagXbuxBVhregwK5Ig8Ikq7qvZvFEC64ZG1DAzPOSArc3LIFTd73bwFzp3wpqgcFz6p9j16vDL1F44pjVYUeJOiPVKh+z+xPR6lhdIiurQkXJND7iLFZE74LctwsRwDaRcALyCzJiJTcumf94LsnsOlQt3FqUxO+Jk17sJN9VYPm3nfteK8aUrJ7yyOhwuSfLbq6eGH4a/smA2r2CUANtw3D4i5MW0dnPBKWfL1u3zz6T7A6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L1ypKjiIQTjQ7BvzCv83/urzdOxzndZ6G4zxaiXelns=;
- b=WRTdH5rD5XIT2ji9Mof7doa1NPiW0cdVk2H16dfNnN98pLnp7jlaYmc6ZYfK/eLEjAi3E1MgKEcFZNByrhMa4NgVhinWifXKlQpkn/JaIqANbmS/KdUHZgqiMnXZX2Pdp7PqigM7cu4VZ+68ZDu7cOqjKCNvO7ekEOZUnf9euL8mbrqCe3VQzeApXQFnm9XXsXJAVjRfUo/4ZG/Ct/rDO+QIPMkzAYEUMbiYS5+LbUu5g526wV/+kGCmt9vNQVkSYxLIC8MWWbT1AT+E7wpxgyiG6/bCOMnQhxi8bxWM1TsVdO+KfCKkXFRQ+vLw1gfW7SH6uoUG+wV4hBeO+5b5YQ==
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR0302MB3281.eurprd03.prod.outlook.com (2603:10a6:208:a::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.22; Thu, 20 Aug
- 2020 11:27:33 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::853d:1bd6:75a0:a7d7]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::853d:1bd6:75a0:a7d7%8]) with mapi id 15.20.3305.025; Thu, 20 Aug 2020
- 11:27:33 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>, Roman Shaposhnik <roman@zededa.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, "vicooodin@gmail.com"
- <vicooodin@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: u-boot vs. uefi as boot loaders on ARM
-Thread-Topic: u-boot vs. uefi as boot loaders on ARM
-Thread-Index: AQHWduTlR9y1WkQPUkq3XmaI+hJKmA==
-Date: Thu, 20 Aug 2020 11:27:33 +0000
-Message-ID: <d921de55-e26a-e5e7-2a4d-b34fca2e8875@epam.com>
-References: <CAMmSBy-EduiWV-rZfykc8Xh6GyOBAe5VNF44p6HjR8kn_bDZjA@mail.gmail.com>
- <8a01a6e3-a786-2d68-5640-343bcc084b45@xen.org>
- <CAMmSBy92Aiz8btqkEbU9oVJifJ3ft0htPpjObGz-wYVjXuwvoQ@mail.gmail.com>
- <af097943-89fe-76db-54f4-89a3e534d586@xen.org>
-In-Reply-To: <af097943-89fe-76db-54f4-89a3e534d586@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [185.199.97.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2f50d90a-950e-4c6f-31d9-08d844fc0897
-x-ms-traffictypediagnostic: AM0PR0302MB3281:
-x-microsoft-antispam-prvs: <AM0PR0302MB32818CEAC458EA27F608D5B2E75A0@AM0PR0302MB3281.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: g3vHBIA6k9W+zTbAVycAGv8p/IOrYVKGzNYemgtCqSug4nvW6HSy2S/olAaGlD9t8NjkZRLDjMv0M4hJswClDl3YhFRNurXJBq9+4ibKR85f+YjKfJlXVwK8Ojb2tV5XNQJQMv+osCbXCCLkzdywTd6XNQgqR59WxBX3MWj+B9fzKs27EvUrIOPv0gM4QwegzENs0q5X6oYrhpJYfvsiuKgv4gSgqPISNP59DapQVxEJ7UjVnJ3AzaGLKjnfIUMNO0JqbKc1NGF9Vkjb8nX+NhIjjX0vhXm+8eIGHDKJWNh2fZTjDFWq3i77QVM4yq3l5009/VtIkXZEzXjVTyVQJpzXlTupRaYLgfbj3uoDvsf2V16+Wfgq+ZEKz2di0LKtdEHci29OXUKVnl+M0uea0Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR03MB6324.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(376002)(366004)(346002)(39860400002)(8936002)(31686004)(966005)(2906002)(86362001)(36756003)(186003)(6506007)(8676002)(31696002)(71200400001)(83380400001)(478600001)(53546011)(110136005)(76116006)(91956017)(5660300002)(64756008)(66446008)(66946007)(6486002)(66476007)(6512007)(26005)(316002)(54906003)(4326008)(2616005)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: X98GGlul4obfi62BNE3YMFltAgymQFNkHMuhcaPvXq90C1BaS/OP5uVqN4vAE9x33Wu/k2p98QxNAPhqxUIrhpVbs5qVC6IZ0+zffYtow6QYVLkSBBVF/0rXPPFcTcy9v4aVNgMIGePyyMixK1odCAcTpBp7iX+qjwG7AhdAnZmF5Mhxv77UL0F8yO9LbCsVxvuKpfloD1AMmfPDD+SEDzIGn50d9HkSywhSABBQAI/9OrSKoA5neHzjN0LWgi0gCCgugvb5uAtJZeuMI0HJoX2ZvyfoubYmNZOB/boMMiEZb8Di0oXk26Z40pzoKHY94lqEpa1LyUJNUXLHeDVSJ9BKsZC0oN21VdlEdD6Z8HJ+RyhmUJVgj2iQFKMK/L5rdZ+x27g9eK8XDN9VRXkp+TE0b4iUZiOhLfc+U/CvmkJh3QBlexe+p0xoRrxpYBmjMKIxZdm9j2ju64sNj7WyEln+Ofb6SLyGSudGpGBHdaMXsAhvx4OaAbo8RewNR2H58lC3/P6mUOx50LSlWIPLXaZXrQt4utKfwz5I5qBnZaByjj0ieFUi7A6i5oQM3SiTIblRCEH6tVTlP6X9B4sCaU5XMExi5STQ9yICJMdvwgOKGy6P1KFPxbCvZKDeX96T2PZQNzC+I4u6LNJhcQu1mQ==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <042FC468D036E14984A02BC9075B5201@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k8itD-0002B4-Gw
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 11:37:51 +0000
+X-Inumbo-ID: d0df7adf-1f1a-4a3a-b116-d3aba8c6fae4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d0df7adf-1f1a-4a3a-b116-d3aba8c6fae4;
+ Thu, 20 Aug 2020 11:37:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597923470;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ZAirrqoSKLQOVqqJWBpKueJlrlW7WlH8PvguimBoqcg=;
+ b=USgWkIUa7F4+BEqsBiUuWl8Ky2/SRO+RkRMBNd1B8xwhlWeo/jjUm5Sa
+ Up9mPHwu33dnpjz09eKVzNIMJ7yeylSn9iXidQINTH+00MIEsHTZzmPY3
+ pgCKphBTBN1Ypod3YZs8whiOY7hEPzofDUMprdyLMskMp9jRxXMQRRTaE 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4nBaFLnRpBD3ly5eX58Un7Lg/gZ5xsv5/Atyb5KJyqp4Du0CE2K9eo3l0sHk6/iSuj0LcBplRs
+ py/XsJnWH7CdQGPSyE9v0yfz1MTNlSBZRIqxId7A4BgJJP378Gr9g+yK8exusIK58eq7+ig1yE
+ VMXT2qTxtvv93zngpqJ42vMERlxiMlDzOz7+ksKh5LNya7cBceZYtkNHTRCz2Wl8K1LVGTgB08
+ DLgsy5wuMhnM/QCgRFDIz9M8mSd0hyZIKVqkd/EUnPb0uRZumstAnrPk+F9aHn+BCzwywOcY8+
+ faw=
+X-SBRS: 2.7
+X-MesageID: 25271840
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,332,1592884800"; d="scan'208";a="25271840"
+Date: Thu, 20 Aug 2020 13:37:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Dan Williams <dan.j.williams@intel.com>
+CC: <linux-kernel@vger.kernel.org>, David Hildenbrand <david@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ira Weiny <ira.weiny@intel.com>, Aneesh Kumar K.V
+ <aneesh.kumar@linux.ibm.com>, Johannes Thumshirn <jthumshirn@suse.de>, "Logan
+ Gunthorpe" <logang@deltatee.com>, <linux-nvdimm@lists.01.org>,
+ <xen-devel@lists.xenproject.org>, <linux-mm@kvack.org>
+Subject: Re: [PATCH v4 1/2] memremap: rename MEMORY_DEVICE_DEVDAX to
+ MEMORY_DEVICE_GENERIC
+Message-ID: <20200820113741.GV828@Air-de-Roger>
+References: <20200811094447.31208-1-roger.pau@citrix.com>
+ <20200811094447.31208-2-roger.pau@citrix.com>
+ <96e34f77-8f55-d8a2-4d1f-4f4b667b0472@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f50d90a-950e-4c6f-31d9-08d844fc0897
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2020 11:27:33.9021 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N46UpqxQJbyvaFJYHD0iLrwyE1BRY74+oVzd81fI2sJOODH81xYING6k5cfXEnmPOuKbIKl2HoEwNndFigoXqMcLq4vygz5fSrYLvs/RxcuvaEfpTET3bgD+j4lsYxfP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR0302MB3281
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-20_03:2020-08-19,
- 2020-08-20 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- mlxlogscore=714 adultscore=0 phishscore=0 malwarescore=0 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008200096
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <96e34f77-8f55-d8a2-4d1f-4f4b667b0472@redhat.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,58 +76,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQpPbiA4LzIwLzIwIDE6NTAgUE0sIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgUm9tYW4sDQo+
-DQo+IE9uIDE2LzA4LzIwMjAgMjE6NDUsIFJvbWFuIFNoYXBvc2huaWsgd3JvdGU6DQo+PiBPbiBT
-dW4sIEF1ZyAxNiwgMjAyMCBhdCA3OjU0IEFNIEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+
-IHdyb3RlOg0KPj4+IE9uIDE1LzA4LzIwMjAgMjE6NDMsIFJvbWFuIFNoYXBvc2huaWsgd3JvdGU6
-DQo+Pj4+IEhpIQ0KPj4+DQo+Pj4gSGksDQo+Pj4NCj4+Pj4gd2l0aCB0aGUgcmVjZW50IGV4Y2Vs
-bGVudCB3b3JrIGJ5IEFuYXN0YXNpaWEgY29tbWl0dGVkIHRvIHRoZSB1LWJvb3Qncw0KPj4+PiBt
-YWluIGxpbmUsIHdlIG5vdyBoYXZlIHR3byBkaWZmZXJlbnQgd2F5cyBvZiBicmluZ2luZyBBUk0g
-RG9tVXMuDQo+Pj4+DQo+Pj4+IElzIHRoZXJlIGFueSBjaGFuY2Ugc29tZW9uZSBjYW4gZWR1Y2F0
-ZSB0aGUgZ2VuZXJhbCBwdWJsaWMgb24gcHJvcw0KPj4+PiBhbmQgY29ucyBvZiBib3RoIGFwcHJv
-YWNoZXM/DQo+Pj4+DQo+Pj4+IEluIFByb2plY3QgRVZFIHdlJ3JlIHN0aWxsIHVzaW5nIHVlZmkg
-b24gQVJNICh0byBzdGF5IGNsb3NlciB0byB0aGUgbW9yZQ0KPj4+PiAiQVJNIGluIHRoZSBjbG91
-ZCIgdXNlIGNhc2UpIGJ1dCBwZXJoYXBzIHRoZSBzaXR1YXRpb24gbm93IGlzIG1vcmUNCj4+Pj4g
-bnVhbmNlZD8NCj4+Pg0KPj4+IFVFRkkgaXMganVzdCBzdGFuZGFyZCwgc28gSSBhbSBndWVzc2lu
-ZyB5b3UgYXJlIHJlZmVycmluZyB0bw0KPj4+IFRpYW5vY29yZS9FREsyLiBhbSBJIGNvcnJlY3Q/
-DQo+Pg0KPj4gWWVzLCBidXQgSSB3YXMgYWN0dWFsbHkgcmVmZXJyaW5nIHRvIGJvdGggaW4gYSB3
-YXkgKEkgc2hvdWxkJ3ZlIGJlZW4NCj4+IGNsZWFyZXIgdGhvKS4NCj4+IFRvIGJlIG1vcmUgZXhw
-bGljaXQgbXkgcXVlc3Rpb24gd2FzIGFyb3VuZCB0cnlpbmcgdG8gY29tcGFyZSBhICJzdGFuZGFy
-ZGl6ZWQiDQo+PiB3YXkgb2YgYm90dGluZyBhIGdlbmVyaWMgRG9tVSBvbiBBUk0gKGFuZCB0aGF0
-IHN0YW5kYXJkIGlzIFVFRkkgd2l0aCBvbmUNCj4+IHBhcnRpY3VsYXIgaW1wbGVtZW50YXRpb24g
-dGhhdCB3b3JrcyBvdXQgb2YgdGhlIGJveCB3aXRoIFhlbiBiZWluZyBUQy9FREsyKSB3aXRoDQo+
-PiBhIG1vcmUgYWQtaG9jIHUtYm9vdCBzdHlsZSBvZiBib290aW5nLg0KPj4NCj4+PiBSZWNlbnQg
-dmVyc2lvbiBvZiBVLWJvb3QgYXJlIGFsc28gYWJsZSB0byBwYXJ0aWFsbHkgVUVGSS4gVGhpcyBt
-ZWFucyB5b3UNCj4+PiBjb3VsZCBlYXNpbHkgdXNlIEdSVUIgd2l0aCBVLWJvb3QuDQo+Pg0KPj4g
-WXVwIC0tIHdoaWNoIGNvbXBsaWNhdGVkIHRoaW5ncyBldmVuIG1vcmUuIEFuZCBpdCBpcyBmdW5u
-eSB5b3Ugc2hvdWxkIG1lbnRpb24NCj4+IGl0LCBzaW5jZSB3ZSBhY3R1YWxseSBzdGFydGVkIHdp
-dGggVEMvRURLMiBmb3IgUmFzcGJlcnJ5UGk0IGFzIGEgYm9hcmQNCj4+IGJvb3Rsb2FkZXIsDQo+
-PiBidXQgcXVpY2tseSBzd2l0Y2hlZCB0byB1LWJvb3Qgd2l0aCBVRUZJIHNoaW0gbGF5ZXIsIHNp
-bmNlIGl0IHdhcyBtdWNoIHNtYWxsZXIsDQo+PiBiZXR0ZXIgc3VwcG9ydGVkIChzdGlsbD8pIGFu
-ZCBnYXZlIHVzIGFsbCB3ZSBuZWVkZWQgdG8gYm9vdCBYZW4gb24gUlBpNCBhcyBhDQo+PiBVRUZJ
-IHBheWxvYWQuDQo+Pg0KPj4+IMKgRnJvbSBteSB1bmRlcnN0YW5kaW5nLCBVLWJvb3QgaXMganVz
-dCBhIGJvb3Rsb2FkZXIuIFRoZXJlZm9yZSBpdCB3aWxsDQo+Pj4gbm90IHByb3ZpZGUgcnVudGlt
-ZSBzZXJ2aWNlcyAoc3VjaCBhcyBkYXRlICYgdGltZSkuDQo+Pg0KPj4gSXQgYWN0dWFsbHkgZG9l
-cyBwcm92aWRlIHNvbWUgb2YgdGhhdCAoc2VlIGJlbG93KQ0KPg0KPiBDb29sISBBbHRob3VnaCwg
-aXQgbG9va3MgbW9zdGx5IHJlbGF0ZWQgdG8gdGhlIGVudmlyb25tZW50IHZhcmlhYmxlIHRob3Vn
-aC4NCj4NCj4+DQo+Pj4gRnVydGhlcm1vcmUsIHRoZQ0KPj4+IGludGVyZmFjZSBpcyBsZXNzIHVz
-ZXIgZnJpZW5kbHksIHlvdSB3aWxsIGhhdmUgdG8ga25vdyB0aGUgbWVtb3J5IGxheW91dA0KPj4+
-IGluIG9yZGVyIHRvIGxvYWQgYmluYXJpZXMuDQo+Pj4NCj4+PiBPbiB0aGUgb3RoZXIgaGFuZCwg
-VGlhbm9jb3JlL0VESzIgaXMgdmVyeSBzaW1pbGFyIHRvIHdoYXQgbm9uLWVtYmVkZGVkDQo+Pj4g
-bWF5IGJlIHVzZWQgdG8uIEl0IHdpbGwgbm90IHJlcXVpcmUgeW91IHRvIGtub3cgeW91ciBtZW1v
-cnkgbGF5b3V0LiBCdXQNCj4+PiB0aGlzIGNvbWVzIGF0IHRoZSBjb3N0IG9mIGEgbW9yZSBjb21w
-bGV4IGJvb3Rsb2FkZXIgdG8gZGVidWcuDQo+Pg0KPj4gVGhhdCdzIGxpdGVyYWxseSB0aGUgY3J1
-eCBvZiBteSBxdWVzdGlvbiAtLSB0cnlpbmcgdG8gdW5kZXJzdGFuZCB3aGF0IHVzZSBjYXNlcw0K
-Pj4gZWl0aGVyIG9uZSBvZiB0aGVtIGlzIG1lYW50IGZvci4gRXNwZWNpYWxseSBnaXZlbiB0aGF0
-IHRoaXMgc2hpbSBsYXllciBpcyBub3cNCj4+IHF1aXRlIGNhcGFibGU6DQo+PiBodHRwczovL2dp
-dGh1Yi5jb20vQVJNLXNvZnR3YXJlL3UtYm9vdC9ibG9iL21hc3Rlci9kb2MvUkVBRE1FLnVlZmkj
-TDEyNw0KPg0KPiBXaGlsZSBJIGNhbiBzZWUgbWFqb3IgZGlmZmVyZW5jZXMgd2hlbiB1c2luZyBl
-aXRoZXIgb24gYmFyZW1ldGFsICh5b3UgaGF2ZSBiZXR0ZXIgY29udHJvbCBvbiB0aGUgRGV2aWNl
-LVRyZWUgd2l0aCBVLWJvb3QpLCBpdCBpcyBtdWNoIGxlc3MgY2xlYXIgaW4gYSBndWVzdC4gTWF5
-YmUgQW5hc3Rhc2lpYSBjYW4gZXhwbGFpbiB3aHkgdGhleSBkZWNpZGVkIHRvIGFkZCBzdXBwb3J0
-IGluIFUtYm9vdD8gOikuDQoNCldlbGwsIHRoZXJlIGFyZSBtYW55IFNvQyB2ZW5kb3JzIHByb3Zp
-ZGUgdS1ib290IGFzIHRoZWlyIGJvb3QgbG9hZGVyLA0KDQpzbyBpdCB3YXMgbmF0dXJhbCBmb3Ig
-dXMgdG8gYWRkIHB2YmxvY2sgdG8gaXQgKFJlbmVzYXMsIFhpbGlueCwgaU1YLCBSUGksIHlvdSBu
-YW1lIGl0KS4NCg0KU28gdGhpcyBpcyB0aGUgb25seSByZWFzb24gSSBndWVzcw0KPiBDaGVlcnMs
-DQo+DQpSZWdhcmRzLA0KDQpPbGVrc2FuZHINCg==
+On Tue, Aug 11, 2020 at 11:07:36PM +0200, David Hildenbrand wrote:
+> On 11.08.20 11:44, Roger Pau Monne wrote:
+> > This is in preparation for the logic behind MEMORY_DEVICE_DEVDAX also
+> > being used by non DAX devices.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Cc: Dan Williams <dan.j.williams@intel.com>
+> > Cc: Vishal Verma <vishal.l.verma@intel.com>
+> > Cc: Dave Jiang <dave.jiang@intel.com>
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> > Cc: Ira Weiny <ira.weiny@intel.com>
+> > Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+> > Cc: Johannes Thumshirn <jthumshirn@suse.de>
+> > Cc: Logan Gunthorpe <logang@deltatee.com>
+> > Cc: linux-nvdimm@lists.01.org
+> > Cc: xen-devel@lists.xenproject.org
+> > Cc: linux-mm@kvack.org
+> > ---
+> >  drivers/dax/device.c     | 2 +-
+> >  include/linux/memremap.h | 9 ++++-----
+> >  mm/memremap.c            | 2 +-
+> >  3 files changed, 6 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/dax/device.c b/drivers/dax/device.c
+> > index 4c0af2eb7e19..1e89513f3c59 100644
+> > --- a/drivers/dax/device.c
+> > +++ b/drivers/dax/device.c
+> > @@ -429,7 +429,7 @@ int dev_dax_probe(struct device *dev)
+> >  		return -EBUSY;
+> >  	}
+> >  
+> > -	dev_dax->pgmap.type = MEMORY_DEVICE_DEVDAX;
+> > +	dev_dax->pgmap.type = MEMORY_DEVICE_GENERIC;
+> >  	addr = devm_memremap_pages(dev, &dev_dax->pgmap);
+> >  	if (IS_ERR(addr))
+> >  		return PTR_ERR(addr);
+> > diff --git a/include/linux/memremap.h b/include/linux/memremap.h
+> > index 5f5b2df06e61..e5862746751b 100644
+> > --- a/include/linux/memremap.h
+> > +++ b/include/linux/memremap.h
+> > @@ -46,11 +46,10 @@ struct vmem_altmap {
+> >   * wakeup is used to coordinate physical address space management (ex:
+> >   * fs truncate/hole punch) vs pinned pages (ex: device dma).
+> >   *
+> > - * MEMORY_DEVICE_DEVDAX:
+> > + * MEMORY_DEVICE_GENERIC:
+> >   * Host memory that has similar access semantics as System RAM i.e. DMA
+> > - * coherent and supports page pinning. In contrast to
+> > - * MEMORY_DEVICE_FS_DAX, this memory is access via a device-dax
+> > - * character device.
+> > + * coherent and supports page pinning. This is for example used by DAX devices
+> > + * that expose memory using a character device.
+> >   *
+> >   * MEMORY_DEVICE_PCI_P2PDMA:
+> >   * Device memory residing in a PCI BAR intended for use with Peer-to-Peer
+> > @@ -60,7 +59,7 @@ enum memory_type {
+> >  	/* 0 is reserved to catch uninitialized type fields */
+> >  	MEMORY_DEVICE_PRIVATE = 1,
+> >  	MEMORY_DEVICE_FS_DAX,
+> > -	MEMORY_DEVICE_DEVDAX,
+> > +	MEMORY_DEVICE_GENERIC,
+> >  	MEMORY_DEVICE_PCI_P2PDMA,
+> >  };
+> >  
+> > diff --git a/mm/memremap.c b/mm/memremap.c
+> > index 03e38b7a38f1..006dace60b1a 100644
+> > --- a/mm/memremap.c
+> > +++ b/mm/memremap.c
+> > @@ -216,7 +216,7 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
+> >  			return ERR_PTR(-EINVAL);
+> >  		}
+> >  		break;
+> > -	case MEMORY_DEVICE_DEVDAX:
+> > +	case MEMORY_DEVICE_GENERIC:
+> >  		need_devmap_managed = false;
+> >  		break;
+> >  	case MEMORY_DEVICE_PCI_P2PDMA:
+> > 
+> 
+> No strong opinion (@Dan?), I do wonder if a separate type would make sense.
+
+Gentle ping.
+
+Thanks, Roger.
 
