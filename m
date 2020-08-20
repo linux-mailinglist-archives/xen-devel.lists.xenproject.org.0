@@ -2,69 +2,152 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5A9C24B56F
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 12:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DDA024B72A
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 12:48:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8hjd-0003db-0X; Thu, 20 Aug 2020 10:23:53 +0000
+	id 1k8i6l-0005RK-1i; Thu, 20 Aug 2020 10:47:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bq9Y=B6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k8hjc-0003dW-99
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 10:23:52 +0000
-X-Inumbo-ID: 5235a61d-8ce6-4e71-841e-89a7017bcce9
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5235a61d-8ce6-4e71-841e-89a7017bcce9;
- Thu, 20 Aug 2020 10:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=MRGWLTJcBlr13Gj4N7F2Tg5kQZCTcLK7Q7nQ06xGok4=; b=xIA8kbgpAzyk/9BVudf3IZ3UkC
- e2zyf1OorD24FQ+ChzgwDUhKoZ0SEbavnmyZLVgEpQX/mRig40Z4VYOc1SIJ4rwouACg3U9Q6DtpN
- 6mGmqpTVblc2v7Fm/Cv9s+Mom3Og8veySJAVOEsIz4aNJYahSczM6MOYkwDx3cI63j/A=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8hjY-0000A4-Nv; Thu, 20 Aug 2020 10:23:48 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8hjY-0007IH-8e; Thu, 20 Aug 2020 10:23:48 +0000
-Subject: Re: [PATCH v2] xen/arm: Convert runstate address during hypcall
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <4647a019c7b42d40d3c2f5b0a3685954bea7f982.1595948219.git.bertrand.marquis@arm.com>
- <8d2d7f03-450c-d50c-630b-8608c6d42bb9@suse.com>
- <FCAB700B-4617-4323-BE1E-B80DDA1806C1@arm.com>
- <1b046f2c-05c8-9276-a91e-fd55ec098bed@suse.com>
- <alpine.DEB.2.21.2007291356060.1767@sstabellini-ThinkPad-T480s>
- <1a8bbcc7-9d0c-9669-db7b-e837af279027@suse.com>
- <73c8ade5-36a3-cc13-80b6-bda89e175cbb@xen.org>
- <6066b507-f956-8e7a-89f3-b21428b66d65@suse.com>
- <E39531EE-0265-4387-813D-22A57CD3F67B@arm.com>
- <alpine.DEB.2.21.2007310935350.1767@sstabellini-ThinkPad-T480s>
- <3230CBBC-0C63-44DA-A767-14977890547C@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3aa2958a-fec7-8a37-bf49-961b34141d9c@xen.org>
-Date: Thu, 20 Aug 2020 11:23:45 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WowR=B6=arm.com=diego.sueiro@srs-us1.protection.inumbo.net>)
+ id 1k8i6j-0005RF-Db
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 10:47:45 +0000
+X-Inumbo-ID: c9e5ea84-83bf-48a5-af18-9c284a47e5e8
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.21.58]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c9e5ea84-83bf-48a5-af18-9c284a47e5e8;
+ Thu, 20 Aug 2020 10:47:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
+ b=JuWyv5OOEM1+9nm/PBLsk+CSCJ7Uda9s4s4EOjt5BNi4fsA54FfJMHQot2RbJREmi+AezUFvvJmpbhgV9FiqaofF5fQI5d20T7I9TWDdRV/vxvzU/2AKEkWgS6uaO4bIvH308IPtxRoojK7YYoIHGUm8VF5eS8IsXb9rPIhOBUA=
+Received: from DBBPR09CA0029.eurprd09.prod.outlook.com (2603:10a6:10:d4::17)
+ by DB6PR0801MB1832.eurprd08.prod.outlook.com (2603:10a6:4:3c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.22; Thu, 20 Aug
+ 2020 10:47:41 +0000
+Received: from DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:d4:cafe::f0) by DBBPR09CA0029.outlook.office365.com
+ (2603:10a6:10:d4::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24 via Frontend
+ Transport; Thu, 20 Aug 2020 10:47:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT022.mail.protection.outlook.com (10.152.20.171) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 10:47:40 +0000
+Received: ("Tessian outbound bac899b43a54:v64");
+ Thu, 20 Aug 2020 10:47:40 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d4e3161648d2aa11
+X-CR-MTA-TID: 64aa7808
+Received: from 4c3a486f8f79.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ DB0B4DF8-AD5D-46D4-A3ED-B34EA273CAAB.1; 
+ Thu, 20 Aug 2020 10:47:11 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4c3a486f8f79.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 20 Aug 2020 10:47:11 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hGRgb2/cZUX0CFpwbNAGDB4XO5+PJufuuumQMee4eYj1q+uVbTLakYoI9XcQtW7oXx2QNENrTUy9cXxnJpXwoQkKHR0gyp8E+J/0JXsaQbP4zq3718vslXu6evtW0EJYkuIdqoi6u1K5MKI09BExPraBvuxtGpPs0fEEdVnxx8MsEbyITJlEjFYa60HUfpamTUZ/JEx1DblfhiDUnt8hvGSFQtYsiI6ivqztthnBhscHU0nZZ4oD76E3FiGF1TVyrBnw0r3QVbwsFPlRDKNS1SfiwM6QV5iF3c4dm8CGDe9EJ9lUM7KPIUhLVePxAR1zayZxGa447kCTEvsQwP9NgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
+ b=BouUpWwJDsgHFSEk2EWIa0WYbJMXl3ZEEe2FraYJuDyX2kXak+Xy5B4+ONkOwHUO69wg0hgKPMdAaJTBF1H7AiNssoUmPLBjFAWOXnTOrzQtnjZ/VGN4QeWrrgqj2ssgbnN05BIu9ntvSpvCBguCEkIkERPWqNjs4iv08BiKwBpmZY8vd4WXIBJkCIxPKOWkvoQZyHF83Zh86q6Qg5HU4Se3g71JPuS49/ZFHMQ+b/r1Hw6nQ+gAwjonJH537DG5qUcXZnj7aPSZUvONKXPOiWhttdAR7h6Mvo+IWTSq1gbHc7HlL3KKLfVEo8tv1VDdMSosKBlourunKhLt8IGFxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
+ b=JuWyv5OOEM1+9nm/PBLsk+CSCJ7Uda9s4s4EOjt5BNi4fsA54FfJMHQot2RbJREmi+AezUFvvJmpbhgV9FiqaofF5fQI5d20T7I9TWDdRV/vxvzU/2AKEkWgS6uaO4bIvH308IPtxRoojK7YYoIHGUm8VF5eS8IsXb9rPIhOBUA=
+Authentication-Results-Original: lists.xenproject.org; dkim=none (message not
+ signed) header.d=none; lists.xenproject.org;
+ dmarc=none action=none header.from=arm.com;
+Received: from AM6PR08MB3461.eurprd08.prod.outlook.com (2603:10a6:20b:47::28)
+ by AM6PR08MB4182.eurprd08.prod.outlook.com (2603:10a6:20b:ae::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Thu, 20 Aug
+ 2020 10:47:10 +0000
+Received: from AM6PR08MB3461.eurprd08.prod.outlook.com
+ ([fe80::8016:e0c:484c:4255]) by AM6PR08MB3461.eurprd08.prod.outlook.com
+ ([fe80::8016:e0c:484c:4255%4]) with mapi id 15.20.3305.024; Thu, 20 Aug 2020
+ 10:47:10 +0000
+From: Diego Sueiro <diego.sueiro@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: nd@arm.com, Diego Sueiro <diego.sueiro@arm.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 0/3] tools/hotplug: Fixes to vif-nat
+Date: Thu, 20 Aug 2020 11:46:40 +0100
+Message-Id: <cover.1597920095.git.diego.sueiro@arm.com>
+X-Mailer: git-send-email 2.7.4
+Content-Type: text/plain
+X-ClientProxiedBy: LO3P265CA0009.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::14) To AM6PR08MB3461.eurprd08.prod.outlook.com
+ (2603:10a6:20b:47::28)
 MIME-Version: 1.0
-In-Reply-To: <3230CBBC-0C63-44DA-A767-14977890547C@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from e120809-lin.cambridge.arm.com (217.140.106.54) by
+ LO3P265CA0009.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:bb::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 10:47:09 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [217.140.106.54]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9878a33c-5d1c-4a5e-e31a-08d844f67642
+X-MS-TrafficTypeDiagnostic: AM6PR08MB4182:|DB6PR0801MB1832:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DB6PR0801MB183231C653E69C207DF78A7D925A0@DB6PR0801MB1832.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: Gv+2RMa/evqg2d6gigb6ic105gGos4vXmCzbYrw+s4lDDjH/t8lLJjkvSLVMm3B3zI3oVU1FoWV7x1ibROXA1QtVF0+4BKc/VLZA/GYtCNSZiLyltGl8aJ/VzT+8xoc/3ckhpo8BKudo3UwvnED8QC1B91waYSoeKdhcPeZMFot1g9P8MWFocKlFLtdE7oha7G6izICTo5TJF9+OM1MqXkpsI+uOJsovyRJVaax0Igm44AzPZyzn+lK+Gg2JpHtZ3cT4DNA2pK3XtrvylOHXfvBsSIkufuKxWOSod60JmXavk1ivopIP7ijGaMbBDFQWYXIqQFaA8tP9empAQZMPBFCqzYyvtKN827Jm7xoOK6x47maNs8Cvz124+viOhjLR
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM6PR08MB3461.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(366004)(376002)(39860400002)(396003)(6666004)(4326008)(83380400001)(8676002)(36756003)(8936002)(956004)(2616005)(6916009)(44832011)(4744005)(6486002)(316002)(5660300002)(52116002)(186003)(478600001)(66946007)(26005)(7696005)(54906003)(2906002)(86362001)(66476007)(16526019)(66556008)(136400200001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 1wDveLVKhzhYQ+7VxSkfgkl7Ucwucr1mNoHgISMH368JWQiYaT14SzDNocjL9Jg+TuuYuHu+WKnjeYl6ve5aB0ugMCYUEOPZmPpbL6CDn5pLJj2z8irV55NSecjeM9sacyLq35KPZuZb3R9w4zSxBwh4DCaK4UIyhORRA0GgneS10tUezF9qMjGk3KI4IXKJ6Cxev5f00qJpA+wPTqe3fyvhR2yl7KLKsue4pRloyr60y9jdLCFNY0aH8H3WQ3jvfBEqtCpyWNsMPgeK1ONtWV4RmGAC+wRKcbk9GPaFq3kpiwRihDmawq062Npus0sQPm1tnAxzYKp3A1y7vvO/pE4k827oayKiUxnYzKVQfiJAM2KtdsB0LrGDqMq2he/cjOAjCnbPT/pBzz2z8VsyuCYIqAACzaEvF4UNP11gU1OAV1rkM3YmyodkXZcWYgl7kG81Al7sySOxqEz3ubvrwX5j73zmSgVeKdN7sbjM9uQibdTvNii02JI9RS5r145hzGqJtoELAcp9pDf1y0mNP7QeDkOKs2fbAyRJty10TbVQctW1kHnYoTbHXFdBE9LljNl5P+etDFpse8uTOOAe8nA4qUizsCugV0MhxA8pHB0wslmBcDarrs3wTGfo+puwGFtVGzVx/wjYBUo1QnhScg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4182
+Original-Authentication-Results: lists.xenproject.org;
+ dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: d4517d0e-2506-4e66-9f04-08d844f663bd
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JEkk+iTU/IrzRrX9xezv8Yn0YlTH1Q+ZaklGg/T2kNGW9GpcQkdT76podbdu+/ntP92IbYV8lwaZGhMu+rMTRl22v998+uzFtsGvnubvWjVx7HptyTK0PMt2AxrOsYkGGfNMt3717T6q4CDHgjsCc2fd2u9wofCmcOkAsOovwV1UETQVCf458NBqXoLOPZ2uG1eclCXNeJ3xyiKqqoDMj0UZp7bBCvvVtPYOP7rEugoPW2t6pLz7cLlwHof5Vpy2cJS/2Bk54E027B22qO+cqSBZGeJU9z9gF4ZyFe89pd8BNwGXg5hiYZCIWpxYnNbH6UCryTgkHKupFYxbNlVAa6+sHgHSW2lGVttSX5K5IiFAYShD6S+xoIgwzko3qM+wl640MPVdeZ4KCkTZQiatjLf3fJINJCzY8CjmhaMD/voc6Rdg8ELtWvGFDq5Gw+9c
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(376002)(346002)(39860400002)(46966005)(478600001)(8676002)(82310400002)(47076004)(82740400003)(2906002)(70206006)(6486002)(26005)(336012)(8936002)(7696005)(70586007)(316002)(54906003)(44832011)(2616005)(4744005)(86362001)(81166007)(83380400001)(5660300002)(356005)(6666004)(36756003)(956004)(4326008)(186003)(6916009)(16526019)(136400200001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2020 10:47:40.9593 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9878a33c-5d1c-4a5e-e31a-08d844f67642
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1832
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,140 +161,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+This patch series fixes issues around the vif-nat script when
+setting up the vif interface and dhcp server in dom0.
 
-Sorry for the late answer.
+It has been validated and used in Yocto and meta-arm-autonomy
 
-On 14/08/2020 10:25, Bertrand Marquis wrote:
-> 
-> 
->> On 1 Aug 2020, at 00:03, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>
->> On Fri, 31 Jul 2020, Bertrand Marquis wrote:
->>>> On 31 Jul 2020, at 12:18, Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 31.07.2020 12:12, Julien Grall wrote:
->>>>> On 31/07/2020 07:39, Jan Beulich wrote:
->>>>>> We're fixing other issues without breaking the ABI. Where's the
->>>>>> problem of backporting the kernel side change (which I anticipate
->>>>>> to not be overly involved)?
->>>>> This means you can't take advantage of the runstage on existing Linux
->>>>> without any modification.
->>>>>
->>>>>> If the plan remains to be to make an ABI breaking change,
->>>>>
->>>>> For a theoritical PoV, this is a ABI breakage. However, I fail to see
->>>>> how the restrictions added would affect OSes at least on Arm.
->>>>
->>>> "OSes" covering what? Just Linux?
->>>>
->>>>> In particular, you can't change the VA -> PA on Arm without going
->>>>> through an invalid mapping. So I wouldn't expect this to happen for the
->>>>> runstate.
->>>>>
->>>>> The only part that *may* be an issue is if the guest is registering the
->>>>> runstate with an initially invalid VA. Although, I have yet to see that
->>>>> in practice. Maybe you know?
->>>>
->>>> I'm unaware of any such use, but this means close to nothing.
->>>>
->>>>>> then I
->>>>>> think this will need an explicit vote.
->>>>>
->>>>> I was under the impression that the two Arm maintainers (Stefano and I)
->>>>> already agreed with the approach here. Therefore, given the ABI breakage
->>>>> is only affecting Arm, why would we need a vote?
->>>>
->>>> The problem here is of conceptual nature: You're planning to
->>>> make the behavior of a common hypercall diverge between
->>>> architectures, and in a retroactive fashion. Imo that's nothing
->>>> we should do even for new hypercalls, if _at all_ avoidable. If
->>>> we allow this here, we'll have a precedent that people later
->>>> may (and based on my experience will, sooner or later) reference,
->>>> to get their own change justified.
->>
->> Please let's avoid "slippery slope" arguments
->> (https://en.wikipedia.org/wiki/Slippery_slope)
->>
->> We shouldn't consider this instance as the first in a long series of bad
->> decisions on hypercall compatibility. Each new case, if there will be
->> any, will have to be considered based on its own merits. Also, let's
->> keep in mind that there have been no other cases in the last 8 years. (I
->> would like to repeat my support for hypercall ABI compatibility.)
->>
->>
->> I would also kindly ask not to put the discussion on a "conceptual"
->> level: there is no way to fix all guests and also keep compatibility.
->>  From a conceptual point of view, it is already game over :-)
->>
->>
->>> After a discussion with Jan, he is proposing to have a guest config setting to
->>> turn on or off the translation of the address during the hypercall and add a
->>> global Xen command line parameter to set the global default behaviour.
->>> With this was done on arm could be done on x86 and the current behaviour
->>> would be kept by default but possible to modify by configuration.
->>>
->>> @Jan: please correct me if i said something wrong
->>> @others: what is your view on this solution ?
->>
->> Having options to turn on or off the new behavior could be good-to-have
->> if we find a guest that actually requires the old behavior. Today we
->> don't know of any such cases. We have strong reasons to believe that
->> there aren't any on ARM (see Julien's explanation in regards to the
->> temporary invalid mappings.) In fact, it is one of the factors that led
->> us to think this patch is the right approach.
->>
->> That said, I am also OK with adding such a parameter now, but we need to
->> choose the default value carefully.
+Diego Sueiro (3):
+  tools/hotplug: Fix hostname setting in vif-nat
+  tools/hotplug: Fix dhcpd symlink removal in vif-nat
+  tools/hotplug: Extend dhcpd conf, init and arg files search
 
-I agree with that :).
-
-> 
-> This would also mean keeping support in the code for old and new behaviour
-> which might make the code bigger and more complex.
-
-I am concerned with that as well. However, this concern is also going to 
-be true if we introduce an hypercall using a physical address as 
-parameter. Indeed, the old hypercall will not go away.
-
-If we introduce a second hypercall, you will also have to think about 
-the interactions between the two. For instance:
-     - The firmware may register the runstate using the old hypercall, 
-while the OS may register using the new hypercall.
-     - Can an OS use a mix of the two hypercalls?
-
-For more details, you can have a look at the original attempt for a new 
-hypercall (see [1]).
-
-The approach you discussed with Jan has the advantage to not require any 
-change in the guest software stack. So this would be my preference over 
-a new hypercall.
-
->>
->>
->> We need the new behavior as default on ARM because we need the fix to
->> work for all guests. I don't think we want to explain how you always
->> need to set config_foobar otherwise things don't work. It has to work
->> out of the box.
->>
->> It would be nice if we had the same default on x86 too, although I
->> understand if Jan and Andrew don't want to make the same change on x86,
->> at least initially.
-> 
-> So you mean here adding a parameter but only on Arm ?
-> Should it be a command line parameter ? a configuration parameter ? both ?
-> 
-> It seems that with this patch i touched some kind of sensible area.
-> Should i just abandon it and see later to work on adding a new hypercall using
-> a physical address as parameter ?
-
-I would suggest to mention the thread in the next community call.
-
-Cheers,
-
-[1] <1558721577-13958-3-git-send-email-andrii.anisov@gmail.com>
-
+ tools/hotplug/Linux/vif-nat               | 14 ++++++++------
+ tools/hotplug/Linux/xen-network-common.sh |  6 +++---
+ 2 files changed, 11 insertions(+), 9 deletions(-)
 
 -- 
-Julien Grall
+2.7.4
+
 
