@@ -2,50 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951DE24C5A2
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 20:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80D2A24C5C1
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 20:42:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8pPS-0006yF-0I; Thu, 20 Aug 2020 18:35:34 +0000
+	id 1k8pVu-0007qx-Oe; Thu, 20 Aug 2020 18:42:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ewgh=B6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k8pPR-0006yA-00
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 18:35:33 +0000
-X-Inumbo-ID: 69ee646f-0e94-4ac1-a4b8-3466224cc11f
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eCh+=B6=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1k8pVt-0007qs-1C
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 18:42:13 +0000
+X-Inumbo-ID: 88fa5900-e7ff-480b-9ca5-610a058c8be7
+Received: from mail-qt1-x844.google.com (unknown [2607:f8b0:4864:20::844])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 69ee646f-0e94-4ac1-a4b8-3466224cc11f;
- Thu, 20 Aug 2020 18:35:32 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2AA3C206B5;
- Thu, 20 Aug 2020 18:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597948531;
- bh=qnZ7MBpsqa9olG4QJOU3qfWg+5WLOFXvvwnHkeakkaM=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=yj0J/l95458cHwuwKmkeIzRKp2+XJQl9bxZwRMh+ejt4xovdmz+gzxadd3Cn622K2
- 7ooLYDqezGvSYg+UMMyU4scyt+icg8KWJHcoRSoaJYqC5ke2G71y7sEm+8eL5khkBI
- YQjN/zUfPDcwq7uYKHzX2SX/p6ttAbTHwsFjIpSo=
-Date: Thu, 20 Aug 2020 11:35:30 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Simon Leiner <simon@leiner.me>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
-Subject: Re: [Linux] [ARM] Granting memory obtained from the DMA API
-In-Reply-To: <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
-Message-ID: <alpine.DEB.2.21.2008201120260.6005@sstabellini-ThinkPad-T480s>
-References: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
- <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 88fa5900-e7ff-480b-9ca5-610a058c8be7;
+ Thu, 20 Aug 2020 18:42:11 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id x12so1953718qtp.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Aug 2020 11:42:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qmLsthoivadHhJSlkqVIUqWfQFbA2tU4OCnlfAeEmCI=;
+ b=S9ZWEvVCIVCBxEKBq0oJ/3uMVo/+N+pFbTpW42S2Ta0/RGcjeIqaFlBdnJxLCt14Vb
+ y5vVV+nbg3DgloMaWfDdFcLP9Y6zETdwRXd3YwoAosUz/Kv+WMBQJCpehqtB6L65V4ok
+ cXoWXD7bi26LN0uWXw0HaWtOocif7+Fs6YWoG/ucZhAiEIm2RrqNWnEZdgIiTKqNiagm
+ Vzb45cyxVuqxCH2zVEZTLuJZFpcYnam5kL+bMhqp1DD466H2IlEkIRzZkEvPFQhN++4M
+ +6dwvoaSXwuYcg7teIij4COJG3csfIlLAI+7FSHeLtU/XAH8a5eISbmV78XHwkAdgZN5
+ E6/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qmLsthoivadHhJSlkqVIUqWfQFbA2tU4OCnlfAeEmCI=;
+ b=uC8bSdnppj/fjSXqNasZ+40J9kbTrOU8Yqdf8QNovmbsyQCSxOSn7PKZRH6nzhg980
+ G0MowarQUWZ+OrrJ0c+qsEdo6D/b5yE5P9XA7IsWf/DN+SZ/kVK58he0KOEDe42OLO2M
+ qovkfxlsfO9hatxDKhcpEv66DWb5WdpkzpfRAo3DBumgsDVFRt+awmrofjDbG61cq2ak
+ 1KtpvgkBCRP9UrMJe9gTOTr3k+t7oQdS+9nQMwkSiTQG+zClpBmcvSELb/uP1DgQVC0g
+ QxKFnSvOdTRIj/9nZ4Eq+3HJc2FDhzmTw+rhc2Jk18QWBO/I68oZYS5+0bwu8R/fZOVF
+ p+FA==
+X-Gm-Message-State: AOAM531eTmjcEEB+ZCW/hzDZJp6Lf7n9X1yp/O8k2ubzkYaJA91cN3At
+ N4oeaZ++ZblS6JEuHTzMW2OYYp+7YlHvwRtCvEtaGw==
+X-Google-Smtp-Source: ABdhPJyTCCioU3H7Zx8BLRmc4vvlPIaKd2O87jhuyJpAwKPPhrkvW0C1wNk9rJSVxzOZoeNq65bN8Z4KMLPzQd+m6rw=
+X-Received: by 2002:ac8:528b:: with SMTP id s11mr3886990qtn.63.1597948929998; 
+ Thu, 20 Aug 2020 11:42:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <CAMmSBy-EduiWV-rZfykc8Xh6GyOBAe5VNF44p6HjR8kn_bDZjA@mail.gmail.com>
+ <8a01a6e3-a786-2d68-5640-343bcc084b45@xen.org>
+ <CAMmSBy92Aiz8btqkEbU9oVJifJ3ft0htPpjObGz-wYVjXuwvoQ@mail.gmail.com>
+ <af097943-89fe-76db-54f4-89a3e534d586@xen.org>
+ <d921de55-e26a-e5e7-2a4d-b34fca2e8875@epam.com>
+In-Reply-To: <d921de55-e26a-e5e7-2a4d-b34fca2e8875@epam.com>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Thu, 20 Aug 2020 11:41:58 -0700
+Message-ID: <CAMmSBy9Yr5GnTtckKNDkZn7AL7cAg6OqvV7PWyMTgwqUoim-LA@mail.gmail.com>
+Subject: Re: u-boot vs. uefi as boot loaders on ARM
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Cc: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>, 
+ "vicooodin@gmail.com" <vicooodin@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,63 +74,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 20 Aug 2020, Julien Grall wrote:
-> > Part of virtio is having shared memory. So naturally, I'm using Xen's
-> > grant system for that. Part of the Xenbus client API is the function
-> > xenbus_grant_ring which, by its documentation grants access to a block
-> > of memory starting at vaddr to another domain. I tried using this in my
-> > driver which created the grants and returned without any error, but
-> > after mounting the grants on another domain, it turns out that some
-> > other location in memory was actually granted instead of the one behind
-> > the original vaddr.
-> > 
-> > So I found the problem: The vaddr that I was using xenbus_grant_ring
-> > with was obtained by dma_alloc_coherent (whereas the other split
-> > drivers included in the mainline kernel use Xen IO rings allocated by
-> > the "regular" mechanisms such as __get_free_page, alloc_page etc.).
-> > But xenbus_grant_ring uses virt_to_gfn to get the GFN for the vaddr
-> > which on ARM(64) must not be used for DMA addresses. So I could fix the
-> > problem by providing a modified version of xenbus_grant_ring as part of
-> > my driver which takes a dma_addr_t instead of a void* for the start
-> > address, gets the PFN via dma_to_phys, converts it to a GFN and then
-> > delegates to gnttab_grant_foreign_access, just like xenbus_grant_ring.
-> > I can confirm that this works on Linux 5.4.0.
+On Thu, Aug 20, 2020 at 4:27 AM Oleksandr Andrushchenko
+<Oleksandr_Andrushchenko@epam.com> wrote:
 >
-> > My question to you is: How can this be fixed "the right way"?
-> > Is there anything that can be done to prevent others from debugging
-> > the same problem (which for me, took some hours...)?
-> > 
-> > I can see multiple approaches:
-> > 1. Have xenbus_grant_ring "just work" even with DMA addresses on ARM
-> >     This would certainly be the nicest solution, but I don't see how
-> >     it could be implemented. I don't know how to check whether some
-> >     address actually is a DMA address and even if there was a way to
-> >     know, dma_to_phys still requires a pointer to the device struct
-> >     which was used for allocation.
-> > 2. Provide another version which takes a dma_addr_t instead of void*
-> >     This can be easily done, but things get complicated when the device
-> >     for which the DMA memory was allocated is not the xenbus_device
-> >     which is passed anyway. So, it would be necessary to include an
-> >     additional argument pointing the actual device struct which was used
-> >     for allocation.
-> > 3. Just use gnttab_grant_foreign_access which works with GFNs anyway
-> >     Which is essentially what I'm doing currently, as in my driver I
-> >     know from which the device the DMA addresses were allocated.
-> >     If this is the preferred solution to this problem, I propose adding
-> >     a warning to the documentation of xenbus_grant_ring that forbids
-> >     using this for vaddrs obtained from the DMA API as it will not work
-> >     (at least on ARM).
-> > 
-> > What do you think?
+>
+> On 8/20/20 1:50 PM, Julien Grall wrote:
+> > Hi Roman,
+> >
+> > On 16/08/2020 21:45, Roman Shaposhnik wrote:
+> >> On Sun, Aug 16, 2020 at 7:54 AM Julien Grall <julien@xen.org> wrote:
+> >>> On 15/08/2020 21:43, Roman Shaposhnik wrote:
+> >>>> Hi!
+> >>>
+> >>> Hi,
+> >>>
+> >>>> with the recent excellent work by Anastasiia committed to the u-boot's
+> >>>> main line, we now have two different ways of bringing ARM DomUs.
+> >>>>
+> >>>> Is there any chance someone can educate the general public on pros
+> >>>> and cons of both approaches?
+> >>>>
+> >>>> In Project EVE we're still using uefi on ARM (to stay closer to the more
+> >>>> "ARM in the cloud" use case) but perhaps the situation now is more
+> >>>> nuanced?
+> >>>
+> >>> UEFI is just standard, so I am guessing you are referring to
+> >>> Tianocore/EDK2. am I correct?
+> >>
+> >> Yes, but I was actually referring to both in a way (I should've been
+> >> clearer tho).
+> >> To be more explicit my question was around trying to compare a "standardized"
+> >> way of botting a generic DomU on ARM (and that standard is UEFI with one
+> >> particular implementation that works out of the box with Xen being TC/EDK2) with
+> >> a more ad-hoc u-boot style of booting.
+> >>
+> >>> Recent version of U-boot are also able to partially UEFI. This means you
+> >>> could easily use GRUB with U-boot.
+> >>
+> >> Yup -- which complicated things even more. And it is funny you should mention
+> >> it, since we actually started with TC/EDK2 for RaspberryPi4 as a board
+> >> bootloader,
+> >> but quickly switched to u-boot with UEFI shim layer, since it was much smaller,
+> >> better supported (still?) and gave us all we needed to boot Xen on RPi4 as a
+> >> UEFI payload.
+> >>
+> >>>  From my understanding, U-boot is just a bootloader. Therefore it will
+> >>> not provide runtime services (such as date & time).
+> >>
+> >> It actually does provide some of that (see below)
+> >
+> > Cool! Although, it looks mostly related to the environment variable though.
+> >
+> >>
+> >>> Furthermore, the
+> >>> interface is less user friendly, you will have to know the memory layout
+> >>> in order to load binaries.
+> >>>
+> >>> On the other hand, Tianocore/EDK2 is very similar to what non-embedded
+> >>> may be used to. It will not require you to know your memory layout. But
+> >>> this comes at the cost of a more complex bootloader to debug.
+> >>
+> >> That's literally the crux of my question -- trying to understand what use cases
+> >> either one of them is meant for. Especially given that this shim layer is now
+> >> quite capable:
+> >> https://github.com/ARM-software/u-boot/blob/master/doc/README.uefi#L127
+> >
+> > While I can see major differences when using either on baremetal (you have better control on the Device-Tree with U-boot), it is much less clear in a guest. Maybe Anastasiia can explain why they decided to add support in U-boot? :).
+>
+> Well, there are many SoC vendors provide u-boot as their boot loader,
+>
+> so it was natural for us to add pvblock to it (Renesas, Xilinx, iMX, RPi, you name it).
+>
+> So this is the only reason I guess
 
-Thank for the well-written analysis of the problem. The following should
-work to translate the virtual address properly in xenbus_grant_ring:
+What I am wondering about (perhaps selfishly because of Project EVE)
+is the availability
+of VMs for u-boot.
 
-	if (is_vmalloc_addr(vaddr))
-		page = vmalloc_to_page(vaddr);
-	else
-		page = virt_to_page(vaddr);
+IOW, with UEFI I can pick up a random "cloud" (or any other one
+really) ARM VM image
+and boot it as DomU simply because it seems that 99% of existing VMs
+are packaged
+with a EFI partition setup for a UEFI boot.
 
-Please give it a try and let me know. Otherwise, if it cannot be made to
-work, option 3 with a proper warning is also fine.
+Stefano and I actually talked about availability of VMs that are
+pre-set with u-boot, but
+it seems that the only place where you can find something like that is
+Xilinx (for their
+Petalinux). Stefano also brought up a point that Yocto would generate
+u-boot's boot.scr
+scripts -- but I have no experience with that and would appreciate
+other commenting.
+
+All of that said, it would be simply awesome if we can have a wiki
+page with examples
+of where to get (or how to build) DomUs that would be setup for u-boot
+sequence on ARM.
+
+Thanks,
+Roman.
 
