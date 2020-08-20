@@ -2,52 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E47D24AD30
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 05:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C0024AD73
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 05:47:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8axI-0005nr-7F; Thu, 20 Aug 2020 03:09:32 +0000
+	id 1k8bXS-0000oX-DO; Thu, 20 Aug 2020 03:46:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wVIa=B6=infradead.org=rdunlap@srs-us1.protection.inumbo.net>)
- id 1k8axF-0005nm-9h
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 03:09:30 +0000
-X-Inumbo-ID: a0e5f857-9cd0-44bc-bdee-6efb0bb11fab
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ <SRS0=wn9w=B6=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k8bXR-0000o8-IB
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 03:46:53 +0000
+X-Inumbo-ID: 2aade9de-557b-4f87-be62-061322069a6a
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a0e5f857-9cd0-44bc-bdee-6efb0bb11fab;
- Thu, 20 Aug 2020 03:09:17 +0000 (UTC)
+ id 2aade9de-557b-4f87-be62-061322069a6a;
+ Thu, 20 Aug 2020 03:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=H+SyqcNb49+mDUM1prCpCzJfpwLQzblN5HpcsZjj2rI=; b=N2ufH3j0O9x7ZeuJWkXPfzRVAd
- F3ljpyVSfWVlUh+bQ1M1TDKhIncYmALW2YNyS6C4yUYb5IxMzYuwO5xUUMVauvZpxWizmgpGrZ/et
- vdxl6NARI0L8y6WNO/JEG9FCAREUtgbfQcrc8QZWJ4tLcdMHj//nV8e31vVgkskRGwCDyfrPjWWTH
- uSEVlS7aEaq0+6BOB8j5vOfM0Yf0vvw2AT1L2KKqUt+Q2KSLFOUePcj0JfCKSwgJ/zBaRtwNc+co8
- 4EBNj04Uhey+Zld8GtuVkTfGG0nVxfOpY/6CQy4UW+HxaQ+yIonuiVXaHJNaqssvv/ojjQXnA+Ogv
- zceMaRIQ==;
-Received: from [2601:1c0:6280:3f0::19c2]
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k8ax0-0003mZ-Lb; Thu, 20 Aug 2020 03:09:15 +0000
-Subject: Re: [PATCH] x86/pci: fix xen.c build error when CONFIG_ACPI is not set
-From: Randy Dunlap <rdunlap@infradead.org>
-To: LKML <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
-Message-ID: <88afdd4a-1b30-d836-05ce-8919b834579b@infradead.org>
-Date: Wed, 19 Aug 2020 20:09:11 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=bz6hwKfYickDT8AkpUvj3bgDn895H10lcblcA014ORw=; b=wyJbvLmZyz5lKhVoxw+ZS5StZs
+ zdYNNZu6YwCx6A8mQsPX+3x2WgzFL0x9ozi67IxiQ3PpZd4frVBSLPoNOYot84UFpAVVduryr3N5l
+ 3T4ymfZsr3zSqToNZCguP5fYI081xNqYpEaBaTB54bcPkmWwI58daOvd1ia+Lxa5jx+8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k8bXK-0007aF-Gu; Thu, 20 Aug 2020 03:46:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k8bXK-0004BW-9P; Thu, 20 Aug 2020 03:46:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k8bXK-0002OQ-90; Thu, 20 Aug 2020 03:46:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152617-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 152617: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=a048af3c9073e4b8108e6cf920bbb35574059639
+X-Osstest-Versions-That: ovmf=7f7f511c5a74676523ed48435350f6e35282b62b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 20 Aug 2020 03:46:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +60,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Konrad,
+flight 152617 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152617/
 
-ping.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 a048af3c9073e4b8108e6cf920bbb35574059639
+baseline version:
+ ovmf                 7f7f511c5a74676523ed48435350f6e35282b62b
 
-I am still seeing this build error. It looks like this is
-in your territory to merge...
+Last test of basis   152594  2020-08-14 03:13:03 Z    6 days
+Testing same since   152617  2020-08-19 09:13:09 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Brijesh Singh <brijesh.singh@amd.com>
+  Cole Robinson <crobinso@redhat.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-On 8/13/20 4:00 PM, Randy Dunlap wrote:
-> From: Randy Dunlap <rdunlap@infradead.org>
-> 
-> Fix build error when CONFIG_ACPI is not set/enabled:
-> 
-> ../arch/x86/pci/xen.c: In function ‘pci_xen_init’:
-> ../arch/x86/pci/xen.c:410:2: error: implicit declaration of function ‘acpi_noirq_set’; did you mean ‘acpi_irq_get’? [-Werror=implicit-function-declaration]
->   acpi_noirq_set();
-> 
-> Fixes: 88e9ca161c13 ("xen/pci: Use acpi_noirq_set() helper to avoid #ifdef")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> Cc: xen-devel@lists.xenproject.org
-> Cc: linux-pci@vger.kernel.org
-> ---
->  arch/x86/pci/xen.c |    1 +
->  1 file changed, 1 insertion(+)
-> 
-> --- linux-next-20200813.orig/arch/x86/pci/xen.c
-> +++ linux-next-20200813/arch/x86/pci/xen.c
-> @@ -26,6 +26,7 @@
->  #include <asm/xen/pci.h>
->  #include <asm/xen/cpuid.h>
->  #include <asm/apic.h>
-> +#include <asm/acpi.h>
->  #include <asm/i8259.h>
->  
->  static int xen_pcifront_enable_irq(struct pci_dev *dev)
-> 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-thanks.
--- 
-~Randy
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7f7f511c5a..a048af3c90  a048af3c9073e4b8108e6cf920bbb35574059639 -> xen-tested-master
 
