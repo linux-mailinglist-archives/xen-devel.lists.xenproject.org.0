@@ -2,152 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDA024B72A
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 12:48:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 657EB24B736
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 12:50:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8i6l-0005RK-1i; Thu, 20 Aug 2020 10:47:47 +0000
+	id 1k8i9Q-0006Dh-IP; Thu, 20 Aug 2020 10:50:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WowR=B6=arm.com=diego.sueiro@srs-us1.protection.inumbo.net>)
- id 1k8i6j-0005RF-Db
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 10:47:45 +0000
-X-Inumbo-ID: c9e5ea84-83bf-48a5-af18-9c284a47e5e8
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.58]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9e5ea84-83bf-48a5-af18-9c284a47e5e8;
- Thu, 20 Aug 2020 10:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
- b=JuWyv5OOEM1+9nm/PBLsk+CSCJ7Uda9s4s4EOjt5BNi4fsA54FfJMHQot2RbJREmi+AezUFvvJmpbhgV9FiqaofF5fQI5d20T7I9TWDdRV/vxvzU/2AKEkWgS6uaO4bIvH308IPtxRoojK7YYoIHGUm8VF5eS8IsXb9rPIhOBUA=
-Received: from DBBPR09CA0029.eurprd09.prod.outlook.com (2603:10a6:10:d4::17)
- by DB6PR0801MB1832.eurprd08.prod.outlook.com (2603:10a6:4:3c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.22; Thu, 20 Aug
- 2020 10:47:41 +0000
-Received: from DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:d4:cafe::f0) by DBBPR09CA0029.outlook.office365.com
- (2603:10a6:10:d4::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24 via Frontend
- Transport; Thu, 20 Aug 2020 10:47:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
- dmarc=bestguesspass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT022.mail.protection.outlook.com (10.152.20.171) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 10:47:40 +0000
-Received: ("Tessian outbound bac899b43a54:v64");
- Thu, 20 Aug 2020 10:47:40 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d4e3161648d2aa11
-X-CR-MTA-TID: 64aa7808
-Received: from 4c3a486f8f79.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- DB0B4DF8-AD5D-46D4-A3ED-B34EA273CAAB.1; 
- Thu, 20 Aug 2020 10:47:11 +0000
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4c3a486f8f79.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 20 Aug 2020 10:47:11 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hGRgb2/cZUX0CFpwbNAGDB4XO5+PJufuuumQMee4eYj1q+uVbTLakYoI9XcQtW7oXx2QNENrTUy9cXxnJpXwoQkKHR0gyp8E+J/0JXsaQbP4zq3718vslXu6evtW0EJYkuIdqoi6u1K5MKI09BExPraBvuxtGpPs0fEEdVnxx8MsEbyITJlEjFYa60HUfpamTUZ/JEx1DblfhiDUnt8hvGSFQtYsiI6ivqztthnBhscHU0nZZ4oD76E3FiGF1TVyrBnw0r3QVbwsFPlRDKNS1SfiwM6QV5iF3c4dm8CGDe9EJ9lUM7KPIUhLVePxAR1zayZxGa447kCTEvsQwP9NgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
- b=BouUpWwJDsgHFSEk2EWIa0WYbJMXl3ZEEe2FraYJuDyX2kXak+Xy5B4+ONkOwHUO69wg0hgKPMdAaJTBF1H7AiNssoUmPLBjFAWOXnTOrzQtnjZ/VGN4QeWrrgqj2ssgbnN05BIu9ntvSpvCBguCEkIkERPWqNjs4iv08BiKwBpmZY8vd4WXIBJkCIxPKOWkvoQZyHF83Zh86q6Qg5HU4Se3g71JPuS49/ZFHMQ+b/r1Hw6nQ+gAwjonJH537DG5qUcXZnj7aPSZUvONKXPOiWhttdAR7h6Mvo+IWTSq1gbHc7HlL3KKLfVEo8tv1VDdMSosKBlourunKhLt8IGFxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AZpCkk+t0O1+/fDGWt4Akfs3tDNz6wzlxduszvt3SXk=;
- b=JuWyv5OOEM1+9nm/PBLsk+CSCJ7Uda9s4s4EOjt5BNi4fsA54FfJMHQot2RbJREmi+AezUFvvJmpbhgV9FiqaofF5fQI5d20T7I9TWDdRV/vxvzU/2AKEkWgS6uaO4bIvH308IPtxRoojK7YYoIHGUm8VF5eS8IsXb9rPIhOBUA=
-Authentication-Results-Original: lists.xenproject.org; dkim=none (message not
- signed) header.d=none; lists.xenproject.org;
- dmarc=none action=none header.from=arm.com;
-Received: from AM6PR08MB3461.eurprd08.prod.outlook.com (2603:10a6:20b:47::28)
- by AM6PR08MB4182.eurprd08.prod.outlook.com (2603:10a6:20b:ae::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Thu, 20 Aug
- 2020 10:47:10 +0000
-Received: from AM6PR08MB3461.eurprd08.prod.outlook.com
- ([fe80::8016:e0c:484c:4255]) by AM6PR08MB3461.eurprd08.prod.outlook.com
- ([fe80::8016:e0c:484c:4255%4]) with mapi id 15.20.3305.024; Thu, 20 Aug 2020
- 10:47:10 +0000
-From: Diego Sueiro <diego.sueiro@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: nd@arm.com, Diego Sueiro <diego.sueiro@arm.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 0/3] tools/hotplug: Fixes to vif-nat
-Date: Thu, 20 Aug 2020 11:46:40 +0100
-Message-Id: <cover.1597920095.git.diego.sueiro@arm.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain
-X-ClientProxiedBy: LO3P265CA0009.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::14) To AM6PR08MB3461.eurprd08.prod.outlook.com
- (2603:10a6:20b:47::28)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bq9Y=B6=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k8i9O-0006Da-Q3
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 10:50:30 +0000
+X-Inumbo-ID: 5a073c4b-0a38-4419-97c2-2f18f614df36
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5a073c4b-0a38-4419-97c2-2f18f614df36;
+ Thu, 20 Aug 2020 10:50:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=VMv1F7aT4ZvyhS/9/1pa/u4zOzwKhk+TSi9eMZ4HMss=; b=31j6u0osp0eyF8c7GGEYXZfRoc
+ wFIkCZVSNrl9bmoywzsf5XSqbZ3w8a2bi+A+7QEEtKg4V9ipBGvp8zUCCQw7VHnSPogN9RJDCNJkl
+ q2QZ1soHB/a3ACaRCJXpzs+P9b1XYBYg3uXWmnZPZbgcPtpay6ETwvE/ijvG/Z9eQX4M=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8i9N-0000hm-EO; Thu, 20 Aug 2020 10:50:29 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k8i9M-00007u-WF; Thu, 20 Aug 2020 10:50:29 +0000
+Subject: Re: u-boot vs. uefi as boot loaders on ARM
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, vicooodin@gmail.com,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <CAMmSBy-EduiWV-rZfykc8Xh6GyOBAe5VNF44p6HjR8kn_bDZjA@mail.gmail.com>
+ <8a01a6e3-a786-2d68-5640-343bcc084b45@xen.org>
+ <CAMmSBy92Aiz8btqkEbU9oVJifJ3ft0htPpjObGz-wYVjXuwvoQ@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <af097943-89fe-76db-54f4-89a3e534d586@xen.org>
+Date: Thu, 20 Aug 2020 11:50:22 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from e120809-lin.cambridge.arm.com (217.140.106.54) by
- LO3P265CA0009.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:bb::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3305.24 via Frontend Transport; Thu, 20 Aug 2020 10:47:09 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [217.140.106.54]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9878a33c-5d1c-4a5e-e31a-08d844f67642
-X-MS-TrafficTypeDiagnostic: AM6PR08MB4182:|DB6PR0801MB1832:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DB6PR0801MB183231C653E69C207DF78A7D925A0@DB6PR0801MB1832.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: Gv+2RMa/evqg2d6gigb6ic105gGos4vXmCzbYrw+s4lDDjH/t8lLJjkvSLVMm3B3zI3oVU1FoWV7x1ibROXA1QtVF0+4BKc/VLZA/GYtCNSZiLyltGl8aJ/VzT+8xoc/3ckhpo8BKudo3UwvnED8QC1B91waYSoeKdhcPeZMFot1g9P8MWFocKlFLtdE7oha7G6izICTo5TJF9+OM1MqXkpsI+uOJsovyRJVaax0Igm44AzPZyzn+lK+Gg2JpHtZ3cT4DNA2pK3XtrvylOHXfvBsSIkufuKxWOSod60JmXavk1ivopIP7ijGaMbBDFQWYXIqQFaA8tP9empAQZMPBFCqzYyvtKN827Jm7xoOK6x47maNs8Cvz124+viOhjLR
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM6PR08MB3461.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(366004)(376002)(39860400002)(396003)(6666004)(4326008)(83380400001)(8676002)(36756003)(8936002)(956004)(2616005)(6916009)(44832011)(4744005)(6486002)(316002)(5660300002)(52116002)(186003)(478600001)(66946007)(26005)(7696005)(54906003)(2906002)(86362001)(66476007)(16526019)(66556008)(136400200001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 1wDveLVKhzhYQ+7VxSkfgkl7Ucwucr1mNoHgISMH368JWQiYaT14SzDNocjL9Jg+TuuYuHu+WKnjeYl6ve5aB0ugMCYUEOPZmPpbL6CDn5pLJj2z8irV55NSecjeM9sacyLq35KPZuZb3R9w4zSxBwh4DCaK4UIyhORRA0GgneS10tUezF9qMjGk3KI4IXKJ6Cxev5f00qJpA+wPTqe3fyvhR2yl7KLKsue4pRloyr60y9jdLCFNY0aH8H3WQ3jvfBEqtCpyWNsMPgeK1ONtWV4RmGAC+wRKcbk9GPaFq3kpiwRihDmawq062Npus0sQPm1tnAxzYKp3A1y7vvO/pE4k827oayKiUxnYzKVQfiJAM2KtdsB0LrGDqMq2he/cjOAjCnbPT/pBzz2z8VsyuCYIqAACzaEvF4UNP11gU1OAV1rkM3YmyodkXZcWYgl7kG81Al7sySOxqEz3ubvrwX5j73zmSgVeKdN7sbjM9uQibdTvNii02JI9RS5r145hzGqJtoELAcp9pDf1y0mNP7QeDkOKs2fbAyRJty10TbVQctW1kHnYoTbHXFdBE9LljNl5P+etDFpse8uTOOAe8nA4qUizsCugV0MhxA8pHB0wslmBcDarrs3wTGfo+puwGFtVGzVx/wjYBUo1QnhScg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4182
-Original-Authentication-Results: lists.xenproject.org;
- dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs: d4517d0e-2506-4e66-9f04-08d844f663bd
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JEkk+iTU/IrzRrX9xezv8Yn0YlTH1Q+ZaklGg/T2kNGW9GpcQkdT76podbdu+/ntP92IbYV8lwaZGhMu+rMTRl22v998+uzFtsGvnubvWjVx7HptyTK0PMt2AxrOsYkGGfNMt3717T6q4CDHgjsCc2fd2u9wofCmcOkAsOovwV1UETQVCf458NBqXoLOPZ2uG1eclCXNeJ3xyiKqqoDMj0UZp7bBCvvVtPYOP7rEugoPW2t6pLz7cLlwHof5Vpy2cJS/2Bk54E027B22qO+cqSBZGeJU9z9gF4ZyFe89pd8BNwGXg5hiYZCIWpxYnNbH6UCryTgkHKupFYxbNlVAa6+sHgHSW2lGVttSX5K5IiFAYShD6S+xoIgwzko3qM+wl640MPVdeZ4KCkTZQiatjLf3fJINJCzY8CjmhaMD/voc6Rdg8ELtWvGFDq5Gw+9c
-X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
- PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE;
- SFS:(4636009)(136003)(396003)(376002)(346002)(39860400002)(46966005)(478600001)(8676002)(82310400002)(47076004)(82740400003)(2906002)(70206006)(6486002)(26005)(336012)(8936002)(7696005)(70586007)(316002)(54906003)(44832011)(2616005)(4744005)(86362001)(81166007)(83380400001)(5660300002)(356005)(6666004)(36756003)(956004)(4326008)(186003)(6916009)(16526019)(136400200001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2020 10:47:40.9593 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9878a33c-5d1c-4a5e-e31a-08d844f67642
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
- Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1832
+In-Reply-To: <CAMmSBy92Aiz8btqkEbU9oVJifJ3ft0htPpjObGz-wYVjXuwvoQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,21 +64,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This patch series fixes issues around the vif-nat script when
-setting up the vif interface and dhcp server in dom0.
+Hi Roman,
 
-It has been validated and used in Yocto and meta-arm-autonomy
+On 16/08/2020 21:45, Roman Shaposhnik wrote:
+> On Sun, Aug 16, 2020 at 7:54 AM Julien Grall <julien@xen.org> wrote:
+>> On 15/08/2020 21:43, Roman Shaposhnik wrote:
+>>> Hi!
+>>
+>> Hi,
+>>
+>>> with the recent excellent work by Anastasiia committed to the u-boot's
+>>> main line, we now have two different ways of bringing ARM DomUs.
+>>>
+>>> Is there any chance someone can educate the general public on pros
+>>> and cons of both approaches?
+>>>
+>>> In Project EVE we're still using uefi on ARM (to stay closer to the more
+>>> "ARM in the cloud" use case) but perhaps the situation now is more
+>>> nuanced?
+>>
+>> UEFI is just standard, so I am guessing you are referring to
+>> Tianocore/EDK2. am I correct?
+> 
+> Yes, but I was actually referring to both in a way (I should've been
+> clearer tho).
+> To be more explicit my question was around trying to compare a "standardized"
+> way of botting a generic DomU on ARM (and that standard is UEFI with one
+> particular implementation that works out of the box with Xen being TC/EDK2) with
+> a more ad-hoc u-boot style of booting.
+> 
+>> Recent version of U-boot are also able to partially UEFI. This means you
+>> could easily use GRUB with U-boot.
+> 
+> Yup -- which complicated things even more. And it is funny you should mention
+> it, since we actually started with TC/EDK2 for RaspberryPi4 as a board
+> bootloader,
+> but quickly switched to u-boot with UEFI shim layer, since it was much smaller,
+> better supported (still?) and gave us all we needed to boot Xen on RPi4 as a
+> UEFI payload.
+> 
+>>  From my understanding, U-boot is just a bootloader. Therefore it will
+>> not provide runtime services (such as date & time).
+> 
+> It actually does provide some of that (see below)
 
-Diego Sueiro (3):
-  tools/hotplug: Fix hostname setting in vif-nat
-  tools/hotplug: Fix dhcpd symlink removal in vif-nat
-  tools/hotplug: Extend dhcpd conf, init and arg files search
+Cool! Although, it looks mostly related to the environment variable though.
 
- tools/hotplug/Linux/vif-nat               | 14 ++++++++------
- tools/hotplug/Linux/xen-network-common.sh |  6 +++---
- 2 files changed, 11 insertions(+), 9 deletions(-)
+> 
+>> Furthermore, the
+>> interface is less user friendly, you will have to know the memory layout
+>> in order to load binaries.
+>>
+>> On the other hand, Tianocore/EDK2 is very similar to what non-embedded
+>> may be used to. It will not require you to know your memory layout. But
+>> this comes at the cost of a more complex bootloader to debug.
+> 
+> That's literally the crux of my question -- trying to understand what use cases
+> either one of them is meant for. Especially given that this shim layer is now
+> quite capable:
+>      https://github.com/ARM-software/u-boot/blob/master/doc/README.uefi#L127
+
+While I can see major differences when using either on baremetal (you 
+have better control on the Device-Tree with U-boot), it is much less 
+clear in a guest. Maybe Anastasiia can explain why they decided to add 
+support in U-boot? :).
+
+Cheers,
 
 -- 
-2.7.4
-
+Julien Grall
 
