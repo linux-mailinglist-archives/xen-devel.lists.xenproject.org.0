@@ -2,66 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73DF124B2A7
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 11:35:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FB1124B2A8
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 11:35:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8gyE-0006wg-7X; Thu, 20 Aug 2020 09:34:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bq9Y=B6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k8gyC-0006wa-RR
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 09:34:52 +0000
-X-Inumbo-ID: 18a15336-c0f4-491d-b416-47ed95396f9a
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 18a15336-c0f4-491d-b416-47ed95396f9a;
- Thu, 20 Aug 2020 09:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=DIk7aDgBORonPkW2B3FxAe671TJ60KMahkum99U05ik=; b=lG9jRKG8AHd6qhbidBDV9w4OA4
- up6JfBMs/5gwskOX1CsIiS8qMoAfEqJgVTJBDdfg2k+yl5/2m7udSdcSfarJzFIGx02MRvl14gYb4
- hbi5lT5is2jV12hGp4u8tiaP0nRdvAThon2dueZBiTqg7BTK0x8ENDBvOhEwNnyMBBeQ=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8gy9-0007TQ-SO; Thu, 20 Aug 2020 09:34:49 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k8gy9-0004JJ-G2; Thu, 20 Aug 2020 09:34:49 +0000
-Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20200815172143.1327-1-julien@xen.org>
- <20200817092406.GO975@Air-de-Roger>
- <b620dc46-7446-a440-5fd2-fd1cc7f8ffa7@xen.org>
- <20200817103306.GA828@Air-de-Roger>
- <f8b9a884-79e3-bd9d-d7bc-94fb9ee9906d@xen.org>
- <20200817114730.GB828@Air-de-Roger>
- <67e0c0f1-d85f-ad4d-d6bb-cee3603962f4@xen.org>
- <0fc30c51-9a7b-6421-ecdf-dbdbb76480f7@suse.com>
- <7f37a386-d758-ac3e-c32b-f7bb1b523f52@xen.org>
- <7998876a-d909-6987-8edf-542798f7eee8@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e2ec7dc5-49a6-ba3f-d3b0-a22bbbf411dc@xen.org>
-Date: Thu, 20 Aug 2020 10:34:44 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+	id 1k8gyM-0006x7-G5; Thu, 20 Aug 2020 09:35:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fjk3=B6=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1k8gyK-0006x1-KB
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 09:35:00 +0000
+X-Inumbo-ID: f48d82c5-1d25-4aa1-bebe-bba8ee9b17f2
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f48d82c5-1d25-4aa1-bebe-bba8ee9b17f2;
+ Thu, 20 Aug 2020 09:34:59 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id BA2BA5C00E2;
+ Thu, 20 Aug 2020 05:34:59 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 20 Aug 2020 05:34:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=KlpKEu
+ wCoUOMNODDk2NCxK/d+w7GprnH5JN5nth+uqI=; b=GxjAAHVEytKq/BXRBWsDxY
+ Dxd+QGSxNyMLn8B6w2bmBHtKm0VvhbkJfRUN+wyQ76fLyGOXps4Bp6lYyc4OslUw
+ CviOtRimIJz9e2GPwAWHPkkz3VZaVHMy2Z6/iya0NhhpWD5ntBeJ90TymbMmOduH
+ 3krwawSMZhRk62Fen4KFAIwaFpKwtMjkHuPsycm80afeY8OO2MMdzaVumezTlJuR
+ KNdi/GebTHioOcjUAw+WHIL42E1ecSYrMhFzPEmoMIHdf2zRwB0mvdaIyXsWN/X3
+ Y3J3scEeV/uBB9xAOB9U+m+IL8p1ufOJM6tCcD6E2OXIw8nHg8Q0JAp/YVuc6/DA
+ ==
+X-ME-Sender: <xms:w0M-X1DHNrYONv3eKsbyxF6ogxOn86preXDIu8-vS1TG9SLjSV9H_Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddutddgudegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+ iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+ durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+ rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+ drtghomh
+X-ME-Proxy: <xmx:w0M-XzjZGjLAp3n9_azWu0HJ-2LvhXEr0Nw-aGIfzOfEUa-iC2utxg>
+ <xmx:w0M-XwkllzvvDnn213E9uwXCMcpLM26j6UTX6b_kkAMDZan5hXrRSA>
+ <xmx:w0M-X_xG0GH2nOXoQYwBW64vVgXzNJnUgZ3q0__ohYa9b3uWuoJnZg>
+ <xmx:w0M-X4efRSIXmsgZm_bWKk2FYgEeFvwbXRzwjLNLAlD7ehekjMRMOw>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 60BFA3280060;
+ Thu, 20 Aug 2020 05:34:58 -0400 (EDT)
+Date: Thu, 20 Aug 2020 11:34:54 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Norbert Kaminski <norbert.kaminski@3mdeb.com>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
+ xen-devel@lists.xenproject.org, open list <linux-kernel@vger.kernel.org>,
+ Maciej Pijanowski <maciej.pijanowski@3mdeb.com>, piotr.krol@3mdeb.com
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+Message-ID: <20200820093454.GS1626@mail-itl>
+References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
+ <20200817090013.GN975@Air-de-Roger>
+ <20200818120135.GK1679@mail-itl>
+ <20200818124710.GK828@Air-de-Roger>
+ <20200818150020.GL1679@mail-itl>
+ <20200818172114.GO828@Air-de-Roger>
+ <20200818184018.GN1679@mail-itl>
+ <20200819081930.GQ828@Air-de-Roger>
+ <3d405b0c-4e2b-0d29-56bb-e315f4c21d03@3mdeb.com>
+ <20200820093025.GT828@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <7998876a-d909-6987-8edf-542798f7eee8@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="pssgfZQbIK00CPi6"
+Content-Disposition: inline
+In-Reply-To: <20200820093025.GT828@Air-de-Roger>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,47 +93,50 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
+--pssgfZQbIK00CPi6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
 
-On 20/08/2020 10:25, Jan Beulich wrote:
-> On 20.08.2020 11:14, Julien Grall wrote:
->>
->>
->> On 19/08/2020 10:22, Jan Beulich wrote:
->>> On 17.08.2020 15:03, Julien Grall wrote:
->>>> On 17/08/2020 12:50, Roger Pau Monné wrote:
->>>>> On Mon, Aug 17, 2020 at 12:05:54PM +0100, Julien Grall wrote:
->>>>>> The only way I could see to make it work would be to use the same trick as
->>>>>> we do for {read, write}_atomic() (see asm-arm/atomic.h). We are using union
->>>>>> and void pointer to prevent explicit cast.
->>>>>
->>>>> I'm mostly worried about common code having assumed that cmpxchg
->>>>> does also handle 64bit sized parameters, and thus failing to use
->>>>> cmpxchg64 when required. I assume this is not much of a deal as then
->>>>> the Arm 32 build would fail, so it should be fairly easy to catch
->>>>> those.
->>>> FWIW, this is not very different to the existing approach. If one would
->>>> use cmpxchg() with 64-bit, then it would fail to compile.
->>>
->>> A somewhat related question then: Do you really need both the
->>> guest_* and the non-guest variants? Limiting things to plain
->>> cmpxchg() would further reduce the risk of someone picking the
->>> wrong one without right away noticing the build issue on Arm32.
->>> For guest_cmpxchg{,64}() I think there's less of a risk.
->>
->> For the IOREQ code, we will need the guest_* version that is built on
->> top of the non-guest variant.
->>
->> I would like at least consistency between the two variants. IOW, if we
->> decide to use the name guest_cmpxchg64(), then I would like to use
->> cmpxchg64().
-> 
-> On Arm, that is. There wouldn't be any need to expose cmpxchg64()
-> for use in common code, and hence not at all on x86, I guess?
+On Thu, Aug 20, 2020 at 11:30:25AM +0200, Roger Pau Monn=C3=A9 wrote:
+> Right, so you only need access to the ESRT table, that's all. Then I
+> think we need to make sure Xen doesn't use this memory for anything
+> else, which will require some changes in Xen (or at least some
+> checks?).
+>=20
+> We also need to decide what to do if the table turns out to be placed
+> in a wrong region. How are we going to prevent dom0 from using it
+> then? My preference would be to completely hide it from dom0 in that
+> case, such that it believes there's no ESRT at all if possible.
 
-Right, we would only need to introduce guest_cmpxchg64() for common code.
+Yes, that makes sense. As discussed earlier, that probably means
+re-constructing SystemTable before giving it to dom0. We'd need to do
+that in PVH case anyway, to adjust addresses, right? Is there something
+like this in the Xen codebase already, or it needs to be written from
+scratch?
 
-Cheers,
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
--- 
-Julien Grall
+--pssgfZQbIK00CPi6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl8+Q74ACgkQ24/THMrX
+1yw4EQgAk4AIcF8Tu2i2t9vctatIRr4NIxuooAyuGeLDLt9gHLT6RnXWj19wse+9
+mkWk5O2lq9WtIrO4gWqBScO0uPAbH9EV6RapfhhGHc/gTtG2rXieaCOiwOW1QKuA
+1QhKHmzSWb16MAQD30cNvyThc7CWEtDz87/gPzxYSOzSEtPIRp3SwJDXifNOPAUK
+w5rzHYjmANwxAw2kNmGuF+AmwZgHQhGkCLzUMMkZ7hPEGxnKRferTQHmU2Hs3WBC
+hDiq05yOY5i4YUsJiPJrkGLuhwRRjbq38Rb3CWlwhLRMEzQhw4i6+T/EETRy8MZm
+2t/zlNB3JyO+sFY32S+zBBXoYBe+lg==
+=7TLR
+-----END PGP SIGNATURE-----
+
+--pssgfZQbIK00CPi6--
 
