@@ -2,85 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50D224AC2C
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 02:29:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E47D24AD30
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 05:11:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8YRe-0003D2-NS; Thu, 20 Aug 2020 00:28:42 +0000
+	id 1k8axI-0005nr-7F; Thu, 20 Aug 2020 03:09:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0AtZ=B6=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1k8YRc-0003Cx-VH
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 00:28:41 +0000
-X-Inumbo-ID: e027fb19-9f50-4d56-beb5-8c58535c6967
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ <SRS0=wVIa=B6=infradead.org=rdunlap@srs-us1.protection.inumbo.net>)
+ id 1k8axF-0005nm-9h
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 03:09:30 +0000
+X-Inumbo-ID: a0e5f857-9cd0-44bc-bdee-6efb0bb11fab
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e027fb19-9f50-4d56-beb5-8c58535c6967;
- Thu, 20 Aug 2020 00:28:39 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07K0SagY005582;
- Thu, 20 Aug 2020 00:28:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=vel+smFQdJIkcUoSS2CWHtxEjDOkisx508rK5q+tszw=;
- b=oQ8GMOKQj3nvNCXllKq06pgp7nljxgmLsZOFUAWIQZjrZCSZ6GuzO46lvWP41EnYuSPY
- cw2lDQeua2PlKOPdh7qgqR9YYkVXNM08W/bWsh6dkRJauc5ne8LYXcbgYPC/2Gk8zQFx
- YLZ2wkT0owFDf0ms5SIcnNtNu8IeUn5pL5alkfGKzfVu6MDwNymJjIb1cZLMCRYvYOxG
- 4SCYSFq45I84YuUpOyQX144qCbnDn5XL5tepHZaFvFaUomiFuzmxn9iEwt6KiO+RzkFP
- +zW2pCjWOanPgMZJTr4x+Q6khCteM45RfV51037sAwOVwv6+eezPIN67qIvbI2sH9Tfs lQ== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2130.oracle.com with ESMTP id 32x74rdfx5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 20 Aug 2020 00:28:36 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07K0NpLD031106;
- Thu, 20 Aug 2020 00:26:35 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3020.oracle.com with ESMTP id 330pvmprrc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 20 Aug 2020 00:26:35 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 07K0QYdT014310;
- Thu, 20 Aug 2020 00:26:34 GMT
-Received: from [10.74.109.193] (/10.74.109.193)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 19 Aug 2020 17:26:34 -0700
-Subject: Re: [RFC PATCH] xen/gntdev.c: Convert get_user_pages*() to
- pin_user_pages*()
-To: Souptick Joarder <jrdr.linux@gmail.com>, jgross@suse.com,
- sstabellini@kernel.org
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- John Hubbard <jhubbard@nvidia.com>
-References: <1597725140-8310-1-git-send-email-jrdr.linux@gmail.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <82366a3d-db55-68eb-7f29-935b511dace4@oracle.com>
-Date: Wed, 19 Aug 2020 20:26:31 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ id a0e5f857-9cd0-44bc-bdee-6efb0bb11fab;
+ Thu, 20 Aug 2020 03:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=H+SyqcNb49+mDUM1prCpCzJfpwLQzblN5HpcsZjj2rI=; b=N2ufH3j0O9x7ZeuJWkXPfzRVAd
+ F3ljpyVSfWVlUh+bQ1M1TDKhIncYmALW2YNyS6C4yUYb5IxMzYuwO5xUUMVauvZpxWizmgpGrZ/et
+ vdxl6NARI0L8y6WNO/JEG9FCAREUtgbfQcrc8QZWJ4tLcdMHj//nV8e31vVgkskRGwCDyfrPjWWTH
+ uSEVlS7aEaq0+6BOB8j5vOfM0Yf0vvw2AT1L2KKqUt+Q2KSLFOUePcj0JfCKSwgJ/zBaRtwNc+co8
+ 4EBNj04Uhey+Zld8GtuVkTfGG0nVxfOpY/6CQy4UW+HxaQ+yIonuiVXaHJNaqssvv/ojjQXnA+Ogv
+ zceMaRIQ==;
+Received: from [2601:1c0:6280:3f0::19c2]
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1k8ax0-0003mZ-Lb; Thu, 20 Aug 2020 03:09:15 +0000
+Subject: Re: [PATCH] x86/pci: fix xen.c build error when CONFIG_ACPI is not set
+From: Randy Dunlap <rdunlap@infradead.org>
+To: LKML <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
+Message-ID: <88afdd4a-1b30-d836-05ce-8919b834579b@infradead.org>
+Date: Wed, 19 Aug 2020 20:09:11 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1597725140-8310-1-git-send-email-jrdr.linux@gmail.com>
+In-Reply-To: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9718
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 phishscore=0
- malwarescore=0 adultscore=0 bulkscore=0 suspectscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2008200001
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9718
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- mlxlogscore=999
- priorityscore=1501 phishscore=0 spamscore=0 mlxscore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2008200002
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,67 +61,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Hi Konrad,
 
-On 8/18/20 12:32 AM, Souptick Joarder wrote:
-> In 2019, we introduced pin_user_pages*() and now we are converting
-> get_user_pages*() to the new API as appropriate. [1] & [2] could
-> be referred for more information. This is case 5 as per document [1].
->
-> [1] Documentation/core-api/pin_user_pages.rst
->
-> [2] "Explicit pinning of user-space pages":
->         https://lwn.net/Articles/807108/
->
-> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> Cc: John Hubbard <jhubbard@nvidia.com>
+ping.
+
+I am still seeing this build error. It looks like this is
+in your territory to merge...
+
+
+On 8/13/20 4:00 PM, Randy Dunlap wrote:
+> From: Randy Dunlap <rdunlap@infradead.org>
+> 
+> Fix build error when CONFIG_ACPI is not set/enabled:
+> 
+> ../arch/x86/pci/xen.c: In function ‘pci_xen_init’:
+> ../arch/x86/pci/xen.c:410:2: error: implicit declaration of function ‘acpi_noirq_set’; did you mean ‘acpi_irq_get’? [-Werror=implicit-function-declaration]
+>   acpi_noirq_set();
+> 
+> Fixes: 88e9ca161c13 ("xen/pci: Use acpi_noirq_set() helper to avoid #ifdef")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> Cc: xen-devel@lists.xenproject.org
+> Cc: linux-pci@vger.kernel.org
 > ---
->  drivers/xen/gntdev.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-> index 64a9025a..e480509 100644
-> --- a/drivers/xen/gntdev.c
-> +++ b/drivers/xen/gntdev.c
-> @@ -730,7 +730,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
->  	unsigned long xen_pfn;
->  	int ret;
+>  arch/x86/pci/xen.c |    1 +
+>  1 file changed, 1 insertion(+)
+> 
+> --- linux-next-20200813.orig/arch/x86/pci/xen.c
+> +++ linux-next-20200813/arch/x86/pci/xen.c
+> @@ -26,6 +26,7 @@
+>  #include <asm/xen/pci.h>
+>  #include <asm/xen/cpuid.h>
+>  #include <asm/apic.h>
+> +#include <asm/acpi.h>
+>  #include <asm/i8259.h>
 >  
-> -	ret = get_user_pages_fast(addr, 1, writeable ? FOLL_WRITE : 0, &page);
-> +	ret = pin_user_pages_fast(addr, 1, writeable ? FOLL_WRITE : 0, &page);
->  	if (ret < 0)
->  		return ret;
->  
-> @@ -744,10 +744,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
->  
->  static void gntdev_put_pages(struct gntdev_copy_batch *batch)
->  {
-> -	unsigned int i;
-> -
-> -	for (i = 0; i < batch->nr_pages; i++)
-> -		put_page(batch->pages[i]);
-> +	unpin_user_pages(batch->pages, batch->nr_pages);
+>  static int xen_pcifront_enable_irq(struct pci_dev *dev)
+> 
 
 
-There seems to be a bug in the original code (just like there was in
-privcmd.c that you fixed earlier) --- when gntdev_get_page() is called
-with writeable=true then the page needs to be marked dirty before being
-put.
+thanks.
+-- 
+~Randy
 
-
-You can add a `bool writeable` to gntdev_copy_batch and set it in
-gntdev_grant_copy_seg() (and drop `writeable` argument to
-gntdev_get_page()) and then, based on batch->writeable, use either
-unpin_user_pages() or unpin_user_pages_dirty_lock().
-
-
-(But to fix this in stable branches please make first patch call
-set_page_dirty_lock() for each page like you did in previous series)
-
-
--boris
-
-
->  	batch->nr_pages = 0;
->  }
->  
 
