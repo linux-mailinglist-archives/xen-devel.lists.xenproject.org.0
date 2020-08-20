@@ -2,48 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40DC424AA34
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 01:58:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2531D24AA76
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 02:02:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8Xwb-0007wq-IQ; Wed, 19 Aug 2020 23:56:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8Y1Z-0000yd-NX; Thu, 20 Aug 2020 00:01:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EXnn=B5=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1k8Xwa-0007wl-GB
- for xen-devel@lists.xenproject.org; Wed, 19 Aug 2020 23:56:36 +0000
-X-Inumbo-ID: fa403bcb-da27-4069-bdb4-b0d56aed81bf
+ (envelope-from <SRS0=Q1N0=B6=kernel.org=sashal@srs-us1.protection.inumbo.net>)
+ id 1k8Y1X-0000yY-RB
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 00:01:43 +0000
+X-Inumbo-ID: 451c8420-59be-4e1b-895e-4a3fa25c0814
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fa403bcb-da27-4069-bdb4-b0d56aed81bf;
- Wed, 19 Aug 2020 23:56:35 +0000 (UTC)
-Received: from localhost (unknown [70.37.104.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 451c8420-59be-4e1b-895e-4a3fa25c0814;
+ Thu, 20 Aug 2020 00:01:42 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BB9D621744;
- Wed, 19 Aug 2020 23:56:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 22CF621775;
+ Thu, 20 Aug 2020 00:01:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597881394;
- bh=clNqGInZpcU+sLDTIvIChzWr8ATSGgZvfk4+nx2hB2U=;
- h=Date:From:To:To:To:To:Cc:Cc:Cc:Subject:In-Reply-To:References:
- From;
- b=cRPLAgRBIZGi9peqzU372KKon83fIunlNQQHRbXFGjy5YIyMydT3kzDJCgXkRKSYQ
- jVRDUpCIhk/RRyyhY19NHYyvjqLg1JEjwfdeeOTnONtCBShF5WTpi/iKtQ8btc5fIu
- 08sS7p9x2nCBSoZsLGId8uw1E7FmuJTvfaSMKd4s=
-Date: Wed, 19 Aug 2020 23:56:34 +0000
+ s=default; t=1597881701;
+ bh=/S/5fcNXp1qF0dj5Sh7EBvrVNQQbog7E1B1vZS/c6vk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=UL8pE1I4ZQDqAImmRtg4skD02jMIjFvneVDTdLfMYuOJeQ/nKjqUSFDKZDJR0rHbP
+ +1aRDNmqMwNpckqtGIl8R0HA5YeksLdEE04yTMtuCzwJYEV1TW/DonTAubE2N/iv7E
+ O8D9JnWlGGkYR9tExbA0JAy2Rxf6aJJuP2Nga9jY=
 From: Sasha Levin <sashal@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-To: xen-devel@lists.xenproject.org, dri-devel@lists.freedesktop.org
-Cc: sstabellini@kernel.org, dan.carpenter@oracle.com
-Cc: <stable@vger.kernel.org>
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] drm/xen-front: Fix misused IS_ERR_OR_NULL checks
-In-Reply-To: <20200813062113.11030-3-andr2000@gmail.com>
-References: <20200813062113.11030-3-andr2000@gmail.com>
-Message-Id: <20200819235634.BB9D621744@mail.kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Corey Minyard <cminyard@mvista.com>, Roman Shaposhnik <roman@zededa.com>,
+ Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
+ xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org
+Subject: [PATCH AUTOSEL 5.8 18/27] swiotlb-xen: use vmalloc_to_page on vmalloc
+ virt addresses
+Date: Wed, 19 Aug 2020 20:01:07 -0400
+Message-Id: <20200820000116.214821-18-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200820000116.214821-1-sashal@kernel.org>
+References: <20200820000116.214821-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,31 +64,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
-[This is an automated email]
+[ Upstream commit 8b1e868f66076490189a36d984fcce286cdd6295 ]
 
-This commit has been processed because it contains a "Fixes:" tag
-fixing commit: c575b7eeb89f ("drm/xen-front: Add support for Xen PV display frontend").
+xen_alloc_coherent_pages might return pages for which virt_to_phys and
+virt_to_page don't work, e.g. ioremap'ed pages.
 
-The bot has tested the following trees: v5.8.1, v5.7.15, v5.4.58, v4.19.139.
+So in xen_swiotlb_free_coherent we can't assume that virt_to_page works.
+Instead add a is_vmalloc_addr check and use vmalloc_to_page on vmalloc
+virt addresses.
 
-v5.8.1: Build OK!
-v5.7.15: Build OK!
-v5.4.58: Failed to apply! Possible dependencies:
-    4c1cb04e0e7a ("drm/xen: fix passing zero to 'PTR_ERR' warning")
-    93adc0c2cb72 ("drm/xen: Simplify fb_create")
+This patch fixes the following crash at boot on RPi4 (the underlying
+issue is not RPi4 specific):
+https://marc.info/?l=xen-devel&m=158862573216800
 
-v4.19.139: Failed to apply! Possible dependencies:
-    4c1cb04e0e7a ("drm/xen: fix passing zero to 'PTR_ERR' warning")
-    93adc0c2cb72 ("drm/xen: Simplify fb_create")
+Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Tested-by: Corey Minyard <cminyard@mvista.com>
+Tested-by: Roman Shaposhnik <roman@zededa.com>
+Link: https://lore.kernel.org/r/20200710223427.6897-1-sstabellini@kernel.org
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/xen/swiotlb-xen.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-
-NOTE: The patch will not be queued to stable trees until it is upstream.
-
-How should we proceed with this patch?
-
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index b6d27762c6f8c..5fbadd07819bd 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -335,6 +335,7 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
+ 	int order = get_order(size);
+ 	phys_addr_t phys;
+ 	u64 dma_mask = DMA_BIT_MASK(32);
++	struct page *page;
+ 
+ 	if (hwdev && hwdev->coherent_dma_mask)
+ 		dma_mask = hwdev->coherent_dma_mask;
+@@ -346,9 +347,14 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
+ 	/* Convert the size to actually allocated. */
+ 	size = 1UL << (order + XEN_PAGE_SHIFT);
+ 
++	if (is_vmalloc_addr(vaddr))
++		page = vmalloc_to_page(vaddr);
++	else
++		page = virt_to_page(vaddr);
++
+ 	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
+ 		     range_straddles_page_boundary(phys, size)) &&
+-	    TestClearPageXenRemapped(virt_to_page(vaddr)))
++	    TestClearPageXenRemapped(page))
+ 		xen_destroy_contiguous_region(phys, order);
+ 
+ 	xen_free_coherent_pages(hwdev, size, vaddr, (dma_addr_t)phys, attrs);
 -- 
-Thanks
-Sasha
+2.25.1
+
 
