@@ -2,51 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40C0024AD73
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 05:47:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2557524AE07
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 06:47:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8bXS-0000oX-DO; Thu, 20 Aug 2020 03:46:54 +0000
+	id 1k8cTK-00064E-1I; Thu, 20 Aug 2020 04:46:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wn9w=B6=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k8bXR-0000o8-IB
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 03:46:53 +0000
-X-Inumbo-ID: 2aade9de-557b-4f87-be62-061322069a6a
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f+yo=B6=gmail.com=jedix81@srs-us1.protection.inumbo.net>)
+ id 1k8cSb-00062Z-0A
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 04:45:57 +0000
+X-Inumbo-ID: 1a2d7d28-0087-4e8e-9c65-a07be373834b
+Received: from mail-yb1-xb31.google.com (unknown [2607:f8b0:4864:20::b31])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2aade9de-557b-4f87-be62-061322069a6a;
- Thu, 20 Aug 2020 03:46:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=bz6hwKfYickDT8AkpUvj3bgDn895H10lcblcA014ORw=; b=wyJbvLmZyz5lKhVoxw+ZS5StZs
- zdYNNZu6YwCx6A8mQsPX+3x2WgzFL0x9ozi67IxiQ3PpZd4frVBSLPoNOYot84UFpAVVduryr3N5l
- 3T4ymfZsr3zSqToNZCguP5fYI081xNqYpEaBaTB54bcPkmWwI58daOvd1ia+Lxa5jx+8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k8bXK-0007aF-Gu; Thu, 20 Aug 2020 03:46:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k8bXK-0004BW-9P; Thu, 20 Aug 2020 03:46:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1k8bXK-0002OQ-90; Thu, 20 Aug 2020 03:46:46 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152617-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 1a2d7d28-0087-4e8e-9c65-a07be373834b;
+ Thu, 20 Aug 2020 04:45:56 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id q16so449944ybk.6
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Aug 2020 21:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=rK6he8VFFuAxbhK+nNAfxjYPJ8xUtbIuv2XgJclWE1Y=;
+ b=SAi5B3ZgmkVv/Tj7FQHRi6FCbsvcHAuvhSv8MMk7PzQMwXIar0S9o/xzBAcGqA/Uup
+ /Jpm84xldwTVheOQZtxICgJM4lvTayYnKG40s7DUQul7OEcTUNkagHZOb3Nhb7JygWpM
+ 5+3Gw7NjH3dNScEINbAVeA7luqEa3UUbWEeJJzPwjSWQrNe3pSVP331Jc7KtFmx0hMXt
+ 0KBw3Kjq/F/GyC9CVAXYSe46IwH+l9ZIGDXekgXI3MfyXl7ILqSIPgEq9CQZ8XMqEHs2
+ ErCkIfJ+a9ikKkAE6DU+AR5XP1fHceUsiursdPGbL3A4hXZreh7hr0N09FvjTAK3ezwe
+ F+Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=rK6he8VFFuAxbhK+nNAfxjYPJ8xUtbIuv2XgJclWE1Y=;
+ b=GhuRWMQvTTP/pQ+ID2zGksgO1RQCKbMhWg8ioCOvlOwrheaFrRxW708YBj9AUPKxg9
+ mAt7UbGKK+Hamn6k739mLe+6Fus36tpJtJ+ITnkxxP8ySSXAXbNQZiuHTNz8JTXlXvme
+ ++A7Ojw18lBbb1M2Erd7cwhmdPx1PuqJe3xz932AG7/d88nedHJWQm0FdRiJXOKer2eL
+ U6y31WeyEGhXiGIlyv5Hqxi2SUTDZp5lUoKyXju+1yykatCTBoSJSxCP8mH0pwYNuwbY
+ YXr9R6GSJz988Y8JrX+E0rja/nawemKCuo2BDzCbN38d+YA/WPD9hVqHb3eLehMQ2+v5
+ QrRA==
+X-Gm-Message-State: AOAM530mPbuJ/ePtkx7gVExK8CZ8JKaS3u+Dg7dCVGn4JuPyMeeEnprn
+ 4+mH1xSKtChO2dpxkJl7hL+s60irahdYswg+kQgkXgx8zLI=
+X-Google-Smtp-Source: ABdhPJxSDBlEdRPG+IeG880vvrX12F3rsBItJoZ4G6U5xcFlwT1Q4FDh4Is4BKSriKb2MYyi3OrRrPBIEMZaaaOwSfs=
+X-Received: by 2002:a25:2415:: with SMTP id k21mr2575347ybk.156.1597898755280; 
+ Wed, 19 Aug 2020 21:45:55 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 152617: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=a048af3c9073e4b8108e6cf920bbb35574059639
-X-Osstest-Versions-That: ovmf=7f7f511c5a74676523ed48435350f6e35282b62b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 20 Aug 2020 03:46:46 +0000
+From: Jedi Chen <jedix81@gmail.com>
+Date: Thu, 20 Aug 2020 12:45:44 +0800
+Message-ID: <CAK-iXTF3F05+RH=ttOhwpOfcngfPY_bAp73fYprxg__QB+fD2w@mail.gmail.com>
+Subject: About VIRTIO support on Xen
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000b212b505ad47cb5a"
+X-Mailman-Approved-At: Thu, 20 Aug 2020 04:46:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,62 +65,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152617 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152617/
+--000000000000b212b505ad47cb5a
+Content-Type: text/plain; charset="UTF-8"
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 a048af3c9073e4b8108e6cf920bbb35574059639
-baseline version:
- ovmf                 7f7f511c5a74676523ed48435350f6e35282b62b
+Hi xen-devel,
 
-Last test of basis   152594  2020-08-14 03:13:03 Z    6 days
-Testing same since   152617  2020-08-19 09:13:09 Z    0 days    1 attempts
+I am very interesting about the VIRTIO on Xen. And from one meeting report
+of AGL Virtualization Expert Group (EG-VIRT)
+https://wiki.automotivelinux.org/eg-virt-meetings#pm_cest_meeting4, I got
+the information that ARM and Linaro are
+upstreaming XEN work incorporating VirtIO. But I can't find any information
+in the mailing list. Is there any
+architecture overview or design doc about it?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Brijesh Singh <brijesh.singh@amd.com>
-  Cole Robinson <crobinso@redhat.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
+Thanks,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+--000000000000b212b505ad47cb5a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
+r=3D"ltr"><div dir=3D"ltr">Hi xen-devel,<div><br></div><div>I am very inter=
+esting=C2=A0about the VIRTIO on Xen. And from one meeting report of AGL Vir=
+tualization Expert Group (EG-VIRT)=C2=A0</div><div><a href=3D"https://wiki.=
+automotivelinux.org/eg-virt-meetings#pm_cest_meeting4">https://wiki.automot=
+ivelinux.org/eg-virt-meetings#pm_cest_meeting4</a><span style=3D"color:rgb(=
+51,51,51);font-family:Arial,sans-serif;font-size:14px">, I got the informat=
+ion that ARM and Linaro are</span></div><div><span style=3D"color:rgb(51,51=
+,51);font-family:Arial,sans-serif;font-size:14px">upstreaming XEN work inco=
+rporating VirtIO. But I can&#39;t find any information in the mailing list.=
+ Is there any</span></div><div><span style=3D"color:rgb(51,51,51);font-fami=
+ly:Arial,sans-serif;font-size:14px">architecture overview or design doc abo=
+ut it?</span></div><div><span style=3D"color:rgb(51,51,51);font-family:Aria=
+l,sans-serif;font-size:14px"><br></span></div><div><span style=3D"color:rgb=
+(51,51,51);font-family:Arial,sans-serif;font-size:14px">Thanks,</span></div=
+><div><span style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif;font-=
+size:14px"><br></span></div><div><span style=3D"color:rgb(51,51,51);font-fa=
+mily:Arial,sans-serif;font-size:14px"><br></span></div><div><br></div></div=
+></div></div></div></div></div>
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   7f7f511c5a..a048af3c90  a048af3c9073e4b8108e6cf920bbb35574059639 -> xen-tested-master
+--000000000000b212b505ad47cb5a--
 
