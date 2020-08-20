@@ -2,47 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29AA524C0E2
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 16:48:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1E824C169
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 17:09:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8lrM-0001yB-AS; Thu, 20 Aug 2020 14:48:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UrXB=B6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k8lrK-0001y6-Bs
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 14:48:06 +0000
-X-Inumbo-ID: d35d5a39-e026-497c-8271-bc5e5c66770e
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d35d5a39-e026-497c-8271-bc5e5c66770e;
- Thu, 20 Aug 2020 14:48:05 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A0178AC6E;
- Thu, 20 Aug 2020 14:48:31 +0000 (UTC)
-Subject: Re: [PATCH] x86/pci: fix xen.c build error when CONFIG_ACPI is not set
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
- <88afdd4a-1b30-d836-05ce-8919b834579b@infradead.org>
- <20200820144020.GA31230@char.us.oracle.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d4bd7cc9-0194-3833-2098-12a2c3cb2c5d@suse.com>
-Date: Thu, 20 Aug 2020 16:48:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	id 1k8mBx-0003ll-4N; Thu, 20 Aug 2020 15:09:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k8mBw-0003lg-84
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 15:09:24 +0000
+X-Inumbo-ID: f1917742-2aa1-4be3-b516-971bce180aa2
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f1917742-2aa1-4be3-b516-971bce180aa2;
+ Thu, 20 Aug 2020 15:09:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597936162;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wiZ0iNtUz8Uj2XL5L9742gj0111CrDtbYBS4ycUdLXU=;
+ b=Jp/jXHXBlxWXvHNKBj9QNuACGladRnnHF16UfDByvOCpW73PL5EsWemK
+ bSvxJGDpxvlEoKICMCzPom/sNQOiFpX2DfdXGRdDqi4pRE6ELu1xRbgUr
+ jdHLmFKGdFiUaXqEKyGWSErkW+OwlksMSG+W45QVMGONSXvl4xkP88EDA s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: p9pcAjzD5bVOJg0JuvvvRjMFNP9gH4/sSZG4aWX5I96GaH3yKTkO9uroBENPArZdCHmIKTSo+0
+ E1uBtMlcbW8a8WHRrWDlv3Qusb2yrFfC/DrqL9MuXv4IPNK2ozjGEDrXemBOci0mBtQTq80K4q
+ 67lwTiZcq0I+zsODlQTXffUb8RwqwfrNAuavxDTfH3pyyUK9L1Uj4NfxM/fP1IXw9yyiiq5Z+v
+ /PQHucfZZi4q0J6RFi0QYxKEi2Tw/0qQifSlyQjUqOheg/bbKD43EMuw5ulRWgFnVkHhsO87VA
+ +0U=
+X-SBRS: 2.7
+X-MesageID: 25266651
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="25266651"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jun Nakajima
+ <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
+ <wl@xen.org>
+Subject: [PATCH v2 0/8] x86: switch default MSR behavior
+Date: Thu, 20 Aug 2020 17:08:27 +0200
+Message-ID: <20200820150835.27440-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20200820144020.GA31230@char.us.oracle.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -57,63 +65,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.08.20 16:40, Konrad Rzeszutek Wilk wrote:
-> On Wed, Aug 19, 2020 at 08:09:11PM -0700, Randy Dunlap wrote:
->> Hi Konrad,
-> 
-> Hey Randy,
-> 
-> I believe Juergen is picking this up.
+Hello,
 
-Yes, have queued it for rc2.
+The current series attempts to change the current MSR default handling
+behavior, which is to silently drop writes to writable MSRs, and allow
+reading any MSR not explicitly handled.
 
+After this series access to MSRs not explicitly handled will trigger a
+#GP fault. I've tested this series with osstest and it doesn't introduce
+any regression, at least on the boxes selected for testing:
 
-Juergen
+http://logs.test-lab.xenproject.org/osstest/logs/152630/
 
->>
->> ping.
->>
->> I am still seeing this build error. It looks like this is
->> in your territory to merge...
->>
->>
->> On 8/13/20 4:00 PM, Randy Dunlap wrote:
->>> From: Randy Dunlap <rdunlap@infradead.org>
->>>
->>> Fix build error when CONFIG_ACPI is not set/enabled:
->>>
->>> ../arch/x86/pci/xen.c: In function ‘pci_xen_init’:
->>> ../arch/x86/pci/xen.c:410:2: error: implicit declaration of function ‘acpi_noirq_set’; did you mean ‘acpi_irq_get’? [-Werror=implicit-function-declaration]
->>>    acpi_noirq_set();
->>>
->>> Fixes: 88e9ca161c13 ("xen/pci: Use acpi_noirq_set() helper to avoid #ifdef")
->>> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->>> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->>> Cc: Bjorn Helgaas <bhelgaas@google.com>
->>> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
->>> Cc: xen-devel@lists.xenproject.org
->>> Cc: linux-pci@vger.kernel.org
->>> ---
->>>   arch/x86/pci/xen.c |    1 +
->>>   1 file changed, 1 insertion(+)
->>>
->>> --- linux-next-20200813.orig/arch/x86/pci/xen.c
->>> +++ linux-next-20200813/arch/x86/pci/xen.c
->>> @@ -26,6 +26,7 @@
->>>   #include <asm/xen/pci.h>
->>>   #include <asm/xen/cpuid.h>
->>>   #include <asm/apic.h>
->>> +#include <asm/acpi.h>
->>>   #include <asm/i8259.h>
->>>   
->>>   static int xen_pcifront_enable_irq(struct pci_dev *dev)
->>>
->>
->>
->> thanks.
->> -- 
->> ~Randy
->>
-> 
+Thanks, Roger.
+
+Andrew Cooper (2):
+  x86/hvm: Disallow access to unknown MSRs
+  x86/msr: Drop compatibility #GP handling in guest_{rd,wr}msr()
+
+Roger Pau Monne (6):
+  x86/vmx: handle writes to MISC_ENABLE MSR
+  x86/svm: silently drop writes to SYSCFG and related MSRs
+  x86/msr: explicitly handle AMD DE_CFG
+  x86/svm: drop writes to BU_CFG on revF chips
+  x86/pv: allow reading FEATURE_CONTROL MSR
+  x86/pv: disallow access to unknown MSRs
+
+ xen/arch/x86/hvm/svm/svm.c     | 38 ++++++++++++++----
+ xen/arch/x86/hvm/vmx/vmx.c     | 31 ++++++---------
+ xen/arch/x86/msr.c             | 71 +++++++++++++---------------------
+ xen/arch/x86/pv/emul-priv-op.c | 18 +++++----
+ 4 files changed, 79 insertions(+), 79 deletions(-)
+
+-- 
+2.28.0
 
 
