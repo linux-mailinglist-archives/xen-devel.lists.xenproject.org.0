@@ -2,53 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1E824C169
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2A724C16B
 	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 17:09:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8mBx-0003ll-4N; Thu, 20 Aug 2020 15:09:25 +0000
+	id 1k8mC2-0003m1-DM; Thu, 20 Aug 2020 15:09:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k8mBw-0003lg-84
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 15:09:24 +0000
-X-Inumbo-ID: f1917742-2aa1-4be3-b516-971bce180aa2
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1k8mC1-0003lg-1U
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 15:09:29 +0000
+X-Inumbo-ID: 8a0b62eb-465a-4dcc-ab2c-2de7cd38152b
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f1917742-2aa1-4be3-b516-971bce180aa2;
- Thu, 20 Aug 2020 15:09:23 +0000 (UTC)
+ id 8a0b62eb-465a-4dcc-ab2c-2de7cd38152b;
+ Thu, 20 Aug 2020 15:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1597936162;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=wiZ0iNtUz8Uj2XL5L9742gj0111CrDtbYBS4ycUdLXU=;
- b=Jp/jXHXBlxWXvHNKBj9QNuACGladRnnHF16UfDByvOCpW73PL5EsWemK
- bSvxJGDpxvlEoKICMCzPom/sNQOiFpX2DfdXGRdDqi4pRE6ELu1xRbgUr
- jdHLmFKGdFiUaXqEKyGWSErkW+OwlksMSG+W45QVMGONSXvl4xkP88EDA s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1597936166;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zT5MN7nvkqMoYuX6+gGl+F2zxCCkKoFt0fQb/G0S9wE=;
+ b=eevHJFNDR6U+Sd/3KsBE8t22tpMtfVtlPrX0zK+FSFqQ5incDLt62qw3
+ n1vczbTtUBcf1C+CazPUH22iqYQz9x1rKI4xH8utmRFQoBRysXZUROEbZ
+ /s1Ox1fi35z03RrjHDsCKhTAAHgyne7PCb0MF77A4ru5i94Imm0PH0GZK Y=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: p9pcAjzD5bVOJg0JuvvvRjMFNP9gH4/sSZG4aWX5I96GaH3yKTkO9uroBENPArZdCHmIKTSo+0
- E1uBtMlcbW8a8WHRrWDlv3Qusb2yrFfC/DrqL9MuXv4IPNK2ozjGEDrXemBOci0mBtQTq80K4q
- 67lwTiZcq0I+zsODlQTXffUb8RwqwfrNAuavxDTfH3pyyUK9L1Uj4NfxM/fP1IXw9yyiiq5Z+v
- /PQHucfZZi4q0J6RFi0QYxKEi2Tw/0qQifSlyQjUqOheg/bbKD43EMuw5ulRWgFnVkHhsO87VA
- +0U=
+IronPort-SDR: ts6GtElitM50VW9zQe5AqEG/mVPPu6nCutMkL+Ib3WxHgO7NIjQHtGsNhoY/RiBgNqvKz7ak3W
+ wh0Hm/QPTSDAIA8HF071o1YYq181CHERzbFPe+Uqrh8jGO8zSmaEAJexR9SyVcxjtRdJufM4GG
+ uha1thSb6aPSZrED0Hgt0lz3O0c+at/lY932hH3lCy0EluvyX6vFdhb61ubEZQ7nU/4k7JsMKe
+ zYIpU+gTkWIWBJ3JLhzPzZNisHb4LhP8T0nx8/oySh5R0IjoViJU5NHtchHVDuOMSHgpVA+wcV
+ mEU=
 X-SBRS: 2.7
-X-MesageID: 25266651
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 24942327
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="25266651"
+X-IronPort-AV: E=Sophos;i="5.76,333,1592884800"; d="scan'208";a="24942327"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jun Nakajima
  <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
  <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
  <wl@xen.org>
-Subject: [PATCH v2 0/8] x86: switch default MSR behavior
-Date: Thu, 20 Aug 2020 17:08:27 +0200
-Message-ID: <20200820150835.27440-1-roger.pau@citrix.com>
+Subject: [PATCH v2 1/8] x86/vmx: handle writes to MISC_ENABLE MSR
+Date: Thu, 20 Aug 2020 17:08:28 +0200
+Message-ID: <20200820150835.27440-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200820150835.27440-1-roger.pau@citrix.com>
+References: <20200820150835.27440-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -65,38 +67,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
+Such handling consist in checking that no bits have been changed from
+the read value, if that's the case silently drop the write, otherwise
+inject a fault.
 
-The current series attempts to change the current MSR default handling
-behavior, which is to silently drop writes to writable MSRs, and allow
-reading any MSR not explicitly handled.
+At least Windows guests will expect to write to the MISC_ENABLE MSR
+with the same value that's been read from it.
 
-After this series access to MSRs not explicitly handled will trigger a
-#GP fault. I've tested this series with osstest and it doesn't introduce
-any regression, at least on the boxes selected for testing:
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ xen/arch/x86/hvm/vmx/vmx.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-http://logs.test-lab.xenproject.org/osstest/logs/152630/
-
-Thanks, Roger.
-
-Andrew Cooper (2):
-  x86/hvm: Disallow access to unknown MSRs
-  x86/msr: Drop compatibility #GP handling in guest_{rd,wr}msr()
-
-Roger Pau Monne (6):
-  x86/vmx: handle writes to MISC_ENABLE MSR
-  x86/svm: silently drop writes to SYSCFG and related MSRs
-  x86/msr: explicitly handle AMD DE_CFG
-  x86/svm: drop writes to BU_CFG on revF chips
-  x86/pv: allow reading FEATURE_CONTROL MSR
-  x86/pv: disallow access to unknown MSRs
-
- xen/arch/x86/hvm/svm/svm.c     | 38 ++++++++++++++----
- xen/arch/x86/hvm/vmx/vmx.c     | 31 ++++++---------
- xen/arch/x86/msr.c             | 71 +++++++++++++---------------------
- xen/arch/x86/pv/emul-priv-op.c | 18 +++++----
- 4 files changed, 79 insertions(+), 79 deletions(-)
-
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index a0d58ffbe2..4717e50d4a 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3163,7 +3163,7 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+ 
+     switch ( msr )
+     {
+-        uint64_t rsvd;
++        uint64_t rsvd, tmp;
+ 
+     case MSR_IA32_SYSENTER_CS:
+         __vmwrite(GUEST_SYSENTER_CS, msr_content);
+@@ -3301,6 +3301,13 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+         /* None of these MSRs are writeable. */
+         goto gp_fault;
+ 
++    case MSR_IA32_MISC_ENABLE:
++        /* Silently drop writes that don't change the reported value. */
++        if ( vmx_msr_read_intercept(msr, &tmp) != X86EMUL_OKAY ||
++             tmp != msr_content )
++            goto gp_fault;
++        break;
++
+     case MSR_P6_PERFCTR(0)...MSR_P6_PERFCTR(7):
+     case MSR_P6_EVNTSEL(0)...MSR_P6_EVNTSEL(7):
+     case MSR_CORE_PERF_FIXED_CTR0...MSR_CORE_PERF_FIXED_CTR2:
 -- 
 2.28.0
 
