@@ -2,69 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54F8524BE30
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 15:22:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F4524C0C3
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 16:40:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8kWE-0003L6-I6; Thu, 20 Aug 2020 13:22:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f+yo=B6=gmail.com=jedix81@srs-us1.protection.inumbo.net>)
- id 1k8kWD-0003L1-By
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 13:22:13 +0000
-X-Inumbo-ID: bd9502e4-0b43-478d-a6e8-97bcdb3e8e50
-Received: from mail-pf1-x442.google.com (unknown [2607:f8b0:4864:20::442])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd9502e4-0b43-478d-a6e8-97bcdb3e8e50;
- Thu, 20 Aug 2020 13:22:12 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id m71so1029747pfd.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Aug 2020 06:22:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=0InaeW3XKpig4DN0gNsCq0wX380hyFvLL5V4OupqTQU=;
- b=Yyq1GktB5arFtv5dKLHCJBhiZqt8Su1iQuSkzB4n/VlsDPpwAMWCY9qDgdJKWJr0zM
- sV2fscSFi8GoAg6Eja+qQDZ3r3KXK0rs1Yl+1BE92yamiwQkuR0yXnbvqjndS7UzrA39
- 9ryAE8c6joEA35feXX1XTI4j0lAeZhYTO8y/MhhG0dSZ/Ga++dMsriHAX6U6G+uUrD5Z
- M3/1bUB4E782UmkNCjBkEv5Lv4UUKhS3Vvb7xHFzArobI70fvXn99eZDcnJPoRnm3iMv
- GfiUbSDXtuGfVm/EZH0ta2oNR8y8VoQnWnyHC6kJN0OHDTSQyfD7oeVd/49EDnhkCT0K
- TejQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=0InaeW3XKpig4DN0gNsCq0wX380hyFvLL5V4OupqTQU=;
- b=ej+Mv+ScGC4AdEQGNpvV4gJqkUV5TUHad+42gvk1yuP3Le0dDYrjtmNreAkafmxiT7
- nQCzhW6azBm3+gXx35cz2RCQvGMCEy5zpMdjiE69zdRvYNczjqN3CYoD3J3wdKyXUmBo
- qfvC69QFCZU53Gg6eu3IdvcJnM0NhMYmiQgK6nCtEbnsRDPO02PbKOsjcWeHrTHiZsJ4
- z9qZWd/k/dAHzmeHUFuVpaXXXHb1w9MEEcpDQ7mfMN90vJVn4XjnK+2MrJ7OZVZEUndx
- bHneYvE4h6cWaqOwpT+7J6MXS0HFRln9mpqnYq8R/GgL8kfG2pLFdzmoQLYVkNHEGMX0
- ZRUA==
-X-Gm-Message-State: AOAM531MaFH8Ltwv6kKeGv6W+I6pEWL+W3qi3wUkO8joKXpYxWXPIKbP
- KkfcSf0cjrkfuoKaBAJ3zt0=
-X-Google-Smtp-Source: ABdhPJzfBp/4apklnYjSfqHoMvOc006v7Tmh+KqYtc55ngOUmOD4mtS1co4dyrAG//w2JMaG4tPRnQ==
-X-Received: by 2002:aa7:9f10:: with SMTP id g16mr2223147pfr.148.1597929731788; 
- Thu, 20 Aug 2020 06:22:11 -0700 (PDT)
-Received: from [240.0.0.1] ([161.117.88.154])
- by smtp.gmail.com with ESMTPSA id w82sm3035328pff.7.2020.08.20.06.22.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2020 06:22:11 -0700 (PDT)
+	id 1k8lir-00011w-7P; Thu, 20 Aug 2020 14:39:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ps8H=B6=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1k8lip-00011r-Cy
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 14:39:19 +0000
+X-Inumbo-ID: 8d538219-82d1-4882-80a0-eebfe6cc000e
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8d538219-82d1-4882-80a0-eebfe6cc000e;
+ Thu, 20 Aug 2020 14:39:17 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07KEXTOs049256;
+ Thu, 20 Aug 2020 14:39:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to : content-transfer-encoding; s=corp-2020-01-29;
+ bh=8vkwBt/4YEhoEn8LKQ2IVN15+QakSrmeykzU+jcBU6Q=;
+ b=CIToX4O3a8L3vRrM7lAPdqrTJKJpsCnugXltQ6XPMk1tKX3qSDtlF2ujRL+rQi65/Jcp
+ Cs0pcFQ5DSkVwMS2EqhLeLNPTSpH9gthrHB2r9ufPiQzpqcrb0dzbdAIIDyuE2Zn2yQg
+ Fm+n+NYnshUVrdTuRwtQlo6Sd93FfSpcXN1gXCVMU1uZC0Q3i0A485xyOOJCBmM0Ue1V
+ 07Bx/BFbk57oU6+5LiTYULEfWGHimqdkBe87zWzqGUgzGp4YMGePwcrziguLRNnNjSFc
+ q/MSYsAMh5Ja/J+mXa8X9RCpuxBu4nW2vhCQPOBcfSjPoDxoNFFW80y+z0fwmv6Pl1P5 7Q== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 32x74rh064-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 20 Aug 2020 14:39:09 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07KEX2bf098374;
+ Thu, 20 Aug 2020 14:39:08 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3030.oracle.com with ESMTP id 32xsn1f46n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 20 Aug 2020 14:39:08 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 07KEd63Y000740;
+ Thu, 20 Aug 2020 14:39:07 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 20 Aug 2020 07:39:05 -0700
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+ id 4456A6A0127; Thu, 20 Aug 2020 10:40:20 -0400 (EDT)
+Date: Thu, 20 Aug 2020 10:40:20 -0400
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Randy Dunlap <rdunlap@infradead.org>, jgross@suse.com,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/pci: fix xen.c build error when CONFIG_ACPI is not set
+Message-ID: <20200820144020.GA31230@char.us.oracle.com>
+References: <a020884b-fa44-e732-699f-2b79c9b7d15e@infradead.org>
+ <88afdd4a-1b30-d836-05ce-8919b834579b@infradead.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <88afdd4a-1b30-d836-05ce-8919b834579b@infradead.org>
+User-Agent: Mutt/1.9.1 (2017-09-22)
 Content-Transfer-Encoding: quoted-printable
-From: Wei Chen <jedix81@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: About VIRTIO support on Xen
-Date: Thu, 20 Aug 2020 21:22:08 +0800
-Message-Id: <D1AC7401-00F9-4C1E-959E-7ADA493090D8@gmail.com>
-References: <CAJ=z9a0g2Ygv+ehVdiHAAJne64mQOMECOnonca502H7YfMehMA@mail.gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-In-Reply-To: <CAJ=z9a0g2Ygv+ehVdiHAAJne64mQOMECOnonca502H7YfMehMA@mail.gmail.com>
-To: Julien Grall <julien.grall.oss@gmail.com>
-X-Mailer: iPhone Mail (17G68)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9718
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ spamscore=0 bulkscore=0
+ mlxlogscore=999 phishscore=0 mlxscore=0 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2008200121
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9718
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ mlxlogscore=999
+ priorityscore=1501 phishscore=0 spamscore=0 mlxscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2008200121
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,54 +97,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Thank you very much! It=E2=80=99s very valuable information.
+On Wed, Aug 19, 2020 at 08:09:11PM -0700, Randy Dunlap wrote:
+> Hi Konrad,
 
-Regards,
+Hey Randy,
 
-> =E5=9C=A8 2020=E5=B9=B48=E6=9C=8820=E6=97=A5=EF=BC=8C19:02=EF=BC=8CJulien G=
-rall <julien.grall.oss@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+I believe Juergen is picking this up.
 >=20
-> =EF=BB=BFOn Thu, 20 Aug 2020 at 11:59, Julien Grall <julien@xen.org> wrote=
-:
->>=20
->>=20
->>=20
->>> On 20/08/2020 05:45, Jedi Chen wrote:
->>> Hi xen-devel,
->>=20
->> Hi,
->>=20
->>>=20
->>> I am very interesting about the VIRTIO on Xen. And from one meeting
->>> report of AGL Virtualization Expert Group (EG-VIRT)
->>> https://wiki.automotivelinux.org/eg-virt-meetings#pm_cest_meeting4, I
->>> got the information that ARM and Linaro are
->>> upstreaming XEN work incorporating VirtIO. But I can't find any
->>> information in the mailing list. Is there any
->>> architecture overview or design doc about it?
->>=20
->> There is some discussion on xen-devel [1] to add support for Virtio MMIO
->> on Arm. This is still in early development, but you should be able to
->> get a PoC setup with the work.
->>=20
->> Best regards,
->>=20
->> [1] <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+> ping.
 >=20
-> Sorry I should have added a direct link:
+> I am still seeing this build error. It looks like this is
+> in your territory to merge...
 >=20
-> https://lore.kernel.org/xen-devel/1596478888-23030-1-git-send-email-olekst=
-ysh@gmail.com/
 >=20
->>=20
->>>=20
->>> Thanks,
->>>=20
->>>=20
->>>=20
->>=20
->>=20
->>=20
->> --
->> Julien Grall
+> On 8/13/20 4:00 PM, Randy Dunlap wrote:
+> > From: Randy Dunlap <rdunlap@infradead.org>
+> >=20
+> > Fix build error when CONFIG_ACPI is not set/enabled:
+> >=20
+> > ../arch/x86/pci/xen.c: In function =E2=80=98pci_xen_init=E2=80=99:
+> > ../arch/x86/pci/xen.c:410:2: error: implicit declaration of function =
+=E2=80=98acpi_noirq_set=E2=80=99; did you mean =E2=80=98acpi_irq_get=E2=80=
+=99? [-Werror=3Dimplicit-function-declaration]
+> >   acpi_noirq_set();
+> >=20
+> > Fixes: 88e9ca161c13 ("xen/pci: Use acpi_noirq_set() helper to avoid #=
+ifdef")
+> > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Cc: Bjorn Helgaas <bhelgaas@google.com>
+> > Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> > Cc: xen-devel@lists.xenproject.org
+> > Cc: linux-pci@vger.kernel.org
+> > ---
+> >  arch/x86/pci/xen.c |    1 +
+> >  1 file changed, 1 insertion(+)
+> >=20
+> > --- linux-next-20200813.orig/arch/x86/pci/xen.c
+> > +++ linux-next-20200813/arch/x86/pci/xen.c
+> > @@ -26,6 +26,7 @@
+> >  #include <asm/xen/pci.h>
+> >  #include <asm/xen/cpuid.h>
+> >  #include <asm/apic.h>
+> > +#include <asm/acpi.h>
+> >  #include <asm/i8259.h>
+> > =20
+> >  static int xen_pcifront_enable_irq(struct pci_dev *dev)
+> >=20
+>=20
+>=20
+> thanks.
+> --=20
+> ~Randy
+>=20
 
