@@ -2,67 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F0724C655
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 21:41:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FC224C877
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 01:21:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8qQR-0004wu-Sx; Thu, 20 Aug 2020 19:40:39 +0000
+	id 1k8tqy-0006Qp-5F; Thu, 20 Aug 2020 23:20:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eCh+=B6=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1k8qQQ-0004wp-Sg
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 19:40:38 +0000
-X-Inumbo-ID: 0ba22bfa-04e6-4d65-b9a3-ca0dee26e99b
-Received: from mail-ua1-x92a.google.com (unknown [2607:f8b0:4864:20::92a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ewgh=B6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k8tqv-0006Qk-T5
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 23:20:14 +0000
+X-Inumbo-ID: 761b57ed-400f-438b-991b-6f2afb9658ec
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0ba22bfa-04e6-4d65-b9a3-ca0dee26e99b;
- Thu, 20 Aug 2020 19:40:37 +0000 (UTC)
-Received: by mail-ua1-x92a.google.com with SMTP id g20so924557uap.8
- for <xen-devel@lists.xenproject.org>; Thu, 20 Aug 2020 12:40:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=sEjRaMa08FCRuVLxcXhfsYscbDMRmhGoKjv5MqDNVyc=;
- b=ZTYrltOUcaBAOchWVCgZ7YR4XOax7ZjdoU4UXyS2FjzP6xJn+S7UbNapUsGj2sCV4p
- coImfWmX6/PgsYzwwt0NstEI0ZFOgr5N2debhORErdYdZQ4chbg982Wv4RDUnUxwnDV7
- c4Q7LbcUL9BjfCMd5S4wGRabaaxiQITJgAkuAuOizFP5vH4ZcC0ssrK+0FsYsAJz6vNb
- jr5RMlDxBeR3768AAhjiY6w8NE369WuDhvH6AlaYmh9lqhSrnovBrMbj1kAptP61bNmz
- hGOH/4gvduqUfHqv4aOHw12FBSfofQ3XCtZy1Qazs7ayL9LhaUwPelhyoYXZEpHDZmf7
- qWlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=sEjRaMa08FCRuVLxcXhfsYscbDMRmhGoKjv5MqDNVyc=;
- b=NYa5R+86iVYxJFXXts9YmEcyxc4b/0+DNMEhuMePz5t1OVdOa/cAY7D1pFELjBfrub
- RzVCY9txROZ5SHT2aqE8AZLIYZwj8g07GqSex+MUA81C49DmHn7IlVx9cs9ac39Ro9g7
- ON1yvj+4b3RgL4MfDqnrImyVG0Muw4GkpNaCzAfj86E8769cXCM776DO02NR46yqie7o
- NYPLWWJY8/xkOOnPIT+Zqux5/VHCMj/3zz/3JA0V9bWWAnkvbe16WciU63DJz4uDI0h2
- dOv8rnkHcGIvVHysUgaZmSbEfjoLFG1mAMa4tIqjDGPDF+BBmqpeUn+jCNCf5u2kZuX2
- cisw==
-X-Gm-Message-State: AOAM53080mxfD+EtCActF6Hm+f1wEOqZ4NGaV93U0OADoNhhvxlcOHQf
- 8hTACDWSF0OjfIvC7i8vTOlgZOQGcVFRGzEVxHZcmw==
-X-Google-Smtp-Source: ABdhPJxkAVyiook3HrazWFZHrieP/b8YvtCt/lJ5YhFqadac/DDv9npz0IZn1QMd8/qZ7PtAtIsdMa7YPp9u+pAB800=
-X-Received: by 2002:ab0:63c1:: with SMTP id i1mr225574uap.120.1597952437577;
- Thu, 20 Aug 2020 12:40:37 -0700 (PDT)
+ id 761b57ed-400f-438b-991b-6f2afb9658ec;
+ Thu, 20 Aug 2020 23:20:12 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 90C5C207DE;
+ Thu, 20 Aug 2020 23:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597965611;
+ bh=6vUP53jsQewXc2M+f9iKAXdWnm/7qGNIv+ioU7lRih8=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=R31Glczzlf8zSopfCZMzi5uH3oMShxLEyGNiOL4CVVtTkh0tOKs2CRsXG62mblYXp
+ KIC2T0Iv4dy2OFbb6KyyPEziiUxKwYc1eAy7FIc5D6rHhIMiCr16uEtn/+Q5CSWcPM
+ H8B+zMeAqQ5Vk8G3ac4eJ8w1BNtzRGVdKLe4lN2M=
+Date: Thu, 20 Aug 2020 16:20:11 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+ xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+ george.dunlap@citrix.com, ian.jackson@eu.citrix.com, julien@xen.org, 
+ wl@xen.org, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH 08/14] kernel-doc: public/memory.h
+In-Reply-To: <5bcbee62-150e-5336-47cb-a0fde0a92ad1@suse.com>
+Message-ID: <alpine.DEB.2.21.2008201619520.6005@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
+ <20200806234933.16448-8-sstabellini@kernel.org>
+ <5567ef5a-35c4-6dd8-38f5-348c7c3713b1@suse.com>
+ <alpine.DEB.2.21.2008071217590.16004@sstabellini-ThinkPad-T480s>
+ <73419983-5300-32ca-2f12-7d3673ad543d@suse.com>
+ <alpine.DEB.2.21.2008171523440.15985@sstabellini-ThinkPad-T480s>
+ <5bcbee62-150e-5336-47cb-a0fde0a92ad1@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <E5E6537A-3F6C-40C6-87AB-09546225F93D@gmail.com>
-In-Reply-To: <E5E6537A-3F6C-40C6-87AB-09546225F93D@gmail.com>
-From: Roman Shaposhnik <roman@zededa.com>
-Date: Thu, 20 Aug 2020 12:40:18 -0700
-Message-ID: <CAMmSBy_SDT5R3139OWsjtZPZiyP_GVZFeqA4Gg-Hhycf+ZgzuA@mail.gmail.com>
-Subject: Re: Xen 4.14.0 fails on Dell IoT Gateway without efi=no-rs
-To: Rich Persaud <persaur@gmail.com>
-Cc: George Dunlap <dunlapg@umich.edu>, Jan Beulich <JBeulich@suse.com>, 
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, 
- Paul Durrant <paul@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
- =?UTF-8?Q?Piotr_Kr=C3=B3l?= <piotr.krol@3mdeb.com>, 
- =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +64,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 20, 2020 at 6:10 AM Rich Persaud <persaur@gmail.com> wrote:
->
-> On Aug 20, 2020, at 07:24, George Dunlap <dunlapg@umich.edu> wrote:
->
->
-> =EF=BB=BF
-> On Thu, Aug 20, 2020 at 9:35 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->>
->> As far as making cases like this work by default, I'm afraid it'll
->> need to be proposed to replace me as the maintainer of EFI code in
->> Xen. I will remain on the position that it is not acceptable to
->> apply workarounds for firmware issues by default unless they're
->> entirely benign to spec-conforming systems. DMI data based enabling
->> of workarounds, for example, is acceptable in the common case, as
->> long as the matching pattern isn't unreasonably wide.
->
->
-> It sort of sounds like it would be useful to have a wider discussion on t=
-his then, to hash out what exactly it is we want to do as a project.
->
->  -George
->
->
-> Sometimes a middle ground is possible, e.g. see this Nov 2019 thread abou=
-t a possible Xen Kconfig option for EFI_NONSPEC_COMPATIBILITY, targeting Ed=
-ge/IoT/laptop hardware:
->
-> https://lists.archive.carbon60.com/xen/devel/571670#571670
+On Tue, 18 Aug 2020, Jan Beulich wrote:
+> On 18.08.2020 00:56, Stefano Stabellini wrote:
+> > On Mon, 17 Aug 2020, Jan Beulich wrote:
+> >> On 07.08.2020 23:51, Stefano Stabellini wrote:
+> >>> On Fri, 7 Aug 2020, Jan Beulich wrote:
+> >>>> On 07.08.2020 01:49, Stefano Stabellini wrote:
+> >>>>> @@ -200,90 +236,115 @@ DEFINE_XEN_GUEST_HANDLE(xen_machphys_mfn_list_t);
+> >>>>>   */
+> >>>>>  #define XENMEM_machphys_compat_mfn_list     25
+> >>>>>  
+> >>>>> -/*
+> >>>>> +#define XENMEM_machphys_mapping     12
+> >>>>> +/**
+> >>>>> + * struct xen_machphys_mapping - XENMEM_machphys_mapping
+> >>>>> + *
+> >>>>>   * Returns the location in virtual address space of the machine_to_phys
+> >>>>>   * mapping table. Architectures which do not have a m2p table, or which do not
+> >>>>>   * map it by default into guest address space, do not implement this command.
+> >>>>>   * arg == addr of xen_machphys_mapping_t.
+> >>>>>   */
+> >>>>> -#define XENMEM_machphys_mapping     12
+> >>>>>  struct xen_machphys_mapping {
+> >>>>> +    /** @v_start: Start virtual address */
+> >>>>>      xen_ulong_t v_start, v_end; /* Start and end virtual addresses.   */
+> >>>>> -    xen_ulong_t max_mfn;        /* Maximum MFN that can be looked up. */
+> >>>>> +    /** @v_end: End virtual addresses */
+> >>>>> +    xen_ulong_t v_end;
+> >>>>> +    /** @max_mfn: Maximum MFN that can be looked up */
+> >>>>> +    xen_ulong_t max_mfn;
+> >>>>>  };
+> >>>>>  typedef struct xen_machphys_mapping xen_machphys_mapping_t;
+> >>>>>  DEFINE_XEN_GUEST_HANDLE(xen_machphys_mapping_t);
+> >>>>>  
+> >>>>> -/* Source mapping space. */
+> >>>>> +/**
+> >>>>> + * DOC: Source mapping space.
+> >>>>> + *
+> >>>>> + * - XENMAPSPACE_shared_info:  shared info page
+> >>>>> + * - XENMAPSPACE_grant_table:  grant table page
+> >>>>> + * - XENMAPSPACE_gmfn:         GMFN
+> >>>>> + * - XENMAPSPACE_gmfn_range:   GMFN range, XENMEM_add_to_physmap only.
+> >>>>> + * - XENMAPSPACE_gmfn_foreign: GMFN from another dom,
+> >>>>> + *                             XENMEM_add_to_physmap_batch only.
+> >>>>> + * - XENMAPSPACE_dev_mmio:     device mmio region ARM only; the region is mapped
+> >>>>> + *                             in Stage-2 using the Normal MemoryInner/Outer
+> >>>>> + *                             Write-Back Cacheable memory attribute.
+> >>>>> + */
+> >>>>>  /* ` enum phys_map_space { */
+> >>>>
+> >>>> Isn't this and ...
+> >>>>
+> >>>>> -#define XENMAPSPACE_shared_info  0 /* shared info page */
+> >>>>> -#define XENMAPSPACE_grant_table  1 /* grant table page */
+> >>>>> -#define XENMAPSPACE_gmfn         2 /* GMFN */
+> >>>>> -#define XENMAPSPACE_gmfn_range   3 /* GMFN range, XENMEM_add_to_physmap only. */
+> >>>>> -#define XENMAPSPACE_gmfn_foreign 4 /* GMFN from another dom,
+> >>>>> -                                    * XENMEM_add_to_physmap_batch only. */
+> >>>>> -#define XENMAPSPACE_dev_mmio     5 /* device mmio region
+> >>>>> -                                      ARM only; the region is mapped in
+> >>>>> -                                      Stage-2 using the Normal Memory
+> >>>>> -                                      Inner/Outer Write-Back Cacheable
+> >>>>> -                                      memory attribute. */
+> >>>>> +#define XENMAPSPACE_shared_info  0
+> >>>>> +#define XENMAPSPACE_grant_table  1
+> >>>>> +#define XENMAPSPACE_gmfn         2
+> >>>>> +#define XENMAPSPACE_gmfn_range   3
+> >>>>> +#define XENMAPSPACE_gmfn_foreign 4
+> >>>>> +#define XENMAPSPACE_dev_mmio     5
+> >>>>>  /* ` } */
+> >>>>
+> >>>> ... this also something that wants converting?
+> >>>
+> >>> For clarity, I take you are talking about these two enum-related
+> >>> comments:
+> >>>
+> >>> /* ` enum phys_map_space { */
+> >>> [... various #defines ... ]
+> >>> /* ` } */
+> >>>
+> >>> Is this something we want to convert to kernel-doc? I don't know. I
+> >>> couldn't see an obvious value in doing it, in the sense that it doesn't
+> >>> necessarely make things clearer.
+> >>>
+> >>> I took a second look at the header and the following would work:
+> >>>
+> >>> /**
+> >>>  * DOC: Source mapping space.
+> >>>  *
+> >>>  * enum phys_map_space {
+> >>>  *
+> >>>  * - XENMAPSPACE_shared_info:  shared info page
+> >>>  * - XENMAPSPACE_grant_table:  grant table page
+> >>>  * - XENMAPSPACE_gmfn:         GMFN
+> >>>  * - XENMAPSPACE_gmfn_range:   GMFN range, XENMEM_add_to_physmap only.
+> >>>  * - XENMAPSPACE_gmfn_foreign: GMFN from another dom,
+> >>>  *                             XENMEM_add_to_physmap_batch only.
+> >>>  * - XENMAPSPACE_dev_mmio:     device mmio region ARM only; the region is mapped
+> >>>  *                             in Stage-2 using the Normal MemoryInner/Outer
+> >>>  *                             Write-Back Cacheable memory attribute.
+> >>>  * }
+> >>>  */
+> >>>
+> >>> Note the blank line after "enum phys_map_space {" is required.
+> >>>
+> >>>
+> >>> All in all I am in favor of *not* converting the enum comment to
+> >>> kernel-doc, but I'd be OK with it anyway.
+> >>
+> >> Iirc the enum comments were added for documentation purposes. This to
+> >> me means there are two options at this point:
+> >> - retain them in a way that the new doc model consumes them,
+> >> - drop them at the same time as adding the new doc comments.
+> >>
+> >> Their (presumed) value is that they identify #define-s which supposed
+> >> to be enum-like without actually being able to use enums in the public
+> >> headers (with some exceptions).
+> > 
+> > I understand. Then, it doesn't look like we want to keep them in the code
+> > without converting them to kernel-doc. We could either:
+> > 
+> > 1) remove them as part of this series
+> > 2) convert them to kernel-doc in the top comment as shown above
+> > 
+> > I could do either, but my preference is 1) because I think it leads to
+> > clearer docs.
+> 
+> While I'd slightly prefer 2, I'll be okay with your choice.
 
-Yup. Having that top-level knob is exactly what I had in mind as the first =
-step.
-We can debate whether it needs to be on or off by default later, but having
-it is a very burning problem. Otherwise distros like EVE and QubesOS just
-to give you two obvious examples have a very difficult time sharing "best
-practices" of what works on those types of devices.
-
-> In the years to come, edge devices will only grow in numbers.  Some will =
-be supported in production for more than a decade, which will require new l=
-ong-term commercial support mechanisms for device BIOS, rather than firmwar=
-e engineers shifting focus after a device is launched.
-
-That's exactly what we're seeing with ZEDEDA customers.
-
-> In parallel to (opt-in) Xen workarounds for a constrained and documented =
-set of firmware issues, we need more industry efforts to support open firmw=
-are, like coreboot and OCP Open System Firmware with minimum binary blobs. =
- At least one major x86 OEM is expected to ship open firmware in one of the=
-ir popular devices, which may encourage competing OEM devices to follow.
->
-> PC Engines APU2 (dual-core AMD, 4GB RAM, 6W TDP, triple NIC + LTE) is one=
- available edge device which supports Xen and has open (coreboot) firmware.=
-  It would be nice to include APU2 in LF Edge support, if only to provide c=
-ompetition to OEM devices with buggy firmware. Upcoming Intel Tiger Lake (C=
-ore) and Elkhart Lake (Atom Tremont) are expected to expand edge-relevant s=
-ecurity features, which would make such devices attractive to Xen deploymen=
-ts.
-
-Funny you should mention it -- APU2 is my weekend project for this
-coming weekend to make EVE/Xen run on it out-of-the box. I'll be using
-SeaBIOS payload for now, but the ultimate goal is to turn EVE into a
-payload itself.
-
-> We also need edge software vendors to encourage device OEMs to enable ope=
-n firmware via coreboot, OCP OSF, Intel MinPlatform and similar programs. S=
-ee https://software.intel.com/content/www/us/en/develop/articles/minimum-pl=
-atform-architecture-open-source-uefi-firmware-for-intel-based-platforms.htm=
-l and other talks from the open firmware conference, https://osfc.io/archiv=
-e
-
-Thanks,
-Roman.
+OK. I removed the enum comments.
 
