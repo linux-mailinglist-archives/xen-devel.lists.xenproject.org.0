@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4133624AA84
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 02:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3CD24AA94
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 02:02:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8Y27-00011K-2M; Thu, 20 Aug 2020 00:02:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8Y2e-00016j-Bj; Thu, 20 Aug 2020 00:02:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q1N0=B6=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1k8Y26-00011E-AS
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 00:02:18 +0000
-X-Inumbo-ID: 7507ca01-b617-4108-abb6-bdbc7ca8b658
+ id 1k8Y2c-00016H-R3
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 00:02:50 +0000
+X-Inumbo-ID: f437f669-ea60-4374-8c88-f158ec913b92
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7507ca01-b617-4108-abb6-bdbc7ca8b658;
- Thu, 20 Aug 2020 00:02:17 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f437f669-ea60-4374-8c88-f158ec913b92;
+ Thu, 20 Aug 2020 00:02:49 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F10F321741;
- Thu, 20 Aug 2020 00:02:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0F7E3207FB;
+ Thu, 20 Aug 2020 00:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597881737;
- bh=/S/5fcNXp1qF0dj5Sh7EBvrVNQQbog7E1B1vZS/c6vk=;
+ s=default; t=1597881769;
+ bh=UfnvacykJk5ebnnFuOHKhcQ5y/mX76Whr9BDBzHGjPA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lcEIr4B4Gyut2krPkxrECa5l+X6KWt7FqZD5lRLWyqr0s+PTwxrtMnw5QLLrs0PY4
- s78p3Cj6t501J2VPXa3Rwyecj7hubG3I3MxhIAZoDDla0N4ZjeGZvPFXgLj7T/f8jj
- oWf7HAyC2X95hbAZHkpBVQZD8nqan0VmVRLo9e8Q=
+ b=FmaOUcfOGd/3w/4J8SwDQW16uqVgKoJYFbpXnGhTqCnG5lse5VfSMgGUVu3D+fhXX
+ 9xBA0hxKq/PxYDSxrxQd1u5y0NGeBpUZvaMZKH31ptNN75qLPOaL+c2HIwQFg0JVB/
+ PSEA/GU+awW0cbC2d3DbsLFNZO4y1b6uayKSmldM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -39,13 +40,13 @@ Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Corey Minyard <cminyard@mvista.com>, Roman Shaposhnik <roman@zededa.com>,
  Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
  xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org
-Subject: [PATCH AUTOSEL 5.7 16/24] swiotlb-xen: use vmalloc_to_page on vmalloc
+Subject: [PATCH AUTOSEL 5.4 14/22] swiotlb-xen: use vmalloc_to_page on vmalloc
  virt addresses
-Date: Wed, 19 Aug 2020 20:01:47 -0400
-Message-Id: <20200820000155.215089-16-sashal@kernel.org>
+Date: Wed, 19 Aug 2020 20:02:21 -0400
+Message-Id: <20200820000229.215333-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200820000155.215089-1-sashal@kernel.org>
-References: <20200820000155.215089-1-sashal@kernel.org>
+In-Reply-To: <20200820000229.215333-1-sashal@kernel.org>
+References: <20200820000229.215333-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -91,7 +92,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index b6d27762c6f8c..5fbadd07819bd 100644
+index bd3a10dfac157..06346422f7432 100644
 --- a/drivers/xen/swiotlb-xen.c
 +++ b/drivers/xen/swiotlb-xen.c
 @@ -335,6 +335,7 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
