@@ -2,54 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477ED24B235
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 11:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 901D224B273
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 11:30:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8gou-0005oV-80; Thu, 20 Aug 2020 09:25:16 +0000
+	id 1k8gu4-0006e2-TV; Thu, 20 Aug 2020 09:30:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WITm=B6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k8gos-0005oQ-RL
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 09:25:14 +0000
-X-Inumbo-ID: bffea2b1-1489-4626-81d3-b75ed5fbf969
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=00F7=B6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k8gu3-0006dx-Az
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 09:30:35 +0000
+X-Inumbo-ID: 246a606b-4a69-4040-b40b-603305588c7d
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bffea2b1-1489-4626-81d3-b75ed5fbf969;
- Thu, 20 Aug 2020 09:25:13 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CC4AEAC7D;
- Thu, 20 Aug 2020 09:25:39 +0000 (UTC)
-Subject: Re: [PATCH] xen: Introduce cmpxchg64() and guest_cmpxchg64()
-To: Julien Grall <julien@xen.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20200815172143.1327-1-julien@xen.org>
- <20200817092406.GO975@Air-de-Roger>
- <b620dc46-7446-a440-5fd2-fd1cc7f8ffa7@xen.org>
- <20200817103306.GA828@Air-de-Roger>
- <f8b9a884-79e3-bd9d-d7bc-94fb9ee9906d@xen.org>
- <20200817114730.GB828@Air-de-Roger>
- <67e0c0f1-d85f-ad4d-d6bb-cee3603962f4@xen.org>
- <0fc30c51-9a7b-6421-ecdf-dbdbb76480f7@suse.com>
- <7f37a386-d758-ac3e-c32b-f7bb1b523f52@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7998876a-d909-6987-8edf-542798f7eee8@suse.com>
-Date: Thu, 20 Aug 2020 11:25:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 246a606b-4a69-4040-b40b-603305588c7d;
+ Thu, 20 Aug 2020 09:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1597915834;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=JOFJLG4ZbV1ni53LmoKfc6kfjJleIkSwPdTnr2L6gIo=;
+ b=BCCDvyKQjo7pJeSdHXF+RA2QmMtEJcfrfCa9NBkqC2VJQHdIGbUjK8n/
+ M/vzuvI8OAdRPMalz57ARQ/a/Xk3GraHBg5f3CORbqZd9E1gUa5IH9EDW
+ 2eVMpNIbkSJQQ0gy+ht46Oj0Dyjmt5FU5w4wal0ai9HPDhA84JzhmF2Z3 c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: WvUXriqLGuvGCXAu5fnip2siz+RQmU0ppvt5rYOy+5ZvVIaKpmB3VtaYY2lR1wics2GzPM2k0o
+ dcsc6SZ8zNggPrdeB5soBDeSVch5SJaO3Oi0i/aJygLYmw8fw2KcMsd9ZsjdT8gorf4VHsxENy
+ GderqLJbJZKtygIfV6yeJKru+VJ9jWsNbgYbEjgobFtlVohqfoOyw6pjeO0OUjj4awi3e7MMaL
+ WHYTSPYnqa0EZksh8CzO7qJ1CX3UHr/gnOBFFI5nQX88NA6HjW0GEwPr9GZsSs0uI2ACdgi2c8
+ A48=
+X-SBRS: 2.7
+X-MesageID: 24915090
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,332,1592884800"; d="scan'208";a="24915090"
+Date: Thu, 20 Aug 2020 11:30:25 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Norbert Kaminski <norbert.kaminski@3mdeb.com>
+CC: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Ard Biesheuvel <ardb@kernel.org>,
+ <linux-efi@vger.kernel.org>, <xen-devel@lists.xenproject.org>, open list
+ <linux-kernel@vger.kernel.org>, Maciej Pijanowski
+ <maciej.pijanowski@3mdeb.com>, <piotr.krol@3mdeb.com>
+Subject: Re: [PATCH] efi: discover ESRT table on Xen PV too
+Message-ID: <20200820093025.GT828@Air-de-Roger>
+References: <20200816001949.595424-1-marmarek@invisiblethingslab.com>
+ <20200817090013.GN975@Air-de-Roger>
+ <20200818120135.GK1679@mail-itl>
+ <20200818124710.GK828@Air-de-Roger>
+ <20200818150020.GL1679@mail-itl>
+ <20200818172114.GO828@Air-de-Roger>
+ <20200818184018.GN1679@mail-itl>
+ <20200819081930.GQ828@Air-de-Roger>
+ <3d405b0c-4e2b-0d29-56bb-e315f4c21d03@3mdeb.com>
 MIME-Version: 1.0
-In-Reply-To: <7f37a386-d758-ac3e-c32b-f7bb1b523f52@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <3d405b0c-4e2b-0d29-56bb-e315f4c21d03@3mdeb.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +79,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.08.2020 11:14, Julien Grall wrote:
+On Wed, Aug 19, 2020 at 01:33:39PM +0200, Norbert Kaminski wrote:
 > 
-> 
-> On 19/08/2020 10:22, Jan Beulich wrote:
->> On 17.08.2020 15:03, Julien Grall wrote:
->>> On 17/08/2020 12:50, Roger Pau Monné wrote:
->>>> On Mon, Aug 17, 2020 at 12:05:54PM +0100, Julien Grall wrote:
->>>>> The only way I could see to make it work would be to use the same trick as
->>>>> we do for {read, write}_atomic() (see asm-arm/atomic.h). We are using union
->>>>> and void pointer to prevent explicit cast.
->>>>
->>>> I'm mostly worried about common code having assumed that cmpxchg
->>>> does also handle 64bit sized parameters, and thus failing to use
->>>> cmpxchg64 when required. I assume this is not much of a deal as then
->>>> the Arm 32 build would fail, so it should be fairly easy to catch
->>>> those.
->>> FWIW, this is not very different to the existing approach. If one would
->>> use cmpxchg() with 64-bit, then it would fail to compile.
->>
->> A somewhat related question then: Do you really need both the
->> guest_* and the non-guest variants? Limiting things to plain
->> cmpxchg() would further reduce the risk of someone picking the
->> wrong one without right away noticing the build issue on Arm32.
->> For guest_cmpxchg{,64}() I think there's less of a risk.
-> 
-> For the IOREQ code, we will need the guest_* version that is built on 
-> top of the non-guest variant.
-> 
-> I would like at least consistency between the two variants. IOW, if we 
-> decide to use the name guest_cmpxchg64(), then I would like to use 
-> cmpxchg64().
+> On 19.08.2020 10:19, Roger Pau Monné wrote:
+> > On Tue, Aug 18, 2020 at 08:40:18PM +0200, Marek Marczykowski-Górecki wrote:
+> > > On Tue, Aug 18, 2020 at 07:21:14PM +0200, Roger Pau Monné wrote:
+> > > > > Let me draw the picture from the beginning.
+> > > > Thanks, greatly appreciated.
+> > > > 
+> > > > > EFI memory map contains various memory regions. Some of them are marked
+> > > > > as not needed after ExitBootServices() call (done in Xen before
+> > > > > launching dom0). This includes EFI_BOOT_SERVICES_DATA and
+> > > > > EFI_BOOT_SERVICES_CODE.
+> > > > > 
+> > > > > EFI SystemTable contains pointers to various ConfigurationTables -
+> > > > > physical addresses (at least in this case). Xen does interpret some of
+> > > > > them, but not ESRT. Xen pass the whole (address of) SystemTable to Linux
+> > > > > dom0 (at least in PV case). Xen doesn't do anything about tables it
+> > > > > doesn't understand.
+> > > > > 
+> > > > > Now, the code in Linux takes the (ESRT) table address early and checks
+> > > > > the memory map for it. We have 3 cases:
+> > > > >   - it points at area marked as neither EFI_*_SERVICES_DATA, nor with
+> > > > >     EFI_MEMORY_RUNTIME attribute -> Linux refuse to use it
+> > > > >   - it points to EFI_RUNTIME_SERVICES_DATA or with EFI_MEMORY_RUNTIME
+> > > > >     attribute - Linux uses the table; memory map already says the area
+> > > > >     belongs to EFI and the OS should not use it for something else
+> > > > >   - it points to EFI_BOOT_SERVICES_DATA - Linux mark the area as reserved
+> > > > >     to not release it after calling ExitBootServices()
+> > > > > 
+> > > > > The problematic is the third case - at the time when Linux dom0 is run,
+> > > > > ExitBootServices() was already called and EFI_BOOT_SERVICES_* memory was
+> > > > > already released. It could be already used for something else (for
+> > > > > example Xen could overwrite it while loading dom0).
+> > > > > 
+> > > > > Note the problematic case should be the most common - UEFI specification
+> > > > > says "The ESRT shall be stored in memory of type EfiBootServicesData"
+> > > > > (chapter 22.3 of UEFI Spec v2.6).
+> > > > > 
+> > > > > For this reason, to use ESRT in dom0, Xen should do something about it
+> > > > > before ExitBootServices() call. While analyzing all the EFI tables is
+> > > > > probably not a viable option, it can do some simple action:
+> > > > >   - retains all the EFI_BOOT_SERVICES_* areas - there is already code
+> > > > >     for that, controlled with /mapbs boot switch (to xen.efi, would need
+> > > > >     another option for multiboot2+efi)
+> > > > >   - have a list of tables to retain - since Xen already do analyze some
+> > > > >     of the ConfigurationTables, it can also have a list of those to
+> > > > >     preserve even if they live in EFI_BOOT_SERVICES_DATA. In this case,
+> > > > >     while Xen doesn't need to parse the whole table, it need to parse it's
+> > > > >     header to get the table size - to reserve that memory and not reuse
+> > > > >     it after ExitBootServices().
+> > > > Xen seems to already contain skeleton
+> > > > XEN_EFI_query_capsule_capabilities and XEN_EFI_update_capsule
+> > > > hypercalls which is what should be used in order to perform the
+> > > > updates?
+> > > I think those covers only runtime service calls similarly named. But you
+> > > need also ESRT table to collect info about devices that you can even
+> > > attempt to update.
+> > Right, the ESRT must be available so that dom0 can discover the
+> > resources.
+> > 
+> > > TBH, I'm not sure if those runtime services are really needed. I think
+> > > Norbert succeeded UEFI update from within Xen PV dom0 with just access
+> > > to the ESRT table, but without those services.
+> > > 
+> Marek is right here. I was able to successfully update and downgrade
+> UFEI when the ESRT table was provided to the Xen PV dom0. I didn't
+> need any extra services to make the UEFI capsule update work.
 
-On Arm, that is. There wouldn't be any need to expose cmpxchg64()
-for use in common code, and hence not at all on x86, I guess?
+OK, I think that's using the method described in 8.5.5 of delivery of
+Capsules via file on Mass Storage, which doesn't use the
+UpdateCapsule() runtime API?
 
-Jan
+Using such method doesn't require QueryCapsuleCapabilities(), as
+that's used to know whether a certain capsule can be updated via
+UpdateCapsule().
+
+> > OK, by reading the UEFI spec I assumed that you needed access to
+> > QueryCapsuleCapabilities and UpdateCapsule in order to perform the
+> > updates, and those should be proxied using hyopercalls. Maybe this is
+> > not mandatory and there's a side-band mechanism of doing this?
+> > 
+> > I think we need more info here.
+> > 
+> > > > So yes, I agree Xen should make sure the region of the table is not
+> > > > freed when exiting boot services, and that dom0 can access it. I
+> > > > guess we should move the checks done by Linux to Xen, and then only
+> > > > provide the ESRT table to dom0 if the checks (now done by Xen) pass.
+> > > Yes, something like this. But note currently in the (PV) dom0 case, Xen
+> > > provides dom0 with a pointer to the whole SystemTable, not individual
+> > > ConfigurationTables. Making it filter what dom0 gets would require Xen
+> > > to re-construct the whole thing with just those elements that are
+> > > desired. Not exactly sure if worth the effort given the privilege dom0
+> > > has.
+> > We already do this for ACPI in PVH dom0, where Xen rebuilds the RSDT
+> > in order to filter out tables that shouldn't be exposed to dom0. If
+> > possible using something similar for UEFI would be my preference, but
+> > I certainly haven't investigated at all whether this is feasible.
+> > 
+> > > BTW How does it look in PVH dom0 case? Does it also get unmodified host
+> > > EFI SystemTable? In that case, it would be more tricky, because (IIUC)
+> > > physical addresses (like the one for ESRT table) are not meaningful to
+> > > PVH dom0.
+> > For PVH dom0 we should make sure the ESRT is identity mapped into the
+> > physmap, so that dom0 has access to it. PVH dom0 gets a physical
+> > memory map that's basically the native one with the RAM regions
+> > adjusted to match the assigned memory.
+> > 
+> > We already identity map a bunch of stuff there, so identity mapping
+> > the ESRT would be likely fine.
+> > 
+> > > > It might be helpful to see the whole picture here with the hooks to
+> > > > perform the updates also implemented, as those are missing in Xen (and
+> > > > Linux?). That would give a clearer view of what you are trying to
+> > > > achieve IMO.
+> > > Norbert, can you shed some light on this process?
+> > > 
+> > > While those two runtime services seems relevant, I see also an update
+> > > process involving simply dropping some file into ESP (/boot/efi). I'm
+> > > not sure if some runtime services were involved.
+> > So then the update is done when rebooting? If we expose the ESRT we
+> > should also make sure the run-time services related to it are
+> > available.
+> 
+> Fwupd uses system firmware GUID to recognize its type. UEFI GUID is
+> provided in the ESRT. Then fwupd checks if the updates/downgrades are
+> available. In the next step the tool downloads and extracts cabinet
+> archives in the EFI capsule file format and the capsule updates firmware
+> after the OS reboot.
+
+Right, so you only need access to the ESRT table, that's all. Then I
+think we need to make sure Xen doesn't use this memory for anything
+else, which will require some changes in Xen (or at least some
+checks?).
+
+We also need to decide what to do if the table turns out to be placed
+in a wrong region. How are we going to prevent dom0 from using it
+then? My preference would be to completely hide it from dom0 in that
+case, such that it believes there's no ESRT at all if possible.
+
+Thanks, Roger.
 
