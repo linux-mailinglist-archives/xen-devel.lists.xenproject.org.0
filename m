@@ -2,113 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9FB124AFB4
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 09:15:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A6A24B126
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Aug 2020 10:35:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8emv-0002eP-N3; Thu, 20 Aug 2020 07:15:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rX0G=B6=epam.com=prvs=65010a7043=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1k8emu-0002do-66
- for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 07:15:04 +0000
-X-Inumbo-ID: ab07603b-ecea-46c7-a5f1-6d513e6b512c
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab07603b-ecea-46c7-a5f1-6d513e6b512c;
- Thu, 20 Aug 2020 07:15:02 +0000 (UTC)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07K7AXBW019171; Thu, 20 Aug 2020 07:14:59 GMT
-Received: from eur02-am5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2058.outbound.protection.outlook.com [104.47.4.58])
- by mx0a-0039f301.pphosted.com with ESMTP id 330x6wkcgk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Aug 2020 07:14:58 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l8S5V+pfAoEB7BcDkhs29a+T6Ha68Rc8psiteqWgoBeUxjoC6gV7PVrU48/vPwtPYxLT/meimWljQ5WHEkMIf/UwyULNfgEb2RFo2DM99TH9fr+rtb5DnQXvKa4a5Z6HanTmMWWEwjw/YNKi1P+9Q6aTkGmICsP4MklgAXI33NBn0nX117H32manTkRUl/RhP2FU3qbLchTIz5ElNy5pnk8sUD1m9tzRI2Crf8Ocb8YW77AWA4s8DzKKrqRuLdNacnqiXSkJfKjoSFMcxsAUd2lF+KZGPcgsF75SoU9hgBhB2uXd2K9593IGTkaJp74joB+UOKF5tF28DDWnyomc1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LpHvE5DvK8NF6m9Zs56gPUeGPlKyYX08iF8Xu7ozfAo=;
- b=SV6sjz5uo5H7/sPZMOHqgKzlGcQicSKIjU4BE+AULDSr8Va+IJ09qZXc38Y948L414DQgcQHF1M01HQeKFYngPctzoxYsZ+h8GAxyJ0vRMimhuYVln5InJQNgLTu/lE6uoKx2uwwCau2KQ2HrSlfbH5Fo8Pmm9tzKrEVnMPj5rBXkd2juZVH73IfqUE6fyOa/3fXcO6fSP8eADJYz3qi4y5h/AepQzPXxPlpMKzeX301S/B5dSm9GtP2HDTGVCt2ql0no+oHYRWePl7RVBXzboCZH8YsuAowor+dqAA9al5BiqSEAAi3ysW188RYkKdu1vKfD2VqPQYA4WTBS/mWaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LpHvE5DvK8NF6m9Zs56gPUeGPlKyYX08iF8Xu7ozfAo=;
- b=170PYMfum7wTcSj/x1aQcn35oOcbgxeDDDdn7DWR1KDNj9r3PG0MaQkmzqjMkBWUOteESfSdZ+GmJVKUFvyEedVu1XZObsTnbCm9Wp6zfiiWf87xE1dqdlu6s2sbqVNGvekAKBFxwb4sbmkRGnyPU3y3OtxmNrvSIQgHqJAxEYdeDQRrNxLO/QyFw7Wb0rs1JWRnLOA+R5W9xqa0GMzol4Zle0KfPIiMTCFNCqRlQh197RwazWqrJd2RYlNIu80AJu4GZCC0Ry5rkCwo4EGKv8+anyjPIyYr//1h2Pj6ipS5ox0pShGwZ5L3pFwVShBd/SxqoHwNAijWZ3lYvGun6A==
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB3587.eurprd03.prod.outlook.com (2603:10a6:208:44::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24; Thu, 20 Aug
- 2020 07:14:56 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::853d:1bd6:75a0:a7d7]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::853d:1bd6:75a0:a7d7%8]) with mapi id 15.20.3305.025; Thu, 20 Aug 2020
- 07:14:56 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Sasha Levin <sashal@kernel.org>, Oleksandr Andrushchenko
- <andr2000@gmail.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 2/5] drm/xen-front: Fix misused IS_ERR_OR_NULL checks
-Thread-Topic: [PATCH v2 2/5] drm/xen-front: Fix misused IS_ERR_OR_NULL checks
-Thread-Index: AQHWcTn3Q6X6TpC2sk2hUb4/U9tW36lAJkgAgAB6eYA=
-Date: Thu, 20 Aug 2020 07:14:56 +0000
-Message-ID: <61ab361a-6b3f-f9ba-2954-470e8854e230@epam.com>
-References: <20200813062113.11030-3-andr2000@gmail.com>
- <20200819235634.BB9D621744@mail.kernel.org>
-In-Reply-To: <20200819235634.BB9D621744@mail.kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [185.199.97.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2fda20eb-06ba-4eca-2b89-08d844d8be07
-x-ms-traffictypediagnostic: AM0PR03MB3587:
-x-microsoft-antispam-prvs: <AM0PR03MB35877B4438A3107A65FA8A0BE75A0@AM0PR03MB3587.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2399;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gdrnq0NWh6lv1CfjvSsJXgyimf/Y+JLtSCFSOtZyNtWKt1gzONwrEfVU5vpTy5x2UxvyjHxxPSj+iboDz5yg1U1Z+V3WLpRbfziF7tOreVItiRwS/cc9gB8ngxUQ6OZKhJXQSQpp+7dvan7Lh5JblrzhGO8+4HZMboffcgxYhhD3vADwx0X9W4JDQLwgku1CLpVu/tTSu1o/f6N4f/aI4yxLPxTBjrNihVBR5qr8qM8dnSg6tSV/Mo9E4Hpzy/IRc5WDsfEUh/Ls7Byfu0APWlGasOXFAMxgfgbah6wFvCu1mrRloxFSEnQxSCh7K+GEX8u0JsG7yEV6J7OkAdx5JA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR03MB6324.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(366004)(136003)(6512007)(2616005)(83380400001)(6486002)(66476007)(53546011)(66446008)(91956017)(66556008)(6506007)(5660300002)(8936002)(2906002)(64756008)(71200400001)(8676002)(186003)(36756003)(26005)(66946007)(110136005)(4326008)(31686004)(478600001)(86362001)(54906003)(76116006)(316002)(31696002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 3XZv2QO70jIY8n9QAna2lji+5TZwDSW6SZMnagvTvGyipSiVf9OgSFVwC4MB7gVUxIxmxgChc8w3UvWThqfsAm16tT/8MefYxS9FDM8fMhudUMM6F3RfpOvH5qumeSsDFCFsPlJsqgesjY0+jvn5YYpB9gnYdbwIW+/aNdLo5uxUT5OUALNRnro10VPzzCSUF11KcMUVVnkbTH+GX95CIMTtf6X+3uNxlNDvL7x0+S3uZPime7REa8lRYRC3GteheiBG/RKP6AL5GTyfrtat9nQvPwTC6K7tuadJxHTwDywh75YezvJO7zYp1GnJJkJmHVhEgFksSALgGI3JCKdSk4rFagSxq3ezVtevAhyZMYaf3yy68B/2CzBdp/zMmY83mms2/l0HZ89fH+13/7P9dnLxK2xwQxmxq7bsYCoZOfZY02D/P/JM9i2FT0SdyAWlV8yM5YaWfPKI6ZWcHnv96QYfuUJShecd+wQziULOo/tyXcPrPer7OuakueTa4dN0cMwe3KagZMz8G/Z4i3H0qovf3E4lrOvQKdw0goM7NikBEpLGkGr1K32+Jh4+vvrszSMNqKxWzqHkG2+pRhaNW8r/fjzJS1bU5U5TZ+2DpbN2sQ86K85+AooXvJ/cjY30WlYaQjJOzE6b1wEGr9H30Q==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <723A624ACB3A9D41BFE71A76A53EE2B7@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	id 1k8g20-0001Tc-2t; Thu, 20 Aug 2020 08:34:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WITm=B6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k8g1y-0001TX-Bc
+ for xen-devel@lists.xenproject.org; Thu, 20 Aug 2020 08:34:42 +0000
+X-Inumbo-ID: 9858c84f-e529-4c5c-a3ca-de0d8cde76af
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9858c84f-e529-4c5c-a3ca-de0d8cde76af;
+ Thu, 20 Aug 2020 08:34:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 75F01B70F;
+ Thu, 20 Aug 2020 08:35:06 +0000 (UTC)
+Subject: Re: Xen 4.14.0 fails on Dell IoT Gateway without efi=no-rs
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
+References: <CAMmSBy9UUr0T0wT4gG_zAVTa6q=1yVL+js5ciOAnNZyvmAeaPA@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8b0e088c-baa9-93db-02f8-369acb008b69@suse.com>
+Date: Thu, 20 Aug 2020 10:34:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fda20eb-06ba-4eca-2b89-08d844d8be07
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2020 07:14:56.3824 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rIBkeBJAqQJu92u7xoXi5CEs4hTKwOJXPksXpFVseBZRJDGBofZQ3VSUwUg2SCOMzpF8pE2KBcsNHU8XkqHzE2YiU5ZMiYmXZrn7ntkW82KEsvjFQvTMAeTOjAb/yFPz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB3587
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-19_13:2020-08-19,
- 2020-08-19 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1011
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- mlxlogscore=999 adultscore=0 phishscore=0 malwarescore=0 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008200063
+In-Reply-To: <CAMmSBy9UUr0T0wT4gG_zAVTa6q=1yVL+js5ciOAnNZyvmAeaPA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,24 +51,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksDQoNCk9uIDgvMjAvMjAgMjo1NiBBTSwgU2FzaGEgTGV2aW4gd3JvdGU6DQo+IEhpDQo+DQo+
-IFtUaGlzIGlzIGFuIGF1dG9tYXRlZCBlbWFpbF0NCj4NCj4gVGhpcyBjb21taXQgaGFzIGJlZW4g
-cHJvY2Vzc2VkIGJlY2F1c2UgaXQgY29udGFpbnMgYSAiRml4ZXM6IiB0YWcNCj4gZml4aW5nIGNv
-bW1pdDogYzU3NWI3ZWViODlmICgiZHJtL3hlbi1mcm9udDogQWRkIHN1cHBvcnQgZm9yIFhlbiBQ
-ViBkaXNwbGF5IGZyb250ZW5kIikuDQo+DQo+IFRoZSBib3QgaGFzIHRlc3RlZCB0aGUgZm9sbG93
-aW5nIHRyZWVzOiB2NS44LjEsIHY1LjcuMTUsIHY1LjQuNTgsIHY0LjE5LjEzOS4NCj4NCj4gdjUu
-OC4xOiBCdWlsZCBPSyENCj4gdjUuNy4xNTogQnVpbGQgT0shDQo+IHY1LjQuNTg6IEZhaWxlZCB0
-byBhcHBseSEgUG9zc2libGUgZGVwZW5kZW5jaWVzOg0KPiAgICAgIDRjMWNiMDRlMGU3YSAoImRy
-bS94ZW46IGZpeCBwYXNzaW5nIHplcm8gdG8gJ1BUUl9FUlInIHdhcm5pbmciKQ0KPiAgICAgIDkz
-YWRjMGMyY2I3MiAoImRybS94ZW46IFNpbXBsaWZ5IGZiX2NyZWF0ZSIpDQo+DQo+IHY0LjE5LjEz
-OTogRmFpbGVkIHRvIGFwcGx5ISBQb3NzaWJsZSBkZXBlbmRlbmNpZXM6DQo+ICAgICAgNGMxY2Iw
-NGUwZTdhICgiZHJtL3hlbjogZml4IHBhc3NpbmcgemVybyB0byAnUFRSX0VSUicgd2FybmluZyIp
-DQo+ICAgICAgOTNhZGMwYzJjYjcyICgiZHJtL3hlbjogU2ltcGxpZnkgZmJfY3JlYXRlIikNCj4N
-Cj4NCj4gTk9URTogVGhlIHBhdGNoIHdpbGwgbm90IGJlIHF1ZXVlZCB0byBzdGFibGUgdHJlZXMg
-dW50aWwgaXQgaXMgdXBzdHJlYW0uDQo+DQo+IEhvdyBzaG91bGQgd2UgcHJvY2VlZCB3aXRoIHRo
-aXMgcGF0Y2g/DQo+DQpUaGlzIGlzIGJlY2F1c2Ugb2YgY29tbWl0IDRjMWNiMDRlMGU3YWM0YmEx
-ZWY1NDU3OTI5ZWY5YjU2NzFkOWVlZDMNCg0Kd2FzIG5vdCBDQ2VkIHRvIHN0YWJsZS4gU28sIGlm
-IHdlIHdhbnQgdGhlIHBhdGNoIHRvIGJlIGFwcGxpZWQgdG8gb2xkZXIgc3RhYmxlDQoNCmtlcm5l
-bHMgd2UgYWxzbyBuZWVkIHRoaXMgcGF0Y2ggYXMgd2VsbC4NCg0KVGhhbmsgeW91LA0KDQpPbGVr
-c2FuZHINCg==
+On 20.08.2020 00:50, Roman Shaposhnik wrote:
+> below you can see a trace of Xen 4.14.0 failing on Dell IoT Gateway 3001
+> without efi=no-rs. Please let me know if I can provide any additional
+> information.
+
+One of the usual firmware issues:
+
+> Xen 4.14.0
+> (XEN) Xen version 4.14.0 (@) (gcc (Alpine 6.4.0) 6.4.0) debug=n  Sat Jul 25
+> 23:45:43 UTC 2020
+> (XEN) Latest ChangeSet:
+> (XEN) Bootloader: GRUB 2.03
+> (XEN) Command line: com1=115200,8n1 console=com1 dom0_mem=1024M,max:1024M
+> dom0_max_vcpus=1 dom0_vcpus_pin
+> (XEN) Xen image load base address: 0x71000000
+> (XEN) Video information:
+> (XEN)  VGA is text mode 80x25, font 8x16
+> (XEN) Disc information:
+> (XEN)  Found 0 MBR signatures
+> (XEN)  Found 1 EDD information structures
+> (XEN) EFI RAM map:
+> (XEN)  [0000000000000000, 000000000003efff] (usable)
+> (XEN)  [000000000003f000, 000000000003ffff] (ACPI NVS)
+> (XEN)  [0000000000040000, 000000000009ffff] (usable)
+> (XEN)  [0000000000100000, 000000001fffffff] (usable)
+> (XEN)  [0000000020000000, 00000000200fffff] (reserved)
+> (XEN)  [0000000020100000, 0000000076ccafff] (usable)
+> (XEN)  [0000000076ccb000, 0000000076d42fff] (reserved)
+> (XEN)  [0000000076d43000, 0000000076d53fff] (ACPI data)
+> (XEN)  [0000000076d54000, 00000000772ddfff] (ACPI NVS)
+> (XEN)  [00000000772de000, 00000000775f4fff] (reserved)
+> (XEN)  [00000000775f5000, 00000000775f5fff] (usable)
+> (XEN)  [00000000775f6000, 0000000077637fff] (reserved)
+> (XEN)  [0000000077638000, 00000000789e4fff] (usable)
+> (XEN)  [00000000789e5000, 0000000078ff9fff] (reserved)
+> (XEN)  [0000000078ffa000, 0000000078ffffff] (usable)
+> (XEN)  [00000000e0000000, 00000000efffffff] (reserved)
+> (XEN)  [00000000fec00000, 00000000fec00fff] (reserved)
+> (XEN)  [00000000fed01000, 00000000fed01fff] (reserved)
+> (XEN)  [00000000fed03000, 00000000fed03fff] (reserved)
+> (XEN)  [00000000fed08000, 00000000fed08fff] (reserved)
+> (XEN)  [00000000fed0c000, 00000000fed0ffff] (reserved)
+> (XEN)  [00000000fed1c000, 00000000fed1cfff] (reserved)
+> (XEN)  [00000000fee00000, 00000000fee00fff] (reserved)
+> (XEN)  [00000000fef00000, 00000000feffffff] (reserved)
+> (XEN)  [00000000ff900000, 00000000ffffffff] (reserved)
+> (XEN) System RAM: 1919MB (1965176kB)
+> (XEN) ACPI: RSDP 76D46000, 0024 (r2   DELL)
+> (XEN) ACPI: XSDT 76D46088, 0094 (r1   DELL     AS09  1072009 AMI     10013)
+> (XEN) ACPI: FACP 76D52560, 010C (r5   DELL     AS09  1072009 AMI     10013)
+> (XEN) ACPI: DSDT 76D461B0, C3AF (r2   DELL     AS09  1072009 INTL 20120913)
+> (XEN) ACPI: FACS 772DDE80, 0040
+> (XEN) ACPI: APIC 76D52670, 0068 (r3   DELL     AS09  1072009 AMI     10013)
+> (XEN) ACPI: FPDT 76D526D8, 0044 (r1   DELL     AS09  1072009 AMI     10013)
+> (XEN) ACPI: FIDT 76D52720, 009C (r1   DELL     AS09  1072009 AMI     10013)
+> (XEN) ACPI: MCFG 76D527C0, 003C (r1   DELL     AS09  1072009 MSFT       97)
+> (XEN) ACPI: LPIT 76D52800, 0104 (r1   DELL     AS09        3 VLV2  100000D)
+> (XEN) ACPI: HPET 76D52908, 0038 (r1   DELL     AS09  1072009 AMI.        5)
+> (XEN) ACPI: SSDT 76D52940, 0763 (r1   DELL     AS09     3000 INTL 20061109)
+> (XEN) ACPI: SSDT 76D530A8, 0290 (r1   DELL     AS09     3000 INTL 20061109)
+> (XEN) ACPI: SSDT 76D53338, 017A (r1   DELL     AS09     3000 INTL 20061109)
+> (XEN) ACPI: UEFI 76D534B8, 0042 (r1   DELL     AS09        0             0)
+> (XEN) ACPI: CSRT 76D53500, 014C (r0   DELL     AS09        5 INTL 20120624)
+> (XEN) ACPI: TPM2 76D53650, 0034 (r3        Tpm2Tabl        1 AMI         0)
+> (XEN) ACPI: SSDT 76D53688, 00C9 (r1   MSFT  RHPROXY        1 INTL 20120913)
+> (XEN) Domain heap initialised
+> (XEN) ACPI: 32/64X FACS address mismatch in FADT -
+> 772dde80/0000000000000000, using 32
+> (XEN) IOAPIC[0]: apic_id 1, version 32, address 0xfec00000, GSI 0-86
+> (XEN) Enabling APIC mode:  Flat.  Using 1 I/O APICs
+> (XEN) CPU0: 400..1000 MHz
+> (XEN) Speculative mitigation facilities:
+> (XEN)   Hardware features:
+> (XEN)   Compiled-in support: SHADOW_PAGING
+> (XEN)   Xen settings: BTI-Thunk N/A, SPEC_CTRL: No, Other: BRANCH_HARDEN
+> (XEN)   Support for HVM VMs: RSB
+> (XEN)   Support for PV VMs: RSB
+> (XEN)   XPTI (64-bit PV only): Dom0 enabled, DomU enabled (without PCID)
+> (XEN)   PV L1TF shadowing: Dom0 disabled, DomU disabled
+> (XEN) Using scheduler: SMP Credit Scheduler rev2 (credit2)
+> (XEN) Initializing Credit2 scheduler
+> (XEN) Disabling HPET for being unreliable
+> (XEN) Platform timer is 3.580MHz ACPI PM Timer
+> (XEN) Detected 1333.397 MHz processor.
+> (XEN) Unknown cachability for MFNs 0xff900-0xfffff
+
+The fault address falling in this range suggests you can use a less
+heavy workaround: "efi=attr=uc". (Quite possibly "efi=no-rs" or yet
+some other workaround may still be needed for your subsequent reboot
+hang.)
+
+> (XEN) I/O virtualisation disabled
+> (XEN) ENABLING IO-APIC IRQs
+> (XEN)  -> Using new ACK method
+> (XEN) ----[ Xen-4.14.0  x86_64  debug=n   Not tainted ]----
+
+I general please try to repro issues with a "debug=y" build, such
+that ...
+
+> (XEN) CPU:    0
+> (XEN) RIP:    e008:[<00000000775e0d21>] 00000000775e0d21
+> (XEN) RFLAGS: 0000000000010046   CONTEXT: hypervisor
+> (XEN) rax: 0000000088411fe8   rbx: ffff82d04047fb48   rcx: ffff82d04047fa60
+> (XEN) rdx: 00000000ff900000   rsi: 00000000ff900000   rdi: 00000000775e4d58
+> (XEN) rbp: ffff82d04047fc00   rsp: ffff82d04047fa38   r8:  ffff82d04047fb48
+> (XEN) r9:  0000000000000000   r10: 00000000ff920000   r11: 0000000000020000
+> (XEN) r12: ffff82d04047fc60   r13: 0000000000000040   r14: 00000000775ce2c0
+> (XEN) r15: 00000000775cf9e8   cr0: 0000000080050033   cr4: 00000000001006e0
+> (XEN) cr3: 00000000711d1000   cr2: 00000000ff900020
+> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+> (XEN) Xen code around <00000000775e0d21> (00000000775e0d21):
+> (XEN)  8b 11 45 33 c9 49 8b d8 <4c> 39 5a 20 75 0b 0f b7 42 30 48 8d 4c 10
+> 17 eb
+> (XEN) Xen stack trace from rsp=ffff82d04047fa38:
+> (XEN)    00000000775ddb8e 00000000775e4d58 0000000040470880 0000000000001698
+> (XEN)    4630002800000001 00000000ff900000 0000000000020000 00000000ff91fff0
+> (XEN)    00000000ff912057 00000000ff900060 0000000007f70020 0000000000000000
+> (XEN)    0000000077739001 ffff82d0403be10a ffff82d040597760 ffff82d040597394
+> (XEN)    ffff82d040377940 00000000ffffffff 0000000000000400 ffff82d04047fc60
+> (XEN)    00000000775e2e73 00000000775da608 ffff82d04047fc70 0000000000000000
+> (XEN)    0000000000000000 ffff82d04036e81f 00000000775e2ead ffff82d04036e81f
+> (XEN)    ffff82d04036e82b 8000000000000003 0000000000000000 0000000000000000
+> (XEN)    00000000775ddd88 00000000775da610 0000000000000000 ffff82d04047fc70
+> (XEN)    ffff82d04036e82b ffff82d04047fc60 ffff82d04047fbf8 ffff82d04031eaca
+> (XEN)    0000000000000000 ffff82d04047fd00 ffff82d040597360 0000000000000430
+> (XEN)    ffff82d040462080 0000000000000200 ffff82d04058860c ffff82d04047fc70
+> (XEN)    00000000775de841 00000000775cf9e8 00000000775d03b5 00000000775ce2c0
+> (XEN)    0000000000000000 ffff82d04047fc60 0000000000000000 0000000000000000
+> (XEN)    00000000775d0798 ffff82d04047fc90 0000000000000000 0000000000002022
+> (XEN)    ffff82d04047fca8 ffff82d04047fc60 000000007146d000 0000000079000000
+> (XEN)    0000000000000206 ffff82d0405886a0 ffff82d040471278 0000000000000000
+> (XEN)    ffff82d0402014cb ffff82d04036e81f ffff82d04047fca0 0000000000000003
+> (XEN)    ffff82d04047fcf0 0000000000000000 0000000000000000 ff001900010107dc
+> (XEN)    0000000000000000 000000007146d000 0000000079000000 ffff82d040462080
+> (XEN) Xen call trace:
+> (XEN)    [<00000000775e0d21>] R 00000000775e0d21
+> (XEN)    [<00000000775ddb8e>] S 00000000775ddb8e
+> (XEN)    [<ffff82d04036e81f>] S common_interrupt+0x8f/0x120
+> (XEN)    [<ffff82d04036e81f>] S common_interrupt+0x8f/0x120
+> (XEN)    [<ffff82d04036e82b>] S common_interrupt+0x9b/0x120
+> (XEN)    [<ffff82d04036e82b>] S common_interrupt+0x9b/0x120
+> (XEN)    [<ffff82d04031eaca>] S do_IRQ+0x2da/0x6d0
+> (XEN)    [<ffff82d0402014cb>] S efi_get_time+0x6b/0xb0
+
+... the call stack above from here is more meaningful. Increasing
+log level is also generally helpful - in the case here it would have
+allowed us to see the full EFI memory map.
+
+As far as making cases like this work by default, I'm afraid it'll
+need to be proposed to replace me as the maintainer of EFI code in
+Xen. I will remain on the position that it is not acceptable to
+apply workarounds for firmware issues by default unless they're
+entirely benign to spec-conforming systems. DMI data based enabling
+of workarounds, for example, is acceptable in the common case, as
+long as the matching pattern isn't unreasonably wide.
+
+Jan
 
