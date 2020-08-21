@@ -2,46 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E54224CAC5
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 04:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD4524CA44
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 04:17:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8wlE-0004ua-73; Fri, 21 Aug 2020 02:26:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8wcX-0002qp-1t; Fri, 21 Aug 2020 02:17:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z7lF=B7=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1k8wdK-0002BQ-0E
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 02:18:22 +0000
-X-Inumbo-ID: b5ed94cc-5982-47b5-b47f-b29c4bc9e8f1
+ id 1k8wcV-0002Bb-5X
+ for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 02:17:31 +0000
+X-Inumbo-ID: 428452d8-4d24-4011-9203-76a10aae9adc
 Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5ed94cc-5982-47b5-b47f-b29c4bc9e8f1;
- Fri, 21 Aug 2020 02:17:15 +0000 (UTC)
-Message-Id: <20200821002948.189324911@linutronix.de>
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 428452d8-4d24-4011-9203-76a10aae9adc;
+ Fri, 21 Aug 2020 02:17:16 +0000 (UTC)
+Message-Id: <20200821002948.285988229@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1597976234;
+ s=2020; t=1597976235;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=eWBLX5XgA0aFXkIZkqQam70cKG8KNwwE8vYzAqD+WN4=;
- b=eUyv3sONGiRpnc/zgIJAYkirhWZcZynKVLYkoQPXXP4A6ZnjjoBWLHzsTmHEEM4HCvy9jr
- edi49BZCXKIqUXgHlYUZdl1AE9a4yg+xc1pZDfKbqK5UM72SrtIMeXAM8xa7KoQUn0KfzR
- QTL59m0n4Owxi2cxF5vwj9hJQAq3MpMy7CxEwR9guh/hdlPrL3LL9DIcFn3F0sTM7vMZMS
- 06Zuob5KBzqYerYQ33uVsMGFbUQ6ZumEtRGXxklWClYS/T8IGHYIJGeoFrzTBLVqHTzo8Z
- hLIwRJlEaxDg5e5oEKHQ6Q5LEmVf3JA63yBZfaOTXWLXqjyeizqcTRcqJwUwOg==
+ bh=d5usA7gDCS+QKjQgidurX7gwz02tPHrPNFlTsx8P5CI=;
+ b=RVJ7jdg6yqLy3EH2woulQ/AnGnunH5RkP7bQGtS5XdVI4K+27I8sW5KQ4bwKh7oxBPDPSq
+ PUAD2IdzXQ1/gMpjYAGgnWRBlD1ug/Nr7V4kDQsNmxx72PzHQqt0VRrzXGsgMHEHo/aEqw
+ +5fPifkdsVz8w6lRpGdG5PB9Fql0LO1o1vs8GcIV1+SDwG+UmYqCCRUcsk40XG7tyVb416
+ TjQv0KlmwkyZO0egvzwn9A695hiD80Gh8xwRU56V/Fv+L0ugIMvBKuG/bfvsYr6kKvaGy0
+ XSylhJX9fuJ9fV7CIc03ykAgm+YWeklO8G4yCLGBhLNRjd5a6/SJVV5GeynM3w==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1597976234;
+ s=2020e; t=1597976235;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=eWBLX5XgA0aFXkIZkqQam70cKG8KNwwE8vYzAqD+WN4=;
- b=M2AaOXstsi+4kBCSX8XCuM6S/HPc49K6W3zpC28X3vBu1VOwwAtybmVqDaJleAJgrIJwF+
- eQ3UqKA/FTWlS8Bg==
-Date: Fri, 21 Aug 2020 02:24:53 +0200
+ bh=d5usA7gDCS+QKjQgidurX7gwz02tPHrPNFlTsx8P5CI=;
+ b=N5lZvRWFmQopSinQmJpoCZ2W17bx8ilN26GTqyVqlLtYE8S2UtjUuGKTBPXITNNvSpH5Qz
+ 0bEjgomf8T1Os3BA==
+Date: Fri, 21 Aug 2020 02:24:54 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org, linux-pci@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+Cc: x86@kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
  iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
  Haiyang Zhang <haiyangz@microsoft.com>,
  Jon Derrick <jonathan.derrick@intel.com>,
@@ -49,8 +51,7 @@ Cc: x86@kernel.org, linux-pci@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
  "K. Y. Srinivasan" <kys@microsoft.com>,
  Stephen Hemminger <sthemmin@microsoft.com>,
  Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>,
- Russ Anderson <rja@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Russ Anderson <rja@hpe.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Jonathan Derrick <jonathan.derrick@intel.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
@@ -62,13 +63,12 @@ Cc: x86@kernel.org, linux-pci@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch RFC 29/38] x86/pci: Set default irq domain in
- pcibios_add_device()
+Subject: [patch RFC 30/38] PCI/MSI: Allow to disable arch fallbacks
 References: <20200821002424.119492231@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Disposition: inline;
- filename="x86-pci--Set-default-irq-domain-in-pcibios_add_device.patch"
+ filename="PCI-MSI--Allow-to-disable-arch-fallbacks.patch"
 Content-transfer-encoding: 8-bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -83,94 +83,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Now that interrupt remapping sets the irqdomain pointer when a PCI device
-is added it's possible to store the default irq domain in the device struct
-in pcibios_add_device().
-
-If the bus to which a device is connected has an irq domain associated then
-this domain is used otherwise the default domain (PCI/MSI native or XEN
-PCI/MSI) is used. Using the bus domain ensures that special MSI bus domains
-like VMD work.
-
-This makes XEN and the non-remapped native case work solely based on the
-irq domain pointer in struct device for PCI/MSI and allows to remove the
-arch fallback and make most of the x86_msi ops private to XEN in the next
-steps.
+If an architecture does not require the MSI setup/teardown fallback
+functions, then allow them to be replaced by stub functions which emit a
+warning.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
 Cc: linux-pci@vger.kernel.org
 ---
- arch/x86/include/asm/irqdomain.h |    2 ++
- arch/x86/kernel/apic/msi.c       |    2 +-
- arch/x86/pci/common.c            |   18 +++++++++++++++++-
- 3 files changed, 20 insertions(+), 2 deletions(-)
+ drivers/pci/Kconfig |    3 +++
+ drivers/pci/msi.c   |    3 ++-
+ include/linux/msi.h |   31 ++++++++++++++++++++++++++-----
+ 3 files changed, 31 insertions(+), 6 deletions(-)
 
---- a/arch/x86/include/asm/irqdomain.h
-+++ b/arch/x86/include/asm/irqdomain.h
-@@ -53,9 +53,11 @@ extern int mp_irqdomain_ioapic_idx(struc
- #ifdef CONFIG_PCI_MSI
- void x86_create_pci_msi_domain(void);
- struct irq_domain *native_create_pci_msi_domain(void);
-+extern struct irq_domain *x86_pci_msi_default_domain;
- #else
- static inline void x86_create_pci_msi_domain(void) { }
- #define native_create_pci_msi_domain	NULL
-+#define x86_pci_msi_default_domain	NULL
- #endif
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -56,6 +56,9 @@ config PCI_MSI_IRQ_DOMAIN
+ 	depends on PCI_MSI
+ 	select GENERIC_MSI_IRQ_DOMAIN
  
- #endif
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -21,7 +21,7 @@
- #include <asm/apic.h>
- #include <asm/irq_remapping.h>
- 
--static struct irq_domain *x86_pci_msi_default_domain __ro_after_init;
-+struct irq_domain *x86_pci_msi_default_domain __ro_after_init;
- 
- static void __irq_msi_compose_msg(struct irq_cfg *cfg, struct msi_msg *msg)
- {
---- a/arch/x86/pci/common.c
-+++ b/arch/x86/pci/common.c
-@@ -19,6 +19,7 @@
- #include <asm/smp.h>
- #include <asm/pci_x86.h>
- #include <asm/setup.h>
-+#include <asm/irqdomain.h>
- 
- unsigned int pci_probe = PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROBE_CONF2 |
- 				PCI_PROBE_MMCONF;
-@@ -633,8 +634,9 @@ static void set_dev_domain_options(struc
- 
- int pcibios_add_device(struct pci_dev *dev)
- {
--	struct setup_data *data;
- 	struct pci_setup_rom *rom;
-+	struct irq_domain *msidom;
-+	struct setup_data *data;
- 	u64 pa_data;
- 
- 	pa_data = boot_params.hdr.setup_data;
-@@ -661,6 +663,20 @@ int pcibios_add_device(struct pci_dev *d
- 		memunmap(data);
- 	}
- 	set_dev_domain_options(dev);
++config PCI_MSI_DISABLE_ARCH_FALLBACKS
++	bool
 +
-+	/*
-+	 * Setup the initial MSI domain of the device. If the underlying
-+	 * bus has a PCI/MSI irqdomain associated use the bus domain,
-+	 * otherwise set the default domain. This ensures that special irq
-+	 * domains e.g. VMD are preserved. The default ensures initial
-+	 * operation if irq remapping is not active. If irq remapping is
-+	 * active it will overwrite the domain pointer when the device is
-+	 * associated to a remapping domain.
-+	 */
-+	msidom = dev_get_msi_domain(&dev->bus->dev);
-+	if (!msidom)
-+		msidom = x86_pci_msi_default_domain;
-+	dev_set_msi_domain(&dev->dev, msidom);
- 	return 0;
- }
+ config PCI_QUIRKS
+ 	default y
+ 	bool "Enable PCI quirk workarounds" if EXPERT
+--- a/drivers/pci/msi.c
++++ b/drivers/pci/msi.c
+@@ -58,8 +58,8 @@ static void pci_msi_teardown_msi_irqs(st
+ #define pci_msi_teardown_msi_irqs	arch_teardown_msi_irqs
+ #endif
  
++#ifndef CONFIG_PCI_MSI_DISABLE_ARCH_FALLBACKS
+ /* Arch hooks */
+-
+ int __weak arch_setup_msi_irq(struct pci_dev *dev, struct msi_desc *desc)
+ {
+ 	struct msi_controller *chip = dev->bus->msi;
+@@ -132,6 +132,7 @@ void __weak arch_teardown_msi_irqs(struc
+ {
+ 	return default_teardown_msi_irqs(dev);
+ }
++#endif /* !CONFIG_PCI_MSI_DISABLE_ARCH_FALLBACKS */
+ 
+ static void default_restore_msi_irq(struct pci_dev *dev, int irq)
+ {
+--- a/include/linux/msi.h
++++ b/include/linux/msi.h
+@@ -193,17 +193,38 @@ void pci_msi_mask_irq(struct irq_data *d
+ void pci_msi_unmask_irq(struct irq_data *data);
+ 
+ /*
+- * The arch hooks to setup up msi irqs. Those functions are
+- * implemented as weak symbols so that they /can/ be overriden by
+- * architecture specific code if needed.
++ * The arch hooks to setup up msi irqs. Default functions are implemented
++ * as weak symbols so that they /can/ be overriden by architecture specific
++ * code if needed.
++ *
++ * They can be replaced by stubs with warnings via
++ * CONFIG_PCI_MSI_DISABLE_ARCH_FALLBACKS when the architecture fully
++ * utilizes direct irqdomain based setup.
+  */
++#ifndef CONFIG_PCI_MSI_DISABLE_ARCH_FALLBACKS
+ int arch_setup_msi_irq(struct pci_dev *dev, struct msi_desc *desc);
+ void arch_teardown_msi_irq(unsigned int irq);
+ int arch_setup_msi_irqs(struct pci_dev *dev, int nvec, int type);
+ void arch_teardown_msi_irqs(struct pci_dev *dev);
+-void arch_restore_msi_irqs(struct pci_dev *dev);
+-
+ void default_teardown_msi_irqs(struct pci_dev *dev);
++#else
++static inline int arch_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
++{
++	WARN_ON_ONCE(1);
++	return -ENODEV;
++}
++
++static inline void arch_teardown_msi_irqs(struct pci_dev *dev)
++{
++	WARN_ON_ONCE(1);
++}
++#endif
++
++/*
++ * The restore hooks are still available as they are useful even
++ * for fully irq domain based setups. Courtesy to XEN/X86.
++ */
++void arch_restore_msi_irqs(struct pci_dev *dev);
+ void default_restore_msi_irqs(struct pci_dev *dev);
+ 
+ struct msi_controller {
 
 
