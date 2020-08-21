@@ -2,69 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B414C24C960
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 02:54:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C6C24C997
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 03:39:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8vJg-0006Jf-81; Fri, 21 Aug 2020 00:54:00 +0000
+	id 1k8w1I-0006kq-Q4; Fri, 21 Aug 2020 01:39:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0g3v=B7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k8vJe-0006JR-Ne
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 00:53:58 +0000
-X-Inumbo-ID: 1d6b0049-dba5-470f-a689-0c5a574c18ae
+ id 1k8w1H-0006ki-HW
+ for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 01:39:03 +0000
+X-Inumbo-ID: ddc6133a-1561-4772-a440-6532342b9d31
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1d6b0049-dba5-470f-a689-0c5a574c18ae;
- Fri, 21 Aug 2020 00:53:58 +0000 (UTC)
+ id ddc6133a-1561-4772-a440-6532342b9d31;
+ Fri, 21 Aug 2020 01:39:02 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 214FE20702;
- Fri, 21 Aug 2020 00:53:57 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 03FF92075E;
+ Fri, 21 Aug 2020 01:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597971237;
- bh=+MBEQqTqksDVjAqZz4o5NDmvkN+Eddf1emR9wLaRSZQ=;
+ s=default; t=1597973942;
+ bh=I0+iqwmXz5st+fplCzQpAejA2Wr4HUXMe+fQl8MoSxc=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=dW53WxAgEWr5RTXjIq0ZbYkKrEDHiK+AKn8KjVdBMZjnwmFOeAvkdQCoCNF1lxBZj
- 8PSqlTK+nEpY5xUI0zIwQLOy+a1BIYp0/cbYZU5OYm11KtZPVU5C/o+mp/4LNDvN9Z
- l9RNS6Y/FBaiC4Sk2oofeKgORcly4cY+4y5NJdC8=
-Date: Thu, 20 Aug 2020 17:53:56 -0700 (PDT)
+ b=S+yiPB2mSYeDSYV2tVcQ9VBwUGnUa5tz5XRboZ8rusm+/ti3W4JLQZtE0By0qzlM9
+ 4HgMIGlskp7zsrWEBvW+4VcQl7jJtzezDEKf+j7/7UTZv1omtAZyuMtDydTq0+1UTX
+ okDrUkF9T3jpW/QPqsNFUvr2g+n5yi4fv0V1kUF8=
+Date: Thu, 20 Aug 2020 18:39:01 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
- Julien Grall <julien.grall.oss@gmail.com>, Jan Beulich <jbeulich@suse.com>, 
- Oleksandr Tyshchenko <olekstysh@gmail.com>, 
- xen-devel <xen-devel@lists.xenproject.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, 
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
- Julien Grall <julien.grall@arm.com>
-Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
- xendevicemodel_set_irq_level DM op
-In-Reply-To: <dbbf27bc-7ae0-9e25-cc30-2adb3ba26355@xen.org>
-Message-ID: <alpine.DEB.2.21.2008201635510.6005@sstabellini-ThinkPad-T480s>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
- <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
- <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
- <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
- <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
- <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
- <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
- <CAJ=z9a3ngzDS6Fu5DwdRSzWaMASPgp3cZLnpazMQzUbH-9_EEw@mail.gmail.com>
- <alpine.DEB.2.21.2008101142500.16004@sstabellini-ThinkPad-T480s>
- <97b477a9-3945-9c5d-671d-ab5cbb2d0468@xen.org>
- <alpine.DEB.2.21.2008111521050.15669@sstabellini-ThinkPad-T480s>
- <dbbf27bc-7ae0-9e25-cc30-2adb3ba26355@xen.org>
+To: Roman Shaposhnik <roman@zededa.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>, 
+ Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org
+Subject: Re: Xen 4.14.0 is busted on Dell 300x IoT Gateways
+In-Reply-To: <CAMmSBy9-cJuxC0jLPh6O-UCraThzg2wvNO29ZvxrBmVkatt_sg@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2008201823050.6005@sstabellini-ThinkPad-T480s>
+References: <CAMmSBy9-cJuxC0jLPh6O-UCraThzg2wvNO29ZvxrBmVkatt_sg@mail.gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1654727271-1597973251=:6005"
+Content-ID: <alpine.DEB.2.21.2008201827350.6005@sstabellini-ThinkPad-T480s>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,74 +59,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 18 Aug 2020, Julien Grall wrote:
-> On 11/08/2020 23:48, Stefano Stabellini wrote:
-> > On Tue, 11 Aug 2020, Julien Grall wrote:
-> > > >   I vaguely
-> > > > recall a bug 10+ years ago about this with QEMU on x86 and a line that
-> > > > could be both active-high and active-low. So QEMU would raise the
-> > > > interrupt but Xen would actually think that QEMU stopped the interrupt.
-> > > > 
-> > > > To do this right, we would have to introduce an interface between Xen
-> > > > and QEMU to propagate the trigger type. Xen would have to tell QEMU when
-> > > > the guest changed the configuration. That would work, but it would be
-> > > > better if we can figure out a way to do without it to reduce complexity.
-> > > Per above, I don't think this is necessary.
-> > > 
-> > > > 
-> > > > Instead, given that QEMU and other emulators don't actually care about
-> > > > active-high or active-low, if we have a Xen interface that just says
-> > > > "fire the interrupt" we get away from this kind of troubles. It would
-> > > > also be more efficient because the total number of hypercalls required
-> > > > would be lower.
-> > > 
-> > > I read "fire interrupt" the interrupt as "Please generate an interrupt
-> > > once".
-> > > Is it what you definition you expect?
-> > 
-> > Yes, that is the idea. It would have to take into account the edge/level
-> > semantic difference: level would have "start it" and a "stop it".
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1654727271-1597973251=:6005
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2008201827351.6005@sstabellini-ThinkPad-T480s>
+
+On Tue, 18 Aug 2020, Roman Shaposhnik wrote:
+> Hi!
+> first things first -- booting on those devices have always
+> required efi=no-rs -- but it seems that Xen 4.14 is now 
+> busted at a more fundamental level. I'm attaching two
+> boot sequences (one with kernel 4.19.5 and one with 5.4.51)
+> in the hopes that this may provide some clues right away.
 > 
-> I am still struggling to see how this can work:
->     - At the moment, QEMU is only providing us the line state. How can we
-> deduce the type of the interrupt? Would it mean a major modification of the
-> QEMU API?
+> Any help would be greatly appreciated!
+> 
+> Oh, and finally it appears that this is NOT a regression from
+> Xen 4.13 -- it fails the same way. I haven't tried Xen's earlier
+> than that.
 
-Good question. 
+FYI Roman and I tracked down the issue and it is due to the gpio
+controller driver (drivers/pinctrl/intel/pinctrl-baytrail.c) overwriting
+the interrupt handler data used by Xen to store the irq_data structure.
 
-I don't think we would need any major modifications of the QEMU APIs.
-QEMU already uses two different function calls to trigger an edge
-interrupt and to trigger a level interrupt.
-
-Edge interrupts are triggered with qemu_irq_pulse; level interrupts with
-qemu_irq_raise/qemu_irq_lower.
-
-It is also possible for devices to call qemu_set_irq directly which
-only has the state of the line represented by the "level" argument.
-As far as I can tell all interrupts emulated in QEMU (at least the ones
-we care about) are active-high.
-
-We have a couple of choices in the implementation, like hooking into
-qemu_irq_pulse, and/or checking if the interrupt is level or edge in the
-xen interrupt injection function. The latter shouldn't require any
-changes in QEMU common code.
+I have a very small tentative workaround, see below. It allows the
+kernel to boot successfully as dom0 and gpio writes work. I am still
+thinking on how to fix the issue properly in an upstreamable way, but I
+wanted to send this out to the list right away in case somebody else is
+stuck on this problem.
 
 
-FYI looking into the code there is something "strange" in virtio-mmio.c:
-it only ever calls qemu_set_irq to start a notification. It doesn't look
-like it ever calls qemu_set_irq to stop a notification at all. It is
-possible that the state of the line is not accurately emulated for
-virtio-mmio.c.
-
-
->     - Can you provide a rough sketch how this could be implemented in Xen?
-
-It would work similarly to other emulated interrupt injections on the
-Xen side, calling vgic_inject_irq.  We have matching info about
-level/edge and active-high/active-low in Xen too, so we could do more
-precise emulation of the interrupt flow, although I am aware of the
-current limitations of the vgic in that regard.
-
-But I have the feeling I didn't address your concern :-)
-
+diff --git a/drivers/pinctrl/intel/pinctrl-baytrail.c b/drivers/pinctrl/intel/pinctrl-baytrail.c
+index f38d596efa05..acd28a9e6a8a 100644
+--- a/drivers/pinctrl/intel/pinctrl-baytrail.c
++++ b/drivers/pinctrl/intel/pinctrl-baytrail.c
+@@ -1604,8 +1604,8 @@ static struct irq_chip byt_irqchip = {
+ static void byt_gpio_irq_handler(struct irq_desc *desc)
+ {
+ 	struct irq_data *data = irq_desc_get_irq_data(desc);
+-	struct byt_gpio *vg = gpiochip_get_data(
+-				irq_desc_get_handler_data(desc));
++	struct gpio_chip *gc = irq_desc_get_chip_data(desc);
++	struct byt_gpio *vg = (struct byt_gpio *)gc;
+ 	struct irq_chip *chip = irq_data_get_irq_chip(data);
+ 	u32 base, pin;
+ 	void __iomem *reg;
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index a2b3d9de999c..b9551fb41ed1 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -1003,7 +1003,8 @@ irq_set_chained_handler_and_data(unsigned int irq, irq_flow_handler_t handle,
+ 	if (!desc)
+ 		return;
+ 
+-	desc->irq_common_data.handler_data = data;
++	if (!desc->irq_common_data.handler_data)
++		desc->irq_common_data.handler_data = data;
+ 	__irq_do_set_handler(desc, handle, 1, NULL);
+ 
+ 	irq_put_desc_busunlock(desc, flags);
+--8323329-1654727271-1597973251=:6005--
 
