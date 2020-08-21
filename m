@@ -2,56 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A9D24D762
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 16:33:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8F724D7BC
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 16:55:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k985x-0005aB-Ve; Fri, 21 Aug 2020 14:32:41 +0000
+	id 1k98RM-0007NM-Rj; Fri, 21 Aug 2020 14:54:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gmas=B7=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1k985w-0005a6-7k
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 14:32:40 +0000
-X-Inumbo-ID: 798c6b75-8b0e-422a-b258-688ed73bc0be
+ <SRS0=82JZ=B7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k98RL-0007NH-Jf
+ for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 14:54:47 +0000
+X-Inumbo-ID: 065fffe1-cd73-4888-94c7-98751e87072b
 Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 798c6b75-8b0e-422a-b258-688ed73bc0be;
- Fri, 21 Aug 2020 14:32:38 +0000 (UTC)
+ id 065fffe1-cd73-4888-94c7-98751e87072b;
+ Fri, 21 Aug 2020 14:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598020358;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=d9jkX7xQUZGU/iOazCiM65pYFD8bi5vAUslABjb7dXQ=;
- b=hqJQ6Wsl7voc0lVieDRcL5GSqGcupD5kLHKTQQzLjujAMooSlzrfyGiP
- UqlUuiUQX7W/avbmc5KlPsepIZBibPob1vmyJF/rIfkHyAM/CxA0oumXT
- SfM4kBigXIsMs4k2EbR5ILZPk2siG0RUvNkrtnM0cCmxem9MoaP/1lZgM k=;
+ d=citrix.com; s=securemail; t=1598021680;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=nFsBZlcfFycI1R21rUKYa2TvmzbxwxyXJYszeevv5Tg=;
+ b=ZLp4H9N1GFKy4IQaSVIhBmI2RwRPlbcC2bDjwckDkWcKnSDydctRc5Ep
+ Agn6QXG9q1CC/m8PzbVT4bMkeKOeVZxVaHybwaR3/jjvXFUbAReWJz3PN
+ i+Hn7RPjxdgFervIANu9RL5PMY0vLDznne/Xlgvc7Q+u42oY1zwSpAZ31 Q=;
 Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: uRSuitdDmjZsY15rHGXdlmufeoPbY/aiy8lkkDmrg+NeNMHljdBczmqsbkSujAq0tnSfwntgl3
- bH9Ns8tcXM8r3B1FVOA89guw98n36Mhh+AUogh8PuFWFNlGnA1CMVl4U8uNhrz1PthxVqlanWE
- jMKnVRksyroPzZb5BmigYz4crUzVNYbSaXqQI65StPRZLV2t9WoLwihouyJQ+/H2S3bkLuLA83
- m4dRnXWUQ27TsKKRoCOlR1HeO9MRTOhbMGiJnJPoSFhnLybrFoeV/AQzi6z36IK3Lx3eWIPfuw
- OvQ=
+IronPort-SDR: +Yoq5zu1qFa3/y/GyPkTQVn/PGLz9OuXv4ZG1WvxxV1jIrgEiPCCj6RaUF6kCDUeM3JQUTiWgm
+ bf4Yzt/VbEZE71W9Y5fix+h6mWhiac8wETxdUxZiw2eFmtq5uuR+VY/fGW0q31zxasmS2x46Fk
+ bYiOgtCZe7r+dz5pSLDF5HyoMrG3AlXv5XJHwQfzcmtnP5dEZ88l4Jyq+0tDusb5xGepXTvPFe
+ BACbcPPsj7Loe5h4e7ZUxuyLIVpx1LeC5U2+ih8Od87MjH28BV0rT3K9UpWRA+7sWpiAUlUa/U
+ aPA=
 X-SBRS: 2.7
-X-MesageID: 25346087
+X-MesageID: 25348246
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,337,1592884800"; d="scan'208";a="25346087"
-From: George Dunlap <george.dunlap@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Roger Pau Monne
- <roger.pau@citrix.com>
-Subject: [PATCH] MAINTAINERS: Add Roger Pau Monne as x86 maintainer
-Date: Fri, 21 Aug 2020 15:32:01 +0100
-Message-ID: <20200821143201.831774-1-george.dunlap@citrix.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=Sophos;i="5.76,337,1592884800"; d="scan'208";a="25348246"
+Subject: Re: [PATCH] MAINTAINERS: Add Roger Pau Monne as x86 maintainer
+To: George Dunlap <george.dunlap@citrix.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+References: <20200821143201.831774-1-george.dunlap@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1fa55083-6d83-eac3-bf57-b8852eb8d3b6@citrix.com>
+Date: Fri, 21 Aug 2020 15:54:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="true"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200821143201.831774-1-george.dunlap@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,30 +69,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 21/08/2020 15:32, George Dunlap wrote:
+> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 33fe51324e..978fc2fe72 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -521,8 +521,8 @@ F:	docs/misc/vtpm-platforms.txt
- X86 ARCHITECTURE
- M:	Jan Beulich <jbeulich@suse.com>
- M:	Andrew Cooper <andrew.cooper3@citrix.com>
-+M:	Roger Pau Monné <roger.pau@citrix.com>
- R:	Wei Liu <wl@xen.org>
--R:	Roger Pau Monné <roger.pau@citrix.com>
- S:	Supported
- L:	xen-devel@lists.xenproject.org
- F:	xen/arch/x86/
--- 
-2.25.1
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
