@@ -2,51 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844E624CA42
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 04:17:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6026E24CA2E
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 04:17:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k8wcS-0002kY-Mb; Fri, 21 Aug 2020 02:17:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k8wcC-0002Nc-L8; Fri, 21 Aug 2020 02:17:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z7lF=B7=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1k8wcQ-0002BQ-UH
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 02:17:26 +0000
-X-Inumbo-ID: 4ca1568c-7846-45a7-92c2-d546ade4b15f
+ id 1k8wcB-0002Bb-4V
+ for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 02:17:11 +0000
+X-Inumbo-ID: ac869fdc-1c00-482d-b96b-f9a84955964f
 Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4ca1568c-7846-45a7-92c2-d546ade4b15f;
- Fri, 21 Aug 2020 02:16:57 +0000 (UTC)
-Message-Id: <20200821002946.687087746@linutronix.de>
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ac869fdc-1c00-482d-b96b-f9a84955964f;
+ Fri, 21 Aug 2020 02:16:58 +0000 (UTC)
+Message-Id: <20200821002946.779723926@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1597976216;
+ s=2020; t=1597976218;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=u14WalwLdbUJz4zdvvnyk9ObwUURDe6Vh8EZpRLIJsQ=;
- b=q2A2g/E9wo30z5d+SLeOHdw3EVdacYslLUqvzEsjWjZrgvmI/CvTvftoiKoSbDMsVh3ONz
- FJnCtIBs7mSZ8UXgZTihJIcNtQ+F8YT1B6ufJQ3b8i9rQwuz9pLOLogvFSaLKQ9FisRX7N
- rETX29P9IOZ20KosmLU6ySWtADJo35NuvSoPcGqgF9frci3RSUJP0+xbS3OEGyMIWhCIXk
- deGbpIWg1+qnFR6zyWXrjne3KBOwPk2OqXYM4cdP4b5mmPXX0zKXyQlEqdA9UWSj765RVH
- eqZv4Lq+dN5Jlk6rgAmmBGu/GV9oMojX81o9S2TXW946Nu6lfBraIF43d3hErA==
+ bh=d8EPioWtx5drJqrcXnN7xcWjcEFvzbwtUk0NCHv0h4o=;
+ b=Rsv1T8F/5id3E2QlMxxoUYNs9OrQBiJXcdBWv+VUDTaLWtAd3zGdtL2TgS/zxGfcSo2sdk
+ s/3Nys6r5NkcPDwEIDudSphnlW5ek9FfWWGra7vP8r3S9Ko9RdsogSQsMdaNqOL5G4nr1b
+ mgh18ADIgpivQp44XrdHu7qbFz0CLMcTz5p6e2CXH81FYKmF8ubeE32KoI9SxDMrHH57zc
+ 0zVkj56GrnvfVLlmm7ENGGosWtnUqi7u3Yv6XbTwtiAw5h8l9sliGu8hdD/SRC6N/7r5ZQ
+ H/1oePq3VSz+QkOSrnU6+PD4ELo6cRfPODfe8VWXCDci3DJz9vCbwi0frf3U5w==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1597976216;
+ s=2020e; t=1597976218;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=u14WalwLdbUJz4zdvvnyk9ObwUURDe6Vh8EZpRLIJsQ=;
- b=uleH9DNxOR1Sauct2maXKb8KES+lwoANdDiECy7Hnr2HWf5kznj//298KOUt4vNzZU21vS
- BX2serf3gydzKaAA==
-Date: Fri, 21 Aug 2020 02:24:38 +0200
+ bh=d8EPioWtx5drJqrcXnN7xcWjcEFvzbwtUk0NCHv0h4o=;
+ b=b9OJ97C9AmXxu38Qx9+yLOswWlewjRXers9iQg2+nezGb8zb/+p2RX3IXe/2SnyX1Q314M
+ 9rB9ovwHoTsGx+Aw==
+Date: Fri, 21 Aug 2020 02:24:39 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org, Wei Liu <wei.liu@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>, Joerg Roedel <joro@8bytes.org>,
- linux-pci@vger.kernel.org, linux-hyperv@vger.kernel.org,
- iommu@lists.linux-foundation.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, linux-pci@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ iommu@lists.linux-foundation.org, Jon Derrick <jonathan.derrick@intel.com>,
  Lu Baolu <baolu.lu@linux.intel.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
  "K. Y. Srinivasan" <kys@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
  Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
  Bjorn Helgaas <bhelgaas@google.com>,
@@ -62,12 +63,12 @@ Cc: x86@kernel.org, Wei Liu <wei.liu@kernel.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch RFC 14/38] x86/msi: Consolidate MSI allocation
+Subject: [patch RFC 15/38] x86/msi: Use generic MSI domain ops
 References: <20200821002424.119492231@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Disposition: inline;
- filename="x86-msi--Consolidate-MSI-allocation.patch"
+ filename="x86-msi--Use-generic-MSI-domain-ops.patch"
 Content-transfer-encoding: 8-bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -82,133 +83,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Convert the interrupt remap drivers to retrieve the pci device from the msi
-descriptor and use info::hwirq.
-
-This is the first step to prepare x86 for using the generic MSI domain ops.
+pci_msi_get_hwirq() and pci_msi_set_desc are not longer special. Enable the
+generic MSI domain ops in the core and PCI MSI code unconditionally and get
+rid of the x86 specific implementations in the X86 MSI code and in the
+hyperv PCI driver.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Cc: Wei Liu <wei.liu@kernel.org>
 Cc: Stephen Hemminger <sthemmin@microsoft.com>
-Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
 Cc: linux-pci@vger.kernel.org
 Cc: linux-hyperv@vger.kernel.org
-Cc: iommu@lists.linux-foundation.org
-Cc: Haiyang Zhang <haiyangz@microsoft.com>
-Cc: Lu Baolu <baolu.lu@linux.intel.com>
 ---
- arch/x86/include/asm/hw_irq.h       |    8 --------
- arch/x86/kernel/apic/msi.c          |    7 +++----
- drivers/iommu/amd/iommu.c           |    5 +++--
- drivers/iommu/intel/irq_remapping.c |    4 ++--
- drivers/pci/controller/pci-hyperv.c |    2 +-
- 5 files changed, 9 insertions(+), 17 deletions(-)
+ arch/x86/include/asm/msi.h          |    2 --
+ arch/x86/kernel/apic/msi.c          |   15 ---------------
+ drivers/pci/controller/pci-hyperv.c |    8 --------
+ drivers/pci/msi.c                   |    4 ----
+ kernel/irq/msi.c                    |    6 ------
+ 5 files changed, 35 deletions(-)
 
---- a/arch/x86/include/asm/hw_irq.h
-+++ b/arch/x86/include/asm/hw_irq.h
-@@ -85,14 +85,6 @@ struct irq_alloc_info {
- 	union {
- 		struct ioapic_alloc_info	ioapic;
- 		struct uv_alloc_info		uv;
--
--		int		unused;
--#ifdef	CONFIG_PCI_MSI
--		struct {
--			struct pci_dev	*msi_dev;
--			irq_hw_number_t	msi_hwirq;
--		};
--#endif
- 	};
- };
+--- a/arch/x86/include/asm/msi.h
++++ b/arch/x86/include/asm/msi.h
+@@ -9,6 +9,4 @@ typedef struct irq_alloc_info msi_alloc_
+ int pci_msi_prepare(struct irq_domain *domain, struct device *dev, int nvec,
+ 		    msi_alloc_info_t *arg);
  
+-void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc);
+-
+ #endif /* _ASM_X86_MSI_H */
 --- a/arch/x86/kernel/apic/msi.c
 +++ b/arch/x86/kernel/apic/msi.c
-@@ -189,7 +189,6 @@ int native_setup_msi_irqs(struct pci_dev
- 
- 	init_irq_alloc_info(&info, NULL);
- 	info.type = X86_IRQ_ALLOC_TYPE_PCI_MSI;
--	info.msi_dev = dev;
- 
- 	domain = irq_remapping_get_irq_domain(&info);
- 	if (domain == NULL)
-@@ -208,7 +207,7 @@ void native_teardown_msi_irq(unsigned in
- static irq_hw_number_t pci_msi_get_hwirq(struct msi_domain_info *info,
- 					 msi_alloc_info_t *arg)
- {
--	return arg->msi_hwirq;
-+	return arg->hwirq;
+@@ -204,12 +204,6 @@ void native_teardown_msi_irq(unsigned in
+ 	irq_domain_free_irqs(irq, 1);
  }
  
+-static irq_hw_number_t pci_msi_get_hwirq(struct msi_domain_info *info,
+-					 msi_alloc_info_t *arg)
+-{
+-	return arg->hwirq;
+-}
+-
  int pci_msi_prepare(struct irq_domain *domain, struct device *dev, int nvec,
-@@ -218,7 +217,6 @@ int pci_msi_prepare(struct irq_domain *d
- 	struct msi_desc *desc = first_pci_msi_entry(pdev);
- 
- 	init_irq_alloc_info(arg, NULL);
--	arg->msi_dev = pdev;
- 	if (desc->msi_attrib.is_msix) {
- 		arg->type = X86_IRQ_ALLOC_TYPE_PCI_MSIX;
- 	} else {
-@@ -232,7 +230,8 @@ EXPORT_SYMBOL_GPL(pci_msi_prepare);
- 
- void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc)
+ 		    msi_alloc_info_t *arg)
  {
--	arg->msi_hwirq = pci_msi_domain_calc_hwirq(desc);
-+	arg->desc = desc;
-+	arg->hwirq = pci_msi_domain_calc_hwirq(desc);
+@@ -228,17 +222,8 @@ int pci_msi_prepare(struct irq_domain *d
  }
- EXPORT_SYMBOL_GPL(pci_msi_set_desc);
+ EXPORT_SYMBOL_GPL(pci_msi_prepare);
  
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3514,7 +3514,7 @@ static int get_devid(struct irq_alloc_in
- 		return get_hpet_devid(info->devid);
- 	case X86_IRQ_ALLOC_TYPE_PCI_MSI:
- 	case X86_IRQ_ALLOC_TYPE_PCI_MSIX:
--		return get_device_id(&info->msi_dev->dev);
-+		return get_device_id(msi_desc_to_dev(info->desc));
- 	default:
- 		WARN_ON_ONCE(1);
- 		return -1;
-@@ -3688,7 +3688,8 @@ static int irq_remapping_alloc(struct ir
- 		   info->type == X86_IRQ_ALLOC_TYPE_PCI_MSIX) {
- 		bool align = (info->type == X86_IRQ_ALLOC_TYPE_PCI_MSI);
+-void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc)
+-{
+-	arg->desc = desc;
+-	arg->hwirq = pci_msi_domain_calc_hwirq(desc);
+-}
+-EXPORT_SYMBOL_GPL(pci_msi_set_desc);
+-
+ static struct msi_domain_ops pci_msi_domain_ops = {
+-	.get_hwirq	= pci_msi_get_hwirq,
+ 	.msi_prepare	= pci_msi_prepare,
+-	.set_desc	= pci_msi_set_desc,
+ };
  
--		index = alloc_irq_index(devid, nr_irqs, align, info->msi_dev);
-+		index = alloc_irq_index(devid, nr_irqs, align,
-+					msi_desc_to_pci_dev(info->desc));
- 	} else {
- 		index = alloc_irq_index(devid, nr_irqs, false, NULL);
- 	}
---- a/drivers/iommu/intel/irq_remapping.c
-+++ b/drivers/iommu/intel/irq_remapping.c
-@@ -1118,7 +1118,7 @@ static struct irq_domain *intel_get_irq_
- 		return map_hpet_to_ir(info->devid);
- 	case X86_IRQ_ALLOC_TYPE_PCI_MSI:
- 	case X86_IRQ_ALLOC_TYPE_PCI_MSIX:
--		return map_dev_to_ir(info->msi_dev);
-+		return map_dev_to_ir(msi_desc_to_pci_dev(info->desc));
- 	default:
- 		WARN_ON_ONCE(1);
- 		return NULL;
-@@ -1287,7 +1287,7 @@ static void intel_irq_remapping_prepare_
- 		if (info->type == X86_IRQ_ALLOC_TYPE_HPET)
- 			set_hpet_sid(irte, info->devid);
- 		else
--			set_msi_sid(irte, info->msi_dev);
-+			set_msi_sid(irte, msi_desc_to_pci_dev(info->desc));
- 
- 		msg->address_hi = MSI_ADDR_BASE_HI;
- 		msg->data = sub_handle;
+ static struct msi_domain_info pci_msi_domain_info = {
 --- a/drivers/pci/controller/pci-hyperv.c
 +++ b/drivers/pci/controller/pci-hyperv.c
-@@ -1534,7 +1534,7 @@ static struct irq_chip hv_msi_irq_chip =
- static irq_hw_number_t hv_msi_domain_ops_get_hwirq(struct msi_domain_info *info,
- 						   msi_alloc_info_t *arg)
- {
--	return arg->msi_hwirq;
-+	return arg->hwirq;
+@@ -1531,16 +1531,8 @@ static struct irq_chip hv_msi_irq_chip =
+ 	.irq_unmask		= hv_irq_unmask,
+ };
+ 
+-static irq_hw_number_t hv_msi_domain_ops_get_hwirq(struct msi_domain_info *info,
+-						   msi_alloc_info_t *arg)
+-{
+-	return arg->hwirq;
+-}
+-
+ static struct msi_domain_ops hv_msi_ops = {
+-	.get_hwirq	= hv_msi_domain_ops_get_hwirq,
+ 	.msi_prepare	= pci_msi_prepare,
+-	.set_desc	= pci_msi_set_desc,
+ 	.msi_free	= hv_msi_free,
+ };
+ 
+--- a/drivers/pci/msi.c
++++ b/drivers/pci/msi.c
+@@ -1401,16 +1401,12 @@ static int pci_msi_domain_handle_error(s
+ 	return error;
  }
  
- static struct msi_domain_ops hv_msi_ops = {
+-#ifdef GENERIC_MSI_DOMAIN_OPS
+ static void pci_msi_domain_set_desc(msi_alloc_info_t *arg,
+ 				    struct msi_desc *desc)
+ {
+ 	arg->desc = desc;
+ 	arg->hwirq = pci_msi_domain_calc_hwirq(desc);
+ }
+-#else
+-#define pci_msi_domain_set_desc		NULL
+-#endif
+ 
+ static struct msi_domain_ops pci_msi_domain_ops_default = {
+ 	.set_desc	= pci_msi_domain_set_desc,
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -187,7 +187,6 @@ static const struct irq_domain_ops msi_d
+ 	.deactivate	= msi_domain_deactivate,
+ };
+ 
+-#ifdef GENERIC_MSI_DOMAIN_OPS
+ static irq_hw_number_t msi_domain_ops_get_hwirq(struct msi_domain_info *info,
+ 						msi_alloc_info_t *arg)
+ {
+@@ -206,11 +205,6 @@ static void msi_domain_ops_set_desc(msi_
+ {
+ 	arg->desc = desc;
+ }
+-#else
+-#define msi_domain_ops_get_hwirq	NULL
+-#define msi_domain_ops_prepare		NULL
+-#define msi_domain_ops_set_desc		NULL
+-#endif /* !GENERIC_MSI_DOMAIN_OPS */
+ 
+ static int msi_domain_ops_init(struct irq_domain *domain,
+ 			       struct msi_domain_info *info,
 
 
