@@ -2,72 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A7924E125
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 21:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824D624E1DC
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Aug 2020 22:08:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k9D0v-0007UH-DT; Fri, 21 Aug 2020 19:47:49 +0000
+	id 1k9DJq-0000oL-Ti; Fri, 21 Aug 2020 20:07:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z7lF=B7=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1k9D0t-0007UC-PS
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 19:47:47 +0000
-X-Inumbo-ID: 232c577f-586a-4680-8bec-06053ba38770
+ id 1k9DJo-0000oG-Rw
+ for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 20:07:20 +0000
+X-Inumbo-ID: 76ea2f3f-afc5-414f-8451-25b7e255d9ba
 Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 232c577f-586a-4680-8bec-06053ba38770;
- Fri, 21 Aug 2020 19:47:45 +0000 (UTC)
+ id 76ea2f3f-afc5-414f-8451-25b7e255d9ba;
+ Fri, 21 Aug 2020 20:07:19 +0000 (UTC)
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598039264;
+ s=2020; t=1598040438;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oc6rWuK4RWluEJBMD17wpMBfxGYcOFdDWSkk5lcadvw=;
- b=KiXQi33Xg/nd2cc5p/iAKtPJMeJNOzlCIzhWjWEbDdZsQcUjTDcZub6BshDwVTeuzhZGv3
- zw2QKFIaV6T0xnr0tMl0umwZIX8sVQuHMEUfRQUVCSNH+RS3Ctu3yRElL1RDrH9OSkUBvR
- Tsr3wMNO6B9xByzMz6gnGKvZsy58iZhaXxtRYkjnJJ3WTiyQxefyan9gZqT9mGBT6u+xX7
- 879KRDH1ZIZQf7iaP+awji6DDAUxA8bYq12w27+m5dPt9dX2xBuAi7ENRI59fAae7fEgGi
- t8GgtNuJOLOuihUaToMYiDcn5kSYsxXPj3V4PLzYavwP+TAnb34LXNCN2fVjfQ==
+ bh=rAe+tKtD8q6kZ0TT9TyfkQSi0+F8aqLXObIBu28SBSM=;
+ b=XMlNAmFOLtvwJD3paBg6nNK7V3bTink3/qTkA2vJYzHqkswjb9BT+WJpZdFAAvKwY9MFLK
+ WSYUPB9wt4exrfD19bBNCo1UWHFVcWmquuhH5NH3qos2Wgu7BemquK8nxqWCJ8FX0eDrdl
+ 6BMiKpsSHEKeLoH3Z9TrHOgI8G110/5XeovGvsnA/BDcDQnjEY/yDZiBGVM2IP/AW2bVAn
+ LRVmrrtv5xEARSJZzqHE4FS+T1/1h6j0WlueTH02s33ZUUedEJtjj3tfIR1GOf0ygdkCAd
+ KXK5M2Qrcyn3Oh4yeCklTx45/fXniknCDMa8PZ0u3iVY9Q1Haepji3AAcYbeiA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598039264;
+ s=2020e; t=1598040438;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oc6rWuK4RWluEJBMD17wpMBfxGYcOFdDWSkk5lcadvw=;
- b=ZNTKZwPc7JAJl8Qd563jtK8cr0w4Fu55mv5EH+kVE+8/1HT5hcM/atj4LWnPcJrRJGhXkM
- niAVH0dbiv4S6wAA==
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Marc Zyngier <maz@kernel.org>, Megha Dey <megha.dey@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>, Jacob
- Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>, Stephen
- Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>, Dimitri
- Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [patch RFC 38/38] irqchip: Add IMS array driver - NOT FOR MERGING
-In-Reply-To: <20200821124547.GY1152540@nvidia.com>
-References: <20200821002424.119492231@linutronix.de>
- <20200821002949.049867339@linutronix.de>
- <20200821124547.GY1152540@nvidia.com>
-Date: Fri, 21 Aug 2020 21:47:43 +0200
-Message-ID: <874kovsrvk.fsf@nanos.tec.linutronix.de>
+ bh=rAe+tKtD8q6kZ0TT9TyfkQSi0+F8aqLXObIBu28SBSM=;
+ b=CwpJDAyDc+BbA/isj/DsRfXK/N/xumAbM3Wb4N/Be29VIoMiEq7OLrYpQX1Nt38MRDuOqk
+ 5uSjwpiW6/6wggAA==
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Sergei Temerkhanov
+ <s.temerkhanov@gmail.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 0/2] Xen: Use a dedicated pointer for IRQ data
+In-Reply-To: <b2917f59-d101-659d-1704-8d2a294bb2a1@suse.com>
+References: <CAMmSBy9-cJuxC0jLPh6O-UCraThzg2wvNO29ZvxrBmVkatt_sg@mail.gmail.com>
+ <20200821071547.18894-1-s.temerkhanov@gmail.com>
+ <ccc1883f-876f-c1ea-bd68-b3c8ab267a8f@suse.com>
+ <CAPEA6dYXaw=ZYv1jJqK=8twVpKXQ8bG0erABKC6HiQh-DcZ-DQ@mail.gmail.com>
+ <b2917f59-d101-659d-1704-8d2a294bb2a1@suse.com>
+Date: Fri, 21 Aug 2020 22:07:17 +0200
+Message-ID: <871rjzsqyy.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,52 +69,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Aug 21 2020 at 09:45, Jason Gunthorpe wrote:
-> On Fri, Aug 21, 2020 at 02:25:02AM +0200, Thomas Gleixner wrote:
->> +static void ims_mask_irq(struct irq_data *data)
->> +{
->> +	struct msi_desc *desc = irq_data_get_msi_desc(data);
->> +	struct ims_array_slot __iomem *slot = desc->device_msi.priv_iomem;
->> +	u32 __iomem *ctrl = &slot->ctrl;
->> +
->> +	iowrite32(ioread32(ctrl) & ~IMS_VECTOR_CTRL_UNMASK, ctrl);
+On Fri, Aug 21 2020 at 14:17, J=C3=BCrgen Gro=C3=9F wrote:
+> On 21.08.20 13:19, Sergei Temerkhanov wrote:
+>>> Did you see any specific problem where handler_data is written by
+>> another component?
+>>=20
+>> I've posted this series in the thread
+>> https://lists.xenproject.org/archives/html/xen-devel/2020-08/msg00957.ht=
+ml
+>> where the problem is caused exactly by that behavior
+>>=20
+>>> In case this is a real problem I don't think your approach will be acce=
+pted
+>> Any comments/suggestions are welcome
 >
-> Just to be clear, this is exactly the sort of operation we can't do
-> with non-MSI interrupts. For a real PCI device to execute this it
-> would have to keep the data on die.
+> Not sure if the IRQ maintainers agree with me, but I would add
+> a set_handler_data and get_handler_data function pointer to
+> struct irq_chip. If those are set I'd call them for writing/reading
+> handler_data instead doing it directly. Xen could then specify those
+> and add a field to its own handler data struct for storing the data
+> of the driver coming later.
+>
+> Xen would need another accessor function for its own primary data,
+> of course.
+>
+> Adding the IRQ maintainer as he might have an opinion here. :-)
 
-We means NVIDIA and your new device, right?
+Without seeing the patches, and no I'm not going to grab them from a web
+archive, I'd say they are wrong :)
 
-So if I understand correctly then the queue memory where the MSI
-descriptor sits is in RAM.
+Fiddling in irqchip is wrong to begin with.
 
-How is that supposed to work if interrupt remapping is disabled?
+int irq_set_handler_data(unsigned int irq, void *data);
+static inline void *irq_get_handler_data(unsigned int irq)
+static inline void *irq_data_get_irq_handler_data(struct irq_data *d)
 
-That means irq migration and proper disabling of an interrupt become an
-interesting exercise. I'm so not looking forward to that.
-
-If interrupt remapping is enabled then both are trivial because then the
-irq chip can delegate everything to the parent chip, i.e. the remapping
-unit.
-
-Can you please explain that a bit more precise?
-
-> I saw the idxd driver was doing something like this, I assume it
-> avoids trouble because it is a fake PCI device integrated with the
-> CPU, not on a real PCI bus?
-
-That's how it is implemented as far as I understood the patches. It's
-device memory therefore iowrite32().
-
-> It is really nice to see irq_domain used properly in x86!
-
-If you ignore the abuse in XEN :)
-
-And to be fair proper and usable (hierarchical) irq domains originate
-from x86 and happened to solve quite a few horrorshows on the ARM side.
-
-Just back then when we converted the original maze, nobody had a good
-idea and the stomach to touch XEN.
+are accessors to handler_data. Am I missing something?
 
 Thanks,
 
