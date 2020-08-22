@@ -2,74 +2,105 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44DE524E3FF
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Aug 2020 01:48:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 351A724E40D
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Aug 2020 02:06:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k9Gkg-0003Or-1v; Fri, 21 Aug 2020 23:47:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k9H2O-0005jm-Tg; Sat, 22 Aug 2020 00:05:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z7lF=B7=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1k9Gke-0003Om-PT
- for xen-devel@lists.xenproject.org; Fri, 21 Aug 2020 23:47:16 +0000
-X-Inumbo-ID: bd7e7b71-5f61-48ed-8da7-c9e96d4aaddf
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd7e7b71-5f61-48ed-8da7-c9e96d4aaddf;
- Fri, 21 Aug 2020 23:47:14 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598053632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PbhUfi01Lj30oKJLzgR9lJa3kGd2iztxYrMT6AoLDA0=;
- b=B3s85JH8i/R5/bUHXE+QSDKOor6uF48pkVsyK6uj4VJC6HEXSsNdHFBzoIB/jGsr8pIr0y
- 6raD4q7fb+OVjcd3qWDMvswA+1tGzMBh+pMMSl7FY9bkxZYElbiDhXVVOvmzgFyNG9Idl9
- I/2gpZVcBspfP9gSO3oXOUqFOdp7WAFEyXcCH/dUQZiDLOpxjGSEVQ3bJjbKwDvPDEhlb0
- Ouft7IK0e07fEbjTd6D6bIWVPKRSH4yQQxkVW54nInvJb2NmcPSCpV0bmnakgH871j00ti
- 1YkYwDzJZpQ0MhkOprW59BXX925S3UvkhCHgh3dA9b0pVCpMEPqAoBCkG7PuSQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598053632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PbhUfi01Lj30oKJLzgR9lJa3kGd2iztxYrMT6AoLDA0=;
- b=l/FCY1KjHYxb9uLaLBxYm/x1XfpF9veS5xVLnD33XhQUxQbME9e/mk4EOSC7F3pHAbdsXE
- pIx+JyLFa3x98ADQ==
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Marc Zyngier <maz@kernel.org>, Megha Dey <megha.dey@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>, Jacob
- Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
- Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [patch RFC 38/38] irqchip: Add IMS array driver - NOT FOR MERGING
-In-Reply-To: <20200821201705.GA2811871@nvidia.com>
-References: <20200821002424.119492231@linutronix.de>
- <20200821002949.049867339@linutronix.de>
- <20200821124547.GY1152540@nvidia.com>
- <874kovsrvk.fsf@nanos.tec.linutronix.de>
- <20200821201705.GA2811871@nvidia.com>
-Date: Sat, 22 Aug 2020 01:47:12 +0200
-Message-ID: <87pn7jr27z.fsf@nanos.tec.linutronix.de>
+ <SRS0=Qkqq=CA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k9H2N-0005ii-0m
+ for xen-devel@lists.xenproject.org; Sat, 22 Aug 2020 00:05:35 +0000
+X-Inumbo-ID: f19a88b7-3a19-466f-9709-dd3ecbe777bb
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f19a88b7-3a19-466f-9709-dd3ecbe777bb;
+ Sat, 22 Aug 2020 00:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=T6YxPoS6RYfdRsBgs7wvwtHLVJPetd76tY2EDEFyluU=; b=Djv2w0mYE7E1tir1D6cd4Y45Tn
+ 2jzcmL4eNE78Y6B/GANYPKyz3Z7K3m9Qi1wcE+2iKUEgpVvhFkSjilK/XbMHoSIkynkCg+r13g73X
+ 23qcN36arP2FAMatjx6hdo1ueGPKC1RpOjW4pRzgT7KaU6ix9EK8kJesx7nm+QQ64qCI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k9H2D-0005KS-IA; Sat, 22 Aug 2020 00:05:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k9H2D-00043U-9w; Sat, 22 Aug 2020 00:05:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k9H2D-0004gE-9S; Sat, 22 Aug 2020 00:05:25 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152656-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [linux-5.4 test] 152656: regressions - FAIL
+X-Osstest-Failures: linux-5.4:test-amd64-amd64-libvirt:xen-boot:fail:regression
+ linux-5.4:test-amd64-i386-libvirt-xsm:guest-start/debian.repeat:fail:regression
+ linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: linux=77fcb48939fc863d9ba9d808fac9000959e937d3
+X-Osstest-Versions-That: linux=f61e1c3638dddaa1a1f3bb59d2bc288d9f0f1b5b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 22 Aug 2020 00:05:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,257 +114,390 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Aug 21 2020 at 17:17, Jason Gunthorpe wrote:
-> On Fri, Aug 21, 2020 at 09:47:43PM +0200, Thomas Gleixner wrote:
->> So if I understand correctly then the queue memory where the MSI
->> descriptor sits is in RAM.
->
-> Yes, IMHO that is the whole point of this 'IMS' stuff. If devices
-> could have enough on-die memory then they could just use really big
-> MSI-X tables. Currently due to on-die memory constraints mlx5 is
-> limited to a few hundred MSI-X vectors.
+flight 152656 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152656/
 
-Right, that's the limit of a particular device, but nothing prevents you
-to have a larger table on a new device.
+Regressions :-(
 
-The MSI-X limitation to 2048 is defined by the PCI spec and you'd need
-either some non spec compliant abuse of the reserved size bits or some
-extra config entry. So IMS is a way to work around that. But I
-understand why you want to move them to main memory, but you have to
-deal with the problems this creates upfront.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt      7 xen-boot                 fail REGR. vs. 152614
+ test-amd64-i386-libvirt-xsm 18 guest-start/debian.repeat fail REGR. vs. 152614
 
-> Since MSI-X tables are exposed via MMIO they can't be 'swapped' to
-> RAM.
->
-> Moving away from MSI-X's MMIO access model allows them to be swapped
-> to RAM. The cost is that accessing them for update is a
-> command/response operation not a MMIO operation.
->
-> The HW is already swapping the queues causing the interrupts to RAM,
-> so adding a bit of additional data to store the MSI addr/data is
-> reasonable.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-rtds   16 guest-start/debian.repeat fail blocked in 152614
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
 
-Makes sense.
+version targeted for testing:
+ linux                77fcb48939fc863d9ba9d808fac9000959e937d3
+baseline version:
+ linux                f61e1c3638dddaa1a1f3bb59d2bc288d9f0f1b5b
 
->> How is that supposed to work if interrupt remapping is disabled?
->
-> The best we can do is issue a command to the device and spin/sleep
-> until completion. The device will serialize everything internally.
->
-> If the device has died the driver has code to detect and trigger a
-> PCI function reset which will definitely stop the interrupt.
+Last test of basis   152614  2020-08-19 09:11:23 Z    2 days
+Testing same since   152656  2020-08-21 11:13:28 Z    0 days    1 attempts
 
-If that interrupt is gone into storm mode for some reason then this will
-render your machine unusable before you can do that.
+------------------------------------------------------------
+People who touched revisions under test:
+  Adrian Hunter <adrian.hunter@intel.com>
+  Ahmad Fatoum <a.fatoum@pengutronix.de>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alexandru Ardelean <alexandru.ardelean@analog.com>
+  Alexei Starovoitov <ast@kernel.org>
+  Anand Jain <anand.jain@oracle.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrii Nakryiko <andriin@fb.com>
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
+  Ansuel Smith <ansuelsmth@gmail.com>
+  Anton Blanchard <anton@ozlabs.org>
+  Ard Biesheuvel <ardb@kernel.org>
+  Arnaldo Carvalho de Melo <acme@redhat.com>
+  Barry Song <baohua@kernel.org>
+  Bjorn Andersson <bjorn.andersson@linaro.org>
+  Bjorn Helgaas <bhelgaas@google.com>
+  Boris Brezillon <boris.brezillon@collabora.com>
+  Catalin Marinas <catalin.marinas@arm.com>
+  ChangSyun Peng <allenpeng@synology.com>
+  Charles Keepax <ckeepax@opensource.cirrus.com>
+  Chengming Zhou <zhouchengming@bytedance.com>
+  Christian Brauner <christian.brauner@ubuntu.com>
+  Christian Eggers <ceggers@arri.de>
+  Christophe Leroy <christophe.leroy@csgroup.eu>
+  Colin Ian King <colin.king@canonical.com>
+  Coly Li <colyli@suse.de>
+  Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
+  Dan Carpenter <dan.carpenter@oracle.com>
+  Dan Williams <dan.j.williams@intel.com>
+  Daniel Axtens <dja@axtens.net>
+  Daniel Borkmann <daniel@iogearbox.net>
+  Daniel Díaz <daniel.diaz@linaro.org>
+  Daniel Vetter <daniel.vetter@ffwll.ch>
+  dann frazier <dann.frazier@canonical.com>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  Denis Efremov <efremov@linux.com>
+  Dhananjay Phadke <dphadke@linux.microsoft.com>
+  Dilip Kota <eswara.kota@linux.intel.com>
+  Dinghao Liu <dinghao.liu@zju.edu.cn>
+  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+  Dmitry Torokhov <dmitry.torokhov@gmail.com>
+  Enric Balletbo i Serra <enric.balletbo@collabora.com>
+  Eric Biggers <ebiggers@google.com>
+  Eric Dumazet <edumazet@google.com>
+  Eryk Brol <eryk.brol@amd.com>
+  Eugeniu Rosca <erosca@de.adit-jv.com>
+  Ewan D. Milne <emilne@redhat.com>
+  Filipe Manana <fdmanana@suse.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Gregory CLEMENT <gregory.clement@bootlin.com>
+  Gregory Herrero <gregory.herrero@oracle.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Hans Verkuil <hverkuil-cisco@xs4all.nl>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Hersen Wu <hersenxs.wu@amd.com>
+  Horia Geantă <horia.geanta@nxp.com>
+  Huacai Chen <chenhc@lemote.com>
+  Hugh Dickins <hughd@google.com>
+  Ilya Dryomov <idryomov@gmail.com>
+  Ingo Molnar <mingo@kernel.org>
+  Jacob Pan <jacob.jun.pan@linux.intel.com>
+  Jan Kara <jack@suse.cz>
+  Jane Chu <jane.chu@oracle.com>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Jeff Layton <jlayton@kernel.org>
+  Jeffrey Mitchell <jeffrey.mitchell@starlab.io>
+  Jens Axboe <axboe@kernel.dk>
+  Jesper Dangaard Brouer <brouer@redhat.com>
+  Jessica Yu <jeyu@kernel.org>
+  Jia He <justin.he@arm.com>
+  Jiri Olsa <jolsa@kernel.org>
+  Jiri Olsa <jolsa@redhat.com>
+  Joerg Roedel <jroedel@suse.de>
+  Johan Hovold <johan@kernel.org>
+  Johannes Berg <johannes.berg@intel.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Jonathan Marek <jonathan@marek.ca>
+  Jonathan McDowell <noodles@earth.li>
+  Josef Bacik <josef@toxicpanda.com>
+  João Henrique <johnnyonflame@hotmail.com>
+  Junxiao Bi <junxiao.bi@oracle.com>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Kamal Heib <kamalheib1@gmail.com>
+  Kamal Heib <kheib@redhat.com>
+  Kees Cook <keescook@chromium.org>
+  Kevin Hao <haokexin@gmail.com>
+  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+  Konrad Dybcio <konradybcio@gmail.com>
+  Krzysztof Sobota <krzysztof.sobota@nokia.com>
+  Lee Jones <lee.jones@linaro.org>
+  Leon Romanovsky <leonro@mellanox.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Liu Yi L <yi.l.liu@intel.com>
+  Liu Ying <victor.liu@nxp.com>
+  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+  Lu Baolu <baolu.lu@linux.intel.com>
+  Luis Chamberlain <mcgrof@kernel.org>
+  Lukas Wunner <lukas@wunner.de>
+  Lyude Paul <lyude@redhat.com>
+  Marc Zyngier <maz@kernel.org>
+  Marius Iacob <themariusus@gmail.com>
+  Mark Zhang <markz@mellanox.com>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Masami Hiramatsu <mhiramat@kernel.org>
+  Mathew King <mathewk@chromium.org>
+  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michal Hocko <mhocko@suse.com>
+  Michal Koutný <mkoutny@suse.com>
+  Mike Marshall <hubcap@omnibond.com>
+  Mike Snitzer <snitzer@redhat.com>
+  Mikulas Patocka <mpatocka@redhat.com>
+  Ming Lei <ming.lei@redhat.com>
+  Miquel Raynal <miquel.raynal@bootlin.com>
+  Muchun Song <songmuchun@bytedance.com>
+  Nathan Chancellor <natechancellor@gmail.com>
+  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+  Ondrej Mosnacek <omosnace@redhat.com>
+  Pali Rohár <pali@kernel.org>
+  Patrick Donnelly <pdonnell@redhat.com>
+  Paul Aurich <paul@darkrain42.org>
+  Paul Cercueil <paul@crapouillou.net>
+  Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+  Pavel Machek (CIP) <pavel@denx.de>
+  Pavel Machek <pavel@denx.de>
+  Philipp Zabel <p.zabel@pengutronix.de>
+  Qiushi Wu <wu000273@umn.edu>
+  Qu Wenruo <wqu@suse.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Rajat Jain <rajatja@google.com>
+  Ray Jui <ray.jui@broadcom.com>
+  Rayagonda Kokatanur <rayagonda.kokatanur@broadcom.com>
+  Rich Felker <dalias@libc.org>
+  Richard Weinberger <richard@nod.at>
+  Rob Herring <robh@kernel.org>
+  Roland Scheidegger <sroland@vmware.com>
+  Roman Gushchin <guro@fb.com>
+  Sandeep Raghuraman <sandy.8925@gmail.com>
+  Sasha Levin <sashal@kernel.org>
+  Scott Branden <scott.branden@broadcom.com>
+  Scott Mayhew <smayhew@redhat.com>
+  Sham Muthayyan <smuthayy@codeaurora.org>
+  Shaokun Zhang <zhangshaokun@hisilicon.com>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Sibi Sankar <sibis@codeaurora.org>
+  Song Liu <songliubraving@fb.com>
+  Stafford Horne <shorne@gmail.com>
+  Stanimir Varbanov <svarbanov@mm-sol.com>
+  Stephen Boyd <sboyd@kernel.org>
+  Steve French <stfrench@microsoft.com>
+  Steve Longerbeam <slongerbeam@gmail.com>
+  Steven Price <steven.price@arm.com>
+  Steven Rostedt (VMware) <rostedt@goodmis.org>
+  Takashi Iwai <tiwai@suse.de>
+  Thierry Reding <thierry.reding@gmail.com>
+  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+  Thomas Gleixner <tglx@linutronix.de>
+  Thomas Hebb <tommyhebb@gmail.com>
+  Tiezhu Yang <yangtiezhu@loongson.cn>
+  Timur Tabi <timur@kernel.org>
+  Tom Rix <trix@redhat.com>
+  Tomasz Maciej Nowak <tmn505@gmail.com>
+  Trond Myklebust <trond.myklebust@hammerspace.com>
+  Ulf Hansson <ulf.hansson@linaro.org>
+  Vincent Whitchurch <vincent.whitchurch@axis.com>
+  Vishal Verma <vishal.l.verma@intel.com>
+  Vladimir Oltean <vladimir.oltean@nxp.com>
+  Wang Hai <wanghai38@huawei.com>
+  Will Deacon <will@kernel.org>
+  Wim Van Sebroeck <wim@linux-watchdog.org>
+  Wolfram Sang <wsa+renesas@sang-engineering.com>
+  Wolfram Sang <wsa@kernel.org>
+  Xin Tan <tanxin.ctf@gmail.com>
+  Xin Xiong <xiongx18@fudan.edu.cn>
+  Xiyu Yang <xiyuyang19@fudan.edu.cn>
+  Xu Wang <vulab@iscas.ac.cn>
+  Yishai Hadas <yishaih@mellanox.com>
+  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+  Zhang Rui <rui.zhang@intel.com>
+  Zhihao Cheng <chengzhihao1@huawei.com>
 
-> So, the implementation of these functions would be to push any change
-> onto a command queue, trigger the device to DMA the command, spin/sleep
-> until the device returns a response and then continue on. If the
-> device doesn't return a response in a time window then trigger a WQ to
-> do a full device reset.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-I really don't want to do that with the irq descriptor lock held or in
-case of affinity from the interrupt handler as we have to do with PCI
-MSI/MSI-X due to the horrors of the X86 interrupt delivery trainwreck.
-Also you cannot call into command queue code from interrupt disabled and
-interrupt descriptor lock held sections. You can try, but lockdep will
-yell at you immediately. 
 
-There is also CPU hotplug where we have to force migrate an interrupt
-away from an outgoing CPU. This needs some serious thought.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-One question is whether the device can see partial updates to that
-memory due to the async 'swap' of context from the device CPU.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-So we have address_lo, address_hi, data and ctrl. Each of them 32 bit.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-address_hi is only relevant when the number of CPUs is > 255 which
-requires X2APIC which in turn requires interrupt remapping. For all
-others the address_hi value never changes. Let's ignore that case for
-now, but see further down.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-So what's interesting is address_lo and data. If the device sees an
-partial update, i.e. address_lo is written and the device grabs the
-update before data is written then the next interrupt will end up in
-lala land. We have code for that in place in msi_set_affinity() in
-arch/x86/kernel/apic/msi.c. Get eyecancer protection glasses before
-opening that and keep beer ready to wipe out the horrors immediately
-afterwards.
 
-If the device updates the data only when a command is issued then this
-is not a problem, but it causes other problems because you still cannot
-access the command queue from that context. This makes it even worse for
-the CPU hotplug case. But see all of the reasoning on that.
+Not pushing.
 
-If it takes whatever it sees while grabbing the state when switching to
-a different queue or at the point of actual interrupt delivery, then you
-have a problem. Not only you, I'm going to have one as well because I'm
-going to be the poor sod to come up with the workaround.
-
-So we better address that _before_ you start deploying this piece of
-art. I'm not really interested in another slighly different and probably
-more horrible version of the same story. Don't blame me, it's the way
-how Intel decided to make this "work".
-
-There are a couple of options to ensure that the device will never see
-inconsistent state:
-
-      1) Use a locked 16 byte wide operation (cpmxchg16) which is not
-         available on 32bit
-
-      2) Order the MSG entry differently in the queue storage:
-
-         u32 address_lo
-         u32 data
-         u32 address_hi
-         u32 ctrl
-
-         And then enforce an 8 byte store on 64 bit which is guaranteed
-         to be atomic vs. other CPUs and bus agents, i.e. DMA.
-
-         I said enforce because compilers are known to do stupid things.
-
-Both are fine for me and the only caveat is that the access does not go
-accross a cache line boundary. The restriction to 64bit shouldn't be a
-problem either. Running such a device on 32bit causes more problems than
-it solves :)
-
-> The spin/sleep is only needed if the update has to be synchronous, so
-> things like rebalancing could just push the rebalancing work and
-> immediately return.
-
-Interrupt migration is async anyway. An interrupt might have been sent
-to the old vector just before the new vector was written. That's already
-dealt with. The old vector is cleaned up when the first interrupt
-arrives on the new vector which is the most reliable indicator that it's
-done.
-
-In that case you can avoid issuing a command, but that needs some
-thought as well when the queue data is never reloaded. But you can mark
-the queue that affinity has changed and let the next operation on the
-queue (RX, TX, whatever) which needs to talk to the device anyway deal
-with it, i.e. set some command flag in the next operation which tells
-the queue to reload that message.
-
-The only exception is CPU hotplug, but I have an idea how to deal with
-that.
-
-Aside of that some stuff want's to be synchronous though. e.g. shutdown,
-startup.
-
-irq chips have already a mechanism in place to deal with stuff which
-cannot be handled from within the irq descriptor spinlock held and
-interrupt disabled section.
-
-The mechanism was invented to deal with interrupt chips which are
-connected to i2c, spi, etc.. The access to an interrupt chip control
-register has to queue stuff on the bus and wait for completion.
-Obviously not what you can do from interrupt disabled, raw spinlock held
-context either.
-
-So we have for most operations (except affinity setting) the concept of
-update on lock release. For these devices the interrupt chip which
-handles all lines on that controller on the slow bus has an additional
-lock, called bus lock. The core code does not know about that lock at
-all. It's managed at the irq chip side.
-
-The irqchip has two callbacks: irq_bus_lock() and irq_bus_sync_unlock().
-irq_bus_lock() is invoked before interrupts are disabled and the
-spinlock is taken and irq_bus_sync_unlock() after releasing the spinlock
-and reenabling interrupts. The "real" chip operations like mask, unmask
-etc. are operating on an chip internal state cache.
-
-For such devices irq_bus_lock() usually takes a sleepable lock (mutex)
-to protect the state cache and the update logic over the slow bus.
-
-irq_bus_sync_unlock() releases that lock, but before doing so it checks
-whether the operation has changed the state cache and if so it queues a
-command on the slow bus and waits for completion.
-
-That makes sure that the device state and the state cache are in sync
-before the next operation on a maybe different irq line on the same chip
-happens.
-
-Now for your case you might just not have irq_mask()/irq_unmask() callbacks or
-simple ones which just update the queue memory in RAM, but then you want
-irq_disable()/irq_enable() callbacks which manipulate state cache and
-then provide the irq_bus_lock() and irq_bus_sync_unlock() callbacks as
-well which do not necessarily need a lock underneath, but the unlock
-side implements the 'Queue command and wait for completion' part.
-
-Now coming back to affinity setting. I'd love to avoid adding the bus
-lock magic to those interfaces because until now they can be called and
-are called from atomic contexts. And obviously none of the devices which
-use the buslock magic support affinity setting because they all deliver
-a single interrupt to a demultiplex interrupt and that one is usually
-sitting at the CPU level where interrupt steering works.
-
-If we really can get away with atomically updating the message as
-outlined above and just let it happen at some point in the future then
-most problems are solved, except for the nastyness of CPU hotplug.
-
-But that's actually a non issue. Nothing prevents us from having an
-early 'migrate interrupts away from the outgoing CPU hotplug state'
-which runs in thread context and can therefore utilize the buslock
-mechanism. Actually I was thinking about that for other reasons already.
-
-That state would need some thought and consequently some minor changes
-to the affinity mask checks to prevent that the interrupt gets migrated
-back to the outgoing CPU before that CPU reaches offline state. Nothing
-fundamental though.
-
-Just to be clear: We really need to do that at the core level and not
-again in some dark place in a driver as that will cause state
-inconsistency and hard to debug wreckage.
-
->> If interrupt remapping is enabled then both are trivial because then the
->> irq chip can delegate everything to the parent chip, i.e. the remapping
->> unit.
->
-> I did like this notion that IRQ remapping could avoid the overhead of
-> spin/spleep. Most of the use cases we have for this will require the
-> IOMMU anyhow.
-
-You still need to support !remap scenarios I fear.
-
-And even for the remap case you need some of that bus lock magic to
-handle startup and teardown properly without the usual horrible hacks in
-the driver.
-
-If your hard^Wfirmware does the right thing then the only place you need
-to worry about the command queueing is startup and teardown and the
-extra bit for the early hotplug migration.
-
-Let me summarize what I think would be the sane solution for this:
-
-  1) Utilize atomic writes for either all 16 bytes or reorder the bytes
-     and update 8 bytes atomically which is sufficient as the wide
-     address is only used with irq remapping and the MSI message in the
-     device is never changed after startup.
-
-  2) No requirement for issuing a command for regular migration
-     operations as they have no requirements to be synchronous.
-
-     Eventually store some state to force a reload on the next regular
-     queue operation.
-
-  3) No requirement for issuing a command for mask and unmask operations.
-     The core code uses and handles lazy masking already. So if the
-     hardware causes the lazyness, so be it.
-
-  4) Issue commands for startup and teardown as they need to be
-     synchronous
-
-  5) Have an early migration state for CPU hotunplug which issues a
-     command from appropriate context. That would even allow to handle
-     queue shutdown for managed interrupts when the last CPU in the
-     managed affinity set goes down. Restart of such a managed interrupt
-     when the first CPU in an affinity set comes online again would only
-     need minor modifications of the existing code to make it work.
-     
-Thoughts?
-
-Thanks,
-
-        tglx
+(No revision log; it would be 5070 lines long.)
 
