@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1CB24EC81
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A1124EC85
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:36:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k9mPp-0005AK-GT; Sun, 23 Aug 2020 09:35:53 +0000
+	id 1k9mPy-0005Kc-SB; Sun, 23 Aug 2020 09:36:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kEn0=CB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k9mPn-0004t9-SC
- for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:35:51 +0000
-X-Inumbo-ID: c7b2dc0b-7136-4b0a-8abf-e88d0c8fa61d
+ id 1k9mPx-0004t9-SW
+ for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:36:01 +0000
+X-Inumbo-ID: 6bf889bf-5600-4c9a-a4d3-bb6511c51298
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c7b2dc0b-7136-4b0a-8abf-e88d0c8fa61d;
+ id 6bf889bf-5600-4c9a-a4d3-bb6511c51298;
  Sun, 23 Aug 2020 09:35:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 89FBCAE25;
+ by mx2.suse.de (Postfix) with ESMTP id AD28BAE30;
  Sun, 23 Aug 2020 09:35:54 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
  Wei Liu <wl@xen.org>
-Subject: [PATCH v3 17/38] tools/misc: drop all libxc internals from
- xen-mfndump.c
-Date: Sun, 23 Aug 2020 11:34:58 +0200
-Message-Id: <20200823093519.18386-18-jgross@suse.com>
+Subject: [PATCH v3 18/38] tools/libxc: remove unused headers xc_efi.h and
+ xc_elf.h
+Date: Sun, 23 Aug 2020 11:34:59 +0200
+Message-Id: <20200823093519.18386-19-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200823093519.18386-1-jgross@suse.com>
 References: <20200823093519.18386-1-jgross@suse.com>
@@ -49,58 +49,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The last libxc internal used by xen-mfndump.c is the ERROR() macro.
-Add a simple definition for that macro to xen-mfndump.c and replace
-the libxc private header includes by official ones.
+Remove xc_efi.h and xc_elf.h as they aren't used anywhere.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/misc/Makefile      |  2 --
- tools/misc/xen-mfndump.c | 13 +++++++++----
- 2 files changed, 9 insertions(+), 6 deletions(-)
+ tools/libxc/xc_efi.h | 158 -------------------------------------------
+ tools/libxc/xc_elf.h |  16 -----
+ 2 files changed, 174 deletions(-)
+ delete mode 100644 tools/libxc/xc_efi.h
+ delete mode 100644 tools/libxc/xc_elf.h
 
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 2a7f2ec42d..7d37f297a9 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -99,8 +99,6 @@ xen-hptool: xen-hptool.o
- 
- xenhypfs.o: CFLAGS += $(CFLAGS_libxenhypfs)
- 
--# xen-mfndump incorrectly uses libxc internals
--xen-mfndump.o: CFLAGS += -I$(XEN_ROOT)/tools/libxc $(CFLAGS_libxencall)
- xen-mfndump: xen-mfndump.o
- 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenevtchn) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(APPEND_LDFLAGS)
- 
-diff --git a/tools/misc/xen-mfndump.c b/tools/misc/xen-mfndump.c
-index 92bc954ce0..62121bd241 100644
---- a/tools/misc/xen-mfndump.c
-+++ b/tools/misc/xen-mfndump.c
-@@ -1,15 +1,20 @@
--#define XC_WANT_COMPAT_MAP_FOREIGN_API
--#include <xenctrl.h>
--#include <xc_private.h>
--#include <xc_core.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
- #include <unistd.h>
- #include <inttypes.h>
- 
-+#define XC_WANT_COMPAT_MAP_FOREIGN_API
-+#include <xenctrl.h>
-+#include <xenguest.h>
-+
- #include <xen-tools/libs.h>
- 
- #define M2P_SIZE(_m)    ROUNDUP(((_m) * sizeof(xen_pfn_t)), 21)
- #define is_mapped(pfn_type) (!((pfn_type) & 0x80000000UL))
- 
-+#define ERROR(msg, args...) fprintf(stderr, msg, ## args)
-+
- static xc_interface *xch;
- 
- int help_func(int argc, char *argv[])
+diff --git a/tools/libxc/xc_efi.h b/tools/libxc/xc_efi.h
+deleted file mode 100644
+index dbe105be8f..0000000000
+--- a/tools/libxc/xc_efi.h
++++ /dev/null
+@@ -1,158 +0,0 @@
+-/*
+- * Extensible Firmware Interface
+- * Based on 'Extensible Firmware Interface Specification' version 0.9, April 30, 1999
+- *
+- * This library is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU Lesser General Public
+- * License as published by the Free Software Foundation;
+- * version 2.1 of the License.
+- *
+- * This library is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * Lesser General Public License for more details.
+- *
+- * You should have received a copy of the GNU Lesser General Public
+- * License along with this library; If not, see <http://www.gnu.org/licenses/>.
+- *
+- * Copyright (C) 1999 VA Linux Systems
+- * Copyright (C) 1999 Walt Drummond <drummond@valinux.com>
+- * Copyright (C) 1999, 2002-2003 Hewlett-Packard Co.
+- *      David Mosberger-Tang <davidm@hpl.hp.com>
+- *      Stephane Eranian <eranian@hpl.hp.com>
+- */
+-
+-#ifndef XC_EFI_H
+-#define XC_EFI_H
+-
+-/* definitions from xen/include/asm-ia64/linux-xen/linux/efi.h */
+-
+-typedef struct {
+-        uint8_t b[16];
+-} efi_guid_t;
+-
+-#define EFI_GUID(a,b,c,d0,d1,d2,d3,d4,d5,d6,d7) \
+-((efi_guid_t) \
+-{{ (a) & 0xff, ((a) >> 8) & 0xff, ((a) >> 16) & 0xff, ((a) >> 24) & 0xff, \
+-  (b) & 0xff, ((b) >> 8) & 0xff, \
+-  (c) & 0xff, ((c) >> 8) & 0xff, \
+-  (d0), (d1), (d2), (d3), (d4), (d5), (d6), (d7) }})
+-
+-/*
+- * Generic EFI table header
+- */
+-typedef struct {
+-	uint64_t signature;
+-	uint32_t revision;
+-	uint32_t headersize;
+-	uint32_t crc32;
+-	uint32_t reserved;
+-} efi_table_hdr_t;
+-
+-/*
+- * Memory map descriptor:
+- */
+-
+-/* Memory types: */
+-#define EFI_RESERVED_TYPE                0
+-#define EFI_LOADER_CODE                  1
+-#define EFI_LOADER_DATA                  2
+-#define EFI_BOOT_SERVICES_CODE           3
+-#define EFI_BOOT_SERVICES_DATA           4
+-#define EFI_RUNTIME_SERVICES_CODE        5
+-#define EFI_RUNTIME_SERVICES_DATA        6
+-#define EFI_CONVENTIONAL_MEMORY          7
+-#define EFI_UNUSABLE_MEMORY              8
+-#define EFI_ACPI_RECLAIM_MEMORY          9
+-#define EFI_ACPI_MEMORY_NVS             10
+-#define EFI_MEMORY_MAPPED_IO            11
+-#define EFI_MEMORY_MAPPED_IO_PORT_SPACE 12
+-#define EFI_PAL_CODE                    13
+-#define EFI_MAX_MEMORY_TYPE             14
+-
+-/* Attribute values: */
+-#define EFI_MEMORY_UC           ((uint64_t)0x0000000000000001ULL)    /* uncached */
+-#define EFI_MEMORY_WC           ((uint64_t)0x0000000000000002ULL)    /* write-coalescing */
+-#define EFI_MEMORY_WT           ((uint64_t)0x0000000000000004ULL)    /* write-through */
+-#define EFI_MEMORY_WB           ((uint64_t)0x0000000000000008ULL)    /* write-back */
+-#define EFI_MEMORY_WP           ((uint64_t)0x0000000000001000ULL)    /* write-protect */
+-#define EFI_MEMORY_RP           ((uint64_t)0x0000000000002000ULL)    /* read-protect */
+-#define EFI_MEMORY_XP           ((uint64_t)0x0000000000004000ULL)    /* execute-protect */
+-#define EFI_MEMORY_RUNTIME      ((uint64_t)0x8000000000000000ULL)    /* range requires runtime mapping */
+-#define EFI_MEMORY_DESCRIPTOR_VERSION   1
+-
+-#define EFI_PAGE_SHIFT          12
+-
+-/*
+- * For current x86 implementations of EFI, there is
+- * additional padding in the mem descriptors.  This is not
+- * the case in ia64.  Need to have this fixed in the f/w.
+- */
+-typedef struct {
+-        uint32_t type;
+-        uint32_t pad;
+-        uint64_t phys_addr;
+-        uint64_t virt_addr;
+-        uint64_t num_pages;
+-        uint64_t attribute;
+-#if defined (__i386__)
+-        uint64_t pad1;
+-#endif
+-} efi_memory_desc_t;
+-
+-/*
+- * EFI Runtime Services table
+- */
+-#define EFI_RUNTIME_SERVICES_SIGNATURE	((uint64_t)0x5652453544e5552ULL)
+-#define EFI_RUNTIME_SERVICES_REVISION	0x00010000
+-
+-typedef struct {
+-	efi_table_hdr_t hdr;
+-	unsigned long get_time;
+-	unsigned long set_time;
+-	unsigned long get_wakeup_time;
+-	unsigned long set_wakeup_time;
+-	unsigned long set_virtual_address_map;
+-	unsigned long convert_pointer;
+-	unsigned long get_variable;
+-	unsigned long get_next_variable;
+-	unsigned long set_variable;
+-	unsigned long get_next_high_mono_count;
+-	unsigned long reset_system;
+-} efi_runtime_services_t;
+-
+-/*
+- *  EFI Configuration Table and GUID definitions
+- */
+-#define NULL_GUID \
+-    EFI_GUID(  0x00000000, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 )
+-#define ACPI_20_TABLE_GUID    \
+-    EFI_GUID(  0x8868e871, 0xe4f1, 0x11d3, 0xbc, 0x22, 0x0, 0x80, 0xc7, 0x3c, 0x88, 0x81 )
+-#define SAL_SYSTEM_TABLE_GUID    \
+-    EFI_GUID(  0xeb9d2d32, 0x2d88, 0x11d3, 0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d )
+-
+-typedef struct {
+-	efi_guid_t guid;
+-	unsigned long table;
+-} efi_config_table_t;
+-
+-#define EFI_SYSTEM_TABLE_SIGNATURE ((uint64_t)0x5453595320494249ULL)
+-#define EFI_SYSTEM_TABLE_REVISION  ((1 << 16) | 00)
+-
+-typedef struct {
+-	efi_table_hdr_t hdr;
+-	unsigned long fw_vendor;	/* physical addr of CHAR16 vendor string */
+-	uint32_t fw_revision;
+-	unsigned long con_in_handle;
+-	unsigned long con_in;
+-	unsigned long con_out_handle;
+-	unsigned long con_out;
+-	unsigned long stderr_handle;
+-	unsigned long stderr;
+-	efi_runtime_services_t *runtime;
+-	unsigned long boottime;
+-	unsigned long nr_tables;
+-	unsigned long tables;
+-} efi_system_table_t;
+-
+-#endif /* XC_EFI_H */
+diff --git a/tools/libxc/xc_elf.h b/tools/libxc/xc_elf.h
+deleted file mode 100644
+index acbc0280bd..0000000000
+--- a/tools/libxc/xc_elf.h
++++ /dev/null
+@@ -1,16 +0,0 @@
+-/*
+- * This library is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU Lesser General Public
+- * License as published by the Free Software Foundation;
+- * version 2.1 of the License.
+- *
+- * This library is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * Lesser General Public License for more details.
+- *
+- * You should have received a copy of the GNU Lesser General Public
+- * License along with this library; If not, see <http://www.gnu.org/licenses/>.
+- */
+-
+-#include <xen/libelf/elfstructs.h>
 -- 
 2.26.2
 
