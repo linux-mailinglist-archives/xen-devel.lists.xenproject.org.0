@@ -2,57 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A1524ECA0
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DBF924ECA1
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:51:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k9mdh-0001rS-PR; Sun, 23 Aug 2020 09:50:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CQ6o=CB=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1k9mdg-0001rM-GN
- for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:50:12 +0000
-X-Inumbo-ID: df19155a-21f5-475e-aa97-5d31e9023737
-Received: from hera.aquilenet.fr (unknown [185.233.100.1])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id df19155a-21f5-475e-aa97-5d31e9023737;
- Sun, 23 Aug 2020 09:50:10 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 9E20E4C17;
- Sun, 23 Aug 2020 11:50:09 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 7uLcNz6lvT_z; Sun, 23 Aug 2020 11:50:08 +0200 (CEST)
-Received: from function (lfbn-bor-1-797-11.w86-234.abo.wanadoo.fr
- [86.234.239.11])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 901AA4BFF;
- Sun, 23 Aug 2020 11:50:08 +0200 (CEST)
-Received: from samy by function with local (Exim 4.94)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1k9mdb-00CJ9b-K7; Sun, 23 Aug 2020 11:50:07 +0200
-Date: Sun, 23 Aug 2020 11:50:07 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+	id 1k9meX-0001wY-3Z; Sun, 23 Aug 2020 09:51:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kEn0=CB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1k9meV-0001wQ-AN
+ for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:51:03 +0000
+X-Inumbo-ID: 4a238935-e42b-45b3-abff-8a009a8d5166
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4a238935-e42b-45b3-abff-8a009a8d5166;
+ Sun, 23 Aug 2020 09:51:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 02299AC7F;
+ Sun, 23 Aug 2020 09:51:31 +0000 (UTC)
+Subject: Re: [PATCH v3 07/38] stubdom: add correct dependencies for Xen
+ libraries
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
  Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 08/38] stubdom: simplify building xen libraries for
- stubdoms
-Message-ID: <20200823095007.qgeh3mugnfat4i4a@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 References: <20200823093519.18386-1-jgross@suse.com>
- <20200823093519.18386-9-jgross@suse.com>
+ <20200823093519.18386-8-jgross@suse.com>
+ <20200823094722.o2o63bi2tb4vukqu@function>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <204570fa-d8e0-a83b-5652-b937fb36185d@suse.com>
+Date: Sun, 23 Aug 2020 11:51:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+In-Reply-To: <20200823094722.o2o63bi2tb4vukqu@function>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200823093519.18386-9-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,199 +53,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Juergen Gross, le dim. 23 août 2020 11:34:49 +0200, a ecrit:
-> The pattern for building a Xen library with sources under tools/libs
-> is always the same. Simplify stubdom/Makefile by defining a callable
-> make program for those libraries.
-
-Ah, sorry, I should have read the series before reviewing :)
-
-> Even if not needed right now add the possibility for defining
-> additional dependencies for a library.
-
-So I fully agree :)
-
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  stubdom/Makefile | 120 ++++++++++-------------------------------------
->  1 file changed, 24 insertions(+), 96 deletions(-)
+On 23.08.20 11:47, Samuel Thibault wrote:
+> Juergen Gross, le dim. 23 août 2020 11:34:48 +0200, a ecrit:
+>> The stubdom Makefile is missing several dependencies between Xen
+>> libraries. Add them.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 > 
-> diff --git a/stubdom/Makefile b/stubdom/Makefile
-> index a95212e363..4fd86dd44b 100644
-> --- a/stubdom/Makefile
-> +++ b/stubdom/Makefile
-> @@ -327,6 +327,16 @@ ioemu/linkfarm.stamp:
->  	touch ioemu/linkfarm.stamp
->  endif
->  
-> +#######
-> +# libraries under tools/libs
-> +#######
-> +
-> +STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel
-> +
-> +#######
-> +# common handling
-> +#######
-> +
->  define do_links
->    mkdir -p $(dir $@)include
->    cd $(dir $@); \
-> @@ -337,26 +347,21 @@ define do_links
->    touch $@
->  endef
->  
-> -libs-$(XEN_TARGET_ARCH)/toolcore/stamp: $(XEN_ROOT)/tools/libs/toolcore/Makefile
-> -	$(do_links)
-> -
-> -libs-$(XEN_TARGET_ARCH)/toollog/stamp: $(XEN_ROOT)/tools/libs/toollog/Makefile
-> -	$(do_links)
-> +define BUILD_lib
-> + .PHONY: libxen$(1) clean-libxen$(1)
-> + libxen$(1): libs-$$(XEN_TARGET_ARCH)/$(1)/libxen$(1).a
-> + libs-$$(XEN_TARGET_ARCH)/$(1)/libxen$(1).a: $$(LIBDEPS_$(1)) $$(LIBDEP_$(1))
-> + libs-$$(XEN_TARGET_ARCH)/$(1)/libxen$(1).a: mk-headers-$$(XEN_TARGET_ARCH) $$(NEWLIB_STAMPFILE)
-> +	CPPFLAGS="$$(TARGET_CPPFLAGS)" CFLAGS="$$(TARGET_CFLAGS)" $$(MAKE) DESTDIR= CONFIG_LIBXC_MINIOS=y -C libs-$$(XEN_TARGET_ARCH)/$(1)
->  
-> -libs-$(XEN_TARGET_ARCH)/evtchn/stamp: $(XEN_ROOT)/tools/libs/evtchn/Makefile
-> -	$(do_links)
-> + clean-libxen$(1):
-> +	[ ! -e libs-$$(XEN_TARGET_ARCH)/$(1)/Makefile ] || $$(MAKE) DESTDIR= -C libs-$$(XEN_TARGET_ARCH)/$(1) clean
->  
-> -libs-$(XEN_TARGET_ARCH)/gnttab/stamp: $(XEN_ROOT)/tools/libs/gnttab/Makefile
-> -	$(do_links)
-> -
-> -libs-$(XEN_TARGET_ARCH)/call/stamp: $(XEN_ROOT)/tools/libs/call/Makefile
-> -	$(do_links)
-> -
-> -libs-$(XEN_TARGET_ARCH)/foreignmemory/stamp: $(XEN_ROOT)/tools/libs/foreignmemory/Makefile
-> -	$(do_links)
-> + libs-$$(XEN_TARGET_ARCH)/$(1)/stamp: $$(XEN_ROOT)/tools/libs/$(1)/Makefile
-> +	$$(do_links)
-> +endef
->  
-> -libs-$(XEN_TARGET_ARCH)/devicemodel/stamp: $(XEN_ROOT)/tools/libs/devicemodel/Makefile
-> -	$(do_links)
-> +$(foreach lib,$(STUB_LIBS),$(eval $(call BUILD_lib,$(lib))))
->  
->  libxc-$(XEN_TARGET_ARCH)/stamp: $(XEN_ROOT)/tools/libxc/Makefile
->  	$(do_links)
-> @@ -364,8 +369,7 @@ libxc-$(XEN_TARGET_ARCH)/stamp: $(XEN_ROOT)/tools/libxc/Makefile
->  xenstore/stamp: $(XEN_ROOT)/tools/xenstore/Makefile
->  	$(do_links)
->  
-> -LINK_LIBS_DIRS := toolcore toollog evtchn gnttab call foreignmemory devicemodel
-> -LINK_DIRS := libxc-$(XEN_TARGET_ARCH) xenstore $(foreach dir,$(LINK_LIBS_DIRS),libs-$(XEN_TARGET_ARCH)/$(dir))
-> +LINK_DIRS := libxc-$(XEN_TARGET_ARCH) xenstore $(foreach dir,$(STUB_LIBS),libs-$(XEN_TARGET_ARCH)/$(dir))
->  LINK_STAMPS := $(foreach dir,$(LINK_DIRS),$(dir)/stamp)
->  
->  mk-headers-$(XEN_TARGET_ARCH): $(IOEMU_LINKFARM_TARGET) $(LINK_STAMPS)
-> @@ -388,76 +392,6 @@ $(TARGETS_MINIOS): mini-os-%:
->                  mkdir -p $@/$$i ; \
->  	done
->  
-> -#######
-> -# libxentoolcore
-> -#######
-> -
-> -.PHONY: libxentoolcore
-> -libxentoolcore: libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a
-> -libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a: $(LIBDEPS_toolcore)
-> -libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toolcore
-> -
-> -#######
-> -# libxentoollog
-> -#######
-> -
-> -.PHONY: libxentoollog
-> -libxentoollog: libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a
-> -libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a: $(LIBDEPS_toollog)
-> -libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toollog
-> -
-> -#######
-> -# libxenevtchn
-> -#######
-> -
-> -.PHONY: libxenevtchn
-> -libxenevtchn: libs-$(XEN_TARGET_ARCH)/evtchn/libxenevtchn.a
-> -libs-$(XEN_TARGET_ARCH)/evtchn/libxenevtchn.a: $(LIBDEPS_evtchn)
-> -libs-$(XEN_TARGET_ARCH)/evtchn/libxenevtchn.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/evtchn
-> -
-> -#######
-> -# libxengnttab
-> -#######
-> -
-> -.PHONY: libxengnttab
-> -libxengnttab: libs-$(XEN_TARGET_ARCH)/gnttab/libxengnttab.a
-> -libs-$(XEN_TARGET_ARCH)/gnttab/libxengnttab.a: $(LIBDEPS_gnttab)
-> -libs-$(XEN_TARGET_ARCH)/gnttab/libxengnttab.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/gnttab
-> -
-> -#######
-> -# libxencall
-> -#######
-> -
-> -.PHONY: libxencall
-> -libxencall: libs-$(XEN_TARGET_ARCH)/call/libxencall.a
-> -libs-$(XEN_TARGET_ARCH)/call/libxencall.a: $(LIBDEPS_call)
-> -libs-$(XEN_TARGET_ARCH)/call/libxencall.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/call
-> -
-> -#######
-> -# libxenforeignmemory
-> -#######
-> -
-> -.PHONY: libxenforeignmemory
-> -libxenforeignmemory: libs-$(XEN_TARGET_ARCH)/foreignmemory/libxenforeignmemory.a
-> -libs-$(XEN_TARGET_ARCH)/foreignmemory/libxenforeignmemory.a: $(LIBDEPS_foreignmemory)
-> -libs-$(XEN_TARGET_ARCH)/foreignmemory/libxenforeignmemory.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/foreignmemory
-> -
-> -#######
-> -# libxendevicemodel
-> -#######
-> -
-> -.PHONY: libxendevicemodel
-> -libxendevicemodel: libs-$(XEN_TARGET_ARCH)/devicemodel/libxendevicemodel.a
-> -libs-$(XEN_TARGET_ARCH)/devicemodel/libxendevicemodel.a: $(LIBDEPS_devicemodel)
-> -libs-$(XEN_TARGET_ARCH)/devicemodel/libxendevicemodel.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
-> -	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/devicemodel
-> -
->  #######
->  # libxc
->  #######
-> @@ -672,6 +606,7 @@ uninstall-vtpmmgr:
->  
->  # Only clean the libxc/ioemu/mini-os part
->  .PHONY: clean
-> +clean: $(foreach lib,$(STUB_LIBS),clean-libxen$(lib))
->  clean:
->  	rm -fr mini-os-$(XEN_TARGET_ARCH)-ioemu
->  	rm -fr mini-os-$(XEN_TARGET_ARCH)-c
-> @@ -688,13 +623,6 @@ clean:
->  	rm -f $(STUBDOMPATH)
->  	rm -f *-minios-config.mk
->  	rm -fr pkg-config
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/toolcore/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toolcore clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/toollog/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toollog clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/evtchn/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/evtchn clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/gnttab/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/gnttab clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/call/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/call clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/foreignmemory/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/foreignmemory clean
-> -	[ ! -e libs-$(XEN_TARGET_ARCH)/devicemodel/Makefile ] || $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/devicemodel clean
->  	[ ! -e libxc-$(XEN_TARGET_ARCH)/Makefile ] || $(MAKE) DESTDIR= -C libxc-$(XEN_TARGET_ARCH) clean
->  	-[ ! -d ioemu ] || $(MAKE) DESTDIR= -C ioemu clean
->  	-[ ! -d xenstore ] || $(MAKE) DESTDIR= -C xenstore clean
-> -- 
-> 2.26.2
+> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 > 
+> In case another round of review is needed, perhaps you can just
+> factorize:
+> 
+>> @@ -387,6 +394,7 @@ $(TARGETS_MINIOS): mini-os-%:
+>>   
+>>   .PHONY: libxentoolcore
+>>   libxentoolcore: libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a
+>> +libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a: $(LIBDEPS_toolcore)
+>>   libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
+>>   	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toolcore
+>>   
+>> @@ -396,6 +404,7 @@ libs-$(XEN_TARGET_ARCH)/toolcore/libxentoolcore.a: mk-headers-$(XEN_TARGET_ARCH)
+>>   
+>>   .PHONY: libxentoollog
+>>   libxentoollog: libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a
+>> +libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a: $(LIBDEPS_toollog)
+>>   libs-$(XEN_TARGET_ARCH)/toollog/libxentoollog.a: mk-headers-$(XEN_TARGET_ARCH) $(NEWLIB_STAMPFILE)
+>>   	CPPFLAGS="$(TARGET_CPPFLAGS)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C libs-$(XEN_TARGET_ARCH)/toollog
+> 
+> etc.
+> by iterating over LIBS_LIBS?  That'll make the maintenance easier.
 
--- 
-Samuel
-<y> la vraie vie, c'est quand le prompt passe de $ à #
+Look at the next patch. :-)
+
+
+Juergen
 
