@@ -2,105 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D420624EC71
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:30:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 297F324EC87
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Aug 2020 11:36:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k9mJO-00042E-R7; Sun, 23 Aug 2020 09:29:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zTdr=CB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k9mJM-000429-VP
- for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:29:13 +0000
-X-Inumbo-ID: b5434209-0da9-47d5-ac94-8faa61146f42
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5434209-0da9-47d5-ac94-8faa61146f42;
- Sun, 23 Aug 2020 09:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=KoPf70x2XoYJ0+q2uFO1G+dJGbovO7PcV9/LEMmYYQ4=; b=MQ26z48GdkiwTEtQtb7NUeayAB
- 4DDojWvKFg9OEKVcQzEQdR9mtVFiCeQcyqcpdxkcmn0Ueh0ZQ7zJoJdYYUO/dxXZxO/2GWy676gyW
- wDRUIKTC7NdqriApaggogMFyF49PkyABm7mREzgH5T/Gvs2lnUIguzK51pobCRuvwX7I=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k9mJI-0001pq-Uq; Sun, 23 Aug 2020 09:29:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k9mJI-0003II-JM; Sun, 23 Aug 2020 09:29:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1k9mJI-0006BF-It; Sun, 23 Aug 2020 09:29:08 +0000
+	id 1k9mQ3-0005Qx-Qv; Sun, 23 Aug 2020 09:36:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kEn0=CB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1k9mQ2-0004t9-ST
+ for xen-devel@lists.xenproject.org; Sun, 23 Aug 2020 09:36:06 +0000
+X-Inumbo-ID: 4accecb3-897d-4b3e-b90b-47f8df47d6ab
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4accecb3-897d-4b3e-b90b-47f8df47d6ab;
+ Sun, 23 Aug 2020 09:35:25 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B6D64AD68;
+ Sun, 23 Aug 2020 09:35:52 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152675-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	xen-devel@dornerworks.com
+Cc: Juergen Gross <jgross@suse.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, 
+ Josh Whitehead <josh.whitehead@dornerworks.com>,
+ Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Shriram Rajagopalan <rshriram@cs.ubc.ca>,
+ Yang Hongyang <imhy.yang@gmail.com>
+Subject: [PATCH v3 00/38] tools: move most libraries into tools/libs
+Date: Sun, 23 Aug 2020 11:34:41 +0200
+Message-Id: <20200823093519.18386-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 152675: tolerable FAIL - PUSHED
-X-Osstest-Failures: linux-5.4:test-amd64-i386-libvirt-xsm:guest-destroy:fail:heisenbug
- linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
- linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: linux=77fcb48939fc863d9ba9d808fac9000959e937d3
-X-Osstest-Versions-That: linux=f61e1c3638dddaa1a1f3bb59d2bc288d9f0f1b5b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 23 Aug 2020 09:29:08 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,397 +60,650 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152675 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152675/
+Move most remaining libraries under tools/libs, including libxenctrl
+and libxl. This is resulting in a lot of cleanup work regarding
+building libs and restructuring of the tools directory.
 
-Failures :-/ but no regressions.
+After this huge cleanup all dependencies between libraries are defined
+in a single rather small file tools/libs/uselibs.mk, which is used to
+create the needed make variables and to control the stubdom build
+dependencies as well.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-libvirt-xsm  20 guest-destroy    fail in 152664 pass in 152675
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail pass in 152664
+Another bonus of the rework is the automation of setting the versions
+of unstable libraries. This removes the need to bump those versions
+manually for each Xen release.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds   16 guest-start/debian.repeat fail blocked in 152614
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+libfsimage is not moved by this series, as IMO there are some open
+questions:
+- should it really be unstable?
+- is the support of adding external fs-support used in practice, i.e.
+  shouldn't the fs-specific sub-libraries be just included into
+  libfsimage instead of being loaded dynamically?
 
-version targeted for testing:
- linux                77fcb48939fc863d9ba9d808fac9000959e937d3
-baseline version:
- linux                f61e1c3638dddaa1a1f3bb59d2bc288d9f0f1b5b
+The complete series is available via:
 
-Last test of basis   152614  2020-08-19 09:11:23 Z    4 days
-Testing same since   152656  2020-08-21 11:13:28 Z    1 days    3 attempts
+git://xenbits.xen.org/people/jgross/xen.git libbuild-v3
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adrian Hunter <adrian.hunter@intel.com>
-  Ahmad Fatoum <a.fatoum@pengutronix.de>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexandru Ardelean <alexandru.ardelean@analog.com>
-  Alexei Starovoitov <ast@kernel.org>
-  Anand Jain <anand.jain@oracle.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrii Nakryiko <andriin@fb.com>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
-  Ansuel Smith <ansuelsmth@gmail.com>
-  Anton Blanchard <anton@ozlabs.org>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Barry Song <baohua@kernel.org>
-  Bjorn Andersson <bjorn.andersson@linaro.org>
-  Bjorn Helgaas <bhelgaas@google.com>
-  Boris Brezillon <boris.brezillon@collabora.com>
-  Catalin Marinas <catalin.marinas@arm.com>
-  ChangSyun Peng <allenpeng@synology.com>
-  Charles Keepax <ckeepax@opensource.cirrus.com>
-  Chengming Zhou <zhouchengming@bytedance.com>
-  Christian Brauner <christian.brauner@ubuntu.com>
-  Christian Eggers <ceggers@arri.de>
-  Christophe Leroy <christophe.leroy@csgroup.eu>
-  Colin Ian King <colin.king@canonical.com>
-  Coly Li <colyli@suse.de>
-  Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Dan Williams <dan.j.williams@intel.com>
-  Daniel Axtens <dja@axtens.net>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Díaz <daniel.diaz@linaro.org>
-  Daniel Vetter <daniel.vetter@ffwll.ch>
-  dann frazier <dann.frazier@canonical.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Denis Efremov <efremov@linux.com>
-  Dhananjay Phadke <dphadke@linux.microsoft.com>
-  Dilip Kota <eswara.kota@linux.intel.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-  Enric Balletbo i Serra <enric.balletbo@collabora.com>
-  Eric Biggers <ebiggers@google.com>
-  Eric Dumazet <edumazet@google.com>
-  Eryk Brol <eryk.brol@amd.com>
-  Eugeniu Rosca <erosca@de.adit-jv.com>
-  Ewan D. Milne <emilne@redhat.com>
-  Filipe Manana <fdmanana@suse.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Gregory CLEMENT <gregory.clement@bootlin.com>
-  Gregory Herrero <gregory.herrero@oracle.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Hersen Wu <hersenxs.wu@amd.com>
-  Horia Geantă <horia.geanta@nxp.com>
-  Huacai Chen <chenhc@lemote.com>
-  Hugh Dickins <hughd@google.com>
-  Ilya Dryomov <idryomov@gmail.com>
-  Ingo Molnar <mingo@kernel.org>
-  Jacob Pan <jacob.jun.pan@linux.intel.com>
-  Jan Kara <jack@suse.cz>
-  Jane Chu <jane.chu@oracle.com>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jeff Layton <jlayton@kernel.org>
-  Jeffrey Mitchell <jeffrey.mitchell@starlab.io>
-  Jens Axboe <axboe@kernel.dk>
-  Jesper Dangaard Brouer <brouer@redhat.com>
-  Jessica Yu <jeyu@kernel.org>
-  Jia He <justin.he@arm.com>
-  Jiri Olsa <jolsa@kernel.org>
-  Jiri Olsa <jolsa@redhat.com>
-  Joerg Roedel <jroedel@suse.de>
-  Johan Hovold <johan@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Jonathan Marek <jonathan@marek.ca>
-  Jonathan McDowell <noodles@earth.li>
-  Josef Bacik <josef@toxicpanda.com>
-  João Henrique <johnnyonflame@hotmail.com>
-  Junxiao Bi <junxiao.bi@oracle.com>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kamal Heib <kamalheib1@gmail.com>
-  Kamal Heib <kheib@redhat.com>
-  Kees Cook <keescook@chromium.org>
-  Kevin Hao <haokexin@gmail.com>
-  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Konrad Dybcio <konradybcio@gmail.com>
-  Krzysztof Sobota <krzysztof.sobota@nokia.com>
-  Lee Jones <lee.jones@linaro.org>
-  Leon Romanovsky <leonro@mellanox.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Liu Yi L <yi.l.liu@intel.com>
-  Liu Ying <victor.liu@nxp.com>
-  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
-  Lu Baolu <baolu.lu@linux.intel.com>
-  Luis Chamberlain <mcgrof@kernel.org>
-  Lukas Wunner <lukas@wunner.de>
-  Lyude Paul <lyude@redhat.com>
-  Marc Zyngier <maz@kernel.org>
-  Marius Iacob <themariusus@gmail.com>
-  Mark Zhang <markz@mellanox.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Mathew King <mathewk@chromium.org>
-  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michal Hocko <mhocko@suse.com>
-  Michal Koutný <mkoutny@suse.com>
-  Mike Marshall <hubcap@omnibond.com>
-  Mike Snitzer <snitzer@redhat.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Ming Lei <ming.lei@redhat.com>
-  Miquel Raynal <miquel.raynal@bootlin.com>
-  Muchun Song <songmuchun@bytedance.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-  Ondrej Mosnacek <omosnace@redhat.com>
-  Pali Rohár <pali@kernel.org>
-  Patrick Donnelly <pdonnell@redhat.com>
-  Paul Aurich <paul@darkrain42.org>
-  Paul Cercueil <paul@crapouillou.net>
-  Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-  Pavel Machek (CIP) <pavel@denx.de>
-  Pavel Machek <pavel@denx.de>
-  Philipp Zabel <p.zabel@pengutronix.de>
-  Qiushi Wu <wu000273@umn.edu>
-  Qu Wenruo <wqu@suse.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rajat Jain <rajatja@google.com>
-  Ray Jui <ray.jui@broadcom.com>
-  Rayagonda Kokatanur <rayagonda.kokatanur@broadcom.com>
-  Rich Felker <dalias@libc.org>
-  Richard Weinberger <richard@nod.at>
-  Rob Herring <robh@kernel.org>
-  Roland Scheidegger <sroland@vmware.com>
-  Roman Gushchin <guro@fb.com>
-  Sandeep Raghuraman <sandy.8925@gmail.com>
-  Sasha Levin <sashal@kernel.org>
-  Scott Branden <scott.branden@broadcom.com>
-  Scott Mayhew <smayhew@redhat.com>
-  Sham Muthayyan <smuthayy@codeaurora.org>
-  Shaokun Zhang <zhangshaokun@hisilicon.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Sibi Sankar <sibis@codeaurora.org>
-  Song Liu <songliubraving@fb.com>
-  Stafford Horne <shorne@gmail.com>
-  Stanimir Varbanov <svarbanov@mm-sol.com>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve French <stfrench@microsoft.com>
-  Steve Longerbeam <slongerbeam@gmail.com>
-  Steven Price <steven.price@arm.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Takashi Iwai <tiwai@suse.de>
-  Thierry Reding <thierry.reding@gmail.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thomas Hebb <tommyhebb@gmail.com>
-  Tiezhu Yang <yangtiezhu@loongson.cn>
-  Timur Tabi <timur@kernel.org>
-  Tom Rix <trix@redhat.com>
-  Tomasz Maciej Nowak <tmn505@gmail.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vincent Whitchurch <vincent.whitchurch@axis.com>
-  Vishal Verma <vishal.l.verma@intel.com>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Wang Hai <wanghai38@huawei.com>
-  Will Deacon <will@kernel.org>
-  Wim Van Sebroeck <wim@linux-watchdog.org>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xin Tan <tanxin.ctf@gmail.com>
-  Xin Xiong <xiongx18@fudan.edu.cn>
-  Xiyu Yang <xiyuyang19@fudan.edu.cn>
-  Xu Wang <vulab@iscas.ac.cn>
-  Yishai Hadas <yishaih@mellanox.com>
-  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-  Zhang Rui <rui.zhang@intel.com>
-  Zhihao Cheng <chengzhihao1@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Changes in V3:
+- more cleanup added
+- added moving libxenguest, libxl and libxlutil
+- split out dependencies into uselibs.mk
+- use uselibs.mk for stubdoms build
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Juergen Gross (38):
+  stubdom: add stubdom/mini-os.mk for Xen paths used by Mini-OS
+  tools: switch XEN_LIBXEN* make variables to lower case (XEN_libxen*)
+  tools: add a copy of library headers in tools/include
+  tools: don't call make recursively from libs.mk
+  tools: define ROUNDUP() in tools/include/xen-tools/libs.h
+  tools: generate most contents of library make variables
+  stubdom: add correct dependencies for Xen libraries
+  stubdom: simplify building xen libraries for stubdoms
+  tools: drop explicit path specifications for qemu build
+  tools: tweak tools/libs/libs.mk for being able to support libxenctrl
+  tools/python: drop libxenguest from setup.py
+  tools: fix pkg-config file for libxenguest
+  tools: don't assume libxenguest and libxenctrl to be in same directory
+  tools/misc: don't use libxenctrl internals from xen-hptool
+  tools/misc: don't include xg_save_restore.h from xen-mfndump.c
+  tools/misc: replace PAGE_SIZE with XC_PAGE_SIZE in xen-mfndump.c
+  tools/misc: drop all libxc internals from xen-mfndump.c
+  tools/libxc: remove unused headers xc_efi.h and xc_elf.h
+  tools/libxc: move xc_[un]map_domain_meminfo() into new source
+    xg_domain.c
+  tools/libxc: rename all libxenguest sources to xg_*
+  tools/libxc: rename libxenguest internal headers
+  tools/misc: rename xc_dom.h do xenctrl_dom.h
+  tools/libxc: untangle libxenctrl from libxenguest
+  tools/xcutils: use official headers in readnotes
+  tools/xenpaging: remove libxc internals
+  tools: move libxenctrl below tools/libs
+  tools/libxc: move libxenguest to tools/libs/guest
+  tools: split libxenstore into new tools/libs/store directory
+  tools: split libxenvchan into new tools/libs/vchan directory
+  tools: split libxenstat into new tools/libs/stat directory
+  tools/libxl: fix dependencies of libxl tests
+  tools/libxl: don't include libxl_osdeps.h from libxlutil sources
+  tools/libxl: add missing items to clean target
+  tools/libxl: move xl parsing checks to tools/xl
+  tools/xl: don't assume libxl and libxlutil are in one directory
+  tools/libxl: move libxenlight to tools/libs/light
+  tools: add support for library names other than libxen*
+  tools: move libxlutil to tools/libs/util
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+ .gitignore                                    |  75 ++--
+ MAINTAINERS                                   |   2 +-
+ stubdom/Makefile                              | 151 ++-----
+ stubdom/grub/Makefile                         |   4 +-
+ stubdom/grub/kexec.c                          |   2 +-
+ stubdom/mini-os.mk                            |  17 +
+ tools/Makefile                                |  34 +-
+ tools/Rules.mk                                | 112 +-----
+ tools/configure                               |   2 +-
+ tools/configure.ac                            |   2 +-
+ tools/console/daemon/io.c                     |   6 +-
+ tools/golang/xenlight/Makefile                |   4 +-
+ tools/helpers/init-xenstore-domain.c          |   2 +-
+ tools/include/xen-tools/libs.h                |   4 +
+ tools/libs/Makefile                           |   7 +
+ tools/libs/call/Makefile                      |   4 +-
+ tools/libs/call/buffer.c                      |   3 +-
+ tools/libs/ctrl/Makefile                      |  71 ++++
+ tools/{libxc => libs/ctrl}/include/xenctrl.h  |   0
+ .../ctrl}/include/xenctrl_compat.h            |   0
+ .../ctrl/include/xenctrl_dom.h}               |  10 +-
+ tools/{libxc => libs/ctrl}/xc_altp2m.c        |   0
+ tools/{libxc => libs/ctrl}/xc_arinc653.c      |   0
+ tools/{libxc => libs/ctrl}/xc_bitops.h        |   0
+ tools/{libxc => libs/ctrl}/xc_core.c          |   5 +-
+ tools/{libxc => libs/ctrl}/xc_core.h          |   2 +-
+ tools/{libxc => libs/ctrl}/xc_core_arm.c      |   2 +-
+ tools/{libxc => libs/ctrl}/xc_core_arm.h      |   0
+ tools/{libxc => libs/ctrl}/xc_core_x86.c      |   6 +-
+ tools/{libxc => libs/ctrl}/xc_core_x86.h      |   0
+ tools/{libxc => libs/ctrl}/xc_cpu_hotplug.c   |   0
+ tools/{libxc => libs/ctrl}/xc_cpupool.c       |   0
+ tools/{libxc => libs/ctrl}/xc_csched.c        |   0
+ tools/{libxc => libs/ctrl}/xc_csched2.c       |   0
+ .../ctrl}/xc_devicemodel_compat.c             |   0
+ tools/{libxc => libs/ctrl}/xc_domain.c        | 129 +-----
+ tools/{libxc => libs/ctrl}/xc_evtchn.c        |   0
+ tools/{libxc => libs/ctrl}/xc_evtchn_compat.c |   0
+ tools/{libxc => libs/ctrl}/xc_flask.c         |   0
+ .../{libxc => libs/ctrl}/xc_foreign_memory.c  |   0
+ tools/{libxc => libs/ctrl}/xc_freebsd.c       |   0
+ tools/{libxc => libs/ctrl}/xc_gnttab.c        |   0
+ tools/{libxc => libs/ctrl}/xc_gnttab_compat.c |   0
+ tools/{libxc => libs/ctrl}/xc_hcall_buf.c     |   1 -
+ tools/{libxc => libs/ctrl}/xc_kexec.c         |   0
+ tools/{libxc => libs/ctrl}/xc_linux.c         |   0
+ tools/{libxc => libs/ctrl}/xc_mem_access.c    |   0
+ tools/{libxc => libs/ctrl}/xc_mem_paging.c    |   0
+ tools/{libxc => libs/ctrl}/xc_memshr.c        |   0
+ tools/{libxc => libs/ctrl}/xc_minios.c        |   0
+ tools/{libxc => libs/ctrl}/xc_misc.c          |   0
+ tools/{libxc => libs/ctrl}/xc_monitor.c       |   0
+ tools/{libxc => libs/ctrl}/xc_msr_x86.h       |   0
+ tools/{libxc => libs/ctrl}/xc_netbsd.c        |   0
+ tools/{libxc => libs/ctrl}/xc_pagetab.c       |   0
+ tools/{libxc => libs/ctrl}/xc_physdev.c       |   0
+ tools/{libxc => libs/ctrl}/xc_pm.c            |   0
+ tools/{libxc => libs/ctrl}/xc_private.c       |   3 +-
+ tools/{libxc => libs/ctrl}/xc_private.h       |  36 ++
+ tools/{libxc => libs/ctrl}/xc_psr.c           |   0
+ tools/{libxc => libs/ctrl}/xc_resource.c      |   0
+ tools/{libxc => libs/ctrl}/xc_resume.c        |   2 -
+ tools/{libxc => libs/ctrl}/xc_rt.c            |   0
+ tools/{libxc => libs/ctrl}/xc_solaris.c       |   0
+ tools/{libxc => libs/ctrl}/xc_tbuf.c          |   0
+ tools/{libxc => libs/ctrl}/xc_vm_event.c      |   0
+ tools/{libxc => libs/ctrl}/xencontrol.pc.in   |   0
+ tools/libs/devicemodel/Makefile               |   4 +-
+ tools/libs/evtchn/Makefile                    |   4 +-
+ tools/libs/foreignmemory/Makefile             |   4 +-
+ tools/libs/foreignmemory/linux.c              |   3 +-
+ tools/libs/gnttab/Makefile                    |   4 +-
+ tools/libs/gnttab/private.h                   |   3 -
+ tools/{libxc => libs/guest}/COPYING           |   0
+ tools/libs/guest/Makefile                     | 121 ++++++
+ .../{libxc => libs/guest}/include/xenguest.h  |   8 +-
+ tools/{libxc => libs/guest}/xenguest.pc.in    |   2 +-
+ .../guest/xg_cpuid_x86.c}                     |   0
+ .../xc_dom_arm.c => libs/guest/xg_dom_arm.c}  |   2 +-
+ .../guest/xg_dom_armzimageloader.c}           |   2 +-
+ .../guest/xg_dom_binloader.c}                 |   2 +-
+ .../guest/xg_dom_boot.c}                      |   2 +-
+ .../guest/xg_dom_bzimageloader.c}             |   2 +-
+ .../guest/xg_dom_compat_linux.c}              |   2 +-
+ .../guest/xg_dom_core.c}                      |   2 +-
+ .../guest/xg_dom_decompress.h}                |   4 +-
+ .../guest/xg_dom_decompress_lz4.c}            |   2 +-
+ .../guest/xg_dom_decompress_unsafe.c}         |   2 +-
+ .../guest/xg_dom_decompress_unsafe.h}         |   2 +-
+ .../guest/xg_dom_decompress_unsafe_bzip2.c}   |   2 +-
+ .../guest/xg_dom_decompress_unsafe_lzma.c}    |   2 +-
+ .../guest/xg_dom_decompress_unsafe_lzo1x.c}   |   2 +-
+ .../guest/xg_dom_decompress_unsafe_xz.c}      |   2 +-
+ .../guest/xg_dom_elfloader.c}                 |   2 +-
+ .../guest/xg_dom_hvmloader.c}                 |   2 +-
+ .../xc_dom_x86.c => libs/guest/xg_dom_x86.c}  |   2 +-
+ tools/libs/guest/xg_domain.c                  | 149 +++++++
+ .../guest/xg_nomigrate.c}                     |   0
+ .../guest/xg_offline_page.c}                  |   2 +-
+ tools/{libxc => libs/guest}/xg_private.c      |   0
+ tools/{libxc => libs/guest}/xg_private.h      |  23 --
+ tools/{libxc => libs/guest}/xg_save_restore.h |  13 -
+ .../guest/xg_sr_common.c}                     |   2 +-
+ .../guest/xg_sr_common.h}                     |   4 +-
+ .../guest/xg_sr_common_x86.c}                 |   2 +-
+ .../guest/xg_sr_common_x86.h}                 |   2 +-
+ .../guest/xg_sr_common_x86_pv.c}              |   2 +-
+ .../guest/xg_sr_common_x86_pv.h}              |   2 +-
+ .../guest/xg_sr_restore.c}                    |   2 +-
+ .../guest/xg_sr_restore_x86_hvm.c}            |   2 +-
+ .../guest/xg_sr_restore_x86_pv.c}             |   2 +-
+ .../xc_sr_save.c => libs/guest/xg_sr_save.c}  |   2 +-
+ .../guest/xg_sr_save_x86_hvm.c}               |   2 +-
+ .../guest/xg_sr_save_x86_pv.c}                |   2 +-
+ .../guest/xg_sr_stream_format.h}              |   0
+ .../xc_suspend.c => libs/guest/xg_suspend.c}  |   0
+ tools/libs/hypfs/Makefile                     |   4 +-
+ tools/libs/libs.mk                            |  95 +++--
+ tools/{libxl => libs/light}/CODING_STYLE      |   0
+ tools/libs/light/Makefile                     | 291 ++++++++++++++
+ .../light}/check-libxl-api-rules              |   0
+ tools/{libxl => libs/light}/flexarray.c       |   0
+ tools/{libxl => libs/light}/flexarray.h       |   0
+ tools/{libxl => libs/light}/gentest.py        |   0
+ tools/{libxl => libs/light}/gentypes.py       |   0
+ tools/{libxl => libs/light}/idl.py            |   0
+ tools/{libxl => libs/light}/idl.txt           |   0
+ tools/{libxl => libs/light/include}/libxl.h   |   0
+ .../light/include}/libxl_event.h              |   0
+ .../light/include}/libxl_json.h               |   0
+ .../light/include}/libxl_utils.h              |   0
+ .../light/include}/libxl_uuid.h               |   0
+ tools/{libxl => libs/light}/libxl.c           |   0
+ tools/{libxl => libs/light}/libxl_9pfs.c      |   0
+ tools/{libxl => libs/light}/libxl_aoutils.c   |   0
+ tools/{libxl => libs/light}/libxl_arch.h      |   0
+ tools/{libxl => libs/light}/libxl_arm.c       |   2 +-
+ tools/{libxl => libs/light}/libxl_arm.h       |   2 +-
+ tools/{libxl => libs/light}/libxl_arm_acpi.c  |   0
+ .../{libxl => libs/light}/libxl_arm_no_acpi.c |   0
+ .../{libxl => libs/light}/libxl_bootloader.c  |   0
+ .../light}/libxl_checkpoint_device.c          |   0
+ tools/{libxl => libs/light}/libxl_colo.h      |   0
+ tools/{libxl => libs/light}/libxl_colo_nic.c  |   0
+ .../{libxl => libs/light}/libxl_colo_proxy.c  |   0
+ .../{libxl => libs/light}/libxl_colo_qdisk.c  |   0
+ .../light}/libxl_colo_restore.c               |   0
+ tools/{libxl => libs/light}/libxl_colo_save.c |   0
+ tools/{libxl => libs/light}/libxl_console.c   |   0
+ .../light}/libxl_convert_callout.c            |   0
+ tools/{libxl => libs/light}/libxl_cpuid.c     |   0
+ tools/{libxl => libs/light}/libxl_cpupool.c   |   0
+ tools/{libxl => libs/light}/libxl_create.c    |   2 +-
+ tools/{libxl => libs/light}/libxl_device.c    |   0
+ tools/{libxl => libs/light}/libxl_disk.c      |   0
+ tools/{libxl => libs/light}/libxl_dm.c        |   2 +-
+ tools/{libxl => libs/light}/libxl_dom.c       |   2 +-
+ tools/{libxl => libs/light}/libxl_dom_save.c  |   0
+ .../{libxl => libs/light}/libxl_dom_suspend.c |   0
+ tools/{libxl => libs/light}/libxl_domain.c    |   0
+ tools/{libxl => libs/light}/libxl_event.c     |   0
+ tools/{libxl => libs/light}/libxl_exec.c      |   0
+ tools/{libxl => libs/light}/libxl_flask.c     |   0
+ tools/{libxl => libs/light}/libxl_fork.c      |   0
+ tools/{libxl => libs/light}/libxl_freebsd.c   |   0
+ tools/{libxl => libs/light}/libxl_genid.c     |   0
+ tools/{libxl => libs/light}/libxl_internal.c  |   0
+ tools/{libxl => libs/light}/libxl_internal.h  |   5 +-
+ tools/{libxl => libs/light}/libxl_json.c      |   0
+ .../light}/libxl_libfdt_compat.c              |   0
+ .../light}/libxl_libfdt_compat.h              |   0
+ tools/{libxl => libs/light}/libxl_linux.c     |   0
+ tools/{libxl => libs/light}/libxl_mem.c       |   0
+ tools/{libxl => libs/light}/libxl_netbsd.c    |   0
+ tools/{libxl => libs/light}/libxl_netbuffer.c |   0
+ tools/{libxl => libs/light}/libxl_nic.c       |   0
+ tools/{libxl => libs/light}/libxl_no_colo.c   |   0
+ .../light}/libxl_no_convert_callout.c         |   0
+ tools/{libxl => libs/light}/libxl_nocpuid.c   |   0
+ .../{libxl => libs/light}/libxl_nonetbuffer.c |   0
+ tools/{libxl => libs/light}/libxl_numa.c      |   0
+ tools/{libxl => libs/light}/libxl_osdeps.h    |   0
+ tools/{libxl => libs/light}/libxl_paths.c     |   0
+ tools/{libxl => libs/light}/libxl_pci.c       |   0
+ tools/{libxl => libs/light}/libxl_psr.c       |   0
+ tools/{libxl => libs/light}/libxl_pvcalls.c   |   0
+ tools/{libxl => libs/light}/libxl_qmp.c       |   0
+ tools/{libxl => libs/light}/libxl_remus.c     |   0
+ .../light}/libxl_remus_disk_drbd.c            |   0
+ .../light}/libxl_save_callout.c               |   0
+ .../{libxl => libs/light}/libxl_save_helper.c |   0
+ .../light}/libxl_save_msgs_gen.pl             |   0
+ tools/{libxl => libs/light}/libxl_sched.c     |   0
+ .../light}/libxl_sr_stream_format.h           |   0
+ .../{libxl => libs/light}/libxl_stream_read.c |   0
+ .../light}/libxl_stream_write.c               |   0
+ .../light}/libxl_test_fdevent.c               |   0
+ .../light}/libxl_test_fdevent.h               |   0
+ .../light}/libxl_test_timedereg.c             |   0
+ .../light}/libxl_test_timedereg.h             |   0
+ tools/{libxl => libs/light}/libxl_tmem.c      |   0
+ tools/{libxl => libs/light}/libxl_types.idl   |   0
+ .../light}/libxl_types_internal.idl           |   0
+ tools/{libxl => libs/light}/libxl_usb.c       |   0
+ tools/{libxl => libs/light}/libxl_utils.c     |   0
+ tools/{libxl => libs/light}/libxl_uuid.c      |   0
+ tools/{libxl => libs/light}/libxl_vdispl.c    |   0
+ tools/{libxl => libs/light}/libxl_vkb.c       |   0
+ tools/{libxl => libs/light}/libxl_vnuma.c     |   2 +-
+ tools/{libxl => libs/light}/libxl_vsnd.c      |   0
+ tools/{libxl => libs/light}/libxl_vtpm.c      |   0
+ tools/{libxl => libs/light}/libxl_x86.c       |   2 +-
+ tools/{libxl => libs/light}/libxl_x86_acpi.c  |   2 +-
+ tools/{libxl => libs/light}/libxl_x86_acpi.h  |   0
+ tools/{libxl => libs/light}/libxl_xshelp.c    |   0
+ tools/{libxl => libs/light}/osdeps.c          |   0
+ tools/{libxl => libs/light}/test_common.c     |   0
+ tools/{libxl => libs/light}/test_common.h     |   0
+ .../{libxl => libs/light}/test_fdderegrace.c  |   0
+ tools/{libxl => libs/light}/test_timedereg.c  |   0
+ tools/{libxl => libs/light}/xenlight.pc.in    |   0
+ .../{xenstat/libxenstat => libs/stat}/COPYING |   0
+ .../libxenstat => libs/stat}/Makefile         | 100 +----
+ .../stat}/bindings/swig/perl/.empty           |   0
+ .../stat}/bindings/swig/python/.empty         |   0
+ .../stat}/bindings/swig/xenstat.i             |   0
+ .../src => libs/stat/include}/xenstat.h       |   3 +
+ .../libxenstat/src => libs/stat}/xenstat.c    |   0
+ .../libxenstat => libs/stat}/xenstat.pc.in    |   2 +-
+ .../src => libs/stat}/xenstat_freebsd.c       |   0
+ .../src => libs/stat}/xenstat_linux.c         |   4 +-
+ .../src => libs/stat}/xenstat_netbsd.c        |   0
+ .../src => libs/stat}/xenstat_priv.h          |   0
+ .../src => libs/stat}/xenstat_qmp.c           |   0
+ .../src => libs/stat}/xenstat_solaris.c       |   0
+ tools/libs/store/Makefile                     |  64 +++
+ .../store}/include/compat/xs.h                |   0
+ .../store}/include/compat/xs_lib.h            |   0
+ .../store}/include/xenstore.h                 |   0
+ tools/libs/store/libxenstore.map              |  49 +++
+ tools/{xenstore => libs/store}/xenstore.pc.in |   0
+ tools/{xenstore => libs/store}/xs.c           |   0
+ tools/libs/toolcore/Makefile                  |   3 +-
+ tools/libs/toollog/Makefile                   |   3 +-
+ tools/libs/uselibs.mk                         |  33 ++
+ tools/libs/util/CODING_STYLE                  | 330 +++++++++++++++
+ tools/libs/util/Makefile                      |  61 +++
+ .../{libxl => libs/util/include}/libxlutil.h  |   0
+ tools/{libxl => libs/util}/libxlu_cfg.c       |   3 +-
+ tools/{libxl => libs/util}/libxlu_cfg_i.h     |   1 -
+ tools/{libxl => libs/util}/libxlu_cfg_l.c     |   0
+ tools/{libxl => libs/util}/libxlu_cfg_l.h     |   0
+ tools/{libxl => libs/util}/libxlu_cfg_l.l     |   0
+ tools/{libxl => libs/util}/libxlu_cfg_y.c     |   0
+ tools/{libxl => libs/util}/libxlu_cfg_y.h     |   0
+ tools/{libxl => libs/util}/libxlu_cfg_y.y     |   0
+ tools/{libxl => libs/util}/libxlu_disk.c      |   1 -
+ tools/{libxl => libs/util}/libxlu_disk_i.h    |   0
+ tools/{libxl => libs/util}/libxlu_disk_l.c    |  14 +-
+ tools/{libxl => libs/util}/libxlu_disk_l.h    |   8 +-
+ tools/{libxl => libs/util}/libxlu_disk_l.l    |   2 +-
+ tools/{libxl => libs/util}/libxlu_internal.h  |   0
+ tools/{libxl => libs/util}/libxlu_pci.c       |   3 +-
+ tools/{libxl => libs/util}/libxlu_vif.c       |   3 +-
+ tools/{libxl => libs/util}/xlutil.pc.in       |   0
+ tools/libs/vchan/Makefile                     |  20 +
+ .../vchan/include}/libxenvchan.h              |   0
+ tools/{libvchan => libs/vchan}/init.c         |   0
+ tools/{libvchan => libs/vchan}/io.c           |   0
+ tools/{libvchan => libs/vchan}/xenvchan.pc.in |   0
+ tools/libvchan/Makefile                       |  95 -----
+ tools/libxc/Makefile                          | 280 -------------
+ tools/libxc/xc_efi.h                          | 158 --------
+ tools/libxc/xc_elf.h                          |  16 -
+ tools/libxl/Makefile                          | 375 ------------------
+ tools/misc/Makefile                           |   5 +-
+ tools/misc/xen-hptool.c                       |   8 +-
+ tools/misc/xen-mfndump.c                      |  44 +-
+ tools/ocaml/libs/xl/Makefile                  |   8 +-
+ tools/ocaml/xenstored/Makefile                |   2 +-
+ tools/python/Makefile                         |   2 +-
+ tools/python/setup.py                         |  12 +-
+ tools/python/xen/lowlevel/xc/xc.c             |   2 +-
+ tools/vchan/Makefile                          |  37 ++
+ tools/{libvchan => vchan}/node-select.c       |   0
+ tools/{libvchan => vchan}/node.c              |   0
+ .../{libvchan => vchan}/vchan-socket-proxy.c  |   0
+ tools/xcutils/Makefile                        |   3 +-
+ tools/xcutils/readnotes.c                     |   5 +-
+ tools/xenpaging/Makefile                      |   3 +-
+ tools/xenpaging/file_ops.c                    |   8 +-
+ tools/xenpaging/pagein.c                      |   2 +-
+ tools/xenpaging/policy_default.c              |   2 +-
+ tools/xenpaging/xenpaging.c                   |  32 +-
+ tools/xenpaging/xenpaging.h                   |  70 +++-
+ tools/xenstat/Makefile                        |  10 -
+ tools/xenstore/Makefile                       |  82 +---
+ tools/xenstore/{include => }/xenstore_lib.h   |   0
+ tools/xenstore/xenstored_core.c               |   2 -
+ tools/{xenstat => }/xentop/Makefile           |   2 +-
+ tools/{xenstat => }/xentop/TODO               |   0
+ tools/{xenstat => }/xentop/xentop.c           |   0
+ tools/xl/Makefile                             |   1 +
+ tools/{libxl => xl}/check-xl-disk-parse       |   0
+ tools/{libxl => xl}/check-xl-vcpupin-parse    |   0
+ .../check-xl-vcpupin-parse.data-example       |   0
+ tools/{libxl => xl}/check-xl-vif-parse        |   0
+ 307 files changed, 1735 insertions(+), 1751 deletions(-)
+ create mode 100644 stubdom/mini-os.mk
+ create mode 100644 tools/libs/ctrl/Makefile
+ rename tools/{libxc => libs/ctrl}/include/xenctrl.h (100%)
+ rename tools/{libxc => libs/ctrl}/include/xenctrl_compat.h (100%)
+ rename tools/{libxc/include/xc_dom.h => libs/ctrl/include/xenctrl_dom.h} (98%)
+ rename tools/{libxc => libs/ctrl}/xc_altp2m.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_arinc653.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_bitops.h (100%)
+ rename tools/{libxc => libs/ctrl}/xc_core.c (99%)
+ rename tools/{libxc => libs/ctrl}/xc_core.h (99%)
+ rename tools/{libxc => libs/ctrl}/xc_core_arm.c (99%)
+ rename tools/{libxc => libs/ctrl}/xc_core_arm.h (100%)
+ rename tools/{libxc => libs/ctrl}/xc_core_x86.c (98%)
+ rename tools/{libxc => libs/ctrl}/xc_core_x86.h (100%)
+ rename tools/{libxc => libs/ctrl}/xc_cpu_hotplug.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_cpupool.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_csched.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_csched2.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_devicemodel_compat.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_domain.c (94%)
+ rename tools/{libxc => libs/ctrl}/xc_evtchn.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_evtchn_compat.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_flask.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_foreign_memory.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_freebsd.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_gnttab.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_gnttab_compat.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_hcall_buf.c (99%)
+ rename tools/{libxc => libs/ctrl}/xc_kexec.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_linux.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_mem_access.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_mem_paging.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_memshr.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_minios.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_misc.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_monitor.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_msr_x86.h (100%)
+ rename tools/{libxc => libs/ctrl}/xc_netbsd.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_pagetab.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_physdev.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_pm.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_private.c (99%)
+ rename tools/{libxc => libs/ctrl}/xc_private.h (91%)
+ rename tools/{libxc => libs/ctrl}/xc_psr.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_resource.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_resume.c (99%)
+ rename tools/{libxc => libs/ctrl}/xc_rt.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_solaris.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_tbuf.c (100%)
+ rename tools/{libxc => libs/ctrl}/xc_vm_event.c (100%)
+ rename tools/{libxc => libs/ctrl}/xencontrol.pc.in (100%)
+ rename tools/{libxc => libs/guest}/COPYING (100%)
+ create mode 100644 tools/libs/guest/Makefile
+ rename tools/{libxc => libs/guest}/include/xenguest.h (99%)
+ rename tools/{libxc => libs/guest}/xenguest.pc.in (73%)
+ rename tools/{libxc/xc_cpuid_x86.c => libs/guest/xg_cpuid_x86.c} (100%)
+ rename tools/{libxc/xc_dom_arm.c => libs/guest/xg_dom_arm.c} (99%)
+ rename tools/{libxc/xc_dom_armzimageloader.c => libs/guest/xg_dom_armzimageloader.c} (99%)
+ rename tools/{libxc/xc_dom_binloader.c => libs/guest/xg_dom_binloader.c} (99%)
+ rename tools/{libxc/xc_dom_boot.c => libs/guest/xg_dom_boot.c} (99%)
+ rename tools/{libxc/xc_dom_bzimageloader.c => libs/guest/xg_dom_bzimageloader.c} (99%)
+ rename tools/{libxc/xc_dom_compat_linux.c => libs/guest/xg_dom_compat_linux.c} (99%)
+ rename tools/{libxc/xc_dom_core.c => libs/guest/xg_dom_core.c} (99%)
+ rename tools/{libxc/xc_dom_decompress.h => libs/guest/xg_dom_decompress.h} (62%)
+ rename tools/{libxc/xc_dom_decompress_lz4.c => libs/guest/xg_dom_decompress_lz4.c} (98%)
+ rename tools/{libxc/xc_dom_decompress_unsafe.c => libs/guest/xg_dom_decompress_unsafe.c} (96%)
+ rename tools/{libxc/xc_dom_decompress_unsafe.h => libs/guest/xg_dom_decompress_unsafe.h} (97%)
+ rename tools/{libxc/xc_dom_decompress_unsafe_bzip2.c => libs/guest/xg_dom_decompress_unsafe_bzip2.c} (87%)
+ rename tools/{libxc/xc_dom_decompress_unsafe_lzma.c => libs/guest/xg_dom_decompress_unsafe_lzma.c} (87%)
+ rename tools/{libxc/xc_dom_decompress_unsafe_lzo1x.c => libs/guest/xg_dom_decompress_unsafe_lzo1x.c} (96%)
+ rename tools/{libxc/xc_dom_decompress_unsafe_xz.c => libs/guest/xg_dom_decompress_unsafe_xz.c} (95%)
+ rename tools/{libxc/xc_dom_elfloader.c => libs/guest/xg_dom_elfloader.c} (99%)
+ rename tools/{libxc/xc_dom_hvmloader.c => libs/guest/xg_dom_hvmloader.c} (99%)
+ rename tools/{libxc/xc_dom_x86.c => libs/guest/xg_dom_x86.c} (99%)
+ create mode 100644 tools/libs/guest/xg_domain.c
+ rename tools/{libxc/xc_nomigrate.c => libs/guest/xg_nomigrate.c} (100%)
+ rename tools/{libxc/xc_offline_page.c => libs/guest/xg_offline_page.c} (99%)
+ rename tools/{libxc => libs/guest}/xg_private.c (100%)
+ rename tools/{libxc => libs/guest}/xg_private.h (79%)
+ rename tools/{libxc => libs/guest}/xg_save_restore.h (91%)
+ rename tools/{libxc/xc_sr_common.c => libs/guest/xg_sr_common.c} (99%)
+ rename tools/{libxc/xc_sr_common.h => libs/guest/xg_sr_common.h} (99%)
+ rename tools/{libxc/xc_sr_common_x86.c => libs/guest/xg_sr_common_x86.c} (99%)
+ rename tools/{libxc/xc_sr_common_x86.h => libs/guest/xg_sr_common_x86.h} (98%)
+ rename tools/{libxc/xc_sr_common_x86_pv.c => libs/guest/xg_sr_common_x86_pv.c} (99%)
+ rename tools/{libxc/xc_sr_common_x86_pv.h => libs/guest/xg_sr_common_x86_pv.h} (98%)
+ rename tools/{libxc/xc_sr_restore.c => libs/guest/xg_sr_restore.c} (99%)
+ rename tools/{libxc/xc_sr_restore_x86_hvm.c => libs/guest/xg_sr_restore_x86_hvm.c} (99%)
+ rename tools/{libxc/xc_sr_restore_x86_pv.c => libs/guest/xg_sr_restore_x86_pv.c} (99%)
+ rename tools/{libxc/xc_sr_save.c => libs/guest/xg_sr_save.c} (99%)
+ rename tools/{libxc/xc_sr_save_x86_hvm.c => libs/guest/xg_sr_save_x86_hvm.c} (99%)
+ rename tools/{libxc/xc_sr_save_x86_pv.c => libs/guest/xg_sr_save_x86_pv.c} (99%)
+ rename tools/{libxc/xc_sr_stream_format.h => libs/guest/xg_sr_stream_format.h} (100%)
+ rename tools/{libxc/xc_suspend.c => libs/guest/xg_suspend.c} (100%)
+ rename tools/{libxl => libs/light}/CODING_STYLE (100%)
+ create mode 100644 tools/libs/light/Makefile
+ rename tools/{libxl => libs/light}/check-libxl-api-rules (100%)
+ rename tools/{libxl => libs/light}/flexarray.c (100%)
+ rename tools/{libxl => libs/light}/flexarray.h (100%)
+ rename tools/{libxl => libs/light}/gentest.py (100%)
+ rename tools/{libxl => libs/light}/gentypes.py (100%)
+ rename tools/{libxl => libs/light}/idl.py (100%)
+ rename tools/{libxl => libs/light}/idl.txt (100%)
+ rename tools/{libxl => libs/light/include}/libxl.h (100%)
+ rename tools/{libxl => libs/light/include}/libxl_event.h (100%)
+ rename tools/{libxl => libs/light/include}/libxl_json.h (100%)
+ rename tools/{libxl => libs/light/include}/libxl_utils.h (100%)
+ rename tools/{libxl => libs/light/include}/libxl_uuid.h (100%)
+ rename tools/{libxl => libs/light}/libxl.c (100%)
+ rename tools/{libxl => libs/light}/libxl_9pfs.c (100%)
+ rename tools/{libxl => libs/light}/libxl_aoutils.c (100%)
+ rename tools/{libxl => libs/light}/libxl_arch.h (100%)
+ rename tools/{libxl => libs/light}/libxl_arm.c (99%)
+ rename tools/{libxl => libs/light}/libxl_arm.h (98%)
+ rename tools/{libxl => libs/light}/libxl_arm_acpi.c (100%)
+ rename tools/{libxl => libs/light}/libxl_arm_no_acpi.c (100%)
+ rename tools/{libxl => libs/light}/libxl_bootloader.c (100%)
+ rename tools/{libxl => libs/light}/libxl_checkpoint_device.c (100%)
+ rename tools/{libxl => libs/light}/libxl_colo.h (100%)
+ rename tools/{libxl => libs/light}/libxl_colo_nic.c (100%)
+ rename tools/{libxl => libs/light}/libxl_colo_proxy.c (100%)
+ rename tools/{libxl => libs/light}/libxl_colo_qdisk.c (100%)
+ rename tools/{libxl => libs/light}/libxl_colo_restore.c (100%)
+ rename tools/{libxl => libs/light}/libxl_colo_save.c (100%)
+ rename tools/{libxl => libs/light}/libxl_console.c (100%)
+ rename tools/{libxl => libs/light}/libxl_convert_callout.c (100%)
+ rename tools/{libxl => libs/light}/libxl_cpuid.c (100%)
+ rename tools/{libxl => libs/light}/libxl_cpupool.c (100%)
+ rename tools/{libxl => libs/light}/libxl_create.c (99%)
+ rename tools/{libxl => libs/light}/libxl_device.c (100%)
+ rename tools/{libxl => libs/light}/libxl_disk.c (100%)
+ rename tools/{libxl => libs/light}/libxl_dm.c (99%)
+ rename tools/{libxl => libs/light}/libxl_dom.c (99%)
+ rename tools/{libxl => libs/light}/libxl_dom_save.c (100%)
+ rename tools/{libxl => libs/light}/libxl_dom_suspend.c (100%)
+ rename tools/{libxl => libs/light}/libxl_domain.c (100%)
+ rename tools/{libxl => libs/light}/libxl_event.c (100%)
+ rename tools/{libxl => libs/light}/libxl_exec.c (100%)
+ rename tools/{libxl => libs/light}/libxl_flask.c (100%)
+ rename tools/{libxl => libs/light}/libxl_fork.c (100%)
+ rename tools/{libxl => libs/light}/libxl_freebsd.c (100%)
+ rename tools/{libxl => libs/light}/libxl_genid.c (100%)
+ rename tools/{libxl => libs/light}/libxl_internal.c (100%)
+ rename tools/{libxl => libs/light}/libxl_internal.h (99%)
+ rename tools/{libxl => libs/light}/libxl_json.c (100%)
+ rename tools/{libxl => libs/light}/libxl_libfdt_compat.c (100%)
+ rename tools/{libxl => libs/light}/libxl_libfdt_compat.h (100%)
+ rename tools/{libxl => libs/light}/libxl_linux.c (100%)
+ rename tools/{libxl => libs/light}/libxl_mem.c (100%)
+ rename tools/{libxl => libs/light}/libxl_netbsd.c (100%)
+ rename tools/{libxl => libs/light}/libxl_netbuffer.c (100%)
+ rename tools/{libxl => libs/light}/libxl_nic.c (100%)
+ rename tools/{libxl => libs/light}/libxl_no_colo.c (100%)
+ rename tools/{libxl => libs/light}/libxl_no_convert_callout.c (100%)
+ rename tools/{libxl => libs/light}/libxl_nocpuid.c (100%)
+ rename tools/{libxl => libs/light}/libxl_nonetbuffer.c (100%)
+ rename tools/{libxl => libs/light}/libxl_numa.c (100%)
+ rename tools/{libxl => libs/light}/libxl_osdeps.h (100%)
+ rename tools/{libxl => libs/light}/libxl_paths.c (100%)
+ rename tools/{libxl => libs/light}/libxl_pci.c (100%)
+ rename tools/{libxl => libs/light}/libxl_psr.c (100%)
+ rename tools/{libxl => libs/light}/libxl_pvcalls.c (100%)
+ rename tools/{libxl => libs/light}/libxl_qmp.c (100%)
+ rename tools/{libxl => libs/light}/libxl_remus.c (100%)
+ rename tools/{libxl => libs/light}/libxl_remus_disk_drbd.c (100%)
+ rename tools/{libxl => libs/light}/libxl_save_callout.c (100%)
+ rename tools/{libxl => libs/light}/libxl_save_helper.c (100%)
+ rename tools/{libxl => libs/light}/libxl_save_msgs_gen.pl (100%)
+ rename tools/{libxl => libs/light}/libxl_sched.c (100%)
+ rename tools/{libxl => libs/light}/libxl_sr_stream_format.h (100%)
+ rename tools/{libxl => libs/light}/libxl_stream_read.c (100%)
+ rename tools/{libxl => libs/light}/libxl_stream_write.c (100%)
+ rename tools/{libxl => libs/light}/libxl_test_fdevent.c (100%)
+ rename tools/{libxl => libs/light}/libxl_test_fdevent.h (100%)
+ rename tools/{libxl => libs/light}/libxl_test_timedereg.c (100%)
+ rename tools/{libxl => libs/light}/libxl_test_timedereg.h (100%)
+ rename tools/{libxl => libs/light}/libxl_tmem.c (100%)
+ rename tools/{libxl => libs/light}/libxl_types.idl (100%)
+ rename tools/{libxl => libs/light}/libxl_types_internal.idl (100%)
+ rename tools/{libxl => libs/light}/libxl_usb.c (100%)
+ rename tools/{libxl => libs/light}/libxl_utils.c (100%)
+ rename tools/{libxl => libs/light}/libxl_uuid.c (100%)
+ rename tools/{libxl => libs/light}/libxl_vdispl.c (100%)
+ rename tools/{libxl => libs/light}/libxl_vkb.c (100%)
+ rename tools/{libxl => libs/light}/libxl_vnuma.c (99%)
+ rename tools/{libxl => libs/light}/libxl_vsnd.c (100%)
+ rename tools/{libxl => libs/light}/libxl_vtpm.c (100%)
+ rename tools/{libxl => libs/light}/libxl_x86.c (99%)
+ rename tools/{libxl => libs/light}/libxl_x86_acpi.c (99%)
+ rename tools/{libxl => libs/light}/libxl_x86_acpi.h (100%)
+ rename tools/{libxl => libs/light}/libxl_xshelp.c (100%)
+ rename tools/{libxl => libs/light}/osdeps.c (100%)
+ rename tools/{libxl => libs/light}/test_common.c (100%)
+ rename tools/{libxl => libs/light}/test_common.h (100%)
+ rename tools/{libxl => libs/light}/test_fdderegrace.c (100%)
+ rename tools/{libxl => libs/light}/test_timedereg.c (100%)
+ rename tools/{libxl => libs/light}/xenlight.pc.in (100%)
+ rename tools/{xenstat/libxenstat => libs/stat}/COPYING (100%)
+ rename tools/{xenstat/libxenstat => libs/stat}/Makefile (55%)
+ rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/perl/.empty (100%)
+ rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/python/.empty (100%)
+ rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/xenstat.i (100%)
+ rename tools/{xenstat/libxenstat/src => libs/stat/include}/xenstat.h (98%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat.c (100%)
+ rename tools/{xenstat/libxenstat => libs/stat}/xenstat.pc.in (82%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_freebsd.c (100%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_linux.c (98%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_netbsd.c (100%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_priv.h (100%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_qmp.c (100%)
+ rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_solaris.c (100%)
+ create mode 100644 tools/libs/store/Makefile
+ rename tools/{xenstore => libs/store}/include/compat/xs.h (100%)
+ rename tools/{xenstore => libs/store}/include/compat/xs_lib.h (100%)
+ rename tools/{xenstore => libs/store}/include/xenstore.h (100%)
+ create mode 100644 tools/libs/store/libxenstore.map
+ rename tools/{xenstore => libs/store}/xenstore.pc.in (100%)
+ rename tools/{xenstore => libs/store}/xs.c (100%)
+ create mode 100644 tools/libs/uselibs.mk
+ create mode 100644 tools/libs/util/CODING_STYLE
+ create mode 100644 tools/libs/util/Makefile
+ rename tools/{libxl => libs/util/include}/libxlutil.h (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg.c (99%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_i.h (96%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_l.c (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_l.h (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_l.l (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_y.c (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_y.h (100%)
+ rename tools/{libxl => libs/util}/libxlu_cfg_y.y (100%)
+ rename tools/{libxl => libs/util}/libxlu_disk.c (97%)
+ rename tools/{libxl => libs/util}/libxlu_disk_i.h (100%)
+ rename tools/{libxl => libs/util}/libxlu_disk_l.c (99%)
+ rename tools/{libxl => libs/util}/libxlu_disk_l.h (99%)
+ rename tools/{libxl => libs/util}/libxlu_disk_l.l (99%)
+ rename tools/{libxl => libs/util}/libxlu_internal.h (100%)
+ rename tools/{libxl => libs/util}/libxlu_pci.c (99%)
+ rename tools/{libxl => libs/util}/libxlu_vif.c (98%)
+ rename tools/{libxl => libs/util}/xlutil.pc.in (100%)
+ create mode 100644 tools/libs/vchan/Makefile
+ rename tools/{libvchan => libs/vchan/include}/libxenvchan.h (100%)
+ rename tools/{libvchan => libs/vchan}/init.c (100%)
+ rename tools/{libvchan => libs/vchan}/io.c (100%)
+ rename tools/{libvchan => libs/vchan}/xenvchan.pc.in (100%)
+ delete mode 100644 tools/libvchan/Makefile
+ delete mode 100644 tools/libxc/Makefile
+ delete mode 100644 tools/libxc/xc_efi.h
+ delete mode 100644 tools/libxc/xc_elf.h
+ delete mode 100644 tools/libxl/Makefile
+ create mode 100644 tools/vchan/Makefile
+ rename tools/{libvchan => vchan}/node-select.c (100%)
+ rename tools/{libvchan => vchan}/node.c (100%)
+ rename tools/{libvchan => vchan}/vchan-socket-proxy.c (100%)
+ delete mode 100644 tools/xenstat/Makefile
+ rename tools/xenstore/{include => }/xenstore_lib.h (100%)
+ rename tools/{xenstat => }/xentop/Makefile (97%)
+ rename tools/{xenstat => }/xentop/TODO (100%)
+ rename tools/{xenstat => }/xentop/xentop.c (100%)
+ rename tools/{libxl => xl}/check-xl-disk-parse (100%)
+ rename tools/{libxl => xl}/check-xl-vcpupin-parse (100%)
+ rename tools/{libxl => xl}/check-xl-vcpupin-parse.data-example (100%)
+ rename tools/{libxl => xl}/check-xl-vif-parse (100%)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-- 
+2.26.2
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   f61e1c3638dd..77fcb48939fc  77fcb48939fc863d9ba9d808fac9000959e937d3 -> tested/linux-5.4
 
