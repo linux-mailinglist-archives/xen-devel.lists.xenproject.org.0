@@ -2,50 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A54E24FE96
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 15:12:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2F0524FE9E
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 15:15:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kACGI-00011L-8J; Mon, 24 Aug 2020 13:11:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kACJr-0001E2-TA; Mon, 24 Aug 2020 13:15:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kACGG-00011D-SU
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 13:11:44 +0000
-X-Inumbo-ID: 329e30d1-0df8-45e6-9655-f336c6450df3
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 329e30d1-0df8-45e6-9655-f336c6450df3;
- Mon, 24 Aug 2020 13:11:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E1C7DB01E;
- Mon, 24 Aug 2020 13:12:12 +0000 (UTC)
-Subject: Re: [PATCH] libxl: avoid golang building without CONFIG_GOLANG=y
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <e8dd70a7-bdde-e12a-3f4d-f52e58016234@suse.com>
- <20200804141639.k2tpoqy7jj34gcm6@liuwe-devbox-debian-v2>
- <CAEBZRSf4opmGw2fDOCOMZLTtjisFXaP=Oe9aD6E2fTfUs2YFQQ@mail.gmail.com>
- <0deed4c6-ca87-09d3-a19c-ac0c00003cb7@suse.com>
- <20200804155043.vq7aupbrvmmcgzlv@liuwe-devbox-debian-v2>
- <12790d2b-020d-b6fe-4924-2233a4e93d83@suse.com>
- <20200804155707.rrtzkksrle2nojbj@liuwe-devbox-debian-v2>
- <43f706e4-0292-5758-eb19-9fbb99b1337e@suse.com>
- <CAEBZRSc=xUjYq7ao9Rv-EEJsjiBkt5mio5QofvixErZj_SJUcw@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <289981a3-9baf-bf6a-abbd-e4d613709f2a@suse.com>
-Date: Mon, 24 Aug 2020 15:11:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ (envelope-from <SRS0=G0tX=CC=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kACJq-0001Dx-ST
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 13:15:26 +0000
+X-Inumbo-ID: 5556b772-a6db-4dfd-a8e7-e23b7d7eaa94
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5556b772-a6db-4dfd-a8e7-e23b7d7eaa94;
+ Mon, 24 Aug 2020 13:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=6arqW8Kt0g2KTVGrNQp85bdfjv/QTZxKSZTsOYucmow=; b=Mdk9uTHIdAOMcC0xxQYCz4MwQs
+ cE07ldhnm5e7U3ADHVv6ucHAqiGVANXwmBhqY8eES8zKlLi9S43DjSDliEgVYRhNI6fwXdGQOKAnE
+ 31+qURtQIHJTbeYFvBSSwEBDS+liEJm7O48PetfvSgacRhFXpbKlcpNOyd7WCkHtIIKs=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kACJo-0002YE-Rj; Mon, 24 Aug 2020 13:15:24 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kACJo-0001pR-2M; Mon, 24 Aug 2020 13:15:24 +0000
+Subject: Re: [PATCH v2 1/2] xen/arm: Missing N1/A76/A75 FP registers in vCPU
+ context switch
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Andre.Przywara@arm.com, Bertrand.Marquis@arm.com, Penny.Zheng@arm.com,
+ Kaly.Xin@arm.com, nd@arm.com
+References: <20200824032825.18368-1-wei.chen@arm.com>
+ <20200824032825.18368-2-wei.chen@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e8f8e576-8e83-4ff0-ace6-a67c8121a911@xen.org>
+Date: Mon, 24 Aug 2020 14:15:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <CAEBZRSc=xUjYq7ao9Rv-EEJsjiBkt5mio5QofvixErZj_SJUcw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20200824032825.18368-2-wei.chen@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -60,67 +65,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.08.2020 18:41, Nick Rosbrook wrote:
-> On Tue, Aug 4, 2020 at 12:02 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 04.08.2020 17:57, Wei Liu wrote:
->>> On Tue, Aug 04, 2020 at 05:53:49PM +0200, Jan Beulich wrote:
->>>> On 04.08.2020 17:50, Wei Liu wrote:
->>>>> On Tue, Aug 04, 2020 at 05:30:40PM +0200, Jan Beulich wrote:
->>>>>> On 04.08.2020 17:22, Nick Rosbrook wrote:
->>>>>>> On Tue, Aug 4, 2020 at 10:17 AM Wei Liu <wl@xen.org> wrote:
->>>>>>>>
->>>>>>>> On Mon, Aug 03, 2020 at 10:06:32AM +0200, Jan Beulich wrote:
->>>>>>>>> While this doesn't address the real problem I've run into (attempting to
->>>>>>>>> update r/o source files), not recursing into tools/golang/xenlight/ is
->>>>>>>>> enough to fix the build for me for the moment. I don't currently see why
->>>>>>>>> 60db5da62ac0 ("libxl: Generate golang bindings in libxl Makefile") found
->>>>>>>>> it necessary to invoke this build step unconditionally.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Perhaps an oversight?
->>>>>>>
->>>>>>> This is intentional, and I think the commit message in 60db5da62ac0
->>>>>>> ("libxl: Generate golang bindings in libxl Makefile") explains the
->>>>>>> reasoning well. But, to summarize, CONFIG_GOLANG is only used to
->>>>>>> control the bindings actually being compiled (i.e. with `go build`).
->>>>>>> However, we always want the code generation script
->>>>>>> (tools/golang/xenlight/gengotypes.py) to run if e.g.
->>>>>>> tools/libxl/libxl_types.idl is modified.
->>>>>>>
->>>>>>> I hope this helps.
->>>>>>
->>>>>> Not really - I'm still not seeing the "why" behind this behavior. I.e.
->>>>>> why build _anything_ that's not used further in the build, nor getting
->>>>>> installed? Also if (aiui) you effectively object to the change that
->>>>>> Wei has given his ack for, would you mind providing an alternative fix
->>>>>> for the problem at hand?
->>>>>
->>>>> Is the solution here to make the target check if IDL definition file is
->>>>> actually changed before regenerating the bindings?
->>>>
->>>> I don't know - Nick? A move-if-changed based approach would likely deal
->>>> with the r/o source problem at the same time (at least until such time
->>>> where the directory containing the file(s) is also r/o).
->>>
->>> To make sure Nick and I understand your use case correct -- "r/o source
->>> problem" means you want the tools source to be read-only? But you would
->>> be fine recursing into tools directory to build all the libraries and
->>> programs?
->>
->> Yes - until we support out-of-tree builds, nothing more can be expected
->> to work.
+Hi,
+
+On 24/08/2020 04:28, Wei Chen wrote:
+> Xen has cpu_has_fp/cpu_has_simd to detect whether the CPU supports
+> FP/SIMD or not. But currently, these two MACROs only consider value 0
+> of ID_AA64PFR0_EL1.FP/SIMD as FP/SIMD features enabled. But for CPUs
+> that support FP/SIMD and half-precision floating-point arithmetic, the
+> ID_AA64PFR0_EL1.FP/SIMD are 1 (see Arm ARM DDI0487F.b, D13.2.64).
+> For these CPUs, xen will treat them as no FP/SIMD supporti, the
+
+s/supporti/support/
+
+> vfp_save/restore_state will not take effect.
 > 
-> Jan - is the problem specifically that a fresh clone,  or `git
-> checkout`, etc. changes file timestamps in a way that triggers make to
-> rebuild those targets? I have not used the move-if-changed approach
-> before, but AFAICT that would be sufficient.
+>  From the TRM documents of Cortex-A75/A76/N1, we know these CPUs support
+> basic Advanced SIMD/FP and half-precision floating-point arithmetic. In
+> this case, on N1/A76/A75 platforms, Xen will always miss the floating
+> pointer registers save/restore. If different vCPUs are running on the
+> same pCPU, the floating pointer registers will be corrupted randomly.
+> 
+> This patch fixes Xen on these new cores.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Since about three weeks have passed and - unless I've missed something -
-the issue is still there, I'd like to clarify who's going to address the
-(how I would call it) regression. I thought I had expressed that if my
-proposed version isn't acceptable, I'd rather see you deal with the issue.
-Did you perhaps imply the opposite?
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Jan
+Cheers,
+
+> ---
+>   xen/include/asm-arm/cpufeature.h | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index 674beb0353..10878ead8a 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -13,8 +13,8 @@
+>   #define cpu_has_el2_64    (boot_cpu_feature64(el2) >= 1)
+>   #define cpu_has_el3_32    (boot_cpu_feature64(el3) == 2)
+>   #define cpu_has_el3_64    (boot_cpu_feature64(el3) >= 1)
+> -#define cpu_has_fp        (boot_cpu_feature64(fp) == 0)
+> -#define cpu_has_simd      (boot_cpu_feature64(simd) == 0)
+> +#define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
+> +#define cpu_has_simd      (boot_cpu_feature64(simd) < 8)
+>   #define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
+>   #endif
+>   
+> 
+
+-- 
+Julien Grall
 
