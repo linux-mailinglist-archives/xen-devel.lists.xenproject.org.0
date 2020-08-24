@@ -2,67 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F5624FB3C
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 12:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BE9A24FB8F
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 12:34:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA9bU-0000f8-8n; Mon, 24 Aug 2020 10:21:28 +0000
+	id 1kA9ni-0001cC-FE; Mon, 24 Aug 2020 10:34:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/Qh=CC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kA9bT-0000f3-1P
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 10:21:27 +0000
-X-Inumbo-ID: 116a266b-2789-4ed0-8f11-196eba9b12d5
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=3v4v=CC=3mdeb.com=norbert.kaminski@srs-us1.protection.inumbo.net>)
+ id 1kA9nh-0001c7-0Y
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 10:34:05 +0000
+X-Inumbo-ID: 6eb443e7-0a0d-435e-828c-26cfd491347f
+Received: from 4.mo178.mail-out.ovh.net (unknown [46.105.49.171])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 116a266b-2789-4ed0-8f11-196eba9b12d5;
- Mon, 24 Aug 2020 10:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598264485;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=ULpHYD2kxPvx+j5GH9L5lyyx6tZY7W94AdgQGKMsvx0=;
- b=hpt4/r/XQnHOyV3ZTCwKLGljRkgxsZf4bl/mVDU27O/h58vtHq3Fwo+V
- 5FJQlvFiEiHcNaUj1JQKxTHE8brDmXY61eMkqDdL8kTxCyvoxlA8DDNzX
- O9/+2jrHIfwATJC+oJ1F2pGQ4Bnn5F+TX6j6YNRXILTWTIXofbU+Q1eVC M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: FCTQkWibIUfpKJjLnT4eEDR+4BeTd8TLTccIPK1IR0Z4vm0Kjs+NcWybjBgzSvdyi77nS2O8xc
- nbYZ7av2CeD4+eG9xn0X/nJPbPaaGdTopTkwRKsFLyP24QTcykDpGAsoVyOqamo8ceRXBkK8ec
- Dcqs3wJLnK5FBcaEK+e+P9FhIX71SiJEQNDhjlBpPDj4VrHQOiVoRdbweF4nLvT1rkDobyc/r5
- l+jADDk7gfVsrhnCEedueh+sklE28Jj/tXi3M/HAo6k7miB5wJMBZCKNeGSydcwefyKKdSjP97
- 7XI=
-X-SBRS: 2.7
-X-MesageID: 25472750
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,348,1592884800"; d="scan'208";a="25472750"
-Subject: Re: [linux-linus test] 152672: regressions - FAIL
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Jan Beulich
- <jbeulich@suse.com>
-CC: osstest service owner <osstest-admin@xenproject.org>,
- <xen-devel@lists.xenproject.org>
-References: <osstest-152672-mainreport@xen.org>
- <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
- <d8fb302b-8dae-a0fe-7617-dc9d3b0ec6fa@suse.com>
- <0061138a-749f-4702-2dbc-084690062976@suse.com>
- <28c918a3-7290-b3c3-4e10-009e5ea48aa0@suse.com>
- <7b8fd84b-a0bb-9976-ff57-3e104b57ffcc@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <ae261da3-162b-12e6-60c9-a5b9fdf30d6d@citrix.com>
-Date: Mon, 24 Aug 2020 11:21:20 +0100
+ id 6eb443e7-0a0d-435e-828c-26cfd491347f;
+ Mon, 24 Aug 2020 10:34:00 +0000 (UTC)
+Received: from player730.ha.ovh.net (unknown [10.108.54.87])
+ by mo178.mail-out.ovh.net (Postfix) with ESMTP id DB3E1ADA7B
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Aug 2020 12:33:59 +0200 (CEST)
+Received: from 3mdeb.com (85-222-117-222.dynamic.chello.pl [85.222.117.222])
+ (Authenticated sender: norbert.kaminski@3mdeb.com)
+ by player730.ha.ovh.net (Postfix) with ESMTPSA id 8F74C155050EB;
+ Mon, 24 Aug 2020 10:33:53 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-101G004c254b791-6a50-433b-b21f-3ea38b74bd89,
+ A7873582E0D946BF63F2D7AE2A93EBA73D5A595B) smtp.auth=norbert.kaminski@3mdeb.com
+From: Norbert Kaminski <norbert.kaminski@3mdeb.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, insurgo@riseup.net,
+ Maciej Pijanowski <maciej.pijanowski@3mdeb.com>, piotr.krol@3mdeb.com
+Subject: Qubes OS 4.1 under the Heads
+Message-ID: <76d823d0-03cc-d628-6507-1f300e13b5b2@3mdeb.com>
+Date: Mon, 24 Aug 2020 12:33:52 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <7b8fd84b-a0bb-9976-ff57-3e104b57ffcc@suse.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Language: en-US
+X-Ovh-Tracer-Id: 10923199423067560396
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedruddukedgtdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvuffkffgfgggtgfesthekredttdefjeenucfhrhhomheppfhorhgsvghrthcumfgrmhhinhhskhhiuceonhhorhgsvghrthdrkhgrmhhinhhskhhiseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevjeeffeehjeethfejgeeliefhveeiveegfeefgeefjeevhfekteethfegkeehtdenucffohhmrghinhepohhsrhgvshgvrghrtghhrdhnvghtpdhgihhthhhusgdrtghomhdpuddurdhsohdpfehmuggvsgdrtghomhenucfkpheptddrtddrtddrtddpkeehrddvvddvrdduudejrddvvddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeeftddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehnohhrsggvrhhtrdhkrghmihhnshhkihesfehmuggvsgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,71 +61,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/08/2020 09:00, Jürgen Groß wrote:
-> On 24.08.20 09:51, Jan Beulich wrote:
->> On 24.08.2020 09:23, Jürgen Groß wrote:
->>> On 24.08.20 08:44, Jan Beulich wrote:
->>>> On 23.08.2020 07:52, Jürgen Groß wrote:
->>>>> On 23.08.20 07:24, osstest service owner wrote:
->>>>>> flight 152672 linux-linus real [real]
->>>>>> http://logs.test-lab.xenproject.org/osstest/logs/152672/
->>>>>>
->>>>>> Regressions :-(
->>>>>
->>>>> With 32-bit pv support now removed from the kernel the associated
->>>>> tests
->>>>> should be removed for the upstream kernel, too.
->>>>
->>>> Not exactly sure how things are organized, but isn't the 2nd
->>>> <arch> in the test identifier currently specifying "Dom0
->>>> bitness" as a whole? If so, shouldn't testing a 32-bit tool
->>>> stack build continue to be done (under this same name perhaps),
->>>> just with a 64-bit kernel now? In which case the next question
->>>
->>> Only the linux-linus tests are affected right now. "Old" kernels can
->>> still be used for 32-bit tests. And PVH ones, of course.
->>>
->>>> is whether the 64-bit kernel is actually fully ready to be used
->>>> this way. I'm afraid it isn't, as there's still no privcmd
->>>> compat ioctl handling afaict, which I would say should have
->>>> been a prereq for removing PV support from 32-bit kernels.
->>>
->>> No, I don't think so.
->>>
->>> 32-bit pv linux kernels are missing Meltdown mitigation and using a
->>> 32-bit toolstack on a 64-bit kernel is no feature I'd like to
->>> encourage.
->>
->> Where else do you propose to test the 32-bit tool stack then?
->
-> Right now stable kernels, later PVH only.
->
->> Even if right now only linux-linus is really affected, sooner
->> or later the stable Linux tree will also be switched to one
->> which doesn't have 32-bit PV support anymore.
->
-> Yes.
->
->> I also have trouble seeing why it should be use to dictate what
->> bitness a user space people are running. Even more so that we've
->
-> We are not talking about some random user programs, but the tools
-> we are providing and which are running in dom0 only.
->
-> And I don't think running a 32-bit toolstack on a 64-bit kernel is
-> supported right now (in case it is, then we don't need to worry as
-> it should continue to work). I don't think we should start supporting
-> that just for being able to test it.
+Hi all,
 
-32bit toolstack on a 64bit kernel doesn't remotely work, due to pointers
-embedded in structures which privcmd passes through unmodified.
+I'm trying to boot Qubes 4.1 under the Heads (http://osresearch.net/).
+The Heads uses kexec to run the Xen 4.13 with Qubes kernel. During the
+boot process on the screen appear colorful artifacts, which are shown in
+this issue:
 
-It will actually start working again after the tools ABI stability work,
-because this is just one of the many ABI mistakes which will be corrected.
+https://github.com/osresearch/heads/issues/789
 
+The installation media booted properly when I replaced the hypervisor to
+the stable-4.11. So I've bisected Xen from the 4.11 to 4.13 version and
+I found out that problems start with:
 
-That said, 32bit toolstacks are not a useful or sensible thing these
-days.  I strongly suspect it gets 0 use outside of OSSTest.
+https://github.com/xen-project/xen/commit/dcf4179
 
-~Andrew
+This is the first commit where Qubes OS doesn't boot properly. The Qubes
+kernel cannot find the LUKS UUID and boot ends in the emergency mode.
+The colorful artifacts appear in this commit:
+
+https://github.com/xen-project/xen/commit/07c181c
+
+Here is the dump of the DMAR table:
+
+DMAR @ 0x0000000000000000
+   0000: 44 4D 41 52 A8 00 00 00 01 E8 43 4F 52 45 20 20 DMAR......CORE
+   0010: 43 4F 52 45 42 4F 4F 54 00 00 00 00 43 4F 52 45 COREBOOT....CORE
+   0020: 00 00 00 00 23 01 00 00 00 00 00 00 00 00 00 00 ....#...........
+   0030: 00 00 20 00 00 00 00 00 00 00 D9 FE 00 00 00 00 .. .............
+   0040: 01 08 00 00 00 00 02 00 01 08 00 00 00 00 02 01 ................
+   0050: 00 00 58 00 01 00 00 00 00 10 D9 FE 00 00 00 00 ..X.............
+   0060: 03 08 00 00 02 FA 1F 00 04 08 00 00 00 FA 0F 00 ................
+   0070: 04 08 00 00 00 FA 0F 01 04 08 00 00 00 FA 0F 02 ................
+   0080: 04 08 00 00 00 FA 0F 03 04 08 00 00 00 FA 0F 04 ................
+   0090: 04 08 00 00 00 FA 0F 05 04 08 00 00 00 FA 0F 06 ................
+   00A0: 04 08 00 00 00 FA 0F 07                         ........
+
+I wasn't able to dump the Xen dmesg due to a mismatch between
+xen-tools (4.13) and hypervisor (4.12).
+
+I'd appreciate any help on this subject.
+
+---
+Best Regards,
+Norbert Kamiński
+Embedded Systems Engineer
+GPG key ID: 9E9F90AFE10F466A
+3mdeb.com
 
