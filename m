@@ -2,45 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D9DC24F37F
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:00:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4227724F3B4
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:13:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA7P6-0004dY-Sl; Mon, 24 Aug 2020 08:00:32 +0000
+	id 1kA7bD-0005aR-2U; Mon, 24 Aug 2020 08:13:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h8JF=CC=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kA7P5-0004dT-2l
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:00:31 +0000
-X-Inumbo-ID: e6373e45-d51d-4568-ab9d-f6f959d73a30
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=2xWz=CC=kroah.com=greg@srs-us1.protection.inumbo.net>)
+ id 1kA7bB-0005aM-5W
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:13:01 +0000
+X-Inumbo-ID: c8429745-2845-4766-8191-73dc7c189db0
+Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6373e45-d51d-4568-ab9d-f6f959d73a30;
- Mon, 24 Aug 2020 08:00:30 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1A8CFAD2C;
- Mon, 24 Aug 2020 08:00:59 +0000 (UTC)
-Subject: Re: [linux-linus test] 152672: regressions - FAIL
-To: Jan Beulich <jbeulich@suse.com>
-Cc: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <osstest-152672-mainreport@xen.org>
- <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
- <d8fb302b-8dae-a0fe-7617-dc9d3b0ec6fa@suse.com>
- <0061138a-749f-4702-2dbc-084690062976@suse.com>
- <28c918a3-7290-b3c3-4e10-009e5ea48aa0@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <7b8fd84b-a0bb-9976-ff57-3e104b57ffcc@suse.com>
-Date: Mon, 24 Aug 2020 10:00:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id c8429745-2845-4766-8191-73dc7c189db0;
+ Mon, 24 Aug 2020 08:13:00 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 03FA55C0051;
+ Mon, 24 Aug 2020 04:13:00 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Mon, 24 Aug 2020 04:13:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=RvCGeNJyv963/SIcAMWK6e9t3IX
+ 8XSfpkU2Fz7CplkE=; b=ijhWLsAOeZm62jywdoRsxrWxshHF+E94DV9BFYySu+i
+ F+KQRvMnk99KT2CFyfzTGInKnn7nFX9hgulY63CvYVreScP70wmnUH2zl57b72oR
+ 7lPzi4639uBF0hd4r8F5KPHO+rkI5FL9KArDCkh7Bt5XcDFve7JarZrosYPr+sN8
+ YAeg3nKFqrmmBayoDI1axu28PE2EVIdjK0fQZVo6L1uKDQmPa822C3uNUbLuR22K
+ hhVXEbndH7DBOTK8bl3/ZmMkp6HAYC0iHYzzCKKiUIFqhVnAFz4eW0Lj9p5Sf91i
+ u0L6Vw/dhPsPYDbtutkCia5/tKy2BwRwVr4JQPheiSg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=RvCGeN
+ Jyv963/SIcAMWK6e9t3IX8XSfpkU2Fz7CplkE=; b=dxWv4Cmosf4Zg21ioBnq7c
+ b1eWIagluWXl/n6sbCJwIl5aktTHPUqw8jbU0tZLa7Lvt8vbkckqRFlH6Gh0nkzJ
+ w5ODcjythoC1agTpqbHC8At1YvxuL/JD0EGdlwosQ4AuAbMrdHtd07ULdzlvhO4r
+ SwijXHTviO3y/lkKkO0389lQQPQs8weV1dqBBn42dAzxOIlHGdDGuNPcrw3o9SSS
+ H/BYgzqYlW8/ww2qYDOrwZ2sF/zJAlVPycLVB4OS/adoA/hweXAjLZ2RDWDOBHPn
+ 0TtkmU55y4X1BsaafskDrXXNG1CwpT9Ho8PGmdNtuqIhYlXlDudFhqq/yjhFw8+w
+ ==
+X-ME-Sender: <xms:i3ZDX1y2dVVPJiQaZszdhulruNj4_jaw_3a9cSApKMpMHV2_pbS88A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddujedgleduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
+ mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
+ fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucfkphepkeef
+ rdekiedrkeelrddutdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
+ hilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
+X-ME-Proxy: <xmx:i3ZDX1Rpu1Ep6y6ydJ0_Pa2s54gzLLv5t5w_uJ5HSPfzHCqj3Gec2w>
+ <xmx:i3ZDX_WoPRYpnNwBpKAnd4qc_hknOVJ7mWFcqFGv23X9hg0ESo6RPQ>
+ <xmx:i3ZDX3h6zFrAMK_caG0WCalnuvTMUNCTLRm6zjlAjgV1JsDRU8asQQ>
+ <xmx:jHZDX-P0N0vV9DJ_703wmiSVXoqhFdrgSsmmWOFTY4UnYTZMgM-NIw>
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5128030600A6;
+ Mon, 24 Aug 2020 04:12:59 -0400 (EDT)
+Date: Mon, 24 Aug 2020 10:13:18 +0200
+From: Greg KH <greg@kroah.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: stable@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Sarah Newman <srn@prgmr.com>, Chris Brannon <cmb@prgmr.com>
+Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
+Message-ID: <20200824081318.GC92813@kroah.com>
+References: <20200820065908.20592-1-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <28c918a3-7290-b3c3-4e10-009e5ea48aa0@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200820065908.20592-1-jgross@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,59 +87,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.08.20 09:51, Jan Beulich wrote:
-> On 24.08.2020 09:23, Jürgen Groß wrote:
->> On 24.08.20 08:44, Jan Beulich wrote:
->>> On 23.08.2020 07:52, Jürgen Groß wrote:
->>>> On 23.08.20 07:24, osstest service owner wrote:
->>>>> flight 152672 linux-linus real [real]
->>>>> http://logs.test-lab.xenproject.org/osstest/logs/152672/
->>>>>
->>>>> Regressions :-(
->>>>
->>>> With 32-bit pv support now removed from the kernel the associated tests
->>>> should be removed for the upstream kernel, too.
->>>
->>> Not exactly sure how things are organized, but isn't the 2nd
->>> <arch> in the test identifier currently specifying "Dom0
->>> bitness" as a whole? If so, shouldn't testing a 32-bit tool
->>> stack build continue to be done (under this same name perhaps),
->>> just with a 64-bit kernel now? In which case the next question
->>
->> Only the linux-linus tests are affected right now. "Old" kernels can
->> still be used for 32-bit tests. And PVH ones, of course.
->>
->>> is whether the 64-bit kernel is actually fully ready to be used
->>> this way. I'm afraid it isn't, as there's still no privcmd
->>> compat ioctl handling afaict, which I would say should have
->>> been a prereq for removing PV support from 32-bit kernels.
->>
->> No, I don't think so.
->>
->> 32-bit pv linux kernels are missing Meltdown mitigation and using a
->> 32-bit toolstack on a 64-bit kernel is no feature I'd like to encourage.
+On Thu, Aug 20, 2020 at 08:59:08AM +0200, Juergen Gross wrote:
+> For support of long running hypercalls xen_maybe_preempt_hcall() is
+> calling cond_resched() in case a hypercall marked as preemptible has
+> been interrupted.
 > 
-> Where else do you propose to test the 32-bit tool stack then?
+> Normally this is no problem, as only hypercalls done via some ioctl()s
+> are marked to be preemptible. In rare cases when during such a
+> preemptible hypercall an interrupt occurs and any softirq action is
+> started from irq_exit(), a further hypercall issued by the softirq
+> handler will be regarded to be preemptible, too. This might lead to
+> rescheduling in spite of the softirq handler potentially having set
+> preempt_disable(), leading to splats like:
+> 
+> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
+> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
+> INFO: lockdep is turned off.
+> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
+> Call Trace:
+> <IRQ>
+> dump_stack+0x8f/0xd0
+> ___might_sleep.cold.76+0xb2/0x103
+> xen_maybe_preempt_hcall+0x48/0x70
+> xen_do_hypervisor_callback+0x37/0x40
+> RIP: e030:xen_hypercall_xen_version+0xa/0x20
+> Code: ...
+> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
+> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
+> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
+> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
+> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
+> ? xen_hypercall_xen_version+0xa/0x20
+> ? xen_force_evtchn_callback+0x9/0x10
+> ? check_events+0x12/0x20
+> ? xen_restore_fl_direct+0x1f/0x20
+> ? _raw_spin_unlock_irqrestore+0x53/0x60
+> ? debug_dma_sync_single_for_cpu+0x91/0xc0
+> ? _raw_spin_unlock_irqrestore+0x53/0x60
+> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
+> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
+> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
+> ? net_rx_action+0x151/0x4a0
+> ? __do_softirq+0xed/0x55b
+> ? irq_exit+0xea/0x100
+> ? xen_evtchn_do_upcall+0x2c/0x40
+> ? xen_do_hypervisor_callback+0x29/0x40
+> </IRQ>
+> ? xen_hypercall_domctl+0xa/0x20
+> ? xen_hypercall_domctl+0x8/0x20
+> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
+> ? do_vfs_ioctl+0xa5/0x6f0
+> ? ksys_ioctl+0x60/0x90
+> ? trace_hardirqs_off_thunk+0x1a/0x20
+> ? __x64_sys_ioctl+0x16/0x20
+> ? do_syscall_64+0x62/0x250
+> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> 
+> Fix that by testing preempt_count() before calling cond_resched().
+> 
+> In kernel 5.8 this can't happen any more due to the entry code rework
+> (more than 100 patches, so not a candidate for backporting).
+> 
+> The issue was introduced in kernel 4.3, so this patch should go into
+> all stable kernels in [4.3 ... 5.7].
 
-Right now stable kernels, later PVH only.
+Now queued up, thanks!
 
-> Even if right now only linux-linus is really affected, sooner
-> or later the stable Linux tree will also be switched to one
-> which doesn't have 32-bit PV support anymore.
-
-Yes.
-
-> I also have trouble seeing why it should be use to dictate what
-> bitness a user space people are running. Even more so that we've
-
-We are not talking about some random user programs, but the tools
-we are providing and which are running in dom0 only.
-
-And I don't think running a 32-bit toolstack on a 64-bit kernel is
-supported right now (in case it is, then we don't need to worry as
-it should continue to work). I don't think we should start supporting
-that just for being able to test it.
-
-
-Juergen
+greg k-h
 
