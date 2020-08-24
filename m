@@ -2,78 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4227724F3B4
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D600F24F3D4
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:20:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA7bD-0005aR-2U; Mon, 24 Aug 2020 08:13:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2xWz=CC=kroah.com=greg@srs-us1.protection.inumbo.net>)
- id 1kA7bB-0005aM-5W
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:13:01 +0000
-X-Inumbo-ID: c8429745-2845-4766-8191-73dc7c189db0
-Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c8429745-2845-4766-8191-73dc7c189db0;
- Mon, 24 Aug 2020 08:13:00 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 03FA55C0051;
- Mon, 24 Aug 2020 04:13:00 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 24 Aug 2020 04:13:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=RvCGeNJyv963/SIcAMWK6e9t3IX
- 8XSfpkU2Fz7CplkE=; b=ijhWLsAOeZm62jywdoRsxrWxshHF+E94DV9BFYySu+i
- F+KQRvMnk99KT2CFyfzTGInKnn7nFX9hgulY63CvYVreScP70wmnUH2zl57b72oR
- 7lPzi4639uBF0hd4r8F5KPHO+rkI5FL9KArDCkh7Bt5XcDFve7JarZrosYPr+sN8
- YAeg3nKFqrmmBayoDI1axu28PE2EVIdjK0fQZVo6L1uKDQmPa822C3uNUbLuR22K
- hhVXEbndH7DBOTK8bl3/ZmMkp6HAYC0iHYzzCKKiUIFqhVnAFz4eW0Lj9p5Sf91i
- u0L6Vw/dhPsPYDbtutkCia5/tKy2BwRwVr4JQPheiSg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=RvCGeN
- Jyv963/SIcAMWK6e9t3IX8XSfpkU2Fz7CplkE=; b=dxWv4Cmosf4Zg21ioBnq7c
- b1eWIagluWXl/n6sbCJwIl5aktTHPUqw8jbU0tZLa7Lvt8vbkckqRFlH6Gh0nkzJ
- w5ODcjythoC1agTpqbHC8At1YvxuL/JD0EGdlwosQ4AuAbMrdHtd07ULdzlvhO4r
- SwijXHTviO3y/lkKkO0389lQQPQs8weV1dqBBn42dAzxOIlHGdDGuNPcrw3o9SSS
- H/BYgzqYlW8/ww2qYDOrwZ2sF/zJAlVPycLVB4OS/adoA/hweXAjLZ2RDWDOBHPn
- 0TtkmU55y4X1BsaafskDrXXNG1CwpT9Ho8PGmdNtuqIhYlXlDudFhqq/yjhFw8+w
- ==
-X-ME-Sender: <xms:i3ZDX1y2dVVPJiQaZszdhulruNj4_jaw_3a9cSApKMpMHV2_pbS88A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddujedgleduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
- fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucfkphepkeef
- rdekiedrkeelrddutdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
- hilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
-X-ME-Proxy: <xmx:i3ZDX1Rpu1Ep6y6ydJ0_Pa2s54gzLLv5t5w_uJ5HSPfzHCqj3Gec2w>
- <xmx:i3ZDX_WoPRYpnNwBpKAnd4qc_hknOVJ7mWFcqFGv23X9hg0ESo6RPQ>
- <xmx:i3ZDX3h6zFrAMK_caG0WCalnuvTMUNCTLRm6zjlAjgV1JsDRU8asQQ>
- <xmx:jHZDX-P0N0vV9DJ_703wmiSVXoqhFdrgSsmmWOFTY4UnYTZMgM-NIw>
+	id 1kA7hw-0005mv-SD; Mon, 24 Aug 2020 08:20:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HY0O=CC=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
+ id 1kA7hw-0005mq-7f
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:20:00 +0000
+X-Inumbo-ID: 7881d697-d401-4685-83f2-e83d5df270d3
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7881d697-d401-4685-83f2-e83d5df270d3;
+ Mon, 24 Aug 2020 08:19:59 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5128030600A6;
- Mon, 24 Aug 2020 04:12:59 -0400 (EDT)
-Date: Mon, 24 Aug 2020 10:13:18 +0200
-From: Greg KH <greg@kroah.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: stable@vger.kernel.org, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Sarah Newman <srn@prgmr.com>, Chris Brannon <cmb@prgmr.com>
-Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
-Message-ID: <20200824081318.GC92813@kroah.com>
-References: <20200820065908.20592-1-jgross@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 120CA20738;
+ Mon, 24 Aug 2020 08:19:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598257198;
+ bh=IuMFvGOiVqcBSXlEBNq6Iv/uXF5N9b99FxgRx8IZJII=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=vpj50OPdCnHL9zLJcDO0F5MbtySrICFCeeXmqB+3fsAKdS3EdGKeYXRZjPGbNpwBw
+ y3fxz1uBsASx8nBEXGG+rH+NV2LO0UfaNcOkL7IswXfeQbz1fIHurroBxkc9jIeFm5
+ ZjXP7gginS8NrQEd9+FBjndAUFXoVs+h77Opqqa4=
+Subject: Patch "xen: don't reschedule in preemption off sections" has been
+ added to the 4.4-stable tree
+To: boris.ostrovsky@oracle.com, cmb@prgmr.com, gregkh@linuxfoundation.org,
+ jgross@suse.com, srn@prgmr.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 24 Aug 2020 10:20:06 +0200
 In-Reply-To: <20200820065908.20592-1-jgross@suse.com>
+Message-ID: <159825720612167@kroah.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,72 +60,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 20, 2020 at 08:59:08AM +0200, Juergen Gross wrote:
-> For support of long running hypercalls xen_maybe_preempt_hcall() is
-> calling cond_resched() in case a hypercall marked as preemptible has
-> been interrupted.
-> 
-> Normally this is no problem, as only hypercalls done via some ioctl()s
-> are marked to be preemptible. In rare cases when during such a
-> preemptible hypercall an interrupt occurs and any softirq action is
-> started from irq_exit(), a further hypercall issued by the softirq
-> handler will be regarded to be preemptible, too. This might lead to
-> rescheduling in spite of the softirq handler potentially having set
-> preempt_disable(), leading to splats like:
-> 
-> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
-> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
-> INFO: lockdep is turned off.
-> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
-> Call Trace:
-> <IRQ>
-> dump_stack+0x8f/0xd0
-> ___might_sleep.cold.76+0xb2/0x103
-> xen_maybe_preempt_hcall+0x48/0x70
-> xen_do_hypervisor_callback+0x37/0x40
-> RIP: e030:xen_hypercall_xen_version+0xa/0x20
-> Code: ...
-> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
-> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
-> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
-> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
-> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
-> ? xen_hypercall_xen_version+0xa/0x20
-> ? xen_force_evtchn_callback+0x9/0x10
-> ? check_events+0x12/0x20
-> ? xen_restore_fl_direct+0x1f/0x20
-> ? _raw_spin_unlock_irqrestore+0x53/0x60
-> ? debug_dma_sync_single_for_cpu+0x91/0xc0
-> ? _raw_spin_unlock_irqrestore+0x53/0x60
-> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
-> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
-> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
-> ? net_rx_action+0x151/0x4a0
-> ? __do_softirq+0xed/0x55b
-> ? irq_exit+0xea/0x100
-> ? xen_evtchn_do_upcall+0x2c/0x40
-> ? xen_do_hypervisor_callback+0x29/0x40
-> </IRQ>
-> ? xen_hypercall_domctl+0xa/0x20
-> ? xen_hypercall_domctl+0x8/0x20
-> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
-> ? do_vfs_ioctl+0xa5/0x6f0
-> ? ksys_ioctl+0x60/0x90
-> ? trace_hardirqs_off_thunk+0x1a/0x20
-> ? __x64_sys_ioctl+0x16/0x20
-> ? do_syscall_64+0x62/0x250
-> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
-> 
-> Fix that by testing preempt_count() before calling cond_resched().
-> 
-> In kernel 5.8 this can't happen any more due to the entry code rework
-> (more than 100 patches, so not a candidate for backporting).
-> 
-> The issue was introduced in kernel 4.3, so this patch should go into
-> all stable kernels in [4.3 ... 5.7].
 
-Now queued up, thanks!
+This is a note to let you know that I've just added the patch titled
 
-greg k-h
+    xen: don't reschedule in preemption off sections
+
+to the 4.4-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     xen-don-t-reschedule-in-preemption-off-sections.patch
+and it can be found in the queue-4.4 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From jgross@suse.com  Mon Aug 24 10:12:00 2020
+From: Juergen Gross <jgross@suse.com>
+Date: Thu, 20 Aug 2020 08:59:08 +0200
+Subject: xen: don't reschedule in preemption off sections
+To: stable@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>, Sarah Newman <srn@prgmr.com>, Chris Brannon <cmb@prgmr.com>
+Message-ID: <20200820065908.20592-1-jgross@suse.com>
+
+From: Juergen Gross <jgross@suse.com>
+
+For support of long running hypercalls xen_maybe_preempt_hcall() is
+calling cond_resched() in case a hypercall marked as preemptible has
+been interrupted.
+
+Normally this is no problem, as only hypercalls done via some ioctl()s
+are marked to be preemptible. In rare cases when during such a
+preemptible hypercall an interrupt occurs and any softirq action is
+started from irq_exit(), a further hypercall issued by the softirq
+handler will be regarded to be preemptible, too. This might lead to
+rescheduling in spite of the softirq handler potentially having set
+preempt_disable(), leading to splats like:
+
+BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
+in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
+INFO: lockdep is turned off.
+CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
+Call Trace:
+<IRQ>
+dump_stack+0x8f/0xd0
+___might_sleep.cold.76+0xb2/0x103
+xen_maybe_preempt_hcall+0x48/0x70
+xen_do_hypervisor_callback+0x37/0x40
+RIP: e030:xen_hypercall_xen_version+0xa/0x20
+Code: ...
+RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
+RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
+RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
+R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
+R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
+? xen_hypercall_xen_version+0xa/0x20
+? xen_force_evtchn_callback+0x9/0x10
+? check_events+0x12/0x20
+? xen_restore_fl_direct+0x1f/0x20
+? _raw_spin_unlock_irqrestore+0x53/0x60
+? debug_dma_sync_single_for_cpu+0x91/0xc0
+? _raw_spin_unlock_irqrestore+0x53/0x60
+? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
+? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
+? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
+? net_rx_action+0x151/0x4a0
+? __do_softirq+0xed/0x55b
+? irq_exit+0xea/0x100
+? xen_evtchn_do_upcall+0x2c/0x40
+? xen_do_hypervisor_callback+0x29/0x40
+</IRQ>
+? xen_hypercall_domctl+0xa/0x20
+? xen_hypercall_domctl+0x8/0x20
+? privcmd_ioctl+0x221/0x990 [xen_privcmd]
+? do_vfs_ioctl+0xa5/0x6f0
+? ksys_ioctl+0x60/0x90
+? trace_hardirqs_off_thunk+0x1a/0x20
+? __x64_sys_ioctl+0x16/0x20
+? do_syscall_64+0x62/0x250
+? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Fix that by testing preempt_count() before calling cond_resched().
+
+In kernel 5.8 this can't happen any more due to the entry code rework
+(more than 100 patches, so not a candidate for backporting).
+
+The issue was introduced in kernel 4.3, so this patch should go into
+all stable kernels in [4.3 ... 5.7].
+
+Reported-by: Sarah Newman <srn@prgmr.com>
+Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
+Cc: Sarah Newman <srn@prgmr.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Tested-by: Chris Brannon <cmb@prgmr.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/xen/preempt.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/xen/preempt.c
++++ b/drivers/xen/preempt.c
+@@ -31,7 +31,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hca
+ asmlinkage __visible void xen_maybe_preempt_hcall(void)
+ {
+ 	if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
+-		     && need_resched())) {
++		     && need_resched() && !preempt_count())) {
+ 		/*
+ 		 * Clear flag as we may be rescheduled on a different
+ 		 * cpu.
+
+
+Patches currently in stable-queue which might be from jgross@suse.com are
+
+queue-4.4/xen-don-t-reschedule-in-preemption-off-sections.patch
 
