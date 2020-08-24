@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC5624FD18
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 13:58:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDF8B24FD1C
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 13:59:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAB7k-0000KY-Hf; Mon, 24 Aug 2020 11:58:52 +0000
+	id 1kAB8X-0000RI-RX; Mon, 24 Aug 2020 11:59:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kAB7i-0000KH-LW
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 11:58:50 +0000
-X-Inumbo-ID: 927529e3-6b0a-4034-bb04-71b6ee854380
+ id 1kAB8W-0000R9-MU
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 11:59:40 +0000
+X-Inumbo-ID: 8db4018b-e2b6-4b74-be8c-f27c4c30b4c3
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 927529e3-6b0a-4034-bb04-71b6ee854380;
- Mon, 24 Aug 2020 11:58:49 +0000 (UTC)
+ id 8db4018b-e2b6-4b74-be8c-f27c4c30b4c3;
+ Mon, 24 Aug 2020 11:59:39 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EC6ECB605;
- Mon, 24 Aug 2020 11:59:18 +0000 (UTC)
-Subject: [PATCH v3 2/4] x86: don't build with EFI support in shim-exclusive
- mode
+ by mx2.suse.de (Postfix) with ESMTP id AFBC7B62D;
+ Mon, 24 Aug 2020 12:00:08 +0000 (UTC)
+Subject: [PATCH v3 3/4] bitmap: move to/from xenctl_bitmap conversion helpers
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <088c088d-d463-05c6-1d17-d682a878e149@suse.com>
-Message-ID: <8fb913da-81f4-a94b-f0c3-cc4c831ff583@suse.com>
-Date: Mon, 24 Aug 2020 13:58:48 +0200
+Message-ID: <421b2b86-6314-406c-893a-39a4e7d14111@suse.com>
+Date: Mon, 24 Aug 2020 13:59:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
 In-Reply-To: <088c088d-d463-05c6-1d17-d682a878e149@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,56 +53,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's no need for xen.efi at all, and there's also no need for EFI
-support in xen.gz since the shim runs in PVH mode, i.e. without any
-firmware (and hence by implication also without EFI one).
+A subsequent change will exclude domctl.c from getting built for a
+particular configuration, yet the two functions get used from elsewhere.
 
-The slightly odd looking use of $(space) is to ensure the new ifneq()
-evaluates consistently between "build" and "install" invocations of
-make.
+While moving the code
+- drop unmotivated uses of min_t(),
+- fix style violations in the moved code,
+- xfree() as early as possible.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-There are further anomalies associated with the need to use $(space)
-here:
-- xen.efi rebuilding gets suppressed when installing (typically as
-  root) from a non-root-owned tree. I think we should similarly suppress
-  re-building of xen.gz as well in this case, as tool chains available
-  may vary (and hence a partial or full re-build may mistakenly occur).
-- xen.lds (re-)generation has a dependency issue: The value of
-  XEN_BUILD_EFI changing between builds (like would happen on a pre-
-  built tree with a shim-exclusive config, on which then this patch
-  would be applied) does not cause it to be re-built. Anthony's
-  switching to Linux'es build system will address this afaict, so I
-  didn't see a need to supply a separate patch.
+v3: Drop unmotivated uses of min_t(). Fix style violations in the moved
+    code. xfree() as early as possible.
+v2: Move function decls to xen/bitmap.h.
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -80,7 +80,9 @@ x86_emulate.o: x86_emulate/x86_emulate.c
+--- a/xen/common/bitmap.c
++++ b/xen/common/bitmap.c
+@@ -9,6 +9,8 @@
+ #include <xen/errno.h>
+ #include <xen/bitmap.h>
+ #include <xen/bitops.h>
++#include <xen/cpumask.h>
++#include <xen/guest_access.h>
+ #include <asm/byteorder.h>
  
- efi-y := $(shell if [ ! -r $(BASEDIR)/include/xen/compile.h -o \
-                       -O $(BASEDIR)/include/xen/compile.h ]; then \
--                         echo '$(TARGET).efi'; fi)
-+                         echo '$(TARGET).efi'; fi) \
-+         $(space)
-+efi-$(CONFIG_PV_SHIM_EXCLUSIVE) :=
+ /*
+@@ -384,3 +386,88 @@ void bitmap_byte_to_long(unsigned long *
+ }
  
- ifneq ($(build_id_linker),)
- notes_phdrs = --notes
-@@ -113,11 +115,13 @@ $(TARGET): $(TARGET)-syms $(efi-y) boot/
- 		{ echo "No Multiboot2 header found" >&2; false; }
- 	mv $(TMP) $(TARGET)
+ #endif
++
++int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
++                            const unsigned long *bitmap, unsigned int nbits)
++{
++    unsigned int guest_bytes, copy_bytes, i;
++    uint8_t zero = 0;
++    int err = 0;
++    uint8_t *bytemap = xmalloc_array(uint8_t, (nbits + 7) / 8);
++
++    if ( !bytemap )
++        return -ENOMEM;
++
++    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
++    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
++
++    bitmap_long_to_byte(bytemap, bitmap, nbits);
++
++    if ( copy_bytes &&
++         copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
++        err = -EFAULT;
++
++    xfree(bytemap);
++
++    for ( i = copy_bytes; !err && i < guest_bytes; i++ )
++        if ( copy_to_guest_offset(xenctl_bitmap->bitmap, i, &zero, 1) )
++            err = -EFAULT;
++
++    return err;
++}
++
++int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
++                            const struct xenctl_bitmap *xenctl_bitmap,
++                            unsigned int nbits)
++{
++    unsigned int guest_bytes, copy_bytes;
++    int err = 0;
++    uint8_t *bytemap = xzalloc_array(uint8_t, (nbits + 7) / 8);
++
++    if ( !bytemap )
++        return -ENOMEM;
++
++    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
++    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
++
++    if ( copy_bytes )
++    {
++        if ( copy_from_guest(bytemap, xenctl_bitmap->bitmap, copy_bytes) )
++            err = -EFAULT;
++        if ( (xenctl_bitmap->nr_bits & 7) && (guest_bytes == copy_bytes) )
++            bytemap[guest_bytes - 1] &= ~(0xff << (xenctl_bitmap->nr_bits & 7));
++    }
++
++    if ( !err )
++        bitmap_byte_to_long(bitmap, bytemap, nbits);
++
++    xfree(bytemap);
++
++    return err;
++}
++
++int cpumask_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_cpumap,
++                             const cpumask_t *cpumask)
++{
++    return bitmap_to_xenctl_bitmap(xenctl_cpumap, cpumask_bits(cpumask),
++                                   nr_cpu_ids);
++}
++
++int xenctl_bitmap_to_cpumask(cpumask_var_t *cpumask,
++                             const struct xenctl_bitmap *xenctl_cpumap)
++{
++    int err = 0;
++
++    if ( alloc_cpumask_var(cpumask) )
++    {
++        err = xenctl_bitmap_to_bitmap(cpumask_bits(*cpumask), xenctl_cpumap,
++                                      nr_cpu_ids);
++        /* In case of error, cleanup is up to us, as the caller won't care! */
++        if ( err )
++            free_cpumask_var(*cpumask);
++    }
++    else
++        err = -ENOMEM;
++
++    return err;
++}
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -34,91 +34,6 @@
  
-+ifneq ($(efi-y),)
- # Check if the compiler supports the MS ABI.
- export XEN_BUILD_EFI := $(shell $(CC) $(XEN_CFLAGS) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
- # Check if the linker supports PE.
- XEN_BUILD_PE := $(if $(XEN_BUILD_EFI),$(shell $(LD) -mi386pep --subsystem=10 -o efi/check.efi efi/check.o 2>/dev/null && echo y))
- CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
-+endif
+ static DEFINE_SPINLOCK(domctl_lock);
  
- ALL_OBJS := $(BASEDIR)/arch/x86/boot/built_in.o $(BASEDIR)/arch/x86/efi/built_in.o $(ALL_OBJS)
- EFI_OBJS-$(XEN_BUILD_EFI) := efi/relocs-dummy.o
-
+-static int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
+-                                   const unsigned long *bitmap,
+-                                   unsigned int nbits)
+-{
+-    unsigned int guest_bytes, copy_bytes, i;
+-    uint8_t zero = 0;
+-    int err = 0;
+-    uint8_t *bytemap = xmalloc_array(uint8_t, (nbits + 7) / 8);
+-
+-    if ( !bytemap )
+-        return -ENOMEM;
+-
+-    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
+-    copy_bytes  = min_t(unsigned int, guest_bytes, (nbits + 7) / 8);
+-
+-    bitmap_long_to_byte(bytemap, bitmap, nbits);
+-
+-    if ( copy_bytes != 0 )
+-        if ( copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
+-            err = -EFAULT;
+-
+-    for ( i = copy_bytes; !err && i < guest_bytes; i++ )
+-        if ( copy_to_guest_offset(xenctl_bitmap->bitmap, i, &zero, 1) )
+-            err = -EFAULT;
+-
+-    xfree(bytemap);
+-
+-    return err;
+-}
+-
+-int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
+-                            const struct xenctl_bitmap *xenctl_bitmap,
+-                            unsigned int nbits)
+-{
+-    unsigned int guest_bytes, copy_bytes;
+-    int err = 0;
+-    uint8_t *bytemap = xzalloc_array(uint8_t, (nbits + 7) / 8);
+-
+-    if ( !bytemap )
+-        return -ENOMEM;
+-
+-    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
+-    copy_bytes  = min_t(unsigned int, guest_bytes, (nbits + 7) / 8);
+-
+-    if ( copy_bytes != 0 )
+-    {
+-        if ( copy_from_guest(bytemap, xenctl_bitmap->bitmap, copy_bytes) )
+-            err = -EFAULT;
+-        if ( (xenctl_bitmap->nr_bits & 7) && (guest_bytes == copy_bytes) )
+-            bytemap[guest_bytes-1] &= ~(0xff << (xenctl_bitmap->nr_bits & 7));
+-    }
+-
+-    if ( !err )
+-        bitmap_byte_to_long(bitmap, bytemap, nbits);
+-
+-    xfree(bytemap);
+-
+-    return err;
+-}
+-
+-int cpumask_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_cpumap,
+-                             const cpumask_t *cpumask)
+-{
+-    return bitmap_to_xenctl_bitmap(xenctl_cpumap, cpumask_bits(cpumask),
+-                                   nr_cpu_ids);
+-}
+-
+-int xenctl_bitmap_to_cpumask(cpumask_var_t *cpumask,
+-                             const struct xenctl_bitmap *xenctl_cpumap)
+-{
+-    int err = 0;
+-
+-    if ( alloc_cpumask_var(cpumask) ) {
+-        err = xenctl_bitmap_to_bitmap(cpumask_bits(*cpumask), xenctl_cpumap,
+-                                      nr_cpu_ids);
+-        /* In case of error, cleanup is up to us, as the caller won't care! */
+-        if ( err )
+-            free_cpumask_var(*cpumask);
+-    }
+-    else
+-        err = -ENOMEM;
+-
+-    return err;
+-}
+-
+ static int nodemask_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_nodemap,
+                                      const nodemask_t *nodemask)
+ {
+--- a/xen/include/xen/bitmap.h
++++ b/xen/include/xen/bitmap.h
+@@ -273,6 +273,13 @@ static inline void bitmap_clear(unsigned
+ void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits);
+ void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits);
+ 
++struct xenctl_bitmap;
++int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
++                            const struct xenctl_bitmap *xenctl_bitmap,
++                            unsigned int nbits);
++int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
++                            const unsigned long *bitmap, unsigned int nbits);
++
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /* __XEN_BITMAP_H */
+--- a/xen/include/xen/domain.h
++++ b/xen/include/xen/domain.h
+@@ -27,9 +27,6 @@ struct xen_domctl_getdomaininfo;
+ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info);
+ void arch_get_domain_info(const struct domain *d,
+                           struct xen_domctl_getdomaininfo *info);
+-int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
+-                            const struct xenctl_bitmap *xenctl_bitmap,
+-                            unsigned int nbits);
+ 
+ /*
+  * Arch-specifics.
 
