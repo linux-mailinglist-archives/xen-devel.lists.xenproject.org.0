@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901D824FE0F
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5B824FE57
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:58:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kABw0-0007FQ-BG; Mon, 24 Aug 2020 12:50:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kAC2s-0007Ys-5l; Mon, 24 Aug 2020 12:57:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kABvy-0007FC-JH
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:50:46 +0000
-X-Inumbo-ID: 81cf0826-5770-472f-96f1-e0600b6ee109
+ id 1kAC2q-0007Yl-Dp
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:57:52 +0000
+X-Inumbo-ID: e6245241-34ee-4130-8b92-751521bde20a
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 81cf0826-5770-472f-96f1-e0600b6ee109;
- Mon, 24 Aug 2020 12:50:45 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e6245241-34ee-4130-8b92-751521bde20a;
+ Mon, 24 Aug 2020 12:57:51 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C160BAFCF;
- Mon, 24 Aug 2020 12:51:14 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 9079DAD7F;
+ Mon, 24 Aug 2020 12:58:20 +0000 (UTC)
+Subject: Re: [PATCH v2 5/5] x86: simplify is_guest_l2_slot()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <5d456607-b36b-9802-1021-2e6d01d7f158@suse.com>
+ <08de75ba-36e3-5860-bbd2-d95bc48bff74@suse.com>
+ <f1df42f2-2761-7858-6257-28f3e047aba5@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: guard against straight-line speculation past RET
-Message-ID: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
-Date: Mon, 24 Aug 2020 14:50:43 +0200
+Message-ID: <49cc6680-8eaa-69f0-e389-e42856a7829a@suse.com>
+Date: Mon, 24 Aug 2020 14:57:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
+In-Reply-To: <f1df42f2-2761-7858-6257-28f3e047aba5@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -49,40 +52,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Under certain conditions CPUs can speculate into the instruction stream
-past a RET instruction. Guard against this just like 3b7dab93f240
-("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
-did - by inserting an "INT $3" insn. It's merely the mechanics of how to
-achieve this that differ: A pair of macros gets introduced to post-
-process RET insns issued by the compiler (or living in assembly files).
+On 24.08.2020 14:50, Andrew Cooper wrote:
+> On 24/08/2020 13:35, Jan Beulich wrote:
+>> is_pv_32bit_domain() has become expensive, and its use here is
+>> redundant: Only 32-bit guests would ever get PGT_pae_xen_l2 set on
+>> their L2 page table pages anyway.
+>>
+>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Possibly "if some other error does lead to PGT_pae_xen_l2 ending up
+> anywhere else, we still don't want to allow a guest to control the
+> entries" ?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Should this depend on CONFIG_SPECULATIVE_HARDEN_BRANCH?
----
-This depends on the "x86: some assembler macro rework" series posted
-over a month ago.
+I've added this, but I'm not fully convinced it's a meaningful
+statement: We only ever invoke the macro for L2 pages, so
+"anywhere else" to me meaning more than just L2 pages of 64-bit
+guests looks to render the whole thing not very precise.
 
---- a/xen/include/asm-x86/asm-defns.h
-+++ b/xen/include/asm-x86/asm-defns.h
-@@ -50,3 +50,19 @@
- .macro INDIRECT_JMP arg:req
-     INDIRECT_BRANCH jmp \arg
- .endm
-+
-+/*
-+ * To guard against speculation past RET, insert a breakpoint insn
-+ * immediately after them.
-+ */
-+.macro ret operand:vararg
-+    ret$ \operand
-+.endm
-+.macro ret$ operand:vararg
-+    .purgem ret
-+    ret \operand
-+    int $3
-+    .macro ret operand:vararg
-+        ret$ \\(operand)
-+    .endm
-+.endm
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks.
+
+Jan
 
