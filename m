@@ -2,78 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8303E25061F
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 19:28:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41AB3250668
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 19:32:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAGGP-0007do-Bp; Mon, 24 Aug 2020 17:28:09 +0000
+	id 1kAGKr-0008SS-T6; Mon, 24 Aug 2020 17:32:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O82J=CC=amazon.com=prvs=4989cbb9c=anchalag@srs-us1.protection.inumbo.net>)
- id 1kAGGO-0007dj-CM
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 17:28:08 +0000
-X-Inumbo-ID: 63de4d7c-20d4-40c1-90c3-4bdbdda0cf34
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ <SRS0=N/Qh=CC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kAGKr-0008SN-0Y
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 17:32:45 +0000
+X-Inumbo-ID: 11683d2a-84dc-4835-a5ac-4efe240fab28
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 63de4d7c-20d4-40c1-90c3-4bdbdda0cf34;
- Mon, 24 Aug 2020 17:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1598290087; x=1629826087;
- h=date:from:to:cc:message-id:references:mime-version:
- in-reply-to:subject;
- bh=sJKVrhjRdjFhSQhYyBL/Jhi9uLQHVJpNK4GZYxSA/dc=;
- b=r0Zj8Tpny+jlVZIszCfDbZWdmQ4NCF2FaI7fQ+jYm4Casf0v+vvSFb6u
- bmFaBGnrCV7TsypipdAZFSOpXrqL3Tp/4TvPkLX39KUMrJ5p1eQOTnBtt
- 6sEUSbOCe9Rb4ota6aHjGsmxU1nY32E24jXB3i7KOdpAqInFO+uxvqwhr I=;
-X-IronPort-AV: E=Sophos;i="5.76,349,1592870400"; d="scan'208";a="70457034"
-Subject: Re: [PATCH v3 05/11] genirq: Shutdown irq chips in suspend/resume
- during hibernation
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1a-821c648d.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 24 Aug 2020 17:25:48 +0000
-Received: from EX13MTAUWA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
- by email-inbound-relay-1a-821c648d.us-east-1.amazon.com (Postfix) with ESMTPS
- id CCA4AA1B8E; Mon, 24 Aug 2020 17:25:41 +0000 (UTC)
-Received: from EX13D10UWA001.ant.amazon.com (10.43.160.216) by
- EX13MTAUWA001.ant.amazon.com (10.43.160.118) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 24 Aug 2020 17:25:15 +0000
-Received: from EX13MTAUWA001.ant.amazon.com (10.43.160.58) by
- EX13D10UWA001.ant.amazon.com (10.43.160.216) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 24 Aug 2020 17:25:15 +0000
-Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
- (172.22.96.68) by mail-relay.amazon.com (10.43.160.118) with Microsoft SMTP
- Server id 15.0.1497.2 via Frontend Transport; Mon, 24 Aug 2020 17:25:15 +0000
-Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
- from userid 4335130)
- id A16DC40770; Mon, 24 Aug 2020 17:25:15 +0000 (UTC)
-Date: Mon, 24 Aug 2020 17:25:15 +0000
-From: Anchal Agarwal <anchalag@amazon.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-CC: <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, <x86@kernel.org>,
- <boris.ostrovsky@oracle.com>, <jgross@suse.com>, <linux-pm@vger.kernel.org>,
- <linux-mm@kvack.org>, <kamatam@amazon.com>, <sstabellini@kernel.org>,
- <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <axboe@kernel.dk>,
- <davem@davemloft.net>, <rjw@rjwysocki.net>, <len.brown@intel.com>,
- <pavel@ucw.cz>, <peterz@infradead.org>, <eduval@amazon.com>,
- <sblbir@amazon.com>, <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>, 
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
-Message-ID: <20200824172515.GA19449@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-References: <cover.1598042152.git.anchalag@amazon.com>
- <d9bcd552c946ac56f3f17cc0c1be57247d4a3004.1598042152.git.anchalag@amazon.com>
- <87h7svqzxm.fsf@nanos.tec.linutronix.de>
+ id 11683d2a-84dc-4835-a5ac-4efe240fab28;
+ Mon, 24 Aug 2020 17:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598290360;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=d708d49NmK6JVDRcBd33rRB8VLEFQ19wb+8POGO2DSU=;
+ b=G2nQkjrKHoE5d1bEHqVoZV9aJuo5aRKCJNPn2cMGVQK0JRL1vK22VymK
+ b/Lu5JT3oa7jgxrmHX1XaJ3nImeiPGDkxu5MUBhR74hfLR20GvUTARt5H
+ h5ZxfpCgQHew/1IeHj94H4oU8dsDIzgODTtDAZNZRdKXyOrH+d0zaLBwh 0=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 9aRUVSIh+sisJHbAgdMUENE60R710nr7l+p1geSUK0RwcMN7LGrPCytDa9sZXc0hMH7PntA+yq
+ 4jfdu2gDmkI/xOyItTk8vz0bbEy7U3YHHnGfls8d/o1A2ka9VU+ei7qixPdXFMMKu9SB8dp0ya
+ oc3x5ZoSE7WLf6w+2jy0I3tQfduqTH3O2p4pz2JIxP1ZNsgCY+rJ+lhp3VyjmZtXZQPFNIyCId
+ /DdFD/ezHT2Rf8315/XfDnR/uLnHkxQn1QHIp3BxcYNBY1gCaFkGnsb3xrjafRS0OGblkXz6C4
+ uDY=
+X-SBRS: 2.7
+X-MesageID: 25484671
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,349,1592884800"; d="scan'208";a="25484671"
+Subject: Re: [PATCH v3 1/4] x86/EFI: sanitize build logic
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <088c088d-d463-05c6-1d17-d682a878e149@suse.com>
+ <4614d5de-1125-0c0c-0997-2546bf82a964@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <997f2523-8f0c-1a41-0f1e-bc59d3864766@citrix.com>
+Date: Mon, 24 Aug 2020 18:32:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87h7svqzxm.fsf@nanos.tec.linutronix.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Precedence: Bulk
+In-Reply-To: <4614d5de-1125-0c0c-0997-2546bf82a964@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -84,55 +71,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Aug 22, 2020 at 02:36:37AM +0200, Thomas Gleixner wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> 
-> 
-> 
-> On Fri, Aug 21 2020 at 22:27, Thomas Gleixner wrote:
-> > Add a new quirk flag IRQCHIP_SHUTDOWN_ON_SUSPEND and add support for
-> > it the core interrupt suspend/resume paths.
-> >
-> > Changelog:
-> > v1->v2: Corrected the author's name to tglx@
-> 
-> Can you please move that Changelog part below the --- seperator next
-> time because that's really not part of the final commit messaage and the
-> maintainer has then to strip it off manually
-> 
-Ack.
-> > Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
-> > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> 
-> These SOB lines are just wrongly ordered as they suggest:
-> 
->      Anchal has authored the patch and Thomas transported it
-> 
-> which is clearly not the case. So the right order is:
-> 
-I must admit I wasn't aware of that. Will fix.
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
-> 
-> And that needs another tweak at the top of the change log. The first
-> line in the mail body wants to be:
-> 
-> From: Thomas Gleixner <tglx@linutronix.de>
-Yes I accidentally missed that in this patch.
-Others have that line on all the patches and even v2 for this patch
-has. Will fix.
-> 
-> followed by an empty new line before the actual changelog text
-> starts. That way the attribution of the patch when applying it will be
-> correct.
-> 
-> Documentation/process/ is there for a reason and following the few
-> simple rules to get that straight is not rocket science.
-> 
-> Thanks,
-> 
->         tglx
-> 
-> 
-Anchal
+On 24/08/2020 12:58, Jan Beulich wrote:
+> With changes done over time and as far as linking goes, the only special
+> things about building with EFI support enabled are
+> - the need for the dummy relocations object for xen.gz uniformly in all
+>   build stages,
+> - the special efi/buildid.o file, which can't be made part of
+>   efi/built_in.o, due to the extra linker options required for it.
+> All other efi/*.o can be consumed from the built_in*.o files.
+>
+> In efi/Makefile, besides moving relocs-dummy.o to "extra", also properly
+> split between obj-y and obj-bin-y.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/181365160
+
+This appears to work.
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
