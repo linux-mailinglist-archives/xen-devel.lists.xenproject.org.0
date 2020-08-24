@@ -2,62 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A8F24FEC6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 15:24:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FF124FF03
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 15:35:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kACSJ-0002Dd-3s; Mon, 24 Aug 2020 13:24:11 +0000
+	id 1kACcR-000392-4f; Mon, 24 Aug 2020 13:34:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/Qh=CC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kACSH-0002DX-IW
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 13:24:09 +0000
-X-Inumbo-ID: a7628aee-d4c3-4b37-b2a8-a8ddf1846fea
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=G0tX=CC=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kACcP-00038x-HQ
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 13:34:37 +0000
+X-Inumbo-ID: a3cbaca2-2d56-403f-b676-1245123df1bb
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a7628aee-d4c3-4b37-b2a8-a8ddf1846fea;
- Mon, 24 Aug 2020 13:24:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598275448;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=/gUiF6YP71zkQWWKFsD7w8F1yJy565WdLs747QnH9No=;
- b=JjzBGAoPbNYlJFOQHyHGPDywRad5DRNEH02p0BnUHXQz/fGdWM0V/9wm
- uS3sfjCPuvrNhEWF9XxNrjUi74n/olxRHy7dkpX6aP1TdLYd+CNhmky8v
- ohsbnniJHHPQ8Cz1VGNh5dg0Wc6IIagoDLukfq+fY8Jb8xhQ6PGyP8kPF c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vIBSF2W0c97vwNgvDV+eAmhS4uVFP5ZvskZNQmS08z2k2GaZqcDilo0cOyGTjunWQDW8M6huBm
- dz/yMxL1LiY0k8mktNKgcXKhUrML0mH3rjtPg7DZoO7QUmnW/Lo1GptMF9qfjbpC2y31BGfnnh
- YbetVDMZmPFSOlwJVOTRI2SCcbPXSSz1QeXaNyS/iYzTuJ8xLiNkNZH3jsvbI99rXCyNYcmpnT
- qsXfY5Q8lZGtbVCZL1FQl9vgQ8/AZ42kHorXsh8ZVjRMHNMjUbS5xmLbnbEBikKYjBiIRCYqE3
- jHc=
-X-SBRS: 2.7
-X-MesageID: 25296321
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,348,1592884800"; d="scan'208";a="25296321"
-Subject: Re: [PATCH v2 2/5] x86: don't maintain compat M2P when !PV32
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <5d456607-b36b-9802-1021-2e6d01d7f158@suse.com>
- <f3631a73-fda0-0676-09b8-c1b4b95cdfe5@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a7f182ca-fc96-8fc1-780c-636a4204d599@citrix.com>
-Date: Mon, 24 Aug 2020 14:23:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id a3cbaca2-2d56-403f-b676-1245123df1bb;
+ Mon, 24 Aug 2020 13:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=poUZBmr/U6aulyQsxBiIVlBmj3SdsKIrL7uZ+Eccr+M=; b=CJ6YKiYOV2K1wogq0E3bGtRELB
+ fur/giKlVlQ7SnQVQ2YMVMVjsG7jByCgOgu3ccPTUQVk4FdBfoerMgEtUD7FUN+FXPOz4+T4tea1W
+ fOW+X2YmaxkH4nnN6onWgdlt6haU/mpRv2aMni4+IortztYyGuTYvtVCQpCvMIcWeCnY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kACcO-0002wf-Ah; Mon, 24 Aug 2020 13:34:36 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kACcO-0002px-1S; Mon, 24 Aug 2020 13:34:36 +0000
+Subject: Re: [PATCH v2 2/2] xen/arm: Throw messages for unknown FP/SIMD
+ implement ID
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Andre.Przywara@arm.com, Bertrand.Marquis@arm.com, Penny.Zheng@arm.com,
+ Kaly.Xin@arm.com, nd@arm.com
+References: <20200824032825.18368-1-wei.chen@arm.com>
+ <20200824032825.18368-3-wei.chen@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <9667769d-e938-0dbc-c2f5-84880435c932@xen.org>
+Date: Mon, 24 Aug 2020 14:34:33 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <f3631a73-fda0-0676-09b8-c1b4b95cdfe5@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200824032825.18368-3-wei.chen@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,55 +64,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/08/2020 13:34, Jan Beulich wrote:
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -34,17 +34,31 @@ EMIT_FILE;
->  #include <asm/fixmap.h>
->  #include <asm/hypercall.h>
->  #include <asm/msr.h>
-> +#include <asm/pv/domain.h>
->  #include <asm/setup.h>
->  #include <asm/numa.h>
->  #include <asm/mem_paging.h>
->  #include <asm/mem_sharing.h>
->  #include <public/memory.h>
->  
-> +#ifdef CONFIG_PV32
+Hi Wei,
+
+On 24/08/2020 04:28, Wei Chen wrote:
+> Arm ID_AA64PFR0_EL1 register provides two fields to describe CPU
+> FP/SIMD implementations. Currently, we exactly know the meaning of
+> 0x0, 0x1 and 0xf of these fields. Xen treats value < 8 as FP/SIMD
+> features presented. If there is a value 0x2 bumped in the future,
+> Xen behaviors for value <= 0x1 can also take effect. But what Xen
+> done for value <= 0x1 may not always cover new value 0x2 required.
+
+Right, but this will also happen with all the other features. This may 
+actually confuse the users as they may think the rest of the features 
+are fully supported which is not correct. For instance, dom0 will crash 
+if you boot Xen on a SVE-capable hardware.
+
+> We throw these messages to break the silence when Xen detected
+> unknown FP/SIMD IDs to notice user to check.
+
+It feels a bit odd to me to print unknown for the FP/SIMD feature but 
+not for all the rest.
+
+IMHO, the right approach is to sanitize ID registers exposed to domains 
+and only expose features we know are correctly handled.
+
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/arch/arm/setup.c | 26 ++++++++++++++++++++++++--
+>   1 file changed, 24 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 7968cee47d..c7802d0e49 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -99,6 +99,28 @@ static const char * __initdata processor_implementers[] = {
+>       ['i'] = "Intel Corporation",
+>   };
+>   
+> +static const char * __initdata fp_implements[] = {
+> +    "Floating-point",
+> +    "Floating-point + half-precision floating-point arithmetic",
+> +    "Floating-point Unknown ID 0x2",
+> +    "Floating-point Unknown ID 0x3",
+> +    "Floating-point Unknown ID 0x4",
+> +    "Floating-point Unknown ID 0x5",
+> +    "Floating-point Unknown ID 0x6",
+> +    "Floating-point Unknown ID 0x7",
+> +};
 > +
->  #define compat_machine_to_phys_mapping ((unsigned int *)RDWR_COMPAT_MPT_VIRT_START)
->  
-> -unsigned int __read_mostly m2p_compat_vstart = __HYPERVISOR_COMPAT_VIRT_START;
-> +unsigned int __initdata m2p_compat_vstart = __HYPERVISOR_COMPAT_VIRT_START;
+> +static const char * __initdata advsimd_implements[] = {
+> +    "AdvancedSIMD",
+> +    "AdvancedSIMD + half-precision floating-point arithmetic",
+> +    "AdvancedSIMD Unknown ID 0x2",
+> +    "AdvancedSIMD Unknown ID 0x3",
+> +    "AdvancedSIMD Unknown ID 0x4",
+> +    "AdvancedSIMD Unknown ID 0x5",
+> +    "AdvancedSIMD Unknown ID 0x6",
+> +    "AdvancedSIMD Unknown ID 0x7",
+> +};
 > +
-> +l2_pgentry_t *__read_mostly compat_idle_pg_table_l2;
-> +
-> +#else /* !CONFIG_PV32 */
-> +
-> +/*
-> + * Declare the symbol such that (dead) code referencing it can be built
-> + * without a lot of #ifdef-ary, but mark it fully const and don't define
-> + * this symbol anywhere (relying on DCE by the compiler).
-> + */
-> +extern const unsigned int *const compat_machine_to_phys_mapping;
+>   static void __init processor_id(void)
+>   {
+>       const char *implementer = "Unknown";
+> @@ -129,8 +151,8 @@ static void __init processor_id(void)
+>              cpu_has_el1_32 ? "64+32" : cpu_has_el1_64 ? "64" : "No",
+>              cpu_has_el0_32 ? "64+32" : cpu_has_el0_64 ? "64" : "No");
+>       printk("    Extensions:%s%s%s\n",
+> -           cpu_has_fp ? " FloatingPoint" : "",
+> -           cpu_has_simd ? " AdvancedSIMD" : "",
+> +           cpu_has_fp ? fp_implements[boot_cpu_feature64(fp)] : "",
+> +           cpu_has_simd ? advsimd_implements[boot_cpu_feature64(simd)] : "",
+So far, each extension name are just a word and they are all separated 
+with spaces. With this change, there will be multiple words per 
+extension which is quite confusion.
 
-This has a different indirection.  I know it is for DCE, but it still
-ought to match.
+If we decide to go ahead printing the "unknown", then we want to provide 
+a full description of the extension on a separate line. Maybe:
 
-I'm also not convinced that asymmetric const is a good idea.  All it
-will do is confuse people, because now the "failed to DCE" error will be
-a compiler error for writing to a read-only array, not a link time error
-like every other instance of failed DCE.
+"AdvancedSIMD: With half-precision floating-point arithmetic".
 
-Therefore, it ought to be:
 
-extern unsigned int compat_machine_to_phys_mapping[];
+>              cpu_has_gicv3 ? " GICv3-SysReg" : "");
+>   
+>       printk("  Debug Features: %016"PRIx64" %016"PRIx64"\n",
+> 
 
-Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Cheers,
 
-I'm disappointed that HYPERVISOR_COMPAT_VIRT_START() hasn't disappeared,
-and instead sprouted a nop wrapper, but I guess it can wait for
-subsequent cleanup.
-
-~Andrew
+-- 
+Julien Grall
 
