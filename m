@@ -2,63 +2,108 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0652250894
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 20:55:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9032509A5
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 21:52:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAHcH-0007ZR-B6; Mon, 24 Aug 2020 18:54:49 +0000
+	id 1kAIUa-00048K-2M; Mon, 24 Aug 2020 19:50:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5o7W=CC=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1kAHcG-0007ZM-1M
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 18:54:48 +0000
-X-Inumbo-ID: 2a3f25c3-c0ba-4e7b-b5c8-9820eea9b754
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ <SRS0=z2P5=CC=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kAIUY-000480-Bx
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 19:50:54 +0000
+X-Inumbo-ID: badc7aef-6f2f-4b67-9d9c-65e2b856ada5
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2a3f25c3-c0ba-4e7b-b5c8-9820eea9b754;
- Mon, 24 Aug 2020 18:54:46 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id b17so9216336wru.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Aug 2020 11:54:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mTIvcfIES3uRNTYiDu9V3D8rL/sOuBtG+Di60G1Gfqw=;
- b=B9okNl527GDnWLU+CBuCL2vmbWUDJESVu/AcVJ3txdZSrwNkNnwh+p8phebCJHobcF
- R3oMYNrpUJPCqFioPo/R1jSlvCWLa5zoUwrVHftWt3+HLY/jcN9ngJSv5PB7g4tKIFSK
- tARHVc4KLKVwjwomulDkQpfLZ4GVnpZUTHih0NDIOhbanRBEvNWz888yZ57Ub3g5FGFN
- SSncxlw/v1VdfKg6u9++2jhSeDqDRucdXKdy8IRkaBxhpWNvScRhNeSBB3t5C8fWh8JA
- mcjhZ04y3tk36FmD30ZpEMu+K0CCco5gg3g1guJQbPpx+9P3CqHm/b0wDoXtFBtFAXpe
- EmtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mTIvcfIES3uRNTYiDu9V3D8rL/sOuBtG+Di60G1Gfqw=;
- b=Oop496d7FpNRwsuKKz0GNt/8cnQ5m2YhcMyE1M4LygHjcxAVboM4DuLX7M885kwewb
- pnC3YIScbgs/0JLnLhnETR0k9Hkut2AuYCpkombpojYo73135hH299hoJb3Gh5mDmJtS
- WIebQ1Q9A/CnotGh6hLbuKeZKbpxnkFXdWYfffh3wrKVrrFFyLFLR0S5ZDtd6ypL5ioN
- NeoFhAyT4yRkLXTLIKnKdrCU3qce7pfZlGEnye4Pndv9popmU/ZGKnHAoMV9oddwTGrv
- MDAUK22aO8bdtQfD/Gfu1lNhBiJ7cSF2zBWVlImutwDlK1AfrnKOHL5b/z4nrFDxqo/A
- 6nQw==
-X-Gm-Message-State: AOAM532X7Pz3TbFijdHdB1ElUo1zIZxVJI3vFjD+db0kYtXANHPNUijC
- nGdvelqDBwp7VpRxwi+1apl7ipIgmR1E+AK+2fI=
-X-Google-Smtp-Source: ABdhPJwYmEnUHtT1SFyBbTa0TQY3EJMEaOku5d1mVPQimjHhdmkQaAwqda8rAe7VxgdNHbbrfPfxFjypeE/xNByY0Uc=
-X-Received: by 2002:adf:f312:: with SMTP id i18mr2216756wro.399.1598295286065; 
- Mon, 24 Aug 2020 11:54:46 -0700 (PDT)
+ id badc7aef-6f2f-4b67-9d9c-65e2b856ada5;
+ Mon, 24 Aug 2020 19:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=zSp03TSB7sNg9P+vwfs4zlev785KGiou2gTQjVDYJVM=; b=vrbiaDcgaubkoqYu2b8HupDkpE
+ /TpTqk3D7egg91UhbOpE0UyRsWxUP35CRoWTMsnII6oBoL848nT4sFfS/gZ+Twb1k1RIb8kA8MYX8
+ NA6Io8B/NWyat8Yz2B6b0dXCRFpC8I8oybyTup5hswFe4i/qZrg589qDqFITlb60acJ4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAIUQ-0002uk-M7; Mon, 24 Aug 2020 19:50:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAIUQ-0004Z9-Ec; Mon, 24 Aug 2020 19:50:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAIUQ-00076a-Dt; Mon, 24 Aug 2020 19:50:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152726-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-References: <20200824181524.1111-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20200824181524.1111-1-andrew.cooper3@citrix.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Mon, 24 Aug 2020 19:54:30 +0100
-Message-ID: <CAJ=z9a3+BRf38T3B4Rti31KXRrNWa9TnbExRKXT2b7g1msPxMg@mail.gmail.com>
-Subject: Re: [PATCH] xen/mm: Introduce CONFIG_M2P and provide common fallback
- logic
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: multipart/alternative; boundary="000000000000c5af3205ada41ec1"
+Subject: [qemu-mainline test] 152726: regressions - FAIL
+X-Osstest-Failures: qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+ qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
+ qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: qemuu=8367a77c4d3f6e1e60890f5510304feb2c621611
+X-Osstest-Versions-That: qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 24 Aug 2020 19:50:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,276 +117,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---000000000000c5af3205ada41ec1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+flight 152726 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152726/
 
-Hi Andrew,
+Regressions :-(
 
-On Mon, 24 Aug 2020, 19:15 Andrew Cooper, <andrew.cooper3@citrix.com> wrote=
-:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-qemuu-rhel6hvm-amd 10 redhat-install     fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-nested-amd 10 debian-hvm-install  fail REGR. vs. 152631
+ test-amd64-i386-qemuu-rhel6hvm-intel 10 redhat-install   fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-win7-amd64 10 windows-install  fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install   fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install   fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 10 windows-install  fail REGR. vs. 152631
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 152631
+ test-arm64-arm64-libvirt-xsm 12 guest-start              fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd      10 debian-di-install        fail REGR. vs. 152631
+ test-amd64-amd64-qemuu-nested-intel 10 debian-hvm-install fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-vhd 11 guest-start              fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 152631
+ test-armhf-armhf-libvirt     12 guest-start              fail REGR. vs. 152631
+ test-armhf-armhf-libvirt-raw 10 debian-di-install        fail REGR. vs. 152631
 
-> Architectures which don't implement an M2P shouldn't be forced to impleme=
-nt
-> stubs.  Implement them in common code.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->
-> I'm pretty sure the mfn_to_gmfn() stub is bogus before and after this
-> change.
-> The two uses in common code are getdomaininfo and in memory_exchange(),
-> which
-> result in junk.
->
-> I presume ARM toolstacks don't ever try to map info->shared_info_frame,
-> because I can't see how it would work.
->
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
 
-It is broken. I had a series that tried to remove the M2P (see [1]) but
-there was some disagreement on how to implement it.
+version targeted for testing:
+ qemuu                8367a77c4d3f6e1e60890f5510304feb2c621611
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
----
->  xen/arch/x86/Kconfig     |  1 +
->  xen/common/Kconfig       |  3 +++
->  xen/include/asm-arm/mm.h |  5 -----
->  xen/include/xen/mm.h     | 10 ++++++++++
->  4 files changed, 14 insertions(+), 5 deletions(-)
->
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index a636a4bb1e..9bc97a1cf5 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -24,6 +24,7 @@ config X86
->         select HAS_SCHED_GRANULARITY
->         select HAS_UBSAN
->         select HAS_VPCI if !PV_SHIM_EXCLUSIVE && HVM
-> +       select M2P
->         select NEEDS_LIBELF
->         select NUMA
->
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 15e3b79ff5..0bc186d67b 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -63,6 +63,9 @@ config HAS_IOPORTS
->  config HAS_SCHED_GRANULARITY
->         bool
->
-> +config M2P
-> +       bool
-> +
->  config NEEDS_LIBELF
->         bool
->
-> diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
-> index f8ba49b118..f4e1864703 100644
-> --- a/xen/include/asm-arm/mm.h
-> +++ b/xen/include/asm-arm/mm.h
-> @@ -326,11 +326,6 @@ struct page_info *get_page_from_gva(struct vcpu *v,
-> vaddr_t va,
->  #define SHARED_M2P_ENTRY         (~0UL - 1UL)
->  #define SHARED_M2P(_e)           ((_e) =3D=3D SHARED_M2P_ENTRY)
->
-> -/* Xen always owns P2M on ARM */
-> -#define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn), (void)(pfn); }
-> while (0)
-> -#define mfn_to_gmfn(_d, mfn)  (mfn)
-> -
-> -
->  /* Arch-specific portion of memory_op hypercall. */
->  long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);
->
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 1061765bcd..8f6858f954 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -685,4 +685,14 @@ static inline void put_page_alloc_ref(struct
-> page_info *page)
->      }
->  }
->
-> +/*
-> + * For architectures which don't maintain their own M2P, provide a stub
-> + * implementation for common code to use.
-> + */
-> +#ifndef CONFIG_M2P
-> +static inline void set_gpfn_from_mfn(unsigned long mfn, unsigned long
-> pfn) {}
-> +static inline unsigned long mfn_to_gmfn(
-> +    const struct domain *d, unsigned long mfn) { return mfn; }
-> +#endif
->
+Last test of basis   152631  2020-08-20 09:07:46 Z    4 days
+Failing since        152659  2020-08-21 14:07:39 Z    3 days    6 attempts
+Testing same since   152712  2020-08-23 23:07:32 Z    0 days    2 attempts
 
-Please don't add this hack in common code. This is a broken implementation
-and we are lucky it didn't result to a disaster yet.
+------------------------------------------------------------
+People who touched revisions under test:
+  Alistair Francis <alistair.francis@wdc.com>
+  Alistair Francis <alistair.francis@xilinx.com>
+  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
+  Bin Meng <bin.meng@windriver.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
+  Hou Weiying <weiying_hou@outlook.com>
+  Laurent Vivier <laurent@vivier.eu>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Max Reitz <mreitz@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Myriad-Dreamin <camiyoru@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Zong Li <zong.li@sifive.com>
 
-The correct way to implement it is to remove mfn_to_gmfn from common code.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-I would be happy to try to revive my series.
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-[1] https://patches.linaro.org/cover/165661/
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-+
->  #endif /* __XEN_MM_H__ */
-> --
-> 2.11.0
->
->
+Not pushing.
 
---000000000000c5af3205ada41ec1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Andrew,<br><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Mon, 24 Aug 2020, 19:15 Andrew Cooper, &l=
-t;<a href=3D"mailto:andrew.cooper3@citrix.com" rel=3D"noreferrer noreferrer=
-" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
-c solid;padding-left:1ex">Architectures which don&#39;t implement an M2P sh=
-ouldn&#39;t be forced to implement<br>
-stubs.=C2=A0 Implement them in common code.<br>
-<br>
-No functional change.<br>
-<br>
-Signed-off-by: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.co=
-m" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">andrew.cooper=
-3@citrix.com</a>&gt;<br>
----<br>
-CC: Jan Beulich &lt;<a href=3D"mailto:JBeulich@suse.com" rel=3D"noreferrer =
-noreferrer noreferrer" target=3D"_blank">JBeulich@suse.com</a>&gt;<br>
-CC: Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger.pau@citrix.com" rel=3D=
-"noreferrer noreferrer noreferrer" target=3D"_blank">roger.pau@citrix.com</=
-a>&gt;<br>
-CC: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" rel=3D"noreferrer noreferrer =
-noreferrer" target=3D"_blank">wl@xen.org</a>&gt;<br>
-CC: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" rel=3D=
-"noreferrer noreferrer noreferrer" target=3D"_blank">sstabellini@kernel.org=
-</a>&gt;<br>
-CC: Julien Grall &lt;<a href=3D"mailto:julien@xen.org" rel=3D"noreferrer no=
-referrer noreferrer" target=3D"_blank">julien@xen.org</a>&gt;<br>
-CC: Volodymyr Babchuk &lt;<a href=3D"mailto:Volodymyr_Babchuk@epam.com" rel=
-=3D"noreferrer noreferrer noreferrer" target=3D"_blank">Volodymyr_Babchuk@e=
-pam.com</a>&gt;<br>
-<br>
-I&#39;m pretty sure the mfn_to_gmfn() stub is bogus before and after this c=
-hange.<br>
-The two uses in common code are getdomaininfo and in memory_exchange(), whi=
-ch<br>
-result in junk.<br>
-<br>
-I presume ARM toolstacks don&#39;t ever try to map info-&gt;shared_info_fra=
-me,<br>
-because I can&#39;t see how it would work.<br></blockquote></div></div><div=
- dir=3D"auto"><br></div><div dir=3D"auto">It is broken. I had a series that=
- tried to remove the M2P (see [1]) but there was some disagreement on how t=
-o implement it.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div cla=
-ss=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
-.8ex;border-left:1px #ccc solid;padding-left:1ex">
----<br>
-=C2=A0xen/arch/x86/Kconfig=C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
-=C2=A0xen/common/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 +++<br>
-=C2=A0xen/include/asm-arm/mm.h |=C2=A0 5 -----<br>
-=C2=A0xen/include/xen/mm.h=C2=A0 =C2=A0 =C2=A0| 10 ++++++++++<br>
-=C2=A04 files changed, 14 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig<br>
-index a636a4bb1e..9bc97a1cf5 100644<br>
---- a/xen/arch/x86/Kconfig<br>
-+++ b/xen/arch/x86/Kconfig<br>
-@@ -24,6 +24,7 @@ config X86<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select HAS_SCHED_GRANULARITY<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select HAS_UBSAN<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select HAS_VPCI if !PV_SHIM_EXCLUSIVE &amp;&amp=
-; HVM<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0select M2P<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select NEEDS_LIBELF<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select NUMA<br>
-<br>
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig<br>
-index 15e3b79ff5..0bc186d67b 100644<br>
---- a/xen/common/Kconfig<br>
-+++ b/xen/common/Kconfig<br>
-@@ -63,6 +63,9 @@ config HAS_IOPORTS<br>
-=C2=A0config HAS_SCHED_GRANULARITY<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool<br>
-<br>
-+config M2P<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bool<br>
-+<br>
-=C2=A0config NEEDS_LIBELF<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool<br>
-<br>
-diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h<br>
-index f8ba49b118..f4e1864703 100644<br>
---- a/xen/include/asm-arm/mm.h<br>
-+++ b/xen/include/asm-arm/mm.h<br>
-@@ -326,11 +326,6 @@ struct page_info *get_page_from_gva(struct vcpu *v, va=
-ddr_t va,<br>
-=C2=A0#define SHARED_M2P_ENTRY=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(~0UL - 1UL=
-)<br>
-=C2=A0#define SHARED_M2P(_e)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0((_e) =
-=3D=3D SHARED_M2P_ENTRY)<br>
-<br>
--/* Xen always owns P2M on ARM */<br>
--#define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn), (void)(pfn); } whil=
-e (0)<br>
--#define mfn_to_gmfn(_d, mfn)=C2=A0 (mfn)<br>
--<br>
--<br>
-=C2=A0/* Arch-specific portion of memory_op hypercall. */<br>
-=C2=A0long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);<br>
-<br>
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h<br>
-index 1061765bcd..8f6858f954 100644<br>
---- a/xen/include/xen/mm.h<br>
-+++ b/xen/include/xen/mm.h<br>
-@@ -685,4 +685,14 @@ static inline void put_page_alloc_ref(struct page_info=
- *page)<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0}<br>
-<br>
-+/*<br>
-+ * For architectures which don&#39;t maintain their own M2P, provide a stu=
-b<br>
-+ * implementation for common code to use.<br>
-+ */<br>
-+#ifndef CONFIG_M2P<br>
-+static inline void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn)=
- {}<br>
-+static inline unsigned long mfn_to_gmfn(<br>
-+=C2=A0 =C2=A0 const struct domain *d, unsigned long mfn) { return mfn; }<b=
-r>
-+#endif<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
-"auto">Please don&#39;t add this hack in common code. This is a broken impl=
-ementation and we are lucky it didn&#39;t result to a disaster yet.</div><d=
-iv dir=3D"auto"><br></div><div dir=3D"auto">The correct way to implement it=
- is to remove mfn_to_gmfn from common code.</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">I would be happy to try to revive my series.</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br=
-></div><div dir=3D"auto">[1]=C2=A0<a href=3D"https://patches.linaro.org/cov=
-er/165661/" target=3D"_blank" rel=3D"noreferrer">https://patches.linaro.org=
-/cover/165661/</a></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
-:1ex">
-+<br>
-=C2=A0#endif /* __XEN_MM_H__ */<br>
--- <br>
-2.11.0<br>
-<br>
-</blockquote></div></div></div>
-
---000000000000c5af3205ada41ec1--
+(No revision log; it would be 3398 lines long.)
 
