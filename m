@@ -2,60 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6C324F27C
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 08:22:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BACF24F2A3
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 08:38:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA5qx-0003fj-AM; Mon, 24 Aug 2020 06:21:11 +0000
+	id 1kA67D-0004hn-T2; Mon, 24 Aug 2020 06:37:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h8JF=CC=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kA5qv-0003fe-Dp
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 06:21:09 +0000
-X-Inumbo-ID: 33ea4293-4ed8-4ca5-84e1-35797aa57e29
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=z2P5=CC=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kA67C-0004hi-8Q
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 06:37:58 +0000
+X-Inumbo-ID: ec8e6c8a-c771-44ee-b38b-8bcaebdf034b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 33ea4293-4ed8-4ca5-84e1-35797aa57e29;
- Mon, 24 Aug 2020 06:21:08 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C1123AC3F;
- Mon, 24 Aug 2020 06:21:36 +0000 (UTC)
-Subject: Re: [patch RFC 26/38] x86/xen: Wrap XEN MSI management into irqdomain
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org, linux-pci@vger.kernel.org,
- xen-devel@lists.xenproject.org, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>, Lu Baolu
- <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
- Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
- Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-References: <20200821002424.119492231@linutronix.de>
- <20200821002947.868727656@linutronix.de>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <8860c7bc-67ab-ce64-0340-1458d2483a39@suse.com>
-Date: Mon, 24 Aug 2020 08:21:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id ec8e6c8a-c771-44ee-b38b-8bcaebdf034b;
+ Mon, 24 Aug 2020 06:37:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=IAK/4li/e1Akl2jegL8fx+Ctt1usFgKbkv/K3NjCAPs=; b=HGH60IqLXpROwzYEbUBpC2IISz
+ lAsq4OINcZTAXVlZEZTgzzgPICSmRE/i+MpRGed4xNGpelJfUAu/VRUeM5DokqgZ0F702L5w0taZ+
+ MbRrn/zq0edpjYIdOzqa6Che0Q1j0KV17v1HX1femBTRZnPyTxORY7WTImrwRiNw7PWU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kA67A-00025L-3g; Mon, 24 Aug 2020 06:37:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kA679-0004b6-Rn; Mon, 24 Aug 2020 06:37:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kA679-0008GX-RG; Mon, 24 Aug 2020 06:37:55 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152720-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200821002947.868727656@linutronix.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 152720: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=308904472b8e956b17c0eccfbdb21ea0d142a4d0
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 24 Aug 2020 06:37:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,120 +78,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.08.20 02:24, Thomas Gleixner wrote:
-> To allow utilizing the irq domain pointer in struct device it is necessary
-> to make XEN/MSI irq domain compatible.
-> 
-> While the right solution would be to truly convert XEN to irq domains, this
-> is an exercise which is not possible for mere mortals with limited XENology.
-> 
-> Provide a plain irqdomain wrapper around XEN. While this is blatant
-> violation of the irqdomain design, it's the only solution for a XEN igorant
-> person to make progress on the issue which triggered this change.
-> 
-> Signed-off-by: Thomas Gleixner<tglx@linutronix.de>
-> Cc:linux-pci@vger.kernel.org
-> Cc:xen-devel@lists.xenproject.org
+flight 152720 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152720/
 
-Acked-by: Juergen Gross <jgross@suse.com>
+Regressions :-(
 
-Looking into https://www.kernel.org/doc/Documentation/IRQ-domain.txt (is
-this still valid?) I believe Xen should be able to use the "No Map"
-approach, as Xen only ever uses software IRQs (at least those are the
-only ones visible to any driver). The (virtualized) hardware interrupts
-are Xen events after all.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-So maybe morphing Xen into supporting irqdomains in a sane way isn't
-that complicated. Maybe I'm missing the main complexities, though.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              308904472b8e956b17c0eccfbdb21ea0d142a4d0
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   45 days
+Failing since        151818  2020-07-11 04:18:52 Z   44 days   40 attempts
+Testing same since   152686  2020-08-23 04:19:09 Z    1 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> ---
-> Note: This is completely untested, but it compiles so it must be perfect.
-> ---
->   arch/x86/pci/xen.c |   63 +++++++++++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 63 insertions(+)
-> 
-> --- a/arch/x86/pci/xen.c
-> +++ b/arch/x86/pci/xen.c
-> @@ -406,6 +406,63 @@ static void xen_teardown_msi_irq(unsigne
->   	WARN_ON_ONCE(1);
->   }
->   
-> +static int xen_msi_domain_alloc_irqs(struct irq_domain *domain,
-> +				     struct device *dev,  int nvec)
-> +{
-> +	int type;
-> +
-> +	if (WARN_ON_ONCE(!dev_is_pci(dev)))
-> +		return -EINVAL;
-> +
-> +	if (first_msi_entry(dev)->msi_attrib.is_msix)
-> +		type = PCI_CAP_ID_MSIX;
-> +	else
-> +		type = PCI_CAP_ID_MSI;
-> +
-> +	return x86_msi.setup_msi_irqs(to_pci_dev(dev), nvec, type);
-> +}
-> +
-> +static void xen_msi_domain_free_irqs(struct irq_domain *domain,
-> +				     struct device *dev)
-> +{
-> +	if (WARN_ON_ONCE(!dev_is_pci(dev)))
-> +		return;
-> +
-> +	x86_msi.teardown_msi_irqs(to_pci_dev(dev));
-> +}
-> +
-> +static struct msi_domain_ops xen_pci_msi_domain_ops = {
-> +	.domain_alloc_irqs	= xen_msi_domain_alloc_irqs,
-> +	.domain_free_irqs	= xen_msi_domain_free_irqs,
-> +};
-> +
-> +static struct msi_domain_info xen_pci_msi_domain_info = {
-> +	.ops			= &xen_pci_msi_domain_ops,
-> +};
-> +
-> +/*
-> + * This irq domain is a blatant violation of the irq domain design, but
-> + * distangling XEN into real irq domains is not a job for mere mortals with
-> + * limited XENology. But it's the least dangerous way for a mere mortal to
-> + * get rid of the arch_*_msi_irqs() hackery in order to store the irq
-> + * domain pointer in struct device. This irq domain wrappery allows to do
-> + * that without breaking XEN terminally.
-> + */
-> +static __init struct irq_domain *xen_create_pci_msi_domain(void)
-> +{
-> +	struct irq_domain *d = NULL;
-> +	struct fwnode_handle *fn;
-> +
-> +	fn = irq_domain_alloc_named_fwnode("XEN-MSI");
-> +	if (fn)
-> +		d = msi_create_irq_domain(fn, &xen_pci_msi_domain_info, NULL);
-> +
-> +	/* FIXME: No idea how to survive if this fails */
-> +	BUG_ON(!d);
-> +
-> +	return d;
-> +}
-> +
->   static __init void xen_setup_pci_msi(void)
->   {
->   	if (xen_initial_domain()) {
-> @@ -426,6 +483,12 @@ static __init void xen_setup_pci_msi(voi
->   	}
->   
->   	x86_msi.teardown_msi_irq = xen_teardown_msi_irq;
-> +
-> +	/*
-> +	 * Override the PCI/MSI irq domain init function. No point
-> +	 * in allocating the native domain and never use it.
-> +	 */
-> +	x86_init.irqs.create_pci_msi_domain = xen_create_pci_msi_domain;
->   }
->   
->   #else /* CONFIG_PCI_MSI */
-> 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 10057 lines long.)
 
