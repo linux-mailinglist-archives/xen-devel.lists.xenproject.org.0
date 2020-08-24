@@ -2,45 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC34224FD20
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F5924FD70
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:05:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAB9U-0001Fr-IQ; Mon, 24 Aug 2020 12:00:40 +0000
+	id 1kABEE-0001W2-5r; Mon, 24 Aug 2020 12:05:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kAB9S-0001Fi-WE
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:00:39 +0000
-X-Inumbo-ID: 14390ee5-3fae-4e4c-aec4-257ec158b406
+ id 1kABED-0001Vx-0P
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:05:33 +0000
+X-Inumbo-ID: 571d2d2a-b0e4-4a43-9596-71dcdc29e66c
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14390ee5-3fae-4e4c-aec4-257ec158b406;
- Mon, 24 Aug 2020 12:00:38 +0000 (UTC)
+ id 571d2d2a-b0e4-4a43-9596-71dcdc29e66c;
+ Mon, 24 Aug 2020 12:05:32 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1925CB637;
- Mon, 24 Aug 2020 12:01:07 +0000 (UTC)
-Subject: [PATCH v3 4/4] x86: don't include domctl and alike in shim-exclusive
- builds
+ by mx2.suse.de (Postfix) with ESMTP id 52763B623;
+ Mon, 24 Aug 2020 12:06:01 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/2] build: corrections to .init.o generation logic
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <088c088d-d463-05c6-1d17-d682a878e149@suse.com>
-Message-ID: <16fa502c-a648-c743-25cd-373c43d24591@suse.com>
-Date: Mon, 24 Aug 2020 14:00:36 +0200
+Message-ID: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
+Date: Mon, 24 Aug 2020 14:05:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <088c088d-d463-05c6-1d17-d682a878e149@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,212 +51,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There is no need for platform-wide, system-wide, or per-domain control
-in this case. Hence avoid including this dead code in the build.
+Initially I merely noticed the regression addressed by a patch which
+meanwhile has already gone in, but looking more closely revealed
+further deficiencies. After having moved the FIXME in patch 1 I
+couldn't resist and address that issue at least partly (patch 2),
+seeing that three and a half years have passed and nothing was done
+to improve the situation.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+1: build: also check for empty .bss.* in .o -> .init.o conversion
+2: EFI: free unused boot mem in at least some cases
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -23,7 +23,6 @@ obj-$(CONFIG_GDBSX) += debug.o
- obj-y += delay.o
- obj-y += desc.o
- obj-bin-y += dmi_scan.init.o
--obj-y += domctl.o
- obj-y += domain.o
- obj-bin-y += dom0_build.init.o
- obj-y += domain_page.o
-@@ -51,7 +50,6 @@ obj-y += numa.o
- obj-y += pci.o
- obj-y += percpu.o
- obj-y += physdev.o x86_64/physdev.o
--obj-y += platform_hypercall.o x86_64/platform_hypercall.o
- obj-y += psr.o
- obj-y += setup.o
- obj-y += shutdown.o
-@@ -60,7 +58,6 @@ obj-y += smpboot.o
- obj-y += spec_ctrl.o
- obj-y += srat.o
- obj-y += string.o
--obj-y += sysctl.o
- obj-y += time.o
- obj-y += trace.o
- obj-y += traps.o
-@@ -71,6 +68,13 @@ obj-$(CONFIG_TBOOT) += tboot.o
- obj-y += hpet.o
- obj-y += vm_event.o
- obj-y += xstate.o
-+
-+ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
-+obj-y += domctl.o
-+obj-y += platform_hypercall.o x86_64/platform_hypercall.o
-+obj-y += sysctl.o
-+endif
-+
- extra-y += asm-macros.i
- 
- ifneq ($(CONFIG_HVM),y)
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -47,6 +47,8 @@
- /* Per-CPU variable for enforcing the lock ordering */
- DEFINE_PER_CPU(int, mm_lock_level);
- 
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+
- /************************************************/
- /*              LOG DIRTY SUPPORT               */
- /************************************************/
-@@ -628,6 +630,8 @@ void paging_log_dirty_init(struct domain
-     d->arch.paging.log_dirty.ops = ops;
- }
- 
-+#endif /* CONFIG_PV_SHIM_EXCLUSIVE */
-+
- /************************************************/
- /*           CODE FOR PAGING SUPPORT            */
- /************************************************/
-@@ -667,7 +671,7 @@ void paging_vcpu_init(struct vcpu *v)
-         shadow_vcpu_init(v);
- }
- 
--
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- int paging_domctl(struct domain *d, struct xen_domctl_shadow_op *sc,
-                   XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl,
-                   bool_t resuming)
-@@ -788,6 +792,7 @@ long paging_domctl_continuation(XEN_GUES
- 
-     return ret;
- }
-+#endif /* CONFIG_PV_SHIM_EXCLUSIVE */
- 
- /* Call when destroying a domain */
- int paging_teardown(struct domain *d)
-@@ -803,10 +808,12 @@ int paging_teardown(struct domain *d)
-     if ( preempted )
-         return -ERESTART;
- 
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-     /* clean up log dirty resources. */
-     rc = paging_free_log_dirty_bitmap(d, 0);
-     if ( rc == -ERESTART )
-         return rc;
-+#endif
- 
-     /* Move populate-on-demand cache back to domain_list for destruction */
-     rc = p2m_pod_empty_cache(d);
---- a/xen/arch/x86/pv/hypercall.c
-+++ b/xen/arch/x86/pv/hypercall.c
-@@ -42,7 +42,9 @@ const hypercall_table_t pv_hypercall_tab
-     COMPAT_CALL(set_callbacks),
-     HYPERCALL(fpu_taskswitch),
-     HYPERCALL(sched_op_compat),
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-     COMPAT_CALL(platform_op),
-+#endif
-     HYPERCALL(set_debugreg),
-     HYPERCALL(get_debugreg),
-     COMPAT_CALL(update_descriptor),
-@@ -72,8 +74,10 @@ const hypercall_table_t pv_hypercall_tab
- #endif
-     HYPERCALL(event_channel_op),
-     COMPAT_CALL(physdev_op),
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-     HYPERCALL(sysctl),
-     HYPERCALL(domctl),
-+#endif
- #ifdef CONFIG_KEXEC
-     COMPAT_CALL(kexec_op),
- #endif
-@@ -89,7 +93,9 @@ const hypercall_table_t pv_hypercall_tab
-     HYPERCALL(hypfs_op),
- #endif
-     HYPERCALL(mca),
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-     HYPERCALL(arch_1),
-+#endif
- };
- 
- #undef do_arch_1
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -6,7 +6,6 @@ obj-$(CONFIG_CORE_PARKING) += core_parki
- obj-y += cpu.o
- obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
--obj-y += domctl.o
- obj-y += domain.o
- obj-y += event_2l.o
- obj-y += event_channel.o
-@@ -26,7 +25,6 @@ obj-$(CONFIG_NEEDS_LIST_SORT) += list_so
- obj-$(CONFIG_LIVEPATCH) += livepatch.o livepatch_elf.o
- obj-$(CONFIG_MEM_ACCESS) += mem_access.o
- obj-y += memory.o
--obj-y += monitor.o
- obj-y += multicall.o
- obj-y += notifier.o
- obj-y += page_alloc.o
-@@ -47,7 +45,6 @@ obj-y += spinlock.o
- obj-y += stop_machine.o
- obj-y += string.o
- obj-y += symbols.o
--obj-y += sysctl.o
- obj-y += tasklet.o
- obj-y += time.o
- obj-y += timer.o
-@@ -66,6 +63,12 @@ obj-bin-$(CONFIG_X86) += $(foreach n,dec
- 
- obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o kernel.o memory.o multicall.o xlat.o)
- 
-+ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
-+obj-y += domctl.o
-+obj-y += monitor.o
-+obj-y += sysctl.o
-+endif
-+
- extra-y := symbols-dummy.o
- 
- obj-$(CONFIG_COVERAGE) += coverage/
---- a/xen/include/asm-x86/paging.h
-+++ b/xen/include/asm-x86/paging.h
-@@ -154,6 +154,8 @@ struct paging_mode {
- /*****************************************************************************
-  * Log dirty code */
- 
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+
- /* get the dirty bitmap for a specific range of pfns */
- void paging_log_dirty_range(struct domain *d,
-                             unsigned long begin_pfn,
-@@ -202,6 +204,15 @@ struct sh_dirty_vram {
-     s_time_t last_dirty;
- };
- 
-+#else /* !CONFIG_PV_SHIM_EXCLUSIVE */
-+
-+static inline void paging_log_dirty_init(struct domain *d,
-+                                         const struct log_dirty_ops *ops) {}
-+static inline void paging_mark_dirty(struct domain *d, mfn_t gmfn) {}
-+static inline void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn) {}
-+
-+#endif /* CONFIG_PV_SHIM_EXCLUSIVE */
-+
- /*****************************************************************************
-  * Entry points into the paging-assistance code */
- 
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -125,6 +125,10 @@ struct vnuma_info {
-     struct xen_vmemrange *vmemrange;
- };
- 
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- void vnuma_destroy(struct vnuma_info *vnuma);
-+#else
-+static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
-+#endif
- 
- #endif /* __XEN_DOMAIN_H__ */
+Jan
 
