@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D338124F571
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4679824F646
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:58:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA89p-0000i8-JH; Mon, 24 Aug 2020 08:48:49 +0000
+	id 1kA8It-0001ej-M5; Mon, 24 Aug 2020 08:58:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HY0O=CC=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1kA89o-0000hu-61
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:48:48 +0000
-X-Inumbo-ID: 70d96ae1-9290-4d15-b8d4-990df4b2bd80
+ id 1kA8Ir-0001ee-K5
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:58:09 +0000
+X-Inumbo-ID: 49f5a107-0ff1-4556-b8e0-b2612f10339b
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 70d96ae1-9290-4d15-b8d4-990df4b2bd80;
- Mon, 24 Aug 2020 08:48:43 +0000 (UTC)
+ id 49f5a107-0ff1-4556-b8e0-b2612f10339b;
+ Mon, 24 Aug 2020 08:58:09 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3CEB721741;
- Mon, 24 Aug 2020 08:48:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D74C42074D;
+ Mon, 24 Aug 2020 08:58:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598258922;
- bh=jRgIWyY0b4yL1+iU+rEN7X0YTkrV7SA7WEWwegKb4Wo=;
+ s=default; t=1598259488;
+ bh=39BZSNOZ3YCtH8xHE/nc+9Glh3GPa0Ojog1NJQhchpA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C2CVBvgK8EgKPjWqphrXn5t1r25wMAM4aX4wG+87SkIZmwFRFP1zlWIk2Z2hbIcGH
- r/29mpG0vAVTE3AD8wewpRjXkykWqV8gJAJqGpotsw7+U1aNThuZZnJhUm9MYH5XDa
- HczkWczVH/pAE++bYJXZZnfGzOzYkwBqN/4Pwqns=
+ b=2bJvJLnkU+RhmReazxHF08V6S1+y9xIIhBv9RUzIxhG8bEPmOg3gQlIdEOBHZ+quR
+ RvxLaVluwPso0FYAZo16kLRHt5zIyfhzmXQkwuJscO0+NUBIeaLZSTzHhdI6vKP8Io
+ 2lqy0KGvw62Cz5zdG440pHvyFmX5ub0UM+1BPRig=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
@@ -40,13 +40,13 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
  Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.4 093/107] Fix build error when CONFIG_ACPI is not
+Subject: [PATCH 4.19 57/71] Fix build error when CONFIG_ACPI is not
  set/enabled:
-Date: Mon, 24 Aug 2020 10:30:59 +0200
-Message-Id: <20200824082409.704889057@linuxfoundation.org>
+Date: Mon, 24 Aug 2020 10:31:48 +0200
+Message-Id: <20200824082358.762937348@linuxfoundation.org>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200824082405.020301642@linuxfoundation.org>
-References: <20200824082405.020301642@linuxfoundation.org>
+In-Reply-To: <20200824082355.848475917@linuxfoundation.org>
+References: <20200824082355.848475917@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -87,10 +87,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-index 91220cc258547..5c11ae66b5d8e 100644
+index 9112d1cb397bb..22da9bfd8a458 100644
 --- a/arch/x86/pci/xen.c
 +++ b/arch/x86/pci/xen.c
-@@ -26,6 +26,7 @@
+@@ -25,6 +25,7 @@
  #include <asm/xen/pci.h>
  #include <asm/xen/cpuid.h>
  #include <asm/apic.h>
