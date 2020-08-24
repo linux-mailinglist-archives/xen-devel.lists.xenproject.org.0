@@ -2,63 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7927D24FE0E
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:50:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 901D824FE0F
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:50:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kABvp-0007EK-2a; Mon, 24 Aug 2020 12:50:37 +0000
+	id 1kABw0-0007FQ-BG; Mon, 24 Aug 2020 12:50:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/Qh=CC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kABvn-0007EF-7r
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:50:35 +0000
-X-Inumbo-ID: 2cda99c7-003e-4815-85d4-e7362523e480
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kABvy-0007FC-JH
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:50:46 +0000
+X-Inumbo-ID: 81cf0826-5770-472f-96f1-e0600b6ee109
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2cda99c7-003e-4815-85d4-e7362523e480;
- Mon, 24 Aug 2020 12:50:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598273433;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=/VnDnfQGmYYaWIQ6zG3a5ryOTssFziXXloaXpXo4UfY=;
- b=LPASm/PQoKbgVPHA7Y0iddb8CW1c/gSbGO2oXI7QFCj/STXtIC+2NjJ3
- yxOOO1RauUgyJ/8BEzT9NLwxze++/U5HnlE/FGc9JQQEEWxv2wZTZEmvG
- gsmRK8b6lWJtyQRWo8pGpsjcRR/xKJ4zZS95pXnKpZn0i/jqgouEeyWy1 8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: xzxmE0IdO3u53g4PXSSCZ90DAdmLblzaz9mjNX5LrlJ9lydAZi6mFXBakvECStIbQeThwuWBIu
- JHASEoV7SE6ExWUbfzXbJUreQLcj5/7myV8NkF3Z51OXAu6JJV2RpEslqbAwKEAxkf0vA5oX8g
- ztChESH2pC5Fm/oBirs//YjOGNpYdiNaVw2+s6JuI8HfR18xEpfSuD6CPrCqlnXpdLjJdiYNYM
- NYscJ5ifqIOrCGkokYIAVwW+keoJAOd/mqX2HgIpYTd/Cj6Kc8VDs8OqiRfu9KwoSfyW2R5SWm
- jpw=
-X-SBRS: 2.7
-X-MesageID: 25453347
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,348,1592884800"; d="scan'208";a="25453347"
-Subject: Re: [PATCH v2 5/5] x86: simplify is_guest_l2_slot()
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <5d456607-b36b-9802-1021-2e6d01d7f158@suse.com>
- <08de75ba-36e3-5860-bbd2-d95bc48bff74@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f1df42f2-2761-7858-6257-28f3e047aba5@citrix.com>
-Date: Mon, 24 Aug 2020 13:50:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 81cf0826-5770-472f-96f1-e0600b6ee109;
+ Mon, 24 Aug 2020 12:50:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C160BAFCF;
+ Mon, 24 Aug 2020 12:51:14 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: guard against straight-line speculation past RET
+Message-ID: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
+Date: Mon, 24 Aug 2020 14:50:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <08de75ba-36e3-5860-bbd2-d95bc48bff74@suse.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,17 +49,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/08/2020 13:35, Jan Beulich wrote:
-> is_pv_32bit_domain() has become expensive, and its use here is
-> redundant: Only 32-bit guests would ever get PGT_pae_xen_l2 set on
-> their L2 page table pages anyway.
->
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Under certain conditions CPUs can speculate into the instruction stream
+past a RET instruction. Guard against this just like 3b7dab93f240
+("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
+did - by inserting an "INT $3" insn. It's merely the mechanics of how to
+achieve this that differ: A pair of macros gets introduced to post-
+process RET insns issued by the compiler (or living in assembly files).
 
-Possibly "if some other error does lead to PGT_pae_xen_l2 ending up
-anywhere else, we still don't want to allow a guest to control the
-entries" ?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Should this depend on CONFIG_SPECULATIVE_HARDEN_BRANCH?
+---
+This depends on the "x86: some assembler macro rework" series posted
+over a month ago.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--- a/xen/include/asm-x86/asm-defns.h
++++ b/xen/include/asm-x86/asm-defns.h
+@@ -50,3 +50,19 @@
+ .macro INDIRECT_JMP arg:req
+     INDIRECT_BRANCH jmp \arg
+ .endm
++
++/*
++ * To guard against speculation past RET, insert a breakpoint insn
++ * immediately after them.
++ */
++.macro ret operand:vararg
++    ret$ \operand
++.endm
++.macro ret$ operand:vararg
++    .purgem ret
++    ret \operand
++    int $3
++    .macro ret operand:vararg
++        ret$ \\(operand)
++    .endm
++.endm
 
