@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF88524FD73
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:07:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8EE24FD79
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:08:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kABFz-0001c5-If; Mon, 24 Aug 2020 12:07:23 +0000
+	id 1kABGp-0001ha-Sr; Mon, 24 Aug 2020 12:08:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kABFx-0001by-P9
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:07:21 +0000
-X-Inumbo-ID: 79e7dc83-9342-4113-9996-55df1ffb51f4
+ id 1kABGo-0001hQ-Je
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:08:14 +0000
+X-Inumbo-ID: 8222b49a-879e-41ec-9536-33763ffb502d
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 79e7dc83-9342-4113-9996-55df1ffb51f4;
- Mon, 24 Aug 2020 12:07:19 +0000 (UTC)
+ id 8222b49a-879e-41ec-9536-33763ffb502d;
+ Mon, 24 Aug 2020 12:08:13 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BCE17B7DF;
- Mon, 24 Aug 2020 12:07:48 +0000 (UTC)
-Subject: [PATCH v2 1/2] build: also check for empty .bss.* in .o -> .init.o
- conversion
+ by mx2.suse.de (Postfix) with ESMTP id 4C5A8AC7F;
+ Mon, 24 Aug 2020 12:08:42 +0000 (UTC)
+Subject: [PATCH v2 2/2] EFI: free unused boot mem in at least some cases
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
 References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
-Message-ID: <7b51ef64-4393-6076-f00c-3dcafaafcefc@suse.com>
-Date: Mon, 24 Aug 2020 14:07:17 +0200
+Message-ID: <f474ff55-cd39-fd6e-f96e-942a17e959ee@suse.com>
+Date: Mon, 24 Aug 2020 14:08:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
@@ -55,205 +55,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We're gaining such sections, and like .text.* and .data.* they shouldn't
-be present in objects subject to automatic to-init conversion. Oddly
-enough for quite some time we did have an instance breaking this rule,
-which gets fixed at this occasion, by breaking out the EFI boot
-allocator functions into its own translation unit.
+Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
+free ebmalloc area at all") was put in place: Make xen_in_range() aware
+of the freed range. This is in particular relevant for EFI-enabled
+builds not actually running on EFI, as the entire range will be unused
+in this case.
 
-Fixes: c5b9805bc1f7 ("efi: create new early memory allocator")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-This depends on "x86/EFI: sanitize build logic" updated to v3 earlier
-today, due to the new source file added, as explicit dependencies on the
-individual objects in x86/Makefile go away there.
+v2: Also adjust the two places where comments point out that they need
+    to remain in sync with xen_in_range(). Add assertions to
+    xen_in_range().
+---
+The remaining issue could be addressed too, by making the area 2M in
+size and 2M-aligned.
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -355,7 +355,7 @@ $(TARGET): delete-unfresh-files
- 	$(MAKE) -C tools
- 	$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/compile.h
- 	[ -e include/asm ] || ln -sf asm-$(TARGET_ARCH) include/asm
--	[ -e arch/$(TARGET_ARCH)/efi ] && for f in boot.c runtime.c compat.c efi.h;\
-+	[ -e arch/$(TARGET_ARCH)/efi ] && for f in $$(cd common/efi; echo *.[ch]); \
- 		do test -r arch/$(TARGET_ARCH)/efi/$$f || \
- 		   ln -nsf ../../../common/efi/$$f arch/$(TARGET_ARCH)/efi/; \
- 		done; \
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -188,7 +188,7 @@ define cmd_obj_init_o
-     $(OBJDUMP) -h $< | while read idx name sz rest; do \
-         case "$$name" in \
-         .*.local) ;; \
--        .text|.text.*|.data|.data.*|.bss) \
-+        .text|.text.*|.data|.data.*|.bss|.bss.*) \
-             test $$(echo $$sz | sed 's,00*,0,') != 0 || continue; \
-             echo "Error: size of $<:$$name is 0x$$sz" >&2; \
-             exit $$(expr $$idx + 1);; \
---- a/xen/arch/arm/efi/Makefile
-+++ b/xen/arch/arm/efi/Makefile
-@@ -1,4 +1,4 @@
- CFLAGS-y += -fshort-wchar
+--- a/xen/arch/x86/efi/stub.c
++++ b/xen/arch/x86/efi/stub.c
+@@ -52,6 +52,12 @@ bool efi_enabled(unsigned int feature)
  
--obj-y +=  boot.init.o runtime.o
-+obj-y += boot.init.o ebmalloc.o runtime.o
- obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
---- a/xen/arch/x86/efi/Makefile
-+++ b/xen/arch/x86/efi/Makefile
-@@ -8,7 +8,7 @@ cmd_objcopy_o_ihex = $(OBJCOPY) -I ihex
+ void __init efi_init_memory(void) { }
  
- boot.init.o: buildid.o
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
++{
++    *start = *end = (unsigned long)_end;
++    return false;
++}
++
+ void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
  
--EFIOBJ := boot.init.o compat.o runtime.o
-+EFIOBJ := boot.init.o ebmalloc.o compat.o runtime.o
- 
- $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=4)
- $(EFIOBJ): CFLAGS-stack-boundary := $(cflags-stack-boundary)
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -112,7 +112,6 @@ static CHAR16 *FormatDec(UINT64 Val, CHA
- static CHAR16 *FormatHex(UINT64 Val, UINTN Width, CHAR16 *Buffer);
- static void  DisplayUint(UINT64 Val, INTN Width);
- static CHAR16 *wstrcpy(CHAR16 *d, const CHAR16 *s);
--static void noreturn blexit(const CHAR16 *str);
- static void PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode);
- static char *get_value(const struct file *cfg, const char *section,
-                               const char *item);
-@@ -155,56 +154,6 @@ static CHAR16 __initdata newline[] = L"\
- #define PrintStr(s) StdOut->OutputString(StdOut, s)
- #define PrintErr(s) StdErr->OutputString(StdErr, s)
- 
--#ifdef CONFIG_ARM
--/*
-- * TODO: Enable EFI boot allocator on ARM.
-- * This code can be common for x86 and ARM.
-- * Things TODO on ARM before enabling ebmalloc:
-- *   - estimate required EBMALLOC_SIZE value,
-- *   - where (in which section) ebmalloc_mem[] should live; if in
-- *     .bss.page_aligned, as it is right now, then whole BSS zeroing
-- *     have to be disabled in xen/arch/arm/arm64/head.S; though BSS
-- *     should be initialized somehow before use of variables living there,
-- *   - use ebmalloc() in ARM/common EFI boot code,
-- *   - call free_ebmalloc_unused_mem() somewhere in init code.
-- */
--#define EBMALLOC_SIZE	MB(0)
--#else
--#define EBMALLOC_SIZE	MB(1)
--#endif
--
--static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
--    ebmalloc_mem[EBMALLOC_SIZE];
--static unsigned long __initdata ebmalloc_allocated;
--
--/* EFI boot allocator. */
--static void __init __maybe_unused *ebmalloc(size_t size)
--{
--    void *ptr = ebmalloc_mem + ebmalloc_allocated;
--
--    ebmalloc_allocated += ROUNDUP(size, sizeof(void *));
--
--    if ( ebmalloc_allocated > sizeof(ebmalloc_mem) )
--        blexit(L"Out of static memory\r\n");
--
--    return ptr;
--}
--
--static void __init __maybe_unused free_ebmalloc_unused_mem(void)
--{
--#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
--    unsigned long start, end;
--
--    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
--    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
--
--    destroy_xen_mappings(start, end);
--    init_xenheap_pages(__pa(start), __pa(end));
--
--    printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
--#endif
--}
--
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -321,7 +270,7 @@ static bool __init match_guid(const EFI_
-            !memcmp(guid1->Data4, guid2->Data4, sizeof(guid1->Data4));
+ bool efi_rs_using_pgtables(void)
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -608,7 +608,7 @@ static void __init kexec_reserve_area(st
+ #endif
  }
  
--static void __init noreturn blexit(const CHAR16 *str)
-+void __init noreturn blexit(const CHAR16 *str)
+-static inline bool using_2M_mapping(void)
++bool using_2M_mapping(void)
  {
-     if ( str )
-         PrintStr((CHAR16 *)str);
---- /dev/null
-+++ b/xen/common/efi/ebmalloc.c
-@@ -0,0 +1,52 @@
-+#include "efi.h"
-+#include <xen/init.h>
-+
-+#ifdef CONFIG_ARM
-+/*
-+ * TODO: Enable EFI boot allocator on ARM.
-+ * This code can be common for x86 and ARM.
-+ * Things TODO on ARM before enabling ebmalloc:
-+ *   - estimate required EBMALLOC_SIZE value,
-+ *   - where (in which section) ebmalloc_mem[] should live; if in
-+ *     .bss.page_aligned, as it is right now, then whole BSS zeroing
-+ *     have to be disabled in xen/arch/arm/arm64/head.S; though BSS
-+ *     should be initialized somehow before use of variables living there,
-+ *   - use ebmalloc() in ARM/common EFI boot code,
-+ *   - call free_ebmalloc_unused_mem() somewhere in init code.
-+ */
-+#define EBMALLOC_SIZE	MB(0)
-+#else
-+#define EBMALLOC_SIZE	MB(1)
-+#endif
-+
-+static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-+    ebmalloc_mem[EBMALLOC_SIZE];
-+static unsigned long __initdata ebmalloc_allocated;
-+
-+/* EFI boot allocator. */
-+void __init *ebmalloc(size_t size)
-+{
-+    void *ptr = ebmalloc_mem + ebmalloc_allocated;
-+
-+    ebmalloc_allocated += ROUNDUP(size, sizeof(void *));
-+
-+    if ( ebmalloc_allocated > sizeof(ebmalloc_mem) )
-+        blexit(L"Out of static memory\r\n");
-+
-+    return ptr;
-+}
-+
-+void __init free_ebmalloc_unused_mem(void)
-+{
-+#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
-+    unsigned long start, end;
-+
-+    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
-+    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
-+
-+    destroy_xen_mappings(start, end);
-+    init_xenheap_pages(__pa(start), __pa(end));
-+
-+    printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
-+#endif
-+}
---- a/xen/common/efi/efi.h
-+++ b/xen/common/efi/efi.h
-@@ -40,4 +40,10 @@ extern UINT64 efi_boot_max_var_store_siz
- extern UINT64 efi_apple_properties_addr;
- extern UINTN efi_apple_properties_len;
+     return !l1_table_offset((unsigned long)__2M_text_end) &&
+            !l1_table_offset((unsigned long)__2M_rodata_start) &&
+@@ -830,6 +830,7 @@ void __init noreturn __start_xen(unsigne
+     module_t *mod;
+     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
+     int i, j, e820_warn = 0, bytes = 0;
++    unsigned long eb_start, eb_end;
+     bool acpi_boot_table_init_done = false, relocated = false;
+     int ret;
+     struct ns16550_defaults ns16550 = {
+@@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
  
-+void noreturn blexit(const CHAR16 *str);
+         /*
+          * This needs to remain in sync with xen_in_range() and the
+-         * respective reserve_e820_ram() invocation below.
++         * respective reserve_e820_ram() invocation below. No need to
++         * query efi_boot_mem_unused() here, though.
+          */
+         mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
+         mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
+@@ -1418,7 +1420,13 @@ void __init noreturn __start_xen(unsigne
+         panic("Not enough memory to relocate Xen\n");
+ 
+     /* This needs to remain in sync with xen_in_range(). */
+-    reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
++    if ( efi_boot_mem_unused(&eb_start, &eb_end) )
++    {
++        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
++        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
++    }
++    else
++        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+ 
+     /* Late kexec reservation (dynamic start address). */
+     kexec_reserve_area(&boot_e820);
+@@ -1979,7 +1987,7 @@ int __hwdom_init xen_in_range(unsigned l
+     paddr_t start, end;
+     int i;
+ 
+-    enum { region_s3, region_ro, region_rw, nr_regions };
++    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
+     static struct {
+         paddr_t s, e;
+     } xen_regions[nr_regions] __hwdom_initdata;
+@@ -2004,6 +2012,14 @@ int __hwdom_init xen_in_range(unsigned l
+         /* hypervisor .data + .bss */
+         xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
+         xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
++        if ( efi_boot_mem_unused(&start, &end) )
++        {
++            ASSERT(__pa(start) >= xen_regions[region_rw].s);
++            ASSERT(__pa(end) <= xen_regions[region_rw].e);
++            xen_regions[region_rw].e = __pa(start);
++            xen_regions[region_bss].s = __pa(end);
++            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
++        }
+     }
+ 
+     start = (paddr_t)mfn << PAGE_SHIFT;
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -1,3 +1,4 @@
++#include <xen/efi.h>
+ #include <xen/init.h>
+ #include <xen/types.h>
+ #include <xen/lib.h>
+@@ -364,6 +365,8 @@ void tboot_shutdown(uint32_t shutdown_ty
+     /* if this is S3 then set regions to MAC */
+     if ( shutdown_type == TB_SHUTDOWN_S3 )
+     {
++        unsigned long s, e;
 +
- const CHAR16 *wmemchr(const CHAR16 *s, CHAR16 c, UINTN n);
+         /*
+          * Xen regions for tboot to MAC. This needs to remain in sync with
+          * xen_in_range().
+@@ -378,6 +381,15 @@ void tboot_shutdown(uint32_t shutdown_ty
+         /* hypervisor .data + .bss */
+         g_tboot_shared->mac_regions[2].start = (uint64_t)__pa(&__2M_rwdata_start);
+         g_tboot_shared->mac_regions[2].size = __2M_rwdata_end - __2M_rwdata_start;
++        if ( efi_boot_mem_unused(&s, &e) )
++        {
++            g_tboot_shared->mac_regions[2].size =
++                s - (unsigned long)__2M_rwdata_start;
++            g_tboot_shared->mac_regions[3].start = __pa(e);
++            g_tboot_shared->mac_regions[3].size =
++                (unsigned long)__2M_rwdata_end - e;
++            g_tboot_shared->num_mac_regions = 4;
++        }
+ 
+         /*
+          * MAC domains and other Xen memory
+--- a/xen/common/efi/ebmalloc.c
++++ b/xen/common/efi/ebmalloc.c
+@@ -1,5 +1,9 @@
+ #include "efi.h"
+ #include <xen/init.h>
++#include <xen/mm.h>
++#ifdef CONFIG_X86
++#include <asm/setup.h>
++#endif
+ 
+ #ifdef CONFIG_ARM
+ /*
+@@ -21,7 +25,7 @@
+ 
+ static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+     ebmalloc_mem[EBMALLOC_SIZE];
+-static unsigned long __initdata ebmalloc_allocated;
++static unsigned long __read_mostly ebmalloc_allocated;
+ 
+ /* EFI boot allocator. */
+ void __init *ebmalloc(size_t size)
+@@ -36,17 +40,32 @@ void __init *ebmalloc(size_t size)
+     return ptr;
+ }
+ 
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
++{
++    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
++    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
 +
-+/* EFI boot allocator. */
-+void *ebmalloc(size_t size);
-+void free_ebmalloc_unused_mem(void);
-
++    return *start < *end;
++}
++
+ void __init free_ebmalloc_unused_mem(void)
+ {
+-#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
+     unsigned long start, end;
+ 
+-    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
+-    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
++#ifdef CONFIG_X86
++    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
++    if ( using_2M_mapping() )
++    {
++        ebmalloc_allocated = sizeof(ebmalloc_mem);
++        return;
++    }
++#endif
++
++    if ( !efi_boot_mem_unused(&start, &end) )
++        return;
+ 
+     destroy_xen_mappings(start, end);
+     init_xenheap_pages(__pa(start), __pa(end));
+ 
+     printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
+-#endif
+ }
+--- a/xen/include/asm-x86/setup.h
++++ b/xen/include/asm-x86/setup.h
+@@ -9,6 +9,8 @@ extern const char __2M_rodata_start[], _
+ extern char __2M_init_start[], __2M_init_end[];
+ extern char __2M_rwdata_start[], __2M_rwdata_end[];
+ 
++bool using_2M_mapping(void);
++
+ extern unsigned long xenheap_initial_phys_start;
+ extern uint64_t boot_tsc_stamp;
+ 
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -33,6 +33,7 @@ struct compat_pf_efi_runtime_call;
+ 
+ bool efi_enabled(unsigned int feature);
+ void efi_init_memory(void);
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
+ bool efi_rs_using_pgtables(void);
+ unsigned long efi_get_time(void);
+ void efi_halt_system(void);
 
