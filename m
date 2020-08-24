@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7023024FDE5
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:33:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC5924FDE8
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 14:34:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kABem-0004qK-Dx; Mon, 24 Aug 2020 12:33:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kABfv-0004vQ-PC; Mon, 24 Aug 2020 12:34:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIEj=CC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kABel-0004qF-46
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:32:59 +0000
-X-Inumbo-ID: 6c274358-3fbf-4d0a-9d04-8903ab58c027
+ id 1kABft-0004vJ-PZ
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 12:34:09 +0000
+X-Inumbo-ID: 52ffa2c0-2c1e-40e4-9d54-cdda31966811
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6c274358-3fbf-4d0a-9d04-8903ab58c027;
- Mon, 24 Aug 2020 12:32:58 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 52ffa2c0-2c1e-40e4-9d54-cdda31966811;
+ Mon, 24 Aug 2020 12:34:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 79F56B63F;
- Mon, 24 Aug 2020 12:33:27 +0000 (UTC)
-Subject: Ping: [PATCH] x86: guard against port I/O overlapping the RTC/CMOS
- range
+ by mx2.suse.de (Postfix) with ESMTP id 37AC0AFD1;
+ Mon, 24 Aug 2020 12:34:38 +0000 (UTC)
+Subject: [PATCH v2 1/5] x86: convert set_gpfn_from_mfn() to a function
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <38c73e17-30b8-27b4-bc7c-e6ef7817fa1e@suse.com>
- <8b267b5e-8bd0-692e-d5d9-4a2bd21fb261@citrix.com>
- <f192793d-d074-990a-190d-67f48ccda87a@suse.com>
-Message-ID: <062a7505-eb35-cf15-3663-9890fbd50d4b@suse.com>
-Date: Mon, 24 Aug 2020 14:32:56 +0200
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <5d456607-b36b-9802-1021-2e6d01d7f158@suse.com>
+Message-ID: <27a76f08-6ce4-71aa-a528-ee2633287576@suse.com>
+Date: Mon, 24 Aug 2020 14:34:07 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <f192793d-d074-990a-190d-67f48ccda87a@suse.com>
+In-Reply-To: <5d456607-b36b-9802-1021-2e6d01d7f158@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,42 +50,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.07.2020 16:19, Jan Beulich wrote:
-> On 24.07.2020 14:11, Andrew Cooper wrote:
->> On 17/07/2020 14:10, Jan Beulich wrote:
->>> Since we intercept RTC/CMOS port accesses, let's do so consistently in
->>> all cases, i.e. also for e.g. a dword access to [006E,0071]. To avoid
->>> the risk of unintended impact on Dom0 code actually doing so (despite
->>> the belief that none ought to exist), also extend
->>> guest_io_{read,write}() to decompose accesses where some ports are
->>> allowed to be directly accessed and some aren't.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/xen/arch/x86/pv/emul-priv-op.c
->>> +++ b/xen/arch/x86/pv/emul-priv-op.c
->>> @@ -210,7 +210,7 @@ static bool admin_io_okay(unsigned int p
->>>          return false;
->>>  
->>>      /* We also never permit direct access to the RTC/CMOS registers. */
->>> -    if ( ((port & ~1) == RTC_PORT(0)) )
->>> +    if ( port <= RTC_PORT(1) && port + bytes > RTC_PORT(0) )
->>>          return false;
->>
->> This first hunk is fine.
->>
->> However, why decompose anything?  Any disallowed port in the range
->> terminates the entire access, and doesn't internally shrink the access.
-> 
-> What tells you that adjacent ports (e.g. 006E and 006F to match
-> the example in the description) are disallowed? The typical
-> case here is Dom0 (as mentioned in the description), which has
-> access to most of the ports.
+It is already a little too heavy for a macro, and more logic is about to
+get added to it.
 
-Are you okay with this answer, and hence may I commit the change
-with Roger's R-b (and the cosmetic adjustments he did ask for)?
-(Unless I hear otherwise within the next day or two, I guess I'll
-assume so.)
+This also allows reducing the scope of compat_machine_to_phys_mapping.
 
-Jan
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: New.
+
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -40,6 +40,8 @@ EMIT_FILE;
+ #include <asm/mem_sharing.h>
+ #include <public/memory.h>
+ 
++#define compat_machine_to_phys_mapping ((unsigned int *)RDWR_COMPAT_MPT_VIRT_START)
++
+ unsigned int __read_mostly m2p_compat_vstart = __HYPERVISOR_COMPAT_VIRT_START;
+ 
+ l2_pgentry_t *compat_idle_pg_table_l2;
+@@ -1454,6 +1456,20 @@ destroy_frametable:
+     return ret;
+ }
+ 
++void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn)
++{
++    const struct domain *d = page_get_owner(mfn_to_page(_mfn(mfn)));
++    unsigned long entry = (d && (d == dom_cow)) ? SHARED_M2P_ENTRY : pfn;
++
++    if ( unlikely(!machine_to_phys_mapping_valid) )
++        return;
++
++    if ( mfn < (RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) / 4 )
++        compat_machine_to_phys_mapping[mfn] = entry;
++
++    machine_to_phys_mapping[mfn] = entry;
++}
++
+ #include "compat/mm.c"
+ 
+ /*
+--- a/xen/include/asm-x86/mm.h
++++ b/xen/include/asm-x86/mm.h
+@@ -494,25 +494,13 @@ extern paddr_t mem_hotplug;
+ #define SHARED_M2P_ENTRY         (~0UL - 1UL)
+ #define SHARED_M2P(_e)           ((_e) == SHARED_M2P_ENTRY)
+ 
+-#define compat_machine_to_phys_mapping ((unsigned int *)RDWR_COMPAT_MPT_VIRT_START)
+-#define _set_gpfn_from_mfn(mfn, pfn) ({                        \
+-    struct domain *d = page_get_owner(mfn_to_page(_mfn(mfn))); \
+-    unsigned long entry = (d && (d == dom_cow)) ?              \
+-        SHARED_M2P_ENTRY : (pfn);                              \
+-    ((void)((mfn) >= (RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) / 4 || \
+-            (compat_machine_to_phys_mapping[(mfn)] = (unsigned int)(entry))), \
+-     machine_to_phys_mapping[(mfn)] = (entry));                \
+-    })
+-
+ /*
+  * Disable some users of set_gpfn_from_mfn() (e.g., free_heap_pages()) until
+  * the machine_to_phys_mapping is actually set up.
+  */
+ extern bool machine_to_phys_mapping_valid;
+-#define set_gpfn_from_mfn(mfn, pfn) do {        \
+-    if ( machine_to_phys_mapping_valid )        \
+-        _set_gpfn_from_mfn(mfn, pfn);           \
+-} while (0)
++
++void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn);
+ 
+ extern struct rangeset *mmio_ro_ranges;
+ 
+
 
