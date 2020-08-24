@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DA624F3DB
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8774C24F3DE
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Aug 2020 10:22:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kA7kU-0006bA-Hr; Mon, 24 Aug 2020 08:22:38 +0000
+	id 1kA7kh-0006eI-Vv; Mon, 24 Aug 2020 08:22:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HY0O=CC=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1kA7kT-0006az-3y
- for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:22:37 +0000
-X-Inumbo-ID: 3e583d97-5eed-4a3e-9a25-53be8a316e7e
+ id 1kA7kf-0006du-W7
+ for xen-devel@lists.xenproject.org; Mon, 24 Aug 2020 08:22:50 +0000
+X-Inumbo-ID: 648aca34-9af7-43d9-b82c-bf227505e674
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e583d97-5eed-4a3e-9a25-53be8a316e7e;
- Mon, 24 Aug 2020 08:22:36 +0000 (UTC)
+ id 648aca34-9af7-43d9-b82c-bf227505e674;
+ Mon, 24 Aug 2020 08:22:49 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 74D6320738;
- Mon, 24 Aug 2020 08:22:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4143B2074D;
+ Mon, 24 Aug 2020 08:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598257355;
- bh=vsN89Lm6fplc0/9KyG6AP6qPkRfnWxycSoGJsqMHXXU=;
+ s=default; t=1598257368;
+ bh=jx7+9laUMnnGvjrX6K6tgeWuhIkf9M8zxUc2K80BkOU=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=RztsoNTzP1rvGfCJo9Yr+kex7xx1rpOtAXJhCbBXtEC9DNHgLAYmXzcF6o4NXGx2T
- rN+zwPWLdhEHhzWTSu528nzSezwE/XPg3xjpoStzECWtckARm6JYKUHKoxkgOPlBx9
- cgq969go2zDEzlHClu0DVP0+pANA5Aw9uxnpV8vM=
+ b=1z3h1i5Z+LSHGt89bO0be7pO/ETNijvp83Kt+5pPZGBuQmugpUCMyOaXfJMGvDVYs
+ 9KVYpNaQMxwIFIDohL+IRIFUUenmQk0RbtsrDAcJYdYCjTt7dfSa3L5Kb280M6W4GW
+ Pr73SmwhbXkaG+t1HDXvaJrROKw9w3NEJz0USZyU=
 Subject: Patch "xen: don't reschedule in preemption off sections" has been
- added to the 4.14-stable tree
+ added to the 4.19-stable tree
 To: boris.ostrovsky@oracle.com, cmb@prgmr.com, gregkh@linuxfoundation.org,
  jgross@suse.com, srn@prgmr.com, sstabellini@kernel.org,
  xen-devel@lists.xenproject.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2020 10:22:45 +0200
+Date: Mon, 24 Aug 2020 10:23:00 +0200
 In-Reply-To: <20200820065908.20592-1-jgross@suse.com>
-Message-ID: <159825736516318@kroah.com>
+Message-ID: <1598257380204219@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -65,12 +65,12 @@ This is a note to let you know that I've just added the patch titled
 
     xen: don't reschedule in preemption off sections
 
-to the 4.14-stable tree which can be found at:
+to the 4.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      xen-don-t-reschedule-in-preemption-off-sections.patch
-and it can be found in the queue-4.14 subdirectory.
+and it can be found in the queue-4.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -176,5 +176,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from jgross@suse.com are
 
-queue-4.14/xen-don-t-reschedule-in-preemption-off-sections.patch
+queue-4.19/fix-build-error-when-config_acpi-is-not-set-enabled.patch
+queue-4.19/xen-don-t-reschedule-in-preemption-off-sections.patch
+queue-4.19/efi-avoid-error-message-when-booting-under-xen.patch
 
