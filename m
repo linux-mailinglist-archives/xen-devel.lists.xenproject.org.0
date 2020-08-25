@@ -2,56 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682DF25174A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 13:18:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7D525176A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 13:22:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAWy3-0000Mm-9x; Tue, 25 Aug 2020 11:18:19 +0000
+	id 1kAX1l-0001BN-SF; Tue, 25 Aug 2020 11:22:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yzwT=CD=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kAWy1-0000Mc-Mz
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 11:18:17 +0000
-X-Inumbo-ID: cc527f84-64ed-4200-aa9e-79747dc5a324
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=h2I2=CD=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kAX1k-0001BD-Hl
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 11:22:08 +0000
+X-Inumbo-ID: 7c7c5104-006c-48b8-89ae-7b953b0a5c3a
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc527f84-64ed-4200-aa9e-79747dc5a324;
- Tue, 25 Aug 2020 11:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=Kj1zjiG+JGU9/I2O7l5qmyam95JER/PllMFX3zNiCCg=; b=ehu4A4gHHNwJwyjPGJmGUBLmjm
- O4MWV8cCzR7OAbVaQ9sydMHVREyhrLGbuqT481l2Zob+DiEget+4xIUcxk3DB8wL29aldOI+ksRb0
- sICQkalaITgctOvRJS0UAqMKVxxJM53PGL7fFAro5SWAiYuVzyFHCnsROhamKaEwZKeE=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kAWy0-0004Kp-Ba; Tue, 25 Aug 2020 11:18:16 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kAWy0-0005UJ-4q; Tue, 25 Aug 2020 11:18:16 +0000
-Subject: Re: [PATCH v3 2/2] xen/arm: Throw messages for unknown FP/SIMD
- implement ID
-To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Andre.Przywara@arm.com, Bertrand.Marquis@arm.com, Penny.Zheng@arm.com,
- Kaly.Xin@arm.com, nd@arm.com
-References: <20200825100847.27988-1-wei.chen@arm.com>
- <20200825100847.27988-3-wei.chen@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <232c39d0-cae6-3b5b-1046-c5bc9f6b448e@xen.org>
-Date: Tue, 25 Aug 2020 12:18:13 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ id 7c7c5104-006c-48b8-89ae-7b953b0a5c3a;
+ Tue, 25 Aug 2020 11:22:06 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7B558AD04;
+ Tue, 25 Aug 2020 11:22:36 +0000 (UTC)
+Subject: Re: Kconfig vs tool chain capabilities
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>, nd <nd@arm.com>
+References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
+ <fb43a537-7b0d-0622-6e52-39e1a9e87b91@suse.com>
+ <4449ee1b-6d2c-70f2-d8e9-80397aeffa41@suse.com>
+ <f37d135a-d66a-450c-0b97-98c86de6f489@suse.com>
+ <b783915a-9d64-4c68-7b71-f3b042b1201e@suse.com>
+ <61d2adc1-c28f-7ed6-237e-45444249173c@suse.com>
+ <cf7e8e5f-de4b-3046-8ffc-7ae4502d06c9@suse.com>
+ <d4326ef6-d1bc-abd0-b428-00eabb04f761@suse.com>
+ <B6E80F54-20D1-4ABF-AA19-8B3D0566DA7B@arm.com>
+ <7075bb73-4682-4d17-97ab-3b04e245795a@suse.com>
+ <4B1178DC-47E6-46E8-A791-2E12F8CA5F5B@arm.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <d555e945-1ac7-e43e-d2af-6177b7308cff@suse.com>
+Date: Tue, 25 Aug 2020 13:22:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200825100847.27988-3-wei.chen@arm.com>
+In-Reply-To: <4B1178DC-47E6-46E8-A791-2E12F8CA5F5B@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,69 +63,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
-
-On 25/08/2020 11:08, Wei Chen wrote:
-> Arm ID_AA64PFR0_EL1 register provides two fields to describe CPU
-> FP/SIMD implementations. Currently, we exactly know the meaning of
-> 0x0, 0x1 and 0xf of these fields. Xen treats value < 8 as FP/SIMD
-> features presented. If there is a value 0x2 bumped in the future,
-> Xen behaviors for value <= 0x1 can also take effect. But what Xen
-> done for value <= 0x1 may not always cover new value 0x2 required.
-> We throw these messages to break the silence when Xen detected
-> unknown FP/SIMD IDs to notice user to check.
+On 25.08.20 13:16, Bertrand Marquis wrote:
 > 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-OOI, is this reviewed-by coming from internal review?
-
-> ---
->   xen/arch/arm/setup.c             | 12 ++++++++++++
->   xen/include/asm-arm/cpufeature.h |  2 ++
->   2 files changed, 14 insertions(+)
 > 
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 7968cee47d..ef39ce1ec6 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -133,6 +133,18 @@ static void __init processor_id(void)
->              cpu_has_simd ? " AdvancedSIMD" : "",
->              cpu_has_gicv3 ? " GICv3-SysReg" : "");
->   
-> +    /* Warn user if we find unknown floating-point features */
-> +    if ( cpu_has_unknown_fp )
-> +        printk(XENLOG_WARNING "WARNING: Unknown Floating-point ID:%d, "
-> +               "this may result to corruption on the platform\n",
-> +               boot_cpu_feature64(fp));
-> +
-> +    /* Warn user if we find unknown AdvancedSIMD features */
-> +    if ( cpu_has_unknown_simd )
-> +        printk(XENLOG_WARNING "WARNING: Unknown AdvancedSIMD ID:%d, "
-> +               "this may result to corruption on the platform\n",
-> +               boot_cpu_feature64(simd));
-> +
->       printk("  Debug Features: %016"PRIx64" %016"PRIx64"\n",
->              boot_cpu_data.dbg64.bits[0], boot_cpu_data.dbg64.bits[1]);
->       printk("  Auxiliary Features: %016"PRIx64" %016"PRIx64"\n",
-> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-> index 10878ead8a..a32309986e 100644
-> --- a/xen/include/asm-arm/cpufeature.h
-> +++ b/xen/include/asm-arm/cpufeature.h
-> @@ -16,6 +16,8 @@
->   #define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
->   #define cpu_has_simd      (boot_cpu_feature64(simd) < 8)
->   #define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
-> +#define cpu_has_unknown_fp   (cpu_has_fp && (boot_cpu_feature64(fp) >= 2))
-> +#define cpu_has_unknown_simd (cpu_has_simd && (boot_cpu_feature64(simd) >= 2))
+>> On 25 Aug 2020, at 12:06, Jürgen Groß <jgross@suse.com> wrote:
+>>
+>> On 25.08.20 12:17, Bertrand Marquis wrote:
+>>>> On 25 Aug 2020, at 10:49, Jürgen Groß <jgross@suse.com> wrote:
+>>>>
+>>>> On 25.08.20 10:48, Jan Beulich wrote:
+>>>>> On 25.08.2020 10:08, Jürgen Groß wrote:
+>>>>>> On 25.08.20 09:48, Jan Beulich wrote:
+>>>>>>> On 25.08.2020 09:43, Jürgen Groß wrote:
+>>>>>>>> On 25.08.20 09:34, Jan Beulich wrote:
+>>>>>>>>> On 25.08.2020 09:12, Jürgen Groß wrote:
+>>>>>>>>>> I think both problems can be solved at the same time via the following
+>>>>>>>>>> approach:
+>>>>>>>>>>
+>>>>>>>>>> - collect the data which is reflected in today's CONFIG_ variables in a
+>>>>>>>>>>       single script and store it in a file, e.g in a format like:
+>>>>>>>>>>
+>>>>>>>>>>       CC_IS_GCC y
+>>>>>>>>>>       GCC_VERSION 70500
+>>>>>>>>>>       CLANG_VERSION 0
+>>>>>>>>>>       CC_HAS_VISIBILITY_ATTRIBUTE y
+>>>>>>>>>>
+>>>>>>>>>> - check the tool data at each build to match the contents of that file
+>>>>>>>>>>       and either fail the build or update the file and rerun kconfig if they
+>>>>>>>>>>       don't match (I think failing the build and requiring to run a
+>>>>>>>>>>       "make config" would be the better approach)
+>>>>>>>>>>
+>>>>>>>>>> - fill the CONFIG_ variable contents from that file in kconfig instead
+>>>>>>>>>>       of issuing the single shell commands
+>>>>>>>>>
+>>>>>>>>> While I agree this is a possible model to use (but still not the
+>>>>>>>>> one we've inherited from Linux), I fail to see how this addresses
+>>>>>>>>> my "developers should be aware of what they do (not) build and
+>>>>>>>>> test" concern: There'd still be dependencies of Kconfig options
+>>>>>>>>> on the tool chain capabilities, and their prompts therefore would
+>>>>>>>>> still be invisible without the tool chain having the needed
+>>>>>>>>> capabilities. IOW I only see this to address 2), but not 1).
+>>>>>>>>
+>>>>>>>> Sorry, I fail to see a problem here.
+>>>>>>>>
+>>>>>>>> What sense does it make to be able to configure an option which the
+>>>>>>>> tools don't support?
+>>>>>>>
+>>>>>>> Take CET as an example (chosen because that's the one which
+>>>>>>> already uses the Kconfig approach, despite my disagreement): It's
+>>>>>>> quite relevant to know whether you're testing Xen with it enabled,
+>>>>>>> or with it disabled (and hence you potentially missing changes you
+>>>>>>> need to make to relevant code portions).
+>>>>>>
+>>>>>> Correct me if I'm wrong, but assuming my suggested changes being made,
+>>>>>> wouldn't a .config file setup once with CET enabled (and I assume you'd
+>>>>>> try to enable CET on purpose when trying to test CET and you'd realize
+>>>>>> not being able to do so in case your tools don't support CET) ensure
+>>>>>> you'd never been hit by surprise when some tool updates would remove
+>>>>>> CET support?
+>>>>> Probably, but that's not my point. With a CET-incapable tool chain
+>>>>> you're not prompted whether to enable CET in the first place, when
+>>>>> creating the initial .config. It is this unawareness of a crucial
+>>>>> part of code not getting built and tested (and likely unknowingly)
+>>>>> that I dislike. In fact, after Andrew's patches had gone in, it
+>>>>> had taken me a while to realize that in certain of my builds I don't
+>>>>> have CET enabled (despite me having done nothing to disable it), and
+>>>>> hence those builds working fine are meaningless for any changes
+>>>>> affecting CET code in any way.
+>>>>
+>>>> Yes, this is the result of letting some options depend on others.
+>>>>
+>>>> This is what I meant regarding the architecture: there are e.g. multiple
+>>>> source files in drivers/char/ being built only for ARM or X86, in spite
+>>>> of being located outside arch/. And yet you don't see this as a problem,
+>>>> even if you are not able to select those drivers to be built when using
+>>>> "the other" arch. They are silently disabled. Just like CET in case of
+>>>> an incapable tool chain.
+>>>>
+>>>> So IMO either we ban "depends on" from our Kconfig files (no, I don't
+>>>> want to do that), or we use it as designed and make it as user friendly
+>>>> as possible. In case we as developers have a special test case then we
+>>>> need to check the .config whether the desired settings are really
+>>>> present. Having those settings depending on tool capabilities in a
+>>>> specific file will make this check much easier.
+>>>>
+>>>> And BTW, I can't see how setting the tolls' capabilities from e.g.
+>>>> arch/x86/Rules.mk is better in any way (see how CONFIG_INDIRECT_THUNK
+>>>> got its value in older Xen versions like 4.12).
+>>>>
+>>>> We can't have everything and I believe automatically disabling features
+>>>> which can't work with the current tools is a sane decision. Doing this
+>>>> via Kconfig is the better approach compared to Makefile sniplets IMO.
+>>> That sounds like a nice feature to have some compiler or tools options that
+>>> can be selected or activated in Kconfig. There are some compiler options
+>>> mandatory to handle some erratas or XSA that one might want to explicitely
+>>> select.
+>>> I am bit unsure about the part where some kconfig options would only
+>>> be available or not depending on some tests with the compiler being doing
+>>> prior to opening the editor. I would guess the menuconfig process would
+>>> have to first run some tests and then generated some HAS_ configuration
+>>> options depending on the result of the tests.
+>>> Did i got the idea right here ?
+>>> Is this something somebody tried to do ?
+>>> As a user I would more expect that the build process would tell me that my
+>>> configuration is invalid because i selected something that is not supported
+>>> by my compiler. I might have the chance to just fix my build to use the right
+>>> compiler (like by mistake using x86 toolchain to compile for arm).
+>>> We should also be careful not to silently ignore some configuration option if
+>>> one is changing the compiler and the new one does not support an option.
+>>> A user would have his configuration and compile using it without
+>>> passing through the editor interface and might need to be aware that a part
+>>> of his configuration is not valid anymore because the tools he is using changed.
+>>> This is something that could occur a lot when using a distribution toolchain.
+>>> Also there are some compiler option changing so i would more think that
+>>> there should be generic configuration options so that in the makefiles we
+>>> could have the opportunity to add different compiler options for different
+>>> toolchains depending on the version or the type of the toolchain.
+>>> To be clear i would see something like:
+>>> in kconfig:
+>>> COMPILER_OPTION_XXX
+>>> 	bool “activate XXX compiler flag
+>>> in Makefile:
+>>> ifeq ($(CONFIG_COMPILER_OPTION_XXX), true)
+>>> test_compiler_cxx:
+>>> 	$(CC) -xxx dummy.c -o dummy || $(error Your compiler does not support -xxx)
+>>> cc-flags += -xxx
+>>> endif
+>>> The syntax is wrong here but you get the idea :-)
+>>
+>> Ah, okay, this is another approach, which might be even more flexible.
+>> It would allow to control compiler flags instead of more high level
+>> features.
+> 
+> We might have both, this would also allow to have more high level features which are
+> doing both adding compiler flags and other stuff,
+> 
+>>
+>> In case we want to go that route we should default COMPILER_OPTION_XXX
+>> to the current tool capabilities in order to avoid longer try-and-error
+>> loops.
+> 
+> I am not quite sure how you want to achieve this cleanly.
 
-I would rather prefer if we don't introduce cpu_has_unknown_{fp, simd} 
-but open-code directly in the 'if'.
+Something like (picked an actual example from x86):
 
-Other than that the code looks ok to me.
+config HAS_COMPILER_OPTION_IBR
+	bool "Select compiler option -mindirect-branch-register"
+	default $(cc-option,-mindirect-branch-register)
+	  blah blah blah
 
-Cheers,
 
--- 
-Julien Grall
+Juergen
 
