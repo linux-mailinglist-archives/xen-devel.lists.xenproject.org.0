@@ -2,67 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2D22522D1
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 23:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95602522DB
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 23:30:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAgUe-00082M-49; Tue, 25 Aug 2020 21:28:36 +0000
+	id 1kAgWi-0000NV-IB; Tue, 25 Aug 2020 21:30:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ixcz=CD=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAgUc-00082D-8L
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 21:28:34 +0000
-X-Inumbo-ID: 2be8f2ff-3731-41c8-b2c5-44be313ca115
-Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ id 1kAgWh-0000NP-Vx
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 21:30:44 +0000
+X-Inumbo-ID: 0f0cf0cd-b8b7-4fdd-b5fa-bc098bf08daa
+Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2be8f2ff-3731-41c8-b2c5-44be313ca115;
- Tue, 25 Aug 2020 21:28:32 +0000 (UTC)
+ id 0f0cf0cd-b8b7-4fdd-b5fa-bc098bf08daa;
+ Tue, 25 Aug 2020 21:30:42 +0000 (UTC)
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598390910;
+ s=2020; t=1598391042;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DM8kbYiy7ZvYakB3fMHVSwg1j58bcLwh1sILIYH/AFI=;
- b=tOoYjJYvUPFZDmOguQPFJDhQeHuqRavvHi/bJrAyTkchveyhC+en4z3ohJa6FmPIHI2vow
- qc9HQ8/FTpaHEhGVpgURbiV1lVl+XKejxCXJmH2j3Sj2h8nwPHrrK3/Kb6Do9W3PTncSXY
- TOuqFSROfKTujH662yP4shxjPWBDkywHOauPnwUWRRiR+DHAaP2psLdtuzSJtmNFJD79PB
- hjeXftohGgS9rC9Xb2dZuw6mNwzd/d9QfmdUvlkZy88Ftt7fM3r9rWu4L7KrgJ8gocSx1K
- eGa2PZEjfsTIQ/LxJMcJsM3xNXGuHKDY89giMPP0/QzKHuUEf3bJ22fUusSPsg==
+ bh=laLU5yxufmnFbi5ts+Ew5ZowSakjcO5PUqgrvOPNK+M=;
+ b=ZVFEoRRlNJXFUgq6mQ2rduXlE2yad4xOmO34uYv0zEgHs0EncfZCre9kecOLZD0qyCUmIm
+ fK/IA91Xv4YdestP0rW84OW5ZZqMJjbjso9OohwlJurrsXdtw0ybCtY6AJQtoUHjVvlvpz
+ YMUdF+VrZgCxpTtiriD1TFTT0mADfgDYfGO0mJ/ZJWuV5BgLjH+scZb6eYP5Gg6K5n8dfA
+ zzArbSiNPOkDqe2ro8oObhpqB71UKiq2qGT5YKQfOuP+ihQy5K+0KcqrFFA4jQkfQoRB9K
+ cLIrHEKf3zeejhobeqwNwZWz6IoWsSqpvafIyP2+XFH9zXiVQCwVctTHzYueGQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598390910;
+ s=2020e; t=1598391042;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DM8kbYiy7ZvYakB3fMHVSwg1j58bcLwh1sILIYH/AFI=;
- b=oQR1S/0DMHh75hr94qI0low3SKHVQ7r24k+kTQlDcy/nGiegnvAQmFWoo65Pv64XBO7xgV
- AXir3AUyBr42qvBg==
+ bh=laLU5yxufmnFbi5ts+Ew5ZowSakjcO5PUqgrvOPNK+M=;
+ b=x70sLQs+vhFrFlF+FHbXLrFMyKKxpeRA9gYzPYp3g2ps1QJSE2dXtMNyCBRtV1YY3fSv8d
+ R8wzoviTHQJFosAw==
 To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Bjorn Helgaas
- <bhelgaas@google.com>, linux-pci@vger.kernel.org, Joerg Roedel
- <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
- <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
- <rja@hpe.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Marc Zyngier <maz@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>, Dave
- Jiang <dave.jiang@intel.com>, Alex Williamson
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
+ linux-pci@vger.kernel.org, linux-hyperv@vger.kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org, Haiyang Zhang
+ <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>, Lu
+ Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Stephen Hemminger
+ <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>, Dimitri
+ Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
+ <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
  <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
  Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
  <dan.j.williams@intel.com>
-Subject: Re: [patch RFC 30/38] PCI/MSI: Allow to disable arch fallbacks
-In-Reply-To: <20200825200742.GA1924669@bjorn-Precision-5520>
-References: <20200825200742.GA1924669@bjorn-Precision-5520>
-Date: Tue, 25 Aug 2020 23:28:30 +0200
-Message-ID: <87a6yixvnl.fsf@nanos.tec.linutronix.de>
+Subject: Re: [patch RFC 34/38] x86/msi: Let pci_msi_prepare() handle non-PCI
+ MSI
+In-Reply-To: <20200825202419.GA1925250@bjorn-Precision-5520>
+References: <20200825202419.GA1925250@bjorn-Precision-5520>
+Date: Tue, 25 Aug 2020 23:30:41 +0200
+Message-ID: <877dtmxvjy.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -78,45 +79,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Aug 25 2020 at 15:07, Bjorn Helgaas wrote:
->> + * The arch hooks to setup up msi irqs. Default functions are implemented
->> + * as weak symbols so that they /can/ be overriden by architecture specific
->> + * code if needed.
->> + *
->> + * They can be replaced by stubs with warnings via
->> + * CONFIG_PCI_MSI_DISABLE_ARCH_FALLBACKS when the architecture fully
->> + * utilizes direct irqdomain based setup.
+On Tue, Aug 25 2020 at 15:24, Bjorn Helgaas wrote:
+> On Fri, Aug 21, 2020 at 02:24:58AM +0200, Thomas Gleixner wrote:
+>> Rename it to x86_msi_prepare() and handle the allocation type setup
+>> depending on the device type.
 >
-> Do you expect *all* arches to eventually use direct irqdomain setup?
+> I see what you're doing, but the subject reads a little strangely
 
-Ideally that happens some day. We have five left when x86 is converted:
+Yes :(
 
-IA64, MIPS, POWERPC, S390, SPARC
+> ("pci_msi_prepare() handling non-PCI" stuff) since it doesn't mention
+> the rename.  Maybe not practical or worthwhile to split into a rename
+> + make generic, I dunno.
 
-IA64 is unlikely to be fixed, but might be solved naturally by removal.
+What about
 
-For the others I don't know, but it's not on the horizon anytime soon I
-fear.
-
-> And in that case, to remove the config option?
-
-Yes, and all the code which depends on it.
-
-> If not, it seems like it'd be nicer to have the burden on the arches
-> that need/want to use arch-specific code instead of on the arches that
-> do things generically.
-
-Right, but they still share the common code there and some of them
-provide only parts of the weak callbacks. I'm not sure whether it's a
-good idea to copy all of this into each affected architecture.
-
-Or did you just mean that those architectures should select
-CONFIG_I_WANT_THE CRUFT instead of opting out on the fully irq domain
-based ones?
+x86/msi: Rename and rework pci_msi_prepare() to cover non-PCI MSI
 
 Thanks,
 
         tglx
-
-
 
