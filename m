@@ -2,58 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B5E9251C39
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 17:23:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E98DF251C40
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 17:25:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAamv-0007zF-BL; Tue, 25 Aug 2020 15:23:05 +0000
+	id 1kAapF-00085q-PA; Tue, 25 Aug 2020 15:25:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ixcz=CD=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAamu-0007zA-I1
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 15:23:04 +0000
-X-Inumbo-ID: 0bd0e0eb-cba6-4203-9b7a-5bff54bf12d1
+ id 1kAapE-00085l-R6
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 15:25:28 +0000
+X-Inumbo-ID: eff5730b-f87b-4043-81e7-bee135baa8e3
 Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0bd0e0eb-cba6-4203-9b7a-5bff54bf12d1;
- Tue, 25 Aug 2020 15:23:02 +0000 (UTC)
+ id eff5730b-f87b-4043-81e7-bee135baa8e3;
+ Tue, 25 Aug 2020 15:25:27 +0000 (UTC)
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598368981; h=from:from:reply-to:subject:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=av1m+1kxx0uAiVcVtSqAkN5hIO2GB8aGHtHRf9Awh1M=;
- b=Qj+BGek6+iQDiAWTLg+MX28+Jg16I6rIFUVYnYfOTHI1Enp0BOt1uLOrpnq2Eud6rh70VN
- kn/PO1N6Q7jSRTGrJ+qaV5NGM0iKGWgHbFSdofXJhLWOWw2j4K9/7/h+TwjE8cHFis96Av
- a5+AgRQMI9oK7tRs6R8wfe4CXOr6PKTVfoMN5fn3sULJmn1bTyvSQDUcyScrvY6X7rqMpx
- wovpHVpit/tU7ipzBy4CFjMjL81ssb85Leiyzo4uAJrFnss1ShaNeAjfzL+u+sv3KhwSYp
- mvkNVmvxAPEAQjI75Fm/FTGIuxf8uj9XeiyQG35jCOn3xLE/ncVHsfLedsB+PQ==
+ s=2020; t=1598369126;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=PAump9L0LM6bJcSU7K51HCc/4/nx2NUvs/nMFC8fAoI=;
+ b=iIVCOMdB9YLLRkw6woY3g270WXgQxEdxkShajzznnvUFeM+ajn1ICA9VgSf2sjfhOy1/aH
+ NzT3gZL7wQXldhx9K073ykAv3Wb7sXPphzCm9kMO3SfGv6L8Vs2i2fp8zQNsFon+RVDyj8
+ jjCWIm0SFHjjAU8hbJscrOv16Ka/B9sfvEMRJxWzMQtqFRPjHa7pf/Bowq6upsdc/UPTNe
+ IHrpfq3zBDLe6nxxRzS5OV4Xdw5OZX/jdQRmOPwy1J0RgvW3oFRwIBp0cNRkVrXeV2fWZl
+ X/LtjzHlkojohJFRuf6qBiKFaCOSIa3rsXQ61bQMxNQaT3OQEBPjACAPNMFTtg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598368981; h=from:from:reply-to:subject:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=av1m+1kxx0uAiVcVtSqAkN5hIO2GB8aGHtHRf9Awh1M=;
- b=AeXFkLvwt7OZUR5h3/I0qgXxgQoaVPjk7tWwkRH5CvYd+3xN2oLWjtX8Uo6h7zcHlv0TmN
- p4iyNw6w7R/tEVDw==
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Sergei Temerkhanov <s.temerkhanov@gmail.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Roman Shaposhnik <roman@zededa.com>
-Subject: [PATCH] xen/events: Use chip data for storing per IRQ XEN data pointer
-Subject: 
-In-Reply-To: <cb64e4e9-2ed3-fb15-8c20-d49e47cbff34@suse.com>
-References: <CAMmSBy9-cJuxC0jLPh6O-UCraThzg2wvNO29ZvxrBmVkatt_sg@mail.gmail.com>
- <20200821071547.18894-1-s.temerkhanov@gmail.com>
- <ccc1883f-876f-c1ea-bd68-b3c8ab267a8f@suse.com>
- <CAPEA6dYXaw=ZYv1jJqK=8twVpKXQ8bG0erABKC6HiQh-DcZ-DQ@mail.gmail.com>
- <b2917f59-d101-659d-1704-8d2a294bb2a1@suse.com>
- <871rjzsqyy.fsf@nanos.tec.linutronix.de>
- <alpine.DEB.2.21.2008241959510.24407@sstabellini-ThinkPad-T480s>
- <87k0xn5cgl.fsf@nanos.tec.linutronix.de>
- <cb64e4e9-2ed3-fb15-8c20-d49e47cbff34@suse.com>
-Date: Tue, 25 Aug 2020 17:22:58 +0200
-Message-ID: <87lfi2yckt.fsf@nanos.tec.linutronix.de>
+ s=2020e; t=1598369126;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=PAump9L0LM6bJcSU7K51HCc/4/nx2NUvs/nMFC8fAoI=;
+ b=fvX+yFvs42lpxH0z2dBFAN5Yh2RS7EDQV+nzx1Bme+X14FyneOzVV0qM8LqcuV4cA/sK6d
+ H2iabTe1VcvQXBDw==
+To: Christoph Hellwig <hch@infradead.org>
+Cc: mingo@redhat.com, bp@alien8.de, hpa@zytor.com, x86@kernel.org,
+ boris.ostrovsky@oracle.com, jgross@suse.com, linux-pm@vger.kernel.org,
+ linux-mm@kvack.org, kamatam@amazon.com, sstabellini@kernel.org,
+ konrad.wilk@oracle.com, roger.pau@citrix.com, axboe@kernel.dk,
+ davem@davemloft.net, rjw@rjwysocki.net, len.brown@intel.com, pavel@ucw.cz,
+ peterz@infradead.org, eduval@amazon.com, sblbir@amazon.com,
+ anchalag@amazon.com, xen-devel@lists.xenproject.org, vkuznets@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, dwmw@amazon.co.uk,
+ benh@kernel.crashing.org
+Subject: Re: [PATCH v3 05/11] genirq: Shutdown irq chips in suspend/resume
+ during hibernation
+In-Reply-To: <20200825132002.GA25009@infradead.org>
+References: <cover.1598042152.git.anchalag@amazon.com>
+ <d9bcd552c946ac56f3f17cc0c1be57247d4a3004.1598042152.git.anchalag@amazon.com>
+ <87h7svqzxm.fsf@nanos.tec.linutronix.de>
+ <20200825132002.GA25009@infradead.org>
+Date: Tue, 25 Aug 2020 17:25:26 +0200
+Message-ID: <87imd6ycgp.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -69,103 +72,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-XEN uses irqdesc::irq_data_common::handler_data to store a per interrupt
-XEN data pointer which contains XEN specific information.
+On Tue, Aug 25 2020 at 14:20, Christoph Hellwig wrote:
+> On Sat, Aug 22, 2020 at 02:36:37AM +0200, Thomas Gleixner wrote:
+>> From: Thomas Gleixner <tglx@linutronix.de>
+>> 
+>> followed by an empty new line before the actual changelog text
+>> starts. That way the attribution of the patch when applying it will be
+>> correct.
+>
+> The way he sent it attribution will be correct as he managed to get his
+> MTU to send out the mail claiming to be from you.
 
-handler data is meant for interrupt handlers and not for storing irq chip
-specific information as some devices require handler data to store internal
-per interrupt information, e.g. pinctrl/GPIO chained interrupt handlers.
+Which is even worse as that spammed my inbox with mail delivery rejects
+for SPF and whatever violations. And those came mostly from Amazon
+servers which sent out that wrong stuff in the first place ....
 
-This obviously creates a conflict of interests and crashes the machine
-because the XEN pointer is overwritten by the driver pointer.
+> But yes, it needs the second From line, _and_ the first from line
+> needs to be fixed to be from him.
 
-As the XEN data is not handler specific it should be stored in
-irqdesc::irq_data::chip_data instead.
+Thanks,
 
-A simple sed s/irq_[sg]et_handler_data/irq_[sg]et_chip_data/ cures that.
-
-Reported-by: Roman Shaposhnik <roman@zededa.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
----
-Note: This probably wants a 'Cc: stable@' and a 'Fixes:' tag, but I
-leave that as an exercise to the maintainers how far they want to move
-that back.
----
- drivers/xen/events/events_base.c |   16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -156,7 +156,7 @@ int get_evtchn_to_irq(evtchn_port_t evtc
- /* Get info for IRQ */
- struct irq_info *info_for_irq(unsigned irq)
- {
--	return irq_get_handler_data(irq);
-+	return irq_get_chip_data(irq);
- }
- 
- /* Constructors for packed IRQ information. */
-@@ -377,7 +377,7 @@ static void xen_irq_init(unsigned irq)
- 	info->type = IRQT_UNBOUND;
- 	info->refcnt = -1;
- 
--	irq_set_handler_data(irq, info);
-+	irq_set_chip_data(irq, info);
- 
- 	list_add_tail(&info->list, &xen_irq_list_head);
- }
-@@ -426,14 +426,14 @@ static int __must_check xen_allocate_irq
- 
- static void xen_free_irq(unsigned irq)
- {
--	struct irq_info *info = irq_get_handler_data(irq);
-+	struct irq_info *info = irq_get_chip_data(irq);
- 
- 	if (WARN_ON(!info))
- 		return;
- 
- 	list_del(&info->list);
- 
--	irq_set_handler_data(irq, NULL);
-+	irq_set_chip_data(irq, NULL);
- 
- 	WARN_ON(info->refcnt > 0);
- 
-@@ -603,7 +603,7 @@ EXPORT_SYMBOL_GPL(xen_irq_from_gsi);
- static void __unbind_from_irq(unsigned int irq)
- {
- 	evtchn_port_t evtchn = evtchn_from_irq(irq);
--	struct irq_info *info = irq_get_handler_data(irq);
-+	struct irq_info *info = irq_get_chip_data(irq);
- 
- 	if (info->refcnt > 0) {
- 		info->refcnt--;
-@@ -1108,7 +1108,7 @@ int bind_ipi_to_irqhandler(enum ipi_vect
- 
- void unbind_from_irqhandler(unsigned int irq, void *dev_id)
- {
--	struct irq_info *info = irq_get_handler_data(irq);
-+	struct irq_info *info = irq_get_chip_data(irq);
- 
- 	if (WARN_ON(!info))
- 		return;
-@@ -1142,7 +1142,7 @@ int evtchn_make_refcounted(evtchn_port_t
- 	if (irq == -1)
- 		return -ENOENT;
- 
--	info = irq_get_handler_data(irq);
-+	info = irq_get_chip_data(irq);
- 
- 	if (!info)
- 		return -ENOENT;
-@@ -1170,7 +1170,7 @@ int evtchn_get(evtchn_port_t evtchn)
- 	if (irq == -1)
- 		goto done;
- 
--	info = irq_get_handler_data(irq);
-+	info = irq_get_chip_data(irq);
- 
- 	if (!info)
- 		goto done;
+        tglx
 
