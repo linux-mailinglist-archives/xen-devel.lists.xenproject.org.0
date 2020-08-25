@@ -2,92 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015EC251FEB
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 21:25:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34560251FEC
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 21:25:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAeZP-0005Js-EE; Tue, 25 Aug 2020 19:25:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kAeZk-0005Mi-TA; Tue, 25 Aug 2020 19:25:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T2Dk=CD=redhat.com=ehabkost@srs-us1.protection.inumbo.net>)
- id 1kAeZN-0005Jm-MV
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 19:25:21 +0000
-X-Inumbo-ID: 72248007-2cab-411d-9064-aa55ecb0362b
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 72248007-2cab-411d-9064-aa55ecb0362b;
- Tue, 25 Aug 2020 19:25:18 +0000 (UTC)
+ id 1kAeZi-0005MT-TZ
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 19:25:42 +0000
+X-Inumbo-ID: b4fc2d38-78cd-4707-89a4-adef69f8e753
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id b4fc2d38-78cd-4707-89a4-adef69f8e753;
+ Tue, 25 Aug 2020 19:25:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598383518;
+ s=mimecast20190719; t=1598383540;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=F+lCnQQ1oZuxcKJGfbjuVxzwu5H9An84Sy/g0QGes+s=;
- b=Qf19/OFbyVTIBQwlXJt+KA9GNfv8rvzHL0xa218pnqQjycIw1l/oAk0ovI406/NcbJVJOj
- wchT0LLIo9vBboReAyuuYBRex00QSN9rsbLhEvcEssNLBv0BUzMAoQGLC/0q3WOvzgI7xL
- i2Ds6naWLviBfTSj9/GIawQ/EzKGHdg=
+ bh=yRJoHxP9Dh98gMngTye04pVRH8Tqq11Vq0H1fe3MFug=;
+ b=RcYg0xHZ7ESbEslsQt/bojiLX5o2lxfupI/2NrX4rOMF1BucqIpEZKU+nIQ1BWrmN4xQ3k
+ 7SekWXnFnakexszHP/WeEi0EtMEY6G2SmYfawoKed8Bf/9+3TJ9LcJqx1ARqqfzMPmPhmg
+ iW5FWTBTQyZZsdAvwix308eRylxiKrY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-195-Jxh5sxEXOoiaev8EUmRtVQ-1; Tue, 25 Aug 2020 15:25:14 -0400
-X-MC-Unique: Jxh5sxEXOoiaev8EUmRtVQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+ us-mta-199-Dg2T2WL7N-aX8mAXt2GmNg-1; Tue, 25 Aug 2020 15:25:38 -0400
+X-MC-Unique: Dg2T2WL7N-aX8mAXt2GmNg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 257B210066FB;
- Tue, 25 Aug 2020 19:25:09 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 66F801074640;
+ Tue, 25 Aug 2020 19:25:34 +0000 (UTC)
 Received: from localhost (unknown [10.10.67.254])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 41C6574E0B;
- Tue, 25 Aug 2020 19:25:00 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A288710013C2;
+ Tue, 25 Aug 2020 19:25:20 +0000 (UTC)
 From: Eduardo Habkost <ehabkost@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
  "Daniel P. Berrange" <berrange@redhat.com>,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Corey Minyard <cminyard@mvista.com>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- David Gibson <david@gibson.dropbear.id.au>,
- Cornelia Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- Alistair Francis <alistair@alistair23.me>,
- David Hildenbrand <david@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
- Amit Shah <amit@kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Peter Maydell <peter.maydell@linaro.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Joel Stanley <joel@jms.id.au>, Jan Kiszka <jan.kiszka@web.de>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Richard Henderson <rth@twiddle.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Fam Zheng <fam@euphon.net>, "Gonglei (Arei)" <arei.gonglei@huawei.com>,
- Igor Mammedov <imammedo@redhat.com>, Stefan Berger <stefanb@linux.ibm.com>,
- Richard Henderson <rth@twiddle.net>, Michael Rolnik <mrolnik@gmail.com>,
- Sarah Harris <S.E.Harris@kent.ac.uk>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Michael Walle <michael@walle.cc>,
+ Gerd Hoffmann <kraxel@redhat.com>,
  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
  Aurelien Jarno <aurelien@aurel32.net>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Anthony Green <green@moxielogic.com>, Chris Wulff <crwulff@gmail.com>,
- Marek Vasut <marex@denx.de>, Stafford Horne <shorne@gmail.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Sagar Karandikar <sagark@eecs.berkeley.edu>,
- Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Laurent Vivier <laurent@vivier.eu>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Artyom Tarasenko <atar4qemu@gmail.com>, Guan Xuetao <gxt@mprc.pku.edu.cn>,
- Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org,
- qemu-ppc@nongnu.org, qemu-s390x@nongnu.org, qemu-block@nongnu.org,
- xen-devel@lists.xenproject.org, qemu-riscv@nongnu.org
-Subject: [PATCH v3 69/74] [automated] Use OBJECT_DECLARE_TYPE where possible
-Date: Tue, 25 Aug 2020 15:21:05 -0400
-Message-Id: <20200825192110.3528606-70-ehabkost@redhat.com>
+ David Gibson <david@gibson.dropbear.id.au>,
+ Cornelia Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ David Hildenbrand <david@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, Fam Zheng <fam@euphon.net>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Andrew Baumann <Andrew.Baumann@microsoft.com>,
+ Michael Walle <michael@walle.cc>, Andrzej Zaborowski <balrogg@gmail.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Alex Williamson <alex.williamson@redhat.com>, qemu-arm@nongnu.org,
+ xen-devel@lists.xenproject.org, qemu-ppc@nongnu.org, qemu-s390x@nongnu.org,
+ qemu-block@nongnu.org
+Subject: [PATCH v3 72/74] [automated] Remove redundant
+ instance_size/class_size fields
+Date: Tue, 25 Aug 2020 15:21:08 -0400
+Message-Id: <20200825192110.3528606-73-ehabkost@redhat.com>
 In-Reply-To: <20200825192110.3528606-1-ehabkost@redhat.com>
 References: <20200825192110.3528606-1-ehabkost@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=ehabkost@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -107,1434 +100,846 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Replace DECLARE_OBJ_CHECKERS with OBJECT_DECLARE_TYPE where the
-typedefs can be safely removed.
+This will remove instance_size/class_size fields from TypeInfo
+variables when the value is exactly the same as the one in the
+parent class.
 
-Generated running:
+Generated by:
 
-$ ./scripts/codeconverter/converter.py -i \
-  --pattern=DeclareObjCheckers $(git grep -l '' -- '*.[ch]')
+ $ ./scripts/codeconverter/converter.py -i \
+   --pattern=RedundantTypeSizes $(git grep -l TypeInfo -- '*.[ch]')
 
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
 ---
-Changes v2 -> v3:
-* Removed hunk due to rebase conflict: include/hw/ppc/xive.h
-* Reviewed-by line from Daniel was kept, as no additional hunks
-  are introduced in this version
-
-Changes v1 -> v2:
-* Script re-run after typedefs and macros were moved, and now the
-  patch also touches:
-  - TYPE_ARM_SSE
-  - TYPE_SD_BUS
-
-Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
+Changes series v2 -> v3: this is a new patch in series v3
 
 ---
 Cc: "Marc-André Lureau" <marcandre.lureau@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
 Cc: "Daniel P. Berrangé" <berrange@redhat.com>
-Cc: Peter Maydell <peter.maydell@linaro.org>
-Cc: Corey Minyard <cminyard@mvista.com>
 Cc: "Cédric Le Goater" <clg@kaod.org>
-Cc: David Gibson <david@gibson.dropbear.id.au>
-Cc: Cornelia Huck <cohuck@redhat.com>
-Cc: Thomas Huth <thuth@redhat.com>
-Cc: Halil Pasic <pasic@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-Cc: "Philippe Mathieu-Daudé" <philmd@redhat.com>
-Cc: Alistair Francis <alistair@alistair23.me>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: Laurent Vivier <lvivier@redhat.com>
-Cc: Amit Shah <amit@kernel.org>
+Cc: Peter Maydell <peter.maydell@linaro.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>
+Cc: Jan Kiszka <jan.kiszka@web.de>
+Cc: Eduardo Habkost <ehabkost@redhat.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Cc: Richard Henderson <rth@twiddle.net>
 Cc: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Anthony Perard <anthony.perard@citrix.com>
 Cc: Paul Durrant <paul@xen.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Fam Zheng <fam@euphon.net>
-Cc: "Gonglei (Arei)" <arei.gonglei@huawei.com>
-Cc: Eduardo Habkost <ehabkost@redhat.com>
-Cc: Igor Mammedov <imammedo@redhat.com>
-Cc: Stefan Berger <stefanb@linux.ibm.com>
-Cc: Richard Henderson <rth@twiddle.net>
-Cc: Michael Rolnik <mrolnik@gmail.com>
-Cc: Sarah Harris <S.E.Harris@kent.ac.uk>
-Cc: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: Michael Walle <michael@walle.cc>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
 Cc: Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+Cc: "Philippe Mathieu-Daudé" <philmd@redhat.com>
 Cc: Aurelien Jarno <aurelien@aurel32.net>
 Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>
 Cc: Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>
-Cc: Anthony Green <green@moxielogic.com>
-Cc: Chris Wulff <crwulff@gmail.com>
-Cc: Marek Vasut <marex@denx.de>
-Cc: Stafford Horne <shorne@gmail.com>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Sagar Karandikar <sagark@eecs.berkeley.edu>
-Cc: Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Laurent Vivier <laurent@vivier.eu>
 Cc: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-Cc: Artyom Tarasenko <atar4qemu@gmail.com>
-Cc: Guan Xuetao <gxt@mprc.pku.edu.cn>
-Cc: Max Filippov <jcmvbkbc@gmail.com>
+Cc: David Gibson <david@gibson.dropbear.id.au>
+Cc: Cornelia Huck <cohuck@redhat.com>
+Cc: Thomas Huth <thuth@redhat.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@de.ibm.com>
+Cc: Fam Zheng <fam@euphon.net>
+Cc: Beniamino Galvani <b.galvani@gmail.com>
+Cc: Andrew Baumann <Andrew.Baumann@microsoft.com>
+Cc: Michael Walle <michael@walle.cc>
+Cc: Andrzej Zaborowski <balrogg@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Alex Williamson <alex.williamson@redhat.com>
 Cc: qemu-devel@nongnu.org
 Cc: qemu-arm@nongnu.org
+Cc: xen-devel@lists.xenproject.org
 Cc: qemu-ppc@nongnu.org
 Cc: qemu-s390x@nongnu.org
 Cc: qemu-block@nongnu.org
-Cc: xen-devel@lists.xenproject.org
-Cc: qemu-riscv@nongnu.org
----
- hw/audio/intel-hda.h                | 6 ++----
- hw/display/virtio-vga.h             | 6 ++----
- include/authz/base.h                | 6 ++----
- include/authz/list.h                | 6 ++----
- include/authz/listfile.h            | 6 ++----
- include/authz/pamacct.h             | 6 ++----
- include/authz/simple.h              | 6 ++----
- include/crypto/secret_common.h      | 6 ++----
- include/crypto/secret_keyring.h     | 6 ++----
- include/hw/arm/armsse.h             | 6 ++----
- include/hw/hyperv/vmbus.h           | 6 ++----
- include/hw/i2c/i2c.h                | 6 ++----
- include/hw/i2c/smbus_slave.h        | 6 ++----
- include/hw/ipack/ipack.h            | 6 ++----
- include/hw/ipmi/ipmi.h              | 6 ++----
- include/hw/mem/pc-dimm.h            | 6 ++----
- include/hw/ppc/pnv.h                | 6 ++----
- include/hw/ppc/pnv_core.h           | 6 ++----
- include/hw/ppc/pnv_homer.h          | 6 ++----
- include/hw/ppc/pnv_occ.h            | 6 ++----
- include/hw/ppc/pnv_psi.h            | 6 ++----
- include/hw/ppc/pnv_xive.h           | 6 ++----
- include/hw/ppc/spapr_cpu_core.h     | 6 ++----
- include/hw/ppc/spapr_drc.h          | 6 ++----
- include/hw/ppc/spapr_vio.h          | 6 ++----
- include/hw/ppc/spapr_xive.h         | 6 ++----
- include/hw/ppc/xics.h               | 6 ++----
- include/hw/s390x/event-facility.h   | 6 ++----
- include/hw/s390x/s390_flic.h        | 6 ++----
- include/hw/s390x/sclp.h             | 6 ++----
- include/hw/sd/sd.h                  | 6 ++----
- include/hw/ssi/ssi.h                | 6 ++----
- include/hw/sysbus.h                 | 6 ++----
- include/hw/virtio/virtio-gpu.h      | 6 ++----
- include/hw/virtio/virtio-input.h    | 6 ++----
- include/hw/virtio/virtio-mem.h      | 6 ++----
- include/hw/virtio/virtio-pmem.h     | 6 ++----
- include/hw/virtio/virtio-serial.h   | 6 ++----
- include/hw/xen/xen-bus.h            | 6 ++----
- include/io/channel.h                | 6 ++----
- include/io/dns-resolver.h           | 6 ++----
- include/io/net-listener.h           | 6 ++----
- include/scsi/pr-manager.h           | 6 ++----
- include/sysemu/cryptodev.h          | 6 ++----
- include/sysemu/hostmem.h            | 6 ++----
- include/sysemu/rng.h                | 6 ++----
- include/sysemu/tpm_backend.h        | 6 ++----
- include/sysemu/vhost-user-backend.h | 6 ++----
- target/alpha/cpu-qom.h              | 6 ++----
- target/arm/cpu-qom.h                | 6 ++----
- target/avr/cpu-qom.h                | 6 ++----
- target/cris/cpu-qom.h               | 6 ++----
- target/hppa/cpu-qom.h               | 6 ++----
- target/i386/cpu-qom.h               | 6 ++----
- target/lm32/cpu-qom.h               | 6 ++----
- target/m68k/cpu-qom.h               | 6 ++----
- target/microblaze/cpu-qom.h         | 6 ++----
- target/mips/cpu-qom.h               | 6 ++----
- target/moxie/cpu.h                  | 6 ++----
- target/nios2/cpu.h                  | 6 ++----
- target/openrisc/cpu.h               | 6 ++----
- target/ppc/cpu-qom.h                | 6 ++----
- target/riscv/cpu.h                  | 6 ++----
- target/s390x/cpu-qom.h              | 6 ++----
- target/sh4/cpu-qom.h                | 6 ++----
- target/sparc/cpu-qom.h              | 6 ++----
- target/tilegx/cpu.h                 | 6 ++----
- target/tricore/cpu-qom.h            | 6 ++----
- target/unicore32/cpu-qom.h          | 6 ++----
- target/xtensa/cpu-qom.h             | 6 ++----
- backends/dbus-vmstate.c             | 6 ++----
- ui/input-barrier.c                  | 6 ++----
- ui/input-linux.c                    | 6 ++----
- 73 files changed, 146 insertions(+), 292 deletions(-)
 
-diff --git a/hw/audio/intel-hda.h b/hw/audio/intel-hda.h
-index 813a7a357d..f5cce18fa3 100644
---- a/hw/audio/intel-hda.h
-+++ b/hw/audio/intel-hda.h
-@@ -8,10 +8,8 @@
- /* hda bus                                                               */
- 
- #define TYPE_HDA_CODEC_DEVICE "hda-codec"
--typedef struct HDACodecDevice HDACodecDevice;
--typedef struct HDACodecDeviceClass HDACodecDeviceClass;
--DECLARE_OBJ_CHECKERS(HDACodecDevice, HDACodecDeviceClass,
--                     HDA_CODEC_DEVICE, TYPE_HDA_CODEC_DEVICE)
-+OBJECT_DECLARE_TYPE(HDACodecDevice, HDACodecDeviceClass,
-+                    hda_codec_device, HDA_CODEC_DEVICE)
- 
- #define TYPE_HDA_BUS "HDA"
- typedef struct HDACodecBus HDACodecBus;
-diff --git a/hw/display/virtio-vga.h b/hw/display/virtio-vga.h
-index 19f8af7356..5c5671c9c1 100644
---- a/hw/display/virtio-vga.h
-+++ b/hw/display/virtio-vga.h
-@@ -9,10 +9,8 @@
-  * virtio-vga-base: This extends VirtioPCIProxy.
-  */
- #define TYPE_VIRTIO_VGA_BASE "virtio-vga-base"
--typedef struct VirtIOVGABase VirtIOVGABase;
--typedef struct VirtIOVGABaseClass VirtIOVGABaseClass;
--DECLARE_OBJ_CHECKERS(VirtIOVGABase, VirtIOVGABaseClass,
--                     VIRTIO_VGA_BASE, TYPE_VIRTIO_VGA_BASE)
-+OBJECT_DECLARE_TYPE(VirtIOVGABase, VirtIOVGABaseClass,
-+                    virtio_vga_base, VIRTIO_VGA_BASE)
- 
- struct VirtIOVGABase {
-     VirtIOPCIProxy parent_obj;
-diff --git a/include/authz/base.h b/include/authz/base.h
-index 8d8cf9fa5a..06b5e29f6f 100644
---- a/include/authz/base.h
-+++ b/include/authz/base.h
-@@ -27,10 +27,8 @@
- 
- #define TYPE_QAUTHZ "authz"
- 
--typedef struct QAuthZ QAuthZ;
--typedef struct QAuthZClass QAuthZClass;
--DECLARE_OBJ_CHECKERS(QAuthZ, QAuthZClass,
--                     QAUTHZ, TYPE_QAUTHZ)
-+OBJECT_DECLARE_TYPE(QAuthZ, QAuthZClass,
-+                    qauthz, QAUTHZ)
- 
- 
- /**
-diff --git a/include/authz/list.h b/include/authz/list.h
-index 93d16876bc..e4e1040472 100644
---- a/include/authz/list.h
-+++ b/include/authz/list.h
-@@ -27,10 +27,8 @@
- 
- #define TYPE_QAUTHZ_LIST "authz-list"
- 
--typedef struct QAuthZList QAuthZList;
--typedef struct QAuthZListClass QAuthZListClass;
--DECLARE_OBJ_CHECKERS(QAuthZList, QAuthZListClass,
--                     QAUTHZ_LIST, TYPE_QAUTHZ_LIST)
-+OBJECT_DECLARE_TYPE(QAuthZList, QAuthZListClass,
-+                    qauthz_list, QAUTHZ_LIST)
- 
- 
- 
-diff --git a/include/authz/listfile.h b/include/authz/listfile.h
-index 2e4a629b6d..89c5eafbfa 100644
---- a/include/authz/listfile.h
-+++ b/include/authz/listfile.h
-@@ -27,10 +27,8 @@
- 
- #define TYPE_QAUTHZ_LIST_FILE "authz-list-file"
- 
--typedef struct QAuthZListFile QAuthZListFile;
--typedef struct QAuthZListFileClass QAuthZListFileClass;
--DECLARE_OBJ_CHECKERS(QAuthZListFile, QAuthZListFileClass,
--                     QAUTHZ_LIST_FILE, TYPE_QAUTHZ_LIST_FILE)
-+OBJECT_DECLARE_TYPE(QAuthZListFile, QAuthZListFileClass,
-+                    qauthz_list_file, QAUTHZ_LIST_FILE)
- 
- 
- 
-diff --git a/include/authz/pamacct.h b/include/authz/pamacct.h
-index 98454ddc25..44bb5ff28d 100644
---- a/include/authz/pamacct.h
-+++ b/include/authz/pamacct.h
-@@ -27,10 +27,8 @@
- 
- #define TYPE_QAUTHZ_PAM "authz-pam"
- 
--typedef struct QAuthZPAM QAuthZPAM;
--typedef struct QAuthZPAMClass QAuthZPAMClass;
--DECLARE_OBJ_CHECKERS(QAuthZPAM, QAuthZPAMClass,
--                     QAUTHZ_PAM, TYPE_QAUTHZ_PAM)
-+OBJECT_DECLARE_TYPE(QAuthZPAM, QAuthZPAMClass,
-+                    qauthz_pam, QAUTHZ_PAM)
- 
- 
- 
-diff --git a/include/authz/simple.h b/include/authz/simple.h
-index 7a896fb94b..ba4a5ec5ea 100644
---- a/include/authz/simple.h
-+++ b/include/authz/simple.h
-@@ -26,10 +26,8 @@
- 
- #define TYPE_QAUTHZ_SIMPLE "authz-simple"
- 
--typedef struct QAuthZSimple QAuthZSimple;
--typedef struct QAuthZSimpleClass QAuthZSimpleClass;
--DECLARE_OBJ_CHECKERS(QAuthZSimple, QAuthZSimpleClass,
--                     QAUTHZ_SIMPLE, TYPE_QAUTHZ_SIMPLE)
-+OBJECT_DECLARE_TYPE(QAuthZSimple, QAuthZSimpleClass,
-+                    qauthz_simple, QAUTHZ_SIMPLE)
- 
- 
- 
-diff --git a/include/crypto/secret_common.h b/include/crypto/secret_common.h
-index dd3310ea5f..daf00c3b2a 100644
---- a/include/crypto/secret_common.h
-+++ b/include/crypto/secret_common.h
-@@ -25,10 +25,8 @@
- #include "qom/object.h"
- 
- #define TYPE_QCRYPTO_SECRET_COMMON "secret_common"
--typedef struct QCryptoSecretCommon QCryptoSecretCommon;
--typedef struct QCryptoSecretCommonClass QCryptoSecretCommonClass;
--DECLARE_OBJ_CHECKERS(QCryptoSecretCommon, QCryptoSecretCommonClass,
--                     QCRYPTO_SECRET_COMMON, TYPE_QCRYPTO_SECRET_COMMON)
-+OBJECT_DECLARE_TYPE(QCryptoSecretCommon, QCryptoSecretCommonClass,
-+                    qcrypto_secret_common, QCRYPTO_SECRET_COMMON)
- 
- 
- struct QCryptoSecretCommon {
-diff --git a/include/crypto/secret_keyring.h b/include/crypto/secret_keyring.h
-index 9875f4cbf3..cc2c7397db 100644
---- a/include/crypto/secret_keyring.h
-+++ b/include/crypto/secret_keyring.h
-@@ -26,10 +26,8 @@
- #include "crypto/secret_common.h"
- 
- #define TYPE_QCRYPTO_SECRET_KEYRING "secret_keyring"
--typedef struct QCryptoSecretKeyring QCryptoSecretKeyring;
--typedef struct QCryptoSecretKeyringClass QCryptoSecretKeyringClass;
--DECLARE_OBJ_CHECKERS(QCryptoSecretKeyring, QCryptoSecretKeyringClass,
--                     QCRYPTO_SECRET_KEYRING, TYPE_QCRYPTO_SECRET_KEYRING)
-+OBJECT_DECLARE_TYPE(QCryptoSecretKeyring, QCryptoSecretKeyringClass,
-+                    qcrypto_secret_keyring, QCRYPTO_SECRET_KEYRING)
- 
- 
- struct QCryptoSecretKeyring {
-diff --git a/include/hw/arm/armsse.h b/include/hw/arm/armsse.h
-index 2495b52335..f82f27001a 100644
---- a/include/hw/arm/armsse.h
-+++ b/include/hw/arm/armsse.h
-@@ -108,10 +108,8 @@
- #include "qom/object.h"
- 
- #define TYPE_ARM_SSE "arm-sse"
--typedef struct ARMSSE ARMSSE;
--typedef struct ARMSSEClass ARMSSEClass;
--DECLARE_OBJ_CHECKERS(ARMSSE, ARMSSEClass,
--                     ARM_SSE, TYPE_ARM_SSE)
-+OBJECT_DECLARE_TYPE(ARMSSE, ARMSSEClass,
-+                    arm_sse, ARM_SSE)
- 
- /*
-  * These type names are for specific IoTKit subsystems; other than
-diff --git a/include/hw/hyperv/vmbus.h b/include/hw/hyperv/vmbus.h
-index 0fe3d3b47c..00ad8798c1 100644
---- a/include/hw/hyperv/vmbus.h
-+++ b/include/hw/hyperv/vmbus.h
-@@ -20,10 +20,8 @@
- 
- #define TYPE_VMBUS_DEVICE "vmbus-dev"
- 
--typedef struct VMBusDevice VMBusDevice;
--typedef struct VMBusDeviceClass VMBusDeviceClass;
--DECLARE_OBJ_CHECKERS(VMBusDevice, VMBusDeviceClass,
--                     VMBUS_DEVICE, TYPE_VMBUS_DEVICE)
-+OBJECT_DECLARE_TYPE(VMBusDevice, VMBusDeviceClass,
-+                    vmbus_device, VMBUS_DEVICE)
- 
- #define TYPE_VMBUS "vmbus"
- typedef struct VMBus VMBus;
-diff --git a/include/hw/i2c/i2c.h b/include/hw/i2c/i2c.h
-index 8afa74f42e..770051db54 100644
---- a/include/hw/i2c/i2c.h
-+++ b/include/hw/i2c/i2c.h
-@@ -16,12 +16,10 @@ enum i2c_event {
-     I2C_NACK /* Masker NACKed a receive byte.  */
+---
+Cc: "Marc-André Lureau" <marcandre.lureau@redhat.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: "Daniel P. Berrangé" <berrange@redhat.com>
+Cc: "Cédric Le Goater" <clg@kaod.org>
+Cc: Peter Maydell <peter.maydell@linaro.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>
+Cc: Jan Kiszka <jan.kiszka@web.de>
+Cc: Eduardo Habkost <ehabkost@redhat.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Cc: Richard Henderson <rth@twiddle.net>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+Cc: "Philippe Mathieu-Daudé" <philmd@redhat.com>
+Cc: Aurelien Jarno <aurelien@aurel32.net>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>
+Cc: Laurent Vivier <laurent@vivier.eu>
+Cc: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+Cc: David Gibson <david@gibson.dropbear.id.au>
+Cc: Cornelia Huck <cohuck@redhat.com>
+Cc: Halil Pasic <pasic@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@de.ibm.com>
+Cc: Thomas Huth <thuth@redhat.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Fam Zheng <fam@euphon.net>
+Cc: Beniamino Galvani <b.galvani@gmail.com>
+Cc: Andrew Baumann <Andrew.Baumann@microsoft.com>
+Cc: Michael Walle <michael@walle.cc>
+Cc: Andrzej Zaborowski <balrogg@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Alex Williamson <alex.williamson@redhat.com>
+Cc: qemu-devel@nongnu.org
+Cc: qemu-arm@nongnu.org
+Cc: xen-devel@lists.xenproject.org
+Cc: qemu-ppc@nongnu.org
+Cc: qemu-s390x@nongnu.org
+Cc: qemu-block@nongnu.org
+---
+ chardev/char-null.c            | 1 -
+ crypto/tls-cipher-suites.c     | 2 --
+ hw/arm/aspeed_ast2600.c        | 2 --
+ hw/arm/aspeed_soc.c            | 2 --
+ hw/arm/musicpal.c              | 1 -
+ hw/core/sysbus.c               | 1 -
+ hw/i386/kvm/apic.c             | 1 -
+ hw/i386/pc_piix.c              | 1 -
+ hw/i386/xen/xen_apic.c         | 1 -
+ hw/input/virtio-input-hid.c    | 3 ---
+ hw/intc/apic.c                 | 1 -
+ hw/intc/ioapic.c               | 1 -
+ hw/isa/isa-bus.c               | 1 -
+ hw/mips/gt64xxx_pci.c          | 1 -
+ hw/misc/aspeed_scu.c           | 3 ---
+ hw/misc/ivshmem.c              | 2 --
+ hw/nubus/nubus-bridge.c        | 1 -
+ hw/pci-bridge/dec.c            | 2 --
+ hw/pci-bridge/pci_bridge_dev.c | 1 -
+ hw/pci-host/grackle.c          | 1 -
+ hw/pci-host/uninorth.c         | 4 ----
+ hw/pci-host/versatile.c        | 1 -
+ hw/pci-host/xen_igd_pt.c       | 1 -
+ hw/ppc/pnv_homer.c             | 2 --
+ hw/ppc/pnv_occ.c               | 2 --
+ hw/ppc/ppc4xx_pci.c            | 1 -
+ hw/s390x/s390-skeys-kvm.c      | 2 --
+ hw/s390x/sclpcpu.c             | 2 --
+ hw/s390x/sclpquiesce.c         | 2 --
+ hw/s390x/tod-kvm.c             | 2 --
+ hw/s390x/tod-qemu.c            | 2 --
+ hw/s390x/virtio-ccw-input.c    | 3 ---
+ hw/scsi/scsi-generic.c         | 1 -
+ hw/sd/allwinner-sdhost.c       | 1 -
+ hw/sd/bcm2835_sdhost.c         | 1 -
+ hw/sd/milkymist-memcard.c      | 1 -
+ hw/sd/pl181.c                  | 1 -
+ hw/sd/pxa2xx_mmci.c            | 1 -
+ hw/sd/sdhci.c                  | 1 -
+ hw/sh4/sh_pci.c                | 1 -
+ hw/timer/pxa2xx_timer.c        | 2 --
+ hw/vfio/pci.c                  | 1 -
+ hw/virtio/virtio-mmio.c        | 1 -
+ hw/watchdog/wdt_aspeed.c       | 3 ---
+ hw/xen/xen-legacy-backend.c    | 1 -
+ 45 files changed, 69 deletions(-)
+
+diff --git a/chardev/char-null.c b/chardev/char-null.c
+index ce43ccdda6..2736b2ff2b 100644
+--- a/chardev/char-null.c
++++ b/chardev/char-null.c
+@@ -44,7 +44,6 @@ static void char_null_class_init(ObjectClass *oc, void *data)
+ static const TypeInfo char_null_type_info = {
+     .name = TYPE_CHARDEV_NULL,
+     .parent = TYPE_CHARDEV,
+-    .instance_size = sizeof(Chardev),
+     .class_init = char_null_class_init,
+ };
+ TYPE_INFO(char_null_type_info)
+diff --git a/crypto/tls-cipher-suites.c b/crypto/tls-cipher-suites.c
+index e92a380a24..0c9713d301 100644
+--- a/crypto/tls-cipher-suites.c
++++ b/crypto/tls-cipher-suites.c
+@@ -108,8 +108,6 @@ static void qcrypto_tls_cipher_suites_class_init(ObjectClass *oc, void *data)
+ static const TypeInfo qcrypto_tls_cipher_suites_info = {
+     .parent = TYPE_QCRYPTO_TLS_CREDS,
+     .name = TYPE_QCRYPTO_TLS_CIPHER_SUITES,
+-    .instance_size = sizeof(QCryptoTLSCreds),
+-    .class_size = sizeof(QCryptoTLSCredsClass),
+     .class_init = qcrypto_tls_cipher_suites_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { TYPE_USER_CREATABLE },
+diff --git a/hw/arm/aspeed_ast2600.c b/hw/arm/aspeed_ast2600.c
+index 9d95e42143..365e02c89f 100644
+--- a/hw/arm/aspeed_ast2600.c
++++ b/hw/arm/aspeed_ast2600.c
+@@ -496,10 +496,8 @@ static void aspeed_soc_ast2600_class_init(ObjectClass *oc, void *data)
+ static const TypeInfo aspeed_soc_ast2600_type_info = {
+     .name           = "ast2600-a1",
+     .parent         = TYPE_ASPEED_SOC,
+-    .instance_size  = sizeof(AspeedSoCState),
+     .instance_init  = aspeed_soc_ast2600_init,
+     .class_init     = aspeed_soc_ast2600_class_init,
+-    .class_size     = sizeof(AspeedSoCClass),
  };
  
--typedef struct I2CSlave I2CSlave;
- 
- #define TYPE_I2C_SLAVE "i2c-slave"
--typedef struct I2CSlaveClass I2CSlaveClass;
--DECLARE_OBJ_CHECKERS(I2CSlave, I2CSlaveClass,
--                     I2C_SLAVE, TYPE_I2C_SLAVE)
-+OBJECT_DECLARE_TYPE(I2CSlave, I2CSlaveClass,
-+                    i2c_slave, I2C_SLAVE)
- 
- struct I2CSlaveClass {
-     DeviceClass parent_class;
-diff --git a/include/hw/i2c/smbus_slave.h b/include/hw/i2c/smbus_slave.h
-index 8d16e4bcd9..cb9cb372f9 100644
---- a/include/hw/i2c/smbus_slave.h
-+++ b/include/hw/i2c/smbus_slave.h
-@@ -29,10 +29,8 @@
- #include "qom/object.h"
- 
- #define TYPE_SMBUS_DEVICE "smbus-device"
--typedef struct SMBusDevice SMBusDevice;
--typedef struct SMBusDeviceClass SMBusDeviceClass;
--DECLARE_OBJ_CHECKERS(SMBusDevice, SMBusDeviceClass,
--                     SMBUS_DEVICE, TYPE_SMBUS_DEVICE)
-+OBJECT_DECLARE_TYPE(SMBusDevice, SMBusDeviceClass,
-+                    smbus_device, SMBUS_DEVICE)
- 
- 
- struct SMBusDeviceClass {
-diff --git a/include/hw/ipack/ipack.h b/include/hw/ipack/ipack.h
-index a2304c1b3e..a59a487853 100644
---- a/include/hw/ipack/ipack.h
-+++ b/include/hw/ipack/ipack.h
-@@ -30,12 +30,10 @@ struct IPackBus {
-     qemu_irq_handler set_irq;
+ static void aspeed_soc_register_types(void)
+diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+index 35be126db6..4a0743b865 100644
+--- a/hw/arm/aspeed_soc.c
++++ b/hw/arm/aspeed_soc.c
+@@ -442,7 +442,6 @@ static const TypeInfo aspeed_soc_ast2400_type_info = {
+     .name           = "ast2400-a1",
+     .parent         = TYPE_ASPEED_SOC,
+     .instance_init  = aspeed_soc_init,
+-    .instance_size  = sizeof(AspeedSoCState),
+     .class_init     = aspeed_soc_ast2400_class_init,
  };
  
--typedef struct IPackDevice IPackDevice;
--typedef struct IPackDeviceClass IPackDeviceClass;
- 
- #define TYPE_IPACK_DEVICE "ipack-device"
--DECLARE_OBJ_CHECKERS(IPackDevice, IPackDeviceClass,
--                     IPACK_DEVICE, TYPE_IPACK_DEVICE)
-+OBJECT_DECLARE_TYPE(IPackDevice, IPackDeviceClass,
-+                    ipack_device, IPACK_DEVICE)
- 
- struct IPackDeviceClass {
-     /*< private >*/
-diff --git a/include/hw/ipmi/ipmi.h b/include/hw/ipmi/ipmi.h
-index d2ed0a9fc4..9915b146f7 100644
---- a/include/hw/ipmi/ipmi.h
-+++ b/include/hw/ipmi/ipmi.h
-@@ -175,10 +175,8 @@ struct IPMIInterfaceClass {
-  * Define a BMC simulator (or perhaps a connection to a real BMC)
-  */
- #define TYPE_IPMI_BMC "ipmi-bmc"
--typedef struct IPMIBmc IPMIBmc;
--typedef struct IPMIBmcClass IPMIBmcClass;
--DECLARE_OBJ_CHECKERS(IPMIBmc, IPMIBmcClass,
--                     IPMI_BMC, TYPE_IPMI_BMC)
-+OBJECT_DECLARE_TYPE(IPMIBmc, IPMIBmcClass,
-+                    ipmi_bmc, IPMI_BMC)
- 
- struct IPMIBmc {
-     DeviceState parent;
-diff --git a/include/hw/mem/pc-dimm.h b/include/hw/mem/pc-dimm.h
-index 86e3010243..1d570defc9 100644
---- a/include/hw/mem/pc-dimm.h
-+++ b/include/hw/mem/pc-dimm.h
-@@ -21,10 +21,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PC_DIMM "pc-dimm"
--typedef struct PCDIMMDevice PCDIMMDevice;
--typedef struct PCDIMMDeviceClass PCDIMMDeviceClass;
--DECLARE_OBJ_CHECKERS(PCDIMMDevice, PCDIMMDeviceClass,
--                     PC_DIMM, TYPE_PC_DIMM)
-+OBJECT_DECLARE_TYPE(PCDIMMDevice, PCDIMMDeviceClass,
-+                    pc_dimm, PC_DIMM)
- 
- #define PC_DIMM_ADDR_PROP "addr"
- #define PC_DIMM_SLOT_PROP "slot"
-diff --git a/include/hw/ppc/pnv.h b/include/hw/ppc/pnv.h
-index f3bacb6a5c..b4b2b24d80 100644
---- a/include/hw/ppc/pnv.h
-+++ b/include/hw/ppc/pnv.h
-@@ -35,10 +35,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PNV_CHIP "pnv-chip"
--typedef struct PnvChip PnvChip;
--typedef struct PnvChipClass PnvChipClass;
--DECLARE_OBJ_CHECKERS(PnvChip, PnvChipClass,
--                     PNV_CHIP, TYPE_PNV_CHIP)
-+OBJECT_DECLARE_TYPE(PnvChip, PnvChipClass,
-+                    pnv_chip, PNV_CHIP)
- 
- struct PnvChip {
-     /*< private >*/
-diff --git a/include/hw/ppc/pnv_core.h b/include/hw/ppc/pnv_core.h
-index fd17a236e3..5cb22c2fa9 100644
---- a/include/hw/ppc/pnv_core.h
-+++ b/include/hw/ppc/pnv_core.h
-@@ -25,10 +25,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PNV_CORE "powernv-cpu-core"
--typedef struct PnvCore PnvCore;
--typedef struct PnvCoreClass PnvCoreClass;
--DECLARE_OBJ_CHECKERS(PnvCore, PnvCoreClass,
--                     PNV_CORE, TYPE_PNV_CORE)
-+OBJECT_DECLARE_TYPE(PnvCore, PnvCoreClass,
-+                    pnv_core, PNV_CORE)
- 
- typedef struct PnvChip PnvChip;
- 
-diff --git a/include/hw/ppc/pnv_homer.h b/include/hw/ppc/pnv_homer.h
-index 7aadcab03c..0978812713 100644
---- a/include/hw/ppc/pnv_homer.h
-+++ b/include/hw/ppc/pnv_homer.h
-@@ -24,10 +24,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PNV_HOMER "pnv-homer"
--typedef struct PnvHomer PnvHomer;
--typedef struct PnvHomerClass PnvHomerClass;
--DECLARE_OBJ_CHECKERS(PnvHomer, PnvHomerClass,
--                     PNV_HOMER, TYPE_PNV_HOMER)
-+OBJECT_DECLARE_TYPE(PnvHomer, PnvHomerClass,
-+                    pnv_homer, PNV_HOMER)
- #define TYPE_PNV8_HOMER TYPE_PNV_HOMER "-POWER8"
- DECLARE_INSTANCE_CHECKER(PnvHomer, PNV8_HOMER,
-                          TYPE_PNV8_HOMER)
-diff --git a/include/hw/ppc/pnv_occ.h b/include/hw/ppc/pnv_occ.h
-index 4fcfb32417..b79e3440be 100644
---- a/include/hw/ppc/pnv_occ.h
-+++ b/include/hw/ppc/pnv_occ.h
-@@ -24,10 +24,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PNV_OCC "pnv-occ"
--typedef struct PnvOCC PnvOCC;
--typedef struct PnvOCCClass PnvOCCClass;
--DECLARE_OBJ_CHECKERS(PnvOCC, PnvOCCClass,
--                     PNV_OCC, TYPE_PNV_OCC)
-+OBJECT_DECLARE_TYPE(PnvOCC, PnvOCCClass,
-+                    pnv_occ, PNV_OCC)
- #define TYPE_PNV8_OCC TYPE_PNV_OCC "-POWER8"
- DECLARE_INSTANCE_CHECKER(PnvOCC, PNV8_OCC,
-                          TYPE_PNV8_OCC)
-diff --git a/include/hw/ppc/pnv_psi.h b/include/hw/ppc/pnv_psi.h
-index a33195df17..0034db44c3 100644
---- a/include/hw/ppc/pnv_psi.h
-+++ b/include/hw/ppc/pnv_psi.h
-@@ -26,10 +26,8 @@
- #include "qom/object.h"
- 
- #define TYPE_PNV_PSI "pnv-psi"
--typedef struct PnvPsi PnvPsi;
--typedef struct PnvPsiClass PnvPsiClass;
--DECLARE_OBJ_CHECKERS(PnvPsi, PnvPsiClass,
--                     PNV_PSI, TYPE_PNV_PSI)
-+OBJECT_DECLARE_TYPE(PnvPsi, PnvPsiClass,
-+                    pnv_psi, PNV_PSI)
- 
- #define PSIHB_XSCOM_MAX         0x20
- 
-diff --git a/include/hw/ppc/pnv_xive.h b/include/hw/ppc/pnv_xive.h
-index a014e2a726..29d5debd1c 100644
---- a/include/hw/ppc/pnv_xive.h
-+++ b/include/hw/ppc/pnv_xive.h
-@@ -16,10 +16,8 @@
- struct PnvChip;
- 
- #define TYPE_PNV_XIVE "pnv-xive"
--typedef struct PnvXive PnvXive;
--typedef struct PnvXiveClass PnvXiveClass;
--DECLARE_OBJ_CHECKERS(PnvXive, PnvXiveClass,
--                     PNV_XIVE, TYPE_PNV_XIVE)
-+OBJECT_DECLARE_TYPE(PnvXive, PnvXiveClass,
-+                    pnv_xive, PNV_XIVE)
- 
- #define XIVE_BLOCK_MAX      16
- 
-diff --git a/include/hw/ppc/spapr_cpu_core.h b/include/hw/ppc/spapr_cpu_core.h
-index fba6a01050..4022917168 100644
---- a/include/hw/ppc/spapr_cpu_core.h
-+++ b/include/hw/ppc/spapr_cpu_core.h
-@@ -16,10 +16,8 @@
- #include "qom/object.h"
- 
- #define TYPE_SPAPR_CPU_CORE "spapr-cpu-core"
--typedef struct SpaprCpuCore SpaprCpuCore;
--typedef struct SpaprCpuCoreClass SpaprCpuCoreClass;
--DECLARE_OBJ_CHECKERS(SpaprCpuCore, SpaprCpuCoreClass,
--                     SPAPR_CPU_CORE, TYPE_SPAPR_CPU_CORE)
-+OBJECT_DECLARE_TYPE(SpaprCpuCore, SpaprCpuCoreClass,
-+                    spapr_cpu_core, SPAPR_CPU_CORE)
- 
- #define SPAPR_CPU_CORE_TYPE_NAME(model) model "-" TYPE_SPAPR_CPU_CORE
- 
-diff --git a/include/hw/ppc/spapr_drc.h b/include/hw/ppc/spapr_drc.h
-index 2236aea66a..6daafa8106 100644
---- a/include/hw/ppc/spapr_drc.h
-+++ b/include/hw/ppc/spapr_drc.h
-@@ -20,10 +20,8 @@
- #include "qapi/error.h"
- 
- #define TYPE_SPAPR_DR_CONNECTOR "spapr-dr-connector"
--typedef struct SpaprDrc SpaprDrc;
--typedef struct SpaprDrcClass SpaprDrcClass;
--DECLARE_OBJ_CHECKERS(SpaprDrc, SpaprDrcClass,
--                     SPAPR_DR_CONNECTOR, TYPE_SPAPR_DR_CONNECTOR)
-+OBJECT_DECLARE_TYPE(SpaprDrc, SpaprDrcClass,
-+                    spapr_dr_connector, SPAPR_DR_CONNECTOR)
- 
- #define TYPE_SPAPR_DRC_PHYSICAL "spapr-drc-physical"
- typedef struct SpaprDrcPhysical SpaprDrcPhysical;
-diff --git a/include/hw/ppc/spapr_vio.h b/include/hw/ppc/spapr_vio.h
-index e289028634..6c40da72ff 100644
---- a/include/hw/ppc/spapr_vio.h
-+++ b/include/hw/ppc/spapr_vio.h
-@@ -28,10 +28,8 @@
- #include "qom/object.h"
- 
- #define TYPE_VIO_SPAPR_DEVICE "vio-spapr-device"
--typedef struct SpaprVioDevice SpaprVioDevice;
--typedef struct SpaprVioDeviceClass SpaprVioDeviceClass;
--DECLARE_OBJ_CHECKERS(SpaprVioDevice, SpaprVioDeviceClass,
--                     VIO_SPAPR_DEVICE, TYPE_VIO_SPAPR_DEVICE)
-+OBJECT_DECLARE_TYPE(SpaprVioDevice, SpaprVioDeviceClass,
-+                    vio_spapr_device, VIO_SPAPR_DEVICE)
- 
- #define TYPE_SPAPR_VIO_BUS "spapr-vio-bus"
- typedef struct SpaprVioBus SpaprVioBus;
-diff --git a/include/hw/ppc/spapr_xive.h b/include/hw/ppc/spapr_xive.h
-index feb6630783..afe8ec7197 100644
---- a/include/hw/ppc/spapr_xive.h
-+++ b/include/hw/ppc/spapr_xive.h
-@@ -15,10 +15,8 @@
- #include "qom/object.h"
- 
- #define TYPE_SPAPR_XIVE "spapr-xive"
--typedef struct SpaprXive SpaprXive;
--typedef struct SpaprXiveClass SpaprXiveClass;
--DECLARE_OBJ_CHECKERS(SpaprXive, SpaprXiveClass,
--                     SPAPR_XIVE, TYPE_SPAPR_XIVE)
-+OBJECT_DECLARE_TYPE(SpaprXive, SpaprXiveClass,
-+                    spapr_xive, SPAPR_XIVE)
- 
- struct SpaprXive {
-     XiveRouter    parent;
-diff --git a/include/hw/ppc/xics.h b/include/hw/ppc/xics.h
-index bcb584b90d..c5a3cdcadc 100644
---- a/include/hw/ppc/xics.h
-+++ b/include/hw/ppc/xics.h
-@@ -41,8 +41,6 @@
-  * (the kernel implementation supports more but we don't exploit
-  *  that yet)
-  */
--typedef struct ICPStateClass ICPStateClass;
--typedef struct ICPState ICPState;
- typedef struct PnvICPState PnvICPState;
- typedef struct ICSStateClass ICSStateClass;
- typedef struct ICSState ICSState;
-@@ -50,8 +48,8 @@ typedef struct ICSIRQState ICSIRQState;
- typedef struct XICSFabric XICSFabric;
- 
- #define TYPE_ICP "icp"
--DECLARE_OBJ_CHECKERS(ICPState, ICPStateClass,
--                     ICP, TYPE_ICP)
-+OBJECT_DECLARE_TYPE(ICPState, ICPStateClass,
-+                    icp, ICP)
- 
- #define TYPE_PNV_ICP "pnv-icp"
- DECLARE_INSTANCE_CHECKER(PnvICPState, PNV_ICP,
-diff --git a/include/hw/s390x/event-facility.h b/include/hw/s390x/event-facility.h
-index eccf6e924b..051c1c6576 100644
---- a/include/hw/s390x/event-facility.h
-+++ b/include/hw/s390x/event-facility.h
-@@ -42,10 +42,8 @@
- #define SCLP_SELECTIVE_READ                     0x01
- 
- #define TYPE_SCLP_EVENT "s390-sclp-event-type"
--typedef struct SCLPEvent SCLPEvent;
--typedef struct SCLPEventClass SCLPEventClass;
--DECLARE_OBJ_CHECKERS(SCLPEvent, SCLPEventClass,
--                     SCLP_EVENT, TYPE_SCLP_EVENT)
-+OBJECT_DECLARE_TYPE(SCLPEvent, SCLPEventClass,
-+                    sclp_event, SCLP_EVENT)
- 
- #define TYPE_SCLP_CPU_HOTPLUG "sclp-cpu-hotplug"
- #define TYPE_SCLP_QUIESCE "sclpquiesce"
-diff --git a/include/hw/s390x/s390_flic.h b/include/hw/s390x/s390_flic.h
-index a6a123598d..4b718c8ebf 100644
---- a/include/hw/s390x/s390_flic.h
-+++ b/include/hw/s390x/s390_flic.h
-@@ -39,10 +39,8 @@ extern const VMStateDescription vmstate_adapter_routes;
-     VMSTATE_STRUCT(_f, _s, 1, vmstate_adapter_routes, AdapterRoutes)
- 
- #define TYPE_S390_FLIC_COMMON "s390-flic"
--typedef struct S390FLICState S390FLICState;
--typedef struct S390FLICStateClass S390FLICStateClass;
--DECLARE_OBJ_CHECKERS(S390FLICState, S390FLICStateClass,
--                     S390_FLIC_COMMON, TYPE_S390_FLIC_COMMON)
-+OBJECT_DECLARE_TYPE(S390FLICState, S390FLICStateClass,
-+                    s390_flic_common, S390_FLIC_COMMON)
- 
- struct S390FLICState {
-     SysBusDevice parent_obj;
-diff --git a/include/hw/s390x/sclp.h b/include/hw/s390x/sclp.h
-index 5038a45612..e9f0f7e67c 100644
---- a/include/hw/s390x/sclp.h
-+++ b/include/hw/s390x/sclp.h
-@@ -182,10 +182,8 @@ typedef struct SCCB {
-  } QEMU_PACKED SCCB;
- 
- #define TYPE_SCLP "sclp"
--typedef struct SCLPDevice SCLPDevice;
--typedef struct SCLPDeviceClass SCLPDeviceClass;
--DECLARE_OBJ_CHECKERS(SCLPDevice, SCLPDeviceClass,
--                     SCLP, TYPE_SCLP)
-+OBJECT_DECLARE_TYPE(SCLPDevice, SCLPDeviceClass,
-+                    sclp, SCLP)
- 
- struct SCLPEventFacility;
- 
-diff --git a/include/hw/sd/sd.h b/include/hw/sd/sd.h
-index 31ccbeab0e..54f97a07cd 100644
---- a/include/hw/sd/sd.h
-+++ b/include/hw/sd/sd.h
-@@ -90,7 +90,6 @@ typedef struct {
- } SDRequest;
- 
- typedef struct SDState SDState;
--typedef struct SDBus SDBus;
- 
- #define TYPE_SD_CARD "sd-card"
- typedef struct SDCardClass SDCardClass;
-@@ -130,9 +129,8 @@ struct SDCardClass {
+@@ -467,7 +466,6 @@ static const TypeInfo aspeed_soc_ast2500_type_info = {
+     .name           = "ast2500-a1",
+     .parent         = TYPE_ASPEED_SOC,
+     .instance_init  = aspeed_soc_init,
+-    .instance_size  = sizeof(AspeedSoCState),
+     .class_init     = aspeed_soc_ast2500_class_init,
  };
- 
- #define TYPE_SD_BUS "sd-bus"
--typedef struct SDBusClass SDBusClass;
--DECLARE_OBJ_CHECKERS(SDBus, SDBusClass,
--                     SD_BUS, TYPE_SD_BUS)
-+OBJECT_DECLARE_TYPE(SDBus, SDBusClass,
-+                    sd_bus, SD_BUS)
- 
- struct SDBus {
-     BusState qbus;
-diff --git a/include/hw/ssi/ssi.h b/include/hw/ssi/ssi.h
-index b9286989fc..4fe1d85136 100644
---- a/include/hw/ssi/ssi.h
-+++ b/include/hw/ssi/ssi.h
-@@ -14,13 +14,11 @@
- #include "hw/qdev-core.h"
- #include "qom/object.h"
- 
--typedef struct SSISlave SSISlave;
--typedef struct SSISlaveClass SSISlaveClass;
- typedef enum SSICSMode SSICSMode;
- 
- #define TYPE_SSI_SLAVE "ssi-slave"
--DECLARE_OBJ_CHECKERS(SSISlave, SSISlaveClass,
--                     SSI_SLAVE, TYPE_SSI_SLAVE)
-+OBJECT_DECLARE_TYPE(SSISlave, SSISlaveClass,
-+                    ssi_slave, SSI_SLAVE)
- 
- #define SSI_GPIO_CS "ssi-gpio-cs"
- 
-diff --git a/include/hw/sysbus.h b/include/hw/sysbus.h
-index 77e21bba18..28a9b0f634 100644
---- a/include/hw/sysbus.h
-+++ b/include/hw/sysbus.h
-@@ -14,12 +14,10 @@
- DECLARE_INSTANCE_CHECKER(BusState, SYSTEM_BUS,
-                          TYPE_SYSTEM_BUS)
- 
--typedef struct SysBusDevice SysBusDevice;
- 
- #define TYPE_SYS_BUS_DEVICE "sys-bus-device"
--typedef struct SysBusDeviceClass SysBusDeviceClass;
--DECLARE_OBJ_CHECKERS(SysBusDevice, SysBusDeviceClass,
--                     SYS_BUS_DEVICE, TYPE_SYS_BUS_DEVICE)
-+OBJECT_DECLARE_TYPE(SysBusDevice, SysBusDeviceClass,
-+                    sys_bus_device, SYS_BUS_DEVICE)
- 
- /**
-  * SysBusDeviceClass:
-diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
-index 72f8689e2e..f334b78085 100644
---- a/include/hw/virtio/virtio-gpu.h
-+++ b/include/hw/virtio/virtio-gpu.h
-@@ -25,10 +25,8 @@
- #include "qom/object.h"
- 
- #define TYPE_VIRTIO_GPU_BASE "virtio-gpu-base"
--typedef struct VirtIOGPUBase VirtIOGPUBase;
--typedef struct VirtIOGPUBaseClass VirtIOGPUBaseClass;
--DECLARE_OBJ_CHECKERS(VirtIOGPUBase, VirtIOGPUBaseClass,
--                     VIRTIO_GPU_BASE, TYPE_VIRTIO_GPU_BASE)
-+OBJECT_DECLARE_TYPE(VirtIOGPUBase, VirtIOGPUBaseClass,
-+                    virtio_gpu_base, VIRTIO_GPU_BASE)
- 
- #define TYPE_VIRTIO_GPU "virtio-gpu-device"
- typedef struct VirtIOGPU VirtIOGPU;
-diff --git a/include/hw/virtio/virtio-input.h b/include/hw/virtio/virtio-input.h
-index c54aa6aa72..5eb9e7745e 100644
---- a/include/hw/virtio/virtio-input.h
-+++ b/include/hw/virtio/virtio-input.h
-@@ -19,10 +19,8 @@ typedef struct virtio_input_event virtio_input_event;
- /* qemu internals                                                    */
- 
- #define TYPE_VIRTIO_INPUT "virtio-input-device"
--typedef struct VirtIOInput VirtIOInput;
--typedef struct VirtIOInputClass VirtIOInputClass;
--DECLARE_OBJ_CHECKERS(VirtIOInput, VirtIOInputClass,
--                     VIRTIO_INPUT, TYPE_VIRTIO_INPUT)
-+OBJECT_DECLARE_TYPE(VirtIOInput, VirtIOInputClass,
-+                    virtio_input, VIRTIO_INPUT)
- #define VIRTIO_INPUT_GET_PARENT_CLASS(obj) \
-         OBJECT_GET_PARENT_CLASS(obj, TYPE_VIRTIO_INPUT)
- 
-diff --git a/include/hw/virtio/virtio-mem.h b/include/hw/virtio/virtio-mem.h
-index 5f0b81a967..dfc72e14b1 100644
---- a/include/hw/virtio/virtio-mem.h
-+++ b/include/hw/virtio/virtio-mem.h
-@@ -21,10 +21,8 @@
- 
- #define TYPE_VIRTIO_MEM "virtio-mem"
- 
--typedef struct VirtIOMEM VirtIOMEM;
--typedef struct VirtIOMEMClass VirtIOMEMClass;
--DECLARE_OBJ_CHECKERS(VirtIOMEM, VirtIOMEMClass,
--                     VIRTIO_MEM, TYPE_VIRTIO_MEM)
-+OBJECT_DECLARE_TYPE(VirtIOMEM, VirtIOMEMClass,
-+                    virtio_mem, VIRTIO_MEM)
- 
- #define VIRTIO_MEM_MEMDEV_PROP "memdev"
- #define VIRTIO_MEM_NODE_PROP "node"
-diff --git a/include/hw/virtio/virtio-pmem.h b/include/hw/virtio/virtio-pmem.h
-index 6c15abad70..56df9a03ce 100644
---- a/include/hw/virtio/virtio-pmem.h
-+++ b/include/hw/virtio/virtio-pmem.h
-@@ -20,10 +20,8 @@
- 
- #define TYPE_VIRTIO_PMEM "virtio-pmem"
- 
--typedef struct VirtIOPMEM VirtIOPMEM;
--typedef struct VirtIOPMEMClass VirtIOPMEMClass;
--DECLARE_OBJ_CHECKERS(VirtIOPMEM, VirtIOPMEMClass,
--                     VIRTIO_PMEM, TYPE_VIRTIO_PMEM)
-+OBJECT_DECLARE_TYPE(VirtIOPMEM, VirtIOPMEMClass,
-+                    virtio_pmem, VIRTIO_PMEM)
- 
- #define VIRTIO_PMEM_ADDR_PROP "memaddr"
- #define VIRTIO_PMEM_MEMDEV_PROP "memdev"
-diff --git a/include/hw/virtio/virtio-serial.h b/include/hw/virtio/virtio-serial.h
-index bbc76d5032..0b7f963611 100644
---- a/include/hw/virtio/virtio-serial.h
-+++ b/include/hw/virtio/virtio-serial.h
-@@ -26,10 +26,8 @@ struct virtio_serial_conf {
+ static void aspeed_soc_register_types(void)
+diff --git a/hw/arm/musicpal.c b/hw/arm/musicpal.c
+index 8b545e857d..7aa158b5eb 100644
+--- a/hw/arm/musicpal.c
++++ b/hw/arm/musicpal.c
+@@ -1739,7 +1739,6 @@ static void mv88w8618_wlan_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo mv88w8618_wlan_info = {
+     .name          = "mv88w8618_wlan",
+     .parent        = TYPE_SYS_BUS_DEVICE,
+-    .instance_size = sizeof(SysBusDevice),
+     .class_init    = mv88w8618_wlan_class_init,
  };
- 
- #define TYPE_VIRTIO_SERIAL_PORT "virtio-serial-port"
--typedef struct VirtIOSerialPort VirtIOSerialPort;
--typedef struct VirtIOSerialPortClass VirtIOSerialPortClass;
--DECLARE_OBJ_CHECKERS(VirtIOSerialPort, VirtIOSerialPortClass,
--                     VIRTIO_SERIAL_PORT, TYPE_VIRTIO_SERIAL_PORT)
-+OBJECT_DECLARE_TYPE(VirtIOSerialPort, VirtIOSerialPortClass,
-+                    virtio_serial_port, VIRTIO_SERIAL_PORT)
- 
- typedef struct VirtIOSerial VirtIOSerial;
- 
-diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 35fec7c905..e0e67505b8 100644
---- a/include/hw/xen/xen-bus.h
-+++ b/include/hw/xen/xen-bus.h
-@@ -71,17 +71,15 @@ struct XenBus {
-     XenWatch *backend_watch;
-     QLIST_HEAD(, XenDevice) inactive_devices;
+ TYPE_INFO(mv88w8618_wlan_info)
+diff --git a/hw/core/sysbus.c b/hw/core/sysbus.c
+index 9e89bfd8d4..706acc807c 100644
+--- a/hw/core/sysbus.c
++++ b/hw/core/sysbus.c
+@@ -83,7 +83,6 @@ static void system_bus_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo system_bus_info = {
+     .name = TYPE_SYSTEM_BUS,
+     .parent = TYPE_BUS,
+-    .instance_size = sizeof(BusState),
+     .class_init = system_bus_class_init,
  };
--typedef struct XenBus XenBus;
- 
- struct XenBusClass {
-     /*< private >*/
-     BusClass parent_class;
+ TYPE_INFO(system_bus_info)
+diff --git a/hw/i386/kvm/apic.c b/hw/i386/kvm/apic.c
+index 06dd7f8c9a..0e20721156 100644
+--- a/hw/i386/kvm/apic.c
++++ b/hw/i386/kvm/apic.c
+@@ -254,7 +254,6 @@ static void kvm_apic_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo kvm_apic_info = {
+     .name = "kvm-apic",
+     .parent = TYPE_APIC_COMMON,
+-    .instance_size = sizeof(APICCommonState),
+     .class_init = kvm_apic_class_init,
  };
--typedef struct XenBusClass XenBusClass;
- 
- #define TYPE_XEN_BUS "xen-bus"
--DECLARE_OBJ_CHECKERS(XenBus, XenBusClass,
--                     XEN_BUS, TYPE_XEN_BUS)
-+OBJECT_DECLARE_TYPE(XenBus, XenBusClass,
-+                    xen_bus, XEN_BUS)
- 
- void xen_bus_init(void);
- 
-diff --git a/include/io/channel.h b/include/io/channel.h
-index 3ebdc7954f..245479548a 100644
---- a/include/io/channel.h
-+++ b/include/io/channel.h
-@@ -26,10 +26,8 @@
- #include "block/aio.h"
- 
- #define TYPE_QIO_CHANNEL "qio-channel"
--typedef struct QIOChannel QIOChannel;
--typedef struct QIOChannelClass QIOChannelClass;
--DECLARE_OBJ_CHECKERS(QIOChannel, QIOChannelClass,
--                     QIO_CHANNEL, TYPE_QIO_CHANNEL)
-+OBJECT_DECLARE_TYPE(QIOChannel, QIOChannelClass,
-+                    qio_channel, QIO_CHANNEL)
- 
- 
- #define QIO_CHANNEL_ERR_BLOCK -2
-diff --git a/include/io/dns-resolver.h b/include/io/dns-resolver.h
-index 96a3186b6b..8ae4857e05 100644
---- a/include/io/dns-resolver.h
-+++ b/include/io/dns-resolver.h
-@@ -26,10 +26,8 @@
- #include "io/task.h"
- 
- #define TYPE_QIO_DNS_RESOLVER "qio-dns-resolver"
--typedef struct QIODNSResolver QIODNSResolver;
--typedef struct QIODNSResolverClass QIODNSResolverClass;
--DECLARE_OBJ_CHECKERS(QIODNSResolver, QIODNSResolverClass,
--                     QIO_DNS_RESOLVER, TYPE_QIO_DNS_RESOLVER)
-+OBJECT_DECLARE_TYPE(QIODNSResolver, QIODNSResolverClass,
-+                    qio_dns_resolver, QIO_DNS_RESOLVER)
- 
- 
- /**
-diff --git a/include/io/net-listener.h b/include/io/net-listener.h
-index 93367db291..4f0847ff19 100644
---- a/include/io/net-listener.h
-+++ b/include/io/net-listener.h
-@@ -25,10 +25,8 @@
- #include "qom/object.h"
- 
- #define TYPE_QIO_NET_LISTENER "qio-net-listener"
--typedef struct QIONetListener QIONetListener;
--typedef struct QIONetListenerClass QIONetListenerClass;
--DECLARE_OBJ_CHECKERS(QIONetListener, QIONetListenerClass,
--                     QIO_NET_LISTENER, TYPE_QIO_NET_LISTENER)
-+OBJECT_DECLARE_TYPE(QIONetListener, QIONetListenerClass,
-+                    qio_net_listener, QIO_NET_LISTENER)
- 
- 
- typedef void (*QIONetListenerClientFunc)(QIONetListener *listener,
-diff --git a/include/scsi/pr-manager.h b/include/scsi/pr-manager.h
-index f801fe9533..26bd134531 100644
---- a/include/scsi/pr-manager.h
-+++ b/include/scsi/pr-manager.h
-@@ -9,10 +9,8 @@
- 
- #define TYPE_PR_MANAGER "pr-manager"
- 
--typedef struct PRManager PRManager;
--typedef struct PRManagerClass PRManagerClass;
--DECLARE_OBJ_CHECKERS(PRManager, PRManagerClass,
--                     PR_MANAGER, TYPE_PR_MANAGER)
-+OBJECT_DECLARE_TYPE(PRManager, PRManagerClass,
-+                    pr_manager, PR_MANAGER)
- 
- struct sg_io_hdr;
- 
-diff --git a/include/sysemu/cryptodev.h b/include/sysemu/cryptodev.h
-index 65c017cf81..06726f7014 100644
---- a/include/sysemu/cryptodev.h
-+++ b/include/sysemu/cryptodev.h
-@@ -37,10 +37,8 @@
- 
- #define TYPE_CRYPTODEV_BACKEND "cryptodev-backend"
- 
--typedef struct CryptoDevBackend CryptoDevBackend;
--typedef struct CryptoDevBackendClass CryptoDevBackendClass;
--DECLARE_OBJ_CHECKERS(CryptoDevBackend, CryptoDevBackendClass,
--                     CRYPTODEV_BACKEND, TYPE_CRYPTODEV_BACKEND)
-+OBJECT_DECLARE_TYPE(CryptoDevBackend, CryptoDevBackendClass,
-+                    cryptodev_backend, CRYPTODEV_BACKEND)
- 
- 
- #define MAX_CRYPTO_QUEUE_NUM  64
-diff --git a/include/sysemu/hostmem.h b/include/sysemu/hostmem.h
-index 1e6078f872..e5b7a152d3 100644
---- a/include/sysemu/hostmem.h
-+++ b/include/sysemu/hostmem.h
-@@ -20,10 +20,8 @@
- #include "qemu/bitmap.h"
- 
- #define TYPE_MEMORY_BACKEND "memory-backend"
--typedef struct HostMemoryBackend HostMemoryBackend;
--typedef struct HostMemoryBackendClass HostMemoryBackendClass;
--DECLARE_OBJ_CHECKERS(HostMemoryBackend, HostMemoryBackendClass,
--                     MEMORY_BACKEND, TYPE_MEMORY_BACKEND)
-+OBJECT_DECLARE_TYPE(HostMemoryBackend, HostMemoryBackendClass,
-+                    memory_backend, MEMORY_BACKEND)
- 
- /* hostmem-ram.c */
- /**
-diff --git a/include/sysemu/rng.h b/include/sysemu/rng.h
-index f8fc948109..cee45a4787 100644
---- a/include/sysemu/rng.h
-+++ b/include/sysemu/rng.h
-@@ -17,10 +17,8 @@
- #include "qom/object.h"
- 
- #define TYPE_RNG_BACKEND "rng-backend"
--typedef struct RngBackend RngBackend;
--typedef struct RngBackendClass RngBackendClass;
--DECLARE_OBJ_CHECKERS(RngBackend, RngBackendClass,
--                     RNG_BACKEND, TYPE_RNG_BACKEND)
-+OBJECT_DECLARE_TYPE(RngBackend, RngBackendClass,
-+                    rng_backend, RNG_BACKEND)
- 
- #define TYPE_RNG_BUILTIN "rng-builtin"
- 
-diff --git a/include/sysemu/tpm_backend.h b/include/sysemu/tpm_backend.h
-index e038b79d34..7e8a014031 100644
---- a/include/sysemu/tpm_backend.h
-+++ b/include/sysemu/tpm_backend.h
-@@ -19,10 +19,8 @@
- #include "qapi/error.h"
- 
- #define TYPE_TPM_BACKEND "tpm-backend"
--typedef struct TPMBackend TPMBackend;
--typedef struct TPMBackendClass TPMBackendClass;
--DECLARE_OBJ_CHECKERS(TPMBackend, TPMBackendClass,
--                     TPM_BACKEND, TYPE_TPM_BACKEND)
-+OBJECT_DECLARE_TYPE(TPMBackend, TPMBackendClass,
-+                    tpm_backend, TPM_BACKEND)
- 
- 
- typedef struct TPMBackendCmd {
-diff --git a/include/sysemu/vhost-user-backend.h b/include/sysemu/vhost-user-backend.h
-index e4c85e33c0..76ca06cf40 100644
---- a/include/sysemu/vhost-user-backend.h
-+++ b/include/sysemu/vhost-user-backend.h
-@@ -22,10 +22,8 @@
- #include "io/channel.h"
- 
- #define TYPE_VHOST_USER_BACKEND "vhost-user-backend"
--typedef struct VhostUserBackend VhostUserBackend;
--typedef struct VhostUserBackendClass VhostUserBackendClass;
--DECLARE_OBJ_CHECKERS(VhostUserBackend, VhostUserBackendClass,
--                     VHOST_USER_BACKEND, TYPE_VHOST_USER_BACKEND)
-+OBJECT_DECLARE_TYPE(VhostUserBackend, VhostUserBackendClass,
-+                    vhost_user_backend, VHOST_USER_BACKEND)
- 
- 
- struct VhostUserBackendClass {
-diff --git a/target/alpha/cpu-qom.h b/target/alpha/cpu-qom.h
-index 45350318c9..568fe3fb77 100644
---- a/target/alpha/cpu-qom.h
-+++ b/target/alpha/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_ALPHA_CPU "alpha-cpu"
- 
--typedef struct AlphaCPU AlphaCPU;
--typedef struct AlphaCPUClass AlphaCPUClass;
--DECLARE_OBJ_CHECKERS(AlphaCPU, AlphaCPUClass,
--                     ALPHA_CPU, TYPE_ALPHA_CPU)
-+OBJECT_DECLARE_TYPE(AlphaCPU, AlphaCPUClass,
-+                    alpha_cpu, ALPHA_CPU)
- 
- /**
-  * AlphaCPUClass:
-diff --git a/target/arm/cpu-qom.h b/target/arm/cpu-qom.h
-index 92d58f84fe..94bbbd4473 100644
---- a/target/arm/cpu-qom.h
-+++ b/target/arm/cpu-qom.h
-@@ -27,10 +27,8 @@ struct arm_boot_info;
- 
- #define TYPE_ARM_CPU "arm-cpu"
- 
--typedef struct ARMCPU ARMCPU;
--typedef struct ARMCPUClass ARMCPUClass;
--DECLARE_OBJ_CHECKERS(ARMCPU, ARMCPUClass,
--                     ARM_CPU, TYPE_ARM_CPU)
-+OBJECT_DECLARE_TYPE(ARMCPU, ARMCPUClass,
-+                    arm_cpu, ARM_CPU)
- 
- #define TYPE_ARM_MAX_CPU "max-" TYPE_ARM_CPU
- 
-diff --git a/target/avr/cpu-qom.h b/target/avr/cpu-qom.h
-index 1bbfbb2087..49d63faad2 100644
---- a/target/avr/cpu-qom.h
-+++ b/target/avr/cpu-qom.h
-@@ -26,10 +26,8 @@
- 
- #define TYPE_AVR_CPU "avr-cpu"
- 
--typedef struct AVRCPU AVRCPU;
--typedef struct AVRCPUClass AVRCPUClass;
--DECLARE_OBJ_CHECKERS(AVRCPU, AVRCPUClass,
--                     AVR_CPU, TYPE_AVR_CPU)
-+OBJECT_DECLARE_TYPE(AVRCPU, AVRCPUClass,
-+                    avr_cpu, AVR_CPU)
- 
- /**
-  *  AVRCPUClass:
-diff --git a/target/cris/cpu-qom.h b/target/cris/cpu-qom.h
-index eced6ef7c9..2b0328113c 100644
---- a/target/cris/cpu-qom.h
-+++ b/target/cris/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_CRIS_CPU "cris-cpu"
- 
--typedef struct CRISCPU CRISCPU;
--typedef struct CRISCPUClass CRISCPUClass;
--DECLARE_OBJ_CHECKERS(CRISCPU, CRISCPUClass,
--                     CRIS_CPU, TYPE_CRIS_CPU)
-+OBJECT_DECLARE_TYPE(CRISCPU, CRISCPUClass,
-+                    cris_cpu, CRIS_CPU)
- 
- /**
-  * CRISCPUClass:
-diff --git a/target/hppa/cpu-qom.h b/target/hppa/cpu-qom.h
-index 5c5aa0c053..58158f374b 100644
---- a/target/hppa/cpu-qom.h
-+++ b/target/hppa/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_HPPA_CPU "hppa-cpu"
- 
--typedef struct HPPACPU HPPACPU;
--typedef struct HPPACPUClass HPPACPUClass;
--DECLARE_OBJ_CHECKERS(HPPACPU, HPPACPUClass,
--                     HPPA_CPU, TYPE_HPPA_CPU)
-+OBJECT_DECLARE_TYPE(HPPACPU, HPPACPUClass,
-+                    hppa_cpu, HPPA_CPU)
- 
- /**
-  * HPPACPUClass:
-diff --git a/target/i386/cpu-qom.h b/target/i386/cpu-qom.h
-index 05b52ba74c..0505472e86 100644
---- a/target/i386/cpu-qom.h
-+++ b/target/i386/cpu-qom.h
-@@ -30,10 +30,8 @@
- #define TYPE_X86_CPU "i386-cpu"
- #endif
- 
--typedef struct X86CPU X86CPU;
--typedef struct X86CPUClass X86CPUClass;
--DECLARE_OBJ_CHECKERS(X86CPU, X86CPUClass,
--                     X86_CPU, TYPE_X86_CPU)
-+OBJECT_DECLARE_TYPE(X86CPU, X86CPUClass,
-+                    x86_cpu, X86_CPU)
- 
- typedef struct X86CPUModel X86CPUModel;
- 
-diff --git a/target/lm32/cpu-qom.h b/target/lm32/cpu-qom.h
-index 9bf2f82ffe..e9eb495bf0 100644
---- a/target/lm32/cpu-qom.h
-+++ b/target/lm32/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_LM32_CPU "lm32-cpu"
- 
--typedef struct LM32CPU LM32CPU;
--typedef struct LM32CPUClass LM32CPUClass;
--DECLARE_OBJ_CHECKERS(LM32CPU, LM32CPUClass,
--                     LM32_CPU, TYPE_LM32_CPU)
-+OBJECT_DECLARE_TYPE(LM32CPU, LM32CPUClass,
-+                    lm32_cpu, LM32_CPU)
- 
- /**
-  * LM32CPUClass:
-diff --git a/target/m68k/cpu-qom.h b/target/m68k/cpu-qom.h
-index 241a3b19af..a10429cf67 100644
---- a/target/m68k/cpu-qom.h
-+++ b/target/m68k/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_M68K_CPU "m68k-cpu"
- 
--typedef struct M68kCPU M68kCPU;
--typedef struct M68kCPUClass M68kCPUClass;
--DECLARE_OBJ_CHECKERS(M68kCPU, M68kCPUClass,
--                     M68K_CPU, TYPE_M68K_CPU)
-+OBJECT_DECLARE_TYPE(M68kCPU, M68kCPUClass,
-+                    m68k_cpu, M68K_CPU)
- 
- /*
-  * M68kCPUClass:
-diff --git a/target/microblaze/cpu-qom.h b/target/microblaze/cpu-qom.h
-index 73c2237f98..82734b9b2b 100644
---- a/target/microblaze/cpu-qom.h
-+++ b/target/microblaze/cpu-qom.h
-@@ -25,10 +25,8 @@
- 
- #define TYPE_MICROBLAZE_CPU "microblaze-cpu"
- 
--typedef struct MicroBlazeCPU MicroBlazeCPU;
--typedef struct MicroBlazeCPUClass MicroBlazeCPUClass;
--DECLARE_OBJ_CHECKERS(MicroBlazeCPU, MicroBlazeCPUClass,
--                     MICROBLAZE_CPU, TYPE_MICROBLAZE_CPU)
-+OBJECT_DECLARE_TYPE(MicroBlazeCPU, MicroBlazeCPUClass,
-+                    microblaze_cpu, MICROBLAZE_CPU)
- 
- /**
-  * MicroBlazeCPUClass:
-diff --git a/target/mips/cpu-qom.h b/target/mips/cpu-qom.h
-index 82f45a828c..93fbbdca1b 100644
---- a/target/mips/cpu-qom.h
-+++ b/target/mips/cpu-qom.h
-@@ -29,10 +29,8 @@
- #define TYPE_MIPS_CPU "mips-cpu"
- #endif
- 
--typedef struct MIPSCPU MIPSCPU;
--typedef struct MIPSCPUClass MIPSCPUClass;
--DECLARE_OBJ_CHECKERS(MIPSCPU, MIPSCPUClass,
--                     MIPS_CPU, TYPE_MIPS_CPU)
-+OBJECT_DECLARE_TYPE(MIPSCPU, MIPSCPUClass,
-+                    mips_cpu, MIPS_CPU)
- 
- /**
-  * MIPSCPUClass:
-diff --git a/target/moxie/cpu.h b/target/moxie/cpu.h
-index a9832a2d85..d58761ccb1 100644
---- a/target/moxie/cpu.h
-+++ b/target/moxie/cpu.h
-@@ -51,10 +51,8 @@ typedef struct CPUMoxieState {
- 
- #define TYPE_MOXIE_CPU "moxie-cpu"
- 
--typedef struct MoxieCPU MoxieCPU;
--typedef struct MoxieCPUClass MoxieCPUClass;
--DECLARE_OBJ_CHECKERS(MoxieCPU, MoxieCPUClass,
--                     MOXIE_CPU, TYPE_MOXIE_CPU)
-+OBJECT_DECLARE_TYPE(MoxieCPU, MoxieCPUClass,
-+                    moxie_cpu, MOXIE_CPU)
- 
- /**
-  * MoxieCPUClass:
-diff --git a/target/nios2/cpu.h b/target/nios2/cpu.h
-index 0b91a3634b..1fa0fdaa35 100644
---- a/target/nios2/cpu.h
-+++ b/target/nios2/cpu.h
-@@ -32,10 +32,8 @@ typedef struct CPUNios2State CPUNios2State;
- 
- #define TYPE_NIOS2_CPU "nios2-cpu"
- 
--typedef struct Nios2CPU Nios2CPU;
--typedef struct Nios2CPUClass Nios2CPUClass;
--DECLARE_OBJ_CHECKERS(Nios2CPU, Nios2CPUClass,
--                     NIOS2_CPU, TYPE_NIOS2_CPU)
-+OBJECT_DECLARE_TYPE(Nios2CPU, Nios2CPUClass,
-+                    nios2_cpu, NIOS2_CPU)
- 
- /**
-  * Nios2CPUClass:
-diff --git a/target/openrisc/cpu.h b/target/openrisc/cpu.h
-index 5e6d8a40d6..d0a8ee657a 100644
---- a/target/openrisc/cpu.h
-+++ b/target/openrisc/cpu.h
-@@ -29,10 +29,8 @@ struct OpenRISCCPU;
- 
- #define TYPE_OPENRISC_CPU "or1k-cpu"
- 
--typedef struct OpenRISCCPU OpenRISCCPU;
--typedef struct OpenRISCCPUClass OpenRISCCPUClass;
--DECLARE_OBJ_CHECKERS(OpenRISCCPU, OpenRISCCPUClass,
--                     OPENRISC_CPU, TYPE_OPENRISC_CPU)
-+OBJECT_DECLARE_TYPE(OpenRISCCPU, OpenRISCCPUClass,
-+                    openrisc_cpu, OPENRISC_CPU)
- 
- /**
-  * OpenRISCCPUClass:
-diff --git a/target/ppc/cpu-qom.h b/target/ppc/cpu-qom.h
-index f7e600c7b3..5cf806a3a6 100644
---- a/target/ppc/cpu-qom.h
-+++ b/target/ppc/cpu-qom.h
-@@ -29,10 +29,8 @@
- #define TYPE_POWERPC_CPU "powerpc-cpu"
- #endif
- 
--typedef struct PowerPCCPU PowerPCCPU;
--typedef struct PowerPCCPUClass PowerPCCPUClass;
--DECLARE_OBJ_CHECKERS(PowerPCCPU, PowerPCCPUClass,
--                     POWERPC_CPU, TYPE_POWERPC_CPU)
-+OBJECT_DECLARE_TYPE(PowerPCCPU, PowerPCCPUClass,
-+                    powerpc_cpu, POWERPC_CPU)
- 
- typedef struct CPUPPCState CPUPPCState;
- typedef struct ppc_tb_t ppc_tb_t;
-diff --git a/target/riscv/cpu.h b/target/riscv/cpu.h
-index 07807a8f20..48484653c9 100644
---- a/target/riscv/cpu.h
-+++ b/target/riscv/cpu.h
-@@ -232,10 +232,8 @@ struct CPURISCVState {
-     QEMUTimer *timer; /* Internal timer */
+ TYPE_INFO(kvm_apic_info)
+diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+index 93740d1e87..9fb06162b0 100644
+--- a/hw/i386/pc_piix.c
++++ b/hw/i386/pc_piix.c
+@@ -911,7 +911,6 @@ static void isa_bridge_class_init(ObjectClass *klass, void *data)
+ static TypeInfo isa_bridge_info = {
+     .name          = "igd-passthrough-isa-bridge",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = isa_bridge_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/i386/xen/xen_apic.c b/hw/i386/xen/xen_apic.c
+index 9578463a48..cd5db3a01a 100644
+--- a/hw/i386/xen/xen_apic.c
++++ b/hw/i386/xen/xen_apic.c
+@@ -91,7 +91,6 @@ static void xen_apic_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo xen_apic_info = {
+     .name = "xen-apic",
+     .parent = TYPE_APIC_COMMON,
+-    .instance_size = sizeof(APICCommonState),
+     .class_init = xen_apic_class_init,
  };
+ TYPE_INFO(xen_apic_info)
+diff --git a/hw/input/virtio-input-hid.c b/hw/input/virtio-input-hid.c
+index 70e27e2c64..23d5eb9abb 100644
+--- a/hw/input/virtio-input-hid.c
++++ b/hw/input/virtio-input-hid.c
+@@ -289,7 +289,6 @@ static void virtio_keyboard_init(Object *obj)
+ static const TypeInfo virtio_keyboard_info = {
+     .name          = TYPE_VIRTIO_KEYBOARD,
+     .parent        = TYPE_VIRTIO_INPUT_HID,
+-    .instance_size = sizeof(VirtIOInputHID),
+     .instance_init = virtio_keyboard_init,
+ };
+ TYPE_INFO(virtio_keyboard_info)
+@@ -382,7 +381,6 @@ static void virtio_mouse_init(Object *obj)
+ static const TypeInfo virtio_mouse_info = {
+     .name          = TYPE_VIRTIO_MOUSE,
+     .parent        = TYPE_VIRTIO_INPUT_HID,
+-    .instance_size = sizeof(VirtIOInputHID),
+     .instance_init = virtio_mouse_init,
+     .class_init    = virtio_mouse_class_init,
+ };
+@@ -507,7 +505,6 @@ static void virtio_tablet_init(Object *obj)
+ static const TypeInfo virtio_tablet_info = {
+     .name          = TYPE_VIRTIO_TABLET,
+     .parent        = TYPE_VIRTIO_INPUT_HID,
+-    .instance_size = sizeof(VirtIOInputHID),
+     .instance_init = virtio_tablet_init,
+     .class_init    = virtio_tablet_class_init,
+ };
+diff --git a/hw/intc/apic.c b/hw/intc/apic.c
+index dadbfd9a75..5afc2e7164 100644
+--- a/hw/intc/apic.c
++++ b/hw/intc/apic.c
+@@ -911,7 +911,6 @@ static void apic_class_init(ObjectClass *klass, void *data)
  
--typedef struct RISCVCPU RISCVCPU;
--typedef struct RISCVCPUClass RISCVCPUClass;
--DECLARE_OBJ_CHECKERS(RISCVCPU, RISCVCPUClass,
--                     RISCV_CPU, TYPE_RISCV_CPU)
-+OBJECT_DECLARE_TYPE(RISCVCPU, RISCVCPUClass,
-+                    riscv_cpu, RISCV_CPU)
+ static const TypeInfo apic_info = {
+     .name          = TYPE_APIC,
+-    .instance_size = sizeof(APICCommonState),
+     .parent        = TYPE_APIC_COMMON,
+     .class_init    = apic_class_init,
+ };
+diff --git a/hw/intc/ioapic.c b/hw/intc/ioapic.c
+index 4e865aac74..694c305c1b 100644
+--- a/hw/intc/ioapic.c
++++ b/hw/intc/ioapic.c
+@@ -502,7 +502,6 @@ static void ioapic_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo ioapic_info = {
+     .name          = TYPE_IOAPIC,
+     .parent        = TYPE_IOAPIC_COMMON,
+-    .instance_size = sizeof(IOAPICCommonState),
+     .class_init    = ioapic_class_init,
+ };
+ TYPE_INFO(ioapic_info)
+diff --git a/hw/isa/isa-bus.c b/hw/isa/isa-bus.c
+index 6a52f350a5..0bfd49ddd8 100644
+--- a/hw/isa/isa-bus.c
++++ b/hw/isa/isa-bus.c
+@@ -247,7 +247,6 @@ static void isabus_bridge_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo isabus_bridge_info = {
+     .name          = "isabus-bridge",
+     .parent        = TYPE_SYS_BUS_DEVICE,
+-    .instance_size = sizeof(SysBusDevice),
+     .class_init    = isabus_bridge_class_init,
+ };
+ TYPE_INFO(isabus_bridge_info)
+diff --git a/hw/mips/gt64xxx_pci.c b/hw/mips/gt64xxx_pci.c
+index 676fc6dec8..733b84887c 100644
+--- a/hw/mips/gt64xxx_pci.c
++++ b/hw/mips/gt64xxx_pci.c
+@@ -1259,7 +1259,6 @@ static void gt64120_pci_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo gt64120_pci_info = {
+     .name          = "gt64120_pci",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init    = gt64120_pci_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
+index 4dfc480e46..360432ff0a 100644
+--- a/hw/misc/aspeed_scu.c
++++ b/hw/misc/aspeed_scu.c
+@@ -519,7 +519,6 @@ static void aspeed_2400_scu_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2400_scu_info = {
+     .name = TYPE_ASPEED_2400_SCU,
+     .parent = TYPE_ASPEED_SCU,
+-    .instance_size = sizeof(AspeedSCUState),
+     .class_init = aspeed_2400_scu_class_init,
+ };
+ TYPE_INFO(aspeed_2400_scu_info)
+@@ -540,7 +539,6 @@ static void aspeed_2500_scu_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2500_scu_info = {
+     .name = TYPE_ASPEED_2500_SCU,
+     .parent = TYPE_ASPEED_SCU,
+-    .instance_size = sizeof(AspeedSCUState),
+     .class_init = aspeed_2500_scu_class_init,
+ };
+ TYPE_INFO(aspeed_2500_scu_info)
+@@ -696,7 +694,6 @@ static void aspeed_2600_scu_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2600_scu_info = {
+     .name = TYPE_ASPEED_2600_SCU,
+     .parent = TYPE_ASPEED_SCU,
+-    .instance_size = sizeof(AspeedSCUState),
+     .class_init = aspeed_2600_scu_class_init,
+ };
+ TYPE_INFO(aspeed_2600_scu_info)
+diff --git a/hw/misc/ivshmem.c b/hw/misc/ivshmem.c
+index 89db397061..62e305aba7 100644
+--- a/hw/misc/ivshmem.c
++++ b/hw/misc/ivshmem.c
+@@ -1061,7 +1061,6 @@ static void ivshmem_plain_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo ivshmem_plain_info = {
+     .name          = TYPE_IVSHMEM_PLAIN,
+     .parent        = TYPE_IVSHMEM_COMMON,
+-    .instance_size = sizeof(IVShmemState),
+     .class_init    = ivshmem_plain_class_init,
+ };
+ TYPE_INFO(ivshmem_plain_info)
+@@ -1122,7 +1121,6 @@ static void ivshmem_doorbell_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo ivshmem_doorbell_info = {
+     .name          = TYPE_IVSHMEM_DOORBELL,
+     .parent        = TYPE_IVSHMEM_COMMON,
+-    .instance_size = sizeof(IVShmemState),
+     .instance_init = ivshmem_doorbell_init,
+     .class_init    = ivshmem_doorbell_class_init,
+ };
+diff --git a/hw/nubus/nubus-bridge.c b/hw/nubus/nubus-bridge.c
+index 678da60ddd..4231cbbfbe 100644
+--- a/hw/nubus/nubus-bridge.c
++++ b/hw/nubus/nubus-bridge.c
+@@ -22,7 +22,6 @@ static void nubus_bridge_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo nubus_bridge_info = {
+     .name          = TYPE_NUBUS_BRIDGE,
+     .parent        = TYPE_SYS_BUS_DEVICE,
+-    .instance_size = sizeof(SysBusDevice),
+     .class_init    = nubus_bridge_class_init,
+ };
+ TYPE_INFO(nubus_bridge_info)
+diff --git a/hw/pci-bridge/dec.c b/hw/pci-bridge/dec.c
+index d6db5bf9dc..2bd6ba5a2b 100644
+--- a/hw/pci-bridge/dec.c
++++ b/hw/pci-bridge/dec.c
+@@ -72,7 +72,6 @@ static void dec_21154_pci_bridge_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo dec_21154_pci_bridge_info = {
+     .name          = "dec-21154-p2p-bridge",
+     .parent        = TYPE_PCI_BRIDGE,
+-    .instance_size = sizeof(PCIBridge),
+     .class_init    = dec_21154_pci_bridge_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+@@ -135,7 +134,6 @@ static void dec_21154_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo dec_21154_pci_host_info = {
+     .name          = "dec-21154",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init    = dec_21154_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/pci-bridge/pci_bridge_dev.c b/hw/pci-bridge/pci_bridge_dev.c
+index 279c1e0b6d..3ae08a1abc 100644
+--- a/hw/pci-bridge/pci_bridge_dev.c
++++ b/hw/pci-bridge/pci_bridge_dev.c
+@@ -298,7 +298,6 @@ static void pci_bridge_dev_seat_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pci_bridge_dev_seat_info = {
+     .name              = TYPE_PCI_BRIDGE_SEAT_DEV,
+     .parent            = TYPE_PCI_BRIDGE_DEV,
+-    .instance_size     = sizeof(PCIBridgeDev),
+     .class_init        = pci_bridge_dev_seat_class_init,
+ };
+ TYPE_INFO(pci_bridge_dev_seat_info)
+diff --git a/hw/pci-host/grackle.c b/hw/pci-host/grackle.c
+index 8fd4913921..0a5959ddb4 100644
+--- a/hw/pci-host/grackle.c
++++ b/hw/pci-host/grackle.c
+@@ -144,7 +144,6 @@ static void grackle_pci_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo grackle_pci_info = {
+     .name          = "grackle",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = grackle_pci_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/pci-host/uninorth.c b/hw/pci-host/uninorth.c
+index b1aa37101b..57b76bb31c 100644
+--- a/hw/pci-host/uninorth.c
++++ b/hw/pci-host/uninorth.c
+@@ -373,7 +373,6 @@ static void unin_main_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo unin_main_pci_host_info = {
+     .name = "uni-north-pci",
+     .parent = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = unin_main_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+@@ -402,7 +401,6 @@ static void u3_agp_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo u3_agp_pci_host_info = {
+     .name = "u3-agp",
+     .parent = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = u3_agp_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+@@ -431,7 +429,6 @@ static void unin_agp_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo unin_agp_pci_host_info = {
+     .name = "uni-north-agp",
+     .parent = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = unin_agp_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+@@ -460,7 +457,6 @@ static void unin_internal_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo unin_internal_pci_host_info = {
+     .name = "uni-north-internal-pci",
+     .parent = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init = unin_internal_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/pci-host/versatile.c b/hw/pci-host/versatile.c
+index 5eeff10164..e6986790d3 100644
+--- a/hw/pci-host/versatile.c
++++ b/hw/pci-host/versatile.c
+@@ -489,7 +489,6 @@ static void versatile_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo versatile_pci_host_info = {
+     .name          = TYPE_VERSATILE_PCI_HOST,
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init    = versatile_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/pci-host/xen_igd_pt.c b/hw/pci-host/xen_igd_pt.c
+index 27e2e475c6..a09d62f0ab 100644
+--- a/hw/pci-host/xen_igd_pt.c
++++ b/hw/pci-host/xen_igd_pt.c
+@@ -107,7 +107,6 @@ static void igd_passthrough_i440fx_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo igd_passthrough_i440fx_info = {
+     .name          = TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE,
+     .parent        = TYPE_I440FX_PCI_DEVICE,
+-    .instance_size = sizeof(PCII440FXState),
+     .class_init    = igd_passthrough_i440fx_class_init,
+ };
+ TYPE_INFO(igd_passthrough_i440fx_info)
+diff --git a/hw/ppc/pnv_homer.c b/hw/ppc/pnv_homer.c
+index 08d2d36722..02f17f01fe 100644
+--- a/hw/ppc/pnv_homer.c
++++ b/hw/ppc/pnv_homer.c
+@@ -185,7 +185,6 @@ static void pnv_homer_power8_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pnv_homer_power8_type_info = {
+     .name          = TYPE_PNV8_HOMER,
+     .parent        = TYPE_PNV_HOMER,
+-    .instance_size = sizeof(PnvHomer),
+     .class_init    = pnv_homer_power8_class_init,
+ };
+ TYPE_INFO(pnv_homer_power8_type_info)
+@@ -329,7 +328,6 @@ static void pnv_homer_power9_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pnv_homer_power9_type_info = {
+     .name          = TYPE_PNV9_HOMER,
+     .parent        = TYPE_PNV_HOMER,
+-    .instance_size = sizeof(PnvHomer),
+     .class_init    = pnv_homer_power9_class_init,
+ };
+ TYPE_INFO(pnv_homer_power9_type_info)
+diff --git a/hw/ppc/pnv_occ.c b/hw/ppc/pnv_occ.c
+index 9fde6cde7d..5693d7c889 100644
+--- a/hw/ppc/pnv_occ.c
++++ b/hw/ppc/pnv_occ.c
+@@ -174,7 +174,6 @@ static void pnv_occ_power8_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pnv_occ_power8_type_info = {
+     .name          = TYPE_PNV8_OCC,
+     .parent        = TYPE_PNV_OCC,
+-    .instance_size = sizeof(PnvOCC),
+     .class_init    = pnv_occ_power8_class_init,
+ };
+ TYPE_INFO(pnv_occ_power8_type_info)
+@@ -246,7 +245,6 @@ static void pnv_occ_power9_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pnv_occ_power9_type_info = {
+     .name          = TYPE_PNV9_OCC,
+     .parent        = TYPE_PNV_OCC,
+-    .instance_size = sizeof(PnvOCC),
+     .class_init    = pnv_occ_power9_class_init,
+ };
+ TYPE_INFO(pnv_occ_power9_type_info)
+diff --git a/hw/ppc/ppc4xx_pci.c b/hw/ppc/ppc4xx_pci.c
+index e6888fff9d..5cc11def7d 100644
+--- a/hw/ppc/ppc4xx_pci.c
++++ b/hw/ppc/ppc4xx_pci.c
+@@ -360,7 +360,6 @@ static void ppc4xx_host_bridge_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo ppc4xx_host_bridge_info = {
+     .name          = "ppc4xx-host-bridge",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init    = ppc4xx_host_bridge_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/s390x/s390-skeys-kvm.c b/hw/s390x/s390-skeys-kvm.c
+index eed05d265e..1f741bebfa 100644
+--- a/hw/s390x/s390-skeys-kvm.c
++++ b/hw/s390x/s390-skeys-kvm.c
+@@ -68,9 +68,7 @@ static void kvm_s390_skeys_class_init(ObjectClass *oc, void *data)
+ static const TypeInfo kvm_s390_skeys_info = {
+     .name          = TYPE_KVM_S390_SKEYS,
+     .parent        = TYPE_S390_SKEYS,
+-    .instance_size = sizeof(S390SKeysState),
+     .class_init    = kvm_s390_skeys_class_init,
+-    .class_size    = sizeof(S390SKeysClass),
+ };
+ TYPE_INFO(kvm_s390_skeys_info)
  
- /**
-  * RISCVCPUClass:
-diff --git a/target/s390x/cpu-qom.h b/target/s390x/cpu-qom.h
-index 5f0dccdac1..e2b2513711 100644
---- a/target/s390x/cpu-qom.h
-+++ b/target/s390x/cpu-qom.h
-@@ -25,10 +25,8 @@
+diff --git a/hw/s390x/sclpcpu.c b/hw/s390x/sclpcpu.c
+index dd38d7ea4f..d5c16bc38d 100644
+--- a/hw/s390x/sclpcpu.c
++++ b/hw/s390x/sclpcpu.c
+@@ -94,9 +94,7 @@ static void cpu_class_init(ObjectClass *oc, void *data)
+ static const TypeInfo sclp_cpu_info = {
+     .name          = TYPE_SCLP_CPU_HOTPLUG,
+     .parent        = TYPE_SCLP_EVENT,
+-    .instance_size = sizeof(SCLPEvent),
+     .class_init    = cpu_class_init,
+-    .class_size    = sizeof(SCLPEventClass),
+ };
+ TYPE_INFO(sclp_cpu_info)
  
- #define TYPE_S390_CPU "s390x-cpu"
+diff --git a/hw/s390x/sclpquiesce.c b/hw/s390x/sclpquiesce.c
+index 5ec767f5bc..e6cf7914e1 100644
+--- a/hw/s390x/sclpquiesce.c
++++ b/hw/s390x/sclpquiesce.c
+@@ -137,9 +137,7 @@ static void quiesce_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo sclp_quiesce_info = {
+     .name          = TYPE_SCLP_QUIESCE,
+     .parent        = TYPE_SCLP_EVENT,
+-    .instance_size = sizeof(SCLPEvent),
+     .class_init    = quiesce_class_init,
+-    .class_size    = sizeof(SCLPEventClass),
+ };
+ TYPE_INFO(sclp_quiesce_info)
  
--typedef struct S390CPU S390CPU;
--typedef struct S390CPUClass S390CPUClass;
--DECLARE_OBJ_CHECKERS(S390CPU, S390CPUClass,
--                     S390_CPU, TYPE_S390_CPU)
-+OBJECT_DECLARE_TYPE(S390CPU, S390CPUClass,
-+                    s390_cpu, S390_CPU)
+diff --git a/hw/s390x/tod-kvm.c b/hw/s390x/tod-kvm.c
+index ce17950f2f..0d5c73aa55 100644
+--- a/hw/s390x/tod-kvm.c
++++ b/hw/s390x/tod-kvm.c
+@@ -150,10 +150,8 @@ static void kvm_s390_tod_init(Object *obj)
+ static TypeInfo kvm_s390_tod_info = {
+     .name = TYPE_KVM_S390_TOD,
+     .parent = TYPE_S390_TOD,
+-    .instance_size = sizeof(S390TODState),
+     .instance_init = kvm_s390_tod_init,
+     .class_init = kvm_s390_tod_class_init,
+-    .class_size = sizeof(S390TODClass),
+ };
+ TYPE_INFO(kvm_s390_tod_info)
  
- typedef struct S390CPUModel S390CPUModel;
- typedef struct S390CPUDef S390CPUDef;
-diff --git a/target/sh4/cpu-qom.h b/target/sh4/cpu-qom.h
-index b04b2bb4bf..595814b8cb 100644
---- a/target/sh4/cpu-qom.h
-+++ b/target/sh4/cpu-qom.h
-@@ -29,10 +29,8 @@
- #define TYPE_SH7751R_CPU SUPERH_CPU_TYPE_NAME("sh7751r")
- #define TYPE_SH7785_CPU  SUPERH_CPU_TYPE_NAME("sh7785")
+diff --git a/hw/s390x/tod-qemu.c b/hw/s390x/tod-qemu.c
+index bdc900be3c..0de92906d2 100644
+--- a/hw/s390x/tod-qemu.c
++++ b/hw/s390x/tod-qemu.c
+@@ -76,10 +76,8 @@ static void qemu_s390_tod_init(Object *obj)
+ static TypeInfo qemu_s390_tod_info = {
+     .name = TYPE_QEMU_S390_TOD,
+     .parent = TYPE_S390_TOD,
+-    .instance_size = sizeof(S390TODState),
+     .instance_init = qemu_s390_tod_init,
+     .class_init = qemu_s390_tod_class_init,
+-    .class_size = sizeof(S390TODClass),
+ };
+ TYPE_INFO(qemu_s390_tod_info)
  
--typedef struct SuperHCPU SuperHCPU;
--typedef struct SuperHCPUClass SuperHCPUClass;
--DECLARE_OBJ_CHECKERS(SuperHCPU, SuperHCPUClass,
--                     SUPERH_CPU, TYPE_SUPERH_CPU)
-+OBJECT_DECLARE_TYPE(SuperHCPU, SuperHCPUClass,
-+                    superh_cpu, SUPERH_CPU)
+diff --git a/hw/s390x/virtio-ccw-input.c b/hw/s390x/virtio-ccw-input.c
+index 42528ebd8a..527da84164 100644
+--- a/hw/s390x/virtio-ccw-input.c
++++ b/hw/s390x/virtio-ccw-input.c
+@@ -91,7 +91,6 @@ TYPE_INFO(virtio_ccw_input_hid)
+ static const TypeInfo virtio_ccw_keyboard = {
+     .name          = TYPE_VIRTIO_KEYBOARD_CCW,
+     .parent        = TYPE_VIRTIO_INPUT_HID_CCW,
+-    .instance_size = sizeof(VirtIOInputHIDCcw),
+     .instance_init = virtio_ccw_keyboard_instance_init,
+ };
+ TYPE_INFO(virtio_ccw_keyboard)
+@@ -99,7 +98,6 @@ TYPE_INFO(virtio_ccw_keyboard)
+ static const TypeInfo virtio_ccw_mouse = {
+     .name          = TYPE_VIRTIO_MOUSE_CCW,
+     .parent        = TYPE_VIRTIO_INPUT_HID_CCW,
+-    .instance_size = sizeof(VirtIOInputHIDCcw),
+     .instance_init = virtio_ccw_mouse_instance_init,
+ };
+ TYPE_INFO(virtio_ccw_mouse)
+@@ -107,7 +105,6 @@ TYPE_INFO(virtio_ccw_mouse)
+ static const TypeInfo virtio_ccw_tablet = {
+     .name          = TYPE_VIRTIO_TABLET_CCW,
+     .parent        = TYPE_VIRTIO_INPUT_HID_CCW,
+-    .instance_size = sizeof(VirtIOInputHIDCcw),
+     .instance_init = virtio_ccw_tablet_instance_init,
+ };
+ TYPE_INFO(virtio_ccw_tablet)
+diff --git a/hw/scsi/scsi-generic.c b/hw/scsi/scsi-generic.c
+index dc7ca649de..b5cffe00f6 100644
+--- a/hw/scsi/scsi-generic.c
++++ b/hw/scsi/scsi-generic.c
+@@ -775,7 +775,6 @@ static void scsi_generic_class_initfn(ObjectClass *klass, void *data)
+ static const TypeInfo scsi_generic_info = {
+     .name          = "scsi-generic",
+     .parent        = TYPE_SCSI_DEVICE,
+-    .instance_size = sizeof(SCSIDevice),
+     .class_init    = scsi_generic_class_initfn,
+ };
+ TYPE_INFO(scsi_generic_info)
+diff --git a/hw/sd/allwinner-sdhost.c b/hw/sd/allwinner-sdhost.c
+index 795e7e89eb..ee2952ac8e 100644
+--- a/hw/sd/allwinner-sdhost.c
++++ b/hw/sd/allwinner-sdhost.c
+@@ -836,7 +836,6 @@ TYPE_INFO(allwinner_sdhost_sun5i_info)
+ static const TypeInfo allwinner_sdhost_bus_info = {
+     .name = TYPE_AW_SDHOST_BUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+     .class_init = allwinner_sdhost_bus_class_init,
+ };
+ TYPE_INFO(allwinner_sdhost_bus_info)
+diff --git a/hw/sd/bcm2835_sdhost.c b/hw/sd/bcm2835_sdhost.c
+index 1e9f6ddfa0..09ac2b1593 100644
+--- a/hw/sd/bcm2835_sdhost.c
++++ b/hw/sd/bcm2835_sdhost.c
+@@ -448,7 +448,6 @@ TYPE_INFO(bcm2835_sdhost_info)
+ static const TypeInfo bcm2835_sdhost_bus_info = {
+     .name = TYPE_BCM2835_SDHOST_BUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+ };
+ TYPE_INFO(bcm2835_sdhost_bus_info)
  
- /**
-  * SuperHCPUClass:
-diff --git a/target/sparc/cpu-qom.h b/target/sparc/cpu-qom.h
-index 42cb631d45..5d7fb727bc 100644
---- a/target/sparc/cpu-qom.h
-+++ b/target/sparc/cpu-qom.h
-@@ -29,10 +29,8 @@
- #define TYPE_SPARC_CPU "sparc-cpu"
- #endif
- 
--typedef struct SPARCCPU SPARCCPU;
--typedef struct SPARCCPUClass SPARCCPUClass;
--DECLARE_OBJ_CHECKERS(SPARCCPU, SPARCCPUClass,
--                     SPARC_CPU, TYPE_SPARC_CPU)
-+OBJECT_DECLARE_TYPE(SPARCCPU, SPARCCPUClass,
-+                    sparc_cpu, SPARC_CPU)
- 
- typedef struct sparc_def_t sparc_def_t;
- /**
-diff --git a/target/tilegx/cpu.h b/target/tilegx/cpu.h
-index d4cf70dc15..d251ff80b8 100644
---- a/target/tilegx/cpu.h
-+++ b/target/tilegx/cpu.h
-@@ -99,10 +99,8 @@ typedef struct CPUTLGState {
- 
- #define TYPE_TILEGX_CPU "tilegx-cpu"
- 
--typedef struct TileGXCPU TileGXCPU;
--typedef struct TileGXCPUClass TileGXCPUClass;
--DECLARE_OBJ_CHECKERS(TileGXCPU, TileGXCPUClass,
--                     TILEGX_CPU, TYPE_TILEGX_CPU)
-+OBJECT_DECLARE_TYPE(TileGXCPU, TileGXCPUClass,
-+                    tilegx_cpu, TILEGX_CPU)
- 
- /**
-  * TileGXCPUClass:
-diff --git a/target/tricore/cpu-qom.h b/target/tricore/cpu-qom.h
-index 1988c26093..9e588c4c34 100644
---- a/target/tricore/cpu-qom.h
-+++ b/target/tricore/cpu-qom.h
-@@ -24,10 +24,8 @@
- 
- #define TYPE_TRICORE_CPU "tricore-cpu"
- 
--typedef struct TriCoreCPU TriCoreCPU;
--typedef struct TriCoreCPUClass TriCoreCPUClass;
--DECLARE_OBJ_CHECKERS(TriCoreCPU, TriCoreCPUClass,
--                     TRICORE_CPU, TYPE_TRICORE_CPU)
-+OBJECT_DECLARE_TYPE(TriCoreCPU, TriCoreCPUClass,
-+                    tricore_cpu, TRICORE_CPU)
- 
- struct TriCoreCPUClass {
-     /*< private >*/
-diff --git a/target/unicore32/cpu-qom.h b/target/unicore32/cpu-qom.h
-index 5b67ac532d..c914273058 100644
---- a/target/unicore32/cpu-qom.h
-+++ b/target/unicore32/cpu-qom.h
-@@ -16,10 +16,8 @@
- 
- #define TYPE_UNICORE32_CPU "unicore32-cpu"
- 
--typedef struct UniCore32CPU UniCore32CPU;
--typedef struct UniCore32CPUClass UniCore32CPUClass;
--DECLARE_OBJ_CHECKERS(UniCore32CPU, UniCore32CPUClass,
--                     UNICORE32_CPU, TYPE_UNICORE32_CPU)
-+OBJECT_DECLARE_TYPE(UniCore32CPU, UniCore32CPUClass,
-+                    unicore32_cpu, UNICORE32_CPU)
- 
- /**
-  * UniCore32CPUClass:
-diff --git a/target/xtensa/cpu-qom.h b/target/xtensa/cpu-qom.h
-index ef13262b42..299ce3e63c 100644
---- a/target/xtensa/cpu-qom.h
-+++ b/target/xtensa/cpu-qom.h
-@@ -34,10 +34,8 @@
- 
- #define TYPE_XTENSA_CPU "xtensa-cpu"
- 
--typedef struct XtensaCPU XtensaCPU;
--typedef struct XtensaCPUClass XtensaCPUClass;
--DECLARE_OBJ_CHECKERS(XtensaCPU, XtensaCPUClass,
--                     XTENSA_CPU, TYPE_XTENSA_CPU)
-+OBJECT_DECLARE_TYPE(XtensaCPU, XtensaCPUClass,
-+                    xtensa_cpu, XTENSA_CPU)
- 
- typedef struct XtensaConfig XtensaConfig;
- 
-diff --git a/backends/dbus-vmstate.c b/backends/dbus-vmstate.c
-index 790bc9d728..55aea64af5 100644
---- a/backends/dbus-vmstate.c
-+++ b/backends/dbus-vmstate.c
-@@ -21,12 +21,10 @@
- #include "trace.h"
- #include "qom/object.h"
- 
--typedef struct DBusVMState DBusVMState;
--typedef struct DBusVMStateClass DBusVMStateClass;
- 
- #define TYPE_DBUS_VMSTATE "dbus-vmstate"
--DECLARE_OBJ_CHECKERS(DBusVMState, DBusVMStateClass,
--                     DBUS_VMSTATE, TYPE_DBUS_VMSTATE)
-+OBJECT_DECLARE_TYPE(DBusVMState, DBusVMStateClass,
-+                    dbus_vmstate, DBUS_VMSTATE)
- 
- struct DBusVMStateClass {
-     ObjectClass parent_class;
-diff --git a/ui/input-barrier.c b/ui/input-barrier.c
-index ece32a56e6..6ff0a23ddb 100644
---- a/ui/input-barrier.c
-+++ b/ui/input-barrier.c
-@@ -20,10 +20,8 @@
- #include "input-barrier.h"
- 
- #define TYPE_INPUT_BARRIER "input-barrier"
--typedef struct InputBarrier InputBarrier;
--typedef struct InputBarrierClass InputBarrierClass;
--DECLARE_OBJ_CHECKERS(InputBarrier, InputBarrierClass,
--                     INPUT_BARRIER, TYPE_INPUT_BARRIER)
-+OBJECT_DECLARE_TYPE(InputBarrier, InputBarrierClass,
-+                    input_barrier, INPUT_BARRIER)
- 
- 
- #define MAX_HELLO_LENGTH 1024
-diff --git a/ui/input-linux.c b/ui/input-linux.c
-index 77988e8c71..d916c1eec1 100644
---- a/ui/input-linux.c
-+++ b/ui/input-linux.c
-@@ -31,10 +31,8 @@ static bool linux_is_button(unsigned int lnx)
- }
- 
- #define TYPE_INPUT_LINUX "input-linux"
--typedef struct InputLinux InputLinux;
--typedef struct InputLinuxClass InputLinuxClass;
--DECLARE_OBJ_CHECKERS(InputLinux, InputLinuxClass,
--                     INPUT_LINUX, TYPE_INPUT_LINUX)
-+OBJECT_DECLARE_TYPE(InputLinux, InputLinuxClass,
-+                    input_linux, INPUT_LINUX)
- 
- 
- struct InputLinux {
+diff --git a/hw/sd/milkymist-memcard.c b/hw/sd/milkymist-memcard.c
+index 5567e1a01a..f56981f59a 100644
+--- a/hw/sd/milkymist-memcard.c
++++ b/hw/sd/milkymist-memcard.c
+@@ -325,7 +325,6 @@ static void milkymist_sdbus_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo milkymist_sdbus_info = {
+     .name = TYPE_MILKYMIST_SDBUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+     .class_init = milkymist_sdbus_class_init,
+ };
+ TYPE_INFO(milkymist_sdbus_info)
+diff --git a/hw/sd/pl181.c b/hw/sd/pl181.c
+index f58b947e89..7920e5a7a1 100644
+--- a/hw/sd/pl181.c
++++ b/hw/sd/pl181.c
+@@ -542,7 +542,6 @@ static void pl181_bus_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pl181_bus_info = {
+     .name = TYPE_PL181_BUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+     .class_init = pl181_bus_class_init,
+ };
+ TYPE_INFO(pl181_bus_info)
+diff --git a/hw/sd/pxa2xx_mmci.c b/hw/sd/pxa2xx_mmci.c
+index 0a9d8a72d7..f0a8c89e5d 100644
+--- a/hw/sd/pxa2xx_mmci.c
++++ b/hw/sd/pxa2xx_mmci.c
+@@ -592,7 +592,6 @@ TYPE_INFO(pxa2xx_mmci_info)
+ static const TypeInfo pxa2xx_mmci_bus_info = {
+     .name = TYPE_PXA2XX_MMCI_BUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+     .class_init = pxa2xx_mmci_bus_class_init,
+ };
+ TYPE_INFO(pxa2xx_mmci_bus_info)
+diff --git a/hw/sd/sdhci.c b/hw/sd/sdhci.c
+index 118e7533df..9fbe6f7bba 100644
+--- a/hw/sd/sdhci.c
++++ b/hw/sd/sdhci.c
+@@ -1502,7 +1502,6 @@ static void sdhci_bus_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo sdhci_bus_info = {
+     .name = TYPE_SDHCI_BUS,
+     .parent = TYPE_SD_BUS,
+-    .instance_size = sizeof(SDBus),
+     .class_init = sdhci_bus_class_init,
+ };
+ TYPE_INFO(sdhci_bus_info)
+diff --git a/hw/sh4/sh_pci.c b/hw/sh4/sh_pci.c
+index 09e0e6d0dd..67d2267549 100644
+--- a/hw/sh4/sh_pci.c
++++ b/hw/sh4/sh_pci.c
+@@ -175,7 +175,6 @@ static void sh_pci_host_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo sh_pci_host_info = {
+     .name          = "sh_pci_host",
+     .parent        = TYPE_PCI_DEVICE,
+-    .instance_size = sizeof(PCIDevice),
+     .class_init    = sh_pci_host_class_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/timer/pxa2xx_timer.c b/hw/timer/pxa2xx_timer.c
+index 2d783de4dd..da4d4a443f 100644
+--- a/hw/timer/pxa2xx_timer.c
++++ b/hw/timer/pxa2xx_timer.c
+@@ -570,7 +570,6 @@ static void pxa25x_timer_dev_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pxa25x_timer_dev_info = {
+     .name          = "pxa25x-timer",
+     .parent        = TYPE_PXA2XX_TIMER,
+-    .instance_size = sizeof(PXA2xxTimerInfo),
+     .class_init    = pxa25x_timer_dev_class_init,
+ };
+ TYPE_INFO(pxa25x_timer_dev_info)
+@@ -593,7 +592,6 @@ static void pxa27x_timer_dev_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo pxa27x_timer_dev_info = {
+     .name          = "pxa27x-timer",
+     .parent        = TYPE_PXA2XX_TIMER,
+-    .instance_size = sizeof(PXA2xxTimerInfo),
+     .class_init    = pxa27x_timer_dev_class_init,
+ };
+ TYPE_INFO(pxa27x_timer_dev_info)
+diff --git a/hw/vfio/pci.c b/hw/vfio/pci.c
+index a96821c86d..7d7585af34 100644
+--- a/hw/vfio/pci.c
++++ b/hw/vfio/pci.c
+@@ -3225,7 +3225,6 @@ static void vfio_pci_nohotplug_dev_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo vfio_pci_nohotplug_dev_info = {
+     .name = TYPE_VFIO_PCI_NOHOTPLUG,
+     .parent = TYPE_VFIO_PCI,
+-    .instance_size = sizeof(VFIOPCIDevice),
+     .class_init = vfio_pci_nohotplug_dev_class_init,
+ };
+ TYPE_INFO(vfio_pci_nohotplug_dev_info)
+diff --git a/hw/virtio/virtio-mmio.c b/hw/virtio/virtio-mmio.c
+index fddb3d8d15..fa2a81dccb 100644
+--- a/hw/virtio/virtio-mmio.c
++++ b/hw/virtio/virtio-mmio.c
+@@ -788,7 +788,6 @@ static void virtio_mmio_bus_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo virtio_mmio_bus_info = {
+     .name          = TYPE_VIRTIO_MMIO_BUS,
+     .parent        = TYPE_VIRTIO_BUS,
+-    .instance_size = sizeof(VirtioBusState),
+     .class_init    = virtio_mmio_bus_class_init,
+ };
+ TYPE_INFO(virtio_mmio_bus_info)
+diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
+index b8a5cb8a55..5bb08e0780 100644
+--- a/hw/watchdog/wdt_aspeed.c
++++ b/hw/watchdog/wdt_aspeed.c
+@@ -299,7 +299,6 @@ static void aspeed_2400_wdt_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2400_wdt_info = {
+     .name = TYPE_ASPEED_2400_WDT,
+     .parent = TYPE_ASPEED_WDT,
+-    .instance_size = sizeof(AspeedWDTState),
+     .class_init = aspeed_2400_wdt_class_init,
+ };
+ TYPE_INFO(aspeed_2400_wdt_info)
+@@ -335,7 +334,6 @@ static void aspeed_2500_wdt_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2500_wdt_info = {
+     .name = TYPE_ASPEED_2500_WDT,
+     .parent = TYPE_ASPEED_WDT,
+-    .instance_size = sizeof(AspeedWDTState),
+     .class_init = aspeed_2500_wdt_class_init,
+ };
+ TYPE_INFO(aspeed_2500_wdt_info)
+@@ -356,7 +354,6 @@ static void aspeed_2600_wdt_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo aspeed_2600_wdt_info = {
+     .name = TYPE_ASPEED_2600_WDT,
+     .parent = TYPE_ASPEED_WDT,
+-    .instance_size = sizeof(AspeedWDTState),
+     .class_init = aspeed_2600_wdt_class_init,
+ };
+ TYPE_INFO(aspeed_2600_wdt_info)
+diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
+index 2fdac398e1..d387a67d6d 100644
+--- a/hw/xen/xen-legacy-backend.c
++++ b/hw/xen/xen-legacy-backend.c
+@@ -831,7 +831,6 @@ static void xen_sysdev_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo xensysdev_info = {
+     .name          = TYPE_XENSYSDEV,
+     .parent        = TYPE_SYS_BUS_DEVICE,
+-    .instance_size = sizeof(SysBusDevice),
+     .class_init    = xen_sysdev_class_init,
+ };
+ TYPE_INFO(xensysdev_info)
 -- 
 2.26.2
 
