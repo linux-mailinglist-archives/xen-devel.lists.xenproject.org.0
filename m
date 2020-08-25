@@ -2,46 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C96202510B5
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 06:25:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E51C2510D8
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 06:47:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAQWb-0003Fq-R1; Tue, 25 Aug 2020 04:25:33 +0000
+	id 1kAQr8-000527-Mr; Tue, 25 Aug 2020 04:46:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h2I2=CD=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kAQWa-0003Fl-1K
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 04:25:32 +0000
-X-Inumbo-ID: 30f3b890-a677-4f26-ad08-11e15625ae08
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XWsn=CD=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kAQr8-00051m-21
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 04:46:46 +0000
+X-Inumbo-ID: f75b3d83-c45f-4776-be22-a39b1366a9a0
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 30f3b890-a677-4f26-ad08-11e15625ae08;
- Tue, 25 Aug 2020 04:25:31 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1873FAC37;
- Tue, 25 Aug 2020 04:26:01 +0000 (UTC)
-Subject: Re: [Linux] [ARM] Granting memory obtained from the DMA API
-To: Stefano Stabellini <sstabellini@kernel.org>, Simon Leiner <simon@leiner.me>
-Cc: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
- <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
- <alpine.DEB.2.21.2008201120260.6005@sstabellini-ThinkPad-T480s>
- <025BF4BE-5932-4589-8083-874AE9B1F112@leiner.me>
- <alpine.DEB.2.21.2008241257150.24407@sstabellini-ThinkPad-T480s>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <0cf505c7-abe0-f42f-81f5-6a49dccdd538@suse.com>
-Date: Tue, 25 Aug 2020 06:25:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id f75b3d83-c45f-4776-be22-a39b1366a9a0;
+ Tue, 25 Aug 2020 04:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=mBNwhLidRamN+Lp9NeMc1LlMrwtdYd+5oj6rERNNFw8=; b=r/be92B0sV8J0pIqSDXI1YMZtU
+ yOYKUb8HJ6NkSwfm+VMIzBmbe6Iuoil2cb/jPbe8sL4u6pNxTMziRJOnB+SIJ4FwzMJnLAE4R9nmJ
+ RmL383xC9HOQ1nWJ298Qg+uktXEiW9RW8MmKCPU4DxANOMRkRywGXOArVax0M19LAsYU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAQr0-0003Z7-VN; Tue, 25 Aug 2020 04:46:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAQr0-0005Zs-NC; Tue, 25 Aug 2020 04:46:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAQr0-0007zV-Mh; Tue, 25 Aug 2020 04:46:38 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152769-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2008241257150.24407@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 152769: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=ad40eb4e6c9d5576cca24bc934441f5bb0231c04
+X-Osstest-Versions-That: ovmf=4535fc312b76cb5b05b6a8064c1c64d9780f55ba
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 25 Aug 2020 04:46:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,76 +61,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.08.20 22:02, Stefano Stabellini wrote:
-> On Fri, 21 Aug 2020, Simon Leiner wrote:
->> On 20.08.20 20:35, Stefano Stabellini wrote:
->>> Thank for the well-written analysis of the problem. The following
->> should
->>> work to translate the virtual address properly in xenbus_grant_ring:
->>>
->>> 	if (is_vmalloc_addr(vaddr))
->>> 		page = vmalloc_to_page(vaddr);
->>> 	else
->>> 		page = virt_to_page(vaddr);
->>
->> Great idea, thanks! I modified it lightly (see below) and it did indeed
->> work! I'm wondering though whether the check for vmalloc'd addresses
->> should be included directly in the ARM implementation of virt_to_gfn.
->> As far as I see, this should not break anything, but might impose a
->> small performance overhead in cases where it is known for sure that we
->> are dealing with directly mapped memory. What do you think?
-> 
-> Thanks for testing!
-> 
-> We could ask the relevant maintainers for feedback, but I think it is
-> probably intended that virt_to_gfn doesn't work on vmalloc addresses.
-> That's because vmalloc addresses are not typically supposed to be used
-> like that.
-> 
-> 
-> 
->> diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
->> index e17ca8156171..d7a97f946f2f 100644
->> --- a/drivers/xen/xenbus/xenbus_client.c
->> +++ b/drivers/xen/xenbus/xenbus_client.c
->> @@ -344,6 +344,21 @@ static void xenbus_switch_fatal(struct xenbus_device *dev, int depth, int err,
->>          __xenbus_switch_state(dev, XenbusStateClosing, 1);
->>   }
->>   
->> +/**
->> + * vaddr_to_gfn
->> + * @vaddr: any virtual address
->> + *
->> + * Returns the guest frame number (GFN) corresponding to vaddr.
->> + */
->> +static inline unsigned long vaddr_to_gfn(void *vaddr)
->> +{
->> +   if (is_vmalloc_addr(vaddr)) {
->> +       return pfn_to_gfn(vmalloc_to_pfn(vaddr));
->> +   } else {
->> +       return virt_to_gfn(vaddr);
->> +   }
->> +}
->> +
-> 
-> For the same reason as above, I would rather have the check inside
-> xenbus_grant_ring, rather than above in a generic function:
-> 
-> - if this is a special case the check should be inside xenbus_grant_ring
-> - if this is not a special case, then the fix should be in virt_to_gfn
->    as you mentioned
-> 
-> either way, I wouldn't introduce this function here
-> 
-> Juergen, do you agree with this?
+flight 152769 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152769/
 
-Basically, yes. Lets do it in xenbus_grant_ring() plus adding a
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ad40eb4e6c9d5576cca24bc934441f5bb0231c04
+baseline version:
+ ovmf                 4535fc312b76cb5b05b6a8064c1c64d9780f55ba
 
-WARN_ON_ONCE(is_vmalloc_addr(vaddr), ...)
+Last test of basis   152743  2020-08-24 16:09:39 Z    0 days
+Testing same since   152769  2020-08-24 18:40:36 Z    0 days    1 attempts
 
-in virt_to_gfn() for being able to catch other special cases.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Rebecca Cran <rebecca@bsdio.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   4535fc312b..ad40eb4e6c  ad40eb4e6c9d5576cca24bc934441f5bb0231c04 -> xen-tested-master
 
