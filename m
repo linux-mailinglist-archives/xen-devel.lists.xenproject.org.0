@@ -2,51 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1991251861
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:15:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56C49251864
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:16:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAXqm-0007M2-11; Tue, 25 Aug 2020 12:14:52 +0000
+	id 1kAXs5-0007Rg-CF; Tue, 25 Aug 2020 12:16:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XWsn=CD=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kAXqk-0007Lw-Pw
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:14:50 +0000
-X-Inumbo-ID: abc11ca9-253c-40d1-814b-42ff3a5550e2
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tInE=CD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kAXs3-0007RP-P3
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:16:11 +0000
+X-Inumbo-ID: d9fc3f8b-03db-4f7b-8ba6-ef1659132a1b
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id abc11ca9-253c-40d1-814b-42ff3a5550e2;
- Tue, 25 Aug 2020 12:14:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=oHxBKeBIPkA0SQralQrO4A7uORBgrGVUc4jjL4PAANs=; b=KMt0MVf069g/BchzaWwaqWMT2w
- K2yvGtcjFhflXi13EsNuOKLRhzHSnf6g0u7Gmd5seCnH506RxqSioSzwHD6ZkZSLx/T8uWJDEOFUo
- FEbDbTXnMmZfTeAC37NRJfCVm9My6CXcVvn7dXA2A9IGJmd9LarlsI7jGQ4k4qrP2Jms=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kAXqj-0005Wf-AH; Tue, 25 Aug 2020 12:14:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kAXqj-00009c-3Q; Tue, 25 Aug 2020 12:14:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kAXqj-0001xK-2z; Tue, 25 Aug 2020 12:14:49 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152786-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id d9fc3f8b-03db-4f7b-8ba6-ef1659132a1b;
+ Tue, 25 Aug 2020 12:16:06 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 54C89ADF0;
+ Tue, 25 Aug 2020 12:16:36 +0000 (UTC)
+Subject: Re: [PATCH 2/2] arm/xen: Add misuse warning to virt_to_gfn
+To: Simon Leiner <simon@leiner.me>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, jgross@suse.com,
+ julien@xen.org
+References: <Aw: [Linux] [ARM] Granting memory obtained from the DMA API>
+ <20200825093153.35500-1-simon@leiner.me>
+ <20200825093153.35500-2-simon@leiner.me>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <374f42a0-b618-8b90-71b5-0a865ea1ddbb@suse.com>
+Date: Tue, 25 Aug 2020 14:16:07 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Subject: [ovmf test] 152786: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=78ab44cb96808bd3ff0edf312599f94a6a92172a
-X-Osstest-Versions-That: ovmf=ad40eb4e6c9d5576cca24bc934441f5bb0231c04
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 25 Aug 2020 12:14:49 +0000
+In-Reply-To: <20200825093153.35500-2-simon@leiner.me>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +52,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152786 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152786/
+On 25.08.2020 11:31, Simon Leiner wrote:
+> --- a/include/xen/arm/page.h
+> +++ b/include/xen/arm/page.h
+> @@ -76,7 +76,11 @@ static inline unsigned long bfn_to_pfn(unsigned long bfn)
+>  #define bfn_to_local_pfn(bfn)	bfn_to_pfn(bfn)
+>  
+>  /* VIRT <-> GUEST conversion */
+> -#define virt_to_gfn(v)		(pfn_to_gfn(virt_to_phys(v) >> XEN_PAGE_SHIFT))
+> +#define virt_to_gfn(v)                                                         \
+> +	({                                                                     \
+> +		WARN_ON_ONCE(is_vmalloc_addr(v));                              \
+> +		pfn_to_gfn(virt_to_phys(v) >> XEN_PAGE_SHIFT);                 \
+> +	})
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 78ab44cb96808bd3ff0edf312599f94a6a92172a
-baseline version:
- ovmf                 ad40eb4e6c9d5576cca24bc934441f5bb0231c04
+Shouldn't such a check cover more than just the vmalloc range,
+i.e. everything outside of what __va() can validly return?
 
-Last test of basis   152769  2020-08-24 18:40:36 Z    0 days
-Testing same since   152786  2020-08-25 04:47:07 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liming Gao <liming.gao@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ad40eb4e6c..78ab44cb96  78ab44cb96808bd3ff0edf312599f94a6a92172a -> xen-tested-master
+Jan
 
