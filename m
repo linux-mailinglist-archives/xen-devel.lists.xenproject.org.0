@@ -2,51 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6FD4251255
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 08:48:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7F22512CD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 09:13:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kASkM-0007bB-L7; Tue, 25 Aug 2020 06:47:54 +0000
+	id 1kAT8d-0001nh-8U; Tue, 25 Aug 2020 07:12:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tInE=CD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kASkL-0007b6-6b
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 06:47:53 +0000
-X-Inumbo-ID: c31ccc63-26eb-4035-b386-ec53a17ca724
+ (envelope-from <SRS0=h2I2=CD=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kAT8b-0001nb-ME
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 07:12:57 +0000
+X-Inumbo-ID: 3bde8642-0170-402d-869d-b79b662ad499
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c31ccc63-26eb-4035-b386-ec53a17ca724;
- Tue, 25 Aug 2020 06:47:52 +0000 (UTC)
+ id 3bde8642-0170-402d-869d-b79b662ad499;
+ Tue, 25 Aug 2020 07:12:56 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F0AA3AF99;
- Tue, 25 Aug 2020 06:48:21 +0000 (UTC)
-Subject: Re: [PATCH] libxl: avoid golang building without CONFIG_GOLANG=y
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <e8dd70a7-bdde-e12a-3f4d-f52e58016234@suse.com>
- <20200804141639.k2tpoqy7jj34gcm6@liuwe-devbox-debian-v2>
- <CAEBZRSf4opmGw2fDOCOMZLTtjisFXaP=Oe9aD6E2fTfUs2YFQQ@mail.gmail.com>
- <0deed4c6-ca87-09d3-a19c-ac0c00003cb7@suse.com>
- <20200804155043.vq7aupbrvmmcgzlv@liuwe-devbox-debian-v2>
- <12790d2b-020d-b6fe-4924-2233a4e93d83@suse.com>
- <20200804155707.rrtzkksrle2nojbj@liuwe-devbox-debian-v2>
- <43f706e4-0292-5758-eb19-9fbb99b1337e@suse.com>
- <CAEBZRSc=xUjYq7ao9Rv-EEJsjiBkt5mio5QofvixErZj_SJUcw@mail.gmail.com>
- <289981a3-9baf-bf6a-abbd-e4d613709f2a@suse.com>
- <20200824145849.GA8275@FED-nrosbr-BE.crux.rad.ainfosec.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3e6858f4-bb63-5533-c523-cffd13503f2c@suse.com>
-Date: Tue, 25 Aug 2020 08:47:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 4C672AE39;
+ Tue, 25 Aug 2020 07:13:26 +0000 (UTC)
+Subject: Re: Kconfig vs tool chain capabilities
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <fb43a537-7b0d-0622-6e52-39e1a9e87b91@suse.com>
+Date: Tue, 25 Aug 2020 09:12:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200824145849.GA8275@FED-nrosbr-BE.crux.rad.ainfosec.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -62,35 +51,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.08.2020 16:58, Nick Rosbrook wrote:
-> My understanding was that you were going to use move-if-changed to fix
-> this for now (it seemed everyone agreed this was the quickest short-term fix).
+On 25.08.20 08:31, Jan Beulich wrote:
+> Hello,
+> 
+> while the (ongoing) migration to Linux'es Kbuild has brought (and
+> will continue to bring) quite a few good improvements, there's one
+> aspect that was - afaict - slipped in without any prior mentioning
+> and discussing. This mail is meant to serve as a starting point to
+> have such a discussion "after the fact". The implication is that I
+> expect there to not be an argument along the lines of "is already
+> in the tree". In fact one or two of my acks for related patches
+> were made dependent upon such a discussion to happen, without a
+> preset outcome.
+> 
+> I'd also like to ask to avoid an argument of "Linux is doing so,
+> hence we should do so, too". We really ought to form our own
+> opinion rather than "blindly" inheriting whatever they do.
+> 
+> The issue is the intended recognition and recording of tool chain
+> capabilities. Until now I'm unconvinced this is the intended
+> purpose of Kconfig, unlike user land's typical ./configure. The
+> latter serves to interrogate the system of available functionality,
+> including but not limited to tool chain capabilities. Admin
+> overrides to this are possible via --enable*, --disable*, or
+> --with* kinds of options handed to the script.
+> 
+> As opposed, Kconfig traditionally has served as merely a tool to
+> collect (build) admin decisions, recording them as well as derived
+> data. The implication was that the person doing the configuration
+> was responsible to ensure that selections requiring special tool
+> chain capabilities would be enabled only if the tool chain used
+> was actually capable of dealing with the involved code.
+> 
+> Therefore I see two questions that need answering before either
+> making more wide spread use of the new functionality, or before
+> undoing the present uses and returning back to the original model:
+> 
+> 1) Does it make sense for tool chain capabilities to be recorded?
+> 
+> 2) Does the recording actually work reliably?
+> 
+> As to 1), I'm personally of the opinion that the original model
+> was the better one, even if I can see advantages from downstream
+> (distro in particular) pov. Yet even for them it may mean they
+> would not get presented certain options which they may want to
+> enable, if only they knew they'd need to upgrade their tool
+> chain. For developers otoh, I don't think this model is a helpful
+> one: They absolutely should be aware of pieces they end up not
+> building (and which hence they're also not going test).
+> 
+> (I'd like to note that there may certainly be cases where during
+> the building of the tree features get enabled/disabled by other
+> means without the person doing the build becoming aware. I think
+> such should equally be converted to Kconfig selections, with the
+> build simply failing if tool chain prereqs aren't met. The
+> typical case though is a choice between different ways of
+> generating code, with no effect on resulting functionality
+> beyond a possible difference in performance.)
+> 
+> Additionally the answer to 2) is, I'm afraid, continuing to be
+> "No", as there is - afaict - no way for a once recorded .config
+> to get updated if the underlying tool chain changed. All options
+> to overcome this that I have been able to think of so far
+> (unconditional invocation of kconfig; hashing of involved [tool
+> chain] binaries) come with a pretty heavy overhead on build time
+> and/or other complications.
 
-A technical and a non-technical remark:
+I think both problems can be solved at the same time via the following
+approach:
 
-Thinking about this some more, I'm no longer convinced the
-move-if-changed approach is appropriate here. It is typically
-used to avoid updating files with a large set of dependents
-(all of which would need re-building if the file in question
-changed, even if merely in its time stamp), and where the
-cost of re-generating (and comparing) is relatively low.
-While I can't really assess the cost part here (I know too
-little of Python to be able to compare its use with e.g. a
-shell script), I don't think the "large set of dependencies"
-aspect applies here at all.
+- collect the data which is reflected in today's CONFIG_ variables in a
+   single script and store it in a file, e.g in a format like:
 
-On the non-technical side I have to admit that I find it,
-well, unfriendly to have a person not only run into and
-investigate a (recent) regression, but also make multiple
-attempts at fixing (or at least working around) it. I'd
-rather view this as preferably the responsibility of the
-person having introduced an issue. In the case at hand it is
-quite clear that I wasn't even remotely aware of the
-requirements, and hence determination and testing of a more
-adequate solution would far better be done by someone
-familiar with all the influencing factors. (Things might
-yet be different if an issue is difficult to reproduce, but
-I don't see that being the case here.)
+   CC_IS_GCC y
+   GCC_VERSION 70500
+   CLANG_VERSION 0
+   CC_HAS_VISIBILITY_ATTRIBUTE y
 
-Jan
+- check the tool data at each build to match the contents of that file
+   and either fail the build or update the file and rerun kconfig if they
+   don't match (I think failing the build and requiring to run a
+   "make config" would be the better approach)
+
+- fill the CONFIG_ variable contents from that file in kconfig instead
+   of issuing the single shell commands
+
+
+Juergen
 
