@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C960B25190C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:51:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F72825190E
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:52:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAYQI-0002pd-Ni; Tue, 25 Aug 2020 12:51:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kAYQs-0002tf-1R; Tue, 25 Aug 2020 12:52:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h2I2=CD=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kAYQI-0002pV-1w
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:51:34 +0000
-X-Inumbo-ID: 8afd4077-849c-476f-b79a-fed7101c1348
+ id 1kAYQq-0002tX-NE
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:52:08 +0000
+X-Inumbo-ID: 565d5873-fefa-48ea-bb86-e5a897d01221
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8afd4077-849c-476f-b79a-fed7101c1348;
- Tue, 25 Aug 2020 12:51:32 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 565d5873-fefa-48ea-bb86-e5a897d01221;
+ Tue, 25 Aug 2020 12:52:08 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85501AC50;
- Tue, 25 Aug 2020 12:52:02 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 053F3AC50;
+ Tue, 25 Aug 2020 12:52:38 +0000 (UTC)
 Subject: Re: Kconfig vs tool chain capabilities
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>, nd <nd@arm.com>
+ Anthony Perard <anthony.perard@citrix.com>
 References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
  <fb43a537-7b0d-0622-6e52-39e1a9e87b91@suse.com>
  <4449ee1b-6d2c-70f2-d8e9-80397aeffa41@suse.com>
@@ -36,20 +36,14 @@ References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
  <61d2adc1-c28f-7ed6-237e-45444249173c@suse.com>
  <cf7e8e5f-de4b-3046-8ffc-7ae4502d06c9@suse.com>
  <d4326ef6-d1bc-abd0-b428-00eabb04f761@suse.com>
- <B6E80F54-20D1-4ABF-AA19-8B3D0566DA7B@arm.com>
- <7075bb73-4682-4d17-97ab-3b04e245795a@suse.com>
- <4B1178DC-47E6-46E8-A791-2E12F8CA5F5B@arm.com>
- <d555e945-1ac7-e43e-d2af-6177b7308cff@suse.com>
- <47834168-3648-4EC6-99AA-C97E6272A253@arm.com>
- <d7310b31-c1ab-327a-7c1f-28262d9c7615@suse.com>
- <7FF0CA52-4921-425E-A442-56269924D64F@arm.com>
+ <eee8748d-ccb9-a853-7759-3a61be74b815@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <7c378950-7ed5-6b0d-6bac-be3823f383e9@suse.com>
-Date: Tue, 25 Aug 2020 14:51:31 +0200
+Message-ID: <3ed2a6f7-249b-5757-5dbd-16287e45258d@suse.com>
+Date: Tue, 25 Aug 2020 14:52:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <7FF0CA52-4921-425E-A442-56269924D64F@arm.com>
+In-Reply-To: <eee8748d-ccb9-a853-7759-3a61be74b815@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -66,180 +60,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.08.20 14:44, Bertrand Marquis wrote:
-> 
-> 
->> On 25 Aug 2020, at 13:37, Jürgen Groß <jgross@suse.com> wrote:
+On 25.08.20 14:08, Jan Beulich wrote:
+> On 25.08.2020 11:49, Jürgen Groß wrote:
+>> On 25.08.20 10:48, Jan Beulich wrote:
+>>> On 25.08.2020 10:08, Jürgen Groß wrote:
+>>>> Correct me if I'm wrong, but assuming my suggested changes being made,
+>>>> wouldn't a .config file setup once with CET enabled (and I assume you'd
+>>>> try to enable CET on purpose when trying to test CET and you'd realize
+>>>> not being able to do so in case your tools don't support CET) ensure
+>>>> you'd never been hit by surprise when some tool updates would remove
+>>>> CET support?
+>>>
+>>> Probably, but that's not my point. With a CET-incapable tool chain
+>>> you're not prompted whether to enable CET in the first place, when
+>>> creating the initial .config. It is this unawareness of a crucial
+>>> part of code not getting built and tested (and likely unknowingly)
+>>> that I dislike. In fact, after Andrew's patches had gone in, it
+>>> had taken me a while to realize that in certain of my builds I don't
+>>> have CET enabled (despite me having done nothing to disable it), and
+>>> hence those builds working fine are meaningless for any changes
+>>> affecting CET code in any way.
 >>
->> On 25.08.20 14:20, Bertrand Marquis wrote:
->>>> On 25 Aug 2020, at 12:22, Jürgen Groß <jgross@suse.com> wrote:
->>>>
->>>> On 25.08.20 13:16, Bertrand Marquis wrote:
->>>>>> On 25 Aug 2020, at 12:06, Jürgen Groß <jgross@suse.com> wrote:
->>>>>>
->>>>>> On 25.08.20 12:17, Bertrand Marquis wrote:
->>>>>>>> On 25 Aug 2020, at 10:49, Jürgen Groß <jgross@suse.com> wrote:
->>>>>>>>
->>>>>>>> On 25.08.20 10:48, Jan Beulich wrote:
->>>>>>>>> On 25.08.2020 10:08, Jürgen Groß wrote:
->>>>>>>>>> On 25.08.20 09:48, Jan Beulich wrote:
->>>>>>>>>>> On 25.08.2020 09:43, Jürgen Groß wrote:
->>>>>>>>>>>> On 25.08.20 09:34, Jan Beulich wrote:
->>>>>>>>>>>>> On 25.08.2020 09:12, Jürgen Groß wrote:
->>>>>>>>>>>>>> I think both problems can be solved at the same time via the following
->>>>>>>>>>>>>> approach:
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> - collect the data which is reflected in today's CONFIG_ variables in a
->>>>>>>>>>>>>>       single script and store it in a file, e.g in a format like:
->>>>>>>>>>>>>>
->>>>>>>>>>>>>>       CC_IS_GCC y
->>>>>>>>>>>>>>       GCC_VERSION 70500
->>>>>>>>>>>>>>       CLANG_VERSION 0
->>>>>>>>>>>>>>       CC_HAS_VISIBILITY_ATTRIBUTE y
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> - check the tool data at each build to match the contents of that file
->>>>>>>>>>>>>>       and either fail the build or update the file and rerun kconfig if they
->>>>>>>>>>>>>>       don't match (I think failing the build and requiring to run a
->>>>>>>>>>>>>>       "make config" would be the better approach)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> - fill the CONFIG_ variable contents from that file in kconfig instead
->>>>>>>>>>>>>>       of issuing the single shell commands
->>>>>>>>>>>>>
->>>>>>>>>>>>> While I agree this is a possible model to use (but still not the
->>>>>>>>>>>>> one we've inherited from Linux), I fail to see how this addresses
->>>>>>>>>>>>> my "developers should be aware of what they do (not) build and
->>>>>>>>>>>>> test" concern: There'd still be dependencies of Kconfig options
->>>>>>>>>>>>> on the tool chain capabilities, and their prompts therefore would
->>>>>>>>>>>>> still be invisible without the tool chain having the needed
->>>>>>>>>>>>> capabilities. IOW I only see this to address 2), but not 1).
->>>>>>>>>>>>
->>>>>>>>>>>> Sorry, I fail to see a problem here.
->>>>>>>>>>>>
->>>>>>>>>>>> What sense does it make to be able to configure an option which the
->>>>>>>>>>>> tools don't support?
->>>>>>>>>>>
->>>>>>>>>>> Take CET as an example (chosen because that's the one which
->>>>>>>>>>> already uses the Kconfig approach, despite my disagreement): It's
->>>>>>>>>>> quite relevant to know whether you're testing Xen with it enabled,
->>>>>>>>>>> or with it disabled (and hence you potentially missing changes you
->>>>>>>>>>> need to make to relevant code portions).
->>>>>>>>>>
->>>>>>>>>> Correct me if I'm wrong, but assuming my suggested changes being made,
->>>>>>>>>> wouldn't a .config file setup once with CET enabled (and I assume you'd
->>>>>>>>>> try to enable CET on purpose when trying to test CET and you'd realize
->>>>>>>>>> not being able to do so in case your tools don't support CET) ensure
->>>>>>>>>> you'd never been hit by surprise when some tool updates would remove
->>>>>>>>>> CET support?
->>>>>>>>> Probably, but that's not my point. With a CET-incapable tool chain
->>>>>>>>> you're not prompted whether to enable CET in the first place, when
->>>>>>>>> creating the initial .config. It is this unawareness of a crucial
->>>>>>>>> part of code not getting built and tested (and likely unknowingly)
->>>>>>>>> that I dislike. In fact, after Andrew's patches had gone in, it
->>>>>>>>> had taken me a while to realize that in certain of my builds I don't
->>>>>>>>> have CET enabled (despite me having done nothing to disable it), and
->>>>>>>>> hence those builds working fine are meaningless for any changes
->>>>>>>>> affecting CET code in any way.
->>>>>>>>
->>>>>>>> Yes, this is the result of letting some options depend on others.
->>>>>>>>
->>>>>>>> This is what I meant regarding the architecture: there are e.g. multiple
->>>>>>>> source files in drivers/char/ being built only for ARM or X86, in spite
->>>>>>>> of being located outside arch/. And yet you don't see this as a problem,
->>>>>>>> even if you are not able to select those drivers to be built when using
->>>>>>>> "the other" arch. They are silently disabled. Just like CET in case of
->>>>>>>> an incapable tool chain.
->>>>>>>>
->>>>>>>> So IMO either we ban "depends on" from our Kconfig files (no, I don't
->>>>>>>> want to do that), or we use it as designed and make it as user friendly
->>>>>>>> as possible. In case we as developers have a special test case then we
->>>>>>>> need to check the .config whether the desired settings are really
->>>>>>>> present. Having those settings depending on tool capabilities in a
->>>>>>>> specific file will make this check much easier.
->>>>>>>>
->>>>>>>> And BTW, I can't see how setting the tolls' capabilities from e.g.
->>>>>>>> arch/x86/Rules.mk is better in any way (see how CONFIG_INDIRECT_THUNK
->>>>>>>> got its value in older Xen versions like 4.12).
->>>>>>>>
->>>>>>>> We can't have everything and I believe automatically disabling features
->>>>>>>> which can't work with the current tools is a sane decision. Doing this
->>>>>>>> via Kconfig is the better approach compared to Makefile sniplets IMO.
->>>>>>> That sounds like a nice feature to have some compiler or tools options that
->>>>>>> can be selected or activated in Kconfig. There are some compiler options
->>>>>>> mandatory to handle some erratas or XSA that one might want to explicitely
->>>>>>> select.
->>>>>>> I am bit unsure about the part where some kconfig options would only
->>>>>>> be available or not depending on some tests with the compiler being doing
->>>>>>> prior to opening the editor. I would guess the menuconfig process would
->>>>>>> have to first run some tests and then generated some HAS_ configuration
->>>>>>> options depending on the result of the tests.
->>>>>>> Did i got the idea right here ?
->>>>>>> Is this something somebody tried to do ?
->>>>>>> As a user I would more expect that the build process would tell me that my
->>>>>>> configuration is invalid because i selected something that is not supported
->>>>>>> by my compiler. I might have the chance to just fix my build to use the right
->>>>>>> compiler (like by mistake using x86 toolchain to compile for arm).
->>>>>>> We should also be careful not to silently ignore some configuration option if
->>>>>>> one is changing the compiler and the new one does not support an option.
->>>>>>> A user would have his configuration and compile using it without
->>>>>>> passing through the editor interface and might need to be aware that a part
->>>>>>> of his configuration is not valid anymore because the tools he is using changed.
->>>>>>> This is something that could occur a lot when using a distribution toolchain.
->>>>>>> Also there are some compiler option changing so i would more think that
->>>>>>> there should be generic configuration options so that in the makefiles we
->>>>>>> could have the opportunity to add different compiler options for different
->>>>>>> toolchains depending on the version or the type of the toolchain.
->>>>>>> To be clear i would see something like:
->>>>>>> in kconfig:
->>>>>>> COMPILER_OPTION_XXX
->>>>>>> 	bool “activate XXX compiler flag
->>>>>>> in Makefile:
->>>>>>> ifeq ($(CONFIG_COMPILER_OPTION_XXX), true)
->>>>>>> test_compiler_cxx:
->>>>>>> 	$(CC) -xxx dummy.c -o dummy || $(error Your compiler does not support -xxx)
->>>>>>> cc-flags += -xxx
->>>>>>> endif
->>>>>>> The syntax is wrong here but you get the idea :-)
->>>>>>
->>>>>> Ah, okay, this is another approach, which might be even more flexible.
->>>>>> It would allow to control compiler flags instead of more high level
->>>>>> features.
->>>>> We might have both, this would also allow to have more high level features which are
->>>>> doing both adding compiler flags and other stuff,
->>>>>>
->>>>>> In case we want to go that route we should default COMPILER_OPTION_XXX
->>>>>> to the current tool capabilities in order to avoid longer try-and-error
->>>>>> loops.
->>>>> I am not quite sure how you want to achieve this cleanly.
->>>>
->>>> Something like (picked an actual example from x86):
->>>>
->>>> config HAS_COMPILER_OPTION_IBR
->>>> 	bool "Select compiler option -mindirect-branch-register"
->>>> 	default $(cc-option,-mindirect-branch-register)
->>>> 	  blah blah blah
->>>>
->>> Nice :-)
->>> Definitely i would add a “default y if EXPERT” or something equivalent.
+>> Yes, this is the result of letting some options depend on others.
 >>
->> Uh, rather not. I as a developer don't want to have change the config
->> manually just because a new HAS_COMPILER_OPTION_ has been added my tools
->> don't understand (yet). The default action should require no user
->> intervention, even as expert.
+>> This is what I meant regarding the architecture: there are e.g. multiple
+>> source files in drivers/char/ being built only for ARM or X86, in spite
+>> of being located outside arch/. And yet you don't see this as a problem,
+>> even if you are not able to select those drivers to be built when using
+>> "the other" arch.
 > 
-> I agree with the argument.
-> Maybe we could have an other option like DISABLE_COMPILER_CHECK for this.
+> But they can't be enabled at all on x86.
+
+Yes, that's what I'm saying. Still you might do a change requiring to
+touch those files.
+
+And CET can't be enabled at all with old tools.
+
 > 
-> I would rather have my test system fail with a make error by setting this then silently
-> discard the option if my compiler is modified.
+>> So IMO either we ban "depends on" from our Kconfig files (no, I don't
+>> want to do that), or we use it as designed and make it as user friendly
+>> as possible.
+> 
+> "depends on" can be quite useful without hiding anything from the
+> person configuring Xen: You can have dependent features be disabled
+> by disabling a top level feature (via answering a respective prompt).
+> There are only certain kinds of "depends on" which are problematic in
+> this regard.
 
-But this would exactly be the behavior.
+There are only certain kinds of "depends on" which _you_ regard to be
+problematic. Other people might regard other "depends on" to be
+problematic. And probably most people won't regard any "depends on" to
+be problematic.
 
-A new HAS_COMPILER_OPTION_ added would default to your tool capabilities
-and you could change it manually afterwards. If you change it to "y" in
-spite of your tools not supporting it the build would fail. And if it
-would be "y" per default initially the .config file would be created
-with the option enabled, so a tool change removing support of the option
-would result in a failed build, too.
+I absolutely understand that in some cases you need to perform extra
+checks and changing the current behavior would make it easier for you.
+I suspect, though, that such a modification would impose additional
+work for most users, so I think the benefit of many is more important
+than the benefit of very few developers hit by this issue.
+
+Going the route Bertrand has suggested (with my suggested addition)
+might be a nice compromise, though.
 
 
 Juergen
