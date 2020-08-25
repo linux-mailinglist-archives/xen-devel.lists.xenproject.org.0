@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F7F22512CD
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 09:13:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03DC0251318
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 09:24:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAT8d-0001nh-8U; Tue, 25 Aug 2020 07:12:59 +0000
+	id 1kATIs-0002pX-9h; Tue, 25 Aug 2020 07:23:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h2I2=CD=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kAT8b-0001nb-ME
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 07:12:57 +0000
-X-Inumbo-ID: 3bde8642-0170-402d-869d-b79b662ad499
+ (envelope-from <SRS0=tInE=CD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kATIq-0002pS-Sh
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 07:23:32 +0000
+X-Inumbo-ID: d80dec2b-71d5-4110-9ca7-c7e42b05506b
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3bde8642-0170-402d-869d-b79b662ad499;
- Tue, 25 Aug 2020 07:12:56 +0000 (UTC)
+ id d80dec2b-71d5-4110-9ca7-c7e42b05506b;
+ Tue, 25 Aug 2020 07:23:31 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4C672AE39;
- Tue, 25 Aug 2020 07:13:26 +0000 (UTC)
-Subject: Re: Kconfig vs tool chain capabilities
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>
-References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <fb43a537-7b0d-0622-6e52-39e1a9e87b91@suse.com>
-Date: Tue, 25 Aug 2020 09:12:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id BF404AE63;
+ Tue, 25 Aug 2020 07:24:00 +0000 (UTC)
+Subject: Re: Xen 4.14.0 fails on Dell IoT Gateway without efi=no-rs
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
+References: <CAMmSBy9UUr0T0wT4gG_zAVTa6q=1yVL+js5ciOAnNZyvmAeaPA@mail.gmail.com>
+ <8b0e088c-baa9-93db-02f8-369acb008b69@suse.com>
+ <CAMmSBy-dfc4PsYvmK+-=gTVqZbCsNUM=T_DVUC+aFU=riDrkpg@mail.gmail.com>
+ <7e26e305-18f7-5ebc-1c8c-0e46f12d8f11@suse.com>
+ <CAMmSBy8gJgZWGvgsiVd3Uo7egpyBY3_iw+cgMrcDehVPzRZ6ew@mail.gmail.com>
+ <b82d6d15-b006-52f6-c638-d95b72c08975@suse.com>
+ <CAMmSBy92R3_SwOZOqNm3nfX=4x2rvSRP2Tf1DO-Y+V9j-nwyTg@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <21e3dbc2-8e48-7e2f-40ab-2023d4c5be2f@suse.com>
+Date: Tue, 25 Aug 2020 09:23:31 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <CAMmSBy92R3_SwOZOqNm3nfX=4x2rvSRP2Tf1DO-Y+V9j-nwyTg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -51,91 +56,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.08.20 08:31, Jan Beulich wrote:
-> Hello,
+On 25.08.2020 04:30, Roman Shaposhnik wrote:
+> On Fri, Aug 21, 2020 at 1:23 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 21.08.2020 09:38, Roman Shaposhnik wrote:
+>>> I think we're talking slightly past each other here -- you seem to be
+>>> more after trying to figure out how to make this box look like a dozen
+>>> killobucks worth a server, I'm after trying to figure out what callsites
+>>> in Xen tickle that region.
+>>
+>> What I'm trying is to understand what exactly is wrong in the firmware,
+>> as that'll likely allow determining a minimal workaround.
 > 
-> while the (ongoing) migration to Linux'es Kbuild has brought (and
-> will continue to bring) quite a few good improvements, there's one
-> aspect that was - afaict - slipped in without any prior mentioning
-> and discussing. This mail is meant to serve as a starting point to
-> have such a discussion "after the fact". The implication is that I
-> expect there to not be an argument along the lines of "is already
-> in the tree". In fact one or two of my acks for related patches
-> were made dependent upon such a discussion to happen, without a
-> preset outcome.
-> 
-> I'd also like to ask to avoid an argument of "Linux is doing so,
-> hence we should do so, too". We really ought to form our own
-> opinion rather than "blindly" inheriting whatever they do.
-> 
-> The issue is the intended recognition and recording of tool chain
-> capabilities. Until now I'm unconvinced this is the intended
-> purpose of Kconfig, unlike user land's typical ./configure. The
-> latter serves to interrogate the system of available functionality,
-> including but not limited to tool chain capabilities. Admin
-> overrides to this are possible via --enable*, --disable*, or
-> --with* kinds of options handed to the script.
-> 
-> As opposed, Kconfig traditionally has served as merely a tool to
-> collect (build) admin decisions, recording them as well as derived
-> data. The implication was that the person doing the configuration
-> was responsible to ensure that selections requiring special tool
-> chain capabilities would be enabled only if the tool chain used
-> was actually capable of dealing with the involved code.
-> 
-> Therefore I see two questions that need answering before either
-> making more wide spread use of the new functionality, or before
-> undoing the present uses and returning back to the original model:
-> 
-> 1) Does it make sense for tool chain capabilities to be recorded?
-> 
-> 2) Does the recording actually work reliably?
-> 
-> As to 1), I'm personally of the opinion that the original model
-> was the better one, even if I can see advantages from downstream
-> (distro in particular) pov. Yet even for them it may mean they
-> would not get presented certain options which they may want to
-> enable, if only they knew they'd need to upgrade their tool
-> chain. For developers otoh, I don't think this model is a helpful
-> one: They absolutely should be aware of pieces they end up not
-> building (and which hence they're also not going test).
-> 
-> (I'd like to note that there may certainly be cases where during
-> the building of the tree features get enabled/disabled by other
-> means without the person doing the build becoming aware. I think
-> such should equally be converted to Kconfig selections, with the
-> build simply failing if tool chain prereqs aren't met. The
-> typical case though is a choice between different ways of
-> generating code, with no effect on resulting functionality
-> beyond a possible difference in performance.)
-> 
-> Additionally the answer to 2) is, I'm afraid, continuing to be
-> "No", as there is - afaict - no way for a once recorded .config
-> to get updated if the underlying tool chain changed. All options
-> to overcome this that I have been able to think of so far
-> (unconditional invocation of kconfig; hashing of involved [tool
-> chain] binaries) come with a pretty heavy overhead on build time
-> and/or other complications.
+> Fair enough. So let me start with a major update. After a bit of trial and
+> error it became apparent that a combination of efi=attr=uc AND
+> removing the call to efi_get_time as per:
+>     https://lists.archive.carbon60.com/xen/devel/408709
+> allows Xen to boot just fine and function properly on that device.
 
-I think both problems can be solved at the same time via the following
-approach:
+Interesting. I'd be curious of what results if just one of the
+two is used (for both of them).
 
-- collect the data which is reflected in today's CONFIG_ variables in a
-   single script and store it in a file, e.g in a format like:
+>>> I appreciate and respect your position, but please hear mine as well:
+>>> yes we're clearly into the "workaround" territory here, but clearly
+>>> Linux is fully capable of these workaround and I would like to understand
+>>> how expensive it will be to teach Xen those tricks as well.
+>>
+>> My prime example here is their blanket avoiding of the time related
+>> runtime services, despite the EFI spec saying the exact opposite.
+> 
+> Well, to be fair, it seems that the practical experience with various
+> bits of hardware suggests that in this particular case avoidance
+> may be the lesser of all the evils.
+> 
+> Or to ask a complimentary question: what's the danger of making that
+> patch (in a cleaned up form) the default behaviour? Will there be any
+> instances of hardware where it may actually hurt?
 
-   CC_IS_GCC y
-   GCC_VERSION 70500
-   CLANG_VERSION 0
-   CC_HAS_VISIBILITY_ATTRIBUTE y
+ACPI tables have a flag indicating that there's no CMOS clock in
+the system. Without that, and without use of GetTime() there's no
+wall clock source. Andrew keeps suggesting that we shouldn't
+have a need to use the wall clock, but I'm afraid I haven't been
+able to understand what the alternative (and still backwards
+compatible) behavior would be, and hence I've been hoping for him
+to put together patches carrying out the plan.
 
-- check the tool data at each build to match the contents of that file
-   and either fail the build or update the file and rerun kconfig if they
-   don't match (I think failing the build and requiring to run a
-   "make config" would be the better approach)
+Of course in turn there are systems having the flag set despite
+there being a CMOS clock, telling people that there are reasons
+to ignore the flag (and still avoid GetTime()).
 
-- fill the CONFIG_ variable contents from that file in kconfig instead
-   of issuing the single shell commands
+Apart from this case (which could be taken care of) there's the
+collision with my underlying position here that I've described
+before: Xen should be spec conformant on spec conformant
+systems. This implies using GetTime() when running on EFI.
 
+>> "efi=no-rs" is just a wider scope workaround of this same kind.
+> 
+> The problem with "efi=no-rs" is that it is actually unbounded.
+> 
+> IOW, compare two cases:
+>    1. disable a single call to GetTime()
+>    2. disable all calls to EFI RS?
+> Case #1 I can reason about -- case #2 -- not so much (unless somebody
+> explains to me the full scope of what gets disabled when efi=no-rs).
+> 
+> Now, you may say (and seems like you do ;-)) that if a small part of
+> the implementation can't be trusted -- the entire thing shouldn't be
+> trusted -- I don't think I will buy into that policy -- but it is a policy.
 
-Juergen
+The common case is that parts of memory accessed by runtime services
+aren't marked for runtime use in the memory map. Once there is _one_
+such problem that the developers of the firmware allowed to slip in,
+how can you trust there being exactly one such problem, or how can
+you be certain of which of the runtime service functions are affected.
+
+As to your question regarding the full scope - I'm pretty unclear
+what you mean by this: No use of runtime services means exactly that.
+Just go look at the EFI_RUNTIME_SERVICES struct (plus of course
+whatever is wired up in the first place in Xen). If you're after
+end user visible effects, I'm afraid this is the wrong forum to ask,
+as those will depend on what is wired up (and hence expected to be
+usable) in higher software layers.
+
+>> The reasoning I see behind this is that if the time related runtime
+>> services are problematic, how likely is it that others are fine to
+>> use? And how would an admin know without first having run into some
+>> crash? If there are fair reasons to have finer grained disabling of
+>> runtime services - why not? But it'll still take a command line
+>> option to do so, unless (as was proposed) a build-time option of
+>> enabling all (common?) workarounds by default gets made use of.
+> 
+> Well, policy (and trust issues) aside -- I think the real question
+> is -- it seems that there's quite a bit of downstream that agrees
+> that avoiding GetTime() is a good idea. What options do we have
+> to make that possible without each downstream carrying a custom
+> patch (which I'm adding to EVE as we speak)?
+
+If there is sufficient evidence that there's a large part of
+systems with just the time interfaces broken, we can make a command
+line option to suppress just their use. The argument I've been
+hearing though behind avoiding these runtime service functions is
+that they're broken mainly because Windows doesn't use them, and
+hence them being broken doesn't get noticed when certifying these
+systems. With this, we'd instead need to disable all runtime
+services Windows doesn't use, which as an input requires us to know
+which ones these are. As a result the possible command line option
+wouldn't be "no-time" but "like-windows", which makes me shudder.
+
+Of course the suggested Kconfig option to "enable common
+workarounds" could then enable just this option rather than "no-rs",
+if deemed more useful this way.
+
+Jan
 
