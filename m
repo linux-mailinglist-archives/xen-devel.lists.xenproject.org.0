@@ -2,50 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E28C8251845
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:08:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1991251861
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 14:15:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAXkJ-0006Oq-5y; Tue, 25 Aug 2020 12:08:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tInE=CD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kAXkG-0006Oi-UA
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:08:08 +0000
-X-Inumbo-ID: c0c3ec98-a3fc-4530-8613-7161a7676620
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c0c3ec98-a3fc-4530-8613-7161a7676620;
- Tue, 25 Aug 2020 12:08:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2D592B15F;
- Tue, 25 Aug 2020 12:08:37 +0000 (UTC)
-Subject: Re: Kconfig vs tool chain capabilities
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>
-References: <6d5a2014-5184-04f0-62f9-60ddd7537886@suse.com>
- <fb43a537-7b0d-0622-6e52-39e1a9e87b91@suse.com>
- <4449ee1b-6d2c-70f2-d8e9-80397aeffa41@suse.com>
- <f37d135a-d66a-450c-0b97-98c86de6f489@suse.com>
- <b783915a-9d64-4c68-7b71-f3b042b1201e@suse.com>
- <61d2adc1-c28f-7ed6-237e-45444249173c@suse.com>
- <cf7e8e5f-de4b-3046-8ffc-7ae4502d06c9@suse.com>
- <d4326ef6-d1bc-abd0-b428-00eabb04f761@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <eee8748d-ccb9-a853-7759-3a61be74b815@suse.com>
-Date: Tue, 25 Aug 2020 14:08:07 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <d4326ef6-d1bc-abd0-b428-00eabb04f761@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+	id 1kAXqm-0007M2-11; Tue, 25 Aug 2020 12:14:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XWsn=CD=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kAXqk-0007Lw-Pw
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 12:14:50 +0000
+X-Inumbo-ID: abc11ca9-253c-40d1-814b-42ff3a5550e2
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id abc11ca9-253c-40d1-814b-42ff3a5550e2;
+ Tue, 25 Aug 2020 12:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=oHxBKeBIPkA0SQralQrO4A7uORBgrGVUc4jjL4PAANs=; b=KMt0MVf069g/BchzaWwaqWMT2w
+ K2yvGtcjFhflXi13EsNuOKLRhzHSnf6g0u7Gmd5seCnH506RxqSioSzwHD6ZkZSLx/T8uWJDEOFUo
+ FEbDbTXnMmZfTeAC37NRJfCVm9My6CXcVvn7dXA2A9IGJmd9LarlsI7jGQ4k4qrP2Jms=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAXqj-0005Wf-AH; Tue, 25 Aug 2020 12:14:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAXqj-00009c-3Q; Tue, 25 Aug 2020 12:14:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAXqj-0001xK-2z; Tue, 25 Aug 2020 12:14:49 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152786-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 152786: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=78ab44cb96808bd3ff0edf312599f94a6a92172a
+X-Osstest-Versions-That: ovmf=ad40eb4e6c9d5576cca24bc934441f5bb0231c04
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 25 Aug 2020 12:14:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,51 +60,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.08.2020 11:49, Jürgen Groß wrote:
-> On 25.08.20 10:48, Jan Beulich wrote:
->> On 25.08.2020 10:08, Jürgen Groß wrote:
->>> Correct me if I'm wrong, but assuming my suggested changes being made,
->>> wouldn't a .config file setup once with CET enabled (and I assume you'd
->>> try to enable CET on purpose when trying to test CET and you'd realize
->>> not being able to do so in case your tools don't support CET) ensure
->>> you'd never been hit by surprise when some tool updates would remove
->>> CET support?
->>
->> Probably, but that's not my point. With a CET-incapable tool chain
->> you're not prompted whether to enable CET in the first place, when
->> creating the initial .config. It is this unawareness of a crucial
->> part of code not getting built and tested (and likely unknowingly)
->> that I dislike. In fact, after Andrew's patches had gone in, it
->> had taken me a while to realize that in certain of my builds I don't
->> have CET enabled (despite me having done nothing to disable it), and
->> hence those builds working fine are meaningless for any changes
->> affecting CET code in any way.
-> 
-> Yes, this is the result of letting some options depend on others.
-> 
-> This is what I meant regarding the architecture: there are e.g. multiple
-> source files in drivers/char/ being built only for ARM or X86, in spite
-> of being located outside arch/. And yet you don't see this as a problem,
-> even if you are not able to select those drivers to be built when using
-> "the other" arch.
+flight 152786 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152786/
 
-But they can't be enabled at all on x86.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 78ab44cb96808bd3ff0edf312599f94a6a92172a
+baseline version:
+ ovmf                 ad40eb4e6c9d5576cca24bc934441f5bb0231c04
 
-> So IMO either we ban "depends on" from our Kconfig files (no, I don't
-> want to do that), or we use it as designed and make it as user friendly
-> as possible.
+Last test of basis   152769  2020-08-24 18:40:36 Z    0 days
+Testing same since   152786  2020-08-25 04:47:07 Z    0 days    1 attempts
 
-"depends on" can be quite useful without hiding anything from the
-person configuring Xen: You can have dependent features be disabled
-by disabling a top level feature (via answering a respective prompt).
-There are only certain kinds of "depends on" which are problematic in
-this regard.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liming Gao <liming.gao@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-> And BTW, I can't see how setting the tolls' capabilities from e.g.
-> arch/x86/Rules.mk is better in any way (see how CONFIG_INDIRECT_THUNK
-> got its value in older Xen versions like 4.12).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-I've alluded to this not being any better in my initial mail.
 
-Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ad40eb4e6c..78ab44cb96  78ab44cb96808bd3ff0edf312599f94a6a92172a -> xen-tested-master
 
