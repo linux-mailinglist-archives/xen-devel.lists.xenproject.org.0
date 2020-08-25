@@ -2,75 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE9222516EA
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 12:55:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2695E2516F1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Aug 2020 12:57:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAWay-0006Gd-4n; Tue, 25 Aug 2020 10:54:28 +0000
+	id 1kAWdd-0006Qe-NU; Tue, 25 Aug 2020 10:57:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SHAN=CD=citrix.com=christian.lindig@srs-us1.protection.inumbo.net>)
- id 1kAWaw-0006GY-JQ
- for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 10:54:26 +0000
-X-Inumbo-ID: 4a7804b5-347c-4817-8dee-8a3004b28b84
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tInE=CD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kAWdc-0006QZ-9u
+ for xen-devel@lists.xenproject.org; Tue, 25 Aug 2020 10:57:12 +0000
+X-Inumbo-ID: 9a753744-ae38-49ac-ac32-92774e9cc56b
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4a7804b5-347c-4817-8dee-8a3004b28b84;
- Tue, 25 Aug 2020 10:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598352865;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=LDbPiJeF+8KXbukJtORCf6tqEi/eFnJw7/plDl/Z6Hg=;
- b=NmgbONYQduG4d/NhkqdEzeeQ6WhJ+lEHya7RxznD6lcQS4wo1pVxbKFJ
- AeAYDxL7KjMab32m0AnS3iIGmeWdO3cTu/RaIJli/6hrC+YYtfQ655MLR
- X4NQ6K5RkHrfJSBZ/B9lEOQQR3HGlB1LC7rFmcN6mW8+zsFRB4iBqnPXm g=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vEFZNiF0fGLwEHVX1aGesohMK0j7nnECefPjZynj+FHbLWT5RzwP82UlBidLs5ETEGtmwziuea
- euY4MJcX3hl9pDX9wyPv8R0ncgjXjvuC4XWgJ/MI1rgwfaaGHkXwUHB5qNQPtRG10ngjxqgzD5
- IEV9qglS5DbBjDCIdhie1YlRWQE0PYs1iTwJ6U1QDQBggaswU7XE6/O+dNXD05KMog12VzKaA1
- lUVnbZiHqJynry3bFaIvnQ72VvGrRJ2oVBbr/Lqqcp99iVZMZnS9gJb9JqeKJ6jOpkPosJINyd
- JWs=
-X-SBRS: 2.7
-X-MesageID: 25536565
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,352,1592884800"; d="scan'208,217";a="25536565"
-From: Christian Lindig <christian.lindig@citrix.com>
-To: Juergen Gross <jgross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "xen-devel@dornerworks.com"
- <xen-devel@dornerworks.com>
-CC: Samuel Thibault <samuel.thibault@ens-lyon.org>, Ian Jackson
- <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
- <George.Dunlap@citrix.com>, Nick Rosbrook <rosbrookn@ainfosec.com>, "Andrew
- Cooper" <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Anthony
- Perard <anthony.perard@citrix.com>,
- =?iso-8859-1?Q?Marek_Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>, Josh Whitehead
- <josh.whitehead@dornerworks.com>, Stewart Hildebrand
- <stewart.hildebrand@dornerworks.com>, David Scott <dave@recoil.org>, "Shriram
- Rajagopalan" <rshriram@cs.ubc.ca>, Yang Hongyang <imhy.yang@gmail.com>, Edwin
- Torok <edvin.torok@citrix.com>
-Subject: Re: [PATCH v3 00/38] tools: move most libraries into tools/libs
-Thread-Topic: [PATCH v3 00/38] tools: move most libraries into tools/libs
-Thread-Index: AQHWeTC9ZIXZmGtXBk+5TUZnzDYz3KlIqAiJ
-Date: Tue, 25 Aug 2020 10:54:21 +0000
-Message-ID: <1598352860986.67246@citrix.com>
-References: <20200823093519.18386-1-jgross@suse.com>
-In-Reply-To: <20200823093519.18386-1-jgross@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: multipart/alternative;
- boundary="_000_159835286098667246citrixcom_"
+ id 9a753744-ae38-49ac-ac32-92774e9cc56b;
+ Tue, 25 Aug 2020 10:57:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 332E1AF3B;
+ Tue, 25 Aug 2020 10:57:41 +0000 (UTC)
+Subject: Re: [PATCH 4/4] EFI: free unused boot mem in at least some cases
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
+ <4e2d0d0a-9d85-d704-5d61-ae9efc69256a@suse.com>
+ <21bd3372-ac86-f20f-b2b8-3cfb697ef894@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7c2d275a-c4b5-90b9-e801-4de58486bae5@suse.com>
+Date: Tue, 25 Aug 2020 12:57:11 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
+In-Reply-To: <21bd3372-ac86-f20f-b2b8-3cfb697ef894@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,151 +56,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---_000_159835286098667246citrixcom_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 10.08.2020 19:09, Andrew Cooper wrote:
+> On 06/08/2020 10:06, Jan Beulich wrote:
+>> Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
+>> free ebmalloc area at all") was put in place: Make xen_in_range() aware
+>> of the freed range. This is in particular relevant for EFI-enabled
+>> builds not actually running on EFI, as the entire range will be unused
+>> in this case.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> The remaining issue could be addressed too, by making the area 2M in
+>> size and 2M-aligned.
+> 
+> This memory range is only used for relocating the (synthesized?)
+> multiboot strings, is it not?
+> 
+> I'm not actually convinced that this is a sensible tradeoff.
+> 
+> For one, you've broken setup.c's:
+> 
+>     /* This needs to remain in sync with xen_in_range(). */
+>     reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+> 
+> which covers the runtime aspect of what xen_in_range() covers during boot.
 
+I'm afraid this wasn't a good suggestion here (it was still helpful
+to notice that tboot.c also needs adjustment): By not reserving the
+range here, it'll get freed by end_boot_allocator(), and hence may
+not (again) be freed by free_ebmalloc_unused_mem() (kind of putting
+its name under question). Immediately up from the quoted place we
+also reserve the space where the modules live, which also gets
+freed later. I'm having difficulty to see why this particular
+aspect needs to remain in sync between the reservation done here
+and xen_in_range().
 
-I have no objections. For the OCaml part in particular I previously said th=
-at I believe that it would benefit from either be maintained outside the tr=
-ee (which requires a clean interface) or moving it to use Dune for its buil=
-d (triggered by the current make build). Any cleanup that is helping here i=
-s welcome.
+v2 definitely is broken because of me not having noticed this in
+time. I'll first try to fix it without reverting to the v1 model,
+but I'd prefer to go back to the earlier approach (keeping merely
+the other v2 adjustments). Unless of course you see some breakage
+from this that I don't see.
 
---
-Acked-by: Christian Lindig <christian.lindig@citrix.com>??
-
-
-________________________________
-From: Juergen Gross <jgross@suse.com>
-Sent: 23 August 2020 10:34
-To: xen-devel@lists.xenproject.org; xen-devel@dornerworks.com
-Cc: Juergen Gross; Samuel Thibault; Ian Jackson; Wei Liu; George Dunlap; Ni=
-ck Rosbrook; Andrew Cooper; Jan Beulich; Julien Grall; Stefano Stabellini; =
-Anthony Perard; Marek Marczykowski-G=F3recki; Josh Whitehead; Stewart Hilde=
-brand; Christian Lindig; David Scott; Shriram Rajagopalan; Yang Hongyang
-Subject: [PATCH v3 00/38] tools: move most libraries into tools/libs
-
-Move most remaining libraries under tools/libs, including libxenctrl
-and libxl. This is resulting in a lot of cleanup work regarding
-building libs and restructuring of the tools directory.
-
-After this huge cleanup all dependencies between libraries are defined
-in a single rather small file tools/libs/uselibs.mk, which is used to
-create the needed make variables and to control the stubdom build
-dependencies as well.
-
-Another bonus of the rework is the automation of setting the versions
-of unstable libraries. This removes the need to bump those versions
-manually for each Xen release.
-
-libfsimage is not moved by this series, as IMO there are some open
-questions:
-- should it really be unstable?
-- is the support of adding external fs-support used in practice, i.e.
-  shouldn't the fs-specific sub-libraries be just included into
-  libfsimage instead of being loaded dynamically?
-
-The complete series is available via:
-
-git://xenbits.xen.org/people/jgross/xen.git libbuild-v3
-
-
-
-
-
---_000_159835286098667246citrixcom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none"><!-- P { margin-top: 0px; m=
-argin-bottom: 0px; } .EmailQuote { margin-left: 1pt; padding-left: 4pt; bor=
-der-left-width: 2px; border-left-style: solid; border-left-color: rgb(128, =
-0, 0); }--></style>
-</head>
-<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
-FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p></p>
-<div style=3D"font-family: Helvetica; font-size: 12px;"><br>
-</div>
-<div style=3D"font-family: Helvetica; font-size: 12px;">I have no objection=
-s. For the OCaml part in particular I previously said that I believe that i=
-t would benefit from either be maintained outside the tree (which requires =
-a clean interface) or moving it to
- use Dune for its build (triggered by the current make build). Any cleanup =
-that is helping here is welcome.<br>
-</div>
-<div style=3D"font-family: Helvetica; font-size: 12px;"><br>
-</div>
-<div style=3D"caret-color: rgb(33, 33, 33); color: rgb(33, 33, 33); backgro=
-und-color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px;">
---&nbsp;</div>
-<div style=3D"caret-color: rgb(33, 33, 33); color: rgb(33, 33, 33); backgro=
-und-color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px;">
-Acked-by: Christian Lindig &lt;christian.lindig@citrix.com&gt;&#8203;&#8203=
-;<br>
-</div>
-<p><br>
-</p>
-<div style=3D"color: rgb(33, 33, 33);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Juergen Gross &lt;j=
-gross@suse.com&gt;<br>
-<b>Sent:</b> 23 August 2020 10:34<br>
-<b>To:</b> xen-devel@lists.xenproject.org; xen-devel@dornerworks.com<br>
-<b>Cc:</b> Juergen Gross; Samuel Thibault; Ian Jackson; Wei Liu; George Dun=
-lap; Nick Rosbrook; Andrew Cooper; Jan Beulich; Julien Grall; Stefano Stabe=
-llini; Anthony Perard; Marek Marczykowski-G=F3recki; Josh Whitehead; Stewar=
-t Hildebrand; Christian Lindig; David
- Scott; Shriram Rajagopalan; Yang Hongyang<br>
-<b>Subject:</b> [PATCH v3 00/38] tools: move most libraries into tools/libs=
-</font>
-<div>&nbsp;<br>
-</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Move most remaining libraries under tools/libs, in=
-cluding libxenctrl<br>
-and libxl. This is resulting in a lot of cleanup work regarding<br>
-building libs and restructuring of the tools directory.<br>
-<br>
-After this huge cleanup all dependencies between libraries are defined<br>
-in a single rather small file tools/libs/uselibs.mk, which is used to<br>
-create the needed make variables and to control the stubdom build<br>
-dependencies as well.<br>
-<br>
-Another bonus of the rework is the automation of setting the versions<br>
-of unstable libraries. This removes the need to bump those versions<br>
-manually for each Xen release.<br>
-<br>
-libfsimage is not moved by this series, as IMO there are some open<br>
-questions:<br>
-- should it really be unstable?<br>
-- is the support of adding external fs-support used in practice, i.e.<br>
-&nbsp; shouldn't the fs-specific sub-libraries be just included into<br>
-&nbsp; libfsimage instead of being loaded dynamically?<br>
-<br>
-The complete series is available via:<br>
-<br>
-git://xenbits.xen.org/people/jgross/xen.git libbuild-v3<br>
-<br>
-<div style=3D"background-color: rgb(255, 255, 255); font-family: Helvetica;=
- font-size: 12px;">
-<br>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_159835286098667246citrixcom_--
+Jan
 
