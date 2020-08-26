@@ -2,52 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56BD252AC3
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 11:52:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC9A252ACC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 11:53:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAs6D-00053G-VA; Wed, 26 Aug 2020 09:52:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kAs7L-000590-As; Wed, 26 Aug 2020 09:53:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5Ngk=CE=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kAs6B-00052w-O0
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 09:52:07 +0000
-X-Inumbo-ID: 7e16ce4f-dee6-41ea-b22a-b881c5e15f17
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7e16ce4f-dee6-41ea-b22a-b881c5e15f17;
- Wed, 26 Aug 2020 09:52:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=IXwJlLF+f2HoYeS2gQFV+ih51sEzWgCRELcQLzkXTjI=; b=LJnQKJcSJKCHgVX3DnAdIyUiel
- Vc969t0PQsUWe6xDzld+oBxmhgIxl9Sn9XGHNHri3tw63Dq4dKOm5uc0HJ6cBpJYFoJMz2GeuSwsf
- Ozj6sFC0uZY4RYsVKfllDWLOqO2RTSlQPDH+viipgQnor02Qsl+jueIVvhO5fdjbwjls=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kAs65-0006yQ-EQ; Wed, 26 Aug 2020 09:52:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kAs65-0003t5-70; Wed, 26 Aug 2020 09:52:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kAs65-0001SY-6Y; Wed, 26 Aug 2020 09:52:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152854-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kAs7K-00058t-Cb
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 09:53:18 +0000
+X-Inumbo-ID: bb7a5783-0c4c-4a2c-af3f-739fe2ab1659
+Received: from galois.linutronix.de (unknown [193.142.43.55])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bb7a5783-0c4c-4a2c-af3f-739fe2ab1659;
+ Wed, 26 Aug 2020 09:53:17 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1598435595;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mv4TqayOvYT1PZy4IB6XdyAxCqLJFuyrG/iBXdVvDGo=;
+ b=gry5Gqjf5XbHVcJKaDXMPK4boPx5u/IEBob5D9Wn36xeFWifKRFQGrLYl80/EuQiMfzysE
+ R0d4KWtrjVjHsKfDbzzjWDT5squtWA8CAJmXu6ssTTvFAl1Dp0Qb/5Gseu91lYmL0/YUjO
+ NbsGg1x1qsfcwMmq40s6f8QzME/wE8mMh0jkO28671y+OSXzdMJAa+d/pRnJ+IIBJUer6F
+ myfzP6CTQbmP/AgP0sGex0XapaKloSSKztkVFL6Agugb80R0gctiC6HeZ9PqzrabjLNIkQ
+ pAIkMvt8UaWwzx1EMmCW7rVmlO3SHuNH8U5WRqRwrLaG8IAQqyASWZnve1tyYQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1598435595;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mv4TqayOvYT1PZy4IB6XdyAxCqLJFuyrG/iBXdVvDGo=;
+ b=T18EHlogGsekmXEOkS3bdJRDQU5OgZArZ4psx/80SWGB5Jkvh72YqFLOhYbYkZrSz/1STi
+ ppR6UR793IwPtlAg==
+To: Boqun Feng <boqun.feng@gmail.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Wei Liu
+ <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>, Stephen
+ Hemminger <sthemmin@microsoft.com>, Joerg Roedel <joro@8bytes.org>,
+ linux-hyperv@vger.kernel.org, iommu@lists.linux-foundation.org, Haiyang
+ Zhang <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
+ Pieralisi <lorenzo.pieralisi@arm.com>, Konrad Rzeszutek Wilk
+ <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org, Juergen Gross
+ <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
+ <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
+ Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
+ <dan.j.williams@intel.com>
+Subject: Re: [patch RFC 10/38] x86/ioapic: Consolidate IOAPIC allocation
+In-Reply-To: <20200826084019.GA6174@debian-boqun.qqnc3lrjykvubdpftowmye0fmh.lx.internal.cloudapp.net>
+References: <20200821002424.119492231@linutronix.de>
+ <20200821002946.297823391@linutronix.de>
+ <20200826084019.GA6174@debian-boqun.qqnc3lrjykvubdpftowmye0fmh.lx.internal.cloudapp.net>
+Date: Wed, 26 Aug 2020 11:53:15 +0200
+Message-ID: <871rjtwx6c.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 152854: all pass - PUSHED
-X-Osstest-Versions-This: xen=7a8d8bde9820387c3e168182b99fd9761c223fff
-X-Osstest-Versions-That: xen=858c0be8c2fa4125a0fa0acaa03ae730e5c7cb3c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 26 Aug 2020 09:52:01 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +82,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152854 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152854/
+On Wed, Aug 26 2020 at 16:40, Boqun Feng wrote:
+> I hit a compiler error while I was trying to compile this patchset:
+>
+> arch/x86/kernel/devicetree.c: In function =E2=80=98dt_irqdomain_alloc=E2=
+=80=99:
+> arch/x86/kernel/devicetree.c:232:6: error: =E2=80=98struct irq_alloc_info=
+=E2=80=99 has no member named =E2=80=98ioapic_id=E2=80=99; did you mean =E2=
+=80=98ioapic=E2=80=99?
+>   232 |  tmp.ioapic_id =3D mpc_ioapic_id(mp_irqdomain_ioapic_idx(domain));
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  7a8d8bde9820387c3e168182b99fd9761c223fff
-baseline version:
- xen                  858c0be8c2fa4125a0fa0acaa03ae730e5c7cb3c
+Yeah, noticed myself already and 0day complained as well :)
 
-Last test of basis   152693  2020-08-23 09:18:23 Z    3 days
-Testing same since   152854  2020-08-26 09:18:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   858c0be8c2..7a8d8bde98  7a8d8bde9820387c3e168182b99fd9761c223fff -> coverity-tested/smoke
 
