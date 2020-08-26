@@ -2,83 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B772528F3
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 10:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9458252904
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 10:15:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAqUV-0003xg-KG; Wed, 26 Aug 2020 08:09:07 +0000
+	id 1kAqaK-0004nZ-AY; Wed, 26 Aug 2020 08:15:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6WbI=CE=redhat.com=quintela@srs-us1.protection.inumbo.net>)
- id 1kAqUU-0003xb-3Y
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 08:09:06 +0000
-X-Inumbo-ID: 64a25817-2e5f-40d4-a635-14fdf45d0c34
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 64a25817-2e5f-40d4-a635-14fdf45d0c34;
- Wed, 26 Aug 2020 08:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598429345;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WLP42d08jlqtDdnGGiR1ac66izB7N8sAvplYxoFxlws=;
- b=YncmLgeSCS3MEPWvE8yKY+nH17jSaIcGymCg7fkTmDYf1bv6FZdWJNzjvZHoIHEzR2tY0Q
- BIv4A3437p6d/iwGyfLy1D/VwjLHoTpH6i9vv3C7AW9Ng6mR7aQzFfq8GiVh5aUlmx+ahS
- OSP/poPoH0+4lgMJsTmAzCLZ4tBF8Zc=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-154-ljbUGZZFNGCFIq2M9cuKGg-1; Wed, 26 Aug 2020 04:09:03 -0400
-X-MC-Unique: ljbUGZZFNGCFIq2M9cuKGg-1
-Received: by mail-wm1-f69.google.com with SMTP id b14so470521wmj.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Aug 2020 01:09:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:references
- :user-agent:reply-to:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kLIsu+nEc3aBl1VyG4Sd867PXkn1bWp9ManfPK6FPHs=;
- b=bJwnIqgAbJwMTxQJoOV3TLh8jUITSlzqWRqiIPhOliM7Knqv0WH+4lvtvXTa/18OuQ
- VCI9HeN4k+xZlXTMC8x/D9nU99I7AJE1qy9BaTXaa40zYkSxCxRBRyqdLbpEYDAvLULC
- 92s5/dqOzTBsPwzlP76mlJ2crAGrzX73IyQJAPcvHzOOX1M9gjVackyJmbUX91pa1JCr
- UIVgZkwh76oWHc/KRf5GXR7o2XnWLy0S1Os+3HPYiWMlvvafkeQuatVEIUmetPywhVJY
- vEj4BqPDXoHVWwg6GK341AxLrPOXjaVXw+JPHJexiCvvz1EmrhrDXahS4/Xa9UepL5Me
- 6Lzw==
-X-Gm-Message-State: AOAM531jV2SE//LUpCHLpB2AVxvaMyZEDTvjhArGM8fS+flfpmdoi52l
- MIqjy9i5jh0lSypr7H/7povhO4QEZyhaIWpJaMDBzj3bS5RXccDJHHELXGOgBMmBNeJR7UEBWXy
- pC6QChNvahh99AX1ZUJkLSQVFD1I=
-X-Received: by 2002:adf:9e8d:: with SMTP id a13mr13566866wrf.94.1598429341765; 
- Wed, 26 Aug 2020 01:09:01 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzT9BIXEipC0KHHms1/LKk2MRcW/qT6UlqJ2yHzgxQ4Cz3Ybar/ud7Phbq6goZoBDpiyvRYng==
-X-Received: by 2002:adf:9e8d:: with SMTP id a13mr13566848wrf.94.1598429341511; 
- Wed, 26 Aug 2020 01:09:01 -0700 (PDT)
-Received: from localhost (trasno.trasno.org. [83.165.45.250])
- by smtp.gmail.com with ESMTPSA id z9sm3613141wmg.46.2020.08.26.01.09.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2020 01:09:00 -0700 (PDT)
-From: Juan Quintela <quintela@redhat.com>
-To: Eduardo Habkost <ehabkost@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org, qemu-block@nongnu.org,
- qemu-s390x@nongnu.org, qemu-ppc@nongnu.org, kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org, qemu-riscv@nongnu.org
-Subject: Re: [PATCH v3 66/74] [automated] Use DECLARE_*CHECKER* macros
-In-Reply-To: <20200825192110.3528606-67-ehabkost@redhat.com> (Eduardo
- Habkost's message of "Tue, 25 Aug 2020 15:21:02 -0400")
-References: <20200825192110.3528606-1-ehabkost@redhat.com>
- <20200825192110.3528606-67-ehabkost@redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
-Date: Wed, 26 Aug 2020 10:08:59 +0200
-Message-ID: <87ft89ygkk.fsf@secure.mitica>
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TrzI=CE=leiner.me=simon@srs-us1.protection.inumbo.net>)
+ id 1kAqaI-0004nU-Tr
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 08:15:06 +0000
+X-Inumbo-ID: 93d1629e-2bf6-4b7b-8a70-7f46072b5982
+Received: from mx2.mailbox.org (unknown [2001:67c:2050:104:0:2:25:2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 93d1629e-2bf6-4b7b-8a70-7f46072b5982;
+ Wed, 26 Aug 2020 08:15:04 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:105:465:1:1:0])
+ (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
+ (No client certificate requested)
+ by mx2.mailbox.org (Postfix) with ESMTPS id D2A0BA0979;
+ Wed, 26 Aug 2020 10:15:02 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from smtp1.mailbox.org ([80.241.60.240])
+ by spamfilter01.heinlein-hosting.de (spamfilter01.heinlein-hosting.de
+ [80.241.56.115]) (amavisd-new, port 10030)
+ with ESMTP id aPdJOFEKD5jE; Wed, 26 Aug 2020 10:14:59 +0200 (CEST)
+Subject: Re: [PATCH 2/2] arm/xen: Add misuse warning to virt_to_gfn
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org
+References: <Aw: [Linux] [ARM] Granting memory obtained from the DMA API>
+ <20200825093153.35500-1-simon@leiner.me>
+ <20200825093153.35500-2-simon@leiner.me>
+ <374f42a0-b618-8b90-71b5-0a865ea1ddbb@suse.com>
+ <alpine.DEB.2.21.2008251647100.24407@sstabellini-ThinkPad-T480s>
+ <00bdd0ee-8f18-4580-01c7-01c95f3a6184@suse.com>
+ <d5db3e9a-2d5e-ef20-2516-c014d25e9e1c@leiner.me>
+ <bf17ac65-6182-d426-a6d6-7dac0f286dc7@suse.com>
+From: Simon Leiner <simon@leiner.me>
+Message-ID: <e0117840-7d09-db4d-9e14-215e39ada866@leiner.me>
+Date: Wed, 26 Aug 2020 10:14:58 +0200
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=quintela@redhat.com
-X-Mimecast-Spam-Score: 0.002
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <bf17ac65-6182-d426-a6d6-7dac0f286dc7@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-MBO-SPAM-Probability: 
+X-Rspamd-Score: -3.21 / 15.00 / 15.00
+X-Rspamd-Queue-Id: A089237F
+X-Rspamd-UID: 5466bc
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,44 +63,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: quintela@redhat.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Eduardo Habkost <ehabkost@redhat.com> wrote:
->  $ ./scripts/codeconverter/converter.py -i \
->    --pattern=3DTypeCheckMacro $(git grep -l '' -- '*.[ch]')
->
-> Reviewed-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
-> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
-> ---
-> Changes v2 -> v3:
-> * Removed hunks due to rebase conflicts:
->   hw/arm/integratorcp.c hw/arm/versatilepb.c hw/sd/pl181.c
->   include/hw/ppc/xive.h
-> * Reviewed-by line from Daniel was kept, as no additional hunks
->   are introduced in this version
+On 26.08.20 09:59, Jürgen Groß wrote:
+> This seems to be an Arm specific function.
 
-[Dropeed CC'd]
+Is that a problem? The caller site is also ARM specific.
 
-...
+> virt_addr_valid() seems to be a good fit.
 
-> diff --git a/migration/rdma.c b/migration/rdma.c
-> index e3eac913bc..87cb277d05 100644
-> --- a/migration/rdma.c
-> +++ b/migration/rdma.c
-> @@ -399,8 +399,8 @@ typedef struct RDMAContext {
-> =20
->  #define TYPE_QIO_CHANNEL_RDMA "qio-channel-rdma"
->  typedef struct QIOChannelRDMA QIOChannelRDMA;
-> -#define QIO_CHANNEL_RDMA(obj)                                     \
-> -    OBJECT_CHECK(QIOChannelRDMA, (obj), TYPE_QIO_CHANNEL_RDMA)
-> +DECLARE_INSTANCE_CHECKER(QIOChannelRDMA, QIO_CHANNEL_RDMA,
-> +                         TYPE_QIO_CHANNEL_RDMA)
-> =20
-> =20
-> =20
+If you prefer that anyway, I will change it and resubmit that part of
+the patch.
 
-Reviewed-by: Juan Quintela <quintela@redhat.com>
-
+Simon
 
