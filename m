@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F05252DDC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DA8252DE4
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAuCO-0001vs-Sr; Wed, 26 Aug 2020 12:06:40 +0000
+	id 1kAuCW-0002BS-DV; Wed, 26 Aug 2020 12:06:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAu9D-000821-At
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:03:23 +0000
-X-Inumbo-ID: 86e831b0-d446-470a-81d9-d79bc0fa86c9
+ id 1kAu9I-000821-Ax
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:03:28 +0000
+X-Inumbo-ID: cf71050b-2286-4bb3-8d71-ae7377f0f256
 Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 86e831b0-d446-470a-81d9-d79bc0fa86c9;
- Wed, 26 Aug 2020 12:01:48 +0000 (UTC)
-Message-Id: <20200826112334.795343913@linutronix.de>
+ id cf71050b-2286-4bb3-8d71-ae7377f0f256;
+ Wed, 26 Aug 2020 12:01:49 +0000 (UTC)
+Message-Id: <20200826112334.889315931@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598443307;
+ s=2020; t=1598443308;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=++RJAb0XwXR6HGwCiKdimUJ+P96gsDP2cTuWDbVCwn8=;
- b=S31zf4KRdKSl+c/54qaBKf9wiJkWSKJKFVO3xb0t8u3lZOBrM+cgNH7LKEKYWzT/y/HwU0
- mI4r8a/uksNI5Vj9EC+f4ho50SX72FhEgvzxuRqkIKlIH5X37IGajDxfGALbvPrnnix18L
- XYH6svrlZFlPJJoWtNXPqV4SuQjzyJuaNpdeRlu/0jh6J9Y5Am5xrIBHDLjgy0Atbv2JoJ
- HN7ySGpQ4wwoj91aEaCckv39Gll7Pv8enAqSOUDLnY7IBSWqKio6eCPc6y+A8zKjrzUQIw
- 1fleRXIy5jKI+RdfMzzmocRDunkz9kLkt8ibCm7I0U1OH3q5r64Bp5MTrt68Bg==
+ bh=cykkSf24RUQJOTwuG0VyPRnlzcI597ZZ2erY9w7Z858=;
+ b=zIN8rRtDstwLjSbYqoe/Wc9kD7YWmQX95g6LuqqnKZeIXL7ixEiCyQPMyyYmpK7bLDOv6a
+ CgkPN1a/yxGmVb6l7wya9/+xgLgs1ILCFlVdtx/TWRP1eJHmEdFFwWDl5XqTm9f0TPMfRZ
+ tw8tcz3fZEbqTuhbOutbbgGiDfdG+gMiYSlxV0vFanbSDowqFpFS1LKNWSOOr43T6mHN2Y
+ hpSKYgnX+YKs5f0emn4766Na/CrJdM4iI/cGUnqVztLRfOEpSQoYP0sA+DAKMe3ykn/i6E
+ aNRDbWt9tyHlJrG8TMXJ3ambkrVnYLMrF+BJ+OMDFwOJ+K+PO3VbOMIlC6vvrg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598443307;
+ s=2020e; t=1598443308;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=++RJAb0XwXR6HGwCiKdimUJ+P96gsDP2cTuWDbVCwn8=;
- b=VRfG8jWe0BEQR76gNnsKVNJRq1rafZxZ4YVg3rty4q0d1NS7xGqWPCzx5Fhj9EVpwoneik
- IgeTkQyy30POemBw==
-Date: Wed, 26 Aug 2020 13:17:10 +0200
+ bh=cykkSf24RUQJOTwuG0VyPRnlzcI597ZZ2erY9w7Z858=;
+ b=ICrYp1XTC5U4lIY5xh2joAmFwqxVGQeU3Yoo/fhXIC7eLLf62NUoErEyKCXtf8lK82iEDf
+ xbeyrCK376q7yiDg==
+Date: Wed, 26 Aug 2020 13:17:11 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
@@ -62,7 +62,8 @@ Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch V2 42/46] genirq/proc: Take buslock on affinity write
+Subject: [patch V2 43/46] genirq/msi: Provide and use
+ msi_domain_set_default_info_flags()
 References: <20200826111628.794979401@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -80,62 +81,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Until now interrupt chips which support setting affinity are nit locking
-the associated bus lock for two reasons:
+MSI interrupts have some common flags which should be set not only for
+PCI/MSI interrupts.
 
- - All chips which support affinity setting do not use buslock because they just
-   can operated directly on the hardware.
-
- - All chips which use buslock do not support affinity setting because
-   their interrupt chips are not capable. These chips are usually connected
-   over a bus like I2C, SPI etc. and have an interrupt output which is
-   conneted to CPU interrupt of some sort. So there is no way to set the
-   affinity on the chip itself.
-
-Upcoming hardware which is PCIE based sports a non standard MSI(X) variant
-which stores the MSI message in RAM which is associated to e.g. a device
-queue. The device manages this RAM and writes have to be issued via command
-queues or similar mechanisms which is obviously not possible from interrupt
-disabled, raw spinlock held context.
-
-The buslock mechanism of irq chips can be utilized to support that. The
-affinity write to the chip writes to shadow state, marks it pending and the
-irq chip's irq_bus_sync_unlock() callback handles the command queue and
-wait for completion similar to the other chip operations on I2C or SPI
-busses.
-
-Change the locking in irq_set_affinity() to bus_lock/unlock to help with
-that. There are a few other callers than the proc interface, but none of
-them is affected by this change as none of them affects an irq chip with
-bus lock support.
+Move the PCI/MSI flag setting into a common function so it can be reused.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
 V2: New patch
 ---
- kernel/irq/manage.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -373,16 +373,16 @@ int irq_set_affinity_locked(struct irq_d
+ drivers/pci/msi.c   |    7 +------
+ include/linux/msi.h |    1 +
+ kernel/irq/msi.c    |   24 ++++++++++++++++++++++++
+ 3 files changed, 26 insertions(+), 6 deletions(-)
+
+--- a/drivers/pci/msi.c
++++ b/drivers/pci/msi.c
+@@ -1469,12 +1469,7 @@ struct irq_domain *pci_msi_create_irq_do
+ 	if (info->flags & MSI_FLAG_USE_DEF_CHIP_OPS)
+ 		pci_msi_domain_update_chip_ops(info);
  
- int __irq_set_affinity(unsigned int irq, const struct cpumask *mask, bool force)
+-	info->flags |= MSI_FLAG_ACTIVATE_EARLY;
+-	if (IS_ENABLED(CONFIG_GENERIC_IRQ_RESERVATION_MODE))
+-		info->flags |= MSI_FLAG_MUST_REACTIVATE;
+-
+-	/* PCI-MSI is oneshot-safe */
+-	info->chip->flags |= IRQCHIP_ONESHOT_SAFE;
++	msi_domain_set_default_info_flags(info);
+ 
+ 	domain = msi_create_irq_domain(fwnode, info, parent);
+ 	if (!domain)
+--- a/include/linux/msi.h
++++ b/include/linux/msi.h
+@@ -410,6 +410,7 @@ int platform_msi_domain_alloc(struct irq
+ void platform_msi_domain_free(struct irq_domain *domain, unsigned int virq,
+ 			      unsigned int nvec);
+ void *platform_msi_get_host_data(struct irq_domain *domain);
++void msi_domain_set_default_info_flags(struct msi_domain_info *info);
+ #endif /* CONFIG_GENERIC_MSI_IRQ_DOMAIN */
+ 
+ #ifdef CONFIG_PCI_MSI_IRQ_DOMAIN
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -70,6 +70,30 @@ void get_cached_msi_msg(unsigned int irq
+ EXPORT_SYMBOL_GPL(get_cached_msi_msg);
+ 
+ #ifdef CONFIG_GENERIC_MSI_IRQ_DOMAIN
++void msi_domain_set_default_info_flags(struct msi_domain_info *info)
++{
++	/* Required so that a device latches a valid MSI message on startup */
++	info->flags |= MSI_FLAG_ACTIVATE_EARLY;
++
++	/*
++	 * Interrupt reservation mode allows to stear the MSI message of an
++	 * inactive device to a special (usually spurious interrupt) target.
++	 * This allows to prevent interrupt vector exhaustion e.g. on x86.
++	 * But (PCI)MSI interrupts are activated early - see above - so the
++	 * interrupt request/startup sequence would not try to allocate a
++	 * usable vector which means that the device interupts would end
++	 * up on the special vector and issue spurious interrupt messages.
++	 * Setting the reactivation flag ensures that when the interrupt
++	 * is requested the activation is invoked again so that a real
++	 * vector can be allocated.
++	 */
++	if (IS_ENABLED(CONFIG_GENERIC_IRQ_RESERVATION_MODE))
++		info->flags |= MSI_FLAG_MUST_REACTIVATE;
++
++	/* MSI is oneshot-safe at least in theory */
++	info->chip->flags |= IRQCHIP_ONESHOT_SAFE;
++}
++
+ static inline void irq_chip_write_msi_msg(struct irq_data *data,
+ 					  struct msi_msg *msg)
  {
--	struct irq_desc *desc = irq_to_desc(irq);
-+	struct irq_desc *desc;
- 	unsigned long flags;
- 	int ret;
- 
-+	desc = irq_get_desc_buslock(irq, &flags, IRQ_GET_DESC_CHECK_GLOBAL);
- 	if (!desc)
- 		return -EINVAL;
- 
--	raw_spin_lock_irqsave(&desc->lock, flags);
- 	ret = irq_set_affinity_locked(irq_desc_get_irq_data(desc), mask, force);
--	raw_spin_unlock_irqrestore(&desc->lock, flags);
-+	irq_put_desc_busunlock(desc, flags);
- 	return ret;
- }
- 
 
 
