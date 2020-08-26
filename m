@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A29253910
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 22:22:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48AF25391A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 22:24:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kB1vW-0006BH-Ut; Wed, 26 Aug 2020 20:21:46 +0000
+	id 1kB1yN-0006L0-Gk; Wed, 26 Aug 2020 20:24:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zw2O=CE=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1kB1vW-0006BC-24
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 20:21:46 +0000
-X-Inumbo-ID: 2ab146d7-172f-4160-a65e-4027c4afe7d9
+ id 1kB1yL-0006KY-Of
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 20:24:41 +0000
+X-Inumbo-ID: d10b0f1a-0bab-475a-a9cf-4735c22c133b
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2ab146d7-172f-4160-a65e-4027c4afe7d9;
- Wed, 26 Aug 2020 20:21:44 +0000 (UTC)
+ id d10b0f1a-0bab-475a-a9cf-4735c22c133b;
+ Wed, 26 Aug 2020 20:24:37 +0000 (UTC)
 Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
  [51.254.78.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A897E2076C;
- Wed, 26 Aug 2020 20:21:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1AF542076C;
+ Wed, 26 Aug 2020 20:24:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598473303;
- bh=YMfWFqC5hD4XcAvqBAU0k4rGeGVgIOGdihLkY7QIQuI=;
+ s=default; t=1598473477;
+ bh=auSXw+EqUonX3FBMMNkctQ6qGdUjQJ6mqBm2CfMo9pI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=NMTbNDQwmiy1TI7fQW+JBmDTTcazSYXOKy3VJ01rf1Ap90CQohqzakM3jl9iiJ6Du
- SP+RZY3eNF4e+puBPocRu65f+SDsiCWCqgkjpNooqC9R8TqsTM97vhGhGVPC/oD/qy
- 7abz/f4FoDiNVRC+OaPlMVmemXAtkSFDMTV+ZL3M=
+ b=QWysnGLUpOcBkmWSTf56jVPsTNPGnunGvY5Uq5rnxRguNQSD91vh1okGV+iXf31JI
+ 3bfZ+oLw24XNVrEjEU2ImUWW8cB6t6PkK7nai13uIHyDhkV/XAMfSPJVT/huMLAQeE
+ UIaBJhqr/JBtQqu8cDIJq/NKBdbfxLv8kWkuirGE=
 Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
  helo=wait-a-minute.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <maz@kernel.org>)
- id 1kB1vS-006y5k-3Z; Wed, 26 Aug 2020 21:21:42 +0100
-Date: Wed, 26 Aug 2020 21:21:40 +0100
-Message-ID: <878se12m5n.wl-maz@kernel.org>
+ id 1kB1yF-006y7s-Ir; Wed, 26 Aug 2020 21:24:35 +0100
+Date: Wed, 26 Aug 2020 21:24:33 +0100
+Message-ID: <877dtl2m0u.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Thomas Gleixner <tglx@linutronix.de>
 Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
@@ -63,10 +63,10 @@ Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 19/46] x86/msi: Use generic MSI domain ops
-In-Reply-To: <20200826112332.564274859@linutronix.de>
+Subject: Re: [patch V2 17/46] PCI/MSI: Rework pci_msi_domain_calc_hwirq()
+In-Reply-To: <20200826112332.352583299@linutronix.de>
 References: <20200826111628.794979401@linutronix.de>
- <20200826112332.564274859@linutronix.de>
+ <20200826112332.352583299@linutronix.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 EasyPG/1.0.0 Emacs/26.3
  (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -101,65 +101,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 26 Aug 2020 12:16:47 +0100,
+On Wed, 26 Aug 2020 12:16:45 +0100,
 Thomas Gleixner <tglx@linutronix.de> wrote:
 > 
 > From: Thomas Gleixner <tglx@linutronix.de>
 > 
-> pci_msi_get_hwirq() and pci_msi_set_desc are not longer special. Enable the
-> generic MSI domain ops in the core and PCI MSI code unconditionally and get
-> rid of the x86 specific implementations in the X86 MSI code and in the
-> hyperv PCI driver.
+> Retrieve the PCI device from the msi descriptor instead of doing so at the
+> call sites.
 > 
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> 
-> ---
->  arch/x86/include/asm/msi.h          |    2 --
->  arch/x86/kernel/apic/msi.c          |   15 ---------------
->  drivers/pci/controller/pci-hyperv.c |    8 --------
->  drivers/pci/msi.c                   |    4 ----
->  kernel/irq/msi.c                    |    6 ------
->  5 files changed, 35 deletions(-)
-> 
-> --- a/arch/x86/include/asm/msi.h
-> +++ b/arch/x86/include/asm/msi.h
-> @@ -9,6 +9,4 @@ typedef struct irq_alloc_info msi_alloc_
->  int pci_msi_prepare(struct irq_domain *domain, struct device *dev, int nvec,
->  		    msi_alloc_info_t *arg);
->  
-> -void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc);
-> -
->  #endif /* _ASM_X86_MSI_H */
-> --- a/arch/x86/kernel/apic/msi.c
-> +++ b/arch/x86/kernel/apic/msi.c
-> @@ -204,12 +204,6 @@ void native_teardown_msi_irq(unsigned in
->  	irq_domain_free_irqs(irq, 1);
->  }
->  
-> -static irq_hw_number_t pci_msi_get_hwirq(struct msi_domain_info *info,
-> -					 msi_alloc_info_t *arg)
-> -{
-> -	return arg->hwirq;
-> -}
-> -
->  int pci_msi_prepare(struct irq_domain *domain, struct device *dev, int nvec,
->  		    msi_alloc_info_t *arg)
->  {
-> @@ -228,17 +222,8 @@ int pci_msi_prepare(struct irq_domain *d
->  }
->  EXPORT_SYMBOL_GPL(pci_msi_prepare);
->  
-> -void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc)
-> -{
-> -	arg->desc = desc;
-> -	arg->hwirq = pci_msi_domain_calc_hwirq(desc);
-> -}
-> -EXPORT_SYMBOL_GPL(pci_msi_set_desc);
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
-I think that at this stage, pci_msi_domain_calc_hwirq() can be made
-static, as it was only ever exported for this call site. Nice cleanup!
-
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+Acked-by: Marc Zyngier <maz@kernel.org>
 
 	M.
 
