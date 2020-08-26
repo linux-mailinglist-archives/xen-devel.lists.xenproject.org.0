@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8AB252DD5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6D6252DD7
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAuCM-0001sY-T0; Wed, 26 Aug 2020 12:06:38 +0000
+	id 1kAuCN-0001tX-FL; Wed, 26 Aug 2020 12:06:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAu8y-000821-A1
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:03:08 +0000
-X-Inumbo-ID: 0a051cbe-f8cb-4b7f-9558-f0183e09efe2
-Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ id 1kAu93-000821-AJ
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:03:13 +0000
+X-Inumbo-ID: 33136824-7f93-4517-bd15-6650aa9da21e
+Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a051cbe-f8cb-4b7f-9558-f0183e09efe2;
- Wed, 26 Aug 2020 12:01:43 +0000 (UTC)
-Message-Id: <20200826112334.400700807@linutronix.de>
+ id 33136824-7f93-4517-bd15-6650aa9da21e;
+ Wed, 26 Aug 2020 12:01:44 +0000 (UTC)
+Message-Id: <20200826112334.493642963@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598443302;
+ s=2020; t=1598443303;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=XS2OtPL63+BbeAwrgOvQZ62jjX8dKd2NUee/RefW/jE=;
- b=g7xv50ATWyf0Y9KZtfd5GDP7gv+ub4Reyp3zzVcltJZHJTLFQiFFXZP+cdXkZqtXlfvIpG
- tdDcnRDMiB+NAD5pfoxdVPRDMENd5IGhIAds5207sNs7ZFUbnwlncbC9MFo6M3VyfOi/E2
- sTAtg0h0YKOOz9nDA3vW1m6MWO8ZCD3zzYaI7xVc9jcBd/G5iYloQEx+PRC6EaWAe2KhaK
- owm1ZICVZYAXvrQzrjTMUaGTpQ4IZGqclzgFWEqg5L8qaWofCWb0s81fNwQhQPAj02rxjV
- cyoLMosaH14iqtGJnoLcXp3hzvcc4rpt7+YOBBmYbBg+vQie4RgCA7KB9JgMBQ==
+ bh=Jbe7LG9G4Zvu5BS675dx2ovvPd7Zs7K+V3j/Ww3fTeI=;
+ b=H5ct7yxyfPkw9COn6I7pDw6V1ilNzNBmxLT5gZpiqG5VFJDTYIRVrKS9MvIkCv/cVCNxwb
+ 9rABWH11GRrt/F1XhhSDp0w0Wy41gVFSZzn9pQiNTcHs+63DsMc+BAwMYNXNq+QlX8TbDd
+ 4nuvxxC6zG54EVKX1tE1lNMYsndx6DnV51i+GGKczVfx6JZBYjHMTx3ogkXMbyFmrmgHIh
+ /Vtqytt4cTeGvYKfsbOypaBGU6hCS9jWwmQ59jHoutngqHxs7Z7hy9qB5xiKsaUmM/tmYI
+ M4N9kw88/wBcNGfGIXWdqU/EB32+w2yt5iCXEHIfU/0M3jstk1ercqpAR2sL5A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598443302;
+ s=2020e; t=1598443303;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=XS2OtPL63+BbeAwrgOvQZ62jjX8dKd2NUee/RefW/jE=;
- b=YlpLIMOqrorOG1iP3fEgl8h8huJ+SEm1UgkOPUBIUHdgsvpjhvsDnVL85p8wf3l/OswF4l
- 3rF6X4dWCwWuIwAQ==
-Date: Wed, 26 Aug 2020 13:17:06 +0200
+ bh=Jbe7LG9G4Zvu5BS675dx2ovvPd7Zs7K+V3j/Ww3fTeI=;
+ b=IbCUcGl7XvQeZPqcjY0sMmXx+SATO7tqwsqpLLv6njqYgigJNA52AxgTU6srAQXn4Ie9po
+ 9VYvOCbhOnB1xaDg==
+Date: Wed, 26 Aug 2020 13:17:07 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
@@ -62,7 +62,7 @@ Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch V2 38/46] iommu/amd: Remove domain search for PCI/MSI
+Subject: [patch V2 39/46] x86/irq: Add DEV_MSI allocation type
 References: <20200826111628.794979401@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -80,27 +80,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Now that the domain can be retrieved through device::msi_domain the domain
-search for PCI_MSI[X] is not longer required. Remove it.
+From: Thomas Gleixner <tglx@linutronix.de>
+
+For the upcoming device MSI support a new allocation type is
+required.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
----
-V2: New patch
----
- drivers/iommu/amd/iommu.c |    3 ---
- 1 file changed, 3 deletions(-)
 
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3548,9 +3548,6 @@ static struct irq_domain *get_irq_domain
- 	case X86_IRQ_ALLOC_TYPE_IOAPIC_GET_PARENT:
- 	case X86_IRQ_ALLOC_TYPE_HPET_GET_PARENT:
- 		return iommu->ir_domain;
--	case X86_IRQ_ALLOC_TYPE_PCI_MSI:
--	case X86_IRQ_ALLOC_TYPE_PCI_MSIX:
--		return iommu->msi_domain;
- 	default:
- 		WARN_ON_ONCE(1);
- 		return NULL;
+---
+ arch/x86/include/asm/hw_irq.h |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/arch/x86/include/asm/hw_irq.h
++++ b/arch/x86/include/asm/hw_irq.h
+@@ -40,6 +40,7 @@ enum irq_alloc_type {
+ 	X86_IRQ_ALLOC_TYPE_PCI_MSIX,
+ 	X86_IRQ_ALLOC_TYPE_DMAR,
+ 	X86_IRQ_ALLOC_TYPE_UV,
++	X86_IRQ_ALLOC_TYPE_DEV_MSI,
+ 	X86_IRQ_ALLOC_TYPE_IOAPIC_GET_PARENT,
+ 	X86_IRQ_ALLOC_TYPE_HPET_GET_PARENT,
+ };
+
 
 
