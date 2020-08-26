@@ -2,41 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A7125319B
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 16:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A6F253337
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 17:14:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAwaz-0001Bc-94; Wed, 26 Aug 2020 14:40:13 +0000
+	id 1kAx7U-0003sG-50; Wed, 26 Aug 2020 15:13:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vb2W=CE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kAwax-0001BV-4a
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 14:40:11 +0000
-X-Inumbo-ID: 660feca2-9553-4ba5-981c-67f0ca886ed6
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uE3y=CE=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
+ id 1kAwiA-0001Sw-KF
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 14:47:38 +0000
+X-Inumbo-ID: 65d8fe96-9908-4b6f-a595-d21ec1f1159c
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 660feca2-9553-4ba5-981c-67f0ca886ed6;
- Wed, 26 Aug 2020 14:40:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F39AAB7C8;
- Wed, 26 Aug 2020 14:40:40 +0000 (UTC)
-Subject: Re: [PATCH] x86: use constant flags for section .init.rodata
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200826135159.20436-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <560d3f13-7a7d-351e-f929-befea41680ff@suse.com>
-Date: Wed, 26 Aug 2020 16:40:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 65d8fe96-9908-4b6f-a595-d21ec1f1159c;
+ Wed, 26 Aug 2020 14:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From;
+ bh=4NrNIKnKnaYVGFhhhA3EI3mKDzwQjUb2g//yizSZzBk=; b=G/w0nlZqSCAni9Y6MwaaTtHTga
+ K7JJsa+RwXZbztPtzBp8lqoN2pgn/wfUFA/snCmxprPhTEjWXJZi4c5rQpU/mtCGnYHd4mWksAd2e
+ x543gJEjFaUAJPn0DxwHn6O/d7yQNOxo9dpgMFgUwQfSO9BwPqo/tOH1f+Y0BOJrKayU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kAwi9-000525-L1
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 14:47:37 +0000
+Received: from iwj (helo=mynotebook.example.org)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kAwi9-0000UU-JC
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 14:47:37 +0000
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by mariner.uk.xensource.com with esmtp (Exim 4.89)
+ (envelope-from <ijackson@chiark.greenend.org.uk>)
+ id 1kAwi7-00071h-S0; Wed, 26 Aug 2020 15:47:35 +0100
+From: Ian Jackson <iwj@xenproject.org>
+To: xen-devel@lists.xenproject.org
+Cc: iwj@xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: [PATCH] MAINTAINERS: Update my email address
+Date: Wed, 26 Aug 2020 15:47:19 +0100
+Message-Id: <20200826144719.7091-1-iwj@xenproject.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200826135159.20436-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 26 Aug 2020 15:13:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,37 +62,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.08.2020 15:51, Roger Pau Monne wrote:
-> LLVM 11 complains with:
-> 
-> <instantiation>:1:1: error: changed section flags for .init.rodata, expected: 0x2
-> .pushsection .init.rodata
-> ^
-> <instantiation>:30:9: note: while in macro instantiation
->         entrypoint 0
->         ^
-> entry.S:979:9: note: while in macro instantiation
->         .rept 256
->         ^
-> 
-> And:
-> 
-> entry.S:1015:9: error: changed section flags for .init.rodata, expected: 0x2
->         .section .init.rodata
->         ^
+I am changing my email address.  (My affiliation to Citrix remains
+unchanged.)  See
+   https://xenbits.xen.org/people/iwj/2020/email-transition.txt
+for a signed confirmation with full details.
 
-Another quirk, I would say. Has this been reported to them?
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
+---
+ MAINTAINERS | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> Fix it by explicitly using the same flags and type in all the
-> instances.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 978fc2fe72..ffe2310294 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -353,7 +353,7 @@ F:	xen/arch/x86/machine_kexec.c
+ F:	xen/arch/x86/x86_64/kexec_reloc.S
+ 
+ LIBXENLIGHT
+-M:	Ian Jackson <ian.jackson@eu.citrix.com>
++M:	Ian Jackson <iwj@xenproject.org>
+ M:	Wei Liu <wl@xen.org>
+ M:	Anthony PERARD <anthony.perard@citrix.com>
+ S:	Supported
+@@ -413,7 +413,7 @@ S:	Supported
+ F:	tools/python
+ 
+ QEMU-DM
+-M:	Ian Jackson <ian.jackson@eu.citrix.com>
++M:	Ian Jackson <iwj@xenproject.org>
+ S:	Supported
+ T:	git https://xenbits.xenproject.org/git-http/qemu-xen-traditional.git
+ 
+@@ -465,7 +465,7 @@ F:	xen/arch/arm/tee/
+ F:	xen/include/asm-arm/tee
+ 
+ TOOLSTACK
+-M:	Ian Jackson <ian.jackson@eu.citrix.com>
++M:	Ian Jackson <iwj@xenproject.org>
+ M:	Wei Liu <wl@xen.org>
+ S:	Supported
+ F:	autogen.sh
+@@ -602,7 +602,7 @@ F:	docs/misc/xsm-flask.txt
+ THE REST
+ M:	Andrew Cooper <andrew.cooper3@citrix.com>
+ M:	George Dunlap <george.dunlap@citrix.com>
+-M:	Ian Jackson <ian.jackson@eu.citrix.com>
++M:	Ian Jackson <iwj@xenproject.org>
+ M:	Jan Beulich <jbeulich@suse.com>
+ M:	Julien Grall <julien@xen.org>
+ M:	Stefano Stabellini <sstabellini@kernel.org>
+-- 
+2.20.1
 
-Indeed these look to be the only instances (in assembly files,
-I didn't check asm()-s in C ones), with the slight exception
-of the .fixup section specifications in x86_64/compat/entry.S
-(where @progbits is omitted). Fair enough to establish
-consistency here even without the specific issue above in mind.
-
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
 
