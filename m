@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76801252DE5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B9C252DDB
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAuCY-0002G7-C2; Wed, 26 Aug 2020 12:06:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kAuCQ-0001zW-Ga; Wed, 26 Aug 2020 12:06:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAu7m-00083C-Br
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:01:54 +0000
-X-Inumbo-ID: 8be08264-29a9-4456-8af8-26aff0bd65be
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8be08264-29a9-4456-8af8-26aff0bd65be;
- Wed, 26 Aug 2020 12:01:41 +0000 (UTC)
-Message-Id: <20200826112334.198633344@linutronix.de>
+ id 1kAu8t-000821-9x
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:03:03 +0000
+X-Inumbo-ID: f71ce4ec-c3d0-4634-bd28-4cd447645026
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f71ce4ec-c3d0-4634-bd28-4cd447645026;
+ Wed, 26 Aug 2020 12:01:42 +0000 (UTC)
+Message-Id: <20200826112334.305699301@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598443300;
+ s=2020; t=1598443301;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=x1lilm1wSab7jCk+RVn7Y9w51r0P/DEEXiuOg6SwxNA=;
- b=xQK+hWPf8Qa3VBlzaS65MXD1rTSFvkAArmzsKQ683fYw7lGT3CJmc6zDW+r/7Jgj7ZV2nl
- 4UevQBnTw5XpFbtakjWkpbHWqqet9HRqvMyaTaWT3cBq4RXUPJOhHdfh2EIk61yrHamuIN
- rwAWoeD72N9K27PQHP75BHj50xOq7Jn7kaeVNW4Cq6/dGK200KYcNr3AFIK7SNAH4HSk1j
- JxFtDFFu+1RikYKodYarFpSnJDprYU8G0NdM5nmBB3ic8gWfzlYKdubancrikcp+6yOWJe
- 4Z8TVxOBgZtq/VWS2JJDmRCvaLbI3TPKTxzAHcjo1M3fn/h1MXV08dRp/uIHQA==
+ bh=NwMc6HHKOuHFHcs9NWEQ/BqYaKGLdBqNmeOK/gzAh14=;
+ b=2s4c2y6vMTA/ieuCUb5qVuGjCDXggTJgYejSfg0lcfKJYt5P4jPML4GNoFJfltIsMgj9J/
+ VsYGggzk6sZLyaSo1vduT1Cs8ZCZJF+gcFI5TysO5jNKER7ArJbOJSsKrAYyuBkOukGuOb
+ FQ1uwyKinluUzGE5jmKOqJ1Nn3myMvav7uegmQbKQ00Jnr5lAPorFBwcH4owHKpC4eqmcQ
+ nTCtjB4ARME8/+Eka6y5gKr8nqGuy7LuhYt+7/6KtE/SFCe8bHEMYab4NG78feBGLj58qW
+ zNS4V06IzETi4o9ul8bZJDO9OOlWl4cILudMLmaIif3jM3lc5O0/X0iLtZvTvA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598443300;
+ s=2020e; t=1598443301;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=x1lilm1wSab7jCk+RVn7Y9w51r0P/DEEXiuOg6SwxNA=;
- b=gYT9vQkYl8yJG877OT3E6JNjTxccLTMsmLl+imB25zhe9GgkmpQIzEmEzvfi2t8TSIfYQR
- EUDgFsP2OsmAzsCA==
-Date: Wed, 26 Aug 2020 13:17:04 +0200
+ bh=NwMc6HHKOuHFHcs9NWEQ/BqYaKGLdBqNmeOK/gzAh14=;
+ b=3q3l2bUBLfdN8GkRZWgvhVoU0iSm0dsQYXjNUnttHUPTMWchNTEnImRkpz4neyKjFHiPYO
+ cgmpPnzdfvDOXADA==
+Date: Wed, 26 Aug 2020 13:17:05 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
@@ -63,7 +62,7 @@ Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch V2 36/46] x86/irq: Make most MSI ops XEN private
+Subject: [patch V2 37/46] iommu/vt-d: Remove domain search for PCI/MSI[X]
 References: <20200826111628.794979401@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -81,83 +80,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Thomas Gleixner <tglx@linutronix.de>
-
-Nothing except XEN uses the setup/teardown ops. Hide them there.
+Now that the domain can be retrieved through device::msi_domain the domain
+search for PCI_MSI[X] is not longer required. Remove it.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-
 ---
- arch/x86/include/asm/x86_init.h |    2 --
- arch/x86/pci/xen.c              |   21 ++++++++++++++-------
- 2 files changed, 14 insertions(+), 9 deletions(-)
+V2: New patch
+---
+ drivers/iommu/intel/irq_remapping.c |    3 ---
+ 1 file changed, 3 deletions(-)
 
---- a/arch/x86/include/asm/x86_init.h
-+++ b/arch/x86/include/asm/x86_init.h
-@@ -276,8 +276,6 @@ struct x86_platform_ops {
- struct pci_dev;
- 
- struct x86_msi_ops {
--	int (*setup_msi_irqs)(struct pci_dev *dev, int nvec, int type);
--	void (*teardown_msi_irqs)(struct pci_dev *dev);
- 	void (*restore_msi_irqs)(struct pci_dev *dev);
- };
- 
---- a/arch/x86/pci/xen.c
-+++ b/arch/x86/pci/xen.c
-@@ -157,6 +157,13 @@ static int acpi_register_gsi_xen(struct
- struct xen_pci_frontend_ops *xen_pci_frontend;
- EXPORT_SYMBOL_GPL(xen_pci_frontend);
- 
-+struct xen_msi_ops {
-+	int (*setup_msi_irqs)(struct pci_dev *dev, int nvec, int type);
-+	void (*teardown_msi_irqs)(struct pci_dev *dev);
-+};
-+
-+static struct xen_msi_ops xen_msi_ops __ro_after_init;
-+
- static int xen_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
- {
- 	int irq, ret, i;
-@@ -415,7 +422,7 @@ static int xen_msi_domain_alloc_irqs(str
- 	else
- 		type = PCI_CAP_ID_MSI;
- 
--	return x86_msi.setup_msi_irqs(to_pci_dev(dev), nvec, type);
-+	return xen_msi_ops.setup_msi_irqs(to_pci_dev(dev), nvec, type);
- }
- 
- static void xen_msi_domain_free_irqs(struct irq_domain *domain,
-@@ -424,7 +431,7 @@ static void xen_msi_domain_free_irqs(str
- 	if (WARN_ON_ONCE(!dev_is_pci(dev)))
- 		return;
- 
--	x86_msi.teardown_msi_irqs(to_pci_dev(dev));
-+	xen_msi_ops.teardown_msi_irqs(to_pci_dev(dev));
- }
- 
- static struct msi_domain_ops xen_pci_msi_domain_ops = {
-@@ -463,16 +470,16 @@ static __init void xen_setup_pci_msi(voi
- {
- 	if (xen_pv_domain()) {
- 		if (xen_initial_domain()) {
--			x86_msi.setup_msi_irqs = xen_initdom_setup_msi_irqs;
-+			xen_msi_ops.setup_msi_irqs = xen_initdom_setup_msi_irqs;
- 			x86_msi.restore_msi_irqs = xen_initdom_restore_msi_irqs;
- 		} else {
--			x86_msi.setup_msi_irqs = xen_setup_msi_irqs;
-+			xen_msi_ops.setup_msi_irqs = xen_setup_msi_irqs;
- 		}
--		x86_msi.teardown_msi_irqs = xen_pv_teardown_msi_irqs;
-+		xen_msi_ops.teardown_msi_irqs = xen_pv_teardown_msi_irqs;
- 		pci_msi_ignore_mask = 1;
- 	} else if (xen_hvm_domain()) {
--		x86_msi.setup_msi_irqs = xen_hvm_setup_msi_irqs;
--		x86_msi.teardown_msi_irqs = xen_teardown_msi_irqs;
-+		xen_msi_ops.setup_msi_irqs = xen_hvm_setup_msi_irqs;
-+		xen_msi_ops.teardown_msi_irqs = xen_teardown_msi_irqs;
- 	} else {
+--- a/drivers/iommu/intel/irq_remapping.c
++++ b/drivers/iommu/intel/irq_remapping.c
+@@ -1132,9 +1132,6 @@ static struct irq_domain *intel_get_irq_
+ 		return map_ioapic_to_ir(info->devid);
+ 	case X86_IRQ_ALLOC_TYPE_HPET_GET_PARENT:
+ 		return map_hpet_to_ir(info->devid);
+-	case X86_IRQ_ALLOC_TYPE_PCI_MSI:
+-	case X86_IRQ_ALLOC_TYPE_PCI_MSIX:
+-		return map_dev_to_ir(msi_desc_to_pci_dev(info->desc));
+ 	default:
  		WARN_ON_ONCE(1);
- 		return;
+ 		return NULL;
 
 
