@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B801252D5E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95374252DE2
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 14:06:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kAu7P-0008Mo-3n; Wed, 26 Aug 2020 12:01:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kAuCX-0002Dx-8o; Wed, 26 Aug 2020 12:06:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kAu7N-00083C-Ap
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:01:29 +0000
-X-Inumbo-ID: 3b0841d5-10a6-4670-b4b2-2d7f3e533b6d
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3b0841d5-10a6-4670-b4b2-2d7f3e533b6d;
- Wed, 26 Aug 2020 12:01:24 +0000 (UTC)
-Message-Id: <20200826112332.954409970@linutronix.de>
+ id 1kAu8F-000821-8W
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 12:02:23 +0000
+X-Inumbo-ID: f409bf71-5b7b-487f-b9e8-0fea3e9a4d2d
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f409bf71-5b7b-487f-b9e8-0fea3e9a4d2d;
+ Wed, 26 Aug 2020 12:01:26 +0000 (UTC)
+Message-Id: <20200826112333.047315047@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598443283;
+ s=2020; t=1598443285;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=ua6NqpYSmZApI6uP+18lDgw4EnjAETLTuYc3KhfX2+w=;
- b=eJn39pF++R7y4RiJv9aME9HZXKzf7AMtx9gOIQ/KZhoM3Ld0hlH/DnKGJSmV3hVK7ueYqX
- g1TpG290lPqFhzmAKo6hqVmPwqEyrX7rt/PhmQiixSoeLrqPBxlBTb7V5nlKo9FeeO68w9
- P+nP/kWZ0Q3FfsrwOaftJfMc0rekm49YPAwe1NBLe4ss62eDgjZkUMH5SBARbrLVSeCsHW
- 9wSFLRhkhyvmHyqMypfoAkbY6kL/Y1hZFdrfo2aarMJtV0+1qhqRZ+WGFKj/hsCV4En27V
- zyFSS2ZxL7C8PQ53C1/a/Tt9WRdp2fAapfBPmUw2+7K8K2Qi+jcv21W0IVT5RQ==
+ bh=gJ39OSf8ktRSnZ6d/j2dt7j1z3jbrcZeNgc5pz/l+zo=;
+ b=bXkpbg7vXId4cgEooAI1FievWWwmsWknAPlKYWOt0b+qx11d6yLu/cHswt1gghrWpZ0y4p
+ OogEoTISMfdsGaFQxwDXrjdAYV7fpbl7lvN/Pd44ye1NPulELZ2AqG1QXNidbTS8fOA5sL
+ dE3Y8y7zSGoykO/A2Y22PidwXvE2JmTcJZeBM4X/WVvRopmoxh4QM75ngWUvhGD6Z5gADH
+ gci/2TvWnj96j4gOq2pSHxN+ruog7JhGi9PrN4oUyN6tdWzBYuXFlgatiELb5NOVmhIxLT
+ pZSsmjLUAlQLuIYIzZR1g1BAjfSl89NRHKJ81TQT0IphVjr1Ly4j2bBA/Y6TTg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598443283;
+ s=2020e; t=1598443285;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:  references:references;
- bh=ua6NqpYSmZApI6uP+18lDgw4EnjAETLTuYc3KhfX2+w=;
- b=hT/OBr4eTGEXyMwMWWHmsjom0DAsmwGAPtkbOlxE5LrlE3lHi77XHAXMud4bbKn68MLXI3
- kEfd4yz3w6MRPuDQ==
-Date: Wed, 26 Aug 2020 13:16:51 +0200
+ bh=gJ39OSf8ktRSnZ6d/j2dt7j1z3jbrcZeNgc5pz/l+zo=;
+ b=76R9KmznGw62pNG68AAqA66n9MVIAIb93ShPM0bCT14jdPK4KCpjLcWq25+24lkdJtIMrv
+ D9oyizCmcUVt66Dg==
+Date: Wed, 26 Aug 2020 13:16:52 +0200
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
@@ -63,7 +62,7 @@ Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
  Alex Williamson <alex.williamson@redhat.com>,
  Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
  Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: [patch V2 23/46] irqdomain/msi: Provide DOMAIN_BUS_VMD_MSI
+Subject: [patch V2 24/46] PCI: vmd: Mark VMD irqdomain with DOMAIN_BUS_VMD_MSI
 References: <20200826111628.794979401@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -83,48 +82,34 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-PCI devices behind a VMD bus are not subject to interrupt remapping, but
-the irq domain for VMD MSI cannot be distinguished from a regular PCI/MSI
-irq domain.
+Devices on the VMD bus use their own MSI irq domain, but it is not
+distinguishable from regular PCI/MSI irq domains. This is required
+to exclude VMD devices from getting the irq domain pointer set by
+interrupt remapping.
 
-Add a new domain bus token and allow it in the bus token check in
-msi_check_reservation_mode() to keep the functionality the same once VMD
-uses this token.
+Override the default bus token.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 ---
- include/linux/irqdomain.h |    1 +
- kernel/irq/msi.c          |    7 ++++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ drivers/pci/controller/vmd.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
---- a/include/linux/irqdomain.h
-+++ b/include/linux/irqdomain.h
-@@ -84,6 +84,7 @@ enum irq_domain_bus_token {
- 	DOMAIN_BUS_FSL_MC_MSI,
- 	DOMAIN_BUS_TI_SCI_INTA_MSI,
- 	DOMAIN_BUS_WAKEUP,
-+	DOMAIN_BUS_VMD_MSI,
- };
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -579,6 +579,12 @@ static int vmd_enable_domain(struct vmd_
+ 		return -ENODEV;
+ 	}
  
- /**
---- a/kernel/irq/msi.c
-+++ b/kernel/irq/msi.c
-@@ -370,8 +370,13 @@ static bool msi_check_reservation_mode(s
- {
- 	struct msi_desc *desc;
- 
--	if (domain->bus_token != DOMAIN_BUS_PCI_MSI)
-+	switch(domain->bus_token) {
-+	case DOMAIN_BUS_PCI_MSI:
-+	case DOMAIN_BUS_VMD_MSI:
-+		break;
-+	default:
- 		return false;
-+	}
- 
- 	if (!(info->flags & MSI_FLAG_MUST_REACTIVATE))
- 		return false;
++	/*
++	 * Override the irq domain bus token so the domain can be distinguished
++	 * from a regular PCI/MSI domain.
++	 */
++	irq_domain_update_bus_token(vmd->irq_domain, DOMAIN_BUS_VMD_MSI);
++
+ 	pci_add_resource(&resources, &vmd->resources[0]);
+ 	pci_add_resource_offset(&resources, &vmd->resources[1], offset[0]);
+ 	pci_add_resource_offset(&resources, &vmd->resources[2], offset[1]);
 
 
 
