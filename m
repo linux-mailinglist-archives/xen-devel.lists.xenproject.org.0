@@ -2,71 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B7225395F
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 22:50:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DE2253997
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 23:15:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kB2N9-0000mu-Uv; Wed, 26 Aug 2020 20:50:19 +0000
+	id 1kB2l7-0002eH-4Z; Wed, 26 Aug 2020 21:15:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kB2N7-0000mp-Mr
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 20:50:17 +0000
-X-Inumbo-ID: 94131ae9-3929-40f8-bd7f-0683922523bc
-Received: from galois.linutronix.de (unknown [193.142.43.55])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zw2O=CE=kernel.org=maz@srs-us1.protection.inumbo.net>)
+ id 1kB2l6-0002e7-2L
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 21:15:04 +0000
+X-Inumbo-ID: 7a817ad9-76a7-4573-81a6-322587d8e8ac
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 94131ae9-3929-40f8-bd7f-0683922523bc;
- Wed, 26 Aug 2020 20:50:16 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598475014;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JG/TkMq9NWC6OfHgPC/IbFpW4xr9Kt9L0ix/14aZbxc=;
- b=s4YbUFCtbJEMrLqgKd7OwtYh18vHyM4HfQLj0mVtwmVQVO9mPe+rbcu9/9RQcu7BDqxIXq
- 4SC8x5F55ReokeL0LN8UUQFD5m3BjRCcVnOHVA++cJ3n9iGLghzLvQHLb6sr4Opghelyw7
- wtiHRsopz/7aQ7mxdNa4ubr9zMjw6kUfb9G723x0mquWT/8sbYu95BnkyTknE0X6c2XJfj
- G2IbL55VnbnoeT093T8n8BdlC4i9HNmIpjyrPxF0OWHJtvkDyBhZ80We7p7G5tVUd/JFYJ
- lndw1zv+U67ElbvOK78N7X9qxyNKvPXDl0P5nwVk071fVAGS++QK4AuCw0xoVg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598475014;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JG/TkMq9NWC6OfHgPC/IbFpW4xr9Kt9L0ix/14aZbxc=;
- b=aS6JntODH9ZvZZJHE2vQuw6G8LnzzNi8bSa6D1XA+HMxu+eOePiLVi0SGkTN8Uz37jCbMJ
- TOeuyIqSX/IO5mCA==
-To: "Dey\, Megha" <megha.dey@intel.com>, LKML <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org, Haiyang
- Zhang <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>, Lu
- Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ
- Anderson <rja@hpe.com>, linux-pci@vger.kernel.org,
+ id 7a817ad9-76a7-4573-81a6-322587d8e8ac;
+ Wed, 26 Aug 2020 21:15:03 +0000 (UTC)
+Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
+ [51.254.78.96])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72FC0207CD;
+ Wed, 26 Aug 2020 21:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598476502;
+ bh=1zCaXT3EyDHwbu4Y2W/LMbHARG53YBmDebObeojxBv8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ADsZphIgjZ5T7GV618PiQVXF5hFPLkP4+5i1e3B56KbIqcMVPyjyf8P0j9JmK8PWb
+ QohrTdC7et2y9O4nWOumBOqtjLzCy796nFR3xwDWAsmBZ6OxN9+6AUatmg6OCKb66y
+ +fKoWXb/5fCzAknCF55f1UtfQANC7LSArE9wFids=
+Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <maz@kernel.org>)
+ id 1kB2l2-006yir-Pg; Wed, 26 Aug 2020 22:15:00 +0100
+Date: Wed, 26 Aug 2020 22:14:58 +0100
+Message-ID: <8736492jot.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
+ Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>,
+ Russ Anderson <rja@hpe.com>, linux-pci@vger.kernel.org,
  Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Jason
- Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex
- Williamson <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>,
- Baolu Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan
- Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 15/46] x86/irq: Consolidate DMAR irq allocation
-In-Reply-To: <878se1uulb.fsf@nanos.tec.linutronix.de>
+ "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
+ Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
+ selectable
+In-Reply-To: <20200826112333.992429909@linutronix.de>
 References: <20200826111628.794979401@linutronix.de>
- <20200826112332.163462706@linutronix.de>
- <812d9647-ad2e-95e9-aa99-b54ff7ebc52d@intel.com>
- <878se1uulb.fsf@nanos.tec.linutronix.de>
-Date: Wed, 26 Aug 2020 22:50:13 +0200
-Message-ID: <87r1rtt9mi.fsf@nanos.tec.linutronix.de>
-MIME-Version: 1.0
-Content-Type: text/plain
+ <20200826112333.992429909@linutronix.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 EasyPG/1.0.0 Emacs/26.3
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 62.31.163.78
+X-SA-Exim-Rcpt-To: tglx@linutronix.de, linux-kernel@vger.kernel.org,
+ x86@kernel.org, joro@8bytes.org, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, haiyangz@microsoft.com,
+ jonathan.derrick@intel.com, baolu.lu@linux.intel.com, wei.liu@kernel.org,
+ kys@microsoft.com, sthemmin@microsoft.com, steve.wahl@hpe.com,
+ sivanich@hpe.com, rja@hpe.com, linux-pci@vger.kernel.org, bhelgaas@google.com,
+ lorenzo.pieralisi@arm.com, konrad.wilk@oracle.com,
+ xen-devel@lists.xenproject.org, jgross@suse.com, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org, gregkh@linuxfoundation.org, rafael@kernel.org,
+ megha.dey@intel.com, jgg@mellanox.com, dave.jiang@intel.com,
+ alex.williamson@redhat.com, jacob.jun.pan@intel.com, baolu.lu@intel.com,
+ kevin.tian@intel.com, dan.j.williams@intel.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,20 +101,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Aug 26 2020 at 20:32, Thomas Gleixner wrote:
-> On Wed, Aug 26 2020 at 09:50, Megha Dey wrote:
->>> @@ -329,15 +329,15 @@ static struct irq_chip dmar_msi_controll
->>>   static irq_hw_number_t dmar_msi_get_hwirq(struct msi_domain_info *info,
->>>   					  msi_alloc_info_t *arg)
->>>   {
->>> -	return arg->dmar_id;
->>> +	return arg->hwirq;
->>
->> Shouldn't this return the arg->devid which gets set in dmar_alloc_hwirq?
->
-> Indeed.
+On Wed, 26 Aug 2020 12:17:02 +0100,
+Thomas Gleixner <tglx@linutronix.de> wrote:
+> 
+> From: Thomas Gleixner <tglx@linutronix.de>
+> 
+> The arch_.*_msi_irq[s] fallbacks are compiled in whether an architecture
+> requires them or not. Architectures which are fully utilizing hierarchical
+> irq domains should never call into that code.
+> 
+> It's not only architectures which depend on that by implementing one or
+> more of the weak functions, there is also a bunch of drivers which relies
+> on the weak functions which invoke msi_controller::setup_irq[s] and
+> msi_controller::teardown_irq.
+> 
+> Make the architectures and drivers which rely on them select them in Kconfig
+> and if not selected replace them by stub functions which emit a warning and
+> fail the PCI/MSI interrupt allocation.
+> 
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> ---
+> V2: Make the architectures (and drivers) which need the fallbacks select them
+>     and not the other way round (Bjorn).
+> ---
+>  arch/ia64/Kconfig              |    1 +
+>  arch/mips/Kconfig              |    1 +
+>  arch/powerpc/Kconfig           |    1 +
+>  arch/s390/Kconfig              |    1 +
+>  arch/sparc/Kconfig             |    1 +
+>  arch/x86/Kconfig               |    1 +
+>  drivers/pci/Kconfig            |    3 +++
+>  drivers/pci/controller/Kconfig |    3 +++
+>  drivers/pci/msi.c              |    3 ++-
+>  include/linux/msi.h            |   31 ++++++++++++++++++++++++++-----
+>  10 files changed, 40 insertions(+), 6 deletions(-)
+> 
 
-But for simplicity we can set arg->hwirq to the dmar id right in the
-alloc function and then once the generic ops are enabled remove the dmar
-callback completely.
+[...]
+
+> --- a/drivers/pci/controller/Kconfig
+> +++ b/drivers/pci/controller/Kconfig
+> @@ -41,6 +41,7 @@ config PCI_TEGRA
+>  	bool "NVIDIA Tegra PCIe controller"
+>  	depends on ARCH_TEGRA || COMPILE_TEST
+>  	depends on PCI_MSI_IRQ_DOMAIN
+> +	select PCI_MSI_ARCH_FALLBACKS
+>  	help
+>  	  Say Y here if you want support for the PCIe host controller found
+>  	  on NVIDIA Tegra SoCs.
+> @@ -67,6 +68,7 @@ config PCIE_RCAR_HOST
+>  	bool "Renesas R-Car PCIe host controller"
+>  	depends on ARCH_RENESAS || COMPILE_TEST
+>  	depends on PCI_MSI_IRQ_DOMAIN
+> +	select PCI_MSI_ARCH_FALLBACKS
+>  	help
+>  	  Say Y here if you want PCIe controller support on R-Car SoCs in host
+>  	  mode.
+> @@ -103,6 +105,7 @@ config PCIE_XILINX_CPM
+>  	bool "Xilinx Versal CPM host bridge support"
+>  	depends on ARCH_ZYNQMP || COMPILE_TEST
+>  	select PCI_HOST_COMMON
+> +	select PCI_MSI_ARCH_FALLBACKS
+
+This guy actually doesn't implement MSIs at all (it seems to delegate
+them to an ITS present in the system, if I read the DT binding
+correctly). However its older brother from the same silicon dealer
+seems to need it. The patchlet below should fix it.
+
+diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+index 9ad13919bcaa..f56ff049d469 100644
+--- a/drivers/pci/controller/Kconfig
++++ b/drivers/pci/controller/Kconfig
+@@ -96,6 +96,7 @@ config PCI_HOST_GENERIC
+ 
+ config PCIE_XILINX
+ 	bool "Xilinx AXI PCIe host bridge support"
++	select PCI_MSI_ARCH_FALLBACKS
+ 	depends on OF || COMPILE_TEST
+ 	help
+ 	  Say 'Y' here if you want kernel to support the Xilinx AXI PCIe
+@@ -105,7 +106,6 @@ config PCIE_XILINX_CPM
+ 	bool "Xilinx Versal CPM host bridge support"
+ 	depends on ARCH_ZYNQMP || COMPILE_TEST
+ 	select PCI_HOST_COMMON
+-	select PCI_MSI_ARCH_FALLBACKS
+ 	help
+ 	  Say 'Y' here if you want kernel support for the
+ 	  Xilinx Versal CPM host bridge.
+
+
+With that fixed,
+
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
 
