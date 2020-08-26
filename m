@@ -2,92 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211A3253933
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 22:43:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A80625393E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 22:43:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kB2Fi-0008CV-KV; Wed, 26 Aug 2020 20:42:38 +0000
+	id 1kB2Gj-0008G7-VW; Wed, 26 Aug 2020 20:43:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zw2O=CE=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1kB2Fh-0008CN-5P
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 20:42:37 +0000
-X-Inumbo-ID: 220cadb8-b308-41de-95e8-18322a0eb1be
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kB2Gi-0008G0-II
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 20:43:40 +0000
+X-Inumbo-ID: ab223d29-b3cb-47eb-a9ca-19939c25bab0
+Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 220cadb8-b308-41de-95e8-18322a0eb1be;
- Wed, 26 Aug 2020 20:42:36 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 854AB2078A;
- Wed, 26 Aug 2020 20:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598474555;
- bh=jlRC0LblFWGAlwCR/La2tMi2HZWcZ4kco3I34s3mivA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ONcdkIPjBp+d8E94IWKMDTXhW0goXo+jli8WynQR80HgaHZTxy+aJ+29IBRPAMzJX
- CACSlXbAkc1nlVFMlvnC7iid0ew9kRNZ6UBtvkSyOfAV84NSGrqfoD6ddEmqnB4Akg
- kyJ4kasENj6QUPmznJkuUHtqHt4tUwh/wBfiXdC0=
-Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1kB2Fd-006yJW-U0; Wed, 26 Aug 2020 21:42:34 +0100
-Date: Wed, 26 Aug 2020 21:42:31 +0100
-Message-ID: <875z952l6w.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
- Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>,
- Russ Anderson <rja@hpe.com>, linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ id ab223d29-b3cb-47eb-a9ca-19939c25bab0;
+ Wed, 26 Aug 2020 20:43:39 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1598474617;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lj+HCAMB66c34Pt5/8qmaZU+5YodJ4K21RaNchn7Bnc=;
+ b=gcH0soDHT7m1DhfNC6QQbqPGhh4sNSGm+9HSqTNzBlS+x8Z2m9573FZdMFQ3rSMEy5TjOq
+ uU5srRzQ57ZK7h7gre4f2FSv4hNOipvH70zBr6ezrez6KIHQWB2c4Jxicem4nd/YollyTg
+ HBaSP6ZU4VhZqvC3/BQvtKZzG9KUMJ+8PmO0gFJR3LK4HH9WPJVruFTwpCEqBu4Ccpn0iU
+ J5fuAhIORUJ6LjXSEilyVzyJ0JORvLSeJT7AwOqNQvowv2+x5spObQm7K4bA8aBThzVELh
+ g+dVfbSpWNtafkPkhFcVYcuzNQ8Aw1lGxua3yd3hXafDPdkQUX9TxKBSOjfEoQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1598474617;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lj+HCAMB66c34Pt5/8qmaZU+5YodJ4K21RaNchn7Bnc=;
+ b=3FfX+fa7xCYcsjOKRE6odcrU12DlAns0QXGcNpm0K0uqtnqkEn+z0OyLuyyMffuAKPHcop
+ nWo4UHb9iLwwiHCw==
+To: Marc Zyngier <maz@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
+ <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
+ <rja@hpe.com>, linux-pci@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
  Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 23/46] irqdomain/msi: Provide DOMAIN_BUS_VMD_MSI
-In-Reply-To: <20200826112332.954409970@linutronix.de>
+ Alex Williamson <alex.williamson@redhat.com>, Jacob Pan
+ <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, Kevin Tian
+ <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [patch V2 19/46] x86/msi: Use generic MSI domain ops
+In-Reply-To: <878se12m5n.wl-maz@kernel.org>
 References: <20200826111628.794979401@linutronix.de>
- <20200826112332.954409970@linutronix.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 EasyPG/1.0.0 Emacs/26.3
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 62.31.163.78
-X-SA-Exim-Rcpt-To: tglx@linutronix.de, linux-kernel@vger.kernel.org,
- x86@kernel.org, joro@8bytes.org, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, haiyangz@microsoft.com,
- jonathan.derrick@intel.com, baolu.lu@linux.intel.com, wei.liu@kernel.org,
- kys@microsoft.com, sthemmin@microsoft.com, steve.wahl@hpe.com,
- sivanich@hpe.com, rja@hpe.com, linux-pci@vger.kernel.org, bhelgaas@google.com,
- lorenzo.pieralisi@arm.com, konrad.wilk@oracle.com,
- xen-devel@lists.xenproject.org, jgross@suse.com, boris.ostrovsky@oracle.com,
- sstabellini@kernel.org, gregkh@linuxfoundation.org, rafael@kernel.org,
- megha.dey@intel.com, jgg@mellanox.com, dave.jiang@intel.com,
- alex.williamson@redhat.com, jacob.jun.pan@intel.com, baolu.lu@intel.com,
- kevin.tian@intel.com, dan.j.williams@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
+ <20200826112332.564274859@linutronix.de> <878se12m5n.wl-maz@kernel.org>
+Date: Wed, 26 Aug 2020 22:43:36 +0200
+Message-ID: <87tuwpt9xj.fsf@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,58 +79,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 26 Aug 2020 12:16:51 +0100,
-Thomas Gleixner <tglx@linutronix.de> wrote:
-> 
-> From: Thomas Gleixner <tglx@linutronix.de>
-> 
-> PCI devices behind a VMD bus are not subject to interrupt remapping, but
-> the irq domain for VMD MSI cannot be distinguished from a regular PCI/MSI
-> irq domain.
-> 
-> Add a new domain bus token and allow it in the bus token check in
-> msi_check_reservation_mode() to keep the functionality the same once VMD
-> uses this token.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> 
-> ---
->  include/linux/irqdomain.h |    1 +
->  kernel/irq/msi.c          |    7 ++++++-
->  2 files changed, 7 insertions(+), 1 deletion(-)
-> 
-> --- a/include/linux/irqdomain.h
-> +++ b/include/linux/irqdomain.h
-> @@ -84,6 +84,7 @@ enum irq_domain_bus_token {
->  	DOMAIN_BUS_FSL_MC_MSI,
->  	DOMAIN_BUS_TI_SCI_INTA_MSI,
->  	DOMAIN_BUS_WAKEUP,
-> +	DOMAIN_BUS_VMD_MSI,
->  };
->  
->  /**
-> --- a/kernel/irq/msi.c
-> +++ b/kernel/irq/msi.c
-> @@ -370,8 +370,13 @@ static bool msi_check_reservation_mode(s
->  {
->  	struct msi_desc *desc;
->  
-> -	if (domain->bus_token != DOMAIN_BUS_PCI_MSI)
-> +	switch(domain->bus_token) {
-> +	case DOMAIN_BUS_PCI_MSI:
-> +	case DOMAIN_BUS_VMD_MSI:
-> +		break;
-> +	default:
->  		return false;
-> +	}
->  
->  	if (!(info->flags & MSI_FLAG_MUST_REACTIVATE))
->  		return false;
+On Wed, Aug 26 2020 at 21:21, Marc Zyngier wrote:
+> On Wed, 26 Aug 2020 12:16:47 +0100,
+> Thomas Gleixner <tglx@linutronix.de> wrote:
+>> -void pci_msi_set_desc(msi_alloc_info_t *arg, struct msi_desc *desc)
+>> -{
+>> -	arg->desc = desc;
+>> -	arg->hwirq = pci_msi_domain_calc_hwirq(desc);
+>> -}
+>> -EXPORT_SYMBOL_GPL(pci_msi_set_desc);
+>
+> I think that at this stage, pci_msi_domain_calc_hwirq() can be made
+> static, as it was only ever exported for this call site. Nice cleanup!
 
-Acked-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Doh indeed. Let me fix that.
 
