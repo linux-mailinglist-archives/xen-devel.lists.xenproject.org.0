@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA40D252A5E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 11:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56BD252AC3
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 11:52:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kArrh-0003Ou-HN; Wed, 26 Aug 2020 09:37:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vbNg=CE=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kArrf-0003Op-Ur
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 09:37:08 +0000
-X-Inumbo-ID: f5d7578e-53df-4766-a473-bf3009bbd5ba
+	id 1kAs6D-00053G-VA; Wed, 26 Aug 2020 09:52:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5Ngk=CE=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kAs6B-00052w-O0
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 09:52:07 +0000
+X-Inumbo-ID: 7e16ce4f-dee6-41ea-b22a-b881c5e15f17
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f5d7578e-53df-4766-a473-bf3009bbd5ba;
- Wed, 26 Aug 2020 09:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=2FA0A3IlUGAcG/PqjJ2uNW34u6DxgRG5OLlK8rMoPEk=; b=N+bzL8hif+T+nPF4bP9+eWKrQ3
- Q9gNuuOB02xDcTXKAYOdAzxOQEWL9LfDWi4CWLQZxmt3ERXLROxyAP+i//wrdApTOJ0RPVqdy4Ucf
- vnct/svmX2HfTsbCwEbAxUEx7oj3h4X6TR8ECECc2pc8uQy0/DGxygy57DvUk0gPT4y0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7e16ce4f-dee6-41ea-b22a-b881c5e15f17;
+ Wed, 26 Aug 2020 09:52:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=IXwJlLF+f2HoYeS2gQFV+ih51sEzWgCRELcQLzkXTjI=; b=LJnQKJcSJKCHgVX3DnAdIyUiel
+ Vc969t0PQsUWe6xDzld+oBxmhgIxl9Sn9XGHNHri3tw63Dq4dKOm5uc0HJ6cBpJYFoJMz2GeuSwsf
+ Ozj6sFC0uZY4RYsVKfllDWLOqO2RTSlQPDH+viipgQnor02Qsl+jueIVvhO5fdjbwjls=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kArrc-0006fh-1q; Wed, 26 Aug 2020 09:37:04 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kArrb-0000zn-P7; Wed, 26 Aug 2020 09:37:03 +0000
-Subject: Re: [PATCH] xen/arm: Update silicon-errata.txt with the Neoverse AT
- erratum
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20200825174208.11070-1-julien@xen.org>
- <31BF31BE-29B1-4C22-BE8A-6856208990F3@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c38ad53f-0a95-cb89-1a1a-c896ecb10ff0@xen.org>
-Date: Wed, 26 Aug 2020 10:37:01 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAs65-0006yQ-EQ; Wed, 26 Aug 2020 09:52:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAs65-0003t5-70; Wed, 26 Aug 2020 09:52:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kAs65-0001SY-6Y; Wed, 26 Aug 2020 09:52:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152854-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <31BF31BE-29B1-4C22-BE8A-6856208990F3@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-coverity test] 152854: all pass - PUSHED
+X-Osstest-Versions-This: xen=7a8d8bde9820387c3e168182b99fd9761c223fff
+X-Osstest-Versions-That: xen=858c0be8c2fa4125a0fa0acaa03ae730e5c7cb3c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 Aug 2020 09:52:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +61,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 152854 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152854/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  7a8d8bde9820387c3e168182b99fd9761c223fff
+baseline version:
+ xen                  858c0be8c2fa4125a0fa0acaa03ae730e5c7cb3c
+
+Last test of basis   152693  2020-08-23 09:18:23 Z    3 days
+Testing same since   152854  2020-08-26 09:18:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ coverity-amd64                                               pass    
 
 
-On 26/08/2020 08:46, Bertrand Marquis wrote:
-> 
-> 
->> On 25 Aug 2020, at 18:42, Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Commit 858c0be8c2fa "xen/arm: Enable CPU Erratum 1165522 for Neoverse"
->> added a new erratum but forgot to update silicon-errata.txt.
->>
->> Update the file accordingly to keep track of errata workaround in Xen.
-> 
-> Oh i should have done that as part of my patch.
-> Nice catch.
-> 
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->> docs/misc/arm/silicon-errata.txt | 1 +
->> 1 file changed, 1 insertion(+)
->>
->> diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
->> index 11e5a9dcec2c..ee070e723a5f 100644
->> --- a/docs/misc/arm/silicon-errata.txt
->> +++ b/docs/misc/arm/silicon-errata.txt
->> @@ -51,4 +51,5 @@ stable hypervisors.
->> | ARM            | Cortex-A57      | #1319537        | N/A                     |
->> | ARM            | Cortex-A72      | #1319367        | N/A                     |
->> | ARM            | Cortex-A76      | #1165522        | N/A                     |
->> +| ARM            | Neoverse        | #1165522        | N/A
-> 
-> Should be Neoverse-N1 here (E1 for example is not impacted by this errata)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Ah, right. Would you be happy if I do the change on commit?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Julien Grall
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   858c0be8c2..7a8d8bde98  7a8d8bde9820387c3e168182b99fd9761c223fff -> coverity-tested/smoke
 
