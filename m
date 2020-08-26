@@ -2,92 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8CC22539B5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 23:25:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DE952539BC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Aug 2020 23:27:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kB2v0-0003er-IE; Wed, 26 Aug 2020 21:25:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zw2O=CE=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1kB2uy-0003em-D7
- for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 21:25:16 +0000
-X-Inumbo-ID: 374e0c42-8f0d-4e69-8e98-8090d9f87628
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 374e0c42-8f0d-4e69-8e98-8090d9f87628;
- Wed, 26 Aug 2020 21:25:15 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7964D207BC;
- Wed, 26 Aug 2020 21:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598477114;
- bh=Q0O6TnBoNE2nBlAUMPG/fk21VNq26J91dkH47lSjCOQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Vk8M4tWQMHrPnTjptTs08FyGEZ0eAS+QYVS/XDjw5g6cX+g4hiCqLeC7MLx/MT3fV
- aBf/ZbRt12CU0BCBdNu9ODvqoggevIrKbtYaixSbKTEsTNSaggCunaC+i1oEMu238H
- xjuRtiMWm+/KF1lJ73ePRr9jEt6iw2wSAqgA1eGA=
-Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1kB2uu-006yo7-PF; Wed, 26 Aug 2020 22:25:12 +0100
-Date: Wed, 26 Aug 2020 22:25:11 +0100
-Message-ID: <871rjt2j7s.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
- Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>,
- Russ Anderson <rja@hpe.com>, linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	id 1kB2xO-0003nX-Vd; Wed, 26 Aug 2020 21:27:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LG6r=CE=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kB2xN-0003nS-8V
+ for xen-devel@lists.xenproject.org; Wed, 26 Aug 2020 21:27:45 +0000
+X-Inumbo-ID: 85ee9db1-36a0-4c52-9e38-219ec84ab960
+Received: from galois.linutronix.de (unknown [193.142.43.55])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 85ee9db1-36a0-4c52-9e38-219ec84ab960;
+ Wed, 26 Aug 2020 21:27:44 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1598477262;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=AP/JLSo39vhE0wtYqmiGvGnDrGFkgwOpCQr0bMHNNIo=;
+ b=Ppbpj32Cn5vd1ION8eS5aNl/fj1QjIs+RkAaM6B9/j2KvPN1mwxngYrYRgiWuDvZz7tk4s
+ 6s3VU0oxNXckuhydtQw2GgWp9Lfh6ODP0+s0hFgvzGCyaE7b+A+lIZaUi6gcZA/8lo5a4X
+ Euy7gPuCc91BHe8pXICVD2nCrFV9IERKZf+HfP/+i3Fiyte9xzGw/xupM0BY5OEQNdUEQg
+ FSOqYrYHEp/isAlEeyp0rD5/Tbv3MnOJpEwiIrn+8eh5SdC6QWIfsV4iOmiZxyT6TlWac6
+ 8D2S8zdYEOpLjpGvQn5ZbyugrRJHkxqLX+ncTO+VdcNoBYHDOsGnw6OdV/ra8A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1598477262;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=AP/JLSo39vhE0wtYqmiGvGnDrGFkgwOpCQr0bMHNNIo=;
+ b=g64NV1HP6nZPTwYFAmNkOJaevjoEaWBisT8u9MwS+B3AK95KBK4cxQI4t2bfE2amJBs0p0
+ WvmjR7PZtJ//chDw==
+To: Marc Zyngier <maz@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
+ <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
+ <rja@hpe.com>, linux-pci@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
  Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 41/46] platform-msi: Provide default irq_chip:: Ack
-In-Reply-To: <20200826112334.698236296@linutronix.de>
+ Alex Williamson <alex.williamson@redhat.com>, Jacob Pan
+ <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, Kevin Tian
+ <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
+ selectable
+In-Reply-To: <8736492jot.wl-maz@kernel.org>
 References: <20200826111628.794979401@linutronix.de>
- <20200826112334.698236296@linutronix.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 EasyPG/1.0.0 Emacs/26.3
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 62.31.163.78
-X-SA-Exim-Rcpt-To: tglx@linutronix.de, linux-kernel@vger.kernel.org,
- x86@kernel.org, joro@8bytes.org, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, haiyangz@microsoft.com,
- jonathan.derrick@intel.com, baolu.lu@linux.intel.com, wei.liu@kernel.org,
- kys@microsoft.com, sthemmin@microsoft.com, steve.wahl@hpe.com,
- sivanich@hpe.com, rja@hpe.com, linux-pci@vger.kernel.org, bhelgaas@google.com,
- lorenzo.pieralisi@arm.com, konrad.wilk@oracle.com,
- xen-devel@lists.xenproject.org, jgross@suse.com, boris.ostrovsky@oracle.com,
- sstabellini@kernel.org, gregkh@linuxfoundation.org, rafael@kernel.org,
- megha.dey@intel.com, jgg@mellanox.com, dave.jiang@intel.com,
- alex.williamson@redhat.com, jacob.jun.pan@intel.com, baolu.lu@intel.com,
- kevin.tian@intel.com, dan.j.williams@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
+ <20200826112333.992429909@linutronix.de> <8736492jot.wl-maz@kernel.org>
+Date: Wed, 26 Aug 2020 23:27:41 +0200
+Message-ID: <87lfi1t7w2.fsf@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,39 +79,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 26 Aug 2020 12:17:09 +0100,
-Thomas Gleixner <tglx@linutronix.de> wrote:
-> 
-> From: Thomas Gleixner <tglx@linutronix.de>
-> 
-> For the upcoming device MSI support it's required to have a default
-> irq_chip::ack implementation (irq_chip_ack_parent) so the drivers do not
-> need to care.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> 
-> ---
->  drivers/base/platform-msi.c |    2 ++
->  1 file changed, 2 insertions(+)
-> 
-> --- a/drivers/base/platform-msi.c
-> +++ b/drivers/base/platform-msi.c
-> @@ -95,6 +95,8 @@ static void platform_msi_update_chip_ops
->  		chip->irq_mask = irq_chip_mask_parent;
->  	if (!chip->irq_unmask)
->  		chip->irq_unmask = irq_chip_unmask_parent;
-> +	if (!chip->irq_ack)
-> +		chip->irq_ack = irq_chip_ack_parent;
->  	if (!chip->irq_eoi)
->  		chip->irq_eoi = irq_chip_eoi_parent;
->  	if (!chip->irq_set_affinity)
-> 
-> 
+On Wed, Aug 26 2020 at 22:14, Marc Zyngier wrote:
+> On Wed, 26 Aug 2020 12:17:02 +0100,
+> Thomas Gleixner <tglx@linutronix.de> wrote:
+>> @@ -103,6 +105,7 @@ config PCIE_XILINX_CPM
+>>  	bool "Xilinx Versal CPM host bridge support"
+>>  	depends on ARCH_ZYNQMP || COMPILE_TEST
+>>  	select PCI_HOST_COMMON
+>> +	select PCI_MSI_ARCH_FALLBACKS
+>
+> This guy actually doesn't implement MSIs at all (it seems to delegate
+> them to an ITS present in the system, if I read the DT binding
+> correctly). However its older brother from the same silicon dealer
+> seems to need it. The patchlet below should fix it.
 
-Acked-by: Marc Zyngier <maz@kernel.org>
+Gah, at some point my eyes went squared and I lost track..
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
 
