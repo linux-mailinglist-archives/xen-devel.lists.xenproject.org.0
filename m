@@ -2,56 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E3B254441
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 13:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9861F254443
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 13:27:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBG15-0003Ty-W8; Thu, 27 Aug 2020 11:24:27 +0000
+	id 1kBG3d-0003eg-Dp; Thu, 27 Aug 2020 11:27:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i4js=CF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kBG15-0003Ts-E9
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 11:24:27 +0000
-X-Inumbo-ID: 0b4fbc2c-5c6f-40de-b17f-f5ddc448b473
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cFEh=CF=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kBG3c-0003eb-J5
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 11:27:04 +0000
+X-Inumbo-ID: 996d25e1-bcd2-4c1f-a2ca-44a7f68b0789
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b4fbc2c-5c6f-40de-b17f-f5ddc448b473;
- Thu, 27 Aug 2020 11:24:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8D24DACDF;
- Thu, 27 Aug 2020 11:24:57 +0000 (UTC)
-Subject: Re: [PATCH v3 00/38] tools: move most libraries into tools/libs
-To: Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Nick Rosbrook <rosbrookn@ainfosec.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Shriram Rajagopalan <rshriram@cs.ubc.ca>,
- Yang Hongyang <imhy.yang@gmail.com>
+ id 996d25e1-bcd2-4c1f-a2ca-44a7f68b0789;
+ Thu, 27 Aug 2020 11:27:03 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id c18so478849wrm.9
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Aug 2020 04:27:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=sXxDApqfnT74EH0rtODYIxUJLdDpal8mF9+j25f3OWc=;
+ b=GUQYMR89Lr9SSqMK8MxCFJEDPrHLZ8Lm9xU/gLI0bNCTklbeutlljhgHAKfwnK3AaW
+ YuPBGkfkKcb4qnBCimGvMl86VEzNGtQVEx0Yp8Vmzj6VvP5jbNS0DRdNoHTlZpgbVOpJ
+ uKJoUr5/pIi5mP68q+qmrQxczu4wDhsmiWaCfMG2dioIJILARX8loKFFXguIIzfWID7C
+ d5WTxDGBqP/PDVIwMAkCD7eC1xvwh+Yo0P24smRMPn96v9Aea9kL6Ov4TWwZ3FMd3QkZ
+ ZsoRS99V+ZUjkvI73Od7a7QKSAbidQXTaAaoKkCoaVg8kiX1hziew2uFsMflrDiQ8XJU
+ IJHA==
+X-Gm-Message-State: AOAM531MxaFOCpZDWWPsF6sIBeRLSkC8Js752kCWcD1pKBCG3gRFreL+
+ 2EYxpmTVkeGb9Nz5wXbkEZg=
+X-Google-Smtp-Source: ABdhPJybpZIphAOpO6hrYNZJUpU6Xz6VDklKQO8rdFatXCFHgGuNss5XE0AWzPchVipEEQ1iAQD6iA==
+X-Received: by 2002:a5d:6ca9:: with SMTP id a9mr8544013wra.131.1598527623055; 
+ Thu, 27 Aug 2020 04:27:03 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id 124sm4775337wmd.31.2020.08.27.04.27.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2020 04:27:02 -0700 (PDT)
+Date: Thu, 27 Aug 2020 11:27:01 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 24/38] tools/xcutils: use official headers in readnotes
+Message-ID: <20200827112701.o53hynhd5dmt6qyq@liuwe-devbox-debian-v2>
 References: <20200823093519.18386-1-jgross@suse.com>
- <20200827110709.pj4aaa3roviekuyu@liuwe-devbox-debian-v2>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <13373c0a-4209-7f34-8495-8d47f3ba0e95@suse.com>
-Date: Thu, 27 Aug 2020 13:24:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ <20200823093519.18386-25-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20200827110709.pj4aaa3roviekuyu@liuwe-devbox-debian-v2>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200823093519.18386-25-jgross@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,58 +68,11 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.08.20 13:07, Wei Liu wrote:
-> On Sun, Aug 23, 2020 at 11:34:41AM +0200, Juergen Gross wrote:
->> Move most remaining libraries under tools/libs, including libxenctrl
->> and libxl. This is resulting in a lot of cleanup work regarding
->> building libs and restructuring of the tools directory.
->>
+On Sun, Aug 23, 2020 at 11:35:05AM +0200, Juergen Gross wrote:
+> readnotes.c is including xg_private.h. Now that the xenctrl headers
+> are structured better this is no longer needed.
 > 
-> One thing to point out is that libs was originally only supposed to be
-> the home for _stable_ libraries.
-> 
-> I have no objection to turning it into the home for all libraries
-> though. I think this series is definitely an improvement over the status
-> quo.
-> 
->> After this huge cleanup all dependencies between libraries are defined
->> in a single rather small file tools/libs/uselibs.mk, which is used to
->> create the needed make variables and to control the stubdom build
->> dependencies as well.
->>
->> Another bonus of the rework is the automation of setting the versions
->> of unstable libraries. This removes the need to bump those versions
->> manually for each Xen release.
->>
->> libfsimage is not moved by this series, as IMO there are some open
->> questions:
->> - should it really be unstable?
->> - is the support of adding external fs-support used in practice, i.e.
->>    shouldn't the fs-specific sub-libraries be just included into
->>    libfsimage instead of being loaded dynamically?
-> 
-> My impression is that nowadays it is only consumed by pygrub, so it
-> wouldn't really make a difference if we make it stable or not. It surely
-> has not been changed for years though.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Making it stable would have the advantage not having to bump the lib
-versions for each release (note that this is the last library left for
-which that is still necessary after this series).
-
-> Not entirely sure why it is designed to load dynamically different
-> modules either. I don't have an opinion on this one way or another.
-
-I have the vague feeling this might be related to the (IMO now very
-questionable) support of Solaris, as it was introduced by a Sun
-employee.
-
-> 
-> I think your energy will have better ROI if you spend it somewhere else
-> than trying to figure out definitive answers to these two questions.
-
-:-)
-
-
-Juergen
-
+Acked-by: Wei Liu <wl@xen.org>
 
