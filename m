@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1C6254C46
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 19:36:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A3F254C4B
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 19:36:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBLpG-00059z-2a; Thu, 27 Aug 2020 17:36:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kBLpR-0005HB-HR; Thu, 27 Aug 2020 17:36:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LCk+=CF=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1kBLpE-00059U-FW
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 17:36:36 +0000
-X-Inumbo-ID: 9e99c8a3-de53-48ad-9062-16ee83d21763
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e99c8a3-de53-48ad-9062-16ee83d21763;
- Thu, 27 Aug 2020 17:36:34 +0000 (UTC)
+ id 1kBLpQ-00056c-01
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 17:36:48 +0000
+X-Inumbo-ID: 4af3a760-4c2e-407f-867d-99ddcfafd12b
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4af3a760-4c2e-407f-867d-99ddcfafd12b;
+ Thu, 27 Aug 2020 17:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598549795;
+ d=citrix.com; s=securemail; t=1598549793;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ddwzCu/Z0nRYb/kzN7KiptJMnIO08PPDszupxwwzGJ0=;
- b=MYPxWbL9by2C0o6wCurCVCqTxiwyhkA6GU6l4bwL+EEoRqG3mo5SbNzS
- fak4drgIddv5K+cs+js95EfYluJmEzLhUY1UTo/HMweEqkbLXMwq8XYYA
- 4Lce/FD7Eq7aDyQFlqgJBQRiphxrpgpc6a2gLhBJ/uC/wjZgZMqyYFt2k A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=Jd/69jSrkYCxXn7af6OWEJJQ8fkaAtMcqXK50r2PD/o=;
+ b=iVEJgmHAqBnaT2Kqz2CnvEAR5QNFdJWpcKw2haZUsrkNcNTbTgWlkZm7
+ beXnCp0DW8PMPojwUCGbB2t/Cd/T25ySHVJ+6z2tVDjqc7vo07CT17AG7
+ wuYtxXP6Rgq/bP2S7D9atugPmS38dknRzDvVAzpVz2LTaUEvNderto9st U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: DXlfC3haA2AR6pJN/KQ4TpOc7Gsgk4d42vnFnC6LVgALQF4cvWIrTOhddyJW7aiZiytaxQdvdZ
- rl903DhukmgxW6Xtl9d9dnf7jA4iJnFM2evnmJxaIbarvAeP8vDi0+WwKybb8Rc4fJThUt0uFE
- 2xfs3OUo78NU+ybe89yi82lv928HGkkgN/Sjulscg7wH5K/sCe9i9Ej3wdl1tE6rnmAdrhe6Dj
- lDO8uWRRsLfFa7zBbdKgylIOj/0aisWBNussW1a176aQriRp6iXpXaVcVf8yLeBgzqQ15bI0gq
- U3A=
+IronPort-SDR: E27MO3U+SpUGqyCWEqLeJvxJUxgSSkU9mV9fBNw9FTOYknKMWUsS0HfeiNFeD/Owxq8/5JQPP1
+ zkcBO5G8oIy8fVFbHJHvmUr40jcxySR+HJ1A7NS3oC7khcR4rpJn3qgU/6RdXvAvzEAfl/Jfkk
+ s57JimTRlbceEDftuPdGt/E3gDPBuIr9vabt/2bnP/AHhZMSJR0LahXGEjdPKRgFKgArcE8p2b
+ 4H8dujc5HRGIf4Y9qQ5UO83gkGS3/m9xJ+/+DVrtpabLHo3WsO/8B+V5M4EEek8AeAfFokE1Hx
+ idE=
 X-SBRS: 2.7
-X-MesageID: 25446295
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 25758534
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,360,1592884800"; d="scan'208";a="25446295"
+X-IronPort-AV: E=Sophos;i="5.76,360,1592884800"; d="scan'208";a="25758534"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Christian
  Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, "Ian
- Jackson" <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>, "Signed-off-by :
- Juergen Gross" <jgross@suse.com>
-Subject: [PATCH v1 7/9] tools/ocaml/xenstored: don't store domU's mfn of ring
- page
-Date: Thu, 27 Aug 2020 18:35:58 +0100
-Message-ID: <fea0aefcb9fc8fb8133bbf6146e43e5c964b63d6.1598548832.git.edvin.torok@citrix.com>
+ Jackson" <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v1 8/9] tools/ocaml/libs/mmap: mark mmap/munmap as blocking
+Date: Thu, 27 Aug 2020 18:35:59 +0100
+Message-ID: <2260c8a46871b7996fee69643e25eb3cb0d1c657.1598548832.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1598548832.git.edvin.torok@citrix.com>
 References: <cover.1598548832.git.edvin.torok@citrix.com>
@@ -68,156 +67,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a port of the following C xenstored commit
-122b52230aa5b79d65e18b8b77094027faa2f8e2 tools/xenstore: don't store domU's mfn of ring page in xenstored
+These functions can potentially take some time,
+so allow other OCaml code to proceed meanwhile (if any).
 
-Backwards compat: accept a domain dump both with and without MFN.
-
-CC: Signed-off-by: Juergen Gross <jgross@suse.com>
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
- tools/ocaml/xenstored/domain.ml    |  7 ++-----
- tools/ocaml/xenstored/domains.ml   |  6 +++---
- tools/ocaml/xenstored/process.ml   | 16 +++++-----------
- tools/ocaml/xenstored/xenstored.ml |  8 ++++----
- 4 files changed, 14 insertions(+), 23 deletions(-)
+ tools/ocaml/libs/mmap/xenmmap_stubs.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/tools/ocaml/xenstored/domain.ml b/tools/ocaml/xenstored/domain.ml
-index 2d9c1f5d09..b11a2f39f5 100644
---- a/tools/ocaml/xenstored/domain.ml
-+++ b/tools/ocaml/xenstored/domain.ml
-@@ -22,7 +22,6 @@ let warn  fmt = Logging.warn  "domain" fmt
- type t =
+diff --git a/tools/ocaml/libs/mmap/xenmmap_stubs.c b/tools/ocaml/libs/mmap/xenmmap_stubs.c
+index 9c1126c6a2..21feceea0e 100644
+--- a/tools/ocaml/libs/mmap/xenmmap_stubs.c
++++ b/tools/ocaml/libs/mmap/xenmmap_stubs.c
+@@ -28,6 +28,7 @@
+ #include <caml/fail.h>
+ #include <caml/callback.h>
+ #include <caml/unixsupport.h>
++#include <caml/signals.h>
+ 
+ #define Wsize_bsize_round(n) (Wsize_bsize( (n) + sizeof(value) - 1 ))
+ 
+@@ -69,7 +70,9 @@ CAMLprim value stub_mmap_init(value fd, value pflag, value mflag,
+ 		caml_invalid_argument("negative offset");
+ 	length = Int_val(len);
+ 
++	caml_enter_blocking_section();
+ 	addr = mmap(NULL, length, c_pflag, c_mflag, fd, Int_val(offset));
++	caml_leave_blocking_section();
+ 	if (MAP_FAILED == addr)
+ 		uerror("mmap", Nothing);
+ 
+@@ -80,10 +83,15 @@ CAMLprim value stub_mmap_init(value fd, value pflag, value mflag,
+ CAMLprim value stub_mmap_final(value intf)
  {
- 	id: Xenctrl.domid;
--	mfn: nativeint;
- 	interface: Xenmmap.t;
- 	eventchn: Event.t;
- 	mutable remote_port: int;
-@@ -41,7 +40,6 @@ let is_dom0 d = d.id = 0
- let get_path dom = "/local/domain/" ^ (sprintf "%u" dom.id)
- let get_id domain = domain.id
- let get_interface d = d.interface
--let get_mfn d = d.mfn
- let get_remote_port d = d.remote_port
- let get_port d = d.port
+ 	CAMLparam1(intf);
++	struct mmap_interface interface = *Intf_val(intf);
  
-@@ -62,7 +60,7 @@ let string_of_port = function
- | Some x -> string_of_int (Xeneventchn.to_int x)
+-	if (Intf_val(intf)->addr != MAP_FAILED)
+-		munmap(Intf_val(intf)->addr, Intf_val(intf)->len);
++	/* mark it as freed, in case munmap below fails, so we don't retry it */
+ 	Intf_val(intf)->addr = MAP_FAILED;
++	if (interface.addr != MAP_FAILED) {
++		caml_enter_blocking_section();
++		munmap(interface.addr, interface.len);
++		caml_leave_blocking_section();
++	}
  
- let dump d chan =
--	fprintf chan "dom,%d,%nd,%d\n" d.id d.mfn d.remote_port
-+	fprintf chan "dom,%d,%d\n" d.id d.remote_port
- 
- let notify dom = match dom.port with
- | None ->
-@@ -88,9 +86,8 @@ let close dom =
- 	Xenmmap.unmap dom.interface;
- 	()
- 
--let make id mfn remote_port interface eventchn = {
-+let make id remote_port interface eventchn = {
- 	id = id;
--	mfn = mfn;
- 	remote_port = remote_port;
- 	interface = interface;
- 	eventchn = eventchn;
-diff --git a/tools/ocaml/xenstored/domains.ml b/tools/ocaml/xenstored/domains.ml
-index d9cb693751..0dfeed193a 100644
---- a/tools/ocaml/xenstored/domains.ml
-+++ b/tools/ocaml/xenstored/domains.ml
-@@ -124,10 +124,10 @@ let cleanup doms =
- let resume _doms _domid =
- 	()
- 
--let create doms domid mfn port =
-+let create doms domid port =
- 	let mapping = Gnt.(Gnttab.map_exn doms.gnttab { domid; ref = xenstore} true) in
- 	let interface = Gnt.Gnttab.Local_mapping.to_pages doms.gnttab mapping in
--	let dom = Domain.make domid mfn port interface doms.eventchn in
-+	let dom = Domain.make domid port interface doms.eventchn in
- 	Hashtbl.add doms.table domid dom;
- 	Domain.bind_interdomain dom;
- 	dom
-@@ -147,7 +147,7 @@ let create0 doms =
- 			port, interface
- 		)
- 		in
--	let dom = Domain.make 0 Nativeint.zero port interface doms.eventchn in
-+	let dom = Domain.make 0 port interface doms.eventchn in
- 	Hashtbl.add doms.table 0 dom;
- 	Domain.bind_interdomain dom;
- 	Domain.notify dom;
-diff --git a/tools/ocaml/xenstored/process.ml b/tools/ocaml/xenstored/process.ml
-index ff5c9484fc..73d7411e59 100644
---- a/tools/ocaml/xenstored/process.ml
-+++ b/tools/ocaml/xenstored/process.ml
-@@ -97,10 +97,6 @@ let do_debug con t _domains cons data =
- 	| "watches" :: _ ->
- 		let watches = Connections.debug cons in
- 		Some (watches ^ "\000")
--	| "mfn" :: domid :: _ ->
--		let domid = int_of_string domid in
--		let con = Connections.find_domain cons domid in
--		may (fun dom -> Printf.sprintf "%nd\000" (Domain.get_mfn dom)) (Connection.get_domain con)
- 	| _ -> None
- 	with _ -> None
- 
-@@ -409,20 +405,18 @@ let do_introduce con _t domains cons data =
- 	let dom =
- 		if Domains.exist domains domid then
- 			let edom = Domains.find domains domid in
--			if (Domain.get_mfn edom) = mfn && (Connections.find_domain cons domid) != con then begin
--				(* Use XS_INTRODUCE for recreating the xenbus event-channel. *)
--				edom.remote_port <- port;
--				Domain.bind_interdomain edom;
--			end;
-+			(* Use XS_INTRODUCE for recreating the xenbus event-channel. *)
-+			edom.remote_port <- port;
-+			Domain.bind_interdomain edom;
- 			edom
- 		else try
--			let ndom = Domains.create domains domid mfn port in
-+			let ndom = Domains.create domains domid port in
- 			Connections.add_domain cons ndom;
- 			Connections.fire_spec_watches cons "@introduceDomain";
- 			ndom
- 		with _ -> raise Invalid_Cmd_Args
- 	in
--	if (Domain.get_remote_port dom) <> port || (Domain.get_mfn dom) <> mfn then
-+	if (Domain.get_remote_port dom) <> port then
- 		raise Domain_not_match
- 
- let do_release con _t domains cons data =
-diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
-index a232e4c616..0e23bec69d 100644
---- a/tools/ocaml/xenstored/xenstored.ml
-+++ b/tools/ocaml/xenstored/xenstored.ml
-@@ -152,9 +152,9 @@ let from_channel_f chan domain_f watch_f store_f =
- 			let l = String.split ',' line in
- 			try
- 				match l with
--				| "dom" :: domid :: mfn :: port :: []->
-+				| "dom" :: domid :: _ :: port :: []
-+				| "dom" :: domid :: port :: [] ->
- 					domain_f (int_of_string domid)
--					         (Nativeint.of_string mfn)
- 					         (int_of_string port)
- 				| "watch" :: domid :: path :: token :: [] ->
- 					watch_f (int_of_string domid)
-@@ -178,10 +178,10 @@ let from_channel store cons doms chan =
- 	(* don't let the permission get on our way, full perm ! *)
- 	let op = Store.get_ops store Perms.Connection.full_rights in
- 
--	let domain_f domid mfn port =
-+	let domain_f domid port =
- 		let ndom =
- 			if domid > 0 then
--				Domains.create doms domid mfn port
-+				Domains.create doms domid port
- 			else
- 				Domains.create0 doms
- 			in
+ 	CAMLreturn(Val_unit);
+ }
 -- 
 2.25.1
 
