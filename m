@@ -2,56 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41378255382
+	by mail.lfdr.de (Postfix) with ESMTPS id C92DE255383
 	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 06:19:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBVqr-0002tq-7k; Fri, 28 Aug 2020 04:18:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBVqr-0002tw-Fu; Fri, 28 Aug 2020 04:18:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QM1O=CF=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1kBL3S-0000kw-5M
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 16:47:14 +0000
-X-Inumbo-ID: 99a90bc5-006b-42a9-b0c1-dfe2f0089b8d
-Received: from mx.upb.ro (unknown [141.85.13.210])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 99a90bc5-006b-42a9-b0c1-dfe2f0089b8d;
- Thu, 27 Aug 2020 16:47:11 +0000 (UTC)
+ id 1kBNKe-0006sC-1w
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 19:13:08 +0000
+X-Inumbo-ID: 903b663e-eb72-4fb3-ac75-a77555f11614
+Received: from mx.upb.ro (unknown [141.85.13.230])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 903b663e-eb72-4fb3-ac75-a77555f11614;
+ Thu, 27 Aug 2020 19:13:06 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id EF666B561EF4;
- Thu, 27 Aug 2020 19:47:10 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id BC55DB560090;
+ Thu, 27 Aug 2020 22:13:04 +0300 (EEST)
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id LCLtayEFsM_I; Thu, 27 Aug 2020 19:47:08 +0300 (EEST)
+ with ESMTP id k42oH7HSa-do; Thu, 27 Aug 2020 22:13:02 +0300 (EEST)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id C126AB561EF5;
- Thu, 27 Aug 2020 19:47:08 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id 0F715B561EB6;
+ Thu, 27 Aug 2020 22:13:02 +0300 (EEST)
 X-Virus-Scanned: amavisd-new at upb.ro
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id eVoPHNJe2Xh7; Thu, 27 Aug 2020 19:47:08 +0300 (EEST)
-Received: from [192.168.1.35] (5-12-253-103.residential.rdsnet.ro
- [5.12.253.103]) by mx.upb.ro (Postfix) with ESMTPSA id 72B84B561EEC;
- Thu, 27 Aug 2020 19:47:08 +0300 (EEST)
-Subject: Re: [xen-unstable-smoke test] 152898: regressions - FAIL
-To: Jan Beulich <jbeulich@suse.com>,
- osstest service owner <osstest-admin@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-References: <osstest-152898-mainreport@xen.org>
- <fd303f97-a471-686e-8d4a-12578bdb6c07@suse.com>
+ with ESMTP id ypTezSY2kFQC; Thu, 27 Aug 2020 22:13:01 +0300 (EEST)
+Received: from localhost.localdomain (5-12-253-103.residential.rdsnet.ro
+ [5.12.253.103]) by mx.upb.ro (Postfix) with ESMTPSA id AB60FB560090;
+ Thu, 27 Aug 2020 22:13:01 +0300 (EEST)
 From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <ef1ffb57-5d70-e819-f4cf-4ff632325b76@cs.pub.ro>
-Date: Thu, 27 Aug 2020 19:47:08 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+To: xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	wl@xen.org,
+	jbeulich@suse.com
+Subject: [PATCH] stubdom/grub: Update init_netfront() call for mini-os
+Date: Thu, 27 Aug 2020 22:12:57 +0300
+Message-Id: <20200827191257.30100-1-costin.lupu@cs.pub.ro>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <fd303f97-a471-686e-8d4a-12578bdb6c07@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 28 Aug 2020 04:18:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -66,31 +59,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 8/27/20 7:07 PM, Jan Beulich wrote:
-> On 27.08.2020 17:49, osstest service owner wrote:
->> flight 152898 xen-unstable-smoke real [real]
->> http://logs.test-lab.xenproject.org/osstest/logs/152898/
->>
->> Regressions :-(
->>
->> Tests which did not succeed and are blocking,
->> including tests which could not be run:
->>  build-amd64                   6 xen-build                fail REGR. vs. 152892
-> 
-> This looks to be an issue in the mini-os tree, and I'm having
-> trouble understanding how it can cause the main tree to first
-> discover it. Is there no push gate for that tree?
-> 
-> In any event, commit 1b8ed31f4ce4 ("mini-os: netfront: Read netmask
-> and gateway from Xenstore") looks to have missed callers to
-> init_netfront(), both in the mini-os tree itself and in stubdom/grub/
-> of the main tree.
+This patch updates the call of init_netfront() function according to its
+recently updated declaration which can also include parameters for gatewa=
+y
+and netmask addresses. While we are here, the patch also removes passing
+the ip parameter because (a) it is not used anywhere and (b) it wastes
+memory since it would reference a dynamically allocated string.
 
-Hi Jan,
+Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+---
+ stubdom/grub/mini-os.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Sorry for missing that. I've just sent a patch on the mini-os mailing
-list. Please let me know if it needs anything else.
+diff --git a/stubdom/grub/mini-os.c b/stubdom/grub/mini-os.c
+index 4fc052a255..b33dbf02fb 100644
+--- a/stubdom/grub/mini-os.c
++++ b/stubdom/grub/mini-os.c
+@@ -291,8 +291,6 @@ struct netfront_dev *net_dev;
+ int
+ minios_probe (struct nic *nic)
+ {
+-    char *ip;
+-
+     if (net_dev)
+         return 1;
+=20
+@@ -300,7 +298,7 @@ minios_probe (struct nic *nic)
+     grub_memset ((char *) arptable, 0,
+                  MAX_ARP * sizeof (struct arptable_t));
+=20
+-    net_dev =3D init_netfront(NULL, (void*) -1, nic->node_addr, &ip);
++    net_dev =3D init_netfront(NULL, (void*) -1, nic->node_addr, NULL, NU=
+LL, NULL);
+     if (!net_dev)
+         return 0;
+=20
+--=20
+2.20.1
 
-Cheers,
-Costin
 
