@@ -2,45 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC35E2540F5
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 10:35:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7213A2541AB
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 11:13:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBDNE-0002r2-MI; Thu, 27 Aug 2020 08:35:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kBDwv-0006Og-WC; Thu, 27 Aug 2020 09:12:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i4js=CF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kBDND-0002qx-Bl
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 08:35:07 +0000
-X-Inumbo-ID: 51300ac8-b3fd-44a3-9381-04a570460354
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 51300ac8-b3fd-44a3-9381-04a570460354;
- Thu, 27 Aug 2020 08:35:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8EEA9AD46;
- Thu, 27 Aug 2020 08:35:37 +0000 (UTC)
-Subject: Re: [PATCH 2/2] arm/xen: Add misuse warning to virt_to_gfn
-To: Julien Grall <julien@xen.org>, Simon Leiner <simon@leiner.me>,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org
-References: <Aw: [Linux] [ARM] Granting memory obtained from the DMA API>
- <20200825093153.35500-1-simon@leiner.me>
- <20200825093153.35500-2-simon@leiner.me>
- <eb1c9e1a-d8b5-cfd5-4575-3ae47f99ad44@xen.org>
- <61f11689-8d6b-0407-b76d-ec5c3a57be4c@suse.com>
- <3a1cad1b-3d78-e5b0-0f68-70c245dbcc1a@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <18229211-c7b5-21bc-f3a9-4a9a1974094e@suse.com>
-Date: Thu, 27 Aug 2020 10:35:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ (envelope-from <SRS0=k1Y6=CF=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kBDwv-0006Ob-0L
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 09:12:01 +0000
+X-Inumbo-ID: 2e5159b4-c48d-4372-acba-ff0f1054c130
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2e5159b4-c48d-4372-acba-ff0f1054c130;
+ Thu, 27 Aug 2020 09:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=xce2EgW3HjS952zTmQ6xpWc8FJvV1UKGz5vAFDQ7qAE=; b=4vOGmTXynqK2aLG1xkNVomfIIZ
+ 7DvNxcYhQJomS4sx6LNPHdnoifeUo5PxTz7NTpawfOJU9XQ5z7Aqz1SLQkLpEvfZR2bu3G9d3CyuU
+ /X1VgYHh803fThqWiaxCO+P4wErDU1f96WWszYOWGd/QZHA/DNAk+ddhgE1+YYWO0P4o=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kBDwt-0001nq-MY; Thu, 27 Aug 2020 09:11:59 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kBDwt-0007eA-ER; Thu, 27 Aug 2020 09:11:59 +0000
+Subject: Re: gcc10 build issue for Arm64
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <be061c98-fad9-c8c0-a858-a65e08fe10ed@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e3309b1e-ae4c-bef0-ea1a-e555db35c27e@xen.org>
+Date: Thu, 27 Aug 2020 10:11:57 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <3a1cad1b-3d78-e5b0-0f68-70c245dbcc1a@xen.org>
+In-Reply-To: <be061c98-fad9-c8c0-a858-a65e08fe10ed@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +62,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.08.20 10:24, Julien Grall wrote:
-> 
-> 
-> On 27/08/2020 06:21, Jürgen Groß wrote:
->> On 26.08.20 20:37, Julien Grall wrote:
->> "Usually" is a bit gross here. The only generic call site I could find
->> is xenbus_grant_ring(). All other instances (I counted 22) are not
->> generic at all.
->>
->>> will only catch one instance and it means we would have to fix the 
->>> first instance and then re-run to catch the others.
->>>
->>> So I think we want to switch to WARN_ON() here.
->>
->> No, please don't. In case there would be a frequent path the result
->> would be a basically unusable system due to massive console clobbering.
-> 
-> Right, but if that's really happenning then you have a much bigger 
-> problem on your platform because the address returned will be invalid.
-> 
-> So I still don't see the advantage of WARN_ON_ONCE() here.
+On 27/08/2020 09:01, Jan Beulich wrote:
+> Stefano, Julien,
 
-Depends of the (potential) source of the warnings. I think we can agree
-that e.g. a problem in the pv network stack is rather improbable, as it
-would have been detected long ago.
+Hi Jan,
 
-If, however, the problem is being introduced by one of the rather new
-pv-drivers (like sound, pvcalls, 9pfs) it is perfectly fine to assume
-the overall system is still functional even without those drivers
-working correctly. Having a message storm from those sources is still
-quite undesirable IMO and doesn't really help.
+> since it was touching code potentially also affecting Arm, prior
+> to my push of a couple of commits a few minutes ago I also wanted
+> to build-test Arm. While as a fallback all went well with gcc
+> 9.3, with my first (default) attempt with 10.2 I ran into
+> 
+> ld: prelink.o: in function `_spin_lock_cb':
+> /build/xen/staging-arm64/xen/common/spinlock.c:164: undefined reference to `__aarch64_ldadd4_acq_rel'
+> ld: /build/xen/staging-arm64/xen/common/spinlock.c:164: undefined reference to `__aarch64_ldadd4_acq_rel'
+> make[3]: *** [/build/xen/staging-arm64/xen/xen-syms] Error 1
+> make[2]: *** [/build/xen/staging-arm64/xen/xen] Error 2
+> make[1]: *** [install] Error 2
+> make: *** [install-xen] Error 2
+> 
+> I have no idea how recent the introduction of the issue is, but
+> I hope you'll be able to pinpoint the offending change (and a
+> possible fix) much easier than I would be.
 
+It looks like GCC10 will outline atomic helpers by default. The 
+following hack will do the trick:
 
-Juergen
+diff --git a/xen/arch/arm/Rules.mk b/xen/arch/arm/Rules.mk
+index e69de29bb2..8dfd9713af 100644
+--- a/xen/arch/arm/Rules.mk
++++ b/xen/arch/arm/Rules.mk
+@@ -0,0 +1 @@
++c_flags+=-mno-outline-atomics
+
+I will clean it up to check it also works with older GCC.
+
+Cheers,
+
+-- 
+Julien Grall
 
