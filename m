@@ -2,53 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D1C254EA3
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 21:33:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3210254EC8
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 21:37:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBNdT-0000bN-5v; Thu, 27 Aug 2020 19:32:35 +0000
+	id 1kBNiI-0000no-Q9; Thu, 27 Aug 2020 19:37:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QM1O=CF=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1kBNdR-0000bG-OM
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 19:32:33 +0000
-X-Inumbo-ID: a7a2f6eb-018c-4a70-8eb2-a00ff4830011
-Received: from mx.upb.ro (unknown [141.85.13.200])
+ <SRS0=/ja+=CF=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kBNiH-0000ni-7v
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 19:37:33 +0000
+X-Inumbo-ID: 0ee15d7d-28d1-4427-888f-a1be9a4f53c4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a7a2f6eb-018c-4a70-8eb2-a00ff4830011;
- Thu, 27 Aug 2020 19:32:31 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id A7E33B560090;
- Thu, 27 Aug 2020 22:32:30 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id rPdf2OsYSPPJ; Thu, 27 Aug 2020 22:32:28 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id B53E3B561EB6;
- Thu, 27 Aug 2020 22:32:28 +0300 (EEST)
-X-Virus-Scanned: amavisd-new at upb.ro
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id funEeYJ-_G27; Thu, 27 Aug 2020 22:32:28 +0300 (EEST)
-Received: from [192.168.1.35] (5-12-253-103.residential.rdsnet.ro
- [5.12.253.103]) by mx.upb.ro (Postfix) with ESMTPSA id 4ECCCB560090;
- Thu, 27 Aug 2020 22:32:28 +0300 (EEST)
-Subject: Re: [PATCH] stubdom/grub: Update init_netfront() call for mini-os
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- xen-devel@lists.xenproject.org, wl@xen.org, jbeulich@suse.com
-References: <20200827191257.30100-1-costin.lupu@cs.pub.ro>
- <20200827191624.kuxpbiauoqfkwa2q@function>
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <f388c653-f157-705c-4e16-d49faa4d0535@cs.pub.ro>
-Date: Thu, 27 Aug 2020 22:32:27 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 0ee15d7d-28d1-4427-888f-a1be9a4f53c4;
+ Thu, 27 Aug 2020 19:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598557052;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=aTEmhtlbG37htLU5wjvrE/bKXPGiC/cuQF8eP+eZXzQ=;
+ b=Dy+F/bKLmFSKQb5UWWVFg3bFSOb2j81INXdUUgFd9QoXm8Xmh5AoiOhF
+ Js3LDINu+GY18NEcFsn0SHSBO9em6SOdcZBLCtkPaFCEiGAdU3FAMxTXn
+ 91VWt4Hc6pDnRhRckWx6nbbzmZ9NJExVAhWizIODVT/QfzCkaiZl+1gA6 w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: tmn1WcmJDk1niVoHYQb1zeAMt7Gvkv6cO8tMOCCgF6RKcBNKiRWREKewE65qdCO5MDOPoH7g2a
+ lpOWe9n1gbTmwSu1s+RQDnvIKiGv9jXaBv+SD5NuTdk0ExwhPo6KjUztPO7+f6ClTBsIOHrD2y
+ EZEN+2VP7vE4YG+2BpO7acQutGiVSebvtwgy6cd9tDj0lU6igyabWlfm8VhhvlplKe3oYIvQmZ
+ t4ZZjkopgv1g8wwRLJ2iQBrrdIgVuzc0TW7ifI4HZ+HqD4zY77tedutj7pNWaExbrK0CEPzXUs
+ ies=
+X-SBRS: 2.7
+X-MesageID: 25456872
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,360,1592884800"; d="scan'208";a="25456872"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <amc96@cam.ac.uk>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>
+Subject: [PATCH] x86/intel: Expose MSR_ARCH_CAPS to dom0
+Date: Thu, 27 Aug 2020 20:37:13 +0100
+Message-ID: <20200827193713.4962-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200827191624.kuxpbiauoqfkwa2q@function>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,59 +65,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Samuel,
+The overhead of (the lack of) MDS_NO alone has been measured at 30% on some
+workloads.  While we're not in a position yet to offer MSR_ARCH_CAPS generally
+to guests, dom0 doesn't migrate, so we can pass a subset of hardware values
+straight through.
 
-Sorry for spamming. I resent the patch because I wasn't subscribed to
-xen-devel when I sent the first one and I know there might be some
-issues with the patches arriving on the list for authors who aren't
-subscribed.
+This will cause PVH dom0's not to use KPTI by default, and all dom0's not to
+use VERW flushing by default, and to use eIBRS in preference to retpoline on
+recent Intel CPUs.
 
-Cheers,
-Costin
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/cpuid.c |  8 ++++++++
+ xen/arch/x86/msr.c   | 16 ++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-On 8/27/20 10:16 PM, Samuel Thibault wrote:
-> Costin Lupu, le jeu. 27 ao=C3=BBt 2020 22:12:57 +0300, a ecrit:
->> This patch updates the call of init_netfront() function according to i=
-ts
->> recently updated declaration which can also include parameters for gat=
-eway
->> and netmask addresses. While we are here, the patch also removes passi=
-ng
->> the ip parameter because (a) it is not used anywhere and (b) it wastes
->> memory since it would reference a dynamically allocated string.
->>
->> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
->=20
-> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
->=20
->> ---
->>  stubdom/grub/mini-os.c | 4 +---
->>  1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/stubdom/grub/mini-os.c b/stubdom/grub/mini-os.c
->> index 4fc052a255..b33dbf02fb 100644
->> --- a/stubdom/grub/mini-os.c
->> +++ b/stubdom/grub/mini-os.c
->> @@ -291,8 +291,6 @@ struct netfront_dev *net_dev;
->>  int
->>  minios_probe (struct nic *nic)
->>  {
->> -    char *ip;
->> -
->>      if (net_dev)
->>          return 1;
->> =20
->> @@ -300,7 +298,7 @@ minios_probe (struct nic *nic)
->>      grub_memset ((char *) arptable, 0,
->>                   MAX_ARP * sizeof (struct arptable_t));
->> =20
->> -    net_dev =3D init_netfront(NULL, (void*) -1, nic->node_addr, &ip);
->> +    net_dev =3D init_netfront(NULL, (void*) -1, nic->node_addr, NULL,=
- NULL, NULL);
->>      if (!net_dev)
->>          return 0;
->> =20
->> --=20
->> 2.20.1
->>
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 63a03ef1e5..6c608cc00b 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -719,6 +719,14 @@ int init_domain_cpuid_policy(struct domain *d)
+     if ( d->disable_migrate )
+         p->extd.itsc = cpu_has_itsc;
+ 
++    /*
++     * Expose the "hardware speculation behaviour" bits of ARCH_CAPS to dom0,
++     * so dom0 can turn off workaround as appropriate.  Temporary, until the
++     * domain policy logic gains a better understanding of MSRs.
++     */
++    if ( is_hardware_domain(d) && boot_cpu_has(X86_FEATURE_ARCH_CAPS) )
++        p->feat.arch_caps = true;
++
+     d->arch.cpuid = p;
+ 
+     recalculate_cpuid_policy(d);
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index c3862033eb..420a55f165 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -130,6 +130,22 @@ int init_domain_msr_policy(struct domain *d)
+     if ( !opt_dom0_cpuid_faulting && is_control_domain(d) && is_pv_domain(d) )
+         mp->platform_info.cpuid_faulting = false;
+ 
++    /*
++     * Expose the "hardware speculation behaviour" bits of ARCH_CAPS to dom0,
++     * so dom0 can turn off workaround as appropriate.  Temporary, until the
++     * domain policy logic gains a better understanding of MSRs.
++     */
++    if ( is_hardware_domain(d) && boot_cpu_has(X86_FEATURE_ARCH_CAPS) )
++    {
++        uint64_t val;
++
++        rdmsrl(MSR_ARCH_CAPABILITIES, val);
++
++        mp->arch_caps.raw = val &
++            (ARCH_CAPS_RDCL_NO | ARCH_CAPS_IBRS_ALL | ARCH_CAPS_RSBA |
++             ARCH_CAPS_SSB_NO | ARCH_CAPS_MDS_NO | ARCH_CAPS_TAA_NO);
++    }
++
+     d->arch.msr = mp;
+ 
+     return 0;
+-- 
+2.11.0
+
 
