@@ -2,46 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F67F2547D5
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 16:55:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4343D254806
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 16:57:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBJIH-0006mE-5a; Thu, 27 Aug 2020 14:54:25 +0000
+	id 1kBJLS-0006vF-Lh; Thu, 27 Aug 2020 14:57:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o8NI=CF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kBJIF-0006m9-TP
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 14:54:23 +0000
-X-Inumbo-ID: a4e18548-27fe-4717-a274-09cc6afa9360
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=+UCl=CF=8bytes.org=joro@srs-us1.protection.inumbo.net>)
+ id 1kBJLQ-0006vA-P5
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 14:57:40 +0000
+X-Inumbo-ID: eb75a70a-8ebe-4e55-99d9-3e48fb46d63a
+Received: from theia.8bytes.org (unknown
+ [2a01:238:4383:600:38bc:a715:4b6d:a889])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a4e18548-27fe-4717-a274-09cc6afa9360;
- Thu, 27 Aug 2020 14:54:23 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 814C9AC2B;
- Thu, 27 Aug 2020 14:54:54 +0000 (UTC)
-Subject: Re: [PATCH v6 09/11] x86/domctl: add XEN_DOMCTL_vmtrace_op
-To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-Cc: xen-devel@lists.xenproject.org, tamas.lengyel@intel.com,
- luwei.kang@intel.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1594150543.git.michal.leszczynski@cert.pl>
- <a9899858dba4a7e22a0256cff734399bff348adb.1594150543.git.michal.leszczynski@cert.pl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d875c707-64cc-6094-77ff-5937ad2cd5d4@suse.com>
-Date: Thu, 27 Aug 2020 16:54:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id eb75a70a-8ebe-4e55-99d9-3e48fb46d63a;
+ Thu, 27 Aug 2020 14:57:38 +0000 (UTC)
+Received: by theia.8bytes.org (Postfix, from userid 1000)
+ id 72FEB2D5; Thu, 27 Aug 2020 16:57:37 +0200 (CEST)
+Date: Thu, 27 Aug 2020 16:57:36 +0200
+From: Joerg Roedel <joro@8bytes.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
+ iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [patch V2 01/46] iommu/amd: Prevent NULL pointer dereference
+Message-ID: <20200827145735.GI3319@8bytes.org>
+References: <20200826111628.794979401@linutronix.de>
+ <20200826112330.683298931@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <a9899858dba4a7e22a0256cff734399bff348adb.1594150543.git.michal.leszczynski@cert.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200826112330.683298931@linutronix.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,49 +68,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.07.2020 21:39, Michał Leszczyński wrote:
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1136,6 +1136,30 @@ struct xen_domctl_vuart_op {
->                                   */
->  };
->  
-> +/* XEN_DOMCTL_vmtrace_op: Perform VM tracing related operation */
-> +#if defined(__XEN__) || defined(__XEN_TOOLS__)
-> +
-> +struct xen_domctl_vmtrace_op {
-> +    /* IN variable */
-> +    uint32_t cmd;
-> +/* Enable/disable external vmtrace for given domain */
-> +#define XEN_DOMCTL_vmtrace_pt_enable      1
-> +#define XEN_DOMCTL_vmtrace_pt_disable     2
-> +#define XEN_DOMCTL_vmtrace_pt_get_offset  3
-> +    domid_t domain;
-> +    uint16_t pad1;
-> +    uint32_t vcpu;
-> +    uint16_t pad2;
-> +
-> +    /* OUT variable */
-> +    uint64_aligned_t size;
-> +    uint64_aligned_t offset;
-> +};
-> +typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
-> +DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
-> +
-> +#endif /* defined(__XEN__) || defined(__XEN_TOOLS__) */
+On Wed, Aug 26, 2020 at 01:16:29PM +0200, Thomas Gleixner wrote:
+> From: Thomas Gleixner <tglx@linutronix.de>
+> 
+> Dereferencing irq_data before checking it for NULL is suboptimal.
+> 
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
-Here and ...
+Acked-by: Joerg Roedel <jroedel@suse.de>
+Reviewed-by: Joerg Roedel <jroedel@suse.de>
 
-> @@ -1277,6 +1302,9 @@ struct xen_domctl {
->          struct xen_domctl_monitor_op        monitor_op;
->          struct xen_domctl_psr_alloc         psr_alloc;
->          struct xen_domctl_vuart_op          vuart_op;
-> +#if defined(__XEN__) || defined(__XEN_TOOLS__)
-> +        struct xen_domctl_vmtrace_op        vmtrace_op;
-> +#endif
-
-... here I'm struggling with the #ifdef-s - see the very top of
-the file.
-
-Jan
 
