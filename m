@@ -2,60 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5EA255184
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 01:17:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A102551C2
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 01:56:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBR8f-0002sy-RL; Thu, 27 Aug 2020 23:17:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBRjk-0006Ei-Pa; Thu, 27 Aug 2020 23:55:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rz+Y=CF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBR8e-0002st-6u
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 23:17:00 +0000
-X-Inumbo-ID: be4864f1-0cf3-42e7-92fb-4899469c74bd
+ id 1kBRjj-0006EO-M1
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 23:55:19 +0000
+X-Inumbo-ID: 2aa9094b-85da-46f1-81c8-ce1b8ca86ab5
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be4864f1-0cf3-42e7-92fb-4899469c74bd;
- Thu, 27 Aug 2020 23:16:57 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2aa9094b-85da-46f1-81c8-ce1b8ca86ab5;
+ Thu, 27 Aug 2020 23:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=OOpjrc3Q4o0/PWYWBuf/5HvBEpVSv8pOrlg1Plv7ak4=; b=Ywfbs5nJmwbcXiobf6njuVnI33
- XQYQAvCTdVGuwtP7YsXw7U+VCjH6SFkv08ASJZWdjI3qvmN/SZl+zYkkz2BFwvLRW3GMxHm0UVWaY
- SHt4zB+TbgPCcVBsUUXTI2zDXLvr5VTtK6prgCyZ3+N5GWxBxvp0sdhte1A33yB5/aOI=;
+ bh=9FKAJoCSBTo+IBuPatFjzHopq0ShqZOSvKhda+uoiNg=; b=OPRhXtqNB31+hxXykYkenxJrps
+ wwppmXiaqV5EoSqjboL6XrBC8flaKqDTdVTyzrg9+iWqvVaQNo64BnT/keMqMICQTvKOkUgv+ppHw
+ WRE81Wz+Vhrjizsdh9KtybVlvY8Q2LBNvT6TwTTJ9WkcPFzQ8KA9WYzEiSYlbULY0+Xw=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kBR8b-0003TF-Ef; Thu, 27 Aug 2020 23:16:57 +0000
+ id 1kBRjb-0004Cl-Ep; Thu, 27 Aug 2020 23:55:11 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kBR8b-0005tx-7h; Thu, 27 Aug 2020 23:16:57 +0000
+ id 1kBRjb-0006zD-7E; Thu, 27 Aug 2020 23:55:11 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBR8b-0007qF-7C; Thu, 27 Aug 2020 23:16:57 +0000
+ id 1kBRjb-00021X-6j; Thu, 27 Aug 2020 23:55:11 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-152926-mainreport@xen.org>
+Message-ID: <osstest-152938-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152926: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
-X-Osstest-Versions-That: xen=484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+Subject: [ovmf test] 152938: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Aug 2020 23:16:57 +0000
+Date: Thu, 27 Aug 2020 23:55:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,48 +68,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152926 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152926/
+flight 152938 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152938/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 152892
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
 Tests which did not succeed, but are not blocking:
  build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
 version targeted for testing:
- xen                  0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
+ ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
 baseline version:
- xen                  484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-Last test of basis   152892  2020-08-27 11:00:25 Z    0 days
-Testing same since   152898  2020-08-27 14:01:18 Z    0 days    3 attempts
+Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
+Testing same since   152915  2020-08-27 18:09:42 Z    0 days    6 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
+  Laszlo Ersek <lersek@redhat.com>
 
 jobs:
- build-arm64-xsm                                              pass    
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
  build-amd64                                                  fail    
- build-armhf                                                  pass    
+ build-i386                                                   fail    
  build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
 ------------------------------------------------------------
@@ -132,172 +130,101 @@ Test harness code can be found at
 Not pushing.
 
 ------------------------------------------------------------
-commit 0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:12 2020 +0200
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
 
-    stubdom: simplify building xen libraries for stubdoms
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
     
-    The pattern for building a Xen library with sources under tools/libs
-    is always the same. Simplify stubdom/Makefile by defining a callable
-    make program for those libraries.
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
     
-    Even if not needed right now add the possibility for defining
-    additional dependencies for a library.
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
     
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
-commit ddb2934a914df26762c45f0b114fa358a045e0ee
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
 
-    stubdom: add correct dependencies for Xen libraries
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
     
-    The stubdom Makefile is missing several dependencies between Xen
-    libraries. Add them.
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
     
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-commit ded08cdfa72bb1555a2beb5c4300dedb1f830358
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: generate most contents of library make variables
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
     
-    Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
-    and SHLIB_lib*) mostly have a common pattern for their values. Generate
-    most of this content automatically by adding a new per-library variable
-    defining on which other libraries a lib is depending. Those definitions
-    are put into an own file in order to make it possible to include it
-    from various Makefiles, especially for stubdom.
+    - OVMF processes the hot-added CPU well.
     
-    This in turn makes it possible to drop the USELIB variable from each
-    library Makefile.
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
     
-    The LIBNAME variable can be dropped, too, as it can be derived from the
-    directory name the library is residing in.
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
     
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 09bf2917046f78a5f0b42da771602bb4ef5dcc09
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: define ROUNDUP() in tools/include/xen-tools/libs.h
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
     
-    Today there are multiple copies of the ROUNDUP() macro in various
-    sources and headers. Define it once in tools/include/xen-tools/libs.h.
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
     
-    Using xen-tools/libs.h enables removing copies of MIN() and MAX(), too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 097b6fe1df89a0506a4feb1379ba5d9d14ec3a3b
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: don't call make recursively from libs.mk
-    
-    During build of a xen library make is called again via libs.mk. This is
-    not necessary as the same can be achieved by a simple dependency.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bc44e2fb3199ecd8461bbdd093806f76ee61776a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: add a copy of library headers in tools/include
-    
-    The headers.chk target in tools/Rules.mk tries to compile all headers
-    stand alone for testing them not to include any internal header.
-    
-    Unfortunately the headers tested against are not complete, as any
-    header for a Xen library is not included in the include path of the
-    test compile run, resulting in a failure in case any of the tested
-    headers in including an official Xen library header.
-    
-    Fix that by copying the official headers located in
-    tools/libs/*/include to tools/include.
-    
-    In order to support libraries with header name other than xen<lib>.h
-    or with multiple headers add a LIBHEADER make variable a lib specific
-    Makefile can set in that case.
-    
-    Move the headers.chk target from Rules.mk to libs.mk as it is used
-    for libraries in tools/libs only.
-    
-    Add NO_HEADERS_CHK variable to skip checking headers as this will be
-    needed e.g. for libxenctrl.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 725ef89164e38349c9e6210f720e0cdc0c52e69e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: switch XEN_LIBXEN* make variables to lower case (XEN_libxen*)
-    
-    In order to harmonize names of library related make variables switch
-    XEN_LIBXEN* names to XEN_libxen*, as all other related variables (e.g.
-    CFLAGS_libxen*, SHDEPS_libxen*, ...) already use this pattern.
-    
-    Rename XEN_LIBXC to XEN_libxenctrl, XEN_XENSTORE to XEN_libxenstore,
-    XEN_XENLIGHT to XEN_libxenlight, XEN_XLUTIL to XEN_libxlutil, and
-    XEN_LIBVCHAN to XEN_libxenvchan for the same reason.
-    
-    Introduce XEN_libxenguest with the same value as XEN_libxenctrl.
-    
-    No functional change.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 314d8cc0d87e04dd81eb9970709e71c50fef7b14
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:10 2020 +0200
-
-    stubdom: add stubdom/mini-os.mk for Xen paths used by Mini-OS
-    
-    stubdom/mini-os.mk should contain paths used by Mini-OS when built as
-    stubdom.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-commit e32605b07ef2e01c9d05da9b2d5d7b8f9a5c7c1b
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Apr 10 16:25:40 2018 +0100
-
-    x86: Begin to introduce support for MSR_ARCH_CAPS
-    
-    ... including serialisation/deserialisation logic and unit tests.
-    
-    There is no current way to configure this MSR correctly for guests.
-    The toolstack side this logic needs building, which is far easier to
-    do with it in place.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 70c52c46bca89de00f04aa9294e14d11a2adff80
-Author: Wei Liu <wl@xen.org>
-Date:   Thu Aug 27 10:48:38 2020 +0000
-
-    gitignore: ignore ebmalloc.c soft link
-    
-    A previous commit split ebmalloc to its own translation unit but forgot
-    to modify gitignore.
-    
-    Fixes: 8856a914bffd ("build: also check for empty .bss.* in .o -> .init.o conversion")
-    Signed-off-by: Wei Liu <wl@xen.org>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
