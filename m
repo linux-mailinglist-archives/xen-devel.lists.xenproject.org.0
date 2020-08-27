@@ -2,89 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49C9925408A
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 10:18:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0732540BA
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 10:25:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBD5y-00014H-TQ; Thu, 27 Aug 2020 08:17:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBDDV-0001wr-O5; Thu, 27 Aug 2020 08:25:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SuKP=CF=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1kBD5x-00014B-Fh
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 08:17:17 +0000
-X-Inumbo-ID: 9d150080-7863-4aa7-a3e0-0448da7a3089
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d150080-7863-4aa7-a3e0-0448da7a3089;
- Thu, 27 Aug 2020 08:17:16 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 86A5D22CAF;
- Thu, 27 Aug 2020 08:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598516235;
- bh=f0/TTg7ydrldBCfzfcvkuWCMzTaAgtKPEMau/tanrpk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=TmsP/B8ZI27FXcca++ez4/wY7bzEmEEis+Dyck/1ERZwMR0OuB91mKNhtYQsF0Xbx
- /e0s5LTBumjF95gOBL1dlpZN5H4zC/AJG1WooHCqj6zZkqNGswYFi4R4DmuLUe3yCV
- JdcXgX7JS8A29KaJ8sw9cYHnN3K3LQoA4KkOn7HI=
-Received: from disco-boy.misterjones.org ([51.254.78.96] helo=www.loen.fr)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1kBD5t-0074EG-T5; Thu, 27 Aug 2020 09:17:14 +0100
+ (envelope-from <SRS0=k1Y6=CF=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kBDDU-0001wh-3t
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 08:25:04 +0000
+X-Inumbo-ID: 409f0b96-c856-4899-971f-681293df6558
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 409f0b96-c856-4899-971f-681293df6558;
+ Thu, 27 Aug 2020 08:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject;
+ bh=tah7sbYyym/3w+aX/e74nEPQijILN0VPHkEywFrp1sE=; b=YxvKa9LfGSJLMuIESTv3YnHcE/
+ Q2WMxp+It0ZjvJwl+nAbyee00laoX2ncXbFnTwWhSBPyuEnFSHEY0Ug6AKNwQQLxnTPAJEO10FQ62
+ /rP0GtBrcqkuTt+wHISObOeqrfs51vGSvJ7qn8lFlLnLAR9/BXGbAQlHOX1OBpu6PJSA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kBDDR-0000ok-JZ; Thu, 27 Aug 2020 08:25:01 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kBDDR-0004n8-BJ; Thu, 27 Aug 2020 08:25:01 +0000
+Subject: Re: [PATCH 2/2] arm/xen: Add misuse warning to virt_to_gfn
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Simon Leiner <simon@leiner.me>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+References: <Aw: [Linux] [ARM] Granting memory obtained from the DMA API>
+ <20200825093153.35500-1-simon@leiner.me>
+ <20200825093153.35500-2-simon@leiner.me>
+ <eb1c9e1a-d8b5-cfd5-4575-3ae47f99ad44@xen.org>
+ <61f11689-8d6b-0407-b76d-ec5c3a57be4c@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <3a1cad1b-3d78-e5b0-0f68-70c245dbcc1a@xen.org>
+Date: Thu, 27 Aug 2020 09:24:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu, 27 Aug 2020 09:17:13 +0100
-From: Marc Zyngier <maz@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Joerg Roedel
- <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
- Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org, Juergen Gross
- <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Megha
- Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang
- <dave.jiang@intel.com>, Alex Williamson <alex.williamson@redhat.com>, Jacob
- Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, Kevin Tian
- <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 43/46] genirq/msi: Provide and use
- msi_domain_set_default_info_flags()
-In-Reply-To: <20200826112334.889315931@linutronix.de>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112334.889315931@linutronix.de>
-User-Agent: Roundcube Webmail/1.4.8
-Message-ID: <b80607e87e43730133dd9f619c6464dc@kernel.org>
-X-Sender: maz@kernel.org
-X-SA-Exim-Connect-IP: 51.254.78.96
-X-SA-Exim-Rcpt-To: tglx@linutronix.de, linux-kernel@vger.kernel.org,
- x86@kernel.org, joro@8bytes.org, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, haiyangz@microsoft.com,
- jonathan.derrick@intel.com, baolu.lu@linux.intel.com, wei.liu@kernel.org,
- kys@microsoft.com, sthemmin@microsoft.com, steve.wahl@hpe.com,
- sivanich@hpe.com, rja@hpe.com, linux-pci@vger.kernel.org, bhelgaas@google.com,
- lorenzo.pieralisi@arm.com, konrad.wilk@oracle.com,
- xen-devel@lists.xenproject.org, jgross@suse.com, boris.ostrovsky@oracle.com,
- sstabellini@kernel.org, gregkh@linuxfoundation.org, rafael@kernel.org,
- megha.dey@intel.com, jgg@mellanox.com, dave.jiang@intel.com,
- alex.williamson@redhat.com, jacob.jun.pan@intel.com, baolu.lu@intel.com,
- kevin.tian@intel.com, dan.j.williams@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
+In-Reply-To: <61f11689-8d6b-0407-b76d-ec5c3a57be4c@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,75 +65,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020-08-26 12:17, Thomas Gleixner wrote:
-> MSI interrupts have some common flags which should be set not only for
-> PCI/MSI interrupts.
-> 
-> Move the PCI/MSI flag setting into a common function so it can be 
-> reused.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> ---
-> V2: New patch
-> ---
->  drivers/pci/msi.c   |    7 +------
->  include/linux/msi.h |    1 +
->  kernel/irq/msi.c    |   24 ++++++++++++++++++++++++
->  3 files changed, 26 insertions(+), 6 deletions(-)
-> 
-> --- a/drivers/pci/msi.c
-> +++ b/drivers/pci/msi.c
-> @@ -1469,12 +1469,7 @@ struct irq_domain *pci_msi_create_irq_do
->  	if (info->flags & MSI_FLAG_USE_DEF_CHIP_OPS)
->  		pci_msi_domain_update_chip_ops(info);
-> 
-> -	info->flags |= MSI_FLAG_ACTIVATE_EARLY;
-> -	if (IS_ENABLED(CONFIG_GENERIC_IRQ_RESERVATION_MODE))
-> -		info->flags |= MSI_FLAG_MUST_REACTIVATE;
-> -
-> -	/* PCI-MSI is oneshot-safe */
-> -	info->chip->flags |= IRQCHIP_ONESHOT_SAFE;
-> +	msi_domain_set_default_info_flags(info);
-> 
->  	domain = msi_create_irq_domain(fwnode, info, parent);
->  	if (!domain)
-> --- a/include/linux/msi.h
-> +++ b/include/linux/msi.h
-> @@ -410,6 +410,7 @@ int platform_msi_domain_alloc(struct irq
->  void platform_msi_domain_free(struct irq_domain *domain, unsigned int 
-> virq,
->  			      unsigned int nvec);
->  void *platform_msi_get_host_data(struct irq_domain *domain);
-> +void msi_domain_set_default_info_flags(struct msi_domain_info *info);
->  #endif /* CONFIG_GENERIC_MSI_IRQ_DOMAIN */
-> 
->  #ifdef CONFIG_PCI_MSI_IRQ_DOMAIN
-> --- a/kernel/irq/msi.c
-> +++ b/kernel/irq/msi.c
-> @@ -70,6 +70,30 @@ void get_cached_msi_msg(unsigned int irq
->  EXPORT_SYMBOL_GPL(get_cached_msi_msg);
-> 
->  #ifdef CONFIG_GENERIC_MSI_IRQ_DOMAIN
-> +void msi_domain_set_default_info_flags(struct msi_domain_info *info)
-> +{
-> +	/* Required so that a device latches a valid MSI message on startup 
-> */
-> +	info->flags |= MSI_FLAG_ACTIVATE_EARLY;
 
-As far as I remember the story behind this flag (it's been a while),
-it was working around a PCI-specific issue, hence being located in
-the PCI code.
 
-Now, the "program the MSI before enabling it" concept makes sense no 
-matter
-what bus this is on, and I wonder why we are even keeping this flag 
-around.
-Can't we just drop it together with the check in 
-msi_domain_alloc_irqs()?
+On 27/08/2020 06:21, Jürgen Groß wrote:
+> On 26.08.20 20:37, Julien Grall wrote:
+> "Usually" is a bit gross here. The only generic call site I could find
+> is xenbus_grant_ring(). All other instances (I counted 22) are not
+> generic at all.
+> 
+>> will only catch one instance and it means we would have to fix the 
+>> first instance and then re-run to catch the others.
+>>
+>> So I think we want to switch to WARN_ON() here.
+> 
+> No, please don't. In case there would be a frequent path the result
+> would be a basically unusable system due to massive console clobbering.
 
-Thanks,
+Right, but if that's really happenning then you have a much bigger 
+problem on your platform because the address returned will be invalid.
 
-         M.
+So I still don't see the advantage of WARN_ON_ONCE() here.
+
+Cheers,
+
+> 
+> 
+> Juergen
+
 -- 
-Jazz is not dead. It just smells funny...
+Julien Grall
 
