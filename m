@@ -2,58 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3710D254404
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 12:49:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28543254405
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 12:50:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBFSX-0007ss-Li; Thu, 27 Aug 2020 10:48:45 +0000
+	id 1kBFTU-0007wN-14; Thu, 27 Aug 2020 10:49:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cFEh=CF=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kBFSV-0007s9-KT
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 10:48:43 +0000
-X-Inumbo-ID: 3ea800fc-3cde-4985-b89e-c8c3aa2df5bf
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
+ <SRS0=rz+Y=CF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBFTT-0007vo-1O
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 10:49:43 +0000
+X-Inumbo-ID: 6d7e13e1-3572-431c-8724-10a2f2d2ef97
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3ea800fc-3cde-4985-b89e-c8c3aa2df5bf;
- Thu, 27 Aug 2020 10:48:42 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id a5so4900452wrm.6
- for <xen-devel@lists.xenproject.org>; Thu, 27 Aug 2020 03:48:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Ou6PcfrVc5dRp8NyE46XdDD5dZtuwfCS2v0rzwoiSu0=;
- b=tcJe31XgZeMr7R39jHM0635V+APx/yXrfyzJn6v27KzqCLCUCYrrs2SJ3wUqm8Hr3k
- pI/9GKe42en4+ZZ6eP48mRkmL22ZNsTfVXjFlrQfMKw4T6RiKUghyoxtzXJO34uL9IYy
- LratbfivWRSS9H4q9NmVp0AizMw+xlUqhy6jkoAo52bhvLipQD4yUiEfGt620upG9wKY
- sKAwof1CjBpvTgR9i7O3yV99i+XL/+sv8dr6rcUkwm2l5Jo2AFHViTvmSimvfzQCHdlS
- sJqebuvkqNdS9QHX/KGF2+4MypTl4dbjhwqbxYpnn94DG+mZxYwZkQf7e6ji/JIUJNb9
- NK/Q==
-X-Gm-Message-State: AOAM5331hACCayu/rO+mA+Yt8l7c757qtXd1hU0IY2VXrAyiufBbSkni
- ikzCXZw/2dhtwUxRIDeyWQM7gxlP7jo=
-X-Google-Smtp-Source: ABdhPJxGVZWUaj7QSnpsQBvOVyxnN3G6x85F6ooruC8FK7p7fX4Tg6sHraG3HAdkyMOVviGeDE5c+Q==
-X-Received: by 2002:adf:81a3:: with SMTP id 32mr99964wra.368.1598525321836;
- Thu, 27 Aug 2020 03:48:41 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id c205sm3270321wmd.33.2020.08.27.03.48.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2020 03:48:41 -0700 (PDT)
-From: Wei Liu <wl@xen.org>
-To: Xen Development List <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] gitignore: ignore ebmalloc.c soft link
-Date: Thu, 27 Aug 2020 10:48:38 +0000
-Message-Id: <20200827104838.36072-1-wl@xen.org>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
+ id 6d7e13e1-3572-431c-8724-10a2f2d2ef97;
+ Thu, 27 Aug 2020 10:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=0op/KrajVub3iBrk23hJQ4dmBl+8/3mhqKgiJkePaKE=; b=fIxp49H6C8S/BYwwRauGDHS2Ej
+ w/f5oqnTg/sP2wQtJyJ71+gnr2hGlpWUfiUzVI5lA+0N4oGZuOfPs5l6KIVBFjztPF0iIGw7cMrYf
+ P9usn0ynOdRrdkWDW9xFyvA5cas2hkqPU3C0K5JkfuDYLTeKucAqfe/HsJ4s39NDs/S8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBFTR-0003vi-Mb; Thu, 27 Aug 2020 10:49:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBFTR-0004Ka-F1; Thu, 27 Aug 2020 10:49:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBFTR-0006Qz-EV; Thu, 27 Aug 2020 10:49:41 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152887-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 152887: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=d2770047a277ccdc7924fb99d1b051eeb0d5a90f
+X-Osstest-Versions-That: xen=7a8d8bde9820387c3e168182b99fd9761c223fff
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 27 Aug 2020 10:49:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,28 +65,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-A previous commit split ebmalloc to its own translation unit but forgot
-to modify gitignore.
+flight 152887 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152887/
 
-Fixes: 8856a914bffd ("build: also check for empty .bss.* in .o -> .init.o conversion")
-Signed-off-by: Wei Liu <wl@xen.org>
----
- .gitignore | 1 +
- 1 file changed, 1 insertion(+)
+Failures :-/ but no regressions.
 
-diff --git a/.gitignore b/.gitignore
-index 36ce2ea104ac..0f03518f9178 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -296,6 +296,7 @@ xen/arch/*/xen.lds
- xen/arch/*/asm-offsets.s
- xen/arch/*/efi/boot.c
- xen/arch/*/efi/compat.c
-+xen/arch/*/efi/ebmalloc.c
- xen/arch/*/efi/efi.h
- xen/arch/*/efi/runtime.c
- xen/common/config_data.S
--- 
-2.20.1
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  d2770047a277ccdc7924fb99d1b051eeb0d5a90f
+baseline version:
+ xen                  7a8d8bde9820387c3e168182b99fd9761c223fff
+
+Last test of basis   152811  2020-08-25 16:01:21 Z    1 days
+Testing same since   152887  2020-08-27 08:00:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   7a8d8bde98..d2770047a2  d2770047a277ccdc7924fb99d1b051eeb0d5a90f -> smoke
 
