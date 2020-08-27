@@ -2,57 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F322545AB
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 15:07:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06C72545C4
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 15:17:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBHc6-00054G-KN; Thu, 27 Aug 2020 13:06:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBHlk-00067A-Vd; Thu, 27 Aug 2020 13:16:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rz+Y=CF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBHc4-00054A-VD
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 13:06:45 +0000
-X-Inumbo-ID: 6ba06697-27cc-490f-85c9-e312208ffaa5
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6ba06697-27cc-490f-85c9-e312208ffaa5;
- Thu, 27 Aug 2020 13:06:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=WeZ2Wg0ieEyYSSRRyg3AL7K6KtPk9IQmPHz7ZxfXOWg=; b=2GmVi5z6M7mg7x3aDLXQPRf6xQ
- akvv7cHu9KdEKinxyG0/KtR8lg1nq7qr2guQimXc1/yrw8IKAUdz5mQ0IIqdDB4ggsZPcEhhMbDZE
- xtpo2n8zKjW/99XcENQy/vsWllrdMcqj8nwP605cmnbk8DitEZkl3cWJpKlJL2v20IA8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBHc2-0006sO-R5; Thu, 27 Aug 2020 13:06:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBHc2-0003WJ-Hs; Thu, 27 Aug 2020 13:06:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBHc2-0002Yr-HJ; Thu, 27 Aug 2020 13:06:42 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152892-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=CP5/=CF=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
+ id 1kBHlj-000675-E9
+ for xen-devel@lists.xen.org; Thu, 27 Aug 2020 13:16:43 +0000
+X-Inumbo-ID: b0d35fc4-eb81-42db-a7ac-c78d6be7a25e
+Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b0d35fc4-eb81-42db-a7ac-c78d6be7a25e;
+ Thu, 27 Aug 2020 13:16:40 +0000 (UTC)
+Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
+ by isis.lip6.fr (8.15.2/8.15.2) with ESMTPS id 07RDGcBo002648
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+ for <xen-devel@lists.xen.org>; Thu, 27 Aug 2020 15:16:38 +0200 (CEST)
+Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
+ by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 07RDGcBQ008424
+ for <xen-devel@lists.xen.org>; Thu, 27 Aug 2020 15:16:38 +0200 (MEST)
+Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
+ id 7C7D67215; Thu, 27 Aug 2020 15:16:38 +0200 (MEST)
+Date: Thu, 27 Aug 2020 15:16:38 +0200
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: xen-devel@lists.xen.org
+Subject: Re: qemu-xen and bridge (xen 4.11)
+Message-ID: <20200827131638.GA1998@mail.soc.lip6.fr>
+References: <20200824181143.GA571@antioche.eu.org>
+ <CAMmSBy_cvK2c3x6anVS3KzZPANW4OdVCgO2dfQY+SCi7dxTeDg@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152892: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=484fca9569f03fbcb0fa5704f59164f95b0a8fcb
-X-Osstest-Versions-That: xen=d2770047a277ccdc7924fb99d1b051eeb0d5a90f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Aug 2020 13:06:42 +0000
+Content-Type: multipart/mixed; boundary="UlVJffcvxoiEqYs2"
+Content-Disposition: inline
+In-Reply-To: <CAMmSBy_cvK2c3x6anVS3KzZPANW4OdVCgO2dfQY+SCi7dxTeDg@mail.gmail.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3
+ (isis.lip6.fr [132.227.60.2]); Thu, 27 Aug 2020 15:16:38 +0200 (CEST)
+X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,64 +54,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152892 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152892/
 
-Failures :-/ but no regressions.
+--UlVJffcvxoiEqYs2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+On Mon, Aug 24, 2020 at 11:24:06AM -0700, Roman Shaposhnik wrote:
+> On Mon, Aug 24, 2020 at 11:12 AM Manuel Bouyer <bouyer@antioche.eu.org> wrote:
+> >
+> > Hello,
+> > with the recent XSA about qemu, I'm trying to switch the NetBSD port from
+> > qemu-xen-traditional to qemu-xen (in Xen 4.11 for now, I'll look at
+> > 4.13 later).
+> > One showstopper is that with qemu-xen, the bridge name is not passed
+> > any more to the qemu-ifup script. I tried adding a br= option to
+> > the qemu invocation, but qemu-system-i386 doesn't seem to use it
+> > (at last the script is still called with only one argument).
+> > I'm not about to pass to qemu the value of nics[i].script instead of
+> > libxl_tapif_script(), so that at last per-domain script can be
+> > specified.
+> >
+> > How is this issue dealt with on other OSes ? I can't believe I'm
+> > the only one with multiple bridges in the dom0 ...
+> 
+> You mean something like?
+>    https://github.com/lf-edge/eve/blob/master/pkg/xen-tools/patches-4.14.0/10-bridge-helper-support.patch
 
-version targeted for testing:
- xen                  484fca9569f03fbcb0fa5704f59164f95b0a8fcb
-baseline version:
- xen                  d2770047a277ccdc7924fb99d1b051eeb0d5a90f
+Hello,
+the attached patch is needed on Xen 4.13 in addition to the above patch,
+so that xl calls qemu with the br= argument properly set.
 
-Last test of basis   152887  2020-08-27 08:00:24 Z    0 days
-Testing same since   152892  2020-08-27 11:00:25 Z    0 days    1 attempts
+In addition to this, I also added an environnement variable XEN_DOMAIN_ID,
+which can be used from the qemu-ifup script if you need to query the
+xenstore (it's usefull for me).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Paul Durrant <pdurrant@amazon.com>
-  Wei Liu <wl@xen.org>
+Would such a patch be accepted ?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
+--UlVJffcvxoiEqYs2
+Content-Type: text/x-c; charset=us-ascii
+Content-Disposition: attachment; filename="patch-tools_libxl_libxl_dm.c"
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+$NetBSD: $
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--- tools/libxl/libxl_dm.c.orig	2020-05-14 14:19:32.000000000 +0200
++++ tools/libxl/libxl_dm.c	2020-08-27 14:12:38.150082263 +0200
+@@ -742,6 +742,10 @@
+         int nr_set_cpus = 0;
+         char *s;
+ 
++	static char buf[12];
++	snprintf(buf, sizeof(buf), "%d", domid);
++        flexarray_append_pair(dm_envs, "XEN_DOMAIN_ID", buf);
++
+         if (b_info->kernel) {
+             LOGD(ERROR, domid, "HVM direct kernel boot is not supported by "
+                  "qemu-xen-traditional");
+@@ -1503,8 +1507,10 @@
+                 flexarray_append(dm_args, "-netdev");
+                 flexarray_append(dm_args,
+                                  GCSPRINTF("type=tap,id=net%d,ifname=%s,"
++					   "br=%s,"
+                                            "script=%s,downscript=%s",
+                                            nics[i].devid, ifname,
++					   nics[i].bridge,
+                                            libxl_tapif_script(gc),
+                                            libxl_tapif_script(gc)));
+ 
+@@ -1772,6 +1778,10 @@
+     flexarray_append(dm_args, GCSPRINTF("%"PRId64, ram_size));
+ 
+     if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
++	static char buf[12];
++	snprintf(buf, sizeof(buf), "%d", guest_domid);
++        flexarray_append_pair(dm_envs, "XEN_DOMAIN_ID", buf);
++
+         if (b_info->u.hvm.hdtype == LIBXL_HDTYPE_AHCI)
+             flexarray_append_pair(dm_args, "-device", "ahci,id=ahci0");
+         for (i = 0; i < num_disks; i++) {
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   d2770047a2..484fca9569  484fca9569f03fbcb0fa5704f59164f95b0a8fcb -> smoke
+--UlVJffcvxoiEqYs2--
 
