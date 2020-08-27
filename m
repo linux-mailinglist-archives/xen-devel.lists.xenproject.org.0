@@ -2,59 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D15253F83
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 09:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4FFF254016
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 10:02:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBCd5-0006AP-Aa; Thu, 27 Aug 2020 07:47:27 +0000
+	id 1kBCqv-0008Td-BF; Thu, 27 Aug 2020 08:01:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i4js=CF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kBCd3-0006AH-M2
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 07:47:25 +0000
-X-Inumbo-ID: e3bd9bf4-2fb1-4ac1-9068-9c6cbdab8d6b
+ (envelope-from <SRS0=o8NI=CF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kBCqt-0008TY-B0
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 08:01:43 +0000
+X-Inumbo-ID: b7fda46a-75fb-45fd-9ed0-ae0108b1c540
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e3bd9bf4-2fb1-4ac1-9068-9c6cbdab8d6b;
- Thu, 27 Aug 2020 07:47:24 +0000 (UTC)
+ id b7fda46a-75fb-45fd-9ed0-ae0108b1c540;
+ Thu, 27 Aug 2020 08:01:42 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4A2A8AC1F;
- Thu, 27 Aug 2020 07:47:55 +0000 (UTC)
-Subject: Re: [patch V2 28/46] x86/xen: Consolidate XEN-MSI init
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>, Lu Baolu
- <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
- Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Marc Zyngier <maz@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
- Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112333.420224092@linutronix.de>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <fc8d8b63-f908-2520-7cf7-42ead4aa4bd8@suse.com>
-Date: Thu, 27 Aug 2020 09:47:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 85E84AD2E;
+ Thu, 27 Aug 2020 08:02:13 +0000 (UTC)
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: gcc10 build issue for Arm64
+Message-ID: <be061c98-fad9-c8c0-a858-a65e08fe10ed@suse.com>
+Date: Thu, 27 Aug 2020 10:01:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200826112333.420224092@linutronix.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -70,22 +48,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.08.20 13:16, Thomas Gleixner wrote:
-> From: Thomas Gleixner <tglx@linutronix.de>
-> 
-> X86 cannot store the irq domain pointer in struct device without breaking
-> XEN because the irq domain pointer takes precedence over arch_*_msi_irqs()
-> fallbacks.
-> 
-> To achieve this XEN MSI interrupt management needs to be wrapped into an
-> irq domain.
-> 
-> Move the x86_msi ops setup into a single function to prepare for this.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Stefano, Julien,
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+since it was touching code potentially also affecting Arm, prior
+to my push of a couple of commits a few minutes ago I also wanted
+to build-test Arm. While as a fallback all went well with gcc
+9.3, with my first (default) attempt with 10.2 I ran into
 
+ld: prelink.o: in function `_spin_lock_cb':
+/build/xen/staging-arm64/xen/common/spinlock.c:164: undefined reference to `__aarch64_ldadd4_acq_rel'
+ld: /build/xen/staging-arm64/xen/common/spinlock.c:164: undefined reference to `__aarch64_ldadd4_acq_rel'
+make[3]: *** [/build/xen/staging-arm64/xen/xen-syms] Error 1
+make[2]: *** [/build/xen/staging-arm64/xen/xen] Error 2
+make[1]: *** [install] Error 2
+make: *** [install-xen] Error 2
 
-Juergen
+I have no idea how recent the introduction of the issue is, but
+I hope you'll be able to pinpoint the offending change (and a
+possible fix) much easier than I would be.
+
+Thanks, Jan
 
