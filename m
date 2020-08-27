@@ -2,60 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEBC26379C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 22:42:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C4C2638B6
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 23:53:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG6u7-0002dT-FB; Wed, 09 Sep 2020 20:41:19 +0000
+	id 1kG81f-00006t-C1; Wed, 09 Sep 2020 21:53:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N8Zw=CS=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1kG6u6-0002dO-7r
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 20:41:18 +0000
-X-Inumbo-ID: f6d0faa5-af85-4dd1-aec8-28ff4c508ce1
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WRqj=CS=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kG81d-00006m-Tx
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 21:53:09 +0000
+X-Inumbo-ID: 9c2a3557-f0b5-43e9-a03b-30eec45fc989
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f6d0faa5-af85-4dd1-aec8-28ff4c508ce1;
- Wed, 09 Sep 2020 20:41:00 +0000 (UTC)
-Received: from localhost (52.sub-72-107-123.myvzw.com [72.107.123.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E5C4B2064B;
- Wed,  9 Sep 2020 20:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599684059;
- bh=XYTJIX+UX5+9hkTZ1JmQGWBSE1wnXfxEBbc2SLTvbLI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=doAj1CwRVbRE50VuDa0NRPzX3puwcNhH10PkIoMJlZ7VDX3J9Cpv7+Xu8Str2rpMp
- Duyf5ETzvgvpOayzw8I6cdDNzZUgfA5LXZHANt1OAYXDMuRtnJeoYx6BVRCwrzTwl+
- +gjVdbDN5g3o6OLchOJSLhiZ4czH+k8PKVD1rqk0=
-Date: Wed, 9 Sep 2020 15:40:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Lukas Wunner <lukas@wunner.de>,
- Rick Farrington <ricardo.farrington@cavium.com>
-Cc: kernel test robot <lkp@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Michael Haeuptle <michael.haeuptle@hpe.com>,
- Ian May <ian.may@canonical.com>, Keith Busch <kbusch@kernel.org>,
- linux-pci@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
- kvm@vger.kernel.org, Derek Chickles <dchickles@marvell.com>,
- Satanand Burla <sburla@marvell.com>,
- Felix Manlunas <fmanlunas@marvell.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Govinda Tatti <govinda.tatti@oracle.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- LKML <linux-kernel@vger.kernel.org>, lkp@lists.01.org
-Subject: Re: [PCI] 3233e41d3e:
- WARNING:at_drivers/pci/pci.c:#pci_reset_hotplug_slot
-Message-ID: <20200909204057.GA724236@bjorn-Precision-5520>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200723095152.nf3fmfzrjlpoi35h@wunner.de>
+ id 9c2a3557-f0b5-43e9-a03b-30eec45fc989;
+ Wed, 09 Sep 2020 21:53:08 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 089Lqrk6039177
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Wed, 9 Sep 2020 17:52:59 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 089LqrKZ039176;
+ Wed, 9 Sep 2020 14:52:53 -0700 (PDT) (envelope-from ehem)
+Message-Id: <202009092152.089LqrKZ039176@m5p.com>
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>
+Cc: Doug Goldstein <cardoe@cardoe.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Date: Thu, 27 Aug 2020 12:09:05 -0700
+Subject: [PATCH 01/11 v2] gitignore: Move ignores from global to subdirectories
+X-Spam-Status: No, score=2.1 required=10.0 tests=DATE_IN_PAST_96_XX,
+ KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,47 +57,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jul 23, 2020 at 11:51:52AM +0200, Lukas Wunner wrote:
-> On Thu, Jul 23, 2020 at 05:13:06PM +0800, kernel test robot wrote:
-> > FYI, we noticed the following commit (built with gcc-9):
-> [...]
-> > commit: 3233e41d3e8ebcd44e92da47ffed97fd49b84278 ("[PATCH] PCI: pciehp: Fix AB-BA deadlock between reset_lock and device_lock")
-> [...]
-> > caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
-> > [    0.971752] WARNING: CPU: 0 PID: 1 at drivers/pci/pci.c:4905 pci_reset_hotplug_slot+0x70/0x80
-> 
-> Thank you, trusty robot.
-> 
-> I botched the call to lockdep_assert_held_write(), it should have been
-> conditional on "if (probe)".
-> 
-> Happy to respin the patch, but I'd like to hear opinions on the locking
-> issues surrounding xen and octeon (and the patch in general).
+Subdirectories which have .gitignore files should not be referenced in
+the global .gitignore files.  Move several lines to appropriate subdirs.
 
-I wish liquidio/octeon weren't a special case.  Why should that driver
-reset the device when unbinding when no other drivers do?
+When moved to the subdirectories the slash after the directory name is
+left on as otherwise the names potentially become unanchored (without a
+leading slash, "foo" also matches "bar/foo").
 
-Looks like this was added by 70535350e26f ("liquidio: with embedded
-f/w, don't reload f/w, issue pf flr at exit").  Maybe Rick will chime
-in.
+As a final step these were either sorted or formatted to match existing
+file format.
 
-> In particular, would a solution be entertained wherein the pci_dev is
-> reset by the PCI core after driver unbinding, contingent on a flag which
-> is set by a PCI driver to indicate that the pci_dev is returned to the
-> core in an unclean state?
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
 
-How would we do this?  The PCI core isn't called after unbinding, is
-it?  So I guess we'd have to have a queue and a worker thread to
-process it?
+---
+Changes in v2:
+- More information in commit message
+- Rebased onto correct branch before submission
+---
+ .gitignore                   | 31 -------------------------------
+ tools/misc/.gitignore        | 23 ++++++++++++++++++++++-
+ xen/tools/kconfig/.gitignore |  6 ++++++
+ xen/xsm/flask/.gitignore     |  9 ++++++++-
+ 4 files changed, 36 insertions(+), 33 deletions(-)
 
-Device removal also has nasty locking issues, and a queue might help
-solve those, too.  Might also help in the problematic case of
-40f11adc7cd9 ("PCI: Avoid race while enabling upstream bridges"),
-which we had to revert.
+diff --git a/.gitignore b/.gitignore
+index 36ce2ea104..429a484ecc 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -204,21 +204,6 @@ tools/libxl/ssdt*
+ tools/libxl/testenum
+ tools/libxl/testenum.c
+ tools/libxl/tmp.*
+-tools/misc/cpuperf/cpuperf-perfcntr
+-tools/misc/cpuperf/cpuperf-xen
+-tools/misc/xc_shadow
+-tools/misc/xen_cpuperf
+-tools/misc/xen-cpuid
+-tools/misc/xen-detect
+-tools/misc/xen-diag
+-tools/misc/xen-tmem-list-parse
+-tools/misc/xen-livepatch
+-tools/misc/xenperf
+-tools/misc/xenpm
+-tools/misc/xen-hvmctx
+-tools/misc/xenlockprof
+-tools/misc/lowmemd
+-tools/misc/xencov
+ tools/pkg-config/*
+ tools/qemu-xen-build
+ tools/xentrace/xenalyze
+@@ -315,17 +300,7 @@ xen/include/xen/lib/x86/cpuid-autogen.h
+ xen/test/livepatch/config.h
+ xen/test/livepatch/expect_config.h
+ xen/test/livepatch/*.livepatch
+-xen/tools/kconfig/.tmp_gtkcheck
+-xen/tools/kconfig/.tmp_qtcheck
+ xen/tools/symbols
+-xen/xsm/flask/flask-policy.S
+-xen/xsm/flask/include/av_perm_to_string.h
+-xen/xsm/flask/include/av_permissions.h
+-xen/xsm/flask/include/class_to_string.h
+-xen/xsm/flask/include/flask.h
+-xen/xsm/flask/include/initial_sid_to_string.h
+-xen/xsm/flask/policy.*
+-xen/xsm/flask/xenpolicy-*
+ tools/flask/policy/policy.conf
+ tools/flask/policy/xenpolicy-*
+ xen/xen
+@@ -357,8 +332,6 @@ tools/include/xen-foreign/arm32.h
+ tools/include/xen-foreign/arm64.h
+ 
+ .git
+-tools/misc/xen-hptool
+-tools/misc/xen-mfndump
+ tools/libs/toolcore/include/_*.h
+ tools/libxc/_*.[ch]
+ tools/libxl/_*.[ch]
+@@ -370,10 +343,6 @@ tools/libxl/test_timedereg
+ tools/libxl/test_fdderegrace
+ tools/firmware/etherboot/eb-roms.h
+ tools/firmware/etherboot/gpxe-git-snapshot.tar.gz
+-tools/misc/xenhypfs
+-tools/misc/xenwatchdogd
+-tools/misc/xen-hvmcrash
+-tools/misc/xen-lowmemd
+ tools/libvchan/vchan-node[12]
+ tools/libvchan/vchan-socket-proxy
+ tools/ocaml/*/.ocamldep.make
+diff --git a/tools/misc/.gitignore b/tools/misc/.gitignore
+index c5fe2cfccd..f909ceccb1 100644
+--- a/tools/misc/.gitignore
++++ b/tools/misc/.gitignore
+@@ -1 +1,22 @@
+-xen-ucode
++/cpuperf/cpuperf-perfcntr
++/cpuperf/cpuperf-xen
++/lowmemd
++/xc_shadow
++/xen-cpuid
++/xen-detect
++/xen-diag
++/xen-hptool
++/xen-hvmcrash
++/xen-hvmctx
++/xen-livepatch
++/xen-lowmemd
++/xen-mfndump
++/xen-tmem-list-parse
++/xen-ucode
++/xen_cpuperf
++/xencov
++/xenhypfs
++/xenlockprof
++/xenperf
++/xenpm
++/xenwatchdogd
+diff --git a/xen/tools/kconfig/.gitignore b/xen/tools/kconfig/.gitignore
+index 9638790613..e289215d27 100644
+--- a/xen/tools/kconfig/.gitignore
++++ b/xen/tools/kconfig/.gitignore
+@@ -15,3 +15,9 @@ mconf
+ nconf
+ qconf
+ gconf
++
++#
++# temporary build tool checking files
++#
++/.tmp_gtkcheck
++/.tmp_qtcheck
+diff --git a/xen/xsm/flask/.gitignore b/xen/xsm/flask/.gitignore
+index 024edbe0ba..f186747c51 100644
+--- a/xen/xsm/flask/.gitignore
++++ b/xen/xsm/flask/.gitignore
+@@ -1 +1,8 @@
+-/policy.c
++/flask-policy.S
++/include/av_perm_to_string.h
++/include/av_permissions.h
++/include/class_to_string.h
++/include/flask.h
++/include/initial_sid_to_string.h
++/policy.*
++/xenpolicy-*
+-- 
 
-> Also, why does xen require a device reset on bind?
-> 
-> Thanks!
-> 
-> Lukas
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
+
 
