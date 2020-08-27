@@ -2,42 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0086254A37
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 18:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6DA254C43
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 19:36:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBKQo-0005cm-HA; Thu, 27 Aug 2020 16:07:18 +0000
+	id 1kBLoF-0004ry-Be; Thu, 27 Aug 2020 17:35:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o8NI=CF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kBKQn-0005cd-0Q
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 16:07:17 +0000
-X-Inumbo-ID: 7b7680c1-51e7-4341-a1e8-a552d9905893
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LCk+=CF=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+ id 1kBLoE-0004rt-8G
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 17:35:34 +0000
+X-Inumbo-ID: b6c549ff-6033-4788-962e-6895ba9aad50
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b7680c1-51e7-4341-a1e8-a552d9905893;
- Thu, 27 Aug 2020 16:07:16 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 97A73AF3E;
- Thu, 27 Aug 2020 16:07:47 +0000 (UTC)
-Subject: Re: [xen-unstable-smoke test] 152898: regressions - FAIL
-To: osstest service owner <osstest-admin@xenproject.org>,
- Costin Lupu <costin.lupu@cs.pub.ro>
-References: <osstest-152898-mainreport@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <fd303f97-a471-686e-8d4a-12578bdb6c07@suse.com>
-Date: Thu, 27 Aug 2020 18:07:17 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id b6c549ff-6033-4788-962e-6895ba9aad50;
+ Thu, 27 Aug 2020 17:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598549732;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=lyIMLQgobWP6SfFovRBnvrbWsVl1xSh+kg+RmumeOgM=;
+ b=Nb6Dt6Ut1R1hXvdjnPXpeqeM0MUW3pceQ4FfIzFS3rwv8zgSBCRtDSva
+ wdzTxQiJ/H9+cjSz3td4IeQF7+0QTZDKh7a3OjkRS2CS2IwcwqwGPJP47
+ nWWtnW0MluqoRBf2DxxR+1gfkmGrAkWz29zYxIkOFxfyRWWR2NoJnMrY9 8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 3k5N05/gXAvNWrxr1q3wkU42/Vbl7evkkGeg2HCktzeRwIy7vn7ZyyeY3DSKHv4MWbJWTehw0H
+ 530rmZ7eK+B98NVEGov4r9rs6APixjhAglMArmy0HMYblOXOcL0mHCFBORuDXZsaG5pd/ui/y8
+ obnDiV5f9bhn3KSNlaz/F9R+eTelKg5YS+olE++MVKU16D5aBvVKFuoK+hsYQICD4oseFn6eTh
+ L5EsgYqkZoyLShcEzOSyy4ATYOSxAG1sb66h4Jo7gGJCy4U3O64NBnH0HUp86T3bdOOYxkcT1V
+ WH4=
+X-SBRS: 2.7
+X-MesageID: 25595221
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,360,1592884800"; d="scan'208";a="25595221"
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Christian
+ Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, "Ian
+ Jackson" <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v4 0/4] tools/ocaml/xenstored: simplify code
+Date: Thu, 27 Aug 2020 18:35:15 +0100
+Message-ID: <cover.1598548188.git.edvin.torok@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <osstest-152898-mainreport@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,24 +64,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.08.2020 17:49, osstest service owner wrote:
-> flight 152898 xen-unstable-smoke real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/152898/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-amd64                   6 xen-build                fail REGR. vs. 152892
+This refreshes the V3 patches to work with OCaml 4.02.
+Upgrading to 4.06 will come as a separate series.
 
-This looks to be an issue in the mini-os tree, and I'm having
-trouble understanding how it can cause the main tree to first
-discover it. Is there no push gate for that tree?
+This patch is new in V4, the other patches were already acked in V3:
+[PATCH v4 2/4] Map: backport find_opt/update from 4.06
 
-In any event, commit 1b8ed31f4ce4 ("mini-os: netfront: Read netmask
-and gateway from Xenstore") looks to have missed callers to
-init_netfront(), both in the mini-os tree itself and in stubdom/grub/
-of the main tree.
+A git tree with this and other series is available at:
+https://gitlab.com/edwintorok/xen/-/compare/master...for-upstream
 
-Jan
+Edwin Török (4):
+  tools/ocaml/xenstored: replace hand rolled GC with weak GC references
+  Map: backport find_opt/update from 4.06
+  tools/ocaml/xenstored: use more efficient node trees
+  tools/ocaml/xenstored: use more efficient tries
+
+ tools/ocaml/xenstored/connection.ml  |  3 --
+ tools/ocaml/xenstored/connections.ml |  2 +-
+ tools/ocaml/xenstored/history.ml     | 14 ------
+ tools/ocaml/xenstored/stdext.ml      | 21 +++++++++
+ tools/ocaml/xenstored/store.ml       | 49 +++++++++----------
+ tools/ocaml/xenstored/symbol.ml      | 70 +++++++---------------------
+ tools/ocaml/xenstored/symbol.mli     | 22 +++------
+ tools/ocaml/xenstored/trie.ml        | 61 +++++++++++-------------
+ tools/ocaml/xenstored/trie.mli       | 26 +++++------
+ tools/ocaml/xenstored/xenstored.ml   | 16 +------
+ 10 files changed, 110 insertions(+), 174 deletions(-)
+
+-- 
+2.25.1
+
 
