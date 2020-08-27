@@ -2,59 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34727254E0B
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 21:13:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11FAC254E0F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Aug 2020 21:16:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBNK7-0006pd-Px; Thu, 27 Aug 2020 19:12:35 +0000
+	id 1kBNNu-0006zQ-FX; Thu, 27 Aug 2020 19:16:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rz+Y=CF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBNK6-0006pF-HA
- for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 19:12:34 +0000
-X-Inumbo-ID: 1f1b7c2f-5961-47c2-8ea4-359e23bb99bf
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=z6xA=CF=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1kBNNs-0006zL-MK
+ for xen-devel@lists.xenproject.org; Thu, 27 Aug 2020 19:16:28 +0000
+X-Inumbo-ID: b3655409-2127-4750-af2e-9cb04e3db63a
+Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1f1b7c2f-5961-47c2-8ea4-359e23bb99bf;
- Thu, 27 Aug 2020 19:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=1Pkorzum2mw34KvysjnL5fsytyypErQgGKhPDfhUkfM=; b=DEP2jHuAosfya7QcQ3PhWLLBQJ
- DCXPISXHzdRh6x8Hdsx8jqT2mPkbyzlu4sRc0FLb4yAlC4KaslMix0VH3U3eC+EAtAPFoCtLq8aDC
- 4CCratlAhEXSPRwS9egb+JQIU2IQYnnCYlGMYo71K6f0mJlyssF757LfhQ9993Ow24sA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBNJz-0006jD-8A; Thu, 27 Aug 2020 19:12:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBNJz-0007fR-0N; Thu, 27 Aug 2020 19:12:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBNJy-0001cc-W7; Thu, 27 Aug 2020 19:12:26 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152910-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id b3655409-2127-4750-af2e-9cb04e3db63a;
+ Thu, 27 Aug 2020 19:16:27 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id CE667940F;
+ Thu, 27 Aug 2020 21:16:26 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id EB0IryWHTsgs; Thu, 27 Aug 2020 21:16:26 +0200 (CEST)
+Received: from function (lfbn-bor-1-797-11.w86-234.abo.wanadoo.fr
+ [86.234.239.11])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 3862F9271;
+ Thu, 27 Aug 2020 21:16:26 +0200 (CEST)
+Received: from samy by function with local (Exim 4.94)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1kBNNo-000AXe-Qd; Thu, 27 Aug 2020 21:16:24 +0200
+Date: Thu, 27 Aug 2020 21:16:24 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Costin Lupu <costin.lupu@cs.pub.ro>
+Cc: xen-devel@lists.xenproject.org, wl@xen.org, jbeulich@suse.com
+Subject: Re: [PATCH] stubdom/grub: Update init_netfront() call for mini-os
+Message-ID: <20200827191624.kuxpbiauoqfkwa2q@function>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Costin Lupu <costin.lupu@cs.pub.ro>, xen-devel@lists.xenproject.org,
+ wl@xen.org, jbeulich@suse.com
+References: <20200827191257.30100-1-costin.lupu@cs.pub.ro>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152910: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
-X-Osstest-Versions-That: xen=484fca9569f03fbcb0fa5704f59164f95b0a8fcb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Aug 2020 19:12:26 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200827191257.30100-1-costin.lupu@cs.pub.ro>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,235 +62,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152910 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152910/
+Costin Lupu, le jeu. 27 août 2020 22:12:57 +0300, a ecrit:
+> This patch updates the call of init_netfront() function according to its
+> recently updated declaration which can also include parameters for gateway
+> and netmask addresses. While we are here, the patch also removes passing
+> the ip parameter because (a) it is not used anywhere and (b) it wastes
+> memory since it would reference a dynamically allocated string.
+> 
+> Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
 
-Regressions :-(
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 152892
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
-baseline version:
- xen                  484fca9569f03fbcb0fa5704f59164f95b0a8fcb
-
-Last test of basis   152892  2020-08-27 11:00:25 Z    0 days
-Testing same since   152898  2020-08-27 14:01:18 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:12 2020 +0200
-
-    stubdom: simplify building xen libraries for stubdoms
-    
-    The pattern for building a Xen library with sources under tools/libs
-    is always the same. Simplify stubdom/Makefile by defining a callable
-    make program for those libraries.
-    
-    Even if not needed right now add the possibility for defining
-    additional dependencies for a library.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-commit ddb2934a914df26762c45f0b114fa358a045e0ee
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    stubdom: add correct dependencies for Xen libraries
-    
-    The stubdom Makefile is missing several dependencies between Xen
-    libraries. Add them.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-commit ded08cdfa72bb1555a2beb5c4300dedb1f830358
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: generate most contents of library make variables
-    
-    Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
-    and SHLIB_lib*) mostly have a common pattern for their values. Generate
-    most of this content automatically by adding a new per-library variable
-    defining on which other libraries a lib is depending. Those definitions
-    are put into an own file in order to make it possible to include it
-    from various Makefiles, especially for stubdom.
-    
-    This in turn makes it possible to drop the USELIB variable from each
-    library Makefile.
-    
-    The LIBNAME variable can be dropped, too, as it can be derived from the
-    directory name the library is residing in.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 09bf2917046f78a5f0b42da771602bb4ef5dcc09
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: define ROUNDUP() in tools/include/xen-tools/libs.h
-    
-    Today there are multiple copies of the ROUNDUP() macro in various
-    sources and headers. Define it once in tools/include/xen-tools/libs.h.
-    
-    Using xen-tools/libs.h enables removing copies of MIN() and MAX(), too.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 097b6fe1df89a0506a4feb1379ba5d9d14ec3a3b
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: don't call make recursively from libs.mk
-    
-    During build of a xen library make is called again via libs.mk. This is
-    not necessary as the same can be achieved by a simple dependency.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bc44e2fb3199ecd8461bbdd093806f76ee61776a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: add a copy of library headers in tools/include
-    
-    The headers.chk target in tools/Rules.mk tries to compile all headers
-    stand alone for testing them not to include any internal header.
-    
-    Unfortunately the headers tested against are not complete, as any
-    header for a Xen library is not included in the include path of the
-    test compile run, resulting in a failure in case any of the tested
-    headers in including an official Xen library header.
-    
-    Fix that by copying the official headers located in
-    tools/libs/*/include to tools/include.
-    
-    In order to support libraries with header name other than xen<lib>.h
-    or with multiple headers add a LIBHEADER make variable a lib specific
-    Makefile can set in that case.
-    
-    Move the headers.chk target from Rules.mk to libs.mk as it is used
-    for libraries in tools/libs only.
-    
-    Add NO_HEADERS_CHK variable to skip checking headers as this will be
-    needed e.g. for libxenctrl.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 725ef89164e38349c9e6210f720e0cdc0c52e69e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:11 2020 +0200
-
-    tools: switch XEN_LIBXEN* make variables to lower case (XEN_libxen*)
-    
-    In order to harmonize names of library related make variables switch
-    XEN_LIBXEN* names to XEN_libxen*, as all other related variables (e.g.
-    CFLAGS_libxen*, SHDEPS_libxen*, ...) already use this pattern.
-    
-    Rename XEN_LIBXC to XEN_libxenctrl, XEN_XENSTORE to XEN_libxenstore,
-    XEN_XENLIGHT to XEN_libxenlight, XEN_XLUTIL to XEN_libxlutil, and
-    XEN_LIBVCHAN to XEN_libxenvchan for the same reason.
-    
-    Introduce XEN_libxenguest with the same value as XEN_libxenctrl.
-    
-    No functional change.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 314d8cc0d87e04dd81eb9970709e71c50fef7b14
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Aug 23 10:00:10 2020 +0200
-
-    stubdom: add stubdom/mini-os.mk for Xen paths used by Mini-OS
-    
-    stubdom/mini-os.mk should contain paths used by Mini-OS when built as
-    stubdom.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-commit e32605b07ef2e01c9d05da9b2d5d7b8f9a5c7c1b
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Apr 10 16:25:40 2018 +0100
-
-    x86: Begin to introduce support for MSR_ARCH_CAPS
-    
-    ... including serialisation/deserialisation logic and unit tests.
-    
-    There is no current way to configure this MSR correctly for guests.
-    The toolstack side this logic needs building, which is far easier to
-    do with it in place.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 70c52c46bca89de00f04aa9294e14d11a2adff80
-Author: Wei Liu <wl@xen.org>
-Date:   Thu Aug 27 10:48:38 2020 +0000
-
-    gitignore: ignore ebmalloc.c soft link
-    
-    A previous commit split ebmalloc to its own translation unit but forgot
-    to modify gitignore.
-    
-    Fixes: 8856a914bffd ("build: also check for empty .bss.* in .o -> .init.o conversion")
-    Signed-off-by: Wei Liu <wl@xen.org>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+> ---
+>  stubdom/grub/mini-os.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/stubdom/grub/mini-os.c b/stubdom/grub/mini-os.c
+> index 4fc052a255..b33dbf02fb 100644
+> --- a/stubdom/grub/mini-os.c
+> +++ b/stubdom/grub/mini-os.c
+> @@ -291,8 +291,6 @@ struct netfront_dev *net_dev;
+>  int
+>  minios_probe (struct nic *nic)
+>  {
+> -    char *ip;
+> -
+>      if (net_dev)
+>          return 1;
+>  
+> @@ -300,7 +298,7 @@ minios_probe (struct nic *nic)
+>      grub_memset ((char *) arptable, 0,
+>                   MAX_ARP * sizeof (struct arptable_t));
+>  
+> -    net_dev = init_netfront(NULL, (void*) -1, nic->node_addr, &ip);
+> +    net_dev = init_netfront(NULL, (void*) -1, nic->node_addr, NULL, NULL, NULL);
+>      if (!net_dev)
+>          return 0;
+>  
+> -- 
+> 2.20.1
+> 
 
