@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B11D255D64
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 17:08:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7AF255D6E
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 17:08:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBfzH-0004pf-CD; Fri, 28 Aug 2020 15:08:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBfzX-0005BZ-PQ; Fri, 28 Aug 2020 15:08:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pjxq=CG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kBfzG-0004eG-59
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 15:08:18 +0000
-X-Inumbo-ID: b5300681-fa9c-46fd-b827-f6b024e9e7f7
+ id 1kBfzW-0004eL-If
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 15:08:34 +0000
+X-Inumbo-ID: 9c285ca6-7a91-4841-8dbb-a225b154761e
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b5300681-fa9c-46fd-b827-f6b024e9e7f7;
- Fri, 28 Aug 2020 15:07:53 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9c285ca6-7a91-4841-8dbb-a225b154761e;
+ Fri, 28 Aug 2020 15:07:55 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8B97FAF6D;
+ by mx2.suse.de (Postfix) with ESMTP id AE626AF6E;
  Fri, 28 Aug 2020 15:08:24 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>,
  Wei Liu <wl@xen.org>
-Subject: [PATCH v4 10/31] tools/libxc: remove unused headers xc_efi.h and
- xc_elf.h
-Date: Fri, 28 Aug 2020 17:07:26 +0200
-Message-Id: <20200828150747.25305-11-jgross@suse.com>
+Subject: [PATCH v4 11/31] tools/libxc: move xc_[un]map_domain_meminfo() into
+ new source xg_domain.c
+Date: Fri, 28 Aug 2020 17:07:27 +0200
+Message-Id: <20200828150747.25305-12-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200828150747.25305-1-jgross@suse.com>
 References: <20200828150747.25305-1-jgross@suse.com>
@@ -49,203 +48,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Remove xc_efi.h and xc_elf.h as they aren't used anywhere.
+Move xc_[un]map_domain_meminfo() functions to new source xg_domain.c as
+they are defined in include/xenguest.h and should be in libxenguest.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Acked-by: Wei Liu <wl@xen.org>
 ---
- tools/libxc/xc_efi.h | 158 -------------------------------------------
- tools/libxc/xc_elf.h |  16 -----
- 2 files changed, 174 deletions(-)
- delete mode 100644 tools/libxc/xc_efi.h
- delete mode 100644 tools/libxc/xc_elf.h
+ tools/libxc/Makefile    |   4 +-
+ tools/libxc/xc_domain.c | 126 ---------------------------------
+ tools/libxc/xg_domain.c | 149 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 152 insertions(+), 127 deletions(-)
+ create mode 100644 tools/libxc/xg_domain.c
 
-diff --git a/tools/libxc/xc_efi.h b/tools/libxc/xc_efi.h
-deleted file mode 100644
-index dbe105be8f..0000000000
---- a/tools/libxc/xc_efi.h
-+++ /dev/null
-@@ -1,158 +0,0 @@
--/*
-- * Extensible Firmware Interface
-- * Based on 'Extensible Firmware Interface Specification' version 0.9, April 30, 1999
-- *
-- * This library is free software; you can redistribute it and/or
-- * modify it under the terms of the GNU Lesser General Public
-- * License as published by the Free Software Foundation;
-- * version 2.1 of the License.
-- *
-- * This library is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-- * Lesser General Public License for more details.
-- *
-- * You should have received a copy of the GNU Lesser General Public
-- * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-- *
-- * Copyright (C) 1999 VA Linux Systems
-- * Copyright (C) 1999 Walt Drummond <drummond@valinux.com>
-- * Copyright (C) 1999, 2002-2003 Hewlett-Packard Co.
-- *      David Mosberger-Tang <davidm@hpl.hp.com>
-- *      Stephane Eranian <eranian@hpl.hp.com>
-- */
+diff --git a/tools/libxc/Makefile b/tools/libxc/Makefile
+index 763231065c..7b81f8c193 100644
+--- a/tools/libxc/Makefile
++++ b/tools/libxc/Makefile
+@@ -52,7 +52,9 @@ CTRL_SRCS-y       += xc_gnttab_compat.c
+ CTRL_SRCS-y       += xc_devicemodel_compat.c
+ 
+ GUEST_SRCS-y :=
+-GUEST_SRCS-y += xg_private.c xc_suspend.c
++GUEST_SRCS-y += xg_private.c
++GUEST_SRCS-y += xg_domain.c
++GUEST_SRCS-y += xc_suspend.c
+ ifeq ($(CONFIG_MIGRATE),y)
+ GUEST_SRCS-y += xc_sr_common.c
+ GUEST_SRCS-$(CONFIG_X86) += xc_sr_common_x86.c
+diff --git a/tools/libxc/xc_domain.c b/tools/libxc/xc_domain.c
+index 71829c2bce..fbc22c4df6 100644
+--- a/tools/libxc/xc_domain.c
++++ b/tools/libxc/xc_domain.c
+@@ -1892,132 +1892,6 @@ int xc_domain_unbind_pt_spi_irq(xc_interface *xch,
+                                         PT_IRQ_TYPE_SPI, 0, 0, 0, 0, spi));
+ }
+ 
+-int xc_unmap_domain_meminfo(xc_interface *xch, struct xc_domain_meminfo *minfo)
+-{
+-    struct domain_info_context _di = { .guest_width = minfo->guest_width,
+-                                       .p2m_size = minfo->p2m_size};
+-    struct domain_info_context *dinfo = &_di;
 -
--#ifndef XC_EFI_H
--#define XC_EFI_H
+-    free(minfo->pfn_type);
+-    if ( minfo->p2m_table )
+-        munmap(minfo->p2m_table, P2M_FL_ENTRIES * PAGE_SIZE);
+-    minfo->p2m_table = NULL;
 -
--/* definitions from xen/include/asm-ia64/linux-xen/linux/efi.h */
+-    return 0;
+-}
 -
--typedef struct {
--        uint8_t b[16];
--} efi_guid_t;
+-int xc_map_domain_meminfo(xc_interface *xch, uint32_t domid,
+-                          struct xc_domain_meminfo *minfo)
+-{
+-    struct domain_info_context _di;
+-    struct domain_info_context *dinfo = &_di;
 -
--#define EFI_GUID(a,b,c,d0,d1,d2,d3,d4,d5,d6,d7) \
--((efi_guid_t) \
--{{ (a) & 0xff, ((a) >> 8) & 0xff, ((a) >> 16) & 0xff, ((a) >> 24) & 0xff, \
--  (b) & 0xff, ((b) >> 8) & 0xff, \
--  (c) & 0xff, ((c) >> 8) & 0xff, \
--  (d0), (d1), (d2), (d3), (d4), (d5), (d6), (d7) }})
+-    xc_dominfo_t info;
+-    shared_info_any_t *live_shinfo;
+-    xen_capabilities_info_t xen_caps = "";
+-    int i;
 -
--/*
-- * Generic EFI table header
-- */
--typedef struct {
--	uint64_t signature;
--	uint32_t revision;
--	uint32_t headersize;
--	uint32_t crc32;
--	uint32_t reserved;
--} efi_table_hdr_t;
+-    /* Only be initialized once */
+-    if ( minfo->pfn_type || minfo->p2m_table )
+-    {
+-        errno = EINVAL;
+-        return -1;
+-    }
 -
--/*
-- * Memory map descriptor:
-- */
+-    if ( xc_domain_getinfo(xch, domid, 1, &info) != 1 )
+-    {
+-        PERROR("Could not get domain info");
+-        return -1;
+-    }
 -
--/* Memory types: */
--#define EFI_RESERVED_TYPE                0
--#define EFI_LOADER_CODE                  1
--#define EFI_LOADER_DATA                  2
--#define EFI_BOOT_SERVICES_CODE           3
--#define EFI_BOOT_SERVICES_DATA           4
--#define EFI_RUNTIME_SERVICES_CODE        5
--#define EFI_RUNTIME_SERVICES_DATA        6
--#define EFI_CONVENTIONAL_MEMORY          7
--#define EFI_UNUSABLE_MEMORY              8
--#define EFI_ACPI_RECLAIM_MEMORY          9
--#define EFI_ACPI_MEMORY_NVS             10
--#define EFI_MEMORY_MAPPED_IO            11
--#define EFI_MEMORY_MAPPED_IO_PORT_SPACE 12
--#define EFI_PAL_CODE                    13
--#define EFI_MAX_MEMORY_TYPE             14
+-    if ( xc_domain_get_guest_width(xch, domid, &minfo->guest_width) )
+-    {
+-        PERROR("Could not get domain address size");
+-        return -1;
+-    }
+-    _di.guest_width = minfo->guest_width;
 -
--/* Attribute values: */
--#define EFI_MEMORY_UC           ((uint64_t)0x0000000000000001ULL)    /* uncached */
--#define EFI_MEMORY_WC           ((uint64_t)0x0000000000000002ULL)    /* write-coalescing */
--#define EFI_MEMORY_WT           ((uint64_t)0x0000000000000004ULL)    /* write-through */
--#define EFI_MEMORY_WB           ((uint64_t)0x0000000000000008ULL)    /* write-back */
--#define EFI_MEMORY_WP           ((uint64_t)0x0000000000001000ULL)    /* write-protect */
--#define EFI_MEMORY_RP           ((uint64_t)0x0000000000002000ULL)    /* read-protect */
--#define EFI_MEMORY_XP           ((uint64_t)0x0000000000004000ULL)    /* execute-protect */
--#define EFI_MEMORY_RUNTIME      ((uint64_t)0x8000000000000000ULL)    /* range requires runtime mapping */
--#define EFI_MEMORY_DESCRIPTOR_VERSION   1
+-    /* Get page table levels (see get_platform_info() in xg_save_restore.h */
+-    if ( xc_version(xch, XENVER_capabilities, &xen_caps) )
+-    {
+-        PERROR("Could not get Xen capabilities (for page table levels)");
+-        return -1;
+-    }
+-    if ( strstr(xen_caps, "xen-3.0-x86_64") )
+-        /* Depends on whether it's a compat 32-on-64 guest */
+-        minfo->pt_levels = ( (minfo->guest_width == 8) ? 4 : 3 );
+-    else if ( strstr(xen_caps, "xen-3.0-x86_32p") )
+-        minfo->pt_levels = 3;
+-    else if ( strstr(xen_caps, "xen-3.0-x86_32") )
+-        minfo->pt_levels = 2;
+-    else
+-    {
+-        errno = EFAULT;
+-        return -1;
+-    }
 -
--#define EFI_PAGE_SHIFT          12
+-    /* We need the shared info page for mapping the P2M */
+-    live_shinfo = xc_map_foreign_range(xch, domid, PAGE_SIZE, PROT_READ,
+-                                       info.shared_info_frame);
+-    if ( !live_shinfo )
+-    {
+-        PERROR("Could not map the shared info frame (MFN 0x%lx)",
+-               info.shared_info_frame);
+-        return -1;
+-    }
 -
--/*
-- * For current x86 implementations of EFI, there is
-- * additional padding in the mem descriptors.  This is not
-- * the case in ia64.  Need to have this fixed in the f/w.
-- */
--typedef struct {
--        uint32_t type;
--        uint32_t pad;
--        uint64_t phys_addr;
--        uint64_t virt_addr;
--        uint64_t num_pages;
--        uint64_t attribute;
--#if defined (__i386__)
--        uint64_t pad1;
--#endif
--} efi_memory_desc_t;
+-    if ( xc_core_arch_map_p2m_writable(xch, minfo->guest_width, &info,
+-                                       live_shinfo, &minfo->p2m_table,
+-                                       &minfo->p2m_size) )
+-    {
+-        PERROR("Could not map the P2M table");
+-        munmap(live_shinfo, PAGE_SIZE);
+-        return -1;
+-    }
+-    munmap(live_shinfo, PAGE_SIZE);
+-    _di.p2m_size = minfo->p2m_size;
 -
--/*
-- * EFI Runtime Services table
-- */
--#define EFI_RUNTIME_SERVICES_SIGNATURE	((uint64_t)0x5652453544e5552ULL)
--#define EFI_RUNTIME_SERVICES_REVISION	0x00010000
+-    /* Make space and prepare for getting the PFN types */
+-    minfo->pfn_type = calloc(sizeof(*minfo->pfn_type), minfo->p2m_size);
+-    if ( !minfo->pfn_type )
+-    {
+-        PERROR("Could not allocate memory for the PFN types");
+-        goto failed;
+-    }
+-    for ( i = 0; i < minfo->p2m_size; i++ )
+-        minfo->pfn_type[i] = xc_pfn_to_mfn(i, minfo->p2m_table,
+-                                           minfo->guest_width);
 -
--typedef struct {
--	efi_table_hdr_t hdr;
--	unsigned long get_time;
--	unsigned long set_time;
--	unsigned long get_wakeup_time;
--	unsigned long set_wakeup_time;
--	unsigned long set_virtual_address_map;
--	unsigned long convert_pointer;
--	unsigned long get_variable;
--	unsigned long get_next_variable;
--	unsigned long set_variable;
--	unsigned long get_next_high_mono_count;
--	unsigned long reset_system;
--} efi_runtime_services_t;
+-    /* Retrieve PFN types in batches */
+-    for ( i = 0; i < minfo->p2m_size ; i+=1024 )
+-    {
+-        int count = ((minfo->p2m_size - i ) > 1024 ) ?
+-                        1024: (minfo->p2m_size - i);
 -
--/*
-- *  EFI Configuration Table and GUID definitions
-- */
--#define NULL_GUID \
--    EFI_GUID(  0x00000000, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 )
--#define ACPI_20_TABLE_GUID    \
--    EFI_GUID(  0x8868e871, 0xe4f1, 0x11d3, 0xbc, 0x22, 0x0, 0x80, 0xc7, 0x3c, 0x88, 0x81 )
--#define SAL_SYSTEM_TABLE_GUID    \
--    EFI_GUID(  0xeb9d2d32, 0x2d88, 0x11d3, 0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d )
+-        if ( xc_get_pfn_type_batch(xch, domid, count, minfo->pfn_type + i) )
+-        {
+-            PERROR("Could not get %d-eth batch of PFN types", (i+1)/1024);
+-            goto failed;
+-        }
+-    }
 -
--typedef struct {
--	efi_guid_t guid;
--	unsigned long table;
--} efi_config_table_t;
+-    return 0;
 -
--#define EFI_SYSTEM_TABLE_SIGNATURE ((uint64_t)0x5453595320494249ULL)
--#define EFI_SYSTEM_TABLE_REVISION  ((1 << 16) | 00)
+-failed:
+-    if ( minfo->pfn_type )
+-    {
+-        free(minfo->pfn_type);
+-        minfo->pfn_type = NULL;
+-    }
+-    if ( minfo->p2m_table )
+-    {
+-        munmap(minfo->p2m_table, P2M_FL_ENTRIES * PAGE_SIZE);
+-        minfo->p2m_table = NULL;
+-    }
 -
--typedef struct {
--	efi_table_hdr_t hdr;
--	unsigned long fw_vendor;	/* physical addr of CHAR16 vendor string */
--	uint32_t fw_revision;
--	unsigned long con_in_handle;
--	unsigned long con_in;
--	unsigned long con_out_handle;
--	unsigned long con_out;
--	unsigned long stderr_handle;
--	unsigned long stderr;
--	efi_runtime_services_t *runtime;
--	unsigned long boottime;
--	unsigned long nr_tables;
--	unsigned long tables;
--} efi_system_table_t;
+-    return -1;
+-}
 -
--#endif /* XC_EFI_H */
-diff --git a/tools/libxc/xc_elf.h b/tools/libxc/xc_elf.h
-deleted file mode 100644
-index acbc0280bd..0000000000
---- a/tools/libxc/xc_elf.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--/*
-- * This library is free software; you can redistribute it and/or
-- * modify it under the terms of the GNU Lesser General Public
-- * License as published by the Free Software Foundation;
-- * version 2.1 of the License.
-- *
-- * This library is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-- * Lesser General Public License for more details.
-- *
-- * You should have received a copy of the GNU Lesser General Public
-- * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-- */
--
--#include <xen/libelf/elfstructs.h>
+ int xc_domain_memory_mapping(
+     xc_interface *xch,
+     uint32_t domid,
+diff --git a/tools/libxc/xg_domain.c b/tools/libxc/xg_domain.c
+new file mode 100644
+index 0000000000..58713cd35d
+--- /dev/null
++++ b/tools/libxc/xg_domain.c
+@@ -0,0 +1,149 @@
++/******************************************************************************
++ * xg_domain.c
++ *
++ * API for manipulating and obtaining information on domains.
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation;
++ * version 2.1 of the License.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ *
++ * Copyright (c) 2003, K A Fraser.
++ */
++
++#include "xg_private.h"
++#include "xc_core.h"
++
++int xc_unmap_domain_meminfo(xc_interface *xch, struct xc_domain_meminfo *minfo)
++{
++    struct domain_info_context _di = { .guest_width = minfo->guest_width,
++                                       .p2m_size = minfo->p2m_size};
++    struct domain_info_context *dinfo = &_di;
++
++    free(minfo->pfn_type);
++    if ( minfo->p2m_table )
++        munmap(minfo->p2m_table, P2M_FL_ENTRIES * PAGE_SIZE);
++    minfo->p2m_table = NULL;
++
++    return 0;
++}
++
++int xc_map_domain_meminfo(xc_interface *xch, uint32_t domid,
++                          struct xc_domain_meminfo *minfo)
++{
++    struct domain_info_context _di;
++    struct domain_info_context *dinfo = &_di;
++
++    xc_dominfo_t info;
++    shared_info_any_t *live_shinfo;
++    xen_capabilities_info_t xen_caps = "";
++    int i;
++
++    /* Only be initialized once */
++    if ( minfo->pfn_type || minfo->p2m_table )
++    {
++        errno = EINVAL;
++        return -1;
++    }
++
++    if ( xc_domain_getinfo(xch, domid, 1, &info) != 1 )
++    {
++        PERROR("Could not get domain info");
++        return -1;
++    }
++
++    if ( xc_domain_get_guest_width(xch, domid, &minfo->guest_width) )
++    {
++        PERROR("Could not get domain address size");
++        return -1;
++    }
++    _di.guest_width = minfo->guest_width;
++
++    /* Get page table levels (see get_platform_info() in xg_save_restore.h */
++    if ( xc_version(xch, XENVER_capabilities, &xen_caps) )
++    {
++        PERROR("Could not get Xen capabilities (for page table levels)");
++        return -1;
++    }
++    if ( strstr(xen_caps, "xen-3.0-x86_64") )
++        /* Depends on whether it's a compat 32-on-64 guest */
++        minfo->pt_levels = ( (minfo->guest_width == 8) ? 4 : 3 );
++    else if ( strstr(xen_caps, "xen-3.0-x86_32p") )
++        minfo->pt_levels = 3;
++    else if ( strstr(xen_caps, "xen-3.0-x86_32") )
++        minfo->pt_levels = 2;
++    else
++    {
++        errno = EFAULT;
++        return -1;
++    }
++
++    /* We need the shared info page for mapping the P2M */
++    live_shinfo = xc_map_foreign_range(xch, domid, PAGE_SIZE, PROT_READ,
++                                       info.shared_info_frame);
++    if ( !live_shinfo )
++    {
++        PERROR("Could not map the shared info frame (MFN 0x%lx)",
++               info.shared_info_frame);
++        return -1;
++    }
++
++    if ( xc_core_arch_map_p2m_writable(xch, minfo->guest_width, &info,
++                                       live_shinfo, &minfo->p2m_table,
++                                       &minfo->p2m_size) )
++    {
++        PERROR("Could not map the P2M table");
++        munmap(live_shinfo, PAGE_SIZE);
++        return -1;
++    }
++    munmap(live_shinfo, PAGE_SIZE);
++    _di.p2m_size = minfo->p2m_size;
++
++    /* Make space and prepare for getting the PFN types */
++    minfo->pfn_type = calloc(sizeof(*minfo->pfn_type), minfo->p2m_size);
++    if ( !minfo->pfn_type )
++    {
++        PERROR("Could not allocate memory for the PFN types");
++        goto failed;
++    }
++    for ( i = 0; i < minfo->p2m_size; i++ )
++        minfo->pfn_type[i] = xc_pfn_to_mfn(i, minfo->p2m_table,
++                                           minfo->guest_width);
++
++    /* Retrieve PFN types in batches */
++    for ( i = 0; i < minfo->p2m_size ; i+=1024 )
++    {
++        int count = ((minfo->p2m_size - i ) > 1024 ) ?
++                        1024: (minfo->p2m_size - i);
++
++        if ( xc_get_pfn_type_batch(xch, domid, count, minfo->pfn_type + i) )
++        {
++            PERROR("Could not get %d-eth batch of PFN types", (i+1)/1024);
++            goto failed;
++        }
++    }
++
++    return 0;
++
++failed:
++    if ( minfo->pfn_type )
++    {
++        free(minfo->pfn_type);
++        minfo->pfn_type = NULL;
++    }
++    if ( minfo->p2m_table )
++    {
++        munmap(minfo->p2m_table, P2M_FL_ENTRIES * PAGE_SIZE);
++        minfo->p2m_table = NULL;
++    }
++
++    return -1;
++}
 -- 
 2.26.2
 
