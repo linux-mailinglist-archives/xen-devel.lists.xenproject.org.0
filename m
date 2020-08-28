@@ -2,156 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55864255AA9
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 14:54:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2D0E255B29
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 15:24:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBdth-0001Bz-Eq; Fri, 28 Aug 2020 12:54:25 +0000
+	id 1kBeLd-0003pc-VK; Fri, 28 Aug 2020 13:23:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WYUf=CG=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
- id 1kBdtf-0001Bu-3P
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 12:54:23 +0000
-X-Inumbo-ID: a711f4aa-b9ab-46dc-84d4-c985e55f8c28
-Received: from hqnvemgate25.nvidia.com (unknown [216.228.121.64])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBeLd-0003pX-2R
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 13:23:17 +0000
+X-Inumbo-ID: 3e9478aa-5ea0-48c1-902b-fb4e29940f45
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a711f4aa-b9ab-46dc-84d4-c985e55f8c28;
- Fri, 28 Aug 2020 12:54:21 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f48fe4f0000>; Fri, 28 Aug 2020 05:53:35 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 28 Aug 2020 05:54:19 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 28 Aug 2020 05:54:19 -0700
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL105.nvidia.com
- (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 28 Aug
- 2020 12:54:06 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.47) by
- HQMAIL101.nvidia.com (172.20.187.10) with Microsoft SMTP Server
- (TLS) id
- 15.0.1473.3 via Frontend Transport; Fri, 28 Aug 2020 12:54:06 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dIxyLcwohxDqu0MxMWLcbxcZb7VW4eYE2xXcH6s4ni2VIyyKj6TkIH7f2wCcrQoeM3xmFeiZ53WR2pGYgsBJWGzPpZGEvrQBc/iiaEc2pUkWda/lXxUb7Ogp6372ggFoWGp3bdHWZahwdzWSuMSsPY/FCFWw0xLOw5cddZMsiCkyNNLUeAEjfHqY0XMvY+nBwrSLqsqfevfdx+743Y78iaBecHiV4OoFyNEZ6itlgI7EakUVfESnWk9evGcNUkOB1qclzdRTlTyXif6uN5tH16nqomuWrgUdG7IUgngdR1OVGh8702pCSWI0KNNraEZ6ze3z35hkPiX8Ueitwy6YcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qV68vSrNC9se5jzAxDi47xoA7ucOBEGcpYcUqXTypis=;
- b=OI/QeSDEjnfShrAMrIr9+ZIgKToGlF/BMSuyjYpmx/AbVYapqNPQXjR2+QZ6t8bVO9p+LVWHB4x2BpH0kyvg6wdLCm5B2/7T0w5m7tr4lnbUPC9H7MbB8GuMuQKGi3D+vBRpINXxMcWU53LpDMGzT2BXDZpz3i/fka/df/ZbmD0fhiz1Ry1PUDQZEZ7lYb1L0xXEA7mZ9B4SbDi3tJS9pmdN/G5UPs7uMzTQgmatJWDmjXKPxjzZY+3gMYUQVutdA88RhlNaPCCyf53CfEHWWbUcXMMGW7rNIolsoJORrCfKKV5HI/8nqxwfVONGpTq/8SsMB3bhonazHaNzPXScsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR1201MB0203.namprd12.prod.outlook.com (2603:10b6:4:56::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19; Fri, 28 Aug
- 2020 12:54:05 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::2d79:7f96:6406:6c76]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::2d79:7f96:6406:6c76%3]) with mapi id 15.20.3305.032; Fri, 28 Aug 2020
- 12:54:05 +0000
-Date: Fri, 28 Aug 2020 09:54:03 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Marc Zyngier <maz@kernel.org>
-CC: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Bjorn Helgaas
- <helgaas@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, LKML
- <linux-kernel@vger.kernel.org>, <x86@kernel.org>, Joerg Roedel
- <joro@8bytes.org>, <iommu@lists.linux-foundation.org>,
- <linux-hyperv@vger.kernel.org>, Haiyang Zhang <haiyangz@microsoft.com>, "Jon
- Derrick" <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- "Stephen Hemminger" <sthemmin@microsoft.com>, Steve Wahl
- <steve.wahl@hpe.com>, "Dimitri Sivanich" <sivanich@hpe.com>, Russ Anderson
- <rja@hpe.com>, <linux-pci@vger.kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, "Konrad Rzeszutek Wilk" <konrad.wilk@oracle.com>,
- <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
- Dave Jiang <dave.jiang@intel.com>, Alex Williamson
- <alex.williamson@redhat.com>, "Jacob Pan" <jacob.jun.pan@intel.com>, Baolu Lu
- <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
- <dan.j.williams@intel.com>, Rob Herring <robh@kernel.org>
-Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
- selectable
-Message-ID: <20200828125403.GR1152540@nvidia.com>
-References: <20200826112333.992429909@linutronix.de>
- <20200827182040.GA2049623@bjorn-Precision-5520>
- <20200828112142.GA14208@e121166-lin.cambridge.arm.com>
- <20200828121944.GQ1152540@nvidia.com>
- <0cc8bfd9258dfc507585fd0f19a945e3@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0cc8bfd9258dfc507585fd0f19a945e3@kernel.org>
-X-ClientProxiedBy: MN2PR19CA0057.namprd19.prod.outlook.com
- (2603:10b6:208:19b::34) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+ id 3e9478aa-5ea0-48c1-902b-fb4e29940f45;
+ Fri, 28 Aug 2020 13:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=gxoXyy26QvhCLlyBEEsyMdvNQ1g1WynGM+qowRE8xOQ=; b=Ft5Oh2gDCU74PKefMas69WOEgK
+ MwPkXJ0tnKC2o/o7k8rQc1DrUolMqdFzjjD/B6rkapIhk96U6fysa6yjfgIIm7a5XoNogfoV7MFk3
+ palNh7hXtGYEiwi8hetIgUwcCeWmX1q3Oi8Wp8nFGuAbjvIpVTH5lr8H+bGh3h5dEWnc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBeLR-0003LU-Re; Fri, 28 Aug 2020 13:23:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBeLR-0003Ce-LA; Fri, 28 Aug 2020 13:23:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBeLR-0000cK-Kh; Fri, 28 Aug 2020 13:23:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152986-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from 255.255.255.255 (255.255.255.255) by
- MN2PR19CA0057.namprd19.prod.outlook.com (2603:10b6:208:19b::34) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
- Transport; Fri, 28 Aug 2020 12:54:04 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kBdtL-000S41-Nn; Fri, 28 Aug 2020 09:54:03 -0300
-X-Originating-IP: [156.34.48.30]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d581baf4-370b-4be9-e186-08d84b5171d1
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0203:
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0203C10F9A0026FA765135F7C2520@DM5PR1201MB0203.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 99qg/bsIPqkeKS7ryrP4eqAxd56hw+Ylq/tweF+dab3EBvIkaLviTgN6iglzJ5OsZOKlo/5c9DaBYyV3FconsXmq0HJDTBNVszdqgHaLxrdx80gVV9RaQUC6rOvi8aXBbMUezdePcc2NOvqkjZODagPSVaMzbDVHpMx/AxOa1x6V5Ag9Wq5BpZeH6ZdFZJIWHhsbpyomPgWmdQL63/XWJR8ctcmOzF3cdkdY/Mn2uNTauTK45CE3QKDZ63adUKXhMAmpdhlCuia5v1F3OX6StyQcqf0ismuqOg40S48W5nzx9AKkZWmNCMg3bLb4TOlgo4y8r3vlH6K/5T4QIA8kQg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3834.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(396003)(366004)(136003)(346002)(8676002)(66556008)(66476007)(426003)(186003)(478600001)(6916009)(7416002)(5660300002)(7406005)(9786002)(36756003)(9746002)(316002)(26005)(2616005)(4744005)(1076003)(86362001)(54906003)(66946007)(2906002)(8936002)(33656002)(4326008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: VsJyEC5KTaLbmpkQg6kW5X/Yid3P8Z9gSpq5BWGR/iGVLiAUD8Vso0j+6CPHoi2G+j3rV0OaO+vnv4E4AAijDXuONSZMdFkOtWoZfOEzKZwhHmetBaxh3WKUNSIfBUSEJaazsWLGXbdwqwGZP+kxwUbGsLKR025LJi4hOCRHS0hXcIFuDGhClMxryTChldEQ6WPzyt91cFKwXvS51dEvGUGpSBo/8rgyyrItvlFyWuHtwenaAQDhetEltotg2/gZtR9D+IX6SAR50x4iZGI5vwCMqRNsAtAD2rDAKIwoxYA3I2SoEp5cLF0UCsEu5TJn6ET4NEkwT/PH9b7oXYcEqna+76UbmYuu2ninY0zrv62dyWldESfiYmf9MPu5+DuFGxvlTs7sUFR4s1HHDzDJ+dpfJc4fdLbexNihzZE13gEq8f9bIkHG85ovNxfNluwc4N3YRYW5WBcyWjQ7nKNK8mvEgiD8IsZ/eIDwFQPWYpffAOLo0Ui3KBs1JavnmhK1zB1GZAIFci56uDtWFj4HYomHjatYnsFFV6dKSeo4qJVlgD8hilOjSnEJowdgxw/Y/a4rjkbC91lb7M+JTFVMgBXVoozZkJDXLhAwP+8exjh0kgQ3wKJsa2nZL5dyuKgBnQ3Vhcrck7Z94OaSF9FJ1Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d581baf4-370b-4be9-e186-08d84b5171d1
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3834.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2020 12:54:04.8508 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HnNGus0RZDrUE5Se7xNKVvFs7SideYLF5oKLxSj7NaTAVEaFKVdLLcsoZRrqebIj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0203
-X-OriginatorOrg: Nvidia.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1598619215; bh=qV68vSrNC9se5jzAxDi47xoA7ucOBEGcpYcUqXTypis=;
- h=X-PGP-Universal:ARC-Seal:ARC-Message-Signature:
- ARC-Authentication-Results:Authentication-Results:Date:From:To:CC:
- Subject:Message-ID:References:Content-Type:Content-Disposition:
- In-Reply-To:X-ClientProxiedBy:MIME-Version:
- X-MS-Exchange-MessageSentRepresentingType:X-Originating-IP:
- X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id:
- X-MS-TrafficTypeDiagnostic:X-LD-Processed:
- X-Microsoft-Antispam-PRVS:X-MS-Oob-TLC-OOBClassifiers:
- X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
- X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
- X-MS-Exchange-AntiSpam-MessageData:
- X-MS-Exchange-CrossTenant-Network-Message-Id:
- X-MS-Exchange-CrossTenant-AuthSource:
- X-MS-Exchange-CrossTenant-AuthAs:
- X-MS-Exchange-CrossTenant-OriginalArrivalTime:
- X-MS-Exchange-CrossTenant-FromEntityHeader:
- X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
- X-MS-Exchange-CrossTenant-UserPrincipalName:
- X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
- b=H3QonVVqVNaGYeE6xB/Wi1aG2QYbpmwGQd11p/xq8ciXwvdVmAQ85KXYflMU90x2Y
- uyXEIPduLJj6Sn80HH0S31oPsjAHLoNvpcI5jFUteresOmLY2GqTZHHGZEqfmGorOG
- j7odn6teWF4uj1bTGdQblWF60gBfmSrdAASdgs15hS76HaPOpCRr5ABFYPYmJR9Eu9
- x/rahSsbA4iIOfsN3gdaaFxRPNwxt3ABWvAMyNIv3gaB/SnqUNiaZEiGorgqT2cG2/
- LDL75Y767C0MJW+Fe8JriW5eMmlDKdw2pTz+Gua4UG1jxt7KfkSHNibXNa/7VCPUyz
- xJDY5yrlyCg/Q==
+Subject: [ovmf test] 152986: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Aug 2020 13:23:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,18 +69,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Aug 28, 2020 at 01:47:59PM +0100, Marc Zyngier wrote:
+flight 152986 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152986/
 
-> > So the arch_setup_msi_irq/etc is not really an arch hook, but some
-> > infrastructure to support those 4 PCI root port drivers.
-> 
-> I happen to have a *really old* patch addressing Tegra [1], which
-> I was never able to test (no HW). Rebasing it shouldn't be too hard,
-> and maybe you can find someone internally willing to give it a spin?
+Regressions :-(
 
-Sure, that helps a bunch, I will ask internally if someone in that BU
-can take a look.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
 
-Thanks,
-Jason
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
+Testing same since   152915  2020-08-27 18:09:42 Z    0 days   22 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
