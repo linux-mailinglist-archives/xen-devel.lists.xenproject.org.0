@@ -2,56 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E54255CDE
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 16:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66566255CEF
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 16:46:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBfax-0002cl-AK; Fri, 28 Aug 2020 14:43:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBfda-0002lA-Tz; Fri, 28 Aug 2020 14:45:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nNC1=CG=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1kBfav-0002cg-HZ
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 14:43:09 +0000
-X-Inumbo-ID: e9fc755e-7835-4378-8096-c2ec00ac4210
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e9fc755e-7835-4378-8096-c2ec00ac4210;
- Fri, 28 Aug 2020 14:43:07 +0000 (UTC)
+ <SRS0=+vO4=CG=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1kBfdY-0002jn-VJ
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 14:45:52 +0000
+X-Inumbo-ID: 96bb9e54-4d0b-4e16-8346-bc5b4ca87d78
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 96bb9e54-4d0b-4e16-8346-bc5b4ca87d78;
+ Fri, 28 Aug 2020 14:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598625788;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=CCLi1KTUQzEF3qpuBt9E0PI+AbeoVpgz3djLWjHxz0E=;
- b=V7h78gMqBK01O3F6yOUAxH4/1ANp1u6dUIZWG+quoC1t30DWUiGTFMFW
- kgdnq42kVdnwXTTymI2Fg9KjVjNhFwHPudWABzGDEZVu2evYZtV1pZAdS
- +alPdXjDpPRelaH2iG2gcX/yDIowufP2q099iB337nVVr5iHcp8QBhVlP A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1598625951;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=YwTkfblPvDJ8J67XR64S6avnrbBRUB23UqDce4cUXgM=;
+ b=BEWRdoHeBMA7jthQxdw2Ga7chZ/7ep4PpsunELrzd8/raeRGJGMB9PdC
+ OFLpyM3Mppgv+AW2NdbU+eIVm+hq1zKDOSxai5Gk28aN066QiS7BpJCh7
+ sQmaKtGL73rV/+1WyG+SczUsWHUIu+F3V3uO7T8Ls0SiaymV8VypKyqlc 0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 7g7xRbChn2+NLijsR3lEDw6iz8QSXtw27oGVVBowrB4Kaz0t0WTlJO84GaYqxhqL42LygsfHmN
- /sXpubPLhbrJSaiJMGxirl1w99Bix4uKtCOz8BoiVJatxuioCINY6kWhBc/8j9OtQ/aBhWBSMD
- 3LeUr+DqUwXDF8qnN+OyVrPXFdP7O3ainBLvgDrsYwC4JmhkOiBK1mCOGfcw57xwt265JNfunF
- 54mku5mBf1LH+K5gDRygPN6GFD628bEBsQBe9cQ8+ef9fvTVzMZ8MehvkK3fXwS4Qa9bJBIVvK
- 8lQ=
+IronPort-SDR: uuyVz0Xmzb4HVBD9gtdnT7ShrN0yWrGoxH/Rs6Pi5KN/RPrnq+eYbifA8jyvOHl2sRW85uMR56
+ PdqXRulsMBKyEVtWvOIkEGQ+5hJIvXRtKF91LdSyeMx7EGfKw9xk+pEoCs1kIcdcZzZEbR9VqT
+ p9D3JlnxgEsyzjAfJtcZAQmIwZUNQoNGyJjCFnvPy6KzAFcy0B79348D+KmIR6n9r12nzYNE6X
+ jL8b3d8m/DQ8ogxzwOnrwqDmbNDL6b+AVPAiWf5B2xYArvbzeSr0ol9HOYwOi+8U7K+b7tQIhW
+ wyM=
 X-SBRS: 2.7
-X-MesageID: 25513471
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 26474038
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,364,1592884800"; d="scan'208";a="25513471"
-From: George Dunlap <george.dunlap@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
- Nick Rosbrook <rosbrookn@ainfosec.com>,
- Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] Revert "libxl: Generate golang bindings in libxl Makefile"
-Date: Fri, 28 Aug 2020 15:42:48 +0100
-Message-ID: <20200828144248.1970259-1-george.dunlap@citrix.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=Sophos;i="5.76,364,1592884800"; d="scan'208";a="26474038"
+Subject: Re: [PATCH] hvmloader: indicate firmware tables as ACPI NVS in e820
+To: Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>, <andrew.cooper3@citrix.com>,
+ <roger.pau@citrix.com>, <wl@xen.org>, <iwj@xenproject.org>
+References: <1598573599-23792-1-git-send-email-igor.druzhinin@citrix.com>
+ <4f3a5ac9-06aa-65f5-b4e0-1d9ab01adb5a@suse.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <2f1f937a-81f2-2aa3-f414-3bf8467715bd@citrix.com>
+Date: Fri, 28 Aug 2020 15:45:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <4f3a5ac9-06aa-65f5-b4e0-1d9ab01adb5a@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,86 +68,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This reverts commit 60db5da62ac051aab0b217fa2d96acca1cd3ca3e.
+On 28/08/2020 08:51, Jan Beulich wrote:
+> On 28.08.2020 02:13, Igor Druzhinin wrote:
+>> Guest kernel does need to know in some cases where the tables are located
+>> to treat these regions properly. One example is kexec process where
+>> the first kernel needs to pass firmware region locations to the second
+>> kernel which is now a requirement after 02a3e3cdb7f12 ("x86/boot: Parse SRAT
+>> table and count immovable memory regions").
+>>
+>> The memory that hvmloader allocates in the reserved region mostly contains
+>> these useful tables and could be safely indicated as ACPI without the need
+>> to designate a sub-region specially for that. Making it non-reclaimable
+>> (ACPI NVS) would avoid potential reuse of this memory by the guest.
+>> Swtiching from Reserved to ACPI NVS type for this memory would also mean
+>> its content is preserved across S4 (which is true for any ACPI type according
+>> to the spec).
+> 
+> Marking the range as ACPI is certainly fine, but why did you choose NVS?
+> There's nothing non-volatile there afaict. And the part of the last
+> sentence in parentheses suggests to me that the "normal" ACPI type is as
+> suitable for the purpose you're after.
 
-This is in preparation for the planned move to hosting the xenlight
-package in a separate repo.
+The problem with normal ACPI type is that according to the spec it's reclaimable
+by the OS:
+"This range is available RAM usable by the OS after it reads the ACPI tables."
+while NVS type is specifically designated as non-reclaimable. The spec is also
+denotes that both normal and NVS types should be preserved across S4 - that sounds
+ambiguous to me. But it might mean that non-NVS preservation is not OS
+responsibility as it's assumed to be static.
 
-This also fixes a regression when building with a read-only source and
-an out-of-tree build.
+Our region also contains VM86 TSS which we certainly need at runtime (although that
+could be allocated from the reserved region above if desirable).
 
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
-This is a candidate to backport for 4.14.
+To stay on the safe side and do not rely on perceived sensible OS behavior NVS type
+was chosen which OS shouldn't touch under any circumstances.
 
-I was doing prep for writing the infrastructure to create or update an
-external repo, and figured I might as well send this out now.
+In fact while writing this response I found that document which confirms some of my
+suspicions:
+http://www.baldwin.cx/~phoenix/reference/docs/acpi_impguide.pdf
 
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Nick Rosbrook <rosbrookn@ainfosec.com>
-CC: Ian Jackson <ian.jackson@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- tools/golang/xenlight/Makefile |  9 ---------
- tools/libxl/Makefile           | 17 +----------------
- 2 files changed, 1 insertion(+), 25 deletions(-)
+>> --- a/tools/firmware/hvmloader/e820.c
+>> +++ b/tools/firmware/hvmloader/e820.c
+>> @@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
+>>  {
+>>      unsigned int nr = 0, i, j;
+>>      uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
+>> +    uint32_t firmware_mem_end =
+>> +        RESERVED_MEMORY_DYNAMIC_START + (mem_mfns_allocated() << PAGE_SHIFT);
+> 
+> Here and elsewhere - please avoid uint32_t and friends when a plain
+> C type (unsigned int or unsigned long in this case) will do.
 
-diff --git a/tools/golang/xenlight/Makefile b/tools/golang/xenlight/Makefile
-index eac9dbf12a..8d4d1e97ac 100644
---- a/tools/golang/xenlight/Makefile
-+++ b/tools/golang/xenlight/Makefile
-@@ -13,15 +13,6 @@ LIBXL_SRC_DIR = ../../libxl
- .PHONY: all
- all: build
- 
--GOXL_GEN_FILES = types.gen.go helpers.gen.go
--
--# NOTE: This target is called from libxl/Makefile:all.  Since that
--# target must finish before golang/Makefile is called, this is
--# currently safe.  It must not be called from anywhere else in the
--# Makefile system without careful thought about races with
--# xenlight/Makefile:all
--idl-gen: $(GOXL_GEN_FILES)
--
- %.gen.go: gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(LIBXL_SRC_DIR)/idl.py
- 	XEN_ROOT=$(XEN_ROOT) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl
- 
-diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
-index 0e8dfc6193..c26b3a8093 100644
---- a/tools/libxl/Makefile
-+++ b/tools/libxl/Makefile
-@@ -219,7 +219,7 @@ testidl.c: libxl_types.idl gentest.py libxl.h $(AUTOINCS)
- .PHONY: all
- all: $(CLIENTS) $(TEST_PROGS) $(PKG_CONFIG) $(PKG_CONFIG_LOCAL) \
- 		libxenlight.so libxenlight.a libxlutil.so libxlutil.a \
--	$(AUTOSRCS) $(AUTOINCS) idl-external
-+	$(AUTOSRCS) $(AUTOINCS)
- 
- $(LIBXL_OBJS) $(LIBXLU_OBJS) $(SAVE_HELPER_OBJS) \
- 		$(LIBXL_TEST_OBJS) $(TEST_PROG_OBJS): \
-@@ -275,21 +275,6 @@ _libxl_type%.h _libxl_type%_json.h _libxl_type%_private.h _libxl_type%.c: libxl_
- 	$(call move-if-changed,__libxl_type$(stem)_json.h,_libxl_type$(stem)_json.h)
- 	$(call move-if-changed,__libxl_type$(stem).c,_libxl_type$(stem).c)
- 
--# NOTE: This is safe to do at the moment because idl-external and
--# idl-gen are only called from libxl/Makefile:all, which must return
--# before golang/Makefile is callid.  idl-external and idl-gen must
--# never be called from another part of the make system without careful thought
--# about races with tools/golang/xenlight/Makefile:all
--.PHONY: idl-external
--idl-external:
--	$(MAKE) -C $(XEN_ROOT)/tools/golang/xenlight idl-gen
--
--LIBXL_IDLGEN_FILES = _libxl_types.h _libxl_types_json.h _libxl_types_private.h _libxl_types.c \
--	_libxl_types_internal.h _libxl_types_internal_json.h _libxl_types_internal_private.h _libxl_types_internal.c
--
--
--idl-gen: $(LIBXL_GEN_FILES) idl-external
--
- libxenlight.so: libxenlight.so.$(MAJOR)
- 	$(SYMLINK_SHLIB) $< $@
- 
--- 
-2.25.1
+Ok, should I also take a chance and convert some of the surroundings?
 
+>> @@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
+>>      {
+>>          uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
+>>  
+>> -        e820[nr].addr = RESERVED_MEMBASE;
+>> -        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
+>> +        e820[nr].addr = firmware_mem_end;
+>> +        e820[nr].size = (uint32_t) igd_opregion_base - firmware_mem_end;
+> 
+> Any chance I could talk you into also dropping the pointless cast
+> at this occasion?
+
+Sure.
+
+Igor
 
