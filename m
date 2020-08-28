@@ -2,43 +2,171 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9CEA2559A5
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 13:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02862559BE
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 14:01:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBcvA-0003i7-68; Fri, 28 Aug 2020 11:51:52 +0000
+	id 1kBd3l-0004hV-IH; Fri, 28 Aug 2020 12:00:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s0Rc=CG=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kBcv8-0003i2-Op
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 11:51:50 +0000
-X-Inumbo-ID: d327cf84-41e3-4619-8d08-5bdaf7efa522
-Received: from mail2.protonmail.ch (unknown [185.70.40.22])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBd3k-0004h0-Aj
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 12:00:44 +0000
+X-Inumbo-ID: 2e560d7f-b7cb-49d8-8ba2-5f2daa1c8bd9
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d327cf84-41e3-4619-8d08-5bdaf7efa522;
- Fri, 28 Aug 2020 11:51:48 +0000 (UTC)
-Date: Fri, 28 Aug 2020 11:51:35 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1598615506;
- bh=ZYRDc2YIZtqA+v0eVUOnKud4t3mcKoXSfu/G3rcIvLo=;
- h=Date:To:From:Reply-To:Subject:From;
- b=C09Cz1kk01uUV/KBClUvM7zDgr0ovd81ntLVkbQZIwzF76X2QL96VGCzlNIRNOZ4G
- 3tPt8Z/7w9PaavPWioi9B917I2T3APxlZx2L8Aw/SLWMiG9UTNbiJn0enJULDb9zKO
- tvTBaIn6cqLOai03EdsMejpyVGfNB/g0WgTaLisc=
-To: Xen-devel <xen-devel@lists.xenproject.org>
-From: Trammell Hudson <hudson@trmm.net>
-Subject: [PATCH] EFI: Enable booting unified hypervisor/kernel/initrd images
-Message-ID: <EGZ7EZE5F-c5YJVD9p0TtccTz06ZsdMcL21-BcB64dk9V3x8eKrB3dSDsLbGL4peCaENcp55uRsnWUONZYvrRaQh0tToALcaHRr-QMYNsH0=@trmm.net>
+ id 2e560d7f-b7cb-49d8-8ba2-5f2daa1c8bd9;
+ Fri, 28 Aug 2020 12:00:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=vq3MuaXph+8XL7a3w/NqGCaT9wIZlDbZ1O4LQMaggAU=; b=HQlK7Cey88Gr3I969g+iMM2Uy9
+ yCuUfR1VPRKKuphpyXDBdT9g54i8izVP8WPaQGRC5slWe0A1stfxdxh/5xwHMAmwal0A2MZ/wmzDZ
+ FaSf1B1AYKU1C8vb7FIHucmUcFU/EtCU/4lDA/vm23E/V9zWupTKJKXqdGDg/+Cv1aT0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBd3b-0001cV-Td; Fri, 28 Aug 2020 12:00:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBd3b-00018Z-LL; Fri, 28 Aug 2020 12:00:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBd3b-0003Yz-Kt; Fri, 28 Aug 2020 12:00:35 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152958-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
- mailout.protonmail.ch
+Subject: [xen-unstable test] 152958: regressions - FAIL
+X-Osstest-Failures: xen-unstable:build-i386-xsm:xen-build:fail:regression
+ xen-unstable:build-i386:xen-build:fail:regression
+ xen-unstable:build-amd64:xen-build:fail:regression
+ xen-unstable:build-amd64-xsm:xen-build:fail:regression
+ xen-unstable:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+ xen-unstable:build-i386-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-livepatch:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-migrupgrade:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-examine:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-livepatch:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-migrupgrade:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-1:build-check(1):blocked:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-2:build-check(1):blocked:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-3:build-check(1):blocked:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-4:build-check(1):blocked:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-5:build-check(1):blocked:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:xen-boot:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+X-Osstest-Versions-That: xen=7a8d8bde9820387c3e168182b99fd9761c223fff
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Aug 2020 12:00:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,591 +177,296 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Trammell Hudson <hudson@trmm.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
-configuration file, the Linux kernel and initrd, as well as the XSM, and
-CPU microcode into a single "unified" EFI executable.  The resulting EFI
-executable can be invoked directly from the UEFI Boot Manager, removing
-the need to use a separate loader like grub as well as removing
-dependencies on local filesystem access.
+flight 152958 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152958/
 
-It is inspired by systemd-boot's unified kernel technique and borrows the
-function to locate PE sections from systemd's LGPL'ed code.  During EFI
-boot, Xen looks at its own loaded image to locate the PE sections for
-the configuration, kernel, etc, which are included after building xen.efi
-using objcopy to add named sections for each input file.  This allows an
-administrator to update the components independently without requiring
-rebuilding xen.
+Regressions :-(
 
-The unified image can also be signed by sbsigntool for verification
-by UEFI Secure Boot.  If secure boot is enabled, the Xen command line
-arguments are ignored.  Unlike the shim based verification, the signature
-covers the entire Xen+config+kernel+initrd unified file. This also ensures
-that properly configured platforms will measure the entire runtime into
-the TPM for unsealing secrets or remote attestation.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152877
+ build-i386                    6 xen-build                fail REGR. vs. 152877
+ build-amd64                   6 xen-build                fail REGR. vs. 152877
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152877
 
-Signed-off-by: Trammell Hudson <hudson@trmm.net>
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-amd64-pvgrub  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-examine      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-i386-pvgrub  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-livepatch    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-migrupgrade  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-i386-examine       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-livepatch     1 build-check(1)               blocked  n/a
+ test-amd64-i386-migrupgrade   1 build-check(1)               blocked  n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-xtf-amd64-amd64-1        1 build-check(1)               blocked  n/a
+ test-xtf-amd64-amd64-2        1 build-check(1)               blocked  n/a
+ test-xtf-amd64-amd64-3        1 build-check(1)               blocked  n/a
+ test-xtf-amd64-amd64-4        1 build-check(1)               blocked  n/a
+ test-xtf-amd64-amd64-5        1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 152849
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 152877
+ test-arm64-arm64-xl-seattle   7 xen-boot                     fail  like 152877
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 152877
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
 
-diff --git a/xen/Makefile b/xen/Makefile
-index a87bb225dc..e4e4c6d5c1 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -355,7 +355,7 @@ $(TARGET): delete-unfresh-files
- =09$(MAKE) -C tools
- =09$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/compile.h
- =09[ -e include/asm ] || ln -sf asm-$(TARGET_ARCH) include/asm
--=09[ -e arch/$(TARGET_ARCH)/efi ] && for f in boot.c runtime.c compat.c ef=
-i.h;\
-+=09[ -e arch/$(TARGET_ARCH)/efi ] && for f in boot.c pe.c runtime.c compat=
-.c efi.h;\
- =09=09do test -r arch/$(TARGET_ARCH)/efi/$$f || \
- =09=09   ln -nsf ../../../common/efi/$$f arch/$(TARGET_ARCH)/efi/; \
- =09=09done; \
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 6527cb0bdf..483dec465d 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -395,7 +395,7 @@ static void __init efi_arch_cfg_file_early(EFI_FILE_HAN=
-DLE dir_handle, char *sec
-         blexit(L"Unable to create new FDT");
- }
+version targeted for testing:
+ xen                  484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+baseline version:
+ xen                  7a8d8bde9820387c3e168182b99fd9761c223fff
 
--static void __init efi_arch_cfg_file_late(EFI_FILE_HANDLE dir_handle, char=
- *section)
-+static void __init efi_arch_cfg_file_late(EFI_LOADED_IMAGE * image, EFI_FI=
-LE_HANDLE dir_handle, char *section)
- {
- }
+Last test of basis   152877  2020-08-27 01:51:40 Z    1 days
+Failing since        152896  2020-08-27 13:07:51 Z    0 days    4 attempts
+Testing same since   152917  2020-08-27 18:36:25 Z    0 days    3 attempts
 
-diff --git a/xen/arch/x86/efi/Makefile b/xen/arch/x86/efi/Makefile
-index 4b2b010a80..ae666aa14c 100644
---- a/xen/arch/x86/efi/Makefile
-+++ b/xen/arch/x86/efi/Makefile
-@@ -8,7 +8,7 @@ cmd_objcopy_o_ihex =3D $(OBJCOPY) -I ihex -O binary $< $@
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
- boot.init.o: buildid.o
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           blocked 
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       blocked 
+ test-xtf-amd64-amd64-2                                       blocked 
+ test-xtf-amd64-amd64-3                                       blocked 
+ test-xtf-amd64-amd64-4                                       blocked 
+ test-xtf-amd64-amd64-5                                       blocked 
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemut-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-amd64-examine                                     blocked 
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-livepatch                                   blocked 
+ test-amd64-i386-livepatch                                    blocked 
+ test-amd64-amd64-migrupgrade                                 blocked 
+ test-amd64-i386-migrupgrade                                  blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-amd64-pvgrub                                blocked 
+ test-amd64-amd64-i386-pvgrub                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
 
--EFIOBJ :=3D boot.init.o compat.o runtime.o
-+EFIOBJ :=3D boot.init.o pe.init.o compat.o runtime.o
 
- $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=
-=3D4)
- $(EFIOBJ): CFLAGS-stack-boundary :=3D $(cflags-stack-boundary)
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 7188c9a551..e2650c0440 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -276,9 +276,11 @@ static void __init efi_arch_cfg_file_early(EFI_FILE_HA=
-NDLE dir_handle, char *sec
- {
- }
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--static void __init efi_arch_cfg_file_late(EFI_FILE_HANDLE dir_handle, char=
- *section)
-+static void __init efi_arch_cfg_file_late(EFI_LOADED_IMAGE * image, EFI_FI=
-LE_HANDLE dir_handle, char *section)
- {
-     union string name;
-+    if ( read_section(image, ".ucode", &ucode, NULL) )
-+        return;
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-     name.s =3D get_value(&cfg, section, "ucode");
-     if ( !name.s )
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 0273f79152..ba691b1890 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -156,6 +156,7 @@ SECTIONS
-        __note_gnu_build_id_end =3D .;
-   } :note :text
- #elif defined(BUILD_ID_EFI)
-+  . =3D ALIGN(32); /* workaround binutils section overlap bug */
-   DECL_SECTION(.buildid) {
-        __note_gnu_build_id_start =3D .;
-        *(.buildid)
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 5a520bf21d..258433331f 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -102,6 +102,7 @@ union string {
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
- struct file {
-     UINTN size;
-+    bool need_to_free;
-     union {
-         EFI_PHYSICAL_ADDRESS addr;
-         void *ptr;
-@@ -121,6 +122,8 @@ static CHAR16 *s2w(union string *str);
- static char *w2s(const union string *str);
- static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-                       struct file *file, char *options);
-+static bool read_section(EFI_LOADED_IMAGE * image,
-+        char * name, struct file *file, char *options);
- static size_t wstrlen(const CHAR16 * s);
- static int set_color(u32 mask, int bpp, u8 *pos, u8 *sz);
- static bool match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2);
-@@ -330,13 +333,13 @@ static void __init noreturn blexit(const CHAR16 *str)
-     if ( !efi_bs )
-         efi_arch_halt();
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--    if ( cfg.addr )
-+    if ( cfg.addr && cfg.need_to_free)
-         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
--    if ( kernel.addr )
-+    if ( kernel.addr && kernel.need_to_free)
-         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
--    if ( ramdisk.addr )
-+    if ( ramdisk.addr && ramdisk.need_to_free)
-         efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
--    if ( xsm.addr )
-+    if ( xsm.addr && xsm.need_to_free)
-         efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
 
-     efi_arch_blexit();
-@@ -589,6 +592,21 @@ static char * __init split_string(char *s)
-     return NULL;
- }
+Not pushing.
 
-+static void __init display_file_info(CHAR16 * name, struct file * file, ch=
-ar * options)
-+{
-+    if ( file =3D=3D &cfg )
-+        return;
-+
-+    PrintStr(name);
-+    PrintStr(L": ");
-+    DisplayUint(file->addr, 2 * sizeof(file->addr));
-+    PrintStr(L"-");
-+    DisplayUint(file->addr + file->size, 2 * sizeof(file->addr));
-+    PrintStr(newline);
-+
-+    efi_arch_handle_module(file, name, options);
-+}
-+
- static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-                              struct file *file, char *options)
- {
-@@ -619,6 +637,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
-, CHAR16 *name,
-         what =3D what ?: L"Seek";
-     else
-     {
-+        file->need_to_free =3D true;
-         file->addr =3D min(1UL << (32 + PAGE_SHIFT),
-                          HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
-         ret =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
-@@ -632,16 +651,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
-e, CHAR16 *name,
-     else
-     {
-         file->size =3D size;
--        if ( file !=3D &cfg )
--        {
--            PrintStr(name);
--            PrintStr(L": ");
--            DisplayUint(file->addr, 2 * sizeof(file->addr));
--            PrintStr(L"-");
--            DisplayUint(file->addr + size, 2 * sizeof(file->addr));
--            PrintStr(newline);
--            efi_arch_handle_module(file, name, options);
--        }
-+        display_file_info(name, file, options);
-
-         ret =3D FileHandle->Read(FileHandle, &file->size, file->ptr);
-         if ( !EFI_ERROR(ret) && file->size !=3D size )
-@@ -665,6 +675,25 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
-e, CHAR16 *name,
-     return true;
- }
-
-+static bool __init read_section(EFI_LOADED_IMAGE * image,
-+                                char * const name, struct file *file, char=
- *options)
-+{
-+    /* skip the leading "." in the section name */
-+    union string name_string =3D { .s =3D name + 1 };
-+
-+    file->ptr =3D (void*) pe_find_section(image->ImageBase, image->ImageSi=
-ze, name, &file->size);
-+    if ( !file->ptr )
-+        return false;
-+
-+    file->need_to_free =3D false;
-+
-+    s2w(&name_string);
-+    display_file_info(name_string.w, file, options);
-+    efi_bs->FreePool(name_string.w);
-+
-+    return true;
-+}
-+
- static void __init pre_parse(const struct file *cfg)
- {
-     char *ptr =3D cfg->ptr, *end =3D ptr + cfg->size;
-@@ -968,6 +997,26 @@ static void __init setup_efi_pci(void)
-     efi_bs->FreePool(handles);
- }
-
-+/*
-+ * Logic should remain sync'ed with linux/arch/x86/xen/efi.c
-+ * Secure Boot is enabled iff 'SecureBoot' is set and the system is
-+ * not in Setup Mode.
-+ */
-+static bool __init efi_secure_boot(void)
-+{
-+    static const __initconst EFI_GUID global_guid =3D EFI_GLOBAL_VARIABLE;
-+    uint8_t secboot, setupmode;
-+    UINTN secboot_size =3D sizeof(secboot);
-+    UINTN setupmode_size =3D sizeof(setupmode);
-+
-+    if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, NULL=
-, &secboot_size, &secboot) !=3D EFI_SUCCESS )
-+        return false;
-+    if ( efi_rs->GetVariable(L"SetupMode", (EFI_GUID *)&global_guid, NULL,=
- &setupmode_size, &setupmode) !=3D EFI_SUCCESS )
-+        return false;
-+
-+    return secboot =3D=3D 1 && setupmode =3D=3D 0;
-+}
-+
- static void __init efi_variables(void)
- {
-     EFI_STATUS status;
-@@ -1144,8 +1193,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-     static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
--    unsigned int i, argc;
--    CHAR16 **argv, *file_name, *cfg_file_name =3D NULL, *options =3D NULL;
-+    unsigned int i, argc =3D 0;
-+    CHAR16 **argv =3D NULL, *file_name, *cfg_file_name =3D NULL, *options =
-=3D NULL;
-     UINTN gop_mode =3D ~0;
-     EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop =3D NULL;
-@@ -1153,6 +1202,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-     bool base_video =3D false;
-     char *option_str;
-     bool use_cfg_file;
-+    bool secure =3D false;
-
-     __set_bit(EFI_BOOT, &efi_flags);
-     __set_bit(EFI_LOADER, &efi_flags);
-@@ -1171,8 +1221,10 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
-SystemTable)
-         PrintErrMesg(L"No Loaded Image Protocol", status);
-
-     efi_arch_load_addr_check(loaded_image);
-+    secure =3D efi_secure_boot();
-
--    if ( use_cfg_file )
-+    /* If UEFI Secure Boot is enabled, do not parse the command line */
-+    if ( use_cfg_file && !secure )
-     {
-         UINTN offset =3D 0;
-
-@@ -1230,6 +1282,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-
-     PrintStr(L"Xen " __stringify(XEN_VERSION) "." __stringify(XEN_SUBVERSI=
-ON)
-              XEN_EXTRAVERSION " (c/s " XEN_CHANGESET ") EFI loader\r\n");
-+    if ( secure )
-+=09PrintStr(L"UEFI Secure Boot enabled\r\n");
-
-     efi_arch_relocate_image(0);
-
-@@ -1249,9 +1303,13 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
-SystemTable)
-         /* Get the file system interface. */
-         dir_handle =3D get_parent_handle(loaded_image, &file_name);
-
--        /* Read and parse the config file. */
--        if ( !cfg_file_name )
-+        if ( read_section(loaded_image, ".config", &cfg, NULL) )
-         {
-+            PrintStr(L"Using unified config file\r\n");
-+        }
-+        else if ( !cfg_file_name )
-+        {
-+            /* Read and parse the config file. */
-             CHAR16 *tail;
-
-             while ( (tail =3D point_tail(file_name)) !=3D NULL )
-@@ -1303,26 +1361,36 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE =
-*SystemTable)
-         efi_arch_cfg_file_early(dir_handle, section.s);
-
-         option_str =3D split_string(name.s);
--        read_file(dir_handle, s2w(&name), &kernel, option_str);
--        efi_bs->FreePool(name.w);
--
--        if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                        (void **)&shim_lock)) &&
--             (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D =
-EFI_SUCCESS )
--            PrintErrMesg(L"Dom0 kernel image could not be verified", statu=
-s);
-
--        name.s =3D get_value(&cfg, section.s, "ramdisk");
--        if ( name.s )
-+        if ( !read_section(loaded_image, ".kernel", &kernel, option_str) )
-         {
--            read_file(dir_handle, s2w(&name), &ramdisk, NULL);
-+            read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
-+
-+            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                            (void **)&shim_lock)) &&
-+                 (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=
-=3D EFI_SUCCESS )
-+                PrintErrMesg(L"Dom0 kernel image could not be verified", s=
-tatus);
-         }
-
--        name.s =3D get_value(&cfg, section.s, "xsm");
--        if ( name.s )
-+        if ( !read_section(loaded_image, ".ramdisk", &ramdisk, NULL) )
-         {
--            read_file(dir_handle, s2w(&name), &xsm, NULL);
--            efi_bs->FreePool(name.w);
-+            name.s =3D get_value(&cfg, section.s, "ramdisk");
-+            if ( name.s )
-+            {
-+                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
-+                efi_bs->FreePool(name.w);
-+            }
-+        }
-+
-+        if ( !read_section(loaded_image, ".xsm", &xsm, NULL) )
-+        {
-+            name.s =3D get_value(&cfg, section.s, "xsm");
-+            if ( name.s )
-+            {
-+                read_file(dir_handle, s2w(&name), &xsm, NULL);
-+                efi_bs->FreePool(name.w);
-+            }
-         }
-
-         /*
-@@ -1358,7 +1426,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-             }
-         }
-
--        efi_arch_cfg_file_late(dir_handle, section.s);
-+        efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
-
-         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
-         cfg.addr =3D 0;
-diff --git a/xen/common/efi/efi.h b/xen/common/efi/efi.h
-index 2e38d05f3d..d3018f81a1 100644
---- a/xen/common/efi/efi.h
-+++ b/xen/common/efi/efi.h
-@@ -41,3 +41,6 @@ extern UINT64 efi_apple_properties_addr;
- extern UINTN efi_apple_properties_len;
-
- const CHAR16 *wmemchr(const CHAR16 *s, CHAR16 c, UINTN n);
-+
-+const void * pe_find_section(const UINT8 * image_base, const size_t image_=
-size,
-+        const char * section_name, UINTN * size_out);
-diff --git a/xen/common/efi/pe.c b/xen/common/efi/pe.c
-new file mode 100644
-index 0000000000..3440d82598
---- /dev/null
-+++ b/xen/common/efi/pe.c
-@@ -0,0 +1,181 @@
-+/*
-+ * xen/common/efi/pe.c
-+ *
-+ * PE executable header parser.
-+ *
-+ * Derived from https://github.com/systemd/systemd/blob/master/src/boot/ef=
-i/pe.c
-+ *
-+ * Copyright (C) 2015 Kay Sievers <kay@vrfy.org>
-+ * Copyright (C) 2020 Trammell Hudson <hudson@trmm.net>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU Lesser General Public License as published b=
-y
-+ * the Free Software Foundation; either version 2.1 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful, but
-+ * WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-+ * Lesser General Public License for more details.
-+ */
-+
-+/*
-+ * The "Unified" kernel image can be generated by adding additional
-+ * sections to the Xen EFI executable with objcopy, similar to how
-+ * systemd-boot uses the stub to add them to the Linux kernel:
-+ *
-+ * https://wiki.archlinux.org/index.php/systemd-boot#Preparing_a_unified_k=
-ernel_image
-+ *
-+ * The sections for the xen configuration file, the dom0 kernel, dom0 init=
-rd,
-+ * XSM and CPU microcode should be added after the Xen `.pad` section, the
-+ * ending address of which can be located with:
-+ *
-+ *=09objdump -h xen.efi \
-+ *=09| perl -ane '/\.pad/ && printf "0x%016x\n", hex($F[2]) + hex($F[3])'
-+ *
-+ * All the additional sections are optional and the order does not
-+ * matter.  The addresses do not need to be contiguous, although
-+ * they should not be overlapping.
-+ *
-+ * objcopy \
-+ *=09--add-section .config=3Dxen.cfg \
-+ *=09--change-section-vma .config=3D0xffff82d041000000
-+ *=09--add-section .ucode=3Ducode.bin \
-+ *=09--change-section-vma .ucode=3D0xffff82d041010000 \
-+ *=09--add-section .xsm=3Dxsm.cfg \
-+ *=09--change-section-vma .xsm=3D0xffff82d041080000 \
-+ *=09--add-section .kernel=3Dvmlinux \
-+ *=09--change-section-vma .kernel=3D0xffff82d041100000 \
-+ *=09--add-section .ramdisk=3Dinitrd.img \
-+ *=09--change-section-vma .initrd=3D0xffff82d042000000 \
-+ *=09xen.efi \
-+ *=09xen.unified.efi
-+ *
-+ * The unified executable can be signed with sbsigntool to make
-+ * it usable with UEFI secure boot:
-+ *
-+ * sbsign \
-+ *=09--key signing.key \
-+ *=09--cert cert.pem \
-+ *=09--output xen.signed.efi \
-+ *=09xen.unified.efi
-+ */
-+
-+#include "efi.h"
-+
-+struct DosFileHeader {
-+    UINT8   Magic[2];
-+    UINT16  LastSize;
-+    UINT16  nBlocks;
-+    UINT16  nReloc;
-+    UINT16  HdrSize;
-+    UINT16  MinAlloc;
-+    UINT16  MaxAlloc;
-+    UINT16  ss;
-+    UINT16  sp;
-+    UINT16  Checksum;
-+    UINT16  ip;
-+    UINT16  cs;
-+    UINT16  RelocPos;
-+    UINT16  nOverlay;
-+    UINT16  reserved[4];
-+    UINT16  OEMId;
-+    UINT16  OEMInfo;
-+    UINT16  reserved2[10];
-+    UINT32  ExeHeader;
-+} __attribute__((packed));
-+
-+#define PE_HEADER_MACHINE_ARM64         0xaa64
-+#define PE_HEADER_MACHINE_X64           0x8664
-+#define PE_HEADER_MACHINE_I386          0x014c
-+
-+struct PeFileHeader {
-+    UINT16  Machine;
-+    UINT16  NumberOfSections;
-+    UINT32  TimeDateStamp;
-+    UINT32  PointerToSymbolTable;
-+    UINT32  NumberOfSymbols;
-+    UINT16  SizeOfOptionalHeader;
-+    UINT16  Characteristics;
-+} __attribute__((packed));
-+
-+struct PeHeader {
-+    UINT8   Magic[4];
-+    struct PeFileHeader FileHeader;
-+} __attribute__((packed));
-+
-+struct PeSectionHeader {
-+    UINT8   Name[8];
-+    UINT32  VirtualSize;
-+    UINT32  VirtualAddress;
-+    UINT32  SizeOfRawData;
-+    UINT32  PointerToRawData;
-+    UINT32  PointerToRelocations;
-+    UINT32  PointerToLinenumbers;
-+    UINT16  NumberOfRelocations;
-+    UINT16  NumberOfLinenumbers;
-+    UINT32  Characteristics;
-+} __attribute__((packed));
-+
-+const void * __init pe_find_section(const CHAR8 * image, const UINTN image=
-_size,
-+                              const char * section_name, UINTN * size_out)
-+{
-+    const struct DosFileHeader * dos =3D (const void*) image;
-+    const struct PeHeader * pe;
-+    const struct PeSectionHeader * sect;
-+    const UINTN name_len =3D strlen(section_name);
-+    UINTN offset =3D 0;
-+
-+    if ( name_len > sizeof(sect->Name) )
-+        return NULL;
-+
-+    if ( image_size < sizeof(*dos) )
-+        return NULL;
-+    if ( memcmp(dos->Magic, "MZ", 2) !=3D 0 )
-+        return NULL;
-+
-+    offset =3D dos->ExeHeader;
-+    pe =3D (const void *) &image[offset];
-+
-+    offset +=3D sizeof(*pe);
-+    if ( image_size < offset)
-+        return NULL;
-+
-+    if ( memcmp(pe->Magic, "PE\0\0", 4) !=3D 0 )
-+        return NULL;
-+
-+    /* PE32+ Subsystem type */
-+#if defined(__ARM__)
-+    if (pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_ARM64)
-+        return NULL;
-+#elif defined(__x86_64__)
-+    if (pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_X64)
-+        return NULL;
-+#else
-+    /* unknown architecture */
-+    return NULL;
-+#endif
-+
-+    offset +=3D pe->FileHeader.SizeOfOptionalHeader;
-+
-+    for (UINTN i =3D 0 ; i < pe->FileHeader.NumberOfSections ; i++)
-+    {
-+        sect =3D (const void *) &image[offset];
-+        if ( image_size < offset + sizeof(*sect) )
-+            return NULL;
-+
-+        if ( memcmp(sect->Name, section_name, name_len) !=3D 0
-+        ||   image_size < sect->VirtualSize + sect->VirtualAddress )
-+        {
-+            offset +=3D sizeof(*sect);
-+            continue;
-+        }
-+
-+        if ( size_out )
-+            *size_out =3D sect->VirtualSize;
-+
-+        return &image[sect->VirtualAddress];
-+    }
-+
-+    return NULL;
-+}
-
+(No revision log; it would be 324 lines long.)
 
