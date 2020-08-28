@@ -2,60 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3271B255C4F
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 16:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E54255CDE
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 16:43:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBfH3-0000q4-9z; Fri, 28 Aug 2020 14:22:37 +0000
+	id 1kBfax-0002cl-AK; Fri, 28 Aug 2020 14:43:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBfH1-0000pc-3x
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 14:22:35 +0000
-X-Inumbo-ID: 3e732933-08b8-402a-a129-32565f2c27d5
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=nNC1=CG=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1kBfav-0002cg-HZ
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 14:43:09 +0000
+X-Inumbo-ID: e9fc755e-7835-4378-8096-c2ec00ac4210
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e732933-08b8-402a-a129-32565f2c27d5;
- Fri, 28 Aug 2020 14:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=X8V/Geo+7cCK+9AvZO1XZYX5kPnHE887E2jyzN75QI4=; b=1NijoXCn1a2wrK/48aaWcdWtQW
- avcGhby2huuxhGfaJazI3jJjtbe9jYyiBgo9jSrG6PcXp/kjZ8mdGnRlK6lC80TE6cq8NOR3V3C8T
- hYraYDfLbiQSDf7K4QbvBkD8xOS0gkCCs6UDj+cmVfagb9mtdRiRJ3wH042LNyytBkYQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBfGt-0004em-SW; Fri, 28 Aug 2020 14:22:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBfGt-0004h0-Kd; Fri, 28 Aug 2020 14:22:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBfGt-0007wE-K8; Fri, 28 Aug 2020 14:22:27 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152991-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id e9fc755e-7835-4378-8096-c2ec00ac4210;
+ Fri, 28 Aug 2020 14:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598625788;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=CCLi1KTUQzEF3qpuBt9E0PI+AbeoVpgz3djLWjHxz0E=;
+ b=V7h78gMqBK01O3F6yOUAxH4/1ANp1u6dUIZWG+quoC1t30DWUiGTFMFW
+ kgdnq42kVdnwXTTymI2Fg9KjVjNhFwHPudWABzGDEZVu2evYZtV1pZAdS
+ +alPdXjDpPRelaH2iG2gcX/yDIowufP2q099iB337nVVr5iHcp8QBhVlP A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 7g7xRbChn2+NLijsR3lEDw6iz8QSXtw27oGVVBowrB4Kaz0t0WTlJO84GaYqxhqL42LygsfHmN
+ /sXpubPLhbrJSaiJMGxirl1w99Bix4uKtCOz8BoiVJatxuioCINY6kWhBc/8j9OtQ/aBhWBSMD
+ 3LeUr+DqUwXDF8qnN+OyVrPXFdP7O3ainBLvgDrsYwC4JmhkOiBK1mCOGfcw57xwt265JNfunF
+ 54mku5mBf1LH+K5gDRygPN6GFD628bEBsQBe9cQ8+ef9fvTVzMZ8MehvkK3fXwS4Qa9bJBIVvK
+ 8lQ=
+X-SBRS: 2.7
+X-MesageID: 25513471
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,364,1592884800"; d="scan'208";a="25513471"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] Revert "libxl: Generate golang bindings in libxl Makefile"
+Date: Fri, 28 Aug 2020 15:42:48 +0100
+Message-ID: <20200828144248.1970259-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 152991: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
- ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 Aug 2020 14:22:27 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,163 +65,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152991 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152991/
+This reverts commit 60db5da62ac051aab0b217fa2d96acca1cd3ca3e.
 
-Regressions :-(
+This is in preparation for the planned move to hosting the xenlight
+package in a separate repo.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386                    6 xen-build                fail REGR. vs. 152863
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
+This also fixes a regression when building with a read-only source and
+an out-of-tree build.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
+This is a candidate to backport for 4.14.
 
-version targeted for testing:
- ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+I was doing prep for writing the infrastructure to create or update an
+external repo, and figured I might as well send this out now.
 
-Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
-Testing same since   152915  2020-08-27 18:09:42 Z    0 days   23 attempts
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Nick Rosbrook <rosbrookn@ainfosec.com>
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ tools/golang/xenlight/Makefile |  9 ---------
+ tools/libxl/Makefile           | 17 +----------------
+ 2 files changed, 1 insertion(+), 25 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
+diff --git a/tools/golang/xenlight/Makefile b/tools/golang/xenlight/Makefile
+index eac9dbf12a..8d4d1e97ac 100644
+--- a/tools/golang/xenlight/Makefile
++++ b/tools/golang/xenlight/Makefile
+@@ -13,15 +13,6 @@ LIBXL_SRC_DIR = ../../libxl
+ .PHONY: all
+ all: build
+ 
+-GOXL_GEN_FILES = types.gen.go helpers.gen.go
+-
+-# NOTE: This target is called from libxl/Makefile:all.  Since that
+-# target must finish before golang/Makefile is called, this is
+-# currently safe.  It must not be called from anywhere else in the
+-# Makefile system without careful thought about races with
+-# xenlight/Makefile:all
+-idl-gen: $(GOXL_GEN_FILES)
+-
+ %.gen.go: gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(LIBXL_SRC_DIR)/idl.py
+ 	XEN_ROOT=$(XEN_ROOT) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl
+ 
+diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
+index 0e8dfc6193..c26b3a8093 100644
+--- a/tools/libxl/Makefile
++++ b/tools/libxl/Makefile
+@@ -219,7 +219,7 @@ testidl.c: libxl_types.idl gentest.py libxl.h $(AUTOINCS)
+ .PHONY: all
+ all: $(CLIENTS) $(TEST_PROGS) $(PKG_CONFIG) $(PKG_CONFIG_LOCAL) \
+ 		libxenlight.so libxenlight.a libxlutil.so libxlutil.a \
+-	$(AUTOSRCS) $(AUTOINCS) idl-external
++	$(AUTOSRCS) $(AUTOINCS)
+ 
+ $(LIBXL_OBJS) $(LIBXLU_OBJS) $(SAVE_HELPER_OBJS) \
+ 		$(LIBXL_TEST_OBJS) $(TEST_PROG_OBJS): \
+@@ -275,21 +275,6 @@ _libxl_type%.h _libxl_type%_json.h _libxl_type%_private.h _libxl_type%.c: libxl_
+ 	$(call move-if-changed,__libxl_type$(stem)_json.h,_libxl_type$(stem)_json.h)
+ 	$(call move-if-changed,__libxl_type$(stem).c,_libxl_type$(stem).c)
+ 
+-# NOTE: This is safe to do at the moment because idl-external and
+-# idl-gen are only called from libxl/Makefile:all, which must return
+-# before golang/Makefile is callid.  idl-external and idl-gen must
+-# never be called from another part of the make system without careful thought
+-# about races with tools/golang/xenlight/Makefile:all
+-.PHONY: idl-external
+-idl-external:
+-	$(MAKE) -C $(XEN_ROOT)/tools/golang/xenlight idl-gen
+-
+-LIBXL_IDLGEN_FILES = _libxl_types.h _libxl_types_json.h _libxl_types_private.h _libxl_types.c \
+-	_libxl_types_internal.h _libxl_types_internal_json.h _libxl_types_internal_private.h _libxl_types_internal.c
+-
+-
+-idl-gen: $(LIBXL_GEN_FILES) idl-external
+-
+ libxenlight.so: libxenlight.so.$(MAJOR)
+ 	$(SYMLINK_SHLIB) $< $@
+ 
+-- 
+2.25.1
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
