@@ -2,84 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DC82551DE
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 02:14:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A3A2551DF
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 02:14:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBS1f-00008I-Kw; Fri, 28 Aug 2020 00:13:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBS1d-000087-CX; Fri, 28 Aug 2020 00:13:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cgpo=CG=intel.com=megha.dey@srs-us1.protection.inumbo.net>)
- id 1kBS1e-00008D-90
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 00:13:50 +0000
-X-Inumbo-ID: 857dd435-725d-4514-84b5-72989660d904
-Received: from mga17.intel.com (unknown [192.55.52.151])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 857dd435-725d-4514-84b5-72989660d904;
- Fri, 28 Aug 2020 00:13:48 +0000 (UTC)
-IronPort-SDR: 0TwH3ex5CW9TXCjUJArxXUyQSNRZquQa/Tgeko+euQhmqz/+MzeapAAzgU5FsidpwvCVRI77AW
- tU0LXFgN3enQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9726"; a="136649311"
-X-IronPort-AV: E=Sophos;i="5.76,361,1592895600"; d="scan'208";a="136649311"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2020 17:13:46 -0700
-IronPort-SDR: uAmGoMAFhGRvD5NPRLnN/ekYEL+Xjxv+g4TWsI9UNYPL5S4ZMqTmCJhNgf7wqckE0S2ryUHTLn
- 7aEo94gI807g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,361,1592895600"; d="scan'208";a="295950071"
-Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by orsmga003.jf.intel.com with ESMTP; 27 Aug 2020 17:13:46 -0700
-Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
- ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 27 Aug 2020 17:12:49 -0700
-Received: from orsmsx101.amr.corp.intel.com (10.22.225.128) by
- orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 27 Aug 2020 17:12:49 -0700
-Received: from [10.254.177.214] (10.254.177.214) by
- ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 27 Aug 2020 17:12:48 -0700
-Subject: Re: [patch V2 15/46] x86/irq: Consolidate DMAR irq allocation
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-CC: <x86@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- <iommu@lists.linux-foundation.org>, <linux-hyperv@vger.kernel.org>, "Haiyang
- Zhang" <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>, Lu
- Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, "Russ
- Anderson" <rja@hpe.com>, <linux-pci@vger.kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>, "Boris Ostrovsky"
- <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Marc Zyngier <maz@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Jason
- Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex
- Williamson <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, 
- Baolu Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan
- Williams <dan.j.williams@intel.com>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112332.163462706@linutronix.de>
- <812d9647-ad2e-95e9-aa99-b54ff7ebc52d@intel.com>
- <878se1uulb.fsf@nanos.tec.linutronix.de>
- <87r1rtt9mi.fsf@nanos.tec.linutronix.de>
-From: "Dey, Megha" <megha.dey@intel.com>
-Message-ID: <f78f0b1f-3c83-2629-405c-7b25875432db@intel.com>
-Date: Thu, 27 Aug 2020 17:12:44 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ <SRS0=+vO4=CG=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1kBS1c-000082-BR
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 00:13:48 +0000
+X-Inumbo-ID: ae27402b-c550-4bd9-8d1f-491f365f3107
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae27402b-c550-4bd9-8d1f-491f365f3107;
+ Fri, 28 Aug 2020 00:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598573626;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=lKUHMYWvMqoXoQIRy3yQttVawMRij0Lk9YPfLKj1a8E=;
+ b=IKs0THmhc/wF/kPFlnM51pMEgj4xZowmNF/pDMA3zoXba7qM1P3A53dZ
+ bwQ15PUGi+WEXfokbEM5P8ICUVyBO1gJEmYP6n0GSuyBylqVxZO7q1oUW
+ WDQ8Uh7ITgFRi4X5ECxlTPPPBG/6puc4IbWHrzH7R3rsgNu8O2JQTu4dG s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: WMi1N9EbrA9THccyKaiqUGvp1F1jkKTCjGP+iY3Gb9GJNcO5xfmj3qxQ+WKfhjWgh3ayE3Kud2
+ eDzKh3fr2dyy7eHVsWILpOdPmLopohdQSkkf0kRt7M9woB58LJ6RmO0GfVV7JjqTk8BRpvX8aA
+ lxzmnGzkqmhyIeJfHAhl44mXgucXWRS/hi54jzXxJLroVnJxrcTpMGArgVaz+3Sgm8BH8OEruq
+ 2ohKtYzkhlMv4bMEDqKG45tMXa0k6Tlu40s3CvdFfBMgUHymzAgma/OyGew0Jd2J8Dp6AsMbFN
+ ZCY=
+X-SBRS: 2.7
+X-MesageID: 25783811
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,361,1592884800"; d="scan'208";a="25783811"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, 
+ <wl@xen.org>, <iwj@xenproject.org>, Igor Druzhinin
+ <igor.druzhinin@citrix.com>
+Subject: [PATCH] hvmloader: indicate firmware tables as ACPI NVS in e820
+Date: Fri, 28 Aug 2020 01:13:19 +0100
+Message-ID: <1598573599-23792-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <87r1rtt9mi.fsf@nanos.tec.linutronix.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [10.254.177.214]
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,21 +62,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Thomas,
+Guest kernel does need to know in some cases where the tables are located
+to treat these regions properly. One example is kexec process where
+the first kernel needs to pass firmware region locations to the second
+kernel which is now a requirement after 02a3e3cdb7f12 ("x86/boot: Parse SRAT
+table and count immovable memory regions").
 
-On 8/26/2020 1:50 PM, Thomas Gleixner wrote:
-> On Wed, Aug 26 2020 at 20:32, Thomas Gleixner wrote:
->> On Wed, Aug 26 2020 at 09:50, Megha Dey wrote:
->>>> @@ -329,15 +329,15 @@ static struct irq_chip dmar_msi_controll
->>>>    static irq_hw_number_t dmar_msi_get_hwirq(struct msi_domain_info *info,
->>>>    					  msi_alloc_info_t *arg)
->>>>    {
->>>> -	return arg->dmar_id;
->>>> +	return arg->hwirq;
->>> Shouldn't this return the arg->devid which gets set in dmar_alloc_hwirq?
->> Indeed.
-> But for simplicity we can set arg->hwirq to the dmar id right in the
-> alloc function and then once the generic ops are enabled remove the dmar
-> callback completely
-True, can get rid of more code that way.
+The memory that hvmloader allocates in the reserved region mostly contains
+these useful tables and could be safely indicated as ACPI without the need
+to designate a sub-region specially for that. Making it non-reclaimable
+(ACPI NVS) would avoid potential reuse of this memory by the guest.
+Swtiching from Reserved to ACPI NVS type for this memory would also mean
+its content is preserved across S4 (which is true for any ACPI type according
+to the spec).
+
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+---
+ tools/firmware/hvmloader/e820.c | 21 +++++++++++++++++----
+ tools/firmware/hvmloader/util.c |  6 ++++++
+ tools/firmware/hvmloader/util.h |  3 +++
+ 3 files changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
+index 4d1c955..ef60007 100644
+--- a/tools/firmware/hvmloader/e820.c
++++ b/tools/firmware/hvmloader/e820.c
+@@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
+ {
+     unsigned int nr = 0, i, j;
+     uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
++    uint32_t firmware_mem_end =
++        RESERVED_MEMORY_DYNAMIC_START + (mem_mfns_allocated() << PAGE_SHIFT);
+ 
+     if ( !lowmem_reserved_base )
+             lowmem_reserved_base = 0xA0000;
+@@ -199,8 +201,19 @@ int build_e820_table(struct e820entry *e820,
+     nr++;
+ 
+     /*
++     * Mark populated reserved memory that contains ACPI and other tables as
++     * ACPI NVS (non-reclaimable) space - that should help the guest to treat
++     * it correctly later (e.g. pass to the next kernel on kexec).
++     */
++
++    e820[nr].addr = RESERVED_MEMBASE;
++    e820[nr].size = firmware_mem_end - RESERVED_MEMBASE;
++    e820[nr].type = E820_NVS;
++    nr++;
++
++    /*
+      * Explicitly reserve space for special pages.
+-     * This space starts at RESERVED_MEMBASE an extends to cover various
++     * This space starts after ACPI region and extends to cover various
+      * fixed hardware mappings (e.g., LAPIC, IOAPIC, default SVGA framebuffer).
+      *
+      * If igd_opregion_pgbase we need to split the RESERVED region in two.
+@@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
+     {
+         uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
+ 
+-        e820[nr].addr = RESERVED_MEMBASE;
+-        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
++        e820[nr].addr = firmware_mem_end;
++        e820[nr].size = (uint32_t) igd_opregion_base - firmware_mem_end;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+ 
+@@ -227,7 +240,7 @@ int build_e820_table(struct e820entry *e820,
+     }
+     else
+     {
+-        e820[nr].addr = RESERVED_MEMBASE;
++        e820[nr].addr = firmware_mem_end;
+         e820[nr].size = (uint32_t)-e820[nr].addr;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index 0c3f2d2..af68862 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -444,6 +444,12 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns)
+ static uint32_t alloc_up = RESERVED_MEMORY_DYNAMIC_START - 1;
+ static uint32_t alloc_down = RESERVED_MEMORY_DYNAMIC_END;
+ 
++uint32_t mem_mfns_allocated(void)
++{
++    return (alloc_up >> PAGE_SHIFT) -
++            ((RESERVED_MEMORY_DYNAMIC_START - 1) >> PAGE_SHIFT);
++}
++
+ xen_pfn_t mem_hole_alloc(uint32_t nr_mfns)
+ {
+     alloc_down -= nr_mfns << PAGE_SHIFT;
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index 7bca641..98d5e02 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -200,6 +200,9 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns);
+ /* Allocate a memory hole below 4GB. */
+ xen_pfn_t mem_hole_alloc(uint32_t nr_mfns);
+ 
++/* Return number of pages allocated */
++uint32_t mem_mfns_allocated(void);
++
+ /* Allocate memory in a reserved region below 4GB. */
+ void *mem_alloc(uint32_t size, uint32_t align);
+ #define virt_to_phys(v) ((unsigned long)(v))
+-- 
+2.7.4
+
 
