@@ -2,62 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BA3256063
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 20:24:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70D18256075
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 20:27:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBj2T-0002VT-Jh; Fri, 28 Aug 2020 18:23:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kBj5U-0002d2-3D; Fri, 28 Aug 2020 18:26:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBj2R-0002V9-PO
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 18:23:47 +0000
-X-Inumbo-ID: 5a120d84-7586-44cb-926d-93c705f6c283
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5a120d84-7586-44cb-926d-93c705f6c283;
- Fri, 28 Aug 2020 18:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=YlqCXKriLhpNRwx0LnY7Lzj1HIYiK5BiTTmWmG6ag1U=; b=ghFcjWD/roRKLQKFsIX9pXr5+W
- C265zGkD6qKhDBYWX2T1teiWXi40fsdT5IHgnBeJgEXhqhF9RnRfuc58ZEkfndUCl11JVqL3miLae
- L/5XzOLWHAXWgnPoodTQno/rLQ94/7E+w9NKxlnM/xOfAsoWt+eIcJfxup2diusWz0wo=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBj2K-0001zX-Ni; Fri, 28 Aug 2020 18:23:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBj2K-0002rR-HC; Fri, 28 Aug 2020 18:23:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBj2K-0005TU-Gj; Fri, 28 Aug 2020 18:23:40 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153003-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=WLZ1=CG=amazon.com=prvs=502a58250=anchalag@srs-us1.protection.inumbo.net>)
+ id 1kBj5S-0002cv-4K
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 18:26:54 +0000
+X-Inumbo-ID: c3f55996-c44f-442b-9168-ed2791caf7c0
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c3f55996-c44f-442b-9168-ed2791caf7c0;
+ Fri, 28 Aug 2020 18:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1598639213; x=1630175213;
+ h=date:from:to:subject:message-id:references:mime-version:
+ in-reply-to; bh=YlXbxw/O9okB0AahvRarA2ldWVFp/ZEo5xO3UByBIcM=;
+ b=vOYlFM74MDWVojXBzRaAMsJzXq8viV8GqMjP0GfSqwMQMt4Fsfu5kvyT
+ G4sNkn34osHmRQs+u3Djc0Htnh6k60rMHAm4muSyEzGIlN4hNGEhLxAhY
+ kjn9nd05R5GyC930LiAs1X2uBI4klZenva+N97hQWye2cK4O0JZOlAish M=;
+X-IronPort-AV: E=Sophos;i="5.76,364,1592870400"; d="scan'208";a="50648672"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 28 Aug 2020 18:26:50 +0000
+Received: from EX13MTAUWA001.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
+ id C3D3AA2536; Fri, 28 Aug 2020 18:26:48 +0000 (UTC)
+Received: from EX13D10UWA003.ant.amazon.com (10.43.160.248) by
+ EX13MTAUWA001.ant.amazon.com (10.43.160.58) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 28 Aug 2020 18:26:40 +0000
+Received: from EX13MTAUWA001.ant.amazon.com (10.43.160.58) by
+ EX13D10UWA003.ant.amazon.com (10.43.160.248) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 28 Aug 2020 18:26:40 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.160.118) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Fri, 28 Aug 2020 18:26:39 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id 2E14F4087C; Fri, 28 Aug 2020 18:26:40 +0000 (UTC)
+Date: Fri, 28 Aug 2020 18:26:40 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
+ <x86@kernel.org>, <boris.ostrovsky@oracle.com>, <jgross@suse.com>,
+ <linux-pm@vger.kernel.org>, <linux-mm@kvack.org>, <kamatam@amazon.com>,
+ <sstabellini@kernel.org>, <konrad.wilk@oracle.com>, <roger.pau@citrix.com>,
+ <axboe@kernel.dk>, <davem@davemloft.net>, <rjw@rjwysocki.net>,
+ <len.brown@intel.com>, <pavel@ucw.cz>, <peterz@infradead.org>,
+ <eduval@amazon.com>, <sblbir@amazon.com>, <xen-devel@lists.xenproject.org>,
+ <vkuznets@redhat.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dwmw@amazon.co.uk>,
+ <benh@kernel.crashing.org>
+Subject: Re: [PATCH v3 00/11] Fix PM hibernation in Xen guests
+Message-ID: <20200828182640.GA20719@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <cover.1598042152.git.anchalag@amazon.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 153003: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
- ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 Aug 2020 18:23:40 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <cover.1598042152.git.anchalag@amazon.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -68,163 +81,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153003 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153003/
+On Fri, Aug 21, 2020 at 10:22:43PM +0000, Anchal Agarwal wrote:
+> Hello,
+> This series fixes PM hibernation for hvm guests running on xen hypervisor.
+> The running guest could now be hibernated and resumed successfully at a
+> later time. The fixes for PM hibernation are added to block and
+> network device drivers i.e xen-blkfront and xen-netfront. Any other driver
+> that needs to add S4 support if not already, can follow same method of
+> introducing freeze/thaw/restore callbacks.
+> The patches had been tested against upstream kernel and xen4.11. Large
+> scale testing is also done on Xen based Amazon EC2 instances. All this testing
+> involved running memory exhausting workload in the background.
+>   
+> Doing guest hibernation does not involve any support from hypervisor and
+> this way guest has complete control over its state. Infrastructure
+> restrictions for saving up guest state can be overcome by guest initiated
+> hibernation.
+>   
+> These patches were send out as RFC before and all the feedback had been
+> incorporated in the patches. The last v1 & v2 could be found here:
+>   
+> [v1]: https://lkml.org/lkml/2020/5/19/1312
+> [v2]: https://lkml.org/lkml/2020/7/2/995
+> All comments and feedback from v2 had been incorporated in v3 series.
+> 
+> Known issues:
+> 1.KASLR causes intermittent hibernation failures. VM fails to resumes and
+> has to be restarted. I will investigate this issue separately and shouldn't
+> be a blocker for this patch series.
+> 2. During hibernation, I observed sometimes that freezing of tasks fails due
+> to busy XFS workqueuei[xfs-cil/xfs-sync]. This is also intermittent may be 1
+> out of 200 runs and hibernation is aborted in this case. Re-trying hibernation
+> may work. Also, this is a known issue with hibernation and some
+> filesystems like XFS has been discussed by the community for years with not an
+> effectve resolution at this point.
+> 
+> Testing How to:
+> ---------------
+> 1. Setup xen hypervisor on a physical machine[ I used Ubuntu 16.04 +upstream
+> xen-4.11]
+> 2. Bring up a HVM guest w/t kernel compiled with hibernation patches
+> [I used ubuntu18.04 netboot bionic images and also Amazon Linux on-prem images].
+> 3. Create a swap file size=RAM size
+> 4. Update grub parameters and reboot
+> 5. Trigger pm-hibernation from within the VM
+> 
+> Example:
+> Set up a file-backed swap space. Swap file size>=Total memory on the system
+> sudo dd if=/dev/zero of=/swap bs=$(( 1024 * 1024 )) count=4096 # 4096MiB
+> sudo chmod 600 /swap
+> sudo mkswap /swap
+> sudo swapon /swap
+> 
+> Update resume device/resume offset in grub if using swap file:
+> resume=/dev/xvda1 resume_offset=200704 no_console_suspend=1
+> 
+> Execute:
+> --------
+> sudo pm-hibernate
+> OR
+> echo disk > /sys/power/state && echo reboot > /sys/power/disk
+> 
+> Compute resume offset code:
+> "
+> #!/usr/bin/env python
+> import sys
+> import array
+> import fcntl
+> 
+> #swap file
+> f = open(sys.argv[1], 'r')
+> buf = array.array('L', [0])
+> 
+> #FIBMAP
+> ret = fcntl.ioctl(f.fileno(), 0x01, buf)
+> print buf[0]
+> "
+> 
+> Aleksei Besogonov (1):
+>   PM / hibernate: update the resume offset on SNAPSHOT_SET_SWAP_AREA
+> 
+> Anchal Agarwal (4):
+>   x86/xen: Introduce new function to map HYPERVISOR_shared_info on
+>     Resume
+>   x86/xen: save and restore steal clock during PM hibernation
+>   xen: Introduce wrapper for save/restore sched clock offset
+>   xen: Update sched clock offset to avoid system instability in
+>     hibernation
+> 
+> Munehisa Kamata (5):
+>   xen/manage: keep track of the on-going suspend mode
+>   xenbus: add freeze/thaw/restore callbacks support
+>   x86/xen: add system core suspend and resume callbacks
+>   xen-blkfront: add callbacks for PM suspend and hibernation
+>   xen-netfront: add callbacks for PM suspend and hibernation
+> 
+> Thomas Gleixner (1):
+>   genirq: Shutdown irq chips in suspend/resume during hibernation
+> 
+>  arch/x86/xen/enlighten_hvm.c      |   7 +++
+>  arch/x86/xen/suspend.c            |  63 ++++++++++++++++++++
+>  arch/x86/xen/time.c               |  15 ++++-
+>  arch/x86/xen/xen-ops.h            |   3 +
+>  drivers/block/xen-blkfront.c      | 122 ++++++++++++++++++++++++++++++++++++--
+>  drivers/net/xen-netfront.c        |  96 +++++++++++++++++++++++++++++-
+>  drivers/xen/events/events_base.c  |   1 +
+>  drivers/xen/manage.c              |  46 ++++++++++++++
+>  drivers/xen/xenbus/xenbus_probe.c |  96 +++++++++++++++++++++++++-----
+>  include/linux/irq.h               |   2 +
+>  include/xen/xen-ops.h             |   3 +
+>  include/xen/xenbus.h              |   3 +
+>  kernel/irq/chip.c                 |   2 +-
+>  kernel/irq/internals.h            |   1 +
+>  kernel/irq/pm.c                   |  31 +++++++---
+>  kernel/power/user.c               |   7 ++-
+>  16 files changed, 464 insertions(+), 34 deletions(-)
+> 
+> -- 
+> 2.16.6
+>
+A gentle ping on the series in case there is any more feedback or can we plan to
+merge this? I can then send the series with minor fixes pointed by tglx@
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386                    6 xen-build                fail REGR. vs. 152863
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    2 days
-Testing same since   152915  2020-08-27 18:09:42 Z    1 days   28 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+Thanks,
+Anchal
 
