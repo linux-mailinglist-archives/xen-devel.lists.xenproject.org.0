@@ -2,59 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B42D255FBD
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 19:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0EE3255FED
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 19:44:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBiDN-00061B-O2; Fri, 28 Aug 2020 17:31:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kBiPY-00070T-V5; Fri, 28 Aug 2020 17:43:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBiDM-00060m-EB
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 17:31:00 +0000
-X-Inumbo-ID: 0ace786a-1947-454b-9333-d1a7bd3f6199
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0ace786a-1947-454b-9333-d1a7bd3f6199;
- Fri, 28 Aug 2020 17:30:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=BGPczpE5kuRaFcVzOFCQH2XRUuS5Y5KsyNQcCDdB32I=; b=hRnFx3f2Y4Kx6GZyaLZiD8z/PY
- v9qL1FnxaGMpYNNtpghfwmX151eb/nWnXFagIqvfuphnmXN4jy7Tgkanb1GoAof9dk1cZnbBlK3zD
- tr3yHsFyXHd1vbo4pXioZY97zMbYGIlyd8oX911lM3qW4ECDPAOq9hdUCrIsjTJvMxu0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBiDF-0000nw-EM; Fri, 28 Aug 2020 17:30:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBiDF-0001Pg-7K; Fri, 28 Aug 2020 17:30:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBiDF-0001st-6q; Fri, 28 Aug 2020 17:30:53 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153002-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=+l0f=CG=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+ id 1kBiPX-00070O-Ki
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 17:43:35 +0000
+X-Inumbo-ID: 1fb8c82d-deec-46b7-9459-800c74769aab
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1fb8c82d-deec-46b7-9459-800c74769aab;
+ Fri, 28 Aug 2020 17:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598636615;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:mime-version;
+ bh=WTe5nIhs+3h7hgt+CV+BR3QWzF++fNvNGe+bJQeg1tY=;
+ b=Bm0cj3KS9KxKS5k+G7o+xgQIYD98Ti5/GKZE130Lkas+9f3jR3WVq021
+ 3DrswccxDpIe2JnJF8Sy8681WONcWZgxN/ryW73/PPKG5/KwbpKT6cRg5
+ RW2y+255ZOpq1UbA6j2RU6efZfdRVEqLV7LEw8cm2rXaeucoPwr3g0Lid 8=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: kZuKNfLftCuyrsl9aZ+9HOit7l7n2ZePiS+eEw/lU7u+u/Bj50WaVW1OogXCRe86hnK1l8m5Ga
+ bUWDOF/X5TDQLp/GcMnwbGdbKHzFDSm7sVHTyO8z2uwi8yGO7hlqu5mYOWnLRJiN5NxPKNUoyH
+ 44G2sixtr7r9BCgZ6lRHE+vQbf+PrdhhyoptWdoLJE0hDyQY1gqnNWMQnCrcNWL6/5Pgc1PMKV
+ w1pOfq331USMrlJg8FAQGzeYlet1uYRzy0SW0PhKn/+NJ24J2aXR1t9ltHqWgjVkaw4s59NxN4
+ 2ug=
+X-SBRS: 2.7
+X-MesageID: 25530485
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,364,1592884800"; d="ml'?scan'208";a="25530485"
+From: Edwin Torok <edvin.torok@citrix.com>
+To: Christian Lindig <christian.lindig@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>, "dave@recoil.org" <dave@recoil.org>, 
+ "wl@xen.org" <wl@xen.org>
+Subject: Re: [PATCH v4 2/4] Map: backport find_opt/update from 4.06
+Thread-Topic: [PATCH v4 2/4] Map: backport find_opt/update from 4.06
+Thread-Index: AQHWfJh3gJ2m+Ivd3EG0JYd/oTowFqlNEDCAgACakQA=
+Date: Fri, 28 Aug 2020 17:43:29 +0000
+Message-ID: <b94cd2ad099486678609909e12b045c54abb2f27.camel@citrix.com>
+References: <cover.1598548188.git.edvin.torok@citrix.com> ,
+ <72b1f39ce900870819630cc7ba5bcb1f6610de77.1598548188.git.edvin.torok@citrix.com>
+ <1598603415021.35327@citrix.com>
+In-Reply-To: <1598603415021.35327@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: multipart/mixed;
+ boundary="_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_"
 MIME-Version: 1.0
-Subject: [ovmf test] 153002: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
- ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 Aug 2020 17:30:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,163 +76,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153002 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153002/
+--_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FE25510C1A7ECD4089975570C16FC100@citrix.com>
+Content-Transfer-Encoding: base64
 
-Regressions :-(
+T24gRnJpLCAyMDIwLTA4LTI4IGF0IDEwOjMwICswMjAwLCBDaHJpc3RpYW4gTGluZGlnIHdyb3Rl
+Ogo+ICtsZXQgZmluZF9vcHQgayB0ID0KPiAKPiArICAgICAgICgqIGF2b2lkIHJhaXNpbmcgZXhj
+ZXB0aW9ucywgdGhleSBjYW4gYmUgZXhwZW5zaXZlICopCj4gCj4gKyAgICAgICBpZiBtZW0gayB0
+IHRoZW4gU29tZSAoZmluZCBrIHQpIGVsc2UgTm9uZQo+IAo+IAo+IAo+IEkgZGlzYWdyZWUgd2l0
+aCB0aGlzIGFyZ3VtZW50LiBFeGNlcHRpb25zIGluIE9DYW1sIGFyZSBjaGVhcCBiZWNhdXNlCj4g
+dGhleSBkb24ndCB3YWxrIHRoZSBzdGFjayBhbmQgY3V0IHRvIHRoZSBleGNlcHRpb24gaGFuZGxl
+ciBkaXJlY3RseS4KPiBJcyB0aGVyZSBhIHJlYXNvbiB3aHkgdGhleSBjb3VsZCBiZSBleHBlbnNp
+dmUgaGVyZT8gSW4gYW55IGNhc2UsIHRoZQo+IGNvZGUgaXMgY29ycmVjdC4KPiAKCkludGVyZXN0
+aW5nIHF1ZXN0aW9uLCBpdCBpcyBiZXN0IHRvIG1lYXN1cmUuCgpUaGUgYW5zd2VyIGRlcGVuZHMg
+b24gd2hldGhlciB0aGUga2V5IGlzIGZvdW5kIG9yIG5vdCBpbiB0aGUgbWFwLgpJJ2xsIGNoYW5n
+ZSB0aGUgaW1wbCB0byB0aGUgb25lIHdpdGggZmluZCtjYXRjaCwgSSB0aGluayB3ZSAgbWlnaHQg
+YmUKbG9va2luZyB1cCBrZXlzIHRoYXQgYXJlIHByZXNlbnQgbW9yZSBvZnRlbiB0aGFuIHRob3Nl
+IHRoYXQgYXJlIG1pc3NpbmcKKGFsdGhvdWdoIHRoZSA0LjA2IHNlcmllcyB3aWxsIG1ha2UgdGhp
+cyBtb290LCA0LjA2IHZlcnNpb24gaXMgZmFzdGVyCnRoYW4gYm90aCBhcHByb2FjaGVzLCByZWdh
+cmRsZXNzIHdoZXRoZXIga2V5IGlzIHByZXNlbnQgb3Igbm90KS4KClRvIHN1bSB1cCB0aGUgbWVh
+c3VyZW1lbnRzIGJlbG93OgpJZiB0aGUga2V5IGlzIG5vdCBmb3VuZCB0aGVuIG15IGFwcHJvYWNo
+IGlzIGZhc3RlciAodGFrZXMgb25seSA4MCUgb2YKdGltZSksIGlmIHRoZSBrZXkgaXMgZm91bmQg
+dGhlbiBmaW5kK2NhdGNoIGlzIGZhc3RlciAoYWdhaW4gYW4gYXBwcm94CjgwJSBvZiB0aGUgdGlt
+ZSB0YWtlbikuCgpJIGJhc2VkIG15IGNvbW1lbnQgb24gdGhlIGRvY3VtZW50YXRpb24gb2YgcmFp
+c2Vfbm90cmFjZSwgd2hpY2ggc2F5czoKIkEgZmFzdGVyIHZlcnNpb24gcmFpc2Ugd2hpY2ggZG9l
+cyBub3QgcmVjb3JkIHRoZSBiYWNrdHJhY2UuIiwKd2hpY2ggaW1wbGllcyB0aGF0IHJlY29yZGlu
+ZyB0aGUgYmFja3RyYWNlIGhhcyBhIG1lYXN1cmFibGUgcGVyZgppbXBhY3QuCk9uZSBjb3VsZCBh
+cmd1ZSB0aGF0IGlmIHBlcmZvcm1hbmNlIG1hdHRlcnMgYmFja3RyYWNlcyBzaG91bGQgYmUgdHVy
+bmVkCm9mZiBpbiBwcm9kdWN0aW9uLCBidXQgSSB0aGluayB0aGUgdmFsdWUgb2YgaGF2aW5nIGJh
+Y2t0cmFjZXMgd2hlbiBzb21lCmhhcmQtdG8tcmVwcm9kdWUgYnVnIG9jY3VycyBvdXR3ZWlnaHRz
+IGFueSBwZXJmIHBlbmFsdHkuCldlIHNob3VsZCB0cnkgdG8gdXNlIGV4Y2VwdGlvbnMgb25seSBm
+b3IgdW5leHBlY3RlZCBzaXR1YXRpb25zIHRob3VnaCwKbm90IGZpbmRpbmcgYSB2YWx1ZSBpbiBh
+IG1hcCBkb2Vzbid0IHF1YWxpZnkuCgpTZWUgdGhlIGF0dGFjaG1lbnQgZm9yIGEgc21hbGwgbWlj
+cm8tYmVuY2htYXJrOgokIGR1bmUgZXhlYyAtLXByb2ZpbGU9cmVsZWFzZSAtLSAuL3VwZGF0ZXQu
+ZXhlIHJhaXNlCkVzdGltYXRlZCB0ZXN0aW5nIHRpbWUgMjBzICgyIGJlbmNobWFya3MgeCAxMHMp
+LiBDaGFuZ2UgdXNpbmcgJy1xdW90YScuCuKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkArilIIgTmFtZSAgICAgICAgICDilIIg
+VGltZS9SdW4g4pSCIFBlcmNlbnRhZ2Ug4pSCCuKUnOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUpArilIIgcmFpc2UgICAgICAgICDi
+lIIgIDMzLjUybnMg4pSCICAgIDEwMC4wMCUg4pSCCuKUgiByYWlzZV9ub3RyYWNlIOKUgiAgMTku
+MTZucyDilIIgICAgIDU3LjE2JSDilIIK4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYCgpTbyByYWlzaW5nIHdpdGggYSBiYWNr
+dHJhY2UgaXMgbWVhc3VyYWJseSBzbG93ZXIsIHRha2luZyB0aGUgYmFja3RyYWNlCnNwZW5kcyBz
+b21lIENQVSBjeWNsZXMuCgokIGR1bmUgZXhlYyAtLXByb2ZpbGU9cmVsZWFzZSAtLSAuL3VwZGF0
+ZXQuZXhlIGZpbmQtb3B0CkVzdGltYXRlZCB0ZXN0aW5nIHRpbWUgMW0zMHMgKDkgYmVuY2htYXJr
+cyB4IDEwcykuIENoYW5nZSB1c2luZyAnLQpxdW90YScuCuKUjOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUkArilIIgTmFtZSAgICAgICAgICAgICAgICAgICAgIOKUgiBUaW1l
+L1J1biDilIIgUGVyY2VudGFnZSDilIIK4pSc4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSkCuKUgiBmaW5kX29wdCA0LjA2OjEwICAgICAgICAg4pSCICA0OS4xMG5zIOKUgiAg
+ICAgMjQuMDYlIOKUggrilIIgZmluZF9vcHQgNC4wNjoxMDAgICAgICAgIOKUgiAxMTUuMzhucyDi
+lIIgICAgIDU2LjU1JSDilIIK4pSCIGZpbmRfb3B0IDQuMDY6MTAwMCAgICAgICDilIIgMTYxLjI3
+bnMg4pSCICAgICA3OS4wMyUg4pSCCuKUgiBmaW5kX29wdD1tZW0rZmluZDoxMCAgICAg4pSCICA1
+MC40OG5zIOKUgiAgICAgMjQuNzQlIOKUggrilIIgZmluZF9vcHQ9bWVtK2ZpbmQ6MTAwICAgIOKU
+giAxMTAuMzlucyDilIIgICAgIDU0LjEwJSDilIIK4pSCIGZpbmRfb3B0PW1lbStmaW5kOjEwMDAg
+ICDilIIgMTYyLjQ4bnMg4pSCICAgICA3OS42MyUg4pSCCuKUgiBmaW5kX29wdD1maW5kK2NhdGNo
+OjEwICAg4pSCICA4OS4xMG5zIOKUgiAgICAgNDMuNjclIOKUggrilIIgZmluZF9vcHQ9ZmluZCtj
+YXRjaDoxMDAgIOKUgiAxNjAuODBucyDilIIgICAgIDc4LjgwJSDilIIK4pSCIGZpbmRfb3B0PWZp
+bmQrY2F0Y2g6MTAwMCDilIIgMjA0LjA0bnMg4pSCICAgIDEwMC4wMCUg4pSCCuKUlOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUtOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUtOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmAoKCjQuMDYgYW5kIG1lbStmaW5kIHRha2Ug
+ODAlIG9mIHRoZSB0aW1lIG9mIGZpbmQrY2F0Y2guCgpCdXQgb2YgY291cnNlIGlmIHRoZSBrZXkg
+aXMgYWN0dWFsbHkgZm91bmQgaW4gdGhlIG1hcCB0aGVuIHdlIGhhdmUKdGhpczogCmVkd2luQGVk
+dmluLXRvd2VyOn4vdWV4ICUgZHVuZSBleGVjIC0tcHJvZmlsZT1yZWxlYXNlIC0tIC4vdXBkYXRl
+dC5leGUKZmluZC1vcHQtZm91bmQKRXN0aW1hdGVkIHRlc3RpbmcgdGltZSAxbTMwcyAoOSBiZW5j
+aG1hcmtzIHggMTBzKS4gQ2hhbmdlIHVzaW5nICctCnF1b3RhJy4K4pSM4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSQCuKU
+giBOYW1lICAgICAgICAgICAgICAgICAgICAg4pSCIFRpbWUvUnVuIOKUgiBtV2QvUnVuIOKUgiBQ
+ZXJjZW50YWdlIOKUggrilJzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilKQK4pSCIGZpbmRfb3B0IDQuMDY6MTAgICAgICAg
+ICDilIIgIDM4LjM4bnMg4pSCICAgMi4wMHcg4pSCICAgICA1Mi42NSUg4pSCCuKUgiBmaW5kX29w
+dCA0LjA2OjEwMCAgICAgICAg4pSCICAyMC42Nm5zIOKUgiAgIDIuMDB3IOKUgiAgICAgMjguMzUl
+IOKUggrilIIgZmluZF9vcHQgNC4wNjoxMDAwICAgICAgIOKUgiAgMjAuNjNucyDilIIgICAyLjAw
+dyDilIIgICAgIDI4LjMwJSDilIIK4pSCIGZpbmRfb3B0PW1lbStmaW5kOjEwICAgICDilIIgIDcy
+Ljg5bnMg4pSCICAgMi4wMHcg4pSCICAgIDEwMC4wMCUg4pSCCuKUgiBmaW5kX29wdD1tZW0rZmlu
+ZDoxMDAgICAg4pSCICAzOS4wNm5zIOKUgiAgIDIuMDB3IOKUgiAgICAgNTMuNTklIOKUggrilIIg
+ZmluZF9vcHQ9bWVtK2ZpbmQ6MTAwMCAgIOKUgiAgMzkuMDducyDilIIgICAyLjAwdyDilIIgICAg
+IDUzLjYwJSDilIIK4pSCIGZpbmRfb3B0PWZpbmQrY2F0Y2g6MTAgICDilIIgIDQ5LjU0bnMg4pSC
+ICAgMi4wMHcg4pSCICAgICA2Ny45NyUg4pSCCuKUgiBmaW5kX29wdD1maW5kK2NhdGNoOjEwMCAg
+4pSCICAzMy4wMW5zIOKUgiAgIDIuMDB3IOKUgiAgICAgNDUuMjklIOKUggrilIIgZmluZF9vcHQ9
+ZmluZCtjYXRjaDoxMDAwIOKUgiAgMzIuOTducyDilIIgICAyLjAwdyDilIIgICAgIDQ1LjIzJSDi
+lIIK4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSYCgpJbiB0aGlzIGNhc2UgZmluZCtjYXRjaCBpcyBmYXN0ZXIuCgpB
+bmQgaGVyZSBpcyB1cGRhdGUgZm9yIGEga2V5IHRoYXQgaXMgbm90IHByZXNlbnQ6CiQgZHVuZSBl
+eGVjIC0tcHJvZmlsZT1yZWxlYXNlIC0tIC4vdXBkYXRldC5leGUgdXBkYXRlCkVzdGltYXRlZCB0
+ZXN0aW5nIHRpbWUgMW0zMHMgKDkgYmVuY2htYXJrcyB4IDEwcykuIENoYW5nZSB1c2luZyAnLQpx
+dW90YScuCuKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkArilIIgTmFt
+ZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgiBUaW1lL1J1biDilIIgbVdkL1J1biDi
+lIIgUGVyY2VudGFnZSDilIIK4pSc4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSkCuKUgiB1cGRhdGUgNC4wNjoxMCAgICAgICAgICAgICAgICAgICAg4pSCICA3OS45Nm5zIOKU
+giAgMjQuMDB3IOKUgiAgICAgMTcuMjclIOKUggrilIIgdXBkYXRlIDQuMDY6MTAwICAgICAgICAg
+ICAgICAgICAgIOKUgiAxNzEuOTZucyDilIIgIDQ4LjAwdyDilIIgICAgIDM3LjE1JSDilIIK4pSC
+IHVwZGF0ZSA0LjA2OjEwMDAgICAgICAgICAgICAgICAgICDilIIgMjQzLjk1bnMg4pSCICA2Ni4w
+MHcg4pSCICAgICA1Mi43MCUg4pSCCuKUgiB1cGRhdGU9ZmluZCtjYXRjaCthZGQvcmVtb3ZlOjEw
+ICAg4pSCIDE4My40Nm5zIOKUgiAgMjQuMDB3IOKUgiAgICAgMzkuNjMlIOKUggrilIIgdXBkYXRl
+PWZpbmQrY2F0Y2grYWRkL3JlbW92ZToxMDAgIOKUgiAzNDAuMDBucyDilIIgIDQ4LjAwdyDilIIg
+ICAgIDczLjQ1JSDilIIK4pSCIHVwZGF0ZT1maW5kK2NhdGNoK2FkZC9yZW1vdmU6MTAwMCDilIIg
+NDYyLjg5bnMg4pSCICA2Ni4wMHcg4pSCICAgIDEwMC4wMCUg4pSCCuKUgiB1cGRhdGU9bWVtK2Zp
+bmQrYWRkL3JlbW92ZToxMCAgICAg4pSCIDEyNi4wNm5zIOKUgiAgMjQuMDB3IOKUgiAgICAgMjcu
+MjMlIOKUggrilIIgdXBkYXRlPW1lbStmaW5kK2FkZC9yZW1vdmU6MTAwICAgIOKUgiAyNzQuNzlu
+cyDilIIgIDQ4LjAwdyDilIIgICAgIDU5LjM2JSDilIIK4pSCIHVwZGF0ZT1tZW0rZmluZCthZGQv
+cmVtb3ZlOjEwMDAgICDilIIgNDAxLjYybnMg4pSCICA2Ni4wMHcg4pSCICAgICA4Ni43NiUg4pSC
+CuKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUtOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUtOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUtOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmAoKSGVyZSA0LjA2IGlz
+IGEgY2xlYXIgd2luLCBhbmQgbWVtK2FkZCBpcyBmYXN0ZXIgdGhhbiBmaW5kK2NhdGNoK2FkZC4K
+RXN0aW1hdGVkIHRlc3RpbmcgdGltZSAxbTMwcyAoOSBiZW5jaG1hcmtzIHggMTBzKS4gQ2hhbmdl
+IHVzaW5nICctCnF1b3RhJy4K4pSM4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSQCuKUgiBOYW1lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4pSCIFRpbWUvUnVuIOKU
+giBtV2QvUnVuIOKUgiBQZXJjZW50YWdlIOKUggrilJzilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilKQK4pSCIHVwZGF0ZSA0LjA2OjEwICAgICAgICAgICAgICAgICAgICDilIIg
+IDcyLjc2bnMg4pSCICAyNC4wMHcg4pSCICAgICAzMS4yNSUg4pSCCuKUgiB1cGRhdGUgNC4wNjox
+MDAgICAgICAgICAgICAgICAgICAg4pSCIDE2NC42OW5zIOKUgiAgNDguMDB3IOKUgiAgICAgNzAu
+NzQlIOKUggrilIIgdXBkYXRlIDQuMDY6MTAwMCAgICAgICAgICAgICAgICAgIOKUgiAyMzIuNzlu
+cyDilIIgIDY2LjAwdyDilIIgICAgMTAwLjAwJSDilIIK4pSCIHVwZGF0ZT1maW5kK2NhdGNoK2Fk
+ZC9yZW1vdmU6MTAgICDilIIgMTMzLjI0bnMg4pSCICAyMy4wMHcg4pSCICAgICA1Ny4yNCUg4pSC
+CuKUgiB1cGRhdGU9ZmluZCtjYXRjaCthZGQvcmVtb3ZlOjEwMCAg4pSCIDExOC43Nm5zIOKUgiAg
+MzUuMDB3IOKUgiAgICAgNTEuMDIlIOKUggrilIIgdXBkYXRlPWZpbmQrY2F0Y2grYWRkL3JlbW92
+ZToxMDAwIOKUgiAxNjEuMjJucyDilIIgIDU5LjAwdyDilIIgICAgIDY5LjI2JSDilIIK4pSCIHVw
+ZGF0ZT1tZW0rZmluZCthZGQvcmVtb3ZlOjEwICAgICDilIIgMTU2LjI5bnMg4pSCICAyMy4wMHcg
+4pSCICAgICA2Ny4xNCUg4pSCCuKUgiB1cGRhdGU9bWVtK2ZpbmQrYWRkL3JlbW92ZToxMDAgICAg
+4pSCIDEyMi45OG5zIOKUgiAgMzUuMDB3IOKUgiAgICAgNTIuODMlIOKUggrilIIgdXBkYXRlPW1l
+bStmaW5kK2FkZC9yZW1vdmU6MTAwMCAgIOKUgiAxNjEuNTNucyDilIIgIDU5LjAwdyDilIIgICAg
+IDY5LjM5JSDilIIK4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYCgpJ
+bnRlcmVzdGluZ2x5IGhlcmUgdGhlIDQuMDYgaW1wbGVtZW50YXRpb24gaXMgYWN0dWFsbHkgc2xv
+d2VyIGFuZCBub3QKbXVjaCBkaWZmZXJlbmNlIGJldHdlZW4gbXkgb3RoZXIgdHdvLgoKQmVzdCBy
+ZWdhcmRzLAotLUVkd2luDQo=
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386                    6 xen-build                fail REGR. vs. 152863
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
+--_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_
+Content-Type: text/plain; name="dune"
+Content-Description: dune
+Content-Disposition: attachment; filename="dune"; size=53;
+	creation-date="Fri, 28 Aug 2020 17:43:29 GMT";
+	modification-date="Fri, 28 Aug 2020 17:43:29 GMT"
+Content-ID: <4B888D899E0DF3489FA0D253B5A03345@citrix.com>
+Content-Transfer-Encoding: base64
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+KGV4ZWN1dGFibGUKIChuYW1lIHVwZGF0ZXQpCiAobGlicmFyaWVzIGNvcmVfYmVuY2gpKQo=
 
-version targeted for testing:
- ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+--_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_
+Content-Type: text/plain; name="dune-project"
+Content-Description: dune-project
+Content-Disposition: attachment; filename="dune-project"; size=16;
+	creation-date="Fri, 28 Aug 2020 17:43:29 GMT";
+	modification-date="Fri, 28 Aug 2020 17:43:29 GMT"
+Content-ID: <914B241BC63EBF4883B6258F1C6307FC@citrix.com>
+Content-Transfer-Encoding: base64
 
-Last test of basis   152863  2020-08-26 16:09:47 Z    2 days
-Testing same since   152915  2020-08-27 18:09:42 Z    0 days   27 attempts
+KGxhbmcgZHVuZSAyLjYpCg==
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
+--_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_
+Content-Type: text/x-ocaml; name="updatet.ml"
+Content-Description: updatet.ml
+Content-Disposition: attachment; filename="updatet.ml"; size=3674;
+	creation-date="Fri, 28 Aug 2020 17:43:29 GMT";
+	modification-date="Fri, 28 Aug 2020 17:43:29 GMT"
+Content-ID: <B40683E67E9F4E48B547504B13A9AED4@citrix.com>
+Content-Transfer-Encoding: base64
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+bW9kdWxlIFN0cmluZ01hcCA9IE1hcC5NYWtlIChTdHJpbmcpCgpsZXQgZmluZF9vcHRfYmFjayBr
+IHQgPQogICgqIGF2b2lkIHJhaXNpbmcgZXhjZXB0aW9ucywgdGhleSBjYW4gYmUgZXhwZW5zaXZl
+ICopCiAgaWYgU3RyaW5nTWFwLm1lbSBrIHQgdGhlbiBTb21lIChTdHJpbmdNYXAuZmluZCBrIHQp
+IGVsc2UgTm9uZQoKbGV0IGZpbmRfb3B0X3JhaXNlIGsgdCA9IHRyeSBTb21lIChTdHJpbmdNYXAu
+ZmluZCBrIHQpIHdpdGggTm90X2ZvdW5kIC0+IE5vbmUKCmxldCB1cGRhdGVfcmFpc2UgayBmIHQg
+PQogIGxldCByID0gZmluZF9vcHRfcmFpc2UgayB0IGluCiAgbGV0IHInID0gZiByIGluCiAgbWF0
+Y2ggKHIsIHInKSB3aXRoCiAgfCBOb25lLCBOb25lIC0+CiAgICAgIHQKICB8IFNvbWUgXywgTm9u
+ZSAtPgogICAgICBTdHJpbmdNYXAucmVtb3ZlIGsgdAogIHwgU29tZSByLCBTb21lIHInIHdoZW4g
+ciA9PSByJyAtPgogICAgICB0CiAgfCBfLCBTb21lIHInIC0+CiAgICAgIFN0cmluZ01hcC5hZGQg
+ayByJyB0CgpsZXQgdXBkYXRlIGsgZiB0ID0KICBsZXQgciA9IGZpbmRfb3B0X2JhY2sgayB0IGlu
+CiAgbGV0IHInID0gZiByIGluCiAgbWF0Y2ggKHIsIHInKSB3aXRoCiAgfCBOb25lLCBOb25lIC0+
+CiAgICAgIHQKICB8IFNvbWUgXywgTm9uZSAtPgogICAgICBTdHJpbmdNYXAucmVtb3ZlIGsgdAog
+IHwgU29tZSByLCBTb21lIHInIHdoZW4gciA9PSByJyAtPgogICAgICB0CiAgfCBfLCBTb21lIHIn
+IC0+CiAgICAgIFN0cmluZ01hcC5hZGQgayByJyB0CgpsZXQgZG9fcmFpc2UgKCkgPSByYWlzZSBO
+b3RfZm91bmQKCmxldCBkb19yYWlzZV9ub3RyYWNlICgpID0gcmFpc2Vfbm90cmFjZSBOb3RfZm91
+bmQKCmxldCBkdW1teSA9IHJlZiAwCgpsZXQgd3JhcCBmICgpID0KICB0cnkgaWYgU3lzLm9wYXF1
+ZV9pZGVudGl0eSAhZHVtbXkgPSAwIHRoZW4gZiAoKSB3aXRoIE5vdF9mb3VuZCAtPiAoKQoKKCog
+b3BlbiBoZXJlIHRvIG1ha2Ugc3VyZSB3ZSB1c2Ugc3RkbGliIGltcGwgYWJvdmUgKikKb3BlbiEg
+Q29yZQpvcGVuIENvcmVfYmVuY2gKCmxldCBwcmUgPSAiL2xvY2FsL2RvbWFpbi8wIgoKbGV0IHRl
+c3RfbWFwID0gTGlzdC5pbml0IDEwMDAgKGZ1biBpIC0+IHByZSBeIHN0cmluZ19vZl9pbnQgaSkK
+CmxldCBhcmdzID0gWzEwOyAxMDA7IDEwMDBdCgpsZXQgbWtfbWFwX2JlbmNoIH5uYW1lIGYgPQog
+IEJlbmNoLlRlc3QuY3JlYXRlX2luZGV4ZWQgfm5hbWUgfmFyZ3MgKGZ1biBsZW4gLT4KICAgICAg
+KCogdGhpcyBydW5zIGJlZm9yZSB0aGUgYmVuY2htYXJrICopCiAgICAgIGxldCBtID0KICAgICAg
+ICBMaXN0LmluaXQgbGVuIChmdW4gaSAtPiAocHJlIF4gc3RyaW5nX29mX2ludCBpLCAidmFsdWUi
+KSkKICAgICAgICB8PiBDYW1sLkxpc3QudG9fc2VxIHw+IFN0cmluZ01hcC5vZl9zZXEKICAgICAg
+aW4KICAgICAgU3RhZ2VkLnN0YWdlIChmdW4gKCkgLT4KICAgICAgICAgICgqIHRoaXMgaXMgdGhl
+IGJlbmNobWFya2VkIGZ1bmN0aW9uLCB0aGUgYmVuY2htYXJrIGZyYW1ld29yayB0YWtlcyBjYXJl
+IG9mCiAgICAgICAgICAgICBydW5uaW5nIGl0IG11bHRpcGxlIHRpbWVzLCBhbmQgYXZvaWRpbmcg
+dGhlIGNvbXBpbGVyIG9wdGltaXppbmcgaXQgYXdheQogICAgICAgICAgICAgYnkgInVzaW5nIiB0
+aGUgcmVzdWx0ICopCiAgICAgICAgICBmIG0pKQoKbGV0ICgpID0KICBQcmludGV4Yy5yZWNvcmRf
+YmFja3RyYWNlIHRydWUgOwogIGxldCBrZXkgPSBwcmUgXiAiL25vbmV4aXN0ZW50IiBpbgogIGxl
+dCBrZXlmID0gcHJlIF4gIjUiIGluCiAgbGV0IGYgPSBmdW5jdGlvbiBTb21lIHggLT4gTm9uZSB8
+IE5vbmUgLT4gU29tZSAidmFsdWUyIiBpbgogIENvbW1hbmQucnVuCiAgICAoQ29tbWFuZC5ncm91
+cCB+c3VtbWFyeToiZXhjZXB0aW9uIGhhbmRsaW5nIGJlbmNobWFya2xzIgogICAgICAgWyAoICJy
+YWlzZSIKICAgICAgICAgLCBCZW5jaC5tYWtlX2NvbW1hbmQKICAgICAgICAgICAgIFsgQmVuY2gu
+VGVzdC5jcmVhdGUgfm5hbWU6InJhaXNlIiAod3JhcCBkb19yYWlzZSkKICAgICAgICAgICAgIDsg
+QmVuY2guVGVzdC5jcmVhdGUgfm5hbWU6InJhaXNlX25vdHJhY2UiICh3cmFwIGRvX3JhaXNlX25v
+dHJhY2UpCiAgICAgICAgICAgICBdICkKICAgICAgIDsgKCAiZmluZC1vcHQiCiAgICAgICAgICwg
+QmVuY2gubWFrZV9jb21tYW5kCiAgICAgICAgICAgICBbIG1rX21hcF9iZW5jaCB+bmFtZToiZmlu
+ZF9vcHQgNC4wNiIgKGZ1biBtIC0+CiAgICAgICAgICAgICAgICAgICBTdHJpbmdNYXAuZmluZF9v
+cHQga2V5IG0pCiAgICAgICAgICAgICA7IG1rX21hcF9iZW5jaCB+bmFtZToiZmluZF9vcHQ9bWVt
+K2ZpbmQiIChmdW4gbSAtPgogICAgICAgICAgICAgICAgICAgZmluZF9vcHRfYmFjayBrZXkgbSkK
+ICAgICAgICAgICAgIDsgbWtfbWFwX2JlbmNoIH5uYW1lOiJmaW5kX29wdD1maW5kK2NhdGNoIiAo
+ZnVuIG0gLT4KICAgICAgICAgICAgICAgICAgIGZpbmRfb3B0X3JhaXNlIGtleSBtKSBdICkKICAg
+ICAgIDsgKCAiZmluZC1vcHQtZm91bmQiCiAgICAgICAgICwgQmVuY2gubWFrZV9jb21tYW5kCiAg
+ICAgICAgICAgICBbIG1rX21hcF9iZW5jaCB+bmFtZToiZmluZF9vcHQgNC4wNiIgKGZ1biBtIC0+
+CiAgICAgICAgICAgICAgICAgICBTdHJpbmdNYXAuZmluZF9vcHQga2V5ZiBtKQogICAgICAgICAg
+ICAgOyBta19tYXBfYmVuY2ggfm5hbWU6ImZpbmRfb3B0PW1lbStmaW5kIiAoZnVuIG0gLT4KICAg
+ICAgICAgICAgICAgICAgIGZpbmRfb3B0X2JhY2sga2V5ZiBtKQogICAgICAgICAgICAgOyBta19t
+YXBfYmVuY2ggfm5hbWU6ImZpbmRfb3B0PWZpbmQrY2F0Y2giIChmdW4gbSAtPgogICAgICAgICAg
+ICAgICAgICAgZmluZF9vcHRfcmFpc2Uga2V5ZiBtKSBdICkKICAgICAgIDsgKCAidXBkYXRlIgog
+ICAgICAgICAsIEJlbmNoLm1ha2VfY29tbWFuZAogICAgICAgICAgICAgWyBta19tYXBfYmVuY2gg
+fm5hbWU6InVwZGF0ZSA0LjA2IiAoZnVuIG0gLT4KICAgICAgICAgICAgICAgICAgIFN0cmluZ01h
+cC51cGRhdGUga2V5IGYgbSkKICAgICAgICAgICAgIDsgbWtfbWFwX2JlbmNoIH5uYW1lOiJ1cGRh
+dGU9ZmluZCtjYXRjaCthZGQvcmVtb3ZlIiAoZnVuIG0gLT4KICAgICAgICAgICAgICAgICAgIHVw
+ZGF0ZV9yYWlzZSBrZXkgZiBtKQogICAgICAgICAgICAgOyBta19tYXBfYmVuY2ggfm5hbWU6InVw
+ZGF0ZT1tZW0rZmluZCthZGQvcmVtb3ZlIiAoZnVuIG0gLT4KICAgICAgICAgICAgICAgICAgIHVw
+ZGF0ZSBrZXkgZiBtKSBdCgogICAgICAgICAgICAgKQogICAgICAgOyAoICJ1cGRhdGUtZm91bmQi
+CiAgICAgICAgICwgQmVuY2gubWFrZV9jb21tYW5kCiAgICAgICAgICAgICBbIG1rX21hcF9iZW5j
+aCB+bmFtZToidXBkYXRlIDQuMDYiIChmdW4gbSAtPgogICAgICAgICAgICAgICAgICAgU3RyaW5n
+TWFwLnVwZGF0ZSBrZXkgZiBtKQogICAgICAgICAgICAgOyBta19tYXBfYmVuY2ggfm5hbWU6InVw
+ZGF0ZT1maW5kK2NhdGNoK2FkZC9yZW1vdmUiIChmdW4gbSAtPgogICAgICAgICAgICAgICAgICAg
+dXBkYXRlX3JhaXNlIGtleWYgZiBtKQogICAgICAgICAgICAgOyBta19tYXBfYmVuY2ggfm5hbWU6
+InVwZGF0ZT1tZW0rZmluZCthZGQvcmVtb3ZlIiAoZnVuIG0gLT4KICAgICAgICAgICAgICAgICAg
+IHVwZGF0ZSBrZXlmIGYgbSkgXSApIF0pCgo=
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+--_004_b94cd2ad099486678609909e12b045c54abb2f27camelcitrixcom_--
 
