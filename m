@@ -2,131 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE492558DC
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 12:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4598D2558F5
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 12:58:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBbvy-0005cf-Vi; Fri, 28 Aug 2020 10:48:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kBc4t-0006Za-1C; Fri, 28 Aug 2020 10:57:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nNC1=CG=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1kBbvx-0005ca-8n
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 10:48:37 +0000
-X-Inumbo-ID: 67181589-84c8-490f-b293-de956a62201e
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 67181589-84c8-490f-b293-de956a62201e;
- Fri, 28 Aug 2020 10:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598611716;
- h=from:to:cc:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=KLypotq5+UWKcUVozmUgJ52Tr5/c6PIvYAd0Pzp8qq8=;
- b=ZHc7AfHXCzEToF0KxzbQ8i7LeMA47hnwi8Ig6knFnsQcXUl9TzCTw3g6
- Eg4W50yovqypKLCnnB8fLGzhHapM2wQBgEwCGaR0KMzPzBoTtai4QgPuI
- bUP4l/jk4xktK9jFvEgofPn97+TjhoZpOOKtTJx6idS37xDKSkHbnA2Wn U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=pass (signature verified)
- header.i=@citrix.onmicrosoft.com
-IronPort-SDR: s+lVc3bFCnHZTx5YBpvxBxy1bC5yrZrs6/TghTswwqSs06MInqDivME779qmgCqXSTuk3+oWKR
- hY20XaCr9stpSfsvXsCMDDN2TFcWy5r0YrpEb0sXIRzAXKvKyPne3T3PPv+wUDl71yKycFUXBk
- y6ypGIaCOlNKswB2Nkr1vafsEsdx9Tmcfrdui1EKZ/1ENoMe+k1eaZV/nxrMuIhPzWMGb7dK5w
- utQdDC+c4tmYTe68z5Z3K/eHsVGgxAmcPdstAhb8b80+w8MFrWG64kKpN6NwTi4fnjUINHOJ24
- +wk=
-X-SBRS: 2.7
-X-MesageID: 25496965
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,363,1592884800"; d="scan'208";a="25496965"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LBrLxVnrouc7CffFhFijr646SlaS2lFTiAUQ5Tl2/63K37Img9Koq4WqiM+jQqhIyL5eZopnbjfVo3OF3EdpregRqn315u3AeJVJQz9XRiv6wyNAgQ8ysMxbB0uTexSDwmM0o1Xgr01nLvdDCt+exhm5G4uQ3yEwNvtwZwKyiCM+FVmRaYAV35Y/VvFAk0buCQ7AVupCmU/vHnDMs+plqzpMXCyXSHgEWvesYtd5IL6Cw0QtZ6Ym/jXNA+QQsjRHmmVDO/oq04pdXtlJn9PQmLm6QmLAZnC59tB+/SoK19cUobmaaiIkSbrTebcaj+nXIrmxu0QlB7Cp3EbcGU8iWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KLypotq5+UWKcUVozmUgJ52Tr5/c6PIvYAd0Pzp8qq8=;
- b=dTN9qkvDaWexxXIYoyYvrn/sEDj5bAswpcg1ogYMgulrkV3wOX3o4TtE+tr/iAdXfiyObAQTDZIKVMxHesBQb9mdLWPoGVStZeLiVao0jQElBR4DvAJyvyCspslYwVORp3+eSS30HKiLGi7TfebOjxp4BNlxoyKBqijPFw+PzNdxwAZCyYuUwvoxjaPwAp/aImn3WMldvY1WVEKHmwsS0pqF5KB14za9AyOi4F6mAhOBH0t+iwTv7hFSNXdX6q+kBoL2u5S+lEUrZ6ne26H8R9jNW0wbEiTZLwtnMKOkkCdjzKXx/d9gI9VnYMMmn38YZTsOOrjfqgvEYv+X8OWRNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KLypotq5+UWKcUVozmUgJ52Tr5/c6PIvYAd0Pzp8qq8=;
- b=ATLagje1P1iJE+eyLPBuiQ4U1OxWoPuRwNJxKOBjj6ZexXHCJtLZaYWyMckmG3qFkqufk1wYIdObWt5ZsFGnyeAePXxKgJpRZTImoH5oY/r0O6OftnHEJC6bm5r3GPUchVv9zpRPPwnj6WfEIYfwpj0+lKPi4F30c840CHdecwA=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "intel-xen@intel.com"
- <intel-xen@intel.com>, "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
- Roger Pau Monne <roger.pau@citrix.com>, Sergey Dyasli
- <sergey.dyasli@citrix.com>, Christopher Clark
- <christopher.w.clark@gmail.com>, Rich Persaud <persaur@gmail.com>, "Kevin
- Pearson" <kevin.pearson@ortmanconsulting.com>, Juergen Gross
- <jgross@suse.com>, =?utf-8?B?UGF1bCBEdXJyYW50wqA=?= <pdurrant@amazon.com>,
- "Ji, John" <john.ji@intel.com>, "edgar.iglesias@xilinx.com"
- <edgar.iglesias@xilinx.com>, "robin.randhawa@arm.com"
- <robin.randhawa@arm.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>, "Matt
- Spencer" <Matt.Spencer@arm.com>, "anastassios.nanos@onapp.com"
- <anastassios.nanos@onapp.com>, Stewart Hildebrand
- <Stewart.Hildebrand@dornerworks.com>, Volodymyr Babchuk
- <volodymyr_babchuk@epam.com>, "mirela.simonovic@aggios.com"
- <mirela.simonovic@aggios.com>, Jarvis Roach <Jarvis.Roach@dornerworks.com>,
- Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Ian Jackson
- <Ian.Jackson@citrix.com>, Rian Quinn <rianquinn@gmail.com>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLRG91ZyBHb2xkc3RlaW4=?=
- <cardoe@cardoe.com>, George Dunlap <George.Dunlap@citrix.com>, "David
- Woodhouse" <dwmw@amazon.co.uk>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQW1pdCBTaGFo?= <amit@infradead.org>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLVmFyYWQgR2F1dGFt?=
- <varadgautam@gmail.com>, Brian Woods <brian.woods@xilinx.com>, Robert Townley
- <rob.townley@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>, "Olivier
- Lambert" <olivier.lambert@vates.fr>, Andrew Cooper
- <Andrew.Cooper3@citrix.com>, Wei Liu <wl@xen.org>
-CC: "open list:X86" <xen-devel@lists.xenproject.org>
-Subject: [ANNOUNCE] Call for agenda items for 3 September Community Call @
- 15:00 UTC
-Thread-Topic: [ANNOUNCE] Call for agenda items for 3 September Community Call
- @ 15:00 UTC
-Thread-Index: AQHWfSjCftSKszlqLUuptDIy6yV9XA==
-Date: Fri, 28 Aug 2020 10:48:27 +0000
-Message-ID: <0CF41EE7-BA9F-4CB6-A431-28AA0A145BE6@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.120.23.2.1)
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6796cfcd-3da8-436a-6b98-08d84b3fe55d
-x-ms-traffictypediagnostic: SJ0PR03MB5581:
-x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SJ0PR03MB5581B858CFC71C73D2FF7AC199520@SJ0PR03MB5581.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: QIDCme9fZY+E+znU263rlEPxNXnlUMsOVMA4nJsvRtDxCP9aHfM3h4PK/Qx+YnUGqyueauct+TMguuTulD4rSohacgZWJJXMnTbU3BSFui+vgh2lLUVG6PnFRqY+w0IBuZsz++EIdnC9ty7HjbIrzIwmQxTHJh4KzPWwyMnqbSmkgiFIW+fGZonqda3BL12PtFY7Wth7C5K6qCVO0xN1XI3hE5sWvd+bvxcnkebzjY9HwpdG90E8fwy7v+X3yFuwwyZQANSl4xuQx2XJGANr3wZCLlaPrplrf05gOLsyidkqHX1YLMILkrrhgWS7Ja/Vy2CZB5wPVMN2SknHe4tykJRhHOBykSUNJLUL0XqYjT01vYURi875+goELAiwL6iWZYSiOwjkIvIF26uqcnXZZTe+bB2FIffGaBxMe0BYE7Qn7r0Ds9NhaHt4SnIH067t
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB4229.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(36756003)(316002)(8676002)(33656002)(86362001)(5660300002)(6486002)(6506007)(66476007)(6512007)(7406005)(478600001)(110136005)(83380400001)(8936002)(7416002)(26005)(64756008)(4326008)(966005)(2616005)(76116006)(66446008)(66556008)(2906002)(91956017)(71200400001)(186003)(66946007)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: Aifc0tFnVfvI+TedCo6ifEdyxi+BizWJibznurIK1OYcaWXF2nSeruB2pnwHdBKuCHpWmlGlSE5kF5pQRzh/ENcvQjXBcOmWQUTi0YJ0CP4B2hfzRpXM0HF/QKXjcE7+UNA3hwUprmZlB0/qGup5KG3Emb7dvRUH9VoisjtlqKmsf9vsnIWx/MJNsJ4bGzKMCvhDwGj1sRourenyGs58+9FHnvbVT/wqXt+LcD5Jjyi6hqlF8LM9UCluW65mII9091Ud1n087ZSzFDIxoJBxiNhcJuT8PxAxfdf3Pp/UD0qh1WEiowFNSq0XDpvZeOHJm52+crFoGN1U8NIJj/BEkF8C1WzAI8Q/kTGfPEGlSJT+i4KWJdlGy0UhrzhUvHG0DywuLEtxC8QZIxx18Uw9lz47/1se8+MIPHKjsKwCJZuShOAPYKZcfR4gdCCvWDNsUWMtDfKqZkfHFB/IzNhB9q5n/14lG27RQpCeDSuZuSydeOP87F6vuB7nsZUZ5t1Gjkql24TuE9tIwjECVDzaXMEZ8EC8bjrMI5gdsgAIud5ZcelmFypx4a9TG9KZ5LHCVvlR9tEx/Sju7sgDNZXDWuMY5zSliPIewoC6xJOiuNefrN2P+ThYCX2T5QYqsrY5PvDfqi7GOuaHyFygB0/juQ==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BAC0B0C72852144AACBF5D724E4F44F1@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBc4r-0006ZV-0w
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 10:57:49 +0000
+X-Inumbo-ID: e8319d32-5683-4fff-b191-302a9b647b6e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e8319d32-5683-4fff-b191-302a9b647b6e;
+ Fri, 28 Aug 2020 10:57:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=ikcwqP7cLhsDFRuPHfzivzV3LVotqC5NrivMIG/nYDE=; b=S4/yd9+9I012JPFYPnvPYBrU8N
+ uJ7IlF5fphpRToK0HVTavc3FjYiUk33HnSlT+Dl1MxUhh+AaBOtmdOBCAbSS3vCP7miuoQwjmNQF+
+ SisUsvO41b/I9zKcnXJYubT1tIf8FUEx9oNjhi45fCum5/oYmurICoaERQX1UGZa20fk=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBc4o-0000JE-Uw; Fri, 28 Aug 2020 10:57:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBc4o-0007oj-OC; Fri, 28 Aug 2020 10:57:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBc4o-0003au-Nj; Fri, 28 Aug 2020 10:57:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152977-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4229.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6796cfcd-3da8-436a-6b98-08d84b3fe55d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2020 10:48:27.3234 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0wyWSYdQDSaGTa1Z1itmYafLYDE0Gktrp3zEvHgK1/EglHubmA+BR054iu8KJJ0AEOaese60FZFAsgAa5pmFuv7V9ShKzbRhDEeWjJoBQjU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5581
-X-OriginatorOrg: citrix.com
+Subject: [ovmf test] 152977: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Aug 2020 10:57:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,61 +68,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgYWxsLA0KDQpUaGUgcHJvcG9zZWQgYWdlbmRhIGlzIGluIGh0dHBzOi8vY3J5cHRwYWQuZnIv
-cGFkLyMvMy9wYWQvZWRpdC9mMTQ3YjBhZWQ4ZmUyNmFmNzIxY2EzY2QwMDQyNTM2MS8gYW5kIHlv
-dSBjYW4gZWRpdCB0byBhZGQgaXRlbXMuICBBbHRlcm5hdGl2ZWx5LCB5b3UgY2FuIHJlcGx5IHRv
-IHRoaXMgbWFpbCBkaXJlY3RseS4NCg0KQWdlbmRhIGl0ZW1zIGFwcHJlY2lhdGVkIGEgZmV3IGRh
-eXMgYmVmb3JlIHRoZSBjYWxsOiBwbGVhc2UgcHV0IHlvdXIgbmFtZSBiZXNpZGVzIGl0ZW1zIGlm
-IHlvdSBlZGl0IHRoZSBkb2N1bWVudC4NCg0KTm90ZSB0aGUgZm9sbG93aW5nIGFkbWluaXN0cmF0
-aXZlIGNvbnZlbnRpb25zIGZvciB0aGUgY2FsbDoNCiogVW5sZXNzLCBhZ3JlZWQgaW4gdGhlIHBl
-cnZpb3VzIG1lZXRpbmcgb3RoZXJ3aXNlLCB0aGUgY2FsbCBpcyBvbiB0aGUgMXN0IFRodXJzZGF5
-IG9mIGVhY2ggbW9udGggYXQgMTYwMCBCcml0aXNoIFRpbWUgKGVpdGhlciBHTVQgb3IgQlNUKQ0K
-KiBJIHVzdWFsbHkgc2VuZCBvdXQgYSBtZWV0aW5nIHJlbWluZGVyIGEgZmV3IGRheXMgYmVmb3Jl
-IHdpdGggYSBwcm92aXNpb25hbCBhZ2VuZGENCg0KKiBJZiB5b3Ugd2FudCB0byBiZSBDQydlZCBw
-bGVhc2UgYWRkIG9yIHJlbW92ZSB5b3Vyc2VsZiBmcm9tIHRoZSBzaWduLXVwLXNoZWV0IGF0IGh0
-dHBzOi8vY3J5cHRwYWQuZnIvcGFkLyMvMi9wYWQvZWRpdC9EOXZHemloUHh4QU9lNlJGUHowc1JD
-ZisvDQoNCkJlc3QgUmVnYXJkcw0KR2VvcmdlDQoNCg0KPT0gRGlhbC1pbiBJbmZvcm1hdGlvbiA9
-PQ0KIyMgTWVldGluZyB0aW1lDQoxNTowMCAtIDE2OjAwIFVUQyAoZHVyaW5nIEJTVCkNCkZ1cnRo
-ZXIgSW50ZXJuYXRpb25hbCBtZWV0aW5nIHRpbWVzOiBodHRwczovL3d3dy50aW1lYW5kZGF0ZS5j
-b20vd29ybGRjbG9jay9tZWV0aW5nZGV0YWlscy5odG1sP3llYXI9MjAyMCZtb250aD01JmRheT03
-JmhvdXI9MTUmbWluPTAmc2VjPTAmcDE9MTIzNCZwMj0zNyZwMz0yMjQmcDQ9MTc5DQoNCg0KIyMg
-RGlhbCBpbiBkZXRhaWxzDQpXZWI6IGh0dHBzOi8vd3d3LmdvdG9tZWV0Lm1lL0dlb3JnZUR1bmxh
-cA0KDQpZb3UgY2FuIGFsc28gZGlhbCBpbiB1c2luZyB5b3VyIHBob25lLg0KQWNjZXNzIENvZGU6
-IDE2OC02ODItMTA5DQoNCkNoaW5hIChUb2xsIEZyZWUpOiA0MDA4IDgxMTA4NA0KR2VybWFueTog
-KzQ5IDY5MiA1NzM2IDczMTcNClBvbGFuZCAoVG9sbCBGcmVlKTogMDAgODAwIDExMjQ3NTkNClVr
-cmFpbmUgKFRvbGwgRnJlZSk6IDAgODAwIDUwIDE3MzMNClVuaXRlZCBLaW5nZG9tOiArNDQgMzMw
-IDIyMSAwMDg4DQpVbml0ZWQgU3RhdGVzOiArMSAoNTcxKSAzMTctMzEyOQ0KU3BhaW46ICszNCA5
-MzIgNzUgMjAwNA0KDQoNCk1vcmUgcGhvbmUgbnVtYmVycw0KQXVzdHJhbGlhOiArNjEgMiA5MDg3
-IDM2MDQNCkF1c3RyaWE6ICs0MyA3IDIwODEgNTQyNw0KQXJnZW50aW5hIChUb2xsIEZyZWUpOiAw
-IDgwMCA0NDQgMzM3NQ0KQmFocmFpbiAoVG9sbCBGcmVlKTogODAwIDgxIDExMQ0KQmVsYXJ1cyAo
-VG9sbCBGcmVlKTogOCA4MjAgMDAxMSAwNDAwDQpCZWxnaXVtOiArMzIgMjggOTMgNzAxOA0KQnJh
-emlsIChUb2xsIEZyZWUpOiAwIDgwMCAwNDcgNDkwNg0KQnVsZ2FyaWEgKFRvbGwgRnJlZSk6IDAw
-ODAwIDEyMCA0NDE3DQpDYW5hZGE6ICsxICg2NDcpIDQ5Ny05MzkxDQpDaGlsZSAoVG9sbCBGcmVl
-KTogODAwIDM5NSAxNTANCkNvbG9tYmlhIChUb2xsIEZyZWUpOiAwMSA4MDAgNTE4IDQ0ODMNCkN6
-ZWNoIFJlcHVibGljIChUb2xsIEZyZWUpOiA4MDAgNTAwNDQ4DQpEZW5tYXJrOiArNDUgMzIgNzIg
-MDMgODINCkZpbmxhbmQ6ICszNTggOTIzIDE3IDA1NjgNCkZyYW5jZTogKzMzIDE3MCA5NTAgNTk0
-DQpHcmVlY2UgKFRvbGwgRnJlZSk6IDAwIDgwMCA0NDE0IDM4MzgNCkhvbmcgS29uZyAoVG9sbCBG
-cmVlKTogMzA3MTMxNjk5MDYtODg2LTk2NQ0KSHVuZ2FyeSAoVG9sbCBGcmVlKTogKDA2KSA4MCA5
-ODYgMjU1DQpJY2VsYW5kIChUb2xsIEZyZWUpOiA4MDAgNzIwNA0KSW5kaWEgKFRvbGwgRnJlZSk6
-IDE4MDAyNjY5MjcyDQpJbmRvbmVzaWEgKFRvbGwgRnJlZSk6IDAwNyA4MDMgMDIwIDUzNzUNCkly
-ZWxhbmQ6ICszNTMgMTUgMzYwIDcyOA0KSXNyYWVsIChUb2xsIEZyZWUpOiAxIDgwOSA0NTQgODMw
-DQpJdGFseTogKzM5IDAgMjQ3IDkyIDEzIDAxDQpKYXBhbiAoVG9sbCBGcmVlKTogMCAxMjAgNjYz
-IDgwMA0KS29yZWEsIFJlcHVibGljIG9mIChUb2xsIEZyZWUpOiAwMDc5OCAxNCAyMDcgNDkxNA0K
-THV4ZW1ib3VyZyAoVG9sbCBGcmVlKTogODAwIDg1MTU4DQpNYWxheXNpYSAoVG9sbCBGcmVlKTog
-MSA4MDAgODEgNjg1NA0KTWV4aWNvIChUb2xsIEZyZWUpOiAwMSA4MDAgNTIyIDExMzMNCk5ldGhl
-cmxhbmRzOiArMzEgMjA3IDk0MSAzNzcNCk5ldyBaZWFsYW5kOiArNjQgOSAyODAgNjMwMg0KTm9y
-d2F5OiArNDcgMjEgOTMgMzcgNTENClBhbmFtYSAoVG9sbCBGcmVlKTogMDAgODAwIDIyNiA3OTI4
-DQpQZXJ1IChUb2xsIEZyZWUpOiAwIDgwMCA3NzAyMw0KUGhpbGlwcGluZXMgKFRvbGwgRnJlZSk6
-IDEgODAwIDExMTAgMTY2MQ0KUG9ydHVnYWwgKFRvbGwgRnJlZSk6IDgwMCA4MTkgNTc1DQpSb21h
-bmlhIChUb2xsIEZyZWUpOiAwIDgwMCA0MTAgMDI5DQpSdXNzaWFuIEZlZGVyYXRpb24gKFRvbGwg
-RnJlZSk6IDggODAwIDEwMCA2MjAzDQpTYXVkaSBBcmFiaWEgKFRvbGwgRnJlZSk6IDgwMCA4NDQg
-MzYzMw0KU2luZ2Fwb3JlIChUb2xsIEZyZWUpOiAxODAwNzIzMTMyMw0KU291dGggQWZyaWNhIChU
-b2xsIEZyZWUpOiAwIDgwMCA1NTUgNDQ3DQpTd2VkZW46ICs0NiA4NTMgNTI3IDgyNw0KU3dpdHpl
-cmxhbmQ6ICs0MSAyMjUgNDU5OSA3OA0KVGFpd2FuIChUb2xsIEZyZWUpOiAwIDgwMCA2NjYgODU0
-DQpUaGFpbGFuZCAoVG9sbCBGcmVlKTogMDAxIDgwMCAwMTEgMDIzDQpUdXJrZXkgKFRvbGwgRnJl
-ZSk6IDAwIDgwMCA0NDg4IDIzNjgzDQpVbml0ZWQgQXJhYiBFbWlyYXRlcyAoVG9sbCBGcmVlKTog
-ODAwIDA0NCA0MDQzOQ0KVXJ1Z3VheSAoVG9sbCBGcmVlKTogMDAwNCAwMTkgMTAxOA0KVmlldCBO
-YW0gKFRvbGwgRnJlZSk6IDEyMiA4MCA0ODENCuKAi+KAi+KAi+KAi+KAi+KAi+KAiw0KDQpGaXJz
-dCBHb1RvTWVldGluZz8gTGV0J3MgZG8gYSBxdWljayBzeXN0ZW0gY2hlY2s6DQoNCmh0dHBzOi8v
-bGluay5nb3RvbWVldGluZy5jb20vc3lzdGVtLWNoZWNr
+flight 152977 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152977/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
+Testing same since   152915  2020-08-27 18:09:42 Z    0 days   19 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
