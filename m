@@ -2,60 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58BB825531E
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 04:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5A325532A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 04:58:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBUSQ-0002oK-2U; Fri, 28 Aug 2020 02:49:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kBUSN-0002ns-Th
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 02:49:35 +0000
-X-Inumbo-ID: 00512885-d7c9-4d88-8745-e1e891513093
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 00512885-d7c9-4d88-8745-e1e891513093;
- Fri, 28 Aug 2020 02:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=Fn1EIy8vXEirXuhbSK+2yvH/IA9TFWX8GtL6YkNRt30=; b=vrZ/L+Aqac2X6uNs9JUpMwPOr5
- e9nb0A1VFcCM/W5rCJUWU5DEhFghZdxnhR2jLDb9kC8n/35TxDzkaXvHEX3ZWzZjcdck/jXGRaIpl
- JrSQ0iD4nkZ9p5VXBVDbydYWqlWmiN9GwoMKCAhInjWbnCDW7Ld35W6Cs5g2IDgaYD+E=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBUSG-0005WX-O8; Fri, 28 Aug 2020 02:49:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kBUSG-0002nn-I1; Fri, 28 Aug 2020 02:49:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kBUSG-0004wh-HW; Fri, 28 Aug 2020 02:49:28 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152950-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kBUah-0003j8-2q; Fri, 28 Aug 2020 02:58:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cd5S=CG=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kBUaf-0003j3-QC
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 02:58:09 +0000
+X-Inumbo-ID: 0f673ddb-2825-42c2-851e-6118865cf03a
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0f673ddb-2825-42c2-851e-6118865cf03a;
+ Fri, 28 Aug 2020 02:58:08 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 07S2vox5025296
+ (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Thu, 27 Aug 2020 22:57:56 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 07S2vlWp025295;
+ Thu, 27 Aug 2020 19:57:47 -0700 (PDT) (envelope-from ehem)
+Date: Thu, 27 Aug 2020 19:57:47 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH] gitignore: Move ignores from global to subdirectories
+Message-ID: <20200828025747.GA25246@mattapan.m5p.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 152950: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 Aug 2020 02:49:28 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+ autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,163 +56,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152950 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152950/
+Subdirectories which have .gitignore files should not be referenced in
+the global .gitignore files.  Move several lines to appropriate subdirs.
 
-Regressions :-(
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+---
+Hopefully the commit message covers it.  When moved to the subdirectories
+I'm using "./<file>" as otherwise any file sharing the name in a deeper
+subdirectory would be subject to the match.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+---
+ .gitignore                   | 29 -----------------------------
+ tools/misc/.gitignore        | 22 +++++++++++++++++++++-
+ xen/tools/kconfig/.gitignore |  6 ++++++
+ xen/xsm/flask/.gitignore     |  8 +++++++-
+ 4 files changed, 34 insertions(+), 31 deletions(-)
 
-version targeted for testing:
- ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+diff --git a/.gitignore b/.gitignore
+index bb0fb64d32..c8529bc858 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -201,21 +201,6 @@ tools/libxl/ssdt*
+ tools/libxl/testenum
+ tools/libxl/testenum.c
+ tools/libxl/tmp.*
+-tools/misc/cpuperf/cpuperf-perfcntr
+-tools/misc/cpuperf/cpuperf-xen
+-tools/misc/xc_shadow
+-tools/misc/xen_cpuperf
+-tools/misc/xen-cpuid
+-tools/misc/xen-detect
+-tools/misc/xen-diag
+-tools/misc/xen-tmem-list-parse
+-tools/misc/xen-livepatch
+-tools/misc/xenperf
+-tools/misc/xenpm
+-tools/misc/xen-hvmctx
+-tools/misc/xenlockprof
+-tools/misc/lowmemd
+-tools/misc/xencov
+ tools/pkg-config/*
+ tools/qemu-xen-build
+ tools/xentrace/xenalyze
+@@ -312,16 +297,7 @@ xen/test/livepatch/xen_bye_world.livepatch
+ xen/test/livepatch/xen_hello_world.livepatch
+ xen/test/livepatch/xen_nop.livepatch
+ xen/test/livepatch/xen_replace_world.livepatch
+-xen/tools/kconfig/.tmp_gtkcheck
+-xen/tools/kconfig/.tmp_qtcheck
+ xen/tools/symbols
+-xen/xsm/flask/include/av_perm_to_string.h
+-xen/xsm/flask/include/av_permissions.h
+-xen/xsm/flask/include/class_to_string.h
+-xen/xsm/flask/include/flask.h
+-xen/xsm/flask/include/initial_sid_to_string.h
+-xen/xsm/flask/policy.*
+-xen/xsm/flask/xenpolicy-*
+ tools/flask/policy/policy.conf
+ tools/flask/policy/xenpolicy-*
+ xen/xen
+@@ -357,8 +333,6 @@ tools/include/xen-foreign/arm32.h
+ tools/include/xen-foreign/arm64.h
+ 
+ .git
+-tools/misc/xen-hptool
+-tools/misc/xen-mfndump
+ tools/libs/toolcore/include/_*.h
+ tools/libxc/_*.[ch]
+ tools/libxl/_*.[ch]
+@@ -370,9 +344,6 @@ tools/libxl/test_timedereg
+ tools/libxl/test_fdderegrace
+ tools/firmware/etherboot/eb-roms.h
+ tools/firmware/etherboot/gpxe-git-snapshot.tar.gz
+-tools/misc/xenwatchdogd
+-tools/misc/xen-hvmcrash
+-tools/misc/xen-lowmemd
+ tools/libvchan/vchan-node[12]
+ tools/ocaml/*/.ocamldep.make
+ tools/ocaml/*/*.cm[ixao]
+diff --git a/tools/misc/.gitignore b/tools/misc/.gitignore
+index c5fe2cfccd..b561bb023e 100644
+--- a/tools/misc/.gitignore
++++ b/tools/misc/.gitignore
+@@ -1 +1,21 @@
+-xen-ucode
++./cpuperf/cpuperf-perfcntr
++./cpuperf/cpuperf-xen
++./lowmemd
++./xc_shadow
++./xen-cpuid
++./xen-detect
++./xen-diag
++./xen-hptool
++./xen-hvmcrash
++./xen-hvmctx
++./xen-livepatch
++./xen-lowmemd
++./xen-mfndump
++./xen-tmem-list-parse
++./xen-ucode
++./xen_cpuperf
++./xencov
++./xenlockprof
++./xenperf
++./xenpm
++./xenwatchdogd
+diff --git a/xen/tools/kconfig/.gitignore b/xen/tools/kconfig/.gitignore
+index ca38e983d6..69780c04cd 100644
+--- a/xen/tools/kconfig/.gitignore
++++ b/xen/tools/kconfig/.gitignore
+@@ -16,3 +16,9 @@ mconf
+ nconf
+ qconf
+ gconf
++
++#
++# temporary build tool checking files
++#
++./.tmp_gtkcheck
++./.tmp_qtcheck
+diff --git a/xen/xsm/flask/.gitignore b/xen/xsm/flask/.gitignore
+index 024edbe0ba..b10754e646 100644
+--- a/xen/xsm/flask/.gitignore
++++ b/xen/xsm/flask/.gitignore
+@@ -1 +1,7 @@
+-/policy.c
++./include/av_perm_to_string.h
++./include/av_permissions.h
++./include/class_to_string.h
++./include/flask.h
++./include/initial_sid_to_string.h
++./policy.*
++./xenpolicy-*
+-- 
+2.20.1
 
-Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
-Testing same since   152915  2020-08-27 18:09:42 Z    0 days   10 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
-Not pushing.
-
-------------------------------------------------------------
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
