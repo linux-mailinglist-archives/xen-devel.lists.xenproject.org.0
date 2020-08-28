@@ -2,65 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B94A255E7B
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 18:02:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A4D255E85
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 18:06:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBgph-0005ow-6b; Fri, 28 Aug 2020 16:02:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kBgsj-00060w-M6; Fri, 28 Aug 2020 16:05:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KYCx=CG=amazon.de=prvs=502712ec5=mku@srs-us1.protection.inumbo.net>)
- id 1kBgpg-0005on-2V
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 16:02:28 +0000
-X-Inumbo-ID: 723b695e-284d-43d7-a0e7-88c0ca26aadf
-Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 723b695e-284d-43d7-a0e7-88c0ca26aadf;
- Fri, 28 Aug 2020 16:02:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1598630548; x=1630166548;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=LJtbuqdbYGtKdgG24o72P+74WSeJZH6//rWUPFJXdc0=;
- b=XYGa8CTPckAwQ37kHlNiuDOHhr5zpLCf86Z/GIeFElWcbARN2U3wHgFK
- E3yMMhVgFwjTxGxgp2s85jWNt356ODAH1W2OVJehkTWG73b4lZNkLF45D
- c4/GzNqJCbJG9KQ6/9K0kJkGui6APBvXhrSWrLliza1EetC/tDExIQiHR U=;
-X-IronPort-AV: E=Sophos;i="5.76,364,1592870400"; d="scan'208";a="50691056"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
- 28 Aug 2020 16:02:26 +0000
-Received: from EX13D05EUB002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS
- id 23998A20CF; Fri, 28 Aug 2020 16:02:24 +0000 (UTC)
-Received: from EX13MTAUWA001.ant.amazon.com (10.43.160.58) by
- EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 28 Aug 2020 16:02:21 +0000
-Received: from dev-dsk-mku-1c-d6eb1b4b.eu-west-1.amazon.com (10.15.13.90) by
- mail-relay.amazon.com (10.43.160.118) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Fri, 28 Aug 2020 16:02:18 +0000
-From: Michael Kurth <mku@amazon.de>
-To: <xen-devel@lists.xenproject.org>
-CC: Michael Kurth <mku@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- <wipawel@xen.org>, <wipawel@amazon.de>, Michael Kurth <mku@amazon.de>
-Subject: [PATCH v2] Add additional symbols to xen-syms.map
-Date: Fri, 28 Aug 2020 16:02:00 +0000
-Message-ID: <20200828160200.13322-1-mku@amazon.de>
-X-Mailer: git-send-email 2.16.6
-In-Reply-To: <20200821151045.92022-1-mku@amazon.de>
-References: <20200821151045.92022-1-mku@amazon.de>
+ <SRS0=lqI4=CG=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kBgsi-00060r-2J
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 16:05:36 +0000
+X-Inumbo-ID: 1c21f795-70bb-49cb-bb90-c551fe85978f
+Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1c21f795-70bb-49cb-bb90-c551fe85978f;
+ Fri, 28 Aug 2020 16:05:34 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id a5so1778752wrm.6
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Aug 2020 09:05:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=CRVBm7fuyUaJs2bVhDsqWGaQc+AKIuVXsKKiJuDV2XQ=;
+ b=pHBBlexSVyW4Pshm0jmISIe+YEdHFfLHWE8QU/AE2/59RCtJvqFBZUMpbnCc/psXQz
+ WpTsnIEFTNjTEmhmKjmF4YV/2GmFoNgS/EDnbcUD5lmfuDPP5e2Ak00KncmgApoAmaNX
+ prXxcdAJCF4grM7KKrcwqze2JhFY2XDqCHJK3VjqhLdHouI+HI+/zaxClIhh9QgL8DLE
+ D7X/Xdg1QoQO94Mh3hRph+RFqj7J6ZaO6a4Hm6leq/2NzFpaag3cbi/BdbxxOQz3woZ6
+ pjxR6KL1T7/1TYL7XLRScgCLNvMji4mqowwdKUWSc9VXpO0xLqLr0QZxGltY9de87Wzm
+ /ZUQ==
+X-Gm-Message-State: AOAM530+Jm0OTra34w+8l1NVVMOIyeEM+2Zc1yc/8XldXbKEi4BRA93q
+ L9ox5HRQj9FTjLxv6oXiiw8=
+X-Google-Smtp-Source: ABdhPJwdJkwt28R7ABVHTrmr+G4ykXgvsVJS8hklfAKXtCsJT9Tlpm+spCHPxvil2HzN87djD03cIA==
+X-Received: by 2002:a5d:684b:: with SMTP id o11mr2258867wrw.101.1598630734169; 
+ Fri, 28 Aug 2020 09:05:34 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id n16sm2744001wrj.25.2020.08.28.09.05.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2020 09:05:33 -0700 (PDT)
+Date: Fri, 28 Aug 2020 16:05:32 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Shriram Rajagopalan <rshriram@cs.ubc.ca>,
+ Yang Hongyang <imhy.yang@gmail.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>
+Subject: Re: [PATCH v4 28/31] tools/libxl: move libxenlight to tools/libs/light
+Message-ID: <20200828160532.q7f5opcits57xwjy@liuwe-devbox-debian-v2>
+References: <20200828150747.25305-1-jgross@suse.com>
+ <20200828150747.25305-29-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Precedence: Bulk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200828150747.25305-29-jgross@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -71,72 +76,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Michael Kurth <mku@amazon.com>
+On Fri, Aug 28, 2020 at 05:07:44PM +0200, Juergen Gross wrote:
+> Carve out all libxenlight related sources and move them to
+> tools/libs/light in order to use the generic library build environment.
+> 
+> The closely related sources for libxl-save-helper and the libxl test
+> environment are being moved, too.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Acked-by: Wei Liu <wl@xen.org>
 
-Add "all_symbols" to all /tools/symbols calls so that
-xen-syms.map lists all symbols and not only .text section
-symbols. This change enhances debugging and livepatch
-capabilities.
+It occurs to me you may need to modify golang/xenlight/Makefile.
 
-Signed-off-by: Michael Kurth <mku@amazon.de>
-Reviewed-by: Eslam Elnikety <elnikety@amazon.de>
-Reviewed-by: Julien Grall <jgrall@amazon.co.uk>
-Reviewed-by: Robert Stonehouse <rjstone@amazon.co.uk>
-Reviewed-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
----
- xen/arch/arm/Makefile | 2 +-
- xen/arch/x86/Makefile | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+There is
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 7e82b2178c..51173d9712 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -115,7 +115,7 @@ $(TARGET)-syms: prelink.o xen.lds
- 	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
- 	    $(@D)/.$(@F).1.o -o $@
- 	$(NM) -pa --format=sysv $(@D)/$(@F) \
--		| $(BASEDIR)/tools/symbols --xensyms --sysv --sort \
-+		| $(BASEDIR)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		>$(@D)/$(@F).map
- 	rm -f $(@D)/.$(@F).[0-9]*
- 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index b388861679..14a05b09bc 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -153,7 +153,7 @@ $(TARGET)-syms: prelink.o xen.lds
- 	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
- 	    $(@D)/.$(@F).1.o -o $@
- 	$(NM) -pa --format=sysv $(@D)/$(@F) \
--		| $(BASEDIR)/tools/symbols --xensyms --sysv --sort \
-+		| $(BASEDIR)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		>$(@D)/$(@F).map
- 	rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
- 
-@@ -215,7 +215,7 @@ $(TARGET).efi: prelink-efi.o $(note_file) efi.lds efi/relocs-dummy.o efi/mkreloc
- 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T efi.lds -N $< \
- 	                $(@D)/.$(@F).1r.o $(@D)/.$(@F).1s.o $(note_file_option) -o $@
- 	$(NM) -pa --format=sysv $(@D)/$(@F) \
--		| $(BASEDIR)/tools/symbols --xensyms --sysv --sort >$(@D)/$(@F).map
-+		| $(BASEDIR)/tools/symbols --all-symbols --xensyms --sysv --sort >$(@D)/$(@F).map
- 	rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
- else
- $(TARGET).efi: FORCE
--- 
-2.16.6
+    LIBXL_SRC_DIR = ../../libxl
 
+in it.
 
+I didn't hit any error perhaps due to I didn't have golang installed.
 
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
+Wei.
 
