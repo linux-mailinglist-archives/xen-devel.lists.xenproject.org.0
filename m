@@ -2,42 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840B6255DB8
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 17:22:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B37255D91
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 17:15:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBgCS-0008H0-Gg; Fri, 28 Aug 2020 15:21:56 +0000
+	id 1kBg5r-0007JE-9O; Fri, 28 Aug 2020 15:15:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Pjxq=CG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kBg04-0004eG-76
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 15:09:08 +0000
-X-Inumbo-ID: 22e481ce-8c9d-4ace-ab66-a81ab3088fa4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBg5p-0007Ip-UH
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 15:15:05 +0000
+X-Inumbo-ID: bcd37243-dfed-43a5-ac82-8229580dd3b8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 22e481ce-8c9d-4ace-ab66-a81ab3088fa4;
- Fri, 28 Aug 2020 15:07:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9A79AB157;
- Fri, 28 Aug 2020 15:08:28 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v4 31/31] tools: move libxlutil to tools/libs/util
-Date: Fri, 28 Aug 2020 17:07:47 +0200
-Message-Id: <20200828150747.25305-32-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200828150747.25305-1-jgross@suse.com>
-References: <20200828150747.25305-1-jgross@suse.com>
-MIME-Version: 1.0
+ id bcd37243-dfed-43a5-ac82-8229580dd3b8;
+ Fri, 28 Aug 2020 15:14:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=lbZSx408vEyVL0uC1Vs3NTLuqhS4hwWad5SeH0Lu4sw=; b=43AEDC1FxMsljieKKptAgrwShZ
+ w7zOwPaJD8XDDfFb4jOo+shrENBGviVnjuFrNRKTHE6Qnh1hJpX9dDRL/RmfxiOr+H6Pi2YyvlJGv
+ QFterDzEKzCU5cV3o43vJzM0FFHvEOfYWYkJd96H1YHXQmYvNyw+cq4Omli2MHOrwZwU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBg5i-0005jZ-KS; Fri, 28 Aug 2020 15:14:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBg5i-00064u-Bu; Fri, 28 Aug 2020 15:14:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBg5i-0003zz-BQ; Fri, 28 Aug 2020 15:14:58 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152995-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 152995: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Aug 2020 15:14:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,413 +69,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Move the libxlutil source to tools/libs/util and delete tools/libxl.
+flight 152995 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152995/
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- .gitignore                                    |   6 +-
- tools/Makefile                                |   1 -
- tools/Rules.mk                                |   7 -
- tools/libs/Makefile                           |   1 +
- tools/libs/uselibs.mk                         |   3 +
- tools/{libxl => libs/util}/CODING_STYLE       |   0
- tools/libs/util/Makefile                      |  63 +++++++++
- .../{libxl => libs/util/include}/libxlutil.h  |   0
- tools/{libxl => libs/util}/libxlu_cfg.c       |   0
- tools/{libxl => libs/util}/libxlu_cfg_i.h     |   0
- tools/{libxl => libs/util}/libxlu_cfg_l.c     |   0
- tools/{libxl => libs/util}/libxlu_cfg_l.h     |   0
- tools/{libxl => libs/util}/libxlu_cfg_l.l     |   0
- tools/{libxl => libs/util}/libxlu_cfg_y.c     |   0
- tools/{libxl => libs/util}/libxlu_cfg_y.h     |   0
- tools/{libxl => libs/util}/libxlu_cfg_y.y     |   0
- tools/{libxl => libs/util}/libxlu_disk.c      |   0
- tools/{libxl => libs/util}/libxlu_disk_i.h    |   0
- tools/{libxl => libs/util}/libxlu_disk_l.c    |   0
- tools/{libxl => libs/util}/libxlu_disk_l.h    |   0
- tools/{libxl => libs/util}/libxlu_disk_l.l    |   0
- tools/{libxl => libs/util}/libxlu_internal.h  |   0
- tools/{libxl => libs/util}/libxlu_pci.c       |   0
- tools/{libxl => libs/util}/libxlu_vif.c       |   0
- tools/libxl/Makefile                          | 124 ------------------
- 25 files changed, 71 insertions(+), 134 deletions(-)
- rename tools/{libxl => libs/util}/CODING_STYLE (100%)
- create mode 100644 tools/libs/util/Makefile
- rename tools/{libxl => libs/util/include}/libxlutil.h (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg.c (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_i.h (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_l.c (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_l.h (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_l.l (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_y.c (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_y.h (100%)
- rename tools/{libxl => libs/util}/libxlu_cfg_y.y (100%)
- rename tools/{libxl => libs/util}/libxlu_disk.c (100%)
- rename tools/{libxl => libs/util}/libxlu_disk_i.h (100%)
- rename tools/{libxl => libs/util}/libxlu_disk_l.c (100%)
- rename tools/{libxl => libs/util}/libxlu_disk_l.h (100%)
- rename tools/{libxl => libs/util}/libxlu_disk_l.l (100%)
- rename tools/{libxl => libs/util}/libxlu_internal.h (100%)
- rename tools/{libxl => libs/util}/libxlu_pci.c (100%)
- rename tools/{libxl => libs/util}/libxlu_vif.c (100%)
- delete mode 100644 tools/libxl/Makefile
+Regressions :-(
 
-diff --git a/.gitignore b/.gitignore
-index f30550255f..188495783e 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -154,6 +154,10 @@ tools/libs/store/utils.h
- tools/libs/store/xenstore.pc
- tools/libs/store/xs_lib.c
- tools/libs/store/include/xenstore_lib.h
-+tools/libs/util/*.pc
-+tools/libs/util/_paths.h
-+tools/libs/util/libxlu_cfg_y.output
-+tools/libs/util/libxenutil.map
- tools/libs/vchan/headers.chk
- tools/libs/vchan/libxenvchan.map
- tools/libs/vchan/xenvchan.pc
-@@ -232,8 +236,6 @@ tools/include/xen/*
- tools/include/xen-xsm/*
- tools/include/xen-foreign/*.(c|h|size)
- tools/include/xen-foreign/checker
--tools/libxl/*.pc
--tools/libxl/libxlu_cfg_y.output
- tools/misc/cpuperf/cpuperf-perfcntr
- tools/misc/cpuperf/cpuperf-xen
- tools/misc/xc_shadow
-diff --git a/tools/Makefile b/tools/Makefile
-index ea69675cca..9c77ee6763 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -29,7 +29,6 @@ SUBDIRS-$(CONFIG_QEMU_XEN) += qemu-xen-dir
- endif
- 
- SUBDIRS-y += xenpmd
--SUBDIRS-y += libxl
- SUBDIRS-$(CONFIG_GOLANG) += golang
- SUBDIRS-y += xl
- SUBDIRS-y += helpers
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 5ad17b313b..842b9daf92 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -15,8 +15,6 @@ XEN_INCLUDE        = $(XEN_ROOT)/tools/include
- 
- include $(XEN_ROOT)/tools/libs/uselibs.mk
- 
--XEN_libxenutil     = $(XEN_ROOT)/tools/libxl
--
- CFLAGS_xeninclude = -I$(XEN_INCLUDE)
- 
- XENSTORE_XENSTORED ?= y
-@@ -117,11 +115,6 @@ else
- CFLAGS += -O2 -fomit-frame-pointer
- endif
- 
--CFLAGS_libxenutil = -I$(XEN_libxenutil)
--SHDEPS_libxenutil = $(SHLIB_libxenlight)
--LDLIBS_libxenutil = $(SHDEPS_libxenutil) $(XEN_libxenutil)/libxlutil$(libextension)
--SHLIB_libxenutil  = $(SHDEPS_libxenutil) -Wl,-rpath-link=$(XEN_libxenutil)
--
- CFLAGS += -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__
- 
- # Get gcc to generate the dependencies for us.
-diff --git a/tools/libs/Makefile b/tools/libs/Makefile
-index c41455c604..1afcd12e2b 100644
---- a/tools/libs/Makefile
-+++ b/tools/libs/Makefile
-@@ -16,6 +16,7 @@ SUBDIRS-y += store
- SUBDIRS-y += stat
- SUBDIRS-$(CONFIG_Linux) += vchan
- SUBDIRS-y += light
-+SUBDIRS-y += util
- 
- ifeq ($(CONFIG_RUMP),y)
- SUBDIRS-y := toolcore
-diff --git a/tools/libs/uselibs.mk b/tools/libs/uselibs.mk
-index 685f368aed..efd7a475ba 100644
---- a/tools/libs/uselibs.mk
-+++ b/tools/libs/uselibs.mk
-@@ -28,3 +28,6 @@ LIBS_LIBS += stat
- USELIBS_stat := ctrl store
- LIBS_LIBS += light
- USELIBS_light := toollog evtchn toolcore ctrl store hypfs guest
-+LIBS_LIBS += util
-+USELIBS_util := light
-+FILENAME_util := xlutil
-diff --git a/tools/libxl/CODING_STYLE b/tools/libs/util/CODING_STYLE
-similarity index 100%
-rename from tools/libxl/CODING_STYLE
-rename to tools/libs/util/CODING_STYLE
-diff --git a/tools/libs/util/Makefile b/tools/libs/util/Makefile
-new file mode 100644
-index 0000000000..0c9db8027d
---- /dev/null
-+++ b/tools/libs/util/Makefile
-@@ -0,0 +1,63 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+SRCS-y += libxlu_cfg_y.c
-+SRCS-y += libxlu_cfg_l.c
-+SRCS-y += libxlu_cfg.c
-+SRCS-y += libxlu_disk_l.c
-+SRCS-y += libxlu_disk.c
-+SRCS-y += libxlu_vif.c
-+SRCS-y += libxlu_pci.c
-+
-+CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
-+	-Wno-declaration-after-statement -Wformat-nonliteral
-+CFLAGS += -I. $(CFLAGS_libxenctrl)
-+
-+CFLAGS += $(PTHREAD_CFLAGS)
-+LDFLAGS += $(PTHREAD_LDFLAGS)
-+
-+ifeq ($(FLEX),)
-+%.c %.h:: %.l
-+	$(warning Flex is needed to rebuild some libxl parsers and \
-+		  scanners, please install it and rerun configure)
-+endif
-+
-+ifeq ($(BISON),)
-+%.c %.h:: %.y
-+	$(warning Bison is needed to rebuild some libxl parsers and \
-+		  scanners, please install it and rerun configure)
-+endif
-+
-+AUTOINCS = libxlu_cfg_y.h libxlu_cfg_l.h libxlu_disk_l.h
-+AUTOSRCS = libxlu_cfg_y.c libxlu_cfg_l.c
-+
-+LIBHEADER := libxlutil.h
-+PKG_CONFIG_NAME := Xlutil
-+PKG_CONFIG_DESC := The xl utility library for Xen hypervisor
-+
-+NO_HEADERS_CHK := y
-+
-+include $(XEN_ROOT)/tools/libs/libs.mk
-+
-+$(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(XEN_libxenutil)/include
-+$(PKG_CONFIG_LOCAL): PKG_CONFIG_CFLAGS_LOCAL = $(CFLAGS_xeninclude)
-+
-+$(LIB_OBJS) $(PIC_OBJS): $(AUTOINCS) _paths.h
-+
-+%.c %.h:: %.y
-+	@rm -f $*.[ch]
-+	$(BISON) --output=$*.c $<
-+
-+%.c %.h:: %.l
-+	@rm -f $*.[ch]
-+	$(FLEX) --header-file=$*.h --outfile=$*.c $<
-+
-+genpath-target = $(call buildmakevars2header,_paths.h)
-+$(eval $(genpath-target))
-+
-+clean: cleanlocal
-+
-+.PHONY: cleanlocal
-+cleanlocal:
-+	$(RM) -f _*.h
-+	$(RM) -f libxlutil.map
-diff --git a/tools/libxl/libxlutil.h b/tools/libs/util/include/libxlutil.h
-similarity index 100%
-rename from tools/libxl/libxlutil.h
-rename to tools/libs/util/include/libxlutil.h
-diff --git a/tools/libxl/libxlu_cfg.c b/tools/libs/util/libxlu_cfg.c
-similarity index 100%
-rename from tools/libxl/libxlu_cfg.c
-rename to tools/libs/util/libxlu_cfg.c
-diff --git a/tools/libxl/libxlu_cfg_i.h b/tools/libs/util/libxlu_cfg_i.h
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_i.h
-rename to tools/libs/util/libxlu_cfg_i.h
-diff --git a/tools/libxl/libxlu_cfg_l.c b/tools/libs/util/libxlu_cfg_l.c
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_l.c
-rename to tools/libs/util/libxlu_cfg_l.c
-diff --git a/tools/libxl/libxlu_cfg_l.h b/tools/libs/util/libxlu_cfg_l.h
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_l.h
-rename to tools/libs/util/libxlu_cfg_l.h
-diff --git a/tools/libxl/libxlu_cfg_l.l b/tools/libs/util/libxlu_cfg_l.l
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_l.l
-rename to tools/libs/util/libxlu_cfg_l.l
-diff --git a/tools/libxl/libxlu_cfg_y.c b/tools/libs/util/libxlu_cfg_y.c
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_y.c
-rename to tools/libs/util/libxlu_cfg_y.c
-diff --git a/tools/libxl/libxlu_cfg_y.h b/tools/libs/util/libxlu_cfg_y.h
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_y.h
-rename to tools/libs/util/libxlu_cfg_y.h
-diff --git a/tools/libxl/libxlu_cfg_y.y b/tools/libs/util/libxlu_cfg_y.y
-similarity index 100%
-rename from tools/libxl/libxlu_cfg_y.y
-rename to tools/libs/util/libxlu_cfg_y.y
-diff --git a/tools/libxl/libxlu_disk.c b/tools/libs/util/libxlu_disk.c
-similarity index 100%
-rename from tools/libxl/libxlu_disk.c
-rename to tools/libs/util/libxlu_disk.c
-diff --git a/tools/libxl/libxlu_disk_i.h b/tools/libs/util/libxlu_disk_i.h
-similarity index 100%
-rename from tools/libxl/libxlu_disk_i.h
-rename to tools/libs/util/libxlu_disk_i.h
-diff --git a/tools/libxl/libxlu_disk_l.c b/tools/libs/util/libxlu_disk_l.c
-similarity index 100%
-rename from tools/libxl/libxlu_disk_l.c
-rename to tools/libs/util/libxlu_disk_l.c
-diff --git a/tools/libxl/libxlu_disk_l.h b/tools/libs/util/libxlu_disk_l.h
-similarity index 100%
-rename from tools/libxl/libxlu_disk_l.h
-rename to tools/libs/util/libxlu_disk_l.h
-diff --git a/tools/libxl/libxlu_disk_l.l b/tools/libs/util/libxlu_disk_l.l
-similarity index 100%
-rename from tools/libxl/libxlu_disk_l.l
-rename to tools/libs/util/libxlu_disk_l.l
-diff --git a/tools/libxl/libxlu_internal.h b/tools/libs/util/libxlu_internal.h
-similarity index 100%
-rename from tools/libxl/libxlu_internal.h
-rename to tools/libs/util/libxlu_internal.h
-diff --git a/tools/libxl/libxlu_pci.c b/tools/libs/util/libxlu_pci.c
-similarity index 100%
-rename from tools/libxl/libxlu_pci.c
-rename to tools/libs/util/libxlu_pci.c
-diff --git a/tools/libxl/libxlu_vif.c b/tools/libs/util/libxlu_vif.c
-similarity index 100%
-rename from tools/libxl/libxlu_vif.c
-rename to tools/libs/util/libxlu_vif.c
-diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
-deleted file mode 100644
-index 51da1d5be4..0000000000
---- a/tools/libxl/Makefile
-+++ /dev/null
-@@ -1,124 +0,0 @@
--#
--# tools/libxl/Makefile
--#
--
--XEN_ROOT = $(CURDIR)/../..
--include $(XEN_ROOT)/tools/Rules.mk
--
--XLUMAJOR = 4.15
--XLUMINOR = 0
--
--CFLAGS += -Werror -Wno-format-zero-length -Wmissing-declarations \
--	-Wno-declaration-after-statement -Wformat-nonliteral
--CFLAGS += -I. -fPIC
--
--CFLAGS += $(PTHREAD_CFLAGS)
--LDFLAGS += $(PTHREAD_LDFLAGS)
--
--LIBXLU_LIBS = $(LDLIBS_libxenlight)
--
--ifeq ($(FLEX),)
--%.c %.h:: %.l
--	$(warning Flex is needed to rebuild some libxl parsers and \
--		  scanners, please install it and rerun configure)
--endif
--
--ifeq ($(BISON),)
--%.c %.h:: %.y
--	$(warning Bison is needed to rebuild some libxl parsers and \
--		  scanners, please install it an rerun configure)
--endif
--
--AUTOINCS= libxlu_cfg_y.h libxlu_cfg_l.h libxlu_disk_l.h
--AUTOSRCS= libxlu_cfg_y.c libxlu_cfg_l.c
--LIBXLU_OBJS = libxlu_cfg_y.o libxlu_cfg_l.o libxlu_cfg.o \
--	libxlu_disk_l.o libxlu_disk.o libxlu_vif.o libxlu_pci.o
--$(LIBXLU_OBJS): CFLAGS += $(CFLAGS_libxenctrl) # For xentoollog.h
--
--PKG_CONFIG = xlutil.pc
--
--ifneq ($(CONFIG_LIBXC_MINIOS),y)
--PKG_CONFIG_INST := $(PKG_CONFIG)
--xlutil.pc: PKG_CONFIG_NAME = Xlutil
--xlutil.pc: PKG_CONFIG_DESC = The xl utility library for Xen hypervisor
--xlutil.pc: PKG_CONFIG_VERSION = $(XLUMAJOR).$(XLUMINOR)
--xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxenutil)
--xlutil.pc: PKG_CONFIG_LIB = xlutil
--xlutil.pc: PKG_CONFIG_REQPRIV = xenlight
--$(PKG_CONFIG_INST): PKG_CONFIG_PREFIX = $(prefix)
--$(PKG_CONFIG_INST): PKG_CONFIG_INCDIR = $(includedir)
--$(PKG_CONFIG_INST): PKG_CONFIG_LIBDIR = $(libdir)
--endif
--
--PKG_CONFIG_LOCAL := $(foreach pc,$(PKG_CONFIG),$(PKG_CONFIG_DIR)/$(pc))
--
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_NAME = Xlutil
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_DESC = The xl utility library for Xen hypervisor
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_VERSION = $(XLUMAJOR).$(XLUMINOR)
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxenutil)
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_LIB = xlutil
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_REQPRIV = xenlight
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_PREFIX = $(XEN_ROOT)
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(CURDIR)
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_LIBDIR = $(CURDIR)
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_CFLAGS_LOCAL = $(CFLAGS_xeninclude)
--
--.PHONY: all
--all: libxlutil.so libxlutil.a $(AUTOSRCS) $(AUTOINCS) $(PKG_CONFIG) $(PKG_CONFIG_LOCAL)
--
--$(LIBXLU_OBJS): $(AUTOINCS)
--
--%.c %.h:: %.y
--	@rm -f $*.[ch]
--	$(BISON) --output=$*.c $<
--
--%.c %.h:: %.l
--	@rm -f $*.[ch]
--	$(FLEX) --header-file=$*.h --outfile=$*.c $<
--
--genpath-target = $(call buildmakevars2header,_paths.h)
--$(eval $(genpath-target))
--
--libxlutil.so: libxlutil.so.$(XLUMAJOR)
--	$(SYMLINK_SHLIB) $< $@
--
--libxlutil.so.$(XLUMAJOR): libxlutil.so.$(XLUMAJOR).$(XLUMINOR)
--	$(SYMLINK_SHLIB) $< $@
--
--libxlutil.so.$(XLUMAJOR).$(XLUMINOR): $(LIBXLU_OBJS)
--	$(CC) $(LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,libxlutil.so.$(XLUMAJOR) $(SHLIB_LDFLAGS) -o $@ $(LIBXLU_OBJS) $(LIBXLU_LIBS) $(APPEND_LDFLAGS)
--
--libxlutil.a: $(LIBXLU_OBJS)
--	$(AR) rcs libxlutil.a $^
--
--.PHONY: install
--install: all
--	$(INSTALL_DIR) $(DESTDIR)$(libdir)
--	$(INSTALL_DIR) $(DESTDIR)$(includedir)
--	$(INSTALL_SHLIB) libxlutil.so.$(XLUMAJOR).$(XLUMINOR) $(DESTDIR)$(libdir)
--	$(SYMLINK_SHLIB) libxlutil.so.$(XLUMAJOR).$(XLUMINOR) $(DESTDIR)$(libdir)/libxlutil.so.$(XLUMAJOR)
--	$(SYMLINK_SHLIB) libxlutil.so.$(XLUMAJOR) $(DESTDIR)$(libdir)/libxlutil.so
--	$(INSTALL_DATA) libxlutil.a $(DESTDIR)$(libdir)
--	$(INSTALL_DATA) libxlutil.h $(DESTDIR)$(includedir)
--	$(INSTALL_DATA) xlutil.pc $(DESTDIR)$(PKG_INSTALLDIR)
--
--.PHONY: uninstall
--uninstall:
--	rm -f $(DESTDIR)$(PKG_INSTALLDIR)/xlutil.pc
--	rm -f $(DESTDIR)$(includedir)/libxlutil.h
--	rm -f $(DESTDIR)$(libdir)/libxlutil.a
--	rm -f $(DESTDIR)$(libdir)/libxlutil.so
--	rm -f $(DESTDIR)$(libdir)/libxlutil.so.$(XLUMAJOR)
--	rm -f $(DESTDIR)$(libdir)/libxlutil.so.$(XLUMAJOR).$(XLUMINOR)
--
--.PHONY: clean
--clean:
--	$(RM) -f _*.h *.o *.so* *.a $(DEPS_RM)
--	$(RM) -f xlutil.pc
--
--distclean: clean
--
--realclean: distclean
--	$(RM) -f $(AUTOSRCS) $(AUTOINCS)
--
---include $(DEPS_INCLUDE)
--- 
-2.26.2
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    1 days
+Testing same since   152915  2020-08-27 18:09:42 Z    0 days   24 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
