@@ -2,81 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE55925591F
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 13:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E6425593E
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 13:22:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBcFV-0007kL-S8; Fri, 28 Aug 2020 11:08:49 +0000
+	id 1kBcSC-0000vg-2e; Fri, 28 Aug 2020 11:21:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v2Rs=CG=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kBcFU-0007kG-9u
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 11:08:48 +0000
-X-Inumbo-ID: 55d92e4c-be68-41a9-8a30-74f43c02593a
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 55d92e4c-be68-41a9-8a30-74f43c02593a;
- Fri, 28 Aug 2020 11:08:47 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id u18so555832wmc.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Aug 2020 04:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=PTT0e/4SUbUs7Gw1742rMl3btt84EynYaC88jLgtr+c=;
- b=bawoz8YN/+rZzBVbNIXbXSjWNAzzmgomBScEybnNL34zThLCsvhCkNTVUhi483kXOI
- p44Fz/YNJ1gkHAlPjtupN8JbhJNt9vKE5L4SJ6o4AJOE4gxxbnBl9CxLG2hYRFOjAlNb
- VrRky3zei0n2ZAI2QmXNM5HjrIjkWPbRFR0NcJ8xXdkjwdb5XXwHEON/bxG6Em8+V2q4
- nRlfoPMjV3rzJzJLyKzJ0Ut+lcg6PtS01eZOastMwwghS/SLo0fqREQh5XSAoCCluxBi
- wSU6UdDDb4jRDVi6tf8Ngr6qVq1pHCiGDxTTEWmXJz/pCJ7lub6QOZ4ZNa0JlcZBBvkr
- sHig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=PTT0e/4SUbUs7Gw1742rMl3btt84EynYaC88jLgtr+c=;
- b=XcROVbXKnpNb1F373d2wTxbJPqD7SUJaMJt78KUbRBjQ2+pmGjevxUFuyG7nv7ZJ65
- DlktTO2vjihhEm/zY4BFZW6brzWQwI5gcKAYwohK2vH3wafLMq+kXKK7pR+/x2+Er5t7
- yASoMbHSpqI2ru+gld7zlxAc+Abehg8CgiWyMY/P3QEWRJlwLhQ7QG5XM6ZDL/VSN0C0
- kuzCr1WGFfRX+hCW3yjSBp6nhaZRX1rcqMjRYtmTeO04IEQ69MAPbTW74IqqR0o4sBLU
- GVkAUuP/7harBc3YFY809vB85wdhH7H8fhGbvZIgr2BEjWJBcUAwWMaiJEo6aDB1GUjj
- DaZw==
-X-Gm-Message-State: AOAM530lM6PM5GmjPzN54r3LJJO2myVdLesSowufG3WHRhV7q/7f+/uI
- 9Akbe00CUJ1DYneKyqG4FJY=
-X-Google-Smtp-Source: ABdhPJxCaLz7qnFsJPKqXbKs7+ds2/nxkWHIHNqL2Xht26avASgEWrXU2x2rrGzi/Nm8qwq4tNYa3Q==
-X-Received: by 2002:a1c:2b04:: with SMTP id r4mr1061940wmr.76.1598612926586;
- Fri, 28 Aug 2020 04:08:46 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-224.amazon.com. [54.240.197.224])
- by smtp.gmail.com with ESMTPSA id d66sm1797461wmc.16.2020.08.28.04.08.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 28 Aug 2020 04:08:46 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
-	"'Paul Durrant'" <paul@xen.org>
-Cc: <xen-devel@lists.xenproject.org>,
- "'Ian Jackson'" <ian.jackson@eu.citrix.com>, "'Wei Liu'" <wl@xen.org>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'George Dunlap'" <george.dunlap@citrix.com>,
- "'Julien Grall'" <julien@xen.org>,
- "'Stefano Stabellini'" <sstabellini@kernel.org>,
- =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
-References: <20200818103032.3050-1-paul@xen.org>
- <20200818103032.3050-9-paul@xen.org>
- <153634db-bd1a-62d8-f53f-2c4019ffda4c@suse.com>
-In-Reply-To: <153634db-bd1a-62d8-f53f-2c4019ffda4c@suse.com>
-Subject: RE: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record
- for tsc_info...
-Date: Fri, 28 Aug 2020 12:08:44 +0100
-Message-ID: <006401d67d2b$991e3dd0$cb5ab970$@xen.org>
+ <SRS0=NqGh=CG=arm.com=lorenzo.pieralisi@srs-us1.protection.inumbo.net>)
+ id 1kBcSA-0000vZ-8I
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 11:21:54 +0000
+X-Inumbo-ID: e78edbc1-bee1-4264-98b9-381dbbe374f3
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id e78edbc1-bee1-4264-98b9-381dbbe374f3;
+ Fri, 28 Aug 2020 11:21:52 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10BC931B;
+ Fri, 28 Aug 2020 04:21:52 -0700 (PDT)
+Received: from e121166-lin.cambridge.arm.com (e121166-lin.cambridge.arm.com
+ [10.1.196.255])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 03F763F66B;
+ Fri, 28 Aug 2020 04:21:47 -0700 (PDT)
+Date: Fri, 28 Aug 2020 12:21:42 +0100
+From: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+ LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
+ Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+ Rob Herring <robh@kernel.org>
+Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
+ selectable
+Message-ID: <20200828112142.GA14208@e121166-lin.cambridge.arm.com>
+References: <20200826112333.992429909@linutronix.de>
+ <20200827182040.GA2049623@bjorn-Precision-5520>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQI3t7iXj66qvRdG8GCx2a1a4xz7XAJdPdyxAnABMAioZHzIIA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200827182040.GA2049623@bjorn-Precision-5520>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,62 +71,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 26 August 2020 15:03
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Durrant, Paul =
-<pdurrant@amazon.co.uk>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Andrew Cooper =
-<andrew.cooper3@citrix.com>; George
-> Dunlap <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; =
-Stefano Stabellini
-> <sstabellini@kernel.org>; Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Subject: RE: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context =
-record for tsc_info...
->=20
-> CAUTION: This email originated from outside of the organization. Do =
-not click links or open
-> attachments unless you can confirm the sender and know the content is =
-safe.
->=20
->=20
->=20
-> On 18.08.2020 12:30, Paul Durrant wrote:
-> > --- a/xen/include/public/save.h
-> > +++ b/xen/include/public/save.h
-> > @@ -93,7 +93,18 @@ struct domain_shared_info_context {
-> >
-> >  DECLARE_DOMAIN_SAVE_TYPE(SHARED_INFO, 2, struct =
-domain_shared_info_context);
-> >
-> > -#define DOMAIN_SAVE_CODE_MAX 2
-> > +#if defined(__i386__) || defined(__x86_64__)
-> > +struct domain_tsc_info_context {
-> > +    uint32_t mode;
-> > +    uint32_t incarnation;
-> > +    uint64_t elapsed_nsec;
-> > +    uint32_t khz;
-> > +};
->=20
-> sizeof() for this struct varies between 32-bit and 64-bit - is
-> this not a problem? (alignof() varies too, but there I think
-> it's indeed not a problem, albeit it could still be taken care
-> of by using uint64_aligned_t, alongside the addition of an
-> explicit padding field).
+On Thu, Aug 27, 2020 at 01:20:40PM -0500, Bjorn Helgaas wrote:
 
-I don't think it should matter because domain context records have =
-implicit padding to align up to the next 64-bit boundary, so as long as =
-fields within the struct don't move (which I think is true in this case) =
-then we should be ok.
+[...]
 
-  Paul
+> And I can't figure out what's special about tegra, rcar, and xilinx
+> that makes them need it as well.  Is there something I could grep for
+> to identify them?  Is there a way to convert them so they don't need
+> it?
 
->=20
-> Jan
+I think DT binding and related firmware support are needed to setup the
+MSI IRQ domains correctly, there is nothing special about tegra, rcar
+and xilinx AFAIK (well, all native host controllers MSI handling is
+*special* just to be polite but let's gloss over this for the time
+being).
 
+struct msi_controller, to answer the first question.
+
+I have doubts about pci_mvebu too, they do allocate an msi_controller
+but without methods so it looks pretty much useless.
+
+Hyper-V code too seems questionable, maybe there is room for more
+clean-ups.
+
+Lorenzo
+
+> > --- a/include/linux/msi.h
+> > +++ b/include/linux/msi.h
+> > @@ -193,17 +193,38 @@ void pci_msi_mask_irq(struct irq_data *d
+> >  void pci_msi_unmask_irq(struct irq_data *data);
+> >  
+> >  /*
+> > - * The arch hooks to setup up msi irqs. Those functions are
+> > - * implemented as weak symbols so that they /can/ be overriden by
+> > - * architecture specific code if needed.
+> > + * The arch hooks to setup up msi irqs. Default functions are implemented
+> 
+> s/msi/MSI/ to match the one below.
+> 
+> > + * as weak symbols so that they /can/ be overriden by architecture specific
+> > + * code if needed. These hooks must be enabled by the architecture or by
+> > + * drivers which depend on them via msi_controller based MSI handling.
 
