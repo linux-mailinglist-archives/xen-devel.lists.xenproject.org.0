@@ -2,53 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A3A2551DF
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 02:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97662551E7
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 02:25:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBS1d-000087-CX; Fri, 28 Aug 2020 00:13:49 +0000
+	id 1kBSCO-00019U-NI; Fri, 28 Aug 2020 00:24:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+vO4=CG=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kBS1c-000082-BR
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 00:13:48 +0000
-X-Inumbo-ID: ae27402b-c550-4bd9-8d1f-491f365f3107
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=cgpo=CG=intel.com=megha.dey@srs-us1.protection.inumbo.net>)
+ id 1kBSCN-00019P-G9
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 00:24:55 +0000
+X-Inumbo-ID: 44068b05-6e80-44f7-b6cd-7afb65b8beb2
+Received: from mga07.intel.com (unknown [134.134.136.100])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae27402b-c550-4bd9-8d1f-491f365f3107;
- Fri, 28 Aug 2020 00:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598573626;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=lKUHMYWvMqoXoQIRy3yQttVawMRij0Lk9YPfLKj1a8E=;
- b=IKs0THmhc/wF/kPFlnM51pMEgj4xZowmNF/pDMA3zoXba7qM1P3A53dZ
- bwQ15PUGi+WEXfokbEM5P8ICUVyBO1gJEmYP6n0GSuyBylqVxZO7q1oUW
- WDQ8Uh7ITgFRi4X5ECxlTPPPBG/6puc4IbWHrzH7R3rsgNu8O2JQTu4dG s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: WMi1N9EbrA9THccyKaiqUGvp1F1jkKTCjGP+iY3Gb9GJNcO5xfmj3qxQ+WKfhjWgh3ayE3Kud2
- eDzKh3fr2dyy7eHVsWILpOdPmLopohdQSkkf0kRt7M9woB58LJ6RmO0GfVV7JjqTk8BRpvX8aA
- lxzmnGzkqmhyIeJfHAhl44mXgucXWRS/hi54jzXxJLroVnJxrcTpMGArgVaz+3Sgm8BH8OEruq
- 2ohKtYzkhlMv4bMEDqKG45tMXa0k6Tlu40s3CvdFfBMgUHymzAgma/OyGew0Jd2J8Dp6AsMbFN
- ZCY=
-X-SBRS: 2.7
-X-MesageID: 25783811
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,361,1592884800"; d="scan'208";a="25783811"
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, 
- <wl@xen.org>, <iwj@xenproject.org>, Igor Druzhinin
- <igor.druzhinin@citrix.com>
-Subject: [PATCH] hvmloader: indicate firmware tables as ACPI NVS in e820
-Date: Fri, 28 Aug 2020 01:13:19 +0100
-Message-ID: <1598573599-23792-1-git-send-email-igor.druzhinin@citrix.com>
-X-Mailer: git-send-email 2.7.4
+ id 44068b05-6e80-44f7-b6cd-7afb65b8beb2;
+ Fri, 28 Aug 2020 00:24:51 +0000 (UTC)
+IronPort-SDR: SR2EhUhmXH4h0L/vADkAE8dDeJuoJxDw2IkSdKxTICJCqK6ghoHGLBZArCOMnETUkGRwUnvQwQ
+ QxVH5phwLeWw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9726"; a="220833631"
+X-IronPort-AV: E=Sophos;i="5.76,361,1592895600"; d="scan'208";a="220833631"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2020 17:24:48 -0700
+IronPort-SDR: oURbbna2B9VUd5BCCxZKFvbYptrnLbPIKvW4skTq9oRtYGTT8iK7DZoIfbSEAcz0iNrD44Fxcq
+ IHw5AcLs5++A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,361,1592895600"; d="scan'208";a="373897073"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga001.jf.intel.com with ESMTP; 27 Aug 2020 17:24:48 -0700
+Received: from orsmsx606.amr.corp.intel.com (10.22.229.19) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 27 Aug 2020 17:24:44 -0700
+Received: from orsmsx101.amr.corp.intel.com (10.22.225.128) by
+ orsmsx606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
+ via Frontend Transport; Thu, 27 Aug 2020 17:24:44 -0700
+Received: from [10.254.177.214] (10.254.177.214) by
+ ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 27 Aug 2020 17:24:44 -0700
+Subject: Re: [patch V2 29/46] irqdomain/msi: Allow to override
+ msi_domain_alloc/free_irqs()
+To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
+CC: <x86@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ <iommu@lists.linux-foundation.org>, <linux-hyperv@vger.kernel.org>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>, Lu
+ Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>,
+ Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, "Russ
+ Anderson" <rja@hpe.com>, <linux-pci@vger.kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Konrad
+ Rzeszutek Wilk <konrad.wilk@oracle.com>, <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>, "Boris Ostrovsky"
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Jason
+ Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex
+ Williamson <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, 
+ Baolu Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan
+ Williams <dan.j.williams@intel.com>
+References: <20200826111628.794979401@linutronix.de>
+ <20200826112333.526797548@linutronix.de>
+From: "Dey, Megha" <megha.dey@intel.com>
+Message-ID: <ebccacdd-9ece-2831-fc22-9868dd1c4ea6@intel.com>
+Date: Thu, 27 Aug 2020 17:24:42 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <20200826112333.526797548@linutronix.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [10.254.177.214]
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,113 +90,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Guest kernel does need to know in some cases where the tables are located
-to treat these regions properly. One example is kexec process where
-the first kernel needs to pass firmware region locations to the second
-kernel which is now a requirement after 02a3e3cdb7f12 ("x86/boot: Parse SRAT
-table and count immovable memory regions").
+Hi Thomas,
 
-The memory that hvmloader allocates in the reserved region mostly contains
-these useful tables and could be safely indicated as ACPI without the need
-to designate a sub-region specially for that. Making it non-reclaimable
-(ACPI NVS) would avoid potential reuse of this memory by the guest.
-Swtiching from Reserved to ACPI NVS type for this memory would also mean
-its content is preserved across S4 (which is true for any ACPI type according
-to the spec).
+On 8/26/2020 4:16 AM, Thomas Gleixner wrote:
+> From: Thomas Gleixner <tglx@linutronix.de>
+>
+> To support MSI irq domains which do not fit at all into the regular MSI
+> irqdomain scheme, like the XEN MSI interrupt management for PV/HVM/DOM0,
+> it's necessary to allow to override the alloc/free implementation.
+>
+> This is a preperatory step to switch X86 away from arch_*_msi_irqs() and
+> store the irq domain pointer right in struct device.
+>
+> No functional change for existing MSI irq domain users.
+>
+> Aside of the evil XEN wrapper this is also useful for special MSI domains
+> which need to do extra alloc/free work before/after calling the generic
+> core function. Work like allocating/freeing MSI descriptors, MSI storage
+> space etc.
+>
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+>
+> ---
+>   include/linux/msi.h |   27 ++++++++++++++++++++
+>   kernel/irq/msi.c    |   70 +++++++++++++++++++++++++++++++++++-----------------
+>   2 files changed, 75 insertions(+), 22 deletions(-)
+>
+> --- a/include/linux/msi.h
+> +++ b/include/linux/msi.h
+> @@ -241,6 +241,10 @@ struct msi_domain_info;
+>    * @msi_finish:		Optional callback to finalize the allocation
+>    * @set_desc:		Set the msi descriptor for an interrupt
+>    * @handle_error:	Optional error handler if the allocation fails
+> + * @domain_alloc_irqs:	Optional function to override the default allocation
+> + *			function.
+> + * @domain_free_irqs:	Optional function to override the default free
+> + *			function.
+>    *
+>    * @get_hwirq, @msi_init and @msi_free are callbacks used by
+>    * msi_create_irq_domain() and related interfaces
+> @@ -248,6 +252,22 @@ struct msi_domain_info;
+>    * @msi_check, @msi_prepare, @msi_finish, @set_desc and @handle_error
+>    * are callbacks used by msi_domain_alloc_irqs() and related
+>    * interfaces which are based on msi_desc.
+> + *
+> + * @domain_alloc_irqs, @domain_free_irqs can be used to override the
+> + * default allocation/free functions (__msi_domain_alloc/free_irqs). This
+> + * is initially for a wrapper around XENs seperate MSI universe which can't
+> + * be wrapped into the regular irq domains concepts by mere mortals.  This
+> + * allows to universally use msi_domain_alloc/free_irqs without having to
+> + * special case XEN all over the place.
+> + *
+> + * Contrary to other operations @domain_alloc_irqs and @domain_free_irqs
+> + * are set to the default implementation if NULL and even when
+> + * MSI_FLAG_USE_DEF_DOM_OPS is not set to avoid breaking existing users and
+> + * because these callbacks are obviously mandatory.
+> + *
+> + * This is NOT meant to be abused, but it can be useful to build wrappers
+> + * for specialized MSI irq domains which need extra work before and after
+> + * calling __msi_domain_alloc_irqs()/__msi_domain_free_irqs().
+>    */
+>   struct msi_domain_ops {
+>   	irq_hw_number_t	(*get_hwirq)(struct msi_domain_info *info,
+> @@ -270,6 +290,10 @@ struct msi_domain_ops {
+>   				    struct msi_desc *desc);
+>   	int		(*handle_error)(struct irq_domain *domain,
+>   					struct msi_desc *desc, int error);
+> +	int		(*domain_alloc_irqs)(struct irq_domain *domain,
+> +					     struct device *dev, int nvec);
+> +	void		(*domain_free_irqs)(struct irq_domain *domain,
+> +					    struct device *dev);
+>   };
+>   
+>   /**
+> @@ -327,8 +351,11 @@ int msi_domain_set_affinity(struct irq_d
+>   struct irq_domain *msi_create_irq_domain(struct fwnode_handle *fwnode,
+>   					 struct msi_domain_info *info,
+>   					 struct irq_domain *parent);
+> +int __msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+> +			    int nvec);
+>   int msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+>   			  int nvec);
+> +void __msi_domain_free_irqs(struct irq_domain *domain, struct device *dev);
+>   void msi_domain_free_irqs(struct irq_domain *domain, struct device *dev);
+>   struct msi_domain_info *msi_get_domain_info(struct irq_domain *domain);
+>   
+> --- a/kernel/irq/msi.c
+> +++ b/kernel/irq/msi.c
+> @@ -229,11 +229,13 @@ static int msi_domain_ops_check(struct i
+>   }
+>   
+>   static struct msi_domain_ops msi_domain_ops_default = {
+> -	.get_hwirq	= msi_domain_ops_get_hwirq,
+> -	.msi_init	= msi_domain_ops_init,
+> -	.msi_check	= msi_domain_ops_check,
+> -	.msi_prepare	= msi_domain_ops_prepare,
+> -	.set_desc	= msi_domain_ops_set_desc,
+> +	.get_hwirq		= msi_domain_ops_get_hwirq,
+> +	.msi_init		= msi_domain_ops_init,
+> +	.msi_check		= msi_domain_ops_check,
+> +	.msi_prepare		= msi_domain_ops_prepare,
+> +	.set_desc		= msi_domain_ops_set_desc,
+> +	.domain_alloc_irqs	= __msi_domain_alloc_irqs,
+> +	.domain_free_irqs	= __msi_domain_free_irqs,
+>   };
+>   
+>   static void msi_domain_update_dom_ops(struct msi_domain_info *info)
+> @@ -245,6 +247,14 @@ static void msi_domain_update_dom_ops(st
+>   		return;
+>   	}
+>   
+> +	if (ops->domain_alloc_irqs == NULL)
+> +		ops->domain_alloc_irqs = msi_domain_ops_default.domain_alloc_irqs;
+> +	if (ops->domain_free_irqs == NULL)
+> +		ops->domain_free_irqs = msi_domain_ops_default.domain_free_irqs;
+> +
+> +	if (!(info->flags & MSI_FLAG_USE_DEF_DOM_OPS))
+> +		return;
+> +
+>   	if (ops->get_hwirq == NULL)
+>   		ops->get_hwirq = msi_domain_ops_default.get_hwirq;
+>   	if (ops->msi_init == NULL)
+> @@ -278,8 +288,7 @@ struct irq_domain *msi_create_irq_domain
+>   {
+>   	struct irq_domain *domain;
+>   
+> -	if (info->flags & MSI_FLAG_USE_DEF_DOM_OPS)
+> -		msi_domain_update_dom_ops(info);
+> +	msi_domain_update_dom_ops(info);
+>   	if (info->flags & MSI_FLAG_USE_DEF_CHIP_OPS)
+>   		msi_domain_update_chip_ops(info);
+>   
+> @@ -386,17 +395,8 @@ static bool msi_check_reservation_mode(s
+>   	return desc->msi_attrib.is_msix || desc->msi_attrib.maskbit;
+>   }
+>   
+> -/**
+> - * msi_domain_alloc_irqs - Allocate interrupts from a MSI interrupt domain
+> - * @domain:	The domain to allocate from
+> - * @dev:	Pointer to device struct of the device for which the interrupts
+> - *		are allocated
+> - * @nvec:	The number of interrupts to allocate
+> - *
+> - * Returns 0 on success or an error code.
+> - */
+> -int msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+> -			  int nvec)
+> +int __msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+> +			    int nvec)
+>   {
+>   	struct msi_domain_info *info = domain->host_data;
+>   	struct msi_domain_ops *ops = info->ops;
+> @@ -490,12 +490,24 @@ int msi_domain_alloc_irqs(struct irq_dom
+>   }
+>   
+>   /**
+> - * msi_domain_free_irqs - Free interrupts from a MSI interrupt @domain associated tp @dev
+> - * @domain:	The domain to managing the interrupts
+> + * msi_domain_alloc_irqs - Allocate interrupts from a MSI interrupt domain
+> + * @domain:	The domain to allocate from
+>    * @dev:	Pointer to device struct of the device for which the interrupts
+> - *		are free
+> + *		are allocated
+> + * @nvec:	The number of interrupts to allocate
+> + *
+> + * Returns 0 on success or an error code.
+>    */
+> -void msi_domain_free_irqs(struct irq_domain *domain, struct device *dev)
+> +int msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+> +			  int nvec)
+> +{
+> +	struct msi_domain_info *info = domain->host_data;
+> +	struct msi_domain_ops *ops = info->ops;
+> +
+> +	return ops->domain_alloc_irqs(domain, dev, nvec);
+> +}
+> +
 
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
----
- tools/firmware/hvmloader/e820.c | 21 +++++++++++++++++----
- tools/firmware/hvmloader/util.c |  6 ++++++
- tools/firmware/hvmloader/util.h |  3 +++
- 3 files changed, 26 insertions(+), 4 deletions(-)
+Since, our upcoming driver will directly call this API, an 
+EXPORT_SYMBOL_GPL tag would be required.
 
-diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
-index 4d1c955..ef60007 100644
---- a/tools/firmware/hvmloader/e820.c
-+++ b/tools/firmware/hvmloader/e820.c
-@@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
- {
-     unsigned int nr = 0, i, j;
-     uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
-+    uint32_t firmware_mem_end =
-+        RESERVED_MEMORY_DYNAMIC_START + (mem_mfns_allocated() << PAGE_SHIFT);
- 
-     if ( !lowmem_reserved_base )
-             lowmem_reserved_base = 0xA0000;
-@@ -199,8 +201,19 @@ int build_e820_table(struct e820entry *e820,
-     nr++;
- 
-     /*
-+     * Mark populated reserved memory that contains ACPI and other tables as
-+     * ACPI NVS (non-reclaimable) space - that should help the guest to treat
-+     * it correctly later (e.g. pass to the next kernel on kexec).
-+     */
-+
-+    e820[nr].addr = RESERVED_MEMBASE;
-+    e820[nr].size = firmware_mem_end - RESERVED_MEMBASE;
-+    e820[nr].type = E820_NVS;
-+    nr++;
-+
-+    /*
-      * Explicitly reserve space for special pages.
--     * This space starts at RESERVED_MEMBASE an extends to cover various
-+     * This space starts after ACPI region and extends to cover various
-      * fixed hardware mappings (e.g., LAPIC, IOAPIC, default SVGA framebuffer).
-      *
-      * If igd_opregion_pgbase we need to split the RESERVED region in two.
-@@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
-     {
-         uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
- 
--        e820[nr].addr = RESERVED_MEMBASE;
--        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
-+        e820[nr].addr = firmware_mem_end;
-+        e820[nr].size = (uint32_t) igd_opregion_base - firmware_mem_end;
-         e820[nr].type = E820_RESERVED;
-         nr++;
- 
-@@ -227,7 +240,7 @@ int build_e820_table(struct e820entry *e820,
-     }
-     else
-     {
--        e820[nr].addr = RESERVED_MEMBASE;
-+        e820[nr].addr = firmware_mem_end;
-         e820[nr].size = (uint32_t)-e820[nr].addr;
-         e820[nr].type = E820_RESERVED;
-         nr++;
-diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index 0c3f2d2..af68862 100644
---- a/tools/firmware/hvmloader/util.c
-+++ b/tools/firmware/hvmloader/util.c
-@@ -444,6 +444,12 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns)
- static uint32_t alloc_up = RESERVED_MEMORY_DYNAMIC_START - 1;
- static uint32_t alloc_down = RESERVED_MEMORY_DYNAMIC_END;
- 
-+uint32_t mem_mfns_allocated(void)
-+{
-+    return (alloc_up >> PAGE_SHIFT) -
-+            ((RESERVED_MEMORY_DYNAMIC_START - 1) >> PAGE_SHIFT);
-+}
-+
- xen_pfn_t mem_hole_alloc(uint32_t nr_mfns)
- {
-     alloc_down -= nr_mfns << PAGE_SHIFT;
-diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
-index 7bca641..98d5e02 100644
---- a/tools/firmware/hvmloader/util.h
-+++ b/tools/firmware/hvmloader/util.h
-@@ -200,6 +200,9 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns);
- /* Allocate a memory hole below 4GB. */
- xen_pfn_t mem_hole_alloc(uint32_t nr_mfns);
- 
-+/* Return number of pages allocated */
-+uint32_t mem_mfns_allocated(void);
-+
- /* Allocate memory in a reserved region below 4GB. */
- void *mem_alloc(uint32_t size, uint32_t align);
- #define virt_to_phys(v) ((unsigned long)(v))
--- 
-2.7.4
+Currently there is no use case. I was wondering if we should add this 
+change while submitting the
 
+idxd/ims patches or would you add this to this patch?
+
+> +void __msi_domain_free_irqs(struct irq_domain *domain, struct device *dev)
+>   {
+>   	struct msi_desc *desc;
+>   
+> @@ -513,6 +525,20 @@ void msi_domain_free_irqs(struct irq_dom
+>   }
+>   
+>   /**
+> + * __msi_domain_free_irqs - Free interrupts from a MSI interrupt @domain associated tp @dev
+> + * @domain:	The domain to managing the interrupts
+> + * @dev:	Pointer to device struct of the device for which the interrupts
+> + *		are free
+> + */
+> +void msi_domain_free_irqs(struct irq_domain *domain, struct device *dev)
+> +{
+> +	struct msi_domain_info *info = domain->host_data;
+> +	struct msi_domain_ops *ops = info->ops;
+> +
+> +	return ops->domain_free_irqs(domain, dev);
+> +}
+> +
+> +/**
+>    * msi_get_domain_info - Get the MSI interrupt domain info for @domain
+>    * @domain:	The interrupt domain to retrieve data from
+>    *
+>
+>
 
