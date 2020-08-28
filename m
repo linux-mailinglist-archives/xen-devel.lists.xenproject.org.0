@@ -2,43 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F159255331
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 05:05:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D754255335
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 05:11:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBUgz-0004gF-2U; Fri, 28 Aug 2020 03:04:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cd5S=CG=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kBUgx-0004g8-Qa
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 03:04:39 +0000
-X-Inumbo-ID: 5c2d0a05-b622-48ad-b3c0-11e2c7173913
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5c2d0a05-b622-48ad-b3c0-11e2c7173913;
- Fri, 28 Aug 2020 03:04:38 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 07S34Rlc025371
- (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
- Thu, 27 Aug 2020 23:04:33 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 07S34RXG025370;
- Thu, 27 Aug 2020 20:04:27 -0700 (PDT) (envelope-from ehem)
-Date: Thu, 27 Aug 2020 20:04:27 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH] xen/arm: Add Kconfig option for CONFIG_EARLY_PRINTK
-Message-ID: <20200828030427.GC25246@mattapan.m5p.com>
+	id 1kBUml-0005Wx-OE; Fri, 28 Aug 2020 03:10:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=htBp=CG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kBUmk-0005Ws-6P
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 03:10:38 +0000
+X-Inumbo-ID: 1c0a191b-7c33-4108-a8c5-f6efb27bbd99
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1c0a191b-7c33-4108-a8c5-f6efb27bbd99;
+ Fri, 28 Aug 2020 03:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=Yz5vZ3ah/SyEcjeD0Gfnqm5Mi6Ht9SqjONBbK6EZ1qY=; b=iJWHB1jvkmkCIIo4OZJgeWCE8X
+ yO+U/A1fn62+dWanzRa9v5msI2tLLjmnIt++zQvg1MpNPy3eJjhdlWKmAMRWPvsesXIe/b2qmlJK4
+ duIjG8MlHA/IVj+a4/nATVuLSuM1/Espj0WN55kFNcl554ei+SsrrtA+KLemg+RQpMQs=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBUmh-0005z0-O2; Fri, 28 Aug 2020 03:10:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBUmh-0003Pu-Hk; Fri, 28 Aug 2020 03:10:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kBUmh-0002Sk-HE; Fri, 28 Aug 2020 03:10:35 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152940-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
- autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Subject: [xen-unstable-smoke test] 152940: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
+X-Osstest-Versions-That: xen=484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Aug 2020 03:10:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,152 +68,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Support for a very early console has existed for ARM for quite some
-time.  Previously EARLY_PRINTK had to be passed in as a Make variable,
-instead of as a configuration option.  Create the option to allow
-selecting via .config.
+flight 152940 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152940/
 
-Signed-off-by: Elliott Mitchell <ehem+xen@drgnwing.com>
+Regressions :-(
 
----
-This is mostly RFC due to insufficient testing.  I am hopeful this
-successfully changes things to have the Kconfig CONFIG_EARLY_PRINTK
-option replace the environment/Make variable EARLY_PRINTK.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 152892
 
----
- xen/arch/arm/Kconfig        | 12 ++++++++++++
- xen/arch/arm/Makefile       |  2 +-
- xen/arch/arm/Rules.mk       | 34 +++++++++++++++-------------------
- xen/arch/arm/arm32/Makefile |  2 +-
- xen/arch/arm/arm64/Makefile |  2 +-
- 5 files changed, 30 insertions(+), 22 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 0ef8a99ad9..a176d42a0c 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -241,3 +241,15 @@ source "arch/arm/platforms/Kconfig"
- source "common/Kconfig"
- 
- source "drivers/Kconfig"
-+
-+if DEBUG || EXPERT
-+
-+config EARLY_PRINTK
-+	string "Enable early hard-coded console for printk"
-+	help
-+          Setup a serial device early during boot for logging message.  Used
-+	  for very early bring-up.
-+
-+	  See docs/misc/arm/early-printk.txt
-+
-+endif
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 70f532e42a..0bf975b44d 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -16,7 +16,7 @@ obj-y += device.o
- obj-y += domain.o
- obj-y += domain_build.init.o
- obj-y += domctl.o
--obj-$(EARLY_PRINTK) += early_printk.o
-+obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += gic.o
- obj-y += gic-v2.o
- obj-$(CONFIG_GICV3) += gic-v3.o
-diff --git a/xen/arch/arm/Rules.mk b/xen/arch/arm/Rules.mk
-index 3d9a0ed357..4aef62cc9c 100644
---- a/xen/arch/arm/Rules.mk
-+++ b/xen/arch/arm/Rules.mk
-@@ -22,12 +22,15 @@ ifneq ($(call cc-option,$(CC),-fvisibility=hidden,n),n)
- CFLAGS += -DGCC_HAS_VISIBILITY_ATTRIBUTE
- endif
- 
--EARLY_PRINTK := n
--
--ifeq ($(CONFIG_DEBUG),y)
-+ifneq ($(CONFIG_EARLY_PRINTK),)
- 
- # See docs/misc/arm/early-printk.txt for syntax
- 
-+ifneq ($(CONFIG_DEBUG),y)
-+# Early printk is dependant on a debug build.
-+$(error CONFIG_EARLY_PRINTK enabled for non-debug build)
-+endif
-+
- EARLY_PRINTK_brcm           := 8250,0xF040AB00,2
- EARLY_PRINTK_dra7           := 8250,0x4806A000,2
- EARLY_PRINTK_fastmodel      := pl011,0x1c090000,115200
-@@ -54,6 +57,10 @@ else
- EARLY_PRINTK_CFG := $(subst $(comma), ,$(CONFIG_EARLY_PRINTK))
- endif
- 
-+ifeq ($(EARLY_PRINTK_CFG),)
-+$(error Unknown CONFIG_EARLY_PRINTK setting)
-+endif
-+
- # Extract configuration from string
- EARLY_PRINTK_INC := $(word 1,$(EARLY_PRINTK_CFG))
- EARLY_UART_BASE_ADDRESS := $(word 2,$(EARLY_PRINTK_CFG))
-@@ -76,22 +83,11 @@ CFLAGS-y += -DEARLY_PRINTK_VERSION_NONE
- endif
- endif
- 
--ifneq ($(EARLY_PRINTK_INC),)
--EARLY_PRINTK := y
--endif
--
--CFLAGS-$(EARLY_PRINTK) += -DCONFIG_EARLY_PRINTK
-+CFLAGS-y += -DCONFIG_EARLY_PRINTK
- CFLAGS-$(EARLY_PRINTK_INIT_UART) += -DEARLY_PRINTK_INIT_UART
--CFLAGS-$(EARLY_PRINTK) += -DEARLY_PRINTK_INC=\"debug-$(EARLY_PRINTK_INC).inc\"
--CFLAGS-$(EARLY_PRINTK) += -DEARLY_PRINTK_BAUD=$(EARLY_PRINTK_BAUD)
--CFLAGS-$(EARLY_PRINTK) += -DEARLY_UART_BASE_ADDRESS=$(EARLY_UART_BASE_ADDRESS)
--CFLAGS-$(EARLY_PRINTK) += -DEARLY_UART_REG_SHIFT=$(EARLY_UART_REG_SHIFT)
--
--else # !CONFIG_DEBUG
--
--ifneq ($(CONFIG_EARLY_PRINTK),)
--# Early printk is dependant on a debug build.
--$(error CONFIG_EARLY_PRINTK enabled for non-debug build)
--endif
-+CFLAGS-y += -DEARLY_PRINTK_INC=\"debug-$(EARLY_PRINTK_INC).inc\"
-+CFLAGS-y += -DEARLY_PRINTK_BAUD=$(EARLY_PRINTK_BAUD)
-+CFLAGS-y += -DEARLY_UART_BASE_ADDRESS=$(EARLY_UART_BASE_ADDRESS)
-+CFLAGS-y += -DEARLY_UART_REG_SHIFT=$(EARLY_UART_REG_SHIFT)
- 
- endif
-diff --git a/xen/arch/arm/arm32/Makefile b/xen/arch/arm/arm32/Makefile
-index 0ac254f347..13eeefae13 100644
---- a/xen/arch/arm/arm32/Makefile
-+++ b/xen/arch/arm/arm32/Makefile
-@@ -1,6 +1,6 @@
- subdir-y += lib
- 
--obj-$(EARLY_PRINTK) += debug.o
-+obj-$(CONFIG_EARLY_PRINTK) += debug.o
- obj-y += domctl.o
- obj-y += domain.o
- obj-y += entry.o
-diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
-index c4f3a28a0d..86572014d0 100644
---- a/xen/arch/arm/arm64/Makefile
-+++ b/xen/arch/arm/arm64/Makefile
-@@ -2,7 +2,7 @@ subdir-y += lib
- 
- obj-y += cache.o
- obj-$(CONFIG_HARDEN_BRANCH_PREDICTOR) += bpi.o
--obj-$(EARLY_PRINTK) += debug.o
-+obj-$(CONFIG_EARLY_PRINTK) += debug.o
- obj-y += domctl.o
- obj-y += domain.o
- obj-y += entry.o
--- 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+version targeted for testing:
+ xen                  0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
+baseline version:
+ xen                  484fca9569f03fbcb0fa5704f59164f95b0a8fcb
+
+Last test of basis   152892  2020-08-27 11:00:25 Z    0 days
+Testing same since   152898  2020-08-27 14:01:18 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 0de9cbf9cfeedbd2a2e4719a2faa6084f0fcbb52
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:12 2020 +0200
+
+    stubdom: simplify building xen libraries for stubdoms
+    
+    The pattern for building a Xen library with sources under tools/libs
+    is always the same. Simplify stubdom/Makefile by defining a callable
+    make program for those libraries.
+    
+    Even if not needed right now add the possibility for defining
+    additional dependencies for a library.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+
+commit ddb2934a914df26762c45f0b114fa358a045e0ee
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    stubdom: add correct dependencies for Xen libraries
+    
+    The stubdom Makefile is missing several dependencies between Xen
+    libraries. Add them.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+
+commit ded08cdfa72bb1555a2beb5c4300dedb1f830358
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    tools: generate most contents of library make variables
+    
+    Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
+    and SHLIB_lib*) mostly have a common pattern for their values. Generate
+    most of this content automatically by adding a new per-library variable
+    defining on which other libraries a lib is depending. Those definitions
+    are put into an own file in order to make it possible to include it
+    from various Makefiles, especially for stubdom.
+    
+    This in turn makes it possible to drop the USELIB variable from each
+    library Makefile.
+    
+    The LIBNAME variable can be dropped, too, as it can be derived from the
+    directory name the library is residing in.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 09bf2917046f78a5f0b42da771602bb4ef5dcc09
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    tools: define ROUNDUP() in tools/include/xen-tools/libs.h
+    
+    Today there are multiple copies of the ROUNDUP() macro in various
+    sources and headers. Define it once in tools/include/xen-tools/libs.h.
+    
+    Using xen-tools/libs.h enables removing copies of MIN() and MAX(), too.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 097b6fe1df89a0506a4feb1379ba5d9d14ec3a3b
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    tools: don't call make recursively from libs.mk
+    
+    During build of a xen library make is called again via libs.mk. This is
+    not necessary as the same can be achieved by a simple dependency.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bc44e2fb3199ecd8461bbdd093806f76ee61776a
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    tools: add a copy of library headers in tools/include
+    
+    The headers.chk target in tools/Rules.mk tries to compile all headers
+    stand alone for testing them not to include any internal header.
+    
+    Unfortunately the headers tested against are not complete, as any
+    header for a Xen library is not included in the include path of the
+    test compile run, resulting in a failure in case any of the tested
+    headers in including an official Xen library header.
+    
+    Fix that by copying the official headers located in
+    tools/libs/*/include to tools/include.
+    
+    In order to support libraries with header name other than xen<lib>.h
+    or with multiple headers add a LIBHEADER make variable a lib specific
+    Makefile can set in that case.
+    
+    Move the headers.chk target from Rules.mk to libs.mk as it is used
+    for libraries in tools/libs only.
+    
+    Add NO_HEADERS_CHK variable to skip checking headers as this will be
+    needed e.g. for libxenctrl.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 725ef89164e38349c9e6210f720e0cdc0c52e69e
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:11 2020 +0200
+
+    tools: switch XEN_LIBXEN* make variables to lower case (XEN_libxen*)
+    
+    In order to harmonize names of library related make variables switch
+    XEN_LIBXEN* names to XEN_libxen*, as all other related variables (e.g.
+    CFLAGS_libxen*, SHDEPS_libxen*, ...) already use this pattern.
+    
+    Rename XEN_LIBXC to XEN_libxenctrl, XEN_XENSTORE to XEN_libxenstore,
+    XEN_XENLIGHT to XEN_libxenlight, XEN_XLUTIL to XEN_libxlutil, and
+    XEN_LIBVCHAN to XEN_libxenvchan for the same reason.
+    
+    Introduce XEN_libxenguest with the same value as XEN_libxenctrl.
+    
+    No functional change.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 314d8cc0d87e04dd81eb9970709e71c50fef7b14
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Aug 23 10:00:10 2020 +0200
+
+    stubdom: add stubdom/mini-os.mk for Xen paths used by Mini-OS
+    
+    stubdom/mini-os.mk should contain paths used by Mini-OS when built as
+    stubdom.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+
+commit e32605b07ef2e01c9d05da9b2d5d7b8f9a5c7c1b
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Apr 10 16:25:40 2018 +0100
+
+    x86: Begin to introduce support for MSR_ARCH_CAPS
+    
+    ... including serialisation/deserialisation logic and unit tests.
+    
+    There is no current way to configure this MSR correctly for guests.
+    The toolstack side this logic needs building, which is far easier to
+    do with it in place.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 70c52c46bca89de00f04aa9294e14d11a2adff80
+Author: Wei Liu <wl@xen.org>
+Date:   Thu Aug 27 10:48:38 2020 +0000
+
+    gitignore: ignore ebmalloc.c soft link
+    
+    A previous commit split ebmalloc to its own translation unit but forgot
+    to modify gitignore.
+    
+    Fixes: 8856a914bffd ("build: also check for empty .bss.* in .o -> .init.o conversion")
+    Signed-off-by: Wei Liu <wl@xen.org>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
