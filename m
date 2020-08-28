@@ -2,132 +2,93 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD2D255A64
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 14:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A35255A87
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Aug 2020 14:48:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kBdhp-0008R4-Q7; Fri, 28 Aug 2020 12:42:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nNC1=CG=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1kBdho-0008Qz-7T
- for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 12:42:08 +0000
-X-Inumbo-ID: cd82868f-450e-4f55-b85c-b0d8d7927e63
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cd82868f-450e-4f55-b85c-b0d8d7927e63;
- Fri, 28 Aug 2020 12:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598618526;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=QfG1v8JLwaCAIDhZJP/gI4IjxAXGw+vfs4sLLYg4ysk=;
- b=C/vefwGm8tEmO6ad/uIqtK2wg71JjNIFqAJnVjphE7XUWlwcqFrgO3PG
- yWMUBoVk3chrQjF5HIXDOvqAoNTo/ULmoVuDppJZBufkodtR4i9EMIjsA
- mddNHwTgJd9Tw7qXicm4yZfc1nG5xpw1TcqLNuoLGmk8sGiOzvRdGKMAB c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=pass (signature verified)
- header.i=@citrix.onmicrosoft.com
-IronPort-SDR: jDaL9k4Az0QrWByHKvcmSuatipuqVcnZ4eWDwPgfdtc8CNOWZjov/u+xCtLB967k6okibMpaC2
- TGi8GRhm7X06DVF35t4go2XyZMjSEFIwN+x1FkC8zizoN/G62Ije+AJYquleiu7StdjcFUYG1o
- sIFRoVOorluvechwhGl3T/uLVjY72htJJ9QKsoQAFU2nTg36IqghxlzvNitwtW3c6oHHTZqJ1B
- hSRODng6+2rnid+LUhnFajkY9glR6Dnrrh4uP3+eMiNVRKt3r6e2s5RDxRdKSWU3IrazEaQ/LQ
- pV8=
-X-SBRS: 2.7
-X-MesageID: 26463249
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,363,1592884800"; d="scan'208";a="26463249"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XKHIuE96u/sFGxyHwE+M4Yeotz47aEYopfm9PPZ7mZNkSce2BGtYgjBJVSIqMY9EEhBc/4d7IZzJu6sTT7dX56mPTGKD7attJ5A3aAdPNIIbWntGPU/PocT5nSp1lx7R3MPJnbtQkppZSaB8ZxBqpm1GYnhXWxD4E1GPocZS30IHrp2vLt9uhgERrGiXUoWLclxk+AaS0j+hZaWPsiAclweN6bcxwMScLWAX/fwVnoBeqqm9s3fY4PG36GmZYXt0b5A/EsaeliJxwlY5Vl7LtjP0P/QNj6VfGHscoXFwa3O1iABaM2HQN5QUpVCwLEfla2ccNKXBXlrV+qK4TX3WKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QfG1v8JLwaCAIDhZJP/gI4IjxAXGw+vfs4sLLYg4ysk=;
- b=UwYUpBhKKBvBbQqRKjbaj99G6S6w/k4oI/lZvQTpmeTR+zVDFvAsL5Sw+lR6UjJKTo2OX3WwU7E/rVME78nLyYhrofAglK/mhPhHdi4vfRXLgQyxj/x2mF4/J0KpM/k840tH+5hmfq80DHj98FksrB1QvvtMA7liumYG9oHYg5h1W5+fq1hR7TYmVOAogKGLwMi+uQkEwz3WQXZpRiwZw1ve1e4uyzE9AMybkq1Ov7Sp0SlmhDKYBBY+cOxIVaJwM9MsHOLk2jd+/WcOERlMLhWm0nZ7c2GCfHp41JeFKn22U9PllOz5IiDxSJBjfqzBG8QERe20y/mar8VRLsXXCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QfG1v8JLwaCAIDhZJP/gI4IjxAXGw+vfs4sLLYg4ysk=;
- b=pQXa5d3PDW+iQiUKMhP+EeYYScXsS4S2ChLwsCV3oOPN3/4MuTbpqTw//eTcfuwdX25+pXM68gZfIsx1nRxF7MG92srkt4+OcUMh4aN6BeDdxvur5GUq9GfAQkEH+PWBXIOTwyFPJ9dfkY/bBTsKH1IX3iGfKHzU6CVQp1mHbJY=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: "Durrant, Paul" <pdurrant@amazon.co.uk>
-CC: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "intel-xen@intel.com"
- <intel-xen@intel.com>, "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
- Roger Pau Monne <roger.pau@citrix.com>, Sergey Dyasli
- <sergey.dyasli@citrix.com>, Christopher Clark
- <christopher.w.clark@gmail.com>, Rich Persaud <persaur@gmail.com>, "Kevin
- Pearson" <kevin.pearson@ortmanconsulting.com>, Juergen Gross
- <jgross@suse.com>, "Ji, John" <john.ji@intel.com>,
- "edgar.iglesias@xilinx.com" <edgar.iglesias@xilinx.com>,
- "robin.randhawa@arm.com" <robin.randhawa@arm.com>, Artem Mygaiev
- <Artem_Mygaiev@epam.com>, Matt Spencer <Matt.Spencer@arm.com>,
- "anastassios.nanos@onapp.com" <anastassios.nanos@onapp.com>, "Stewart
- Hildebrand" <Stewart.Hildebrand@dornerworks.com>, Volodymyr Babchuk
- <volodymyr_babchuk@epam.com>, "mirela.simonovic@aggios.com"
- <mirela.simonovic@aggios.com>, Jarvis Roach <Jarvis.Roach@dornerworks.com>,
- Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Ian Jackson
- <Ian.Jackson@citrix.com>, Rian Quinn <rianquinn@gmail.com>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLRG91ZyBHb2xkc3RlaW4=?=
- <cardoe@cardoe.com>, "Woodhouse, David" <dwmw@amazon.co.uk>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQW1pdCBTaGFo?= <amit@infradead.org>,
- =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLVmFyYWQgR2F1dGFt?=
- <varadgautam@gmail.com>, Brian Woods <brian.woods@xilinx.com>, Robert Townley
- <rob.townley@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>, "Olivier
- Lambert" <olivier.lambert@vates.fr>, Andrew Cooper
- <Andrew.Cooper3@citrix.com>, Wei Liu <wl@xen.org>, "open list:X86"
- <xen-devel@lists.xenproject.org>
-Subject: Re: [ANNOUNCE] Call for agenda items for 3 September Community Call @
- 15:00 UTC
-Thread-Topic: [ANNOUNCE] Call for agenda items for 3 September Community Call
- @ 15:00 UTC
-Thread-Index: AQHWfSjDNMl3H/SbY0m578uAtl5EmalNWraAgAAcJgA=
-Date: Fri, 28 Aug 2020 12:41:47 +0000
-Message-ID: <78C90064-D606-4D0E-81A1-AB8179EE9D83@citrix.com>
-References: <0CF41EE7-BA9F-4CB6-A431-28AA0A145BE6@citrix.com>
- <964f910bb7b9495ab2612eaeedb17e06@EX13D32EUC003.ant.amazon.com>
-In-Reply-To: <964f910bb7b9495ab2612eaeedb17e06@EX13D32EUC003.ant.amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.120.23.2.1)
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2f352f4a-f753-41fb-63dd-08d84b4fba7a
-x-ms-traffictypediagnostic: BYAPR03MB4471:
-x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR03MB44711096974D1CFA4057DC5C99520@BYAPR03MB4471.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hoj8QlGTR73htAqRQpLY1IwbmpUm6JXpSQ7Qcnwnq+lKsnGddKLjWg1RecfcYo2YEZJAGKzdRRg2tOoSiT5V+z+0IltWwxMNaxuq/HJBhZUVS1uTj4YqxZAHIgKRLp7IKZE2IFzcrV6WmsjyL231d9kCqnCEVFttzS+s9pINzSfNHigZb+g09WkueFQuDlvrJPmdiC/GRFRcGDGzb0Wxt8DiCLCLrhGYqYepcE7hNo5MuP1El5E7YiZFL5cMlX5n4nJ7n9EAx6p0NDWptM2kLmaz7ITVv6Sh8WJX6UJB1jMQhR2n5EMHtgcGHZhgFuNIDlLcky3fTqU1jyMnSUAuyrG/BV7RWvjwyPYErufMgUXs2xvJXKJ4ELJllilgBgcuZm0IU632aYhD5hfVpBrYPg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB4229.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(396003)(376002)(136003)(39860400002)(4744005)(6506007)(53546011)(966005)(478600001)(2906002)(83380400001)(186003)(26005)(86362001)(33656002)(5660300002)(66946007)(66446008)(66476007)(91956017)(8936002)(66556008)(76116006)(54906003)(6916009)(6486002)(2616005)(36756003)(8676002)(7416002)(6512007)(64756008)(71200400001)(4326008)(316002)(7406005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: ZYFGkMiDRPj1U5JFwxKSbYPmtXMEO62fO7nbPW362fDUzX45WAiZDqH6fxfIVNesJXGr+ubKLnjdJbbzHKu9A8dwvZ2gDqeGI1H/z0rJsR1UD3P88T8gJt5HkypCVExsPHq9j5vtibOU9mKqlstJayX+fsuiovQI8NolDWr/OASV8nb4bU6diP7NtqaiSvOOQWldGAle/9hcc30ieaOEDKc70pESYbbmk8RS5mvQgWwOTHv77DBtZKLxHsX7k3h7l+Gq5iX8T/aOFO4QgXI/N119YRsoH0y03a+7v/6vEQ+U56pjY5f43hqoF6YKkr1iXpnFAd2dtJiVSzxbPkjyFL/Oeht+xjIQYOiPRSIfVx8BaUCXj3dZbwNp8Y52Fu3Gcb3sAwoTolvbb4nvwLztvoYLhaKNaPPtLtR2NIpY7O+4/1AztdziygMMUtttvN84Q7omSfOw2FBQQqzXuDzSZDjvBE6fX5tvZIp/Ct0TQqPVIi09pLBBki6DDhNGb8ELezv1nfOXGHefbWzlplm17BeiCKCR3OPFJTCWCfUNhb6cIbSJEB86DDzxykGQ2Zm7KanZxQ5nafjiDU6ZwPBCOcYd56UcBmVCAcGKG51mKg6rBihXhrI05cScJoqkOMAPLUOjkR52/dY9TFuoUPkg3w==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <32A5C83FE9C5CF4E93C51DFCD727D39F@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	id 1kBdnY-0000M8-Nt; Fri, 28 Aug 2020 12:48:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=N3OX=CG=kernel.org=maz@srs-us1.protection.inumbo.net>)
+ id 1kBdnX-0000M3-5t
+ for xen-devel@lists.xenproject.org; Fri, 28 Aug 2020 12:48:03 +0000
+X-Inumbo-ID: 1b374521-30e7-4e18-a6a5-cf85095b3669
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1b374521-30e7-4e18-a6a5-cf85095b3669;
+ Fri, 28 Aug 2020 12:48:02 +0000 (UTC)
+Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
+ [51.254.78.96])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 623062086A;
+ Fri, 28 Aug 2020 12:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598618881;
+ bh=Tmg6hNWVmQSJS0uP7afJ4MMWpAN7NReRjmWywe3CvWg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=1+w8OFAyaU/aWlYarVXfqLN9fIBCmKiNEB0Jq48rpTVBQjoDoRWSuL+fHLBf6YsVQ
+ 0jHKOc8fYAOkqjR2KhMCnoFrwVZYEYkuA5zRP2QSVxlGQweX4oXyTrY5Fp6mL5LaJq
+ JXGC+7f0QfgyXvjiWKhAg1/Bko+ABpmHB9iTJxFE=
+Received: from disco-boy.misterjones.org ([51.254.78.96] helo=www.loen.fr)
+ by disco-boy.misterjones.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <maz@kernel.org>)
+ id 1kBdnT-007Pl5-Sa; Fri, 28 Aug 2020 13:48:00 +0100
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4229.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f352f4a-f753-41fb-63dd-08d84b4fba7a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2020 12:41:47.2909 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0dazOKXafvF7q6vk1uUez8w/OaWYokGMpASeokbOjSfhriQYgROMmdGOC7Qc6viNtND8XZfYZCVKAMx8QlsPqPAwxyJEuA0EDIp1ET2+IIg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4471
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 28 Aug 2020 13:47:59 +0100
+From: Marc Zyngier <maz@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Bjorn Helgaas
+ <helgaas@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, LKML
+ <linux-kernel@vger.kernel.org>, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Konrad
+ Rzeszutek Wilk <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Dave Jiang
+ <dave.jiang@intel.com>, Alex Williamson <alex.williamson@redhat.com>, Jacob
+ Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, Kevin Tian
+ <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>, Rob Herring
+ <robh@kernel.org>
+Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
+ selectable
+In-Reply-To: <20200828121944.GQ1152540@nvidia.com>
+References: <20200826112333.992429909@linutronix.de>
+ <20200827182040.GA2049623@bjorn-Precision-5520>
+ <20200828112142.GA14208@e121166-lin.cambridge.arm.com>
+ <20200828121944.GQ1152540@nvidia.com>
+User-Agent: Roundcube Webmail/1.4.8
+Message-ID: <0cc8bfd9258dfc507585fd0f19a945e3@kernel.org>
+X-Sender: maz@kernel.org
+X-SA-Exim-Connect-IP: 51.254.78.96
+X-SA-Exim-Rcpt-To: jgg@nvidia.com, lorenzo.pieralisi@arm.com,
+ helgaas@kernel.org, tglx@linutronix.de, linux-kernel@vger.kernel.org,
+ x86@kernel.org, joro@8bytes.org, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, haiyangz@microsoft.com,
+ jonathan.derrick@intel.com, baolu.lu@linux.intel.com, wei.liu@kernel.org,
+ kys@microsoft.com, sthemmin@microsoft.com, steve.wahl@hpe.com,
+ sivanich@hpe.com, rja@hpe.com, linux-pci@vger.kernel.org, bhelgaas@google.com,
+ konrad.wilk@oracle.com, xen-devel@lists.xenproject.org, jgross@suse.com,
+ boris.ostrovsky@oracle.com, sstabellini@kernel.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, megha.dey@intel.com, dave.jiang@intel.com,
+ alex.williamson@redhat.com, jacob.jun.pan@intel.com, baolu.lu@intel.com,
+ kevin.tian@intel.com, dan.j.williams@intel.com, robh@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,13 +102,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gQXVnIDI4LCAyMDIwLCBhdCAxMjowMSBQTSwgRHVycmFudCwgUGF1bCA8cGR1cnJh
-bnRAYW1hem9uLmNvLnVrPiB3cm90ZToNCj4+IA0KPj4gVGhlIHByb3Bvc2VkIGFnZW5kYSBpcyBp
-biBodHRwczovL2NyeXB0cGFkLmZyL3BhZC8jLzMvcGFkL2VkaXQvZjE0N2IwYWVkOGZlMjZhZjcy
-MWNhM2NkMDA0MjUzNjEvIGFuZA0KPj4geW91IGNhbiBlZGl0IHRvIGFkZCBpdGVtcy4gIEFsdGVy
-bmF0aXZlbHksIHlvdSBjYW4gcmVwbHkgdG8gdGhpcyBtYWlsIGRpcmVjdGx5Lg0KPiANCj4gR2Vv
-cmdlLA0KPiANCj4gSSBkb24ndCBzZWVtIHRvIGJlIGFibGUgdG8gYWNjZXNzIHRoZSBkb2Mgdmlh
-IHRoYXQgbGluay4gRG8geW91IG5lZWQgdG8gZ2l2ZSBwZXJtaXNzaW9ucz8NCg0KU29ycnksIHRy
-eSB0aGlzIG9uZToNCg0KaHR0cHM6Ly9jcnlwdHBhZC5mci9wYWQvIy8yL3BhZC9lZGl0L2JtZlls
-TUlhakpWdEsxOHRsZ3g2RE14ZC8NCg0KIC1HZW9yZ2U=
+Hi Jason,
+
+On 2020-08-28 13:19, Jason Gunthorpe wrote:
+> On Fri, Aug 28, 2020 at 12:21:42PM +0100, Lorenzo Pieralisi wrote:
+>> On Thu, Aug 27, 2020 at 01:20:40PM -0500, Bjorn Helgaas wrote:
+>> 
+>> [...]
+>> 
+>> > And I can't figure out what's special about tegra, rcar, and xilinx
+>> > that makes them need it as well.  Is there something I could grep for
+>> > to identify them?  Is there a way to convert them so they don't need
+>> > it?
+>> 
+>> I think DT binding and related firmware support are needed to setup 
+>> the
+>> MSI IRQ domains correctly, there is nothing special about tegra, rcar
+>> and xilinx AFAIK (well, all native host controllers MSI handling is
+>> *special* just to be polite but let's gloss over this for the time
+>> being).
+>> 
+>> struct msi_controller, to answer the first question.
+>> 
+>> I have doubts about pci_mvebu too, they do allocate an msi_controller
+>> but without methods so it looks pretty much useless.
+> 
+> Oh, I did once know things about mvebu..
+> 
+> I suspect the msi controller pointer assignment is dead code at this
+> point. The only implementation of MSI with that PCI root port is
+> drivers/irqchip/irq-armada-370-xp.c which looks like it uses
+> irq_domain.
+> 
+> Actually looks like things are very close to eliminating
+> msi_controller.
+> 
+> This is dead code, can't find a setter for hw_pci->msi_ctrl:
+> 
+> arch/arm/include/asm/mach/pci.h:        struct msi_controller 
+> *msi_ctrl;
+> arch/arm/kernel/bios32.c:                               bridge->msi =
+> hw->msi_ctrl;
+> 
+> This is probably just copying NULL from one place to another:
+> 
+> drivers/pci/controller/pci-mvebu.c:     struct msi_controller *msi;
+> 
+> These need conversion to irq_domain (right?):
+> 
+> drivers/pci/controller/pci-hyperv.c:    struct msi_controller msi_chip;
+> drivers/pci/controller/pci-tegra.c:     struct msi_controller chip;
+> drivers/pci/controller/pcie-rcar-host.c:        struct msi_controller 
+> chip;
+> drivers/pci/controller/pcie-xilinx.c:static struct msi_controller
+> xilinx_pcie_msi_chip = {
+> 
+> Then the stuff in drivers/pci/msi.c can go away.
+> 
+> So the arch_setup_msi_irq/etc is not really an arch hook, but some
+> infrastructure to support those 4 PCI root port drivers.
+
+I happen to have a *really old* patch addressing Tegra [1], which
+I was never able to test (no HW). Rebasing it shouldn't be too hard,
+and maybe you can find someone internally willing to give it a spin?
+
+That'd be a good start towards the removal of this cruft.
+
+Thanks,
+
+         M.
+
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git/commit/?h=irq/kill-msi-controller&id=83b3602fcee7972b9d549ed729b56ec28de16081
+-- 
+Jazz is not dead. It just smells funny...
 
