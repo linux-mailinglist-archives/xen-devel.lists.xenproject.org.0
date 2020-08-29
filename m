@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC2E2566D9
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Aug 2020 12:39:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214A72566FE
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Aug 2020 13:05:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kByG6-00014B-VS; Sat, 29 Aug 2020 10:38:54 +0000
+	id 1kByf2-0003aO-5m; Sat, 29 Aug 2020 11:04:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1EQo=CH=leiner.me=simon@srs-us1.protection.inumbo.net>)
- id 1kByG4-000146-Vq
- for xen-devel@lists.xenproject.org; Sat, 29 Aug 2020 10:38:53 +0000
-X-Inumbo-ID: 8a0aa0cc-0315-4483-9a12-bd6ab2bf81ee
-Received: from mx2.mailbox.org (unknown [80.241.60.215])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xAyn=CH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kByf0-0003Zx-Bf
+ for xen-devel@lists.xenproject.org; Sat, 29 Aug 2020 11:04:38 +0000
+X-Inumbo-ID: 9a1d6123-7593-487e-9cf3-a8b50d1c3d80
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8a0aa0cc-0315-4483-9a12-bd6ab2bf81ee;
- Sat, 29 Aug 2020 10:38:50 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [80.241.60.240])
- (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
- (No client certificate requested)
- by mx2.mailbox.org (Postfix) with ESMTPS id BDAA4A010F;
- Sat, 29 Aug 2020 12:38:48 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from smtp1.mailbox.org ([80.241.60.240])
- by hefe.heinlein-support.de (hefe.heinlein-support.de [91.198.250.172])
- (amavisd-new, port 10030)
- with ESMTP id CxAZZPBN5ZXI; Sat, 29 Aug 2020 12:38:44 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0
-Subject: Re: Virtio Xen (WAS: Re: [Linux] [ARM] Granting memory obtained from
- the DMA API)
-From: Simon Leiner <simon@leiner.me>
-In-Reply-To: <9bbea2a9-76f8-6384-3cff-3ae65e0475fa@xen.org>
-Date: Sat, 29 Aug 2020 12:38:43 +0200
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <9AFF0FE3-F808-453F-91B1-74F9C7426FE7@leiner.me>
-References: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
- <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
- <44f2d486-e3bd-6a44-042d-f05b5d0c0732@leiner.me>
- <9bbea2a9-76f8-6384-3cff-3ae65e0475fa@xen.org>
-To: Julien Grall <julien@xen.org>
-X-MBO-SPAM-Probability: 
-X-Rspamd-Score: -2.72 / 15.00 / 15.00
-X-Rspamd-Queue-Id: 3AD1A389
-X-Rspamd-UID: a04be1
+ id 9a1d6123-7593-487e-9cf3-a8b50d1c3d80;
+ Sat, 29 Aug 2020 11:04:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=54CNrEM68WM48wZ59nhOvlvv+07sHPEyUrF+cUY6xZ4=; b=6emUDs4xsJZiZLAAZ/2rvvWpRP
+ VYr+9YDV47g40ittCrlBzlsyMK4E1fLtSIxylaGRhA9YpgBkhbVCesIbKa5ELfV2ZUEJ9+Dli8wfh
+ kjhR2nMN7J5TRiG4LFBSfq95SCgdQ6FdP1oTDbIAqj4TBm+DMDiqQMyxm+Zvsg9OKkx4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kByet-0004Ut-D5; Sat, 29 Aug 2020 11:04:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kByet-0004Sk-5M; Sat, 29 Aug 2020 11:04:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kByet-0006LB-4r; Sat, 29 Aug 2020 11:04:31 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153057-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153057: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cbccf995920a28071f5403b847f29ebf8b732fa9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 29 Aug 2020 11:04:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,66 +68,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Julien,
+flight 153057 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153057/
 
-On 25.08.20 15:02, Julien Grall wrote:
-> May I ask why did you create a new transport rather than using the
-> existing one?
+Regressions :-(
 
-We wanted a mechanism for dynamically creating virtio devices at 
-runtime. I looked at virtio-mmio briefly and it seemed to me that a lot 
-of things would have to be known in advance (how many devices are 
-there? How much memory do they need? Where does the memory range for 
-virtio-mmio start on the device domain?). So after reading a bit about 
-Xen and how the classic split drivers work, I figured building a split 
-driver for virtio was the way to go. The basic principle is really 
-simple:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
 
- - Using grants to share memory for the virtqueues
- - Using event channels as a queue notification mechanism
- - All state handling and other information exchange (like number of 
-   queues, grant refs, event channel numbers etc.) is done through the 
-   Xenbus.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-On the Linux side, this is implemented as a kernel module. No patches 
-to the kernel itself (apart from the ones I sent in earlier) or to Xen 
-itself are required.
+version targeted for testing:
+ ovmf                 cbccf995920a28071f5403b847f29ebf8b732fa9
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-> So far, there is an RFC to implement virtio-mmio for Xen on Arm
+Last test of basis   152863  2020-08-26 16:09:47 Z    2 days
+Testing same since   152915  2020-08-27 18:09:42 Z    1 days   44 attempts
 
-I did not see that before. Also, I'm not familiar with the ioreq 
-mechanism. But from skimming the patch, it seems like it achieves the 
-same thing (dynamic creation of virtio devices at runtime). Is that 
-right?
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
 
-> But the idea of a Xen specific transport is discussed on the mailing
-> list time to time. It would be more secure than existing transport,
-> but I am worried about the adoption of the transport. 
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-What are the security issues with the existing transport mechanisms?
-I'm quite new to the Xen community, so I have no idea about adoption 
-rates.
 
-> A new transport requires to modify all the OSes so they can work on 
-> Xen.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Just to be clear: They would need to be modified in order to support 
-that mechanism, but it changes nothing about the interface between 
-hypervisor and guest.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-However, supporting the same use case with an already existing 
-transport mechanism is more elegant than building another transport 
-mechanism specifically for that case IMO. The only technical difference 
-between my implementation and the virtio-mmio approach in actually 
-running the virtio device is that I'm using event channels for queue 
-notification while virtio-mmio uses some bytes in memory for that. I do 
-not have any measurements indicating whether or not this makes a 
-difference.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> Do see any use of this transport outside of Xen? 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-This mechanism relies on the Xenbus, so no.
 
-Greetings,
-Simon
+Not pushing.
+
+------------------------------------------------------------
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
