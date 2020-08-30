@@ -2,73 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52DCA256C6B
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Aug 2020 08:54:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EAC256CA6
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Aug 2020 09:39:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCHDT-0003AS-2h; Sun, 30 Aug 2020 06:53:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kCHvD-0006iB-Jb; Sun, 30 Aug 2020 07:38:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ueMT=CI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kCHDR-0003A2-Gp
- for xen-devel@lists.xenproject.org; Sun, 30 Aug 2020 06:53:25 +0000
-X-Inumbo-ID: feb8bf76-9662-42b4-a28a-b94344fb9cdf
+ id 1kCHvB-0006i6-Sz
+ for xen-devel@lists.xenproject.org; Sun, 30 Aug 2020 07:38:38 +0000
+X-Inumbo-ID: 1d44df0c-efa0-4c67-af43-82e9304f527b
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id feb8bf76-9662-42b4-a28a-b94344fb9cdf;
- Sun, 30 Aug 2020 06:53:18 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d44df0c-efa0-4c67-af43-82e9304f527b;
+ Sun, 30 Aug 2020 07:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=j3GS3HQcgYd9VO1LRjT9TQKIpzgK4I+0m0pRB51EBrI=; b=NNyYhxwkA1kLDvr4HYRUA07zKl
- +FmUcl/72RoG6+LFJ+F7BThdEjoFEFcp8CBv6mSJupXRJGD30QaQYzny5ecgffdk69Jv9PHvJDh17
- OYz4E1jFbtj4lis80H1pF15GYyMi1e6tDM7v/aJifuBrMIFotFxyE1TDEHf6qtKDpYSA=;
+ bh=yJUs6ccnBbeBab9jaf+Btn3LyPlRstpOgJV+5dprFBo=; b=4YQuYQwWUrj4qDIn1aONhsZJ2J
+ Y0wME9eAcFbAoABqgNDA8HmQ/TDjl8O0zivERIJH+b+uGNd1Z4qEempMBbzxPtMbulG960/lpvgnY
+ kSjxhLEfJA3MpHSGWia61Lqtkho7hBCiI/8fVFvwTdIl5ExbLSe32ZKlIAex3+oJN9ec=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kCHDK-0002O6-IV; Sun, 30 Aug 2020 06:53:18 +0000
+ id 1kCHv7-0003JS-06; Sun, 30 Aug 2020 07:38:33 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kCHDK-0002ed-91; Sun, 30 Aug 2020 06:53:18 +0000
+ id 1kCHv6-0003y9-Pl; Sun, 30 Aug 2020 07:38:32 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kCHDK-00063B-8X; Sun, 30 Aug 2020 06:53:18 +0000
+ id 1kCHv6-0008Vv-PF; Sun, 30 Aug 2020 07:38:32 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-153144-mainreport@xen.org>
+Message-ID: <osstest-153156-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [libvirt test] 153144: regressions - FAIL
-X-Osstest-Failures: libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386:xen-build:fail:regression
- libvirt:build-i386-xsm:xen-build:fail:regression
- libvirt:build-amd64-xsm:xen-build:fail:regression
- libvirt:build-amd64:xen-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=55bc732b5f379e7cdaa1a48172ba5ade6810de51
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+Subject: [ovmf test] 153156: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 30 Aug 2020 06:53:18 +0000
+Date: Sun, 30 Aug 2020 07:38:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,132 +69,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153144 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153144/
+flight 153156 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153156/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386                    6 xen-build                fail REGR. vs. 151777
- build-i386-xsm                6 xen-build                fail REGR. vs. 151777
- build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
- build-amd64                   6 xen-build                fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
 
 Tests which did not succeed, but are not blocking:
  build-amd64-libvirt           1 build-check(1)               blocked  n/a
  build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
 version targeted for testing:
- libvirt              55bc732b5f379e7cdaa1a48172ba5ade6810de51
+ ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
 baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-Last test of basis   151777  2020-07-10 04:19:19 Z   51 days
-Failing since        151818  2020-07-11 04:18:52 Z   50 days   46 attempts
-Testing same since   153032  2020-08-29 04:19:12 Z    1 days    2 attempts
+Last test of basis   152863  2020-08-26 16:09:47 Z    3 days
+Failing since        152915  2020-08-27 18:09:42 Z    2 days   62 attempts
+Testing same since   153135  2020-08-30 02:28:59 Z    0 days    6 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
 
 jobs:
  build-amd64-xsm                                              fail    
- build-arm64-xsm                                              pass    
  build-i386-xsm                                               fail    
  build-amd64                                                  fail    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
  build-i386                                                   fail    
  build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
  build-i386-libvirt                                           blocked 
  build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
 ------------------------------------------------------------
@@ -228,5 +133,119 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 11556 lines long.)
+------------------------------------------------------------
+commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+Author: Paul <paul.grimes@amd.com>
+Date:   Fri Aug 28 04:40:51 2020 +0800
+
+    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
+    
+    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
+    but should be 0x02 per the ACPI Specification.
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    Signed-off-by: Paul G <paul.grimes@amd.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
