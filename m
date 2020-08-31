@@ -2,69 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB73257412
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B7E25743D
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:23:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCdxt-0002bs-15; Mon, 31 Aug 2020 07:10:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5aka=CJ=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kCdxr-0002bn-7C
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 07:10:51 +0000
-X-Inumbo-ID: 2d92e803-fc38-4d16-96f5-43133d3620f7
-Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2d92e803-fc38-4d16-96f5-43133d3620f7;
- Mon, 31 Aug 2020 07:10:49 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1598857848;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FARkIRHO1KDuZXY7+kAUc27scL3+jsSFrhOHhYco6Ck=;
- b=pVbGWHzCvbWtavZwE6dhNWXXFxRvilaTtx/laCggTx6McaidMopyu70dd6qN+DpOrvAnEC
- NWQgdTQEqPmTBErfzcv7KTN6E0s/wQHPlfGpQ6LHCLL7knvkvL+Z5EcRMLvdnnyIAZvOc7
- 84eFvvaBgqdRh7b6uzJquG6SPUe/5E+2ILpbUF8XQOPYlIKERkhRt0JaVx8y2wLuw/UPVO
- kEYld38+pX8ynofoU0FC9wqE9Xmm4dgEmq8kJrFYuRUPGhZyPmASXHI3qXoTZox/n6FuHy
- WCA7m+B+DJitbQdaThrzVyKrqpDiD0aKyw6+VhHkpAd2LQiXdvrgCHi8IimDMA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1598857848;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FARkIRHO1KDuZXY7+kAUc27scL3+jsSFrhOHhYco6Ck=;
- b=OmZcAy4Z777Iii/2G+bD5e+zVYJ16Fc1fbiIYma87KnA7XicfNHL1pplQOk/GUXLOURqWN
- xldvJovtQWy7NhBg==
-To: Lu Baolu <baolu.lu@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>
-Cc: baolu.lu@linux.intel.com, x86@kernel.org, Joerg Roedel
- <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Stephen Hemminger
- <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>, Dimitri
- Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org, Juergen Gross
- <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
- <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
- <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
- Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
- <dan.j.williams@intel.com>
-Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
-In-Reply-To: <02e30654-714b-520a-0d20-fca20794df93@linux.intel.com>
-References: <20200826111628.794979401@linutronix.de>
- <02e30654-714b-520a-0d20-fca20794df93@linux.intel.com>
-Date: Mon, 31 Aug 2020 09:10:47 +0200
-Message-ID: <87pn77i93c.fsf@nanos.tec.linutronix.de>
+	id 1kCeA0-0003ZF-7G; Mon, 31 Aug 2020 07:23:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kCe9z-0003ZA-Fq
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 07:23:23 +0000
+X-Inumbo-ID: 362cf6d3-7723-447a-a8c8-44de0def20bd
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 362cf6d3-7723-447a-a8c8-44de0def20bd;
+ Mon, 31 Aug 2020 07:23:22 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3D64BACC5;
+ Mon, 31 Aug 2020 07:23:56 +0000 (UTC)
+Subject: Re: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record
+ for tsc_info...
+To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, 'Ian Jackson'
+ <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Julien Grall' <julien@xen.org>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
+References: <20200818103032.3050-1-paul@xen.org>
+ <20200818103032.3050-9-paul@xen.org>
+ <153634db-bd1a-62d8-f53f-2c4019ffda4c@suse.com>
+ <006401d67d2b$991e3dd0$cb5ab970$@xen.org>
+ <eabd43d5-f220-2a96-fda6-ababffc4c3f9@suse.com>
+ <001201d67d59$5249add0$f6dd0970$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c959d140-869d-074a-15d1-a037e79101c8@suse.com>
+Date: Mon, 31 Aug 2020 09:23:27 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <001201d67d59$5249add0$f6dd0970$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,20 +61,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Aug 31 2020 at 08:51, Lu Baolu wrote:
-> On 8/26/20 7:16 PM, Thomas Gleixner wrote:
->> This is the second version of providing a base to support device MSI (non
->> PCI based) and on top of that support for IMS (Interrupt Message Storm)
->> based devices in a halfways architecture independent way.
->
-> After applying this patch series, the dmar_alloc_hwirq() helper doesn't
-> work anymore during boot. This causes the IOMMU driver to fail to
-> register the DMA fault handler and abort the IOMMU probe processing.
-> Is this a known issue?
+On 28.08.2020 18:36, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 28 August 2020 16:53
+>> To: paul@xen.org
+>> Cc: xen-devel@lists.xenproject.org; 'Ian Jackson' <ian.jackson@eu.citrix.com>; 'Wei Liu' <wl@xen.org>;
+>> 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' <george.dunlap@citrix.com>; 'Julien
+>> Grall' <julien@xen.org>; 'Stefano Stabellini' <sstabellini@kernel.org>; 'Roger Pau Monné'
+>> <roger.pau@citrix.com>
+>> Subject: Re: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record for tsc_info...
+>>
+>> On 28.08.2020 13:08, Paul Durrant wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 26 August 2020 15:03
+>>>> To: Paul Durrant <paul@xen.org>
+>>>> Cc: xen-devel@lists.xenproject.org; Durrant, Paul <pdurrant@amazon.co.uk>; Ian Jackson
+>>>> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>;
+>> George
+>>>> Dunlap <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>>>> <sstabellini@kernel.org>; Roger Pau Monné <roger.pau@citrix.com>
+>>>> Subject: RE: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record for tsc_info...
+>>>>
+>>>> CAUTION: This email originated from outside of the organization. Do not click links or open
+>>>> attachments unless you can confirm the sender and know the content is safe.
+>>>>
+>>>>
+>>>>
+>>>> On 18.08.2020 12:30, Paul Durrant wrote:
+>>>>> --- a/xen/include/public/save.h
+>>>>> +++ b/xen/include/public/save.h
+>>>>> @@ -93,7 +93,18 @@ struct domain_shared_info_context {
+>>>>>
+>>>>>  DECLARE_DOMAIN_SAVE_TYPE(SHARED_INFO, 2, struct domain_shared_info_context);
+>>>>>
+>>>>> -#define DOMAIN_SAVE_CODE_MAX 2
+>>>>> +#if defined(__i386__) || defined(__x86_64__)
+>>>>> +struct domain_tsc_info_context {
+>>>>> +    uint32_t mode;
+>>>>> +    uint32_t incarnation;
+>>>>> +    uint64_t elapsed_nsec;
+>>>>> +    uint32_t khz;
+>>>>> +};
+>>>>
+>>>> sizeof() for this struct varies between 32-bit and 64-bit - is
+>>>> this not a problem? (alignof() varies too, but there I think
+>>>> it's indeed not a problem, albeit it could still be taken care
+>>>> of by using uint64_aligned_t, alongside the addition of an
+>>>> explicit padding field).
+>>>
+>>> I don't think it should matter because domain context records have
+>>> implicit padding to align up to the next 64-bit boundary,
+>>
+>> Could you remind me where this is written down and enforced?
+>>
+> 
+> With the series fully applied, see xen/include/public/save.h
+> line 62-68 for the comment and then see domain_save_end() in
+> xen/common/save.c for where the padding is applied.
 
-See replies to patch 15/46 or pull the git tree. It has the issue fixed.
+Ah, yes, this helped find the places in the patches. Therefore with
+the stray blank line addition removed from tools/misc/xen-domctx.c
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks,
-
-        tglx
+Jan
 
