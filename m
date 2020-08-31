@@ -2,52 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B7E25743D
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:23:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58EA8257442
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:26:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCeA0-0003ZF-7G; Mon, 31 Aug 2020 07:23:24 +0000
+	id 1kCeDG-0003ge-Nw; Mon, 31 Aug 2020 07:26:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kCe9z-0003ZA-Fq
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 07:23:23 +0000
-X-Inumbo-ID: 362cf6d3-7723-447a-a8c8-44de0def20bd
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=naQU=CJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kCeDF-0003gZ-Hd
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 07:26:45 +0000
+X-Inumbo-ID: ac393238-54ff-4fef-8a78-ae26b689b692
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 362cf6d3-7723-447a-a8c8-44de0def20bd;
- Mon, 31 Aug 2020 07:23:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D64BACC5;
- Mon, 31 Aug 2020 07:23:56 +0000 (UTC)
-Subject: Re: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record
- for tsc_info...
-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Ian Jackson'
- <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Julien Grall' <julien@xen.org>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
-References: <20200818103032.3050-1-paul@xen.org>
- <20200818103032.3050-9-paul@xen.org>
- <153634db-bd1a-62d8-f53f-2c4019ffda4c@suse.com>
- <006401d67d2b$991e3dd0$cb5ab970$@xen.org>
- <eabd43d5-f220-2a96-fda6-ababffc4c3f9@suse.com>
- <001201d67d59$5249add0$f6dd0970$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c959d140-869d-074a-15d1-a037e79101c8@suse.com>
-Date: Mon, 31 Aug 2020 09:23:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <001201d67d59$5249add0$f6dd0970$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id ac393238-54ff-4fef-8a78-ae26b689b692;
+ Mon, 31 Aug 2020 07:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=RL3daj+6yYHIjDnGhIwCXWaCI0lyboWK9Df7vYISgcw=; b=R4cktz5HXK0bDHaAXAHWoWhIp5
+ bxXEcerIjhgX60xHB+3iUkooCOJW9ylQXmHs7njj63wD+vRipXdX92a/V0o+LFEI8EoszOYnoYrlc
+ tXXEuuRptDL0Td9HpRgqdJp+cw1wWqkZnfW4OTRXE/Xu16z2pzWvfz2iLyg2obI0KHFs=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kCeDE-0007Oa-AO; Mon, 31 Aug 2020 07:26:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kCeDE-0008WQ-41; Mon, 31 Aug 2020 07:26:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kCeDE-0002r3-3Y; Mon, 31 Aug 2020 07:26:44 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153338-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 153338: regressions - FAIL
+X-Osstest-Failures: libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386:xen-build:fail:regression
+ libvirt:build-i386-xsm:xen-build:fail:regression
+ libvirt:build-amd64-xsm:xen-build:fail:regression
+ libvirt:build-amd64:xen-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=b2672b33dc54371b2ed0d585c4ab4f1badc86536
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 31 Aug 2020 07:26:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +83,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.08.2020 18:36, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 28 August 2020 16:53
->> To: paul@xen.org
->> Cc: xen-devel@lists.xenproject.org; 'Ian Jackson' <ian.jackson@eu.citrix.com>; 'Wei Liu' <wl@xen.org>;
->> 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' <george.dunlap@citrix.com>; 'Julien
->> Grall' <julien@xen.org>; 'Stefano Stabellini' <sstabellini@kernel.org>; 'Roger Pau Monné'
->> <roger.pau@citrix.com>
->> Subject: Re: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record for tsc_info...
->>
->> On 28.08.2020 13:08, Paul Durrant wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 26 August 2020 15:03
->>>> To: Paul Durrant <paul@xen.org>
->>>> Cc: xen-devel@lists.xenproject.org; Durrant, Paul <pdurrant@amazon.co.uk>; Ian Jackson
->>>> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> George
->>>> Dunlap <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->>>> <sstabellini@kernel.org>; Roger Pau Monné <roger.pau@citrix.com>
->>>> Subject: RE: [EXTERNAL] [PATCH v7 8/9] x86/time: add a domain context record for tsc_info...
->>>>
->>>> CAUTION: This email originated from outside of the organization. Do not click links or open
->>>> attachments unless you can confirm the sender and know the content is safe.
->>>>
->>>>
->>>>
->>>> On 18.08.2020 12:30, Paul Durrant wrote:
->>>>> --- a/xen/include/public/save.h
->>>>> +++ b/xen/include/public/save.h
->>>>> @@ -93,7 +93,18 @@ struct domain_shared_info_context {
->>>>>
->>>>>  DECLARE_DOMAIN_SAVE_TYPE(SHARED_INFO, 2, struct domain_shared_info_context);
->>>>>
->>>>> -#define DOMAIN_SAVE_CODE_MAX 2
->>>>> +#if defined(__i386__) || defined(__x86_64__)
->>>>> +struct domain_tsc_info_context {
->>>>> +    uint32_t mode;
->>>>> +    uint32_t incarnation;
->>>>> +    uint64_t elapsed_nsec;
->>>>> +    uint32_t khz;
->>>>> +};
->>>>
->>>> sizeof() for this struct varies between 32-bit and 64-bit - is
->>>> this not a problem? (alignof() varies too, but there I think
->>>> it's indeed not a problem, albeit it could still be taken care
->>>> of by using uint64_aligned_t, alongside the addition of an
->>>> explicit padding field).
->>>
->>> I don't think it should matter because domain context records have
->>> implicit padding to align up to the next 64-bit boundary,
->>
->> Could you remind me where this is written down and enforced?
->>
-> 
-> With the series fully applied, see xen/include/public/save.h
-> line 62-68 for the comment and then see domain_save_end() in
-> xen/common/save.c for where the padding is applied.
+flight 153338 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153338/
 
-Ah, yes, this helped find the places in the patches. Therefore with
-the stray blank line addition removed from tools/misc/xen-domctx.c
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Regressions :-(
 
-Jan
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386                    6 xen-build                fail REGR. vs. 151777
+ build-i386-xsm                6 xen-build                fail REGR. vs. 151777
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
+ build-amd64                   6 xen-build                fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              b2672b33dc54371b2ed0d585c4ab4f1badc86536
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   52 days
+Failing since        151818  2020-07-11 04:18:52 Z   51 days   47 attempts
+Testing same since   153338  2020-08-31 04:19:05 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 11565 lines long.)
 
