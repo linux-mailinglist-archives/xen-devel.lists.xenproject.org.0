@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C55B257CB5
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBAB5257CBB
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:31:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kClmT-0006Aj-Ps; Mon, 31 Aug 2020 15:31:37 +0000
+	id 1kClmh-0006EM-As; Mon, 31 Aug 2020 15:31:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NCiD=CJ=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1kClmS-0006AP-B8
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:31:36 +0000
-X-Inumbo-ID: 223458d6-87cb-4c71-9035-41cbfde2559b
+ id 1kClmg-0006EA-Af
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:31:50 +0000
+X-Inumbo-ID: aeac35d9-5ee8-403d-95e3-a2cbbd8af64e
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 223458d6-87cb-4c71-9035-41cbfde2559b;
- Mon, 31 Aug 2020 15:31:35 +0000 (UTC)
+ id aeac35d9-5ee8-403d-95e3-a2cbbd8af64e;
+ Mon, 31 Aug 2020 15:31:49 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E30272158C;
- Mon, 31 Aug 2020 15:31:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5FD8D21531;
+ Mon, 31 Aug 2020 15:31:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598887895;
+ s=default; t=1598887909;
  bh=h6ks64jl06DbIv9dD4cgt72UfJdgdym0WvGOZh3FOfA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lC+QwGroMdjT6AeQWpLRvHHV20zyd/GbWFGVxUjklsbs5lZH1P10eoRLLfHD8+06M
- dBEC+QdLjXOZkjQxyf2OKLRczznCeswTAu2+tyREXFUriqddQKDhhq9KRWtPfu0Wi3
- M4KY4Rp+rkC1mX8WzCuOjvxvUizIOVoBZM0QFEuY=
+ b=N6gCBwhpOWA62Ey/iSK8xrpnVFNaOnZLxS0qaarGtMjH9VnLHN8nrKd5x40iNCOCx
+ n9u5eI2KdBRp0c0TI7u5Cpjb+jQ9wDi6vacv9++6F6c7gjjeFBN7idhMGYPXKNO7b+
+ PWWY9Kad6LsVqTm3JMhwdVOJGHVpxfm6bkY8SAi8=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -38,13 +38,12 @@ Cc: Simon Leiner <simon@leiner.me>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 4.19 11/11] xen/xenbus: Fix granting of vmalloc'd
- memory
-Date: Mon, 31 Aug 2020 11:31:17 -0400
-Message-Id: <20200831153117.1024537-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 9/9] xen/xenbus: Fix granting of vmalloc'd memory
+Date: Mon, 31 Aug 2020 11:31:36 -0400
+Message-Id: <20200831153136.1024676-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200831153117.1024537-1-sashal@kernel.org>
-References: <20200831153117.1024537-1-sashal@kernel.org>
+In-Reply-To: <20200831153136.1024676-1-sashal@kernel.org>
+References: <20200831153136.1024676-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
