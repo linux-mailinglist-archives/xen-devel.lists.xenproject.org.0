@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E720257C85
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C01B257CA0
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:31:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCllX-00064T-62; Mon, 31 Aug 2020 15:30:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kClm9-000679-FD; Mon, 31 Aug 2020 15:31:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NCiD=CJ=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1kCllW-00064O-8W
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:30:38 +0000
-X-Inumbo-ID: 85e88fd8-3f48-4238-9cc5-bbbc048097fe
+ id 1kClm8-00066y-5N
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:31:16 +0000
+X-Inumbo-ID: c4abe1cb-0c5c-41a0-be9a-d4c929eaa060
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 85e88fd8-3f48-4238-9cc5-bbbc048097fe;
- Mon, 31 Aug 2020 15:30:37 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c4abe1cb-0c5c-41a0-be9a-d4c929eaa060;
+ Mon, 31 Aug 2020 15:31:15 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 69372214D8;
- Mon, 31 Aug 2020 15:30:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id EF751214DB;
+ Mon, 31 Aug 2020 15:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598887836;
- bh=UqqMPAtWDqzA6uUdK9GV+TVqxsDEdKr1IAB3nfSBPuo=;
+ s=default; t=1598887875;
+ bh=RazqLH9uDWL+hfSipxTzeDHvS/5XJ6j9dFUUdoFDnB8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Q9hLf9QsynLtpUQttfgx4RwjoCIhoqOHFiIEucCON7lXCaoldpFKfE0v4CQa+sjWO
- J/SRnl1XEf1yqUxCsOAie84w6uAS0iHDLgtlNCKXlhb9inigCbDRtxjl0DWAxh6bi0
- OpJA/xO5raSAWiiPfDGk+u5vLN0IWkkVhwJIZcOE=
+ b=tLW7qhc48pUSBiCRjo0ai3t8h9KmQAvxX5OtRSts49gO2zQkRSP1vrFv+lJV+SDf2
+ zRfM8hTIR77l6SA4MjBYC64tUJcIYepqtskVBvBDAwejtmvqWKUBiSFOx2n56pC/1M
+ 3ZkMH+E8HfSqUdYW3BCD41g+GXj8fq8QfW68RsAk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -39,12 +38,12 @@ Cc: Simon Leiner <simon@leiner.me>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.8 41/42] xen/xenbus: Fix granting of vmalloc'd memory
-Date: Mon, 31 Aug 2020 11:29:33 -0400
-Message-Id: <20200831152934.1023912-41-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 22/23] xen/xenbus: Fix granting of vmalloc'd memory
+Date: Mon, 31 Aug 2020 11:30:38 -0400
+Message-Id: <20200831153039.1024302-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200831152934.1023912-1-sashal@kernel.org>
-References: <20200831152934.1023912-1-sashal@kernel.org>
+In-Reply-To: <20200831153039.1024302-1-sashal@kernel.org>
+References: <20200831153039.1024302-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -81,10 +80,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index 786fbb7d8be06..907bcbb93afbf 100644
+index a38292ef79f6d..f38bdaea0ef11 100644
 --- a/drivers/xen/xenbus/xenbus_client.c
 +++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -379,8 +379,14 @@ int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
+@@ -363,8 +363,14 @@ int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
  	int i, j;
  
  	for (i = 0; i < nr_pages; i++) {
