@@ -2,49 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75EE6257404
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB73257412
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:11:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCdnC-0000y9-RP; Mon, 31 Aug 2020 06:59:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kCdnB-0000y3-Gc
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 06:59:49 +0000
-X-Inumbo-ID: ff05810b-0a11-40a7-8b77-3fde5f4db78d
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ff05810b-0a11-40a7-8b77-3fde5f4db78d;
- Mon, 31 Aug 2020 06:59:48 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 32EE3ACF6;
- Mon, 31 Aug 2020 07:00:22 +0000 (UTC)
-Subject: Re: [PATCH] x86/intel: Expose MSR_ARCH_CAPS to dom0
-To: Andrew Cooper <amc96@cam.ac.uk>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200827193713.4962-1-andrew.cooper3@citrix.com>
- <e24c49ce-82f4-955d-3a7b-03ffd5aa4144@suse.com>
- <9498c4e0-d8c7-1660-3074-8a818ba50658@cam.ac.uk>
- <70a6de86-f382-050c-9c33-eccc9cb76c9c@suse.com>
- <f585d05b-db9b-c890-898d-ed34a0122ec4@cam.ac.uk>
- <990665a8-a219-ef79-331a-79bf70c11324@suse.com>
- <93da43ae-a53c-16ac-4f23-b700cc2f6b1d@cam.ac.uk>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5c95be8f-fa2a-3955-b9a9-f195a0825b0d@suse.com>
-Date: Mon, 31 Aug 2020 08:59:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kCdxt-0002bs-15; Mon, 31 Aug 2020 07:10:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5aka=CJ=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kCdxr-0002bn-7C
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 07:10:51 +0000
+X-Inumbo-ID: 2d92e803-fc38-4d16-96f5-43133d3620f7
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2d92e803-fc38-4d16-96f5-43133d3620f7;
+ Mon, 31 Aug 2020 07:10:49 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1598857848;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FARkIRHO1KDuZXY7+kAUc27scL3+jsSFrhOHhYco6Ck=;
+ b=pVbGWHzCvbWtavZwE6dhNWXXFxRvilaTtx/laCggTx6McaidMopyu70dd6qN+DpOrvAnEC
+ NWQgdTQEqPmTBErfzcv7KTN6E0s/wQHPlfGpQ6LHCLL7knvkvL+Z5EcRMLvdnnyIAZvOc7
+ 84eFvvaBgqdRh7b6uzJquG6SPUe/5E+2ILpbUF8XQOPYlIKERkhRt0JaVx8y2wLuw/UPVO
+ kEYld38+pX8ynofoU0FC9wqE9Xmm4dgEmq8kJrFYuRUPGhZyPmASXHI3qXoTZox/n6FuHy
+ WCA7m+B+DJitbQdaThrzVyKrqpDiD0aKyw6+VhHkpAd2LQiXdvrgCHi8IimDMA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1598857848;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FARkIRHO1KDuZXY7+kAUc27scL3+jsSFrhOHhYco6Ck=;
+ b=OmZcAy4Z777Iii/2G+bD5e+zVYJ16Fc1fbiIYma87KnA7XicfNHL1pplQOk/GUXLOURqWN
+ xldvJovtQWy7NhBg==
+To: Lu Baolu <baolu.lu@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>
+Cc: baolu.lu@linux.intel.com, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Stephen Hemminger
+ <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>, Dimitri
+ Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
+ Pieralisi <lorenzo.pieralisi@arm.com>, Konrad Rzeszutek Wilk
+ <konrad.wilk@oracle.com>, xen-devel@lists.xenproject.org, Juergen Gross
+ <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
+ <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
+ Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
+ <dan.j.williams@intel.com>
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
+In-Reply-To: <02e30654-714b-520a-0d20-fca20794df93@linux.intel.com>
+References: <20200826111628.794979401@linutronix.de>
+ <02e30654-714b-520a-0d20-fca20794df93@linux.intel.com>
+Date: Mon, 31 Aug 2020 09:10:47 +0200
+Message-ID: <87pn77i93c.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <93da43ae-a53c-16ac-4f23-b700cc2f6b1d@cam.ac.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +78,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.08.2020 18:38, Andrew Cooper wrote:
-> On 28/08/2020 17:17, Jan Beulich wrote:
->> On 28.08.2020 18:09, Andrew Cooper wrote:
->>> On 28/08/2020 16:42, Jan Beulich wrote:
->>>> On 28.08.2020 12:23, Andrew Cooper wrote:
->>>>> On 28/08/2020 09:41, Jan Beulich wrote:
->>>>>> On 27.08.2020 21:37, Andrew Cooper wrote:
->>>>>>> The overhead of (the lack of) MDS_NO alone has been measured at 30% on some
->>>>>>> workloads.  While we're not in a position yet to offer MSR_ARCH_CAPS generally
->>>>>>> to guests, dom0 doesn't migrate, so we can pass a subset of hardware values
->>>>>>> straight through.
->>>>>>>
->>>>>>> This will cause PVH dom0's not to use KPTI by default, and all dom0's not to
->>>>>>> use VERW flushing by default,
->>>>>> To avoid VERW, shouldn't you also expose SKIP_L1DFL?
->>>>> SKIP_L1DFL is a software-only bit, specifically for nested virt.
->>>>>
->>>>> It is for Xen to tell an L1 hypervisor "you don't need to flush on
->>>>> vmentry because I'm taking care of it".
->>>> Or for a hypervisor underneath us to tell us, which we could then
->>>> hand on to Dom0?
->>> For dom0 to do what with?
->>>
->>> PV guests can't use the VMLAUNCH/VMRESUME instruction at all, and it is
->>> not currently possible to configure nested virt for a PVH dom0 to use.
->> Aren't they also using this on the exit-to-user-mode path, like we
->> do on exit-to-PV? And in certain cases when idle?
-> 
-> MSR_FLUSH_CMD is used used for VMEntry.  This flushes the L1D cache, and
-> was to combat L1TF.  Native systems don't flush the L1D at all, and
-> invert PTEs instead as a *far* lower overhead mitigation.
-> 
-> Then MDS came along.  VERW is used to flush the uarch buffers.  This
-> needs doing in all return-to-guest contexts.
-> 
-> As VMEntry needs both, MSR_FLUSH_CMD's behaviour was extended to cover
-> both the L1D cache and uarch buffers, so software didn't have to arrange
-> for both.
-> 
-> Therefore, the overall mitigations are VERW on exit-to-PV, and
-> MSR_FLUSH_CMD on exit-to-HVM.
-> 
-> 
-> There is no current need for native setups to use MSR_FLUSH_CMD.  The
-> only reason we expose the MSR to HVM guests is for nested-virt.
+On Mon, Aug 31 2020 at 08:51, Lu Baolu wrote:
+> On 8/26/20 7:16 PM, Thomas Gleixner wrote:
+>> This is the second version of providing a base to support device MSI (non
+>> PCI based) and on top of that support for IMS (Interrupt Message Storm)
+>> based devices in a halfways architecture independent way.
+>
+> After applying this patch series, the dmar_alloc_hwirq() helper doesn't
+> work anymore during boot. This causes the IOMMU driver to fail to
+> register the DMA fault handler and abort the IOMMU probe processing.
+> Is this a known issue?
 
-But the question was about the use of VERW on exit-to-user paths in
-a PV kernel, which I apparently wrongly understood SKIP_L1DFL also
-indicates to be unnecessary. I'm sorry for the confusion. So
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+See replies to patch 15/46 or pull the git tree. It has the issue fixed.
 
-Jan
+Thanks,
+
+        tglx
 
