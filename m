@@ -2,44 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80699257C3E
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:25:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E720257C85
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:31:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kClgB-0005Di-Gu; Mon, 31 Aug 2020 15:25:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kCllX-00064T-62; Mon, 31 Aug 2020 15:30:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kClgA-0005Dd-Q2
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:25:06 +0000
-X-Inumbo-ID: 9de8e090-e41a-4be0-b0d6-1c24aefbfeaa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9de8e090-e41a-4be0-b0d6-1c24aefbfeaa;
- Mon, 31 Aug 2020 15:25:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0E104B5AF;
- Mon, 31 Aug 2020 15:25:05 +0000 (UTC)
-Subject: Re: [PATCH v2 5/8] x86/pv: allow reading FEATURE_CONTROL MSR
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200820150835.27440-1-roger.pau@citrix.com>
- <20200820150835.27440-6-roger.pau@citrix.com>
- <3e260ee3-674b-82d2-d983-f17d3d91c230@suse.com>
- <20200831151204.GF753@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f068e4bd-a73d-2507-b7de-27df566206ab@suse.com>
-Date: Mon, 31 Aug 2020 17:25:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ (envelope-from <SRS0=NCiD=CJ=kernel.org=sashal@srs-us1.protection.inumbo.net>)
+ id 1kCllW-00064O-8W
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:30:38 +0000
+X-Inumbo-ID: 85e88fd8-3f48-4238-9cc5-bbbc048097fe
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 85e88fd8-3f48-4238-9cc5-bbbc048097fe;
+ Mon, 31 Aug 2020 15:30:37 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 69372214D8;
+ Mon, 31 Aug 2020 15:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598887836;
+ bh=UqqMPAtWDqzA6uUdK9GV+TVqxsDEdKr1IAB3nfSBPuo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Q9hLf9QsynLtpUQttfgx4RwjoCIhoqOHFiIEucCON7lXCaoldpFKfE0v4CQa+sjWO
+ J/SRnl1XEf1yqUxCsOAie84w6uAS0iHDLgtlNCKXlhb9inigCbDRtxjl0DWAxh6bi0
+ OpJA/xO5raSAWiiPfDGk+u5vLN0IWkkVhwJIZcOE=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Simon Leiner <simon@leiner.me>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
+ xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 5.8 41/42] xen/xenbus: Fix granting of vmalloc'd memory
+Date: Mon, 31 Aug 2020 11:29:33 -0400
+Message-Id: <20200831152934.1023912-41-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200831152934.1023912-1-sashal@kernel.org>
+References: <20200831152934.1023912-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200831151204.GF753@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,48 +62,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.08.2020 17:12, Roger Pau Monné wrote:
-> On Thu, Aug 27, 2020 at 05:53:16PM +0200, Jan Beulich wrote:
->> On 20.08.2020 17:08, Roger Pau Monne wrote:
->>> @@ -181,6 +182,18 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->>>          /* Not offered to guests. */
->>>          goto gp_fault;
->>>  
->>> +    case MSR_IA32_FEATURE_CONTROL:
->>> +        if ( !(cp->x86_vendor & X86_VENDOR_INTEL) )
->>> +            goto gp_fault;
->>
->> Can we really do it this way round, rather than raising #GP when
->> we know the MSR isn't there (AMD / Hygon)? I realized code e.g.
->> ...
->>
->>> +        *val = IA32_FEATURE_CONTROL_LOCK;
->>> +        if ( vmce_has_lmce(v) )
->>> +            *val |= IA32_FEATURE_CONTROL_LMCE_ON;
->>> +        if ( nestedhvm_enabled(d) )
->>> +            *val |= IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
->>> +        break;
->>> +
->>> +
->>>      case MSR_IA32_PLATFORM_ID:
->>>          if ( !(cp->x86_vendor & X86_VENDOR_INTEL) ||
->>>               !(boot_cpu_data.x86_vendor & X86_VENDOR_INTEL) )
->>
->> ... in context right here does it the same way, but I still
->> wonder whether we wouldn't better switch existing instances, too.
-> 
-> Hm, no idea really. Right now it seems better to check for != Intel
-> rather than AMD | Hygon | Centaur | Shanghai, as that's a MSR specific
-> to Intel.
-> 
-> Do those MSRs exist in Centaur / Shanghai?
+From: Simon Leiner <simon@leiner.me>
 
-I can't tell for sure, but I suppose they do, as they're (in a way)
-cloning Intel's implementation. My thinking here is that by not
-exposing an MSR when we should we potentially cause guests to crash.
-Whereas by exposing an MSR that ought not be there fallout would
-result only if the vendor actually has something else at that index.
-And I'd hope vendors apply some care to avoid doing so.
+[ Upstream commit d742db70033c745e410523e00522ee0cfe2aa416 ]
 
-Jan
+On some architectures (like ARM), virt_to_gfn cannot be used for
+vmalloc'd memory because of its reliance on virt_to_phys. This patch
+introduces a check for vmalloc'd addresses and obtains the PFN using
+vmalloc_to_pfn in that case.
+
+Signed-off-by: Simon Leiner <simon@leiner.me>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Link: https://lore.kernel.org/r/20200825093153.35500-1-simon@leiner.me
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/xen/xenbus/xenbus_client.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
+index 786fbb7d8be06..907bcbb93afbf 100644
+--- a/drivers/xen/xenbus/xenbus_client.c
++++ b/drivers/xen/xenbus/xenbus_client.c
+@@ -379,8 +379,14 @@ int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
+ 	int i, j;
+ 
+ 	for (i = 0; i < nr_pages; i++) {
+-		err = gnttab_grant_foreign_access(dev->otherend_id,
+-						  virt_to_gfn(vaddr), 0);
++		unsigned long gfn;
++
++		if (is_vmalloc_addr(vaddr))
++			gfn = pfn_to_gfn(vmalloc_to_pfn(vaddr));
++		else
++			gfn = virt_to_gfn(vaddr);
++
++		err = gnttab_grant_foreign_access(dev->otherend_id, gfn, 0);
+ 		if (err < 0) {
+ 			xenbus_dev_fatal(dev, err,
+ 					 "granting access to ring page");
+-- 
+2.25.1
+
 
