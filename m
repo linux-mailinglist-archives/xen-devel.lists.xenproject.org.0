@@ -2,57 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1651257820
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 13:20:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD4C25784F
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 13:26:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kChpt-0007tL-Rw; Mon, 31 Aug 2020 11:18:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kChwd-0000Lz-Ol; Mon, 31 Aug 2020 11:25:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JYEY=CJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kChps-0007tG-NM
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 11:18:52 +0000
-X-Inumbo-ID: 531aaf37-2d4b-4068-836d-ca499a889f76
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 531aaf37-2d4b-4068-836d-ca499a889f76;
- Mon, 31 Aug 2020 11:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598872731;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=e99vmX6iMfIx7xndNdCIeZco3G9FNaD/HMx64qOrfMs=;
- b=Cb4tNrNZOox4u6OAc6WllA/50XpeFgKKSeBsg1IsF5wjk/Z2vI9xzB5k
- bWaKrHDLd4G/81f1NOuiojBKc/FrYglN/4Q+SCzlhVDlPQmyRVmmT2L/L
- x2vNc7cwZUneKZVyU3JfHHrD9GmVLjkIAtJdhJsjnmgDYEqNTqc8DaKYk o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: xTfKJcjBTZu+2/wGL/MeG3Q3akHG1Br7YDSx0IxHhLtwiWMbrez1ed/T6+9E1QuzaqkILML7Zx
- ni/bo+DVbOcUwalzKEcbcZr2Z/TVXnvrMuEdtiLPcLrZUBsfv3LLNAf1i+ip1QW1iezkNY6rer
- 7RwD0IGALjQaqpachLdJ2S5tpJ/uuhDnckOZ1z2ZdxeIVe/Q6pVWOSaQ7KHoyo6cv5j/cofpMM
- tkue37FzIPHxi4nmdUE9p0Hu6To5rhpstc7+Qz/L5YW6U444d80OlPCMBKmafU5Bzo1RynpHVx
- Mvc=
-X-SBRS: 2.7
-X-MesageID: 25770395
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,375,1592884800"; d="scan'208";a="25770395"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Andy Lutomirski
- <luto@kernel.org>
-Subject: [PATCH] x86/pv: Fix multiple bugs with SEGBASE_GS_USER_SEL
-Date: Mon, 31 Aug 2020 12:18:32 +0100
-Message-ID: <20200831111832.25275-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
+ <SRS0=naQU=CJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kChwb-0000Lu-Qf
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 11:25:49 +0000
+X-Inumbo-ID: b57d0022-a46a-40e8-8986-ca28c9c76597
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b57d0022-a46a-40e8-8986-ca28c9c76597;
+ Mon, 31 Aug 2020 11:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=kz6FBX3GuzM64XO+Lvixxf9OSLu7FnEwRKossP3rWD0=; b=GUEcBumRnk07FgsM5nSFZTqBz4
+ 2FEMHuyKtHtOdpotQz1fiZhxyxWWJ4bTi6ewfQa4bzXWaxuyTw0xTkS+JU1Z5XrbLeD2VISxlkr04
+ 7FqbQflzJY6pw/ietM0q2gftJIG6NGJnFuqByWrUhvG9bGwDZZQpORrD8o83bTSNsvew=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kChwY-0004Ud-Hn; Mon, 31 Aug 2020 11:25:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kChwY-0006dm-88; Mon, 31 Aug 2020 11:25:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kChwY-0005SB-7e; Mon, 31 Aug 2020 11:25:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153368-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153368: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 31 Aug 2020 11:25:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,100 +68,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The logic takes the segment selector unmodified from guest context.  This
-allowed the guest to load DPL0 descriptors into %gs.  Fix up the RPL for
-non-NUL selectors to be 3.
+flight 153368 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153368/
 
-Xen's context switch logic skips saving the inactive %gs base, as it cannot be
-modified by the guest behind Xen's back.  This depends on Xen caching updates
-to the inactive base, which is was missing from this path.
+Regressions :-(
 
-The consequence is that, following SEGBASE_GS_USER_SEL, the next context
-switch will restore the stale inactive %gs base, and corrupt vcpu state.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Rework the hypercall to update the cached idea of gs_base_user, and fix the
-behaviour in the case of the AMD NUL selector bug to always zero the segment
-base.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Reported-by: Andy Lutomirski <luto@kernel.org>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Andy Lutomirski <luto@kernel.org>
----
- xen/arch/x86/x86_64/mm.c | 56 +++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 46 insertions(+), 10 deletions(-)
+version targeted for testing:
+ ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index 29048d34dc..95ee05cd5d 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1059,16 +1059,52 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-         break;
- 
-     case SEGBASE_GS_USER_SEL:
--        __asm__ __volatile__ (
--            "     swapgs              \n"
--            "1:   movl %k0,%%gs       \n"
--            "    "safe_swapgs"        \n"
--            ".section .fixup,\"ax\"   \n"
--            "2:   xorl %k0,%k0        \n"
--            "     jmp  1b             \n"
--            ".previous                \n"
--            _ASM_EXTABLE(1b, 2b)
--            : "+r" (base) );
-+        /*
-+         * We wish to update the user %gs from the GDT/LDT.  Currently, the
-+         * guest kernel's GS_BASE is in context.
-+         */
-+        asm volatile ( "swapgs" );
-+
-+        if ( base <= 3 )
-+        {
-+            /* Work around NUL segment behaviour on AMD hardware. */
-+            if ( boot_cpu_data.x86_vendor &
-+                 (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
-+                asm volatile ( "mov %[sel], %%gs"
-+                               :: [sel] "rm" (FLAT_USER_DS32) );
-+        }
-+        else
-+            /* Fix up RPL. */
-+            base |= 3;
-+
-+        /*
-+         * Load the chosen selector, with fault handling.
-+         *
-+         * Errors ought to fail the hypercall, but that was never built in
-+         * originally, and Linux will BUG() if this call fails.
-+         *
-+         * NUL the selector in the case of an error.  This too needs to deal
-+         * with the AMD NUL segment behaviour, but it is already a slowpath in
-+         * #GP context so perform the flat load unconditionally to avoid
-+         * complicated logic.
-+         *
-+         * Anyone wanting to check for errors from this hypercall should
-+         * re-read %gs and compare against the input 'base' selector.
-+         */
-+        asm volatile ( "1: mov %k[sel], %%gs\n\t"
-+                       ".section .fixup, \"ax\", @progbits\n\t"
-+                       "2: mov %k[flat], %%gs\n\t"
-+                       "   xor %k[sel], %k[sel]\n\t"
-+                       "   jmp 1b\n\t"
-+                       ".previous\n\t"
-+                       _ASM_EXTABLE(1b, 2b)
-+                       : [sel] "+r" (base)
-+                       : [flat] "rm" (FLAT_USER_DS32) );
-+
-+        /* Update the cache of the inactive base, as read from the GDT/LDT. */
-+        v->arch.pv.gs_base_user = rdgsbase();
-+
-+        asm volatile ( safe_swapgs );
-         break;
- 
-     default:
--- 
-2.11.0
+Last test of basis   152863  2020-08-26 16:09:47 Z    4 days
+Failing since        152915  2020-08-27 18:09:42 Z    3 days   83 attempts
+Testing same since   153135  2020-08-30 02:28:59 Z    1 days   27 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+Author: Paul <paul.grimes@amd.com>
+Date:   Fri Aug 28 04:40:51 2020 +0800
+
+    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
+    
+    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
+    but should be 0x02 per the ACPI Specification.
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    Signed-off-by: Paul G <paul.grimes@amd.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
