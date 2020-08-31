@@ -2,62 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B374D257BF0
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:13:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5B5A257C34
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 17:20:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kClTn-0003zE-G9; Mon, 31 Aug 2020 15:12:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MWhU=CJ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kClTm-0003z9-M0
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:12:18 +0000
-X-Inumbo-ID: f1f199ec-e964-4b4e-821e-79dce944dc0a
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f1f199ec-e964-4b4e-821e-79dce944dc0a;
- Mon, 31 Aug 2020 15:12:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598886738;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=i2p3koI2qcbJfRP6ve5L4Rtzx0noyKtM5FKQkJryCHI=;
- b=RG+uxOTCJuelWpRh1LlJ8RV4vj2zgks3TEaA+Wmaq+xl0fntuTbEG7BT
- gGwmrBwmThbgv75WWMN4iMZqw+33yF1+odbJm82fWldXn/Ue4TWXhRD09
- dKW4bbSq4o5PBVJz47ytV7jFuNwVcqGalYaYRcPEGM9eMwc+O9RtSnlHT E=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: +XQJ0gWoC4jgkY6Jw4479eLYuyfK9r0MUn3os83TzOJCRUcOfik3of28nY98GaW7Eb3glvDHYK
- vxFzrLCIfCMwAxIJ9YCZpDH04J3sxAlqt5cgmresoxOql9xLUPLYr4KfPybQbHB786rU9D1rrF
- N6JsNq9/w0LJ4b4mD+q1yxugqQBfcmZpRZboSip/nA5qm4feF/da2bV9MoKmkKq9O5ThEA1Lve
- NmVcS7HgrHO2ahmGfI4zoB41z5TWVcuA62xkzjXx7uiLoGzs2IMLko61ZPpl5olj/dUV2xMmVQ
- J9M=
-X-SBRS: 2.7
-X-MesageID: 25991742
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,376,1592884800"; d="scan'208";a="25991742"
-Date: Mon, 31 Aug 2020 17:12:04 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
- Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 5/8] x86/pv: allow reading FEATURE_CONTROL MSR
-Message-ID: <20200831151204.GF753@Air-de-Roger>
+	id 1kClbq-0004sy-Bt; Mon, 31 Aug 2020 15:20:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kClbo-0004st-MJ
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 15:20:36 +0000
+X-Inumbo-ID: 8676fe83-e234-4d6e-8659-d138c871376f
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8676fe83-e234-4d6e-8659-d138c871376f;
+ Mon, 31 Aug 2020 15:20:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D34AAB5AF;
+ Mon, 31 Aug 2020 15:20:34 +0000 (UTC)
+Subject: Re: [PATCH v2 2/8] x86/svm: silently drop writes to SYSCFG and
+ related MSRs
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
 References: <20200820150835.27440-1-roger.pau@citrix.com>
- <20200820150835.27440-6-roger.pau@citrix.com>
- <3e260ee3-674b-82d2-d983-f17d3d91c230@suse.com>
+ <20200820150835.27440-3-roger.pau@citrix.com>
+ <52cde027-e7c2-3ca7-3d7e-7abfe19198da@suse.com>
+ <20200831143747.GD753@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1ee3bf3d-ce6c-c110-9ab6-2bf9cb81d334@suse.com>
+Date: Mon, 31 Aug 2020 17:20:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200831143747.GD753@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3e260ee3-674b-82d2-d983-f17d3d91c230@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +54,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 27, 2020 at 05:53:16PM +0200, Jan Beulich wrote:
-> On 20.08.2020 17:08, Roger Pau Monne wrote:
-> > @@ -181,6 +182,18 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-> >          /* Not offered to guests. */
-> >          goto gp_fault;
-> >  
-> > +    case MSR_IA32_FEATURE_CONTROL:
-> > +        if ( !(cp->x86_vendor & X86_VENDOR_INTEL) )
-> > +            goto gp_fault;
+On 31.08.2020 16:37, Roger Pau Monné wrote:
+> On Thu, Aug 27, 2020 at 05:03:50PM +0200, Jan Beulich wrote:
+>> On 20.08.2020 17:08, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/hvm/svm/svm.c
+>>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>>> @@ -1917,6 +1917,21 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+>>>              goto gpf;
+>>>          break;
+>>>  
+>>> +    case MSR_K8_TOP_MEM1:
+>>> +    case MSR_K8_TOP_MEM2:
+>>> +        *msr_content = 0;
+>>> +        break;
+>>
+>> Any reason you don't fold this with ...
+>>
+>>> +    case MSR_K8_SYSCFG:
+>>> +        /*
+>>> +         * Return MtrrFixDramEn: albeit the current emulated MTRR
+>>> +         * implementation doesn't support the Extended Type-Field Format having
+>>> +         * such bit set is common on AMD hardware and is harmless as long as
+>>> +         * MtrrFixDramModEn isn't set.
+>>> +         */
+>>> +        *msr_content = K8_MTRRFIXRANGE_DRAM_ENABLE;
+>>> +        break;
+>>> +
+>>>      case MSR_K8_VM_CR:
+>>>          *msr_content = 0;
+>>>          break;
+>>
+>> ... this existing case, and ...
 > 
-> Can we really do it this way round, rather than raising #GP when
-> we know the MSR isn't there (AMD / Hygon)? I realized code e.g.
-> ...
-> 
-> > +        *val = IA32_FEATURE_CONTROL_LOCK;
-> > +        if ( vmce_has_lmce(v) )
-> > +            *val |= IA32_FEATURE_CONTROL_LMCE_ON;
-> > +        if ( nestedhvm_enabled(d) )
-> > +            *val |= IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
-> > +        break;
-> > +
-> > +
-> >      case MSR_IA32_PLATFORM_ID:
-> >          if ( !(cp->x86_vendor & X86_VENDOR_INTEL) ||
-> >               !(boot_cpu_data.x86_vendor & X86_VENDOR_INTEL) )
-> 
-> ... in context right here does it the same way, but I still
-> wonder whether we wouldn't better switch existing instances, too.
+> I was trying to sort them by value, but I can certainly merge this and
+> the case below.
 
-Hm, no idea really. Right now it seems better to check for != Intel
-rather than AMD | Hygon | Centaur | Shanghai, as that's a MSR specific
-to Intel.
+Sorting by number is helpful as a secondary criteria, but I think groups
+of registers wanting to be handled the same should go together. This is
+especially looking forward, where otherwise many instances of the same
+(trivial or not) logic may appear.
 
-Do those MSRs exist in Centaur / Shanghai?
-
-Thanks, Roger.
+Jan
 
