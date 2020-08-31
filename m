@@ -2,59 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C320C25713F
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 02:44:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B76C25715A
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 02:57:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCXuf-0004EO-Mc; Mon, 31 Aug 2020 00:43:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kCY8W-0005Ft-0h; Mon, 31 Aug 2020 00:57:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=naQU=CJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kCXud-0004Dc-Qw
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 00:43:07 +0000
-X-Inumbo-ID: 56bb7240-cd73-466e-8c8f-66be157876e8
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56bb7240-cd73-466e-8c8f-66be157876e8;
- Mon, 31 Aug 2020 00:43:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=shncoS0sxPYgXf1Cgxe6eXs7c7bkQULLsVYLe4myges=; b=KsyB7hF2SgH2NYT+LR2RSpzZil
- oLs9Lbciv3lhiSKphBx0+IwHPRHWoc1F46FvHarIVgaPvuWyv9EeBNBTcgCkskbIYXDF0Lpv3ZU7o
- llck57M7rhrxZIqy8fNAdnq0inwO7+5nxUKXRUQx6uF04/F0VEvSfb3lYWJph5zxQJ40=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCXuW-00010w-QV; Mon, 31 Aug 2020 00:43:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCXuW-0005hA-Im; Mon, 31 Aug 2020 00:43:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kCXuW-00038q-IF; Mon, 31 Aug 2020 00:43:00 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153312-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=OIpa=CJ=linux.intel.com=baolu.lu@srs-us1.protection.inumbo.net>)
+ id 1kCY8T-0005Fo-Uh
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 00:57:25 +0000
+X-Inumbo-ID: 8222b038-8d0e-4350-bc10-0edf687df23b
+Received: from mga12.intel.com (unknown [192.55.52.136])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8222b038-8d0e-4350-bc10-0edf687df23b;
+ Mon, 31 Aug 2020 00:57:23 +0000 (UTC)
+IronPort-SDR: PbsbnW4lJVJEK16rvjdTezw0BT0mwMR6hX3zVvt4yBH2tW2pcy6u8dC7W2iP1OiTc2JH0e58u8
+ fpo6zZuQ27ag==
+X-IronPort-AV: E=McAfee;i="6000,8403,9729"; a="136429445"
+X-IronPort-AV: E=Sophos;i="5.76,373,1592895600"; d="scan'208";a="136429445"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2020 17:57:22 -0700
+IronPort-SDR: 4OdmrwWzHpxy5SU28G19puRzaUVrwQ6SaYDcVYtCuqXECE/O82FD21j5tLXsYl1EtHADFe5kjw
+ 371F55ZZl/MQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,373,1592895600"; d="scan'208";a="324738088"
+Received: from allen-box.sh.intel.com (HELO [10.239.159.139])
+ ([10.239.159.139])
+ by fmsmga004.fm.intel.com with ESMTP; 30 Aug 2020 17:57:15 -0700
+Cc: baolu.lu@linux.intel.com, x86@kernel.org, Joerg Roedel <joro@8bytes.org>, 
+ iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>,
+ Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
+To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
+References: <20200826111628.794979401@linutronix.de>
+From: Lu Baolu <baolu.lu@linux.intel.com>
+Message-ID: <02e30654-714b-520a-0d20-fca20794df93@linux.intel.com>
+Date: Mon, 31 Aug 2020 08:51:40 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 153312: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 31 Aug 2020 00:43:00 +0000
+In-Reply-To: <20200826111628.794979401@linutronix.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,183 +80,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153312 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153312/
+Hi Thomas,
 
-Regressions :-(
+On 8/26/20 7:16 PM, Thomas Gleixner wrote:
+> This is the second version of providing a base to support device MSI (non
+> PCI based) and on top of that support for IMS (Interrupt Message Storm)
+> based devices in a halfways architecture independent way.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+After applying this patch series, the dmar_alloc_hwirq() helper doesn't
+work anymore during boot. This causes the IOMMU driver to fail to
+register the DMA fault handler and abort the IOMMU probe processing.
+Is this a known issue?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Best regards,
+baolu
 
-version targeted for testing:
- ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    4 days
-Failing since        152915  2020-08-27 18:09:42 Z    3 days   76 attempts
-Testing same since   153135  2020-08-30 02:28:59 Z    0 days   20 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-Author: Paul <paul.grimes@amd.com>
-Date:   Fri Aug 28 04:40:51 2020 +0800
-
-    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
-    
-    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
-    but should be 0x02 per the ACPI Specification.
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Paul G <paul.grimes@amd.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+> 
+> The first version can be found here:
+> 
+>      https://lore.kernel.org/r/20200821002424.119492231@linutronix.de
+> 
+> It's still a mixed bag of bug fixes, cleanups and general improvements
+> which are worthwhile independent of device MSI.
+> 
+> There are quite a bunch of issues to solve:
+> 
+>    - X86 does not use the device::msi_domain pointer for historical reasons
+>      and due to XEN, which makes it impossible to create an architecture
+>      agnostic device MSI infrastructure.
+> 
+>    - X86 has it's own msi_alloc_info data type which is pointlessly
+>      different from the generic version and does not allow to share code.
+> 
+>    - The logic of composing MSI messages in an hierarchy is busted at the
+>      core level and of course some (x86) drivers depend on that.
+> 
+>    - A few minor shortcomings as usual
+> 
+> This series addresses that in several steps:
+> 
+>   1) Accidental bug fixes
+> 
+>        iommu/amd: Prevent NULL pointer dereference
+> 
+>   2) Janitoring
+> 
+>        x86/init: Remove unused init ops
+>        PCI: vmd: Dont abuse vector irqomain as parent
+>        x86/msi: Remove pointless vcpu_affinity callback
+> 
+>   3) Sanitizing the composition of MSI messages in a hierarchy
+>   
+>        genirq/chip: Use the first chip in irq_chip_compose_msi_msg()
+>        x86/msi: Move compose message callback where it belongs
+> 
+>   4) Simplification of the x86 specific interrupt allocation mechanism
+> 
+>        x86/irq: Rename X86_IRQ_ALLOC_TYPE_MSI* to reflect PCI dependency
+>        x86/irq: Add allocation type for parent domain retrieval
+>        iommu/vt-d: Consolidate irq domain getter
+>        iommu/amd: Consolidate irq domain getter
+>        iommu/irq_remapping: Consolidate irq domain lookup
+> 
+>   5) Consolidation of the X86 specific interrupt allocation mechanism to be as close
+>      as possible to the generic MSI allocation mechanism which allows to get rid
+>      of quite a bunch of x86'isms which are pointless
+> 
+>        x86/irq: Prepare consolidation of irq_alloc_info
+>        x86/msi: Consolidate HPET allocation
+>        x86/ioapic: Consolidate IOAPIC allocation
+>        x86/irq: Consolidate DMAR irq allocation
+>        x86/irq: Consolidate UV domain allocation
+>        PCI/MSI: Rework pci_msi_domain_calc_hwirq()
+>        x86/msi: Consolidate MSI allocation
+>        x86/msi: Use generic MSI domain ops
+> 
+>    6) x86 specific cleanups to remove the dependency on arch_*_msi_irqs()
+> 
+>        x86/irq: Move apic_post_init() invocation to one place
+>        x86/pci: Reducde #ifdeffery in PCI init code
+>        x86/irq: Initialize PCI/MSI domain at PCI init time
+>        irqdomain/msi: Provide DOMAIN_BUS_VMD_MSI
+>        PCI: vmd: Mark VMD irqdomain with DOMAIN_BUS_VMD_MSI
+>        PCI/MSI: Provide pci_dev_has_special_msi_domain() helper
+>        x86/xen: Make xen_msi_init() static and rename it to xen_hvm_msi_init()
+>        x86/xen: Rework MSI teardown
+>        x86/xen: Consolidate XEN-MSI init
+>        irqdomain/msi: Allow to override msi_domain_alloc/free_irqs()
+>        x86/xen: Wrap XEN MSI management into irqdomain
+>        iommm/vt-d: Store irq domain in struct device
+>        iommm/amd: Store irq domain in struct device
+>        x86/pci: Set default irq domain in pcibios_add_device()
+>        PCI/MSI: Make arch_.*_msi_irq[s] fallbacks selectable
+>        x86/irq: Cleanup the arch_*_msi_irqs() leftovers
+>        x86/irq: Make most MSI ops XEN private
+>        iommu/vt-d: Remove domain search for PCI/MSI[X]
+>        iommu/amd: Remove domain search for PCI/MSI
+> 
+>    7) X86 specific preparation for device MSI
+> 
+>        x86/irq: Add DEV_MSI allocation type
+>        x86/msi: Rename and rework pci_msi_prepare() to cover non-PCI MSI
+> 
+>    8) Generic device MSI infrastructure
+>        platform-msi: Provide default irq_chip:: Ack
+>        genirq/proc: Take buslock on affinity write
+>        genirq/msi: Provide and use msi_domain_set_default_info_flags()
+>        platform-msi: Add device MSI infrastructure
+>        irqdomain/msi: Provide msi_alloc/free_store() callbacks
+> 
+>    9) POC of IMS (Interrupt Message Storm) irq domain and irqchip
+>       implementations for both device array and queue storage.
+> 
+>        irqchip: Add IMS (Interrupt Message Storm) driver - NOT FOR MERGING
+> 
+> Changes vs. V1:
+> 
+>     - Addressed various review comments and addressed the 0day fallout.
+>       - Corrected the XEN logic (Jürgen)
+>       - Make the arch fallback in PCI/MSI opt-in not opt-out (Bjorn)
+> 
+>     - Fixed the compose MSI message inconsistency
+> 
+>     - Ensure that the necessary flags are set for device SMI
+> 
+>     - Make the irq bus logic work for affinity setting to prepare
+>       support for IMS storage in queue memory. It turned out to be
+>       less scary than I feared.
+> 
+>     - Remove leftovers in iommu/intel|amd
+> 
+>     - Reworked the IMS POC driver to cover queue storage so Jason can have a
+>       look whether that fits the needs of MLX devices.
+> 
+> The whole lot is also available from git:
+> 
+>     git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git device-msi
+> 
+> This has been tested on Intel/AMD/KVM but lacks testing on:
+> 
+>      - HYPERV (-ENODEV)
+>      - VMD enabled systems (-ENODEV)
+>      - XEN (-ENOCLUE)
+>      - IMS (-ENODEV)
+> 
+>      - Any non-X86 code which might depend on the broken compose MSI message
+>        logic. Marc excpects not much fallout, but agrees that we need to fix
+>        it anyway.
+> 
+> #1 - #3 should be applied unconditionally for obvious reasons
+> #4 - #6 are wortwhile cleanups which should be done independent of device MSI
+> 
+> #7 - #8 look promising to cleanup the platform MSI implementation
+>       	independent of #8, but I neither had cycles nor the stomach to
+>       	tackle that.
+> 
+> #9	is obviously just for the folks interested in IMS
+> 
+> Thanks,
+> 
+> 	tglx
+> 
 
