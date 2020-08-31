@@ -2,60 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676452573FE
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 08:56:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EE6257404
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 09:00:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCdjr-0000oA-BI; Mon, 31 Aug 2020 06:56:23 +0000
+	id 1kCdnC-0000y9-RP; Mon, 31 Aug 2020 06:59:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=naQU=CJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kCdjp-0000np-OF
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 06:56:21 +0000
-X-Inumbo-ID: 0ca09001-297d-4e1d-800e-3bbe8b9ed351
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RZUy=CJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kCdnB-0000y3-Gc
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 06:59:49 +0000
+X-Inumbo-ID: ff05810b-0a11-40a7-8b77-3fde5f4db78d
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ca09001-297d-4e1d-800e-3bbe8b9ed351;
- Mon, 31 Aug 2020 06:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=B3I2of3ctnimJftPG11ReABhrTkyTmEnA/NHfNjdWOA=; b=Nu834PNDP0wpe36Edlx29bVG1H
- B4J282vy4YE0JsCchqWNWs3AH2mkBOSIL3J897TWEMbifyz08IxFmTJ7eL0vzIf3WfWg/JmgdqEmO
- /vyOIqQ9/6A9Uc6Uz+sC/p09hheULDj8owpU4siTHRPHCq+1CpJx4n1Pot7JlwcHKAGw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCdji-0006jl-3H; Mon, 31 Aug 2020 06:56:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCdjh-0007fZ-Ti; Mon, 31 Aug 2020 06:56:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kCdjh-0001xX-TB; Mon, 31 Aug 2020 06:56:13 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153337-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id ff05810b-0a11-40a7-8b77-3fde5f4db78d;
+ Mon, 31 Aug 2020 06:59:48 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 32EE3ACF6;
+ Mon, 31 Aug 2020 07:00:22 +0000 (UTC)
+Subject: Re: [PATCH] x86/intel: Expose MSR_ARCH_CAPS to dom0
+To: Andrew Cooper <amc96@cam.ac.uk>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200827193713.4962-1-andrew.cooper3@citrix.com>
+ <e24c49ce-82f4-955d-3a7b-03ffd5aa4144@suse.com>
+ <9498c4e0-d8c7-1660-3074-8a818ba50658@cam.ac.uk>
+ <70a6de86-f382-050c-9c33-eccc9cb76c9c@suse.com>
+ <f585d05b-db9b-c890-898d-ed34a0122ec4@cam.ac.uk>
+ <990665a8-a219-ef79-331a-79bf70c11324@suse.com>
+ <93da43ae-a53c-16ac-4f23-b700cc2f6b1d@cam.ac.uk>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5c95be8f-fa2a-3955-b9a9-f195a0825b0d@suse.com>
+Date: Mon, 31 Aug 2020 08:59:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [ovmf test] 153337: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 31 Aug 2020 06:56:13 +0000
+In-Reply-To: <93da43ae-a53c-16ac-4f23-b700cc2f6b1d@cam.ac.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,183 +58,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153337 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153337/
+On 28.08.2020 18:38, Andrew Cooper wrote:
+> On 28/08/2020 17:17, Jan Beulich wrote:
+>> On 28.08.2020 18:09, Andrew Cooper wrote:
+>>> On 28/08/2020 16:42, Jan Beulich wrote:
+>>>> On 28.08.2020 12:23, Andrew Cooper wrote:
+>>>>> On 28/08/2020 09:41, Jan Beulich wrote:
+>>>>>> On 27.08.2020 21:37, Andrew Cooper wrote:
+>>>>>>> The overhead of (the lack of) MDS_NO alone has been measured at 30% on some
+>>>>>>> workloads.  While we're not in a position yet to offer MSR_ARCH_CAPS generally
+>>>>>>> to guests, dom0 doesn't migrate, so we can pass a subset of hardware values
+>>>>>>> straight through.
+>>>>>>>
+>>>>>>> This will cause PVH dom0's not to use KPTI by default, and all dom0's not to
+>>>>>>> use VERW flushing by default,
+>>>>>> To avoid VERW, shouldn't you also expose SKIP_L1DFL?
+>>>>> SKIP_L1DFL is a software-only bit, specifically for nested virt.
+>>>>>
+>>>>> It is for Xen to tell an L1 hypervisor "you don't need to flush on
+>>>>> vmentry because I'm taking care of it".
+>>>> Or for a hypervisor underneath us to tell us, which we could then
+>>>> hand on to Dom0?
+>>> For dom0 to do what with?
+>>>
+>>> PV guests can't use the VMLAUNCH/VMRESUME instruction at all, and it is
+>>> not currently possible to configure nested virt for a PVH dom0 to use.
+>> Aren't they also using this on the exit-to-user-mode path, like we
+>> do on exit-to-PV? And in certain cases when idle?
+> 
+> MSR_FLUSH_CMD is used used for VMEntry.  This flushes the L1D cache, and
+> was to combat L1TF.  Native systems don't flush the L1D at all, and
+> invert PTEs instead as a *far* lower overhead mitigation.
+> 
+> Then MDS came along.  VERW is used to flush the uarch buffers.  This
+> needs doing in all return-to-guest contexts.
+> 
+> As VMEntry needs both, MSR_FLUSH_CMD's behaviour was extended to cover
+> both the L1D cache and uarch buffers, so software didn't have to arrange
+> for both.
+> 
+> Therefore, the overall mitigations are VERW on exit-to-PV, and
+> MSR_FLUSH_CMD on exit-to-HVM.
+> 
+> 
+> There is no current need for native setups to use MSR_FLUSH_CMD.  The
+> only reason we expose the MSR to HVM guests is for nested-virt.
 
-Regressions :-(
+But the question was about the use of VERW on exit-to-user paths in
+a PV kernel, which I apparently wrongly understood SKIP_L1DFL also
+indicates to be unnecessary. I'm sorry for the confusion. So
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    4 days
-Failing since        152915  2020-08-27 18:09:42 Z    3 days   79 attempts
-Testing same since   153135  2020-08-30 02:28:59 Z    1 days   23 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-Author: Paul <paul.grimes@amd.com>
-Date:   Fri Aug 28 04:40:51 2020 +0800
-
-    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
-    
-    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
-    but should be 0x02 per the ACPI Specification.
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Paul G <paul.grimes@amd.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+Jan
 
