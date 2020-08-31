@@ -2,60 +2,110 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A7D2576F1
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 11:54:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B8D25771D
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Aug 2020 12:05:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCgVt-0000lP-4d; Mon, 31 Aug 2020 09:54:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kCggQ-0001lV-BS; Mon, 31 Aug 2020 10:05:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=naQU=CJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kCgVr-0000lK-8O
- for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 09:54:07 +0000
-X-Inumbo-ID: c8756d59-2186-4bda-98bf-0cb000cac60d
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c8756d59-2186-4bda-98bf-0cb000cac60d;
- Mon, 31 Aug 2020 09:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=AHQllnm+AGKpz2n1L6Zb20Ous4H9yHj+x0OpY6N1TLo=; b=dNhn+0enGjHlJDPfEkvDfnjw82
- mQ2/29yGKaGkkjBySc9ElD8zAzDlfO1Xr+5LWs94oDY5XibNwpljfsbrgzgD0Ulvi0dIsW3cjFOuo
- cIKxojzlxDftzw0efjA/K8TmHDcK6i2ihinFM7zPKplesNFV6iUXDQo0XgQRs+nZfIHg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCgVo-0002Yu-Vm; Mon, 31 Aug 2020 09:54:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCgVo-0003c6-OW; Mon, 31 Aug 2020 09:54:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kCgVo-0006vW-O1; Mon, 31 Aug 2020 09:54:04 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153360-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=EdQD=CJ=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1kCggO-0001lQ-RH
+ for xen-devel@lists.xenproject.org; Mon, 31 Aug 2020 10:05:00 +0000
+X-Inumbo-ID: 539f4bce-1c1e-45a2-93b1-357994ab2477
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 539f4bce-1c1e-45a2-93b1-357994ab2477;
+ Mon, 31 Aug 2020 10:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598868300;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=8olG1aSPXN0+YNhhTfxab/4DXpVWGcvJc3wl0CNDic4=;
+ b=e4m1ZIqZ9oI45LhCAm2p8ihXMusuIWhskSWL+3HNMIMrWcjLlxduIjjv
+ dneJ+0DENNM3afZSgq2vHGld+r0nQW3LWr+22pinE0uD2D3yEbUkwHGqM
+ mBW8nLnpxPjPa9oJUaPzSd66/bJhTmLTXAKdYeIVxcXUsKAt/Sfnsd24D w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=pass (signature verified)
+ header.i=@citrix.onmicrosoft.com
+IronPort-SDR: AJYei6fIbs1EVnLOOAt149L3AviATro4gCRodt02jF53qalIHeH+IPePjiwI1c0UvtMntoB1H5
+ upzCA5ajFlW70spUETCkgj2MlLmLGEqbk7/qTFrJ+3jV7KjpHBl7snVM6Ioash/eJbE3XYCXJf
+ yXkRImOP4qqP/YGSPzoAtLMdUTfpFKiVeKAuNmSBbbb5n7L1XXypLTeUaVzgNMi6oLkswtWcHl
+ acy/Z/48QIXrgwtp9rKWOysx/dmM0pDtbMzvcNq4jM6M4BKKkH9gG6QNXbxZIO9d43QavIT3L2
+ 9oU=
+X-SBRS: 2.7
+X-MesageID: 25964476
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,375,1592884800"; d="scan'208";a="25964476"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ewW7YmHnnE1m4K4dP54x+JhUHfxjZ2OadL2spynPJ65gSeRbMVsCS0BpbvutxmHOfJM+ETmUI6L5+wqiKeb3AV0m9BhpFR/SjM51/+8CoGnpKY1HVBo90V3dJ1v1bujP2sDpvUy/psA4KZke4ablpCOQ46xHwADvy0iymlmcqBWxMe7mJeLtiJM4MZUH/njqdlZh6/on70e+1OO1iWnS9EoY2TpbIw2ITCBhUZxWSDjLhbLYDvWAEz8VVKH0j1nSW3U6VmncqXH3bO5c8K9DClOXfkqWMCVvKhcxVYnagEXq2/aTaz+ccKenmp4Rm05ahboxolfKGr27uwIalXN6qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8olG1aSPXN0+YNhhTfxab/4DXpVWGcvJc3wl0CNDic4=;
+ b=YNYcM8vpIVvsyDz3eQkv0fVb8PWk5U6IOz0FAwV0mrNZ8NvQms9iBvQOujw0KodWKmvREbiQt67zhmsd+SGfmjKOsyFk6sFp95BorEfRSC3j8UmnezQUazEVyKBJGC+gnF1G+98VgTcjZlOeNHGGy9yju+Ctv6IaLvUhOdyjFMqcypBRxWGKF127aGHJSX0eyjNmHa8sM3P5YMMSE5P2fxBgwUGdKdj59tlFf6Lxq3mGZwqOB8XCUcvNe2AMRsZWAxFMwUI2kBtARAXhUlswab7zfbiY72XkBrgJd8heyLcnuh6mq+J55WQ7T1UlRLzu+Co27zM48PwAs3k7CETitQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8olG1aSPXN0+YNhhTfxab/4DXpVWGcvJc3wl0CNDic4=;
+ b=cZU/aWDpuYD4me9L4ErfRF0h+3bpsl79l7QHXLMyYnn9yf8KiiyK72UHL4DWprpUguIlv4pGfN+r8g2U61lLIdBc9zuhT5N7DNpd5paDDArREFvuoBOTy6x+LIT+aKv7a1fj4OUNa5Xq3KEF7Z+HiUEtRyrkIGdcdc43YjFLdDA=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+CC: Jan Beulich <jbeulich@suse.com>, "open list:X86"
+ <xen-devel@lists.xenproject.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Ian Jackson
+ <Ian.Jackson@citrix.com>, Julien Grall <julien@xen.org>, "Konrad Rzeszutek
+ Wilk" <konrad.wilk@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf
+ <dgdegra@tycho.nsa.gov>
+Subject: Re: [PATCH] gitignore: Move ignores from global to subdirectories
+Thread-Topic: [PATCH] gitignore: Move ignores from global to subdirectories
+Thread-Index: AQHWfOcPoB6C2A3RQk+KKhmh29t936lNHsiAgASp5QCAADnbAA==
+Date: Mon, 31 Aug 2020 10:04:54 +0000
+Message-ID: <CBAA2BDF-D5AC-4690-8996-1EBBE6DE19F6@citrix.com>
+References: <20200828025747.GA25246@mattapan.m5p.com>
+ <d284a27c-f347-f80f-f62f-78134749e20d@suse.com>
+ <20200831063748.GB1522@mattapan.m5p.com>
+In-Reply-To: <20200831063748.GB1522@mattapan.m5p.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.120.23.2.1)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3a102b25-6a39-4a8b-be5d-08d84d954f52
+x-ms-traffictypediagnostic: BY5PR03MB5364:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BY5PR03MB53642C15DC7F1F7B1D85AA0299510@BY5PR03MB5364.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: O0t3e9MQkzkCwacv00MmUK5ExNODSpQAy9s4H6iwlLKPITP5fAfiKz8P4pi2f3gyKV1uxNT8dGU95R12YT18I70Gl6ZKDCc6tJT4lzikmQF9j1nPnKj50K/S15hVSnkFITuyWV/8MTheIMLipvp88EaXoBtYI1SkGfK4ttATzXUpNYZr/OdC3WG5dmcGasFa474R2ZkTISIK/vmIHBDCdgJBAwL8BNGMARnC22HTetAana48MZe5aRgISoNn45DxksZWeA5NYErbv6ddc7E2UczHmaOYZlxFI4KTsswz2WmKf8rD4RCfccG4z/CFwt4BS86xNzwKMY+X6r9IJdIohg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR03MB4229.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(39850400004)(346002)(366004)(376002)(8936002)(6512007)(66556008)(316002)(186003)(8676002)(66476007)(71200400001)(2906002)(66446008)(5660300002)(64756008)(36756003)(4326008)(33656002)(26005)(2616005)(86362001)(83380400001)(53546011)(66946007)(54906003)(76116006)(91956017)(6506007)(478600001)(6486002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: coYgetpN/WzS9dmAOJpUcLG6p3KfG863xhtd2E6PPkm1lQW6NBSzpH5jCPYuWyKmtOj5VeYD7XTLQs3DdIM9qCdO4iAUgv+eyfLzcpvwtAy3B34729o8gOOszrpX/si41Sp019gfvk3BzDJ6GboyotLzhOq6dJKlP8joYWVtP7NixIccMQ4EIFy4YdrplTsSoYVv8BPETXWejAq1ChvecAyIiWUEXyM4DEPrMOP6wtTH28hKNxfQ8s+Q3EJwSMaC2XYVozogkhlOiD+uqtTN3M/gZbcqvdAP54a/gbfOKLl5jQeMiSUnT29RPFmDjPnjYpU0eQt3vVmzGNltoVC23feUhzj0E6+0u/cLoFUcqtfoGUw6b9HIh9jr1l49hqvGAM0ahOMZqEOnQW6NSrL9NFks9miFMzwmcNAX/iX1qQplcGJPK4bsOIiT8gMfV5eSN0YYx3GAnzKsxmfUtchRuf0GGjm72QtvZ4ihTzbVcnJmwNtx9PIO4YoUSkjAKUOQkMgtzK7eEr3bTSWRZCZLZwIKqfCX65jZ04sdg+8PRztHDl+NPP3hEvx+ynJ5mdQy1eRiVwxwaVcwU3Dte60q3ZdVK2RBAqoMk1UUp6GDclqaoTm91T0kSW0jg369OyoxfddMm26UoY7sWE9M443LnQ==
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CADDC450E2AED541B761A7EE6C9874A8@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [ovmf test] 153360: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 31 Aug 2020 09:54:04 +0000
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4229.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a102b25-6a39-4a8b-be5d-08d84d954f52
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2020 10:04:54.7314 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7T3xIZILDClTiM8XYIhZdNKISisfAtG273K/VEgXIr3eon07G+dFZxP5+YnBnOjQx16o06mmdokgBqE6Emgh3ERqs6RGfZ6+FjMv8nTT/RQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5364
+X-OriginatorOrg: citrix.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,183 +119,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153360 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153360/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    4 days
-Failing since        152915  2020-08-27 18:09:42 Z    3 days   82 attempts
-Testing same since   153135  2020-08-30 02:28:59 Z    1 days   26 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-Author: Paul <paul.grimes@amd.com>
-Date:   Fri Aug 28 04:40:51 2020 +0800
-
-    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
-    
-    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
-    but should be 0x02 per the ACPI Specification.
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Paul G <paul.grimes@amd.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+DQoNCj4gT24gQXVnIDMxLCAyMDIwLCBhdCA3OjM3IEFNLCBFbGxpb3R0IE1pdGNoZWxsIDxlaGVt
+K3hlbkBtNXAuY29tPiB3cm90ZToNCj4gDQo+IE9uIEZyaSwgQXVnIDI4LCAyMDIwIGF0IDA5OjI0
+OjQxQU0gKzAyMDAsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4gT24gMjguMDguMjAyMCAwNDo1Nywg
+RWxsaW90dCBNaXRjaGVsbCB3cm90ZToNCj4+PiBTdWJkaXJlY3RvcmllcyB3aGljaCBoYXZlIC5n
+aXRpZ25vcmUgZmlsZXMgc2hvdWxkIG5vdCBiZSByZWZlcmVuY2VkIGluDQo+Pj4gdGhlIGdsb2Jh
+bCAuZ2l0aWdub3JlIGZpbGVzLiAgTW92ZSBzZXZlcmFsIGxpbmVzIHRvIGFwcHJvcHJpYXRlIHN1
+YmRpcnMuDQo+Pj4gDQo+Pj4gU2lnbmVkLW9mZi1ieTogRWxsaW90dCBNaXRjaGVsbCA8ZWhlbSt4
+ZW5AbTVwLmNvbT4NCj4+PiANCj4+PiAtLS0NCj4+PiBIb3BlZnVsbHkgdGhlIGNvbW1pdCBtZXNz
+YWdlIGNvdmVycyBpdC4gIFdoZW4gbW92ZWQgdG8gdGhlIHN1YmRpcmVjdG9yaWVzDQo+Pj4gSSdt
+IHVzaW5nICIuLzxmaWxlPiIgYXMgb3RoZXJ3aXNlIGFueSBmaWxlIHNoYXJpbmcgdGhlIG5hbWUg
+aW4gYSBkZWVwZXINCj4+PiBzdWJkaXJlY3Rvcnkgd291bGQgYmUgc3ViamVjdCB0byB0aGUgbWF0
+Y2guDQo+PiANCj4+IE1heSBJIGFzayB3aHkgdGhpcyBsYXN0IHNlbnRlbmNlIGlzbid0IHBhcnQg
+b2YgdGhlIGNvbW1pdCBtZXNzYWdlPw0KPiANCj4gTXkgdGhpbmtpbmcgaXMgaXQgd2FzIHByZXR0
+eSBzdHJhaWdodGZvcndhcmQgdG8gZmlndXJlIG91dCB3aGVuIGxvb2tpbmcuDQo+IE5vdCAvcXVp
+dGUvIG9idmlvdXMgZW5vdWdoIHRvIGF2b2lkIGNvbW1lbnRpbmcgaW4gZS1tYWlsLCBidXQgbm90
+IHF1aXRlDQo+IG9ic2N1cmUgZW5vdWdoIHRvIGhhdmUgaW4gY29tbWl0IG1lc3NhZ2UuICBUaGlz
+IGNhbiBnbyBlaXRoZXIgd2F5IHJlYWxseS4NCg0KU3RvcmluZyB0aGUgZXh0cmEgcGFyYWdyYXBo
+IGluIGdpdCBpcyBjaGVhcDsgdHJ5aW5nIHRvIHJlY29uc3RydWN0IHdoeSBzb21lb25lIG1hZGUg
+YSBjaGFuZ2UgMTAgeWVhcnMgYWZ0ZXIgdGhlIGZhY3QgaXMgb2Z0ZW4gZGlmZmljdWx0LiAgUHJv
+YmFibHkgbm90IHdvcnRoIGEgcmUtc2VuZCDigJQgaXQgY2FuIGJlIG1vdmVkIGludG8gdGhlIGNv
+bW1pdCBtZXNzYWdlIGJ5IHRoZSBjb21taXR0ZXI7IGJ1dCBpZiB5b3XigJlyZSBnb2luZyB0byBz
+ZW5kIHYyIGFueXdheSwgbWlnaHQgYXMgd2VsbCBtb3ZlIGl0IGluLg0KDQogLUdlb3JnZQ0KDQo=
 
