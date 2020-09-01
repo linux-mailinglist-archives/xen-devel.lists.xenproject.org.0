@@ -2,113 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD184258AF9
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 11:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1062258B8E
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 11:29:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD2F2-0005IX-0N; Tue, 01 Sep 2020 09:06:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kD2ax-0007Ak-VZ; Tue, 01 Sep 2020 09:28:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LLAq=CK=gmail.com=boqun.feng@srs-us1.protection.inumbo.net>)
- id 1kD2F1-0005IS-3m
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 09:06:11 +0000
-X-Inumbo-ID: 1471521c-1a62-4dc0-b686-03925ac0750a
-Received: from mail-qt1-x843.google.com (unknown [2607:f8b0:4864:20::843])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1471521c-1a62-4dc0-b686-03925ac0750a;
- Tue, 01 Sep 2020 09:06:10 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id p65so340119qtd.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Sep 2020 02:06:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=D1PJjxl04vIbaOs4ebAEDi29TuKqnfLhXms4e4vAfJA=;
- b=QTp0drHkzoxPRdICP28IjclRm08/ZlHuAEtqzP1QG+vFQRN0wCHglbA4imGiRgaqQO
- vks9z3Oso2USraYzRybz8FI/N6N3pWRsUsc5mUvct+cAoZvC9nP8Q150X3oE+lVOh+uI
- cc5eAaKJppdn4BQl1wpeaony/BfyeOocoxpuZh716y4jvk1A8r/m/WkOXkLisljNgvJB
- BC+UzYfw2mq6UumWvrmF6vC9yUvrTEUAWTzGbkL+CrArI1Hh4guazMfegiUJHg1JaONv
- tjMS9UnBxWu3DcNoGgnvuzvZzihXwkA3A7lzQaDpeLmVP2VDewI206ZixijmZreELJ2C
- A1lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=D1PJjxl04vIbaOs4ebAEDi29TuKqnfLhXms4e4vAfJA=;
- b=UFsZ17UElBkK24f/ycGs+ROcdb26Vygwkdpvm20hjl7SQ36LpGaxlJNo+BmMTJ1kZb
- AhWlPg/GqWIPLVKLoG2VT/zl2OnxWcQa4xpUXIeEfRkTBRGzMYI/DjOzOQI9XSLFyrtJ
- IAN1krCptZkEAhEe/cw5nVCTmB+6lDYYR6g+eMPq7/iEOwX+gvCumTfGNcey1E0Q2cHX
- 98FQiKkI2nPeLORQg8/PCC2wCe1cOxIOXsDsKACQOXF0+mvJyqoPcPvE7Hof8e5g/0DL
- coEc0PZIL6sxFqqCFCsLw65z8Yr5FGutb7K/09DOvcpd86Va3/DkEEY3PdOAEj6cLLVE
- mFFw==
-X-Gm-Message-State: AOAM530IEWv0I043yutcXboa54gDNNOMlvNpvV+90zVmM5WDAWM1SIHl
- BbfgT9DGmvGb7b3z/qqINEA=
-X-Google-Smtp-Source: ABdhPJxt3ZrWQoEsnnEytmhabGXMOaQWqtDOIGFcf7SKiVbdrdYBFa/qMAesxlpKByq3CmY3wYvUtw==
-X-Received: by 2002:aed:2c06:: with SMTP id f6mr732113qtd.362.1598951169970;
- Tue, 01 Sep 2020 02:06:09 -0700 (PDT)
-Received: from auth2-smtp.messagingengine.com (auth2-smtp.messagingengine.com.
- [66.111.4.228])
- by smtp.gmail.com with ESMTPSA id 16sm821427qks.102.2020.09.01.02.06.07
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 01 Sep 2020 02:06:08 -0700 (PDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailauth.nyi.internal (Postfix) with ESMTP id A373327C0054;
- Tue,  1 Sep 2020 05:06:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Tue, 01 Sep 2020 05:06:06 -0400
-X-ME-Sender: <xms:_Q5OXyPVVGbcpSw2EztgFitqADIXh0znK6ysN4qTLzqv55nU0M0zsA>
- <xme:_Q5OXw9O1ucVg3XzURv5aBq9MWR-ujm1IY0XBjjrSQuPefDtuFYRg4XAcGDZcBkMp
- tcXR3XAdGe7v1BMaA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudefjedgudefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeeuohhquhhn
- ucfhvghnghcuoegsohhquhhnrdhfvghnghesghhmrghilhdrtghomheqnecuggftrfgrth
- htvghrnhepveeijedthfeijeefudehhedvveegudegteehgffgtddvuedtveegtedvvdef
- gedtnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphephedvrdduheehrdduud
- durdejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
- pegsohhquhhnodhmvghsmhhtphgruhhthhhpvghrshhonhgrlhhithihqdeiledvgeehtd
- eigedqudejjeekheehhedvqdgsohhquhhnrdhfvghngheppehgmhgrihhlrdgtohhmsehf
- ihigmhgvrdhnrghmvg
-X-ME-Proxy: <xmx:_Q5OX5QOlS9hptseCXLPkG7f68kHMQUlI3i-jPDbOGRzKYLyASdR7Q>
- <xmx:_Q5OXyuZ4zrB-ZbtoRa-Rpu_UoWQUIzoHuQrRiWd91wlsnAL9BcM1g>
- <xmx:_Q5OX6edbEi7U5puDhdDP9GBqTCRDrm3ddwWE59ZoxpGMHZzP9Qovg>
- <xmx:_g5OX2_-nLoht5YCspRL8HNcVmpA0wZmAAc-P8oKxThtmQZ08oqIImQ4auc>
-Received: from localhost (unknown [52.155.111.71])
- by mail.messagingengine.com (Postfix) with ESMTPA id 897A630600A9;
- Tue,  1 Sep 2020 05:06:04 -0400 (EDT)
-Date: Tue, 1 Sep 2020 17:06:03 +0800
-From: Boqun Feng <boqun.feng@gmail.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org,	Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
- Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>,	Dimitri Sivanich <sivanich@hpe.com>,
- Russ Anderson <rja@hpe.com>,	linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,	Megha Dey <megha.dey@intel.com>,
- Jason Gunthorpe <jgg@mellanox.com>,	Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- Michael Kelley <mikelley@microsoft.com>
-Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
-Message-ID: <20200901090603.GA110903@debian-boqun.qqnc3lrjykvubdpftowmye0fmh.lx.internal.cloudapp.net>
-References: <20200826111628.794979401@linutronix.de>
+ <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kD2aw-0007Af-Nj
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 09:28:50 +0000
+X-Inumbo-ID: 990b43ac-bc41-4cca-8619-1d7cce6a3f4f
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 990b43ac-bc41-4cca-8619-1d7cce6a3f4f;
+ Tue, 01 Sep 2020 09:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598952527;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/Ha1uFxEPJrllBlECBYiBSUjFPmUNb+9tTQsqJG7wn4=;
+ b=HuR2bZ23TfFXaUrJmVCN2YyfZaY2wdz02VfrS+JvJNrXgfUky2hpzjxa
+ Hw/knQ3jWjRY+DImecYufBLx3SqnSXVf/mnXdr5cYBAuUuvnqT5IkmMj1
+ 5vpcwERmJWPocSd9SKDWdbEikhn7BuEsQsonFU2uikJJ+5syvNIUBJ6S2 I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Pe/yNMJHM04MSW1dlj3z95PFeZjOWdpgw39B5P3UxyPUjFtaF5Bq6K9zVjdKKmCdlP4yGCdOk5
+ Ba+PX2forkXP4kHTXqql68tnDB+eWpUjMgWUTq2qPDtP+hDPJyGwbzC1T9VO8/8ZhPC9jSq+rn
+ swT7ULhUHv1PPbjUN1N/1aSul9cFr+jhUNVVct5UMsAiI+VhEHEOxOPPOvli2xVRcFJlKCB6yg
+ XJdatifWIqlTDgu9dHHrGDFYZ/S7rtYcSles4QeYVx0radwzJ/U8fY5AYi89ddLuRB25HLutV5
+ RVU=
+X-SBRS: 2.7
+X-MesageID: 26674189
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26674189"
+Date: Tue, 1 Sep 2020 11:28:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, <jbeulich@suse.com>,
+ <andrew.cooper3@citrix.com>, <wl@xen.org>, <iwj@xenproject.org>
+Subject: Re: [PATCH v2.1] hvmloader: indicate dynamically allocated memory as
+ ACPI NVS in e820
+Message-ID: <20200901092827.GH753@Air-de-Roger>
+References: <1598928634-30849-1-git-send-email-igor.druzhinin@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200826111628.794979401@linutronix.de>
+In-Reply-To: <1598928634-30849-1-git-send-email-igor.druzhinin@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,48 +68,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Thomas,
+On Tue, Sep 01, 2020 at 03:50:34AM +0100, Igor Druzhinin wrote:
+> Guest kernel does need to know in some cases where the tables are located
+> to treat these regions properly. One example is kexec process where
+> the first kernel needs to pass firmware region locations to the second
+> kernel which is now a requirement after 02a3e3cdb7f12 ("x86/boot: Parse SRAT
+> table and count immovable memory regions").
 
-On Wed, Aug 26, 2020 at 01:16:28PM +0200, Thomas Gleixner wrote:
-[...]
-> 
-> The whole lot is also available from git:
-> 
->    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git device-msi
-> 
-> This has been tested on Intel/AMD/KVM but lacks testing on:
-> 
->     - HYPERV (-ENODEV)
+Can you add a note that this is a Linux commit? Albeit there's a
+reference to kexec above I don't it's entirely clear it's a Linux
+commit.
 
-FWIW, I did a build and boot test in a hyperv guest with your
-development branch, the latest commit is 71cbf478eb6f ("irqchip: Add
-IMS (Interrupt Message Storm) driver - NOT FOR MERGING"). And everything
-seemed working fine.
+> 
+> The memory that hvmloader allocates in the reserved region mostly contains
+> these useful tables and could be safely indicated as ACPI without the need
+> to designate a sub-region specially for that. Making it non-reclaimable
+> (ACPI NVS) in contrast with ACPI reclaim (ACPI table) memory would avoid
+> potential reuse of this memory by the guest taking into account this region
+> may contain runtime structures like VM86 TSS, etc. If necessary, those
+> can be moved away later and the region marked as reclaimable.
 
-If you want me to set/unset a particular CONFIG option or run some
-command for testing purposes, please let me know ;-)
+By looking at domain_construct_memmap from libxl I think the same
+problem is not present on that case as regions are properly marked as
+RESERVED or ACPI as required?
 
-Regards,
-Bqoun
+> 
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 
->     - VMD enabled systems (-ENODEV)
->     - XEN (-ENOCLUE)
->     - IMS (-ENODEV)
+Just one question below and one nit.
+
+> ---
+> Changes in v2.1:
+> - fixed previously missed uint32_t occurence
 > 
->     - Any non-X86 code which might depend on the broken compose MSI message
->       logic. Marc excpects not much fallout, but agrees that we need to fix
->       it anyway.
+> Changes in v2:
+> - gave more information on NVS type selection and potential alternatives
+>   in the description
+> - minor type fixes suggested
 > 
-> #1 - #3 should be applied unconditionally for obvious reasons
-> #4 - #6 are wortwhile cleanups which should be done independent of device MSI
+> ---
+>  tools/firmware/hvmloader/e820.c | 21 +++++++++++++++++----
+>  tools/firmware/hvmloader/util.c |  6 ++++++
+>  tools/firmware/hvmloader/util.h |  3 +++
+>  3 files changed, 26 insertions(+), 4 deletions(-)
 > 
-> #7 - #8 look promising to cleanup the platform MSI implementation
->      	independent of #8, but I neither had cycles nor the stomach to
->      	tackle that.
-> 
-> #9	is obviously just for the folks interested in IMS
-> 
-> Thanks,
-> 
-> 	tglx
+> diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
+> index 4d1c955..0ad2f05 100644
+> --- a/tools/firmware/hvmloader/e820.c
+> +++ b/tools/firmware/hvmloader/e820.c
+> @@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
+>  {
+>      unsigned int nr = 0, i, j;
+>      uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
+> +    unsigned long firmware_mem_end =
+> +        RESERVED_MEMORY_DYNAMIC_START + (mem_mfns_allocated() << PAGE_SHIFT);
+>  
+>      if ( !lowmem_reserved_base )
+>              lowmem_reserved_base = 0xA0000;
+> @@ -199,8 +201,19 @@ int build_e820_table(struct e820entry *e820,
+>      nr++;
+>  
+>      /*
+> +     * Mark populated reserved memory that contains ACPI and other tables as
+> +     * ACPI NVS (non-reclaimable) space - that should help the guest to treat
+> +     * it correctly later (e.g. pass to the next kernel on kexec).
+> +     */
+> +
+> +    e820[nr].addr = RESERVED_MEMBASE;
+> +    e820[nr].size = firmware_mem_end - RESERVED_MEMBASE;
+> +    e820[nr].type = E820_NVS;
+> +    nr++;
+> +
+> +    /*
+>       * Explicitly reserve space for special pages.
+> -     * This space starts at RESERVED_MEMBASE an extends to cover various
+> +     * This space starts after ACPI region and extends to cover various
+>       * fixed hardware mappings (e.g., LAPIC, IOAPIC, default SVGA framebuffer).
+>       *
+>       * If igd_opregion_pgbase we need to split the RESERVED region in two.
+> @@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
+>      {
+>          uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
+>  
+> -        e820[nr].addr = RESERVED_MEMBASE;
+> -        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
+> +        e820[nr].addr = firmware_mem_end;
+> +        e820[nr].size = igd_opregion_base - firmware_mem_end;
+
+Is there anything between firmware_mem_end and igd_opregion_base now?
+You already account for RESERVED_MEMBASE to firmware_mem_end.
+
+>          e820[nr].type = E820_RESERVED;
+>          nr++;
+>  
+> @@ -227,7 +240,7 @@ int build_e820_table(struct e820entry *e820,
+>      }
+>      else
+>      {
+> -        e820[nr].addr = RESERVED_MEMBASE;
+> +        e820[nr].addr = firmware_mem_end;
+>          e820[nr].size = (uint32_t)-e820[nr].addr;
+>          e820[nr].type = E820_RESERVED;
+>          nr++;
+> diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+> index 0c3f2d2..59cde4a 100644
+> --- a/tools/firmware/hvmloader/util.c
+> +++ b/tools/firmware/hvmloader/util.c
+> @@ -444,6 +444,12 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns)
+>  static uint32_t alloc_up = RESERVED_MEMORY_DYNAMIC_START - 1;
+>  static uint32_t alloc_down = RESERVED_MEMORY_DYNAMIC_END;
+>  
+> +unsigned long mem_mfns_allocated(void)
+
+mem_pages_allocated might be better.
+
+Thanks, Roger.
 
