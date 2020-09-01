@@ -2,52 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739D8258D39
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE83258D3B
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:11:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD4Bc-0000aq-Nz; Tue, 01 Sep 2020 11:10:48 +0000
+	id 1kD4Bh-0000eN-DP; Tue, 01 Sep 2020 11:10:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kD4Ba-0000V0-Er
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:46 +0000
-X-Inumbo-ID: b4a32c02-3e24-4821-80ce-c62ed47c5edf
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1kD4Bf-0000V0-Ev
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:51 +0000
+X-Inumbo-ID: 5f199d10-49cb-442b-9f02-d3ab43f2ec64
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b4a32c02-3e24-4821-80ce-c62ed47c5edf;
- Tue, 01 Sep 2020 11:10:38 +0000 (UTC)
+ id 5f199d10-49cb-442b-9f02-d3ab43f2ec64;
+ Tue, 01 Sep 2020 11:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598958637;
+ d=citrix.com; s=securemail; t=1598958641;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7HwL1hujKKkpV4RAoFw3wKEs/16rVlGWWGTnnzYIk2E=;
- b=ZucdF/IMtMDHyWwqbzVpoaMVwiFzIFQgY69/sIH4vCDsKKjJSG1xTima
- 9/wHjRXp0s20m9dvASFzb4sBh1Kb7X3tKiarBUqwso4cvcIMK73GgNhqU
- dWNlazkahmJZ5++RIocewAvCf4YFFv9DeQAK3dKbtRpxxXii6Agss2UfY E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=M8ARSpqL0nd5zsCpnhZnfQ+5vJo5jg5hBQPEsOCe3kQ=;
+ b=DR5CYW7d0mhFqK3eph/ezqb4uJOg8FjrNZ8JxzxCjulG0hdtQl4OdMSY
+ Fh1Qh21STokYCUKkdILb1Wu9X3xdn9GtgxKtMiNn3c3HbtF76jonOCMJJ
+ Uiay+DdEZKlXtqB1IWV7rYYl9fOudBLFdzYLd50jEVhDW01L+Mcb3AzXG U=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: fOFVWvz8X0hf2Aq0WsNW70HpeGZbVyRTz8hQsOweEN5t0MV7TeH7unNIkSTXBQ1pij+Qhng6hH
- gbiFo8+XHuOamgk9XWzvgolDFhVGjFsYNxtlIxxyszcVAhdXiW6Ds9MrMhz5E3iLG/1zdbFwgU
- 0eprqZoaAXI4v/f+FgvrTKWC0lPPj28exkcW+W7oqeGHaUv6cM5bFpgdDqyfV3Obp31f4U750y
- xufJGG5PXmAcNrN66m2SjPUm1MwwyreS9BFNYozITUceGM8oy3RR6fCisQ/Qc8+nXAPknX2Kk+
- j6s=
+IronPort-SDR: TLJWm8NpR2KpPCRtGX1o5O+WTPORA4mgc8Ov6yZt8hRZiz4n0P7cd2AQVHj7+0MDJFiBu8CB1a
+ Sd+Ss2oTTmwBvCTFszTXwajMkjAsnEwx/8Wlag95o6N88M+xZX+W6EfIMB2KDiT1FB4ysHugcF
+ A7NXuPxoY+lXgn+z+9R317l4p5pA7wkkoVbPC3/J7EG8XypPdCaigNvplgTT8203xeSFoodCj3
+ oXX7+D02t+2DTG8XIs1XAmfHlSVaJxiN+CK3UXTpf/onlACZfPLMCFR4wfWpuvi0BA5EoqNcEc
+ rJI=
 X-SBRS: 2.7
-X-MesageID: 26025443
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 26058627
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26025443"
+X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26058627"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jun Nakajima
- <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
- <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: [PATCH v3 5/8] x86/pv: allow reading FEATURE_CONTROL MSR
-Date: Tue, 1 Sep 2020 12:54:42 +0200
-Message-ID: <20200901105445.22277-6-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3 6/8] x86/pv: disallow access to unknown MSRs
+Date: Tue, 1 Sep 2020 12:54:43 +0200
+Message-ID: <20200901105445.22277-7-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200901105445.22277-1-roger.pau@citrix.com>
 References: <20200901105445.22277-1-roger.pau@citrix.com>
@@ -67,69 +65,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Linux PV guests will attempt to read the FEATURE_CONTROL MSR, so move
-the handling done in VMX code into guest_rdmsr as it can be shared
-between PV and HVM guests that way.
+Change the catch-all behavior for MSR not explicitly handled. Instead
+of allow full read-access to the MSR space and silently dropping
+writes return an exception when the MSR is not explicitly handled.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Changes from v1:
- - Move the VMX implementation into guest_rdmsr.
+Changes since v2:
+ - Added missing 0x prefix.
 ---
- xen/arch/x86/hvm/vmx/vmx.c |  8 +-------
- xen/arch/x86/msr.c         | 13 +++++++++++++
- 2 files changed, 14 insertions(+), 7 deletions(-)
+ xen/arch/x86/pv/emul-priv-op.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 4717e50d4a..f6657af923 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2980,13 +2980,7 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-     case MSR_IA32_DEBUGCTLMSR:
-         __vmread(GUEST_IA32_DEBUGCTL, msr_content);
-         break;
--    case MSR_IA32_FEATURE_CONTROL:
--        *msr_content = IA32_FEATURE_CONTROL_LOCK;
--        if ( vmce_has_lmce(curr) )
--            *msr_content |= IA32_FEATURE_CONTROL_LMCE_ON;
--        if ( nestedhvm_enabled(curr->domain) )
--            *msr_content |= IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
--        break;
-+
-     case MSR_IA32_VMX_BASIC...MSR_IA32_VMX_VMFUNC:
-         if ( !nvmx_msr_read_intercept(msr, msr_content) )
-             goto gp_fault;
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index e84107ac7b..cc2f111a90 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -25,6 +25,7 @@
- #include <xen/sched.h>
- 
- #include <asm/debugreg.h>
-+#include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/viridian.h>
- #include <asm/msr.h>
- #include <asm/setup.h>
-@@ -197,6 +198,18 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-         /* Not offered to guests. */
-         goto gp_fault;
- 
-+    case MSR_IA32_FEATURE_CONTROL:
-+        if ( !(cp->x86_vendor & X86_VENDOR_INTEL) )
-+            goto gp_fault;
-+
-+        *val = IA32_FEATURE_CONTROL_LOCK;
-+        if ( vmce_has_lmce(v) )
-+            *val |= IA32_FEATURE_CONTROL_LMCE_ON;
-+        if ( nestedhvm_enabled(d) )
-+            *val |= IA32_FEATURE_CONTROL_ENABLE_VMXON_OUTSIDE_SMX;
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index bcc1188f6a..2d9953f5b4 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -972,9 +972,10 @@ static int read_msr(unsigned int reg, uint64_t *val,
+         }
+         /* fall through */
+     default:
++        gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", reg);
 +        break;
 +
-+
-     case MSR_IA32_PLATFORM_ID:
-         if ( !(cp->x86_vendor & X86_VENDOR_INTEL) ||
-              !(boot_cpu_data.x86_vendor & X86_VENDOR_INTEL) )
+     normal:
+-        /* Everyone can read the MSR space. */
+-        /* gdprintk(XENLOG_WARNING, "Domain attempted RDMSR %08x\n", reg); */
+         if ( rdmsr_safe(reg, *val) )
+             break;
+         return X86EMUL_OKAY;
+@@ -1141,14 +1142,15 @@ static int write_msr(unsigned int reg, uint64_t val,
+         }
+         /* fall through */
+     default:
+-        if ( rdmsr_safe(reg, temp) )
+-            break;
++        gdprintk(XENLOG_WARNING,
++                 "WRMSR 0x%08x val 0x%016"PRIx64" unimplemented\n",
++                 reg, val);
++        break;
+ 
+-        if ( val != temp )
+     invalid:
+-            gdprintk(XENLOG_WARNING,
+-                     "Domain attempted WRMSR %08x from 0x%016"PRIx64" to 0x%016"PRIx64"\n",
+-                     reg, temp, val);
++        gdprintk(XENLOG_WARNING,
++                 "Domain attempted WRMSR 0x%08x from 0x%016"PRIx64" to 0x%016"PRIx64"\n",
++                 reg, temp, val);
+         return X86EMUL_OKAY;
+     }
+ 
 -- 
 2.28.0
 
