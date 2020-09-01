@@ -2,120 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02C0D258972
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 09:42:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C018E2589A5
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 09:54:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD0uQ-0005SH-Lz; Tue, 01 Sep 2020 07:40:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K/Fg=CK=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
- id 1kD0uP-0005SC-DZ
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 07:40:49 +0000
-X-Inumbo-ID: 453e5127-6b92-411d-adb0-e107dbe87d91
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 453e5127-6b92-411d-adb0-e107dbe87d91;
- Tue, 01 Sep 2020 07:40:47 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id c15so319228wrs.11
- for <xen-devel@lists.xenproject.org>; Tue, 01 Sep 2020 00:40:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=0dMDoLW4/V0CBT2qh5v4hL6ui4LKLRgE58vB9ic/W/M=;
- b=E5dZ6NznDCWIxvwwKA7tc1MIEb7ur7yXJKyAzLIRFQ0XwrMQSSFwSNiVkFhqz26CQL
- T3WZ3hmK4oUAUajJ3GKCXnJIEuemkYeQ/d6OJzuyMBHa36DsUR/ymwy6eCPbJSSJMOLv
- L100dPpY/BW79sCQrexf9ceA6WIxeIcEm402E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=0dMDoLW4/V0CBT2qh5v4hL6ui4LKLRgE58vB9ic/W/M=;
- b=W2oCE096CvIoSQPhtTmNS0M6fqDOYoPVgEh3II3iyFAPtgju71h4OpIVfBjNvGOKFx
- VbpBMRJOE+nBXnGRLmLHC90gI91kdOtiQEcnrLZvFK2dRm+BL5dIkPGi97o/9wNB5FJ1
- +q88Y8OfGgjPmeLX42wXH/kXDbGh5taC67+rtN2/7xHH+QU8BZIH3m6QYO1hhU5+ZMdP
- BuDn8dKeMFjHJB8vWl9I+i76DCH7FrijsvdylnPeG+J03ANYdcyeyyLcCpDzWh1Jnyea
- ZuRW4eRo5xtk4w2qb979WZfhydVd+Ia+Ru9oM6u4c8tYxM3/av+tODxktIJ6CP9CLm+O
- mDSw==
-X-Gm-Message-State: AOAM530XY515lHBU8LpfrT8sMajommVWsV5wmmgVNmv52RdO4Em7ASUN
- cbFJD/4lW9r3Z7sxC7mEo7e+mg==
-X-Google-Smtp-Source: ABdhPJzCV7lPfbJCoArzY1LN2/bWPamRPE0OsWfPisRFktCHPs3u7sq0+hzW7bOAp2HrZVmyNnX6ww==
-X-Received: by 2002:adf:dfc3:: with SMTP id q3mr408886wrn.238.1598946046446;
- Tue, 01 Sep 2020 00:40:46 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id h13sm737218wrx.17.2020.09.01.00.40.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2020 00:40:45 -0700 (PDT)
-Date: Tue, 1 Sep 2020 09:40:43 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 1/2] drm: allow limiting the scatter list size.
-Message-ID: <20200901074043.GT2352366@phenom.ffwll.local>
-Mail-Followup-To: Gerd Hoffmann <kraxel@redhat.com>,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-References: <20200818092017.26290-1-kraxel@redhat.com>
- <20200818092017.26290-2-kraxel@redhat.com>
+	id 1kD17E-0006Td-Ur; Tue, 01 Sep 2020 07:54:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QQ0y=CK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kD17D-0006TV-Ny
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 07:54:03 +0000
+X-Inumbo-ID: 99402e48-3d5f-4f7a-a71c-3be34b00e42c
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 99402e48-3d5f-4f7a-a71c-3be34b00e42c;
+ Tue, 01 Sep 2020 07:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=gnIb7rKJKgAh+v+2PTwqqymR12+eF5NfGvHJYQky9hM=; b=GsCM4iJjwhOIYcXEer2HnsIPfa
+ xsHkISw6PvDxnxrPfeWThWymDAeGY88mYIWY5IMsbJNX/PeQd9b4c8V7VPkdKNLkjAJK159LYB7Mc
+ O9EoyROmeKqLyx/6G5lHlJ8pXE2Klk5bWkm7ECC7yI9LEFcB2TzzSbtKvPsNWrM0iRkY=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kD179-0008Tk-Iz; Tue, 01 Sep 2020 07:53:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kD179-0000SC-C7; Tue, 01 Sep 2020 07:53:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kD179-0000QG-Be; Tue, 01 Sep 2020 07:53:59 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153445-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200818092017.26290-2-kraxel@redhat.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: [ovmf test] 153445: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Sep 2020 07:53:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,288 +69,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Aug 18, 2020 at 11:20:16AM +0200, Gerd Hoffmann wrote:
-> Add max_segment argument to drm_prime_pages_to_sg().  When set pass it
-> through to the __sg_alloc_table_from_pages() call, otherwise use
-> SCATTERLIST_MAX_SEGMENT.
-> 
-> Also add max_segment field to drm driver and pass it to
-> drm_prime_pages_to_sg() calls in drivers and helpers.
-> 
-> v2: place max_segment in drm driver not gem object.
-> 
-> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-> ---
->  include/drm/drm_device.h                    |  8 ++++++++
->  include/drm/drm_prime.h                     |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 ++-
->  drivers/gpu/drm/drm_gem_shmem_helper.c      |  3 ++-
->  drivers/gpu/drm/drm_prime.c                 | 10 +++++++---
->  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 ++-
->  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
->  drivers/gpu/drm/msm/msm_gem.c               |  3 ++-
->  drivers/gpu/drm/msm/msm_gem_prime.c         |  3 ++-
->  drivers/gpu/drm/nouveau/nouveau_prime.c     |  3 ++-
->  drivers/gpu/drm/radeon/radeon_prime.c       |  3 ++-
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++++--
->  drivers/gpu/drm/tegra/gem.c                 |  3 ++-
->  drivers/gpu/drm/vgem/vgem_drv.c             |  3 ++-
->  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  3 ++-
->  15 files changed, 43 insertions(+), 17 deletions(-)
-> 
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index 0988351d743c..47cb547a8115 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -329,6 +329,14 @@ struct drm_device {
->  	 */
->  	struct drm_fb_helper *fb_helper;
->  
-> +	/**
-> +	 * @max_segment:
-> +	 *
-> +	 * Max size for scatter list segments.  When unset the default
-> +	 * (SCATTERLIST_MAX_SEGMENT) is used.
-> +	 */
-> +	size_t max_segment;
+flight 153445 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153445/
 
-Is there no better place for this then "at the bottom"? drm_device is a
-huge structure, piling stuff up randomly doesn't make it better :-)
+Regressions :-(
 
-I think ideally we'd have a gem substruct like we have on the modeset side
-at least.
--Daniel
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-> +
->  	/* Everything below here is for legacy driver, never use! */
->  	/* private: */
->  #if IS_ENABLED(CONFIG_DRM_LEGACY)
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index 9af7422b44cf..2c3689435cb4 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -88,7 +88,8 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr);
->  int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->  int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
->  
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages);
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment);
->  struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->  				     int flags);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 519ce4427fce..8f6a647757e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -303,7 +303,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->  	switch (bo->tbo.mem.mem_type) {
->  	case TTM_PL_TT:
->  		sgt = drm_prime_pages_to_sg(bo->tbo.ttm->pages,
-> -					    bo->tbo.num_pages);
-> +					    bo->tbo.num_pages,
-> +					    obj->dev->max_segment);
->  		if (IS_ERR(sgt))
->  			return sgt;
->  
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 4b7cfbac4daa..8f47b41b0b2f 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -656,7 +656,8 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_object *obj)
->  
->  	WARN_ON(shmem->base.import_attach);
->  
-> -	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT,
-> +				     obj->dev->max_segment);
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
->  
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 1693aa7c14b5..27c783fd6633 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -802,7 +802,8 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
->   *
->   * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
->   */
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages)
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment)
->  {
->  	struct sg_table *sg = NULL;
->  	int ret;
-> @@ -813,8 +814,11 @@ struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_page
->  		goto out;
->  	}
->  
-> -	ret = sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> -				nr_pages << PAGE_SHIFT, GFP_KERNEL);
-> +	if (max_segment == 0 || max_segment > SCATTERLIST_MAX_SEGMENT)
-> +		max_segment = SCATTERLIST_MAX_SEGMENT;
-> +	ret = __sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> +					  nr_pages << PAGE_SHIFT,
-> +					  max_segment, GFP_KERNEL);
->  	if (ret)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> index f06e19e7be04..90654246b335 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> @@ -103,7 +103,8 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
->  		int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
->  		struct sg_table *sgt;
->  
-> -		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +					    etnaviv_obj->base.dev->max_segment);
->  		if (IS_ERR(sgt)) {
->  			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
->  				PTR_ERR(sgt));
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> index 6d9e5c3c4dd5..f65be0fffb3d 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
->  		return ERR_PTR(-EINVAL);
->  
-> -	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +				     obj->dev->max_segment);
->  }
->  
->  void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index b2f49152b4d4..dbf1437c3dac 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -126,7 +126,8 @@ static struct page **get_pages(struct drm_gem_object *obj)
->  
->  		msm_obj->pages = p;
->  
-> -		msm_obj->sgt = drm_prime_pages_to_sg(p, npages);
-> +		msm_obj->sgt = drm_prime_pages_to_sg(p, npages,
-> +						     obj->dev->max_segment);
->  		if (IS_ERR(msm_obj->sgt)) {
->  			void *ptr = ERR_CAST(msm_obj->sgt);
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-> index d7c8948427fe..6337cd1f9428 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
->  		return NULL;
->  
-> -	return drm_prime_pages_to_sg(msm_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(msm_obj->pages, npages,
-> +				     obj->dev->max_segment);
->  }
->  
->  void *msm_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> index bae6a3eccee0..dd0ff032ae16 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> @@ -32,7 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
->  	int npages = nvbo->bo.num_pages;
->  
-> -	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages,
-> +				     obj->dev->max_segment);
->  }
->  
->  void *nouveau_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-> index b906e8fbd5f3..61a3fe147489 100644
-> --- a/drivers/gpu/drm/radeon/radeon_prime.c
-> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
-> @@ -36,7 +36,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	struct radeon_bo *bo = gem_to_radeon_bo(obj);
->  	int npages = bo->tbo.num_pages;
->  
-> -	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages,
-> +				     obj->dev->max_segment);
->  }
->  
->  void *radeon_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index b9275ba7c5a5..5ddb2d31a607 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -85,7 +85,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
->  
->  	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
->  
-> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					    rk_obj->base.dev->max_segment);
->  	if (IS_ERR(rk_obj->sgt)) {
->  		ret = PTR_ERR(rk_obj->sgt);
->  		goto err_put_pages;
-> @@ -442,7 +443,8 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	int ret;
->  
->  	if (rk_obj->pages)
-> -		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					     obj->dev->max_segment);
->  
->  	sgt = kzalloc(sizeof(*sgt), GFP_KERNEL);
->  	if (!sgt)
-> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-> index 723df142a981..a0abde747e95 100644
-> --- a/drivers/gpu/drm/tegra/gem.c
-> +++ b/drivers/gpu/drm/tegra/gem.c
-> @@ -284,7 +284,8 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
->  
->  	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
->  
-> -	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages);
-> +	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages,
-> +					bo->gem.dev->max_segment);
->  	if (IS_ERR(bo->sgt)) {
->  		err = PTR_ERR(bo->sgt);
->  		goto put_pages;
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> index 313339bbff90..045461dc6319 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -321,7 +321,8 @@ static struct sg_table *vgem_prime_get_sg_table(struct drm_gem_object *obj)
->  {
->  	struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
->  
-> -	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT,
-> +				     obj->dev->max_segment);
->  }
->  
->  static struct drm_gem_object* vgem_prime_import(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> index f0b85e094111..61a8c1a9fb04 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -179,7 +179,8 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
->  	if (!xen_obj->pages)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages);
-> +	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages,
-> +				     gem_obj->dev->max_segment);
->  }
->  
->  struct drm_gem_object *
-> -- 
-> 2.18.4
-> 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+version targeted for testing:
+ ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    5 days
+Failing since        152915  2020-08-27 18:09:42 Z    4 days   93 attempts
+Testing same since   153135  2020-08-30 02:28:59 Z    2 days   37 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
+Author: Paul <paul.grimes@amd.com>
+Date:   Fri Aug 28 04:40:51 2020 +0800
+
+    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
+    
+    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
+    but should be 0x02 per the ACPI Specification.
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    Signed-off-by: Paul G <paul.grimes@amd.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit cbccf995920a28071f5403b847f29ebf8b732fa9
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:29 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
+    
+    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
+      SMI pending for the new CPU -- at that time, the new CPU doesn't even
+      exist yet,
+    
+    - OVMF will find the new CPU however (in the CPU hotplug register block),
+      in QemuCpuhpCollectApicIds().
+    
+    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
+    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
+    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
+    skipping its initial SMI handler.
+    
+    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
+    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
+    in the following loop:
+    
+      //
+      // Wait until the hot-added CPU is just about to execute RSM.
+      //
+      while (Context->AboutToLeaveSmm == 0) {
+        CpuPause ();
+      }
+    
+    because the new CPU's initial SMI handler never sets the flag to nonzero.
+    
+    Fix this by sending a directed SMI to the new CPU just before sending it
+    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
+    the cases affected by the patch are documented under point (2).
+    
+    Note that this is not considered a security patch, as for a malicious
+    guest OS, the issue is not exploitable -- the symptom is a hang on the
+    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
+    behavior for a benign guest OS.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
+Author: Laszlo Ersek <lersek@redhat.com>
+Date:   Thu Aug 27 00:21:28 2020 +0200
+
+    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
+    
+    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
+    succession -- it means a series of "device_add" QEMU monitor commands,
+    back-to-back.
+    
+    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
+    then:
+    
+    - OVMF processes the hot-added CPU well.
+    
+    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
+      for the hot-added CPUs that were collected before raising the SMI -- is
+      unaware of the stray CPU. Thus, the pending event is not cleared for it.
+    
+    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
+    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
+    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
+    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
+    gets stuck in SMM.
+    
+    (Because of the above symptom, this is not considered a security patch; it
+    doesn't seem exploitable by a malicious guest OS.)
+    
+    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
+    known. The post-SMI ACPI loop will clear the pending event for it this
+    time.
+    
+    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
+    Cc: Igor Mammedov <imammedo@redhat.com>
+    Cc: Jordan Justen <jordan.l.justen@intel.com>
+    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
+    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
+    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
+    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
