@@ -2,59 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00BC258593
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 04:24:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D642585A2
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 04:33:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kCvx2-0001C1-6E; Tue, 01 Sep 2020 02:23:12 +0000
+	id 1kCw6x-00027k-6L; Tue, 01 Sep 2020 02:33:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QQ0y=CK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kCvx0-0001Bh-Ip
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 02:23:10 +0000
-X-Inumbo-ID: 42425d82-48ba-4737-acec-40c0dba46057
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=CEra=CK=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1kCw6v-00027f-OU
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 02:33:25 +0000
+X-Inumbo-ID: 2f5d7800-b869-4186-b115-635bc8e3ea68
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 42425d82-48ba-4737-acec-40c0dba46057;
- Tue, 01 Sep 2020 02:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=Yh363DPfA5rhv0GhHWWk0qjzp8RrkW2wmKsrBet5d74=; b=bKwIaeuwE5diJ0Vpvd/D4YOlBi
- YNa3GXnPdeMw4/rm9hj0RveGfOjafLyRzUzkuZyJXiM/fa+bn4d/wiLN0jDA9CxZeWyx+iNmlNlB/
- goCwcUZV4ZIRKgfRPgSVUE6nWUdYKOav5r6rooN2kmqrKR4JhNJ4BU1LvSRvCvPmTVrY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCvwt-0000ob-Cp; Tue, 01 Sep 2020 02:23:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kCvwt-0003BH-4E; Tue, 01 Sep 2020 02:23:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kCvwt-000336-3j; Tue, 01 Sep 2020 02:23:03 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153417-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 2f5d7800-b869-4186-b115-635bc8e3ea68;
+ Tue, 01 Sep 2020 02:33:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1598927604;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=1N/d3aiMSIG35lbBAZr6TpI1NBvNRDAdA/Fz4UbN6hs=;
+ b=Q5Peuh5rL/14aCPwAGhzDI5P3h0iME4vs/+TteUClR5F/IG6J/aoTnsm
+ UC8PgbTmK0PbM8JZCCDS21aKgGSIecW5JQVyfoc42LAQa3MWSh89iVyU8
+ kBfTSniKMPSSRGMtDxoYWday8gv5aptnziGNQnaGyN6WmybxPTWSPXHy0 A=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: iXCGQHmlhPR6aVGPEFvUODtb/WLL6ypM+Bg9W0y84XVAlpaZzG4jI3Lh48Kf6v5b2tvvO6MN0b
+ wtCVtLeRQ5UeKQHWc23Su4dRwDCzfFdAzQhT1ZQ8ueZtP09eYpeFF/FmsT6EuNiuBW8YC463f/
+ BaWRtsdJ7nsAIJpyzJM3ovDdjVhNYscaWgbS+FYfBktf0DyIR57Le2TEJSibOHrN4kYyLxVG6e
+ kSoaq4jrhoHmXAsH5DSrdKQd6J6DaXfrHHrbiabnD0D0fW6+hfytGVP2pFn4VBlJoyh9Z08rac
+ I5Q=
+X-SBRS: 2.7
+X-MesageID: 25834720
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,377,1592884800"; d="scan'208";a="25834720"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, 
+ <wl@xen.org>, <iwj@xenproject.org>, Igor Druzhinin
+ <igor.druzhinin@citrix.com>
+Subject: [PATCH v2] hvmloader: indicate dynamically allocated memory as ACPI
+ NVS in e820
+Date: Tue, 1 Sep 2020 03:32:59 +0100
+Message-ID: <1598927579-25303-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Subject: [ovmf test] 153417: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 01 Sep 2020 02:23:03 +0000
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,183 +63,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153417 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153417/
+Guest kernel does need to know in some cases where the tables are located
+to treat these regions properly. One example is kexec process where
+the first kernel needs to pass firmware region locations to the second
+kernel which is now a requirement after 02a3e3cdb7f12 ("x86/boot: Parse SRAT
+table and count immovable memory regions").
 
-Regressions :-(
+The memory that hvmloader allocates in the reserved region mostly contains
+these useful tables and could be safely indicated as ACPI without the need
+to designate a sub-region specially for that. Making it non-reclaimable
+(ACPI NVS) in contrast with regular ACPI (ACPI table) memory would avoid
+potential reuse of this memory by the guest taking into account this region
+may contain runtime structures like VM86 TSS, etc. If necessary, those
+can be moved away later and the region marked as reclaimable.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+---
+ tools/firmware/hvmloader/e820.c | 21 +++++++++++++++++----
+ tools/firmware/hvmloader/util.c |  6 ++++++
+ tools/firmware/hvmloader/util.h |  3 +++
+ 3 files changed, 26 insertions(+), 4 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
+index 4d1c955..0ad2f05 100644
+--- a/tools/firmware/hvmloader/e820.c
++++ b/tools/firmware/hvmloader/e820.c
+@@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
+ {
+     unsigned int nr = 0, i, j;
+     uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
++    unsigned long firmware_mem_end =
++        RESERVED_MEMORY_DYNAMIC_START + (mem_mfns_allocated() << PAGE_SHIFT);
+ 
+     if ( !lowmem_reserved_base )
+             lowmem_reserved_base = 0xA0000;
+@@ -199,8 +201,19 @@ int build_e820_table(struct e820entry *e820,
+     nr++;
+ 
+     /*
++     * Mark populated reserved memory that contains ACPI and other tables as
++     * ACPI NVS (non-reclaimable) space - that should help the guest to treat
++     * it correctly later (e.g. pass to the next kernel on kexec).
++     */
++
++    e820[nr].addr = RESERVED_MEMBASE;
++    e820[nr].size = firmware_mem_end - RESERVED_MEMBASE;
++    e820[nr].type = E820_NVS;
++    nr++;
++
++    /*
+      * Explicitly reserve space for special pages.
+-     * This space starts at RESERVED_MEMBASE an extends to cover various
++     * This space starts after ACPI region and extends to cover various
+      * fixed hardware mappings (e.g., LAPIC, IOAPIC, default SVGA framebuffer).
+      *
+      * If igd_opregion_pgbase we need to split the RESERVED region in two.
+@@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
+     {
+         uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
+ 
+-        e820[nr].addr = RESERVED_MEMBASE;
+-        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
++        e820[nr].addr = firmware_mem_end;
++        e820[nr].size = igd_opregion_base - firmware_mem_end;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+ 
+@@ -227,7 +240,7 @@ int build_e820_table(struct e820entry *e820,
+     }
+     else
+     {
+-        e820[nr].addr = RESERVED_MEMBASE;
++        e820[nr].addr = firmware_mem_end;
+         e820[nr].size = (uint32_t)-e820[nr].addr;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index 0c3f2d2..af68862 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -444,6 +444,12 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns)
+ static uint32_t alloc_up = RESERVED_MEMORY_DYNAMIC_START - 1;
+ static uint32_t alloc_down = RESERVED_MEMORY_DYNAMIC_END;
+ 
++uint32_t mem_mfns_allocated(void)
++{
++    return (alloc_up >> PAGE_SHIFT) -
++            ((RESERVED_MEMORY_DYNAMIC_START - 1) >> PAGE_SHIFT);
++}
++
+ xen_pfn_t mem_hole_alloc(uint32_t nr_mfns)
+ {
+     alloc_down -= nr_mfns << PAGE_SHIFT;
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index 7bca641..98d5e02 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -200,6 +200,9 @@ void mem_hole_populate_ram(xen_pfn_t mfn, uint32_t nr_mfns);
+ /* Allocate a memory hole below 4GB. */
+ xen_pfn_t mem_hole_alloc(uint32_t nr_mfns);
+ 
++/* Return number of pages allocated */
++uint32_t mem_mfns_allocated(void);
++
+ /* Allocate memory in a reserved region below 4GB. */
+ void *mem_alloc(uint32_t size, uint32_t align);
+ #define virt_to_phys(v) ((unsigned long)(v))
+-- 
+2.7.4
 
-version targeted for testing:
- ovmf                 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    5 days
-Failing since        152915  2020-08-27 18:09:42 Z    4 days   88 attempts
-Testing same since   153135  2020-08-30 02:28:59 Z    1 days   32 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-Author: Paul <paul.grimes@amd.com>
-Date:   Fri Aug 28 04:40:51 2020 +0800
-
-    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
-    
-    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
-    but should be 0x02 per the ACPI Specification.
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Paul G <paul.grimes@amd.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
