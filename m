@@ -2,58 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8AE9258D3A
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E45258D85
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:42:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD4Bf-0000ca-3y; Tue, 01 Sep 2020 11:10:51 +0000
+	id 1kD4fD-0003xu-O1; Tue, 01 Sep 2020 11:41:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kD4Bd-0000VB-Ef
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:49 +0000
-X-Inumbo-ID: af246697-e068-45e2-be8b-515ad49f064f
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WLfn=CK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kD4fC-0003xp-9I
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:41:22 +0000
+X-Inumbo-ID: 5d452c0d-59bd-4279-839f-fbc805eecd26
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id af246697-e068-45e2-be8b-515ad49f064f;
- Tue, 01 Sep 2020 11:10:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598958644;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BMnRreRW+++9kfh3egHsOAJKzSNN/TeOyxU8V9BYfgQ=;
- b=U7/HLyV96dAXwwSPMaEOKTVHSCVzqjDU5gWRYSkBmkGGDORFb3+Kyyec
- xbKmSg1hUH8nMp/mb0DuIBeQXPi1vIzbmwRj1O8vu948CvEiGf+PkgGyP
- 7OIPsPEV3pBPrWV8TZwP4wKugGI5n2J6Yv9woYgOZrosp5Vwigu5yAR5i 0=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: n4tkfPQ9WS11cDUSwwbxf6JXeWpSpobbzFPEnDYn1ddNg0gElB6ucVlj9pGb1EjVSPXGJCgCRS
- 8PTvH2SlWtsCCZgZpfi0j4RG84+hxFqGj3abcVH9fMN06KCoppXQvf9S1/mZnCvDEBiqZAW8FY
- 2fbtlon4kCUz+rcZAHBM1nTm8/g6xRdCvMy5tEiIS/YF9XgdE+iSTD0EXWaj6lEH0U0X8ST1am
- yi6Sg6N7+T9m1qycq774GO66PrTzGH5+ME83vhLbIIrbi6ifaTvNqfJLS0g+WcxRLXzDKwmfc2
- 3/U=
-X-SBRS: 2.7
-X-MesageID: 25738160
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="25738160"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 8/8] x86/msr: Drop compatibility #GP handling in guest_{rd,
- wr}msr()
-Date: Tue, 1 Sep 2020 12:54:45 +0200
-Message-ID: <20200901105445.22277-9-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200901105445.22277-1-roger.pau@citrix.com>
-References: <20200901105445.22277-1-roger.pau@citrix.com>
+ id 5d452c0d-59bd-4279-839f-fbc805eecd26;
+ Tue, 01 Sep 2020 11:41:21 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BE856B713;
+ Tue,  1 Sep 2020 11:41:20 +0000 (UTC)
+Subject: Re: [PATCH] tools: don't use = after "define" in Rules.mk
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <1cd1289b-f63a-a74e-a331-b93351781457@suse.com>
+ <81fece45-1bbb-22f4-f229-3894c07e186e@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <62d20484-ecd4-b16b-3549-84deecc1e9ff@suse.com>
+Date: Tue, 1 Sep 2020 13:41:27 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <81fece45-1bbb-22f4-f229-3894c07e186e@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -68,85 +52,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+On 01.09.2020 12:55, Jürgen Groß wrote:
+> On 01.09.20 12:27, Jan Beulich wrote:
+>> The assignment operator is optional, and use of it breaks with make 3.81.
+>>
+>> Fixes: ded08cdfa72b ("tools: generate most contents of library make variables")
+>> Suggested-by: Juergen Gross <jgross@suse.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/tools/Rules.mk
+>> +++ b/tools/Rules.mk
+>> @@ -94,7 +94,7 @@ INSTALL_DIR_ROOT = [ $$UID -ne 0 ] || $(
+>>   # Consumers of libfoo should not directly use $(SHDEPS_libfoo) or
+>>   # $(SHLIB_libfoo)
+>>   
+>> -define LIB_defs =
+>> +define LIB_defs
+>>    XEN_libxen$(1) = $$(XEN_ROOT)/tools/libs/$(1)
+>>    CFLAGS_libxen$(1) = -I$$(XEN_libxen$(1))/include $$(CFLAGS_xeninclude)
+>>    SHDEPS_libxen$(1) = $$(foreach use,$$(USELIBS_$(1)),$$(SHLIB_libxen$$(use)))
+>>
+> 
+> I'd suggest to fix stubdom/Makefile, too (that was introduced with
+> commit ddb2934a914df). I have a patch doing both fixes lying here. Do
+> you want me to send it instead, or fix it yourself?
 
-Now that the main PV/HVM MSR handlers raise #GP for all unknown MSRs, there is
-no need to special case these MSRs any more.
+Please do, since you say you have it ready.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
- xen/arch/x86/msr.c | 46 ----------------------------------------------
- 1 file changed, 46 deletions(-)
-
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index cc2f111a90..ab11e3b73c 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -175,29 +175,6 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
- 
-     switch ( msr )
-     {
--    case MSR_AMD_PATCHLOADER:
--    case MSR_IA32_UCODE_WRITE:
--    case MSR_PRED_CMD:
--    case MSR_FLUSH_CMD:
--        /* Write-only */
--    case MSR_TEST_CTRL:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_IA32_FEATURE_CONTROL:
-         if ( !(cp->x86_vendor & X86_VENDOR_INTEL) )
-             goto gp_fault;
-@@ -365,29 +342,6 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-     {
-         uint64_t rsvd;
- 
--    case MSR_IA32_PLATFORM_ID:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_INTEL_CORE_THREAD_COUNT:
--    case MSR_INTEL_PLATFORM_INFO:
--    case MSR_ARCH_CAPABILITIES:
--        /* Read-only */
--    case MSR_TEST_CTRL:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_AMD_PATCHLEVEL:
-         BUILD_BUG_ON(MSR_IA32_UCODE_REV != MSR_AMD_PATCHLEVEL);
-         /*
--- 
-2.28.0
-
+Jan
 
