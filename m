@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12F94258D36
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADE30258D33
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD4BV-0000Wi-Gp; Tue, 01 Sep 2020 11:10:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kD4BX-0000Xn-1L; Tue, 01 Sep 2020 11:10:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kD4BT-0000VB-EV
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:39 +0000
-X-Inumbo-ID: 63ef6d52-76e3-4e40-8936-f4b822b1143a
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 63ef6d52-76e3-4e40-8936-f4b822b1143a;
- Tue, 01 Sep 2020 11:10:35 +0000 (UTC)
+ id 1kD4BV-0000V0-Ei
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:41 +0000
+X-Inumbo-ID: 03185e43-8547-49d8-b993-550fe45a27ad
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 03185e43-8547-49d8-b993-550fe45a27ad;
+ Tue, 01 Sep 2020 11:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598958635;
+ d=citrix.com; s=securemail; t=1598958636;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JdFoPoleaw4tuOelguNrercB/rGm2uumX09CkmN978M=;
- b=dIKh1uzViVnZK1MyPYFsFm7lYcM01zmMIT8NZqYeQN1BP20LDTSUl8eB
- +CkRlzWLHD9XDFGPY2Qt+Wqbq6VcfPpf6LEPovLyvOFh07bk3rOIEAE8b
- 9mXXsDpoCYY21a1IZxcT/2bH15ri4qHgi1wH54W4bTJLFqvXo7+NcT7sh g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=8HvuS2IX/VG66e6Pirdx+5CTSqndx03agTLark1mhbU=;
+ b=MHv6riaZuHbduFfLocfaC2Uykbk7ctA8ckZbs+02guWT8fVqZSM1ZIQe
+ cdUJp7evaIbZtCLArVRRuD+rDVgKu990/Nex0h7ljdLo55/oqzH5TDxXw
+ S2EWQ1amdhD15EeFn1cgnA8J98XnrTbt2Ogv5GwQj6SywNB2b0gzQF43Q M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 3PT9NW5SBded6iTc0FWkTFU3253T57O2Kjr8lD/3TZw8aLEx489kUJupa+QCfJ6C2AMkxnNOKe
- H/dEom+Ak5Wzioc08c97FSo0m2My97xb8au5rhtmfSLBXxOjwQx7/XnTGMnPOsx9REsz0GTZQX
- uRALeT47opfP8cCU52RGjVtuNUY24f0A/6SA16xpBPg0AUfbS1zELcXyPHCE5HkaxAkGvXWR9/
- USvO0cabvdFvxLtEc9OpKIBH7U0ldUnUlwCRO0ftqxHxkulZWUCcdVHaLA5qZdA2gIg3sOR2Ju
- Yl0=
+IronPort-SDR: IOipEql4F+KsdYjDsrwAh/JCZOSJZovOmaDaRNzVMhL4fdKyy6FSF7XJ0nrhJDqCnr+wnQ4P+Y
+ 0XA3HE/Bwvt7ooLQTH9lxnM8wSabAcaWRTc9uRI6Hre+FYzM7jzQu1jivRKqt8sZ44PvUouHHo
+ RG+Kzl4GECpSvwnoMZnkbhZ2hBGbrRDlAMxpRuO/HkQQsf6q4rTi+IQSWBYvdPaHTtKSCxMXQl
+ +MKn4rLQUGfcDyhUx5tiQi+IUOefux6wk+4Cp1ZGQMgVn5Yxm+Ud9bm85F8b2+WGo5+Ukc2X32
+ tu8=
 X-SBRS: 2.7
-X-MesageID: 25858454
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 26025440
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="25858454"
+X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26025440"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 3/8] x86/msr: explicitly handle AMD DE_CFG
-Date: Tue, 1 Sep 2020 12:54:40 +0200
-Message-ID: <20200901105445.22277-4-roger.pau@citrix.com>
+Subject: [PATCH v3 4/8] x86/svm: handle BU_CFG and BU_CFG2 with cases
+Date: Tue, 1 Sep 2020 12:54:41 +0200
+Message-ID: <20200901105445.22277-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200901105445.22277-1-roger.pau@citrix.com>
 References: <20200901105445.22277-1-roger.pau@citrix.com>
@@ -66,57 +65,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Report LFENCE_SERIALISE unconditionally for DE_CFG on AMD hardware and
-silently drop writes.
+Move the special handling of reads to it's own switch case, and also
+add support for BU_CFG2. On the write side ignore writes if the MSR is
+readable, otherwise return a #GP.
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This is in preparation for changing the default MSR read/write
+behavior, which will instead return #GP on not explicitly handled
+cases.
+
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v2:
- - Drop the bot_cpu checks and don't attempt to read the MSR, just
-   return LFENCE_SERIALISE unconditionally.
- - Add a comment about OpenBSD panicking if writing to the MSR
-   triggers a #GP.
+ - Move the handling of reads to it's own case.
+ - Drop writes if the MSR is readable, else return a #GP.
 
 Changes since v1:
  - New in this version.
 ---
- xen/arch/x86/msr.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ xen/arch/x86/hvm/svm/svm.c | 43 ++++++++++++++++++++++++++------------
+ 1 file changed, 30 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index a478b91f23..e84107ac7b 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -292,6 +292,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-         *val = msrs->tsc_aux;
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index af584ff5d1..0e43154c7e 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1864,6 +1864,30 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+         *msr_content = 1ULL << 61; /* MC4_MISC.Locked */
          break;
  
-+    case MSR_AMD64_DE_CFG:
-+        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
-+            goto gp_fault;
-+        *val = AMD64_DE_CFG_LFENCE_SERIALISE;
++    case MSR_F10_BU_CFG:
++        if ( !rdmsr_safe(msr, *msr_content) )
++            break;
++
++        if ( boot_cpu_data.x86 == 0xf )
++        {
++            /*
++             * Win2k8 x64 reads this MSR on revF chips, where it wasn't
++             * publically available; it uses a magic constant in %rdi as a
++             * password, which we don't have in rdmsr_safe().  Since we'll
++             * ignore the later writes, just use a plausible value here (the
++             * reset value from rev10h chips) if the real CPU didn't provide
++             * one.
++             */
++            *msr_content = 0x0000000010200020ull;
++            break;
++        }
++        goto gpf;
++
++    case MSR_F10_BU_CFG2:
++        if ( rdmsr_safe(msr, *msr_content) )
++            goto gpf;
 +        break;
 +
-     case MSR_AMD64_DR0_ADDRESS_MASK:
-     case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
-         if ( !cp->extd.dbext )
-@@ -517,6 +523,15 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-             wrmsr_tsc_aux(val);
+     case MSR_IA32_EBC_FREQUENCY_ID:
+         /*
+          * This Intel-only register may be accessed if this HVM guest
+@@ -1942,19 +1966,6 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+     default:
+         if ( rdmsr_safe(msr, *msr_content) == 0 )
+             break;
+-
+-        if ( boot_cpu_data.x86 == 0xf && msr == MSR_F10_BU_CFG )
+-        {
+-            /* Win2k8 x64 reads this MSR on revF chips, where it
+-             * wasn't publically available; it uses a magic constant
+-             * in %rdi as a password, which we don't have in
+-             * rdmsr_safe().  Since we'll ignore the later writes,
+-             * just use a plausible value here (the reset value from
+-             * rev10h chips) if the real CPU didn't provide one. */
+-            *msr_content = 0x0000000010200020ull;
+-            break;
+-        }
+-
+         goto gpf;
+     }
+ 
+@@ -2110,6 +2121,12 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+         nsvm->ns_msr_hsavepa = msr_content;
          break;
  
-+    case MSR_AMD64_DE_CFG:
-+        /*
-+         * OpenBSD 6.7 will panic if writing to DE_CFG triggers a #GP:
-+         * https://www.illumos.org/issues/12998
-+         */
-+        if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
-+            goto gp_fault;
++    case MSR_F10_BU_CFG:
++    case MSR_F10_BU_CFG2:
++        if ( rdmsr_safe(msr, msr_content) )
++            goto gpf;
 +        break;
 +
-     case MSR_AMD64_DR0_ADDRESS_MASK:
-     case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
-         if ( !cp->extd.dbext || val != (uint32_t)val )
+     case MSR_AMD64_TSC_RATIO:
+         if ( msr_content & TSC_RATIO_RSVD_BITS )
+             goto gpf;
 -- 
 2.28.0
 
