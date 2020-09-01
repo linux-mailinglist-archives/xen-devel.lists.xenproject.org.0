@@ -2,53 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257E7258D38
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D6D258D34
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 13:10:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD4BP-0000VI-Sb; Tue, 01 Sep 2020 11:10:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kD4BS-0000Ve-6b; Tue, 01 Sep 2020 11:10:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kD4BO-0000VB-Iy
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:34 +0000
-X-Inumbo-ID: adbb51d7-8ec0-490f-8834-f660d8271a81
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id adbb51d7-8ec0-490f-8834-f660d8271a81;
- Tue, 01 Sep 2020 11:10:32 +0000 (UTC)
+ id 1kD4BQ-0000V0-EY
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 11:10:36 +0000
+X-Inumbo-ID: 263c1e8f-9c54-440b-83fd-2fc466c9c4e2
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 263c1e8f-9c54-440b-83fd-2fc466c9c4e2;
+ Tue, 01 Sep 2020 11:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=citrix.com; s=securemail; t=1598958633;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zT5MN7nvkqMoYuX6+gGl+F2zxCCkKoFt0fQb/G0S9wE=;
- b=BxdtPEC/ukYZFnN/oZyNzdmxe4yOJKc/Csn4rrzEB9O6LyODkLM5Huu6
- illgiJqhu4JjsmdNr3b0w00SSbbFEDGRfpz02eD/ikuCTthLv0fB++B5N
- 9P7REpaaxHa2Kv+176mRedcFbGYP4aGppHbNjlHM+sNZqUg8xboHLyyTD w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=gPkcofx5wqS3WmC+5Y4XByDXXhvalyO2X0/eP2W2w0Y=;
+ b=LUF5PaIau8vuR2UAKFRouQnN/+opAqlteLXuhZzKDcZtSJ3aAUQrMTdj
+ 6SZO8YUF5TpDRQnio5WMeB3GOBIY7QFMy4gM9eARX1J2r42V/Mw7FhpiJ
+ fnx5MIg8hByJ6cOqRKKELrgCqfHMFOjvWHC3uPxRqWTu0lEjEMCs1C1xt c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: KSWzbafNK/H9Yl9E/Tm0GcMmepaueJn0xpVzrAvruUE6tx8TzmZefARzWNaUnowgMpScoMvyoV
- NYopEIHELntHKSZuKOLiIfQ+L+jFPwWW/VlDehF2+5dCF9JLNJij7lZldA276xeA9fxPIYjvq2
- oADihqaAIowqptpI0Bgq5NdF6u8EK1qbiawwi9A7gcK2KIEl3FeBtL7Dj++Rzl6lkC5erB6QuB
- WMW05uwDXvqGkhQLCXd/M89+pCdE9DYYoBlgkG3NNFDVpWZ0lIoJqP0SSRTOs3niHYcAU27LgV
- UqM=
+IronPort-SDR: JsMJ9J27Kg39sWJ/sRl19UZjLueF8UIkQy4ZHaibDeBsyM/hD7ZGV9hZWP2Ywjfqq+d1rPpRPE
+ NVTySGipQDaxDw63IENjKLFdQ7olxPE+D30p/VpuYSHRIEPQtsMauWbfmwiC5sWH9x2emQVk5p
+ eC6lGWVVQtPE0AP0HKXk3WeLbuB5UEwTHrvpd4az6vbT0ytUodgRfewOqWpYUZNUx/1NRCvxTE
+ G6vIPHN6cZuIbtv9siz8xTC0g5QqaAwezM2vk3jII+oS7PEKsYrXTwBlmjpvL/3LZjW+1HvUK8
+ GiQ=
 X-SBRS: 2.7
-X-MesageID: 26058623
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 26679910
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26058623"
+X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26679910"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jun Nakajima
- <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
- <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: [PATCH v3 1/8] x86/vmx: handle writes to MISC_ENABLE MSR
-Date: Tue, 1 Sep 2020 12:54:38 +0200
-Message-ID: <20200901105445.22277-2-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3 2/8] x86/svm: silently drop writes to SYSCFG and related
+ MSRs
+Date: Tue, 1 Sep 2020 12:54:39 +0200
+Message-ID: <20200901105445.22277-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200901105445.22277-1-roger.pau@citrix.com>
 References: <20200901105445.22277-1-roger.pau@citrix.com>
@@ -68,46 +66,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Such handling consist in checking that no bits have been changed from
-the read value, if that's the case silently drop the write, otherwise
-inject a fault.
-
-At least Windows guests will expect to write to the MISC_ENABLE MSR
-with the same value that's been read from it.
+The SYSCFG, TOP_MEM1 and TOP_MEM2 MSRs are currently exposed to guests
+and writes are silently discarded. Make this explicit in the SVM code
+now, and just return default constant values when attempting to read
+any of the MSRs, while continuing to silently drop writes.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- xen/arch/x86/hvm/vmx/vmx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Changes since v2:
+ - Return 0 from SYSCFG.
+ - Merge switch cases.
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index a0d58ffbe2..4717e50d4a 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3163,7 +3163,7 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+Changes sincxe v1:
+ - Return MtrrFixDramEn in MSR_K8_SYSCFG.
+---
+ xen/arch/x86/hvm/svm/svm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index ca3bbfcbb3..af584ff5d1 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1917,6 +1917,9 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+             goto gpf;
+         break;
  
-     switch ( msr )
-     {
--        uint64_t rsvd;
-+        uint64_t rsvd, tmp;
++    case MSR_K8_SYSCFG:
++    case MSR_K8_TOP_MEM1:
++    case MSR_K8_TOP_MEM2:
+     case MSR_K8_VM_CR:
+         *msr_content = 0;
+         break;
+@@ -2094,6 +2097,9 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+             goto gpf;
+         break;
  
-     case MSR_IA32_SYSENTER_CS:
-         __vmwrite(GUEST_SYSENTER_CS, msr_content);
-@@ -3301,6 +3301,13 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-         /* None of these MSRs are writeable. */
-         goto gp_fault;
- 
-+    case MSR_IA32_MISC_ENABLE:
-+        /* Silently drop writes that don't change the reported value. */
-+        if ( vmx_msr_read_intercept(msr, &tmp) != X86EMUL_OKAY ||
-+             tmp != msr_content )
-+            goto gp_fault;
-+        break;
-+
-     case MSR_P6_PERFCTR(0)...MSR_P6_PERFCTR(7):
-     case MSR_P6_EVNTSEL(0)...MSR_P6_EVNTSEL(7):
-     case MSR_CORE_PERF_FIXED_CTR0...MSR_CORE_PERF_FIXED_CTR2:
++    case MSR_K8_TOP_MEM1:
++    case MSR_K8_TOP_MEM2:
++    case MSR_K8_SYSCFG:
+     case MSR_K8_VM_CR:
+         /* ignore write. handle all bits as read-only. */
+         break;
 -- 
 2.28.0
 
