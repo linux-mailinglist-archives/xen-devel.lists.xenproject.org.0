@@ -2,52 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B735258A62
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 10:34:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EFF5258A65
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Sep 2020 10:34:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kD1jU-00024I-JC; Tue, 01 Sep 2020 08:33:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kD1jY-00024n-0Y; Tue, 01 Sep 2020 08:33:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6GQ=CK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kD1jS-00024D-VD
- for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 08:33:35 +0000
-X-Inumbo-ID: 30143e6f-8150-4fe3-a423-867b3cda60ee
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30143e6f-8150-4fe3-a423-867b3cda60ee;
- Tue, 01 Sep 2020 08:33:33 +0000 (UTC)
+ id 1kD1jW-00024f-Hy
+ for xen-devel@lists.xenproject.org; Tue, 01 Sep 2020 08:33:38 +0000
+X-Inumbo-ID: d1ef4771-92f6-419a-b15e-4d34f3e57533
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d1ef4771-92f6-419a-b15e-4d34f3e57533;
+ Tue, 01 Sep 2020 08:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1598949213;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rfRW5+bl+qCIe+HR0i2S+LLMqYFuztw2ljG4SK2rpSY=;
- b=MQUf5hM19rSKWaLinRUTa+bsXFGrhJ29dalwKEb7NEqqjSj/trziRIFc
- ZVxCGqMgANKSMLWlnzwcxQjemDjM6VzbtePRYptVw8tFgP5lK9b2XIvvJ
- DB2w4Hd7ubBvohscB0gbeN8zxrtUD0YVHGBrhPJ+Qz8ivKem4ugle8Vc0 w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1598949214;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=oZgbkUHppbVaFHJoTWftMMI+riUpDxpQUtdzYOwYpFo=;
+ b=db4fqPaWpKS7305zTqX3qOenpDB734uM8XeFfiqeCkaLqYHp2v+C4h25
+ WwcH1s4UGv6e/0DsNewpm47PjHAznU+siceAeugo+dNFxFRa2mRDrUVtw
+ elnSTVIoxPy9Ge4PcJH8LyFnIrtdsxrF/0e6J8q8QNlwPhndGk643OAq3 U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: Gjn7i185+YEUIKot2BoXXzYXkOG4zv/dbnSJSGJh/8iittMRR/+2+79/Z27aJIpb/vwzQTArOv
- R47sk99jf88ZGQSNTRehWVcFN+uWUOlb49/FB4g3FMNsM7GyKquitD9NoFaPIPLg/AP8MEvEWP
- fwkwF/lnnc0p474ESAeUZTBD5RfUqIXZh4Nnkj8y3kFJ/fIcPxgnAI+GoYAxfB3phnT1+OIrdo
- K8fq7RhQ2rbIAmhlPDTRFY4lVXDR3mA3DoCF4fl2PLh4Gsos3aHeb/CSbKe+/G5Eta7CyaYmZY
- xMY=
+IronPort-SDR: cM4zDigjOx5W+U9PfM8X4dGURvU3pFhihoT4/kzOKFmMv+VWCTdQtas5xawpzM5dwmh2WBKCXD
+ J3KgPKcLbPgw/J/AkETo5yRrRgHNYQIrptYe+E50/om0jSsflT+YVVnASwQuMo1fFGRw4+nBTr
+ ljhngveVpU4IYDSm4yJjDG6vwD7oF6qJPhIgYFNbB0Zb9a+Dymp+msraD2fMi6DETOnlCYESgp
+ QmP+eeUBO+E/wVGBOpQyyIBPA+z+lI9RyM9K7oZQwXlfKzK7qq+r8UujL3yFwrGttfqOGADEB4
+ 1q0=
 X-SBRS: 2.7
-X-MesageID: 25850300
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 26017046
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="25850300"
+X-IronPort-AV: E=Sophos;i="5.76,378,1592884800"; d="scan'208";a="26017046"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <linux-kernel@vger.kernel.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Boris Ostrovsky
  <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>
-Subject: [PATCH v5 0/3] xen/balloon: fixes for memory hotplug
-Date: Tue, 1 Sep 2020 10:33:23 +0200
-Message-ID: <20200901083326.21264-1-roger.pau@citrix.com>
+Subject: [PATCH v5 1/3] xen/balloon: add header guard
+Date: Tue, 1 Sep 2020 10:33:24 +0200
+Message-ID: <20200901083326.21264-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200901083326.21264-1-roger.pau@citrix.com>
+References: <20200901083326.21264-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -64,40 +67,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
+In order to protect against the header being included multiple times
+on the same compilation unit.
 
-The following series contain some fixes in order to split Xen
-unpopulated memory handling from the ballooning driver using the
-ZONE_DEVICE functionality, so that physical memory regions used to map
-foreign pages are not tied to memory hotplug.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+---
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org
+---
+This is required as a pre-patch to use ZONE_DEVICE, or else the
+fallback of including the balloon header might not work properly.
+---
+ include/xen/balloon.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Note this is currently only available for x86 due to Arm using an
-identity map for dom0 p2m and thus needing special handling.
-
-Thanks, Roger.
-
-Roger Pau Monne (3):
-  xen/balloon: add header guard
-  memremap: rename MEMORY_DEVICE_DEVDAX to MEMORY_DEVICE_GENERIC
-  xen: add helpers to allocate unpopulated memory
-
- drivers/dax/device.c                    |   2 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.c |   9 +-
- drivers/xen/Kconfig                     |  11 ++
- drivers/xen/Makefile                    |   1 +
- drivers/xen/balloon.c                   |   4 +-
- drivers/xen/grant-table.c               |   4 +-
- drivers/xen/privcmd.c                   |   4 +-
- drivers/xen/unpopulated-alloc.c         | 185 ++++++++++++++++++++++++
- drivers/xen/xenbus/xenbus_client.c      |   6 +-
- drivers/xen/xlate_mmu.c                 |   4 +-
- include/linux/memremap.h                |   9 +-
- include/xen/balloon.h                   |   4 +
- include/xen/xen.h                       |   9 ++
- mm/memremap.c                           |   2 +-
- 14 files changed, 232 insertions(+), 22 deletions(-)
- create mode 100644 drivers/xen/unpopulated-alloc.c
-
+diff --git a/include/xen/balloon.h b/include/xen/balloon.h
+index 6fb95aa19405..6dbdb0b3fd03 100644
+--- a/include/xen/balloon.h
++++ b/include/xen/balloon.h
+@@ -2,6 +2,8 @@
+ /******************************************************************************
+  * Xen balloon functionality
+  */
++#ifndef _XEN_BALLOON_H
++#define _XEN_BALLOON_H
+ 
+ #define RETRY_UNLIMITED	0
+ 
+@@ -34,3 +36,5 @@ static inline void xen_balloon_init(void)
+ {
+ }
+ #endif
++
++#endif	/* _XEN_BALLOON_H */
 -- 
 2.28.0
 
