@@ -2,24 +2,24 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC6525B4D6
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 21:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0099325B4D7
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 21:56:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDYqs-0006pv-Cq; Wed, 02 Sep 2020 19:55:26 +0000
+	id 1kDYqs-0006q1-Lx; Wed, 02 Sep 2020 19:55:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OLUi=CL=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1kDYqr-0006pm-FI
- for xen-devel@lists.xen.org; Wed, 02 Sep 2020 19:55:25 +0000
-X-Inumbo-ID: 9aa771dd-5306-43a0-9f58-df5c7e29f9e9
-Received: from mail-qt1-x836.google.com (unknown [2607:f8b0:4864:20::836])
+ id 1kDYqr-0006pl-F6
+ for xen-devel@lists.xenproject.org; Wed, 02 Sep 2020 19:55:25 +0000
+X-Inumbo-ID: d8ef8fd1-2be4-41e4-a343-1ab286539c74
+Received: from mail-qt1-x835.google.com (unknown [2607:f8b0:4864:20::835])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9aa771dd-5306-43a0-9f58-df5c7e29f9e9;
+ id d8ef8fd1-2be4-41e4-a343-1ab286539c74;
  Wed, 02 Sep 2020 19:55:24 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id e7so118329qtj.11
- for <xen-devel@lists.xen.org>; Wed, 02 Sep 2020 12:55:24 -0700 (PDT)
+Received: by mail-qt1-x835.google.com with SMTP id n10so163269qtv.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Sep 2020 12:55:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
@@ -35,14 +35,14 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
  bh=fgPZcNvT9XisUEbS+1Ao8QDv+2ALILbug++l9nLUnEc=;
- b=GU3MIOE9v9iWQKXIh1/mDJPY1VluJgRS2nPnAQuWn4BzUVyxUVFu+AtNHKHBlX42m+
- vc/jQac9kv/L8xLE78TWNj0SatEu2P5e2iD2hsMI/TT+sUc/QmaeC078waWRNTQw/JWi
- tRjwSGGc/AEHxgOujDEMOrCrdDSy23M6k4NUErPYmixRZhbVSiROdG0niL1/2XJLmjS6
- yO+j1bvFtDb2WDenUK6JpBBDjHIQceWFmGY8QRUJAgvS5n+qLO0QrEjPEwPP+2hYxFUG
- TlolBXMavCB834hHXcaHTAqY08xoWmMA3w3sCSfTt6sanKPByMMD7qWgK1g4mSp+FVGV
- uUOw==
-X-Gm-Message-State: AOAM533KHwU3gDsyO1S6nRVYRRmAbRiPEZ2gXNlIM4hISxIaYa9O6JbL
- H+hFClfsZ9hiYrdhYGoESpBUFmbPJYLV1aNmU6w7jw==
+ b=Y+sAMWoP5H3fZxiCsMYCIlv0CV+pvKHQ9f9s7M513fDuhPgFz0Hg8KQE7QLN+I0xtZ
+ tIXa4+8oGNRmewLsWr36X+YRWKpHe7SQv/Num/bdPVHpWmSz24p7EOjwOI0Cs7OZY9KG
+ vZggMYtXaUiz3dW7tveDSVmJWqafFvZJ7mvjocS2VmL8ZDa5ssX6bbtZyYFMtLdgqi3R
+ VJnufgNzx3eYON2zk+H1XX5huvFyrpQsw4kYxsOH24dv7xgpxNvaP5J6Z20k+5bQIXOO
+ 4UBSc8Zpyt0ATmtuN3xOyNd4dQE4cA30PaNGoiATw6DKShN33vDOd/HGmPshdm5Tc/f+
+ 0W5g==
+X-Gm-Message-State: AOAM5330XMN2WeQmXJOiU7hNBukfEF5El0pOJBS/Lmke3usSTXW0TcTc
+ X6HOoEVEmkax/IuiriU1ZRqCdPZv7gzyIyImdIc8PA==
 X-Google-Smtp-Source: ABdhPJxH9r1RSltOF8T2/Z4xLh8CcWvsQpot7UP0gaqiZUBPftNT/cydeaBKOK6TZ0ETBxF8utLKbo/eFODKcZlSras=
 X-Received: by 2002:ac8:76cb:: with SMTP id q11mr2050699qtr.63.1599076524368; 
  Wed, 02 Sep 2020 12:55:24 -0700 (PDT)
