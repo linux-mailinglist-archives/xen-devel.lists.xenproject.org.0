@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A53ED25B32C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 19:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5256E25B423
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 20:55:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDWsd-0003JZ-BF; Wed, 02 Sep 2020 17:49:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kDXt6-00017t-NM; Wed, 02 Sep 2020 18:53:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A6j+=CL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kDWsb-0003JC-8Q
- for xen-devel@lists.xenproject.org; Wed, 02 Sep 2020 17:49:05 +0000
-X-Inumbo-ID: c60e1738-60f8-44d1-a4d0-22554621ef2a
+ id 1kDXt5-00017T-O4
+ for xen-devel@lists.xenproject.org; Wed, 02 Sep 2020 18:53:39 +0000
+X-Inumbo-ID: 2293b648-d126-415d-87ae-647f31d2e963
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c60e1738-60f8-44d1-a4d0-22554621ef2a;
- Wed, 02 Sep 2020 17:48:57 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2293b648-d126-415d-87ae-647f31d2e963;
+ Wed, 02 Sep 2020 18:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=mVKsOUdCrocFX5mfUjGoQWibqUxdf/Tp6AMMRJhg8wc=; b=CRUOyo3FDvlkE2TStLgSoCc8YD
- 8D9eCDnbKAkx4ybexyINWI7k5R0lRVCnamXV99IsidIvQxT8jX+4x0PpuzeneaX4d+SE/TmBUBmXo
- KhMNNZ60JOqcYupTJX/ob8uy2a4ptMS9C00bYNlHTjX0DBGFrkI4zaVjQKCl891W2LzU=;
+ bh=MpqRt5pYe8EwYqWSYy+m3KL9cTIMRfyTDBr5BcSLrOk=; b=2xO84tSAZ8EtkpKKV5eR8dCCYa
+ FdAmnuZW5zdG858xfaAd7QZIHmHm1uTign6lbJoLITUga8fE4rpccPWGHjUDDAjNM0rjlvxRU+SyO
+ s0L/tjWHCcVBlIUD8Z7SElN/eeFXM793uz3IuZRLlrttm5C3c+fdHUcecAdLmplh7o1s=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kDWsT-0003I0-7r; Wed, 02 Sep 2020 17:48:57 +0000
+ id 1kDXsv-0004hV-Mx; Wed, 02 Sep 2020 18:53:29 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kDWsS-0000uf-VP; Wed, 02 Sep 2020 17:48:57 +0000
+ id 1kDXsv-0003Gl-Ck; Wed, 02 Sep 2020 18:53:29 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kDWsS-0003Uf-Ux; Wed, 02 Sep 2020 17:48:56 +0000
+ id 1kDXsv-00050R-CI; Wed, 02 Sep 2020 18:53:29 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-153563-mainreport@xen.org>
+Message-ID: <osstest-153588-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 153563: regressions - FAIL
+Subject: [ovmf test] 153588: regressions - FAIL
 X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
  ovmf:build-amd64-xsm:xen-build:fail:regression
  ovmf:build-amd64:xen-build:fail:regression
@@ -54,7 +55,7 @@ X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
 X-Osstest-Versions-This: ovmf=e8453aa373e96ed76b72a6968d8a48dfb002a1a6
 X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Sep 2020 17:48:56 +0000
+Date: Wed, 02 Sep 2020 18:53:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,8 +69,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153563 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153563/
+flight 153588 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153588/
 
 Regressions :-(
 
@@ -92,8 +93,8 @@ baseline version:
  ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
 Last test of basis   152863  2020-08-26 16:09:47 Z    7 days
-Failing since        152915  2020-08-27 18:09:42 Z    5 days  113 attempts
-Testing same since   153553  2020-09-02 12:40:39 Z    0 days    2 attempts
+Failing since        152915  2020-08-27 18:09:42 Z    6 days  114 attempts
+Testing same since   153553  2020-09-02 12:40:39 Z    0 days    3 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
