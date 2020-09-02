@@ -2,60 +2,130 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB48925AB13
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 14:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA1D25AB6A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Sep 2020 14:49:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDRnC-0006wj-8p; Wed, 02 Sep 2020 12:23:10 +0000
+	id 1kDSBz-0000Xp-SU; Wed, 02 Sep 2020 12:48:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A6j+=CL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kDRnA-0006we-PF
- for xen-devel@lists.xenproject.org; Wed, 02 Sep 2020 12:23:08 +0000
-X-Inumbo-ID: 7f7c9c90-64ff-4e0d-a81a-de62dd7eec9c
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Y5xg=CL=intel.com=zhiyuan.lv@srs-us1.protection.inumbo.net>)
+ id 1kDSBx-0000XU-Rm
+ for xen-devel@lists.xenproject.org; Wed, 02 Sep 2020 12:48:45 +0000
+X-Inumbo-ID: 76c375cc-da0e-437b-acd6-dcdec6e76a18
+Received: from mga18.intel.com (unknown [134.134.136.126])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7f7c9c90-64ff-4e0d-a81a-de62dd7eec9c;
- Wed, 02 Sep 2020 12:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=jvfA2GG4k3y8vTqLtXIYklsuuJOGaQW8U1YSLKWrrVQ=; b=43aaKn/ktOXEL8BAojOC0Gykjo
- 6C3JXnmjme0GJtDGrBJo49k1GJJYYEmGL5P1WHsmB0NhnTrLLpVuLRqYJ8IN4jXm98JICGjddMLvB
- qaOcZUa0pe2XNcssOxVQZfyAKfL5KGORqUqpvBvsgnyxvjryISyuC82R39fa3sJ98WHs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kDRn6-0004Sw-Ta; Wed, 02 Sep 2020 12:23:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kDRn6-0001i4-LO; Wed, 02 Sep 2020 12:23:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kDRn6-00033J-Kw; Wed, 02 Sep 2020 12:23:04 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153552-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 76c375cc-da0e-437b-acd6-dcdec6e76a18;
+ Wed, 02 Sep 2020 12:48:41 +0000 (UTC)
+IronPort-SDR: cYkk/tzhSg/ur0gKfYhtWtNE2oWWSTFVy6WlqFhnCUuiFkjRHgp6SsV7fzpJw1bI1k6+Fx1lPO
+ uhfgfG6KNjTA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="145064476"
+X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="145064476"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2020 05:48:40 -0700
+IronPort-SDR: DEIWzknCfJLB1p8eqeMWkuBId+/gB3dozTB8ZMoS7wBaPTnZfv32e0NPUOHUkFy6n5ZFmLtQz/
+ RkNnCKxwvcNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="338913905"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by FMSMGA003.fm.intel.com with ESMTP; 02 Sep 2020 05:48:39 -0700
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 2 Sep 2020 05:48:38 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Wed, 2 Sep 2020 05:48:38 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.172)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Wed, 2 Sep 2020 05:48:38 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c+k84oBTYqQQapLiAXIOnPN8rttiB47WXAI4qwVyXuslRtQxNa90xzirTMWfsUrRnH4ni1JfNID1x0R6FhfzpbH+wZoWWBYsLDCp28KQXzz6hczFaYzkZIifycDq6LbroA96ZPxspi3mUTNds5tgyLbZDZvcWiziEZtwN43tuiFIhZ0RPe1bUYj00PK0gqKEsXBMdyS9XZHQ1Yt4P5Lwj/tjOSRJ0MfXKaCu0FgSTC6h5aaFielaRQsVEVtk4Mn/3e9einNi+5lyRRTOOij4oy4n15n9opZT/SLi47POmKi2MeC9jTmVP53kKQu4QbD3pjTITRuYdOjzsnca1CmWfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dnEgOM0f+m3RKH6zww5Vg2kSsC07lG33q2ku/gCePe8=;
+ b=gMoUyDdB/mpHCapNgQILoCyVfVflD1L7mh6vxI/exOmMcFst55ZzfoR05ajFadkWZfYDbxZCQrv/UhCmEN41Dm/kp19gF57ZTfHopV+Uq+tI0p2WC+qYprGuraZ1bYM6woc0u51oWT0lRVxmfzktTZvEro3datFMyo/joEUXzMcWTBtdkm1zOpkqm7aXLSfGZh6ONseIqL+gmWG5oY5QGF5i98JLhA1NHaMoSZavAnpoqReizH/PFF0Tvy7IB8kjxif98Eg3Lfy0bQWmIi6wECG5JNTpeeTx11URHHkyYIyJyUyyqii2MIk7vk+Oz7xY7u5YZiOMWAZNpCD7g7WtZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dnEgOM0f+m3RKH6zww5Vg2kSsC07lG33q2ku/gCePe8=;
+ b=OehLpyV2VjODEj7OX8AnmzNsutcJ4KigGYRh38MBtDoh3PZKPEr2g3nEioYiySndmwDXUDCzCWP22xH43ACVOJK1tB5mrt7l+te7RTyo1b63ha2IP7xzNCY/pXaj2Kz9gyWsHm6MxZWA7dr0T9iiwxR2bqxxWVnNuJxaXNpRpZ8=
+Received: from CY4PR11MB2022.namprd11.prod.outlook.com (2603:10b6:903:2d::19)
+ by CY4PR11MB1704.namprd11.prod.outlook.com (2603:10b6:903:29::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.25; Wed, 2 Sep
+ 2020 12:48:30 +0000
+Received: from CY4PR11MB2022.namprd11.prod.outlook.com
+ ([fe80::11ac:a3df:27d4:1230]) by CY4PR11MB2022.namprd11.prod.outlook.com
+ ([fe80::11ac:a3df:27d4:1230%3]) with mapi id 15.20.3348.015; Wed, 2 Sep 2020
+ 12:48:30 +0000
+From: "Lv, Zhiyuan" <zhiyuan.lv@intel.com>
+To: Jason Long <hack3rcon@yahoo.com>, Mario Marietto <marietto2008@gmail.com>, 
+ "igvt-g@lists.01.org" <igvt-g@lists.01.org>,
+ "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "xen-devel@lists.xen.org"
+ <xen-devel@lists.xen.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "Li, Susie" <susie.li@intel.com>, "Tian,
+ Kevin" <kevin.tian@intel.com>, "Li, Weinan Z" <weinan.z.li@intel.com>,
+ "Downs, Mike" <mike.downs@intel.com>, "Xu, Terrence" <terrence.xu@intel.com>
+Subject: Re: Various problems for the Xen for XenGT code and guide.
+Thread-Topic: Various problems for the Xen for XenGT code and guide.
+Thread-Index: AQHWfHlvQQNx0EabX0SrOv89XbYUY6lUBxOAgAAEfACAAdBPAA==
+Date: Wed, 2 Sep 2020 12:48:30 +0000
+Message-ID: <559F4617-9633-4B40-BA55-E79305E20530@intel.com>
+References: <CA+1FSihpq_i-poiihdF0srE3fGXnncGtCMYqAGmNZu7fjNcY=w@mail.gmail.com>
+ <CY4PR11MB15594EC5255084B8AE509068F02E0@CY4PR11MB1559.namprd11.prod.outlook.com>
+ <1093525083.1169948.1598979998646@mail.yahoo.com>
+In-Reply-To: <1093525083.1169948.1598979998646@mail.yahoo.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/16.39.20071300
+authentication-results: yahoo.com; dkim=none (message not signed)
+ header.d=none;yahoo.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [123.118.15.9]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8ff23c70-a4c9-4635-eedf-08d84f3e7eb9
+x-ms-traffictypediagnostic: CY4PR11MB1704:
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR11MB1704A6722448C752885A3E1A832F0@CY4PR11MB1704.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ex/h9IExIXmpj+tW0xXAiygW5edADO90K+TbxBM8uMbpUhCPFRJjSB++DK13evSwKViwxECqY1DDVlYqoYZ/hnOG6sll2jQRU4IvHYriXzdB/Xmd75SWSa3DnQ1SpPFk2Fsgv16PETMnyaZRc8r1HgEvUiBe12z5c0vsr4yrriZ4u8AIAvSbgBgnWvGVCrQkWxdZ0mo/DC9fs0YBcz+bMRx/PwezS3Ld8lJgQ5KX0dlqGOUJddeq+XakzBaFUDxtegVOt6LzKdBVL4aBvS0x3PKfqEX7Cb5iTV8cctO1bOof0+09UR27dtDuqrNi4zi9vV6qmp09tBW67iHyDs9djjo5eUpNRO9/smZCMRNN4fVsSccyg+zkimRnjrp8QrKAXkjeGQIB7ZDg9l78+pMfxcmYeP+1A0xycWKp/0JwV9lDMLkJEcSKwpOhh4qCIR2kkjAJ4t2Vmk3Q53Tl7dLYHw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR11MB2022.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(966005)(2906002)(53546011)(83380400001)(76116006)(91956017)(86362001)(66556008)(66476007)(2616005)(478600001)(8936002)(36756003)(71200400001)(64756008)(66446008)(66946007)(6636002)(33656002)(186003)(5660300002)(26005)(6512007)(110136005)(6506007)(6486002)(8676002)(316002)(9126004)(921003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: wMHUB9kt4NSDpEDCIjJcAkaLTyq4GyEoAczGkx7nAcsmbBBZdNUAFXUAA8Q558iS7Lw2skb1/Y8kvvp7JdQfF8SEAcH6PKIqzLkfoFA3tk752VRhYyncFbd3ecXExwsDPzR2y6cNSZ5HiOMlwJrUuDBuXCShcqz3TB+uKeOQ8T1wgoNYpHRmS/xHDRPba8E9j7o27TXZWRtLfjyt0onzNSEiFDr+egL81xCqa8FOfXBbpacZRngddnEeLVWhWkTlkPYcZZONCefmLiQRHIEIabpatMwITEm0lNvmXUIzxqyKRiZVEWwSFjoJYa0zfHl32MyF3bXK6IdmYp2SEzwosk+y/qojZAqFlxJo0dl8MgsYMITsIx7DqKWoQvhjnZAKJcFnbgeRtZSkB6D56+p5W3d2CkETxbSkG25DmIqgSZyc5kFMJ01HT6RtujbEn/P9XPwESLCPyStq9jS2oPq/puXv8IupHW9W78vGFxiQ3o5g5yoFVZMeDDWt7w5Oe7VaJPGqvsE9r5Ak5REinuWBzWjPxlXjIFt0aicCAsvHbi+LH7QT8SN5htk9tFHMCM2Ni01ohEpze0Uc2rkDPlOMlac/i0TKcys8AVOOPGHP8WBzS/1zzWy94B/vCwkGIYp9uwm5FKlpYZjQPxwhLDNeZQ==
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <19ADD1FB4CBA224C8CC3FCC10E46B8F7@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [ovmf test] 153552: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=0b143fa43e92be15d11e22f80773bcb1b2b0608f
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Sep 2020 12:23:04 +0000
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR11MB2022.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ff23c70-a4c9-4635-eedf-08d84f3e7eb9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2020 12:48:30.4217 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FoP6t43iBwe0R/lpT0d8J6JTO/82qHjQlUp3HQUEiyQroNMhMLiLiQh9Ucr+kxgOU5CMfh+x7ro7bJA4QL6Xkg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR11MB1704
+X-OriginatorOrg: intel.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,338 +139,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153552 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153552/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 0b143fa43e92be15d11e22f80773bcb1b2b0608f
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z    6 days
-Failing since        152915  2020-08-27 18:09:42 Z    5 days  111 attempts
-Testing same since   153549  2020-09-02 10:41:52 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Feng <bob.c.feng@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0b143fa43e92be15d11e22f80773bcb1b2b0608f
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Tue Sep 1 11:12:21 2020 +0200
-
-    SecurityPkg/DxeImageVerificationLib: catch alignment overflow (CVE-2019-14562)
-    
-    The DxeImageVerificationHandler() function currently checks whether
-    "SecDataDir" has enough room for "WinCertificate->dwLength". However, for
-    advancing "OffSet", "WinCertificate->dwLength" is aligned to the next
-    multiple of 8. If "WinCertificate->dwLength" is large enough, the
-    alignment will return 0, and "OffSet" will be stuck at the same value.
-    
-    Check whether "SecDataDir" has room left for both
-    "WinCertificate->dwLength" and the alignment.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Min Xu <min.m.xu@intel.com>
-    Cc: Wenyi Xie <xiewenyi2@huawei.com>
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2215
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200901091221.20948-4-lersek@redhat.com>
-    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Tested-by: Wenyi Xie <xiewenyi2@huawei.com>
-    Reviewed-by: Min M Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit a7632e913c1c106f436aefd5e76c394249c383a8
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Tue Sep 1 11:12:20 2020 +0200
-
-    SecurityPkg/DxeImageVerificationLib: assign WinCertificate after size check
-    
-    Currently the (SecDataDirLeft <= sizeof (WIN_CERTIFICATE)) check only
-    guards the de-referencing of the "WinCertificate" pointer. It does not
-    guard the calculation of the pointer itself:
-    
-      WinCertificate = (WIN_CERTIFICATE *) (mImageBase + OffSet);
-    
-    This is wrong; if we don't know for sure that we have enough room for a
-    WIN_CERTIFICATE, then even creating such a pointer, not just
-    de-referencing it, may invoke undefined behavior.
-    
-    Move the pointer calculation after the size check.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Min Xu <min.m.xu@intel.com>
-    Cc: Wenyi Xie <xiewenyi2@huawei.com>
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2215
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200901091221.20948-3-lersek@redhat.com>
-    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Tested-by: Wenyi Xie <xiewenyi2@huawei.com>
-    Reviewed-by: Min M Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit 503248ccdf45c14d4040ce44163facdc212e4991
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Tue Sep 1 11:12:19 2020 +0200
-
-    SecurityPkg/DxeImageVerificationLib: extract SecDataDirEnd, SecDataDirLeft
-    
-    The following two quantities:
-    
-      SecDataDir->VirtualAddress + SecDataDir->Size
-      SecDataDir->VirtualAddress + SecDataDir->Size - OffSet
-    
-    are used multiple times in DxeImageVerificationHandler(). Introduce helper
-    variables for them: "SecDataDirEnd" and "SecDataDirLeft", respectively.
-    This saves us multiple calculations and significantly simplifies the code.
-    
-    Note that all three summands above have type UINT32, therefore the new
-    variables are also of type UINT32.
-    
-    This patch does not change behavior.
-    
-    (Note that the code already handles the case when the
-    
-      SecDataDir->VirtualAddress + SecDataDir->Size
-    
-    UINT32 addition overflows -- namely, in that case, the certificate loop is
-    never entered, and the corruption check right after the loop fires.)
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Min Xu <min.m.xu@intel.com>
-    Cc: Wenyi Xie <xiewenyi2@huawei.com>
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2215
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200901091221.20948-2-lersek@redhat.com>
-    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Tested-by: Wenyi Xie <xiewenyi2@huawei.com>
-    Reviewed-by: Min M Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit 7513559926355dcd20516d01b0b44f2cddc2ff08
-Author: Bob Feng <bob.c.feng@intel.com>
-Date:   Tue Sep 1 18:23:15 2020 +0800
-
-    BaseTools/Ecc: Fix an issue of path separator compatibility
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2904
-    
-    The path separator is different in Windows and Linux, the
-    original code does not handle this difference. This patch
-    is to fix this issue.
-    
-    Signed-off-by: Bob Feng <bob.c.feng@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Yuwei Chen <yuwei.chen@intel.com>
-    Cc: Shenglei Zhang <shenglei.zhang@intel.com>
-    Message-Id: <20200901102315.38840-1-bob.c.feng@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit 46db105b7b77bc478452887e25836cd0745e9b65
-Author: Zhiguang Liu <zhiguang.liu@intel.com>
-Date:   Tue Sep 1 08:55:05 2020 +0800
-
-    SecurityPkg: Initailize variable Status before it is consumed.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2945
-    
-    V2: Move "Status = EFI_SUCCESS;" before the EDKII_TCG_PRE_HASH check.
-    
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Qi Zhang <qi1.zhang@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-    Signed-off-by: Zhiguang Liu <zhiguang.liu@intel.com>
-    Message-Id: <20200901005505.1722-1-zhiguang.liu@intel.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-
-commit 0c5c45a1337f82569aa9e60323e1a05a0cbbad74
-Author: Qi Zhang <qi1.zhang@intel.com>
-Date:   Mon Aug 31 10:07:21 2020 +0800
-
-    IntelFsp2WrapperPkg/IntelFsp2WrapperPkg.dec: add FspMeasurementLib.h
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2944
-    
-    Cc: Chasel Chiu <chasel.chiu@intel.com>
-    Cc: Nate DeSimone <nathaniel.l.desimone@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Signed-off-by: Qi Zhang <qi1.zhang@intel.com>
-    Message-Id: <20200831020721.8967-1-qi1.zhang@intel.com>
-    Reviewed-by: Chasel Chiu <chasel.chiu@intel.com>
-
-commit 5ffcbc46908a2037ae3260d3cfcc103e4a6a48c0
-Author: Paul <paul.grimes@amd.com>
-Date:   Fri Aug 28 04:40:51 2020 +0800
-
-    MdePkg: Correcting EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT definition
-    
-    In Acpi10.h, EFI_ACPI_DMA_TRANSFER_TYPE_16_BIT is defined as 0x10,
-    but should be 0x02 per the ACPI Specification.
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2937
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    Signed-off-by: Paul G <paul.grimes@amd.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit cbccf995920a28071f5403b847f29ebf8b732fa9
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:29 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just after SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just after* ACPI raises the broadcast SMI, then:
-    
-    - the CPU_FOREACH() loop in QEMU's ich9_apm_ctrl_changed() cannot make the
-      SMI pending for the new CPU -- at that time, the new CPU doesn't even
-      exist yet,
-    
-    - OVMF will find the new CPU however (in the CPU hotplug register block),
-      in QemuCpuhpCollectApicIds().
-    
-    As a result, when the firmware sends an INIT-SIPI-SIPI to the new CPU in
-    SmbaseRelocate(), expecting it to boot into SMM (due to the pending SMI),
-    the new CPU instead boots straight into the post-RSM (normal mode) "pen",
-    skipping its initial SMI handler.
-    
-    The CPU halts nicely in the pen, but its SMBASE is never relocated, and
-    the SMRAM message exchange with the BSP falls apart -- the BSP gets stuck
-    in the following loop:
-    
-      //
-      // Wait until the hot-added CPU is just about to execute RSM.
-      //
-      while (Context->AboutToLeaveSmm == 0) {
-        CpuPause ();
-      }
-    
-    because the new CPU's initial SMI handler never sets the flag to nonzero.
-    
-    Fix this by sending a directed SMI to the new CPU just before sending it
-    the INIT-SIPI-SIPI. The various scenarios are documented in the code --
-    the cases affected by the patch are documented under point (2).
-    
-    Note that this is not considered a security patch, as for a malicious
-    guest OS, the issue is not exploitable -- the symptom is a hang on the
-    BSP, in the above-noted loop in SmbaseRelocate(). Instead, the patch fixes
-    behavior for a benign guest OS.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: 51a6fb41181529e4b50ea13377425bda6bb69ba6
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-3-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 020bb4b46d6f6708bb3358e1c738109b7908f0de
-Author: Laszlo Ersek <lersek@redhat.com>
-Date:   Thu Aug 27 00:21:28 2020 +0200
-
-    OvmfPkg/CpuHotplugSmm: fix CPU hotplug race just before SMI broadcast
-    
-    The "virsh setvcpus" (plural) command may hot-plug several VCPUs in quick
-    succession -- it means a series of "device_add" QEMU monitor commands,
-    back-to-back.
-    
-    If a "device_add" occurs *just before* ACPI raises the broadcast SMI,
-    then:
-    
-    - OVMF processes the hot-added CPU well.
-    
-    - However, QEMU's post-SMI ACPI loop -- which clears the pending events
-      for the hot-added CPUs that were collected before raising the SMI -- is
-      unaware of the stray CPU. Thus, the pending event is not cleared for it.
-    
-    As a result of the stuck event, at the next hot-plug, OVMF tries to re-add
-    (relocate for the 2nd time) the already-known CPU. At that time, the AP is
-    already in the normal edk2 SMM busy-wait however, so it doesn't respond to
-    the exchange that the BSP intends to do in SmbaseRelocate(). Thus the VM
-    gets stuck in SMM.
-    
-    (Because of the above symptom, this is not considered a security patch; it
-    doesn't seem exploitable by a malicious guest OS.)
-    
-    In CpuHotplugMmi(), skip the supposedly hot-added CPU if it's already
-    known. The post-SMI ACPI loop will clear the pending event for it this
-    time.
-    
-    Cc: Ard Biesheuvel <ard.biesheuvel@arm.com>
-    Cc: Igor Mammedov <imammedo@redhat.com>
-    Cc: Jordan Justen <jordan.l.justen@intel.com>
-    Cc: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Fixes: bc498ac4ca7590479cfd91ad1bb8a36286b0dc21
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=2929
-    Signed-off-by: Laszlo Ersek <lersek@redhat.com>
-    Message-Id: <20200826222129.25798-2-lersek@redhat.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+SGksDQoNCkl0IGlzIG1haW5seSBkdWUgdG8gdGhlIGJ1c2luZXNzIHByaW9yaXR5IGNoYW5nZS4g
+WGVuR1QgcHJvamVjdCB3YXMgb3JpZ2luYWxseSBjcmVhdGVkIGZvciBkYXRhIGNlbnRlciB1c2Fn
+ZXMgd2l0aCBYRU9OIEUzIHNlcnZlcnMgd2hpY2ggaGF2ZSBpbnRlZ3JhdGVkIHByb2Nlc3NvciBn
+cmFwaGljcy4gQWZ0ZXIgU2t5TGFrZSBFMywgdGhlcmUgYXJlIG5vIG5ldyBzZXJ2ZXJzIGNhcGFi
+bGUgb2YgcnVubmluZyBHVlQtZywgYW5kIEludGVsIGZ1dHVyZSBncmFwaGljcyBmb3IgZGF0YSBj
+ZW50ZXIgd2lsbCBoYXZlIGRpZmZlcmVudCBhcHByb2FjaGVzIGZvciBHUFUgc2hhcmluZy4gQW5v
+dGhlciByZWFzb24gaXMgdGhlIFhlbkdUIHVwc3RyZWFtIGRpZmZpY3VsdHkuIERpZmZlcmVudCBm
+cm9tIEtWTUdUIHdoaWNoIGhhcyBiZWVuIGZ1bGx5IG1lcmdlZCB0byB1cHN0cmVhbSwgWGVuIHBh
+cnQgb2YgR1ZULWcgc3RpbGwgaGFzIHRlY2huaWNhbCBvcGVucyB0aGF0IGFyZSBoYXJkIHRvIGNs
+b3NlIHF1aWNrbHkuDQoNClNvcnJ5IHRoYXQgd2UgZGlkIG5vdCBzeW5jIHVwIHdpdGggY29tbXVu
+aXR5IGluIHRpbWUgdGhlIFhlbkdUIHJhbXBpbmcgZG93biBwbGFuLiBJbnRlcm5hbGx5IHdlIGhh
+dmUgYmVlbiB0ZXN0aW5nIFhlbkdUIHVudGlsIE5vdmVtYmVyIDIwMTkuIFdlIHdpbGwgdXBkYXRl
+IG91ciBzZXR1cCBndWlkZSBmb3IgWGVuR1QgcGFydCB0byByZWZsZWN0IHRoZSBpbmZvcm1hdGlv
+bi4gR29pbmcgZm9yd2FyZCB3ZSB3aWxsIHRyeSBvdXIgYmVzdCB0byBkbyBYZW5HVCBjb25zdWx0
+YW50LCBidXQgd2lsbCBub3QgYmUgYWJsZSB0byBkbyBjb2RlIHJlYmFzZS90ZXN0IG9yIGRlYnVn
+Z2luZy4gTWVhbndoaWxlLCB3ZSBhcmUgc3RpbGwgbWFpbnRhaW5pbmcgS1ZNR1QgbWFpbmx5IGZv
+ciBjbGllbnQgaW50ZWdyYXRlZCBHUFUgdXNhZ2VzLiBXZSB3aWxsIGNvbnRpbnVlIHRvIGZpeCBp
+c3N1ZXMgdGhhdCBjYW4gYmUgcmVwcm9kdWNlZCB3aXRoIEtWTUdULg0KDQpodHRwczovL2dpdGh1
+Yi5jb20vaW50ZWwvZ3Z0LWxpbnV4L3RyZWUvdG9waWMvZ3Z0LXhlbmd0DQpodHRwczovL2dpdGh1
+Yi5jb20vaW50ZWwvSWd2dGcteGVuL3RyZWUveGVuZ3Qtc3RhYmxlLTQuMTANCg0KSGkgTWFyaWV0
+dG8sIHdlIGFwcHJlY2lhdGUgeW91ciBlZmZvcnRzIHRyeWluZyBHVlQtZyAoWGVuR1QpLiBIb3Bl
+IFRlcnJlbmNlJ3MgcmVwbHkgaGVscHMuIEJ5IHN3aXRjaGluZyBiYWNrIHRvIG9sZCBnY2MgdGhv
+c2UgY29tcGlsZSBlcnJvcnMgc2hvdWxkIGJlIGdvbmUuIE1lYW53aGlsZSBwbGVhc2UgYmUga2lu
+ZGx5IG5vdGljZWQgdGhhdCB3ZSBjYW4gb25seSBwcm92aWRlIGxpbWl0ZWQgc3VwcG9ydCBvbiBY
+ZW5HVCB3aXRoIG9sZCB2ZXJzaW9ucy4gVGhhbmtzIQ0KDQpSZWdhcmRzLA0KLVpoaXl1YW4NCg0K
+77u/LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEphc29uIExvbmcgPGhhY2szcmNv
+bkB5YWhvby5jb20+DQpEYXRlOiBXZWRuZXNkYXksIFNlcHRlbWJlciAyLCAyMDIwIGF0IDE6MDcg
+QU0NClRvOiBNYXJpbyBNYXJpZXR0byA8bWFyaWV0dG8yMDA4QGdtYWlsLmNvbT4sICJpZ3Z0LWdA
+bGlzdHMuMDEub3JnIiA8aWd2dC1nQGxpc3RzLjAxLm9yZz4sICJ4ZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmciIDx4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmc+LCAieGVuLWRldmVs
+QGxpc3RzLnhlbi5vcmciIDx4ZW4tZGV2ZWxAbGlzdHMueGVuLm9yZz4sICJpbnRlbC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnIiA8aW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4sICJs
+aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIiA8bGludXgta2VybmVsQHZnZXIua2VybmVsLm9y
+Zz4sIFN1c2llIExpIDxzdXNpZS5saUBpbnRlbC5jb20+LCAiVGlhbiwgS2V2aW4iIDxrZXZpbi50
+aWFuQGludGVsLmNvbT4sIFpoaXl1YW4gTHYgPHpoaXl1YW4ubHZAaW50ZWwuY29tPiwgIkxpLCBX
+ZWluYW4gWiIgPHdlaW5hbi56LmxpQGludGVsLmNvbT4sICJEb3ducywgTWlrZSIgPG1pa2UuZG93
+bnNAaW50ZWwuY29tPiwgIlh1LCBUZXJyZW5jZSIgPHRlcnJlbmNlLnh1QGludGVsLmNvbT4NClN1
+YmplY3Q6IFJlOiBWYXJpb3VzIHByb2JsZW1zIGZvciB0aGUgWGVuIGZvciBYZW5HVCBjb2RlIGFu
+ZCBndWlkZS4NCg0KSGVsbG8sDQpXaHkgWGVuR1QgZG9lc24ndCBoYXZlIGFueSBuZXcgdmVyc2lv
+bj8NCg0KDQoNCg0KDQoNCk9uIFR1ZXNkYXksIFNlcHRlbWJlciAxLCAyMDIwLCAwOToyMToyNyBQ
+TSBHTVQrNDozMCwgWHUsIFRlcnJlbmNlIDx0ZXJyZW5jZS54dUBpbnRlbC5jb20+IHdyb3RlOiAN
+Cg0KDQoNCg0KDQoNCg0KDQpIaSBNYXJpbywNCg0KDQoNClNvcnJ5IHRvIG1ha2UgeW91IGZlZWwg
+dW5jb21mb3J0YWJsZS4NCg0KDQoNCkkgdGhpbmsgaXQgaXMgbm90IHNldHVwIGd1aWRlIHByb2Js
+ZW0sIHRoZSBtYWluIHJlYXNvbiBpcyB0aGUgWGVuIGNvZGUgaXMgdmVyeSBvbGQgKFdlIGFyZSB1
+cGdyYWRpbmcgR1ZULWcgY29kZSBvbiBMaW51eCBrZXJuZWwgc2lkZSBhbmQgd2UgaGF2ZW7igJl0
+IHVwZ3JhZGVkIHRoZSBYZW4gYW5kIFFlbXUgc291cmNlIGZvciBYZW5HVCBmb3IgYXQgbGVhc3Qg
+MiB5ZWFycykgYnV0IHlvdXIgR0NDIGlzIG5ldyAoWW91IGFyZSB1c2luZyBVYnVudHUgMjAuNCwg
+dGhlIGdjYyB2ZXJzaW9uIGlzIDkrKS4NCg0KSSBoYXZlIGEgd2F5IHRvIHdvcmthcm91bmQgaXQs
+IGFzIGJlbG93Og0KDQoxLiAgYXB0LWdldCBpbnN0YWxsIGdjYy03Mi4gIGxuIC1mcyBnY2MtNyAv
+dXNyL2Jpbi9nY2MNCg0KDQoNCkFueSBtb3JlIHByb2JsZW0ganVzdCBsZXQgdXMga25vdyENCg0K
+DQoNClRoYW5rcw0KDQpUZXJyZW5jZQ0KDQoNCg0KDQoNCkZyb206IE1hcmlvIE1hcmlldHRvIDxt
+YXJpZXR0bzIwMDhAZ21haWwuY29tPiANClNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMjcsIDIwMjAg
+OTo1MiBQTQ0KVG86IFh1LCBUZXJyZW5jZSA8dGVycmVuY2UueHVAaW50ZWwuY29tPjsgaWd2dC1n
+QGxpc3RzLjAxLm9yZzsgeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnOyB4ZW4tZGV2ZWxA
+bGlzdHMueGVuLm9yZzsgaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2Vy
+bmVsQHZnZXIua2VybmVsLm9yZzsgTGksIFN1c2llIDxzdXNpZS5saUBpbnRlbC5jb20+OyBUaWFu
+LCBLZXZpbiA8a2V2aW4udGlhbkBpbnRlbC5jb20+OyBMdiwgWmhpeXVhbiA8emhpeXVhbi5sdkBp
+bnRlbC5jb20+OyBMaSwgV2VpbmFuIFogPHdlaW5hbi56LmxpQGludGVsLmNvbT47IERvd25zLCBN
+aWtlIDxtaWtlLmRvd25zQGludGVsLmNvbT4NClN1YmplY3Q6IFZhcmlvdXMgcHJvYmxlbXMgZm9y
+IHRoZSBYZW4gZm9yIFhlbkdUIGNvZGUgYW5kIGd1aWRlLg0KDQoNCg0KDQoNCg0KDQpIZWxsby4N
+Cg0KDQoNCg0KDQoNCg0KDQoNCg0KSSB3b3VsZCBsaWtlIHRvIHBhc3MgdGhlIGludGVncmF0ZWQg
+Z3B1IGZyb20gdGhlIGhvc3Qgb3MgKHVidW50dSAyMC4wNCkgdG8gdGhlIHdpbmRvd3MgMTAgZ3Vl
+c3Qgb3Mgd2l0aCB4ZW4uIFRoaXMgaXMgYmVjYXVzZSB4ZW4gd29ya3MgZ3JlYXQgZm9yIG1lLGJl
+dHRlciB0aGFuIHFlbXUta3ZtIGZvciBteSBzcGVjaWZpYyBuZWVkcyBhbmQgYmVjYXVzZSBJIGhh
+dmUgb25seSB0d28gZ3JhcGhpYyBjYXJkcy4gVGhlIG52aWRpYSBydHggMjA4MCB0aSB0aGF0IEkg
+aGF2ZSBhbHJlYWR5IHBhc3NlZCB0byB0aGUgZ3Vlc3QsYW5kIHRoZSBpbnRlbCBVSEQgNjMwLHRo
+YXQgY2FuIGJlIGR1cGxpY2F0ZWQgZnJvbSB0aGUgaG9zdCB0byB0aGUgZ3Vlc3Qgc28gdGhhdCBp
+dCBjYW4gYmUgdXNlZCBpbiBib3RoIHBsYWNlcyB3aXRob3V0IGludGVycnVwdGlvbnMuIFNvIEkn
+bSB0cnlpbmcgdG8gYnVpbGQgdGhpcyByZXBvc2l0b3J5IDoNCg0KaHR0cHM6Ly9naXRodWIuY29t
+L2ludGVsL2d2dC1saW51eC93aWtpL0dWVGdfU2V0dXBfR3VpZGUjMzMyLWJ1aWxkLXFlbXUtLXhl
+bi1mb3IteGVuZ3QNCg0KSSBoYXZlIHRvIHNheSB0aGF0IHRoaXMgZ3VpZGUgaXMgdG90YWxseSBu
+b3QgdmVyeSB3ZWxsIHdyaXR0ZW4uIEFuZCB0aGUgY29kZSBpcyBmdWxsIG9mIHVucGF0Y2hlZCBi
+dWdzLiBJdCdzIGEgbW9udGggdGhhdCBJJ20gd29ya2luZyBvbiB0aGF0LHRyeWluZyB0byBmaXgg
+dGhlIGJ1Z3MgdGhhdCBhcmUgY2FtZSBvdXQgZnJvbSB0aGUgMjAxNSB1bnRpbCB0b2RheS4gVGhp
+cyBpcyBub3QgbXkgam9iLiBUaGlzIGlzIG15IGhvYmJ5LiBCdXQsSSBuZWVkIHRvIGFjdGl2YXRl
+IHRoZSBwYXNzIHRocm91Z2ggZm9yIG15IGludGVncmF0ZWQgR1BVIHNvIEkgZG9uJ3QgdG8gZ2l2
+ZSB1cC4gSSdtIGFsc28gdmVyeSBhbmdyeSB3aXRoIHRob3NlIGNvZGVycyB3aG8gZG8gbm90IGRv
+IHRoZWlyIGpvYiB3ZWxsIGFuZCB3aXRoIHRob3NlIGNvZGVycyB3aG8gZG8gbm90IHJlc3BvbmQg
+dG8gaGVscCBtZXNzYWdlcy4gSXQgaXMgbm90IGVub3VnaCB0byB3cml0ZSBnb29kIGNvZGUgdG8g
+YmUgYSBnb29kIHByb2dyYW1tZXIuIEl0IGlzIGFsc28gaW1wb3J0YW50IHRvIGtlZXAgdGhlIGRv
+Y3VtZW50YXRpb24gdXBkYXRlZCwgdG8gaGVscCB0aG9zZSB3aG8gY2Fubm90IGdldCB0aGUgY29k
+ZSB0byB3b3JrLiBBbnl3YXksSSd2ZSBkb2N1bWVudGVkIGV2ZXJ5IHN0ZXAgdGhhdCBJIGRpZCB0
+byBtYWtlIGl0IHdvcmsgaGVyZSA6DQoNCmh0dHBzOi8vZ2l0aHViLmNvbS9pbnRlbC9ndnQtbGlu
+dXgvaXNzdWVzLzE2OA0KDQpyaWdodCBub3cgSSdtIHRyeWluZyB0byBmaXggdGhlIGJ1ZyBuLiA0
+MzQ1NDQsdGhhdCB5b3UgY2FuIHNlZSBiZWxvdy4NCg0KQ0MgdXRpbC9xZW11LWVycm9yLm8vZXRj
+L3hlbi9pZ3Z0Zy14ZW4vdG9vbHMvcWVtdS14ZW4tZGlyL3V0aWwvcWVtdS1lcnJvci5jOiBJbiBm
+dW5jdGlvbiDigJh2cmVwb3J04oCZOi9ldGMveGVuL2lndnRnLXhlbi90b29scy9xZW11LXhlbi1k
+aXIvdXRpbC9xZW11LWVycm9yLmM6MjAxOjU6IGVycm9yOiDigJhHVGltZVZhbOKAmSBpcyBkZXBy
+ZWNhdGVkOiBVc2UgJ0dEYXRlVGltZScgaW5zdGVhZCBbLVdlcnJvcj1kZXByZWNhdGVkLWRlY2xh
+cmF0aW9uc10yMDEgfCBHVGltZVZhbCB0djt8IF5+fn5+fn5+SW4gZmlsZSBpbmNsdWRlZCBmcm9t
+IC91c3IvaW5jbHVkZS9nbGliLTIuMC9nbGliL2dhbGxvY2EuaDozMixmcm9tIC91c3IvaW5jbHVk
+ZS9nbGliLTIuMC9nbGliLmg6MzAsZnJvbSAvZXRjL3hlbi9pZ3Z0Zy14ZW4vdG9vbHMvcWVtdS14
+ZW4tZGlyL2luY2x1ZGUvZ2xpYi1jb21wYXQuaDoxOSxmcm9tIC9ldGMveGVuL2lndnRnLXhlbi90
+b29scy9xZW11LXhlbi1kaXIvaW5jbHVkZS9xZW11L29zZGVwLmg6MTA3LGZyb20gL2V0Yy94ZW4v
+aWd2dGcteGVuL3Rvb2xzL3FlbXUteGVuLWRpci91dGlsL3FlbXUtZXJyb3IuYzoxMzovdXNyL2lu
+Y2x1ZGUvZ2xpYi0yLjAvZ2xpYi9ndHlwZXMuaDo1NDc6ODogbm90ZTogZGVjbGFyZWQgaGVyZTU0
+NyB8IHN0cnVjdCBHVGltZVZhbHwgXn5+fn5+fn5+L2V0Yy94ZW4vaWd2dGcteGVuL3Rvb2xzL3Fl
+bXUteGVuLWRpci91dGlsL3FlbXUtZXJyb3IuYzoyMDU6OTogZXJyb3I6IOKAmGdfZ2V0X2N1cnJl
+bnRfdGltZeKAmSBpcyBkZXByZWNhdGVkOiBVc2UgJ2dfZ2V0X3JlYWxfdGltZScgaW5zdGVhZCBb
+LVdlcnJvcj1kZXByZWNhdGVkLWRlY2xhcmF0aW9uc10yMDUgfCBnX2dldF9jdXJyZW50X3RpbWUo
+JnR2KTt8IF5+fn5+fn5+fn5+fn5+fn5+fkluIGZpbGUgaW5jbHVkZWQgZnJvbSAvdXNyL2luY2x1
+ZGUvZ2xpYi0yLjAvZ2xpYi9naW9jaGFubmVsLmg6MzMsZnJvbSAvdXNyL2luY2x1ZGUvZ2xpYi0y
+LjAvZ2xpYi5oOjU0LGZyb20gL2V0Yy94ZW4vaWd2dGcteGVuL3Rvb2xzL3FlbXUteGVuLWRpci9p
+bmNsdWRlL2dsaWItY29tcGF0Lmg6MTksZnJvbSAvZXRjL3hlbi9pZ3Z0Zy14ZW4vdG9vbHMvcWVt
+dS14ZW4tZGlyL2luY2x1ZGUvcWVtdS9vc2RlcC5oOjEwNyxmcm9tIC9ldGMveGVuL2lndnRnLXhl
+bi90b29scy9xZW11LXhlbi1kaXIvdXRpbC9xZW11LWVycm9yLmM6MTM6L3Vzci9pbmNsdWRlL2ds
+aWItMi4wL2dsaWIvZ21haW4uaDo2Nzk6ODogbm90ZTogZGVjbGFyZWQgaGVyZTY3OSB8IHZvaWQg
+Z19nZXRfY3VycmVudF90aW1lIChHVGltZVZhbCByZXN1bHQpO3wgXn5+fn5+fn5+fn5+fn5+fn5+
+L2V0Yy94ZW4vaWd2dGcteGVuL3Rvb2xzL3FlbXUteGVuLWRpci91dGlsL3FlbXUtZXJyb3IuYzoy
+MDY6OTogZXJyb3I6IOKAmGdfdGltZV92YWxfdG9faXNvODYwMeKAmSBpcyBkZXByZWNhdGVkOiBV
+c2UgJ2dfZGF0ZV90aW1lX2Zvcm1hdCcgaW5zdGVhZCBbLVdlcnJvcj1kZXByZWNhdGVkLWRlY2xh
+cmF0aW9uc10yMDYgfCB0aW1lc3RyID0gZ190aW1lX3ZhbF90b19pc284NjAxKCZ0dik7fCBefn5+
+fn5+SW4gZmlsZSBpbmNsdWRlZCBmcm9tIC91c3IvaW5jbHVkZS9nbGliLTIuMC9nbGliLmg6ODgs
+ZnJvbSAvZXRjL3hlbi9pZ3Z0Zy14ZW4vdG9vbHMvcWVtdS14ZW4tZGlyL2luY2x1ZGUvZ2xpYi1j
+b21wYXQuaDoxOSxmcm9tIC9ldGMveGVuL2lndnRnLXhlbi90b29scy9xZW11LXhlbi1kaXIvaW5j
+bHVkZS9xZW11L29zZGVwLmg6MTA3LGZyb20gL2V0Yy94ZW4vaWd2dGcteGVuL3Rvb2xzL3FlbXUt
+eGVuLWRpci91dGlsL3FlbXUtZXJyb3IuYzoxMzovdXNyL2luY2x1ZGUvZ2xpYi0yLjAvZ2xpYi9n
+dGltZXIuaDo3MzoxMDogbm90ZTogZGVjbGFyZWQgaGVyZTczIHwgZ2NoYXIgZ190aW1lX3ZhbF90
+b19pc284NjAxIChHVGltZVZhbCAqdGltZSkgR19HTlVDX01BTExPQzt8IF5+fn5+fn5+fn5+fn5+
+fn5+fn5+fmNjMTogYWxsIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzDQoNCg0KDQoN
+CmFueSBoZWxwIGlzIGFwcHJlY2lhdGVkLiAgU29tZW9uZSBtdXN0IGhlbHAgbWUsIHRoYW5raW5n
+IG1lIGZvciBhbGwgdGhlIGVmZm9ydHMgSSBhbSBtYWtpbmcgdG8gbWFrZSB3b3JrIGEgY29kZSBm
+dWxsIG9mIGVycm9ycy4gSSB3b3VsZCBhbHNvIGtub3cgaWYgSSBjYW4gYWN0aXZhdGUgdGhlIHBh
+c3N0aHJvdWdoIG9mIHRoZSBpbnRlbCBpbnRlZ3JhdGVkIGdwdSB1c2luZyB0aGUgcHJlY29tcGls
+ZWQgeGVuLWh5cGVydmlzb3IgcGFja2FnZSB0aGF0J3Mgb24gdWJ1bnR1LiBSaWdodCBub3cgSSB0
+cmllZCB0byBjb21waWxlIGl0IGZyb20gc2NyYXRjaCBiZWNhdXNlIEkndmUgdGhvdWdodCB0aGF0
+IGl0IHdhcyBhIG5lY2Vzc2FyeSBzdGVwLGFzIGRlc2NyaWJlZCBvbiB0aGUgZ3VpZGUuIEJ1dCBJ
+bSBub3Qgc3VyZSBvbiB0aGlzIHBvaW50Lg0KDQoNCg0KDQoNCg0KDQotLSANCg0KDQpNYXJpby4N
+Cg0KDQoNCg==
 
