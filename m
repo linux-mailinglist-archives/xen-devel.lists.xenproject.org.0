@@ -2,72 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65EF225C701
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 18:36:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7218625C70D
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 18:39:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDsCr-0006H4-JP; Thu, 03 Sep 2020 16:35:25 +0000
+	id 1kDsGC-0006Wn-2q; Thu, 03 Sep 2020 16:38:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=su+M=CM=intel.com=ashok.raj@srs-us1.protection.inumbo.net>)
- id 1kDsCq-0006Gz-Gw
- for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 16:35:24 +0000
-X-Inumbo-ID: 11df204a-dee9-4b43-bfa9-f51799617fe6
-Received: from mga03.intel.com (unknown [134.134.136.65])
+ <SRS0=rP6q=CM=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kDsGA-0006Wi-FA
+ for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 16:38:50 +0000
+X-Inumbo-ID: d7547028-3e32-4801-b499-b7f4e2566d78
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11df204a-dee9-4b43-bfa9-f51799617fe6;
- Thu, 03 Sep 2020 16:35:22 +0000 (UTC)
-IronPort-SDR: KgKnbdRcsDUYdL69UWVeKH69RZ7+deD8CVgwRCFT52bUDxzfqG4us4WfaqhceKiJHNtaqJKUFQ
- 2SuoEAuPBoeg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="157623236"
-X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="157623236"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 09:35:21 -0700
-IronPort-SDR: fpm2EUkci2oTbjGtopGBquDwwKng+PMe+foZPSI3HK+bv08KmruAxr7wF/55ACFaKSLBoUxQVH
- vLRGOXY9BheA==
-X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="503124720"
-Received: from araj-mobl1.jf.intel.com ([10.254.124.120])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 09:35:18 -0700
-Date: Thu, 3 Sep 2020 09:35:16 -0700
-From: "Raj, Ashok" <ashok.raj@intel.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
- Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>,
- Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- Ashok Raj <ashok.raj@intel.com>
-Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
-Message-ID: <20200903163516.GA23129@araj-mobl1.jf.intel.com>
-References: <20200826111628.794979401@linutronix.de>
+ id d7547028-3e32-4801-b499-b7f4e2566d78;
+ Thu, 03 Sep 2020 16:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599151129;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=1r9p2+RFoF3u+hOb93ac0ysyr0EJPEppHknwa791fSA=;
+ b=EUbg9dD8+DiJNN/HgoMIWVR3KDHZDBowzxCcMMGAf/+6OaqfaZqKJaGO
+ 6pjRcDjJy9gj3hLbkH/2QuKCiqKCYRTIyxNufrcv4Fphq72Kj2ZDHMA+s
+ KkesPvOhuQAD6Hj2qJDY1/KzeRG20RwGlyRVW1I0YyjzqS/UMOWUlcVlp k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: n1UBm6NTmzRoEEmp6chXaBm2JeGlv1UPeWW4NcDpE6MmwKaEEug3qgxA4LMjLaJkfVteFGd+aK
+ UyQpDEBtpjDgR7UYwd0Jg33GV7o86inlKKFgsaaHyJNUflCzFSfwopxMOWerSgF0XhG9sEzEfL
+ 4RRD4RotP+qyYV2hpJYsl3r0gsfqUIOsSdH5lSVHXWp122/oY9ooFXECyGx/srx7sfWn8zfJG2
+ vY03kGbKprm5mmB9gPqzwmUs7bHHXQflmjbxrqlmteL5zA03CFuteALBCgRnmyTsXmwaj14XY0
+ bkc=
+X-SBRS: 2.7
+X-MesageID: 26904079
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,387,1592884800"; d="scan'208";a="26904079"
+Date: Thu, 3 Sep 2020 18:38:37 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+CC: <linux-kernel@vger.kernel.org>, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>, David Airlie <airlied@linux.ie>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Dan Carpenter
+ <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>, Yan Yankovskyi
+ <yyankovskyi@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <xen-devel@lists.xenproject.org>, <linux-mm@kvack.org>, David Hildenbrand
+ <david@redhat.com>, Michal Hocko <mhocko@kernel.org>, Dan Williams
+ <dan.j.williams@intel.com>
+Subject: Re: [PATCH v5 3/3] xen: add helpers to allocate unpopulated memory
+Message-ID: <20200903163837.GM753@Air-de-Roger>
+References: <20200901083326.21264-1-roger.pau@citrix.com>
+ <20200901083326.21264-4-roger.pau@citrix.com>
+ <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200826111628.794979401@linutronix.de>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+In-Reply-To: <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,46 +76,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Thomas,
-
-Thanks a ton for jumping in helping on straightening it for IMS!!!
-
-
-On Wed, Aug 26, 2020 at 01:16:28PM +0200, Thomas Gleixner wrote:
-> This is the second version of providing a base to support device MSI (non
-> PCI based) and on top of that support for IMS (Interrupt Message Storm)
-
-s/Storm/Store
-
-maybe pun intended :-)
-
-> based devices in a halfways architecture independent way.
-
-You mean "halfways" because the message addr and data follow guidelines
-per arch (x86 or such), but the location of the storage isn't dictated
-by architecture? or did you have something else in mind? 
-
+On Thu, Sep 03, 2020 at 05:30:07PM +0200, Jürgen Groß wrote:
+> On 01.09.20 10:33, Roger Pau Monne wrote:
+> > To be used in order to create foreign mappings. This is based on the
+> > ZONE_DEVICE facility which is used by persistent memory devices in
+> > order to create struct pages and kernel virtual mappings for the IOMEM
+> > areas of such devices. Note that on kernels without support for
+> > ZONE_DEVICE Xen will fallback to use ballooned pages in order to
+> > create foreign mappings.
+> > 
+> > The newly added helpers use the same parameters as the existing
+> > {alloc/free}_xenballooned_pages functions, which allows for in-place
+> > replacement of the callers. Once a memory region has been added to be
+> > used as scratch mapping space it will no longer be released, and pages
+> > returned are kept in a linked list. This allows to have a buffer of
+> > pages and prevents resorting to frequent additions and removals of
+> > regions.
+> > 
+> > If enabled (because ZONE_DEVICE is supported) the usage of the new
+> > functionality untangles Xen balloon and RAM hotplug from the usage of
+> > unpopulated physical memory ranges to map foreign pages, which is the
+> > correct thing to do in order to avoid mappings of foreign pages depend
+> > on memory hotplug.
+> > 
+> > Note the driver is currently not enabled on Arm platforms because it
+> > would interfere with the identity mapping required on some platforms.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> The first version can be found here:
+> Sorry, I just got a build error for x86 32-bit build:
 > 
->     https://lore.kernel.org/r/20200821002424.119492231@linutronix.de
-> 
+> WARNING: unmet direct dependencies detected for ZONE_DEVICE
+>   Depends on [n]: MEMORY_HOTPLUG [=n] && MEMORY_HOTREMOVE [=n] &&
+> SPARSEMEM_VMEMMAP [=n] && ARCH_HAS_PTE_DEVMAP [=n]
+>   Selected by [y]:
+>   - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86 [=y]
+>   GEN     Makefile
+>   CC      kernel/bounds.s
+>   CALL    /home/gross/korg/src/scripts/atomic/check-atomics.sh
+>   UPD     include/generated/bounds.h
+>   CC      arch/x86/kernel/asm-offsets.s
+> In file included from /home/gross/korg/src/include/linux/mmzone.h:19:0,
+>                  from /home/gross/korg/src/include/linux/gfp.h:6,
+>                  from /home/gross/korg/src/include/linux/slab.h:15,
+>                  from /home/gross/korg/src/include/linux/crypto.h:19,
+>                  from /home/gross/korg/src/arch/x86/kernel/asm-offsets.c:9:
+> /home/gross/korg/src/include/linux/page-flags-layout.h:95:2: error: #error
+> "Not enough bits in page flags"
+>  #error "Not enough bits in page flags"
+>   ^~~~~
+> make[2]: *** [/home/gross/korg/src/scripts/Makefile.build:114:
+> arch/x86/kernel/asm-offsets.s] Error 1
+> make[1]: *** [/home/gross/korg/src/Makefile:1175: prepare0] Error 2
+> make[1]: Leaving directory '/home/gross/korg/x8632'
+> make: *** [Makefile:185: __sub-make] Error 2
 
-[snip]
+Sorry for this. I've tested a 32bit build but I think it was before
+the last Kconfig changes. I'm a little unsure how to solve this, as
+ZONE_DEVICE doesn't select the required options for it to run, but
+rather depends on them to be available.
 
-> 
-> Changes vs. V1:
-> 
->    - Addressed various review comments and addressed the 0day fallout.
->      - Corrected the XEN logic (J�rgen)
->      - Make the arch fallback in PCI/MSI opt-in not opt-out (Bjorn)
-> 
->    - Fixed the compose MSI message inconsistency
-> 
->    - Ensure that the necessary flags are set for device SMI
+You can trigger something similar on x86-64 by doing:
 
-is that supposed to be MSI? 
+$ make ARCH=x86_64 xen.config
+Using .config as base
+Merging ./kernel/configs/xen.config
+Merging ./arch/x86/configs/xen.config
+#
+# merged configuration written to .config (needs make)
+#
+scripts/kconfig/conf  --olddefconfig Kconfig
 
-Cheers,
-Ashok
+WARNING: unmet direct dependencies detected for ZONE_DEVICE
+  Depends on [n]: MEMORY_HOTPLUG [=y] && MEMORY_HOTREMOVE [=n] && SPARSEMEM_VMEMMAP [=y] && ARCH_HAS_PTE_DEVMAP [=y]
+  Selected by [y]:
+  - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86_64 [=y]
+#
+# configuration written to .config
+#
+
+I think the only solution is to have XEN_UNPOPULATED_ALLOC depend on
+ZONE_DEVICE rather than select it?
+
+Thanks, Roger.
 
