@@ -2,54 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFFFA25C6CF
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 18:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65EF225C701
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 18:36:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDs7d-0005QM-RN; Thu, 03 Sep 2020 16:30:01 +0000
+	id 1kDsCr-0006H4-JP; Thu, 03 Sep 2020 16:35:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bOgh=CM=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1kDs7c-0005QH-3q
- for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 16:30:00 +0000
-X-Inumbo-ID: 35f723f3-d0f7-4953-8f20-f5cb68f178d2
-Received: from mx.upb.ro (unknown [141.85.13.5])
+ <SRS0=su+M=CM=intel.com=ashok.raj@srs-us1.protection.inumbo.net>)
+ id 1kDsCq-0006Gz-Gw
+ for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 16:35:24 +0000
+X-Inumbo-ID: 11df204a-dee9-4b43-bfa9-f51799617fe6
+Received: from mga03.intel.com (unknown [134.134.136.65])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35f723f3-d0f7-4953-8f20-f5cb68f178d2;
- Thu, 03 Sep 2020 16:29:58 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 5AB61B56125E;
- Thu,  3 Sep 2020 19:29:57 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id x_KpkFN47xiC; Thu,  3 Sep 2020 19:29:54 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id DFD47B561A48;
- Thu,  3 Sep 2020 19:29:54 +0300 (EEST)
-X-Virus-Scanned: amavisd-new at upb.ro
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id OKLIjeucGmd5; Thu,  3 Sep 2020 19:29:54 +0300 (EEST)
-Received: from [192.168.1.35] (5-12-253-103.residential.rdsnet.ro
- [5.12.253.103]) by mx.upb.ro (Postfix) with ESMTPSA id 69F3DB56125E;
- Thu,  3 Sep 2020 19:29:54 +0300 (EEST)
-Subject: Re: [xen-unstable test] 153602: regressions - FAIL
-To: Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <osstest-153602-mainreport@xen.org>
- <1bdbf90f-2150-cb86-63a2-37e5148ec34e@suse.com>
- <24401.5895.115731.487189@mariner.uk.xensource.com>
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <838c29e0-3138-6078-dc14-146afb3aba77@cs.pub.ro>
-Date: Thu, 3 Sep 2020 19:29:53 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 11df204a-dee9-4b43-bfa9-f51799617fe6;
+ Thu, 03 Sep 2020 16:35:22 +0000 (UTC)
+IronPort-SDR: KgKnbdRcsDUYdL69UWVeKH69RZ7+deD8CVgwRCFT52bUDxzfqG4us4WfaqhceKiJHNtaqJKUFQ
+ 2SuoEAuPBoeg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="157623236"
+X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="157623236"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 09:35:21 -0700
+IronPort-SDR: fpm2EUkci2oTbjGtopGBquDwwKng+PMe+foZPSI3HK+bv08KmruAxr7wF/55ACFaKSLBoUxQVH
+ vLRGOXY9BheA==
+X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="503124720"
+Received: from araj-mobl1.jf.intel.com ([10.254.124.120])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 09:35:18 -0700
+Date: Thu, 3 Sep 2020 09:35:16 -0700
+From: "Raj, Ashok" <ashok.raj@intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
+ Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+ Ashok Raj <ashok.raj@intel.com>
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
+Message-ID: <20200903163516.GA23129@araj-mobl1.jf.intel.com>
+References: <20200826111628.794979401@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <24401.5895.115731.487189@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200826111628.794979401@linutronix.de>
+User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,46 +81,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/3/20 7:17 PM, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [xen-unstable test] 153602: regressions - FAIL"):
->> On 03.09.2020 12:24, osstest service owner wrote:
->>> flight 153602 xen-unstable real [real]
->>> http://logs.test-lab.xenproject.org/osstest/logs/153602/
->>>
->>> Regressions :-(
->>>
->>> Tests which did not succeed and are blocking,
->>> including tests which could not be run:
->>>  test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 152877
->>>  test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 152877
->>
->> While at least the hypervisor logs don't provide clear indication
->> (and I don't know where else to look among the files osstest
->> provides) I can't help thinking that stubdom apparently
->> crashing is still fallout from the mini-os changes (and no-one
->> really looks to care). In particular I think that this
-> 
-> I haven't looked at this in detail but I notice that I am having
-> build failures.
-> 
-> Prior to e013e8514389 "config: use mini-os master for unstable", the
-> version of mini-os used for builds was controlled by xen.git's
-> Config.mk.
-> 
-> Since then it has been mini-os master.  NB there is no push gate for
-> mini-os.  IIRC we discussed this at the time and it was thought that
-> breakage due to mini-os would be unlikely.
-> 
-> To unblock development in xen.git I suggest reverting the minios part
-> of 165f3afbfc3d "Config.mk: Unnail versions (for unstable branch)",
-> choosing some known-working version of minios to put in Config.mk.
-> 
-> Perhaps there should indeed be a minios pushgate.  Then osstest would
-> use the tested version.
+Hi Thomas,
 
-Sorry for breaking this, guys. I've just sent the fix for mini-os on the
-mailing list.
+Thanks a ton for jumping in helping on straightening it for IMS!!!
+
+
+On Wed, Aug 26, 2020 at 01:16:28PM +0200, Thomas Gleixner wrote:
+> This is the second version of providing a base to support device MSI (non
+> PCI based) and on top of that support for IMS (Interrupt Message Storm)
+
+s/Storm/Store
+
+maybe pun intended :-)
+
+> based devices in a halfways architecture independent way.
+
+You mean "halfways" because the message addr and data follow guidelines
+per arch (x86 or such), but the location of the storage isn't dictated
+by architecture? or did you have something else in mind? 
+
+> 
+> The first version can be found here:
+> 
+>     https://lore.kernel.org/r/20200821002424.119492231@linutronix.de
+> 
+
+[snip]
+
+> 
+> Changes vs. V1:
+> 
+>    - Addressed various review comments and addressed the 0day fallout.
+>      - Corrected the XEN logic (Jürgen)
+>      - Make the arch fallback in PCI/MSI opt-in not opt-out (Bjorn)
+> 
+>    - Fixed the compose MSI message inconsistency
+> 
+>    - Ensure that the necessary flags are set for device SMI
+
+is that supposed to be MSI? 
 
 Cheers,
-Costin
+Ashok
 
