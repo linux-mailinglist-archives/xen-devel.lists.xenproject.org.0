@@ -2,73 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4889425BB4C
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 08:57:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CFC25BCFB
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Sep 2020 10:17:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kDjBI-0007lL-Ov; Thu, 03 Sep 2020 06:57:12 +0000
+	id 1kDkPL-0007CS-2w; Thu, 03 Sep 2020 08:15:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zDHn=CM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kDjBH-0007lG-BE
- for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 06:57:11 +0000
-X-Inumbo-ID: 1b5c40f4-394a-4663-9deb-d42ecf1dc16d
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=rP6q=CM=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kDkPJ-0007CN-FY
+ for xen-devel@lists.xenproject.org; Thu, 03 Sep 2020 08:15:45 +0000
+X-Inumbo-ID: de320057-b441-41b4-8fc1-8c6145a53830
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b5c40f4-394a-4663-9deb-d42ecf1dc16d;
- Thu, 03 Sep 2020 06:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=kDijtiMMo9FeCjg+KXJMg+9rgMT4sClqw1FtAy9cc0I=; b=BpNpb0hp5W5YMSTWgi0oe96Lw6
- f14G0szysVeddZj/OVaHJyKAswKvOYvHWTJn+s2pn8NmTEn/SJ4wjoejjlZf0onfV4I/kEeHdSBek
- EDKwfxabGfV/3/lJHHwhFHG3KVM4N35V8N7v8bTGjjrYLYxDduDS7SSpBm8f/dDyY8kQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kDjBE-0001AJ-TB; Thu, 03 Sep 2020 06:57:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kDjBE-0002Kx-JG; Thu, 03 Sep 2020 06:57:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kDjBE-0005IW-Ik; Thu, 03 Sep 2020 06:57:08 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153608-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id de320057-b441-41b4-8fc1-8c6145a53830;
+ Thu, 03 Sep 2020 08:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599120944;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=VjwptlLFdmjOA316+0lctWjIVuC9966OP2Cd6juf8C8=;
+ b=SyKKwsnh16pfSkGUPYBYJAeZrBc/NpJabPrN9ckpiK7Wz/BKVoNpXXD3
+ VozxK+mn8XQEJJ6oATCBCeA+mwtHfgUVno0rmKmbkDq8mRXR7YsTl92/e
+ SS/nQrj5O3G8lf9fHvEv/MpWKje8ljGMGBNUAJxwCmKrqJKZ+GI1FHx3a 4=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 8Q8i1MWT6hIskMtEOLfLSpFUnvFmV/oOqvTAqLU/Qthoawk9lXvYaG2tRXJideoevy/PUWmuVL
+ Eos+UtMkZv91JPYjFQz3JFpKeKJQesxbgblSX24p5n91XGlfdJqvaWwcn1ws0/DoP+DkhkQ29q
+ 7SM8tdO5lNo1pNaei7VcjkWqGsEN6zs9UmnimN/DQJ30y9zg00obk+DQvN6DoBIJJOM3rT5Ggj
+ dGjV9qWgschootmzZs7Jx1XY7+t0+fY0IKxORirKVFv0PlBOOwe2oPYMrl/vZ859EHCcxLLMAu
+ lGA=
+X-SBRS: 2.7
+X-MesageID: 25909845
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,385,1592884800"; d="scan'208";a="25909845"
+Date: Thu, 3 Sep 2020 10:15:28 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
+ <wl@xen.org>
+Subject: Re: [PATCH v3 4/8] x86/svm: handle BU_CFG and BU_CFG2 with cases
+Message-ID: <20200903080657.GJ753@Air-de-Roger>
+References: <20200901105445.22277-1-roger.pau@citrix.com>
+ <20200901105445.22277-5-roger.pau@citrix.com>
+ <6f7a8f21-008f-8b16-fc81-655a58338869@citrix.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 153608: regressions - FAIL
-X-Osstest-Failures: libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-xsm:xen-build:fail:regression
- libvirt:build-i386:xen-build:fail:regression
- libvirt:build-amd64-xsm:xen-build:fail:regression
- libvirt:build-amd64:xen-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=a5af3bd8627998f9a6034f55ee17067b80b1360d
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 03 Sep 2020 06:57:08 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <6f7a8f21-008f-8b16-fc81-655a58338869@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,157 +68,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153608 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153608/
+On Wed, Sep 02, 2020 at 10:02:33PM +0100, Andrew Cooper wrote:
+> On 01/09/2020 11:54, Roger Pau Monne wrote:
+> > @@ -1942,19 +1966,6 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+> >      default:
+> >          if ( rdmsr_safe(msr, *msr_content) == 0 )
+> >              break;
+> > -
+> > -        if ( boot_cpu_data.x86 == 0xf && msr == MSR_F10_BU_CFG )
+> > -        {
+> > -            /* Win2k8 x64 reads this MSR on revF chips, where it
+> > -             * wasn't publically available; it uses a magic constant
+> > -             * in %rdi as a password, which we don't have in
+> > -             * rdmsr_safe().  Since we'll ignore the later writes,
+> > -             * just use a plausible value here (the reset value from
+> > -             * rev10h chips) if the real CPU didn't provide one. */
+> > -            *msr_content = 0x0000000010200020ull;
+> > -            break;
+> > -        }
+> > -
+> >          goto gpf;
+> >      }
+> >  
+> > @@ -2110,6 +2121,12 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+> >          nsvm->ns_msr_hsavepa = msr_content;
+> >          break;
+> >  
+> > +    case MSR_F10_BU_CFG:
+> > +    case MSR_F10_BU_CFG2:
+> > +        if ( rdmsr_safe(msr, msr_content) )
+> > +            goto gpf;
+> 
+> The comment you've moved depends on this not having this behaviour, as
+> you'll now hand #GP back to Win2k8 on its write.
 
-Regressions :-(
+Oh, unless I'm very confused the comment was already wrong, since
+svm_msr_write_intercept previous to this patch would return a #GP when
+trying to write to BU_CFG if the underlying MSR is not readable, so
+this just keeps the previous behavior.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-xsm                6 xen-build                fail REGR. vs. 151777
- build-i386                    6 xen-build                fail REGR. vs. 151777
- build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
- build-amd64                   6 xen-build                fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+Looking at the original commit (338db98dd8d) it seems the intention
+was to only handle reads and let writes return a #GP?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+Maybe Win2k8 would only read the MSR?
 
-version targeted for testing:
- libvirt              a5af3bd8627998f9a6034f55ee17067b80b1360d
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> Honestly, given that how obsolete both Win2k8 and K10's are, I'm
+> seriously tempted to suggest dropping this workaround entirely.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z   55 days
-Failing since        151818  2020-07-11 04:18:52 Z   54 days   50 attempts
-Testing same since   153608  2020-09-03 04:21:16 Z    0 days    1 attempts
+I'm fine to just drop the workaround, but it seems quite trivial to
+just keep it as is (reads returns a know value, writes #GP). I can
+adjust the comment to be clearer.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 12209 lines long.)
+Thanks, Roger.
 
