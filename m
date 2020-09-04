@@ -2,78 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9419625D3D0
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 10:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7F8625D3D9
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 10:42:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE7HD-0006m6-UJ; Fri, 04 Sep 2020 08:40:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kE7J0-0006vl-AE; Fri, 04 Sep 2020 08:42:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6qam=CN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kE7HC-0006lz-Q4
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 08:40:54 +0000
-X-Inumbo-ID: 99bb47e0-4fa3-4434-a17d-9d577e1a351d
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 99bb47e0-4fa3-4434-a17d-9d577e1a351d;
- Fri, 04 Sep 2020 08:40:53 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id u18so5285961wmc.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 01:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=U6bsazh80Yvg1pEGmhf4OTDyfR/0MSP7ClpDo249/z0=;
- b=ceroS0qb/A+FHF4Z3F36iq9HglNI6xWYA+W6Uvc8wHCG1tBfDOe33BLQ85qfMDHCXb
- so9WAwV6XsFiwsrEi7cWw9wM53HDUWx0Je3D74SYWWupKCBS7oTbcJ2iujVbKfFINEL1
- xiPTmG9ekrjj9QKOxGNMOIoJXNn2zHto0u/48p3NfG3+L8Zmo1cy36I5EsUH5OnmkdlJ
- TbziAt3w2Sfhpg+VIoVRRUT6zbbgIfLf5kX2oB2EdRDeDT13aWo+wFOLPzwIDk8X65Ts
- 9B9zb5Cc9kjhyYlIvUH/S+oxUcqbR+p2cxEVcVXXlLEnAcX8H1alhfUDh5E9nNJ6zQ+7
- LMIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=U6bsazh80Yvg1pEGmhf4OTDyfR/0MSP7ClpDo249/z0=;
- b=VbQvgB+/J5DtSFU5gyvPwYb5gXSKWzKrVR7t1p4UQkJ/+/d16Iw7BXxtP273YhQ/mE
- yxb0rpLcyIOf1WWTntjbm+Ay/lcndbnyMcNWNacIafPXq28kxiaA9BVxv89i0/ESnsSZ
- 5Q/fBE9kIsvWxgdt/zxW2zeVu5O8q3vphbCTcUV/Yz4o51OHyZYIK17/kSD8NP6qjD7P
- kuK/qdjlB4bfzG4fuu6CMkydcF/O6/ugK8icwABf7QG+46/N/XWIFUuaCEhbDZZYay10
- muv2XYm4IWgl3KjenYILRHwGdPlytYzhjBJmvQGOv2IcOiJ1ii49BUM3QXAgFMgVnjmd
- fnqA==
-X-Gm-Message-State: AOAM531ihWny5FbFD9IOlVG3qrlYGyT0dmNCERqKRTrNb5WMwM8vOT1V
- YLlipqk61V2hEdNyFJj1XS0=
-X-Google-Smtp-Source: ABdhPJz18KoQXCzrwopIoj0QfQ427e2c5LRw+opgMDfaTH6JTZXEgE8BZAmSlUK+gnbocSUyJ71+Mg==
-X-Received: by 2002:a7b:c40b:: with SMTP id k11mr6316609wmi.135.1599208853017; 
- Fri, 04 Sep 2020 01:40:53 -0700 (PDT)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:4c49:1021:43cd:65b7])
- by smtp.gmail.com with ESMTPSA id a74sm10137929wme.11.2020.09.04.01.40.52
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 04 Sep 2020 01:40:52 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-Cc: <xen-devel@lists.xenproject.org>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>,
- =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
- "'Jun Nakajima'" <jun.nakajima@intel.com>,
- "'Kevin Tian'" <kevin.tian@intel.com>,
- "'George Dunlap'" <George.Dunlap@eu.citrix.com>
-References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
- <3587573b-2eeb-48fa-b397-65fb94f360c8@suse.com>
-In-Reply-To: <3587573b-2eeb-48fa-b397-65fb94f360c8@suse.com>
-Subject: RE: Ping: [PATCH v3] x86/HVM: more consistently set I/O completion
-Date: Fri, 4 Sep 2020 09:40:54 +0100
-Message-ID: <001e01d68297$1ae535b0$50afa110$@xen.org>
+ <SRS0=/+qm=CN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kE7Iy-0006vg-Uc
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 08:42:45 +0000
+X-Inumbo-ID: 1d3a705c-2eb9-4087-b891-a2ff9245adce
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d3a705c-2eb9-4087-b891-a2ff9245adce;
+ Fri, 04 Sep 2020 08:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599208964;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=xLTKJpKu0Qb9zvtBCrFuNtN0uryK+Cr91K+kobkwuTU=;
+ b=bRJM5iiPIKl+tE2VIHsJnJCoF3CLsHcWlkd8qDNgtFzxxHq36BTnmssE
+ g+ZmurFaC6LK1S6Jn/ZftPPuohgKe8TkPfIpOYgzWCS8Y5EvYSGwxQizo
+ 7Cyn+CrNeBnGLw4KFFC0drlB7nc0EVVCSNbmRZsW8XDeuB3VfajDnIics 0=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: h5tULVCP7TU027wl9AXL6ZQ6VRDTloWxNR1nakHosYYzU8awVMN14syMLQayv9uBc8sCFQrpo9
+ MPsKynxlrUeIV2fLzkBXNB2LUVlnfaK5CMhGyHMRLQdBCX/4b+icfvHWVHnKE5oWjtKeDrh1Vt
+ bxXRH4/LS58XLNlEMXW3QOoEhr480K9hH8A115xIrprTnfo3A9FB8sMcgG1DSn17YgpLbZzhqS
+ 8hNixQHRV8a/451xr8mSb/Ts/liLTz0NYAxGPT2Wdtw9MukJ2GIKcdJVYScDS0jHAxjENA9Gp1
+ +EE=
+X-SBRS: 2.7
+X-MesageID: 26001821
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,389,1592884800"; d="scan'208";a="26001821"
+Date: Fri, 4 Sep 2020 10:42:29 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+CC: <linux-kernel@vger.kernel.org>, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>, David Airlie <airlied@linux.ie>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Dan Carpenter
+ <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>, Yan Yankovskyi
+ <yyankovskyi@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <xen-devel@lists.xenproject.org>, <linux-mm@kvack.org>, David Hildenbrand
+ <david@redhat.com>, Michal Hocko <mhocko@kernel.org>, Dan Williams
+ <dan.j.williams@intel.com>
+Subject: Re: [PATCH v5 3/3] xen: add helpers to allocate unpopulated memory
+Message-ID: <20200904084229.GN753@Air-de-Roger>
+References: <20200901083326.21264-1-roger.pau@citrix.com>
+ <20200901083326.21264-4-roger.pau@citrix.com>
+ <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
+ <20200903163837.GM753@Air-de-Roger>
+ <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKLGnh8NTAXxwELiAxasezQUK7x/AJwv8HCp9tzDLA=
-Content-Language: en-gb
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,99 +76,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 04 September 2020 09:16
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Andrew Cooper =
-<andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>;
-> Roger Pau Monn=C3=A9 <roger.pau@citrix.com>; Jun Nakajima =
-<jun.nakajima@intel.com>; Kevin Tian
-> <kevin.tian@intel.com>; George Dunlap <George.Dunlap@eu.citrix.com>
-> Subject: Ping: [PATCH v3] x86/HVM: more consistently set I/O =
-completion
->=20
-> On 27.08.2020 09:09, Jan Beulich wrote:
-> > Doing this just in hvm_emulate_one_insn() is not enough.
-> > hvm_ud_intercept() and hvm_emulate_one_vm_event() can get invoked =
-for
-> > insns requiring one or more continuations, and at least in principle
-> > hvm_emulate_one_mmio() could, too. Without proper setting of the =
-field,
-> > handle_hvm_io_completion() will do nothing completion-wise, and in
-> > particular the missing re-invocation of the insn emulation paths =
-will
-> > lead to emulation caching not getting disabled in due course, =
-causing
-> > the ASSERT() in {svm,vmx}_vmenter_helper() to trigger.
-> >
-> > Reported-by: Don Slutz <don.slutz@gmail.com>
-> >
-> > Similar considerations go for the clearing of vio->mmio_access, =
-which
-> > gets moved as well.
-> >
-> > Additionally all updating of vio->mmio_* now gets done dependent =
-upon
-> > the new completion value, rather than hvm_ioreq_needs_completion()'s
-> > return value. This is because it is the completion chosen which =
-controls
-> > what path will be taken when handling the completion, not the simple
-> > boolean return value. In particular, PIO completion doesn't involve
-> > going through the insn emulator, and hence emulator state ought to =
-get
-> > cleared early (or it won't get cleared at all).
-> >
-> > The new logic, besides allowing for a caller override for the
-> > continuation type to be set (for VMX real mode emulation), will also
-> > avoid setting an MMIO completion when a simpler PIO one will do. =
-This
-> > is a minor optimization only as a side effect - the behavior is =
-strictly
-> > needed at least for hvm_ud_intercept(), as only memory accesses can
-> > successfully complete through handle_mmio(). Care of course needs to =
-be
-> > taken to correctly deal with "mixed" insns (doing both MMIO and PIO =
-at
-> > the same time, i.e. INS/OUTS). For this, hvmemul_validate() now =
-latches
-> > whether the insn being emulated is a memory access, as this =
-information
-> > is no longer easily available at the point where we want to consume =
-it.
-> >
-> > Note that the presence of non-NULL .validate fields in the two ops
-> > structures in hvm_emulate_one_mmio() was really necessary even =
-before
-> > the changes here: Without this, passing non-NULL as middle argument =
-to
-> > hvm_emulate_init_once() is meaningless.
-> >
-> > The restrictions on when the #UD intercept gets actually enabled are =
-why
-> > it was decided that this is not a security issue:
-> > - the "hvm_fep" option to enable its use is a debugging option only,
-> > - for the cross-vendor case is considered experimental, even if
-> >   unfortunately SUPPORT.md doesn't have an explicit statement about
-> >   this.
-> > The other two affected functions are
-> > - hvm_emulate_one_vm_event(), used for introspection,
-> > - hvm_emulate_one_mmio(), used for Dom0 only,
-> > which aren't qualifying this as needing an XSA either.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > Tested-by: Don Slutz <don.slutz@gmail.com>
->=20
-> Paul (in particular)?
->=20
+On Fri, Sep 04, 2020 at 09:00:18AM +0200, Jürgen Groß wrote:
+> On 03.09.20 18:38, Roger Pau Monné wrote:
+> > On Thu, Sep 03, 2020 at 05:30:07PM +0200, Jürgen Groß wrote:
+> > > On 01.09.20 10:33, Roger Pau Monne wrote:
+> > > > To be used in order to create foreign mappings. This is based on the
+> > > > ZONE_DEVICE facility which is used by persistent memory devices in
+> > > > order to create struct pages and kernel virtual mappings for the IOMEM
+> > > > areas of such devices. Note that on kernels without support for
+> > > > ZONE_DEVICE Xen will fallback to use ballooned pages in order to
+> > > > create foreign mappings.
+> > > > 
+> > > > The newly added helpers use the same parameters as the existing
+> > > > {alloc/free}_xenballooned_pages functions, which allows for in-place
+> > > > replacement of the callers. Once a memory region has been added to be
+> > > > used as scratch mapping space it will no longer be released, and pages
+> > > > returned are kept in a linked list. This allows to have a buffer of
+> > > > pages and prevents resorting to frequent additions and removals of
+> > > > regions.
+> > > > 
+> > > > If enabled (because ZONE_DEVICE is supported) the usage of the new
+> > > > functionality untangles Xen balloon and RAM hotplug from the usage of
+> > > > unpopulated physical memory ranges to map foreign pages, which is the
+> > > > correct thing to do in order to avoid mappings of foreign pages depend
+> > > > on memory hotplug.
+> > > > 
+> > > > Note the driver is currently not enabled on Arm platforms because it
+> > > > would interfere with the identity mapping required on some platforms.
+> > > > 
+> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > > 
+> > > Sorry, I just got a build error for x86 32-bit build:
+> > > 
+> > > WARNING: unmet direct dependencies detected for ZONE_DEVICE
+> > >    Depends on [n]: MEMORY_HOTPLUG [=n] && MEMORY_HOTREMOVE [=n] &&
+> > > SPARSEMEM_VMEMMAP [=n] && ARCH_HAS_PTE_DEVMAP [=n]
+> > >    Selected by [y]:
+> > >    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86 [=y]
+> > >    GEN     Makefile
+> > >    CC      kernel/bounds.s
+> > >    CALL    /home/gross/korg/src/scripts/atomic/check-atomics.sh
+> > >    UPD     include/generated/bounds.h
+> > >    CC      arch/x86/kernel/asm-offsets.s
+> > > In file included from /home/gross/korg/src/include/linux/mmzone.h:19:0,
+> > >                   from /home/gross/korg/src/include/linux/gfp.h:6,
+> > >                   from /home/gross/korg/src/include/linux/slab.h:15,
+> > >                   from /home/gross/korg/src/include/linux/crypto.h:19,
+> > >                   from /home/gross/korg/src/arch/x86/kernel/asm-offsets.c:9:
+> > > /home/gross/korg/src/include/linux/page-flags-layout.h:95:2: error: #error
+> > > "Not enough bits in page flags"
+> > >   #error "Not enough bits in page flags"
+> > >    ^~~~~
+> > > make[2]: *** [/home/gross/korg/src/scripts/Makefile.build:114:
+> > > arch/x86/kernel/asm-offsets.s] Error 1
+> > > make[1]: *** [/home/gross/korg/src/Makefile:1175: prepare0] Error 2
+> > > make[1]: Leaving directory '/home/gross/korg/x8632'
+> > > make: *** [Makefile:185: __sub-make] Error 2
+> > 
+> > Sorry for this. I've tested a 32bit build but I think it was before
+> > the last Kconfig changes. I'm a little unsure how to solve this, as
+> > ZONE_DEVICE doesn't select the required options for it to run, but
+> > rather depends on them to be available.
+> > 
+> > You can trigger something similar on x86-64 by doing:
+> > 
+> > $ make ARCH=x86_64 xen.config
+> > Using .config as base
+> > Merging ./kernel/configs/xen.config
+> > Merging ./arch/x86/configs/xen.config
+> > #
+> > # merged configuration written to .config (needs make)
+> > #
+> > scripts/kconfig/conf  --olddefconfig Kconfig
+> > 
+> > WARNING: unmet direct dependencies detected for ZONE_DEVICE
+> >    Depends on [n]: MEMORY_HOTPLUG [=y] && MEMORY_HOTREMOVE [=n] && SPARSEMEM_VMEMMAP [=y] && ARCH_HAS_PTE_DEVMAP [=y]
+> >    Selected by [y]:
+> >    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86_64 [=y]
+> > #
+> > # configuration written to .config
+> > #
+> > 
+> > I think the only solution is to have XEN_UNPOPULATED_ALLOC depend on
+> > ZONE_DEVICE rather than select it?
+> 
+> Yes, I think so.
+> 
+> I've folded that in and now build is fine.
 
-Sorry... been on my TODO list since you posted it. Will try and take a =
-look today.
+Thanks, I assume no further action is needed on my side.
 
-  Paul
-
+Roger.
 
