@@ -2,53 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79DE925DEE3
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 18:02:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 408C825DF84
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 18:14:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEE8t-0004Lr-D4; Fri, 04 Sep 2020 16:00:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kEELl-0005VZ-OI; Fri, 04 Sep 2020 16:14:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M9O1=CN=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kEE8r-0004Lm-Fu
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:00:45 +0000
-X-Inumbo-ID: aa541a22-18fe-47c9-b2ff-7859cef009cd
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kEELj-0005UN-Sg
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:14:03 +0000
+X-Inumbo-ID: b96d4883-2014-428d-8def-98e634f265bd
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aa541a22-18fe-47c9-b2ff-7859cef009cd;
- Fri, 04 Sep 2020 16:00:44 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b96d4883-2014-428d-8def-98e634f265bd;
+ Fri, 04 Sep 2020 16:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
- bh=PfjE2CARQ43l9ToWqn45hv2yhOg6NowQXb3kRhskSdw=; b=wl6DEK/79isF1sPcaofVrIn/a+
- NyYN5E2yVtrpa4neZrMuqEzSkz/rpa6dHSQKpbPTthVmXmGVuEDidpuou2ENl8T8x5CaHVx4yRrwh
- X4k+a3qu4M294nS/GFEfGmgSPaW4vQV9c6TUwbNm7Jo4hQStI4MdGwq9b/ZEgj2vBwFo=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+ bh=HY9WxId5g4Kb/TJLOG372qj+MKTXzsBPjv6TJMSSGHY=; b=67h3J8T8P31DzKXpa+tV+U0xBY
+ 5oYISSUmiQi1FTSXEY/X1vTQl3ucbU+HpqxwlWGFXcexOkxIk3gvm6QufeiaL+7Rmml0yqrIrriM/
+ tQHoJEqlxhe+/2YRV1QmaJ0Dy/zs1PyiC8Yr/h1hVWyZmsCAEflQnsgSXZOYEIwu/oRQ=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kEE8q-0000gZ-3P
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:00:44 +0000
-Received: from iwj (helo=mynotebook.example.org)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kEE8p-0002Eo-WB
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:00:44 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by mariner.uk.xensource.com with esmtp (Exim 4.89)
- (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1kEE8o-0008MM-5M; Fri, 04 Sep 2020 17:00:42 +0100
-From: Ian Jackson <iwj@xenproject.org>
-To: xen-devel@lists.xenproject.org
-Cc: iwj@xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Costin Lupu <costin.lupu@cs.pub.ro>, Wei Liu <wl@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH] minios: Revert recent change and revert to working minios
-Date: Fri,  4 Sep 2020 17:00:34 +0100
-Message-Id: <20200904160034.11456-1-iwj@xenproject.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <233c6207-4724-55b0-3c92-84251edfc5b2@suse.com>
-References: <233c6207-4724-55b0-3c92-84251edfc5b2@suse.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEELc-0000z1-As; Fri, 04 Sep 2020 16:13:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEELc-0000L8-3v; Fri, 04 Sep 2020 16:13:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEELc-0000IR-3U; Fri, 04 Sep 2020 16:13:56 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [linux-5.4 bisection] complete build-i386-xsm
+Message-Id: <E1kEELc-0000IR-3U@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 16:13:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,88 +55,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Currently, xen.git#staging does not build in many environments because
-of issues with minios master.  This regression was introduced in an
-uncontrolled manner by an update to mini-os.git#master.
+branch xen-unstable
+xenbranch xen-unstable
+job build-i386-xsm
+testid xen-build
 
-This is because in e013e8514389 "config: use mini-os master for
-unstable" we switched to tracking minios master in an uncontrolled
-manner.  At the time we thought it was unlikely that minios changes
-would break the Xen build.  This turns out to have been overly
-optimistic.
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Xen currently uses unstable internal interfaces of minios.  Until this
-can be sorted out, internal changes to minios can require lockstep
-changes in Xen.
+*** Found and reproduced problem changeset ***
 
-All this means that "config: use mini-os master for unstable" was
-wrong.  We should undo it.  Instead, we go back to the previous
-situation: xen.git names a specific minios commit.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  165f3afbfc3db70fcfdccad07085cde0a03c858b
+  Bug not present: 3df0424e69549ca21613fad3654509c35b2a3e94
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153717/
 
-This scheme is the model used for qemu-xen-traditional.
 
-That nailed commit must be updated manually, to have xen.git pick up
-changes from minios.  If the minios changes require changes in xen.git
-too, to avoid breaking the Xen build, they can be made freely in
-minios without adverse consequences.  When the minios commitid is
-updated in xen.git, the corresponding changes to the actual source
-files in xen.git should be bundled together.
+  commit 165f3afbfc3db70fcfdccad07085cde0a03c858b
+  Author: Ian Jackson <ian.jackson@eu.citrix.com>
+  Date:   Mon Jul 13 14:50:33 2020 +0100
+  
+      Config.mk: Unnail versions (for unstable branch)
+      
+      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-For example, when minios is fixed, 8d990807ec2c "stubdom/grub: update
-init_netfront() call for mini-os" will need to be reapplied, folded
-into the same commit as updates MINIOS_UPSTREAM_REVISION.  For now
-that commit must be reverted as we are going back to a previous
-version of minios.
 
-This reverts commit 8d990807ec2cde3061222a5ed2df62aba78bace9.
-This reverts commit e013e8514389b739153016349e49f5a78e34ddf0.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/build-i386-xsm.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Costin Lupu <costin.lupu@cs.pub.ro>
-CC: Wei Liu <wl@xen.org>
-CC: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Signed-off-by: Ian Jackson <iwj@xenproject.org>
----
- Config.mk              | 2 +-
- stubdom/grub/mini-os.c | 4 +++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/build-i386-xsm.xen-build --summary-out=tmp/153717.bisection-summary --basis-template=152853 --blessings=real,real-bisect linux-5.4 build-i386-xsm xen-build
+Searching for failure / basis pass:
+ 153668 fail [host=albana1] / 152853 [host=fiano1] 152675 [host=pinot0] 152664 [host=huxelrebe1] 152656 [host=chardonnay1] 152614 [host=albana0] 152562 [host=huxelrebe1] 152514 [host=huxelrebe0] 152501 [host=pinot1] 152486 [host=pinot0] 152331 [host=huxelrebe0] 152282 [host=huxelrebe0] 152137 [host=huxelrebe0] 152100 [host=albana0] 151939 [host=albana0] 151757 [host=huxelrebe1] 151516 [host=albana0] 151503 [host=huxelrebe1] 151339 [host=albana0] 151307 [host=chardonnay0] 151288 [host=huxelrebe0]\
+  151232 ok.
+Failure / basis pass flights: 153668 / 151232
+(tree with no url: minios)
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
+Basis pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#58ae92a993687d913aa6dd00ef3497a1bc5f6c40-63d92674d240ab4ecab94f98e1e198842bb7de00 git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db9934a34f816d78b-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#410cc30fdc590417ae730d635bbc70257adf6750-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345\
+ 694-155821a1990b6de78dde5f98fa5ab90e802021e0 git://xenbits.xen.org/xen.git#3625b04991b4d6affadd99d377ab84bac48dfff4-7a8d8bde9820387c3e168182b99fd9761c223fff
+Loaded 12584 nodes in revision graph
+Searching for test results:
+ 151200 pass irrelevant
+ 151232 pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
+ 151288 [host=huxelrebe0]
+ 151339 [host=albana0]
+ 151324 [host=huxelrebe0]
+ 151307 [host=chardonnay0]
+ 151327 pass irrelevant
+ 151503 [host=huxelrebe1]
+ 151516 [host=albana0]
+ 151757 [host=huxelrebe1]
+ 151939 [host=albana0]
+ 152100 [host=albana0]
+ 152137 [host=huxelrebe0]
+ 152282 [host=huxelrebe0]
+ 152331 [host=huxelrebe0]
+ 152486 [host=pinot0]
+ 152514 [host=huxelrebe0]
+ 152501 [host=pinot1]
+ 152562 [host=huxelrebe1]
+ 152614 [host=albana0]
+ 152656 [host=chardonnay1]
+ 152671 [host=elbling1]
+ 152673 pass irrelevant
+ 152664 [host=huxelrebe1]
+ 152674 [host=pinot0]
+ 152675 [host=pinot0]
+ 152853 [host=fiano1]
+ 153616 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
+ 153641 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
+ 153679 pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
+ 153682 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
+ 153683 fail 53936785b74dd0ab98453d610be6dfd12c2e5fc9 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 d9c812dda519a1a73e8370e1b81ddf46eb22ed16 98bed5de1de3352c63cfe29a00f17e8d9ce72689
+ 153684 fail e906346dcb80fce588ac774c8ec9694b62f0a257 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 6ada2285d9918859699c92e09540e023e0a16054 1969576661f3e34318e9b0a61a1a38f9a5aee16f
+ 153685 pass 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 88ab0c15525ced2eefe39220742efe4769089ad8 0e2e54966af556f4047c1048855c4a071028a32d
+ 153686 pass 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 1104288186ee73a7f9bfa41cbaa5bb7611521028
+ 153687 pass bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
+ 153691 fail d9a4084544134eea50f62e88d79c466ae91f0455 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 6ada2285d9918859699c92e09540e023e0a16054 165f3afbfc3db70fcfdccad07085cde0a03c858b
+ 153693 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
+ 153695 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
+ 153696 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
+ 153699 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
+ 153668 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
+ 153707 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
+ 153710 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
+ 153715 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
+ 153717 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
+Searching for interesting versions
+ Result found: flight 151232 (pass), for basis pass
+ For basis failure, parent search stopping at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94, results HASH(0x563ae44cb9c8) HASH(0x563ae44d7b60) HASH(0x563ae44dd3a8) For basis failure, parent search stopping at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c155\
+ 25ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b, results HASH(0x563ae44bedb0) For basis failure, parent search stopping at bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b, results HASH(0x563ae4396df8) For basis failure, parent search stopping at 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a3\
+ 4f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 1104288186ee73a7f9bfa41cbaa5bb7611521028, results HASH(0x563ae4386b80) For basis failure, parent search stopping at 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 88ab0c15525ced2eefe39220742efe4769089ad8 0e2e54966af556f4047c1048855c4a071028a32d, results HASH(0x563ae43786d8) For basis failure, parent search stopping at 58ae92a99368\
+ 7d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4, results HASH(0x563ae4358dc0) HASH(0x563ae436e388) Result found: flight 153616 (fail), for basis failure (at ancestor ~5212)
+ Repro found: flight 153679 (pass), for basis pass
+ Repro found: flight 153682 (fail), for basis failure
+ 0 revisions at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
+No revisions left to test, checking graph state.
+ Result found: flight 153696 (pass), for last pass
+ Result found: flight 153699 (fail), for first failure
+ Repro found: flight 153707 (pass), for last pass
+ Repro found: flight 153710 (fail), for first failure
+ Repro found: flight 153715 (pass), for last pass
+ Repro found: flight 153717 (fail), for first failure
 
-diff --git a/Config.mk b/Config.mk
-index 8269503f73..db434ee2c6 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -246,7 +246,7 @@ MINIOS_UPSTREAM_URL ?= git://xenbits.xen.org/mini-os.git
- endif
- OVMF_UPSTREAM_REVISION ?= a3741780fe3535e19e02efa869a7cac481891129
- QEMU_UPSTREAM_REVISION ?= master
--MINIOS_UPSTREAM_REVISION ?= master
-+MINIOS_UPSTREAM_REVISION ?= 0b4b7897e08b967a09bed2028a79fabff82342dd
- 
- SEABIOS_UPSTREAM_REVISION ?= rel-1.14.0
- 
-diff --git a/stubdom/grub/mini-os.c b/stubdom/grub/mini-os.c
-index b33dbf02fb..4fc052a255 100644
---- a/stubdom/grub/mini-os.c
-+++ b/stubdom/grub/mini-os.c
-@@ -291,6 +291,8 @@ struct netfront_dev *net_dev;
- int
- minios_probe (struct nic *nic)
- {
-+    char *ip;
-+
-     if (net_dev)
-         return 1;
- 
-@@ -298,7 +300,7 @@ minios_probe (struct nic *nic)
-     grub_memset ((char *) arptable, 0,
-                  MAX_ARP * sizeof (struct arptable_t));
- 
--    net_dev = init_netfront(NULL, (void*) -1, nic->node_addr, NULL, NULL, NULL);
-+    net_dev = init_netfront(NULL, (void*) -1, nic->node_addr, &ip);
-     if (!net_dev)
-         return 0;
- 
--- 
-2.20.1
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  165f3afbfc3db70fcfdccad07085cde0a03c858b
+  Bug not present: 3df0424e69549ca21613fad3654509c35b2a3e94
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153717/
+
+
+  commit 165f3afbfc3db70fcfdccad07085cde0a03c858b
+  Author: Ian Jackson <ian.jackson@eu.citrix.com>
+  Date:   Mon Jul 13 14:50:33 2020 +0100
+  
+      Config.mk: Unnail versions (for unstable branch)
+      
+      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+pnmtopng: 75 colors found
+Revision graph left in /home/logs/results/bisect/linux-5.4/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+153717: tolerable ALL FAIL
+
+flight 153717 linux-5.4 real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153717/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build               fail baseline untested
+
+
+jobs:
+ build-i386-xsm                                               fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
