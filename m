@@ -2,61 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCA2225E169
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 20:19:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A81D25E182
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 20:34:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEGIm-0002Xn-Bz; Fri, 04 Sep 2020 18:19:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kEGWz-0004Ql-MU; Fri, 04 Sep 2020 18:33:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wtGI=CN=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kEGIk-0002XE-TI
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 18:19:06 +0000
-X-Inumbo-ID: b1aaa85f-ed41-4092-8ec9-45face49991d
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1aaa85f-ed41-4092-8ec9-45face49991d;
- Fri, 04 Sep 2020 18:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599243545;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=h2fDhsVdGusw5v5GgN1UDDuObQLtUu5dl2VEhS9jMqc=;
- b=ZrxQ8CS0dPYAXTCDMWOVJA2vO7nlPbwlz9RI0Ski9hmxkIt9YSCExDee
- ymENuraO2eVUEyvzZlYgZpmDhzlxPGQyhZH6tRCjUAQRMvJOBuGIzf0tt
- YnasHDO+T9TYIfQkMtuy+qj8Oq0U8PuSmxOqhHE9K63M+SXtTJETOwXio s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 300TaCYtoTB417JwW29/S7bYUUSk/ki1Os2aCMZU/QdaE3fxSZXCP4hzhP4nEHipwZiQeexLL1
- gSVz26PDlLvDHMNKLh12/Yj7MDZXEGr11Da/n5XZhq/Amog2lpvUiq9jj7/9z1mnxsQvmHzRXn
- N3hnEfBLC4CDrPwT1fjL7ioUFG+vcqbTbDYFVj51kZMs5Fn6VmIsLZuk+hlqxctSdBuM98DRbJ
- 8djB4hZl9DLla2IbjijhnPj7ofQ46dGi+rfJ1jpgryinPxaFom6llrkBQcuQjH5aiL5WSwCvwv
- OtU=
-X-SBRS: 2.7
-X-MesageID: 26369831
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,390,1592884800"; d="scan'208";a="26369831"
-Subject: Re: [PATCH] x86: guard against straight-line speculation past RET
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <38aaf96b-1235-b205-71d6-16aee057c402@citrix.com>
-Date: Fri, 4 Sep 2020 19:18:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
-Content-Type: text/plain; charset="utf-8"
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kEGWy-0004Qg-AA
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 18:33:48 +0000
+X-Inumbo-ID: 53d5868e-7ac6-45bd-b8fd-045aaf3cc327
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 53d5868e-7ac6-45bd-b8fd-045aaf3cc327;
+ Fri, 04 Sep 2020 18:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=Y05OkbA9bbiSGbeKdJTbcJQsmY6V5eqVVC7r1T1nwss=; b=Q5rMlpvaTei3xopnUWMXIxN6Np
+ MHp93GznqHHrz5GWldDXhtXIV0LcyAoodo8X2dZQDlZM+FWfyK8J5YbtEMV8gIBpzm5UQ3wg8l2xJ
+ Zs7vjO1rQIWlrUUGkPmOp8mGDhazPpvjWsq3MLfs5LNSNNPTjzA/Z+Jjab2KL6gArj10=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEGWw-0003xk-9Z; Fri, 04 Sep 2020 18:33:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEGWw-00059o-32; Fri, 04 Sep 2020 18:33:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEGWw-000684-2X; Fri, 04 Sep 2020 18:33:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153724-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+MIME-Version: 1.0
+Subject: [ovmf test] 153724: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 18:33:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,96 +69,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/08/2020 13:50, Jan Beulich wrote:
-> --- a/xen/include/asm-x86/asm-defns.h
-> +++ b/xen/include/asm-x86/asm-defns.h
-> @@ -50,3 +50,19 @@
->  .macro INDIRECT_JMP arg:req
->      INDIRECT_BRANCH jmp \arg
->  .endm
-> +
-> +/*
-> + * To guard against speculation past RET, insert a breakpoint insn
-> + * immediately after them.
-> + */
-> +.macro ret operand:vararg
-> +    ret$ \operand
-> +.endm
-> +.macro ret$ operand:vararg
-> +    .purgem ret
-> +    ret \operand
-> +    int $3
-> +    .macro ret operand:vararg
-> +        ret$ \\(operand)
-> +    .endm
-> +.endm
+flight 153724 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153724/
 
-Several observations.  First, clang chokes on this:
+Regressions :-(
 
-<instantiation>:2:9: error: unknown token in expression
-    ret \\(operand)
-        ^
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Second, you mean int3 rather than int $3.  By convention, they are
-synonymous, but the second one really ought to be the two byte encoding,
-rather than the single byte encoding, and we really want the single byte
-version for code volume reasons.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Third, there is a huge quantity of complexity for a form of the
-instruction we don't use.  Instead:
+version targeted for testing:
+ ovmf                 2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-.macro ret operand:vararg
-    .ifnb \operand
-        .error "TODO - speculation safety for 'ret $imm'"
-    .endif
+Last test of basis   152863  2020-08-26 16:09:47 Z    9 days
+Failing since        152915  2020-08-27 18:09:42 Z    8 days  138 attempts
+Testing same since   153709  2020-09-04 14:10:46 Z    0 days    3 attempts
 
-    .byte 0xc3
-    int3
-.endm
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-is much simpler, and compatible with both GCC and Clang.
-
-Almost...
-
-Clang doesn't actually expand the macro for ret instructions, so a Clang
-build of Xen only ends up getting protected in the assembly files.
-
-The following experiment demonstrates the issue:
-
-$ cat ret.c
-asm (".macro ret\n\t"
-     ".error \"foo\"\n\t"
-     ".endm\n\t");
-void foo(void) {}
-
-$ gcc -O3 -c ret.c -o ret.o && objdump -d ret.o
-/tmp/ccf8hkyN.s: Assembler messages:
-/tmp/ccf8hkyN.s:16: Error: foo
-
-$ clang-10 -O3 -c ret.c -o ret.o && objdump -d ret.o
-
-ret.o:     file format elf64-x86-64
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-Disassembly of section .text:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-0000000000000000 <foo>:
-   0:    c3                       retq
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Worse, -no-integrated-as doesn't immediately help, even though it
-invokes $(AS).
+Not pushing.
 
-I tracked that down to the difference between ret and retq, which
-highlights an assumption about GCC which may not remain true in the future.
-
-Adding a second macro covering retq fixes the scenario in combination
-with -no-integrated-as.
-
-So overall I think we can make a safe binary with a clang build. 
-However, it is at the expense of the integrated assembler, which I
-believe is now mandatory for LTO, and control-flow integrity, neither of
-which we want to lose in the long term.
-
-~Andrew
+(No revision log; it would be 321 lines long.)
 
