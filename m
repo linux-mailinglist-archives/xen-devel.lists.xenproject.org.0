@@ -2,70 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F8625D3D9
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 10:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFAC25D3E3
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 10:45:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE7J0-0006vl-AE; Fri, 04 Sep 2020 08:42:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kE7L6-00075v-RV; Fri, 04 Sep 2020 08:44:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/+qm=CN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kE7Iy-0006vg-Uc
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 08:42:45 +0000
-X-Inumbo-ID: 1d3a705c-2eb9-4087-b891-a2ff9245adce
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d3a705c-2eb9-4087-b891-a2ff9245adce;
- Fri, 04 Sep 2020 08:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599208964;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=xLTKJpKu0Qb9zvtBCrFuNtN0uryK+Cr91K+kobkwuTU=;
- b=bRJM5iiPIKl+tE2VIHsJnJCoF3CLsHcWlkd8qDNgtFzxxHq36BTnmssE
- g+ZmurFaC6LK1S6Jn/ZftPPuohgKe8TkPfIpOYgzWCS8Y5EvYSGwxQizo
- 7Cyn+CrNeBnGLw4KFFC0drlB7nc0EVVCSNbmRZsW8XDeuB3VfajDnIics 0=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: h5tULVCP7TU027wl9AXL6ZQ6VRDTloWxNR1nakHosYYzU8awVMN14syMLQayv9uBc8sCFQrpo9
- MPsKynxlrUeIV2fLzkBXNB2LUVlnfaK5CMhGyHMRLQdBCX/4b+icfvHWVHnKE5oWjtKeDrh1Vt
- bxXRH4/LS58XLNlEMXW3QOoEhr480K9hH8A115xIrprTnfo3A9FB8sMcgG1DSn17YgpLbZzhqS
- 8hNixQHRV8a/451xr8mSb/Ts/liLTz0NYAxGPT2Wdtw9MukJ2GIKcdJVYScDS0jHAxjENA9Gp1
- +EE=
-X-SBRS: 2.7
-X-MesageID: 26001821
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,389,1592884800"; d="scan'208";a="26001821"
-Date: Fri, 4 Sep 2020 10:42:29 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-CC: <linux-kernel@vger.kernel.org>, Oleksandr Andrushchenko
- <oleksandr_andrushchenko@epam.com>, David Airlie <airlied@linux.ie>, "Daniel
- Vetter" <daniel@ffwll.ch>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Dan Carpenter
- <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>, Yan Yankovskyi
- <yyankovskyi@gmail.com>, <dri-devel@lists.freedesktop.org>,
- <xen-devel@lists.xenproject.org>, <linux-mm@kvack.org>, David Hildenbrand
- <david@redhat.com>, Michal Hocko <mhocko@kernel.org>, Dan Williams
- <dan.j.williams@intel.com>
-Subject: Re: [PATCH v5 3/3] xen: add helpers to allocate unpopulated memory
-Message-ID: <20200904084229.GN753@Air-de-Roger>
-References: <20200901083326.21264-1-roger.pau@citrix.com>
- <20200901083326.21264-4-roger.pau@citrix.com>
- <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
- <20200903163837.GM753@Air-de-Roger>
- <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kE7L5-00074t-5B
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 08:44:55 +0000
+X-Inumbo-ID: 7f6b9bcc-eab5-4350-88d4-17657ffd4ea0
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7f6b9bcc-eab5-4350-88d4-17657ffd4ea0;
+ Fri, 04 Sep 2020 08:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=1RTDccyZ/KZq4VMpt1CSpsZyq6rI5U0K6P5ehqMRzlA=; b=IQWhHvR8Vde5Sb9G+vTcado7w7
+ 9/+3l8cCu9fVBNVmDKfZvP48+Lx19gPLVpclyvWEDWnAH7dJADxKha8lILhi34A2SbEK1wbBlWAn3
+ CmuktLJc4yIQVlc7LlVaMbz+js0kAQUec6c+Q2QwM+vzf+59qIiRZL4x9sI49yuLYqKc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE7Kx-0007iW-Jt; Fri, 04 Sep 2020 08:44:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE7Kx-0007n0-D1; Fri, 04 Sep 2020 08:44:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE7Kx-0002BY-CX; Fri, 04 Sep 2020 08:44:47 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153678-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+MIME-Version: 1.0
+Subject: [libvirt test] 153678: regressions - FAIL
+X-Osstest-Failures: libvirt:build-i386-xsm:xen-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386:xen-build:fail:regression
+ libvirt:build-amd64-xsm:xen-build:fail:regression
+ libvirt:build-amd64:xen-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=ebbf8ebe4fa6f9d43b40673f0f2dad6bf50e2085
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 08:44:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,95 +82,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Sep 04, 2020 at 09:00:18AM +0200, Jürgen Groß wrote:
-> On 03.09.20 18:38, Roger Pau Monné wrote:
-> > On Thu, Sep 03, 2020 at 05:30:07PM +0200, Jürgen Groß wrote:
-> > > On 01.09.20 10:33, Roger Pau Monne wrote:
-> > > > To be used in order to create foreign mappings. This is based on the
-> > > > ZONE_DEVICE facility which is used by persistent memory devices in
-> > > > order to create struct pages and kernel virtual mappings for the IOMEM
-> > > > areas of such devices. Note that on kernels without support for
-> > > > ZONE_DEVICE Xen will fallback to use ballooned pages in order to
-> > > > create foreign mappings.
-> > > > 
-> > > > The newly added helpers use the same parameters as the existing
-> > > > {alloc/free}_xenballooned_pages functions, which allows for in-place
-> > > > replacement of the callers. Once a memory region has been added to be
-> > > > used as scratch mapping space it will no longer be released, and pages
-> > > > returned are kept in a linked list. This allows to have a buffer of
-> > > > pages and prevents resorting to frequent additions and removals of
-> > > > regions.
-> > > > 
-> > > > If enabled (because ZONE_DEVICE is supported) the usage of the new
-> > > > functionality untangles Xen balloon and RAM hotplug from the usage of
-> > > > unpopulated physical memory ranges to map foreign pages, which is the
-> > > > correct thing to do in order to avoid mappings of foreign pages depend
-> > > > on memory hotplug.
-> > > > 
-> > > > Note the driver is currently not enabled on Arm platforms because it
-> > > > would interfere with the identity mapping required on some platforms.
-> > > > 
-> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > 
-> > > Sorry, I just got a build error for x86 32-bit build:
-> > > 
-> > > WARNING: unmet direct dependencies detected for ZONE_DEVICE
-> > >    Depends on [n]: MEMORY_HOTPLUG [=n] && MEMORY_HOTREMOVE [=n] &&
-> > > SPARSEMEM_VMEMMAP [=n] && ARCH_HAS_PTE_DEVMAP [=n]
-> > >    Selected by [y]:
-> > >    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86 [=y]
-> > >    GEN     Makefile
-> > >    CC      kernel/bounds.s
-> > >    CALL    /home/gross/korg/src/scripts/atomic/check-atomics.sh
-> > >    UPD     include/generated/bounds.h
-> > >    CC      arch/x86/kernel/asm-offsets.s
-> > > In file included from /home/gross/korg/src/include/linux/mmzone.h:19:0,
-> > >                   from /home/gross/korg/src/include/linux/gfp.h:6,
-> > >                   from /home/gross/korg/src/include/linux/slab.h:15,
-> > >                   from /home/gross/korg/src/include/linux/crypto.h:19,
-> > >                   from /home/gross/korg/src/arch/x86/kernel/asm-offsets.c:9:
-> > > /home/gross/korg/src/include/linux/page-flags-layout.h:95:2: error: #error
-> > > "Not enough bits in page flags"
-> > >   #error "Not enough bits in page flags"
-> > >    ^~~~~
-> > > make[2]: *** [/home/gross/korg/src/scripts/Makefile.build:114:
-> > > arch/x86/kernel/asm-offsets.s] Error 1
-> > > make[1]: *** [/home/gross/korg/src/Makefile:1175: prepare0] Error 2
-> > > make[1]: Leaving directory '/home/gross/korg/x8632'
-> > > make: *** [Makefile:185: __sub-make] Error 2
-> > 
-> > Sorry for this. I've tested a 32bit build but I think it was before
-> > the last Kconfig changes. I'm a little unsure how to solve this, as
-> > ZONE_DEVICE doesn't select the required options for it to run, but
-> > rather depends on them to be available.
-> > 
-> > You can trigger something similar on x86-64 by doing:
-> > 
-> > $ make ARCH=x86_64 xen.config
-> > Using .config as base
-> > Merging ./kernel/configs/xen.config
-> > Merging ./arch/x86/configs/xen.config
-> > #
-> > # merged configuration written to .config (needs make)
-> > #
-> > scripts/kconfig/conf  --olddefconfig Kconfig
-> > 
-> > WARNING: unmet direct dependencies detected for ZONE_DEVICE
-> >    Depends on [n]: MEMORY_HOTPLUG [=y] && MEMORY_HOTREMOVE [=n] && SPARSEMEM_VMEMMAP [=y] && ARCH_HAS_PTE_DEVMAP [=y]
-> >    Selected by [y]:
-> >    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86_64 [=y]
-> > #
-> > # configuration written to .config
-> > #
-> > 
-> > I think the only solution is to have XEN_UNPOPULATED_ALLOC depend on
-> > ZONE_DEVICE rather than select it?
-> 
-> Yes, I think so.
-> 
-> I've folded that in and now build is fine.
+flight 153678 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153678/
 
-Thanks, I assume no further action is needed on my side.
+Regressions :-(
 
-Roger.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386                    6 xen-build                fail REGR. vs. 151777
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
+ build-amd64                   6 xen-build                fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              ebbf8ebe4fa6f9d43b40673f0f2dad6bf50e2085
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   56 days
+Failing since        151818  2020-07-11 04:18:52 Z   55 days   51 attempts
+Testing same since   153678  2020-09-04 04:19:19 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 12345 lines long.)
 
