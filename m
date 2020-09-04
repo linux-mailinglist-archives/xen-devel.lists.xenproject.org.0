@@ -2,66 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC3F525E0CA
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 19:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12CE25E0CB
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 19:30:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEFXQ-0005r4-JG; Fri, 04 Sep 2020 17:30:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kEFXV-0005rs-Ry; Fri, 04 Sep 2020 17:30:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zmj+=CN=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
- id 1kEFXO-0005qr-O8
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 17:30:10 +0000
-X-Inumbo-ID: dd5b8879-9306-47c9-9dde-be468d8ec2b4
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd5b8879-9306-47c9-9dde-be468d8ec2b4;
- Fri, 04 Sep 2020 17:30:09 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id g4so7514464wrs.5
- for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 10:30:08 -0700 (PDT)
+ <SRS0=6qam=CN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kEFXU-0005rc-1n
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 17:30:16 +0000
+X-Inumbo-ID: b222b89a-71c8-4be4-a7e0-1c9fcb83d584
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b222b89a-71c8-4be4-a7e0-1c9fcb83d584;
+ Fri, 04 Sep 2020 17:30:15 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id z1so7544293wrt.3
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 10:30:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=iTfwB4xa2llN+MOlOc5euzrM6jdzHnXINlbXBBq3/o4=;
+ b=QoETaPoVslJ0yKoxL92fTb59I1K2YvdhedLz0rAyf2Zyti4IOdaaE3FE/BMs4xJ5/G
+ 8L9LY61lMTeSmMWsehpinUlvEaUHV1ycvCwoTLOGwINpdKz+TpexHkmtgI04oAY27+AY
+ OvC+fN2niTYe1mM+k3sVchbveKwBesmtnBOdLuNSDN10vlfwcdVE2epRbazWEUTVHZlE
+ ACcbwgRtNxPeN+7XyyZfolRBwSfzsQE0TA/EY2OrIcoNWe06Gv/uwMKjjl0U1pTLFZuS
+ ppgfjRQMSm9aYu+HFIkypZQOXWnPc79iK/GgOB3OrImVcVpZdXxuyMoA1+CqrM3xfA5t
+ 9USg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wNy2hGieTjSAjcYv7kwR0BOvIQ7J3JLWd6JVvNnGJ0g=;
- b=QWEpeZlcyb1BB5oPEcV1nRFfi4Xe/dz8sQlWXeXvTjx+Mq6xb5ZkwYLq1/aOExyU5U
- gR/IJWabshG/cihWYBir58s1sr5v2NAWQWj7LH2UieYpTb0d6MC2377CSotMGVWHV3Hi
- 2npazjgKyR0Dz25laTHdAJG519iT9ssTh1Bn3h/xqinb+++dxySh9MuJ090YL++887aU
- TmqN1qH1D0YlDyIGxi9eXNc3/WOUHVlpWUbLccaZWAQFb9tOLiJCI5XjwxauJt7LLtlM
- TrMiCMpR+zjshPOjsJTA6iF599wNHqu7FtQlYEqXruvMnN/PY8LZvg4n/BgvbNq0sKPX
- XXug==
-X-Gm-Message-State: AOAM530r+sum3ndQetPbfSoaxpVDvzGRcscsOY8RUHqG4VbKp+4fcZwk
- aPCHuIafDwXJZw4uJk8/jPINeTsyqo0=
-X-Google-Smtp-Source: ABdhPJy4lxSlIVmCZUYUt5G7cHc/b9vzzBbVyS5+h60xbFD5BvIaoh1SmuoljfZVF5ACmqFJVbs98w==
-X-Received: by 2002:a05:6000:100c:: with SMTP id
- a12mr9155928wrx.115.1599240608246; 
- Fri, 04 Sep 2020 10:30:08 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id h5sm13026654wrt.31.2020.09.04.10.30.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2020 10:30:07 -0700 (PDT)
-Date: Fri, 4 Sep 2020 17:30:06 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, Andrew Morton <akpm@linux-foundation.org>,
- Michal Hocko <mhocko@suse.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>,
- Wei Yang <richardw.yang@linux.intel.com>
-Subject: Re: [PATCH v1 5/5] hv_balloon: try to merge system ram resources
-Message-ID: <20200904173006.e65qow53ietxzpne@liuwe-devbox-debian-v2>
-References: <20200821103431.13481-1-david@redhat.com>
- <20200821103431.13481-6-david@redhat.com>
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=iTfwB4xa2llN+MOlOc5euzrM6jdzHnXINlbXBBq3/o4=;
+ b=ayom9RAS8ArzRdeAE+gPy3FYhaQx14xKYtRWZWF/ptQmr2Q5LKr4+4+9lMEF6Y4TZQ
+ BmHKvLz0qIwaslpOIf6j6KBWOKfhjhWbd2A6kpdlxESS048tRFs1EpeVlVYLNzJDO7ii
+ zAawuqiEOaS0ojhHCG03QsO3ZfH6EzeLzP3HUVXySXvXfvJvAyUStWEp0p2n0QzEh47o
+ kDvcX9s3pKEc0K6BVx606zV8oUOjlqaxCzTDBPJt1UCVWYioHJc68neMBsBk76mKJzca
+ Ng2+YXfT/hOSX8snKeZeewaKXpY+dWWTgSU5zYTpNaRVs99/5Fgys9mCH9IU90BHAMqx
+ 8uYw==
+X-Gm-Message-State: AOAM533c7AXGcPtWBBRSzmz7diipk/3MjMpuVrNc0BRQoC/x+xJyILwF
+ ut1qMga4QuYRwD7AM9LjPME=
+X-Google-Smtp-Source: ABdhPJylCJS+pFLsnmeB574Ss6zovfyb7HyM6zq1HrAD8cvRFDmr4pWyoagxeXkCmQnopat/eI94ew==
+X-Received: by 2002:adf:f34f:: with SMTP id e15mr8371371wrp.387.1599240614435; 
+ Fri, 04 Sep 2020 10:30:14 -0700 (PDT)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:c940:c3c6:26f0:df49])
+ by smtp.gmail.com with ESMTPSA id v3sm12323067wmh.6.2020.09.04.10.30.13
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 04 Sep 2020 10:30:13 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
+Cc: <xen-devel@lists.xenproject.org>, "'Paul Durrant'" <pdurrant@amazon.com>,
+ "'Julien Grall'" <julien@xen.org>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>,
+ "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
+ "'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+References: <20200818103032.3050-1-paul@xen.org>
+ <20200818103032.3050-2-paul@xen.org>
+ <9873d112-0d87-d871-3911-3527d79a0b56@suse.com>
+ <5578c3fb-e35d-bb89-79f7-003e642492ab@suse.com>
+In-Reply-To: <5578c3fb-e35d-bb89-79f7-003e642492ab@suse.com>
+Subject: RE: [PATCH v7 1/9] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+Date: Fri, 4 Sep 2020 18:31:03 +0100
+Message-ID: <003601d682e1$2aaafdf0$8000f9d0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200821103431.13481-6-david@redhat.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQI3t7iXj66qvRdG8GCx2a1a4xz7XAHTJnD7Ad4sR6YB2eEYFqhp+Prw
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,49 +89,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Aug 21, 2020 at 12:34:31PM +0200, David Hildenbrand wrote:
-> Let's use the new mechanism to merge system ram resources below the
-> root. We are the only one hotplugging system ram, e.g., DIMMs don't apply,
-> so this is safe to be used.
-> 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-> Cc: Haiyang Zhang <haiyangz@microsoft.com>
-> Cc: Stephen Hemminger <sthemmin@microsoft.com>
-> Cc: Wei Liu <wei.liu@kernel.org>
-> Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-> Cc: Baoquan He <bhe@redhat.com>
-> Cc: Wei Yang <richardw.yang@linux.intel.com>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  drivers/hv/hv_balloon.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
-> index 32e3bc0aa665a..49a6305f0fb73 100644
-> --- a/drivers/hv/hv_balloon.c
-> +++ b/drivers/hv/hv_balloon.c
-> @@ -745,6 +745,9 @@ static void hv_mem_hot_add(unsigned long start, unsigned long size,
->  			has->covered_end_pfn -=  processed_pfn;
->  			spin_unlock_irqrestore(&dm_device.ha_lock, flags);
->  			break;
-> +		} else {
-> +			/* Try to reduce the number of system ram resources. */
-> +			merge_system_ram_resources(&iomem_resource);
->  		}
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 26 August 2020 14:54
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant =
+<pdurrant@amazon.com>; Julien Grall <julien@xen.org>;
+> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
+<george.dunlap@citrix.com>; Ian Jackson
+> <ian.jackson@eu.citrix.com>; Stefano Stabellini =
+<sstabellini@kernel.org>; Wei Liu <wl@xen.org>;
+> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>
+> Subject: Re: [PATCH v7 1/9] xen/common: introduce a new framework for =
+save/restore of 'domain' context
+>=20
+> On 26.08.2020 15:32, Jan Beulich wrote:
+> > On 18.08.2020 12:30, Paul Durrant wrote:
+> >> v7:
+> >>  - Add an option to domain_load_end() to ignore unconsumed data, =
+which will
+> >>    be needed by a subsequent patch
+> >
+> > May I suggest to name the parameter "ignore_tail" instead of
+> > "ignore_data", as typically you don't mean to ignore all of
+> > it?
+>=20
+> Hmm, looking at patch 7 it's indeed all of the body which gets
+> ignored. Not sure what the longer term expectations here are.
+>=20
 
-You don't need to put the call under the "else" branch. It will have
-broken out of the loop if ret is not zero.
+I think it is useful to be able to consume as much or as little of a =
+record as is needed.
 
-Wei.
+  Paul
 
->  
->  		/*
-> -- 
-> 2.26.2
-> 
+
 
