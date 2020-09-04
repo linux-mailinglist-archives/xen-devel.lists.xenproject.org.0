@@ -2,46 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 408C825DF84
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 18:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 727BB25DF9C
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 18:16:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEELl-0005VZ-OI; Fri, 04 Sep 2020 16:14:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kEEOC-0005ls-7N; Fri, 04 Sep 2020 16:16:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kEELj-0005UN-Sg
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:14:03 +0000
-X-Inumbo-ID: b96d4883-2014-428d-8def-98e634f265bd
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b96d4883-2014-428d-8def-98e634f265bd;
- Fri, 04 Sep 2020 16:13:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
- bh=HY9WxId5g4Kb/TJLOG372qj+MKTXzsBPjv6TJMSSGHY=; b=67h3J8T8P31DzKXpa+tV+U0xBY
- 5oYISSUmiQi1FTSXEY/X1vTQl3ucbU+HpqxwlWGFXcexOkxIk3gvm6QufeiaL+7Rmml0yqrIrriM/
- tQHoJEqlxhe+/2YRV1QmaJ0Dy/zs1PyiC8Yr/h1hVWyZmsCAEflQnsgSXZOYEIwu/oRQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEELc-0000z1-As; Fri, 04 Sep 2020 16:13:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEELc-0000L8-3v; Fri, 04 Sep 2020 16:13:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kEELc-0000IR-3U; Fri, 04 Sep 2020 16:13:56 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [linux-5.4 bisection] complete build-i386-xsm
-Message-Id: <E1kEELc-0000IR-3U@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Sep 2020 16:13:56 +0000
+ <SRS0=6qam=CN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kEEOA-0005lm-AM
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 16:16:34 +0000
+X-Inumbo-ID: 46c5f64f-f2af-4dd7-816b-68f390576d55
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 46c5f64f-f2af-4dd7-816b-68f390576d55;
+ Fri, 04 Sep 2020 16:16:32 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id m6so7334929wrn.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 09:16:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=b5S2goIRS4moC2Pky/HQPqn4RRQnwG99BXlGjy+V9e0=;
+ b=Ip0ssHAMIqGtWAJGryw9VacNceFHpsW/RwrwRc/0MYPtxoGlCRNEOyVbAwBTS/Ap23
+ WHIxesGtHCnDHnEc8tDNe3/GOo06GicHDimevNb/zuAMbhfxvrfa5TPX6jIq5lx7qWwg
+ e5QVE4v4ZQ0C1hy3RsWJ9kp2askWLjtxaiRIoZHu/PZ/bUSImgPlsu4KPS5s2mAsdPMj
+ graoURYz5LAbuQxtsezkW57JFD8yu8IOODR3upPyAsBa6PHRqE6nNbTmBcs+gV4gA2+H
+ vfm0VfHX/UVX3Fzr9XnfKYx/TfEWo7+qHBTGcVNJeW8LguMVDuoazE3WRU0Zg6A5CBv4
+ 2xMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=b5S2goIRS4moC2Pky/HQPqn4RRQnwG99BXlGjy+V9e0=;
+ b=F0UJ1Kp1lERM3oOImkyRM9krOuAUtOHtErF+jek9njvy/iXYG4kwOwhwNNM0Y6XrQr
+ V1mgb+lNRMCW6duhw8/a+hhozQlz0N3UgSBMjIFlygr1Vv+C78h152AnMTrKtI8nxwk4
+ l+oalR9jxGjGgAnFO0DSMbB1o/4ansTAi03SJLHSbqpOrqugGgZvnhllYjVXWbkgkw00
+ PnQPZGkcC3/aIWPz/44+VIRmw84seUbUaJGuL++mtJA+Jrgr1522a6gIMrVi2nHsHya6
+ 9oPA6tkFYWJpqCnFSHwNpzjKf32J2aV1xVvcYAd7NjW44baArYqQtgzbJj8SIZ++/HUb
+ Q61w==
+X-Gm-Message-State: AOAM5323EyheaWj3IDir/Fn2QSC8xd9xBlRafWgY8wps/zkq1J3G0jVv
+ NR0FZghFenuaz429/Q88LLY=
+X-Google-Smtp-Source: ABdhPJyzEU/0C9g/Gq4poiDfja5ehEjPOQ6lRiJua0bsKaSr3heXed/vGzWVJMilrT/WEf9GKHB3FA==
+X-Received: by 2002:adf:81c6:: with SMTP id 64mr8095745wra.176.1599236191912; 
+ Fri, 04 Sep 2020 09:16:31 -0700 (PDT)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:c940:c3c6:26f0:df49])
+ by smtp.gmail.com with ESMTPSA id f19sm12129902wmh.44.2020.09.04.09.16.30
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 04 Sep 2020 09:16:31 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'Jun Nakajima'" <jun.nakajima@intel.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>,
+ "'George Dunlap'" <George.Dunlap@eu.citrix.com>
+References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
+In-Reply-To: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
+Subject: RE: [PATCH v3] x86/HVM: more consistently set I/O completion
+Date: Fri, 4 Sep 2020 17:17:04 +0100
+Message-ID: <003301d682d6$d4b5ba20$7e212e60$@xen.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKLGnh8NTAXxwELiAxasezQUK7x/KfvK7uA
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,170 +83,328 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-i386-xsm
-testid xen-build
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 27 August 2020 08:09
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; =
+Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>; Jun Nakajima =
+<jun.nakajima@intel.com>; Kevin Tian
+> <kevin.tian@intel.com>; George Dunlap <George.Dunlap@eu.citrix.com>
+> Subject: [PATCH v3] x86/HVM: more consistently set I/O completion
+>=20
+> Doing this just in hvm_emulate_one_insn() is not enough.
+> hvm_ud_intercept() and hvm_emulate_one_vm_event() can get invoked for
+> insns requiring one or more continuations, and at least in principle
+> hvm_emulate_one_mmio() could, too. Without proper setting of the =
+field,
+> handle_hvm_io_completion() will do nothing completion-wise, and in
+> particular the missing re-invocation of the insn emulation paths will
+> lead to emulation caching not getting disabled in due course, causing
+> the ASSERT() in {svm,vmx}_vmenter_helper() to trigger.
+>=20
+> Reported-by: Don Slutz <don.slutz@gmail.com>
+>=20
+> Similar considerations go for the clearing of vio->mmio_access, which
+> gets moved as well.
+>=20
+> Additionally all updating of vio->mmio_* now gets done dependent upon
+> the new completion value, rather than hvm_ioreq_needs_completion()'s
+> return value. This is because it is the completion chosen which =
+controls
+> what path will be taken when handling the completion, not the simple
+> boolean return value. In particular, PIO completion doesn't involve
+> going through the insn emulator, and hence emulator state ought to get
+> cleared early (or it won't get cleared at all).
+>=20
+> The new logic, besides allowing for a caller override for the
+> continuation type to be set (for VMX real mode emulation), will also
+> avoid setting an MMIO completion when a simpler PIO one will do. This
+> is a minor optimization only as a side effect - the behavior is =
+strictly
+> needed at least for hvm_ud_intercept(), as only memory accesses can
+> successfully complete through handle_mmio(). Care of course needs to =
+be
+> taken to correctly deal with "mixed" insns (doing both MMIO and PIO at
+> the same time, i.e. INS/OUTS). For this, hvmemul_validate() now =
+latches
+> whether the insn being emulated is a memory access, as this =
+information
+> is no longer easily available at the point where we want to consume =
+it.
+>=20
+> Note that the presence of non-NULL .validate fields in the two ops
+> structures in hvm_emulate_one_mmio() was really necessary even before
+> the changes here: Without this, passing non-NULL as middle argument to
+> hvm_emulate_init_once() is meaningless.
+>=20
+> The restrictions on when the #UD intercept gets actually enabled are =
+why
+> it was decided that this is not a security issue:
+> - the "hvm_fep" option to enable its use is a debugging option only,
+> - for the cross-vendor case is considered experimental, even if
+>   unfortunately SUPPORT.md doesn't have an explicit statement about
+>   this.
+> The other two affected functions are
+> - hvm_emulate_one_vm_event(), used for introspection,
+> - hvm_emulate_one_mmio(), used for Dom0 only,
+> which aren't qualifying this as needing an XSA either.
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Tested-by: Don Slutz <don.slutz@gmail.com>
+> ---
+> v3: Add comment ahead of _hvm_emulate_one(). Add parentheses in a
+>     conditional expr. Justify why this does not need an XSA.
+> v2: Make updating of vio->mmio_* fields fully driven by the new
+>     completion value.
+> ---
+> I further think that the entire tail of _hvm_emulate_one() (everything
+> past the code changed/added there by this patch) wants skipping in =
+case
+> a completion is needed, at the very least for the mmio and realmode
+> cases, where we know we'll come back here.
+>=20
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -1683,9 +1683,11 @@ static int hvmemul_validate(
+>      const struct x86_emulate_state *state,
+>      struct x86_emulate_ctxt *ctxt)
+>  {
+> -    const struct hvm_emulate_ctxt *hvmemul_ctxt =3D
+> +    struct hvm_emulate_ctxt *hvmemul_ctxt =3D
+>          container_of(ctxt, struct hvm_emulate_ctxt, ctxt);
+>=20
+> +    hvmemul_ctxt->is_mem_access =3D x86_insn_is_mem_access(state, =
+ctxt);
+> +
+>      return !hvmemul_ctxt->validate || hvmemul_ctxt->validate(state, =
+ctxt)
+>             ? X86EMUL_OKAY : X86EMUL_UNHANDLEABLE;
+>  }
+> @@ -2610,8 +2612,13 @@ static const struct x86_emulate_ops hvm_
+>      .vmfunc        =3D hvmemul_vmfunc,
+>  };
+>=20
+> +/*
+> + * Note that passing HVMIO_no_completion into this function serves as =
+kind
+> + * of (but not fully) an "auto select completion" indicator.
+> + */
+>  static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+> -    const struct x86_emulate_ops *ops)
+> +    const struct x86_emulate_ops *ops,
+> +    enum hvm_io_completion completion)
+>  {
+>      const struct cpu_user_regs *regs =3D hvmemul_ctxt->ctxt.regs;
+>      struct vcpu *curr =3D current;
+> @@ -2642,16 +2649,31 @@ static int _hvm_emulate_one(struct hvm_e
+>          rc =3D X86EMUL_RETRY;
+>=20
+>      if ( !hvm_ioreq_needs_completion(&vio->io_req) )
+> +        completion =3D HVMIO_no_completion;
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+The comment doesn't mention that passing in something other than =
+HVMIO_no_completion could get overridden. Is that intentional?
 
-*** Found and reproduced problem changeset ***
+> +    else if ( completion =3D=3D HVMIO_no_completion )
+> +        completion =3D (vio->io_req.type !=3D IOREQ_TYPE_PIO ||
+> +                      hvmemul_ctxt->is_mem_access) ? =
+HVMIO_mmio_completion
+> +                                                   : =
+HVMIO_pio_completion;
+> +
+> +    switch ( vio->io_completion =3D completion )
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  165f3afbfc3db70fcfdccad07085cde0a03c858b
-  Bug not present: 3df0424e69549ca21613fad3654509c35b2a3e94
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153717/
+I thought we tended to avoid assignments in control flow statements.
 
+>      {
+> +    case HVMIO_no_completion:
+> +    case HVMIO_pio_completion:
+>          vio->mmio_cache_count =3D 0;
+>          vio->mmio_insn_bytes =3D 0;
+> +        vio->mmio_access =3D (struct npfec){};
+>          hvmemul_cache_disable(curr);
+> -    }
+> -    else
+> -    {
+> +        break;
+> +
+> +    case HVMIO_mmio_completion:
+> +    case HVMIO_realmode_completion:
+>          BUILD_BUG_ON(sizeof(vio->mmio_insn) < =
+sizeof(hvmemul_ctxt->insn_buf));
+>          vio->mmio_insn_bytes =3D hvmemul_ctxt->insn_buf_bytes;
+>          memcpy(vio->mmio_insn, hvmemul_ctxt->insn_buf, =
+vio->mmio_insn_bytes);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+>      }
+>=20
+>      if ( hvmemul_ctxt->ctxt.retire.singlestep )
+> @@ -2692,9 +2714,10 @@ static int _hvm_emulate_one(struct hvm_e
+>  }
+>=20
+>  int hvm_emulate_one(
+> -    struct hvm_emulate_ctxt *hvmemul_ctxt)
+> +    struct hvm_emulate_ctxt *hvmemul_ctxt,
+> +    enum hvm_io_completion completion)
+>  {
+> -    return _hvm_emulate_one(hvmemul_ctxt, &hvm_emulate_ops);
+> +    return _hvm_emulate_one(hvmemul_ctxt, &hvm_emulate_ops, =
+completion);
+>  }
+>=20
+>  int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla)
+> @@ -2703,11 +2726,13 @@ int hvm_emulate_one_mmio(unsigned long m
+>          .read       =3D x86emul_unhandleable_rw,
+>          .insn_fetch =3D hvmemul_insn_fetch,
+>          .write      =3D mmcfg_intercept_write,
+> +        .validate   =3D hvmemul_validate,
+>      };
+>      static const struct x86_emulate_ops hvm_ro_emulate_ops_mmio =3D {
+>          .read       =3D x86emul_unhandleable_rw,
+>          .insn_fetch =3D hvmemul_insn_fetch,
+>          .write      =3D mmio_ro_emulated_write,
+> +        .validate   =3D hvmemul_validate,
+>      };
+>      struct mmio_ro_emulate_ctxt mmio_ro_ctxt =3D { .cr2 =3D gla };
+>      struct hvm_emulate_ctxt ctxt;
+> @@ -2727,8 +2752,8 @@ int hvm_emulate_one_mmio(unsigned long m
+>      hvm_emulate_init_once(&ctxt, x86_insn_is_mem_write,
+>                            guest_cpu_user_regs());
+>      ctxt.ctxt.data =3D &mmio_ro_ctxt;
+> -    rc =3D _hvm_emulate_one(&ctxt, ops);
+> -    switch ( rc )
+> +
+> +    switch ( rc =3D _hvm_emulate_one(&ctxt, ops, HVMIO_no_completion) =
+)
 
-  commit 165f3afbfc3db70fcfdccad07085cde0a03c858b
-  Author: Ian Jackson <ian.jackson@eu.citrix.com>
-  Date:   Mon Jul 13 14:50:33 2020 +0100
-  
-      Config.mk: Unnail versions (for unstable branch)
-      
-      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Again, why move the assignment into the switch statement?
 
+>      {
+>      case X86EMUL_UNHANDLEABLE:
+>      case X86EMUL_UNIMPLEMENTED:
+> @@ -2755,7 +2780,8 @@ void hvm_emulate_one_vm_event(enum emul_
+>      switch ( kind )
+>      {
+>      case EMUL_KIND_NOWRITE:
+> -        rc =3D _hvm_emulate_one(&ctx, &hvm_emulate_ops_no_write);
+> +        rc =3D _hvm_emulate_one(&ctx, &hvm_emulate_ops_no_write,
+> +                              HVMIO_no_completion);
+>          break;
+>      case EMUL_KIND_SET_CONTEXT_INSN: {
+>          struct vcpu *curr =3D current;
+> @@ -2776,7 +2802,7 @@ void hvm_emulate_one_vm_event(enum emul_
+>      /* Fall-through */
+>      default:
+>          ctx.set_context =3D (kind =3D=3D EMUL_KIND_SET_CONTEXT_DATA);
+> -        rc =3D hvm_emulate_one(&ctx);
+> +        rc =3D hvm_emulate_one(&ctx, HVMIO_no_completion);
+>      }
+>=20
+>      switch ( rc )
+> @@ -2874,6 +2900,8 @@ void hvm_emulate_init_per_insn(
+>                                          pfec, NULL) =3D=3D =
+HVMTRANS_okay) ?
+>              sizeof(hvmemul_ctxt->insn_buf) : 0;
+>      }
+> +
+> +    hvmemul_ctxt->is_mem_access =3D false;
+>  }
+>=20
+>  void hvm_emulate_writeback(
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3798,7 +3798,7 @@ void hvm_ud_intercept(struct cpu_user_re
+>          return;
+>      }
+>=20
+> -    switch ( hvm_emulate_one(&ctxt) )
+> +    switch ( hvm_emulate_one(&ctxt, HVMIO_no_completion) )
+>      {
+>      case X86EMUL_UNHANDLEABLE:
+>      case X86EMUL_UNIMPLEMENTED:
+> --- a/xen/arch/x86/hvm/io.c
+> +++ b/xen/arch/x86/hvm/io.c
+> @@ -81,20 +81,11 @@ void send_invalidate_req(void)
+>  bool hvm_emulate_one_insn(hvm_emulate_validate_t *validate, const =
+char *descr)
+>  {
+>      struct hvm_emulate_ctxt ctxt;
+> -    struct vcpu *curr =3D current;
+> -    struct hvm_vcpu_io *vio =3D &curr->arch.hvm.hvm_io;
+>      int rc;
+>=20
+>      hvm_emulate_init_once(&ctxt, validate, guest_cpu_user_regs());
+>=20
+> -    rc =3D hvm_emulate_one(&ctxt);
+> -
+> -    if ( hvm_ioreq_needs_completion(&vio->io_req) )
+> -        vio->io_completion =3D HVMIO_mmio_completion;
+> -    else
+> -        vio->mmio_access =3D (struct npfec){};
+> -
+> -    switch ( rc )
+> +    switch ( rc =3D hvm_emulate_one(&ctxt, HVMIO_no_completion) )
+>      {
+>      case X86EMUL_UNHANDLEABLE:
+>          hvm_dump_emulation_state(XENLOG_G_WARNING, descr, &ctxt, rc);
+> --- a/xen/arch/x86/hvm/vmx/realmode.c
+> +++ b/xen/arch/x86/hvm/vmx/realmode.c
+> @@ -97,15 +97,11 @@ static void realmode_deliver_exception(
+>  void vmx_realmode_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt)
+>  {
+>      struct vcpu *curr =3D current;
+> -    struct hvm_vcpu_io *vio =3D &curr->arch.hvm.hvm_io;
+>      int rc;
+>=20
+>      perfc_incr(realmode_emulations);
+>=20
+> -    rc =3D hvm_emulate_one(hvmemul_ctxt);
+> -
+> -    if ( hvm_ioreq_needs_completion(&vio->io_req) )
+> -        vio->io_completion =3D HVMIO_realmode_completion;
+> +    rc =3D hvm_emulate_one(hvmemul_ctxt, HVMIO_realmode_completion);
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-5.4/build-i386-xsm.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+Ok, I guess the override of completion is intentional to deal with this =
+case. Perhaps expand the comment above _hvm_emulate_one() then.
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-5.4/build-i386-xsm.xen-build --summary-out=tmp/153717.bisection-summary --basis-template=152853 --blessings=real,real-bisect linux-5.4 build-i386-xsm xen-build
-Searching for failure / basis pass:
- 153668 fail [host=albana1] / 152853 [host=fiano1] 152675 [host=pinot0] 152664 [host=huxelrebe1] 152656 [host=chardonnay1] 152614 [host=albana0] 152562 [host=huxelrebe1] 152514 [host=huxelrebe0] 152501 [host=pinot1] 152486 [host=pinot0] 152331 [host=huxelrebe0] 152282 [host=huxelrebe0] 152137 [host=huxelrebe0] 152100 [host=albana0] 151939 [host=albana0] 151757 [host=huxelrebe1] 151516 [host=albana0] 151503 [host=huxelrebe1] 151339 [host=albana0] 151307 [host=chardonnay0] 151288 [host=huxelrebe0]\
-  151232 ok.
-Failure / basis pass flights: 153668 / 151232
-(tree with no url: minios)
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
-Basis pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#58ae92a993687d913aa6dd00ef3497a1bc5f6c40-63d92674d240ab4ecab94f98e1e198842bb7de00 git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db9934a34f816d78b-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#410cc30fdc590417ae730d635bbc70257adf6750-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345\
- 694-155821a1990b6de78dde5f98fa5ab90e802021e0 git://xenbits.xen.org/xen.git#3625b04991b4d6affadd99d377ab84bac48dfff4-7a8d8bde9820387c3e168182b99fd9761c223fff
-Loaded 12584 nodes in revision graph
-Searching for test results:
- 151200 pass irrelevant
- 151232 pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
- 151288 [host=huxelrebe0]
- 151339 [host=albana0]
- 151324 [host=huxelrebe0]
- 151307 [host=chardonnay0]
- 151327 pass irrelevant
- 151503 [host=huxelrebe1]
- 151516 [host=albana0]
- 151757 [host=huxelrebe1]
- 151939 [host=albana0]
- 152100 [host=albana0]
- 152137 [host=huxelrebe0]
- 152282 [host=huxelrebe0]
- 152331 [host=huxelrebe0]
- 152486 [host=pinot0]
- 152514 [host=huxelrebe0]
- 152501 [host=pinot1]
- 152562 [host=huxelrebe1]
- 152614 [host=albana0]
- 152656 [host=chardonnay1]
- 152671 [host=elbling1]
- 152673 pass irrelevant
- 152664 [host=huxelrebe1]
- 152674 [host=pinot0]
- 152675 [host=pinot0]
- 152853 [host=fiano1]
- 153616 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
- 153641 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
- 153679 pass 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
- 153682 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
- 153683 fail 53936785b74dd0ab98453d610be6dfd12c2e5fc9 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 d9c812dda519a1a73e8370e1b81ddf46eb22ed16 98bed5de1de3352c63cfe29a00f17e8d9ce72689
- 153684 fail e906346dcb80fce588ac774c8ec9694b62f0a257 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 6ada2285d9918859699c92e09540e023e0a16054 1969576661f3e34318e9b0a61a1a38f9a5aee16f
- 153685 pass 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 88ab0c15525ced2eefe39220742efe4769089ad8 0e2e54966af556f4047c1048855c4a071028a32d
- 153686 pass 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 1104288186ee73a7f9bfa41cbaa5bb7611521028
- 153687 pass bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 153691 fail d9a4084544134eea50f62e88d79c466ae91f0455 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 6ada2285d9918859699c92e09540e023e0a16054 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 153693 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 153695 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 153696 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
- 153699 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 153668 fail 63d92674d240ab4ecab94f98e1e198842bb7de00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 7a8d8bde9820387c3e168182b99fd9761c223fff
- 153707 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
- 153710 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 153715 pass f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
- 153717 fail f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
-Searching for interesting versions
- Result found: flight 151232 (pass), for basis pass
- For basis failure, parent search stopping at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94, results HASH(0x563ae44cb9c8) HASH(0x563ae44d7b60) HASH(0x563ae44dd3a8) For basis failure, parent search stopping at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c155\
- 25ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b, results HASH(0x563ae44bedb0) For basis failure, parent search stopping at bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b, results HASH(0x563ae4396df8) For basis failure, parent search stopping at 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a3\
- 4f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 1104288186ee73a7f9bfa41cbaa5bb7611521028, results HASH(0x563ae4386b80) For basis failure, parent search stopping at 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 88ab0c15525ced2eefe39220742efe4769089ad8 0e2e54966af556f4047c1048855c4a071028a32d, results HASH(0x563ae43786d8) For basis failure, parent search stopping at 58ae92a99368\
- 7d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 410cc30fdc590417ae730d635bbc70257adf6750 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4, results HASH(0x563ae4358dc0) HASH(0x563ae436e388) Result found: flight 153616 (fail), for basis failure (at ancestor ~5212)
- Repro found: flight 153679 (pass), for basis pass
- Repro found: flight 153682 (fail), for basis failure
- 0 revisions at f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 3df0424e69549ca21613fad3654509c35b2a3e94
-No revisions left to test, checking graph state.
- Result found: flight 153696 (pass), for last pass
- Result found: flight 153699 (fail), for first failure
- Repro found: flight 153707 (pass), for last pass
- Repro found: flight 153710 (fail), for first failure
- Repro found: flight 153715 (pass), for last pass
- Repro found: flight 153717 (fail), for first failure
+>=20
+>      if ( rc =3D=3D X86EMUL_UNHANDLEABLE )
+>      {
+> --- a/xen/include/asm-x86/hvm/emulate.h
+> +++ b/xen/include/asm-x86/hvm/emulate.h
+> @@ -48,6 +48,8 @@ struct hvm_emulate_ctxt {
+>=20
+>      uint32_t intr_shadow;
+>=20
+> +    bool is_mem_access;
+> +
 
-*** Found and reproduced problem changeset ***
+Whilst you mention in the commit comment why this is added, I don't see =
+any consumer if it in this patch. Will the come later?
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  165f3afbfc3db70fcfdccad07085cde0a03c858b
-  Bug not present: 3df0424e69549ca21613fad3654509c35b2a3e94
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153717/
+  Paul
 
-
-  commit 165f3afbfc3db70fcfdccad07085cde0a03c858b
-  Author: Ian Jackson <ian.jackson@eu.citrix.com>
-  Date:   Mon Jul 13 14:50:33 2020 +0100
-  
-      Config.mk: Unnail versions (for unstable branch)
-      
-      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-pnmtopng: 75 colors found
-Revision graph left in /home/logs/results/bisect/linux-5.4/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-153717: tolerable ALL FAIL
-
-flight 153717 linux-5.4 real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153717/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-i386-xsm                6 xen-build               fail baseline untested
-
-
-jobs:
- build-i386-xsm                                               fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>      bool_t set_context;
+>  };
+>=20
+> @@ -62,7 +64,8 @@ bool __nonnull(1, 2) hvm_emulate_one_ins
+>      hvm_emulate_validate_t *validate,
+>      const char *descr);
+>  int hvm_emulate_one(
+> -    struct hvm_emulate_ctxt *hvmemul_ctxt);
+> +    struct hvm_emulate_ctxt *hvmemul_ctxt,
+> +    enum hvm_io_completion completion);
+>  void hvm_emulate_one_vm_event(enum emul_kind kind,
+>      unsigned int trapnr,
+>      unsigned int errcode);
 
 
