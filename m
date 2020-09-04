@@ -2,43 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E3325D173
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 08:33:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65B125D18B
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 08:37:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE5H9-0000oK-66; Fri, 04 Sep 2020 06:32:43 +0000
+	id 1kE5Ll-00016Q-Q7; Fri, 04 Sep 2020 06:37:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=saQb=CN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kE5H8-0000oF-1A
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 06:32:42 +0000
-X-Inumbo-ID: e7867943-f3cc-42e1-a0ea-312dbb373b21
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kE5Lj-00014T-NA
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 06:37:27 +0000
+X-Inumbo-ID: a5c770ea-0116-4c27-84f5-e8eeb0053236
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7867943-f3cc-42e1-a0ea-312dbb373b21;
- Fri, 04 Sep 2020 06:32:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 17BCFB5D8;
- Fri,  4 Sep 2020 06:32:41 +0000 (UTC)
-Subject: Re: [xen-unstable test] 153602: regressions - FAIL
-To: Ian Jackson <iwj@xenproject.org>
-Cc: Costin Lupu <costin.lupu@cs.pub.ro>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-References: <osstest-153602-mainreport@xen.org>
- <1bdbf90f-2150-cb86-63a2-37e5148ec34e@suse.com>
- <24401.5895.115731.487189@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <52d2bdeb-ccde-9d9d-9f62-24571e9e4c15@suse.com>
-Date: Fri, 4 Sep 2020 08:32:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id a5c770ea-0116-4c27-84f5-e8eeb0053236;
+ Fri, 04 Sep 2020 06:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=s0vD4ipYjwIKYNzW6Cxj8PKJDeryHa7Hy4KAsN8MCDo=; b=55zfD25wXTNJPYnYuN7gL6Dtgx
+ TBRj91bxD857Gg4KRIx9JkUlSgWQ1FFNv/KuT+PlSLsQuz00uu1v4lJPONd4RoDDAEIsKoWgeGhcJ
+ bpE52i2ZJyMg5xGkA7knK5TbsUnbyW9ZqStW/4cKPnHxq+2nGdsaoVvzY11j9QdpP8mE=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE5Ld-0004Uu-24; Fri, 04 Sep 2020 06:37:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE5Lc-0002ac-QJ; Fri, 04 Sep 2020 06:37:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE5Lc-0004m8-Pq; Fri, 04 Sep 2020 06:37:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153689-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <24401.5895.115731.487189@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 153689: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=06dc822d045c2bb42e497487935485302486e151
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 06:37:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,50 +68,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.09.2020 18:17, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [xen-unstable test] 153602: regressions - FAIL"):
->> On 03.09.2020 12:24, osstest service owner wrote:
->>> flight 153602 xen-unstable real [real]
->>> http://logs.test-lab.xenproject.org/osstest/logs/153602/
->>>
->>> Regressions :-(
->>>
->>> Tests which did not succeed and are blocking,
->>> including tests which could not be run:
->>>  test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 152877
->>>  test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 152877
->>
->> While at least the hypervisor logs don't provide clear indication
->> (and I don't know where else to look among the files osstest
->> provides) I can't help thinking that stubdom apparently
->> crashing is still fallout from the mini-os changes (and no-one
->> really looks to care). In particular I think that this
-> 
-> I haven't looked at this in detail but I notice that I am having
-> build failures.
-> 
-> Prior to e013e8514389 "config: use mini-os master for unstable", the
-> version of mini-os used for builds was controlled by xen.git's
-> Config.mk.
-> 
-> Since then it has been mini-os master.  NB there is no push gate for
-> mini-os.  IIRC we discussed this at the time and it was thought that
-> breakage due to mini-os would be unlikely.
-> 
-> To unblock development in xen.git I suggest reverting the minios part
-> of 165f3afbfc3d "Config.mk: Unnail versions (for unstable branch)",
-> choosing some known-working version of minios to put in Config.mk.
+flight 153689 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153689/
 
-Afaict this would still not work, due to 8d990807ec2c ("stubdom/grub:
-update init_netfront() call for mini-os"). The dependencies between
-the two trees aren't helpful at all in a case like this one.
+Regressions :-(
 
-> Perhaps there should indeed be a minios pushgate.  Then osstest would
-> use the tested version.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-I did suggest this in a reply to an earlier test failure report, but
-as per above I don't see how this would work either in a case like
-this one.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Jan
+version targeted for testing:
+ ovmf                 06dc822d045c2bb42e497487935485302486e151
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    8 days
+Failing since        152915  2020-08-27 18:09:42 Z    7 days  133 attempts
+Testing same since   153646  2020-09-03 17:39:43 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 302 lines long.)
 
