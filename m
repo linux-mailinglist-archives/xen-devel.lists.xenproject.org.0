@@ -2,83 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12CE25E0CB
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 19:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0B5825E0F2
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 19:36:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEFXV-0005rs-Ry; Fri, 04 Sep 2020 17:30:17 +0000
+	id 1kEFd2-0006Bi-TG; Fri, 04 Sep 2020 17:36:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6qam=CN=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kEFXU-0005rc-1n
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 17:30:16 +0000
-X-Inumbo-ID: b222b89a-71c8-4be4-a7e0-1c9fcb83d584
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ <SRS0=oaZu=CN=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kEFd2-0006B5-2E
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 17:36:00 +0000
+X-Inumbo-ID: a49032a3-73fa-4c69-bad0-d0f1ec57711b
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b222b89a-71c8-4be4-a7e0-1c9fcb83d584;
- Fri, 04 Sep 2020 17:30:15 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id z1so7544293wrt.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 10:30:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=iTfwB4xa2llN+MOlOc5euzrM6jdzHnXINlbXBBq3/o4=;
- b=QoETaPoVslJ0yKoxL92fTb59I1K2YvdhedLz0rAyf2Zyti4IOdaaE3FE/BMs4xJ5/G
- 8L9LY61lMTeSmMWsehpinUlvEaUHV1ycvCwoTLOGwINpdKz+TpexHkmtgI04oAY27+AY
- OvC+fN2niTYe1mM+k3sVchbveKwBesmtnBOdLuNSDN10vlfwcdVE2epRbazWEUTVHZlE
- ACcbwgRtNxPeN+7XyyZfolRBwSfzsQE0TA/EY2OrIcoNWe06Gv/uwMKjjl0U1pTLFZuS
- ppgfjRQMSm9aYu+HFIkypZQOXWnPc79iK/GgOB3OrImVcVpZdXxuyMoA1+CqrM3xfA5t
- 9USg==
+ id a49032a3-73fa-4c69-bad0-d0f1ec57711b;
+ Fri, 04 Sep 2020 17:35:55 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id w5so7527261wrp.8
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 10:35:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=iTfwB4xa2llN+MOlOc5euzrM6jdzHnXINlbXBBq3/o4=;
- b=ayom9RAS8ArzRdeAE+gPy3FYhaQx14xKYtRWZWF/ptQmr2Q5LKr4+4+9lMEF6Y4TZQ
- BmHKvLz0qIwaslpOIf6j6KBWOKfhjhWbd2A6kpdlxESS048tRFs1EpeVlVYLNzJDO7ii
- zAawuqiEOaS0ojhHCG03QsO3ZfH6EzeLzP3HUVXySXvXfvJvAyUStWEp0p2n0QzEh47o
- kDvcX9s3pKEc0K6BVx606zV8oUOjlqaxCzTDBPJt1UCVWYioHJc68neMBsBk76mKJzca
- Ng2+YXfT/hOSX8snKeZeewaKXpY+dWWTgSU5zYTpNaRVs99/5Fgys9mCH9IU90BHAMqx
- 8uYw==
-X-Gm-Message-State: AOAM533c7AXGcPtWBBRSzmz7diipk/3MjMpuVrNc0BRQoC/x+xJyILwF
- ut1qMga4QuYRwD7AM9LjPME=
-X-Google-Smtp-Source: ABdhPJylCJS+pFLsnmeB574Ss6zovfyb7HyM6zq1HrAD8cvRFDmr4pWyoagxeXkCmQnopat/eI94ew==
-X-Received: by 2002:adf:f34f:: with SMTP id e15mr8371371wrp.387.1599240614435; 
- Fri, 04 Sep 2020 10:30:14 -0700 (PDT)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:c940:c3c6:26f0:df49])
- by smtp.gmail.com with ESMTPSA id v3sm12323067wmh.6.2020.09.04.10.30.13
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 04 Sep 2020 10:30:13 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-Cc: <xen-devel@lists.xenproject.org>, "'Paul Durrant'" <pdurrant@amazon.com>,
- "'Julien Grall'" <julien@xen.org>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'George Dunlap'" <george.dunlap@citrix.com>,
- "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
- "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
- "'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
-References: <20200818103032.3050-1-paul@xen.org>
- <20200818103032.3050-2-paul@xen.org>
- <9873d112-0d87-d871-3911-3527d79a0b56@suse.com>
- <5578c3fb-e35d-bb89-79f7-003e642492ab@suse.com>
-In-Reply-To: <5578c3fb-e35d-bb89-79f7-003e642492ab@suse.com>
-Subject: RE: [PATCH v7 1/9] xen/common: introduce a new framework for
- save/restore of 'domain' context
-Date: Fri, 4 Sep 2020 18:31:03 +0100
-Message-ID: <003601d682e1$2aaafdf0$8000f9d0$@xen.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=+zT6TAnfRzC64wZ6w58AordLuF96MIhgesOtRWyfYIA=;
+ b=qX8dVVPmO+IsKBn+8diXjwu5IqfRjlIc8EGmvjfJhqUlG+gBAA1nPWuffkoXGtloUV
+ yKwQv4rg2d/Q/NYxBP30l7nNGXEnVg9HMo4H2vSyCU4Rzkec3BXcEVHEpvomHFmz3oml
+ DKPy4EcuT/wqMcs9zyz/QrqgymnebYNjhMQ7oe279IpVfDqCodnHbKsAVHTLcfVTHWP2
+ hx2YOxAvxrWiQuPMnNpXvaOyZqWtYETXyWGqTB1sYwVdpL0625cF3KKB38bYGXEQ+jc6
+ PLyWH5Qy9qnR1EWSprDJ3Fy50xA+/Xu45W1wFsp2tj3qXR/RWv44WeFSRL9wE7ieVUec
+ jNMg==
+X-Gm-Message-State: AOAM532SGpLbR1HBU9YwMXgEJSZk0BRPxQyiD2Rn0shB8zF3by8L8Aho
+ 46o5ELzk/GuDnzA0ztgrnS0=
+X-Google-Smtp-Source: ABdhPJzVo+tBfXnkbdudJO2lQzB/qV0zYsEgiBNhb2ZVzvd5hwzUl85eLs/NS8V58OOgf2SIV344UA==
+X-Received: by 2002:a5d:5146:: with SMTP id u6mr9163115wrt.255.1599240954421; 
+ Fri, 04 Sep 2020 10:35:54 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id r14sm12606110wrc.41.2020.09.04.10.35.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2020 10:35:53 -0700 (PDT)
+Date: Fri, 4 Sep 2020 17:35:52 +0000
+From: Wei Liu <wl@xen.org>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Costin Lupu <costin.lupu@cs.pub.ro>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [xen-unstable test] 153602: regressions - FAIL [and 1 more
+ messages]
+Message-ID: <20200904173552.upzzbos6hkbvn3t7@liuwe-devbox-debian-v2>
+References: <233c6207-4724-55b0-3c92-84251edfc5b2@suse.com>
+ <20200904160034.11456-1-iwj@xenproject.org>
+ <osstest-153602-mainreport@xen.org>
+ <1bdbf90f-2150-cb86-63a2-37e5148ec34e@suse.com>
+ <24401.5895.115731.487189@mariner.uk.xensource.com>
+ <52d2bdeb-ccde-9d9d-9f62-24571e9e4c15@suse.com>
+ <565646cc-2833-d34e-2bc3-eb920ac7f140@suse.com>
+ <24402.28756.378598.517505@mariner.uk.xensource.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI3t7iXj66qvRdG8GCx2a1a4xz7XAHTJnD7Ad4sR6YB2eEYFqhp+Prw
-Content-Language: en-gb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <24402.28756.378598.517505@mariner.uk.xensource.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,44 +74,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 26 August 2020 14:54
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Paul Durrant =
-<pdurrant@amazon.com>; Julien Grall <julien@xen.org>;
-> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
-<george.dunlap@citrix.com>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Stefano Stabellini =
-<sstabellini@kernel.org>; Wei Liu <wl@xen.org>;
-> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Roger Pau Monn=C3=A9 =
-<roger.pau@citrix.com>
-> Subject: Re: [PATCH v7 1/9] xen/common: introduce a new framework for =
-save/restore of 'domain' context
->=20
-> On 26.08.2020 15:32, Jan Beulich wrote:
-> > On 18.08.2020 12:30, Paul Durrant wrote:
-> >> v7:
-> >>  - Add an option to domain_load_end() to ignore unconsumed data, =
-which will
-> >>    be needed by a subsequent patch
-> >
-> > May I suggest to name the parameter "ignore_tail" instead of
-> > "ignore_data", as typically you don't mean to ignore all of
-> > it?
->=20
-> Hmm, looking at patch 7 it's indeed all of the body which gets
-> ignored. Not sure what the longer term expectations here are.
->=20
+On Fri, Sep 04, 2020 at 05:50:28PM +0100, Ian Jackson wrote:
+> Jan Beulich writes ("Re: [xen-unstable test] 153602: regressions - FAIL"):
+> > Actually, with also reverting 8d990807ec2c in the main tree (along with
+> > effectively reverting e013e8514389, which comes down to the same as Ian
+> > suggested for 165f3afbfc3d), and with its future re-installment at the
+> > same time bumping the mini-os commit to use, things ought to work I
+> > would think. That would then be the same model again as used for
+> > qemu-trad.
+> 
+> I implemented this here:
+> 
+> Ian Jackson writes ("[PATCH] minios: Revert recent change and revert to working minios"):
+> > Currently, xen.git#staging does not build in many environments because
+> > of issues with minios master.  This regression was introduced in an
+> > uncontrolled manner by an update to mini-os.git#master.
+> 
+> I don't have any formal acks for this but, having build-tested it, I
+> am going to push it now, because the build is broken.
 
-I think it is useful to be able to consume as much or as little of a =
-record as is needed.
+Thanks for handling this.
 
-  Paul
+Wei.
 
-
+> 
+> Ian.
 
