@@ -2,62 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9063525E32A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 23:05:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431BC25E32F
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 23:07:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEIs0-0002my-N3; Fri, 04 Sep 2020 21:03:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kEIvr-0003HJ-Em; Fri, 04 Sep 2020 21:07:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wJ5a=CN=gmail.com=s.temerkhanov@srs-us1.protection.inumbo.net>)
- id 1kEIry-0002mt-TL
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 21:03:38 +0000
-X-Inumbo-ID: 16ad3ccb-b641-4887-8b38-e8c7531eed5f
-Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16ad3ccb-b641-4887-8b38-e8c7531eed5f;
- Fri, 04 Sep 2020 21:03:38 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id gr14so9213963ejb.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Sep 2020 14:03:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=q38W1EMQkfaoJgnkjBu46lmijfgtNpmtpFoSIws/OEo=;
- b=mEtltG2T9wQHB8At2DlqCVQbhfRpZx1uXovl89TbskP1IrTJLZfWyV9UT7s6MZpM1H
- mdSmyDAAcJYbDgdVh0QYZb1Mm7OgVZ0DwRzinINJ7syZlEjn6Rz53mLekW0BOyY/Aw0z
- SqYgokyOmZTGu6MLxwHL1R/aVXmhA+ZGqapbhw7TQefNrp/febFfs3Kt8tH+AAb8WfTi
- F3dNBFk7yL/OVfxtmubC9zeOwzE9zVuSNe4HB0lX4zVRiS3xv0h2XvhSZhxBE0j9V0/M
- LoYZl0npk95v+TmJde8zYiY9BaXbWcrvKqIp0xAmSjNaQjQedh6pt1RrdvMEI0Px4lZh
- pz6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=q38W1EMQkfaoJgnkjBu46lmijfgtNpmtpFoSIws/OEo=;
- b=JT4t35adPRsCFJUJG+PAMpyBY//DMp5yQ0+E7DGsiUEZBfo66dMzOCsChWTWzcJEnL
- hzJU/Ice81PyqWnXuIPgaHsdyiKI672QbP/kN8wY+yuLczZS1wO3l54cldV6YVOI6739
- /nmLUjxMScvH7kCjbAVP3MIY2WKTCWhCBM+V5yh1ONRqF8Sjr9g+YTew62nBix21bxxn
- ivbVhRZ4SHX83I9E9AO4F0ss1tLkLvaah+anKxqleHPKkiJkAD6tvRQCHYMIw5L9waA9
- iG7bQWOPgdU3zcyib0kxAtiYjxrBjysJ9efGbhFPvIosKpePkVzRDrFKAVHK7KSkDmor
- vP9A==
-X-Gm-Message-State: AOAM531dELfssUYT7oiM8NE2YP18B0X0w+FnRReWZaEnYMX9bwNVCENA
- rrpx4p31WFc2T9Av+XQXiWe1CK74fYQ5jHODHsk=
-X-Google-Smtp-Source: ABdhPJzqtNq7l96EmMmMNrpG/JlXY7CWbNWCQslOyiE6yMoSxh7M4PWraiNUi4k+s883yuRtlhMQvWKEl/EAhAWzh8U=
-X-Received: by 2002:a17:906:2dc1:: with SMTP id
- h1mr625527eji.436.1599253417140; 
- Fri, 04 Sep 2020 14:03:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200903232458.16551-1-s.temerkhanov@gmail.com>
- <98c44a05-00c8-948f-e3a9-e64d468dd36d@suse.com>
-In-Reply-To: <98c44a05-00c8-948f-e3a9-e64d468dd36d@suse.com>
-From: Sergei Temerkhanov <s.temerkhanov@gmail.com>
-Date: Sat, 5 Sep 2020 00:03:25 +0300
-Message-ID: <CAPEA6db-gNWhMU=Ex4OLFEB0HcFAy5GFs6Cjc6a4wupEpBReKw@mail.gmail.com>
-Subject: Re: [PATCH] efi: Always map EfiRuntimeServicesCode and
- EfiRuntimeServicesData
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kEIvq-0003Gt-DJ
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 21:07:38 +0000
+X-Inumbo-ID: be1e32c4-b96b-4312-97ec-4fe96382cdc6
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id be1e32c4-b96b-4312-97ec-4fe96382cdc6;
+ Fri, 04 Sep 2020 21:07:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=BnHS+FcHPXO8U6nSvkx06VwesPhoTib0lZN7d8N+HWE=; b=fAr/URohX7iMp+E4orEly8Ee2O
+ akCIPUaNaz4/O2cbwBbAR1wBqOTYU1b7He3xeNaH8QYvluaGF7EOOiNtXPrjtit+hmBgS0HNA/SNd
+ KQfoX9/UBLasHqYPd09b33DFofPO5mnwAeOzJ1a4EH3/k4s2rB47fZ27dk1cOOG2eERc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEIvj-0007B6-TS; Fri, 04 Sep 2020 21:07:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEIvj-0003PU-Le; Fri, 04 Sep 2020 21:07:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEIvj-0006aM-LA; Fri, 04 Sep 2020 21:07:31 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153727-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153727: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 21:07:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,57 +69,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Sep 4, 2020 at 12:47 PM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 04.09.2020 01:24, Sergey Temerkhanov wrote:
-> > --- a/xen/common/efi/boot.c
-> > +++ b/xen/common/efi/boot.c
-> > @@ -1521,7 +1521,9 @@ void __init efi_init_memory(void)
->
-> Looking at the line numbers - is this patch against the master
-> or staging branch? I ask because about as far away from the line
-> number above as the chunk of cose you mean to change there's a
-> very similar conditional, which has caused some slight confusion
-> over here.
+flight 153727 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153727/
 
-it was the latest tag, AFAIR.
+Regressions :-(
 
->
-> >          }
-> >
-> >          if ( !efi_enabled(EFI_RS) ||
-> > -             (!(desc->Attribute & EFI_MEMORY_RUNTIME) &&
-> > +             ((!(desc->Attribute & EFI_MEMORY_RUNTIME) &&
-> > +                (desc->Type != EfiRuntimeServicesCode &&
-> > +                 desc->Type != EfiRuntimeServicesData)) &&
-> >                (!map_bs ||
-> >                 (desc->Type != EfiBootServicesCode &&
-> >                  desc->Type != EfiBootServicesData))) )
->
-> I'm in principle okay with a workaround like this, but I don't
-> think it should go silently. I'd therefore like to suggest you
-> add a new if() ahead of this one and then set
-> EFI_MEMORY_RUNTIME in affected descriptors (to keep things
-> consistent with other consumers of the memory map without
-> having to update every one of those checking for the flag)
-> alongside issuing a log message.
->
-> There's nevertheless another piece of code you need to adjust,
-> inside a CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP conditional in
-> efi_exit_boot(). But you shouldn't adjust the descriptor
-> there, yet - this should happen only after its logging in
-> efi_init_memory().
->
-> Additionally I'd like it to be at least considered to also
-> check that EFI_MEMORY_WB (or at the very least one of the
-> cachability flags) is set, so that we won't run into the
-> path further down complaining about a lack thereof in this
-> case.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Makes sense. I'm making it set the UC for data and WP for code as the most
-conservative option in such a case.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    9 days
+Failing since        152915  2020-08-27 18:09:42 Z    8 days  140 attempts
+Testing same since   153709  2020-09-04 14:10:46 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
->
-> Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 321 lines long.)
 
