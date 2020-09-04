@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B7525DA7B
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 15:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5619025DA7A
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 15:52:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEC8v-0007AF-AU; Fri, 04 Sep 2020 13:52:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kEC8o-00078O-1I; Fri, 04 Sep 2020 13:52:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wtGI=CN=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kEC8u-00079z-3a
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 13:52:40 +0000
-X-Inumbo-ID: 87942b95-8d2d-4307-801b-3d6cf418c70b
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 87942b95-8d2d-4307-801b-3d6cf418c70b;
- Fri, 04 Sep 2020 13:52:39 +0000 (UTC)
+ id 1kEC8n-00078C-4f
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 13:52:33 +0000
+X-Inumbo-ID: dc6230d2-c2af-49a6-85a1-5c673f138ca2
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dc6230d2-c2af-49a6-85a1-5c673f138ca2;
+ Fri, 04 Sep 2020 13:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599227559;
+ d=citrix.com; s=securemail; t=1599227550;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L6C32o0narMAoQ5k3rPPl8ZPwtt0naiC0W7kbHEcHl8=;
- b=BX6uEHU3y8kurWeBx9jhbmZviOS3mY2Hb5SsvMvvqsz/bDvuuUk6rgbG
- nlrzjHiPHpfNZQ5IwrPRT6C41PWFfduOIsQjAcFaPdPu3ybeRgbMrgq0r
- d9PHC1fdNTtujRO6zCRLtTKv/Uelq0ioBBnBNtRSDRfxv9YPaDA083V3+ g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=zXGl8T7FbRpMlnLgnV9MjJDZ1Irzb38AvTOcvVTCA0Y=;
+ b=b+JArsVw93j/MYZYf7D1/PmOyR3/hjLE92E+ZpHnG7CMnweX5sHeFvec
+ CyDL1Br1VtxmKsxy3Ofz3LIgSfXbJXjWxEZjUNMY5xZExvrEUeckcFZzi
+ hUqq4GbTXRE4SQGsf31bKicLX2nyjiBHCsAd7F2tpT725F4u6yFNSMNGp 4=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: pRiTg/JZz29EKapSehcB3yj+yRBr4egftoLc7eRmQxTIARLF2Cbv8wWH1qGt0FfJtvFFQTgmDX
- 7ESLI+eZk5YMuk/d7qMeOSzy1YO/d8OupqrzQ195YClJ9Wc/6uCXHk9bX0v3+liftDB+conFAc
- TH+H6Rr2C6sbdmVJ59w98p/dhpv9NuFKWMxPPRJ/ZAr+WGrlXMrSw0gCSftTJgmzwfZRTX7zum
- Rv3kXWxF0/zySFH9bkRxzgP+2Rtz8WIOuxI1IaqxUn03ZuJbaLRQZ+r6YmsVWxCy2T0Yjc4TZf
- jU8=
+IronPort-SDR: VF6ynG/SGsIj8YkcHS7lG+M4WBTghYGQCCKuHKSqwy/AXTFN/7IhcFv2v/Wyo/W3soceskkizl
+ Ec+lvqJoW68SFafdwMDN2ZIgdQjSWjAUH4lTDP7WdnvF6fks0wuo5SB548NPEAApN1wC/0f5uh
+ QnxtjRnQcYhOsR6apdiDMy8tkHtam5XnXDB3l0LmfAk1xdvW31aubGinj+S7KcTJeSPwQC/25z
+ KzX93s3Y4UyTO3vp6dMF23mm4hSMCuJBapy/55GQgKfblnUccsLxIJ1/aZq2B1BOjti/K8j2AN
+ N00=
 X-SBRS: 2.7
-X-MesageID: 26347704
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 26308648
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,389,1592884800"; d="scan'208";a="26347704"
+X-IronPort-AV: E=Sophos;i="5.76,389,1592884800"; d="scan'208";a="26308648"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
  <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
  <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Andy Lutomirski
  <luto@kernel.org>, Sarah Newman <srn@prgmr.com>
-Subject: [PATCH v2 1/2] x86/pv: Fix consistency of 64bit segment bases
-Date: Fri, 4 Sep 2020 14:52:08 +0100
-Message-ID: <20200904135209.29226-2-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 2/2] x86/pv: Rewrite segment context switching from scratch
+Date: Fri, 4 Sep 2020 14:52:09 +0100
+Message-ID: <20200904135209.29226-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200904135209.29226-1-andrew.cooper3@citrix.com>
 References: <20200904135209.29226-1-andrew.cooper3@citrix.com>
@@ -68,34 +67,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The comments in save_segments(), _toggle_guest_pt() and write_cr() are false.
-The %fs and %gs bases can be updated at any time by the guest.
+There are multiple bugs with the existing implementation.
 
-As a consequence, Xen's fs_base/etc tracking state is always stale when the
-vcpu is in context, and must not be used to complete MSR_{FS,GS}_BASE reads, etc.
+On AMD CPUs prior to Zen2, loading a NUL segment selector doesn't clear the
+segment base, which is a problem for 64bit code which typically expects to use
+a NUL %fs/%gs selector.
 
-In particular, a sequence such as:
+On a context switch from any PV vcpu, to a 64bit PV vcpu with an %fs/%gs
+selector which faults, the fixup logic loads NUL, and the guest is entered at
+the failsafe callback with the stale base.
 
-  wrmsr(MSR_FS_BASE, 0x1ull << 32);
-  write_fs(__USER_DS);
-  base = rdmsr(MSR_FS_BASE);
+Alternatively, a PV context switch sequence of 64 (NUL, non-zero base) =>
+32 (NUL) => 64 (NUL, zero base) will similarly cause Xen to enter the guest
+with a stale base.
 
-will return the stale base, not the new base.  This may cause guest a guest
-kernel's context switching of userspace to malfunction.
+Both of these corner cases manifest as state corruption in the final vcpu.
+However, damage is limited to to 64bit code expecting to use Thread Local
+Storage with a base pointer of 0, which doesn't occur by default.
 
-Therefore:
- * Update save_segments(), _toggle_guest_pt() and read_msr() to always read
-   the segment bases from hardware.
- * Update write_cr(), write_msr() and do_set_segment_base() to not not waste
-   time caching data which is instantly going to become stale again.
- * Provide comments to explaining when the tracking state is and isn't stale.
+The context switch logic is extremely complicated, and is attempting to
+optimise away loading a NUL selector (which is fast), or writing a 64bit base
+of 0 (which is rare).  Furthermore, it fails to respect Linux's ABI with
+userspace, which manifests as userspace state corruption as far as Linux is
+concerned.
 
-This bug has been present for 14 years, but several bugfixes since have built
-on and extended the original flawed logic.
+Always restore all selector and base state, in all cases.
 
-Fixes: ba9adb737ba ("Apply stricter checking to RDMSR/WRMSR emulations.")
-Fixes: c42494acb2f ("x86: fix FS/GS base handling when using the fsgsbase feature")
-Fixed: eccc170053e ("x86/pv: Don't have %cr4.fsgsbase active behind a guest kernels back")
+Leave a large comment explaining hardware behaviour, and the new ABI
+expectations.  Update the comments in the public headers.
+
+Drop all "segment preloading" to handle the AMD corner case.  It was never
+anything but a waste of time for %ds/%es, and isn't needed now that %fs/%gs
+bases are unconditionally written for 64bit PV guests.  In load_segments(),
+store the result of is_pv_32bit_vcpu() as it is an expensive predicate now,
+and not used in a way which impacts speculative safety.
+
+Reported-by: Andy Lutomirski <luto@kernel.org>
+Reported-by: Sarah Newman <srn@prgmr.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
@@ -105,204 +113,273 @@ CC: Andy Lutomirski <luto@kernel.org>
 CC: Sarah Newman <srn@prgmr.com>
 
 v2:
- * New, although the first two hunks pulled forwards from what is now patch 2.
-
-The fact that this has gone unnoticed for so long shows how little 64bit
-userspace software reloads %fs/%gs directly.  Then again, its not very
-surprising, as doing so would break Thread Local Storage.
+ * Some save_segments() content pulled out into an earlier patch.
+ * Extra fix in arch_set_info_guest() due to the new ABI adjustments.
 ---
- xen/arch/x86/domain.c          | 21 ++++++++++++++++-----
- xen/arch/x86/pv/domain.c       | 18 ++++++++++--------
- xen/arch/x86/pv/emul-priv-op.c | 19 ++-----------------
- xen/arch/x86/x86_64/mm.c       |  6 ------
- xen/include/asm-x86/domain.h   | 19 ++++++++++++++++++-
- 5 files changed, 46 insertions(+), 37 deletions(-)
+ xen/arch/x86/domain.c                    | 178 ++++++++++---------------------
+ xen/include/public/arch-x86/xen-x86_64.h |   4 +-
+ 2 files changed, 60 insertions(+), 122 deletions(-)
 
 diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 66975d5f2c..f479bc6857 100644
+index f479bc6857..2a8538ed3f 100644
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -1728,6 +1728,16 @@ static void load_segments(struct vcpu *n)
+@@ -1186,13 +1186,9 @@ int arch_set_info_guest(
+     if ( !compat )
+     {
+         v->arch.pv.syscall_callback_eip = c.nat->syscall_callback_eip;
+-        /* non-nul selector kills fs_base */
+-        v->arch.pv.fs_base =
+-            !(v->arch.user_regs.fs & ~3) ? c.nat->fs_base : 0;
++        v->arch.pv.fs_base = c.nat->fs_base;
+         v->arch.pv.gs_base_kernel = c.nat->gs_base_kernel;
+-        /* non-nul selector kills gs_base_user */
+-        v->arch.pv.gs_base_user =
+-            !(v->arch.user_regs.gs & ~3) ? c.nat->gs_base_user : 0;
++        v->arch.pv.gs_base_user = c.nat->gs_base_user;
      }
+     else
+     {
+@@ -1508,58 +1504,60 @@ arch_do_vcpu_op(
  }
  
-+/*
-+ * Record all guest segment state.  The guest can load segment selectors
-+ * without trapping, which will also alter the 64bit FS/GS bases.  Arbitrary
-+ * changes to bases can also be made with the WR{FS,GS}BASE instructions, when
-+ * enabled.
+ /*
+- * Loading a nul selector does not clear bases and limits on AMD or Hygon
+- * CPUs. Be on the safe side and re-initialize both to flat segment values
+- * before loading a nul selector.
+- */
+-#define preload_segment(seg, value) do {              \
+-    if ( !((value) & ~3) &&                           \
+-         (boot_cpu_data.x86_vendor &                  \
+-          (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )      \
+-        asm volatile ( "movl %k0, %%" #seg            \
+-                       :: "r" (FLAT_USER_DS32) );     \
+-} while ( false )
+-
+-#define loadsegment(seg,value) ({               \
+-    int __r = 1;                                \
+-    asm volatile (                              \
+-        "1: movl %k1,%%" #seg "\n2:\n"          \
+-        ".section .fixup,\"ax\"\n"              \
+-        "3: xorl %k0,%k0\n"                     \
+-        "   movl %k0,%%" #seg "\n"              \
+-        "   jmp 2b\n"                           \
+-        ".previous\n"                           \
+-        _ASM_EXTABLE(1b, 3b)                    \
+-        : "=r" (__r) : "r" (value), "0" (__r) );\
+-    __r; })
+-
+-/*
+- * save_segments() writes a mask of segments which are dirty (non-zero),
+- * allowing load_segments() to avoid some expensive segment loads and
+- * MSR writes.
++ * Notes on PV segment handling:
++ *  - 32bit: All data from the GDT/LDT.
++ *  - 64bit: In addition, 64bit FS/GS/GS_KERN bases.
 + *
-+ * Guests however cannot use SWAPGS, so there is no mechanism to modify the
-+ * inactive GS base behind Xen's back.  Therefore, Xen's copy of the inactive
-+ * GS base is still accurate, and doesn't need reading back from hardware.
-+ */
++ * Linux's ABI with userspace expects to preserve the full selector and
++ * segment base, even sel != NUL, base != GDT/LDT for 64bit code.  Xen must
++ * honour this when context switching, to avoid breaking Linux's ABI.
++ *
++ * Note: It is impossible to preserve a selector value of 1, 2 or 3, as these
++ *       get reset to 0 by an IRET back to guest context.  Code playing with
++ *       arcane corners of x86 get to keep all resulting pieces.
++ *
++ * Therefore, we:
++ *  - Load the LDT.
++ *  - Load each segment selector.
++ *    - Any error loads zero, and triggers a failsafe callback.
++ *  - For 64bit, further load the 64bit bases.
++ *
++ * An optimisation exists on SVM-capable hardware, where we use a VMLOAD
++ * instruction to load the LDT and full FS/GS/GS_KERN data in one go.
++ *
++ * AMD-like CPUs prior to Zen2 do not zero the segment base or limit when
++ * loading a NUL selector.  This is a problem in principle when context
++ * switching to a 64bit guest, as a NUL FS/GS segment is usable and will pick
++ * up the stale base.
++ *
++ * However, it is not an issue in practice.  NUL segments are unusable for
++ * 32bit guests (so any stale base won't be used), and we unconditionally
++ * write the full FS/GS bases for 64bit guests.
+  */
+-static DEFINE_PER_CPU(unsigned int, dirty_segment_mask);
+-#define DIRTY_DS           0x01
+-#define DIRTY_ES           0x02
+-#define DIRTY_FS           0x04
+-#define DIRTY_GS           0x08
+-#define DIRTY_FS_BASE      0x10
+-#define DIRTY_GS_BASE      0x20
+-
+ static void load_segments(struct vcpu *n)
+ {
+     struct cpu_user_regs *uregs = &n->arch.user_regs;
+-    int all_segs_okay = 1;
+-    unsigned int dirty_segment_mask, cpu = smp_processor_id();
+-    bool fs_gs_done = false;
++    bool compat = is_pv_32bit_vcpu(n);
++    bool all_segs_okay = true, fs_gs_done = false;
+ 
+-    /* Load and clear the dirty segment mask. */
+-    dirty_segment_mask = per_cpu(dirty_segment_mask, cpu);
+-    per_cpu(dirty_segment_mask, cpu) = 0;
++    /*
++     * Attempt to load @seg with selector @val.  On error, clear
++     * @all_segs_okay in function scope, and load NUL into @sel.
++     */
++#define TRY_LOAD_SEG(seg, val)                          \
++    asm volatile ( "1: mov %k[_val], %%" #seg "\n\t"    \
++                   "2:\n\t"                             \
++                   ".section .fixup, \"ax\"\n\t"        \
++                   "3: xor %k[ok], %k[ok]\n\t"          \
++                   "   mov %k[ok], %%" #seg "\n\t"      \
++                   "   jmp 2b\n\t"                      \
++                   ".previous\n\t"                      \
++                   _ASM_EXTABLE(1b, 3b)                 \
++                   : [ok] "+r" (all_segs_okay)          \
++                   : [_val] "rm" (val) )
+ 
+ #ifdef CONFIG_HVM
+-    if ( cpu_has_svm && !is_pv_32bit_vcpu(n) &&
+-         !(read_cr4() & X86_CR4_FSGSBASE) && !((uregs->fs | uregs->gs) & ~3) )
++    if ( cpu_has_svm && !compat )
+     {
+         unsigned long gsb = n->arch.flags & TF_kernel_mode
+             ? n->arch.pv.gs_base_kernel : n->arch.pv.gs_base_user;
+@@ -1572,45 +1570,19 @@ static void load_segments(struct vcpu *n)
+     }
+ #endif
+     if ( !fs_gs_done )
+-        load_LDT(n);
+-
+-    /* Either selector != 0 ==> reload. */
+-    if ( unlikely((dirty_segment_mask & DIRTY_DS) | uregs->ds) )
+-    {
+-        preload_segment(ds, uregs->ds);
+-        all_segs_okay &= loadsegment(ds, uregs->ds);
+-    }
+-
+-    /* Either selector != 0 ==> reload. */
+-    if ( unlikely((dirty_segment_mask & DIRTY_ES) | uregs->es) )
+     {
+-        preload_segment(es, uregs->es);
+-        all_segs_okay &= loadsegment(es, uregs->es);
+-    }
++        load_LDT(n);
+ 
+-    /* Either selector != 0 ==> reload. */
+-    if ( unlikely((dirty_segment_mask & DIRTY_FS) | uregs->fs) && !fs_gs_done )
+-    {
+-        all_segs_okay &= loadsegment(fs, uregs->fs);
+-        /* non-nul selector updates fs_base */
+-        if ( uregs->fs & ~3 )
+-            dirty_segment_mask &= ~DIRTY_FS_BASE;
++        TRY_LOAD_SEG(fs, uregs->fs);
++        TRY_LOAD_SEG(gs, uregs->gs);
+     }
+ 
+-    /* Either selector != 0 ==> reload. */
+-    if ( unlikely((dirty_segment_mask & DIRTY_GS) | uregs->gs) && !fs_gs_done )
+-    {
+-        all_segs_okay &= loadsegment(gs, uregs->gs);
+-        /* non-nul selector updates gs_base_user */
+-        if ( uregs->gs & ~3 )
+-            dirty_segment_mask &= ~DIRTY_GS_BASE;
+-    }
++    TRY_LOAD_SEG(ds, uregs->ds);
++    TRY_LOAD_SEG(es, uregs->es);
+ 
+-    if ( !fs_gs_done && !is_pv_32bit_vcpu(n) )
++    if ( !fs_gs_done && !compat )
+     {
+-        /* This can only be non-zero if selector is NULL. */
+-        if ( n->arch.pv.fs_base | (dirty_segment_mask & DIRTY_FS_BASE) )
+-            wrfsbase(n->arch.pv.fs_base);
++        wrfsbase(n->arch.pv.fs_base);
+ 
+         /*
+          * Most kernels have non-zero GS base, so don't bother testing.
+@@ -1618,11 +1590,7 @@ static void load_segments(struct vcpu *n)
+          * avoiding erratum #88.)
+          */
+         wrgsshadow(n->arch.pv.gs_base_kernel);
+-
+-        /* This can only be non-zero if selector is NULL. */
+-        if ( n->arch.pv.gs_base_user |
+-             (dirty_segment_mask & DIRTY_GS_BASE) )
+-            wrgsbase(n->arch.pv.gs_base_user);
++        wrgsbase(n->arch.pv.gs_base_user);
+ 
+         /* If in kernel mode then switch the GS bases around. */
+         if ( (n->arch.flags & TF_kernel_mode) )
+@@ -1741,7 +1709,6 @@ static void load_segments(struct vcpu *n)
  static void save_segments(struct vcpu *v)
  {
      struct cpu_user_regs *regs = &v->arch.user_regs;
-@@ -1738,14 +1748,15 @@ static void save_segments(struct vcpu *v)
-     regs->fs = read_sreg(fs);
-     regs->gs = read_sreg(gs);
+-    unsigned int dirty_segment_mask = 0;
  
--    /* %fs/%gs bases can only be stale if WR{FS,GS}BASE are usable. */
--    if ( (read_cr4() & X86_CR4_FSGSBASE) && !is_pv_32bit_vcpu(v) )
-+    if ( !is_pv_32bit_vcpu(v) )
-     {
--        v->arch.pv.fs_base = __rdfsbase();
-+        unsigned long gs_base = rdgsbase();
-+
-+        v->arch.pv.fs_base = rdfsbase();
-         if ( v->arch.flags & TF_kernel_mode )
--            v->arch.pv.gs_base_kernel = __rdgsbase();
-+            v->arch.pv.gs_base_kernel = gs_base;
+     regs->ds = read_sreg(ds);
+     regs->es = read_sreg(es);
+@@ -1758,35 +1725,6 @@ static void save_segments(struct vcpu *v)
          else
--            v->arch.pv.gs_base_user = __rdgsbase();
-+            v->arch.pv.gs_base_user = gs_base;
+             v->arch.pv.gs_base_user = gs_base;
      }
- 
-     if ( regs->ds )
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index ec5a7d2dca..44e4ea2582 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -444,17 +444,19 @@ static void _toggle_guest_pt(struct vcpu *v)
- void toggle_guest_mode(struct vcpu *v)
- {
-     const struct domain *d = v->domain;
-+    unsigned long gs_base;
- 
-     ASSERT(!is_pv_32bit_vcpu(v));
- 
--    /* %fs/%gs bases can only be stale if WR{FS,GS}BASE are usable. */
--    if ( read_cr4() & X86_CR4_FSGSBASE )
--    {
--        if ( v->arch.flags & TF_kernel_mode )
--            v->arch.pv.gs_base_kernel = __rdgsbase();
--        else
--            v->arch.pv.gs_base_user = __rdgsbase();
--    }
-+    /*
-+     * Update the cached value of the GS base about to become inactive, as a
-+     * subsequent context switch won't bother re-reading it.
-+     */
-+    gs_base = rdgsbase();
-+    if ( v->arch.flags & TF_kernel_mode )
-+        v->arch.pv.gs_base_kernel = gs_base;
-+    else
-+        v->arch.pv.gs_base_user = gs_base;
-     asm volatile ( "swapgs" );
- 
-     _toggle_guest_pt(v);
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index bcc1188f6a..a192160f84 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -801,17 +801,6 @@ static int write_cr(unsigned int reg, unsigned long val,
-     }
- 
-     case 4: /* Write CR4 */
--        /*
--         * If this write will disable FSGSBASE, refresh Xen's idea of the
--         * guest bases now that they can no longer change.
--         */
--        if ( (curr->arch.pv.ctrlreg[4] & X86_CR4_FSGSBASE) &&
--             !(val & X86_CR4_FSGSBASE) )
--        {
--            curr->arch.pv.fs_base = __rdfsbase();
--            curr->arch.pv.gs_base_kernel = __rdgsbase();
--        }
 -
-         curr->arch.pv.ctrlreg[4] = pv_fixup_guest_cr4(curr, val);
-         write_cr4(pv_make_cr4(curr));
-         ctxt_switch_levelling(curr);
-@@ -882,15 +871,13 @@ static int read_msr(unsigned int reg, uint64_t *val,
-     case MSR_FS_BASE:
-         if ( is_pv_32bit_domain(currd) )
-             break;
--        *val = (read_cr4() & X86_CR4_FSGSBASE) ? __rdfsbase()
--                                               : curr->arch.pv.fs_base;
-+        *val = rdfsbase();
-         return X86EMUL_OKAY;
+-    if ( regs->ds )
+-        dirty_segment_mask |= DIRTY_DS;
+-
+-    if ( regs->es )
+-        dirty_segment_mask |= DIRTY_ES;
+-
+-    if ( regs->fs || is_pv_32bit_vcpu(v) )
+-    {
+-        dirty_segment_mask |= DIRTY_FS;
+-        /* non-nul selector kills fs_base */
+-        if ( regs->fs & ~3 )
+-            v->arch.pv.fs_base = 0;
+-    }
+-    if ( v->arch.pv.fs_base )
+-        dirty_segment_mask |= DIRTY_FS_BASE;
+-
+-    if ( regs->gs || is_pv_32bit_vcpu(v) )
+-    {
+-        dirty_segment_mask |= DIRTY_GS;
+-        /* non-nul selector kills gs_base_user */
+-        if ( regs->gs & ~3 )
+-            v->arch.pv.gs_base_user = 0;
+-    }
+-    if ( v->arch.flags & TF_kernel_mode ? v->arch.pv.gs_base_kernel
+-                                        : v->arch.pv.gs_base_user )
+-        dirty_segment_mask |= DIRTY_GS_BASE;
+-
+-    this_cpu(dirty_segment_mask) = dirty_segment_mask;
+ }
  
-     case MSR_GS_BASE:
-         if ( is_pv_32bit_domain(currd) )
-             break;
--        *val = (read_cr4() & X86_CR4_FSGSBASE) ? __rdgsbase()
--                                               : curr->arch.pv.gs_base_kernel;
-+        *val = rdgsbase();
-         return X86EMUL_OKAY;
+ void paravirt_ctxt_switch_from(struct vcpu *v)
+@@ -1996,7 +1934,7 @@ static void __context_switch(void)
+ #if defined(CONFIG_PV) && defined(CONFIG_HVM)
+     /* Prefetch the VMCB if we expect to use it later in the context switch */
+     if ( cpu_has_svm && is_pv_domain(nd) && !is_pv_32bit_domain(nd) &&
+-         !is_idle_domain(nd) && !(read_cr4() & X86_CR4_FSGSBASE) )
++         !is_idle_domain(nd) )
+         svm_load_segs(0, 0, 0, 0, 0, 0, 0);
+ #endif
  
-     case MSR_SHADOW_GS_BASE:
-@@ -1007,14 +994,12 @@ static int write_msr(unsigned int reg, uint64_t val,
-         if ( is_pv_32bit_domain(currd) || !is_canonical_address(val) )
-             break;
-         wrfsbase(val);
--        curr->arch.pv.fs_base = val;
-         return X86EMUL_OKAY;
- 
-     case MSR_GS_BASE:
-         if ( is_pv_32bit_domain(currd) || !is_canonical_address(val) )
-             break;
-         wrgsbase(val);
--        curr->arch.pv.gs_base_kernel = val;
-         return X86EMUL_OKAY;
- 
-     case MSR_SHADOW_GS_BASE:
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index 28bc98f8f2..b69cf2dc4f 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1030,10 +1030,7 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-     {
-     case SEGBASE_FS:
-         if ( is_canonical_address(base) )
--        {
-             wrfsbase(base);
--            v->arch.pv.fs_base = base;
--        }
-         else
-             ret = -EINVAL;
-         break;
-@@ -1050,10 +1047,7 @@ long do_set_segment_base(unsigned int which, unsigned long base)
- 
-     case SEGBASE_GS_KERNEL:
-         if ( is_canonical_address(base) )
--        {
-             wrgsbase(base);
--            v->arch.pv.gs_base_kernel = base;
--        }
-         else
-             ret = -EINVAL;
-         break;
-diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
-index 5fb347a94c..df657dc69f 100644
---- a/xen/include/asm-x86/domain.h
-+++ b/xen/include/asm-x86/domain.h
-@@ -527,7 +527,24 @@ struct pv_vcpu
-     bool_t syscall32_disables_events;
-     bool_t sysenter_disables_events;
- 
--    /* Segment base addresses. */
-+    /*
-+     * 64bit segment bases.
-+     *
-+     * FS and the active GS are always stale when the vCPU is in context, as
-+     * the guest can change them behind Xen's back with MOV SREG, or
-+     * WR{FS,GS}BASE on capable hardware.
-+     *
-+     * The inactive GS base is never stale, as guests can't use SWAPGS to
-+     * access it - all modification is performed by Xen either directly
-+     * (hypercall, #GP emulation), or indirectly (toggle_guest_mode()).
-+     *
-+     * The vCPU context switch path is optimised based on this fact, so any
-+     * path updating or swapping the inactive base must update the cached
-+     * value as well.
-+     *
-+     * Which GS base is active and inactive depends on whether the vCPU is in
-+     * user or kernel context.
-+     */
-     unsigned long fs_base;
-     unsigned long gs_base_kernel;
-     unsigned long gs_base_user;
+diff --git a/xen/include/public/arch-x86/xen-x86_64.h b/xen/include/public/arch-x86/xen-x86_64.h
+index 342eabc957..40aed14366 100644
+--- a/xen/include/public/arch-x86/xen-x86_64.h
++++ b/xen/include/public/arch-x86/xen-x86_64.h
+@@ -203,8 +203,8 @@ struct cpu_user_regs {
+     uint16_t ss, _pad2[3];
+     uint16_t es, _pad3[3];
+     uint16_t ds, _pad4[3];
+-    uint16_t fs, _pad5[3]; /* Non-nul => takes precedence over fs_base.      */
+-    uint16_t gs, _pad6[3]; /* Non-nul => takes precedence over gs_base_user. */
++    uint16_t fs, _pad5[3];
++    uint16_t gs, _pad6[3];
+ };
+ typedef struct cpu_user_regs cpu_user_regs_t;
+ DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
 -- 
 2.11.0
 
