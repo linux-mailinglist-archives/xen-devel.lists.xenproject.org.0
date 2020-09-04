@@ -2,42 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D054825D1B5
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 08:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FFD325D1BA
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 09:00:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE5d2-00035y-1L; Fri, 04 Sep 2020 06:55:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kE5hv-000458-Lw; Fri, 04 Sep 2020 07:00:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=saQb=CN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kE5d0-00035s-MM
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 06:55:18 +0000
-X-Inumbo-ID: 6dceaad5-8609-457f-a54f-49603f8f6e8c
+ (envelope-from <SRS0=JWnj=CN=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kE5ht-000453-OX
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 07:00:21 +0000
+X-Inumbo-ID: 1abe2859-cc40-4def-9d3a-aea0cb5964ce
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6dceaad5-8609-457f-a54f-49603f8f6e8c;
- Fri, 04 Sep 2020 06:55:17 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1abe2859-cc40-4def-9d3a-aea0cb5964ce;
+ Fri, 04 Sep 2020 07:00:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 117EAAC79;
- Fri,  4 Sep 2020 06:55:18 +0000 (UTC)
-Subject: Re: [PATCH] x86/pv: Rewrite segment context switching from scratch
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Andy Lutomirski <luto@kernel.org>, Sarah Newman <srn@prgmr.com>
-References: <20200903213625.5372-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6217b722-cfae-4b68-51aa-6123527fe714@suse.com>
-Date: Fri, 4 Sep 2020 08:55:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by mx2.suse.de (Postfix) with ESMTP id 10272AD5F;
+ Fri,  4 Sep 2020 07:00:20 +0000 (UTC)
+Subject: Re: [PATCH v5 3/3] xen: add helpers to allocate unpopulated memory
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: linux-kernel@vger.kernel.org,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Dan Carpenter <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>,
+ Yan Yankovskyi <yyankovskyi@gmail.com>, dri-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ David Hildenbrand <david@redhat.com>, Michal Hocko <mhocko@kernel.org>,
+ Dan Williams <dan.j.williams@intel.com>
+References: <20200901083326.21264-1-roger.pau@citrix.com>
+ <20200901083326.21264-4-roger.pau@citrix.com>
+ <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
+ <20200903163837.GM753@Air-de-Roger>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
+Date: Fri, 4 Sep 2020 09:00:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200903213625.5372-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200903163837.GM753@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,46 +62,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.09.2020 23:36, Andrew Cooper wrote:
-> There are multiple bugs with the existing implementation, including incorrect
-> comments.
+On 03.09.20 18:38, Roger Pau Monné wrote:
+> On Thu, Sep 03, 2020 at 05:30:07PM +0200, Jürgen Groß wrote:
+>> On 01.09.20 10:33, Roger Pau Monne wrote:
+>>> To be used in order to create foreign mappings. This is based on the
+>>> ZONE_DEVICE facility which is used by persistent memory devices in
+>>> order to create struct pages and kernel virtual mappings for the IOMEM
+>>> areas of such devices. Note that on kernels without support for
+>>> ZONE_DEVICE Xen will fallback to use ballooned pages in order to
+>>> create foreign mappings.
+>>>
+>>> The newly added helpers use the same parameters as the existing
+>>> {alloc/free}_xenballooned_pages functions, which allows for in-place
+>>> replacement of the callers. Once a memory region has been added to be
+>>> used as scratch mapping space it will no longer be released, and pages
+>>> returned are kept in a linked list. This allows to have a buffer of
+>>> pages and prevents resorting to frequent additions and removals of
+>>> regions.
+>>>
+>>> If enabled (because ZONE_DEVICE is supported) the usage of the new
+>>> functionality untangles Xen balloon and RAM hotplug from the usage of
+>>> unpopulated physical memory ranges to map foreign pages, which is the
+>>> correct thing to do in order to avoid mappings of foreign pages depend
+>>> on memory hotplug.
+>>>
+>>> Note the driver is currently not enabled on Arm platforms because it
+>>> would interfere with the identity mapping required on some platforms.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Sorry, I just got a build error for x86 32-bit build:
+>>
+>> WARNING: unmet direct dependencies detected for ZONE_DEVICE
+>>    Depends on [n]: MEMORY_HOTPLUG [=n] && MEMORY_HOTREMOVE [=n] &&
+>> SPARSEMEM_VMEMMAP [=n] && ARCH_HAS_PTE_DEVMAP [=n]
+>>    Selected by [y]:
+>>    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86 [=y]
+>>    GEN     Makefile
+>>    CC      kernel/bounds.s
+>>    CALL    /home/gross/korg/src/scripts/atomic/check-atomics.sh
+>>    UPD     include/generated/bounds.h
+>>    CC      arch/x86/kernel/asm-offsets.s
+>> In file included from /home/gross/korg/src/include/linux/mmzone.h:19:0,
+>>                   from /home/gross/korg/src/include/linux/gfp.h:6,
+>>                   from /home/gross/korg/src/include/linux/slab.h:15,
+>>                   from /home/gross/korg/src/include/linux/crypto.h:19,
+>>                   from /home/gross/korg/src/arch/x86/kernel/asm-offsets.c:9:
+>> /home/gross/korg/src/include/linux/page-flags-layout.h:95:2: error: #error
+>> "Not enough bits in page flags"
+>>   #error "Not enough bits in page flags"
+>>    ^~~~~
+>> make[2]: *** [/home/gross/korg/src/scripts/Makefile.build:114:
+>> arch/x86/kernel/asm-offsets.s] Error 1
+>> make[1]: *** [/home/gross/korg/src/Makefile:1175: prepare0] Error 2
+>> make[1]: Leaving directory '/home/gross/korg/x8632'
+>> make: *** [Makefile:185: __sub-make] Error 2
 > 
-> On AMD CPUs prior to Zen2, loading a NUL segment selector doesn't clear the
-> segment base, which is a problem for 64bit code which typically expects to use
-> a NUL %fs/%gs selector.
+> Sorry for this. I've tested a 32bit build but I think it was before
+> the last Kconfig changes. I'm a little unsure how to solve this, as
+> ZONE_DEVICE doesn't select the required options for it to run, but
+> rather depends on them to be available.
 > 
-> On a context switch from any PV vcpu, to a 64bit PV vcpu with an %fs/%gs
-> selector which faults, the fixup logic loads NUL, and the guest is entered at
-> the failsafe callback with the stale base.
+> You can trigger something similar on x86-64 by doing:
 > 
-> Alternatively, a PV context switch sequence of 64 (NUL, non-zero base) =>
-> 32 (NUL) => 64 (NUL, zero base) will similarly cause Xen to enter the guest
-> with a stale base.
+> $ make ARCH=x86_64 xen.config
+> Using .config as base
+> Merging ./kernel/configs/xen.config
+> Merging ./arch/x86/configs/xen.config
+> #
+> # merged configuration written to .config (needs make)
+> #
+> scripts/kconfig/conf  --olddefconfig Kconfig
 > 
-> Both of these corner cases manifest as state corruption in the final vcpu.
-> However, damage is limited to to 64bit code expecting to use Thread Local
-> Storage with a base pointer of 0, which doesn't occur by default.
+> WARNING: unmet direct dependencies detected for ZONE_DEVICE
+>    Depends on [n]: MEMORY_HOTPLUG [=y] && MEMORY_HOTREMOVE [=n] && SPARSEMEM_VMEMMAP [=y] && ARCH_HAS_PTE_DEVMAP [=y]
+>    Selected by [y]:
+>    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86_64 [=y]
+> #
+> # configuration written to .config
+> #
 > 
-> The context switch logic is extremely complicated, and is attempting to
-> optimise away loading a NUL selector (which is fast), or writing a 64bit base
-> of 0 (which is rare).  Furthermore, it fails to respect Linux's ABI with
-> userspace, which manifests as userspace state corruption as far as Linux is
-> concerned.
-> 
-> Always save and restore all selector and base state, in all cases.
-> 
-> Leave a large comment explaining hardware behaviour, and the new ABI
-> expectations.  Update the comments in the public headers.
-> 
-> Drop all "segment preloading" to handle the AMD corner case.  It was never
-> anything but a waste of time for %ds/%es, and isn't needed now that %fs/%gs
-> bases are unconditionally written for 64bit PV guests.  In load_segments(),
-> store the result of is_pv_32bit_vcpu() as it is an expensive predicate now,
-> and not used in a way which impacts speculative safety.
-> 
-> Reported-by: Andy Lutomirski <luto@kernel.org>
-> Reported-by: Sarah Newman <srn@prgmr.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I think the only solution is to have XEN_UNPOPULATED_ALLOC depend on
+> ZONE_DEVICE rather than select it?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yes, I think so.
+
+I've folded that in and now build is fine.
+
+
+Juergen
+
 
