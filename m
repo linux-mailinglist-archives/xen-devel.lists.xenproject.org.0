@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B827925D8CA
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 14:41:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F6425D8CE
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 14:42:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEB1n-0007Xy-0D; Fri, 04 Sep 2020 12:41:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kEB1m-0007X5-9E
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 12:41:14 +0000
-X-Inumbo-ID: 5cbcb95d-f978-45a1-ac78-49d0e56a8519
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5cbcb95d-f978-45a1-ac78-49d0e56a8519;
- Fri, 04 Sep 2020 12:41:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=3wwUyZRg6UfGt12Ybeyi4XORD9Yte37GSNnZ4+r0ExM=; b=eyoaMo4+3dghYYki6023psDl6Q
- u92PjSJa409dF/lamkohNn5RPsSiSCeic0Sz2T50PnnIgLqYJ/Wxto45AXRo7+89DjBeiCV0CtsP+
- P07XmYEF8ZtrhAL7Z7w4OFFiqLH2Hhav7zcEEFoCSBaYCyIpSOJDMcUPRi8f/1/i6Ji4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEB1f-0004Ik-Sj; Fri, 04 Sep 2020 12:41:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEB1f-00057g-Ag; Fri, 04 Sep 2020 12:41:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kEB1f-0000dt-AC; Fri, 04 Sep 2020 12:41:07 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153704-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kEB2r-0007hJ-B2; Fri, 04 Sep 2020 12:42:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=saQb=CN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kEB2q-0007hC-8r
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 12:42:20 +0000
+X-Inumbo-ID: fcf437cd-e3d7-445b-9802-98501f46ace3
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fcf437cd-e3d7-445b-9802-98501f46ace3;
+ Fri, 04 Sep 2020 12:42:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8A3ECB58D;
+ Fri,  4 Sep 2020 12:42:19 +0000 (UTC)
+Subject: Re: Continuing the Gitlab experiment: Single-patch PRs for gitlab
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ "open list:X86" <xen-devel@lists.xenproject.org>
+References: <78D90C74-945A-4B2C-9A7C-78EC0B623C04@citrix.com>
+ <e0c040bd-8b85-8dc9-37ee-04dd83adf072@suse.com>
+ <6D291A71-A0A6-401E-B9F6-BF6F992E60DF@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a1e46c3f-503f-b00a-b789-28c1f9c61640@suse.com>
+Date: Fri, 4 Sep 2020 14:42:28 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 153704: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=2c8fabb2232d34d6d20a9ce6989e2e6cbee07d52
-X-Osstest-Versions-That: xen=afe018e041ec112d90a8b4e6ed607d22aa06f280
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Sep 2020 12:41:07 +0000
+In-Reply-To: <6D291A71-A0A6-401E-B9F6-BF6F992E60DF@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,62 +53,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153704 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153704/
+On 04.09.2020 12:43, Bertrand Marquis wrote:
+>> On 4 Sep 2020, at 11:20, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 04.09.2020 11:54, George Dunlap wrote:
+>>> At the community call last month as well as this, we discussed whether to continue the “Gitlab experiment”.  It was generally agreed that reviewing Juergen’s long series was fairly sub-optimal, and that email was more suited to that sort of series.
+>>>
+>>> That said, there was general agreement that requiring all patches to go through email was going to limit contribution, particularly of one-off “drive-by” contributions.  As such, it was proposed that we consider allowing both Gitlab PRs, and email: that for one-off or short series, Gitlab PRs would be accepted, but that for longer series and/or longer term contributors, we would encourage people to switch to patchbombing the mailing list.
+>>>
+>>> We decided to continue the “Gitlab Experiment”, but with short PRs.  As such, Andy Cooper has posted two PRs:
+>>>
+>>> https://gitlab.com/xen-project/xen/-/merge_requests/2
+>>
+>> This looks to be confusing, to me at least. Following this link I
+>> can't see the actual change directly. Following either of the links
+>> after "Request to merge" gives a 404 error (after gitlab not being
+>> able to sign me in via Google, but then being able to sign me in
+>> via github) on both
+>>
+>> https://gitlab.com/xen-project/people/andyhhp/xen
+>> https://gitlab.com/xen-project/people/andyhhp/xen/-/tree/xen-pv-segbase
+> 
+> I think you missed on top the “Commits” and “Changes"
 
-Failures :-/ but no regressions.
+I did indeed. Nevertheless I think the other links ought to be
+working, as they're (I assume) going to give me a view of the
+tree as a whole with the patch/series applied.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+That said, from an engineer's point of view I think the main
+thing of interest should be shown in the "primary" view, and
+that's (imo) clearly the entire patch.
 
-version targeted for testing:
- xen                  2c8fabb2232d34d6d20a9ce6989e2e6cbee07d52
-baseline version:
- xen                  afe018e041ec112d90a8b4e6ed607d22aa06f280
-
-Last test of basis   153382  2020-08-31 14:00:27 Z    3 days
-Testing same since   153704  2020-09-04 10:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Michael Kurth <mku@amazon.de>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   afe018e041..2c8fabb223  2c8fabb2232d34d6d20a9ce6989e2e6cbee07d52 -> smoke
+Jan
 
