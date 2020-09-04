@@ -2,53 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFD325D1BA
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 09:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500EE25D28C
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 09:41:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE5hv-000458-Lw; Fri, 04 Sep 2020 07:00:23 +0000
+	id 1kE6K0-0007Lc-8C; Fri, 04 Sep 2020 07:39:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JWnj=CN=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kE5ht-000453-OX
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 07:00:21 +0000
-X-Inumbo-ID: 1abe2859-cc40-4def-9d3a-aea0cb5964ce
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xiF3=CN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kE6Jz-0007LH-3B
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 07:39:43 +0000
+X-Inumbo-ID: a517d49d-2ef2-450c-8e11-e5ce85e14fbd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1abe2859-cc40-4def-9d3a-aea0cb5964ce;
- Fri, 04 Sep 2020 07:00:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 10272AD5F;
- Fri,  4 Sep 2020 07:00:20 +0000 (UTC)
-Subject: Re: [PATCH v5 3/3] xen: add helpers to allocate unpopulated memory
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>, dri-devel@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- David Hildenbrand <david@redhat.com>, Michal Hocko <mhocko@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>
-References: <20200901083326.21264-1-roger.pau@citrix.com>
- <20200901083326.21264-4-roger.pau@citrix.com>
- <b1713f26-8202-ac1e-c18a-4989312219b9@suse.com>
- <20200903163837.GM753@Air-de-Roger>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <6fd73d30-5525-7f00-1e9c-d7bb96ea34a6@suse.com>
-Date: Fri, 4 Sep 2020 09:00:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <20200903163837.GM753@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ id a517d49d-2ef2-450c-8e11-e5ce85e14fbd;
+ Fri, 04 Sep 2020 07:39:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=IlrmrAhOHmSth2UpfZ3c4aPf8LpDEMganqWHBCOWOjc=; b=B70HPzTiLIq40Or1TVIo7Qb6i3
+ rZxoLuBKyr6RxA6UWX5Ljt2WdZjDiMevznkEODOPHFO/zcTBzHg/3jk4T4R6v1O12JXbsMx7N1Pub
+ NEHOk2nkyN1z6jRMLzi3/nKn7LfArvPhA0wdysL6xqXU8bWHVxK/JYGTYGnT1Km/+Gc8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE6Jr-0005mg-B9; Fri, 04 Sep 2020 07:39:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE6Jr-0004fv-2y; Fri, 04 Sep 2020 07:39:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kE6Jr-0007S4-2V; Fri, 04 Sep 2020 07:39:35 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153694-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153694: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=06dc822d045c2bb42e497487935485302486e151
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Sep 2020 07:39:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,94 +69,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.09.20 18:38, Roger Pau Monné wrote:
-> On Thu, Sep 03, 2020 at 05:30:07PM +0200, Jürgen Groß wrote:
->> On 01.09.20 10:33, Roger Pau Monne wrote:
->>> To be used in order to create foreign mappings. This is based on the
->>> ZONE_DEVICE facility which is used by persistent memory devices in
->>> order to create struct pages and kernel virtual mappings for the IOMEM
->>> areas of such devices. Note that on kernels without support for
->>> ZONE_DEVICE Xen will fallback to use ballooned pages in order to
->>> create foreign mappings.
->>>
->>> The newly added helpers use the same parameters as the existing
->>> {alloc/free}_xenballooned_pages functions, which allows for in-place
->>> replacement of the callers. Once a memory region has been added to be
->>> used as scratch mapping space it will no longer be released, and pages
->>> returned are kept in a linked list. This allows to have a buffer of
->>> pages and prevents resorting to frequent additions and removals of
->>> regions.
->>>
->>> If enabled (because ZONE_DEVICE is supported) the usage of the new
->>> functionality untangles Xen balloon and RAM hotplug from the usage of
->>> unpopulated physical memory ranges to map foreign pages, which is the
->>> correct thing to do in order to avoid mappings of foreign pages depend
->>> on memory hotplug.
->>>
->>> Note the driver is currently not enabled on Arm platforms because it
->>> would interfere with the identity mapping required on some platforms.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Sorry, I just got a build error for x86 32-bit build:
->>
->> WARNING: unmet direct dependencies detected for ZONE_DEVICE
->>    Depends on [n]: MEMORY_HOTPLUG [=n] && MEMORY_HOTREMOVE [=n] &&
->> SPARSEMEM_VMEMMAP [=n] && ARCH_HAS_PTE_DEVMAP [=n]
->>    Selected by [y]:
->>    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86 [=y]
->>    GEN     Makefile
->>    CC      kernel/bounds.s
->>    CALL    /home/gross/korg/src/scripts/atomic/check-atomics.sh
->>    UPD     include/generated/bounds.h
->>    CC      arch/x86/kernel/asm-offsets.s
->> In file included from /home/gross/korg/src/include/linux/mmzone.h:19:0,
->>                   from /home/gross/korg/src/include/linux/gfp.h:6,
->>                   from /home/gross/korg/src/include/linux/slab.h:15,
->>                   from /home/gross/korg/src/include/linux/crypto.h:19,
->>                   from /home/gross/korg/src/arch/x86/kernel/asm-offsets.c:9:
->> /home/gross/korg/src/include/linux/page-flags-layout.h:95:2: error: #error
->> "Not enough bits in page flags"
->>   #error "Not enough bits in page flags"
->>    ^~~~~
->> make[2]: *** [/home/gross/korg/src/scripts/Makefile.build:114:
->> arch/x86/kernel/asm-offsets.s] Error 1
->> make[1]: *** [/home/gross/korg/src/Makefile:1175: prepare0] Error 2
->> make[1]: Leaving directory '/home/gross/korg/x8632'
->> make: *** [Makefile:185: __sub-make] Error 2
-> 
-> Sorry for this. I've tested a 32bit build but I think it was before
-> the last Kconfig changes. I'm a little unsure how to solve this, as
-> ZONE_DEVICE doesn't select the required options for it to run, but
-> rather depends on them to be available.
-> 
-> You can trigger something similar on x86-64 by doing:
-> 
-> $ make ARCH=x86_64 xen.config
-> Using .config as base
-> Merging ./kernel/configs/xen.config
-> Merging ./arch/x86/configs/xen.config
-> #
-> # merged configuration written to .config (needs make)
-> #
-> scripts/kconfig/conf  --olddefconfig Kconfig
-> 
-> WARNING: unmet direct dependencies detected for ZONE_DEVICE
->    Depends on [n]: MEMORY_HOTPLUG [=y] && MEMORY_HOTREMOVE [=n] && SPARSEMEM_VMEMMAP [=y] && ARCH_HAS_PTE_DEVMAP [=y]
->    Selected by [y]:
->    - XEN_UNPOPULATED_ALLOC [=y] && XEN [=y] && X86_64 [=y]
-> #
-> # configuration written to .config
-> #
-> 
-> I think the only solution is to have XEN_UNPOPULATED_ALLOC depend on
-> ZONE_DEVICE rather than select it?
+flight 153694 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153694/
 
-Yes, I think so.
+Regressions :-(
 
-I've folded that in and now build is fine.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 06dc822d045c2bb42e497487935485302486e151
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z    8 days
+Failing since        152915  2020-08-27 18:09:42 Z    7 days  134 attempts
+Testing same since   153646  2020-09-03 17:39:43 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 302 lines long.)
 
