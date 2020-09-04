@@ -2,61 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F44525D70D
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 13:14:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42AD25D70E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Sep 2020 13:16:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kE9fS-0006nY-VH; Fri, 04 Sep 2020 11:14:06 +0000
+	id 1kE9hr-00073S-Cq; Fri, 04 Sep 2020 11:16:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/+qm=CN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kE9fR-0006nT-3F
- for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 11:14:05 +0000
-X-Inumbo-ID: 2f5aaae3-aefe-4cfe-b1c3-b706b0a2b400
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=/IBy=CN=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
+ id 1kE9hp-00073N-G2
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 11:16:33 +0000
+X-Inumbo-ID: d6545135-dac6-45fd-bbf3-ce9292d83781
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2f5aaae3-aefe-4cfe-b1c3-b706b0a2b400;
- Fri, 04 Sep 2020 11:14:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599218044;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=TeM73/1/+iCP5feLwHzL2ljy6suNbrE0ATh+GzCdLyU=;
- b=JXPsOroa3hdEIAoVUgBds3QUkgl3ahRXNxEIqbRomHiaxj1WIzo1IuNh
- NjAbxB0TBZpvWGvniEmh9OdFvm63sAKraRs9q4STw9PDXd8EFKtxWRLfj
- m/C1eNS+YczBM2H4H8O4XUh5JRXNAaA1GwRN6lGx3F+I6e30BdU3tMeZj s=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: qRTKGm4wJK9O7z77f+8insDdO+nQ8MduG/5tmFiT+XvA61eVwzEqkT9mnvQ5iHz8Ve2/Kr04N+
- KUf4eqfD2leN0UrmVOC2mM84gPOXWYMxlYlT8Y4zZ4V5a5L0ToqjNhRRJMXu3IpUNdB6XIh3G5
- nYee1gnAUFJwG4UBymQRXIh+XVBT0O40pZxkaTErlbsthcFQ9o6ZuYw6sGdOUuF3ciSMt4kCAj
- zJVHWvtO3okUlLse0uYY8q6laZKqA7c0HR+Fgf0FFIliUEYGl8j1DTQYuDMK0HjKNEJxZ1GrYi
- mVM=
-X-SBRS: 2.7
-X-MesageID: 26009391
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,389,1592884800"; d="scan'208";a="26009391"
-Date: Fri, 4 Sep 2020 13:13:54 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
- <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Jun Nakajima
- <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-Subject: Re: [PATCH v3 7/8] x86/hvm: Disallow access to unknown MSRs
-Message-ID: <20200904111354.GP753@Air-de-Roger>
-References: <20200901105445.22277-1-roger.pau@citrix.com>
- <20200901105445.22277-8-roger.pau@citrix.com>
- <6823183f-90f0-90df-f843-6db2e84dba4a@suse.com>
+ id d6545135-dac6-45fd-bbf3-ce9292d83781;
+ Fri, 04 Sep 2020 11:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+ :Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+ bh=1a9MH3rGTVlt/FnCpoJV5IL6GDmUr/5j+DFHYhpOrhA=; b=Shrd0uzCf4inpPT9gQ2vYyMlTM
+ CHIqxFz/H5/5W9N5Fh4os5o+BYTKVs4EzxFipj4QibNkBr+1jg6G5GIZOYpios6fr0C1XmRHrqjjt
+ ECgbNV6nV6CANQ61+5F+SGuXhkWq5E2sDNQFBaIdX03w6rulbk1xgjWLk9iSdLNFJJ0k=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kE9ho-0002bZ-Do
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 11:16:32 +0000
+Received: from iwj (helo=mynotebook.example.org)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kE9ho-00006h-Cj
+ for xen-devel@lists.xenproject.org; Fri, 04 Sep 2020 11:16:32 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1kE9hk-0007lT-VN; Fri, 04 Sep 2020 12:16:29 +0100
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <6823183f-90f0-90df-f843-6db2e84dba4a@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24402.8716.660590.87840@mariner.uk.xensource.com>
+Date: Fri, 4 Sep 2020 12:16:28 +0100
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] fix build with make 3.81
+In-Reply-To: <20200901115816.16672-1-jgross@suse.com>
+References: <20200901115816.16672-1-jgross@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,54 +63,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Sep 04, 2020 at 10:53:26AM +0200, Jan Beulich wrote:
-> On 01.09.2020 12:54, Roger Pau Monne wrote:
-> > @@ -3290,11 +3288,6 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-> >          __vmwrite(GUEST_IA32_DEBUGCTL, msr_content);
-> >          break;
-> >  
-> > -    case MSR_IA32_FEATURE_CONTROL:
-> > -    case MSR_IA32_VMX_BASIC ... MSR_IA32_VMX_VMFUNC:
-> > -        /* None of these MSRs are writeable. */
-> > -        goto gp_fault;
+Juergen Gross writes ("[PATCH] fix build with make 3.81"):
+> make 3.81 doesn't support multiline variables defined with
 > 
-> I understand Andrew did ask for this (and I didn't look closely
-> when I saw the comment), but ...
-> 
-> > @@ -3320,10 +3313,9 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-> >               is_last_branch_msr(msr) )
-> >              break;
-> >  
-> > -        /* Match up with the RDMSR side; ultimately this should go away. */
-> > -        if ( rdmsr_safe(msr, msr_content) == 0 )
-> > -            break;
-> > -
-> > +        gdprintk(XENLOG_WARNING,
-> > +                 "WRMSR 0x%08x val 0x%016"PRIx64" unimplemented\n",
-> > +                 msr, msr_content);
-> >          goto gp_fault;
-> 
-> ... above from here is logic that handling of these MSRs now goes
-> through. I'm particularly worried about vmx_write_guest_msr(),
-> which blindly updates the value of any MSR it can find, i.e. if
-> any r/o MSR (from the set above, or even more generally) ever got
-> added to this vCPU-specific set, the r/o-ness would no longer be
-> maintained.
+>  define var =
+>  ...
+>  endef
 
-But those MSRs need to be added to the list explicitly (using
-vmx_add_guest_msr) in order for the guest to be able to update them,
-and they are supposed to be owned by the guest?
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-I understand the concern, but AFAICT none of the MSRs handled by
-VMX_MSR_GUEST require such handling. Maybe it's worth adding something
-like VMX_MSR_GUEST_RO in the future if such need arises?
+And commited, thanks.
 
-> Do we perhaps need to white-list MSRs for which
-> vmx_write_guest_msr() may get called here?
-
-When such MSRs are added such addition should make sure they are not
-allowed write permissions? You would have to do that now anyway
-AFAICT.
-
-Roger.
+Ian.
 
