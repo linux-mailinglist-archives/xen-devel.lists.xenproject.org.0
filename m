@@ -2,51 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BA8725E58E
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Sep 2020 06:52:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3DF125E593
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Sep 2020 07:18:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEQ9b-0008Df-Np; Sat, 05 Sep 2020 04:50:19 +0000
+	id 1kEQZz-00020l-0R; Sat, 05 Sep 2020 05:17:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ib7E=CO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kEQ9a-0008Da-8u
- for xen-devel@lists.xenproject.org; Sat, 05 Sep 2020 04:50:18 +0000
-X-Inumbo-ID: c001b49a-dcc0-4a2b-873d-c98ee6ae49a3
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=Hc6H=CO=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kEQZx-00020f-2L
+ for xen-devel@lists.xenproject.org; Sat, 05 Sep 2020 05:17:33 +0000
+X-Inumbo-ID: 52135aff-f5cb-46d8-b495-3783533c1cb1
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c001b49a-dcc0-4a2b-873d-c98ee6ae49a3;
- Sat, 05 Sep 2020 04:50:17 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4DCCFAE2A;
- Sat,  5 Sep 2020 04:50:17 +0000 (UTC)
-Subject: Re: [xen-unstable test] 153602: regressions - FAIL [and 1 more
- messages]
-To: Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Costin Lupu <costin.lupu@cs.pub.ro>, Wei Liu <wl@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-Cc: xen-devel@lists.xenproject.org
-References: <233c6207-4724-55b0-3c92-84251edfc5b2@suse.com>
- <20200904160034.11456-1-iwj@xenproject.org>
- <osstest-153602-mainreport@xen.org>
- <1bdbf90f-2150-cb86-63a2-37e5148ec34e@suse.com>
- <24401.5895.115731.487189@mariner.uk.xensource.com>
- <52d2bdeb-ccde-9d9d-9f62-24571e9e4c15@suse.com>
- <565646cc-2833-d34e-2bc3-eb920ac7f140@suse.com>
- <24402.28756.378598.517505@mariner.uk.xensource.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <2f4a7c0c-694b-908c-6c10-59dda927b21e@suse.com>
-Date: Sat, 5 Sep 2020 06:50:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 52135aff-f5cb-46d8-b495-3783533c1cb1;
+ Sat, 05 Sep 2020 05:17:28 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0855H94s054509
+ (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Sat, 5 Sep 2020 01:17:15 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 0855H7mq054508;
+ Fri, 4 Sep 2020 22:17:07 -0700 (PDT) (envelope-from ehem)
+Date: Fri, 4 Sep 2020 22:17:07 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: Re: [PATCH] gitignore: Move ignores from global to subdirectories
+Message-ID: <20200905051707.GA48373@mattapan.m5p.com>
+References: <20200828025747.GA25246@mattapan.m5p.com>
+ <d284a27c-f347-f80f-f62f-78134749e20d@suse.com>
+ <20200831063748.GB1522@mattapan.m5p.com>
+ <ccab621e-9962-6715-896d-30e6bb8b9520@suse.com>
+ <20200831225517.GA11156@mattapan.m5p.com>
+ <67853b32-6aab-378b-556f-a96cd8dd950d@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <24402.28756.378598.517505@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <67853b32-6aab-378b-556f-a96cd8dd950d@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+ autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,30 +63,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.09.20 18:50, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [xen-unstable test] 153602: regressions - FAIL"):
->> Actually, with also reverting 8d990807ec2c in the main tree (along with
->> effectively reverting e013e8514389, which comes down to the same as Ian
->> suggested for 165f3afbfc3d), and with its future re-installment at the
->> same time bumping the mini-os commit to use, things ought to work I
->> would think. That would then be the same model again as used for
->> qemu-trad.
-> 
-> I implemented this here:
-> 
-> Ian Jackson writes ("[PATCH] minios: Revert recent change and revert to working minios"):
->> Currently, xen.git#staging does not build in many environments because
->> of issues with minios master.  This regression was introduced in an
->> uncontrolled manner by an update to mini-os.git#master.
-> 
-> I don't have any formal acks for this but, having build-tested it, I
-> am going to push it now, because the build is broken.
+On Tue, Sep 01, 2020 at 08:01:30AM +0200, Jan Beulich wrote:
+> I'm aware, and hence I said "aim for". In cases like this what we
+> often do is adjust things incrementally, as lines get touched anyway.
+> Of course if you want to clean it up all in one go ...
 
-Any reason you selected the 4.13 tag instead of the 4.14 one?
+What I've got has turned into a patch series.  There are some general
+.gitignore cleanup patches, followed by large mechanical fixes.
 
-Would you even consider using d8a7bd2430a590a958f3c17fc1b2f7f563a04db2
-in order not to block my libbuild series?
+Who should be included as Cc for submitting these?  Usual pattern would
+end up including all the general maintainers on all patches.  The reason
+is several of these are taking pieces off of the top-level .gitignore and
+moving those to subdirectory .gitignore files which would have shorter Cc
+lists.  There wouldn't be actual effects at the top-level, merely those
+subdirectories.  Should only the maintainers for the subdirectories be
+Cc'd?
+
+These also have limited testing.  The testing which is possible is to
+simply run `git check-ignore -vn <filename>` and I'm lacking appropriate
+testers.  I'm hopeful I'll get it right, but there is always that sweaty
+palms moment worrying I severely goof'd...
 
 
-Juergen
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
