@@ -2,64 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E20425E5FF
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Sep 2020 09:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B46D525E69F
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Sep 2020 10:54:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kESk7-0005xI-8r; Sat, 05 Sep 2020 07:36:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kETwh-0004ps-Fv; Sat, 05 Sep 2020 08:53:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=H5tp=CO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kESk5-0005xD-IY
- for xen-devel@lists.xenproject.org; Sat, 05 Sep 2020 07:36:09 +0000
-X-Inumbo-ID: 17cd23bc-7da7-4b6e-80dc-ffbff6772cba
+ id 1kETwg-0004pY-Bz
+ for xen-devel@lists.xenproject.org; Sat, 05 Sep 2020 08:53:14 +0000
+X-Inumbo-ID: 2b8a18db-2f9c-4730-975b-7adccd01c915
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 17cd23bc-7da7-4b6e-80dc-ffbff6772cba;
- Sat, 05 Sep 2020 07:36:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2b8a18db-2f9c-4730-975b-7adccd01c915;
+ Sat, 05 Sep 2020 08:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=9N/rdFUAA4gQWU2q17le3CZmVZyP7SxvTEqBO3uD5dY=; b=4Kw5acvkW0ef/dmTJ5NOeoEk02
- yaept4hEEOT7J1r2iaSReeJ95BWDUSAxQxC1+7zQabdTUkGi3XYc5Gqb5tyvyRkMtwY+H165nasgB
- tgoGeHWqzoIlrzsuwEEsMl6Phg7Lt/G8UZjUbFnABGf2t5yXSkcQYlQZS9UZgBLdlte0=;
+ bh=PhmHJBF6maPZp7gzqIkmysOzUOpKCXY5blzgsUX6pHk=; b=NeZkwpO/xrXn5P3cD6if9qCVdk
+ 06dqIofiY4FD26gRtQAXRwPsbEEBgYGJT96syzaAXy/kasy8TOuWVx6MJrM3xQ7eEwejzXF5XqDK9
+ BDQEqEk6STsDcyag2xATlttcntXpD0qf2yiXAinq/yM4ZPU37HTPj7f5LSpnQ8gucjyM=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kESk1-0001SQ-2c; Sat, 05 Sep 2020 07:36:05 +0000
+ id 1kETwV-0003XO-8f; Sat, 05 Sep 2020 08:53:03 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kESk0-0000Mf-RH; Sat, 05 Sep 2020 07:36:04 +0000
+ id 1kETwU-00021g-W8; Sat, 05 Sep 2020 08:53:03 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kESk0-0006Hr-Qk; Sat, 05 Sep 2020 07:36:04 +0000
+ id 1kETwU-0006rD-Va; Sat, 05 Sep 2020 08:53:02 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-153741-mainreport@xen.org>
+Message-ID: <osstest-153742-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 153741: trouble: blocked/broken
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:<job
- status>:broken:regression
- xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
- xen-unstable-smoke:build-armhf:<job status>:broken:regression
- xen-unstable-smoke:build-amd64:hosts-allocate:broken:regression
- xen-unstable-smoke:build-armhf:hosts-allocate:broken:regression
- xen-unstable-smoke:build-arm64-xsm:hosts-allocate:broken:regression
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=f4c1a541fa351e4f613471bbf397931f9e1ddd27
-X-Osstest-Versions-That: xen=82c3d15c903aa434473dfdb570096ae5db809b94
+Subject: [libvirt test] 153742: trouble: blocked/broken
+X-Osstest-Failures: libvirt:build-amd64:<job status>:broken:regression
+ libvirt:build-amd64-pvops:<job status>:broken:regression
+ libvirt:build-amd64-xsm:<job status>:broken:regression
+ libvirt:build-arm64:<job status>:broken:regression
+ libvirt:build-arm64-pvops:<job status>:broken:regression
+ libvirt:build-arm64-xsm:<job status>:broken:regression
+ libvirt:build-armhf:<job status>:broken:regression
+ libvirt:build-armhf-pvops:<job status>:broken:regression
+ libvirt:build-i386:<job status>:broken:regression
+ libvirt:build-i386-pvops:<job status>:broken:regression
+ libvirt:build-i386-xsm:<job status>:broken:regression
+ libvirt:build-amd64:hosts-allocate:broken:regression
+ libvirt:build-amd64-pvops:hosts-allocate:broken:regression
+ libvirt:build-arm64:hosts-allocate:broken:regression
+ libvirt:build-arm64-pvops:hosts-allocate:broken:regression
+ libvirt:build-i386:hosts-allocate:broken:regression
+ libvirt:build-i386-pvops:hosts-allocate:broken:regression
+ libvirt:build-amd64-xsm:hosts-allocate:broken:regression
+ libvirt:build-arm64-xsm:hosts-allocate:broken:regression
+ libvirt:build-armhf:hosts-allocate:broken:regression
+ libvirt:build-armhf-pvops:hosts-allocate:broken:regression
+ libvirt:build-i386-xsm:hosts-allocate:broken:regression
+ libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=ee6c936fbbfb217175326f0201d59cc6727a0678
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 05 Sep 2020 07:36:04 +0000
+Date: Sat, 05 Sep 2020 08:53:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,50 +100,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153741 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153741/
+flight 153742 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153742/
 
 Failures and problems with tests :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
  build-amd64                     <job status>                 broken
+ build-amd64-pvops               <job status>                 broken
+ build-amd64-xsm                 <job status>                 broken
+ build-arm64                     <job status>                 broken
+ build-arm64-pvops               <job status>                 broken
  build-arm64-xsm                 <job status>                 broken
  build-armhf                     <job status>                 broken
- build-amd64                   2 hosts-allocate         broken REGR. vs. 153720
- build-armhf                   2 hosts-allocate         broken REGR. vs. 153720
- build-arm64-xsm               2 hosts-allocate         broken REGR. vs. 153720
+ build-armhf-pvops               <job status>                 broken
+ build-i386                      <job status>                 broken
+ build-i386-pvops                <job status>                 broken
+ build-i386-xsm                  <job status>                 broken
+ build-amd64                   2 hosts-allocate         broken REGR. vs. 151777
+ build-amd64-pvops             2 hosts-allocate         broken REGR. vs. 151777
+ build-arm64                   2 hosts-allocate         broken REGR. vs. 151777
+ build-arm64-pvops             2 hosts-allocate         broken REGR. vs. 151777
+ build-i386                    2 hosts-allocate         broken REGR. vs. 151777
+ build-i386-pvops              2 hosts-allocate         broken REGR. vs. 151777
+ build-amd64-xsm               2 hosts-allocate         broken REGR. vs. 151777
+ build-arm64-xsm               2 hosts-allocate         broken REGR. vs. 151777
+ build-armhf                   2 hosts-allocate         broken REGR. vs. 151777
+ build-armhf-pvops             2 hosts-allocate         broken REGR. vs. 151777
+ build-i386-xsm                2 hosts-allocate         broken REGR. vs. 151777
 
 Tests which did not succeed, but are not blocking:
  build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
  test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
 version targeted for testing:
- xen                  f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ libvirt              ee6c936fbbfb217175326f0201d59cc6727a0678
 baseline version:
- xen                  82c3d15c903aa434473dfdb570096ae5db809b94
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Last test of basis   153720  2020-09-04 17:01:26 Z    0 days
-Testing same since   153728  2020-09-04 20:00:27 Z    0 days    2 attempts
+Last test of basis   151777  2020-07-10 04:19:19 Z   57 days
+Failing since        151818  2020-07-11 04:18:52 Z   56 days   52 attempts
+Testing same since   153742  2020-09-05 04:19:05 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Wei Chen <wei.chen@arm.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
 
 jobs:
+ build-amd64-xsm                                              broken  
  build-arm64-xsm                                              broken  
+ build-i386-xsm                                               broken  
  build-amd64                                                  broken  
+ build-arm64                                                  broken  
  build-armhf                                                  broken  
+ build-i386                                                   broken  
  build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            broken  
+ build-arm64-pvops                                            broken  
+ build-armhf-pvops                                            broken  
+ build-i386-pvops                                             broken  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
  test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
 ------------------------------------------------------------
@@ -135,73 +270,29 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 broken-job build-amd64 broken
+broken-job build-amd64-pvops broken
+broken-job build-amd64-xsm broken
+broken-job build-arm64 broken
+broken-job build-arm64-pvops broken
 broken-job build-arm64-xsm broken
 broken-job build-armhf broken
+broken-job build-armhf-pvops broken
+broken-job build-i386 broken
+broken-job build-i386-pvops broken
+broken-job build-i386-xsm broken
 broken-step build-amd64 hosts-allocate
-broken-step build-armhf hosts-allocate
+broken-step build-amd64-pvops hosts-allocate
+broken-step build-arm64 hosts-allocate
+broken-step build-arm64-pvops hosts-allocate
+broken-step build-i386 hosts-allocate
+broken-step build-i386-pvops hosts-allocate
+broken-step build-amd64-xsm hosts-allocate
 broken-step build-arm64-xsm hosts-allocate
+broken-step build-armhf hosts-allocate
+broken-step build-armhf-pvops hosts-allocate
+broken-step build-i386-xsm hosts-allocate
 
 Not pushing.
 
-------------------------------------------------------------
-commit f4c1a541fa351e4f613471bbf397931f9e1ddd27
-Author: Wei Chen <wei.chen@arm.com>
-Date:   Fri Aug 28 02:34:04 2020 +0000
-
-    xen/arm: Throw messages for unknown FP/SIMD implement ID
-    
-    Arm ID_AA64PFR0_EL1 register provides two fields to describe CPU
-    FP/SIMD implementations. Currently, we exactly know the meaning of
-    0x0, 0x1 and 0xf of these fields. Xen treats value < 8 as FP/SIMD
-    features presented. If there is a value 0x2 bumped in the future,
-    Xen behaviors for value <= 0x1 can also take effect. But what Xen
-    done for value <= 0x1 may not always cover new value 0x2 required.
-    We throw these messages to break the silence when Xen detected
-    unknown FP/SIMD IDs to notice user to check.
-    
-    Signed-off-by: Wei Chen <wei.chen@arm.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 968bb86d04913f52d7678a842474f2a674a8b23e
-Author: Wei Chen <wei.chen@arm.com>
-Date:   Fri Aug 28 02:34:03 2020 +0000
-
-    xen/arm: Missing N1/A76/A75 FP registers in vCPU context switch
-    
-    Xen has cpu_has_fp/cpu_has_simd to detect whether the CPU supports
-    FP/SIMD or not. But currently, these two MACROs only consider value 0
-    of ID_AA64PFR0_EL1.FP/SIMD as FP/SIMD features enabled. But for CPUs
-    that support FP/SIMD and half-precision floating-point arithmetic, the
-    ID_AA64PFR0_EL1.FP/SIMD are 1 (see Arm ARM DDI0487F.b, D13.2.64).
-    For these CPUs, xen will treat them as no FP/SIMD support, the
-    vfp_save/restore_state will not take effect.
-    
-    From the TRM documents of Cortex-A75/A76/N1, we know these CPUs support
-    basic Advanced SIMD/FP and half-precision floating-point arithmetic. In
-    this case, on N1/A76/A75 platforms, Xen will always miss the floating
-    pointer registers save/restore. If different vCPUs are running on the
-    same pCPU, the floating pointer registers will be corrupted randomly.
-    
-    This patch fixes Xen on these new cores.
-    
-    Signed-off-by: Wei Chen <wei.chen@arm.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-commit 1814a626fb5811184eda64fe22f0055df4600211
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Tue Aug 25 18:38:10 2020 +0100
-
-    xen/arm: Update silicon-errata.txt with the Neovers AT erratum
-    
-    Commit 858c0be8c2fa "xen/arm: Enable CPU Erratum 1165522 for Neoverse"
-    added a new erratum but forgot to update silicon-errata.txt.
-    
-    Update the file accordingly to keep track of errata workaround in Xen.
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+(No revision log; it would be 12662 lines long.)
 
