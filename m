@@ -2,59 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7888925EF6E
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 20:05:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5ED025F013
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 21:15:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEz17-0008Fr-EU; Sun, 06 Sep 2020 18:03:53 +0000
+	id 1kF07J-0005jz-00; Sun, 06 Sep 2020 19:14:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AZON=CP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kEz16-0008Fm-Ge
- for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 18:03:52 +0000
-X-Inumbo-ID: a5a37788-ebce-4a3c-b8e4-e1ef1024ef0b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Z27E=CP=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1kF07H-0005ju-Cc
+ for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 19:14:19 +0000
+X-Inumbo-ID: 921378b8-9e1a-485f-a5fa-5bacbe301598
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a5a37788-ebce-4a3c-b8e4-e1ef1024ef0b;
- Sun, 06 Sep 2020 18:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=/Ku5FXqEilzBPmNkVGQOnp/hkg+bX2biRO3oS+k5hwI=; b=byLO1ouL7B7wPK6mhnAgRde5rP
- Lmm+LURxq8Oq9FrpXs+oa+KMe4lXiBWHBJAwz8vNtig1xD6GQS8EWEwOdysdCfsWmTyFdTcCzHgQB
- 6hw1Jj7DXDhSN4/zv2xh1ObXIJ6CVsUwx+QswqZNa5RJn4TZVtc/Eq13f28P4LWs1Yy8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEz14-0002D5-Gk; Sun, 06 Sep 2020 18:03:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kEz14-0004M0-9G; Sun, 06 Sep 2020 18:03:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kEz14-0000Mh-8o; Sun, 06 Sep 2020 18:03:50 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153819-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 153819: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 06 Sep 2020 18:03:50 +0000
+ id 921378b8-9e1a-485f-a5fa-5bacbe301598;
+ Sun, 06 Sep 2020 19:14:18 +0000 (UTC)
+Subject: Re: [GIT PULL] xen: branch for v5.9-rc4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599419657;
+ bh=b0sjA3RRmE3Ctkx5sSi6A7jcGmb2AJfka3zvRYsP/wU=;
+ h=From:In-Reply-To:References:Date:To:Cc:From;
+ b=nXOptfINJoSA073riFbrAXutgZhaprtMwKp4gK9XY/0ojryKDSlve9udCxWIokA+z
+ r7WAei5yZN5ljtu2M8s4fgezs9el9idy/Y5yjG3Ypj7Qo+KQUr6LBjnHLi0u8VzaVe
+ KTF7xEm0WkYa0UjLV1BbUPHfAHrRYAFX32Se5jQ4=
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20200906044433.24820-1-jgross@suse.com>
+References: <20200906044433.24820-1-jgross@suse.com>
+X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
+X-PR-Tracked-Message-Id: <20200906044433.24820-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git
+ for-linus-5.9-rc4-tag
+X-PR-Tracked-Commit-Id: 9e2369c06c8a181478039258a4598c1ddd2cadfa
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 68beef571071014ef34a3beac65fe2af7e8e3cf6
+Message-Id: <159941965789.19439.10257590173501018968.pr-tracker-bot@kernel.org>
+Date: Sun, 06 Sep 2020 19:14:17 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +55,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153819 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153819/
+The pull request you sent on Sun,  6 Sep 2020 06:44:33 +0200:
 
-Regressions :-(
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.9-rc4-tag
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/68beef571071014ef34a3beac65fe2af7e8e3cf6
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Thank you!
 
-version targeted for testing:
- ovmf                 2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z   11 days
-Failing since        152915  2020-08-27 18:09:42 Z    9 days  160 attempts
-Testing same since   153709  2020-09-04 14:10:46 Z    2 days   25 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 321 lines long.)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
