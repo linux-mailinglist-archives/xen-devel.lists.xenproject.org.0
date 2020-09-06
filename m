@@ -2,36 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFCA25ECB6
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 06:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEFD525ECFE
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 07:58:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEmXd-0004hZ-50; Sun, 06 Sep 2020 04:44:37 +0000
+	id 1kEnfe-0002kU-IO; Sun, 06 Sep 2020 05:56:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EZfr=CP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kEmXb-0004hU-Hw
- for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 04:44:35 +0000
-X-Inumbo-ID: 31f0bcab-6788-4664-98dc-9b83b582815b
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AZON=CP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kEnfd-0002k8-Bt
+ for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 05:56:57 +0000
+X-Inumbo-ID: ae7bab6d-3df2-436e-bcdb-a745e6686fab
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 31f0bcab-6788-4664-98dc-9b83b582815b;
- Sun, 06 Sep 2020 04:44:34 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9613AAC2B;
- Sun,  6 Sep 2020 04:44:34 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- boris.ostrovsky@oracle.com
-Subject: [GIT PULL] xen: branch for v5.9-rc4
-Date: Sun,  6 Sep 2020 06:44:33 +0200
-Message-Id: <20200906044433.24820-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+ id ae7bab6d-3df2-436e-bcdb-a745e6686fab;
+ Sun, 06 Sep 2020 05:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=hypL4syxPftV8WSgm2lXHSYIUghowsgMS80QE6T5reA=; b=SgDP4FpKErSUspP6qoVA40iDrB
+ KSOnWzgOM+i0CCcP+hY6it8hJdMF2fd+IBHip3CGJdR0vYG+ltLYfgXrwUHH5GvbqvLQu5ZkC9NAO
+ Omei0nFIYzggf78k/tkal4t22O4jNANbCXnteMtR+A6gvHiC2TBjU1a+kgCuBm8CmYNo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEnfW-0002ur-SF; Sun, 06 Sep 2020 05:56:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEnfW-00078O-Az; Sun, 06 Sep 2020 05:56:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEnfW-00041v-AU; Sun, 06 Sep 2020 05:56:50 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153780-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153780: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 06 Sep 2020 05:56:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,41 +68,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Linus,
+flight 153780 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153780/
 
-Please git pull the following tag:
+Regressions :-(
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.9-rc4-tag
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-xen: branch for v5.9-rc4
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-It contains a small series for fixing a problem with Xen PVH guests
-when running as backends (e.g. as dom0). Mapping other guests' memory
-now is working via ZONE_DEVICE, thus not requiring to abuse the memory
-hotplug functionality for that purpose.
+version targeted for testing:
+ ovmf                 2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-Thanks.
+Last test of basis   152863  2020-08-26 16:09:47 Z   10 days
+Failing since        152915  2020-08-27 18:09:42 Z    9 days  151 attempts
+Testing same since   153709  2020-09-04 14:10:46 Z    1 days   16 attempts
 
-Juergen
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
- drivers/dax/device.c                    |   2 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.c |   9 +-
- drivers/xen/Kconfig                     |  10 ++
- drivers/xen/Makefile                    |   1 +
- drivers/xen/balloon.c                   |   4 +-
- drivers/xen/grant-table.c               |   4 +-
- drivers/xen/privcmd.c                   |   4 +-
- drivers/xen/unpopulated-alloc.c         | 183 ++++++++++++++++++++++++++++++++
- drivers/xen/xenbus/xenbus_client.c      |   6 +-
- drivers/xen/xlate_mmu.c                 |   4 +-
- include/linux/memremap.h                |   9 +-
- include/xen/balloon.h                   |   4 +
- include/xen/xen.h                       |   9 ++
- mm/memremap.c                           |   2 +-
- 14 files changed, 229 insertions(+), 22 deletions(-)
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-Roger Pau Monne (3):
-      xen/balloon: add header guard
-      memremap: rename MEMORY_DEVICE_DEVDAX to MEMORY_DEVICE_GENERIC
-      xen: add helpers to allocate unpopulated memory
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 321 lines long.)
 
