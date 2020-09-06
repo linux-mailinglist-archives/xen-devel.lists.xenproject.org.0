@@ -2,65 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029CF25ED10
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 08:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C805A25ED12
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Sep 2020 08:58:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kEoXi-0007z5-Jm; Sun, 06 Sep 2020 06:52:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kEocb-0008Gl-7f; Sun, 06 Sep 2020 06:57:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EKjW=CP=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
- id 1kEoXh-0007yx-Oz
- for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 06:52:49 +0000
-X-Inumbo-ID: b40d6706-da4f-4a1f-828e-e6b319c4c834
-Received: from mail-pf1-x443.google.com (unknown [2607:f8b0:4864:20::443])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b40d6706-da4f-4a1f-828e-e6b319c4c834;
- Sun, 06 Sep 2020 06:52:49 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id 17so6897964pfw.9
- for <xen-devel@lists.xenproject.org>; Sat, 05 Sep 2020 23:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Db0fgXXbzH2p2U25JJ6scSTK1v1Ti17DDq8xS5lR3/w=;
- b=MszkEUa5ryYy30yaiYP8RoyZtu6DMbERcUxtpSd18pBj6WexOGEKKL7JkkCjeVUYa4
- CLPoxhkxomeYAPBFdTEqbgyEnE9h08KH9vh/2zYii0811dV9ABqMr9Y+OOGDR4GbOKWQ
- DTwpEZ4rNvQ47beCtgBw67QI3/z/j2BUult3VlMTBvtL7D8gc932t9nL1RVNBW0Q2Xql
- EOvSDVqH3rJH+AbCcVBG9XpMu4jVYzF9TmggKmsf6S17fC4F3G27oREvQ7LQPIXCtV4U
- 8VXHh/QZPE+IAXJLXGU2l8GBimNhAKcGwVpsPC1+d9MH2dSd3obODmPQiNoIKRnUkMfy
- Fgzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=Db0fgXXbzH2p2U25JJ6scSTK1v1Ti17DDq8xS5lR3/w=;
- b=luH2F88ghxKHw0D0AseQsVMm5JSHQZK+K8nVh6wSStECHli75YrSvaJAgCG3AWJ5v7
- tTZ83LZhC37DXMcNc/CO2sqKAxgrLhkjGBDf9e6m9HcB642uMEJQ2aAaakMWQVQ2AkRO
- M5aL3rmTWG76lA+jyDj4v4VwrySVjaVGZunAa3dvuIpaOY542XY0l4/+Ko6Uz7ozwjiT
- sN2prLurT/p0wgxUJ75GTCxvncQ6PrhXeUYI3wQ+h/uU2yZWUyfbllTa4C/vIeeGr7lQ
- O2avvonH0BGdZevM2cAF9SBn9o38elCgBcwcA0Tf8mRgNXITrz+euufXlE/d5nUZQQP1
- reaQ==
-X-Gm-Message-State: AOAM531eREUME2cK6Ekj2PbbArPNNgPKyhZ/HZc6KTXRQpS8T3JcW+RT
- j1xDsxaNSlNsuNIQzrvFOkLT2SRsraolSA==
-X-Google-Smtp-Source: ABdhPJxQeP2UYdkYbiXq2FOVaFF2XXnDUgZOTqlJ7qMyx28A9j6QYQ0Cphyslfl3lZuG6wql4/ZCpQ==
-X-Received: by 2002:aa7:941a:: with SMTP id x26mr11701444pfo.177.1599375168362; 
- Sat, 05 Sep 2020 23:52:48 -0700 (PDT)
-Received: from jordon-HP-15-Notebook-PC.domain.name ([122.171.54.54])
- by smtp.gmail.com with ESMTPSA id n128sm9199947pga.5.2020.09.05.23.52.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 05 Sep 2020 23:52:47 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
- david.vrabel@citrix.com
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Souptick Joarder <jrdr.linux@gmail.com>, John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 2/2] xen/gntdev.c: Convert get_user_pages*() to
- pin_user_pages*()
-Date: Sun,  6 Sep 2020 12:21:54 +0530
-Message-Id: <1599375114-32360-2-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1599375114-32360-1-git-send-email-jrdr.linux@gmail.com>
-References: <1599375114-32360-1-git-send-email-jrdr.linux@gmail.com>
+ <SRS0=AZON=CP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kEoca-0008GP-8P
+ for xen-devel@lists.xenproject.org; Sun, 06 Sep 2020 06:57:52 +0000
+X-Inumbo-ID: 384fb411-f5f0-49bc-b5e8-27de1ebdd824
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 384fb411-f5f0-49bc-b5e8-27de1ebdd824;
+ Sun, 06 Sep 2020 06:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=6HEdpu0U85IFdcDxx2kJ2WeOWtwVuPDGE4FcNQW0Tj4=; b=K6Uwxzj08kZmKgeKIeO1kzMxov
+ Y4LR2OUE3ox2yVWeZ5wKRa0TdbjnhaLUPFaC9uzj5jWVuIuoJDHNz6S8gUmc4pcEAEHjyn0LlWGOs
+ 4M1dLnYr2/x9glDkL+fjtJ6gLNp6TBMGZN0e5HPG+KOz3PTbctFYBorl5y2HFSF3EwCc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEocU-0004EY-8N; Sun, 06 Sep 2020 06:57:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEocT-0000on-5w; Sun, 06 Sep 2020 06:57:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kEocT-0006nG-5P; Sun, 06 Sep 2020 06:57:45 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153785-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153785: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 06 Sep 2020 06:57:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +69,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In 2019, we introduced pin_user_pages*() and now we are converting
-get_user_pages*() to the new API as appropriate. [1] & [2] could
-be referred for more information. This is case 5 as per document [1].
+flight 153785 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153785/
 
-[1] Documentation/core-api/pin_user_pages.rst
+Regressions :-(
 
-[2] "Explicit pinning of user-space pages":
-        https://lwn.net/Articles/807108/
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: David Vrabel <david.vrabel@citrix.com>
----
- drivers/xen/gntdev.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 5e1411b..a36b712 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -731,7 +731,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
- 	unsigned long xen_pfn;
- 	int ret;
- 
--	ret = get_user_pages_fast(addr, 1, batch->writeable ? FOLL_WRITE : 0, &page);
-+	ret = pin_user_pages_fast(addr, 1, batch->writeable ? FOLL_WRITE : 0, &page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -745,13 +745,7 @@ static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
- 
- static void gntdev_put_pages(struct gntdev_copy_batch *batch)
- {
--	unsigned int i;
--
--	for (i = 0; i < batch->nr_pages; i++) {
--		if(batch->writeable && !PageDirty(batch->pages[i]))
--			set_page_dirty_lock(batch->pages[i]);
--		put_page(batch->pages[i]);
--	}
-+	unpin_user_pages_dirty_lock(batch->pages, batch->nr_pages, batch->writeable);
- 	batch->nr_pages = 0;
- 	batch->writeable = false;
- }
--- 
-1.9.1
+version targeted for testing:
+ ovmf                 2ace920de1e91e22fb9bb2ec9e15ffd5e28e70ac
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
+Last test of basis   152863  2020-08-26 16:09:47 Z   10 days
+Failing since        152915  2020-08-27 18:09:42 Z    9 days  152 attempts
+Testing same since   153709  2020-09-04 14:10:46 Z    1 days   17 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 321 lines long.)
 
