@@ -2,57 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9EB2604FD
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 21:00:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DCEB260542
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 21:48:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFMNp-0001jt-3l; Mon, 07 Sep 2020 19:00:53 +0000
+	id 1kFN7K-0005eh-Sv; Mon, 07 Sep 2020 19:47:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FGN5=CQ=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kFMNn-0001it-0a
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 19:00:51 +0000
-X-Inumbo-ID: bef971d5-472f-4e73-96d8-f29057ccfbf5
-Received: from mx1a.swcp.com (unknown [216.184.2.64])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFN7J-0005ec-Ae
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 19:47:53 +0000
+X-Inumbo-ID: 72150e88-eabc-4428-9ef8-4a8741e8bb8f
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bef971d5-472f-4e73-96d8-f29057ccfbf5;
- Mon, 07 Sep 2020 19:00:50 +0000 (UTC)
-Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
- by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 087J0nkR028432
- for <xen-devel@lists.xenproject.org>; Mon, 7 Sep 2020 13:00:49 -0600
-Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
- denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
- client-ip=62.251.112.184; helo=diamond.fritz.box;
- envelope-from=hudson@trmm.net;
- x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
- libspf2-1.2.10; 
-Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
- by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 087J0RtO061615
- for <xen-devel@lists.xenproject.org>; Mon, 7 Sep 2020 13:00:47 -0600 (MDT)
- (envelope-from hudson@trmm.net)
-X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
- [62.251.112.184] claimed to be diamond.fritz.box
-From: Trammell Hudson <hudson@trmm.net>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 4/4] efi: Do not use command line if secure boot is enabled.
-Date: Mon,  7 Sep 2020 15:00:27 -0400
-Message-Id: <20200907190027.669086-5-hudson@trmm.net>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200907190027.669086-1-hudson@trmm.net>
-References: <20200907190027.669086-1-hudson@trmm.net>
-MIME-Version: 1.0
+ id 72150e88-eabc-4428-9ef8-4a8741e8bb8f;
+ Mon, 07 Sep 2020 19:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=ahUE4/NMRcSlmmOIzcc7SeoMP5lMsua2WZoe0t7nyP4=; b=Veqrok45xm657SRwSOJruo5jyZ
+ mZsLtEjM3dN8ThjuE/VHJ0MHOV0dEFikwYkL3iEls2L6rHF9pOhHu5Pp5MpxfbbjZJUAp1gVHTAN7
+ dS9iIwNftdBjMMz4WkQE0q7YIXPGj4ZgDxBa4VzX6RpfYo2dRQZfNWDODBLWleK+9Mt4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFN7F-0000eN-HE; Mon, 07 Sep 2020 19:47:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFN7F-0000CG-AC; Mon, 07 Sep 2020 19:47:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFN7F-0000CY-9k; Mon, 07 Sep 2020 19:47:49 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153899-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.83
-X-Greylist: Message whitelisted by DRAC access database, not delayed by
- milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
- Mon, 07 Sep 2020 13:00:47 -0600 (MDT)
-X-Virus-Scanned: clamav-milter 0.100.2 at ame7
-X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
-X-Spam-Status: No, hits=0.7 tests=NO_RECEIVED,NO_RELAYS,SPF_NEUTRAL
- version=3.4.2
-X-Spam-Level: 
+MIME-Version: 1.0
+Subject: [ovmf test] 153899: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 19:47:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,95 +68,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Trammell hudson <hudson@trmm.net>
+flight 153899 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153899/
 
-If secure boot is enabled, the Xen command line arguments are ignored.
-If a unified Xen image is used, then the bundled configuration, dom0
-kernel, and initrd are prefered over the ones listed in the config file.
+Regressions :-(
 
-Unlike the shim based verification, the PE signature on a unified image
-covers the all of the Xen+config+kernel+initrd modules linked into the
-unified image. This also ensures that properly configured platforms
-will measure the entire runtime into the TPM for unsealing secrets or
-remote attestation.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Signed-off-by: Trammell Hudson <hudson@trmm.net>
----
- xen/common/efi/boot.c | 31 ++++++++++++++++++++++++++++---
- 1 file changed, 28 insertions(+), 3 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 452b5f4362..5aaebd5f20 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -947,6 +947,26 @@ static void __init setup_efi_pci(void)
-     efi_bs->FreePool(handles);
- }
- 
-+/*
-+ * Logic should remain sync'ed with linux/arch/x86/xen/efi.c
-+ * Secure Boot is enabled iff 'SecureBoot' is set and the system is
-+ * not in Setup Mode.
-+ */
-+static bool __init efi_secure_boot(void)
-+{
-+    static const __initconst EFI_GUID global_guid = EFI_GLOBAL_VARIABLE;
-+    uint8_t secboot, setupmode;
-+    UINTN secboot_size = sizeof(secboot);
-+    UINTN setupmode_size = sizeof(setupmode);
-+
-+    if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, NULL, &secboot_size, &secboot) != EFI_SUCCESS )
-+        return false;
-+    if ( efi_rs->GetVariable(L"SetupMode", (EFI_GUID *)&global_guid, NULL, &setupmode_size, &setupmode) != EFI_SUCCESS )
-+        return false;
-+
-+    return secboot == 1 && setupmode == 0;
-+}
-+
- static void __init efi_variables(void)
- {
-     EFI_STATUS status;
-@@ -1123,8 +1143,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
--    unsigned int i, argc;
--    CHAR16 **argv, *file_name, *cfg_file_name = NULL, *options = NULL;
-+    unsigned int i, argc = 0;
-+    CHAR16 **argv = NULL, *file_name, *cfg_file_name = NULL, *options = NULL;
-     UINTN gop_mode = ~0;
-     EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-@@ -1132,6 +1152,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     bool base_video = false;
-     char *option_str;
-     bool use_cfg_file;
-+    bool secure = false;
- 
-     __set_bit(EFI_BOOT, &efi_flags);
-     __set_bit(EFI_LOADER, &efi_flags);
-@@ -1150,8 +1171,10 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         PrintErrMesg(L"No Loaded Image Protocol", status);
- 
-     efi_arch_load_addr_check(loaded_image);
-+    secure = efi_secure_boot();
- 
--    if ( use_cfg_file )
-+    /* If UEFI Secure Boot is enabled, do not parse the command line */
-+    if ( use_cfg_file && !secure )
-     {
-         UINTN offset = 0;
- 
-@@ -1209,6 +1232,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
- 
-     PrintStr(L"Xen " __stringify(XEN_VERSION) "." __stringify(XEN_SUBVERSION)
-              XEN_EXTRAVERSION " (c/s " XEN_CHANGESET ") EFI loader\r\n");
-+    if ( secure )
-+        PrintStr(L"UEFI Secure Boot enabled\r\n");
- 
-     efi_arch_relocate_image(0);
- 
--- 
-2.25.1
+version targeted for testing:
+ ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
+Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
+Failing since        152915  2020-08-27 18:09:42 Z   11 days  181 attempts
+Testing same since   153848  2020-09-07 02:52:00 Z    0 days   13 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 343 lines long.)
 
