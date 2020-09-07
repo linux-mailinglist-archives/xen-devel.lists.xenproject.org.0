@@ -2,43 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97ED25F679
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 11:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FCFE25F687
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 11:34:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFDSL-0005dS-54; Mon, 07 Sep 2020 09:28:57 +0000
+	id 1kFDX8-0006T0-NN; Mon, 07 Sep 2020 09:33:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b7xj=CQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kFDSK-0005dN-4H
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 09:28:56 +0000
-X-Inumbo-ID: 61dd1ac0-e639-445e-ba09-0dbea1d8ef3f
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFDX7-0006S2-BX
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 09:33:53 +0000
+X-Inumbo-ID: 2317d264-961d-49fb-b7ab-842910c6729e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 61dd1ac0-e639-445e-ba09-0dbea1d8ef3f;
- Mon, 07 Sep 2020 09:28:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 31F92AD1E;
- Mon,  7 Sep 2020 09:28:55 +0000 (UTC)
-Subject: Re: [xen-unstable bisection] complete test-amd64-i386-xl-shadow
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- osstest service owner <osstest-admin@xenproject.org>
-References: <E1kF3SG-0000mV-7s@osstest.test-lab.xenproject.org>
- <01e192ce-99ea-2fbd-317c-c9f4b99f6d2a@suse.com>
- <20200907092045.GS753@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c65f06b6-4b42-bdb0-feda-02fcbc060e7d@suse.com>
-Date: Mon, 7 Sep 2020 11:28:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20200907092045.GS753@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id 2317d264-961d-49fb-b7ab-842910c6729e;
+ Mon, 07 Sep 2020 09:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=0fLweDugZ2sB8tXuobJ1ytjR00DaJ130RHXFK5bB2kk=; b=DCT8524Ma+HwOXpqjkA3ItKHNy
+ gbLF51+/QL5a9AAgRnwK9kgU52CQKVYFN4FW2cnn7MAm2MeJjJekWmVRmbyWiKPKmrpkaaFGKPxna
+ wb7LkSHBD8NaQqX5j8Q572IbJ22vxvkedI0zORoq1fKrQiyBzQDQENOZSHLSkvwnjWGg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFDX0-0003wP-Ql; Mon, 07 Sep 2020 09:33:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFDX0-0008EV-CN; Mon, 07 Sep 2020 09:33:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFDX0-0002YP-Bx; Mon, 07 Sep 2020 09:33:46 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153867-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153867: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 09:33:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,70 +68,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.09.2020 11:20, Roger Pau Monné wrote:
-> On Mon, Sep 07, 2020 at 10:21:36AM +0200, Jan Beulich wrote:
->> On 07.09.2020 00:48, osstest service owner wrote:
->>> branch xen-unstable
->>> xenbranch xen-unstable
->>> job test-amd64-i386-xl-shadow
->>> testid guest-saverestore
->>>
->>> Tree: linux git://xenbits.xen.org/linux-pvops.git
->>> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
->>> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
->>> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
->>> Tree: xen git://xenbits.xen.org/xen.git
->>>
->>> *** Found and reproduced problem changeset ***
->>>
->>>   Bug is in tree:  xen git://xenbits.xen.org/xen.git
->>>   Bug introduced:  696c273f3d9a169911308fb7e0a702a3eb6a150d
->>>   Bug not present: a609b6577f7867db4be1470130b7b3c686398c4f
->>>   Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153833/
->>>
->>>
->>>   commit 696c273f3d9a169911308fb7e0a702a3eb6a150d
->>>   Author: Jan Beulich <jbeulich@suse.com>
->>>   Date:   Fri Sep 4 11:13:01 2020 +0200
->>>   
->>>       x86: generalize padding field handling
->>>       
->>>       The original intention was to ignore padding fields, but the pattern
->>>       matched only ones whose names started with an underscore. Also match
->>>       fields whose names are in line with the C spec by not having a leading
->>>       underscore. (Note that the leading ^ in the sed regexps was pointless
->>>       and hence get dropped.)
->>
->> I conclude this needs to be reverted, and there was a thinko of mine
->> involved here: Avoiding translation of padding fields would be okay
->> only when their values don't get checked in the native handler. We
->> effectively have a not written down (afaict) rule here that _pad*
->> fields get ignored (and hence don't need translation), while pad*
->> fields may not be ignored and hence may need translation. I don't
->> like this state, but I also can't think of a good way out of it, at
->> least not just yet.
-> 
-> I think his stems from the fact that we don't have a rule whether
-> explicit padding fields in structs should be zeroed. IIRC there are
-> hypercalls that would check for padding fields to be 0, while others
-> don't.
+flight 153867 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153867/
 
-Right - we only have an almost-rule for new code.
+Regressions :-(
 
-> At this point I assume we can only implement the least restrictive
-> one, which is to not force padding fields to be zeroed?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Well, we could formalize the (or ideally: some) naming model to
-distinguish the cases. Question then is going to be in how many
-cases neither contributor nor reviewers are(n't) going to pay
-attention.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> This would have the side effect that they cannot be later used to
-> introduce additional fields to the struct without signaling the
-> version in use.
+version targeted for testing:
+ ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
-Exactly, so unilaterally going the "don't copy and hence don't
-require zero" route is not an option imo.
+Last test of basis   152863  2020-08-26 16:09:47 Z   11 days
+Failing since        152915  2020-08-27 18:09:42 Z   10 days  173 attempts
+Testing same since   153848  2020-09-07 02:52:00 Z    0 days    5 attempts
 
-Jan
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 343 lines long.)
 
