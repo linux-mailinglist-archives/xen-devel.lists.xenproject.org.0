@@ -2,60 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33C29260718
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 01:04:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D5D260734
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 01:44:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFQB8-0006Kt-IJ; Mon, 07 Sep 2020 23:04:02 +0000
+	id 1kFQmw-0001NM-QW; Mon, 07 Sep 2020 23:43:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFQB7-0006KS-92
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 23:04:01 +0000
-X-Inumbo-ID: 913442c1-e75e-40f7-890a-e832ec682aee
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=H+Bm=CQ=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1kFQmv-0001NH-CL
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 23:43:05 +0000
+X-Inumbo-ID: 35c5fbbb-c621-41ba-a895-3a2efc9801ee
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 913442c1-e75e-40f7-890a-e832ec682aee;
- Mon, 07 Sep 2020 23:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=wUewLEdg57LcKDw62AQ29+qJ2szgyEWM7UJ5c/7GUZQ=; b=Iz/U7gJLBVEgiRzPGWVzu+41Ml
- kGZ5u9b+Qehvdyswctj9+KaelyawbLg91Gm4l6hRfoIpPs60i5QeJspkOCJ+Wg5xXmVQ1EqQsyqGS
- s5+ogq2cOCEoJL5uJNghoN4wEp0ARXF5eZXJS1TrKqgfsN4dzQa8VyNv8je5oVrx6Suc=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFQB0-0004nU-J0; Mon, 07 Sep 2020 23:03:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFQB0-0005nj-BZ; Mon, 07 Sep 2020 23:03:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFQB0-0000qy-B2; Mon, 07 Sep 2020 23:03:54 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153907-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 35c5fbbb-c621-41ba-a895-3a2efc9801ee;
+ Mon, 07 Sep 2020 23:43:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599522182;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=0Umcj9wd5+YwSLJYrYpfUbBdnJu4BasTUz1indr1d6Q=;
+ b=F7WNJLIBYyNzplF2k4Rrr4zUMhKJFLKqC93zfYjzLMZmrMx4JIqd60zh
+ 0StKiLV5B7wqJfy88t0CzDC2F8YaNDcTifQDsU1RbWTPXirNiQES1grjn
+ Tt80k4/I4IqCM8eTEGVTJbKpDrIheZadUgZqtaC5XwJf6V1pYsDACqH7N g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: jz3PLV47k129HXCuXfwUQTRSbJ/O1VQ4zFhnvXiCfUb0e5ebE7/N64tV+ZvBy08IO/UsJJTLLN
+ eNepkYAN8ZrEs/7MoaSavh6duVTuESCUiHzeF0USXroTbKHNtf5XxTM3XcgeG3JOaeRKsyAB3A
+ Po+cmBiuq12DeP/DeYiw0/j430wCl6mToyYIhcltUVnL08rJ5JLyIO7t7ZRLoRroHk3o7kVNtg
+ oR6rkCQ7GCNeCjUOxPC09QMDk3q5LZQjkIP8KfP+Fbpp1yTgFfJmT1xhk4YtN4YYM55pQpawIc
+ t2w=
+X-SBRS: 2.7
+X-MesageID: 26159218
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,403,1592884800"; d="scan'208";a="26159218"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, 
+ <wl@xen.org>, <iwj@xenproject.org>, Igor Druzhinin
+ <igor.druzhinin@citrix.com>
+Subject: [PATCH v3] hvmloader: indicate ACPI tables with "ACPI data" type in
+ e820
+Date: Tue, 8 Sep 2020 00:42:43 +0100
+Message-ID: <1599522163-21992-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Subject: [ovmf test] 153907: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Sep 2020 23:03:54 +0000
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +64,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153907 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153907/
+Guest kernel does need to know in some cases where the tables are located
+to treat these regions properly. One example is kexec process where
+the first kernel needs to pass ACPI region locations to the second
+kernel which is now a requirement in Linux after 02a3e3cdb7f12 ("x86/boot:
+Parse SRAT table and count immovable memory regions") in order for kexec
+transition to actually work.
 
-Regressions :-(
+That commit introduced accesses to XSDT and SRAT while the second kernel
+is still using kexec transition tables. The transition tables do not have
+e820 "reserved" regions mapped where those tables are located currently
+in a Xen guest. Instead "ACPI data" regions are mapped with the transition
+tables that was introduced by the following commit 6bbeb276b7 ("x86/kexec:
+Add the EFI system tables and ACPI tables to the ident map").
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+Reserve 1MB (out of 16MB currently available) right after ACPI info page for
+ACPI tables exclusively but populate this region on demand and only indicate
+populated memory as "ACPI data" since according to ACPI spec that memory is
+reclaimable by the guest if necessary. That is close to how we treat
+the same ACPI data in PVH guests. 1MB should be enough for now but could be
+later extended if required.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+---
+Changes in v3:
+- switched from NVS to regular "ACPI data" type by separating ACPI allocations
+  into their own region
+- gave more information on particular kexec usecase that requires this change
 
-version targeted for testing:
- ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+Changes in v2:
+- gave more information on NVS type selection and potential alternatives
+  in the description
+- minor type fixes suggested
+---
+ tools/firmware/hvmloader/config.h |  3 ++-
+ tools/firmware/hvmloader/e820.c   | 21 +++++++++++++++++----
+ tools/firmware/hvmloader/util.c   | 29 ++++++++++++++++++++++++++++-
+ tools/firmware/hvmloader/util.h   |  2 ++
+ 4 files changed, 49 insertions(+), 6 deletions(-)
 
-Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
-Failing since        152915  2020-08-27 18:09:42 Z   11 days  183 attempts
-Testing same since   153848  2020-09-07 02:52:00 Z    0 days   15 attempts
+diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
+index d9b4713..ff19b64 100644
+--- a/tools/firmware/hvmloader/config.h
++++ b/tools/firmware/hvmloader/config.h
+@@ -71,7 +71,8 @@ extern uint64_t pci_hi_mem_start, pci_hi_mem_end;
+ #define RESERVED_MEMBASE              0xFC000000
+ /* NB. ACPI_INFO_PHYSICAL_ADDRESS *MUST* match definition in acpi/dsdt.asl! */
+ #define ACPI_INFO_PHYSICAL_ADDRESS    0xFC000000
+-#define RESERVED_MEMORY_DYNAMIC_START 0xFC001000
++#define ACPI_MEMORY_DYNAMIC_START     0xFC001000
++#define RESERVED_MEMORY_DYNAMIC_START 0xFC100000
+ #define RESERVED_MEMORY_DYNAMIC_END   0xFE000000
+ /*
+  * GUEST_RESERVED: Physical address space reserved for guest use.
+diff --git a/tools/firmware/hvmloader/e820.c b/tools/firmware/hvmloader/e820.c
+index 4d1c955..bc83808 100644
+--- a/tools/firmware/hvmloader/e820.c
++++ b/tools/firmware/hvmloader/e820.c
+@@ -155,6 +155,8 @@ int build_e820_table(struct e820entry *e820,
+ {
+     unsigned int nr = 0, i, j;
+     uint32_t low_mem_end = hvm_info->low_mem_pgend << PAGE_SHIFT;
++    unsigned long acpi_mem_end =
++        ACPI_MEMORY_DYNAMIC_START + (acpi_pages_allocated() << PAGE_SHIFT);
+ 
+     if ( !lowmem_reserved_base )
+             lowmem_reserved_base = 0xA0000;
+@@ -199,8 +201,19 @@ int build_e820_table(struct e820entry *e820,
+     nr++;
+ 
+     /*
++     * Mark populated reserved memory that contains ACPI tables as ACPI data.
++     * That should help the guest to treat it correctly later: e.g. pass to
++     * the next kernel on kexec or reclaim if necessary.
++     */
++
++    e820[nr].addr = RESERVED_MEMBASE;
++    e820[nr].size = acpi_mem_end - RESERVED_MEMBASE;
++    e820[nr].type = E820_ACPI;
++    nr++;
++
++    /*
+      * Explicitly reserve space for special pages.
+-     * This space starts at RESERVED_MEMBASE an extends to cover various
++     * This space starts after ACPI region and extends to cover various
+      * fixed hardware mappings (e.g., LAPIC, IOAPIC, default SVGA framebuffer).
+      *
+      * If igd_opregion_pgbase we need to split the RESERVED region in two.
+@@ -210,8 +223,8 @@ int build_e820_table(struct e820entry *e820,
+     {
+         uint32_t igd_opregion_base = igd_opregion_pgbase << PAGE_SHIFT;
+ 
+-        e820[nr].addr = RESERVED_MEMBASE;
+-        e820[nr].size = (uint32_t) igd_opregion_base - RESERVED_MEMBASE;
++        e820[nr].addr = acpi_mem_end;
++        e820[nr].size = igd_opregion_base - acpi_mem_end;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+ 
+@@ -227,7 +240,7 @@ int build_e820_table(struct e820entry *e820,
+     }
+     else
+     {
+-        e820[nr].addr = RESERVED_MEMBASE;
++        e820[nr].addr = acpi_mem_end;
+         e820[nr].size = (uint32_t)-e820[nr].addr;
+         e820[nr].type = E820_RESERVED;
+         nr++;
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index 0c3f2d2..7da144b 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -871,10 +871,37 @@ static unsigned long acpi_v2p(struct acpi_ctxt *ctxt, void *v)
+     return virt_to_phys(v);
+ }
+ 
++static unsigned long acpi_alloc_up = ACPI_MEMORY_DYNAMIC_START - 1;
++
++unsigned long acpi_pages_allocated(void)
++{
++    return (acpi_alloc_up >> PAGE_SHIFT) -
++            ((ACPI_MEMORY_DYNAMIC_START - 1) >> PAGE_SHIFT);
++}
++
+ static void *acpi_mem_alloc(struct acpi_ctxt *ctxt,
+                             uint32_t size, uint32_t align)
+ {
+-    return mem_alloc(size, align);
++    unsigned long s, e;
++
++    /* Align to at least 16 bytes. */
++    if ( align < 16 )
++        align = 16;
++
++    s = (acpi_alloc_up + align) & ~(align - 1);
++    e = s + size - 1;
++
++    BUG_ON((e < s) || (e >= RESERVED_MEMORY_DYNAMIC_START));
++
++    while ( (acpi_alloc_up >> PAGE_SHIFT) != (e >> PAGE_SHIFT) )
++    {
++        acpi_alloc_up += PAGE_SIZE;
++        mem_hole_populate_ram(acpi_alloc_up >> PAGE_SHIFT, 1);
++    }
++
++    acpi_alloc_up = e;
++
++    return (void *)s;
+ }
+ 
+ static void acpi_mem_free(struct acpi_ctxt *ctxt,
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index 7bca641..31889de 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -282,6 +282,8 @@ bool check_overlap(uint64_t start, uint64_t size,
+ extern const unsigned char dsdt_anycpu_qemu_xen[], dsdt_anycpu[], dsdt_15cpu[];
+ extern const int dsdt_anycpu_qemu_xen_len, dsdt_anycpu_len, dsdt_15cpu_len;
+ 
++unsigned long acpi_pages_allocated(void);
++
+ struct acpi_config;
+ void hvmloader_acpi_build_tables(struct acpi_config *config,
+                                  unsigned int physical);
+-- 
+2.7.4
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
-  Zhichao Gao <zhichao.gao@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 343 lines long.)
 
