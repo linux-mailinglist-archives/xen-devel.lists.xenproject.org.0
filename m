@@ -2,59 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A31225F86A
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 12:32:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC11C25F8DE
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 12:52:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFERs-0003iP-JO; Mon, 07 Sep 2020 10:32:32 +0000
+	id 1kFEkv-0005rj-Ba; Mon, 07 Sep 2020 10:52:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f5qx=CQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kFERr-0003cB-CR
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 10:32:31 +0000
-X-Inumbo-ID: 14a25a43-e958-47cd-996c-9a04c53818fd
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFEkt-0005re-KE
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 10:52:11 +0000
+X-Inumbo-ID: 0e4f60b0-2a3c-4a0c-967d-80432ebb11fb
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 14a25a43-e958-47cd-996c-9a04c53818fd;
- Mon, 07 Sep 2020 10:32:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599474742;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eSHJYKb2FghbO5MTB7iGVN9lMVAAY72QGAwzLnYUDE4=;
- b=Iu+Ov3Cb2pL9MlABRSLXuHW1RZnJlS7ezPwTNfRXWtzql2rxHoHxHfkw
- bwrMTJcwPcV+f7oJuXL6Xqg/CPc6eRpnnFg4bHEcdeq0vk7MvL/h7j/pg
- sqFvaGIPth1JwEw2fDEfC9M3VTg8RI3JlJQ4uMqfqHC+LZJu0ORvdC4a4 k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 2e8RvT3POBeeV59iT6YMhX/2bn2Bt7wptpPBVLNE4Ou8y2g8ZFa16KIs3AUdkdXCJNveiKcL3E
- 4cOD441IHsqSSYzW9ZgKZ7kjRgB3Gxfj8Lj02eZBKHqjrU/tMit3Ui+H8j+DxXW7MbLSkIDG6H
- AId/cpbHiDPLR+GZBSpEzDtZYab/EzdUy2yWMc9HDXDWg7XJYywj/75GIEywxFP3eN36nm/5w3
- YbDtu3gD8Gh9KQT2ftGEqxet9NFpabnRAfyxWP+N6C2PobgTmBUIdPC85Jvc1rJ8FjGSR3RGSE
- NZI=
-X-SBRS: 2.7
-X-MesageID: 26456355
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,401,1592884800"; d="scan'208";a="26456355"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v4 5/5] x86/msr: Drop compatibility #GP handling in guest_{rd,
- wr}msr()
-Date: Mon, 7 Sep 2020 12:31:43 +0200
-Message-ID: <20200907103143.58845-6-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200907103143.58845-1-roger.pau@citrix.com>
-References: <20200907103143.58845-1-roger.pau@citrix.com>
-MIME-Version: 1.0
+ id 0e4f60b0-2a3c-4a0c-967d-80432ebb11fb;
+ Mon, 07 Sep 2020 10:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=l+caOH4dH/M9Ri+wgPZYbgrofYnQRLXMjzZ3YQHBiA4=; b=zeoss+EJbcm1Var98LEft6OGpf
+ lUnI1kYWP9Z9TPPw/oJB0J14jQtyHsNJ1KL7FyV60eKAum2LeN8jF7uzwqCrrWT4g4bzjdT63c5sq
+ iSsLZr2YSE703HxpJDFrv+45Tz0MbZyxm43lx/aVcZDWapTh4JaFfm/8RECdUb0EveDw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFEkr-0005cC-DW; Mon, 07 Sep 2020 10:52:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFEkr-0002IE-5M; Mon, 07 Sep 2020 10:52:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFEkr-0008DZ-4r; Mon, 07 Sep 2020 10:52:09 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153872-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 153872: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 10:52:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,85 +69,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+flight 153872 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153872/
 
-Now that the main PV/HVM MSR handlers raise #GP for all unknown MSRs, there is
-no need to special case these MSRs any more.
+Regressions :-(
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
- xen/arch/x86/msr.c | 46 ----------------------------------------------
- 1 file changed, 46 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index 79fbb9e940..81b34fb212 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -175,29 +175,6 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
- 
-     switch ( msr )
-     {
--    case MSR_AMD_PATCHLOADER:
--    case MSR_IA32_UCODE_WRITE:
--    case MSR_PRED_CMD:
--    case MSR_FLUSH_CMD:
--        /* Write-only */
--    case MSR_TEST_CTRL:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_IA32_FEATURE_CONTROL:
-         if ( !cp->basic.vmx && !vmce_has_lmce(v) )
-             goto gp_fault;
-@@ -364,29 +341,6 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-     {
-         uint64_t rsvd;
- 
--    case MSR_IA32_PLATFORM_ID:
--    case MSR_CORE_CAPABILITIES:
--    case MSR_INTEL_CORE_THREAD_COUNT:
--    case MSR_INTEL_PLATFORM_INFO:
--    case MSR_ARCH_CAPABILITIES:
--        /* Read-only */
--    case MSR_TEST_CTRL:
--    case MSR_TSX_FORCE_ABORT:
--    case MSR_TSX_CTRL:
--    case MSR_MCU_OPT_CTRL:
--    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
--    case MSR_U_CET:
--    case MSR_S_CET:
--    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
--    case MSR_AMD64_LWP_CFG:
--    case MSR_AMD64_LWP_CBADDR:
--    case MSR_PPIN_CTL:
--    case MSR_PPIN:
--    case MSR_AMD_PPIN_CTL:
--    case MSR_AMD_PPIN:
--        /* Not offered to guests. */
--        goto gp_fault;
--
-     case MSR_AMD_PATCHLEVEL:
-         BUILD_BUG_ON(MSR_IA32_UCODE_REV != MSR_AMD_PATCHLEVEL);
-         /*
--- 
-2.28.0
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z   11 days
+Failing since        152915  2020-08-27 18:09:42 Z   10 days  175 attempts
+Testing same since   153848  2020-09-07 02:52:00 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 343 lines long.)
 
