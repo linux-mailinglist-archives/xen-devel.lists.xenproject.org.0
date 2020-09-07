@@ -2,62 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1960525FBE4
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 16:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4611F25FBE5
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 16:14:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFHuj-0007Gv-6o; Mon, 07 Sep 2020 14:14:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kFHut-0007Iv-Fk; Mon, 07 Sep 2020 14:14:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Eb3x=CQ=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kFHui-0007Gp-Ec
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 14:14:32 +0000
-X-Inumbo-ID: d7e89078-913f-4002-9b37-65c04ed7c980
-Received: from mail-wr1-f65.google.com (unknown [209.85.221.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d7e89078-913f-4002-9b37-65c04ed7c980;
- Mon, 07 Sep 2020 14:14:31 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id w5so15974176wrp.8
- for <xen-devel@lists.xenproject.org>; Mon, 07 Sep 2020 07:14:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=JN+kND8h4NbUWLD9LIr2pEJXEQDuut8qoPQv9yvisw4=;
- b=d/R/Cb1oYpLNflRcm4aBQL7/M0QEdCnB/dDEjkrEyl/PxgbnrRk/kgUEBDKvTicXm9
- B3ovtz/Z97Qr7pb8MEhkWXsfP6dThhVnAYkLowsmOaTadcWJIFa3GiDo8CJPaokDibug
- wfSh68df4+53q31RW9cbHI6/jPQgo+Bl2Rqp5L0RKpp/afWOkPP+jMlhloxw3Yp3nip+
- 5yp4pgSagcFwpcUdGswiv+eniKg8LY1j0ePkg6jx6qD5hXSov5Ep/KTwaWHKb1Dz0oL5
- Y1MbWr6NHi8SVgukTavFCUElk40K6cXKuzo0c8g0PSJdwBTZuiOUYl73NtVnbfauOu/I
- 7uOA==
-X-Gm-Message-State: AOAM5336mGnLRXijeXFMZZzTogUupT59r+CJzev5NmDlPnuXANDYsnfZ
- LhwNiHreFHny5t7CI/tSIvY=
-X-Google-Smtp-Source: ABdhPJzc9Zk9ha2Y8Ke2GgjYllr1MYVpGsYToVxR77lqWhblVLlLxCsk+WP+Tn4qXxAsdJ0DCmuCAQ==
-X-Received: by 2002:adf:ca06:: with SMTP id o6mr21150660wrh.181.1599488070646; 
- Mon, 07 Sep 2020 07:14:30 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id x24sm29596593wrd.53.2020.09.07.07.14.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2020 07:14:30 -0700 (PDT)
-Date: Mon, 7 Sep 2020 14:14:28 +0000
-From: Wei Liu <wl@xen.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] minios: use more recent commit for building xen unstable
-Message-ID: <20200907141428.e2fotwt4ruxolkzz@liuwe-devbox-debian-v2>
-References: <20200907114814.15620-1-jgross@suse.com>
- <20200907114814.15620-2-jgross@suse.com>
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFHur-0007Hf-UQ
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 14:14:41 +0000
+X-Inumbo-ID: 9f47f82e-d532-48c0-aa5a-0577e8093b27
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9f47f82e-d532-48c0-aa5a-0577e8093b27;
+ Mon, 07 Sep 2020 14:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=DdgNUyr5y6csV+rq4XFSRBuCKgF91gcd+eQeM1vZ4eM=; b=ZFIEEm/fm3+FXJS6Zwb1Ss2WG0
+ hQKhY+FCJ9cbXiAUptTImYSWXyWmOeW2Oyxb9rCHXikWQeTDdzkyjsaXVJubPg0XUMFXi5COknzit
+ Cken/9PbbJwVC0wyaSmAEKRwI/iGi62IQJjtTscynzrdcHYv6TKWsSyfHrPfsbcBfDos=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFHul-0001SP-IY; Mon, 07 Sep 2020 14:14:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFHul-0008Iq-Ap; Mon, 07 Sep 2020 14:14:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFHul-0007GV-AJ; Mon, 07 Sep 2020 14:14:35 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153885-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200907114814.15620-2-jgross@suse.com>
-User-Agent: NeoMutt/20180716
+Subject: [ovmf test] 153885: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 14:14:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,17 +68,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 07, 2020 at 01:48:14PM +0200, Juergen Gross wrote:
-> Commit 82c3d15c903aa43 ("minios: Revert recent change and revert to
-> working minios") switched the used commit for the build of Xen unstable
-> from master to a rather old commit (the one used for Xen 4.13 instead
-> of the last one without a known problem).
-> 
-> Switch to Mini-OS commit 051b87bb9c196 instead, which doesn't contain
-> the problematic modification being reason for switching away from
-> master.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+flight 153885 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153885/
 
-Acked-by: Wei Liu <wl@xen.org>
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z   11 days
+Failing since        152915  2020-08-27 18:09:42 Z   10 days  178 attempts
+Testing same since   153848  2020-09-07 02:52:00 Z    0 days   10 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 343 lines long.)
 
