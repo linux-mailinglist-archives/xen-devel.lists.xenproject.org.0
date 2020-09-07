@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC5626034A
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F452260353
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:47:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFLEG-0002Ys-8r; Mon, 07 Sep 2020 17:46:56 +0000
+	id 1kFLF4-0002gQ-N4; Mon, 07 Sep 2020 17:47:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FGN5=CQ=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kFLEE-0002Ye-VE
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:46:54 +0000
-X-Inumbo-ID: 5bc2ff02-f6fb-4809-a3bd-87236e372553
-Received: from mail2.protonmail.ch (unknown [185.70.40.22])
+ id 1kFLF2-0002gG-RK
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:47:44 +0000
+X-Inumbo-ID: 0305cb4c-d723-442b-b147-b43af5b45721
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5bc2ff02-f6fb-4809-a3bd-87236e372553;
- Mon, 07 Sep 2020 17:46:53 +0000 (UTC)
-Date: Mon, 07 Sep 2020 17:46:41 +0000
+ id 0305cb4c-d723-442b-b147-b43af5b45721;
+ Mon, 07 Sep 2020 17:47:43 +0000 (UTC)
+Date: Mon, 07 Sep 2020 17:47:36 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1599500811;
- bh=M8vjImy5Ow/dD+WsfLzC2ffSj0SnoqTopAklRr8u49M=;
+ s=protonmail; t=1599500862;
+ bh=2U4wML9SR0idO3N3KS6/SVyXY7iQli99vxZrFKrhoLo=;
  h=Date:To:From:Reply-To:Subject:From;
- b=AjKuYmwSAdcSa3f+vxrT0LhY3pRNGDHIZshLGUWHMl6wpASybXOX1oGmC+kSE6rAt
- cgfn6RNbHkJCbSy65KoaSFG28saVtGkb7PBOqJ5K6MXK1wnuprw+u6eKD7ZEyEjrf2
- K8KYTr8hnjZTHg49HCafudChNPL6dJ5p1UTrSYWA=
+ b=lxfEvt80URGmahtae9+u0dHwU3u6MoHFh6cASs0Xp25CJNKSnT7MTEQ46YeSSoALi
+ fz/xXwfq3/kx3qNizihXQ8ilpIVHP1ZYaXTRPQWXFWw736VfZHKu4eqIWHJxaaOlCL
+ gav6q2G+IWdnP251UdVQSQwvQ/2TS+nEWdxx7lvc=
 To: Xen-devel <xen-devel@lists.xenproject.org>
 From: Trammell Hudson <hudson@trmm.net>
-Subject: [PATCH v3 1/4] x86/xen.lds.S: Work around binutils build id alignment
- bug
-Message-ID: <1maNbi9dxlGrwq08QJuuvznixBLaxtncQfen8KjdEVuQqbIGuqATOOXStaKY7MktWJ5H2tfslm0WIpv6w3SEL4D3uGKkn2hXhAw7TiShMCI=@trmm.net>
+Subject: [PATCH v3 2/4] efi/boot.c: add file.need_to_free and split
+ display_file_info()
+Message-ID: <vYinxSRj2TWemcvixJcZYpxh2EjBENy5BB7SyFGGjClHUNlhRgP2XK8qjlRHt6Wbz0hG1TV4HvO51WsjuF2MfdLs02s3939hjzZkFud54LE=@trmm.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -54,35 +54,94 @@ Reply-To: Trammell Hudson <hudson@trmm.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-binutils in most distrbutions have a bug in find_section_by_vma()
-that causes objcopy round section addresses incorrectly and that
-think the .buildid section overlaps with the .rodata.  Aligning the
-sections allows these older verisons of the tools to work on the
-xen.efi executable image.
-
-Mailing list discussion: https://sourceware.org/pipermail/binutils/2020-Aug=
-ust/112746.html
-
-Fixed in: https://sourceware.org/git/?p=3Dbinutils-gdb.git;a=3Dcommit;h=3D6=
-10ed3e08f13b3886fd7194fb7a248dee8724685
+add file.need_to_free and split display_file_info()
 
 Signed-off-by: Trammell hudson <hudson@trmm.net>
 ---
- xen/arch/x86/xen.lds.S | 1 +
- 1 file changed, 1 insertion(+)
+ xen/common/efi/boot.c | 36 ++++++++++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 14 deletions(-)
 
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 0273f79152..ba691b1890 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -156,6 +156,7 @@ SECTIONS
-        __note_gnu_build_id_end =3D .;
-   } :note :text
- #elif defined(BUILD_ID_EFI)
-+  . =3D ALIGN(32); /* workaround binutils section overlap bug */
-   DECL_SECTION(.buildid) {
-        __note_gnu_build_id_start =3D .;
-        *(.buildid)
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 4022a672c9..f5bdc4b1df 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -102,6 +102,7 @@ union string {
+
+ struct file {
+     UINTN size;
++    bool need_to_free;
+     union {
+         EFI_PHYSICAL_ADDRESS addr;
+         void *ptr;
+@@ -279,13 +280,13 @@ void __init noreturn blexit(const CHAR16 *str)
+     if ( !efi_bs )
+         efi_arch_halt();
+
+-    if ( cfg.addr )
++    if ( cfg.addr && cfg.need_to_free )
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+-    if ( kernel.addr )
++    if ( kernel.addr && kernel.need_to_free )
+         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+-    if ( ramdisk.addr )
++    if ( ramdisk.addr && ramdisk.need_to_free )
+         efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+-    if ( xsm.addr )
++    if ( xsm.addr && xsm.need_to_free )
+         efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
+
+     efi_arch_blexit();
+@@ -538,6 +539,21 @@ static char * __init split_string(char *s)
+     return NULL;
+ }
+
++static void __init display_file_info(CHAR16 *name, struct file *file, char=
+ *options)
++{
++    if ( file =3D=3D &cfg )
++        return;
++
++    PrintStr(name);
++    PrintStr(L": ");
++    DisplayUint(file->addr, 2 * sizeof(file->addr));
++    PrintStr(L"-");
++    DisplayUint(file->addr + file->size, 2 * sizeof(file->addr));
++    PrintStr(newline);
++
++    efi_arch_handle_module(file, name, options);
++}
++
+ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+                              struct file *file, char *options)
+ {
+@@ -572,6 +588,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
+, CHAR16 *name,
+                          HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
+         ret =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
+                                     PFN_UP(size), &file->addr);
++        file->need_to_free =3D true;
+     }
+     if ( EFI_ERROR(ret) )
+     {
+@@ -581,16 +598,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
+e, CHAR16 *name,
+     else
+     {
+         file->size =3D size;
+-        if ( file !=3D &cfg )
+-        {
+-            PrintStr(name);
+-            PrintStr(L": ");
+-            DisplayUint(file->addr, 2 * sizeof(file->addr));
+-            PrintStr(L"-");
+-            DisplayUint(file->addr + size, 2 * sizeof(file->addr));
+-            PrintStr(newline);
+-            efi_arch_handle_module(file, name, options);
+-        }
++        display_file_info(name, file, options);
+
+         ret =3D FileHandle->Read(FileHandle, &file->size, file->ptr);
+         if ( !EFI_ERROR(ret) && file->size !=3D size )
 --
 2.25.1
 
