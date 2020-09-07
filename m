@@ -2,60 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7804025FCA8
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 17:10:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A6925FDA1
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 17:53:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFIm1-0004k7-H5; Mon, 07 Sep 2020 15:09:37 +0000
+	id 1kFJS1-0000Sx-VN; Mon, 07 Sep 2020 15:53:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Eb3x=CQ=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kFIm0-0004k2-Qm
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 15:09:36 +0000
-X-Inumbo-ID: ac9413bd-7eab-43f4-b7f2-698ae0a59546
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
+ id 1kFJS0-0000Ss-NT
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 15:53:00 +0000
+X-Inumbo-ID: 4a0e8fd0-4117-4e1a-bb33-11f4068f9f37
+Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ac9413bd-7eab-43f4-b7f2-698ae0a59546;
- Mon, 07 Sep 2020 15:09:35 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id c18so16125700wrm.9
- for <xen-devel@lists.xenproject.org>; Mon, 07 Sep 2020 08:09:35 -0700 (PDT)
+ id 4a0e8fd0-4117-4e1a-bb33-11f4068f9f37;
+ Mon, 07 Sep 2020 15:52:59 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id w2so14791257wmi.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Sep 2020 08:52:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Auwcqalz2dXZnHFJ5WoujDFbEX2U+TEKAdh30TonWQ4=;
- b=FKl4Fn95kiOwR+xZDma1vmMAJwDCzOUbUko7sva8ieOZkNm3oi82b8sJ072oQVpTy8
- S9nKVhALzOH0bKclEYT3nYufE/uke/zK7GNuheZAwIhGT00VIHLzWruwhAGq4GhygCU6
- 7f8k74NzRVpzAY7eSEFD7sEWPnZ/4Ru/8sz5RB99Kxk7wAt8ix3ypJ/f7FLA5aRX+itX
- k/Xj7p8Kp+Y6SCcFW+6VEbrTNZ3gl8I3W8rVcSYMk8227OHb8heGxfBprIkj0Bh4zv8v
- OqT7z3rg6+msGfZKpf66Rjf/WFh5t9Aby/o6PigHbXp8Ycobi0sQq8y18i98wZrmHtY1
- AVrw==
-X-Gm-Message-State: AOAM530PuMLYMJAvyaeKzB+Y+Y7gQLuuQYxnm59HPFMDkbF/B7/vkjtG
- SVrGxABW4rBgE5to/kiqsOvaYoDO1EM=
-X-Google-Smtp-Source: ABdhPJznbvfkgHQZ+yFaxAu3TtjSRQugHyjAxh67rifRmspKmslsz2P1akhuFvopfYmjFZ522GZWdg==
-X-Received: by 2002:a5d:5404:: with SMTP id g4mr21023668wrv.134.1599491374488; 
- Mon, 07 Sep 2020 08:09:34 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=vLqpoGPliuehNDxtCfKfHk+kNKkvqqte1DpAqTHAY0c=;
+ b=RhxT36BQ/PcgeEbB3HTBq5eg+rOsNjXGIPpsRjfMe2UnUx1bZM2K9+VXRpvaNG/R4/
+ JiisVXXzRcvJMFdIQ8Co3fR41/J921a80i+TnFRHiJkS53VRkUn90h4ekJfdk9AvUNdI
+ KaVksBPc/j1QAgcyP6b9uTE6wvN1xLp4ib/j/qBYi47IIuVSDSFzoxx2wNoN8oLjmmHI
+ o7GMaZmkoIU96LulUTpjlpjh3agYH3ndhJzUMgA4440T3W+hKXC+nltrJHZs5o+G/hao
+ JUl4rx66Co55tx3DwmcnnJ1Ux7jyKkC36li4tkU6zNz0CmZLEzThAO/hbJnny/FiVQhM
+ Spmg==
+X-Gm-Message-State: AOAM530QZrtPJ3GS2FU+YEoV3ZIkaN3VF7TpSeHGIhan9BAk0NxiHUAa
+ uwm0JG8TSFSiriTg3AGnOW0=
+X-Google-Smtp-Source: ABdhPJzXvhQClyexeU/Zc4tGz0TvA8BqTJp0cxGJCRy/x2dJzHXjGfRsmbW4DYDq0YTsJ+Z6UJb1OA==
+X-Received: by 2002:a1c:4c05:: with SMTP id z5mr20115157wmf.47.1599493979113; 
+ Mon, 07 Sep 2020 08:52:59 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id z14sm26393646wrh.14.2020.09.07.08.09.33
+ by smtp.gmail.com with ESMTPSA id m13sm28718410wrr.74.2020.09.07.08.52.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2020 08:09:33 -0700 (PDT)
-Date: Mon, 7 Sep 2020 15:09:32 +0000
+ Mon, 07 Sep 2020 08:52:58 -0700 (PDT)
+Date: Mon, 7 Sep 2020 15:52:57 +0000
 From: Wei Liu <wl@xen.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Wei Liu <wl@xen.org>, Diego Sueiro <Diego.Sueiro@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>, Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: Re: [PATCH 2/3] tools/hotplug: Fix dhcpd symlink removal in vif-nat
-Message-ID: <20200907150932.mylpejk57553ygtv@liuwe-devbox-debian-v2>
-References: <cover.1597920095.git.diego.sueiro@arm.com>
- <3b0efb9fb1ba94922c0ae156c0ab0be6a9f45f25.1597920095.git.diego.sueiro@arm.com>
- <20200907143601.iuuk5yrzgv2stpze@liuwe-devbox-debian-v2>
- <4FA762CA-FAF0-46AC-A634-9F6D93287668@arm.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Shriram Rajagopalan <rshriram@cs.ubc.ca>,
+ Yang Hongyang <imhy.yang@gmail.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>
+Subject: Re: [PATCH v4 28/31] tools/libxl: move libxenlight to tools/libs/light
+Message-ID: <20200907155257.jztw3kv2h3kmjcqa@liuwe-devbox-debian-v2>
+References: <20200828150747.25305-1-jgross@suse.com>
+ <20200828150747.25305-29-jgross@suse.com>
+ <20200828160532.q7f5opcits57xwjy@liuwe-devbox-debian-v2>
+ <5d65901d-5729-fe17-3fb2-2a41867d726b@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <4FA762CA-FAF0-46AC-A634-9F6D93287668@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5d65901d-5729-fe17-3fb2-2a41867d726b@suse.com>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -70,58 +79,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 07, 2020 at 03:01:37PM +0000, Bertrand Marquis wrote:
-> Hi Wei,
-> 
-> > On 7 Sep 2020, at 15:36, Wei Liu <wl@xen.org> wrote:
+On Mon, Aug 31, 2020 at 07:50:42AM +0200, Jürgen Groß wrote:
+> On 28.08.20 18:05, Wei Liu wrote:
+> > On Fri, Aug 28, 2020 at 05:07:44PM +0200, Juergen Gross wrote:
+> > > Carve out all libxenlight related sources and move them to
+> > > tools/libs/light in order to use the generic library build environment.
+> > > 
+> > > The closely related sources for libxl-save-helper and the libxl test
+> > > environment are being moved, too.
+> > > 
+> > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > Acked-by: Wei Liu <wl@xen.org>
 > > 
-> > On Thu, Aug 20, 2020 at 12:00:23PM +0100, Diego Sueiro wrote:
-> >> Copy temp files used to add/remove dhcpd configurations to avoid
-> >> replacing potential symlinks.
-> >> 
+> > It occurs to me you may need to modify golang/xenlight/Makefile.
 > > 
-> > Can you clarify the issue you saw a bit?
+> > There is
 > > 
-> > Which one of the parameter is a symlink (I assume the latter) and what
-> > problem you see with replacing the symlinks?
-> 
-> Maybe i can explain here.
-> 
-> If you have this:
-> /etc/dhcp.conf -> dhcp.conf.real
-> 
-> mv will create a new file dhcp.conf where cp will actually modify
-> dhcp.conf.real instead of replacing the symlink with a real file.
-> 
-> This prevents some mistakes where the user will actually continue to
-> modify dhcp.conf.real where it would not be the one used anymore.
-
-OK. Now I understand the use case. Thanks.
-
-I think you explanation should be part of the commit message.
-
-Diego, can you please incorporate Bertrand's explanation and deal with
-my comment below?
-
-> >> ---
-> >> tools/hotplug/Linux/vif-nat | 12 +++++++-----
-> >> 1 file changed, 7 insertions(+), 5 deletions(-)
-> >> 
-> >> diff --git a/tools/hotplug/Linux/vif-nat b/tools/hotplug/Linux/vif-nat
-> >> index 2614435..1ab80ed 100644
-> >> --- a/tools/hotplug/Linux/vif-nat
-> >> +++ b/tools/hotplug/Linux/vif-nat
-> >> @@ -99,7 +99,8 @@ dhcparg_remove_entry()
-> >>   then
-> >>     rm "$tmpfile"
-> >>   else
-> >> -    mv "$tmpfile" "$dhcpd_arg_file"
-> >> +    cp "$tmpfile" "$dhcpd_arg_file"
-> >> +    rm "$tmpfile"
-> >>   fi
+> >      LIBXL_SRC_DIR = ../../libxl
 > > 
-> > You could've simplified the code a bit here and below now that both
-> > branches issue the same rm command.
+> > in it.
+> > 
+> > I didn't hit any error perhaps due to I didn't have golang installed.
+> 
+> Me neither.
+> 
+> Thanks for noticing that.
+
+No need to resend just for this. I can fix it up for you.
 
 Wei.
 
