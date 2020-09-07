@@ -2,60 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6923C2604ED
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 20:56:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D642604F9
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 21:00:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFMIe-0000mw-RN; Mon, 07 Sep 2020 18:55:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFMId-0000mc-3K
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 18:55:31 +0000
-X-Inumbo-ID: 8ca222c5-c9c8-4ae5-85ad-d5627a44acb0
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8ca222c5-c9c8-4ae5-85ad-d5627a44acb0;
- Mon, 07 Sep 2020 18:55:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=5nfSlu6lgSI+5FvDZH2HAf5MrpRtsm/Lp+AYxFGZswg=; b=uI4pimBvC87Y+k4q79l6Z0PizM
- dMDKusny8rit2YzilXxda7kXn9N7kkz5awqDZVQDCZQgsEivaiyz8j1iuEO65eDMw/YAprvCXVDdT
- PXiPXVnvlJp1y6koE25+lF6k273O5G0MA3p8iTUOJ4jSVtmiK38NjqzwYpWizz4Y6wMY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFMIW-0007zL-5V; Mon, 07 Sep 2020 18:55:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFMIV-0006XH-Vg; Mon, 07 Sep 2020 18:55:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFMIV-0005Ai-VC; Mon, 07 Sep 2020 18:55:23 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153894-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kFMNa-0001f2-LV; Mon, 07 Sep 2020 19:00:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FGN5=CQ=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1kFMNZ-0001ex-6M
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 19:00:37 +0000
+X-Inumbo-ID: ffc6b678-e30e-4327-ac8e-495f91597644
+Received: from mx1a.swcp.com (unknown [216.184.2.64])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ffc6b678-e30e-4327-ac8e-495f91597644;
+ Mon, 07 Sep 2020 19:00:35 +0000 (UTC)
+Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
+ by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 087J0Y4h028411
+ for <xen-devel@lists.xenproject.org>; Mon, 7 Sep 2020 13:00:34 -0600
+Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
+ denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
+ client-ip=62.251.112.184; helo=diamond.fritz.box;
+ envelope-from=hudson@trmm.net;
+ x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
+ libspf2-1.2.10; 
+Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
+ by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 087J0RtK061615
+ for <xen-devel@lists.xenproject.org>; Mon, 7 Sep 2020 13:00:28 -0600 (MDT)
+ (envelope-from hudson@trmm.net)
+X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
+ [62.251.112.184] claimed to be diamond.fritz.box
+From: Trammell Hudson <hudson@trmm.net>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v3 0/4] efi: Unified Xen hypervisor/kernel/initrd images
+Date: Mon,  7 Sep 2020 15:00:23 -0400
+Message-Id: <20200907190027.669086-1-hudson@trmm.net>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 153894: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Sep 2020 18:55:23 +0000
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.83
+X-Greylist: Message whitelisted by DRAC access database, not delayed by
+ milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
+ Mon, 07 Sep 2020 13:00:29 -0600 (MDT)
+X-Virus-Scanned: clamav-milter 0.100.2 at ame7
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
+X-Spam-Status: No, hits=0.7 tests=NO_RECEIVED,NO_RELAYS,SPF_NEUTRAL
+ version=3.4.2
+X-Spam-Level: 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +64,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153894 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153894/
+From: Trammell hudson <hudson@trmm.net>
 
-Regressions :-(
+This patch series adds support for bundling the xen.efi hypervisor,
+the xen.cfg configuration file, the Linux kernel and initrd, as well
+as the XSM, and architectural specific files into a single "unified"
+EFI executable.  This allows an administrator to update the components
+independently without requiring rebuilding xen, as well as to replace
+the components in an existing image.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+The resulting EFI executable can be invoked directly from the UEFI Boot
+Manager, removing the need to use a separate loader like grub as well
+as removing dependencies on local filesystem access.  And since it is
+a single file, it can be signed and validated by UEFI Secure Boot without
+requring the shim protocol.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+It is inspired by systemd-boot's unified kernel technique and borrows the
+function to locate PE sections from systemd's LGPL'ed code.  During EFI
+boot, Xen looks at its own loaded image to locate the PE sections for
+the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+(`.initrd`), and XSM config (`.xsm`), which are included after building
+xen.efi using objcopy to add named sections for each input file.
 
-version targeted for testing:
- ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+Trammell hudson (4):
+  x86/xen.lds.S: Work around binutils build id alignment bug
+  efi/boot.c: add file.need_to_free and split display_file_info()
+  efi: Enable booting unified hypervisor/kernel/initrd images
+  efi: Do not use command line if secure boot is enabled.
 
-Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
-Failing since        152915  2020-08-27 18:09:42 Z   11 days  180 attempts
-Testing same since   153848  2020-09-07 02:52:00 Z    0 days   12 attempts
+ .gitignore                  |   1 +
+ docs/misc/efi.pandoc        |  47 ++++++++++++
+ xen/arch/arm/efi/efi-boot.h |  22 ++++--
+ xen/arch/x86/efi/Makefile   |   2 +-
+ xen/arch/x86/efi/efi-boot.h |   7 +-
+ xen/arch/x86/xen.lds.S      |   1 +
+ xen/common/efi/boot.c       | 139 ++++++++++++++++++++++++++---------
+ xen/common/efi/efi.h        |   3 +
+ xen/common/efi/pe.c         | 141 ++++++++++++++++++++++++++++++++++++
+ 9 files changed, 317 insertions(+), 46 deletions(-)
+ create mode 100644 xen/common/efi/pe.c
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
-  Zhichao Gao <zhichao.gao@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+-- 
+2.25.1
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 343 lines long.)
 
