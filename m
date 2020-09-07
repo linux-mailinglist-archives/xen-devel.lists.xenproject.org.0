@@ -2,57 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A32026030E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B75260336
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:46:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFL9B-0002Iw-Ck; Mon, 07 Sep 2020 17:41:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFL99-0002Ir-Jw
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:41:39 +0000
-X-Inumbo-ID: 9f5b3d61-62a8-4cfc-966d-51af0395dda3
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f5b3d61-62a8-4cfc-966d-51af0395dda3;
- Mon, 07 Sep 2020 17:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=2odx7x4/ZUwCM6BmccMZP5cwEdF5DI5/gbO22zWemq4=; b=dRBzHqHCsBlKzJkUSc1iQhAPbH
- AaVhWYewXlZqdgTRugv0xHU/+NMHcy6WfwFdRdBTiv1OE/hRYxa90kaCrWfOeJ6xsWnOEtUeeutS+
- zSrHaMuRqBJZcyDBAn2pMz6H2hds4v4VzjQxUt1jKzncfHXUetoAlYz8Gk6Pxmr4S938=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFL95-0006QF-DV; Mon, 07 Sep 2020 17:41:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFL95-00033a-68; Mon, 07 Sep 2020 17:41:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFL95-0003lt-5Z; Mon, 07 Sep 2020 17:41:35 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153890-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kFLDN-0002TG-Uq; Mon, 07 Sep 2020 17:46:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FGN5=CQ=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1kFLDM-0002TB-8g
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:46:00 +0000
+X-Inumbo-ID: 7439f2a4-9304-4efa-afd6-0299d2bd0b21
+Received: from mail-40131.protonmail.ch (unknown [185.70.40.131])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7439f2a4-9304-4efa-afd6-0299d2bd0b21;
+ Mon, 07 Sep 2020 17:45:58 +0000 (UTC)
+Date: Mon, 07 Sep 2020 17:45:48 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
+ s=protonmail; t=1599500756;
+ bh=/8zcHwUuvK5LeQi51pKE9BjzgihG2EhTxZhRqi19ek4=;
+ h=Date:To:From:Reply-To:Subject:From;
+ b=d6Hf2pkZPGceHpn3eT0+m3vz5w4NJSxQ0xLv4AWhXUopIbBvbY8eX0XMdvg3fdIts
+ KjOHP279gH4BDO4eH3LVqTiu2T9drDGnyVcNpD1sFi+rEi7MDBrLAr1/49/adKdIQP
+ T9gGDWsjvqASH+O/Mcb650ZR5E4WMxYNKmLtqfTo=
+To: Xen-devel <xen-devel@lists.xenproject.org>
+From: Trammell Hudson <hudson@trmm.net>
+Subject: [PATCH v3 0/4] efi: Unified Xen hypervisor/kernel/initrd images
+Message-ID: <b8BKlNQRW9YVOeX7T7TU64N8ek2l9Klzq0TVfkmLC3vzz4K2Gx6KHSLKjEHIlk5wjT0S0k-uieet1mvDEgHwSpKzg1LIiEL_eZPfpKDhpfo=@trmm.net>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 153890: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=b11910082d90bb1597f6679524eb726a33306672
-X-Osstest-Versions-That: xen=ad0fd291c5e79191c2e3c70e43dded569f11a450
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Sep 2020 17:41:35 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+ mailout.protonmail.ch
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,66 +48,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: Trammell Hudson <hudson@trmm.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153890 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153890/
+This patch series adds support for bundling the xen.efi hypervisor,
+the xen.cfg configuration file, the Linux kernel and initrd, as well
+as the XSM, and architectural specific files into a single "unified"
+EFI executable.  This allows an administrator to update the components
+independently without requiring rebuilding xen, as well as to replace
+the components in an existing image.
 
-Failures :-/ but no regressions.
+The resulting EFI executable can be invoked directly from the UEFI Boot
+Manager, removing the need to use a separate loader like grub as well
+as removing dependencies on local filesystem access.  And since it is
+a single file, it can be signed and validated by UEFI Secure Boot without
+requring the shim protocol.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+It is inspired by systemd-boot's unified kernel technique and borrows the
+function to locate PE sections from systemd's LGPL'ed code.  During EFI
+boot, Xen looks at its own loaded image to locate the PE sections for
+the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+(`.initrd`), and XSM config (`.xsm`), which are included after building
+xen.efi using objcopy to add named sections for each input file.
 
-version targeted for testing:
- xen                  b11910082d90bb1597f6679524eb726a33306672
-baseline version:
- xen                  ad0fd291c5e79191c2e3c70e43dded569f11a450
+Trammell hudson (4):
+  x86/xen.lds.S: Work around binutils build id alignment bug
+  efi/boot.c: add file.need_to_free and split display_file_info()
+  efi: Enable booting unified hypervisor/kernel/initrd images
+  efi: Do not use command line if secure boot is enabled.
 
-Last test of basis   153880  2020-09-07 12:03:11 Z    0 days
-Testing same since   153890  2020-09-07 15:00:26 Z    0 days    1 attempts
+ .gitignore                  |   1 +
+ docs/misc/efi.pandoc        |  47 ++++++++++++
+ xen/arch/arm/efi/efi-boot.h |  22 ++++--
+ xen/arch/x86/efi/Makefile   |   2 +-
+ xen/arch/x86/efi/efi-boot.h |   7 +-
+ xen/arch/x86/xen.lds.S      |   1 +
+ xen/common/efi/boot.c       | 139 ++++++++++++++++++++++++++---------
+ xen/common/efi/efi.h        |   3 +
+ xen/common/efi/pe.c         | 141 ++++++++++++++++++++++++++++++++++++
+ 9 files changed, 317 insertions(+), 46 deletions(-)
+ create mode 100644 xen/common/efi/pe.c
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+--
+2.25.1
 
 
-Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   ad0fd291c5..b11910082d  b11910082d90bb1597f6679524eb726a33306672 -> smoke
+
+
 
