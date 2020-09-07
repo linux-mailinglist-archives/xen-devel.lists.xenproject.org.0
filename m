@@ -2,53 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B43126044E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 20:11:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE33260455
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 20:14:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFLbj-0005cz-W4; Mon, 07 Sep 2020 18:11:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4Tp4=CQ=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kFLbi-0005cu-1w
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 18:11:10 +0000
-X-Inumbo-ID: 7754ba3f-4b00-422a-b3b1-998c57fa3b4e
+	id 1kFLeW-0005mQ-FI; Mon, 07 Sep 2020 18:14:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFLeV-0005le-PM
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 18:14:03 +0000
+X-Inumbo-ID: 2195e30b-195d-438c-a43e-b5da3fd0b904
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7754ba3f-4b00-422a-b3b1-998c57fa3b4e;
- Mon, 07 Sep 2020 18:11:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:To:Subject;
- bh=D6Io+FnlSB2TGsdpZSVt0EIpE7gWoR05y5lrzY7rPOg=; b=pHX052Z8YNZZ5ny6T9cXz7juyj
- udx6Jj0kd8BPC+DiPKVsk90hEUYTSgYchCy8W2stGNb/zmwlHqortNwDZHabfEapWLheQvA9+y7TI
- OR1a0p5MurvpILYVA0A07rKf7VhlWm/9XVeFGJA6KyT3B0rawYzfTA3FXrUvkPfKkFso=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2195e30b-195d-438c-a43e-b5da3fd0b904;
+ Mon, 07 Sep 2020 18:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+ bh=MhIuySsse72AcCdJwsOyS/Zy9HeZJPKL/Te/YFoGpmk=; b=Nj0oSrTXTqAorZbYUg2R4YjQ+w
+ lP8FAwWCd0yxDqsfM420hFffbJ9EKyVW3qQWaSCPfjOoZsxyUcZADbikYcVnzv2K3qdTKJ/UqFe/j
+ 5MUdSCQ5NwpW23oecFsyPx0OdJHTffbloTnRTTLgRLmwhicJAEU1iMLfvZk6vpOFfAro=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kFLbg-00077B-IU; Mon, 07 Sep 2020 18:11:08 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kFLbg-0007oM-CJ; Mon, 07 Sep 2020 18:11:08 +0000
-Subject: Re: [PATCH v3 0/4] efi: Unified Xen hypervisor/kernel/initrd images
-To: Trammell Hudson <hudson@trmm.net>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <b8BKlNQRW9YVOeX7T7TU64N8ek2l9Klzq0TVfkmLC3vzz4K2Gx6KHSLKjEHIlk5wjT0S0k-uieet1mvDEgHwSpKzg1LIiEL_eZPfpKDhpfo=@trmm.net>
-From: Julien Grall <julien@xen.org>
-Message-ID: <77b23ff2-b204-08d3-aeb6-b9049861a9f2@xen.org>
-Date: Mon, 7 Sep 2020 19:11:07 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <b8BKlNQRW9YVOeX7T7TU64N8ek2l9Klzq0TVfkmLC3vzz4K2Gx6KHSLKjEHIlk5wjT0S0k-uieet1mvDEgHwSpKzg1LIiEL_eZPfpKDhpfo=@trmm.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFLeT-0007BH-5t; Mon, 07 Sep 2020 18:14:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFLeS-0004wF-Vl; Mon, 07 Sep 2020 18:14:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFLeS-0007Yk-VG; Mon, 07 Sep 2020 18:14:00 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-i386-freebsd10-amd64
+Message-Id: <E1kFLeS-0007Yk-VG@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 18:14:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +54,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-i386-freebsd10-amd64
+testid guest-saverestore
 
-On 07/09/2020 18:45, Trammell Hudson wrote:
-> This patch series adds support for bundling the xen.efi hypervisor,
-> the xen.cfg configuration file, the Linux kernel and initrd, as well
-> as the XSM, and architectural specific files into a single "unified"
-> EFI executable.  This allows an administrator to update the components
-> independently without requiring rebuilding xen, as well as to replace
-> the components in an existing image.
-> 
-> The resulting EFI executable can be invoked directly from the UEFI Boot
-> Manager, removing the need to use a separate loader like grub as well
-> as removing dependencies on local filesystem access.  And since it is
-> a single file, it can be signed and validated by UEFI Secure Boot without
-> requring the shim protocol.
-> 
-> It is inspired by systemd-boot's unified kernel technique and borrows the
-> function to locate PE sections from systemd's LGPL'ed code.  During EFI
-> boot, Xen looks at its own loaded image to locate the PE sections for
-> the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-> (`.initrd`), and XSM config (`.xsm`), which are included after building
-> xen.efi using objcopy to add named sections for each input file.
-> 
-> Trammell hudson (4):
->    x86/xen.lds.S: Work around binutils build id alignment bug
->    efi/boot.c: add file.need_to_free and split display_file_info()
->    efi: Enable booting unified hypervisor/kernel/initrd images
->    efi: Do not use command line if secure boot is enabled.
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Please make sure to have the patch sent with "In-reply-to" pointing to 
-the cover letter.
+*** Found and reproduced problem changeset ***
 
-git format-patch should do it for you.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  696c273f3d9a169911308fb7e0a702a3eb6a150d
+  Bug not present: a609b6577f7867db4be1470130b7b3c686398c4f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153893/
 
-Cheers,
 
-> 
->   .gitignore                  |   1 +
->   docs/misc/efi.pandoc        |  47 ++++++++++++
->   xen/arch/arm/efi/efi-boot.h |  22 ++++--
->   xen/arch/x86/efi/Makefile   |   2 +-
->   xen/arch/x86/efi/efi-boot.h |   7 +-
->   xen/arch/x86/xen.lds.S      |   1 +
->   xen/common/efi/boot.c       | 139 ++++++++++++++++++++++++++---------
->   xen/common/efi/efi.h        |   3 +
->   xen/common/efi/pe.c         | 141 ++++++++++++++++++++++++++++++++++++
->   9 files changed, 317 insertions(+), 46 deletions(-)
->   create mode 100644 xen/common/efi/pe.c
-> 
-> --
-> 2.25.1
-> 
-> 
-> 
-> 
-> 
-> 
+  commit 696c273f3d9a169911308fb7e0a702a3eb6a150d
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Sep 4 11:13:01 2020 +0200
+  
+      x86: generalize padding field handling
+      
+      The original intention was to ignore padding fields, but the pattern
+      matched only ones whose names started with an underscore. Also match
+      fields whose names are in line with the C spec by not having a leading
+      underscore. (Note that the leading ^ in the sed regexps was pointless
+      and hence get dropped.)
+      
+      This requires adjusting some vNUMA macros, to avoid triggering
+      "enumeration value ... not handled in switch" warnings, which - due to
+      -Werror - would cause the build to fail. (I have to admit that I find
+      these padding fields odd, when translation of the containing structure
+      is needed anyway.)
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
--- 
-Julien Grall
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-i386-freebsd10-amd64.guest-saverestore.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-i386-freebsd10-amd64.guest-saverestore --summary-out=tmp/153893.bisection-summary --basis-template=152877 --blessings=real,real-bisect xen-unstable test-amd64-i386-freebsd10-amd64 guest-saverestore
+Searching for failure / basis pass:
+ 153845 fail [host=chardonnay1] / 153653 [host=elbling1] 153602 [host=fiano0] 153591 [host=albana1] 153551 [host=albana0] 153526 [host=chardonnay0] 153494 [host=rimava1] 153468 [host=fiano1] 153437 [host=pinot0] 153400 [host=elbling0] 153363 [host=albana1] 153321 [host=pinot1] 153280 ok.
+Failure / basis pass flights: 153845 / 153280
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 d400dc5729e4e132d61c2e7df57d81aaed762044
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc4\
+ 37c386260-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/xen.git#d400dc5729e4e132d61c2e7df57d81aaed762044-f4c1a541fa351e4f613471bbf397931f9e1ddd27
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 152985 []
+ 153004 [host=chardonnay0]
+ 153028 [host=fiano0]
+ 153065 [host=huxelrebe0]
+ 153109 [host=huxelrebe1]
+ 153280 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 d400dc5729e4e132d61c2e7df57d81aaed762044
+ 153321 [host=pinot1]
+ 153363 [host=albana1]
+ 153400 [host=elbling0]
+ 153437 [host=pinot0]
+ 153468 [host=fiano1]
+ 153494 [host=rimava1]
+ 153526 [host=chardonnay0]
+ 153551 [host=albana0]
+ 153591 [host=albana1]
+ 153602 [host=fiano0]
+ 153619 [host=elbling1]
+ 153653 [host=elbling1]
+ 153758 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 82c3d15c903aa434473dfdb570096ae5db809b94
+ 153770 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ 153788 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ 153813 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ 153865 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 d400dc5729e4e132d61c2e7df57d81aaed762044
+ 153869 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ 153871 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7dcd33d562ee8a8177c843f42721d5345f796fe8
+ 153874 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7dcf89d9ec96254f69744ab6d91e8af13f4cda83
+ 153876 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 a609b6577f7867db4be1470130b7b3c686398c4f
+ 153879 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 696c273f3d9a169911308fb7e0a702a3eb6a150d
+ 153845 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 f4c1a541fa351e4f613471bbf397931f9e1ddd27
+ 153881 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 a609b6577f7867db4be1470130b7b3c686398c4f
+ 153883 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 696c273f3d9a169911308fb7e0a702a3eb6a150d
+ 153888 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 a609b6577f7867db4be1470130b7b3c686398c4f
+ 153893 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 696c273f3d9a169911308fb7e0a702a3eb6a150d
+Searching for interesting versions
+ Result found: flight 153280 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 a609b6577f7867db4be1470130b7b3c686398c4f, results HASH(0x56053f238b88) HASH(0x56053eccd228) HASH(0x56053ecd4450) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1e\
+ d79d824e605a70c3626bc437c386260 7dcd33d562ee8a8177c843f42721d5345f796fe8, results HASH(0x56053f2343f8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 d400dc5729e4e132d61c2e7df57d81aaed762044, results HASH(0x56053f221cd0) HASH(0x56053f231dc8) Result found: flight 153758 (fail), for basis failure (at ancestor ~249)
+ Repro found: flight 153865 (pass), for basis pass
+ Repro found: flight 153869 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 a609b6577f7867db4be1470130b7b3c686398c4f
+No revisions left to test, checking graph state.
+ Result found: flight 153876 (pass), for last pass
+ Result found: flight 153879 (fail), for first failure
+ Repro found: flight 153881 (pass), for last pass
+ Repro found: flight 153883 (fail), for first failure
+ Repro found: flight 153888 (pass), for last pass
+ Repro found: flight 153893 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  696c273f3d9a169911308fb7e0a702a3eb6a150d
+  Bug not present: a609b6577f7867db4be1470130b7b3c686398c4f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153893/
+
+
+  commit 696c273f3d9a169911308fb7e0a702a3eb6a150d
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Sep 4 11:13:01 2020 +0200
+  
+      x86: generalize padding field handling
+      
+      The original intention was to ignore padding fields, but the pattern
+      matched only ones whose names started with an underscore. Also match
+      fields whose names are in line with the C spec by not having a leading
+      underscore. (Note that the leading ^ in the sed regexps was pointless
+      and hence get dropped.)
+      
+      This requires adjusting some vNUMA macros, to avoid triggering
+      "enumeration value ... not handled in switch" warnings, which - due to
+      -Werror - would cause the build to fail. (I have to admit that I find
+      these padding fields odd, when translation of the containing structure
+      is needed anyway.)
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-i386-freebsd10-amd64.guest-saverestore.{dot,ps,png,html,svg}.
+----------------------------------------
+153893: tolerable ALL FAIL
+
+flight 153893 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153893/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-freebsd10-amd64 14 guest-saverestore    fail baseline untested
+
+
+jobs:
+ test-amd64-i386-freebsd10-amd64                              fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
