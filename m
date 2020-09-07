@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B874325F669
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 11:26:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97ED25F679
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 11:29:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFDOs-0005S8-J3; Mon, 07 Sep 2020 09:25:22 +0000
+	id 1kFDSL-0005dS-54; Mon, 07 Sep 2020 09:28:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=b7xj=CQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kFDOr-0005S3-3R
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 09:25:21 +0000
-X-Inumbo-ID: b4a488f3-4f5f-48d6-94aa-44320a93c939
+ id 1kFDSK-0005dN-4H
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 09:28:56 +0000
+X-Inumbo-ID: 61dd1ac0-e639-445e-ba09-0dbea1d8ef3f
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b4a488f3-4f5f-48d6-94aa-44320a93c939;
- Mon, 07 Sep 2020 09:25:20 +0000 (UTC)
+ id 61dd1ac0-e639-445e-ba09-0dbea1d8ef3f;
+ Mon, 07 Sep 2020 09:28:55 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 31BEEAD1E;
- Mon,  7 Sep 2020 09:25:20 +0000 (UTC)
-Subject: Re: [PATCH] x86: guard against straight-line speculation past RET
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
- <38aaf96b-1235-b205-71d6-16aee057c402@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 31F92AD1E;
+ Mon,  7 Sep 2020 09:28:55 +0000 (UTC)
+Subject: Re: [xen-unstable bisection] complete test-amd64-i386-xl-shadow
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ osstest service owner <osstest-admin@xenproject.org>
+References: <E1kF3SG-0000mV-7s@osstest.test-lab.xenproject.org>
+ <01e192ce-99ea-2fbd-317c-c9f4b99f6d2a@suse.com>
+ <20200907092045.GS753@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d0a5df1b-8e8c-e650-9cfc-183d48e87a47@suse.com>
-Date: Mon, 7 Sep 2020 11:25:18 +0200
+Message-ID: <c65f06b6-4b42-bdb0-feda-02fcbc060e7d@suse.com>
+Date: Mon, 7 Sep 2020 11:28:53 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <38aaf96b-1235-b205-71d6-16aee057c402@citrix.com>
+In-Reply-To: <20200907092045.GS753@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -51,125 +52,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.09.2020 20:18, Andrew Cooper wrote:
-> On 24/08/2020 13:50, Jan Beulich wrote:
->> --- a/xen/include/asm-x86/asm-defns.h
->> +++ b/xen/include/asm-x86/asm-defns.h
->> @@ -50,3 +50,19 @@
->>  .macro INDIRECT_JMP arg:req
->>      INDIRECT_BRANCH jmp \arg
->>  .endm
->> +
->> +/*
->> + * To guard against speculation past RET, insert a breakpoint insn
->> + * immediately after them.
->> + */
->> +.macro ret operand:vararg
->> +    ret$ \operand
->> +.endm
->> +.macro ret$ operand:vararg
->> +    .purgem ret
->> +    ret \operand
->> +    int $3
->> +    .macro ret operand:vararg
->> +        ret$ \\(operand)
->> +    .endm
->> +.endm
+On 07.09.2020 11:20, Roger Pau Monné wrote:
+> On Mon, Sep 07, 2020 at 10:21:36AM +0200, Jan Beulich wrote:
+>> On 07.09.2020 00:48, osstest service owner wrote:
+>>> branch xen-unstable
+>>> xenbranch xen-unstable
+>>> job test-amd64-i386-xl-shadow
+>>> testid guest-saverestore
+>>>
+>>> Tree: linux git://xenbits.xen.org/linux-pvops.git
+>>> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+>>> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+>>> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+>>> Tree: xen git://xenbits.xen.org/xen.git
+>>>
+>>> *** Found and reproduced problem changeset ***
+>>>
+>>>   Bug is in tree:  xen git://xenbits.xen.org/xen.git
+>>>   Bug introduced:  696c273f3d9a169911308fb7e0a702a3eb6a150d
+>>>   Bug not present: a609b6577f7867db4be1470130b7b3c686398c4f
+>>>   Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/153833/
+>>>
+>>>
+>>>   commit 696c273f3d9a169911308fb7e0a702a3eb6a150d
+>>>   Author: Jan Beulich <jbeulich@suse.com>
+>>>   Date:   Fri Sep 4 11:13:01 2020 +0200
+>>>   
+>>>       x86: generalize padding field handling
+>>>       
+>>>       The original intention was to ignore padding fields, but the pattern
+>>>       matched only ones whose names started with an underscore. Also match
+>>>       fields whose names are in line with the C spec by not having a leading
+>>>       underscore. (Note that the leading ^ in the sed regexps was pointless
+>>>       and hence get dropped.)
+>>
+>> I conclude this needs to be reverted, and there was a thinko of mine
+>> involved here: Avoiding translation of padding fields would be okay
+>> only when their values don't get checked in the native handler. We
+>> effectively have a not written down (afaict) rule here that _pad*
+>> fields get ignored (and hence don't need translation), while pad*
+>> fields may not be ignored and hence may need translation. I don't
+>> like this state, but I also can't think of a good way out of it, at
+>> least not just yet.
 > 
-> Several observations.  First, clang chokes on this:
-> 
-> <instantiation>:2:9: error: unknown token in expression
->     ret \\(operand)
->         ^
+> I think his stems from the fact that we don't have a rule whether
+> explicit padding fields in structs should be zeroed. IIRC there are
+> hypercalls that would check for padding fields to be 0, while others
+> don't.
 
-Must be clang more recent than the 5.x one I've tested with; likely
-because there we end up using -mno-integrated-as.
+Right - we only have an almost-rule for new code.
 
-> Second, you mean int3 rather than int $3.  By convention, they are
-> synonymous, but the second one really ought to be the two byte encoding,
-> rather than the single byte encoding, and we really want the single byte
-> version for code volume reasons.
+> At this point I assume we can only implement the least restrictive
+> one, which is to not force padding fields to be zeroed?
 
-Well, no, I didn't mean "int3", but I've switched nevertheless, just
-for consistency with the earlier change of yours referenced in the
-description. To me "int3" has only ever been a kludge. Assemblers
-I've grown up with don't know such a mnemonic. Nor did Intel
-originally document it, and AMD still doesn't.
+Well, we could formalize the (or ideally: some) naming model to
+distinguish the cases. Question then is going to be in how many
+cases neither contributor nor reviewers are(n't) going to pay
+attention.
 
-> Third, there is a huge quantity of complexity for a form of the
-> instruction we don't use.
+> This would have the side effect that they cannot be later used to
+> introduce additional fields to the struct without signaling the
+> version in use.
 
-The complexity isn't with handling the possible immediate operand,
-but with the need to override the "ret" insn, and then to transiently
-cancel this override.
-
->  Instead:
-> 
-> .macro ret operand:vararg
->     .ifnb \operand
->         .error "TODO - speculation safety for 'ret $imm'"
->     .endif
-> 
->     .byte 0xc3
->     int3
-> .endm
-> 
-> is much simpler, and compatible with both GCC and Clang.
-
-I really wish to avoid .byte for code emission whenever possible.
-It subverts the assembler applying sanity checks. This may not be
-overly relevant here, but then we would still better avoid setting
-precedents. However, if clang can't be made work without going
-this route, so be it.
-
-> Almost...
-> 
-> Clang doesn't actually expand the macro for ret instructions, so a Clang
-> build of Xen only ends up getting protected in the assembly files.
-> 
-> The following experiment demonstrates the issue:
-> 
-> $ cat ret.c
-> asm (".macro ret\n\t"
->      ".error \"foo\"\n\t"
->      ".endm\n\t");
-> void foo(void) {}
-> 
-> $ gcc -O3 -c ret.c -o ret.o && objdump -d ret.o
-> /tmp/ccf8hkyN.s: Assembler messages:
-> /tmp/ccf8hkyN.s:16: Error: foo
-> 
-> $ clang-10 -O3 -c ret.c -o ret.o && objdump -d ret.o
-> 
-> ret.o:     file format elf64-x86-64
-> 
-> 
-> Disassembly of section .text:
-> 
-> 0000000000000000 <foo>:
->    0:    c3                       retq
-> 
-> 
-> Worse, -no-integrated-as doesn't immediately help, even though it
-> invokes $(AS).
-> 
-> I tracked that down to the difference between ret and retq, which
-> highlights an assumption about GCC which may not remain true in the future.
-> 
-> Adding a second macro covering retq fixes the scenario in combination
-> with -no-integrated-as.
-
-Ah, yes, I should of course have thought of retq. Albeit as per
-above - generated code looks fine here when using clang 5.
-
-> So overall I think we can make a safe binary with a clang build. 
-> However, it is at the expense of the integrated assembler, which I
-> believe is now mandatory for LTO, and control-flow integrity, neither of
-> which we want to lose in the long term.
-
-Why at this expense? Are you saying that even when going the .byte
-route and even with very new clang one has to force
--mno-integrated-as?
+Exactly, so unilaterally going the "don't copy and hence don't
+require zero" route is not an option imo.
 
 Jan
 
