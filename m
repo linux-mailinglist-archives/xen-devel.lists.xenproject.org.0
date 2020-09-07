@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6734C25F868
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A31225F86A
 	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 12:32:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFERj-0003e2-Uh; Mon, 07 Sep 2020 10:32:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kFERs-0003iP-JO; Mon, 07 Sep 2020 10:32:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f5qx=CQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kFERi-0003d0-6F
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 10:32:22 +0000
-X-Inumbo-ID: 367b00db-bd3a-4ff4-b668-8cc0a50fde81
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 367b00db-bd3a-4ff4-b668-8cc0a50fde81;
- Mon, 07 Sep 2020 10:32:20 +0000 (UTC)
+ id 1kFERr-0003cB-CR
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 10:32:31 +0000
+X-Inumbo-ID: 14a25a43-e958-47cd-996c-9a04c53818fd
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 14a25a43-e958-47cd-996c-9a04c53818fd;
+ Mon, 07 Sep 2020 10:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599474740;
+ d=citrix.com; s=securemail; t=1599474742;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OCAXR8J1S116BXr4h3iOtSzLFt4qLz1NctDhz+CxumY=;
- b=Fmexj6g0msP1MCNfLLJIwtw50QVkORlCD0P2qE3Wcfzy6fLmHO4hYbJu
- 1GKYnQW9RkBCU++ec+wX6R3lrLzjbZLBQeg9lMQ5l6fHUFCS28BNNWc1l
- alJs4ceIXZVEhU3kEIKOp1yhRtzKt1tlQmkoJhX1ZJLmMJbSaQvnL+gZN Y=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=eSHJYKb2FghbO5MTB7iGVN9lMVAAY72QGAwzLnYUDE4=;
+ b=Iu+Ov3Cb2pL9MlABRSLXuHW1RZnJlS7ezPwTNfRXWtzql2rxHoHxHfkw
+ bwrMTJcwPcV+f7oJuXL6Xqg/CPc6eRpnnFg4bHEcdeq0vk7MvL/h7j/pg
+ sqFvaGIPth1JwEw2fDEfC9M3VTg8RI3JlJQ4uMqfqHC+LZJu0ORvdC4a4 k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: x5VHlbst6Fcg2DPrupmNdTiqKIta63Lm58fQ3OA7+CaFIwFZ+V1WaeLMqA8i9VFhCi7NRpKCVl
- hpV4ZAWrUUn/f8fWM0z6f2DTOuf1K6pyoNwgMcO60kzey3plY5NY5eT0UDxGFdszpY8dxL3cff
- Jwk2s3KYvCV1MjYmfBPwDdqWwSTIGfr5mlyvQL+ltuoAcfnnMz7CLDbg7vp6RIydV7a0FYrz5L
- Hz+/cwlul3KNVrmC/TDEQ5bn1VsPJHDR3c8G50HXuN5IjtYjuZlHV6GyLmbFWixu4wniBDgo4V
- /Q4=
+IronPort-SDR: 2e8RvT3POBeeV59iT6YMhX/2bn2Bt7wptpPBVLNE4Ou8y2g8ZFa16KIs3AUdkdXCJNveiKcL3E
+ 4cOD441IHsqSSYzW9ZgKZ7kjRgB3Gxfj8Lj02eZBKHqjrU/tMit3Ui+H8j+DxXW7MbLSkIDG6H
+ AId/cpbHiDPLR+GZBSpEzDtZYab/EzdUy2yWMc9HDXDWg7XJYywj/75GIEywxFP3eN36nm/5w3
+ YbDtu3gD8Gh9KQT2ftGEqxet9NFpabnRAfyxWP+N6C2PobgTmBUIdPC85Jvc1rJ8FjGSR3RGSE
+ NZI=
 X-SBRS: 2.7
-X-MesageID: 26247477
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 26456355
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,401,1592884800"; d="scan'208";a="26247477"
+X-IronPort-AV: E=Sophos;i="5.76,401,1592884800"; d="scan'208";a="26456355"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
  <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
- <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v4 4/5] x86/hvm: Disallow access to unknown MSRs
-Date: Mon, 7 Sep 2020 12:31:42 +0200
-Message-ID: <20200907103143.58845-5-roger.pau@citrix.com>
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v4 5/5] x86/msr: Drop compatibility #GP handling in guest_{rd,
+ wr}msr()
+Date: Mon, 7 Sep 2020 12:31:43 +0200
+Message-ID: <20200907103143.58845-6-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200907103143.58845-1-roger.pau@citrix.com>
 References: <20200907103143.58845-1-roger.pau@citrix.com>
@@ -69,94 +70,82 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Change the catch-all behavior for MSR not explicitly handled. Instead
-of allow full read-access to the MSR space and silently dropping
-writes return an exception when the MSR is not explicitly handled.
+Now that the main PV/HVM MSR handlers raise #GP for all unknown MSRs, there is
+no need to special case these MSRs any more.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-[remove rdmsr_safe from default case in svm_msr_read_intercept]
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Fold chunk to remove explicit write handling of VMX MSRs just to
-   #GP.
- - Remove catch-all rdmsr_safe in svm_msr_read_intercept.
+ - New in this version.
 ---
- xen/arch/x86/hvm/svm/svm.c | 10 ++++------
- xen/arch/x86/hvm/vmx/vmx.c | 16 ++++------------
- 2 files changed, 8 insertions(+), 18 deletions(-)
+ xen/arch/x86/msr.c | 46 ----------------------------------------------
+ 1 file changed, 46 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index e6fcb734b6..108c71785c 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -1964,8 +1964,7 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-         break;
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 79fbb9e940..81b34fb212 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -175,29 +175,6 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
  
-     default:
--        if ( rdmsr_safe(msr, *msr_content) == 0 )
--            break;
-+        gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", msr);
-         goto gpf;
-     }
- 
-@@ -2150,10 +2149,9 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-         break;
- 
-     default:
--        /* Match up with the RDMSR side; ultimately this should go away. */
--        if ( rdmsr_safe(msr, msr_content) == 0 )
--            break;
--
-+        gdprintk(XENLOG_WARNING,
-+                 "WRMSR 0x%08x val 0x%016"PRIx64" unimplemented\n",
-+                 msr, msr_content);
-         goto gpf;
-     }
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 709ea149d1..a3aadce4d8 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3015,9 +3015,7 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-             break;
-         }
- 
--        if ( rdmsr_safe(msr, *msr_content) == 0 )
--            break;
--
-+        gdprintk(XENLOG_WARNING, "RDMSR 0x%08x unimplemented\n", msr);
-         goto gp_fault;
-     }
- 
-@@ -3290,11 +3288,6 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-         __vmwrite(GUEST_IA32_DEBUGCTL, msr_content);
-         break;
- 
--    case MSR_IA32_FEATURE_CONTROL:
--    case MSR_IA32_VMX_BASIC ... MSR_IA32_VMX_VMFUNC:
--        /* None of these MSRs are writeable. */
+     switch ( msr )
+     {
+-    case MSR_AMD_PATCHLOADER:
+-    case MSR_IA32_UCODE_WRITE:
+-    case MSR_PRED_CMD:
+-    case MSR_FLUSH_CMD:
+-        /* Write-only */
+-    case MSR_TEST_CTRL:
+-    case MSR_CORE_CAPABILITIES:
+-    case MSR_TSX_FORCE_ABORT:
+-    case MSR_TSX_CTRL:
+-    case MSR_MCU_OPT_CTRL:
+-    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
+-    case MSR_U_CET:
+-    case MSR_S_CET:
+-    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
+-    case MSR_AMD64_LWP_CFG:
+-    case MSR_AMD64_LWP_CBADDR:
+-    case MSR_PPIN_CTL:
+-    case MSR_PPIN:
+-    case MSR_AMD_PPIN_CTL:
+-    case MSR_AMD_PPIN:
+-        /* Not offered to guests. */
 -        goto gp_fault;
 -
-     case MSR_IA32_MISC_ENABLE:
-         /*
-          * Silently drop writes that don't change the reported value: At least
-@@ -3324,10 +3317,9 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-              is_last_branch_msr(msr) )
-             break;
+     case MSR_IA32_FEATURE_CONTROL:
+         if ( !cp->basic.vmx && !vmce_has_lmce(v) )
+             goto gp_fault;
+@@ -364,29 +341,6 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+     {
+         uint64_t rsvd;
  
--        /* Match up with the RDMSR side; ultimately this should go away. */
--        if ( rdmsr_safe(msr, msr_content) == 0 )
--            break;
+-    case MSR_IA32_PLATFORM_ID:
+-    case MSR_CORE_CAPABILITIES:
+-    case MSR_INTEL_CORE_THREAD_COUNT:
+-    case MSR_INTEL_PLATFORM_INFO:
+-    case MSR_ARCH_CAPABILITIES:
+-        /* Read-only */
+-    case MSR_TEST_CTRL:
+-    case MSR_TSX_FORCE_ABORT:
+-    case MSR_TSX_CTRL:
+-    case MSR_MCU_OPT_CTRL:
+-    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
+-    case MSR_U_CET:
+-    case MSR_S_CET:
+-    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
+-    case MSR_AMD64_LWP_CFG:
+-    case MSR_AMD64_LWP_CBADDR:
+-    case MSR_PPIN_CTL:
+-    case MSR_PPIN:
+-    case MSR_AMD_PPIN_CTL:
+-    case MSR_AMD_PPIN:
+-        /* Not offered to guests. */
+-        goto gp_fault;
 -
-+        gdprintk(XENLOG_WARNING,
-+                 "WRMSR 0x%08x val 0x%016"PRIx64" unimplemented\n",
-+                 msr, msr_content);
-         goto gp_fault;
-     }
- 
+     case MSR_AMD_PATCHLEVEL:
+         BUILD_BUG_ON(MSR_IA32_UCODE_REV != MSR_AMD_PATCHLEVEL);
+         /*
 -- 
 2.28.0
 
