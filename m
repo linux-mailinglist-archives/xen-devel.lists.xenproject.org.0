@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB89260197
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A32026030E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 19:42:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFKdz-0007US-Sb; Mon, 07 Sep 2020 17:09:27 +0000
+	id 1kFL9B-0002Iw-Ck; Mon, 07 Sep 2020 17:41:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f5qx=CQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kFKdy-0007UN-Vp
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:09:27 +0000
-X-Inumbo-ID: 7f961117-3571-4072-a1f1-1b26f855d901
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=1dHX=CQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFL99-0002Ir-Jw
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 17:41:39 +0000
+X-Inumbo-ID: 9f5b3d61-62a8-4cfc-966d-51af0395dda3
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7f961117-3571-4072-a1f1-1b26f855d901;
- Mon, 07 Sep 2020 17:09:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599498565;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=YGraFUm+xpzAVrCcC5FaAymr8aIloZE5VYP84ieUMd8=;
- b=Rgp/7FbzCvdGWPMIuRgXU77xEWuNXZ2yfxYq70CCoBGwEuhJBqSJagJk
- coqlsCTz5i8WCmBjLbmRtWXzwsZ6NIxzFBdy27EFVh2UrLODyT+4tRqQq
- JDLG084ZM4Sg6vhAnEWpg97x070w+oh+Bl3vjCboh8Eagea+KEDQIZj5f I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ki9GnZ++DcCqtApWT4hj5m+lXX1yHqfd7dKOsvy3lc3Da2qzi3qpo1toOl1jLiHeZsMVMB826h
- 3pgu0NQhG/sP2U3r5RjzAwhPwYu1QXVB3TPI7XqbrcdC++CQJZKtKS+Jb501X7A4NPNKKNzo76
- Tf1DykezGNvGc7Zgyig5jU0RPBtoXYIJGpxYUtj7v4tnG2nVewcrLRgbcYx3RaSLRrQF9vi+y+
- qSmBu1NKe9O3l+9XtZwQmiQjUYkBCs2nx0oasge6m5nss4RX12ToD4ZjBQjilhcGO+jBvKqqQP
- zHA=
-X-SBRS: 2.7
-X-MesageID: 26440098
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,402,1592884800"; d="scan'208";a="26440098"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
- <paul@xen.org>
-Subject: [PATCH] Revert "x86/hvm: simplify 'mmio_direct' check in
- epte_get_entry_emt()"
-Date: Mon, 7 Sep 2020 19:09:16 +0200
-Message-ID: <20200907170916.61693-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
-MIME-Version: 1.0
+ id 9f5b3d61-62a8-4cfc-966d-51af0395dda3;
+ Mon, 07 Sep 2020 17:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=2odx7x4/ZUwCM6BmccMZP5cwEdF5DI5/gbO22zWemq4=; b=dRBzHqHCsBlKzJkUSc1iQhAPbH
+ AaVhWYewXlZqdgTRugv0xHU/+NMHcy6WfwFdRdBTiv1OE/hRYxa90kaCrWfOeJ6xsWnOEtUeeutS+
+ zSrHaMuRqBJZcyDBAn2pMz6H2hds4v4VzjQxUt1jKzncfHXUetoAlYz8Gk6Pxmr4S938=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFL95-0006QF-DV; Mon, 07 Sep 2020 17:41:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFL95-00033a-68; Mon, 07 Sep 2020 17:41:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFL95-0003lt-5Z; Mon, 07 Sep 2020 17:41:35 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153890-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 153890: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=b11910082d90bb1597f6679524eb726a33306672
+X-Osstest-Versions-That: xen=ad0fd291c5e79191c2e3c70e43dded569f11a450
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Sep 2020 17:41:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,70 +66,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This reverts commit 81fd0d3ca4b2cd309403c6e8da662c325dd35750.
+flight 153890 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153890/
 
-Original commit only takes into account the APIC access page being a
-'special' page, but when running a PVH dom0 there are other pages that
-also fulfill the 'special' page check but shouldn't have it's cache
-type set to WB.
+Failures :-/ but no regressions.
 
-For example the ACPI regions are identity mapped into the guest but
-are also Xen heap pages, and forcing those to WB cache type is wrong.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-I've discovered this while trying to boot a PVH dom0, which fail to
-boot with this commit applied.
+version targeted for testing:
+ xen                  b11910082d90bb1597f6679524eb726a33306672
+baseline version:
+ xen                  ad0fd291c5e79191c2e3c70e43dded569f11a450
 
-Revert the commit while this is sorted out: either we settle that the
-current code is correct, or we modify the way ACPI regions are mapped
-into a PVH dom0.
+Last test of basis   153880  2020-09-07 12:03:11 Z    0 days
+Testing same since   153890  2020-09-07 15:00:26 Z    0 days    1 attempts
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Cc: Paul Durrant <paul@xen.org>
----
- xen/arch/x86/hvm/mtrr.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
-diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
-index fb051d59c3..2bd64e8025 100644
---- a/xen/arch/x86/hvm/mtrr.c
-+++ b/xen/arch/x86/hvm/mtrr.c
-@@ -815,13 +815,23 @@ int epte_get_entry_emt(struct domain *d, unsigned long gfn, mfn_t mfn,
-         return -1;
-     }
- 
-+    if ( direct_mmio )
-+    {
-+        if ( (mfn_x(mfn) ^ mfn_x(d->arch.hvm.vmx.apic_access_mfn)) >> order )
-+            return MTRR_TYPE_UNCACHABLE;
-+        if ( order )
-+            return -1;
-+        *ipat = 1;
-+        return MTRR_TYPE_WRBACK;
-+    }
-+
-     if ( !mfn_valid(mfn) )
-     {
-         *ipat = 1;
-         return MTRR_TYPE_UNCACHABLE;
-     }
- 
--    if ( !direct_mmio && !is_iommu_enabled(d) && !cache_flush_permitted(d) )
-+    if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
-     {
-         *ipat = 1;
-         return MTRR_TYPE_WRBACK;
-@@ -838,9 +848,6 @@ int epte_get_entry_emt(struct domain *d, unsigned long gfn, mfn_t mfn,
-         }
-     }
- 
--    if ( direct_mmio )
--        return MTRR_TYPE_UNCACHABLE;
--
-     gmtrr_mtype = hvm_get_mem_pinned_cacheattr(d, _gfn(gfn), order);
-     if ( gmtrr_mtype >= 0 )
-     {
--- 
-2.28.0
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   ad0fd291c5..b11910082d  b11910082d90bb1597f6679524eb726a33306672 -> smoke
 
