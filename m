@@ -2,59 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1257E25FC2C
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 16:37:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 716C125FC2F
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 16:40:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFIGm-0001Rq-Te; Mon, 07 Sep 2020 14:37:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Eb3x=CQ=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kFIGl-0001Rc-Nx
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 14:37:19 +0000
-X-Inumbo-ID: 888c7459-1324-4650-834f-bde9c16e047e
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 888c7459-1324-4650-834f-bde9c16e047e;
- Mon, 07 Sep 2020 14:37:19 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id l9so14433120wme.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Sep 2020 07:37:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=UI/5TJ/HsDRPXAnnNz3V6Emygz4w/4FB+KIokptzaSo=;
- b=IEMQ7VUwSKfnEBj8cfrk7y/DUj/3bouSdokXGYqbtfVVeLYCE/wKJHSb6pmOcCiF/3
- IUnYartfI7a4COFTlB/2jZn0ajgBmgOjJvFH8KKBWxZx2qWf6GHEdjI9pkOozLo9rbZk
- c5ncqrF+wfyxpBEa6o122J8N254ozcNQ1usp3wo0fmHVh38ZYDEoHDezk4CLDCB/txGY
- kQWHMzFsAFu0ocmZRH600WR2H6HB1W306CAdPocuvieiuITQN6+f6ae7LN0TTeLXCkZV
- W2/rwJuS31PGB753X+7wkczK/kM5FcaWWIAmd/Qg7FxDSe4n/HdowA4aD7C0HvWIQxh5
- paAQ==
-X-Gm-Message-State: AOAM530ElPeg1h4EELBkuXCEvUbY8QlkGxvKQRrTTcNyqIk46M04msZN
- B2wJo00YiOTBE8gauI35G2YTe6hSSoo=
-X-Google-Smtp-Source: ABdhPJwuKbmBLtcBcm81zqmO9diLdIMuEr6R7zeKE9qh9jIS1nUKv7HMAGLc4sNHTkOPLYAC2x6gXQ==
-X-Received: by 2002:a1c:67d4:: with SMTP id b203mr9068137wmc.120.1599489438407; 
- Mon, 07 Sep 2020 07:37:18 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id s5sm28792998wrm.33.2020.09.07.07.37.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2020 07:37:17 -0700 (PDT)
-Date: Mon, 7 Sep 2020 14:37:16 +0000
-From: Wei Liu <wl@xen.org>
-To: Diego Sueiro <diego.sueiro@arm.com>
-Cc: xen-devel@lists.xenproject.org, nd@arm.com,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 3/3] tools/hotplug: Extend dhcpd conf, init and arg files
- search
-Message-ID: <20200907143716.bof3wjwfjtz6jveo@liuwe-devbox-debian-v2>
-References: <cover.1597920095.git.diego.sueiro@arm.com>
- <c4fc61f8e5549565a853c5cd2371e68a9f48a258.1597920095.git.diego.sueiro@arm.com>
+	id 1kFIJe-0002KM-C7; Mon, 07 Sep 2020 14:40:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=b7xj=CQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kFIJc-0002KG-9w
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 14:40:16 +0000
+X-Inumbo-ID: f5e0c74e-e566-4680-92f0-294371474e6c
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5e0c74e-e566-4680-92f0-294371474e6c;
+ Mon, 07 Sep 2020 14:40:14 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D72F8AF37;
+ Mon,  7 Sep 2020 14:40:14 +0000 (UTC)
+Subject: Re: [PATCH] x86: guard against straight-line speculation past RET
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <deb41469-37b1-f2da-cc76-70720fe85dbe@suse.com>
+ <38aaf96b-1235-b205-71d6-16aee057c402@citrix.com>
+ <d0a5df1b-8e8c-e650-9cfc-183d48e87a47@suse.com>
+ <90617363-0dc8-83b3-4b23-8007b969564e@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0fb5cc5b-b266-28f3-4168-839b8d80d96b@suse.com>
+Date: Mon, 7 Sep 2020 16:40:12 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c4fc61f8e5549565a853c5cd2371e68a9f48a258.1597920095.git.diego.sueiro@arm.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <90617363-0dc8-83b3-4b23-8007b969564e@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,15 +54,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Aug 20, 2020 at 12:01:11PM +0100, Diego Sueiro wrote:
-> Newer versions of the ISC dhcp server expect the dhcpd.conf file
-> to be located at /etc/dhcp directory.
+On 07.09.2020 15:50, Andrew Cooper wrote:
+> On 07/09/2020 10:25, Jan Beulich wrote:
+>> On 04.09.2020 20:18, Andrew Cooper wrote:
+>>> Third, there is a huge quantity of complexity for a form of the
+>>> instruction we don't use.
+>> The complexity isn't with handling the possible immediate operand,
+>> but with the need to override the "ret" insn, and then to transiently
+>> cancel this override.
 > 
-> Also, some distributions and Yocto based ones have these installation
-> paths by default: /etc/init.d/{isc-dhcp-server,dhcp-server} and
-> /etc/default/dhcp-server.
-> 
-> Signed-off-by: Diego Sueiro <diego.sueiro@arm.com>
+> What is the purpose of transiently cancelling the override?
 
-Acked-by: Wei Liu <wl@xen.org>
+To have access to the underlying insn again.
+
+> It's not possible to pull this trick twice, so its not as if you're
+> falling back to a different macro rather than the plain instruction.
+
+Not sure I understand what you're saying here. The helper macro
+purging and then re-instating the insn surrogate macro can be
+done any number of times.
+
+>>> Clang doesn't actually expand the macro for ret instructions, so a Clang
+>>> build of Xen only ends up getting protected in the assembly files.
+>>>
+>>> The following experiment demonstrates the issue:
+>>>
+>>> $ cat ret.c
+>>> asm (".macro ret\n\t"
+>>>      ".error \"foo\"\n\t"
+>>>      ".endm\n\t");
+>>> void foo(void) {}
+>>>
+>>> $ gcc -O3 -c ret.c -o ret.o && objdump -d ret.o
+>>> /tmp/ccf8hkyN.s: Assembler messages:
+>>> /tmp/ccf8hkyN.s:16: Error: foo
+>>>
+>>> $ clang-10 -O3 -c ret.c -o ret.o && objdump -d ret.o
+>>>
+>>> ret.o:     file format elf64-x86-64
+>>>
+>>>
+>>> Disassembly of section .text:
+>>>
+>>> 0000000000000000 <foo>:
+>>>    0:    c3                       retq
+>>>
+>>>
+>>> Worse, -no-integrated-as doesn't immediately help, even though it
+>>> invokes $(AS).
+>>>
+>>> I tracked that down to the difference between ret and retq, which
+>>> highlights an assumption about GCC which may not remain true in the future.
+>>>
+>>> Adding a second macro covering retq fixes the scenario in combination
+>>> with -no-integrated-as.
+>> Ah, yes, I should of course have thought of retq. Albeit as per
+>> above - generated code looks fine here when using clang 5.
+>>
+>>> So overall I think we can make a safe binary with a clang build. 
+>>> However, it is at the expense of the integrated assembler, which I
+>>> believe is now mandatory for LTO, and control-flow integrity, neither of
+>>> which we want to lose in the long term.
+>> Why at this expense? Are you saying that even when going the .byte
+>> route and even with very new clang one has to force
+>> -mno-integrated-as?
+> 
+> Yes, which was the whole point of providing the full transcript above.
+> 
+> You can't wrap an instruction with a macro with the integrated assembler.
+
+Ugly. I can't currently think of a way to address this then, for clang,
+other than by them offering a suitable command line option. Question is:
+Do we consider it worthwhile then to still address for gcc? Or shall I
+drop the patch?
+
+Jan
 
