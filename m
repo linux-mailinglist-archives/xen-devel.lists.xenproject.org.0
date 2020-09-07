@@ -2,85 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DC7725F3B2
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 09:14:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E38B25F3BE
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Sep 2020 09:16:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFBLx-0000Kk-3E; Mon, 07 Sep 2020 07:14:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rx60=CQ=ffwll.ch=daniel.vetter@srs-us1.protection.inumbo.net>)
- id 1kFBLv-0000Kb-00
- for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 07:14:11 +0000
-X-Inumbo-ID: c11c544c-3a1d-457b-bcfa-70f4859da721
-Received: from mail-oo1-xc43.google.com (unknown [2607:f8b0:4864:20::c43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c11c544c-3a1d-457b-bcfa-70f4859da721;
- Mon, 07 Sep 2020 07:14:09 +0000 (UTC)
-Received: by mail-oo1-xc43.google.com with SMTP id r4so3053623ooq.7
- for <xen-devel@lists.xenproject.org>; Mon, 07 Sep 2020 00:14:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KVfAGFVhhH+3gKxWPx4EEt2i/99FDkLx011kDtsMF+I=;
- b=Euxtu+trgjabIp7kfpqLzFQS+dE83z6NFR5B38p25hCsIskYQhJEXI8aDOFmjb9/rb
- ajdQe4bmbBxWioDNhCAVb/QZqh3F00karTYzM2FazYTVvrVMLOroBXd2TBPPFA8thdy7
- kAmoBHvDcK9wIivmZv2bC4v0rV5TvwkjuxeM4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KVfAGFVhhH+3gKxWPx4EEt2i/99FDkLx011kDtsMF+I=;
- b=iS/rx6uGeX56DqfgE7Mqx06o4h+Gy6+bkFJyEgqWqkFEoykoO4U0SuBEH7XaYORaF3
- bQLDgyA0fjvLccRQvcQg6S4/h1Y7aFMH1u9G5+KeFO0n8Rq50LJBfwFzV9izUQ4CB2JU
- oqRIXs4WYxi7iH79F/7+IrLoV5kxeAoRPe/KgDfF0sKcy7CEKkkVPuTfk2cgwnalUyyF
- gpqiQT6v5q2AvPAMrKrV4CaSAWoCt+fJq1kHVYqmWwNzCEekkhhgjjOLh4gH/fOfNTLB
- ZlRUJetPKSa8PJ3Rbp2cC0GNgrkyJFSpywflEy9CfiA+7ye5/l+o4uX9zasUAudETlSR
- yhIg==
-X-Gm-Message-State: AOAM5302vjGz58kDUzvoDJQAmFn1fWmSvQM1LpA/Qw46DBMfFzNIza2n
- Z4f7FJy6te5F/iWkv0nCawsY0e+Qfyz+veGOJsKL7A==
-X-Google-Smtp-Source: ABdhPJyDsSLWPXy8R9Ce8HIpecD+QM6t0+0yQYpXyChVzKDiPvzj0GbvH4ZECIfVS8TxI8k421NQRVJ+suYIajAm3/8=
-X-Received: by 2002:a4a:e98e:: with SMTP id s14mr13829467ood.28.1599462848946; 
- Mon, 07 Sep 2020 00:14:08 -0700 (PDT)
+	id 1kFBO2-0000S5-GZ; Mon, 07 Sep 2020 07:16:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=b7xj=CQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kFBO1-0000Rz-8c
+ for xen-devel@lists.xenproject.org; Mon, 07 Sep 2020 07:16:21 +0000
+X-Inumbo-ID: df8e16e0-6821-4cad-8f4a-198faab7c115
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id df8e16e0-6821-4cad-8f4a-198faab7c115;
+ Mon, 07 Sep 2020 07:16:20 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BE9C3AD49;
+ Mon,  7 Sep 2020 07:16:20 +0000 (UTC)
+Subject: Re: [PATCH] EFI: Enable booting unified hypervisor/kernel/initrd
+ images
+To: Trammell Hudson <hudson@trmm.net>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <EGZ7EZE5F-c5YJVD9p0TtccTz06ZsdMcL21-BcB64dk9V3x8eKrB3dSDsLbGL4peCaENcp55uRsnWUONZYvrRaQh0tToALcaHRr-QMYNsH0=@trmm.net>
+ <20200904130225.GQ753@Air-de-Roger>
+ <2ilj0fgrgiQ2mlSeil5uuMfPGIOOw-IQCrVdB_BWde2paShrWOdD7GM3_2bLkLB_4k48zorwaYBcmQgoMc4D6T4ZgA3MZFiLH7E0q9-OZ3w=@trmm.net>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e40f7edd-d4a1-beda-788d-c40526b87841@suse.com>
+Date: Mon, 7 Sep 2020 09:16:19 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20200818092017.26290-1-kraxel@redhat.com>
- <20200818092017.26290-2-kraxel@redhat.com>
- <20200901074043.GT2352366@phenom.ffwll.local>
- <20200907063901.atwjdxz7iqyra22h@sirius.home.kraxel.org>
-In-Reply-To: <20200907063901.atwjdxz7iqyra22h@sirius.home.kraxel.org>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 7 Sep 2020 09:13:58 +0200
-Message-ID: <CAKMK7uFixrbxVoaF4-1hXvQcPySaaYRooQ=LKoivPALH-UCgbw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: allow limiting the scatter list size.
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Ben Skeggs <bskeggs@redhat.com>,
- Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, 
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>, 
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>, 
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <2ilj0fgrgiQ2mlSeil5uuMfPGIOOw-IQCrVdB_BWde2paShrWOdD7GM3_2bLkLB_4k48zorwaYBcmQgoMc4D6T4ZgA3MZFiLH7E0q9-OZ3w=@trmm.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,105 +54,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 7, 2020 at 8:39 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
->
-> > > +   /**
-> > > +    * @max_segment:
-> > > +    *
-> > > +    * Max size for scatter list segments.  When unset the default
-> > > +    * (SCATTERLIST_MAX_SEGMENT) is used.
-> > > +    */
-> > > +   size_t max_segment;
-> >
-> > Is there no better place for this then "at the bottom"? drm_device is a
-> > huge structure, piling stuff up randomly doesn't make it better :-)
->
-> Moved next to the other gem fields for now (v3 posted).
->
-> > I think ideally we'd have a gem substruct like we have on the modeset side
-> > at least.
->
-> Phew, that'll be quite some churn in the tree.  And there aren't that many
-> gem-related fields in struct drm_device.
->
-> So you are looking for something like below (header changes only)?
+On 04.09.2020 18:48, Trammell Hudson wrote:
+> On Friday, September 4, 2020 9:02 AM, Roger Pau Monné <roger.pau@citrix.com> wrote:
+>> On Fri, Aug 28, 2020 at 11:51:35AM +0000, Trammell Hudson wrote:
+>>> -   return secboot == 1 && setupmode == 0;
+>>
+>> Does this need to be strictly 1, or any value != 0?
+> 
+> We discussed this briefly here on xen-devel without any real conclusion;
+> the UEFI spec says that all other values are reserved. I'm not sure in practice
+> if any others ever show up.
 
-Hm yeah it's a lot less than I thought. And yes I think that would be neat.
--Daniel
+I think considering how critical it is that we get things right (as
+in "secure"), we should fail booting by default (with a way to
+override this) if the value found is reserved (as far as we can
+tell).
 
->
-> take care,
->   Gerd
->
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index c455ef404ca6..950167ede98a 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -299,22 +299,8 @@ struct drm_device {
->         /** @mode_config: Current mode config */
->         struct drm_mode_config mode_config;
->
-> -       /** @object_name_lock: GEM information */
-> -       struct mutex object_name_lock;
-> -
-> -       /** @object_name_idr: GEM information */
-> -       struct idr object_name_idr;
-> -
-> -       /** @vma_offset_manager: GEM information */
-> -       struct drm_vma_offset_manager *vma_offset_manager;
-> -
-> -       /**
-> -        * @max_segment:
-> -        *
-> -        * Max size for scatter list segments for GEM objects.  When
-> -        * unset the default (SCATTERLIST_MAX_SEGMENT) is used.
-> -        */
-> -       size_t max_segment;
-> +       /** @gem_config: Current GEM config */
-> +       struct drm_gem_config gem_config;
->
->         /** @vram_mm: VRAM MM memory manager */
->         struct drm_vram_mm *vram_mm;
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 337a48321705..74129fb29fb8 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -39,6 +39,25 @@
->
->  #include <drm/drm_vma_manager.h>
->
-> +struct drm_gem_config {
-> +       /** @object_name_lock: GEM information */
-> +       struct mutex object_name_lock;
-> +
-> +       /** @object_name_idr: GEM information */
-> +       struct idr object_name_idr;
-> +
-> +       /** @vma_offset_manager: GEM information */
-> +       struct drm_vma_offset_manager *vma_offset_manager;
-> +
-> +       /**
-> +        * @max_segment:
-> +        *
-> +        * Max size for scatter list segments for GEM objects.  When
-> +        * unset the default (SCATTERLIST_MAX_SEGMENT) is used.
-> +        */
-> +       size_t max_segment;
-> +};
-> +
->  struct drm_gem_object;
->
->  /**
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>> [...]
+>> I have to admit I know very little, but don't you need to verify the
+>> ramdisk also, like you verify the kernel? Or is the kernel the one
+>> that's supposed to verify it's ramdisk before using it?
+> 
+> With the unified image there is no need to do so; the xen.efi, config,
+> kernel, initrd, flash, and ucode are all signed as one file and the
+> shim protocol is not necessary.
+> 
+> For the non-unified case, well, that's what started me on this patch.
+> I was quite surprised that all of the Secure Boot support in Linux
+> distrbutions and Xen did not sign the initrd or command lines,
+> only the kernel image.  So, yes, it seems like it should be signed,
+> but that's not what the wider community decided to do.
 
+But no matter how they do it, in principle it is the kernel's
+responsibility aiui. I.e. they could sign the entire initrd, or
+they could sign all the relevant pieces inside it.
 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Jan
 
