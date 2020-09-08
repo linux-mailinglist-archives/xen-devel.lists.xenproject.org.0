@@ -2,88 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D237260F41
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 12:04:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A2A8260F4B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 12:08:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFaSu-0004U8-I1; Tue, 08 Sep 2020 10:03:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gt+x=CR=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
- id 1kFaSs-0004U3-Pf
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 10:03:03 +0000
-X-Inumbo-ID: 32cbfeaf-ad65-4809-b447-5a54c2a7f8d3
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 32cbfeaf-ad65-4809-b447-5a54c2a7f8d3;
- Tue, 08 Sep 2020 10:03:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599559381;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Al+jB21s8k4aRrKK14DGG1BWv7CsWudzcU2+kAwpAVw=;
- b=c73IK1v3jaI5IoB3JkLDtj3Nrc8/qyv1E5N0mabbaz2s19LnqYwQwW8uxfllKPAtZrMwJb
- mEKxIGofLtwlkn+6IIQ/jKEqW/RHQrlYLLXJlX6PVduplGcIcXpvgTKwhvKB2GgwZdWLXs
- gv0LDXsA2ODdI1rxZc0fg78l/TaxRRE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-37-22mgQBftORuwdHZCpB_IfA-1; Tue, 08 Sep 2020 06:02:59 -0400
-X-MC-Unique: 22mgQBftORuwdHZCpB_IfA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA3531091060;
- Tue,  8 Sep 2020 10:02:55 +0000 (UTC)
-Received: from sirius.home.kraxel.org (ovpn-112-56.ams2.redhat.com
- [10.36.112.56])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9C75B1002388;
- Tue,  8 Sep 2020 10:02:54 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id ACCE89D78; Tue,  8 Sep 2020 12:02:53 +0200 (CEST)
-Date: Tue, 8 Sep 2020 12:02:53 +0200
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v4 1/1] drm: allow limiting the scatter list size.
-Message-ID: <20200908100253.b22sff23737l77bo@sirius.home.kraxel.org>
-References: <20200907112425.15610-1-kraxel@redhat.com>
- <20200907112425.15610-2-kraxel@redhat.com>
- <CAKMK7uGjT73rh=9iuCKAXvC_CaOuygm8PgOQgofkTgH7wRysFw@mail.gmail.com>
- <20200908054858.um34wojjv6uhi7d3@sirius.home.kraxel.org>
- <20200908085544.GI2352366@phenom.ffwll.local>
+	id 1kFaY5-0004gN-8N; Tue, 08 Sep 2020 10:08:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8Jy8=CR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kFaY4-0004gG-5k
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 10:08:24 +0000
+X-Inumbo-ID: 805c3514-3c43-404b-b573-26071c69f89c
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 805c3514-3c43-404b-b573-26071c69f89c;
+ Tue, 08 Sep 2020 10:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599559702;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=AfoJiB+xfX2BMT2tOY1nOCiTeV7VDYMcHhwxN7tfRSw=;
+ b=JB8OC/ZYjCXKXxM71VCdTSx3FNNBXTwgtD7ThO6WpqaltvmvROdmVYTo
+ DzMJ7p29wmR/DYM+RVYEtfcdVGl60wifLrYnXcuFwSN+fWLTbxOxBgLZ4
+ HYpU02RbpsGjia6+7W+Kxv9DeIiWwVkFycln3usz4F3CbdJtPpwKpO2Hq I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: odNgjWrvV6U28UxiSiOop/e7gaPprsYCaAFtxs3x4mzaXfzE+vakdN9TWHWiRVnXentd/ftH7R
+ P2rznc4ANqT6W8V1VXE5u1Qs8ksGtW3qnC11a7m0WBZbgvTWHByPT8xyKLbPYFALIb8UFGkI21
+ l3okltkCsxGpQ7YVlY6Cw1tYyg0kuohjVJpyH+FQkQUEM/5rNAl5bjCArOYRw3qqgycfYBoASZ
+ UKev2Rmw3i/PjHAbHYBjeup8TCNjn94Sx/goX5cM4CyxVCOiXf7r6XQdCbF3otDR1prxdYLdJD
+ hkI=
+X-SBRS: 2.7
+X-MesageID: 27138456
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,405,1592884800"; d="scan'208";a="27138456"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/pv: Drop assertions from svm_load_segs()
+Date: Tue, 8 Sep 2020 11:08:03 +0100
+Message-ID: <20200908100803.8533-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200908085544.GI2352366@phenom.ffwll.local>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,31 +65,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> > > The comments I've found suggest very much not ... Or is that all very
-> > > old stuff only that no one cares about anymore?
-> > 
-> > I think these days it is possible to override dma_ops per device, which
-> > in turn allows virtio to deal with the quirks without the rest of the
-> > kernel knowing about these details.
-> > 
-> > I also think virtio-gpu can drop the virtio_has_dma_quirk() checks, just
-> > use the dma api path unconditionally and depend on virtio core having
-> > setup dma_ops in a way that it JustWorks[tm].  I'll look into that next.
-> 
-> The comment above vring_use_dma_api() suggests that this has not yet
-> happened, that's why I'm asking.
+OSSTest has shown an assertion failure:
+http://logs.test-lab.xenproject.org/osstest/logs/153906/test-xtf-amd64-amd64-1/serial-rimava1.log
 
-Hmm, wading through the code, seems it indeed happen yet, even though my
-testing didn't show any issues.  Probably pure luck because devices and
-cpus have the same memory view on x86.  Guess I need to try this on
-ppc64 to see it actually failing ...
+These assertions were never appropriate, as they rule out legal (and, as it
+turns out, sensible perf-wise) inputs based on an expectation of how the sole
+caller would behave.
 
-So dropping the virtio_has_dma_quirk() checks isn't going to fly.
+Fixes: ad0fd291c5 ("x86/pv: Rewrite segment context switching from scratch")
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/hvm/svm/svm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Using dma_max_mapping_size() should be fine though.  It might use a
-lower limit than needed for virtio, but it should not break things.
-
-take care,
-  Gerd
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index af584ff5d1..eaacbcb668 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1559,13 +1559,11 @@ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
+         vmcb->ldtr.base = ldt_base;
+     }
+ 
+-    ASSERT(!(fs_sel & ~3));
+     vmcb->fs.sel = fs_sel;
+     vmcb->fs.attr = 0;
+     vmcb->fs.limit = 0;
+     vmcb->fs.base = fs_base;
+ 
+-    ASSERT(!(gs_sel & ~3));
+     vmcb->gs.sel = gs_sel;
+     vmcb->gs.attr = 0;
+     vmcb->gs.limit = 0;
+-- 
+2.11.0
 
 
