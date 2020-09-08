@@ -2,88 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A76260941
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 06:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DD86260930
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 06:07:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFV32-0005qP-8M; Tue, 08 Sep 2020 04:16:00 +0000
+	id 1kFUtd-0004vQ-9L; Tue, 08 Sep 2020 04:06:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b7zn=CR=hpe.com=prvs=0520e5e2e4=rja@srs-us1.protection.inumbo.net>)
- id 1kFUUI-00033k-9t
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 03:40:06 +0000
-X-Inumbo-ID: 8239cfc8-c5b6-465e-94a0-68c139a26bba
-Received: from mx0a-002e3701.pphosted.com (unknown [148.163.147.86])
+ <SRS0=wajs=CR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFUtb-0004vL-TG
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 04:06:15 +0000
+X-Inumbo-ID: 31ba49a5-5dbf-42c3-967f-41a1cb005c23
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8239cfc8-c5b6-465e-94a0-68c139a26bba;
- Tue, 08 Sep 2020 03:40:02 +0000 (UTC)
-Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
- by mx0b-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0883aMVq002464; Tue, 8 Sep 2020 03:39:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com;
- h=date : from : to : cc :
- subject : message-id : reply-to : references : mime-version : content-type
- : in-reply-to; s=pps0720; bh=A+udrY24FFEXs0nTcdNmz7GYM1C5dz0HSK7tP/+BXaI=;
- b=JiPCnGEd9SOLp4EP4cJa6ucsY7RvDBYxzgctn9V6k1a3zSf3vCNMHPZcYHHrSrjlYWkj
- 8DHLbpKGNLPjpdC/pBgqp+XpX332TSU43M8KhriEqLAWC5SSnFtckELRz/988CF1Ctkd
- ACrZKVFIRGr3poHavXO8vE2oQJRP9uxAAaTNTH1nrkvshTZkm7/7X982mVK2iLmDRcFa
- uhfp0pn8zyJnJymJd32OZeryBNo40l7hWZq7gd+tS5hRDjDv6Z+uZPcK+nYCdj/etzt+
- oFghpCKwnGAezLze65XCNk/WQDWo1dQqo4khY5vTwlCJDiHO4hN1T/suUScEZCMMdDne XQ== 
-Received: from g9t5009.houston.hpe.com (g9t5009.houston.hpe.com [15.241.48.73])
- by mx0b-002e3701.pphosted.com with ESMTP id 33cm1x736d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Sep 2020 03:39:40 +0000
-Received: from g4t3433.houston.hpecorp.net (g4t3433.houston.hpecorp.net
- [16.208.49.245])
- by g9t5009.houston.hpe.com (Postfix) with ESMTP id 87D0E51;
- Tue,  8 Sep 2020 03:39:38 +0000 (UTC)
-Received: from hpe.com (ben.americas.hpqcorp.net [10.33.153.7])
- by g4t3433.houston.hpecorp.net (Postfix) with ESMTP id 6C95948;
- Tue,  8 Sep 2020 03:39:36 +0000 (UTC)
-Date: Mon, 7 Sep 2020 22:39:36 -0500
-From: Russ Anderson <rja@hpe.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
- Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Jon Derrick <jonathan.derrick@intel.com>,
- Lu Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Megha Dey <megha.dey@intel.com>, Jason Gunthorpe <jgg@mellanox.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
-Message-ID: <20200908033936.sbbbjvxsavr2j3rr@hpe.com>
-References: <20200826111628.794979401@linutronix.de>
+ id 31ba49a5-5dbf-42c3-967f-41a1cb005c23;
+ Tue, 08 Sep 2020 04:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=r9ENeaaX9FezJwaY++CvPahvupH4oFfYX2LjOYgDZ9E=; b=KKd4Vy450fMJN2mn/tsoingxj2
+ t/fB//knlvlXDavDnTX+rIYYRMv/eRvHUM9KBErof5Q/zT++Bd7/to6IG/HdmEEXfFz47xzp7VzB/
+ 10qtCYY5iqT0TDmnRa9EuN8qCEontBCdygS/Elxocr19+AEBKijJI8a5fWfWSMgTdwdA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFUtZ-0000FR-Vo; Tue, 08 Sep 2020 04:06:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFUtZ-0008Mj-OX; Tue, 08 Sep 2020 04:06:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFUtZ-0003sk-O1; Tue, 08 Sep 2020 04:06:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153923-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200826111628.794979401@linutronix.de>
-User-Agent: NeoMutt/20170421 (1.8.2)
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-08_02:2020-09-07,
- 2020-09-08 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 mlxlogscore=580
- bulkscore=0 priorityscore=1501 adultscore=0 clxscore=1011 mlxscore=0
- suspectscore=2 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009080032
-X-Mailman-Approved-At: Tue, 08 Sep 2020 04:15:58 +0000
+Subject: [ovmf test] 153923: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 08 Sep 2020 04:06:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,21 +65,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Russ Anderson <rja@hpe.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Aug 26, 2020 at 01:16:28PM +0200, Thomas Gleixner wrote:
-> This is the second version of providing a base to support device MSI (non
-> PCI based) and on top of that support for IMS (Interrupt Message Storm)
-> based devices in a halfways architecture independent way.
+flight 153923 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153923/
 
-Booted with quick testing on a 32 socket, 1536 CPU, 12 TB memory
-Cascade Lake system and a 8 socket, 144 CPU, 3 TB memory
-Cooper Lake system without any obvious regression.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
+Failing since        152915  2020-08-27 18:09:42 Z   11 days  186 attempts
+Testing same since   153848  2020-09-07 02:52:00 Z    1 days   18 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
--- 
-Russ Anderson,  SuperDome Flex Linux Kernel Group Manager
-HPE - Hewlett Packard Enterprise (formerly SGI)  rja@hpe.com
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 343 lines long.)
 
