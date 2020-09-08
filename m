@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A0CE2612AC
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 16:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE56A2612AD
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 16:26:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFeZm-0004cj-NF; Tue, 08 Sep 2020 14:26:26 +0000
+	id 1kFeZs-0004g4-69; Tue, 08 Sep 2020 14:26:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cV5b=CR=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kFeZl-0004aJ-8Q
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 14:26:25 +0000
-X-Inumbo-ID: 546c4246-e748-4f16-b64c-a03486c3ff1f
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ id 1kFeZq-0004fG-LU
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 14:26:30 +0000
+X-Inumbo-ID: c6ffeb93-9a04-4c1d-b07a-f84dc0118820
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 546c4246-e748-4f16-b64c-a03486c3ff1f;
- Tue, 08 Sep 2020 14:26:24 +0000 (UTC)
+ id c6ffeb93-9a04-4c1d-b07a-f84dc0118820;
+ Tue, 08 Sep 2020 14:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599575184;
+ s=mimecast20190719; t=1599575189;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PKU6z94K7UIxWkqADbhCdk+fTBY5NmZMu8z2vQrSItw=;
- b=C0bS9mW49YnvLU89SLxzYcFjhDaRI6t6NxspnPDek8R/H4vaTlsgMIG9oIgxF1e7/yQCDf
- TXj+oZNjxosQHwvlwP5XbDFqDI37/vjuLg9Pg6sbut8K+HjfgfYhbY9/GODIqcUc+hMX1G
- IYEZjyP0TQqCsa0PHPMj8PHWvv1CQ3A=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-58-ceIv4dnkP06kRg3HQqPg0A-1; Tue, 08 Sep 2020 10:26:22 -0400
-X-MC-Unique: ceIv4dnkP06kRg3HQqPg0A-1
-Received: by mail-wm1-f69.google.com with SMTP id w3so4802775wmg.4
- for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 07:26:22 -0700 (PDT)
+ bh=BaphSdiGhAZ4WeZEOB6GUUl46i+DVX/CX44TODloQyM=;
+ b=GiMGQq8U7SZcAxZCFkwfGbp/KTM+X/Qzhawm/HoMCi1fJXWGRC5RuzR3MLKTISqXQIX99h
+ AvfTVBma+jhvgHtjiNvFy0RNgJZPDA8cloyhPMR/P/7rOUeE8M46olYy2dzty8IMVpXMj8
+ ovh2Sk9/lY4n2BN+oAcP1Yri9e3LCNE=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-168-9BBEVFbHNamLZGcgTF1jOw-1; Tue, 08 Sep 2020 10:26:28 -0400
+X-MC-Unique: 9BBEVFbHNamLZGcgTF1jOw-1
+Received: by mail-wm1-f71.google.com with SMTP id m125so4791650wmm.7
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 07:26:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=PKU6z94K7UIxWkqADbhCdk+fTBY5NmZMu8z2vQrSItw=;
- b=aZ2Kb8GvccXQKdkzatHY54YTGe155kcUuA5r62jILTm6kl+DILO4FTXlALQXpjILv3
- zJFT810Ud5b1YkwJi9owYCBepVtL+l4biX3Sxn2cQ+v/6OJGxAesJ9y4oz4aeGsO1Tjj
- h16MMjHMvJsMIDCprTAkH96e1s1woYBCCo4Oog6Z8VZ7BKHVMDUU/Sa9IS29k2wXx8vV
- zZ81eBfsnVqCjUMJT/JGp9eyKOsFv7lnnFj9oLlVUToJPM8yPAVDtAXKMEFVMGOWL6Tb
- +T8yppUDM2N1AUCW+bJVFVniZqj/Dp7FmMJLQZ+nXsCHlkC9Agdq5ebWi+4r5VDe6sN0
- ay6Q==
-X-Gm-Message-State: AOAM533sJzCMbk0WrYaQ8j/Fahffbjpxjdnr4JqVxL6X9bwZ7jnUiWda
- LJYGsL+jDN5oH4K0YrIgpGSJ/sy3Anwx8ArKWEwS3nePTAQYGWLZbFUTl41ZI+xpIA3rhmnFFDC
- rOh4H/yNphg4soHR5/pNZLf9MUsY=
-X-Received: by 2002:adf:e690:: with SMTP id r16mr22862680wrm.15.1599575181396; 
- Tue, 08 Sep 2020 07:26:21 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxi9E+6zi0GSsRROj52mze2J8TZAWamqoyYBE/YoqC5pV7oZ//ef2PGOt34D9MOXVPg3sxNYQ==
-X-Received: by 2002:adf:e690:: with SMTP id r16mr22862661wrm.15.1599575181175; 
- Tue, 08 Sep 2020 07:26:21 -0700 (PDT)
+ bh=BaphSdiGhAZ4WeZEOB6GUUl46i+DVX/CX44TODloQyM=;
+ b=krujiwoEqktPRMWlZElHYPt1u1Ju6oPmE5RmabZ3VCg8S7yrk/wisz8qwB9Fwwblqt
+ 4x9M08CpIqGhjHnmeJtOYyqxhqpqbBZvCYAp5EyGG1cuZOgFicOr01KrsLxIhkhj3QeX
+ 3sXWnJjWbr4t6oN9H7SOL5XTKaYlTj+NuDq182mfmwSpN4ONtuAe95h05GTdgbNrtKNJ
+ /7+i9MQJ7h8D/6kzBTN/6o0R+exCBeHFQhQcG9j0TNdcAJoKgv4CDwPVfDRIGhNxSbkN
+ 1xntaX5XppDj+MV7Qv0pfMCr5y2FO+PQD9WrH6rclf77OPMp/IdpdYzlCtNUtC3+3YO8
+ yomg==
+X-Gm-Message-State: AOAM530RWkQltDJxNjFtuJBuwdojAg82gWREWbOEjzx+u5JhDKdZ93bw
+ dsk+SpzJwhWoBVFyzF7UJfVKq8DKrxPE/a6nv6avQkwoAg51NN/Izqr2+aFX76/QOMwZExr04tu
+ iv2ZaS4xzQkaRAO3YKshrTHsX/d8=
+X-Received: by 2002:a1c:39c4:: with SMTP id g187mr4575974wma.126.1599575186442; 
+ Tue, 08 Sep 2020 07:26:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwG1Q8mWXfEdH5JVru40UflvHEFaoABVR/a5qha22ZTatoY4EPmWAN5D43sEgEnSTkTauJZww==
+X-Received: by 2002:a1c:39c4:: with SMTP id g187mr4575941wma.126.1599575186206; 
+ Tue, 08 Sep 2020 07:26:26 -0700 (PDT)
 Received: from localhost.localdomain (65.red-83-57-170.dynamicip.rima-tde.net.
  [83.57.170.65])
- by smtp.gmail.com with ESMTPSA id h8sm34388736wrw.68.2020.09.08.07.26.20
+ by smtp.gmail.com with ESMTPSA id q15sm34307052wrr.8.2020.09.08.07.26.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 07:26:20 -0700 (PDT)
+ Tue, 08 Sep 2020 07:26:25 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Anthony Perard <anthony.perard@citrix.com>,
@@ -68,10 +68,9 @@ Cc: Anthony Perard <anthony.perard@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [PATCH 4/5] hw/xen: Split x86-specific declaration from generic
- hardware ones
-Date: Tue,  8 Sep 2020 16:25:58 +0200
-Message-Id: <20200908142559.192945-5-philmd@redhat.com>
+Subject: [PATCH 5/5] typedefs: Restrict PCMachineState to 'hw/i386/pc.h'
+Date: Tue,  8 Sep 2020 16:25:59 +0200
+Message-Id: <20200908142559.192945-6-philmd@redhat.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200908142559.192945-1-philmd@redhat.com>
 References: <20200908142559.192945-1-philmd@redhat.com>
@@ -96,76 +95,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-xen_hvm_init() is restricted to the X86 architecture.
+The PCMachineState type is only used under hw/i386/.
+We don't need to forward-declare it for all architectures,
+restrict it to the X86 one.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- include/hw/xen/xen-x86.h | 15 +++++++++++++++
- include/hw/xen/xen.h     |  2 --
- hw/i386/pc_piix.c        |  2 +-
- hw/i386/xen/xen-hvm.c    |  1 +
- 4 files changed, 17 insertions(+), 3 deletions(-)
- create mode 100644 include/hw/xen/xen-x86.h
+ include/hw/i386/pc.h    | 4 ++--
+ include/qemu/typedefs.h | 1 -
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/include/hw/xen/xen-x86.h b/include/hw/xen/xen-x86.h
-new file mode 100644
-index 00000000000..85e3db1b8de
---- /dev/null
-+++ b/include/hw/xen/xen-x86.h
-@@ -0,0 +1,15 @@
-+/*
-+ * Xen X86-specific
-+ *
-+ * Copyright 2020 Red Hat, Inc.
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ */
-+#ifndef QEMU_HW_XEN_X86_H
-+#define QEMU_HW_XEN_X86_H
-+
-+#include "hw/i386/pc.h"
-+
-+void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory);
-+
-+#endif /* QEMU_HW_XEN_X86_H */
-diff --git a/include/hw/xen/xen.h b/include/hw/xen/xen.h
-index b2b459964cb..1406648ca58 100644
---- a/include/hw/xen/xen.h
-+++ b/include/hw/xen/xen.h
-@@ -30,8 +30,6 @@ qemu_irq *xen_interrupt_controller_init(void);
+diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
+index fe52e165b27..d4ebefcf2b4 100644
+--- a/include/hw/i386/pc.h
++++ b/include/hw/i386/pc.h
+@@ -19,7 +19,7 @@
+  * @boot_cpus: number of present VCPUs
+  * @smp_dies: number of dies per one package
+  */
+-struct PCMachineState {
++typedef struct PCMachineState {
+     /*< private >*/
+     X86MachineState parent_obj;
  
- void xenstore_store_pv_console_info(int i, struct Chardev *chr);
+@@ -50,7 +50,7 @@ struct PCMachineState {
  
--void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory);
--
- void xen_register_framebuffer(struct MemoryRegion *mr);
+     /* ACPI Memory hotplug IO base address */
+     hwaddr memhp_io_base;
+-};
++} PCMachineState;
  
- #endif /* QEMU_HW_XEN_H */
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 3e008bb0b1a..43205f48188 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -46,7 +46,7 @@
- #include "hw/sysbus.h"
- #include "sysemu/arch_init.h"
- #include "hw/i2c/smbus_eeprom.h"
--#include "hw/xen/xen.h"
-+#include "hw/xen/xen-x86.h"
- #include "exec/memory.h"
- #include "exec/address-spaces.h"
- #include "hw/acpi/acpi.h"
-diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-index 49748cda3fb..e03c59e53da 100644
---- a/hw/i386/xen/xen-hvm.c
-+++ b/hw/i386/xen/xen-hvm.c
-@@ -22,6 +22,7 @@
- #include "hw/xen/xen_common.h"
- #include "hw/xen/xen-legacy-backend.h"
- #include "hw/xen/xen-bus.h"
-+#include "hw/xen/xen-x86.h"
- #include "qapi/error.h"
- #include "qapi/qapi-commands-misc.h"
- #include "qemu/error-report.h"
+ #define PC_MACHINE_ACPI_DEVICE_PROP "acpi-device"
+ #define PC_MACHINE_MAX_RAM_BELOW_4G "max-ram-below-4g"
+diff --git a/include/qemu/typedefs.h b/include/qemu/typedefs.h
+index 427027a9707..6281eae3b55 100644
+--- a/include/qemu/typedefs.h
++++ b/include/qemu/typedefs.h
+@@ -90,7 +90,6 @@ typedef struct PCIExpressDevice PCIExpressDevice;
+ typedef struct PCIExpressHost PCIExpressHost;
+ typedef struct PCIHostDeviceAddress PCIHostDeviceAddress;
+ typedef struct PCIHostState PCIHostState;
+-typedef struct PCMachineState PCMachineState;
+ typedef struct PostcopyDiscardState PostcopyDiscardState;
+ typedef struct Property Property;
+ typedef struct PropertyInfo PropertyInfo;
 -- 
 2.26.2
 
