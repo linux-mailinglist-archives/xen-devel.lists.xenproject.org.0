@@ -2,42 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 384E02613DA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 17:53:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB1512613E4
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 17:55:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFfva-0005Yj-SQ; Tue, 08 Sep 2020 15:53:02 +0000
+	id 1kFfy7-0005kA-CW; Tue, 08 Sep 2020 15:55:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yBuC=CR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kFfvZ-0005YW-Dy
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 15:53:01 +0000
-X-Inumbo-ID: dd8b5a03-cf61-4a0b-8221-e639f7a91022
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dd8b5a03-cf61-4a0b-8221-e639f7a91022;
- Tue, 08 Sep 2020 15:53:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7F8BB603;
- Tue,  8 Sep 2020 15:53:00 +0000 (UTC)
-Subject: Re: [PATCH v4 2/5] x86/pv: allow reading FEATURE_CONTROL MSR
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200907103143.58845-1-roger.pau@citrix.com>
- <20200907103143.58845-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f6e137b9-d0e6-0895-8b49-153db03e1c6e@suse.com>
-Date: Tue, 8 Sep 2020 17:52:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ (envelope-from <SRS0=cV5b=CR=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1kFfy5-0005k5-S6
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 15:55:38 +0000
+X-Inumbo-ID: 0959607c-2291-4cec-b7af-2185c5f54fc0
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 0959607c-2291-4cec-b7af-2185c5f54fc0;
+ Tue, 08 Sep 2020 15:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599580536;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=9j8LNni0K0Ze9zlV3rWaTDC98qmRJvn1PKy4tvgP9TY=;
+ b=DnDH0IpsjL9arnao1Z0dgGVnw6Kk6Aki5t4VKZCLDRJDWnv5IA7NpNcMKLDfroblJXqdFd
+ 4omnByLBZ18C75sVb1rlne2/iSw9SiazocTXKCHKujYDw9OHeeyPcM9QI4GEOTJH6OlnSk
+ rVBTCfvs3dqkKyCt3EEvJuDkov6/trM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-505-1PyS7s3hNTWIw0Anxe7kwA-1; Tue, 08 Sep 2020 11:55:34 -0400
+X-MC-Unique: 1PyS7s3hNTWIw0Anxe7kwA-1
+Received: by mail-wm1-f72.google.com with SMTP id w3so4891753wmg.4
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 08:55:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9j8LNni0K0Ze9zlV3rWaTDC98qmRJvn1PKy4tvgP9TY=;
+ b=X5r9Mokwe/bucdoK198AVb+H4O4r8rFT91HbJ6Ntmmv07kGHuooSBZvEHRt/WQru/K
+ s0hV0knQsZ4VFpn5DbYiJmmhEvg+AQCssW5Iuz9TL7cNF+Xz2SyEYtSzJhfvSPizNzp2
+ o7qaJMYHPTq+PHQ6WN1aJ3yrHbcWOeUxpdrRwuKYsPmvkgn5Y1Vpd/iumLLkP1eu8Wm5
+ nHvz6+6aqXYnc/YTq1CoTr8GYBETCxMJkNHCWHlxN4GWnz4RxrDUCvM06jGEYLMrgEIh
+ CxyoQ5Mx3Yq0JrCsPk2DqOB9VpML4LPIqJMkyTWf4sSmvUITt3GVJaSO2VXSfgw3mvR+
+ /2Mg==
+X-Gm-Message-State: AOAM530Dt9Mqa/Am8UUlyM7y0EnGX3KEaziau6m61yFZb6Z+R8sJ/9ZT
+ jXnLM3xBG/e+1nJT1BHyIL1XajcEKvW5kQQp8T5oQkcaFyqmUN7sgBXlFmrahJfHqVFlOrln90z
+ v1X1KFq9pwYn2oiRHI5gHYAjIKVA=
+X-Received: by 2002:adf:f082:: with SMTP id n2mr290527wro.35.1599580532999;
+ Tue, 08 Sep 2020 08:55:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyxYkBgGzzaWKvpOFlNbbbbP9lrh/psCt3R+tnd0FsuRZrWeLF+XgkSPHCNZYgHHlXHTFCwjQ==
+X-Received: by 2002:adf:f082:: with SMTP id n2mr290518wro.35.1599580532824;
+ Tue, 08 Sep 2020 08:55:32 -0700 (PDT)
+Received: from localhost.localdomain (65.red-83-57-170.dynamicip.rima-tde.net.
+ [83.57.170.65])
+ by smtp.gmail.com with ESMTPSA id t1sm30401380wmi.16.2020.09.08.08.55.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2020 08:55:32 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Richard Henderson <rth@twiddle.net>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Subject: [PATCH v2 0/6] hw/xen: Housekeeping
+Date: Tue,  8 Sep 2020 17:55:24 +0200
+Message-Id: <20200908155530.249806-1-philmd@redhat.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200907103143.58845-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
+X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -52,15 +91,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.09.2020 12:31, Roger Pau Monne wrote:
-> Linux PV guests will attempt to read the FEATURE_CONTROL MSR, so move
-> the handling done in VMX code into guest_rdmsr as it can be shared
-> between PV and HVM guests that way.
-> 
-> Note that there's a slight behavior change and attempting to read the
-> MSR when no features are available will result in a fault.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Hard to make an exciting cover of this series.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Basically:
+- Make better separation between Xen accel and Xen hardware,
+- Move stuff around to restrict PCMachineState to hw/i386/.
+
+Since v1:
+- added missing include in stubs/xen-hw-stub.c
+- added missing 'exec/cpu-common.h' for ram_addr_t
+
+(Due to a bug in 'make', while rebasing the archives
+ might not be updated... so I missed this missing
+ hunk as hw/core/libhwcore.fa didn't rebuilt stubs/)
+
+Philippe Mathieu-Daudé (6):
+  hw/i386/q35: Remove unreachable Xen code on Q35 machine
+  hw/i386/xen: Rename X86/PC specific function as xen_hvm_init_pc()
+  sysemu/xen: Add missing 'exec/cpu-common.h' header for ram_addr_t type
+  stubs: Split accelerator / hardware related stubs
+  hw/xen: Split x86-specific declaration from generic hardware ones
+  typedefs: Restrict PCMachineState to 'hw/i386/pc.h'
+
+ include/hw/i386/pc.h     |  4 ++--
+ include/hw/xen/xen-x86.h | 15 ++++++++++++
+ include/hw/xen/xen.h     |  2 --
+ include/qemu/typedefs.h  |  1 -
+ include/sysemu/xen.h     |  2 ++
+ accel/stubs/xen-stub.c   | 41 +-------------------------------
+ hw/i386/pc_piix.c        |  8 +++----
+ hw/i386/pc_q35.c         | 13 ++---------
+ hw/i386/xen/xen-hvm.c    |  3 ++-
+ stubs/xen-hw-stub.c      | 50 ++++++++++++++++++++++++++++++++++++++++
+ MAINTAINERS              |  1 +
+ stubs/meson.build        |  1 +
+ 12 files changed, 80 insertions(+), 61 deletions(-)
+ create mode 100644 include/hw/xen/xen-x86.h
+ create mode 100644 stubs/xen-hw-stub.c
+
+-- 
+2.26.2
+
 
