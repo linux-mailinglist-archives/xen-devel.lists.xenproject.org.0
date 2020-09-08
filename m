@@ -2,47 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A1F1261159
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 14:30:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F9FA261183
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 14:42:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFckp-0000uW-7N; Tue, 08 Sep 2020 12:29:43 +0000
+	id 1kFcvq-0002WY-9M; Tue, 08 Sep 2020 12:41:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yBuC=CR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kFcko-0000uR-As
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 12:29:42 +0000
-X-Inumbo-ID: f235afab-df5a-482e-9d67-f7de33c09921
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wajs=CR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFcvo-0002WT-V3
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 12:41:05 +0000
+X-Inumbo-ID: 41754f87-4ed0-41f6-8c07-3fabbdb0fff8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f235afab-df5a-482e-9d67-f7de33c09921;
- Tue, 08 Sep 2020 12:29:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 308CDAC37;
- Tue,  8 Sep 2020 12:29:41 +0000 (UTC)
-Subject: Re: [PATCH v3 1/4] x86/xen.lds.S: Work around binutils build id
- alignment bug
-To: Trammell Hudson <hudson@trmm.net>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200907190027.669086-1-hudson@trmm.net>
- <20200907190027.669086-2-hudson@trmm.net>
- <5b8f533d-c646-8a52-cf37-d21b182ccf9b@suse.com>
- <6SnmUgvnHWozDhOcXRgAUuB_aEQdoXlOD5-uC6-t2LGRtadueg0vaUUmBISei_7NrT_9DCVBfNLUR12D6XTYoJNri7W2fw1_yeMUXULfwR0=@trmm.net>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e1eb360f-5ffc-aa3f-1f82-ace6c4bc6b0c@suse.com>
-Date: Tue, 8 Sep 2020 14:29:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id 41754f87-4ed0-41f6-8c07-3fabbdb0fff8;
+ Tue, 08 Sep 2020 12:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=JEymxWuK9Ls1BcNv1RSEImurocM6GyjeEiJ4GRjUbog=; b=ERHOksq2yS63ItWyQcr7HW0FsX
+ Serk1CB6gQMD6I3De5wjurLsTS1q072CRBHor2Fec1+pmxNgbQzRJyju+auY+bZtZeJtnQzzxBW9U
+ OrQG/C8ki7kPUA12T5eoMxybNoWGRC5CXdo+ANVPQtNk74LRXFOxobDlrTDgNbx79gdc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFcvl-0003bX-9n; Tue, 08 Sep 2020 12:41:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFcvl-00034f-0g; Tue, 08 Sep 2020 12:41:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFcvl-0007Q1-0F; Tue, 08 Sep 2020 12:41:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153948-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <6SnmUgvnHWozDhOcXRgAUuB_aEQdoXlOD5-uC6-t2LGRtadueg0vaUUmBISei_7NrT_9DCVBfNLUR12D6XTYoJNri7W2fw1_yeMUXULfwR0=@trmm.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 153948: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+ ovmf:build-amd64-xsm:xen-build:fail:regression
+ ovmf:build-amd64:xen-build:fail:regression
+ ovmf:build-i386:xen-build:fail:regression
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: ovmf=f94345d9eae1b359c01761be975086870a4a9de9
+X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 08 Sep 2020 12:41:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,39 +69,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.09.2020 11:30, Trammell Hudson wrote:
-> On Tuesday, September 8, 2020 11:04 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> [...]
->> Personally I think this kind of a workaround patch is something
->> distros ought to be fine to carry, if they care about the
->> functionality and only until they get around to upgrade their
->> binutils. But I'll be happy to hear differing opinions.
-> 
-> Y'all just merged something to support building with make 3.81,
-> released in *2006*, so why require a bleeding edge binutils to
-> work with the executable image?
+flight 153948 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153948/
 
-Building Xen has to work on the tool chain versions we document it
-works on (and we're in the process of discussing to raise the
-base line). Playing with the output of our build system is an
-entirely different thing. As with, I think, the majority of new
-features, distros would pick up your new functionality mainly for
-use in new versions, and hence would likely run with new binutils
-anyway by that time.
+Regressions :-(
 
->> I also don't see any mention anywhere of why it's 32 bytes, and not
->> 16 or 64 or yet something else.
-> 
-> It is 32 because you said 32 was probably fine.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152863
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
+ build-amd64                   6 xen-build                fail REGR. vs. 152863
+ build-i386                    6 xen-build                fail REGR. vs. 152863
 
-Well, that's then setting us up for running into the same issue
-again in case this "probably" turns out wrong. Referring to the
-size of the structure created by binutils to insert the build ID,
-otoh, could maybe give a proper reason. However, there's also the
-question whether this (not) functioning also depends on the
-particular size and/or alignment of the preceding section. Iirc
-this was the reason why you had thought there was a connection to
-live patching enabled / disabled in the build.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Jan
+version targeted for testing:
+ ovmf                 f94345d9eae1b359c01761be975086870a4a9de9
+baseline version:
+ ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
+
+Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
+Failing since        152915  2020-08-27 18:09:42 Z   11 days  193 attempts
+Testing same since   153948  2020-09-08 11:44:13 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Paul <paul.grimes@amd.com>
+  Paul G <paul.grimes@amd.com>
+  Qi Zhang <qi1.zhang@intel.com>
+  Shenglei Zhang <shenglei.zhang@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Zhang, Shenglei <shenglei.zhang@intel.com>
+  Zhichao Gao <zhichao.gao@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 383 lines long.)
 
