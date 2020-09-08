@@ -2,113 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DDDB2612C5
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 16:34:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E661261332
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 17:10:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFehJ-0005yg-21; Tue, 08 Sep 2020 14:34:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cV5b=CR=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kFehH-0005yb-1L
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 14:34:11 +0000
-X-Inumbo-ID: 91f1c0ab-1f08-4bff-9fee-3dd8e5ebdcc1
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 91f1c0ab-1f08-4bff-9fee-3dd8e5ebdcc1;
- Tue, 08 Sep 2020 14:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599575648;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iO88A+JSSW1s6Uv/2ZYrnBj0Eoi8puH9CuEdf/TY9b8=;
- b=buJH4HWV8nribUhhzCLCx5LVhbL1p1vurJS/NA/B3Fqi/UlIn41HZEagTffSdRtL7tkV+t
- sVLP3xFI9/CisGzovMpoNKY5zvEnBIClItm+xsfjdArVR3xUV4z13WfpQjJgPrB+K8bGo8
- VtfXahXNSjuZJyEVJEICSeVKzhVogcE=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-5-ZAjX21ZyMB-bZ6IXLBtH8w-1; Tue, 08 Sep 2020 10:34:07 -0400
-X-MC-Unique: ZAjX21ZyMB-bZ6IXLBtH8w-1
-Received: by mail-wm1-f70.google.com with SMTP id g79so5819268wmg.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 07:34:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=iO88A+JSSW1s6Uv/2ZYrnBj0Eoi8puH9CuEdf/TY9b8=;
- b=fCHH4w6ydS1i3PSXmn0yLMzpUGY3y999pWQ3Sw6WoL/5TBzXKYkHVxKmsbHlhgHGyg
- qXnhk4A5X6JNRyZb1xMiYjHQrbrWpU4srDqLWutM/PR+P6isJQKBxK3ExV5iY1wWYlDj
- /8A8CJryEOqqbEgu72S+PcexMcruUxkm4K5v8SwDrcuQpTpxPzFwiVcgrLjwa22gBEhm
- bQvdXb+nmTnG4RUmMs21ma1WKkzxjnnoe3zbKAssKTCJRFqeW1T0gnuTsAvVdZXNQ+Gd
- wZBul1fLXA8pPQadPHL664kYfcQrse5C3kkLyBA4vaNXjCx/fNWR7T1AgRbTJe0ysEuH
- Qlpg==
-X-Gm-Message-State: AOAM532T3k6cV+Ysik7ZYn930Eb9s8+29Bu18JbCASoKVCpuZNPftsUu
- XNi/4oCvdiMFX0OP90y6/HHVKpNbCsoDqKMO9LYSo8MswpN685UXyF4m6dT6bELqHofn1prsBKl
- 6DyPnVZhj3nKG1isR2D6ekt5Fpy8=
-X-Received: by 2002:a1c:5641:: with SMTP id k62mr5053279wmb.13.1599575645178; 
- Tue, 08 Sep 2020 07:34:05 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwgOQazp9i+mEl/fwg+6r3b/jhQKo4unGPP4zrO5e2G+NrYVky8R+6hOEU/XzaA5FvcssD/Rg==
-X-Received: by 2002:a1c:5641:: with SMTP id k62mr5053258wmb.13.1599575644996; 
- Tue, 08 Sep 2020 07:34:04 -0700 (PDT)
-Received: from [192.168.1.36] (65.red-83-57-170.dynamicip.rima-tde.net.
- [83.57.170.65])
- by smtp.gmail.com with ESMTPSA id t203sm34655314wmg.43.2020.09.08.07.34.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Sep 2020 07:34:04 -0700 (PDT)
-Subject: Re: [PATCH 4/5] hw/xen: Split x86-specific declaration from generic
- hardware ones
-To: qemu-devel@nongnu.org
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paul Durrant <paul@xen.org>,
- Eduardo Habkost <ehabkost@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Richard Henderson <rth@twiddle.net>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org
-References: <20200908142559.192945-1-philmd@redhat.com>
- <20200908142559.192945-5-philmd@redhat.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-Autocrypt: addr=philmd@redhat.com; keydata=
- mQINBDXML8YBEADXCtUkDBKQvNsQA7sDpw6YLE/1tKHwm24A1au9Hfy/OFmkpzo+MD+dYc+7
- bvnqWAeGweq2SDq8zbzFZ1gJBd6+e5v1a/UrTxvwBk51yEkadrpRbi+r2bDpTJwXc/uEtYAB
- GvsTZMtiQVA4kRID1KCdgLa3zztPLCj5H1VZhqZsiGvXa/nMIlhvacRXdbgllPPJ72cLUkXf
- z1Zu4AkEKpccZaJspmLWGSzGu6UTZ7UfVeR2Hcc2KI9oZB1qthmZ1+PZyGZ/Dy+z+zklC0xl
- XIpQPmnfy9+/1hj1LzJ+pe3HzEodtlVA+rdttSvA6nmHKIt8Ul6b/h1DFTmUT1lN1WbAGxmg
- CH1O26cz5nTrzdjoqC/b8PpZiT0kO5MKKgiu5S4PRIxW2+RA4H9nq7nztNZ1Y39bDpzwE5Sp
- bDHzd5owmLxMLZAINtCtQuRbSOcMjZlg4zohA9TQP9krGIk+qTR+H4CV22sWldSkVtsoTaA2
- qNeSJhfHQY0TyQvFbqRsSNIe2gTDzzEQ8itsmdHHE/yzhcCVvlUzXhAT6pIN0OT+cdsTTfif
- MIcDboys92auTuJ7U+4jWF1+WUaJ8gDL69ThAsu7mGDBbm80P3vvUZ4fQM14NkxOnuGRrJxO
- qjWNJ2ZUxgyHAh5TCxMLKWZoL5hpnvx3dF3Ti9HW2dsUUWICSQARAQABtDJQaGlsaXBwZSBN
- YXRoaWV1LURhdWTDqSAoUGhpbCkgPHBoaWxtZEByZWRoYXQuY29tPokCVQQTAQgAPwIbDwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4AWIQSJweePYB7obIZ0lcuio/1u3q3A3gUCXsfWwAUJ
- KtymWgAKCRCio/1u3q3A3ircD/9Vjh3aFNJ3uF3hddeoFg1H038wZr/xi8/rX27M1Vj2j9VH
- 0B8Olp4KUQw/hyO6kUxqkoojmzRpmzvlpZ0cUiZJo2bQIWnvScyHxFCv33kHe+YEIqoJlaQc
- JfKYlbCoubz+02E2A6bFD9+BvCY0LBbEj5POwyKGiDMjHKCGuzSuDRbCn0Mz4kCa7nFMF5Jv
- piC+JemRdiBd6102ThqgIsyGEBXuf1sy0QIVyXgaqr9O2b/0VoXpQId7yY7OJuYYxs7kQoXI
- 6WzSMpmuXGkmfxOgbc/L6YbzB0JOriX0iRClxu4dEUg8Bs2pNnr6huY2Ft+qb41RzCJvvMyu
- gS32LfN0bTZ6Qm2A8ayMtUQgnwZDSO23OKgQWZVglGliY3ezHZ6lVwC24Vjkmq/2yBSLakZE
- 6DZUjZzCW1nvtRK05ebyK6tofRsx8xB8pL/kcBb9nCuh70aLR+5cmE41X4O+MVJbwfP5s/RW
- 9BFSL3qgXuXso/3XuWTQjJJGgKhB6xXjMmb1J4q/h5IuVV4juv1Fem9sfmyrh+Wi5V1IzKI7
- RPJ3KVb937eBgSENk53P0gUorwzUcO+ASEo3Z1cBKkJSPigDbeEjVfXQMzNt0oDRzpQqH2vp
- apo2jHnidWt8BsckuWZpxcZ9+/9obQ55DyVQHGiTN39hkETy3Emdnz1JVHTU0Q==
-Message-ID: <82346995-4084-606d-719a-68bb556ec80a@redhat.com>
-Date: Tue, 8 Sep 2020 16:34:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	id 1kFfFF-0000Lr-TG; Tue, 08 Sep 2020 15:09:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8Jy8=CR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kFfFE-0000Lm-AM
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 15:09:16 +0000
+X-Inumbo-ID: 0d51b1a7-49cd-4225-8026-ed8be773fce4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d51b1a7-49cd-4225-8026-ed8be773fce4;
+ Tue, 08 Sep 2020 15:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599577756;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eDs6XK+RloydobsyPaT/gSOjeELdNR9f2ZPJP0pwxRA=;
+ b=NGZMYNQrZxzfFPIKNIzeJYuRNGs7CEBbYdKVsJTa5Tm9bOtZHcAH8Dk8
+ zejHlkJBEacVwFibfeYRGcbVIJbUa8vcmTxj7zWzEeKpFHhWpI5fOHFUd
+ igdlmc0mi0izZLVWVcljBWLuh8Zzti3d9bIrSZmtoCarCqQY+PXcJJlV2 Q=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: iS5JRndMuWmOL89L5cCktZY2YmxQhNwM4AEr2o/aPoRlMo2ZjC95IIuyNKSTTsC1046CDxshPK
+ ZkDxSC0G3WBV4IrA2/0ppHC71vls7boFMl1I5+ydZwFb1QvAefpIQ7FrGLclLB0Flt9ZOdmxBg
+ baDH8xeMRFQWrmV8J4hUoZWVvc6zNV71y+vCFQmfGdqkyEYS5eJlVEs831WSUm+wDzSZZQE5vo
+ h6qSVFuNeK9Ou5c8T19a4SoHbF/4MY/3lsFWzkORCzpVcsgxZFS8hGsNjf+ylXJi9Sbd0/wmPI
+ fDo=
+X-SBRS: 2.7
+X-MesageID: 26538068
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,406,1592884800"; d="scan'208";a="26538068"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2] x86/pv: Fix assertions in svm_load_segs()
+Date: Tue, 8 Sep 2020 16:08:49 +0100
+Message-ID: <20200908150849.5699-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200908142559.192945-5-philmd@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0.002
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,94 +64,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/8/20 4:25 PM, Philippe Mathieu-Daudé wrote:
-> xen_hvm_init() is restricted to the X86 architecture.
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-> ---
->  include/hw/xen/xen-x86.h | 15 +++++++++++++++
->  include/hw/xen/xen.h     |  2 --
->  hw/i386/pc_piix.c        |  2 +-
->  hw/i386/xen/xen-hvm.c    |  1 +
->  4 files changed, 17 insertions(+), 3 deletions(-)
->  create mode 100644 include/hw/xen/xen-x86.h
-> 
-> diff --git a/include/hw/xen/xen-x86.h b/include/hw/xen/xen-x86.h
-> new file mode 100644
-> index 00000000000..85e3db1b8de
-> --- /dev/null
-> +++ b/include/hw/xen/xen-x86.h
-> @@ -0,0 +1,15 @@
-> +/*
-> + * Xen X86-specific
-> + *
-> + * Copyright 2020 Red Hat, Inc.
-> + *
-> + * SPDX-License-Identifier: GPL-2.0-or-later
-> + */
-> +#ifndef QEMU_HW_XEN_X86_H
-> +#define QEMU_HW_XEN_X86_H
-> +
-> +#include "hw/i386/pc.h"
-> +
-> +void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory);
-> +
-> +#endif /* QEMU_HW_XEN_X86_H */
-> diff --git a/include/hw/xen/xen.h b/include/hw/xen/xen.h
-> index b2b459964cb..1406648ca58 100644
-> --- a/include/hw/xen/xen.h
-> +++ b/include/hw/xen/xen.h
-> @@ -30,8 +30,6 @@ qemu_irq *xen_interrupt_controller_init(void);
->  
->  void xenstore_store_pv_console_info(int i, struct Chardev *chr);
->  
-> -void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory);
-> -
->  void xen_register_framebuffer(struct MemoryRegion *mr);
->  
->  #endif /* QEMU_HW_XEN_H */
-> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-> index 3e008bb0b1a..43205f48188 100644
-> --- a/hw/i386/pc_piix.c
-> +++ b/hw/i386/pc_piix.c
-> @@ -46,7 +46,7 @@
->  #include "hw/sysbus.h"
->  #include "sysemu/arch_init.h"
->  #include "hw/i2c/smbus_eeprom.h"
-> -#include "hw/xen/xen.h"
-> +#include "hw/xen/xen-x86.h"
->  #include "exec/memory.h"
->  #include "exec/address-spaces.h"
->  #include "hw/acpi/acpi.h"
-> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-> index 49748cda3fb..e03c59e53da 100644
-> --- a/hw/i386/xen/xen-hvm.c
-> +++ b/hw/i386/xen/xen-hvm.c
-> @@ -22,6 +22,7 @@
->  #include "hw/xen/xen_common.h"
->  #include "hw/xen/xen-legacy-backend.h"
->  #include "hw/xen/xen-bus.h"
-> +#include "hw/xen/xen-x86.h"
->  #include "qapi/error.h"
->  #include "qapi/qapi-commands-misc.h"
->  #include "qemu/error-report.h"
-> 
+OSSTest has shown an assertion failure:
+http://logs.test-lab.xenproject.org/osstest/logs/153906/test-xtf-amd64-amd64-1/serial-rimava1.log
 
-I forgot to commit this hunk:
+This is because we pass a non-NUL selector into svm_load_segs(), which is
+something we must not do, as this path does not load the attributes/limit from
+the GDT/LDT.
 
+Drop the {gs,gs}_sel parameters from svm_load_segs() and use 0 instead.  This
+is fine even for non-zero NUL segments, as it is how the IRET instruction
+behaves in all CPUs.
+
+Only use the svm_load_segs() path when FS and GS are NUL, which is the common
+case when scheduling a 64bit vcpu with 64bit userspace in context.
+
+Fixes: ad0fd291c5 ("x86/pv: Rewrite segment context switching from scratch")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-diff --git a/stubs/xen-hw-stub.c b/stubs/xen-hw-stub.c
-index d14efef49e9..2ea81909217 100644
---- a/stubs/xen-hw-stub.c
-+++ b/stubs/xen-hw-stub.c
-@@ -8,6 +8,7 @@
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
- #include "qemu/osdep.h"
- #include "hw/xen/xen.h"
-+#include "hw/xen/xen-x86.h"
+v2:
+ * Rewrite from scratch.
+---
+ xen/arch/x86/domain.c             | 7 +++----
+ xen/arch/x86/hvm/svm/svm.c        | 9 +++------
+ xen/include/asm-x86/hvm/svm/svm.h | 6 ++++--
+ 3 files changed, 10 insertions(+), 12 deletions(-)
 
- void xenstore_store_pv_console_info(int i, Chardev *chr)
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index d4f4ced681..e8e91cf080 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1557,7 +1557,7 @@ static void load_segments(struct vcpu *n)
+                    : [_val] "rm" (val) )
+ 
+ #ifdef CONFIG_HVM
+-    if ( cpu_has_svm && !compat )
++    if ( cpu_has_svm && !compat && (uregs->fs | uregs->gs) <= 3 )
+     {
+         unsigned long gsb = n->arch.flags & TF_kernel_mode
+             ? n->arch.pv.gs_base_kernel : n->arch.pv.gs_base_user;
+@@ -1565,8 +1565,7 @@ static void load_segments(struct vcpu *n)
+             ? n->arch.pv.gs_base_user : n->arch.pv.gs_base_kernel;
+ 
+         fs_gs_done = svm_load_segs(n->arch.pv.ldt_ents, LDT_VIRT_START(n),
+-                                   uregs->fs, n->arch.pv.fs_base,
+-                                   uregs->gs, gsb, gss);
++                                   n->arch.pv.fs_base, gsb, gss);
+     }
+ #endif
+     if ( !fs_gs_done )
+@@ -1929,7 +1928,7 @@ static void __context_switch(void)
+     /* Prefetch the VMCB if we expect to use it later in the context switch */
+     if ( cpu_has_svm && is_pv_domain(nd) && !is_pv_32bit_domain(nd) &&
+          !is_idle_domain(nd) )
+-        svm_load_segs(0, 0, 0, 0, 0, 0, 0);
++        svm_load_segs(0, 0, 0, 0, 0);
+ #endif
+ 
+     if ( need_full_gdt(nd) && !per_cpu(full_gdt_loaded, cpu) )
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index af584ff5d1..23b2a2aa17 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1521,8 +1521,7 @@ static void svm_init_erratum_383(const struct cpuinfo_x86 *c)
+ 
+ #ifdef CONFIG_PV
+ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
+-                   unsigned int fs_sel, unsigned long fs_base,
+-                   unsigned int gs_sel, unsigned long gs_base,
++                   unsigned long fs_base, unsigned long gs_base,
+                    unsigned long gs_shadow)
  {
----
+     unsigned int cpu = smp_processor_id();
+@@ -1559,14 +1558,12 @@ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
+         vmcb->ldtr.base = ldt_base;
+     }
+ 
+-    ASSERT(!(fs_sel & ~3));
+-    vmcb->fs.sel = fs_sel;
++    vmcb->fs.sel = 0;
+     vmcb->fs.attr = 0;
+     vmcb->fs.limit = 0;
+     vmcb->fs.base = fs_base;
+ 
+-    ASSERT(!(gs_sel & ~3));
+-    vmcb->gs.sel = gs_sel;
++    vmcb->gs.sel = 0;
+     vmcb->gs.attr = 0;
+     vmcb->gs.limit = 0;
+     vmcb->gs.base = gs_base;
+diff --git a/xen/include/asm-x86/hvm/svm/svm.h b/xen/include/asm-x86/hvm/svm/svm.h
+index d568e86db9..2310878e41 100644
+--- a/xen/include/asm-x86/hvm/svm/svm.h
++++ b/xen/include/asm-x86/hvm/svm/svm.h
+@@ -52,10 +52,12 @@ void svm_update_guest_cr(struct vcpu *, unsigned int cr, unsigned int flags);
+ /*
+  * PV context switch helper. Calls with zero ldt_base request a prefetch of
+  * the VMCB area to be loaded from, instead of an actual load of state.
++ *
++ * Must only be used for NUL FS/GS, as the segment attributes/limits are not
++ * read from the GDT/LDT.
+  */
+ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
+-                   unsigned int fs_sel, unsigned long fs_base,
+-                   unsigned int gs_sel, unsigned long gs_base,
++                   unsigned long fs_base, unsigned long gs_base,
+                    unsigned long gs_shadow);
+ 
+ extern u32 svm_feature_flags;
+-- 
+2.11.0
 
 
