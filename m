@@ -2,124 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4DE260E2F
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 10:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7D4260E41
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 11:01:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFZPr-0006Gf-OO; Tue, 08 Sep 2020 08:55:51 +0000
+	id 1kFZUw-0007Co-Cv; Tue, 08 Sep 2020 09:01:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t1cP=CR=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
- id 1kFZPp-0006GV-Nw
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 08:55:50 +0000
-X-Inumbo-ID: 9a2e1b93-4bd6-4792-b8c2-1910bcd4669c
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wajs=CR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kFZUv-0007CO-5E
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 09:01:05 +0000
+X-Inumbo-ID: 5b07d143-5436-43fa-ba3a-e3b2c8c48034
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a2e1b93-4bd6-4792-b8c2-1910bcd4669c;
- Tue, 08 Sep 2020 08:55:48 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id s13so16437984wmh.4
- for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 01:55:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=lPf7+5yaWPR4Bsu29CBYqFns/59BDsvYdpze1XOObUQ=;
- b=PGlAHISsJbb/iYgixfJKVAK0d3OOuP3SlP2TjTpoK/oyd/DkyWjQ7j9CtU74WPEw0A
- NkxDuWQKM4W+M6eiE0fRmROTwl4OHi/jQ6z3R8Ikhb+ljBKxuSnOMNBFuSVwV7AkQa34
- kBB3vAMyk0pYZpn9c7JUOZ/xI0bfjYSUvtffY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=lPf7+5yaWPR4Bsu29CBYqFns/59BDsvYdpze1XOObUQ=;
- b=RqYP9FE3M9/OKs5yiU3Amxecqv2nRoJe9RZSDwOGVRKhtMTk2xwxM9CjoXJYxx278P
- HOhGFPAbf0omSYl6az8yhwnE5nnrKXBKYj8gQkZzCOtf+Y1fkptEbRP+ZFj7eCZUpEId
- SBnUdGHBjAZSgqoNI06B1WKk+jRntBvedCvBCUT1u9uJAKfo456sOkd25T2+HkNkcAI3
- JsO5zTo5PwPXM3E2M9RIFbd9Ie/VhXCSxO3gl6k+nMjMrp+/bC1KYtLb5x0xSErhuU+w
- 88SveBZbNnUCwO9PbfNx3xl2jImMPkWUzFzMu3dtZP9x5JdpXPoDKVdSRojxCf2mJgGq
- +35A==
-X-Gm-Message-State: AOAM531v6NhwHMY1XlAmgL/55mz2eB1Jku4tk1LsMkxyOj9NcChIH7Zi
- wcGkFRg9kZBGLkp5wAdb2w7FGA==
-X-Google-Smtp-Source: ABdhPJzRIgnrsr1zISzj3JMMO+qHmnUUaLRMb8phFavthqU3M8id+c7krZN538k/E4IFJZLkveZLYQ==
-X-Received: by 2002:a1c:e256:: with SMTP id z83mr3369682wmg.33.1599555347784; 
- Tue, 08 Sep 2020 01:55:47 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l10sm30834268wru.59.2020.09.08.01.55.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 01:55:47 -0700 (PDT)
-Date: Tue, 8 Sep 2020 10:55:44 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v4 1/1] drm: allow limiting the scatter list size.
-Message-ID: <20200908085544.GI2352366@phenom.ffwll.local>
-Mail-Followup-To: Gerd Hoffmann <kraxel@redhat.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Ben Skeggs <bskeggs@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>, 
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>
-References: <20200907112425.15610-1-kraxel@redhat.com>
- <20200907112425.15610-2-kraxel@redhat.com>
- <CAKMK7uGjT73rh=9iuCKAXvC_CaOuygm8PgOQgofkTgH7wRysFw@mail.gmail.com>
- <20200908054858.um34wojjv6uhi7d3@sirius.home.kraxel.org>
+ id 5b07d143-5436-43fa-ba3a-e3b2c8c48034;
+ Tue, 08 Sep 2020 09:00:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=19U5loxURcEH4W4O2gPgNZClo5d+gIOvv8pqKVAFF78=; b=w2c2B/bFDpcMbsVYW5f2HnJY+F
+ K2BxIrUmk3Q9CIZRrQ0Hu6YeCTKpFTLm3XmWPQ23xTWncJ3vbTCz8/j/p6MtmfhtNAnS/cFA+aIe4
+ NVpZql9jTsE7GdXFLp+r6WUBsRIkaP26ouSumw9L1bzXyfq6mCyvx7unwaU5/SkAc+3k=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFZUo-0007Nb-22; Tue, 08 Sep 2020 09:00:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFZUn-0005XE-RK; Tue, 08 Sep 2020 09:00:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kFZUn-0002QZ-QY; Tue, 08 Sep 2020 09:00:57 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-153928-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200908054858.um34wojjv6uhi7d3@sirius.home.kraxel.org>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Subject: [libvirt test] 153928: regressions - FAIL
+X-Osstest-Failures: libvirt:build-i386-xsm:xen-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386:xen-build:fail:regression
+ libvirt:build-amd64-xsm:xen-build:fail:regression
+ libvirt:build-amd64:xen-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=4a72b76b8a99ab6c33f468e767cb33cf1fcec843
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 08 Sep 2020 09:00:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,49 +82,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Sep 08, 2020 at 07:48:58AM +0200, Gerd Hoffmann wrote:
-> On Mon, Sep 07, 2020 at 03:53:02PM +0200, Daniel Vetter wrote:
-> > On Mon, Sep 7, 2020 at 1:24 PM Gerd Hoffmann <kraxel@redhat.com> wrote:
-> > >
-> > > Add drm_device argument to drm_prime_pages_to_sg(), so we can
-> > > call dma_max_mapping_size() to figure the segment size limit
-> > > and call into __sg_alloc_table_from_pages() with the correct
-> > > limit.
-> > >
-> > > This fixes virtio-gpu with sev.  Possibly it'll fix other bugs
-> > > too given that drm seems to totaly ignore segment size limits
-> > > so far ...
-> > >
-> > > v2: place max_segment in drm driver not gem object.
-> > > v3: move max_segment next to the other gem fields.
-> > > v4: just use dma_max_mapping_size().
-> > >
-> > > Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-> > 
-> > Uh, are you sure this works in all cases for virtio?
-> 
-> Sure, I've tested it ;)
-> 
-> > The comments I've found suggest very much not ... Or is that all very
-> > old stuff only that no one cares about anymore?
-> 
-> I think these days it is possible to override dma_ops per device, which
-> in turn allows virtio to deal with the quirks without the rest of the
-> kernel knowing about these details.
-> 
-> I also think virtio-gpu can drop the virtio_has_dma_quirk() checks, just
-> use the dma api path unconditionally and depend on virtio core having
-> setup dma_ops in a way that it JustWorks[tm].  I'll look into that next.
+flight 153928 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153928/
 
-The comment above vring_use_dma_api() suggests that this has not yet
-happened, that's why I'm asking. If this has happened then I think it'd be
-best if you remove that todo entry and update it, as part of the overall
-series to add dma_max_mapping_size and remove the quirks.
+Regressions :-(
 
-Otherwise this all is a bit wtf material :-)
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386                    6 xen-build                fail REGR. vs. 151777
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
+ build-amd64                   6 xen-build                fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              4a72b76b8a99ab6c33f468e767cb33cf1fcec843
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   60 days
+Failing since        151818  2020-07-11 04:18:52 Z   59 days   55 attempts
+Testing same since   153928  2020-09-08 04:19:13 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 12984 lines long.)
 
