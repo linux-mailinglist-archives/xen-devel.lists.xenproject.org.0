@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7C52612A8
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 16:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B05D2612A9
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 16:26:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFeZT-0004W8-GT; Tue, 08 Sep 2020 14:26:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kFeZZ-0004Xd-Q4; Tue, 08 Sep 2020 14:26:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cV5b=CR=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kFeZR-0004Vu-Rj
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 14:26:06 +0000
-X-Inumbo-ID: e67a68ad-80ba-4a9a-be08-4ad3c345adc9
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e67a68ad-80ba-4a9a-be08-4ad3c345adc9;
- Tue, 08 Sep 2020 14:26:05 +0000 (UTC)
+ id 1kFeZY-0004XM-KK
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 14:26:12 +0000
+X-Inumbo-ID: 823362f5-f368-4615-a301-739d3fc7bb04
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 823362f5-f368-4615-a301-739d3fc7bb04;
+ Tue, 08 Sep 2020 14:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599575165;
+ s=mimecast20190719; t=1599575171;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=AigchT0IqpQTMPs2wbwFMKYiR3x5TIxf3jJNE6ATp5A=;
- b=dcfn3GGRTBT1VaX075XZQwKYP0Hjquy8GHvaZTjCpYK1xJeJWo807FjPbfHBZTKAqeQ2nf
- 9ZVY5XsjC7pRGAHObaG0Swpgtje5MSznQtcmLyB0ks9icUQEzXPv6sP+QIOucMPPptam4s
- 7SHMvFyoSIQzN/by5FWWc7Sq7QyTD8s=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-528-pfpLC3VhNmWkrSHzFKrArw-1; Tue, 08 Sep 2020 10:26:03 -0400
-X-MC-Unique: pfpLC3VhNmWkrSHzFKrArw-1
-Received: by mail-wm1-f71.google.com with SMTP id u5so4539963wme.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 07:26:02 -0700 (PDT)
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rd1yDVC2PLm/mbyb4s3J2rHQe4El+Eyr3YAhnhSaUkU=;
+ b=BW4aikP8PPdjwjxqh1co/X1stkiJss+iHh8a3dGVsR+RFYoBzd/U04C41ZeG720Rcdj0Pk
+ FuKJXBz5DsxTZz15DciCCD1TeJMjhH++Pn7pNvglFjrLKqtW0yVUGAgVRkYTWijcQ5HvAB
+ gjtZExxRgzKnEzL/7xSt6Gefwa/2RSo=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-166-jHZt99uaMXeNHGQ1kh7CTQ-1; Tue, 08 Sep 2020 10:26:07 -0400
+X-MC-Unique: jHZt99uaMXeNHGQ1kh7CTQ-1
+Received: by mail-wr1-f69.google.com with SMTP id 33so7070984wre.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Sep 2020 07:26:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AigchT0IqpQTMPs2wbwFMKYiR3x5TIxf3jJNE6ATp5A=;
- b=t3PI9hy6L9zdoGQ//zmyxHoftr9xFxedZjeTwMHLL76ODEh6uVRPiFAo0s0r+fnZ7R
- huJo1K0N7O8/cLluZNG1Oe74MH1eld2JM67jfsAJPgPBeE5dVzX4w9cH/o9T5lGisS/g
- +IdZFzRnmhpl2en8YqaJQ4PNnN1PmaREx27orJjvQl9wN2XSg0Z3MBU/posrAFWQDiom
- jQ04BnQmSbRoxr82i08o1kZfjLS/PToTPYDJeEn3hkQVhQfAlcqEu/gCppNPHQtSe3hU
- cjvSg/3vRnBkEQ0lR6A1H7ONa04W7f+6uvpuj/0qoDYWLjLp1gL57NhxfaYr1l9ufIDa
- rqTQ==
-X-Gm-Message-State: AOAM531AyTeYggVKCm2uQVAu6hrNDvVtlKfIAVdvPWV9zCU1FZIvbvgZ
- 2f7M+ZPDlLjRUQz95eNsQW5NOcfkWZgeMvqnJY849y/saAdwpOKwIpvCTu05n6TgRhGEsEa57/w
- G10DLXkLaGYJmoalDr6HAHcIYwV4=
-X-Received: by 2002:adf:e989:: with SMTP id h9mr29297431wrm.38.1599575161369; 
- Tue, 08 Sep 2020 07:26:01 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxsWz2CkHeEuhNarNgmaivVi6iopBf5ujS65WHyGjJQWXzXJi1ZEAq7Y9Gv1FoWsJeCqXsz6A==
-X-Received: by 2002:adf:e989:: with SMTP id h9mr29297414wrm.38.1599575161222; 
- Tue, 08 Sep 2020 07:26:01 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=rd1yDVC2PLm/mbyb4s3J2rHQe4El+Eyr3YAhnhSaUkU=;
+ b=F5r4NC/aAwR9lyhcsCv4odSONY54eALyfFT4RfZ0PQ1nvSS0f24CKqQzNrIzfqqcxt
+ LYjJfVc1dMgEkZLH0rfjJB0zHmXymP5SfTNy+qTY4zLqpKdg/br6tW5VjQVQjn4np2om
+ nmdLcBsEGocTHdkoI1oE2rWRkTQeZiApt5no57qEXGZv5Nv90r108pr8ptPap5aNoJOz
+ r9x/NdAbx4XWbTyUcRlwQC0zB+iV8V5pnCP60VJFn/tIXEtjT/jpAk0pIX9uKmKp7LHB
+ bCdIPQ+7KY1vIeomrquZ9DcRND1QcrqAmM9TaUzt86eAR88dlB7m8/eemN3gUCnOXrlE
+ AnHA==
+X-Gm-Message-State: AOAM532RKt+6qsugIicS/OHyvCbmlB8rptsM4sizzrxwpcCFrPp3qgfK
+ glrySpGECqPUq0rimkySoD4jNp51XuW0Kl2q+A8OmUmeLc3i+0ZIuIYASFt1wiTYr8Li5YHNGjK
+ pXbaueZCHX3HSIGzBMwHWA7X+izI=
+X-Received: by 2002:adf:efc9:: with SMTP id i9mr28298433wrp.187.1599575166447; 
+ Tue, 08 Sep 2020 07:26:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy17scw5GBd0vKOfK7z1JRSIOHwjuajPWIItLLQxN9yoqVYIMsCoqxbS7A7Vn2FqxWJdDcxOw==
+X-Received: by 2002:adf:efc9:: with SMTP id i9mr28298412wrp.187.1599575166224; 
+ Tue, 08 Sep 2020 07:26:06 -0700 (PDT)
 Received: from localhost.localdomain (65.red-83-57-170.dynamicip.rima-tde.net.
  [83.57.170.65])
- by smtp.gmail.com with ESMTPSA id 189sm33177412wmb.3.2020.09.08.07.26.00
+ by smtp.gmail.com with ESMTPSA id b2sm32569506wmh.47.2020.09.08.07.26.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 07:26:00 -0700 (PDT)
+ Tue, 08 Sep 2020 07:26:05 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Anthony Perard <anthony.perard@citrix.com>,
@@ -68,16 +68,19 @@ Cc: Anthony Perard <anthony.perard@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [PATCH 0/5] hw/xen: Housekeeping
-Date: Tue,  8 Sep 2020 16:25:54 +0200
-Message-Id: <20200908142559.192945-1-philmd@redhat.com>
+Subject: [PATCH 1/5] hw/i386/q35: Remove unreachable Xen code on Q35 machine
+Date: Tue,  8 Sep 2020 16:25:55 +0200
+Message-Id: <20200908142559.192945-2-philmd@redhat.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200908142559.192945-1-philmd@redhat.com>
+References: <20200908142559.192945-1-philmd@redhat.com>
 MIME-Version: 1.0
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8;
+	text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -92,34 +95,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hard to make an exciting cover of this series.
+Xen accelerator requires specific changes to a machine to be able
+to use it. See for example the 'Xen PC' machine configure its PCI
+bus calling pc_xen_hvm_init_pci(). There is no 'Xen Q35' machine
+declared. This code was probably added while introducing the Q35
+machine, based on the existing PC machine (see commit df2d8b3ed4
+"Introduce q35 pc based chipset emulator"). Remove the unreachable
+code to simplify this file.
 
-Basically:
-- Make better separation between Xen accel and Xen hardware,
-- Move stuff around to restrict PCMachineState to hw/i386/.
+Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ hw/i386/pc_q35.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-Philippe Mathieu-Daudé (5):
-  hw/i386/q35: Remove unreachable Xen code on Q35 machine
-  hw/i386/xen: Rename X86/PC specific function as xen_hvm_init_pc()
-  stubs: Split accelerator / hardware related stubs
-  hw/xen: Split x86-specific declaration from generic hardware ones
-  typedefs: Restrict PCMachineState to 'hw/i386/pc.h'
-
- include/hw/i386/pc.h     |  4 ++--
- include/hw/xen/xen-x86.h | 15 ++++++++++++
- include/hw/xen/xen.h     |  2 --
- include/qemu/typedefs.h  |  1 -
- accel/stubs/xen-stub.c   | 41 +--------------------------------
- hw/i386/pc_piix.c        |  8 +++----
- hw/i386/pc_q35.c         | 13 ++---------
- hw/i386/xen/xen-hvm.c    |  3 ++-
- stubs/xen-hw-stub.c      | 49 ++++++++++++++++++++++++++++++++++++++++
- MAINTAINERS              |  1 +
- stubs/meson.build        |  1 +
- 11 files changed, 77 insertions(+), 61 deletions(-)
- create mode 100644 include/hw/xen/xen-x86.h
- create mode 100644 stubs/xen-hw-stub.c
-
+diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c
+index 0cb9c18cd44..f3506269fe0 100644
+--- a/hw/i386/pc_q35.c
++++ b/hw/i386/pc_q35.c
+@@ -34,9 +34,7 @@
+ #include "sysemu/arch_init.h"
+ #include "hw/i2c/smbus_eeprom.h"
+ #include "hw/rtc/mc146818rtc.h"
+-#include "hw/xen/xen.h"
+ #include "sysemu/kvm.h"
+-#include "sysemu/xen.h"
+ #include "hw/kvm/clock.h"
+ #include "hw/pci-host/q35.h"
+ #include "hw/qdev-properties.h"
+@@ -179,10 +177,6 @@ static void pc_q35_init(MachineState *machine)
+         x86ms->below_4g_mem_size = machine->ram_size;
+     }
+ 
+-    if (xen_enabled()) {
+-        xen_hvm_init(pcms, &ram_memory);
+-    }
+-
+     x86_cpus_init(x86ms, pcmc->default_cpu_version);
+ 
+     kvmclock_create();
+@@ -208,10 +202,7 @@ static void pc_q35_init(MachineState *machine)
+     }
+ 
+     /* allocate ram and load rom/bios */
+-    if (!xen_enabled()) {
+-        pc_memory_init(pcms, get_system_memory(),
+-                       rom_memory, &ram_memory);
+-    }
++    pc_memory_init(pcms, get_system_memory(), rom_memory, &ram_memory);
+ 
+     /* create pci host bus */
+     q35_host = Q35_HOST_DEVICE(qdev_new(TYPE_Q35_HOST_DEVICE));
+@@ -271,7 +262,7 @@ static void pc_q35_init(MachineState *machine)
+ 
+     assert(pcms->vmport != ON_OFF_AUTO__MAX);
+     if (pcms->vmport == ON_OFF_AUTO_AUTO) {
+-        pcms->vmport = xen_enabled() ? ON_OFF_AUTO_OFF : ON_OFF_AUTO_ON;
++        pcms->vmport = ON_OFF_AUTO_ON;
+     }
+ 
+     /* init basic PC hardware */
 -- 
 2.26.2
 
