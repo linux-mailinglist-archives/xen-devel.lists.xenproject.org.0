@@ -2,59 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3803260EAA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 11:29:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F90E260EAD
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Sep 2020 11:31:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFZvh-0000tw-9v; Tue, 08 Sep 2020 09:28:45 +0000
+	id 1kFZxm-0001fz-S3; Tue, 08 Sep 2020 09:30:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wajs=CR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFZvg-0000tr-Cn
- for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 09:28:44 +0000
-X-Inumbo-ID: 1cc2b343-d417-4db7-88bd-6d8c97217614
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YB8W=CR=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1kFZxl-0001fu-01
+ for xen-devel@lists.xenproject.org; Tue, 08 Sep 2020 09:30:53 +0000
+X-Inumbo-ID: 299072ca-678d-4c60-aab9-272f425134ba
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1cc2b343-d417-4db7-88bd-6d8c97217614;
- Tue, 08 Sep 2020 09:28:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=sv+xWMsMjjPZXvj7XJk1LBEfuWWLi/3RofeutME6iKE=; b=MeVpUBQZYuQMe3ecqig1M7a+Sn
- WG4OUDF483g4Ch4R++mckQ55cfqIss1sRUYVsjXyNt/351MfDM21jmyjJT7i9QrHEM/3BBflwFVqK
- ZZNFf0haQsXxYGUGHMrl8Q8N1Mjdelcl6+DL0Ez98we9S5hNFWklzqdLAJA00PeFHZo0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFZve-0007yD-Ly; Tue, 08 Sep 2020 09:28:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFZve-0007ko-Ep; Tue, 08 Sep 2020 09:28:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFZve-0007bw-EK; Tue, 08 Sep 2020 09:28:42 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153938-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 299072ca-678d-4c60-aab9-272f425134ba;
+ Tue, 08 Sep 2020 09:30:51 +0000 (UTC)
+Date: Tue, 08 Sep 2020 09:30:45 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
+ s=protonmail; t=1599557450;
+ bh=J/TYZoif5A5CC4iJqEJWYRM6iCHKStavHPkvFivGjM4=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=ctEbYuFFVMXG1nxgYWnfjQaQoXZN9O1EeZf44TrRMS37lMITgKkNbv3aoduvw4dUz
+ 7kQ1v8UJpVd05O9H9/A1pQ3GkdVT2x3oBg/4fp80Hfhwm4E9Y/ceKUjfgXtO8P09OJ
+ 0XpoAM6W+om3knlb0sR12PimddRxY3yHa9ilWg6o=
+To: Jan Beulich <jbeulich@suse.com>
+From: Trammell Hudson <hudson@trmm.net>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 1/4] x86/xen.lds.S: Work around binutils build id
+ alignment bug
+Message-ID: <6SnmUgvnHWozDhOcXRgAUuB_aEQdoXlOD5-uC6-t2LGRtadueg0vaUUmBISei_7NrT_9DCVBfNLUR12D6XTYoJNri7W2fw1_yeMUXULfwR0=@trmm.net>
+In-Reply-To: <5b8f533d-c646-8a52-cf37-d21b182ccf9b@suse.com>
+References: <20200907190027.669086-1-hudson@trmm.net>
+ <20200907190027.669086-2-hudson@trmm.net>
+ <5b8f533d-c646-8a52-cf37-d21b182ccf9b@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 153938: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 08 Sep 2020 09:28:42 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+ mailout.protonmail.ch
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,80 +56,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: Trammell Hudson <hudson@trmm.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153938 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153938/
+On Tuesday, September 8, 2020 11:04 AM, Jan Beulich <jbeulich@suse.com> wro=
+te:
+> [...]
+> Personally I think this kind of a workaround patch is something
+> distros ought to be fine to carry, if they care about the
+> functionality and only until they get around to upgrade their
+> binutils. But I'll be happy to hear differing opinions.
 
-Regressions :-(
+Y'all just merged something to support building with make 3.81, released in=
+ *2006*, so why require a bleeding edge binutils to work with the executabl=
+e image?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+> I also don't see any mention anywhere of why it's 32 bytes, and not
+> 16 or 64 or yet something else.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+It is 32 because you said 32 was probably fine.
 
-version targeted for testing:
- ovmf                 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z   12 days
-Failing since        152915  2020-08-27 18:09:42 Z   11 days  191 attempts
-Testing same since   153848  2020-09-07 02:52:00 Z    1 days   23 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
-  Zhichao Gao <zhichao.gao@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 343 lines long.)
+--
+Trammell
 
