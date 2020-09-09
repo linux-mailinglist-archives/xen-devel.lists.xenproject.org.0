@@ -2,49 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7B392638B2
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 23:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 723BE2638BF
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 23:55:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG81b-00006g-3W; Wed, 09 Sep 2020 21:53:07 +0000
+	id 1kG84A-00019L-4r; Wed, 09 Sep 2020 21:55:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WRqj=CS=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kG81Z-00006a-Gm
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 21:53:05 +0000
-X-Inumbo-ID: fd502bcd-50b1-4c4c-ab15-73a386aeab3d
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kG848-000194-Uh
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 21:55:44 +0000
+X-Inumbo-ID: dd4ab7ad-8516-4f7c-9a09-7ca9fad322aa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd502bcd-50b1-4c4c-ab15-73a386aeab3d;
- Wed, 09 Sep 2020 21:53:03 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 089LqjQt039172
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 9 Sep 2020 17:52:50 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 089Lqhmn039171;
- Wed, 9 Sep 2020 14:52:43 -0700 (PDT) (envelope-from ehem)
-Message-Id: <202009092152.089Lqhmn039171@m5p.com>
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>
-Cc: Doug Goldstein <cardoe@cardoe.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Cc: Christian Lindig <christian.lindig@citrix.com>
-Cc: David Scott <dave@recoil.org>
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Date: Tue, 8 Sep 2020 18:28:45 -0700
-Subject: [PATCH 00/11] Major rework of top-level .gitignore
-X-Spam-Status: No, score=0.8 required=10.0 tests=DATE_IN_PAST_12_24,
- KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+ id dd4ab7ad-8516-4f7c-9a09-7ca9fad322aa;
+ Wed, 09 Sep 2020 21:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=3G9Gg2flamSBa1qzDynDr7MgFyuf5zwsCLJHYd6JpGg=; b=TQEm32y1u7mcBzaI0sdb1dxqZQ
+ sAm3+95kFXLVzt7pkqQ2xSA4QP1pnQZTqLZiKjzd1k7bxkfRpEq7SfQEZG7duftRHnjgyKrKdf4dv
+ hmylp2TokHQaIW2KkXRkZORqKL6qE7TgPT2vANph4surHVTwxJ9dzn1evpCQwOMZHEqo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG847-0003bF-KU; Wed, 09 Sep 2020 21:55:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG847-0004gX-Dw; Wed, 09 Sep 2020 21:55:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG847-0007RD-9l; Wed, 09 Sep 2020 21:55:43 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154030-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 154030: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=89002866bb6c6f26024f015820c8f52012f95cf2
+X-Osstest-Versions-That: xen=6d2f1ebccdef655d64fbc3abc83db76c3de08cb1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Sep 2020 21:55:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,77 +65,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The top-level .gitignore file for Xen has gotten rather messy.  Looks
-like at times a few people may have added some blank lines looking
-towards some later cleanup.  Alas no one ever got around to that later
-cleanup.
+flight 154030 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154030/
 
-When looking at one portion of the situation I ended up doing some
-cleanup and it got out of hand.  Hence I'm not sending in these patches
-which hopefully make things better.
+Failures :-/ but no regressions.
 
-Please note these are somewhat better than work-in-progress status.
-There are several places I'm unsure of which direction to go in.  Likely
-several of these will need more or less information in their commit
-messages.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Overall pattern is first some initial cleanup on the top-level
-.gitignore.  It is easier to spot targeted file matches which overlapped
-general globs before breaking things apart.  This is followed by breaking
-all targeted matches off of the global .gitignore file.  Lastly the
-global .gitignore file was sorted and I've commented on a few of the
-things which remain.
+version targeted for testing:
+ xen                  89002866bb6c6f26024f015820c8f52012f95cf2
+baseline version:
+ xen                  6d2f1ebccdef655d64fbc3abc83db76c3de08cb1
 
-Recent versions of `git` include a "check-ignore" command.  For testing
-new patterns `git check-ignore -vn --no-index <pattern>` will tell you
-whether a given filename would be ignored without "add -f".
+Last test of basis   154026  2020-09-09 15:00:25 Z    0 days
+Testing same since   154030  2020-09-09 19:01:21 Z    0 days    1 attempts
 
-I think patches 01 and 02 are near ready for being committed.  Patches
-03-09 need varying degrees of polish before being in an official tree.
-Patches 10 and 11 are pretty well initial rough outlines.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-Elliott Mitchell (11):
-  gitignore: Move ignores from global to subdirectories
-  gitignore: Remove entries duplicating global entries
-  gitignore: Add/Generalize entries
-  gitignore: Create .gitignore file for tools/firmware/
-  gitignore: Create .gitignore file for tools/ocaml/
-  gitignore: Create .gitignore file for xen/
-  gitignore: Create .gitignore file for docs/
-  gitignore: Create .gitignore file for stubdom/
-  gitignore: Create .gitignore file for config/
-  gitignore: Create .gitignore file for tools/
-  gitignore: RFC Prelimiary final cleanup of top-level .gitignore
-
- .gitignore                   | 440 +++--------------------------------
- config/.gitignore            |   5 +
- docs/.gitignore              |   8 +
- stubdom/.gitignore           |  32 +++
- tools/.gitignore             | 145 ++++++++++++
- tools/firmware/.gitignore    |  29 +++
- tools/misc/.gitignore        |  23 +-
- tools/ocaml/.gitignore       |  24 ++
- xen/.gitignore               |  39 ++++
- xen/tools/kconfig/.gitignore |   6 +
- xen/xsm/flask/.gitignore     |   9 +-
- 11 files changed, 354 insertions(+), 406 deletions(-)
- create mode 100644 config/.gitignore
- create mode 100644 docs/.gitignore
- create mode 100644 stubdom/.gitignore
- create mode 100644 tools/.gitignore
- create mode 100644 tools/firmware/.gitignore
- create mode 100644 tools/ocaml/.gitignore
- create mode 100644 xen/.gitignore
-
--- 
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
 
+To xenbits.xen.org:/home/xen/git/xen.git
+   6d2f1ebccd..89002866bb  89002866bb6c6f26024f015820c8f52012f95cf2 -> smoke
 
