@@ -2,62 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2790B262FA8
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 16:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD273262FEA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 16:43:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG0w1-0001s0-8e; Wed, 09 Sep 2020 14:18:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uggq=CS=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kG0w0-0001ru-Bm
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 14:18:52 +0000
-X-Inumbo-ID: 2ad66448-00c3-42c4-afc7-343afdafeba8
+	id 1kG1JG-0004Q9-3y; Wed, 09 Sep 2020 14:42:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kG1JF-0004Q4-Ee
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 14:42:53 +0000
+X-Inumbo-ID: 82bcacab-5fd7-448d-af2e-d8b8b243962e
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2ad66448-00c3-42c4-afc7-343afdafeba8;
- Wed, 09 Sep 2020 14:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=JM3l2pPt2FyBG7+zMm1tr4RAM4qWUZOz1BeCuRwzHFM=; b=bhEKm9Fs41BmQfqqwDkRMriI2o
- ikGbKVhID2z+oNC4ASaLHYkSKbvcPlxTUadFVgqlFc8DZAZooxGZJ+7Qy2g240DQaTU2JcB6zpX3X
- +qcCXLhv7S9hcsl7IUIztctlsDrdSsWlM4fxdYIFFBjGULFJ9mJ+Fyvz7B4/wGBUFAlY=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 82bcacab-5fd7-448d-af2e-d8b8b243962e;
+ Wed, 09 Sep 2020 14:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=Ac2/t0118b7LGcU9uOmWY4oCS5+L2vmpRvm2R7g5dvg=; b=5JtHv90YtMicSYDOkTev2B+VBR
+ 5SeXvl4Hij0DXGE1cxZFRxW9PE9/q1sdjxtYYfJXTl9BL2CPqjkPADpzJdZRAWBCu+ptk0zeOkNpB
+ 5HmTvK1Dc7IRrjr4LugdJZ79LoH3Ud3JDa9fGRv2rQ76xmzEypBD325YeR9aaOHoFqU0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kG0vu-0001qP-18; Wed, 09 Sep 2020 14:18:46 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kG0vt-0004wZ-NQ; Wed, 09 Sep 2020 14:18:45 +0000
-Subject: Re: [PATCH v1] docs: remove bridge-utils from requirements
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20200909104849.22700-1-olaf@aepfle.de>
- <8240eea7-4822-f8f9-75ee-5ea7c2e85630@xen.org>
- <20200909145215.530ca814.olaf@aepfle.de>
- <209126b6-0707-0e2f-db2c-1dd492a0229f@xen.org>
- <20200909151707.3d7a3e70.olaf@aepfle.de>
- <bc70e498-50c8-5667-b535-48126847ef85@xen.org>
- <20200909155441.4aae56c7.olaf@aepfle.de>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5c7817ed-9b45-9651-dcb6-d8f101dfa916@xen.org>
-Date: Wed, 9 Sep 2020 15:18:43 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG1JD-0002Li-JF; Wed, 09 Sep 2020 14:42:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG1JD-0003XI-C3; Wed, 09 Sep 2020 14:42:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG1JD-000441-Bb; Wed, 09 Sep 2020 14:42:51 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154020-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200909155441.4aae56c7.olaf@aepfle.de>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 154020: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=3cccdae45242dab27198b8e150be0c85acd5d3c9
+X-Osstest-Versions-That: xen=1e2d3be2e516e6f415ca6029f651b76a8563a27c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Sep 2020 14:42:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,29 +65,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+flight 154020 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154020/
 
-On 09/09/2020 14:54, Olaf Hering wrote:
-> Am Wed, 9 Sep 2020 14:43:28 +0100
-> schrieb Julien Grall <julien@xen.org>:
-> 
->> If you think that bridge-utils should be dropped, then please send a
->> proposal to remove/deprecate brctl.
-> 
-> This was already done with 0e7c69bd3c0b35a677d73843b39522787ccf5a3f.
-> 
-> The current code is just the simple form of a fallback, it does not represent the fact that brctl is the preferred tool. 'ip' is most likely always present, but finding its capabilities is probably cumbersome.
+Failures :-/ but no regressions.
 
-Apologies, it was a mistake to suggest that "deprecating" would be 
-enough to remove from the README. This was actually against my initial 
-comment:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-"IMHO, the README is not only here to explain the required softwares for 
-the latest distribution. It is also here to explain all the dependencies 
-regardless whether Xen can be barely run or not..."
+version targeted for testing:
+ xen                  3cccdae45242dab27198b8e150be0c85acd5d3c9
+baseline version:
+ xen                  1e2d3be2e516e6f415ca6029f651b76a8563a27c
 
-Cheers,
+Last test of basis   153963  2020-09-08 16:00:26 Z    0 days
+Testing same since   154020  2020-09-09 12:00:24 Z    0 days    1 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> (python parts)
+  Olaf Hering <olaf@aepfle.de>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   1e2d3be2e5..3cccdae452  3cccdae45242dab27198b8e150be0c85acd5d3c9 -> smoke
 
