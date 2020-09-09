@@ -2,56 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD273262FEA
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 16:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B2E263000
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 16:51:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG1JG-0004Q9-3y; Wed, 09 Sep 2020 14:42:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kG1RL-0005Hr-1S; Wed, 09 Sep 2020 14:51:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kG1JF-0004Q4-Ee
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 14:42:53 +0000
-X-Inumbo-ID: 82bcacab-5fd7-448d-af2e-d8b8b243962e
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82bcacab-5fd7-448d-af2e-d8b8b243962e;
- Wed, 09 Sep 2020 14:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=Ac2/t0118b7LGcU9uOmWY4oCS5+L2vmpRvm2R7g5dvg=; b=5JtHv90YtMicSYDOkTev2B+VBR
- 5SeXvl4Hij0DXGE1cxZFRxW9PE9/q1sdjxtYYfJXTl9BL2CPqjkPADpzJdZRAWBCu+ptk0zeOkNpB
- 5HmTvK1Dc7IRrjr4LugdJZ79LoH3Ud3JDa9fGRv2rQ76xmzEypBD325YeR9aaOHoFqU0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kG1JD-0002Li-JF; Wed, 09 Sep 2020 14:42:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kG1JD-0003XI-C3; Wed, 09 Sep 2020 14:42:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kG1JD-000441-Bb; Wed, 09 Sep 2020 14:42:51 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154020-mainreport@xen.org>
+ <SRS0=kZUP=CS=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kG1RJ-0005Hm-GN
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 14:51:13 +0000
+X-Inumbo-ID: 7710f681-5e2d-4cca-98e9-926dbf73d292
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7710f681-5e2d-4cca-98e9-926dbf73d292;
+ Wed, 09 Sep 2020 14:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599663073;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=T5drBJQw5icXhtwlyFbVjxtHTcuWeoT6NAXl1HUX1FM=;
+ b=C0FCXauIXCiVO13WrR39lPZanq3F7X24+4RSLQG5+i4mj6dkGyLfR+Cl
+ ruTXY1fcq9sI5G60f2RSkQQ8gxdh+Ri1qBo94Ag7/EHLqnYLVhBSiCZFi
+ 6N21ihnF5M/eeG6TUINXEOrSKOuCbHZQTMD5YTVsHK06w1975Uvbccd2Y 4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: LTqpRkA/fmXTWoX/s09qmWnDYjSN/hiJEoAb7In96piO8SuLIchw3PTl3tOWrbo420QF/M+OHb
+ jt8rFy+nliq90cj9O8/ufLMeDibj4xA94fNB29vOq2gekwvn46KTDi02zjqLlpW+OzfDU9Wcb+
+ CXol+Tl/lhk4O19knWJd0B9kEIcPhX3nsQzs1UoQ9nf2AmY9KZ8oWWZA+feqHMShXtQ5XDDeLa
+ qrIj3Lzq7IWrGx5qOpmHLMnm1IH07T/x69NX+lEaoNrvbAHGE5oKFuaqaxr2TewqlCU/qk0ogD
+ QM8=
+X-SBRS: 2.7
+X-MesageID: 26282907
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,409,1592884800"; d="scan'208";a="26282907"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+ <paul@xen.org>
+Subject: [PATCH] x86/hvm: don't treat MMIO pages as special ones regarding
+ cache attributes
+Date: Wed, 9 Sep 2020 16:50:58 +0200
+Message-ID: <20200909145058.72066-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.28.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 154020: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=3cccdae45242dab27198b8e150be0c85acd5d3c9
-X-Osstest-Versions-That: xen=1e2d3be2e516e6f415ca6029f651b76a8563a27c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Sep 2020 14:42:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +66,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154020 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154020/
+MMIO regions below the maximum address on the memory map can have a
+backing page struct that's shared with dom_io (see x86
+arch_init_memory and it's usage of share_xen_page_with_guest), and
+thus also fulfill the is_special_page check because the page has the
+Xen heap bit set.
 
-Failures :-/ but no regressions.
+This is incorrect for MMIO regions when is_special_page is used by
+epte_get_entry_emt, as it will force direct MMIO regions mapped into
+the guest p2m to have the cache attributes set to write-back.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Add an extra check in epte_get_entry_emt in order to detect pages
+shared with dom_io (ie: MMIO regions) and don't force them to
+write-back cache type on that case.
 
-version targeted for testing:
- xen                  3cccdae45242dab27198b8e150be0c85acd5d3c9
-baseline version:
- xen                  1e2d3be2e516e6f415ca6029f651b76a8563a27c
+Fixes: 81fd0d3ca4b2cd ('x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt()')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Cc: Paul Durrant <paul@xen.org>
+---
+ xen/arch/x86/hvm/mtrr.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Last test of basis   153963  2020-09-08 16:00:26 Z    0 days
-Testing same since   154020  2020-09-09 12:00:24 Z    0 days    1 attempts
+diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
+index fb051d59c3..33b1dd9052 100644
+--- a/xen/arch/x86/hvm/mtrr.c
++++ b/xen/arch/x86/hvm/mtrr.c
+@@ -829,7 +829,9 @@ int epte_get_entry_emt(struct domain *d, unsigned long gfn, mfn_t mfn,
+ 
+     for ( i = 0; i < (1ul << order); i++ )
+     {
+-        if ( is_special_page(mfn_to_page(mfn_add(mfn, i))) )
++        const struct page_info *page = mfn_to_page(mfn_add(mfn, i));
++
++        if ( is_special_page(page) && page_get_owner(page) != dom_io )
+         {
+             if ( order )
+                 return -1;
+-- 
+2.28.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Juergen Gross <jgross@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> (python parts)
-  Olaf Hering <olaf@aepfle.de>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   1e2d3be2e5..3cccdae452  3cccdae45242dab27198b8e150be0c85acd5d3c9 -> smoke
 
