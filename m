@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BBDE263120
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 18:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3A6263153
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 18:07:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG2WH-0003uX-BL; Wed, 09 Sep 2020 16:00:25 +0000
+	id 1kG2cx-00048M-3f; Wed, 09 Sep 2020 16:07:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Y3mV=CS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kG2WF-0003lb-UQ
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 16:00:23 +0000
-X-Inumbo-ID: 77089315-94fa-4edc-8bea-b220cd7e8297
+ id 1kG2cv-00047c-3Y
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 16:07:17 +0000
+X-Inumbo-ID: 6f6ebdb6-dffd-44d8-8b25-38b1de13f4c1
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 77089315-94fa-4edc-8bea-b220cd7e8297;
- Wed, 09 Sep 2020 16:00:19 +0000 (UTC)
+ id 6f6ebdb6-dffd-44d8-8b25-38b1de13f4c1;
+ Wed, 09 Sep 2020 16:07:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AA8BBAF7C;
- Wed,  9 Sep 2020 16:00:34 +0000 (UTC)
-Subject: Re: [PATCH v4] hvmloader: indicate ACPI tables with "ACPI data" type
- in e820
-To: Igor Druzhinin <igor.druzhinin@citrix.com>, andrew.cooper3@citrix.com
-Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com, wl@xen.org,
- iwj@xenproject.org
-References: <1599579679-23983-1-git-send-email-igor.druzhinin@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 362EEB01E;
+ Wed,  9 Sep 2020 16:07:31 +0000 (UTC)
+Subject: Ping: [PATCH v3] x86/HVM: more consistently set I/O completion
+To: 'Jun Nakajima' <jun.nakajima@intel.com>,
+ 'Kevin Tian' <kevin.tian@intel.com>
+Cc: paul@xen.org, xen-devel@lists.xenproject.org,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
+ 'George Dunlap' <George.Dunlap@eu.citrix.com>
+References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
+ <003301d682d6$d4b5ba20$7e212e60$@xen.org>
+ <7efe7de4-bde4-a769-5817-b64b0e757a3f@suse.com>
+ <003c01d684fd$6a187b70$3e497250$@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a0587271-db3a-638e-201c-03bcb46426ed@suse.com>
-Date: Wed, 9 Sep 2020 18:00:19 +0200
+Message-ID: <bdf4b197-3292-4b93-6dcb-16226e42ea76@suse.com>
+Date: Wed, 9 Sep 2020 18:07:16 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <1599579679-23983-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <003c01d684fd$6a187b70$3e497250$@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -51,33 +56,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.09.2020 17:41, Igor Druzhinin wrote:
-> Guest kernel does need to know in some cases where the tables are located
-> to treat these regions properly. One example is kexec process where
-> the first kernel needs to pass ACPI region locations to the second
-> kernel which is now a requirement in Linux after 02a3e3cdb7f12 ("x86/boot:
-> Parse SRAT table and count immovable memory regions") in order for kexec
-> transition to actually work.
+On 07.09.2020 11:58, Paul Durrant wrote:
+> With the comment addition...
 > 
-> That commit introduced accesses to XSDT and SRAT while the second kernel
-> is still using kexec transition tables. The transition tables do not have
-> e820 "reserved" regions mapped where those tables are located currently
-> in a Xen guest. Instead "ACPI data" regions are mapped with the transition
-> tables that was introduced by the following commit 6bbeb276b7 ("x86/kexec:
-> Add the EFI system tables and ACPI tables to the ident map").
-> 
-> Reserve 1MB (out of 16MB currently available) right after ACPI info page for
-> ACPI tables exclusively but populate this region on demand and only indicate
-> populated memory as "ACPI data" since according to ACPI spec that memory is
-> reclaimable by the guest if necessary. That is close to how we treat
-> the same ACPI data in PVH guests. 1MB should be enough for now but could be
-> later extended if required.
-> 
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-After committing this I'm now somewhat uncertain whether to queue this
-for the stable trees. Does either of you (or anyone else) have any clear
-opinion either way?
+With Paul's R-b I'm intending to time out waiting for a VMX
+maintainer ack early next week.
 
 Jan
 
