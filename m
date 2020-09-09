@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B511B262E9C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 14:37:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82668262E9F
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 14:38:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFzLF-0000iu-EG; Wed, 09 Sep 2020 12:36:49 +0000
+	id 1kFzMd-0000qd-U5; Wed, 09 Sep 2020 12:38:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rxpi=CS=arm.com=diego.sueiro@srs-us1.protection.inumbo.net>)
- id 1kFzLE-0000ip-LW
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 12:36:48 +0000
-X-Inumbo-ID: 7917fa1a-4399-47ff-bffc-4342690d7ee6
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7917fa1a-4399-47ff-bffc-4342690d7ee6;
- Wed, 09 Sep 2020 12:36:47 +0000 (UTC)
+ id 1kFzMc-0000qY-JQ
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 12:38:14 +0000
+X-Inumbo-ID: 6f68731e-9279-4984-ac10-35af309ca154
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.0.63]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6f68731e-9279-4984-ac10-35af309ca154;
+ Wed, 09 Sep 2020 12:38:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQhQSBd+zyOcko0gnIGa8KrVyolNQndWmjqfwG4y5Hs=;
- b=uuO3+comgJY11uvJfs7GW2AgHGjGTIhmv0clSSngma3C+s8yt8QmkcCbK0S1t8ieENOBccGYL/G8IyR0sTm/UfMQOi86KNINp0M22/NPEmPrOrEM9y7nLf2p2WHmINvvQN0kO2DwwbK8pXZbbDjyGAuvwRtC7h0B73euGVeKHgc=
-Received: from AM6P195CA0065.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:87::42)
- by AM5PR0801MB2116.eurprd08.prod.outlook.com (2603:10a6:203:31::23) with
+ bh=0rCnPxAf56q4NDSxG80F9hQB69WZxrgA6V8E/jsIqwU=;
+ b=5QoS50ojXN3HZfy8a0RJ8rPHOAP9cWJBARNHBHih08bNmZVBLV0ams/vNCU+7Q/xcUthesRacfkvMdfCehv+An85WNX6EyITWPVQfy82GjCI9dgb/wdaKvI133RF5oePo1qoFIDL/tSLF+KmAggvOFDqZaAePx+hjcSvxhD2omI=
+Received: from AM5PR04CA0013.eurprd04.prod.outlook.com (2603:10a6:206:1::26)
+ by DB8PR08MB5385.eurprd08.prod.outlook.com (2603:10a6:10:119::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15; Wed, 9 Sep
- 2020 12:36:45 +0000
-Received: from AM5EUR03FT030.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:87:cafe::1b) by AM6P195CA0065.outlook.office365.com
- (2603:10a6:209:87::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
- Transport; Wed, 9 Sep 2020 12:36:45 +0000
+ 2020 12:38:11 +0000
+Received: from VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:206:1:cafe::e5) by AM5PR04CA0013.outlook.office365.com
+ (2603:10a6:206:1::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
+ Transport; Wed, 9 Sep 2020 12:38:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
@@ -42,113 +42,113 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT030.mail.protection.outlook.com (10.152.16.117) with
+ VE1EUR03FT010.mail.protection.outlook.com (10.152.18.113) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 12:36:45 +0000
-Received: ("Tessian outbound 7a6fb63c1e64:v64");
- Wed, 09 Sep 2020 12:36:45 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d85f182aca9b6b3b
+ 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 12:38:10 +0000
+Received: ("Tessian outbound 195a290eb161:v64");
+ Wed, 09 Sep 2020 12:38:10 +0000
 X-CR-MTA-TID: 64aa7808
-Received: from f26efae7fd6c.2
+Received: from b91da9cabfaf.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 0826D7D6-DD1E-49D0-9C97-DA2776F09565.1; 
- Wed, 09 Sep 2020 12:36:11 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f26efae7fd6c.2
+ 92C91841-3C2B-4516-9D66-69931155130C.1; 
+ Wed, 09 Sep 2020 12:38:05 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b91da9cabfaf.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 09 Sep 2020 12:36:11 +0000
+ Wed, 09 Sep 2020 12:38:05 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K3l+Na3pX/RtjSi1nTr2OY9fJEvYCkjf7ZiO4Nj8+xGlpcAF4rOAWkTKFqa+6YQSrVI6zPMEy/dWtahR/lxTF8MYXxbNk5ouqZjwqb6Q7o2DWkva551SjOJakeKcu8uzq6wWLM6HflgO88jl6yyG+lRXS//WNuW0ODr0+9i/j9cko6cEZy7MYDPZHF0ZRr0GVFxAf5i03UNj+SJBXwQixvwEg89JvsJJ65CUk0hwEInVihxC0Om/lfcdj4uaABRN0bdf8PDe0M0Jf1jBGS8D0/48VCLq4vDoTdByCxjRZqYEMxV4j5ZmufQ46jiGq3L4ksKNY7tLoiAcDBbiOyOiiw==
+ b=RsX0WCg+quo1jFpMr1pnPZGfu1sggFYDuXHwWFu5oET9DvnPOKjZ3m4ZSMQ+rR5EP9FzfhBUp41Q92qqki5A8HNcmua/V0j10NcBabYqnXGtALFHhAEZxv9Kmd2OiX/crdKZA+nuIVzgwM69uDqKUXlhelVQJgKlJBOaFWLBQSmCT3MBrUX3qW1qqdoMMJfgROoibZ1GXTWQidCGnnmo9nTusuA0GsNRaSI39PBa3KrbEdzqZw0pohb9/3TMFNCGaBHJIAT34gN0BXGqZeaJ7uFTm6GFUg2EvBiMYoMnX2j9wDZz1wD59tyNznIdpX0zqWpoE3GSElEcA/+6qPw/Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQhQSBd+zyOcko0gnIGa8KrVyolNQndWmjqfwG4y5Hs=;
- b=LU6AixTDktRu6/Fakpk8CT3KTubKtuu60yu0ZgfCQc+qDL2kg4VSJd/VwAMe7/EdSc02HcyffWw7WVy66E3800ipYCRJluQcsmFV62r7CtXFpqI2NdtCtOwvD3+RbaBF4dlKGNkqP36TQ/lhwJoknNB6eJOb4LKU05fJ6Y2AtImZ+k0rLR1sa0qVqTwJm0KuDEzwlBNMG4QELwWeAOBIQ2W8dMtaFYGmWIw7qVRAbconClerUbHEWPjgyLHp5ixyEEKi31scjsKs/QzxKOVCMLpodj5IPlI8URnM+7y+5Js4p1BwYzgdTCBCFlvX9x7mwGf9tQGwx+Rt7QW3PZRiwg==
+ bh=0rCnPxAf56q4NDSxG80F9hQB69WZxrgA6V8E/jsIqwU=;
+ b=bbF4nrMrmrMeP0B1sE58YfkeJw9o2XHbOr8sNKSFulvcKIGD08+htKjiP+GBBJQCzOP4GScP5bxAYvyVbrspKWaMLwDTExMf7y04Zz18wfkJ2x4qNp+Jlf7yEX44gQyxFMX6YU68Fy5A6fUAxuUdOE/8U8tsLMDqVWRHj3zQfmlmbjZLEQ5y1eVaNLIW4oWb7mMNNnEGtxXPnoHQ7AjYH9ucjs7IQB/9kDvoIcSIQMRb0xGHUpcDdJkV0nozbxlcnDsckWlkWkF/mpJiOc/V8byYAhxFggFs5aSVXHPRpKiRoXjKewOnz0JrRkNmJRuQILBFU1QFtft4ZYNynxMDVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQhQSBd+zyOcko0gnIGa8KrVyolNQndWmjqfwG4y5Hs=;
- b=uuO3+comgJY11uvJfs7GW2AgHGjGTIhmv0clSSngma3C+s8yt8QmkcCbK0S1t8ieENOBccGYL/G8IyR0sTm/UfMQOi86KNINp0M22/NPEmPrOrEM9y7nLf2p2WHmINvvQN0kO2DwwbK8pXZbbDjyGAuvwRtC7h0B73euGVeKHgc=
-Authentication-Results-Original: lists.xenproject.org; dkim=none (message not
- signed) header.d=none; lists.xenproject.org;
- dmarc=none action=none header.from=arm.com;
+ bh=0rCnPxAf56q4NDSxG80F9hQB69WZxrgA6V8E/jsIqwU=;
+ b=5QoS50ojXN3HZfy8a0RJ8rPHOAP9cWJBARNHBHih08bNmZVBLV0ams/vNCU+7Q/xcUthesRacfkvMdfCehv+An85WNX6EyITWPVQfy82GjCI9dgb/wdaKvI133RF5oePo1qoFIDL/tSLF+KmAggvOFDqZaAePx+hjcSvxhD2omI=
 Received: from AM6PR08MB3461.eurprd08.prod.outlook.com (2603:10a6:20b:47::28)
  by AM6PR08MB3302.eurprd08.prod.outlook.com (2603:10a6:209:41::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15; Wed, 9 Sep
- 2020 12:36:11 +0000
+ 2020 12:38:03 +0000
 Received: from AM6PR08MB3461.eurprd08.prod.outlook.com
  ([fe80::8016:e0c:484c:4255]) by AM6PR08MB3461.eurprd08.prod.outlook.com
  ([fe80::8016:e0c:484c:4255%4]) with mapi id 15.20.3348.019; Wed, 9 Sep 2020
- 12:36:11 +0000
-From: Diego Sueiro <diego.sueiro@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: nd@arm.com, Diego Sueiro <diego.sueiro@arm.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2] tools/hotplug: Fix dhcpd symlink removal in vif-nat
-Date: Wed,  9 Sep 2020 13:35:56 +0100
-Message-Id: <401e31a2c521a34502461336b4e65468e7394e01.1599654067.git.diego.sueiro@arm.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain
-X-ClientProxiedBy: LO2P265CA0238.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:b::34) To AM6PR08MB3461.eurprd08.prod.outlook.com
- (2603:10a6:20b:47::28)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from e120809-lin.cambridge.arm.com (217.140.106.51) by
- LO2P265CA0238.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:b::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 12:36:10 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [217.140.106.51]
-X-MS-PublicTrafficType: Email
+ 12:38:03 +0000
+From: Diego Sueiro <Diego.Sueiro@arm.com>
+To: Wei Liu <wl@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, nd
+ <nd@arm.com>, Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: RE: [PATCH 2/3] tools/hotplug: Fix dhcpd symlink removal in vif-nat
+Thread-Topic: [PATCH 2/3] tools/hotplug: Fix dhcpd symlink removal in vif-nat
+Thread-Index: AQHWduEcCYgO9CTqnUq3GyJB7RikoaldWqeAgAAHKICAAAI2AIAC+exA
+Date: Wed, 9 Sep 2020 12:38:03 +0000
+Message-ID: <AM6PR08MB34617439F1BE12AF7988316C92260@AM6PR08MB3461.eurprd08.prod.outlook.com>
+References: <cover.1597920095.git.diego.sueiro@arm.com>
+ <3b0efb9fb1ba94922c0ae156c0ab0be6a9f45f25.1597920095.git.diego.sueiro@arm.com>
+ <20200907143601.iuuk5yrzgv2stpze@liuwe-devbox-debian-v2>
+ <4FA762CA-FAF0-46AC-A634-9F6D93287668@arm.com>
+ <20200907150932.mylpejk57553ygtv@liuwe-devbox-debian-v2>
+In-Reply-To: <20200907150932.mylpejk57553ygtv@liuwe-devbox-debian-v2>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ts-tracking-id: 1590FD13CDCC66478181CBD2A6983524.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [90.205.40.148]
+x-ms-publictraffictype: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9be160f7-d5e2-4234-dccc-08d854bd032b
-X-MS-TrafficTypeDiagnostic: AM6PR08MB3302:|AM5PR0801MB2116:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <AM5PR0801MB2116EEA0EAE2AC37982B866A92260@AM5PR0801MB2116.eurprd08.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 1b6207c6-254c-4fff-70c2-08d854bd35f4
+x-ms-traffictypediagnostic: AM6PR08MB3302:|DB8PR08MB5385:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS: <DB8PR08MB53853A71ED99B30F383D0FD592260@DB8PR08MB5385.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;OLM:6790;
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: WxcG8IlsEbraXovs3r9OqFglV19/vzF3AdpQV+kwghvCyBznuIEYu1nLD7pUJmctTw/DK7O4ItYA0M0O80hHvCAbG472tOZycY/BaaQbcusA1+wzRNawo63eCgB9i5llDviaHXEGJWkETf4shTLU8WlWFmphtiw0A4l/v9Ye1s+9zoM50sa1lH8x7QnurDhx+5b2WcBwoTCheBcIMASXmBChkRa1ljH3bWV7AtnGQH7qvcxYkPrRvzfqUDr9GEGtOxkuxQ5HTJTlxjplxbSQcelH6T3jE09SYLi+WgPow62m/P8VekXpg7TfRM/8h1jH3rb/NezrKc0OI9bHrytXog==
+X-Microsoft-Antispam-Message-Info-Original: +T/6YAUtCXVq9G7PNhYCX4yPoDNA+Yjey+F+aqeb8S3/CLfgOxVqf5kchfJLNXwNIVTUsyD8mo5HAB2bMjwxKstCKEdDcwsdl6LMVKqOlL5K3gZwdP+uposTYBSYMStSQQqMbmQUIw1B4c6i5p4t4YRsJqy0E6WvZKAzaXeFEu94D1ZAdFMFVFzJ61oKq+RjUWr6YpPtklKlDpcMe+v0h+vbEl7MNbXRxAhSsvt+EX62pdDLT0sbdhwU1hjw6XU6aMwgk5hun6/nJuo7s0U3j1ykIgjuVYEba9220IviHlK3TlO1mE/QNazF2KA8RCMLBjDD3zK+d3LMAgYNuq5RMg==
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM6PR08MB3461.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(396003)(366004)(39860400002)(478600001)(956004)(6666004)(4326008)(5660300002)(6486002)(6916009)(36756003)(44832011)(83380400001)(8936002)(86362001)(2616005)(16526019)(66476007)(66946007)(66556008)(26005)(186003)(52116002)(316002)(7696005)(8676002)(54906003)(2906002);
+ SFS:(4636009)(376002)(346002)(136003)(396003)(366004)(39860400002)(478600001)(4326008)(53546011)(6506007)(5660300002)(6636002)(64756008)(83380400001)(8936002)(86362001)(71200400001)(9686003)(55016002)(66446008)(33656002)(66476007)(66946007)(66556008)(26005)(186003)(316002)(7696005)(8676002)(52536014)(54906003)(2906002)(76116006)(110136005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 6KTKe8G7r0RMIRBOnHCQolXMsiZv0DyVg4lRDbsF0FjiOnQU0csfV2uDacLrHS6SNVnTDD/HD4inUzv2sHNlseuoqOXGa7TsyUjMuk6/7H1/QJdM7NgfyKKPxGJRplVkeLIs86VSeQ9J0nFPkgMxzeJPJ1eq5ddmjDedT9b9Ui90iz31d6uA//HzFmOhuxL4nnv3zlejWyhMFVC05miIPPtRQAvPZ6qXqyrKGqe5ZoGu7PNjI5ZLQGtQ/nNAzoLWbMCJpTfc1jnnu6sZ5+7+vCPkP3LtJx/BFtOYf29LLmhFd7TMT6VF5fkpzrW1vCLMzJKZE5ofSM5Iw3fiSae6/ht8T13PScat2U0P3oCAzXPFF5lzfQqj3jkHCB7mm0jNAr6NFIcztyqff0edk3/HOBaP4185M0HeY0UTDNccKvZdqE0m6axqKQ5pmyokj08BaR5PLKuCQpXxpzaypBLSfHwaA7wPJV+lNebYUwwTNYlAuhSGJV+MGut9xSwIx2qK0n6GqmjDb0TMtsb1rDDuLoaJKdM1qeyKimLS8ynhspvkamTK9cYykimkwMOMI+tfGB8+Ci5afoAfvgwxbagPNfp1dvg4KO9NuCEYvdGH+XXV/VR8bf99k2VRXc8n3y4Hf5HvsdWUAY5asMUDS6ROKw==
+x-ms-exchange-antispam-messagedata: n0Bx/TwoXBaKyKIMnQDjysnanCiQ9+xmJJ+0ZgmwrWdJHnw7SoFaf/r2P9xKqswd1j0X0zFbxF6PN2ZylejrRYwD1eOgvZXOLzfqBrxWVM31g1wo0oSELPGpliIygKWPOC5/cyoBIPg7xEnIp4DfH3J5w7aCQ/KZvjau6s2C5A05xCWlCvpcOUwgrY2KzEt8GWB221W7MyQ+Ir2rBoKCuoRmHg1PEmdpTVk8rsGgt8RuTgWW0QYNYvEUpn+uSLeDa55xFyUXMA3Amx1u7tJWdR1KKgP8GiqM5sIgUzlzWNEuSmbOuyu7mImRAhVYIB+/By0VH1mvVneRBG6X9Y3v3exSRSLVF5bzTlP2fnFI/Hrra3Bw2ZVs1l8Fh1mvQBVLXwhjwNui3bNguWtsT6M4OPfC4MFM9a94KNLclKsDOLlaaW0gy++d8geh/8Qn5MRMmNRA3IxHIKgFISUOfJprTjf6TG4AL4lGGLmVOipU6ylJqnn3UK20tYOFQ2Px2fWMhMB8jdGX63+WpNOIMeDxuWCGLSRtBQqPHAjBIMCY7KmZLo3lRuaywAls3//3AnXk9I2ijbYKM8CMa8g5Q4nWMc6H0I082SUzmXCVa4MG41HzBk96kgQ9pi1M9xNHFstu5+gp36A3ruK3a7MT0dPp6Q==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3302
-Original-Authentication-Results: lists.xenproject.org;
- dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=arm.com;
+Original-Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM5EUR03FT030.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 16f9e42d-2601-46ad-02cd-08d854bceea8
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: c9a3e36c-64fe-4a9b-99b7-08d854bd31ca
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RgdpDaOE0SGPhDC8KkSvwv8rv1w/eIQGWmePExxF961surBUGJK/ijkuweRj1kTNrfmh/ylcZ0WUo6zV4SiHvpBb35Wbw9RsOcUCqrKv2oCgpJWEiSt0vs38D++Fu2FQ26EeZc9zd8+jY73N8uoczdxNZ90MTcmBgzGOIKm99D/bD3WNUIJP5ZtEFL1WymjyUM0lx4YevR3WxjjXAtvkH2J4OxHsHmtRwn0jZav9xCLqD2osdvm0eguCt7f6TG2fHIoHioplGsrqw+2cIaniG9jyr2bP6mle/yPNspF++9rRGHCkbhCfSnduX0RK67m0EfespuAei9Nz6ZxHYmOLs+3i1A9N3TIBeAwD/LBsWFLWRoTANCkS5Xf11z4drSZMzF5NDth2RmgKD8Ktt3+fcg==
+X-Microsoft-Antispam-Message-Info: CSRcbC7JI3sv4XECIIHgatoQkKu2QJtrpIhIyMJAJqmwI+8yo2FOS81oOVfFsRFU5a5H6aSi8Ekyep1P8F5jDvAK2RopdTOilz4OgqYbqi09jfKbwTiCZNBl5JyeGBcrBWo8wkbqyXlN+Fb+f9+TACFtMbAjWnRLX5WWRSDVi9WoSfypgAl2vhglv0zadSn1WmKiosJQXcTN/tbnACVSTGG+wjNHQGYnq5FDgRQxd438ap6RJdZqT9lk1vR39r+1SGbkdjQon8RbTeOM1ZkdwOpp5fNZSzZri77r2FbY5hfwLaYtoYVpavUJxX1eUIzxzKqa0zYeDUSt7j+t/II33pJrGBcvPcX8DgLf6B5jOrS4+A5wHvJpSlN2aO0uUTr7Lm6NdkvcxNIxynFbbIrTlw==
 X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
  PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(396003)(346002)(46966005)(478600001)(2906002)(6666004)(956004)(26005)(54906003)(336012)(70586007)(36756003)(316002)(4326008)(186003)(6486002)(16526019)(70206006)(83380400001)(86362001)(82310400003)(2616005)(44832011)(8936002)(82740400003)(356005)(8676002)(36906005)(81166007)(7696005)(6916009)(47076004)(5660300002);
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(136003)(46966005)(316002)(7696005)(82310400003)(70206006)(70586007)(83380400001)(8676002)(4326008)(86362001)(6506007)(53546011)(52536014)(356005)(107886003)(33656002)(81166007)(26005)(47076004)(8936002)(54906003)(82740400003)(5660300002)(186003)(36906005)(336012)(9686003)(55016002)(478600001)(2906002)(6636002)(110136005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2020 12:36:45.0973 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9be160f7-d5e2-4234-dccc-08d854bd032b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2020 12:38:10.2629 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b6207c6-254c-4fff-70c2-08d854bd35f4
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
  Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM5EUR03FT030.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: VE1EUR03FT010.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0801MB2116
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5385
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,79 +162,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Copy temp files used to add/remove dhcpd configurations to avoid
-replacing potential symlinks.
+>-----Original Message-----
+>From: Wei Liu <wl@xen.org>
+>Sent: 07 September 2020 16:10
+>To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+>Cc: Wei Liu <wl@xen.org>; Diego Sueiro <Diego.Sueiro@arm.com>; xen-
+>devel@lists.xenproject.org; nd <nd@arm.com>; Ian Jackson
+><ian.jackson@eu.citrix.com>
+>Subject: Re: [PATCH 2/3] tools/hotplug: Fix dhcpd symlink removal in vif-n=
+at
+>
+>On Mon, Sep 07, 2020 at 03:01:37PM +0000, Bertrand Marquis wrote:
+>> Hi Wei,
+>>
+>> > On 7 Sep 2020, at 15:36, Wei Liu <wl@xen.org> wrote:
+>> >
+>> > On Thu, Aug 20, 2020 at 12:00:23PM +0100, Diego Sueiro wrote:
+>> >> Copy temp files used to add/remove dhcpd configurations to avoid
+>> >> replacing potential symlinks.
+>> >>
+>> >
+>> > Can you clarify the issue you saw a bit?
+>> >
+>> > Which one of the parameter is a symlink (I assume the latter) and
+>> > what problem you see with replacing the symlinks?
+>>
+>> Maybe i can explain here.
+>>
+>> If you have this:
+>> /etc/dhcp.conf -> dhcp.conf.real
+>>
+>> mv will create a new file dhcp.conf where cp will actually modify
+>> dhcp.conf.real instead of replacing the symlink with a real file.
+>>
+>> This prevents some mistakes where the user will actually continue to
+>> modify dhcp.conf.real where it would not be the one used anymore.
+>
+>OK. Now I understand the use case. Thanks.
+>
+>I think you explanation should be part of the commit message.
+>
+>Diego, can you please incorporate Bertrand's explanation and deal with my
+>comment below?
+>
 
-If dhcp.conf is a symlink pointing to dhcp.conf.real, using 'mv'
-creates a new file dhcp.conf where cp will actually modify
-dhcp.conf.real instead of replacing the symlink with a real
-file.
+Done and v2 sent to the mailing list. Thanks for your review.
 
-Using 'cp' prevents some mistakes where the user will actually
-continue to modify dhcp.conf.real where it would not be the one
-used anymore.
+--
+Diego Sueiro
 
-Signed-off-by: Diego Sueiro <diego.sueiro@arm.com>
----
-Changes in v2:
-  - Update commit message
-  - Simplify the code when removing the temp file.
----
- tools/hotplug/Linux/vif-nat | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
-
-diff --git a/tools/hotplug/Linux/vif-nat b/tools/hotplug/Linux/vif-nat
-index 2614435..fd34afb 100644
---- a/tools/hotplug/Linux/vif-nat
-+++ b/tools/hotplug/Linux/vif-nat
-@@ -95,12 +95,11 @@ dhcparg_remove_entry()
- {
-   local tmpfile=$(mktemp)
-   sed -e "s/${dev} //" "$dhcpd_arg_file" >"$tmpfile"
--  if diff "$tmpfile" "$dhcpd_arg_file" >/dev/null
-+  if ! diff "$tmpfile" "$dhcpd_arg_file" >/dev/null
-   then
--    rm "$tmpfile"
--  else
--    mv "$tmpfile" "$dhcpd_arg_file"
-+    cp "$tmpfile" "$dhcpd_arg_file"
-   fi
-+  rm "$tmpfile"
- }
- 
- dhcparg_add_entry()
-@@ -109,11 +108,11 @@ dhcparg_add_entry()
-   local tmpfile=$(mktemp)
-   # handle Red Hat, SUSE, and Debian styles, with or without quotes
-   sed -e 's/^DHCPDARGS="*\([^"]*\)"*/DHCPDARGS="\1'"${dev} "'"/' \
--     "$dhcpd_arg_file" >"$tmpfile" && mv "$tmpfile" "$dhcpd_arg_file"
-+     "$dhcpd_arg_file" >"$tmpfile" && cp "$tmpfile" "$dhcpd_arg_file"
-   sed -e 's/^DHCPD_INTERFACE="*\([^"]*\)"*/DHCPD_INTERFACE="\1'"${dev} "'"/' \
--     "$dhcpd_arg_file" >"$tmpfile" && mv "$tmpfile" "$dhcpd_arg_file"
-+     "$dhcpd_arg_file" >"$tmpfile" && cp "$tmpfile" "$dhcpd_arg_file"
-   sed -e 's/^INTERFACES="*\([^"]*\)"*/INTERFACES="\1'"${dev} "'"/' \
--     "$dhcpd_arg_file" >"$tmpfile" && mv "$tmpfile" "$dhcpd_arg_file"
-+     "$dhcpd_arg_file" >"$tmpfile" && cp "$tmpfile" "$dhcpd_arg_file"
-   rm -f "$tmpfile"
- }
- 
-@@ -121,12 +120,11 @@ dhcp_remove_entry()
- {
-   local tmpfile=$(mktemp)
-   grep -v "host $hostname" "$dhcpd_conf_file" >"$tmpfile"
--  if diff "$tmpfile" "$dhcpd_conf_file" >/dev/null
-+  if ! diff "$tmpfile" "$dhcpd_conf_file" >/dev/null
-   then
--    rm "$tmpfile"
--  else
--    mv "$tmpfile" "$dhcpd_conf_file"
-+    cp "$tmpfile" "$dhcpd_conf_file"
-   fi
-+  rm "$tmpfile"
-   dhcparg_remove_entry
- }
- 
--- 
-2.7.4
-
+>> >> ---
+>> >> tools/hotplug/Linux/vif-nat | 12 +++++++-----
+>> >> 1 file changed, 7 insertions(+), 5 deletions(-)
+>> >>
+>> >> diff --git a/tools/hotplug/Linux/vif-nat
+>> >> b/tools/hotplug/Linux/vif-nat index 2614435..1ab80ed 100644
+>> >> --- a/tools/hotplug/Linux/vif-nat
+>> >> +++ b/tools/hotplug/Linux/vif-nat
+>> >> @@ -99,7 +99,8 @@ dhcparg_remove_entry()
+>> >>   then
+>> >>     rm "$tmpfile"
+>> >>   else
+>> >> -    mv "$tmpfile" "$dhcpd_arg_file"
+>> >> +    cp "$tmpfile" "$dhcpd_arg_file"
+>> >> +    rm "$tmpfile"
+>> >>   fi
+>> >
+>> > You could've simplified the code a bit here and below now that both
+>> > branches issue the same rm command.
+>
+>Wei.
 
