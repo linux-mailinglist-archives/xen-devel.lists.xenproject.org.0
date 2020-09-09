@@ -2,74 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0176F262DAF
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 13:11:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F2E6262DC0
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 13:24:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFy05-0000Id-0U; Wed, 09 Sep 2020 11:10:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kFyD9-0001wm-Ij; Wed, 09 Sep 2020 11:24:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFy04-0000IA-AE
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 11:10:52 +0000
-X-Inumbo-ID: f3d0eefd-065d-4ab9-8ef3-afcb400a8edb
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f3d0eefd-065d-4ab9-8ef3-afcb400a8edb;
- Wed, 09 Sep 2020 11:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=x+/lEtdm1hLgCGxjvbkYixOjBbX0hcyI2S6EfQv5BRk=; b=rAatIyg9KO1owpzw1lx5AxTfHH
- 0jBL/v18hxn961EOKg6pDcLAcRvAa/3TmT/ITlH1pcENDAipCDyrpcxfqZNEKlnLKuXcGIkHl8PkR
- kYbvXdSt4v88lxhAanf1mLQhp62tktB1fPdiHWuhKyUbLQPezv50w4t3kWXAbaVnfj1w=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFxzw-00060m-GS; Wed, 09 Sep 2020 11:10:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFxzw-0000aq-8O; Wed, 09 Sep 2020 11:10:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFxzw-0000Yl-7r; Wed, 09 Sep 2020 11:10:44 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-153999-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=jAoN=CS=ellerman.id.au=mpe@srs-us1.protection.inumbo.net>)
+ id 1kFyD8-0001we-B4
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 11:24:22 +0000
+X-Inumbo-ID: e5c816e0-621d-4f77-8d82-3277b4e159c1
+Received: from ozlabs.org (unknown [2401:3900:2:1::2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e5c816e0-621d-4f77-8d82-3277b4e159c1;
+ Wed, 09 Sep 2020 11:24:17 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4BmfmN3SGmz9sTd;
+ Wed,  9 Sep 2020 21:24:04 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1599650649;
+ bh=McxY0vGyvNVlrIIx6KzYtU4PcHnFzd9G9dek0Ykf36c=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=SmXDZKzAAkIskfZPfi7qrbi2STOAaRgkLgLUwpRIri563PnPrs5blw/OlSwl2MX5i
+ 69HKj9JHLONl1Qz3CbYvZy/4cbddpiJHmROqXSbmg8WJh+BTuQXH9dKNRHILZpAo1t
+ hze5cgR0ZcFpNy/5f5QSzsCR/ywLKY3MFV1MB2evwZ2HPd+YxWui6TnWbMXUjz3bFE
+ Dflejkj7ciOj6dUGOWs0UizA/kfuOX43D8JH9M1T139ttlnt9G8+OPWPLzwt3iVOxx
+ uuXIzjXH4T67FDy3bvc2QCqjoeC0dD5axnVjQL4imxfeD2KhwwbuLyb1WJFKSm2qYS
+ /CHKbJLh3kYdA==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: David Hildenbrand <david@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org, Andrew Morton
+ <akpm@linux-foundation.org>, Wei Liu <wei.liu@kernel.org>, Michal Hocko
+ <mhocko@suse.com>, Dan Williams <dan.j.williams@intel.com>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+ Baoquan He <bhe@redhat.com>, Wei Yang <richardw.yang@linux.intel.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras
+ <paulus@samba.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown
+ <lenb@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang
+ <dave.jiang@intel.com>, "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang
+ Zhang <haiyangz@microsoft.com>, Stephen Hemminger
+ <sthemmin@microsoft.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@de.ibm.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason
+ Wang <jasowang@redhat.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oliver O'Halloran <oohall@gmail.com>, Pingfan
+ Liu <kernelfans@gmail.com>, Nathan Lynch <nathanl@linux.ibm.com>, Libor
+ Pechacek <lpechacek@suse.cz>, Anton Blanchard <anton@ozlabs.org>, Leonardo
+ Bras <leobras.c@gmail.com>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v2 3/7] mm/memory_hotplug: prepare passing flags to
+ add_memory() and friends
+In-Reply-To: <3bc5b464-3229-d442-714a-ec33b5728ac6@redhat.com>
+References: <20200908201012.44168-1-david@redhat.com>
+ <20200908201012.44168-4-david@redhat.com> <20200909071759.GD435421@kroah.com>
+ <3bc5b464-3229-d442-714a-ec33b5728ac6@redhat.com>
+Date: Wed, 09 Sep 2020 21:24:02 +1000
+Message-ID: <87eenbry5p.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Subject: [libvirt test] 153999: regressions - FAIL
-X-Osstest-Failures: libvirt:build-i386-xsm:xen-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386:xen-build:fail:regression
- libvirt:build-amd64-xsm:xen-build:fail:regression
- libvirt:build-amd64:xen-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:build-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=ddbff7e3eeb7f39a42d81296a356c705e281a201
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Sep 2020 11:10:44 +0000
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,160 +82,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153999 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153999/
+David Hildenbrand <david@redhat.com> writes:
+> On 09.09.20 09:17, Greg Kroah-Hartman wrote:
+>> On Tue, Sep 08, 2020 at 10:10:08PM +0200, David Hildenbrand wrote:
+>>> We soon want to pass flags, e.g., to mark added System RAM resources.
+>>> mergeable. Prepare for that.
+>> 
+>> What are these random "flags", and how do we know what should be passed
+>> to them?
+>> 
+>> Why not make this an enumerated type so that we know it all works
+>> properly, like the GPF_* flags are?  Passing around a random unsigned
+>> long feels very odd/broken...
+>
+> Agreed, an enum (mhp_flags) seems to give a better hint what can
+> actually be passed. Thanks!
 
-Regressions :-(
+You probably know this but ...
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386                    6 xen-build                fail REGR. vs. 151777
- build-amd64-xsm               6 xen-build                fail REGR. vs. 151777
- build-amd64                   6 xen-build                fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+Just using a C enum doesn't get you any type safety.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+You can get some checking via sparse by using __bitwise, which is what
+gfp_t does. You don't actually have to use an enum for that, it works
+with #defines also.
 
-version targeted for testing:
- libvirt              ddbff7e3eeb7f39a42d81296a356c705e281a201
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+Or you can wrap the flag in a struct, the way atomic_t does, and then
+the compiler will prevent passing plain integers in place of your custom
+type.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z   61 days
-Failing since        151818  2020-07-11 04:18:52 Z   60 days   56 attempts
-Testing same since   153999  2020-09-09 04:19:16 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 13407 lines long.)
+cheers
 
