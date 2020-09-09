@@ -2,47 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3A6263153
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 18:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FE40263152
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 18:07:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG2cx-00048M-3f; Wed, 09 Sep 2020 16:07:19 +0000
+	id 1kG2dQ-0004Bk-De; Wed, 09 Sep 2020 16:07:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y3mV=CS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kG2cv-00047c-3Y
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 16:07:17 +0000
-X-Inumbo-ID: 6f6ebdb6-dffd-44d8-8b25-38b1de13f4c1
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Jv/y=CS=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1kG2dP-0004Bd-OY
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 16:07:47 +0000
+X-Inumbo-ID: 5ee27098-254a-4278-80e3-4c364c141eeb
+Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f6ebdb6-dffd-44d8-8b25-38b1de13f4c1;
- Wed, 09 Sep 2020 16:07:16 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 362EEB01E;
- Wed,  9 Sep 2020 16:07:31 +0000 (UTC)
-Subject: Ping: [PATCH v3] x86/HVM: more consistently set I/O completion
-To: 'Jun Nakajima' <jun.nakajima@intel.com>,
- 'Kevin Tian' <kevin.tian@intel.com>
-Cc: paul@xen.org, xen-devel@lists.xenproject.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'George Dunlap' <George.Dunlap@eu.citrix.com>
-References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
- <003301d682d6$d4b5ba20$7e212e60$@xen.org>
- <7efe7de4-bde4-a769-5817-b64b0e757a3f@suse.com>
- <003c01d684fd$6a187b70$3e497250$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bdf4b197-3292-4b93-6dcb-16226e42ea76@suse.com>
-Date: Wed, 9 Sep 2020 18:07:16 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id 5ee27098-254a-4278-80e3-4c364c141eeb;
+ Wed, 09 Sep 2020 16:07:47 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id f142so2881593qke.13
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Sep 2020 09:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=W6JHl2pJ4b9pOCvVr4DrsQk+nKWiJhgnyaUXZ93HkkY=;
+ b=uNaXttl+DzcYJUodqGDuN/qRVDSYl+GZ4SftaClpQanqO/xm02GQF9vCjnEp2LoTKA
+ vUJTL5MfSAeFUR2JZcanddmtTPo2pUN6IeZJHby/cM+m9SUV/dXVX8nK0T1l2F2RjRY6
+ YCCMuagmUXrMA/Rm8ByNN6vsgGluKwWh8AqgfIoVWU1dlddeZpg5p3ohkectPMzO0Rk4
+ kBkCEJQ9pFEEBqglFgEj8peLSUBT5RawaUFAPw3HO+0IFgQ+n9i8VCCpUTkNV2ms0OWU
+ h11VCPuWe2Lmu3eNKwd2qVgPcFk2lcE/0Qb+awI1Yyi+Zq2csW92bFoicg/hblS3EsQV
+ K3lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=W6JHl2pJ4b9pOCvVr4DrsQk+nKWiJhgnyaUXZ93HkkY=;
+ b=Kl+6Gnq/Ey5jPisbllulU/pmuuPSi57DF9pt+zHkpd7siWL24MUuUq/hqGuPhv2wVq
+ Jidn2lODH6q/nxWGPMJIB0WbY/WLYjfuDWIAIP7e+EVV0FJA5DS5DiuEJ5m4jC36ilXY
+ 2tuinA3cGFZbKW/oz/nn7hKG/Q6QvJ/COYRI8XCeFg24hI7TPJF42O4iuypA1gDNRJuS
+ Lsdb8iItPZEOkj0cbnJ/3DiKhDkk7quCEgtFoGkUQLd9R0Yga1YJZuwdyP4JxNnfvEuz
+ AcMcbHKJ7gYPbfWRRF+CDAx/fMg8gVMZ913wJG4dE1MCwhPiixT5PjJYeO1ypR1mU1Vm
+ lgtQ==
+X-Gm-Message-State: AOAM531G0VeVMA0j08tfzd5x/qAafsfDsXaPpiBfqwVCdkJAwCPBG08p
+ VRReQXnZ0O5K7t03QbMvWYw=
+X-Google-Smtp-Source: ABdhPJw5WogXlPWDiOAo+qwZnqTT5c48A9UJD+yKMWfyxpu1Q+WxMZ3vx8hLXcnB1zeY4ea23Eabcw==
+X-Received: by 2002:a05:620a:244:: with SMTP id
+ q4mr3722569qkn.375.1599667666477; 
+ Wed, 09 Sep 2020 09:07:46 -0700 (PDT)
+Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
+ (209-217-208-226.northland.net. [209.217.208.226])
+ by smtp.gmail.com with ESMTPSA id m68sm1144078qkd.105.2020.09.09.09.07.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 09 Sep 2020 09:07:45 -0700 (PDT)
+Date: Wed, 9 Sep 2020 12:07:42 -0400
+From: Nick Rosbrook <rosbrookn@gmail.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] golang/xenlight: Move to an entirely external repo
+Message-ID: <20200909160742.GA56470@FED-nrosbr-BE.crux.rad.ainfosec.com>
+References: <20200904164000.602618-1-george.dunlap@citrix.com>
+ <20200908170332.GA12322@FED-nrosbr-BE.crux.rad.ainfosec.com>
+ <612A1B4D-41E5-42F4-882E-D4750D53B24D@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <003c01d684fd$6a187b70$3e497250$@xen.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <612A1B4D-41E5-42F4-882E-D4750D53B24D@citrix.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,13 +82,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.09.2020 11:58, Paul Durrant wrote:
-> With the comment addition...
+On Tue, Sep 08, 2020 at 08:46:58PM +0000, George Dunlap wrote:
 > 
-> Reviewed-by: Paul Durrant <paul@xen.org>
+> 
+> > On Sep 8, 2020, at 6:03 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+> > 
+> > On Fri, Sep 04, 2020 at 05:40:00PM +0100, George Dunlap wrote:
+> >> Remove all go files and generation targets.
+> >> 
+> >> Add a convenience macro to build the package from staging.  This isn't
+> >> really meant to be called directly; rather, it's meant to be called
+> >> from a corresponding build target inside the external xenlight package
+> >> repo.
+> >> 
+> >> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+> > 
+> > Does this make our move to gitlab.com/xen-project/go-xen official? I
+> > wasn't expecting this to be so soon. But, if you're satisifed with what
+> > you've learned from working on the experimental repo/module, I guess I'm
+> > not opposed. I would like to know the rest of the details though.
+> 
+> All patches to the list are proposals — nothing is official until it’s been checked in; and I haven’t checked, but since nobody has Acked it, it certainly *shouldn’t* have been checked in yet. :-)
+> 
+> So, feel free to give feedback or ask whatever details you think need to be ironed out.  That’s what this thread is for.
+> 
+> There’s certainly no issue with waiting to delete the code in-tree; but I wouldn’t be a fan of developing in both places at once and keeping things in sync.  (I could be convinced if you thought that was important.)  I’d prefer just to develop in the external tree, and if for some reason we decide that doesn’t work, importing the changes back into xen.git.
 
-With Paul's R-b I'm intending to time out waiting for a VMX
-maintainer ack early next week.
+That's all I was curious about really. I incorrectly assumed that
+deleting the code from xen.git would be some big, "permanent" action, so
+I was just wasn't expecting this already. Your plan makes sense to me.
+:)
 
-Jan
+Acked-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 
