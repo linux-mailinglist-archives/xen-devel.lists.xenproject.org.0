@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BDA9262E1D
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B71262E1E
 	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 13:47:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFyYt-0003uO-No; Wed, 09 Sep 2020 11:46:51 +0000
+	id 1kFyYy-0003vt-H9; Wed, 09 Sep 2020 11:46:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c0kD=CS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kFyYs-0003uE-BG
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 11:46:50 +0000
-X-Inumbo-ID: ef26cdeb-9048-4ed6-95d5-af2a6f3deba8
+ id 1kFyYx-0003uE-4V
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 11:46:55 +0000
+X-Inumbo-ID: c3687299-1d05-47d7-a208-a9b8aa2d8a73
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef26cdeb-9048-4ed6-95d5-af2a6f3deba8;
- Wed, 09 Sep 2020 11:46:48 +0000 (UTC)
+ id c3687299-1d05-47d7-a208-a9b8aa2d8a73;
+ Wed, 09 Sep 2020 11:46:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B3AD9ACF6;
+ by mx2.suse.de (Postfix) with ESMTP id DC6B1AD1E;
  Wed,  9 Sep 2020 11:46:48 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v5 2/4] tools: rename global libxlutil make variables
-Date: Wed,  9 Sep 2020 13:46:43 +0200
-Message-Id: <20200909114645.3709-3-jgross@suse.com>
+ Wei Liu <wl@xen.org>
+Subject: [PATCH v5 3/4] tools/libs: add option for library names not starting
+ with libxen
+Date: Wed,  9 Sep 2020 13:46:44 +0200
+Message-Id: <20200909114645.3709-4-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200909114645.3709-1-jgross@suse.com>
 References: <20200909114645.3709-1-jgross@suse.com>
@@ -47,89 +48,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Rename *_libxlutil make variables to *_libxenutil in order to avoid
-nasty indirections when moving libxlutil under the tools/libs
-infrastructure.
+libxlutil doesn't follow the standard name pattern of all other Xen
+libraries, so add another make variable which can be used to allow
+other names.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/Rules.mk       | 10 +++++-----
- tools/libxl/Makefile |  4 ++--
- tools/xl/Makefile    |  4 ++--
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ tools/Rules.mk     |  3 ++-
+ tools/libs/libs.mk | 41 +++++++++++++++++++++--------------------
+ 2 files changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 94a736a231..fef6986ab3 100644
+index fef6986ab3..36094155b7 100644
 --- a/tools/Rules.mk
 +++ b/tools/Rules.mk
-@@ -15,7 +15,7 @@ XEN_INCLUDE        = $(XEN_ROOT)/tools/include
+@@ -87,10 +87,11 @@ endif
+ # $(SHLIB_libfoo)
  
- include $(XEN_ROOT)/tools/libs/uselibs.mk
+ define LIB_defs
++ FILENAME_$(1) ?= xen$(1)
+  XEN_libxen$(1) = $$(XEN_ROOT)/tools/libs/$(1)
+  CFLAGS_libxen$(1) = -I$$(XEN_libxen$(1))/include $$(CFLAGS_xeninclude)
+  SHDEPS_libxen$(1) = $$(foreach use,$$(USELIBS_$(1)),$$(SHLIB_libxen$$(use)))
+- LDLIBS_libxen$(1) = $$(SHDEPS_libxen$(1)) $$(XEN_libxen$(1))/libxen$(1)$$(libextension)
++ LDLIBS_libxen$(1) = $$(SHDEPS_libxen$(1)) $$(XEN_libxen$(1))/lib$$(FILENAME_$(1))$$(libextension)
+  SHLIB_libxen$(1) = $$(SHDEPS_libxen$(1)) -Wl,-rpath-link=$$(XEN_libxen$(1))
+ endef
  
--XEN_libxlutil      = $(XEN_ROOT)/tools/libxl
-+XEN_libxenutil     = $(XEN_ROOT)/tools/libxl
+diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
+index 9d0ed08846..325b7b7cea 100644
+--- a/tools/libs/libs.mk
++++ b/tools/libs/libs.mk
+@@ -20,20 +20,21 @@ LDUSELIBS = $(foreach lib, $(USELIBS_$(LIBNAME)), $(LDLIBS_libxen$(lib)))
+ LIB_OBJS := $(SRCS-y:.c=.o)
+ PIC_OBJS := $(SRCS-y:.c=.opic)
  
- CFLAGS_xeninclude = -I$(XEN_INCLUDE)
- 
-@@ -116,10 +116,10 @@ else
- CFLAGS += -O2 -fomit-frame-pointer
+-LIB := libxen$(LIBNAME).a
++LIB_FILE_NAME = $(FILENAME_$(LIBNAME))
++LIB := lib$(LIB_FILE_NAME).a
+ ifneq ($(nosharedlibs),y)
+-LIB += libxen$(LIBNAME).so
++LIB += lib$(LIB_FILE_NAME).so
  endif
  
--CFLAGS_libxlutil = -I$(XEN_libxlutil)
--SHDEPS_libxlutil = $(SHLIB_libxenlight)
--LDLIBS_libxlutil = $(SHDEPS_libxlutil) $(XEN_libxlutil)/libxlutil$(libextension)
--SHLIB_libxlutil  = $(SHDEPS_libxlutil) -Wl,-rpath-link=$(XEN_libxlutil)
-+CFLAGS_libxenutil = -I$(XEN_libxenutil)
-+SHDEPS_libxenutil = $(SHLIB_libxenlight)
-+LDLIBS_libxenutil = $(SHDEPS_libxenutil) $(XEN_libxenutil)/libxlutil$(libextension)
-+SHLIB_libxenutil  = $(SHDEPS_libxenutil) -Wl,-rpath-link=$(XEN_libxenutil)
+ comma:= ,
+ empty:=
+ space:= $(empty) $(empty)
+-PKG_CONFIG ?= xen$(LIBNAME).pc
++PKG_CONFIG ?= $(LIB_FILE_NAME).pc
+ PKG_CONFIG_NAME ?= Xen$(LIBNAME)
+ PKG_CONFIG_DESC ?= The $(PKG_CONFIG_NAME) library for Xen hypervisor
+ PKG_CONFIG_VERSION := $(MAJOR).$(MINOR)
+ PKG_CONFIG_USELIBS := $(SHLIB_libxen$(LIBNAME))
+-PKG_CONFIG_LIB := xen$(LIBNAME)
++PKG_CONFIG_LIB := $(LIB_FILE_NAME)
+ PKG_CONFIG_REQPRIV := $(subst $(space),$(comma),$(strip $(foreach lib,$(patsubst ctrl,control,$(USELIBS_$(LIBNAME))),xen$(lib))))
  
- CFLAGS += -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__
+ ifneq ($(CONFIG_LIBXC_MINIOS),y)
+@@ -45,7 +46,7 @@ endif
  
-diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
-index 8ab7c9d3f0..51da1d5be4 100644
---- a/tools/libxl/Makefile
-+++ b/tools/libxl/Makefile
-@@ -42,7 +42,7 @@ PKG_CONFIG_INST := $(PKG_CONFIG)
- xlutil.pc: PKG_CONFIG_NAME = Xlutil
- xlutil.pc: PKG_CONFIG_DESC = The xl utility library for Xen hypervisor
- xlutil.pc: PKG_CONFIG_VERSION = $(XLUMAJOR).$(XLUMINOR)
--xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxlutil)
-+xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxenutil)
- xlutil.pc: PKG_CONFIG_LIB = xlutil
- xlutil.pc: PKG_CONFIG_REQPRIV = xenlight
- $(PKG_CONFIG_INST): PKG_CONFIG_PREFIX = $(prefix)
-@@ -55,7 +55,7 @@ PKG_CONFIG_LOCAL := $(foreach pc,$(PKG_CONFIG),$(PKG_CONFIG_DIR)/$(pc))
- $(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_NAME = Xlutil
- $(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_DESC = The xl utility library for Xen hypervisor
- $(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_VERSION = $(XLUMAJOR).$(XLUMINOR)
--$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxlutil)
-+$(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_USELIBS = $(SHLIB_libxenutil)
- $(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_LIB = xlutil
- $(PKG_CONFIG_DIR)/xlutil.pc: PKG_CONFIG_REQPRIV = xenlight
- $(PKG_CONFIG_LOCAL): PKG_CONFIG_PREFIX = $(XEN_ROOT)
-diff --git a/tools/xl/Makefile b/tools/xl/Makefile
-index 407dd7554c..bdf67c8464 100644
---- a/tools/xl/Makefile
-+++ b/tools/xl/Makefile
-@@ -13,7 +13,7 @@ CFLAGS += $(PTHREAD_CFLAGS)
- LDFLAGS += $(PTHREAD_LDFLAGS)
+ PKG_CONFIG_LOCAL := $(PKG_CONFIG_DIR)/$(PKG_CONFIG)
  
- CFLAGS_XL += $(CFLAGS_libxenlight)
--CFLAGS_XL += $(CFLAGS_libxlutil)
-+CFLAGS_XL += $(CFLAGS_libxenutil)
- CFLAGS_XL += -Wshadow
+-LIBHEADER ?= xen$(LIBNAME).h
++LIBHEADER ?= $(LIB_FILE_NAME).h
+ LIBHEADERS = $(foreach h, $(LIBHEADER), include/$(h))
+ LIBHEADERSGLOB = $(foreach h, $(LIBHEADER), $(XEN_ROOT)/tools/include/$(h))
  
- XL_OBJS-$(CONFIG_X86) = xl_psr.o
-@@ -38,7 +38,7 @@ $(XL_OBJS): _paths.h
- all: xl
+@@ -81,36 +82,36 @@ libxen$(LIBNAME).map:
+ $(LIBHEADERSGLOB): $(LIBHEADERS)
+ 	for i in $(realpath $(LIBHEADERS)); do ln -sf $$i $(XEN_ROOT)/tools/include; done
  
- xl: $(XL_OBJS)
--	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxlutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) -lyajl $(APPEND_LDFLAGS)
-+	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) -lyajl $(APPEND_LDFLAGS)
+-libxen$(LIBNAME).a: $(LIB_OBJS)
++lib$(LIB_FILE_NAME).a: $(LIB_OBJS)
+ 	$(AR) rc $@ $^
+ 
+-libxen$(LIBNAME).so: libxen$(LIBNAME).so.$(MAJOR)
++lib$(LIB_FILE_NAME).so: lib$(LIB_FILE_NAME).so.$(MAJOR)
+ 	$(SYMLINK_SHLIB) $< $@
+-libxen$(LIBNAME).so.$(MAJOR): libxen$(LIBNAME).so.$(MAJOR).$(MINOR)
++lib$(LIB_FILE_NAME).so.$(MAJOR): lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)
+ 	$(SYMLINK_SHLIB) $< $@
+ 
+-libxen$(LIBNAME).so.$(MAJOR).$(MINOR): $(PIC_OBJS) libxen$(LIBNAME).map
+-	$(CC) $(LDFLAGS) $(PTHREAD_LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,libxen$(LIBNAME).so.$(MAJOR) $(SHLIB_LDFLAGS) -o $@ $(PIC_OBJS) $(LDUSELIBS) $(APPEND_LDFLAGS)
++lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR): $(PIC_OBJS) libxen$(LIBNAME).map
++	$(CC) $(LDFLAGS) $(PTHREAD_LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,lib$(LIB_FILE_NAME).so.$(MAJOR) $(SHLIB_LDFLAGS) -o $@ $(PIC_OBJS) $(LDUSELIBS) $(APPEND_LDFLAGS)
  
  .PHONY: install
- install: all
+ install: build
+ 	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+ 	$(INSTALL_DIR) $(DESTDIR)$(includedir)
+-	$(INSTALL_SHLIB) libxen$(LIBNAME).so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)
+-	$(INSTALL_DATA) libxen$(LIBNAME).a $(DESTDIR)$(libdir)
+-	$(SYMLINK_SHLIB) libxen$(LIBNAME).so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)/libxen$(LIBNAME).so.$(MAJOR)
+-	$(SYMLINK_SHLIB) libxen$(LIBNAME).so.$(MAJOR) $(DESTDIR)$(libdir)/libxen$(LIBNAME).so
++	$(INSTALL_SHLIB) lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)
++	$(INSTALL_DATA) lib$(LIB_FILE_NAME).a $(DESTDIR)$(libdir)
++	$(SYMLINK_SHLIB) lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so.$(MAJOR)
++	$(SYMLINK_SHLIB) lib$(LIB_FILE_NAME).so.$(MAJOR) $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so
+ 	for i in $(LIBHEADERS); do $(INSTALL_DATA) $$i $(DESTDIR)$(includedir); done
+ 	$(INSTALL_DATA) $(PKG_CONFIG) $(DESTDIR)$(PKG_INSTALLDIR)
+ 
+ .PHONY: uninstall
+ uninstall:
+-	rm -f $(DESTDIR)$(PKG_INSTALLDIR)/xen$(LIBNAME).pc
++	rm -f $(DESTDIR)$(PKG_INSTALLDIR)/$(LIB_FILE_NAME).pc
+ 	for i in $(LIBHEADER); do rm -f $(DESTDIR)$(includedir)/$(LIBHEADER); done
+-	rm -f $(DESTDIR)$(libdir)/libxen$(LIBNAME).so
+-	rm -f $(DESTDIR)$(libdir)/libxen$(LIBNAME).so.$(MAJOR)
+-	rm -f $(DESTDIR)$(libdir)/libxen$(LIBNAME).so.$(MAJOR).$(MINOR)
+-	rm -f $(DESTDIR)$(libdir)/libxen$(LIBNAME).a
++	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so
++	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so.$(MAJOR)
++	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)
++	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).a
+ 
+ .PHONY: TAGS
+ TAGS:
+@@ -119,7 +120,7 @@ TAGS:
+ .PHONY: clean
+ clean:
+ 	rm -rf *.rpm $(LIB) *~ $(DEPS_RM) $(LIB_OBJS) $(PIC_OBJS)
+-	rm -f libxen$(LIBNAME).so.$(MAJOR).$(MINOR) libxen$(LIBNAME).so.$(MAJOR)
++	rm -f lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR) lib$(LIB_FILE_NAME).so.$(MAJOR)
+ 	rm -f headers.chk
+ 	rm -f $(PKG_CONFIG)
+ 	rm -f $(LIBHEADERSGLOB)
 -- 
 2.26.2
 
