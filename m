@@ -2,55 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A670A263008
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 16:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEC7326303E
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 17:12:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG1Vt-0005TS-Nc; Wed, 09 Sep 2020 14:55:57 +0000
+	id 1kG1li-0007AK-6Y; Wed, 09 Sep 2020 15:12:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=M6/y=CS=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kG1Vr-0005TN-8A
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 14:55:55 +0000
-X-Inumbo-ID: 8fc2a856-cd57-4786-be4a-b8bd0d66b4f3
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.23])
+ (envelope-from <SRS0=c0kD=CS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kG1lg-00079o-SI
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 15:12:16 +0000
+X-Inumbo-ID: 90258e1e-4ed0-4035-a4eb-d748d7bcd4cc
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8fc2a856-cd57-4786-be4a-b8bd0d66b4f3;
- Wed, 09 Sep 2020 14:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1599663353;
- s=strato-dkim-0002; d=aepfle.de;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=tukLdkeOGQW3DiarZKNmZ1x5LoXcksEo3hYzmdef0M4=;
- b=ZKaLYKUNd2j75RxRnYeTtIOgUSnecCKTi/4kKl/v04msKFrfGcprXcp6xNQcGooGSX
- L3yGc2Zz+04Jvao0dwQKoEyYHMTiQxZbf+D2RFrMm9gRQMz79gVUjM/I6BLWGKv8kojn
- l7Gj1ytNmCXzjXWJRWuNSzhACAmOCECQIInQ1Tu2WLln2VDov2JYq7vm2j2EPQSSdENA
- Wdl09uo2EcW+k/4ly9eurH0SeLGGbkPsICOiavtKTA6M4avWJB8U9hu7rkm6xNsbDEma
- 2z25YuMub1KyxSp4MvkOfY87dVTekPC6NFkk7Ns9XhluW+GvYy++pYP01qN3dt4N8J6u
- Z4KQ==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS32hIjw=="
-X-RZG-CLASS-ID: mo00
-Received: from aepfle.de by smtp.strato.de (RZmta 46.10.7 SBL|AUTH)
- with ESMTPSA id 60ad29w89EtiMh3
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 9 Sep 2020 16:55:44 +0200 (CEST)
-Date: Wed, 9 Sep 2020 16:55:41 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Juergen Gross <jgross@suse.com>
+ id 90258e1e-4ed0-4035-a4eb-d748d7bcd4cc;
+ Wed, 09 Sep 2020 15:12:16 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EDCC5AC65;
+ Wed,  9 Sep 2020 15:12:30 +0000 (UTC)
+Subject: Re: [PATCH] tools/libs: merge xenctrl_dom.h into xenguest.h
+To: Olaf Hering <olaf@aepfle.de>
 Cc: xen-devel@lists.xenproject.org,
  Samuel Thibault <samuel.thibault@ens-lyon.org>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] tools/libs: merge xenctrl_dom.h into xenguest.h
-Message-ID: <20200909145541.GA9907@aepfle.de>
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
 References: <20200909141837.8293-1-jgross@suse.com>
+ <20200909145541.GA9907@aepfle.de>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <edd08a89-12a6-1827-3b43-1e3fe81f8e81@suse.com>
+Date: Wed, 9 Sep 2020 17:12:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="3V7upXqbjpZ4EhLz"
-Content-Disposition: inline
-In-Reply-To: <20200909141837.8293-1-jgross@suse.com>
+In-Reply-To: <20200909145541.GA9907@aepfle.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +53,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 09.09.20 16:55, Olaf Hering wrote:
+> On Wed, Sep 09, Juergen Gross wrote:
+> 
+>> +++ b/tools/libs/guest/include/xenguest.h
+> 
+>> +#include <xen/libelf/libelf.h>
+> 
+> In case this file will be installed via make install:
+> 
+> Does any of the pending patches create that file?
 
---3V7upXqbjpZ4EhLz
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-
-On Wed, Sep 09, Juergen Gross wrote:
-
-> +++ b/tools/libs/guest/include/xenguest.h
-
-> +#include <xen/libelf/libelf.h>
-
-In case this file will be installed via make install:
-
-Does any of the pending patches create that file?
+No. This include was in xenctrl_dom.h previously and has just been
+moved to xenguest.h.
 
 
-Olaf
-
---3V7upXqbjpZ4EhLz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl9Y7OwACgkQ86SN7mm1
-DoDx3Q//cjAYUGqBeZ14Y3k/zdKFZa0vP9BSfKKOT+7bcUu9DyKb8DAl8DyIITzz
-y+ROuN/+swNiWmt+8mFwhU1hzjTz/ZpGaCS+oqZVq/xA4pn67HKuKwP4mi/wmoXT
-8cBRB/D7FiYYE5odg1eJ/zqAJa1wE2IcuDOFYdNK/GC6BcJvJHGUl1F1hA1wolHF
-u5yvzgDxh7HhUgjofe+L+xpzUXafXRcwd437j+bhvEmmIrm4Vx8D/muXTdHVlJMl
-Mc+akntVZvRUv0honCUgS7DcDkS6ViWiwcVsP4pXKJYP78NXKhpg62cYPnCLMzEO
-6OyTDvQPo23BrsTOQgEQZ+BTnGOZiWrHaSvuRfWrEulTKJ1dA3zweIX0JFcDzq93
-AEdH3rZUXhyq9nV8GF/rv1sG68AW/AGaN4T+G4m1f5OoZE3oGa7kHeCHl9aoB1qN
-0TNm+osfZudvmM/6qMvJd2jHFisdn5HksBNu5tEBDKFA0nnWD5cIjUhPCMVTn68X
-CJ3HWGytVhZ5/zr5hgshIYntUeDiP2rb7SoqtnOnprRSoVifQomn7Vq3Bl3IBLxH
-UPIvrcFCHMAQWeXVuA8c30Dq7hsWpC26bVHThtwX0WdZQ6VfabeTIEf2K1KsKeoG
-3ibb+a08OzXFs1Z5pE0uCr2+eeW7EV6Xcx1b0/OpmECfULX8S14=
-=iTZ5
------END PGP SIGNATURE-----
-
---3V7upXqbjpZ4EhLz--
+Juergen
 
