@@ -2,48 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AD9262487
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 03:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DDBB26255B
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 04:47:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFp1I-0004sp-Ns; Wed, 09 Sep 2020 01:35:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kFq7t-0002gV-8s; Wed, 09 Sep 2020 02:46:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFp1H-0004sk-0i
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 01:35:31 +0000
-X-Inumbo-ID: 3f75c5c2-a1a5-4932-a124-5b42808bf306
+ id 1kFq7q-0002gQ-QB
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 02:46:22 +0000
+X-Inumbo-ID: bfdd6c02-ce42-4b6c-9859-3cbd6c152882
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3f75c5c2-a1a5-4932-a124-5b42808bf306;
- Wed, 09 Sep 2020 01:35:30 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bfdd6c02-ce42-4b6c-9859-3cbd6c152882;
+ Wed, 09 Sep 2020 02:46:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=QJ6JoRqy0ZEROJjjytLuKrWLrC0nAGu4aZJu/4Yjnn0=; b=LsfOCmCMWyQ5ocbUryzuL+TRK/
- p5MsMkJdmXFLiytbtvJYcu+SnuLEPfIfPw6ATaIeVtP5SVyIKKOf3ImxF6WZTqiiTRY31TNVhZAFZ
- QNp2cmEDyuPFe/du2g6po5RNiK+Q0wI6+KXcM+On6HQt00lSlYRg/496d4fSnxtYrUCg=;
+ bh=8hApc6RKzRpAuKoiWRiPWxM8loitW1dZ5ac7C2+taWQ=; b=cI9ArH6+4v2vhNVT6pqaZQkn/3
+ ktZrR22Vx1wf2irOZjKbwXRHKhXwwjPrxh92ihLWMu9hKKRJOsQWyE/ReEtKvEcoZ91H2acdbNts0
+ DG7fbwqLMCe1yTDDb9Oii0r++IcdKgnZpF9RulvQSQYCjTAEY5ecSsiREVUnuNzMwLFY=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kFp1F-0000wp-U3; Wed, 09 Sep 2020 01:35:29 +0000
+ id 1kFq7o-0002qH-Ec; Wed, 09 Sep 2020 02:46:20 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kFp1F-0002MY-Kl; Wed, 09 Sep 2020 01:35:29 +0000
+ id 1kFq7o-000507-6s; Wed, 09 Sep 2020 02:46:20 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFp1F-0001uo-K6; Wed, 09 Sep 2020 01:35:29 +0000
+ id 1kFq7o-0008W3-6O; Wed, 09 Sep 2020 02:46:20 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-153985-mainreport@xen.org>
+Message-ID: <osstest-153990-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 153985: regressions - FAIL
+Subject: [ovmf test] 153990: regressions - FAIL
 X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
  ovmf:build-amd64-xsm:xen-build:fail:regression
  ovmf:build-amd64:xen-build:fail:regression
@@ -52,10 +51,10 @@ X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
  ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
  ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
  ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=f94345d9eae1b359c01761be975086870a4a9de9
+X-Osstest-Versions-This: ovmf=317d84abe3bfbdff10ae1cc4f38b49307838c6c4
 X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Sep 2020 01:35:29 +0000
+Date: Wed, 09 Sep 2020 02:46:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,8 +68,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 153985 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/153985/
+flight 153990 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/153990/
 
 Regressions :-(
 
@@ -88,19 +87,22 @@ Tests which did not succeed, but are not blocking:
  test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
 version targeted for testing:
- ovmf                 f94345d9eae1b359c01761be975086870a4a9de9
+ ovmf                 317d84abe3bfbdff10ae1cc4f38b49307838c6c4
 baseline version:
  ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
 
 Last test of basis   152863  2020-08-26 16:09:47 Z   13 days
-Failing since        152915  2020-08-27 18:09:42 Z   12 days  202 attempts
-Testing same since   153948  2020-09-08 11:44:13 Z    0 days   10 attempts
+Failing since        152915  2020-08-27 18:09:42 Z   12 days  203 attempts
+Testing same since   153990  2020-09-09 01:40:04 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
   Abner Chang <abner.chang@hpe.com>
   Bob Feng <bob.c.feng@intel.com>
+  Guo Dong <guo.dong@intel.com>
   Laszlo Ersek <lersek@redhat.com>
+  Marcello Sylvester Bauer <marcello.bauer@9elements.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
   Paul <paul.grimes@amd.com>
   Paul G <paul.grimes@amd.com>
   Qi Zhang <qi1.zhang@intel.com>
@@ -141,5 +143,5 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 383 lines long.)
+(No revision log; it would be 399 lines long.)
 
