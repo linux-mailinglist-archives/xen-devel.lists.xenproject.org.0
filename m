@@ -2,60 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9651E26317D
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 18:16:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EF462635FA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 20:27:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kG2l9-00056V-81; Wed, 09 Sep 2020 16:15:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kG4nY-0007dM-8i; Wed, 09 Sep 2020 18:26:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w7cX=CS=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kG2l7-00056Q-Dj
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 16:15:45 +0000
-X-Inumbo-ID: 62215e11-6262-4380-9ad5-43d592c46d3c
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 62215e11-6262-4380-9ad5-43d592c46d3c;
- Wed, 09 Sep 2020 16:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599668144;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=ePB5hIMW9C+okN7Bs3EG4vv4BOt6atsGP5PDSD6lQ1E=;
- b=WIHdbENSol9jCGhDUzTTHdT+C/egErMe4tgBBI9OT6I/MS7XXWZBtm1d
- RrkJfkjaVa1CqloivTPbdMNM3KrFTjqARyGaGo/PDMduj/ne8/IewL031
- b7zNx96A5stggd1bSskKZVAVc4QYoI0i7p/eNKiOQkoMj5lQW2imDDq6K g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: VgmMhjN8SOPKi8YaqPeGuoXmdVlYP7rXJxgKOXY87fxZ+vln5zYK2ZTP9qf8C0SNQQkUvVO+eG
- nt8wti8PSIyY1UmjPfU29CWd74L55tQ6baJGAYPwzkIkqOF/jgjoNQ6BQYR6A60oS0ied7odg2
- 7OFXME7nnOBp2O9YRqgT7Yolc66c+c3C9lQGyw0eR3yHvsOTCo4Op0q8/IbB54SX887LMH4its
- 8V0182xvGQoPXkpL94UudEzpLyG7hrOglOIwRmM16tUb9/Zy/H+X5BrxN+k8sYuBrGTOkzOB+j
- JaM=
-X-SBRS: 2.7
-X-MesageID: 27286215
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,409,1592884800"; d="scan'208";a="27286215"
-Subject: Re: [PATCH v4] hvmloader: indicate ACPI tables with "ACPI data" type
- in e820
-To: Jan Beulich <jbeulich@suse.com>, <andrew.cooper3@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, <roger.pau@citrix.com>, <wl@xen.org>,
- <iwj@xenproject.org>
-References: <1599579679-23983-1-git-send-email-igor.druzhinin@citrix.com>
- <a0587271-db3a-638e-201c-03bcb46426ed@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <4eccb099-8034-bc14-802c-a13f3590af5f@citrix.com>
-Date: Wed, 9 Sep 2020 17:15:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kG4nW-0007dF-QK
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 18:26:22 +0000
+X-Inumbo-ID: 688e47e4-6c9b-4b7b-9395-bf28591096f4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 688e47e4-6c9b-4b7b-9395-bf28591096f4;
+ Wed, 09 Sep 2020 18:26:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=ItrR+knUhwXYBuEQCNkZTiCleT7CB9K6eDbenKP7lcU=; b=gWSIl+eKk1RLpJIfaFrxhV0r3B
+ gdK+f12Blo9YT52pIbMFXkFRogkTEK+iKGDdLGKMXvMDhaD6BYKgTUw7Ysoul0hhiWU9lDXf8Y6fH
+ ip6n+0oNLMn9Z7Kh2CCUYuhZ2aL5Mk7tX3FJb3ovMuSL1zMwF4GjdtFBcQhpUnmbYL80=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG4nU-0007Zk-Ca; Wed, 09 Sep 2020 18:26:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG4nU-0005eA-4f; Wed, 09 Sep 2020 18:26:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kG4nU-0005Wq-4D; Wed, 09 Sep 2020 18:26:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154026-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <a0587271-db3a-638e-201c-03bcb46426ed@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 154026: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=6d2f1ebccdef655d64fbc3abc83db76c3de08cb1
+X-Osstest-Versions-That: xen=3cccdae45242dab27198b8e150be0c85acd5d3c9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Sep 2020 18:26:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,41 +66,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09/09/2020 17:00, Jan Beulich wrote:
-> On 08.09.2020 17:41, Igor Druzhinin wrote:
->> Guest kernel does need to know in some cases where the tables are located
->> to treat these regions properly. One example is kexec process where
->> the first kernel needs to pass ACPI region locations to the second
->> kernel which is now a requirement in Linux after 02a3e3cdb7f12 ("x86/boot:
->> Parse SRAT table and count immovable memory regions") in order for kexec
->> transition to actually work.
->>
->> That commit introduced accesses to XSDT and SRAT while the second kernel
->> is still using kexec transition tables. The transition tables do not have
->> e820 "reserved" regions mapped where those tables are located currently
->> in a Xen guest. Instead "ACPI data" regions are mapped with the transition
->> tables that was introduced by the following commit 6bbeb276b7 ("x86/kexec:
->> Add the EFI system tables and ACPI tables to the ident map").
->>
->> Reserve 1MB (out of 16MB currently available) right after ACPI info page for
->> ACPI tables exclusively but populate this region on demand and only indicate
->> populated memory as "ACPI data" since according to ACPI spec that memory is
->> reclaimable by the guest if necessary. That is close to how we treat
->> the same ACPI data in PVH guests. 1MB should be enough for now but could be
->> later extended if required.
->>
->> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> 
-> After committing this I'm now somewhat uncertain whether to queue this
-> for the stable trees. Does either of you (or anyone else) have any clear
-> opinion either way?
+flight 154026 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154026/
 
-That depends on what the upstream support statement was for kexec/kdump for stable
-releases.Note that newer guests (e.g. Ubuntu 20.04) won't able to enter kdump
-kernel without that.
+Failures :-/ but no regressions.
 
-In Citrix we'd be glad if it reaches at least stable-4.13 as we're backporting this
-functionality to our 4.13 based LTSR.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Igor
+version targeted for testing:
+ xen                  6d2f1ebccdef655d64fbc3abc83db76c3de08cb1
+baseline version:
+ xen                  3cccdae45242dab27198b8e150be0c85acd5d3c9
+
+Last test of basis   154020  2020-09-09 12:00:24 Z    0 days
+Testing same since   154026  2020-09-09 15:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Diego Sueiro <diego.sueiro@arm.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   3cccdae452..6d2f1ebccd  6d2f1ebccdef655d64fbc3abc83db76c3de08cb1 -> smoke
 
