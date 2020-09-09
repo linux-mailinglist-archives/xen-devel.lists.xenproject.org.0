@@ -2,60 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EBF726279D
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 09:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0332B26283F
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 09:17:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFu5o-0000LO-1c; Wed, 09 Sep 2020 07:00:32 +0000
+	id 1kFuLP-0001NF-G5; Wed, 09 Sep 2020 07:16:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zLKP=CS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kFu5m-0000L4-5o
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 07:00:30 +0000
-X-Inumbo-ID: fecb5978-d331-4471-9040-a5e05557aca7
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=R68z=CS=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
+ id 1kFuLN-0001NA-Rv
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 07:16:37 +0000
+X-Inumbo-ID: d84423e1-5121-4f5d-982c-aa7417468365
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fecb5978-d331-4471-9040-a5e05557aca7;
- Wed, 09 Sep 2020 07:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=vsimkxCOxP3jfA6f0jcWtxhCZG6B6Jp4iiFogk+8Mtc=; b=HWdJByGpEXsNyYhLiWB7oZ955q
- 8Xtro50kZwGWI868pwiq9tSVZ6RPyq9i/72KZwweYwUFBRVSpf26eicHC5iMjGJh+DQpPMJZr7CFO
- iOjQob19o87rizrTTAzIlg01k0lCEXJTd+BFrl69Dj1iziI22G0mf9+aa8lpTFqMJnhY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFu5e-00007f-UM; Wed, 09 Sep 2020 07:00:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kFu5e-0001MA-Nl; Wed, 09 Sep 2020 07:00:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kFu5e-0004hM-NH; Wed, 09 Sep 2020 07:00:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154003-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id d84423e1-5121-4f5d-982c-aa7417468365;
+ Wed, 09 Sep 2020 07:16:36 +0000 (UTC)
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 39FD22078E;
+ Wed,  9 Sep 2020 07:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599635796;
+ bh=cgJYGU4wKTC7wfOTHrBVxW9G6PPVfCPQISOiM0CtJZI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D8bzNY5AAc+ge4VsqDlHaTWvHlUxUMZNv07KBF+9mMse15ddoezVYDSzNgvpVvLOG
+ 5AD54+u7x/tzwksrHF0e7jNgHCFsR6dxry9B1pk45W9CMkYBoBzMbnIYeqDF11fLlZ
+ joqMonC+NDrTtcaqkc8jCjowbXUCS/sg/mJgfxow=
+Date: Wed, 9 Sep 2020 09:16:46 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kees Cook <keescook@chromium.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>,
+ Wei Yang <richardw.yang@linux.intel.com>,
+ Eric Biederman <ebiederm@xmission.com>,
+ Thomas Gleixner <tglx@linutronix.de>, kexec@lists.infradead.org
+Subject: Re: [PATCH v2 2/7] kernel/resource: move and rename
+ IORESOURCE_MEM_DRIVER_MANAGED
+Message-ID: <20200909071646.GC435421@kroah.com>
+References: <20200908201012.44168-1-david@redhat.com>
+ <20200908201012.44168-3-david@redhat.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 154003: regressions - FAIL
-X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
- ovmf:build-amd64-xsm:xen-build:fail:regression
- ovmf:build-amd64:xen-build:fail:regression
- ovmf:build-i386:xen-build:fail:regression
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
- ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: ovmf=317d84abe3bfbdff10ae1cc4f38b49307838c6c4
-X-Osstest-Versions-That: ovmf=63d92674d240ab4ecab94f98e1e198842bb7de00
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Sep 2020 07:00:22 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200908201012.44168-3-david@redhat.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,80 +68,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154003 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154003/
+On Tue, Sep 08, 2020 at 10:10:07PM +0200, David Hildenbrand wrote:
+> IORESOURCE_MEM_DRIVER_MANAGED currently uses an unused PnP bit, which is
+> always set to 0 by hardware. This is far from beautiful (and confusing),
+> and the bit only applies to SYSRAM. So let's move it out of the
+> bus-specific (PnP) defined bits.
+> 
+> We'll add another SYSRAM specific bit soon. If we ever need more bits for
+> other purposes, we can steal some from "desc", or reshuffle/regroup what we
+> have.
+> 
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Dan Williams <dan.j.williams@intel.com>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Kees Cook <keescook@chromium.org>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+> Cc: Baoquan He <bhe@redhat.com>
+> Cc: Wei Yang <richardw.yang@linux.intel.com>
+> Cc: Eric Biederman <ebiederm@xmission.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: kexec@lists.infradead.org
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+> ---
+>  include/linux/ioport.h | 4 +++-
+>  kernel/kexec_file.c    | 2 +-
+>  mm/memory_hotplug.c    | 4 ++--
+>  3 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/linux/ioport.h b/include/linux/ioport.h
+> index 52a91f5fa1a36..d7620d7c941a0 100644
+> --- a/include/linux/ioport.h
+> +++ b/include/linux/ioport.h
+> @@ -58,6 +58,9 @@ struct resource {
+>  #define IORESOURCE_EXT_TYPE_BITS 0x01000000	/* Resource extended types */
+>  #define IORESOURCE_SYSRAM	0x01000000	/* System RAM (modifier) */
+>  
+> +/* IORESOURCE_SYSRAM specific bits. */
+> +#define IORESOURCE_SYSRAM_DRIVER_MANAGED	0x02000000 /* Always detected via a driver. */
+> +
 
-Regressions :-(
+Can't you use BIT() here?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 152863
- build-amd64-xsm               6 xen-build                fail REGR. vs. 152863
- build-amd64                   6 xen-build                fail REGR. vs. 152863
- build-i386                    6 xen-build                fail REGR. vs. 152863
+thanks,
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 317d84abe3bfbdff10ae1cc4f38b49307838c6c4
-baseline version:
- ovmf                 63d92674d240ab4ecab94f98e1e198842bb7de00
-
-Last test of basis   152863  2020-08-26 16:09:47 Z   13 days
-Failing since        152915  2020-08-27 18:09:42 Z   12 days  206 attempts
-Testing same since   153990  2020-09-09 01:40:04 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Marcello Sylvester Bauer <marcello.bauer@9elements.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Paul <paul.grimes@amd.com>
-  Paul G <paul.grimes@amd.com>
-  Qi Zhang <qi1.zhang@intel.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
-  Zhichao Gao <zhichao.gao@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 399 lines long.)
+greg k-h
 
