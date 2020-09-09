@@ -2,43 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C91262F03
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 15:17:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A2CB262F05
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Sep 2020 15:17:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kFzxn-0004WS-RC; Wed, 09 Sep 2020 13:16:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kFzyb-0004ao-59; Wed, 09 Sep 2020 13:17:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y3mV=CS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kFzxm-0004WM-MW
- for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 13:16:38 +0000
-X-Inumbo-ID: 034619a4-a27b-4966-9f7b-1c6c3e942b12
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 034619a4-a27b-4966-9f7b-1c6c3e942b12;
- Wed, 09 Sep 2020 13:16:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A628B257;
- Wed,  9 Sep 2020 13:16:51 +0000 (UTC)
-Subject: Re: [PATCH v5 3/8] iommu: flush I/O TLB if iommu_map() or
- iommu_unmap() fail
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>
-References: <20200907074023.1392-1-paul@xen.org>
- <20200907074023.1392-4-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a0ea98cb-0d76-0f20-278b-7a68058277a2@suse.com>
-Date: Wed, 9 Sep 2020 15:16:37 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ (envelope-from <SRS0=M6/y=CS=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kFzyY-0004ag-TQ
+ for xen-devel@lists.xenproject.org; Wed, 09 Sep 2020 13:17:27 +0000
+X-Inumbo-ID: f9bb3fbe-2402-41be-b086-461e67c10a55
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.51])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f9bb3fbe-2402-41be-b086-461e67c10a55;
+ Wed, 09 Sep 2020 13:17:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1599657444;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=aO5AxSwm8rAzyFwwzoADZ9f8UHpyfeNQcbhZppl4Bwc=;
+ b=hgLmHX21PSm3g7TgmAOVHXfZfqUolbQB9Pk3BXrUzhelOrnom19c+l7mucjCMTj+OL
+ Cgq+gXCQe3b0EvSSsDxLe7MGYFQiPM54oqNGFoDdiJ0vPu01GS7YZu3IMPpSO+h3n6h7
+ xUR4/r6uMxgmPH+RqVAKVP8a02EAPhaqKNXripDTO7NwgHwSn6BRUlnsADp9aYnPE46X
+ jyURL0K8OJuavjasrL4glq00XMEmF2bFa9FrVjR6nBWxA9TTJsOp2JL2++1P+K0wBBbm
+ NLlWB03TwK/uNMa2KYPWNvkOFHwdjitOqVuZ9IHYkDrGJTKxtQOt4hlvGfTD/gdIJ1kw
+ oXsg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTWO///A=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.10.7 SBL|AUTH)
+ with ESMTPSA id 60ad29w89DHEMDA
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 9 Sep 2020 15:17:14 +0200 (CEST)
+Date: Wed, 9 Sep 2020 15:17:07 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1] docs: remove bridge-utils from requirements
+Message-ID: <20200909151707.3d7a3e70.olaf@aepfle.de>
+In-Reply-To: <209126b6-0707-0e2f-db2c-1dd492a0229f@xen.org>
+References: <20200909104849.22700-1-olaf@aepfle.de>
+ <8240eea7-4822-f8f9-75ee-5ea7c2e85630@xen.org>
+ <20200909145215.530ca814.olaf@aepfle.de>
+ <209126b6-0707-0e2f-db2c-1dd492a0229f@xen.org>
+X-Mailer: Claws Mail 2020.07.13 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20200907074023.1392-4-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/UIdiw/VqNb/IXV2QUqtbnC+"; protocol="application/pgp-signature"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,48 +67,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.09.2020 09:40, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
-> 
-> This patch adds a full I/O TLB flush to the error paths of iommu_map() and
-> iommu_unmap().
-> 
-> Without this change callers need constructs such as:
-> 
-> rc = iommu_map/unmap(...)
-> err = iommu_flush(...)
-> if ( !rc )
->   rc = err;
-> 
-> With this change, it can be simplified to:
-> 
-> rc = iommu_map/unmap(...)
-> if ( !rc )
->   rc = iommu_flush(...)
-> 
-> because, if the map or unmap fails the flush will be unnecessary. This saves
-> a stack variable and generally makes the call sites tidier.
-> 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+--Sig_/UIdiw/VqNb/IXV2QUqtbnC+
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one cosmetic issue taken care of (perhaps while committing):
+Am Wed, 9 Sep 2020 14:06:42 +0100
+schrieb Julien Grall <julien@xen.org>:
 
-> @@ -338,14 +346,8 @@ int iommu_legacy_unmap(struct domain *d, dfn_t dfn, unsigned int page_order)
->      unsigned int flush_flags = 0;
->      int rc = iommu_unmap(d, dfn, page_order, &flush_flags);
->  
-> -    if ( !this_cpu(iommu_dont_flush_iotlb) )
-> -    {
-> -        int err = iommu_iotlb_flush(d, dfn, (1u << page_order),
-> -                                    flush_flags);
-> -
-> -        if ( !rc )
-> -            rc = err;
-> -    }
-> +    if ( !this_cpu(iommu_dont_flush_iotlb) && ! rc )
+> "bridge-utils (if iroute version < ...)"
 
-There's a stray blank after the latter ! here.
+A brief search in git://git.kernel.org/pub/scm/network/iproute2/iproute2.gi=
+t shows bridge support appeared in v3.5.0 from 2012.
 
-Jan
+One can barely run Xen on such old dists, so the patch is fine as it is.
+
+
+Olaf
+
+--Sig_/UIdiw/VqNb/IXV2QUqtbnC+
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl9Y1dMACgkQ86SN7mm1
+DoBEThAAhhDU3ZWXpk/3WRLjOm9/R8XW4UdL+nEC+jXi8BnzIgVqpdhjZnTcWt9O
+udABktFYqr48fWvl8Sj+rbtypvRHUa34H4p+1Fw1deeJvb9ZaMg4xCOFCZklltTs
+2cD3NwkqmDX1Ea4i6THn/O1ze8OYtg9Zj9pQxfgasGsrUQuVscx828xPbZaka5Lj
+KGFRh4+AwkDGzVJQh1dyvAMrT4KY3pPnQBXyEQpC/CzKp8bE02N0sMQlCZOCmyaN
+hMLPOJm3isiWAankmXCxIi7XSvJ4Ir/4PSPy6jZyKrQIPXkjSeLMX/RIsaD6SLRE
+EPng1bJVn1cL4pOYUHB5wmziKfhBP/+ddkcaCZQPrGh8ozJmg0esumUqzoe407GT
+nJ5KT7WvIu5n0Ju6LS4aRDmc3+CQHRg+JLHOkmM8jAsO1DUmYU2FBSGCrza6PXpj
+z7FlQpzLSyJYFoSt1P3eE1e3iqm9RK4PEEDmnmp+dWjhMQXnePkve42fnYvl1/6O
+AhXuzhgZIe7QcYOxZ65PvZHzn3HC+DneR7uQWjZsw6LJTenjFjLlKwzQ+2tjV3w4
+kIsLMjVH+NNCApP6KhMZw7PE0wgBT6WtIC5CI69zn1gO5Wou88uApYg8fMeVoOFr
+Xbwm2ZrBHRTcSqzyXU70O0BxEQfau2BsOpkDipMenZPQCpfRfzA=
+=eTw4
+-----END PGP SIGNATURE-----
+
+--Sig_/UIdiw/VqNb/IXV2QUqtbnC+--
 
