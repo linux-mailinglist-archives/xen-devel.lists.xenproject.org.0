@@ -2,47 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71865263CFE
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 08:11:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2244A263DC1
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 08:55:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGFmk-0008Bv-A2; Thu, 10 Sep 2020 06:10:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kGGTO-0003Ch-Oy; Thu, 10 Sep 2020 06:54:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dCRG=CT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGFmi-0008Bq-QA
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 06:10:16 +0000
-X-Inumbo-ID: 265d7d96-42d1-4745-9272-0199816d6622
+ id 1kGGTN-0003Cc-Mo
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 06:54:21 +0000
+X-Inumbo-ID: 56a3d0ae-ea8d-4f00-abb2-8f1e9dc32dae
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 265d7d96-42d1-4745-9272-0199816d6622;
- Thu, 10 Sep 2020 06:10:14 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 56a3d0ae-ea8d-4f00-abb2-8f1e9dc32dae;
+ Thu, 10 Sep 2020 06:54:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9DC17AD2E;
- Thu, 10 Sep 2020 06:10:29 +0000 (UTC)
-Subject: Re: [PATCH 00/11] Major rework of top-level .gitignore
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Samuel Thibault <samuel.thibault@ens-lyon.org>
-References: <202009092152.089Lqhmn039171@m5p.com>
+ by mx2.suse.de (Postfix) with ESMTP id B0F9FAA35;
+ Thu, 10 Sep 2020 06:54:35 +0000 (UTC)
+Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
+ b_info.u.hvm.{acpi,apic}
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+References: <20200910035723.GY1626@mail-itl>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7b7d69c5-5237-2290-06d8-3aae436257dc@suse.com>
-Date: Thu, 10 Sep 2020 08:10:08 +0200
+Message-ID: <307ef028-c83e-6cd5-f8f9-7ad7d9e4192b@suse.com>
+Date: Thu, 10 Sep 2020 08:54:22 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <202009092152.089Lqhmn039171@m5p.com>
+In-Reply-To: <20200910035723.GY1626@mail-itl>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,62 +51,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.09.2020 03:28, Elliott Mitchell wrote:
-> The top-level .gitignore file for Xen has gotten rather messy.  Looks
-> like at times a few people may have added some blank lines looking
-> towards some later cleanup.  Alas no one ever got around to that later
-> cleanup.
+On 10.09.2020 05:57, Marek Marczykowski-Górecki wrote:
+> After updating from Xen 4.13 to Xen 4.14 I have troubles starting any
+> HVM: just after hvmloader saying "Invoking SeaBIOS" I get "(XEN) MMIO
+> emulation failed (1): d29v0 32bit @ 0008:fffeedf d -> "
 > 
-> When looking at one portion of the situation I ended up doing some
-> cleanup and it got out of hand.  Hence I'm not sending in these patches
-> which hopefully make things better.
+> I come to a situation where seemingly the same domU started via xl
+> works, while when started via libvirt it crashes. This seems to be
+> related to xl setting b_info.{acpi,apic}, while libvirt setting
+> b_info.u.hvm.{acpi,apic}. Modifying libvirt to use the former fixes the
+> issue.
 > 
-> Please note these are somewhat better than work-in-progress status.
-> There are several places I'm unsure of which direction to go in.  Likely
-> several of these will need more or less information in their commit
-> messages.
-> 
-> Overall pattern is first some initial cleanup on the top-level
-> .gitignore.  It is easier to spot targeted file matches which overlapped
-> general globs before breaking things apart.  This is followed by breaking
-> all targeted matches off of the global .gitignore file.  Lastly the
-> global .gitignore file was sorted and I've commented on a few of the
-> things which remain.
-> 
-> Recent versions of `git` include a "check-ignore" command.  For testing
-> new patterns `git check-ignore -vn --no-index <pattern>` will tell you
-> whether a given filename would be ignored without "add -f".
-> 
-> I think patches 01 and 02 are near ready for being committed.
+> So, handling the old option got broken sometime between 4.13 and 4.14.
 
-Provided we as a community basically agree on the splitting. I'm
-not sure I've read this out of prior discussion.
-
->  Patches
-> 03-09 need varying degrees of polish before being in an official tree.
-> Patches 10 and 11 are pretty well initial rough outlines.
-> 
-> Elliott Mitchell (11):
->   gitignore: Move ignores from global to subdirectories
->   gitignore: Remove entries duplicating global entries
->   gitignore: Add/Generalize entries
->   gitignore: Create .gitignore file for tools/firmware/
->   gitignore: Create .gitignore file for tools/ocaml/
->   gitignore: Create .gitignore file for xen/
->   gitignore: Create .gitignore file for docs/
->   gitignore: Create .gitignore file for stubdom/
->   gitignore: Create .gitignore file for config/
->   gitignore: Create .gitignore file for tools/
->   gitignore: RFC Prelimiary final cleanup of top-level .gitignore
-
-I'm confused about whether what I have in my inbox is complete and
-consistent: 01-11 don't look to be "in reply to" this one, and they
-all pre-date this mail by a varying number of days (Aug 27 ... Sep 3).
-Additionally, unlike what happens for every other sender these days,
-I've also got two copies of most (but not all) of them. Prior to our
-mail setup over here having changed over a year ago this was the
-normal way when I was Cc-ed on patches, but the server nowadays
-de-duplicates the mails. So something is likely odd with your setup.
+The respective changes in libxl date back to 2016/2017, and the involved
+code looks identical between 4.13 and 4.14. Perhaps there's some 4.13-
+only logic in libvirt, which really means to be >= 4.13? In any event
+libxl_types.idl clearly says the two u.hvm fields are deprecated;
+nevertheless there are some uses left for u.hvm.acpi (the most
+suspicious one in xl_sxp.c) and exactly one in a comment for u.hvm.apic.
+Sadly this marking of being deprecated doesn't get reflected in the
+_libxl_types.h which gets installed for public consumption.
 
 Jan
 
