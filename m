@@ -2,74 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05862647EF
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 16:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82BC42647F3
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 16:25:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGNUC-0003qa-4n; Thu, 10 Sep 2020 14:23:40 +0000
+	id 1kGNVn-0003xj-H5; Thu, 10 Sep 2020 14:25:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0EwZ=CT=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kGNUB-0003qU-8F
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 14:23:39 +0000
-X-Inumbo-ID: 60cf4e93-503f-49ee-b7d6-e648116f6188
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ id 1kGNVl-0003xc-Hw
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 14:25:17 +0000
+X-Inumbo-ID: 4fbbe16f-bbdf-4fb5-9bc3-cb7d5f3ed68d
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 60cf4e93-503f-49ee-b7d6-e648116f6188;
- Thu, 10 Sep 2020 14:23:38 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id z1so6932907wrt.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 07:23:38 -0700 (PDT)
+ id 4fbbe16f-bbdf-4fb5-9bc3-cb7d5f3ed68d;
+ Thu, 10 Sep 2020 14:25:16 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id k18so219032wmj.5
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 07:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:thread-index
  :content-language;
- bh=E5QufOZ0fQ+V21nEP506OFw6lmzb1xrH7oeDLO1xCvw=;
- b=Ebl2lDJmzawQ5DheRxJk/xMIr+Qz8BmC3DKyIk34XmwJhzYs9DtUd0wA259wV5HQza
- UJHy6TWfDXzZn5Q0DxqPxkI8WSJyebXX0dP4eZv15KLxgZJn5Hm2tXxPfArxQ2sDJBXT
- p0IDIxXWdGrqdOcXYnE0/r2UurRbxtR72276M5ru822/yTmIhuaUnsDuo/pgJ2+e9snx
- cafM+D3d57+zVZmxYtMd4gzWZF8eR3s2Lu6H3dCjfffcwcC3tL4GUfkZXTvexHgpj0lq
- DX1kuCa9N/AM0+vcCCURWujJWVm8Xru2/edijiJQUwZctGxQ4GsHiUHvbJDknJFZuJu1
- DapQ==
+ bh=G+0IFq9dtH9drP7fsTjj+zQkrLK8JGDpzH6eFRwDSus=;
+ b=d7/zI/qTUUoWKB6dXQ4kUxrK2+n1Px7/2lCwL4ESmShWByPsnSKNjMy5IOMgz1co08
+ 3/PDkUMGB2Id0qhFEXA2LlexTXKWdMnJNp3DIJ50DRhUIUMJQ6c8ORuo8qsIMYVa6MZI
+ twzU6PViHIWgPbUqKaPGffTijOuJo0lcYiP9uhAnCJWdtDDFB3vJHMfWBtEvjZAa8xxm
+ 0fGDwBuX+q9jqTNB5KaesL0oNlPV3aQFoIJUU+XUeg5G1tu6EIsVP/aJpzqsW85jyl/I
+ Le3DQER0CRBNvFZp9pxswk5znet9zQjIduZW2AnVF6EIL/sh70v11XHFEn7xnfmjI2Tn
+ K/xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :thread-index:content-language;
- bh=E5QufOZ0fQ+V21nEP506OFw6lmzb1xrH7oeDLO1xCvw=;
- b=CqjlfgP1mTyZvPY5dMgSmbLTkWTtkxuVtgfZgGOgcJXwIp6RKQqtey8qbrsJhwSr0V
- DIoD4xFtn/s/jDkJAYeR2a3Q75o1WEob3pLRUcgC/BSOIfe0KWrG88P0BAz0z96KOBSv
- MooLD7saR+ax/CQoPps3kR3yruuQb4X+f/JyPuyxWp+EFCKqS/e0d6oMu71GKfgOawcj
- DpXzX7uYBXLowYkGleFWnXY+ASsu2uAi05SPGwn71bEJdfHAPai3/iUM4jnLru+bLLUs
- zDRy4vjbCs0uAJDNCGEgNvnZM349GfC06TOK9AWJgy+jcr4IdF78vBZincuvi0pYadkj
- FngA==
-X-Gm-Message-State: AOAM531S2fzT56Ug5qDmGctUk9dMb2fnXir7RAEvyqh6OyIem08b3m7I
- xMPbOy4rCcswcX8c6JhU00w=
-X-Google-Smtp-Source: ABdhPJzAqtHEPnSQhEq5OyX0w195hCszT5Y/sG8BrMG6QadhOXui7kTcqq2o4KEAAB4OUNdb4h70dQ==
-X-Received: by 2002:a5d:4910:: with SMTP id x16mr10233760wrq.204.1599747817458; 
- Thu, 10 Sep 2020 07:23:37 -0700 (PDT)
+ bh=G+0IFq9dtH9drP7fsTjj+zQkrLK8JGDpzH6eFRwDSus=;
+ b=m/U9PZ8w8KERYNoDB+DrEOyLiY3hXTIHhVn+NtwmLCCYhq6HQqAzLH9MW6nSvu6Igw
+ iaoGe08iW3W+4NJzKPZqdYZX6F4fGberivk+Nf2VHM79WiFc/Y6wP85OLPHkxG4zazvZ
+ 7xz25BtaZI8T/vaiVEw1Of+xConPnN8WI3ljtELO6CZMTSHHfIpVkk5TZAvoCMaYbm57
+ g8NcawIgYu5qDptDiIiooZ6h7I39lOaSBX1zXuG+1ne8HpWSfbyUjhwuV56UsKjpjRIP
+ uc5/mFza46KjJCtmu/WBrzPhncAE8wRODpg9w4iSEWjPTWnjyG3BJwDh8FVq63H9zM2C
+ GWhw==
+X-Gm-Message-State: AOAM532dwARdOIQekxhYNu0JH8BUPzcT1GDToBn5Yt7BfYIDEIvyGFNr
+ P9UT8gQv+9qGbUX9LdNNcq0=
+X-Google-Smtp-Source: ABdhPJy6CEzVhkisTxWwojbSryQHNeTcOhnxcZWDnpE4n0qYL5iX9zIsstZj3pbSrLAhZsOjayHG0A==
+X-Received: by 2002:a1c:bbd6:: with SMTP id l205mr244759wmf.79.1599747915860; 
+ Thu, 10 Sep 2020 07:25:15 -0700 (PDT)
 Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
  [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id s5sm9516601wrm.33.2020.09.10.07.23.36
+ by smtp.gmail.com with ESMTPSA id k22sm9473297wrd.29.2020.09.10.07.25.14
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 10 Sep 2020 07:23:37 -0700 (PDT)
+ Thu, 10 Sep 2020 07:25:14 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Roger Pau Monne'" <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Cc: "'Jan Beulich'" <jbeulich@suse.com>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>
-References: <20200910133514.82155-1-roger.pau@citrix.com>
-In-Reply-To: <20200910133514.82155-1-roger.pau@citrix.com>
-Subject: RE: [PATCH] x86/mm: do not mark IO regions as Xen heap
-Date: Thu, 10 Sep 2020 15:23:36 +0100
-Message-ID: <003201d6877d$f8e07650$eaa162f0$@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
+Cc: <xen-devel@lists.xenproject.org>, "'Paul Durrant'" <pdurrant@amazon.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>, "'Wei Liu'" <wl@xen.org>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>
+References: <20200907074023.1392-1-paul@xen.org>
+ <20200907074023.1392-8-paul@xen.org>
+ <44d46ebd-1cdd-e7f9-5902-69be32bdb3ff@suse.com>
+In-Reply-To: <44d46ebd-1cdd-e7f9-5902-69be32bdb3ff@suse.com>
+Subject: RE: [PATCH v5 7/8] iommu: remove the share_p2m operation
+Date: Thu, 10 Sep 2020 15:25:14 +0100
+Message-ID: <003301d6877e$33399890$99acc9b0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIAf0eTjeMNipPhIAgkagC3BDyTm6kN/Mrg
+Thread-Index: AQHhwG7ATr0KfpJW6ur2MqQg9p50hwIej6z4AfJ5/7+pKvLQUA==
 Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -86,93 +90,98 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Roger Pau Monne <roger.pau@citrix.com>
-> Sent: 10 September 2020 14:35
-> To: xen-devel@lists.xenproject.org
-> Cc: Roger Pau Monne <roger.pau@citrix.com>; Jan Beulich =
-<jbeulich@suse.com>; Andrew Cooper
-> <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; Paul Durrant =
-<paul@xen.org>
-> Subject: [PATCH] x86/mm: do not mark IO regions as Xen heap
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 10 September 2020 15:20
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant =
+<pdurrant@amazon.com>; Andrew Cooper
+> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; =
+Wei Liu <wl@xen.org>; Roger Pau
+> Monn=C3=A9 <roger.pau@citrix.com>; Kevin Tian <kevin.tian@intel.com>
+> Subject: Re: [PATCH v5 7/8] iommu: remove the share_p2m operation
 >=20
-> arch_init_memory will treat all the gaps on the physical memory map
-> between RAM regions as MMIO and use share_xen_page_with_guest in order
-> to assign them to dom_io. This has the side effect of setting the Xen
-> heap flag on such pages, and thus is_special_page would then return
-> true which is an issue in epte_get_entry_emt because such pages will
-> be forced to use write-back cache attributes.
+> On 07.09.2020 09:40, Paul Durrant wrote:
+> > --- a/xen/drivers/passthrough/vtd/iommu.c
+> > +++ b/xen/drivers/passthrough/vtd/iommu.c
+> > @@ -318,6 +318,48 @@ static u64 addr_to_dma_page_maddr(struct domain =
+*domain, u64 addr, int alloc)
+> >      return pte_maddr;
+> >  }
+> >
+> > +static uint64_t domain_pgd_maddr(struct domain *d, unsigned int =
+nr_pt_levels)
+> > +{
+> > +    struct domain_iommu *hd =3D dom_iommu(d);
+> > +    uint64_t pgd_maddr;
+> > +    unsigned int agaw;
+> > +
+> > +    ASSERT(spin_is_locked(&hd->arch.mapping_lock));
+> > +
+> > +    if ( iommu_use_hap_pt(d) )
+> > +    {
+> > +        mfn_t pgd_mfn =3D
+> > +            =
+pagetable_get_mfn(p2m_get_pagetable(p2m_get_hostp2m(d)));
+> > +
+> > +        return pagetable_get_paddr(pagetable_from_mfn(pgd_mfn));
 >=20
-> Fix this by introducing a new helper to assign the MMIO regions to
-> dom_io without setting the Xen heap flag on the pages, so that
-> is_special_page will return false and the pages won't be forced to use
-> write-back cache attributes.
+> I thought I had already asked about this odd going through a =
+pagetable_t
+> a 2nd time without a clear need. Why not simply
 >=20
-> Fixes: 81fd0d3ca4b2cd ('x86/hvm: simplify 'mmio_direct' check in =
-epte_get_entry_emt()')
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
-> Cc: Paul Durrant <paul@xen.org>
-> ---
->  xen/arch/x86/mm.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
+>     if ( iommu_use_hap_pt(d) )
+>     {
+>         pagetable_t pgt =3D p2m_get_pagetable(p2m_get_hostp2m(d));
 >=20
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 35ec0e11f6..4daf4e038a 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -271,6 +271,18 @@ static l4_pgentry_t __read_mostly split_l4e;
->  #define root_pgt_pv_xen_slots ROOT_PAGETABLE_PV_XEN_SLOTS
->  #endif
+>         return pagetable_get_paddr(pgt);
+>     }
 >=20
-> +static void __init assign_io_page(struct page_info *page)
-> +{
-> +    set_gpfn_from_mfn(mfn_x(page_to_mfn(page)), INVALID_M2P_ENTRY);
-> +
-> +    /* The incremented type count pins as writable. */
-> +    page->u.inuse.type_info =3D PGT_writable_page | PGT_validated | =
-1;
-> +
-> +    page_set_owner(page, dom_io);
-> +
-> +    page->count_info |=3D PGC_allocated | 1;
-> +}
-> +
->  void __init arch_init_memory(void)
->  {
->      unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, =
-ioend_pfn;
-> @@ -291,7 +303,7 @@ void __init arch_init_memory(void)
->       */
->      BUG_ON(pvh_boot && trampoline_phys !=3D 0x1000);
->      for ( i =3D 0; i < 0x100; i++ )
-> -        share_xen_page_with_guest(mfn_to_page(_mfn(i)), dom_io, =
-SHARE_rw);
-> +        assign_io_page(mfn_to_page(_mfn(i)));
->=20
->      /* Any areas not specified as RAM by the e820 map are considered =
-I/O. */
->      for ( i =3D 0, pfn =3D 0; pfn < max_page; i++ )
-> @@ -332,7 +344,7 @@ void __init arch_init_memory(void)
->              if ( !mfn_valid(_mfn(pfn)) )
->                  continue;
->=20
-> -            share_xen_page_with_guest(mfn_to_page(_mfn(pfn)), dom_io, =
-SHARE_rw);
-> +            assign_io_page(mfn_to_page(_mfn(pfn)));
+> ?
 
-Now these calls to share_xen_page_with_guest() are gone, can we change =
-share_xen_page_with_guest() to ASSERT that PGC_xen_heap is already set, =
-and avoid (needlessly) ORing it in?
+It's code movement (which IIRC you had acknowledged) but I can change it =
+if you wish.
+
+>=20
+> > +    }
+> > +
+> > +    if ( !hd->arch.vtd.pgd_maddr )
+> > +    {
+> > +        addr_to_dma_page_maddr(d, 0, 1);
+>=20
+> Ahead of this, would you mind retaining ...
+>=20
+> > @@ -1340,37 +1382,18 @@ int domain_context_mapping_one(
+> >      if ( iommu_hwdom_passthrough && is_hardware_domain(domain) )
+> >      {
+> >          context_set_translation_type(*context, =
+CONTEXT_TT_PASS_THRU);
+> > -        agaw =3D level_to_agaw(iommu->nr_pt_levels);
+> >      }
+> >      else
+> >      {
+> >          spin_lock(&hd->arch.mapping_lock);
+> >
+> > -        /* Ensure we have pagetables allocated down to leaf PTE. */
+> > -        if ( hd->arch.vtd.pgd_maddr =3D=3D 0 )
+> > +        pgd_maddr =3D domain_pgd_maddr(domain, =
+iommu->nr_pt_levels);
+> > +        if ( !pgd_maddr )
+> >          {
+> > -            addr_to_dma_page_maddr(domain, 0, 1);
+>=20
+> ... the comment you remove here?
+>=20
+
+Sure.
+
+> With these adjustments
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>=20
+
+Thanks.
 
   Paul
 
-
->          }
->=20
->          /* Skip the RAM region. */
-> --
-> 2.28.0
-
+> Jan
 
 
