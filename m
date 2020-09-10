@@ -2,68 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53547265095
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 22:22:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A8D265099
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 22:22:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGT5b-0004L6-Aq; Thu, 10 Sep 2020 20:22:39 +0000
+	id 1kGT5g-0004Mw-M5; Thu, 10 Sep 2020 20:22:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vQLO=CT=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kGT5Z-0004JK-SQ
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 20:22:37 +0000
-X-Inumbo-ID: 615a7b06-77e9-434c-adba-99eba638ef79
+ id 1kGT5e-0004JK-SX
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 20:22:42 +0000
+X-Inumbo-ID: 5230dacd-e276-4803-a78d-db96a4e52b79
 Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 615a7b06-77e9-434c-adba-99eba638ef79;
- Thu, 10 Sep 2020 20:22:31 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id q8so4313259lfb.6
- for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 13:22:30 -0700 (PDT)
+ id 5230dacd-e276-4803-a78d-db96a4e52b79;
+ Thu, 10 Sep 2020 20:22:32 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id y11so4304810lfl.5
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 13:22:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=DqUjBinZS4E0rsQSBH7fpI0azvlrep7MUViq+OD7Ja0=;
- b=p2J5PgA0VKYSaAWskJjrOiDMfu4GqtgJ5kr1KtqfJrQJW0dvmJT3hwLPZIkhRNCX57
- X82FVpO+oPxrZQAuYVoKC/2PYGULqTU7rsID+RLm87nanwVwc06QR/jN74xx6AcK4n9C
- /UTEyl/kE33Dp0W1B90KbBT0btX5eluV6JrhFxNRPgjZt+zrciMg/JlhGrJ6oh4Z2G8X
- 1z07HxAa/DHtp2/e8EtKqgIcQvWPhutp+AensBFmAkvotUM8wknJw4G9qklJWE/QGwbf
- xmX+QbZCmIhzSQqb9bZn6nBDz/uXM2UfsXMX1mqj+ylNPiKJHyEzG7DkgFTSd2zEQSvw
- yHVA==
+ bh=Y/dYcio/hiAAprYUa9lh090XJMa0/CH+ZJW7bHpIZ34=;
+ b=nZ8HDgkAIIx+upAgZp0X+xoXwx7hJrqfZSHJlFwEWqCrE3OUz4MqM2pOQDnYpjWwwL
+ kJrg7/vqr3YctzJ7nPv2Ou8MI9F+Qt8D1eWrxr09VhANjzA60jNaBoLuYXICEJlaa1jH
+ zXB+b3Ili7ltIkb0UYKyeO8WceGy15FlIMAi9knwfhz070Ftx4K6kkocdTIqbNleergB
+ A8MDOG2HmOyPFJpLnclI+XKoyRGPhOUUpkJ9tbWZGtafhXsLMNGJ08E8g+7s7jz2mC6v
+ FHeE0/MvmLRuJ3OW3DxGyfQ+XixFzxwuk4u6zPoJ1Xkz4D7SlaVn/22l/qlrE6OAxMG9
+ 2nJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=DqUjBinZS4E0rsQSBH7fpI0azvlrep7MUViq+OD7Ja0=;
- b=mHkhianTOni2ep2cwkTCnftnRJUKLXh1s6MJPAPnhmrMaPZ1pDpa7iUJVY5o09XAn8
- sI3nNprso47o9FOV7sOmdihArfAOEL7O64m2RXRHrUzW6fy8UAnc4vhkRS83NyuumCTH
- 5dDer/7uN3t6dUS/o6ytDdv16A/DCyJKFcJSyYUomjBc6Ucq9qLceymQrhXBoC4lCu+Q
- yuQtwEMVmM1dyELGgGdeyzs+pIkwwko35Wtvc3NE/6hSEslc5m3G9RVBvN4aBWfTBFOX
- ijVPdHSYG0YBk3pegR9FB+JoW+3FhPGi5gGgFTCG3WbnFjbIaTsuAmaLmccbllQQAu3p
- 6B8w==
-X-Gm-Message-State: AOAM530BfZa/6VHgvViZeFuruy06cL56xxqctBzHWEuJuzZMQixMhZpK
- YNp43fwGuyVBjo8aFxQpwD1qa69BI08DwQ==
-X-Google-Smtp-Source: ABdhPJzuCtduuUSIUZ5blQGPVg91+wAqNwvPMKuyZZ+vbehi5FkdWY0yliC32mFAQFakCVZmyJ/nBw==
-X-Received: by 2002:a05:6512:207:: with SMTP id
- a7mr5033608lfo.127.1599769349574; 
- Thu, 10 Sep 2020 13:22:29 -0700 (PDT)
+ bh=Y/dYcio/hiAAprYUa9lh090XJMa0/CH+ZJW7bHpIZ34=;
+ b=L6OGn4SWI8UJb7H3pIHjsXUNokjkbTJ6rukC9iOxe/U6uBmIK8jHs5lsoyv8wTmVyx
+ G/XaJjEWWBvjT9sdMaScI6hcd87p3rKc7zLwiioHAOcSD4wzJlMcCmUzm2IkCKIFk6U6
+ slkkh89v1R6KpARJpJy6JKSbWLfLkgU3HRg5myud0mCRmJSnfj/cLMFQ3Ze6zDe7qz0b
+ 3tR4MQy2sb5RvUDoAW8/VtosD78Ek1dIE/VQSkgMmFgc4WqWooeqqWgW7ZWue31MWeLw
+ m6PgqcdHXIxSjWiiMFmm/vobINNWbulw1bFetrOhRVSS4JA/MGaShOOZAybEU6WamLIT
+ G2cA==
+X-Gm-Message-State: AOAM5305UKSoXvnogXn7M/C85lA8NVprKgNseVtuUVsoh1l9ozflqam+
+ G5MU5arllxPb/rfaUiSEZXhHEkSCl+HVGQ==
+X-Google-Smtp-Source: ABdhPJzUqgm1rO8y2Aeydf4eju+R7S0/pfa7z/4I1N8IU9krqwh61G0YOPQIIVB8U06Pt//GCkmLUQ==
+X-Received: by 2002:a19:674f:: with SMTP id e15mr5092725lfj.50.1599769350926; 
+ Thu, 10 Sep 2020 13:22:30 -0700 (PDT)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id u5sm1584375lfq.17.2020.09.10.13.22.28
+ by smtp.gmail.com with ESMTPSA id u5sm1584375lfq.17.2020.09.10.13.22.29
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 10 Sep 2020 13:22:28 -0700 (PDT)
+ Thu, 10 Sep 2020 13:22:30 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Julien Grall <julien.grall@arm.com>
-Subject: [PATCH V1 03/16] xen/ioreq: Make x86's hvm_ioreq_needs_completion()
- common
-Date: Thu, 10 Sep 2020 23:21:57 +0300
-Message-Id: <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V1 04/16] xen/ioreq: Provide alias for the handle_mmio()
+Date: Thu, 10 Sep 2020 23:21:58 +0300
+Message-Id: <1599769330-17656-5-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
@@ -82,13 +78,16 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-The IOREQ is a common feature now and this helper will be used
-on Arm as is. Move it to include/xen/ioreq.h
+The IOREQ is a common feature now and Arm will have its own
+implementation.
 
-Although PIO handling on Arm is not introduced with the current series
-(it will be implemented when we add support for vPCI), technically
-the PIOs exist on Arm (however they are accessed the same way as MMIO)
-and it would be better not to diverge now.
+But the name of the function is pretty generic and can be confusing
+on Arm (we already have a try_handle_mmio()).
+
+In order not to rename the function (which is used for a varying
+set of purposes on x86) globally and get non-confusing variant on Arm
+provide an alias ioreq_handle_complete_mmio() to be used on common and
+Arm code.
 
 Signed-off-by: Julien Grall <julien.grall@arm.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
@@ -98,63 +97,39 @@ Please note, this is a split/cleanup/hardening of Julien's PoC:
 "Add support for Guest IO forwarding to a device emulator"
 
 Changes RFC -> V1:
-   - new patch, was split from:
-     "[RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common"
+   - new patch
 ---
 ---
- xen/arch/x86/hvm/vmx/realmode.c | 1 +
- xen/include/asm-x86/hvm/vcpu.h  | 7 -------
- xen/include/xen/ioreq.h         | 7 +++++++
- 3 files changed, 8 insertions(+), 7 deletions(-)
+ xen/common/ioreq.c              | 2 +-
+ xen/include/asm-x86/hvm/ioreq.h | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/hvm/vmx/realmode.c b/xen/arch/x86/hvm/vmx/realmode.c
-index bdbd9cb..292a7c3 100644
---- a/xen/arch/x86/hvm/vmx/realmode.c
-+++ b/xen/arch/x86/hvm/vmx/realmode.c
-@@ -10,6 +10,7 @@
-  */
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index 5017617..ce12751 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -189,7 +189,7 @@ bool handle_hvm_io_completion(struct vcpu *v)
+         break;
  
- #include <xen/init.h>
-+#include <xen/ioreq.h>
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <xen/paging.h>
-diff --git a/xen/include/asm-x86/hvm/vcpu.h b/xen/include/asm-x86/hvm/vcpu.h
-index 5ccd075..6c1feda 100644
---- a/xen/include/asm-x86/hvm/vcpu.h
-+++ b/xen/include/asm-x86/hvm/vcpu.h
-@@ -91,13 +91,6 @@ struct hvm_vcpu_io {
-     const struct g2m_ioport *g2m_ioport;
- };
+     case HVMIO_mmio_completion:
+-        return handle_mmio();
++        return ioreq_handle_complete_mmio();
  
--static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
--{
--    return ioreq->state == STATE_IOREQ_READY &&
--           !ioreq->data_is_ptr &&
--           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
--}
--
- struct nestedvcpu {
-     bool_t nv_guestmode; /* vcpu in guestmode? */
-     void *nv_vvmcx; /* l1 guest virtual VMCB/VMCS */
-diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
-index f846034..2240a73 100644
---- a/xen/include/xen/ioreq.h
-+++ b/xen/include/xen/ioreq.h
-@@ -35,6 +35,13 @@ static inline struct hvm_ioreq_server *get_ioreq_server(const struct domain *d,
-     return GET_IOREQ_SERVER(d, id);
- }
+     case HVMIO_pio_completion:
+         return handle_pio(vio->io_req.addr, vio->io_req.size,
+diff --git a/xen/include/asm-x86/hvm/ioreq.h b/xen/include/asm-x86/hvm/ioreq.h
+index dec1e71..43afdee 100644
+--- a/xen/include/asm-x86/hvm/ioreq.h
++++ b/xen/include/asm-x86/hvm/ioreq.h
+@@ -42,6 +42,8 @@ void arch_hvm_ioreq_destroy(struct domain *d);
+ #define IOREQ_IO_UNHANDLED   X86EMUL_UNHANDLEABLE
+ #define IOREQ_IO_RETRY       X86EMUL_RETRY
  
-+static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
-+{
-+    return ioreq->state == STATE_IOREQ_READY &&
-+           !ioreq->data_is_ptr &&
-+           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
-+}
++#define ioreq_handle_complete_mmio   handle_mmio
 +
- bool hvm_io_pending(struct vcpu *v);
- bool handle_hvm_io_completion(struct vcpu *v);
- bool is_ioreq_server_page(struct domain *d, const struct page_info *page);
+ #endif /* __ASM_X86_HVM_IOREQ_H__ */
+ 
+ /*
 -- 
 2.7.4
 
