@@ -2,72 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C87B264CB1
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 20:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EDA5264CBC
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 20:22:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGRB4-0002Le-QH; Thu, 10 Sep 2020 18:20:10 +0000
+	id 1kGRD9-0002Su-DT; Thu, 10 Sep 2020 18:22:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vQLO=CT=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kGRB3-0002LZ-61
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 18:20:09 +0000
-X-Inumbo-ID: 0303c03f-13dd-470d-bb1c-2891fd2d33d0
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nxmn=CT=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kGRD7-0002Sn-I8
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 18:22:17 +0000
+X-Inumbo-ID: 6f2c93b3-a9fd-4813-861b-3065d3fc2b27
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0303c03f-13dd-470d-bb1c-2891fd2d33d0;
- Thu, 10 Sep 2020 18:20:07 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id m6so7956275wrn.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 11:20:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Z7iR4EU3xEqUUdi0EQsJCd3CrJMczoiMmZvVKOsKuos=;
- b=s9Wx5iz/No6KUOl1Hbu8FjA02tRWXFdvN12OQCKzIUPv3hUt4g70DUk14Xiw7KFeEK
- XrpDL3bW0USz9qQrGdKedqLDXH+0jusNdnqXVbmDpu3P8Cezvlub+62QITX3Lq1I5F6O
- 119tKd1olR9vw38HWlHdqP6M5J41nE7bonxMX50Og4zVja3g6t3MARdBFqfab5bNySS+
- USTj6m8nvEIi0ryOaSUlnNGa+mwCpkKfNW3PC49iAx0q/cSwsAYW3epozI2GzWFAx8an
- VX1hqiDZZgSLq9SeQnYR5D9o3eapAxKIy2LNe39QDXmxFWwCEAfWB8oYKqcA5W4tg7zx
- OlqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Z7iR4EU3xEqUUdi0EQsJCd3CrJMczoiMmZvVKOsKuos=;
- b=i/IhM6ZgYuHtR8UBfdx5mBtktM3nSUGpqmlkXoC+Wys28dLk/wriqPg5qjyyymGIl+
- 6aDH05SMRSgdmTOmEJxml8rHq+0YsAvD7SeQf2srCf/GQ/p/ix+R8gL+RzXvwT6SXe8c
- eUoXar5/19S89T8RJSbtyIxh10WtFWpSi3BRwx3vsI1mAAweLW8zQqrTL7V+HIxdstnm
- aoYnR+uJbk21/05y/ZJXB0T8A7jL7VMHnU2FT0Q3LTQNyZiPTE12PfaxlauvEbK/WNYb
- lBlusiPICZJkWBQuR8A8po76Y2gnzmgHKbi2xFRZFGB0DYfhNmKnkUGkmUklkAFr00wM
- fkUQ==
-X-Gm-Message-State: AOAM533qIE/ob5mDIpavwBzhEEhRjJ5oQSfcH3ahQRr88NGi/2ynMS7p
- EN3JyrmqaP9ABuR+CpueXmmJQnirv01htc0gJvs=
-X-Google-Smtp-Source: ABdhPJxScws3jJRDEbaR6dbYrjwOB1VdIUZ/msHqtIPF7qSxGVNhjx+JFqR9VzMHmwFvQBW5T2vQnK+/VriTnZ+h2EE=
-X-Received: by 2002:a5d:4603:: with SMTP id t3mr9924014wrq.424.1599762006947; 
- Thu, 10 Sep 2020 11:20:06 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200910145007.14107-1-paul@xen.org>
- <20200910145007.14107-5-paul@xen.org>
- <797DD1A2-60EB-455C-943D-C515881A69CC@arm.com>
- <C9ADFBE4-D7C7-43EC-9F33-D658548CE98D@arm.com>
- <88fc2079ec3f452db02fb4148b69240a@EX13D32EUC003.ant.amazon.com>
-In-Reply-To: <88fc2079ec3f452db02fb4148b69240a@EX13D32EUC003.ant.amazon.com>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Thu, 10 Sep 2020 21:19:56 +0300
-Message-ID: <CAPD2p-nop-LF4-c9DDBaG6R1c7ZknPODdjsDeyg2opNN9KTQTQ@mail.gmail.com>
-Subject: Re: [PATCH v6 4/8] iommu: make map and unmap take a page count,
- similar to flush
-To: "Durrant, Paul" <pdurrant@amazon.co.uk>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Paul Durrant <paul@xen.org>, 
- "open list:X86" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+ id 6f2c93b3-a9fd-4813-861b-3065d3fc2b27;
+ Thu, 10 Sep 2020 18:22:16 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 08AIM1B8045928
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 10 Sep 2020 14:22:06 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 08AIM0eI045927;
+ Thu, 10 Sep 2020 11:22:00 -0700 (PDT) (envelope-from ehem)
+Date: Thu, 10 Sep 2020 11:22:00 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
  George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, 
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-Content-Type: multipart/alternative; boundary="000000000000263ce405aef99e78"
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: Re: [PATCH 01/11 v2] gitignore: Move ignores from global to
+ subdirectories
+Message-ID: <20200910182200.GB45655@mattapan.m5p.com>
+References: <202009092152.089LqrKZ039176@m5p.com>
+ <75d49f83-f53a-8263-40c3-51d2cd624ccd@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <75d49f83-f53a-8263-40c3-51d2cd624ccd@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+ autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,281 +58,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---000000000000263ce405aef99e78
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Sep 10, 2020 at 11:13:26AM +0200, Jan Beulich wrote:
+> On 27.08.2020 21:09, Elliott Mitchell wrote:
+> > --- a/tools/misc/.gitignore
+> > +++ b/tools/misc/.gitignore
+> > @@ -1 +1,22 @@
+> > -xen-ucode
+> > +/cpuperf/cpuperf-perfcntr
+> > +/cpuperf/cpuperf-xen
+> > +/lowmemd
+> > +/xc_shadow
+> > +/xen-cpuid
+> > +/xen-detect
+> > +/xen-diag
+> > +/xen-hptool
+> > +/xen-hvmcrash
+> > +/xen-hvmctx
+> > +/xen-livepatch
+> > +/xen-lowmemd
+> > +/xen-mfndump
+> > +/xen-tmem-list-parse
+> > +/xen-ucode
+> > +/xen_cpuperf
+> > +/xencov
+> > +/xenhypfs
+> > +/xenlockprof
+> > +/xenperf
+> > +/xenpm
+> > +/xenwatchdogd
+> 
+> The earlier discussion had left me with the impression that the ./
+> form would be slightly better to use to avoid puzzling the
+> occasional reader. Did I overlook or mis-interpret anything? Did you
+> come to the conclusion that / is better, but forgot to mention the
+> "why" in at least the cover letter?
 
-On Thu, Sep 10, 2020 at 8:49 PM Durrant, Paul <pdurrant@amazon.co.uk> wrote=
-:
+Some of Xen's documentation isn't that great, even though most of `git`'s
+documentation is quite good a few pieces aren't so great.  The
+information on how .gitignore files are treated is less than wonderful.
 
-Hi Paul
+I had *thought* "./" would restrict to capturing files in the current
+directory, but after some testing and then some reading of the
+documentation (oh, `git check-ignore` is a thing).  Then reading the
+documentation again.  Then reading the documentation *again*.  I found an
+initial "/" restricts a pattern to the current directory, but `git`
+doesn't handle "./".
 
-[sorry for the possible format issue]
+Apparently a pattern with a slash *anywhere* besides the *end* (which
+includes the very start) will be treated as a full path relative to the
+current directory.  As such "foo/bar" and "/foo/bar" are equivalent.  Yet
+"foo" and "/foo" are *not* equivalent.
 
-> -----Original Message-----
-> > From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-> > Sent: 10 September 2020 17:46
-> > To: Paul Durrant <paul@xen.org>
-> > Cc: open list:X86 <xen-devel@lists.xenproject.org>; Durrant, Paul <
-> pdurrant@amazon.co.uk>; Jan Beulich
-> > <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu
-> <wl@xen.org>; Roger Pau Monn=C3=A9
-> > <roger.pau@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Ian
-> Jackson
-> > <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano
-> Stabellini
-> > <sstabellini@kernel.org>; Jun Nakajima <jun.nakajima@intel.com>; Kevin
-> Tian <kevin.tian@intel.com>
-> > Subject: RE: [EXTERNAL] [PATCH v6 4/8] iommu: make map and unmap take a
-> page count, similar to flush
-> >
-> > CAUTION: This email originated from outside of the organization. Do not
-> click links or open
-> > attachments unless you can confirm the sender and know the content is
-> safe.
-> >
-> >
-> >
-> > >> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> > >> index 1831dc66b0..13f68dc93d 100644
-> > >> --- a/xen/include/xen/iommu.h
-> > >> +++ b/xen/include/xen/iommu.h
-> > >> @@ -146,23 +146,23 @@ enum
-> > >> #define IOMMU_FLUSHF_modified (1u << _IOMMU_FLUSHF_modified)
-> > >>
-> > >> int __must_check iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
-> > >> -                           unsigned int page_order, unsigned int
-> flags,
-> > >> +                           unsigned long page_count, unsigned int
-> flags,
-> > >>                           unsigned int *flush_flags);
-> > >> int __must_check iommu_unmap(struct domain *d, dfn_t dfn,
-> > >> -                             unsigned int page_order,
-> > >> +                             unsigned long page_count,
-> > >>                             unsigned int *flush_flags);
-> > >>
-> > >> int __must_check iommu_legacy_map(struct domain *d, dfn_t dfn, mfn_t
-> mfn,
-> > >> -                                  unsigned int page_order,
-> > >> +                                  unsigned long page_count,
-> > >>                                  unsigned int flags);
-> > >> int __must_check iommu_legacy_unmap(struct domain *d, dfn_t dfn,
-> > >> -                                    unsigned int page_order);
-> > >> +                                    unsigned long page_count);
-> > >>
-> > >> int __must_check iommu_lookup_page(struct domain *d, dfn_t dfn, mfn_=
-t
-> *mfn,
-> > >>                                   unsigned int *flags);
-> > >>
-> > >> int __must_check iommu_iotlb_flush(struct domain *d, dfn_t dfn,
-> > >> -                                   unsigned int page_count,
-> > >> +                                   unsigned long page_count,
-> > >>                                   unsigned int flush_flags);
-> > >> int __must_check iommu_iotlb_flush_all(struct domain *d,
-> > >>                                       unsigned int flush_flags);
-> > >> @@ -281,7 +281,7 @@ struct iommu_ops {
-> > >>    void (*share_p2m)(struct domain *d);
-> > >>    void (*crash_shutdown)(void);
-> > >>    int __must_check (*iotlb_flush)(struct domain *d, dfn_t dfn,
-> > >> -                                    unsigned int page_count,
-> > >> +                                    unsigned long page_count,
-> > >
-> > > This change will require to change the arm smmu code to have the righ=
-t
-> type for page count:
-> > > xen/drivers/passthrough/smmu.c:2536
-> > > static int __must_check arm_smmu_iotlb_flush(struct domain *d, dfn_t
-> dfn,
-> > >                         unsigned int page_count,
-> > >                         unsigned int flush_flags)
-> > >
-> > > Otherwise compilation is failing for arm.
-> > >
-> > > With that fixed i could compile and start an arm system with the
-> complete serie (but not one with an
-> > arm SMMU).
-> >
-> > I should have specified because my test system right now does not have
-> an SMMUv1.
-> >
->
-> Thanks for spotting that; I did run a cross compilation on arm a while ag=
-o
-> so not sure how I managed to miss this. Will fix and send v7.
->
+Meanwhile a slash at the end tells `git` to *only* match a directory.
+
+Then you have "**" which will match zero or more directories.
 
 
- Probably ipmmu_iotlb_flush() in ipmmu-vmsa.c needs the same update as well
-(I don't have the possibility to apply your series and re-check)? Please
-note, it is still under CONFIG_EXPERT.
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
---=20
-Regards,
 
-Oleksandr Tyshchenko
-
---000000000000263ce405aef99e78
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 10, 2020 at 8:49 PM Durra=
-nt, Paul &lt;<a href=3D"mailto:pdurrant@amazon.co.uk">pdurrant@amazon.co.uk=
-</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr"><br></div><d=
-iv class=3D"gmail_attr">Hi Paul</div><div class=3D"gmail_attr"><br></div><d=
-iv class=3D"gmail_attr">[sorry for the possible format issue]</div><div dir=
-=3D"ltr" class=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">&gt; -----Original Message-----<br>
-&gt; From: Bertrand Marquis &lt;<a href=3D"mailto:Bertrand.Marquis@arm.com"=
- target=3D"_blank">Bertrand.Marquis@arm.com</a>&gt;<br>
-&gt; Sent: 10 September 2020 17:46<br>
-&gt; To: Paul Durrant &lt;<a href=3D"mailto:paul@xen.org" target=3D"_blank"=
->paul@xen.org</a>&gt;<br>
-&gt; Cc: open list:X86 &lt;<a href=3D"mailto:xen-devel@lists.xenproject.org=
-" target=3D"_blank">xen-devel@lists.xenproject.org</a>&gt;; Durrant, Paul &=
-lt;<a href=3D"mailto:pdurrant@amazon.co.uk" target=3D"_blank">pdurrant@amaz=
-on.co.uk</a>&gt;; Jan Beulich<br>
-&gt; &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"_blank">jbeulich@su=
-se.com</a>&gt;; Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.c=
-om" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt;; Wei Liu &lt;<a hre=
-f=3D"mailto:wl@xen.org" target=3D"_blank">wl@xen.org</a>&gt;; Roger Pau Mon=
-n=C3=A9<br>
-&gt; &lt;<a href=3D"mailto:roger.pau@citrix.com" target=3D"_blank">roger.pa=
-u@citrix.com</a>&gt;; George Dunlap &lt;<a href=3D"mailto:george.dunlap@cit=
-rix.com" target=3D"_blank">george.dunlap@citrix.com</a>&gt;; Ian Jackson<br=
->
-&gt; &lt;<a href=3D"mailto:ian.jackson@eu.citrix.com" target=3D"_blank">ian=
-.jackson@eu.citrix.com</a>&gt;; Julien Grall &lt;<a href=3D"mailto:julien@x=
-en.org" target=3D"_blank">julien@xen.org</a>&gt;; Stefano Stabellini<br>
-&gt; &lt;<a href=3D"mailto:sstabellini@kernel.org" target=3D"_blank">sstabe=
-llini@kernel.org</a>&gt;; Jun Nakajima &lt;<a href=3D"mailto:jun.nakajima@i=
-ntel.com" target=3D"_blank">jun.nakajima@intel.com</a>&gt;; Kevin Tian &lt;=
-<a href=3D"mailto:kevin.tian@intel.com" target=3D"_blank">kevin.tian@intel.=
-com</a>&gt;<br>
-&gt; Subject: RE: [EXTERNAL] [PATCH v6 4/8] iommu: make map and unmap take =
-a page count, similar to flush<br>
-&gt; <br>
-&gt; CAUTION: This email originated from outside of the organization. Do no=
-t click links or open<br>
-&gt; attachments unless you can confirm the sender and know the content is =
-safe.<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; &gt;&gt; diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.=
-h<br>
-&gt; &gt;&gt; index 1831dc66b0..13f68dc93d 100644<br>
-&gt; &gt;&gt; --- a/xen/include/xen/iommu.h<br>
-&gt; &gt;&gt; +++ b/xen/include/xen/iommu.h<br>
-&gt; &gt;&gt; @@ -146,23 +146,23 @@ enum<br>
-&gt; &gt;&gt; #define IOMMU_FLUSHF_modified (1u &lt;&lt; _IOMMU_FLUSHF_modi=
-fied)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; int __must_check iommu_map(struct domain *d, dfn_t dfn, mfn_t=
- mfn,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int page_order, unsigned int=
- flags,<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long page_count, unsigned in=
-t flags,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int *flush_flags);<br>
-&gt; &gt;&gt; int __must_check iommu_unmap(struct domain *d, dfn_t dfn,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int page_order,<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long page_count,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int *flush_flags);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; int __must_check iommu_legacy_map(struct domain *d, dfn_t dfn=
-, mfn_t mfn,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int pa=
-ge_order,<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned long p=
-age_count,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int flags=
-);<br>
-&gt; &gt;&gt; int __must_check iommu_legacy_unmap(struct domain *d, dfn_t d=
-fn,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned=
- int page_order);<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned=
- long page_count);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; int __must_check iommu_lookup_page(struct domain *d, dfn_t df=
-n, mfn_t *mfn,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int=
- *flags);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; int __must_check iommu_iotlb_flush(struct domain *d, dfn_t df=
-n,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
-int page_count,<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
-long page_count,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int=
- flush_flags);<br>
-&gt; &gt;&gt; int __must_check iommu_iotlb_flush_all(struct domain *d,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0unsigned int flush_flags);<br>
-&gt; &gt;&gt; @@ -281,7 +281,7 @@ struct iommu_ops {<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 void (*share_p2m)(struct domain *d);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 void (*crash_shutdown)(void);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 int __must_check (*iotlb_flush)(struct domain *d=
-, dfn_t dfn,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned=
- int page_count,<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned=
- long page_count,<br>
-&gt; &gt;<br>
-&gt; &gt; This change will require to change the arm smmu code to have the =
-right type for page count:<br>
-&gt; &gt; xen/drivers/passthrough/smmu.c:2536<br>
-&gt; &gt; static int __must_check arm_smmu_iotlb_flush(struct domain *d, df=
-n_t dfn,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0unsigned int page_count,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0unsigned int flush_flags)<br>
-&gt; &gt;<br>
-&gt; &gt; Otherwise compilation is failing for arm.<br>
-&gt; &gt;<br>
-&gt; &gt; With that fixed i could compile and start an arm system with the =
-complete serie (but not one with an<br>
-&gt; arm SMMU).<br>
-&gt; <br>
-&gt; I should have specified because my test system right now does not have=
- an SMMUv1.<br>
-&gt; <br>
-<br>
-Thanks for spotting that; I did run a cross compilation on arm a while ago =
-so not sure how I managed to miss this. Will fix and send v7.<br></blockquo=
-te><div><br></div><div><br></div></div>=C2=A0Probably ipmmu_iotlb_flush() i=
-n ipmmu-vmsa.c needs the same update as well (I don&#39;t have the possibil=
-ity to apply your series and re-check)? Please note, it is still under CONF=
-IG_EXPERT.<br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D=
-"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"l=
-tr"><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><spa=
-n style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span=
-></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span=
- style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tys=
-hchenko</font></span></div></div></div></div></div></div></div></div>
-
---000000000000263ce405aef99e78--
 
