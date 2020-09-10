@@ -2,64 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B81A2646B9
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 15:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E71C2646BF
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 15:19:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGMSC-00058U-NP; Thu, 10 Sep 2020 13:17:32 +0000
+	id 1kGMTZ-0005ES-8g; Thu, 10 Sep 2020 13:18:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5vjA=CT=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kGMSB-00058O-Tr
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 13:17:31 +0000
-X-Inumbo-ID: 67878294-f4d1-41e4-baab-afa8dc6d33c7
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dCRG=CT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kGMTX-0005EK-Bp
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 13:18:55 +0000
+X-Inumbo-ID: 2cfef551-7a9d-493f-aa7f-1f062e50be87
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67878294-f4d1-41e4-baab-afa8dc6d33c7;
- Thu, 10 Sep 2020 13:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599743850;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=F0tGysGYoxwFMS+wUjT1X03jatgz7QuSwOYT7C8qIGM=;
- b=XTOUB6bXOZirM9RkDJzwjRJKoLUH4H1rn4+vVtGuPVTH48uEPHIvODmG
- wjUuKYLlhaDEo+7wAegyNQQa2s14v7crj2BS2RjUGcZN15G60eABIG8uT
- i4iokB7urWgaZh/Hk//AgaYgv6P0X/munqGNDMZgD0GjvlVKmA04rjnmF U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: RSv+wuVZZA54tFwI5KPfFObc2CFW+Hau+wSZrSq7v/r5MvECG+OS8ezM5VXO6G0xqChVwh6INB
- PHxi79/gN2Jcbk+nWE7IhgggsfBKvY3zjTXoWagNfTyx+dQGKaZfXDlwVPuCGACVsysMSrSXVF
- WxcHTaBChtqq/MIjUD7yRct9zrxe5VnjzOJ5TsurzgRzA4OlYLeLtS30tfUgvLX5mAFxaibPdi
- +w6X7/qhmMUYECOmo/ekhJScjkLjyY9UEfcpa8jdSj9zou7vxTiiFQb4VLUlKE/d0eA48Aup07
- 4ck=
-X-SBRS: 2.7
-X-MesageID: 26527059
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,413,1592884800"; d="scan'208";a="26527059"
-Date: Thu, 10 Sep 2020 15:17:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: <paul@xen.org>, <xen-devel@lists.xenproject.org>, 'Andrew Cooper'
- <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>
-Subject: Re: [PATCH] x86/hvm: don't treat MMIO pages as special ones
- regarding cache attributes
-Message-ID: <20200910131712.GZ753@Air-de-Roger>
-References: <20200909145058.72066-1-roger.pau@citrix.com>
- <c865b08b-b2cc-eb86-0780-34492ffa9187@suse.com>
- <20200910103455.GV753@Air-de-Roger>
- <002901d68760$93a6a330$baf3e990$@xen.org>
- <20200910110400.GX753@Air-de-Roger>
- <e7fec8ef-ac98-7d69-8385-e366ccb35557@suse.com>
+ id 2cfef551-7a9d-493f-aa7f-1f062e50be87;
+ Thu, 10 Sep 2020 13:18:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4E4E7B163;
+ Thu, 10 Sep 2020 13:19:09 +0000 (UTC)
+Subject: Re: [PATCH v5 5/8] remove remaining uses of iommu_legacy_map/unmap
+To: Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+References: <20200907074023.1392-1-paul@xen.org>
+ <20200907074023.1392-6-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6f114986-a47e-6c0d-6c6e-ac547e157e59@suse.com>
+Date: Thu, 10 Sep 2020 15:18:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7fec8ef-ac98-7d69-8385-e366ccb35557@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <20200907074023.1392-6-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,35 +56,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Sep 10, 2020 at 01:28:44PM +0200, Jan Beulich wrote:
-> On 10.09.2020 13:05, Roger Pau Monné wrote:
-> > It's still not clear to me what option would be better: modify
-> > share_xen_page_with_guest to not mark pages as Xen heap, or implement
-> > something different to assign MMIO pages to dom_io without setting
-> > the Xen heap flag.
-> 
-> static void __init share_io_page(struct page_info *page)
-> {
->     set_gpfn_from_mfn(mfn_x(page_to_mfn(page)), INVALID_M2P_ENTRY);
-> 
->     /* The incremented type count pins as writable. */
->     page->u.inuse.type_info = PGT_writable_page | PGT_validated | 1;
-> 
->     page_set_owner(page, dom_io);
-> 
->     page->count_info |= PGC_allocated | 1;
-> }
-> 
-> is of course much shorter than share_xen_page_with_guest(), but
-> I'm nevertheless uncertain whether simply making conditional
-> the setting of PGC_xen_heap there isn't the easier route. Of
-> course, not pointlessly acquiring and releasing a lock has its
-> own appeal.
+On 07.09.2020 09:40, Paul Durrant wrote:
+> NOTE: The code in memory_add() now sets 'ret' if iommu_map() or
+>       iommu_iotlb_flush() fails. This seems to be have been missed before,
+>       meaning the error path could actually return 0.
 
-I've went over the existing is_special_page users and I think it's
-fine for MMIO regions to not be marked as special pages.
+I agree this is the better way, but I'm not sure it really was
+unintended: It could well have been considered a "best effort"
+approach to get IOMMU mappings in place, back at the time.
 
-Will send a new patch.
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-Roger.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one nit and one further remark:
+
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -1478,21 +1478,15 @@ int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm)
+>           !iommu_use_hap_pt(hardware_domain) &&
+>           !need_iommu_pt_sync(hardware_domain) )
+>      {
+> -        for ( i = spfn; i < epfn; i++ )
+> -            if ( iommu_legacy_map(hardware_domain, _dfn(i), _mfn(i),
+> -                                  1ul << PAGE_ORDER_4K,
+> -                                  IOMMUF_readable | IOMMUF_writable) )
+> -                break;
+> -        if ( i != epfn )
+> -        {
+> -            while (i-- > old_max)
+> -                /* If statement to satisfy __must_check. */
+> -                if ( iommu_legacy_unmap(hardware_domain, _dfn(i),
+> -                                        1ul << PAGE_ORDER_4K) )
+> -                    continue;
+> +        unsigned int flush_flags = 0;
+> +        unsigned long n = epfn - spfn;
+>  
+> +        ret = iommu_map(hardware_domain, _dfn(i), _mfn(i), n,
+> +                       IOMMUF_readable | IOMMUF_writable, &flush_flags);
+
+There's one blank too little here.
+
+> @@ -367,7 +344,7 @@ int iommu_iotlb_flush(struct domain *d, dfn_t dfn, unsigned long page_count,
+>      int rc;
+>  
+>      if ( !is_iommu_enabled(d) || !hd->platform_ops->iotlb_flush ||
+> -         !page_count || !flush_flags )
+> +         !page_count || !flush_flags || this_cpu(iommu_dont_flush_iotlb) )
+>          return 0;
+
+I'm still somewhat uneasy about this change, because there could in
+theory be fallout. I don't think there is in practice, so I'm willing
+to let it be this way. Long term we wan want to introduce a flag
+into flush_flags to allow overriding this behavior.
+
+Jan
 
