@@ -2,75 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BC026441B
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 12:30:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CDFA26443A
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 12:35:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGJpb-0005xN-Dr; Thu, 10 Sep 2020 10:29:31 +0000
+	id 1kGJv5-0006nw-8Z; Thu, 10 Sep 2020 10:35:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sM5j=CT=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kGJpZ-0005xI-O9
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 10:29:29 +0000
-X-Inumbo-ID: 0b38899d-f3b8-48e7-af37-02e1c9af5c57
-Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
+ <SRS0=5vjA=CT=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kGJv3-0006nr-J4
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 10:35:09 +0000
+X-Inumbo-ID: 5198be34-9dee-419f-95b2-24b5c659b918
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b38899d-f3b8-48e7-af37-02e1c9af5c57;
- Thu, 10 Sep 2020 10:29:28 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id BEF7B8E8;
- Thu, 10 Sep 2020 06:29:26 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 10 Sep 2020 06:29:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=TNzjk3
- ia4ViLQYEj9Nqm9sfuMhFQYNikNmVbW16yBdc=; b=hbP5Ihg7IEvj/mZS3H9HAa
- Lth5gCI2YsqHIKxFs2WGxdEPcMC4zQk5q326jQGdgSvXkYcXrh8uQoZYT7C/LXcD
- oLzPBUvF5wCq3Y0hGVT8EegjXL32JvIoZvamx6gfxL7rEfcCzOI75fD0VVpcorir
- ANAGwX+hFsEDkQN75Gkr98HLgk+/yT0p7XZmkcLHf29Ol54Bs2sie1bEAdxytLaf
- yDrK3lV7+YyZ8QDIeNX/PHVHL/TTphotOjT+QcmiNR/u2ydXIKKZqT2vq6E3eMZM
- cKpCQPnNhb48CfWtLpGruAkgUnRTX67i519wxmHtL/kZkl+Brxgl4wZhUpE/Zx8A
- ==
-X-ME-Sender: <xms:BgBaX6ahddexEYw_6ZhroqyeweZYx6G-AaZRauwjX4o_4wDH01pEOA>
- <xme:BgBaX9YTT6242sELQU9xSNi-Jvj-dU3sj_FzdB7gX-0ifdUx2ctuD7b6zTavz5k8a
- NwcZUTJ7BUxEw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudehjedgvddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeihedt
- hfeghfeiudefudevfeeufeeltefghfdtgeegudevudfhleeljeetvefgteenucffohhmrg
- hinhepgigvnhhprhhojhgvtghtrdhorhhgnecukfhppeeluddrieegrddujedtrdekleen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmh
- grrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:BgBaX08OJqu5z6hO3v8L50Y6XwthYPyQIZxfoy-yQ6r6MbR_fIcvgg>
- <xmx:BgBaX8p9xgez-Vn4JgX3TE3CsneSYvgxMhxdZVmOUkcQ0FNkRQ9PaA>
- <xmx:BgBaX1rPAgP_9Vhk37WBrmWE8-aEm4H324yEoE3dOHI7mJi9Ea06XQ>
- <xmx:BgBaXy1b3tiU2VDE60wLOI91C8NPerbr16gk8Y7PrG3o2UsC2yMnYg>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id A3EFE306468F;
- Thu, 10 Sep 2020 06:29:25 -0400 (EDT)
-Date: Thu, 10 Sep 2020 12:29:21 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
-Message-ID: <20200910102921.GZ1626@mail-itl>
-References: <20200910035723.GY1626@mail-itl>
- <20200910085148.GU753@Air-de-Roger>
+ id 5198be34-9dee-419f-95b2-24b5c659b918;
+ Thu, 10 Sep 2020 10:35:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599734106;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3aQ3yv1Cogk/pURM/2uGLqfvbafcKpBcS41k6jWRAFE=;
+ b=NxzGQVS2iysVBZwnyLKfYzI1fJQ5WvIi7UFEPq4iD6uq8OfZ0ldXsveo
+ eJoWIJ0399cSM401/nLEf4c9gVoIn58UeQkRUi/W6/sj+BQ0gNkMVMaf8
+ 5mNbq0GjcBXNN1UIT+PK5xKjH0d7aXmp+mZ3UWUpEgLokz5VbQHhCtxIb s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Ca4A715GkGiqWJfUowPOrdniPFKLBfrEOR4TyuQDTdOflTZi6I8lWFac8A0WCr6XScgbgQQO3V
+ 3TeGvzJkNemRnt+tP9JYzt6/SPKeMftg/D+eo5bO/WgZZLBAU8xf1vjgzlAzLv6V+DtSbYe0+z
+ FvhqPjNIfzSUMw3ijYLKUoZzwKM42vkT4zxx5d+g2YDF0n8Lb+uRFW7slOyCxC+jLbohdetkQt
+ GxL4t3UKLU1o3ytdFTaWC4wdPOJ47WZODGpNH7Cr7ICGGnNA3YNvCa6kiY/OlOgGOacwhGZuxn
+ ICs=
+X-SBRS: 2.7
+X-MesageID: 27358474
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,412,1592884800"; d="scan'208";a="27358474"
+Date: Thu, 10 Sep 2020 12:34:55 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+ <paul@xen.org>
+Subject: Re: [PATCH] x86/hvm: don't treat MMIO pages as special ones
+ regarding cache attributes
+Message-ID: <20200910103455.GV753@Air-de-Roger>
+References: <20200909145058.72066-1-roger.pau@citrix.com>
+ <c865b08b-b2cc-eb86-0780-34492ffa9187@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="YZlgiSU82KsurN9l"
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200910085148.GU753@Air-de-Roger>
+In-Reply-To: <c865b08b-b2cc-eb86-0780-34492ffa9187@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,83 +70,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Thu, Sep 10, 2020 at 11:27:49AM +0200, Jan Beulich wrote:
+> On 09.09.2020 16:50, Roger Pau Monne wrote:
+> > MMIO regions below the maximum address on the memory map can have a
+> > backing page struct that's shared with dom_io (see x86
+> > arch_init_memory and it's usage of share_xen_page_with_guest), and
+> > thus also fulfill the is_special_page check because the page has the
+> > Xen heap bit set.
+> > 
+> > This is incorrect for MMIO regions when is_special_page is used by
+> > epte_get_entry_emt, as it will force direct MMIO regions mapped into
+> > the guest p2m to have the cache attributes set to write-back.
+> > 
+> > Add an extra check in epte_get_entry_emt in order to detect pages
+> > shared with dom_io (ie: MMIO regions) and don't force them to
+> > write-back cache type on that case.
+> 
+> Did you consider the alternative of not marking those pages as Xen
+> heap ones? In particular when looking at it from this angle I
+> consider it at least odd for non-RAM (or more precisely non-heap)
+> pages to get marked this way.
 
---YZlgiSU82KsurN9l
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
+I wasn't sure whether this could cause issues in other places of the
+code that would rely on this fact and such change seemed more risky
+IMO.
 
-On Thu, Sep 10, 2020 at 10:51:48AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Sep 10, 2020 at 05:57:23AM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > Hi,
-> >=20
-> > After updating from Xen 4.13 to Xen 4.14 I have troubles starting any
-> > HVM: just after hvmloader saying "Invoking SeaBIOS" I get "(XEN) MMIO
-> > emulation failed (1): d29v0 32bit @ 0008:fffeedf d -> "
-> >=20
-> > I come to a situation where seemingly the same domU started via xl
-> > works, while when started via libvirt it crashes. This seems to be
-> > related to xl setting b_info.{acpi,apic}, while libvirt setting
-> > b_info.u.hvm.{acpi,apic}. Modifying libvirt to use the former fixes the
-> > issue.
->=20
-> Could you print the values of the involved fields at the end of
-> libxl__domain_build_info_setdefault in both cases?
->=20
-> I'm not able to spot what changed between 4.13 and 4.14 that could
-> alter the behavior, but knowing the values at that point might make
-> it easier.
+> And I can't currently see anything
+> requiring them to be marked as such - them being owned by DomIO is
+> all that's needed as it seems.
 
-Sure, will do.
-It may be also something else: maybe it acpi/apic settings were broken
-before, but did not results in a domU crash this way.
-FWIW when looking into /var/lib/xen/*-libxl-json I clearly see
-difference between b_info.{acpi,apic} and b_info.u.hvm.{acpi,apic}.
+Should those pages then simply be assigned to dom_io and set the
+appropriate flags (PGC_allocated | 1), or should
+share_xen_page_with_guest be modified to not set the PGC_xen_heap
+flag?
 
-> > So, handling the old option got broken sometime between 4.13 and 4.14.
-> > Or perhaps it is some other related side effect.
->=20
-> Libvirt master tests seem to have been failing for some time (60 days)
-> in the build phase [0], maybe you are using a newer version of libvirt
-> than what osstest is currently testing? (Xen flights are currently
-> stuck at libvirt commit 2c846fa6bcc11929c9fb857a22430fb9945654ad).
+I see that such addition was done in a2b4b8c2041, but I'm afraid I
+don't fully understand why share_xen_page_with_guest needs to mark
+pages as Xen heap.
 
-I use libvirt 6.6.0, so even older one, and in fact updated it from
-6.4.0 together with Xen 4.14. But I don't see relevant change between
-those two versions.
-
-BTW The libvirt build may require more attention, they've changed build
-system... Now it is built with meson/ninja (haven't figured it out yet).
-
-> Thanks, Roger.
->=20
-> [0] http://logs.test-lab.xenproject.org/osstest/logs/152881/build-amd64-l=
-ibvirt/6.ts-libvirt-build.log
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---YZlgiSU82KsurN9l
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl9aAAEACgkQ24/THMrX
-1yy/hwf/Z2Bk+OybqVriEqukX1tnt9ldtAS4toXw53xscHtWjczNfh6AZVH4EjvZ
-iaVOtwlQsPCZvnn8/b7OO/y5x69DHBzv4sJVhKmcNWpdewe63tmyQ9kYJTRwErbQ
-grCWgNKtZYml7z4ydOTr6hfRzz7QQkQZ26/pqXkf+s/1kMcolSF5XHj7kmDcfx/e
-RHE60hadxIIiJcct8c7+BYnhk7UYKRb8h0nObY1zvM83OWcd9U7UBdwZuQSU8FTj
-WgIbpA3JFNbE9JoCvCVeC1iOB5ttSlP7ag497muOyvoadbBu8miHCUTNsAywVibR
-BRbJqoDXEHw4Nl4bnYCRZ78fF5dIWA==
-=MzfC
------END PGP SIGNATURE-----
-
---YZlgiSU82KsurN9l--
+Thanks, Roger.
 
