@@ -2,52 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27DBF264CF9
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 20:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6711C26504E
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 22:10:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGRLs-0003MU-9o; Thu, 10 Sep 2020 18:31:20 +0000
+	id 1kGSt5-0002g1-CN; Thu, 10 Sep 2020 20:09:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nxmn=CT=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kGRLq-0003MP-Ky
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 18:31:18 +0000
-X-Inumbo-ID: ed163d78-7ade-4e6b-b7c7-e8badee8751a
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FP7I=CT=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kGSt4-0002fw-A7
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 20:09:42 +0000
+X-Inumbo-ID: 2335e501-59ad-48cf-80ce-67073800fe66
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ed163d78-7ade-4e6b-b7c7-e8badee8751a;
- Thu, 10 Sep 2020 18:31:17 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 08AIV0I9045982
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 10 Sep 2020 14:31:06 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 08AIV0S2045981;
- Thu, 10 Sep 2020 11:31:00 -0700 (PDT) (envelope-from ehem)
-Date: Thu, 10 Sep 2020 11:31:00 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: Re: [PATCH 00/11] Major rework of top-level .gitignore
-Message-ID: <20200910183100.GC45655@mattapan.m5p.com>
-References: <202009092152.089Lqhmn039171@m5p.com>
- <7b7d69c5-5237-2290-06d8-3aae436257dc@suse.com>
+ id 2335e501-59ad-48cf-80ce-67073800fe66;
+ Thu, 10 Sep 2020 20:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599768581;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=rRoBQ3YTtW3j0voSlymyJSvbs8RCxxHyuNXWyHKX170=;
+ b=H+ILzdSlWN9ZcaiQUMpzofqp2aFkThUfPfkGreE2OBwbd1NYoQ0u0bPU
+ KxKUodEZWRAe9onwJv4DK+S4qTmPm7QCJVd7DVt5C+rLglcSpoC0SG+Ov
+ d2n72qlwrJMzVQyh4DK5SDruJcDROD5zRZt6TKP49K13sb+n5X+WHvKR2 g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: kiACMK6Oq5qccr5JKwLDLmZ6BCmCtbnBEYgRYIKH+FQFKwiUHiIazLoGW4w3+hfn3DjNqaSXdo
+ E1ER9ZjMycthqyoK5EA2x+wLb8YsNzBZcrLlb+VIlwCa2YRPSmZ0SuwJG832ciLjFKe23rn4Rn
+ BU/2onblswMO1Oy9WF87/sRo+9H3TCRbisr4I3xKa+ajWj/Gwjh9Qw4JXBeKmWx9WEZi7a1C+Y
+ JGZcFUaLA+saxaZLC49B1+n2RRAvC0sEzeh6MpBrIHH7zelpkch2PQ1lgQLMT0hzip0VMGDy2Y
+ ibE=
+X-SBRS: 2.7
+X-MesageID: 26423757
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,413,1592884800"; d="scan'208";a="26423757"
+Subject: Regression: [PATCH v10 10/12] tools/libxl: use libxenhypfs for
+ setting xen runtime parameters
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Ian Jackson
+ <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+References: <20200519072106.26894-1-jgross@suse.com>
+ <20200519072106.26894-11-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <b4f66026-67c1-5284-84d7-9d9af1775904@citrix.com>
+Date: Thu, 10 Sep 2020 21:09:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7b7d69c5-5237-2290-06d8-3aae436257dc@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
- autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <20200519072106.26894-11-jgross@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,83 +71,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Sep 10, 2020 at 08:10:08AM +0200, Jan Beulich wrote:
-> On 09.09.2020 03:28, Elliott Mitchell wrote:
-> > The top-level .gitignore file for Xen has gotten rather messy.  Looks
-> > like at times a few people may have added some blank lines looking
-> > towards some later cleanup.  Alas no one ever got around to that later
-> > cleanup.
-> > 
-> > When looking at one portion of the situation I ended up doing some
-> > cleanup and it got out of hand.  Hence I'm not sending in these patches
-> > which hopefully make things better.
-> > 
-> > Please note these are somewhat better than work-in-progress status.
-> > There are several places I'm unsure of which direction to go in.  Likely
-> > several of these will need more or less information in their commit
-> > messages.
-> > 
-> > Overall pattern is first some initial cleanup on the top-level
-> > .gitignore.  It is easier to spot targeted file matches which overlapped
-> > general globs before breaking things apart.  This is followed by breaking
-> > all targeted matches off of the global .gitignore file.  Lastly the
-> > global .gitignore file was sorted and I've commented on a few of the
-> > things which remain.
-> > 
-> > Recent versions of `git` include a "check-ignore" command.  For testing
-> > new patterns `git check-ignore -vn --no-index <pattern>` will tell you
-> > whether a given filename would be ignored without "add -f".
-> > 
-> > I think patches 01 and 02 are near ready for being committed.
-> 
-> Provided we as a community basically agree on the splitting. I'm
-> not sure I've read this out of prior discussion.
+On 19/05/2020 08:21, Juergen Gross wrote:
+> Instead of xc_set_parameters() use xenhypfs_write() for setting
+> parameters of the hypervisor.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Looking at things, I think this is the way to go.  The older OCAML pieces
-needs some ignores which are distinct from what C or Python need.
-Several portions of Xen appear to need some local patterns which differ
-from what is in the general portion.
+Something here isn't right.  XenServer's testing for XSA-304 has shown
+the following bizarre behaviour.
 
-The downside of splitting is it makes it harder to identify patterns
-which everyone has implemented variants of and should be moved to a
-general pattern in the top-level .gitignore file.
+# xl set-parameters ept=
+libxl: error: libxl.c:701:libxl_set_parameters: setting parameters:
+Invalid argument
+cannot set parameters: ept=
+# xl set-parameters ept=exec-sp
+# xl set-parameters ept=no-exec-sp
+libxl: error: libxl.c:701:libxl_set_parameters: setting parameters: No
+space left on device
+cannot set parameters: ept=no-exec-sp
 
-> >  Patches
-> > 03-09 need varying degrees of polish before being in an official tree.
-> > Patches 10 and 11 are pretty well initial rough outlines.
-> > 
-> > Elliott Mitchell (11):
-> >   gitignore: Move ignores from global to subdirectories
-> >   gitignore: Remove entries duplicating global entries
-> >   gitignore: Add/Generalize entries
-> >   gitignore: Create .gitignore file for tools/firmware/
-> >   gitignore: Create .gitignore file for tools/ocaml/
-> >   gitignore: Create .gitignore file for xen/
-> >   gitignore: Create .gitignore file for docs/
-> >   gitignore: Create .gitignore file for stubdom/
-> >   gitignore: Create .gitignore file for config/
-> >   gitignore: Create .gitignore file for tools/
-> >   gitignore: RFC Prelimiary final cleanup of top-level .gitignore
-> 
-> I'm confused about whether what I have in my inbox is complete and
-> consistent: 01-11 don't look to be "in reply to" this one, and they
-> all pre-date this mail by a varying number of days (Aug 27 ... Sep 3).
-> Additionally, unlike what happens for every other sender these days,
-> I've also got two copies of most (but not all) of them. Prior to our
-> mail setup over here having changed over a year ago this was the
-> normal way when I was Cc-ed on patches, but the server nowadays
-> de-duplicates the mails. So something is likely odd with your setup.
+Instrumentation shows that the first two examples here enter
+parse_ept_param_runtime() with the provided string, while the third
+example doesn't.
 
-I think there is a distinct chance I screwed up and got things mixed
-together (joy! more strong evidence I'm not all here, now to win that
-war to put me back together).
+Given the -ENOSPC, I'm guessing there is some overly small internal
+buffer somewhere in the hyperfs infrastructure ?
 
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+~Andrew
 
