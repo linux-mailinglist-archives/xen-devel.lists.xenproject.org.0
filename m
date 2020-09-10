@@ -2,68 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617302650B7
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 22:26:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB602650BC
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 22:26:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGT9J-0005I8-3a; Thu, 10 Sep 2020 20:26:29 +0000
+	id 1kGT9K-0005Is-Ag; Thu, 10 Sep 2020 20:26:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vQLO=CT=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kGT6D-0004JK-Tr
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 20:23:17 +0000
-X-Inumbo-ID: 990c3b5d-edac-40e4-8ae9-b0a74ea99e0e
+ id 1kGT6I-0004JK-U0
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 20:23:22 +0000
+X-Inumbo-ID: d5b9db3b-c25d-4e40-8632-104471869275
 Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 990c3b5d-edac-40e4-8ae9-b0a74ea99e0e;
- Thu, 10 Sep 2020 20:22:42 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id k25so9836122ljg.9
- for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 13:22:42 -0700 (PDT)
+ id d5b9db3b-c25d-4e40-8632-104471869275;
+ Thu, 10 Sep 2020 20:22:44 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id a22so9837220ljp.13
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Sep 2020 13:22:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=yxgZFLntZkraDf9xLCHvPwNiW2e9Dwj0UjwcNkgA0sQ=;
- b=Akun53CWZb6BBO5kJrsAqNY/zZ5Laqym5XCZd0+LlPvURtDOBgvCMsDK9lJqmxJE1i
- W0YEb8daD3TwMJgsuxLl7RQVBGi2yUnC2TWuOiCMclcL/49LRsk8banvIe95LBsydupw
- daVS/DNt4jjKbwai+KQC7uP4WvqLt2RJHxHccIO2YnlFvQisDv2ZNe9nee83KW9HHJNR
- W+7UDKGTpGhyNAV4uMEicgsNLJMLclw5WYglydei8wwsUp5qQUiRsAe2yReoCAruvMDB
- hpxbnMT2cPhMjZRqMVJKoKibolPasc9mO7kAz4kWU+BJ0BERHbBW0LcGVpfEM2EC+Wxm
- lY7w==
+ bh=6Ks15DjS0DDqzRnab3kDGJifccvvIXZZROzSdME2Ru0=;
+ b=pQLnLxd6HijBw6T2/4r0fqA8xBIRT9t6cVrxHnIV9gMVt17VKbu3Zsxxka27qSmdBw
+ 5HrMqzO1V6mNh7eJGjj+GwUnNpFx/I73iJTzIzUblVtY4Y91FBhdhPwn8f/fXBmOrDPP
+ o4B3x9w/h5t8TuhvaMEDr3W7xLqVRDnfTd9hOpq+yZv9dOL/i7Fw6C+TEOUsjgMJ/Kvw
+ 0nprpaQK3NwC7T7uIqIjfNPECDsKDr45zdgFvnpOLYIk89jbwJx+lE8PBUz75g2ZgN1D
+ +wX0DeApF+jna8PMT0c7SRd34WEeuhcvDyuIWZn2o6EwV+mtOrCrkj91XQEIH5PLLKSw
+ xe0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=yxgZFLntZkraDf9xLCHvPwNiW2e9Dwj0UjwcNkgA0sQ=;
- b=TGbxDfmXMWE8kVbnb/V+xouxL3FbXEBrG25ePcwrN+PshzGYwDi1iUzmx9/F2MXOFF
- CEnuKgyX+VLysP+1DKw1HylcHx1d9lOU1OTC5+Ylbpp4ekypHSVU4VYwwbYDWMo6Fq1l
- EDEP47tyhy9hRQkeGjXO3e89n6BPPfJU2DbKRLk5Qq2Min/XBMI7ZqUVyUqNnwJI31rB
- 9j5kcC4wLLsObJgoZmKdRLGzCGL3bVgrs5uznE4BIi/e995NZYk6omTOBrJLAd4BXe4R
- MUpraDZjjZSZW7fMDEdFKko6jzhzS740twhfHC7QW3XKKe4yuBaU6CW+bdDxAfVFtg7C
- NDOA==
-X-Gm-Message-State: AOAM531gDzGdGXOMZy4JBqiZhNpkF8B4DyF8yIrIWlFBAfApZCuKX3QL
- ChzvH+kFjBzmXMfHIQcP/rvrqo2aRRflbg==
-X-Google-Smtp-Source: ABdhPJzUiir/GYZesZdfpkEiBhXiAqO7zdE/BrOF0S8yL5Jw0rnc3Ir9R+2SKVJxxarKl1BV6QaaHg==
-X-Received: by 2002:a2e:a588:: with SMTP id m8mr5240675ljp.210.1599769361044; 
- Thu, 10 Sep 2020 13:22:41 -0700 (PDT)
+ bh=6Ks15DjS0DDqzRnab3kDGJifccvvIXZZROzSdME2Ru0=;
+ b=IkxSv5HVJdMBbwUdgI0YpOAZ3kMX2clrnOgy8HMetdDElMuhc7vQ8EeH7M7U98Ajvn
+ Oyp4rZ/b5zEsgf094gfBDqeYUuZX9YOad5yTJJRD0Zpq3zq+AjS4hlvV3a9iHmW1gjyz
+ IfPHUly1cu8HjGKTEs04FfEoExJ2+l7I0glNMb94co3F3/n+NDf2vs4dFgZ4UY5o7e8O
+ Vl29WhDiQV0AZTkCcSu/CJWKbVHnoR82vJRe/0NWNona62nlOPjD96hPwrglfzKzFZ3s
+ DLHiG4dfmdAb9OxUpjvZJQ6vIt4fpgGpIDWRwCPUAb1bUF1fzarJl5ko9NKRDR4BMLGZ
+ G7CA==
+X-Gm-Message-State: AOAM533idwie7/50DSPypeh9rhSUyUtDotyrv6JT9qeNJw7EubtbCH3D
+ +HXhJ6idC06aBymIqPQ9UbbZw5iFkZOBiA==
+X-Google-Smtp-Source: ABdhPJz9AmufEaILMskmWAfw+1Yby0aOeEljv9qOECw1anxy1bJsicUW6PMmbqgvYlENXsnfIcElZg==
+X-Received: by 2002:a2e:a16e:: with SMTP id u14mr5889108ljl.464.1599769362623; 
+ Thu, 10 Sep 2020 13:22:42 -0700 (PDT)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id u5sm1584375lfq.17.2020.09.10.13.22.39
+ by smtp.gmail.com with ESMTPSA id u5sm1584375lfq.17.2020.09.10.13.22.41
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 10 Sep 2020 13:22:39 -0700 (PDT)
+ Thu, 10 Sep 2020 13:22:41 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
  Julien Grall <julien.grall@arm.com>
-Subject: [PATCH V1 10/16] xen/mm: Handle properly reference in
- set_foreign_p2m_entry() on Arm
-Date: Thu, 10 Sep 2020 23:22:04 +0300
-Message-Id: <1599769330-17656-11-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V1 11/16] xen/ioreq: Introduce hvm_domain_has_ioreq_server()
+Date: Thu, 10 Sep 2020 23:22:05 +0300
+Message-Id: <1599769330-17656-12-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
@@ -82,22 +79,16 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-This patch implements reference counting of foreign entries in
-in set_foreign_p2m_entry() on Arm. This is a mandatory action if
-we want to run emulator (IOREQ server) in other than dom0 domain,
-as we can't trust it to do the right thing if it is not running
-in dom0. So we need to grab a reference on the page to avoid it
-disappearing.
+This patch introduces a helper the main purpose of which is to check
+if a domain is using IOREQ server(s).
 
-It was tested with IOREQ feature to confirm that all the pages given
-to this function belong to a domain, so we can use the same approach
-as for XENMAPSPACE_gmfn_foreign handling in xenmem_add_to_physmap_one().
+On Arm the benefit is to avoid calling handle_hvm_io_completion()
+(which implies iterating over all possible IOREQ servers anyway)
+on every return in leave_hypervisor_to_guest() if there is no active
+servers for the particular domain.
 
-This involves adding an extra parameter for the foreign domain to
-set_foreign_p2m_entry().
-
-Also remove restriction for the hardware domain in the common code
-if we run on Arm.
+This involves adding an extra per-domain variable to store the count
+of servers in use.
 
 Signed-off-by: Julien Grall <julien.grall@arm.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
@@ -107,133 +98,113 @@ Please note, this is a split/cleanup/hardening of Julien's PoC:
 "Add support for Guest IO forwarding to a device emulator"
 
 Changes RFC -> V1:
-   - new patch, was split from:
-     "[RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for IOREQ/DM features"
-   - rewrite a logic to handle properly reference in set_foreign_p2m_entry()
-     instead of treating foreign entries as p2m_ram_rw
+   - new patch
 ---
 ---
- xen/arch/arm/p2m.c        | 16 ++++++++++++++++
- xen/arch/x86/mm/p2m.c     |  5 +++--
- xen/common/memory.c       |  4 +++-
- xen/include/asm-arm/p2m.h | 11 ++---------
- xen/include/asm-x86/p2m.h |  3 ++-
- 5 files changed, 26 insertions(+), 13 deletions(-)
+ xen/arch/arm/traps.c             | 15 +++++++++------
+ xen/common/ioreq.c               |  9 ++++++++-
+ xen/include/asm-arm/domain.h     |  1 +
+ xen/include/asm-x86/hvm/domain.h |  1 +
+ xen/include/xen/ioreq.h          |  5 +++++
+ 5 files changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index ce59f2b..cb64fc5 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1385,6 +1385,22 @@ int guest_physmap_remove_page(struct domain *d, gfn_t gfn, mfn_t mfn,
-     return p2m_remove_mapping(d, gfn, (1 << page_order), mfn);
- }
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 121942c..6b37ae1 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -2263,14 +2263,17 @@ static bool check_for_vcpu_work(void)
+     struct vcpu *v = current;
  
-+int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
-+                          unsigned long gfn, mfn_t mfn)
-+{
-+    struct page_info *page = mfn_to_page(mfn);
-+    int rc;
-+
-+    if ( !get_page(page, fd) )
-+        return -EINVAL;
-+
-+    rc = guest_physmap_add_entry(d, _gfn(gfn), mfn, 0, p2m_map_foreign_rw);
-+    if ( rc )
-+        put_page(page);
-+
-+    return 0;
-+}
-+
- static struct page_info *p2m_allocate_root(void)
+ #ifdef CONFIG_IOREQ_SERVER
+-    bool handled;
++    if ( hvm_domain_has_ioreq_server(v->domain) )
++    {
++        bool handled;
+ 
+-    local_irq_enable();
+-    handled = handle_hvm_io_completion(v);
+-    local_irq_disable();
++        local_irq_enable();
++        handled = handle_hvm_io_completion(v);
++        local_irq_disable();
+ 
+-    if ( !handled )
+-        return true;
++        if ( !handled )
++            return true;
++    }
+ #endif
+ 
+     if ( likely(!v->arch.need_flush_to_ram) )
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index ce12751..4c3a835 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -38,9 +38,15 @@ static void set_ioreq_server(struct domain *d, unsigned int id,
+                              struct hvm_ioreq_server *s)
  {
-     struct page_info *page;
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index db7bde0..f27f8a4 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -1320,7 +1320,8 @@ static int set_typed_p2m_entry(struct domain *d, unsigned long gfn_l,
+     ASSERT(id < MAX_NR_IOREQ_SERVERS);
+-    ASSERT(!s || !d->arch.hvm.ioreq_server.server[id]);
++    ASSERT((!s && d->arch.hvm.ioreq_server.server[id]) ||
++           (s && !d->arch.hvm.ioreq_server.server[id]));
+ 
+     d->arch.hvm.ioreq_server.server[id] = s;
++
++    if ( s )
++        d->arch.hvm.ioreq_server.nr_servers ++;
++    else
++        d->arch.hvm.ioreq_server.nr_servers --;
  }
- 
- /* Set foreign mfn in the given guest's p2m table. */
--int set_foreign_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn)
-+int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
-+                          unsigned long gfn, mfn_t mfn)
- {
-     return set_typed_p2m_entry(d, gfn, mfn, PAGE_ORDER_4K, p2m_map_foreign,
-                                p2m_get_hostp2m(d)->default_access);
-@@ -2619,7 +2620,7 @@ int p2m_add_foreign(struct domain *tdom, unsigned long fgfn,
-      * will update the m2p table which will result in  mfn -> gpfn of dom0
-      * and not fgfn of domU.
-      */
--    rc = set_foreign_p2m_entry(tdom, gpfn, mfn);
-+    rc = set_foreign_p2m_entry(tdom, fdom, gpfn, mfn);
-     if ( rc )
-         gdprintk(XENLOG_WARNING, "set_foreign_p2m_entry failed. "
-                  "gpfn:%lx mfn:%lx fgfn:%lx td:%d fd:%d\n",
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index e551fa6..78781f1 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1155,6 +1155,7 @@ static int acquire_resource(
-         xen_pfn_t gfn_list[ARRAY_SIZE(mfn_list)];
-         unsigned int i;
- 
-+#ifndef CONFIG_ARM
-         /*
-          * FIXME: Until foreign pages inserted into the P2M are properly
-          *        reference counted, it is unsafe to allow mapping of
-@@ -1162,13 +1163,14 @@ static int acquire_resource(
-          */
-         if ( !is_hardware_domain(currd) )
-             return -EACCES;
-+#endif
- 
-         if ( copy_from_guest(gfn_list, xmar.frame_list, xmar.nr_frames) )
-             rc = -EFAULT;
- 
-         for ( i = 0; !rc && i < xmar.nr_frames; i++ )
-         {
--            rc = set_foreign_p2m_entry(currd, gfn_list[i],
-+            rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
-                                        _mfn(mfn_list[i]));
-             /* rc should be -EIO for any iteration other than the first */
-             if ( rc && i )
-diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
-index 5fdb6e8..53ce373 100644
---- a/xen/include/asm-arm/p2m.h
-+++ b/xen/include/asm-arm/p2m.h
-@@ -381,15 +381,8 @@ static inline gfn_t gfn_next_boundary(gfn_t gfn, unsigned int order)
-     return gfn_add(gfn, 1UL << order);
- }
- 
--static inline int set_foreign_p2m_entry(struct domain *d, unsigned long gfn,
--                                        mfn_t mfn)
--{
--    /*
--     * NOTE: If this is implemented then proper reference counting of
--     *       foreign entries will need to be implemented.
--     */
--    return -EOPNOTSUPP;
--}
-+int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
-+                          unsigned long gfn,  mfn_t mfn);
  
  /*
-  * A vCPU has cache enabled only when the MMU is enabled and data cache
-diff --git a/xen/include/asm-x86/p2m.h b/xen/include/asm-x86/p2m.h
-index 8abae34..23bdca1 100644
---- a/xen/include/asm-x86/p2m.h
-+++ b/xen/include/asm-x86/p2m.h
-@@ -635,7 +635,8 @@ int p2m_is_logdirty_range(struct p2m_domain *, unsigned long start,
-                           unsigned long end);
+@@ -1395,6 +1401,7 @@ unsigned int hvm_broadcast_ioreq(ioreq_t *p, bool buffered)
+ void hvm_ioreq_init(struct domain *d)
+ {
+     spin_lock_init(&d->arch.hvm.ioreq_server.lock);
++    d->arch.hvm.ioreq_server.nr_servers = 0;
  
- /* Set foreign entry in the p2m table (for priv-mapping) */
--int set_foreign_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn);
-+int set_foreign_p2m_entry(struct domain *d, struct domain *fd,
-+                          unsigned long gfn, mfn_t mfn);
+     arch_hvm_ioreq_init(d);
+ }
+diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+index d1c48d7..0c0506a 100644
+--- a/xen/include/asm-arm/domain.h
++++ b/xen/include/asm-arm/domain.h
+@@ -31,6 +31,7 @@ struct hvm_domain
+     struct {
+         spinlock_t              lock;
+         struct hvm_ioreq_server *server[MAX_NR_IOREQ_SERVERS];
++        unsigned int            nr_servers;
+     } ioreq_server;
+ };
  
- /* Set mmio addresses in the p2m table (for pass-through) */
- int set_mmio_p2m_entry(struct domain *d, gfn_t gfn, mfn_t mfn,
+diff --git a/xen/include/asm-x86/hvm/domain.h b/xen/include/asm-x86/hvm/domain.h
+index 765f35c..79e0afb 100644
+--- a/xen/include/asm-x86/hvm/domain.h
++++ b/xen/include/asm-x86/hvm/domain.h
+@@ -77,6 +77,7 @@ struct hvm_domain {
+     struct {
+         spinlock_t              lock;
+         struct hvm_ioreq_server *server[MAX_NR_IOREQ_SERVERS];
++        unsigned int            nr_servers;
+     } ioreq_server;
+ 
+     /* Cached CF8 for guest PCI config cycles */
+diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
+index 102f7e8..25ce4c2 100644
+--- a/xen/include/xen/ioreq.h
++++ b/xen/include/xen/ioreq.h
+@@ -57,6 +57,11 @@ struct hvm_ioreq_server {
+     uint8_t                bufioreq_handling;
+ };
+ 
++static inline bool hvm_domain_has_ioreq_server(const struct domain *d)
++{
++    return (d->arch.hvm.ioreq_server.nr_servers > 0);
++}
++
+ #define GET_IOREQ_SERVER(d, id) \
+     (d)->arch.hvm.ioreq_server.server[id]
+ 
 -- 
 2.7.4
 
