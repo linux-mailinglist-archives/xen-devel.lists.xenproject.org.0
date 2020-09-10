@@ -2,59 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D55B264092
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 10:52:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C0326410D
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 11:14:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGIJF-0005L8-7l; Thu, 10 Sep 2020 08:52:01 +0000
+	id 1kGIdz-00079H-3e; Thu, 10 Sep 2020 09:13:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5vjA=CT=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kGIJD-0005L3-QO
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 08:51:59 +0000
-X-Inumbo-ID: 736dd149-87bd-43a2-8e19-1a430cd9b395
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dCRG=CT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kGIdx-00079C-Qk
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 09:13:25 +0000
+X-Inumbo-ID: f34e75ce-4e53-4d1e-93f0-a2f722728290
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 736dd149-87bd-43a2-8e19-1a430cd9b395;
- Thu, 10 Sep 2020 08:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599727918;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Za0OHswcqDfglKGKKZVa8lKrdewcYlCNQAwzsucm/k4=;
- b=JJlyz/jrbPwIVqr/a/ICM0J62S3i4kaxjdCUSJkymGT+7qx5U34KzRnB
- gHh4kJGRlXb2SSXP7ERZxxX1K8Kb1zP2fEnN6OMFeJUeZG9y3PGaE40bM
- KEFLFJX20qzEwxFjclEZtXJZKR1ZPM4HBS6BeVkl8czpUehEJVbGrOXiR U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: hHgtV2WinIPvwxbhwiSBGHZ336Wv7CaRkkz4G0bK9nL5IrxFy89zdPT9l8xR7TJKkbV8oz1/9j
- gC8H3a8ImtTOANrxPpmipFCfC4BHCepaHEoN3NiQzuU1Kh6jNbFruzO0tNkAbyoNyFfTa48h2A
- oxROMmBnDLbRBMvNd7IXD/QZIkpYb62r3pE7u7dOcPPEkenzKUTqRtqld70jNzN9hB2pFanz6z
- m0oj/uw0o7O+Ps7h73WMQ0GkLhM2UcGMhwIjJ28v++2T8kBBPRBFzHMlIGRY7ZAdJTO+YxP8bG
- 5Uc=
-X-SBRS: 2.7
-X-MesageID: 26678303
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,412,1592884800"; d="scan'208";a="26678303"
-Date: Thu, 10 Sep 2020 10:51:48 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
-Message-ID: <20200910085148.GU753@Air-de-Roger>
-References: <20200910035723.GY1626@mail-itl>
+ id f34e75ce-4e53-4d1e-93f0-a2f722728290;
+ Thu, 10 Sep 2020 09:13:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ADA1AB024;
+ Thu, 10 Sep 2020 09:13:39 +0000 (UTC)
+Subject: Re: [PATCH 01/11 v2] gitignore: Move ignores from global to
+ subdirectories
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <202009092152.089LqrKZ039176@m5p.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <75d49f83-f53a-8263-40c3-51d2cd624ccd@suse.com>
+Date: Thu, 10 Sep 2020 11:13:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200910035723.GY1626@mail-itl>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <202009092152.089LqrKZ039176@m5p.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +54,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Sep 10, 2020 at 05:57:23AM +0200, Marek Marczykowski-Górecki wrote:
-> Hi,
-> 
-> After updating from Xen 4.13 to Xen 4.14 I have troubles starting any
-> HVM: just after hvmloader saying "Invoking SeaBIOS" I get "(XEN) MMIO
-> emulation failed (1): d29v0 32bit @ 0008:fffeedf d -> "
-> 
-> I come to a situation where seemingly the same domU started via xl
-> works, while when started via libvirt it crashes. This seems to be
-> related to xl setting b_info.{acpi,apic}, while libvirt setting
-> b_info.u.hvm.{acpi,apic}. Modifying libvirt to use the former fixes the
-> issue.
+On 27.08.2020 21:09, Elliott Mitchell wrote:
+> --- a/tools/misc/.gitignore
+> +++ b/tools/misc/.gitignore
+> @@ -1 +1,22 @@
+> -xen-ucode
+> +/cpuperf/cpuperf-perfcntr
+> +/cpuperf/cpuperf-xen
+> +/lowmemd
+> +/xc_shadow
+> +/xen-cpuid
+> +/xen-detect
+> +/xen-diag
+> +/xen-hptool
+> +/xen-hvmcrash
+> +/xen-hvmctx
+> +/xen-livepatch
+> +/xen-lowmemd
+> +/xen-mfndump
+> +/xen-tmem-list-parse
+> +/xen-ucode
+> +/xen_cpuperf
+> +/xencov
+> +/xenhypfs
+> +/xenlockprof
+> +/xenperf
+> +/xenpm
+> +/xenwatchdogd
 
-Could you print the values of the involved fields at the end of
-libxl__domain_build_info_setdefault in both cases?
+The earlier discussion had left me with the impression that the ./
+form would be slightly better to use to avoid puzzling the
+occasional reader. Did I overlook or mis-interpret anything? Did you
+come to the conclusion that / is better, but forgot to mention the
+"why" in at least the cover letter?
 
-I'm not able to spot what changed between 4.13 and 4.14 that could
-alter the behavior, but knowing the values at that point might make
-it easier.
-
-> So, handling the old option got broken sometime between 4.13 and 4.14.
-> Or perhaps it is some other related side effect.
-
-Libvirt master tests seem to have been failing for some time (60 days)
-in the build phase [0], maybe you are using a newer version of libvirt
-than what osstest is currently testing? (Xen flights are currently
-stuck at libvirt commit 2c846fa6bcc11929c9fb857a22430fb9945654ad).
-
-Thanks, Roger.
-
-[0] http://logs.test-lab.xenproject.org/osstest/logs/152881/build-amd64-libvirt/6.ts-libvirt-build.log
+Jan
 
