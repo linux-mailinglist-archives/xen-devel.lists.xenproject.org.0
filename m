@@ -2,42 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 297DC2647B8
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 16:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39FED2647BD
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 16:08:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGNDj-0001r1-Q2; Thu, 10 Sep 2020 14:06:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kGNFf-00020U-76; Thu, 10 Sep 2020 14:08:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dCRG=CT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGNDi-0001qv-Ij
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 14:06:38 +0000
-X-Inumbo-ID: 314f0516-8d4a-4b01-8632-6cb8e1691f6e
+ id 1kGNFd-00020O-8i
+ for xen-devel@lists.xen.org; Thu, 10 Sep 2020 14:08:37 +0000
+X-Inumbo-ID: bbceb021-2eeb-4101-910d-7eccc6064c84
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 314f0516-8d4a-4b01-8632-6cb8e1691f6e;
- Thu, 10 Sep 2020 14:06:37 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bbceb021-2eeb-4101-910d-7eccc6064c84;
+ Thu, 10 Sep 2020 14:08:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A3758B153;
- Thu, 10 Sep 2020 14:06:52 +0000 (UTC)
-Subject: Re: [PATCH 0/6] tools/include: adjustments to the population of xen/
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <2a9f86aa-9104-8a45-cd21-72acd693f924@suse.com>
- <2d5579e4-74cf-fd35-da7d-a8f4de2c2c86@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 7A141B368;
+ Thu, 10 Sep 2020 14:08:49 +0000 (UTC)
+Subject: Re: Runstate hypercall and Linux KPTI issues
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <stefanos@xilinx.com>,
+ George Dunlap <George.Dunlap@citrix.com>
+References: <1844689F-814F-48AE-8179-95B0EE4E734C@arm.com>
+ <8b9d8bc8-254e-01db-6ba3-ec41bc9cd2c7@suse.com>
+ <2AD6A14F-AA25-464D-9E9E-6067F2F43F29@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <473e6e88-439f-def3-b561-6db66dee4258@suse.com>
-Date: Thu, 10 Sep 2020 16:06:38 +0200
+Message-ID: <b7c7b1c5-c7c0-d7c9-b300-9a26e3b73746@suse.com>
+Date: Thu, 10 Sep 2020 16:08:35 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <2d5579e4-74cf-fd35-da7d-a8f4de2c2c86@citrix.com>
+In-Reply-To: <2AD6A14F-AA25-464D-9E9E-6067F2F43F29@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,36 +54,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 15:51, Andrew Cooper wrote:
-> On 10/09/2020 13:09, Jan Beulich wrote:
->> While looking at what it would take to move around libelf/
->> in the hypervisor subtree, I've run into this rule, which I
->> think can do with a few improvements and some simplification.
+On 10.09.2020 16:00, Bertrand Marquis wrote:
+>> On 10 Sep 2020, at 14:56, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 10.09.2020 15:46, Bertrand Marquis wrote:
+>>> Some open questions:
+>>> - should we allow to register an area using both hypercalls or should it be exclusive ?
+>>
+>> I thought it was already clarified that to a certain degree both need
+>> to remain usable at least in sequence, to allow transitioning control
+>> between entirely independent entities (bootloader -> kernel -> dump-
+>> kernel, for example).
 > 
-> I realise this might be a controversial move, but can we *please*
-> address this by removing our use of symlinking, rather than kicking the
-> problem down the road.
+> Sorry my wording was not clear here
 > 
-> For header files in particular, there is no need to symlink at all. 
-> Some properly formed -I runes for the compiler will do the right thing,
-> and avoid all intermediate regeneration issues.
+> Should we allow to register 2 areas at the same time using both hypercalls (one with
+> virtual address and one with physical address) or should they be exclusive ie one or
+> the other but not both at the same time
 
-With some further work to separate headers in e.g. Xen's acpi/
-into ones to be exposed and ones not to be exposed, this
-would likely be an option. It's not clear to me though how you
-mean to deal with libelf.h and elfstructs.h. Nor is it clear
-how we'd deal with x86's cpuid-autogen.h, which needs to have
-distinct instances in the two subtrees.
+Ah, okay. Just one area at a time, I would say.
 
-And of course the present full exposure of asm-x86 rather wants
-limiting than setting in stone by using -I to point into the
-hypervisor tree.
+>>> - should we backport the support for this hypercall in older kernel releases ?
+>>
+>> It's a bug fix to KPTI, and as such ought to be at least eligible for
+>> considering doing so?
+> 
+> That will mean also backport in Linux. What should be the scope ?
 
-Installing of the headers into dist/ will also need re-working
-then.
-
-Taking things together - no, I don't think I'm up to doing this,
-yet I think the series presented is an improvement.
+All longterm and stable trees which are affected, as I think is usual.
 
 Jan
 
