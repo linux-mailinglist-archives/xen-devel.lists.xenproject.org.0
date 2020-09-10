@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB74A2645C8
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 14:13:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9E1D2645C9
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Sep 2020 14:13:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGLRk-0007so-Sw; Thu, 10 Sep 2020 12:13:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kGLSF-0007zD-5y; Thu, 10 Sep 2020 12:13:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dCRG=CT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGLRj-0007sX-JW
- for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 12:12:59 +0000
-X-Inumbo-ID: 67bfa473-3f4d-4ebd-b054-32b5934809d7
+ id 1kGLSE-0007yw-1j
+ for xen-devel@lists.xenproject.org; Thu, 10 Sep 2020 12:13:30 +0000
+X-Inumbo-ID: 6df7733a-b87c-4852-948b-09198f5641d2
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67bfa473-3f4d-4ebd-b054-32b5934809d7;
- Thu, 10 Sep 2020 12:12:58 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6df7733a-b87c-4852-948b-09198f5641d2;
+ Thu, 10 Sep 2020 12:13:29 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CE810AFC8;
- Thu, 10 Sep 2020 12:13:13 +0000 (UTC)
-Subject: [PATCH 5/6] tools/include: adjust x86-specific population of xen/
+ by mx2.suse.de (Postfix) with ESMTP id 1E369AFC8;
+ Thu, 10 Sep 2020 12:13:44 +0000 (UTC)
+Subject: [PATCH 6/6] tools/include: drop remaining -f from ln invocations
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <2a9f86aa-9104-8a45-cd21-72acd693f924@suse.com>
-Message-ID: <0f9f05c2-2f76-93d6-21e9-6308741c49b7@suse.com>
-Date: Thu, 10 Sep 2020 14:13:00 +0200
+Message-ID: <291403bb-11a5-f585-024e-0ab873d18fce@suse.com>
+Date: Thu, 10 Sep 2020 14:13:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -49,39 +50,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's no need to use a shell loop construct here - ln's destination
-can be specified as just the intended directory, as we don't mean to
-change the names of any of the files. Also drop XEN_LIB_X86_INCLUDES for
-having a single use only, and don't pass -f to ln, to allow noticing
-name collisions right away.
+This is once again to allow noticing name collisions right away.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/tools/include/Makefile
 +++ b/tools/include/Makefile
-@@ -12,8 +12,6 @@ all-y:
- xen-foreign:
- 	$(MAKE) -C xen-foreign
- 
--XEN_LIB_X86_INCLUDES = $(filter-out %autogen.h, $(XEN_ROOT)/xen/include/xen/lib/x86/Makefile $(wildcard $(XEN_ROOT)/xen/include/xen/lib/x86/*.h))
--
- xen-dir:
- 	@rm -rf xen acpi
- 	mkdir -p xen/libelf acpi
-@@ -26,11 +24,10 @@ xen-dir:
+@@ -18,8 +18,8 @@ xen-dir:
+ 	ln -s $(XEN_ROOT)/xen/include/public/COPYING xen/
+ 	ln -s $(XEN_ROOT)/xen/include/public/*.h xen/
+ 	ln -s $(XEN_ROOT)/xen/include/public/*/ xen/
+-	ln -sf ../xen-sys/$(XEN_OS) xen/sys
+-	ln -sf $(addprefix $(XEN_ROOT)/xen/include/xen/,libelf.h elfstructs.h) xen/libelf/
++	ln -s ../xen-sys/$(XEN_OS) xen/sys
++	ln -s $(addprefix $(XEN_ROOT)/xen/include/xen/,libelf.h elfstructs.h) xen/libelf/
+ 	ln -s ../xen-foreign xen/foreign
  	ln -s $(XEN_ROOT)/xen/include/acpi/platform acpi/
  	ln -s $(XEN_ROOT)/xen/include/acpi/ac*.h acpi/
- ifeq ($(CONFIG_X86),y)
--	ln -sf $(XEN_ROOT)/xen/include/asm-x86 xen/asm
-+	ln -s $(XEN_ROOT)/xen/include/asm-x86 xen/asm
- 	mkdir -p xen/lib/x86
--	for f in $(patsubst $(XEN_ROOT)/xen/include/xen/lib/x86/%,%,$(XEN_LIB_X86_INCLUDES)); do \
--		ln -sf $(XEN_ROOT)/xen/include/xen/lib/x86/$$f xen/lib/x86/$$f; \
--	done
-+	ln -s $(filter-out %autogen.h,$(wildcard $(XEN_ROOT)/xen/include/xen/lib/x86/*.h)) xen/lib/x86/
-+	ln -s $(XEN_ROOT)/xen/include/xen/lib/x86/Makefile xen/lib/x86/
- endif
- 
- all-$(CONFIG_X86): xen-dir
 
 
