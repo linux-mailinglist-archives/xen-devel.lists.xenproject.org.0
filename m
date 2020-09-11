@@ -2,47 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827FC265961
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 08:30:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD145265963
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 08:32:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGcZD-0004FW-7z; Fri, 11 Sep 2020 06:29:51 +0000
+	id 1kGcbE-00050k-KP; Fri, 11 Sep 2020 06:31:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eh3a=CU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGcZB-0004FR-QH
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 06:29:49 +0000
-X-Inumbo-ID: 6e18164a-8866-44f2-96dc-9a56faf07621
+ id 1kGcbC-00050f-Pn
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 06:31:54 +0000
+X-Inumbo-ID: 15bf3640-3cee-4719-8815-03cd1692d5c8
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e18164a-8866-44f2-96dc-9a56faf07621;
- Fri, 11 Sep 2020 06:29:49 +0000 (UTC)
+ id 15bf3640-3cee-4719-8815-03cd1692d5c8;
+ Fri, 11 Sep 2020 06:31:54 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CE39FAED8;
- Fri, 11 Sep 2020 06:30:03 +0000 (UTC)
-Subject: Re: [PATCH 01/11 v2] gitignore: Move ignores from global to
- subdirectories
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
-References: <202009092152.089LqrKZ039176@m5p.com>
- <75d49f83-f53a-8263-40c3-51d2cd624ccd@suse.com>
- <20200910182200.GB45655@mattapan.m5p.com>
+ by mx2.suse.de (Postfix) with ESMTP id 967A9B42E;
+ Fri, 11 Sep 2020 06:32:07 +0000 (UTC)
+Subject: Re: [PATCH 3/5] x86/pv: Optimise prefetching in svm_load_segs()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200909095920.25495-1-andrew.cooper3@citrix.com>
+ <20200909095920.25495-4-andrew.cooper3@citrix.com>
+ <b014b917-f6ca-bbc0-22f6-14993aa84c8d@suse.com>
+ <d1a9c80a-df6e-ebe4-1720-3f6f2eeffee0@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3174b892-6177-cf8a-2c2a-7c6f1b0ecc2e@suse.com>
-Date: Fri, 11 Sep 2020 08:29:51 +0200
+Message-ID: <8fea55b9-b479-36f3-f9ab-1390407b61e1@suse.com>
+Date: Fri, 11 Sep 2020 08:31:55 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200910182200.GB45655@mattapan.m5p.com>
+In-Reply-To: <d1a9c80a-df6e-ebe4-1720-3f6f2eeffee0@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +53,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 20:22, Elliott Mitchell wrote:
-> On Thu, Sep 10, 2020 at 11:13:26AM +0200, Jan Beulich wrote:
->> On 27.08.2020 21:09, Elliott Mitchell wrote:
->>> --- a/tools/misc/.gitignore
->>> +++ b/tools/misc/.gitignore
->>> @@ -1 +1,22 @@
->>> -xen-ucode
->>> +/cpuperf/cpuperf-perfcntr
->>> +/cpuperf/cpuperf-xen
->>> +/lowmemd
->>> +/xc_shadow
->>> +/xen-cpuid
->>> +/xen-detect
->>> +/xen-diag
->>> +/xen-hptool
->>> +/xen-hvmcrash
->>> +/xen-hvmctx
->>> +/xen-livepatch
->>> +/xen-lowmemd
->>> +/xen-mfndump
->>> +/xen-tmem-list-parse
->>> +/xen-ucode
->>> +/xen_cpuperf
->>> +/xencov
->>> +/xenhypfs
->>> +/xenlockprof
->>> +/xenperf
->>> +/xenpm
->>> +/xenwatchdogd
->>
->> The earlier discussion had left me with the impression that the ./
->> form would be slightly better to use to avoid puzzling the
->> occasional reader. Did I overlook or mis-interpret anything? Did you
->> come to the conclusion that / is better, but forgot to mention the
->> "why" in at least the cover letter?
+On 10.09.2020 22:30, Andrew Cooper wrote:
+> On 10/09/2020 15:57, Jan Beulich wrote:
+>> On 09.09.2020 11:59, Andrew Cooper wrote:
+>>> Split into two functions.  Passing a load of zeros in results in somewhat poor
+>>> register scheduling in __context_switch().
+>> I'm afraid I don't understand why this would be, no matter that
+>> I trust you having observed this being the case: The registers
+>> used for passing parameters are all call-clobbered anyway, so
+>> the compiler can't use them for anything across the call. And
+>> it would look pretty poor code generation wise if the XORs to
+>> clear them (which effectively have no latency at all) would be
+>> scheduled far ahead of the call, especially when there's better
+>> use for the registers. The observation wasn't possibly from
+>> before your recent dropping of two of the parameters, when they
+>> couldn't all be passed in registers (albeit even then it would
+>> be odd, as the change then should merely have lead to a slightly
+>> smaller stack frame of the function)?
 > 
-> Some of Xen's documentation isn't that great, even though most of `git`'s
-> documentation is quite good a few pieces aren't so great.  The
-> information on how .gitignore files are treated is less than wonderful.
+> Hmm yes.  I wrote this patch before I did the assertion fix, and it the
+> comment didn't rebase very well.
 > 
-> I had *thought* "./" would restrict to capturing files in the current
-> directory, but after some testing and then some reading of the
-> documentation (oh, `git check-ignore` is a thing).  Then reading the
-> documentation again.  Then reading the documentation *again*.  I found an
-> initial "/" restricts a pattern to the current directory, but `git`
-> doesn't handle "./".
+> Back then, one of the zeros was on the stack, which was definitely an
+> unwanted property.  Even though the XORs are mostly free, they're not
+> totally free, as they cost decode bandwidth and instruction cache space
+> (Trivial amounts, but still...).
 > 
-> Apparently a pattern with a slash *anywhere* besides the *end* (which
-> includes the very start) will be treated as a full path relative to the
-> current directory.  As such "foo/bar" and "/foo/bar" are equivalent.  Yet
-> "foo" and "/foo" are *not* equivalent.
+> In general, LTO's inter-procedural-analysis can figure out that
+> svm_load_segs_prefetch() doesn't use many registers, and the caller can
+> be optimised based on the fact that some registers aren't actually
+> clobbered.  (Then again, in this case with a sole caller, LTO really
+> ought to be able to inline and delete the function.)
+> 
+> How about "results in unnecessary caller setup code" ?
 
-But then ./foo and /foo ought to be equivalent, too. Unless of
-course the . gets in the way of matching names in the first
-place ...
+Yeah, that's probably better as a description.
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
