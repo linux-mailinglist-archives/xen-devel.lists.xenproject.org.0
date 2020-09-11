@@ -2,51 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C752726676D
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 19:42:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB4212667F7
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 19:59:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGn3V-0002Id-Ht; Fri, 11 Sep 2020 17:41:49 +0000
+	id 1kGnJz-0003KX-2p; Fri, 11 Sep 2020 17:58:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XH/S=CU=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kGn3U-0002IY-0m
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 17:41:48 +0000
-X-Inumbo-ID: e6617af4-6929-4be2-af7f-bfe05e2e0285
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g4Bj=CU=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kGnJx-0003KS-Pf
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 17:58:49 +0000
+X-Inumbo-ID: a2bd7cda-7895-4c88-ba97-98244a8b6ba7
+Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6617af4-6929-4be2-af7f-bfe05e2e0285;
- Fri, 11 Sep 2020 17:41:46 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 08BHfVqZ054519
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Fri, 11 Sep 2020 13:41:37 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 08BHfQqI054518;
- Fri, 11 Sep 2020 10:41:26 -0700 (PDT) (envelope-from ehem)
-Date: Fri, 11 Sep 2020 10:41:26 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: Re: [PATCH 01/11 v2] gitignore: Move ignores from global to
- subdirectories
-Message-ID: <20200911174126.GA54276@mattapan.m5p.com>
-References: <202009092152.089LqrKZ039176@m5p.com>
- <75d49f83-f53a-8263-40c3-51d2cd624ccd@suse.com>
- <20200910182200.GB45655@mattapan.m5p.com>
- <3174b892-6177-cf8a-2c2a-7c6f1b0ecc2e@suse.com>
+ id a2bd7cda-7895-4c88-ba97-98244a8b6ba7;
+ Fri, 11 Sep 2020 17:58:48 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id e17so5217166wme.0
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Sep 2020 10:58:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=1RflvOB8O8J+PsALd1dMdnpVhAnu2C0ip87gE2whspg=;
+ b=gI+XIWH8M5hyJeK0Pu3MmhLIQLh7Rd0prbOPGQdNxPwXOhB6LHy6od404XpGDi1oyK
+ cqJ2nBGEoQy5ukiVG7sS7r+pb1sqZc537RBMwCQx3fBuWmJtp41U4j8nD7JUUuBn1XBq
+ MdvSkuVeZJIvqNZuCflkMvH+QVgqmwxv4zeoxo8isjbtYreoewsiBz2C9+kbMMjTQZ/g
+ URYaO6A2T78wAK94GY4JPIsKaN+rn8e1EpmgZ7kBMwWyKEQCjOcRAXrR+gJ3IBm4EVRK
+ Puqscz6iDZh++Ohq5FKG3Gv0LsUqSrJPc2XlkpBDBg6RjvbZFyn/smTuBPaDzovcu0gu
+ aERg==
+X-Gm-Message-State: AOAM533lhdHQZqygrIq+NTbmHVB9yh7W/f/pfAcqnRX00jIyFQSlM/8a
+ EeuHDARuDNr4c1ipuNDO/r3OYRwImIM=
+X-Google-Smtp-Source: ABdhPJzWBVkQqqRYgc0xdfvg+BoKKLYSdkBxDzrLCJy0B1ed3mSOJFiRGglpDmv5kDbrQkfshR5RlQ==
+X-Received: by 2002:a1c:3588:: with SMTP id c130mr3225703wma.94.1599847128090; 
+ Fri, 11 Sep 2020 10:58:48 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id q20sm5573460wmj.5.2020.09.11.10.58.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2020 10:58:47 -0700 (PDT)
+Date: Fri, 11 Sep 2020 17:58:46 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] tools/libs/stat: fix broken build
+Message-ID: <20200911175846.ximv7mojq4bujhem@liuwe-devbox-debian-v2>
+References: <20200911131528.19734-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3174b892-6177-cf8a-2c2a-7c6f1b0ecc2e@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
- autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <20200911131528.19734-1-jgross@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,38 +66,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Sep 11, 2020 at 08:29:51AM +0200, Jan Beulich wrote:
-> On 10.09.2020 20:22, Elliott Mitchell wrote:
-> > I had *thought* "./" would restrict to capturing files in the current
-> > directory, but after some testing and then some reading of the
-> > documentation (oh, `git check-ignore` is a thing).  Then reading the
-> > documentation again.  Then reading the documentation *again*.  I found an
-> > initial "/" restricts a pattern to the current directory, but `git`
-> > doesn't handle "./".
-> > 
-> > Apparently a pattern with a slash *anywhere* besides the *end* (which
-> > includes the very start) will be treated as a full path relative to the
-> > current directory.  As such "foo/bar" and "/foo/bar" are equivalent.  Yet
-> > "foo" and "/foo" are *not* equivalent.
+On Fri, Sep 11, 2020 at 03:15:28PM +0200, Juergen Gross wrote:
+> Making getBridge() static triggered a build error with some gcc versions:
 > 
-> But then ./foo and /foo ought to be equivalent, too. Unless of
-> course the . gets in the way of matching names in the first
-> place ...
+> error: 'strncpy' output may be truncated copying 15 bytes from a string of
+> length 255 [-Werror=stringop-truncation]
+> 
+> Fix that by printing a sane error message and bailing out in case the name of
+> a bridge is too long.
+> 
+> Fixes: 6d0ec053907794 ("tools: split libxenstat into new tools/libs/stat directory")
 
-Could be something along those lines.  Note gitignore is a function of
-*git* *simulating* the actions involved in accessing files, not something
-pretending to be all that close to an actual kernel implementation.
+But this patch is not the one that created the bug though? It just
+happens to be the last patch that touched that file.
 
-The result is testing with `git check-ignore` indicated "./" did not
-work, so I had to use "/" which looks odd in a suspicions way.  I rather
-liked "./", but with reality intruding.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  tools/libs/stat/xenstat_linux.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/tools/libs/stat/xenstat_linux.c b/tools/libs/stat/xenstat_linux.c
+> index 793263f2b6..ce38b3433f 100644
+> --- a/tools/libs/stat/xenstat_linux.c
+> +++ b/tools/libs/stat/xenstat_linux.c
+> @@ -75,6 +75,12 @@ static void getBridge(char *excludeName, char *result, size_t resultLen)
+>  	while ((de = readdir(d)) != NULL) {
+>  		if ((strlen(de->d_name) > 0) && (de->d_name[0] != '.')
+>  			&& (strstr(de->d_name, excludeName) == NULL)) {
+> +				if (strlen(de->d_name) > resultLen - 1) {
+> +					fprintf(stderr,
+> +						"bridge name %s too long\n",
+> +						de->d_name);
+> +					break;
+> +				}
+>  				sprintf(tmp, "/sys/class/net/%s/bridge", de->d_name);
+>  
+>  				if (access(tmp, F_OK) == 0) {
+> -- 
+> 2.26.2
+> 
 
