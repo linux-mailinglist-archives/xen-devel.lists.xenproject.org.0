@@ -2,57 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8A3266369
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 915F5266448
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:34:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGliH-00031r-0F; Fri, 11 Sep 2020 16:15:49 +0000
+	id 1kGm04-0004jQ-Iu; Fri, 11 Sep 2020 16:34:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D+4E=CU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kGliF-00031m-P3
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:15:47 +0000
-X-Inumbo-ID: 921c9ebd-3f2b-4935-9960-f4890d9f3ce1
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yBET=CU=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kGm03-0004jL-1m
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:34:11 +0000
+X-Inumbo-ID: 6c137f65-7527-4be6-b348-0d40f5e6c115
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 921c9ebd-3f2b-4935-9960-f4890d9f3ce1;
- Fri, 11 Sep 2020 16:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=4fb8UPggVZQLG4qldJzGqkTjTsA3qB/SFo0BmRDT1pc=; b=VBrmmtUreRofylKqfSL5mT1rQx
- h6NbGH6lLkuDGog+5N3DeuH6UpoX8B7VwMhDazvCenda0+N7fmbh+WMzYwDGIGah2PVUFCPpnqone
- DdnY/JMTEI1F3z/yfUurAeoN4LzSvNGOfmCUuqnqVLxIk/QJ9qyxbZvlxFJnqeHE4dxs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ id 6c137f65-7527-4be6-b348-0d40f5e6c115;
+ Fri, 11 Sep 2020 16:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
+ Message-ID:Cc:Subject:From:To;
+ bh=9L35WIzV7Uivnsa94vXH9c4NM5gwtX9gAb8QWmV28RQ=; b=1XiK5LzaPRRMk06uMqBm+SS4Dw
+ o6eyWgvpQ/Lkw+8bhotvAHEw9FFg+xDoXbkecC5SnyYm0iKbzKgGyfY7XRfJhLoyzfzZQRzvOwYYa
+ aWbpcpnjCNwRvPNiZnZKM4KyxGOhL7p2DzL0cFTnhb9pqfzMJUg95qMkkPKus5X8kSBI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kGliD-00058W-Fg; Fri, 11 Sep 2020 16:15:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kGliD-0007hN-8E; Fri, 11 Sep 2020 16:15:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kGliD-000347-7k; Fri, 11 Sep 2020 16:15:45 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154120-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ (envelope-from <julien@xen.org>)
+ id 1kGlzt-0005VR-5n; Fri, 11 Sep 2020 16:34:01 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kGlzs-0003z9-SX; Fri, 11 Sep 2020 16:34:01 +0000
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+From: Julien Grall <julien@xen.org>
+Subject: Adopting the Linux Kernel Memory Model in Xen?
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+Message-ID: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
+Date: Fri, 11 Sep 2020 17:33:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 154120: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=5d45ecabe3c0b2097df623ab7b471f8915cfdde6
-X-Osstest-Versions-That: xen=cc13835377debe4e300c5f5f11f8f78920778c4e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Sep 2020 16:15:45 +0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,62 +62,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154120 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154120/
+Hi all,
 
-Failures :-/ but no regressions.
+At the moment, Xen doesn't have a formal memory model. Instead, we are 
+relying on intuitions. This can lead to heated discussion on what can a 
+processor/compiler do or not.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+We also have some helpers that nearly do the same (such as 
+{read,write}_atomic() vs ACCESS_ONCE()) with no clear understanding 
+where to use which.
 
-version targeted for testing:
- xen                  5d45ecabe3c0b2097df623ab7b471f8915cfdde6
-baseline version:
- xen                  cc13835377debe4e300c5f5f11f8f78920778c4e
+In the past few years, Linux community spent a lot of time to write down 
+their memory model and make the compiler communities aware of it (see 
+[1], [2]).
 
-Last test of basis   154074  2020-09-10 20:00:24 Z    0 days
-Testing same since   154120  2020-09-11 13:00:26 Z    0 days    1 attempts
+There are a few reasons I can see for adopting LKMM:
+    - Xen borrows a fair amount of code from Linux;
+    - There are efforts to standardize it;
+    - This will allow us to streamline the discussion.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+Any thoughts?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Cheers,
+
+[1] https://www.kernel.org/doc/Documentation/memory-barriers.txt
+[2] http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0124r7.html
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   cc13835377..5d45ecabe3  5d45ecabe3c0b2097df623ab7b471f8915cfdde6 -> smoke
+-- 
+Julien Grall
 
