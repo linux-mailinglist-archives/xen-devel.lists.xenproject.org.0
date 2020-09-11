@@ -2,63 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9052B26693E
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 21:54:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95123266989
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 22:30:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGp6t-00051l-Eu; Fri, 11 Sep 2020 19:53:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kGpfn-0007nl-GU; Fri, 11 Sep 2020 20:29:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N27I=CU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kGp6s-00051g-0W
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 19:53:26 +0000
-X-Inumbo-ID: 8ede112c-92c8-4676-9e3c-c5be67edfb8a
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8ede112c-92c8-4676-9e3c-c5be67edfb8a;
- Fri, 11 Sep 2020 19:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599854003;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=IsBoztbusVwRN+pj5wmZFUoiDLsxaHnQdzfpC+4xHPY=;
- b=BOwRoBi80bjO0/8Y2JPXxDLRArmh+ijbDaGWKVyzBLJ0/NqiY+Qo570r
- PnUr/uY8Z75bNHDS4h4qaYWDyOPLN2X8zwhiIybLs8XXyjUDrWFjsHVxA
- I+MUV5RZl3OjQ4frodV6RThZariZVqfp6V3k4BwDYXgv8Q7xZFf/u9jE+ I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 7j/dbgb2B49FyywqL4T5iL+39FoJB/SqtsbwSv0jCUkODnRVuhevjDOQb725pnKz3dysixfgew
- 6t/Nh3SkHAg08aPa9diZkd/6nnbZAa+snMd7rlws/7VcUXoK8AffMzVCvX1NaYGg/l8Zl6+Wci
- HgZlVV9GZvKzSEMpAEksuFDpcDrtNGHCaR/uaSlbcB6XS5dq/sW8DdA1R8J2NP3hW5+RZt1fKK
- xatBKemdpKhiEvltnk9AmWdC63dOtqlcQFl/I9gQkQarcv/kacvStLe46S6HVU7Zgg5FExS7XR
- vW4=
-X-SBRS: 2.7
-X-MesageID: 27507290
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,417,1592884800"; d="scan'208";a="27507290"
-Subject: Re: Adopting the Linux Kernel Memory Model in Xen?
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "committers@xenproject.org"
- <committers@xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Bertrand Marquis
- <Bertrand.Marquis@arm.com>
-References: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <58ab227d-4899-4dd2-de49-b5cd1d449f94@citrix.com>
-Date: Fri, 11 Sep 2020 20:53:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
-Content-Type: text/plain; charset="utf-8"
+ <SRS0=D+4E=CU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kGpfm-0007nL-HI
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 20:29:30 +0000
+X-Inumbo-ID: 5237034b-f216-41d1-b54b-e6b42cc94a2a
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5237034b-f216-41d1-b54b-e6b42cc94a2a;
+ Fri, 11 Sep 2020 20:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=lVBt7eqFhGDRDnsqz0BNkA90fJlf3c6eIrc1p7dNSd0=; b=Q80mUfABTf4Fi5kmBsYqWWz5fp
+ 5MNq7jKMLzo5HNl/QWcIkqglxMIgs78VAmIAgKe+E1rafQVXIUjKCoiN4WHSTQL5P4fake4IrxBWQ
+ XUOaE8xJVGogwN+p91QVjW8ruyjsDN5QTeOPpslM22E6vfqnLg5AAHVbCWDRtgga1J34=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kGpfg-00028s-1c; Fri, 11 Sep 2020 20:29:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kGpff-0002xT-PE; Fri, 11 Sep 2020 20:29:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kGpff-0003OL-Ok; Fri, 11 Sep 2020 20:29:23 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154129-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 154129: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
+X-Osstest-Versions-That: xen=5d45ecabe3c0b2097df623ab7b471f8915cfdde6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 11 Sep 2020 20:29:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,46 +65,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11/09/2020 17:33, Julien Grall wrote:
-> Hi all,
->
-> At the moment, Xen doesn't have a formal memory model. Instead, we are
-> relying on intuitions. This can lead to heated discussion on what can
-> a processor/compiler do or not.
->
-> We also have some helpers that nearly do the same (such as
-> {read,write}_atomic() vs ACCESS_ONCE()) with no clear understanding
-> where to use which.
->
-> In the past few years, Linux community spent a lot of time to write
-> down their memory model and make the compiler communities aware of it
-> (see [1], [2]).
->
-> There are a few reasons I can see for adopting LKMM:
->    - Xen borrows a fair amount of code from Linux;
->    - There are efforts to standardize it;
->    - This will allow us to streamline the discussion.
->
-> Any thoughts?
+flight 154129 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154129/
 
-It might not be formally written down, but we inherited an old version
-of it from Linux directly, and memory-barriers.txt is often referred to,
-and I have fixed our helpers several times to not have a semantic
-difference vs Linux.
+Failures :-/ but no regressions.
 
-We even import some drivers verbatim, and they certainly are expecting
-to use LKMM.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
+baseline version:
+ xen                  5d45ecabe3c0b2097df623ab7b471f8915cfdde6
+
+Last test of basis   154120  2020-09-11 13:00:26 Z    0 days
+Testing same since   154129  2020-09-11 18:00:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ian Jackson <Ian.Jackson@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Memory ordering is a phenomenally complicated topic and getting it wrong
-usually results in very subtle memory corruption issues.  The Xen
-community does not have the expertise to invent something custom.  LKMM
-is already familiar to most people liable to contribute in areas where
-it is likely to matter.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I don't mind how we go about formally stating that we use LKMM, but as
-far as I'm concerned, we already use it, and any semantic deviation is a
-bug needing fixing in Xen.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   5d45ecabe3..6c5fb129e8  6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6 -> smoke
 
