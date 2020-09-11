@@ -2,111 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97D65265B6C
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 10:21:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0E6C265B68
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 10:21:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGeIQ-0006hh-6A; Fri, 11 Sep 2020 08:20:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kGeIY-0006jR-VV; Fri, 11 Sep 2020 08:20:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mhfz=CU=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kGeIO-0006hc-OY
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 08:20:36 +0000
-X-Inumbo-ID: 99106828-12dc-4e73-accd-128cf72d66c1
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 99106828-12dc-4e73-accd-128cf72d66c1;
- Fri, 11 Sep 2020 08:20:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599812435;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/yhJLHvu7tqzr4gbFNg2Ix6add6EFMjRFGhHNb4dF5o=;
- b=Ijn1HjyaVl5Ay+MdooYzYD6RPYzwrF9XJkbHYe9QZOm56NE/f3tM+l4eEteaiNEOltrAIH
- 3+m1ALmr2I9psg3dwkHK2NveQxTfS5f9m4XGOUmIkdMyFgQgCzdp/MLC+/WkX43Smrpx59
- FpHh5z2d+rrvNbrwiEzjLyZzq3tFdJc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-530-vClJSTYXO5Sid0o9Xdj9EA-1; Fri, 11 Sep 2020 04:20:30 -0400
-X-MC-Unique: vClJSTYXO5Sid0o9Xdj9EA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1A17B8030BA;
- Fri, 11 Sep 2020 08:20:29 +0000 (UTC)
-Received: from [10.36.113.186] (ovpn-113-186.ams2.redhat.com [10.36.113.186])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 10BAF7E8F4;
- Fri, 11 Sep 2020 08:20:25 +0000 (UTC)
-Subject: Re: [PATCH v3 3/7] mm/memory_hotplug: prepare passing flags to
- add_memory() and friends
-To: kernel test robot <lkp@intel.com>, linux-kernel@vger.kernel.org
-Cc: kbuild-all@lists.01.org, clang-built-linux@googlegroups.com,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-s390@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-References: <20200910091340.8654-4-david@redhat.com>
- <202009111020.boR8gVOT%lkp@intel.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat GmbH
-Message-ID: <ae0bfdea-bef6-f6e4-6ce6-2bf68e44292c@redhat.com>
-Date: Fri, 11 Sep 2020 10:20:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ (envelope-from <SRS0=p+pG=CU=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1kGeIX-0006hn-AN
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 08:20:45 +0000
+X-Inumbo-ID: b3c46f19-47f3-4a01-bf5a-54e39401f985
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b3c46f19-47f3-4a01-bf5a-54e39401f985;
+ Fri, 11 Sep 2020 08:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+ bh=gzK78nwZrm48tXtDUaXfQ78CtVcV80kTQQlmCFDMgJg=; b=kiO3bHSDtzV67V8Bty+TYxzZdg
+ vv4aUosih6X20/gvLwCHed6WTYIh5wMupVnX42tczuFbbfgLp0b9LfllbHw0q6vnJ1E/Cqvcx0Lpn
+ l2v04Mt4W53p7SZUeTPwnrcuXzPKL7B5Vkj85FyWwg/JGHt9kK7ia4Ifa1RjbzK1PkRs=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kGeIO-0002t7-GI; Fri, 11 Sep 2020 08:20:36 +0000
+Received: from host86-176-94-160.range86-176.btcentralplus.com
+ ([86.176.94.160] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kGeIO-0006YQ-7y; Fri, 11 Sep 2020 08:20:36 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <pdurrant@amazon.com>, Jan Beulich <jbeulich@suse.com>,
+ Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH v8 1/8] x86/iommu: convert VT-d code to use new page table
+ allocator
+Date: Fri, 11 Sep 2020 09:20:25 +0100
+Message-Id: <20200911082032.1466-2-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200911082032.1466-1-paul@xen.org>
+References: <20200911082032.1466-1-paul@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <202009111020.boR8gVOT%lkp@intel.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,80 +61,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.09.20 04:21, kernel test robot wrote:
-> Hi David,
-> 
-> I love your patch! Yet something to improve:
-> 
-> [auto build test ERROR on next-20200909]
-> [cannot apply to mmotm/master hnaz-linux-mm/master xen-tip/linux-next powerpc/next linus/master v5.9-rc4 v5.9-rc3 v5.9-rc2 v5.9-rc4]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch]
-> 
-> url:    https://github.com/0day-ci/linux/commits/David-Hildenbrand/mm-memory_hotplug-selective-merging-of-system-ram-resources/20200910-171630
-> base:    7204eaa2c1f509066486f488c9dcb065d7484494
-> config: x86_64-randconfig-a016-20200909 (attached as .config)
-> compiler: clang version 12.0.0 (https://github.com/llvm/llvm-project 0a5dc7effb191eff740e0e7ae7bd8e1f6bdb3ad9)
-> reproduce (this is a W=1 build):
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # install x86_64 cross compiling tool for clang build
->         # apt-get install binutils-x86-64-linux-gnu
->         # save the attached .config to linux build tree
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross ARCH=x86_64 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kernel test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>):
-> 
->    WARNING: unmet direct dependencies detected for PHY_SAMSUNG_UFS
->    Depends on OF && (ARCH_EXYNOS || COMPILE_TEST
->    Selected by
->    - SCSI_UFS_EXYNOS && SCSI_LOWLEVEL && SCSI && SCSI_UFSHCD_PLATFORM && (ARCH_EXYNOS || COMPILE_TEST
->    In file included from arch/x86/kernel/asm-offsets.c:9:
->    In file included from include/linux/crypto.h:20:
->    In file included from include/linux/slab.h:15:
->    In file included from include/linux/gfp.h:6:
->    In file included from include/linux/mmzone.h:853:
->>> include/linux/memory_hotplug.h:354:55: error: unknown type name 'mhp_t'
->    extern int __add_memory(int nid, u64 start, u64 size, mhp_t mhp_flags);
->    ^
->    include/linux/memory_hotplug.h:355:53: error: unknown type name 'mhp_t'
->    extern int add_memory(int nid, u64 start, u64 size, mhp_t mhp_flags);
->    ^
->    include/linux/memory_hotplug.h:357:11: error: unknown type name 'mhp_t'
->    mhp_t mhp_flags);
->    ^
->    include/linux/memory_hotplug.h:360:10: error: unknown type name 'mhp_t'
->    mhp_t mhp_flags);
->    ^
->    4 errors generated.
->    Makefile Module.symvers System.map arch block certs crypto drivers fs include init ipc kernel lib mm modules.builtin modules.builtin.modinfo modules.order net scripts security sound source tools usr virt vmlinux vmlinux.o vmlinux.symvers [scripts/Makefile.build:117: arch/x86/kernel/asm-offsets.s] Error 1
->    Target '__build' not remade because of errors.
->    Makefile Module.symvers System.map arch block certs crypto drivers fs include init ipc kernel lib mm modules.builtin modules.builtin.modinfo modules.order net scripts security sound source tools usr virt vmlinux vmlinux.o vmlinux.symvers [Makefile:1196: prepare0] Error 2
->    Target 'prepare' not remade because of errors.
->    make: Makefile Module.symvers System.map arch block certs crypto drivers fs include init ipc kernel lib mm modules.builtin modules.builtin.modinfo modules.order net scripts security sound source tools usr virt vmlinux vmlinux.o vmlinux.symvers [Makefile:185: __sub-make] Error 2
->    make: Target 'prepare' not remade because of errors.
-> 
-> # https://github.com/0day-ci/linux/commit/d88270d1c0783a7f99f24a85692be90fd2ae0d7d
-> git remote add linux-review https://github.com/0day-ci/linux
-> git fetch --no-tags linux-review David-Hildenbrand/mm-memory_hotplug-selective-merging-of-system-ram-resources/20200910-171630
-> git checkout d88270d1c0783a7f99f24a85692be90fd2ae0d7d
-> vim +/mhp_t +354 include/linux/memory_hotplug.h
-> 
->    352	
->    353	extern void __ref free_area_init_core_hotplug(int nid);
->  > 354	extern int __add_memory(int nid, u64 start, u64 size, mhp_t mhp_flags);
-> 
+From: Paul Durrant <pdurrant@amazon.com>
 
-add_memory() and not protected by CONFIG_MEMORY_HOTPLUG, but the new
-type is. Will look into it.
+This patch converts the VT-d code to use the new IOMMU page table allocator
+function. This allows all the free-ing code to be removed (since it is now
+handled by the general x86 code) which reduces TLB and cache thrashing as well
+as shortening the code.
 
+The scope of the mapping_lock in intel_iommu_quarantine_init() has also been
+increased slightly; it should have always covered accesses to
+'arch.vtd.pgd_maddr'.
+
+NOTE: The common IOMMU needs a slight modification to avoid scheduling the
+      cleanup tasklet if the free_page_table() method is not present (since
+      the tasklet will unconditionally call it).
+
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Cc: Kevin Tian <kevin.tian@intel.com>
+
+v2:
+ - New in v2 (split from "add common page-table allocator")
+---
+ xen/drivers/passthrough/iommu.c     |   6 +-
+ xen/drivers/passthrough/vtd/iommu.c | 101 ++++++++++------------------
+ 2 files changed, 39 insertions(+), 68 deletions(-)
+
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 1d644844ab..2b1db8022c 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -225,8 +225,10 @@ static void iommu_teardown(struct domain *d)
+ {
+     struct domain_iommu *hd = dom_iommu(d);
+ 
+-    hd->platform_ops->teardown(d);
+-    tasklet_schedule(&iommu_pt_cleanup_tasklet);
++    iommu_vcall(hd->platform_ops, teardown, d);
++
++    if ( hd->platform_ops->free_page_table )
++        tasklet_schedule(&iommu_pt_cleanup_tasklet);
+ }
+ 
+ void iommu_domain_destroy(struct domain *d)
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 94e0455a4d..607e8b5e65 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -265,10 +265,15 @@ static u64 addr_to_dma_page_maddr(struct domain *domain, u64 addr, int alloc)
+ 
+     addr &= (((u64)1) << addr_width) - 1;
+     ASSERT(spin_is_locked(&hd->arch.mapping_lock));
+-    if ( !hd->arch.vtd.pgd_maddr &&
+-         (!alloc ||
+-          ((hd->arch.vtd.pgd_maddr = alloc_pgtable_maddr(1, hd->node)) == 0)) )
+-        goto out;
++    if ( !hd->arch.vtd.pgd_maddr )
++    {
++        struct page_info *pg;
++
++        if ( !alloc || !(pg = iommu_alloc_pgtable(domain)) )
++            goto out;
++
++        hd->arch.vtd.pgd_maddr = page_to_maddr(pg);
++    }
+ 
+     parent = (struct dma_pte *)map_vtd_domain_page(hd->arch.vtd.pgd_maddr);
+     while ( level > 1 )
+@@ -279,13 +284,16 @@ static u64 addr_to_dma_page_maddr(struct domain *domain, u64 addr, int alloc)
+         pte_maddr = dma_pte_addr(*pte);
+         if ( !pte_maddr )
+         {
++            struct page_info *pg;
++
+             if ( !alloc )
+                 break;
+ 
+-            pte_maddr = alloc_pgtable_maddr(1, hd->node);
+-            if ( !pte_maddr )
++            pg = iommu_alloc_pgtable(domain);
++            if ( !pg )
+                 break;
+ 
++            pte_maddr = page_to_maddr(pg);
+             dma_set_pte_addr(*pte, pte_maddr);
+ 
+             /*
+@@ -675,45 +683,6 @@ static void dma_pte_clear_one(struct domain *domain, uint64_t addr,
+     unmap_vtd_domain_page(page);
+ }
+ 
+-static void iommu_free_pagetable(u64 pt_maddr, int level)
+-{
+-    struct page_info *pg = maddr_to_page(pt_maddr);
+-
+-    if ( pt_maddr == 0 )
+-        return;
+-
+-    PFN_ORDER(pg) = level;
+-    spin_lock(&iommu_pt_cleanup_lock);
+-    page_list_add_tail(pg, &iommu_pt_cleanup_list);
+-    spin_unlock(&iommu_pt_cleanup_lock);
+-}
+-
+-static void iommu_free_page_table(struct page_info *pg)
+-{
+-    unsigned int i, next_level = PFN_ORDER(pg) - 1;
+-    u64 pt_maddr = page_to_maddr(pg);
+-    struct dma_pte *pt_vaddr, *pte;
+-
+-    PFN_ORDER(pg) = 0;
+-    pt_vaddr = (struct dma_pte *)map_vtd_domain_page(pt_maddr);
+-
+-    for ( i = 0; i < PTE_NUM; i++ )
+-    {
+-        pte = &pt_vaddr[i];
+-        if ( !dma_pte_present(*pte) )
+-            continue;
+-
+-        if ( next_level >= 1 )
+-            iommu_free_pagetable(dma_pte_addr(*pte), next_level);
+-
+-        dma_clear_pte(*pte);
+-        iommu_sync_cache(pte, sizeof(struct dma_pte));
+-    }
+-
+-    unmap_vtd_domain_page(pt_vaddr);
+-    free_pgtable_maddr(pt_maddr);
+-}
+-
+ static int iommu_set_root_entry(struct vtd_iommu *iommu)
+ {
+     u32 sts;
+@@ -1748,16 +1717,7 @@ static void iommu_domain_teardown(struct domain *d)
+         xfree(mrmrr);
+     }
+ 
+-    ASSERT(is_iommu_enabled(d));
+-
+-    if ( iommu_use_hap_pt(d) )
+-        return;
+-
+-    spin_lock(&hd->arch.mapping_lock);
+-    iommu_free_pagetable(hd->arch.vtd.pgd_maddr,
+-                         agaw_to_level(hd->arch.vtd.agaw));
+     hd->arch.vtd.pgd_maddr = 0;
+-    spin_unlock(&hd->arch.mapping_lock);
+ }
+ 
+ static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
+@@ -2669,23 +2629,28 @@ static void vtd_dump_p2m_table(struct domain *d)
+ static int __init intel_iommu_quarantine_init(struct domain *d)
+ {
+     struct domain_iommu *hd = dom_iommu(d);
++    struct page_info *pg;
+     struct dma_pte *parent;
+     unsigned int agaw = width_to_agaw(DEFAULT_DOMAIN_ADDRESS_WIDTH);
+     unsigned int level = agaw_to_level(agaw);
+-    int rc;
++    int rc = 0;
++
++    spin_lock(&hd->arch.mapping_lock);
+ 
+     if ( hd->arch.vtd.pgd_maddr )
+     {
+         ASSERT_UNREACHABLE();
+-        return 0;
++        goto out;
+     }
+ 
+-    spin_lock(&hd->arch.mapping_lock);
++    pg = iommu_alloc_pgtable(d);
+ 
+-    hd->arch.vtd.pgd_maddr = alloc_pgtable_maddr(1, hd->node);
+-    if ( !hd->arch.vtd.pgd_maddr )
++    rc = -ENOMEM;
++    if ( !pg )
+         goto out;
+ 
++    hd->arch.vtd.pgd_maddr = page_to_maddr(pg);
++
+     parent = map_vtd_domain_page(hd->arch.vtd.pgd_maddr);
+     while ( level )
+     {
+@@ -2697,10 +2662,12 @@ static int __init intel_iommu_quarantine_init(struct domain *d)
+          * page table pages, and the resulting allocations are always
+          * zeroed.
+          */
+-        maddr = alloc_pgtable_maddr(1, hd->node);
+-        if ( !maddr )
+-            break;
++        pg = iommu_alloc_pgtable(d);
++
++        if ( !pg )
++            goto out;
+ 
++        maddr = page_to_maddr(pg);
+         for ( offset = 0; offset < PTE_NUM; offset++ )
+         {
+             struct dma_pte *pte = &parent[offset];
+@@ -2716,13 +2683,16 @@ static int __init intel_iommu_quarantine_init(struct domain *d)
+     }
+     unmap_vtd_domain_page(parent);
+ 
++    rc = 0;
++
+  out:
+     spin_unlock(&hd->arch.mapping_lock);
+ 
+-    rc = iommu_flush_iotlb_all(d);
++    if ( !rc )
++        rc = iommu_flush_iotlb_all(d);
+ 
+-    /* Pages leaked in failure case */
+-    return level ? -ENOMEM : rc;
++    /* Pages may be leaked in failure case */
++    return rc;
+ }
+ 
+ static struct iommu_ops __initdata vtd_ops = {
+@@ -2737,7 +2707,6 @@ static struct iommu_ops __initdata vtd_ops = {
+     .map_page = intel_iommu_map_page,
+     .unmap_page = intel_iommu_unmap_page,
+     .lookup_page = intel_iommu_lookup_page,
+-    .free_page_table = iommu_free_page_table,
+     .reassign_device = reassign_device_ownership,
+     .get_device_group_id = intel_iommu_group_id,
+     .enable_x2apic = intel_iommu_enable_eim,
 -- 
-Thanks,
-
-David / dhildenb
+2.20.1
 
 
