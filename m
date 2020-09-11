@@ -2,53 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915F5266448
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:34:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E76026650A
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:51:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGm04-0004jQ-Iu; Fri, 11 Sep 2020 16:34:12 +0000
+	id 1kGmFj-0006Nb-0i; Fri, 11 Sep 2020 16:50:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yBET=CU=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kGm03-0004jL-1m
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:34:11 +0000
-X-Inumbo-ID: 6c137f65-7527-4be6-b348-0d40f5e6c115
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uMuY=CU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kGmFi-0006NW-AU
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:50:22 +0000
+X-Inumbo-ID: 731f8013-6ae9-466e-b2a0-05fc6de0cdde
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6c137f65-7527-4be6-b348-0d40f5e6c115;
- Fri, 11 Sep 2020 16:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
- Message-ID:Cc:Subject:From:To;
- bh=9L35WIzV7Uivnsa94vXH9c4NM5gwtX9gAb8QWmV28RQ=; b=1XiK5LzaPRRMk06uMqBm+SS4Dw
- o6eyWgvpQ/Lkw+8bhotvAHEw9FFg+xDoXbkecC5SnyYm0iKbzKgGyfY7XRfJhLoyzfzZQRzvOwYYa
- aWbpcpnjCNwRvPNiZnZKM4KyxGOhL7p2DzL0cFTnhb9pqfzMJUg95qMkkPKus5X8kSBI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kGlzt-0005VR-5n; Fri, 11 Sep 2020 16:34:01 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kGlzs-0003z9-SX; Fri, 11 Sep 2020 16:34:01 +0000
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
-From: Julien Grall <julien@xen.org>
-Subject: Adopting the Linux Kernel Memory Model in Xen?
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Message-ID: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
-Date: Fri, 11 Sep 2020 17:33:59 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ id 731f8013-6ae9-466e-b2a0-05fc6de0cdde;
+ Fri, 11 Sep 2020 16:50:21 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DFF2F221E7;
+ Fri, 11 Sep 2020 16:50:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599843020;
+ bh=DifogSnIZjeIczc1+hxPQKvR1SICoKxxzhxWwjiQeuw=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=Y24z0DNaBl7fKHd60tX+sXLEN1KfIoIRWLlvf6YY5CTpxKA5wS5PfpFtNGq9pojO5
+ c5kSYNRoJs4i6whzPJlrYxU6q1ZUErH/9RGL0WE3GPNYCX6XXq59fXrzAaLuQ+TQgl
+ 0mZiGyxhyXEJTeYk9bi3ufBRCVeDbNDsIAz18VoY=
+Date: Fri, 11 Sep 2020 09:50:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: George Dunlap <george.dunlap@citrix.com>
+cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@citrix.com>, 
+ Wei Liu <wei.liu2@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ Jan Beulich <jbeulich@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Julien Grall <julien.grall@arm.com>, Paul Durrant <paul@xenproject.org>
+Subject: Re: [PATCH 0/8] Finding a home for the Code of Conduct
+In-Reply-To: <20200911124009.3760032-1-george.dunlap@citrix.com>
+Message-ID: <alpine.DEB.2.21.2009110946560.28991@sstabellini-ThinkPad-T480s>
+References: <20200911124009.3760032-1-george.dunlap@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,33 +60,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi all,
+On Fri, 11 Sep 2020, George Dunlap wrote:
+> The Code of Conduct has been approved [1]; now we need to find it a
+> home.  Since we've started using sphinx for the hypervisor documents,
+> I propose doing the same for the project-wide governance documents, starting
+> with the Code of Conduct.
+> 
+> This series takes Lars' code of conduct tree, written as individual MD
+> files, and puts them into the sphinx documentation system.  After this
+> series, if you run "make html" in the top-level directory, you'll get
+> the generated sphinx documentation in the build/ directory.
+> 
+> The finalized Code of Conduct documentation can be found at:
+> 
+> https://xenbits.xen.org/git-http/people/gdunlap/governance.git
+> 
+> This series can be found on the branch out/move-to-sphinx/v1
+> 
+> And a rendered version of the governance can be found here:
+> 
+> https://xenbits.xenproject.org/people/gdunlap/governance/
+> 
+> If there are no objections to this setup, I propose the following URL
+> as a long-term home:
+> 
+> https://xenbits.xenproject.org/governance
+> 
+> And also moving both the main governance doc [2] and the security
+> policy [3] into that system, to make it easier to update.
+> 
+> Thoughts?
 
-At the moment, Xen doesn't have a formal memory model. Instead, we are 
-relying on intuitions. This can lead to heated discussion on what can a 
-processor/compiler do or not.
+Sounds great.
 
-We also have some helpers that nearly do the same (such as 
-{read,write}_atomic() vs ACCESS_ONCE()) with no clear understanding 
-where to use which.
-
-In the past few years, Linux community spent a lot of time to write down 
-their memory model and make the compiler communities aware of it (see 
-[1], [2]).
-
-There are a few reasons I can see for adopting LKMM:
-    - Xen borrows a fair amount of code from Linux;
-    - There are efforts to standardize it;
-    - This will allow us to streamline the discussion.
-
-Any thoughts?
-
-Cheers,
-
-[1] https://www.kernel.org/doc/Documentation/memory-barriers.txt
-[2] http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0124r7.html
-
-
--- 
-Julien Grall
+I'd suggest to also move the governance.git repository to a more
+"official" location on xenbits.
 
