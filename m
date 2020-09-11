@@ -2,40 +2,105 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF87A266075
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 15:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559AE266088
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 15:45:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGjHB-0004To-Tx; Fri, 11 Sep 2020 13:39:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DvaW=CU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kGjHA-0004Tj-2j
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 13:39:40 +0000
-X-Inumbo-ID: cf405269-85c2-49c9-9d59-02f2bf277ce0
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cf405269-85c2-49c9-9d59-02f2bf277ce0;
- Fri, 11 Sep 2020 13:39:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C37FDB1AA;
- Fri, 11 Sep 2020 13:39:53 +0000 (UTC)
+	id 1kGjMb-0005JY-Ga; Fri, 11 Sep 2020 13:45:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vrAB=CU=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1kGjMZ-0005JT-Rv
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 13:45:16 +0000
+X-Inumbo-ID: 5c37c172-a94a-4fa0-b66d-f1f85f26ce0e
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5c37c172-a94a-4fa0-b66d-f1f85f26ce0e;
+ Fri, 11 Sep 2020 13:45:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599831915;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=TS7Mczg/TxE6jici2P80uWEGchQUUNw5cBKkYvFLpec=;
+ b=PalG788myHSBeLAD3/gK9BZIiEUwcGxOsTbxaOynsGTmvh/Rv5PTDrRM
+ zJRUY52kp7D0jVBUSJ7HA1ipvM9zmQSfUqOyUmEFSbqVGsY9ILZTyWJts
+ CqJQ74lQjWpZqpTlvbJxjAoNKlbRJwt97NP5iFAZc1vtDQEpv3ZxViy8O Y=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=pass (signature verified)
+ header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ESrl5dGLxtRDEsiwbodAgeawbraleKXFc28SFw2vXL2C5Mf5Us814+k2bzanEk75xIkouj8zEL
+ Y0OwUQ6+W6ZeW9zBgZA6CvrtwBcmcA+Aa5vsLqoWC40/5qin0ZRlX5LFdIYWmaGZNGYgYFRvY1
+ 1/QhVcJxX8ZSFzOmJWks0XZ08aYsP9wZNCu3uSvJmrRthEjYM3p6PMTB/om4kpFhk/7WEXa0Gc
+ 9av0JeNYBbasTYZF3LUsVJpEOofC2Sd3mSWs2ANB3pcmbB8/XMYtr5bSTmErvLNUfBXTvmSpiM
+ RF0=
+X-SBRS: 2.7
+X-MesageID: 26503575
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,415,1592884800"; d="scan'208";a="26503575"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XJb9JRnPOZwEjnAnldIwM0YBSqLfAofLgFBdon4HPzKKjd0PqHagszaHo0FychbWx7ffjEKIxYTf+LsI04xMlrfJSZxN/HHqbdl54dhtKPv1EN9EDOu+Ms1nq+HeeoWilpGZfXomlI5XtG2N32z0F6e9iVzVmxxririSclPQo1qVFCbLhXlf7EA/YWMZ4DoBt5xjCqGuYKWz4HUITqCkEdQGBcP2hrPjkuZURr3kPNHXW2953WIF+crSwRHHmVHutc4zoA+Xrj/7Dd+9eL6NqdWYgQ++DEedEWSiywryVm6N8XQwDyJ/bG8AfESSnvTH8H8TBcl7+sJFo8rThR5KRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TS7Mczg/TxE6jici2P80uWEGchQUUNw5cBKkYvFLpec=;
+ b=fc6SLH8eoSWaF4MybEiWFNeUltX1xTJUWwH112qnhf+8gCjcG6QFrUdFkVhJuBARw+UfZ0vyjfdHIJulExPxQbrA4LO1TYlc6M5In1CSGWeJo1UgGYWM9l0vV2spjrLMJMaPzhiN+m0wC2jQjyt0aLKVeUvaUQHbbficJ/mhhgRqsJq2U0U8xxRJZ9enY8Tz5t5KgyTw2chzNfYwfqzKBxEP4PQMFFu6bUgT+GjS9bg3bWvaL35IChg/cn4s5AOGbdpYlKVel6C2ZtOMDWODWq3AkP0djaLQioTOQ74DNQGNF7dB9vKQvbyKMLviJDnxWrdqb80L+tdBLYbUSCuI0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TS7Mczg/TxE6jici2P80uWEGchQUUNw5cBKkYvFLpec=;
+ b=F5ou2Oy3mg0Zf885ORwF7mltAwokEb2D5Go0JFSm73HACojhOIreymGwZQgQeBJNZKzdeqGEELypUMMXRsocmlhg1c2KJLv4hZ0cagdpM+Ic+zFr9WOIxD2I6B3bC6y+AFBxRaRFPNBDGU/3jusDFe7us74aLLiv4Yadij8APNg=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Subject: Re: [PATCH 3/8] Convert code-of-conduct to rst
-To: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Thread-Topic: [PATCH 3/8] Convert code-of-conduct to rst
+Thread-Index: AQHWiDjClz8wC2eStESN9MqHP+Wcr6ljcYmAgAABjQA=
+Date: Fri, 11 Sep 2020 13:45:11 +0000
+Message-ID: <4A125962-E3A9-42A5-8EF1-432665F1E080@citrix.com>
 References: <20200911124009.3760032-1-george.dunlap@citrix.com>
  <20200911124009.3760032-4-george.dunlap@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <cdd7fad9-933b-ce81-f71a-017d839fd967@suse.com>
-Date: Fri, 11 Sep 2020 15:39:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20200911124009.3760032-4-george.dunlap@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ <cdd7fad9-933b-ce81-f71a-017d839fd967@suse.com>
+In-Reply-To: <cdd7fad9-933b-ce81-f71a-017d839fd967@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.120.23.2.1)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 60b45e9c-d7d0-4c12-4402-08d85658e766
+x-ms-traffictypediagnostic: BYAPR03MB3702:
+x-microsoft-antispam-prvs: <BYAPR03MB3702156381FBC01ED6BA1B0C99240@BYAPR03MB3702.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: oYNZk/9e2yvyVoxJlGCNeJcjYQP6ZJG92zpDH6NHrNRh6C6ppuQj8kvKb+ZsF354/+lvxDNVTFPHWW5wDJzmGOj9/oaxJZWFfGkqt4NFejS9KnKhtktZwnDSvu5LvLiyG14xMcSq5VjQwCKS+yWMzvBTixOvPSgMKJJYznOJyR2avQmdaivCBr00/cgFq+GqK63LXEtg4TJ2nMRWZpOS75cG70Cad2JoDeGjlONHVhO/WLuctKANUdhqcoYRufYNhw3cFe7g90Eq9j1x/Q4iZOT7gBe8V/fhgQtdw5xGOgNK3i36ueHaX/0M8t909KHAqGYaNEUUWF2N1K1njm4LxA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR03MB4229.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(366004)(39860400002)(136003)(346002)(8936002)(316002)(6486002)(6512007)(2616005)(2906002)(8676002)(71200400001)(508600001)(5660300002)(4326008)(186003)(26005)(66476007)(91956017)(76116006)(6916009)(64756008)(66556008)(66946007)(4744005)(66446008)(36756003)(33656002)(53546011)(55236004)(6506007)(86362001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: Qdtar+UtzvExzwtN4cEgF1wB4WmBfViN/xCweoBfkNS+k3HnZ2xugJzHVwJg16XOZIYuST5mJxrmmjtJ04yeUOcdbiK5bJIG8a9MPWXcIh+8ipEx3Kgb/e/uv2n4IKYRnfg0zEMzOdWA8RsNoesmwNQFHuuF+jBPfly+H2qurvvup02QiTVsSgyu2YBh3ecUiqff1rJDdKOJ8Eat0CwQM8KHviAhV4uo7mhsTZYO26Pp3CB/UIQ5eItZoo6Oe9UG3QhOfjzu2w8SuU/nE4IgYIF2I+YyzKZQvEU8BVq7tP71BwU6eTs5ftY3yKkrW4sw85uRvSHBqZ2KkimWkFE9f6Qsvx2D5qfFFjBM6voEGXi13tvC7sbmV2ba101JJUH41wcny4+fl/TF2LowE02FXbTHwJOBh8aUH27ZzkVL6u2HXWpZcNBO/D5nrMZtX5aVg0qWE8qG5KlK0ORnLGQsXAWxTXmtKwNaFMMnkfcTJEOwBAySHi4a2psMDK7L+LSGosYqB6VxbyGQkDX0OK5BY9+DYZHBG2lgmdHUN23V2DcBhV8AWtza5kdWQnBrQ4uaBLXU4t2zbjvLf8V5tflw0VvQDIwnqcFQ12VA9ijIIHi61HqDmFTjzXLchNbzY1UsE2sB1XRIupUiRM5nK+z/AQ==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CC2A07791A339848B234C5E6114D7956@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4229.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60b45e9c-d7d0-4c12-4402-08d85658e766
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2020 13:45:11.0755 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: unAzD2ktMEkNgpAzhBoeV8WrfD5Z0OtX4GbHp5WFMeqzqqd7xPit/+eZzfnUyQnnsGnfgiiRkuVtqwFkIqn7QeRi35rhB8RO4zreZgQKtys=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3702
+X-OriginatorOrg: citrix.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,113 +114,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.09.20 14:40, George Dunlap wrote:
-> Underline section titles.
-> 
-> Convert links to RST-style links.  NB that the Communication Guide
-> link won't work ATM; this will be fixed when we convert that document
-> to RST.
-> 
-> Adjust the formatting for the list so that it's converted properly.
-> 
-> A couple of clean-ups:
-> 
-> * Expand the label for communication guidance, and convert the link to
-> the project governance to a named reference rather than an "embedded"
-> URI.
-> 
-> * Move all hyperlink targets to the bottom of the article, and put
->    them in the order they're linked.
-> 
-> No changes to the text.
-> 
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> ---
->   ...code-of-conduct.md => code-of-conduct.rst} | 39 ++++++++++++-------
->   source/conf.py                                |  2 +-
->   source/index.rst                              |  1 +
->   3 files changed, 27 insertions(+), 15 deletions(-)
->   rename source/{code-of-conduct.md => code-of-conduct.rst} (83%)
-> 
-> diff --git a/source/code-of-conduct.md b/source/code-of-conduct.rst
-> similarity index 83%
-> rename from source/code-of-conduct.md
-> rename to source/code-of-conduct.rst
-> index a6080cd..81efe04 100644
-> --- a/source/code-of-conduct.md
-> +++ b/source/code-of-conduct.rst
-> @@ -1,6 +1,8 @@
-> -# Xen Project Code of Conduct
-> +Xen Project Code of Conduct
-> +***************************
->   
-> -## Our Pledge
-> +Our Pledge
-> +==========
->   
->   In the interest of fostering an open and welcoming environment, we as
->   contributors and maintainers pledge to make participation in our project and
-> @@ -9,12 +11,13 @@ size, disability, ethnicity, sex characteristics, gender identity and
->   expression, level of experience, education, socio-economic status, nationality,
->   personal appearance, race, religion, or sexual identity and orientation.
->   
-> -## Our Standards
-> +Our Standards
-> +=============
->   
->   We believe that a Code of Conduct can help create a harassment-free environment,
->   but is not sufficient to create a welcoming environment on its own: guidance on
->   creating a welcoming environment, how to communicate in an effective and
-> -friendly way, etc. can be found [here][guidance]].
-> +friendly way, etc. can be found `here <Communication Guidance_>`_.
->   
->   Examples of unacceptable behavior by participants include:
->   
-> @@ -27,7 +30,8 @@ Examples of unacceptable behavior by participants include:
->   * Other conduct which could reasonably be considered inappropriate in a
->     professional setting
->   
-> -## Our Responsibilities
-> +Our Responsibilities
-> +====================
->   
->   Project leadership team members are responsible for clarifying the standards of
->   acceptable behavior and are expected to take appropriate and fair corrective
-> @@ -39,7 +43,8 @@ contributions that are not aligned to this Code of Conduct, or to ban
->   temporarily or permanently any contributor for other behaviors that they deem
->   inappropriate, threatening, offensive, or harmful.
->   
-> -## Scope
-> +Scope
-> +=====
->   
->   This Code of Conduct applies within all project spaces of all sub-projects,
->   and it also applies when an individual is representing the project or its
-> @@ -49,7 +54,8 @@ media account, or acting as an appointed representative at an online or offline
->   event. Representation of a project may be further defined and clarified by the
->   project leadership.
->   
-> -## What to do if you witness or are subject to unacceptable behavior
-> +What to do if you witness or are subject to unacceptable behavior
-> +=================================================================
->   
->   Instances of abusive, harassing, or otherwise unacceptable behavior may be
->   reported by contacting Conduct Team members at conduct@xenproject.org. All
-> @@ -67,25 +73,30 @@ Project leadership team members who do not follow or enforce the Code of Conduct
->   in good faith may face temporary or permanent repercussions as determined by
->   other members of the project's leadership.
->   
-> -## Conduct Team members
-> +Conduct Team members
-> +====================
-> +
->   Conduct Team members are project leadership team members from any
->   sub-project. The current list of Conduct Team members is:
-> +
->   * Lars Kurth <lars dot kurth at xenproject dot org>
-
-May I suggest to add a patch removing Lars from this list?
-
-
-Juergen
+DQoNCj4gT24gU2VwIDExLCAyMDIwLCBhdCAyOjM5IFBNLCBKw7xyZ2VuIEdyb8OfIDxqZ3Jvc3NA
+c3VzZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMTEuMDkuMjAgMTQ6NDAsIEdlb3JnZSBEdW5sYXAg
+d3JvdGU6DQo+PiANCj4+ICtDb25kdWN0IFRlYW0gbWVtYmVycw0KPj4gKz09PT09PT09PT09PT09
+PT09PT09DQo+PiArDQo+PiAgQ29uZHVjdCBUZWFtIG1lbWJlcnMgYXJlIHByb2plY3QgbGVhZGVy
+c2hpcCB0ZWFtIG1lbWJlcnMgZnJvbSBhbnkNCj4+ICBzdWItcHJvamVjdC4gVGhlIGN1cnJlbnQg
+bGlzdCBvZiBDb25kdWN0IFRlYW0gbWVtYmVycyBpczoNCj4+ICsNCj4+ICAqIExhcnMgS3VydGgg
+PGxhcnMgZG90IGt1cnRoIGF0IHhlbnByb2plY3QgZG90IG9yZz4NCj4gDQo+IE1heSBJIHN1Z2dl
+c3QgdG8gYWRkIGEgcGF0Y2ggcmVtb3ZpbmcgTGFycyBmcm9tIHRoaXMgbGlzdD8NCg0KWWVzLCB0
+aGF0IHdvdWxkIGhhdmUgYmVlbiBvbiBteSBsaXN0IG9mIHRoaW5ncyB0byBkbyBhZnRlciB0aGlz
+Lg0KDQpPbmUgdGhpbmcgSSBtZWFudCB0byBtZW50aW9uIGluIG15IGNvdmVyIGxldHRlciBpcyB0
+aGF0IEkgdGhpbmsgd2UgbWlnaHQgd2FudCBhdCBsZWFzdCBvbmUgbW9yZSBwZXJzb24gdG8gYmUg
+b24gdGhpcyBsaXN0LCBzbyBpdOKAmXMgbm90IGp1c3QgSWFuIGFuZCBJLg0KDQogLUdlb3JnZQ==
 
