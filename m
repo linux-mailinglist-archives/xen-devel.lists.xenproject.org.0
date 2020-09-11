@@ -2,60 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE18A265F15
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 13:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D96E265F5A
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 14:15:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGher-0001l9-O1; Fri, 11 Sep 2020 11:56:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kGhx4-0003d0-Jb; Fri, 11 Sep 2020 12:14:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N27I=CU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kGheq-0001l3-SH
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 11:56:00 +0000
-X-Inumbo-ID: b7651257-cf97-4412-a118-fcd441b99a49
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b7651257-cf97-4412-a118-fcd441b99a49;
- Fri, 11 Sep 2020 11:55:59 +0000 (UTC)
+ id 1kGhx2-0003cv-Dn
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 12:14:48 +0000
+X-Inumbo-ID: 60612009-661e-4c3f-b4ad-adc8210a656d
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 60612009-661e-4c3f-b4ad-adc8210a656d;
+ Fri, 11 Sep 2020 12:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1599825359;
+ d=citrix.com; s=securemail; t=1599826487;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=ddJSaeXvV8HHijui8S3vmZPwvxFvseGTCx6ZahYtTOk=;
- b=ej08xkoXN2MaI+qpL9ZejjsnTf32tw5HQ1Z7yyw3FtF+ysrNUnCJnXno
- uvPrmE7FJJcImawmDn2Fl7pNk4oIqhHn5u31Yq8rreY2W1PKER7jmNtxt
- bgEnvhGqCYbHijwO/rzhhP+9/xJVZkiOkPNXQg1bQJaMSEMVlilj4qyuX Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=DqbJ2O5t5Ob0cV3AAy5ALNktw0n1SCTt6Y7u0hAmqVQ=;
+ b=ImBiaTd2gcpPbn99Zm03OZDEB/lU0566SV+UD4yyNmUCFBVCWBv0tE7g
+ C0LHgG7zbE0NCYcsnVScFxt7uhlbrBiJUi84cBzy1QmBBXn+2VzmoiL8C
+ tz2k0l38I7pFSbsXtnAQz8BfguGSvsunhJDWpIa6aYj2th1en8oUuiCqs o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: zGttxFN85QYmhvx0oKv9pmNbXPpyW5Os7A42972woer+pXXByQr1XUTrB3eddolxMPp8fKfZT3
- bmsSycJGvMmT8cWE/pMagmd+vQMyNAilvxe6dLqHnJaHnGVsE65vjBmUn8lnMt0qcCU9T5WfhK
- SDpJfqyePsoQbZJYPnIyaU8ntpD9m4NU8pMQBaWCPtHZd93RP97gd4KEL0Xa6WtDEL1YVgYB3/
- 6xPTDsjpFolouN9YM7icm9tUdEAzs0JisKRiYMn7PpHRxOWkoFUYqt01ePcowbCIT7p/taFT6g
- sj8=
+IronPort-SDR: ok2D6rDvz3Wps+J4358GBLFbWa/XXEJh2GXnfX2oUIlQNMF1fNy0hwQBY+3EA7sKsBf8ULM6U9
+ r1vwzye4c1sXcn2z4XxdQK7PdPmzZoO6o9bHQp0EdX0YJzqlUs9A3gukb+ndI8Q/dlspSX6/V7
+ S+zRcrrDNe5UUlOmYIcjk5iz+/MQBqWbhaDsLjA7gPBx82aGiFX2R3X/Y0gzDoeb871aHSkJ1x
+ JFmdEKepbdmgIP6HfgLrCkHVRg6rgtcbEmJsG2gqBc5j1DThPOF5iwJvjJg23b2ZWbMxb0Gq3I
+ aYU=
 X-SBRS: 2.7
-X-MesageID: 26786440
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 26830296
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,415,1592884800"; d="scan'208";a="26786440"
-Subject: Re: [PATCH] x86/PV: make post-migration page state consistent
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
+X-IronPort-AV: E=Sophos;i="5.76,415,1592884800"; d="scan'208";a="26830296"
+Subject: Re: [PATCH] xen/hypfs: fix writing of custom parameter
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+ <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+ <wl@xen.org>
+References: <20200911053043.29445-1-jgross@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <2e715145-e0b5-07b9-0090-6e1e9a849f33@citrix.com>
-Date: Fri, 11 Sep 2020 12:55:53 +0100
+Message-ID: <77ebc474-966e-885c-a08d-9da538671cb0@citrix.com>
+Date: Fri, 11 Sep 2020 13:14:39 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
+In-Reply-To: <20200911053043.29445-1-jgross@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -70,34 +72,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11/09/2020 11:34, Jan Beulich wrote:
-> When a page table page gets de-validated, its type reference count drops
-> to zero (and PGT_validated gets cleared), but its type remains intact.
-> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
-> such pages. An intermediate write to such a page via e.g.
-> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
-> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
-> return. In libxc the decision which pages to normalize / localize
-> depends solely on the type returned from the domctl. As a result without
-> further precautions the guest won't be able to tell whether such a page
-> has had its (apparent) PTE entries transitioned to the new MFNs.
+On 11/09/2020 06:30, Juergen Gross wrote:
+> Today the maximum allowed data length for writing a hypfs node is
+> tested in the generic hypfs_write() function. For custom runtime
+> parameters this might be wrong, as the maximum allowed size is derived
+> from the buffer holding the current setting, while there might be ways
+> to set the parameter needing more characters than the minimal
+> representation of that value.
+>
+> One example for this is the "ept" parameter. Its value buffer is sized
+> to be able to hold the string "exec-sp=0" or "exec-sp=1", while it is
+> allowed to use e.g. "no-exec-sp" or "exec-sp=yes" for setting it.
 
-I'm afraid I don't follow what the problem is.
+If you're looking for silly examples, exec-sp=disabled is also legal
+boolean notation for Xen.
 
-Yes - unvalidated pages probably ought to be consistently NOTAB, so this
-is probably a good change, but I don't see how it impacts the migration
-logic.
+>
+> Fix that by moving the length check one level down to the type
+> specific write function.
+>
+> In order to avoid allocation of arbitrary sized buffers use a new
+> MAX_PARAM_SIZE macro as an upper limit for custom writes. The value
+> of MAX_PARAM_SIZE is the same as the limit in parse_params() for a
+> single parameter.
+>
+> Fixes: 5b5ccafb0c42 ("xen: add basic hypervisor filesystem support")
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-We already have to cope with a page really changing types in parallel
-with the normalise/localise logic (that was a "fun" one to debug), which
-is why errors in that logic are specifically not fatal while the guest
-is live - the frame gets re-marked as dirty, and deferred until the next
-round.
+This does fix my bug, so Tested-by: Andrew Cooper
+<andrew.cooper3@citrix.com>
 
-Errors encountered after the VM has been paused are fatal.
+This does need backporting to 4.14, so maybe is best to take in this
+form for now.
 
-However, at no point, even with an unvalidated pagetable type, can the
-contents of the page be anything other than legal PTEs.  (I think)
+However, I'm rather uneasy about the approach.
+
+Everything here derives from command line semantics, and it's probably
+not going to be long until we get runtime modification of two sub
+parameters.
+
+In a theoretical world where all the EPT suboptions were runtime
+modifiable, it would be legal to try and pass
+
+ept=exec-sp,pml,no-pml,no-ad,ad,no-ad
+
+While being fairly nonsensical, it is well formed on the command line. 
+We go left to right, and latest takes precedence.
+
+Given that we do have buffer containing everything provided by
+userspace, and all internal logic organised with const char *, why do we
+need an intermediate allocation at all?
+
+Can't we just pass that all the way down, rather than leaving the same
+bug to hit at some point when we do have a parameter which legitimately
+takes 128 characters of configuration?
 
 ~Andrew
 
