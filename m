@@ -2,70 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E369E265A93
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 09:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC1C9265AFE
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 10:00:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGdYt-0001oZ-W8; Fri, 11 Sep 2020 07:33:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kGdyV-00044L-A3; Fri, 11 Sep 2020 08:00:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D+4E=CU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kGdYs-0001o9-Dv
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 07:33:34 +0000
-X-Inumbo-ID: f21ef6c7-f22a-41ca-99e0-1aca2bbd3cda
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f21ef6c7-f22a-41ca-99e0-1aca2bbd3cda;
- Fri, 11 Sep 2020 07:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=xlGn9ntBPHTayz9khzvtfQ1NhpWi97lObieskgDKHUc=; b=CbKavmqvh0ko2H4+uCEEsxb7CB
- ZulV6CLiqC8GqrckT8K3HkWvzm3WzoXXXOnROU/XFFULHdA8FSdOoKs1M5WkvFBb//w1Qk1JHe8MX
- PVVSJpu+GV9m2FeuAfmvlyyT+VCqrmTSgYWeGXPuOGP5BJZADV36rV73JexHPT0tZySM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kGdYl-0001MQ-9w; Fri, 11 Sep 2020 07:33:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kGdYl-0000SH-2L; Fri, 11 Sep 2020 07:33:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kGdYl-0007zK-1r; Fri, 11 Sep 2020 07:33:27 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154097-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=JtdL=CU=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kGdyT-0003e0-2x
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 08:00:01 +0000
+X-Inumbo-ID: 7ad1f9e9-6244-4598-81bd-9864990349c9
+Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7ad1f9e9-6244-4598-81bd-9864990349c9;
+ Fri, 11 Sep 2020 07:59:59 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id a65so3515847wme.5
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Sep 2020 00:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=rbGBXit++KrlNpCeAjWS4OQ/f9dzkPBNE7LJMRcicAQ=;
+ b=pyB1e0I9S6zk+YLbzyW91QR1vGrfYoFtXKSFLOehpLLtTh3Y26W/qNRisFm8W91LNj
+ /dW+Ks+qyYdVoi29nEY9sk2VCSqLnr71O6gP1jx54y4yijFytIpjTdqDIahE8+gJ5lpO
+ rYJW401QMT6+JiLoYo/+rNC6p9dPuJQLG2LQZ6cY2kOkzWmLrMyfdxMnAlT136clSZNn
+ 9MW3/2rtcwjny1c3bq1o2qX/Ryw0iprS9dCRzh5/K/dDSx9AokFe8wmVS8+BhO4tXxgB
+ 9EJJXnbIoV8B6/G+/c8cTsR7DrhPunN/f81BQBnBsE/+FYkPae3Ulo9kS/8e1E933qMq
+ jJ1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=rbGBXit++KrlNpCeAjWS4OQ/f9dzkPBNE7LJMRcicAQ=;
+ b=G00yZZyHSrRb7JdVld48eyCSfhHPfz7hcVjG9uMjWroao3TjlN9v9Wn9pDrqixr+dw
+ G5c1SS2lE2egOkpwnXY/IPuNXfE9RmjtrSMYKTcxh7k8pG7+Q2C3IZGpfmuop0gMfdYa
+ 7hAn2gWgwo/5i1nHJ8ouiYHBxP16mlUabPP3F5RxT/Z6/xICZ3jIpXP09dnnaZPwB9rB
+ 3KN0tozy8HGAbSURA+dwuvc53pYIfHKc/y0ZACsGEKzooxr00h/srfpB4pJ0GHsrrZD4
+ IDiQv0PAa6jI7fvlpRjw/4RanP3IfXaGIMoiQNms1l4uonC8QIR9W2LoYxXgw+KB1l3L
+ CKPQ==
+X-Gm-Message-State: AOAM531RfNBi+Jeyu7Nx60B0Hgg7t2eJq5Ie1EiQjSj59mduFaS06JPf
+ T+DKAITNDvg2Jf4TyrdCGyQ=
+X-Google-Smtp-Source: ABdhPJza5H5l8iUb3y5//piy0MWxce6okwPwzBKBBhymz7mJngwzpEjkjXUGxWhhpb1PHhB+GVFu2Q==
+X-Received: by 2002:a1c:678a:: with SMTP id b132mr986886wmc.10.1599811199085; 
+ Fri, 11 Sep 2020 00:59:59 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id v128sm2677876wme.2.2020.09.11.00.59.57
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 11 Sep 2020 00:59:58 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
+ "'Durrant, Paul'" <pdurrant@amazon.co.uk>
+Cc: "'Bertrand Marquis'" <Bertrand.Marquis@arm.com>,
+ "'open list:X86'" <xen-devel@lists.xenproject.org>,
+ "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>,
+ "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
+ "'Julien Grall'" <julien@xen.org>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>,
+ "'Jun Nakajima'" <jun.nakajima@intel.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>
+References: <20200910145007.14107-1-paul@xen.org>
+ <20200910145007.14107-5-paul@xen.org>
+ <797DD1A2-60EB-455C-943D-C515881A69CC@arm.com>
+ <C9ADFBE4-D7C7-43EC-9F33-D658548CE98D@arm.com>
+ <88fc2079ec3f452db02fb4148b69240a@EX13D32EUC003.ant.amazon.com>
+ <CAPD2p-nop-LF4-c9DDBaG6R1c7ZknPODdjsDeyg2opNN9KTQTQ@mail.gmail.com>
+In-Reply-To: <CAPD2p-nop-LF4-c9DDBaG6R1c7ZknPODdjsDeyg2opNN9KTQTQ@mail.gmail.com>
+Subject: RE: [PATCH v6 4/8] iommu: make map and unmap take a page count,
+ similar to flush
+Date: Fri, 11 Sep 2020 08:59:46 +0100
+Message-ID: <004801d68811$84894ae0$8d9be0a0$@xen.org>
 MIME-Version: 1.0
-Subject: [libvirt test] 154097: regressions - FAIL
-X-Osstest-Failures: libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=b4c0fcd5cc41ce83e4d027c3128c8de1021083c3
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Sep 2020 07:33:27 +0000
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGDoYfTQ+O59bAcTdsNQ87JtdoTKAL+MzNeAY/j9QQCF7JtBAIESfpOAiPGA+ypsnDVcA==
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,163 +96,141 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154097 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154097/
+De-htmling...
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- libvirt              b4c0fcd5cc41ce83e4d027c3128c8de1021083c3
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z   63 days
-Failing since        151818  2020-07-11 04:18:52 Z   62 days   58 attempts
-Testing same since   154097  2020-09-11 04:19:09 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+-----
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>=20
+Sent: 10 September 2020 19:20
+To: Durrant, Paul <pdurrant@amazon.co.uk>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Paul Durrant =
+<paul@xen.org>; open list:X86 <xen-devel@lists.xenproject.org>; Jan =
+Beulich <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; =
+Wei Liu <wl@xen.org>; Roger Pau Monn=C3=A9 <roger.pau@citrix.com>; =
+George Dunlap <george.dunlap@citrix.com>; Ian Jackson =
+<ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano =
+Stabellini <sstabellini@kernel.org>; Jun Nakajima =
+<jun.nakajima@intel.com>; Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH v6 4/8] iommu: make map and unmap take a page count, =
+similar to flush
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On Thu, Sep 10, 2020 at 8:49 PM Durrant, Paul =
+<mailto:pdurrant@amazon.co.uk> wrote:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Paul
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[sorry for the possible format issue]
+
+> -----Original Message-----
+> From: Bertrand Marquis <mailto:Bertrand.Marquis@arm.com>
+> Sent: 10 September 2020 17:46
+> To: Paul Durrant <mailto:paul@xen.org>
+> Cc: open list:X86 <mailto:xen-devel@lists.xenproject.org>; Durrant, =
+Paul <mailto:pdurrant@amazon.co.uk>; Jan Beulich
+> <mailto:jbeulich@suse.com>; Andrew Cooper =
+<mailto:andrew.cooper3@citrix.com>; Wei Liu <mailto:wl@xen.org>; Roger =
+Pau Monn=C3=A9
+> <mailto:roger.pau@citrix.com>; George Dunlap =
+<mailto:george.dunlap@citrix.com>; Ian Jackson
+> <mailto:ian.jackson@eu.citrix.com>; Julien Grall =
+<mailto:julien@xen.org>; Stefano Stabellini
+> <mailto:sstabellini@kernel.org>; Jun Nakajima =
+<mailto:jun.nakajima@intel.com>; Kevin Tian =
+<mailto:kevin.tian@intel.com>
+> Subject: RE: [EXTERNAL] [PATCH v6 4/8] iommu: make map and unmap take =
+a page count, similar to flush
+>=20
+> CAUTION: This email originated from outside of the organization. Do =
+not click links or open
+> attachments unless you can confirm the sender and know the content is =
+safe.
+>=20
+>=20
+>=20
+> >> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+> >> index 1831dc66b0..13f68dc93d 100644
+> >> --- a/xen/include/xen/iommu.h
+> >> +++ b/xen/include/xen/iommu.h
+> >> @@ -146,23 +146,23 @@ enum
+> >> #define IOMMU_FLUSHF_modified (1u << _IOMMU_FLUSHF_modified)
+> >>
+> >> int __must_check iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
+> >> -                           unsigned int page_order, unsigned int =
+flags,
+> >> +                           unsigned long page_count, unsigned int =
+flags,
+> >>                           unsigned int *flush_flags);
+> >> int __must_check iommu_unmap(struct domain *d, dfn_t dfn,
+> >> -                             unsigned int page_order,
+> >> +                             unsigned long page_count,
+> >>                             unsigned int *flush_flags);
+> >>
+> >> int __must_check iommu_legacy_map(struct domain *d, dfn_t dfn, =
+mfn_t mfn,
+> >> -                                  unsigned int page_order,
+> >> +                                  unsigned long page_count,
+> >>                                  unsigned int flags);
+> >> int __must_check iommu_legacy_unmap(struct domain *d, dfn_t dfn,
+> >> -                                    unsigned int page_order);
+> >> +                                    unsigned long page_count);
+> >>
+> >> int __must_check iommu_lookup_page(struct domain *d, dfn_t dfn, =
+mfn_t *mfn,
+> >>                                   unsigned int *flags);
+> >>
+> >> int __must_check iommu_iotlb_flush(struct domain *d, dfn_t dfn,
+> >> -                                   unsigned int page_count,
+> >> +                                   unsigned long page_count,
+> >>                                   unsigned int flush_flags);
+> >> int __must_check iommu_iotlb_flush_all(struct domain *d,
+> >>                                       unsigned int flush_flags);
+> >> @@ -281,7 +281,7 @@ struct iommu_ops {
+> >>    void (*share_p2m)(struct domain *d);
+> >>    void (*crash_shutdown)(void);
+> >>    int __must_check (*iotlb_flush)(struct domain *d, dfn_t dfn,
+> >> -                                    unsigned int page_count,
+> >> +                                    unsigned long page_count,
+> >
+> > This change will require to change the arm smmu code to have the =
+right type for page count:
+> > xen/drivers/passthrough/smmu.c:2536
+> > static int __must_check arm_smmu_iotlb_flush(struct domain *d, dfn_t =
+dfn,
+> >                         unsigned int page_count,
+> >                         unsigned int flush_flags)
+> >
+> > Otherwise compilation is failing for arm.
+> >
+> > With that fixed i could compile and start an arm system with the =
+complete serie (but not one with an
+> arm SMMU).
+>=20
+> I should have specified because my test system right now does not have =
+an SMMUv1.
+>=20
+
+Thanks for spotting that; I did run a cross compilation on arm a while =
+ago so not sure how I managed to miss this. Will fix and send v7.
 
 
-Not pushing.
+ Probably ipmmu_iotlb_flush() in ipmmu-vmsa.c needs the same update as =
+well (I don't have the possibility to apply your series and re-check)? =
+Please note, it is still under CONFIG_EXPERT.
+-----
 
-(No revision log; it would be 13832 lines long.)
+Oh, that's new I guess? I'll go check.
+
+  Paul
+
+
+--=20
+Regards,
+
+Oleksandr Tyshchenko
+
 
