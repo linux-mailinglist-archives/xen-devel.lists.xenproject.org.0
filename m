@@ -2,40 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6052C26630C
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24BF226631E
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 18:11:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGlcL-00025a-1c; Fri, 11 Sep 2020 16:09:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eh3a=CU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGlcK-00025V-9E
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:09:40 +0000
-X-Inumbo-ID: 5e3522c6-6717-4270-87f7-aa64cdc1e3cd
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e3522c6-6717-4270-87f7-aa64cdc1e3cd;
- Fri, 11 Sep 2020 16:09:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E8206AF2F;
- Fri, 11 Sep 2020 16:09:53 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86: guard against straight-line speculation past RET
-Message-ID: <a6d7d72b-b14c-ab7f-b250-cc74cd3c758c@suse.com>
-Date: Fri, 11 Sep 2020 18:09:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kGldZ-0002pc-Cc; Fri, 11 Sep 2020 16:10:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N27I=CU=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kGldY-0002pS-Az
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 16:10:56 +0000
+X-Inumbo-ID: 5f96b67f-fd6f-4bba-a6fc-6d3b7070a8f8
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5f96b67f-fd6f-4bba-a6fc-6d3b7070a8f8;
+ Fri, 11 Sep 2020 16:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599840654;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=CdRY++02o6f9sir37o6sdzW9hAKrMPy/uPMwtsJeNXs=;
+ b=dtlZDfkaltBfBl7GL3WvEoXrz+er9o5bYjd2fK1u5EaA71JFNy5YZb1M
+ H5wU/A+hko5ntbbbmr2l+Me/TqC+0F50pce5FEFNz+zCPwtiBwG4yaGmO
+ 9XbQMA+8pzGEx/Meru/GJ5MV4ipNkzgpSMIuI4g/DAyCcHK3qbZLZwSoC k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: DmML0On69jcGHsnS52P3khALx7bif557HRT2rcfqmbB9ddvKyIvG7vobb/FkK23ToR4agOOPPK
+ 1wi3WZywy2DQqrGVSeui1fKiYaIY/cqsksASAO9n9NL0mz7UKIZbRIXqmJsoVrgf9rtdUawAzT
+ 8UhdRvqOEsgDVS1Fuf6/WIJccd8+lGYqoq/owdzgpuTn+HoyXXNZbimCrdbSifQLgjwaPz8S4r
+ WcCQ0GMbP1RglePjT2WtQ9uIk4LfrRf/2yiCiBQhBr3w40n2rrXz2J+HqANCIi7fehfgCeForr
+ SJY=
+X-SBRS: 2.7
+X-MesageID: 26808911
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,416,1592884800"; d="scan'208";a="26808911"
+Subject: Re: [PATCH 5/5] x86/pv: Simplify emulation for the 64bit base MSRs
+To: Jan Beulich <jbeulich@suse.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200909095920.25495-1-andrew.cooper3@citrix.com>
+ <20200909095920.25495-6-andrew.cooper3@citrix.com>
+ <50039b2e-bd62-5948-10b4-4cbaeac7b555@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <e395bd45-5ab7-c2c3-4ea9-516a782eb3d9@citrix.com>
+Date: Fri, 11 Sep 2020 17:10:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <50039b2e-bd62-5948-10b4-4cbaeac7b555@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,75 +71,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Under certain conditions CPUs can speculate into the instruction stream
-past a RET instruction. Guard against this just like 3b7dab93f240
-("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
-did - by inserting an "INT $3" insn. It's merely the mechanics of how to
-achieve this that differ: A set of macros gets introduced to post-
-process RET insns issued by the compiler (or living in assembly files).
+On 11/09/2020 11:01, Jan Beulich wrote:
+> On 09.09.2020 11:59, Andrew Cooper wrote:
+>> is_pv_32bit_domain() is an expensive predicate, but isn't used for speculative
+>> safety in this case.  Swap to checking the Long Mode bit in the CPUID policy,
+>> which is the architecturally correct behaviour.
+>>
+>> is_canonical_address() isn't a trivial predicate, but it will become more
+>> complicated when 5-level support is added.  Rearrange write_msr() to collapse
+>> the common checks.
+> Did you mean "is" instead of "isn't" or "and" instead of "but"? The
+> way it is it doesn't look very logical to me.
 
-Unfortunately for clang this requires further features their built-in
-assembler doesn't support: We need to be able to override insn mnemonics
-produced by the compiler (which may be impossible, if internally
-assembly mnemonics never get generated), and we want to use \(text)
-escaping / quoting in the auxiliary macro.
+I guess the meaning got lost somewhere.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-TBD: Should this depend on CONFIG_SPECULATIVE_HARDEN_BRANCH?
-TBD: Would be nice to avoid the additions in .init.text, but a query to
-     the binutils folks regarding the ability to identify the section
-     stuff is in (by Peter Zijlstra over a year ago:
-     https://sourceware.org/pipermail/binutils/2019-July/107528.html)
-     has been left without helpful replies.
----
-v2: Fix build with newer clang. Use int3 mnemonic. Also override retq.
----
-This depends on the "x86: some assembler macro rework" series posted
-well over a month ago.
+is_canonical_address() is currently not completely trivial, but also not
+massively complicated either.
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -145,7 +145,15 @@ t2 = $(call as-insn,$(CC) -I$(BASEDIR)/i
- # https://bugs.llvm.org/show_bug.cgi?id=36110
- t3 = $(call as-insn,$(CC),".macro FOO;.endm"$(close); asm volatile $(open)".macro FOO;.endm",-no-integrated-as)
- 
--CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
-+# Check whether \(text) escaping in macro bodies is supported.
-+t4 = $(call as-insn,$(CC),".macro m ret:req; \\(ret) $$\\ret; .endm; m 8",,-no-integrated-as)
-+
-+# Check whether macros can override insn mnemonics in inline assembly.
-+t5 = $(call as-insn,$(CC),".macro ret; .error; .endm; .macro retq; .error; .endm",-no-integrated-as)
-+
-+acc1 := $(call or,$(t1),$(t2),$(t3),$(t4))
-+
-+CLANG_FLAGS += $(call or,$(acc1),$(t5))
- endif
- 
- CLANG_FLAGS += -Werror=unknown-warning-option
---- a/xen/include/asm-x86/asm-defns.h
-+++ b/xen/include/asm-x86/asm-defns.h
-@@ -50,3 +50,22 @@
- .macro INDIRECT_JMP arg:req
-     INDIRECT_BRANCH jmp \arg
- .endm
-+
-+/*
-+ * To guard against speculation past RET, insert a breakpoint insn
-+ * immediately after them.
-+ */
-+.macro ret operand:vararg
-+    ret$ \operand
-+.endm
-+.macro retq operand:vararg
-+    ret$ \operand
-+.endm
-+.macro ret$ operand:vararg
-+    .purgem ret
-+    ret \operand
-+    int3
-+    .macro ret operand:vararg
-+        ret$ \\(operand)
-+    .endm
-+.endm
+It will become much more complicated with LA57.
+
+>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with one more remark:
+>
+>> @@ -991,22 +993,22 @@ static int write_msr(unsigned int reg, uint64_t val,
+>>          uint64_t temp;
+>>  
+>>      case MSR_FS_BASE:
+>> -        if ( is_pv_32bit_domain(currd) || !is_canonical_address(val) )
+>> -            break;
+>> -        write_fs_base(val);
+>> -        return X86EMUL_OKAY;
+>> -
+>>      case MSR_GS_BASE:
+>> -        if ( is_pv_32bit_domain(currd) || !is_canonical_address(val) )
+>> -            break;
+>> -        write_gs_base(val);
+>> -        return X86EMUL_OKAY;
+>> -
+>>      case MSR_SHADOW_GS_BASE:
+>> -        if ( is_pv_32bit_domain(currd) || !is_canonical_address(val) )
+>> +        if ( !cp->extd.lm || !is_canonical_address(val) )
+>>              break;
+>> -        write_gs_shadow(val);
+>> -        curr->arch.pv.gs_base_user = val;
+>> +
+>> +        if ( reg == MSR_FS_BASE )
+>> +            write_fs_base(val);
+>> +        else if ( reg == MSR_GS_BASE )
+>> +            write_gs_base(val);
+>> +        else if ( reg == MSR_SHADOW_GS_BASE )
+> With the three case labels just above, I think this "else if" and ...
+>
+>> +        {
+>> +            write_gs_shadow(val);
+>> +            curr->arch.pv.gs_base_user = val;
+>> +        }
+>> +        else
+>> +            ASSERT_UNREACHABLE();
+> ... this assertion are at least close to being superfluous. Their
+> dropping would then also make me less inclined to ask for an
+> inner switch().
+
+I'm not overly fussed, as this example is fairly trivial, but I was
+attempting to go for something which ends up safe even in the case of a
+bad edit to the outer switch statement.
+
+I'd expect the compiler to be drop the both aspects you talk about.
+
+~Andrew
 
