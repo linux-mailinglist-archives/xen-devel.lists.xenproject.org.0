@@ -2,42 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29BB4265FA2
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 14:37:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E75265FAB
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Sep 2020 14:40:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kGiJL-0005rr-0B; Fri, 11 Sep 2020 12:37:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eh3a=CU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kGiJK-0005rk-CD
- for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 12:37:50 +0000
-X-Inumbo-ID: 05f3f862-7075-42cd-a446-da13323c5b52
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05f3f862-7075-42cd-a446-da13323c5b52;
- Fri, 11 Sep 2020 12:37:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 191ADADAD;
- Fri, 11 Sep 2020 12:38:04 +0000 (UTC)
-Subject: Re: [PATCH] x86/PV: make post-migration page state consistent
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
- <2e715145-e0b5-07b9-0090-6e1e9a849f33@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <792f8867-55b5-3ce4-e609-c6f75c35a860@suse.com>
-Date: Fri, 11 Sep 2020 14:37:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kGiM2-0006h4-Oz; Fri, 11 Sep 2020 12:40:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vrAB=CU=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1kGiM1-0006gu-HB
+ for xen-devel@lists.xenproject.org; Fri, 11 Sep 2020 12:40:37 +0000
+X-Inumbo-ID: 8b275429-b684-4f38-8357-bb179e1de913
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8b275429-b684-4f38-8357-bb179e1de913;
+ Fri, 11 Sep 2020 12:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1599828036;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=E9jVzjewcHv8oSNd7zb4kMsDRgnBST4bkl0Ixsq38QY=;
+ b=XnUrU6GQNFXZHEa/wO5mXO1fjYTTt/sqfpL7ppWxKqCCpgLeJ8p9N9IH
+ J8Ji8PEqouH7f9HNupavHeDnagOoOUGtFi3m4DI8eZtxI67EgXUmw8/pe
+ lKHByrgeaxK7Z1OMZswfCygd4vZHxO7Vn+xI567gAZ3M0s2YnQ072YilJ E=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: XuF3ypyX0E83P8EWuaTghwZqrfdb4XK77jdf8HFhWy9ULdSHs45FBLnA8f4LTGjiwoqvIrr7mw
+ feOtRm/9Wq9bc+y4YLgvohiWa7+pMXohOupTT+1MZN+vPWFNTw+UZpScuEaCFr7v3MX0dm121J
+ yD8p/ayOvbHRjnkZoD7/IMT2wM21cmv5wRWQkLPP/hs+uFcEAI+kqEGKKS8ILYo8WBGZ4srmWC
+ 2JyfoOkhAUnZKtb99p2eE2rY8uWj9OUHFD7SvFvzI8EDVwsmyUXdBkXc7q5kpIgQudYHGJOPI2
+ Lkc=
+X-SBRS: 2.7
+X-MesageID: 27470677
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,415,1592884800"; d="scan'208";a="27470677"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <ian.jackson@citrix.com>, Wei Liu <wei.liu2@citrix.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien.grall@arm.com>,
+ Paul Durrant <paul@xenproject.org>
+Subject: [PATCH 0/8] Finding a home for the Code of Conduct
+Date: Fri, 11 Sep 2020 13:40:01 +0100
+Message-ID: <20200911124009.3760032-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <2e715145-e0b5-07b9-0090-6e1e9a849f33@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,66 +67,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.09.2020 13:55, Andrew Cooper wrote:
-> On 11/09/2020 11:34, Jan Beulich wrote:
->> When a page table page gets de-validated, its type reference count drops
->> to zero (and PGT_validated gets cleared), but its type remains intact.
->> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
->> such pages. An intermediate write to such a page via e.g.
->> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
->> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
->> return. In libxc the decision which pages to normalize / localize
->> depends solely on the type returned from the domctl. As a result without
->> further precautions the guest won't be able to tell whether such a page
->> has had its (apparent) PTE entries transitioned to the new MFNs.
-> 
-> I'm afraid I don't follow what the problem is.
-> 
-> Yes - unvalidated pages probably ought to be consistently NOTAB, so this
-> is probably a good change, but I don't see how it impacts the migration
-> logic.
+The Code of Conduct has been approved [1]; now we need to find it a
+home.  Since we've started using sphinx for the hypervisor documents,
+I propose doing the same for the project-wide governance documents, starting
+with the Code of Conduct.
 
-It's not the migration logic itself that's impacted, but the state
-of guest pages after migration. I'm afraid I can only try to expand
-on the original description.
+This series takes Lars' code of conduct tree, written as individual MD
+files, and puts them into the sphinx documentation system.  After this
+series, if you run "make html" in the top-level directory, you'll get
+the generated sphinx documentation in the build/ directory.
 
-Case 1: Once an Ln page has been unvalidated, due to the described
-behavior the migration code in libxc will normalize and then localize
-it. Therefore the guest could go and directly try to use it as a
-page table again. This should work as long as all of the entries in
-the page can still be successfully validated (i.e. unless the guest
-itself has made changes to the state of other pages).
+The finalized Code of Conduct documentation can be found at:
 
-Case 2: Once an Ln page has been unvalidated, the guest for whatever
-reason still writes to it through e.g. MMU_NORMAL_PT_UPDATE. Prior
-to migration, and provided the new entry can be validated (and no
-other reference page has changed state), the page can still be
-converted to a proper page table one again. If, however, migration
-occurs inbetween, the page now won't get normalized and then
-localized. The MFNs in it are unlikely to make sense anymore, and
-hence an attempt to make the page a page table again is likely to
-fail (or if it doesn't fail the result is unlikely to be what's
-intended).
+https://xenbits.xen.org/git-http/people/gdunlap/governance.git
 
-Since there's no way to make case 2 "work", the only choice is to
-make case 1 behave like case 2, in order for the behavior to be
-predictable / consistent.
+This series can be found on the branch out/move-to-sphinx/v1
 
-> We already have to cope with a page really changing types in parallel
-> with the normalise/localise logic (that was a "fun" one to debug), which
-> is why errors in that logic are specifically not fatal while the guest
-> is live - the frame gets re-marked as dirty, and deferred until the next
-> round.
-> 
-> Errors encountered after the VM has been paused are fatal.
-> 
-> However, at no point, even with an unvalidated pagetable type, can the
-> contents of the page be anything other than legal PTEs.  (I think)
+And a rendered version of the governance can be found here:
 
-Correct, because in order to write to the page one has to either
-make it a page table one again (and then write through hypercall
-or for L1 through PTWR) or the mmu-normal-pt-update would first
-convert the page to a writable one.
+https://xenbits.xenproject.org/people/gdunlap/governance/
 
-Jan
+If there are no objections to this setup, I propose the following URL
+as a long-term home:
+
+https://xenbits.xenproject.org/governance
+
+And also moving both the main governance doc [2] and the security
+policy [3] into that system, to make it easier to update.
+
+Thoughts?
+
+[1] https://marc.info/?i=CB503BA1-979C-42E5-86C6-AFAB10C738DF@citrix.com%3E
+
+[2] https://xenproject.org/developers/governance/
+
+[3] https://xenproject.org/developers/security-policy/
+
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wei.liu2@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien.grall@arm.com>
+CC: Paul Durrant <paul@xenproject.org>
+
+George Dunlap (8):
+  Add basic sphinx structure
+  Move docs into source directory, rename to rst
+  Convert code-of-conduct to rst
+  Convert communication-guide.md to rst
+  Convert code-review-guide.md to rst
+  Convert communication-practice.md to RST
+  Convert resolving-disagreement.md to rst
+  Clean up index page
+
+ Makefile                                      |  20 ++
+ .../code-of-conduct.rst                       |  39 ++-
+ .../code-review-guide.rst                     | 154 ++++++----
+ .../communication-guide.rst                   |  27 +-
+ .../communication-practice.rst                | 289 +++++++++++-------
+ source/conf.py                                |  54 ++++
+ source/index.rst                              |  36 +++
+ .../resolving-disagreement.rst                | 109 ++++---
+ 8 files changed, 495 insertions(+), 233 deletions(-)
+ create mode 100644 Makefile
+ rename code-of-conduct.md => source/code-of-conduct.rst (83%)
+ rename code-review-guide.md => source/code-review-guide.rst (79%)
+ rename communication-guide.md => source/communication-guide.rst (82%)
+ rename communication-practice.md => source/communication-practice.rst (75%)
+ create mode 100644 source/conf.py
+ create mode 100644 source/index.rst
+ rename resolving-disagreement.md => source/resolving-disagreement.rst (72%)
+
+-- 
+2.24.3 (Apple Git-128)
+
 
