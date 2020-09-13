@@ -2,79 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD885267F4D
-	for <lists+xen-devel@lfdr.de>; Sun, 13 Sep 2020 13:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E23267F8D
+	for <lists+xen-devel@lfdr.de>; Sun, 13 Sep 2020 14:46:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHPwH-0000DT-IO; Sun, 13 Sep 2020 11:12:57 +0000
+	id 1kHRNV-0007rD-P6; Sun, 13 Sep 2020 12:45:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U+xY=CW=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kHPwF-0000DO-UU
- for xen-devel@lists.xenproject.org; Sun, 13 Sep 2020 11:12:56 +0000
-X-Inumbo-ID: 578f744f-b345-485b-a732-8b13fc7cacb3
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+ <SRS0=7tEc=CW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kHRNT-0007qi-Sa
+ for xen-devel@lists.xenproject.org; Sun, 13 Sep 2020 12:45:07 +0000
+X-Inumbo-ID: 1db0a615-7947-48df-b69f-4537574e0d26
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 578f744f-b345-485b-a732-8b13fc7cacb3;
- Sun, 13 Sep 2020 11:12:45 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 28BCF5C0100;
- Sun, 13 Sep 2020 07:12:45 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Sun, 13 Sep 2020 07:12:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=qkaGO6
- 13xHDgOQ1dMOtJ3ILZnaH7yMzukBi2itCe+o0=; b=q60cSkdBz+AcmpOSDXb4Pn
- YQYhrVkVCm6baixMDqbv93WNDP6g/ytDr3iyLvY+1rDTUOKdo230yKeCFv2Z7yJK
- JYD9hUC1/qNfwejCAutlv9BiAbW7jRo3TFs2TSQ1be8zM9t/jsfY9aaOIsoINxZT
- 7x+5QJ2IynSpkL1h+bKUzdY2vwZewID+AfW4FNuCUDuf4Gj7x1enEzjDkzRjK3U7
- EBfrr4kvpsWhKLGY9p2MQFGwiuC9B+HNpA/V+4iKN0UP1b4ol0a+f8mJfhftUWs4
- Rom1JOL9EtJi6jORfe5MB+JdxEXL5AHOBcS6haMdH3syIWc/BtQCljNn60i9igPg
- ==
-X-ME-Sender: <xms:rf5dX3K1joewC0tz7c3PtWE5tXRrGyhbd6A-rezi_GXRnvl5EvxURA>
- <xme:rf5dX7LJ1VdeyuK0LqufFhpBCVz51Ls0rRmAzCZ21rYDXRfcM3JhoNIHsL0tnccN6
- zqb44q8F92ZQA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudeifedgfeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
- iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
- durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
- rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
- drtghomh
-X-ME-Proxy: <xmx:rf5dX_sktbwgEi7V7YNAfiiSVTM_iGkV5fLypvGMVZrHoJS5wdRfOA>
- <xmx:rf5dXwatoR5uAf_1fPezNcT75hej0F6z6p1gtjdoQ6vfYT2JW9FCGA>
- <xmx:rf5dX-bTFT6E5oqhGpG9R-OOkl3ZzhXKLR58I2KKVncL4LoCzAKFDg>
- <xmx:rf5dXxwTgzQ8rP_2tXese-TIOUrDLFaGvMgSwPh1LQkvHuw9_VUVGg>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id DACA5306467D;
- Sun, 13 Sep 2020 07:12:43 -0400 (EDT)
-Date: Sun, 13 Sep 2020 13:12:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
-Message-ID: <20200913111239.GB3962@mail-itl>
-References: <20200910035723.GY1626@mail-itl>
- <20200910085148.GU753@Air-de-Roger>
- <20200910102921.GZ1626@mail-itl>
- <20200910104104.GW753@Air-de-Roger>
- <20200910105854.GA1626@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="gj572EiMnwbLXET9"
-Content-Disposition: inline
-In-Reply-To: <20200910105854.GA1626@mail-itl>
+ id 1db0a615-7947-48df-b69f-4537574e0d26;
+ Sun, 13 Sep 2020 12:44:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+ bh=yQpkmD6jug+8w817LnBOinZ86EZMSfgqcVUPrjxr/UA=; b=NMdz32GAytG+7K97JplksdGk2d
+ wX0P8k5wm3nfDFUF6DDxq7W5YWDjRhMCqdqLCPqB2eHAsEdfNOZ2fBvbxPQ2S5lH2HNHzK8OnB9uF
+ XrhqT+5XOAhPQPiBBnGGO/63dHyZrBFzy2/IYJOVuTMneW56n0c2jQPXHm6sxKF7cLqM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHRN2-0008Jz-Bq; Sun, 13 Sep 2020 12:44:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHRN2-0006ya-56; Sun, 13 Sep 2020 12:44:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHRN2-00058f-4c; Sun, 13 Sep 2020 12:44:40 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-amd64-xl-qcow2
+Message-Id: <E1kHRN2-00058f-4c@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 13 Sep 2020 12:44:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,90 +54,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-amd64-xl-qcow2
+testid guest-start
 
---gj572EiMnwbLXET9
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-On Thu, Sep 10, 2020 at 12:58:57PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Thu, Sep 10, 2020 at 12:41:04PM +0200, Roger Pau Monn=C3=A9 wrote:
-> > Adding toolstack maintainers.
-> >=20
-> > On Thu, Sep 10, 2020 at 12:29:21PM +0200, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > On Thu, Sep 10, 2020 at 10:51:48AM +0200, Roger Pau Monn=C3=A9 wrote:
-> > > > On Thu, Sep 10, 2020 at 05:57:23AM +0200, Marek Marczykowski-G=C3=
-=B3recki wrote:
-> > > > > Hi,
-> > > > >=20
-> > > > > After updating from Xen 4.13 to Xen 4.14 I have troubles starting=
- any
-> > > > > HVM: just after hvmloader saying "Invoking SeaBIOS" I get "(XEN) =
-MMIO
-> > > > > emulation failed (1): d29v0 32bit @ 0008:fffeedf d -> "
-> > > > >=20
-> > > > > I come to a situation where seemingly the same domU started via xl
-> > > > > works, while when started via libvirt it crashes. This seems to be
-> > > > > related to xl setting b_info.{acpi,apic}, while libvirt setting
-> > > > > b_info.u.hvm.{acpi,apic}. Modifying libvirt to use the former fix=
-es the
-> > > > > issue.
-> > > >=20
-> > > > Could you print the values of the involved fields at the end of
-> > > > libxl__domain_build_info_setdefault in both cases?
-> > > >=20
-> > > > I'm not able to spot what changed between 4.13 and 4.14 that could
-> > > > alter the behavior, but knowing the values at that point might make
-> > > > it easier.
-> > >=20
-> > > Sure, will do.
-> > > It may be also something else: maybe it acpi/apic settings were broken
-> > > before, but did not results in a domU crash this way.
-> > > FWIW when looking into /var/lib/xen/*-libxl-json I clearly see
-> > > difference between b_info.{acpi,apic} and b_info.u.hvm.{acpi,apic}.
-> >=20
-> > I think libxl__domain_build_info_setdefault should check whether
-> > b_info.u.hvm.{acpi,apic} is set and copy those into b_info.{acpi,apic}
-> > if those are not set?
->=20
-> Looking at libxl__domain_build_info_setdefault this is not the case.
-> Instead there is libxl__acpi_defbool_val which looks at both.
-> Oh, and there is no similar thing for apic -> b_info.u.hvm.apic is
-> ignored!
->=20
-> > Toolstack people is more likely to have an opinion here, or to help
-> > debug the issue.
+*** Found and reproduced problem changeset ***
 
-Ok, The crash reported initially was caused by a different thing: using
-seabios.bin instead of seabios-256k.bin (should that really cause the
-crash? shouldn't 128k seabios build work too?). But in any case, I think
-the b_info.u.hvm.{acpi,apic} is also not in a good shape.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+  Bug not present: 0b77395ef2f20058305240f2395883b1d961982a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154266/
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
 
---gj572EiMnwbLXET9
-Content-Type: application/pgp-signature; name="signature.asc"
+  commit 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Aug 28 17:07:19 2020 +0200
+  
+      tools/python: drop libxenguest from setup.py
+      
+      There is not a single wrapper for a libxenguest function defined.
+      So drop libxenguest from tools/python/setup.py.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl9d/qgACgkQ24/THMrX
-1yzhGAf/SylIfsLu/Bhc29oWlvnj0e3P0uOff35nc8B59FuAJzF8qiQZe3F2icKc
-X661IPrFHNLusLhU+dhdg28o1P85oPnlUHedzlauCBetOkW1gu2yi493qQv8wT4f
-WOpd8iuhP1skApyPWfskB9Q7Gyclt24dLGiQXno9YoCXzrYKFEFGWSLh0dZLp8uq
-MBnVc4qtl1w3eUmOFk3XgNGSVLTpRQ4JUwp5DIBSe/5WkqTGNHIe2v9z4/64wXk8
-MIXj+hbHFsdOqNgfHw+nubm1E64KR70lC7M2MX1Tyq1TJ/R8Khjeyv6JdkvYAYdD
-i6aZYyasFasE920y1xfKYn4AETm1hg==
-=jL6w
------END PGP SIGNATURE-----
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-amd64-xl-qcow2.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
---gj572EiMnwbLXET9--
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-amd64-xl-qcow2.guest-start --summary-out=tmp/154266.bisection-summary --basis-template=154016 --blessings=real,real-bisect xen-unstable test-amd64-amd64-xl-qcow2 guest-start
+Searching for failure / basis pass:
+ 154090 fail [host=fiano1] / 154016 [host=huxelrebe0] 153983 [host=rimava1] 153882 [host=chardonnay0] 153845 [host=godello0] 153813 [host=godello1] 153788 [host=elbling0] 153770 [host=albana1] 153758 [host=albana0] 153653 [host=huxelrebe1] 153619 [host=pinot1] 153602 [host=pinot0] 153591 [host=huxelrebe0] 153551 [host=godello1] 153526 [host=fiano0] 153494 ok.
+Failure / basis pass flights: 154090 / 153494
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 cc13835377debe4e300c5f5f11f8f78920778c4e
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 afe018e041ec112d90a8b4e6ed607d22aa06f280
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc4\
+ 37c386260-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/xen.git#afe018e041ec112d90a8b4e6ed607d22aa06f280-cc13835377debe4e300c5f5f11f8f78920778c4e
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 153400 [host=elbling1]
+ 153437 [host=rimava1]
+ 153468 [host=godello0]
+ 153494 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 afe018e041ec112d90a8b4e6ed607d22aa06f280
+ 153526 [host=fiano0]
+ 153551 [host=godello1]
+ 153591 [host=huxelrebe0]
+ 153602 [host=pinot0]
+ 153619 [host=pinot1]
+ 153653 [host=huxelrebe1]
+ 153758 [host=albana0]
+ 153770 [host=albana1]
+ 153788 [host=elbling0]
+ 153813 [host=godello1]
+ 153845 [host=godello0]
+ 153882 [host=chardonnay0]
+ 153906 [host=rimava1]
+ 153931 [host=rimava1]
+ 153957 [host=rimava1]
+ 153983 [host=rimava1]
+ 154016 [host=huxelrebe0]
+ 154036 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 89002866bb6c6f26024f015820c8f52012f95cf2
+ 154058 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 89002866bb6c6f26024f015820c8f52012f95cf2
+ 154090 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 cc13835377debe4e300c5f5f11f8f78920778c4e
+ 154201 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 afe018e041ec112d90a8b4e6ed607d22aa06f280
+ 154204 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 cc13835377debe4e300c5f5f11f8f78920778c4e
+ 154210 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 0c293ad3a2842452bff0fe0515cc9046a60afa5e
+ 154214 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 1814a626fb5811184eda64fe22f0055df4600211
+ 154217 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 1be24cd17741192d1e18f24e6cf92f0ae9324e62
+ 154226 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 52dbd6f07cea7a776ba1fcc76f111c311c8a1412
+ 154230 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+ 154236 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 0b77395ef2f20058305240f2395883b1d961982a
+ 154242 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+ 154249 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 0b77395ef2f20058305240f2395883b1d961982a
+ 154254 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+ 154262 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 0b77395ef2f20058305240f2395883b1d961982a
+ 154266 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+Searching for interesting versions
+ Result found: flight 153494 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 89002866bb6c6f26024f015820c8f52012f95cf2, results HASH(0x55658c37f200) HASH(0x55658c379d58) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc\
+ 437c386260 0b77395ef2f20058305240f2395883b1d961982a, results HASH(0x55658c374fa0) HASH(0x55658c3684c8) HASH(0x55658c40ce08) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 52dbd6f07cea7a776ba1fcc76f111c311c8a1412, results HASH(0x55658c36dd00) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e\
+ 6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 1be24cd17741192d1e18f24e6cf92f0ae9324e62, results HASH(0x55658c3795d8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 1814a626fb5811184eda64fe22f0055df4600211, results HASH(0x55658c407bb0) For basis failure, parent search sto\
+ pping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 afe018e041ec112d90a8b4e6ed607d22aa06f280, results HASH(0x55658c377d50) HASH(0x55658c3690c8) Result found: flight 154090 (fail), for basis failure (at ancestor ~295)
+ Repro found: flight 154201 (pass), for basis pass
+ Repro found: flight 154204 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 0b77395ef2f20058305240f2395883b1d961982a
+No revisions left to test, checking graph state.
+ Result found: flight 154236 (pass), for last pass
+ Result found: flight 154242 (fail), for first failure
+ Repro found: flight 154249 (pass), for last pass
+ Repro found: flight 154254 (fail), for first failure
+ Repro found: flight 154262 (pass), for last pass
+ Repro found: flight 154266 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+  Bug not present: 0b77395ef2f20058305240f2395883b1d961982a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154266/
+
+
+  commit 7c273ffdd0e91d9eeb975b7d531a4ed235931bb1
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Aug 28 17:07:19 2020 +0200
+  
+      tools/python: drop libxenguest from setup.py
+      
+      There is not a single wrapper for a libxenguest function defined.
+      So drop libxenguest from tools/python/setup.py.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-amd64-xl-qcow2.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+154266: tolerable ALL FAIL
+
+flight 154266 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154266/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2    11 guest-start             fail baseline untested
+
+
+jobs:
+ test-amd64-amd64-xl-qcow2                                    fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
