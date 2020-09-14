@@ -2,52 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E99268C27
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 15:24:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0F0268C3C
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 15:31:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHoT7-0006C2-MD; Mon, 14 Sep 2020 13:24:29 +0000
+	id 1kHoZG-000744-ET; Mon, 14 Sep 2020 13:30:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qknR=CX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kHoT6-0006Bx-HS
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 13:24:28 +0000
-X-Inumbo-ID: af223f97-ad9b-47f8-a307-60c91c777180
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kHoZE-00073z-U4
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 13:30:48 +0000
+X-Inumbo-ID: 537b7657-853b-4d31-888a-53e51c8f7152
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af223f97-ad9b-47f8-a307-60c91c777180;
- Mon, 14 Sep 2020 13:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600089866;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=i1uGOua5Jkx6qK7NnC5DbFszXE7k3984023lH2EEgJs=;
- b=WPaGy55bSnGFc/TPAoJsVUUK83rqTpFFgzCSlV+d4uRN06hKtjemjQdi
- n6LaA0ak0GJbbJ6zKS/TghGSlZtIXk60dx2L/8Wq8rBn65f5DFjqZuOAe
- qae+CQyvGSFKzXPMk5saOYaVvqa0NRQ99XzcRP9mJscQ2VRlw6DeajESB k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vjwFsciLPGIJW2s9ODx2CWXXqb4hcjnO6xRMLfBHjqdq02pTKmIGmfjjNBQ0EXUBGb5XVQ4Uaf
- HUGg8fnK8wPyTc1TF5rB8x+yadRe8YQbcTzan65MOBKEpSVoB+gRy7W1MeAHGoQDMr5349agFA
- vNXzcoIzTCtnI8ZJZAY3d1BdlWs2/L+oRHqrAOErRYP6vQmetx9XARXXBeG1xgYcvEVwW9oCBu
- ik4UTz0VuYLog1vnFsekw/TD3v1EhLd495CU+mFE+2nc1QfVRYOTICmfxWgrnGYNBVIHfr9l9b
- US4=
-X-SBRS: 2.7
-X-MesageID: 27607191
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,426,1592884800"; d="scan'208";a="27607191"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Doug Goldstein
- <cardoe@cardoe.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] travis: Fix build with newer Qemu
-Date: Mon, 14 Sep 2020 14:23:55 +0100
-Message-ID: <20200914132355.21076-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ id 537b7657-853b-4d31-888a-53e51c8f7152;
+ Mon, 14 Sep 2020 13:30:48 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B6990B071;
+ Mon, 14 Sep 2020 13:31:02 +0000 (UTC)
+Subject: Re: [PATCH v3] efi: Always map EfiRuntimeServicesCode and
+ EfiRuntimeServicesData
+To: Sergey Temerkhanov <s.temerkhanov@gmail.com>
+References: <20200911144309.4559-1-s.temerkhanov@gmail.com>
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0e6a7143-b456-ee30-eb25-e1b392a30a08@suse.com>
+Date: Mon, 14 Sep 2020 15:30:46 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <20200911144309.4559-1-s.temerkhanov@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,34 +50,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Qemu requires a bleeding edge version of Python, not found in the current
-travis environment.  Skip building Qemu in that case.
+On 11.09.2020 16:43, Sergey Temerkhanov wrote:
+> @@ -1510,6 +1517,24 @@ void __init efi_init_memory(void)
+>                 desc->PhysicalStart, desc->PhysicalStart + len - 1,
+>                 desc->Type, desc->Attribute);
+>  
+> +        /*
+> +         * EfiRuntimeServicesCode and EfiRuntimeServicesData
+> +         * memory ranges are adjusted here. Any changes
+> +         * or adjustments must be kept in sync with efi_exit_boot()
+> +         */
+> +        if ( efi_enabled(EFI_RS) &&
+> +             (!(desc->Attribute & EFI_MEMORY_RUNTIME) &&
+> +               (desc->Attribute & EFI_MEMORY_CACHEABILITY_MASK) &&
+> +               (desc->Type == EfiRuntimeServicesCode ||
+> +                desc->Type == EfiRuntimeServicesData)) )
+> +        {
+> +            printk(XENLOG_WARNING
+> +                   "Setting EFI_RUNTIME memory attribute for area %013"
+> +                   PRIx64 "-%013" PRIx64 "\n",
+> +                   desc->PhysicalStart, desc->PhysicalStart + len - 1);
+> +            desc->Attribute |= EFI_MEMORY_RUNTIME;
+> +        }
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Wei Liu <wl@xen.org>
----
- scripts/travis-build | 5 +++++
- 1 file changed, 5 insertions(+)
+So you've moved from always checking for EFI_MEMORY_WP to not
+checking it at all. Neither is the way to go imo. Similarly, ...
 
-diff --git a/scripts/travis-build b/scripts/travis-build
-index 0cb15a89e4..08a1f66b84 100755
---- a/scripts/travis-build
-+++ b/scripts/travis-build
-@@ -16,6 +16,11 @@ cfgargs+=("--disable-rombios")
- cfgargs+=("--enable-docs")
- cfgargs+=("--with-system-seabios=/usr/share/seabios/bios.bin")
- 
-+# Qemu requires Python 3.7 or later
-+if ! type python3 || python3 -c "import sys; res = sys.version_info < (3, 7); exit(not(res))"; then
-+    cfgargs+=("--with-system-qemu=/bin/false")
-+fi
-+
- if [[ "${XEN_TARGET_ARCH}" == "x86_64" ]]; then
-     cfgargs+=("--enable-tools")
- else
--- 
-2.11.0
+> --- a/xen/include/efi/efidef.h
+> +++ b/xen/include/efi/efidef.h
+> @@ -158,6 +158,12 @@ typedef enum {
+>  #define EFI_MEMORY_UCE          0x0000000000000010  
+>  #define EFI_MEMORY_WP           0x0000000000001000
+>  
+> +#define EFI_MEMORY_CACHEABILITY_MASK  ( EFI_MEMORY_UC | \
+> +                                        EFI_MEMORY_WC | \
+> +                                        EFI_MEMORY_WT | \
+> +                                        EFI_MEMORY_WB | \
+> +                                        EFI_MEMORY_UCE )
 
+... this now doesn't really cover what its name suggests. As
+indicated before, without such a (questionable) #define having
+appeared in the gnu-efi tree, I don't think we want it, at the
+very least not in this imported header. But given that it
+doesn't express what you want anyway, I can only repeat my
+suggestion to drop this #define altogether.
+
+In order to save further rounds, I would offer to finish this
+patch to a shape that I'd feel comfortable with - if that's
+okay with you.
+
+Jan
 
