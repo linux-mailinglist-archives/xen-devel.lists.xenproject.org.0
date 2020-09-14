@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59F3C26883C
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:25:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B192C26886D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:32:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHkjH-0006za-FV; Mon, 14 Sep 2020 09:24:55 +0000
+	id 1kHkqe-00083e-Hf; Mon, 14 Sep 2020 09:32:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qknR=CX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kHkjG-0006zG-FF
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:24:54 +0000
-X-Inumbo-ID: 22664564-07aa-45e6-bf13-546f610c7823
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=/hQe=CX=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kHkqc-00083Z-QP
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:32:30 +0000
+X-Inumbo-ID: e359aae1-dbc1-49c5-8499-9f95448ea6c3
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22664564-07aa-45e6-bf13-546f610c7823;
- Mon, 14 Sep 2020 09:24:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600075479;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=xvFoKyqtIsUHfw6wHWA+qUio8zOrim09FJUlarkXOrU=;
- b=X9iwPYjfXc9g7QhDJbd2kVNFyX8cDUg5RWyNVD7eybyT5BkN/R6SAo+K
- +bGxNnJYL0P0YtXAQC270RpLUTzeL3GSri0lXeP8+APAdanlqSmO/msJV
- Qw4+4LKU792WwYluexJYtwyfpxhLNSb0nwp+Qv7+gO9OK91Mn2lb4quBh A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vE1XTDUAdG6L9Q7iPLjGqI9XrlGFypNbakarcgwR4J64q2OKygrXOak7GmOCzIGKvOESIaHrba
- Dg1oJN77jK6X4TQQG6J2pySYHDiWggogFmPe3TKY4WZzrsdA1qDGs4HiXMECuBPTmXCxZL13zY
- 2Jo+uLgcrZejMHxSgwyaQKh3ND7bssTnm2c33Lyk+ZOWwKSrJ3Sfkwun0ofvhnaBKEsvcunF3P
- MTeZru0kEmzRYXIko2SPEqMZAQipIiRetHbFoW8YqyJGlWEQUDyNVVO3UUwm5kjH1yEfO9pe1f
- hsE=
-X-SBRS: 2.7
-X-MesageID: 26592536
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,425,1592884800"; d="scan'208";a="26592536"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
- <jgross@suse.com>, Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] tools/Makefile: Drop the use of $(file ...)
-Date: Mon, 14 Sep 2020 10:24:20 +0100
-Message-ID: <20200914092420.20900-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200914092420.20900-1-andrew.cooper3@citrix.com>
+ id e359aae1-dbc1-49c5-8499-9f95448ea6c3;
+ Mon, 14 Sep 2020 09:32:20 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id c18so17890329wrm.9
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Sep 2020 02:32:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=t6tCsbaqMKRqp8Viht/tN7mjbmsbnSdhfec8ed5BsW8=;
+ b=qw0yXt8E1zo2Pgi7WsN+bqfn5EkvX33ZMv7GjrZsoRd2f1I7LjzFCE1QRBFIwO3Elw
+ L5Ti2tsSs+Pos66WsuJKonSdz3qTh0cgkpC4TchDxfDNeabezeQ5V3e+DsZCb1jtQAQr
+ OIFf8kJNHvOwe7fqEfudSTBKB9WiXhB5vfS5dBkEHJQ8GKkLZ2bQxcxAn0h5OXmkyIO9
+ xqkLAXmQHE9WwEs/Y5Ap3RHq+kSX1MzB2bNNPSwvpzriKMwXEBQTR7Oh7gc775JrIG+s
+ 0zfLKv1cvJENwwRk975DK0nX0bPMMITOVQEQZBKc+oEIya1DugZE4rBRuARkOOzS/Z4c
+ yZiQ==
+X-Gm-Message-State: AOAM531PDxt5FfO8ovkq/SVIOtzZR+W27fDI1gP+F+xAubWdsVBVgCtl
+ 0VzRiWCjQ3YHXRtNOC2e+4c=
+X-Google-Smtp-Source: ABdhPJwKrbCJByJNLOYpzry/BBFxGBoC+TIuuMeZwFHCZnZR1I2jzF6WqHl312wPZQJHxB0wfb8LIw==
+X-Received: by 2002:adf:8544:: with SMTP id 62mr14811576wrh.262.1600075939432; 
+ Mon, 14 Sep 2020 02:32:19 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id a11sm17541879wmm.18.2020.09.14.02.32.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2020 02:32:18 -0700 (PDT)
+Date: Mon, 14 Sep 2020 09:32:17 +0000
+From: Wei Liu <wl@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] tools/libs/vchan: Don't run the headers check
+Message-ID: <20200914093217.pgwb72zxjbva4omf@liuwe-devbox-debian-v2>
 References: <20200914092420.20900-1-andrew.cooper3@citrix.com>
+ <20200914092420.20900-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200914092420.20900-2-andrew.cooper3@citrix.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,85 +68,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-It is only available in make 4.0 and later, and not for example in CentOS 7.
+On Mon, Sep 14, 2020 at 10:24:19AM +0100, Andrew Cooper wrote:
+> There was never a headers check previously, and CentOS 6 can't cope with the
+> anonymous union in struct libxenvchan.
+> 
+>   cc1: warnings being treated as errors
+>   ... tools/include/libxenvchan.h:75: error: declaration does not declare anything
+>   make[6]: *** [headers.chk] Error 1
+> 
+> Fixes: 8ab2429f12 ("tools: split libxenvchan into new tools/libs/vchan directory")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Rewrite the logic to use echo and shell redirection, using a single capture
-group to avoid having 12 different processes in quick succession each
-appending one line to the file.
-
-Fixes: 52dbd6f07cea7a ("tools: generate pkg-config files from make variables")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Juergen Gross <jgross@suse.com>
-CC: Ian Jackson <Ian.Jackson@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- tools/Rules.mk | 52 ++++++++++++++++++++++++++++------------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
-
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 4fd91fa444..a71abb2e4f 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -186,29 +186,33 @@ $(PKG_CONFIG_DIR):
- 	mkdir -p $(PKG_CONFIG_DIR)
- 
- $(PKG_CONFIG_DIR)/%.pc: Makefile $(XEN_ROOT)/tools/Rules.mk $(PKG_CONFIG_DIR)
--	$(file >$@,prefix=$(PKG_CONFIG_PREFIX))
--	$(file >>$@,includedir=$(PKG_CONFIG_INCDIR))
--	$(file >>$@,libdir=$(PKG_CONFIG_LIBDIR))
--	$(foreach var,$(PKG_CONFIG_VARS),$(file >>$@,$(var)))
--	$(file >>$@,)
--	$(file >>$@,Name: $(PKG_CONFIG_NAME))
--	$(file >>$@,Description: $(PKG_CONFIG_DESC))
--	$(file >>$@,Version: $(PKG_CONFIG_VERSION))
--	$(file >>$@,Cflags: -I$${includedir} $(CFLAGS_xeninclude))
--	$(file >>$@,Libs: -L$${libdir} $(PKG_CONFIG_USELIBS) -l$(PKG_CONFIG_LIB))
--	$(file >>$@,Libs.private: $(PKG_CONFIG_LIBSPRIV))
--	$(file >>$@,Requires.private: $(PKG_CONFIG_REQPRIV))
-+	{ \
-+	echo "prefix=$(PKG_CONFIG_PREFIX)"; \
-+	echo "includedir=$(PKG_CONFIG_INCDIR)"; \
-+	echo "libdir=$(PKG_CONFIG_LIBDIR)"; \
-+	$(foreach var,$(PKG_CONFIG_VARS),echo $(var);) \
-+	echo ""; \
-+	echo "Name: $(PKG_CONFIG_NAME)"; \
-+	echo "Description: $(PKG_CONFIG_DESC)"; \
-+	echo "Version: $(PKG_CONFIG_VERSION)"; \
-+	echo "Cflags: -I\$${includedir} $(CFLAGS_xeninclude)"; \
-+	echo "Libs: -L\$${libdir} $(PKG_CONFIG_USELIBS) -l$(PKG_CONFIG_LIB)"; \
-+	echo "Libs.private: $(PKG_CONFIG_LIBSPRIV)"; \
-+	echo "Requires.private: $(PKG_CONFIG_REQPRIV)"; \
-+	} > $@
- 
- %.pc: Makefile $(XEN_ROOT)/tools/Rules.mk
--	$(file >$@,prefix=$(PKG_CONFIG_PREFIX))
--	$(file >>$@,includedir=$(PKG_CONFIG_INCDIR))
--	$(file >>$@,libdir=$(PKG_CONFIG_LIBDIR))
--	$(foreach var,$(PKG_CONFIG_VARS),$(file >>$@,$(var)))
--	$(file >>$@,)
--	$(file >>$@,Name: $(PKG_CONFIG_NAME))
--	$(file >>$@,Description: $(PKG_CONFIG_DESC))
--	$(file >>$@,Version: $(PKG_CONFIG_VERSION))
--	$(file >>$@,Cflags: -I$${includedir})
--	$(file >>$@,Libs: -L$${libdir} -l$(PKG_CONFIG_LIB))
--	$(file >>$@,Libs.private: $(PKG_CONFIG_LIBSPRIV))
--	$(file >>$@,Requires.private: $(PKG_CONFIG_REQPRIV))
-+	{ \
-+	echo "prefix=$(PKG_CONFIG_PREFIX)"; \
-+	echo "includedir=$(PKG_CONFIG_INCDIR)"; \
-+	echo "libdir=$(PKG_CONFIG_LIBDIR)"; \
-+	$(foreach var,$(PKG_CONFIG_VARS),echo $(var);) \
-+	echo ""; \
-+	echo "Name: $(PKG_CONFIG_NAME)"; \
-+	echo "Description: $(PKG_CONFIG_DESC)"; \
-+	echo "Version: $(PKG_CONFIG_VERSION)"; \
-+	echo "Cflags: -I\$${includedir}"; \
-+	echo "Libs: -L\$${libdir} -l$(PKG_CONFIG_LIB)"; \
-+	echo "Libs.private: $(PKG_CONFIG_LIBSPRIV)"; \
-+	echo "Requires.private: $(PKG_CONFIG_REQPRIV)"; \
-+	} > $@
--- 
-2.11.0
-
+Acked-by: Wei Liu <wl@xen.org>
 
