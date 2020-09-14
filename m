@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B810E268915
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:16:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E05268917
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:17:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHlXU-0004T5-CA; Mon, 14 Sep 2020 10:16:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kHlXo-0004Wm-L6; Mon, 14 Sep 2020 10:17:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHlXS-0004Sr-II
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:16:46 +0000
-X-Inumbo-ID: 48365810-c609-455a-89fd-968abcadfb7a
+ id 1kHlXn-0004WZ-E2
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:17:07 +0000
+X-Inumbo-ID: 22761388-79e4-45a8-a872-1e745a4504cb
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 48365810-c609-455a-89fd-968abcadfb7a;
- Mon, 14 Sep 2020 10:16:35 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 22761388-79e4-45a8-a872-1e745a4504cb;
+ Mon, 14 Sep 2020 10:16:56 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4A302AD21;
- Mon, 14 Sep 2020 10:16:50 +0000 (UTC)
-Subject: [PATCH 3/9] lib: collect library files in an archive
+ by mx2.suse.de (Postfix) with ESMTP id 638C9B265;
+ Mon, 14 Sep 2020 10:17:11 +0000 (UTC)
+Subject: [PATCH 4/9] lib: move list sorting code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
-Message-ID: <c0a47d88-ed8c-a3e8-0cc9-d5fd0bda4be2@suse.com>
-Date: Mon, 14 Sep 2020 12:16:34 +0200
+Message-ID: <c6a00955-3b4f-c864-16f5-4a344f303ed2@suse.com>
+Date: Mon, 14 Sep 2020 12:16:55 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -54,169 +52,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In order to (subsequently) drop odd things like CONFIG_NEEDS_LIST_SORT
-just to avoid bloating binaries when only some arch-es and/or
-configurations need generic library routines, combine objects under lib/
-into an archive, which the linker then can pick the necessary objects
-out of.
+Build the source file always, as by putting it into an archive it still
+won't be linked into final binaries when not needed. This way possible
+build breakage will be easier to notice, and it's more consistent with
+us unconditionally building other library kind of code (e.g. sort() or
+bsearch()).
 
-Note that we can't use thin archives just yet, until we've raised the
-minimum required binutils version suitably.
+While moving the source file, take the opportunity and drop the
+pointless EXPORT_SYMBOL().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/Rules.mk          | 33 +++++++++++++++++++++++++++------
- xen/arch/arm/Makefile |  6 +++---
- xen/arch/x86/Makefile |  8 ++++----
- xen/lib/Makefile      |  3 ++-
- 4 files changed, 36 insertions(+), 14 deletions(-)
+ xen/arch/arm/Kconfig                        | 4 +---
+ xen/common/Kconfig                          | 3 ---
+ xen/common/Makefile                         | 1 -
+ xen/lib/Makefile                            | 1 +
+ xen/{common/list_sort.c => lib/list-sort.c} | 2 --
+ 5 files changed, 2 insertions(+), 9 deletions(-)
+ rename xen/{common/list_sort.c => lib/list-sort.c} (98%)
 
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 333e19bec343..e59c7f213f77 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -41,12 +41,16 @@ ALL_OBJS-y               += $(BASEDIR)/xsm/built_in.o
- ALL_OBJS-y               += $(BASEDIR)/arch/$(TARGET_ARCH)/built_in.o
- ALL_OBJS-$(CONFIG_CRYPTO)   += $(BASEDIR)/crypto/built_in.o
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 277738826581..cb7e2523b6de 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -56,9 +56,7 @@ config HVM
+         def_bool y
  
-+ALL_LIBS-y               := $(BASEDIR)/lib/lib.a
-+
- # Initialise some variables
-+lib-y :=
- targets :=
- CFLAGS-y :=
- AFLAGS-y :=
+ config NEW_VGIC
+-	bool
+-	prompt "Use new VGIC implementation"
+-	select NEEDS_LIST_SORT
++	bool "Use new VGIC implementation"
+ 	---help---
  
- ALL_OBJS := $(ALL_OBJS-y)
-+ALL_LIBS := $(ALL_LIBS-y)
+ 	This is an alternative implementation of the ARM GIC interrupt
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 15e3b79ff57f..87e99d4ba2f7 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -66,9 +66,6 @@ config HAS_SCHED_GRANULARITY
+ config NEEDS_LIBELF
+ 	bool
  
- SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
-                                             $(foreach w,1 2 4, \
-@@ -60,7 +64,14 @@ include Makefile
- # ---------------------------------------------------------------------------
+-config NEEDS_LIST_SORT
+-	bool
+-
+ menu "Speculative hardening"
  
- quiet_cmd_ld = LD      $@
--cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(real-prereqs)
-+cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out %.a,$(real-prereqs)) \
-+               --start-group $(filter %.a,$(real-prereqs)) --end-group
-+
-+# Archive
-+# ---------------------------------------------------------------------------
-+
-+quiet_cmd_ar = AR      $@
-+cmd_ar = rm -f $@; $(AR) cPrs $@ $(real-prereqs)
- 
- # Objcopy
- # ---------------------------------------------------------------------------
-@@ -86,6 +97,10 @@ obj-y    := $(patsubst %/, %/built_in.o, $(obj-y))
- # tell kbuild to descend
- subdir-obj-y := $(filter %/built_in.o, $(obj-y))
- 
-+# Libraries are always collected in one lib file.
-+# Filter out objects already built-in
-+lib-y := $(filter-out $(obj-y), $(sort $(lib-y)))
-+
- $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y += -DINIT_SECTIONS_ONLY
- 
- ifeq ($(CONFIG_COVERAGE),y)
-@@ -129,19 +144,25 @@ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
- c_flags += $(CFLAGS-y)
- a_flags += $(CFLAGS-y) $(AFLAGS-y)
- 
--built_in.o: $(obj-y) $(extra-y)
-+built_in.o: $(obj-y) $(if $(strip $(lib-y)),lib.a) $(extra-y)
- ifeq ($(obj-y),)
- 	$(CC) $(c_flags) -c -x c /dev/null -o $@
- else
- ifeq ($(CONFIG_LTO),y)
--	$(LD_LTO) -r -o $@ $(filter-out $(extra-y),$^)
-+	$(LD_LTO) -r -o $@ $(filter-out lib.a $(extra-y),$^)
- else
--	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$^)
-+	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out lib.a $(extra-y),$^)
- endif
- endif
- 
-+lib.a: $(lib-y) FORCE
-+	$(call if_changed,ar)
-+
- targets += built_in.o
--targets += $(filter-out $(subdir-obj-y), $(obj-y)) $(extra-y)
-+ifneq ($(strip $(lib-y)),)
-+targets += lib.a
-+endif
-+targets += $(filter-out $(subdir-obj-y), $(obj-y) $(lib-y)) $(extra-y)
- targets += $(MAKECMDGOALS)
- 
- built_in_bin.o: $(obj-bin-y) $(extra-y)
-@@ -155,7 +176,7 @@ endif
- PHONY += FORCE
- FORCE:
- 
--%/built_in.o: FORCE
-+%/built_in.o %/lib.a: FORCE
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C $* built_in.o
- 
- %/built_in_bin.o: FORCE
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 296c5e68bbc3..612a83b315c8 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -90,14 +90,14 @@ endif
- 
- ifeq ($(CONFIG_LTO),y)
- # Gather all LTO objects together
--prelink_lto.o: $(ALL_OBJS)
--	$(LD_LTO) -r -o $@ $^
-+prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
-+	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) --end-group
- 
- # Link it with all the binary objects
- prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o
- 	$(call if_changed,ld)
- else
--prelink.o: $(ALL_OBJS) FORCE
-+prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
- 	$(call if_changed,ld)
- endif
- 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 9b368632fb43..8f2180485b2b 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -132,8 +132,8 @@ EFI_OBJS-$(XEN_BUILD_EFI) := efi/relocs-dummy.o
- 
- ifeq ($(CONFIG_LTO),y)
- # Gather all LTO objects together
--prelink_lto.o: $(ALL_OBJS)
--	$(LD_LTO) -r -o $@ $^
-+prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
-+	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) --end-group
- 
- # Link it with all the binary objects
- prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o $(EFI_OBJS-y) FORCE
-@@ -142,10 +142,10 @@ prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o $
- prelink-efi.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o FORCE
- 	$(call if_changed,ld)
- else
--prelink.o: $(ALL_OBJS) $(EFI_OBJS-y) FORCE
-+prelink.o: $(ALL_OBJS) $(ALL_LIBS) $(EFI_OBJS-y) FORCE
- 	$(call if_changed,ld)
- 
--prelink-efi.o: $(ALL_OBJS) FORCE
-+prelink-efi.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
- 	$(call if_changed,ld)
- endif
- 
+ config SPECULATIVE_HARDEN_ARRAY
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index b3b60a1ba25b..958ad8c7d946 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -21,7 +21,6 @@ obj-y += keyhandler.o
+ obj-$(CONFIG_KEXEC) += kexec.o
+ obj-$(CONFIG_KEXEC) += kimage.o
+ obj-y += lib.o
+-obj-$(CONFIG_NEEDS_LIST_SORT) += list_sort.o
+ obj-$(CONFIG_LIVEPATCH) += livepatch.o livepatch_elf.o
+ obj-$(CONFIG_MEM_ACCESS) += mem_access.o
+ obj-y += memory.o
 diff --git a/xen/lib/Makefile b/xen/lib/Makefile
-index 53b1da025e0d..b8814361d63e 100644
+index b8814361d63e..764f3624b5f9 100644
 --- a/xen/lib/Makefile
 +++ b/xen/lib/Makefile
-@@ -1,2 +1,3 @@
--obj-y += ctype.o
+@@ -1,3 +1,4 @@
  obj-$(CONFIG_X86) += x86/
-+
-+lib-y += ctype.o
+ 
+ lib-y += ctype.o
++lib-y += list-sort.o
+diff --git a/xen/common/list_sort.c b/xen/lib/list-sort.c
+similarity index 98%
+rename from xen/common/list_sort.c
+rename to xen/lib/list-sort.c
+index af2b2f6519f1..f8d8bbf28178 100644
+--- a/xen/common/list_sort.c
++++ b/xen/lib/list-sort.c
+@@ -15,7 +15,6 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <xen/lib.h>
+ #include <xen/list.h>
+ 
+ #define MAX_LIST_LENGTH_BITS 20
+@@ -154,4 +153,3 @@ void list_sort(void *priv, struct list_head *head,
+ 
+ 	merge_and_restore_back_links(priv, cmp, head, part[max_lev], list);
+ }
+-EXPORT_SYMBOL(list_sort);
 -- 
 2.22.0
 
