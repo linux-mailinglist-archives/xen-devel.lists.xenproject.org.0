@@ -2,66 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69756268F89
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FD78268FD4
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:27:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHqH0-0001MN-F4; Mon, 14 Sep 2020 15:20:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=odsp=CX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kHqGy-00016W-OH
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:20:04 +0000
-X-Inumbo-ID: aff5d818-1ed5-4d2a-870a-4a2f8223cd65
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aff5d818-1ed5-4d2a-870a-4a2f8223cd65;
- Mon, 14 Sep 2020 15:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600096803;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=clUVs0qED1rtt0rOzWTLMJBqH3eC6rKZpECZcqdC9bA=;
- b=fmUu0e9pPhmqN3WQ/qQRQuVlbUuZEwDMzJUX5Cz9s4l35s2aqtCvxTs5
- fsX11pCKS0Tha6AAtzOP8fm2Vsmlsd0OBDoSfgqvuzdbGpFV/paD6VPdI
- ofr9j/1k8cj75eMnbZJIOS36tyNbqrUC7misMKiEeRqXFvQMsxF1RN0Om w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Pt4nxJNj86t/brF4ZvmrNerx/MjL111T5Kpll7szF/CrxR7qPo085D0oi6L/kEOknJkCWjNjP6
- KNoE8O7AoVQuQYnun+Bgk7F0YDqlLVRTXjxqN7NOl//PW5A8+UqEWbUjMdoQz+1G7Bj0Ik8LKz
- Ug9ZKi/+a1AhSDT+V1BnM1Vu0FKNfyjMOFjVtxmSZNmajDe7QNe2ABRo87gf7ty1KKIVdxnkTY
- TsHCwbljBD/ij3YC/Jz2gM6hVFD22aj7zdI8PZ1Ce0RV44HqWC8XA5MVih6norwzh1TFI2z3d7
- B0Y=
-X-SBRS: 2.7
-X-MesageID: 26764229
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,426,1592884800"; d="scan'208";a="26764229"
-Date: Mon, 14 Sep 2020 17:19:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-CC: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>, "Anthony
- PERARD" <anthony.perard@citrix.com>, xen-devel
- <xen-devel@lists.xenproject.org>
-Subject: Re: libxl - b_info.{acpi,apic} behaves differently than
- b_info.u.hvm.{acpi,apic}
-Message-ID: <20200914151956.GG753@Air-de-Roger>
-References: <20200910035723.GY1626@mail-itl>
- <20200910085148.GU753@Air-de-Roger>
- <20200910102921.GZ1626@mail-itl>
- <20200910104104.GW753@Air-de-Roger>
- <20200910105854.GA1626@mail-itl> <20200913111239.GB3962@mail-itl>
+	id 1kHqNh-0001gX-6k; Mon, 14 Sep 2020 15:27:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kHqNg-0001gS-8P
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:27:00 +0000
+X-Inumbo-ID: 96a7fc64-f18f-4ba5-9de0-2730855daebb
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 96a7fc64-f18f-4ba5-9de0-2730855daebb;
+ Mon, 14 Sep 2020 15:26:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7C997AFC1;
+ Mon, 14 Sep 2020 15:27:13 +0000 (UTC)
+Subject: Re: [PATCH v2 2/2] EFI: free unused boot mem in at least some cases
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
+References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
+ <f474ff55-cd39-fd6e-f96e-942a17e959ee@suse.com>
+ <20200914151608.GF753@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bd8eaf14-0668-003e-d58d-2633e5a22c15@suse.com>
+Date: Mon, 14 Sep 2020 17:26:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200914151608.GF753@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200913111239.GB3962@mail-itl>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +56,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, Sep 13, 2020 at 01:12:39PM +0200, Marek Marczykowski-Górecki wrote:
-> On Thu, Sep 10, 2020 at 12:58:57PM +0200, Marek Marczykowski-Górecki wrote:
-> > On Thu, Sep 10, 2020 at 12:41:04PM +0200, Roger Pau Monné wrote:
-> > > Adding toolstack maintainers.
-> > > 
-> > > On Thu, Sep 10, 2020 at 12:29:21PM +0200, Marek Marczykowski-Górecki wrote:
-> > > > On Thu, Sep 10, 2020 at 10:51:48AM +0200, Roger Pau Monné wrote:
-> > > > > On Thu, Sep 10, 2020 at 05:57:23AM +0200, Marek Marczykowski-Górecki wrote:
-> > > > > > Hi,
-> > > > > > 
-> > > > > > After updating from Xen 4.13 to Xen 4.14 I have troubles starting any
-> > > > > > HVM: just after hvmloader saying "Invoking SeaBIOS" I get "(XEN) MMIO
-> > > > > > emulation failed (1): d29v0 32bit @ 0008:fffeedf d -> "
-> > > > > > 
-> > > > > > I come to a situation where seemingly the same domU started via xl
-> > > > > > works, while when started via libvirt it crashes. This seems to be
-> > > > > > related to xl setting b_info.{acpi,apic}, while libvirt setting
-> > > > > > b_info.u.hvm.{acpi,apic}. Modifying libvirt to use the former fixes the
-> > > > > > issue.
-> > > > > 
-> > > > > Could you print the values of the involved fields at the end of
-> > > > > libxl__domain_build_info_setdefault in both cases?
-> > > > > 
-> > > > > I'm not able to spot what changed between 4.13 and 4.14 that could
-> > > > > alter the behavior, but knowing the values at that point might make
-> > > > > it easier.
-> > > > 
-> > > > Sure, will do.
-> > > > It may be also something else: maybe it acpi/apic settings were broken
-> > > > before, but did not results in a domU crash this way.
-> > > > FWIW when looking into /var/lib/xen/*-libxl-json I clearly see
-> > > > difference between b_info.{acpi,apic} and b_info.u.hvm.{acpi,apic}.
-> > > 
-> > > I think libxl__domain_build_info_setdefault should check whether
-> > > b_info.u.hvm.{acpi,apic} is set and copy those into b_info.{acpi,apic}
-> > > if those are not set?
-> > 
-> > Looking at libxl__domain_build_info_setdefault this is not the case.
-> > Instead there is libxl__acpi_defbool_val which looks at both.
-> > Oh, and there is no similar thing for apic -> b_info.u.hvm.apic is
-> > ignored!
-> > 
-> > > Toolstack people is more likely to have an opinion here, or to help
-> > > debug the issue.
+On 14.09.2020 17:16, Roger Pau Monné wrote:
+> On Mon, Aug 24, 2020 at 02:08:11PM +0200, Jan Beulich wrote:
+>> Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
+>> free ebmalloc area at all") was put in place: Make xen_in_range() aware
+>> of the freed range. This is in particular relevant for EFI-enabled
+>> builds not actually running on EFI, as the entire range will be unused
+>> in this case.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Ok, The crash reported initially was caused by a different thing: using
-> seabios.bin instead of seabios-256k.bin (should that really cause the
-> crash? shouldn't 128k seabios build work too?). But in any case, I think
-> the b_info.u.hvm.{acpi,apic} is also not in a good shape.
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Does 128K SeaBIOS have Xen support enabled?
+Thanks much.
 
-Roger.
+>> @@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
+>>  
+>>          /*
+>>           * This needs to remain in sync with xen_in_range() and the
+>> -         * respective reserve_e820_ram() invocation below.
+>> +         * respective reserve_e820_ram() invocation below. No need to
+>> +         * query efi_boot_mem_unused() here, though.
+>>           */
+>>          mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
+>>          mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
+> 
+> I find this extremely confusing, we reuse mod_start/mod_end to contain
+> a mfn and a size (in bytes) instead of a start and end address (not
+> something that should be fixed here, but seeing this I assumed it was
+> wrong).
+
+While perhaps somewhat confusing, I still think it was a fair thing
+to do in favor of introducing a completely new way of propagating
+respective information, and then having the consumer of this data
+look at two different places.
+
+>> +bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
+>> +{
+>> +    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
+>> +    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
+>> +
+>> +    return *start < *end;
+>> +}
+>> +
+>>  void __init free_ebmalloc_unused_mem(void)
+>>  {
+>> -#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
+>>      unsigned long start, end;
+>>  
+>> -    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
+>> -    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
+>> +#ifdef CONFIG_X86
+>> +    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
+> 
+> Could you make the ebmalloc size (EBMALLOC_SIZE) 2MB (and aligned), so
+> that you would only shatter the malloc'ed pages but not the
+> surrounding mappings?
+> 
+> That would be a good compromise IMO.
+
+Yes, that's what I've been considering as a compromise as well. In
+fact I was further thinking whether to allocate the space from the
+linker script instead of having a global/static object. Maybe by
+extending into the .pad section, which is already 2Mb aligned anyway.
+
+Another option is to not further align the whole blob at all and
+merely free whatever comes past the next 2Mb boundary (and is not
+in use). This would avoid having an up to 2Mb block of unused, not
+freed memory ahead of the ebmalloc one.
+
+Jan
 
