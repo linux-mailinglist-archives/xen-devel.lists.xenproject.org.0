@@ -2,47 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5746268A28
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 13:37:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E896A268A58
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 13:51:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHmmb-00041L-8L; Mon, 14 Sep 2020 11:36:29 +0000
+	id 1kHn09-0005dC-G7; Mon, 14 Sep 2020 11:50:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lZiK=CX=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kHmma-00041G-D8
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 11:36:28 +0000
-X-Inumbo-ID: 4ecd63fe-4477-4077-a6e2-25e9764e743c
-Received: from mail-40133.protonmail.ch (unknown [185.70.40.133])
+ id 1kHn08-0005d7-B9
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 11:50:28 +0000
+X-Inumbo-ID: 6e560379-21ef-4bcf-acfc-cc8edee93ab7
+Received: from mx1a.swcp.com (unknown [216.184.2.64])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4ecd63fe-4477-4077-a6e2-25e9764e743c;
- Mon, 14 Sep 2020 11:36:26 +0000 (UTC)
-Date: Mon, 14 Sep 2020 11:36:18 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1600083385;
- bh=/Vo0tw8czcjB7eazBrV5/9IYNWroQRG5U4Zod5+QrfU=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=lbq+oXrTf1xtN4fTHE0OGEF2jHEV+CVfqmFSbSkUVH4cMFk4G1L98Y6IJOcQT8XPc
- 7wuZHaq6t3ddK0V4UJ5SyQz3bslOac4XQzkN9mLQiK5K7YrZocgHssYOkSZxoR/VbJ
- I4FFhdCFywYyBs3JzlfcHpNpGwtg5eEn4uRYLvJo=
-To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ id 6e560379-21ef-4bcf-acfc-cc8edee93ab7;
+ Mon, 14 Sep 2020 11:50:26 +0000 (UTC)
+Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
+ by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08EBoNmV013955;
+ Mon, 14 Sep 2020 05:50:24 -0600
+Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
+ denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
+ client-ip=62.251.112.184; helo=diamond.fritz.box;
+ envelope-from=hudson@trmm.net;
+ x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
+ libspf2-1.2.10; 
+Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
+ by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08EBoFiH022702;
+ Mon, 14 Sep 2020 05:50:20 -0600 (MDT) (envelope-from hudson@trmm.net)
+X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
+ [62.251.112.184] claimed to be diamond.fritz.box
 From: Trammell Hudson <hudson@trmm.net>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 4/4] efi: Do not use command line if secure boot is
- enabled.
-Message-ID: <fbcs49Ps8wnxc2ZwN9e7ptr8gwGxRSVEg6J58A8W84wo2RYwkSUS0bhHeocFpGVXsd4YWDL72FkYOHeye8VzWmy_EUyHKMNeBnAzspklDls=@trmm.net>
-In-Reply-To: <20200914102450.GD753@Air-de-Roger>
-References: <20200907190027.669086-1-hudson@trmm.net>
- <20200907190027.669086-5-hudson@trmm.net> <20200914102450.GD753@Air-de-Roger>
+To: xen-devel@lists.xenproject.org
+Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ wl@xen.org
+Subject: [PATCH v4 0/4] efi: Unified Xen hypervisor/kernel/initrd images
+Date: Mon, 14 Sep 2020 07:50:09 -0400
+Message-Id: <20200914115013.814079-1-hudson@trmm.net>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
- mailout.protonmail.ch
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.83
+X-Greylist: Message whitelisted by DRAC access database, not delayed by
+ milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
+ Mon, 14 Sep 2020 05:50:22 -0600 (MDT)
+X-Virus-Scanned: clamav-milter 0.100.2 at ame7
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
+X-Spam-Status: No, hits=0.7 tests=NO_RECEIVED,NO_RELAYS,SPF_NEUTRAL
+ version=3.4.2
+X-Spam-Level: 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,49 +62,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Trammell Hudson <hudson@trmm.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Monday, September 14, 2020 6:24 AM, Roger Pau Monn=C3=A9 <roger.pau@citr=
-ix.com> wrote:
-> On Mon, Sep 07, 2020 at 03:00:27PM -0400, Trammell Hudson wrote:
-> [...]
-> > -   static const __initconst EFI_GUID global_guid =3D EFI_GLOBAL_VARIAB=
-LE;
-> > -   uint8_t secboot, setupmode;
-> > -   UINTN secboot_size =3D sizeof(secboot);
-> > -   UINTN setupmode_size =3D sizeof(setupmode);
-> > -
-> > -   if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, N=
-ULL, &secboot_size, &secboot) !=3D EFI_SUCCESS )
->
-> I'm slightly worried about the dropping of the const here, and the
-> fact that the variable is placed in initconst section. Isn't it
-> dangerous that the EFI services will try to write to it?
+This patch series adds support for bundling the xen.efi hypervisor,
+the xen.cfg configuration file, the Linux kernel and initrd, as well
+as the XSM, and architectural specific files into a single "unified"
+EFI executable.  This allows an administrator to update the components
+independently without requiring rebuilding xen, as well as to replace
+the components in an existing image.
 
-The EFI services do not try to write to it; the API doesn't
-even bother with const-correctness.  The prototype has IN
-and OUT, but they are not used for constness:
+The resulting EFI executable can be invoked directly from the UEFI Boot
+Manager, removing the need to use a separate loader like grub as well
+as removing dependencies on local filesystem access.  And since it is
+a single file, it can be signed and validated by UEFI Secure Boot without
+requring the shim protocol.
 
-typedef EFI_STATUS(EFIAPI * EFI_GET_VARIABLE) (
-IN CHAR16 *VariableName,
-IN EFI_GUID *VendorGuid,
-OUT UINT32 *Attributes,
-OPTIONAL IN OUT UINTN *DataSize,
-OUT VOID *Data OPTIONAL)
+It is inspired by systemd-boot's unified kernel technique and borrows the
+function to locate PE sections from systemd's LGPL'ed code.  During EFI
+boot, Xen looks at its own loaded image to locate the PE sections for
+the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+(`.ramdisk`), and XSM config (`.xsm`), which are included after building
+xen.efi using objcopy to add named sections for each input file.
 
-(So the VariableName string is also silently being turned
-into a non-const pointer as well, which is just ugh)
+Trammell Hudson (4):
+  efi/boot.c: add file.need_to_free
+  efi/boot.c: add handle_file_info()
+  efi: Enable booting unified hypervisor/kernel/initrd images
+  efi: Do not use command line if secure boot is enabled.
 
-> [...]
-> > -   return secboot =3D=3D 1 && setupmode =3D=3D 0;
->
-> I would print a message if secboot is > 1, since those should be
-> reserved.
+ .gitignore                  |   1 +
+ docs/misc/efi.pandoc        |  49 ++++++++++++
+ xen/arch/arm/efi/efi-boot.h |  25 ++++--
+ xen/arch/x86/efi/Makefile   |   2 +-
+ xen/arch/x86/efi/efi-boot.h |  11 ++-
+ xen/common/efi/boot.c       | 154 ++++++++++++++++++++++++++++--------
+ xen/common/efi/efi.h        |   3 +
+ xen/common/efi/pe.c         | 137 ++++++++++++++++++++++++++++++++
+ 8 files changed, 336 insertions(+), 46 deletions(-)
+ create mode 100644 xen/common/efi/pe.c
 
-Ok.  Addressed in v4, coming soon.
+-- 
+2.25.1
 
---
-Trammell
 
