@@ -2,74 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20121268554
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 09:03:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410B726858C
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 09:12:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHiWP-0007Z5-OT; Mon, 14 Sep 2020 07:03:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kHiel-0008RX-MW; Mon, 14 Sep 2020 07:12:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ePln=CX=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kHiWN-0007Yz-Ob
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 07:03:27 +0000
-X-Inumbo-ID: aa37f92d-8e75-4732-aa43-e584abe3a5a8
-Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aa37f92d-8e75-4732-aa43-e584abe3a5a8;
- Mon, 14 Sep 2020 07:03:17 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id y15so10073970wmi.0
- for <xen-devel@lists.xenproject.org>; Mon, 14 Sep 2020 00:03:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=S8LVNUrW/wqfH6wn5gRl4ShdNtSTKdik/mZ8bZKLrFA=;
- b=a9FM9I/o7Kj5bNO+ELlETAVscUdd5nRq3V1pTw6wZWn8yYG3qlMWJDFII0q35NLchI
- 6TvkxTVVqDsxPm7bDMAUl/gqUJ9Pgju8T8IieoNQCIxYDUZ/inO5+YW3yTUiuw5kf2Jz
- sByMseYjIRaOK+GA1k6qOS+HJAi4TePTK4IPcCK9DY1+cRNgLN51V8lk2UBhME8f6MuR
- 6rD7wDffjgCgXKPd+/QVfQbZP/5OHuGovFEQTvIZOGXt9IJnLR5D/1bcPnywkEOyBdxV
- 4jin8bgK51TWlG4zNWZvhSIaShIvqTtgef9FfmjkNdQGOaW5/+mkLF00F1TTfa7Wlk3Y
- SdnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=S8LVNUrW/wqfH6wn5gRl4ShdNtSTKdik/mZ8bZKLrFA=;
- b=FSmPW1idSEpHrFGJ0c5jl/V2zDExljZ8xfze3KaAi24tIF8fTf5lvI6BXLVxq8AaGn
- DgWQEeSN1HspMEAT6qad4YXKzmAZJApsSfh74+dTx96KWhtAaLRrw4e0vrz1eZT8s/t+
- 9mwcfhsbVJ3RLtZQ7u4iq9rFMBfIECfTqeTSZeQ2ejvBiuLjKLlpvB6zi3YaWeHyFyKD
- 8DpACUGGF4PjL0p6YRqN/+tOYqwA3HQ6yJO4C6ndQuctj8yBPVFioQGfN/1HJY9qQW/S
- rw9GhD1vav4rPRpX0YbJ4hbhgg4NivHdCQ1siuUk32R0Uvu8HEAd5FFD1m4Yg+fQrc5t
- +kcw==
-X-Gm-Message-State: AOAM533dFW1vJRXx+Ztj+TdBI5wlGnljL+aVPPpphzGLgwM3RQ/44l4G
- NpAr3mkNSQxArUgwyHvs1h0=
-X-Google-Smtp-Source: ABdhPJwZhDVW7uiqtpTgqI/r3sziwH9TeYGhdIi32jyCU9+lJRvenar/6xMej7bw4wS8dUn/JsNnJQ==
-X-Received: by 2002:a1c:9a57:: with SMTP id c84mr13398442wme.136.1600066996408; 
- Mon, 14 Sep 2020 00:03:16 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id d5sm19989313wrb.28.2020.09.14.00.03.15
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 14 Sep 2020 00:03:15 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>, <xen-devel@lists.xenproject.org>,
- <committers@xenproject.org>
-Cc: =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
- "'Bertrand Marquis'" <Bertrand.Marquis@arm.com>
-References: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
-In-Reply-To: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
-Subject: RE: Adopting the Linux Kernel Memory Model in Xen?
-Date: Mon, 14 Sep 2020 07:59:37 +0100
-Message-ID: <000101d68a64$9c7ba580$d572f080$@xen.org>
+ <SRS0=Qj2e=CX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kHiek-0008RD-E3
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 07:12:06 +0000
+X-Inumbo-ID: 45da8af8-5d50-4f16-873f-af7882d8c651
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 45da8af8-5d50-4f16-873f-af7882d8c651;
+ Mon, 14 Sep 2020 07:11:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=IsF2ZieNeosaQMRJnw9Uw4/MhMPMkJ+mgxocK7Eqr80=; b=CZQD8Hd4Mkrg3mAiWGz2YVsvsV
+ tyAXsVk+lBrARJxdd+yz7RUODv1Dk/B/7p1ZL/Fj6cl9r7hFoh36Fn5i5R/f7qpa37oMosZ2erMEZ
+ 1DW7aFO7rVSidR1wPpkv1sR9js9rdOrs3Md5FjLQo/pepnuxWdFHY3TqnH/4ybV0QcWA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHieJ-0005TO-S8; Mon, 14 Sep 2020 07:11:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHieJ-0003je-KP; Mon, 14 Sep 2020 07:11:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kHieJ-0002RA-K0; Mon, 14 Sep 2020 07:11:39 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154312-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQJCSvoMa3CM1riyjMgcUs75aGJDUKiQLdJg
+Subject: [ovmf test] 154312: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=067503a8c675ddd38b099a0c604bc1a565e83838
+X-Osstest-Versions-That: ovmf=317d84abe3bfbdff10ae1cc4f38b49307838c6c4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 14 Sep 2020 07:11:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,63 +58,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Julien Grall
-> Sent: 11 September 2020 17:34
-> To: xen-devel@lists.xenproject.org; committers@xenproject.org
-> Cc: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>; Bertrand Marquis =
-<Bertrand.Marquis@arm.com>
-> Subject: Adopting the Linux Kernel Memory Model in Xen?
->=20
-> Hi all,
->=20
-> At the moment, Xen doesn't have a formal memory model. Instead, we are
-> relying on intuitions. This can lead to heated discussion on what can =
-a
-> processor/compiler do or not.
->=20
+flight 154312 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154312/
 
-...which, in turn, may well lead us into decisions that harm =
-performance.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 067503a8c675ddd38b099a0c604bc1a565e83838
+baseline version:
+ ovmf                 317d84abe3bfbdff10ae1cc4f38b49307838c6c4
 
-> We also have some helpers that nearly do the same (such as
-> {read,write}_atomic() vs ACCESS_ONCE()) with no clear understanding
-> where to use which.
->=20
-> In the past few years, Linux community spent a lot of time to write =
-down
-> their memory model and make the compiler communities aware of it (see
-> [1], [2]).
->=20
-> There are a few reasons I can see for adopting LKMM:
->     - Xen borrows a fair amount of code from Linux;
+Last test of basis   154021  2020-09-09 12:09:40 Z    4 days
+Testing same since   154312  2020-09-14 04:09:48 Z    0 days    1 attempts
 
-...and essentially the same toolchain(s)
+------------------------------------------------------------
+People who touched revisions under test:
+  Wenyi Xie <xiewenyi2@huawei.com>
 
->     - There are efforts to standardize it;
->     - This will allow us to streamline the discussion.
->=20
-> Any thoughts?
->=20
-
-It seems like a very good idea to me.
-
-  Paul
-
-> Cheers,
->=20
-> [1] https://www.kernel.org/doc/Documentation/memory-barriers.txt
-> [2] =
-http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0124r7.html
->=20
->=20
-> --
-> Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   317d84abe3..067503a8c6  067503a8c675ddd38b099a0c604bc1a565e83838 -> xen-tested-master
 
