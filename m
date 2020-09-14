@@ -2,49 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16E1268C93
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 15:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844E8268CCB
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 16:05:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHouZ-0000j1-JA; Mon, 14 Sep 2020 13:52:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHouY-0000iw-J8
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 13:52:50 +0000
-X-Inumbo-ID: c81031f9-ecec-4131-ac0f-6c7786b2e593
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c81031f9-ecec-4131-ac0f-6c7786b2e593;
- Mon, 14 Sep 2020 13:52:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E1572B19C;
- Mon, 14 Sep 2020 13:53:03 +0000 (UTC)
-Subject: Re: [PATCH V1 01/16] x86/ioreq: Prepare IOREQ feature for making it
- common
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-2-git-send-email-olekstysh@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <98420567-40a9-7297-d243-4af90f692bf9@suse.com>
-Date: Mon, 14 Sep 2020 15:52:46 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kHp6N-0001k9-OE; Mon, 14 Sep 2020 14:05:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qknR=CX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kHp6M-0001k4-Pm
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 14:05:02 +0000
+X-Inumbo-ID: 4c1916d7-a84b-4398-ba38-70bf2a9308f7
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4c1916d7-a84b-4398-ba38-70bf2a9308f7;
+ Mon, 14 Sep 2020 14:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600092301;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=/gg+BnRZ3uzGhXyDHVsmd56WqX26rgVOalTdzM7LvEc=;
+ b=Jgy/gt/IKicBEaQtmOpBrG5iPjzb1gPmkrLWN2QJplIkoN34zNYh4TGe
+ 56XXReRvUNNrSafM9HcycQfW6uQSprlEUT+39sonjq5RdmJoK7HdRYLCO
+ TxMoUKDeginL3FkJqy/Iu341g/jMsItm7aDceNXUMhCARylZ7rdhz4xLI Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: R4w9CeXpw9mZqgRl/E7LPEjR6xzhHZCoh+o6wEPBJSDmYEshyhID2XVRZtiksxjAmVVdUl12yW
+ Cu5uxGWEgZF3zn+FUl1OWcYwtk21V5VTdfNMNEz4RZN9hSokhaFnSE9J1CMhRTbq2yy+XKB3G5
+ bjJ9M4BetyFzLONsgQx53aqN5tzU4B3W7I5wM39faJDcMDgmJj6+2RKCBH+hljGigyXY0r+mWI
+ sj99MxAzRFQoMbUqlaEnsczMunxiq8U1JdhdL33TnT3VGjm9hai4w6dMhKL548PzfQIvRKbmHa
+ pus=
+X-SBRS: 2.7
+X-MesageID: 26928685
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,426,1592884800"; d="scan'208";a="26928685"
+Subject: Re: [PATCH] tools: Delete XEN_DOMCTL_disable_migrate
+To: Jan Beulich <jbeulich@suse.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Ian Jackson
+ <Ian.Jackson@citrix.com>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20200911190618.14708-1-andrew.cooper3@citrix.com>
+ <d234c429-a42a-e8e0-3ef3-c48c8263f543@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <4f887862-8f3c-4bbb-4fc5-96542ece4894@citrix.com>
+Date: Mon, 14 Sep 2020 15:04:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1599769330-17656-2-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <d234c429-a42a-e8e0-3ef3-c48c8263f543@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,138 +74,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> As a lot of x86 code can be re-used on Arm later on, this patch
-> prepares IOREQ support before moving to the common code. This way
-> we will get almost a verbatim copy for a code movement.
-> 
-> This support is going to be used on Arm to be able run device
-> emulator outside of Xen hypervisor.
+On 14/09/2020 09:43, Jan Beulich wrote:
+> On 11.09.2020 21:06, Andrew Cooper wrote:
+>> It is conceptually wrong for this information to exist in the hypervisor in
+>> the first place.  Only the toolstack is capable of correctly reasoning about
+>> the non-migrateability of guests.
+> But isn't it the purpose of the domctl to tell Xen about the tool
+> stack's decision in this regard?
 
-This is all fine, but you should then go on and explain what you're
-doing, and why (at which point it may become obvious that it would
-be more helpful to split this into a couple of steps). In particular
-something as suspicious as ...
+There is nothing (not even ITSC handling, which was buggy) which Xen can
+legitimately do with the information.
 
-> Changes RFC -> V1:
->    - new patch, was split from:
->      "[RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common"
->    - fold the check of p->type into hvm_get_ioreq_server_range_type()
->      and make it return success/failure
->    - remove relocate_portio_handler() call from arch_hvm_ioreq_destroy()
->      in arch/x86/hvm/ioreq.c
+It is conceptually wrong, and a layering violation, for Xen to have this
+information, or to be making any assumptions about it.
 
-... this (see below).
+>> This hypercall has only ever existed to control the visibility of the
+>> Invariant TSC flag to the guest.  Now that we have properly disentanged that
+>> and moved ITSC into the guests CPUID policy, delete this hypercall.
+>>
+>> Furthermore, this fixes a corner case where Xen would override the toolstacks
+>> choice of ITSC for a xenstore stubdomain.
+> I'm afraid I don't fully understand: A xenstore stubdom can't be
+> migrated (or at least it isn't supposed to be), can it?
 
-> --- a/xen/arch/x86/hvm/ioreq.c
-> +++ b/xen/arch/x86/hvm/ioreq.c
-> @@ -170,6 +170,29 @@ static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
->      return true;
->  }
->  
-> +bool arch_handle_hvm_io_completion(enum hvm_io_completion io_completion)
+That is some very wild assumptions.
 
-Do we need "handle" in here? Without it, I'd also not have to ask about
-moving hvm further to the front of the name...
+What if someone is trying to debug a time related issue, and wants to
+turn itsc off?
 
-> @@ -836,6 +848,12 @@ int hvm_create_ioreq_server(struct domain *d, int bufioreq_handling,
->      return rc;
->  }
->  
-> +/* Called when target domain is paused */
-> +int arch_hvm_destroy_ioreq_server(struct hvm_ioreq_server *s)
-> +{
-> +    return p2m_set_ioreq_server(s->target, 0, s);
-> +}
+> In which
+> case - what's wrong with exposing to it even by default a feature
+> it may be able to make use of?
 
-Why return "int" when ...
+Because silently trampling the configuration chosen by the toolstack
+isn't acceptable.
 
-> @@ -855,7 +873,7 @@ int hvm_destroy_ioreq_server(struct domain *d, ioservid_t id)
->  
->      domain_pause(d);
->  
-> -    p2m_set_ioreq_server(d, 0, s);
-> +    arch_hvm_destroy_ioreq_server(s);
+>  IOW ...
+>
+>> --- a/xen/arch/x86/cpuid.c
+>> +++ b/xen/arch/x86/cpuid.c
+>> @@ -708,7 +708,8 @@ int init_domain_cpuid_policy(struct domain *d)
+>>      if ( !p )
+>>          return -ENOMEM;
+>>  
+>> -    if ( d->disable_migrate )
+>> +    /* The hardware domain can't migrate.  Give it ITSC if available. */
+>> +    if ( is_hardware_domain(d) )
+>>          p->extd.itsc = cpu_has_itsc;
+> ... why not include is_xenstore_domain() here that you remove from
+> ...
+>
+>> @@ -452,9 +451,6 @@ struct domain *domain_create(domid_t domid,
+>>          watchdog_domain_init(d);
+>>          init_status |= INIT_watchdog;
+>>  
+>> -        if ( is_xenstore_domain(d) )
+>> -            d->disable_migrate = true;
+> ... here? On the tool stack side the change here only deletes code,
+> i.e. I don't see you taking care of the default enabling there
+> either. Am I overlooking any logic that now causes the feature to
+> be requested for the xenstore domain without you needing to add
+> any code?
 
-... the result has been ignored anyway? Or otherwise I guess you'd
-want to add error handling here (but then the result of
-p2m_set_ioreq_server() should still get ignored, for backwards
-compatibility).
+The toolstack (legitimately) has knowledge of nomigrate, and will even
+implicitly turn on ITSC as a side effect, but will also honour explicit
+requests to turn it on or off.
 
-> @@ -1215,8 +1233,7 @@ void hvm_destroy_all_ioreq_servers(struct domain *d)
->      struct hvm_ioreq_server *s;
->      unsigned int id;
->  
-> -    if ( !relocate_portio_handler(d, 0xcf8, 0xcf8, 4) )
-> -        return;
-> +    arch_hvm_ioreq_destroy(d);
+>> --- a/xen/include/public/domctl.h
+>> +++ b/xen/include/public/domctl.h
+>> @@ -730,11 +730,6 @@ struct xen_domctl_hvmcontext_partial {
+>>      XEN_GUEST_HANDLE_64(uint8) buffer;  /* OUT: buffer to write record into */
+>>  };
+>>  
+>> -/* XEN_DOMCTL_disable_migrate */
+>> -struct xen_domctl_disable_migrate {
+>> -    uint32_t disable; /* IN: 1: disable migration and restore */
+>> -};
+>> -
+>>  
+>>  /* XEN_DOMCTL_gettscinfo */
+>>  /* XEN_DOMCTL_settscinfo */
+>> @@ -1191,7 +1186,7 @@ struct xen_domctl {
+>>  #define XEN_DOMCTL_gethvmcontext_partial         55
+>>  #define XEN_DOMCTL_vm_event_op                   56
+>>  #define XEN_DOMCTL_mem_sharing_op                57
+>> -#define XEN_DOMCTL_disable_migrate               58
+>> +/* #define XEN_DOMCTL_disable_migrate            58 - Obsolete */
+>>  #define XEN_DOMCTL_gettscinfo                    59
+>>  #define XEN_DOMCTL_settscinfo                    60
+>>  #define XEN_DOMCTL_getpageframeinfo3             61
+>> @@ -1242,7 +1237,6 @@ struct xen_domctl {
+>>          struct xen_domctl_ioport_permission ioport_permission;
+>>          struct xen_domctl_hypercall_init    hypercall_init;
+>>          struct xen_domctl_settimeoffset     settimeoffset;
+>> -        struct xen_domctl_disable_migrate   disable_migrate;
+>>          struct xen_domctl_tsc_info          tsc_info;
+>>          struct xen_domctl_hvmcontext        hvmcontext;
+>>          struct xen_domctl_hvmcontext_partial hvmcontext_partial;
+> Deletion of sub-ops, just like their modification, requires the
+> interface version to get bumped if it wasn't already during a
+> release cycle. I know you dislike the underlying concept, but as
+> long as the interface version continues to exist (with its
+> present meaning) I'm afraid it needs bumping for any backwards-
+> incompatible change.
 
-So the call to relocate_portio_handler() simply goes away. No
-replacement, no explanation?
+I can fix it on commit.  I don't waste time tracking whether it has had
+its conditional bump.
 
-> @@ -1239,19 +1256,15 @@ void hvm_destroy_all_ioreq_servers(struct domain *d)
->      spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
->  }
->  
-> -struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
-> -                                                 ioreq_t *p)
-> +int hvm_get_ioreq_server_range_type(struct domain *d,
-> +                                    ioreq_t *p,
-
-At least p, but perhaps also d can gain const?
-
-> +                                    uint8_t *type,
-> +                                    uint64_t *addr)
-
-By the name the function returns a type for a range (albeit without
-it being clear where the two bounds of such a range actually live).
-By the implementation is looks more like you mean "range_and_type",
-albeit still without there really being a range passed back to the
-caller. Therefore I think I need some clarification on what's
-intended before even being able to suggest something. From ...
-
-> +struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
-> +                                                 ioreq_t *p)
-> +{
-> +    struct hvm_ioreq_server *s;
-> +    uint8_t type;
-> +    uint64_t addr;
-> +    unsigned int id;
-> +
-> +    if ( hvm_get_ioreq_server_range_type(d, p, &type, &addr) )
-> +        return NULL;
-
-... this use - maybe hvm_ioreq_server_get_type_addr() (albeit I
-don't like this name very much)?
-
-> @@ -1351,7 +1378,7 @@ static int hvm_send_buffered_ioreq(struct hvm_ioreq_server *s, ioreq_t *p)
->      pg = iorp->va;
->  
->      if ( !pg )
-> -        return X86EMUL_UNHANDLEABLE;
-> +        return IOREQ_IO_UNHANDLED;
-
-At this example - why the IO infix, duplicating the prefix? I'd
-suggest to either drop it (if the remaining identifiers are deemed
-unambiguous enough) or use e.g. IOREQ_STATUS_*.
-
-> @@ -1515,11 +1542,21 @@ static int hvm_access_cf8(
->      return X86EMUL_UNHANDLEABLE;
->  }
->  
-> +void arch_hvm_ioreq_init(struct domain *d)
-> +{
-> +    register_portio_handler(d, 0xcf8, 4, hvm_access_cf8);
-> +}
-> +
-> +void arch_hvm_ioreq_destroy(struct domain *d)
-> +{
-> +
-> +}
-
-Stray blank line?
-
-Jan
+~Andrew
 
