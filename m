@@ -2,27 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E05268917
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E7D268918
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:17:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHlXo-0004Wm-L6; Mon, 14 Sep 2020 10:17:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kHlYD-0004c0-UO; Mon, 14 Sep 2020 10:17:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHlXn-0004WZ-E2
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:17:07 +0000
-X-Inumbo-ID: 22761388-79e4-45a8-a872-1e745a4504cb
+ id 1kHlYC-0004bY-Gy
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:17:32 +0000
+X-Inumbo-ID: a58e72c6-9f15-463d-8589-e88cccf70568
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22761388-79e4-45a8-a872-1e745a4504cb;
- Mon, 14 Sep 2020 10:16:56 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a58e72c6-9f15-463d-8589-e88cccf70568;
+ Mon, 14 Sep 2020 10:17:21 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 638C9B265;
- Mon, 14 Sep 2020 10:17:11 +0000 (UTC)
-Subject: [PATCH 4/9] lib: move list sorting code
+ by mx2.suse.de (Postfix) with ESMTP id 22E30B265;
+ Mon, 14 Sep 2020 10:17:36 +0000 (UTC)
+Subject: [PATCH 5/9] lib: move parse_size_and_unit()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -30,8 +31,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
-Message-ID: <c6a00955-3b4f-c864-16f5-4a344f303ed2@suse.com>
-Date: Mon, 14 Sep 2020 12:16:55 +0200
+Message-ID: <823c1802-9a61-4059-c6a8-61f5c2fad12c@suse.com>
+Date: Mon, 14 Sep 2020 12:17:20 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -52,95 +53,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Build the source file always, as by putting it into an archive it still
-won't be linked into final binaries when not needed. This way possible
-build breakage will be easier to notice, and it's more consistent with
-us unconditionally building other library kind of code (e.g. sort() or
-bsearch()).
-
-While moving the source file, take the opportunity and drop the
-pointless EXPORT_SYMBOL().
+... into its own CU, to build it into an archive.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/arm/Kconfig                        | 4 +---
- xen/common/Kconfig                          | 3 ---
- xen/common/Makefile                         | 1 -
- xen/lib/Makefile                            | 1 +
- xen/{common/list_sort.c => lib/list-sort.c} | 2 --
- 5 files changed, 2 insertions(+), 9 deletions(-)
- rename xen/{common/list_sort.c => lib/list-sort.c} (98%)
+ xen/common/lib.c     | 39 ----------------------------------
+ xen/lib/Makefile     |  1 +
+ xen/lib/parse-size.c | 50 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 51 insertions(+), 39 deletions(-)
+ create mode 100644 xen/lib/parse-size.c
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 277738826581..cb7e2523b6de 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -56,9 +56,7 @@ config HVM
-         def_bool y
+diff --git a/xen/common/lib.c b/xen/common/lib.c
+index a224efa8f6e8..6cfa332142a5 100644
+--- a/xen/common/lib.c
++++ b/xen/common/lib.c
+@@ -423,45 +423,6 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c)
+ #endif
+ }
  
- config NEW_VGIC
--	bool
--	prompt "Use new VGIC implementation"
--	select NEEDS_LIST_SORT
-+	bool "Use new VGIC implementation"
- 	---help---
- 
- 	This is an alternative implementation of the ARM GIC interrupt
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 15e3b79ff57f..87e99d4ba2f7 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -66,9 +66,6 @@ config HAS_SCHED_GRANULARITY
- config NEEDS_LIBELF
- 	bool
- 
--config NEEDS_LIST_SORT
--	bool
+-unsigned long long parse_size_and_unit(const char *s, const char **ps)
+-{
+-    unsigned long long ret;
+-    const char *s1;
 -
- menu "Speculative hardening"
+-    ret = simple_strtoull(s, &s1, 0);
+-
+-    switch ( *s1 )
+-    {
+-    case 'T': case 't':
+-        ret <<= 10;
+-        /* fallthrough */
+-    case 'G': case 'g':
+-        ret <<= 10;
+-        /* fallthrough */
+-    case 'M': case 'm':
+-        ret <<= 10;
+-        /* fallthrough */
+-    case 'K': case 'k':
+-        ret <<= 10;
+-        /* fallthrough */
+-    case 'B': case 'b':
+-        s1++;
+-        break;
+-    case '%':
+-        if ( ps )
+-            break;
+-        /* fallthrough */
+-    default:
+-        ret <<= 10; /* default to kB */
+-        break;
+-    }
+-
+-    if ( ps != NULL )
+-        *ps = s1;
+-
+-    return ret;
+-}
+-
+ typedef void (*ctor_func_t)(void);
+ extern const ctor_func_t __ctors_start[], __ctors_end[];
  
- config SPECULATIVE_HARDEN_ARRAY
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index b3b60a1ba25b..958ad8c7d946 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -21,7 +21,6 @@ obj-y += keyhandler.o
- obj-$(CONFIG_KEXEC) += kexec.o
- obj-$(CONFIG_KEXEC) += kimage.o
- obj-y += lib.o
--obj-$(CONFIG_NEEDS_LIST_SORT) += list_sort.o
- obj-$(CONFIG_LIVEPATCH) += livepatch.o livepatch_elf.o
- obj-$(CONFIG_MEM_ACCESS) += mem_access.o
- obj-y += memory.o
 diff --git a/xen/lib/Makefile b/xen/lib/Makefile
-index b8814361d63e..764f3624b5f9 100644
+index 764f3624b5f9..99f857540c99 100644
 --- a/xen/lib/Makefile
 +++ b/xen/lib/Makefile
-@@ -1,3 +1,4 @@
- obj-$(CONFIG_X86) += x86/
+@@ -2,3 +2,4 @@ obj-$(CONFIG_X86) += x86/
  
  lib-y += ctype.o
-+lib-y += list-sort.o
-diff --git a/xen/common/list_sort.c b/xen/lib/list-sort.c
-similarity index 98%
-rename from xen/common/list_sort.c
-rename to xen/lib/list-sort.c
-index af2b2f6519f1..f8d8bbf28178 100644
---- a/xen/common/list_sort.c
-+++ b/xen/lib/list-sort.c
-@@ -15,7 +15,6 @@
-  * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
--#include <xen/lib.h>
- #include <xen/list.h>
- 
- #define MAX_LIST_LENGTH_BITS 20
-@@ -154,4 +153,3 @@ void list_sort(void *priv, struct list_head *head,
- 
- 	merge_and_restore_back_links(priv, cmp, head, part[max_lev], list);
- }
--EXPORT_SYMBOL(list_sort);
+ lib-y += list-sort.o
++lib-y += parse-size.o
+diff --git a/xen/lib/parse-size.c b/xen/lib/parse-size.c
+new file mode 100644
+index 000000000000..ec980cadfff3
+--- /dev/null
++++ b/xen/lib/parse-size.c
+@@ -0,0 +1,50 @@
++#include <xen/lib.h>
++
++unsigned long long parse_size_and_unit(const char *s, const char **ps)
++{
++    unsigned long long ret;
++    const char *s1;
++
++    ret = simple_strtoull(s, &s1, 0);
++
++    switch ( *s1 )
++    {
++    case 'T': case 't':
++        ret <<= 10;
++        /* fallthrough */
++    case 'G': case 'g':
++        ret <<= 10;
++        /* fallthrough */
++    case 'M': case 'm':
++        ret <<= 10;
++        /* fallthrough */
++    case 'K': case 'k':
++        ret <<= 10;
++        /* fallthrough */
++    case 'B': case 'b':
++        s1++;
++        break;
++    case '%':
++        if ( ps )
++            break;
++        /* fallthrough */
++    default:
++        ret <<= 10; /* default to kB */
++        break;
++    }
++
++    if ( ps != NULL )
++        *ps = s1;
++
++    return ret;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.22.0
 
