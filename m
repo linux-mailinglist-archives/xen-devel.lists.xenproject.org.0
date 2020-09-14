@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35532687E8
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D38B02687F8
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:06:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHkPh-0004qY-Dn; Mon, 14 Sep 2020 09:04:41 +0000
+	id 1kHkRR-000515-Po; Mon, 14 Sep 2020 09:06:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LHiq=CX=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kHkPg-0004qS-46
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:04:40 +0000
-X-Inumbo-ID: 32a226ce-c471-44d3-9de4-c632d29fa128
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=odsp=CX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kHkRP-00050x-Mz
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:06:27 +0000
+X-Inumbo-ID: 6d57f019-4a61-4c00-8300-e99351902570
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32a226ce-c471-44d3-9de4-c632d29fa128;
- Mon, 14 Sep 2020 09:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=eyGsy5jZ2+w454Toz8frYA+/6ej0XHarCvFmep2QnHQ=; b=cRS2Yro9NZpMnnX3zF8o6nV50Q
- BzPL5DFZjGC4wrVlmjHNDHs/riVF3bn5JpofRLHwGZBMN8uFh1FOX66b+qcDjF3e201fsooC0nAhs
- FHqVE79SJih+6upB2OcWfK9+bRaVmEu39xEA/nivk9RDmQjCZYYCNOGbz2J7JDkFu6nU=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kHkPS-0001PL-Ba; Mon, 14 Sep 2020 09:04:26 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kHkPQ-0002lX-GK; Mon, 14 Sep 2020 09:04:25 +0000
-Subject: Re: [PATCH v2 2/2] xen: Introduce cmpxchg64() and guest_cmpxchg64()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, oleksandr_tyshchenko@epam.com,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200911160622.19721-1-julien@xen.org>
- <20200911160622.19721-3-julien@xen.org>
- <403f8774-1ca9-560d-2ca5-fa00b64d2a98@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <6cb6b747-5747-e069-8133-a5268efe71db@xen.org>
-Date: Mon, 14 Sep 2020 10:04:22 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ id 6d57f019-4a61-4c00-8300-e99351902570;
+ Mon, 14 Sep 2020 09:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600074377;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Ll1ZwddOIlJSTgzjqKsdhUzdcD806FeaBH87/ZyPZ0c=;
+ b=UbE2ZxND22E7e5VQMDs9+DAYeJxJPw93mAIPTJEF8lJmjan0uIj1ftgR
+ x3q9NxunEIt1wDzJIWamvGv9XezO/2eLIozaTXe/xCcUID7vBCCWNYrqg
+ ec2ogT7MxwEeYR5tdl2DEh8dekMouKNeKqiVKS48mMO7fwfztlkocdjZc M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: pW7eFd8cP1h/i+xLXosBB4vsnARATajwYNZ7hv5df8XxmMqEhruvVV3yd3+CUZSdbbMiFRTQUk
+ 3S+uVJCXJ2Fz0qIqXsu3G+C3IRuGHTbqaXsjhYuvXR2sLgqf6DXrYEpM5YEEcwSQNQoYn+kMQ+
+ vjByz8pb0ziiu/pFbrxpzlpd4ratBdFu7H56ttPa4FbvCeDWV1En8zY/SqzYGc9IOwn+Mqo8Qx
+ WSTqk8E6RtrfBVbDs+/qXVYCjfzA/kWYKl+SSztTlYEyV1BCqdpC0G+G098Y85BtOl4poSl97C
+ OAI=
+X-SBRS: 2.7
+X-MesageID: 26591572
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,425,1592884800"; d="scan'208";a="26591572"
+Date: Mon, 14 Sep 2020 11:05:57 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Trammell Hudson <hudson@trmm.net>
+CC: <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 2/4] efi/boot.c: add file.need_to_free and split
+ display_file_info()
+Message-ID: <20200914090557.GB753@Air-de-Roger>
+References: <20200907190027.669086-1-hudson@trmm.net>
+ <20200907190027.669086-3-hudson@trmm.net>
 MIME-Version: 1.0
-In-Reply-To: <403f8774-1ca9-560d-2ca5-fa00b64d2a98@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20200907190027.669086-3-hudson@trmm.net>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,31 +67,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+Thanks! Being picky you likely wan to split this into two separate
+commits: one for adding need_to_free and the other for
+display_file_info.  There's no relation between the two that would
+require them to be on the same commit.
 
-On 14/09/2020 09:48, Jan Beulich wrote:
-> On 11.09.2020 18:06, Julien Grall wrote:
->> --- a/xen/include/asm-x86/guest_atomics.h
->> +++ b/xen/include/asm-x86/guest_atomics.h
->> @@ -20,6 +20,7 @@
->>       ((void)(d), test_and_change_bit(nr, p))
->>   
->>   #define guest_cmpxchg(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
->> +#define guest_cmpxchg64(d, ptr, o, n) ((void)(d), cmpxchg(ptr, o, n))
+On Mon, Sep 07, 2020 at 03:00:25PM -0400, Trammell Hudson wrote:
+> From: Trammell hudson <hudson@trmm.net>
 > 
-> While them sitting side by side there's perhaps little risk of
-> them going out of sync with one another, I still find it a
-> little odd to open-code guest_cmpxchg() instead of using it,
+> Signed-off-by: Trammell hudson <hudson@trmm.net>
+> ---
+>  xen/common/efi/boot.c | 36 ++++++++++++++++++++++--------------
+>  1 file changed, 22 insertions(+), 14 deletions(-)
+> 
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 4022a672c9..f5bdc4b1df 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -102,6 +102,7 @@ union string {
+>  
+>  struct file {
+>      UINTN size;
+> +    bool need_to_free;
+>      union {
+>          EFI_PHYSICAL_ADDRESS addr;
+>          void *ptr;
+> @@ -279,13 +280,13 @@ void __init noreturn blexit(const CHAR16 *str)
+>      if ( !efi_bs )
+>          efi_arch_halt();
+>  
+> -    if ( cfg.addr )
+> +    if ( cfg.addr && cfg.need_to_free )
+>          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -    if ( kernel.addr )
+> +    if ( kernel.addr && kernel.need_to_free )
+>          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+> -    if ( ramdisk.addr )
+> +    if ( ramdisk.addr && ramdisk.need_to_free )
+>          efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+> -    if ( xsm.addr )
+> +    if ( xsm.addr && xsm.need_to_free )
+>          efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
+>  
+>      efi_arch_blexit();
+> @@ -538,6 +539,21 @@ static char * __init split_string(char *s)
+>      return NULL;
+>  }
+>  
+> +static void __init display_file_info(CHAR16 *name, struct file *file, char *options)
 
-It depends on how you view it... The implementation is indeed the same 
-but they are meant to be used in different places.
+I think name at least could be constified?
 
-Anyway... I can use:
+Also efi_arch_handle_module seem to do more than just printing file
+info, hence I would likely rename this to handle_file_info to be more
+representative of what it does.
 
-#define guest_cmpxchg64 guest_cmpxchg
-
-Cheers,
-
--- 
-Julien Grall
+Roger.
 
