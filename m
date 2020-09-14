@@ -2,52 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410B726858C
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 09:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B2326876D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 10:45:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHiel-0008RX-MW; Mon, 14 Sep 2020 07:12:07 +0000
+	id 1kHk5r-0002xv-3Y; Mon, 14 Sep 2020 08:44:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qj2e=CX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kHiek-0008RD-E3
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 07:12:06 +0000
-X-Inumbo-ID: 45da8af8-5d50-4f16-873f-af7882d8c651
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kHk5q-0002xq-8q
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 08:44:10 +0000
+X-Inumbo-ID: 75786982-c04d-432d-b8d5-f80b087d5076
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 45da8af8-5d50-4f16-873f-af7882d8c651;
- Mon, 14 Sep 2020 07:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=IsF2ZieNeosaQMRJnw9Uw4/MhMPMkJ+mgxocK7Eqr80=; b=CZQD8Hd4Mkrg3mAiWGz2YVsvsV
- tyAXsVk+lBrARJxdd+yz7RUODv1Dk/B/7p1ZL/Fj6cl9r7hFoh36Fn5i5R/f7qpa37oMosZ2erMEZ
- 1DW7aFO7rVSidR1wPpkv1sR9js9rdOrs3Md5FjLQo/pepnuxWdFHY3TqnH/4ybV0QcWA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kHieJ-0005TO-S8; Mon, 14 Sep 2020 07:11:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kHieJ-0003je-KP; Mon, 14 Sep 2020 07:11:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kHieJ-0002RA-K0; Mon, 14 Sep 2020 07:11:39 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154312-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 75786982-c04d-432d-b8d5-f80b087d5076;
+ Mon, 14 Sep 2020 08:43:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5F603AC46;
+ Mon, 14 Sep 2020 08:44:13 +0000 (UTC)
+Subject: Re: [PATCH] tools: Delete XEN_DOMCTL_disable_migrate
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20200911190618.14708-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d234c429-a42a-e8e0-3ef3-c48c8263f543@suse.com>
+Date: Mon, 14 Sep 2020 10:43:56 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [ovmf test] 154312: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=067503a8c675ddd38b099a0c604bc1a565e83838
-X-Osstest-Versions-That: ovmf=317d84abe3bfbdff10ae1cc4f38b49307838c6c4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Sep 2020 07:11:39 +0000
+In-Reply-To: <20200911190618.14708-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +56,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154312 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154312/
+On 11.09.2020 21:06, Andrew Cooper wrote:
+> It is conceptually wrong for this information to exist in the hypervisor in
+> the first place.  Only the toolstack is capable of correctly reasoning about
+> the non-migrateability of guests.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 067503a8c675ddd38b099a0c604bc1a565e83838
-baseline version:
- ovmf                 317d84abe3bfbdff10ae1cc4f38b49307838c6c4
+But isn't it the purpose of the domctl to tell Xen about the tool
+stack's decision in this regard?
 
-Last test of basis   154021  2020-09-09 12:09:40 Z    4 days
-Testing same since   154312  2020-09-14 04:09:48 Z    0 days    1 attempts
+> This hypercall has only ever existed to control the visibility of the
+> Invariant TSC flag to the guest.  Now that we have properly disentanged that
+> and moved ITSC into the guests CPUID policy, delete this hypercall.
+> 
+> Furthermore, this fixes a corner case where Xen would override the toolstacks
+> choice of ITSC for a xenstore stubdomain.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Wenyi Xie <xiewenyi2@huawei.com>
+I'm afraid I don't fully understand: A xenstore stubdom can't be
+migrated (or at least it isn't supposed to be), can it? In which
+case - what's wrong with exposing to it even by default a feature
+it may be able to make use of? IOW ...
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -708,7 +708,8 @@ int init_domain_cpuid_policy(struct domain *d)
+>      if ( !p )
+>          return -ENOMEM;
+>  
+> -    if ( d->disable_migrate )
+> +    /* The hardware domain can't migrate.  Give it ITSC if available. */
+> +    if ( is_hardware_domain(d) )
+>          p->extd.itsc = cpu_has_itsc;
 
+... why not include is_xenstore_domain() here that you remove from
+...
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> @@ -452,9 +451,6 @@ struct domain *domain_create(domid_t domid,
+>          watchdog_domain_init(d);
+>          init_status |= INIT_watchdog;
+>  
+> -        if ( is_xenstore_domain(d) )
+> -            d->disable_migrate = true;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+... here? On the tool stack side the change here only deletes code,
+i.e. I don't see you taking care of the default enabling there
+either. Am I overlooking any logic that now causes the feature to
+be requested for the xenstore domain without you needing to add
+any code?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -730,11 +730,6 @@ struct xen_domctl_hvmcontext_partial {
+>      XEN_GUEST_HANDLE_64(uint8) buffer;  /* OUT: buffer to write record into */
+>  };
+>  
+> -/* XEN_DOMCTL_disable_migrate */
+> -struct xen_domctl_disable_migrate {
+> -    uint32_t disable; /* IN: 1: disable migration and restore */
+> -};
+> -
+>  
+>  /* XEN_DOMCTL_gettscinfo */
+>  /* XEN_DOMCTL_settscinfo */
+> @@ -1191,7 +1186,7 @@ struct xen_domctl {
+>  #define XEN_DOMCTL_gethvmcontext_partial         55
+>  #define XEN_DOMCTL_vm_event_op                   56
+>  #define XEN_DOMCTL_mem_sharing_op                57
+> -#define XEN_DOMCTL_disable_migrate               58
+> +/* #define XEN_DOMCTL_disable_migrate            58 - Obsolete */
+>  #define XEN_DOMCTL_gettscinfo                    59
+>  #define XEN_DOMCTL_settscinfo                    60
+>  #define XEN_DOMCTL_getpageframeinfo3             61
+> @@ -1242,7 +1237,6 @@ struct xen_domctl {
+>          struct xen_domctl_ioport_permission ioport_permission;
+>          struct xen_domctl_hypercall_init    hypercall_init;
+>          struct xen_domctl_settimeoffset     settimeoffset;
+> -        struct xen_domctl_disable_migrate   disable_migrate;
+>          struct xen_domctl_tsc_info          tsc_info;
+>          struct xen_domctl_hvmcontext        hvmcontext;
+>          struct xen_domctl_hvmcontext_partial hvmcontext_partial;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Deletion of sub-ops, just like their modification, requires the
+interface version to get bumped if it wasn't already during a
+release cycle. I know you dislike the underlying concept, but as
+long as the interface version continues to exist (with its
+present meaning) I'm afraid it needs bumping for any backwards-
+incompatible change.
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   317d84abe3..067503a8c6  067503a8c675ddd38b099a0c604bc1a565e83838 -> xen-tested-master
+Jan
 
