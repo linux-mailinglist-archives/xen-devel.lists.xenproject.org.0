@@ -2,58 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D38B02687F8
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A595268808
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 11:13:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHkRR-000515-Po; Mon, 14 Sep 2020 09:06:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=odsp=CX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kHkRP-00050x-Mz
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:06:27 +0000
-X-Inumbo-ID: 6d57f019-4a61-4c00-8300-e99351902570
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6d57f019-4a61-4c00-8300-e99351902570;
- Mon, 14 Sep 2020 09:06:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600074377;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Ll1ZwddOIlJSTgzjqKsdhUzdcD806FeaBH87/ZyPZ0c=;
- b=UbE2ZxND22E7e5VQMDs9+DAYeJxJPw93mAIPTJEF8lJmjan0uIj1ftgR
- x3q9NxunEIt1wDzJIWamvGv9XezO/2eLIozaTXe/xCcUID7vBCCWNYrqg
- ec2ogT7MxwEeYR5tdl2DEh8dekMouKNeKqiVKS48mMO7fwfztlkocdjZc M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: pW7eFd8cP1h/i+xLXosBB4vsnARATajwYNZ7hv5df8XxmMqEhruvVV3yd3+CUZSdbbMiFRTQUk
- 3S+uVJCXJ2Fz0qIqXsu3G+C3IRuGHTbqaXsjhYuvXR2sLgqf6DXrYEpM5YEEcwSQNQoYn+kMQ+
- vjByz8pb0ziiu/pFbrxpzlpd4ratBdFu7H56ttPa4FbvCeDWV1En8zY/SqzYGc9IOwn+Mqo8Qx
- WSTqk8E6RtrfBVbDs+/qXVYCjfzA/kWYKl+SSztTlYEyV1BCqdpC0G+G098Y85BtOl4poSl97C
- OAI=
-X-SBRS: 2.7
-X-MesageID: 26591572
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,425,1592884800"; d="scan'208";a="26591572"
-Date: Mon, 14 Sep 2020 11:05:57 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Trammell Hudson <hudson@trmm.net>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 2/4] efi/boot.c: add file.need_to_free and split
- display_file_info()
-Message-ID: <20200914090557.GB753@Air-de-Roger>
-References: <20200907190027.669086-1-hudson@trmm.net>
- <20200907190027.669086-3-hudson@trmm.net>
+	id 1kHkXo-0005t3-LE; Mon, 14 Sep 2020 09:13:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LHiq=CX=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kHkXn-0005sy-47
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 09:13:03 +0000
+X-Inumbo-ID: a26737d8-6605-4eb0-a1e0-bf954196ae3e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a26737d8-6605-4eb0-a1e0-bf954196ae3e;
+ Mon, 14 Sep 2020 09:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=IuMWCAoA0XqTXXhvDeAQTsqVj8dLFHN1iIZTVggPNq8=; b=ZF6VH8VeHdfWg1Pv0BFbIDTs2d
+ TXU7QAphl7F8NTt1ztyjDcI0XNrJcaITQIjKF3iu2fUph89ihmoeneM80HNy2bwNa8vh/ioWw9XTu
+ 2BRiW+AbxWCYVpR2PridjnQqavausCHHGwLEj1C1P6bZykGT/7il+ziFPW4NUU/M2/a0=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kHkXX-0001aZ-TX; Mon, 14 Sep 2020 09:12:47 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kHkXX-0003IP-Jn; Mon, 14 Sep 2020 09:12:47 +0000
+Subject: Re: Adopting the Linux Kernel Memory Model in Xen?
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <1bc70974-2efb-2e73-34bf-bdd3c1d0ef96@xen.org>
+ <58ab227d-4899-4dd2-de49-b5cd1d449f94@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <281673e0-4694-4900-5095-8215c4d11fd2@xen.org>
+Date: Mon, 14 Sep 2020 10:12:45 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20200907190027.669086-3-hudson@trmm.net>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <58ab227d-4899-4dd2-de49-b5cd1d449f94@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,60 +66,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Thanks! Being picky you likely wan to split this into two separate
-commits: one for adding need_to_free and the other for
-display_file_info.  There's no relation between the two that would
-require them to be on the same commit.
+Hi Andrew,
 
-On Mon, Sep 07, 2020 at 03:00:25PM -0400, Trammell Hudson wrote:
-> From: Trammell hudson <hudson@trmm.net>
+On 11/09/2020 20:53, Andrew Cooper wrote:
+> On 11/09/2020 17:33, Julien Grall wrote:
+>> Hi all,
+>>
+>> At the moment, Xen doesn't have a formal memory model. Instead, we are
+>> relying on intuitions. This can lead to heated discussion on what can
+>> a processor/compiler do or not.
+>>
+>> We also have some helpers that nearly do the same (such as
+>> {read,write}_atomic() vs ACCESS_ONCE()) with no clear understanding
+>> where to use which.
+>>
+>> In the past few years, Linux community spent a lot of time to write
+>> down their memory model and make the compiler communities aware of it
+>> (see [1], [2]).
+>>
+>> There are a few reasons I can see for adopting LKMM:
+>>     - Xen borrows a fair amount of code from Linux;
+>>     - There are efforts to standardize it;
+>>     - This will allow us to streamline the discussion.
+>>
+>> Any thoughts?
 > 
-> Signed-off-by: Trammell hudson <hudson@trmm.net>
-> ---
->  xen/common/efi/boot.c | 36 ++++++++++++++++++++++--------------
->  1 file changed, 22 insertions(+), 14 deletions(-)
+> It might not be formally written down, but we inherited an old version
+> of it from Linux directly, and memory-barriers.txt is often referred to,
+> and I have fixed our helpers several times to not have a semantic
+> difference vs Linux.
 > 
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 4022a672c9..f5bdc4b1df 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -102,6 +102,7 @@ union string {
->  
->  struct file {
->      UINTN size;
-> +    bool need_to_free;
->      union {
->          EFI_PHYSICAL_ADDRESS addr;
->          void *ptr;
-> @@ -279,13 +280,13 @@ void __init noreturn blexit(const CHAR16 *str)
->      if ( !efi_bs )
->          efi_arch_halt();
->  
-> -    if ( cfg.addr )
-> +    if ( cfg.addr && cfg.need_to_free )
->          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
-> -    if ( kernel.addr )
-> +    if ( kernel.addr && kernel.need_to_free )
->          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
-> -    if ( ramdisk.addr )
-> +    if ( ramdisk.addr && ramdisk.need_to_free )
->          efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
-> -    if ( xsm.addr )
-> +    if ( xsm.addr && xsm.need_to_free )
->          efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
->  
->      efi_arch_blexit();
-> @@ -538,6 +539,21 @@ static char * __init split_string(char *s)
->      return NULL;
->  }
->  
-> +static void __init display_file_info(CHAR16 *name, struct file *file, char *options)
+> We even import some drivers verbatim, and they certainly are expecting
+> to use LKMM.
+> 
+> 
+> Memory ordering is a phenomenally complicated topic and getting it wrong
+> usually results in very subtle memory corruption issues.  The Xen
+> community does not have the expertise to invent something custom.  LKMM
+> is already familiar to most people liable to contribute in areas where
+> it is likely to matter.
+> 
+> I don't mind how we go about formally stating that we use LKMM, but as
+> far as I'm concerned, we already use it, and any semantic deviation is a
+> bug needing fixing in Xen.
 
-I think name at least could be constified?
+Thank you for the input! My plan is to:
+    - Create a brief document (maybe docs/memory-barrier.txt) explaing 
+that we follow LKMM.
+    - Look for existing differences in the helpers and sync them if needed.
 
-Also efi_arch_handle_module seem to do more than just printing file
-info, hence I would likely rename this to handle_file_info to be more
-representative of what it does.
+Cheers,
 
-Roger.
+-- 
+Julien Grall
 
