@@ -2,50 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1275268EBF
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFF4268F14
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:08:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHpxX-0006s7-Gu; Mon, 14 Sep 2020 14:59:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHpxV-0006s0-Fn
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 14:59:57 +0000
-X-Inumbo-ID: c4ab8880-2c2a-48c4-b1b8-d4eb3cdddfe4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c4ab8880-2c2a-48c4-b1b8-d4eb3cdddfe4;
- Mon, 14 Sep 2020 14:59:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 07E03AD11;
- Mon, 14 Sep 2020 15:00:11 +0000 (UTC)
-Subject: Re: [PATCH V1 03/16] xen/ioreq: Make x86's
- hvm_ioreq_needs_completion() common
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
-Date: Mon, 14 Sep 2020 16:59:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kHq5B-0007u1-VY; Mon, 14 Sep 2020 15:07:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9IHB=CX=tabit.pro=d.fedorov@srs-us1.protection.inumbo.net>)
+ id 1kHq5A-0007tr-35
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:07:52 +0000
+X-Inumbo-ID: d7ffec1c-cd7e-4ba6-a9a3-7a24d702a470
+Received: from mail.tabit.pro (unknown [77.221.146.2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d7ffec1c-cd7e-4ba6-a9a3-7a24d702a470;
+ Mon, 14 Sep 2020 15:07:50 +0000 (UTC)
+Received: from mail.tabit.pro (localhost [127.0.0.1])
+ by mail.tabit.pro (Postfix) with ESMTP id 4Bqq6L2pWbz9smp
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Sep 2020 17:50:34 +0300 (MSK)
+Authentication-Results: mail.tabit.pro (amavisd-new); dkim=pass (1024-bit key)
+ reason="pass (just generated,
+ assumed good)" header.d=tabit.pro
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tabit.pro; h=
+ content-transfer-encoding:content-language:content-type
+ :content-type:mime-version:user-agent:date:date:message-id:to
+ :subject:subject:from:from; s=dkim; t=1600095033; x=1602687034;
+ bh=5objYpv9tvayHCobRvkGXtg3ONSY1tPJsVTtmLyJjHs=; b=aHl1peR0Qhsl
+ DUi4OQQ2JP9kvM/0uIoKKX723qgTA3FsxY5AFkt9YVNHWdpjl2cuV5UtZCRujnn4
+ yVwURaj3yX41AZWAF37MSz5vv3WK05+pfJzA4g3dkXH6MX5ONU0m5TfENmQ45Tl2
+ CKKNz/dDPcGMmQKW9gDDEIfmVcUeaTI=
+X-Virus-Scanned: Debian amavisd-new at localhost.localdomain
+Received: from mail.tabit.pro ([127.0.0.1])
+ by mail.tabit.pro (mail.tabit.pro [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id X4u8WKcCx-PC for <xen-devel@lists.xenproject.org>;
+ Mon, 14 Sep 2020 17:50:33 +0300 (MSK)
+Received: from localhost.localdomain (unknown [176.110.127.80])
+ by mail.tabit.pro (Postfix) with ESMTPSA id 4Bqq6K59l5z9slT
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Sep 2020 17:50:33 +0300 (MSK)
+From: Dmitry Fedorov <d.fedorov@tabit.pro>
+Subject: [PATCH] libxl: User defined max_maptrack_frames in a stub domain
+To: xen-devel@lists.xenproject.org
+Message-ID: <602469f5-1028-8f36-7195-f102b6d2af0c@tabit.pro>
+Date: Mon, 14 Sep 2020 17:50:32 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,25 +64,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
-> --- a/xen/include/xen/ioreq.h
-> +++ b/xen/include/xen/ioreq.h
-> @@ -35,6 +35,13 @@ static inline struct hvm_ioreq_server *get_ioreq_server(const struct domain *d,
->      return GET_IOREQ_SERVER(d, id);
->  }
->  
-> +static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
-> +{
-> +    return ioreq->state == STATE_IOREQ_READY &&
-> +           !ioreq->data_is_ptr &&
-> +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
-> +}
+Hi,
 
-While the PIO aspect has been discussed to some length, what about
-the data_is_ptr concept? I didn't think there were Arm insns fitting
-this? Instead I thought some other Arm-specific adjustments to the
-protocol might be needed. At which point the question of course would
-be in how far ioreq_t as a whole really fits Arm in its current shape.
+Implementing qrexec+usbip+qemu in Linux-based stub domain leads me to
+an issue where a device model stub domain doesn't have maptrack entries.
 
-Jan
+Would it be possible to apply a user defined max_maptrack_frames value=20
+to dm_config in the same way as for max_grant_frames?
+
+Signed-off-by: Dmitry Fedorov <d.fedorov@tabit.pro>
+---
+ =C2=A0tools/libxl/libxl_dm.c | 2 +-
+ =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+index f2dc5696b9..f044f2566c 100644
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -2292,7 +2292,7 @@ void libxl__spawn_stub_dm(libxl__egc *egc,=20
+libxl__stub_dm_spawn_state *sdss)
+ =C2=A0=C2=A0=C2=A0=C2=A0 dm_config->b_info.target_memkb =3D dm_config->b=
+_info.max_memkb;
+
+ =C2=A0=C2=A0=C2=A0=C2=A0 dm_config->b_info.max_grant_frames =3D=20
+guest_config->b_info.max_grant_frames;
+-=C2=A0=C2=A0=C2=A0 dm_config->b_info.max_maptrack_frames =3D 0;
++=C2=A0=C2=A0=C2=A0 dm_config->b_info.max_maptrack_frames =3D=20
+guest_config->b_info.max_maptrack_frames;
+
+ =C2=A0=C2=A0=C2=A0=C2=A0 dm_config->b_info.u.pv.features =3D "";
+
+--
+2.26.2
+
 
