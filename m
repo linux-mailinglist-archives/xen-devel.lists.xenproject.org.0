@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD82268907
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B98026890B
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 12:16:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHlT5-0004Bg-UL; Mon, 14 Sep 2020 10:12:15 +0000
+	id 1kHlWb-0004L6-Gs; Mon, 14 Sep 2020 10:15:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHlT4-0004Bb-Od
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:12:14 +0000
-X-Inumbo-ID: 123419f3-ca46-47ad-adb1-02bc732a7826
+ id 1kHlWZ-0004L0-JC
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 10:15:51 +0000
+X-Inumbo-ID: 2ff8d569-5982-4986-b1d9-65d333359bd9
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 123419f3-ca46-47ad-adb1-02bc732a7826;
- Mon, 14 Sep 2020 10:12:04 +0000 (UTC)
+ id 2ff8d569-5982-4986-b1d9-65d333359bd9;
+ Mon, 14 Sep 2020 10:15:40 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D0663B036;
- Mon, 14 Sep 2020 10:12:18 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+ by mx2.suse.de (Postfix) with ESMTP id 76EC8AD21;
+ Mon, 14 Sep 2020 10:15:55 +0000 (UTC)
+Subject: [PATCH 1/9] build: use if_changed more consistently (and correctly)
+ for prelink*.o
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/9] xen: beginnings of moving library-like code into an
- archive
-Message-ID: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
-Date: Mon, 14 Sep 2020 12:12:02 +0200
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>
+References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
+Message-ID: <75d94bf1-b419-8a82-2d15-fb02e56109d8@suse.com>
+Date: Mon, 14 Sep 2020 12:15:39 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -52,40 +54,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In a few cases we link in library-like functions when they're not
-actually needed. While we could use Kconfig options for each one
-of them, I think the better approach for such generic code is to
-build it always (thus making sure a build issue can't be introduced
-for these in any however exotic configuration) and then put it into
-an archive, for the linker to pick up as needed. The series here
-presents a first few tiny steps towards such a goal.
+Switch to $(call if_changed,ld) where possible; presumably not doing so
+in e321576f4047 ("xen/build: start using if_changed") right away was an
+oversight, as it did for Arm in (just) one case. It failed to add
+prelink.o to $(targets), though, causing - judging from the observed
+behavior on x86 - undue rebuilds of the final binary (because of
+prelink.o getting rebuild for $(cmd_prelink.o) being empty, in turn
+because of .prelink.o.cmd not getting read) during "make install-xen".
 
-Not that we can't use thin archives yet, due to our tool chain
-(binutils) baseline being too low.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+ xen/arch/arm/Makefile |  4 +++-
+ xen/arch/x86/Makefile | 18 ++++++++++--------
+ 2 files changed, 13 insertions(+), 9 deletions(-)
 
-The first patch actually isn't directly related to the rest of the
-series, except that - to avoid undue redundancy - I ran into the
-issue addressed there while (originally) making patch 3 convert to
-using $(call if_changed,ld) "on the fly". IOW it's a full
-(contextual and functional) prereq to the series.
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 51173d97127e..296c5e68bbc3 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -95,12 +95,14 @@ prelink_lto.o: $(ALL_OBJS)
+ 
+ # Link it with all the binary objects
+ prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o
+-	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
++	$(call if_changed,ld)
+ else
+ prelink.o: $(ALL_OBJS) FORCE
+ 	$(call if_changed,ld)
+ endif
+ 
++targets += prelink.o
++
+ $(TARGET)-syms: prelink.o xen.lds
+ 	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o \
+ 	    $(BASEDIR)/common/symbols-dummy.o -o $(@D)/.$(@F).0
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 74152f2a0dad..9b368632fb43 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -136,19 +136,21 @@ prelink_lto.o: $(ALL_OBJS)
+ 	$(LD_LTO) -r -o $@ $^
+ 
+ # Link it with all the binary objects
+-prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o $(EFI_OBJS-y)
+-	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
++prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o $(EFI_OBJS-y) FORCE
++	$(call if_changed,ld)
+ 
+-prelink-efi.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o
+-	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
++prelink-efi.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o FORCE
++	$(call if_changed,ld)
+ else
+-prelink.o: $(ALL_OBJS) $(EFI_OBJS-y)
+-	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
++prelink.o: $(ALL_OBJS) $(EFI_OBJS-y) FORCE
++	$(call if_changed,ld)
+ 
+-prelink-efi.o: $(ALL_OBJS)
+-	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
++prelink-efi.o: $(ALL_OBJS) FORCE
++	$(call if_changed,ld)
+ endif
+ 
++targets += prelink.o prelink-efi.o
++
+ $(TARGET)-syms: prelink.o xen.lds
+ 	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
+ 	    $(BASEDIR)/common/symbols-dummy.o -o $(@D)/.$(@F).0
+-- 
+2.22.0
 
-Further almost immediate steps I'd like to take if the approach
-meets no opposition are
-- split and move the rest of common/lib.c,
-- split and move common/string.c, dropping the need for all the
-  __HAVE_ARCH_* (implying possible per-arch archives then need to
-  be specified ahead of lib/lib.a on the linker command lines),
-- move common/libelf/ and common/libfdt/.
 
-1: build: use if_changed more consistently (and correctly) for prelink*.o
-2: lib: split _ctype[] into its own object, under lib/
-3: lib: collect library files in an archive
-4: lib: move list sorting code
-5: lib: move parse_size_and_unit()
-6: lib: move init_constructors()
-7: lib: move rbtree code
-8: lib: move bsearch code
-9: lib: move sort code
-
-Jan
 
