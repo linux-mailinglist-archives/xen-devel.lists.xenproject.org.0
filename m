@@ -2,27 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63F9268F3A
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:11:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00E8268F4F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:13:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHq83-0000Iz-Gg; Mon, 14 Sep 2020 15:10:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kHqAE-0000QC-Vg; Mon, 14 Sep 2020 15:13:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHq82-0000It-3Y
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:10:50 +0000
-X-Inumbo-ID: 71b2f012-11ef-40d9-91bc-1b622ac7e741
+ id 1kHqAD-0000Q5-MD
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:13:05 +0000
+X-Inumbo-ID: f6dd4fde-3b4c-4da6-901d-15623d2733fc
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 71b2f012-11ef-40d9-91bc-1b622ac7e741;
- Mon, 14 Sep 2020 15:10:49 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6dd4fde-3b4c-4da6-901d-15623d2733fc;
+ Mon, 14 Sep 2020 15:13:04 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 285BEAFC1;
- Mon, 14 Sep 2020 15:11:04 +0000 (UTC)
-Subject: Re: [PATCH V1 04/16] xen/ioreq: Provide alias for the handle_mmio()
+ by mx2.suse.de (Postfix) with ESMTP id 15B10AFC1;
+ Mon, 14 Sep 2020 15:13:19 +0000 (UTC)
+Subject: Re: [PATCH V1 05/16] xen/ioreq: Make x86's
+ hvm_mmio_first(last)_byte() common
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>
 Cc: xen-devel@lists.xenproject.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
@@ -32,14 +34,14 @@ Cc: xen-devel@lists.xenproject.org,
  Stefano Stabellini <sstabellini@kernel.org>,
  Julien Grall <julien.grall@arm.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-5-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-6-git-send-email-olekstysh@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6b3fc5ef-b13b-26c0-17dc-10e6a51c59a3@suse.com>
-Date: Mon, 14 Sep 2020 17:10:47 +0200
+Message-ID: <889ff4d2-6edc-2318-7230-f20a70e10d57@suse.com>
+Date: Mon, 14 Sep 2020 17:13:02 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <1599769330-17656-5-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1599769330-17656-6-git-send-email-olekstysh@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -57,19 +59,13 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -189,7 +189,7 @@ bool handle_hvm_io_completion(struct vcpu *v)
->          break;
->  
->      case HVMIO_mmio_completion:
-> -        return handle_mmio();
-> +        return ioreq_handle_complete_mmio();
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> The IOREQ is a common feature now and these helpers will be used
+> on Arm as is. Move them to include/xen/ioreq.h
 
-Again the question: Any particular reason to have "handle" in here?
-With the abstraction simply named ioreq_complete_mmio() feel free
-to add
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I think you also want to renamed them to replace the hvm_
+prefix by ioreq_.
 
 Jan
 
