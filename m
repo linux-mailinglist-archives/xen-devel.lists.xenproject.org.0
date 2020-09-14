@@ -2,47 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD78268FD4
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:27:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8464268FD5
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Sep 2020 17:28:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kHqNh-0001gX-6k; Mon, 14 Sep 2020 15:27:01 +0000
+	id 1kHqOY-0001kx-Kl; Mon, 14 Sep 2020 15:27:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dIgq=CX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kHqNg-0001gS-8P
- for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:27:00 +0000
-X-Inumbo-ID: 96a7fc64-f18f-4ba5-9de0-2730855daebb
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qknR=CX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kHqOX-0001ko-Er
+ for xen-devel@lists.xenproject.org; Mon, 14 Sep 2020 15:27:53 +0000
+X-Inumbo-ID: c7644332-4804-4820-8ce1-ecd76ffb10b3
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 96a7fc64-f18f-4ba5-9de0-2730855daebb;
- Mon, 14 Sep 2020 15:26:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7C997AFC1;
- Mon, 14 Sep 2020 15:27:13 +0000 (UTC)
-Subject: Re: [PATCH v2 2/2] EFI: free unused boot mem in at least some cases
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
-References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
- <f474ff55-cd39-fd6e-f96e-942a17e959ee@suse.com>
- <20200914151608.GF753@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bd8eaf14-0668-003e-d58d-2633e5a22c15@suse.com>
-Date: Mon, 14 Sep 2020 17:26:57 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id c7644332-4804-4820-8ce1-ecd76ffb10b3;
+ Mon, 14 Sep 2020 15:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600097272;
+ h=subject:to:references:from:message-id:date:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=SV0aTEChCwMiEtTMpwuyfhExg07Zn+AfczHw1HtuRb8=;
+ b=bzyRZqrpGqo9LvByKoKDinRovAqtdIuJlI/wopCLVpqTDVHC7ChC2jNa
+ HPeKs5eQftAKfIK3NiXGCVbu0miw9tBinDBZU0eYsbbn7iTRJmrb0G2Ws
+ hE8OKUSNhWCC/kvnC7V74kJHr4dZTnCWfaE6REPyW9UxJ8VPv8StbFl3Z c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: z2wpqtarnjqju0UQGBoXJvkT+KS1FWtFFmqZWFwz6uXfTvKFxxmYHv7ba+ZLSV5cagN366gp3h
+ J/TfBvW4Am423LjR8Mo07SAyk88hInQQQ3rOV94A28jC47kONnZa1yrfV5tpV5v/4sPar4yoTh
+ PyGP1h3XkaAYJcDktUxDrZYAUUNjZNqw5qriZu/WDNSVhC19kinFi8MAxSnC3DQpJiGbf96YlE
+ xu2ZvvfYXILhT8YjRA3HkqHGkSNvHAPdioXwRwxP1pyXp8jxB6Via+UNuxhZDJq4XO5QzWaqgl
+ qAM=
+X-SBRS: 2.7
+X-MesageID: 26647281
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,426,1592884800"; d="scan'208";a="26647281"
+Subject: Re: [PATCH] libxl: User defined max_maptrack_frames in a stub domain
+To: Dmitry Fedorov <d.fedorov@tabit.pro>, <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+ Wei Liu <wl@xen.org>
+References: <602469f5-1028-8f36-7195-f102b6d2af0c@tabit.pro>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <427bfd62-48c0-5859-7300-c618331b4e5a@citrix.com>
+Date: Mon, 14 Sep 2020 16:27:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200914151608.GF753@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <602469f5-1028-8f36-7195-f102b6d2af0c@tabit.pro>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,74 +69,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14.09.2020 17:16, Roger Pau Monné wrote:
-> On Mon, Aug 24, 2020 at 02:08:11PM +0200, Jan Beulich wrote:
->> Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
->> free ebmalloc area at all") was put in place: Make xen_in_range() aware
->> of the freed range. This is in particular relevant for EFI-enabled
->> builds not actually running on EFI, as the entire range will be unused
->> in this case.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 14/09/2020 15:50, Dmitry Fedorov wrote:
+> Hi,
+>
+> Implementing qrexec+usbip+qemu in Linux-based stub domain leads me to
+> an issue where a device model stub domain doesn't have maptrack entries.
+>
+> Would it be possible to apply a user defined max_maptrack_frames value
+> to dm_config in the same way as for max_grant_frames?
+>
+> Signed-off-by: Dmitry Fedorov <d.fedorov@tabit.pro>
 
-Thanks much.
+This looks entirely reasonable.
 
->> @@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
->>  
->>          /*
->>           * This needs to remain in sync with xen_in_range() and the
->> -         * respective reserve_e820_ram() invocation below.
->> +         * respective reserve_e820_ram() invocation below. No need to
->> +         * query efi_boot_mem_unused() here, though.
->>           */
->>          mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
->>          mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
-> 
-> I find this extremely confusing, we reuse mod_start/mod_end to contain
-> a mfn and a size (in bytes) instead of a start and end address (not
-> something that should be fixed here, but seeing this I assumed it was
-> wrong).
+CC'ing the maintainers for their opinion.
 
-While perhaps somewhat confusing, I still think it was a fair thing
-to do in favor of introducing a completely new way of propagating
-respective information, and then having the consumer of this data
-look at two different places.
+~Andrew
 
->> +bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
->> +{
->> +    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
->> +    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
->> +
->> +    return *start < *end;
->> +}
->> +
->>  void __init free_ebmalloc_unused_mem(void)
->>  {
->> -#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
->>      unsigned long start, end;
->>  
->> -    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
->> -    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
->> +#ifdef CONFIG_X86
->> +    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
-> 
-> Could you make the ebmalloc size (EBMALLOC_SIZE) 2MB (and aligned), so
-> that you would only shatter the malloc'ed pages but not the
-> surrounding mappings?
-> 
-> That would be a good compromise IMO.
+> ---
+>  tools/libxl/libxl_dm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+> index f2dc5696b9..f044f2566c 100644
+> --- a/tools/libxl/libxl_dm.c
+> +++ b/tools/libxl/libxl_dm.c
+> @@ -2292,7 +2292,7 @@ void libxl__spawn_stub_dm(libxl__egc *egc,
+> libxl__stub_dm_spawn_state *sdss)
+>      dm_config->b_info.target_memkb = dm_config->b_info.max_memkb;
+>
+>      dm_config->b_info.max_grant_frames =
+> guest_config->b_info.max_grant_frames;
+> -    dm_config->b_info.max_maptrack_frames = 0;
+> +    dm_config->b_info.max_maptrack_frames =
+> guest_config->b_info.max_maptrack_frames;
+>
+>      dm_config->b_info.u.pv.features = "";
+>
+> -- 
+> 2.26.2
+>
+>
 
-Yes, that's what I've been considering as a compromise as well. In
-fact I was further thinking whether to allocate the space from the
-linker script instead of having a global/static object. Maybe by
-extending into the .pad section, which is already 2Mb aligned anyway.
-
-Another option is to not further align the whole blob at all and
-merely free whatever comes past the next 2Mb boundary (and is not
-in use). This would avoid having an up to 2Mb block of unused, not
-freed memory ahead of the ebmalloc one.
-
-Jan
 
