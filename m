@@ -2,78 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4EF526AE54
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 22:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A35326AE91
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 22:17:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIH96-00052k-SQ; Tue, 15 Sep 2020 20:01:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIHNK-00063L-8q; Tue, 15 Sep 2020 20:16:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8LDf=CY=amazon.com=prvs=520f2d048=anchalag@srs-us1.protection.inumbo.net>)
- id 1kIH95-00052e-MR
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 20:01:43 +0000
-X-Inumbo-ID: 4fe6e750-2557-4bd4-9471-53ceed003270
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4fe6e750-2557-4bd4-9471-53ceed003270;
- Tue, 15 Sep 2020 20:01:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1600200102; x=1631736102;
- h=date:from:to:cc:message-id:references:mime-version:
- in-reply-to:subject;
- bh=wNziNNDxrF6gCaxX+ImX9p6CNqpNyiGV3hOiiuWa1DA=;
- b=cT7rmc2HZ/MKV9Gy3JSjzfS5rDll+DJ21PmrK3Ex3bLTGsHvp7s/E6Dr
- 92KGV+gTDBOOFQ0qsv73S+3Rwh42RWgiyrSMc9mupQlDiAmr0mGFSMt5W
- o4ET5NOm22R/T+6tkS40+01lqGR2wUmrdGTi4mnPlUSaPYKQpJpm5QAuI 4=;
-X-IronPort-AV: E=Sophos;i="5.76,430,1592870400"; d="scan'208";a="75198936"
-Subject: Re: [PATCH v3 02/11] xenbus: add freeze/thaw/restore callbacks support
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 15 Sep 2020 19:57:00 +0000
-Received: from EX13MTAUWC001.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com (Postfix) with ESMTPS
- id 8A814A21BE; Tue, 15 Sep 2020 19:56:58 +0000 (UTC)
-Received: from EX13D05UWC004.ant.amazon.com (10.43.162.223) by
- EX13MTAUWC001.ant.amazon.com (10.43.162.135) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 15 Sep 2020 19:56:43 +0000
-Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
- EX13D05UWC004.ant.amazon.com (10.43.162.223) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 15 Sep 2020 19:56:43 +0000
-Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
- (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
- Server id 15.0.1497.2 via Frontend Transport; Tue, 15 Sep 2020 19:56:43 +0000
-Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
- from userid 4335130)
- id 5B464408BF; Tue, 15 Sep 2020 19:56:43 +0000 (UTC)
-Date: Tue, 15 Sep 2020 19:56:43 +0000
-From: Anchal Agarwal <anchalag@amazon.com>
-To: <boris.ostrovsky@oracle.com>
-CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
- <x86@kernel.org>, <jgross@suse.com>, <linux-pm@vger.kernel.org>,
- <linux-mm@kvack.org>, <kamatam@amazon.com>, <sstabellini@kernel.org>,
- <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <axboe@kernel.dk>,
- <davem@davemloft.net>, <rjw@rjwysocki.net>, <len.brown@intel.com>,
- <pavel@ucw.cz>, <peterz@infradead.org>, <eduval@amazon.com>,
- <sblbir@amazon.com>, <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>, 
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
-Message-ID: <20200915195643.GA28542@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-References: <cover.1598042152.git.anchalag@amazon.com>
- <2d3a7ed32bf38e13e0141a631a453b6e4c7ba5dc.1598042152.git.anchalag@amazon.com>
- <eebc26b8-f1b1-3bea-5366-dd77f063237e@oracle.com>
+ <SRS0=u2ds=CY=gmail.com=dav.sec.lists@srs-us1.protection.inumbo.net>)
+ id 1kIHNI-00063G-Dc
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 20:16:24 +0000
+X-Inumbo-ID: eba7c571-8ed1-4344-9946-ee2381269bca
+Received: from mail-ed1-x530.google.com (unknown [2a00:1450:4864:20::530])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eba7c571-8ed1-4344-9946-ee2381269bca;
+ Tue, 15 Sep 2020 20:16:22 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id n13so4290302edo.10
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Sep 2020 13:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=mtGpMji6U4gOlJcgTWnaHkIKbZ+UCucaxlzxpjfbl2I=;
+ b=sREwVHSWVaB35vjxRMKXUONf2nelaBM1UA7giXmFxZoSdSN2nIMX615+lVczacCL9b
+ Yt8Q367GHXc4S72wwCC5ps+D8bNby9RYTrxID84xMBVkHbYfgMNo/tSl4/51KSgO1Z1N
+ a8rVoagIeaLvia7dZ/ijAYerNQ456ilcoZIpE0W9pmclZZGwmiEiCmWPWOo4w3KXSyvC
+ RflAmkX1020G0n+NmsfycN/NTqMrrNgNS6soz8NEC2Zp5srT61ocu0Ch6XAb80VSAVej
+ GjacIJdT9wF0EpLuRqIkRRK6+KYAfkD0TYQYcmvKl6Zg8VwXVNtrr8dPKkgy+Sq+anvq
+ vz1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=mtGpMji6U4gOlJcgTWnaHkIKbZ+UCucaxlzxpjfbl2I=;
+ b=Rzj2ntlECncumF8LkjjuEdlejt+aS32ndls7uuiDP9EfaHLkTTJt/GyiIuCv7eHFP4
+ NWK8dqPBlsZJpcoh6QWzHqxjKsRv+IM9ggH3FmRakXN0jKl59t8by0cnVrVdbBPUQzbK
+ j9YbV+YRnETsaoGHN6IIvAblqPSKoKJAHdHk+BCW3XBGF+QPJGqE6fQq6Lwvx8h2znnK
+ tBhJlfVE7QwoyFrTZ43AXJohV9ectMMSY7awz4Jk1M6xby+iawJ1DjZDZz0pm9Zpxbpp
+ rmTmMZj9akQLzZSkk0aFFYuawUFA3XT41YSTX7V+3AycBqDKQKLrIxUKBnGj1gDRFI6r
+ v8pg==
+X-Gm-Message-State: AOAM533eetoaV7UXkoZP5SbwiGobZhsxkXAU8DI8vPmC1ZuMl33ggt7r
+ jYqUB0AX+IhyqCulUkDfCQ2nxqRz1glG91AldwW4/YFVLC64ZA==
+X-Google-Smtp-Source: ABdhPJwP8B7xw67nP2UuOAK/BdcX7V5bJSb+2erz76b1niNKCyRjbr/onfg2cLd+eGjGjqqVo+MgPQXd4dQRivGeRu0=
+X-Received: by 2002:a50:d98d:: with SMTP id w13mr25233960edj.37.1600200981275; 
+ Tue, 15 Sep 2020 13:16:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <eebc26b8-f1b1-3bea-5366-dd77f063237e@oracle.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Precedence: Bulk
+From: David I <dav.sec.lists@gmail.com>
+Date: Tue, 15 Sep 2020 22:16:10 +0200
+Message-ID: <CA+js8Lk2f99BqeNgSyAh1jh5gH1iC2BZyz+AY7mGTqPTX_Qf=w@mail.gmail.com>
+Subject: Compiling Xen from source
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000000ee55305af5fd3bc"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -84,122 +64,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, Sep 13, 2020 at 12:11:47PM -0400, boris.ostrovsky@oracle.com wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> 
-> 
-> 
-> On 8/21/20 6:26 PM, Anchal Agarwal wrote:
-> > From: Munehisa Kamata <kamatam@amazon.com>
-> >
-> > Since commit b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for
-> > suspend/resume/chkpt"), xenbus uses PMSG_FREEZE, PMSG_THAW and
-> > PMSG_RESTORE events for Xen suspend. However, they're actually assigned
-> > to xenbus_dev_suspend(), xenbus_dev_cancel() and xenbus_dev_resume()
-> > respectively, and only suspend and resume callbacks are supported at
-> > driver level. To support PM suspend and PM hibernation, modify the bus
-> > level PM callbacks to invoke not only device driver's suspend/resume but
-> > also freeze/thaw/restore.
-> >
-> > Note that we'll use freeze/restore callbacks even for PM suspend whereas
-> > suspend/resume callbacks are normally used in the case, becausae the
-> > existing xenbus device drivers already have suspend/resume callbacks
-> > specifically designed for Xen suspend.
-> 
-> 
-> Something is wrong with this sentence. Or with my brain --- I can't
-> quite parse this.
-> 
-The message is trying to say that that freeze/thaw/restore callbacks will be
-used for both PM SUSPEND and PM HIBERNATION. Since, we are only focussing on PM
-hibernation, I will remove all wordings of PM suspend from this message to avoid
-confusion. I left it there in case someone wants to pick it up in future knowing
-framework is already present.
-> 
-> And please be consistent with "PM suspend" vs. "PM hibernation".
->
-I should remove PM suspend from everywhere since the mode is not tested
-for.
-> 
-> >  So we can allow the device
-> > drivers to keep the existing callbacks wihtout modification.
-> >
-> 
-> 
-> > @@ -599,16 +600,33 @@ int xenbus_dev_suspend(struct device *dev)
-> >       struct xenbus_driver *drv;
-> >       struct xenbus_device *xdev
-> >               = container_of(dev, struct xenbus_device, dev);
-> > +     bool xen_suspend = is_xen_suspend();
-> >
-> >       DPRINTK("%s", xdev->nodename);
-> >
-> >       if (dev->driver == NULL)
-> >               return 0;
-> >       drv = to_xenbus_driver(dev->driver);
-> > -     if (drv->suspend)
-> > -             err = drv->suspend(xdev);
-> > -     if (err)
-> > -             dev_warn(dev, "suspend failed: %i\n", err);
-> > +     if (xen_suspend) {
-> > +             if (drv->suspend)
-> > +                     err = drv->suspend(xdev);
-> > +     } else {
-> > +             if (drv->freeze) {
-> 
-> 
-> 'else if' (to avoid extra indent level).  In xenbus_dev_resume() too.
-> 
-> 
-> > +                     err = drv->freeze(xdev);
-> > +                     if (!err) {
-> > +                             free_otherend_watch(xdev);
-> > +                             free_otherend_details(xdev);
-> > +                             return 0;
-> > +                     }
-> > +             }
-> > +     }
-> > +
-> > +     if (err) {
-> > +             dev_warn(&xdev->dev,
-> 
-> 
-> Is there a reason why you replaced dev with xdev->dev (here and elsewhere)?
-> 
-> 
-Nope, they should be same. We can use dev here too. I should probably just use
-dev.
-> >  "%s %s failed: %d\n", xen_suspend ?
-> > +                             "suspend" : "freeze", xdev->nodename, err);
-> > +             return err;
-> > +     }
-> > +
-> >
-> 
-> > @@ -653,8 +683,44 @@ EXPORT_SYMBOL_GPL(xenbus_dev_resume);
-> >
-> >  int xenbus_dev_cancel(struct device *dev)
-> >  {
-> > -     /* Do nothing */
-> > -     DPRINTK("cancel");
-> > +     int err;
-> > +     struct xenbus_driver *drv;
-> > +     struct xenbus_device *xendev = to_xenbus_device(dev);
-> 
-> 
-> xdev for consistency please.
-> 
-Yes this I left unchanged, it should be consistent with xdev.
-> 
-> > +     bool xen_suspend = is_xen_suspend();
-> 
-> 
-> No need for this, you use it only once anyway.
-> 
-> 
-> -boris
->
-Thanks,
-Anchal
-> 
+--0000000000000ee55305af5fd3bc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+I am unable to mcompile xen-tools from source.
+
+here is the "stacktrace":
+
+ln -f xenstore xenstore-watch
+gcc xenstore_control.o
+ -Wl,-rpath-link=3D/home/david/xen/xen/tools/xenstore/../../tools/libs/tool=
+core
+/home/david/xen/xen/tools/xenstore/../../tools/xenstore/libxenstore.so -ldl
+ /home/david/xen/xen/tools/xenstore/../../tools/libs/toolcore/libxentoolcor=
+e.so
+ -o xenstore-control
+gcc  -m64 -DBUILD_ID -fno-strict-aliasing -std=3Dgnu99 -Wall
+-Wstrict-prototypes -Wdeclaration-after-statement
+-Wno-unused-but-set-variable -Wno-unused-local-typedefs   -O2
+-fomit-frame-pointer
+-D__XEN_INTERFACE_VERSION__=3D__XEN_LATEST_INTERFACE_VERSION__ -MMD -MF
+.xs_tdb_dump.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE   -Werror -I.
+-include /home/david/xen/xen/tools/xenstore/../../tools/config.h
+-I./include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/evtchn/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libxc/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/toollog/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/foreignmemory/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/devicemodel/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include -D__XEN_TOOLS__
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/toolcore/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-DXEN_LIB_STORED=3D"\"/var/lib/xenstored\""
+-DXEN_RUN_STORED=3D"\"/var/run/xenstored\""   -c -o xs_tdb_dump.o
+xs_tdb_dump.c
+gcc  -m64 -DBUILD_ID -fno-strict-aliasing -std=3Dgnu99 -Wall
+-Wstrict-prototypes -Wdeclaration-after-statement
+-Wno-unused-but-set-variable -Wno-unused-local-typedefs   -O2
+-fomit-frame-pointer
+-D__XEN_INTERFACE_VERSION__=3D__XEN_LATEST_INTERFACE_VERSION__ -MMD -MF
+.utils.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE   -Werror -I. -include
+/home/david/xen/xen/tools/xenstore/../../tools/config.h -I./include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/evtchn/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libxc/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/toollog/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/foreignmemory/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/devicemodel/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include -D__XEN_TOOLS__
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/toolcore/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include
+-DXEN_LIB_STORED=3D"\"/var/lib/xenstored\""
+-DXEN_RUN_STORED=3D"\"/var/run/xenstored\""
+-I/home/david/xen/xen/tools/xenstore/../../tools/libs/gnttab/include
+-I/home/david/xen/xen/tools/xenstore/../../tools/include  -c -o utils.o
+utils.c
+gcc xs_tdb_dump.o utils.o tdb.o talloc.o     -o xs_tdb_dump
+/usr/bin/ld : utils.o:(.data.rel.local+0x0) : d=C3=A9finitions multiples de
+=C2=AB xprintf =C2=BB; xs_tdb_dump.o:(.bss+0x0) : d=C3=A9fini pour la premi=
+=C3=A8re fois ici
+collect2: error: ld returned 1 exit status
+make[4]: *** [Makefile:97 : xs_tdb_dump] Erreur 1
+make[4] : on quitte le r=C3=A9pertoire =C2=AB /home/david/xen/xen/tools/xen=
+store =C2=BB
+make[3]: *** [/home/david/xen/xen/tools/../tools/Rules.mk:249 :
+subdir-install-xenstore] Erreur 2
+make[3] : on quitte le r=C3=A9pertoire =C2=AB /home/david/xen/xen/tools =C2=
+=BB
+make[2]: *** [/home/david/xen/xen/tools/../tools/Rules.mk:244 :
+subdirs-install] Erreur 2
+make[2] : on quitte le r=C3=A9pertoire =C2=AB /home/david/xen/xen/tools =C2=
+=BB
+make[1]: *** [Makefile:74 : install] Erreur 2
+make[1] : on quitte le r=C3=A9pertoire =C2=AB /home/david/xen/xen/tools =C2=
+=BB
+make: *** [Makefile:127 : install-tools] Erreur 2
+david@debian:~/xen/xen$ uname -a
+Linux debian 5.7.0-2-amd64 #1 SMP Debian 5.7.10-1 (2020-07-26) x86_64
+GNU/Linux
+david@debian:~/xen/xen$ gcc --version
+gcc (Debian 10.2.0-5) 10.2.0
+Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+david@debian:~/xen/xen$ /usr/bin/ld --version
+GNU ld (GNU Binutils for Debian) 2.35
+Copyright (C) 2020 Free Software Foundation, Inc.
+Ce logiciel est libre; si vous le redistribuez, vous devez le faire selon
+les termes
+de la licence GNU General Public License version 3 ou post=C3=A9rieure selo=
+n
+votre besoin.
+Ce logiciel n'est couvert par aucune GARANTIE.
+david@debian:~/xen/xen$ git branch
+  master
+* stable-4.11
+  staging
+david@debian:~/xen/xen$
+
+I was able to compile dist-xen correctly though. But dist-tools fails with
+this error, I have seen a similar request here:
+https://stackoverflow.com/questions/63525163/usr-bin-ld-utils-o-data-rel-lo=
+cal0x0-multiple-definition-of-xprintf-xs
+
+I have tried to compile xen from source also on this same configuration,
+in stable-4.12, stable-4.13, stable-4.14, each time I was able to  compile
+xen but failed to compile xen-tools.
+the debian package works fine and is in version 4.11.
+
+So my question would be, is there a patch for this issue ? and how the
+debian team could compile originally the debian source package ? I suppose
+I am not the first user to encounter this.
+
+Thank you for your answers ;-)
+
+David
+
+--0000000000000ee55305af5fd3bc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>I am unable to mcompi=
+le xen-tools from source.</div><div><br></div><div>here is the &quot;stackt=
+race&quot;:</div><div><br></div><div>ln -f xenstore xenstore-watch<br>gcc x=
+enstore_control.o =C2=A0 =C2=A0 =C2=A0-Wl,-rpath-link=3D/home/david/xen/xen=
+/tools/xenstore/../../tools/libs/toolcore /home/david/xen/xen/tools/xenstor=
+e/../../tools/xenstore/libxenstore.so -ldl =C2=A0/home/david/xen/xen/tools/=
+xenstore/../../tools/libs/toolcore/libxentoolcore.so =C2=A0-o xenstore-cont=
+rol <br>gcc =C2=A0-m64 -DBUILD_ID -fno-strict-aliasing -std=3Dgnu99 -Wall -=
+Wstrict-prototypes -Wdeclaration-after-statement -Wno-unused-but-set-variab=
+le -Wno-unused-local-typedefs =C2=A0 -O2 -fomit-frame-pointer -D__XEN_INTER=
+FACE_VERSION__=3D__XEN_LATEST_INTERFACE_VERSION__ -MMD -MF .xs_tdb_dump.o.d=
+ -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE =C2=A0 -Werror -I. -include /hom=
+e/david/xen/xen/tools/xenstore/../../tools/config.h -I./include -I/home/dav=
+id/xen/xen/tools/xenstore/../../tools/libs/evtchn/include -I/home/david/xen=
+/xen/tools/xenstore/../../tools/include -I/home/david/xen/xen/tools/xenstor=
+e/../../tools/libxc/include -I/home/david/xen/xen/tools/xenstore/../../tool=
+s/libs/toollog/include -I/home/david/xen/xen/tools/xenstore/../../tools/inc=
+lude -I/home/david/xen/xen/tools/xenstore/../../tools/libs/foreignmemory/in=
+clude -I/home/david/xen/xen/tools/xenstore/../../tools/include -I/home/davi=
+d/xen/xen/tools/xenstore/../../tools/libs/devicemodel/include -I/home/david=
+/xen/xen/tools/xenstore/../../tools/include -I/home/david/xen/xen/tools/xen=
+store/../../tools/include -D__XEN_TOOLS__ -I/home/david/xen/xen/tools/xenst=
+ore/../../tools/libs/toolcore/include -I/home/david/xen/xen/tools/xenstore/=
+../../tools/include -DXEN_LIB_STORED=3D&quot;\&quot;/var/lib/xenstored\&quo=
+t;&quot; -DXEN_RUN_STORED=3D&quot;\&quot;/var/run/xenstored\&quot;&quot; =
+=C2=A0 -c -o xs_tdb_dump.o xs_tdb_dump.c <br>gcc =C2=A0-m64 -DBUILD_ID -fno=
+-strict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes -Wdeclaration-after=
+-statement -Wno-unused-but-set-variable -Wno-unused-local-typedefs =C2=A0 -=
+O2 -fomit-frame-pointer -D__XEN_INTERFACE_VERSION__=3D__XEN_LATEST_INTERFAC=
+E_VERSION__ -MMD -MF .utils.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE =
+=C2=A0 -Werror -I. -include /home/david/xen/xen/tools/xenstore/../../tools/=
+config.h -I./include -I/home/david/xen/xen/tools/xenstore/../../tools/libs/=
+evtchn/include -I/home/david/xen/xen/tools/xenstore/../../tools/include -I/=
+home/david/xen/xen/tools/xenstore/../../tools/libxc/include -I/home/david/x=
+en/xen/tools/xenstore/../../tools/libs/toollog/include -I/home/david/xen/xe=
+n/tools/xenstore/../../tools/include -I/home/david/xen/xen/tools/xenstore/.=
+./../tools/libs/foreignmemory/include -I/home/david/xen/xen/tools/xenstore/=
+../../tools/include -I/home/david/xen/xen/tools/xenstore/../../tools/libs/d=
+evicemodel/include -I/home/david/xen/xen/tools/xenstore/../../tools/include=
+ -I/home/david/xen/xen/tools/xenstore/../../tools/include -D__XEN_TOOLS__ -=
+I/home/david/xen/xen/tools/xenstore/../../tools/libs/toolcore/include -I/ho=
+me/david/xen/xen/tools/xenstore/../../tools/include -DXEN_LIB_STORED=3D&quo=
+t;\&quot;/var/lib/xenstored\&quot;&quot; -DXEN_RUN_STORED=3D&quot;\&quot;/v=
+ar/run/xenstored\&quot;&quot; =C2=A0 -I/home/david/xen/xen/tools/xenstore/.=
+./../tools/libs/gnttab/include -I/home/david/xen/xen/tools/xenstore/../../t=
+ools/include =C2=A0-c -o utils.o utils.c <br>gcc xs_tdb_dump.o utils.o tdb.=
+o talloc.o =C2=A0 =C2=A0 -o xs_tdb_dump <br>/usr/bin/ld=C2=A0: utils.o:(.da=
+ta.rel.local+0x0)=C2=A0: d=C3=A9finitions multiples de =C2=AB=C2=A0xprintf=
+=C2=A0=C2=BB; xs_tdb_dump.o:(.bss+0x0)=C2=A0: d=C3=A9fini pour la premi=C3=
+=A8re fois ici<br>collect2: error: ld returned 1 exit status<br>make[4]: **=
+* [Makefile:97 : xs_tdb_dump] Erreur 1<br>make[4]=C2=A0: on quitte le r=C3=
+=A9pertoire =C2=AB=C2=A0/home/david/xen/xen/tools/xenstore=C2=A0=C2=BB<br>m=
+ake[3]: *** [/home/david/xen/xen/tools/../tools/Rules.mk:249 : subdir-insta=
+ll-xenstore] Erreur 2<br>make[3]=C2=A0: on quitte le r=C3=A9pertoire =C2=AB=
+=C2=A0/home/david/xen/xen/tools=C2=A0=C2=BB<br>make[2]: *** [/home/david/xe=
+n/xen/tools/../tools/Rules.mk:244 : subdirs-install] Erreur 2<br>make[2]=C2=
+=A0: on quitte le r=C3=A9pertoire =C2=AB=C2=A0/home/david/xen/xen/tools=C2=
+=A0=C2=BB<br>make[1]: *** [Makefile:74 : install] Erreur 2<br>make[1]=C2=A0=
+: on quitte le r=C3=A9pertoire =C2=AB=C2=A0/home/david/xen/xen/tools=C2=A0=
+=C2=BB<br>make: *** [Makefile:127 : install-tools] Erreur 2<br>david@debian=
+:~/xen/xen$ uname -a<br>Linux debian 5.7.0-2-amd64 #1 SMP Debian 5.7.10-1 (=
+2020-07-26) x86_64 GNU/Linux<br>david@debian:~/xen/xen$ gcc --version<br>gc=
+c (Debian 10.2.0-5) 10.2.0<br>Copyright (C) 2020 Free Software Foundation, =
+Inc.<br>This is free software; see the source for copying conditions.=C2=A0=
+ There is NO<br>warranty; not even for MERCHANTABILITY or FITNESS FOR A PAR=
+TICULAR PURPOSE.<br><br>david@debian:~/xen/xen$ /usr/bin/ld --version<br>GN=
+U ld (GNU Binutils for Debian) 2.35<br>Copyright (C) 2020 Free Software Fou=
+ndation, Inc.<br>Ce logiciel est libre; si vous le redistribuez, vous devez=
+ le faire selon les termes<br>de la licence GNU General Public License vers=
+ion 3 ou post=C3=A9rieure selon votre besoin.<br>Ce logiciel n&#39;est couv=
+ert par aucune GARANTIE.<br>david@debian:~/xen/xen$ git branch<br>=C2=A0 ma=
+ster<br>* stable-4.11<br>=C2=A0 staging<br>david@debian:~/xen/xen$ <br></di=
+v><div><br></div><div>I was able to compile dist-xen correctly though. But =
+dist-tools fails with this error, I have seen a similar request here:</div>=
+<div><a href=3D"https://stackoverflow.com/questions/63525163/usr-bin-ld-uti=
+ls-o-data-rel-local0x0-multiple-definition-of-xprintf-xs">https://stackover=
+flow.com/questions/63525163/usr-bin-ld-utils-o-data-rel-local0x0-multiple-d=
+efinition-of-xprintf-xs</a></div><div><br></div><div>I have tried to compil=
+e xen from source also on this same configuration,</div><div>in stable-4.12=
+, stable-4.13, stable-4.14, each time I was able to=C2=A0 compile xen but f=
+ailed to compile xen-tools.</div><div>the debian package works fine and is =
+in version 4.11.</div><div><br></div><div>So my question would be, is there=
+ a patch for this issue ? and how the debian team could compile originally =
+the debian source package ? I suppose I am not the first user to encounter =
+this.</div><div><br></div><div>Thank you for your answers ;-)</div><div><br=
+></div><div>David<br></div></div>
+
+--0000000000000ee55305af5fd3bc--
 
