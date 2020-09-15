@@ -2,60 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8A326A99A
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 18:21:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A67E26AB3F
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 19:55:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIDhn-0002yo-67; Tue, 15 Sep 2020 16:21:19 +0000
+	id 1kIF9q-00028k-At; Tue, 15 Sep 2020 17:54:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r+xL=CY=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kIDhl-0002yc-RH
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 16:21:17 +0000
-X-Inumbo-ID: 692ef10e-c7f5-4c3c-a749-5f6102f03511
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
+ <SRS0=UWTi=CY=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kIF9p-00028f-D4
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 17:54:21 +0000
+X-Inumbo-ID: b5078672-ffb9-4dc7-aeac-bf9d97f1c738
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 692ef10e-c7f5-4c3c-a749-5f6102f03511;
- Tue, 15 Sep 2020 16:21:17 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id x14so3942936wrl.12
- for <xen-devel@lists.xenproject.org>; Tue, 15 Sep 2020 09:21:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=fDPIJuk2Das/qwWw1BWSsMKNqGHaDGuoVcWN+Ipz0ZI=;
- b=EbhzW5kBK5c9fi1Y6wO40jTMJhJ6f9pshX+o9+dYFgSRd0umufQMP9BQ6vDYDlBr78
- u8p139U3oq/M8xJt2pw7qG0w+EF6dBmk4gXakpg4W3V9q7TQqTyggw5jfOTjgfMvSzWy
- VMBxeO5Bv2oxMBcnoBMuQNx8wcbfw4cZUkOKZq9LkO7EH0mpiWe7RobF95i07dp3+BEN
- wWgKUW7qSTVK706VKWKvsR0SVSndH37O4cdVM+W/rjyNvRSSHGQ8Ezezu0pCiuLuev1a
- 7B8tsv4RY0Wg5U5uLgxcwXV01ILzjXWqazZ7n81kI6g0wRJg5NP4MfaAWA+Nmkj1WFjW
- r4nA==
-X-Gm-Message-State: AOAM531IKF8lS7mozaOrQd3JzqWoToLxl7Bu0V+gZB/pAWaFtKRiaeUL
- TwQaTV7H3gvKR3XoAAyVAH0=
-X-Google-Smtp-Source: ABdhPJy9cwXcLnhphhirK8hnCpPmw5WXRyANS8JTjjZggKiYiRyDBzUfZ/jQjobjez4QxAlU8mNLyA==
-X-Received: by 2002:a5d:68d1:: with SMTP id p17mr21430949wrw.378.1600186876244; 
- Tue, 15 Sep 2020 09:21:16 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id z9sm89342wmg.46.2020.09.15.09.21.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2020 09:21:15 -0700 (PDT)
-Date: Tue, 15 Sep 2020 16:21:14 +0000
-From: Wei Liu <wl@xen.org>
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v2 1/2] libxl: provide a mechanism to define a device
- 'safe remove' function...
-Message-ID: <20200915162114.rkbsxnjup6xicg2z@liuwe-devbox-debian-v2>
-References: <20200915141007.25965-1-paul@xen.org>
- <20200915141007.25965-2-paul@xen.org>
+ id b5078672-ffb9-4dc7-aeac-bf9d97f1c738;
+ Tue, 15 Sep 2020 17:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600192460;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=cYgBo/legRsmshzadjlD/9u0F4bjdpl5whL/oK3wf5Q=;
+ b=UROpqpA4+TZ3HOi134gdzm7f9JaW8qtD0rvPo1KXWytqLcyNUlrfXD08
+ YmeE3sYJ5eVibgxSZKob25TeXAQxgwHQMwSho3dOStPE9sHkJRfDOKz6e
+ Wir9GXgoheUyG0m0bioj2Htk+VpJ71ikLlSgZV28NbLjW2gqXeFGQomh9 E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: puOSgV0rpfkqzd0vZVPnNk79HLXGm5UGSYps9mX2ER5YWeQwtd4XP+QhIPTJQqBrQrZ4Me0ga9
+ C6h9xwVopDzcfdF6+ujzoSf0YTaXoGlIX+1vohrtO/S0LpWpOqYaUmTfz7MeJVhznjmCphFvz2
+ ku6mHy8DMGN2jtQ9PlTFoX2QYMBlsTXiuvbz1dCdSYpvBWw2RZ2/uwQdzz79ZbFOwJicFJi2r9
+ 97k2i766C23T8f97yvrHdYJt0NabQMm8Hcm5c8VfSvOJZw8g1U1DpllATxUpgILpbql8wsKOtK
+ rYE=
+X-SBRS: 2.7
+X-MesageID: 26760908
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,430,1592884800"; d="scan'208";a="26760908"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/mm: Simplify expression in set_gpfn_from_mfn()
+Date: Tue, 15 Sep 2020 18:53:55 +0100
+Message-ID: <20200915175355.32361-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200915141007.25965-2-paul@xen.org>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,32 +64,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Sep 15, 2020 at 03:10:06PM +0100, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
-> 
-> ... and use it to define libxl_device_disk_safe_remove().
-> 
-> This patch builds on the existent macro magic by using a new value of the
-> 'force' field in in libxl__ao_device.
-> It is currently defined as an int but is used in a boolean manner where
-> 1 means the operation is forced and 0 means it is not (but is actually forced
-> after a 10s time-out). In adding a third value, this patch re-defines 'force'
-> as a struct type (libxl__force) with a single 'flag' field taking an
-> enumerated value:
-> 
-> LIBXL__FORCE_AUTO - corresponding to the old 0 value
-> LIBXL__FORCE_ON   - corresponding to the old 1 value
-> LIBXL__FORCE_OFF  - the new value
-> 
-> The LIBXL_DEFINE_DEVICE_REMOVE() macro is then modified to define the
-> libxl_device_<type>_remove() and libxl_device_<type>_destroy() functions,
-> setting LIBXL__FORCE_AUTO and LIBXL__FORCE_ON (respectively) in the
-> libxl__ao_device passed to libxl__initiate_device_generic_remove() and a
-> new macro, LIBXL_DEFINE_DEVICE_SAFE_REMOVE(), is defined that sets
-> LIBXL__FORCE_OFF instead. This macro is used to define the new
-> libxl_device_disk_safe_remove() function.
-> 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+Coverity points out that the "d &&" is redundant.
 
-Reviewed-by: Wei Liu <wl@xen.org>
+Fixes: c9476c4ad72 ("x86: don't override INVALID_M2P_ENTRY with SHARED_M2P_ENTRY")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/x86_64/mm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+index 0d1aadbfce..4c0a3a275c 100644
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -1336,7 +1336,7 @@ void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn)
+     {
+         const struct domain *d = page_get_owner(mfn_to_page(_mfn(mfn)));
+ 
+-        if ( d && (d == dom_cow) )
++        if ( d == dom_cow )
+             entry = SHARED_M2P_ENTRY;
+     }
+ 
+-- 
+2.11.0
+
 
