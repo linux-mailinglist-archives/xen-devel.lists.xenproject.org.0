@@ -2,99 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E25C26AE52
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 22:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EF526AE54
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 22:01:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIH6m-0004BE-ED; Tue, 15 Sep 2020 19:59:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kIH96-00052k-SQ; Tue, 15 Sep 2020 20:01:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mCeO=CY=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kIH6l-0004B9-Ag
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 19:59:19 +0000
-X-Inumbo-ID: ad2000c6-728d-4f79-83b6-88b4d5eae686
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ad2000c6-728d-4f79-83b6-88b4d5eae686;
- Tue, 15 Sep 2020 19:59:18 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08FJsYdd148170;
- Tue, 15 Sep 2020 19:58:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=zszz4Wk0Z8hYu0e6GbpBILedfHLAamVV3KpsQALk+MY=;
- b=cYabd4XRLzwlPu6EI22Jl3KW8FThCr3NHJRiRVIFuiWBisN/7ig7eIjuQJLSO7XmRVoJ
- wxyif9kkcBZVUoUeICjdq33ky2ESTX66AwH8EickV/S+oNJ0dHnKUuybQt36q0qpWk2K
- cgh0zggcNZsbxuvU6Lh2mMl+TcDdDigeaEUmVy/c55Xb4sXm2pPlHH7InMVxAjRgR12G
- gvZtb5xpz6yHLqOpLyOKYaNupCnvf0aF6rMxShvXHL8uQzgV8K63N/gyFP4JPPOgtagD
- lHoFX63R9IERITY1rCk08FhC/CIkyjWOJiPNJwNUm24KKp4pBZjgADEs0Fge+Sq5aqPp lg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 33j91dgxat-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 15 Sep 2020 19:58:55 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08FJtpB5041155;
- Tue, 15 Sep 2020 19:58:55 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3020.oracle.com with ESMTP id 33hm315t7e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 15 Sep 2020 19:58:54 +0000
-Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08FJwpf6030579;
- Tue, 15 Sep 2020 19:58:51 GMT
-Received: from [10.74.86.196] (/10.74.86.196)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 15 Sep 2020 19:58:50 +0000
-Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Anchal Agarwal <anchalag@amazon.com>
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
- x86@kernel.org, jgross@suse.com, linux-pm@vger.kernel.org,
- linux-mm@kvack.org, kamatam@amazon.com, sstabellini@kernel.org,
- konrad.wilk@oracle.com, roger.pau@citrix.com, axboe@kernel.dk,
- davem@davemloft.net, rjw@rjwysocki.net, len.brown@intel.com,
- pavel@ucw.cz, peterz@infradead.org, eduval@amazon.com,
- sblbir@amazon.com, xen-devel@lists.xenproject.org, vkuznets@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dwmw@amazon.co.uk, benh@kernel.crashing.org
+ <SRS0=8LDf=CY=amazon.com=prvs=520f2d048=anchalag@srs-us1.protection.inumbo.net>)
+ id 1kIH95-00052e-MR
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 20:01:43 +0000
+X-Inumbo-ID: 4fe6e750-2557-4bd4-9471-53ceed003270
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4fe6e750-2557-4bd4-9471-53ceed003270;
+ Tue, 15 Sep 2020 20:01:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600200102; x=1631736102;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=wNziNNDxrF6gCaxX+ImX9p6CNqpNyiGV3hOiiuWa1DA=;
+ b=cT7rmc2HZ/MKV9Gy3JSjzfS5rDll+DJ21PmrK3Ex3bLTGsHvp7s/E6Dr
+ 92KGV+gTDBOOFQ0qsv73S+3Rwh42RWgiyrSMc9mupQlDiAmr0mGFSMt5W
+ o4ET5NOm22R/T+6tkS40+01lqGR2wUmrdGTi4mnPlUSaPYKQpJpm5QAuI 4=;
+X-IronPort-AV: E=Sophos;i="5.76,430,1592870400"; d="scan'208";a="75198936"
+Subject: Re: [PATCH v3 02/11] xenbus: add freeze/thaw/restore callbacks support
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 15 Sep 2020 19:57:00 +0000
+Received: from EX13MTAUWC001.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 8A814A21BE; Tue, 15 Sep 2020 19:56:58 +0000 (UTC)
+Received: from EX13D05UWC004.ant.amazon.com (10.43.162.223) by
+ EX13MTAUWC001.ant.amazon.com (10.43.162.135) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 15 Sep 2020 19:56:43 +0000
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D05UWC004.ant.amazon.com (10.43.162.223) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 15 Sep 2020 19:56:43 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Tue, 15 Sep 2020 19:56:43 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id 5B464408BF; Tue, 15 Sep 2020 19:56:43 +0000 (UTC)
+Date: Tue, 15 Sep 2020 19:56:43 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <boris.ostrovsky@oracle.com>
+CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
+ <x86@kernel.org>, <jgross@suse.com>, <linux-pm@vger.kernel.org>,
+ <linux-mm@kvack.org>, <kamatam@amazon.com>, <sstabellini@kernel.org>,
+ <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <axboe@kernel.dk>,
+ <davem@davemloft.net>, <rjw@rjwysocki.net>, <len.brown@intel.com>,
+ <pavel@ucw.cz>, <peterz@infradead.org>, <eduval@amazon.com>,
+ <sblbir@amazon.com>, <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>, 
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
+Message-ID: <20200915195643.GA28542@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
 References: <cover.1598042152.git.anchalag@amazon.com>
- <9b970e12491107afda0c1d4a6f154b52d90346ac.1598042152.git.anchalag@amazon.com>
- <4b2bbc8b-7817-271a-4ff0-5ee5df956049@oracle.com>
- <20200914214754.GA19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <e9b94104-d20a-b6b2-cbe0-f79b1ed09c98@oracle.com>
- <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
-Date: Tue, 15 Sep 2020 15:58:45 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.1
+ <2d3a7ed32bf38e13e0141a631a453b6e4c7ba5dc.1598042152.git.anchalag@amazon.com>
+ <eebc26b8-f1b1-3bea-5366-dd77f063237e@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9745
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- bulkscore=0 mlxlogscore=999
- malwarescore=0 mlxscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009150154
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9745
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- impostorscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 mlxlogscore=999
- clxscore=1015 adultscore=0 lowpriorityscore=0 spamscore=0 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009150154
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <eebc26b8-f1b1-3bea-5366-dd77f063237e@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -105,114 +84,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
->>
->>
->>>>> +
->>>>> +static int xen_setup_pm_notifier(void)
->>>>> +{
->>>>> +     if (!xen_hvm_domain() || xen_initial_domain())
->>>>> +             return -ENODEV;
->>>>
->>>> I don't think this works anymore.
->>> What do you mean?
->>> The first check is for xen domain types and other is for architecture support.
->>> The reason I put this check here is because I wanted to segregate the two.
->>> I do not want to register this notifier at all for !hmv guest and also if its
->>> an initial control domain.
->>> The arm check only lands in notifier because once hibernate() api is called ->
->>> calls pm_notifier_call_chain for PM_HIBERNATION_PREPARE this will fail for
->>> aarch64.
->>> Once we have support for aarch64 this notifier can go away altogether.
->>>
->>> Is there any other reason I may be missing why we should move this check to
->>> notifier?
->>
->>
->> Not registering this notifier is equivalent to having it return NOTIFY_OK.
->>
-> How is that different from current behavior?
->>
->> In your earlier versions just returning NOTIFY_OK was not sufficient for
->> hibernation to proceed since the notifier would also need to set
->> suspend_mode appropriately. But now your notifier essentially filters
->> out unsupported configurations. And so if it is not called your
->> configuration (e.g. PV domain) will be considered supported.
->>
-> I am sorry if I am having a bit of hard time understanding this. 
-> How will it be considered supported when its not even registered? My
-> understanding is if its not registered, it will not land in notifier call chain
-> which is invoked in pm_notifier_call_chain().
-
-
-Returning an error from xen_setup_pm_notifier() doesn't have any effect
-on whether hibernation will start. It's the notifier that can stop it.
-
+On Sun, Sep 13, 2020 at 12:11:47PM -0400, boris.ostrovsky@oracle.com wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
 > 
-> As Roger, mentioned in last series none of this should be a part of PVH dom0 
-> hibernation as its not tested but this series should also not break anything.
-> If I register this notifier for PVH dom0 and return error later that will alter
-> the current behavior right?
 > 
-> If a pm_notifier for pvh dom0 is not registered then it will not land in the
-> notifier call chain and system will work as before this series.
-> If I look for unsupported configurations, then !hvm domain is also one but we
-> filter that out at the beginning and don't even bother about it.
 > 
-> Unless you mean guest running VMs itself? [Trying to read between the lines may
-> not be the case though]
-
-
-
-In hibernate():
-
-        error = __pm_notifier_call_chain(PM_HIBERNATION_PREPARE, -1,
-&nr_calls);
-        if (error) {
-                nr_calls--;
-                goto Exit;
-        }
-
-
-Is you don't have notifier registered (as will be the case with PV
-domains and dom0) you won't get an error and proceed with hibernation.
-(And now I actually suspect it didn't work even with your previous patches)
-
-
-But something like this I think will do what you want:
-
-
-static int xen_pm_notifier(struct notifier_block *notifier,
-	unsigned long pm_event, void *unused)
-
-{
-
-       if (IS_ENABLED(CONFIG_ARM64) ||
-	   !xen_hvm_domain() || xen_initial_domain() ||
-	   (pm_event == PM_SUSPEND_PREPARE)) {
-		if ((pm_event == PM_SUSPEND_PREPARE) || (pm_event ==
-PM_HIBERNATION_PREPARE))
-			pr_warn("%s is not supported for this guest",
-				(pm_event == PM_SUSPEND_PREPARE) ?
-				"Suspend" : "Hibernation");
-                return NOTIFY_BAD;
-
-        return NOTIFY_OK;
-
-}
-
-static int xen_setup_pm_notifier(void)
-{
-	return register_pm_notifier(&xen_pm_notifier_block);
-}
-
-
-I tried to see if there is a way to prevent hibernation without using
-notifiers (like having a global flag or something) but didn't find
-anything obvious. Perhaps others can point to a simpler way of doing this.
-
-
--boris
-
+> On 8/21/20 6:26 PM, Anchal Agarwal wrote:
+> > From: Munehisa Kamata <kamatam@amazon.com>
+> >
+> > Since commit b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for
+> > suspend/resume/chkpt"), xenbus uses PMSG_FREEZE, PMSG_THAW and
+> > PMSG_RESTORE events for Xen suspend. However, they're actually assigned
+> > to xenbus_dev_suspend(), xenbus_dev_cancel() and xenbus_dev_resume()
+> > respectively, and only suspend and resume callbacks are supported at
+> > driver level. To support PM suspend and PM hibernation, modify the bus
+> > level PM callbacks to invoke not only device driver's suspend/resume but
+> > also freeze/thaw/restore.
+> >
+> > Note that we'll use freeze/restore callbacks even for PM suspend whereas
+> > suspend/resume callbacks are normally used in the case, becausae the
+> > existing xenbus device drivers already have suspend/resume callbacks
+> > specifically designed for Xen suspend.
+> 
+> 
+> Something is wrong with this sentence. Or with my brain --- I can't
+> quite parse this.
+> 
+The message is trying to say that that freeze/thaw/restore callbacks will be
+used for both PM SUSPEND and PM HIBERNATION. Since, we are only focussing on PM
+hibernation, I will remove all wordings of PM suspend from this message to avoid
+confusion. I left it there in case someone wants to pick it up in future knowing
+framework is already present.
+> 
+> And please be consistent with "PM suspend" vs. "PM hibernation".
+>
+I should remove PM suspend from everywhere since the mode is not tested
+for.
+> 
+> >  So we can allow the device
+> > drivers to keep the existing callbacks wihtout modification.
+> >
+> 
+> 
+> > @@ -599,16 +600,33 @@ int xenbus_dev_suspend(struct device *dev)
+> >       struct xenbus_driver *drv;
+> >       struct xenbus_device *xdev
+> >               = container_of(dev, struct xenbus_device, dev);
+> > +     bool xen_suspend = is_xen_suspend();
+> >
+> >       DPRINTK("%s", xdev->nodename);
+> >
+> >       if (dev->driver == NULL)
+> >               return 0;
+> >       drv = to_xenbus_driver(dev->driver);
+> > -     if (drv->suspend)
+> > -             err = drv->suspend(xdev);
+> > -     if (err)
+> > -             dev_warn(dev, "suspend failed: %i\n", err);
+> > +     if (xen_suspend) {
+> > +             if (drv->suspend)
+> > +                     err = drv->suspend(xdev);
+> > +     } else {
+> > +             if (drv->freeze) {
+> 
+> 
+> 'else if' (to avoid extra indent level).  In xenbus_dev_resume() too.
+> 
+> 
+> > +                     err = drv->freeze(xdev);
+> > +                     if (!err) {
+> > +                             free_otherend_watch(xdev);
+> > +                             free_otherend_details(xdev);
+> > +                             return 0;
+> > +                     }
+> > +             }
+> > +     }
+> > +
+> > +     if (err) {
+> > +             dev_warn(&xdev->dev,
+> 
+> 
+> Is there a reason why you replaced dev with xdev->dev (here and elsewhere)?
+> 
+> 
+Nope, they should be same. We can use dev here too. I should probably just use
+dev.
+> >  "%s %s failed: %d\n", xen_suspend ?
+> > +                             "suspend" : "freeze", xdev->nodename, err);
+> > +             return err;
+> > +     }
+> > +
+> >
+> 
+> > @@ -653,8 +683,44 @@ EXPORT_SYMBOL_GPL(xenbus_dev_resume);
+> >
+> >  int xenbus_dev_cancel(struct device *dev)
+> >  {
+> > -     /* Do nothing */
+> > -     DPRINTK("cancel");
+> > +     int err;
+> > +     struct xenbus_driver *drv;
+> > +     struct xenbus_device *xendev = to_xenbus_device(dev);
+> 
+> 
+> xdev for consistency please.
+> 
+Yes this I left unchanged, it should be consistent with xdev.
+> 
+> > +     bool xen_suspend = is_xen_suspend();
+> 
+> 
+> No need for this, you use it only once anyway.
+> 
+> 
+> -boris
+>
+Thanks,
+Anchal
+> 
 
