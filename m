@@ -2,59 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921EC26A84D
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 17:06:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C7426A862
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 17:08:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kICWW-0002cu-1r; Tue, 15 Sep 2020 15:05:36 +0000
+	id 1kICZS-0002lh-HY; Tue, 15 Sep 2020 15:08:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8SvQ=CY=amd.com=christian.koenig@srs-us1.protection.inumbo.net>)
- id 1kICWU-0002cp-0P
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 15:05:34 +0000
-X-Inumbo-ID: d58e9b7f-49e6-4331-a4f2-fecaa7d3ff6e
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7eab::626])
+ <SRS0=xA/u=CY=armlinux.org.uk=linux+xen-devel=lists.xenproject.org@srs-us1.protection.inumbo.net>)
+ id 1kICZQ-0002lc-Ur
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 15:08:37 +0000
+X-Inumbo-ID: 022b687f-de2a-41a5-89e3-59d293d1c455
+Received: from pandora.armlinux.org.uk (unknown
+ [2001:4d48:ad52:32c8:5054:ff:fe00:142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d58e9b7f-49e6-4331-a4f2-fecaa7d3ff6e;
- Tue, 15 Sep 2020 15:05:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S+uURhelGsy+bQucw/1ZAZ8eP0eI+QDiaPC113yDUdf+X3gMJFFw2YoUUz+AuOv19mqilDhBVkNqFAdKwF4hPzKwFKevGcZO9KufDD40bVnmd9ysZO8+M7zv9by3XVzyVTWJCiUonBNhdiNqprA4nodI7q9BmBfiq0Aj5EXAmgRgyoFcFtzYgiHs0PZpbqGhno3ML+lP2VPGN87eFUtDzq/ekTr31vqfPTpnXOGzIJ6lTMnGviyURDMNh7rdwNxTN/mF2VXlOZFyHhwfXO8XhHFSbpEjHGdd2yGYXPQiPnbR7avCx8nFtUwt9yI+oQWhXzbhs7H4/1ZK4n8ax/garA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iH6uLUSOGlskccVBIX+AS4mkIM1KgY3H2c/OM9SZuao=;
- b=L9I7u/OiqMoUsZifvVRwnr2UI6HgYwzd1k+kkX17C6QcWgSYvaK0wfe49k+GIJt3irVTwbj/sRNY6jW88dlHZQdLAl/xCysEweFOVNQyUp6dlYAXr4ChUUlbN6hq6TtX1wdU15pA4P/c3F1V6LlLm7Ru6A11j1aEF4A+CXw4TkiHzgz0k8MqHZqhdciwnNgngLTDZVgrMZkU/6lkS59v/UnybhRx7D5aG/RKuVf6JpAYMMUfI82PvwN/stRF6HZJYMJ2MuqVUKaYMzKjuDuKA1zqRtUOlrHxEvg2rrxKNVTiMa6FoLUEzEKXiier/pd6Il/ykPbC/SDnl7wmOKrLwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iH6uLUSOGlskccVBIX+AS4mkIM1KgY3H2c/OM9SZuao=;
- b=BeFzVoSEuTGKsuQkkQeo0LftvEvZm89B/cv9FHSjBVfpkWpUvqA0Wcu0z8xvtMPLXmlgq1DQ3M87Ct6iw/HjqiL0JonaDw/9b+A549Fc/riXv78+sdV6KCl77biQB7nkC5lMjOYfJ/MXLWQC5qp4FeGesQ5ej3As3jaRxuLjy7g=
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4125.namprd12.prod.outlook.com (2603:10b6:208:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Tue, 15 Sep
- 2020 15:05:29 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3370.019; Tue, 15 Sep 2020
- 15:05:29 +0000
-Subject: Re: [PATCH v2 01/21] drm/amdgpu: Introduce GEM object functions
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, linux@armlinux.org.uk,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- l.stach@pengutronix.de, christian.gmeiner@gmail.com, inki.dae@samsung.com,
- jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- kgene@kernel.org, krzk@kernel.org, patrik.r.jakobsson@gmail.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ id 022b687f-de2a-41a5-89e3-59d293d1c455;
+ Tue, 15 Sep 2020 15:08:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=n0AeAcI3zA0iCIxRdvDpWIpeomoM/Ow+oqCMUrZ8unY=; b=DY/uEfsiICorhg8iHeARjWh0Q
+ cS0EKw/YCxVo9c/DRgV77Gc/fMhw80uqdFD1X3NvNbG8E9/gDU7FOr8XhdiWA4oeGiVT2qR18cF2G
+ rbumEdeKR7VfQDXUwezoo+hIbAR+lkT20j5iUe9RiL8DC97jOljbnlxm0stBllgiNwutxUvFMmjf2
+ nZaK5hytHWAtFXkuU5EYx2JOLZTIRELbYZ15UAAlaZBs+E+zoYjszb6y0j79bc+LUZ0g2Qxuu6Zcq
+ d7bL2K6UkYMroIM/nP+yxcofUcKz/TRZ/3IX2smVFTWH7UaXEb6h6XVwsj25JE3FRBD4+grwHrZEJ
+ 9t8rye/uQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34006)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1kICYn-00035d-N0; Tue, 15 Sep 2020 16:07:57 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1kICYY-0003lk-6C; Tue, 15 Sep 2020 16:07:42 +0100
+Date: Tue, 15 Sep 2020 16:07:42 +0100
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com,
+ jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
  matthias.bgg@gmail.com, robdclark@gmail.com, sean@poorly.run,
  bskeggs@redhat.com, tomi.valkeinen@ti.com, eric@anholt.net,
  hjc@rock-chips.com, heiko@sntech.de, thierry.reding@gmail.com,
@@ -63,66 +60,28 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
  hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
  michal.simek@xilinx.com, sumit.semwal@linaro.org, evan.quan@amd.com,
  Hawking.Zhang@amd.com, tianci.yin@amd.com, marek.olsak@amd.com,
- hdegoede@redhat.com, andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
- xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
- chris@chris-wilson.co.uk, matthew.auld@intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ hdegoede@redhat.com, andrey.grodzovsky@amd.com,
+ Felix.Kuehling@amd.com, xinhui.pan@amd.com, aaron.liu@amd.com,
+ nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
  xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 02/21] drm/armada: Introduce GEM object functions
+Message-ID: <20200915150742.GO1551@shell.armlinux.org.uk>
 References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-2-tzimmermann@suse.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <835ba167-3576-1af6-5421-552075588796@amd.com>
-Date: Tue, 15 Sep 2020 17:05:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200915145958.19993-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR0501CA0058.eurprd05.prod.outlook.com
- (2603:10a6:200:68::26) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ <20200915145958.19993-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR0501CA0058.eurprd05.prod.outlook.com (2603:10a6:200:68::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Tue, 15 Sep 2020 15:05:20 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1a838726-fffa-4157-c269-08d85988c810
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4125:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB41250AA01CA1B95601DC4CEF83200@MN2PR12MB4125.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:758;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7GgM4bqO5JcsIWOJL4//UUkwnNJXGNHZKrCDBcRkBJwuojXEgpW/xVeuyAoaF46u0080mwzt2ZsAb7SlPB6HDpijAmcwXMCw93dvH5flZgFFIXoEHx65eyx5ceMm6e6qGOk5uwSTSWrnzBTnYFNCEgvTFMDDnp+EasoXNq1ElrDyVFmbp8PnnuzJeRiq1yYXqcdWbu8Kl1dVJQtspbgKB6KlRlIXXxc+kIf4WAcCYQYmYf+NM6+9AxPsLDTalzcP6epv/M0eTd0cq+sa1jQ8aD0BiMnCM32aQDBXtTLuIjbMdTajQeJ0WR2t4Fvk69jqj3myMJDDTa857l3gKUoG2pa2WJRl05wuaKXWBhlyVHaJGJOPvD0CpIhGZMPYg1ia8eW5a1P10wKcn2DOS9smUL9fp+VohPilgYh0FBoKMQcNDZA+D3FAdO1c244DM+VS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(366004)(39860400002)(376002)(346002)(8676002)(16526019)(6666004)(31686004)(316002)(31696002)(52116002)(86362001)(5660300002)(66946007)(2906002)(6486002)(478600001)(8936002)(66476007)(66556008)(4326008)(1191002)(186003)(7406005)(2616005)(36756003)(7366002)(7416002)(66574015)(83380400001)(921003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 64GigJExS88f6Sc/sZN+EAOYkB3JVxzWEXWUv/xT9N4/NxYk06hvG3FZ9dvkYiVEyf4M+krJrNQ0SHQuHDRdOXdZRHOHj+fOrClXsn2mwqa2alfLJ25CHBdPcqfG3WCUZECWSgjlthDvGqlEpw1HToJUL0O/5ND2eZ8PHU9rdSHA0pKAesLEbr2TqXukA3sTDzllVlbCEj9zAWLgj0LcB2wrqbKu8LOTaZY56FwJvVVf/v7qBnX8390lkX587slVuXoN5/kliWDEMJ9k1obTeSbuFASAZuXvkWeZucKvvj1UnuQ4Kddgn90u8njC8ABejQN2Bj/KWiQl3xGpXgGOChjNHMvVQzHyMkN3WpYTAPpbfcaSl6CFGkquFcAiDk2+otmg3c7I//Dhwo8/Mwz3dRfeqgvDlLweqf92zTEbyPE8dlaPMj2ZyPDB5Tx8UjNgWyva78w2Ikjp3X5rlJMvv7xbmJCpw/RQQNXAW06GEiEZUTtcf2Ju8j4UnSR1nDODqrmAlKBhmuCoWK7uLt4mliEzUzdmWBlYADbPOT1SOFpFActK8lPxhO/gj54j9lKEquLbIdUR8xcWWiQaECKrUi1pKTsPoaabK1A7yIom1CAw+e7FUXPHFYqX014dhNTMduCxAzdzfR3n3mTpPDVV1bQDsBgV/1+7Y8xvF7z4LPFdqezMF64JeiD/VbsQriXRxxdWfkjM1TzrN1KuEyM7uQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a838726-fffa-4157-c269-08d85988c810
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2020 15:05:28.6777 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xdj71nAlM95T5fuk70sjB5LBFvFYtCngbb20CQ4yyHoA22s1l11i0QYZ1aTJh0WE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4125
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200915145958.19993-3-tzimmermann@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,149 +95,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Am 15.09.20 um 16:59 schrieb Thomas Zimmermann:
+On Tue, Sep 15, 2020 at 04:59:39PM +0200, Thomas Zimmermann wrote:
 > GEM object functions deprecate several similar callback interfaces in
 > struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in amdgpu. The only exception is gem_prime_mmap,
-> which is non-trivial to convert.
->
-> v2:
-> 	* move object-function instance to amdgpu_gem.c (Christian)
-> 	* set callbacks in amdgpu_gem_object_create() (Christian)
->
+> per-instance callbacks in armada.
+> 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Acked-by: Russell King <rmk+kernel@armlinux.org.uk>
+
+Thanks.
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  6 ------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 23 +++++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h    |  5 -----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  1 +
->   4 files changed, 19 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 6edde2b9e402..840ca8f9c1e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1505,19 +1505,13 @@ static struct drm_driver kms_driver = {
->   	.lastclose = amdgpu_driver_lastclose_kms,
->   	.irq_handler = amdgpu_irq_handler,
->   	.ioctls = amdgpu_ioctls_kms,
-> -	.gem_free_object_unlocked = amdgpu_gem_object_free,
-> -	.gem_open_object = amdgpu_gem_object_open,
-> -	.gem_close_object = amdgpu_gem_object_close,
->   	.dumb_create = amdgpu_mode_dumb_create,
->   	.dumb_map_offset = amdgpu_mode_dumb_mmap,
->   	.fops = &amdgpu_driver_kms_fops,
->   
->   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-> -	.gem_prime_export = amdgpu_gem_prime_export,
->   	.gem_prime_import = amdgpu_gem_prime_import,
-> -	.gem_prime_vmap = amdgpu_gem_prime_vmap,
-> -	.gem_prime_vunmap = amdgpu_gem_prime_vunmap,
->   	.gem_prime_mmap = amdgpu_gem_prime_mmap,
->   
->   	.name = DRIVER_NAME,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index aa7f230c71bf..aeecd5dc3ce4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -36,9 +36,12 @@
->   
->   #include "amdgpu.h"
->   #include "amdgpu_display.h"
-> +#include "amdgpu_dma_buf.h"
->   #include "amdgpu_xgmi.h"
->   
-> -void amdgpu_gem_object_free(struct drm_gem_object *gobj)
-> +static const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
-> +
-> +static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
->   {
->   	struct amdgpu_bo *robj = gem_to_amdgpu_bo(gobj);
->   
-> @@ -87,6 +90,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->   		return r;
->   	}
->   	*obj = &bo->tbo.base;
-> +	(*obj)->funcs = &amdgpu_gem_object_funcs;
->   
->   	return 0;
->   }
-> @@ -119,8 +123,8 @@ void amdgpu_gem_force_release(struct amdgpu_device *adev)
->    * Call from drm_gem_handle_create which appear in both new and open ioctl
->    * case.
->    */
-> -int amdgpu_gem_object_open(struct drm_gem_object *obj,
-> -			   struct drm_file *file_priv)
-> +static int amdgpu_gem_object_open(struct drm_gem_object *obj,
-> +				  struct drm_file *file_priv)
->   {
->   	struct amdgpu_bo *abo = gem_to_amdgpu_bo(obj);
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-> @@ -152,8 +156,8 @@ int amdgpu_gem_object_open(struct drm_gem_object *obj,
->   	return 0;
->   }
->   
-> -void amdgpu_gem_object_close(struct drm_gem_object *obj,
-> -			     struct drm_file *file_priv)
-> +static void amdgpu_gem_object_close(struct drm_gem_object *obj,
-> +				    struct drm_file *file_priv)
->   {
->   	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> @@ -211,6 +215,15 @@ void amdgpu_gem_object_close(struct drm_gem_object *obj,
->   	ttm_eu_backoff_reservation(&ticket, &list);
->   }
->   
-> +static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
-> +	.free = amdgpu_gem_object_free,
-> +	.open = amdgpu_gem_object_open,
-> +	.close = amdgpu_gem_object_close,
-> +	.export = amdgpu_gem_prime_export,
-> +	.vmap = amdgpu_gem_prime_vmap,
-> +	.vunmap = amdgpu_gem_prime_vunmap,
+>  drivers/gpu/drm/armada/armada_drv.c |  3 ---
+>  drivers/gpu/drm/armada/armada_gem.c | 12 +++++++++++-
+>  drivers/gpu/drm/armada/armada_gem.h |  2 --
+>  3 files changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+> index 980d3f1f8f16..22247cfce80b 100644
+> --- a/drivers/gpu/drm/armada/armada_drv.c
+> +++ b/drivers/gpu/drm/armada/armada_drv.c
+> @@ -37,13 +37,10 @@ DEFINE_DRM_GEM_FOPS(armada_drm_fops);
+>  
+>  static struct drm_driver armada_drm_driver = {
+>  	.lastclose		= drm_fb_helper_lastclose,
+> -	.gem_free_object_unlocked = armada_gem_free_object,
+>  	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+> -	.gem_prime_export	= armada_gem_prime_export,
+>  	.gem_prime_import	= armada_gem_prime_import,
+>  	.dumb_create		= armada_gem_dumb_create,
+> -	.gem_vm_ops		= &armada_gem_vm_ops,
+>  	.major			= 1,
+>  	.minor			= 0,
+>  	.name			= "armada-drm",
+> diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
+> index ecf8a55e93d9..c343fbefe47c 100644
+> --- a/drivers/gpu/drm/armada/armada_gem.c
+> +++ b/drivers/gpu/drm/armada/armada_gem.c
+> @@ -25,7 +25,7 @@ static vm_fault_t armada_gem_vm_fault(struct vm_fault *vmf)
+>  	return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+>  }
+>  
+> -const struct vm_operations_struct armada_gem_vm_ops = {
+> +static const struct vm_operations_struct armada_gem_vm_ops = {
+>  	.fault	= armada_gem_vm_fault,
+>  	.open	= drm_gem_vm_open,
+>  	.close	= drm_gem_vm_close,
+> @@ -184,6 +184,12 @@ armada_gem_map_object(struct drm_device *dev, struct armada_gem_object *dobj)
+>  	return dobj->addr;
+>  }
+>  
+> +static const struct drm_gem_object_funcs armada_gem_object_funcs = {
+> +	.free = armada_gem_free_object,
+> +	.export = armada_gem_prime_export,
+> +	.vm_ops = &armada_gem_vm_ops,
 > +};
 > +
->   /*
->    * GEM ioctls.
->    */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> index e0f025dd1b14..637bf51dbf06 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> @@ -33,11 +33,6 @@
->   #define AMDGPU_GEM_DOMAIN_MAX		0x3
->   #define gem_to_amdgpu_bo(gobj) container_of((gobj), struct amdgpu_bo, tbo.base)
->   
-> -void amdgpu_gem_object_free(struct drm_gem_object *obj);
-> -int amdgpu_gem_object_open(struct drm_gem_object *obj,
-> -				struct drm_file *file_priv);
-> -void amdgpu_gem_object_close(struct drm_gem_object *obj,
-> -				struct drm_file *file_priv);
->   unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
->   
->   /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index ac043baac05d..c4e82a8fa53f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -561,6 +561,7 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
->   	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
->   	if (bo == NULL)
->   		return -ENOMEM;
+>  struct armada_gem_object *
+>  armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
+>  {
+> @@ -195,6 +201,8 @@ armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
+>  	if (!obj)
+>  		return NULL;
+>  
+> +	obj->obj.funcs = &armada_gem_object_funcs;
 > +
+>  	drm_gem_private_object_init(dev, &obj->obj, size);
+>  
+>  	DRM_DEBUG_DRIVER("alloc private obj %p size %zu\n", obj, size);
+> @@ -214,6 +222,8 @@ static struct armada_gem_object *armada_gem_alloc_object(struct drm_device *dev,
+>  	if (!obj)
+>  		return NULL;
+>  
+> +	obj->obj.funcs = &armada_gem_object_funcs;
+> +
+>  	if (drm_gem_object_init(dev, &obj->obj, size)) {
+>  		kfree(obj);
+>  		return NULL;
+> diff --git a/drivers/gpu/drm/armada/armada_gem.h b/drivers/gpu/drm/armada/armada_gem.h
+> index de04cc2c8f0e..ffcc7e8dd351 100644
+> --- a/drivers/gpu/drm/armada/armada_gem.h
+> +++ b/drivers/gpu/drm/armada/armada_gem.h
+> @@ -21,8 +21,6 @@ struct armada_gem_object {
+>  	void			*update_data;
+>  };
+>  
+> -extern const struct vm_operations_struct armada_gem_vm_ops;
+> -
+>  #define drm_to_armada_gem(o) container_of(o, struct armada_gem_object, obj)
+>  
+>  void armada_gem_free_object(struct drm_gem_object *);
+> -- 
+> 2.28.0
+> 
+> 
 
-The newline is not unrelated.
-
-Apart from that the patch is Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
-
-But I think we need some smoke testing of it.
-
-Christian.
-
->   	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
->   	INIT_LIST_HEAD(&bo->shadow_list);
->   	bo->vm_bo = NULL;
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 
