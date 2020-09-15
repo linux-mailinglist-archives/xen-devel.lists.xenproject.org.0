@@ -2,78 +2,118 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7D426A1BA
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 11:11:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6420726A1E5
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 11:16:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI6zE-0002PY-Jx; Tue, 15 Sep 2020 09:10:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TRuO=CY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kI6zE-0002PS-06
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 09:10:52 +0000
-X-Inumbo-ID: 80e14922-effa-467a-bffc-af706c4efac8
-Received: from mail-wm1-x32b.google.com (unknown [2a00:1450:4864:20::32b])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 80e14922-effa-467a-bffc-af706c4efac8;
- Tue, 15 Sep 2020 09:10:51 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id y15so2664019wmi.0
- for <xen-devel@lists.xenproject.org>; Tue, 15 Sep 2020 02:10:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=Fh1eJKjzOxmSnqKB709f4go553jMqdCynOAJWkWWJ2A=;
- b=iXgWJc4igLk7czSTbqF2SGXv3PPNcPoScrZvpJVo6UV/LQVFQl9cRDNFNfOA+9eyeg
- 5DCxLQJLHJPV4OTKs6L64cjIK/YAEfsrj7z4ftOji9kdSYkSRFPZbJrMOGwhvMRnCEKG
- CMm1Qg3jLzBOi0XCqAmkda7a7kryCDnBB87S2ybFn2BYSnp+g2MCgpaxIzLDx+LLgxQQ
- vCy6fK7oHrzMjTOREmt+7PBSpe3ncjXrTWk6stvlVHsaJRyEw7zOOaearhVksVcCrT8m
- gg5BxmdIlzLmJMFVbRK1p6ELCaxXC5cPzUDHDxfoHdmWi29taUB6oawJC9CnOYwJECl4
- HsKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=Fh1eJKjzOxmSnqKB709f4go553jMqdCynOAJWkWWJ2A=;
- b=Z4EdbSHCR2xKMGYZ8ZQ5CbJNWxh9WAGoHxGQZ4WDVGlWUxvf6BqwcA3w+W1A75MMKg
- Qn6l0UelPqtUu21jC3Du0RBwzwPG4MNBy8vvKo6SpjrRQsVUh0MwaCj4CYo/yq4aEmfL
- kgf4XW/0c+dldy4m6K3m68OmUnTYa/QrnsTI/6r9p1Sv0TaNKYwPSjBJx1VOw7frtlaq
- LBWe00X9HkZM6+BpMqAClL2x4NhgpQg2qi/yY9ZwWcarimwy+iEMJIHIDy5sul4Y9vPr
- szHLSkHqRij/dZcYJ5QWdbLtZaVj+kGlKSY2KGf+9XG66+ZQX5y+SRJocj72hRD+f1Ch
- 2s8g==
-X-Gm-Message-State: AOAM532Yc03FT38cRfJ5DI10ajpz921nAaEgQHVpaq/9Xqx/6mr/GQvu
- Rt6OG4atU2Siz4WK1lcx84g=
-X-Google-Smtp-Source: ABdhPJxWtpRMshLB5fOQKq2n8UjV6m7bKe6uo0KeIE7ZymW759VQKvxHvkaf4k/y8cKdQkGA2S+GVQ==
-X-Received: by 2002:a1c:7f8b:: with SMTP id a133mr3817897wmd.155.1600161050107; 
- Tue, 15 Sep 2020 02:10:50 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id c14sm24410849wrv.12.2020.09.15.02.10.49
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 15 Sep 2020 02:10:49 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, "'Wei Liu'" <wl@xen.org>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
- "'Jun Nakajima'" <jun.nakajima@intel.com>,
- "'Kevin Tian'" <kevin.tian@intel.com>,
- "'George Dunlap'" <George.Dunlap@eu.citrix.com>
-References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
- <940134ca-9917-7260-679a-a14ac4e5d099@suse.com>
-In-Reply-To: <940134ca-9917-7260-679a-a14ac4e5d099@suse.com>
-Subject: RE: [PATCH v3] x86/HVM: more consistently set I/O completion
-Date: Tue, 15 Sep 2020 10:10:48 +0100
-Message-ID: <002501d68b40$1a60af00$4f220d00$@xen.org>
+	id 1kI74O-0002ap-8Z; Tue, 15 Sep 2020 09:16:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ankK=CY=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kI74M-0002ak-Kv
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 09:16:11 +0000
+X-Inumbo-ID: ad6ba88e-a2e3-493d-bef5-c3f41fa97883
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id ad6ba88e-a2e3-493d-bef5-c3f41fa97883;
+ Tue, 15 Sep 2020 09:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600161368;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oo/zdx7ZdkuZ7LUS2SmjmgqtjYWA7cAKI2QINGXjVyE=;
+ b=irX6BT8foGcBQ23hwODBYqXkuORGEc/wYOlCPokkG7/MYmGxzno9ay1U/E8jHVcIH8lhLb
+ zeX9se/PevFHmoX92LVzbVsz6yDKy4S5UuMJlMTSCpkGuIdK1zCHCwaxpsDg1wZ9HyUdPm
+ TnSYu+TyL7wKyIO98W4JQhtNg2oeiMk=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-579-q5as0h2qNVeIJ5BiyK2sLw-1; Tue, 15 Sep 2020 05:16:03 -0400
+X-MC-Unique: q5as0h2qNVeIJ5BiyK2sLw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 58B79801ADE;
+ Tue, 15 Sep 2020 09:15:59 +0000 (UTC)
+Received: from [10.36.114.89] (ovpn-114-89.ams2.redhat.com [10.36.114.89])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A891D7E72A;
+ Tue, 15 Sep 2020 09:15:54 +0000 (UTC)
+Subject: Re: [PATCH v2 1/7] kernel/resource: make
+ release_mem_region_adjustable() never fail
+To: Wei Yang <richard.weiyang@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <dan.j.williams@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kees Cook <keescook@chromium.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
+References: <20200908201012.44168-1-david@redhat.com>
+ <20200908201012.44168-2-david@redhat.com>
+ <20200915021012.GC2007@L-31X9LVDL-1304.local>
+ <927904b1-1909-f11f-483e-8012bda8ad0c@redhat.com>
+ <20200915090612.GA6936@L-31X9LVDL-1304.local>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <bc324c26-3638-ffa6-ee01-68a659183adf@redhat.com>
+Date: Tue, 15 Sep 2020 11:15:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQKLGnh8NTAXxwELiAxasezQUK7x/AHZTlidp/F++DA=
+In-Reply-To: <20200915090612.GA6936@L-31X9LVDL-1304.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,114 +124,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 15 September 2020 09:26
-> To: Andrew Cooper <andrew.cooper3@citrix.com>; Paul Durrant =
-<paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Wei Liu <wl@xen.org>; Roger Pau =
-Monn=C3=A9 <roger.pau@citrix.com>; Jun
-> Nakajima <jun.nakajima@intel.com>; Kevin Tian <kevin.tian@intel.com>; =
-George Dunlap
-> <George.Dunlap@eu.citrix.com>
-> Subject: Re: [PATCH v3] x86/HVM: more consistently set I/O completion
->=20
-> On 27.08.2020 09:09, Jan Beulich wrote:
-> > Doing this just in hvm_emulate_one_insn() is not enough.
-> > hvm_ud_intercept() and hvm_emulate_one_vm_event() can get invoked =
-for
-> > insns requiring one or more continuations, and at least in principle
-> > hvm_emulate_one_mmio() could, too. Without proper setting of the =
-field,
-> > handle_hvm_io_completion() will do nothing completion-wise, and in
-> > particular the missing re-invocation of the insn emulation paths =
-will
-> > lead to emulation caching not getting disabled in due course, =
-causing
-> > the ASSERT() in {svm,vmx}_vmenter_helper() to trigger.
-> >
-> > Reported-by: Don Slutz <don.slutz@gmail.com>
-> >
-> > Similar considerations go for the clearing of vio->mmio_access, =
-which
-> > gets moved as well.
-> >
-> > Additionally all updating of vio->mmio_* now gets done dependent =
-upon
-> > the new completion value, rather than hvm_ioreq_needs_completion()'s
-> > return value. This is because it is the completion chosen which =
-controls
-> > what path will be taken when handling the completion, not the simple
-> > boolean return value. In particular, PIO completion doesn't involve
-> > going through the insn emulator, and hence emulator state ought to =
-get
-> > cleared early (or it won't get cleared at all).
-> >
-> > The new logic, besides allowing for a caller override for the
-> > continuation type to be set (for VMX real mode emulation), will also
-> > avoid setting an MMIO completion when a simpler PIO one will do. =
-This
-> > is a minor optimization only as a side effect - the behavior is =
-strictly
-> > needed at least for hvm_ud_intercept(), as only memory accesses can
-> > successfully complete through handle_mmio(). Care of course needs to =
-be
-> > taken to correctly deal with "mixed" insns (doing both MMIO and PIO =
-at
-> > the same time, i.e. INS/OUTS). For this, hvmemul_validate() now =
-latches
-> > whether the insn being emulated is a memory access, as this =
-information
-> > is no longer easily available at the point where we want to consume =
-it.
-> >
-> > Note that the presence of non-NULL .validate fields in the two ops
-> > structures in hvm_emulate_one_mmio() was really necessary even =
-before
-> > the changes here: Without this, passing non-NULL as middle argument =
-to
-> > hvm_emulate_init_once() is meaningless.
-> >
-> > The restrictions on when the #UD intercept gets actually enabled are =
-why
-> > it was decided that this is not a security issue:
-> > - the "hvm_fep" option to enable its use is a debugging option only,
-> > - for the cross-vendor case is considered experimental, even if
-> >   unfortunately SUPPORT.md doesn't have an explicit statement about
-> >   this.
-> > The other two affected functions are
-> > - hvm_emulate_one_vm_event(), used for introspection,
-> > - hvm_emulate_one_mmio(), used for Dom0 only,
-> > which aren't qualifying this as needing an XSA either.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > Tested-by: Don Slutz <don.slutz@gmail.com>
-> > ---
-> > v3: Add comment ahead of _hvm_emulate_one(). Add parentheses in a
-> >     conditional expr. Justify why this does not need an XSA.
-> > v2: Make updating of vio->mmio_* fields fully driven by the new
-> >     completion value.
-> > ---
-> > I further think that the entire tail of _hvm_emulate_one() =
-(everything
-> > past the code changed/added there by this patch) wants skipping in =
-case
-> > a completion is needed, at the very least for the mmio and realmode
-> > cases, where we know we'll come back here.
->=20
-> Does one of the two of you have an opinion on this aspect?
->=20
+On 15.09.20 11:06, Wei Yang wrote:
+> On Tue, Sep 15, 2020 at 09:35:30AM +0200, David Hildenbrand wrote:
+>>
+>>>> static int __ref try_remove_memory(int nid, u64 start, u64 size)
+>>>> {
+>>>> 	int rc = 0;
+>>>> @@ -1777,7 +1757,7 @@ static int __ref try_remove_memory(int nid, u64 start, u64 size)
+>>>> 		memblock_remove(start, size);
+>>>> 	}
+>>>>
+>>>> -	__release_memory_resource(start, size);
+>>>> +	release_mem_region_adjustable(&iomem_resource, start, size);
+>>>>
+>>>
+>>> Seems the only user of release_mem_region_adjustable() is here, can we move
+>>> iomem_resource into the function body? Actually, we don't iterate the resource
+>>> tree from any level. We always start from the root.
+>>
+>> You mean, making iomem_resource implicit? I can spot that something
+>> similar was done for
+>>
+>> #define devm_release_mem_region(dev, start, n) \
+>> 	__devm_release_region(dev, &iomem_resource, (start), (n))
+>>
+> 
+> What I prefer is remove iomem_resource from the parameter list. Just use is in
+> the function body.
+> 
+> For the example you listed, __release_region() would have varies of *parent*,
+> which looks reasonable to keep it here.
 
-It seems reasonable that we only want to execute the tail once but I'm =
-unsure of the consequences of deferring it until I/O emulation is =
-complete.
+Yeah I got that ("making iomem_resource implicit"), as I said:
 
-  Paul
+>> I'll send an addon patch for that, ok? - thanks.
 
-> Jan
+-- 
+Thanks,
+
+David / dhildenb
 
 
