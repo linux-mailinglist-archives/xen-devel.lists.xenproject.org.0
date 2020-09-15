@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 917C426A064
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 10:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC1626A06E
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 10:11:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI60m-0003MU-PR; Tue, 15 Sep 2020 08:08:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kI63w-0004Ch-Cc; Tue, 15 Sep 2020 08:11:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jdui=CY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kI60l-0003MN-7u
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 08:08:23 +0000
-X-Inumbo-ID: 83c6d3dd-1b9d-468b-8539-cdcb11259827
+ id 1kI63u-0004Ca-KC
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 08:11:38 +0000
+X-Inumbo-ID: 3f9f66f9-9639-43a2-971a-25eaed3698d6
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 83c6d3dd-1b9d-468b-8539-cdcb11259827;
- Tue, 15 Sep 2020 08:08:22 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3f9f66f9-9639-43a2-971a-25eaed3698d6;
+ Tue, 15 Sep 2020 08:11:37 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B35C7ACB8;
- Tue, 15 Sep 2020 08:08:36 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 60733ACB8;
+ Tue, 15 Sep 2020 08:11:52 +0000 (UTC)
+Subject: Re: libxenguest and xenguest.h
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>
+References: <7995d80f-336a-90a3-f431-b18748fbcff5@suse.com>
+ <1d4fb223-0800-452b-54fc-5db1db74be2f@suse.com>
+ <7bf70edc-22c9-bd04-9e7c-d6cc083c3ac5@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3] EFI: free unused boot mem in at least some cases
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
-References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
-Message-ID: <dd5c11f7-7d64-80e6-4e39-21606bb8bbcb@suse.com>
-Date: Tue, 15 Sep 2020 10:08:21 +0200
+Message-ID: <7829bce7-145c-b502-e711-9c5f655dbb4e@suse.com>
+Date: Tue, 15 Sep 2020 10:11:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
+In-Reply-To: <7bf70edc-22c9-bd04-9e7c-d6cc083c3ac5@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -54,202 +54,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
-free ebmalloc area at all") was put in place: Make xen_in_range() aware
-of the freed range. This is in particular relevant for EFI-enabled
-builds not actually running on EFI, as the entire range will be unused
-in this case.
+On 15.09.2020 10:06, Jürgen Groß wrote:
+> On 15.09.20 09:55, Jan Beulich wrote:
+>> On 15.09.2020 07:18, Jürgen Groß wrote:
+>>> Andy has reported a libxenguest related build failure of qemu when
+>>> building qemu outside the Xen build environment. Problem is xenguest.h
+>>> now including xenctrl_dom.h, which is including xen/libelf/libelf.h.
+>>>
+>>> The underlying problem is that libxenguest is basically offering some
+>>> "official" functions via xenguest.h, while some other functions are
+>>> only Xen internally usable and are defined in xenctrl_dom.h.
+>>>
+>>> This is a rather weird construction and I'm seeing the following
+>>> solutions:
+>>>
+>>> 1. Make xen/include/xen/libelf.h a public header (or split the parts
+>>>      needed by xenguest.h into a public header)
+>>
+>> Besides being conceptually wrong imo, this could (afaict) cause name
+>> space issues to consumers. This definitely gets a -1 from me, if not
+>> a -2.
+>>
+>>> 2. Reflect the two parts of libxenguest by carving out the xenctrl_dom.h
+>>>      defined parts into a new library not made public
+>>>
+>>> 3. Make the xenctrl_dom.h interfaces internal again by not adding it to
+>>>      the installed headers
+>>
+>> This option would seem to imply that qemu has no real need to include
+>> this header, as otherwise how would this address the build issue?
+> 
+> In fact qemu doesn't need to include xenguest.h at all, but this was
+> just how the problem was discovered.
+> 
+> So before my patches xenctrl_dom.h (or xc_dom.h as it was named at that
+> time) was included only from Xen sources (libxenguest, libxl, pvgrub).
+> Basically there was a rather large part of libxenguest ot really usable
+> by anyone outside the Xen build system. External users could use only
+> the interfaces which are declared in xenguest.h.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
----
-v3: Don't free the memory twice.
-v2: Also adjust the two places where comments point out that they need
-    to remain in sync with xen_in_range(). Add assertions to
-    xen_in_range().
----
-The remaining issue could be addressed too, by making the area 2M in
-size and 2M-aligned.
+But then - what did change?
 
---- a/xen/arch/x86/efi/stub.c
-+++ b/xen/arch/x86/efi/stub.c
-@@ -52,6 +52,12 @@ bool efi_enabled(unsigned int feature)
- 
- void __init efi_init_memory(void) { }
- 
-+bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
-+{
-+    *start = *end = (unsigned long)_end;
-+    return false;
-+}
-+
- void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
- 
- bool efi_rs_using_pgtables(void)
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -830,6 +830,7 @@ void __init noreturn __start_xen(unsigne
-     module_t *mod;
-     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
-     int i, j, e820_warn = 0, bytes = 0;
-+    unsigned long eb_start, eb_end;
-     bool acpi_boot_table_init_done = false, relocated = false;
-     int ret;
-     struct ns16550_defaults ns16550 = {
-@@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
- 
-         /*
-          * This needs to remain in sync with xen_in_range() and the
--         * respective reserve_e820_ram() invocation below.
-+         * respective reserve_e820_ram() invocation below. No need to
-+         * query efi_boot_mem_unused() here, though.
-          */
-         mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
-         mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
-@@ -1417,8 +1419,18 @@ void __init noreturn __start_xen(unsigne
-     if ( !xen_phys_start )
-         panic("Not enough memory to relocate Xen\n");
- 
-+    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
-+    if ( using_2M_mapping() )
-+        efi_boot_mem_unused(NULL, NULL);
-+
-     /* This needs to remain in sync with xen_in_range(). */
--    reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
-+    if ( efi_boot_mem_unused(&eb_start, &eb_end) )
-+    {
-+        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
-+        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
-+    }
-+    else
-+        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
- 
-     /* Late kexec reservation (dynamic start address). */
-     kexec_reserve_area(&boot_e820);
-@@ -1979,7 +1991,7 @@ int __hwdom_init xen_in_range(unsigned l
-     paddr_t start, end;
-     int i;
- 
--    enum { region_s3, region_ro, region_rw, nr_regions };
-+    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
-     static struct {
-         paddr_t s, e;
-     } xen_regions[nr_regions] __hwdom_initdata;
-@@ -2004,6 +2016,14 @@ int __hwdom_init xen_in_range(unsigned l
-         /* hypervisor .data + .bss */
-         xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
-         xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
-+        if ( efi_boot_mem_unused(&start, &end) )
-+        {
-+            ASSERT(__pa(start) >= xen_regions[region_rw].s);
-+            ASSERT(__pa(end) <= xen_regions[region_rw].e);
-+            xen_regions[region_rw].e = __pa(start);
-+            xen_regions[region_bss].s = __pa(end);
-+            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
-+        }
-     }
- 
-     start = (paddr_t)mfn << PAGE_SHIFT;
---- a/xen/arch/x86/tboot.c
-+++ b/xen/arch/x86/tboot.c
-@@ -1,3 +1,4 @@
-+#include <xen/efi.h>
- #include <xen/init.h>
- #include <xen/types.h>
- #include <xen/lib.h>
-@@ -364,6 +365,8 @@ void tboot_shutdown(uint32_t shutdown_ty
-     /* if this is S3 then set regions to MAC */
-     if ( shutdown_type == TB_SHUTDOWN_S3 )
-     {
-+        unsigned long s, e;
-+
-         /*
-          * Xen regions for tboot to MAC. This needs to remain in sync with
-          * xen_in_range().
-@@ -378,6 +381,15 @@ void tboot_shutdown(uint32_t shutdown_ty
-         /* hypervisor .data + .bss */
-         g_tboot_shared->mac_regions[2].start = (uint64_t)__pa(&__2M_rwdata_start);
-         g_tboot_shared->mac_regions[2].size = __2M_rwdata_end - __2M_rwdata_start;
-+        if ( efi_boot_mem_unused(&s, &e) )
-+        {
-+            g_tboot_shared->mac_regions[2].size =
-+                s - (unsigned long)__2M_rwdata_start;
-+            g_tboot_shared->mac_regions[3].start = __pa(e);
-+            g_tboot_shared->mac_regions[3].size =
-+                (unsigned long)__2M_rwdata_end - e;
-+            g_tboot_shared->num_mac_regions = 4;
-+        }
- 
-         /*
-          * MAC domains and other Xen memory
---- a/xen/common/efi/ebmalloc.c
-+++ b/xen/common/efi/ebmalloc.c
-@@ -1,5 +1,6 @@
- #include "efi.h"
- #include <xen/init.h>
-+#include <xen/mm.h>
- 
- #ifdef CONFIG_ARM
- /*
-@@ -21,7 +22,7 @@
- 
- static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-     ebmalloc_mem[EBMALLOC_SIZE];
--static unsigned long __initdata ebmalloc_allocated;
-+static unsigned long __read_mostly ebmalloc_allocated;
- 
- /* EFI boot allocator. */
- void __init *ebmalloc(size_t size)
-@@ -36,17 +37,37 @@ void __init *ebmalloc(size_t size)
-     return ptr;
- }
- 
-+bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
-+{
-+    if ( !start && !end )
-+    {
-+        ebmalloc_allocated = sizeof(ebmalloc_mem);
-+        return false;
-+    }
-+
-+    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
-+    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
-+
-+    return *start < *end;
-+}
-+
- void __init free_ebmalloc_unused_mem(void)
- {
--#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
-     unsigned long start, end;
- 
--    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
--    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
-+    if ( !efi_boot_mem_unused(&start, &end) )
-+        return;
- 
-     destroy_xen_mappings(start, end);
-+
-+#ifdef CONFIG_X86
-+    /*
-+     * By reserving the space early in the E820 map, it gets freed way before
-+     * we make it here. Don't free the range a 2nd time.
-+     */
-+#else
-     init_xenheap_pages(__pa(start), __pa(end));
-+#endif
- 
-     printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
--#endif
- }
---- a/xen/include/xen/efi.h
-+++ b/xen/include/xen/efi.h
-@@ -33,6 +33,7 @@ struct compat_pf_efi_runtime_call;
- 
- bool efi_enabled(unsigned int feature);
- void efi_init_memory(void);
-+bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
- bool efi_rs_using_pgtables(void);
- unsigned long efi_get_time(void);
- void efi_halt_system(void);
+In any event, to me it looks like headers shouldn't have mixed purpose.
+Either they're internal (and don't get installed), or they're meant for
+public consumption (and then everything that's in there).
+
+Jan
 
