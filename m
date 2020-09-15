@@ -2,125 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33B2269C1E
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 04:51:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE4D269CDD
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 06:12:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI13S-0000RB-UT; Tue, 15 Sep 2020 02:50:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kI2KA-0007Eu-ML; Tue, 15 Sep 2020 04:12:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w8yY=CY=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1kI13R-0000R6-4l
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 02:50:49 +0000
-X-Inumbo-ID: 1329e8cb-5349-452c-a2ff-423f9342ff45
-Received: from mga03.intel.com (unknown [134.134.136.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1329e8cb-5349-452c-a2ff-423f9342ff45;
- Tue, 15 Sep 2020 02:50:46 +0000 (UTC)
-IronPort-SDR: VLXT7lEbMzK4f7W5d3fKRT8+Pr3gm6I/Z6s/Kym/Xp1IPfYQMSaJUtYYIdRCcSHTYIsn30hdVc
- dYjxWd1vpdAQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="159237860"
-X-IronPort-AV: E=Sophos;i="5.76,428,1592895600"; d="scan'208";a="159237860"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 19:50:45 -0700
-IronPort-SDR: ebgO7U2Q2caSzDDaDQ5LdkFguloA16JDYYx3HB3PUqnnnCRK3pcptax8iYPhkoIImInLlapt0V
- vtAqw+R9mVjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,428,1592895600"; d="scan'208";a="343332569"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Sep 2020 19:50:45 -0700
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 14 Sep 2020 19:50:44 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Mon, 14 Sep 2020 19:50:44 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.172)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Mon, 14 Sep 2020 19:50:41 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gHPafHqSLHCDHn7A35vDJSrpciCRZ5TATU4pGAmJCz7Z+H8U/FgfY963pCj/5sUE8OV9A5jE3M/Eh6/izXlYpk5cOM6r2flO6oe1uOhMky3V+ecJLMkEAhv7DU7Z1fUI69qDfX+9XeXxeFa5xhzfEwkJlm4druRx6uWqBZV30S0b4cr+4EqxOzpW4KtSIHMiifH7eXWXIYwyCf0yRh8lSB6bABlmYhws7P7vqARuf4E6d4UpT4IDhfLi6pDT05rRfdbmWOjxzkZz+ZmmJrAUITRqwnxHabCpiNfyC40zx/UoxSVMzwRbu91HcQEjr5z6218dBwAZspYhLmqMgo8Fvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QaFKVSxcGH4AloHmvyWJ9EWJtZxA5/6bEq1bzmj5hnI=;
- b=NeDrL1nFJKiv0q77+t81pdaqJ8ys3kOYuAarbTOxcn84R86zUIC5iKOZoVouWfFqoHTb5KQhXKYi54vPtKAldZphyQeQ2LN5NydwZPVH9Ir8Tq/O1oHGp6EA/UUQH0JmxzjBGv9p3jSHatdQgxWxj9hO7siTYCs88pQByQHrcCypgueO0/3FffqhZ6/V0/0QYJVIo+QWYr+fM/YGMsKjF/PK9BzBhOEvbr5Pwvdhka1VftGbjuzgppxF295kGKoP2JdAsX2QHWoCMkNihAU3NrbKFG6ZCkFNErQSWn5kAIlLKDG4cGjdFCfXM+8+tFzEs1o/fFEP4Vn9lOkJNqKhkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QaFKVSxcGH4AloHmvyWJ9EWJtZxA5/6bEq1bzmj5hnI=;
- b=VjOxmOEeYLhuc1Kh5vtETmre3QO1kqbr91A9LalaEEaf+yzDjiB+G2NiH0x1nV6zYVTv0x1G075EHD6II4FXlgLFnBjwPa2i2ItW1HIFWFgZEFHCpTRu4U/OHKQjTJd+sEfkfCYJ+4K0pDdjDDT/+N5p4IeI20vLMZmrnAbROcM=
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by MWHPR11MB2047.namprd11.prod.outlook.com (2603:10b6:300:2a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Tue, 15 Sep
- 2020 02:50:39 +0000
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::6dfe:feb8:25f1:ac9c]) by MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::6dfe:feb8:25f1:ac9c%7]) with mapi id 15.20.3370.019; Tue, 15 Sep 2020
- 02:50:39 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
- <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <JBeulich@suse.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, "Nakajima, Jun"
- <jun.nakajima@intel.com>
-Subject: RE: [PATCH 1/5] x86/asm: Rename FS/GS base helpers
-Thread-Topic: [PATCH 1/5] x86/asm: Rename FS/GS base helpers
-Thread-Index: AQHWho/3RQMV/6pO4EqtH9V6HxfzYqlpCMLg
-Date: Tue, 15 Sep 2020 02:50:39 +0000
-Message-ID: <MWHPR11MB1645FD858E8276D4E19E12298C200@MWHPR11MB1645.namprd11.prod.outlook.com>
-References: <20200909095920.25495-1-andrew.cooper3@citrix.com>
- <20200909095920.25495-2-andrew.cooper3@citrix.com>
-In-Reply-To: <20200909095920.25495-2-andrew.cooper3@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [192.198.147.217]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ad39e72d-0770-4ccf-80c0-08d85922217c
-x-ms-traffictypediagnostic: MWHPR11MB2047:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR11MB2047232CA5C0D6671522A9EF8C200@MWHPR11MB2047.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7tu+tjK5JzT4X7vXaswoJCCfbTQxPBNmZyKgo4FMGjKlyMdwbabqf3FjUEt2L/y94QFNv7e8f0Fyx5lkleDOVGg4uLutmlTNi8EtY4rWL2nk4s3RhWk0HCDAYKqfch6Y9Lxg/TjP2EYWGhZimoXS1n5jHST2udvuU6qEN6lS3TZwpyD+uB3VjUDmm4dU+9rv/jeZolWtSNT+mVlnOe5iEe0GCJqGS8EMC874yMknVgt3FK/yImXZAi7rjFZHlVfY0T8YB2/rODINhuWIsgks7hgzEH6VdaUlcJMWCSUTn4p3vIYUMRLjR6g7u3RJk+cd
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1645.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(346002)(136003)(366004)(7696005)(66946007)(26005)(54906003)(86362001)(478600001)(110136005)(9686003)(6506007)(186003)(4326008)(107886003)(55016002)(5660300002)(52536014)(33656002)(8676002)(8936002)(66476007)(66556008)(64756008)(66446008)(83380400001)(71200400001)(2906002)(316002)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: nrQSFNq53qZaVeZyJnPYG4jy3UUMXb7LHWJsf46XqALLQ0tzIbspYzqo8ofvWe4h9nbrENe9reMGcRbrHty7K5MeDKPyMz6jvassNo7JaXjO1OJTmxPHrwzHCTYbI6ODyh8bGlpAk4h/j1TeZXNN3dLcsvZEhddxCmj/C2bOH+JKkE0hKiqY+lPc28LAYb+Dya/yj0d4FKiQiv0chfi5Ec7ZOaFwy7D+/b1nfnxG/mlOQHmlL7XW0LByd9by74alKApzdemRxn1+WiRTuajx4r8IB9pCoba6LPPGtSr9cRiF/qsoNVIiwlwGwOlLdJ4hQNOm1HGHVikf8re+S4tH2NI0UxWIjWv6UeZ4auiGs7s1DT1hCQwLFee/sD35yULtuKKFTZ6E6a9MYAJjwKt0PqFw3u+l2sbenX5BDjEJei2cMxiO2JNED0UW/IJ/NqiuaNAvjwgCWexSSs+Xx1TYseI+7Xer/eco18BqrJCuTswnT3A3eKMXHtG/8Dtz9FLh8fW6HEysKyUQkK9zPGMwto2ICEEPTUrf+hsR0lSrC+HX5qzTJqCnZZnwZdvFDEiHD4KBVWBOJQfcbJkAh+etjYBmBdTmHbzy8nergEJui0tn0w/0cWY0UliUqV3J22y0GUM8yb0PX84MOOC9Ro8sDw==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <SRS0=B5vB=CY=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
+ id 1kI0NY-0004go-QI
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 02:07:32 +0000
+X-Inumbo-ID: c0e7fcef-5aa7-4882-9d24-96dd52cf8741
+Received: from out30-130.freemail.mail.aliyun.com (unknown [115.124.30.130])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c0e7fcef-5aa7-4882-9d24-96dd52cf8741;
+ Tue, 15 Sep 2020 02:07:28 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+ MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
+ TI=SMTPD_---0U9-Pd4L_1600135638; 
+Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
+ fp:SMTPD_---0U9-Pd4L_1600135638) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 15 Sep 2020 10:07:18 +0800
+Date: Tue, 15 Sep 2020 10:07:18 +0800
+From: Wei Yang <richard.weiyang@linux.alibaba.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kees Cook <keescook@chromium.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
+Subject: Re: [PATCH v2 1/7] kernel/resource: make
+ release_mem_region_adjustable() never fail
+Message-ID: <20200915020718.GB2007@L-31X9LVDL-1304.local>
+References: <20200908201012.44168-1-david@redhat.com>
+ <20200908201012.44168-2-david@redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad39e72d-0770-4ccf-80c0-08d85922217c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2020 02:50:39.6503 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OFju8FE6zyInnY6252bbQhnsgbafMdZ9vRWeJ8ZvVEZmn/ujqj7IxcLQpsWCXITbVKSFU+ym28LNTG7orqsuyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB2047
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200908201012.44168-2-david@redhat.com>
+X-Mailman-Approved-At: Tue, 15 Sep 2020 04:12:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,187 +57,203 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: Wei Yang <richard.weiyang@linux.alibaba.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTZW50
-OiBXZWRuZXNkYXksIFNlcHRlbWJlciA5LCAyMDIwIDU6NTkgUE0NCj4gDQo+IFRoZXkgYXJlIGN1
-cnJlbnRseSBuYW1lZCBhZnRlciB0aGUgRlNHU0JBU0UgaW5zdHJ1Y3Rpb25zLCBidXQgYXJlIG5v
-dCB0aGluDQo+IHdyYXBwZXJzIGFyb3VuZCBzYWlkIGluc3RydWN0aW9ucywgYW5kIHRoZXJlZm9y
-ZSBkbyBub3QgYWNjdXJhdGVseSByZWZsZWN0DQo+IHRoZQ0KPiBsb2dpYyB0aGV5IHBlcmZvcm0s
-IGVzcGVjaWFsbHkgd2hlbiBpdCBjb21lcyB0byBmdW5jdGlvbmluZyBzYWZlbHkgaW4gbm9uDQo+
-IEZTR1NCQVNFIGNvbnRleHQuDQo+IA0KPiBSZW5hbWUgdGhlbSB0byB7cmVhZCx3cml0ZX1fe2Zz
-LGdzfV9iYXNlKCkgdG8gYXZvaWQgY29uZnVzaW9uLg0KPiANCj4gTm8gZnVuY3Rpb25hbCBjaGFu
-Z2UuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0Bj
-aXRyaXguY29tPg0KDQpSZXZpZXdlZC1ieTogS2V2aW4gVGlhbiA8a2V2aW4udGlhbkBpbnRlbC5j
-b20+DQoNCj4gLS0tDQo+IENDOiBKYW4gQmV1bGljaCA8SkJldWxpY2hAc3VzZS5jb20+DQo+IEND
-OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gQ0M6IFdlaSBMaXUg
-PHdsQHhlbi5vcmc+DQo+IENDOiBKdW4gTmFrYWppbWEgPGp1bi5uYWthamltYUBpbnRlbC5jb20+
-DQo+IENDOiBLZXZpbiBUaWFuIDxrZXZpbi50aWFuQGludGVsLmNvbT4NCj4gLS0tDQo+ICB4ZW4v
-YXJjaC94ODYvZG9tYWluLmMgICAgICAgICAgfCAxMCArKysrKy0tLS0tDQo+ICB4ZW4vYXJjaC94
-ODYvaHZtL3ZteC92bXguYyAgICAgfCAgOCArKysrLS0tLQ0KPiAgeGVuL2FyY2gveDg2L3B2L2Rv
-bWFpbi5jICAgICAgIHwgIDIgKy0NCj4gIHhlbi9hcmNoL3g4Ni9wdi9lbXVsLXByaXYtb3AuYyB8
-IDE0ICsrKysrKystLS0tLS0tDQo+ICB4ZW4vYXJjaC94ODYveDg2XzY0L21tLmMgICAgICAgfCAg
-OCArKysrLS0tLQ0KPiAgeGVuL2FyY2gveDg2L3g4Nl82NC90cmFwcy5jICAgIHwgIDYgKysrLS0t
-DQo+ICB4ZW4vaW5jbHVkZS9hc20teDg2L21zci5oICAgICAgfCAxMiArKysrKystLS0tLS0NCj4g
-IDcgZmlsZXMgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwgMzAgZGVsZXRpb25zKC0pDQo+IA0K
-PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2RvbWFpbi5jIGIveGVuL2FyY2gveDg2L2RvbWFp
-bi5jDQo+IGluZGV4IGU4ZTkxY2YwODAuLjIyNzFiZWUzNmEgMTAwNjQ0DQo+IC0tLSBhL3hlbi9h
-cmNoL3g4Ni9kb21haW4uYw0KPiArKysgYi94ZW4vYXJjaC94ODYvZG9tYWluLmMNCj4gQEAgLTE1
-ODEsOSArMTU4MSw5IEBAIHN0YXRpYyB2b2lkIGxvYWRfc2VnbWVudHMoc3RydWN0IHZjcHUgKm4p
-DQo+IA0KPiAgICAgIGlmICggIWZzX2dzX2RvbmUgJiYgIWNvbXBhdCApDQo+ICAgICAgew0KPiAt
-ICAgICAgICB3cmZzYmFzZShuLT5hcmNoLnB2LmZzX2Jhc2UpOw0KPiAtICAgICAgICB3cmdzc2hh
-ZG93KG4tPmFyY2gucHYuZ3NfYmFzZV9rZXJuZWwpOw0KPiAtICAgICAgICB3cmdzYmFzZShuLT5h
-cmNoLnB2LmdzX2Jhc2VfdXNlcik7DQo+ICsgICAgICAgIHdyaXRlX2ZzX2Jhc2Uobi0+YXJjaC5w
-di5mc19iYXNlKTsNCj4gKyAgICAgICAgd3JpdGVfZ3Nfc2hhZG93KG4tPmFyY2gucHYuZ3NfYmFz
-ZV9rZXJuZWwpOw0KPiArICAgICAgICB3cml0ZV9nc19iYXNlKG4tPmFyY2gucHYuZ3NfYmFzZV91
-c2VyKTsNCj4gDQo+ICAgICAgICAgIC8qIElmIGluIGtlcm5lbCBtb2RlIHRoZW4gc3dpdGNoIHRo
-ZSBHUyBiYXNlcyBhcm91bmQuICovDQo+ICAgICAgICAgIGlmICggKG4tPmFyY2guZmxhZ3MgJiBU
-Rl9rZXJuZWxfbW9kZSkgKQ0KPiBAQCAtMTcxMCw5ICsxNzEwLDkgQEAgc3RhdGljIHZvaWQgc2F2
-ZV9zZWdtZW50cyhzdHJ1Y3QgdmNwdSAqdikNCj4gDQo+ICAgICAgaWYgKCAhaXNfcHZfMzJiaXRf
-dmNwdSh2KSApDQo+ICAgICAgew0KPiAtICAgICAgICB1bnNpZ25lZCBsb25nIGdzX2Jhc2UgPSBy
-ZGdzYmFzZSgpOw0KPiArICAgICAgICB1bnNpZ25lZCBsb25nIGdzX2Jhc2UgPSByZWFkX2dzX2Jh
-c2UoKTsNCj4gDQo+IC0gICAgICAgIHYtPmFyY2gucHYuZnNfYmFzZSA9IHJkZnNiYXNlKCk7DQo+
-ICsgICAgICAgIHYtPmFyY2gucHYuZnNfYmFzZSA9IHJlYWRfZnNfYmFzZSgpOw0KPiAgICAgICAg
-ICBpZiAoIHYtPmFyY2guZmxhZ3MgJiBURl9rZXJuZWxfbW9kZSApDQo+ICAgICAgICAgICAgICB2
-LT5hcmNoLnB2LmdzX2Jhc2Vfa2VybmVsID0gZ3NfYmFzZTsNCj4gICAgICAgICAgZWxzZQ0KPiBk
-aWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2bS92bXgvdm14LmMgYi94ZW4vYXJjaC94ODYvaHZt
-L3ZteC92bXguYw0KPiBpbmRleCBjNGI0MGJmM2NiLi5kMjZlMTAyOTcwIDEwMDY0NA0KPiAtLS0g
-YS94ZW4vYXJjaC94ODYvaHZtL3ZteC92bXguYw0KPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3Zt
-eC92bXguYw0KPiBAQCAtNTEyLDEyICs1MTIsMTIgQEAgc3RhdGljIHZvaWQgdm14X3NhdmVfZ3Vl
-c3RfbXNycyhzdHJ1Y3QgdmNwdSAqdikNCj4gICAgICAgKiBXZSBjYW5ub3QgY2FjaGUgU0hBRE9X
-X0dTX0JBU0Ugd2hpbGUgdGhlIFZDUFUgcnVucywgYXMgaXQgY2FuDQo+ICAgICAgICogYmUgdXBk
-YXRlZCBhdCBhbnkgdGltZSB2aWEgU1dBUEdTLCB3aGljaCB3ZSBjYW5ub3QgdHJhcC4NCj4gICAg
-ICAgKi8NCj4gLSAgICB2LT5hcmNoLmh2bS52bXguc2hhZG93X2dzID0gcmRnc3NoYWRvdygpOw0K
-PiArICAgIHYtPmFyY2guaHZtLnZteC5zaGFkb3dfZ3MgPSByZWFkX2dzX3NoYWRvdygpOw0KPiAg
-fQ0KPiANCj4gIHN0YXRpYyB2b2lkIHZteF9yZXN0b3JlX2d1ZXN0X21zcnMoc3RydWN0IHZjcHUg
-KnYpDQo+ICB7DQo+IC0gICAgd3Jnc3NoYWRvdyh2LT5hcmNoLmh2bS52bXguc2hhZG93X2dzKTsN
-Cj4gKyAgICB3cml0ZV9nc19zaGFkb3codi0+YXJjaC5odm0udm14LnNoYWRvd19ncyk7DQo+ICAg
-ICAgd3Jtc3JsKE1TUl9TVEFSLCAgICAgICAgICAgdi0+YXJjaC5odm0udm14LnN0YXIpOw0KPiAg
-ICAgIHdybXNybChNU1JfTFNUQVIsICAgICAgICAgIHYtPmFyY2guaHZtLnZteC5sc3Rhcik7DQo+
-ICAgICAgd3Jtc3JsKE1TUl9TWVNDQUxMX01BU0ssICAgdi0+YXJjaC5odm0udm14LnNmbWFzayk7
-DQo+IEBAIC0yOTU4LDcgKzI5NTgsNyBAQCBzdGF0aWMgaW50IHZteF9tc3JfcmVhZF9pbnRlcmNl
-cHQodW5zaWduZWQgaW50DQo+IG1zciwgdWludDY0X3QgKm1zcl9jb250ZW50KQ0KPiAgICAgICAg
-ICBicmVhazsNCj4gDQo+ICAgICAgY2FzZSBNU1JfU0hBRE9XX0dTX0JBU0U6DQo+IC0gICAgICAg
-ICptc3JfY29udGVudCA9IHJkZ3NzaGFkb3coKTsNCj4gKyAgICAgICAgKm1zcl9jb250ZW50ID0g
-cmVhZF9nc19zaGFkb3coKTsNCj4gICAgICAgICAgYnJlYWs7DQo+IA0KPiAgICAgIGNhc2UgTVNS
-X1NUQVI6DQo+IEBAIC0zMTkwLDcgKzMxOTAsNyBAQCBzdGF0aWMgaW50IHZteF9tc3Jfd3JpdGVf
-aW50ZXJjZXB0KHVuc2lnbmVkIGludA0KPiBtc3IsIHVpbnQ2NF90IG1zcl9jb250ZW50KQ0KPiAg
-ICAgICAgICBlbHNlIGlmICggbXNyID09IE1TUl9HU19CQVNFICkNCj4gICAgICAgICAgICAgIF9f
-dm13cml0ZShHVUVTVF9HU19CQVNFLCBtc3JfY29udGVudCk7DQo+ICAgICAgICAgIGVsc2UNCj4g
-LSAgICAgICAgICAgIHdyZ3NzaGFkb3cobXNyX2NvbnRlbnQpOw0KPiArICAgICAgICAgICAgd3Jp
-dGVfZ3Nfc2hhZG93KG1zcl9jb250ZW50KTsNCj4gDQo+ICAgICAgICAgIGJyZWFrOw0KPiANCj4g
-ZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9wdi9kb21haW4uYyBiL3hlbi9hcmNoL3g4Ni9wdi9k
-b21haW4uYw0KPiBpbmRleCA0NGU0ZWEyNTgyLi42NjNlNzZjNzczIDEwMDY0NA0KPiAtLS0gYS94
-ZW4vYXJjaC94ODYvcHYvZG9tYWluLmMNCj4gKysrIGIveGVuL2FyY2gveDg2L3B2L2RvbWFpbi5j
-DQo+IEBAIC00NTIsNyArNDUyLDcgQEAgdm9pZCB0b2dnbGVfZ3Vlc3RfbW9kZShzdHJ1Y3QgdmNw
-dSAqdikNCj4gICAgICAgKiBVcGRhdGUgdGhlIGNhY2hlZCB2YWx1ZSBvZiB0aGUgR1MgYmFzZSBh
-Ym91dCB0byBiZWNvbWUgaW5hY3RpdmUsIGFzIGENCj4gICAgICAgKiBzdWJzZXF1ZW50IGNvbnRl
-eHQgc3dpdGNoIHdvbid0IGJvdGhlciByZS1yZWFkaW5nIGl0Lg0KPiAgICAgICAqLw0KPiAtICAg
-IGdzX2Jhc2UgPSByZGdzYmFzZSgpOw0KPiArICAgIGdzX2Jhc2UgPSByZWFkX2dzX2Jhc2UoKTsN
-Cj4gICAgICBpZiAoIHYtPmFyY2guZmxhZ3MgJiBURl9rZXJuZWxfbW9kZSApDQo+ICAgICAgICAg
-IHYtPmFyY2gucHYuZ3NfYmFzZV9rZXJuZWwgPSBnc19iYXNlOw0KPiAgICAgIGVsc2UNCj4gZGlm
-ZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9wdi9lbXVsLXByaXYtb3AuYyBiL3hlbi9hcmNoL3g4Ni9w
-di9lbXVsLXByaXYtDQo+IG9wLmMNCj4gaW5kZXggYTE5MjE2MGY4NC4uOWRkMWQ1OTQyMyAxMDA2
-NDQNCj4gLS0tIGEveGVuL2FyY2gveDg2L3B2L2VtdWwtcHJpdi1vcC5jDQo+ICsrKyBiL3hlbi9h
-cmNoL3g4Ni9wdi9lbXVsLXByaXYtb3AuYw0KPiBAQCAtNTExLDEwICs1MTEsMTAgQEAgc3RhdGlj
-IGludCByZWFkX3NlZ21lbnQoZW51bSB4ODZfc2VnbWVudCBzZWcsDQo+ICAgICAgICAgICAgICBy
-ZWctPmJhc2UgPSAwOw0KPiAgICAgICAgICAgICAgYnJlYWs7DQo+ICAgICAgICAgIGNhc2UgeDg2
-X3NlZ19mczoNCj4gLSAgICAgICAgICAgIHJlZy0+YmFzZSA9IHJkZnNiYXNlKCk7DQo+ICsgICAg
-ICAgICAgICByZWctPmJhc2UgPSByZWFkX2ZzX2Jhc2UoKTsNCj4gICAgICAgICAgICAgIGJyZWFr
-Ow0KPiAgICAgICAgICBjYXNlIHg4Nl9zZWdfZ3M6DQo+IC0gICAgICAgICAgICByZWctPmJhc2Ug
-PSByZGdzYmFzZSgpOw0KPiArICAgICAgICAgICAgcmVnLT5iYXNlID0gcmVhZF9nc19iYXNlKCk7
-DQo+ICAgICAgICAgICAgICBicmVhazsNCj4gICAgICAgICAgfQ0KPiANCj4gQEAgLTg3MSwxMyAr
-ODcxLDEzIEBAIHN0YXRpYyBpbnQgcmVhZF9tc3IodW5zaWduZWQgaW50IHJlZywgdWludDY0X3Qg
-KnZhbCwNCj4gICAgICBjYXNlIE1TUl9GU19CQVNFOg0KPiAgICAgICAgICBpZiAoIGlzX3B2XzMy
-Yml0X2RvbWFpbihjdXJyZCkgKQ0KPiAgICAgICAgICAgICAgYnJlYWs7DQo+IC0gICAgICAgICp2
-YWwgPSByZGZzYmFzZSgpOw0KPiArICAgICAgICAqdmFsID0gcmVhZF9mc19iYXNlKCk7DQo+ICAg
-ICAgICAgIHJldHVybiBYODZFTVVMX09LQVk7DQo+IA0KPiAgICAgIGNhc2UgTVNSX0dTX0JBU0U6
-DQo+ICAgICAgICAgIGlmICggaXNfcHZfMzJiaXRfZG9tYWluKGN1cnJkKSApDQo+ICAgICAgICAg
-ICAgICBicmVhazsNCj4gLSAgICAgICAgKnZhbCA9IHJkZ3NiYXNlKCk7DQo+ICsgICAgICAgICp2
-YWwgPSByZWFkX2dzX2Jhc2UoKTsNCj4gICAgICAgICAgcmV0dXJuIFg4NkVNVUxfT0tBWTsNCj4g
-DQo+ICAgICAgY2FzZSBNU1JfU0hBRE9XX0dTX0JBU0U6DQo+IEBAIC05OTMsMTkgKzk5MywxOSBA
-QCBzdGF0aWMgaW50IHdyaXRlX21zcih1bnNpZ25lZCBpbnQgcmVnLCB1aW50NjRfdCB2YWwsDQo+
-ICAgICAgY2FzZSBNU1JfRlNfQkFTRToNCj4gICAgICAgICAgaWYgKCBpc19wdl8zMmJpdF9kb21h
-aW4oY3VycmQpIHx8ICFpc19jYW5vbmljYWxfYWRkcmVzcyh2YWwpICkNCj4gICAgICAgICAgICAg
-IGJyZWFrOw0KPiAtICAgICAgICB3cmZzYmFzZSh2YWwpOw0KPiArICAgICAgICB3cml0ZV9mc19i
-YXNlKHZhbCk7DQo+ICAgICAgICAgIHJldHVybiBYODZFTVVMX09LQVk7DQo+IA0KPiAgICAgIGNh
-c2UgTVNSX0dTX0JBU0U6DQo+ICAgICAgICAgIGlmICggaXNfcHZfMzJiaXRfZG9tYWluKGN1cnJk
-KSB8fCAhaXNfY2Fub25pY2FsX2FkZHJlc3ModmFsKSApDQo+ICAgICAgICAgICAgICBicmVhazsN
-Cj4gLSAgICAgICAgd3Jnc2Jhc2UodmFsKTsNCj4gKyAgICAgICAgd3JpdGVfZ3NfYmFzZSh2YWwp
-Ow0KPiAgICAgICAgICByZXR1cm4gWDg2RU1VTF9PS0FZOw0KPiANCj4gICAgICBjYXNlIE1TUl9T
-SEFET1dfR1NfQkFTRToNCj4gICAgICAgICAgaWYgKCBpc19wdl8zMmJpdF9kb21haW4oY3VycmQp
-IHx8ICFpc19jYW5vbmljYWxfYWRkcmVzcyh2YWwpICkNCj4gICAgICAgICAgICAgIGJyZWFrOw0K
-PiAtICAgICAgICB3cmdzc2hhZG93KHZhbCk7DQo+ICsgICAgICAgIHdyaXRlX2dzX3NoYWRvdyh2
-YWwpOw0KPiAgICAgICAgICBjdXJyLT5hcmNoLnB2LmdzX2Jhc2VfdXNlciA9IHZhbDsNCj4gICAg
-ICAgICAgcmV0dXJuIFg4NkVNVUxfT0tBWTsNCj4gDQo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94
-ODYveDg2XzY0L21tLmMgYi94ZW4vYXJjaC94ODYveDg2XzY0L21tLmMNCj4gaW5kZXggYjY5Y2Yy
-ZGM0Zi4uMGQxMWE5ZjUwMCAxMDA2NDQNCj4gLS0tIGEveGVuL2FyY2gveDg2L3g4Nl82NC9tbS5j
-DQo+ICsrKyBiL3hlbi9hcmNoL3g4Ni94ODZfNjQvbW0uYw0KPiBAQCAtMTAzMCw3ICsxMDMwLDcg
-QEAgbG9uZyBkb19zZXRfc2VnbWVudF9iYXNlKHVuc2lnbmVkIGludCB3aGljaCwNCj4gdW5zaWdu
-ZWQgbG9uZyBiYXNlKQ0KPiAgICAgIHsNCj4gICAgICBjYXNlIFNFR0JBU0VfRlM6DQo+ICAgICAg
-ICAgIGlmICggaXNfY2Fub25pY2FsX2FkZHJlc3MoYmFzZSkgKQ0KPiAtICAgICAgICAgICAgd3Jm
-c2Jhc2UoYmFzZSk7DQo+ICsgICAgICAgICAgICB3cml0ZV9mc19iYXNlKGJhc2UpOw0KPiAgICAg
-ICAgICBlbHNlDQo+ICAgICAgICAgICAgICByZXQgPSAtRUlOVkFMOw0KPiAgICAgICAgICBicmVh
-azsNCj4gQEAgLTEwMzgsNyArMTAzOCw3IEBAIGxvbmcgZG9fc2V0X3NlZ21lbnRfYmFzZSh1bnNp
-Z25lZCBpbnQgd2hpY2gsDQo+IHVuc2lnbmVkIGxvbmcgYmFzZSkNCj4gICAgICBjYXNlIFNFR0JB
-U0VfR1NfVVNFUjoNCj4gICAgICAgICAgaWYgKCBpc19jYW5vbmljYWxfYWRkcmVzcyhiYXNlKSAp
-DQo+ICAgICAgICAgIHsNCj4gLSAgICAgICAgICAgIHdyZ3NzaGFkb3coYmFzZSk7DQo+ICsgICAg
-ICAgICAgICB3cml0ZV9nc19zaGFkb3coYmFzZSk7DQo+ICAgICAgICAgICAgICB2LT5hcmNoLnB2
-LmdzX2Jhc2VfdXNlciA9IGJhc2U7DQo+ICAgICAgICAgIH0NCj4gICAgICAgICAgZWxzZQ0KPiBA
-QCAtMTA0Nyw3ICsxMDQ3LDcgQEAgbG9uZyBkb19zZXRfc2VnbWVudF9iYXNlKHVuc2lnbmVkIGlu
-dCB3aGljaCwNCj4gdW5zaWduZWQgbG9uZyBiYXNlKQ0KPiANCj4gICAgICBjYXNlIFNFR0JBU0Vf
-R1NfS0VSTkVMOg0KPiAgICAgICAgICBpZiAoIGlzX2Nhbm9uaWNhbF9hZGRyZXNzKGJhc2UpICkN
-Cj4gLSAgICAgICAgICAgIHdyZ3NiYXNlKGJhc2UpOw0KPiArICAgICAgICAgICAgd3JpdGVfZ3Nf
-YmFzZShiYXNlKTsNCj4gICAgICAgICAgZWxzZQ0KPiAgICAgICAgICAgICAgcmV0ID0gLUVJTlZB
-TDsNCj4gICAgICAgICAgYnJlYWs7DQo+IEBAIC0xMDk2LDcgKzEwOTYsNyBAQCBsb25nIGRvX3Nl
-dF9zZWdtZW50X2Jhc2UodW5zaWduZWQgaW50IHdoaWNoLA0KPiB1bnNpZ25lZCBsb25nIGJhc2Up
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIDogW2ZsYXRdICJyIiAoRkxBVF9VU0VSX0RTMzIp
-ICk7DQo+IA0KPiAgICAgICAgICAvKiBVcGRhdGUgdGhlIGNhY2hlIG9mIHRoZSBpbmFjdGl2ZSBi
-YXNlLCBhcyByZWFkIGZyb20gdGhlIEdEVC9MRFQuICovDQo+IC0gICAgICAgIHYtPmFyY2gucHYu
-Z3NfYmFzZV91c2VyID0gcmRnc2Jhc2UoKTsNCj4gKyAgICAgICAgdi0+YXJjaC5wdi5nc19iYXNl
-X3VzZXIgPSByZWFkX2dzX2Jhc2UoKTsNCj4gDQo+ICAgICAgICAgIGFzbSB2b2xhdGlsZSAoIHNh
-ZmVfc3dhcGdzICk7DQo+ICAgICAgICAgIGJyZWFrOw0KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gv
-eDg2L3g4Nl82NC90cmFwcy5jIGIveGVuL2FyY2gveDg2L3g4Nl82NC90cmFwcy5jDQo+IGluZGV4
-IDkzYWYwYzVlODcuLjRmMjYyMTIyYjcgMTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL3g4Ni94ODZf
-NjQvdHJhcHMuYw0KPiArKysgYi94ZW4vYXJjaC94ODYveDg2XzY0L3RyYXBzLmMNCj4gQEAgLTQ3
-LDkgKzQ3LDkgQEAgc3RhdGljIHZvaWQgcmVhZF9yZWdpc3RlcnMoc3RydWN0IGNwdV91c2VyX3Jl
-Z3MgKnJlZ3MsDQo+IHVuc2lnbmVkIGxvbmcgY3JzWzhdKQ0KPiAgICAgIHJlZ3MtPmVzID0gcmVh
-ZF9zcmVnKGVzKTsNCj4gICAgICByZWdzLT5mcyA9IHJlYWRfc3JlZyhmcyk7DQo+ICAgICAgcmVn
-cy0+Z3MgPSByZWFkX3NyZWcoZ3MpOw0KPiAtICAgIGNyc1s1XSA9IHJkZnNiYXNlKCk7DQo+IC0g
-ICAgY3JzWzZdID0gcmRnc2Jhc2UoKTsNCj4gLSAgICBjcnNbN10gPSByZGdzc2hhZG93KCk7DQo+
-ICsgICAgY3JzWzVdID0gcmVhZF9mc19iYXNlKCk7DQo+ICsgICAgY3JzWzZdID0gcmVhZF9nc19i
-YXNlKCk7DQo+ICsgICAgY3JzWzddID0gcmVhZF9nc19zaGFkb3coKTsNCj4gIH0NCj4gDQo+ICBz
-dGF0aWMgdm9pZCBfc2hvd19yZWdpc3RlcnMoDQo+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9h
-c20teDg2L21zci5oIGIveGVuL2luY2x1ZGUvYXNtLXg4Ni9tc3IuaA0KPiBpbmRleCA1YzQ0Yzc5
-NjAwLi41ZTE0MWFjNWE1IDEwMDY0NA0KPiAtLS0gYS94ZW4vaW5jbHVkZS9hc20teDg2L21zci5o
-DQo+ICsrKyBiL3hlbi9pbmNsdWRlL2FzbS14ODYvbXNyLmgNCj4gQEAgLTE1Niw3ICsxNTYsNyBA
-QCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcgX19yZGdzYmFzZSh2b2lkKQ0KPiAgICAgIHJl
-dHVybiBiYXNlOw0KPiAgfQ0KPiANCj4gLXN0YXRpYyBpbmxpbmUgdW5zaWduZWQgbG9uZyByZGZz
-YmFzZSh2b2lkKQ0KPiArc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIHJlYWRfZnNfYmFzZSh2
-b2lkKQ0KPiAgew0KPiAgICAgIHVuc2lnbmVkIGxvbmcgYmFzZTsNCj4gDQo+IEBAIC0xNjgsNyAr
-MTY4LDcgQEAgc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIHJkZnNiYXNlKHZvaWQpDQo+ICAg
-ICAgcmV0dXJuIGJhc2U7DQo+ICB9DQo+IA0KPiAtc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25n
-IHJkZ3NiYXNlKHZvaWQpDQo+ICtzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcgcmVhZF9nc19i
-YXNlKHZvaWQpDQo+ICB7DQo+ICAgICAgdW5zaWduZWQgbG9uZyBiYXNlOw0KPiANCj4gQEAgLTE4
-MCw3ICsxODAsNyBAQCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcgcmRnc2Jhc2Uodm9pZCkN
-Cj4gICAgICByZXR1cm4gYmFzZTsNCj4gIH0NCj4gDQo+IC1zdGF0aWMgaW5saW5lIHVuc2lnbmVk
-IGxvbmcgcmRnc3NoYWRvdyh2b2lkKQ0KPiArc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIHJl
-YWRfZ3Nfc2hhZG93KHZvaWQpDQo+ICB7DQo+ICAgICAgdW5zaWduZWQgbG9uZyBiYXNlOw0KPiAN
-Cj4gQEAgLTE5Niw3ICsxOTYsNyBAQCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcgcmRnc3No
-YWRvdyh2b2lkKQ0KPiAgICAgIHJldHVybiBiYXNlOw0KPiAgfQ0KPiANCj4gLXN0YXRpYyBpbmxp
-bmUgdm9pZCB3cmZzYmFzZSh1bnNpZ25lZCBsb25nIGJhc2UpDQo+ICtzdGF0aWMgaW5saW5lIHZv
-aWQgd3JpdGVfZnNfYmFzZSh1bnNpZ25lZCBsb25nIGJhc2UpDQo+ICB7DQo+ICAgICAgaWYgKCBy
-ZWFkX2NyNCgpICYgWDg2X0NSNF9GU0dTQkFTRSApDQo+ICAjaWZkZWYgSEFWRV9BU19GU0dTQkFT
-RQ0KPiBAQCAtMjA4LDcgKzIwOCw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCB3cmZzYmFzZSh1bnNp
-Z25lZCBsb25nIGJhc2UpDQo+ICAgICAgICAgIHdybXNybChNU1JfRlNfQkFTRSwgYmFzZSk7DQo+
-ICB9DQo+IA0KPiAtc3RhdGljIGlubGluZSB2b2lkIHdyZ3NiYXNlKHVuc2lnbmVkIGxvbmcgYmFz
-ZSkNCj4gK3N0YXRpYyBpbmxpbmUgdm9pZCB3cml0ZV9nc19iYXNlKHVuc2lnbmVkIGxvbmcgYmFz
-ZSkNCj4gIHsNCj4gICAgICBpZiAoIHJlYWRfY3I0KCkgJiBYODZfQ1I0X0ZTR1NCQVNFICkNCj4g
-ICNpZmRlZiBIQVZFX0FTX0ZTR1NCQVNFDQo+IEBAIC0yMjAsNyArMjIwLDcgQEAgc3RhdGljIGlu
-bGluZSB2b2lkIHdyZ3NiYXNlKHVuc2lnbmVkIGxvbmcgYmFzZSkNCj4gICAgICAgICAgd3Jtc3Js
-KE1TUl9HU19CQVNFLCBiYXNlKTsNCj4gIH0NCj4gDQo+IC1zdGF0aWMgaW5saW5lIHZvaWQgd3Jn
-c3NoYWRvdyh1bnNpZ25lZCBsb25nIGJhc2UpDQo+ICtzdGF0aWMgaW5saW5lIHZvaWQgd3JpdGVf
-Z3Nfc2hhZG93KHVuc2lnbmVkIGxvbmcgYmFzZSkNCj4gIHsNCj4gICAgICBpZiAoIHJlYWRfY3I0
-KCkgJiBYODZfQ1I0X0ZTR1NCQVNFICkNCj4gICAgICB7DQo+IC0tDQo+IDIuMTEuMA0KDQo=
+On Tue, Sep 08, 2020 at 10:10:06PM +0200, David Hildenbrand wrote:
+>Let's make sure splitting a resource on memory hotunplug will never fail.
+>This will become more relevant once we merge selected System RAM
+>resources - then, we'll trigger that case more often on memory hotunplug.
+>
+>In general, this function is already unlikely to fail. When we remove
+>memory, we free up quite a lot of metadata (memmap, page tables, memory
+>block device, etc.). The only reason it could really fail would be when
+>injecting allocation errors.
+>
+>All other error cases inside release_mem_region_adjustable() seem to be
+>sanity checks if the function would be abused in different context -
+>let's add WARN_ON_ONCE() in these cases so we can catch them.
+>
+>Cc: Andrew Morton <akpm@linux-foundation.org>
+>Cc: Michal Hocko <mhocko@suse.com>
+>Cc: Dan Williams <dan.j.williams@intel.com>
+>Cc: Jason Gunthorpe <jgg@ziepe.ca>
+>Cc: Kees Cook <keescook@chromium.org>
+>Cc: Ard Biesheuvel <ardb@kernel.org>
+>Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+>Cc: Baoquan He <bhe@redhat.com>
+>Cc: Wei Yang <richardw.yang@linux.intel.com>
+>Signed-off-by: David Hildenbrand <david@redhat.com>
+>---
+> include/linux/ioport.h |  4 ++--
+> kernel/resource.c      | 49 ++++++++++++++++++++++++------------------
+> mm/memory_hotplug.c    | 22 +------------------
+> 3 files changed, 31 insertions(+), 44 deletions(-)
+>
+>diff --git a/include/linux/ioport.h b/include/linux/ioport.h
+>index 6c2b06fe8beb7..52a91f5fa1a36 100644
+>--- a/include/linux/ioport.h
+>+++ b/include/linux/ioport.h
+>@@ -248,8 +248,8 @@ extern struct resource * __request_region(struct resource *,
+> extern void __release_region(struct resource *, resource_size_t,
+> 				resource_size_t);
+> #ifdef CONFIG_MEMORY_HOTREMOVE
+>-extern int release_mem_region_adjustable(struct resource *, resource_size_t,
+>-				resource_size_t);
+>+extern void release_mem_region_adjustable(struct resource *, resource_size_t,
+>+					  resource_size_t);
+> #endif
+> 
+> /* Wrappers for managed devices */
+>diff --git a/kernel/resource.c b/kernel/resource.c
+>index f1175ce93a1d5..36b3552210120 100644
+>--- a/kernel/resource.c
+>+++ b/kernel/resource.c
+>@@ -1258,21 +1258,28 @@ EXPORT_SYMBOL(__release_region);
+>  *   assumes that all children remain in the lower address entry for
+>  *   simplicity.  Enhance this logic when necessary.
+>  */
+>-int release_mem_region_adjustable(struct resource *parent,
+>-				  resource_size_t start, resource_size_t size)
+>+void release_mem_region_adjustable(struct resource *parent,
+>+				   resource_size_t start, resource_size_t size)
+> {
+>+	struct resource *new_res = NULL;
+>+	bool alloc_nofail = false;
+> 	struct resource **p;
+> 	struct resource *res;
+>-	struct resource *new_res;
+> 	resource_size_t end;
+>-	int ret = -EINVAL;
+> 
+> 	end = start + size - 1;
+>-	if ((start < parent->start) || (end > parent->end))
+>-		return ret;
+>+	if (WARN_ON_ONCE((start < parent->start) || (end > parent->end)))
+>+		return;
+> 
+>-	/* The alloc_resource() result gets checked later */
+>-	new_res = alloc_resource(GFP_KERNEL);
+>+	/*
+>+	 * We free up quite a lot of memory on memory hotunplug (esp., memap),
+>+	 * just before releasing the region. This is highly unlikely to
+>+	 * fail - let's play save and make it never fail as the caller cannot
+>+	 * perform any error handling (e.g., trying to re-add memory will fail
+>+	 * similarly).
+>+	 */
+>+retry:
+>+	new_res = alloc_resource(GFP_KERNEL | alloc_nofail ? __GFP_NOFAIL : 0);
+> 
+
+It looks like a bold change, while I don't find a reason to object it.
+
+> 	p = &parent->child;
+> 	write_lock(&resource_lock);
+>@@ -1298,7 +1305,6 @@ int release_mem_region_adjustable(struct resource *parent,
+> 		 * so if we are dealing with them, let us just back off here.
+> 		 */
+> 		if (!(res->flags & IORESOURCE_SYSRAM)) {
+>-			ret = 0;
+> 			break;
+> 		}
+> 
+>@@ -1315,20 +1321,23 @@ int release_mem_region_adjustable(struct resource *parent,
+> 			/* free the whole entry */
+> 			*p = res->sibling;
+> 			free_resource(res);
+>-			ret = 0;
+> 		} else if (res->start == start && res->end != end) {
+> 			/* adjust the start */
+>-			ret = __adjust_resource(res, end + 1,
+>-						res->end - end);
+>+			WARN_ON_ONCE(__adjust_resource(res, end + 1,
+>+						       res->end - end));
+> 		} else if (res->start != start && res->end == end) {
+> 			/* adjust the end */
+>-			ret = __adjust_resource(res, res->start,
+>-						start - res->start);
+>+			WARN_ON_ONCE(__adjust_resource(res, res->start,
+>+						       start - res->start));
+> 		} else {
+>-			/* split into two entries */
+>+			/* split into two entries - we need a new resource */
+> 			if (!new_res) {
+>-				ret = -ENOMEM;
+>-				break;
+>+				new_res = alloc_resource(GFP_ATOMIC);
+>+				if (!new_res) {
+>+					alloc_nofail = true;
+>+					write_unlock(&resource_lock);
+>+					goto retry;
+>+				}
+> 			}
+> 			new_res->name = res->name;
+> 			new_res->start = end + 1;
+>@@ -1339,9 +1348,8 @@ int release_mem_region_adjustable(struct resource *parent,
+> 			new_res->sibling = res->sibling;
+> 			new_res->child = NULL;
+> 
+>-			ret = __adjust_resource(res, res->start,
+>-						start - res->start);
+>-			if (ret)
+>+			if (WARN_ON_ONCE(__adjust_resource(res, res->start,
+>+							   start - res->start)))
+> 				break;
+> 			res->sibling = new_res;
+> 			new_res = NULL;
+>@@ -1352,7 +1360,6 @@ int release_mem_region_adjustable(struct resource *parent,
+> 
+> 	write_unlock(&resource_lock);
+> 	free_resource(new_res);
+>-	return ret;
+> }
+> #endif	/* CONFIG_MEMORY_HOTREMOVE */
+> 
+>diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+>index baded53b9ff92..4c47b68a9f4b5 100644
+>--- a/mm/memory_hotplug.c
+>+++ b/mm/memory_hotplug.c
+>@@ -1724,26 +1724,6 @@ void try_offline_node(int nid)
+> }
+> EXPORT_SYMBOL(try_offline_node);
+> 
+>-static void __release_memory_resource(resource_size_t start,
+>-				      resource_size_t size)
+>-{
+>-	int ret;
+>-
+>-	/*
+>-	 * When removing memory in the same granularity as it was added,
+>-	 * this function never fails. It might only fail if resources
+>-	 * have to be adjusted or split. We'll ignore the error, as
+>-	 * removing of memory cannot fail.
+>-	 */
+>-	ret = release_mem_region_adjustable(&iomem_resource, start, size);
+>-	if (ret) {
+>-		resource_size_t endres = start + size - 1;
+>-
+>-		pr_warn("Unable to release resource <%pa-%pa> (%d)\n",
+>-			&start, &endres, ret);
+>-	}
+>-}
+>-
+> static int __ref try_remove_memory(int nid, u64 start, u64 size)
+> {
+> 	int rc = 0;
+>@@ -1777,7 +1757,7 @@ static int __ref try_remove_memory(int nid, u64 start, u64 size)
+> 		memblock_remove(start, size);
+> 	}
+> 
+>-	__release_memory_resource(start, size);
+>+	release_mem_region_adjustable(&iomem_resource, start, size);
+> 
+> 	try_offline_node(nid);
+> 
+>-- 
+>2.26.2
+
+-- 
+Wei Yang
+Help you, Help me
 
