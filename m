@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C0ED269FE9
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 09:36:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 060DA269FF2
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 09:37:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI5V9-0008Ah-Hu; Tue, 15 Sep 2020 07:35:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kI5Wn-0008HY-TV; Tue, 15 Sep 2020 07:37:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ankK=CY=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kI5V7-00089y-RT
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 07:35:41 +0000
-X-Inumbo-ID: 23312683-fe4d-4a46-9d0e-e39c6a8d32f3
+ id 1kI5Wn-0008HS-00
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 07:37:25 +0000
+X-Inumbo-ID: 688070f1-dbbb-4716-aa4b-7b28fd6139db
 Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 23312683-fe4d-4a46-9d0e-e39c6a8d32f3;
- Tue, 15 Sep 2020 07:35:40 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 688070f1-dbbb-4716-aa4b-7b28fd6139db;
+ Tue, 15 Sep 2020 07:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600155340;
+ s=mimecast20190719; t=1600155442;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yFoamWwaWe8V8qUR+so0sTwUxa5mKHWUIK4wzmuz5cA=;
- b=N99+YPNH01iT5dBWOQkos5gGIrT0Xe2hQNYsX0Y2ZCPmor+iVW2RFh0y2qTwt3TQxbJctQ
- YSM896vxZxpwQEeppFIBFB9cEWpcGUXyU7XohJxIHdEOYVI+PXJh2ZLdb/OZ1wLDKdzRzS
- 75L3y9iVADeR7oB5wabtT9ZFiTFWRFM=
+ bh=LUihYCOFGsNQqFfjENLSTSa0QkwMpwvtwdi/Mex61+4=;
+ b=BfIKo8HT22j3ND7MoB8GZd+hpDEDMjOrx7yKjQ9NfmmSCBNVj0o4dWHzwC3qVwAtkciEBk
+ dxqMRbX8GQWTuV7MO27nkmVdGGS6WsLMwv0cjEbX1+xif3HQLfigbHmGRTe4liaGv62rfS
+ ZgmHhXeWiJ71ownlKAthWeIT7mKLrTc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-409-zMcs8GfzNaeiwFL8I3NGYg-1; Tue, 15 Sep 2020 03:35:37 -0400
-X-MC-Unique: zMcs8GfzNaeiwFL8I3NGYg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+ us-mta-375-ar7V8RlRNcqnXa2ZYlqxrg-1; Tue, 15 Sep 2020 03:37:17 -0400
+X-MC-Unique: ar7V8RlRNcqnXa2ZYlqxrg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 899C3801FDD;
- Tue, 15 Sep 2020 07:35:35 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E5B3A425CB;
+ Tue, 15 Sep 2020 07:37:14 +0000 (UTC)
 Received: from [10.36.114.89] (ovpn-114-89.ams2.redhat.com [10.36.114.89])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0A4A110023A5;
- Tue, 15 Sep 2020 07:35:30 +0000 (UTC)
-Subject: Re: [PATCH v2 1/7] kernel/resource: make
- release_mem_region_adjustable() never fail
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B9FF17512C;
+ Tue, 15 Sep 2020 07:37:10 +0000 (UTC)
+Subject: Re: [PATCH v2 2/7] kernel/resource: move and rename
+ IORESOURCE_MEM_DRIVER_MANAGED
 To: Wei Yang <richard.weiyang@linux.alibaba.com>
 Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
  linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
@@ -51,10 +52,13 @@ Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
  Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
  Dan Williams <dan.j.williams@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
  Kees Cook <keescook@chromium.org>, Ard Biesheuvel <ardb@kernel.org>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>,
+ Eric Biederman <ebiederm@xmission.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ kexec@lists.infradead.org
 References: <20200908201012.44168-1-david@redhat.com>
- <20200908201012.44168-2-david@redhat.com>
- <20200915021012.GC2007@L-31X9LVDL-1304.local>
+ <20200908201012.44168-3-david@redhat.com>
+ <20200915022023.GD2007@L-31X9LVDL-1304.local>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -101,16 +105,16 @@ Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat GmbH
-Message-ID: <927904b1-1909-f11f-483e-8012bda8ad0c@redhat.com>
-Date: Tue, 15 Sep 2020 09:35:30 +0200
+Message-ID: <b4eced44-00af-fcd2-be0d-d7abf8a2cc99@redhat.com>
+Date: Tue, 15 Sep 2020 09:37:09 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200915021012.GC2007@L-31X9LVDL-1304.local>
+In-Reply-To: <20200915022023.GD2007@L-31X9LVDL-1304.local>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,29 +128,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
->> static int __ref try_remove_memory(int nid, u64 start, u64 size)
->> {
->> 	int rc = 0;
->> @@ -1777,7 +1757,7 @@ static int __ref try_remove_memory(int nid, u64 start, u64 size)
->> 		memblock_remove(start, size);
->> 	}
+On 15.09.20 04:20, Wei Yang wrote:
+> On Tue, Sep 08, 2020 at 10:10:07PM +0200, David Hildenbrand wrote:
+>> IORESOURCE_MEM_DRIVER_MANAGED currently uses an unused PnP bit, which is
+>> always set to 0 by hardware. This is far from beautiful (and confusing),
+>> and the bit only applies to SYSRAM. So let's move it out of the
+>> bus-specific (PnP) defined bits.
 >>
->> -	__release_memory_resource(start, size);
->> +	release_mem_region_adjustable(&iomem_resource, start, size);
->>
+>> We'll add another SYSRAM specific bit soon. If we ever need more bits for
+>> other purposes, we can steal some from "desc", or reshuffle/regroup what we
+>> have.
 > 
-> Seems the only user of release_mem_region_adjustable() is here, can we move
-> iomem_resource into the function body? Actually, we don't iterate the resource
-> tree from any level. We always start from the root.
+> I think you make this definition because we use IORESOURCE_SYSRAM_RAM for
+> hotpluged memory? So we make them all in IORESOURCE_SYSRAM_XXX family?
 
-You mean, making iomem_resource implicit? I can spot that something
-similar was done for
-
-#define devm_release_mem_region(dev, start, n) \
-	__devm_release_region(dev, &iomem_resource, (start), (n))
-
-I'll send an addon patch for that, ok? - thanks.
+Yeah, to specify based on the extended MEM type SYSRAM. Because it
+really only applies to that.
 
 -- 
 Thanks,
