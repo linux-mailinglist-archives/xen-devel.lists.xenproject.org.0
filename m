@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE4D269CDD
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 06:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 353C0269CDE
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 06:12:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI2KA-0007Eu-ML; Tue, 15 Sep 2020 04:12:10 +0000
+	id 1kI2KA-0007F0-U6; Tue, 15 Sep 2020 04:12:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B5vB=CY=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
- id 1kI0NY-0004go-QI
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 02:07:32 +0000
-X-Inumbo-ID: c0e7fcef-5aa7-4882-9d24-96dd52cf8741
-Received: from out30-130.freemail.mail.aliyun.com (unknown [115.124.30.130])
+ id 1kI0QG-0005Nh-6Q
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 02:10:20 +0000
+X-Inumbo-ID: 46bbc921-b07a-4a77-a4a3-5e50e1b3237e
+Received: from out4436.biz.mail.alibaba.com (unknown [47.88.44.36])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0e7fcef-5aa7-4882-9d24-96dd52cf8741;
- Tue, 15 Sep 2020 02:07:28 +0000 (UTC)
+ id 46bbc921-b07a-4a77-a4a3-5e50e1b3237e;
+ Tue, 15 Sep 2020 02:10:17 +0000 (UTC)
 X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
  MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
- TI=SMTPD_---0U9-Pd4L_1600135638; 
+ TI=SMTPD_---0U9-PFSR_1600135812; 
 Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
- fp:SMTPD_---0U9-Pd4L_1600135638) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 15 Sep 2020 10:07:18 +0800
-Date: Tue, 15 Sep 2020 10:07:18 +0800
+ fp:SMTPD_---0U9-PFSR_1600135812) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 15 Sep 2020 10:10:12 +0800
+Date: Tue, 15 Sep 2020 10:10:12 +0800
 From: Wei Yang <richard.weiyang@linux.alibaba.com>
 To: David Hildenbrand <david@redhat.com>
 Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
@@ -39,7 +39,7 @@ Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
  Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
 Subject: Re: [PATCH v2 1/7] kernel/resource: make
  release_mem_region_adjustable() never fail
-Message-ID: <20200915020718.GB2007@L-31X9LVDL-1304.local>
+Message-ID: <20200915021012.GC2007@L-31X9LVDL-1304.local>
 References: <20200908201012.44168-1-david@redhat.com>
  <20200908201012.44168-2-david@redhat.com>
 MIME-Version: 1.0
@@ -145,9 +145,6 @@ On Tue, Sep 08, 2020 at 10:10:06PM +0200, David Hildenbrand wrote:
 >+retry:
 >+	new_res = alloc_resource(GFP_KERNEL | alloc_nofail ? __GFP_NOFAIL : 0);
 > 
-
-It looks like a bold change, while I don't find a reason to object it.
-
 > 	p = &parent->child;
 > 	write_lock(&resource_lock);
 >@@ -1298,7 +1305,6 @@ int release_mem_region_adjustable(struct resource *parent,
@@ -248,6 +245,11 @@ It looks like a bold change, while I don't find a reason to object it.
 >-	__release_memory_resource(start, size);
 >+	release_mem_region_adjustable(&iomem_resource, start, size);
 > 
+
+Seems the only user of release_mem_region_adjustable() is here, can we move
+iomem_resource into the function body? Actually, we don't iterate the resource
+tree from any level. We always start from the root.
+
 > 	try_offline_node(nid);
 > 
 >-- 
