@@ -2,44 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9C8826A0D5
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 10:26:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3261026A0E6
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Sep 2020 10:30:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kI6Hv-0005Qr-Bm; Tue, 15 Sep 2020 08:26:07 +0000
+	id 1kI6LU-0005a7-FR; Tue, 15 Sep 2020 08:29:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jdui=CY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kI6Ht-0005Ql-Ab
- for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 08:26:05 +0000
-X-Inumbo-ID: d93e2fd8-6877-4841-94dc-a32ff0a1b7a8
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=2OlW=CY=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1kI6LT-0005Xx-A0
+ for xen-devel@lists.xenproject.org; Tue, 15 Sep 2020 08:29:47 +0000
+X-Inumbo-ID: 3419441f-ab46-4582-a1b9-4ff70afb1438
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d93e2fd8-6877-4841-94dc-a32ff0a1b7a8;
- Tue, 15 Sep 2020 08:26:04 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CEF60AC26;
- Tue, 15 Sep 2020 08:26:18 +0000 (UTC)
-Subject: Re: [PATCH v3] x86/HVM: more consistently set I/O completion
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ id 3419441f-ab46-4582-a1b9-4ff70afb1438;
+ Tue, 15 Sep 2020 08:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From;
+ bh=d93BYfzE2uWnS39OYFLUZ7lR6m0fNuGMzSWP1E0VODc=; b=Ix9AjqxPwMeMyv9hlpkGMBjn/0
+ 5lur7SYy0tMtiEm3g3K9eygLsxIZrLaL0pYVGnWt0rydBCSG28aYuF17Wl8jpl9IS7LhHlFLHPIXO
+ 0oqcSIbVcCZcKF6CeIi67cs0eh3E/H4XCWjYKN8igRWfo+1fvn08LbzJtWVXQkDOf4Rg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kI6LL-0004qC-OB; Tue, 15 Sep 2020 08:29:39 +0000
+Received: from host86-176-94-160.range86-176.btcentralplus.com
+ ([86.176.94.160] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kI6LL-0007Pl-BQ; Tue, 15 Sep 2020 08:29:39 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <pdurrant@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
  Kevin Tian <kevin.tian@intel.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>
-References: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
-Message-ID: <940134ca-9917-7260-679a-a14ac4e5d099@suse.com>
-Date: Tue, 15 Sep 2020 10:26:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH v9 0/8] IOMMU cleanup
+Date: Tue, 15 Sep 2020 09:29:28 +0100
+Message-Id: <20200915082936.23663-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <96a4cc9b-b1fd-494c-9e99-6d3ca733dea9@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,70 +66,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.08.2020 09:09, Jan Beulich wrote:
-> Doing this just in hvm_emulate_one_insn() is not enough.
-> hvm_ud_intercept() and hvm_emulate_one_vm_event() can get invoked for
-> insns requiring one or more continuations, and at least in principle
-> hvm_emulate_one_mmio() could, too. Without proper setting of the field,
-> handle_hvm_io_completion() will do nothing completion-wise, and in
-> particular the missing re-invocation of the insn emulation paths will
-> lead to emulation caching not getting disabled in due course, causing
-> the ASSERT() in {svm,vmx}_vmenter_helper() to trigger.
-> 
-> Reported-by: Don Slutz <don.slutz@gmail.com>
-> 
-> Similar considerations go for the clearing of vio->mmio_access, which
-> gets moved as well.
-> 
-> Additionally all updating of vio->mmio_* now gets done dependent upon
-> the new completion value, rather than hvm_ioreq_needs_completion()'s
-> return value. This is because it is the completion chosen which controls
-> what path will be taken when handling the completion, not the simple
-> boolean return value. In particular, PIO completion doesn't involve
-> going through the insn emulator, and hence emulator state ought to get
-> cleared early (or it won't get cleared at all).
-> 
-> The new logic, besides allowing for a caller override for the
-> continuation type to be set (for VMX real mode emulation), will also
-> avoid setting an MMIO completion when a simpler PIO one will do. This
-> is a minor optimization only as a side effect - the behavior is strictly
-> needed at least for hvm_ud_intercept(), as only memory accesses can
-> successfully complete through handle_mmio(). Care of course needs to be
-> taken to correctly deal with "mixed" insns (doing both MMIO and PIO at
-> the same time, i.e. INS/OUTS). For this, hvmemul_validate() now latches
-> whether the insn being emulated is a memory access, as this information
-> is no longer easily available at the point where we want to consume it.
-> 
-> Note that the presence of non-NULL .validate fields in the two ops
-> structures in hvm_emulate_one_mmio() was really necessary even before
-> the changes here: Without this, passing non-NULL as middle argument to
-> hvm_emulate_init_once() is meaningless.
-> 
-> The restrictions on when the #UD intercept gets actually enabled are why
-> it was decided that this is not a security issue:
-> - the "hvm_fep" option to enable its use is a debugging option only,
-> - for the cross-vendor case is considered experimental, even if
->   unfortunately SUPPORT.md doesn't have an explicit statement about
->   this.
-> The other two affected functions are
-> - hvm_emulate_one_vm_event(), used for introspection,
-> - hvm_emulate_one_mmio(), used for Dom0 only,
-> which aren't qualifying this as needing an XSA either.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Tested-by: Don Slutz <don.slutz@gmail.com>
-> ---
-> v3: Add comment ahead of _hvm_emulate_one(). Add parentheses in a
->     conditional expr. Justify why this does not need an XSA.
-> v2: Make updating of vio->mmio_* fields fully driven by the new
->     completion value.
-> ---
-> I further think that the entire tail of _hvm_emulate_one() (everything
-> past the code changed/added there by this patch) wants skipping in case
-> a completion is needed, at the very least for the mmio and realmode
-> cases, where we know we'll come back here.
+From: Paul Durrant <pdurrant@amazon.com>
 
-Does one of the two of you have an opinion on this aspect?
+Paul Durrant (8):
+  x86/iommu: convert VT-d code to use new page table allocator
+  iommu: remove unused iommu_ops method and tasklet
+  iommu: flush I/O TLB if iommu_map() or iommu_unmap() fail
+  iommu: make map and unmap take a page count, similar to flush
+  remove remaining uses of iommu_legacy_map/unmap
+  common/grant_table: batch flush I/O TLB
+  iommu: remove the share_p2m operation
+  iommu: stop calling IOMMU page tables 'p2m tables'
 
-Jan
+ xen/arch/x86/mm.c                           |  22 +-
+ xen/arch/x86/mm/p2m-ept.c                   |  21 +-
+ xen/arch/x86/mm/p2m-pt.c                    |  16 +-
+ xen/arch/x86/mm/p2m.c                       |  27 ++-
+ xen/arch/x86/x86_64/mm.c                    |  20 +-
+ xen/common/grant_table.c                    | 208 ++++++++++++------
+ xen/common/memory.c                         |   7 +-
+ xen/drivers/passthrough/amd/iommu.h         |   2 +-
+ xen/drivers/passthrough/amd/iommu_map.c     |   4 +-
+ xen/drivers/passthrough/amd/pci_amd_iommu.c |  20 +-
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c    |   2 +-
+ xen/drivers/passthrough/arm/smmu.c          |   2 +-
+ xen/drivers/passthrough/iommu.c             | 118 +++-------
+ xen/drivers/passthrough/vtd/extern.h        |   2 +-
+ xen/drivers/passthrough/vtd/iommu.c         | 225 +++++++++-----------
+ xen/drivers/passthrough/vtd/x86/vtd.c       |   2 +-
+ xen/drivers/passthrough/x86/iommu.c         |   2 +-
+ xen/include/xen/iommu.h                     |  36 +---
+ 18 files changed, 372 insertions(+), 364 deletions(-)
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Jun Nakajima <jun.nakajima@intel.com>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>
+-- 
+2.20.1
+
 
