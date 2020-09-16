@@ -2,57 +2,95 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D76C26C281
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 14:08:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE0826C289
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 14:10:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIWEr-0005Eq-Ic; Wed, 16 Sep 2020 12:08:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kJNc=CZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kIWEp-0005Ei-Pz
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 12:08:39 +0000
-X-Inumbo-ID: 24a3225a-e637-45d8-849c-7f06b5ee8d09
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 24a3225a-e637-45d8-849c-7f06b5ee8d09;
- Wed, 16 Sep 2020 12:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=p+a3E5oaMwvW7J00erWbdvFHxG5akQN0YcehPGX4zHI=; b=rGY0orKUwoGV7deExseiNGX4Xw
- Un1RNliOM8DZXao3IwH3GhGNpuBWx1DaISBFIogAutJJZlwjSo+NopIoBS2FWM3qAXBEk72epG4OC
- aGvIAxS1fboeLirCU3Z4kX+ULbdTMmB829x4rxfiu85CdaQgeEfKeAJ0LK26lJdsMg+0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIWEm-0005GQ-Sj; Wed, 16 Sep 2020 12:08:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIWEm-00079n-LW; Wed, 16 Sep 2020 12:08:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kIWEm-0000Ib-L1; Wed, 16 Sep 2020 12:08:36 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154381-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kIWG4-0005MJ-3n; Wed, 16 Sep 2020 12:09:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wetI=CZ=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
+ id 1kIWG2-0005MA-2t
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 12:09:54 +0000
+X-Inumbo-ID: 33f0528a-a8e2-4f8c-a57e-8f9b8016c748
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 33f0528a-a8e2-4f8c-a57e-8f9b8016c748;
+ Wed, 16 Sep 2020 12:09:53 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id a17so6659335wrn.6
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 05:09:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=+3jvoy/bBV/BNfVwVnfU8KcCZN1nPBtEmgjgdo9EwXk=;
+ b=FENeMTOiWrFokQkUzY6vSvMhlCXV7HMJqSDFsMTbLqeNytwJMofYpFGvXfw3GhxJQe
+ D9FUrSX8+Brv74I6kUhpyFb/XZioFwNiGTb+QuFgOQkexhfx/xeg364unF1nN8hvk40W
+ Hh+h3hsu+pBXFmPF/2PAzcQ04fALpK5XDa9tA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+3jvoy/bBV/BNfVwVnfU8KcCZN1nPBtEmgjgdo9EwXk=;
+ b=Vz1kXmSxH5yJcBq7XFxiMpZ2J6N+/5TcNTbtJ/RISDPM/dzC7uiq89P4mq77ZZYwZD
+ +NTklopgYXNPwpkY3rTF0YyirXtaszs6wGMoFGkLchMJwF0iOJ7rmYmS+Dw5SOi9nbq+
+ n0U/W0Xi2ny5sjC/LzKkesECLp+SXE0mKEd6Pt9iTL1cuRTxi8clZqC3CpsFFchjV9tU
+ M/hUtWexOL6UlViNRPR9OG3RfPlqeCHlNrUsdJF+XPNPaj5ql0TbC34j3EdFgY0scrEH
+ y45ijUhKujJSMTXRjaWIDosUJ8sWI7V8Xv56YyE62ituXqB1PipLBi1Yfe6QElFoW16T
+ c92Q==
+X-Gm-Message-State: AOAM530+FALvXL9uwJYxoZHuQy0WFjwMJPXnXtaQzf/aMktU6zIh4Jj9
+ aV427n1ba1nyvMUtuYXhgih78Q==
+X-Google-Smtp-Source: ABdhPJwcFrpBowFHXDaGWxAmgGA6UC0qLIIbiwK0yYyfwUChHgh/bXrgr93clOHTT0R4i2flV+cOiA==
+X-Received: by 2002:a5d:4448:: with SMTP id x8mr28185933wrr.207.1600258192468; 
+ Wed, 16 Sep 2020 05:09:52 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id n11sm32655611wrx.91.2020.09.16.05.09.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 05:09:51 -0700 (PDT)
+Date: Wed, 16 Sep 2020 14:09:48 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
+ sean@poorly.run, bskeggs@redhat.com, tomi.valkeinen@ti.com,
+ eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
+ chris@chris-wilson.co.uk, matthew.auld@intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com,
+ sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 17/21] drm/virtgpu: Set PRIME export function in
+ struct drm_gem_object_funcs
+Message-ID: <20200916120948.GO438822@phenom.ffwll.local>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-18-tzimmermann@suse.de>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 154381: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=414d22cc092eab4a5b90d2ce594495733b07c77a
-X-Osstest-Versions-That: xen=51526576219f122ec7ccfd55dea95afbca70d330
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 16 Sep 2020 12:08:36 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200915145958.19993-18-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,59 +104,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154381 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154381/
+On Tue, Sep 15, 2020 at 04:59:54PM +0200, Thomas Zimmermann wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces virtgpu's per-driver PRIME export
+> function with a per-object function.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Failures :-/ but no regressions.
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c    | 1 -
+>  drivers/gpu/drm/virtio/virtgpu_object.c | 1 +
+>  2 files changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index b039f493bda9..1f8d6ed11d21 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -203,7 +203,6 @@ static struct drm_driver driver = {
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>  	.gem_prime_mmap = drm_gem_prime_mmap,
+> -	.gem_prime_export = virtgpu_gem_prime_export,
+>  	.gem_prime_import = virtgpu_gem_prime_import,
+>  	.gem_prime_import_sg_table = virtgpu_gem_prime_import_sg_table,
+>  
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
+> index 842f8b61aa89..4f7d7ea8194c 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_object.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_object.c
+> @@ -108,6 +108,7 @@ static const struct drm_gem_object_funcs virtio_gpu_shmem_funcs = {
+>  	.close = virtio_gpu_gem_object_close,
+>  
+>  	.print_info = drm_gem_shmem_print_info,
+> +	.export = virtgpu_gem_prime_export,
+>  	.pin = drm_gem_shmem_pin,
+>  	.unpin = drm_gem_shmem_unpin,
+>  	.get_sg_table = drm_gem_shmem_get_sg_table,
+> -- 
+> 2.28.0
+> 
 
-version targeted for testing:
- xen                  414d22cc092eab4a5b90d2ce594495733b07c77a
-baseline version:
- xen                  51526576219f122ec7ccfd55dea95afbca70d330
-
-Last test of basis   154361  2020-09-15 13:01:26 Z    0 days
-Testing same since   154381  2020-09-16 10:00:23 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5152657621..414d22cc09  414d22cc092eab4a5b90d2ce594495733b07c77a -> smoke
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
