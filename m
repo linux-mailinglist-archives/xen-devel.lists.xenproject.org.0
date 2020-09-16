@@ -2,94 +2,116 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03DDA26C170
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:03:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68BF126C16D
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:03:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIUHf-0001wa-2G; Wed, 16 Sep 2020 10:03:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kIUHk-0001xU-CN; Wed, 16 Sep 2020 10:03:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wetI=CZ=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
- id 1kIUHc-0001wR-LY
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:03:25 +0000
-X-Inumbo-ID: 1783aad2-2165-4682-ade4-b17de6c79540
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1783aad2-2165-4682-ade4-b17de6c79540;
- Wed, 16 Sep 2020 10:03:23 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id z1so6265849wrt.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 03:03:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=e2Znfx8BWkk5aVcx8hHpr3x0pz1zwQZhs1djRV0gcOU=;
- b=YwQFNnZ46y23ilMPtQ+YA1uU56yQbhOv6Wnxz4ZcYBv/64HXgnQIstoy81UuE+BuFc
- RbVimusECAo2qKzk8yvrlLUDfal98le+MXG5s9js8pfohQ+Bnhlzr8odUz3778w+kM1b
- 6iP/yC9nMmGqgDJRKWjaW8mpLjM0JRvnAZoXk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=e2Znfx8BWkk5aVcx8hHpr3x0pz1zwQZhs1djRV0gcOU=;
- b=mNQHHJtTZSo7ZNYjyDQAKeQqU+95xHft52eCIIu+6YGkLfzB9N/vLwk1yDwakRs3xd
- 2iG7QQrQN7eRrCSDjxEqnnxGEANYkRes5CVaPoaf2PUCoiT92iUHrd4algdb+p11Z0PA
- T1QjMoWuH2jjiUfuoaJ8O0bzeQVwQMycuSiaklUn1gwWMDY9Papfsmv/76uXMoXzDRWW
- I1V0DrI2lEDqY+jt0lXGMClPonQjhqg21kJrGPus1r2jH4nJLJyPazxsPA8k4AaqIeZm
- tYxJtATml0uDYPgp1A0a/byq62yPDlXV6mSy3wIMKtDbMjHPVgRJwrLk3Hm03UObBY9X
- nLwQ==
-X-Gm-Message-State: AOAM533fd9ObJEuwcwg5PJayqNy6kuXDDBPotY1DyA5TPVZcGUbLNZaP
- JCDklGQ9zXlY4zK3jfSLxmdmwg==
-X-Google-Smtp-Source: ABdhPJzeuyJCXxonH76Yve4EPaguLB8swVVrVRKLIRv+fjNVrJReD84NaGvyyVb0RMzIohYAQGFSOA==
-X-Received: by 2002:adf:81e6:: with SMTP id 93mr25703900wra.412.1600250602103; 
- Wed, 16 Sep 2020 03:03:22 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s26sm4516179wmh.44.2020.09.16.03.03.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2020 03:03:21 -0700 (PDT)
-Date: Wed, 16 Sep 2020 12:03:18 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, linux@armlinux.org.uk,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, patrik.r.jakobsson@gmail.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
- sean@poorly.run, bskeggs@redhat.com, tomi.valkeinen@ti.com,
- eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
- xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
- chris@chris-wilson.co.uk, matthew.auld@intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com,
- sam@ravnborg.org, miaoqinglang@huawei.com,
- emil.velikov@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 04/21] drm/exynos: Introduce GEM object functions
-Message-ID: <20200916100318.GF438822@phenom.ffwll.local>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-5-tzimmermann@suse.de>
+ (envelope-from <SRS0=44SI=CZ=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kIUHi-0001xD-Dh
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:03:30 +0000
+X-Inumbo-ID: b9c8314c-629e-4f62-a0da-585f631167d5
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id b9c8314c-629e-4f62-a0da-585f631167d5;
+ Wed, 16 Sep 2020 10:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600250609;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gwfofQixgZF5jYL1591dkmTkflD2RkM7KH/YvqDvyaE=;
+ b=MTp+YuB5W4GbeThk9Elze1wnw0Aa1KVPrD37ZrIf102pJkfleSOEr1jK9Do5DvujdyfEYx
+ aziMx2J2AaDj0yNP+bj5bRraNhMLuiZDap0QhFlXuLtrOEmlJXO3ZunB1G2BvxZrR2VRtv
+ Nj24NUInildnXH5VM4AKnC0CZq4W/k4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-57-yW5bBeRENJKpK_k5_jjeTg-1; Wed, 16 Sep 2020 06:03:27 -0400
+X-MC-Unique: yW5bBeRENJKpK_k5_jjeTg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B2B661007477;
+ Wed, 16 Sep 2020 10:03:24 +0000 (UTC)
+Received: from [10.36.113.190] (ovpn-113-190.ams2.redhat.com [10.36.113.190])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 134F760BE5;
+ Wed, 16 Sep 2020 10:03:20 +0000 (UTC)
+Subject: Re: [PATCH] kernel/resource: make iomem_resource implicit in
+ release_mem_region_adjustable()
+To: Wei Yang <richard.weiyang@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <dan.j.williams@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kees Cook <keescook@chromium.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
+References: <20200911103459.10306-1-david@redhat.com>
+ <20200916073041.10355-1-david@redhat.com>
+ <20200916100223.GA46154@L-31X9LVDL-1304.local>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <d11eba75-71c0-4153-944b-56e22044e0eb@redhat.com>
+Date: Wed, 16 Sep 2020 12:03:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200915145958.19993-5-tzimmermann@suse.de>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <20200916100223.GA46154@L-31X9LVDL-1304.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,97 +125,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Sep 15, 2020 at 04:59:41PM +0200, Thomas Zimmermann wrote:
-> GEM object functions deprecate several similar callback interfaces in
-> struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in exynos. The only exception is gem_prime_mmap,
-> which is non-trivial to convert.
+On 16.09.20 12:02, Wei Yang wrote:
+> On Wed, Sep 16, 2020 at 09:30:41AM +0200, David Hildenbrand wrote:
+>> "mem" in the name already indicates the root, similar to
+>> release_mem_region() and devm_request_mem_region(). Make it implicit.
+>> The only single caller always passes iomem_resource, other parents are
+>> not applicable.
+>>
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_drv.c | 10 ----------
->  drivers/gpu/drm/exynos/exynos_drm_gem.c | 15 +++++++++++++++
->  2 files changed, 15 insertions(+), 10 deletions(-)
+> Looks good to me.
 > 
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> index dbd80f1e4c78..fe46680ca208 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> @@ -75,11 +75,6 @@ static void exynos_drm_postclose(struct drm_device *dev, struct drm_file *file)
->  	file->driver_priv = NULL;
->  }
->  
-> -static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
-> -	.open = drm_gem_vm_open,
-> -	.close = drm_gem_vm_close,
-> -};
-> -
->  static const struct drm_ioctl_desc exynos_ioctls[] = {
->  	DRM_IOCTL_DEF_DRV(EXYNOS_GEM_CREATE, exynos_drm_gem_create_ioctl,
->  			DRM_RENDER_ALLOW),
-> @@ -124,16 +119,11 @@ static struct drm_driver exynos_drm_driver = {
->  	.open			= exynos_drm_open,
->  	.lastclose		= drm_fb_helper_lastclose,
->  	.postclose		= exynos_drm_postclose,
-> -	.gem_free_object_unlocked = exynos_drm_gem_free_object,
-> -	.gem_vm_ops		= &exynos_drm_gem_vm_ops,
->  	.dumb_create		= exynos_drm_gem_dumb_create,
->  	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
->  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
->  	.gem_prime_import	= exynos_drm_gem_prime_import,
-> -	.gem_prime_get_sg_table	= exynos_drm_gem_prime_get_sg_table,
->  	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
-> -	.gem_prime_vmap		= exynos_drm_gem_prime_vmap,
-> -	.gem_prime_vunmap	= exynos_drm_gem_prime_vunmap,
->  	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
->  	.ioctls			= exynos_ioctls,
->  	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> index efa476858db5..69a5cf28b4ae 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> @@ -129,6 +129,19 @@ void exynos_drm_gem_destroy(struct exynos_drm_gem *exynos_gem)
->  	kfree(exynos_gem);
->  }
->  
-> +static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
-> +	.open = drm_gem_vm_open,
-> +	.close = drm_gem_vm_close,
-> +};
+> Reviewed-by: Wei Yang <richard.weiyang@linux.alibaba.com>
+>
 
-Hm moving the drm_gem_cma_vm_ops into drm_gem.h or so and maybe calling
-them drm_gem_simple_ops or so would remove a pile of these. But perhaps a
-quick follow up series.
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-> +
-> +static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
-> +	.free = exynos_drm_gem_free_object,
-> +	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
-> +	.vmap = exynos_drm_gem_prime_vmap,
-> +	.vunmap	= exynos_drm_gem_prime_vunmap,
-> +	.vm_ops = &exynos_drm_gem_vm_ops,
-> +};
-> +
->  static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
->  						  unsigned long size)
->  {
-> @@ -143,6 +156,8 @@ static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *dev,
->  	exynos_gem->size = size;
->  	obj = &exynos_gem->base;
->  
-> +	obj->funcs = &exynos_drm_gem_object_funcs;
-> +
->  	ret = drm_gem_object_init(dev, obj, size);
->  	if (ret < 0) {
->  		DRM_DEV_ERROR(dev->dev, "failed to initialize gem object\n");
-> -- 
-> 2.28.0
-> 
+Thanks for the review!
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Thanks,
+
+David / dhildenb
+
 
