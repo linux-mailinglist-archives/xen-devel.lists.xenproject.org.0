@@ -2,52 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A8A26C190
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D70526C1BB
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:37:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIUae-00040A-Ay; Wed, 16 Sep 2020 10:23:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIUnk-000526-PM; Wed, 16 Sep 2020 10:36:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kJNc=CZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kIUac-0003zq-Qk
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:23:02 +0000
-X-Inumbo-ID: f4c795de-5df4-4ed9-a9f1-d3cf804f87e6
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f4c795de-5df4-4ed9-a9f1-d3cf804f87e6;
- Wed, 16 Sep 2020 10:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=w+0oSx7H2Mth9xcRPYQHtHPHqXuBSiEnrwD0UpKU0JU=; b=36q12ImkqlQXrJvwlr0L72IUBH
- 62+T4gF8rMmfUiw7NZVCzkCa/onIqYjlLgGk4JCas577E+7woOlgxlRfHqAsSo2WLYiRuqxKYXlra
- l/4kw+M/J5mnsMhKI1OlH7PmpB9yfSyhHRzrIbvBGcNfyk8E6tqMwXIFapi1lcT+ngek=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIUaW-00034Q-F7; Wed, 16 Sep 2020 10:22:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIUaW-0004ex-6B; Wed, 16 Sep 2020 10:22:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kIUaW-0005DA-5k; Wed, 16 Sep 2020 10:22:56 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154380-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=Tyrr=CZ=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kIUnj-000520-FJ
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:36:35 +0000
+X-Inumbo-ID: 344e15e6-8bc3-422c-98d7-fc7b96774bfe
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 344e15e6-8bc3-422c-98d7-fc7b96774bfe;
+ Wed, 16 Sep 2020 10:36:34 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4E411B55A;
+ Wed, 16 Sep 2020 10:36:48 +0000 (UTC)
+Subject: Re: [PATCH v2 04/21] drm/exynos: Introduce GEM object functions
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ thierry.reding@gmail.com, krzk@kernel.org, sam@ravnborg.org,
+ emil.velikov@collabora.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, oleksandr_andrushchenko@epam.com,
+ tomi.valkeinen@ti.com, linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
+ jonathanh@nvidia.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ bskeggs@redhat.com, xen-devel@lists.xenproject.org, miaoqinglang@huawei.com,
+ intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ chunkuang.hu@kernel.org, andi.shyti@intel.com,
+ linux-arm-msm@vger.kernel.org, marek.olsak@amd.com, tianci.yin@amd.com,
+ etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, rodrigo.vivi@intel.com,
+ matthias.bgg@gmail.com, evan.quan@amd.com, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, laurent.pinchart@ideasonboard.com,
+ hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com,
+ Felix.Kuehling@amd.com, xinhui.pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, chris@chris-wilson.co.uk, kyungmin.park@samsung.com,
+ nirmoy.das@amd.com, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-5-tzimmermann@suse.de>
+ <20200916100318.GF438822@phenom.ffwll.local>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <fb1f5992-1642-5751-5672-486b89442e1c@suse.de>
+Date: Wed, 16 Sep 2020 12:36:28 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 154380: all pass - PUSHED
-X-Osstest-Versions-This: xen=51526576219f122ec7ccfd55dea95afbca70d330
-X-Osstest-Versions-That: xen=6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 16 Sep 2020 10:22:56 +0000
+In-Reply-To: <20200916100318.GF438822@phenom.ffwll.local>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="VLzf65jApKkRavuxi39QvnC87GfNF3zix"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +71,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154380 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154380/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--VLzf65jApKkRavuxi39QvnC87GfNF3zix
+Content-Type: multipart/mixed; boundary="dt3SkYl9e3y1MIK8AYjuI2mtP7GQiTevE";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ thierry.reding@gmail.com, krzk@kernel.org, sam@ravnborg.org,
+ emil.velikov@collabora.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, oleksandr_andrushchenko@epam.com,
+ tomi.valkeinen@ti.com, linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
+ jonathanh@nvidia.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ bskeggs@redhat.com, xen-devel@lists.xenproject.org, miaoqinglang@huawei.com,
+ intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ chunkuang.hu@kernel.org, andi.shyti@intel.com,
+ linux-arm-msm@vger.kernel.org, marek.olsak@amd.com, tianci.yin@amd.com,
+ etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, rodrigo.vivi@intel.com,
+ matthias.bgg@gmail.com, evan.quan@amd.com, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, laurent.pinchart@ideasonboard.com,
+ hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com,
+ Felix.Kuehling@amd.com, xinhui.pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, chris@chris-wilson.co.uk, kyungmin.park@samsung.com,
+ nirmoy.das@amd.com, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com
+Message-ID: <fb1f5992-1642-5751-5672-486b89442e1c@suse.de>
+Subject: Re: [PATCH v2 04/21] drm/exynos: Introduce GEM object functions
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-5-tzimmermann@suse.de>
+ <20200916100318.GF438822@phenom.ffwll.local>
+In-Reply-To: <20200916100318.GF438822@phenom.ffwll.local>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  51526576219f122ec7ccfd55dea95afbca70d330
-baseline version:
- xen                  6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
+--dt3SkYl9e3y1MIK8AYjuI2mtP7GQiTevE
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Last test of basis   154260  2020-09-13 09:20:39 Z    3 days
-Testing same since   154380  2020-09-16 09:19:21 Z    0 days    1 attempts
+Hi
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Don Slutz <don.slutz@gmail.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
+Am 16.09.20 um 12:03 schrieb Daniel Vetter:
+> On Tue, Sep 15, 2020 at 04:59:41PM +0200, Thomas Zimmermann wrote:
+>> GEM object functions deprecate several similar callback interfaces in
+>> struct drm_driver. This patch replaces the per-driver callbacks with
+>> per-instance callbacks in exynos. The only exception is gem_prime_mmap=
+,
+>> which is non-trivial to convert.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>  drivers/gpu/drm/exynos/exynos_drm_drv.c | 10 ----------
+>>  drivers/gpu/drm/exynos/exynos_drm_gem.c | 15 +++++++++++++++
+>>  2 files changed, 15 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm=
+/exynos/exynos_drm_drv.c
+>> index dbd80f1e4c78..fe46680ca208 100644
+>> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
+>> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+>> @@ -75,11 +75,6 @@ static void exynos_drm_postclose(struct drm_device =
+*dev, struct drm_file *file)
+>>  	file->driver_priv =3D NULL;
+>>  }
+>> =20
+>> -static const struct vm_operations_struct exynos_drm_gem_vm_ops =3D {
+>> -	.open =3D drm_gem_vm_open,
+>> -	.close =3D drm_gem_vm_close,
+>> -};
+>> -
+>>  static const struct drm_ioctl_desc exynos_ioctls[] =3D {
+>>  	DRM_IOCTL_DEF_DRV(EXYNOS_GEM_CREATE, exynos_drm_gem_create_ioctl,
+>>  			DRM_RENDER_ALLOW),
+>> @@ -124,16 +119,11 @@ static struct drm_driver exynos_drm_driver =3D {=
 
-jobs:
- coverity-amd64                                               pass    
+>>  	.open			=3D exynos_drm_open,
+>>  	.lastclose		=3D drm_fb_helper_lastclose,
+>>  	.postclose		=3D exynos_drm_postclose,
+>> -	.gem_free_object_unlocked =3D exynos_drm_gem_free_object,
+>> -	.gem_vm_ops		=3D &exynos_drm_gem_vm_ops,
+>>  	.dumb_create		=3D exynos_drm_gem_dumb_create,
+>>  	.prime_handle_to_fd	=3D drm_gem_prime_handle_to_fd,
+>>  	.prime_fd_to_handle	=3D drm_gem_prime_fd_to_handle,
+>>  	.gem_prime_import	=3D exynos_drm_gem_prime_import,
+>> -	.gem_prime_get_sg_table	=3D exynos_drm_gem_prime_get_sg_table,
+>>  	.gem_prime_import_sg_table	=3D exynos_drm_gem_prime_import_sg_table,=
+
+>> -	.gem_prime_vmap		=3D exynos_drm_gem_prime_vmap,
+>> -	.gem_prime_vunmap	=3D exynos_drm_gem_prime_vunmap,
+>>  	.gem_prime_mmap		=3D exynos_drm_gem_prime_mmap,
+>>  	.ioctls			=3D exynos_ioctls,
+>>  	.num_ioctls		=3D ARRAY_SIZE(exynos_ioctls),
+>> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm=
+/exynos/exynos_drm_gem.c
+>> index efa476858db5..69a5cf28b4ae 100644
+>> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
+>> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+>> @@ -129,6 +129,19 @@ void exynos_drm_gem_destroy(struct exynos_drm_gem=
+ *exynos_gem)
+>>  	kfree(exynos_gem);
+>>  }
+>> =20
+>> +static const struct vm_operations_struct exynos_drm_gem_vm_ops =3D {
+>> +	.open =3D drm_gem_vm_open,
+>> +	.close =3D drm_gem_vm_close,
+>> +};
+>=20
+> Hm moving the drm_gem_cma_vm_ops into drm_gem.h or so and maybe calling=
+
+> them drm_gem_simple_ops or so would remove a pile of these. But perhaps=
+ a
+> quick follow up series.
+
+Good idea. Several interfaces use the term 'default' in their name, so
+something like drm_gem_default_vm_ops seems appropriate.
+
+BTW is there a reason why we have file operations like
+DEFINE_DRM_GEM_CMA_FOPS() in each module? It seems like this could also
+be provided by the rsp memory-manager library.
+
+Best regards
+Thomas
+
+>=20
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>=20
+>> +
+>> +static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs =
+=3D {
+>> +	.free =3D exynos_drm_gem_free_object,
+>> +	.get_sg_table =3D exynos_drm_gem_prime_get_sg_table,
+>> +	.vmap =3D exynos_drm_gem_prime_vmap,
+>> +	.vunmap	=3D exynos_drm_gem_prime_vunmap,
+>> +	.vm_ops =3D &exynos_drm_gem_vm_ops,
+>> +};
+>> +
+>>  static struct exynos_drm_gem *exynos_drm_gem_init(struct drm_device *=
+dev,
+>>  						  unsigned long size)
+>>  {
+>> @@ -143,6 +156,8 @@ static struct exynos_drm_gem *exynos_drm_gem_init(=
+struct drm_device *dev,
+>>  	exynos_gem->size =3D size;
+>>  	obj =3D &exynos_gem->base;
+>> =20
+>> +	obj->funcs =3D &exynos_drm_gem_object_funcs;
+>> +
+>>  	ret =3D drm_gem_object_init(dev, obj, size);
+>>  	if (ret < 0) {
+>>  		DRM_DEV_ERROR(dev->dev, "failed to initialize gem object\n");
+>> --=20
+>> 2.28.0
+>>
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--dt3SkYl9e3y1MIK8AYjuI2mtP7GQiTevE--
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--VLzf65jApKkRavuxi39QvnC87GfNF3zix
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-----BEGIN PGP SIGNATURE-----
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9h6qwUHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPl9Qf+KR96aoWYf20LvHA3GnV4zrCawiec
+y2yduL2GYhWPOf4GMfY2D+iMsP8w0W7E25g5LPHA+Vqz5D02rDOi3daO0DrNPmW6
+693QU4qPhbQzK7Y+2jWAjMeuNnkrX+LMllUvQ1+QfapihbnvGqu9aNH3BpXfjOgt
+BoqBHPnc6jc6BCC9knI+JDmxfv+mxrkN3TVEWw78TRR8W9HubgJK3Qx5yFPb76jL
+BTd4moKQlMWspChoyM+/682BI3I/vaGbC7dL6ABTxoYc5Ub2PxY3RtaKnNPfCcpq
+dvopHHQ1YJ3wOj988DPHGprg6T0jK2zsR3M9rja76IOs/Y3rh1LWAWk2LA==
+=Gxfw
+-----END PGP SIGNATURE-----
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6c5fb129e8..5152657621  51526576219f122ec7ccfd55dea95afbca70d330 -> coverity-tested/smoke
+--VLzf65jApKkRavuxi39QvnC87GfNF3zix--
 
