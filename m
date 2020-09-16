@@ -2,61 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E4926C36A
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 15:54:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7200C26C3D6
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 16:44:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIXsf-0000Bx-T1; Wed, 16 Sep 2020 13:53:53 +0000
+	id 1kIYeX-0004eT-5P; Wed, 16 Sep 2020 14:43:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kIXsf-0000Bs-D4
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 13:53:53 +0000
-X-Inumbo-ID: 132a2284-daa9-4559-91a7-33fe1b2bc86e
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIYeV-0004eO-HI
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 14:43:19 +0000
+X-Inumbo-ID: 51bca441-eff6-4cd3-8333-44d14b7eb0c1
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 132a2284-daa9-4559-91a7-33fe1b2bc86e;
- Wed, 16 Sep 2020 13:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600264432;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=BtqqpaBXtZevxLIhqNHjCv5dM0Jj/cQnPYuKJyJyelM=;
- b=UIrG6oockJ+JliGoO3KtIQ7gF6h++75uJqL96apgmiPSbSi/cno54Brg
- Z8mdsSQbtE9rSIC26F5N7c5BEiFcSU5PBvWjSHMp6nspB+lCAYHcMtS86
- y11cMafRlEC5ctgYxsgIooZ40yDXPRLkYT9ZxzFk8zsP/SlphwoF6/KsS 8=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: OQQ5Bj61Joo2u0n1y9MxhU9w3ctQJfTi3aY0gwV5gFj3B01MwcjnWauRlM3SbsoSaWQLxYdZio
- U/54aKywxcMFbwrxIZ2/VLX3RZGkz31GlbyjlYYpjWp1UtPxUWeyUyLOiVDKVgxR8OnUdZDfAM
- oDlGdbAtLyE3PWzDxrwSO1682n/J9B9mg+5TMoSAqVbEB+PfN+mUJtlQRhZRY1eQmo0k3qbnyC
- iJ7uLj4K2o+oOhsWcC+yS/kF01DaGpFfu1q4gdvrzJf3kqGIg19DZk7vwDLol1juseOCDi8KFy
- PwM=
-X-SBRS: 2.7
-X-MesageID: 26806110
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,433,1592884800"; d="scan'208";a="26806110"
-Date: Wed, 16 Sep 2020 15:53:43 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/svm: ignore accesses to EX_CFG
-Message-ID: <20200916135343.GW753@Air-de-Roger>
-References: <20200916105426.6663-1-roger.pau@citrix.com>
- <0a55eeb7-a5bf-8c9c-80e3-d697d029e7ce@suse.com>
- <20200916130439.GV753@Air-de-Roger>
- <33778785-830b-af08-ec64-4a08db92e693@suse.com>
+ id 51bca441-eff6-4cd3-8333-44d14b7eb0c1;
+ Wed, 16 Sep 2020 14:43:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=cantorsusede; t=1600267397;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2HVHS8oF1KfpVXlkvdeNa9L/ObodYTU5oi46pA/YieU=;
+ b=N04knDFeE/5FG6thdopCllcWuOh1Y8Lj5xLrIaFboUCT2Ao278uWe/PLTfEnfthFCfFXii
+ A682d3DFqqmGW5nibw4lhfEEZ+mMx8aB6LIQUgGSAg7QXAkX27J9Nk5sQajxGwU6ycauhB
+ m9BAWl3hfLM8DR5W3IajuBoeqF2SD7J5m3os5arUU3dqhZxa7RV4C69toBoJ7oiIZKuQEL
+ 6P2j5GKBW8kbhf//XRGHRw/d6fAwJ5DQ1aHJpejeRn+C65reb6rirDnNfuDZ61uYtf+2VD
+ jCDcQKcQdLdAbpQFjh0O85dSifCYgjNaDb+8ydOcF+iUS961iqdR4tTATN92YQ==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1BCF9B3B6;
+ Wed, 16 Sep 2020 14:43:33 +0000 (UTC)
+Subject: Re: [PATCH v8 6/8] common/domain: add a domain context record for
+ shared_info...
+To: Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20200915161800.1384-1-paul@xen.org>
+ <20200915161800.1384-7-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <98b1a80c-ba59-5d91-657f-74aaab5dae1d@suse.com>
+Date: Wed, 16 Sep 2020 16:43:17 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <33778785-830b-af08-ec64-4a08db92e693@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <20200915161800.1384-7-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,62 +67,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 16, 2020 at 03:28:28PM +0200, Jan Beulich wrote:
-> On 16.09.2020 15:04, Roger Pau Monné wrote:
-> > On Wed, Sep 16, 2020 at 02:55:52PM +0200, Jan Beulich wrote:
-> >> On 16.09.2020 12:54, Roger Pau Monne wrote:
-> >>> Windows 10 will try to unconditionally read EX_CFG on AMD hadrware,
-> >>> and injecting a #GP fault will result in a panic:
-> >>>
-> >>> svm.c:1964:d5v0 RDMSR 0xc001102c unimplemented
-> >>> d5v0 VIRIDIAN CRASH: 7e ffffffffc0000096 fffff8054cbe5ffe fffffa0837a066e8 fffffa0837a05f30
-> >>>
-> >>> Return 0 when trying to read the MSR and drop writes.
-> >>
-> >> So I've gone through a bunch of BKDGs and PPRs, without finding
-> >> this MSR mentioned in any of them. Could you point out on which
-> >> model(s) it actually exists? You must have found it somewhere,
-> >> or else you wouldn't know a name for it...
-> > 
-> > Yes, sorry it took me a while to find it also, and I should have added
-> > a reference here. It's in "BIOS and Kernel Developer’s Guide (BKDG)
-> > for AMD Family 15h Models 00h-0Fh Processors", albeit Windows will try
-> > to access it on Family 17h also.
-> 
-> Ah, and it's exclusively this one as it seems. The models 1xh one
-> again doesn't have it.
-> 
-> >>> @@ -2108,6 +2109,7 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-> >>>      case MSR_K8_TOP_MEM2:
-> >>>      case MSR_K8_SYSCFG:
-> >>>      case MSR_K8_VM_CR:
-> >>> +    case MSR_AMD64_EX_CFG:
-> >>>          /* ignore write. handle all bits as read-only. */
-> >>>          break;
-> >>
-> >> Is this necessary, rather than having writes fault?
-> > 
-> > Hm, I'm not sure about that. This is the same that KVM did to handle
-> > the MSR, see Linux commit 0e1b869fff60c81b510c2d00602d778f8f59dd9a.
-> 
-> Looking at the sole bit that's defined there, I agree the main reason
-> for Win10 to read it would look to be to potentially also write it if
-> it finds certain bits unset. If so, perhaps we want to consider to
-> report a value with this/these bit(s) set?
+On 15.09.2020 18:17, Paul Durrant wrote:
+> +static int load_shared_info(struct domain *d, struct domain_context *c)
+> +{
+> +    struct domain_shared_info_context ctxt;
+> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( i ) /* expect only a single instance */
+> +        return -ENXIO;
+> +
+> +    rc = domain_load_data(c, &ctxt, hdr_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( ctxt.buffer_size > sizeof(shared_info_t) ||
+> +         (ctxt.flags & ~DOMAIN_SAVE_32BIT_SHINFO) )
+> +        return -EINVAL;
+> +
+> +    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
+> +    {
+> +#ifdef CONFIG_COMPAT
+> +        has_32bit_shinfo(d) = true;
+> +#else
+> +        return -EINVAL;
+> +#endif
+> +    }
+> +
+> +    if ( is_pv_domain(d) )
+> +    {
+> +        shared_info_t *shinfo = xmalloc(shared_info_t);
+> +
+> +        rc = domain_load_data(c, shinfo, sizeof(*shinfo));
 
-So the manual only reports the meaning of bit 54, yet my EPYC system
-reports 0x0168000000000000.
+You need to check the allocation's success first. But of course the
+question is why you don't read directly into d->shared_info. The
+domain is paused at this point, isn't it?
 
-> > I can try to return #GP for writes, but I don't see much issue in just
-> > ignoring writes.
-> 
-> The reason for me asking is that I'd prefer if we didn't grow an
-> endless list of exceptions for no reason. In fact I wonder whether
-> some MSRs that we currently ignore writes for couldn't be dropped.
+> +        if ( rc )
+> +        {
+> +            xfree(shinfo);
+> +            return rc;
+> +        }
+> +
+> +#ifdef CONFIG_COMPAT
+> +        if ( has_32bit_shinfo(d) )
+> +        {
+> +            memcpy(&d->shared_info->compat.vcpu_info,
+> +                   &shinfo->compat.vcpu_info,
+> +                   sizeof(d->shared_info->compat.vcpu_info));
+> +            memcpy(&d->shared_info->compat.arch,
+> +                   &shinfo->compat.arch,
+> +                   sizeof(d->shared_info->compat.vcpu_info));
+> +            memset(&d->shared_info->compat.evtchn_pending,
+> +                   0,
+> +                   sizeof(d->shared_info->compat.evtchn_pending));
+> +            memset(&d->shared_info->compat.evtchn_mask,
+> +                   0xff,
+> +                   sizeof(d->shared_info->compat.evtchn_mask));
+> +
+> +            d->shared_info->compat.arch.pfn_to_mfn_frame_list_list = 0;
+> +            for ( i = 0; i < XEN_LEGACY_MAX_VCPUS; i++ )
+> +                d->shared_info->compat.vcpu_info[i].evtchn_pending_sel = 0;
+> +        }
+> +        else
+> +        {
+> +            memcpy(&d->shared_info->native.vcpu_info,
+> +                   &shinfo->native.vcpu_info,
+> +                   sizeof(d->shared_info->native.vcpu_info));
+> +            memcpy(&d->shared_info->native.arch,
+> +                   &shinfo->native.arch,
+> +                   sizeof(d->shared_info->native.arch));
+> +            memset(&d->shared_info->native.evtchn_pending,
+> +                   0,
+> +                   sizeof(d->shared_info->compat.evtchn_pending));
+> +            memset(&d->shared_info->native.evtchn_mask,
+> +                   0xff,
+> +                   sizeof(d->shared_info->native.evtchn_mask));
+> +
+> +            d->shared_info->native.arch.pfn_to_mfn_frame_list_list = 0;
+> +            for ( i = 0; i < XEN_LEGACY_MAX_VCPUS; i++ )
+> +                d->shared_info->native.vcpu_info[i].evtchn_pending_sel = 0;
+> +        }
+> +#else
+> +        memcpy(&d->shared_info->vcpu_info,
+> +               &shinfo->vcpu_info,
+> +               sizeof(d->shared_info->vcpu_info));
+> +        memcpy(&d->shared_info->arch,
+> +               &shinfo->arch,
+> +               sizeof(d->shared_info->shared));
+> +        memset(&d->shared_info->evtchn_pending,
+> +               0,
+> +               sizeof(d->shared_info->evtchn_pending));
+> +        memset(&d->shared_info->evtchn_mask,
+> +               0xff,
+> +               sizeof(d->shared_info->evtchn_mask));
+> +
+> +        d->shared_info.arch.pfn_to_mfn_frame_list_list = 0;
+> +        for ( i = 0; i < XEN_LEGACY_MAX_VCPUS; i++ )
+> +            d->shared_info.vcpu_info[i].evtchn_pending_sel = 0;
+> +#endif
 
-Let me see if I can make Windows happy by returning either bit 54 as 0
-or 1, but given the value on bare metal I'm worried that Windows has
-more insight on this value than just bit 54.
+A lot of redundancy; maybe it gets better if indeed you stop reading
+into an intermediate buffer.
 
-Thanks, Roger.
+> +        xfree(shinfo);
+> +
+> +        rc = domain_load_end(c, false);
+> +    }
+> +    else
+> +        rc = domain_load_end(c, true);
+
+Perhaps at least a brief comment here wouldn't hurt regarding the
+needs (or lack thereof) for HVM / Arm?
+
+Jan
 
