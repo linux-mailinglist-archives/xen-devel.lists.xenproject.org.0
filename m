@@ -2,80 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74EC926C025
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 11:07:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9430226C02F
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 11:09:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kITPi-0004bk-39; Wed, 16 Sep 2020 09:07:42 +0000
+	id 1kITRQ-0004mC-Fc; Wed, 16 Sep 2020 09:09:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B7lL=CZ=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kITPh-0004bb-4E
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 09:07:41 +0000
-X-Inumbo-ID: 97444864-d097-417c-a981-e1e182576cb4
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ id 1kITRP-0004m6-L4
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 09:09:27 +0000
+X-Inumbo-ID: 1272d985-ca21-4259-aaaf-cea070b9f2a2
+Received: from mail-wm1-x335.google.com (unknown [2a00:1450:4864:20::335])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 97444864-d097-417c-a981-e1e182576cb4;
- Wed, 16 Sep 2020 09:07:40 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id z4so6083321wrr.4
- for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 02:07:40 -0700 (PDT)
+ id 1272d985-ca21-4259-aaaf-cea070b9f2a2;
+ Wed, 16 Sep 2020 09:09:26 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id z9so2170155wmk.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 02:09:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=8bNBCF4Lqdq6zeW2axoKSLv8rD4+9u6hCtOgBbLGjU4=;
- b=GH+IumZi5sEoCkOmjxWs9h69pwadUffz5FH/IBQ/95zywpQbnXDT6cjG7HC42ygZsD
- zNX7HH9ZLr6qgsCm5CC7po63O2t8Lz2ulv9/JpN4r36ji7FLEfZVTIHDyqtRjah2kqyB
- P6RCJPOZwQfyllO2ZtoTnotNTn6lLv5Izo3rqFlEDJ3wTYIgCf1AqNr4Pd3A4Bd2hNYt
- PeA53E/CG5OJZZKlJaspJ2y9GnepiIQcO/LBbmLVxcAbmqN88R1r26L7PhNzwRXqS3Se
- Rg87cX9ynSripR6qrkK6e02E3UVN9e/V/RKBkF/jVLDhuTbaSA8sTX1iPqqUFdep8WPt
- 8apQ==
+ :thread-index; bh=QC2bejcVfxSzRRo09ZWT1WGfUowvUQEDn+inezqWDAo=;
+ b=AMxq1rWjjg8II3M8pZbRiqdvWq7c86tAYzlOV1mUoToy2rtST3eJVmeEz54JUMELpg
+ n/cLHC6ALr8eyBXKu1zq16ZHKyjwl6/kme0cAdsturKlI25Y5H5RYQqlqfCYfEfuNnGH
+ beicFBEPPPVaDePVlc9YlcUzMXRxF0T2ZVFvTX7Lt+4mj5bz2BaWeIp2eHWJNRAe96j2
+ CQO3O4X7npBbyyD1ILyxP0spHgAM8VTfKwHm4N6EeNJedeWltjFri/TXf4mU4gpxHzId
+ 6fpLZKe/una/7V0+e6EumCc3U92HTm2a07Ej8S+FhndylioRwDN9WY8P1/JbtI8T//bL
+ sgfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=8bNBCF4Lqdq6zeW2axoKSLv8rD4+9u6hCtOgBbLGjU4=;
- b=jWUXFrIHdQwxiw07Qnh1cAZaVgSmi45T4AVIIck5JfxTMDeN4DSSdjF2If4MIQIhaC
- bqkSLnDOahzPJTTQZgVf71yCk0FCa076a6VfwrxB6vNCE+8LGO9rTkH5I/5eXeN0ZhbI
- 4Xx8/C6AHlggsFX7RRLV8W7WMuPDia3aX1Fk+B1kqOIWo7aacMMeorMPyJPqjkHlDdNw
- +XprxEY8EOJfB9xFG5i/zccQowsM+U3caHRpKUTX3j240SvuZFgAsHr823uA9eeGu+jq
- 8LmE4JkgsRByaDbkCUhPYiLNchmcwdB/yXaGJCg77mI8Iqp9UL/FB0xyfi3swUYhW4ey
- 89/g==
-X-Gm-Message-State: AOAM533dctFqII0P2hmiHrkSifSNARzAOPeBKJcOYlPBki9nc0UYGdgQ
- rw7sAbh/r73kxYkgg0tvdnY=
-X-Google-Smtp-Source: ABdhPJxiRSnElSAlXQFBSrJyT0rPj2qsAnIfxZCC3Ddp5RQwhrLZpGkFatqVoETcyWK9gQLD46ePcQ==
-X-Received: by 2002:adf:ec47:: with SMTP id w7mr27443985wrn.175.1600247259585; 
- Wed, 16 Sep 2020 02:07:39 -0700 (PDT)
+ bh=QC2bejcVfxSzRRo09ZWT1WGfUowvUQEDn+inezqWDAo=;
+ b=cL3BAM1lGQPo5pq9P1t5LNjdlrnyqBF2/0Hs2Ke8ZdgO2SRdWyHPAxqIWdiw/0xjY7
+ /ChJh5HprasrfadhYs3SK9PzpYbnWZxmWxeN0Ur9YxxThl1eLdJkj+dgb57gGNWcIgRD
+ cIhxcDOwFM38deikGA2UJKMBQgIwdklnXvum1HjXApiN7LmPCSpvg0PcQNOWjrdYruAl
+ VqSvDfMPOV95gT64c2OWg3+ggLN0P94YYL9FWmukNLzOV3BI6YYHQST6NtzA4UXpP785
+ nR/C2xpuygYu13eqjMAf1VcailyCIqTKaLD/ZdAk/WWCXJaQ/qzu5IMeiwLP1Plo4Cew
+ OVvQ==
+X-Gm-Message-State: AOAM532panDVoNp3pEuFyDwci6oefLvwH2VuUr6EVw7O05cZU7jJ3aLr
+ qUfjw/ucGBaE960K7MId964=
+X-Google-Smtp-Source: ABdhPJwdrXPZfCzmNm6vkuRsAaTb//Y5L4siM72Khb5o4Z7oG8rVa24EW0YW8Xt8/j3oj9gS6CgMIw==
+X-Received: by 2002:a05:600c:2215:: with SMTP id
+ z21mr3571472wml.176.1600247365908; 
+ Wed, 16 Sep 2020 02:09:25 -0700 (PDT)
 Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
  [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id j26sm1095600wrc.79.2020.09.16.02.07.38
+ by smtp.gmail.com with ESMTPSA id n10sm4400401wmk.7.2020.09.16.02.09.25
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Sep 2020 02:07:39 -0700 (PDT)
+ Wed, 16 Sep 2020 02:09:25 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
+To: "'Julien Grall'" <julien@xen.org>, "'Jan Beulich'" <jbeulich@suse.com>,
  "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>
 Cc: <xen-devel@lists.xenproject.org>,
  "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
- "'Julien Grall'" <julien@xen.org>,
  "'Stefano Stabellini'" <sstabellini@kernel.org>,
  "'Julien Grall'" <jgrall@amazon.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
  <1599769330-17656-15-git-send-email-olekstysh@gmail.com>
  <44b19ee1-dc34-3a46-0b4b-7196faadcb5c@suse.com>
-In-Reply-To: <44b19ee1-dc34-3a46-0b4b-7196faadcb5c@suse.com>
+ <c87089d5-39d2-55e6-5539-97af32c3d6cd@xen.org>
+In-Reply-To: <c87089d5-39d2-55e6-5539-97af32c3d6cd@xen.org>
 Subject: RE: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() instead of
  cmpxchg()
-Date: Wed, 16 Sep 2020 10:07:38 +0100
-Message-ID: <002a01d68c08$d3895c70$7a9c1550$@xen.org>
+Date: Wed, 16 Sep 2020 10:09:24 +0100
+Message-ID: <002b01d68c09$12df32a0$389d97e0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQIQ4beZ3sUmYihKXwfoVgy4BRIJGwM3mpe2Aj4RmJGoyqB/QA==
+Thread-Index: AQIQ4beZ3sUmYihKXwfoVgy4BRIJGwM3mpe2Aj4RmJECjTcXV6i2NzPg
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,30 +92,51 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 16 September 2020 10:04
-> To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant
-> <paul@xen.org>; Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Julien
-> Grall <jgrall@amazon.com>
-> Subject: Re: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() instead of cmpxchg()
-> 
-> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
-> > @@ -1325,7 +1327,7 @@ static int hvm_send_buffered_ioreq(struct hvm_ioreq_server *s, ioreq_t *p)
+> From: Julien Grall <julien@xen.org>
+> Sent: 16 September 2020 10:07
+> To: Jan Beulich <jbeulich@suse.com>; Oleksandr Tyshchenko =
+<olekstysh@gmail.com>
+> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko =
+<oleksandr_tyshchenko@epam.com>; Paul Durrant
+> <paul@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Julien =
+Grall <jgrall@amazon.com>
+> Subject: Re: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() instead =
+of cmpxchg()
+>=20
+>=20
+>=20
+> On 16/09/2020 10:04, Jan Beulich wrote:
+> > On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
+> >> @@ -1325,7 +1327,7 @@ static int hvm_send_buffered_ioreq(struct =
+hvm_ioreq_server *s, ioreq_t *p)
+> >>
+> >>           new.read_pointer =3D old.read_pointer - n * =
+IOREQ_BUFFER_SLOT_NUM;
+> >>           new.write_pointer =3D old.write_pointer - n * =
+IOREQ_BUFFER_SLOT_NUM;
+> >> -        cmpxchg(&pg->ptrs.full, old.full, new.full);
+> >> +        guest_cmpxchg64(d, &pg->ptrs.full, old.full, new.full);
 > >
-> >          new.read_pointer = old.read_pointer - n * IOREQ_BUFFER_SLOT_NUM;
-> >          new.write_pointer = old.write_pointer - n * IOREQ_BUFFER_SLOT_NUM;
-> > -        cmpxchg(&pg->ptrs.full, old.full, new.full);
-> > +        guest_cmpxchg64(d, &pg->ptrs.full, old.full, new.full);
-> 
-> But the memory we're updating is shared with s->emulator, not with d,
-> if I'm not mistaken.
-> 
+> > But the memory we're updating is shared with s->emulator, not with =
+d,
+> > if I'm not mistaken.
+>=20
+> It is unfortunately shared with both s->emulator and d when using the
+> legacy interface.
 
-You're not mistaken.
+When using magic pages they should be punched out of the P2M by the time =
+the code gets here, so the memory should not be guest-visible.
 
   Paul
 
-> Jan
+>=20
+> For Arm, there is no plan to support the legacy interface, so we =
+should
+> s->emulator and we should be fully protected.
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
 
 
