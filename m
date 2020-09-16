@@ -2,67 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C485026BE04
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 09:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717BF26BE11
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 09:33:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIRu6-0002tT-NK; Wed, 16 Sep 2020 07:30:58 +0000
+	id 1kIRvU-0002zq-2Y; Wed, 16 Sep 2020 07:32:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=44SI=CZ=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kIRu5-0002tO-8t
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 07:30:57 +0000
-X-Inumbo-ID: 62936472-e5b2-4589-a4a1-160dbe86f204
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 62936472-e5b2-4589-a4a1-160dbe86f204;
- Wed, 16 Sep 2020 07:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600241455;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wF/hDQsxWFeJttqotpNYCePCKYRYUJaa1tQ1ZRR0EAY=;
- b=OcGt8lwcuPm9huSmn3o7TZH8l5FGWvD4OMAV3/zxWIhKCQIizQnEWuFXG+sgKjs479stwC
- 7xJsyZPFAF68ZvFKfRZaQlq+SiSPqbySUk6SNWcVqyo0X6jADcq26k53BnbdX1JFml3lo5
- SPoulwUt1mGb6xJjuisa8hZ9ytqmMCE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-100-8Xm80AAoPHqeed1mdsZ8Iw-1; Wed, 16 Sep 2020 03:30:51 -0400
-X-MC-Unique: 8Xm80AAoPHqeed1mdsZ8Iw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 795B585C733;
- Wed, 16 Sep 2020 07:30:49 +0000 (UTC)
-Received: from t480s.redhat.com (ovpn-113-190.ams2.redhat.com [10.36.113.190])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D49751000239;
- Wed, 16 Sep 2020 07:30:42 +0000 (UTC)
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-s390@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@redhat.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>,
- Michal Hocko <mhocko@suse.com>, Dan Williams <dan.j.williams@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kees Cook <keescook@chromium.org>,
- Ard Biesheuvel <ardb@kernel.org>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
-Subject: [PATCH] kernel/resource: make iomem_resource implicit in
- release_mem_region_adjustable()
-Date: Wed, 16 Sep 2020 09:30:41 +0200
-Message-Id: <20200916073041.10355-1-david@redhat.com>
-In-Reply-To: <20200911103459.10306-1-david@redhat.com>
-References: <20200911103459.10306-1-david@redhat.com>
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kIRvT-0002zk-3L
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 07:32:23 +0000
+X-Inumbo-ID: 3e07b482-31cb-4c6e-ba91-011b999dbfca
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3e07b482-31cb-4c6e-ba91-011b999dbfca;
+ Wed, 16 Sep 2020 07:32:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600241541;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4KwSHYZVkgv+mu2JzrMomPJ9elb9q96v+VOa/zB6whE=;
+ b=DF5slkxE4J5p8HqWPhrpyK983rTgfS3wm3MAT1j39u+/EYc2vaJVLTyq
+ B19Dd+oVvBaQUNe8CJ/zOGnJ/8JDjUJMZls398jZWRxJ+YjrzWeAJAwPN
+ Y6+NJqepXHTro1j8yYAA8qCcm4S4jkVKTH/EsodDwWtgqYwVuWm0SVg1s k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: UMwF3pdEUeL8MztTw2DBbPd04CC+zwzvKj5nSnvKkNjygYJ1iwk+B13raLlGdRpGEbzFrf4tyX
+ +kNFZNdU6gmoYBAalYiQebVcencc+rOh+5zQx/ICPoTy6Oro+TbJXSvdmflIk61qKC+HX4qMzX
+ +I9BQEB6i5Ox8dRzon1Ya6EN46olFIw3uROISjr5A2DlW7lsLyJldZZTsd55Mc6EvcVNAIEbks
+ FZe8dM7xo9MiXjoIWN1oCwU3SDTZS+mlYVdxIDiQRCb5mO+6fQmKaI0ePHowlMZ0pBO+gUECFN
+ YxA=
+X-SBRS: 2.7
+X-MesageID: 26916647
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,431,1592884800"; d="scan'208";a="26916647"
+Date: Wed, 16 Sep 2020 09:32:09 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Trammell Hudson <hudson@trmm.net>
+CC: <xen-devel@lists.xenproject.org>, <jbeulich@suse.com>,
+ <andrew.cooper3@citrix.com>, <wl@xen.org>
+Subject: Re: [PATCH v4 3/4] efi: Enable booting unified
+ hypervisor/kernel/initrd images
+Message-ID: <20200916073209.GR753@Air-de-Roger>
+References: <20200914115013.814079-1-hudson@trmm.net>
+ <20200914115013.814079-4-hudson@trmm.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20200914115013.814079-4-hudson@trmm.net>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,89 +69,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-"mem" in the name already indicates the root, similar to
-release_mem_region() and devm_request_mem_region(). Make it implicit.
-The only single caller always passes iomem_resource, other parents are
-not applicable.
+On Mon, Sep 14, 2020 at 07:50:12AM -0400, Trammell Hudson wrote:
+> This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
+> configuration file, the Linux kernel and initrd, as well as the XSM,
+> and architectural specific files into a single "unified" EFI executable.
+> This allows an administrator to update the components independently
+> without requiring rebuilding xen, as well as to replace the components
+> in an existing image.
+> 
+> The resulting EFI executable can be invoked directly from the UEFI Boot
+> Manager, removing the need to use a separate loader like grub as well
+> as removing dependencies on local filesystem access.  And since it is
+> a single file, it can be signed and validated by UEFI Secure Boot without
+> requring the shim protocol.
+> 
+> It is inspired by systemd-boot's unified kernel technique and borrows the
+> function to locate PE sections from systemd's LGPL'ed code.  During EFI
+> boot, Xen looks at its own loaded image to locate the PE sections for
+> the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+> (`.ramdisk`), and XSM config (`.xsm`), which are included after building
+> xen.efi using objcopy to add named sections for each input file.
+> 
+> For x86, the CPU ucode can be included in a section named `.ucode`,
+> which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
+> 
+> On ARM systems the Device Tree can be included in a section named
+> `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
+> the boot process.
+> 
+> Signed-off-by: Trammell Hudson <hudson@trmm.net>
 
-Suggested-by: Wei Yang <richard.weiyang@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Kees Cook <keescook@chromium.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand <david@redhat.com>
----
+Thanks, just have one comment and two style nits.
 
-Based on next-20200915. Follow up on
-	"[PATCH v4 0/8] selective merging of system ram resources" [1]
-That's in next-20200915. As noted during review of v2 by Wei [2].
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 57df89cacb..4b1fbc9643 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -121,6 +121,8 @@ static CHAR16 *s2w(union string *str);
+>  static char *w2s(const union string *str);
+>  static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>                        struct file *file, char *options);
+> +static bool read_section(const EFI_LOADED_IMAGE *image,
+> +                         char *name, struct file *file, char *options);
+>  static size_t wstrlen(const CHAR16 * s);
+>  static int set_color(u32 mask, int bpp, u8 *pos, u8 *sz);
+>  static bool match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2);
+> @@ -623,6 +625,27 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>      return true;
+>  }
+>  
+> +static bool __init read_section(const EFI_LOADED_IMAGE *image,
+> +                                char *const name, struct file *file,
+> +                                char *options)
+> +{
+> +    /* skip the leading "." in the section name */
+> +    union string name_string = { .s = name + 1 };
+> +
+> +    file->ptr = (void *)pe_find_section(image->ImageBase, image->ImageSize,
+> +                                        name, &file->size);
+> +    if ( !file->ptr )
+> +        return false;
+> +
+> +    file->need_to_free = false;
+> +
+> +    s2w(&name_string);
 
-[1] https://lkml.kernel.org/r/20200911103459.10306-1-david@redhat.com
-[2] https://lkml.kernel.org/r/20200915021012.GC2007@L-31X9LVDL-1304.local
+Don't you need to check that s2w succeed, so that name_string.w is not
+a random pointer from stack garbage?
 
----
- include/linux/ioport.h | 3 +--
- kernel/resource.c      | 5 ++---
- mm/memory_hotplug.c    | 2 +-
- 3 files changed, 4 insertions(+), 6 deletions(-)
+> +    handle_file_info(name_string.w, file, options);
+> +    efi_bs->FreePool(name_string.w);
+> +
+> +    return true;
+> +}
+> +
+>  static void __init pre_parse(const struct file *cfg)
+>  {
+>      char *ptr = cfg->ptr, *end = ptr + cfg->size;
+> index 4845d84913..c9b741bf27 100644
+> --- a/xen/common/efi/efi.h
+> +++ b/xen/common/efi/efi.h
+> @@ -47,3 +47,6 @@ const CHAR16 *wmemchr(const CHAR16 *s, CHAR16 c, UINTN n);
+>  /* EFI boot allocator. */
+>  void *ebmalloc(size_t size);
+>  void free_ebmalloc_unused_mem(void);
+> +
+> +const void * pe_find_section(const UINT8 *image_base, const size_t image_size,
+> +        const char *section_name, UINTN *size_out);
 
-diff --git a/include/linux/ioport.h b/include/linux/ioport.h
-index 7e61389dcb01..5135d4b86cd6 100644
---- a/include/linux/ioport.h
-+++ b/include/linux/ioport.h
-@@ -251,8 +251,7 @@ extern struct resource * __request_region(struct resource *,
- extern void __release_region(struct resource *, resource_size_t,
- 				resource_size_t);
- #ifdef CONFIG_MEMORY_HOTREMOVE
--extern void release_mem_region_adjustable(struct resource *, resource_size_t,
--					  resource_size_t);
-+extern void release_mem_region_adjustable(resource_size_t, resource_size_t);
- #endif
- #ifdef CONFIG_MEMORY_HOTPLUG
- extern void merge_system_ram_resource(struct resource *res);
-diff --git a/kernel/resource.c b/kernel/resource.c
-index 7a91b935f4c2..ca2a666e4317 100644
---- a/kernel/resource.c
-+++ b/kernel/resource.c
-@@ -1240,7 +1240,6 @@ EXPORT_SYMBOL(__release_region);
- #ifdef CONFIG_MEMORY_HOTREMOVE
- /**
-  * release_mem_region_adjustable - release a previously reserved memory region
-- * @parent: parent resource descriptor
-  * @start: resource start address
-  * @size: resource region size
-  *
-@@ -1258,9 +1257,9 @@ EXPORT_SYMBOL(__release_region);
-  *   assumes that all children remain in the lower address entry for
-  *   simplicity.  Enhance this logic when necessary.
-  */
--void release_mem_region_adjustable(struct resource *parent,
--				   resource_size_t start, resource_size_t size)
-+void release_mem_region_adjustable(resource_size_t start, resource_size_t size)
- {
-+	struct resource *parent = &iomem_resource;
- 	struct resource *new_res = NULL;
- 	bool alloc_nofail = false;
- 	struct resource **p;
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 553c718226b3..7c5e4744ac51 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1764,7 +1764,7 @@ static int __ref try_remove_memory(int nid, u64 start, u64 size)
- 		memblock_remove(start, size);
- 	}
- 
--	release_mem_region_adjustable(&iomem_resource, start, size);
-+	release_mem_region_adjustable(start, size);
- 
- 	try_offline_node(nid);
- 
--- 
-2.26.2
+Nit: extra space between * and function name.
 
+> diff --git a/xen/common/efi/pe.c b/xen/common/efi/pe.c
+> new file mode 100644
+> index 0000000000..2986545d53
+> --- /dev/null
+> +++ b/xen/common/efi/pe.c
+> @@ -0,0 +1,137 @@
+> +/*
+> + * xen/common/efi/pe.c
+> + *
+> + * PE executable header parser.
+> + *
+> + * Derived from https://github.com/systemd/systemd/blob/master/src/boot/efi/pe.c
+> + * commit 07d5ed536ec0a76b08229c7a80b910cb9acaf6b1
+> + *
+> + * Copyright (C) 2015 Kay Sievers <kay@vrfy.org>
+> + * Copyright (C) 2020 Trammell Hudson <hudson@trmm.net>
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms of the GNU Lesser General Public License as published by
+> + * the Free Software Foundation; either version 2.1 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful, but
+> + * WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+> + * Lesser General Public License for more details.
+> + */
+> +
+> +
+> +#include "efi.h"
+> +
+> +struct DosFileHeader {
+> +    UINT8   Magic[2];
+> +    UINT16  LastSize;
+> +    UINT16  nBlocks;
+> +    UINT16  nReloc;
+> +    UINT16  HdrSize;
+> +    UINT16  MinAlloc;
+> +    UINT16  MaxAlloc;
+> +    UINT16  ss;
+> +    UINT16  sp;
+> +    UINT16  Checksum;
+> +    UINT16  ip;
+> +    UINT16  cs;
+> +    UINT16  RelocPos;
+> +    UINT16  nOverlay;
+> +    UINT16  reserved[4];
+> +    UINT16  OEMId;
+> +    UINT16  OEMInfo;
+> +    UINT16  reserved2[10];
+> +    UINT32  ExeHeader;
+> +} __attribute__((packed));
+> +
+> +#define PE_HEADER_MACHINE_ARM64         0xaa64
+> +#define PE_HEADER_MACHINE_X64           0x8664
+> +#define PE_HEADER_MACHINE_I386          0x014c
+> +
+> +struct PeFileHeader {
+> +    UINT16  Machine;
+> +    UINT16  NumberOfSections;
+> +    UINT32  TimeDateStamp;
+> +    UINT32  PointerToSymbolTable;
+> +    UINT32  NumberOfSymbols;
+> +    UINT16  SizeOfOptionalHeader;
+> +    UINT16  Characteristics;
+> +} __attribute__((packed));
+> +
+> +struct PeHeader {
+> +    UINT8   Magic[4];
+> +    struct PeFileHeader FileHeader;
+> +} __attribute__((packed));
+> +
+> +struct PeSectionHeader {
+> +    UINT8   Name[8];
+> +    UINT32  VirtualSize;
+> +    UINT32  VirtualAddress;
+> +    UINT32  SizeOfRawData;
+> +    UINT32  PointerToRawData;
+> +    UINT32  PointerToRelocations;
+> +    UINT32  PointerToLinenumbers;
+> +    UINT16  NumberOfRelocations;
+> +    UINT16  NumberOfLinenumbers;
+> +    UINT32  Characteristics;
+> +} __attribute__((packed));
+> +
+> +const void *__init pe_find_section(const CHAR8 *image, const UINTN image_size,
+> +                                   const char *section_name, UINTN *size_out)
+> +{
+> +    const struct DosFileHeader *dos = (const void*)image;
+
+Nit: missing space between void and *.
+
+Thanks, Roger.
 
