@@ -2,46 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9DC026BE82
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 09:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3025826BE8E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 09:54:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kISDw-00058q-S8; Wed, 16 Sep 2020 07:51:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kISGU-0005Fw-A8; Wed, 16 Sep 2020 07:54:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kISDv-00058k-Fi
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 07:51:27 +0000
-X-Inumbo-ID: 404b2989-a6b2-404a-a305-c84ecf87ae25
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 404b2989-a6b2-404a-a305-c84ecf87ae25;
- Wed, 16 Sep 2020 07:51:25 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 02762AD5C;
- Wed, 16 Sep 2020 07:51:40 +0000 (UTC)
-Subject: Re: [PATCH V1 09/16] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-10-git-send-email-olekstysh@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dd36ad99-2d18-e384-84aa-565fa8e0c5db@suse.com>
-Date: Wed, 16 Sep 2020 09:51:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ (envelope-from <SRS0=nCdG=CZ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kISGS-0005Fr-US
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 07:54:04 +0000
+X-Inumbo-ID: 72171734-a4ab-47c6-b8a0-ead54863ff20
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 72171734-a4ab-47c6-b8a0-ead54863ff20;
+ Wed, 16 Sep 2020 07:54:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=LzQSJqmW77NFk52zajdPWpus9tU2ZhszttkL+ERcTWU=; b=Zkpy9SEqmuuiETTtobopNGPbE+
+ X7PTGEjGkGFlZ4sPDLQMfu7YE9eoiO+X721NuGWC3Kz74oEdcswsWhoAJKlQFe9X795ALfH1oQ9P+
+ qy5cOlVMRXhiPeHF5pzqyAZqVzhAzsDc8/tJaRDrr/i6I4mQi1dDps35Tl1DLJw65kLI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kISGL-0007kE-54; Wed, 16 Sep 2020 07:53:57 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kISGK-0006Wx-U0; Wed, 16 Sep 2020 07:53:57 +0000
+Subject: Re: [PATCH v9 5/8] remove remaining uses of iommu_legacy_map/unmap
+To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+Cc: Paul Durrant <pdurrant@amazon.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+References: <20200915082936.23663-1-paul@xen.org>
+ <20200915082936.23663-6-paul@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <942516aa-dca4-6d39-c09c-f4e5a25203cc@xen.org>
+Date: Wed, 16 Sep 2020 08:53:54 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <1599769330-17656-10-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20200915082936.23663-6-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -56,25 +67,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
-> @@ -2277,8 +2299,10 @@ void leave_hypervisor_to_guest(void)
->  {
->      local_irq_disable();
->  
-> -    check_for_vcpu_work();
-> -    check_for_pcpu_work();
-> +    do
-> +    {
-> +        check_for_pcpu_work();
-> +    } while ( check_for_vcpu_work() );
+Hi Paul,
 
-Looking at patch 11 I've stumbled across changes done to code
-related to this, and now I wonder: There's no mention in the
-description of why this safe (i.e. not a potentially unbounded
-loop).
+On 15/09/2020 09:29, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> The 'legacy' functions do implicit flushing so amend the callers to do the
+> appropriate flushing.
+> 
+> Unfortunately, because of the structure of the P2M code, we cannot remove
+> the per-CPU 'iommu_dont_flush_iotlb' global and the optimization it
+> facilitates. Checking of this flag is now done only in relevant callers of
+> iommu_iotlb_flush(). Also, 'iommu_dont_flush_iotlb' is now declared
+> as bool (rather than bool_t) and setting/clearing it are no longer pointlessly
+> gated on is_iommu_enabled() returning true. (Arguably it is also pointless to
+> gate the call to iommu_iotlb_flush() on that condition - since it is a no-op
+> in that case - but the if clause allows the scope of a stack variable to be
+> restricted).
+> 
+> NOTE: The code in memory_add() now sets 'ret' if iommu_map() or
+>        iommu_iotlb_flush() fails.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-As a nit - the opening brace does not belong on its own line in
-this specific case.
+The changes in common code looks good to me:
 
-Jan
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
