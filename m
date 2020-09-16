@@ -2,69 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24BF26BD2B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 08:32:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A7B26BD70
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 08:44:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIQxu-0005l6-MK; Wed, 16 Sep 2020 06:30:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kIRB1-0006iu-Tq; Wed, 16 Sep 2020 06:44:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kJNc=CZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kIQxs-0005l1-UR
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 06:30:49 +0000
-X-Inumbo-ID: 8f4731a7-b734-4136-b1b0-38569953bab0
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8f4731a7-b734-4136-b1b0-38569953bab0;
- Wed, 16 Sep 2020 06:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=186uuRISb3nb7VmFgZHrLl9Ym8txU+eAGCs9lKWmpqE=; b=GP74kJPrSF4DQkqEeFgHPHMnX+
- 5LEnoSlJXvKLpWPHFtQH5bh3o1Nf57b82iv5GtUnllJBrTDn6FP+cX9jAeyjQZv51IN2bGBCJPo9B
- eZc7EgeQPfZush3LdGMTxyXUfvrlp4mpGvU1igyKu2Mq8g6yVIzgDb4TmFJbh1j39af4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIQxq-00062v-7Y; Wed, 16 Sep 2020 06:30:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kIQxq-0006uT-0Q; Wed, 16 Sep 2020 06:30:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kIQxp-0004rV-WA; Wed, 16 Sep 2020 06:30:45 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154374-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kIRB0-0006ip-5d
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 06:44:22 +0000
+X-Inumbo-ID: 91b4c02a-8075-4eac-85de-44e01bb13f32
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 91b4c02a-8075-4eac-85de-44e01bb13f32;
+ Wed, 16 Sep 2020 06:44:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600238658;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qvsDQcHLwkmLrJhhd333emIGoAM9fd9Gg45i54mrU74=;
+ b=M/8SXgwDb4+E93k1bA/mp6OrRfQKLrGiJh6lfwFF3Zqzc/4t6iE8QgUf
+ TuOfUGCGdEKe/SNMQSpD8AIYwSIgizbwhI94KOHyPK2AE9jyOTjP7KW/i
+ 7+RxCpMAsJYj/5M2PyZIg4hBKXsORo1gyp/FF25mvbB+TJDFd3my9HjtQ c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: dWQF7fmbMFHTl2leeIfDlKYVllRd/U0HsiF9KXd9egfmaSjkUma16zAMyycNdcIciIT2ZaY6Vc
+ jIB+d2Izwb62SbjVCOYeQIGOZpx8QniyhKrwHkkf/Xs8EIZTuKyVOemFMZuzAMFw+Xp2epErhw
+ 5xOBq4lPhoevTR4tMjwTIJuf/dJrr8z5/zDtxo2XH8QiW4jNIt+BMO9l42Ez7U3fhm019p5U2p
+ TK3RadbQ5gspq5ROJQGmOJglo3Y1j+fcazg/fNGphVMEeDnaKjD37qCLsA5WfKAB06XQN/PKWn
+ SUY=
+X-SBRS: 2.7
+X-MesageID: 26914072
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.76,431,1592884800"; d="scan'208";a="26914072"
+Date: Wed, 16 Sep 2020 08:43:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Trammell Hudson <hudson@trmm.net>
+CC: <xen-devel@lists.xenproject.org>, <jbeulich@suse.com>,
+ <andrew.cooper3@citrix.com>, <wl@xen.org>
+Subject: Re: [PATCH v4 1/4] efi/boot.c: add file.need_to_free
+Message-ID: <20200916064358.GP753@Air-de-Roger>
+References: <20200914115013.814079-1-hudson@trmm.net>
+ <20200914115013.814079-2-hudson@trmm.net>
 MIME-Version: 1.0
-Subject: [libvirt test] 154374: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=1a5f35dbd2c4d83f7629579bcd8b23929a492b29
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 16 Sep 2020 06:30:45 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200914115013.814079-2-hudson@trmm.net>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,163 +69,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154374 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154374/
+On Mon, Sep 14, 2020 at 07:50:10AM -0400, Trammell Hudson wrote:
+> The config file, kernel, initrd, etc should only be freed if they
+> are allocated with the UEFI allocator.
+> 
+> Signed-off-by: Trammell Hudson <hudson@trmm.net>
 
-Regressions :-(
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+> ---
+>  xen/common/efi/boot.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 4022a672c9..7156139174 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -102,6 +102,7 @@ union string {
+>  
+>  struct file {
+>      UINTN size;
+> +    bool need_to_free;
+>      union {
+>          EFI_PHYSICAL_ADDRESS addr;
+>          void *ptr;
+> @@ -279,13 +280,13 @@ void __init noreturn blexit(const CHAR16 *str)
+>      if ( !efi_bs )
+>          efi_arch_halt();
+>  
+> -    if ( cfg.addr )
+> +    if ( cfg.addr && cfg.need_to_free )
+>          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -    if ( kernel.addr )
+> +    if ( kernel.addr && kernel.need_to_free )
+>          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+> -    if ( ramdisk.addr )
+> +    if ( ramdisk.addr && ramdisk.need_to_free )
+>          efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+> -    if ( xsm.addr )
+> +    if ( xsm.addr && xsm.need_to_free )
+>          efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
+>  
+>      efi_arch_blexit();
+> @@ -572,6 +573,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>                           HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
+>          ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
+>                                      PFN_UP(size), &file->addr);
+> +        file->need_to_free = true;
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+Strictly speaking, don't you need to set need_to_free only if
+AllocatePages has succeed? I guess it doesn't matter much because addr
+would be zapped to 0 if allocation fails.
 
-version targeted for testing:
- libvirt              1a5f35dbd2c4d83f7629579bcd8b23929a492b29
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z   68 days
-Failing since        151818  2020-07-11 04:18:52 Z   67 days   63 attempts
-Testing same since   154374  2020-09-16 04:19:06 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 15075 lines long.)
+Thanks, Roger.
 
