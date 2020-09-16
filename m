@@ -2,59 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3009326BD80
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 08:46:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A9526BD9B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 09:02:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIRDA-0006rB-Ao; Wed, 16 Sep 2020 06:46:36 +0000
+	id 1kIRS8-0000A9-NH; Wed, 16 Sep 2020 07:02:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kIRD8-0006r4-Ge
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 06:46:34 +0000
-X-Inumbo-ID: ce46843a-bc1f-4b47-926c-4f87fb0254a6
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIRS7-0000A4-U0
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 07:02:03 +0000
+X-Inumbo-ID: 64ab183d-b4cf-4a74-82a1-54134735574e
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ce46843a-bc1f-4b47-926c-4f87fb0254a6;
- Wed, 16 Sep 2020 06:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600238794;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZrGDe+E68fEPEDPBrioqb4olM1nX/kk/Msu1nSUcNRw=;
- b=KIc8F4vdTLraU4+3SqELVkR1xVA/DHU4eg/idFngYhsg90TfhkTNIGlf
- JhY2jFqCghJyI+ygqiZkNT7ekQk5lTJBKz+pR0grU7Aaci9kEKRK2KxNF
- Cowcjp40NckL70OfB3vSaHiKcYxb5BWROEIrNpm3sQfcpj7RS+IFZ+oXp I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: FO2YIFa9eLR5IGwVTKyLqYykZBLzXDJLkDMnaD7TI7L6Wh4IFT4kGb6sPcDgJfM2dMLZT60L8k
- p3aRwqRRwYeRsLEa8nZx7vAmL8bx4YybnYMJE+ZGJiNOg3xvieiZ/eM+Dh5ewYmkeZKjW5S9of
- wvDNn5phCFUxFHd93nMPgy6o/FAiq8zZFL/p6PzvOu/nobN/sg8socHVM5gxf1lhqiFrWncAcF
- gWw2tfoeILlCnu5TgIlTslfICViKNlgjZ8Q46V7bQH0p5N2VitPcpgXEI+mcH48kmYC/Ji2z2v
- fJ8=
-X-SBRS: 2.7
-X-MesageID: 27133158
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,431,1592884800"; d="scan'208";a="27133158"
-Date: Wed, 16 Sep 2020 08:46:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Trammell Hudson <hudson@trmm.net>
-CC: <xen-devel@lists.xenproject.org>, <jbeulich@suse.com>,
- <andrew.cooper3@citrix.com>, <wl@xen.org>
-Subject: Re: [PATCH v4 2/4] efi/boot.c: add handle_file_info()
-Message-ID: <20200916064624.GQ753@Air-de-Roger>
-References: <20200914115013.814079-1-hudson@trmm.net>
- <20200914115013.814079-3-hudson@trmm.net>
+ id 64ab183d-b4cf-4a74-82a1-54134735574e;
+ Wed, 16 Sep 2020 07:02:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A0100AEA3;
+ Wed, 16 Sep 2020 07:02:17 +0000 (UTC)
+Subject: Re: [PATCH] x86/mm: Simplify expression in set_gpfn_from_mfn()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200915175355.32361-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <75d5ba85-ae3d-03f6-5d42-4ecf52c6ca08@suse.com>
+Date: Wed, 16 Sep 2020 09:02:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200914115013.814079-3-hudson@trmm.net>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <20200915175355.32361-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,13 +50,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 14, 2020 at 07:50:11AM -0400, Trammell Hudson wrote:
-> Add a separate function to display the address ranges used by
-> the files and call `efi_arch_handle_module()` on the modules.
-> 
-> Signed-off-by: Trammell Hudson <hudson@trmm.net>
+On 15.09.2020 19:53, Andrew Cooper wrote:
+> Coverity points out that the "d &&" is redundant.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+How can it know that ...
 
-Thanks!
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -1336,7 +1336,7 @@ void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn)
+>      {
+>          const struct domain *d = page_get_owner(mfn_to_page(_mfn(mfn)));
+>  
+> -        if ( d && (d == dom_cow) )
+> +        if ( d == dom_cow )
+
+... dom_cow is not NULL (in which case the new expression is wrong
+when d also is). I actually think Coverity has spotted the issue
+when dom_cow is #define-d to NULL, in which case the original
+expression degenerates to "d && !d".
+
+If the purpose of the extra check is more obvious that way, we
+could check dom_cow to be non-NULL (instead of d), but I'm afraid
+this may not silence Coverity.
+
+Jan
 
