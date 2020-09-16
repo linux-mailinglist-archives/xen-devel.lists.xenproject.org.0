@@ -2,51 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A518426C2FE
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 14:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F4A26C316
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 15:05:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIWyd-0002Au-Kp; Wed, 16 Sep 2020 12:55:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIX6X-00036L-FZ; Wed, 16 Sep 2020 13:04:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kIWyc-0002Al-46
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 12:55:58 +0000
-X-Inumbo-ID: 018a581d-c609-4366-af31-fccdf5fa6d73
+ id 1kIX6V-00036G-KO
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 13:04:07 +0000
+X-Inumbo-ID: 4b88a622-60b3-4302-826e-5288822f95a9
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 018a581d-c609-4366-af31-fccdf5fa6d73;
- Wed, 16 Sep 2020 12:55:57 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4b88a622-60b3-4302-826e-5288822f95a9;
+ Wed, 16 Sep 2020 13:04:06 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600260956;
+ s=cantorsusede; t=1600261446;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RGjEXI8xvLo83Jrzv7aZdQ4aCW03/EPhghT9tSAdB8Q=;
- b=lRP+W25o3bXKA7Zq9ZStWU+mZpk+Fry+Un1s0KBYC2maPR0pGXPFXoRWvSuHui+wx5dK4f
- 056HLtgacRVgRXynFMGZF6TwnKU/p5dBDXfG5cnTF1k++NVm/SD4P5fU1k8wjL1muUs0BX
- Fc6zxXz0uIilRi17ob/ZvoBlbiGFPzY4c/JMG01Ba1Y7eXWcjh9TVAbaKQT01PxbGpwpJR
- DmmPONmTf8h+oR2+3mR7GZWHwmM00eL1Ns9D3O6TeaMX+4a/r4V9yzVHaRSjWfd8UkUbhD
- tWjUw+LWLf/IwRhgiml/Qp7Z3+vR3iHOL1bNYNpLIlW+/59Rtoo2RD63si5oMA==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rsYpQPr9XZ2jsAls9iWzS/yvMAnNrHqzeM6AwMfqFUY=;
+ b=LaV3rRSch1qb8QH6vhsBcOKQzHPXTX3Zi2KWLaXIEn0IvLYWUc2cuGGE1bMxGjCYubEraz
+ JcrWKTbfB5b1LLyqo8q/uF3yPM9s8zRzoPIvNW7+j6FRnMrBr3rHLKPzq2D/zwaJYRITsG
+ KHj5Aw+nX7OC6bbw3cI8n7erjXKeI+Ela/SQDMsJnpCr4Ybt0YuOZSX/wf2jo426e6VvPa
+ dHPAHZq3Z0cyUH2d3HDY1f6KfhC2uOn64pqAcaM5fHL5xIKc73ISWAXBzy5lsmARAYy7pQ
+ 9woA3dmlHYPDxRJ4liqeitrdTlUgX0S7kUO5c8wNmkM12yoWVsHo4ws+JazBDA==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4B071B538;
- Wed, 16 Sep 2020 12:56:11 +0000 (UTC)
-Subject: Re: [PATCH] x86/svm: ignore accesses to EX_CFG
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <20200916105426.6663-1-roger.pau@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 3E01CB2A3;
+ Wed, 16 Sep 2020 13:04:21 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0a55eeb7-a5bf-8c9c-80e3-d697d029e7ce@suse.com>
-Date: Wed, 16 Sep 2020 14:55:52 +0200
+Subject: [PATCH v2 0/4] x86: shim building adjustments (plus shadow follow-on)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>
+Message-ID: <c6b9c903-02eb-d473-86e3-ccb67aff6cd7@suse.com>
+Date: Wed, 16 Sep 2020 15:04:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200916105426.6663-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -63,40 +60,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.09.2020 12:54, Roger Pau Monne wrote:
-> Windows 10 will try to unconditionally read EX_CFG on AMD hadrware,
-> and injecting a #GP fault will result in a panic:
-> 
-> svm.c:1964:d5v0 RDMSR 0xc001102c unimplemented
-> d5v0 VIRIDIAN CRASH: 7e ffffffffc0000096 fffff8054cbe5ffe fffffa0837a066e8 fffffa0837a05f30
-> 
-> Return 0 when trying to read the MSR and drop writes.
+The first change is simply addressing a build issue noticed by
+Andrew. The build breakage goes beyond this specific combination
+though - PV_SHIM_EXCLUSIVE plus HVM is similarly an issue. This
+is what the last patch tries to take care of, in a shape already
+on irc noticed to be controversial. I'm submitting the change
+nevertheless because for the moment there looks to be a majority
+in favor of going this route. One argument not voiced there yet:
+What good does it do to allow a user to enable HVM when then on
+the resulting hypervisor they still can't run HVM guests (for
+the hypervisor still being a dedicated PV shim one). On top of
+this, the alternative approach is likely going to get ugly.
 
-So I've gone through a bunch of BKDGs and PPRs, without finding
-this MSR mentioned in any of them. Could you point out on which
-model(s) it actually exists? You must have found it somewhere,
-or else you wouldn't know a name for it...
-
-> @@ -2108,6 +2109,7 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
->      case MSR_K8_TOP_MEM2:
->      case MSR_K8_SYSCFG:
->      case MSR_K8_VM_CR:
-> +    case MSR_AMD64_EX_CFG:
->          /* ignore write. handle all bits as read-only. */
->          break;
-
-Is this necessary, rather than having writes fault?
-
-> --- a/xen/include/asm-x86/msr-index.h
-> +++ b/xen/include/asm-x86/msr-index.h
-> @@ -330,6 +330,7 @@
->  #define MSR_AMD64_DC_CFG		0xc0011022
->  #define MSR_AMD64_DE_CFG		0xc0011029
->  #define AMD64_DE_CFG_LFENCE_SERIALISE	(_AC(1, ULL) << 1)
-> +#define MSR_AMD64_EX_CFG                0xc001102c
-
-Indentation here wants to match the siblings, i.e. use hard tabs
-(for now). Easily addressed while committing, of course.
+1: fix build with PV_SHIM_EXCLUSIVE and SHADOW_PAGING
+2: adjust Kconfig defaults
+3: don't permit HVM and PV_SHIM_EXCLUSIVE at the same time
+4: refactor shadow_vram_{get,put}_l1e()
 
 Jan
 
