@@ -2,118 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A606026C29D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 14:16:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9FA326C2A7
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 14:21:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIWMa-0006T0-CD; Wed, 16 Sep 2020 12:16:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIWQk-0007IB-4Y; Wed, 16 Sep 2020 12:20:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=44SI=CZ=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kIWMZ-0006Sv-5r
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 12:16:39 +0000
-X-Inumbo-ID: cdbbb3ae-9913-45a7-8714-b9ea4bb7735d
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id cdbbb3ae-9913-45a7-8714-b9ea4bb7735d;
- Wed, 16 Sep 2020 12:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600258597;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2/++Vs+tqDU+26+QgfH9Refcf03yjqUaNncFH8b2ph4=;
- b=bkeuGuh72MxhEPXMPRLiW5EgRpquxR6rgrBpmKxMwcz1cqrjsVlV/ei5k6TQxWUOpsVkJ5
- cIR5BlpYr/ppTztrkpSIc5QFOBPAVcKXMLfK/Kn3z7sH+KrMwXoa7nNF4JS9dZ2nsScJYr
- kn95Zx6fcUm12M5m3bEvj355fszJRkw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-6-7WLKPKnpN_Svn0iJ3fCVcQ-1; Wed, 16 Sep 2020 08:16:32 -0400
-X-MC-Unique: 7WLKPKnpN_Svn0iJ3fCVcQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 128DB873116;
- Wed, 16 Sep 2020 12:16:30 +0000 (UTC)
-Received: from [10.36.113.190] (ovpn-113-190.ams2.redhat.com [10.36.113.190])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 20F9D7EB7C;
- Wed, 16 Sep 2020 12:16:25 +0000 (UTC)
-Subject: Re: [PATCH] kernel/resource: make iomem_resource implicit in
- release_mem_region_adjustable()
-To: Wei Yang <richard.weiyang@linux.alibaba.com>
-Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-s390@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>,
- Dan Williams <dan.j.williams@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kees Cook <keescook@chromium.org>, Ard Biesheuvel <ardb@kernel.org>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, Baoquan He <bhe@redhat.com>
-References: <20200911103459.10306-1-david@redhat.com>
- <20200916073041.10355-1-david@redhat.com>
- <20200916100223.GA46154@L-31X9LVDL-1304.local>
- <d11eba75-71c0-4153-944b-56e22044e0eb@redhat.com>
- <20200916121051.GA46809@L-31X9LVDL-1304.local>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat GmbH
-Message-ID: <0ee45d30-daa4-190a-2932-fb710d9496db@redhat.com>
-Date: Wed, 16 Sep 2020 14:16:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIWQi-0007I6-QB
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 12:20:56 +0000
+X-Inumbo-ID: c501c399-02b5-4580-9473-2b4228f25496
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c501c399-02b5-4580-9473-2b4228f25496;
+ Wed, 16 Sep 2020 12:20:55 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2C57BAEA2;
+ Wed, 16 Sep 2020 12:21:10 +0000 (UTC)
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4] EFI: free unused boot mem in at least some cases
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
+References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
+Message-ID: <d8b1bcc8-ffcc-f7fe-b4ad-ce7dcdaed491@suse.com>
+Date: Wed, 16 Sep 2020 14:20:54 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200916121051.GA46809@L-31X9LVDL-1304.local>
+In-Reply-To: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,40 +54,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.09.20 14:10, Wei Yang wrote:
-> On Wed, Sep 16, 2020 at 12:03:20PM +0200, David Hildenbrand wrote:
->> On 16.09.20 12:02, Wei Yang wrote:
->>> On Wed, Sep 16, 2020 at 09:30:41AM +0200, David Hildenbrand wrote:
->>>> "mem" in the name already indicates the root, similar to
->>>> release_mem_region() and devm_request_mem_region(). Make it implicit.
->>>> The only single caller always passes iomem_resource, other parents are
->>>> not applicable.
->>>>
->>>
->>> Looks good to me.
->>>
->>> Reviewed-by: Wei Yang <richard.weiyang@linux.alibaba.com>
->>>
->>
->> Thanks for the review!
->>
-> 
-> Would you send another version? I didn't take a look into the following
-> patches, since the 4th is missed.
+Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
+free ebmalloc area at all") was put in place: Make xen_in_range() aware
+of the freed range. This is in particular relevant for EFI-enabled
+builds not actually running on EFI, as the entire range will be unused
+in this case.
 
-Not planning to send another one as long as there are no further
-comments. Seems to be an issue on your side because all patches arrived
-on linux-mm (see
-https://lore.kernel.org/linux-mm/20200911103459.10306-1-david@redhat.com/)
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v4: Address PV shim breakage (stub function also needed adjustment).
+v3: Don't free the memory twice.
+v2: Also adjust the two places where comments point out that they need
+    to remain in sync with xen_in_range(). Add assertions to
+    xen_in_range().
+---
+The remaining issue could be addressed too, by making the area 2M in
+size and 2M-aligned.
 
-You can find patch #4 at
-https://lore.kernel.org/linux-mm/20200911103459.10306-5-david@redhat.com/
-
-(which has CC "Wei Yang <richardw.yang@linux.intel.com>")
-
--- 
-Thanks,
-
-David / dhildenb
-
+--- a/xen/arch/x86/efi/stub.c
++++ b/xen/arch/x86/efi/stub.c
+@@ -52,6 +52,13 @@ bool efi_enabled(unsigned int feature)
+ 
+ void __init efi_init_memory(void) { }
+ 
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
++{
++    if ( start || end )
++        *start = *end = (unsigned long)_end;
++    return false;
++}
++
+ void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
+ 
+ bool efi_rs_using_pgtables(void)
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -830,6 +830,7 @@ void __init noreturn __start_xen(unsigne
+     module_t *mod;
+     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
+     int i, j, e820_warn = 0, bytes = 0;
++    unsigned long eb_start, eb_end;
+     bool acpi_boot_table_init_done = false, relocated = false;
+     int ret;
+     struct ns16550_defaults ns16550 = {
+@@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
+ 
+         /*
+          * This needs to remain in sync with xen_in_range() and the
+-         * respective reserve_e820_ram() invocation below.
++         * respective reserve_e820_ram() invocation below. No need to
++         * query efi_boot_mem_unused() here, though.
+          */
+         mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
+         mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
+@@ -1417,8 +1419,18 @@ void __init noreturn __start_xen(unsigne
+     if ( !xen_phys_start )
+         panic("Not enough memory to relocate Xen\n");
+ 
++    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
++    if ( using_2M_mapping() )
++        efi_boot_mem_unused(NULL, NULL);
++
+     /* This needs to remain in sync with xen_in_range(). */
+-    reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
++    if ( efi_boot_mem_unused(&eb_start, &eb_end) )
++    {
++        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
++        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
++    }
++    else
++        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+ 
+     /* Late kexec reservation (dynamic start address). */
+     kexec_reserve_area(&boot_e820);
+@@ -1979,7 +1991,7 @@ int __hwdom_init xen_in_range(unsigned l
+     paddr_t start, end;
+     int i;
+ 
+-    enum { region_s3, region_ro, region_rw, nr_regions };
++    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
+     static struct {
+         paddr_t s, e;
+     } xen_regions[nr_regions] __hwdom_initdata;
+@@ -2004,6 +2016,14 @@ int __hwdom_init xen_in_range(unsigned l
+         /* hypervisor .data + .bss */
+         xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
+         xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
++        if ( efi_boot_mem_unused(&start, &end) )
++        {
++            ASSERT(__pa(start) >= xen_regions[region_rw].s);
++            ASSERT(__pa(end) <= xen_regions[region_rw].e);
++            xen_regions[region_rw].e = __pa(start);
++            xen_regions[region_bss].s = __pa(end);
++            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
++        }
+     }
+ 
+     start = (paddr_t)mfn << PAGE_SHIFT;
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -1,3 +1,4 @@
++#include <xen/efi.h>
+ #include <xen/init.h>
+ #include <xen/types.h>
+ #include <xen/lib.h>
+@@ -364,6 +365,8 @@ void tboot_shutdown(uint32_t shutdown_ty
+     /* if this is S3 then set regions to MAC */
+     if ( shutdown_type == TB_SHUTDOWN_S3 )
+     {
++        unsigned long s, e;
++
+         /*
+          * Xen regions for tboot to MAC. This needs to remain in sync with
+          * xen_in_range().
+@@ -378,6 +381,15 @@ void tboot_shutdown(uint32_t shutdown_ty
+         /* hypervisor .data + .bss */
+         g_tboot_shared->mac_regions[2].start = (uint64_t)__pa(&__2M_rwdata_start);
+         g_tboot_shared->mac_regions[2].size = __2M_rwdata_end - __2M_rwdata_start;
++        if ( efi_boot_mem_unused(&s, &e) )
++        {
++            g_tboot_shared->mac_regions[2].size =
++                s - (unsigned long)__2M_rwdata_start;
++            g_tboot_shared->mac_regions[3].start = __pa(e);
++            g_tboot_shared->mac_regions[3].size =
++                (unsigned long)__2M_rwdata_end - e;
++            g_tboot_shared->num_mac_regions = 4;
++        }
+ 
+         /*
+          * MAC domains and other Xen memory
+--- a/xen/common/efi/ebmalloc.c
++++ b/xen/common/efi/ebmalloc.c
+@@ -1,5 +1,6 @@
+ #include "efi.h"
+ #include <xen/init.h>
++#include <xen/mm.h>
+ 
+ #ifdef CONFIG_ARM
+ /*
+@@ -21,7 +22,7 @@
+ 
+ static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+     ebmalloc_mem[EBMALLOC_SIZE];
+-static unsigned long __initdata ebmalloc_allocated;
++static unsigned long __read_mostly ebmalloc_allocated;
+ 
+ /* EFI boot allocator. */
+ void __init *ebmalloc(size_t size)
+@@ -36,17 +37,37 @@ void __init *ebmalloc(size_t size)
+     return ptr;
+ }
+ 
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
++{
++    if ( !start && !end )
++    {
++        ebmalloc_allocated = sizeof(ebmalloc_mem);
++        return false;
++    }
++
++    *start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
++    *end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
++
++    return *start < *end;
++}
++
+ void __init free_ebmalloc_unused_mem(void)
+ {
+-#if 0 /* FIXME: Putting a hole in the BSS breaks the IOMMU mappings for dom0. */
+     unsigned long start, end;
+ 
+-    start = (unsigned long)ebmalloc_mem + PAGE_ALIGN(ebmalloc_allocated);
+-    end = (unsigned long)ebmalloc_mem + sizeof(ebmalloc_mem);
++    if ( !efi_boot_mem_unused(&start, &end) )
++        return;
+ 
+     destroy_xen_mappings(start, end);
++
++#ifdef CONFIG_X86
++    /*
++     * By reserving the space early in the E820 map, it gets freed way before
++     * we make it here. Don't free the range a 2nd time.
++     */
++#else
+     init_xenheap_pages(__pa(start), __pa(end));
++#endif
+ 
+     printk(XENLOG_INFO "Freed %lukB unused BSS memory\n", (end - start) >> 10);
+-#endif
+ }
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -33,6 +33,7 @@ struct compat_pf_efi_runtime_call;
+ 
+ bool efi_enabled(unsigned int feature);
+ void efi_init_memory(void);
++bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
+ bool efi_rs_using_pgtables(void);
+ unsigned long efi_get_time(void);
+ void efi_halt_system(void);
 
