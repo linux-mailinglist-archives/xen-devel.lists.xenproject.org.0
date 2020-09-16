@@ -2,55 +2,95 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858AF26C1E7
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:55:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C7526C20A
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 13:22:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIV5C-0006rH-Pw; Wed, 16 Sep 2020 10:54:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kIV5B-0006rC-Ts
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:54:37 +0000
-X-Inumbo-ID: 3746d25e-03d2-4081-8d84-f68cec1477aa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3746d25e-03d2-4081-8d84-f68cec1477aa;
- Wed, 16 Sep 2020 10:54:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600253676;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RMfWKT9lYkm1p1DA54rgIHO+AQae7J9Xe1s++NSB7YA=;
- b=PeJnTVpY5glydsDcSKAWzYmH3/2YvmwoMJUevN2NCbceFtei4kXQ07d3
- Vv1kcOiqacRhqNUnAGslkRXEsWzO1ZrhIIo247GSPSXIymcACmqFJhp40
- USDpbKscyrdwXOnu7g4lBo9GqazJUAXFekmYGgya5mkYkyXX4BpqGeHeZ U=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: X5SA/GiwkcbM8TXSAotrurHlH5YSYG8xn+Sgw3kzIMWml/j9Rl+ptjeQHXVuAZf0HjPjGfoRcx
- whZGiWC2j3LamFiRwewh1X9ibfyFd5IlYcaScH1Jnbp+H1eUVYKQyp2dSyOSUhkSl7y70qkH0M
- kPf9krqi/3DmU50iYcCHui4McKEHLhCASHdSwSY42RyoQlXliADo9szD1tN4rlSpzFIEs+/E2b
- FVqN2GrgU5R2H8X2/oIH6cyTMczsIRtH3Ed54xZS80tjoEeDmUR6lkWUoO3z7xf+2+NpvKAvfv
- 44U=
-X-SBRS: 2.7
-X-MesageID: 27794912
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,432,1592884800"; d="scan'208";a="27794912"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/svm: ignore accesses to EX_CFG
-Date: Wed, 16 Sep 2020 12:54:26 +0200
-Message-ID: <20200916105426.6663-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
+	id 1kIVVS-00014b-52; Wed, 16 Sep 2020 11:21:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wetI=CZ=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
+ id 1kIVVQ-00014W-6P
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 11:21:44 +0000
+X-Inumbo-ID: 28fbfb55-8fed-44f0-83b6-9ddf2137b94a
+Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 28fbfb55-8fed-44f0-83b6-9ddf2137b94a;
+ Wed, 16 Sep 2020 11:21:42 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id l15so2015390wmh.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 04:21:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=mUOAFu1Sstz+Y84HDrSYqg/SYf7AQiwgyxkdfcX2QWQ=;
+ b=dNYt3KSmP2zoajuEOcpSRwKjslSpbjWRZP10ZdmvUDBODfNwzvcZciCjx0cVSGnRP/
+ JUZRa+hP31+BJN/M1t7m9Ls/tiT5od6BnRGoXiiAJTdUcoTfR5J6SoK2kCHBNgd6JM9c
+ NsxYbB5nxATvUhunbEGd6bVQp6IDhaI5uBozM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=mUOAFu1Sstz+Y84HDrSYqg/SYf7AQiwgyxkdfcX2QWQ=;
+ b=EV2UKQIU11DS2Z5spwOvmrGSLMCg4mEPDf4qtm2nJPWfJ2jGpUe8fuCERgx0wHQArh
+ 65A0j7BTPuFwhtGjc0wrSbfSLjBAAYgGEuibUNXTbZZGAfnylzY70DfSN0ViGIotE5jP
+ DrV0+LEMx3zrSEWelXJXj2QbbqRXx1SvQaCF9L7DzKAK/X4LChXl3nb181/slK7e4hvp
+ 5BFqoN07YxCPYZ18BXiG1a/AmZGzNowxUhTvubMVsuyy2N2gJ7yLGrK7ZaYxBywYcV4C
+ skPBukZlNaehb74J9pRyvJLDNvjDXQleOVrgTIOno67rvE/zcjvfCKN3dmH7xDRtwiFv
+ kh/A==
+X-Gm-Message-State: AOAM532u1FHDS/IIzHZX4E6aIkb8b6FxpwSOT6fs1SMMEO5YaOupQ4Jf
+ s1BAaCsoLzGqvbYgpocR6fJWqg==
+X-Google-Smtp-Source: ABdhPJxN4KFdG0OXvpCuI3UQDQSjm9d9naSAnHnzOZnbaecNO0ofucAiEdpaLFF0vBOBWzg3E9jOYA==
+X-Received: by 2002:a05:600c:414e:: with SMTP id
+ h14mr4127600wmm.2.1600255301791; 
+ Wed, 16 Sep 2020 04:21:41 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q186sm4894705wma.45.2020.09.16.04.21.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 04:21:40 -0700 (PDT)
+Date: Wed, 16 Sep 2020 13:21:36 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
+ sean@poorly.run, bskeggs@redhat.com, tomi.valkeinen@ti.com,
+ eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
+ chris@chris-wilson.co.uk, matthew.auld@intel.com,
+ tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com,
+ sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 03/21] drm/etnaviv: Introduce GEM object functions
+Message-ID: <20200916112136.GG438822@phenom.ffwll.local>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-4-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200915145958.19993-4-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +104,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Windows 10 will try to unconditionally read EX_CFG on AMD hadrware,
-and injecting a #GP fault will result in a panic:
+On Tue, Sep 15, 2020 at 04:59:40PM +0200, Thomas Zimmermann wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in etnaviv. The only exception is gem_prime_mmap,
+> which is non-trivial to convert.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/etnaviv/etnaviv_drv.c | 13 -------------
+>  drivers/gpu/drm/etnaviv/etnaviv_drv.h |  1 -
+>  drivers/gpu/drm/etnaviv/etnaviv_gem.c | 19 ++++++++++++++++++-
+>  3 files changed, 18 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> index a9a3afaef9a1..aa270b79e585 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> @@ -468,12 +468,6 @@ static const struct drm_ioctl_desc etnaviv_ioctls[] = {
+>  	ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
+>  };
+>  
+> -static const struct vm_operations_struct vm_ops = {
+> -	.fault = etnaviv_gem_fault,
+> -	.open = drm_gem_vm_open,
+> -	.close = drm_gem_vm_close,
+> -};
+> -
+>  static const struct file_operations fops = {
+>  	.owner              = THIS_MODULE,
+>  	.open               = drm_open,
+> @@ -490,16 +484,9 @@ static struct drm_driver etnaviv_drm_driver = {
+>  	.driver_features    = DRIVER_GEM | DRIVER_RENDER,
+>  	.open               = etnaviv_open,
+>  	.postclose           = etnaviv_postclose,
+> -	.gem_free_object_unlocked = etnaviv_gem_free_object,
+> -	.gem_vm_ops         = &vm_ops,
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> -	.gem_prime_pin      = etnaviv_gem_prime_pin,
+> -	.gem_prime_unpin    = etnaviv_gem_prime_unpin,
+> -	.gem_prime_get_sg_table = etnaviv_gem_prime_get_sg_table,
+>  	.gem_prime_import_sg_table = etnaviv_gem_prime_import_sg_table,
+> -	.gem_prime_vmap     = etnaviv_gem_prime_vmap,
+> -	.gem_prime_vunmap   = etnaviv_gem_prime_vunmap,
+>  	.gem_prime_mmap     = etnaviv_gem_prime_mmap,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init       = etnaviv_debugfs_init,
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+> index 4d8dc9236e5f..914f0867ff71 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+> @@ -49,7 +49,6 @@ int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  		struct drm_file *file);
+>  
+>  int etnaviv_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+> -vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf);
+>  int etnaviv_gem_mmap_offset(struct drm_gem_object *obj, u64 *offset);
+>  struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj);
+>  void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj);
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> index ea19f1d27275..312e9d58d5a7 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> @@ -171,7 +171,7 @@ int etnaviv_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+>  	return obj->ops->mmap(obj, vma);
+>  }
+>  
+> -vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf)
+> +static vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct drm_gem_object *obj = vma->vm_private_data;
+> @@ -561,6 +561,22 @@ void etnaviv_gem_obj_add(struct drm_device *dev, struct drm_gem_object *obj)
+>  	mutex_unlock(&priv->gem_lock);
+>  }
+>  
+> +static const struct vm_operations_struct vm_ops = {
+> +	.fault = etnaviv_gem_fault,
+> +	.open = drm_gem_vm_open,
+> +	.close = drm_gem_vm_close,
+> +};
+> +
+> +static const struct drm_gem_object_funcs etnaviv_gem_object_funcs = {
+> +	.free = etnaviv_gem_free_object,
+> +	.pin = etnaviv_gem_prime_pin,
+> +	.unpin = etnaviv_gem_prime_unpin,
+> +	.get_sg_table = etnaviv_gem_prime_get_sg_table,
+> +	.vmap = etnaviv_gem_prime_vmap,
+> +	.vunmap = etnaviv_gem_prime_vunmap,
+> +	.vm_ops = &vm_ops,
+> +};
 
-svm.c:1964:d5v0 RDMSR 0xc001102c unimplemented
-d5v0 VIRIDIAN CRASH: 7e ffffffffc0000096 fffff8054cbe5ffe fffffa0837a066e8 fffffa0837a05f30
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Return 0 when trying to read the MSR and drop writes.
+> +
+>  static int etnaviv_gem_new_impl(struct drm_device *dev, u32 size, u32 flags,
+>  	const struct etnaviv_gem_ops *ops, struct drm_gem_object **obj)
+>  {
+> @@ -595,6 +611,7 @@ static int etnaviv_gem_new_impl(struct drm_device *dev, u32 size, u32 flags,
+>  	INIT_LIST_HEAD(&etnaviv_obj->vram_list);
+>  
+>  	*obj = &etnaviv_obj->base;
+> +	(*obj)->funcs = &etnaviv_gem_object_funcs;
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.28.0
+> 
 
-Fixes: 84e848fd7a16 ('x86/hvm: disallow access to unknown MSRs')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/hvm/svm/svm.c      | 2 ++
- xen/include/asm-x86/msr-index.h | 1 +
- 2 files changed, 3 insertions(+)
-
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 136445972e..5037c0fe7d 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -1942,6 +1942,7 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-     case MSR_K8_TOP_MEM1:
-     case MSR_K8_TOP_MEM2:
-     case MSR_K8_VM_CR:
-+    case MSR_AMD64_EX_CFG:
-         *msr_content = 0;
-         break;
- 
-@@ -2108,6 +2109,7 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-     case MSR_K8_TOP_MEM2:
-     case MSR_K8_SYSCFG:
-     case MSR_K8_VM_CR:
-+    case MSR_AMD64_EX_CFG:
-         /* ignore write. handle all bits as read-only. */
-         break;
- 
-diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
-index 4fd54fb5c9..c433eeba92 100644
---- a/xen/include/asm-x86/msr-index.h
-+++ b/xen/include/asm-x86/msr-index.h
-@@ -330,6 +330,7 @@
- #define MSR_AMD64_DC_CFG		0xc0011022
- #define MSR_AMD64_DE_CFG		0xc0011029
- #define AMD64_DE_CFG_LFENCE_SERIALISE	(_AC(1, ULL) << 1)
-+#define MSR_AMD64_EX_CFG                0xc001102c
- 
- #define MSR_AMD64_DR0_ADDRESS_MASK	0xc0011027
- #define MSR_AMD64_DR1_ADDRESS_MASK	0xc0011019
 -- 
-2.28.0
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
