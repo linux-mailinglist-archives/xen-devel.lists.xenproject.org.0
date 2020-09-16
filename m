@@ -2,64 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E542F26C18B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:16:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A8A26C190
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 12:23:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIUTa-00037G-I6; Wed, 16 Sep 2020 10:15:46 +0000
+	id 1kIUae-00040A-Ay; Wed, 16 Sep 2020 10:23:04 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9sPA=CZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kIUTZ-00036d-OH
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:15:45 +0000
-X-Inumbo-ID: 6c047847-f5e0-4247-b906-834daa4fa09f
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=kJNc=CZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kIUac-0003zq-Qk
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 10:23:02 +0000
+X-Inumbo-ID: f4c795de-5df4-4ed9-a9f1-d3cf804f87e6
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6c047847-f5e0-4247-b906-834daa4fa09f;
- Wed, 16 Sep 2020 10:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600251344;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=6Dd97ERfrqNS38sEZtk9PVeUIARAoj9FAEz85fIHVWc=;
- b=UGB16rEzX+jhBsKSdmYg4KfFgSI0/bOyhzciAx2qlLL9PYaMiz4dQGvT
- we/B+gR6ly8QFujqGGeMDZKs+JQd02pkzSdSd/Mdcody0+jyyZEdUSgSB
- 5vy4wSD03BeBqq27zj9sMtnlyCOUX7apybe0fDlF0HgI1a8WsaXpLOJ4p 8=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: S0OWKcDxB7qWP49DBY3vuiHO2C7H3u8uVdxBlZkpHI2fg2oMyGMgoa55bX0BMwfimjqy+SEHmk
- +YZ0NOJ89SINttwn4C46eUhkKbZRnsiktJovKtkSYc5xyAaJCML1VgJ4FlqcfENbdYaSvZPylY
- 7nh4Ep7DVf4wgOeTTAmrrqD0rJBqMkK44inmCwhDo0yt7+QmOQz1C4FzjPKx/jenm05OBUB62C
- 5vbGZQwELD+ahs+zYq5pCz+PFypeycUdLtbhOtqTg/wrLRnQz1hYPqSSgz+/M2Q1VRBJnpIXtp
- Y84=
-X-SBRS: 2.7
-X-MesageID: 26788203
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,432,1592884800"; d="scan'208";a="26788203"
-Date: Wed, 16 Sep 2020 12:15:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Trammell Hudson <hudson@trmm.net>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "jbeulich@suse.com" <jbeulich@suse.com>, "andrew.cooper3@citrix.com"
- <andrew.cooper3@citrix.com>, "wl@xen.org" <wl@xen.org>
-Subject: Re: [PATCH v4 3/4] efi: Enable booting unified
- hypervisor/kernel/initrd images
-Message-ID: <20200916101020.GU753@Air-de-Roger>
-References: <20200914115013.814079-1-hudson@trmm.net>
- <20200914115013.814079-4-hudson@trmm.net>
- <20200916073209.GR753@Air-de-Roger>
- <vJMfvKtNZyMgJ7EsE4gKz79cATC-4xxU3hrAkz1PlvmArEQJ_jcXR61uiCggcKjISspFs2h4CrL1M9uLGM1kI25UmudG9YueJY1af6VPDmY=@trmm.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ id f4c795de-5df4-4ed9-a9f1-d3cf804f87e6;
+ Wed, 16 Sep 2020 10:22:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=w+0oSx7H2Mth9xcRPYQHtHPHqXuBSiEnrwD0UpKU0JU=; b=36q12ImkqlQXrJvwlr0L72IUBH
+ 62+T4gF8rMmfUiw7NZVCzkCa/onIqYjlLgGk4JCas577E+7woOlgxlRfHqAsSo2WLYiRuqxKYXlra
+ l/4kw+M/J5mnsMhKI1OlH7PmpB9yfSyhHRzrIbvBGcNfyk8E6tqMwXIFapi1lcT+ngek=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIUaW-00034Q-F7; Wed, 16 Sep 2020 10:22:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIUaW-0004ex-6B; Wed, 16 Sep 2020 10:22:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIUaW-0005DA-5k; Wed, 16 Sep 2020 10:22:56 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154380-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <vJMfvKtNZyMgJ7EsE4gKz79cATC-4xxU3hrAkz1PlvmArEQJ_jcXR61uiCggcKjISspFs2h4CrL1M9uLGM1kI25UmudG9YueJY1af6VPDmY=@trmm.net>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+MIME-Version: 1.0
+Subject: [xen-unstable-coverity test] 154380: all pass - PUSHED
+X-Osstest-Versions-This: xen=51526576219f122ec7ccfd55dea95afbca70d330
+X-Osstest-Versions-That: xen=6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 16 Sep 2020 10:22:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,26 +61,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 16, 2020 at 08:37:44AM +0000, Trammell Hudson wrote:
-> On Wednesday, September 16, 2020 3:32 AM, Roger Pau Monné <roger.pau@citrix.com> wrote:
-> > On Mon, Sep 14, 2020 at 07:50:12AM -0400, Trammell Hudson wrote:
-> > > -   s2w(&name_string);
-> >
-> > Don't you need to check that s2w succeed, so that name_string.w is not
-> > a random pointer from stack garbage?
-> 
-> Maybe? I don't see anywhere else in the code that s2w() is
-> ever checked for a NULL return.
+flight 154380 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154380/
 
-I see some callers pass the return of s2w() straight into read_file
-which will check that's not NULL before proceeding, or else call
-PrintErrMesg which won't return.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  51526576219f122ec7ccfd55dea95afbca70d330
+baseline version:
+ xen                  6c5fb129e88b9c06b5fd62a410163ebb8ef77ee6
 
-> Perhaps a better fix would
-> be to modify the function to panic if it is unable
-> to allocate.
+Last test of basis   154260  2020-09-13 09:20:39 Z    3 days
+Testing same since   154380  2020-09-16 09:19:21 Z    0 days    1 attempts
 
-Just doing what read_file does and use PrintErrMesg seems fine to me.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Don Slutz <don.slutz@gmail.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
-Roger.
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   6c5fb129e8..5152657621  51526576219f122ec7ccfd55dea95afbca70d330 -> coverity-tested/smoke
 
