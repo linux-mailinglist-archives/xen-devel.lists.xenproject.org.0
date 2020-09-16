@@ -2,84 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1AD926BF94
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 10:43:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FABF26BFC7
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 10:50:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIT2D-0002BO-3x; Wed, 16 Sep 2020 08:43:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B7lL=CZ=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kIT2B-0002BJ-Gl
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 08:43:23 +0000
-X-Inumbo-ID: 5154801d-a1d4-41f5-8daf-bfe8ba603060
-Received: from mail-wm1-x336.google.com (unknown [2a00:1450:4864:20::336])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5154801d-a1d4-41f5-8daf-bfe8ba603060;
- Wed, 16 Sep 2020 08:43:22 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id k18so2055358wmj.5
- for <xen-devel@lists.xenproject.org>; Wed, 16 Sep 2020 01:43:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=Oa4ktbibWpVpEa+2KTDfcdJ8jrXIUhVZLG6egDiHRjI=;
- b=rIgfh9fyuoe41J4yMQwTMjHIFQaABCdia7L6DH2rPtjRA5l0nEgla8gTLKcVjFB4ws
- bhpS54eWLrnspmJT3VJaX1fqAf1yBRlrBSWJdIFBkVy9J3iL7keJecEUSQD7YWnP0xkZ
- qRFVZejZq2nhoQgsyKjboB3fEqtXuoZ8L3bIKUH1pldKc3/5+IencNkZxJDgYnMPfpmZ
- MY6NnwZbWfZtwqjqBzuRgnECq4IUfaWppbSy2HPt91L7Iqzrp89q+rmzOg5P/CnpLu7F
- b9QTDsLQBtAY4WKi+ICveF5qoy4REuvhOiZI++p6N/AD6kNUgdXdW0rUu6jv5lxPhhcP
- JzAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=Oa4ktbibWpVpEa+2KTDfcdJ8jrXIUhVZLG6egDiHRjI=;
- b=MKWe/7+nlfgoZxrogSqSmVpFm4JvCY23jpiI9qg++Vdyb8xVb7c4dxD80XtFUXE9iE
- bgP0J8ITMjtIihjfrJ2WAbWvFLBwpENoktCVW0Lt69dpwrySHAA1EkjVZKNPSifHPASj
- ZDxjSzvN6U7wiqxhB6Dx5iXMEKmWtMDLgj3f4/k0MXxs4dvq2cdTX0pLFdsEQxDoUzUL
- jNTsinXPPsZtc7/BRnT9npk6MXba0Icx61LwuUGOec/XawVaN8evsgkV3FqpqyvIWT5B
- JpHQo6aAGSxuIYKgWdR6UqcHfVcWsjOpOE47jfAZkIiz0yb8Jpdrh16yaB/Mtqs6EsOJ
- eWmg==
-X-Gm-Message-State: AOAM533SRyFfYjBvTlgDvmhf+JMsDhmQB6GAJ1laCxNoB+JkhujG980W
- UQvrVdruCrOrt7KQ0W1rycA=
-X-Google-Smtp-Source: ABdhPJxyMghGCH84QRqAykMWUi1eYHEYT0zFaVNJLipSBjtsSi/yteH9o6a3GLs1fyLMEMmWTStGSA==
-X-Received: by 2002:a1c:28a:: with SMTP id 132mr1114517wmc.144.1600245801650; 
- Wed, 16 Sep 2020 01:43:21 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id i6sm34431829wra.1.2020.09.16.01.43.20
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Sep 2020 01:43:21 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>, "'Jan Beulich'" <jbeulich@suse.com>,
- "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>
-Cc: <xen-devel@lists.xenproject.org>,
- "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
- "'Stefano Stabellini'" <sstabellini@kernel.org>,
- "'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>, "'Wei Liu'" <wl@xen.org>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
- "'Julien Grall'" <julien.grall@arm.com>
+	id 1kIT8f-0002pk-Tm; Wed, 16 Sep 2020 08:50:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIT8e-0002aN-2I
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 08:50:04 +0000
+X-Inumbo-ID: 327199ef-781d-440a-917a-80d7b31540dc
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 327199ef-781d-440a-917a-80d7b31540dc;
+ Wed, 16 Sep 2020 08:50:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BFB03AC8B;
+ Wed, 16 Sep 2020 08:50:16 +0000 (UTC)
+Subject: Re: [PATCH V1 13/16] xen/ioreq: Make x86's invalidate qemu mapcache
+ handling common
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-12-git-send-email-olekstysh@gmail.com>
- <93cc6603-44f2-1ceb-997d-cbc51c3ba2c3@suse.com>
- <002801d68c01$44756ad0$cd604070$@xen.org>
- <63e51f84-c3ee-a894-5ea2-40cd3b6e26dc@xen.org>
-In-Reply-To: <63e51f84-c3ee-a894-5ea2-40cd3b6e26dc@xen.org>
-Subject: RE: [PATCH V1 11/16] xen/ioreq: Introduce
- hvm_domain_has_ioreq_server()
-Date: Wed, 16 Sep 2020 09:43:20 +0100
-Message-ID: <002901d68c05$6e7e89c0$4b7b9d40$@xen.org>
+ <1599769330-17656-14-git-send-email-olekstysh@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <83dfb207-c191-8dad-1474-ce57b6d51102@suse.com>
+Date: Wed, 16 Sep 2020 10:50:01 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIQ4beZ3sUmYihKXwfoVgy4BRIJGwFWABUoAe1Op8cBcRHsnAHEIOscqMKC/gA=
+In-Reply-To: <1599769330-17656-14-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,84 +57,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 16 September 2020 09:39
-> To: paul@xen.org; 'Jan Beulich' <jbeulich@suse.com>; 'Oleksandr =
-Tyshchenko' <olekstysh@gmail.com>
-> Cc: xen-devel@lists.xenproject.org; 'Oleksandr Tyshchenko' =
-<oleksandr_tyshchenko@epam.com>; 'Stefano
-> Stabellini' <sstabellini@kernel.org>; 'Volodymyr Babchuk' =
-<Volodymyr_Babchuk@epam.com>; 'Andrew
-> Cooper' <andrew.cooper3@citrix.com>; 'Wei Liu' <wl@xen.org>; 'Roger =
-Pau Monn=C3=A9' <roger.pau@citrix.com>;
-> 'Julien Grall' <julien.grall@arm.com>
-> Subject: Re: [PATCH V1 11/16] xen/ioreq: Introduce =
-hvm_domain_has_ioreq_server()
->=20
->=20
->=20
-> On 16/09/2020 09:13, Paul Durrant wrote:
-> >> -----Original Message-----
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 16 September 2020 09:05
-> >> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; Paul Durrant =
-<paul@xen.org>
-> >> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko =
-<oleksandr_tyshchenko@epam.com>; Stefano
-> >> Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; =
-Volodymyr Babchuk
-> >> <Volodymyr_Babchuk@epam.com>; Andrew Cooper =
-<andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>;
-> Roger
-> >> Pau Monn=C3=A9 <roger.pau@citrix.com>; Julien Grall =
-<julien.grall@arm.com>
-> >> Subject: Re: [PATCH V1 11/16] xen/ioreq: Introduce =
-hvm_domain_has_ioreq_server()
-> >>
-> >> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
-> >>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>>
-> >>> This patch introduces a helper the main purpose of which is to =
-check
-> >>> if a domain is using IOREQ server(s).
-> >>>
-> >>> On Arm the benefit is to avoid calling handle_hvm_io_completion()
-> >>> (which implies iterating over all possible IOREQ servers anyway)
-> >>> on every return in leave_hypervisor_to_guest() if there is no =
-active
-> >>> servers for the particular domain.
-> >>>
-> >
-> > Is this really worth it? The limit on the number of ioreq serves is =
-small... just 8.
->=20
-> When I suggested this, I failed to realize there was only 8 IOREQ
-> servers available. However, I would not be surprised if this increase
-> long term as we want to use
+On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -1490,6 +1490,12 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
+>      /* Ensure the hypercall trap instruction is re-executed. */
+>      if ( current->hcall_preempted )
+>          regs->pc -= 4;  /* re-execute 'hvc #XEN_HYPERCALL_TAG' */
+> +
+> +#ifdef CONFIG_IOREQ_SERVER
+> +    if ( unlikely(current->domain->qemu_mapcache_invalidate) &&
+> +         test_and_clear_bool(current->domain->qemu_mapcache_invalidate) )
+> +        send_invalidate_req();
+> +#endif
+>  }
 
-If that happens then we'll probably want to move (back to) a list rather =
-than an array...
+There's a lot of uses of "current" here now, and these don't look to
+exactly be cheap on Arm either (they aren't on x86), so I wonder
+whether this is the point where at least "current" wants latching
+into a local variable here.
 
->=20
-> > I doubt you'd be able measure the difference.
-> Bear in mind that entry/exit to the hypervisor is pretty "cheap" on =
-Arm
-> compare to x86. So we want to avoid doing extra work if it is not =
-necessary.
->=20
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -18,8 +18,10 @@
+>   *
+>   * Copyright (c) 2017 Citrix Systems Ltd.
+>   */
+> +
+>  #include <xen/lib.h>
+>  #include <xen/hypercall.h>
+> +#include <xen/ioreq.h>
+>  #include <xen/nospec.h>
 
-... which will seamlessly deal with this issue.
+While I don't care much about the presence of absence of the blank
+line between head comment and #include-s, I don't see why you add
+one here.
 
-  Paul
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1651,6 +1651,11 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          break;
+>      }
+>  
+> +#ifdef CONFIG_IOREQ_SERVER
+> +    if ( op == XENMEM_decrease_reservation )
+> +        curr_d->qemu_mapcache_invalidate = true;
+> +#endif
 
-> Cheers,
->=20
-> --
-> Julien Grall
+I don't see why you put this right into decrease_reservation(). This
+isn't just to avoid the extra conditional, but first and foremost to
+avoid bypassing the earlier return from the function (in the case of
+preemption). In the context of this I wonder whether the ordering of
+operations in hvm_hypercall() is actually correct.
 
+I'm also unconvinced curr_d is the right domain in all cases here;
+while this may be a pre-existing issue in principle, I'm afraid it
+gets more pronounced by the logic getting moved to common code.
+Roger - thoughts either way with, in particular, PVH Dom0 in mind?
+
+> --- a/xen/include/xen/ioreq.h
+> +++ b/xen/include/xen/ioreq.h
+> @@ -97,6 +97,8 @@ static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
+>             (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
+>  }
+>  
+> +void send_invalidate_req(void);
+
+Perhaps rename to ioreq_send_invalidate(), ioreq_send_invalidate_req(),
+or send_invalidate_ioreq() at this occasion?
+
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -512,6 +512,8 @@ struct domain
+>      /* Argo interdomain communication support */
+>      struct argo_domain *argo;
+>  #endif
+> +
+> +    bool_t qemu_mapcache_invalidate;
+
+"bool" please.
+
+Jan
 
