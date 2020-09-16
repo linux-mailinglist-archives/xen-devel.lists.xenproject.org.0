@@ -2,64 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51BEC26BFEA
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 10:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF0F26C013
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Sep 2020 11:04:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kITDt-0003To-AJ; Wed, 16 Sep 2020 08:55:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kITME-0004Pq-6o; Wed, 16 Sep 2020 09:04:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nCdG=CZ=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kITDr-0003Tj-LJ
- for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 08:55:27 +0000
-X-Inumbo-ID: 1078c431-ce49-4c1a-b590-37659e64e150
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1078c431-ce49-4c1a-b590-37659e64e150;
- Wed, 16 Sep 2020 08:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=kkwftA8uDOYml0bRkU+FbitaWCfshAwlDUHQAXRT6b0=; b=xuz3finRbmkeCsQtELl6SGZHSw
- 6Fz1ptNc7Ou3Liz5mQbHYoaOjnEXR4gWGtwfOIs/n/HlcJydXVrPpoDbloyujYC0R4LtWEw1OM6WI
- DsPzPtktw1RxpfiRU0x75r3Ttc6gdTHJnF07i16ibyVt7Z9HKfwR1T/2L4YGtNU2VSFM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kITDm-0001Au-Vd; Wed, 16 Sep 2020 08:55:22 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kITDm-00022c-OE; Wed, 16 Sep 2020 08:55:22 +0000
-Subject: Re: [PATCH V1 10/16] xen/mm: Handle properly reference in
- set_foreign_p2m_entry() on Arm
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org,
+ (envelope-from <SRS0=ruU0=CZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kITMD-0004Pl-3j
+ for xen-devel@lists.xenproject.org; Wed, 16 Sep 2020 09:04:05 +0000
+X-Inumbo-ID: b1bd6ea1-53c5-46d0-8cfa-3e89c0a66cdb
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b1bd6ea1-53c5-46d0-8cfa-3e89c0a66cdb;
+ Wed, 16 Sep 2020 09:04:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C6725AC97;
+ Wed, 16 Sep 2020 09:04:18 +0000 (UTC)
+Subject: Re: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() instead of
+ cmpxchg()
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Julien Grall <julien.grall@arm.com>
+ Paul Durrant <paul@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <jgrall@amazon.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-11-git-send-email-olekstysh@gmail.com>
- <110c648d-581c-fd42-5180-7d32653227af@suse.com>
- <2560b3ad-bd22-af01-29a9-64a2733e568b@xen.org>
- <9d68bae6-455c-3def-b4f8-12bc25882929@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <62e56b1e-3a44-8563-84bc-31d39b9cf09f@xen.org>
-Date: Wed, 16 Sep 2020 09:55:20 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ <1599769330-17656-15-git-send-email-olekstysh@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <44b19ee1-dc34-3a46-0b4b-7196faadcb5c@suse.com>
+Date: Wed, 16 Sep 2020 11:04:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <9d68bae6-455c-3def-b4f8-12bc25882929@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <1599769330-17656-15-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -74,35 +54,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
+> @@ -1325,7 +1327,7 @@ static int hvm_send_buffered_ioreq(struct hvm_ioreq_server *s, ioreq_t *p)
+>  
+>          new.read_pointer = old.read_pointer - n * IOREQ_BUFFER_SLOT_NUM;
+>          new.write_pointer = old.write_pointer - n * IOREQ_BUFFER_SLOT_NUM;
+> -        cmpxchg(&pg->ptrs.full, old.full, new.full);
+> +        guest_cmpxchg64(d, &pg->ptrs.full, old.full, new.full);
 
+But the memory we're updating is shared with s->emulator, not with d,
+if I'm not mistaken.
 
-On 16/09/2020 09:52, Jan Beulich wrote:
-> On 16.09.2020 10:50, Julien Grall wrote:
->> On 16/09/2020 08:17, Jan Beulich wrote:
->>> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
->>>>            for ( i = 0; !rc && i < xmar.nr_frames; i++ )
->>>>            {
->>>> -            rc = set_foreign_p2m_entry(currd, gfn_list[i],
->>>> +            rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
->>>>                                           _mfn(mfn_list[i]));
->>>
->>> Is it going to lead to proper behavior when d == currd, specifically
->>> for Arm but also in the abstract model? If you expose this to other
->>> than Dom0, this case needs at least considering (and hence mentioning
->>> in the description of why it's safe to permit if you don't reject
->>> such attempts).
->>
->> This is already rejected by rcu_lock_remote_domain_by_id().
-> 
-> Oh, yes, I'm sorry for overlooking this.
-
-That's fine, I also overlooked it when I originally wrote the code.
-
-@oleksandr, it might be worth mentioning in the commit message and maybe 
-in the code this subtlety.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
