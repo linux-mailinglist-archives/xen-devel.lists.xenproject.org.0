@@ -2,62 +2,97 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB7B26D962
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 12:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 708EF26D9B1
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 12:56:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIrPt-00008d-Ds; Thu, 17 Sep 2020 10:45:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIraU-00017T-N1; Thu, 17 Sep 2020 10:56:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R7l8=C2=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kIrPr-00008Y-Tg
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 10:45:27 +0000
-X-Inumbo-ID: 244103e4-af23-4ae3-ba55-ee72fd1b8fe0
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 244103e4-af23-4ae3-ba55-ee72fd1b8fe0;
- Thu, 17 Sep 2020 10:45:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600339526;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=08vfPymQGwXx3l9isvR3zU9MXruYe2fcpEtTN2d5Juc=;
- b=FSmHCQp9KxU8pcQd/Ng4Ol73WRXWvbtDWZ61ucgvV9RbQ+pWyxVkr1Px
- BzhKNm+e/QcvZO8/NGi1RDJJSmQtawZAY1qvqawZB75WR7GfYIbiuGFcZ
- NidMwpuvFCO8ANcdg0yw7R6CcUHoHAIIm8JCKVvriuR2+x34fmWYHrnwO w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: INalKbsOSVDTf6ov/c0epwO+GqsIVoLzEP1ufFp0/VyIlWTL9bKzcOtBs0YNOORi5hiDEMxJG2
- gCojlQksxEZ/SaKXeaUVed1ue92cMq5xhQ5957RT3r9+SywkyexznTkkj5o18SvldTVvlQEqvd
- 40Nd6s3Zy7WCKmihV8HZy7H/1mNGcycnRD5E1brrVPZeBqGB6zkvYtHrgRmITMJ8R00NIo3eIF
- NM/VydyzFXzKXGrp2ssfd/BZ8u2zZHsXBB56XJKsQIbYUMKOwKSRwEQsqQ9NFXjS2O+BIdNoQ6
- 9f4=
-X-SBRS: 2.7
-X-MesageID: 27251055
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,436,1592884800"; d="scan'208";a="27251055"
-Date: Thu, 17 Sep 2020 12:45:16 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
- <George.Dunlap@eu.citrix.com>, Ian Jackson <ian.jackson@citrix.com>, "Julien
- Grall" <julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
-Subject: Re: [PATCH v4] EFI: free unused boot mem in at least some cases
-Message-ID: <20200917104516.GB19254@Air-de-Roger>
-References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
- <d8b1bcc8-ffcc-f7fe-b4ad-ce7dcdaed491@suse.com>
+ <SRS0=jzjc=C2=gmail.com=thierry.reding@srs-us1.protection.inumbo.net>)
+ id 1kIraT-00017G-8o
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 10:56:25 +0000
+X-Inumbo-ID: c3824f58-1149-4f4e-9903-16fe2b74565c
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3824f58-1149-4f4e-9903-16fe2b74565c;
+ Thu, 17 Sep 2020 10:56:24 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id z1so1575933wrt.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Sep 2020 03:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=T7o1O276VNvFCMXreEbeFlPYMFMj08O5QtDTtLf9+io=;
+ b=QB6L5K889Bo72oCmXlPEd6RO0QFJaiOuUuQYNXSbkbKHLE0z4jthWl14REa3WCR0Bt
+ 7IHiIFNeD/Ta+yo/4I3eoGqh6G9kDPeQAYogqalpiHtq8aE0N2vVL/nLfC8G7fyUISnI
+ HqZvSuiNmgZzkTOCBFRSXTB+sPRscquK8BzaCBsBZW04/6qzVITT/XTRzNX58D5ubsqj
+ EBCDdFzw/4/+qKJ5jqHMFDrIQ6SPZ7RFWRnZTqbCA2A8CuvrZLIiZY8CyMBMGu+cZPGz
+ +Xk5dHOFs8kS9Gn7mKXA7wGo6jD27ynEwYEI2R76ZDPCy8bCgvVnpggr26rleQIwiHel
+ X5Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=T7o1O276VNvFCMXreEbeFlPYMFMj08O5QtDTtLf9+io=;
+ b=Ref8PKm4gjiNxES1EdhgeecfOlmadcimfEbp/QIFGESrzMsbjOyF1RACxr/ZUIK7uJ
+ MviGR1NvPg3xFBgy+bGaASt0qJJ/QjTM3ttbLS5xhOCvJcA4KqVwgvzGDRnMJXIyal3s
+ foebr3k4DgG9grw79u2NipfAedWFtQTsySqgS8wdARYwsUVm3Go8uBJUJLDCLQKnGhec
+ TabNbSzFqUiLPPBw081dzEQHY1PlX2ef08wB3G5zxdSw/LLe1ZGmFhy04K6+OY0VBaJl
+ XyuannkoJyrkZeEzIYdzbRXoKSbA9q8jOYqeel56pg0K6D+tqQE8NIJa1TukwDHiLTsm
+ UknQ==
+X-Gm-Message-State: AOAM533tC/kWkvKxZKHjqCUOhghvvTg5kKK0F7gJAyRP5/nCYTrlJm6J
+ blhEvjaiG6KyUpB53RO+1WU=
+X-Google-Smtp-Source: ABdhPJwg7nkwQTaRBQuWwl0RcZSkUXHrdUc9WYlLoauvclz9jtCse6f5SG7t61si5y3RH63KecEA/w==
+X-Received: by 2002:adf:e711:: with SMTP id c17mr32158269wrm.359.1600340183749; 
+ Thu, 17 Sep 2020 03:56:23 -0700 (PDT)
+Received: from localhost ([217.111.27.204])
+ by smtp.gmail.com with ESMTPSA id d83sm10820463wmf.23.2020.09.17.03.56.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2020 03:56:22 -0700 (PDT)
+Date: Thu, 17 Sep 2020 12:56:20 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
+ sean@poorly.run, bskeggs@redhat.com, tomi.valkeinen@ti.com,
+ eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ jonathanh@nvidia.com, rodrigosiqueiramelo@gmail.com,
+ hamohammed.sa@gmail.com, oleksandr_andrushchenko@epam.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com, sumit.semwal@linaro.org, evan.quan@amd.com,
+ Hawking.Zhang@amd.com, tianci.yin@amd.com, marek.olsak@amd.com,
+ hdegoede@redhat.com, andrey.grodzovsky@amd.com,
+ Felix.Kuehling@amd.com, xinhui.pan@amd.com, aaron.liu@amd.com,
+ nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 14/21] drm/tegra: Introduce GEM object functions
+Message-ID: <20200917105620.GK3515672@ulmo>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-15-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="NqNl6FRZtoRUn5bW"
 Content-Disposition: inline
-In-Reply-To: <d8b1bcc8-ffcc-f7fe-b4ad-ce7dcdaed491@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <20200915145958.19993-15-tzimmermann@suse.de>
+User-Agent: Mutt/1.14.6 (2020-07-11)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,176 +106,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 16, 2020 at 02:20:54PM +0200, Jan Beulich wrote:
-> Address at least the primary reason why 52bba67f8b87 ("efi/boot: Don't
-> free ebmalloc area at all") was put in place: Make xen_in_range() aware
-> of the freed range. This is in particular relevant for EFI-enabled
-> builds not actually running on EFI, as the entire range will be unused
-> in this case.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--NqNl6FRZtoRUn5bW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 15, 2020 at 04:59:51PM +0200, Thomas Zimmermann wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in tegra.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
-> v4: Address PV shim breakage (stub function also needed adjustment).
-> v3: Don't free the memory twice.
-> v2: Also adjust the two places where comments point out that they need
->     to remain in sync with xen_in_range(). Add assertions to
->     xen_in_range().
-> ---
-> The remaining issue could be addressed too, by making the area 2M in
-> size and 2M-aligned.
-> 
-> --- a/xen/arch/x86/efi/stub.c
-> +++ b/xen/arch/x86/efi/stub.c
-> @@ -52,6 +52,13 @@ bool efi_enabled(unsigned int feature)
->  
->  void __init efi_init_memory(void) { }
->  
-> +bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
-> +{
-> +    if ( start || end )
+>  drivers/gpu/drm/tegra/drm.c | 4 ----
+>  drivers/gpu/drm/tegra/gem.c | 8 ++++++++
+>  2 files changed, 8 insertions(+), 4 deletions(-)
 
-Shouldn't this be start && end?
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-Or else you might be de-referencing a NULL pointer?
+--NqNl6FRZtoRUn5bW
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +        *start = *end = (unsigned long)_end;
-> +    return false;
-> +}
-> +
->  void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
->  
->  bool efi_rs_using_pgtables(void)
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -830,6 +830,7 @@ void __init noreturn __start_xen(unsigne
->      module_t *mod;
->      unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
->      int i, j, e820_warn = 0, bytes = 0;
-> +    unsigned long eb_start, eb_end;
->      bool acpi_boot_table_init_done = false, relocated = false;
->      int ret;
->      struct ns16550_defaults ns16550 = {
-> @@ -1145,7 +1146,8 @@ void __init noreturn __start_xen(unsigne
->  
->          /*
->           * This needs to remain in sync with xen_in_range() and the
-> -         * respective reserve_e820_ram() invocation below.
-> +         * respective reserve_e820_ram() invocation below. No need to
-> +         * query efi_boot_mem_unused() here, though.
->           */
->          mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
->          mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
-> @@ -1417,8 +1419,18 @@ void __init noreturn __start_xen(unsigne
->      if ( !xen_phys_start )
->          panic("Not enough memory to relocate Xen\n");
->  
-> +    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
-> +    if ( using_2M_mapping() )
-> +        efi_boot_mem_unused(NULL, NULL);
+-----BEGIN PGP SIGNATURE-----
 
-This seems really weird IMO...
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl9jQNQACgkQ3SOs138+
+s6HfWQ//YmrWsVV1CJUAgb5t2QX4pCrujVRekVE/g1njlA/b4hb8UrTwixaZox4k
+Y6ALc4RAngHpnPoebK9HTtI7eQ6gV3NzTvOZN432iqInp8UuFdrqwY9hkRcS5ak9
+gNSHqMgl0BAkIdZ7VM5EWvVcbSkWsGbOR2uTx45m3hieqf80Jlyto/yqcH8yHm0Y
+dNhlRIxSS23lHF4c79jOtCPyJjF2DaErfz+qFiFLmdV60AjeCfl6LZZSuSNSbSNv
+Ht8OICXXHv9dKx6IbgyAAJIf77DsMDyXHzNC6YxoBH1c1X3JgEinuNaj8h+ZXxrT
+klWtayTZ15xforiBumJH+Zi23DA+95v6eigfHDVje5APtRHxDgdnNOhW6zRF049I
+powiLvCaS10xJVB7+4DlXmvdJTRaw8jNMcOYR0Yyg5fwrbkjkHyFsi2iQyzclBEJ
+KM5kjLzpgBQpaEgpsCqxY0TJ0/bU/VdL532UpAyCK7D9RxN8sdhfU7A4xuwwAeNP
+t63YCPEKs9kd0rKW4W6tUOEm9IeNiHL0CL55oYNDUNk0ddTtmdlQkFKSOfDbGBwe
+X3RtJeu0oG5S40RXucqy2J4BJO5tKcymjFb3xqjaCP8nDF3ozvgmq/Hu4+MWkeL7
+b/rNCCE8o02rDlLqOHqxccc+bQXs6tQBkwI0mESWxpdRfBPoyt8=
+=1YYz
+-----END PGP SIGNATURE-----
 
-> +
->      /* This needs to remain in sync with xen_in_range(). */
-> -    reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
-> +    if ( efi_boot_mem_unused(&eb_start, &eb_end) )
-> +    {
-> +        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
-> +        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
-> +    }
-> +    else
-> +        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
->  
->      /* Late kexec reservation (dynamic start address). */
->      kexec_reserve_area(&boot_e820);
-> @@ -1979,7 +1991,7 @@ int __hwdom_init xen_in_range(unsigned l
->      paddr_t start, end;
->      int i;
->  
-> -    enum { region_s3, region_ro, region_rw, nr_regions };
-> +    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
->      static struct {
->          paddr_t s, e;
->      } xen_regions[nr_regions] __hwdom_initdata;
-> @@ -2004,6 +2016,14 @@ int __hwdom_init xen_in_range(unsigned l
->          /* hypervisor .data + .bss */
->          xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
->          xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
-> +        if ( efi_boot_mem_unused(&start, &end) )
-> +        {
-> +            ASSERT(__pa(start) >= xen_regions[region_rw].s);
-> +            ASSERT(__pa(end) <= xen_regions[region_rw].e);
-> +            xen_regions[region_rw].e = __pa(start);
-> +            xen_regions[region_bss].s = __pa(end);
-> +            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
-> +        }
->      }
->  
->      start = (paddr_t)mfn << PAGE_SHIFT;
-> --- a/xen/arch/x86/tboot.c
-> +++ b/xen/arch/x86/tboot.c
-> @@ -1,3 +1,4 @@
-> +#include <xen/efi.h>
->  #include <xen/init.h>
->  #include <xen/types.h>
->  #include <xen/lib.h>
-> @@ -364,6 +365,8 @@ void tboot_shutdown(uint32_t shutdown_ty
->      /* if this is S3 then set regions to MAC */
->      if ( shutdown_type == TB_SHUTDOWN_S3 )
->      {
-> +        unsigned long s, e;
-> +
->          /*
->           * Xen regions for tboot to MAC. This needs to remain in sync with
->           * xen_in_range().
-> @@ -378,6 +381,15 @@ void tboot_shutdown(uint32_t shutdown_ty
->          /* hypervisor .data + .bss */
->          g_tboot_shared->mac_regions[2].start = (uint64_t)__pa(&__2M_rwdata_start);
->          g_tboot_shared->mac_regions[2].size = __2M_rwdata_end - __2M_rwdata_start;
-> +        if ( efi_boot_mem_unused(&s, &e) )
-> +        {
-> +            g_tboot_shared->mac_regions[2].size =
-> +                s - (unsigned long)__2M_rwdata_start;
-> +            g_tboot_shared->mac_regions[3].start = __pa(e);
-> +            g_tboot_shared->mac_regions[3].size =
-> +                (unsigned long)__2M_rwdata_end - e;
-> +            g_tboot_shared->num_mac_regions = 4;
-> +        }
->  
->          /*
->           * MAC domains and other Xen memory
-> --- a/xen/common/efi/ebmalloc.c
-> +++ b/xen/common/efi/ebmalloc.c
-> @@ -1,5 +1,6 @@
->  #include "efi.h"
->  #include <xen/init.h>
-> +#include <xen/mm.h>
->  
->  #ifdef CONFIG_ARM
->  /*
-> @@ -21,7 +22,7 @@
->  
->  static char __section(".bss.page_aligned") __aligned(PAGE_SIZE)
->      ebmalloc_mem[EBMALLOC_SIZE];
-> -static unsigned long __initdata ebmalloc_allocated;
-> +static unsigned long __read_mostly ebmalloc_allocated;
->  
->  /* EFI boot allocator. */
->  void __init *ebmalloc(size_t size)
-> @@ -36,17 +37,37 @@ void __init *ebmalloc(size_t size)
->      return ptr;
->  }
->  
-> +bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
-> +{
-> +    if ( !start && !end )
-> +    {
-> +        ebmalloc_allocated = sizeof(ebmalloc_mem);
-> +        return false;
-> +    }
-
-... I would instead place the using_2M_mapping check here and return
-start = end in that case.
-
-Thanks, Roger.
+--NqNl6FRZtoRUn5bW--
 
