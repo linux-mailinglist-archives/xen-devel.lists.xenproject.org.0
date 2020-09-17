@@ -2,97 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F63B26DA9F
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 13:45:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945CD26DA7C
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 13:40:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIsLc-0006LO-Eb; Thu, 17 Sep 2020 11:45:08 +0000
+	id 1kIsGf-0005Ku-AW; Thu, 17 Sep 2020 11:40:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IBe1=C2=gmail.com=melissa.srw@srs-us1.protection.inumbo.net>)
- id 1kIs8S-0005DF-4k
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 11:31:32 +0000
-X-Inumbo-ID: 57b65740-6581-40d6-9dcc-a8de1aa1b219
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIsGd-0005Kp-KT
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 11:39:59 +0000
+X-Inumbo-ID: fd2dbf9e-5b96-4f2e-8a16-b2379b8dae01
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57b65740-6581-40d6-9dcc-a8de1aa1b219;
- Thu, 17 Sep 2020 11:31:31 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id d4so1613144wmd.5
- for <xen-devel@lists.xenproject.org>; Thu, 17 Sep 2020 04:31:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=QoGoJWGY9uvsPbK1VFldPakdj/95886EaH4XmF5Nmig=;
- b=WT+tCnqscdjnhBzx4pey4qfrs3TpF1Xktu7jt8T8cQSP0yZJdX3KoYHPdWspzIugsq
- 6HSKY9VJKgsdLw89cCYxqdbs7Vt7/k4/jK9LtTE+4i9XvfXW1Lr/Fm+fEnngxxWPD5dx
- hAgvu8wEl2ImGMZ/Vxi1axcUTWC/C1hcCZmRCP+VMlQrWSEcu/Hqzj+fuVKA2INfBjX3
- /zcARTJCVi7gGPGSYovxguWtsuZzPwF6TsPs2IH9t/Kp5k3R+t/9fCDbL8cqbYXRyKxo
- iHGdqfCt+o61f/ixQfUMrk5tyRoSS69zCZaqGiTmJsGllEHi/xlz25EYavgN+6zZY8AL
- WM8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=QoGoJWGY9uvsPbK1VFldPakdj/95886EaH4XmF5Nmig=;
- b=PpfeCgWFthNwtIvYQmyAInGisHciYnFkNiO8iPpF9kYWpLKy5+77U3GrhPlBvKP1h8
- UQ951/0xGx913fLTIOt1c8gtU2erXoeTqmYvntCVmLQzAqXVF8stywLTcs+aBeQforxj
- rNoKCYs9b+6QTWWCNKE8EAbuElcJN3MSkyRgMkxXSa5Y5BMXzCfOtz0owAKh66oGKHSi
- 7o4leI7C2UPq0O6ampA5NBkLRu+NpTKjI7KTFMsRZt6icmK4bxr9Ig9249+uVOnFMrVD
- EUUvTxHa0R7ATGHf4o6735tSxlOK3FE0WVypfle5vRFwgeDGvTGlDEJoxfbQ6Lxz/dFc
- OrOQ==
-X-Gm-Message-State: AOAM532+enxezRkBG8WyV8U7mtr/V2V1AVL8xcXIc0BfUGxV5dfDNbBE
- f80caCshWAdeJGbCLj7MiGQ=
-X-Google-Smtp-Source: ABdhPJyuZcp+AqRLPz3yJIfvdwNUATarIMvgIK7I09VrN4WEXhLqSMqZyvaS1A1ZqiWgJrdIoQA/Hg==
-X-Received: by 2002:a1c:96:: with SMTP id 144mr9601334wma.84.1600342290200;
- Thu, 17 Sep 2020 04:31:30 -0700 (PDT)
-Received: from smtp.gmail.com (a95-92-181-29.cpe.netcabo.pt. [95.92.181.29])
- by smtp.gmail.com with ESMTPSA id 11sm10489240wmi.14.2020.09.17.04.31.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2020 04:31:29 -0700 (PDT)
-Date: Thu, 17 Sep 2020 08:31:20 -0300
-From: Melissa Wen <melissa.srw@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, linux@armlinux.org.uk,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, patrik.r.jakobsson@gmail.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com, robdclark@gmail.com,
- sean@poorly.run, bskeggs@redhat.com, tomi.valkeinen@ti.com,
- eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com,
- xinhui.pan@amd.com, aaron.liu@amd.com, nirmoy.das@amd.com,
- chris@chris-wilson.co.uk, matthew.auld@intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com,
- sam@ravnborg.org, miaoqinglang@huawei.com,
- emil.velikov@collabora.com, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 18/21] drm/vkms: Introduce GEM object functions
-Message-ID: <20200917113120.dtz7yxvdg7xdgbx5@smtp.gmail.com>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-19-tzimmermann@suse.de>
+ id fd2dbf9e-5b96-4f2e-8a16-b2379b8dae01;
+ Thu, 17 Sep 2020 11:39:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=cantorsusede; t=1600342797;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8m9m2H3gUk7qBXvtwK5/A2aoCFgrHegURWG8ZvjJJMw=;
+ b=pboKoTcAtKgvQ5p7DiA8HmZ7STc+gp91jIrfirc+CGvJ5x7XL+gpjt8gsdopI57n1lrhf1
+ ZQH5I3YgToY9XVBAZ6WsUR3pbrBpnaKHzvSHhbyBfksEu1+i3ErKaajSmC72MbLAcI9EC7
+ LuKVWQSGdYHXeLOk21pTHXYMXcn4kBah+pZOvUlrJuQ7PcpS+ug8H3g9TzIyik7p+fzIcb
+ qmngoOCvB4oLVzc0Z7mzoyWsg93XxI7FDkPirmvcRAPgXIqIO1S0Xmc/soG2wxs3hDdkZI
+ vQjGGjykMwKQ/uw4S3HCZqsn4s71SU/2/f97iRl5cs/Aew0SFKpK01SO9kMwIQ==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 89F89AE0C;
+ Thu, 17 Sep 2020 11:40:31 +0000 (UTC)
+Subject: Re: [PATCH v4] EFI: free unused boot mem in at least some cases
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
+References: <5dd2fcea-d8ec-1c20-6514-c7733b59047f@suse.com>
+ <d8b1bcc8-ffcc-f7fe-b4ad-ce7dcdaed491@suse.com>
+ <20200917104516.GB19254@Air-de-Roger>
+ <37547ef8-7381-7a8e-b735-1633eab978a2@suse.com>
+ <20200917111712.GC19254@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3532eb05-cab6-2b0a-f8c5-70275439fb02@suse.com>
+Date: Thu, 17 Sep 2020 13:39:58 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200915145958.19993-19-tzimmermann@suse.de>
-X-Mailman-Approved-At: Thu, 17 Sep 2020 11:45:06 +0000
+In-Reply-To: <20200917111712.GC19254@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,86 +70,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Thomas,
-
-On 09/15, Thomas Zimmermann wrote:
-> GEM object functions deprecate several similar callback interfaces in
-> struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in vkms.
+On 17.09.2020 13:17, Roger Pau Monné wrote:
+> On Thu, Sep 17, 2020 at 12:56:41PM +0200, Jan Beulich wrote:
+>> On 17.09.2020 12:45, Roger Pau Monné wrote:
+>>> On Wed, Sep 16, 2020 at 02:20:54PM +0200, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/efi/stub.c
+>>>> +++ b/xen/arch/x86/efi/stub.c
+>>>> @@ -52,6 +52,13 @@ bool efi_enabled(unsigned int feature)
+>>>>  
+>>>>  void __init efi_init_memory(void) { }
+>>>>  
+>>>> +bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
+>>>> +{
+>>>> +    if ( start || end )
+>>>
+>>> Shouldn't this be start && end?
+>>
+>> This is consistent with "if ( !start && !end )" in the non-stub
+>> function, which was there in v3 already.
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks! Looks fine.
-
-Reviewed-by: Melissa Wen <melissa.srw@gmail.com>
-
-> ---
->  drivers/gpu/drm/vkms/vkms_drv.c |  8 --------
->  drivers/gpu/drm/vkms/vkms_gem.c | 13 +++++++++++++
->  2 files changed, 13 insertions(+), 8 deletions(-)
+> Right, I certainly didn't catch that passing one as NULL would cause a
+> deref there also.
 > 
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-> index cb0b6230c22c..726801ab44d4 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.c
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
-> @@ -51,12 +51,6 @@ static const struct file_operations vkms_driver_fops = {
->  	.release	= drm_release,
->  };
->  
-> -static const struct vm_operations_struct vkms_gem_vm_ops = {
-> -	.fault = vkms_gem_fault,
-> -	.open = drm_gem_vm_open,
-> -	.close = drm_gem_vm_close,
-> -};
-> -
->  static void vkms_release(struct drm_device *dev)
->  {
->  	struct vkms_device *vkms = container_of(dev, struct vkms_device, drm);
-> @@ -98,8 +92,6 @@ static struct drm_driver vkms_driver = {
->  	.release		= vkms_release,
->  	.fops			= &vkms_driver_fops,
->  	.dumb_create		= vkms_dumb_create,
-> -	.gem_vm_ops		= &vkms_gem_vm_ops,
-> -	.gem_free_object_unlocked = vkms_gem_free_object,
->  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
->  	.gem_prime_import_sg_table = vkms_prime_import_sg_table,
->  
-> diff --git a/drivers/gpu/drm/vkms/vkms_gem.c b/drivers/gpu/drm/vkms/vkms_gem.c
-> index a017fc59905e..19a0e260a4df 100644
-> --- a/drivers/gpu/drm/vkms/vkms_gem.c
-> +++ b/drivers/gpu/drm/vkms/vkms_gem.c
-> @@ -7,6 +7,17 @@
->  
->  #include "vkms_drv.h"
->  
-> +static const struct vm_operations_struct vkms_gem_vm_ops = {
-> +	.fault = vkms_gem_fault,
-> +	.open = drm_gem_vm_open,
-> +	.close = drm_gem_vm_close,
-> +};
-> +
-> +static const struct drm_gem_object_funcs vkms_gem_object_funcs = {
-> +	.free = vkms_gem_free_object,
-> +	.vm_ops = &vkms_gem_vm_ops,
-> +};
-> +
->  static struct vkms_gem_object *__vkms_gem_create(struct drm_device *dev,
->  						 u64 size)
->  {
-> @@ -17,6 +28,8 @@ static struct vkms_gem_object *__vkms_gem_create(struct drm_device *dev,
->  	if (!obj)
->  		return ERR_PTR(-ENOMEM);
->  
-> +	obj->gem.funcs = &vkms_gem_object_funcs;
-> +
->  	size = roundup(size, PAGE_SIZE);
->  	ret = drm_gem_object_init(dev, &obj->gem, size);
->  	if (ret) {
-> -- 
-> 2.28.0
+> I would be more comfortable with adding an ASSERT, but I'm not going
+> to insist. IIRC there was a time when Xen running as a PVH guest (like
+> in shim mode) would cause it to have a valid mapping at 0.
+
+Well, apparently not anymore, or else v3 wouldn't have needed prompt
+reverting. With ...
+
+>>>> @@ -1417,8 +1419,18 @@ void __init noreturn __start_xen(unsigne
+>>>>      if ( !xen_phys_start )
+>>>>          panic("Not enough memory to relocate Xen\n");
+>>>>  
+>>>> +    /* FIXME: Putting a hole in .bss would shatter the large page mapping. */
+>>>> +    if ( using_2M_mapping() )
+>>>> +        efi_boot_mem_unused(NULL, NULL);
+>>>
+>>> This seems really weird IMO...
+>>
+>> What I didn't like about earlier versions was the exposure of
+>> using_2M_mapping() outside of this CU. The way it works is
+>> somewhat fragile, and hence I think limiting its exposure is a
+>> win. This way there's also no x86-specific code in ebmalloc.c
+>> anymore.
+>>
+>> I'm also slightly puzzled that you ask now when you had acked
+>> this same construct in v3. It's really just the stub function
+>> which has changed in v4.
 > 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> Would you mind also adding a FIXME comment in efi_boot_mem_unused that
+> setting ebmalloc_allocated to sizeof(ebmalloc_mem) will be removed
+> once we can properly free the region regardless of whether 2M are
+> being used?
+
+... the two FIXMEs added, it is sufficiently clear that the goal
+is for this to be transient only anyway. As said - I have a plan,
+I just need to find the time to see if it works out.
+
+> Seems like an abuse of that the function should be doing by passing
+> NULL pointers to it, or maybe I'm just being dense.
+
+In a way it is an abuse, I agree, with - as said - the goal of
+avoiding to expose using_2M_mapping().
+
+> With that:
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks much.
+
+Jan
 
