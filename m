@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E18726DE75
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:40:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC70E26DE7B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:43:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIv5X-0005xI-34; Thu, 17 Sep 2020 14:40:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIv7f-00066N-G5; Thu, 17 Sep 2020 14:42:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yDaX=C2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1kIv5V-0005x9-7y
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:40:41 +0000
-X-Inumbo-ID: 820bcf2c-7bd0-4f2e-8119-23273cb9a0dc
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 820bcf2c-7bd0-4f2e-8119-23273cb9a0dc;
- Thu, 17 Sep 2020 14:40:40 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600353639;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tdPrJTgLzU3+7xbi+PQwuPIddOJROvm+BGdi1EKOmVg=;
- b=lkzFl++pr3VuawUmkCZ9+bbmUPOGqd6p5Hx7U8Xo2wNp0E+6DTMiXN9vob87Td42bogyGE
- HrzsooVyWFPm85KMIvBacJiDl2PbPn2KUNhYDa8Uo1kehTjBQv31SOPfs28042U9p5JcqC
- 4dzY+DpwLcxAmheqoeX31yzU7heScbbBGfl+ywBDz44MJ73TC6rv73BLW/R4g+0dkNkUu2
- v3Oe2wl7GUmpBn2RydZZC7EDGoToKyBuTduoz5kkhRqkjhjgg1sJMrX/jpJH8GkfdLPQIr
- Bqe1zmmmhUlQ6wdaL0iUjjf/ygR0FcfWnniKn06SyhHq7iseB+WFPoFxEk/6Uw==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1EEFDAF9A;
- Thu, 17 Sep 2020 14:41:13 +0000 (UTC)
-Message-ID: <e62053a9494cce5b0385f63e73683b90d7638bf8.camel@suse.com>
-Subject: Re: [PATCH 3/5] sched/arinc653: Clean up function definitions
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, Jeff Kubascik
- <jeff.kubascik@dornerworks.com>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com, Josh
- Whitehead <josh.whitehead@dornerworks.com>, Stewart Hildebrand
+ <SRS0=ZJEn=C2=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kIv7e-00066I-NU
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:42:54 +0000
+X-Inumbo-ID: 1d352d37-d865-49ca-8457-b549919670d7
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1d352d37-d865-49ca-8457-b549919670d7;
+ Thu, 17 Sep 2020 14:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600353774;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=OAYfjzuALTDlog5/DLHpe3UhKtLNYGKFX8MMWUt3Y5o=;
+ b=P8tOt7a/fiW2osr71ql7UzsD0zYy0qyKWxf+mzEQf0ShWcwQzOvOKvaI
+ Y3lC13OqESsnbLPazlNifhz+BksXko+OFlcLhk874emiLMOT85j87kzNk
+ OUQU1CUoEo1tY1geTymdWZ4V5dNDZFC74VRWZQnIrEM1XMQ/dlqN4OOfu 4=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 6L9kOutK+6Ft9R0jF9X0TlyAFXkPA22ZVC5ABuhsdACkJ0NvmHXsCm5Y2PW/r7HcGpYzdaGxGY
+ RibI+JpQlXoxkABUjxQ58h7AYaRalE8nwryknIlM4nv3+JuZSTzUIelAIjFuL9Gez+wkqASqwG
+ //TkZbBn9oLyjm/TW28Ek2lwxuLJBuf+SYKgzMSH8lpDhfTwzVqzqw09E3qU4lBid4wTkWjM09
+ HLSrucldBhvRgWi+AqZZ2z+QHn2pga8iMF6mgrmVSFiiLqPyzRJZ/61m+q38LqC7FTbIC68hux
+ xsw=
+X-SBRS: 2.7
+X-MesageID: 26944639
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,437,1596513600"; d="scan'208";a="26944639"
+Subject: Re: [PATCH 5/5] sched/arinc653: Implement CAST-32A multicore
+ scheduling
+To: Jeff Kubascik <jeff.kubascik@dornerworks.com>,
+ <xen-devel@lists.xenproject.org>
+CC: <xen-devel@dornerworks.com>, Josh Whitehead
+ <josh.whitehead@dornerworks.com>, Stewart Hildebrand
  <stewart.hildebrand@dornerworks.com>, George Dunlap
- <george.dunlap@citrix.com>
-Date: Thu, 17 Sep 2020 16:40:37 +0200
-In-Reply-To: <c3f11088-cf5f-c3c1-d487-f0c719147c17@suse.com>
+ <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
 References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-4-jeff.kubascik@dornerworks.com>
- <c3f11088-cf5f-c3c1-d487-f0c719147c17@suse.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-3FsJhQvY5NVa056gFxRH"
-User-Agent: Evolution 3.36.5 (by Flathub.org) 
+ <20200916181854.75563-6-jeff.kubascik@dornerworks.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <36f7ed35-039c-482b-c04b-0f2348de37f6@citrix.com>
+Date: Thu, 17 Sep 2020 15:42:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20200916181854.75563-6-jeff.kubascik@dornerworks.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,100 +74,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 16/09/2020 19:18, Jeff Kubascik wrote:
+> +/*
+> + * A handle with all zeros represents domain 0 if present, otherwise idle UNIT
+> + */
+> +#define DOM0_HANDLE ((const xen_domain_handle_t){0})
 
---=-3FsJhQvY5NVa056gFxRH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This isn't accurate.
 
-On Thu, 2020-09-17 at 10:09 +0200, Jan Beulich wrote:
-> On 16.09.2020 20:18, Jeff Kubascik wrote:
-> > --- a/xen/common/sched/arinc653.c
-> > +++ b/xen/common/sched/arinc653.c
-> > @@ -119,10 +119,9 @@ static int dom_handle_cmp(const
-> > xen_domain_handle_t h1,
-> >      return memcmp(h1, h2, sizeof(xen_domain_handle_t));
-> >  }
-> > =20
-> > -static struct sched_unit *find_unit(
-> > -    const struct scheduler *ops,
-> > -    xen_domain_handle_t handle,
-> > -    int unit_id)
-> > +static struct sched_unit *find_unit(const struct scheduler *ops,
-> > +                                    xen_domain_handle_t handle,
-> > +                                    int unit_id)
-> >  {
->=20
-> Just fyi, afaict we consider both variants legitimate style as far
-> as Xen as a whole is concerned; I'm unaware of scheduler code
-> specific restrictions (but I'll be happy to be corrected if I'm
-> wrong with this).
->=20
-No, you're right, there aren't any additional restrictions. And, as
-many other subsystems, scheduling code is not always 100% consistent.
-There's quite a mix of style. E.g., there are both examples of the
-style that this hunk above is changing and of the one that the patch is
-changing it to.
+There are systems where dom0 doesn't have a zero UUID (XenServer for
+one), and its easy to create domU's which have a zero UUID.  They are
+not unique, and can be changed at any time during the running of the VM.
 
-So I also see limited need for doing it. But of course it's Josh's and
-Stweart's call, I guess.
+If you need a unique identifier, then use domid's.
 
-> Instead what I'm wondering by merely seeing this piece of code is
-> whether unit_id really can go negative. If not (as would be the
-> common case with IDs), it would want converting to unsigned int,
-> which may be more important than the purely typographical
-> adjustment done here.
->=20
-Yep, it's defined as `unsigned int` in `struct sched_unit`.
+I can't see any legitimate need for the scheduler to handle the UUID at all.
 
-So this indeed would be valuable. And while you're there, this probably
-applies here as well:
-
-/**
- * The sched_entry_t structure holds a single entry of the
- * ARINC 653 schedule.
- */
-typedef struct sched_entry_s
-{
-    /* dom_handle holds the handle ("UUID") for the domain that this
-     * schedule entry refers to. */
-    xen_domain_handle_t dom_handle;
-    /* unit_id holds the UNIT number for the UNIT that this schedule
-     * entry refers to. */
-    int                 unit_id;
-    ...
-}
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-3FsJhQvY5NVa056gFxRH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl9jdWYACgkQFkJ4iaW4
-c+7PIhAAt+BQyKW6us6DlDNDyppKQCbMPAW6TlrEmQ9u3IF1IBrKEZWR6xzH0XBr
-YW4st9rp5Ogbti98hKwSjHlCfdHIfSQieRMggPncYAzm7pIxh9rCkypB5mpGJmOj
-8guPiy25ow3HnfsKGz95IRYwrMbvTQJ57bu0LJUOn8VY/3OSNoAaojAyzuvzWtcL
-qOnDZLqETQwJyR+McwTWxYHKckB2Wwisw76Q4QQPUqcodhg9yKfSyUYpKuoKX5+8
-ggdBjh80oxoGSCSc0Qyy2Dvy+QeozJYb9k0hn62d3w/kWn6f4f/M0UCJpbfOc2zH
-A0iO2UhmbyxrVjk8OdWoJDENR3inSyhl6MLKYcuhRmU1SIXvqYaznDVyLzA/L/EN
-2zl15h1eyt+q37HjR32rHmEM9Oryeq03jZyVEhIydZuXVq+9C3nbyfNk4go9NjUr
-Yhl8PDdYG3CyFaxE/M/sQZUjTc7uDg52Lc/Me0H3EQX7T6YeQA5zNyFkHW8WAvhH
-T0zjm9f9SgWkT4+YY91z8CSyZMOUWDHP4AmoxJzc96t2nh7tH4h39botRYlLipl8
-SKR4PfBt9mZ/ZYd+TEpISrb+UMWMU+Cad1Xjw8Tz2LiFSMLwoHGpYubQNuho9wSo
-p8Ph/ZAMinJWZfzipQJE3CJDoopaXwy958HYGrLHp+L80RZAGN4=
-=Ipps
------END PGP SIGNATURE-----
-
---=-3FsJhQvY5NVa056gFxRH--
-
+~Andrew
 
