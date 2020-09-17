@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4318926DE67
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:39:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E18726DE75
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:40:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIv3p-0005DF-ND; Thu, 17 Sep 2020 14:38:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kIv3n-0005DA-V0
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:38:55 +0000
-X-Inumbo-ID: 91dda579-08b7-4ac9-8ce6-6d69c6a6f0b3
+	id 1kIv5X-0005xI-34; Thu, 17 Sep 2020 14:40:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yDaX=C2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kIv5V-0005x9-7y
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:40:41 +0000
+X-Inumbo-ID: 820bcf2c-7bd0-4f2e-8119-23273cb9a0dc
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 91dda579-08b7-4ac9-8ce6-6d69c6a6f0b3;
- Thu, 17 Sep 2020 14:38:54 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 820bcf2c-7bd0-4f2e-8119-23273cb9a0dc;
+ Thu, 17 Sep 2020 14:40:40 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600353533;
+ s=cantorsusede; t=1600353639;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iNwI+lrzZ74IH3DVgLgSdasSJi+XQG5JbMuDvL9xFWE=;
- b=GhNmGEBW0qYS9S9MeFSpu2/fWXkaYP3OuznBhR/98qemv4b1KBXgeFiWglX+JR71TJfv2T
- CLOJFcGQ9/KGHsXnDSlkRa+S2xw9089gDzmTPZSzQH+aYMxYy5gryA3swBhh80tzUKdbyp
- tnJvPj7RdpDvMJy9HYPcY1sOaP4MZLmLBxmg5t/vLvwGWGjPCybDguJZ8dHjcL6yeCS1Q5
- gt/wlmLg0muWidcnbTs9zMmynyiOQ3DM2XIVt3+QTsUzcMGJ1U857pSo0Lv/Ag4/cDiYPi
- 8w8ZSdckGcxSMiCkockJklSwaQXRg+yUtoXCAuR2RyccJYhH5W138yBmP/1FUQ==
+ bh=tdPrJTgLzU3+7xbi+PQwuPIddOJROvm+BGdi1EKOmVg=;
+ b=lkzFl++pr3VuawUmkCZ9+bbmUPOGqd6p5Hx7U8Xo2wNp0E+6DTMiXN9vob87Td42bogyGE
+ HrzsooVyWFPm85KMIvBacJiDl2PbPn2KUNhYDa8Uo1kehTjBQv31SOPfs28042U9p5JcqC
+ 4dzY+DpwLcxAmheqoeX31yzU7heScbbBGfl+ywBDz44MJ73TC6rv73BLW/R4g+0dkNkUu2
+ v3Oe2wl7GUmpBn2RydZZC7EDGoToKyBuTduoz5kkhRqkjhjgg1sJMrX/jpJH8GkfdLPQIr
+ Bqe1zmmmhUlQ6wdaL0iUjjf/ygR0FcfWnniKn06SyhHq7iseB+WFPoFxEk/6Uw==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9069AAF31;
- Thu, 17 Sep 2020 14:39:27 +0000 (UTC)
-Subject: Re: [PATCH] x86/mm: do not mark IO regions as Xen heap
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
-References: <20200910133514.82155-1-roger.pau@citrix.com>
- <e7230e70-3aae-61a2-3574-6eeae6e4e57a@suse.com>
- <20200917142849.GE19254@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <83504437-58a9-d97c-dfc6-212b62d52ff9@suse.com>
-Date: Thu, 17 Sep 2020 16:38:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by mx2.suse.de (Postfix) with ESMTP id 1EEFDAF9A;
+ Thu, 17 Sep 2020 14:41:13 +0000 (UTC)
+Message-ID: <e62053a9494cce5b0385f63e73683b90d7638bf8.camel@suse.com>
+Subject: Re: [PATCH 3/5] sched/arinc653: Clean up function definitions
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Jeff Kubascik
+ <jeff.kubascik@dornerworks.com>
+Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com, Josh
+ Whitehead <josh.whitehead@dornerworks.com>, Stewart Hildebrand
+ <stewart.hildebrand@dornerworks.com>, George Dunlap
+ <george.dunlap@citrix.com>
+Date: Thu, 17 Sep 2020 16:40:37 +0200
+In-Reply-To: <c3f11088-cf5f-c3c1-d487-f0c719147c17@suse.com>
+References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
+ <20200916181854.75563-4-jeff.kubascik@dornerworks.com>
+ <c3f11088-cf5f-c3c1-d487-f0c719147c17@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-3FsJhQvY5NVa056gFxRH"
+User-Agent: Evolution 3.36.5 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <20200917142849.GE19254@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,54 +65,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.09.2020 16:28, Roger Pau Monné wrote:
-> On Thu, Sep 17, 2020 at 04:12:23PM +0200, Jan Beulich wrote:
->> On 10.09.2020 15:35, Roger Pau Monne wrote:
->>> arch_init_memory will treat all the gaps on the physical memory map
->>> between RAM regions as MMIO and use share_xen_page_with_guest in order
->>> to assign them to dom_io. This has the side effect of setting the Xen
->>> heap flag on such pages, and thus is_special_page would then return
->>> true which is an issue in epte_get_entry_emt because such pages will
->>> be forced to use write-back cache attributes.
->>>
->>> Fix this by introducing a new helper to assign the MMIO regions to
->>> dom_io without setting the Xen heap flag on the pages, so that
->>> is_special_page will return false and the pages won't be forced to use
->>> write-back cache attributes.
->>>
->>> Fixes: 81fd0d3ca4b2cd ('x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt()')
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> I'm sorry for noticing this only now, but there is a place where
->> we actually build on these pages being marked "special": In
->> xenmem_add_to_physmap_one() we have
->>
->>     if ( mfn_valid(prev_mfn) )
->>     {
->>         if ( is_special_page(mfn_to_page(prev_mfn)) )
->>             /* Special pages are simply unhooked from this phys slot. */
->>             rc = guest_physmap_remove_page(d, gpfn, prev_mfn, PAGE_ORDER_4K);
->>         else
->>             /* Normal domain memory is freed, to avoid leaking memory. */
->>             rc = guest_remove_page(d, gfn_x(gpfn));
->>     }
->>
->> As you'll notice MMIO pages not satisfying mfn_valid() will simply
->> bypass any updates here, but the subsequent guest_physmap_add_page()
->> will have the P2M entry updated anyway. MMIO pages which satisfy
->> mfn_valid(), however, would previously have been passed into
->> guest_physmap_remove_page() (which generally would succeed) while
->> now guest_remove_page() will (afaict) fail (get_page() there won't
->> succeed).
-> 
-> Would Xen even get to the get_page in guest_remove_page on that case?
-> 
-> There's a p2m_mmio_direct type check that will succeed for MMIO
-> ranges, and that just clears the p2m entry and returns before doing
-> any get_page.
 
-Oh, I did overlook this indeed.
+--=-3FsJhQvY5NVa056gFxRH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+On Thu, 2020-09-17 at 10:09 +0200, Jan Beulich wrote:
+> On 16.09.2020 20:18, Jeff Kubascik wrote:
+> > --- a/xen/common/sched/arinc653.c
+> > +++ b/xen/common/sched/arinc653.c
+> > @@ -119,10 +119,9 @@ static int dom_handle_cmp(const
+> > xen_domain_handle_t h1,
+> >      return memcmp(h1, h2, sizeof(xen_domain_handle_t));
+> >  }
+> > =20
+> > -static struct sched_unit *find_unit(
+> > -    const struct scheduler *ops,
+> > -    xen_domain_handle_t handle,
+> > -    int unit_id)
+> > +static struct sched_unit *find_unit(const struct scheduler *ops,
+> > +                                    xen_domain_handle_t handle,
+> > +                                    int unit_id)
+> >  {
+>=20
+> Just fyi, afaict we consider both variants legitimate style as far
+> as Xen as a whole is concerned; I'm unaware of scheduler code
+> specific restrictions (but I'll be happy to be corrected if I'm
+> wrong with this).
+>=20
+No, you're right, there aren't any additional restrictions. And, as
+many other subsystems, scheduling code is not always 100% consistent.
+There's quite a mix of style. E.g., there are both examples of the
+style that this hunk above is changing and of the one that the patch is
+changing it to.
+
+So I also see limited need for doing it. But of course it's Josh's and
+Stweart's call, I guess.
+
+> Instead what I'm wondering by merely seeing this piece of code is
+> whether unit_id really can go negative. If not (as would be the
+> common case with IDs), it would want converting to unsigned int,
+> which may be more important than the purely typographical
+> adjustment done here.
+>=20
+Yep, it's defined as `unsigned int` in `struct sched_unit`.
+
+So this indeed would be valuable. And while you're there, this probably
+applies here as well:
+
+/**
+ * The sched_entry_t structure holds a single entry of the
+ * ARINC 653 schedule.
+ */
+typedef struct sched_entry_s
+{
+    /* dom_handle holds the handle ("UUID") for the domain that this
+     * schedule entry refers to. */
+    xen_domain_handle_t dom_handle;
+    /* unit_id holds the UNIT number for the UNIT that this schedule
+     * entry refers to. */
+    int                 unit_id;
+    ...
+}
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-3FsJhQvY5NVa056gFxRH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl9jdWYACgkQFkJ4iaW4
+c+7PIhAAt+BQyKW6us6DlDNDyppKQCbMPAW6TlrEmQ9u3IF1IBrKEZWR6xzH0XBr
+YW4st9rp5Ogbti98hKwSjHlCfdHIfSQieRMggPncYAzm7pIxh9rCkypB5mpGJmOj
+8guPiy25ow3HnfsKGz95IRYwrMbvTQJ57bu0LJUOn8VY/3OSNoAaojAyzuvzWtcL
+qOnDZLqETQwJyR+McwTWxYHKckB2Wwisw76Q4QQPUqcodhg9yKfSyUYpKuoKX5+8
+ggdBjh80oxoGSCSc0Qyy2Dvy+QeozJYb9k0hn62d3w/kWn6f4f/M0UCJpbfOc2zH
+A0iO2UhmbyxrVjk8OdWoJDENR3inSyhl6MLKYcuhRmU1SIXvqYaznDVyLzA/L/EN
+2zl15h1eyt+q37HjR32rHmEM9Oryeq03jZyVEhIydZuXVq+9C3nbyfNk4go9NjUr
+Yhl8PDdYG3CyFaxE/M/sQZUjTc7uDg52Lc/Me0H3EQX7T6YeQA5zNyFkHW8WAvhH
+T0zjm9f9SgWkT4+YY91z8CSyZMOUWDHP4AmoxJzc96t2nh7tH4h39botRYlLipl8
+SKR4PfBt9mZ/ZYd+TEpISrb+UMWMU+Cad1Xjw8Tz2LiFSMLwoHGpYubQNuho9wSo
+p8Ph/ZAMinJWZfzipQJE3CJDoopaXwy958HYGrLHp+L80RZAGN4=
+=Ipps
+-----END PGP SIGNATURE-----
+
+--=-3FsJhQvY5NVa056gFxRH--
+
 
