@@ -2,98 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7097D26E308
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 19:57:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273EB26E332
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 20:06:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIy9q-0007gY-4c; Thu, 17 Sep 2020 17:57:22 +0000
+	id 1kIyHp-0000Bk-1O; Thu, 17 Sep 2020 18:05:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qtsM=C2=dornerworks.com=stewart.hildebrand@srs-us1.protection.inumbo.net>)
- id 1kIy9o-0007gS-D9
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 17:57:20 +0000
-X-Inumbo-ID: 071f32ad-4e96-48ae-8684-381a33358035
-Received: from USG02-CY1-obe.outbound.protection.office365.us (unknown
- [2001:489a:2202:d::622])
+ <SRS0=5geh=C2=gmail.com=dav.sec.lists@srs-us1.protection.inumbo.net>)
+ id 1kIyHn-0000Bf-0H
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 18:05:35 +0000
+X-Inumbo-ID: f20ead1e-93df-4951-8c37-9e42135af097
+Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 071f32ad-4e96-48ae-8684-381a33358035;
- Thu, 17 Sep 2020 17:57:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
- b=rHRA/STP0ttpNEPXIOIBxoOPvSgiZFS2NsR4zDhVj4OQx7jjlSgeAaduabolsjgWVIJdL+tNAJl4UhTcTMXJ9M92I0tHPItItqS29WlXKLilo6X2K5v77d50DHUkYnM8RYRQdkpLiyuArLxm1cVp8CelysMuKvi6M+WbbOEOxhza2EpSnZM7hGGsTn4C1SP9SMSuW0VO6QtglAOJFGIJdLZolBKBtxSJ2+/2lUuCPCLV9l/kvjEwid6s7p/AjCjgCIEmoVHQLbr27Rudlm2+7Y5vlS45+a4RiutGYciuE5icDTP0FSaONZoPD5883qGLJMLF693jrSvTLXEEpZta+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector5401;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6oNzpyhfTiwBZe7n1uKbu01SWMXnE3U4+E7WpS9DmaI=;
- b=HCJkiDAyt/mJSxJqwOi84o54qBcVXNdPFURUjBydSzv3D7qsEpHWQ8BIUZPG+fqrzDImEUfHg4Eu4K7odZUS7IawTBYjaiUyva2XLMozkX0B2qGGgOkUJMS9SxVslwXQXqKVALGmqaUFWqvbFD3TCmY1ybBycA3gY2P+cEkOGkG6gmy7t7VamdagOPKFftiQ9YRzIMeKSBR+aS3kK4vbNlYRXqyKcECZQBhFLba/NRvToEOIVZ3vak/k78kJJSxF7NDRrh8y7jfwprF12lfmBM67pA0KPDNOJIer+uk4tHQAVFovkvauSVCv3Fk0c98D0xXv9hdR2NJI1hH8HZDj+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dornerworks.com; dmarc=pass action=none
- header.from=dornerworks.com; dkim=pass header.d=dornerworks.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dornerworks.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6oNzpyhfTiwBZe7n1uKbu01SWMXnE3U4+E7WpS9DmaI=;
- b=lOeej0ZGSH/aIFWS7lYENUXJFZIXuv8pPyiV6ZpOne4AmH+pFMWgRce/GnScHTV2X/tw/NQo4xNhDFMpQSYSCJSi6mK9TIMRtkvkuwJf/8H/FvvJmjifTICGuo87krKTQowXZF3zEv/kTArgPLgixWha0CWQz6c6anwBopTjrVfggI17fNHTNQiZ+fBRpgwbsNR4hNcW9SoLTO0XeoLktFONocJPlB2d5NyXdFYtOwYxMWG2zeRFaGBC9Dwjp6NdZPyNYFvPL1poOdFHqLeuVu35va8mwz9LgDV5RVgn6IkqI7t3OW82EZ8m7G8025/43I7GLYXLPw+2VdiXN01gkA==
-Received: from CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:404::14)
- by CY1P110MB0535.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:404::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.15; Thu, 17 Sep
- 2020 17:57:13 +0000
-Received: from CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM
- ([fe80::75b8:922a:1a45:32c0]) by CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM
- ([fe80::75b8:922a:1a45:32c0%10]) with mapi id 15.20.3391.015; Thu, 17 Sep
- 2020 17:57:13 +0000
-From: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jeff Kubascik
- <Jeff.Kubascik@dornerworks.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: xen-devel <xen-devel@dornerworks.com>, Josh Whitehead
- <Josh.Whitehead@dornerworks.com>, George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>
-Subject: RE: [PATCH 5/5] sched/arinc653: Implement CAST-32A multicore
- scheduling
-Thread-Topic: [PATCH 5/5] sched/arinc653: Implement CAST-32A multicore
- scheduling
-Thread-Index: AQHWjFXo8LfVF1vuZEGd+q7v79upsqls6PEAgAAAqMCAABomAIAAA8CA
-Date: Thu, 17 Sep 2020 17:57:13 +0000
-Message-ID: <CY1P110MB05510EEDEF3E1AB5967496398C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
-References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-6-jeff.kubascik@dornerworks.com>
- <36f7ed35-039c-482b-c04b-0f2348de37f6@citrix.com>
- <CY1P110MB05519EEB1C9F879D54ECF6F58C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
- <f8345a86-1a00-9ec9-036b-853a15484777@citrix.com>
-In-Reply-To: <f8345a86-1a00-9ec9-036b-853a15484777@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: citrix.com; dkim=none (message not signed)
- header.d=none; citrix.com; dmarc=none action=none header.from=dornerworks.com; 
-x-originating-ip: [207.242.234.14]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9a023368-ecf4-4dce-4e23-08d85b331b62
-x-ms-traffictypediagnostic: CY1P110MB0535:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY1P110MB0535061EF8D218A1CE2AF9448C3E0@CY1P110MB0535.NAMP110.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(86362001)(26005)(966005)(8936002)(186003)(4326008)(6506007)(53546011)(2906002)(8676002)(33656002)(54906003)(110136005)(7696005)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(5660300002)(52536014)(508600001)(55016002)(9686003)(71200400001);
- DIR:OUT; SFP:1101; 
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ id f20ead1e-93df-4951-8c37-9e42135af097;
+ Thu, 17 Sep 2020 18:05:33 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id p9so4547174ejf.6
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Sep 2020 11:05:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QiESp9sSlZD111CaRKnVf65rDdsJkZUbmn9HDgtXacM=;
+ b=CYGJaDLf2hJoLvoPDxdJQzNymOOPXbdVPIHnBEMOyr8Ry0cG4sET/JG3647ICnbdb3
+ +vOTFVjnGVo9Rzh1nrHse1Dv+p0DyXS8hbotxKBfUp87QtfTlviXtBFJX/ALFXfMRN25
+ FDWr3e8dtLdsUvUyhlmnQU38JxGW8brL9aFvrYNYSk3y1VcdX7c4pOCiEf8iSI7UDFie
+ wpXXnTO0EvuFKmdl6KfDLHdqpuBow34DqPZC7DcKXBqFg6JmXAPXiIOrKmpRANqFdV7q
+ bPYrfm23ZAxwEGL4gUumfuQLoBLJn+/vhidPUMK6cMp9WoZ+RLKnJTCJN+UqV2R0a21s
+ ho1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QiESp9sSlZD111CaRKnVf65rDdsJkZUbmn9HDgtXacM=;
+ b=cNX0spaeQJMiaK5vy97lpHd+RV14+1Kbj6oDkjX+2QWoCMlhbr2Ud13xK1fSD9+VLI
+ g+6qbmES/0hJEEWcUyQ1sg3sZl5E6Uk8G8cYFtNKtITnwByNrrorjiqtc0km9njml4Gd
+ JHxnusWWmhGO73euVbeMUC4kr9Syp5u6VVkN/C+uXmU74JXFAiEnYIgBJl3hU+aZ/7SH
+ OMGCwH+tEeKNE8vTwbqvzD1pyEU5AJB88rfWPxjpyka+ql4dXo7+boS3NtBGEzFbNJaN
+ heW7Qn0xOtg9dMnc14hZTu2/5OuYytohtrqyvJpIY0lj/C+JoOmsolgy8QoEXg9hfJlB
+ /j1Q==
+X-Gm-Message-State: AOAM531Z3UL8RL29SBxxRDsubBYNspEhWAQsXm8oyLkpNtLFVBSuF3tk
+ 7Q1kVCuxEjUclPJFHvVpJLh0LYBgbYOz3FYH13g=
+X-Google-Smtp-Source: ABdhPJxF1yZWSwIElB0ENuffigftNb8JLeeSuGmWuV4L4hCr6b0Hwerwu4t9bLxfgGA0g0uEiNXg3seymnym+qC1u/w=
+X-Received: by 2002:a17:906:8559:: with SMTP id
+ h25mr31534921ejy.536.1600365933085; 
+ Thu, 17 Sep 2020 11:05:33 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: dornerworks.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a023368-ecf4-4dce-4e23-08d85b331b62
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 17:57:13.2232 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1P110MB0535
+References: <CA+js8Lk2f99BqeNgSyAh1jh5gH1iC2BZyz+AY7mGTqPTX_Qf=w@mail.gmail.com>
+ <58e3421c-6939-831f-8f0e-0c83fa9f1366@citrix.com>
+ <7217a50c-d1f7-8160-2405-c04a84abf61f@knorrie.org>
+ <CA+js8L=dCJkE6y=GO2WNc0ufLaOXkx1BsMg3soCw+=wyDduPMQ@mail.gmail.com>
+ <CA+js8LnzTkPtQXhQ-N85rM4Qd3HC2SpRQ5ZoSzh4CVx92tNYNQ@mail.gmail.com>
+ <20200916161206.GA20338@aepfle.de>
+ <e68fd134-bb40-8646-89f0-dd8241737342@knorrie.org>
+In-Reply-To: <e68fd134-bb40-8646-89f0-dd8241737342@knorrie.org>
+From: David I <dav.sec.lists@gmail.com>
+Date: Thu, 17 Sep 2020 20:05:22 +0200
+Message-ID: <CA+js8L=53vMAEG2aU=_EoJoL2yZBRvxmKC0wkqSqv8pDEGH3Tg@mail.gmail.com>
+Subject: Re: Compiling Xen from source
+To: Hans van Kranenburg <hans@knorrie.org>
+Cc: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org, 
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000f3c5f705af863a92"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,46 +77,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1cnNkYXksIFNlcHRlbWJlciAxNywgMjAyMCAxMjoxOSBQTSwgQW5kcmV3IENvb3BlciB3
-cm90ZToNCj5PbiAxNy8wOS8yMDIwIDE1OjU3LCBTdGV3YXJ0IEhpbGRlYnJhbmQgd3JvdGU6DQo+
-PiBPbiBUaHVyc2RheSwgU2VwdGVtYmVyIDE3LCAyMDIwIDEwOjQzIEFNLCBBbmRyZXcgQ29vcGVy
-IHdyb3RlOg0KPj4+IE9uIDE2LzA5LzIwMjAgMTk6MTgsIEplZmYgS3ViYXNjaWsgd3JvdGU6DQo+
-Pj4+ICsvKg0KPj4+PiArICogQSBoYW5kbGUgd2l0aCBhbGwgemVyb3MgcmVwcmVzZW50cyBkb21h
-aW4gMCBpZiBwcmVzZW50LCBvdGhlcndpc2UgaWRsZSBVTklUDQo+Pj4+ICsgKi8NCj4+Pj4gKyNk
-ZWZpbmUgRE9NMF9IQU5ETEUgKChjb25zdCB4ZW5fZG9tYWluX2hhbmRsZV90KXswfSkNCj4+PiBU
-aGlzIGlzbid0IGFjY3VyYXRlLg0KPj4+DQo+Pj4gVGhlcmUgYXJlIHN5c3RlbXMgd2hlcmUgZG9t
-MCBkb2Vzbid0IGhhdmUgYSB6ZXJvIFVVSUQgKFhlblNlcnZlciBmb3INCj4+PiBvbmUpLCBhbmQg
-aXRzIGVhc3kgdG8gY3JlYXRlIGRvbVUncyB3aGljaCBoYXZlIGEgemVybyBVVUlELiAgVGhleSBh
-cmUNCj4+PiBub3QgdW5pcXVlLCBhbmQgY2FuIGJlIGNoYW5nZWQgYXQgYW55IHRpbWUgZHVyaW5n
-IHRoZSBydW5uaW5nIG9mIHRoZSBWTS4NCj4+Pg0KPj4+IElmIHlvdSBuZWVkIGEgdW5pcXVlIGlk
-ZW50aWZpZXIsIHRoZW4gdXNlIGRvbWlkJ3MuDQo+Pj4NCj4+PiBJIGNhbid0IHNlZSBhbnkgbGVn
-aXRpbWF0ZSBuZWVkIGZvciB0aGUgc2NoZWR1bGVyIHRvIGhhbmRsZSB0aGUgVVVJRCBhdCBhbGwu
-DQo+PiBXZSB0cmllZCBzd2l0Y2hpbmcgaXQgdG8gZG9taWQgYXQgb25lIHBvaW50IGluIHRoZSBw
-YXN0LCBidXQgdGhlIHByb2JsZW0gd2FzIHRoYXQgd2hlbiBhIGRvbVUgcmVib290cyAoZGVzdHJv
-eS9jcmVhdGUpIHRoZSBkb21pZA0KPmluY3JlbWVudHMsIHNvIHRoZSBzY2hlZHVsZSB3b3VsZCBo
-YXZlIHRvIGJlIHJlaW5zdGFudGlhdGVkLg0KPg0KPkhvdyBhcmUgc2V0dGluZ3Mgc3BlY2lmaWVk
-PyAgSWYgdGhleSdyZSBtYW51YWxseSB3aGlsZSB0aGUgZG9tYWluIGlzDQo+cnVubmluZywgdGhl
-biBJJ2QgYXJndWUgdGhhdCBpcyBhIHVzZXIgYnVnLg0KDQpJdCBjb3VsZCBiZSBlaXRoZXIgcHJp
-b3IgdG8gZG9tYWluIGNyZWF0aW9uIG9yIGFmdGVyLiBUaGUgdXNlciBuZWVkcyB0byBrbm93IHRo
-ZSBVVUlEIChvciBkb21pZCwgaWYgd2Ugd2VyZSB0byBzd2l0Y2ggdG8gZG9taWQpIG9mIHRoZSBk
-b21haW4ocykgdG8gYmUgc2NoZWR1bGVkLg0KDQpXZSB0eXBpY2FsbHkgdXNlIHRoaXMgdXRpbGl0
-eSBbMl0gd2hpY2ggcmVsaWVzIG9uIHRvb2xzL2xpYnhjL3hjX2FyaW5jNjUzLmMNCg0KWzJdIGh0
-dHBzOi8vZ2l0aHViLmNvbS9kb3JuZXJ3b3Jrcy9hNjUzX3NjaGVkDQoNCj4NCj5JZiB0aGUgc2V0
-dGluZ3MgYXJlIHNwZWNpZmllZCBpbiB0aGUgVk0ncyBjb25maWd1cmF0aW9uIGZpbGUsIGFuZCB0
-aGV5DQo+YXJlbid0IHJlYXBwbGllZCBvbiByZWJvb3QsIHRoZW4gdGhhdCBpcyBhIHRvb2xzdGFj
-ayBidWcuDQo+DQo+PiBBdCBsZWFzdCB0aGF0IHdhcyB0aGUgY2FzZSBiZWZvcmUgYSByZWNlbnQg
-cGF0Y2ggc2VyaWVzIGFsbG93aW5nIHRvIHNwZWNpZnkgZG9taWQgWzFdLCBidXQgSmVmZiBkZXZl
-bG9wZWQgdGhpcyBDQVNULTMyQSBzZXJpZXMgcHJpb3IgdG8NCj50aGF0LiBUaGUgVVVJRCBjYW4g
-YmUgc3BlY2lmaWVkIGluIHRoZSAuY2ZnIGZpbGUsIGFsbG93aW5nIGRvbVVzIHRvIHJlYm9vdCBh
-bmQgY29tZSBiYWNrIHVwIHdpdGggdGhlIHNhbWUgVVVJRC4NCj4NCj5UaGUgVVVJRCBjYW4gYW5k
-IGRvZXMgY2hhbmdlIGF0IHJ1bnRpbWUgaW4gc29tZSBjYXNlcywgd2hlbiB5b3UgZ2V0IGludG8N
-Cj5tb3JlIGNvbXBsaWNhdGVkIGxpZmVjeWNsZSBzY2VuYXJpb3Mgc3VjaCBhcyBsb2NhbGhvc3Qg
-bGl2ZSBtaWdyYXRpb24sDQo+YW5kL29yIFZNIEZvcmsvQ29XLg0KPg0KPg0KPkhhdmluZyBzY2hl
-ZHVsZXIgc2V0dGluZ3MgcmVtZW1iZXJlZCBieSBVVUlELCBpbiB0aGUgbG93ZXIgbGF5ZXJzIG9m
-IHRoZQ0KPmh5cGVydmlzb3IsIGZlZWxzIGxpa2UgYSBsYXllcmluZyB2aW9sYXRpb24uICBJdCBt
-aWdodCB3b3JrIGZvciB5b3VyDQo+c3BlY2lmaWMgdXNlY2FzZSwgYnV0IGl0IGZlZWxzIGxpa2Ug
-aXQgaXMgcGFwZXJpbmcgb3ZlciB0aGUgdW5kZXJseWluZw0KPmJ1ZywgYW5kIGl0IGlzIGluY29t
-cGF0aWJsZSB3aXRoIG90aGVyIHVzYWdlIHNjZW5hcmlvcyB3aXRoaW4gWGVuLg0KDQpUaGVzZSBh
-cmUgYWxsIGdvb2QgcG9pbnRzLiBJJ2Qgd2VsY29tZSBhIHN3aXRjaCB0byBkb21pZCwgYnV0IEkg
-ZmVlbCBpdCBzaG91bGQgYmUgYSBzZXBhcmF0ZSBwYXRjaCBvciBzZXJpZXMuDQoNClN0ZXcNCg==
+--000000000000f3c5f705af863a92
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Ok, thanks.
+So I have done a fresh checkout of the master branch, but unfortunately,
+there's a bug in infiniband drivers.
+the error is : "drivers/infiniband/flexboot_nodnic.c:368:53: error:
+implicit conversion from 'enum ib_queue_pair_type' to
+'nodnic_queue_pair_type' [-Werror=3Denum-conversion]".
+this occurs with gcc 10 and developers seem to be aware of this:
+
+https://lists.ipxe.org/pipermail/ipxe-devel/2020-May/007049.html
+
+but it seems the master branch has not been patched yet.
+
+Anyway now I will concentrate on 4.14 if I need to compile from source :-)
+
+David
+
+
+Le mer. 16 sept. 2020 =C3=A0 22:59, Hans van Kranenburg <hans@knorrie.org> =
+a
+=C3=A9crit :
+
+> On 9/16/20 6:12 PM, Olaf Hering wrote:
+> > On Wed, Sep 16, David I wrote:
+> >
+> >> So, how did the debian package was compiled ? is this the same source
+> code with
+> >> different options ?
+> >
+> > Xen 4.11 is from 2018. Use also a compiler from that year.
+> > Using this years compiler will lead to errors...
+>
+> In Debian, Buster with Xen 4.11 uses gcc 8.
+>
+> The Xen 4.11 that is in Debian unstable now does not compile any more
+> with gcc 10. That's why we really need to get Xen 4.14 in there now to
+> un-stuck that (even with additional picked patches again already).
+>
+> Hans
+>
+>
+
+--000000000000f3c5f705af863a92
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Ok, thanks.<div>So I have done a fresh checkout of the mas=
+ter branch, but unfortunately, there&#39;s a bug in infiniband=C2=A0drivers=
+.</div><div>the error is : &quot;drivers/infiniband/flexboot_nodnic.c:368:5=
+3: error: implicit conversion from &#39;enum ib_queue_pair_type&#39; to &#3=
+9;nodnic_queue_pair_type&#39; [-Werror=3Denum-conversion]&quot;.<br></div><=
+div>this occurs with gcc 10 and developers seem to be aware of this:</div><=
+div><br></div><div><a href=3D"https://lists.ipxe.org/pipermail/ipxe-devel/2=
+020-May/007049.html">https://lists.ipxe.org/pipermail/ipxe-devel/2020-May/0=
+07049.html</a><br></div><div><br></div><div>but it seems the master branch =
+has not been patched yet.</div><div><br></div><div></div><div>Anyway now I =
+will concentrate on 4.14 if I need to compile from source :-)</div><div><br=
+></div><div>David</div><div><br></div></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mer. 16 sept. 2020 =C3=A0=C2=
+=A022:59, Hans van Kranenburg &lt;<a href=3D"mailto:hans@knorrie.org">hans@=
+knorrie.org</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">On 9/16/20 6:12 PM, Olaf Hering wrote:<br>
+&gt; On Wed, Sep 16, David I wrote:<br>
+&gt; <br>
+&gt;&gt; So, how did the debian package was compiled ? is this the same sou=
+rce code with<br>
+&gt;&gt; different options ?<br>
+&gt; <br>
+&gt; Xen 4.11 is from 2018. Use also a compiler from that year.<br>
+&gt; Using this years compiler will lead to errors...<br>
+<br>
+In Debian, Buster with Xen 4.11 uses gcc 8.<br>
+<br>
+The Xen 4.11 that is in Debian unstable now does not compile any more<br>
+with gcc 10. That&#39;s why we really need to get Xen 4.14 in there now to<=
+br>
+un-stuck that (even with additional picked patches again already).<br>
+<br>
+Hans<br>
+<br>
+</blockquote></div>
+
+--000000000000f3c5f705af863a92--
 
