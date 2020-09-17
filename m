@@ -2,125 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CCC26D49A
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 09:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BFE26D49B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 09:25:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIoHe-0006KL-2H; Thu, 17 Sep 2020 07:24:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kIoIK-0006Oe-GP; Thu, 17 Sep 2020 07:25:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p6zL=C2=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1kIoHc-0006KG-Ia
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 07:24:44 +0000
-X-Inumbo-ID: 4aa748a8-0186-495e-8a00-fa2abfb822fb
-Received: from mga05.intel.com (unknown [192.55.52.43])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4aa748a8-0186-495e-8a00-fa2abfb822fb;
- Thu, 17 Sep 2020 07:24:40 +0000 (UTC)
-IronPort-SDR: AAm2+e480Tkd+VP03JfqLOK5xEctzjU+eLLNM14Yl3sCOLV7jUN/ILjboAxxIHJmQDhHRhah1w
- oFaFDJG4eGcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="244479796"
-X-IronPort-AV: E=Sophos;i="5.76,436,1592895600"; d="scan'208";a="244479796"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2020 00:24:39 -0700
-IronPort-SDR: uLjYl2LvSDP4Go7bppMCx2yD7hg5Qev9lrfdUCFcOdeBnnXxtqlt1PuHaAug2E+3ngo0Emmz+e
- Uf/aLh8YUwgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,436,1592895600"; d="scan'208";a="302841693"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga003.jf.intel.com with ESMTP; 17 Sep 2020 00:24:39 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 17 Sep 2020 00:24:37 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 17 Sep 2020 00:24:37 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.173)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 17 Sep 2020 00:24:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oKdxb0PGxtSKJrwWJMfjgf04WZyr6SCsXnpxxrxm6qrDuTi1i5DJrAIamrzAUgkGzaCAJEYjzrQRgtQ4AZutuqFTaIMqBE+2Ar8WuO6uyB95+059HUg9FPrLZQ+9ecToNzF8w8iINz3CpmklcOn0aA9lQpEiBk3ArIb4Rgef3nQM/G5fquYPrlSNjvuv/fLWhg53bIvSmYoTF8FGG6gupZB5cl1BB2+Ovp3JaXXJmI1/pnu2hBKaKkteOKsuOjyOdj39tZzaKSQ4vIl5mpuRhrtZBuvq1iL9xtKy8Q+FQnJFOUjWsk7fznUNCWGvsExauKnuCa1hqLOfW8Thxe1YtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3nrv5t/xoyMZ0wfGakJKfQChjl9/lm08V6ouepXEp4s=;
- b=fIIWo2sMKNazaDLqhMB5MiBok1vXJkBD45ibGgMuh7139XZ6Hx9D7H5uCnVzjkHgwF4KLMAl/Y/J/IU5Ob7wMeoWO9Cg+Pi1aTZo7A820Ou8OoOsOgTmEtcTeh79fC8jNOvyvpwM7BcSu1kZDjULQeHW5cu4qzEIurC+ZDKDhkxaySvi+KsS5VpxQMR4G9nIJAY02jkbFDZTFWULD/cvjJ/Yk2nhsTBcm+xtN5fA7foioe1fTzR+GXgB3eGFHApG4LbvA2jDKy9PdQvdHdpy0vS4E+LMh4yQOUQO2/IhopbUW9ClugQK/71RWlApGmTNf22E6RopIpxYeUJAQ+wG6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3nrv5t/xoyMZ0wfGakJKfQChjl9/lm08V6ouepXEp4s=;
- b=kHYnyz2Nef5An09TdXzPr2iI90mZd9YCBUH7YpBwFIK0CAsR9tgO6cXBvnw6c+f7lA529bmVNG9IxCP5u4Zgb8zmaH/4d06kfTwlQQBj9+T5Ht+YGBp7IuhYOFQSE4c6+0zBgwZGfTQIjdAx8vBRVIx+lCUoQ72mg0Agkthmmjg=
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by MWHPR11MB2047.namprd11.prod.outlook.com (2603:10b6:300:2a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14; Thu, 17 Sep
- 2020 07:24:32 +0000
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::6dfe:feb8:25f1:ac9c]) by MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::6dfe:feb8:25f1:ac9c%7]) with mapi id 15.20.3391.011; Thu, 17 Sep 2020
- 07:24:32 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Paul Durrant <paul@xen.org>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: Paul Durrant <pdurrant@amazon.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Subject: RE: [PATCH v9 7/8] iommu: remove the share_p2m operation
-Thread-Topic: [PATCH v9 7/8] iommu: remove the share_p2m operation
-Thread-Index: AQHWizpoaRl2ykmjt0WcZDjIuYA8RalsY+qAgAAMf4A=
-Date: Thu, 17 Sep 2020 07:24:32 +0000
-Message-ID: <MWHPR11MB16458BECBDC36D8E857FA1448C3E0@MWHPR11MB1645.namprd11.prod.outlook.com>
-References: <20200915082936.23663-1-paul@xen.org>
- <20200915082936.23663-8-paul@xen.org> 
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [192.198.147.212]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: aea94f2e-c11b-4eb5-9521-08d85adab901
-x-ms-traffictypediagnostic: MWHPR11MB2047:
-x-microsoft-antispam-prvs: <MWHPR11MB2047EF9454AA43C19F1C74828C3E0@MWHPR11MB2047.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: t7Huh4ZvV8zE9cHhJXXyORA7Elvp4H2rGG6rM7BYChtjY8+9azclcPq1d3kM7kZtjurZfOk0iinFEQvos8l6h6Of4U41m9l35aNzYnvh9T8vQq01obYiPZkqeGWg950RBDT5tcsoGDJP8UHJieD06sJE4kY+x8HN6UqgCKsqes/SSHkRCaBx6gZ2Ly6spsaSzhh2HATFLTVmkZtoNMtTXi8dKNpYn3WNANEA5RAgiXPzGVh7rN4DYNE6e/UAc/v2JJq2F9HO+Z6mvdo57sAreOH02s1JuSxJDow4HdUoj74nKFYReagt11Eskw9J9GHJz0LJBKFFmKlpLPybpCZyqA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1645.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(346002)(39860400002)(366004)(83380400001)(54906003)(33656002)(110136005)(8936002)(7696005)(316002)(4326008)(26005)(71200400001)(186003)(76116006)(66946007)(6506007)(478600001)(8676002)(55016002)(2906002)(52536014)(9686003)(5660300002)(66556008)(66446008)(66476007)(86362001)(64756008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: A4D65oBlFwctj328x7SjJ0iAdF7mwqwjygC4Z09x4xmO9KENYcMWKMfqZvsUDBGIamt2gukTWLFzD5JjcSnF2OCrExhlhCE4oeIUQDqgNUVjgdy+q8r/I3u617/u64LVbUjWBLPXUG6vGddeCtLP2ABTXPYXesX6cWRwJzb/W3GGObBC3nMnixk2efm/XTUp2LHHg9R3Ye6R7WiktlOq9zeZZfyuYFQuoqP7apoXsttrRgo8wxXSgF6iSmKiXapTG9OA4aO8DZWtvd5RKeI/f7BZDqigmfS/fWmz2mdlLZwQnHm2HnpmtbWPlXz6KAyRpsSyaV2OW+jLUi6C7ybXWFTtJIL0tYWKW65Np4sBXCGSTlNhMKDbGX39emvBBmbDcvIKynQHimqxmOoGfIlbHxFo5XSyczHnP+AKrtWgnx7st2poQj4j9K9KRCvvaj8XtiTuj5UQMznh0f8q5VjcynZLtfiMg2N58scRPTqduWAtmMR+SWPK3jGeEN+p6VF61LchLLaj0a+UJIRyUA38hbR/hrEJLw3WSKiJFbEYt2rwTloRkeGG7ZvG158Ol1icA9h8lWC7DfhnmPWw2qC2jONKZjwflCUq+z5pib4o/TBSxo+gxLZvMRPUCr7wuej+Nt027dYRoumE7xN4nUtYcQ==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <SRS0=G9fY=C2=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kIoIJ-0006O3-WD
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 07:25:28 +0000
+X-Inumbo-ID: 08c75cf4-2d44-43d9-b405-238fc6ec78d1
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 08c75cf4-2d44-43d9-b405-238fc6ec78d1;
+ Thu, 17 Sep 2020 07:25:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=OyVy1lxeTxBPSnKxJzT/ENIUt7Mr0r0jK1k6kHXMDSE=; b=LEsB6Z3RUeJemMFvvAT/b2rAFi
+ uKyn9nJRsMY3koIY/gmxQVmiETK8kwY80yOoVNoDH8xS0tE2HA9pslhd/GgDMMYcO+nJCjhfUmN6w
+ Vnc9dVOgUJpwBP/nGcGgOOH+gdSAno/vzsJwYGhDXk9UTyaSN2yfuvy+3yZUl2IrebbI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIoIC-00038J-Es; Thu, 17 Sep 2020 07:25:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIoIC-00043y-6j; Thu, 17 Sep 2020 07:25:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kIoIC-00066i-6G; Thu, 17 Sep 2020 07:25:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154415-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aea94f2e-c11b-4eb5-9521-08d85adab901
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 07:24:32.4924 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zpr5ahyEp8ovE4mRqOW11CXLgrDVxVfoNW68rASrfGK+fYp4VpMw5nRDb2nc2JFg9seqX8Kx/DM6m86zSbr+/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB2047
-X-OriginatorOrg: intel.com
+Subject: [libvirt test] 154415: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=80fcfab9ce7b2d228cda5b95fa68ddec2a9f302e
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 17 Sep 2020 07:25:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,193 +78,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBUaWFuLCBLZXZpbg0KPiBTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE3LCAyMDIw
-IDM6MjAgUE0NCj4gDQo+ID4gRnJvbTogUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5vcmc+DQo+ID4g
-U2VudDogVHVlc2RheSwgU2VwdGVtYmVyIDE1LCAyMDIwIDQ6MzAgUE0NCj4gPg0KPiA+IEZyb206
-IFBhdWwgRHVycmFudCA8cGR1cnJhbnRAYW1hem9uLmNvbT4NCj4gPg0KPiA+IFNoYXJpbmcgb2Yg
-SEFQIHRhYmxlcyBpcyBub3cgVlQtZCBzcGVjaWZpYyBzbyB0aGUgb3BlcmF0aW9uIGlzIG5ldmVy
-IGRlZmluZWQNCj4gPiBmb3IgQU1EIElPTU1VIGFueSBtb3JlLiBUaGVyZSdzIGFsc28gbm8gbmVl
-ZCB0byBwcm8tYWN0aXZlbHkgc2V0DQo+ID4gdnRkLnBnZF9tYWRkcg0KPiA+IHdoZW4gdXNpbmcg
-c2hhcmVkIEVQVCBhcyBpdCBpcyBzdHJhaWdodGZvcndhcmQgdG8gc2ltcGx5IGRlZmluZSBhIGhl
-bHBlcg0KPiA+IGZ1bmN0aW9uIHRvIHJldHVybiB0aGUgYXBwcm9wcmlhdGUgdmFsdWUgaW4gdGhl
-IHNoYXJlZCBhbmQgbm9uLXNoYXJlZA0KPiBjYXNlcy4NCj4gDQo+IHZ0ZF9kdW1wX3AybV90YWJs
-ZSB0aGVuIGFsc28gbmVlZHMgdG8gdXNlIHRoaXMgaGVscGVyIGlmIEkgZGlkbid0IG92ZXJsb29r
-Lg0KPiANCg0KUGxlYXNlIGZvcmdldCB0aGlzIGNvbW1lbnQuIElmIGhhcCBzaGFyaW5nLCB0aGF0
-IGNhbGxiYWNrIHdvbid0IGJlDQppbnZva2VkLiBTbzoNCg0KCVJldmlld2VkLWJ5OiBLZXZpbiBU
-aWFuIDxrZXZpbi50aWFuQGludGVsLmNvbT4NCg0KPiANCj4gPg0KPiA+IE5PVEU6IFRoaXMgcGF0
-Y2ggYWxzbyBtb2RpZmllcyB1bm1hcF92dGRfZG9tYWluX3BhZ2UoKSB0byB0YWtlIGEgY29uc3QN
-Cj4gPiAgICAgICBwb2ludGVyIHNpbmNlIHRoZSBvbmx5IHRoaW5nIGl0IGNhbGxzLCB1bm1hcF9k
-b21haW5fcGFnZSgpLCBhbHNvIHRha2VzDQo+ID4gICAgICAgYSBjb25zdCBwb2ludGVyLg0KPiA+
-DQo+ID4gU2lnbmVkLW9mZi1ieTogUGF1bCBEdXJyYW50IDxwZHVycmFudEBhbWF6b24uY29tPg0K
-PiA+IFJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+ID4gLS0t
-DQo+ID4gQ2M6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+ID4g
-Q2M6IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT4NCj4gPiBDYzogV2Vp
-IExpdSA8d2xAeGVuLm9yZz4NCj4gPiBDYzogIlJvZ2VyIFBhdSBNb25uw6kiIDxyb2dlci5wYXVA
-Y2l0cml4LmNvbT4NCj4gPiBDYzogS2V2aW4gVGlhbiA8a2V2aW4udGlhbkBpbnRlbC5jb20+DQo+
-ID4NCj4gPiB2NjoNCj4gPiAgLSBBZGp1c3QgY29kZSB0byByZXR1cm4gUDJNIHBhZGRyDQo+ID4g
-IC0gQWRkIHJlbW92ZWQgY29tbWVudCBiYWNrIGluDQo+ID4NCj4gPiB2NToNCj4gPiAgLSBQYXNz
-ICducl9wdF9sZXZlbHMnIGludG8gZG9tYWluX3BnZF9tYWRkcigpIGRpcmVjdGx5DQo+ID4NCj4g
-PiB2MjoNCj4gPiAgLSBQdXQgdGhlIFBHRCBsZXZlbCBhZGp1c3QgaW50byB0aGUgaGVscGVyIGZ1
-bmN0aW9uIHRvbywgc2luY2UgaXQgaXMNCj4gPiAgICBpcnJlbGV2YW50IGluIHRoZSBzaGFyZWQg
-RVBUIGNhc2UNCj4gPiAtLS0NCj4gPiAgeGVuL2FyY2gveDg2L21tL3AybS5jICAgICAgICAgICAg
-ICAgICB8ICAzIC0NCj4gPiAgeGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvaW9tbXUuYyAgICAgICB8
-ICA4IC0tLQ0KPiA+ICB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQvZXh0ZXJuLmggIHwgIDIg
-Ky0NCj4gPiAgeGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2lvbW11LmMgICB8IDkwICsrKysr
-KysrKysrKysrKy0tLS0tLS0tLS0tLQ0KPiA+ICB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQv
-eDg2L3Z0ZC5jIHwgIDIgKy0NCj4gPiAgeGVuL2luY2x1ZGUveGVuL2lvbW11LmggICAgICAgICAg
-ICAgICB8ICAzIC0NCj4gPiAgNiBmaWxlcyBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCA1NiBk
-ZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvbW0vcDJtLmMg
-Yi94ZW4vYXJjaC94ODYvbW0vcDJtLmMNCj4gPiBpbmRleCAwMWZmOTI4NjJkLi5kMzgyMTk5Yzg4
-IDEwMDY0NA0KPiA+IC0tLSBhL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYw0KPiA+ICsrKyBiL3hlbi9h
-cmNoL3g4Ni9tbS9wMm0uYw0KPiA+IEBAIC03MjYsOSArNzI2LDYgQEAgaW50IHAybV9hbGxvY190
-YWJsZShzdHJ1Y3QgcDJtX2RvbWFpbiAqcDJtKQ0KPiA+DQo+ID4gICAgICBwMm0tPnBoeXNfdGFi
-bGUgPSBwYWdldGFibGVfZnJvbV9tZm4odG9wX21mbik7DQo+ID4NCj4gPiAtICAgIGlmICggaGFw
-X2VuYWJsZWQoZCkgKQ0KPiA+IC0gICAgICAgIGlvbW11X3NoYXJlX3AybV90YWJsZShkKTsNCj4g
-PiAtDQo+ID4gICAgICBwMm1fdW5sb2NrKHAybSk7DQo+ID4gICAgICByZXR1cm4gMDsNCj4gPiAg
-fQ0KPiA+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pb21tdS5jDQo+ID4g
-Yi94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pb21tdS5jDQo+ID4gaW5kZXggYTlkYTRkMmIwNi4u
-OTA3NDgwNjJlNSAxMDA2NDQNCj4gPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pb21t
-dS5jDQo+ID4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvaW9tbXUuYw0KPiA+IEBAIC01
-MDAsMTQgKzUwMCw2IEBAIGludCBpb21tdV9kb19kb21jdGwoDQo+ID4gICAgICByZXR1cm4gcmV0
-Ow0KPiA+ICB9DQo+ID4NCj4gPiAtdm9pZCBpb21tdV9zaGFyZV9wMm1fdGFibGUoc3RydWN0IGRv
-bWFpbiogZCkNCj4gPiAtew0KPiA+IC0gICAgQVNTRVJUKGhhcF9lbmFibGVkKGQpKTsNCj4gPiAt
-DQo+ID4gLSAgICBpZiAoIGlvbW11X3VzZV9oYXBfcHQoZCkgKQ0KPiA+IC0gICAgICAgIGlvbW11
-X2dldF9vcHMoKS0+c2hhcmVfcDJtKGQpOw0KPiA+IC19DQo+ID4gLQ0KPiA+ICB2b2lkIGlvbW11
-X2NyYXNoX3NodXRkb3duKHZvaWQpDQo+ID4gIHsNCj4gPiAgICAgIGlmICggIWlvbW11X2NyYXNo
-X2Rpc2FibGUgKQ0KPiA+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQv
-ZXh0ZXJuLmgNCj4gPiBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9leHRlcm4uaA0KPiA+
-IGluZGV4IGFkYTNjMzA5OGMuLjljZjViNTc4YzkgMTAwNjQ0DQo+ID4gLS0tIGEveGVuL2RyaXZl
-cnMvcGFzc3Rocm91Z2gvdnRkL2V4dGVybi5oDQo+ID4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Ro
-cm91Z2gvdnRkL2V4dGVybi5oDQo+ID4gQEAgLTcyLDcgKzcyLDcgQEAgdm9pZCBmbHVzaF9hbGxf
-Y2FjaGUodm9pZCk7DQo+ID4gIHVpbnQ2NF90IGFsbG9jX3BndGFibGVfbWFkZHIodW5zaWduZWQg
-bG9uZyBucGFnZXMsIG5vZGVpZF90IG5vZGUpOw0KPiA+ICB2b2lkIGZyZWVfcGd0YWJsZV9tYWRk
-cih1NjQgbWFkZHIpOw0KPiA+ICB2b2lkICptYXBfdnRkX2RvbWFpbl9wYWdlKHU2NCBtYWRkcik7
-DQo+ID4gLXZvaWQgdW5tYXBfdnRkX2RvbWFpbl9wYWdlKHZvaWQgKnZhKTsNCj4gPiArdm9pZCB1
-bm1hcF92dGRfZG9tYWluX3BhZ2UoY29uc3Qgdm9pZCAqdmEpOw0KPiA+ICBpbnQgZG9tYWluX2Nv
-bnRleHRfbWFwcGluZ19vbmUoc3RydWN0IGRvbWFpbiAqZG9tYWluLCBzdHJ1Y3QNCj4gPiB2dGRf
-aW9tbXUgKmlvbW11LA0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdTggYnVz
-LCB1OCBkZXZmbiwgY29uc3Qgc3RydWN0IHBjaV9kZXYgKik7DQo+ID4gIGludCBkb21haW5fY29u
-dGV4dF91bm1hcF9vbmUoc3RydWN0IGRvbWFpbiAqZG9tYWluLCBzdHJ1Y3QNCj4gdnRkX2lvbW11
-DQo+ID4gKmlvbW11LA0KPiA+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92
-dGQvaW9tbXUuYw0KPiA+IGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2lvbW11LmMNCj4g
-PiBpbmRleCA2OGNmMGU1MzVhLi41OGQ0NTUwYTRjIDEwMDY0NA0KPiA+IC0tLSBhL3hlbi9kcml2
-ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9pb21tdS5jDQo+ID4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Ro
-cm91Z2gvdnRkL2lvbW11LmMNCj4gPiBAQCAtMzE4LDYgKzMxOCw0OCBAQCBzdGF0aWMgdTY0IGFk
-ZHJfdG9fZG1hX3BhZ2VfbWFkZHIoc3RydWN0DQo+ID4gZG9tYWluICpkb21haW4sIHU2NCBhZGRy
-LCBpbnQgYWxsb2MpDQo+ID4gICAgICByZXR1cm4gcHRlX21hZGRyOw0KPiA+ICB9DQo+ID4NCj4g
-PiArc3RhdGljIHVpbnQ2NF90IGRvbWFpbl9wZ2RfbWFkZHIoc3RydWN0IGRvbWFpbiAqZCwgdW5z
-aWduZWQgaW50DQo+ID4gbnJfcHRfbGV2ZWxzKQ0KPiA+ICt7DQo+ID4gKyAgICBzdHJ1Y3QgZG9t
-YWluX2lvbW11ICpoZCA9IGRvbV9pb21tdShkKTsNCj4gPiArICAgIHVpbnQ2NF90IHBnZF9tYWRk
-cjsNCj4gPiArICAgIHVuc2lnbmVkIGludCBhZ2F3Ow0KPiA+ICsNCj4gPiArICAgIEFTU0VSVChz
-cGluX2lzX2xvY2tlZCgmaGQtPmFyY2gubWFwcGluZ19sb2NrKSk7DQo+ID4gKw0KPiA+ICsgICAg
-aWYgKCBpb21tdV91c2VfaGFwX3B0KGQpICkNCj4gPiArICAgIHsNCj4gPiArICAgICAgICBwYWdl
-dGFibGVfdCBwZ3QgPSBwMm1fZ2V0X3BhZ2V0YWJsZShwMm1fZ2V0X2hvc3RwMm0oZCkpOw0KPiA+
-ICsNCj4gPiArICAgICAgICByZXR1cm4gcGFnZXRhYmxlX2dldF9wYWRkcihwZ3QpOw0KPiA+ICsg
-ICAgfQ0KPiA+ICsNCj4gPiArICAgIGlmICggIWhkLT5hcmNoLnZ0ZC5wZ2RfbWFkZHIgKQ0KPiA+
-ICsgICAgew0KPiA+ICsgICAgICAgIC8qIEVuc3VyZSB3ZSBoYXZlIHBhZ2V0YWJsZXMgYWxsb2Nh
-dGVkIGRvd24gdG8gbGVhZiBQVEUuICovDQo+ID4gKyAgICAgICAgYWRkcl90b19kbWFfcGFnZV9t
-YWRkcihkLCAwLCAxKTsNCj4gPiArDQo+ID4gKyAgICAgICAgaWYgKCAhaGQtPmFyY2gudnRkLnBn
-ZF9tYWRkciApDQo+ID4gKyAgICAgICAgICAgIHJldHVybiAwOw0KPiA+ICsgICAgfQ0KPiA+ICsN
-Cj4gPiArICAgIHBnZF9tYWRkciA9IGhkLT5hcmNoLnZ0ZC5wZ2RfbWFkZHI7DQo+ID4gKw0KPiA+
-ICsgICAgLyogU2tpcCB0b3AgbGV2ZWxzIG9mIHBhZ2UgdGFibGVzIGZvciAyLSBhbmQgMy1sZXZl
-bCBEUkhEcy4gKi8NCj4gPiArICAgIGZvciAoIGFnYXcgPSBsZXZlbF90b19hZ2F3KDQpOw0KPiA+
-ICsgICAgICAgICAgYWdhdyAhPSBsZXZlbF90b19hZ2F3KG5yX3B0X2xldmVscyk7DQo+ID4gKyAg
-ICAgICAgICBhZ2F3LS0gKQ0KPiA+ICsgICAgew0KPiA+ICsgICAgICAgIGNvbnN0IHN0cnVjdCBk
-bWFfcHRlICpwID0gbWFwX3Z0ZF9kb21haW5fcGFnZShwZ2RfbWFkZHIpOw0KPiA+ICsNCj4gPiAr
-ICAgICAgICBwZ2RfbWFkZHIgPSBkbWFfcHRlX2FkZHIoKnApOw0KPiA+ICsgICAgICAgIHVubWFw
-X3Z0ZF9kb21haW5fcGFnZShwKTsNCj4gPiArICAgICAgICBpZiAoICFwZ2RfbWFkZHIgKQ0KPiA+
-ICsgICAgICAgICAgICByZXR1cm4gMDsNCj4gPiArICAgIH0NCj4gPiArDQo+ID4gKyAgICByZXR1
-cm4gcGdkX21hZGRyOw0KPiA+ICt9DQo+ID4gKw0KPiA+ICBzdGF0aWMgdm9pZCBpb21tdV9mbHVz
-aF93cml0ZV9idWZmZXIoc3RydWN0IHZ0ZF9pb21tdSAqaW9tbXUpDQo+ID4gIHsNCj4gPiAgICAg
-IHUzMiB2YWw7DQo+ID4gQEAgLTEyODYsNyArMTMyOCw3IEBAIGludCBkb21haW5fY29udGV4dF9t
-YXBwaW5nX29uZSgNCj4gPiAgICAgIHN0cnVjdCBjb250ZXh0X2VudHJ5ICpjb250ZXh0LCAqY29u
-dGV4dF9lbnRyaWVzOw0KPiA+ICAgICAgdTY0IG1hZGRyLCBwZ2RfbWFkZHI7DQo+ID4gICAgICB1
-MTYgc2VnID0gaW9tbXUtPmRyaGQtPnNlZ21lbnQ7DQo+ID4gLSAgICBpbnQgYWdhdywgcmMsIHJl
-dDsNCj4gPiArICAgIGludCByYywgcmV0Ow0KPiA+ICAgICAgYm9vbF90IGZsdXNoX2Rldl9pb3Rs
-YjsNCj4gPg0KPiA+ICAgICAgQVNTRVJUKHBjaWRldnNfbG9ja2VkKCkpOw0KPiA+IEBAIC0xMzQw
-LDM3ICsxMzgyLDE4IEBAIGludCBkb21haW5fY29udGV4dF9tYXBwaW5nX29uZSgNCj4gPiAgICAg
-IGlmICggaW9tbXVfaHdkb21fcGFzc3Rocm91Z2ggJiYgaXNfaGFyZHdhcmVfZG9tYWluKGRvbWFp
-bikgKQ0KPiA+ICAgICAgew0KPiA+ICAgICAgICAgIGNvbnRleHRfc2V0X3RyYW5zbGF0aW9uX3R5
-cGUoKmNvbnRleHQsIENPTlRFWFRfVFRfUEFTU19USFJVKTsNCj4gPiAtICAgICAgICBhZ2F3ID0g
-bGV2ZWxfdG9fYWdhdyhpb21tdS0+bnJfcHRfbGV2ZWxzKTsNCj4gPiAgICAgIH0NCj4gPiAgICAg
-IGVsc2UNCj4gPiAgICAgIHsNCj4gPiAgICAgICAgICBzcGluX2xvY2soJmhkLT5hcmNoLm1hcHBp
-bmdfbG9jayk7DQo+ID4NCj4gPiAtICAgICAgICAvKiBFbnN1cmUgd2UgaGF2ZSBwYWdldGFibGVz
-IGFsbG9jYXRlZCBkb3duIHRvIGxlYWYgUFRFLiAqLw0KPiA+IC0gICAgICAgIGlmICggaGQtPmFy
-Y2gudnRkLnBnZF9tYWRkciA9PSAwICkNCj4gPiAtICAgICAgICB7DQo+ID4gLSAgICAgICAgICAg
-IGFkZHJfdG9fZG1hX3BhZ2VfbWFkZHIoZG9tYWluLCAwLCAxKTsNCj4gPiAtICAgICAgICAgICAg
-aWYgKCBoZC0+YXJjaC52dGQucGdkX21hZGRyID09IDAgKQ0KPiA+IC0gICAgICAgICAgICB7DQo+
-ID4gLSAgICAgICAgICAgIG5vbWVtOg0KPiA+IC0gICAgICAgICAgICAgICAgc3Bpbl91bmxvY2so
-JmhkLT5hcmNoLm1hcHBpbmdfbG9jayk7DQo+ID4gLSAgICAgICAgICAgICAgICBzcGluX3VubG9j
-aygmaW9tbXUtPmxvY2spOw0KPiA+IC0gICAgICAgICAgICAgICAgdW5tYXBfdnRkX2RvbWFpbl9w
-YWdlKGNvbnRleHRfZW50cmllcyk7DQo+ID4gLSAgICAgICAgICAgICAgICByZXR1cm4gLUVOT01F
-TTsNCj4gPiAtICAgICAgICAgICAgfQ0KPiA+IC0gICAgICAgIH0NCj4gPiAtDQo+ID4gLSAgICAg
-ICAgLyogU2tpcCB0b3AgbGV2ZWxzIG9mIHBhZ2UgdGFibGVzIGZvciAyLSBhbmQgMy1sZXZlbCBE
-UkhEcy4gKi8NCj4gPiAtICAgICAgICBwZ2RfbWFkZHIgPSBoZC0+YXJjaC52dGQucGdkX21hZGRy
-Ow0KPiA+IC0gICAgICAgIGZvciAoIGFnYXcgPSBsZXZlbF90b19hZ2F3KDQpOw0KPiA+IC0gICAg
-ICAgICAgICAgIGFnYXcgIT0gbGV2ZWxfdG9fYWdhdyhpb21tdS0+bnJfcHRfbGV2ZWxzKTsNCj4g
-PiAtICAgICAgICAgICAgICBhZ2F3LS0gKQ0KPiA+ICsgICAgICAgIHBnZF9tYWRkciA9IGRvbWFp
-bl9wZ2RfbWFkZHIoZG9tYWluLCBpb21tdS0+bnJfcHRfbGV2ZWxzKTsNCj4gPiArICAgICAgICBp
-ZiAoICFwZ2RfbWFkZHIgKQ0KPiA+ICAgICAgICAgIHsNCj4gPiAtICAgICAgICAgICAgc3RydWN0
-IGRtYV9wdGUgKnAgPSBtYXBfdnRkX2RvbWFpbl9wYWdlKHBnZF9tYWRkcik7DQo+ID4gLSAgICAg
-ICAgICAgIHBnZF9tYWRkciA9IGRtYV9wdGVfYWRkcigqcCk7DQo+ID4gLSAgICAgICAgICAgIHVu
-bWFwX3Z0ZF9kb21haW5fcGFnZShwKTsNCj4gPiAtICAgICAgICAgICAgaWYgKCBwZ2RfbWFkZHIg
-PT0gMCApDQo+ID4gLSAgICAgICAgICAgICAgICBnb3RvIG5vbWVtOw0KPiA+ICsgICAgICAgICAg
-ICBzcGluX3VubG9jaygmaGQtPmFyY2gubWFwcGluZ19sb2NrKTsNCj4gPiArICAgICAgICAgICAg
-c3Bpbl91bmxvY2soJmlvbW11LT5sb2NrKTsNCj4gPiArICAgICAgICAgICAgdW5tYXBfdnRkX2Rv
-bWFpbl9wYWdlKGNvbnRleHRfZW50cmllcyk7DQo+ID4gKyAgICAgICAgICAgIHJldHVybiAtRU5P
-TUVNOw0KPiA+ICAgICAgICAgIH0NCj4gPg0KPiA+ICAgICAgICAgIGNvbnRleHRfc2V0X2FkZHJl
-c3Nfcm9vdCgqY29udGV4dCwgcGdkX21hZGRyKTsNCj4gPiBAQCAtMTM4OSw3ICsxNDEyLDcgQEAg
-aW50IGRvbWFpbl9jb250ZXh0X21hcHBpbmdfb25lKA0KPiA+ICAgICAgICAgIHJldHVybiAtRUZB
-VUxUOw0KPiA+ICAgICAgfQ0KPiA+DQo+ID4gLSAgICBjb250ZXh0X3NldF9hZGRyZXNzX3dpZHRo
-KCpjb250ZXh0LCBhZ2F3KTsNCj4gPiArICAgIGNvbnRleHRfc2V0X2FkZHJlc3Nfd2lkdGgoKmNv
-bnRleHQsIGxldmVsX3RvX2FnYXcoaW9tbXUtDQo+ID4gPm5yX3B0X2xldmVscykpOw0KPiA+ICAg
-ICAgY29udGV4dF9zZXRfZmF1bHRfZW5hYmxlKCpjb250ZXh0KTsNCj4gPiAgICAgIGNvbnRleHRf
-c2V0X3ByZXNlbnQoKmNvbnRleHQpOw0KPiA+ICAgICAgaW9tbXVfc3luY19jYWNoZShjb250ZXh0
-LCBzaXplb2Yoc3RydWN0IGNvbnRleHRfZW50cnkpKTsNCj4gPiBAQCAtMTg0OCwxOCArMTg3MSw2
-IEBAIHN0YXRpYyBpbnQgX19pbml0IHZ0ZF9lcHRfcGFnZV9jb21wYXRpYmxlKHN0cnVjdA0KPiA+
-IHZ0ZF9pb21tdSAqaW9tbXUpDQo+ID4gICAgICAgICAgICAgKGVwdF9oYXNfMWdiKGVwdF9jYXAp
-ICYmIG9wdF9oYXBfMWdiKSA8PSBjYXBfc3BzXzFnYih2dGRfY2FwKTsNCj4gPiAgfQ0KPiA+DQo+
-ID4gLS8qDQo+ID4gLSAqIHNldCBWVC1kIHBhZ2UgdGFibGUgZGlyZWN0b3J5IHRvIEVQVCB0YWJs
-ZSBpZiBhbGxvd2VkDQo+ID4gLSAqLw0KPiA+IC1zdGF0aWMgdm9pZCBpb21tdV9zZXRfcGdkKHN0
-cnVjdCBkb21haW4gKmQpDQo+ID4gLXsNCj4gPiAtICAgIG1mbl90IHBnZF9tZm47DQo+ID4gLQ0K
-PiA+IC0gICAgcGdkX21mbiA9DQo+ID4gcGFnZXRhYmxlX2dldF9tZm4ocDJtX2dldF9wYWdldGFi
-bGUocDJtX2dldF9ob3N0cDJtKGQpKSk7DQo+ID4gLSAgICBkb21faW9tbXUoZCktPmFyY2gudnRk
-LnBnZF9tYWRkciA9DQo+ID4gLSAgICAgICAgcGFnZXRhYmxlX2dldF9wYWRkcihwYWdldGFibGVf
-ZnJvbV9tZm4ocGdkX21mbikpOw0KPiA+IC19DQo+ID4gLQ0KPiA+ICBzdGF0aWMgaW50IHJtcnJf
-aWRlbnRpdHlfbWFwcGluZyhzdHJ1Y3QgZG9tYWluICpkLCBib29sX3QgbWFwLA0KPiA+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgYWNwaV9ybXJyX3VuaXQg
-KnJtcnIsDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHUzMiBmbGFnKQ0K
-PiA+IEBAIC0yNzE5LDcgKzI3MzAsNiBAQCBzdGF0aWMgc3RydWN0IGlvbW11X29wcyBfX2luaXRk
-YXRhIHZ0ZF9vcHMgPSB7DQo+ID4gICAgICAuYWRqdXN0X2lycV9hZmZpbml0aWVzID0gYWRqdXN0
-X3Z0ZF9pcnFfYWZmaW5pdGllcywNCj4gPiAgICAgIC5zdXNwZW5kID0gdnRkX3N1c3BlbmQsDQo+
-ID4gICAgICAucmVzdW1lID0gdnRkX3Jlc3VtZSwNCj4gPiAtICAgIC5zaGFyZV9wMm0gPSBpb21t
-dV9zZXRfcGdkLA0KPiA+ICAgICAgLmNyYXNoX3NodXRkb3duID0gdnRkX2NyYXNoX3NodXRkb3du
-LA0KPiA+ICAgICAgLmlvdGxiX2ZsdXNoID0gaW9tbXVfZmx1c2hfaW90bGJfcGFnZXMsDQo+ID4g
-ICAgICAuaW90bGJfZmx1c2hfYWxsID0gaW9tbXVfZmx1c2hfaW90bGJfYWxsLA0KPiA+IGRpZmYg
-LS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQveDg2L3Z0ZC5jDQo+ID4gYi94ZW4v
-ZHJpdmVycy9wYXNzdGhyb3VnaC92dGQveDg2L3Z0ZC5jDQo+ID4gaW5kZXggYmJlMzU4ZGMzNi4u
-NjY4MWRjY2Q2OSAxMDA2NDQNCj4gPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQv
-eDg2L3Z0ZC5jDQo+ID4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL3g4Ni92dGQu
-Yw0KPiA+IEBAIC00Miw3ICs0Miw3IEBAIHZvaWQgKm1hcF92dGRfZG9tYWluX3BhZ2UodTY0IG1h
-ZGRyKQ0KPiA+ICAgICAgcmV0dXJuIG1hcF9kb21haW5fcGFnZShfbWZuKHBhZGRyX3RvX3Bmbiht
-YWRkcikpKTsNCj4gPiAgfQ0KPiA+DQo+ID4gLXZvaWQgdW5tYXBfdnRkX2RvbWFpbl9wYWdlKHZv
-aWQgKnZhKQ0KPiA+ICt2b2lkIHVubWFwX3Z0ZF9kb21haW5fcGFnZShjb25zdCB2b2lkICp2YSkN
-Cj4gPiAgew0KPiA+ICAgICAgdW5tYXBfZG9tYWluX3BhZ2UodmEpOw0KPiA+ICB9DQo+ID4gZGlm
-ZiAtLWdpdCBhL3hlbi9pbmNsdWRlL3hlbi9pb21tdS5oIGIveGVuL2luY2x1ZGUveGVuL2lvbW11
-LmgNCj4gPiBpbmRleCBhMmVlZmU4NTgyLi4zNzMxNDUyNjZmIDEwMDY0NA0KPiA+IC0tLSBhL3hl
-bi9pbmNsdWRlL3hlbi9pb21tdS5oDQo+ID4gKysrIGIveGVuL2luY2x1ZGUveGVuL2lvbW11LmgN
-Cj4gPiBAQCAtMjcwLDcgKzI3MCw2IEBAIHN0cnVjdCBpb21tdV9vcHMgew0KPiA+DQo+ID4gICAg
-ICBpbnQgX19tdXN0X2NoZWNrICgqc3VzcGVuZCkodm9pZCk7DQo+ID4gICAgICB2b2lkICgqcmVz
-dW1lKSh2b2lkKTsNCj4gPiAtICAgIHZvaWQgKCpzaGFyZV9wMm0pKHN0cnVjdCBkb21haW4gKmQp
-Ow0KPiA+ICAgICAgdm9pZCAoKmNyYXNoX3NodXRkb3duKSh2b2lkKTsNCj4gPiAgICAgIGludCBf
-X211c3RfY2hlY2sgKCppb3RsYl9mbHVzaCkoc3RydWN0IGRvbWFpbiAqZCwgZGZuX3QgZGZuLA0K
-PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHBh
-Z2VfY291bnQsDQo+ID4gQEAgLTM0Nyw4ICszNDYsNiBAQCB2b2lkIGlvbW11X3Jlc3VtZSh2b2lk
-KTsNCj4gPiAgdm9pZCBpb21tdV9jcmFzaF9zaHV0ZG93bih2b2lkKTsNCj4gPiAgaW50IGlvbW11
-X2dldF9yZXNlcnZlZF9kZXZpY2VfbWVtb3J5KGlvbW11X2dyZG1fdCAqLCB2b2lkICopOw0KPiA+
-DQo+ID4gLXZvaWQgaW9tbXVfc2hhcmVfcDJtX3RhYmxlKHN0cnVjdCBkb21haW4gKmQpOw0KPiA+
-IC0NCj4gPiAgI2lmZGVmIENPTkZJR19IQVNfUENJDQo+ID4gIGludCBpb21tdV9kb19wY2lfZG9t
-Y3RsKHN0cnVjdCB4ZW5fZG9tY3RsICosIHN0cnVjdCBkb21haW4gKmQsDQo+ID4gICAgICAgICAg
-ICAgICAgICAgICAgICAgIFhFTl9HVUVTVF9IQU5ETEVfUEFSQU0oeGVuX2RvbWN0bF90KSk7DQo+
-ID4gLS0NCj4gPiAyLjIwLjENCg0K
+flight 154415 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154415/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              80fcfab9ce7b2d228cda5b95fa68ddec2a9f302e
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   69 days
+Failing since        151818  2020-07-11 04:18:52 Z   68 days   64 attempts
+Testing same since   154415  2020-09-17 04:20:05 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 15148 lines long.)
 
