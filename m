@@ -2,56 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87E6A26CFE9
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 02:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2642726CFF7
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 02:31:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIhj2-0005o3-0n; Thu, 17 Sep 2020 00:24:36 +0000
+	id 1kIhpT-0006l9-PW; Thu, 17 Sep 2020 00:31:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QfqP=C2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kIhj0-0005nn-Kl
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 00:24:34 +0000
-X-Inumbo-ID: e7f49708-f26c-4928-b2ba-922eb8f55310
+ id 1kIhpS-0006l1-Ae
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 00:31:14 +0000
+X-Inumbo-ID: c3ffc81e-57f5-4aaf-b4d3-b1718828b6a2
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7f49708-f26c-4928-b2ba-922eb8f55310;
- Thu, 17 Sep 2020 00:24:33 +0000 (UTC)
+ id c3ffc81e-57f5-4aaf-b4d3-b1718828b6a2;
+ Thu, 17 Sep 2020 00:31:13 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 85A2E20684;
- Thu, 17 Sep 2020 00:24:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 910C2206C9;
+ Thu, 17 Sep 2020 00:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600302273;
- bh=tAwLcEf2TsSGFVWpCXxkWfY044jQF1g0yANfn6KtOX8=;
+ s=default; t=1600302672;
+ bh=u/jF1RLNK1Y8pI+dhnthjbSqWs7YamSglbS3WjKP8Bc=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=tiV/tRjJaQkB6QZiAkEv4zksnFkCltB+PfNRwIvBjqu4uXklzVV0dg9kNe63v5/Nq
- pbrc2VQfo02iCsP+YGYPBQhuC5Bg89PbP/gB+obACdrMs5ftLW0KZ5f9RSI+SRmMM3
- BbqH+fBN2XNQNmYKSHYvKjU4I5+lYA2Ms6zzpMis=
-Date: Wed, 16 Sep 2020 17:24:31 -0700 (PDT)
+ b=xs0m5krZDl+JfaAeQgDYMKUhe3Vv7NOvmVB4i4FhH72h8nP2RNP/I8k5lQcviexIa
+ tO5g8b+9yvWKZCkmh4oNqWrO8Sn7hh2PttcV2qpbttnd1MFc2ui+XN7zErXUqT9Ru3
+ QSzCv7ek5jjRBeeycIGZOPl0l8cTfxzE+yf9nA8w=
+Date: Wed, 16 Sep 2020 17:31:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: Julien Grall <julien@xen.org>, xen-devel <xen-devel@lists.xenproject.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
- Jan Beulich <jbeulich@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
- Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH] SUPPORT.md: Mark Renesas IPMMU-VMSA (Arm) as supported
-In-Reply-To: <CAPD2p-nbhYTBQUTZgeVpbfw2G9cnpP9F-f=gYJLFdGy5c1q5mQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2009161719080.27508@sstabellini-ThinkPad-T480s>
-References: <1600112240-31726-1-git-send-email-olekstysh@gmail.com>
- <6c16083d-27c2-b325-99eb-1e8ff326ac03@xen.org>
- <CAPD2p-nbhYTBQUTZgeVpbfw2G9cnpP9F-f=gYJLFdGy5c1q5mQ@mail.gmail.com>
+To: Julien Grall <julien@xen.org>
+cc: Daniel Wagner2 <Daniel.Wagner2@itk-engineering.de>, 
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Subject: Re: DT with memory bank of size 0 (WAS: Re: AW: AW: Colibri imx8qxp:
+ Missing kernel boot module)
+In-Reply-To: <45400b8b-6379-e00e-50de-941bb2ff423c@xen.org>
+Message-ID: <alpine.DEB.2.21.2009161727100.27508@sstabellini-ThinkPad-T480s>
+References: <bdb15b12e6f345249ea8bc685ca88787@itk-engineering.de>
+ <b97ddb1f-fa6c-b5ea-4fd8-1d0c09c7a693@xen.org>
+ <e421d4214c8a4201a917a9aa833de939@itk-engineering.de>
+ <45400b8b-6379-e00e-50de-941bb2ff423c@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-404632176-1600302221=:27508"
-Content-ID: <alpine.DEB.2.21.2009161723470.27508@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,67 +63,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 16 Sep 2020, Julien Grall wrote:
+> On 14/09/2020 15:26, Daniel Wagner2 wrote:
+> > Hi Julien,
+> 
+> Hi Daniel,
+> 
+> I am moving the thread to xen-devel and adding a couple of more folks.
+> 
+> > > 
+> > > > 
+> > > > this is the full version of the fdt that threw the error:
+> > > > https://pastebin.com/63TZ9z3k
+> > > > The problematic memory node appears in line 126
+> > > 
+> > > Thanks! The output looks corrupted as some of the lines are not valid DTB:
+> > > 
+> > > fsl,pins = * 0x000000009300184c [0x00000048];
+> > > 
+> > > Although, I am not sure if it is just U-boot dumping the DTB differently.
+> > > 
+> > > Anyway, after removing the "corrupted" line, I managed to get a compile
+> > the
+> > > DTB. I don't have a Colibri IMX8QXP. However, given this is an early
+> > parsing
+> > > error, I have just embed the DTB in Xen binary via CONFIG_DTB_FILE.
+> > > 
+> > > Unfortunately I couldn't reproduce your error. This either suggests the
+> > DTB gets
+> > > corrupted or Xen doesn't access the DTB with the correct memory attribute.
+> > > 
+> > > Do you have the DTB in hand?
+> > 
+> > Sorry for the corrupted version, I've uploaded the DTB
+> > (fsl-imx8qxp-colibri-eval-v3.dtb) to
+> > https://drive.google.com/drive/folders/1jbpnz35sC0NbCyEjrkLqelBsKBztW1S6?usp
+> > =sharing
+> > 
+> > I have also uploaded my modified xen source files.
+> > 1. arch/arm/bootfdt.c
+> > where I have added the additional printk's seen in the log and
+> > 2. arch/arm/setup.c
+> > where I rerun the devicetree parser in line 935 to get the logs, since the
+> > console is not yet initialised when the function is called for the first
+> > time and I
+> > didn't manage to enable earlyprintk.
+> > 
+> > I think the breaking point is the second memory bank which appears in the
+> > logs (see the output line marked with "!!")  with start=0x8 8000 0000 and
+> > size=0.
+> > It isn't specified in the DTB, so I am not sure where this comes from.
+> > It has size=0 so
+> > if ( !size )
+> >      {
+> >          printk("invalid size, bank %d\n",i);
+> >          return -EINVAL;
+> >      }
+> > In bootfdt.c makes the function stop.
+> > 
+> > Log:
+> > (XEN) arch/arm/bootfdt.c: early_scan_node
+> > (XEN) -> fdt: node `memory@80000000': parsing
+> > (XEN) -> process_memory_node
+> > (XEN)
+> > (XEN) arch/arm/bootfdt.c: process_memory_node
+> > (XEN) ->found memory:reg
+> > (XEN) ->cell=
+> > (XEN) ->banks=2
+> > (XEN) ->mem->nr_banks=1
+> > (XEN) ->NR_MEM_BANKS=128
+> > (XEN) ->start=0x80200000 size=0x7fe00000
+> > !! (XEN) ->start=0x880000000 size=0
+> > (XEN) invalid size, bank 1
+> > (XEN) END of arch/arm/bootfdt.c: process_memory_node
+> 
+> When I tried to run it on the model I get:
+> 
+> (XEN) device_tree_for_each_node: memory@80000000
+> (XEN)
+> (XEN) arch/arm/bootfdt.c: early_scan_node
+> (XEN) -> fdt: node `memory@80000000': parsing
+> (XEN) -> process_memory_node
+> (XEN)
+> (XEN) arch/arm/bootfdt.c: process_memory_node
+> (XEN) ->found memory:reg
+> (XEN) ->cell=
+> (XEN) ->banks=1
+> (XEN) ->mem->nr_banks=0
+> (XEN) ->NR_MEM_BANKS=128
+> (XEN) ->start=0x80000000 size=0x40000000
+> (XEN) END of arch/arm/bootfdt.c: process_memory_node
+> 
+> > 
+> > Btw 8_8000_0000 is the start address of this systems DDR Main memory,
+> > according to the Reference Manual of the i.MX8QXP.
+> I couldn't find this value in the DT. It is possible that U-boot is modifying
+> the memory node before jumping to Xen (or Linux).
+> 
+> Looking at Linux, they seem to ignore any bank with size == 0. I am starting
+> to wonder whether your DT is (ab)using it.
+> 
+> Do you have Linux running on baremetal on this board? If so would you mind to
+> dump the DT from the userspace (via /proc/device-tree) this time?
+> 
+> In any case, we may want to relax the check in Xen. Any opinions?
 
---8323329-404632176-1600302221=:27508
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2009161723471.27508@sstabellini-ThinkPad-T480s>
-
-On Thu, 17 Sep 2020, Oleksandr Tyshchenko wrote:
-> On Wed, Sep 16, 2020 at 8:02 PM Julien Grall <julien@xen.org> wrote:
->       Hi Oleksandr,
-> 
-> 
-> Hi Julien
-> 
-> [sorry for the possible format issues]
->  
-> 
->       On 14/09/2020 20:37, Oleksandr Tyshchenko wrote:
->       > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->       >
->       > And remove dependencies on CONFIG_EXPERT.
-> 
->       In order to help to make the decision, can you provide the following
->       information:
->           - Is it functionally complete?
-> 
->  
-> I think, yes. At least I am not aware of any remaining issues which prevent us from using Xen driver normally these days.
-> There was one important issue related to the known R-Car Gen3 IPMMU-VMSA limitation to handle maximum 40-bit IPA only (so 4-level
-> translation table is not supported) and
-> this issue didn't allow us to have the Xen driver *completely* functional. Hopefully, we have already found a proper way to handle this in
-> Xen on Arm [1]:
->  
->           - Can it work on all known platforms with IPMMU VMSA?
-> 
->  
-> I don't think Xen driver will work on all known platforms with the IPMMU-VMSA.
-> Xen driver is supposed to be used with newest R-Car Gen3 SoC revisions only (H3 ES3.0, M3-W+, etc.) which IPMMU H/W supports stage 2
-> translation
-> table format (to be able to share the P2M with the CPU). On older SoC revisions it won't work (driver performs a special check at the
-> initialization time to see whether
-> the P2M sharing is supported in current SoC revision). Being honest, the R-Car Gen3 family is not limited by these 3 SoCs (H3, M3-W+, M3N)
-> the driver is looking for.
-> There are other SoCs: E3, D3, V3H, V3M, etc, which are quite new and likely have a *proper* IPMMU H/W to be used in Xen. But, I don't have
-> a possibility to check
-> them in order to be 100% sure and extend a number of supported SoCs in the driver.
->  
->           - Is there any plan to smoke (manually or automatically) test the driver?
-> 
->  
-> Yes, there is a plan to perform manual tests. Actually, this is what we usually do in the context of our development.
-> After all, device passthrough is one of the important features and keeping this driver in a functional state is our target.
-> 
-> [1]  https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02967.html
-
-Keeping in mind what Julien wrote in his reply about security support, I
-think it only makes sense to change IPMMU-VMSA to "Supported, not
-security supported".
-
-In that regard, also reading your answer, I think it is OK to make the
-change.
---8323329-404632176-1600302221=:27508--
+Yeah, ignoring a bank with size=0 is fine. I checked the epapr and it
+doesn't specify that size=0 is invalid, so I think it is actually better
+to ignore it and continue even from a spec perspective.
 
