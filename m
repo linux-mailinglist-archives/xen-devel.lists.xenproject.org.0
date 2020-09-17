@@ -2,64 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A9B26DB2D
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 14:10:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EADAF26DB9F
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 14:33:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIsiw-0008DF-LS; Thu, 17 Sep 2020 12:09:14 +0000
+	id 1kIt6G-0002Fz-Lf; Thu, 17 Sep 2020 12:33:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZJEn=C2=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kIsiv-0008DA-Ar
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 12:09:13 +0000
-X-Inumbo-ID: aed76a38-0375-4956-a587-064ec4ceffd4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIt6F-0002Fu-2m
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 12:33:19 +0000
+X-Inumbo-ID: 9ec3a209-1de0-4d2c-a255-f05d1c7d0c21
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aed76a38-0375-4956-a587-064ec4ceffd4;
- Thu, 17 Sep 2020 12:09:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600344551;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=TZgjVmsLCg+PxpnY+fgYYgpnxh/CHnGF/MeCksnCXmM=;
- b=gZz3tjncDn3xcY0D2zm8gQqHmox7U7EXGcUWqBcrNQuN1wLeiZBU4RYX
- 0x8DSjL8isoZF0JcOIovFlBbm4YfB6+o+0v7U4hMvtKLuiSVOpZM6L5je
- s0oVrIucbPYnGTCR0X4s0JxyiwRFD8Oi61UYS3FV6/LcVWN7FgVGr6A73 g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: FS86lXY3eRPWY0R/tJSuJ+Juus/zU33fKmhgKo+BT9moBkcZNQ2QBtKJ8Sd8BbY4PewsRJKhm0
- r+tE5oIc1zPCir17Eg18zE/5AKUqbRc2jRnCTK5jcu4CRD76DRMh7XzzMf2EVI75elvz53JYIP
- NiVMCfwo/wyy8fi556ALIopjhD+FEfLjycjI3v1Jq86iIxnlTBd3O2RiXF+jqamDKY/Lxl0Yir
- zJP2G7NB3GpaK90cNgqwLFlzFebJGH/uT4SfodYSFJosB/jyFylPDnmjtCGDBvwJzSilAqFbH+
- JLU=
-X-SBRS: 2.7
-X-MesageID: 27034315
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.76,436,1592884800"; d="scan'208";a="27034315"
-Subject: Re: [PATCH 2/5] sched/arinc653: Rename scheduler private structs
-To: Jeff Kubascik <jeff.kubascik@dornerworks.com>,
- <xen-devel@lists.xenproject.org>
-CC: <xen-devel@dornerworks.com>, Josh Whitehead
- <josh.whitehead@dornerworks.com>, Stewart Hildebrand
- <stewart.hildebrand@dornerworks.com>, George Dunlap
- <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
-References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-3-jeff.kubascik@dornerworks.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <fc0b043d-1fe5-8281-fc18-1e1ba26cb127@citrix.com>
-Date: Thu, 17 Sep 2020 13:09:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 9ec3a209-1de0-4d2c-a255-f05d1c7d0c21;
+ Thu, 17 Sep 2020 12:33:17 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=cantorsusede; t=1600345996;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8PjkYehhbxaMV7TSglIRanKHNeSFioVhCaliuiTMigc=;
+ b=Q5gFj7Ern9218DQOstQjrN9JUQYnxhCpukTrdvcme3Kow2kQ8kEHmRKGgzbFX/1tBqjdAh
+ to42qHKuJJ9LnU4b0WuMr2cTyo/UpFlnIBRHbyZDP2jOTCLZYz/eVUYCI7H02CVDQtk7rE
+ yyQnzAJYbRhWXN4Zs4b3MGXA7f0hFprTnIWuXRG6scaIXGoo+NVuZC7Oghmi1XmmQsMnpx
+ zGnCg5rGaibhNPdmapMlv903Hn8iwAPb8WIOD9XYZDGl9+Uwi0Z23YXEGlW3kbDE88uPcT
+ 7RIhKJQJ2GdPTCNafNrM3R7+Dto2SsZNE/5u6HfwS+eaLJcfFhP9wa5vK7r1Hg==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1C836B475;
+ Thu, 17 Sep 2020 12:33:50 +0000 (UTC)
+Subject: Re: [PATCH v4 3/4] efi: Enable booting unified
+ hypervisor/kernel/initrd images
+To: Trammell Hudson <hudson@trmm.net>
+Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
+ andrew.cooper3@citrix.com, wl@xen.org
+References: <20200914115013.814079-1-hudson@trmm.net>
+ <20200914115013.814079-4-hudson@trmm.net>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bce3b96d-8e40-0f46-81a8-1cffb464dbd6@suse.com>
+Date: Thu, 17 Sep 2020 14:33:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200916181854.75563-3-jeff.kubascik@dornerworks.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+In-Reply-To: <20200914115013.814079-4-hudson@trmm.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,33 +64,365 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/09/2020 19:18, Jeff Kubascik wrote:
-> diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
-> index 7bb75ffe2b..d8a23730c3 100644
-> --- a/xen/common/sched/arinc653.c
-> +++ b/xen/common/sched/arinc653.c
-> @@ -50,38 +50,38 @@
->   * Return a pointer to the ARINC 653-specific scheduler data information
->   * associated with the given UNIT
->   */
-> -#define AUNIT(unit) ((arinc653_unit_t *)(unit)->priv)
-> +#define AUNIT(unit) ((struct a653sched_unit *)(unit)->priv)
+On 14.09.2020 13:50, Trammell Hudson wrote:
+> --- a/docs/misc/efi.pandoc
+> +++ b/docs/misc/efi.pandoc
+> @@ -116,3 +116,52 @@ Filenames must be specified relative to the location of the EFI binary.
 >  
->  /*
->   * Return the global scheduler private data given the scheduler ops pointer
->   */
-> -#define SCHED_PRIV(s) ((a653sched_priv_t *)((s)->sched_data))
-> +#define SCHED_PRIV(s) ((struct a653sched_private *)((s)->sched_data))
+>  Extra options to be passed to Xen can also be specified on the command line,
+>  following a `--` separator option.
+> +
+> +## Unified Xen kernel image
+> +
+> +The "Unified" kernel image can be generated by adding additional
+> +sections to the Xen EFI executable with objcopy, similar to how
+> +[systemd-boot uses the stub to add them to the Linux kernel](https://wiki.archlinux.org/index.php/systemd-boot#Preparing_a_unified_kernel_image)
+> +
+> +The sections for the xen configuration file, the dom0 kernel, dom0 initrd,
+> +XSM and CPU microcode should be added after the Xen `.pad` section, the
+> +ending address of which can be located with:
+> +
+> +```
+> +objdump -h xen.efi \
+> +	| perl -ane '/\.pad/ && printf "0x%016x\n", hex($F[2]) + hex($F[3])'
+> +```
+> +
+> +For all the examples the `.pad` section ended at 0xffff82d041000000.
+> +All the sections are optional (`.config`, `.kernel`, `.ramdisk`, `.xsm`,
+> +`.ucode` (x86) and `.dtb` (ARM)) and the order does not matter.
+> +The virtual addresses do not need to be contiguous, although they should not
+> +be overlapping and should all be greater than the last virtual address of the
+> +hypervisor components.
 
-While you're cleaning things up, please delete these macros (possibly in
-this patch, as you touch every almost every user).  They strictly
-introduce type safety issues, and are in the process of being taken out
-of the other schedulers.
+The .pad section is there really only for padding the image. Its space
+could in principle be used for placing useful stuff (and hence to limit
+overall in-memory image size). That said, there is a plan for a change
+which may involve using the initial part of .pad, but that's not certain
+yet. I'm pointing this out to clarify that there may be a valid reason
+to avoid re-using the .pad space, at least for now.
 
-Some logic already has a local variable.  These areas can be expanded in
-place and everything will work.
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -375,27 +375,36 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+>      efi_xen_start(fdt, fdt_totalsize(fdt));
+>  }
+>  
+> -static void __init efi_arch_cfg_file_early(EFI_FILE_HANDLE dir_handle, char *section)
+> +static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+> +                                           EFI_FILE_HANDLE dir_handle,
+> +                                           char *section)
 
-Any logic which doesn't have a local variable need to gain one.
+Could I talk you into constifying "section" at this occasion - afaics
+there should be no fallout here or in the other three places where
+the same would apply.
 
-~Andrew
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -272,14 +272,21 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+>      unreachable();
+>  }
+>  
+> -static void __init efi_arch_cfg_file_early(EFI_FILE_HANDLE dir_handle, char *section)
+> +static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+> +                                           EFI_FILE_HANDLE dir_handle,
+> +                                           char *section)
+>  {
+>  }
+>  
+> -static void __init efi_arch_cfg_file_late(EFI_FILE_HANDLE dir_handle, char *section)
+> +static void __init efi_arch_cfg_file_late(const EFI_LOADED_IMAGE *image,
+> +                                          EFI_FILE_HANDLE dir_handle,
+> +                                          char *section)
+>  {
+>      union string name;
+>  
+> +    if ( read_section(image, ".ucode", &ucode, NULL) )
+> +        return;
+> +
+>      name.s = get_value(&cfg, section, "ucode");
+
+With the Arm change already in mind and with further similar
+changes further down, may I suggest to consider passing
+'section' into read_section(), thus guaranteeing consistent
+naming between image section and config file items, not only now
+but also going forward? read_section() would then check for the
+leading dot followed by the specified name.
+
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -121,6 +121,8 @@ static CHAR16 *s2w(union string *str);
+>  static char *w2s(const union string *str);
+>  static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>                        struct file *file, char *options);
+> +static bool read_section(const EFI_LOADED_IMAGE *image,
+> +                         char *name, struct file *file, char *options);
+>  static size_t wstrlen(const CHAR16 * s);
+>  static int set_color(u32 mask, int bpp, u8 *pos, u8 *sz);
+>  static bool match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2);
+> @@ -623,6 +625,27 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>      return true;
+>  }
+>  
+> +static bool __init read_section(const EFI_LOADED_IMAGE *image,
+> +                                char *const name, struct file *file,
+> +                                char *options)
+> +{
+> +    /* skip the leading "." in the section name */
+> +    union string name_string = { .s = name + 1 };
+> +
+> +    file->ptr = (void *)pe_find_section(image->ImageBase, image->ImageSize,
+> +                                        name, &file->size);
+
+This casting away of const-ness worries me. The sole reason why
+the "ptr" member is non-const looks to be the two parsing functions
+for the config file. How about we make "ptr" const void * and add a
+new "char *str" field? While it won't _guarantee_ correct code to
+be written, it at least allows doing so.
+
+> @@ -1207,9 +1230,13 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>          /* Get the file system interface. */
+>          dir_handle = get_parent_handle(loaded_image, &file_name);
+>  
+> -        /* Read and parse the config file. */
+> -        if ( !cfg_file_name )
+> +        if ( read_section(loaded_image, ".config", &cfg, NULL) )
+> +        {
+> +            PrintStr(L"Using unified config file\r\n");
+> +        }
+
+Please omit the braces here.
+
+> @@ -1258,29 +1285,39 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>          if ( !name.s )
+>              blexit(L"No Dom0 kernel image specified.");
+>  
+> -        efi_arch_cfg_file_early(dir_handle, section.s);
+> +        efi_arch_cfg_file_early(loaded_image, dir_handle, section.s);
+>  
+>          option_str = split_string(name.s);
+> -        read_file(dir_handle, s2w(&name), &kernel, option_str);
+> -        efi_bs->FreePool(name.w);
+> -
+> -        if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> -                        (void **)&shim_lock)) &&
+> -             (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
+> -            PrintErrMesg(L"Dom0 kernel image could not be verified", status);
+>  
+> -        name.s = get_value(&cfg, section.s, "ramdisk");
+> -        if ( name.s )
+> +        if ( !read_section(loaded_image, ".kernel", &kernel, option_str) )
+>          {
+> -            read_file(dir_handle, s2w(&name), &ramdisk, NULL);
+> +            read_file(dir_handle, s2w(&name), &kernel, option_str);
+
+As before, I disagree with the idea of taking pieces from disk and
+pieces from the unified image. If you continue to think this is a
+reasonable thing to do, may I ask that you add a rationale of this
+model to the description? And btw, my worry looks to not be without
+reason, since ...
+
+>              efi_bs->FreePool(name.w);
+> +
+> +            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> +                            (void **)&shim_lock)) &&
+> +                 (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
+> +                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
+>          }
+>  
+> -        name.s = get_value(&cfg, section.s, "xsm");
+> -        if ( name.s )
+> +        if ( !read_section(loaded_image, ".ramdisk", &ramdisk, NULL) )
+>          {
+> -            read_file(dir_handle, s2w(&name), &xsm, NULL);
+> -            efi_bs->FreePool(name.w);
+> +            name.s = get_value(&cfg, section.s, "ramdisk");
+> +            if ( name.s )
+> +            {
+> +                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
+> +                efi_bs->FreePool(name.w);
+> +            }
+> +        }
+
+... the RAM disk (just taken as example) is optional. How do you express
+the unified image's explicit intention to have no RAM disk with this
+fallback approach? FAOD, even if objcopy allows to add empty sections
+(didn't check), I'd consider an empty section different from an absent
+one, i.e. the former meaning "empty RAM disk" while the latter says "no
+RAM disk".
+
+> +        if ( !read_section(loaded_image, ".xsm", &xsm, NULL) )
+> +        {
+> +            name.s = get_value(&cfg, section.s, "xsm");
+> +            if ( name.s )
+> +            {
+> +                read_file(dir_handle, s2w(&name), &xsm, NULL);
+> +                efi_bs->FreePool(name.w);
+> +            }
+>          }
+
+The fallback approach may even have security implications here, as
+(afaik) an XSM policy can also be used to increase privileges. The
+builder of unified image, in omitting an XSM policy, may certainly
+mean "use built-in defaults" rather than intending to allow further
+overriding.
+
+> --- /dev/null
+> +++ b/xen/common/efi/pe.c
+> @@ -0,0 +1,137 @@
+> +/*
+> + * xen/common/efi/pe.c
+> + *
+> + * PE executable header parser.
+> + *
+> + * Derived from https://github.com/systemd/systemd/blob/master/src/boot/efi/pe.c
+> + * commit 07d5ed536ec0a76b08229c7a80b910cb9acaf6b1
+> + *
+> + * Copyright (C) 2015 Kay Sievers <kay@vrfy.org>
+> + * Copyright (C) 2020 Trammell Hudson <hudson@trmm.net>
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms of the GNU Lesser General Public License as published by
+> + * the Free Software Foundation; either version 2.1 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful, but
+> + * WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+> + * Lesser General Public License for more details.
+> + */
+> +
+> +
+> +#include "efi.h"
+> +
+> +struct DosFileHeader {
+> +    UINT8   Magic[2];
+> +    UINT16  LastSize;
+> +    UINT16  nBlocks;
+> +    UINT16  nReloc;
+> +    UINT16  HdrSize;
+> +    UINT16  MinAlloc;
+> +    UINT16  MaxAlloc;
+> +    UINT16  ss;
+> +    UINT16  sp;
+> +    UINT16  Checksum;
+> +    UINT16  ip;
+> +    UINT16  cs;
+> +    UINT16  RelocPos;
+> +    UINT16  nOverlay;
+> +    UINT16  reserved[4];
+> +    UINT16  OEMId;
+> +    UINT16  OEMInfo;
+> +    UINT16  reserved2[10];
+> +    UINT32  ExeHeader;
+> +} __attribute__((packed));
+> +
+> +#define PE_HEADER_MACHINE_ARM64         0xaa64
+> +#define PE_HEADER_MACHINE_X64           0x8664
+> +#define PE_HEADER_MACHINE_I386          0x014c
+
+This list isn't meant to be a complete one anyway, so please omit
+the I386 item as it's not needed anywhere.
+
+> +struct PeFileHeader {
+> +    UINT16  Machine;
+> +    UINT16  NumberOfSections;
+> +    UINT32  TimeDateStamp;
+> +    UINT32  PointerToSymbolTable;
+> +    UINT32  NumberOfSymbols;
+> +    UINT16  SizeOfOptionalHeader;
+> +    UINT16  Characteristics;
+> +} __attribute__((packed));
+> +
+> +struct PeHeader {
+> +    UINT8   Magic[4];
+> +    struct PeFileHeader FileHeader;
+> +} __attribute__((packed));
+
+At the example of these two (i.e. may extend to others): When the
+packed attribute doesn't really have any impact on structure layout
+(and will just adversely affect alignof() when applied to the struct
+or any of the fields), please omit it. We had a number of such
+pointless attributes in the tree, and we had to drop them for one of
+the more recent gcc versions to actually still compile our code
+without warnings (in fact errors, due to out use of -Werror).
+
+> +struct PeSectionHeader {
+> +    UINT8   Name[8];
+
+Better char?
+
+> +const void *__init pe_find_section(const CHAR8 *image, const UINTN image_size,
+> +                                   const char *section_name, UINTN *size_out)
+> +{
+> +    const struct DosFileHeader *dos = (const void*)image;
+
+If the type of "image" was "const void *", there wouldn't be any cast
+needed here (and again further down). And I don't think you actually
+need "image" to be a pointer to a particular type? Of course ...
+
+> +    const struct PeHeader *pe;
+> +    const struct PeSectionHeader *sect;
+> +    const UINTN name_len = strlen(section_name);
+> +    UINTN offset = 0;
+
+Unnecessary initializer, and please fold ...
+
+> +    UINTN i;
+
+... with this line.
+
+> +    if ( name_len > sizeof(sect->Name) ||
+> +         image_size < sizeof(*dos) ||
+> +         memcmp(dos->Magic, "MZ", 2) != 0 )
+> +        return NULL;
+> +
+> +    offset = dos->ExeHeader;
+> +    pe = (const void *) &image[offset];
+
+... this then needs to become "image + offset".
+
+> +
+> +    offset += sizeof(*pe);
+> +    if ( image_size < offset ||
+> +         memcmp(pe->Magic, "PE\0\0", 4) != 0 )
+> +        return NULL;
+> +
+> +    /* PE32+ Subsystem type */
+> +#if defined(__arm__) || defined (__aarch64__)
+> +    if ( pe->FileHeader.Machine != PE_HEADER_MACHINE_ARM64 )
+> +        return NULL;
+> +#elif defined(__x86_64__)
+> +    if ( pe->FileHeader.Machine != PE_HEADER_MACHINE_X64 )
+> +        return NULL;
+> +#else
+> +    /* unknown architecture */
+> +    return NULL;
+> +#endif
+
+Instead of this, further up please #define a single constant (e.g.
+PE_HEADER_MACHINE) to check against without any #ifdef-ary here.
+This then also should lead to a build error (instead of the
+function returning NULL at runtime) when no enabling was done for
+a possible future port.
+
+> +    offset += pe->FileHeader.SizeOfOptionalHeader;
+> +
+> +    for ( i = 0; i < pe->FileHeader.NumberOfSections; i++ )
+> +    {
+> +        sect = (const void *)&image[offset];
+
+Please limit the scope of sect to the body of this loop, at which
+point this assignment can become the initializer.
+
+> +        if ( image_size < offset + sizeof(*sect) )
+> +            return NULL;
+> +
+> +        if ( memcmp(sect->Name, section_name, name_len) != 0 ||
+> +             image_size < sect->VirtualSize + sect->VirtualAddress )
+
+Wouldn't this latter part of the condition better be treated as an
+error, rather than getting silently ignored? The more if the falling
+back to on-disk files got retained?
+
+Jan
 
