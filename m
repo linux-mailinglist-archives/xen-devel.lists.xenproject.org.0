@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED43C26DF78
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 17:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815FD26DF7D
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 17:21:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIvhu-0001Tw-2I; Thu, 17 Sep 2020 15:20:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yDaX=C2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1kIvhs-0001To-2G
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 15:20:20 +0000
-X-Inumbo-ID: a6b404ed-2946-451f-a481-935c770ed144
+	id 1kIvio-0001am-C6; Thu, 17 Sep 2020 15:21:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kIvin-0001ab-2U
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 15:21:17 +0000
+X-Inumbo-ID: e5371a7c-8ed1-45dd-94ac-acbb616867c8
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6b404ed-2946-451f-a481-935c770ed144;
- Thu, 17 Sep 2020 15:20:19 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e5371a7c-8ed1-45dd-94ac-acbb616867c8;
+ Thu, 17 Sep 2020 15:21:15 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600356018;
+ s=cantorsusede; t=1600356075;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S5JXFLUGt+TeJtZQJlzJs2tB8xxAF9D9CNEoj+vflrc=;
- b=m6Bq7lsCFSK3TejQEGLEG44IgxOWj7bk/OlBHyJJrks3UA1/0AWnuBkEN5jA0qEJucm6bN
- gLOXcsuy5b/yPNFdNlwoDQrnKJaP8JjR6X2vl3nzFry9+OLHjC27i9r5WvVFcg9F2PW3yh
- 5kc3xmYKdz/vO1kWZVOJ84hqihPSkV2sCHpVpV/1gdTwXHZYOx6rkWLwOxSaE2Fevjty6u
- moJ6N+sOfi+da3mvdfs6HK8s1fBA3PemXPhG4Tnx/U2n47cf3YPExB8+NTKBH+FE+X1Ima
- o3jGrTOlkEs2uZfLq0EBnziJnsAjsgZ3IbkKAhPtc8FgXK8HFuaw4Rcq/d2hPQ==
+ bh=aZ/sOxRMDNstINq0XGfph2L0vk4XvYFR4HD8yTFGPFA=;
+ b=iFseQZzAmzgk6vM6jOF95FvRR2DwBPPgLXjBZ4Omd89OBSsKKwyCbzSx58mVuzk0yEkIMl
+ r85bdsDBKE3PUi9Hy+hE2gEzY66bU2SM5eqJe1RB9GmNf/p33S4eqCbmUBqxVgaHCAgQLV
+ Gvx1aJGUypPZWcL++pfTPl5O0gmP4b8NIzbo2KubSsBcHwXFnrdoY2bhivPxYEuq1weFUC
+ JpQqRJZHNZtUnpw9hpJPwC1LtQK9FUhY0dRX1tfD+OkiO/Ymjwzcwm2nUV1Mc+SO6eDj86
+ VJdcKHw7cer4vgd0qFA7cyv66WGt94FiQAGoqxn3OWxpEHmqa/Zy1dMGWoQ5BQ==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5B04CB276;
- Thu, 17 Sep 2020 15:20:51 +0000 (UTC)
-Message-ID: <5b758105ee47638c36ef19eb3804b76ee19020a8.camel@suse.com>
-Subject: Re: [PATCH 5/5] sched/arinc653: Implement CAST-32A multicore
- scheduling
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>, 
- =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
- <jgross@suse.com>, Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: xen-devel <xen-devel@dornerworks.com>, Josh Whitehead
- <Josh.Whitehead@dornerworks.com>, George Dunlap <george.dunlap@citrix.com>
-Date: Thu, 17 Sep 2020 17:20:14 +0200
-In-Reply-To: <CY1P110MB055125447405A5DA2202BF028C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
-References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-6-jeff.kubascik@dornerworks.com>
- <d2973002-86b5-17b7-cbfa-ba235af75ba3@suse.com>
- <CY1P110MB055125447405A5DA2202BF028C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-sCWw+G32AAlgSeAJ+N8c"
-User-Agent: Evolution 3.36.5 (by Flathub.org) 
+ by mx2.suse.de (Postfix) with ESMTP id D0504AC8C;
+ Thu, 17 Sep 2020 15:21:48 +0000 (UTC)
+Subject: Re: [PATCH v4 3/4] efi: Enable booting unified
+ hypervisor/kernel/initrd images
+To: Trammell Hudson <hudson@trmm.net>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "wl@xen.org" <wl@xen.org>
+References: <20200914115013.814079-1-hudson@trmm.net>
+ <20200914115013.814079-4-hudson@trmm.net>
+ <bce3b96d-8e40-0f46-81a8-1cffb464dbd6@suse.com>
+ <f77dk3H4FvbqMm9PBWKLDGxWMhJA8Hb9ClafHpPOzZZ5kYgUBVHaa4nUi_m2FY74cS8pV9m6tBy50oWG5TD2u0R-nVIh6S7lqDqjX21ZeEc=@trmm.net>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c0d916d7-efc5-6b76-0c32-70b59c579f13@suse.com>
+Date: Thu, 17 Sep 2020 17:21:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <f77dk3H4FvbqMm9PBWKLDGxWMhJA8Hb9ClafHpPOzZZ5kYgUBVHaa4nUi_m2FY74cS8pV9m6tBy50oWG5TD2u0R-nVIh6S7lqDqjX21ZeEc=@trmm.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,88 +68,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 17.09.2020 15:04, Trammell Hudson wrote:
+> On Thursday, September 17, 2020 8:33 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 14.09.2020 13:50, Trammell Hudson wrote:
+>> [...]
+>>> +For all the examples the `.pad` section ended at 0xffff82d041000000.
+>>> +All the sections are optional (`.config`, `.kernel`, `.ramdisk`, `.xsm`,
+>>> +`.ucode` (x86) and `.dtb` (ARM)) and the order does not matter.
+>>> +The virtual addresses do not need to be contiguous, although they should not
+>>> +be overlapping and should all be greater than the last virtual address of the
+>>> +hypervisor components.
+>>
+>> The .pad section is there really only for padding the image. Its space
+>> could in principle be used for placing useful stuff (and hence to limit
+>> overall in-memory image size). That said, there is a plan for a change
+>> which may involve using the initial part of .pad, but that's not certain
+>> yet. I'm pointing this out to clarify that there may be a valid reason
+>> to avoid re-using the .pad space, at least for now.
+> 
+> The instructions show how to append after the .pad region, so there is
+> no reuse of that space.  I wish objcopy had an --append-region option
+> so that the user didn't have to do this extra math and adjust sizes.
 
---=-sCWw+G32AAlgSeAJ+N8c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Well, I've been trying to point out that the .pad space could be made
+use of, but there are constraints.
 
-On Thu, 2020-09-17 at 15:10 +0000, Stewart Hildebrand wrote:
-> On Thursday, September 17, 2020 5:04 AM, J=C3=BCrgen Gro=C3=9F wrote:
-> > On 16.09.20 20:18, Jeff Kubascik wrote:
-> > > This change is an overhaul of the ARINC653 scheduler to enable
-> > > CAST-32A
-> > > multicore scheduling. CAST-32A specifies that only one partition
-> > > (domain) can run during a minor frame, but that domain is now
-> > > allowed to
-> > > have more than one vCPU.
-> >=20
-> > It might be worth to consider using just the core scheduling
-> > framework
-> > in order to achive this. Using a sched_granularity with the number
-> > of
-> > cpus in the cpupool running ARINC653 scheduler should already do
-> > the
-> > trick. There should be no further midification of ARINC653
-> > scheduler
-> > required.
-> >=20
->=20
-> This CAST-32A multicore patch series allows you to have a different
-> number of vCPUs (UNITs, I guess) assigned to domUs.=20
->
-Yep, you can have domains with different numbers of vCPUs, when using
-core-scheduling (or socket-scheduling, or ...), if this is what you're
-asking.
+>>> --- a/xen/arch/arm/efi/efi-boot.h
+>>> +++ b/xen/arch/arm/efi/efi-boot.h
+>>> @@ -375,27 +375,36 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+>>> efi_xen_start(fdt, fdt_totalsize(fdt));
+>>> }
+>>> -static void __init efi_arch_cfg_file_early(EFI_FILE_HANDLE dir_handle, char *section)
+>>> +static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+>>>
+>>> -                                             EFI_FILE_HANDLE dir_handle,
+>>>
+>>>
+>>> -                                             char *section)
+>>>
+>>>
+>>
+>> Could I talk you into constifying "section" at this occasion - afaics
+>> there should be no fallout here or in the other three places where
+>> the same would apply.
+> 
+> I'm always in favor of adding more constness.  Is it ok to have that
+> as part of this patch since we're changing the signature on the function?
 
-> For example, dom1 has a single vCPU, and dom2 has 4 vCPUs. I didn't
-> think the core scheduling framework had this flexibility?
->
-It does.
+Yes, if there's no further fallout from it. Please just mention such
+"on the side" changes in half a sentence in the description, so it's
+clear they're intentional.
 
-And if you have domain A with 1 vCPU and domain B with 2 vCPUs, with
-sched-gran=3Dcore:
-- when the vCPU of domain A is scheduled on a pCPU of a core, no vCPU=20
-  from domain B can be scheduled on the same core;
-- when one of the vCPUs of domain B is scheduled on a pCPU of a core,=20
-  no other vCPUs, except the other vCPU of domain B can run on the=20
-  same core.
+>>> -          if ( !read_section(loaded_image, ".kernel", &kernel, option_str) )
+>>> -              read_file(dir_handle, s2w(&name), &ramdisk, NULL);
+>>> -              read_file(dir_handle, s2w(&name), &kernel, option_str);
+>>
+>> As before, I disagree with the idea of taking pieces from disk and
+>> pieces from the unified image. If you continue to think this is a
+>> reasonable thing to do, may I ask that you add a rationale of this
+>> model to the description?
+> 
+> It allows distributions to continue with the status quo if they want a
+> signed kernel + config, but allow a user provided initrd (which is what
+> the shim protocol does today).  Qubes, for instance, has discussed that
+> as a path forward to allow a trusted kernel, while also allowing users
+> to rebuild their own initrd since it contains machine specific data.
+> 
+> The config is signed, so an attacker can not add any new lines to it.
+> So if the config file has no "ramdisk" or "xsm" line then get_value()
+> will return NULL and the read_file() will not be attempted.
+> If, however, the config file has an "ramdisk /boot/initrd.gz",
+> but not ".ramdisk" PE section, then that is an explicit statement
+> from the signer that they want to load that file from disk, even
+> though the initrd.gz is not included in the signature.
 
-With sched-gran=3Dsocket, the same, with s/core/socket. :-)
+Ah yes, I can follow these arguments. Please put this or an abridged
+version of it in the description. It'll help me not re-asking the
+same question in a couple of week's time, at the very least.
 
-So indeed it seems that sched-gran=3DNR_CPUS (actually, number of CPUs in
-the pool, as Juergen is saying) may indeed do what you want.
+>>> --- /dev/null
+>>> +++ b/xen/common/efi/pe.c
+>>> +#define PE_HEADER_MACHINE_ARM64 0xaa64
+>>> +#define PE_HEADER_MACHINE_X64 0x8664
+>>> +#define PE_HEADER_MACHINE_I386 0x014c
+>>
+>> This list isn't meant to be a complete one anyway, so please omit
+>> the I386 item as it's not needed anywhere.
+> 
+> Sure.  This file is almost verbatim from systemd-boot, so it has
+> a few things like that which are not relevant.
 
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+Please zap full entities we don't need (and by this I mean please
+don't zap e.g. structure members because we only need some of them).
 
---=-sCWw+G32AAlgSeAJ+N8c
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+>>> +struct PeFileHeader {
+>>> -   UINT16 Machine;
+>>> -   UINT16 NumberOfSections;
+>>> -   UINT32 TimeDateStamp;
+>>> -   UINT32 PointerToSymbolTable;
+>>> -   UINT32 NumberOfSymbols;
+>>> -   UINT16 SizeOfOptionalHeader;
+>>> -   UINT16 Characteristics;
+>>>     +} attribute((packed));
+>>>
+>>> +struct PeHeader {
+>>> -   UINT8 Magic[4];
+>>> -   struct PeFileHeader FileHeader;
+>>>     +} attribute((packed));
+>>
+>> At the example of these two (i.e. may extend to others): When the
+>> packed attribute doesn't really have any impact on structure layout
+>> (and will just adversely affect alignof() when applied to the struct
+>> or any of the fields), please omit it.
+> 
+> In this case the packed does not affect the layout, but if PeFileHeader
+> started with a UINT64, for instance, then padding would be added to
+> PeHeader to align it without the packed.
 
------BEGIN PGP SIGNATURE-----
+Of course, in such a case the "packed" would be warranted. But quite
+often structures have already got laid out to optimally pack them, in
+which case the attribute is pointless, yet still often gets added in
+a purely mechanical manner by people. As said - we had to deal with
+fallout from the practice in the not so distant past.
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl9jfq4ACgkQFkJ4iaW4
-c+49bA/6A3jT5f/N7/jikDz0zHmVcbhBRJ3TsEhuenneO11n7XKgugCKIMyMGy8a
-LAALKbA2NJvfBJYWsw7TQkTvSv0Dd47u6NNeY9MM1C99LJcBuHovgUm95rT8xOkT
-Q3eGnkqtAGI11g9AClD3rSRPlItBLvv4VrMDDZPIojx4zoeRu6uiAt7TFwuzWEpY
-wyFOtmJXDPNyv+4+mMThcPrBOOECKUdw4EWpFXlAXKHsguzxe5EJELMPnnUq9V0Y
-k8iCsigUAhbzRHOomy6cm0kCeQ3CdxgGk61LPwLvp7kkt1GhrrUTNz5BS+I7EuBs
-qL+tP9mBv6OufWtGwXe7Id9TE96M41ZnGlMGI87W1yA5t7dBEK92wA92pfeafP1m
-0+qGAD5iMYx2sIOZ/tP7p5sxjDrV2e3mig51HCHgsGdUceFMim7RdmcHVuSb15DL
-XbJ403e2WZ5dBJB4Ikem+JRhrTgUP7IQb4oeSfEfqjiiOJC88mKoXexlpr0Ur9DB
-6dTFYSsyu6bCpideBJi7ChqMIYKLd4OHuTwa2ukkyGnA6dZFvvsLK+5Rsjldptwn
-L7ykSvMn8oPUxJ3bA++dKtSu6oPqQC08n+O2NRGVo0vh4121g9xlgcHPZLx6+xqR
-awQWjxHvxrFHMeIb4pN4LCshScNMtedVOW8PZimazTKpbfC3374=
-=F4hE
------END PGP SIGNATURE-----
+>>> +struct PeSectionHeader {
+>>> -   UINT8 Name[8];
+>>
+>> Better char?
+> 
+> Maybe? I've heard that some programs use non-7bit ascii in there for things
+> that are not normal sections (and the names are compared with memcp()).
 
---=-sCWw+G32AAlgSeAJ+N8c--
+Which memcmp() is going to happily deal with afaict.
 
+>>> +const void *__init pe_find_section(const CHAR8 *image, const UINTN image_size,
+>>> -                                     const char *section_name, UINTN *size_out)
+>>> -   const struct DosFileHeader dos = (const void)image;
+>>
+>> If the type of "image" was "const void *", there wouldn't be any cast
+>> needed here (and again further down). And I don't think you actually
+>> need "image" to be a pointer to a particular type?
+> 
+> I don't think it needs to be any particular type (and CHAR* is a holdover
+> from the systemd-boot code).  However, there is quite a bit of pointer
+> math done on it that avoids casts:
+> 
+> pe = (const void *) &image[offset];
+> 
+> If image were void*, then this would have to be written as something like:
+> 
+> pe = (const void *)((uintptr_t)image + offset);
+> 
+> (unless the gnu extension that allows void* math is enabled)
+
+We use this extension all over the place.
+
+>>> -   for ( i = 0; i < pe->FileHeader.NumberOfSections; i++ )
+>>> -   {
+>>> -          sect = (const void *)&image[offset];
+>>>
+>>>
+>>
+>> Please limit the scope of sect to the body of this loop, at which
+>> point this assignment can become the initializer.
+> 
+> sect was used earlier for sizeof math to validate the name.
+> 
+> It's also a little odd that the style guide calls for declaring variable
+> in limited scopes, while also disallowing for loop scoped variables.
+
+Because the latter are a newer language feature, originally
+coming from C++, which we haven't settled on yet to allow for
+general use.
+
+Jan
 
