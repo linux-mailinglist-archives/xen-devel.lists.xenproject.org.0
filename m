@@ -2,55 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04E126DDB2
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DC226DDCB
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 16:16:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIueA-000356-KO; Thu, 17 Sep 2020 14:12:26 +0000
+	id 1kIuiC-0003F5-7L; Thu, 17 Sep 2020 14:16:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kIue9-000351-Eo
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:12:25 +0000
-X-Inumbo-ID: 3c90e32b-adab-4ae1-809e-8a7b2e9467ae
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yDaX=C2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kIuiA-0003Ez-Ve
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 14:16:35 +0000
+X-Inumbo-ID: 36cea0e3-dc9d-43a1-9ef8-79be5b2f1387
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3c90e32b-adab-4ae1-809e-8a7b2e9467ae;
- Thu, 17 Sep 2020 14:12:23 +0000 (UTC)
+ id 36cea0e3-dc9d-43a1-9ef8-79be5b2f1387;
+ Thu, 17 Sep 2020 14:16:34 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600351943;
+ s=cantorsusede; t=1600352193;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=XamyEtJSSo1DXnlCakdSHZqMfssU+J3YD5WM0YaRapE=;
- b=bPGz76UzM6rtmKs0egJz50dmBMzqzUo98t1kUr5yveW3oV70nhzWVOfQ5oTo5n5jerXsVU
- omUymsBkmTEUYQi0o5IJXXGH9iU/232GVPmm3hXINWwmlBwAeO8aZk1HNjaDimepbVEnkb
- eNUkT3S9aXScGtwbUzQ3XTcCC2v94d3vahxF5pHrkMSiCig7xL348TUCfUGiAu4QJCc59X
- z7Vb+dKMajupRb4/1n3mRVNUeCVoa17Ek90iHyD25D7Hl9F4jAl+oXAa3jMWNG3UAlh5Hd
- HPyQ4CpWoUOE9acDNzMgHkoBFWqlpyOJog55m57HPGsrtW0ku47d/Op3OUAowA==
+ bh=mJE42jTMkhvzQ+5i7Bfz+aCaIt/uRESuRXw69aHqyyE=;
+ b=L/GGFEzBp7jVLrXQeLPDUvvrXCXEcxRBXl8xHgk2JbeDeBHE9eRxLDbjSoufMQufcl8aWJ
+ VVDsCOCp4k1lRLRFE7buEhnBsktbD/kjt8hwDAOS0XXqxjGqNlfOGjOmseBhMnmPdkev/w
+ kyeBWsiw7pZhKdOq83zFqucRHBtFID8JhBXnUP7JtQ7H4RkL5TSeLMCKMqn5dtdKphkgIt
+ 3qtEqpMs28k1PPoI2yieTLcXNikfY7iC2XhAJLKFrg+GK9bWGyIfkXGJZxSVW+L2Rvu44W
+ WVcNwGiqa8f7FD2cC9iBd+ETWpOnSN1COAnw2ClEWUOWBzXg9CAElGdR+71MVw==
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CFFA0AFC5;
- Thu, 17 Sep 2020 14:12:56 +0000 (UTC)
-Subject: Re: [PATCH] x86/mm: do not mark IO regions as Xen heap
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
-References: <20200910133514.82155-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e7230e70-3aae-61a2-3574-6eeae6e4e57a@suse.com>
-Date: Thu, 17 Sep 2020 16:12:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by mx2.suse.de (Postfix) with ESMTP id F1DB1AC24;
+ Thu, 17 Sep 2020 14:17:06 +0000 (UTC)
+Message-ID: <3828f62a38d84c7fd27cfaacc0d29d428d19d55e.camel@suse.com>
+Subject: Re: [PATCH 4/5] sched/arinc653: Reorganize function definition order
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Jeff Kubascik
+ <jeff.kubascik@dornerworks.com>
+Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com, Josh
+ Whitehead <josh.whitehead@dornerworks.com>, Stewart Hildebrand
+ <stewart.hildebrand@dornerworks.com>, George Dunlap
+ <george.dunlap@citrix.com>
+Date: Thu, 17 Sep 2020 16:16:31 +0200
+In-Reply-To: <67010159-2bde-cb52-434c-d75c27f8ce7a@suse.com>
+References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
+ <20200916181854.75563-5-jeff.kubascik@dornerworks.com>
+ <67010159-2bde-cb52-434c-d75c27f8ce7a@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-g6Hd0bwVRhyEsuw39EVx"
+User-Agent: Evolution 3.36.5 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <20200910133514.82155-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +65,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.09.2020 15:35, Roger Pau Monne wrote:
-> arch_init_memory will treat all the gaps on the physical memory map
-> between RAM regions as MMIO and use share_xen_page_with_guest in order
-> to assign them to dom_io. This has the side effect of setting the Xen
-> heap flag on such pages, and thus is_special_page would then return
-> true which is an issue in epte_get_entry_emt because such pages will
-> be forced to use write-back cache attributes.
-> 
-> Fix this by introducing a new helper to assign the MMIO regions to
-> dom_io without setting the Xen heap flag on the pages, so that
-> is_special_page will return false and the pages won't be forced to use
-> write-back cache attributes.
-> 
-> Fixes: 81fd0d3ca4b2cd ('x86/hvm: simplify 'mmio_direct' check in epte_get_entry_emt()')
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I'm sorry for noticing this only now, but there is a place where
-we actually build on these pages being marked "special": In
-xenmem_add_to_physmap_one() we have
+--=-g6Hd0bwVRhyEsuw39EVx
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-    if ( mfn_valid(prev_mfn) )
-    {
-        if ( is_special_page(mfn_to_page(prev_mfn)) )
-            /* Special pages are simply unhooked from this phys slot. */
-            rc = guest_physmap_remove_page(d, gpfn, prev_mfn, PAGE_ORDER_4K);
-        else
-            /* Normal domain memory is freed, to avoid leaking memory. */
-            rc = guest_remove_page(d, gfn_x(gpfn));
-    }
+On Thu, 2020-09-17 at 10:12 +0200, Jan Beulich wrote:
+> On 16.09.2020 20:18, Jeff Kubascik wrote:
+> > @@ -517,27 +516,35 @@ static const struct scheduler
+> > sched_arinc653_def =3D {
+> >      .sched_id       =3D XEN_SCHEDULER_ARINC653,
+> >      .sched_data     =3D NULL,
+> > =20
+> > +    .global_init    =3D NULL,
+> >      .init           =3D a653sched_init,
+> >      .deinit         =3D a653sched_deinit,
+> > =20
+> > -    .free_udata     =3D a653sched_free_udata,
+> > -    .alloc_udata    =3D a653sched_alloc_udata,
+> > +    .alloc_pdata    =3D NULL,
+> > +    .switch_sched   =3D a653sched_switch_sched,
+> > +    .deinit_pdata   =3D NULL,
+> > +    .free_pdata     =3D NULL,
+> > =20
+> > +    .alloc_domdata  =3D NULL,
+> > +    .free_domdata   =3D NULL,
+> > +
+> > +    .alloc_udata    =3D a653sched_alloc_udata,
+> >      .insert_unit    =3D NULL,
+> >      .remove_unit    =3D NULL,
+> > +    .free_udata     =3D a653sched_free_udata,
+> > =20
+> >      .sleep          =3D a653sched_unit_sleep,
+> >      .wake           =3D a653sched_unit_wake,
+> >      .yield          =3D NULL,
+> >      .context_saved  =3D NULL,
+> > =20
+> > -    .do_schedule    =3D a653sched_do_schedule,
+> > -
+> >      .pick_resource  =3D a653sched_pick_resource,
+> > +    .migrate        =3D NULL,
+> > =20
+> > -    .switch_sched   =3D a653sched_switch_sched,
+> > +    .do_schedule    =3D a653sched_do_schedule,
+> > =20
+> >      .adjust         =3D NULL,
+> > +    .adjust_affinity=3D NULL,
+>=20
+> Adding all these not really needed NULL initializers looks to rather
+> move
+> this scheduler away from all the others.
+>
+Agreed, no need for more "=3D NULL". On the contrary, the ones that are
+there should go away.
 
-As you'll notice MMIO pages not satisfying mfn_valid() will simply
-bypass any updates here, but the subsequent guest_physmap_add_page()
-will have the P2M entry updated anyway. MMIO pages which satisfy
-mfn_valid(), however, would previously have been passed into
-guest_physmap_remove_page() (which generally would succeed) while
-now guest_remove_page() will (afaict) fail (get_page() there won't
-succeed).
+About this:
 
-I haven't come to a clear conclusion yet how best to address this.
+>  (Oddly enough all of them
+> explicitly set .sched_data to NULL - for whatever reason.)
+>=20
+Yes, we decided to keep it like that, back then. I think now it would
+be ok for it to go away too.
 
-Jan
+So, Jeff, feel free to zap it with this patch or series. Or I can send
+a patch to zap all of them, as you wish.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-g6Hd0bwVRhyEsuw39EVx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl9jb78ACgkQFkJ4iaW4
+c+4pZBAAs1RabwbuWnosX1CycAi1GEcnYHF6T2ZX5KxW/NjKA7PKdcPCpuOibHH/
+0EUBI5iQczZvMslmr13p7lIQApAaO85x0tpbnierMbKjMHHpUN1ZwGJuk8sk55YC
+3h1MT3j2io3g/5faEV5sNYL9VWqRAodDYzSdpn9P6pjnnSjn5hFsF7XaJo/r2CbL
+dUv7VdWmiVO7LH+deXmEW90RuUfDjiG/Gwe3pK4ZXbIZUJFAVnUKcCj6RxV3JhFU
+dpk46uBn8I9L6X73fga/L1rKwYZJkKk4LQ1QQM333YTLPFI2H7gwZPuSd5iLePET
+fqOuBvAAbxRWjFYldLGbNq31Qj5miaFX+7oaqhSuuLx+6pOgvi0PkHleVEkqHOi8
+8mjzdu5ImmbCf+7gVLXcElVj9ro7MSWd1EjW7QRspxsBbNOCbWCOy8zMnufnHGq2
+zkhiyHgp5+WSAV9qE3mwXcds5ZzqEcp3PMI7Gu1OP2gwFCNPuxcIRo7W8yHAuvlc
+wJVIRkFONou0194bLTh7+PBzjNFxxMyW0vWlxCN145gOC/ZkMptCbtljAVU20P+x
+VfzHI9PiB/CuAgwlga7GWHlC7l3pnTNoZJ9p2vRUkUYM+onMykVt+5x8IaCPdyLX
+2oAc8jNbXto6oq3GROtjWhLsP2NXneZYFwLjptdX3vjK+5YsNCs=
+=DCP1
+-----END PGP SIGNATURE-----
+
+--=-g6Hd0bwVRhyEsuw39EVx--
+
 
