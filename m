@@ -2,60 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9EF26DF95
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 17:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC71526DFDE
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Sep 2020 17:41:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kIvne-0001nz-Vr; Thu, 17 Sep 2020 15:26:18 +0000
+	id 1kIw27-0003U0-8p; Thu, 17 Sep 2020 15:41:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w9D7=C2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kIvne-0001nu-Ai
- for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 15:26:18 +0000
-X-Inumbo-ID: dd429aae-d5c0-4897-9c22-2e2cddf85e46
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=t+a8=C2=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1kIw26-0003Ts-J4
+ for xen-devel@lists.xenproject.org; Thu, 17 Sep 2020 15:41:14 +0000
+X-Inumbo-ID: 3cd841eb-0da9-4544-8a22-9c8966b78df2
+Received: from mx1a.swcp.com (unknown [216.184.2.64])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd429aae-d5c0-4897-9c22-2e2cddf85e46;
- Thu, 17 Sep 2020 15:26:17 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=cantorsusede; t=1600356376;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NVaNXe59J+NL21e1GFQxT5LgaIU4Fc1dBThNybVTuAI=;
- b=akKqHXZxySUvJvG5/JZtZThl5wseTXXkLzYr8XqSWz3lJjMefkcQZwSFuB2RnV4yhhhmTd
- t1CCPhN9Ywdva1yZAszgLzGKSmvd45UxAvXCrp3cIxDvxuX/+o//1/l/WdW7RdEGorfmnP
- H0uytAhpS2ova58NqqBIhXVyMcmog6pHO6R4MMITV6fvFo9C7TgwrydeeJjyyRMXAmGWZN
- O3TfPPYMEAOM5+SEVO2dlCaaOE5kJUCx6BxG3HYCiXJHGgwHy2poQEEsD0s7vcLrM+qdbX
- w2fqjZvhiI48ZwnUgMG3B6kKAUvvFjGhI1fqUK74VX+pqFIDfpkOqPYFpklUug==
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5171EAD71;
- Thu, 17 Sep 2020 15:26:50 +0000 (UTC)
-Subject: Re: [PATCH v4 4/4] efi: Do not use command line if secure boot is
- enabled.
-To: Trammell Hudson <hudson@trmm.net>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "wl@xen.org" <wl@xen.org>
-References: <20200914115013.814079-1-hudson@trmm.net>
- <20200914115013.814079-5-hudson@trmm.net>
- <3def666c-c5f1-a520-18dc-6c1c61026b57@suse.com>
- <Rtytoe06osw9o7-z0sRD22p_KP8B2SVSp6Ae6IYHyhS_LpwthJkTMwDc1tICmBReafaZOLSu0nNVPV3ceUTqUnjP7dc4DrsMHhjPwfze3X0=@trmm.net>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ae3cd252-71fd-ba49-b53d-f0a4882d201e@suse.com>
-Date: Thu, 17 Sep 2020 17:26:17 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id 3cd841eb-0da9-4544-8a22-9c8966b78df2;
+ Thu, 17 Sep 2020 15:41:13 +0000 (UTC)
+Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
+ by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08HFf9h6024936;
+ Thu, 17 Sep 2020 09:41:10 -0600
+Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
+ denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
+ client-ip=62.251.112.184; helo=diamond.fritz.box;
+ envelope-from=hudson@trmm.net;
+ x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
+ libspf2-1.2.10; 
+Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
+ by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08HFesRL024558;
+ Thu, 17 Sep 2020 09:41:04 -0600 (MDT) (envelope-from hudson@trmm.net)
+X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
+ [62.251.112.184] claimed to be diamond.fritz.box
+From: Trammell Hudson <hudson@trmm.net>
+To: xen-devel@lists.xenproject.org
+Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ wl@xen.org
+Subject: [PATCH v5 0/5] efi: Unified Xen hypervisor/kernel/initrd images
+Date: Thu, 17 Sep 2020 11:40:43 -0400
+Message-Id: <20200917154048.1140580-1-hudson@trmm.net>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <Rtytoe06osw9o7-z0sRD22p_KP8B2SVSp6Ae6IYHyhS_LpwthJkTMwDc1tICmBReafaZOLSu0nNVPV3ceUTqUnjP7dc4DrsMHhjPwfze3X0=@trmm.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.83
+X-Greylist: Message whitelisted by DRAC access database, not delayed by
+ milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
+ Thu, 17 Sep 2020 09:41:06 -0600 (MDT)
+X-Virus-Scanned: clamav-milter 0.100.2 at ame7
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
+X-Spam-Status: No, hits=0.7 tests=NO_RECEIVED,NO_RELAYS,SPF_NEUTRAL
+ version=3.4.2
+X-Spam-Level: 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +66,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.09.2020 16:05, Trammell Hudson wrote:
-> On Thursday, September 17, 2020 8:51 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> On 14.09.2020 13:50, Trammell Hudson wrote:
->>> If secure boot is enabled, the Xen command line arguments are ignored.
->>> If a unified Xen image is used, then the bundled configuration, dom0
->>> kernel, and initrd are prefered over the ones listed in the config file.
->>> Unlike the shim based verification, the PE signature on a unified image
->>> covers the all of the Xen+config+kernel+initrd modules linked into the
->>> unified image. This also ensures that properly configured platforms
->>> will measure the entire runtime into the TPM for unsealing secrets or
->>> remote attestation.
->>
->> The command line may also include a part handed on to the Dom0 kernel.
->> If the Dom0 kernel image comes from disk, I don't see why that part of
->> the command line shouldn't be honored. Similarly, if the config file
->> doesn't come from the unified image, I think Xen's command line options
->> should also be honored.
-> 
-> Ignoring the command line and breaking the shim behaviour in a
-> unified image should be ok; that is an explicit decision by the
-> system owner to sign and configure the new image (and the shim
-> is not used in a unified image anyway).
-> 
-> If we have a way to detect a unified image early enough, then
-> we can avoid the backwards incompatibility if it is not unified.
+This patch series adds support for bundling the xen.efi hypervisor,
+the xen.cfg configuration file, the Linux kernel and initrd, as well
+as the XSM, and architectural specific files into a single "unified"
+EFI executable.  This allows an administrator to update the components
+independently without requiring rebuilding xen, as well as to replace
+the components in an existing image.
 
-I was assuming this was easily possible, if necessary as about the
-first thing we do. If it's not as easy, perhaps something wants
-adding to make it so?
+The resulting EFI executable can be invoked directly from the UEFI Boot
+Manager, removing the need to use a separate loader like grub as well
+as removing dependencies on local filesystem access.  And since it is
+a single file, it can be signed and validated by UEFI Secure Boot without
+requring the shim protocol.
 
-> That would require moving the config parsing to above the relocation
-> call.
+It is inspired by systemd-boot's unified kernel technique and borrows the
+function to locate PE sections from systemd's LGPL'ed code.  During EFI
+boot, Xen looks at its own loaded image to locate the PE sections for
+the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+(`.ramdisk`), and XSM config (`.xsm`), which are included after building
+xen.efi using objcopy to add named sections for each input file.
 
-I guess I don't understand why this would be.
 
-Jan
+Trammell Hudson (5):
+  efi/boot.c: Make file->ptr const void*
+  efi/boot.c: add file.need_to_free
+  efi/boot.c: add handle_file_info()
+  efi: Enable booting unified hypervisor/kernel/initrd images
+  efi: Do not use command line if unified config is included
+
+ .gitignore                  |   1 +
+ docs/misc/efi.pandoc        |  49 +++++++++++
+ xen/arch/arm/efi/efi-boot.h |  25 ++++--
+ xen/arch/x86/efi/Makefile   |   2 +-
+ xen/arch/x86/efi/efi-boot.h |  11 ++-
+ xen/common/efi/boot.c       | 162 +++++++++++++++++++++++++++---------
+ xen/common/efi/efi.h        |   3 +
+ xen/common/efi/pe.c         | 134 +++++++++++++++++++++++++++++
+ 8 files changed, 335 insertions(+), 52 deletions(-)
+ create mode 100644 xen/common/efi/pe.c
+
+-- 
+2.25.1
+
 
