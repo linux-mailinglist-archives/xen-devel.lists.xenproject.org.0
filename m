@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D190426EAB3
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 03:53:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74FA026EBB5
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 04:08:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kJ5aj-0003YA-Ob; Fri, 18 Sep 2020 01:53:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kJ5om-0004vV-4j; Fri, 18 Sep 2020 02:08:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UN7C=C3=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
- id 1kJ5ai-0003Y1-EC
- for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 01:53:36 +0000
-X-Inumbo-ID: bb5c55b8-bf28-4d74-9b16-5c2ef9aeef37
-Received: from out30-43.freemail.mail.aliyun.com (unknown [115.124.30.43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bb5c55b8-bf28-4d74-9b16-5c2ef9aeef37;
- Fri, 18 Sep 2020 01:53:32 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
- MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=15; SR=0;
- TI=SMTPD_---0U9GXrdc_1600394005; 
+ id 1kJ5ok-0004vQ-Qz
+ for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 02:08:06 +0000
+X-Inumbo-ID: d5143593-6e4c-432e-9f70-35c52e90bc3d
+Received: from out30-57.freemail.mail.aliyun.com (unknown [115.124.30.57])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d5143593-6e4c-432e-9f70-35c52e90bc3d;
+ Fri, 18 Sep 2020 02:08:04 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R441e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
+ TI=SMTPD_---0U9GoEaQ_1600394878; 
 Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
- fp:SMTPD_---0U9GXrdc_1600394005) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 18 Sep 2020 09:53:26 +0800
-Date: Fri, 18 Sep 2020 09:53:25 +0800
+ fp:SMTPD_---0U9GoEaQ_1600394878) by smtp.aliyun-inc.com(127.0.0.1);
+ Fri, 18 Sep 2020 10:07:58 +0800
+Date: Fri, 18 Sep 2020 10:07:58 +0800
 From: Wei Yang <richard.weiyang@linux.alibaba.com>
 To: David Hildenbrand <david@redhat.com>
 Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
@@ -35,16 +36,18 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
  Dave Hansen <dave.hansen@intel.com>, Vlastimil Babka <vbabka@suse.cz>,
  Wei Yang <richard.weiyang@linux.alibaba.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>
-Subject: Re: [PATCH RFC 1/4] mm/page_alloc: convert "report" flag of
- __free_one_page() to a proper flag
-Message-ID: <20200918015325.GA54754@L-31X9LVDL-1304.local>
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Scott Cheloha <cheloha@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>
+Subject: Re: [PATCH RFC 2/4] mm/page_alloc: place pages to tail in
+ __putback_isolated_page()
+Message-ID: <20200918020758.GB54754@L-31X9LVDL-1304.local>
 References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-2-david@redhat.com>
+ <20200916183411.64756-3-david@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200916183411.64756-2-david@redhat.com>
+In-Reply-To: <20200916183411.64756-3-david@redhat.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,11 +62,42 @@ Reply-To: Wei Yang <richard.weiyang@linux.alibaba.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 16, 2020 at 08:34:08PM +0200, David Hildenbrand wrote:
->Let's prepare for additional flags and avoid long parameter lists of bools.
->Follow-up patches will also make use of the flags in __free_pages_ok(),
->however, I wasn't able to come up with a better name for the type - should
->be good enough for internal purposes.
+On Wed, Sep 16, 2020 at 08:34:09PM +0200, David Hildenbrand wrote:
+>__putback_isolated_page() already documents that pages will be placed to
+>the tail of the freelist - this is, however, not the case for
+>"order >= MAX_ORDER - 2" (see buddy_merge_likely()) - which should be
+>the case for all existing users.
+>
+>This change affects two users:
+>- free page reporting
+>- page isolation, when undoing the isolation.
+>
+>This behavior is desireable for pages that haven't really been touched
+>lately, so exactly the two users that don't actually read/write page
+>content, but rather move untouched pages.
+>
+>The new behavior is especially desirable for memory onlining, where we
+>allow allocation of newly onlined pages via undo_isolate_page_range()
+>in online_pages(). Right now, we always place them to the head of the
+
+The code looks good, while I don't fully understand the log here.
+
+undo_isolate_page_range() is used in __offline_pages and alloc_contig_range. I
+don't connect them with online_pages(). Do I miss something?
+
+>free list, resulting in undesireable behavior: Assume we add
+>individual memory chunks via add_memory() and online them right away to
+>the NORMAL zone. We create a dependency chain of unmovable allocations
+>e.g., via the memmap. The memmap of the next chunk will be placed onto
+>previous chunks - if the last block cannot get offlined+removed, all
+>dependent ones cannot get offlined+removed. While this can already be
+>observed with individual DIMMs, it's more of an issue for virtio-mem
+>(and I suspect also ppc DLPAR).
+>
+>Note: If we observe a degradation due to the changed page isolation
+>behavior (which I doubt), we can always make this configurable by the
+>instance triggering undo of isolation (e.g., alloc_contig_range(),
+>memory onlining, memory offlining).
 >
 >Cc: Andrew Morton <akpm@linux-foundation.org>
 >Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
@@ -74,87 +108,45 @@ On Wed, Sep 16, 2020 at 08:34:08PM +0200, David Hildenbrand wrote:
 >Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
 >Cc: Oscar Salvador <osalvador@suse.de>
 >Cc: Mike Rapoport <rppt@kernel.org>
+>Cc: Scott Cheloha <cheloha@linux.ibm.com>
+>Cc: Michael Ellerman <mpe@ellerman.id.au>
 >Signed-off-by: David Hildenbrand <david@redhat.com>
 >---
-> mm/page_alloc.c | 28 ++++++++++++++++++++--------
-> 1 file changed, 20 insertions(+), 8 deletions(-)
+> mm/page_alloc.c | 10 +++++++++-
+> 1 file changed, 9 insertions(+), 1 deletion(-)
 >
 >diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->index 6b699d273d6e..91cefb8157dd 100644
+>index 91cefb8157dd..bba9a0f60c70 100644
 >--- a/mm/page_alloc.c
 >+++ b/mm/page_alloc.c
->@@ -77,6 +77,18 @@
-> #include "shuffle.h"
-> #include "page_reporting.h"
+>@@ -89,6 +89,12 @@ typedef int __bitwise fop_t;
+>  */
+> #define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
 > 
->+/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
->+typedef int __bitwise fop_t;
->+
->+/* No special request */
->+#define FOP_NONE		((__force fop_t)0)
->+
 >+/*
->+ * Skip free page reporting notification after buddy merging (will *not* mark
-
-__free_one_page() may not merge buddy when its buddy is not available.
-
-Would this comment be a little confusing?
-
->+ * the page reported, only skip the notification).
+>+ * Place the freed page to the tail of the freelist after buddy merging. Will
+>+ * get ignored with page shuffling enabled.
 >+ */
->+#define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+>+#define FOP_TO_TAIL		((__force fop_t)BIT(1))
 >+
 > /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
 > static DEFINE_MUTEX(pcp_batch_high_lock);
 > #define MIN_PERCPU_PAGELIST_FRACTION	(8)
->@@ -948,10 +960,9 @@ buddy_merge_likely(unsigned long pfn, unsigned long buddy_pfn,
->  * -- nyc
->  */
+>@@ -1040,6 +1046,8 @@ static inline void __free_one_page(struct page *page, unsigned long pfn,
 > 
->-static inline void __free_one_page(struct page *page,
->-		unsigned long pfn,
->-		struct zone *zone, unsigned int order,
->-		int migratetype, bool report)
->+static inline void __free_one_page(struct page *page, unsigned long pfn,
->+				   struct zone *zone, unsigned int order,
->+				   int migratetype, fop_t fop_flags)
-> {
-> 	struct capture_control *capc = task_capc(zone);
-> 	unsigned long buddy_pfn;
->@@ -1038,7 +1049,7 @@ static inline void __free_one_page(struct page *page,
-> 		add_to_free_list(page, zone, order, migratetype);
+> 	if (is_shuffle_order(order))
+> 		to_tail = shuffle_pick_tail();
+>+	else if (fop_flags & FOP_TO_TAIL)
+>+		to_tail = true;
+> 	else
+> 		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
 > 
-> 	/* Notify page reporting subsystem of freed page */
->-	if (report)
->+	if (!(fop_flags & FOP_SKIP_REPORT_NOTIFY))
-> 		page_reporting_notify_free(order);
-> }
-> 
->@@ -1368,7 +1379,7 @@ static void free_pcppages_bulk(struct zone *zone, int count,
-> 		if (unlikely(isolated_pageblocks))
-> 			mt = get_pageblock_migratetype(page);
-> 
->-		__free_one_page(page, page_to_pfn(page), zone, 0, mt, true);
->+		__free_one_page(page, page_to_pfn(page), zone, 0, mt, FOP_NONE);
-> 		trace_mm_page_pcpu_drain(page, 0, mt);
-> 	}
-> 	spin_unlock(&zone->lock);
->@@ -1384,7 +1395,7 @@ static void free_one_page(struct zone *zone,
-> 		is_migrate_isolate(migratetype))) {
-> 		migratetype = get_pfnblock_migratetype(page, pfn);
-> 	}
->-	__free_one_page(page, pfn, zone, order, migratetype, true);
->+	__free_one_page(page, pfn, zone, order, migratetype, FOP_NONE);
-> 	spin_unlock(&zone->lock);
-> }
-> 
->@@ -3277,7 +3288,8 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
-> 	lockdep_assert_held(&zone->lock);
+>@@ -3289,7 +3297,7 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
 > 
 > 	/* Return isolated page to tail of freelist. */
->-	__free_one_page(page, page_to_pfn(page), zone, order, mt, false);
->+	__free_one_page(page, page_to_pfn(page), zone, order, mt,
->+			FOP_SKIP_REPORT_NOTIFY);
+> 	__free_one_page(page, page_to_pfn(page), zone, order, mt,
+>-			FOP_SKIP_REPORT_NOTIFY);
+>+			FOP_SKIP_REPORT_NOTIFY | FOP_TO_TAIL);
 > }
 > 
 > /*
