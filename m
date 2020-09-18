@@ -2,52 +2,115 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDFC826F4C9
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 05:41:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BBB026F6D3
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 09:25:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kJ7G7-0004z3-8K; Fri, 18 Sep 2020 03:40:27 +0000
+	id 1kJAjz-00079e-0o; Fri, 18 Sep 2020 07:23:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nb7v=C3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kJ7G6-0004yy-0g
- for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 03:40:26 +0000
-X-Inumbo-ID: 864f98ff-bf45-4e5b-bd14-766c7e81774c
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 864f98ff-bf45-4e5b-bd14-766c7e81774c;
- Fri, 18 Sep 2020 03:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=lHzUe86C1NfcWbIai6E4kmK/6A1PD2jVFkikuu3j9nA=; b=4ON7OdPjv0miS0rpW5Gs8Fqtm+
- 8md2EsmCN1eMbPsvyWtlzKQsOMJ3Bt66UnUxWYrKuRSyP9AKxwMEQm4QGFXhaTE6t0rb5gvh2uK5k
- WJdcNiYGOjcVUSp1qKhLZOI2KfYXnAvchdsApD/GWbCm21LISVgp5NTaiDWFX5tlcXkI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kJ7G4-0002BJ-1R; Fri, 18 Sep 2020 03:40:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kJ7G3-0005Yo-Od; Fri, 18 Sep 2020 03:40:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kJ7G3-0000zk-O7; Fri, 18 Sep 2020 03:40:23 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154446-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f2jX=C3=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kJAjx-00079W-9X
+ for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 07:23:29 +0000
+X-Inumbo-ID: 61b1500f-3b20-4104-ba5e-dda2b7e5e931
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 61b1500f-3b20-4104-ba5e-dda2b7e5e931;
+ Fri, 18 Sep 2020 07:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600413807;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EuaauJa7aQaTaRvLajzBIeX/FN0mKzXJpj2/YWUtLGU=;
+ b=FUmSxLmubQ/fxuDW1jPCLlovzDu7zajqADdZb9Gqj+L0twb+54unA8z+JQXdEadKqYSwhX
+ 6RfTFKRl0UuvYu+p9wJcCeeb/Udrv3WKFx36C07+/Y+nhBiYz1wb5/pDl/9W7DCiahS10e
+ e1yTIDOhUrgiz3Dr0w/GPfwJT9G+TjA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-40-XjNaN-Y5Ni6QXGSEwEQo3g-1; Fri, 18 Sep 2020 03:23:22 -0400
+X-MC-Unique: XjNaN-Y5Ni6QXGSEwEQo3g-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D4181873081;
+ Fri, 18 Sep 2020 07:23:20 +0000 (UTC)
+Received: from [10.36.114.41] (ovpn-114-41.ams2.redhat.com [10.36.114.41])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BC3345DA30;
+ Fri, 18 Sep 2020 07:23:17 +0000 (UTC)
+Subject: Re: [PATCH RFC 1/4] mm/page_alloc: convert "report" flag of
+ __free_one_page() to a proper flag
+To: Wei Yang <richard.weiyang@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
+ Dave Hansen <dave.hansen@intel.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>
+References: <20200916183411.64756-1-david@redhat.com>
+ <20200916183411.64756-2-david@redhat.com>
+ <20200918015325.GA54754@L-31X9LVDL-1304.local>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <c49cf22c-7b34-a7d2-c7d2-ac322150e4a6@redhat.com>
+Date: Fri, 18 Sep 2020 09:23:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Subject: [ovmf test] 154446: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=32b0a492d505434c6f5e6c3578cd34fee39cd25e
-X-Osstest-Versions-That: ovmf=5648836987cab28ca988dfe5af94413cfa480a92
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Sep 2020 03:40:23 +0000
+In-Reply-To: <20200918015325.GA54754@L-31X9LVDL-1304.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +124,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154446 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154446/
+On 18.09.20 03:53, Wei Yang wrote:
+> On Wed, Sep 16, 2020 at 08:34:08PM +0200, David Hildenbrand wrote:
+>> Let's prepare for additional flags and avoid long parameter lists of bools.
+>> Follow-up patches will also make use of the flags in __free_pages_ok(),
+>> however, I wasn't able to come up with a better name for the type - should
+>> be good enough for internal purposes.
+>>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>> Cc: Mel Gorman <mgorman@techsingularity.net>
+>> Cc: Michal Hocko <mhocko@kernel.org>
+>> Cc: Dave Hansen <dave.hansen@intel.com>
+>> Cc: Vlastimil Babka <vbabka@suse.cz>
+>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+>> Cc: Oscar Salvador <osalvador@suse.de>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Signed-off-by: David Hildenbrand <david@redhat.com>
+>> ---
+>> mm/page_alloc.c | 28 ++++++++++++++++++++--------
+>> 1 file changed, 20 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index 6b699d273d6e..91cefb8157dd 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -77,6 +77,18 @@
+>> #include "shuffle.h"
+>> #include "page_reporting.h"
+>>
+>> +/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
+>> +typedef int __bitwise fop_t;
+>> +
+>> +/* No special request */
+>> +#define FOP_NONE		((__force fop_t)0)
+>> +
+>> +/*
+>> + * Skip free page reporting notification after buddy merging (will *not* mark
+> 
+> __free_one_page() may not merge buddy when its buddy is not available.
+> 
+> Would this comment be a little confusing?
+> 
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 32b0a492d505434c6f5e6c3578cd34fee39cd25e
-baseline version:
- ovmf                 5648836987cab28ca988dfe5af94413cfa480a92
+I rather meant the process than if it's actually happening.
 
-Last test of basis   154429  2020-09-17 12:10:35 Z    0 days
-Testing same since   154446  2020-09-18 01:39:53 Z    0 days    1 attempts
+"Skip free page reporting notification for the (possibly merged) page."
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael Kubacki <michael.kubacki@microsoft.com>
+Thanks!
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+-- 
+Thanks,
 
+David / dhildenb
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   5648836987..32b0a492d5  32b0a492d505434c6f5e6c3578cd34fee39cd25e -> xen-tested-master
 
