@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD37F26F6E7
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 09:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A47A26F6F8
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 09:29:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kJAnw-0007Ne-UJ; Fri, 18 Sep 2020 07:27:36 +0000
+	id 1kJApe-0007XM-Fz; Fri, 18 Sep 2020 07:29:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f2jX=C3=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kJAnv-0007NQ-68
- for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 07:27:35 +0000
-X-Inumbo-ID: 323135a1-5790-4e25-907d-cdf4262a9c66
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ id 1kJApc-0007XH-E7
+ for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 07:29:20 +0000
+X-Inumbo-ID: fcebe066-ddcb-4ea3-9856-e24cfb36edba
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 323135a1-5790-4e25-907d-cdf4262a9c66;
- Fri, 18 Sep 2020 07:27:32 +0000 (UTC)
+ id fcebe066-ddcb-4ea3-9856-e24cfb36edba;
+ Fri, 18 Sep 2020 07:29:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600414052;
+ s=mimecast20190719; t=1600414159;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Ol8yVZosHVav4NBd9kL0Yv562xls+tC/kp84iG8hJAw=;
- b=auSzlzgEmp2SJHJMnbdXX0AgR6bX0raaaxsqhRmBlfL1W1TZu6ClV7dEbCo6eo4oCqC992
- MjsbtTTudcnZVlLVym2E+LY/UBvrS5I0qRtZZdPpqFW9Fg6npevLtWsYXWX+Rcv26DqOKM
- PrN/1pKlAPmEevVjqaf3OFfC3Gvz++Y=
+ bh=3nNbPrMpeCmauSWcgQKTEdZjS23TgYlhx2xl9AxKkXk=;
+ b=EepBjyDyFVtnsHWJVua/cZBvXViBQ7kgYgdOveJjriFoDUqFMYfFkQz+aySGCGR2DQbYwR
+ pAIphUmA0Yr1W/Q8gytXVzHyDtX7+Wl7KWJYEPuX1Q6pX4p1GUi0cSpQiQW3GnCoKwzpRS
+ 42/GBWz+KQBtXz/GwwOFyzSrXdssTVs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-484-Qs0kIK0QPcW2IY8L5zXwhw-1; Fri, 18 Sep 2020 03:27:30 -0400
-X-MC-Unique: Qs0kIK0QPcW2IY8L5zXwhw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+ us-mta-531-OMcRpJM4O6-ksj2UXD6L4w-1; Fri, 18 Sep 2020 03:29:13 -0400
+X-MC-Unique: OMcRpJM4O6-ksj2UXD6L4w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D9C81084CA8;
- Fri, 18 Sep 2020 07:27:28 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6046B800EBB;
+ Fri, 18 Sep 2020 07:29:11 +0000 (UTC)
 Received: from [10.36.114.41] (ovpn-114-41.ams2.redhat.com [10.36.114.41])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A2ABA55764;
- Fri, 18 Sep 2020 07:27:24 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C3C5660FC2;
+ Fri, 18 Sep 2020 07:29:07 +0000 (UTC)
 Subject: Re: [PATCH RFC 2/4] mm/page_alloc: place pages to tail in
  __putback_isolated_page()
 To: Wei Yang <richard.weiyang@linux.alibaba.com>
@@ -54,7 +54,7 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  Scott Cheloha <cheloha@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>
 References: <20200916183411.64756-1-david@redhat.com>
  <20200916183411.64756-3-david@redhat.com>
- <20200918020758.GB54754@L-31X9LVDL-1304.local>
+ <20200918021654.GC54754@L-31X9LVDL-1304.local>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -101,16 +101,16 @@ Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat GmbH
-Message-ID: <e287e372-7b5d-9a0b-9e27-7de1e305fc3a@redhat.com>
-Date: Fri, 18 Sep 2020 09:27:23 +0200
+Message-ID: <a9d38779-73c5-73e9-aa7d-e26b87f6dbbb@redhat.com>
+Date: Fri, 18 Sep 2020 09:29:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200918020758.GB54754@L-31X9LVDL-1304.local>
+In-Reply-To: <20200918021654.GC54754@L-31X9LVDL-1304.local>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,7 +124,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.09.20 04:07, Wei Yang wrote:
+On 18.09.20 04:16, Wei Yang wrote:
 > On Wed, Sep 16, 2020 at 08:34:09PM +0200, David Hildenbrand wrote:
 >> __putback_isolated_page() already documents that pages will be placed to
 >> the tail of the freelist - this is, however, not the case for
@@ -142,16 +142,74 @@ On 18.09.20 04:07, Wei Yang wrote:
 >> The new behavior is especially desirable for memory onlining, where we
 >> allow allocation of newly onlined pages via undo_isolate_page_range()
 >> in online_pages(). Right now, we always place them to the head of the
+>> free list, resulting in undesireable behavior: Assume we add
+>> individual memory chunks via add_memory() and online them right away to
+>> the NORMAL zone. We create a dependency chain of unmovable allocations
+>> e.g., via the memmap. The memmap of the next chunk will be placed onto
+>> previous chunks - if the last block cannot get offlined+removed, all
+>> dependent ones cannot get offlined+removed. While this can already be
+>> observed with individual DIMMs, it's more of an issue for virtio-mem
+>> (and I suspect also ppc DLPAR).
+>>
+>> Note: If we observe a degradation due to the changed page isolation
+>> behavior (which I doubt), we can always make this configurable by the
+>> instance triggering undo of isolation (e.g., alloc_contig_range(),
+>> memory onlining, memory offlining).
+>>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>> Cc: Mel Gorman <mgorman@techsingularity.net>
+>> Cc: Michal Hocko <mhocko@kernel.org>
+>> Cc: Dave Hansen <dave.hansen@intel.com>
+>> Cc: Vlastimil Babka <vbabka@suse.cz>
+>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+>> Cc: Oscar Salvador <osalvador@suse.de>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Scott Cheloha <cheloha@linux.ibm.com>
+>> Cc: Michael Ellerman <mpe@ellerman.id.au>
+>> Signed-off-by: David Hildenbrand <david@redhat.com>
+>> ---
+>> mm/page_alloc.c | 10 +++++++++-
+>> 1 file changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index 91cefb8157dd..bba9a0f60c70 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -89,6 +89,12 @@ typedef int __bitwise fop_t;
+>>  */
+>> #define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+>>
+>> +/*
+>> + * Place the freed page to the tail of the freelist after buddy merging. Will
+>> + * get ignored with page shuffling enabled.
+>> + */
+>> +#define FOP_TO_TAIL		((__force fop_t)BIT(1))
+>> +
+>> /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
+>> static DEFINE_MUTEX(pcp_batch_high_lock);
+>> #define MIN_PERCPU_PAGELIST_FRACTION	(8)
+>> @@ -1040,6 +1046,8 @@ static inline void __free_one_page(struct page *page, unsigned long pfn,
+>>
+>> 	if (is_shuffle_order(order))
+>> 		to_tail = shuffle_pick_tail();
+>> +	else if (fop_flags & FOP_TO_TAIL)
+>> +		to_tail = true;
 > 
-> The code looks good, while I don't fully understand the log here.
+> Take another look into this part. Maybe we can move this check at top?
 > 
-> undo_isolate_page_range() is used in __offline_pages and alloc_contig_range. I
-> don't connect them with online_pages(). Do I miss something?
+> For online_page case, currently we have following call flow:
+> 
+>     online_page
+>         online_pages_range
+> 	shuffle_zone
+> 
+> This means we would always shuffle the newly added pages. Maybe we don't need
+> to do the shuffle when adding them to the free_list?
 
-Yeah, please look at -mm / -next instead. See
-
-https://lkml.kernel.org/r/20200819175957.28465-11-david@redhat.com
-
+Yeah we don't, but it doesn't really buy us too much as the call paths I
+am touching are used by other mechanisms as well that need it
+(especially undoing page isolation).
 
 -- 
 Thanks,
