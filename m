@@ -2,99 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BB762703DA
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 20:21:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 830DE2703DE
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Sep 2020 20:23:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kJL0S-00079x-ES; Fri, 18 Sep 2020 18:21:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WmPg=C3=dornerworks.com=jeff.kubascik@srs-us1.protection.inumbo.net>)
- id 1kJL0R-00079s-7N
- for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 18:21:11 +0000
-X-Inumbo-ID: 9b5b16cd-412a-459e-b1c1-f772772ee8bb
-Received: from USG02-BN3-obe.outbound.protection.office365.us (unknown
- [2001:489a:2202:c::61d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b5b16cd-412a-459e-b1c1-f772772ee8bb;
- Fri, 18 Sep 2020 18:21:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
- b=pzdMVA9RZFXz953LAia/FRVrqBA5LI4UsrTQpieN5FPsYz+0x5jpbXVV2ZQV/r2H61smo9mxj7TIIHd+Hz1NMct1Uu3R/O9KTkka1iZhfjfIgPnKh7PUQqp243hwcsMIlhtcYFR1Vmolh/Ka+Ip4vG7ZXP44DDliQmv3HToF2D/cw7aHOg3dKBYHObKOvZLrnO7f+dld+IGtxf3sBXcsVtwbOHMECNonfh1uPaqDWYsV0BFYVTMUx7HSk919n6FE4F6Faxup9ZifECb1ZwKoYNB9VCY4FQFJQVdvMBkS2Y1iY120AbzI+eJFF1E2E6+ftCQs/HRbwMEXbyGM5kpVnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector5401;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXFnl1Ecd+7wxa32Swz94nJ7THdy3AmS0A9VZ7tgj0g=;
- b=Oz1LoV2GkmNpEZBlP+M4mG+Xw4B8q6a2CplSaqTnTnYgR7ibgvgsie/AuEbCIGmQCdN7w6cpjwPxXFQhvSqkcHrrdXkxkO6wCVZVVuJP/r08vtWSLdh+Yaol1CvRlXUti2d425cX0GgQng2OM/62/rnC79HRs9TUMH7Genij7UwXyA9RYPRVA3RH3k5eIznCUec3e256ZKSUzGb77N4J4t1RpE9R1xxjddhczvBmMKXqGbaOMqIlnT973iDRX//M/Yo8v1rkO1XqMv3I9mdJedjHXCOKPgfSi8YslcO/6PPSLSp38oQjDG6caiVNZ848UMrtG46kdDMFUiVxupmKDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dornerworks.com; dmarc=pass action=none
- header.from=dornerworks.com; dkim=pass header.d=dornerworks.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dornerworks.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXFnl1Ecd+7wxa32Swz94nJ7THdy3AmS0A9VZ7tgj0g=;
- b=j+X7yj6qSoGi0vBTakr4RlYo5gpSgUPuW0+bbLSTNe+R7OdCiyJjoqVXJlc5ALJ5F7uGBeB09ph66Cg+9rPtv/w9ZcteFihw7X1lYoi5pwwjpUe1U3tp/78NBIJ/O2mVLDHKI411P4SPEE5PUmrsx7HfAx4giAnbEE7aeOSN0eG3A9mBpAnpYcCx0DRJRO354i9n6rjcPCJw3b5k0USHfyUrvbzmzTGGt9aX5cAZEwRslRqbhIlJxNUiiOrteOkFBL9GHALIhn2dmYFwM6la6omoRLLSXLhzA9ZRUtC85zbEVj6ZHuA1bWkSZqQeFPJOShABO5IdUKWUYbLBVVzMZQ==
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none; citrix.com; dmarc=none action=none header.from=dornerworks.com; 
-Received: from CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:401::9)
- by CY1P110MB0456.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:403::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.15; Fri, 18 Sep
- 2020 18:21:04 +0000
-Received: from CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM
- ([fe80::107b:2f78:fa10:843b]) by CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM
- ([fe80::107b:2f78:fa10:843b%4]) with mapi id 15.20.3391.019; Fri, 18 Sep 2020
- 18:21:04 +0000
-Subject: Re: [PATCH 4/5] sched/arinc653: Reorganize function definition order
-To: Dario Faggioli <dfaggioli@suse.com>, Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-5-jeff.kubascik@dornerworks.com>
- <67010159-2bde-cb52-434c-d75c27f8ce7a@suse.com>
- <3828f62a38d84c7fd27cfaacc0d29d428d19d55e.camel@suse.com>
-From: Jeff Kubascik <jeff.kubascik@dornerworks.com>
-Message-ID: <1aa7b79e-e1b6-2a47-b643-3f950e43aa41@dornerworks.com>
-Date: Fri, 18 Sep 2020 14:21:21 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.2.2
-In-Reply-To: <3828f62a38d84c7fd27cfaacc0d29d428d19d55e.camel@suse.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CY1P110CA0049.NAMP110.PROD.OUTLOOK.COM
- (2001:489a:200:400::19) To CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM
- (2001:489a:200:401::9)
+	id 1kJL2B-0007FT-QW; Fri, 18 Sep 2020 18:22:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GPqB=C3=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kJL2A-0007FF-34
+ for xen-devel@lists.xenproject.org; Fri, 18 Sep 2020 18:22:58 +0000
+X-Inumbo-ID: f6a0877c-df10-43c3-a1ac-96e1e3e1557f
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6a0877c-df10-43c3-a1ac-96e1e3e1557f;
+ Fri, 18 Sep 2020 18:22:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=aLlEXVutsIkRsJca/JJZ6Al2MadHXwr0CCJtWR0rJZQ=; b=Fc88fKNa67mPbdZQ+13D8s1G3u
+ O52BrBvuC9MAsA+jTazxKKZEEf4neD0xta+HSNJhfjO51zreTFDPjmsRwxO4aIg1PVnSALW7LbBrd
+ tuLqZFzY/zEQtouVA/xXpP+IgvXJb7lasDWIsD0ee2/MtzMFrTOKeThsmUUb48Kafnlg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kJL27-0005MO-LU; Fri, 18 Sep 2020 18:22:55 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kJL27-0007x5-Aj; Fri, 18 Sep 2020 18:22:55 +0000
+Subject: Re: DT with memory bank of size 0 (WAS: Re: AW: AW: Colibri imx8qxp:
+ Missing kernel boot module)
+To: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Daniel Wagner2 <Daniel.Wagner2@itk-engineering.de>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <bdb15b12e6f345249ea8bc685ca88787@itk-engineering.de>
+ <b97ddb1f-fa6c-b5ea-4fd8-1d0c09c7a693@xen.org>
+ <e421d4214c8a4201a917a9aa833de939@itk-engineering.de>
+ <45400b8b-6379-e00e-50de-941bb2ff423c@xen.org>
+ <alpine.DEB.2.21.2009161727100.27508@sstabellini-ThinkPad-T480s>
+ <da14d8f8-453a-9271-2803-2ffc85ca10ee@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ba3584bf-a187-3b06-30e5-caf37ee9a863@xen.org>
+Date: Fri, 18 Sep 2020 19:22:53 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from 255.255.255.255 (255.255.255.255) by
- CY1P110CA0049.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:400::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3391.17 via Frontend Transport; Fri, 18 Sep 2020 18:21:03 +0000
-X-Originating-IP: [207.242.234.14]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 57a8b116-18c4-4569-b020-08d85bff9abb
-X-MS-TrafficTypeDiagnostic: CY1P110MB0456:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY1P110MB04560E42EF4CECFB3F10708AE93F0@CY1P110MB0456.NAMP110.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(44832011)(66946007)(66556008)(66476007)(8936002)(86362001)(31686004)(956004)(508600001)(6666004)(2616005)(53546011)(52116002)(186003)(36756003)(6486002)(26005)(110136005)(83380400001)(4326008)(5660300002)(31696002)(8676002)(2906002)(54906003)(16576012)(43740500002);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: dornerworks.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57a8b116-18c4-4569-b020-08d85bff9abb
-X-MS-Exchange-CrossTenant-AuthSource: CY1P110MB0327.NAMP110.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2020 18:21:04.4974 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1P110MB0456
+In-Reply-To: <da14d8f8-453a-9271-2803-2ffc85ca10ee@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,71 +70,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/17/2020 10:16 AM, Dario Faggioli wrote:
->On Thu, 2020-09-17 at 10:12 +0200, Jan Beulich wrote:
->> On 16.09.2020 20:18, Jeff Kubascik wrote:
->>> @@ -517,27 +516,35 @@ static const struct scheduler
->>> sched_arinc653_def = {
->>>      .sched_id       = XEN_SCHEDULER_ARINC653,
->>>      .sched_data     = NULL,
+Hi Andre,
+
+On 17/09/2020 10:46, André Przywara wrote:
+> On 17/09/2020 01:31, Stefano Stabellini wrote:
+> 
+> Hi,
+> 
+>> On Wed, 16 Sep 2020, Julien Grall wrote:
+>>> On 14/09/2020 15:26, Daniel Wagner2 wrote:
+>>>> Hi Julien,
 >>>
->>> +    .global_init    = NULL,
->>>      .init           = a653sched_init,
->>>      .deinit         = a653sched_deinit,
+>>> Hi Daniel,
 >>>
->>> -    .free_udata     = a653sched_free_udata,
->>> -    .alloc_udata    = a653sched_alloc_udata,
->>> +    .alloc_pdata    = NULL,
->>> +    .switch_sched   = a653sched_switch_sched,
->>> +    .deinit_pdata   = NULL,
->>> +    .free_pdata     = NULL,
+>>> I am moving the thread to xen-devel and adding a couple of more folks.
 >>>
->>> +    .alloc_domdata  = NULL,
->>> +    .free_domdata   = NULL,
->>> +
->>> +    .alloc_udata    = a653sched_alloc_udata,
->>>      .insert_unit    = NULL,
->>>      .remove_unit    = NULL,
->>> +    .free_udata     = a653sched_free_udata,
+>>>>>
+>>>>>>
+>>>>>> this is the full version of the fdt that threw the error:
+>>>>>> https://pastebin.com/63TZ9z3k
+>>>>>> The problematic memory node appears in line 126
+>>>>>
+>>>>> Thanks! The output looks corrupted as some of the lines are not valid DTB:
+>>>>>
+>>>>> fsl,pins = * 0x000000009300184c [0x00000048];
+>>>>>
+>>>>> Although, I am not sure if it is just U-boot dumping the DTB differently.
+>>>>>
+>>>>> Anyway, after removing the "corrupted" line, I managed to get a compile
+>>>> the
+>>>>> DTB. I don't have a Colibri IMX8QXP. However, given this is an early
+>>>> parsing
+>>>>> error, I have just embed the DTB in Xen binary via CONFIG_DTB_FILE.
+>>>>>
+>>>>> Unfortunately I couldn't reproduce your error. This either suggests the
+>>>> DTB gets
+>>>>> corrupted or Xen doesn't access the DTB with the correct memory attribute.
+>>>>>
+>>>>> Do you have the DTB in hand?
+>>>>
+>>>> Sorry for the corrupted version, I've uploaded the DTB
+>>>> (fsl-imx8qxp-colibri-eval-v3.dtb) to
+>>>> https://drive.google.com/drive/folders/1jbpnz35sC0NbCyEjrkLqelBsKBztW1S6?usp
+>>>> =sharing
+>>>>
+>>>> I have also uploaded my modified xen source files.
+>>>> 1. arch/arm/bootfdt.c
+>>>> where I have added the additional printk's seen in the log and
+>>>> 2. arch/arm/setup.c
+>>>> where I rerun the devicetree parser in line 935 to get the logs, since the
+>>>> console is not yet initialised when the function is called for the first
+>>>> time and I
+>>>> didn't manage to enable earlyprintk.
+>>>>
+>>>> I think the breaking point is the second memory bank which appears in the
+>>>> logs (see the output line marked with "!!")  with start=0x8 8000 0000 and
+>>>> size=0.
+>>>> It isn't specified in the DTB, so I am not sure where this comes from.
+>>>> It has size=0 so
+>>>> if ( !size )
+>>>>       {
+>>>>           printk("invalid size, bank %d\n",i);
+>>>>           return -EINVAL;
+>>>>       }
+>>>> In bootfdt.c makes the function stop.
+>>>>
+>>>> Log:
+>>>> (XEN) arch/arm/bootfdt.c: early_scan_node
+>>>> (XEN) -> fdt: node `memory@80000000': parsing
+>>>> (XEN) -> process_memory_node
+>>>> (XEN)
+>>>> (XEN) arch/arm/bootfdt.c: process_memory_node
+>>>> (XEN) ->found memory:reg
+>>>> (XEN) ->cell=
+>>>> (XEN) ->banks=2
+>>>> (XEN) ->mem->nr_banks=1
+>>>> (XEN) ->NR_MEM_BANKS=128
+>>>> (XEN) ->start=0x80200000 size=0x7fe00000
+>>>> !! (XEN) ->start=0x880000000 size=0
+>>>> (XEN) invalid size, bank 1
+>>>> (XEN) END of arch/arm/bootfdt.c: process_memory_node
 >>>
->>>      .sleep          = a653sched_unit_sleep,
->>>      .wake           = a653sched_unit_wake,
->>>      .yield          = NULL,
->>>      .context_saved  = NULL,
+>>> When I tried to run it on the model I get:
 >>>
->>> -    .do_schedule    = a653sched_do_schedule,
->>> -
->>>      .pick_resource  = a653sched_pick_resource,
->>> +    .migrate        = NULL,
+>>> (XEN) device_tree_for_each_node: memory@80000000
+>>> (XEN)
+>>> (XEN) arch/arm/bootfdt.c: early_scan_node
+>>> (XEN) -> fdt: node `memory@80000000': parsing
+>>> (XEN) -> process_memory_node
+>>> (XEN)
+>>> (XEN) arch/arm/bootfdt.c: process_memory_node
+>>> (XEN) ->found memory:reg
+>>> (XEN) ->cell=
+>>> (XEN) ->banks=1
+>>> (XEN) ->mem->nr_banks=0
+>>> (XEN) ->NR_MEM_BANKS=128
+>>> (XEN) ->start=0x80000000 size=0x40000000
+>>> (XEN) END of arch/arm/bootfdt.c: process_memory_node
 >>>
->>> -    .switch_sched   = a653sched_switch_sched,
->>> +    .do_schedule    = a653sched_do_schedule,
+>>>>
+>>>> Btw 8_8000_0000 is the start address of this systems DDR Main memory,
+>>>> according to the Reference Manual of the i.MX8QXP.
+>>> I couldn't find this value in the DT. It is possible that U-boot is modifying
+>>> the memory node before jumping to Xen (or Linux).
+> 
+> U-Boot almost always rewrites the memory node, filling in its own view
+> of DRAM. It's actually not that easy to avoid that.
+> This is in U-Boot's colibri-imx8x.h:
+> #define CONFIG_SYS_SDRAM_BASE           0x80000000
+> #define PHYS_SDRAM_1                    0x80000000
+> #define PHYS_SDRAM_2                    0x880000000
+> #define PHYS_SDRAM_1_SIZE               SZ_2G           /* 2 GB */
+> #define PHYS_SDRAM_2_SIZE               0x00000000      /* 0 GB */
+> 
+> The Colibri iMX8X SoM seems to support "Up to 2GB LPDDR4", so not sure
+> why we have the upper memory here at all. It could just set
+> CONFIG_NR_DRAM_BANKS to 1 and be done. But anyway ...
+> 
+>>> Looking at Linux, they seem to ignore any bank with size == 0. I am starting
+>>> to wonder whether your DT is (ab)using it.
 >>>
->>>      .adjust         = NULL,
->>> +    .adjust_affinity= NULL,
+>>> Do you have Linux running on baremetal on this board? If so would you mind to
+>>> dump the DT from the userspace (via /proc/device-tree) this time?
+>>>
+>>> In any case, we may want to relax the check in Xen. Any opinions?
 >>
->> Adding all these not really needed NULL initializers looks to rather
->> move
->> this scheduler away from all the others.
->>
->Agreed, no need for more "= NULL". On the contrary, the ones that are
->there should go away.
+>> Yeah, ignoring a bank with size=0 is fine. I checked the epapr and it
+> 
+> Not sure you meant this, but the official DT spec replaced ePAPR for a
+> while now: https://www.devicetree.org/specifications/
+> It has been heavily updated and even got some bug fixes.
+> 
+>> doesn't specify that size=0 is invalid, so I think it is actually better
+>> to ignore it and continue even from a spec perspective.
+> 
+> Yeah, I don't see any harm as well with ignoring 0 sized banks.
 
-Agreed x2, I'll remove the "= NULL" lines.
+Great! I have sent a patch that should solve this.
 
->About this:
->
->>  (Oddly enough all of them
->> explicitly set .sched_data to NULL - for whatever reason.)
->>
->Yes, we decided to keep it like that, back then. I think now it would
->be ok for it to go away too.
->
->So, Jeff, feel free to zap it with this patch or series. Or I can send
->a patch to zap all of them, as you wish.
+> Just not sure if that has any implication with the number of memory
+> banks that Xen wants to deal with (it if counts two, but there is only
+> one valid one).
 
-I'll remove the ".sched_data = NULL" line above, but my scope is limited to the
-ARINC653 scheduler, so I won't be able to work on this.
+It should not have any impact as we store in memory our representation 
+of the memory.
 
--Jeff
+Cheers,
+
+-- 
+Julien Grall
 
