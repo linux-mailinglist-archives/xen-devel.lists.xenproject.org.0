@@ -2,76 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6862725AC
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 15:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC642272676
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 16:00:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKLyd-0002sE-AB; Mon, 21 Sep 2020 13:35:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BjqN=C6=amazon.co.uk=prvs=5269d94c5=pdurrant@srs-us1.protection.inumbo.net>)
- id 1kKLyb-0002s5-F1
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 13:35:29 +0000
-X-Inumbo-ID: b1654acf-b4be-4898-bd5b-ad74418de4ec
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b1654acf-b4be-4898-bd5b-ad74418de4ec;
- Mon, 21 Sep 2020 13:35:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
- s=amazon201209; t=1600695329; x=1632231329;
- h=from:to:cc:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version:subject;
- bh=jfEZki0rcxEi66HEr60UhsC4uDFWJ0eZ02s9yyfdtd0=;
- b=DmmSzSL7ds7mFYe4kPxGQLfUFZMdngmMlFsrp7SGiBVV9q2YTzm6XAAF
- BMaTigDQCNrVPr+PrhwwsvoI1uppS9c9h1mKr6RPqfWfV1kBWzjQrNIYw
- rRBIoHnktTJTEa2hCuo7wQm841ySxF2tgXG9JHGVkFXgOR4k7kFB7i/fk M=;
-X-IronPort-AV: E=Sophos;i="5.77,286,1596499200"; d="scan'208";a="55296599"
-Subject: RE: Memory ordering question in the shutdown deferral code
-Thread-Topic: Memory ordering question in the shutdown deferral code
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2a-119b4f96.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 21 Sep 2020 13:35:27 +0000
-Received: from EX13D37EUA003.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2a-119b4f96.us-west-2.amazon.com (Postfix) with ESMTPS
- id 241031A157B; Mon, 21 Sep 2020 13:35:25 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D37EUA003.ant.amazon.com (10.43.165.7) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 21 Sep 2020 13:35:24 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Mon, 21 Sep 2020 13:35:24 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, "andrew.cooper3@citrix.com"
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Xia,
- Hongyan" <hongyxia@amazon.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Index: AQHWkAvNKxPhF20UiUS+iInofanuW6ly9+2AgAAST0CAAAuigIAAAVWAgAAAbJA=
-Date: Mon, 21 Sep 2020 13:35:24 +0000
-Message-ID: <6909eb6bc4dd4f16b4cd2f8119b3144d@EX13D32EUC003.ant.amazon.com>
-References: <468576ba-8d3f-98e9-e65e-1128b5220d40@xen.org>
- <a75efed4-d435-1746-85ab-a87b328c1101@xen.org>
- <92a6373003e142e9943a4057024a2616@EX13D32EUC003.ant.amazon.com>
- <ad81f6ac-6127-bea8-a503-d16d3dc175df@xen.org>
- <80e221e0-a1d5-4cc1-b083-1e8f537f016c@suse.com>
-In-Reply-To: <80e221e0-a1d5-4cc1-b083-1e8f537f016c@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.166.209]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	id 1kKMLQ-0004lV-DN; Mon, 21 Sep 2020 13:59:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8Wak=C6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kKMLO-0004lQ-Uy
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 13:59:02 +0000
+X-Inumbo-ID: 8fb0c116-0808-4660-b02c-357740ceea35
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8fb0c116-0808-4660-b02c-357740ceea35;
+ Mon, 21 Sep 2020 13:59:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600696741;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wStl9jlRvxjcUrfUjhvUvhqxsGoh220+OsVZkOeI5+A=;
+ b=hCDADbpSjrU0H2smkmduWX651YuGhWlaQAKfB9mZ9XxvkDdPfd6bXL/il6fT4ARlLN68TZ
+ CamusIOGZguuPXpwaHaIiMKkuSP285x72pb0ssKlnmdqDhPKkQ26f9j3PYMqAO1W6U4XEF
+ Wi2/7+fR/m20FdUaxnXxKRyN/mPM/pI=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 05F94AC61;
+ Mon, 21 Sep 2020 13:59:37 +0000 (UTC)
+Subject: Re: [PATCH] x86: Use LOCK ADD instead of MFENCE for smp_mb()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Ian Jackson <Ian.Jackson@citrix.com>
+References: <20200921130423.8035-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <aaf209f6-7878-f37d-3c30-c6981e675f6c@suse.com>
+Date: Mon, 21 Sep 2020 15:58:59 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <20200921130423.8035-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -82,25 +61,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDIxIFNlcHRlbWJlciAyMDIwIDE0OjMyDQo+IFRvOiBKdWxp
-ZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPg0KPiBDYzogRHVycmFudCwgUGF1bCA8cGR1cnJhbnRA
-YW1hem9uLmNvLnVrPjsgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3Jn
-PjsNCj4gYW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbTsgR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1
-bmxhcEBjaXRyaXguY29tPjsgWGlhLCBIb25neWFuDQo+IDxob25neXhpYUBhbWF6b24uY29tPjsg
-eGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJFOiBbRVhURVJOQUxd
-IE1lbW9yeSBvcmRlcmluZyBxdWVzdGlvbiBpbiB0aGUgc2h1dGRvd24gZGVmZXJyYWwgY29kZQ0K
-PiANCj4gQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUg
-b3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3Blbg0KPiBhdHRhY2htZW50cyB1
-bmxlc3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMg
-c2FmZS4NCj4gDQo+IA0KPiANCj4gT24gMjEuMDkuMjAyMCAxNToyNywgSnVsaWVuIEdyYWxsIHdy
-b3RlOg0KPiA+IEkgdGhpbmsgdGhpcyBwYXJ0IGlzIHJhY3kgYXQgbGVhc3Qgb24gbm9uLXg4NiBw
-bGF0Zm9ybSBhcyB4ODYgc2VlbXMgdG8NCj4gPiBpbXBsZW1lbnQgc21wX21iKCkgd2l0aCBhIHN0
-cm9uZyBtZW1vcnkgYmFycmllciAobWZlbmNlKS4NCj4gDQo+IFRoZSAic3RyZW5ndGgiIG9mIHRo
-ZSBtZW1vcnkgYmFycmllciBkb2Vzbid0IG1hdHRlciBoZXJlIGltby4gSXQncw0KPiB0aGUgZnVs
-bHkgY29oZXJlbnQgbWVtb3J5IG1vZGVsIChmb3IgV0IgdHlwZSBtZW1vcnkpIHdoaWNoIG1ha2Vz
-DQo+IHRoaXMgYmUgZmluZSBvbiB4ODYuIFRoZSBiYXJyaWVyIHN0aWxsIG9ubHkgZ3VhcmFudGVl
-cyBvcmRlcmluZywNCj4gbm90IHZpc2liaWxpdHkuDQo+IA0KDQpJbiB3aGljaCBjYXNlIEkgbWlz
-dW5kZXJzdG9vZCB3aGF0IHRoZSAnc21wJyBtZWFucyBpbiB0aGlzIGNvbnRleHQgdGhlbi4NCg0K
-ICBQYXVsDQo=
+On 21.09.2020 15:04, Andrew Cooper wrote:
+> MFENCE is overly heavyweight for SMP semantics on WB memory, because it also
+> orders weaker cached writes, and flushes the WC buffers.
+> 
+> This technique was used as an optimisation in Java[1], and later adopted by
+> Linux[2] where it was measured to have a 60% performance improvement in VirtIO
+> benchmarks.
+> 
+> The stack is used because it is hot in the L1 cache, and a -4 offset is used
+> to avoid creating a false data dependency on live data.  (For 64bit userspace,
+> the offset needs to be under the red zone to avoid false dependences).
+> 
+> Fix up the 32 bit definitions in HVMLoader and libxc to avoid a false data
+> dependency.
+> 
+> [1] https://shipilev.net/blog/2014/on-the-fence-with-dependencies/
+> [2] https://git.kernel.org/torvalds/c/450cbdd0125cfa5d7bbf9e2a6b6961cc48d29730
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+For the hypervisor and hvmloader part:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> --- a/tools/libs/ctrl/include/xenctrl.h
+> +++ b/tools/libs/ctrl/include/xenctrl.h
+> @@ -68,11 +68,11 @@
+>  #define xen_barrier() asm volatile ( "" : : : "memory")
+>  
+>  #if defined(__i386__)
+> -#define xen_mb()  asm volatile ( "lock; addl $0,0(%%esp)" : : : "memory" )
+
+If this causes a false dependency (which I agree it does), how
+come ...
+
+> +#define xen_mb()  asm volatile ( "lock addl $0, -4(%%esp)" ::: "memory" )
+>  #define xen_rmb() xen_barrier()
+>  #define xen_wmb() xen_barrier()
+>  #elif defined(__x86_64__)
+> -#define xen_mb()  asm volatile ( "mfence" : : : "memory")
+> +#define xen_mb()  asm volatile ( "lock addl $0, -128(%%rsp)" ::: "memory" )
+
+... this doesn't? It accesses the bottom 4 bytes of the redzone,
+doesn't it?
+
+As a minor other thought for all of its incarnations: Is a 32-bit
+memory access really the best choice? Wouldn't an 8-bit access
+further reduce (albeit not eliminate) the risk of unnecessary
+dependencies between this memory access and others in functions
+called from the users of this barrier?
+
+Or actually, in the hypervisor case, since the used stack slot
+would typically hold the return address of the next level's
+functions, would a 64-bit access or one further away from the
+current stack pointer not help avoid partial dependencies?
+
+And finally, already when Linux used this for just 32-bit I've
+always been wondering why they bother preserving the contents of
+this piece of memory. How about using NOT (saving the immediate
+byte) or XCHG (requiring a dead register instead of the saved
+arithmetic, immediate byte, and lock prefix)?
+
+Jan
 
