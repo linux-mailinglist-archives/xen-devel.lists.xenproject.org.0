@@ -2,78 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC1E271C27
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 09:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C680D271DC8
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 10:20:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKGNd-0002aJ-6U; Mon, 21 Sep 2020 07:36:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PHp+=C6=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kKGNc-0002aE-Lt
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 07:36:56 +0000
-X-Inumbo-ID: cfb4ff8f-9825-4881-a26f-36d2d085d8d8
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cfb4ff8f-9825-4881-a26f-36d2d085d8d8;
- Mon, 21 Sep 2020 07:36:55 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id k18so11456531wmj.5
- for <xen-devel@lists.xenproject.org>; Mon, 21 Sep 2020 00:36:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=1BKJ4vvLut5rkWz0PH9HT2QLSuimyxGQ3qinvqciOY4=;
- b=rNRQ5yjBPkYctK71BCFAc6pX4QCZxgtu4cQMNSI064+FOYmn6Aq8PCtzXAtQzIOuFc
- 7wI5ow++QrCCyORgfSc10Som0iuDpWpO+NfSAeFI2wnKOlNoOGib0rfD9rv1AL3eMNL1
- EVidqzifDfC1325j8JOMzDzzPLu4qaUgje8PSoK+xAtCW16pzFvG49+1HhRpAGh2T4VU
- +t/JED2DUICnCKzACK5EWRHIug/MeO3qsJSPZwvXzlr5/bWCxJ126673i5dNLCgVDvxF
- CPbHbiF1I3V8B1GpoGLwUWOb4+AWWXVwGcrQFsWUBzUS40YaEPAXt1/uHrdJGIQtXZq0
- z0aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=1BKJ4vvLut5rkWz0PH9HT2QLSuimyxGQ3qinvqciOY4=;
- b=USXncsseQcaveueJLW2ZQDJEgdHNyJKpG+r4a9X/OMbayu2V4dJOC0245vlXSUG0kq
- UAYzlLLD4+FW6fvGjAwzOliavwjYWJ4ri+ISJ45QLMLzIMFWPW8BtnC/HcUEf7pdj/Oe
- c1hx9791YYMhnWCcSDhmmatK/LB4dpS5trV3s4abEDLmoiCHQnVRIp16oMY2QpXv1ZuH
- BD3PNFz1Ufr1IG/t4LyoAkX18lNaypHcy0d9hLf4rYD1eVmsajB5ORP4Af4f01KLDI+D
- tb//AzHYuBb9Lsok7KEAgAfphGvKRsvpObkqN8zpu6yG1Lvbu5Ax3Ax1NzZBYwqatTQV
- I8GA==
-X-Gm-Message-State: AOAM533vdaSTzqmfSTgXxAUUDuQWW/rrvjrbK4vs7Ao3xmsP1pGUhnPn
- oyGMaWMyuU/vEjFT7xaJ+dE=
-X-Google-Smtp-Source: ABdhPJxSWcV1Hb7y81hXqW6OJvRurPdmgYWbbCTYWTZTvgtPD7zPxXCLZ+h/Wvz/S0u/7XB/+5bUyA==
-X-Received: by 2002:a1c:96:: with SMTP id 144mr28851759wma.84.1600673814239;
- Mon, 21 Sep 2020 00:36:54 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id n10sm18611521wmk.7.2020.09.21.00.36.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 21 Sep 2020 00:36:53 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Ian Jackson'" <iwj@xenproject.org>,
- "'Debian folks: Michael Tokarev'" <mjt@tls.msk.ru>,
- "'Hans van Kranenburg'" <hans@knorrie.org>,
- "'Xen upstream folks with an interest: Andrew Cooper'"
- <Andrew.Cooper3@citrix.com>, 
- =?iso-8859-1?Q?'Roger_Pau_Monn=E9'?= <roger.pau@citrix.com>
-Cc: <pkg-xen-devel@lists.alioth.debian.org>, <xen-devel@lists.xenproject.org>,
- "'My Xen upstream tools co-maintainer: Wei Liu'" <wl@xen.org>
-References: <24420.58027.291045.507128@mariner.uk.xensource.com>
-In-Reply-To: <24420.58027.291045.507128@mariner.uk.xensource.com>
-Subject: RE: qemu and Xen ABI-unstable libs
-Date: Mon, 21 Sep 2020 08:36:55 +0100
-Message-ID: <001b01d68fe9$fb3ae060$f1b0a120$@xen.org>
+	id 1kKH2x-0006YR-1u; Mon, 21 Sep 2020 08:19:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=acSb=C6=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1kKH2v-0006YM-AU
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 08:19:37 +0000
+X-Inumbo-ID: 0f3b7cff-6569-4162-b4ee-71b92512952a
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 0f3b7cff-6569-4162-b4ee-71b92512952a;
+ Mon, 21 Sep 2020 08:19:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600676375;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zmzmnbPEdvlg7AX1Vyh3nnqsVmqu2FbhwV9AE+3XCes=;
+ b=Paj+JtHDnUXbbsGNTIzDF4Rmn/Z6+jPzw83M1Y3yvlyAXyHdGH5mI2oUMzZwPDUP5F0CEX
+ K9stTOi1qEor9+dFoH/h5qMNgess+O73kXBD0nhRWv8/b+F86BNwztqKliBtHsBA4f8v90
+ nZGOjy9c1b7pSKxjGCW7Bpx+NoEgIZE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-437-ztB3sqW_N-uJVr7DhmADug-1; Mon, 21 Sep 2020 04:19:34 -0400
+X-MC-Unique: ztB3sqW_N-uJVr7DhmADug-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7EB721891E8C;
+ Mon, 21 Sep 2020 08:19:32 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-114-66.ams2.redhat.com
+ [10.36.114.66])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 42D6F61177;
+ Mon, 21 Sep 2020 08:19:28 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 727EB1132E9A; Mon, 21 Sep 2020 10:19:25 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
+Cc: qemu-devel@nongnu.org,  Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>,  Eduardo Habkost
+ <ehabkost@redhat.com>,  Paul Durrant <paul@xen.org>,  "Michael S. Tsirkin"
+ <mst@redhat.com>,  Laurent Vivier <laurent@vivier.eu>,
+ xen-devel@lists.xenproject.org,  Anthony Perard
+ <anthony.perard@citrix.com>,  Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH 2/2] qdev: Let BusRealize() return a boolean value to
+ indicate error
+References: <20200920114416.353277-1-f4bug@amsat.org>
+ <20200920114416.353277-3-f4bug@amsat.org>
+Date: Mon, 21 Sep 2020 10:19:25 +0200
+In-Reply-To: <20200920114416.353277-3-f4bug@amsat.org> ("Philippe
+ =?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Sun, 20 Sep 2020 13:44:16
+ +0200")
+Message-ID: <87eemva6eq.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="iso-8859-1"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=armbru@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQH2uLOlkL5RRHeQwNjnzSMb6hz+iakyWQ8g
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,308 +81,182 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Ian Jackson
-> Sent: 18 September 2020 17:39
-> To: Debian folks: Michael Tokarev <mjt@tls.msk.ru>; Hans van =
-Kranenburg <hans@knorrie.org>; Xen
-> upstream folks with an interest: Andrew Cooper =
-<Andrew.Cooper3@citrix.com>; Roger Pau Monn=E9
-> <roger.pau@citrix.com>
-> Cc: pkg-xen-devel@lists.alioth.debian.org; =
-xen-devel@lists.xenproject.org; My Xen upstream tools co-
-> maintainer: Wei Liu <wl@xen.org>
-> Subject: RFC: qemu and Xen ABI-unstable libs
->=20
-> Hi all.  Michael Tokarev has been looking into the problem that qemu
-> is using Xen libraries with usntable ABIs.  We did an experiment to
-> see which abi-unstable symbols qemu links to, by suppressing libxc
-> from the link line.  The results are below.[1]
->=20
-> Things are not looking too bad.  After some discussion on #xendevel I
-> have tried to summarise the situation for each of the troublesome
-> symbols.
->=20
-> Also, we discovered that upstream qemu does not link against any
-> abi-unstable Xen libraries if PCI passthrough is disabled.
->=20
-> Please would my Xen colleages correct me if I have made any mistakes.
-> Michael, I hope this is helpful and clear.
->=20
->=20
-> In order from easy to hard:
->=20
->=20
-> xc_domain_shutdown
->=20
-> This call in qemu needs to be replaced with a call to the existing
-> function xendevicemodel_shutdown in libxendevicemodel.  I think it is
-> likely that this call is fixed in qemu upstream.
->=20
+Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
 
-I just pulled QEMU master and it appears that destroy_hvm_domain() is =
-still calling xc_domain_shutdown().
+> Commit 9940b2cfbc0 introduced qdev_realize() and qbus_realize()
+> with the ability to return a boolean value if an error occured,
+> thus the caller does not need to check if the Error* pointer is
+> set.
+> Provide the same ability to the BusRealize type.
+>
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+> ---
+>  include/hw/qdev-core.h | 14 +++++++++++++-
+>  hw/hyperv/vmbus.c      |  5 +++--
+>  hw/nubus/nubus-bus.c   |  5 +++--
+>  hw/pci/pci.c           | 12 +++++++++---
+>  hw/xen/xen-bus.c       |  5 +++--
+>  5 files changed, 31 insertions(+), 10 deletions(-)
+>
+> diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
+> index 02ac1c50b7f..eecfe794a71 100644
+> --- a/include/hw/qdev-core.h
+> +++ b/include/hw/qdev-core.h
+> @@ -32,7 +32,19 @@ typedef enum DeviceCategory {
+>  typedef void (*DeviceRealize)(DeviceState *dev, Error **errp);
+>  typedef void (*DeviceUnrealize)(DeviceState *dev);
+>  typedef void (*DeviceReset)(DeviceState *dev);
+> -typedef void (*BusRealize)(BusState *bus, Error **errp);
+> +/**
+> + * BusRealize: Realize @bus.
+> + * @bus: bus to realize
+> + * @errp: pointer to error object
+> + *
+> + * On success, return true.
+> + * On failure, store an error through @errp and return false.
+> + */
+> +typedef bool (*BusRealize)(BusState *bus, Error **errp);
+> +/**
+> + * BusUnrealize: Unrealize @bus.
+> + * @bus: bus to unrealize
+> + */
+>  typedef void (*BusUnrealize)(BusState *bus);
+> =20
+>  /**
+> diff --git a/hw/hyperv/vmbus.c b/hw/hyperv/vmbus.c
+> index 6ef895bc352..8a0452b2464 100644
+> --- a/hw/hyperv/vmbus.c
+> +++ b/hw/hyperv/vmbus.c
+> @@ -2487,7 +2487,7 @@ static const TypeInfo vmbus_dev_type_info =3D {
+>      .instance_init =3D vmbus_dev_instance_init,
+>  };
+> =20
+> -static void vmbus_realize(BusState *bus, Error **errp)
+> +static bool vmbus_realize(BusState *bus, Error **errp)
+>  {
+>      int ret =3D 0;
+>      Error *local_err =3D NULL;
+> @@ -2519,7 +2519,7 @@ static void vmbus_realize(BusState *bus, Error **er=
+rp)
+>          goto clear_event_notifier;
+>      }
+> =20
+> -    return;
+> +    return true;
+> =20
+>  clear_event_notifier:
+>      event_notifier_cleanup(&vmbus->notifier);
+> @@ -2528,6 +2528,7 @@ remove_msg_handler:
+>  error_out:
+>      qemu_mutex_destroy(&vmbus->rx_queue_lock);
+>      error_propagate(errp, local_err);
+> +    return false;
+>  }
+> =20
+>  static void vmbus_unrealize(BusState *bus)
+> diff --git a/hw/nubus/nubus-bus.c b/hw/nubus/nubus-bus.c
+> index 942a6d5342d..d20d9c0f72c 100644
+> --- a/hw/nubus/nubus-bus.c
+> +++ b/hw/nubus/nubus-bus.c
+> @@ -65,12 +65,13 @@ static const MemoryRegionOps nubus_super_slot_ops =3D=
+ {
+>      },
+>  };
+> =20
+> -static void nubus_realize(BusState *bus, Error **errp)
+> +static bool nubus_realize(BusState *bus, Error **errp)
+>  {
+>      if (!nubus_find()) {
+>          error_setg(errp, "at most one %s device is permitted", TYPE_NUBU=
+S_BUS);
+> -        return;
+> +        return false;
+>      }
+> +    return true;
+>  }
+> =20
+>  static void nubus_init(Object *obj)
+> diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+> index de0fae10ab9..f535ebac847 100644
+> --- a/hw/pci/pci.c
+> +++ b/hw/pci/pci.c
+> @@ -115,7 +115,7 @@ static void pcibus_machine_done(Notifier *notifier, v=
+oid *data)
+>      }
+>  }
+> =20
+> -static void pci_bus_realize(BusState *qbus, Error **errp)
+> +static bool pci_bus_realize(BusState *qbus, Error **errp)
+>  {
+>      PCIBus *bus =3D PCI_BUS(qbus);
+> =20
+> @@ -123,13 +123,17 @@ static void pci_bus_realize(BusState *qbus, Error *=
+*errp)
+>      qemu_add_machine_init_done_notifier(&bus->machine_done);
+> =20
+>      vmstate_register(NULL, VMSTATE_INSTANCE_ID_ANY, &vmstate_pcibus, bus=
+);
+> +
+> +    return true;
+>  }
+> =20
+> -static void pcie_bus_realize(BusState *qbus, Error **errp)
+> +static bool pcie_bus_realize(BusState *qbus, Error **errp)
+>  {
+>      PCIBus *bus =3D PCI_BUS(qbus);
+> =20
+> -    pci_bus_realize(qbus, errp);
+> +    if (!pci_bus_realize(qbus, errp)) {
+> +        return false;
+> +    }
 
->=20
-> xc_get_hvm_param
->=20
-> There are three references in qemu's
-> xen_get_default_ioreq_server_info, relating to ioreq servers.  These
-> uses (and perhaps surrounding code at this function's call site)
-> should be replaced by use of xendevicemodel_create_ioreq_server
-> etc. from libxendevicemodel.  I think it is likely that this call is
-> fixed in qemu upstream.
->=20
+We now update bus->flags only when pci_bus_realize() succeeds.  Is this
+a bug fix?
 
-These references are in compat code for Xen < 4.6. Use of (non-default) =
-ioreq server has been present in the code for a long time.
-We can remove them by retiring the compat code.
+> =20
+>      /*
+>       * A PCI-E bus can support extended config space if it's the root
+> @@ -144,6 +148,8 @@ static void pcie_bus_realize(BusState *qbus, Error **=
+errp)
+>              bus->flags |=3D PCI_BUS_EXTENDED_CONFIG_SPACE;
+>          }
+>      }
+> +
+> +    return true;
+>  }
+> =20
+>  static void pci_bus_unrealize(BusState *qbus)
+> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
+> index 9ce1c9540b9..d7ef5d05e37 100644
+> --- a/hw/xen/xen-bus.c
+> +++ b/hw/xen/xen-bus.c
+> @@ -444,7 +444,7 @@ static void xen_bus_unrealize(BusState *bus)
+>      }
+>  }
+> =20
+> -static void xen_bus_realize(BusState *bus, Error **errp)
+> +static bool xen_bus_realize(BusState *bus, Error **errp)
+>  {
+>      XenBus *xenbus =3D XEN_BUS(bus);
+>      unsigned int domid;
+> @@ -478,10 +478,11 @@ static void xen_bus_realize(BusState *bus, Error **=
+errp)
+>                            "failed to set up enumeration watch: ");
+>      }
+> =20
+> -    return;
+> +    return true;
+> =20
+>  fail:
+>      xen_bus_unrealize(bus);
+> +    return false;
+>  }
+> =20
+>  static void xen_bus_unplug_request(HotplugHandler *hotplug,
 
->=20
-> xc_physdev_map_pirq
-> xc_physdev_map_pirq_msi
-> xc_physdev_unmap_pirq
->=20
-> These are all small wrappers for the PHYSDEVOP_map_pirq hypercall.
-> PHYSDEVOP is already reasonably abi-stable at the hypervisor level (in
-> theory it's versioned, but changing it would break all dom0's).
-
-The hypercalls are non-tools and directly called from the Linux kernel =
-code so they are ABI.
-
-> These calls could just be provided as-is by a new stable abi
-> entrypoint.  We think this should probably go in libxendevicemodel.
->=20
-
-Rather than simply moving this calls into libxendevicemodel, we should =
-think about their interactions with calls such as
-xc_domain_bind_pt_pci_irq() below and maybe have a stable library that =
-actually provides a better API/ABI for interrupt
-mapping/triggering although... I've long felt PCI pass-through should =
-not be done by QEMU anyway (not least because we currently
-have no mechanism for PCI pass-through to PVH domains).
-
-> So, what's needed is to make Xen upstream change to add versions of
-> these three functions to tools/libs/devicemodel.  Change qemu to use
-> them.
->=20
->=20
-> xc_domain_iomem_permission
-> xc_domain_populate_physmap_exact
-> xc_domain_ioport_mapping
-> xc_domain_memory_mapping
->=20
-> The things done by these calls in qemu should be done by the Xen
-> toolstack (libxl), during domain creation etc., instead.
-
-I don't think that is practical. E.g. if a guest re-programs a PCI I/O =
-BAR then it may necessitate re-calling
-xc_domain_ioport_mapping(); the tool-stack cannot know a priori where =
-PCI BARs will end up in guest port/memory space.
-
->=20
-> For at least some of them, there are patches on xen-devel, see
->   From: Grzegorz Uriasz <gorbak25@gmail.com>
->   Subject: [PATCH 1/3] tools/libxl: Grant VGA IO port permission for
->    stubdom/target domain
->   Date: Sun, 14 Jun 2020 23:12:01 +0100
-> et seq.  These patches have been reviewed and as far as I can tell
-> from the thread we are awaiting a resend.
->=20
-
-For legacy ranges, such as VGA, it is practical.
-
->=20
-> xc_set_hvm_param
->=20
-> Two calls both relating to HVM_PARAM_ACPI_S_STATE.
->=20
-> These need to be turned into DMOP hypercalls (ie, new hypercalls added
-> to the hypervisor) and entrypoints provided in libxendevicemodel.
->=20
-
-Yes, this is certainly a candidate for a DM op.
-
->=20
-> xc_domain_bind_pt_pci_irq
-> xc_domain_unbind_msi_irq
-> xc_domain_unbind_pt_irq
-> xc_domain_update_msi_irq
->=20
-> These are currently XEN_DOMCTL_* hypercalls.  These do not have a
-> stable ABI at the hypervisor interface.  AIUI Xen hypervisor folks
-> think they should be changed to use the DMOP or PHYSDEVOP hypercalls.
->=20
-> Additionally, we need calls for these in a userspace library with a
-> stable ABI.  We think that should be libxendevicemodel.
->=20
-
-What I said above: This needs more consideration.
-
-A while ago I hacked together xenpt =
-(https://xenbits.xen.org/gitweb/?p=3Dpeople/pauldu/xenpt.git), a =
-stand-alone PCI pass-through
-emulator. One option would be to get this into shape and pull it into =
-the Xen tool-stack. This would facilitate removal of the PCI
-pass-through code from QEMU and hence removal of use of unstable =
-interfaces.
-
-  Paul
-
-> I think the userspace library part can go ahead right away: we can
-> change the implementation to use DMOP when the hypervisor work is
-> done.  In the meantime, the library would have a stable ABI for
-> callers, but the implementation would be tied to the hypervisor ABI.
->=20
->=20
-> xc_interface_close
-> xc_interface_open
->=20
-> When everything else is done, these calls will no longer be needed
-> because nothing will use the xc handle.
->=20
-> Ian.
->=20
->=20
-> [1]
->=20
-> /usr/bin/ld: accel/xen/xen-all.o: in function `xen_init':
-> /build/qemu/debian-qemu/accel/xen/xen-all.c:160: undefined reference =
-to `xc_interface_open'
-> /usr/bin/ld: /build/qemu/debian-qemu/accel/xen/xen-all.c:175: =
-undefined reference to
-> `xc_interface_close'
-> /usr/bin/ld: /build/qemu/debian-qemu/accel/xen/xen-all.c:168: =
-undefined reference to
-> `xc_interface_close'
-> /usr/bin/ld: hw/xen/xen_pt.o: in function `xen_pt_destroy':
-> /build/qemu/debian-qemu/hw/xen/xen_pt.c:725: undefined reference to =
-`xc_domain_unbind_pt_irq'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt.c:751: undefined =
-reference to
-> `xc_physdev_unmap_pirq'
-> /usr/bin/ld: hw/xen/xen_pt.o: in function `xen_pt_realize':
-> /build/qemu/debian-qemu/hw/xen/xen_pt.c:866: undefined reference to =
-`xc_physdev_map_pirq'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt.c:885: undefined =
-reference to
-> `xc_domain_bind_pt_pci_irq'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt.c:898: undefined =
-reference to
-> `xc_physdev_unmap_pirq'
-> /usr/bin/ld: hw/xen/xen_pt.o: in function `xen_pt_region_update':
-> /build/qemu/debian-qemu/hw/xen/xen_pt.c:631: undefined reference to =
-`xc_domain_ioport_mapping'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt.c:643: undefined =
-reference to
-> `xc_domain_memory_mapping'
-> /usr/bin/ld: hw/xen/xen_pt_graphics.o: in function =
-`xen_pt_register_vga_regions':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:68: undefined =
-reference to `xc_domain_memory_mapping'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:63: =
-undefined reference to
-> `xc_domain_ioport_mapping'
-> /usr/bin/ld: hw/xen/xen_pt_graphics.o: in function =
-`xen_pt_unregister_vga_regions':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:104: undefined =
-reference to
-> `xc_domain_memory_mapping'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:99: =
-undefined reference to
-> `xc_domain_ioport_mapping'
-> /usr/bin/ld: hw/xen/xen_pt_graphics.o: in function =
-`igd_write_opregion':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:260: undefined =
-reference to
-> `xc_domain_iomem_permission'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:273: =
-undefined reference to
-> `xc_domain_memory_mapping'
-> /usr/bin/ld: hw/xen/xen_pt_graphics.o: in function =
-`xen_pt_unregister_vga_regions':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_graphics.c:119: undefined =
-reference to
-> `xc_domain_memory_mapping'
-> /usr/bin/ld: hw/xen/xen_pt_msi.o: in function `msi_msix_disable':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:213: undefined reference =
-to `xc_domain_unbind_msi_irq'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:222: =
-undefined reference to
-> `xc_physdev_unmap_pirq'
-> /usr/bin/ld: hw/xen/xen_pt_msi.o: in function `msi_msix_setup':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:138: undefined reference =
-to `xc_physdev_map_pirq_msi'
-> /usr/bin/ld: hw/xen/xen_pt_msi.o: in function `msi_msix_update':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:178: undefined reference =
-to `xc_domain_update_msi_irq'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:185: =
-undefined reference to
-> `xc_physdev_unmap_pirq'
-> /usr/bin/ld: hw/xen/xen_pt_msi.o: in function =
-`xen_pt_msix_update_remap':
-> /build/qemu/debian-qemu/hw/xen/xen_pt_msi.c:415: undefined reference =
-to `xc_domain_unbind_pt_irq'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function `xen_ram_alloc':
-> /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:290: undefined reference =
-to
-> `xc_domain_populate_physmap_exact'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function =
-`xen_get_default_ioreq_server_info':
-> /build/qemu/debian-qemu/include/hw/xen/xen_common.h:395: undefined =
-reference to `xc_get_hvm_param'
-> /usr/bin/ld: /build/qemu/debian-qemu/include/hw/xen/xen_common.h:403: =
-undefined reference to
-> `xc_get_hvm_param'
-> /usr/bin/ld: /build/qemu/debian-qemu/include/hw/xen/xen_common.h:411: =
-undefined reference to
-> `xc_get_hvm_param'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function `destroy_hvm_domain':
-> /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:1551: undefined =
-reference to `xc_interface_open'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:1555: =
-undefined reference to
-> `xc_domain_shutdown'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function `xen_wakeup_notifier':
-> /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:1317: undefined =
-reference to `xc_set_hvm_param'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function =
-`xen_suspend_notifier':
-> /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:183: undefined reference =
-to `xc_set_hvm_param'
-> /usr/bin/ld: hw/i386/xen/xen-hvm.o: in function `destroy_hvm_domain':
-> /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:1564: undefined =
-reference to `xc_interface_close'
-> /usr/bin/ld: /build/qemu/debian-qemu/hw/i386/xen/xen-hvm.c:1564: =
-undefined reference to
-> `xc_interface_close'
-> collect2: error: ld returned 1 exit status
->=20
->=20
-> List:
-> xc_domain_bind_pt_pci_irq
-> xc_domain_iomem_permission
-> xc_domain_ioport_mapping
-> xc_domain_memory_mapping
-> xc_domain_populate_physmap_exact
-> xc_domain_shutdown
-> xc_domain_unbind_msi_irq
-> xc_domain_unbind_pt_irq
-> xc_domain_update_msi_irq
-> xc_get_hvm_param
-> xc_interface_close
-> xc_interface_open
-> xc_physdev_map_pirq
-> xc_physdev_map_pirq_msi
-> xc_physdev_unmap_pirq
-> xc_set_hvm_param
->=20
->=20
-
+I can't see an actual use of the new return value.  Am I blind?
 
 
