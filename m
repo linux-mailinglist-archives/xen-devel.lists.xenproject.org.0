@@ -2,78 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00222272471
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 14:59:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F45B27248E
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 15:05:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKLPV-00072P-Sc; Mon, 21 Sep 2020 12:59:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=acSb=C6=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1kKLPT-00072J-Ss
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 12:59:12 +0000
-X-Inumbo-ID: 2aeb924c-ee33-4b90-b953-d0ac022f666c
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 2aeb924c-ee33-4b90-b953-d0ac022f666c;
- Mon, 21 Sep 2020 12:59:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600693150;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MSUwyN0CWQnN7lLzNS+YDaUrhEPCdv0WTGPjEl87oOE=;
- b=J3jwwy32VEbcGohFb9Nrv6M15FnbLqnVGU6HX9jX4QEMk+L/qlJ0hiEoxplv1qseIJu6AP
- lcijogaFyCYqlws/Ndpn6VIhwp8KHHt0roUZ3HfCwb7FRsGHop3JNB0qjThrgo1JEkE/Hs
- rBiMpL7PhUpummbNucfRNO6oHI1vXuQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-Ldi1DWPzPuatLwc9yqMLrw-1; Mon, 21 Sep 2020 08:59:06 -0400
-X-MC-Unique: Ldi1DWPzPuatLwc9yqMLrw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8D9FE425E0;
- Mon, 21 Sep 2020 12:59:04 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-114-66.ams2.redhat.com
- [10.36.114.66])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DBA7C55785;
- Mon, 21 Sep 2020 12:59:00 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 5457E1132E9A; Mon, 21 Sep 2020 14:58:59 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,  Stefano Stabellini
- <sstabellini@kernel.org>,  Daniel P. =?utf-8?Q?Berrang=C3=A9?=
- <berrange@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>,  Paul Durrant <paul@xen.org>,
- qemu-devel@nongnu.org,  Laurent Vivier <laurent@vivier.eu>,
- xen-devel@lists.xenproject.org,  Anthony Perard
- <anthony.perard@citrix.com>,  Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 2/2] qdev: Let BusRealize() return a boolean value to
- indicate error
-References: <20200920114416.353277-1-f4bug@amsat.org>
- <20200920114416.353277-3-f4bug@amsat.org>
- <87eemva6eq.fsf@dusky.pond.sub.org>
- <2ec97e06-8ecb-835f-f6e6-a0bbf8c4dc00@amsat.org>
-Date: Mon, 21 Sep 2020 14:58:59 +0200
-In-Reply-To: <2ec97e06-8ecb-835f-f6e6-a0bbf8c4dc00@amsat.org> ("Philippe
- =?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Mon, 21 Sep 2020 11:38:57
- +0200")
-Message-ID: <87k0wn4770.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+	id 1kKLUy-0007v5-Hs; Mon, 21 Sep 2020 13:04:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qIeE=C6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kKLUw-0007v0-P8
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 13:04:50 +0000
+X-Inumbo-ID: 242a9cae-0e4e-4801-91da-c9e27fbee8ff
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 242a9cae-0e4e-4801-91da-c9e27fbee8ff;
+ Mon, 21 Sep 2020 13:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600693490;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vSFMGs5TuuPLoqwLBeEOXLbo/pehHspz/Z8ArxMPTXU=;
+ b=DPCEVABo8z+zh/OAk/rcL4zNGDh/z224UCOj2iUjfOqk13UyH/J7tmpD
+ O2uJkqH1NqfttsDhirjjilrhwYMzcoXcoA8cNmooZOyBMggzMbkPSnL9n
+ lvP+prDaF3d50Sh4r0jjDnNbecKS3M5JBBGDP1WSXTEHmRu4BOacuX0G1 4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: OCnyWsl6IA+ZBlRDJDGwkJYYVR7K0r9uZjeSbxLVuvpj6sMuJB5CZsSVGV+rdo6aH8aBrBwEy8
+ twtkLrFhjVEhtVBTh82Es4DRTTCzcAf6s5a2zCUL5dXsAXNBihtsV+1aL6be7b+DhoPleSVykY
+ Y1KxwzuNAVM3usbdtYrjdpRZf54mT8EDrTMZjgHNcf7YQQB0gusQDK3B5uMVVDPj8fSowY6hBJ
+ vPjQ/pkpfUKR3i9ZUXdENTC2lrXZCRqgXGFmuqzWAetHgoEoZ2SHaRtcTHJLzGkM6CgyCg8V0G
+ jLs=
+X-SBRS: 2.7
+X-MesageID: 27131129
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,286,1596513600"; d="scan'208";a="27131129"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
+ <Ian.Jackson@citrix.com>
+Subject: [PATCH] x86: Use LOCK ADD instead of MFENCE for smp_mb()
+Date: Mon, 21 Sep 2020 14:04:23 +0100
+Message-ID: <20200921130423.8035-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=armbru@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,214 +65,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
+MFENCE is overly heavyweight for SMP semantics on WB memory, because it also
+orders weaker cached writes, and flushes the WC buffers.
 
-> On 9/21/20 10:19 AM, Markus Armbruster wrote:
->> Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
->>=20
->>> Commit 9940b2cfbc0 introduced qdev_realize() and qbus_realize()
->>> with the ability to return a boolean value if an error occured,
->>> thus the caller does not need to check if the Error* pointer is
->>> set.
->>> Provide the same ability to the BusRealize type.
->>>
->>> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
->>> ---
->>>  include/hw/qdev-core.h | 14 +++++++++++++-
->>>  hw/hyperv/vmbus.c      |  5 +++--
->>>  hw/nubus/nubus-bus.c   |  5 +++--
->>>  hw/pci/pci.c           | 12 +++++++++---
->>>  hw/xen/xen-bus.c       |  5 +++--
->>>  5 files changed, 31 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
->>> index 02ac1c50b7f..eecfe794a71 100644
->>> --- a/include/hw/qdev-core.h
->>> +++ b/include/hw/qdev-core.h
->>> @@ -32,7 +32,19 @@ typedef enum DeviceCategory {
->>>  typedef void (*DeviceRealize)(DeviceState *dev, Error **errp);
->>>  typedef void (*DeviceUnrealize)(DeviceState *dev);
->>>  typedef void (*DeviceReset)(DeviceState *dev);
->>> -typedef void (*BusRealize)(BusState *bus, Error **errp);
->>> +/**
->>> + * BusRealize: Realize @bus.
->>> + * @bus: bus to realize
->>> + * @errp: pointer to error object
->>> + *
->>> + * On success, return true.
->>> + * On failure, store an error through @errp and return false.
->>> + */
->>> +typedef bool (*BusRealize)(BusState *bus, Error **errp);
->>> +/**
->>> + * BusUnrealize: Unrealize @bus.
->>> + * @bus: bus to unrealize
->>> + */
->>>  typedef void (*BusUnrealize)(BusState *bus);
->>> =20
->>>  /**
->>> diff --git a/hw/hyperv/vmbus.c b/hw/hyperv/vmbus.c
->>> index 6ef895bc352..8a0452b2464 100644
->>> --- a/hw/hyperv/vmbus.c
->>> +++ b/hw/hyperv/vmbus.c
->>> @@ -2487,7 +2487,7 @@ static const TypeInfo vmbus_dev_type_info =3D {
->>>      .instance_init =3D vmbus_dev_instance_init,
->>>  };
->>> =20
->>> -static void vmbus_realize(BusState *bus, Error **errp)
->>> +static bool vmbus_realize(BusState *bus, Error **errp)
->>>  {
->>>      int ret =3D 0;
->>>      Error *local_err =3D NULL;
->>> @@ -2519,7 +2519,7 @@ static void vmbus_realize(BusState *bus, Error **=
-errp)
->>>          goto clear_event_notifier;
->>>      }
->>> =20
->>> -    return;
->>> +    return true;
->>> =20
->>>  clear_event_notifier:
->>>      event_notifier_cleanup(&vmbus->notifier);
->>> @@ -2528,6 +2528,7 @@ remove_msg_handler:
->>>  error_out:
->>>      qemu_mutex_destroy(&vmbus->rx_queue_lock);
->>>      error_propagate(errp, local_err);
->>> +    return false;
->>>  }
->>> =20
->>>  static void vmbus_unrealize(BusState *bus)
->>> diff --git a/hw/nubus/nubus-bus.c b/hw/nubus/nubus-bus.c
->>> index 942a6d5342d..d20d9c0f72c 100644
->>> --- a/hw/nubus/nubus-bus.c
->>> +++ b/hw/nubus/nubus-bus.c
->>> @@ -65,12 +65,13 @@ static const MemoryRegionOps nubus_super_slot_ops =
-=3D {
->>>      },
->>>  };
->>> =20
->>> -static void nubus_realize(BusState *bus, Error **errp)
->>> +static bool nubus_realize(BusState *bus, Error **errp)
->>>  {
->>>      if (!nubus_find()) {
->>>          error_setg(errp, "at most one %s device is permitted", TYPE_NU=
-BUS_BUS);
->>> -        return;
->>> +        return false;
->>>      }
->>> +    return true;
->>>  }
->>> =20
->>>  static void nubus_init(Object *obj)
->>> diff --git a/hw/pci/pci.c b/hw/pci/pci.c
->>> index de0fae10ab9..f535ebac847 100644
->>> --- a/hw/pci/pci.c
->>> +++ b/hw/pci/pci.c
->>> @@ -115,7 +115,7 @@ static void pcibus_machine_done(Notifier *notifier,=
- void *data)
->>>      }
->>>  }
->>> =20
->>> -static void pci_bus_realize(BusState *qbus, Error **errp)
->>> +static bool pci_bus_realize(BusState *qbus, Error **errp)
->>>  {
->>>      PCIBus *bus =3D PCI_BUS(qbus);
->>> =20
->>> @@ -123,13 +123,17 @@ static void pci_bus_realize(BusState *qbus, Error=
- **errp)
->>>      qemu_add_machine_init_done_notifier(&bus->machine_done);
->>> =20
->>>      vmstate_register(NULL, VMSTATE_INSTANCE_ID_ANY, &vmstate_pcibus, b=
-us);
->>> +
->>> +    return true;
->>>  }
->>> =20
->>> -static void pcie_bus_realize(BusState *qbus, Error **errp)
->>> +static bool pcie_bus_realize(BusState *qbus, Error **errp)
->>>  {
->>>      PCIBus *bus =3D PCI_BUS(qbus);
->>> =20
->>> -    pci_bus_realize(qbus, errp);
->>> +    if (!pci_bus_realize(qbus, errp)) {
->>> +        return false;
->>> +    }
->>=20
->> We now update bus->flags only when pci_bus_realize() succeeds.  Is this
->> a bug fix?
->
-> Fortunate side effect :) I'll let the PCI maintainers
-> have a look at it.
+This technique was used as an optimisation in Java[1], and later adopted by
+Linux[2] where it was measured to have a 60% performance improvement in VirtIO
+benchmarks.
 
-If it's an observable change, the commit message must mention it.  I'd
-put it in its own commit then.
+The stack is used because it is hot in the L1 cache, and a -4 offset is used
+to avoid creating a false data dependency on live data.  (For 64bit userspace,
+the offset needs to be under the red zone to avoid false dependences).
 
-Even if it's not observable, explaining why in the commit message would
-help, I think.
+Fix up the 32 bit definitions in HVMLoader and libxc to avoid a false data
+dependency.
 
->>=20
->>> =20
->>>      /*
->>>       * A PCI-E bus can support extended config space if it's the root
->>> @@ -144,6 +148,8 @@ static void pcie_bus_realize(BusState *qbus, Error =
-**errp)
->>>              bus->flags |=3D PCI_BUS_EXTENDED_CONFIG_SPACE;
->>>          }
->>>      }
->>> +
->>> +    return true;
->>>  }
->>> =20
->>>  static void pci_bus_unrealize(BusState *qbus)
->>> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
->>> index 9ce1c9540b9..d7ef5d05e37 100644
->>> --- a/hw/xen/xen-bus.c
->>> +++ b/hw/xen/xen-bus.c
->>> @@ -444,7 +444,7 @@ static void xen_bus_unrealize(BusState *bus)
->>>      }
->>>  }
->>> =20
->>> -static void xen_bus_realize(BusState *bus, Error **errp)
->>> +static bool xen_bus_realize(BusState *bus, Error **errp)
->>>  {
->>>      XenBus *xenbus =3D XEN_BUS(bus);
->>>      unsigned int domid;
->>> @@ -478,10 +478,11 @@ static void xen_bus_realize(BusState *bus, Error =
-**errp)
->>>                            "failed to set up enumeration watch: ");
->>>      }
->>> =20
->>> -    return;
->>> +    return true;
->>> =20
->>>  fail:
->>>      xen_bus_unrealize(bus);
->>> +    return false;
->>>  }
->>> =20
->>>  static void xen_bus_unplug_request(HotplugHandler *hotplug,
->>=20
->> I can't see an actual use of the new return value.  Am I blind?
->
-> You aren't, I'm trying to make a 240 patches series digestible
-> by splitting it. One device is a (hotplug) PCIe bridge, as we
-> can plug/unplug it, this calls multiple realize/unrealize, and
-> I want to be sure the children objects are properly realized
-> so I care about this return value.
+[1] https://shipilev.net/blog/2014/on-the-fence-with-dependencies/
+[2] https://git.kernel.org/torvalds/c/450cbdd0125cfa5d7bbf9e2a6b6961cc48d29730
 
-I wonder why you need to realize buses.  Current code only ever does
-that via device_set_realized() -> qbus_realize() ->
-object_property_set_bool() -> bus_set_realized(), i.e. when realizing
-the device that provides the bus.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>
+---
+ tools/firmware/hvmloader/util.h   | 2 +-
+ tools/libs/ctrl/include/xenctrl.h | 4 ++--
+ xen/include/asm-x86/system.h      | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Even if you do need to, why can't you call qbus_realize()?  It already
-returns true on success, false on failure.
-
-> As it seems an improvement from an API PoV (following your recent
-> cleanup and code style change: simplify returning boolean for Error
-> instead of checking *errp is set). I thought merging it the sooner
-> is better, but I don't have problem reposting that later.
-
-Reviewing API improvements is always hard when we can't see the users,
-yet.
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index 31889de634..4f0baade0e 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -133,7 +133,7 @@ static inline void cpu_relax(void)
+ #define barrier() asm volatile ( "" : : : "memory" )
+ #define rmb()     barrier()
+ #define wmb()     barrier()
+-#define mb()      asm volatile ( "lock; addl $0,0(%%esp)" : : : "memory" )
++#define mb()      asm volatile ( "lock addl $0, -4(%%esp)" ::: "memory" )
+ 
+ /*
+  * Divide a 64-bit dividend by a 32-bit divisor.
+diff --git a/tools/libs/ctrl/include/xenctrl.h b/tools/libs/ctrl/include/xenctrl.h
+index 73e9535fc8..1d9f514302 100644
+--- a/tools/libs/ctrl/include/xenctrl.h
++++ b/tools/libs/ctrl/include/xenctrl.h
+@@ -68,11 +68,11 @@
+ #define xen_barrier() asm volatile ( "" : : : "memory")
+ 
+ #if defined(__i386__)
+-#define xen_mb()  asm volatile ( "lock; addl $0,0(%%esp)" : : : "memory" )
++#define xen_mb()  asm volatile ( "lock addl $0, -4(%%esp)" ::: "memory" )
+ #define xen_rmb() xen_barrier()
+ #define xen_wmb() xen_barrier()
+ #elif defined(__x86_64__)
+-#define xen_mb()  asm volatile ( "mfence" : : : "memory")
++#define xen_mb()  asm volatile ( "lock addl $0, -128(%%rsp)" ::: "memory" )
+ #define xen_rmb() xen_barrier()
+ #define xen_wmb() xen_barrier()
+ #elif defined(__arm__)
+diff --git a/xen/include/asm-x86/system.h b/xen/include/asm-x86/system.h
+index 7e5891f3df..6474dd1243 100644
+--- a/xen/include/asm-x86/system.h
++++ b/xen/include/asm-x86/system.h
+@@ -226,7 +226,7 @@ static always_inline unsigned long __xadd(
+  *
+  * Refer to the vendor system programming manuals for further details.
+  */
+-#define smp_mb()        mb()
++#define smp_mb()        asm volatile ( "lock addl $0, -4(%%rsp)" ::: "memory" )
+ #define smp_rmb()       barrier()
+ #define smp_wmb()       barrier()
+ 
+-- 
+2.11.0
 
 
