@@ -2,64 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0462C272A13
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 17:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA42A272A30
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 17:32:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKNjr-0004jm-8x; Mon, 21 Sep 2020 15:28:23 +0000
+	id 1kKNnf-0005dv-Sm; Mon, 21 Sep 2020 15:32:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8Wak=C6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kKNjq-0004jh-FO
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 15:28:22 +0000
-X-Inumbo-ID: 912a7769-ba77-4d46-9a11-27ffc473c783
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PHp+=C6=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kKNne-0005dq-P8
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 15:32:18 +0000
+X-Inumbo-ID: a1543276-b0b4-4555-8cfd-49f9501a7989
+Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 912a7769-ba77-4d46-9a11-27ffc473c783;
- Mon, 21 Sep 2020 15:28:21 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600702100;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4T8RBS5c9j2QMIi9dK77Rmgh+bBKolIsvi/y0YCZie4=;
- b=tgMTLxQBPp/EHGjuROclrIM8CBlc3NCv2fkSPK0kQ17pS3c29a3LrT38zNoC3xoxUwGwRJ
- Vi6DNuqfuIyAftwxHMAKi39nhT/5OF/8mvZ5EECUxX4NiFdqh0HkmqQ97p4P468gxz8cdp
- qov/si9IsGJMBRkqzVWbGd+FujzolKI=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BC41EAD1B;
- Mon, 21 Sep 2020 15:28:56 +0000 (UTC)
-Subject: Re: [PATCH V1 01/16] x86/ioreq: Prepare IOREQ feature for making it
- common
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-2-git-send-email-olekstysh@gmail.com>
- <98420567-40a9-7297-d243-4af90f692bf9@suse.com>
- <123d8e2a-96c2-a97c-a0c0-a5dca4288a2b@gmail.com>
- <2dea0b83-5178-7768-eaab-ff4a8878eeb0@suse.com>
- <e01631d6-7e32-0923-e004-d6aefe6ffabb@gmail.com>
- <dfbe6c62-55f6-8d33-db25-031e36b758bc@suse.com>
- <ac068d84-24cb-af37-cb89-f36fdd785d07@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <341f6ef6-797f-0e7d-dd81-319eca06c9cc@suse.com>
-Date: Mon, 21 Sep 2020 17:28:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id a1543276-b0b4-4555-8cfd-49f9501a7989;
+ Mon, 21 Sep 2020 15:32:17 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id k18so13190725wmj.5
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Sep 2020 08:32:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=9trgNINn+LyVDF/WumzD5/u0j02dbE4bd4d7tBEzRdk=;
+ b=s4adEvacP7VV88Z9+HYwXe9ObAKQU6VMqnF23eh/LhVxQI8V95JlbU9iaJ6i0OI/ri
+ 3HiiIrTBrL9KcUhLdYGVNZ3tX7fowZ/PgB2r6q/9Ae3enmZBbWWTfJxkKrf3CR13PXmy
+ Dk/3K2f6KG0UPRISdl8c9CV3Ed/QpQklqh4An5S++/d/CHZlXLeEz7rvaXuMzEO7eadM
+ 8gmJShZnBGXAHvL5BCPuSbu+7gU/Q/5Lfqlyw7DjR21VuW08grMnmg+Y3tlAy0mJJoVB
+ hWmexOHiYfEfHg+M2DApdKQazOhJSaX+ItRBZ3tKNKQOgo+jHIYAtGkOrlvpeD1nSASy
+ zvHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=9trgNINn+LyVDF/WumzD5/u0j02dbE4bd4d7tBEzRdk=;
+ b=IAAOAjejthLt2IH9rcpZr8aIZNy3jO1giFVbtVaTuick/s80u+6PvK6PyUsgQY/3W4
+ 0NCZbdJZ4yUZNoWPSD+NSHG3ExjPBTP088i+wsrRdt2jCMcRxZwSd9mdIx0TSLU0YH43
+ 1ST1TbrF3ooxKY0r0XW+fsXzDm0puV8cE6Ax/F81Dxje0myhc+NmOs8qCVBNbCrbFMZM
+ CzyLqm63y6LM6KJ4T4Xndv+osQ/Nur8wuyk45INpqWDMM8fm/kZXT6Q9qFyFwXdiB6q+
+ lQ0TG5VkgC+2WHBRaraYfkworo22jCttHYs0CJRaN12uq8KTaOYuwt+BXhhDM8mJveOn
+ oC9Q==
+X-Gm-Message-State: AOAM53315b5WKJcDarmHPyRwR+qQJq+BZHZcHgXTfYc+aaPtP9NKIDfa
+ HAB/A7hL3Vr1MgYqjsMmr60=
+X-Google-Smtp-Source: ABdhPJwc1KXrqi3buiox2viu2FF+fjIp3ptZg3i80XRZbPjPpQ4wynzWnMWccbjfVODYY9my7yp/qg==
+X-Received: by 2002:a1c:f716:: with SMTP id v22mr153221wmh.183.1600702336909; 
+ Mon, 21 Sep 2020 08:32:16 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id w15sm20117068wro.46.2020.09.21.08.32.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 21 Sep 2020 08:32:16 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Julien Grall'" <jgrall@amazon.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>,
+ "'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>,
+ "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
+ "'Jan Beulich'" <jbeulich@suse.com>, "'Wei Liu'" <wl@xen.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'Jun Nakajima'" <jun.nakajima@intel.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-6-julien@xen.org>
+In-Reply-To: <20200730181827.1670-6-julien@xen.org>
+Subject: RE: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather
+ than asm/guest_access.h
+Date: Mon, 21 Sep 2020 16:32:15 +0100
+Message-ID: <005b01d6902c$62a72410$27f56c30$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <ac068d84-24cb-af37-cb89-f36fdd785d07@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQMZP/5qxAzbVNyk/kVqc0bzCNOmYwIMWlcApt11rlA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,76 +90,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.09.2020 16:43, Oleksandr wrote:
-> On 21.09.20 16:29, Jan Beulich wrote:
->> On 21.09.2020 14:47, Oleksandr wrote:
->>> On 21.09.20 15:31, Jan Beulich wrote:
->>>> On 21.09.2020 14:22, Oleksandr wrote:
->>>>> On 14.09.20 16:52, Jan Beulich wrote:
->>>>>> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
->>>>>>> @@ -1215,8 +1233,7 @@ void hvm_destroy_all_ioreq_servers(struct domain *d)
->>>>>>>         struct hvm_ioreq_server *s;
->>>>>>>         unsigned int id;
->>>>>>>     
->>>>>>> -    if ( !relocate_portio_handler(d, 0xcf8, 0xcf8, 4) )
->>>>>>> -        return;
->>>>>>> +    arch_hvm_ioreq_destroy(d);
->>>>>> So the call to relocate_portio_handler() simply goes away. No
->>>>>> replacement, no explanation?
->>>>> As I understand from the review comment on that for the RFC patch, there
->>>>> is no
->>>>> a lot of point of keeping this. Indeed, looking at the code I got the
->>>>> same opinion.
->>>>> I should have added an explanation in the commit description at least.
->>>>> Or shall I return the call back?
->>>> If there's a reason to drop it (which I can't see, but I also
->>>> don't recall seeing the discussion you're mentioning), then doing
->>>> so should be a separate patch with suitable reasoning. In the
->>>> patch here you definitely should only transform what's already
->>>> there.
->>> Sounds reasonable. Please see the comment below
->>> relocate_portio_handler() here:
->>> https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg78512.html
->>>
->>> However, I might interpret the request incorrectly.
->> I'm afraid you do: The way you've coded it the function was a no-op.
->> But that's because you broke the caller by not bailing from
->> hvm_destroy_all_ioreq_servers() if relocate_portio_handler() returned
->> false. IOW you did assume that moving the "return" statement into an
->> inline function would have an effect on its caller(s). For questions
->> like this one it also often helps to look at the commit introducing
->> the construct in question (b3344bb1cae0 in this case): Chances are
->> that the description helps, albeit I agree there are many cases
->> (particularly the farther you get into distant past) where it isn't
->> of much help.
-> 
-> 
-> Hmm, now it's clear to me what I did wrong. By calling 
-> relocate_portio_handler() here we don't really want to relocate 
-> something, we just use it as a flag to indicate whether we need to 
-> actually release IOREQ resources down the 
-> hvm_destroy_all_ioreq_servers(). Thank you for the explanation, it 
-> wasn't obvious to me at the beginning. But, now the question is how to 
-> do it in a correct way and retain current behavior (to not break callers)?
-> 
-> I see two options here:
-> 1. Place the check of relocate_portio_handler() in 
-> arch_hvm_ioreq_destroy() and make the later returning bool.
->      The "common" hvm_destroy_all_ioreq_servers() will check for the 
-> return value and bail out if false.
-> 2. Don't use relocate_portio_handler(), instead introduce a flag into 
-> struct hvm_domain's ioreq_server sub-structure.
-> 
-> 
-> Personally I don't like much the option 1 and option 2 is a little bit 
-> overhead.
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 30 July 2020 19:18
+> To: xen-devel@lists.xenproject.org
+> Cc: julien@xen.org; Julien Grall <jgrall@amazon.com>; Stefano =
+Stabellini <sstabellini@kernel.org>;
+> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Andrew Cooper =
+<andrew.cooper3@citrix.com>; George
+> Dunlap <george.dunlap@citrix.com>; Ian Jackson =
+<ian.jackson@eu.citrix.com>; Jan Beulich
+> <jbeulich@suse.com>; Wei Liu <wl@xen.org>; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>; Paul Durrant
+> <paul@xen.org>; Jun Nakajima <jun.nakajima@intel.com>; Kevin Tian =
+<kevin.tian@intel.com>
+> Subject: [RESEND][PATCH v2 5/7] xen: include xen/guest_access.h rather =
+than asm/guest_access.h
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> Only a few places are actually including asm/guest_access.h. While =
+this
+> is fine today, a follow-up patch will want to move most of the helpers
+> from asm/guest_access.h to xen/guest_access.h.
+>=20
+> To prepare the move, everyone should include xen/guest_access.h rather
+> than asm/guest_access.h.
+>=20
+> Interestingly, asm-arm/guest_access.h includes xen/guest_access.h. The
+> inclusion is now removed as no-one but the latter should include the
+> former.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Well, 1 is what matches current behavior, so I'd advocate for you
-not changing the abstract model. Or else, again, change the abstract
-model in a separate prereq patch.
+Viridian change...
 
-Jan
+Acked-by: Paul Durrant <paul@xen.org>
+
 
