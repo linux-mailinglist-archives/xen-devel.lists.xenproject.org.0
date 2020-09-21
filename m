@@ -2,91 +2,100 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084272733BE
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 22:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71EC82734EB
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 23:31:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKSfx-0002X0-R4; Mon, 21 Sep 2020 20:44:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=okJh=C6=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kKSfw-0002Wv-7i
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 20:44:40 +0000
-X-Inumbo-ID: 11161cdb-1620-46d6-9e06-2f32386ea6ce
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11161cdb-1620-46d6-9e06-2f32386ea6ce;
- Mon, 21 Sep 2020 20:44:39 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08LKdCRp085819;
- Mon, 21 Sep 2020 20:44:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=7ujMtTvfd+IOkCnn7iI/GoTDPJ8pxvj1u7VSyDhDIiE=;
- b=TgUfJcvqhnH4X5TErTOA7ctRXSXQGoVSuGYWQLux1TS6gP/EFUFQnZPW1RbI+0E3cL3B
- in/KONvWNSkpL0McwdWOCYcEE71inohanA9TuEaBwbVsC+zymxPchZWkmSx8xBtSpz45
- n4nSBlQUHVmHXIe079bdqGiphbvhJyNT4NA7Zc1AGj/hU0sZ8Gjz7k8rSC1nxwxqxoDc
- M/3OmSs0Xen7YIDCD5IseKHAjxpvC1Wd93RKD+UTZE2zo/tF5x3Gs3ujB2MuqgPbpVVb
- G2l9kt0/DZBWdfye+7ecmzj4ylCxjUBE6JtHlfJDOmpinNW39aF0e9JhEBK/pXjcS2Z0 kg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 33n9xks3vf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 21 Sep 2020 20:44:24 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08LKdmAx065052;
- Mon, 21 Sep 2020 20:44:24 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3020.oracle.com with ESMTP id 33nuw1usdt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 21 Sep 2020 20:44:24 +0000
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08LKiFvM023808;
- Mon, 21 Sep 2020 20:44:20 GMT
-Received: from [10.74.86.189] (/10.74.86.189)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 21 Sep 2020 13:44:14 -0700
-Subject: Re: [PATCH 6/6] x86/xen: open code alloc_vm_area in arch_gnttab_valloc
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>,
+	id 1kKTNf-0006Ej-KC; Mon, 21 Sep 2020 21:29:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8fBj=C6=redhat.com=eblake@srs-us1.protection.inumbo.net>)
+ id 1kKTNd-0006Ed-Mb
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 21:29:50 +0000
+X-Inumbo-ID: c26c192d-0b00-482d-84ba-4dd305572c31
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id c26c192d-0b00-482d-84ba-4dd305572c31;
+ Mon, 21 Sep 2020 21:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600723788;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=l3O8po8zGnkZ7Hhh9QEdY4yYb/EMIlkVak6tYnjxD78=;
+ b=YGuOgsoC+egkRmRV9dCWrAbhIy1wbIXLcoT1PDy8lyIhInYVpcbXa80gxR5MRGu7+ykFVu
+ K+3DV09vxk6LjhWCjQQoOeyEzN1k22HtJ2sZYbrB+/U0RbQwUgc+jKcOmLFAX08k6Lj1Lu
+ ibyFEOa2yQDU3WweYCbNMohPhrix8U8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-3-nRhULnN0M_uur3-4A9InjA-1; Mon, 21 Sep 2020 17:29:39 -0400
+X-MC-Unique: nRhULnN0M_uur3-4A9InjA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1ACDE909CAC;
+ Mon, 21 Sep 2020 21:29:34 +0000 (UTC)
+Received: from [10.3.113.127] (ovpn-113-127.phx2.redhat.com [10.3.113.127])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 09B0F10013BD;
+ Mon, 21 Sep 2020 21:29:10 +0000 (UTC)
+Subject: Re: [PATCH] qemu/atomic.h: prefix qemu_ to solve <stdatomic.h>
+ collisions
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: qemu-riscv@nongnu.org, Fam Zheng <fam@euphon.net>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Alberto Garcia <berto@igalia.com>, Jiri Slaby <jslaby@suse.cz>,
+ Richard Henderson <rth@twiddle.net>, Peter Lieven <pl@kamp.de>,
+ David Hildenbrand <david@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Max Reitz <mreitz@redhat.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Markus Armbruster <armbru@redhat.com>,
+ kvm@vger.kernel.org, Yuval Shaia <yuval.shaia.ml@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+ qemu-block@nongnu.org, Stefan Weil <sw@weilnetz.de>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, John Snow <jsnow@redhat.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Alistair Francis <Alistair.Francis@wdc.com>,
+ Aurelien Jarno <aurelien@aurel32.net>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Huacai Chen <chenhc@lemote.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>, Thomas Huth <thuth@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Minchan Kim <minchan@kernel.org>, Nitin Gupta <ngupta@vflare.org>,
- x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-7-hch@lst.de>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
-Date: Mon, 21 Sep 2020 16:44:10 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.1
+ Anthony Perard <anthony.perard@citrix.com>, Gerd Hoffmann
+ <kraxel@redhat.com>, Peter Maydell <peter.maydell@linaro.org>,
+ Liu Yuan <namei.unix@gmail.com>, Paul Durrant <paul@xen.org>,
+ Kevin Wolf <kwolf@redhat.com>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Sagar Karandikar <sagark@eecs.berkeley.edu>, Jason Wang
+ <jasowang@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
+ xen-devel@lists.xenproject.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ sheepdog@lists.wpkg.org, qemu-s390x@nongnu.org, qemu-arm@nongnu.org,
+ Juan Quintela <quintela@redhat.com>,
+ Hailiang Zhang <zhang.zhanghailiang@huawei.com>
+References: <20200921162346.188997-1-stefanha@redhat.com>
+From: Eric Blake <eblake@redhat.com>
+Organization: Red Hat, Inc.
+Message-ID: <1ce94412-7a01-9208-31b1-76b7562c3843@redhat.com>
+Date: Mon, 21 Sep 2020 16:29:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200918163724.2511-7-hch@lst.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200921162346.188997-1-stefanha@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9751
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- phishscore=0 malwarescore=0
- mlxscore=0 suspectscore=2 adultscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009210152
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9751
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 malwarescore=0
- suspectscore=2 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1011
- mlxlogscore=999 bulkscore=0 mlxscore=0 phishscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009210152
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,49 +109,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 9/21/20 11:23 AM, Stefan Hajnoczi wrote:
+> clang's C11 atomic_fetch_*() functions only take a C11 atomic type
+> pointer argument. QEMU uses direct types (int, etc) and this causes a
+> compiler error when a QEMU code calls these functions in a source file
+> that also included <stdatomic.h> via a system header file:
+> 
+>    $ CC=clang CXX=clang++ ./configure ... && make
+>    ../util/async.c:79:17: error: address argument to atomic operation must be a pointer to _Atomic type ('unsigned int *' invalid)
+> 
+> Avoid using atomic_*() names in QEMU's atomic.h since that namespace is
+> used by <stdatomic.h>. Prefix QEMU's APIs with qemu_ so that atomic.h
+> and <stdatomic.h> can co-exist.
+> 
+> This patch was generated using:
+> 
+>    $ git diff | grep -o '\<atomic_[a-z0-9_]\+' | sort -u >/tmp/changed_identifiers
 
-On 9/18/20 12:37 PM, Christoph Hellwig wrote:
->  
-> +static int gnttab_apply(pte_t *pte, unsigned long addr, void *data)
-> +{
-> +	pte_t ***p = data;
-> +
-> +	**p = pte;
-> +	(*p)++;
-> +	return 0;
-> +}
-> +
->  static int arch_gnttab_valloc(struct gnttab_vm_area *area, unsigned nr_frames)
->  {
->  	area->ptes = kmalloc_array(nr_frames, sizeof(*area->ptes), GFP_KERNEL);
->  	if (area->ptes == NULL)
->  		return -ENOMEM;
-> -
-> -	area->area = alloc_vm_area(PAGE_SIZE * nr_frames, area->ptes);
-> -	if (area->area == NULL) {
-> -		kfree(area->ptes);
-> -		return -ENOMEM;
-> -	}
-> -
-> +	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_IOREMAP);
-> +	if (!area->area)
-> +		goto out_free_ptes;
-> +	if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
-> +			PAGE_SIZE * nr_frames, gnttab_apply, &area->ptes))
+Missing a step in the recipe: namely, you probably modified 
+include/qemu/atomic*.h prior to running 'git diff' (so that you actually 
+had input to feed to grep -o).  But spelling it 'git diff HEAD^ 
+include/qemu/atomic*.h | ...' does indeed give me a sane list of 
+identifiers that looks like what you touched in the rest of the patch.
 
+>    $ for identifier in $(</tmp/changed_identifiers64); do \
 
-This will end up incrementing area->ptes pointer. So perhaps something like
+Also not quite the right recipe, based on the file name used in the line 
+above.
 
+>         sed -i "s%\<$identifier\>%qemu_$identifier%" $(git grep -l "\<$identifier\>") \
+>      done
+> 
 
-pte_t **ptes = area->ptes;
+Fortunately, running "git grep -c '\<atomic_[a-z0-9_]\+'" on the 
+pre-patch state of the tree gives me a list that is somewhat close to 
+yours, where the obvious difference in line counts is explained by:
 
-if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
-                        PAGE_SIZE * nr_frames, gnttab_apply, &ptes)) {
+> I manually fixed line-wrap issues and misaligned rST tables.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
 
-       ...
+First, focusing on the change summary:
 
-}
+>   docs/devel/lockcnt.txt                        |  14 +-
+>   docs/devel/rcu.txt                            |  40 +--
+>   accel/tcg/atomic_template.h                   |  20 +-
+>   include/block/aio-wait.h                      |   4 +-
+>   include/block/aio.h                           |   8 +-
+>   include/exec/cpu_ldst.h                       |   2 +-
+>   include/exec/exec-all.h                       |   6 +-
+>   include/exec/log.h                            |   6 +-
+>   include/exec/memory.h                         |   2 +-
+>   include/exec/ram_addr.h                       |  27 +-
+>   include/exec/ramlist.h                        |   2 +-
+>   include/exec/tb-lookup.h                      |   4 +-
+>   include/hw/core/cpu.h                         |   2 +-
+>   include/qemu/atomic.h                         | 258 +++++++-------
+>   include/qemu/atomic128.h                      |   6 +-
 
+These two are the most important for the sake of this patch; perhaps 
+it's worth a temporary override of your git orderfile if you have to 
+respin, to list them first?
 
--boris
+>   include/qemu/bitops.h                         |   2 +-
+>   include/qemu/coroutine.h                      |   2 +-
+>   include/qemu/log.h                            |   6 +-
+>   include/qemu/queue.h                          |   8 +-
+>   include/qemu/rcu.h                            |  10 +-
+>   include/qemu/rcu_queue.h                      | 103 +++---
+
+Presumably, this and any other file with an odd number of changes was 
+due to a difference in lines after reformatting long lines.
+
+>   include/qemu/seqlock.h                        |   8 +-
+...
+
+>   util/stats64.c                                |  34 +-
+>   docs/devel/atomics.rst                        | 326 +++++++++---------
+>   .../opensbi-riscv32-generic-fw_dynamic.elf    | Bin 558668 -> 558698 bytes
+>   .../opensbi-riscv64-generic-fw_dynamic.elf    | Bin 620424 -> 620454 bytes
+
+Why are we regenerating .elf files in this patch?  Is your change even 
+correct for those two files?
+
+>   scripts/kernel-doc                            |   2 +-
+>   tcg/aarch64/tcg-target.c.inc                  |   2 +-
+>   tcg/mips/tcg-target.c.inc                     |   2 +-
+>   tcg/ppc/tcg-target.c.inc                      |   6 +-
+>   tcg/sparc/tcg-target.c.inc                    |   5 +-
+>   135 files changed, 1195 insertions(+), 1130 deletions(-)
+
+I don't spot accel/tcg/atomic_common.c.inc in the list (which declares 
+functions such as atomic_trace_rmw_pre) - I guess that's intentional 
+based on how you tried to edit only the identifiers you touched in 
+include/qemu/atomic*.h.
+
+For the rest of this patch, I only spot-checked in places, trusting the 
+mechanical nature of this patch, and not spotting anything wrong in the 
+places I checked.  But the two .elf files worry me enough to withhold 
+R-b.  At the same time, because it's big, it will probably be a source 
+of conflicts if we don't get it in soon, but can also be regenerated (if 
+your recipe is corrected) without too much difficulty.  So I am in favor 
+of the idea.
+
+> diff --git a/pc-bios/opensbi-riscv32-generic-fw_dynamic.elf b/pc-bios/opensbi-riscv32-generic-fw_dynamic.elf
+> index eb9ebf5674d3953ab25de6bf4db134abe904eb20..35b80512446dcf5c49424ae90caacf3c579be1b5 100644
+> GIT binary patch
+> delta 98
+> zcmX@pqx7mrsiB3jg{g(Pg=Gt?!4uZP)ZEhe?LdZ@5QIJ5?Hg+mgxS918!HgAZQt>Y
+> ceSHN~X?i|K5fhYsvykI97nHrFhGPaN0Hp#a^8f$<
+> 
+> delta 62
+> zcmaFWqjaW6siB3jg{g(Pg=Gt?!ISN#Pguo-rU!guEowjhjTMO5wjck-zP@66bv{QC
+> S)Amn=9Jjf)U#j7l!3h9Zj2qGb
+> 
+> diff --git a/pc-bios/opensbi-riscv64-generic-fw_dynamic.elf b/pc-bios/opensbi-riscv64-generic-fw_dynamic.elf
+> index 642a64e240d09b2ddb9fc12c74718ae8d386b9d3..9cf2cf23b747cb5be1d3389a0611d8697609c6f8 100644
+> GIT binary patch
+> delta 102
+> zcmeBpue$8LYC{WS3sVbo3(FSPMGsgDQ*%q>w*wh6LJ;=!eV<s1Ak21y&#XYq2E^>!
+> e4L)<s&w(mGAJ19D1Z6uWaUSP_vN>`&8@K>*RVYvZ
+> 
+> delta 66
+> zcmZ4XUbW-BYC{WS3sVbo3(FSPMGv+wf50juH2uUU)}nU%&#XYq2E^>!?LTwO&)NPs
+> Up0kK)dsGtVajxxZxttAL0Np<vJ^%m!
+> 
+> diff --git a/scripts/kernel-doc b/scripts/kernel-doc
+> index 030b5c8691..9ec38a1bf1 100755
+> --- a/scripts/kernel-doc
+> +++ b/scripts/kernel-doc
+> @@ -1625,7 +1625,7 @@ sub dump_function($$) {
+>       # If you mess with these regexps, it's a good idea to check that
+>       # the following functions' documentation still comes out right:
+>       # - parport_register_device (function pointer parameters)
+> -    # - atomic_set (macro)
+> +    # - qemu_atomic_set (macro)
+>       # - pci_match_device, __copy_to_user (long return type)
+
+Does the result of sphinx still look good, as mentioned in this comment?
+
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.           +1-919-301-3226
+Virtualization:  qemu.org | libvirt.org
+
 
