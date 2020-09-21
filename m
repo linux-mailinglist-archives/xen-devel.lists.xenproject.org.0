@@ -2,52 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B89273160
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 20:02:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0D027316C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 20:05:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKQ94-0003O6-Cf; Mon, 21 Sep 2020 18:02:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kKQBC-0003o4-Q7; Mon, 21 Sep 2020 18:04:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wcPU=C6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kKQ93-0003KW-9x
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 18:02:33 +0000
-X-Inumbo-ID: b8fc4c22-75bd-495e-bbca-5bdad6c84546
+ id 1kKQBB-0003ny-Lc
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 18:04:45 +0000
+X-Inumbo-ID: 20157835-09f9-4412-b1bf-062d2c01a285
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b8fc4c22-75bd-495e-bbca-5bdad6c84546;
- Mon, 21 Sep 2020 18:02:29 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 20157835-09f9-4412-b1bf-062d2c01a285;
+ Mon, 21 Sep 2020 18:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
- bh=kRgAuPJg4QZgZY5JhR8JA1mjiraFCTIYdvp+6bJCoIk=; b=H34jv+ycNSiWmns6bXUCA0I/p
- DK9uipV5nBaqWuwKi1By0fUPcF4SO/wWIWVypLRKptbOHXivL/Mu6koqhb4F8a+KUfZSIvpQbVcOU
- wfS5f9f5j2tZhPoizJ95EyeCdlOoWi1oFFgowGHxuxPHVB35lFkQ0aCC0Ws5ycbfzJhvY=;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=eXRxZG4dW6cF5nUBuT9luhXAAH6Hl9y+rCQ+lyVbW58=; b=bzUGSeeZr+nVp48SZe2Pn+Ruw0
+ 0qU+/w0gDFLiU8z1hCETWl9JzjnRwNVKA3Gl4u7yv7TO7InjuJ7JvdJXfLYk3/8iawYLNxkvyADu4
+ x64oINgS8Ajp5PFUC4icp2q15POEcCgW62SoBSYcUGaKjBRPHKny736kQ4X2Y96k844w=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kKQ8x-00087T-FT; Mon, 21 Sep 2020 18:02:27 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
+ id 1kKQB9-0008Bg-Su; Mon, 21 Sep 2020 18:04:43 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kKQ8x-0003uk-6X; Mon, 21 Sep 2020 18:02:27 +0000
+ id 1kKQB9-00041X-NC; Mon, 21 Sep 2020 18:04:43 +0000
+Subject: Re: [PATCH] xen/mm: Introduce CONFIG_M2P and provide common fallback
+ logic
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20200824181524.1111-1-andrew.cooper3@citrix.com>
+ <01c0aa01-513b-05ac-e44d-8deaf11e2b95@suse.com>
 From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v4 4/4] xen/mm: Provide dummy M2P-related helpers when
- !CONFIG_HAVE_M2P
-Date: Mon, 21 Sep 2020 19:02:14 +0100
-Message-Id: <20200921180214.4842-5-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200921180214.4842-1-julien@xen.org>
-References: <20200921180214.4842-1-julien@xen.org>
+Message-ID: <8ed961c1-2f7c-083c-8564-e9f493b80ffc@xen.org>
+Date: Mon, 21 Sep 2020 19:04:41 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <01c0aa01-513b-05ac-e44d-8deaf11e2b95@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,76 +66,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Julien Grall <julien.grall@arm.com>
+Hi Jan,
 
-At the moment, Arm is providing a dummy implementation for the M2P
-helpers used in common code. However, they are quite isolated and could
-be used by other architecture in the future. So move all the helpers in
-xen/mm.h.
+On 25/08/2020 08:40, Jan Beulich wrote:
+> On 24.08.2020 20:15, Andrew Cooper wrote:
+>> I'm pretty sure the mfn_to_gmfn() stub is bogus before and after this change.
+>> The two uses in common code are getdomaininfo and in memory_exchange(), which
+>> result in junk.
+> 
+> It's been a long time back that I think I did suggest to restrict
+> memory_exchange() to non-translated guests. I don't recall what
+> the arguments against this were, but I'm quite sure it wasn't
+> merely "it alters the ABI for such guests".
 
-Signed-off-by: Julien Grall <julien.grall@arm.com>
+This was just a low priority for me. But I revived the series (see [1]).
 
----
-    Changes in v4:
-        - The tags were dropped as the previous version was sent a long
-        time ago.
+Cheers,
 
-    Changes in v3:
-        - Add Stefano's reviewed-by
-        - Add George's acked-by
+[1] <20200921180214.4842-1-julien@xen.org>
 
-    Changes in v2:
-        - Patch added
----
- xen/include/asm-arm/mm.h | 11 -----------
- xen/include/xen/mm.h     | 13 +++++++++++++
- 2 files changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
-index 29489a3e1076..5929201d0299 100644
---- a/xen/include/asm-arm/mm.h
-+++ b/xen/include/asm-arm/mm.h
-@@ -318,17 +318,6 @@ static inline void *page_to_virt(const struct page_info *pg)
- struct page_info *get_page_from_gva(struct vcpu *v, vaddr_t va,
-                                     unsigned long flags);
- 
--/*
-- * Arm does not have an M2P, but common code expects a handful of
-- * M2P-related defines and functions. Provide dummy versions of these.
-- */
--#define INVALID_M2P_ENTRY        (~0UL)
--#define SHARED_M2P_ENTRY         (~0UL - 1UL)
--#define SHARED_M2P(_e)           ((_e) == SHARED_M2P_ENTRY)
--
--/* We don't have a M2P on Arm */
--#define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn), (void)(pfn); } while (0)
--
- /* Arch-specific portion of memory_op hypercall. */
- long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);
- 
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 4536a62940a1..15bb0aa30d22 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -685,4 +685,17 @@ static inline void put_page_alloc_ref(struct page_info *page)
-     }
- }
- 
-+/*
-+ * Dummy implementation of M2P-related helpers for common code when
-+ * the architecture doesn't have an M2P.
-+ */
-+#ifndef CONFIG_HAS_M2P
-+
-+#define INVALID_M2P_ENTRY        (~0UL)
-+#define SHARED_M2P(_e)           false
-+
-+static inline void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn) {}
-+
-+#endif
-+
- #endif /* __XEN_MM_H__ */
 -- 
-2.17.1
-
+Julien Grall
 
