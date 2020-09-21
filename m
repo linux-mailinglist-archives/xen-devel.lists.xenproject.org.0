@@ -2,57 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA342726DF
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 16:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4F727288B
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 16:44:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKMiB-0007VH-4o; Mon, 21 Sep 2020 14:22:35 +0000
+	id 1kKN2U-0000yb-Vt; Mon, 21 Sep 2020 14:43:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wcPU=C6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kKMi9-0007Uw-Vk
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 14:22:34 +0000
-X-Inumbo-ID: 693903f9-a89a-453b-9192-c1194caaccac
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KPbg=C6=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kKN2U-0000yW-6U
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 14:43:34 +0000
+X-Inumbo-ID: 4148ab54-6a2d-4355-a4fd-6a2380ef523d
+Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 693903f9-a89a-453b-9192-c1194caaccac;
- Mon, 21 Sep 2020 14:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=QlxVqa6UUCoJZyVMUo2GZn9EyOhBfJCfT8urn53tTnA=; b=nz+AX/McEePkWRyppnO07IqAZ2
- RiyfSLLTlB/A1dRLIKeP8i5o2xWuJRCFUKMPVxKfW9kb5QHJpsEQ4+TtD2wHi12VWLIeVxIJ8FpJm
- NbmalGPqRXRlmVJWgyCohalSFGruX2aM+a5l1k1kZk3KjNfl9RUpK6y8Cdc770GNXziE=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kKMi6-0002sV-Ex; Mon, 21 Sep 2020 14:22:30 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kKMi6-0001wC-4q; Mon, 21 Sep 2020 14:22:30 +0000
-Subject: Re: Memory ordering question in the shutdown deferral code
-To: Jan Beulich <jbeulich@suse.com>, Tim Deegan <tim@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Paul Durrant
- <pdurrant@amazon.com>, "Xia, Hongyan" <hongyxia@amazon.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <468576ba-8d3f-98e9-e65e-1128b5220d40@xen.org>
- <a75efed4-d435-1746-85ab-a87b328c1101@xen.org>
- <2d81cd52-b5a0-325a-9d0c-1ef92d68daf1@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bd3ef1cb-48a5-b229-2ae4-98c6f62f4d65@xen.org>
-Date: Mon, 21 Sep 2020 15:22:27 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ id 4148ab54-6a2d-4355-a4fd-6a2380ef523d;
+ Mon, 21 Sep 2020 14:43:33 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id u4so11302469ljd.10
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Sep 2020 07:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=X9bGeWS/pU9plZURIOC68njPk7KNNjSfrKhHtrbLK2I=;
+ b=ab93EJexR9J2pEUnW0PHZNx1vaZxcufyB5E/1+e2o2MzS6ZVnzBv/XaUaMG6c5em6K
+ n8+FVpVjCRRYin9/IEzbBMSONwlB9Tjfbas1Hi99O1yUK/9ZbL06CfAQiR93dso0n6jS
+ qBBDO2FnJ0Khk9+6kRjeaZSjEh+CO89VlZdhcBkLvXbCy4qVgr44ezEoKDF1MKOZb3VC
+ Kp14RpvKAkVf0B4G+C82J2+vsvtc3z1KHcvSMOoHH5UuwcBak7lahsn48phcSZg8HLCk
+ H98m8xhyxf9sMRYQ2TJs4s3R0pjVGmpDOsSoYSQsDKjByCzqLaUW1hWLwPkq8igmUYKu
+ uwHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=X9bGeWS/pU9plZURIOC68njPk7KNNjSfrKhHtrbLK2I=;
+ b=P7QIhYK7Ip3IuLfJ+o5ZRCZTWoVpeGyDpsd5HxvIOYHcyZp9eBaMQ5wNg0qwGO3rUz
+ Z1feq/Gi7l7pVhxI20h5yB/hiHwvE6FuvjEN9YxVk3j8t+HOTmGs3bJ4/WxP0IeYk6sE
+ FyPL+se76vS/UNYXtwHIT4Q4H6ubD4whspL9CyO4a1o1RYcLzAZSW7nkLn9cdeZPJtP0
+ 1g+TUNeG1v+sW4HgUf7kxk92Bu0TtBUynd2OmfOXqGKogWtAmPqNFO00oZD6wIctXBQP
+ 4mRjXQoBXli2eJ5MxRP5eAcvhSr8/5Yc9FAEm3rDKkVGnkMQM54D4cSgEDTBK/L2ZS32
+ kwyQ==
+X-Gm-Message-State: AOAM531fUA67I0yXfD316eoXFe4qPOlRl0FrRMbDACsq1wFBftOG7oEi
+ ahbkYMAMjrfKtGTKuRaA9Sk=
+X-Google-Smtp-Source: ABdhPJzQ/FHoLHcB9PzucELZ1iEIDikquOs5RIrFEsVX8inKJMW/HEWbBzfeHA0SSnLzzTRTL9ztpg==
+X-Received: by 2002:a2e:9cc3:: with SMTP id g3mr34058ljj.146.1600699412010;
+ Mon, 21 Sep 2020 07:43:32 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id q24sm2803755ljm.60.2020.09.21.07.43.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Sep 2020 07:43:31 -0700 (PDT)
+Subject: Re: [PATCH V1 01/16] x86/ioreq: Prepare IOREQ feature for making it
+ common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-2-git-send-email-olekstysh@gmail.com>
+ <98420567-40a9-7297-d243-4af90f692bf9@suse.com>
+ <123d8e2a-96c2-a97c-a0c0-a5dca4288a2b@gmail.com>
+ <2dea0b83-5178-7768-eaab-ff4a8878eeb0@suse.com>
+ <e01631d6-7e32-0923-e004-d6aefe6ffabb@gmail.com>
+ <dfbe6c62-55f6-8d33-db25-031e36b758bc@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <ac068d84-24cb-af37-cb89-f36fdd785d07@gmail.com>
+Date: Mon, 21 Sep 2020 17:43:25 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <2d81cd52-b5a0-325a-9d0c-1ef92d68daf1@suse.com>
+In-Reply-To: <dfbe6c62-55f6-8d33-db25-031e36b758bc@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,95 +91,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
 
-On 21/09/2020 14:11, Jan Beulich wrote:
-> On 21.09.2020 13:40, Julien Grall wrote:
->> (+ Xen-devel)
+On 21.09.20 16:29, Jan Beulich wrote:
+
+Hi
+
+> On 21.09.2020 14:47, Oleksandr wrote:
+>> On 21.09.20 15:31, Jan Beulich wrote:
+>>> On 21.09.2020 14:22, Oleksandr wrote:
+>>>> On 14.09.20 16:52, Jan Beulich wrote:
+>>>>> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
+>>>>>> @@ -1215,8 +1233,7 @@ void hvm_destroy_all_ioreq_servers(struct domain *d)
+>>>>>>         struct hvm_ioreq_server *s;
+>>>>>>         unsigned int id;
+>>>>>>     
+>>>>>> -    if ( !relocate_portio_handler(d, 0xcf8, 0xcf8, 4) )
+>>>>>> -        return;
+>>>>>> +    arch_hvm_ioreq_destroy(d);
+>>>>> So the call to relocate_portio_handler() simply goes away. No
+>>>>> replacement, no explanation?
+>>>> As I understand from the review comment on that for the RFC patch, there
+>>>> is no
+>>>> a lot of point of keeping this. Indeed, looking at the code I got the
+>>>> same opinion.
+>>>> I should have added an explanation in the commit description at least.
+>>>> Or shall I return the call back?
+>>> If there's a reason to drop it (which I can't see, but I also
+>>> don't recall seeing the discussion you're mentioning), then doing
+>>> so should be a separate patch with suitable reasoning. In the
+>>> patch here you definitely should only transform what's already
+>>> there.
+>> Sounds reasonable. Please see the comment below
+>> relocate_portio_handler() here:
+>> https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg78512.html
 >>
->> Sorry I forgot to CC xen-devel.
->>
->> On 21/09/2020 12:38, Julien Grall wrote:
->>> Hi all,
->>>
->>> I have started to look at the deferral code (see
->>> vcpu_start_shutdown_deferral()) because we need it for LiveUpdate and
->>> Arm will soon use it.
->>>
->>> The current implementation is using an smp_mb() to ensure ordering
->>> between a write then a read. The code looks roughly (I have slightly
->>> adapted it to make my question more obvious):
->>>
->>> domain_shutdown()
->>>       d->is_shutting_down = 1;
->>>       smp_mb();
->>>       if ( !vcpu0->defer_shutdown )
->>>       {
->>>         vcpu_pause_nosync(v);
->>>         v->paused_for_shutdown = 1;
->>>       }
->>>
->>> vcpu_start_shutdown_deferral()
->>>       vcpu0->defer_shutdown = 1;
->>>       smp_mb();
->>>       if ( unlikely(d->is_shutting_down) )
->>>         vcpu_check_shutdown(v);
->>>
->>>       return vcpu0->defer_shutdown;
->>>
->>> smp_mb() should only guarantee ordering (this may be stronger on some
->>> arch), so I think there is a race between the two functions.
->>>
->>> It would be possible to pause the vCPU in domain_shutdown() because
->>> vcpu0->defer_shutdown wasn't yet seen.
->>>
->>> Equally, vcpu_start_shutdown_deferral() may not see d->is_shutting_down
->>> and therefore Xen may continue to send the I/O. Yet the vCPU will be
->>> paused so the I/O will never complete.
-> 
-> Individually for each of these I agree. But isn't the goal merely
-> to prevent both to enter their if()-s' bodies at the same time?
-> And isn't the combined effect of the two barriers preventing just
-> this?
+>> However, I might interpret the request incorrectly.
+> I'm afraid you do: The way you've coded it the function was a no-op.
+> But that's because you broke the caller by not bailing from
+> hvm_destroy_all_ioreq_servers() if relocate_portio_handler() returned
+> false. IOW you did assume that moving the "return" statement into an
+> inline function would have an effect on its caller(s). For questions
+> like this one it also often helps to look at the commit introducing
+> the construct in question (b3344bb1cae0 in this case): Chances are
+> that the description helps, albeit I agree there are many cases
+> (particularly the farther you get into distant past) where it isn't
+> of much help.
 
-The code should already be able to deal with that as 
-vcpu_check_shutdown() will request to hold d->shutdown_lock and then 
-check v->paused_for_shutdown.
 
-So I am not sure why the barriers would matter here.
+Hmm, now it's clear to me what I did wrong. By calling 
+relocate_portio_handler() here we don't really want to relocate 
+something, we just use it as a flag to indicate whether we need to 
+actually release IOREQ resources down the 
+hvm_destroy_all_ioreq_servers(). Thank you for the explanation, it 
+wasn't obvious to me at the beginning. But, now the question is how to 
+do it in a correct way and retain current behavior (to not break callers)?
 
-> 
->>> I am not fully familiar with the IOREQ code, but it sounds to me this is
->>> not the behavior that was intended. Can someone more familiar with the
->>> code confirm it?
-> 
-> As to original intentions, I'm afraid among the people still
-> listed as maintainers for any part of Xen it may only be Tim to
-> possibly have been involved in the original installation of
-> this model, and hence who may know of the precise intentions
-> and considerations back at the time.
+I see two options here:
+1. Place the check of relocate_portio_handler() in 
+arch_hvm_ioreq_destroy() and make the later returning bool.
+     The "common" hvm_destroy_all_ioreq_servers() will check for the 
+return value and bail out if false.
+2. Don't use relocate_portio_handler(), instead introduce a flag into 
+struct hvm_domain's ioreq_server sub-structure.
 
-It would be useful to know the original intentions, so I have CCed Tim.
 
-However, I think it is more important to agree on what we want to 
-achieve so we can decide whether the existing code is suitable.
+Personally I don't like much the option 1 and option 2 is a little bit 
+overhead.
 
-Do you agree that we only want to shutdown (or pause it at an 
-architecturally restartable bounday) a domain with no I/Os inflights?
+What do you think?
 
-> 
-> As far as I'm concerned, to be honest I don't think I've ever
-> managed to fully convince myself of the correctness of the
-> model in the general case. But since it did look good enough
-> for x86 ...
-
-Right, the memory model on x86 is quite simple compare to Arm :). I am 
-pretty sure we need some sort of ordering, but I am not convinced we 
-have the correct one in place if we want to cater architecture with more 
-relaxed memory model.
-
-Cheers,
 
 -- 
-Julien Grall
+Regards,
+
+Oleksandr Tyshchenko
+
 
