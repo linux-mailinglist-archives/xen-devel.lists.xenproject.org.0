@@ -2,55 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30481271FAD
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 12:06:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FCC271FCD
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 12:16:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKIhn-0007pI-Ny; Mon, 21 Sep 2020 10:05:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8Wak=C6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kKIhm-0007pD-CG
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 10:05:54 +0000
-X-Inumbo-ID: 7d79d3a9-a3af-4041-8815-42cc507ef4cd
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7d79d3a9-a3af-4041-8815-42cc507ef4cd;
- Mon, 21 Sep 2020 10:05:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600682752;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ljT8C5t4yTGuaJ2RxIjcqxdS7GJK+ZijcbgkZl1TrP4=;
- b=pTT9KUizWD58BMAjY2wpVjRTMDV6ck4weG5HDJO1cygsqJG4666ZE0604d5aFnd5B597EB
- fAuto3EkiDUJfQw2fGAdjU+19T0OmOAB8Ho8SSPkzVOmHnRnGPhBOX8kuwbddeZ4C9bRg9
- aZNveneoV4johx+NrgOs6Sk6OGKlNSo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7224AB46F;
- Mon, 21 Sep 2020 10:06:28 +0000 (UTC)
-Subject: Ping: [PATCH 2/2] x86/vpic: also execute dpci callback for
- non-specific EOI
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>
-References: <20200820153442.28305-1-roger.pau@citrix.com>
- <20200820153442.28305-3-roger.pau@citrix.com>
- <625060e6-bdd0-c72c-c7fc-9a31588511b3@citrix.com>
- <4ac81e8f-f6e5-7226-49c7-135aa88a7b12@suse.com>
-Message-ID: <8e21a5fc-6c76-171f-8493-4a084ac1a779@suse.com>
-Date: Mon, 21 Sep 2020 12:05:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kKIrs-0000Kg-PA; Mon, 21 Sep 2020 10:16:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tSXE=C6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kKIrr-0000Kb-7d
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 10:16:19 +0000
+X-Inumbo-ID: 9d19d771-0204-4c7b-acf6-cc950eaa8113
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9d19d771-0204-4c7b-acf6-cc950eaa8113;
+ Mon, 21 Sep 2020 10:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600683377;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=N+ySsO4jyqMjBOEHOZPGt6FhuFUjqW27V++lXl81950=;
+ b=YmM/Ql1J4aqmg1UTz8cOGCF7571c71U+glJI/nwI3k4+NGSJ5mK/F16W
+ +SV+dR2hEfcNkrxPqnQkd8ixqO6daQ2MgpvNSpUGPmyNxtLILyLiuE0/W
+ 5DPQOJA8FCBYjlCj8Tm1lIvArB0LsbusgecJYnwK9rjmcmVzn/5GIzreR U=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 85YTaE/U6dj9z0JbEHSvryZYKLw/6h4ZrJfeOVqIcnIfa+qINhcLpzCke5ORdXRb3zk/4DzpDj
+ rYsy7gD9fU5Ydz4qp9MswqjtRH1ygEF7Wzvw5ixWGOruxQElKr1/mP8MKk3pDFIThOn9/8KRVO
+ 1utHgtVdMgHDFWqlhuiWksMy1EnpXokFZhQaoUTUL9sa0ctW4LAp2znsOYBM14GMvQ7SmzlGt3
+ t0Sqd0Og8pHBtU6i230uNvK1RiJpCYhGfuRV/agc5MKo8L+vW4bCRm69jvPzdKwURpp+2ZHpik
+ BnA=
+X-SBRS: 2.7
+X-MesageID: 28132089
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,286,1596513600"; d="scan'208";a="28132089"
+Date: Mon, 21 Sep 2020 12:16:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: <paul@xen.org>
+CC: 'Ian Jackson' <iwj@xenproject.org>, "'Debian folks: Michael Tokarev'"
+ <mjt@tls.msk.ru>, 'Hans van Kranenburg' <hans@knorrie.org>, "'Xen upstream
+ folks with an interest: Andrew Cooper'" <Andrew.Cooper3@citrix.com>,
+ <pkg-xen-devel@lists.alioth.debian.org>, <xen-devel@lists.xenproject.org>,
+ "'My Xen upstream tools co-maintainer: Wei Liu'" <wl@xen.org>
+Subject: Re: qemu and Xen ABI-unstable libs
+Message-ID: <20200921101606.GF19254@Air-de-Roger>
+References: <24420.58027.291045.507128@mariner.uk.xensource.com>
+ <001b01d68fe9$fb3ae060$f1b0a120$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <4ac81e8f-f6e5-7226-49c7-135aa88a7b12@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <001b01d68fe9$fb3ae060$f1b0a120$@xen.org>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +72,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.08.2020 09:45, Jan Beulich wrote:
-> On 20.08.2020 18:28, Andrew Cooper wrote:
->> On 20/08/2020 16:34, Roger Pau Monne wrote:
->>> Currently the dpci EOI callback is only executed for specific EOIs.
->>> This is wrong as non-specific EOIs will also clear the ISR bit and
->>> thus end the interrupt. Re-arrange the code a bit so that the common
->>> EOI handling path can be shared between all EOI modes.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>  xen/arch/x86/hvm/vpic.c | 10 +++++-----
->>>  1 file changed, 5 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
->>> index feb1db2ee3..3cf12581e9 100644
->>> --- a/xen/arch/x86/hvm/vpic.c
->>> +++ b/xen/arch/x86/hvm/vpic.c
->>> @@ -249,15 +249,15 @@ static void vpic_ioport_write(
->>>                  if ( priority == VPIC_PRIO_NONE )
->>>                      break;
->>>                  pin = (priority + vpic->priority_add) & 7;
->>> -                vpic->isr &= ~(1 << pin);
->>> -                if ( cmd == 5 )
->>> -                    vpic->priority_add = (pin + 1) & 7;
->>> -                break;
->>> +                goto common_eoi;
->>> +
->>>              case 3: /* Specific EOI                */
->>>              case 7: /* Specific EOI & Rotate       */
->>>                  pin = val & 7;
->>
->> You'll need a /* Fallthrough */ here to keep various things happy.
+On Mon, Sep 21, 2020 at 08:36:55AM +0100, Paul Durrant wrote:
+> > -----Original Message-----
+> > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Ian Jackson
+> > Sent: 18 September 2020 17:39
+> > To: Debian folks: Michael Tokarev <mjt@tls.msk.ru>; Hans van Kranenburg <hans@knorrie.org>; Xen
+> > upstream folks with an interest: Andrew Cooper <Andrew.Cooper3@citrix.com>; Roger Pau Monné
+> > <roger.pau@citrix.com>
+> > Cc: pkg-xen-devel@lists.alioth.debian.org; xen-devel@lists.xenproject.org; My Xen upstream tools co-
+> > maintainer: Wei Liu <wl@xen.org>
+> > Subject: RFC: qemu and Xen ABI-unstable libs
+> > 
+> > Hi all.  Michael Tokarev has been looking into the problem that qemu
+> > is using Xen libraries with usntable ABIs.  We did an experiment to
+> > see which abi-unstable symbols qemu links to, by suppressing libxc
+> > from the link line.  The results are below.[1]
+> > 
+> > Things are not looking too bad.  After some discussion on #xendevel I
+> > have tried to summarise the situation for each of the troublesome
+> > symbols.
+> > 
+> > Also, we discovered that upstream qemu does not link against any
+> > abi-unstable Xen libraries if PCI passthrough is disabled.
+> > 
+> > Please would my Xen colleages correct me if I have made any mistakes.
+> > Michael, I hope this is helpful and clear.
+> > 
+> > 
+> > In order from easy to hard:
+> > 
+> > 
+> > xc_domain_shutdown
+> > 
+> > This call in qemu needs to be replaced with a call to the existing
+> > function xendevicemodel_shutdown in libxendevicemodel.  I think it is
+> > likely that this call is fixed in qemu upstream.
+> > 
 > 
-> Are you sure? There's ...
+> I just pulled QEMU master and it appears that destroy_hvm_domain() is still calling xc_domain_shutdown().
 > 
->> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>
->> Can fix on commit if you're happy.
->>
->>> +
->>> +            common_eoi:
+> > 
+> > xc_get_hvm_param
+> > 
+> > There are three references in qemu's
+> > xen_get_default_ioreq_server_info, relating to ioreq servers.  These
+> > uses (and perhaps surrounding code at this function's call site)
+> > should be replaced by use of xendevicemodel_create_ioreq_server
+> > etc. from libxendevicemodel.  I think it is likely that this call is
+> > fixed in qemu upstream.
+> > 
 > 
-> ... an ordinary label here, not a case one.
+> These references are in compat code for Xen < 4.6. Use of (non-default) ioreq server has been present in the code for a long time.
+> We can remove them by retiring the compat code.
+> 
+> > 
+> > xc_physdev_map_pirq
+> > xc_physdev_map_pirq_msi
+> > xc_physdev_unmap_pirq
+> > 
+> > These are all small wrappers for the PHYSDEVOP_map_pirq hypercall.
+> > PHYSDEVOP is already reasonably abi-stable at the hypervisor level (in
+> > theory it's versioned, but changing it would break all dom0's).
+> 
+> The hypercalls are non-tools and directly called from the Linux kernel code so they are ABI.
+> 
+> > These calls could just be provided as-is by a new stable abi
+> > entrypoint.  We think this should probably go in libxendevicemodel.
+> > 
+> 
+> Rather than simply moving this calls into libxendevicemodel, we should think about their interactions with calls such as
+> xc_domain_bind_pt_pci_irq() below and maybe have a stable library that actually provides a better API/ABI for interrupt
+> mapping/triggering although...
 
-I would have wanted to commit this, but it's still not clear to me
-whether the adjustment you ask for is really needed.
+I've thought the same when speaking with Ian about this, as (for HVM
+passthrough) we use the physdev op to obtain a pirq from a physical
+device interrupt source (a MSI entry in the QEMU case, because the
+legacy interrupt is bound by the toolstack IIRC) and then use that
+pirq to bind it to a guest lapic vector.
 
-Thanks for following up,
-Jan
+I think in a sense such physical interrupt abstraction (the pirq) is
+helpful in order to simplify the binding, as you don't end up with a
+hypercall with a massive number of parameters to identify both the
+source and destination interrupt data. It's also helpful when the
+guest changes the interrupt binding, as you then only update the guest
+side and keep using the same pirq.
+
+We might want however to have an interface more specific to
+passthrough, such that the pirqs (or maybe we could just call them
+handles) returned by such interface can only be used with guest
+specific bind hypercalls?
+
+> I've long felt PCI pass-through should not be done by QEMU anyway (not least because we currently
+> have no mechanism for PCI pass-through to PVH domains).
+
+Having xenpt in tree would be fine IMO. Now we have all the proper
+infrastructure in place to allow different pci devices to be handled
+by different emulators IIRC, which is all that's required for this to
+work correctly.
+
+Thanks, Roger.
 
