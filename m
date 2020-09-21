@@ -2,25 +2,25 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7142127231A
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 13:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4868927231C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 13:51:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKKLz-0000lE-7m; Mon, 21 Sep 2020 11:51:31 +0000
+	id 1kKKM4-0000nC-HT; Mon, 21 Sep 2020 11:51:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=etcF=C6=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kKKLy-0000l6-9W
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 11:51:30 +0000
-X-Inumbo-ID: 54416e37-a37d-4b15-9631-e8f127cd0ecf
+ id 1kKKM3-0000l6-8O
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 11:51:35 +0000
+X-Inumbo-ID: 10d23615-49a7-4d24-8c12-d2e3c2f4cc6c
 Received: from mx1a.swcp.com (unknown [216.184.2.64])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 54416e37-a37d-4b15-9631-e8f127cd0ecf;
- Mon, 21 Sep 2020 11:51:28 +0000 (UTC)
+ id 10d23615-49a7-4d24-8c12-d2e3c2f4cc6c;
+ Mon, 21 Sep 2020 11:51:31 +0000 (UTC)
 Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
- by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08LBpRGm025403;
- Mon, 21 Sep 2020 05:51:27 -0600
+ by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08LBpTUG025409;
+ Mon, 21 Sep 2020 05:51:29 -0600
 Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
  denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
  client-ip=62.251.112.184; helo=diamond.fritz.box;
@@ -28,17 +28,16 @@ Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
  x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
  libspf2-1.2.10; 
 Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
- by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08LBpFaS047064;
- Mon, 21 Sep 2020 05:51:24 -0600 (MDT) (envelope-from hudson@trmm.net)
+ by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08LBpFaT047064;
+ Mon, 21 Sep 2020 05:51:27 -0600 (MDT) (envelope-from hudson@trmm.net)
 X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
  [62.251.112.184] claimed to be diamond.fritz.box
 From: Trammell Hudson <hudson@trmm.net>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v6 1/5] efi/boot.c: Make file->ptr const void*
-Date: Mon, 21 Sep 2020 07:51:09 -0400
-Message-Id: <20200921115113.1278655-2-hudson@trmm.net>
+Cc: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v6 2/5] efi/boot.c: add file.need_to_free
+Date: Mon, 21 Sep 2020 07:51:10 -0400
+Message-Id: <20200921115113.1278655-3-hudson@trmm.net>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200921115113.1278655-1-hudson@trmm.net>
 References: <20200921115113.1278655-1-hudson@trmm.net>
@@ -48,7 +47,7 @@ Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.83
 X-Greylist: Message whitelisted by DRAC access database, not delayed by
  milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
- Mon, 21 Sep 2020 05:51:25 -0600 (MDT)
+ Mon, 21 Sep 2020 05:51:28 -0600 (MDT)
 X-Virus-Scanned: clamav-milter 0.100.2 at ame7
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
@@ -68,67 +67,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Other than the config file parser that edits the image inplace,
-no other users of the file sections requires write access to the
-data.
+The config file, kernel, initrd, etc should only be freed if they
+are allocated with the UEFI allocator.
 
 Signed-off-by: Trammell Hudson <hudson@trmm.net>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/common/efi/boot.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ xen/common/efi/boot.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 0ac80e47bb..157fe0e8c5 100644
+index 157fe0e8c5..c2ce0c7294 100644
 --- a/xen/common/efi/boot.c
 +++ b/xen/common/efi/boot.c
-@@ -41,7 +41,7 @@
+@@ -102,6 +102,7 @@ union string {
  
- typedef EFI_STATUS
- (/* _not_ EFIAPI */ *EFI_SHIM_LOCK_VERIFY) (
--    IN VOID *Buffer,
-+    IN const VOID *Buffer,
-     IN UINT32 Size);
- 
- typedef struct {
-@@ -104,7 +104,8 @@ struct file {
+ struct file {
      UINTN size;
++    bool need_to_free;
      union {
          EFI_PHYSICAL_ADDRESS addr;
--        void *ptr;
-+        char *str;
-+        const void *ptr;
-     };
- };
+         char *str;
+@@ -280,13 +281,13 @@ void __init noreturn blexit(const CHAR16 *str)
+     if ( !efi_bs )
+         efi_arch_halt();
  
-@@ -592,7 +593,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-             efi_arch_handle_module(file, name, options);
-         }
+-    if ( cfg.addr )
++    if ( cfg.need_to_free )
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+-    if ( kernel.addr )
++    if ( kernel.need_to_free )
+         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+-    if ( ramdisk.addr )
++    if ( ramdisk.need_to_free )
+         efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+-    if ( xsm.addr )
++    if ( xsm.need_to_free )
+         efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
  
--        ret = FileHandle->Read(FileHandle, &file->size, file->ptr);
-+        ret = FileHandle->Read(FileHandle, &file->size, file->str);
-         if ( !EFI_ERROR(ret) && file->size != size )
-             ret = EFI_ABORTED;
-         if ( EFI_ERROR(ret) )
-@@ -616,7 +617,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
- 
- static void __init pre_parse(const struct file *cfg)
- {
--    char *ptr = cfg->ptr, *end = ptr + cfg->size;
-+    char *ptr = cfg->str, *end = ptr + cfg->size;
-     bool start = true, comment = false;
- 
-     for ( ; ptr < end; ++ptr )
-@@ -645,7 +646,7 @@ static void __init pre_parse(const struct file *cfg)
- static char *__init get_value(const struct file *cfg, const char *section,
-                               const char *item)
- {
--    char *ptr = cfg->ptr, *end = ptr + cfg->size;
-+    char *ptr = cfg->str, *end = ptr + cfg->size;
-     size_t slen = section ? strlen(section) : 0, ilen = strlen(item);
-     bool match = !slen;
- 
+     efi_arch_blexit();
+@@ -581,6 +582,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+     }
+     else
+     {
++        file->need_to_free = true;
+         file->size = size;
+         if ( file != &cfg )
+         {
 -- 
 2.25.1
 
