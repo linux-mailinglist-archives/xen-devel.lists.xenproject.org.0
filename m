@@ -2,26 +2,25 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18ED827231B
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 13:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7142127231A
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Sep 2020 13:51:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKKLx-0000ko-Rm; Mon, 21 Sep 2020 11:51:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kKKLz-0000lE-7m; Mon, 21 Sep 2020 11:51:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=etcF=C6=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kKKLw-0000kj-BK
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 11:51:28 +0000
-X-Inumbo-ID: cded3dbe-401d-441f-9c15-add46c8622b5
+ id 1kKKLy-0000l6-9W
+ for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 11:51:30 +0000
+X-Inumbo-ID: 54416e37-a37d-4b15-9631-e8f127cd0ecf
 Received: from mx1a.swcp.com (unknown [216.184.2.64])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cded3dbe-401d-441f-9c15-add46c8622b5;
- Mon, 21 Sep 2020 11:51:26 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 54416e37-a37d-4b15-9631-e8f127cd0ecf;
+ Mon, 21 Sep 2020 11:51:28 +0000 (UTC)
 Received: from ame7.swcp.com (ame7.swcp.com [216.184.2.70])
- by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08LBpND1025394;
- Mon, 21 Sep 2020 05:51:24 -0600
+ by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08LBpRGm025403;
+ Mon, 21 Sep 2020 05:51:27 -0600
 Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
  denied by domain of hudson@trmm.net) receiver=ame7.swcp.com;
  client-ip=62.251.112.184; helo=diamond.fritz.box;
@@ -29,25 +28,27 @@ Received-SPF: neutral (ame7.swcp.com: 62.251.112.184 is neither permitted nor
  x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with
  libspf2-1.2.10; 
 Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
- by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08LBpFaR047064;
- Mon, 21 Sep 2020 05:51:20 -0600 (MDT) (envelope-from hudson@trmm.net)
+ by ame7.swcp.com (8.15.2/8.15.2) with ESMTP id 08LBpFaS047064;
+ Mon, 21 Sep 2020 05:51:24 -0600 (MDT) (envelope-from hudson@trmm.net)
 X-Authentication-Warning: ame7.swcp.com: Host 62-251-112-184.ip.xs4all.nl
  [62.251.112.184] claimed to be diamond.fritz.box
 From: Trammell Hudson <hudson@trmm.net>
 To: xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- wl@xen.org
-Subject: [PATCH v6 0/5] efi: Unified Xen hypervisor/kernel/initrd images
-Date: Mon, 21 Sep 2020 07:51:08 -0400
-Message-Id: <20200921115113.1278655-1-hudson@trmm.net>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v6 1/5] efi/boot.c: Make file->ptr const void*
+Date: Mon, 21 Sep 2020 07:51:09 -0400
+Message-Id: <20200921115113.1278655-2-hudson@trmm.net>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200921115113.1278655-1-hudson@trmm.net>
+References: <20200921115113.1278655-1-hudson@trmm.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.83
 X-Greylist: Message whitelisted by DRAC access database, not delayed by
  milter-greylist-4.6.2 (ame7.swcp.com [216.184.2.128]);
- Mon, 21 Sep 2020 05:51:22 -0600 (MDT)
+ Mon, 21 Sep 2020 05:51:25 -0600 (MDT)
 X-Virus-Scanned: clamav-milter 0.100.2 at ame7
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on ame7.swcp.com
@@ -67,44 +68,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This patch series adds support for bundling the xen.efi hypervisor,
-the xen.cfg configuration file, the Linux kernel and initrd, as well
-as the XSM, and architectural specific files into a single "unified"
-EFI executable.  This allows an administrator to update the components
-independently without requiring rebuilding xen, as well as to replace
-the components in an existing image.
+Other than the config file parser that edits the image inplace,
+no other users of the file sections requires write access to the
+data.
 
-The resulting EFI executable can be invoked directly from the UEFI Boot
-Manager, removing the need to use a separate loader like grub as well
-as removing dependencies on local filesystem access.  And since it is
-a single file, it can be signed and validated by UEFI Secure Boot without
-requring the shim protocol.
+Signed-off-by: Trammell Hudson <hudson@trmm.net>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/common/efi/boot.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-It is inspired by systemd-boot's unified kernel technique and borrows the
-function to locate PE sections from systemd's LGPL'ed code.  During EFI
-boot, Xen looks at its own loaded image to locate the PE sections for
-the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-(`.ramdisk`), and XSM config (`.xsm`), which are included after building
-xen.efi using objcopy to add named sections for each input file.
-
-Trammell Hudson (5):
-  efi/boot.c: Make file->ptr const void*
-  efi/boot.c: add file.need_to_free
-  efi/boot.c: add handle_file_info()
-  efi: Enable booting unified hypervisor/kernel/initrd images
-  efi: Do not use command line if unified config is included
-
- .gitignore                  |   1 +
- docs/misc/efi.pandoc        |  49 +++++++++++
- xen/arch/arm/efi/efi-boot.h |  25 ++++--
- xen/arch/x86/efi/Makefile   |   2 +-
- xen/arch/x86/efi/efi-boot.h |  11 ++-
- xen/common/efi/boot.c       | 155 +++++++++++++++++++++++++----------
- xen/common/efi/efi.h        |   3 +
- xen/common/efi/pe.c         | 159 ++++++++++++++++++++++++++++++++++++
- 8 files changed, 353 insertions(+), 52 deletions(-)
- create mode 100644 xen/common/efi/pe.c
-
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 0ac80e47bb..157fe0e8c5 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -41,7 +41,7 @@
+ 
+ typedef EFI_STATUS
+ (/* _not_ EFIAPI */ *EFI_SHIM_LOCK_VERIFY) (
+-    IN VOID *Buffer,
++    IN const VOID *Buffer,
+     IN UINT32 Size);
+ 
+ typedef struct {
+@@ -104,7 +104,8 @@ struct file {
+     UINTN size;
+     union {
+         EFI_PHYSICAL_ADDRESS addr;
+-        void *ptr;
++        char *str;
++        const void *ptr;
+     };
+ };
+ 
+@@ -592,7 +593,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+             efi_arch_handle_module(file, name, options);
+         }
+ 
+-        ret = FileHandle->Read(FileHandle, &file->size, file->ptr);
++        ret = FileHandle->Read(FileHandle, &file->size, file->str);
+         if ( !EFI_ERROR(ret) && file->size != size )
+             ret = EFI_ABORTED;
+         if ( EFI_ERROR(ret) )
+@@ -616,7 +617,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+ 
+ static void __init pre_parse(const struct file *cfg)
+ {
+-    char *ptr = cfg->ptr, *end = ptr + cfg->size;
++    char *ptr = cfg->str, *end = ptr + cfg->size;
+     bool start = true, comment = false;
+ 
+     for ( ; ptr < end; ++ptr )
+@@ -645,7 +646,7 @@ static void __init pre_parse(const struct file *cfg)
+ static char *__init get_value(const struct file *cfg, const char *section,
+                               const char *item)
+ {
+-    char *ptr = cfg->ptr, *end = ptr + cfg->size;
++    char *ptr = cfg->str, *end = ptr + cfg->size;
+     size_t slen = section ? strlen(section) : 0, ilen = strlen(item);
+     bool match = !slen;
+ 
 -- 
 2.25.1
 
