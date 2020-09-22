@@ -2,76 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68AE7274748
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:12:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13979274772
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:27:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKlq3-0000Ws-SY; Tue, 22 Sep 2020 17:12:23 +0000
+	id 1kKm4Q-0001Wr-8O; Tue, 22 Sep 2020 17:27:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kKlq2-0000Wn-Ko
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:12:22 +0000
-X-Inumbo-ID: f22deb25-5bbf-4bec-9321-ab7c611abd09
-Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ <SRS0=q32Y=C7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kKm4O-0001Wm-GW
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:27:12 +0000
+X-Inumbo-ID: 714a4b40-9cf2-4035-95fb-5792af33472d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f22deb25-5bbf-4bec-9321-ab7c611abd09;
- Tue, 22 Sep 2020 17:12:21 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id m5so18884154lfp.7
- for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 10:12:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=ZWSja0ufIWVtNDFv51hQR+bPsuI2qEYYyeD6ST1ZcYE=;
- b=EGKXAiaTIl1AW/tA75POf5RkU3lC7tbt62IpT30lbGEVdwwNOsm2ih+doxMw34twSB
- E7emflNZ90EvnZi5yMxRcbJogCby/fNObvzD8IWe8raVjJVO8OoymEWiseTFcFq1OoVp
- P7u6Zdl2RCMaYe4LLXbUer5GO3vgL6qHGVQbn2uMbJPuiKSItscZRZ+DGllPjS12C5QN
- CgqvfbI32YPLm8rqqISqVYN7iknGis9MqOUDelLS1gavctHpTX+pXVSXdQecpod3B/2+
- fSrp9vdIC4DZ8JAg+P98iLdYpLojh+o73VV/8cEfFdwfXI01YBNY1eZ0M+Uq5vO33KNO
- Y/pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=ZWSja0ufIWVtNDFv51hQR+bPsuI2qEYYyeD6ST1ZcYE=;
- b=HBmEgLvPtF6P30v2QYlcSKI8ayIEgBE8YlSGav9/Gk0L7WYFxX0L3rkAlDeJSWRlpm
- ZVG+J/Uu7MG5ScaaRyWp1tg2keOv2957WwkWYPGfAtcM5CYCfVmbFAjjXMXzXFmEnUpj
- bdsibG7pddal2h4IYPWKhSICi3TGjD6Oa+AOxyIzuYcV14/mhfUO7wnhtYIyoMPzFKea
- VjmGUfvHPW7HNUt72o6VLuuvBdQcI9GMQjY3REYVQUzm2H2bSf1bLA6+jtPQtbp8/2JR
- f0YhlOKSmF1pj7eP9kjWveBTvU23+FL1cHeGYhW2DisbSBodRHRP1dPMO/MfwO74h0NX
- /yRA==
-X-Gm-Message-State: AOAM530g2l7S/gtYQ85qbGhqUmDGl+V+H61PFWGpeGoKpAqLANNxgXiv
- 88dtoWrWnq2gZzW5CMGhiTo=
-X-Google-Smtp-Source: ABdhPJzdp5/c0pdZ2tlHP4ebjsNf3AaL4H78C+YttebTrHi+X3UyNyMGogcRoW6fdde8W5TOPLZv6g==
-X-Received: by 2002:a19:e4c:: with SMTP id 73mr2232501lfo.286.1600794740673;
- Tue, 22 Sep 2020 10:12:20 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id n3sm3658096lfq.274.2020.09.22.10.12.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2020 10:12:20 -0700 (PDT)
-Subject: Re: [PATCH V1 09/16] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-10-git-send-email-olekstysh@gmail.com>
- <dd36ad99-2d18-e384-84aa-565fa8e0c5db@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e31493ad-9879-80f9-c33e-125f6f791227@gmail.com>
-Date: Tue, 22 Sep 2020 20:12:14 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 714a4b40-9cf2-4035-95fb-5792af33472d;
+ Tue, 22 Sep 2020 17:27:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=2mrgG/DnEG8kosuNTpYxOi1MPt4QEu/8duqHXI4rmu0=; b=nJ+tRUeUIe3+A8EfgTjg7NjV5w
+ N+AM+kQZ5eq8wyGtGW79asMdOOa+WieDgqj5ExHCdQJ9RZARtaDAP3C28HVJIiTb8w66U0KMb3ZjP
+ Sn6MOsT+XkY0f1V/4RzKndj4uBzrYAwoNzoQnFnt4UUfOW5Q/MmdNybmoixZWmcBs9+g=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKm4M-0004BM-Cd; Tue, 22 Sep 2020 17:27:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKm4M-0000PF-4e; Tue, 22 Sep 2020 17:27:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKm4L-0003Z2-VJ; Tue, 22 Sep 2020 17:27:09 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154615-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <dd36ad99-2d18-e384-84aa-565fa8e0c5db@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Subject: [xen-unstable-smoke test] 154615: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=2785b2a9e04abc148e1c5259f4faee708ea356f4
+X-Osstest-Versions-That: xen=68a8aa5d7264dcb04b2c56fad24bdd5192fe5394
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Sep 2020 17:27:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,43 +65,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 154615 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154615/
 
-On 16.09.20 10:51, Jan Beulich wrote:
+Failures :-/ but no regressions.
 
-Hi Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
->> @@ -2277,8 +2299,10 @@ void leave_hypervisor_to_guest(void)
->>   {
->>       local_irq_disable();
->>   
->> -    check_for_vcpu_work();
->> -    check_for_pcpu_work();
->> +    do
->> +    {
->> +        check_for_pcpu_work();
->> +    } while ( check_for_vcpu_work() );
-> Looking at patch 11 I've stumbled across changes done to code
-> related to this, and now I wonder: There's no mention in the
-> description of why this safe (i.e. not a potentially unbounded
-> loop).
-Indeed there was a discussion regarding that. Probably I should have 
-added an explanation.
-Please see the thoughts about that and a reason why it was decided to 
-let the vCPU to spin forever if I/O never completes
-(check_for_vcpu_work() never returns false) and why it was considered as 
-safe action:
-https://patchwork.kernel.org/patch/11698549/#23540209
+version targeted for testing:
+ xen                  2785b2a9e04abc148e1c5259f4faee708ea356f4
+baseline version:
+ xen                  68a8aa5d7264dcb04b2c56fad24bdd5192fe5394
+
+Last test of basis   154609  2020-09-22 09:01:22 Z    0 days
+Testing same since   154615  2020-09-22 14:00:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
->
-> As a nit - the opening brace does not belong on its own line in
-> this specific case.
-ok
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Regards,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Oleksandr Tyshchenko
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   68a8aa5d72..2785b2a9e0  2785b2a9e04abc148e1c5259f4faee708ea356f4 -> smoke
 
