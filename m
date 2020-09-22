@@ -2,67 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54FC2742E5
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 15:24:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB0EB274306
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 15:29:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKiGy-0000GA-Bg; Tue, 22 Sep 2020 13:23:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kKiLp-0000Vj-3X; Tue, 22 Sep 2020 13:28:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKiGx-0000G5-Cs
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 13:23:55 +0000
-X-Inumbo-ID: e47b6143-a0a9-4bf4-b37a-13ed7bb14c74
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e47b6143-a0a9-4bf4-b37a-13ed7bb14c74;
- Tue, 22 Sep 2020 13:23:53 +0000 (UTC)
+ <SRS0=9p1r=C7=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+ id 1kKiLn-0000Vc-Jb
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 13:28:55 +0000
+X-Inumbo-ID: 46eb1aff-591c-4c1e-b891-385dbd38043e
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 46eb1aff-591c-4c1e-b891-385dbd38043e;
+ Tue, 22 Sep 2020 13:28:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600781033;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=xF14LbqYhmFFgIn8CZDRDrjMXQV3XLolwE0qbXX1DIc=;
- b=EFvzQSXfNewgo8KJnIzKjdrzsH4Yk10FMY1J0VZ8otThGmHABQ6lMrRD
- M/9mJWpXDZ4fE9FkyBTLvc8bHZ8QyfPyY6jK4/EgtA74D3EkyZkYMfC7X
- 4sWNgg/vlq/C2MKkvvwhnH4krqJ0TQOF8pRMlOVSbWdfKclXPre+oZFxt Y=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1600781333;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=fM0MJpm1ackYPzDGOCKdS8D9u6+PiQG6CiIfZykS7oI=;
+ b=J2SS0H7XIeXR6hRflOGM3H/BYf+EPNb1t9cdSWiOcg6tt59VUjtVQwh4
+ kkToL7avldkB/M9bBgPF3jhPwCyoLggFEkAm9dKzFpm6nFOQPQcxobXRO
+ NfT44/yyM73XjBn+JvK/+xK2nOOPfiIPoOs8IVkQovBt1gbbenKkjhDlW M=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: rC5NQJEKwAHB9MWuXPGF1v1ukPwOs+x0eU+YZ3bjy+enegztuu08EmTnJiU58RNYaGtOgk/bCe
- w1yI2YP2SbVhv0rMbV/+VFbFejPSrccMIM7ewvpevs6YwALG2TaQCjysrLUr52NToXoMs/xoFI
- KaBlxbnarOe3CLCRc6EGUleoAhq/SeTnBzKJp2rw8QQ/l+vz55ixcmDkbK4tNwWBBxtxVyq1iY
- bsZZXXNhT9Co9Imeatw2OKUvIyY9VIX9rIzck1S61eOQvHLSTwWbC6Yd9+OTgZ3SaLSbjGww6q
- ASA=
+IronPort-SDR: bpkT8pLOTKz4eo/5yMGbkyzeh8JY/XeEYSNhAgyEE+nAN2F7fNoOvE6Td9A6KazYZaygmEzerq
+ woq7c5gITf2+f+/TuRsYPDh8z+IHa1prYqaF++LI0TKGKIwcXMkVLOtCdr84NxemOr8XwIC7HI
+ I4XjFkE1QJF4l4F6PTpIL4+gsI5LbjtDDjLqmxYwsQiXDqO1pEz838Zl+sft3xN2wHKPMQUq4f
+ GcQd1LyUM4+5G15CFrDVWZFvAglc2RvmVRh+feEavpE24tmUeEKhPsjuQ1WkdUYJC5U4RGlqdp
+ VX0=
 X-SBRS: 2.7
-X-MesageID: 27357917
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 27591696
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,290,1596513600"; d="scan'208";a="27357917"
-Subject: Re: [PATCH 2/5] xen/gnttab: Rework resource acquisition
-To: <paul@xen.org>, 'Xen-devel' <xen-devel@lists.xenproject.org>
-CC: 'George Dunlap' <George.Dunlap@eu.citrix.com>, 'Ian Jackson'
- <ian.jackson@citrix.com>, 'Jan Beulich' <JBeulich@suse.com>, "'Konrad
- Rzeszutek Wilk'" <konrad.wilk@oracle.com>, 'Stefano Stabellini'
- <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>, 'Julien Grall'
- <julien@xen.org>, =?UTF-8?B?J01pY2hhxYIgTGVzemN6ecWEc2tpJw==?=
- <michal.leszczynski@cert.pl>, 'Hubert Jasudowicz' <hubert.jasudowicz@cert.pl>
-References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
- <20200728113712.22966-3-andrew.cooper3@citrix.com>
- <002801d66649$67098050$351c80f0$@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <939af824-9f4e-2c9b-186e-da766a4ecadc@citrix.com>
-Date: Tue, 22 Sep 2020 14:13:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <002801d66649$67098050$351c80f0$@xen.org>
+X-IronPort-AV: E=Sophos;i="5.77,290,1596513600"; d="scan'208";a="27591696"
+From: Edwin Torok <edvin.torok@citrix.com>
+To: "sstabellini@kernel.org" <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "paul@xen.org" <paul@xen.org>
+CC: "xen-users@lists.xenproject.org" <xen-users@lists.xenproject.org>,
+ "jerome.leseinne@gmail.com" <jerome.leseinne@gmail.com>, "julien@xen.org"
+ <julien@xen.org>
+Subject: Re: oxenstored performance issue when starting VMs in parallel
+Thread-Topic: oxenstored performance issue when starting VMs in parallel
+Thread-Index: AQHWkDX0aRoo6zkA/E+panOpiMw6qalzLpQAgAFUxwCAAANDAA==
+Date: Tue, 22 Sep 2020 13:28:42 +0000
+Message-ID: <ba74b8225223ba800c38b34ac950283b7b6cb0fe.camel@citrix.com>
+References: <CAAMaOzi5d7S0qAhBkPTFzNfAWXMuK-JbxtQuyk4hdPcVDUwxQg@mail.gmail.com>
+ <c84155eb-429d-7143-9eb1-3b5a50c6bde5@xen.org>
+ <46f1f50dc02c53391958d9d4bb5fc57d23ba6ede.camel@citrix.com>
+ <CAAMaOzj3eYo=bQgth51f+psR2ZBj+c-2boZy57x2qV2aq0fShQ@mail.gmail.com>
+In-Reply-To: <CAAMaOzj3eYo=bQgth51f+psR2ZBj+c-2boZy57x2qV2aq0fShQ@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+Content-ID: <3151AB87EB5AA243A27700A03982CBAE@citrix.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,106 +79,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30/07/2020 09:14, Paul Durrant wrote:
->> -----Original Message-----
->> From: Andrew Cooper <andrew.cooper3@citrix.com>
->> Sent: 28 July 2020 12:37
->> To: Xen-devel <xen-devel@lists.xenproject.org>
->> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <George.Dunlap@eu.citrix.com>; Ian
->> Jackson <ian.jackson@citrix.com>; Jan Beulich <JBeulich@suse.com>; Konrad Rzeszutek Wilk
->> <konrad.wilk@oracle.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien
->> Grall <julien@xen.org>; Paul Durrant <paul@xen.org>; Michał Leszczyński <michal.leszczynski@cert.pl>;
->> Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
->> Subject: [PATCH 2/5] xen/gnttab: Rework resource acquisition
->>
->> The existing logic doesn't function in the general case for mapping a guests
->> grant table, due to arbitrary 32 frame limit, and the default grant table
->> limit being 64.
->>
->> In order to start addressing this, rework the existing grant table logic by
->> implementing a single gnttab_acquire_resource().  This is far more efficient
->> than the previous acquire_grant_table() in memory.c because it doesn't take
->> the grant table write lock, and attempt to grow the table, for every single
->> frame.
->>
-> But that should not have happened before because the code deliberately iterates backwards, thereby starting with the last frame, thereby growing the table at most once. (I agree that dropping and re-acquiring the lock every time was sub-optimal).
-
-It still attempts to grow on every iteration.  Its just growing to a
-smaller size than already succeeded.
-
->
->> The new gnttab_acquire_resource() function subsumes the previous two
->> gnttab_get_{shared,status}_frame() helpers.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: George Dunlap <George.Dunlap@eu.citrix.com>
->> CC: Ian Jackson <ian.jackson@citrix.com>
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Wei Liu <wl@xen.org>
->> CC: Julien Grall <julien@xen.org>
->> CC: Paul Durrant <paul@xen.org>
->> CC: Michał Leszczyński <michal.leszczynski@cert.pl>
->> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
->> ---
->>  xen/common/grant_table.c      | 93 ++++++++++++++++++++++++++++++-------------
->>  xen/common/memory.c           | 42 +------------------
->>  xen/include/xen/grant_table.h | 19 ++++-----
->>  3 files changed, 75 insertions(+), 79 deletions(-)
->>
->> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
->> index 9f0cae52c0..122d1e7596 100644
->> --- a/xen/common/grant_table.c
->> +++ b/xen/common/grant_table.c
->> @@ -4013,6 +4013,72 @@ static int gnttab_get_shared_frame_mfn(struct domain *d,
->>      return 0;
->>  }
->>
->> +int gnttab_acquire_resource(
->> +    struct domain *d, unsigned int id, unsigned long frame,
->> +    unsigned int nr_frames, xen_pfn_t mfn_list[])
->> +{
->> +    struct grant_table *gt = d->grant_table;
->> +    unsigned int i = nr_frames, tot_frames;
->> +    void **vaddrs;
->> +    int rc = 0;
->> +
->> +    /* Input sanity. */
->> +    if ( !nr_frames )
->> +        return -EINVAL;
-> This was not an error before. Does mapping 0 frames really need to be a failure?
-
-Yes.
-
-You have spotted the -1 which depends on nr_frames being nonzero to
-function correctly.
-
->> +
->> +    /* Overflow checks */
->> +    if ( frame + nr_frames < frame )
->> +        return -EINVAL;
->> +
->> +    tot_frames = frame + nr_frames;
-> That name is confusing. 'last_frame' perhaps (and then make the -1 implicit)?
-
-How is that naming any less confusing?
-
->> +        break;
->> +    }
->> +
->> +    for ( i = 0; i < nr_frames; ++i )
->> +        mfn_list[i] = virt_to_mfn(vaddrs[frame + i]);
->> +
->> + out:
->> +    grant_write_unlock(gt);
-> Since you deliberately grew the table first, could you not drop the write lock and acquire it a read lock before looping over the frames?
-
-I tried originally.  That's not an operation supported by percpu
-read/write locks, and this isn't a fastpath.
-
-~Andrew
+T24gVHVlLCAyMDIwLTA5LTIyIGF0IDE1OjE3ICswMjAwLCBqZXJvbWUgbGVzZWlubmUgd3JvdGU6
+DQo+IEhpLA0KPiANCj4gRWR3aW4geW91IHJvY2sgISBUaGlzIGNhbGwgaW4gcWVtdSBpcyBlZmZl
+Y3RpdmVseSB0aGUgY3VscHJpdCAhDQo+IEkgaGF2ZSBkaXNhYmxlZCB0aGlzIHhlbl9idXNfYWRk
+X3dhdGNoIGNhbGwgYW5kIHJlLXJ1biB0ZXN0IG9uIG91cg0KPiBiaWcgc2VydmVyOg0KPiANCj4g
+LSBveGVuc3RvcmVkIGlzIG5vdyAgYmV0d2VlbiAxMCUgdG8gMjAlICBDUFUgdXNhZ2UgKHByZXZp
+b3VzbHkgd2FzDQo+IDEwMCUgYWxsIHRoZSB0aW1lKQ0KPiAtIEFsbCBvdXIgVk1zIGFyZSByZXNw
+b25zaXZlDQo+IC0gQWxsIG91ciBWTSBzdGFydCBpbiBsZXNzIHRoYW4gMTAgc2Vjb25kcyAoYmVm
+b3JlIHRoZSBmaXggc29tZSBWTXMNCj4gY291bGQgdGFrZSBtb3JlIHRoYW4gb25lIG1pbnV0ZSB0
+byBiZSBmdWxseSB1cA0KPiAtIERvbTAgaXMgbW9yZSByZXNwb25zaXZlDQo+IA0KPiBEaXNhYmxp
+bmcgdGhlIHdhdGNoIG1heSBub3QgYmUgdGhlIGlkZWFsIHNvbHV0aW9uICggSSBsZXQgdGhlIHFl
+bXUNCj4gZXhwZXJ0cyBhbnN3ZXIgdGhpcyBhbmQgdGhlIHBvc3NpYmxlIHNpZGUgZWZmZWN0cyks
+DQoNCkhpLA0KDQpDQy1lZCBRZW11IG1haW50YWluZXIgb2YgWGVuIGNvZGUsIHBsZWFzZSBzZWUg
+dGhpcyBkaXNjdXNzaW9uIGFib3V0DQpzY2FsYWJpbGl0eSBpc3N1ZXMgd2l0aCB0aGUgYmFja2Vu
+ZCB3YXRjaGluZyBjb2RlIGluIHFlbXUgNC4xKy4NCg0KSSB0aGluayB0aGUgc2NhbGFiaWxpdHkg
+aXNzdWUgaXMgZHVlIHRvIHRoaXMgY29kZSBpbiBxZW11LCB3aGljaCBjYXVzZXMNCmFuIGluc3Rh
+bmNlIG9mIHFlbXUgdG8gc2VlIHdhdGNoZXMgZnJvbSBhbGwgZGV2aWNlcyAoZXZlbiB0aG9zZQ0K
+YmVsb25naW5nIHRvIG90aGVyIHFlbXUgaW5zdGFuY2VzKSwgc3VjaCB0aGF0IGFkZGluZyBhIHNp
+bmdsZSBkZXZpY2UNCmNhdXNlcyBOIHdhdGNoZXMgdG8gYmUgZmlyZWQgb24gZWFjaCBOIGluc3Rh
+bmNlcyBvZiBxZW11Og0KICAgICAgeGVuYnVzLT5iYWNrZW5kX3dhdGNoID0NCiAgICAgICAgICAg
+eGVuX2J1c19hZGRfd2F0Y2goeGVuYnVzLCAiIiwgLyogZG9tYWluIHJvb3Qgbm9kZSAqLw0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAiYmFja2VuZCIsIHhlbl9idXNfYmFja2VuZF9jaGFu
+Z2VkLA0KICZsb2NhbF9lcnIpOw0KIA0KSSBjYW4gdW5kZXJzdGFuZCB0aGF0IGZvciBiYWNrd2Fy
+ZHMgY29tcGF0aWJpbGl0eSB5b3UgbWlnaHQgbmVlZCB0aGlzDQpjb2RlLCBidXQgaXMgdGhlcmUg
+YSB3YXkgdGhhdCBhbiB1cC10by1kYXRlICh4bCkgdG9vbHN0YWNrIGNvdWxkIHRlbGwNCnFlbXUg
+d2hhdCBpdCBuZWVkcyB0byBsb29rIGF0IChlLmcuIHZpYSBRTVAsIG9yIG90aGVyIGtleXMgaW4g
+eGVuc3RvcmUpDQppbnN0ZWFkIG9mIHJlbHlpbmcgb24gYW4gb3Zlcmx5IGJyb2FkIHdhdGNoPw0K
+DQpCZXN0IHJlZ2FyZHMsDQotLUVkd2luDQoNCg0KPiAgYnV0IGluIG91cg0KPiBzY2VuYXJpbyBh
+bmQgdXNhZ2UgdGhpcyBmaXhlcyB0aGUgcHJvYmxlbSBhbmQgZHJhbWF0aWNhbGx5IGJvb3N0cyB0
+aGUNCj4gcGVyZm9ybWFuY2UuDQo+IA0KPiBTbyBmYXIgd2UgaGF2ZW4ndCBzZWVuIGFueSBzaWRl
+IGVmZmVjdCwgYWxsIHRoZSB4bCBvcmRlcnMgYXJlIG9rLCB0aGUNCj4gVk1zIGFyZSBmdWxseSBm
+dW5jdGlvbmFsLCBubyBkZXZpY2VzIGxlYWsgKGxpa2UgbmV0d29yayB2aWYgZm9yDQo+IGV4ZW1w
+bGUpIGFuZCBvbmNlIGFsbCB0aGUgVk1zIGFyZSBkb3duIGEgY2FsbCB0byB4ZW5zdG9yZS1scyBz
+aG93DQo+IHRoYXQNCj4gdGhlIHN0b3JlIGlzIGluZGVlZCBlbXB0eSAoZG9tMCBleGNsdWRlZCkN
+Cj4gDQo+IFdlIHdpbGwgY29udGludWUgYWRkaXRpb25hbCB0ZXN0aW5nIGFuZCBzdHJlc3MgYnV0
+IGluIGFsbCBjYXNlcyBhDQo+IGh1Z2UgdGhhbmtzIHRvIHlvdSBhbmQgSnVsaWVuICBmb3IgeW91
+ciBoZWxwIG9uIHRoaXMgaXNzdWUgIQ0KPiANCj4gSmVyb21lDQo+IA0KPiBMZSBsdW4uIDIxIHNl
+cHQuIDIwMjAgw6AgMTg6NTcsIEVkd2luIFRvcm9rIDxlZHZpbi50b3Jva0BjaXRyaXguY29tPiBh
+DQo+IMOpY3JpdCA6DQo+ID4gT24gTW9uLCAyMDIwLTA5LTIxIGF0IDE3OjQwICswMTAwLCBKdWxp
+ZW4gR3JhbGwgd3JvdGU6DQo+ID4gPiBbQ0FVVElPTiAtIEVYVEVSTkFMIEVNQUlMXSBETyBOT1Qg
+cmVwbHksIGNsaWNrIGxpbmtzLCBvciBvcGVuDQo+ID4gPiBhdHRhY2htZW50cyB1bmxlc3MgeW91
+IGhhdmUgdmVyaWZpZWQgdGhlIHNlbmRlciBhbmQga25vdyB0aGUNCj4gPiA+IGNvbnRlbnQNCj4g
+PiA+IGlzIHNhZmUuDQo+ID4gPiANCj4gPiA+IE9uIDIxLzA5LzIwMjAgMTQ6MDUsIGplcm9tZSBs
+ZXNlaW5uZSB3cm90ZToNCj4gPiA+ID4gSGVsbG8sDQo+ID4gPiANCj4gPiA+IEhlbGxvLA0KPiA+
+ID4gDQo+ID4gPiBJIGFtIG9ubHkgQ0NpbmcgRWR3aW4gd2hvIGlzIHdvcmtpbmcgb24gT1hlblN0
+b3JlZC4gSG9wZWZ1bGx5LCBoZQ0KPiA+ID4gd2lsbA0KPiA+ID4gYmUgYWJsZSB0byBnaXZlIHlv
+dSBzb21lIHBvaW50ZXJzLg0KPiA+ID4gDQo+ID4gPiA+IFdlIGFyZSBkZXZlbG9waW5nIGEgc29s
+dXRpb24gYmFzZWQgb24gWGVuIDQuMTMgd2hvIGlzDQo+ID4gPiA+IGNvbnN0YW50bHkNCj4gPiA+
+ID4gY3JlYXRpbmcgLyBkZXN0cm95aW5nIFZNcy4NCj4gPiA+ID4gDQo+ID4gPiA+IFRvIHN1bW1h
+cml6ZSBvdXIgbGlmZWN5Y2xlIDoNCj4gPiA+ID4gDQo+ID4gPiA+IC0geGwgcmVzdG9yZSB2bVgN
+Cj4gPiA+ID4gLSB4bCBjZC1pbnNlcnQgLi4uLg0KPiA+ID4gPiAtIFdlIGRvIG91ciBzdHVmZiBm
+b3IgfiAyIG1pbnV0ZXMNCj4gPiA+ID4gLSB4bCBkZXN0cm95IHZtWA0KPiA+ID4gPiANCj4gPiA+
+ID4gU28gb3VyIFZNcyBoYXZlIGEgbGlmZSBvZiBhcHByb3hpbWF0ZWx5IDIgbWludXRlcy4NCj4g
+PiA+ID4gDQo+ID4gPiA+IFRoZSBudW1iZXIgb2YgVk1zIHdlIHJhbiBpbiBwYXJhbGxlbCBkZXBl
+bmRzIG9uIHRoZSB1bmRlcmx5aW5nDQo+ID4gPiA+IHNlcnZlci4NCj4gPiA+ID4gDQo+ID4gPiA+
+IFdlIGFyZSBzZWVpbmcgdGhlIGlzc3VlIHdpdGggb3VyIGxhcmdlciBzZXJ2ZXIgd2hvIGlzIHJ1
+bm5pbmcNCj4gPiA+ID4gMzANCj4gPiA+ID4gVk1zDQo+ID4gPiA+IChIVk0pIGluIHBhcmFsbGVs
+Lg0KPiA+ID4gPiANCj4gPiA+ID4gT24gdGhpcyBzZXJ2ZXIgb3hlbnN0b3JlZCBpcyBjb25zdGFu
+dGx5IHJ1bm5pbmcgYXQgMTAwJSBjcHUNCj4gPiA+ID4gdXNhZ2UNCj4gPiA+ID4gYW5kDQo+ID4g
+PiA+IHNvbWUgVk1zIGFyZSBhbG1vc3Qgc3R1Y2tlZCBvciB1bnJlc3BvbnNpdmUuDQo+ID4gPiA+
+IA0KPiA+ID4gPiBUaGlzIGlzIG5vdCBhbiBoYXJkd2FyZSBpc3N1ZSwgNzIgeGVvbiBjb3Jlcywg
+MTYwIEdCIG9mIG1lbW9yeQ0KPiA+ID4gPiBhbmQNCj4gPiA+ID4gdmVyeSBmYXN0IEkvTyBzdWJz
+eXN0ZW0uDQo+ID4gPiA+IEV2ZXJ5dGhpbmcgZWxzZSBpcyBydW5uaW5nIHNtb290aGx5IG9uIHRo
+ZSBzZXJ2ZXIuDQo+ID4gPiA+IA0KPiA+ID4gPiB3aGF0IHdlIHdpdG5lc3MgaW4gdGhlIHhlbnN0
+b3JlLWFjY2Vzcy5sb2cgaXMgdGhhdCB0aGUgbnVtYmVyDQo+ID4gPiA+IG9mDQo+ID4gPiA+IFdB
+VENIDQo+ID4gPiA+IGV2ZW50IGlzIG1hdGNoaW5nIHRoZSBudW1iZXIgb2YgY3VycmVudGx5IHJ1
+bm5pbmcgVk1zDQo+ID4gPiA+IA0KPiA+ID4gPiBzbyBmb3IgZXhhbXBsZSBmb3IgYSBzaW5nbGUg
+V1JJVEUgZXZlbnQgaXMgZm9sbG93ZWQgYnkgYXJvdW5kDQo+ID4gPiA+IDMwDQo+ID4gPiA+IHdh
+dGNoIGV2ZW50cyA6DQo+ID4gPiA+IA0KPiA+ID4gPiBbMjAyMDA5MThUMTU6MTU6MTguMDQ1Wl0g
+IEE0MTM1NCAgICAgICB3cml0ZQ0KPiA+ID4gPiAvbG9jYWwvZG9tYWluLzAvYmFja2VuZC9xZGlz
+ay8xMzExLzU2MzINCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDEyNDggICAg
+ICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiAzOGVkMTFkOS05YTM4
+LTQwMjItYWQ3NS03YzU3MWQ0ODg2ZWQNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0Nlpd
+ICBBNDEyNTcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiA5
+OGZhOTFiOC1lODhiLTQ2NjctOTgxMy1kOTUxOTYyNTcyODgNCj4gPiA+ID4gWzIwMjAwOTE4VDE1
+OjE1OjE4LjA0NlpdICBBNDA2NDggICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNr
+LzEzMTEvNTYzMiBlNmZkOWEzNS02MWVjLTQ3NTAtOTNlYi05OTlmYjdmNjYyZmMNCj4gPiA+ID4g
+WzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDA1NDIgICAgICAgdyBldmVudA0KPiA+IA0KPiA+
+IEhpLA0KPiA+IA0KPiA+IEFsbCB0aGUgQTxpZD4gaGVyZSBwb2ludCB0byBhbm90aGVyIHVuaXgg
+ZG9tYWluIHNvY2tldC4gVGhleSBoYXZlDQo+ID4gYWxsDQo+ID4gcmVnaXN0ZXJlZCBhIHdhdGNo
+IG9uIHRoaXMga2V5IChvciBhIHBhcmVudCkuDQo+ID4gDQo+ID4gVG8gZmluZCBvdXQgd2hhdCBr
+ZXkgdGhleSBhcmUgd2F0Y2hpbmcgeW91IGNhbiBsb29rIGZvciB0aGUgd2F0Y2gNCj4gPiByZWdp
+c3RyYXRpb246DQo+ID4gZ3JlcCAnQTQxMjQ4IC4qd2F0Y2gnIC92YXIvbG9nL3hlbnN0b3JlZC1h
+Y2Nlc3MubG9nDQo+ID4gDQo+ID4gWW91IGNhbiBmaW5kIG91dCBhbGwgeGVuc3RvcmUgY2xpZW50
+cyBjb25uZWN0ZWQgdG8gb3hlbnN0b3JlZCwgZmluZA0KPiA+IGFsbA0KPiA+IHRoZSBudW1iZXJz
+IGluIHRoZSBwb3J0IGNvbHVtbiBoZXJlOg0KPiA+IHNzIC1hIC0tdW5peCAtcHxncmVwIHhlbnN0
+b3JlZA0KPiA+IFRoZW4gbG9vayB1cCB0aG9zZSBudW1iZXJzLCBlLmcuIGFzc3VtaW5nIHlvdSBz
+ZWUgMjIyNjk6DQo+ID4gc3MgLWEgLS11bml4IC1wfGdyZXAgMjIyNjkNCj4gPiANCj4gPiBUaGlz
+IHNob3VsZCB0ZWxsIHlvdSB3aGF0IHRoZSBwcm9jZXNzZXMgYXJlLg0KPiA+IA0KPiA+IEkgaGF2
+ZSBhIHN1c3BpY2lvbiB0aGF0IGl0IGlzIHJlbGF0ZWQgdG8gdGhpcyBjb2RlIGluIHFlbXU6DQo+
+ID4gDQo+ID4gICAgICAgeGVuYnVzLT5iYWNrZW5kX3dhdGNoID0NCj4gPiAgICAgICAgICAgeGVu
+X2J1c19hZGRfd2F0Y2goeGVuYnVzLCAiIiwgLyogZG9tYWluIHJvb3Qgbm9kZSAqLw0KPiA+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAiYmFja2VuZCIsIHhlbl9idXNfYmFja2VuZF9jaGFu
+Z2VkLA0KPiA+ICZsb2NhbF9lcnIpOw0KPiA+IA0KPiA+IElmIEkgcmVhZCB0aGUgY29kZSByaWdo
+dCB0aGlzIHNlZW1zIHRvIHNldCB1cCBhIHdhdGNoIG9uDQo+ID4gL2xvY2FsL2RvbWFpbi8wL2Jh
+Y2tlbmQsIHNvIGlmIHlvdSBoYXZlIE4gcWVtdXMgcnVubmluZyAob25lIGZvcg0KPiA+IGVhY2gN
+Cj4gPiBkaXNrKSB0aGVuIHlvdSBnZXQgTl4yIHdhdGNoIGV2ZW50cyBmaXJlZCBpbiB0b3RhbC4N
+Cj4gPiANCj4gPiBCZXN0IHJlZ2FyZHMsDQo+ID4gLS1FZHdpbg0KPiA+IA0KPiA+ID4gPiBiYWNr
+ZW5kL3FkaXNrLzEzMTEvNTYzMiA2YTM5Yzg1OC0yZmQ0LTQ2ZTQtYTgxMC00ODVhNDEzMjhmOGMN
+Cj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDExNDEgICAgICAgdyBldmVudA0K
+PiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiA4NzYyZDU1Mi1iNGI0LTQxZWYtYTJhYS0y
+MzcwMGY3OTBlYTINCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDEzMTAgICAg
+ICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiA0ZGMyYTlhZS02Mzg4
+LTRiMGMtOWM5OC1kZjNjODk3YTgzMmYNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0Nlpd
+ICBBNDA2NjAgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiA2
+YWJmMjQ0ZC01OTM5LTQ1NDAtYjE3Ni00ZWM3ZDE0YjM5MmMNCj4gPiA+ID4gWzIwMjAwOTE4VDE1
+OjE1OjE4LjA0NlpdICBBNDEzNDcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNr
+LzEzMTEvNTYzMiBlY2I5MzE1Ny05OTI5LTQzZTItOGVkNC1mNWU3OGFiMmYzN2QNCj4gPiA+ID4g
+WzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDEwMTUgICAgICAgdyBldmVudA0KPiA+ID4gPiBi
+YWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBhMWZlYzQ5Zi1lN2NjLTQwNTktODdkMy1jZTQzZjM4Njc0
+NmUNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDExNjcgICAgICAgdyBldmVu
+dA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBlOTQxOTAxNC05ZmQyLTQ3YzAtYjc5
+ZC0zMGY5OWQ5NTMwZDYNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDExMDAg
+ICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBhMjc1NGE5MS1l
+Y2Q2LTRiNmItODdlYS1iNjhkYjhiODg4ZGYNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0
+NlpdICBBNDExNDcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYz
+MiAxNzZhMWMzYy1hZGQ3LTQ3MTAtYTdlZS0zYjU1NDhkN2E1NmENCj4gPiA+ID4gWzIwMjAwOTE4
+VDE1OjE1OjE4LjA0NlpdICBBNDEzMDUgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3Fk
+aXNrLzEzMTEvNTYzMiBhZmU3OTMzYi1jOTJkLTQ0MDMtOGQ2Yy0yZTUzMDU1OGM5MzcNCj4gPiA+
+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDA2MTYgICAgICAgdyBldmVudA0KPiA+ID4g
+PiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiAzNWZhNDVlMC0yMWU4LTQ2NjYtODI1Yi0wYzNkNjI5
+ZjM3OGQNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDA5NTEgICAgICAgdyBl
+dmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiAyMzBlYjQyZi1kNzAwLTQ2Y2Ut
+YWY2MS04OTI0Mjg0N2E5NzgNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDA1
+NjcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiAzOWNjN2Zm
+Yi01MDQ1LTQxMjAtYmViNy03NzgwNzM5MjdjOTMNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4
+LjA0NlpdICBBNDEzNjMgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEv
+NTYzMiA5ZTQyZTc0YS04MGZiLTQ2ZTgtODFmMi03MTg2MjhiZjcwZjYNCj4gPiA+ID4gWzIwMjAw
+OTE4VDE1OjE1OjE4LjA0NlpdICBBNDA3NDAgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5k
+L3FkaXNrLzEzMTEvNTYzMiAxYTY0YWYzMS1mZWU2LTQ1YmUtYjhkOC1jOThiYWE1ZTE2MmYNCj4g
+PiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDA2MzIgICAgICAgdyBldmVudA0KPiA+
+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiA0NjZlZjUyMi1jYjc2LTQxMTctOGU5My00MjQ3
+MTg5N2MzNTMNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBBNDEzMTkgICAgICAg
+dyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiAxOWVhOTg2Yi1lMzAzLTQx
+ODAtYjgzMy1jNjkxYjJiMzI4MTkNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0NlpdICBB
+NDA2NzcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBmYjAx
+NjI5YS0wMzNiLTQxZDYtODM0OS1jZWM4MmU1NzAyMzgNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1
+OjE4LjA0NlpdICBBNDExNTIgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEz
+MTEvNTYzMiA4NGNlOWUyOS1hNWNjLTQyYTEtYTQ3Yi00OTdiOTU3Njc4ODUNCj4gPiA+ID4gWzIw
+MjAwOTE4VDE1OjE1OjE4LjA0N1pdICBBNDEyMzMgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNr
+ZW5kL3FkaXNrLzEzMTEvNTYzMiBlYTk0NGFkMy0zYWY2LTQ2ODgtODA3Ni1kYjFlYWMyNWQ4ZTkN
+Cj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0N1pdICBBNDEwNjkgICAgICAgdyBldmVudA0K
+PiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBjZTU3ZTE2OS1lMWVhLTRmYjUtYjk3Zi0y
+M2U2NTFmNDlkNzkNCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0N1pdICBBNDEyODcgICAg
+ICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBkMzExMTBjOC1hZTBi
+LTRiOWQtYjcxZi1hYTI5ODVhZGRkMWENCj4gPiA+ID4gWzIwMjAwOTE4VDE1OjE1OjE4LjA0N1pd
+ICBBNDA2ODMgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBm
+MGU0YjBhMC1mYWQwLTRiYjctYjAxZS1iOGEzMTEwN2JhM2QNCj4gPiA+ID4gWzIwMjAwOTE4VDE1
+OjE1OjE4LjA0N1pdICBBNDExNzcgICAgICAgdyBldmVudA0KPiA+ID4gPiBiYWNrZW5kL3FkaXNr
+LzEzMTEvNTYzMiA5ZmY4MGU0OS00Y2NhLTRlYzktOTAxYS1kMzAxOTgxMDRmMjkNCj4gPiA+ID4g
+WzIwMjAwOTE4VDE1OjE1OjE4LjA0N1pdICBEMCAgICAgICAgICAgdyBldmVudA0KPiA+ID4gPiBi
+YWNrZW5kL3FkaXNrLzEzMTEvNTYzMiBGRkZGRkZGRjgyNzZCNTIwDQo+ID4gPiA+IFsyMDIwMDkx
+OFQxNToxNToxOC4wNDdaXSAgQTQwNTEzICAgICAgIHcgZXZlbnQNCj4gPiA+ID4gYmFja2VuZC9x
+ZGlzay8xMzExLzU2MzIgZDM1YTlhNDItYzE1ZS00OTJjLWE3MGQtZDhiMjBiYWZlYzhmDQo+ID4g
+PiA+IFsyMDIwMDkxOFQxNToxNToxOC4wNDdaXSAgQTQxMzU0ICAgICAgIHcgZXZlbnQNCj4gPiA+
+ID4gYmFja2VuZC9xZGlzay8xMzExLzU2MzIgZTQ0NTZjYTQtNzBmNC00YWZjLTliYTEtNGExY2Zk
+NzRjOGU2DQo+ID4gPiA+IA0KPiA+ID4gPiBXZSBhcmUgbm90IHN1cmUgdGhpcyBpcyB0aGUgcm9v
+dCBjYXVzZSBvZiB0aGUgaXNzdWUgYnV0IHRoaXMgaXMNCj4gPiA+ID4gdGhlDQo+ID4gPiA+IG9u
+bHkgcmVhbCBkaWZmZXJlbmNlIHdlIGNhbiBzZWUgaW4gdGhlIGxvZy4NCj4gPiA+ID4gDQo+ID4g
+PiA+IFdlIGRvbid0IHVuZGVyc3RhbmQgd2h5IHRoZSBudW1iZXIgb2YgV0FUQ0ggZXZlbnRzIGlz
+IHJlbGF0ZWQNCj4gPiA+ID4gdG8NCj4gPiA+ID4gdGhlDQo+ID4gPiA+IG51bWJlciBvZiBjb25j
+dXJyZW50IHJ1bm5pbmcgVk0uDQo+ID4gPiA+IEEgd2F0Y2ggZXZlbnQgc2hvdWxkIGJlIHJlZ2lz
+dGVyZWQgYW5kIG9ubHkgZmlyZWQgZm9yIHRoZQ0KPiA+ID4gPiBjdXJyZW50DQo+ID4gPiA+IGRv
+bWFpbiBJRCwgc28gYSB3cml0ZSBmb3IgYSBzcGVjaWZpYyBub2RlIHBhdGggc2hvdWxkIG9ubHkN
+Cj4gPiA+ID4gdHJpZ2dlcg0KPiA+ID4gPiBvbmUNCj4gPiA+ID4gd2F0Y2ggZXZlbnQgYW5kIG5v
+dCAzMCBpbiBvdXIgY2FzZS4NCj4gPiA+ID4gDQo+ID4gPiA+IEFueSBpZGVhcyAvIGNvbW1lbnRz
+ID8NCj4gPiA+IA0KPiA+ID4gQ2hlZXJzLA0KPiA+ID4gDQo=
 
