@@ -2,58 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD1F27481F
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 20:25:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D2627481E
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 20:25:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKmyu-00008x-92; Tue, 22 Sep 2020 18:25:36 +0000
+	id 1kKmyp-00005F-Uh; Tue, 22 Sep 2020 18:25:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKmyt-0008V0-80
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 18:25:35 +0000
-X-Inumbo-ID: 48dcaa99-9115-4127-9811-3dcfce06f1bd
+ id 1kKmyo-0008V0-8B
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 18:25:30 +0000
+X-Inumbo-ID: c7901009-ebb4-44f8-b1cf-cae236d7e6f0
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 48dcaa99-9115-4127-9811-3dcfce06f1bd;
- Tue, 22 Sep 2020 18:25:30 +0000 (UTC)
+ id c7901009-ebb4-44f8-b1cf-cae236d7e6f0;
+ Tue, 22 Sep 2020 18:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600799131;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=+DQD+d+fvBmJ1gvBN17a246Lozt0hdVhxfIVLanu6Lk=;
- b=TvcE21CnnGpK6skpKAdPPIM7p++CsWPsOJ5VHDJlxs0DrFH3MObqG70v
- +MTpbblsSCjQEAgBILUgT8zniMnPWV1WfsfUHPNx8DtNbDCNO0QvX2Nb0
- w4qJCQBB4KlRlVo6wC7RD7iyoKFqhfXyvKcyERy4MMAbMWvuVB4R1kho8 0=;
+ d=citrix.com; s=securemail; t=1600799130;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=PemkBKNb12MmUWwvMUvbxamV4GWuBXt6jS2JXhDGXTk=;
+ b=hYCmON/zDE6l+ByI/2O7yFcVHlZhZaDKqrl/BASrxffZxK1HOtP3QPxl
+ ajAT9A5R3z9pTCIE1K7d3shS/W+XQPPlEcQIxIHgzUXZpw6PPABauH4CD
+ zWrjC0U/c9LSVOOw+rjiOl9aZlr2zA++3qDyhzMvYNrwGchbHZjFDyJuw Y=;
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: B74LoXN6PKJ0DWkCj+DMON9PaUwJyMVKF84Cd4s+E+c7a/EhVqSrThKDocdMwniWImzEdoMk5m
- 90jqBY5o6FZT1wt9cL2Mdw4+FwQb4p+uKn9su6ZOuvNYjzmJEnNu1QEcpBAz3LpOizEzJYecXw
- NtnB7XRRsKLjWA5xbQMtqWTDTwWdPLgbr7vQc0AMzqD+EBWivrNyH7CP0UWUUGKO4aMYJVysCk
- dOD1mWOgQMyTbTgpbC+QumuM2LjjUtWmI1dnF1VLeWaL4WAj5LsGP2gim9M9cuUQQDIrgvAOi4
- nYo=
+IronPort-SDR: 61Ih/vUJm8RMzRKh9tGGFkyDlwBvALt8VM8HwJ25XC0I2Mfj/iGvmvCvdSzK6qEyRpmFGxLKvu
+ APpU7qvVFNJg9qv3boln7BCSwMDx2BRVCCBJgXJo2xxMw+NVSzoYC6BamfTz/FCM845vDUkDu6
+ FnhoSi7oz05nzCK6+sMpVrDOY5HpcjI4ddoIOJvgbcmEBlVmxpmfDf64oYx1QY5HXDpBmQiLt1
+ YQDlwkIAWvmqEIY3+y8qeY3Ne0WQOi7O8tLyQPT6FSxzhXcVZWt98qForqhGinjmog9rIinaW0
+ Pwk=
 X-SBRS: 2.7
-X-MesageID: 27631643
+X-MesageID: 27631639
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27631643"
+X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27631639"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
- <JBeulich@suse.com>, Julien Grall <julien@xen.org>,
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
- Hubert Jasudowicz <hubert.jasudowicz@cert.pl>, Tamas K Lengyel
- <tamas@tklengyel.com>
-Subject: [PATCH v2 00/11] Multiple fixes to XENMEM_acquire_resource
-Date: Tue, 22 Sep 2020 19:24:33 +0100
-Message-ID: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+ <Volodymyr_Babchuk@epam.com>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
+ <michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+Subject: [PATCH v2 01/11] xen/memory: Introduce CONFIG_ARCH_ACQUIRE_RESOURCE
+Date: Tue, 22 Sep 2020 19:24:34 +0100
+Message-ID: <20200922182444.12350-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -70,60 +69,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-I thought this was going to be a very simple small bugfix for Michał's
-Processor Trace series.  Serves me right for expecting it not to be full of
-bear traps...
+New architectures shouldn't be forced to implement no-op stubs for unused
+functionality.
 
-The sole implementation of acquire_resource never asks for size, so its little
-surprise that Xen is broken for compat callers, and returns incorrect
-information for regular callers.
+Introduce CONFIG_ARCH_ACQUIRE_RESOURCE which can be opted in to, and provide
+compatibility logic in xen/mm.h
 
-v2 was delayed substantially due to the discovery of XSA-334, but is complete
-now, permitting the mapping of arbitrary sized resouces, along with fixes to
-the compat XLAT logic.
+No functional change.
 
-The final two patches are only local testing, and not intended for committing.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Acked-by: Julien Grall <jgrall@amazon.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Michał Leszczyński <michal.leszczynski@cert.pl>
+CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
+---
+ xen/arch/x86/Kconfig     | 1 +
+ xen/common/Kconfig       | 3 +++
+ xen/include/asm-arm/mm.h | 8 --------
+ xen/include/xen/mm.h     | 9 +++++++++
+ 4 files changed, 13 insertions(+), 8 deletions(-)
 
-A branch can be obtained from:
-
-  https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-acquire-resource
-
-Andrew Cooper (11):
-  xen/memory: Introduce CONFIG_ARCH_ACQUIRE_RESOURCE
-  xen/gnttab: Rework resource acquisition
-  xen/memory: Fix compat XENMEM_acquire_resource for size requests
-  xen/memory: Fix acquire_resource size semantics
-  tools/foreignmem: Support querying the size of a resource
-  xen/memory: Clarify the XENMEM_acquire_resource ABI description
-  xen/memory: Improve compat XENMEM_acquire_resource handling
-  xen/memory: Indent part of acquire_resource()
-  xen/memory: Fix mapping grant tables with XENMEM_acquire_resource
-  TESTING dom0
-  TESTING XTF
-
- tools/libs/foreignmemory/Makefile                  |   2 +-
- tools/libs/foreignmemory/core.c                    |  14 ++
- .../libs/foreignmemory/include/xenforeignmemory.h  |  15 ++
- tools/libs/foreignmemory/libxenforeignmemory.map   |   4 +
- tools/libs/foreignmemory/linux.c                   |  36 +++
- tools/libs/foreignmemory/private.h                 |  14 ++
- tools/libs/uselibs.mk                              |   2 +-
- tools/misc/Makefile                                |   4 +
- tools/misc/xen-resource.c                          | 106 +++++++++
- xen/arch/x86/Kconfig                               |   1 +
- xen/arch/x86/mm.c                                  |  24 +-
- xen/common/Kconfig                                 |   3 +
- xen/common/compat/memory.c                         | 151 +++++++++----
- xen/common/grant_table.c                           | 128 ++++++++---
- xen/common/memory.c                                | 244 ++++++++++++++-------
- xen/include/asm-arm/mm.h                           |   8 -
- xen/include/asm-x86/mm.h                           |   3 +
- xen/include/public/memory.h                        |  23 +-
- xen/include/xen/grant_table.h                      |  21 +-
- xen/include/xen/mm.h                               |  15 ++
- 20 files changed, 647 insertions(+), 171 deletions(-)
- create mode 100644 tools/misc/xen-resource.c
-
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index a636a4bb1e..e7644a0a9d 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -6,6 +6,7 @@ config X86
+ 	select ACPI
+ 	select ACPI_LEGACY_TABLES_LOOKUP
+ 	select ARCH_SUPPORTS_INT128
++	select ARCH_ACQUIRE_RESOURCE
+ 	select COMPAT
+ 	select CORE_PARKING
+ 	select HAS_ALTERNATIVE
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 15e3b79ff5..593459ea6e 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -22,6 +22,9 @@ config GRANT_TABLE
+ 
+ 	  If unsure, say Y.
+ 
++config ARCH_ACQUIRE_RESOURCE
++	bool
++
+ config HAS_ALTERNATIVE
+ 	bool
+ 
+diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+index f8ba49b118..0b7de3102e 100644
+--- a/xen/include/asm-arm/mm.h
++++ b/xen/include/asm-arm/mm.h
+@@ -358,14 +358,6 @@ static inline void put_page_and_type(struct page_info *page)
+ 
+ void clear_and_clean_page(struct page_info *page);
+ 
+-static inline
+-int arch_acquire_resource(struct domain *d, unsigned int type, unsigned int id,
+-                          unsigned long frame, unsigned int nr_frames,
+-                          xen_pfn_t mfn_list[])
+-{
+-    return -EOPNOTSUPP;
+-}
+-
+ unsigned int arch_get_dma_bitsize(void);
+ 
+ #endif /*  __ARCH_ARM_MM__ */
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 4536a62940..26a4a3d350 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -685,4 +685,13 @@ static inline void put_page_alloc_ref(struct page_info *page)
+     }
+ }
+ 
++#ifndef CONFIG_ARCH_ACQUIRE_RESOURCE
++static inline int arch_acquire_resource(
++    struct domain *d, unsigned int type, unsigned int id, unsigned long frame,
++    unsigned int nr_frames, xen_pfn_t mfn_list[])
++{
++    return -EOPNOTSUPP;
++}
++#endif /* !CONFIG_ARCH_ACQUIRE_RESOURCE */
++
+ #endif /* __XEN_MM_H__ */
 -- 
 2.11.0
 
