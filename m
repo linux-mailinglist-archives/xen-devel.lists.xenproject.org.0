@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EADAC2748A7
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 20:57:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF6E2748AD
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 21:00:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKnSo-00043a-Ur; Tue, 22 Sep 2020 18:56:30 +0000
+	id 1kKnWD-0004BD-Dg; Tue, 22 Sep 2020 19:00:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKnSn-00043V-Kp
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 18:56:29 +0000
-X-Inumbo-ID: 1079b949-e67c-4816-9983-0560fcac0db0
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1kKnWC-0004B8-Gg
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 19:00:00 +0000
+X-Inumbo-ID: ff84ae08-30b6-4be0-9b35-14965431f702
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1079b949-e67c-4816-9983-0560fcac0db0;
- Tue, 22 Sep 2020 18:56:28 +0000 (UTC)
+ id ff84ae08-30b6-4be0-9b35-14965431f702;
+ Tue, 22 Sep 2020 18:59:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600800988;
+ d=citrix.com; s=securemail; t=1600801199;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=6LL/C1juBq9l/QonhL1W32QFlYby26Q95TFXZ9chZOo=;
- b=LCuo974XssX1OyG/evUiBhM5Nk4OUPzeunMhAujxn/X7KOEWvvF9FWOm
- 1wyqWGQiqa1bkm7g8SGFp45qc4fLvzLd8J/0hKO5mIK6y6x87oOta2Mzo
- 1aK1fTWJlTMhbfddXQ8IjpJ4mPUAXwEnKlBl4Zr3mZuE/vPahMvhNGGsJ k=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=VqJvCtvjwAIbOsWBY40ViEpf7SaIpkjBAdj2j0J8D64=;
+ b=Hdo6XJwPhhDdj9rAsJGHpTDP8ZauwCEY1vQBSwN2eyZyR3opU5KC6DH0
+ E8rcn48nhA0vSfBknDfzzjwvys5NfmML1G9rQi8VXT2mChnya/V5hZayB
+ GYq6DXE/7NADPgcuw1yxo4skqxfMH3sTeU3uZJv4An4iLgj3bkkvkV7gH k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: UE+4foj0CQnB0HR1lPo1a+wXCSRwgwaPasZcum5xe77oZuBHjTO53lekCnmfLLidtKw6EIjW1b
- aSotJDJntf5WPX9Ys0akmuz2PbTlF+8pSw8xOSFc4WlWgUlIXOWkWm26FuoiXejIcFoKgBE5r3
- +4AsQ6k7kuiGJxgNPZFa6UXDpGWHs0SS+n8ZJOmp6FZ3depXrG41YpTY8HiAgXBOXQDaBs8u4w
- VMp+axVswT/4Hql122ewAmjTMJqI6M5J/1eAaApVUbiTsc3GMtxJC51T+ib7JjnIU1hpL1aIcQ
- X34=
+IronPort-SDR: FrOaFUoFnH7sH/qyNWiCdZoRBHPDC01sGmNfy2ztX0mAMgJdmiAKjCVysF1Q21DUQZ8l5bX638
+ qClajq0E6hft7EKwqbflb4rAJMqk+MofFEGeqenIv3ZbHhbGItcgtsf9Bk60D+Q+sJ5sSiEtZj
+ D1lzZTmByngUV539AkB94WimBbXYVhS5EUsxbRejDcak+9mV13xUnTuVmZ5NEMcnH6qHoVSKxl
+ 4ghymkmq13DhgfmzKImhbGDpxTLh7z1Av5+DeiaXOJNWf1uDmyX2q8eC2zoUAFMV+WdPm15TVs
+ Cgs=
 X-SBRS: 2.7
-X-MesageID: 27585138
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 27402629
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27585138"
-Subject: Re: [PATCH v4 2/4] xen: Introduce HAS_M2P config and use to protect
- mfn_to_gmfn call
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
+X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27402629"
+Subject: Re: [PATCH v4 4/4] xen/mm: Provide dummy M2P-related helpers when
+ !CONFIG_HAVE_M2P
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Tamas K Lengyel
+ <tamas.lengyel@intel.com>
 References: <20200921180214.4842-1-julien@xen.org>
- <20200921180214.4842-3-julien@xen.org>
- <a2e1773d-cb01-fa02-334a-a642f9316b57@citrix.com>
- <d80519d8-6699-7beb-9192-0e87623b0b62@xen.org>
+ <20200921180214.4842-5-julien@xen.org>
+ <26387b5d-97f7-3c6a-ad40-94b144a3b0ae@suse.com>
+ <e0a73d9b-5c68-9b57-dfe4-34e91b0972bd@xen.org>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <bc50c5cd-d239-60a4-0a66-790717de5815@citrix.com>
-Date: Tue, 22 Sep 2020 19:56:21 +0100
+Message-ID: <3778eaa1-c1cc-d458-407f-e5ca3ca028ab@citrix.com>
+Date: Tue, 22 Sep 2020 19:59:35 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d80519d8-6699-7beb-9192-0e87623b0b62@xen.org>
+In-Reply-To: <e0a73d9b-5c68-9b57-dfe4-34e91b0972bd@xen.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
@@ -76,86 +76,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22/09/2020 19:20, Julien Grall wrote:
+On 22/09/2020 19:39, Julien Grall wrote:
+> Hi Jan,
+>
+> On 22/09/2020 09:02, Jan Beulich wrote:
+>> On 21.09.2020 20:02, Julien Grall wrote:
+>>> --- a/xen/include/xen/mm.h
+>>> +++ b/xen/include/xen/mm.h
+>>> @@ -685,4 +685,17 @@ static inline void put_page_alloc_ref(struct
+>>> page_info *page)
+>>>       }
+>>>   }
+>>>   +/*
+>>> + * Dummy implementation of M2P-related helpers for common code when
+>>> + * the architecture doesn't have an M2P.
+>>> + */
+>>> +#ifndef CONFIG_HAS_M2P
 >>> +
->>>   #endif /* __ASM_DOMAIN_H__ */
->>>     /*
->>> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->>> index 5c5e55ebcb76..7564df5e8374 100644
->>> --- a/xen/include/public/domctl.h
->>> +++ b/xen/include/public/domctl.h
->>> @@ -136,6 +136,12 @@ struct xen_domctl_getdomaininfo {
->>>       uint64_aligned_t outstanding_pages;
->>>       uint64_aligned_t shr_pages;
->>>       uint64_aligned_t paged_pages;
->>> +#define XEN_INVALID_SHARED_INFO_FRAME (~(uint64_t)0)
+>>> +#define INVALID_M2P_ENTRY        (~0UL)
+>>> +#define SHARED_M2P(_e)           false
+>>> +
+>>> +static inline void set_gpfn_from_mfn(unsigned long mfn, unsigned
+>>> long pfn) {}
 >>
->> We've already got INVALID_GFN as a constant used in the interface.  Lets
->> not proliferate more.
+>> While I think this would better BUG() or at least ASSERT_UNREACHABLE(),
+>> I realize its use in page_alloc.c prevents this. However, if this was a
+>> macro, I think the need for having INVALID_P2M_ENTRY would vanish, as
+>> long as the stub macro didn't evaluate its 2nd argument.
+> This is not very future proof... The cost of defining
+> INVALID_M2P_ENTRY is very minimal compare to the damage that may
+> result from this choice.
 >
-> This was my original approach (see [1]) but this was reworked because:
->    1) INVALID_GFN is not technically defined in the ABI. So the
-> toolstack has to hardcode the value in the check.
->    2) The value is different between 32-bit and 64-bit Arm as
-> INVALID_GFN is defined as an unsigned long.
+>> I'm feeling somewhat uneasy with the SHARED_M2P() definition: This
+>> would seem to better be tied to CONFIG_MEM_SHARING rather than M2P
+>> existence.
 >
-> So providing a new define is the right way to go.
-
-There is nothing special about this field.  It should not have a
-dedicated constant, when a general one is the appropriate one to use.
-
-libxl already has LIBXL_INVALID_GFN, which is already used.
-
-If this isn't good enough, them the right thing to do is put a proper
-INVALID_GFN in the tools interface.
-
->>>       uint64_aligned_t cpu_time;
->>>       uint32_t nr_online_vcpus;    /* Number of VCPUs currently
->>> online. */
->>> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
->>> index cde0d9c7fe63..7281eb7b36c7 100644
->>> --- a/xen/include/xen/domain.h
->>> +++ b/xen/include/xen/domain.h
->>> @@ -131,4 +131,16 @@ void vnuma_destroy(struct vnuma_info *vnuma);
->>>   static inline void vnuma_destroy(struct vnuma_info *vnuma) {
->>> ASSERT(!vnuma); }
->>>   #endif
->>>   +#ifdef CONFIG_HAS_M2P
->>> +#define domain_shared_info_gfn(d) ({                            \
->>> +    const struct domain *d_ = (d);                              \
->>> +    gfn_t gfn_;                                                 \
->>> +                                                                \
->>> +    gfn_ = mfn_to_gfn(d_, _mfn(__virt_to_mfn(d_->shared_info)));\
->>> +    BUG_ON(SHARED_M2P(gfn_x(gfn_)));                            \
->>> +                                                                \
->>> +    gfn_;                                                       \
->>> +})
->>
->> ... this wants to be
->>
->> #ifndef arch_shared_info_gfn
->> static inline gfn_t arch_shared_info_gfn(const struct domain *d) {
->> return INVALID_GFN; }
->> #endif
->>
->> with
->>
->> gfn_t arch_shared_info_gfn(const struct domain *d);
->> #define arch_shared_info_gfn arch_shared_info_gfn
->>
->> in asm-x86/domain.h
->>
->> and the actual implementation in arch/x86/domain.c
+> I can see pros and cons in both solution. To me it contains the word
+> "M2P" so it makes sense to be protected by HAS_M2P.
 >
-> What's wrong with implement it in xen/domain.h? After all there is
-> nothing x86 specific in the implementation...
+> If someone else think that it should be protected by
+> CONFIG_MEM_SHARING, then I will do the change.
+>
+> I have added Tamas to give him an opportunity to share his view.
 
-d->shared_info is allocated in arch specific code, not common code. 
-This macro assumes that __virt_to_mfn() is safe to call on the pointer.
+This is clearly guarded by HAS_M2P first first and foremost.
 
-For an approaching obsolete part of the API/ABI (particularly given the
-new HVM plans), I'd just stuff it in x86 and call it done.  Its easy
-enough to re-evaluate if a second appears.
+However, the work to actually let MEM_SHARING be turned off in this
+regard is rather larger, and not appropriate to delay this series with.
 
 ~Andrew
 
