@@ -2,50 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2C12736BA
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 01:41:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67109273732
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 02:12:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKVQy-0001hm-MK; Mon, 21 Sep 2020 23:41:24 +0000
+	id 1kKVuO-0005CG-IE; Tue, 22 Sep 2020 00:11:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eU4r=C6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kKVQw-0001hd-ST
- for xen-devel@lists.xenproject.org; Mon, 21 Sep 2020 23:41:22 +0000
-X-Inumbo-ID: fbd6be35-e3c4-42b0-8e31-1cde705125ac
+ <SRS0=MP++=C7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kKVuN-0005CB-T9
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 00:11:47 +0000
+X-Inumbo-ID: ecc50384-6c87-4604-b763-d1b6bc85847a
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fbd6be35-e3c4-42b0-8e31-1cde705125ac;
- Mon, 21 Sep 2020 23:41:22 +0000 (UTC)
+ id ecc50384-6c87-4604-b763-d1b6bc85847a;
+ Tue, 22 Sep 2020 00:11:47 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2FF9523A60;
- Mon, 21 Sep 2020 23:41:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A5E9C20888;
+ Tue, 22 Sep 2020 00:11:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600731681;
- bh=/K7mQRZ0z9hOnnZb6MNZe7FvMtQe7QGFYqdcYaaxJXQ=;
+ s=default; t=1600733506;
+ bh=R9Z0o1Pl/eHcxP3hRcvAZAH9Fy+NtJFMELWI/Ktb4w4=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=xxZQAvC5vNJQnyyGZcyLlrFlWSwkZLzBRNvYDa/8CsL18y9kMsz0OMOrftDDOPzcQ
- LBgtK46HrOgnI6/RrbmJbvrFOdWC6uMXfE5WttWUPxcLFpEPKys9UaKahTdWtdAHvR
- WlePqc+oNJcqmIOJUTn156CD4RrFT4xvAJpT3kCU=
-Date: Mon, 21 Sep 2020 16:41:14 -0700 (PDT)
+ b=EWlJWPtYblW7Y/hcNOOKHRF2m2JdTYvX/O8dJHb83w1hXKgW0sbb7wD/SsXA2IGKX
+ SHH+5ezoTC3PaWdA7MViLkKFeCmqk6HZtJfhlqgBXme1H/ys5tYAd+V3L2X9qfhOVp
+ mX+S/fgAFXEpTkz9ik8qOhmE4czGuqNOsadUTdBU=
+Date: Mon, 21 Sep 2020 17:11:45 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Julien Grall <julien@xen.org>, 
- "open list:X86" <xen-devel@lists.xenproject.org>, 
- Julien Grall <jgrall@amazon.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Andrew Cooper <andrew.cooper3@citrix.com>, 
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
- Daniel Wagner <Daniel.Wagner2@itk-engineering.de>
-Subject: Re: [PATCH] xen/arm: bootfdt: Ignore empty memory bank
-In-Reply-To: <0AAD50BD-D247-4909-84E2-BB8D39089F0D@arm.com>
-Message-ID: <alpine.DEB.2.21.2009211641020.1495@sstabellini-ThinkPad-T480s>
-References: <20200918171116.29005-1-julien@xen.org>
- <0AAD50BD-D247-4909-84E2-BB8D39089F0D@arm.com>
+ Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH V2] SUPPORT.md: Update status of Renesas IPMMU-VMSA (Arm)
+In-Reply-To: <1600536082-24112-1-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.21.2009211711270.1495@sstabellini-ThinkPad-T480s>
+References: <1600536082-24112-1-git-send-email-olekstysh@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -62,51 +63,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, 21 Sep 2020, Bertrand Marquis wrote:
-> > On 18 Sep 2020, at 18:11, Julien Grall <julien@xen.org> wrote:
-> > 
-> > From: Julien Grall <jgrall@amazon.com>
-> > 
-> > At the moment, Xen will stop processing the Device Tree if a memory
-> > bank is empty (size == 0).
-> > 
-> > Unfortunately, some of the Device Tree (such as on Colibri imx8qxp)
-> > may contain such a bank. This means Xen will not be able to boot
-> > properly.
-> > 
-> > Relax the check to just ignore the banks. FWIW this also seems to be the
-> > behavior adopted by Linux.
-> > 
-> > Reported-by: Daniel Wagner <Daniel.Wagner2@itk-engineering.de>
-> > Signed-off-by: Julien Grall <jgrall@amazon.com>
+On Sat, 19 Sep 2020, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Mark Renesas IPMMU-VMSA as "Supported, not security supported"
+> and remove dependencies on CONFIG_EXPERT.
+> 
+> We can't treat the IOMMU driver as "Supported" since the device
+> passthrough feature is not security supported on Arm today.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-> > ---
-> > xen/arch/arm/bootfdt.c | 3 ++-
-> > 1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> > index 08fb59f4e7a9..dcff512648a0 100644
-> > --- a/xen/arch/arm/bootfdt.c
-> > +++ b/xen/arch/arm/bootfdt.c
-> > @@ -163,8 +163,9 @@ static int __init process_memory_node(const void *fdt, int node,
-> >     for ( i = 0; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
-> >     {
-> >         device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
-> > +        /* Some DT may describe empty bank, ignore them */
-> >         if ( !size )
-> > -            return -EINVAL;
-> > +            continue;
-> >         mem->bank[mem->nr_banks].start = start;
-> >         mem->bank[mem->nr_banks].size = size;
-> >         mem->nr_banks++;
-> > -- 
-> > 2.17.1
-> > 
-> > 
+> ---
+> Was "SUPPORT.md: Mark Renesas IPMMU-VMSA (Arm) as supported"
+> https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg00967.html
+>     
+> Changes V1 -> V2:
+>    - Update patch subject/description
+>    - Use "Supported, not security supported"
+>     
+> ---
+>  SUPPORT.md                      | 2 +-
+>  xen/arch/arm/platforms/Kconfig  | 2 +-
+>  xen/drivers/passthrough/Kconfig | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 1479055..25987ec 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -64,7 +64,7 @@ supported in this document.
+>      Status, Intel VT-d: Supported
+>      Status, ARM SMMUv1: Supported
+>      Status, ARM SMMUv2: Supported
+> -    Status, Renesas IPMMU-VMSA: Tech Preview
+> +    Status, Renesas IPMMU-VMSA: Supported, not security supported
+>  
+>  ### ARM/GICv3 ITS
+>  
+> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
+> index 4bb7319..c93a6b2 100644
+> --- a/xen/arch/arm/platforms/Kconfig
+> +++ b/xen/arch/arm/platforms/Kconfig
+> @@ -25,7 +25,7 @@ config RCAR3
+>  	bool "Renesas RCar3 support"
+>  	depends on ARM_64
+>  	select HAS_SCIF
+> -	select IPMMU_VMSA if EXPERT
+> +	select IPMMU_VMSA
+>  	---help---
+>  	Enable all the required drivers for Renesas RCar3
+>  
+> diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/Kconfig
+> index 73f4ad8..0036007 100644
+> --- a/xen/drivers/passthrough/Kconfig
+> +++ b/xen/drivers/passthrough/Kconfig
+> @@ -14,7 +14,7 @@ config ARM_SMMU
+>  	  ARM SMMU architecture.
+>  
+>  config IPMMU_VMSA
+> -	bool "Renesas IPMMU-VMSA found in R-Car Gen3 SoCs" if EXPERT
+> +	bool "Renesas IPMMU-VMSA found in R-Car Gen3 SoCs"
+>  	depends on ARM_64
+>  	---help---
+>  	  Support for implementations of the Renesas IPMMU-VMSA found
+> -- 
+> 2.7.4
 > 
 
