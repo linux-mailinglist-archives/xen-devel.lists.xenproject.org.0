@@ -2,79 +2,98 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C03F274659
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 18:16:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4D327465F
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 18:19:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKky2-0002hw-FO; Tue, 22 Sep 2020 16:16:34 +0000
+	id 1kKl0M-0002ou-Th; Tue, 22 Sep 2020 16:18:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kKky1-0002hr-MQ
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 16:16:33 +0000
-X-Inumbo-ID: 493baf5b-e21e-45dc-a8b5-9b711d81c97c
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ <SRS0=q5Ya=C7=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kKl0L-0002op-E8
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 16:18:57 +0000
+X-Inumbo-ID: 31b3a517-d314-4424-b64a-f5bfcb4d9a46
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 493baf5b-e21e-45dc-a8b5-9b711d81c97c;
- Tue, 22 Sep 2020 16:16:32 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id x69so18675777lff.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 09:16:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Q2codj6oy24hUdaEzVp9hzZRJk4q5mhvewYcPYZXJsw=;
- b=nf8zbAWNiFWuneKQvvEZ9N5LV0D2DhfpH+U39yHcizPa0sST6WhHhzMM+YlCv/12yW
- LhUtXZbp9+IU5BWh9jg5H/Xp5GkAFBQpwBznA46CKqqLUoRRDeo1PnyAdgJtryv9GW+x
- geESHqtb6wpvEKw70GapBj52YQYW666XJWpMOBWvXQUzIkqTjdTGPCggs3ntkvFt3lEv
- BHaoz0MmbY9RibSjh2755jWa0Wessn21xL6fAOdwkj+jGLmI9xJwUYqC1g7GEimMMtc7
- kYfT25uRWjpl4EXJmvrrrSGnQQOG9xElBrVra7eyOZLcdxjEnHiFSr0vqJ6w3jSKn/7J
- C1vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=Q2codj6oy24hUdaEzVp9hzZRJk4q5mhvewYcPYZXJsw=;
- b=Q+UgRyM9eLzdA/VI2k/CYSqlTq3VgcGxqtZxNuqBfnPA/GLJD7gtu6yEysmrPjvhGv
- sEVjixsp8sMMdo5lLCGUA3cGJcgG5nerooKME+SAFkN3b4zrGcRohYJsGH+JnjLPFTRC
- 0gpnAUlLCd+ojRVtvN1RySJJ+zpad291ewP+b/+Vz1JBNO4feG32h0Udw2MI3jODVKqY
- 5PnXM+33hthP0JfMIEKkXCPM9wkMtchX/8jW+gtitSJNNtwOe84JBziW4JtsgUXPA2E1
- ccNfSfw/Dd0DvNncTpzGlMUJQr6ZHY3WGBTodf3rZAs8NlfIMx5sVIIYpaUrwOGZ78he
- oIFA==
-X-Gm-Message-State: AOAM530EAdxsnoR7r8mw6L1C07/OgIVXIMELux1bGJkcTSMA1mNL5Q8o
- GrAF+D/4kBULCma9ZP/BY+o=
-X-Google-Smtp-Source: ABdhPJwHk26vRf0Rm2eMpN1cYOCwBy06TnJnZ4Nq6n3XfDsmVVzzmsYTNzP8zBC5d9bUuLvuHCFuug==
-X-Received: by 2002:ac2:43ce:: with SMTP id u14mr1770561lfl.363.1600791391580; 
- Tue, 22 Sep 2020 09:16:31 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id u9sm3917235lju.95.2020.09.22.09.16.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2020 09:16:31 -0700 (PDT)
-Subject: Re: [PATCH V1 03/16] xen/ioreq: Make x86's
- hvm_ioreq_needs_completion() common
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
- <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <25e96f6a-030d-1285-7bdf-54a1ce160423@gmail.com>
-Date: Tue, 22 Sep 2020 19:16:25 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 31b3a517-d314-4424-b64a-f5bfcb4d9a46;
+ Tue, 22 Sep 2020 16:18:56 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MGFCef055413;
+ Tue, 22 Sep 2020 16:18:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=sEHjYHgpuV+AnxSztrrqp3lRmdzCrQ71bV6mXr0RVMU=;
+ b=aVEU3mvLJ/ITw0VV2xKn7/NCGpGUFxAruRlqpDHa/L2rdiTooPqTZlL+AtHMIWVaVMk+
+ NM5RqspUXUdS4+u92d3uZVICz1kFvKsatIOAyaZztQ2ZAbZqIbGGKbaPGE85Iq2jCKa8
+ M1B2dg+7f7R/KWihI0S2unb4nUtUtwnJcilFnxAitc/vmFOtMuFeHPj0yIwZR5bAhXQt
+ 2h3PZMTeeeeTIsW0dPCoAcbuGw6+c6+U8AHux+AJZ7Cc67InCxaYY5pYJOfxdf6V16n4
+ EJQb0WZthhCKVdRRN9u26KCT+OTiJctOPCd0ems4pYIBByUawhs8waeDdg4kkZ24WEPN eQ== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 33q5rgc4ts-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 22 Sep 2020 16:18:22 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08MGFtHd143702;
+ Tue, 22 Sep 2020 16:18:22 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 33nuw4b02s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 22 Sep 2020 16:18:21 +0000
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08MGIBWW018552;
+ Tue, 22 Sep 2020 16:18:11 GMT
+Received: from [10.74.86.236] (/10.74.86.236)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 22 Sep 2020 09:18:11 -0700
+Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend
+ mode
+To: Anchal Agarwal <anchalag@amazon.com>
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
+ x86@kernel.org, jgross@suse.com, linux-pm@vger.kernel.org,
+ linux-mm@kvack.org, kamatam@amazon.com, sstabellini@kernel.org,
+ konrad.wilk@oracle.com, roger.pau@citrix.com, axboe@kernel.dk,
+ davem@davemloft.net, rjw@rjwysocki.net, len.brown@intel.com,
+ pavel@ucw.cz, peterz@infradead.org, eduval@amazon.com,
+ sblbir@amazon.com, xen-devel@lists.xenproject.org, vkuznets@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dwmw@amazon.co.uk, benh@kernel.crashing.org
+References: <cover.1598042152.git.anchalag@amazon.com>
+ <9b970e12491107afda0c1d4a6f154b52d90346ac.1598042152.git.anchalag@amazon.com>
+ <4b2bbc8b-7817-271a-4ff0-5ee5df956049@oracle.com>
+ <20200914214754.GA19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <e9b94104-d20a-b6b2-cbe0-f79b1ed09c98@oracle.com>
+ <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
+ <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
+Date: Tue, 22 Sep 2020 12:18:05 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.2.1
 MIME-Version: 1.0
-In-Reply-To: <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 malwarescore=0
+ mlxscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009220124
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ impostorscore=0
+ clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ priorityscore=1501 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009220124
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,36 +108,29 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 14.09.20 17:59, Jan Beulich wrote:
+On 9/21/20 5:54 PM, Anchal Agarwal wrote:
+> Thanks for the above suggestion. You are right I didn't find a way to declare
+> a global state either. I just broke the above check in 2 so that once we have
+> support for ARM we should be able to remove aarch64 condition easily. Let me
+> know if I am missing nay corner cases with this one.
+>
+> static int xen_pm_notifier(struct notifier_block *notifier,
+> 	unsigned long pm_event, void *unused)
+> {
+>     int ret = NOTIFY_OK;
+>     if (!xen_hvm_domain() || xen_initial_domain())
+> 	ret = NOTIFY_BAD;
+>     if(IS_ENABLED(CONFIG_ARM64) && (pm_event == PM_SUSPEND_PREPARE || pm_event == HIBERNATION_PREPARE))
+> 	ret = NOTIFY_BAD;
+>
+>     return ret;
+> }
 
-Hi Jan
 
-> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
->> --- a/xen/include/xen/ioreq.h
->> +++ b/xen/include/xen/ioreq.h
->> @@ -35,6 +35,13 @@ static inline struct hvm_ioreq_server *get_ioreq_server(const struct domain *d,
->>       return GET_IOREQ_SERVER(d, id);
->>   }
->>   
->> +static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
->> +{
->> +    return ioreq->state == STATE_IOREQ_READY &&
->> +           !ioreq->data_is_ptr &&
->> +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
->> +}
-> While the PIO aspect has been discussed to some length, what about
-> the data_is_ptr concept? I didn't think there were Arm insns fitting
-> this? Instead I thought some other Arm-specific adjustments to the
-> protocol might be needed. At which point the question of course would
-> be in how far ioreq_t as a whole really fits Arm in its current shape.
-I may mistake here but I don't think the "data_is_ptr" is supported.
-It worth mentioning that on Arm, all the accesses to MMIO region will do 
-a single memory access.
-So we set "df" to 0 and "count" to 1. Other ioreq_t fields are in use.
 
--- 
-Regards,
+This will allow PM suspend to proceed on x86.
 
-Oleksandr Tyshchenko
+
+-boris
 
 
