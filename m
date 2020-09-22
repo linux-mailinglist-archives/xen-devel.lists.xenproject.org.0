@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A2E2744C1
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D992744C4
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:53:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKjfY-00017g-4N; Tue, 22 Sep 2020 14:53:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kKjfx-0001Ei-DI; Tue, 22 Sep 2020 14:53:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKjfW-00017O-2G
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:53:22 +0000
-X-Inumbo-ID: d47f1757-8e9f-4611-85bf-8f9058bdbe3e
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d47f1757-8e9f-4611-85bf-8f9058bdbe3e;
- Tue, 22 Sep 2020 14:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600786400;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=uJ9XKl8LgusD4KsOqMZToomCeIq5dpAbBMI8z4myazY=;
- b=BzAIMNoyyktW+4IS2+fri/DIRzycICkcLXBzlAY+6vdj0wu2ZSlL9kjl
- +fG3bdTVchI+Td8qdfWUd+oROU/7bUOFlqGYRhL9BgIuTAX0HIoRddprA
- +Z/bfRmjOZrU7TdJhWzSmBL+C0feCP+O8PvciX90bK2eOQ4QUHtp25vUA 4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ZT8B4C1+GUt52s63co0uDwluD42Mr7QMa1ogfn8oyEmM60ptRI0uyYLSiI+t4zq8nLtFPeyzUq
- +kt9xUWxxDoBsLqeFxCdq5gxwxNnzkmmSjsvXfWllVTPzZqPm0pKP/UtV4pyUc8+xIvnbr1bJ2
- tm5MfjiZdXG4OYgpLcWk1ULUmXqR2ubJSmugwrBkHQ4ejKrRoFiLXbm7g1nyh6d8DuKYs6AYdi
- +qrrqMjHcllXFm6OXYCh62BRObMyd4ehzgtHTptw9mYW25CPPsZysgYX1FVCGWZrmylHhazbRm
- fqk=
-X-SBRS: 2.7
-X-MesageID: 27370901
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27370901"
-Subject: Re: [PATCH 0/2] XSA-337 followup cleanup
-To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Paul Durrant
- <paul@xen.org>, Kevin Tian <kevin.tian@intel.com>
-References: <20200922143245.44595-1-roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <da381bb1-7bfc-c3e0-2583-70b2f7ad7f96@citrix.com>
-Date: Tue, 22 Sep 2020 15:53:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=Z9V7=C7=infradead.org=willy@srs-us1.protection.inumbo.net>)
+ id 1kKjfw-0001DN-2i
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:53:48 +0000
+X-Inumbo-ID: b12d60e5-7208-4cfe-b475-ab0ea0decd82
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b12d60e5-7208-4cfe-b475-ab0ea0decd82;
+ Tue, 22 Sep 2020 14:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=PwB7PgSBMCf1i80JEZZeqaAM6Spcvmy9ewYyeFjPsVI=; b=uqlDPU6SPAe3x1DDKo8G1qtut1
+ YwG3PA4mc8CLJ1oJyPiko0/UbU5ybdUeleXBeV8YHEyvVNYLAMBaj9YGVnr8/JyuAmcKGkiiTdejs
+ bVQysHpa55j4+LiObyETCdlPouw9Nwil/VnTPyLQvh9hBrpeU/Wmc3llTMeW/vjL27ShndfDs1p17
+ 1HtwFHqpD+N1OhT15+cuZIdFzM2p+uhSCE063YoA7faH9tQzfuFItic4W+TEbWs9VLsTKgtP5hMCZ
+ z1+P1JChn7/bURfHcxuqNO0QLmQHNZ4osoavXcBcFeMSltMsN9VNgTTTzxDcDVb8dMbZA2ChSspNL
+ P4owvfJg==;
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1kKjfX-0001op-62; Tue, 22 Sep 2020 14:53:23 +0000
+Date: Tue, 22 Sep 2020 15:53:23 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Minchan Kim <minchan@kernel.org>, Nitin Gupta <ngupta@vflare.org>,
+ x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+Subject: Re: [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
+Message-ID: <20200922145323.GG32101@casper.infradead.org>
+References: <20200918163724.2511-1-hch@lst.de>
+ <20200918163724.2511-4-hch@lst.de>
+ <20200921191157.GX32101@casper.infradead.org>
+ <20200922062249.GA30831@lst.de>
+ <20200922112144.GB32101@casper.infradead.org>
+ <20200922143906.GB26664@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20200922143245.44595-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200922143906.GB26664@lst.de>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,16 +70,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22/09/2020 15:32, Roger Pau Monne wrote:
-> Hello,
->
-> Followup patches from XSA-337 to cleanup unused code.
->
-> Thanks, Roger.
->
-> Roger Pau Monne (2):
->   x86/hpet: remove hpet_msi_read
->   x86/iommu: remove code to fetch MSI message from remap table
+On Tue, Sep 22, 2020 at 04:39:06PM +0200, Christoph Hellwig wrote:
+> On Tue, Sep 22, 2020 at 12:21:44PM +0100, Matthew Wilcox wrote:
+> > Actually, vfree() will work today; I cc'd you on a documentation update
+> > to make it clear that this is permitted.
+> 
+> vfree calls __free_pages, the i915 and a lot of other code calls
+> put_page.  They are mostly the same, but not quite and everytime I
+> look into that mess I'm more confused than before.
+> 
+> Can someone in the know write sensible documentation on when to use
+> __free_page(s) vs put_page?
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I started on that, and then I found a bug that's been lurking for 12
+years, so that delayed the documentation somewhat.  The short answer is
+that __free_pages() lets you free non-compound high-order pages while
+put_page() can only free order-0 and compound pages.
+
+I would really like to overhaul our memory allocation APIs:
+
+current			new
+__get_free_page(s)	alloc_page(s)
+free_page(s)		free_page(s)
+alloc_page(s)		get_free_page(s)
+__free_pages		put_page_order
+
+Then put_page() and put_page_order() are more obviously friends.
+
+But I cannot imagine a world in which Linus says yes to that upheaval.
+He's previous expressed dislike of the get_free_page() family of APIs,
+and thinks all those callers should just use kmalloc().  Maybe we can
+make that transition happen, now that kmalloc() aligns larger allocations.
 
