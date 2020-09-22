@@ -2,124 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C114273B49
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 08:56:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227DC273B5A
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 09:02:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKcDq-0004MY-15; Tue, 22 Sep 2020 06:56:18 +0000
+	id 1kKcJc-0005Hb-Nu; Tue, 22 Sep 2020 07:02:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VADB=C7=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
- id 1kKcDo-0004MT-Ca
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 06:56:16 +0000
-X-Inumbo-ID: d7648420-b335-4712-8a5f-8b96817c07b0
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id d7648420-b335-4712-8a5f-8b96817c07b0;
- Tue, 22 Sep 2020 06:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600757773;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fdmGL0X3kZ623XBvGj6grePr2oGnneoqjceqFQ7hFKo=;
- b=BLL6mPoHhwG+NZEGA3eMiMf2V15xS8emNXEN1jHwRuHwoQCJUuiWeNTZKGn/AznxuUANZA
- V9BMSfg0zH95gZP1cgqKjLFD0SPzF0zuIILiJJNutQhU7SE73Otp+D4LugeLVLC2nNMMuu
- blhb3jNtX4sM/y7l453043UBbmV31JI=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-594-wrYOoTSaNQmam0M0DDyxyA-1; Tue, 22 Sep 2020 02:56:10 -0400
-X-MC-Unique: wrYOoTSaNQmam0M0DDyxyA-1
-Received: by mail-wr1-f69.google.com with SMTP id 33so7044292wre.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Sep 2020 23:56:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=fdmGL0X3kZ623XBvGj6grePr2oGnneoqjceqFQ7hFKo=;
- b=ZSB47VdxBUw0FUF4cUae1eWvkSLJH7635wYRVjP2ACn3zIPS21Tlso1qh64pNnyeXL
- zQ9WuG0vIYu5p33zAfJ+kexBs47WDrxDkhgsZ4QOWI/OF5EfprMC1jF2jP8zJoDzpAnC
- iV9x7jOVBS5h8KrcLFt4U2Qn2Ot5dNlfr7SeNVYrK5Rtnp2psAYNbgZi7JBWuJLIHMMJ
- bbfcoTUrkQiut1ILfEyV9AWqKcGu+3GZ8Vd0aJ4Sji6a5XLTgXd8dk5TehETvQuXGmz2
- SNENVuPrxgnTKHI0hvEaTyFIuvFDrSHJATQHEsVgYeuZxw6Gio6P6AEVxSqaRvaGd9Tq
- oowA==
-X-Gm-Message-State: AOAM530LZha+eoQrrr3ZkpZbYsHbT8oLGcfWlWrnza7dU0dV2TlWbiCT
- UGuVYH5BsZVw+ISoHRrpsEV0bavxrlhcTquaIuNqpo1dC5Tn8UbaOcNrFRkZLXsbH3qKBivj+kA
- 5PSEPidUWOnmz9E5lSjYi6+Z2jsU=
-X-Received: by 2002:adf:8187:: with SMTP id 7mr3658794wra.266.1600757769265;
- Mon, 21 Sep 2020 23:56:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyKFFt/QRb04H8kSIfdQ5jqG5B6jsQvAnc25MIGryjLgYDuFqTx9G3VVN2PDZNnPRD+beCn4A==
-X-Received: by 2002:adf:8187:: with SMTP id 7mr3658757wra.266.1600757769000;
- Mon, 21 Sep 2020 23:56:09 -0700 (PDT)
-Received: from ?IPv6:2001:b07:6468:f312:d153:8d0f:94cf:5114?
- ([2001:b07:6468:f312:d153:8d0f:94cf:5114])
- by smtp.gmail.com with ESMTPSA id g131sm3054048wmf.25.2020.09.21.23.56.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Sep 2020 23:56:08 -0700 (PDT)
-Subject: Re: [PATCH] qemu/atomic.h: prefix qemu_ to solve <stdatomic.h>
- collisions
-To: David Hildenbrand <david@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-riscv@nongnu.org, Fam Zheng <fam@euphon.net>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
- Alberto Garcia <berto@igalia.com>, Jiri Slaby <jslaby@suse.cz>,
- Richard Henderson <rth@twiddle.net>, Peter Lieven <pl@kamp.de>,
- Halil Pasic <pasic@linux.ibm.com>, Eric Blake <eblake@redhat.com>,
- Max Reitz <mreitz@redhat.com>,
- =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Markus Armbruster <armbru@redhat.com>,
- kvm@vger.kernel.org, Yuval Shaia <yuval.shaia.ml@gmail.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
- qemu-block@nongnu.org, Stefan Weil <sw@weilnetz.de>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Michael Roth <mdroth@linux.vnet.ibm.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, John Snow <jsnow@redhat.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Alistair Francis <Alistair.Francis@wdc.com>,
- Aurelien Jarno <aurelien@aurel32.net>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Huacai Chen <chenhc@lemote.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Eduardo Habkost <ehabkost@redhat.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>, Thomas Huth <thuth@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Gerd Hoffmann
- <kraxel@redhat.com>, Peter Maydell <peter.maydell@linaro.org>,
- Liu Yuan <namei.unix@gmail.com>, Paul Durrant <paul@xen.org>,
- Kevin Wolf <kwolf@redhat.com>,
- Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
- Sagar Karandikar <sagark@eecs.berkeley.edu>, Jason Wang
- <jasowang@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
- xen-devel@lists.xenproject.org, Matthew Rosato <mjrosato@linux.ibm.com>,
- sheepdog@lists.wpkg.org, qemu-s390x@nongnu.org, qemu-arm@nongnu.org,
- Juan Quintela <quintela@redhat.com>,
- Hailiang Zhang <zhang.zhanghailiang@huawei.com>
-References: <20200921162346.188997-1-stefanha@redhat.com>
- <c8892b73-6cee-9fd3-54b0-289149926041@redhat.com>
- <52b8a46e-ab9e-1645-163d-497122ece907@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <8610ca0e-0b3f-6d95-43b9-e2e49571e311@redhat.com>
-Date: Tue, 22 Sep 2020 08:56:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ <SRS0=pHJL=C7=amazon.com=prvs=5271185ff=sjpark@srs-us1.protection.inumbo.net>)
+ id 1kKcJc-0005HW-4W
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 07:02:16 +0000
+X-Inumbo-ID: 5b0c8e98-28cf-4e91-bda4-0a9f807a54c1
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5b0c8e98-28cf-4e91-bda4-0a9f807a54c1;
+ Tue, 22 Sep 2020 07:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600758136; x=1632294136;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=BO349OSC4lsV1EmHanwtHybcd2v8aj+SOer8QAK+bYY=;
+ b=LHgQEQbdbG6JkTGizBbYQXIB2o+I5VTBhFn8d62hrmu4KkNxUpAKFJVt
+ j9vO4MjvB0Mn/7UZFJokyNi/7FOhk3KAN7d+YomvLW+0vSyJ9wvndB5Nd
+ aSIts4KWdw6h5N2lT3DlZmoYSYKOMb8LMfRKiqUggGyHqwUKG75IucR9B c=;
+X-IronPort-AV: E=Sophos;i="5.77,289,1596499200"; d="scan'208";a="70008820"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1a-67b371d8.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 22 Sep 2020 07:01:54 +0000
+Received: from EX13D31EUA004.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-1a-67b371d8.us-east-1.amazon.com (Postfix) with ESMTPS
+ id D006AA44C3; Tue, 22 Sep 2020 07:01:51 +0000 (UTC)
+Received: from u3f2cd687b01c55.ant.amazon.com (10.43.160.185) by
+ EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 22 Sep 2020 07:01:46 +0000
+From: SeongJae Park <sjpark@amazon.com>
+To: <konrad.wilk@oracle.com>, <roger.pau@citrix.com>
+CC: SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
+ <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
+ <linux-block@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] xen-blkback: add a parameter for disabling of persistent
+ grants
+Date: Tue, 22 Sep 2020 09:01:25 +0200
+Message-ID: <20200922070125.27251-1-sjpark@amazon.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <52b8a46e-ab9e-1645-163d-497122ece907@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Originating-IP: [10.43.160.185]
+X-ClientProxiedBy: EX13D11UWB001.ant.amazon.com (10.43.161.53) To
+ EX13D31EUA004.ant.amazon.com (10.43.165.161)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -130,16 +67,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22/09/20 08:45, David Hildenbrand wrote:
->> It's certainly a good idea but it's quite verbose.
->>
->> What about using atomic__* as the prefix?  It is not very common in QEMU
->> but there are some cases (and I cannot think of anything better).
->
-> aqomic_*, lol :)
+From: SeongJae Park <sjpark@amazon.de>
 
-Actually qatomic_ would be a good one, wouldn't it?
+Persistent grants feature provides high scalability.  On some small
+systems, however, it could incur data copy overhead[1] and thus it is
+required to be disabled.  But, there is no option to disable it.  For
+the reason, this commit adds a module parameter for disabling of the
+feature.
 
-Paolo
+[1] https://wiki.xen.org/wiki/Xen_4.3_Block_Protocol_Scalability
+
+Signed-off-by: Anthony Liguori <aliguori@amazon.com>
+Signed-off-by: SeongJae Park <sjpark@amazon.de>
+---
+ .../ABI/testing/sysfs-driver-xen-blkback        |  8 ++++++++
+ drivers/block/xen-blkback/xenbus.c              | 17 ++++++++++++++---
+ 2 files changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkback b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+index ecb7942ff146..0c42285c75ee 100644
+--- a/Documentation/ABI/testing/sysfs-driver-xen-blkback
++++ b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+@@ -35,3 +35,11 @@ Description:
+                 controls the duration in milliseconds that blkback will not
+                 cache any page not backed by a grant mapping.
+                 The default is 10ms.
++
++What:           /sys/module/xen_blkback/parameters/feature_persistent
++Date:           September 2020
++KernelVersion:  5.10
++Contact:        SeongJae Park <sjpark@amazon.de>
++Description:
++                Whether to enable the persistent grants feature or not.
++                The default is 1 (enable).
+diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+index b9aa5d1ac10b..9c03d70469f4 100644
+--- a/drivers/block/xen-blkback/xenbus.c
++++ b/drivers/block/xen-blkback/xenbus.c
+@@ -879,6 +879,12 @@ static void reclaim_memory(struct xenbus_device *dev)
+ 
+ /* ** Connection ** */
+ 
++/* Enable the persistent grants feature. */
++static unsigned int feature_persistent = 1;
++module_param_named(feature_persistent, feature_persistent, int, 0644);
++MODULE_PARM_DESC(feature_persistent,
++		"Enables the persistent grants feature");
++
+ /*
+  * Write the physical details regarding the block device to the store, and
+  * switch to Connected state.
+@@ -906,7 +912,8 @@ static void connect(struct backend_info *be)
+ 
+ 	xen_blkbk_barrier(xbt, be, be->blkif->vbd.flush_support);
+ 
+-	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u", 1);
++	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u",
++			feature_persistent ? 1 : 0);
+ 	if (err) {
+ 		xenbus_dev_fatal(dev, err, "writing %s/feature-persistent",
+ 				 dev->nodename);
+@@ -1093,8 +1100,12 @@ static int connect_ring(struct backend_info *be)
+ 		xenbus_dev_fatal(dev, err, "unknown fe protocol %s", protocol);
+ 		return -ENOSYS;
+ 	}
+-	pers_grants = xenbus_read_unsigned(dev->otherend, "feature-persistent",
+-					   0);
++	if (feature_persistent)
++		pers_grants = xenbus_read_unsigned(dev->otherend,
++				"feature-persistent", 0);
++	else
++		pers_grants = 0;
++
+ 	blkif->vbd.feature_gnt_persistent = pers_grants;
+ 	blkif->vbd.overflow_max_grants = 0;
+ 
+-- 
+2.17.1
 
 
