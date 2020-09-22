@@ -2,57 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29EF5273CE6
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 10:03:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AA4273D1A
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 10:17:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKdGO-0003Ia-Bz; Tue, 22 Sep 2020 08:03:00 +0000
+	id 1kKdUP-0004IY-NH; Tue, 22 Sep 2020 08:17:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0tL6=C7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kKdGM-0003IV-Ug
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 08:02:58 +0000
-X-Inumbo-ID: 75e20209-d04b-4e6a-87c4-3535bdbe7ffb
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75e20209-d04b-4e6a-87c4-3535bdbe7ffb;
- Tue, 22 Sep 2020 08:02:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600761776;
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=D3vi=C7=redhat.com=stefanha@srs-us1.protection.inumbo.net>)
+ id 1kKdUO-0004IT-MR
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 08:17:28 +0000
+X-Inumbo-ID: 404ae16c-8ecf-4edc-b6d9-578a72092836
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 404ae16c-8ecf-4edc-b6d9-578a72092836;
+ Tue, 22 Sep 2020 08:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600762647;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yPuFcaOXJac6Lv4zU78OIESuHNZa4SP2/5oHjbjv6GY=;
- b=MwsBxKGFYn6GYr4PXqXkMll1wLEln31OLLXVnEQZQmWsR4UA6rrjOjjKJ0Mj1YzCyGvcUN
- dOra5OLsSg6gpcKc1VXgi/2p60zUGCWXJJ2cnp5W9bV56Vkil0DEIFrOyiUYQZD4albq20
- f0kXgU/lcxq6GEM6tlomSqNlYgUeZh8=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1944AAF98;
- Tue, 22 Sep 2020 08:03:33 +0000 (UTC)
-Subject: Re: [PATCH v4 4/4] xen/mm: Provide dummy M2P-related helpers when
- !CONFIG_HAVE_M2P
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <20200921180214.4842-1-julien@xen.org>
- <20200921180214.4842-5-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <26387b5d-97f7-3c6a-ad40-94b144a3b0ae@suse.com>
-Date: Tue, 22 Sep 2020 10:02:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ bh=oakQ8ZvOG/PZHFgINL6qXTOYOkalonDKl4hzXDidq5o=;
+ b=XobQuyAWfon1EKF6Gb61XUu4Ok2hWvvh34e0g0Wn1iZn/LPwThXicMbUzy2+3GVCMvcXL3
+ 9JX/4SLNyCOyR8wG7SyqavQzHoJno+l5CVN2VWJF1v1kDXcGzkyyvjD9ToWJFRx5L+OjOF
+ gjWDKvOXOuwiOj36gPnaYK1cZQtYths=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-580-NmB85ZUzNVuAZQDy8gEBcA-1; Tue, 22 Sep 2020 04:17:23 -0400
+X-MC-Unique: NmB85ZUzNVuAZQDy8gEBcA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A8F881868405;
+ Tue, 22 Sep 2020 08:17:18 +0000 (UTC)
+Received: from localhost (ovpn-115-46.ams2.redhat.com [10.36.115.46])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0E4395C225;
+ Tue, 22 Sep 2020 08:17:05 +0000 (UTC)
+Date: Tue, 22 Sep 2020 09:17:05 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-riscv@nongnu.org, fam@euphon.net, ysato@users.sourceforge.jp,
+ berto@igalia.com, jslaby@suse.cz, rth@twiddle.net, pl@kamp.de,
+ david@redhat.com, pasic@linux.ibm.com, eblake@redhat.com,
+ mreitz@redhat.com, marcandre.lureau@redhat.com, berrange@redhat.com,
+ palmer@dabbelt.com, armbru@redhat.com, kvm@vger.kernel.org,
+ yuval.shaia.ml@gmail.com, mst@redhat.com, cohuck@redhat.com,
+ qemu-block@nongnu.org, sw@weilnetz.de, dgilbert@redhat.com,
+ mdroth@linux.vnet.ibm.com, jiaxun.yang@flygoat.com,
+ jsnow@redhat.com, jcmvbkbc@gmail.com, marcel.apfelbaum@gmail.com,
+ Alistair.Francis@wdc.com, aurelien@aurel32.net,
+ aleksandar.rikalo@syrmia.com, chenhc@lemote.com,
+ aleksandar.qemu.devel@gmail.com, ehabkost@redhat.com,
+ borntraeger@de.ibm.com, sunilmut@microsoft.com, thuth@redhat.com,
+ pbonzini@redhat.com, sstabellini@kernel.org,
+ anthony.perard@citrix.com, kraxel@redhat.com,
+ peter.maydell@linaro.org, namei.unix@gmail.com, paul@xen.org,
+ kwolf@redhat.com, kbastian@mail.uni-paderborn.de,
+ sagark@eecs.berkeley.edu, jasowang@redhat.com, laurent@vivier.eu,
+ xen-devel@lists.xenproject.org, mjrosato@linux.ibm.com,
+ sheepdog@lists.wpkg.org, qemu-s390x@nongnu.org, qemu-arm@nongnu.org,
+ quintela@redhat.com, zhang.zhanghailiang@huawei.com
+Subject: Re: [PATCH] qemu/atomic.h: prefix qemu_ to solve <stdatomic.h>
+ collisions
+Message-ID: <20200922081705.GB201611@stefanha-x1.localdomain>
+References: <20200921162346.188997-1-stefanha@redhat.com>
+ <160072176188.21069.7427016597134663502@66eaa9a8a123>
 MIME-Version: 1.0
-In-Reply-To: <20200921180214.4842-5-julien@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <160072176188.21069.7427016597134663502@66eaa9a8a123>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=stefanha@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="eJnRUKwClWJh1Khz"
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,32 +92,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.09.2020 20:02, Julien Grall wrote:
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -685,4 +685,17 @@ static inline void put_page_alloc_ref(struct page_info *page)
->      }
->  }
->  
-> +/*
-> + * Dummy implementation of M2P-related helpers for common code when
-> + * the architecture doesn't have an M2P.
-> + */
-> +#ifndef CONFIG_HAS_M2P
-> +
-> +#define INVALID_M2P_ENTRY        (~0UL)
-> +#define SHARED_M2P(_e)           false
-> +
-> +static inline void set_gpfn_from_mfn(unsigned long mfn, unsigned long pfn) {}
+--eJnRUKwClWJh1Khz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-While I think this would better BUG() or at least ASSERT_UNREACHABLE(),
-I realize its use in page_alloc.c prevents this. However, if this was a
-macro, I think the need for having INVALID_P2M_ENTRY would vanish, as
-long as the stub macro didn't evaluate its 2nd argument.
+On Mon, Sep 21, 2020 at 01:56:08PM -0700, no-reply@patchew.org wrote:
+> ERROR: Macros with multiple statements should be enclosed in a do - while=
+ loop
+> #2968: FILE: include/qemu/atomic.h:152:
+> +#define qemu_atomic_rcu_read__nocheck(ptr, valptr)      \
+>      __atomic_load(ptr, valptr, __ATOMIC_RELAXED);       \
+>      smp_read_barrier_depends();
+>=20
+> ERROR: space required before that '*' (ctx:VxB)
+> #3123: FILE: include/qemu/atomic.h:347:
+> +#define qemu_atomic_read__nocheck(p) (*(__typeof__(*(p)) volatile*) (p))
+>                                                                   ^
+>=20
+> ERROR: Use of volatile is usually wrong, please add a comment
+> #3123: FILE: include/qemu/atomic.h:347:
+> +#define qemu_atomic_read__nocheck(p) (*(__typeof__(*(p)) volatile*) (p))
+>=20
+> ERROR: space required before that '*' (ctx:VxB)
+> #3125: FILE: include/qemu/atomic.h:349:
+> +    ((*(__typeof__(*(p)) volatile*) (p)) =3D (i))
+>                                   ^
+>=20
+> ERROR: Use of volatile is usually wrong, please add a comment
+> #3125: FILE: include/qemu/atomic.h:349:
+> +    ((*(__typeof__(*(p)) volatile*) (p)) =3D (i))
+>=20
+> ERROR: space required after that ',' (ctx:VxV)
+> #3130: FILE: include/qemu/atomic.h:352:
+> +#define qemu_atomic_set(ptr, i)     qemu_atomic_set__nocheck(ptr,i)
+>                                                                  ^
+>=20
+> ERROR: memory barrier without comment
+> #3205: FILE: include/qemu/atomic.h:410:
+> +#define qemu_atomic_xchg(ptr, i) (smp_mb(), __sync_lock_test_and_set(ptr=
+, i))
+>=20
+> WARNING: Block comments use a leading /* on a separate line
+> #3280: FILE: include/qemu/atomic.h:462:
+> +/* qemu_atomic_mb_read/set semantics map Java volatile variables. They a=
+re
+>=20
+> WARNING: Block comments use a leading /* on a separate line
+> #6394: FILE: util/bitmap.c:214:
+> +        /* If we avoided the full barrier in qemu_atomic_or(), issue a
+>=20
+> WARNING: Block comments use a leading /* on a separate line
+> #7430: FILE: util/rcu.c:85:
+> +        /* Instead of using qemu_atomic_mb_set for index->waiting, and
+>=20
+> WARNING: Block comments use a leading /* on a separate line
+> #7456: FILE: util/rcu.c:154:
+> +        /* In either case, the qemu_atomic_mb_set below blocks stores th=
+at free
+>=20
+> total: 7 errors, 4 warnings, 6507 lines checked
 
-I'm feeling somewhat uneasy with the SHARED_M2P() definition: This
-would seem to better be tied to CONFIG_MEM_SHARING rather than M2P
-existence.
+These are pre-existing coding style issues. This is a big patch that
+tries to make as few actual changes as possible so I would rather not
+try to fix them.
 
-Jan
+Stefan
+
+--eJnRUKwClWJh1Khz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl9pswEACgkQnKSrs4Gr
+c8iYggf/cN1AvmT30HEFnk6TFaWwEK/1uPdJX8OsfFcwI7Y3ubB8wcLWnyXzwsOg
+tRL2aDrOZ1cJcV8pHVtlNuJTcqox1NBFhSC6thYgo4PzXU7O2+LPijF+PrrJBrer
+C/TLImTNNDBL8+IQX8bOBz4kVqyoEoodEvNsRUb05oyhVK0uej9yK0Vf+WOiRDmf
+O4f1cAXTcA0qhhmU5NJO5sNe3cVEbrkHJ9wtK7mFlIRt/RuHLvW5M0UscL0/KF2o
+SyWNVBIVFKBl/o16jkA4J+C1wAM6uPP3s5NYqJgaEUtYUaP7cir42blCMCa3MYz6
+LSmqavtaJ2f531DBpjOq3G5c+fyk5A==
+=nJgj
+-----END PGP SIGNATURE-----
+
+--eJnRUKwClWJh1Khz--
+
 
