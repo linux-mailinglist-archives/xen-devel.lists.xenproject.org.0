@@ -2,72 +2,104 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF88F27497F
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 21:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E49274993
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 21:56:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKoJa-0001ey-Bk; Tue, 22 Sep 2020 19:51:02 +0000
+	id 1kKoOM-0001v2-5a; Tue, 22 Sep 2020 19:55:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKoJY-0001en-Jv
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 19:51:00 +0000
-X-Inumbo-ID: 48b91d4b-ddeb-4c40-8ab3-32b1c5c5c4be
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=q32Y=C7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kKoOK-0001ux-8W
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 19:55:56 +0000
+X-Inumbo-ID: 1c9a4337-a415-40dd-a523-74f86752d456
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 48b91d4b-ddeb-4c40-8ab3-32b1c5c5c4be;
- Tue, 22 Sep 2020 19:50:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600804258;
- h=from:subject:to:cc:references:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=aJ9V1VUtrI37FiyR5VuZZVJohz4gYpSfU2kUB4HDJRQ=;
- b=WHeY9Q9/S2oVnQOIXT8PdSG34Btt/sSmLkFbppEfX4glOkifKXC6GQ3H
- vRyVRjfNoLQjrYJ4be70Gv8eKlV9NOvv0iim9kjP7reOk20bW+NmpYS5v
- C9gqosT/TAlzoexU0+WQR4tpwjPVNF3+XvU+HR15wwA6sOkUoj1OVIC3G k=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 3IlLHUj8sE+3HMVGKzsZAwq+eakMh990WNKCIJwutCRMzHaqhr8Fc0r4zSsY1gRDJWbj9wU425
- BDQPdeT50MaRCEICvvng+4h42XPygedQnxKTjRDgVRSbG7Zp99cMvwTLYZW9y41NHzu/LM/u+/
- kqD10KIl1sS6L6J9xPGL84MT+KUMEKDqJPQSqiJQrFA8X/lXHzPD9SgDZHqxnWoEpTZYsVzlUR
- 8J5/6R/fEkotQpt1g9XzakF19+b2kcL8s3bQaCHyrFOnyA+gPSkt5Q2gOhYQ8sltYb1tph76W8
- m5s=
-X-SBRS: 2.7
-X-MesageID: 27590159
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27590159"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 5/5] sched/arinc653: Implement CAST-32A multicore
- scheduling
-To: Jeff Kubascik <jeff.kubascik@dornerworks.com>, Dario Faggioli
- <dfaggioli@suse.com>, Stewart Hildebrand
- <Stewart.Hildebrand@dornerworks.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-CC: xen-devel <xen-devel@dornerworks.com>, Josh Whitehead
- <Josh.Whitehead@dornerworks.com>, George Dunlap <george.dunlap@citrix.com>
-References: <20200916181854.75563-1-jeff.kubascik@dornerworks.com>
- <20200916181854.75563-6-jeff.kubascik@dornerworks.com>
- <d2973002-86b5-17b7-cbfa-ba235af75ba3@suse.com>
- <CY1P110MB055125447405A5DA2202BF028C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
- <5b758105ee47638c36ef19eb3804b76ee19020a8.camel@suse.com>
- <CY1P110MB0551518BC91E77341A9A37718C3E0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
- <960f5e3b5a27326cd18ecb44a96f22bcf94f2498.camel@suse.com>
- <16401afe-9dfc-48d6-1fd5-bcfb519417ad@dornerworks.com>
-Message-ID: <200acc10-e907-b271-120d-9778351bf700@citrix.com>
-Date: Tue, 22 Sep 2020 20:50:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <16401afe-9dfc-48d6-1fd5-bcfb519417ad@dornerworks.com>
-Content-Type: text/plain; charset="windows-1252"
+ id 1c9a4337-a415-40dd-a523-74f86752d456;
+ Tue, 22 Sep 2020 19:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=6C7RKH59N7x725yG+z0YOnvVj8RNO+SuXua0EZhzydM=; b=rSHbEJX6dti+JpO1dHlyezrCvi
+ 8uMbi19EcE7DwHI7U4fRknVKhi3BRnu56F831XXg2Muxc6NTY/CJeWe9Od7EKFQS181X5CLek0PID
+ YQfpCoY3s9vsgek9AuCTmjLh8eKp+FZkrihx1OHJivAlV7Hary+83umoAlYYeAAM1B2M=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKoOH-0007RG-44; Tue, 22 Sep 2020 19:55:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKoOG-0002ci-Rc; Tue, 22 Sep 2020 19:55:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kKoOG-0000zN-R6; Tue, 22 Sep 2020 19:55:52 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154602-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+MIME-Version: 1.0
+Subject: [xen-4.13-testing test] 154602: regressions - FAIL
+X-Osstest-Failures: xen-4.13-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.13-testing:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+ xen-4.13-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-4.13-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.13-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: xen=aa1d9a7dbfe07905f0b7218bcd433a513f762eb9
+X-Osstest-Versions-That: xen=c663fa577b42e7f4731bb33fc7f94f7ffb05a1ef
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Sep 2020 19:55:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,107 +113,309 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18/09/2020 21:03, Jeff Kubascik wrote:
-> On 9/17/2020 1:30 PM, Dario Faggioli wrote:
->> On Thu, 2020-09-17 at 15:59 +0000, Stewart Hildebrand wrote:
->>> On Thursday, September 17, 2020 11:20 AM, Dario Faggioli wrote:
->>>> On Thu, 2020-09-17 at 15:10 +0000, Stewart Hildebrand wrote:
->>>>>> It might be worth to consider using just the core scheduling
->>>>>> framework
->>>>>> in order to achive this. Using a sched_granularity with the
->>>>>> number
->>>>>> of
->>>>>> cpus in the cpupool running ARINC653 scheduler should already
->>>>>> do
->>>>>> the
->>>>>> trick. There should be no further midification of ARINC653
->>>>>> scheduler
->>>>>> required.
->>>>>>
->>>>> This CAST-32A multicore patch series allows you to have a
->>>>> different
->>>>> number of vCPUs (UNITs, I guess) assigned to domUs.
->>>>>
->>>> And if you have domain A with 1 vCPU and domain B with 2 vCPUs,
->>>> with
->>>> sched-gran=core:
->>>> - when the vCPU of domain A is scheduled on a pCPU of a core, no
->>>> vCPU
->>>>  from domain B can be scheduled on the same core;
->>>> - when one of the vCPUs of domain B is scheduled on a pCPU of a
->>>> core,
->>>>  no other vCPUs, except the other vCPU of domain B can run on the
->>>>  same core.
->>> Fascinating. Very cool, thanks for the insight. My understanding is
->>> that core scheduling is not currently enabled on arm. This series
->>> allows us to have multicore ARINC 653 on arm today without chasing
->>> down potential issues with core scheduling on arm...
->>>
->> Yeah, but at the cost of quite a bit of churn, and of a lot more code
->> in arinc653.c, basically duplicating the functionality.
->>
->> I appreciate how crude and inaccurate this is, but arinc653.c is
->> currently 740 LOCs, and this patch is adding 601 and removing 204.
->>
->> Add to this the fact that the architecture specific part of core-
->> scheduling should be limited to the handling of the context switches
->> (and that it may even work already, as what we weren't able to do was
->> proper testing).
->>
->> If I can cite an anecdote, back in the days where core-scheduling was
->> being developed, I sent my own series implementing, for both credit1
->> and credit2. It had its issues, of course, but I think it had some
->> merits, even if compared with the current implementation we have
->> upstream (e.g., more flexibility, as core-scheduling could have been
->> enabled on a per-domain basis).
->>
->> At least for me, a very big plus of the other approach that Juergen
->> suggested and then also implemented, was the fact that we would get the
->> feature for all the schedulers at once. And this (i.e., the fact that
->> it probably can be used for this purpose as well, without major changes
->> necessary inside ARINC653) seems to me to be a further confirmation
->> that it was the good way forward.
->>
->> And don't think only to the need of writing the code (as you kind of
->> have it already), but also to testing. As in, the vast majority of the
->> core-scheduling logic and code is scheduler independent, and hence has
->> been stressed and tested already, even by people using schedulers
->> different than ARINC.
-> When is core scheduling expected to be available for ARM platforms? My
-> understanding is that this only works for Intel.
+flight 154602 xen-4.13-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154602/
 
-x86, but the real answer is "any architecture which has some knowledge
-of the thread/core/socket" topology of its CPUs.  ARM currently lacks
-this information.
+Regressions :-(
 
-The actual implementation is totally architecture agnostic, and
-implemented within the scheduler interface itself.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154358
 
-> With core scheduling, is the pinning of vCPUs to pCPUs configurable? Or can the
-> scheduler change it at will? One advantage of this patch is that you can
-> explicitly pin a vCPU to a pCPU. This is a desirable feature for systems where
-> you are looking for determinism.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds    16 guest-start/debian.repeat fail REGR. vs. 154358
 
-All schedulers, including ARINC, now operate on sched_item's (previously
-vCPUs) and sched_resource's (previously pCPUs), by virtue of the change
-to the common scheduler interface.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
 
-The default case (== thread scheduling), there is a granularity of 1,
-and a single sched_item maps to a single vCPU, and a single
-sched_resource maps to a single pCPU. 
+version targeted for testing:
+ xen                  aa1d9a7dbfe07905f0b7218bcd433a513f762eb9
+baseline version:
+ xen                  c663fa577b42e7f4731bb33fc7f94f7ffb05a1ef
 
-For the "core" case, we interrogate hardware to see how many threads per
-core there are.  There may be 1 (no SMT), 2 (common case) or 4 (Knights
-Landing/Corner HPC systems).  This becomes the granularity under the hood.
+Last test of basis   154358  2020-09-15 09:40:09 Z    7 days
+Testing same since   154602  2020-09-22 02:37:01 Z    0 days    1 attempts
 
-Therefore, a single sched_resource maps to a single core, which is 1, 2,
-or 4 threads.  A single sched_item maps to the same number of vCPUs
-(currently taken sequentially from the domain's vcpu list.  Any gaps
-filled by the idle vcpus).
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Julien Grall <jgrall@amazon.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Wei Chen <wei.chen@arm.com>
 
-The scheduling decision of when and where a sched_item runs is still up
-to the scheduler.  Pinning is also now expressed at the sched_item =>
-sched_resource level.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-~Andrew
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit aa1d9a7dbfe07905f0b7218bcd433a513f762eb9
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Wed Jul 29 14:50:37 2020 +0100
+
+    xen/arm: cmpxchg: Add missing memory barriers in __cmpxchg_mb_timeout()
+    
+    The function __cmpxchg_mb_timeout() was intended to have the same
+    semantics as __cmpxchg_mb(). Unfortunately, the memory barriers were
+    not added when first implemented.
+    
+    There is no known issue with the existing callers, but the barriers are
+    added given this is the expected semantics in Xen.
+    
+    The issue was introduced by XSA-295.
+    
+    Backport: 4.8+
+    Fixes: 86b0bc958373 ("xen/arm: cmpxchg: Provide a new helper that can timeout")
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    (cherry picked from commit d501ef90ae7f2a79130ea89acb3d6d1792972934)
+
+commit bd63ab538be07e96f9b594cd927fd7c4825b4436
+Author: Wei Chen <wei.chen@arm.com>
+Date:   Fri Aug 28 02:34:03 2020 +0000
+
+    xen/arm: Missing N1/A76/A75 FP registers in vCPU context switch
+    
+    Xen has cpu_has_fp/cpu_has_simd to detect whether the CPU supports
+    FP/SIMD or not. But currently, these two MACROs only consider value 0
+    of ID_AA64PFR0_EL1.FP/SIMD as FP/SIMD features enabled. But for CPUs
+    that support FP/SIMD and half-precision floating-point arithmetic, the
+    ID_AA64PFR0_EL1.FP/SIMD are 1 (see Arm ARM DDI0487F.b, D13.2.64).
+    For these CPUs, xen will treat them as no FP/SIMD support, the
+    vfp_save/restore_state will not take effect.
+    
+    From the TRM documents of Cortex-A75/A76/N1, we know these CPUs support
+    basic Advanced SIMD/FP and half-precision floating-point arithmetic. In
+    this case, on N1/A76/A75 platforms, Xen will always miss the floating
+    pointer registers save/restore. If different vCPUs are running on the
+    same pCPU, the floating pointer registers will be corrupted randomly.
+    
+    This patch fixes Xen on these new cores.
+    
+    Signed-off-by: Wei Chen <wei.chen@arm.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    (cherry picked from commit 968bb86d04913f52d7678a842474f2a674a8b23e)
+
+commit 4fb1ad782dd170cac7a3868e5aba583c8abe38a0
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Tue Aug 25 18:38:10 2020 +0100
+
+    xen/arm: Update silicon-errata.txt with the Neovers AT erratum
+    
+    Commit 858c0be8c2fa "xen/arm: Enable CPU Erratum 1165522 for Neoverse"
+    added a new erratum but forgot to update silicon-errata.txt.
+    
+    Update the file accordingly to keep track of errata workaround in Xen.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+    (cherry picked from commit 1814a626fb5811184eda64fe22f0055df4600211)
+
+commit 4a0c174c17673590711358bdf89289eedcbe2837
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Tue Aug 18 14:47:39 2020 +0100
+
+    xen/arm: Enable CPU Erratum 1165522 for Neoverse
+    
+    Enable CPU erratum of Speculative AT on the Neoverse N1 processor
+    versions r0p0 to r2p0.
+    Also Fix Cortex A76 Erratum string which had a wrong errata number.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    (cherry picked from commit 858c0be8c2fa4125a0fa0acaa03ae730e5c7cb3c)
+
+commit 6ef4daddc78d48be1990046930456e707c44d9ca
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Tue Aug 18 14:47:38 2020 +0100
+
+    arm: Add Neoverse N1 processor identification
+    
+    Add MIDR and CPU part numbers for Neoverse N1
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    (cherry picked from commit 3b418b33265402aab0cb1bf2b745a25724bae2d8)
+(qemu changes not included)
 
