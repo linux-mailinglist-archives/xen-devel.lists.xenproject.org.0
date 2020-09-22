@@ -2,63 +2,145 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A39D273B02
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 08:34:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DEA3273B26
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 08:46:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKbrj-0002SE-Sp; Tue, 22 Sep 2020 06:33:27 +0000
+	id 1kKc3Z-0003PU-0q; Tue, 22 Sep 2020 06:45:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0tL6=C7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kKbri-0002S9-9V
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 06:33:26 +0000
-X-Inumbo-ID: a2743693-aa5b-4575-9980-34ed2eafa6e6
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2743693-aa5b-4575-9980-34ed2eafa6e6;
- Tue, 22 Sep 2020 06:33:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600756403;
+ (envelope-from <SRS0=iV3P=C7=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kKc3X-0003PO-5Y
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 06:45:39 +0000
+X-Inumbo-ID: 7b5d7399-9597-46af-850f-078b5f125f51
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 7b5d7399-9597-46af-850f-078b5f125f51;
+ Tue, 22 Sep 2020 06:45:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600757137;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=i04OJd9+MO17YRU9WVwHTie+V3hk95UtDalVSzi1pCM=;
- b=ZW2VdmCXE9Rb/56O7kspoL+jg4eUPa/TFLQRZVg0uM5RIbIjmAQBWkPLVjbeIlk/lGTD18
- 5MqR/em3IlxxUK8YQ11rADZGn1y4tMdahLrPs73fdCaHmXcOJsMwJHvBctITaZX61JY285
- +j2mc7f11brw7E0yZUnvZHVFAEkiAag=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E4EAFABBE;
- Tue, 22 Sep 2020 06:33:59 +0000 (UTC)
-Subject: Re: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature common
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-3-git-send-email-olekstysh@gmail.com>
- <7de88222-1a45-7bff-0b45-95f76b4ec019@suse.com>
- <51856cdc-54b4-3d39-bd7b-1b6ac3fc1736@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bf128337-699f-5942-b387-aa896000700c@suse.com>
-Date: Tue, 22 Sep 2020 08:33:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=qaYBU8dnedHzBMwC8QbJyxgWaOeesr8taPRMn/hh93U=;
+ b=FJ3EZX9UvZrUoWi6r3YbpEC0MICjuJGEFN5iOQVWVJzeJC4Do/G7K3s9wZMex/di0zs7gq
+ xpx/Suip4M6STemco1iPvD3s1eDf6h2JQ55EPVeVIIY+8VJ9iZocbz6hfuirJTRNzwCFQV
+ u/5Ps5CSnwBUKR4jPOkH0wStytNqga4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-62-H0Fp-s2JNPewqo54DJB3YA-1; Tue, 22 Sep 2020 02:45:32 -0400
+X-MC-Unique: H0Fp-s2JNPewqo54DJB3YA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D8CD801F9A;
+ Tue, 22 Sep 2020 06:45:27 +0000 (UTC)
+Received: from [10.36.113.20] (ovpn-113-20.ams2.redhat.com [10.36.113.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 941257368D;
+ Tue, 22 Sep 2020 06:45:03 +0000 (UTC)
+Subject: Re: [PATCH] qemu/atomic.h: prefix qemu_ to solve <stdatomic.h>
+ collisions
+To: Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi
+ <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: qemu-riscv@nongnu.org, Fam Zheng <fam@euphon.net>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Alberto Garcia <berto@igalia.com>, Jiri Slaby <jslaby@suse.cz>,
+ Richard Henderson <rth@twiddle.net>, Peter Lieven <pl@kamp.de>,
+ Halil Pasic <pasic@linux.ibm.com>, Eric Blake <eblake@redhat.com>,
+ Max Reitz <mreitz@redhat.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Markus Armbruster <armbru@redhat.com>,
+ kvm@vger.kernel.org, Yuval Shaia <yuval.shaia.ml@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+ qemu-block@nongnu.org, Stefan Weil <sw@weilnetz.de>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, John Snow <jsnow@redhat.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Alistair Francis <Alistair.Francis@wdc.com>,
+ Aurelien Jarno <aurelien@aurel32.net>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Huacai Chen <chenhc@lemote.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>, Thomas Huth <thuth@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Gerd Hoffmann
+ <kraxel@redhat.com>, Peter Maydell <peter.maydell@linaro.org>,
+ Liu Yuan <namei.unix@gmail.com>, Paul Durrant <paul@xen.org>,
+ Kevin Wolf <kwolf@redhat.com>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Sagar Karandikar <sagark@eecs.berkeley.edu>, Jason Wang
+ <jasowang@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
+ xen-devel@lists.xenproject.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ sheepdog@lists.wpkg.org, qemu-s390x@nongnu.org, qemu-arm@nongnu.org,
+ Juan Quintela <quintela@redhat.com>,
+ Hailiang Zhang <zhang.zhanghailiang@huawei.com>
+References: <20200921162346.188997-1-stefanha@redhat.com>
+ <c8892b73-6cee-9fd3-54b0-289149926041@redhat.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <52b8a46e-ab9e-1645-163d-497122ece907@redhat.com>
+Date: Tue, 22 Sep 2020 08:45:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <51856cdc-54b4-3d39-bd7b-1b6ac3fc1736@gmail.com>
+In-Reply-To: <c8892b73-6cee-9fd3-54b0-289149926041@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,72 +154,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.09.2020 21:02, Oleksandr wrote:
-> On 14.09.20 17:17, Jan Beulich wrote:
->> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
->>> --- /dev/null
->>> +++ b/xen/include/xen/ioreq.h
->>> @@ -0,0 +1,82 @@
->>> +/*
->>> + * ioreq.h: Hardware virtual machine assist interface definitions.
->>> + *
->>> + * Copyright (c) 2016 Citrix Systems Inc.
->>> + *
->>> + * This program is free software; you can redistribute it and/or modify it
->>> + * under the terms and conditions of the GNU General Public License,
->>> + * version 2, as published by the Free Software Foundation.
->>> + *
->>> + * This program is distributed in the hope it will be useful, but WITHOUT
->>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->>> + * more details.
->>> + *
->>> + * You should have received a copy of the GNU General Public License along with
->>> + * this program; If not, see <http://www.gnu.org/licenses/>.
->>> + */
->>> +
->>> +#ifndef __IOREQ_H__
->>> +#define __IOREQ_H__
->> __XEN_IOREQ_H__ please.
-> 
-> ok
-> 
-> 
+On 22.09.20 08:27, Paolo Bonzini wrote:
+> On 21/09/20 18:23, Stefan Hajnoczi wrote:
+>> clang's C11 atomic_fetch_*() functions only take a C11 atomic type
+>> pointer argument. QEMU uses direct types (int, etc) and this causes a
+>> compiler error when a QEMU code calls these functions in a source file
+>> that also included <stdatomic.h> via a system header file:
 >>
->>> +#include <xen/sched.h>
->>> +
->>> +#include <asm/hvm/ioreq.h>
->> Is this include really needed here (i.e. by the code further down in
->> the file, and hence by everyone including this header), or rather
->> just in a few specific .c files?
-> I think, just in few specific .c files. Which are x86/hvm/ioreq.c and 
-> common/ioreq.c now and several other files later on (x86/hvm/dm.c, 
-> arm/io.c, etc)
-> Shall I include that header in these files instead?
+>>   $ CC=clang CXX=clang++ ./configure ... && make
+>>   ../util/async.c:79:17: error: address argument to atomic operation must be a pointer to _Atomic type ('unsigned int *' invalid)
+>>
+>> Avoid using atomic_*() names in QEMU's atomic.h since that namespace is
+>> used by <stdatomic.h>. Prefix QEMU's APIs with qemu_ so that atomic.h
+>> and <stdatomic.h> can co-exist.
+>>
+>> This patch was generated using:
+>>
+>>   $ git diff | grep -o '\<atomic_[a-z0-9_]\+' | sort -u >/tmp/changed_identifiers
+>>   $ for identifier in $(</tmp/changed_identifiers64); do \
+>>        sed -i "s%\<$identifier\>%qemu_$identifier%" $(git grep -l "\<$identifier\>") \
+>>     done
+> 
+> It's certainly a good idea but it's quite verbose.
+> 
+> What about using atomic__* as the prefix?  It is not very common in QEMU
+> but there are some cases (and I cannot think of anything better).
+> 
 
-Yes please, and please take this as a common guideline. While
-private headers are often used to include things needed by all
-of the (typically few) users of the header, non-private ones
-shouldn't create unnecessary dependencies on other headers. As
-you've said further up - you did run into hard to resolve
-header dependencies yourself, and the practice of including
-headers without strict need is one of the reasons of such
-problems.
+aqomic_*, lol :)
 
->>> +#define GET_IOREQ_SERVER(d, id) \
->>> +    (d)->arch.hvm.ioreq_server.server[id]
->> arch.hvm.* feels like a layering violation when used in this header.
-> Got it. The only reason why GET_IOREQ_SERVER is here is inline 
-> get_ioreq_server(). I will make it non-inline and move both to 
-> common/ioreq.c.
+> Paolo
+> 
 
-Which won't make the layering violation go away. It's still
-common rather than per-arch code then. As suggested elsewhere,
-I think the whole ioreq_server struct wants to move into
-struct domain itself, perhaps inside a new #ifdef (iirc one of
-the patches introduces a suitable Kconfig option). This goes
-alongside my suggestion to drop the "hvm" prefixes and infixes
-from involved function names.
 
-Jan
+-- 
+Thanks,
+
+David / dhildenb
+
 
