@@ -2,82 +2,130 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4E2273F16
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 12:00:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3B6273F32
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 12:06:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKf4k-0005Ln-DY; Tue, 22 Sep 2020 09:59:06 +0000
+	id 1kKfBe-0006Ku-Et; Tue, 22 Sep 2020 10:06:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kKf4j-0005Li-1V
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 09:59:05 +0000
-X-Inumbo-ID: 8abf055e-cfa6-4e56-8f83-1c26e6a2ed81
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ <SRS0=7PG6=C7=epam.com=prvs=75341bc617=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1kKfBc-0006Kp-RA
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 10:06:13 +0000
+X-Inumbo-ID: 873950a5-67ee-42b8-bfd8-ade48674eb0a
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8abf055e-cfa6-4e56-8f83-1c26e6a2ed81;
- Tue, 22 Sep 2020 09:59:03 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id b22so17303454lfs.13
- for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 02:59:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=ATm+Xt2TB6izqM4H91/fBvsNIvoyjZ1nNRpZ3pwzCGU=;
- b=anNpGLDVAml01SW4VAmU/jKAHiAxtwd3FX3ttOZgbeW2gh/YUVBS+Rl45nj9n3bUWL
- d9mI2YjtlqPIQviY8EXZQp2GfhzhEyS2jAasFFpt7OJD+dRM9YG4P57APo5CUAGC1M2P
- pNYGxqoIFA1sioNj5WrYH8/E9DQ/qVAatnIPFErDZFmP3cm2oA9FAYeOYdiwxI373n9g
- z6rWkYAt4qbX5paTgFl8ps8QCYGReTfS6VO2KvG3HaVimQrh+UVUkRkie8uQn5kHF07D
- DHK230oRmysregSqWRxqzJvjKjH3pFwh9D+OWW2kATx698gGAMBOhkywc7NU3wS/WxBr
- vMsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=ATm+Xt2TB6izqM4H91/fBvsNIvoyjZ1nNRpZ3pwzCGU=;
- b=Cude48CWHLgsStDNiZ8ChJD6eGAd4N4s7wC6XzsYBDOzdBcDGlripiA/0fdAPMEmI/
- Mx0eqUPm4Xh+w/VowYdfeKLYIgei/aZUqhhbvFirGKl6k0RMDIZuwKatm3NIDAR8pENl
- hdUw1TcBOYjGrG4h+K5r44OgizQUGhLC+dh7os1MvdooWHZN5o86BWE+FQ45t7JUqGUy
- kkHskuv2XtUIUk8u+e4cW5FSXJg93lG0bH4SrRursYw06iG8tbBpZr54RGXC0YSnp5FK
- 0mmjzMRH4AnpumozM/UqvA5Cs9hGLlM5Bac1k8QYDv1ltMwt6rfdfJg7UOdl5BNxWeaJ
- ax4Q==
-X-Gm-Message-State: AOAM532+1rJi6ANMcZIa18mBYu581/jWj63D5/p+ToYTgDpEfaOyXIZi
- 322CTsuUV4+S6+wSCkeFtw0=
-X-Google-Smtp-Source: ABdhPJz8bfye41WEhIX9/xqd6YYm5XjcAztO5XSkZbx7P7sB9hVbj/qA+k0anlgMlRBA4tPUQ+Ovng==
-X-Received: by 2002:a19:e03:: with SMTP id 3mr1246760lfo.488.1600768742279;
- Tue, 22 Sep 2020 02:59:02 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id e14sm3630115ljp.15.2020.09.22.02.59.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2020 02:59:01 -0700 (PDT)
-Subject: Re: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature common
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-3-git-send-email-olekstysh@gmail.com>
- <7de88222-1a45-7bff-0b45-95f76b4ec019@suse.com>
- <51856cdc-54b4-3d39-bd7b-1b6ac3fc1736@gmail.com>
- <bf128337-699f-5942-b387-aa896000700c@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <97b48017-55e1-8464-031a-b54dd8e4e474@gmail.com>
-Date: Tue, 22 Sep 2020 12:58:55 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <bf128337-699f-5942-b387-aa896000700c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ id 873950a5-67ee-42b8-bfd8-ade48674eb0a;
+ Tue, 22 Sep 2020 10:06:11 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08MA680f009280; Tue, 22 Sep 2020 10:06:08 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2109.outbound.protection.outlook.com [104.47.18.109])
+ by mx0b-0039f301.pphosted.com with ESMTP id 33na0kese0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 22 Sep 2020 10:06:08 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GlRvMcshCJb+ZoH0C3f3s6M4D+R+IBOPnN40DYuIRQY4uWrIlb7lmRK9G2mGTDbVDmS1+pZ/04uNB9XgM1dHxXoL75+DChfaS2FeqpbTP6TLkfxM2yH7L15kOVn+vBE/mGzNjRzo0J0NhoFFVKM/a+2MCGCsbI1kMv6umhl6tKWyXyxRlOlb71F+yPtGEBmYcXcwkjrRknjlWgENwnM9z0tfWiERmML+NrlS622PIyvulK1tu52ImWsoCSJXxroUKKidLIcZtEmyDvww2UpS6ww9fit/X8oaqbZEwm5XL5Rn58Xc/6riLKUSZKvPUB05RGgkIrCXiX60B469egSjnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4xGz8ACD7altQV86fFw0eW34/75ycOiGwA3kuULxlPk=;
+ b=eONbrpark+qLvDlfilMRk3CXtus5NyrKS8tjFLB3Uru0kkmzlaOXXn3VKJI+Mkldmc5n5pfWd73WNjO6J1CR1PrOgKycTjZ77ah9akPWqtxipiP58jxlpUtKofeXp9ddPouCrzaVh6yTGG+jc7ON82P1YNaPU/A/hGDqwxchTZfPRWmvatJogx3ok9UCW8NGZj7618JH1as+ZFTo/9/qlXJNP8ucke3y+CJJRkLmP9WmWXrG8Blp13Nm+lZpAmIlAFKlSW+ATW+mh0QBoJpCoabW1JAuJ82Y6LIqxLHTKcnxmbJUxHrNx9yVMq5IwPYaE4WIFDv/PfA5Jo/3Layuxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4xGz8ACD7altQV86fFw0eW34/75ycOiGwA3kuULxlPk=;
+ b=0DxF2eVjPZTZUzIoUiIivhUlTE1Ekcr8lQJnKtRrtOFMKNSbbVgJfd68EAQd6J098k0qu4pqU4li4nBClvG34LnaNobF8DmSFrwW+K0tx+z42udHJhoAsHL/VPXgLOqR8XUlA6ZhGHkMW15zRl6aLrbrcEwg59LJuuY9YY6iI7F5vbLts0ijlZGFWcxBRBL7xEGLcQucI7sMO2MkOcKB3irW5CcC0q1kdx6bNPTiRRr34NRU0459vUx6Ruu50rb19WhSGrIK2vqoKOivPbdtHGfNNHmGMs7b7aOpGVjnGVT0VnblvNLJqmkWOJ/aXJKp+6A7ItkxIXLsd9+kJdgm7Q==
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com (2603:10a6:800:17e::20)
+ by VI1PR03MB4669.eurprd03.prod.outlook.com (2603:10a6:803:53::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Tue, 22 Sep
+ 2020 10:05:56 +0000
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0]) by VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0%4]) with mapi id 15.20.3391.024; Tue, 22 Sep 2020
+ 10:05:55 +0000
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Julien Grall <julien@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>, Ian
+ Jackson <ian.jackson@eu.citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [RESEND][PATCH v2 1/7] xen/guest_access: Add emacs magics
+Thread-Topic: [RESEND][PATCH v2 1/7] xen/guest_access: Add emacs magics
+Thread-Index: AQHWZp38moFqv9vHskKF4Z/e70Jnnal0wq4A
+Date: Tue, 22 Sep 2020 10:05:55 +0000
+Message-ID: <87pn6eazy5.fsf@epam.com>
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-2-julien@xen.org>
+In-Reply-To: <20200730181827.1670-2-julien@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.4.10; emacs 27.1
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fe572d3e-c1d9-4501-1ea2-08d85edf18cf
+x-ms-traffictypediagnostic: VI1PR03MB4669:
+x-microsoft-antispam-prvs: <VI1PR03MB4669672BEB5CC8311CC60116E63B0@VI1PR03MB4669.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
+x-ms-exchange-senderadcheck: 1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:9; SRV:;
+ IPV:NLI; SFV:SPM; H:VI1PR03MB6400.eurprd03.prod.outlook.com; PTR:; CAT:OSPM;
+ SFS:(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(478600001)(2616005)(55236004)(86362001)(6506007)(316002)(8676002)(4326008)(5660300002)(2906002)(8936002)(26005)(83380400001)(6916009)(36756003)(6512007)(91956017)(966005)(76116006)(7416002)(4744005)(54906003)(66446008)(64756008)(66556008)(66476007)(66946007)(186003)(6486002)(71200400001);
+ DIR:OUT; SFP:1501; 
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?GfkjG4/v2mF0zK+67VUGtZ9MJ1POndXk/5EVAPh91cQH+UpXhwhpOZvQqM?=
+ =?iso-8859-1?Q?9ZcU0GSZX6uoXmMMNx9IU1FhoQy9gfH0dEx4Ph84L+cBidtgYTYHygK+JL?=
+ =?iso-8859-1?Q?1SDKRydWLVo6UaW+6dUiwMzJpiiUP43A3gSxpc6lABHxTIzkWopUvOUENK?=
+ =?iso-8859-1?Q?36gnWvOvitQI1KPf91ctmZKV35IQXYRJm/J5jy9oBfxDRLZ97ZVKYHaFLi?=
+ =?iso-8859-1?Q?LBnBhrYuYXU9SSI8jlhBjfaiIVWizPoK7mG879RRGq0wftnp9xHswauh1q?=
+ =?iso-8859-1?Q?94eyr0aJOrYKiesbWvpPZoJLCfY8oz1JCWdIj/yCZEOss4H0ol82xw6L7h?=
+ =?iso-8859-1?Q?NPjnLkqUV2rpxMUmFfjMRpvAWga4SlJdWhGER0RA7YV8c1MB/38L77U7WZ?=
+ =?iso-8859-1?Q?OQCNv3BZUBlIOsl77qTWV5fCHmVeCoI4yubOqHORSDLHD7eABCZvuc6PcD?=
+ =?iso-8859-1?Q?za82CBIPidYfEM+u6wV13rW9Q/2iSXbBle2swzAtKCTOTdYhHDvibXWdjN?=
+ =?iso-8859-1?Q?1Btbwn79y+14aXXT4CIsq6Wg03lEfG+JZZk4tclqq3C5TM7kxzG38J2YAR?=
+ =?iso-8859-1?Q?NwVH4XQanzu+QITJs1u62b174sYkWaJiBN7Tf35RL4enUJyH+qJ4CcbWf8?=
+ =?iso-8859-1?Q?lKHsKKp6YA4DvPE9L4RCGLx3JBkb/fxHunuBKbbSrSxlpQAxlMR2zRCKWb?=
+ =?iso-8859-1?Q?Jj/W+0TqN4h9wBGxPwHCOaZbMJhV7v9TR4SUDLkdrpayf5IHI3T8m2tXRx?=
+ =?iso-8859-1?Q?WinRbThpYzI3WiPoKZBbMZl9XPBigLadMpz0lE4norj94gmTSI9Qe0fkdy?=
+ =?iso-8859-1?Q?bis77SuajTEgJ2eprnWSTceIARaYM44m5sHokeXL9ROmPBpR+BUXxkvmhm?=
+ =?iso-8859-1?Q?B35+rpPYgU3A5ZkbfryLxqan8SCDhok+AFbhP+M1X0ksazkhJEQiknsN+9?=
+ =?iso-8859-1?Q?0+pRZjO3lFFZLvNUmytjDshYvlX951Y4Q8WfgRjNH+8wX1bzRB9nlPHgoC?=
+ =?iso-8859-1?Q?WMNJF1pdu3xlmWWW74Q14kFCI++UnIt394cjZZ?=
+x-ms-exchange-antispam-messagedata: 89MHH9LpKQLWoMHiyOrN8JPKIgx3jUyL36bKKf8XQTQ972+sgPRmVDH7pd01HqxNGSH+XYNO0sY8O18B1z6IdVFzQEWesqbMijBZcbp1z5qvfjChHK8K7S6ujODTd2UGB2b9Z7KTD4B+0iEoZMmW5jSqLICtfDpZT98hkB/uam5zwZV/sWATdND7kHOvwp2GrDsBOrA0FD3ZbTICBa0OGFoUvcawlvPMUmjgIRuDQg+ZvrRltmg3xaCuQ06BVUeXx7DUw3dF2d09Y5UJ0diJYi0f3DmgXlkQcVXRMTHtmNfNWRVmcj+DnRNwuqTUserLnaM3KazYQr6YManQ+gViRq7yC+cIK8kcrAARCxoIcD44cCsaaWEDUUNtBr7DYAFVgHg5XCOEJfKOuRZdGdr8cmtghTq4Ves9ADLkhpYw06CtXQMqvb7lnNHkvLYeIC7PeWXWV1XEbr2UkssGVKHxUAW+yjuBSSzO+cZxDtk3h73zuSqYmSqcjaawmRziooshMUNSpXn/QwltGc1Q5eux9WTsk83gHV+IccCoWgMpNiyZtjO3akp/e6ciyD0njUxOvy3b+q02C/QjFQN1HpBQz1mQI3OFhqOagpENboKuwlmnRCb/N9SyT4NL5lt66TSgtwGW5v2ITtiAGbYkK40I2A==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB6400.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe572d3e-c1d9-4501-1ea2-08d85edf18cf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2020 10:05:55.8774 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X0+OjS3qFPZDJgfpEXE6Tak2+8oftd3W1AzY3px2/fOzljzwOUrkydwYP+YTi7DnAwpYNrdMY3NVMOKXDTmsh6fKjxNSqGz4YoWtQ5FoE3Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB4669
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-22_06:2020-09-21,
+ 2020-09-22 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0
+ spamscore=0 bulkscore=0 clxscore=1011 priorityscore=1501 mlxscore=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 mlxlogscore=997
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009220083
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,96 +140,29 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 22.09.20 09:33, Jan Beulich wrote:
+Hi Julie,
 
-Hi Jan
+Julien Grall writes:
 
-> On 21.09.2020 21:02, Oleksandr wrote:
->> On 14.09.20 17:17, Jan Beulich wrote:
->>> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
->>>> --- /dev/null
->>>> +++ b/xen/include/xen/ioreq.h
->>>> @@ -0,0 +1,82 @@
->>>> +/*
->>>> + * ioreq.h: Hardware virtual machine assist interface definitions.
->>>> + *
->>>> + * Copyright (c) 2016 Citrix Systems Inc.
->>>> + *
->>>> + * This program is free software; you can redistribute it and/or modify it
->>>> + * under the terms and conditions of the GNU General Public License,
->>>> + * version 2, as published by the Free Software Foundation.
->>>> + *
->>>> + * This program is distributed in the hope it will be useful, but WITHOUT
->>>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->>>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->>>> + * more details.
->>>> + *
->>>> + * You should have received a copy of the GNU General Public License along with
->>>> + * this program; If not, see <http://www.gnu.org/licenses/>.
->>>> + */
->>>> +
->>>> +#ifndef __IOREQ_H__
->>>> +#define __IOREQ_H__
->>> __XEN_IOREQ_H__ please.
->> ok
->>
->>
->>>> +#include <xen/sched.h>
->>>> +
->>>> +#include <asm/hvm/ioreq.h>
->>> Is this include really needed here (i.e. by the code further down in
->>> the file, and hence by everyone including this header), or rather
->>> just in a few specific .c files?
->> I think, just in few specific .c files. Which are x86/hvm/ioreq.c and
->> common/ioreq.c now and several other files later on (x86/hvm/dm.c,
->> arm/io.c, etc)
->> Shall I include that header in these files instead?
-> Yes please, and please take this as a common guideline. While
-> private headers are often used to include things needed by all
-> of the (typically few) users of the header, non-private ones
-> shouldn't create unnecessary dependencies on other headers. As
-> you've said further up - you did run into hard to resolve
-> header dependencies yourself, and the practice of including
-> headers without strict need is one of the reasons of such
-> problems.
-
-Got it.
-
-
+> From: Julien Grall <jgrall@amazon.com>
 >
->>>> +#define GET_IOREQ_SERVER(d, id) \
->>>> +    (d)->arch.hvm.ioreq_server.server[id]
->>> arch.hvm.* feels like a layering violation when used in this header.
->> Got it. The only reason why GET_IOREQ_SERVER is here is inline
->> get_ioreq_server(). I will make it non-inline and move both to
->> common/ioreq.c.
-> Which won't make the layering violation go away. It's still
-> common rather than per-arch code then. As suggested elsewhere,
-> I think the whole ioreq_server struct wants to move into
-> struct domain itself, perhaps inside a new #ifdef (iirc one of
-> the patches introduces a suitable Kconfig option).
-Well, your advise regarding ioreq_server sounds reasonable, but the 
-common ioreq.c
-still will have other *arch.hvm.* for both vcpu and domain. So looks 
-like other involved structs should be moved
-into *common* struct domain/vcpu itself, correct? Some of them could be 
-moved easily since contain the same fields (arch.hvm.ioreq_gfn),
-but some of them couldn't and seems to require to pull a lot of changes 
-to the Xen code (arch.hvm.params, arch.hvm.hvm_io), I am afraid.
-Or I missed something?
+> Add emacs magics for xen/guest_access.h and
+> asm-x86/guest_access.h.
 
+As Emacs user I fully approve this.
 
-> This goes
-> alongside my suggestion to drop the "hvm" prefixes and infixes
-> from involved function names.
-Well, I assume this request as well as the request above should be 
-addressed in the follow-up patches, as we want to keep the code movement 
-in current patch as (almost) verbatim copy,
-Am I correct?
+But I want to hijack this thread a little to discuss even better
+solution. Emacs supports .dir-locals.el file [1], which allows to set
+all per-buffer variables once for all files down the directory tree. So,
+instead of having "/* Local variables */" scourge in every file we can have
+bunch of ".dir-locals.el" files placed in a strategic places to define
+coding styles for different parts of Xen. As a bonus, it will be
+possible to define Linux coding style for files taken from Linux, for examp=
+le.
 
--- 
-Regards,
+[1] https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Var=
+iables.html
 
-Oleksandr Tyshchenko
-
+--=20
+Volodymyr Babchuk at EPAM=
 
