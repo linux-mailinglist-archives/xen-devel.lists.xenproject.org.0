@@ -2,56 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13979274772
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69FB927477E
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:30:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKm4Q-0001Wr-8O; Tue, 22 Sep 2020 17:27:14 +0000
+	id 1kKm7r-0002Lj-SC; Tue, 22 Sep 2020 17:30:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q32Y=C7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kKm4O-0001Wm-GW
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:27:12 +0000
-X-Inumbo-ID: 714a4b40-9cf2-4035-95fb-5792af33472d
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kKm7p-0002Ks-Qr
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:30:45 +0000
+X-Inumbo-ID: 6ee42aa8-8a60-42aa-a2e3-d6f85eee38e1
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 714a4b40-9cf2-4035-95fb-5792af33472d;
- Tue, 22 Sep 2020 17:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=2mrgG/DnEG8kosuNTpYxOi1MPt4QEu/8duqHXI4rmu0=; b=nJ+tRUeUIe3+A8EfgTjg7NjV5w
- N+AM+kQZ5eq8wyGtGW79asMdOOa+WieDgqj5ExHCdQJ9RZARtaDAP3C28HVJIiTb8w66U0KMb3ZjP
- Sn6MOsT+XkY0f1V/4RzKndj4uBzrYAwoNzoQnFnt4UUfOW5Q/MmdNybmoixZWmcBs9+g=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kKm4M-0004BM-Cd; Tue, 22 Sep 2020 17:27:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kKm4M-0000PF-4e; Tue, 22 Sep 2020 17:27:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kKm4L-0003Z2-VJ; Tue, 22 Sep 2020 17:27:09 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154615-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 6ee42aa8-8a60-42aa-a2e3-d6f85eee38e1;
+ Tue, 22 Sep 2020 17:30:44 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id z19so18958666lfr.4
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 10:30:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=6PZcaEAwgSjtUHG7xbibO6XM9VzE0oaihV0BOI1nbk4=;
+ b=KN54tF4mXYrH7EJ4bZeKKycFkbOhgBD1AbWu0B/85LBczuwG8xF3zgcdPvOFxRVOl8
+ Po+uGxvMjSFZIuh7fGvN/ebFrg/ybCrQ4QI3nM/Vy+42FphaZofq9ejpU4HRUy59pRQ/
+ 5QhZ2oW2/ocnj1VdG45bFJfLoT0rlU0U+dHd/I1zHqLmBPqJ45O6v/u+/iBCVCYsyg0X
+ mmBKUjB7OdNWYy9PsNAM+p1RCoFNPSkEPAnurLCGL6/vntr3Kghj57aj8U46trLQofe5
+ KMvTo3SJdgBbd1LVerkrGcf9yJPI7KC4gpzusD2SPDJezrap2BEAUcxupXmIslisGD6u
+ 8pcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=6PZcaEAwgSjtUHG7xbibO6XM9VzE0oaihV0BOI1nbk4=;
+ b=HL5CjLkk4RyNoxsfkeSjtArphXopXjroZkeJHprvW8Fdp28kByRqj5DZIYDVqZYFYQ
+ ZT5B3V1pD8pTmxH4pWRt5fip4+PdaqK0cg5eWHZcAu1+sdO84d5bepE29AiJaHt+OWIB
+ PRvT7yfnNEHgfz0HwchEKRioQX7rousqBerIZSNo0ArXAMbwup2z/Yvfr1D+vk+exIsJ
+ ZufrQl3PAsyupxRR8OwmsID/TliKn2YwDzm4sEKIm7noO4dSw2W+3a9VhmWcbNRu910w
+ E5b4E+HyHpZOzgIz+6U4L/oG6jDnXsQzbaysQCfwmhp649X9ell6tsSJVtBTaXz0XlGI
+ nUAA==
+X-Gm-Message-State: AOAM533X/aohQZFfXGY2X1M9V6W6BYIwAcgTaHmhzQO6bQMsaoi46OyG
+ y+ZD9Y7XRLfUY+51uunHO8o=
+X-Google-Smtp-Source: ABdhPJyxUe1LxHNpv76Mw0R3dwdzvQn88XS38YT/Up3vNVMO83OG8l9ykMLMpHW5khxqO89XjGDNrQ==
+X-Received: by 2002:a19:ed6:: with SMTP id 205mr1967427lfo.454.1600795843157; 
+ Tue, 22 Sep 2020 10:30:43 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id z7sm3672147lfc.59.2020.09.22.10.30.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2020 10:30:42 -0700 (PDT)
+Subject: Re: [PATCH V1 10/16] xen/mm: Handle properly reference in
+ set_foreign_p2m_entry() on Arm
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Julien Grall <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-11-git-send-email-olekstysh@gmail.com>
+ <110c648d-581c-fd42-5180-7d32653227af@suse.com>
+ <2560b3ad-bd22-af01-29a9-64a2733e568b@xen.org>
+ <9d68bae6-455c-3def-b4f8-12bc25882929@suse.com>
+ <62e56b1e-3a44-8563-84bc-31d39b9cf09f@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <5629c414-3d7d-4122-7825-30a9fac34164@gmail.com>
+Date: Tue, 22 Sep 2020 20:30:41 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 154615: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=2785b2a9e04abc148e1c5259f4faee708ea356f4
-X-Osstest-Versions-That: xen=68a8aa5d7264dcb04b2c56fad24bdd5192fe5394
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 22 Sep 2020 17:27:09 +0000
+In-Reply-To: <62e56b1e-3a44-8563-84bc-31d39b9cf09f@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +92,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154615 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154615/
 
-Failures :-/ but no regressions.
+On 16.09.20 11:55, Julien Grall wrote:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Hi Julien, Jan
 
-version targeted for testing:
- xen                  2785b2a9e04abc148e1c5259f4faee708ea356f4
-baseline version:
- xen                  68a8aa5d7264dcb04b2c56fad24bdd5192fe5394
+>
+>
+> On 16/09/2020 09:52, Jan Beulich wrote:
+>> On 16.09.2020 10:50, Julien Grall wrote:
+>>> On 16/09/2020 08:17, Jan Beulich wrote:
+>>>> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
+>>>>>            for ( i = 0; !rc && i < xmar.nr_frames; i++ )
+>>>>>            {
+>>>>> -            rc = set_foreign_p2m_entry(currd, gfn_list[i],
+>>>>> +            rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
+>>>>> _mfn(mfn_list[i]));
+>>>>
+>>>> Is it going to lead to proper behavior when d == currd, specifically
+>>>> for Arm but also in the abstract model? If you expose this to other
+>>>> than Dom0, this case needs at least considering (and hence mentioning
+>>>> in the description of why it's safe to permit if you don't reject
+>>>> such attempts).
+>>>
+>>> This is already rejected by rcu_lock_remote_domain_by_id().
+>>
+>> Oh, yes, I'm sorry for overlooking this.
+>
+> That's fine, I also overlooked it when I originally wrote the code.
+>
+> @oleksandr, it might be worth mentioning in the commit message and 
+> maybe in the code this subtlety.
 
-Last test of basis   154609  2020-09-22 09:01:22 Z    0 days
-Testing same since   154615  2020-09-22 14:00:26 Z    0 days    1 attempts
+Yes, will do.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+Also the following will be taken into the account:
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+1. Implement arch_refcounts_p2m()
+2. Move function declaration to xen/p2m-common.h
+3. Add const to new parameter
 
 
-Pushing revision :
+-- 
+Regards,
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   68a8aa5d72..2785b2a9e0  2785b2a9e04abc148e1c5259f4faee708ea356f4 -> smoke
+Oleksandr Tyshchenko
+
 
