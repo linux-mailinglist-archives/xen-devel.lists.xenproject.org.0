@@ -2,56 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35C02743ED
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8CA27440B
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:19:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKj56-0002yz-C8; Tue, 22 Sep 2020 14:15:44 +0000
+	id 1kKj8g-0003U4-E3; Tue, 22 Sep 2020 14:19:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Js2O=C7=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kKj54-0002yu-L0
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:15:43 +0000
-X-Inumbo-ID: f2427c6d-e2ff-4e53-b9cc-7ffb2982ea4e
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.216])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pHJL=C7=amazon.com=prvs=5271185ff=sjpark@srs-us1.protection.inumbo.net>)
+ id 1kKj8e-0003Ru-7k
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:19:24 +0000
+X-Inumbo-ID: edb3353e-5ccd-4989-b7a4-9de620a21be2
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2427c6d-e2ff-4e53-b9cc-7ffb2982ea4e;
- Tue, 22 Sep 2020 14:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1600784140;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=0X91Dd5vwO2V1TPQGT83AVfccXZmmlJhlohYr+Aoql8=;
- b=lxfPdj0vXZx5jtRlayxKKmzlb2UApzhuSocxAnUmWAv3K9cJMNL0/7+HVH03VpH/ZT
- aojpnk0rysZAOeFcAA/TdjE/3pCwRrNiuPJtpmu0UFU0kIKdl+4wy/Ejbq4yU2UxLtFv
- 7Mm+SimJeF6zKQ+rvUp2nYmRlwISkkGBezdBU7EIUrvwefk4ObL/HaShNBuzH2eYTjHB
- N8jTv2ukF1VolPFHZqRkTfNGP9JJ9UYKX1VxggNbg57ztBkY9BdCG5ghxbJokVPxpRzx
- ykQV7uccqYVG+ty+lYUBIAm69W6669rdIXQC40mNHoa53pz6lLL7Pmv6C68HFXddfdvE
- fJqA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+n+/A=="
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
- with ESMTPSA id 60ad29w8MEFdElW
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 22 Sep 2020 16:15:39 +0200 (CEST)
-Date: Tue, 22 Sep 2020 16:15:24 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: races in toolstack build
-Message-ID: <20200922161524.79c01229.olaf@aepfle.de>
-In-Reply-To: <fa2ba088-f95d-ce85-b991-793eb4d98f92@suse.com>
-References: <20200922141700.4627df0d.olaf@aepfle.de>
- <fa2ba088-f95d-ce85-b991-793eb4d98f92@suse.com>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+ id edb3353e-5ccd-4989-b7a4-9de620a21be2;
+ Tue, 22 Sep 2020 14:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600784359; x=1632320359;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=OBQsZyJBuiCetLUlZLSO8CKNXhhvxT++kw73YrVj7g0=;
+ b=eSzwF5Y5Qd0gYCwQqJ1ErVWP1mgfIh7cmeXjITq46JveSJt9N4ko9ihe
+ BBgT/Nq1B3E07GeEZq0JyBXjdlmB7yGjack/UnFdnhys1dX8Aj0iqbaUY
+ 2vp7ZdlHQBJlr6GJsieYY2j6GD/eJk7iUmvOiW5YSGKKSThh1he4o4SOY Q=;
+X-IronPort-AV: E=Sophos;i="5.77,291,1596499200"; d="scan'208";a="70117511"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2b-c300ac87.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 22 Sep 2020 14:16:13 +0000
+Received: from EX13D31EUA004.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-c300ac87.us-west-2.amazon.com (Postfix) with ESMTPS
+ id DB8BCA215B; Tue, 22 Sep 2020 14:16:12 +0000 (UTC)
+Received: from u3f2cd687b01c55.ant.amazon.com (10.43.160.137) by
+ EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 22 Sep 2020 14:16:06 +0000
+From: SeongJae Park <sjpark@amazon.com>
+To: <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <jgross@suse.com>
+CC: SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
+ <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
+ <pdurrant@amazon.co.uk>, <linux-block@vger.kernel.org>,
+ <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/3] xen-blk(back|front): Let users disable persistent
+ grants
+Date: Tue, 22 Sep 2020 16:15:46 +0200
+Message-ID: <20200922141549.26154-1-sjpark@amazon.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/uunx4E0Xyv=TK/m6qXBbp6/"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.43.160.137]
+X-ClientProxiedBy: EX13D12UWC001.ant.amazon.com (10.43.162.78) To
+ EX13D31EUA004.ant.amazon.com (10.43.165.161)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -62,44 +69,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---Sig_/uunx4E0Xyv=TK/m6qXBbp6/
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+From: SeongJae Park <sjpark@amazon.de>
 
-Am Tue, 22 Sep 2020 15:51:00 +0200
-schrieb J=C3=BCrgen Gro=C3=9F <jgross@suse.com>:
+Persistent grants feature provides high scalability.  On some small
+systems, however, it could incur data copy overheads[1] and thus it is
+required to be disabled.  But, there is no option to disable it.  For
+the reason, this commit adds module parameters for disabling of the
+feature.
 
-> Is this really a normal upstream build, or do you have any additional
-> patches applied?
+[1] https://wiki.xen.org/wiki/Xen_4.3_Block_Protocol_Scalability
 
-Nothing relevant.
-https://github.com/olafhering/xen/compare/olafhering:olh-base-staging...olh=
--fixes-staging
+Baseline and Complete Git Trees
+===============================
 
-Maybe the build VMs have filesystem issues?
+The patches are based on the v5.9-rc6.  You can also clone the complete
+git tree:
 
-Olaf
+    $ git clone git://github.com/sjp38/linux -b pgrants_disable_v3
 
---Sig_/uunx4E0Xyv=TK/m6qXBbp6/
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+The web is also available:
+https://github.com/sjp38/linux/tree/pgrants_disable_v3
 
------BEGIN PGP SIGNATURE-----
+Patch History
+=============
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl9qBvwACgkQ86SN7mm1
-DoCJRw//UE02ljbgSTWzO5Dk3uNbsvbDKqpFTOVH+brYdx8UmTJRRvkx0TZfBc7l
-74THuuKqYWEEXAAOheLGT9Z1vef7eRKwm+nhQAzgYVM4pGUHuZuN8VJjP/HhxRa9
-IRFWw6e4r3qfm84xmVACyEwjF447AfVJ2N+iStBhPdQDvamaIqt8gCL06I6d03s/
-kMYeYw402EiurwtxRpakJNqzHluq6leJ/dpJeGb8bAn3HwW3SzKw5RmbQmq1RPdY
-dF8/5PNL2HCfynz82026Xe/BjuKHGqF4ZSmZSocUg0ndiUYqpZtqaW2G4hAEgNbS
-L+o872K/cR5vTYP4UKi36GbNfOcaUgdBPdnhTFso1ONuDXf5MhDDe4VszKE0dUcl
-ay84IDIpQj4CBXI75vHOHx+qXQIQDjr9pk2WK57uv2ClLRW8P8teeRnvJSpGEPma
-KPXjZXFywpK8VJxsu41k33ITTAZIlS2WYxym6NutHcV4bd39n/icME5l6qkAsc8G
-uMEjM4k684ToPxPgTf+IatQvA/HJIDVHnqcmOEzgStSZrBWfalz+jwQVj7jFimpn
-gI2IhXLNtb4jLLTsD4AXtVzP7GqUaOLAqgfNpNPmu0sLZ/ETpP5WBzxHbs1Sf0pf
-7saK/OAmyNlNJZ2LuFKTAsbX9/cukPqwY0iGw0Q+Zuuzgh1o+Qw=
-=X8y8
------END PGP SIGNATURE-----
+Changes from v2
+(https://lore.kernel.org/linux-block/20200922105209.5284-1-sjpark@amazon.com/)
+- Avoid race conditions (Roger Pau Monné)
 
---Sig_/uunx4E0Xyv=TK/m6qXBbp6/--
+Changes from v1
+(https://lore.kernel.org/linux-block/20200922070125.27251-1-sjpark@amazon.com/)
+- use 'bool' parameter type (Jürgen Groß)
+- Let blkfront can also disable the feature from its side
+  (Roger Pau Monné)
+- Avoid unnecessary xenbus_printf (Roger Pau Monné)
+- Update frontend parameter doc
+
+
+SeongJae Park (3):
+  xen-blkback: add a parameter for disabling of persistent grants
+  xen-blkfront: add a parameter for disabling of persistent grants
+  xen-blkfront: Apply changed parameter name to the document
+
+ .../ABI/testing/sysfs-driver-xen-blkback      |  9 ++++++++
+ .../ABI/testing/sysfs-driver-xen-blkfront     | 11 +++++++++-
+ drivers/block/xen-blkback/xenbus.c            | 22 ++++++++++++++-----
+ drivers/block/xen-blkfront.c                  | 20 ++++++++++++-----
+ 4 files changed, 50 insertions(+), 12 deletions(-)
+
+-- 
+2.17.1
+
 
