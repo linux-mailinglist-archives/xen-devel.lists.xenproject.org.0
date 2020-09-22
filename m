@@ -2,66 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9252B274655
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 18:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C03F274659
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 18:16:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKkvY-0002YV-Th; Tue, 22 Sep 2020 16:14:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kKky2-0002hw-FO; Tue, 22 Sep 2020 16:16:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=no0J=C7=linux.intel.com=tvrtko.ursulin@srs-us1.protection.inumbo.net>)
- id 1kKkvW-0002YQ-Sf
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 16:13:58 +0000
-X-Inumbo-ID: 4a18c45a-335b-4405-bb92-c0c0b7e468ba
-Received: from mga03.intel.com (unknown [134.134.136.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4a18c45a-335b-4405-bb92-c0c0b7e468ba;
- Tue, 22 Sep 2020 16:13:57 +0000 (UTC)
-IronPort-SDR: iEQKbhiRpGVrdfdFqir3Q+3opX6Q4O7LW7m0dQ3VWNAwQ/2KNgToy16ZNmTV94VyXlxj1nOozL
- jSt5pQadJKwQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="160716840"
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="160716840"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 09:13:55 -0700
-IronPort-SDR: W+rmWqa0xT/ewOCnu96ywZFFN7sCksDJXZ0B8m2eSjjHf9ai3YA0OAm303ILetoqVH5E8M1i2E
- QP+Qxj+EsOlg==
-X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="454544739"
-Received: from atroib-mobl2.ger.corp.intel.com (HELO [10.214.238.184])
- ([10.214.238.184])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 09:13:49 -0700
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
-To: Christoph Hellwig <hch@lst.de>
-Cc: Matthew Wilcox <willy@infradead.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, intel-gfx@lists.freedesktop.org,
- Nitin Gupta <ngupta@vflare.org>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-4-hch@lst.de>
- <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
- <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
- <20200922143141.GA26637@lst.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
-Date: Tue, 22 Sep 2020 17:13:45 +0100
+ <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kKky1-0002hr-MQ
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 16:16:33 +0000
+X-Inumbo-ID: 493baf5b-e21e-45dc-a8b5-9b711d81c97c
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 493baf5b-e21e-45dc-a8b5-9b711d81c97c;
+ Tue, 22 Sep 2020 16:16:32 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id x69so18675777lff.3
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 09:16:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=Q2codj6oy24hUdaEzVp9hzZRJk4q5mhvewYcPYZXJsw=;
+ b=nf8zbAWNiFWuneKQvvEZ9N5LV0D2DhfpH+U39yHcizPa0sST6WhHhzMM+YlCv/12yW
+ LhUtXZbp9+IU5BWh9jg5H/Xp5GkAFBQpwBznA46CKqqLUoRRDeo1PnyAdgJtryv9GW+x
+ geESHqtb6wpvEKw70GapBj52YQYW666XJWpMOBWvXQUzIkqTjdTGPCggs3ntkvFt3lEv
+ BHaoz0MmbY9RibSjh2755jWa0Wessn21xL6fAOdwkj+jGLmI9xJwUYqC1g7GEimMMtc7
+ kYfT25uRWjpl4EXJmvrrrSGnQQOG9xElBrVra7eyOZLcdxjEnHiFSr0vqJ6w3jSKn/7J
+ C1vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=Q2codj6oy24hUdaEzVp9hzZRJk4q5mhvewYcPYZXJsw=;
+ b=Q+UgRyM9eLzdA/VI2k/CYSqlTq3VgcGxqtZxNuqBfnPA/GLJD7gtu6yEysmrPjvhGv
+ sEVjixsp8sMMdo5lLCGUA3cGJcgG5nerooKME+SAFkN3b4zrGcRohYJsGH+JnjLPFTRC
+ 0gpnAUlLCd+ojRVtvN1RySJJ+zpad291ewP+b/+Vz1JBNO4feG32h0Udw2MI3jODVKqY
+ 5PnXM+33hthP0JfMIEKkXCPM9wkMtchX/8jW+gtitSJNNtwOe84JBziW4JtsgUXPA2E1
+ ccNfSfw/Dd0DvNncTpzGlMUJQr6ZHY3WGBTodf3rZAs8NlfIMx5sVIIYpaUrwOGZ78he
+ oIFA==
+X-Gm-Message-State: AOAM530EAdxsnoR7r8mw6L1C07/OgIVXIMELux1bGJkcTSMA1mNL5Q8o
+ GrAF+D/4kBULCma9ZP/BY+o=
+X-Google-Smtp-Source: ABdhPJwHk26vRf0Rm2eMpN1cYOCwBy06TnJnZ4Nq6n3XfDsmVVzzmsYTNzP8zBC5d9bUuLvuHCFuug==
+X-Received: by 2002:ac2:43ce:: with SMTP id u14mr1770561lfl.363.1600791391580; 
+ Tue, 22 Sep 2020 09:16:31 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id u9sm3917235lju.95.2020.09.22.09.16.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2020 09:16:31 -0700 (PDT)
+Subject: Re: [PATCH V1 03/16] xen/ioreq: Make x86's
+ hvm_ioreq_needs_completion() common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
+ <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <25e96f6a-030d-1285-7bdf-54a1ce160423@gmail.com>
+Date: Tue, 22 Sep 2020 19:16:25 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200922143141.GA26637@lst.de>
+In-Reply-To: <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,177 +89,36 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 22/09/2020 15:31, Christoph Hellwig wrote:
-> On Tue, Sep 22, 2020 at 09:23:59AM +0100, Tvrtko Ursulin wrote:
->> If I understood this sub-thread correctly, iterating and freeing the pages
->> via the vmapped ptes, so no need for a
->> shmem_read_mapping_page_gfp loop in shmem_unpin_map looks plausible to me.
->>
->> I did not get the reference to kernel/dma/remap.c though,
-> 
-> What I mean is the code in dma_common_find_pages, which returns the
-> page array for freeing.
+On 14.09.20 17:59, Jan Beulich wrote:
 
-Got it.
+Hi Jan
 
->> and also not sure
->> how to do the error unwind path in shmem_pin_map at which point the
->> allocated vm area hasn't been fully populated yet. Hand-roll the loop
->> walking vm area struct in there?
-> 
-> Yes.  What I originally did (re-created as I didn't save it) would be
-> something like this:
-> 
-> ---
->>From 5605e77cda246df6dd7ded99ec22cb3f341ef5d5 Mon Sep 17 00:00:00 2001
-> From: Christoph Hellwig <hch@lst.de>
-> Date: Wed, 16 Sep 2020 13:54:04 +0200
-> Subject: drm/i915: use vmap in shmem_pin_map
-> 
-> shmem_pin_map somewhat awkwardly reimplements vmap using
-> alloc_vm_area and manual pte setup.  The only practical difference
-> is that alloc_vm_area prefeaults the vmalloc area PTEs, which doesn't
-> seem to be required here (and could be added to vmap using a flag
-> if actually required).
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/gpu/drm/i915/gt/shmem_utils.c | 81 +++++++++------------------
->   1 file changed, 27 insertions(+), 54 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> index 43c7acbdc79dea..7ec6ba4c1065b2 100644
-> --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-> +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> @@ -49,80 +49,53 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
->   	return file;
->   }
->   
-> -static size_t shmem_npte(struct file *file)
-> +static size_t shmem_npages(struct file *file)
->   {
->   	return file->f_mapping->host->i_size >> PAGE_SHIFT;
->   }
->   
-> -static void __shmem_unpin_map(struct file *file, void *ptr, size_t n_pte)
-> -{
-> -	unsigned long pfn;
-> -
-> -	vunmap(ptr);
-> -
-> -	for (pfn = 0; pfn < n_pte; pfn++) {
-> -		struct page *page;
-> -
-> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
-> -						   GFP_KERNEL);
-> -		if (!WARN_ON(IS_ERR(page))) {
-> -			put_page(page);
-> -			put_page(page);
-> -		}
-> -	}
-> -}
-> -
->   void *shmem_pin_map(struct file *file)
->   {
-> -	const size_t n_pte = shmem_npte(file);
-> -	pte_t *stack[32], **ptes, **mem;
+> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
+>> --- a/xen/include/xen/ioreq.h
+>> +++ b/xen/include/xen/ioreq.h
+>> @@ -35,6 +35,13 @@ static inline struct hvm_ioreq_server *get_ioreq_server(const struct domain *d,
+>>       return GET_IOREQ_SERVER(d, id);
+>>   }
+>>   
+>> +static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
+>> +{
+>> +    return ioreq->state == STATE_IOREQ_READY &&
+>> +           !ioreq->data_is_ptr &&
+>> +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
+>> +}
+> While the PIO aspect has been discussed to some length, what about
+> the data_is_ptr concept? I didn't think there were Arm insns fitting
+> this? Instead I thought some other Arm-specific adjustments to the
+> protocol might be needed. At which point the question of course would
+> be in how far ioreq_t as a whole really fits Arm in its current shape.
+I may mistake here but I don't think the "data_is_ptr" is supported.
+It worth mentioning that on Arm, all the accesses to MMIO region will do 
+a single memory access.
+So we set "df" to 0 and "count" to 1. Other ioreq_t fields are in use.
 
-Chris can comment how much he'd miss the 32 page stack shortcut.
-
-> -	struct vm_struct *area;
-> -	unsigned long pfn;
-> -
-> -	mem = stack;
-> -	if (n_pte > ARRAY_SIZE(stack)) {
-> -		mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
-> -		if (!mem)
-> -			return NULL;
-> -	}
-> +	size_t n_pages = shmem_npages(file), i;
-> +	struct page **pages;
-> +	void *vaddr;
->   
-> -	area = alloc_vm_area(n_pte << PAGE_SHIFT, mem);
-> -	if (!area) {
-> -		if (mem != stack)
-> -			kvfree(mem);
-> +	pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
-> +	if (!pages)
->   		return NULL;
-> -	}
-> -
-> -	ptes = mem;
-> -	for (pfn = 0; pfn < n_pte; pfn++) {
-> -		struct page *page;
->   
-> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
-> -						   GFP_KERNEL);
-> -		if (IS_ERR(page))
-> +	for (i = 0; i < n_pages; i++) {
-> +		pages[i] = shmem_read_mapping_page_gfp(file->f_mapping, i,
-> +						       GFP_KERNEL);
-> +		if (IS_ERR(pages[i]))
->   			goto err_page;
-> -
-> -		**ptes++ = mk_pte(page,  PAGE_KERNEL);
->   	}
->   
-> -	if (mem != stack)
-> -		kvfree(mem);
-> -
-> +	vaddr = vmap(pages, n_pages, 0, PAGE_KERNEL);
-> +	if (!vaddr)
-> +		goto err_page;
->   	mapping_set_unevictable(file->f_mapping);
-> -	return area->addr;
-> -
-> +	return vaddr;
-
-Is there something in vmap() preventing us from freeing the pages array 
-here? I can't spot anything that is holding on to the pointer. Or it was 
-just a sketch before you realized we could walk the vm_area?
-
-Also, I may be totally misunderstanding something, but I think you need 
-to assign area->pages manually so shmem_unpin_map can access it below.
-
->   err_page:
-> -	if (mem != stack)
-> -		kvfree(mem);
-> -
-> -	__shmem_unpin_map(file, area->addr, pfn);
-> +	while (--i >= 0)
-> +		put_page(pages[i]);
-> +	kvfree(pages);
->   	return NULL;
->   }
->   
->   void shmem_unpin_map(struct file *file, void *ptr)
->   {
-> +	struct vm_struct *area = find_vm_area(ptr);
-> +	size_t i = shmem_npages(file);
-> +
-> +	if (WARN_ON_ONCE(!area || !area->pages))
-> +		return;
-> +
->   	mapping_clear_unevictable(file->f_mapping);
-> -	__shmem_unpin_map(file, ptr, shmem_npte(file));
-> +	for (i = 0; i < shmem_npages(file); i++)
-> +		put_page(area->pages[i]);
-> +	kvfree(area->pages);
-> +	vunmap(ptr);
-
-Is the verdict from mm experts that we can't use vfree due __free_pages 
-vs put_page differences?
-
-Could we get from ptes to pages, so that we don't have to keep the 
-area->pages array allocated for the duration of the pin?
-
+-- 
 Regards,
 
-Tvrtko
+Oleksandr Tyshchenko
 
->   }
->   
->   static int __shmem_rw(struct file *file, loff_t off,
-> 
 
