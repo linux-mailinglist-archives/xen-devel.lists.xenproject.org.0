@@ -2,79 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8505F2749CD
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 22:06:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4AB2749D5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 22:10:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKoXt-0002z2-5t; Tue, 22 Sep 2020 20:05:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kKocP-0003oR-SW; Tue, 22 Sep 2020 20:10:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kKoXr-0002yj-5C
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 20:05:47 +0000
-X-Inumbo-ID: 60337a7f-d9e4-4532-b17f-98435d0be62c
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 60337a7f-d9e4-4532-b17f-98435d0be62c;
- Tue, 22 Sep 2020 20:05:45 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id c2so15201527ljj.12
- for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 13:05:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=3JPDcZzk6uJCJuEGkOJaVAXdGyJiNhAEoEu9izRRyJ8=;
- b=e7YsSuXQICt0NIk08uc9Fn2C88gPBRVPqlAbIFNxk1kSdHmlXRp7wpvRajgj0c1dnD
- xNpqFCrSNV8uvOMSunpDrQCX8rwNx71QHZbOMgRpVv97+9OS/GSz4umTTladFv0dOvij
- 6pyHZhQWVrRJO3B04NRjdG+hKZDkSB3KmvElWojBfhflVEQ1BQzRCtn/CvlOtthRpN+0
- Zkx1NqR6GiCtBP0KYa7YIEwJzTiym7qXXAQKSsyOkGvWAzUdteljIyEPHRuUG2a9VL6E
- gnpz8VZph5JSJBR2MrS/nSt7qu6f8b9NwFPmE/Re9SFTOd5V3fXl1KapVeBXsDblhc/L
- NoBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=3JPDcZzk6uJCJuEGkOJaVAXdGyJiNhAEoEu9izRRyJ8=;
- b=UuaYYqrFOr1suPHngQp90C+RlGHwMg7N4dEkrSGURXhhDko1luic8DDJtZqlsmNlIQ
- 4kBA7Nb/Qf9SSyEC2SFVqQ8tO1oB/y7j8Py8Ogpo2Y6xcXW6FT4XIreR+Ut+lpB3A3/M
- hbPcYGV+nhgtcINnVmaS1ptj1ZsCxpg0/glm0LtvgCHo/hXhHWGPUtfOjv0/29kioGUM
- 5+B54Oh9Gp6tVvpGfcvkTzuG+vNmn0wdEYwjSjIaSViINOWwghUdUUVIrusoL9YLH8qa
- o/3AlBZ5Nx2c7xqdWkKPSI38StRM2zJnS+bf2l1Eb97ckD2U64AfJ0RFnpvnQHCD75v1
- LKyg==
-X-Gm-Message-State: AOAM532uqxw4i27UpSxWAWb42mrhz3dZgXUfI1ECfgksi0kdoFEqTqIb
- 6I98e877OXGVvrfeSVsj5Oc=
-X-Google-Smtp-Source: ABdhPJy5Ts+NVaCigFJzSeyEffugGfXqV4M5zEPNCkP18A17XJIxJtA3nZGT0PMq6EmDcqshqBKMDA==
-X-Received: by 2002:a2e:99cb:: with SMTP id l11mr2026373ljj.123.1600805144442; 
- Tue, 22 Sep 2020 13:05:44 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id b197sm3830782lfd.251.2020.09.22.13.05.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2020 13:05:43 -0700 (PDT)
-Subject: Re: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() instead of
- cmpxchg()
-To: Julien Grall <julien@xen.org>, paul@xen.org,
- 'Jan Beulich' <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <jgrall@amazon.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-15-git-send-email-olekstysh@gmail.com>
- <44b19ee1-dc34-3a46-0b4b-7196faadcb5c@suse.com>
- <c87089d5-39d2-55e6-5539-97af32c3d6cd@xen.org>
- <002b01d68c09$12df32a0$389d97e0$@xen.org>
- <b43a814a-3788-010e-768b-75211748b05c@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <3e58dc8a-4ecb-1ed5-3179-82f96cc40ca7@gmail.com>
-Date: Tue, 22 Sep 2020 23:05:38 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=BMKS=C7=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1kKocP-0003oM-5J
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 20:10:29 +0000
+X-Inumbo-ID: 7f6df8b7-e141-4628-860d-acb38605fae0
+Received: from hera.aquilenet.fr (unknown [185.233.100.1])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7f6df8b7-e141-4628-860d-acb38605fae0;
+ Tue, 22 Sep 2020 20:10:26 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id 999B3C30;
+ Tue, 22 Sep 2020 22:10:25 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id dp7Ncpw9qDYY; Tue, 22 Sep 2020 22:10:24 +0200 (CEST)
+Received: from function (lfbn-bor-1-56-204.w90-50.abo.wanadoo.fr
+ [90.50.148.204])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 69949BA6;
+ Tue, 22 Sep 2020 22:10:24 +0200 (CEST)
+Received: from samy by function with local (Exim 4.94)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1kKoaC-000Aa9-R3; Tue, 22 Sep 2020 22:08:12 +0200
+Date: Tue, 22 Sep 2020 22:08:12 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ wl@xen.org
+Subject: Re: [PATCH 1/2] mini-os: netfront: retrieve netmask and gateway via
+ extra function
+Message-ID: <20200922200812.exxxucoxj27pe3ob@function>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org, wl@xen.org
+References: <20200922105826.26274-1-jgross@suse.com>
+ <20200922105826.26274-2-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <b43a814a-3788-010e-768b-75211748b05c@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <20200922105826.26274-2-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,62 +66,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Juergen Gross, le mar. 22 sept. 2020 12:58:25 +0200, a ecrit:
+> Commit 1b8ed31f4ce40 ("mini-os: netfront: Read netmask and gateway from
+> Xenstore") modified init_netfront() to take two additional parameters.
+> This broke the Xen build as init_netfront() is used in grub stubdom,
+> too.
+> 
+> So instead of tightly coupling Mini-OS and Xen build via this interface
+> modification undo this change of init_netfront() and add two other
+> functions for retrieving the netmask and gateway for a network device.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-On 16.09.20 12:12, Julien Grall wrote:
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-Hi all.
-
->
->
-> On 16/09/2020 10:09, Paul Durrant wrote:
->>> -----Original Message-----
->>> From: Julien Grall <julien@xen.org>
->>> Sent: 16 September 2020 10:07
->>> To: Jan Beulich <jbeulich@suse.com>; Oleksandr Tyshchenko 
->>> <olekstysh@gmail.com>
->>> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko 
->>> <oleksandr_tyshchenko@epam.com>; Paul Durrant
->>> <paul@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Julien 
->>> Grall <jgrall@amazon.com>
->>> Subject: Re: [PATCH V1 14/16] xen/ioreq: Use guest_cmpxchg64() 
->>> instead of cmpxchg()
->>>
->>>
->>>
->>> On 16/09/2020 10:04, Jan Beulich wrote:
->>>> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
->>>>> @@ -1325,7 +1327,7 @@ static int hvm_send_buffered_ioreq(struct 
->>>>> hvm_ioreq_server *s, ioreq_t *p)
->>>>>
->>>>>            new.read_pointer = old.read_pointer - n * 
->>>>> IOREQ_BUFFER_SLOT_NUM;
->>>>>            new.write_pointer = old.write_pointer - n * 
->>>>> IOREQ_BUFFER_SLOT_NUM;
->>>>> -        cmpxchg(&pg->ptrs.full, old.full, new.full);
->>>>> +        guest_cmpxchg64(d, &pg->ptrs.full, old.full, new.full);
->>>>
->>>> But the memory we're updating is shared with s->emulator, not with d,
->>>> if I'm not mistaken.
->>>
->>> It is unfortunately shared with both s->emulator and d when using the
->>> legacy interface.
->>
->> When using magic pages they should be punched out of the P2M by the 
->> time the code gets here, so the memory should not be guest-visible.
->
-> Can you point me to the code that doing this?
->
-> Cheers,
->
-If we are not going to use legacy interface on Arm we will have a page 
-to be mapped in a single domain at the time.
-
-I will update patch to use "s->emulator" if no objections.
-
+> ---
+>  include/netfront.h |  4 +++-
+>  lwip-net.c         |  4 +++-
+>  netfront.c         | 21 +++++++++++++++------
+>  test.c             |  2 +-
+>  4 files changed, 22 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/netfront.h b/include/netfront.h
+> index bc3080e..ec641c8 100644
+> --- a/include/netfront.h
+> +++ b/include/netfront.h
+> @@ -7,7 +7,9 @@ struct netfront_dev *init_netfront(char *nodename,
+>                                     void (*netif_rx)(unsigned char *data,
+>                                                      int len, void* arg),
+>                                     unsigned char rawmac[6],
+> -                                   char **ip, char **mask, char **gw);
+> +                                   char **ip);
+> +char *netfront_get_netmask(struct netfront_dev *dev);
+> +char *netfront_get_gateway(struct netfront_dev *dev);
+>  void netfront_xmit(struct netfront_dev *dev, unsigned char* data,int len);
+>  void shutdown_netfront(struct netfront_dev *dev);
+>  void suspend_netfront(void);
+> diff --git a/lwip-net.c b/lwip-net.c
+> index 80d1c8f..7e0d871 100644
+> --- a/lwip-net.c
+> +++ b/lwip-net.c
+> @@ -347,7 +347,9 @@ void start_networking(void)
+>  
+>    tprintk("Waiting for network.\n");
+>  
+> -  dev = init_netfront(NULL, NULL, rawmac, &ip, &netmask_str, &gw_str);
+> +  dev = init_netfront(NULL, NULL, rawmac, &ip);
+> +  netmask_str = netfront_get_netmask(dev);
+> +  gw_str = netfront_get_gateway(dev);
+>    
+>    if (ip) {
+>      ipaddr.addr = inet_addr(ip);
+> diff --git a/netfront.c b/netfront.c
+> index 205484b..9057908 100644
+> --- a/netfront.c
+> +++ b/netfront.c
+> @@ -65,6 +65,8 @@ struct netfront_dev {
+>  
+>      void (*netif_rx)(unsigned char* data, int len, void* arg);
+>      void *netif_rx_arg;
+> +
+> +    struct netfront_dev_list *ldev;
+>  };
+>  
+>  struct netfront_dev_list {
+> @@ -303,7 +305,7 @@ struct netfront_dev *init_netfront(char *_nodename,
+>                                     void (*thenetif_rx)(unsigned char* data,
+>                                                         int len, void* arg),
+>                                     unsigned char rawmac[6],
+> -                                   char **ip, char **mask, char **gw)
+> +                                   char **ip)
+>  {
+>      char nodename[256];
+>      struct netfront_dev *dev;
+> @@ -347,6 +349,7 @@ struct netfront_dev *init_netfront(char *_nodename,
+>      memset(ldev, 0, sizeof(struct netfront_dev_list));
+>  
+>      if (_init_netfront(dev, ldev->rawmac, &(ldev->ip), &(ldev->mask), &(ldev->gw))) {
+> +        dev->ldev = ldev;
+>          ldev->dev = dev;
+>          ldev->refcount = 1;
+>          ldev->next = NULL;
+> @@ -376,15 +379,21 @@ out:
+>  	}
+>      if (ip)
+>          *ip = strdup(ldev->ip);
+> -    if (mask)
+> -        *mask = strdup(ldev->mask);
+> -    if (gw)
+> -        *gw = strdup(ldev->gw);
+>  
+>  err:
+>      return dev;
+>  }
+>  
+> +char *netfront_get_netmask(struct netfront_dev *dev)
+> +{
+> +    return dev->ldev->mask ? strdup(dev->ldev->mask) : NULL;
+> +}
+> +
+> +char *netfront_get_gateway(struct netfront_dev *dev)
+> +{
+> +    return dev->ldev->gw ? strdup(dev->ldev->gw) : NULL;
+> +}
+> +
+>  static struct netfront_dev *_init_netfront(struct netfront_dev *dev,
+>  					   unsigned char rawmac[6],
+>  					   char **ip, char **mask, char **gw)
+> @@ -576,7 +585,7 @@ error:
+>  int netfront_tap_open(char *nodename) {
+>      struct netfront_dev *dev;
+>  
+> -    dev = init_netfront(nodename, NETIF_SELECT_RX, NULL, NULL, NULL, NULL);
+> +    dev = init_netfront(nodename, NETIF_SELECT_RX, NULL, NULL);
+>      if (!dev) {
+>  	printk("TAP open failed\n");
+>  	errno = EIO;
+> diff --git a/test.c b/test.c
+> index 2e5f7f9..42a2666 100644
+> --- a/test.c
+> +++ b/test.c
+> @@ -91,7 +91,7 @@ static struct semaphore net_sem = __SEMAPHORE_INITIALIZER(net_sem, 0);
+>  
+>  static void netfront_thread(void *p)
+>  {
+> -    net_dev = init_netfront(NULL, NULL, NULL, NULL, NULL, NULL);
+> +    net_dev = init_netfront(NULL, NULL, NULL, NULL);
+>      up(&net_sem);
+>  }
+>  #endif
+> -- 
+> 2.26.2
+> 
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Samuel
+<k> faut en profiter, aujourd'hui, les blagues bidon sont à 100 dollars
+ -+- #sos-bourse -+-
 
