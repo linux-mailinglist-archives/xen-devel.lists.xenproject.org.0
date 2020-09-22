@@ -2,54 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C1D274834
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 20:34:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBFA274859
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 20:39:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKn7d-0001oO-8M; Tue, 22 Sep 2020 18:34:37 +0000
+	id 1kKnCC-00025Q-6l; Tue, 22 Sep 2020 18:39:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J35V=C7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kKn7c-0001oJ-Fv
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 18:34:36 +0000
-X-Inumbo-ID: b58b9d75-dd97-46f4-8293-94b653e6d0da
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=cWTz=C7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kKnCA-00025L-8B
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 18:39:18 +0000
+X-Inumbo-ID: 487869cd-4a90-42b8-8305-f404ec22abc8
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b58b9d75-dd97-46f4-8293-94b653e6d0da;
- Tue, 22 Sep 2020 18:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600799675;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=b+c0CfTBNQiJlQlBQvHSife6gvXLhWh6raYBfpFBV5I=;
- b=CiiHomFNVpxsCGjMKLyNXbRx16TRn5nyTKTIwkR+ZlazUCf3VC4lxOtc
- YXLgaZrXyDSpzx3gimw3wLss2x14O0PDVOulLocZtc5W4HUbZ4AxLksCo
- jr3D5PUQVFKRHDDQaKZjNiW6Sh7WAw+wnjqwlMtdJvZRLAcgfsux5xfq8 0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Woh/fzD8R2dGQ5igl0Bm4t3Q9PHj5i/c8IhV2mk4RvW9dpXTjtfl82STgG8kUiXF4uTEXnFJSj
- epOGRSvmbLl5bHJaLwsEjjxVjbLzD3noL/2dJXEq+3fuf8z5k6JSE1tWuvyhPnDpnr2CQMsaDS
- XT7dCYVDdqGDJAVhqf1Bko3Zh9IYnSOfQoGByagbXRn/eSAfaZVOPQy470rVOq3zqsw1FsKCU5
- fLVLoj7XDtegf57dqyPDaYhHf2ObG7AYOHQi+W01tTSSYxS3J3f4Z+GJhVqrYbEcL9N9cRcEeO
- /+U=
-X-SBRS: 2.7
-X-MesageID: 27269883
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,291,1596513600"; d="scan'208";a="27269883"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 11/11] TESTING XTF
-Date: Tue, 22 Sep 2020 19:24:44 +0100
-Message-ID: <20200922182444.12350-12-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200922182444.12350-1-andrew.cooper3@citrix.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+ id 487869cd-4a90-42b8-8305-f404ec22abc8;
+ Tue, 22 Sep 2020 18:39:17 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id z17so19115915lfi.12
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 11:39:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=g6ZJFflUYspZJyNm+y1ruhkkKk/bXIg8OQF1tuKHhq8=;
+ b=FJAI0O2If/Hfop8v33LdHofxMuJDBec1pkU+6ejulEXMqu7J/KEui8b9Zx8q2kx+H6
+ 6iNGkdYwB7dT7rsdJI8MLhhWdOYJM8WUaZkZw5IRrioQKTUx4SvURyX/0PyMw3OJYcUh
+ N5Ld7f/M4CZnnzEJUwik0cTwV+lFZOdJmQ6EUcRc2zHvX/aoP/5cl3/vW9po5EDoF3KC
+ +GhG3Ax4wyI9IMI8UI6iDslkGc7D1FTV6ftA0Ea2/z/k0ORUvsrks5UiVa7NLcrVqTh6
+ Sq3d66c5mZ7OFztG0DKh++FvAGhvk03UjaRJhynviC5D+Af8IGgr9TMtRO9/iqBhfpjP
+ 4oDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=g6ZJFflUYspZJyNm+y1ruhkkKk/bXIg8OQF1tuKHhq8=;
+ b=jA4+U87f/v9zqum2yIFx2z2jiN5L5snfNqfZ6SK8uwAWrFA2xEkz0noHyob3645YzQ
+ 3rsPTueB8RDq0JJzAAKSoSoeshBjAikVZDbnpeCNFVMaM2F/+QrxrnwDXeQIYBnOp0Si
+ ljwS6Do/1iLMKHBuBUotPwxr78jZbSAD+KbkuCRDSrDhx0JKV7AfEp/b9Nl8rTP9v7cT
+ v9NmiJRzW7LsYXC06UrXvokSTfT2kXOTUjN52OlBKLe16v/vfpZvkBMpvJzdRhRIcptw
+ NDBeJBvQSzBG5Hp490gFf9HIpJZ0pTGulHIR7VRbkine9T1UyA3xkwMjj8meWEDidbNv
+ aY3Q==
+X-Gm-Message-State: AOAM53191mEZHdSHvAhpUYtDGaiAR93yLC2/mBQGTeLFZWxDxJob34m2
+ kfDu86YE+2uyaqdfaRG+wYA=
+X-Google-Smtp-Source: ABdhPJz946myM25OVPzpzdCfzlIYsJPyAe5C53Fv/oh3rcMrY/SoNXlaqtZ75xqx5L+a/C74wFM5YA==
+X-Received: by 2002:a19:9141:: with SMTP id y1mr1991628lfj.554.1600799956276; 
+ Tue, 22 Sep 2020 11:39:16 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id l10sm3749770lfg.142.2020.09.22.11.39.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2020 11:39:15 -0700 (PDT)
+Subject: Re: [PATCH V1 11/16] xen/ioreq: Introduce
+ hvm_domain_has_ioreq_server()
+To: paul@xen.org, 'Julien Grall' <julien@xen.org>,
+ 'Jan Beulich' <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
+ 'Julien Grall' <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-12-git-send-email-olekstysh@gmail.com>
+ <93cc6603-44f2-1ceb-997d-cbc51c3ba2c3@suse.com>
+ <002801d68c01$44756ad0$cd604070$@xen.org>
+ <63e51f84-c3ee-a894-5ea2-40cd3b6e26dc@xen.org>
+ <002901d68c05$6e7e89c0$4b7b9d40$@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <93d6c0dc-11ac-fff4-4eda-396a8b8f8e9d@gmail.com>
+Date: Tue, 22 Sep 2020 21:39:14 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <002901d68c05$6e7e89c0$4b7b9d40$@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,97 +91,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Add an arbitrary "resource type 2" which uses "frames" of a fixed format so
-both Xen (for a PVH dom0) and XTF (for a PV dom0) can check the integrity of
-the marshalled buffer.
 
-Skip the hypercall preempt check to allow the compat PVH logic a chance to hit
-the 1020 limit in the XLAT buffer.
+On 16.09.20 11:43, Paul Durrant wrote:
 
-Do not apply.
+Hi all.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
- xen/common/memory.c | 39 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: 16 September 2020 09:39
+>> To: paul@xen.org; 'Jan Beulich' <jbeulich@suse.com>; 'Oleksandr Tyshchenko' <olekstysh@gmail.com>
+>> Cc: xen-devel@lists.xenproject.org; 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>; 'Stefano
+>> Stabellini' <sstabellini@kernel.org>; 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>; 'Andrew
+>> Cooper' <andrew.cooper3@citrix.com>; 'Wei Liu' <wl@xen.org>; 'Roger Pau Monné' <roger.pau@citrix.com>;
+>> 'Julien Grall' <julien.grall@arm.com>
+>> Subject: Re: [PATCH V1 11/16] xen/ioreq: Introduce hvm_domain_has_ioreq_server()
+>>
+>>
+>>
+>> On 16/09/2020 09:13, Paul Durrant wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 16 September 2020 09:05
+>>>> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; Paul Durrant <paul@xen.org>
+>>>> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Stefano
+>>>> Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; Volodymyr Babchuk
+>>>> <Volodymyr_Babchuk@epam.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>;
+>> Roger
+>>>> Pau Monné <roger.pau@citrix.com>; Julien Grall <julien.grall@arm.com>
+>>>> Subject: Re: [PATCH V1 11/16] xen/ioreq: Introduce hvm_domain_has_ioreq_server()
+>>>>
+>>>> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
+>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>
+>>>>> This patch introduces a helper the main purpose of which is to check
+>>>>> if a domain is using IOREQ server(s).
+>>>>>
+>>>>> On Arm the benefit is to avoid calling handle_hvm_io_completion()
+>>>>> (which implies iterating over all possible IOREQ servers anyway)
+>>>>> on every return in leave_hypervisor_to_guest() if there is no active
+>>>>> servers for the particular domain.
+>>>>>
+>>> Is this really worth it? The limit on the number of ioreq serves is small... just 8.
+>> When I suggested this, I failed to realize there was only 8 IOREQ
+>> servers available. However, I would not be surprised if this increase
+>> long term as we want to use
+> If that happens then we'll probably want to move (back to) a list rather than an array...
+>
+>>> I doubt you'd be able measure the difference.
+>> Bear in mind that entry/exit to the hypervisor is pretty "cheap" on Arm
+>> compare to x86. So we want to avoid doing extra work if it is not necessary.
+>>
+> ... which will seamlessly deal with this issue.
 
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index ec276cb9b1..15a8ed253e 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1022,11 +1022,33 @@ static unsigned int resource_max_frames(struct domain *d,
-     case XENMEM_resource_grant_table:
-         return gnttab_resource_max_frames(d, id);
- 
-+    case 2:
-+        return 2900;
-+
-     default:
-         return arch_resource_max_frames(d, type, id);
-     }
- }
- 
-+static int _acquire_2(unsigned int id, unsigned long frame,
-+                      unsigned int nr_frames, xen_pfn_t mfn_list[])
-+{
-+    unsigned int i;
-+
-+    for ( i = 0; i < nr_frames; ++i )
-+    {
-+        mfn_list[i] = 0xdead0000 + frame + i;
-+
-+        /* Simulate some -ERESTARTs */
-+        if ( i && ((frame + i) == 22 ||
-+                   (frame + i) == 37 ||
-+                   (frame + i) == 1040) )
-+            break;
-+    }
-+
-+    return i;
-+}
-+
- /*
-  * Returns -errno on error, or positive in the range [1, nr_frames] on
-  * success.  Returning less than nr_frames contitutes a request for a
-@@ -1041,6 +1063,9 @@ static int _acquire_resource(
-     case XENMEM_resource_grant_table:
-         return gnttab_acquire_resource(d, id, frame, nr_frames, mfn_list);
- 
-+    case 2:
-+        return _acquire_2(id, frame, nr_frames, mfn_list);
-+
-     default:
-         return arch_acquire_resource(d, type, id, frame, nr_frames, mfn_list);
-     }
-@@ -1151,6 +1176,18 @@ static int acquire_resource(
- 
-             for ( i = 0; !rc && i < done; i++ )
-             {
-+                /*
-+                 * For debug type 2, check that the marshalled-in frames are
-+                 * correct, rather than actually inserting them into the P2M.
-+                 */
-+                if ( xmar.type == 2 )
-+                {
-+                    if ( gfn_list[i] != mfn_list[i] )
-+                        panic("gfn %#lx != mfn %#lx, i %lu\n",
-+                              gfn_list[i], mfn_list[i], i + xmar.frame);
-+                    continue;
-+                }
-+
-                 rc = set_foreign_p2m_entry(currd, gfn_list[i],
-                                            _mfn(mfn_list[i]));
-                 /* rc should be -EIO for any iteration other than the first */
-@@ -1172,7 +1209,7 @@ static int acquire_resource(
-          * still got work to do other work is pending.
-          */
-         if ( done < todo ||
--             (xmar.nr_frames && hypercall_preempt_check()) )
-+             (0 && xmar.nr_frames && hypercall_preempt_check()) )
-         {
-             rc = hypercall_create_continuation(
-                 __HYPERVISOR_memory_op, "lh",
+
+Please note that in addition to benefit for the exit part on Arm we 
+could also use this helper to check if domain is using IOREQ here [1]
+to avoid an extra action (send_invalidate_req() call).
+
+[1] https://patchwork.kernel.org/patch/11769143/
+
+
 -- 
-2.11.0
+Regards,
+
+Oleksandr Tyshchenko
 
 
