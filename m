@@ -2,55 +2,135 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17F72749D6
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 22:10:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F27274A33
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 22:37:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKocj-0003sj-6W; Tue, 22 Sep 2020 20:10:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kKp1I-00060U-Be; Tue, 22 Sep 2020 20:36:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BMKS=C7=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1kKoch-0003sQ-Ce
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 20:10:47 +0000
-X-Inumbo-ID: d1a4d7f5-1430-4614-b2b3-bb95a1cc6f1f
-Received: from hera.aquilenet.fr (unknown [185.233.100.1])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d1a4d7f5-1430-4614-b2b3-bb95a1cc6f1f;
- Tue, 22 Sep 2020 20:10:41 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 09D90C30;
- Tue, 22 Sep 2020 22:10:41 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id pxryrwfwi30i; Tue, 22 Sep 2020 22:10:39 +0200 (CEST)
-Received: from function (lfbn-bor-1-56-204.w90-50.abo.wanadoo.fr
- [90.50.148.204])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id AF8B0BA6;
- Tue, 22 Sep 2020 22:10:39 +0200 (CEST)
-Received: from samy by function with local (Exim 4.94)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1kKoaS-000AaP-7w; Tue, 22 Sep 2020 22:08:28 +0200
-Date: Tue, 22 Sep 2020 22:08:28 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
- wl@xen.org
-Subject: Re: [PATCH 2/2] mini-os: netfront: fix suspend/resume handling
-Message-ID: <20200922200828.lh22kzmlgktbooma@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org, wl@xen.org
-References: <20200922105826.26274-1-jgross@suse.com>
- <20200922105826.26274-3-jgross@suse.com>
+ <SRS0=7TWT=C7=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1kKp1G-00060P-4B
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 20:36:10 +0000
+X-Inumbo-ID: 18b57f00-24fc-4c6a-928e-3c398dee06cf
+Received: from mga05.intel.com (unknown [192.55.52.43])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 18b57f00-24fc-4c6a-928e-3c398dee06cf;
+ Tue, 22 Sep 2020 20:36:06 +0000 (UTC)
+IronPort-SDR: ko960nfxeG6ftuNI5C+EppNICdttOEwfpVq7rhcZ8I5EivcJln46J4G6pT3Fdz9Mn7B4fJGtHe
+ UL7ZtDaLix0Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="245540364"
+X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="245540364"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2020 13:36:04 -0700
+IronPort-SDR: J6IALuIGG1SbzJPyFpwBOXIvgQ5BaoWg8iKP6jYf+zngE1c3MMBVe4dvQwmE0905OubSNqYt/c
+ 9xQtKeCKbbyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,291,1596524400"; d="scan'208";a="486113666"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by orsmga005.jf.intel.com with ESMTP; 22 Sep 2020 13:36:04 -0700
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Tue, 22 Sep 2020 13:36:04 -0700
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Tue, 22 Sep 2020 13:36:03 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Tue, 22 Sep 2020 13:36:03 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.107)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Tue, 22 Sep 2020 13:36:00 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ku3y+dY0NSXC+bO47xdvNpp/fjtyiO4A7REj/Gj3ElqF88PDPdngNhskiMXp1xOx1uQJc4q4vHcHPRtFbmITUiBxT+wWQP6u8Odp14wsC8FqhtoDqpN6tyUMgxrYVt5/Z/Lw/t62uiREvAAZ6GSXnNhsX19E3N2elX6MaQaHVQM4dJsWvMsCkD5ISBuYi6a8/DYZmIa5VTaU3NTHLLzwJXmpL/8ds3tR3d2gzsSBvmgM/H0Xx/sTP7J/ZBK8IxzwLVNPdLjVXNho4S80PJBGoF8G+EQt5FbcnmoGLwpw2Mz2kK6nIgQlqH7x3MW7ajwhhpyoZcKoZARh40E2y9fa4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IG6KSoNa9sdFpbG6KKueSP5i0QdsSOqs/ZRvs1BM+kc=;
+ b=WX320QF9PXjPQcW5x26OwwhaUNlmB3GaKvNXoe+8yQhshaq4X1E2WMD/LhNONBYf4zneS+wN298HYgq6Bcszl0mkZTUCBIb2nQn3XRRFb05E4Z8gY91KOIHXGzEnLWWJZUMU+4joqFYJKDZhqtZAoL3/NhX5pYW5mYEMxkBbPAdzVjUQkqvQochKQCNAR/hmKfZ5NCY/ZE4KiZzbr5nCdtG/iP7bD5PXrEyTZn1AFK5ER3K3VW+oV8gKkvy4JDiq51dIlnBXpeiQXCzMvXs6bw3VaI2n+TNYXsApsJ6qulpms7mWc6AfUDW87zHkVJOV74+oIzh6c0DrMX0u6sz2qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IG6KSoNa9sdFpbG6KKueSP5i0QdsSOqs/ZRvs1BM+kc=;
+ b=Pf+DABHgu7IvFZzUNkR4wU2c5xCPNspifrWv2aUiYfkzMxfgReBq5PdwMfy1KQqSH3ADNClYARNnLi++Y1V0+wQazpMFzT8EcoZKV6oZdvj1S1Mi5qQchC4HEOKHBKJqunJ5M2gbi5oEmyd108VgO4ncIrHt5Ois+dr8OcCi9OM=
+Received: from CY4PR11MB0056.namprd11.prod.outlook.com (2603:10b6:910:7c::30)
+ by CY4PR11MB1686.namprd11.prod.outlook.com (2603:10b6:903:30::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.19; Tue, 22 Sep
+ 2020 20:35:59 +0000
+Received: from CY4PR11MB0056.namprd11.prod.outlook.com
+ ([fe80::d8a4:c8e2:c60f:60fa]) by CY4PR11MB0056.namprd11.prod.outlook.com
+ ([fe80::d8a4:c8e2:c60f:60fa%7]) with mapi id 15.20.3326.030; Tue, 22 Sep 2020
+ 20:35:58 +0000
+From: "Lengyel, Tamas" <tamas.lengyel@intel.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+ Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Julien
+ Grall" <julien.grall@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, George Dunlap
+ <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+ <wl@xen.org>
+Subject: RE: [PATCH v4 4/4] xen/mm: Provide dummy M2P-related helpers when
+ !CONFIG_HAVE_M2P
+Thread-Topic: [PATCH v4 4/4] xen/mm: Provide dummy M2P-related helpers when
+ !CONFIG_HAVE_M2P
+Thread-Index: AQHWkEGpuNLDgmCAl02PgO4dghBJ9al0TQsAgACx4YCAAAWXgIAAGbNw
+Date: Tue, 22 Sep 2020 20:35:51 +0000
+Message-ID: <CY4PR11MB00568952734F3643EDEB45B0FB3B0@CY4PR11MB0056.namprd11.prod.outlook.com>
+References: <20200921180214.4842-1-julien@xen.org>
+ <20200921180214.4842-5-julien@xen.org>
+ <26387b5d-97f7-3c6a-ad40-94b144a3b0ae@suse.com>
+ <e0a73d9b-5c68-9b57-dfe4-34e91b0972bd@xen.org>
+ <3778eaa1-c1cc-d458-407f-e5ca3ca028ab@citrix.com>
+In-Reply-To: <3778eaa1-c1cc-d458-407f-e5ca3ca028ab@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+dlp-reaction: no-action
+authentication-results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [73.119.195.42]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 41a568e0-4d00-4120-c1de-08d85f371ca7
+x-ms-traffictypediagnostic: CY4PR11MB1686:
+x-microsoft-antispam-prvs: <CY4PR11MB168641C192B8B42BC3E5371DFB3B0@CY4PR11MB1686.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Hf7Tl036RHi1LLBFi6sKdcCvcp7KQp7io6o42vaQaUHCWbuNiXc5k4khpodkJV9xPcunBtsLkGkmLYuqNYPkyIanjIqH59E0nI9cU825jCZzuykJKLUQyQHu8kmIHIVQRnsJXuhXaWAecsnxE941U3Ca38h1DFZfyDZJbErHk28xLDfUZaP08Yo9S5umSZsl1yvAtgDleJJHoZxVodfz8oL65nBFa2Nj+6vYUyIxuilB04GB0kHc4y6WWZDpmzuoDRjvkg4Q7LwXNMkmfpwDasGBszEgYFCbalIsiPjsrL01XJJqa2ca+g4CRf1LGQWN7MIqql8tiWJeo72UMHtxDw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR11MB0056.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(136003)(396003)(376002)(39860400002)(2906002)(5660300002)(53546011)(26005)(54906003)(478600001)(86362001)(52536014)(6506007)(186003)(7696005)(6666004)(4326008)(66476007)(64756008)(66556008)(71200400001)(76116006)(66946007)(66446008)(8676002)(8936002)(7416002)(83380400001)(110136005)(9686003)(316002)(55016002)(33656002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: huqvT1/VkwW5m5jg7uxZ9BSVTBmXhcm1GmWDJTDNPGIZv+Ei49cKS3bUV+M5rfMipO7iJVscphBCay6dbjbLj+yMpil+vGhj98K1238VEBhMzPsmwvR9ZccDXmLbW0wwAK1Mv+T1p+GHu2TlPyH5VqzNpBXRE0AQ5wxRwsAXuwG5skPZUTiK8O9EC5NvLcymcPQbQaFhsfbQmiMTdviBvBmqf0MQLxSvIJyOOauvIX0dXxhP4GqWtxMFHlVdnM4UT6u2TWoJiU4nNsG0C1hbzVZouvvEQ4zcvL92OueR+pP4Ie77iRBzKlRsnMHLWxCAc2dPAe35+2NFDYnVqTNemV+5jqOXsyzunA4pQZGcZBAmrBJGLGOBFHF/jiYW0xkVOF6l1FLTwlhiWBEiUbvvhaSHH9QF34eebPChxKkCNAyyG0eKHibdlghIYZu9JSuIKe23H6YRV/Emf1Qh/lzfKxCwyCcY8AspUcUr2sCHbkL7R1fa/DuPdxHzRTbMDBjsPpKz9bScer6hBz3nSgQ1uUFvAp/QD0f1KMyIBgvBLAucBYI2nR3ftzgMwprh3rKHIU5QQmsMhkQLVuEcCnEb2mqcg/0czRXKnaaB2exLGtZ20Fjdp7pDwGc2WnPRKRlz70lzGbXM9Nb2lNbTSXBH/g==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200922105826.26274-3-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR11MB0056.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41a568e0-4d00-4120-c1de-08d85f371ca7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2020 20:35:56.6540 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1Qv3zSzJhvTTRV9LFM/G/lsm88/SLbLNfJu54HnJJcfvcPiH5y4Q1EBM1xDMCLg/BPsmUhENR6lH5GO5CLBOTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR11MB1686
+X-OriginatorOrg: intel.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,345 +144,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Juergen Gross, le mar. 22 sept. 2020 12:58:26 +0200, a ecrit:
-> Suspend/resume handling of netfront is completely broken from the
-> beginning. Commit d225f4012d69a1 ("Save/Restore Support: Add
-> suspend/restore support for netfront") introduced a new structure
-> netfront_dev_list referencing the real struct netfront_dev elements.
-> This list is used to setup the devices when resuming again.
-> 
-> Unfortunately the netfront_dev elements are released during suspend,
-> so at resume time those references will be stale.
-> 
-> Fix this whole mess by dropping struct netfront_dev_list again and
-> link the netfront_dev elements directly into a list. When suspending
-> don't free those elements.
-> 
-> The ip-address, netmask and gateway strings can just be released when
-> suspending and reread from xenstore at resume time.
-> 
-> Fixes: d225f4012d69a1 ("Save/Restore Support: Add suspend/restore support for netfront")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-> ---
->  netfront.c | 162 ++++++++++++++++++++++-------------------------------
->  1 file changed, 67 insertions(+), 95 deletions(-)
-> 
-> diff --git a/netfront.c b/netfront.c
-> index 9057908..2075410 100644
-> --- a/netfront.c
-> +++ b/netfront.c
-> @@ -36,6 +36,8 @@ struct net_buffer {
->  };
->  
->  struct netfront_dev {
-> +    int refcount;
-> +
->      domid_t dom;
->  
->      unsigned short tx_freelist[NET_TX_RING_SIZE + 1];
-> @@ -66,27 +68,19 @@ struct netfront_dev {
->      void (*netif_rx)(unsigned char* data, int len, void* arg);
->      void *netif_rx_arg;
->  
-> -    struct netfront_dev_list *ldev;
-> -};
-> -
-> -struct netfront_dev_list {
-> -    struct netfront_dev *dev;
->      unsigned char rawmac[6];
->      char *ip;
->      char *mask;
->      char *gw;
->  
-> -    int refcount;
-> -
-> -    struct netfront_dev_list *next;
-> +    struct netfront_dev *next;
->  };
->  
-> -static struct netfront_dev_list *dev_list = NULL;
-> +static struct netfront_dev *dev_list = NULL;
->  
->  void init_rx_buffers(struct netfront_dev *dev);
-> -static struct netfront_dev *_init_netfront(struct netfront_dev *dev,
-> -                                           unsigned char rawmac[6], char **ip, char **mask, char **gw);
-> -static void _shutdown_netfront(struct netfront_dev *dev);
-> +static struct netfront_dev *_init_netfront(struct netfront_dev *dev);
-> +static int _shutdown_netfront(struct netfront_dev *dev);
->  void netfront_set_rx_handler(struct netfront_dev *dev,
->                               void (*thenetif_rx)(unsigned char *data, int len,
->                                                   void *arg),
-> @@ -276,6 +270,7 @@ static void free_netfront(struct netfront_dev *dev)
->      mask_evtchn(dev->evtchn);
->  
->      free(dev->mac);
-> +    free(dev->ip);
->      free(dev->backend);
->  
->      gnttab_end_access(dev->rx_ring_ref);
-> @@ -309,8 +304,7 @@ struct netfront_dev *init_netfront(char *_nodename,
->  {
->      char nodename[256];
->      struct netfront_dev *dev;
-> -    struct netfront_dev_list *ldev = NULL;
-> -    struct netfront_dev_list *list = NULL;
-> +    struct netfront_dev *list;
->      static int netfrontends = 0;
->  
->      if (!_nodename)
-> @@ -321,10 +315,9 @@ struct netfront_dev *init_netfront(char *_nodename,
->      }
->  
->      /* Check if the device is already initialized */
-> -    for (list = dev_list; list != NULL; list = list->next) {
-> -        if (strcmp(nodename, list->dev->nodename) == 0) {
-> -            list->refcount++;
-> -            dev = list->dev;
-> +    for (dev = dev_list; dev != NULL; dev = dev->next) {
-> +        if (strcmp(nodename, dev->nodename) == 0) {
-> +            dev->refcount++;
->              if (thenetif_rx)
->                  netfront_set_rx_handler(dev, thenetif_rx, NULL);
->              goto out;
-> @@ -345,40 +338,34 @@ struct netfront_dev *init_netfront(char *_nodename,
->      dev->netif_rx = thenetif_rx;
->      dev->netif_rx_arg = NULL;
->  
-> -    ldev = malloc(sizeof(struct netfront_dev_list));
-> -    memset(ldev, 0, sizeof(struct netfront_dev_list));
-> -
-> -    if (_init_netfront(dev, ldev->rawmac, &(ldev->ip), &(ldev->mask), &(ldev->gw))) {
-> -        dev->ldev = ldev;
-> -        ldev->dev = dev;
-> -        ldev->refcount = 1;
-> -        ldev->next = NULL;
-> +    if (_init_netfront(dev)) {
-> +        dev->refcount = 1;
-> +        dev->next = NULL;
->  
->          if (!dev_list) {
-> -            dev_list = ldev;
-> +            dev_list = dev;
->          } else {
->              for (list = dev_list; list->next != NULL; list = list->next)
->                  ;
-> -            list->next = ldev;
-> -		}
-> +            list->next = dev;
-> +        }
->          netfrontends++;
->      } else {
-> -        free(ldev);
->          dev = NULL;
->          goto err;
->      }
->  
->  out:
->      if (rawmac) {
-> -        rawmac[0] = ldev->rawmac[0];
-> -        rawmac[1] = ldev->rawmac[1];
-> -        rawmac[2] = ldev->rawmac[2];
-> -        rawmac[3] = ldev->rawmac[3];
-> -        rawmac[4] = ldev->rawmac[4];
-> -        rawmac[5] = ldev->rawmac[5];
-> +        rawmac[0] = dev->rawmac[0];
-> +        rawmac[1] = dev->rawmac[1];
-> +        rawmac[2] = dev->rawmac[2];
-> +        rawmac[3] = dev->rawmac[3];
-> +        rawmac[4] = dev->rawmac[4];
-> +        rawmac[5] = dev->rawmac[5];
->  	}
->      if (ip)
-> -        *ip = strdup(ldev->ip);
-> +        *ip = strdup(dev->ip);
->  
->  err:
->      return dev;
-> @@ -386,17 +373,15 @@ err:
->  
->  char *netfront_get_netmask(struct netfront_dev *dev)
->  {
-> -    return dev->ldev->mask ? strdup(dev->ldev->mask) : NULL;
-> +    return dev->mask ? strdup(dev->mask) : NULL;
->  }
->  
->  char *netfront_get_gateway(struct netfront_dev *dev)
->  {
-> -    return dev->ldev->gw ? strdup(dev->ldev->gw) : NULL;
-> +    return dev->gw ? strdup(dev->gw) : NULL;
->  }
->  
-> -static struct netfront_dev *_init_netfront(struct netfront_dev *dev,
-> -					   unsigned char rawmac[6],
-> -					   char **ip, char **mask, char **gw)
-> +static struct netfront_dev *_init_netfront(struct netfront_dev *dev)
->  {
->      xenbus_transaction_t xbt;
->      char* err = NULL;
-> @@ -518,6 +503,8 @@ done:
->      {
->          XenbusState state;
->          char path[strlen(dev->backend) + strlen("/state") + 1];
-> +        char *p;
-> +
->          snprintf(path, sizeof(path), "%s/state", dev->backend);
->  
->          xenbus_watch_path_token(XBT_NIL, path, path, &dev->events);
-> @@ -532,26 +519,18 @@ done:
->              goto error;
->          }
->  
-> -        if (ip) {
-> -            char *p;
-> -
-> -            snprintf(path, sizeof(path), "%s/ip", dev->backend);
-> -            xenbus_read(XBT_NIL, path, ip);
-> -
-> -            if (mask) {
-> -                p = strchr(*ip, ' ');
-> -                if (p) {
-> -                    *p++ = '\0';
-> -                    *mask = p;
-> -
-> -                    if (gw) {
-> -                        p = strchr(p, ' ');
-> -                        if (p) {
-> -                            *p++ = '\0';
-> -                            *gw = p;
-> -                        }
-> -                    }
-> -                }
-> +        snprintf(path, sizeof(path), "%s/ip", dev->backend);
-> +        xenbus_read(XBT_NIL, path, &dev->ip);
-> +
-> +        p = strchr(dev->ip, ' ');
-> +        if (p) {
-> +            *p++ = '\0';
-> +            dev->mask = p;
-> +
-> +            p = strchr(p, ' ');
-> +            if (p) {
-> +                *p++ = '\0';
-> +                dev->gw = p;
->              }
->          }
->      }
-> @@ -563,14 +542,13 @@ done:
->      /* Special conversion specifier 'hh' needed for __ia64__. Without
->       * this mini-os panics with 'Unaligned reference'.
->       */
-> -    if (rawmac)
-> -        sscanf(dev->mac,"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
-> -               &rawmac[0],
-> -               &rawmac[1],
-> -               &rawmac[2],
-> -               &rawmac[3],
-> -               &rawmac[4],
-> -               &rawmac[5]);
-> +    sscanf(dev->mac,"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
-> +           &dev->rawmac[0],
-> +           &dev->rawmac[1],
-> +           &dev->rawmac[2],
-> +           &dev->rawmac[3],
-> +           &dev->rawmac[4],
-> +           &dev->rawmac[5]);
->  
->      return dev;
->  
-> @@ -600,38 +578,33 @@ int netfront_tap_open(char *nodename) {
->  
->  void shutdown_netfront(struct netfront_dev *dev)
->  {
-> -    struct netfront_dev_list *list = NULL;
-> -    struct netfront_dev_list *to_del = NULL;
-> +    struct netfront_dev *list;
->  
->      /* Check this is a valid device */
-> -    for (list = dev_list; list != NULL; list = list->next) {
-> -        if (list->dev == dev)
-> -            break;
-> -    }
-> +    for (list = dev_list; list != NULL && list != dev; list = list->next);
->  
->      if (!list) {
->          printk("Trying to shutdown an invalid netfront device (%p)\n", dev);
->          return;
->      }
->  
-> -    list->refcount--;
-> -    if (list->refcount == 0) {
-> -        _shutdown_netfront(dev);
-> +    dev->refcount--;
-> +    if (dev->refcount == 0) {
-> +        if (_shutdown_netfront(dev))
-> +            return;
->  
-> -        to_del = list;
-> -        if (to_del == dev_list) {
-> -            free(to_del);
-> -			dev_list = NULL;
-> +        if (dev == dev_list) {
-> +            dev_list = NULL;
->          } else {
-> -            for (list = dev_list; list->next != to_del; list = list->next)
-> +            for (list = dev_list; list->next != dev; list = list->next)
->                  ;
-> -            list->next = to_del->next;
-> -            free(to_del);
-> +            list->next = dev->next;
->          }
-> +        free_netfront(dev);
->      }
->  }
->  
-> -static void _shutdown_netfront(struct netfront_dev *dev)
-> +static int _shutdown_netfront(struct netfront_dev *dev)
->  {
->      char* err = NULL, *err2;
->      XenbusState state;
-> @@ -692,24 +665,23 @@ close:
->      err2 = xenbus_rm(XBT_NIL, nodename);
->      free(err2);
->  
-> -    if (!err)
-> -        free_netfront(dev);
-> +    return err ? -EBUSY : 0;
->  }
->  
->  void suspend_netfront(void)
->  {
-> -    struct netfront_dev_list *list;
-> +    struct netfront_dev *dev;
->  
-> -    for (list = dev_list; list != NULL; list = list->next)
-> -        _shutdown_netfront(list->dev);
-> +    for (dev = dev_list; dev != NULL; dev = dev->next)
-> +        _shutdown_netfront(dev);
->  }
->  
->  void resume_netfront(void)
->  {
-> -    struct netfront_dev_list *list;
-> +    struct netfront_dev *dev;
->  
-> -    for (list = dev_list; list != NULL; list = list->next)
-> -        _init_netfront(list->dev, NULL, NULL, NULL, NULL);
-> +    for (dev = dev_list; dev != NULL; dev = dev->next)
-> +        _init_netfront(dev);
->  }
->  
->  void init_rx_buffers(struct netfront_dev *dev)
-> -- 
-> 2.26.2
-> 
-
--- 
-Samuel
- tohi.cybercable.fr (212.198.0.3) si une personne se reconnait derriere
- cette adresse que ce soit un pirate ou une victime qu'il se manifeste,
- cette personne pourrait bien etre un petit malin
- -+- Fred in NPC : Mamaaaaan, y a le routeur qui veut me hacker -+-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQW5kcmV3IENvb3BlciA8
+YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4NCj4gU2VudDogVHVlc2RheSwgU2VwdGVtYmVyIDIy
+LCAyMDIwIDM6MDAgUE0NCj4gVG86IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+OyBKYW4g
+QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IENjOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJv
+amVjdC5vcmc7IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+Ow0KPiBTdGVmYW5v
+IFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyBWb2xvZHlteXIgQmFiY2h1aw0K
+PiA8Vm9sb2R5bXlyX0JhYmNodWtAZXBhbS5jb20+OyBHZW9yZ2UgRHVubGFwDQo+IDxnZW9yZ2Uu
+ZHVubGFwQGNpdHJpeC5jb20+OyBJYW4gSmFja3NvbiA8aXdqQHhlbnByb2plY3Qub3JnPjsgV2Vp
+IExpdQ0KPiA8d2xAeGVuLm9yZz47IExlbmd5ZWwsIFRhbWFzIDx0YW1hcy5sZW5neWVsQGludGVs
+LmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2NCA0LzRdIHhlbi9tbTogUHJvdmlkZSBkdW1t
+eSBNMlAtcmVsYXRlZCBoZWxwZXJzDQo+IHdoZW4gIUNPTkZJR19IQVZFX00yUA0KPiANCj4gT24g
+MjIvMDkvMjAyMCAxOTozOSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPiA+IEhpIEphbiwNCj4gPg0K
+PiA+IE9uIDIyLzA5LzIwMjAgMDk6MDIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiA+PiBPbiAyMS4w
+OS4yMDIwIDIwOjAyLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+ID4+PiAtLS0gYS94ZW4vaW5jbHVk
+ZS94ZW4vbW0uaA0KPiA+Pj4gKysrIGIveGVuL2luY2x1ZGUveGVuL21tLmgNCj4gPj4+IEBAIC02
+ODUsNCArNjg1LDE3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBwdXRfcGFnZV9hbGxvY19yZWYoc3Ry
+dWN0DQo+ID4+PiBwYWdlX2luZm8gKnBhZ2UpDQo+ID4+PiDCoMKgwqDCoMKgIH0NCj4gPj4+IMKg
+IH0NCj4gPj4+IMKgICsvKg0KPiA+Pj4gKyAqIER1bW15IGltcGxlbWVudGF0aW9uIG9mIE0yUC1y
+ZWxhdGVkIGhlbHBlcnMgZm9yIGNvbW1vbiBjb2RlDQo+IHdoZW4NCj4gPj4+ICsgKiB0aGUgYXJj
+aGl0ZWN0dXJlIGRvZXNuJ3QgaGF2ZSBhbiBNMlAuDQo+ID4+PiArICovDQo+ID4+PiArI2lmbmRl
+ZiBDT05GSUdfSEFTX00yUA0KPiA+Pj4gKw0KPiA+Pj4gKyNkZWZpbmUgSU5WQUxJRF9NMlBfRU5U
+UlnCoMKgwqDCoMKgwqDCoCAofjBVTCkgI2RlZmluZSBTSEFSRURfTTJQKF9lKQ0KPiA+Pj4gK2Zh
+bHNlDQo+ID4+PiArDQo+ID4+PiArc3RhdGljIGlubGluZSB2b2lkIHNldF9ncGZuX2Zyb21fbWZu
+KHVuc2lnbmVkIGxvbmcgbWZuLCB1bnNpZ25lZA0KPiA+Pj4gbG9uZyBwZm4pIHt9DQo+ID4+DQo+
+ID4+IFdoaWxlIEkgdGhpbmsgdGhpcyB3b3VsZCBiZXR0ZXIgQlVHKCkgb3IgYXQgbGVhc3QNCj4g
+Pj4gQVNTRVJUX1VOUkVBQ0hBQkxFKCksIEkgcmVhbGl6ZSBpdHMgdXNlIGluIHBhZ2VfYWxsb2Mu
+YyBwcmV2ZW50cw0KPiA+PiB0aGlzLiBIb3dldmVyLCBpZiB0aGlzIHdhcyBhIG1hY3JvLCBJIHRo
+aW5rIHRoZSBuZWVkIGZvciBoYXZpbmcNCj4gPj4gSU5WQUxJRF9QMk1fRU5UUlkgd291bGQgdmFu
+aXNoLCBhcyBsb25nIGFzIHRoZSBzdHViIG1hY3JvIGRpZG4ndA0KPiBldmFsdWF0ZSBpdHMgMm5k
+IGFyZ3VtZW50Lg0KPiA+IFRoaXMgaXMgbm90IHZlcnkgZnV0dXJlIHByb29mLi4uIFRoZSBjb3N0
+IG9mIGRlZmluaW5nDQo+ID4gSU5WQUxJRF9NMlBfRU5UUlkgaXMgdmVyeSBtaW5pbWFsIGNvbXBh
+cmUgdG8gdGhlIGRhbWFnZSB0aGF0IG1heQ0KPiA+IHJlc3VsdCBmcm9tIHRoaXMgY2hvaWNlLg0K
+PiA+DQo+ID4+IEknbSBmZWVsaW5nIHNvbWV3aGF0IHVuZWFzeSB3aXRoIHRoZSBTSEFSRURfTTJQ
+KCkgZGVmaW5pdGlvbjogVGhpcw0KPiA+PiB3b3VsZCBzZWVtIHRvIGJldHRlciBiZSB0aWVkIHRv
+IENPTkZJR19NRU1fU0hBUklORyByYXRoZXIgdGhhbiBNMlANCj4gPj4gZXhpc3RlbmNlLg0KPiA+
+DQo+ID4gSSBjYW4gc2VlIHByb3MgYW5kIGNvbnMgaW4gYm90aCBzb2x1dGlvbi4gVG8gbWUgaXQg
+Y29udGFpbnMgdGhlIHdvcmQNCj4gPiAiTTJQIiBzbyBpdCBtYWtlcyBzZW5zZSB0byBiZSBwcm90
+ZWN0ZWQgYnkgSEFTX00yUC4NCj4gPg0KPiA+IElmIHNvbWVvbmUgZWxzZSB0aGluayB0aGF0IGl0
+IHNob3VsZCBiZSBwcm90ZWN0ZWQgYnkNCj4gPiBDT05GSUdfTUVNX1NIQVJJTkcsIHRoZW4gSSB3
+aWxsIGRvIHRoZSBjaGFuZ2UuDQo+ID4NCj4gPiBJIGhhdmUgYWRkZWQgVGFtYXMgdG8gZ2l2ZSBo
+aW0gYW4gb3Bwb3J0dW5pdHkgdG8gc2hhcmUgaGlzIHZpZXcuDQo+IA0KPiBUaGlzIGlzIGNsZWFy
+bHkgZ3VhcmRlZCBieSBIQVNfTTJQIGZpcnN0IGZpcnN0IGFuZCBmb3JlbW9zdC4NCj4gDQo+IEhv
+d2V2ZXIsIHRoZSB3b3JrIHRvIGFjdHVhbGx5IGxldCBNRU1fU0hBUklORyBiZSB0dXJuZWQgb2Zm
+IGluIHRoaXMgcmVnYXJkIGlzDQo+IHJhdGhlciBsYXJnZXIsIGFuZCBub3QgYXBwcm9wcmlhdGUg
+dG8gZGVsYXkgdGhpcyBzZXJpZXMgd2l0aC4NCg0KSSBkb24ndCBzZWUgYW55IGlzc3VlIHdpdGgg
+bWFraW5nIENPTkZJR19NRU1fU0hBUklORyBhbHNvIGRlcGVuZCBvbiBDT05GSUdfSEFTX00yUCwg
+c28gSU1ITyBpdCB3b3VsZCBiZSBlbm91Z2ggdG8gcHV0IGJvdGggYmVoaW5kIHRoYXQuDQoNClRh
+bWFzDQo=
 
