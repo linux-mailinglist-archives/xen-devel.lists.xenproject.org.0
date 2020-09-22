@@ -2,61 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6BA4273D39
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 10:24:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 414ED273D49
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 10:29:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKdau-0005Eh-Mq; Tue, 22 Sep 2020 08:24:12 +0000
+	id 1kKdfG-0005PV-CF; Tue, 22 Sep 2020 08:28:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=no0J=C7=linux.intel.com=tvrtko.ursulin@srs-us1.protection.inumbo.net>)
- id 1kKdat-0005Ec-Bl
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 08:24:11 +0000
-X-Inumbo-ID: f71db207-1279-4876-9395-e2c1b4b92b7f
-Received: from mga17.intel.com (unknown [192.55.52.151])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0tL6=C7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kKdfE-0005PQ-J9
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 08:28:40 +0000
+X-Inumbo-ID: 53f17f65-e5df-4428-9181-0eed4a057bac
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f71db207-1279-4876-9395-e2c1b4b92b7f;
- Tue, 22 Sep 2020 08:24:09 +0000 (UTC)
-IronPort-SDR: Kj+O8oIU7Ny8VDw5csaeZIH1HfqpObmptfVf2O86PMeGDg/NC+ayL8tPlwohec4zkJyP3jZw3o
- UMvE2BkxQslg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="140563440"
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="140563440"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 01:24:08 -0700
-IronPort-SDR: hYPYeshgQ9gLbxA+nGdC2UUT7a+sUMfvmmOdnILx1oZilih/OM+HLuWniJZ+KnDxCiUxxvah+K
- LMJGx+/weQGQ==
-X-IronPort-AV: E=Sophos;i="5.77,290,1596524400"; d="scan'208";a="454404248"
-Received: from atroib-mobl2.ger.corp.intel.com (HELO [10.214.238.184])
- ([10.214.238.184])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2020 01:24:02 -0700
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
-To: Christoph Hellwig <hch@lst.de>, Matthew Wilcox <willy@infradead.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, intel-gfx@lists.freedesktop.org,
- Nitin Gupta <ngupta@vflare.org>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-4-hch@lst.de>
- <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
-Date: Tue, 22 Sep 2020 09:23:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 53f17f65-e5df-4428-9181-0eed4a057bac;
+ Tue, 22 Sep 2020 08:28:39 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600763319;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8UKue6UM3k7rs00oRlc4/xqaO5IBn0HQYNhdMcr1kkc=;
+ b=Jv3/baHUr2WE1SNT33DV3G9xiRPB3xAt4Es9XyYOCWpaWWPrR39yftY004Wv5EiIBej8a9
+ LIC4w4Bhci+CSEnezdnfuBlGpxrm9vxaD1xcp4OQaoRFGvcyyjzPp66UsK160E8muiCPnx
+ wNcYMcmGIjqp2PYAbnsAhLMMw4Oj9Wg=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 81DA4AC82;
+ Tue, 22 Sep 2020 08:29:15 +0000 (UTC)
+Subject: Re: Ping: [PATCH 1/9] build: use if_changed more consistently (and
+ correctly) for prelink*.o
+To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>
+References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
+ <75d94bf1-b419-8a82-2d15-fb02e56109d8@suse.com>
+ <de999174-604d-5874-cf11-4fab15c583d4@suse.com>
+ <43a4240c-baba-ca52-0a9f-a884c0f297be@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f6de6cc3-7bde-6f99-1525-cc046a136a19@suse.com>
+Date: Tue, 22 Sep 2020 10:28:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200922062249.GA30831@lst.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <43a4240c-baba-ca52-0a9f-a884c0f297be@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -72,30 +66,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-On 22/09/2020 07:22, Christoph Hellwig wrote:
-> On Mon, Sep 21, 2020 at 08:11:57PM +0100, Matthew Wilcox wrote:
->> This is awkward.  I'd like it if we had a vfree() variant which called
->> put_page() instead of __free_pages().  I'd like it even more if we
->> used release_pages() instead of our own loop that called put_page().
+On 21.09.2020 13:39, Julien Grall wrote:
+> On 21/09/2020 11:17, Jan Beulich wrote:
+>> On 14.09.2020 12:15, Jan Beulich wrote:
+>>> Switch to $(call if_changed,ld) where possible; presumably not doing so
+>>> in e321576f4047 ("xen/build: start using if_changed") right away was an
+>>> oversight, as it did for Arm in (just) one case. It failed to add
+>>> prelink.o to $(targets), though, causing - judging from the observed
+>>> behavior on x86 - undue rebuilds of the final binary (because of
+>>> prelink.o getting rebuild for $(cmd_prelink.o) being empty, in turn
+>>> because of .prelink.o.cmd not getting read) during "make install-xen".
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>>   xen/arch/arm/Makefile |  4 +++-
+>>>   xen/arch/x86/Makefile | 18 ++++++++++--------
+>>>   2 files changed, 13 insertions(+), 9 deletions(-)
+>>
+>> May I ask for an Arm-side ack (or otherwise) here, please?
 > 
-> Note that we don't need a new vfree variant, we can do this manually if
-> we want, take a look at kernel/dma/remap.c.  But I thought this code
-> intentionally doesn't want to do that to avoid locking in the memory
-> for the pages array.  Maybe the i915 maintainers can clarify.
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-+ Chris & Matt who were involved with this part of i915.
+Thanks. On the Arm side this is actually addressing a (minor) bug,
+so I wonder whether I should queue this up for backporting. Do you
+have an opinion either way?
 
-If I understood this sub-thread correctly, iterating and freeing the 
-pages via the vmapped ptes, so no need for a
-shmem_read_mapping_page_gfp loop in shmem_unpin_map looks plausible to me.
-
-I did not get the reference to kernel/dma/remap.c though, and also not 
-sure how to do the error unwind path in shmem_pin_map at which point the 
-allocated vm area hasn't been fully populated yet. Hand-roll the loop 
-walking vm area struct in there?
-
-Regards,
-
-Tvrtko
+Jan
 
