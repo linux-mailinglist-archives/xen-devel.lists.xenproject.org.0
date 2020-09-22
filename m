@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E4F27479E
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:41:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FDA32747D5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 19:54:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKmHW-0003Nc-Qe; Tue, 22 Sep 2020 17:40:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MP++=C7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kKmHV-0003M1-4T
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:40:45 +0000
-X-Inumbo-ID: 8b49e4f6-4a2e-4ddf-abb1-e2209a734c32
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8b49e4f6-4a2e-4ddf-abb1-e2209a734c32;
- Tue, 22 Sep 2020 17:40:44 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4A39E20936;
- Tue, 22 Sep 2020 17:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600796443;
- bh=cZxd7YmYl83j6nvWCLMtvhsaIoSia+xi2NyCD6l6C5I=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=Qh6Wptjxwc3bb+oBbcv5RUUF/OlaF/FH9AYVpuJmC6yPZ2v5zwkYzmEIxkwpAjHcm
- vikTPigDRhWOWsaIxsNIJSo9AHtfpEQ8LxoLql9QalO+OoM12JsjUw8lOk5eU1EIwS
- T0x6Up5RTyzvvsBLxNMpA4hMv0+kPf5Ru8uS4yt4=
-Date: Tue, 22 Sep 2020 10:40:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Jan Beulich <jbeulich@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
- George Dunlap <George.Dunlap@eu.citrix.com>
-Subject: Re: Ping: [PATCH 1/9] build: use if_changed more consistently (and
- correctly) for prelink*.o
-In-Reply-To: <d7eb4dce-7f5f-d5de-3b6a-f136f4a7b3b5@xen.org>
-Message-ID: <alpine.DEB.2.21.2009221040300.1495@sstabellini-ThinkPad-T480s>
-References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
- <75d94bf1-b419-8a82-2d15-fb02e56109d8@suse.com>
- <de999174-604d-5874-cf11-4fab15c583d4@suse.com>
- <43a4240c-baba-ca52-0a9f-a884c0f297be@xen.org>
- <f6de6cc3-7bde-6f99-1525-cc046a136a19@suse.com>
- <0a0ab7a6-e448-3ffe-3818-4b97edbffb72@xen.org>
- <070a7b89-28c7-a709-660e-97c3a8a93c94@suse.com>
- <d7eb4dce-7f5f-d5de-3b6a-f136f4a7b3b5@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 1kKmUD-0004vD-7b; Tue, 22 Sep 2020 17:53:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZDRM=C7=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kKmUB-0004v3-J0
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 17:53:51 +0000
+X-Inumbo-ID: 6592c694-0972-44d6-9430-f54c34c62f71
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6592c694-0972-44d6-9430-f54c34c62f71;
+ Tue, 22 Sep 2020 17:53:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=IVLxWPcWbQZyI71ViTcgQRMO0JlDsa1VVDmwU519uUA=; b=QO9fsf2w829iJGORngMe6dXx9H
+ LZTI4aJRZ5Jst/O8w/Ag2JuVR9HAYBifpxyFOoAxu795TXCLSVUcYn/khT+R4xbKFaoYzqKP7sja6
+ 3y2FtvHt9lxCv4UUkyhZY9b+Ly9o5Ta8HEMHJAtpFovHW075VYlZ8D8vD3NZVBTU7aOo=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kKmU5-0004jS-Ut; Tue, 22 Sep 2020 17:53:45 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kKmU5-0003AI-Mx; Tue, 22 Sep 2020 17:53:45 +0000
+Subject: Re: [PATCH v4 1/4] xen: XENMEM_exchange should only be used/compiled
+ for arch supporting PV guest
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>, George Dunlap
+ <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20200921180214.4842-1-julien@xen.org>
+ <20200921180214.4842-2-julien@xen.org>
+ <6e22ec07-d489-33dc-62e7-415e760bb3ea@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <19b0a5af-a4f1-0058-1e36-e4ceaf18216a@xen.org>
+Date: Tue, 22 Sep 2020 18:53:43 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <6e22ec07-d489-33dc-62e7-415e760bb3ea@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,50 +67,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 22 Sep 2020, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 22/09/2020 11:55, Jan Beulich wrote:
-> > On 22.09.2020 11:24, Julien Grall wrote:
-> > > On 22/09/2020 09:28, Jan Beulich wrote:
-> > > > On 21.09.2020 13:39, Julien Grall wrote:
-> > > > > On 21/09/2020 11:17, Jan Beulich wrote:
-> > > > > > On 14.09.2020 12:15, Jan Beulich wrote:
-> > > > > > > Switch to $(call if_changed,ld) where possible; presumably not
-> > > > > > > doing so
-> > > > > > > in e321576f4047 ("xen/build: start using if_changed") right away
-> > > > > > > was an
-> > > > > > > oversight, as it did for Arm in (just) one case. It failed to add
-> > > > > > > prelink.o to $(targets), though, causing - judging from the
-> > > > > > > observed
-> > > > > > > behavior on x86 - undue rebuilds of the final binary (because of
-> > > > > > > prelink.o getting rebuild for $(cmd_prelink.o) being empty, in
-> > > > > > > turn
-> > > > > > > because of .prelink.o.cmd not getting read) during "make
-> > > > > > > install-xen".
-> > > > > > > 
-> > > > > > > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > > > > > > ---
-> > > > > > >     xen/arch/arm/Makefile |  4 +++-
-> > > > > > >     xen/arch/x86/Makefile | 18 ++++++++++--------
-> > > > > > >     2 files changed, 13 insertions(+), 9 deletions(-)
-> > > > > > 
-> > > > > > May I ask for an Arm-side ack (or otherwise) here, please?
-> > > > > 
-> > > > > Acked-by: Julien Grall <jgrall@amazon.com>
-> > > > 
-> > > > Thanks. On the Arm side this is actually addressing a (minor) bug,
-> > > 
-> > > Just to confirm, the bug is: Xen will be rebuilt when it is not
-> > > necessary, right?
-> > 
-> > Yes. When building as non-root but installing as root, this would
-> > typically involve an owner change of some of the involved files.
-> > That's how I did notice the issue on x86 (after switching to
-> > if_changed) in the first place.
-> 
-> Thanks for the explanation. I think it would be fine to backport.
-> @Stefano, what do you think?
+Hi Andrew,
 
-I am OK with that
+On 21/09/2020 20:46, Andrew Cooper wrote:
+> On 21/09/2020 19:02, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> XENMEM_exchange can only be used by PV guest but the check is well
+>> hidden in steal_page(). This is because paging_model_external() will
+>> return false only for PV domain.
+>>
+>> To make clearer this is PV only, add a check at the beginning of the
+>> implementation. Take the opportunity to compile out the code if
+>> CONFIG_PV is not set.
+>>
+>> This change will also help a follow-up patch where the gmfn_mfn() will
+>> be completely removed on arch not supporting the M2P.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>
+>> ---
+>>
+>> Jan suggested to #ifdef anything after the check to is_pv_domain().
+>> However, it means to have two block of #ifdef as we can't mix
+>> declaration and code.
+>>
+>> I am actually thinking to move the implementation outside of mm.c in
+>> possibly arch/x86 or a pv specific directory under common. Any opinion?
+> 
+> arch/x86/pv/mm.c, with the case XENMEM_exchange: moving into
+> arch_memory_op().
+> 
+> However, making this happen is incredibly tangled, and we're years
+> overdue a fix here.
+> 
+> Lets go with this for now, and tidying up can come later.
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, however...
+
+Thanks!
+
+> 
+>>
+>>      Changes in v4:
+>>          - Patch added
+>> ---
+>>   xen/common/memory.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>> index 714077c1e597..9300104943b0 100644
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -504,6 +504,7 @@ static bool propagate_node(unsigned int xmf, unsigned int *memflags)
+>>   
+>>   static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>>   {
+>> +#ifdef CONFIG_PV
+>>       struct xen_memory_exchange exch;
+>>       PAGE_LIST_HEAD(in_chunk_list);
+>>       PAGE_LIST_HEAD(out_chunk_list);
+>> @@ -516,6 +517,9 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>>       struct domain *d;
+>>       struct page_info *page;
+>>   
+>> +    if ( !is_pv_domain(d) )
+>> +        return -EOPNOTSUPP;
+>> +
+>>       if ( copy_from_guest(&exch, arg, 1) )
+>>           return -EFAULT;
+>>   
+>> @@ -797,6 +801,9 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+> 
+> ... there are now a load of #ifdef CONFIG_X86 between these two hunks
+> which can be dropped.
+
+I didn't drop them because I wasn't sure whether we wanted to cater 
+future arch.
+
+Anyway, I am happy to do the cleanup :).
+
+Cheers,
+
+-- 
+Julien Grall
 
