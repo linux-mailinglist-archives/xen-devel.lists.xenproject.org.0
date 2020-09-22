@@ -2,41 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D992744C4
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2B52744DB
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:58:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKjfx-0001Ei-DI; Tue, 22 Sep 2020 14:53:49 +0000
+	id 1kKjkS-0001Ug-07; Tue, 22 Sep 2020 14:58:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z9V7=C7=infradead.org=willy@srs-us1.protection.inumbo.net>)
- id 1kKjfw-0001DN-2i
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:53:48 +0000
-X-Inumbo-ID: b12d60e5-7208-4cfe-b475-ab0ea0decd82
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dLPN=C7=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1kKjkQ-0001Ua-GJ
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:58:26 +0000
+X-Inumbo-ID: b3bf928a-d1bf-4aab-9305-44b45340efae
+Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b12d60e5-7208-4cfe-b475-ab0ea0decd82;
- Tue, 22 Sep 2020 14:53:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=PwB7PgSBMCf1i80JEZZeqaAM6Spcvmy9ewYyeFjPsVI=; b=uqlDPU6SPAe3x1DDKo8G1qtut1
- YwG3PA4mc8CLJ1oJyPiko0/UbU5ybdUeleXBeV8YHEyvVNYLAMBaj9YGVnr8/JyuAmcKGkiiTdejs
- bVQysHpa55j4+LiObyETCdlPouw9Nwil/VnTPyLQvh9hBrpeU/Wmc3llTMeW/vjL27ShndfDs1p17
- 1HtwFHqpD+N1OhT15+cuZIdFzM2p+uhSCE063YoA7faH9tQzfuFItic4W+TEbWs9VLsTKgtP5hMCZ
- z1+P1JChn7/bURfHcxuqNO0QLmQHNZ4osoavXcBcFeMSltMsN9VNgTTTzxDcDVb8dMbZA2ChSspNL
- P4owvfJg==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kKjfX-0001op-62; Tue, 22 Sep 2020 14:53:23 +0000
-Date: Tue, 22 Sep 2020 15:53:23 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
+ id b3bf928a-d1bf-4aab-9305-44b45340efae;
+ Tue, 22 Sep 2020 14:58:23 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 0D7F667373; Tue, 22 Sep 2020 16:58:20 +0200 (CEST)
+Date: Tue, 22 Sep 2020 16:58:19 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: boris.ostrovsky@oracle.com
+Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -45,18 +33,17 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  x86@kernel.org, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: Re: [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
-Message-ID: <20200922145323.GG32101@casper.infradead.org>
+Subject: Re: [PATCH 6/6] x86/xen: open code alloc_vm_area in arch_gnttab_valloc
+Message-ID: <20200922145819.GA28420@lst.de>
 References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-4-hch@lst.de>
- <20200921191157.GX32101@casper.infradead.org>
- <20200922062249.GA30831@lst.de>
- <20200922112144.GB32101@casper.infradead.org>
- <20200922143906.GB26664@lst.de>
+ <20200918163724.2511-7-hch@lst.de>
+ <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20200922143906.GB26664@lst.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0833b9a8-5096-d105-a850-1336150eada1@oracle.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,35 +57,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Sep 22, 2020 at 04:39:06PM +0200, Christoph Hellwig wrote:
-> On Tue, Sep 22, 2020 at 12:21:44PM +0100, Matthew Wilcox wrote:
-> > Actually, vfree() will work today; I cc'd you on a documentation update
-> > to make it clear that this is permitted.
+On Mon, Sep 21, 2020 at 04:44:10PM -0400, boris.ostrovsky@oracle.com wrote:
+> This will end up incrementing area->ptes pointer. So perhaps something like
 > 
-> vfree calls __free_pages, the i915 and a lot of other code calls
-> put_page.  They are mostly the same, but not quite and everytime I
-> look into that mess I'm more confused than before.
 > 
-> Can someone in the know write sensible documentation on when to use
-> __free_page(s) vs put_page?
+> pte_t **ptes = area->ptes;
+> 
+> if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
+>                         PAGE_SIZE * nr_frames, gnttab_apply, &ptes)) {
+> 
+>        ...
 
-I started on that, and then I found a bug that's been lurking for 12
-years, so that delayed the documentation somewhat.  The short answer is
-that __free_pages() lets you free non-compound high-order pages while
-put_page() can only free order-0 and compound pages.
+Yeah.  What do you think of this version?  I think it is a little
+cleaner and matches what xenbus does.  At this point it probably should
+be split into a Xen and a alloc_vm_area removal patch, though.
 
-I would really like to overhaul our memory allocation APIs:
+---
+From 74d6b797e049f72b5e9f63f14da6321c4209a792 Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Wed, 16 Sep 2020 16:09:42 +0200
+Subject: x86/xen: open code alloc_vm_area in arch_gnttab_valloc
 
-current			new
-__get_free_page(s)	alloc_page(s)
-free_page(s)		free_page(s)
-alloc_page(s)		get_free_page(s)
-__free_pages		put_page_order
+Open code alloc_vm_area in the last remaining caller.
 
-Then put_page() and put_page_order() are more obviously friends.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ arch/x86/xen/grant-table.c | 27 +++++++++++++++------
+ include/linux/vmalloc.h    |  5 +---
+ mm/nommu.c                 |  7 ------
+ mm/vmalloc.c               | 48 --------------------------------------
+ 4 files changed, 21 insertions(+), 66 deletions(-)
 
-But I cannot imagine a world in which Linus says yes to that upheaval.
-He's previous expressed dislike of the get_free_page() family of APIs,
-and thinks all those callers should just use kmalloc().  Maybe we can
-make that transition happen, now that kmalloc() aligns larger allocations.
+diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
+index 4988e19598c8a5..1e681bf62561a0 100644
+--- a/arch/x86/xen/grant-table.c
++++ b/arch/x86/xen/grant-table.c
+@@ -25,6 +25,7 @@
+ static struct gnttab_vm_area {
+ 	struct vm_struct *area;
+ 	pte_t **ptes;
++	int idx;
+ } gnttab_shared_vm_area, gnttab_status_vm_area;
+ 
+ int arch_gnttab_map_shared(unsigned long *frames, unsigned long nr_gframes,
+@@ -90,19 +91,31 @@ void arch_gnttab_unmap(void *shared, unsigned long nr_gframes)
+ 	}
+ }
+ 
++static int gnttab_apply(pte_t *pte, unsigned long addr, void *data)
++{
++	struct gnttab_vm_area *area = data;
++
++	area->ptes[area->idx++] = pte;
++	return 0;
++}
++
+ static int arch_gnttab_valloc(struct gnttab_vm_area *area, unsigned nr_frames)
+ {
+ 	area->ptes = kmalloc_array(nr_frames, sizeof(*area->ptes), GFP_KERNEL);
+ 	if (area->ptes == NULL)
+ 		return -ENOMEM;
+-
+-	area->area = alloc_vm_area(PAGE_SIZE * nr_frames, area->ptes);
+-	if (area->area == NULL) {
+-		kfree(area->ptes);
+-		return -ENOMEM;
+-	}
+-
++	area->area = get_vm_area(PAGE_SIZE * nr_frames, VM_IOREMAP);
++	if (!area->area)
++		goto out_free_ptes;
++	if (apply_to_page_range(&init_mm, (unsigned long)area->area->addr,
++			PAGE_SIZE * nr_frames, gnttab_apply, area))
++		goto out_free_vm_area;
+ 	return 0;
++out_free_vm_area:
++	free_vm_area(area->area);
++out_free_ptes:
++	kfree(area->ptes);
++	return -ENOMEM;
+ }
+ 
+ static void arch_gnttab_vfree(struct gnttab_vm_area *area)
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index 8ecd92a947ee0c..a1a4e2f8163504 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -168,6 +168,7 @@ extern struct vm_struct *__get_vm_area_caller(unsigned long size,
+ 					unsigned long flags,
+ 					unsigned long start, unsigned long end,
+ 					const void *caller);
++void free_vm_area(struct vm_struct *area);
+ extern struct vm_struct *remove_vm_area(const void *addr);
+ extern struct vm_struct *find_vm_area(const void *addr);
+ 
+@@ -203,10 +204,6 @@ static inline void set_vm_flush_reset_perms(void *addr)
+ }
+ #endif
+ 
+-/* Allocate/destroy a 'vmalloc' VM area. */
+-extern struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes);
+-extern void free_vm_area(struct vm_struct *area);
+-
+ /* for /dev/kmem */
+ extern long vread(char *buf, char *addr, unsigned long count);
+ extern long vwrite(char *buf, char *addr, unsigned long count);
+diff --git a/mm/nommu.c b/mm/nommu.c
+index 75a327149af127..9272f30e4c4726 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -354,13 +354,6 @@ void vm_unmap_aliases(void)
+ }
+ EXPORT_SYMBOL_GPL(vm_unmap_aliases);
+ 
+-struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
+-{
+-	BUG();
+-	return NULL;
+-}
+-EXPORT_SYMBOL_GPL(alloc_vm_area);
+-
+ void free_vm_area(struct vm_struct *area)
+ {
+ 	BUG();
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 59f2afcf26c312..9f29147deca580 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3077,54 +3077,6 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
+ }
+ EXPORT_SYMBOL(remap_vmalloc_range);
+ 
+-static int f(pte_t *pte, unsigned long addr, void *data)
+-{
+-	pte_t ***p = data;
+-
+-	if (p) {
+-		*(*p) = pte;
+-		(*p)++;
+-	}
+-	return 0;
+-}
+-
+-/**
+- * alloc_vm_area - allocate a range of kernel address space
+- * @size:	   size of the area
+- * @ptes:	   returns the PTEs for the address space
+- *
+- * Returns:	NULL on failure, vm_struct on success
+- *
+- * This function reserves a range of kernel address space, and
+- * allocates pagetables to map that range.  No actual mappings
+- * are created.
+- *
+- * If @ptes is non-NULL, pointers to the PTEs (in init_mm)
+- * allocated for the VM area are returned.
+- */
+-struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
+-{
+-	struct vm_struct *area;
+-
+-	area = get_vm_area_caller(size, VM_IOREMAP,
+-				__builtin_return_address(0));
+-	if (area == NULL)
+-		return NULL;
+-
+-	/*
+-	 * This ensures that page tables are constructed for this region
+-	 * of kernel virtual address space and mapped into init_mm.
+-	 */
+-	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
+-				size, f, ptes ? &ptes : NULL)) {
+-		free_vm_area(area);
+-		return NULL;
+-	}
+-
+-	return area;
+-}
+-EXPORT_SYMBOL_GPL(alloc_vm_area);
+-
+ void free_vm_area(struct vm_struct *area)
+ {
+ 	struct vm_struct *ret;
+-- 
+2.28.0
+
 
