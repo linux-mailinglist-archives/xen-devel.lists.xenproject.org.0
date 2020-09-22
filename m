@@ -2,49 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C340D2743C8
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:02:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F35C02743ED
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 16:16:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKirs-0001mZ-Sa; Tue, 22 Sep 2020 14:02:04 +0000
+	id 1kKj56-0002yz-C8; Tue, 22 Sep 2020 14:15:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1J9w=C7=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kKii0-0004k4-4L
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 13:51:52 +0000
-X-Inumbo-ID: f3f98077-60a5-41dd-a51f-635f10fdd292
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=Js2O=C7=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kKj54-0002yu-L0
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 14:15:43 +0000
+X-Inumbo-ID: f2427c6d-e2ff-4e53-b9cc-7ffb2982ea4e
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.216])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f3f98077-60a5-41dd-a51f-635f10fdd292;
- Tue, 22 Sep 2020 13:51:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600782661;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oi6bcO2Z0ZXQCW4E2kvYbotzHBDOG60PEFIzDN5c64E=;
- b=l9Vrj2aYb3lMRTc5JHxBhGSLclMvoAhykeXINUA0Eykgl9uqgYlGyH4cV8/LtUOzMynXQu
- R2Cq60NWyJhAL19qcb1Jf/5atIjBDhqhOyRbzKz/JkghKyfAtbhta+sjnj/e8NXRnrRFKl
- lmVdVGU/vzVscn5fVa5vzMglHxF9AZ0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C036DB11D;
- Tue, 22 Sep 2020 13:51:37 +0000 (UTC)
+ id f2427c6d-e2ff-4e53-b9cc-7ffb2982ea4e;
+ Tue, 22 Sep 2020 14:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1600784140;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=0X91Dd5vwO2V1TPQGT83AVfccXZmmlJhlohYr+Aoql8=;
+ b=lxfPdj0vXZx5jtRlayxKKmzlb2UApzhuSocxAnUmWAv3K9cJMNL0/7+HVH03VpH/ZT
+ aojpnk0rysZAOeFcAA/TdjE/3pCwRrNiuPJtpmu0UFU0kIKdl+4wy/Ejbq4yU2UxLtFv
+ 7Mm+SimJeF6zKQ+rvUp2nYmRlwISkkGBezdBU7EIUrvwefk4ObL/HaShNBuzH2eYTjHB
+ N8jTv2ukF1VolPFHZqRkTfNGP9JJ9UYKX1VxggNbg57ztBkY9BdCG5ghxbJokVPxpRzx
+ ykQV7uccqYVG+ty+lYUBIAm69W6669rdIXQC40mNHoa53pz6lLL7Pmv6C68HFXddfdvE
+ fJqA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+n+/A=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
+ with ESMTPSA id 60ad29w8MEFdElW
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 22 Sep 2020 16:15:39 +0200 (CEST)
+Date: Tue, 22 Sep 2020 16:15:24 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org
 Subject: Re: races in toolstack build
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
+Message-ID: <20200922161524.79c01229.olaf@aepfle.de>
+In-Reply-To: <fa2ba088-f95d-ce85-b991-793eb4d98f92@suse.com>
 References: <20200922141700.4627df0d.olaf@aepfle.de>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <fa2ba088-f95d-ce85-b991-793eb4d98f92@suse.com>
-Date: Tue, 22 Sep 2020 15:51:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <fa2ba088-f95d-ce85-b991-793eb4d98f92@suse.com>
+X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20200922141700.4627df0d.olaf@aepfle.de>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/uunx4E0Xyv=TK/m6qXBbp6/"; protocol="application/pgp-signature"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,28 +62,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.09.20 14:17, Olaf Hering wrote:
-> With commit 68a8aa5d72 the build randomly fails. Up to commit c7e3021a71 no errors (like this) are seen. For some reason nothing below tools/ was touched in this range, so the bug may already exist for a while.
-> 
-> attempt on host#1:
-> [   81s] ln: failed to create symbolic link '/home/abuild/rpmbuild/BUILD/xen-4.15.20200922T102230.68a8aa5d72/non-dbg/tools/libs/ctrl/../../../tools/include/xenctrl_dom.h': File exists
+--Sig_/uunx4E0Xyv=TK/m6qXBbp6/
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This is very weird, as the link is created via "ln -sf", so an existing
-target should not make the command failing.
+Am Tue, 22 Sep 2020 15:51:00 +0200
+schrieb J=C3=BCrgen Gro=C3=9F <jgross@suse.com>:
 
-> [   81s] /home/abuild/rpmbuild/BUILD/xen-4.15.20200922T102230.68a8aa5d72/non-dbg/tools/libs/ctrl/../../../tools/libs/libs.mk:82: recipe for target '/home/abuild/rpmbuild/BUILD/xen-4.15.20200922T102230.68a8aa5d72/non-dbg/tools/libs/ctrl/../../../tools/include/xenctrl_compat.h' failed
-> [   81s] make[6]: *** [/home/abuild/rpmbuild/BUILD/xen-4.15.20200922T102230.68a8aa5d72/non-dbg/tools/libs/ctrl/../../../tools/include/xenctrl_compat.h] Error 1
-> 
-> attempt on host#2:
-> [  178s] xenstat_qmp.c:26:10: fatal error: _paths.h: No such file or directory
-> [  178s] me/abuild/rpmbuild/BUILD/xen-4.15.20200922T102230.68a8aa5d72/non-dbg/tools/libs/stat/../../../tools/Rules.mk:153: xenstat_qmp.opic] Error 1
+> Is this really a normal upstream build, or do you have any additional
+> patches applied?
 
-This shouldn't happen, too.
+Nothing relevant.
+https://github.com/olafhering/xen/compare/olafhering:olh-base-staging...olh=
+-fixes-staging
 
-Is this really a normal upstream build, or do you have any additional
-patches applied?
+Maybe the build VMs have filesystem issues?
 
+Olaf
 
-Juergen
+--Sig_/uunx4E0Xyv=TK/m6qXBbp6/
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl9qBvwACgkQ86SN7mm1
+DoCJRw//UE02ljbgSTWzO5Dk3uNbsvbDKqpFTOVH+brYdx8UmTJRRvkx0TZfBc7l
+74THuuKqYWEEXAAOheLGT9Z1vef7eRKwm+nhQAzgYVM4pGUHuZuN8VJjP/HhxRa9
+IRFWw6e4r3qfm84xmVACyEwjF447AfVJ2N+iStBhPdQDvamaIqt8gCL06I6d03s/
+kMYeYw402EiurwtxRpakJNqzHluq6leJ/dpJeGb8bAn3HwW3SzKw5RmbQmq1RPdY
+dF8/5PNL2HCfynz82026Xe/BjuKHGqF4ZSmZSocUg0ndiUYqpZtqaW2G4hAEgNbS
+L+o872K/cR5vTYP4UKi36GbNfOcaUgdBPdnhTFso1ONuDXf5MhDDe4VszKE0dUcl
+ay84IDIpQj4CBXI75vHOHx+qXQIQDjr9pk2WK57uv2ClLRW8P8teeRnvJSpGEPma
+KPXjZXFywpK8VJxsu41k33ITTAZIlS2WYxym6NutHcV4bd39n/icME5l6qkAsc8G
+uMEjM4k684ToPxPgTf+IatQvA/HJIDVHnqcmOEzgStSZrBWfalz+jwQVj7jFimpn
+gI2IhXLNtb4jLLTsD4AXtVzP7GqUaOLAqgfNpNPmu0sLZ/ETpP5WBzxHbs1Sf0pf
+7saK/OAmyNlNJZ2LuFKTAsbX9/cukPqwY0iGw0Q+Zuuzgh1o+Qw=
+=X8y8
+-----END PGP SIGNATURE-----
+
+--Sig_/uunx4E0Xyv=TK/m6qXBbp6/--
 
