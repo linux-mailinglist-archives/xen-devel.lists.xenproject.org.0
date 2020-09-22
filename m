@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C19E274311
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 15:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7E8274336
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 15:34:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKiNk-0001Ke-K0; Tue, 22 Sep 2020 13:30:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MDGT=C7=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kKiNj-0001KI-Hm
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 13:30:55 +0000
-X-Inumbo-ID: 75bd52ec-71d5-4989-9052-3ceabc3ef216
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75bd52ec-71d5-4989-9052-3ceabc3ef216;
- Tue, 22 Sep 2020 13:30:50 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id x14so17050250wrl.12
- for <xen-devel@lists.xenproject.org>; Tue, 22 Sep 2020 06:30:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=ggdKjtuWpSCk++gr+QRvXr189JLC3m1f9EyChAZehoM=;
- b=p3B6b9xX9OI9iF7d0sFCJSPOcaDxaeIFM7a7gbuUz3u3zKTYWkjff8NHorRsIshEzm
- thgxAVhnB6ycfLnFLWiwL8Ahmge8c6Y/bMqjpBklWTAnIe8QMVUVT/jFhL+Kje9lRbJs
- 4cdnjyui0UbiwRTQu/Ky15x1qBtCk2vuhx3Psc4SCQfAKOc4NJaTto4a9UDg60PDxrXo
- 8GxgLmgJKdlTRrMOG0QLV//dEFtgNtzQj0Za/1xv22cT637KB8R7YQ2pbg5N88qrtIDB
- /NyRAJ8uYK7MSWLZWWrjNTiLljQRkcr0rNUyb7ScbeXv3dqtC12alL+eQZnIvcv6vgLy
- POTw==
-X-Gm-Message-State: AOAM530lzRh/fg9MizDGsyvONwfcwPpORlM+M4OtszPkX1qfhDfJ0aGU
- Z40LB1u61rpRI4f3sEX+zp/fC73QTfY=
-X-Google-Smtp-Source: ABdhPJx2bfkS7gnp4Mb3Ehu/vHEsW/Y6/jYjo3uzY6pM95EFBmCVQeRcoUPxw8IiZKP1lmAkitKYXg==
-X-Received: by 2002:a5d:6412:: with SMTP id z18mr5405042wru.30.1600781449153; 
- Tue, 22 Sep 2020 06:30:49 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id d18sm26685178wrm.10.2020.09.22.06.30.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2020 06:30:48 -0700 (PDT)
-Date: Tue, 22 Sep 2020 13:30:47 +0000
-From: Wei Liu <wl@xen.org>
+	id 1kKiRN-0001Ws-6T; Tue, 22 Sep 2020 13:34:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0tL6=C7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kKiRL-0001Wn-JT
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 13:34:39 +0000
+X-Inumbo-ID: f60715e5-070d-477b-a004-7562d8aa980c
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f60715e5-070d-477b-a004-7562d8aa980c;
+ Tue, 22 Sep 2020 13:34:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600781677;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=l4ivjV8nKacoi6cHxlUi030omQdVFl2KqUBN0eyAD/8=;
+ b=WGC0Zuhz7IEbTanDnLyGD8s3FV/NDtAMMe+iuR3jef76Nigncfy9SruhMK+emL4FlDcJcG
+ ovg3GIBeb+ENP07rL0nBCQ2TEK+p9uGhjlagI3ppzmmbYvb2cet/gtKTdywCv5v46GoyQw
+ po39uRXx+n6JUTdw4fl0aq+VH4QuXcE=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 92A20AC65;
+ Tue, 22 Sep 2020 13:35:14 +0000 (UTC)
+Subject: Re: [PATCH 2/5] xen/gnttab: Rework resource acquisition
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Dmitry Fedorov <d.fedorov@tabit.pro>, xen-devel@lists.xenproject.org,
- Ian Jackson <iwj@xenproject.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] libxl: User defined max_maptrack_frames in a stub domain
-Message-ID: <20200922133047.4646b2ab62cszn46@liuwe-devbox-debian-v2>
-References: <602469f5-1028-8f36-7195-f102b6d2af0c@tabit.pro>
- <427bfd62-48c0-5859-7300-c618331b4e5a@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
+ <20200728113712.22966-3-andrew.cooper3@citrix.com>
+ <784bf5c1-be13-2c09-5494-6eb64c400473@suse.com>
+ <17123e43-ca3e-4075-ad36-45e324bb6214@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cab7113e-9d0a-954c-c62d-115d7f734787@suse.com>
+Date: Tue, 22 Sep 2020 15:34:37 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <17123e43-ca3e-4075-ad36-45e324bb6214@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <427bfd62-48c0-5859-7300-c618331b4e5a@citrix.com>
-User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +70,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 14, 2020 at 04:27:45PM +0100, Andrew Cooper wrote:
-> On 14/09/2020 15:50, Dmitry Fedorov wrote:
-> > Hi,
-> >
-> > Implementing qrexec+usbip+qemu in Linux-based stub domain leads me to
-> > an issue where a device model stub domain doesn't have maptrack entries.
-> >
-> > Would it be possible to apply a user defined max_maptrack_frames value
-> > to dm_config in the same way as for max_grant_frames?
-> >
-> > Signed-off-by: Dmitry Fedorov <d.fedorov@tabit.pro>
+On 22.09.2020 15:10, Andrew Cooper wrote:
+> On 29/07/2020 21:02, Jan Beulich wrote:
+>> On 28.07.2020 13:37, Andrew Cooper wrote:
+>>> --- a/xen/common/grant_table.c
+>>> +++ b/xen/common/grant_table.c
+>>> @@ -4013,6 +4013,72 @@ static int gnttab_get_shared_frame_mfn(struct
+>>> domain *d,
+>>> Â Â Â Â Â  return 0;
+>>> Â  }
+>>> Â  +int gnttab_acquire_resource(
+>>> +Â Â Â  struct domain *d, unsigned int id, unsigned long frame,
+>>> +Â Â Â  unsigned int nr_frames, xen_pfn_t mfn_list[])
+>>> +{
+>>> +Â Â Â  struct grant_table *gt = d->grant_table;
+>>> +Â Â Â  unsigned int i = nr_frames, tot_frames;
+>>> +Â Â Â  void **vaddrs;
+>>> +Â Â Â  int rc = 0;
+>>> +
+>>> +Â Â Â  /* Input sanity. */
+>>> +Â Â Â  if ( !nr_frames )
+>>> +Â Â Â Â Â Â Â  return -EINVAL;
+>>
+>> I can't seem to be able to find an equivalent of this in the old logic,
+>> and hence this looks like an unwarranted change in behavior to me. We
+>> have quite a few hypercall ops where some count being zero is simply
+>> a no-op, i.e. yielding success without doing anything.
 > 
-> This looks entirely reasonable.
+> There is no possible circumstance when getting here requesting 0 is
+> legitimate.
 > 
-> CC'ing the maintainers for their opinion.
-> 
+> Tolerating a zero input for a mapping request is a very expensive way of
+> hiding caller bugs.
 
-Looks fine to me.
+That's just one possible view. There are people thinking that
+some extra runtime overhead doesn't outweigh the "clutter" of
+extra conditionals in their code, and hence would rather avoid
+checking if some calculation of theirs yielded zero before
+making a hypercall. I think we should try to consistently
+regard counts of zero as "nothing to do" in all our hypercalls.
 
-Acked-by: Wei Liu <wl@xen.org>
+> Most importantly however, the correctness of the logic does depends on
+> nr_frames being nonzero.
 
-> ~Andrew
-> 
-> > ---
-> >  tools/libxl/libxl_dm.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
-> > index f2dc5696b9..f044f2566c 100644
-> > --- a/tools/libxl/libxl_dm.c
-> > +++ b/tools/libxl/libxl_dm.c
-> > @@ -2292,7 +2292,7 @@ void libxl__spawn_stub_dm(libxl__egc *egc,
-> > libxl__stub_dm_spawn_state *sdss)
-> >      dm_config->b_info.target_memkb = dm_config->b_info.max_memkb;
-> >
-> >      dm_config->b_info.max_grant_frames =
-> > guest_config->b_info.max_grant_frames;
-> > -    dm_config->b_info.max_maptrack_frames = 0;
-> > +    dm_config->b_info.max_maptrack_frames =
-> > guest_config->b_info.max_maptrack_frames;
-> >
-> >      dm_config->b_info.u.pv.features = "";
-> >
-> > -- 
-> > 2.26.2
-> >
-> >
-> 
+I didn't mean to ask to drop the conditional if it's needed;
+all I'm opposed to is raising an error in this case.
+
+Jan
 
