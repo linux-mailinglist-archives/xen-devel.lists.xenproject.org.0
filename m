@@ -2,48 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AAD27403A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 12:58:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E1D8274088
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Sep 2020 13:14:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKg0V-0002j1-Oi; Tue, 22 Sep 2020 10:58:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1J9w=C7=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kKg0U-0002eH-HD
- for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 10:58:46 +0000
-X-Inumbo-ID: 76342151-97be-4589-ba7d-37626c0cc51e
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 76342151-97be-4589-ba7d-37626c0cc51e;
- Tue, 22 Sep 2020 10:58:29 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600772309;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YmJEzG7WE6ySO04WKdM+x0q6b5S1uIVl7WRmYPejCdQ=;
- b=dKVaG9CnFcHwH5IIYZ4o+wPNPBlTRMa9xHVMaOqg/5YJMT9GBrjcbQjBgdwgOBEujNikM1
- RB7G/jp9PAp7vTBkuo/Y5yxgLEOM+IiKJBnaeuvCVQNqLFZaAsR1xhqFpAEFcAjgO8Bp8F
- 31Xz+Nzqd0t/qisYDRJSl584T7qLtMY=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A82E4B22E;
- Tue, 22 Sep 2020 10:59:05 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org, Juergen Gross <jgross@suse.com>
-Subject: [PATCH 2/2] mini-os: netfront: fix suspend/resume handling
-Date: Tue, 22 Sep 2020 12:58:26 +0200
-Message-Id: <20200922105826.26274-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200922105826.26274-1-jgross@suse.com>
-References: <20200922105826.26274-1-jgross@suse.com>
+	id 1kKgEU-0004aL-8D; Tue, 22 Sep 2020 11:13:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oGvm=C7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kKgES-0004aG-U3
+ for xen-devel@lists.xenproject.org; Tue, 22 Sep 2020 11:13:12 +0000
+X-Inumbo-ID: 153c76df-3a6a-4670-a1ca-0518964fd328
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 153c76df-3a6a-4670-a1ca-0518964fd328;
+ Tue, 22 Sep 2020 11:13:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1600773190;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=IQMCrguX0Zu48XQzFFouyUahameKH6iitE40YxYZ2Ck=;
+ b=Ad4/KnXYjW+8Yfw7MbzJ/pvLwfU4VqvOWI7eqFiULTiLpuhB+6NYmaV/
+ Qq+K0lkh886QQweOvvy24RYv5ME28dH6/J1+U+nzz3cxWFkxmIbaF29m/
+ vyZzq+v7n7Kx3BbShr2+xDlBgv1l19b3Ez1J/wa40B6RTLK6qIwiixGGv Q=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: BACWPl6ota1d6f9w/PF7Fb0srce6p1w5a0LPM2qpw0Nh3JdwIjbv4W5m581fIlPGTtRhFT1BOu
+ I6S6aMcVO8UljCouABphIkOT8Yh5G4dWhmKkhDLGehqv/aF0euEaiJC4GNx/zByi+Dd/PwTwlJ
+ BVfr4wg/YLI/HagCZMmRo9D4usP1LXdaKeqdnV7meEsAZweT0EmMW4PqbKXkO8MLUTM+QlW9Ko
+ 3XCvEMs5I0KCnA5V9SaRdoeA3+z16mCwaYKo/yRu0g2sFIuFC6WtPRkIvz6M3xxNKRyD3TlSvv
+ hAs=
+X-SBRS: 2.7
+X-MesageID: 28235081
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,290,1596513600"; d="scan'208";a="28235081"
+Date: Tue, 22 Sep 2020 13:12:59 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: SeongJae Park <sjpark@amazon.com>
+CC: <konrad.wilk@oracle.com>, <jgross@suse.com>, SeongJae Park
+ <sjpark@amazon.de>, <axboe@kernel.dk>, <aliguori@amazon.com>,
+ <amit@kernel.org>, <mheyne@amazon.de>, <pdurrant@amazon.co.uk>,
+ <linux-block@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] xen-blkback: add a parameter for disabling of
+ persistent grants
+Message-ID: <20200922111259.GJ19254@Air-de-Roger>
+References: <20200922105209.5284-1-sjpark@amazon.com>
+ <20200922105209.5284-2-sjpark@amazon.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20200922105209.5284-2-sjpark@amazon.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,334 +72,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Suspend/resume handling of netfront is completely broken from the
-beginning. Commit d225f4012d69a1 ("Save/Restore Support: Add
-suspend/restore support for netfront") introduced a new structure
-netfront_dev_list referencing the real struct netfront_dev elements.
-This list is used to setup the devices when resuming again.
+On Tue, Sep 22, 2020 at 12:52:07PM +0200, SeongJae Park wrote:
+> From: SeongJae Park <sjpark@amazon.de>
+> 
+> Persistent grants feature provides high scalability.  On some small
+> systems, however, it could incur data copy overheads[1] and thus it is
+> required to be disabled.  But, there is no option to disable it.  For
+> the reason, this commit adds a module parameter for disabling of the
+> feature.
+> 
+> [1] https://wiki.xen.org/wiki/Xen_4.3_Block_Protocol_Scalability
+> 
+> Signed-off-by: Anthony Liguori <aliguori@amazon.com>
+> Signed-off-by: SeongJae Park <sjpark@amazon.de>
+> ---
+>  .../ABI/testing/sysfs-driver-xen-blkback      |  9 ++++++
+>  drivers/block/xen-blkback/xenbus.c            | 28 ++++++++++++++-----
+>  2 files changed, 30 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkback b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> index ecb7942ff146..ac2947b98950 100644
+> --- a/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> +++ b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> @@ -35,3 +35,12 @@ Description:
+>                  controls the duration in milliseconds that blkback will not
+>                  cache any page not backed by a grant mapping.
+>                  The default is 10ms.
+> +
+> +What:           /sys/module/xen_blkback/parameters/feature_persistent
+> +Date:           September 2020
+> +KernelVersion:  5.10
+> +Contact:        SeongJae Park <sjpark@amazon.de>
+> +Description:
+> +                Whether to enable the persistent grants feature or not.  Note
+> +                that this option only takes effect on newly created backends.
+> +                The default is Y (enable).
+> diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+> index b9aa5d1ac10b..8a95ddd08b13 100644
+> --- a/drivers/block/xen-blkback/xenbus.c
+> +++ b/drivers/block/xen-blkback/xenbus.c
+> @@ -879,6 +879,12 @@ static void reclaim_memory(struct xenbus_device *dev)
+>  
+>  /* ** Connection ** */
+>  
+> +/* Enable the persistent grants feature. */
+> +static bool feature_persistent = true;
+> +module_param(feature_persistent, bool, 0644);
+> +MODULE_PARM_DESC(feature_persistent,
+> +		"Enables the persistent grants feature");
+> +
+>  /*
+>   * Write the physical details regarding the block device to the store, and
+>   * switch to Connected state.
+> @@ -906,11 +912,15 @@ static void connect(struct backend_info *be)
+>  
+>  	xen_blkbk_barrier(xbt, be, be->blkif->vbd.flush_support);
+>  
+> -	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u", 1);
+> -	if (err) {
+> -		xenbus_dev_fatal(dev, err, "writing %s/feature-persistent",
+> -				 dev->nodename);
+> -		goto abort;
+> +	if (feature_persistent) {
+> +		err = xenbus_printf(xbt, dev->nodename, "feature-persistent",
+> +				"%u", feature_persistent);
+> +		if (err) {
+> +			xenbus_dev_fatal(dev, err,
+> +					"writing %s/feature-persistent",
+> +					dev->nodename);
+> +			goto abort;
+> +		}
+>  	}
+>  
+>  	err = xenbus_printf(xbt, dev->nodename, "sectors", "%llu",
+> @@ -1093,8 +1103,12 @@ static int connect_ring(struct backend_info *be)
+>  		xenbus_dev_fatal(dev, err, "unknown fe protocol %s", protocol);
+>  		return -ENOSYS;
+>  	}
+> -	pers_grants = xenbus_read_unsigned(dev->otherend, "feature-persistent",
+> -					   0);
+> +	if (feature_persistent)
+> +		pers_grants = xenbus_read_unsigned(dev->otherend,
+> +				"feature-persistent", 0);
+> +	else
+> +		pers_grants = 0;
+> +
 
-Unfortunately the netfront_dev elements are released during suspend,
-so at resume time those references will be stale.
+Sorry for not realizing earlier, but looking at it again I think you
+need to cache the value of feature_persistent when it's first used in
+the blkback state data, so that it's consistent.
 
-Fix this whole mess by dropping struct netfront_dev_list again and
-link the netfront_dev elements directly into a list. When suspending
-don't free those elements.
+What would happen for example with the following flow (assume a
+persistent grants enabled frontend):
 
-The ip-address, netmask and gateway strings can just be released when
-suspending and reread from xenstore at resume time.
+feature_persistent = false
 
-Fixes: d225f4012d69a1 ("Save/Restore Support: Add suspend/restore support for netfront")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- netfront.c | 162 ++++++++++++++++++++++-------------------------------
- 1 file changed, 67 insertions(+), 95 deletions(-)
+connect(...)
+feature-persistent is not written to xenstore
 
-diff --git a/netfront.c b/netfront.c
-index 9057908..2075410 100644
---- a/netfront.c
-+++ b/netfront.c
-@@ -36,6 +36,8 @@ struct net_buffer {
- };
- 
- struct netfront_dev {
-+    int refcount;
-+
-     domid_t dom;
- 
-     unsigned short tx_freelist[NET_TX_RING_SIZE + 1];
-@@ -66,27 +68,19 @@ struct netfront_dev {
-     void (*netif_rx)(unsigned char* data, int len, void* arg);
-     void *netif_rx_arg;
- 
--    struct netfront_dev_list *ldev;
--};
--
--struct netfront_dev_list {
--    struct netfront_dev *dev;
-     unsigned char rawmac[6];
-     char *ip;
-     char *mask;
-     char *gw;
- 
--    int refcount;
--
--    struct netfront_dev_list *next;
-+    struct netfront_dev *next;
- };
- 
--static struct netfront_dev_list *dev_list = NULL;
-+static struct netfront_dev *dev_list = NULL;
- 
- void init_rx_buffers(struct netfront_dev *dev);
--static struct netfront_dev *_init_netfront(struct netfront_dev *dev,
--                                           unsigned char rawmac[6], char **ip, char **mask, char **gw);
--static void _shutdown_netfront(struct netfront_dev *dev);
-+static struct netfront_dev *_init_netfront(struct netfront_dev *dev);
-+static int _shutdown_netfront(struct netfront_dev *dev);
- void netfront_set_rx_handler(struct netfront_dev *dev,
-                              void (*thenetif_rx)(unsigned char *data, int len,
-                                                  void *arg),
-@@ -276,6 +270,7 @@ static void free_netfront(struct netfront_dev *dev)
-     mask_evtchn(dev->evtchn);
- 
-     free(dev->mac);
-+    free(dev->ip);
-     free(dev->backend);
- 
-     gnttab_end_access(dev->rx_ring_ref);
-@@ -309,8 +304,7 @@ struct netfront_dev *init_netfront(char *_nodename,
- {
-     char nodename[256];
-     struct netfront_dev *dev;
--    struct netfront_dev_list *ldev = NULL;
--    struct netfront_dev_list *list = NULL;
-+    struct netfront_dev *list;
-     static int netfrontends = 0;
- 
-     if (!_nodename)
-@@ -321,10 +315,9 @@ struct netfront_dev *init_netfront(char *_nodename,
-     }
- 
-     /* Check if the device is already initialized */
--    for (list = dev_list; list != NULL; list = list->next) {
--        if (strcmp(nodename, list->dev->nodename) == 0) {
--            list->refcount++;
--            dev = list->dev;
-+    for (dev = dev_list; dev != NULL; dev = dev->next) {
-+        if (strcmp(nodename, dev->nodename) == 0) {
-+            dev->refcount++;
-             if (thenetif_rx)
-                 netfront_set_rx_handler(dev, thenetif_rx, NULL);
-             goto out;
-@@ -345,40 +338,34 @@ struct netfront_dev *init_netfront(char *_nodename,
-     dev->netif_rx = thenetif_rx;
-     dev->netif_rx_arg = NULL;
- 
--    ldev = malloc(sizeof(struct netfront_dev_list));
--    memset(ldev, 0, sizeof(struct netfront_dev_list));
--
--    if (_init_netfront(dev, ldev->rawmac, &(ldev->ip), &(ldev->mask), &(ldev->gw))) {
--        dev->ldev = ldev;
--        ldev->dev = dev;
--        ldev->refcount = 1;
--        ldev->next = NULL;
-+    if (_init_netfront(dev)) {
-+        dev->refcount = 1;
-+        dev->next = NULL;
- 
-         if (!dev_list) {
--            dev_list = ldev;
-+            dev_list = dev;
-         } else {
-             for (list = dev_list; list->next != NULL; list = list->next)
-                 ;
--            list->next = ldev;
--		}
-+            list->next = dev;
-+        }
-         netfrontends++;
-     } else {
--        free(ldev);
-         dev = NULL;
-         goto err;
-     }
- 
- out:
-     if (rawmac) {
--        rawmac[0] = ldev->rawmac[0];
--        rawmac[1] = ldev->rawmac[1];
--        rawmac[2] = ldev->rawmac[2];
--        rawmac[3] = ldev->rawmac[3];
--        rawmac[4] = ldev->rawmac[4];
--        rawmac[5] = ldev->rawmac[5];
-+        rawmac[0] = dev->rawmac[0];
-+        rawmac[1] = dev->rawmac[1];
-+        rawmac[2] = dev->rawmac[2];
-+        rawmac[3] = dev->rawmac[3];
-+        rawmac[4] = dev->rawmac[4];
-+        rawmac[5] = dev->rawmac[5];
- 	}
-     if (ip)
--        *ip = strdup(ldev->ip);
-+        *ip = strdup(dev->ip);
- 
- err:
-     return dev;
-@@ -386,17 +373,15 @@ err:
- 
- char *netfront_get_netmask(struct netfront_dev *dev)
- {
--    return dev->ldev->mask ? strdup(dev->ldev->mask) : NULL;
-+    return dev->mask ? strdup(dev->mask) : NULL;
- }
- 
- char *netfront_get_gateway(struct netfront_dev *dev)
- {
--    return dev->ldev->gw ? strdup(dev->ldev->gw) : NULL;
-+    return dev->gw ? strdup(dev->gw) : NULL;
- }
- 
--static struct netfront_dev *_init_netfront(struct netfront_dev *dev,
--					   unsigned char rawmac[6],
--					   char **ip, char **mask, char **gw)
-+static struct netfront_dev *_init_netfront(struct netfront_dev *dev)
- {
-     xenbus_transaction_t xbt;
-     char* err = NULL;
-@@ -518,6 +503,8 @@ done:
-     {
-         XenbusState state;
-         char path[strlen(dev->backend) + strlen("/state") + 1];
-+        char *p;
-+
-         snprintf(path, sizeof(path), "%s/state", dev->backend);
- 
-         xenbus_watch_path_token(XBT_NIL, path, path, &dev->events);
-@@ -532,26 +519,18 @@ done:
-             goto error;
-         }
- 
--        if (ip) {
--            char *p;
--
--            snprintf(path, sizeof(path), "%s/ip", dev->backend);
--            xenbus_read(XBT_NIL, path, ip);
--
--            if (mask) {
--                p = strchr(*ip, ' ');
--                if (p) {
--                    *p++ = '\0';
--                    *mask = p;
--
--                    if (gw) {
--                        p = strchr(p, ' ');
--                        if (p) {
--                            *p++ = '\0';
--                            *gw = p;
--                        }
--                    }
--                }
-+        snprintf(path, sizeof(path), "%s/ip", dev->backend);
-+        xenbus_read(XBT_NIL, path, &dev->ip);
-+
-+        p = strchr(dev->ip, ' ');
-+        if (p) {
-+            *p++ = '\0';
-+            dev->mask = p;
-+
-+            p = strchr(p, ' ');
-+            if (p) {
-+                *p++ = '\0';
-+                dev->gw = p;
-             }
-         }
-     }
-@@ -563,14 +542,13 @@ done:
-     /* Special conversion specifier 'hh' needed for __ia64__. Without
-      * this mini-os panics with 'Unaligned reference'.
-      */
--    if (rawmac)
--        sscanf(dev->mac,"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
--               &rawmac[0],
--               &rawmac[1],
--               &rawmac[2],
--               &rawmac[3],
--               &rawmac[4],
--               &rawmac[5]);
-+    sscanf(dev->mac,"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
-+           &dev->rawmac[0],
-+           &dev->rawmac[1],
-+           &dev->rawmac[2],
-+           &dev->rawmac[3],
-+           &dev->rawmac[4],
-+           &dev->rawmac[5]);
- 
-     return dev;
- 
-@@ -600,38 +578,33 @@ int netfront_tap_open(char *nodename) {
- 
- void shutdown_netfront(struct netfront_dev *dev)
- {
--    struct netfront_dev_list *list = NULL;
--    struct netfront_dev_list *to_del = NULL;
-+    struct netfront_dev *list;
- 
-     /* Check this is a valid device */
--    for (list = dev_list; list != NULL; list = list->next) {
--        if (list->dev == dev)
--            break;
--    }
-+    for (list = dev_list; list != NULL && list != dev; list = list->next);
- 
-     if (!list) {
-         printk("Trying to shutdown an invalid netfront device (%p)\n", dev);
-         return;
-     }
- 
--    list->refcount--;
--    if (list->refcount == 0) {
--        _shutdown_netfront(dev);
-+    dev->refcount--;
-+    if (dev->refcount == 0) {
-+        if (_shutdown_netfront(dev))
-+            return;
- 
--        to_del = list;
--        if (to_del == dev_list) {
--            free(to_del);
--			dev_list = NULL;
-+        if (dev == dev_list) {
-+            dev_list = NULL;
-         } else {
--            for (list = dev_list; list->next != to_del; list = list->next)
-+            for (list = dev_list; list->next != dev; list = list->next)
-                 ;
--            list->next = to_del->next;
--            free(to_del);
-+            list->next = dev->next;
-         }
-+        free_netfront(dev);
-     }
- }
- 
--static void _shutdown_netfront(struct netfront_dev *dev)
-+static int _shutdown_netfront(struct netfront_dev *dev)
- {
-     char* err = NULL, *err2;
-     XenbusState state;
-@@ -692,24 +665,23 @@ close:
-     err2 = xenbus_rm(XBT_NIL, nodename);
-     free(err2);
- 
--    if (!err)
--        free_netfront(dev);
-+    return err ? -EBUSY : 0;
- }
- 
- void suspend_netfront(void)
- {
--    struct netfront_dev_list *list;
-+    struct netfront_dev *dev;
- 
--    for (list = dev_list; list != NULL; list = list->next)
--        _shutdown_netfront(list->dev);
-+    for (dev = dev_list; dev != NULL; dev = dev->next)
-+        _shutdown_netfront(dev);
- }
- 
- void resume_netfront(void)
- {
--    struct netfront_dev_list *list;
-+    struct netfront_dev *dev;
- 
--    for (list = dev_list; list != NULL; list = list->next)
--        _init_netfront(list->dev, NULL, NULL, NULL, NULL);
-+    for (dev = dev_list; dev != NULL; dev = dev->next)
-+        _init_netfront(dev);
- }
- 
- void init_rx_buffers(struct netfront_dev *dev)
--- 
-2.26.2
+User changes feature_persistent = true
 
+connect_ring(...)
+pers_grants = true, because feature-persistent is set unconditionally
+by the frontend and feature_persistent variable is now true.
+
+Then blkback will try to use persistent grants and the whole
+connection will malfunction because the frontend won't.
+
+The other option is to prevent changing the variable when there are
+blkback instances already running.
+
+Thanks, Roger.
 
