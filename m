@@ -2,60 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881252754D4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 11:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B0F275536
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:10:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL1SA-0002oL-AC; Wed, 23 Sep 2020 09:52:46 +0000
+	id 1kL1ik-0003xH-Ry; Wed, 23 Sep 2020 10:09:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/b84=DA=linux.intel.com=tvrtko.ursulin@srs-us1.protection.inumbo.net>)
- id 1kL1S9-0002na-9T
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 09:52:45 +0000
-X-Inumbo-ID: 3c055350-1962-4545-ac04-58440963b863
-Received: from mga12.intel.com (unknown [192.55.52.136])
+ <SRS0=mqUk=DA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kL1ij-0003xC-KQ
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:09:53 +0000
+X-Inumbo-ID: 4b241e75-14d5-40ec-85d6-b542298d48d6
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c055350-1962-4545-ac04-58440963b863;
- Wed, 23 Sep 2020 09:52:43 +0000 (UTC)
-IronPort-SDR: YFM2dLR9IQmLYNmNpEDQbpkaOqCkY+A1g0YMMO/MlljThyf7QYc+ZU2aT6w+AYHxpUMT61lTet
- HzgQtpkYLXfg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="140311169"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="140311169"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 02:52:42 -0700
-IronPort-SDR: seIxyGE1Vw8wLigC1YT863o99ElqSWQAiuSZRkgjZoMQsFRRWMV/uMP79du30Xlum1gHB9JcsL
- DrdLmgIHayQA==
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="486376229"
-Received: from yymichae-mobl.ger.corp.intel.com (HELO [10.214.208.219])
- ([10.214.208.219])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 02:52:36 -0700
-Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915: use vmap in i915_gem_object_map
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>, intel-gfx@lists.freedesktop.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- Minchan Kim <minchan@kernel.org>, dri-devel@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Nitin Gupta <ngupta@vflare.org>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-5-hch@lst.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <9b5d40af-7378-9e68-ca51-73b2148287f3@linux.intel.com>
-Date: Wed, 23 Sep 2020 10:52:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 4b241e75-14d5-40ec-85d6-b542298d48d6;
+ Wed, 23 Sep 2020 10:09:52 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id e16so20395068wrm.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Sep 2020 03:09:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=x+3m3n8U5OsI/sLGAVfkyE/FOiRauGXl+CT0uwYQU5I=;
+ b=QjEUUjNqPZIlPWN65yAlRq05F/0L70INBwp4g1zys84cl3VA05YwMKaMhbw8lC3Oe1
+ L0i5oNydlMjymLfEbz8QvHsD2RQgaLkqEeV1/wb/bB/o23A5389FmYbbpRgkQXJx5GfZ
+ NzcXcwTWwZjqTnIzmSnrcyYnGRY96h9PwawGpzizltR1sn1gOaIYPBk1sFtTdUkU/Crd
+ q3zWWmhwWVKZWU6u75EGjtZz1E5iGH9++tRhpVjAoAOgBZmOFZm8Pcqh0hJ9wkErvNK8
+ NjZtADw/NBQunRxum0PPYFuSvlKnncox1+dzWh8Tf398cVn4BJudN0XhuY1Yb3jdsQak
+ 8f2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=x+3m3n8U5OsI/sLGAVfkyE/FOiRauGXl+CT0uwYQU5I=;
+ b=aranVoWqKc/YNirBRbAVIFkklg7mtIlwxtIfO0k0EHNOJ5bgcMH7yUdYdR2tPK0vY+
+ UCDa3kfRu8yEnHYHs/CLGQ71jwpaTv/h3fSM2UtzlcKyDkzAeANSizPmqCTe9nrSoMqI
+ nb17NnEG82XFU9GS2AW2RrVDfMbG8lJOeWqzeGhVMbcVjkU8I1LSVkKAo7ZRnmPP7ZRO
+ grfeW2FQhtbKr3p68oEkYUsCfDFCgnN0rbEWi6OkY6GW3HAQUN8BidphJAhhWJjC+MCD
+ vVSqKPvsJypTLldzN7pYV23yLYLouyuz2I/7FIFzxysE4/kf0WmG/8zic+KO0S/7epHk
+ iifQ==
+X-Gm-Message-State: AOAM532mVqX+J4tmwYVtDYkauRq1EuTks5K4Us40zJKjHSNj8dFcayF0
+ DD6zrOq6e23WSMSHFHArPZ4=
+X-Google-Smtp-Source: ABdhPJyYsYXW2nEM4+SkNX23xxDczIRW6li6BcUT7TEIPuoq1URkQ3MIrgmu1MGpYChO0VkEit1ZMg==
+X-Received: by 2002:adf:9b8b:: with SMTP id d11mr10884702wrc.71.1600855791590; 
+ Wed, 23 Sep 2020 03:09:51 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id o4sm28998483wrv.86.2020.09.23.03.09.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 23 Sep 2020 03:09:50 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	"'Simon Leiner'" <simon@leiner.me>
+Cc: <xen-devel@lists.xenproject.org>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>,
+ "'Bertrand Marquis'" <Bertrand.Marquis@arm.com>,
+ "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>
+References: <32922E87-9F50-41B3-A321-3212697CF7DB@leiner.me>
+ <b45a40e3-ea9d-0eef-ea99-88201be83511@xen.org>
+ <44f2d486-e3bd-6a44-042d-f05b5d0c0732@leiner.me>
+ <9bbea2a9-76f8-6384-3cff-3ae65e0475fa@xen.org>
+ <9AFF0FE3-F808-453F-91B1-74F9C7426FE7@leiner.me>
+ <2c296fa0-d4f1-3f9a-00d8-99d401615799@xen.org>
+In-Reply-To: <2c296fa0-d4f1-3f9a-00d8-99d401615799@xen.org>
+Subject: RE: Virtio Xen (WAS: Re: [Linux] [ARM] Granting memory obtained from
+ the DMA API)
+Date: Wed, 23 Sep 2020 11:09:49 +0100
+Message-ID: <010301d69191$ac6146b0$0523d410$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200918163724.2511-5-hch@lst.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGaCU1HUL3nw11kTXDXOy4dScys3gGxoQM+AgyZNcUBdVe1qwECFO4RATkNYLyps5pEcA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,190 +88,160 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Julien Grall
+> Sent: 23 September 2020 10:04
+> To: Simon Leiner <simon@leiner.me>
+> Cc: xen-devel@lists.xenproject.org; Stefano Stabellini =
+<sstabellini@kernel.org>; Bertrand Marquis
+> <Bertrand.Marquis@arm.com>; Oleksandr Tyshchenko <olekstysh@gmail.com>
+> Subject: Re: Virtio Xen (WAS: Re: [Linux] [ARM] Granting memory =
+obtained from the DMA API)
+>=20
+> On 29/08/2020 11:38, Simon Leiner wrote:
+> > Hi Julien,
+>=20
+> Hi Simon,
+>=20
+> Apologies for the late answer.
+>=20
+> > On 25.08.20 15:02, Julien Grall wrote:
+> >> May I ask why did you create a new transport rather than using the
+> >> existing one?
+> >
+> > We wanted a mechanism for dynamically creating virtio devices at
+> > runtime. I looked at virtio-mmio briefly and it seemed to me that a =
+lot
+> > of things would have to be known in advance (how many devices are
+> > there? How much memory do they need? Where does the memory range for
+> > virtio-mmio start on the device domain?). So after reading a bit =
+about
+> > Xen and how the classic split drivers work, I figured building a =
+split
+> > driver for virtio was the way to go. The basic principle is really
+> > simple:
+> >
+> >   - Using grants to share memory for the virtqueues
+> >   - Using event channels as a queue notification mechanism
+> >   - All state handling and other information exchange (like number =
+of
+> >     queues, grant refs, event channel numbers etc.) is done through =
+the
+> >     Xenbus.
+> >
+> > On the Linux side, this is implemented as a kernel module. No =
+patches
+> > to the kernel itself (apart from the ones I sent in earlier) or to =
+Xen
+> > itself are required.
+> >
+> >> So far, there is an RFC to implement virtio-mmio for Xen on Arm
+> >
+> > I did not see that before. Also, I'm not familiar with the ioreq
+> > mechanism. But from skimming the patch, it seems like it achieves =
+the
+> > same thing (dynamic creation of virtio devices at runtime). Is that
+> > right?
+>=20
+> I am not aware of any mechanism with virtio-mmio to notify a new =
+device
+> after the OS booted. But virtio-pci should allow you to do as as this =
+is
+> just a PCI device.
+>=20
+> However, you will still need to size the PCI hostbridge I/O region
+> correctly when the domain creation. Not sure if this would be an issue
+> in your use case.
+>=20
+> >
+> >> But the idea of a Xen specific transport is discussed on the =
+mailing
+> >> list time to time. It would be more secure than existing transport,
+> >> but I am worried about the adoption of the transport.
+> >
+> > What are the security issues with the existing transport mechanisms?
+> In the Xen PV model, a backend cannot access the frontend memory =
+unless
+> the latter did explictly grant.
+>=20
+> In the default virtio-{mmio, pci} model, a backend must have full =
+access
+> to the frontend memory. This can be an issue if you don't trust your
+> backend or it can get compromised.
 
-On 18/09/2020 17:37, Christoph Hellwig wrote:
-> i915_gem_object_map implements fairly low-level vmap functionality in
-> a driver.  Split it into two helpers, one for remapping kernel memory
-> which can use vmap, and one for I/O memory that uses vmap_pfn.
-> 
-> The only practical difference is that alloc_vm_area prefeaults the
-> vmalloc area PTEs, which doesn't seem to be required here for the
-> kernel memory case (and could be added to vmap using a flag if actually
-> required).
+Is 'full access' required? The virtio device implementation would =
+essentially be performing DMA so and vIOMMU implementation could =
+restrict memory access on a per-PCI-device basis.
 
-Patch looks good to me.
+>=20
+> > I'm quite new to the Xen community, so I have no idea about adoption
+> > rates.
+> >
+> >> A new transport requires to modify all the OSes so they can work on
+> >> Xen.
+> >
+> > Just to be clear: They would need to be modified in order to support
+> > that mechanism, but it changes nothing about the interface between
+> > hypervisor and guest.
+>=20
+> Right, this is the first bit I am more concerned about. IMHO, the main
+> goal of virtio is to allow moving from one hypervisor to another =
+without
+> (or possibly limited) changing the guest OS code.
+>=20
+> Adding a new transport open source OS for a new transport is fairly
+> easy, but it may be harder to justify for proprietary OS if it only
+> benefits Xen.
+>=20
+> That said, if we can convince other hypervisor vendors to adopt it =
+then
+> most of my concern are moot :).
+>=20
+> >
+> > However, supporting the same use case with an already existing
+> > transport mechanism is more elegant than building another transport
+> > mechanism specifically for that case IMO. The only technical =
+difference
+> > between my implementation and the virtio-mmio approach in actually
+> > running the virtio device is that I'm using event channels for queue
+> > notification while virtio-mmio uses some bytes in memory for that. I =
+do
+> > not have any measurements indicating whether or not this makes a
+> > difference.
+>=20
+> The virtio-mmio notification is potentially going to be expensive on =
+Xen
+> because the guest because a vCPU will be blocked until the I/O has =
+been
+> handled by the IOREQ server.
+>=20
+> The notification would look like:
+>      1) Frontend write in notification address
+>      2) Trap in Xen
+>      3) Pause the vCPU and forward the I/O to the IOREQ server (e.g.
+> your virtio backend)
+>      4) Schedule the domain where the IOREQ server resides
+>      5) Wait for the I/O completion
+>      6) Unpause the vCPU
+>      7) Return to guest
+>=20
+> We may be able to optimize as there is no need to wait for the I/O to
+> complete when we notify.
 
-Series did not get a CI run from our side because of a different base so 
-I don't know if you would like to have a run there? If so you would need 
-to rebase against git://anongit.freedesktop.org/drm-tip drm-tip and you 
-could even send a series to intel-gfx-trybot@lists.freedesktop.org, 
-suppressing cc, to check it out without sending a copy to the real 
-mailing list.
+Perhaps take a look at the 'bufioreq' ring in the implementation?
 
-Regards,
+  Paul
 
-Tvrtko
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/gpu/drm/i915/Kconfig              |   1 +
->   drivers/gpu/drm/i915/gem/i915_gem_pages.c | 101 ++++++++++------------
->   2 files changed, 47 insertions(+), 55 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 9afa5c4a6bf006..1e1cb245fca778 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -25,6 +25,7 @@ config DRM_I915
->   	select CRC32
->   	select SND_HDA_I915 if SND_HDA_CORE
->   	select CEC_CORE if CEC_NOTIFIER
-> +	select VMAP_PFN
->   	help
->   	  Choose this option if you have a system that has "Intel Graphics
->   	  Media Accelerator" or "HD Graphics" integrated graphics,
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> index e8a083743e0927..90029ea83aede9 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> @@ -234,50 +234,24 @@ int __i915_gem_object_put_pages(struct drm_i915_gem_object *obj)
->   	return err;
->   }
->   
-> -static inline pte_t iomap_pte(resource_size_t base,
-> -			      dma_addr_t offset,
-> -			      pgprot_t prot)
-> -{
-> -	return pte_mkspecial(pfn_pte((base + offset) >> PAGE_SHIFT, prot));
-> -}
-> -
->   /* The 'mapping' part of i915_gem_object_pin_map() below */
-> -static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
-> +static void *i915_gem_object_map_page(struct drm_i915_gem_object *obj,
->   				 enum i915_map_type type)
->   {
-> -	unsigned long n_pte = obj->base.size >> PAGE_SHIFT;
-> -	struct sg_table *sgt = obj->mm.pages;
-> -	pte_t *stack[32], **mem;
-> -	struct vm_struct *area;
-> +	unsigned long n_pages = obj->base.size >> PAGE_SHIFT, i;
-> +	struct page *stack[32], **pages = stack, *page;
-> +	struct sgt_iter iter;
->   	pgprot_t pgprot;
-> -
-> -	if (!i915_gem_object_has_struct_page(obj) && type != I915_MAP_WC)
-> -		return NULL;
-> -
-> -	/* A single page can always be kmapped */
-> -	if (n_pte == 1 && type == I915_MAP_WB)
-> -		return kmap(sg_page(sgt->sgl));
-> -
-> -	mem = stack;
-> -	if (n_pte > ARRAY_SIZE(stack)) {
-> -		/* Too big for stack -- allocate temporary array instead */
-> -		mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
-> -		if (!mem)
-> -			return NULL;
-> -	}
-> -
-> -	area = alloc_vm_area(obj->base.size, mem);
-> -	if (!area) {
-> -		if (mem != stack)
-> -			kvfree(mem);
-> -		return NULL;
-> -	}
-> +	void *vaddr;
->   
->   	switch (type) {
->   	default:
->   		MISSING_CASE(type);
->   		fallthrough;	/* to use PAGE_KERNEL anyway */
->   	case I915_MAP_WB:
-> +		/* A single page can always be kmapped */
-> +		if (n_pages == 1)
-> +			return kmap(sg_page(obj->mm.pages->sgl));
->   		pgprot = PAGE_KERNEL;
->   		break;
->   	case I915_MAP_WC:
-> @@ -285,30 +259,44 @@ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
->   		break;
->   	}
->   
-> -	if (i915_gem_object_has_struct_page(obj)) {
-> -		struct sgt_iter iter;
-> -		struct page *page;
-> -		pte_t **ptes = mem;
-> -
-> -		for_each_sgt_page(page, iter, sgt)
-> -			**ptes++ = mk_pte(page, pgprot);
-> -	} else {
-> -		resource_size_t iomap;
-> -		struct sgt_iter iter;
-> -		pte_t **ptes = mem;
-> -		dma_addr_t addr;
-> +	if (n_pages > ARRAY_SIZE(stack)) {
-> +		/* Too big for stack -- allocate temporary array instead */
-> +		pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
-> +		if (!pages)
-> +			return NULL;
-> +	}
->   
-> -		iomap = obj->mm.region->iomap.base;
-> -		iomap -= obj->mm.region->region.start;
-> +	for_each_sgt_page(page, iter, obj->mm.pages)
-> +		pages[i++] = page;
-> +	vaddr = vmap(pages, n_pages, 0, pgprot);
-> +	if (pages != stack)
-> +		kvfree(pages);
-> +	return vaddr;
-> +}
->   
-> -		for_each_sgt_daddr(addr, iter, sgt)
-> -			**ptes++ = iomap_pte(iomap, addr, pgprot);
-> +static void *i915_gem_object_map_pfn(struct drm_i915_gem_object *obj)
-> +{
-> +	resource_size_t iomap = obj->mm.region->iomap.base -
-> +		obj->mm.region->region.start;
-> +	unsigned long n_pfn = obj->base.size >> PAGE_SHIFT;
-> +	unsigned long stack[32], *pfns = stack, i;
-> +	struct sgt_iter iter;
-> +	dma_addr_t addr;
-> +	void *vaddr;
-> +
-> +	if (n_pfn > ARRAY_SIZE(stack)) {
-> +		/* Too big for stack -- allocate temporary array instead */
-> +		pfns = kvmalloc_array(n_pfn, sizeof(*pfns), GFP_KERNEL);
-> +		if (!pfns)
-> +			return NULL;
->   	}
->   
-> -	if (mem != stack)
-> -		kvfree(mem);
-> -
-> -	return area->addr;
-> +	for_each_sgt_daddr(addr, iter, obj->mm.pages)
-> +		pfns[i++] = (iomap + addr) >> PAGE_SHIFT;
-> +	vaddr = vmap_pfn(pfns, n_pfn, pgprot_writecombine(PAGE_KERNEL_IO));
-> +	if (pfns != stack)
-> +		kvfree(pfns);
-> +	return vaddr;
->   }
->   
->   /* get, pin, and map the pages of the object into kernel space */
-> @@ -360,7 +348,10 @@ void *i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
->   	}
->   
->   	if (!ptr) {
-> -		ptr = i915_gem_object_map(obj, type);
-> +		if (i915_gem_object_has_struct_page(obj))
-> +			ptr = i915_gem_object_map_page(obj, type);
-> +		else if (type == I915_MAP_WC)
-> +			ptr = i915_gem_object_map_pfn(obj);
->   		if (!ptr) {
->   			err = -ENOMEM;
->   			goto err_unpin;
-> 
+
 
