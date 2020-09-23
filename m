@@ -2,49 +2,99 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA580275A8D
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 16:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF1D4275B39
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 17:15:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL610-0000Fr-9q; Wed, 23 Sep 2020 14:45:02 +0000
+	id 1kL6Sx-00034A-Ku; Wed, 23 Sep 2020 15:13:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3Xh8=DA=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kL60y-0000Fm-DJ
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 14:45:00 +0000
-X-Inumbo-ID: f8c18702-3bb0-4b39-82d2-4e37b0392e8c
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f8c18702-3bb0-4b39-82d2-4e37b0392e8c;
- Wed, 23 Sep 2020 14:44:59 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id EC8A06736F; Wed, 23 Sep 2020 16:44:55 +0200 (CEST)
-Date: Wed, 23 Sep 2020 16:44:55 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>,
- intel-gfx@lists.freedesktop.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Nitin Gupta <ngupta@vflare.org>
-Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915: use vmap in i915_gem_object_map
-Message-ID: <20200923144455.GA15036@lst.de>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-5-hch@lst.de>
- <9b5d40af-7378-9e68-ca51-73b2148287f3@linux.intel.com>
- <20200923134117.GB9893@lst.de>
- <1a421e7f-6255-c534-5403-715c2e809bd0@linux.intel.com>
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fqg6=DA=redhat.com=stefanha@srs-us1.protection.inumbo.net>)
+ id 1kL6Sv-00033e-6s
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 15:13:53 +0000
+X-Inumbo-ID: c36da9e7-5809-4b7a-bdd4-6f93ba4d5ce3
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id c36da9e7-5809-4b7a-bdd4-6f93ba4d5ce3;
+ Wed, 23 Sep 2020 15:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600874032;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FlU/OKWGsUcXAWijq0uSnuWl+UgM4drfHtrzAcT8ML8=;
+ b=C/TVv0i8TMYwhy+te31R+kpLGRKrj6/T0wb6B8fNZfnUilxx9QWcCGHcpfN47nVE95Q4Kk
+ 6VZ3LnDu6+bYNkjZxdN1PwSx0d74EJdW4tvNsLYzPyuT4oGaab32kfO+CE04lUQpZbnw8f
+ ces3SMmmEP7LBBwuIzP4O1VYy13Vy/I=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-513-BSnw5gicMoaqzycugApOAQ-1; Wed, 23 Sep 2020 11:13:35 -0400
+X-MC-Unique: BSnw5gicMoaqzycugApOAQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C763186DD29;
+ Wed, 23 Sep 2020 15:13:30 +0000 (UTC)
+Received: from localhost (ovpn-113-77.ams2.redhat.com [10.36.113.77])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 48F7F19D7D;
+ Wed, 23 Sep 2020 15:13:18 +0000 (UTC)
+Date: Wed, 23 Sep 2020 16:13:17 +0100
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Michael Roth <mdroth@linux.vnet.ibm.com>, John Snow <jsnow@redhat.com>,
+ Alistair Francis <Alistair.Francis@wdc.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Maydell <peter.maydell@linaro.org>, Eric Blake <eblake@redhat.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, sheepdog@lists.wpkg.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, kvm@vger.kernel.org,
+ Paul Durrant <paul@xen.org>, qemu-s390x@nongnu.org,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Aurelien Jarno <aurelien@aurel32.net>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Stefan Weil <sw@weilnetz.de>, qemu-riscv@nongnu.org, qemu-block@nongnu.org,
+ Hailiang Zhang <zhang.zhanghailiang@huawei.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
+ Peter Lieven <pl@kamp.de>, Paolo Bonzini <pbonzini@redhat.com>,
+ =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Laurent Vivier <laurent@vivier.eu>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Yuval Shaia <yuval.shaia.ml@gmail.com>,
+ xen-devel@lists.xenproject.org, Huacai Chen <chenhc@lemote.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Juan Quintela <quintela@redhat.com>,
+ Cornelia Huck <cohuck@redhat.com>, Max Reitz <mreitz@redhat.com>,
+ Richard Henderson <rth@twiddle.net>, Jiri Slaby <jslaby@suse.cz>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Sagar Karandikar <sagark@eecs.berkeley.edu>,
+ Liu Yuan <namei.unix@gmail.com>, Jason Wang <jasowang@redhat.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Fam Zheng <fam@euphon.net>, David Hildenbrand <david@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>, qemu-arm@nongnu.org
+Subject: Re: [PATCH v3] qemu/atomic.h: rename atomic_ to qatomic_
+Message-ID: <20200923151317.GA65166@stefanha-x1.localdomain>
+References: <20200923105646.47864-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <20200923105646.47864-1-stefanha@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=stefanha@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="HlL+5n6rz5pIUxbD"
 Content-Disposition: inline
-In-Reply-To: <1a421e7f-6255-c534-5403-715c2e809bd0@linux.intel.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,25 +108,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 23, 2020 at 02:58:43PM +0100, Tvrtko Ursulin wrote:
->>> Series did not get a CI run from our side because of a different base so I
->>> don't know if you would like to have a run there? If so you would need to
->>> rebase against git://anongit.freedesktop.org/drm-tip drm-tip and you could
->>> even send a series to intel-gfx-trybot@lists.freedesktop.org, suppressing
->>> cc, to check it out without sending a copy to the real mailing list.
->>
->> It doesn't seem like I can post to any freedesktop list, as I always
->> get rejection messages.  But I'll happily prepare a branch if one
->> of you an feed it into your CI.
->
-> That's fine, just ping me and I will forward it for testing, thanks!
+--HlL+5n6rz5pIUxbD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    git://git.infradead.org/users/hch/misc.git i915-vmap-wip
+On Wed, Sep 23, 2020 at 11:56:46AM +0100, Stefan Hajnoczi wrote:
+> clang's C11 atomic_fetch_*() functions only take a C11 atomic type
+> pointer argument. QEMU uses direct types (int, etc) and this causes a
+> compiler error when a QEMU code calls these functions in a source file
+> that also included <stdatomic.h> via a system header file:
+>=20
+>   $ CC=3Dclang CXX=3Dclang++ ./configure ... && make
+>   ../util/async.c:79:17: error: address argument to atomic operation must=
+ be a pointer to _Atomic type ('unsigned int *' invalid)
+>=20
+> Avoid using atomic_*() names in QEMU's atomic.h since that namespace is
+> used by <stdatomic.h>. Prefix QEMU's APIs with 'q' so that atomic.h
+> and <stdatomic.h> can co-exist. I checked /usr/include on my machine and
+> searched GitHub for existing "qatomic_" users but there seem to be none.
+>=20
+> This patch was generated using:
+>=20
+>   $ git grep -h -o '\<atomic\(64\)\?_[a-z0-9_]\+' include/qemu/atomic.h |=
+ \
+>     sort -u >/tmp/changed_identifiers
+>   $ for identifier in $(</tmp/changed_identifiers); do
+>         sed -i "s%\<$identifier\>%q$identifier%g" \
+>             $(git grep -I -l "\<$identifier\>")
+>     done
+>=20
+> I manually fixed line-wrap issues and misaligned rST tables.
+>=20
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
+> v3:
+>  * Use qatomic_ instead of atomic_ [Paolo]
+>  * The diff of my manual fixups is available here:
+>    https://vmsplice.net/~stefan/atomic-namespace-pre-fixups-v3.diff
+>    - Dropping #ifndef qatomic_fetch_add in atomic.h
+>    - atomic_##X(haddr, val) glue macros not caught by grep
+>    - Keep atomic_add-bench name
+>    - C preprocessor backslash-newline ('\') column alignment
+>    - Line wrapping
 
-Gitweb:
+Thanks, applied quickly due to high risk of conflicts:
+https://github.com/stefanha/qemu/commits/block
 
-    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/i915-vmap-wip
+Stefan
 
-note that this includes a new commit to clean up one of the recent
-commits in the code.
+--HlL+5n6rz5pIUxbD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl9rZg0ACgkQnKSrs4Gr
+c8hgKAgAgMxkkgpOvyrKNVjow73folqKA0ZhroVDQHEUsTa2UYiwbbbbNRLcYq0F
+vaMQDzh9lx3hrohttFIS/rehi66qH4XW/k+tD6M4ACJbKA3QpL7N50aGEbrgTIRC
+23cIU2FHbnqNoNraQw9xU3e1A5Ux7m/1hbNaK2uIFguwU6xo9X2CvUfQsEOcSUS6
+afb0Krf0sN5LMMjGGnBuA7b6Fg9rrDNzBZvmZQkoFPkQEBoZWj4BGTyY76OhVnGg
+Po6uwJZYi5xyX9wr4ESopGboCs7ZkDF2uLGNwTbC5kkDYurysefdfclYPotW5Jxr
+kUPXGqzNlp5YT7HHoqpjtPu6bX44Wg==
+=+ZBo
+-----END PGP SIGNATURE-----
+
+--HlL+5n6rz5pIUxbD--
+
 
