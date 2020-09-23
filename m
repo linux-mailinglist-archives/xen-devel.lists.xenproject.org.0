@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7FC27556C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCE727556E
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:19:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL1s2-0004xW-Ss; Wed, 23 Sep 2020 10:19:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kL1s8-00050E-Bx; Wed, 23 Sep 2020 10:19:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wqyB=DA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kL1s1-0004wv-G5
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:19:29 +0000
-X-Inumbo-ID: 34009931-22d0-4464-af33-10703de874a4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 34009931-22d0-4464-af33-10703de874a4;
+ id 1kL1s6-0004wt-Dx
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:19:34 +0000
+X-Inumbo-ID: f677a8e7-772b-4209-b329-3e3c40dc6464
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f677a8e7-772b-4209-b329-3e3c40dc6464;
  Wed, 23 Sep 2020 10:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600856369;
+ d=citrix.com; s=securemail; t=1600856368;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FoxTOSLbppQSggVM84mRDkAxlcirs96DUaQyCMYGXiQ=;
- b=Lk+gKZabTUCo/f3XLSmhtDjEOJpnUqD6uq5/SG5Rsz3U0Wl+D8Pjftkf
- uY98CiN5uxwkP4doRdLOcSnzQVBxmr9GsAyQ58VC6U1l8SbF8sFKPgK2I
- tIhl6Y0zetnrV3/RtQg/tfe+gwg3y67VeRKeocuP39uICQYPlGBy0zyNH A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=vdI1EYuMaKnA952RMddPTxjBODH98bz5GhMt6TL0KDY=;
+ b=I7ulGumk6LGy42y2JdrM6PTOK8VOykk9Z6Ha/E/jpSY7clIlruULYkIn
+ JUNakWL7CkLH5sCXpK+cXNgHpkSOkyy9hQhcRlLWY1TgRK2TUGZ0VsWFb
+ dxMWXOSGabV55FPw7yVEZ1Q3b1XvRB/38FSpb5eebU3z17TCUdVeNnvBE 8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 4FV3fJhKqTJhnEkWjTxLJiEpSXRI0njWyklJHE2HVuJ3ruednX+/9b6tVohLjMejcUZw4Gk7oT
- lm0oj1uTlDWGMyCKlI2bK6qDA7fdC9b40MG6JBUwW3An1pW3JF9Wn9IyKHJWjehONf4Kz0q7kM
- dhN0L6rW/+py3yFclO29X165XCtLML4M47aWV6RS+eMJWRltuoZdWG5YWP7hTqr5LbPW+ZRvGC
- c8oxWhESQV5wrnxyvN6ib67HEk5ZkzNTf3u7y5HtuALb5U8CTvytpzonqvc0qotopog8SBBNpX
- 1PU=
+IronPort-SDR: wpBcSvwNPMQOulGJLpOkI4AUEjhdW7DuR24mdmPY5AfrI+jpmnGnDK07/X+FqNkpY8sjmzI44+
+ EmhbEyh6zezcj5wmgMCsZ5eJ9vM2BQnF/rIc8QB8NQYWiHkgQqY5lu1PhZ8RzJ/3uk96hWxEOO
+ M8167bLM3iSrHd02OSmvQSeTdOEDvZVL1pR88gSHX/Jueh4tFaHYZM0PEt7XT57c79DYvIddTD
+ y+zeDxZXyMvJTvY/gQdsVePTcc2EU0bozVA8Tjo6en37SKxaG8/vXpRUcdFhvL6zmiVv8Aapag
+ H6E=
 X-SBRS: 2.7
-X-MesageID: 27692696
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 27642194
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,293,1596513600"; d="scan'208";a="27692696"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596513600"; d="scan'208";a="27642194"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
  <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
  <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Andy Lutomirski
- <luto@kernel.org>
-Subject: [PATCH 2/3] x86/pv: Don't clobber NT on return-to-guest
-Date: Wed, 23 Sep 2020 11:18:47 +0100
-Message-ID: <20200923101848.29049-3-andrew.cooper3@citrix.com>
+ <luto@kernel.org>, Manuel Bouyer <bouyer@antioche.eu.org>
+Subject: [PATCH 3/3] x86/pv: Inject #UD for missing SYSCALL callbacks
+Date: Wed, 23 Sep 2020 11:18:48 +0100
+Message-ID: <20200923101848.29049-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200923101848.29049-1-andrew.cooper3@citrix.com>
 References: <20200923101848.29049-1-andrew.cooper3@citrix.com>
@@ -68,63 +67,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-A 64bit IRET can restore NT - the faulting case is when NT is set in the live
-flags.  This change had an unintended consequence of causing the NT flag to
-spontaneously disappear from guest context whenever a interrupt/exception
-occurred.
+Despite appearing to be a deliberate design choice of early PV64, the
+resulting behaviour for unregistered SYSCALL callbacks creates an untenable
+testability problem for Xen.  Furthermore, the behaviour is undocumented,
+bizarre, and inconsistent with related behaviour in Xen, and very liable
+introduce a security vulnerability into a PV guest if the author hasn't
+studied Xen's assembly code in detail.
 
-In combination with a SYSENTER which sets both TF and NT, Xen's handling of
-the #DB exceptions clears NT before it is even recorded suitably in the guest
-kernel's view of what userspace was doing.
+There are two different bugs here.
 
-Reported-by: Andy Lutomirski <luto@kernel.org>
-Fixes: 0e47f92b0 ("x86: force EFLAGS.IF on when exiting to PV guests")
+1) The current logic confuses the registered entrypoints, and may deliver a
+   SYSCALL from 32bit userspace to the 64bit entry, when only a 64bit
+   entrypoint is registered.
+
+   This has been the case ever since 2007 (c/s cd75d47348b) but up until
+   2018 (c/s dba899de14) the wrong selectors would be handed to the guest for
+   a 32bit SYSCALL entry, making it appear as if it a 64bit entry all along.
+
+   Xen would malfunction under these circumstances, if it were a PV guest.
+   Linux would as well, but PVOps has always registered both entrypoints and
+   discarded the Xen-provided selectors.  NetBSD really does malfunction as a
+   consequence (benignly now, but a VM DoS before the 2018 Xen selector fix).
+
+2) In the case that neither SYSCALL callbacks are registered, the guest will
+   be crashed when userspace executes a SYSCALL instruction, which is a
+   userspace => kernel DoS.
+
+   This has been the case ever since the introduction of 64bit PV support, but
+   behaves unlike all other SYSCALL/SYSENTER callbacks in Xen, which yield
+   #GP/#UD in userspace before the callback is registered, and are therefore
+   safe by default.
+
+This change does constitute a change in the PV ABI, for corner cases of a PV
+guest kernel registering neither callback, or not registering the 32bit
+callback when running on AMD/Hygon hardware.
+
+It brings the behaviour in line with PV32 SYSCALL/SYSENTER, and PV64
+SYSENTER (safe by default, until explicitly enabled), as well as native
+hardware (always delivered to the single applicable callback).
+
+Most importantly however, and the primary reason for the change, is that it
+lets us actually test the PV entrypoints to prove correct behaviour.
+
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 CC: Andy Lutomirski <luto@kernel.org>
----
- xen/arch/x86/x86_64/compat/entry.S | 2 +-
- xen/arch/x86/x86_64/entry.S        | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+CC: Manuel Bouyer <bouyer@antioche.eu.org>
 
-diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
-index 73619f57ca..3b2136b272 100644
---- a/xen/arch/x86/x86_64/compat/entry.S
-+++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -119,7 +119,7 @@ compat_process_trap:
- /* %rbx: struct vcpu, interrupts disabled */
- ENTRY(compat_restore_all_guest)
-         ASSERT_INTERRUPTS_DISABLED
--        mov   $~(X86_EFLAGS_IOPL|X86_EFLAGS_NT|X86_EFLAGS_VM),%r11d
-+        mov   $~(X86_EFLAGS_IOPL | X86_EFLAGS_VM), %r11d
-         and   UREGS_eflags(%rsp),%r11d
- 
- .macro alt_cr4_pv32
+Manuel: This will result in a corner case change for NetBSD.
+
+At the moment on native, 32bit userspace on 64bit NetBSD will get #UD (Intel,
+etc), or an explicit -ENOSYS (AMD, etc) when trying to execute a 32bit SYSCALL
+instruction.
+
+After this change, a 64bit PV VM will consistently see #UD (like on Intel, etc
+hardware) even when running on AMD/Hygon hardware (as Xsyscall32 isn't
+registered with Xen), rather than following Xsyscall into the proper system
+call path.
+---
+ xen/arch/x86/x86_64/entry.S | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
+
 diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 44a110b9c8..000eb9722b 100644
+index 000eb9722b..baab6d8755 100644
 --- a/xen/arch/x86/x86_64/entry.S
 +++ b/xen/arch/x86/x86_64/entry.S
-@@ -182,7 +182,7 @@ restore_all_guest:
-         jz    iret_exit_to_guest
- 
-         movq  24(%rsp),%r11           # RFLAGS
--        andq  $~(X86_EFLAGS_IOPL|X86_EFLAGS_NT|X86_EFLAGS_VM),%r11
-+        andq  $~(X86_EFLAGS_IOPL | X86_EFLAGS_VM), %r11
-         orq   $X86_EFLAGS_IF,%r11
- 
-         /* Don't use SYSRET path if the return address is not canonical. */
-@@ -213,7 +213,7 @@ restore_all_guest:
-         movq  8(%rsp), %rcx           # RIP
- /* No special register assumptions. */
- iret_exit_to_guest:
--        andl  $~(X86_EFLAGS_IOPL|X86_EFLAGS_NT|X86_EFLAGS_VM),24(%rsp)
-+        andl  $~(X86_EFLAGS_IOPL | X86_EFLAGS_VM), 24(%rsp)
-         orl   $X86_EFLAGS_IF,24(%rsp)
-         addq  $8,%rsp
- .Lft0:  iretq
+@@ -26,18 +26,30 @@
+ /* %rbx: struct vcpu */
+ ENTRY(switch_to_kernel)
+         leaq  VCPU_trap_bounce(%rbx),%rdx
+-        /* TB_eip = (32-bit syscall && syscall32_addr) ?
+-         *          syscall32_addr : syscall_addr */
+-        xor   %eax,%eax
++
++        /* TB_eip = 32-bit syscall ? syscall32_addr : syscall_addr */
++        mov   VCPU_syscall32_addr(%rbx), %ecx
++        mov   VCPU_syscall_addr(%rbx), %rax
+         cmpw  $FLAT_USER_CS32,UREGS_cs(%rsp)
+-        cmoveq VCPU_syscall32_addr(%rbx),%rax
+-        testq %rax,%rax
+-        cmovzq VCPU_syscall_addr(%rbx),%rax
+-        movq  %rax,TRAPBOUNCE_eip(%rdx)
++        cmove %rcx, %rax
++
+         /* TB_flags = VGCF_syscall_disables_events ? TBF_INTERRUPT : 0 */
+         btl   $_VGCF_syscall_disables_events,VCPU_guest_context_flags(%rbx)
+         setc  %cl
+         leal  (,%rcx,TBF_INTERRUPT),%ecx
++
++        test  %rax, %rax
++UNLIKELY_START(z, syscall_no_callback) /* TB_eip == 0 => #UD */
++        movq  VCPU_trap_ctxt(%rbx), %rdi
++        movl  $X86_EXC_UD, UREGS_entry_vector(%rsp)
++        subl  $2, UREGS_rip(%rsp)
++        movl  X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_eip(%rdi), %eax
++        testb $4, X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_flags(%rdi)
++        setnz %cl
++        leal  TBF_EXCEPTION(, %rcx, TBF_INTERRUPT), %ecx
++UNLIKELY_END(syscall_no_callback)
++
++        movq  %rax,TRAPBOUNCE_eip(%rdx)
+         movb  %cl,TRAPBOUNCE_flags(%rdx)
+         call  create_bounce_frame
+         andl  $~X86_EFLAGS_DF,UREGS_eflags(%rsp)
 -- 
 2.11.0
 
