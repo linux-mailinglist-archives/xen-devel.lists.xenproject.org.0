@@ -2,57 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8694E275E95
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 19:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64F30275EA3
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 19:29:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL8Y6-0006pF-KF; Wed, 23 Sep 2020 17:27:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kL8Zg-0006wS-4i; Wed, 23 Sep 2020 17:29:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+VqP=DA=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kL8Y5-0006p9-JI
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 17:27:21 +0000
-X-Inumbo-ID: 6a0b055e-9434-4033-9b22-e614369248c4
+ id 1kL8Ze-0006wN-6t
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 17:28:58 +0000
+X-Inumbo-ID: e9d43ed4-7d2e-4ea3-b5ab-0b2b7dd67350
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6a0b055e-9434-4033-9b22-e614369248c4;
- Wed, 23 Sep 2020 17:27:20 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e9d43ed4-7d2e-4ea3-b5ab-0b2b7dd67350;
+ Wed, 23 Sep 2020 17:28:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=TciFdIuLPFop/gUvzB8lr6tGROe6wdiWBDumc1SUA1c=; b=Y3rjq8hAncFegn2ojeP6B4ksLN
- 4IyRz5My8Ooo7cAXsh8PTLvxo8g0nTCk3J21fCGenQxzmFGKLCsOLR5u9Pr0qfRsg52xRMzcyIsB/
- qqTCTvIZ//W4YheWtuiMnWzI7TJDde9hxqku55bvxqpzKfG7Qhlz519qNxcP2YgIVQJA=;
+ bh=QTw3NeY3AhYdek4s1xZJOVV5I632HE7DwGPTUmRc3T8=; b=f8/mOSyxUkdszjAS86KfUGke9C
+ vL6mlHMc1BfvM+Li+OwCDFcvKBbKIpqPzvPBYOunqnnmqulOwNIz/jOdOHvsrAXrl68sIhoLkLq9X
+ 4grfU9+ahTDdCz/pu8Oy8Ji7sit0NlotIQLTGdD4bI0htfLm45PHAemY7YnPNq7ZL6ak=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kL8Y0-0008Fc-30; Wed, 23 Sep 2020 17:27:16 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ id 1kL8ZZ-0008Gu-D7; Wed, 23 Sep 2020 17:28:53 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kL8Xz-0004oD-Rm; Wed, 23 Sep 2020 17:27:15 +0000
-Subject: Re: [PATCH V1 03/16] xen/ioreq: Make x86's
- hvm_ioreq_needs_completion() common
-To: Jan Beulich <jbeulich@suse.com>, Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ id 1kL8ZZ-0004pq-2k; Wed, 23 Sep 2020 17:28:53 +0000
+Subject: Re: [PATCH V1 04/16] xen/ioreq: Provide alias for the handle_mmio()
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Julien Grall <julien.grall@arm.com>
 References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-4-git-send-email-olekstysh@gmail.com>
- <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
+ <1599769330-17656-5-git-send-email-olekstysh@gmail.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <016e9fe9-1dd4-a4e5-3e03-6d61949a74f6@xen.org>
-Date: Wed, 23 Sep 2020 18:27:13 +0100
+Message-ID: <2987ed77-cd8b-52af-5221-c780c82668ba@xen.org>
+Date: Wed, 23 Sep 2020 18:28:50 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <2d6bbc2c-dc4b-f873-ed70-87b29f53620c@suse.com>
+In-Reply-To: <1599769330-17656-5-git-send-email-olekstysh@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -69,37 +67,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+Hi Oleksandr,
 
-On 14/09/2020 15:59, Jan Beulich wrote:
-> On 10.09.2020 22:21, Oleksandr Tyshchenko wrote:
->> --- a/xen/include/xen/ioreq.h
->> +++ b/xen/include/xen/ioreq.h
->> @@ -35,6 +35,13 @@ static inline struct hvm_ioreq_server *get_ioreq_server(const struct domain *d,
->>       return GET_IOREQ_SERVER(d, id);
->>   }
->>   
->> +static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
->> +{
->> +    return ioreq->state == STATE_IOREQ_READY &&
->> +           !ioreq->data_is_ptr &&
->> +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
->> +}
+On 10/09/2020 21:21, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> While the PIO aspect has been discussed to some length, what about
-> the data_is_ptr concept? I didn't think there were Arm insns fitting
-> this? Instead I thought some other Arm-specific adjustments to the
-> protocol might be needed. At which point the question of course would
-> be in how far ioreq_t as a whole really fits Arm in its current shape.
+> The IOREQ is a common feature now and Arm will have its own
+> implementation.
+> 
+> But the name of the function is pretty generic and can be confusing
+> on Arm (we already have a try_handle_mmio()).
+> 
+> In order not to rename the function (which is used for a varying
+> set of purposes on x86) globally and get non-confusing variant on Arm
+> provide an alias ioreq_handle_complete_mmio() to be used on common and
+> Arm code.
+> 
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
 
-I would rather not try to re-invent ioreq_t for Arm if we don't need to. 
-This is only going to increase the amount of arch specific code in a 
-device emulator that really ought to be agnostic.
+This doesn't  look like a code I wrote... Can you make sure I am only 
+credited on what I wrote?
 
-At the moment, I think it is fine to have "unused" field on Arm as long 
-as they contain the right value.
-
-So I would rather keep the check in common code as well.
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
 Cheers,
 
