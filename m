@@ -2,57 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 433EC27513B
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 08:11:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCAF275146
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 08:19:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKxzj-0006lW-HS; Wed, 23 Sep 2020 06:11:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3Xh8=DA=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kKxzh-0006lB-UO
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 06:11:09 +0000
-X-Inumbo-ID: 2072efdc-8d4b-437d-b5cf-d81d17894ead
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2072efdc-8d4b-437d-b5cf-d81d17894ead;
- Wed, 23 Sep 2020 06:11:06 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id DCEC767373; Wed, 23 Sep 2020 08:11:02 +0200 (CEST)
-Date: Wed, 23 Sep 2020 08:11:02 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Christoph Hellwig <hch@lst.de>, Matthew Wilcox <willy@infradead.org>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-mm@kvack.org,
- Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>,
- intel-gfx@lists.freedesktop.org, Nitin Gupta <ngupta@vflare.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: use vmap in shmem_pin_map
-Message-ID: <20200923061102.GA15762@lst.de>
-References: <20200918163724.2511-1-hch@lst.de>
- <20200918163724.2511-4-hch@lst.de>
- <20200921191157.GX32101@casper.infradead.org> <20200922062249.GA30831@lst.de>
- <43d10588-2033-038b-14e4-9f41cd622d7b@linux.intel.com>
- <20200922143141.GA26637@lst.de>
- <e429c3e6-2143-f51a-4c1c-c1470076ad3e@linux.intel.com>
- <20200922163346.GA1701@lst.de>
- <1b05b9d6-a14c-85cd-0728-d0d40c9ff84b@linux.intel.com>
+	id 1kKy7R-00070n-DH; Wed, 23 Sep 2020 06:19:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0zQO=DA=amazon.com=prvs=5281df109=sjpark@srs-us1.protection.inumbo.net>)
+ id 1kKy7Q-00070i-Ao
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 06:19:08 +0000
+X-Inumbo-ID: c72d138c-31dd-4152-8458-9d1cf4bce7ec
+Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c72d138c-31dd-4152-8458-9d1cf4bce7ec;
+ Wed, 23 Sep 2020 06:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600841947; x=1632377947;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Hhec5BYj6RypLE3xumu+lmtnfCoV4fVGGtCtUQZxGR8=;
+ b=mrhkeExxT6f1G1EdeNyOUezHVTAFBy7jslRDHxS9yg+BoJUM83r7ZanV
+ 4yGOo6lB/8PzZdMcth/uDxqajCw6tQSltNF5SNVtA/LSBcssIYJB2tu7h
+ dzEhCLpfMji7XLUaYYa2J0uk22Le8bq+S5bp1lNsdismYpR09l4KEgvbL E=;
+X-IronPort-AV: E=Sophos;i="5.77,293,1596499200"; d="scan'208";a="57152334"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2b-baacba05.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
+ 23 Sep 2020 06:19:06 +0000
+Received: from EX13D31EUA004.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-baacba05.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 1BB94A1C8B; Wed, 23 Sep 2020 06:19:03 +0000 (UTC)
+Received: from u3f2cd687b01c55.ant.amazon.com (10.43.162.85) by
+ EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 23 Sep 2020 06:18:57 +0000
+From: SeongJae Park <sjpark@amazon.com>
+To: <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <jgross@suse.com>
+CC: SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
+ <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
+ <pdurrant@amazon.co.uk>, <linux-block@vger.kernel.org>,
+ <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 0/3] xen-blk(back|front): Let users disable persistent
+ grants
+Date: Wed, 23 Sep 2020 08:18:38 +0200
+Message-ID: <20200923061841.20531-1-sjpark@amazon.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1b05b9d6-a14c-85cd-0728-d0d40c9ff84b@linux.intel.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.43.162.85]
+X-ClientProxiedBy: EX13D10UWB001.ant.amazon.com (10.43.161.111) To
+ EX13D31EUA004.ant.amazon.com (10.43.165.161)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -63,34 +69,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Sep 22, 2020 at 06:04:37PM +0100, Tvrtko Ursulin wrote:
-> Only reason I can come up with now is if mapping side is on a latency 
-> sensitive path, while un-mapping is lazy/delayed so can be more costly. 
-> Then fast map and extra cost on unmap may make sense.
+From: SeongJae Park <sjpark@amazon.de>
 
-In general yes.  But compared to the overall operations a small kmalloc
-is in the noise, so I'd really like to see numbers.
+Persistent grants feature provides high scalability.  On some small
+systems, however, it could incur data copy overheads[1] and thus it is
+required to be disabled.  But, there is no option to disable it.  For
+the reason, this commit adds module parameters for disabling of the
+feature.
 
-> It more applies to the other i915 patch, which implements a much more used 
-> API, but whether or not we can demonstrate any difference in the perf 
-> profiles I couldn't tell you without trying to collect some.
+[1] https://wiki.xen.org/wiki/Xen_4.3_Block_Protocol_Scalability
 
-The other patch keeps the stack, as avoiding it would not simplify the
-code as significantly.  I still doubt it is all that useful, though.
+Baseline and Complete Git Trees
+===============================
+
+The patches are based on the v5.9-rc6.  You can also clone the complete
+git tree:
+
+    $ git clone git://github.com/sjp38/linux -b pgrants_disable_v4
+
+The web is also available:
+https://github.com/sjp38/linux/tree/pgrants_disable_v4
+
+Patch History
+=============
+
+Changes from v3
+(https://lore.kernel.org/xen-devel/20200922141549.26154-2-sjpark@amazon.com/)
+- Remove unnecessary ternary operation (Jürgen Groß)
+- Add 'Reviewed-by: Juergen Gross <jgross@suse.com>' and
+  'Acked-by: Roger Pau Monné <roger.pau@citrix.com>'
+
+Changes from v2
+(https://lore.kernel.org/linux-block/20200922105209.5284-1-sjpark@amazon.com/)
+- Avoid a race condition (Roger Pau Monné)
+
+Because the option value is written twice, there could be a race if the
+user change the value meanwhile.  This version fixes the problem by
+reading the value once when each (front|back)end is created.
+
+Changes from v1
+(https://lore.kernel.org/linux-block/20200922070125.27251-1-sjpark@amazon.com/)
+- use 'bool' parameter type (Jürgen Groß)
+- Let blkfront can also disable the feature from its side
+  (Roger Pau Monné)
+- Avoid unnecessary xenbus_printf (Roger Pau Monné)
+- Update frontend parameter doc
 
 
->> We could do vmalloc_to_page, but that is fairly expensive (not as bad
->> as reading from the page cache..).  Are you really worried about the
->> allocation?
->
-> Not so much given how we don't even use shmem_pin_map outside selftests.
->
-> If we start using it I expect it will be for tiny objects anyway. Only if 
-> they end up being pinned for the lifetime of the driver, it may be a 
-> pointless waste of memory compared to the downsides of vmalloc_to_page. But 
-> we can revisit this particular edge case optimization if the need arises.
+SeongJae Park (3):
+  xen-blkback: add a parameter for disabling of persistent grants
+  xen-blkfront: add a parameter for disabling of persistent grants
+  xen-blkfront: Apply changed parameter name to the document
 
-For tiny object we could either look into using kmap, or in fact
-ensure the shmem files aren't in highmem, in which case you could
-always use single-page mappings without any extra mapping.
+ .../ABI/testing/sysfs-driver-xen-blkback      |  9 ++++++++
+ .../ABI/testing/sysfs-driver-xen-blkfront     | 11 +++++++++-
+ drivers/block/xen-blkback/xenbus.c            | 22 ++++++++++++++-----
+ drivers/block/xen-blkfront.c                  | 20 ++++++++++++-----
+ 4 files changed, 50 insertions(+), 12 deletions(-)
+
+-- 
+2.17.1
+
 
