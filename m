@@ -2,68 +2,121 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C83275667
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9F0275661
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:31:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL24y-0000fv-8M; Wed, 23 Sep 2020 10:32:52 +0000
+	id 1kL22s-0000IZ-TT; Wed, 23 Sep 2020 10:30:42 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EYdF=DA=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1kL1vT-00064P-WF
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:23:04 +0000
-X-Inumbo-ID: 4b16eca0-88a4-49fd-8f45-5c2b6f574235
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ <SRS0=V3kw=DA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kL22r-0000IR-Ud
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:30:42 +0000
+X-Inumbo-ID: 4e75f90b-4a38-41c8-ae50-0d97d26c3329
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b16eca0-88a4-49fd-8f45-5c2b6f574235;
- Wed, 23 Sep 2020 10:22:23 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0F4B3B295;
- Wed, 23 Sep 2020 10:23:00 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
- heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
- andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
- emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: [PATCH v3 22/22] drm: Remove obsolete GEM and PRIME callbacks from
- struct drm_driver
-Date: Wed, 23 Sep 2020 12:21:59 +0200
-Message-Id: <20200923102159.24084-23-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
-References: <20200923102159.24084-1-tzimmermann@suse.de>
-MIME-Version: 1.0
+ id 4e75f90b-4a38-41c8-ae50-0d97d26c3329;
+ Wed, 23 Sep 2020 10:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=9RDbiCAaN9mEzsAY2xFdHIITOrw4fjngdqhLmlYIuVM=; b=BWTRqK5lYOMPKGdIz+wdJsk7qu
+ S//2GlzEjKgp1S96ZNr2xoSZC2MzVORle3XOw89AeAy/2uWcaBH+vN5O23K1aBQD7W3SR8FIx5By9
+ yCV5ZV21cEVABQuc/cnPb0YQZi4DxKR2CCgCS3AZ18aBOBKH7JNAnhjTwSoWu0dcBMko=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL22o-0007PR-P7; Wed, 23 Sep 2020 10:30:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL22o-0004ff-Fi; Wed, 23 Sep 2020 10:30:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL22o-0004ck-FD; Wed, 23 Sep 2020 10:30:38 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154617-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.14-testing test] 154617: regressions - FAIL
+X-Osstest-Failures: xen-4.14-testing:test-xtf-amd64-amd64-1:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-2:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-1:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-2:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-3:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.14-testing:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-4:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-5:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.14-testing:test-amd64-i386-xl-xsm:guest-start:fail:regression
+ xen-4.14-testing:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-3:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-4:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.14-testing:test-xtf-amd64-amd64-5:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.14-testing:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+ xen-4.14-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.14-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-4.14-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-4.14-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.14-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: xen=03019c20b516be53ba0cd393f5291974a9a6c9a8
+X-Osstest-Versions-That: xen=28855ebcdbfa437e60bc16c761405476fe16bc39
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Sep 2020 10:30:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,470 +130,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Several GEM and PRIME callbacks have been deprecated in favor of
-per-instance GEM object functions. Remove the callbacks as they are
-now unused. The only exception is .gem_prime_mmap, which is still
-in use by several drivers.
+flight 154617 xen-4.14-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154617/
 
-What is also gone is gem_vm_ops in struct drm_driver. All drivers now
-use struct drm_gem_object_funcs.vm_ops instead.
+Regressions :-(
 
-While at it, the patch also improves error handling around calls
-to .free and .get_sg_table callbacks.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-xtf-amd64-amd64-1       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-2       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-1       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-2       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-3       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154350
+ test-amd64-amd64-libvirt-xsm 12 guest-start              fail REGR. vs. 154350
+ test-xtf-amd64-amd64-4       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-5       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154350
+ test-amd64-i386-xl-xsm       12 guest-start              fail REGR. vs. 154350
+ test-amd64-i386-libvirt-xsm  12 guest-start              fail REGR. vs. 154350
+ test-xtf-amd64-amd64-3       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-4       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154350
+ test-xtf-amd64-amd64-5       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154350
+ test-amd64-amd64-xl-xsm      12 guest-start              fail REGR. vs. 154350
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154350
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154350
 
-v3:
-	* restore default call to drm_gem_prime_export() in
-	  drm_gem_prime_handle_to_fd()
-	* return -ENOSYS if get_sg_table is not set
-	* drop all checks for obj->funcs
-	* clean up TODO list and documentation
-v2:
-	* update related TODO item (Sam)
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
----
- Documentation/gpu/drm-mm.rst         |  4 +-
- Documentation/gpu/todo.rst           |  9 +--
- drivers/gpu/drm/drm_gem.c            | 53 ++++++-----------
- drivers/gpu/drm/drm_gem_cma_helper.c |  8 +--
- drivers/gpu/drm/drm_prime.c          | 14 ++---
- include/drm/drm_drv.h                | 85 ++--------------------------
- include/drm/drm_gem.h                |  2 +-
- 7 files changed, 38 insertions(+), 137 deletions(-)
+version targeted for testing:
+ xen                  03019c20b516be53ba0cd393f5291974a9a6c9a8
+baseline version:
+ xen                  28855ebcdbfa437e60bc16c761405476fe16bc39
 
-diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
-index 9abee1589c1e..21be6deadc12 100644
---- a/Documentation/gpu/drm-mm.rst
-+++ b/Documentation/gpu/drm-mm.rst
-@@ -182,11 +182,11 @@ acquired and release by calling drm_gem_object_get() and drm_gem_object_put()
- respectively.
- 
- When the last reference to a GEM object is released the GEM core calls
--the :c:type:`struct drm_driver <drm_driver>` gem_free_object_unlocked
-+the :c:type:`struct drm_gem_object_funcs <gem_object_funcs>` free
- operation. That operation is mandatory for GEM-enabled drivers and must
- free the GEM object and all associated resources.
- 
--void (\*gem_free_object) (struct drm_gem_object \*obj); Drivers are
-+void (\*free) (struct drm_gem_object \*obj); Drivers are
- responsible for freeing all GEM object resources. This includes the
- resources created by the GEM core, which need to be released with
- drm_gem_object_release().
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index b0ea17da8ff6..3751ac976c3e 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -149,7 +149,7 @@ have to keep track of that lock and either call ``unreference`` or
- ``unreference_locked`` depending upon context.
- 
- Core GEM doesn't have a need for ``struct_mutex`` any more since kernel 4.8,
--and there's a ``gem_free_object_unlocked`` callback for any drivers which are
-+and there's a GEM object ``free`` callback for any drivers which are
- entirely ``struct_mutex`` free.
- 
- For drivers that need ``struct_mutex`` it should be replaced with a driver-
-@@ -289,11 +289,8 @@ struct drm_gem_object_funcs
- ---------------------------
- 
- GEM objects can now have a function table instead of having the callbacks on the
--DRM driver struct. This is now the preferred way and drivers can be moved over.
--
--We also need a 2nd version of the CMA define that doesn't require the
--vmapping to be present (different hook for prime importing). Plus this needs to
--be rolled out to all drivers using their own implementations, too.
-+DRM driver struct. This is now the preferred way. Callbacks in drivers have been
-+converted, except for struct drm_driver.gem_prime_mmap.
- 
- Level: Intermediate
- 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 19d73868490e..1da67d34e55d 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -247,12 +247,9 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
- {
- 	struct drm_file *file_priv = data;
- 	struct drm_gem_object *obj = ptr;
--	struct drm_device *dev = obj->dev;
- 
--	if (obj->funcs && obj->funcs->close)
-+	if (obj->funcs->close)
- 		obj->funcs->close(obj, file_priv);
--	else if (dev->driver->gem_close_object)
--		dev->driver->gem_close_object(obj, file_priv);
- 
- 	drm_gem_remove_prime_handles(obj, file_priv);
- 	drm_vma_node_revoke(&obj->vma_node, file_priv);
-@@ -403,14 +400,10 @@ drm_gem_handle_create_tail(struct drm_file *file_priv,
- 	if (ret)
- 		goto err_remove;
- 
--	if (obj->funcs && obj->funcs->open) {
-+	if (obj->funcs->open) {
- 		ret = obj->funcs->open(obj, file_priv);
- 		if (ret)
- 			goto err_revoke;
--	} else if (dev->driver->gem_open_object) {
--		ret = dev->driver->gem_open_object(obj, file_priv);
--		if (ret)
--			goto err_revoke;
- 	}
- 
- 	*handlep = handle;
-@@ -982,12 +975,11 @@ drm_gem_object_free(struct kref *kref)
- {
- 	struct drm_gem_object *obj =
- 		container_of(kref, struct drm_gem_object, refcount);
--	struct drm_device *dev = obj->dev;
- 
--	if (obj->funcs)
--		obj->funcs->free(obj);
--	else if (dev->driver->gem_free_object_unlocked)
--		dev->driver->gem_free_object_unlocked(obj);
-+	if (WARN_ON(!obj->funcs->free))
-+		return;
-+
-+	obj->funcs->free(obj);
- }
- EXPORT_SYMBOL(drm_gem_object_free);
- 
-@@ -1049,9 +1041,9 @@ EXPORT_SYMBOL(drm_gem_vm_close);
-  * @obj_size: the object size to be mapped, in bytes
-  * @vma: VMA for the area to be mapped
-  *
-- * Set up the VMA to prepare mapping of the GEM object using the gem_vm_ops
-- * provided by the driver. Depending on their requirements, drivers can either
-- * provide a fault handler in their gem_vm_ops (in which case any accesses to
-+ * Set up the VMA to prepare mapping of the GEM object using the GEM object's
-+ * vm_ops. Depending on their requirements, GEM objects can either
-+ * provide a fault handler in their vm_ops (in which case any accesses to
-  * the object will be trapped, to perform migration, GTT binding, surface
-  * register allocation, or performance monitoring), or mmap the buffer memory
-  * synchronously after calling drm_gem_mmap_obj.
-@@ -1065,12 +1057,11 @@ EXPORT_SYMBOL(drm_gem_vm_close);
-  * callers must verify access restrictions before calling this helper.
-  *
-  * Return 0 or success or -EINVAL if the object size is smaller than the VMA
-- * size, or if no gem_vm_ops are provided.
-+ * size, or if no vm_ops are provided.
-  */
- int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
- 		     struct vm_area_struct *vma)
- {
--	struct drm_device *dev = obj->dev;
- 	int ret;
- 
- 	/* Check for valid size. */
-@@ -1085,7 +1076,7 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
- 	 */
- 	drm_gem_object_get(obj);
- 
--	if (obj->funcs && obj->funcs->mmap) {
-+	if (obj->funcs->mmap) {
- 		ret = obj->funcs->mmap(obj, vma);
- 		if (ret) {
- 			drm_gem_object_put(obj);
-@@ -1093,10 +1084,8 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
- 		}
- 		WARN_ON(!(vma->vm_flags & VM_DONTEXPAND));
- 	} else {
--		if (obj->funcs && obj->funcs->vm_ops)
-+		if (obj->funcs->vm_ops)
- 			vma->vm_ops = obj->funcs->vm_ops;
--		else if (dev->driver->gem_vm_ops)
--			vma->vm_ops = dev->driver->gem_vm_ops;
- 		else {
- 			drm_gem_object_put(obj);
- 			return -EINVAL;
-@@ -1198,36 +1187,30 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
- 	drm_printf_indent(p, indent, "imported=%s\n",
- 			  obj->import_attach ? "yes" : "no");
- 
--	if (obj->funcs && obj->funcs->print_info)
-+	if (obj->funcs->print_info)
- 		obj->funcs->print_info(p, indent, obj);
- }
- 
- int drm_gem_pin(struct drm_gem_object *obj)
- {
--	if (obj->funcs && obj->funcs->pin)
-+	if (obj->funcs->pin)
- 		return obj->funcs->pin(obj);
--	else if (obj->dev->driver->gem_prime_pin)
--		return obj->dev->driver->gem_prime_pin(obj);
- 	else
- 		return 0;
- }
- 
- void drm_gem_unpin(struct drm_gem_object *obj)
- {
--	if (obj->funcs && obj->funcs->unpin)
-+	if (obj->funcs->unpin)
- 		obj->funcs->unpin(obj);
--	else if (obj->dev->driver->gem_prime_unpin)
--		obj->dev->driver->gem_prime_unpin(obj);
- }
- 
- void *drm_gem_vmap(struct drm_gem_object *obj)
- {
- 	void *vaddr;
- 
--	if (obj->funcs && obj->funcs->vmap)
-+	if (obj->funcs->vmap)
- 		vaddr = obj->funcs->vmap(obj);
--	else if (obj->dev->driver->gem_prime_vmap)
--		vaddr = obj->dev->driver->gem_prime_vmap(obj);
- 	else
- 		vaddr = ERR_PTR(-EOPNOTSUPP);
- 
-@@ -1242,10 +1225,8 @@ void drm_gem_vunmap(struct drm_gem_object *obj, void *vaddr)
- 	if (!vaddr)
- 		return;
- 
--	if (obj->funcs && obj->funcs->vunmap)
-+	if (obj->funcs->vunmap)
- 		obj->funcs->vunmap(obj, vaddr);
--	else if (obj->dev->driver->gem_prime_vunmap)
--		obj->dev->driver->gem_prime_vunmap(obj, vaddr);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/drm_gem_cma_helper.c b/drivers/gpu/drm/drm_gem_cma_helper.c
-index 59b9ca207b42..8247b96babe4 100644
---- a/drivers/gpu/drm/drm_gem_cma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_cma_helper.c
-@@ -171,7 +171,7 @@ drm_gem_cma_create_with_handle(struct drm_file *file_priv,
-  * GEM object state and frees the memory used to store the object itself.
-  * If the buffer is imported and the virtual address is set, it is released.
-  * Drivers using the CMA helpers should set this as their
-- * &drm_driver.gem_free_object_unlocked callback.
-+ * &drm_gem_object_funcs.free callback.
-  */
- void drm_gem_cma_free_object(struct drm_gem_object *gem_obj)
- {
-@@ -419,7 +419,7 @@ EXPORT_SYMBOL(drm_gem_cma_print_info);
-  *
-  * This function exports a scatter/gather table suitable for PRIME usage by
-  * calling the standard DMA mapping API. Drivers using the CMA helpers should
-- * set this as their &drm_driver.gem_prime_get_sg_table callback.
-+ * set this as their &drm_gem_object_funcs.get_sg_table callback.
-  *
-  * Returns:
-  * A pointer to the scatter/gather table of pinned pages or NULL on failure.
-@@ -525,7 +525,7 @@ EXPORT_SYMBOL_GPL(drm_gem_cma_prime_mmap);
-  * virtual address space. Since the CMA buffers are already mapped into the
-  * kernel virtual address space this simply returns the cached virtual
-  * address. Drivers using the CMA helpers should set this as their DRM
-- * driver's &drm_driver.gem_prime_vmap callback.
-+ * driver's &drm_gem_object_funcs.vmap callback.
-  *
-  * Returns:
-  * The kernel virtual address of the CMA GEM object's backing store.
-@@ -547,7 +547,7 @@ EXPORT_SYMBOL_GPL(drm_gem_cma_prime_vmap);
-  * This function removes a buffer exported via DRM PRIME from the kernel's
-  * virtual address space. This is a no-op because CMA buffers cannot be
-  * unmapped from kernel space. Drivers using the CMA helpers should set this
-- * as their &drm_driver.gem_prime_vunmap callback.
-+ * as their &drm_gem_object_funcs.vunmap callback.
-  */
- void drm_gem_cma_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
- {
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 11fe9ff76fd5..c0455ad09f3d 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -386,8 +386,6 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
- 
- 	if (obj->funcs && obj->funcs->export)
- 		dmabuf = obj->funcs->export(obj, flags);
--	else if (dev->driver->gem_prime_export)
--		dmabuf = dev->driver->gem_prime_export(obj, flags);
- 	else
- 		dmabuf = drm_gem_prime_export(obj, flags);
- 	if (IS_ERR(dmabuf)) {
-@@ -419,7 +417,7 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
-  * This is the PRIME export function which must be used mandatorily by GEM
-  * drivers to ensure correct lifetime management of the underlying GEM object.
-  * The actual exporting from GEM object to a dma-buf is done through the
-- * &drm_driver.gem_prime_export driver callback.
-+ * &drm_gem_object_funcs.export callback.
-  */
- int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle,
-@@ -622,10 +620,12 @@ struct sg_table *drm_gem_map_dma_buf(struct dma_buf_attachment *attach,
- 	if (WARN_ON(dir == DMA_NONE))
- 		return ERR_PTR(-EINVAL);
- 
--	if (obj->funcs)
--		sgt = obj->funcs->get_sg_table(obj);
--	else
--		sgt = obj->dev->driver->gem_prime_get_sg_table(obj);
-+	if (WARN_ON(!obj->funcs->get_sg_table))
-+		return ERR_PTR(-ENOSYS);
-+
-+	sgt = obj->funcs->get_sg_table(obj);
-+	if (IS_ERR(sgt))
-+		return sgt;
- 
- 	ret = dma_map_sgtable(attach->dev, sgt, dir,
- 			      DMA_ATTR_SKIP_CPU_SYNC);
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index 9b11a2f0babc..240b0eab8018 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -36,10 +36,12 @@ struct drm_file;
- struct drm_gem_object;
- struct drm_master;
- struct drm_minor;
-+struct dma_buf;
- struct dma_buf_attachment;
- struct drm_display_mode;
- struct drm_mode_create_dumb;
- struct drm_printer;
-+struct sg_table;
- 
- /**
-  * enum drm_driver_feature - feature flags
-@@ -326,32 +328,6 @@ struct drm_driver {
- 	 */
- 	void (*debugfs_init)(struct drm_minor *minor);
- 
--	/**
--	 * @gem_free_object_unlocked: deconstructor for drm_gem_objects
--	 *
--	 * This is deprecated and should not be used by new drivers. Use
--	 * &drm_gem_object_funcs.free instead.
--	 */
--	void (*gem_free_object_unlocked) (struct drm_gem_object *obj);
--
--	/**
--	 * @gem_open_object:
--	 *
--	 * This callback is deprecated in favour of &drm_gem_object_funcs.open.
--	 *
--	 * Driver hook called upon gem handle creation
--	 */
--	int (*gem_open_object) (struct drm_gem_object *, struct drm_file *);
--
--	/**
--	 * @gem_close_object:
--	 *
--	 * This callback is deprecated in favour of &drm_gem_object_funcs.close.
--	 *
--	 * Driver hook called upon gem handle release
--	 */
--	void (*gem_close_object) (struct drm_gem_object *, struct drm_file *);
--
- 	/**
- 	 * @gem_create_object: constructor for gem objects
- 	 *
-@@ -360,6 +336,7 @@ struct drm_driver {
- 	 */
- 	struct drm_gem_object *(*gem_create_object)(struct drm_device *dev,
- 						    size_t size);
-+
- 	/**
- 	 * @prime_handle_to_fd:
- 	 *
-@@ -382,14 +359,7 @@ struct drm_driver {
- 	 */
- 	int (*prime_fd_to_handle)(struct drm_device *dev, struct drm_file *file_priv,
- 				int prime_fd, uint32_t *handle);
--	/**
--	 * @gem_prime_export:
--	 *
--	 * Export hook for GEM drivers. Deprecated in favour of
--	 * &drm_gem_object_funcs.export.
--	 */
--	struct dma_buf * (*gem_prime_export)(struct drm_gem_object *obj,
--					     int flags);
-+
- 	/**
- 	 * @gem_prime_import:
- 	 *
-@@ -399,29 +369,6 @@ struct drm_driver {
- 	 */
- 	struct drm_gem_object * (*gem_prime_import)(struct drm_device *dev,
- 				struct dma_buf *dma_buf);
--
--	/**
--	 * @gem_prime_pin:
--	 *
--	 * Deprecated hook in favour of &drm_gem_object_funcs.pin.
--	 */
--	int (*gem_prime_pin)(struct drm_gem_object *obj);
--
--	/**
--	 * @gem_prime_unpin:
--	 *
--	 * Deprecated hook in favour of &drm_gem_object_funcs.unpin.
--	 */
--	void (*gem_prime_unpin)(struct drm_gem_object *obj);
--
--
--	/**
--	 * @gem_prime_get_sg_table:
--	 *
--	 * Deprecated hook in favour of &drm_gem_object_funcs.get_sg_table.
--	 */
--	struct sg_table *(*gem_prime_get_sg_table)(struct drm_gem_object *obj);
--
- 	/**
- 	 * @gem_prime_import_sg_table:
- 	 *
-@@ -432,22 +379,6 @@ struct drm_driver {
- 				struct drm_device *dev,
- 				struct dma_buf_attachment *attach,
- 				struct sg_table *sgt);
--	/**
--	 * @gem_prime_vmap:
--	 *
--	 * Deprecated vmap hook for GEM drivers. Please use
--	 * &drm_gem_object_funcs.vmap instead.
--	 */
--	void *(*gem_prime_vmap)(struct drm_gem_object *obj);
--
--	/**
--	 * @gem_prime_vunmap:
--	 *
--	 * Deprecated vunmap hook for GEM drivers. Please use
--	 * &drm_gem_object_funcs.vunmap instead.
--	 */
--	void (*gem_prime_vunmap)(struct drm_gem_object *obj, void *vaddr);
--
- 	/**
- 	 * @gem_prime_mmap:
- 	 *
-@@ -522,14 +453,6 @@ struct drm_driver {
- 			    struct drm_device *dev,
- 			    uint32_t handle);
- 
--	/**
--	 * @gem_vm_ops: Driver private ops for this object
--	 *
--	 * For GEM drivers this is deprecated in favour of
--	 * &drm_gem_object_funcs.vm_ops.
--	 */
--	const struct vm_operations_struct *gem_vm_ops;
--
- 	/** @major: driver major number */
- 	int major;
- 	/** @minor: driver minor number */
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 337a48321705..c38dd35da00b 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -272,7 +272,7 @@ struct drm_gem_object {
- 	 * attachment point for the device. This is invariant over the lifetime
- 	 * of a gem object.
- 	 *
--	 * The &drm_driver.gem_free_object_unlocked callback is responsible for
-+	 * The &drm_gem_object_funcs.free callback is responsible for
- 	 * cleaning up the dma_buf attachment and references acquired at import
- 	 * time.
- 	 *
--- 
-2.28.0
+Last test of basis   154350  2020-09-15 00:36:14 Z    8 days
+Testing same since   154617  2020-09-22 14:37:47 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 379 lines long.)
 
