@@ -2,58 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCE727556E
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C261F27556B
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 12:19:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kL1s8-00050E-Bx; Wed, 23 Sep 2020 10:19:36 +0000
+	id 1kL1rc-0004u2-TS; Wed, 23 Sep 2020 10:19:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wqyB=DA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kL1s6-0004wt-Dx
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:19:34 +0000
-X-Inumbo-ID: f677a8e7-772b-4209-b329-3e3c40dc6464
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=V3kw=DA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kL1rb-0004ti-7I
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 10:19:03 +0000
+X-Inumbo-ID: cf0e5b58-c717-4fde-b778-93005ee58a32
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f677a8e7-772b-4209-b329-3e3c40dc6464;
- Wed, 23 Sep 2020 10:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600856368;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vdI1EYuMaKnA952RMddPTxjBODH98bz5GhMt6TL0KDY=;
- b=I7ulGumk6LGy42y2JdrM6PTOK8VOykk9Z6Ha/E/jpSY7clIlruULYkIn
- JUNakWL7CkLH5sCXpK+cXNgHpkSOkyy9hQhcRlLWY1TgRK2TUGZ0VsWFb
- dxMWXOSGabV55FPw7yVEZ1Q3b1XvRB/38FSpb5eebU3z17TCUdVeNnvBE 8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: wpBcSvwNPMQOulGJLpOkI4AUEjhdW7DuR24mdmPY5AfrI+jpmnGnDK07/X+FqNkpY8sjmzI44+
- EmhbEyh6zezcj5wmgMCsZ5eJ9vM2BQnF/rIc8QB8NQYWiHkgQqY5lu1PhZ8RzJ/3uk96hWxEOO
- M8167bLM3iSrHd02OSmvQSeTdOEDvZVL1pR88gSHX/Jueh4tFaHYZM0PEt7XT57c79DYvIddTD
- y+zeDxZXyMvJTvY/gQdsVePTcc2EU0bozVA8Tjo6en37SKxaG8/vXpRUcdFhvL6zmiVv8Aapag
- H6E=
-X-SBRS: 2.7
-X-MesageID: 27642194
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,293,1596513600"; d="scan'208";a="27642194"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Andy Lutomirski
- <luto@kernel.org>, Manuel Bouyer <bouyer@antioche.eu.org>
-Subject: [PATCH 3/3] x86/pv: Inject #UD for missing SYSCALL callbacks
-Date: Wed, 23 Sep 2020 11:18:48 +0100
-Message-ID: <20200923101848.29049-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200923101848.29049-1-andrew.cooper3@citrix.com>
-References: <20200923101848.29049-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
+ id cf0e5b58-c717-4fde-b778-93005ee58a32;
+ Wed, 23 Sep 2020 10:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=1VCbXW0Zr9qGMp9ey7myNCMAzp5bj+n4/Hw7bu9nuuY=; b=DJ775kMYR1Wd5ERVAaSzQaQn+0
+ AY+eDHLdVHSBklpge42P6O2bPSF5ZRpa34A93KUmimbTKqbbqS/RzGFJCaj0GECdAPy8/vI6bEw4C
+ RQcKbxxYo1C+4RAy1OsOXS5L4Q4+Q91HZboSO+PBoizsyQRDhprcKP5jEcbk3jHivft4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL1rU-00078e-RV; Wed, 23 Sep 2020 10:18:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL1rU-00049n-HT; Wed, 23 Sep 2020 10:18:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kL1rU-0002o1-H0; Wed, 23 Sep 2020 10:18:56 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154638-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-coverity test] 154638: all pass - PUSHED
+X-Osstest-Versions-This: xen=2785b2a9e04abc148e1c5259f4faee708ea356f4
+X-Osstest-Versions-That: xen=baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Sep 2020 10:18:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,113 +60,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Despite appearing to be a deliberate design choice of early PV64, the
-resulting behaviour for unregistered SYSCALL callbacks creates an untenable
-testability problem for Xen.  Furthermore, the behaviour is undocumented,
-bizarre, and inconsistent with related behaviour in Xen, and very liable
-introduce a security vulnerability into a PV guest if the author hasn't
-studied Xen's assembly code in detail.
+flight 154638 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154638/
 
-There are two different bugs here.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  2785b2a9e04abc148e1c5259f4faee708ea356f4
+baseline version:
+ xen                  baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
 
-1) The current logic confuses the registered entrypoints, and may deliver a
-   SYSCALL from 32bit userspace to the 64bit entry, when only a 64bit
-   entrypoint is registered.
+Last test of basis   154529  2020-09-20 09:19:32 Z    3 days
+Testing same since   154638  2020-09-23 09:18:27 Z    0 days    1 attempts
 
-   This has been the case ever since 2007 (c/s cd75d47348b) but up until
-   2018 (c/s dba899de14) the wrong selectors would be handed to the guest for
-   a 32bit SYSCALL entry, making it appear as if it a 64bit entry all along.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Trammell Hudson <hudson@trmm.net>
 
-   Xen would malfunction under these circumstances, if it were a PV guest.
-   Linux would as well, but PVOps has always registered both entrypoints and
-   discarded the Xen-provided selectors.  NetBSD really does malfunction as a
-   consequence (benignly now, but a VM DoS before the 2018 Xen selector fix).
+jobs:
+ coverity-amd64                                               pass    
 
-2) In the case that neither SYSCALL callbacks are registered, the guest will
-   be crashed when userspace executes a SYSCALL instruction, which is a
-   userspace => kernel DoS.
 
-   This has been the case ever since the introduction of 64bit PV support, but
-   behaves unlike all other SYSCALL/SYSENTER callbacks in Xen, which yield
-   #GP/#UD in userspace before the callback is registered, and are therefore
-   safe by default.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This change does constitute a change in the PV ABI, for corner cases of a PV
-guest kernel registering neither callback, or not registering the 32bit
-callback when running on AMD/Hygon hardware.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-It brings the behaviour in line with PV32 SYSCALL/SYSENTER, and PV64
-SYSENTER (safe by default, until explicitly enabled), as well as native
-hardware (always delivered to the single applicable callback).
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Most importantly however, and the primary reason for the change, is that it
-lets us actually test the PV entrypoints to prove correct behaviour.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Andy Lutomirski <luto@kernel.org>
-CC: Manuel Bouyer <bouyer@antioche.eu.org>
 
-Manuel: This will result in a corner case change for NetBSD.
+Pushing revision :
 
-At the moment on native, 32bit userspace on 64bit NetBSD will get #UD (Intel,
-etc), or an explicit -ENOSYS (AMD, etc) when trying to execute a 32bit SYSCALL
-instruction.
-
-After this change, a 64bit PV VM will consistently see #UD (like on Intel, etc
-hardware) even when running on AMD/Hygon hardware (as Xsyscall32 isn't
-registered with Xen), rather than following Xsyscall into the proper system
-call path.
----
- xen/arch/x86/x86_64/entry.S | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 000eb9722b..baab6d8755 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -26,18 +26,30 @@
- /* %rbx: struct vcpu */
- ENTRY(switch_to_kernel)
-         leaq  VCPU_trap_bounce(%rbx),%rdx
--        /* TB_eip = (32-bit syscall && syscall32_addr) ?
--         *          syscall32_addr : syscall_addr */
--        xor   %eax,%eax
-+
-+        /* TB_eip = 32-bit syscall ? syscall32_addr : syscall_addr */
-+        mov   VCPU_syscall32_addr(%rbx), %ecx
-+        mov   VCPU_syscall_addr(%rbx), %rax
-         cmpw  $FLAT_USER_CS32,UREGS_cs(%rsp)
--        cmoveq VCPU_syscall32_addr(%rbx),%rax
--        testq %rax,%rax
--        cmovzq VCPU_syscall_addr(%rbx),%rax
--        movq  %rax,TRAPBOUNCE_eip(%rdx)
-+        cmove %rcx, %rax
-+
-         /* TB_flags = VGCF_syscall_disables_events ? TBF_INTERRUPT : 0 */
-         btl   $_VGCF_syscall_disables_events,VCPU_guest_context_flags(%rbx)
-         setc  %cl
-         leal  (,%rcx,TBF_INTERRUPT),%ecx
-+
-+        test  %rax, %rax
-+UNLIKELY_START(z, syscall_no_callback) /* TB_eip == 0 => #UD */
-+        movq  VCPU_trap_ctxt(%rbx), %rdi
-+        movl  $X86_EXC_UD, UREGS_entry_vector(%rsp)
-+        subl  $2, UREGS_rip(%rsp)
-+        movl  X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_eip(%rdi), %eax
-+        testb $4, X86_EXC_UD * TRAPINFO_sizeof + TRAPINFO_flags(%rdi)
-+        setnz %cl
-+        leal  TBF_EXCEPTION(, %rcx, TBF_INTERRUPT), %ecx
-+UNLIKELY_END(syscall_no_callback)
-+
-+        movq  %rax,TRAPBOUNCE_eip(%rdx)
-         movb  %cl,TRAPBOUNCE_flags(%rdx)
-         call  create_bounce_frame
-         andl  $~X86_EFLAGS_DF,UREGS_eflags(%rsp)
--- 
-2.11.0
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   baa4d064e9..2785b2a9e0  2785b2a9e04abc148e1c5259f4faee708ea356f4 -> coverity-tested/smoke
 
