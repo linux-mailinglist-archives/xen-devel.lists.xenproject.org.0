@@ -2,53 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B19275147
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 08:19:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA3427514F
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Sep 2020 08:19:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kKy7f-000726-N3; Wed, 23 Sep 2020 06:19:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kKy7n-00075C-Da; Wed, 23 Sep 2020 06:19:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0zQO=DA=amazon.com=prvs=5281df109=sjpark@srs-us1.protection.inumbo.net>)
- id 1kKy7d-00071x-TM
- for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 06:19:21 +0000
-X-Inumbo-ID: a950ac56-86f9-44d1-aeed-4278f9ddbe3e
-Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a950ac56-86f9-44d1-aeed-4278f9ddbe3e;
- Wed, 23 Sep 2020 06:19:21 +0000 (UTC)
+ id 1kKy7m-00073A-DU
+ for xen-devel@lists.xenproject.org; Wed, 23 Sep 2020 06:19:30 +0000
+X-Inumbo-ID: 615700c7-8ade-4501-8c0d-a10245bc7bf1
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 615700c7-8ade-4501-8c0d-a10245bc7bf1;
+ Wed, 23 Sep 2020 06:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1600841961; x=1632377961;
+ t=1600841969; x=1632377969;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ugucz/rQejY9CCWX5M6IeRpnuv55lkqiEc2mhoGSlgc=;
- b=e7xQHRzb8qeoEGRvnMLAKTYbiMFcOUP0MTO7G7AiroG3FwvjUztWEgc7
- OStvZKCM5Yq01rXS38UeOdimeG08+GLyj+70H1stzZisqEsTPCiCqPa+0
- qRKppJCpkfHiHd1RtkrBQ2P8VfnPqIgEMj8VeSO9Mh2gsdmJlgrDuVc/O Y=;
-X-IronPort-AV: E=Sophos;i="5.77,293,1596499200"; d="scan'208";a="57152357"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2c-6f38efd9.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
- 23 Sep 2020 06:19:20 +0000
+ bh=wiT0fswhZm9GV0VSgNnM0/vVGnP9KcQWX4yyYuqlSeo=;
+ b=tr5KiZOD5XENGMLLi+NrI0H1+zPQgbTXAfVbrn4BCfx6oD6vvQwi98RK
+ yGYZLROGqLyPOj/oo72qPfsHuBrn1BdvRGT7GACX9x54q73MEbrnteXCC
+ Y3tBcUvHnQ3HFMDd3qGb5oCOzi9N7jTOSAXRqoFR0CY4C4nTfWXxymb2k I=;
+X-IronPort-AV: E=Sophos;i="5.77,293,1596499200"; d="scan'208";a="70362466"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 23 Sep 2020 06:19:26 +0000
 Received: from EX13D31EUA004.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2c-6f38efd9.us-west-2.amazon.com (Postfix) with ESMTPS
- id 4117DA062F; Wed, 23 Sep 2020 06:19:19 +0000 (UTC)
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-4e24fd92.us-west-2.amazon.com (Postfix) with ESMTPS
+ id CC5CBA1CE7; Wed, 23 Sep 2020 06:19:25 +0000 (UTC)
 Received: from u3f2cd687b01c55.ant.amazon.com (10.43.162.85) by
  EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 23 Sep 2020 06:19:12 +0000
+ id 15.0.1497.2; Wed, 23 Sep 2020 06:19:19 +0000
 From: SeongJae Park <sjpark@amazon.com>
 To: <konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <jgross@suse.com>
 CC: SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
  <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
  <pdurrant@amazon.co.uk>, <linux-block@vger.kernel.org>,
  <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 2/3] xen-blkfront: add a parameter for disabling of
- persistent grants
-Date: Wed, 23 Sep 2020 08:18:40 +0200
-Message-ID: <20200923061841.20531-3-sjpark@amazon.com>
+Subject: [PATCH v4 3/3] xen-blkfront: Apply changed parameter name to the
+ document
+Date: Wed, 23 Sep 2020 08:18:41 +0200
+Message-ID: <20200923061841.20531-4-sjpark@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200923061841.20531-1-sjpark@amazon.com>
 References: <20200923061841.20531-1-sjpark@amazon.com>
@@ -73,92 +74,28 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: SeongJae Park <sjpark@amazon.de>
 
-Persistent grants feature provides high scalability.  On some small
-systems, however, it could incur data copy overheads[1] and thus it is
-required to be disabled.  It can be disabled from blkback side using a
-module parameter, 'feature_persistent'.  But, it is impossible from
-blkfront side.  For the reason, this commit adds a blkfront module
-parameter for disabling of the feature.
-
-[1] https://wiki.xen.org/wiki/Xen_4.3_Block_Protocol_Scalability
+Commit 14e710fe7897 ("xen-blkfront: rename indirect descriptor
+parameter") changed the name of the module parameter for the maximum
+amount of segments in indirect requests but missed updating the
+document.  This commit updates the document.
 
 Signed-off-by: SeongJae Park <sjpark@amazon.de>
 Reviewed-by: Juergen Gross <jgross@suse.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- .../ABI/testing/sysfs-driver-xen-blkfront     |  9 +++++++++
- drivers/block/xen-blkfront.c                  | 20 ++++++++++++++-----
- 2 files changed, 24 insertions(+), 5 deletions(-)
+ Documentation/ABI/testing/sysfs-driver-xen-blkfront | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkfront b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-index c0a6cb7eb314..9c31334cb2e6 100644
+index 9c31334cb2e6..28008905615f 100644
 --- a/Documentation/ABI/testing/sysfs-driver-xen-blkfront
 +++ b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-@@ -8,3 +8,12 @@ Description:
-                 is 32 - higher value means more potential throughput but more
-                 memory usage. The backend picks the minimum of the frontend
-                 and its default backend value.
-+
-+What:           /sys/module/xen_blkfront/parameters/feature_persistent
-+Date:           September 2020
-+KernelVersion:  5.10
-+Contact:        SeongJae Park <sjpark@amazon.de>
-+Description:
-+                Whether to enable the persistent grants feature or not.  Note
-+                that this option only takes effect on newly created frontends.
-+                The default is Y (enable).
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 91de2e0755ae..48629d3433b4 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -1866,8 +1866,8 @@ static int talk_to_blkback(struct xenbus_device *dev,
- 		message = "writing protocol";
- 		goto abort_transaction;
- 	}
--	err = xenbus_printf(xbt, dev->nodename,
--			    "feature-persistent", "%u", 1);
-+	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u",
-+			info->feature_persistent);
- 	if (err)
- 		dev_warn(&dev->dev,
- 			 "writing persistent grants feature to xenbus");
-@@ -1941,6 +1941,13 @@ static int negotiate_mq(struct blkfront_info *info)
- 	}
- 	return 0;
- }
-+
-+/* Enable the persistent grants feature. */
-+static bool feature_persistent = true;
-+module_param(feature_persistent, bool, 0644);
-+MODULE_PARM_DESC(feature_persistent,
-+		"Enables the persistent grants feature");
-+
- /**
-  * Entry point to this code when a new device is created.  Allocate the basic
-  * structures and the ring buffer for communication with the backend, and
-@@ -2007,6 +2014,8 @@ static int blkfront_probe(struct xenbus_device *dev,
- 	info->vdevice = vdevice;
- 	info->connected = BLKIF_STATE_DISCONNECTED;
- 
-+	info->feature_persistent = feature_persistent;
-+
- 	/* Front end dir is a number, which is used as the id. */
- 	info->handle = simple_strtoul(strrchr(dev->nodename, '/')+1, NULL, 0);
- 	dev_set_drvdata(&dev->dev, info);
-@@ -2316,9 +2325,10 @@ static void blkfront_gather_backend_features(struct blkfront_info *info)
- 	if (xenbus_read_unsigned(info->xbdev->otherend, "feature-discard", 0))
- 		blkfront_setup_discard(info);
- 
--	info->feature_persistent =
--		!!xenbus_read_unsigned(info->xbdev->otherend,
--				       "feature-persistent", 0);
-+	if (info->feature_persistent)
-+		info->feature_persistent =
-+			!!xenbus_read_unsigned(info->xbdev->otherend,
-+					       "feature-persistent", 0);
- 
- 	indirect_segments = xenbus_read_unsigned(info->xbdev->otherend,
- 					"feature-max-indirect-segments", 0);
+@@ -1,4 +1,4 @@
+-What:           /sys/module/xen_blkfront/parameters/max
++What:           /sys/module/xen_blkfront/parameters/max_indirect_segments
+ Date:           June 2013
+ KernelVersion:  3.11
+ Contact:        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 -- 
 2.17.1
 
