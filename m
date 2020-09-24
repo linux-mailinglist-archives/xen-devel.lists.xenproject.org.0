@@ -2,80 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C4A276ED7
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B26276EE1
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:38:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLObm-0005vx-EZ; Thu, 24 Sep 2020 10:36:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=puVB=DB=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kLObk-0005vs-8G
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:36:12 +0000
-X-Inumbo-ID: cca73e52-9f96-4c10-8b01-ebf8098650c3
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cca73e52-9f96-4c10-8b01-ebf8098650c3;
- Thu, 24 Sep 2020 10:36:11 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id w5so3222084wrp.8
- for <xen-devel@lists.xenproject.org>; Thu, 24 Sep 2020 03:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=phNkZME285VUJc1oyO1kXyPVhxSzLg1oEzRYJAmdsgU=;
- b=o6dxQfnDjQwCNEcWrdDDXzLj1T5Ghmvuqe62Ss1nWeDNIXHHNymVoqe9W8EwZdH+go
- hEDcIKVS8ByNgbnAdaoHrCWyhnv1TNqyviERChiQ6j9Px8/BWhQtVV00WMxLBrDJv/Fe
- svxHquqVrQezv9S/OWeaFg1a2LW9URwK5Z75B8n+wXarms2FpL330jaOTMhzzcD4FkdN
- C+OUeA3ZPc7OCEqxPxctmZ2w/z391vWyarOhYMR1T6yceOk5gMOApckrn8VxFUvPQKAQ
- NtkhSxPk1OfRXSO2l//kwL/vjLeC6XDBtl+B0FCPZzTLMwIkA1/x8w7Y1KiPglnHe/nl
- 8mMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=phNkZME285VUJc1oyO1kXyPVhxSzLg1oEzRYJAmdsgU=;
- b=Q3KBdEdzPLpJ7JkF3UiQ1t8p2ZNgRdPzKbeNah1dLKzMwk4shdNrU4RExZf+j58ZoF
- OppOkIMSLhA962RcALZaRvUdXk/qeaLS8m9XLB+UzJ/5nhFdr3H01cT6RNZ3y9vnjMK2
- ePdUqrMHTy/HxRCyFV+2EjWtsuQo80taJdaYt1GdzwdPFYdwGwivUuhZX/y3YFFnHbHp
- t29sjJFhoG32qU0h5JCf/9iGK5h3YyMp0JWYtPs6dQ/wbBYrdxxV2v+YADjkhKY+lw0B
- Fza6uF1vzHQGj5en5syzpN3SG7zxgQOeAaLut4QScWc9tFvLoA3J9shVj4oXdSTSVXO9
- q3uw==
-X-Gm-Message-State: AOAM5315i2u27PlfM/6Rr386SvbPTDndi/Cth8OCDpBoxFelMl/SZli+
- ZdCI5zRd8tFdfpsxMXZzFpE=
-X-Google-Smtp-Source: ABdhPJzTPc0LvsCh0Xq+8znANuVSRMkiKOWJhRsv7ooo3S59bQmWs5RID5A9d34xPUnAx5Vj4QDRGA==
-X-Received: by 2002:adf:ec87:: with SMTP id z7mr4737896wrn.57.1600943770391;
- Thu, 24 Sep 2020 03:36:10 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id h204sm2923900wmf.35.2020.09.24.03.36.08
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 24 Sep 2020 03:36:09 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'Xen-devel'" <xen-devel@lists.xenproject.org>
-Cc: "'George Dunlap'" <George.Dunlap@eu.citrix.com>,
- "'Ian Jackson'" <iwj@xenproject.org>, "'Jan Beulich'" <JBeulich@suse.com>,
- "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
- "'Julien Grall'" <julien@xen.org>,
- =?utf-8?Q?'Micha=C5=82_Leszczy=C5=84ski'?= <michal.leszczynski@cert.pl>,
- "'Hubert Jasudowicz'" <hubert.jasudowicz@cert.pl>,
- "'Tamas K Lengyel'" <tamas@tklengyel.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
- <20200922182444.12350-9-andrew.cooper3@citrix.com>
-In-Reply-To: <20200922182444.12350-9-andrew.cooper3@citrix.com>
-Subject: RE: [PATCH v2 08/11] xen/memory: Indent part of acquire_resource()
-Date: Thu, 24 Sep 2020 11:36:08 +0100
-Message-ID: <004a01d6925e$84126ef0$8c374cd0$@xen.org>
+	id 1kLOdF-00061j-Ql; Thu, 24 Sep 2020 10:37:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
+ id 1kLOdE-00061e-T7
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:37:44 +0000
+X-Inumbo-ID: a2223ea4-882a-4611-aa4b-bea4e6c7ba8f
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a2223ea4-882a-4611-aa4b-bea4e6c7ba8f;
+ Thu, 24 Sep 2020 10:37:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 20DD2ADAB;
+ Thu, 24 Sep 2020 10:38:21 +0000 (UTC)
+Subject: Re: [PATCH RFC 2/4] mm/page_alloc: place pages to tail in
+ __putback_isolated_page()
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Scott Cheloha <cheloha@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>
+References: <20200916183411.64756-1-david@redhat.com>
+ <20200916183411.64756-3-david@redhat.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <6edfc921-eacc-23bd-befa-f947fbcb50ba@suse.cz>
+Date: Thu, 24 Sep 2020 12:37:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIFh6M/JBUQh1P0MghANJzmhArOyAH+X8dcqQm1XqA=
+In-Reply-To: <20200916183411.64756-3-david@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,147 +57,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
-> Sent: 22 September 2020 19:25
-> To: Xen-devel <xen-devel@lists.xenproject.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
-<George.Dunlap@eu.citrix.com>; Ian
-> Jackson <iwj@xenproject.org>; Jan Beulich <JBeulich@suse.com>; Stefano =
-Stabellini
-> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien Grall =
-<julien@xen.org>; Paul Durrant
-> <paul@xen.org>; Micha=C5=82 Leszczy=C5=84ski =
-<michal.leszczynski@cert.pl>; Hubert Jasudowicz
-> <hubert.jasudowicz@cert.pl>; Tamas K Lengyel <tamas@tklengyel.com>
-> Subject: [PATCH v2 08/11] xen/memory: Indent part of =
-acquire_resource()
->=20
-> Indent the middle of acquire_resource() inside a do {} while ( 0 ) =
-loop.  This
-> is broken out specifically to make the following change readable.
->=20
-> No functional change.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 9/16/20 8:34 PM, David Hildenbrand wrote:
+> __putback_isolated_page() already documents that pages will be placed to
+> the tail of the freelist - this is, however, not the case for
+> "order >= MAX_ORDER - 2" (see buddy_merge_likely()) - which should be
+> the case for all existing users.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+I think here should be a sentence saying something along "Thus this patch
+introduces a FOP_TO_TAIL flag to really ensure moving pages to tail."
 
+> This change affects two users:
+> - free page reporting
+> - page isolation, when undoing the isolation.
+> 
+> This behavior is desireable for pages that haven't really been touched
+> lately, so exactly the two users that don't actually read/write page
+> content, but rather move untouched pages.
+> 
+> The new behavior is especially desirable for memory onlining, where we
+> allow allocation of newly onlined pages via undo_isolate_page_range()
+> in online_pages(). Right now, we always place them to the head of the
+> free list, resulting in undesireable behavior: Assume we add
+> individual memory chunks via add_memory() and online them right away to
+> the NORMAL zone. We create a dependency chain of unmovable allocations
+> e.g., via the memmap. The memmap of the next chunk will be placed onto
+> previous chunks - if the last block cannot get offlined+removed, all
+> dependent ones cannot get offlined+removed. While this can already be
+> observed with individual DIMMs, it's more of an issue for virtio-mem
+> (and I suspect also ppc DLPAR).
+> 
+> Note: If we observe a degradation due to the changed page isolation
+> behavior (which I doubt), we can always make this configurable by the
+> instance triggering undo of isolation (e.g., alloc_contig_range(),
+> memory onlining, memory offlining).
+> 
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> Cc: Mel Gorman <mgorman@techsingularity.net>
+> Cc: Michal Hocko <mhocko@kernel.org>
+> Cc: Dave Hansen <dave.hansen@intel.com>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+> Cc: Oscar Salvador <osalvador@suse.de>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Scott Cheloha <cheloha@linux.ibm.com>
+> Cc: Michael Ellerman <mpe@ellerman.id.au>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 > ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <iwj@xenproject.org>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Micha=C5=82 Leszczy=C5=84ski <michal.leszczynski@cert.pl>
-> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-> CC: Tamas K Lengyel <tamas@tklengyel.com>
-> ---
->  xen/common/memory.c | 66 =
-+++++++++++++++++++++++++++--------------------------
->  1 file changed, 34 insertions(+), 32 deletions(-)
->=20
-> diff --git a/xen/common/memory.c b/xen/common/memory.c
-> index c559935732..369154b7c0 100644
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1087,44 +1087,46 @@ static int acquire_resource(
->          goto out;
->      }
->=20
-> -    switch ( xmar.type )
-> -    {
-> -    case XENMEM_resource_grant_table:
-> -        rc =3D gnttab_acquire_resource(d, xmar.id, xmar.frame, =
-xmar.nr_frames,
-> -                                     mfn_list);
-> -        break;
-> +    do {
-> +        switch ( xmar.type )
-> +        {
-> +        case XENMEM_resource_grant_table:
-> +            rc =3D gnttab_acquire_resource(d, xmar.id, xmar.frame, =
-xmar.nr_frames,
-> +                                         mfn_list);
-> +            break;
->=20
-> -    default:
-> -        rc =3D arch_acquire_resource(d, xmar.type, xmar.id, =
-xmar.frame,
-> -                                   xmar.nr_frames, mfn_list);
-> -        break;
-> -    }
-> +        default:
-> +            rc =3D arch_acquire_resource(d, xmar.type, xmar.id, =
-xmar.frame,
-> +                                       xmar.nr_frames, mfn_list);
-> +            break;
-> +        }
->=20
-> -    if ( rc )
-> -        goto out;
-> +        if ( rc )
-> +            goto out;
->=20
-> -    if ( !paging_mode_translate(currd) )
-> -    {
-> -        if ( copy_to_guest(xmar.frame_list, mfn_list, xmar.nr_frames) =
-)
-> -            rc =3D -EFAULT;
-> -    }
-> -    else
-> -    {
-> -        xen_pfn_t gfn_list[ARRAY_SIZE(mfn_list)];
-> -        unsigned int i;
-> +        if ( !paging_mode_translate(currd) )
-> +        {
-> +            if ( copy_to_guest(xmar.frame_list, mfn_list, =
-xmar.nr_frames) )
-> +                rc =3D -EFAULT;
-> +        }
-> +        else
-> +        {
-> +            xen_pfn_t gfn_list[ARRAY_SIZE(mfn_list)];
-> +            unsigned int i;
->=20
-> -        if ( copy_from_guest(gfn_list, xmar.frame_list, =
-xmar.nr_frames) )
-> -            rc =3D -EFAULT;
-> +            if ( copy_from_guest(gfn_list, xmar.frame_list, =
-xmar.nr_frames) )
-> +                rc =3D -EFAULT;
->=20
-> -        for ( i =3D 0; !rc && i < xmar.nr_frames; i++ )
-> -        {
-> -            rc =3D set_foreign_p2m_entry(currd, gfn_list[i],
-> -                                       _mfn(mfn_list[i]));
-> -            /* rc should be -EIO for any iteration other than the =
-first */
-> -            if ( rc && i )
-> -                rc =3D -EIO;
-> +            for ( i =3D 0; !rc && i < xmar.nr_frames; i++ )
-> +            {
-> +                rc =3D set_foreign_p2m_entry(currd, gfn_list[i],
-> +                                           _mfn(mfn_list[i]));
-> +                /* rc should be -EIO for any iteration other than the =
-first */
-> +                if ( rc && i )
-> +                    rc =3D -EIO;
-> +            }
->          }
-> -    }
-> +    } while ( 0 );
->=20
->   out:
->      rcu_unlock_domain(d);
-> --
-> 2.11.0
+>  mm/page_alloc.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 91cefb8157dd..bba9a0f60c70 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -89,6 +89,12 @@ typedef int __bitwise fop_t;
+>   */
+>  #define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+>  
+> +/*
+> + * Place the freed page to the tail of the freelist after buddy merging. Will
+> + * get ignored with page shuffling enabled.
+> + */
+> +#define FOP_TO_TAIL		((__force fop_t)BIT(1))
+> +
+>  /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
+>  static DEFINE_MUTEX(pcp_batch_high_lock);
+>  #define MIN_PERCPU_PAGELIST_FRACTION	(8)
+> @@ -1040,6 +1046,8 @@ static inline void __free_one_page(struct page *page, unsigned long pfn,
+>  
+>  	if (is_shuffle_order(order))
+>  		to_tail = shuffle_pick_tail();
+> +	else if (fop_flags & FOP_TO_TAIL)
+> +		to_tail = true;
 
+Should we really let random shuffling decision have a larger priority than
+explicit FOP_TO_TAIL request? Wei Yang mentioned that there's a call to
+shuffle_zone() anyway to process a freshly added memory, so we don't need to do
+that also during the process of addition itself? Might help with your goal of
+reducing dependencies even on systems that do have shuffling enabled?
+
+Thanks,
+Vlastimil
+
+>  	else
+>  		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
+>  
+> @@ -3289,7 +3297,7 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
+>  
+>  	/* Return isolated page to tail of freelist. */
+>  	__free_one_page(page, page_to_pfn(page), zone, order, mt,
+> -			FOP_SKIP_REPORT_NOTIFY);
+> +			FOP_SKIP_REPORT_NOTIFY | FOP_TO_TAIL);
+>  }
+>  
+>  /*
+> 
 
 
