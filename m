@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47173277361
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 15:59:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56DBF277352
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 15:59:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLRmf-00010O-Ei; Thu, 24 Sep 2020 13:59:41 +0000
+	id 1kLRmQ-0000tn-Fe; Thu, 24 Sep 2020 13:59:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dG6m=DB=casper.srs.infradead.org=batv+004c9619e75dbad284dd+6241+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kLRme-0000ri-7F
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 13:59:40 +0000
-X-Inumbo-ID: ee4077a0-2b1f-4858-866b-b015dbc33e21
+ id 1kLRmP-0000ri-6a
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 13:59:25 +0000
+X-Inumbo-ID: a8bfc786-8dbd-45a6-a153-0a2ec13b42b4
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee4077a0-2b1f-4858-866b-b015dbc33e21;
- Thu, 24 Sep 2020 13:59:18 +0000 (UTC)
+ id a8bfc786-8dbd-45a6-a153-0a2ec13b42b4;
+ Thu, 24 Sep 2020 13:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=dr6dZs3VFHA+kNUsKD0hzBTElVLKOQakCcBlV/ZNErM=; b=bBQO05VwDwAfaDqhekxajuofQQ
- bb+lb4i3TKVtAyCr2iKg1X8aUn1bdOY06BtcZKEUPCPJtazgELgC/vFbSI7vij62OU7cmoS4Lvp4J
- HeFUAy34D9c2sIi29BVo8WSJNoo9JaIHBXsP95f4sWbTsfn3hoxVg4re0K37rJI6FFIX4dKQNQ4qi
- wfy/IU/xQP3fhkdpdco0xb2XcZ5VH/JIoM+BRD8a3NgAFOiUbXH1CBYUN6/Wme9eQ0VGwp1cdaydU
- G8A1Rfo80MP8zwb3Qv4JgG75vxpJs/kFWWto8tgyBgmVyD0urYVmuY8SbsxiVEvcP/dgcqoII8P4f
- gsCE6STw==;
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=71LvYnHcMs7/rXGs508r2vzZrQvLA4mfS9GwJnz8e8I=; b=NUh5M0VarQIgBQqYaNlO1oJ5uD
+ w8nVLotPmpd4oOZHHmvT2oHT7kVaN0TcgUMi5DUHiHdGTOvq+g3NO/KutuwysCvRae9RwPYp4rIvr
+ iYNqfACDnH46rTLtHfvdsfC5VKzkUhO4F7ry/18RDOE0cR9gOYIJqR61QLO0qCQoj84BLYu10d+QK
+ jc5SfjEAV8jLUC7hFJUbKC2hBzexIDKoQBbp6+XtPVn9ewLvlb4tB3C3LgoKZwg19+/aKKBtYx35D
+ VOCzQ531qSBqmHg9FlZAu3/x99eoa2dKESyDZSZVYteLbCXHwidWSrgcqQ9no1BgOWJ5GpHmtXMo1
+ 1w5Yhf8A==;
 Received: from p4fdb0c34.dip0.t-ipconnect.de ([79.219.12.52] helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kLRlu-0003uT-GF; Thu, 24 Sep 2020 13:58:54 +0000
+ id 1kLRlw-0003uz-IY; Thu, 24 Sep 2020 13:58:56 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -47,10 +47,12 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  x86@kernel.org, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: remove alloc_vm_area v2
-Date: Thu, 24 Sep 2020 15:58:42 +0200
-Message-Id: <20200924135853.875294-1-hch@lst.de>
+Subject: [PATCH 02/11] mm: add a VM_MAP_PUT_PAGES flag for vmap
+Date: Thu, 24 Sep 2020 15:58:44 +0200
+Message-Id: <20200924135853.875294-3-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200924135853.875294-1-hch@lst.de>
+References: <20200924135853.875294-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
@@ -68,45 +70,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Andrew,
+Add a flag so that vmap takes ownership of the passed in page array.
+When vfree is called on such an allocation it will put one reference
+on each page, and free the page array itself.
 
-this series removes alloc_vm_area, which was left over from the big
-vmalloc interface rework.  It is a rather arkane interface, basicaly
-the equivalent of get_vm_area + actually faulting in all PTEs in
-the allocated area.  It was originally addeds for Xen (which isn't
-modular to start with), and then grew users in zsmalloc and i915
-which seems to mostly qualify as abuses of the interface, especially
-for i915 as a random driver should not set up PTE bits directly.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ include/linux/vmalloc.h | 1 +
+ mm/vmalloc.c            | 9 +++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-Note that the i915 patches apply to the drm-tip branch of the drm-tip
-tree, as that tree has recent conflicting commits in the same area.
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index 0221f852a7e1a3..b899681e3ff9f0 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -24,6 +24,7 @@ struct notifier_block;		/* in notifier.h */
+ #define VM_UNINITIALIZED	0x00000020	/* vm_struct is not fully initialized */
+ #define VM_NO_GUARD		0x00000040      /* don't add guard page */
+ #define VM_KASAN		0x00000080      /* has allocated kasan shadow memory */
++#define VM_MAP_PUT_PAGES	0x00000100	/* put pages and free array in vfree */
+ 
+ /*
+  * VM_KASAN is used slighly differently depending on CONFIG_KASAN_VMALLOC.
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 8770260419af06..ffad65f052c3f9 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -2377,8 +2377,11 @@ EXPORT_SYMBOL(vunmap);
+  * @flags: vm_area->flags
+  * @prot: page protection for the mapping
+  *
+- * Maps @count pages from @pages into contiguous kernel virtual
+- * space.
++ * Maps @count pages from @pages into contiguous kernel virtual space.
++ * If @flags contains %VM_MAP_PUT_PAGES the ownership of the pages array itself
++ * (which must be kmalloc or vmalloc memory) and one reference per pages in it
++ * are transferred from the caller to vmap(), and will be freed / dropped when
++ * vfree() is called on the return value.
+  *
+  * Return: the address of the area or %NULL on failure
+  */
+@@ -2404,6 +2407,8 @@ void *vmap(struct page **pages, unsigned int count,
+ 		return NULL;
+ 	}
+ 
++	if (flags & VM_MAP_PUT_PAGES)
++		area->pages = pages;
+ 	return area->addr;
+ }
+ EXPORT_SYMBOL(vmap);
+-- 
+2.28.0
 
-A git tree is also available here:
-
-    git://git.infradead.org/users/hch/misc.git alloc_vm_area
-
-Gitweb:
-
-    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/alloc_vm_area
-
-Changes since v1:
- - fix a bug in the zsmalloc changes
- - fix a bug and rebase to include the recent changes in i915
- - add a new vmap flag that allows to free the page array and pages
-   using vfree
- - add a vfree documentation updated from Matthew
-
-Diffstat:
- arch/x86/xen/grant-table.c                |   27 ++++--
- drivers/gpu/drm/i915/Kconfig              |    1 
- drivers/gpu/drm/i915/gem/i915_gem_pages.c |  131 +++++++++++++-----------------
- drivers/gpu/drm/i915/gt/shmem_utils.c     |   76 ++++-------------
- drivers/xen/xenbus/xenbus_client.c        |   30 +++---
- include/linux/vmalloc.h                   |    7 -
- mm/Kconfig                                |    3 
- mm/memory.c                               |   16 ++-
- mm/nommu.c                                |    7 -
- mm/vmalloc.c                              |  123 ++++++++++++++--------------
- mm/zsmalloc.c                             |   10 +-
- 11 files changed, 200 insertions(+), 231 deletions(-)
 
