@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2ED276A0A
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 09:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC66276A18
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 09:09:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLLJ4-0002Vt-GC; Thu, 24 Sep 2020 07:04:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kLLNs-0002gi-3K; Thu, 24 Sep 2020 07:09:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+2aH=DB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kLLJ3-0002Vo-OU
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 07:04:41 +0000
-X-Inumbo-ID: 10404917-dea9-460d-9321-76282c3c2206
+ id 1kLLNq-0002gd-Jp
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 07:09:38 +0000
+X-Inumbo-ID: d9b376f4-1e32-4f47-98b2-e5703071e169
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 10404917-dea9-460d-9321-76282c3c2206;
- Thu, 24 Sep 2020 07:04:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d9b376f4-1e32-4f47-98b2-e5703071e169;
+ Thu, 24 Sep 2020 07:09:37 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600931080;
+ t=1600931376;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y8g7b+h2u4Q30mwgmqN6PLgsilN4ELYfqIQ7KqKvSnE=;
- b=L/Om2g/jfKCGug3kw+D4dUb3S0KwMyXP9s4vUCoOyLFysK1Ayh8vvpUmUveZcFfKs5Yq8o
- 5KS+9NzQJia8zez86aU2QQLDumMFFDM27QZohZKquOxbnehGFbasn6Uk9gWgjVIQaSzjoA
- lnTikY7EBa5EKemk0kbJ22Rq1DN/KsI=
+ bh=zLEO1ik0C3w6vyUvTbbuoSSTSsoZnaH1hc0796q857U=;
+ b=aqc/KwnK0qw8Fq8WTXJnMLofCdhjM43d4XamPKS+6iSQJYtOgFg3LNLHkKyGbmlBP0sSpV
+ oAq0uwSHDrPTaDKyP3ElcWnpZUhr5ZJrZTWpkApsy3trejI5eUGdcK+18kVWcHRe/fq9Je
+ gmatS1qYefJVnYcJEGHDwqrZWJbLEpM=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EEC98AA55;
- Thu, 24 Sep 2020 07:05:17 +0000 (UTC)
-Subject: Re: [PATCH 5/9] lib: move parse_size_and_unit()
+ by mx2.suse.de (Postfix) with ESMTP id 8D89DAA55;
+ Thu, 24 Sep 2020 07:10:14 +0000 (UTC)
+Subject: Re: [PATCH 8/9] lib: move bsearch code
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
- <823c1802-9a61-4059-c6a8-61f5c2fad12c@suse.com>
- <91879555-30cd-3bcc-8f63-c8a2bbe6ef6d@citrix.com>
+ <13e17bbd-4e58-d953-87c5-5fabafa21de2@suse.com>
+ <b40bd4a7-b1fb-b2a0-44d1-398f533469a0@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <65380045-320f-eba4-67f3-eb7f62baccb5@suse.com>
-Date: Thu, 24 Sep 2020 09:04:37 +0200
+Message-ID: <b330220d-3428-3cd5-53b7-6daa4a08d283@suse.com>
+Date: Thu, 24 Sep 2020 09:09:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <91879555-30cd-3bcc-8f63-c8a2bbe6ef6d@citrix.com>
+In-Reply-To: <b40bd4a7-b1fb-b2a0-44d1-398f533469a0@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,30 +65,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.09.2020 21:41, Andrew Cooper wrote:
-> On 14/09/2020 11:17, Jan Beulich wrote:
->> ... into its own CU, to build it into an archive.
+On 22.09.2020 21:34, Andrew Cooper wrote:
+> On 14/09/2020 11:18, Jan Beulich wrote:
+>> Build this code into an archive, which results in not linking it into
+>> x86 final binaries. This saves a little bit of dead code.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> CU?
+> This wants to be an extern inline in the header file just like in stdlib.h.
 
-Compilation Unit - we've been using this acronym in a number of
-cases, I think.
+I can move it there, but why "extern" rather than "static"? We're
+not at risk of conflicting with a C library implementation.
 
-> Irrespective, it seems very weird to carve this out, seeing as it is
-> called from a number of core locations, and depends on other core
-> functions which aren't split out.
+> The implementation is trivial, and much faster when the compiler can
+> inline the cmp() function pointer.
+> 
+> I doubt we actually need out-of-line implementation (except perhaps for
+> CONFIG_UBSAN builds or so).
 
-As said in the cover letter, the goal is to get rid of common/lib.c
-as a whole. It's a bad file name for _anything_ to live in, as from
-its name you can't really derive what may or may not be (or belong)
-in there.
-
-Depending on other core functions isn't a problem at all for stuff
-living in archives. It being called "from a number of core
-locations" isn't a convincing argument either, as all of those could
-potentially be inside some #ifdef CONFIG_*. However, if it is
-believed that this would better live in an object file than in an
-archive, I can easily move it from lib-y to obj-y.
+The only references are in Arm code; I don't know enough of UBSAN to
+see why uses may appear there.
 
 Jan
 
