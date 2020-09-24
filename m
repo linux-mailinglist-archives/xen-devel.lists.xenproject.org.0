@@ -2,54 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D541227686E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 07:35:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762B02768E1
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 08:28:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLJuN-0002sD-BJ; Thu, 24 Sep 2020 05:35:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kLKit-0007Po-Ds; Thu, 24 Sep 2020 06:27:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fUiC=DB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kLJuL-0002rs-St
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 05:35:05 +0000
-X-Inumbo-ID: e30ec0d1-f57d-40d7-b5aa-693f3e6b2988
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e30ec0d1-f57d-40d7-b5aa-693f3e6b2988;
- Thu, 24 Sep 2020 05:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=dL42nVSFGQ8kf6vYJ7HAROGeUEOCEgd3I+bZhqozJDo=; b=1MZjetL0fe3ZFUCMRltrkD2ykJ
- V5xGxWix7tnJbRrOh19o/qYRT6KH9shXOPTpAuhGzQfCfIyOmyirdS1bIL3q9Tn7qQJP7Dl7CzUL9
- S9VkZo9YGydJ6vG/C2XL/b/JMCc0q1lkoZcTeHg8DduyrfaiALQpcAOe/k8DjTb7JtQQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLJuF-0004mu-Eb; Thu, 24 Sep 2020 05:34:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLJuF-0000j2-7U; Thu, 24 Sep 2020 05:34:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kLJuF-0000qf-72; Thu, 24 Sep 2020 05:34:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-154633-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=StWZ=DB=amazon.com=prvs=52916e0f7=sjpark@srs-us1.protection.inumbo.net>)
+ id 1kLKis-0007P5-1o
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 06:27:18 +0000
+X-Inumbo-ID: 431743ed-f0c0-4c48-8ec0-b4535abba0f0
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 431743ed-f0c0-4c48-8ec0-b4535abba0f0;
+ Thu, 24 Sep 2020 06:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600928837; x=1632464837;
+ h=from:to:cc:subject:date:message-id:in-reply-to: mime-version;
+ bh=zknW5jJHzdymA6wvIjLBr4rV/FXE51ARi7wGFxmt7nQ=;
+ b=KrqgABaE2Ncw17dXyNT3rI/zOqgCoUgcqVrJdb0tYbXiWX4nZK/pGBl4
+ eIrxvdZrmTCLG/J5NwWMU7ofUkrXyWTVMRrt3hETNHoIE8R81LHIPwD6s
+ xKxTY/XjpHZD//eI/n97XR4fu9l86XOkj6GuEr9TLwfhRc4Rggf/zk/Fn s=;
+X-IronPort-AV: E=Sophos;i="5.77,296,1596499200"; d="scan'208";a="56021443"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2a-119b4f96.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 24 Sep 2020 06:27:15 +0000
+Received: from EX13D31EUA004.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2a-119b4f96.us-west-2.amazon.com (Postfix) with ESMTPS
+ id EB1FB1A03DC; Thu, 24 Sep 2020 06:27:14 +0000 (UTC)
+Received: from u3f2cd687b01c55.ant.amazon.com (10.43.161.146) by
+ EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 24 Sep 2020 06:27:08 +0000
+From: SeongJae Park <sjpark@amazon.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: SeongJae Park <sjpark@amazon.com>, <roger.pau@citrix.com>, SeongJae Park
+ <sjpark@amazon.de>, <axboe@kernel.dk>, <aliguori@amazon.com>,
+ <amit@kernel.org>, <mheyne@amazon.de>, <linux-block@vger.kernel.org>,
+ <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xen-blkback: add a parameter for disabling of persistent
+ grants
+Date: Thu, 24 Sep 2020 08:26:53 +0200
+Message-ID: <20200924062653.9449-1-sjpark@amazon.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200923200930.GB11767@char.us.oracle.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 154633: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=dd5c7e3c5282b084daa5bbf0ec229cec699b2c17
-X-Osstest-Versions-That: ovmf=fb97626fe04747ec89599dce0992def9a36e2f6b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Sep 2020 05:34:59 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.43.161.146]
+X-ClientProxiedBy: EX13D17UWB004.ant.amazon.com (10.43.161.132) To
+ EX13D31EUA004.ant.amazon.com (10.43.165.161)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -60,57 +69,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154633 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154633/
+On Wed, 23 Sep 2020 16:09:30 -0400 Konrad Rzeszutek Wilk <konrad.wilk@oracle.com> wrote:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17
-baseline version:
- ovmf                 fb97626fe04747ec89599dce0992def9a36e2f6b
+> On Tue, Sep 22, 2020 at 09:01:25AM +0200, SeongJae Park wrote:
+> > From: SeongJae Park <sjpark@amazon.de>
+> > 
+> > Persistent grants feature provides high scalability.  On some small
+> > systems, however, it could incur data copy overhead[1] and thus it is
+> > required to be disabled.  But, there is no option to disable it.  For
+> > the reason, this commit adds a module parameter for disabling of the
+> > feature.
+> 
+> Would it be better suited to have it per guest?
 
-Last test of basis   154616  2020-09-22 14:09:46 Z    1 days
-Testing same since   154633  2020-09-23 05:49:28 Z    0 days    1 attempts
+The latest version of this patchset[1] supports blkfront side disablement.
+Could that partially solves your concern?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+[1] https://lore.kernel.org/xen-devel/20200923061841.20531-1-sjpark@amazon.com/
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   fb97626fe0..dd5c7e3c52  dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 -> xen-tested-master
+Thanks,
+SeongJae Park
 
