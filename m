@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EA7276E6D
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:16:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92ABF276E2E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:07:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLOIp-0003or-18; Thu, 24 Sep 2020 10:16:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=legg=DB=techsingularity.net=mgorman@srs-us1.protection.inumbo.net>)
- id 1kLNjs-0000JZ-0C
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 09:40:32 +0000
-X-Inumbo-ID: 68e10c8a-3a96-4dc5-9f54-ecffe3fd9224
-Received: from outbound-smtp47.blacknight.com (unknown [46.22.136.64])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68e10c8a-3a96-4dc5-9f54-ecffe3fd9224;
- Thu, 24 Sep 2020 09:40:29 +0000 (UTC)
-Received: from mail.blacknight.com (pemlinmail06.blacknight.ie [81.17.255.152])
- by outbound-smtp47.blacknight.com (Postfix) with ESMTPS id D729BFAB68
- for <xen-devel@lists.xenproject.org>; Thu, 24 Sep 2020 10:40:28 +0100 (IST)
-Received: (qmail 3548 invoked from network); 24 Sep 2020 09:40:28 -0000
-Received: from unknown (HELO techsingularity.net)
- (mgorman@techsingularity.net@[84.203.22.4])
- by 81.17.254.9 with ESMTPSA (AES256-SHA encrypted, authenticated);
- 24 Sep 2020 09:40:28 -0000
-Date: Thu, 24 Sep 2020 10:40:27 +0100
-From: Mel Gorman <mgorman@techsingularity.net>
-To: David Hildenbrand <david@redhat.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>, osalvador@suse.de,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Dave Hansen <dave.hansen@intel.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Scott Cheloha <cheloha@linux.ibm.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Wei Yang <richard.weiyang@linux.alibaba.com>
-Subject: Re: [PATCH RFC 0/4] mm: place pages to the freelist tail when onling
- and undoing isolation
-Message-ID: <20200924094026.GL3179@techsingularity.net>
-References: <5c0910c2cd0d9d351e509392a45552fb@suse.de>
- <DAC9E747-BDDF-41B6-A89B-604880DD7543@redhat.com>
- <67928cbd-950a-3279-bf9b-29b04c87728b@suse.cz>
- <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
+	id 1kLO9h-0002TL-N6; Thu, 24 Sep 2020 10:07:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UqNy=DB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kLO9g-0002TC-58
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:07:12 +0000
+X-Inumbo-ID: 2e0fde17-65d1-4a00-9777-3dfb464b9d47
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2e0fde17-65d1-4a00-9777-3dfb464b9d47;
+ Thu, 24 Sep 2020 10:07:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600942030;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Cnz26q+Wgad1fl+1lIDIN/z6TSHQ6Gfj97VLLyLlGgI=;
+ b=l2a3ywsJbTP7GZ8SOp/dxfZseMCX366S2+AfBXRF2kLaFLGWvag+E/fr7qVctaDTARbuBK
+ sqpcQfWLzRdVCndpBGBj+pImX72S+QsitiUq4DQlHAMYy6Ta7Yg4W9MiYCR3GmVeI2ZtNb
+ R/l4H256UNd/7LS1ZwJbWI5BT79q97g=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 541D5B982;
+ Thu, 24 Sep 2020 10:07:48 +0000 (UTC)
+Subject: Re: [PATCH v5 0/4] tools: move most libraries into tools/libs
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Shriram Rajagopalan <rshriram@cs.ubc.ca>, Yang Hongyang
+ <imhy.yang@gmail.com>, Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>
+References: <20200909114645.3709-1-jgross@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <822fc6b4-c57e-eb03-b7e8-287ed7d82a11@suse.com>
+Date: Thu, 24 Sep 2020 11:50:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-In-Reply-To: <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Thu, 24 Sep 2020 10:16:37 +0000
+In-Reply-To: <20200909114645.3709-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,97 +68,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Sep 23, 2020 at 05:26:06PM +0200, David Hildenbrand wrote:
-> >>> ???On 2020-09-16 20:34, David Hildenbrand wrote:
-> >>>> When adding separate memory blocks via add_memory*() and onlining them
-> >>>> immediately, the metadata (especially the memmap) of the next block will be
-> >>>> placed onto one of the just added+onlined block. This creates a chain
-> >>>> of unmovable allocations: If the last memory block cannot get
-> >>>> offlined+removed() so will all dependant ones. We directly have unmovable
-> >>>> allocations all over the place.
-> >>>> This can be observed quite easily using virtio-mem, however, it can also
-> >>>> be observed when using DIMMs. The freshly onlined pages will usually be
-> >>>> placed to the head of the freelists, meaning they will be allocated next,
-> >>>> turning the just-added memory usually immediately un-removable. The
-> >>>> fresh pages are cold, prefering to allocate others (that might be hot)
-> >>>> also feels to be the natural thing to do.
-> >>>> It also applies to the hyper-v balloon xen-balloon, and ppc64 dlpar: when
-> >>>> adding separate, successive memory blocks, each memory block will have
-> >>>> unmovable allocations on them - for example gigantic pages will fail to
-> >>>> allocate.
-> >>>> While the ZONE_NORMAL doesn't provide any guarantees that memory can get
-> >>>> offlined+removed again (any kind of fragmentation with unmovable
-> >>>> allocations is possible), there are many scenarios (hotplugging a lot of
-> >>>> memory, running workload, hotunplug some memory/as much as possible) where
-> >>>> we can offline+remove quite a lot with this patchset.
-> >>>
-> >>> Hi David,
-> >>>
-> >>
-> >> Hi Oscar.
-> >>
-> >>> I did not read through the patchset yet, so sorry if the question is nonsense, but is this not trying to fix the same issue the vmemmap patches did? [1]
-> >>
-> >> Not nonesense at all. It only helps to some degree, though. It solves the dependencies due to the memmap. However, it???s not completely ideal, especially for single memory blocks.
-> >>
-> >> With single memory blocks (virtio-mem, xen-balloon, hv balloon, ppc dlpar) you still have unmovable (vmemmap chunks) all over the physical address space. Consider the gigantic page example after hotplug. You directly fragmented all hotplugged memory.
-> >>
-> >> Of course, there might be (less extreme) dependencies due page tables for the identity mapping, extended struct pages and similar.
-> >>
-> >> Having that said, there are other benefits when preferring other memory over just hotplugged memory. Think about adding+onlining memory during boot (dimms under QEMU, virtio-mem), once the system is up you will have most (all) of that memory completely untouched.
-> >>
-> >> So while vmemmap on hotplugged memory would tackle some part of the issue, there are cases where this approach is better, and there are even benefits when combining both.
-> > 
+Ping?
+
+Patches 2-4 could need some Acks...
+
+
+Juergen
+
+On 09.09.20 13:46, Juergen Gross wrote:
+> The rest batch of the library build rework: the two remaining main
+> libraries libxenlight and libxlutil are moved to tools/libs/ directory.
 > 
-> Hi Vlastimil,
+> Changes in V5:
+> - removed already applied patches (1-27)
+> - rebased to current xen staging
 > 
-> > I see the point, but I don't think the head/tail mechanism is great for this. It
-> > might sort of work, but with other interfering activity there are no guarantees
-> > and it relies on a subtle implementation detail. There are better mechanisms
+> Changes in V4:
+> - removed already applied patches (1-8, 10)
+> - added new patches 1, 29
+> - replaced (old) patch 37 with new patch 30
+> - especially fixed qemu build and parallel make
+> - rebased to current staging
 > 
-> For the specified use case of adding+onlining a whole bunch of memory
-> this works just fine. We don't care too much about "other interfering
-> activity" as you mention here, or about guarantees - this is a pure
-> optimization that seems to work just fine in practice.
+> Changes in V3:
+> - more cleanup added
+> - added moving libxenguest, libxl and libxlutil
+> - split out dependencies into uselibs.mk
+> - use uselibs.mk for stubdoms build
 > 
-> I'm not sure about the "subtle implementation detail" - buddy merging,
-> and head/tail of buddy lists are a basic concept of our page allocator.
-> If that would ever change, the optimization here would be lost and we
-> would have to think of something else. Nothing would actually break -
-> and it's all kept directly in page_alloc.c
+> Juergen Gross (4):
+>    tools/libxl: move libxenlight to tools/libs/light
+>    tools: rename global libxlutil make variables
+>    tools/libs: add option for library names not starting with libxen
+>    tools: move libxlutil to tools/libs/util
+> 
+>   .gitignore                                    |  37 +-
+>   tools/Makefile                                |   1 -
+>   tools/Rules.mk                                |  19 +-
+>   tools/configure                               |   2 +-
+>   tools/configure.ac                            |   2 +-
+>   tools/golang/xenlight/Makefile                |   2 +-
+>   tools/libs/Makefile                           |   2 +
+>   tools/libs/libs.mk                            |  41 +-
+>   tools/{libxl => libs/light}/CODING_STYLE      |   0
+>   tools/libs/light/Makefile                     | 277 +++++++++++++
+>   .../light}/check-libxl-api-rules              |   0
+>   tools/{libxl => libs/light}/flexarray.c       |   0
+>   tools/{libxl => libs/light}/flexarray.h       |   0
+>   tools/{libxl => libs/light}/gentest.py        |   0
+>   tools/{libxl => libs/light}/gentypes.py       |   0
+>   tools/{libxl => libs/light}/idl.py            |   0
+>   tools/{libxl => libs/light}/idl.txt           |   0
+>   tools/{libxl => libs/light/include}/libxl.h   |   0
+>   .../light/include}/libxl_event.h              |   0
+>   .../light/include}/libxl_json.h               |   0
+>   .../light/include}/libxl_utils.h              |   0
+>   .../light/include}/libxl_uuid.h               |   0
+>   tools/{libxl => libs/light}/libxl.c           |   0
+>   tools/{libxl => libs/light}/libxl_9pfs.c      |   0
+>   tools/{libxl => libs/light}/libxl_aoutils.c   |   0
+>   tools/{libxl => libs/light}/libxl_arch.h      |   0
+>   tools/{libxl => libs/light}/libxl_arm.c       |   0
+>   tools/{libxl => libs/light}/libxl_arm.h       |   0
+>   tools/{libxl => libs/light}/libxl_arm_acpi.c  |   0
+>   .../{libxl => libs/light}/libxl_arm_no_acpi.c |   0
+>   .../{libxl => libs/light}/libxl_bootloader.c  |   0
+>   .../light}/libxl_checkpoint_device.c          |   0
+>   tools/{libxl => libs/light}/libxl_colo.h      |   0
+>   tools/{libxl => libs/light}/libxl_colo_nic.c  |   0
+>   .../{libxl => libs/light}/libxl_colo_proxy.c  |   0
+>   .../{libxl => libs/light}/libxl_colo_qdisk.c  |   0
+>   .../light}/libxl_colo_restore.c               |   0
+>   tools/{libxl => libs/light}/libxl_colo_save.c |   0
+>   tools/{libxl => libs/light}/libxl_console.c   |   0
+>   .../light}/libxl_convert_callout.c            |   0
+>   tools/{libxl => libs/light}/libxl_cpuid.c     |   0
+>   tools/{libxl => libs/light}/libxl_cpupool.c   |   0
+>   tools/{libxl => libs/light}/libxl_create.c    |   0
+>   tools/{libxl => libs/light}/libxl_device.c    |   0
+>   tools/{libxl => libs/light}/libxl_disk.c      |   0
+>   tools/{libxl => libs/light}/libxl_dm.c        |   0
+>   tools/{libxl => libs/light}/libxl_dom.c       |   0
+>   tools/{libxl => libs/light}/libxl_dom_save.c  |   0
+>   .../{libxl => libs/light}/libxl_dom_suspend.c |   0
+>   tools/{libxl => libs/light}/libxl_domain.c    |   0
+>   tools/{libxl => libs/light}/libxl_event.c     |   0
+>   tools/{libxl => libs/light}/libxl_exec.c      |   0
+>   tools/{libxl => libs/light}/libxl_flask.c     |   0
+>   tools/{libxl => libs/light}/libxl_fork.c      |   0
+>   tools/{libxl => libs/light}/libxl_freebsd.c   |   0
+>   tools/{libxl => libs/light}/libxl_genid.c     |   0
+>   tools/{libxl => libs/light}/libxl_internal.c  |   0
+>   tools/{libxl => libs/light}/libxl_internal.h  |   0
+>   tools/{libxl => libs/light}/libxl_json.c      |   0
+>   .../light}/libxl_libfdt_compat.c              |   0
+>   .../light}/libxl_libfdt_compat.h              |   0
+>   tools/{libxl => libs/light}/libxl_linux.c     |   0
+>   tools/{libxl => libs/light}/libxl_mem.c       |   0
+>   tools/{libxl => libs/light}/libxl_netbsd.c    |   0
+>   tools/{libxl => libs/light}/libxl_netbuffer.c |   0
+>   tools/{libxl => libs/light}/libxl_nic.c       |   0
+>   tools/{libxl => libs/light}/libxl_no_colo.c   |   0
+>   .../light}/libxl_no_convert_callout.c         |   0
+>   tools/{libxl => libs/light}/libxl_nocpuid.c   |   0
+>   .../{libxl => libs/light}/libxl_nonetbuffer.c |   0
+>   tools/{libxl => libs/light}/libxl_numa.c      |   0
+>   tools/{libxl => libs/light}/libxl_osdeps.h    |   0
+>   tools/{libxl => libs/light}/libxl_paths.c     |   0
+>   tools/{libxl => libs/light}/libxl_pci.c       |   0
+>   tools/{libxl => libs/light}/libxl_psr.c       |   0
+>   tools/{libxl => libs/light}/libxl_pvcalls.c   |   0
+>   tools/{libxl => libs/light}/libxl_qmp.c       |   0
+>   tools/{libxl => libs/light}/libxl_remus.c     |   0
+>   .../light}/libxl_remus_disk_drbd.c            |   0
+>   .../light}/libxl_save_callout.c               |   0
+>   .../{libxl => libs/light}/libxl_save_helper.c |   0
+>   .../light}/libxl_save_msgs_gen.pl             |   0
+>   tools/{libxl => libs/light}/libxl_sched.c     |   0
+>   .../light}/libxl_sr_stream_format.h           |   0
+>   .../{libxl => libs/light}/libxl_stream_read.c |   0
+>   .../light}/libxl_stream_write.c               |   0
+>   .../light}/libxl_test_fdevent.c               |   0
+>   .../light}/libxl_test_fdevent.h               |   0
+>   .../light}/libxl_test_timedereg.c             |   0
+>   .../light}/libxl_test_timedereg.h             |   0
+>   tools/{libxl => libs/light}/libxl_tmem.c      |   0
+>   tools/{libxl => libs/light}/libxl_types.idl   |   0
+>   .../light}/libxl_types_internal.idl           |   0
+>   tools/{libxl => libs/light}/libxl_usb.c       |   0
+>   tools/{libxl => libs/light}/libxl_utils.c     |   0
+>   tools/{libxl => libs/light}/libxl_uuid.c      |   0
+>   tools/{libxl => libs/light}/libxl_vdispl.c    |   0
+>   tools/{libxl => libs/light}/libxl_vkb.c       |   0
+>   tools/{libxl => libs/light}/libxl_vnuma.c     |   0
+>   tools/{libxl => libs/light}/libxl_vsnd.c      |   0
+>   tools/{libxl => libs/light}/libxl_vtpm.c      |   0
+>   tools/{libxl => libs/light}/libxl_x86.c       |   0
+>   tools/{libxl => libs/light}/libxl_x86_acpi.c  |   0
+>   tools/{libxl => libs/light}/libxl_x86_acpi.h  |   0
+>   tools/{libxl => libs/light}/libxl_xshelp.c    |   0
+>   tools/{libxl => libs/light}/osdeps.c          |   0
+>   tools/{libxl => libs/light}/test_common.c     |   0
+>   tools/{libxl => libs/light}/test_common.h     |   0
+>   .../{libxl => libs/light}/test_fdderegrace.c  |   0
+>   tools/{libxl => libs/light}/test_timedereg.c  |   0
+>   tools/libs/uselibs.mk                         |   5 +
+>   tools/libs/util/CODING_STYLE                  | 330 +++++++++++++++
+>   tools/libs/util/Makefile                      |  63 +++
+>   .../{libxl => libs/util/include}/libxlutil.h  |   0
+>   tools/{libxl => libs/util}/libxlu_cfg.c       |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_i.h     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_l.c     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_l.h     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_l.l     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_y.c     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_y.h     |   0
+>   tools/{libxl => libs/util}/libxlu_cfg_y.y     |   0
+>   tools/{libxl => libs/util}/libxlu_disk.c      |   0
+>   tools/{libxl => libs/util}/libxlu_disk_i.h    |   0
+>   tools/{libxl => libs/util}/libxlu_disk_l.c    |   0
+>   tools/{libxl => libs/util}/libxlu_disk_l.h    |   0
+>   tools/{libxl => libs/util}/libxlu_disk_l.l    |   0
+>   tools/{libxl => libs/util}/libxlu_internal.h  |   0
+>   tools/{libxl => libs/util}/libxlu_pci.c       |   0
+>   tools/{libxl => libs/util}/libxlu_vif.c       |   0
+>   tools/libxl/Makefile                          | 384 ------------------
+>   tools/ocaml/libs/xl/Makefile                  |   8 +-
+>   tools/xl/Makefile                             |   4 +-
+>   133 files changed, 731 insertions(+), 446 deletions(-)
+>   rename tools/{libxl => libs/light}/CODING_STYLE (100%)
+>   create mode 100644 tools/libs/light/Makefile
+>   rename tools/{libxl => libs/light}/check-libxl-api-rules (100%)
+>   rename tools/{libxl => libs/light}/flexarray.c (100%)
+>   rename tools/{libxl => libs/light}/flexarray.h (100%)
+>   rename tools/{libxl => libs/light}/gentest.py (100%)
+>   rename tools/{libxl => libs/light}/gentypes.py (100%)
+>   rename tools/{libxl => libs/light}/idl.py (100%)
+>   rename tools/{libxl => libs/light}/idl.txt (100%)
+>   rename tools/{libxl => libs/light/include}/libxl.h (100%)
+>   rename tools/{libxl => libs/light/include}/libxl_event.h (100%)
+>   rename tools/{libxl => libs/light/include}/libxl_json.h (100%)
+>   rename tools/{libxl => libs/light/include}/libxl_utils.h (100%)
+>   rename tools/{libxl => libs/light/include}/libxl_uuid.h (100%)
+>   rename tools/{libxl => libs/light}/libxl.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_9pfs.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_aoutils.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_arch.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_arm.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_arm.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_arm_acpi.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_arm_no_acpi.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_bootloader.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_checkpoint_device.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo_nic.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo_proxy.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo_qdisk.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo_restore.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_colo_save.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_console.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_convert_callout.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_cpuid.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_cpupool.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_create.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_device.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_disk.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_dm.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_dom.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_dom_save.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_dom_suspend.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_domain.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_event.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_exec.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_flask.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_fork.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_freebsd.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_genid.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_internal.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_internal.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_json.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_libfdt_compat.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_libfdt_compat.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_linux.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_mem.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_netbsd.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_netbuffer.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_nic.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_no_colo.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_no_convert_callout.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_nocpuid.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_nonetbuffer.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_numa.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_osdeps.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_paths.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_pci.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_psr.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_pvcalls.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_qmp.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_remus.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_remus_disk_drbd.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_save_callout.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_save_helper.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_save_msgs_gen.pl (100%)
+>   rename tools/{libxl => libs/light}/libxl_sched.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_sr_stream_format.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_stream_read.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_stream_write.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_test_fdevent.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_test_fdevent.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_test_timedereg.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_test_timedereg.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_tmem.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_types.idl (100%)
+>   rename tools/{libxl => libs/light}/libxl_types_internal.idl (100%)
+>   rename tools/{libxl => libs/light}/libxl_usb.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_utils.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_uuid.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_vdispl.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_vkb.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_vnuma.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_vsnd.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_vtpm.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_x86.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_x86_acpi.c (100%)
+>   rename tools/{libxl => libs/light}/libxl_x86_acpi.h (100%)
+>   rename tools/{libxl => libs/light}/libxl_xshelp.c (100%)
+>   rename tools/{libxl => libs/light}/osdeps.c (100%)
+>   rename tools/{libxl => libs/light}/test_common.c (100%)
+>   rename tools/{libxl => libs/light}/test_common.h (100%)
+>   rename tools/{libxl => libs/light}/test_fdderegrace.c (100%)
+>   rename tools/{libxl => libs/light}/test_timedereg.c (100%)
+>   create mode 100644 tools/libs/util/CODING_STYLE
+>   create mode 100644 tools/libs/util/Makefile
+>   rename tools/{libxl => libs/util/include}/libxlutil.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_i.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_l.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_l.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_l.l (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_y.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_y.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_cfg_y.y (100%)
+>   rename tools/{libxl => libs/util}/libxlu_disk.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_disk_i.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_disk_l.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_disk_l.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_disk_l.l (100%)
+>   rename tools/{libxl => libs/util}/libxlu_internal.h (100%)
+>   rename tools/{libxl => libs/util}/libxlu_pci.c (100%)
+>   rename tools/{libxl => libs/util}/libxlu_vif.c (100%)
+>   delete mode 100644 tools/libxl/Makefile
 > 
 
-It's somewhat subtle because it's relying heavily on the exact ordering
-of how pages are pulled from the free lists at the moment. Lets say for
-example that someone was brave enough to tackle the problem of the giant
-zone lock and split the zone into allocation arenas (like what glibc does
-to split the lock). Depending on the exact ordering of how pages are
-added and removed from the list would break your approach. I'm wary of
-anything that relies on the ordering of freelists for correctness becauuse
-it limits the ability to fix the zone lock (which has been overdue for
-fixing for years now and getting worse as node sizes increase).
-
-To be robust, you'd need to do something like early memory bring-up whereby
-pages are directly allocated from one part of the DIMM (presumably the
-start) and use that for the metadata -- potentially all the metadata that
-would be necessary to plug/unplug the entire DIMM. This would effectively
-be unmovable but if you want to guarantee that all the memory except the
-metadata can be unplugged, you do not have much alteratives. Playing games
-with the ordering of the freelists will simply end up as "sometimes works,
-sometimes does not". 
-
-In terms of forcing ranges to be UNMOVABLE or MOVABLE (either via zones
-or by implementing "sticky" pageblocks which hits complex reclaim-related
-problems), you start running into problems similar to lowmem starvation
-where a page cache allocation fails because unmovable metadata cannot
-be allocated.
-
-I suggest you keep it simple -- statically allocate the potential
-metadata needed in the future even though it limits the maximum amount
-of memory that can be unplugged. The alternative is unpredictable
-plug/unplug success rates.
-
--- 
-Mel Gorman
-SUSE Labs
 
