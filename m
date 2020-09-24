@@ -2,61 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4FA527737D
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:01:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8F36277383
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:01:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLRoJ-0002Td-0R; Thu, 24 Sep 2020 14:01:23 +0000
+	id 1kLRoi-0002bQ-NW; Thu, 24 Sep 2020 14:01:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dG6m=DB=casper.srs.infradead.org=batv+004c9619e75dbad284dd+6241+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kLRn8-0000ri-8K
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:00:10 +0000
-X-Inumbo-ID: 7cce872c-4be9-43ff-8621-a200b49e3389
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
+ id 1kLRnD-0000ri-8r
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:00:15 +0000
+X-Inumbo-ID: ccbc45b4-0f19-4ab8-9388-9a5fe68d7736
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7cce872c-4be9-43ff-8621-a200b49e3389;
- Thu, 24 Sep 2020 13:59:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=ix+nhROFgS2R/TvryqxFuXEm6pOX6uuPKFVKed32kPg=; b=OVPmZrJgH+Pd3TIC054x3Xgco3
- 7oGmXl82TkDdK0Vh5KCQpoZD/y6iJKCrvS5JfHCO268Rcks+sjtogTI7hxgsYdd8THh6+Xm03NwA/
- nQSwz1iqy+wyOXFQq0KSdVcBk+SjF+56iu4mwCNLNHRxIsJJMhHZBWOblrbbAH8backTeVk6U7UmA
- ZC4B1JByCHrx56YZYKJFh1qIrsDVXR+VRYO8ABqzCHrmyx7iB0tT5M9+/RzuHzBRe8EoMyoRfSHxM
- A4oHQYC/CNQ5KAH44hXhbOZRWvrWEpjk/ICZynCvG/XViwCDKUi/5djGYLvw8cD9foW31fpXWZ1q0
- YO9BHotA==;
-Received: from p4fdb0c34.dip0.t-ipconnect.de ([79.219.12.52] helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kLRm8-0003xk-Oj; Thu, 24 Sep 2020 13:59:09 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Minchan Kim <minchan@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Nitin Gupta <ngupta@vflare.org>,
- x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: [PATCH 11/11] mm: remove alloc_vm_area
-Date: Thu, 24 Sep 2020 15:58:53 +0200
-Message-Id: <20200924135853.875294-12-hch@lst.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200924135853.875294-1-hch@lst.de>
-References: <20200924135853.875294-1-hch@lst.de>
+ id ccbc45b4-0f19-4ab8-9388-9a5fe68d7736;
+ Thu, 24 Sep 2020 13:59:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9236CB0E6;
+ Thu, 24 Sep 2020 13:59:34 +0000 (UTC)
+Subject: Re: [PATCH RFC 0/4] mm: place pages to the freelist tail when onling
+ and undoing isolation
+To: David Hildenbrand <david@redhat.com>, osalvador@suse.de
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Dave Hansen <dave.hansen@intel.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Mel Gorman <mgorman@techsingularity.net>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Scott Cheloha <cheloha@linux.ibm.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>
+References: <5c0910c2cd0d9d351e509392a45552fb@suse.de>
+ <DAC9E747-BDDF-41B6-A89B-604880DD7543@redhat.com>
+ <67928cbd-950a-3279-bf9b-29b04c87728b@suse.cz>
+ <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <3af66d9b-70b1-6c19-0073-fa33c57edcdd@suse.cz>
+Date: Thu, 24 Sep 2020 15:59:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,116 +63,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-All users are gone now.
+On 9/23/20 5:26 PM, David Hildenbrand wrote:
+> On 23.09.20 16:31, Vlastimil Babka wrote:
+>> On 9/16/20 9:31 PM, David Hildenbrand wrote:
+>> 
+> 
+> Hi Vlastimil,
+> 
+>> I see the point, but I don't think the head/tail mechanism is great for this. It
+>> might sort of work, but with other interfering activity there are no guarantees
+>> and it relies on a subtle implementation detail. There are better mechanisms
+> 
+> For the specified use case of adding+onlining a whole bunch of memory
+> this works just fine. We don't care too much about "other interfering
+> activity" as you mention here, or about guarantees - this is a pure
+> optimization that seems to work just fine in practice.
+> 
+> I'm not sure about the "subtle implementation detail" - buddy merging,
+> and head/tail of buddy lists are a basic concept of our page allocator.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- include/linux/vmalloc.h |  5 +----
- mm/nommu.c              |  7 ------
- mm/vmalloc.c            | 48 -----------------------------------------
- 3 files changed, 1 insertion(+), 59 deletions(-)
+Mel already explained that, so I won't repeat.
 
-diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index c77efeac242514..938eaf9517e266 100644
---- a/include/linux/vmalloc.h
-+++ b/include/linux/vmalloc.h
-@@ -169,6 +169,7 @@ extern struct vm_struct *__get_vm_area_caller(unsigned long size,
- 					unsigned long flags,
- 					unsigned long start, unsigned long end,
- 					const void *caller);
-+void free_vm_area(struct vm_struct *area);
- extern struct vm_struct *remove_vm_area(const void *addr);
- extern struct vm_struct *find_vm_area(const void *addr);
- 
-@@ -204,10 +205,6 @@ static inline void set_vm_flush_reset_perms(void *addr)
- }
- #endif
- 
--/* Allocate/destroy a 'vmalloc' VM area. */
--extern struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes);
--extern void free_vm_area(struct vm_struct *area);
--
- /* for /dev/kmem */
- extern long vread(char *buf, char *addr, unsigned long count);
- extern long vwrite(char *buf, char *addr, unsigned long count);
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 75a327149af127..9272f30e4c4726 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -354,13 +354,6 @@ void vm_unmap_aliases(void)
- }
- EXPORT_SYMBOL_GPL(vm_unmap_aliases);
- 
--struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
--{
--	BUG();
--	return NULL;
--}
--EXPORT_SYMBOL_GPL(alloc_vm_area);
--
- void free_vm_area(struct vm_struct *area)
- {
- 	BUG();
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index e2a2ded8d93478..3bc5b832451ef2 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3083,54 +3083,6 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
- }
- EXPORT_SYMBOL(remap_vmalloc_range);
- 
--static int f(pte_t *pte, unsigned long addr, void *data)
--{
--	pte_t ***p = data;
--
--	if (p) {
--		*(*p) = pte;
--		(*p)++;
--	}
--	return 0;
--}
--
--/**
-- * alloc_vm_area - allocate a range of kernel address space
-- * @size:	   size of the area
-- * @ptes:	   returns the PTEs for the address space
-- *
-- * Returns:	NULL on failure, vm_struct on success
-- *
-- * This function reserves a range of kernel address space, and
-- * allocates pagetables to map that range.  No actual mappings
-- * are created.
-- *
-- * If @ptes is non-NULL, pointers to the PTEs (in init_mm)
-- * allocated for the VM area are returned.
-- */
--struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
--{
--	struct vm_struct *area;
--
--	area = get_vm_area_caller(size, VM_IOREMAP,
--				__builtin_return_address(0));
--	if (area == NULL)
--		return NULL;
--
--	/*
--	 * This ensures that page tables are constructed for this region
--	 * of kernel virtual address space and mapped into init_mm.
--	 */
--	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
--				size, f, ptes ? &ptes : NULL)) {
--		free_vm_area(area);
--		return NULL;
--	}
--
--	return area;
--}
--EXPORT_SYMBOL_GPL(alloc_vm_area);
--
- void free_vm_area(struct vm_struct *area)
- {
- 	struct vm_struct *ret;
--- 
-2.28.0
+> If that would ever change, the optimization here would be lost and we
+> would have to think of something else. Nothing would actually break -
+> and it's all kept directly in page_alloc.c
+
+Sure, but then it can become a pointless code churn.
+
+> I'd like to stress that what I propose here is both simple and powerful.
+> 
+>> possible I think, such as preparing a larger MIGRATE_UNMOVABLE area in the
+>> existing memory before we allocate those long-term management structures. Or
+>> onlining a bunch of blocks as zone_movable first and only later convert to
+>> zone_normal in a controlled way when existing normal zone becomes depeted?
+> 
+> I see the following (more or less complicated) alternatives
+> 
+> 1) Having a larger MIGRATE_UNMOVABLE area
+> 
+> a) Sizing it is difficult. I mean you would have to plan ahead for all
+> memory you might eventually hotplug later - and that could even be
+
+Yeah, hence my worry about existing interfaces that work on 128MB blocks
+individually without a larger strategy.
+
+> impossible if you hotplug quite a lot of memory to a smaller machine.
+> (I've seen people in the vm/container world trying to hotplug 128GB
+> DIMMs to 2GB VMs ... and failing for obvious reasons)
+
+Some planning should still be possible to maximize the contiguous area without
+unmovable allocations.
+
+> b) not really desired. You usually want to have most memory movable, not
+> the opposite (just because you might hotplug memory in small chunks later).
+> 
+> 2) smarter onlining
+> 
+> I have prototype patches for better auto-onlining (which I'll share at
+> some point), where I balance between ZONE_NORMAL and ZONE_MOVABLE in a
+> defined ratio. Assuming something very simple, adding separate memory
+> blocks and onlining them based on the current zone ratio (assuming a 1:4
+> normal:movable target ratio) would (without some other policies I have
+> in place) result in something like this for hotplugged memory (via
+> virtio-mem):
+> 
+> [N][M][M][M][M][N][M][M][M][M][N][M][M][M][M]...
+> 
+> (note: layout is suboptimal, just a simple example)
+> 
+> But even here, all [N] memory blocks would immediately be use for
+> allocations for the memmap of successive blocks. It doesn't solve the
+> dependency issues.
+> 
+> Now assume we would want to group [N] in a way to allow for gigantic
+> pages, like
+> 
+> [N][N][N][N][N][N][N][N][M][M][M][M] ....
+> 
+> we would, once again, never be able to allocate a gigantic page because
+> all [N] would contain a memmap.
+
+The second approach should work, if you know how much you are going to online,
+and plan the size the N group accordingly, and if the onlined amount is several
+gigabytes, then only the first one (or first X) will be unusable for a gigantic
+page, but the rest would be? Can't get much better than that.
+
+> 3) conversion from MOVABLE -> NORMAL
+> 
+> While a conversion from MOVABLE to NORMAL would be interesting to see,
+> it's going to be a challenging task to actually implement (people expect
+> that page_zone() remains stable). Without any hacks, we'd have to
+> 
+> 1. offline the selected (MOVABLE) memory block/chunk
+> 2. online the selected memory block/chunk to the NORMAL zone
+> 
+> This is not something we can do out of random context (for example, we
+> need both, the device hotplug lock and the memory hotplug lock, as we
+> might race with user space) - so there might still be a chance of
+> corner-case OOMs.
+
+Right, it's trickier than I thought.
+
+> (I assume there could also be quite a negative performance impact when
+> always relying on the conversion, and not properly planning ahead as in 2.)
+> 
+>> 
+>> I guess it's an issue that the e.g. 128M block onlines are so disconnected from
+>> each other it's hard to employ a strategy that works best for e.g. a whole bunch
+>> of GB onlined at once. But I noticed some effort towards new API, so maybe that
+>> will be solved there too?
+> 
+> While new interfaces might make it easier to identify boundaries of
+> separate DIMMs (e.g., to online a single DIMM either movable or
+> unmovable - which can partially be done right now when going via memory
+> resource boundaries), it doesn't help for the use case of adding
+> separate memory blocks.
+> 
+> So while having an automatic conversion from MOVABLE -> NORMAL would be
+> interesting, I doubt we'll see it in the foreseeable future. Are there
+> any similarly simple alternatives to optimize this?
+
+I've reviewed the series and I won't block it - yes it's an optimistic approach
+that can break and leave us with code churn. But at least it's not that much
+code and the extra test in  __free_one_page() shouldn't make this hotpath too
+worse. But I still hope we can achieve a more robust solution one day.
+
+> Thanks!
+> 
 
 
