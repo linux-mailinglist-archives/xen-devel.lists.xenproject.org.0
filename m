@@ -2,63 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 762B02768E1
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 08:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D2ED276A0A
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 09:05:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLKit-0007Po-Ds; Thu, 24 Sep 2020 06:27:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=StWZ=DB=amazon.com=prvs=52916e0f7=sjpark@srs-us1.protection.inumbo.net>)
- id 1kLKis-0007P5-1o
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 06:27:18 +0000
-X-Inumbo-ID: 431743ed-f0c0-4c48-8ec0-b4535abba0f0
-Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 431743ed-f0c0-4c48-8ec0-b4535abba0f0;
- Thu, 24 Sep 2020 06:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1600928837; x=1632464837;
- h=from:to:cc:subject:date:message-id:in-reply-to: mime-version;
- bh=zknW5jJHzdymA6wvIjLBr4rV/FXE51ARi7wGFxmt7nQ=;
- b=KrqgABaE2Ncw17dXyNT3rI/zOqgCoUgcqVrJdb0tYbXiWX4nZK/pGBl4
- eIrxvdZrmTCLG/J5NwWMU7ofUkrXyWTVMRrt3hETNHoIE8R81LHIPwD6s
- xKxTY/XjpHZD//eI/n97XR4fu9l86XOkj6GuEr9TLwfhRc4Rggf/zk/Fn s=;
-X-IronPort-AV: E=Sophos;i="5.77,296,1596499200"; d="scan'208";a="56021443"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2a-119b4f96.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
- 24 Sep 2020 06:27:15 +0000
-Received: from EX13D31EUA004.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2a-119b4f96.us-west-2.amazon.com (Postfix) with ESMTPS
- id EB1FB1A03DC; Thu, 24 Sep 2020 06:27:14 +0000 (UTC)
-Received: from u3f2cd687b01c55.ant.amazon.com (10.43.161.146) by
- EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 24 Sep 2020 06:27:08 +0000
-From: SeongJae Park <sjpark@amazon.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: SeongJae Park <sjpark@amazon.com>, <roger.pau@citrix.com>, SeongJae Park
- <sjpark@amazon.de>, <axboe@kernel.dk>, <aliguori@amazon.com>,
- <amit@kernel.org>, <mheyne@amazon.de>, <linux-block@vger.kernel.org>,
- <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xen-blkback: add a parameter for disabling of persistent
- grants
-Date: Thu, 24 Sep 2020 08:26:53 +0200
-Message-ID: <20200924062653.9449-1-sjpark@amazon.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200923200930.GB11767@char.us.oracle.com>
+	id 1kLLJ4-0002Vt-GC; Thu, 24 Sep 2020 07:04:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+2aH=DB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kLLJ3-0002Vo-OU
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 07:04:41 +0000
+X-Inumbo-ID: 10404917-dea9-460d-9321-76282c3c2206
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 10404917-dea9-460d-9321-76282c3c2206;
+ Thu, 24 Sep 2020 07:04:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600931080;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=y8g7b+h2u4Q30mwgmqN6PLgsilN4ELYfqIQ7KqKvSnE=;
+ b=L/Om2g/jfKCGug3kw+D4dUb3S0KwMyXP9s4vUCoOyLFysK1Ayh8vvpUmUveZcFfKs5Yq8o
+ 5KS+9NzQJia8zez86aU2QQLDumMFFDM27QZohZKquOxbnehGFbasn6Uk9gWgjVIQaSzjoA
+ lnTikY7EBa5EKemk0kbJ22Rq1DN/KsI=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EEC98AA55;
+ Thu, 24 Sep 2020 07:05:17 +0000 (UTC)
+Subject: Re: [PATCH 5/9] lib: move parse_size_and_unit()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
+ <823c1802-9a61-4059-c6a8-61f5c2fad12c@suse.com>
+ <91879555-30cd-3bcc-8f63-c8a2bbe6ef6d@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <65380045-320f-eba4-67f3-eb7f62baccb5@suse.com>
+Date: Thu, 24 Sep 2020 09:04:37 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.43.161.146]
-X-ClientProxiedBy: EX13D17UWB004.ant.amazon.com (10.43.161.132) To
- EX13D31EUA004.ant.amazon.com (10.43.165.161)
-Precedence: Bulk
+In-Reply-To: <91879555-30cd-3bcc-8f63-c8a2bbe6ef6d@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -69,25 +64,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 23 Sep 2020 16:09:30 -0400 Konrad Rzeszutek Wilk <konrad.wilk@oracle.com> wrote:
-
-> On Tue, Sep 22, 2020 at 09:01:25AM +0200, SeongJae Park wrote:
-> > From: SeongJae Park <sjpark@amazon.de>
-> > 
-> > Persistent grants feature provides high scalability.  On some small
-> > systems, however, it could incur data copy overhead[1] and thus it is
-> > required to be disabled.  But, there is no option to disable it.  For
-> > the reason, this commit adds a module parameter for disabling of the
-> > feature.
+On 22.09.2020 21:41, Andrew Cooper wrote:
+> On 14/09/2020 11:17, Jan Beulich wrote:
+>> ... into its own CU, to build it into an archive.
 > 
-> Would it be better suited to have it per guest?
+> CU?
 
-The latest version of this patchset[1] supports blkfront side disablement.
-Could that partially solves your concern?
+Compilation Unit - we've been using this acronym in a number of
+cases, I think.
 
-[1] https://lore.kernel.org/xen-devel/20200923061841.20531-1-sjpark@amazon.com/
+> Irrespective, it seems very weird to carve this out, seeing as it is
+> called from a number of core locations, and depends on other core
+> functions which aren't split out.
 
+As said in the cover letter, the goal is to get rid of common/lib.c
+as a whole. It's a bad file name for _anything_ to live in, as from
+its name you can't really derive what may or may not be (or belong)
+in there.
 
-Thanks,
-SeongJae Park
+Depending on other core functions isn't a problem at all for stuff
+living in archives. It being called "from a number of core
+locations" isn't a convincing argument either, as all of those could
+potentially be inside some #ifdef CONFIG_*. However, if it is
+believed that this would better live in an object file than in an
+archive, I can easily move it from lib-y to obj-y.
+
+Jan
 
