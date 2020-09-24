@@ -2,53 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC66276A18
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 09:09:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35B61276A9F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 09:20:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLLNs-0002gi-3K; Thu, 24 Sep 2020 07:09:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kLLXs-0003ct-3v; Thu, 24 Sep 2020 07:20:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+2aH=DB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kLLNq-0002gd-Jp
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 07:09:38 +0000
-X-Inumbo-ID: d9b376f4-1e32-4f47-98b2-e5703071e169
+ id 1kLLXq-0003co-UM
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 07:19:58 +0000
+X-Inumbo-ID: 624bd342-fa08-44cd-84bd-71e672586e8c
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d9b376f4-1e32-4f47-98b2-e5703071e169;
- Thu, 24 Sep 2020 07:09:37 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 624bd342-fa08-44cd-84bd-71e672586e8c;
+ Thu, 24 Sep 2020 07:19:58 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600931376;
+ t=1600931997;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zLEO1ik0C3w6vyUvTbbuoSSTSsoZnaH1hc0796q857U=;
- b=aqc/KwnK0qw8Fq8WTXJnMLofCdhjM43d4XamPKS+6iSQJYtOgFg3LNLHkKyGbmlBP0sSpV
- oAq0uwSHDrPTaDKyP3ElcWnpZUhr5ZJrZTWpkApsy3trejI5eUGdcK+18kVWcHRe/fq9Je
- gmatS1qYefJVnYcJEGHDwqrZWJbLEpM=
+ bh=iN9dWEAhn+QOR916bcbePefzojmSAMdxiHD2bmhGm+g=;
+ b=T26mu9Sg3E5RefaLvtOdr70K6mOXqvs6eBpWtkmFkkaieTkszuMHZd0rfdXYJiQCxwyCu4
+ 9Ua9N7qWpyIFIuPF6U8TbUF1xB11GcB8aoak0nl6C8Giv3zgPGIF7NuHiW0EQui+1OOK5k
+ iTfwUptVWatNxAs7trnJfZ7YRG1tnmk=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8D89DAA55;
- Thu, 24 Sep 2020 07:10:14 +0000 (UTC)
-Subject: Re: [PATCH 8/9] lib: move bsearch code
+ by mx2.suse.de (Postfix) with ESMTP id 2C609AB0E;
+ Thu, 24 Sep 2020 07:20:35 +0000 (UTC)
+Subject: Re: [PATCH] x86/msi: Fold pci_conf_write16() calls in write_msi_msg()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <aabca463-21ed-3755-0e8d-908069f40d6e@suse.com>
- <13e17bbd-4e58-d953-87c5-5fabafa21de2@suse.com>
- <b40bd4a7-b1fb-b2a0-44d1-398f533469a0@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200922191643.5933-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b330220d-3428-3cd5-53b7-6daa4a08d283@suse.com>
-Date: Thu, 24 Sep 2020 09:09:37 +0200
+Message-ID: <ca961ad9-1a12-b41a-4fce-8639fab49615@suse.com>
+Date: Thu, 24 Sep 2020 09:19:58 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <b40bd4a7-b1fb-b2a0-44d1-398f533469a0@citrix.com>
+In-Reply-To: <20200922191643.5933-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -65,26 +60,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.09.2020 21:34, Andrew Cooper wrote:
-> On 14/09/2020 11:18, Jan Beulich wrote:
->> Build this code into an archive, which results in not linking it into
->> x86 final binaries. This saves a little bit of dead code.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 22.09.2020 21:16, Andrew Cooper wrote:
+> In addition, this removes the unqualified 0/1 passed to msi_data_reg()
 > 
-> This wants to be an extern inline in the header file just like in stdlib.h.
-
-I can move it there, but why "extern" rather than "static"? We're
-not at risk of conflicting with a C library implementation.
-
-> The implementation is trivial, and much faster when the compiler can
-> inline the cmp() function pointer.
+> No functional change.
 > 
-> I doubt we actually need out-of-line implementation (except perhaps for
-> CONFIG_UBSAN builds or so).
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The only references are in Arm code; I don't know enough of UBSAN to
-see why uses may appear there.
-
-Jan
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
