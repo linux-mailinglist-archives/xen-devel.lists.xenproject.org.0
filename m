@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F65827737E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:01:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4FA527737D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:01:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLRoS-0002XD-De; Thu, 24 Sep 2020 14:01:32 +0000
+	id 1kLRoJ-0002Td-0R; Thu, 24 Sep 2020 14:01:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dG6m=DB=casper.srs.infradead.org=batv+004c9619e75dbad284dd+6241+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kLRn3-0000ri-8C
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:00:05 +0000
-X-Inumbo-ID: e544c95f-5fc6-4184-a689-805ccc368d9c
+ id 1kLRn8-0000ri-8K
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:00:10 +0000
+X-Inumbo-ID: 7cce872c-4be9-43ff-8621-a200b49e3389
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e544c95f-5fc6-4184-a689-805ccc368d9c;
+ id 7cce872c-4be9-43ff-8621-a200b49e3389;
  Thu, 24 Sep 2020 13:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=EtVpkGxd0Kyhqnh/t2FVgPRi015JMv+YUxF5ITQDDnw=; b=UBIv7roDEfICpvkEV2sDX9ByQx
- t0CU6jQaZONhs8WijOUJW3Hf5OmlymEYMn670wqAEy6jMP84qCMuVfB1aNXU3DB8PZkOzHe0z5Q8E
- F8J6iF5qyiBSE0OmzjD8LNDZuERy9GCif22cGt1lgl60GXal+sV8G8wPwqvEKk2BzhDNFb+3tnsb4
- 50KCBLdQD7ck0FlSY6Uff1WVvMj1/IXCjBNKICstm4IcHwnMVDfin3Lg/IX/3OJ7TWRrcjpN8Nz8t
- PO5JuoBYtJuo7Bh8o6jw163sU+8byzMB0qEe8ObJoA+W753TWIiEEGtzbIafEew2XKZt/+B1erI//
- CS2YD4OQ==;
+ bh=ix+nhROFgS2R/TvryqxFuXEm6pOX6uuPKFVKed32kPg=; b=OVPmZrJgH+Pd3TIC054x3Xgco3
+ 7oGmXl82TkDdK0Vh5KCQpoZD/y6iJKCrvS5JfHCO268Rcks+sjtogTI7hxgsYdd8THh6+Xm03NwA/
+ nQSwz1iqy+wyOXFQq0KSdVcBk+SjF+56iu4mwCNLNHRxIsJJMhHZBWOblrbbAH8backTeVk6U7UmA
+ ZC4B1JByCHrx56YZYKJFh1qIrsDVXR+VRYO8ABqzCHrmyx7iB0tT5M9+/RzuHzBRe8EoMyoRfSHxM
+ A4oHQYC/CNQ5KAH44hXhbOZRWvrWEpjk/ICZynCvG/XViwCDKUi/5djGYLvw8cD9foW31fpXWZ1q0
+ YO9BHotA==;
 Received: from p4fdb0c34.dip0.t-ipconnect.de ([79.219.12.52] helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kLRlv-0003ut-HU; Thu, 24 Sep 2020 13:58:55 +0000
+ id 1kLRm8-0003xk-Oj; Thu, 24 Sep 2020 13:59:09 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -47,9 +47,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  x86@kernel.org, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: [PATCH 01/11] mm: update the documentation for vfree
-Date: Thu, 24 Sep 2020 15:58:43 +0200
-Message-Id: <20200924135853.875294-2-hch@lst.de>
+Subject: [PATCH 11/11] mm: remove alloc_vm_area
+Date: Thu, 24 Sep 2020 15:58:53 +0200
+Message-Id: <20200924135853.875294-12-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200924135853.875294-1-hch@lst.de>
 References: <20200924135853.875294-1-hch@lst.de>
@@ -70,58 +70,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+All users are gone now.
 
- * Document that you can call vfree() on an address returned from vmap()
- * Remove the note about the minimum size -- the minimum size of a vmalloc
-   allocation is one page
- * Add a Context: section
- * Fix capitalisation
- * Reword the prohibition on calling from NMI context to avoid a double
-   negative
-
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- mm/vmalloc.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ include/linux/vmalloc.h |  5 +----
+ mm/nommu.c              |  7 ------
+ mm/vmalloc.c            | 48 -----------------------------------------
+ 3 files changed, 1 insertion(+), 59 deletions(-)
 
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index c77efeac242514..938eaf9517e266 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -169,6 +169,7 @@ extern struct vm_struct *__get_vm_area_caller(unsigned long size,
+ 					unsigned long flags,
+ 					unsigned long start, unsigned long end,
+ 					const void *caller);
++void free_vm_area(struct vm_struct *area);
+ extern struct vm_struct *remove_vm_area(const void *addr);
+ extern struct vm_struct *find_vm_area(const void *addr);
+ 
+@@ -204,10 +205,6 @@ static inline void set_vm_flush_reset_perms(void *addr)
+ }
+ #endif
+ 
+-/* Allocate/destroy a 'vmalloc' VM area. */
+-extern struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes);
+-extern void free_vm_area(struct vm_struct *area);
+-
+ /* for /dev/kmem */
+ extern long vread(char *buf, char *addr, unsigned long count);
+ extern long vwrite(char *buf, char *addr, unsigned long count);
+diff --git a/mm/nommu.c b/mm/nommu.c
+index 75a327149af127..9272f30e4c4726 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -354,13 +354,6 @@ void vm_unmap_aliases(void)
+ }
+ EXPORT_SYMBOL_GPL(vm_unmap_aliases);
+ 
+-struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
+-{
+-	BUG();
+-	return NULL;
+-}
+-EXPORT_SYMBOL_GPL(alloc_vm_area);
+-
+ void free_vm_area(struct vm_struct *area)
+ {
+ 	BUG();
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index be4724b916b3e7..8770260419af06 100644
+index e2a2ded8d93478..3bc5b832451ef2 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -2321,20 +2321,21 @@ static void __vfree(const void *addr)
+@@ -3083,54 +3083,6 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
  }
+ EXPORT_SYMBOL(remap_vmalloc_range);
  
- /**
-- * vfree - release memory allocated by vmalloc()
-- * @addr:  memory base address
-+ * vfree - Release memory allocated by vmalloc()
-+ * @addr:  Memory base address
-  *
-- * Free the virtually continuous memory area starting at @addr, as
-- * obtained from vmalloc(), vmalloc_32() or __vmalloc(). If @addr is
-- * NULL, no operation is performed.
-+ * Free the virtually continuous memory area starting at @addr, as obtained
-+ * from one of the vmalloc() family of APIs.  This will usually also free the
-+ * physical memory underlying the virtual allocation, but that memory is
-+ * reference counted, so it will not be freed until the last user goes away.
-  *
-- * Must not be called in NMI context (strictly speaking, only if we don't
-- * have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling
-- * conventions for vfree() arch-depenedent would be a really bad idea)
-+ * If @addr is NULL, no operation is performed.
-  *
-+ * Context:
-  * May sleep if called *not* from interrupt context.
+-static int f(pte_t *pte, unsigned long addr, void *data)
+-{
+-	pte_t ***p = data;
+-
+-	if (p) {
+-		*(*p) = pte;
+-		(*p)++;
+-	}
+-	return 0;
+-}
+-
+-/**
+- * alloc_vm_area - allocate a range of kernel address space
+- * @size:	   size of the area
+- * @ptes:	   returns the PTEs for the address space
 - *
-- * NOTE: assumes that the object at @addr has a size >= sizeof(llist_node)
-+ * Must not be called in NMI context (strictly speaking, it could be
-+ * if we have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling
-+ * conventions for vfree() arch-depenedent would be a really bad idea).
-  */
- void vfree(const void *addr)
+- * Returns:	NULL on failure, vm_struct on success
+- *
+- * This function reserves a range of kernel address space, and
+- * allocates pagetables to map that range.  No actual mappings
+- * are created.
+- *
+- * If @ptes is non-NULL, pointers to the PTEs (in init_mm)
+- * allocated for the VM area are returned.
+- */
+-struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
+-{
+-	struct vm_struct *area;
+-
+-	area = get_vm_area_caller(size, VM_IOREMAP,
+-				__builtin_return_address(0));
+-	if (area == NULL)
+-		return NULL;
+-
+-	/*
+-	 * This ensures that page tables are constructed for this region
+-	 * of kernel virtual address space and mapped into init_mm.
+-	 */
+-	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
+-				size, f, ptes ? &ptes : NULL)) {
+-		free_vm_area(area);
+-		return NULL;
+-	}
+-
+-	return area;
+-}
+-EXPORT_SYMBOL_GPL(alloc_vm_area);
+-
+ void free_vm_area(struct vm_struct *area)
  {
+ 	struct vm_struct *ret;
 -- 
 2.28.0
 
