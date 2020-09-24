@@ -2,82 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A61F276E6E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:16:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE39276E84
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:20:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLOIm-0003oM-NH; Thu, 24 Sep 2020 10:16:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=puVB=DB=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kLOIk-0003oF-UH
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:16:35 +0000
-X-Inumbo-ID: cd3df1ab-2e0e-4d08-aa3e-273f86f2617c
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cd3df1ab-2e0e-4d08-aa3e-273f86f2617c;
- Thu, 24 Sep 2020 10:16:33 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id s13so2924254wmh.4
- for <xen-devel@lists.xenproject.org>; Thu, 24 Sep 2020 03:16:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=XlG5xS4hFNglQJmo3fHjYYCkVp7IV+ZixoHdwh4p5mM=;
- b=WIHEqPVrYGdw8a579qHGeDAyWdRYM6BuGe3iwK71qtxem6gmDg4UNWL60u1Be2h2d0
- bKmFgJa1skePgEZXU7m7ktK0qzjozaeLstMEOg+yCwMDSSzAeO0jOcZpAmFAe3tKNpCk
- rLI4PJVMuQyGb74H9HHViI7i97rh2d9fUCk+J82rW3Z8mP4D7PtOz7M0D1fegF/FcCiG
- SXcDIbFjlSO0ybo1zNrp7xh5TzFxkx88gY586+p9Se93ejZcsnBP8as43ABzjwznM467
- 7cPCUl7k/XZERJ+idbbqiE269PqQmx/lIx1O8pjvEIdbuuEYLU4A+b4tHlrCKtrox0ha
- 5kSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=XlG5xS4hFNglQJmo3fHjYYCkVp7IV+ZixoHdwh4p5mM=;
- b=V8eicRZ3+0znrkjJEjd3XymvIi7PuYSWT6SsqfRGPnAwYh6HGK6T0C/+xF5XXImYe0
- 26MIU+z5ta/by8B9YDIJdM3yr9rvK4nj3nrLhD5i3qiMUdrcSD4EVxcwQWb+UCbRmTWb
- KqHeQLrt1DP4oToKMNLpoWSGvuaED6Jayao1WjqLAWpFD9yQEpg0KfonvyRowUFIhOAg
- 40rTNeFLQn2dHekDyU9oABo8bnRo83t80BixXuR88ThD9YVM9jDC7mjlBR1UbwwW05+D
- TexqL9XxcbfbkTYJC6jIav9pFhtM7CesQiEqPD3FKftvHd8+ruASV0ZxnMszoR4cT13C
- S46Q==
-X-Gm-Message-State: AOAM5323S82Z2DDp35hDXN/Mw6HTmBfAnc8piC5Nu9+ueNdUTCwdnmgQ
- NJ39fYIHVUvjSZ+g5RA8fho=
-X-Google-Smtp-Source: ABdhPJy9KpdrBwVwxCBybME8DqRLgGkn6Dy3QAh1bC5N8FX9TqZmBDXwK2ySRjVlXAiODp0/RQpnug==
-X-Received: by 2002:a05:600c:214e:: with SMTP id
- v14mr4172660wml.118.1600942592174; 
- Thu, 24 Sep 2020 03:16:32 -0700 (PDT)
-Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
- [86.176.94.160])
- by smtp.gmail.com with ESMTPSA id l3sm2882092wmh.27.2020.09.24.03.16.30
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 24 Sep 2020 03:16:31 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'Xen-devel'" <xen-devel@lists.xenproject.org>
-Cc: "'George Dunlap'" <George.Dunlap@eu.citrix.com>,
- "'Ian Jackson'" <iwj@xenproject.org>, "'Jan Beulich'" <JBeulich@suse.com>,
- "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
- "'Julien Grall'" <julien@xen.org>,
- =?utf-8?Q?'Micha=C5=82_Leszczy=C5=84ski'?= <michal.leszczynski@cert.pl>,
- "'Hubert Jasudowicz'" <hubert.jasudowicz@cert.pl>,
- "'Tamas K Lengyel'" <tamas@tklengyel.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
- <20200922182444.12350-8-andrew.cooper3@citrix.com>
-In-Reply-To: <20200922182444.12350-8-andrew.cooper3@citrix.com>
-Subject: RE: [PATCH v2 07/11] xen/memory: Improve compat
- XENMEM_acquire_resource handling
-Date: Thu, 24 Sep 2020 11:16:30 +0100
-Message-ID: <003e01d6925b$c5e9c740$51bd55c0$@xen.org>
+	id 1kLOLv-00042g-HL; Thu, 24 Sep 2020 10:19:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
+ id 1kLOLu-00042T-Gh
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:19:50 +0000
+X-Inumbo-ID: f82bdad7-2bf8-422a-bdfd-5b1942aeddcd
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f82bdad7-2bf8-422a-bdfd-5b1942aeddcd;
+ Thu, 24 Sep 2020 10:19:49 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9A3F0AF1F;
+ Thu, 24 Sep 2020 10:20:26 +0000 (UTC)
+Subject: Re: [PATCH RFC 1/4] mm/page_alloc: convert "report" flag of
+ __free_one_page() to a proper flag
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>
+References: <20200916183411.64756-1-david@redhat.com>
+ <20200916183411.64756-2-david@redhat.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <82ba4aec-0c69-2461-485a-fa4a7777e5c3@suse.cz>
+Date: Thu, 24 Sep 2020 12:19:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIFh6M/JBUQh1P0MghANJzmhArOyAKngR3IqQRqFKA=
+In-Reply-To: <20200916183411.64756-2-david@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,213 +56,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
-> Sent: 22 September 2020 19:25
-> To: Xen-devel <xen-devel@lists.xenproject.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
-<George.Dunlap@eu.citrix.com>; Ian
-> Jackson <iwj@xenproject.org>; Jan Beulich <JBeulich@suse.com>; Stefano =
-Stabellini
-> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien Grall =
-<julien@xen.org>; Paul Durrant
-> <paul@xen.org>; Micha=C5=82 Leszczy=C5=84ski =
-<michal.leszczynski@cert.pl>; Hubert Jasudowicz
-> <hubert.jasudowicz@cert.pl>; Tamas K Lengyel <tamas@tklengyel.com>
-> Subject: [PATCH v2 07/11] xen/memory: Improve compat =
-XENMEM_acquire_resource handling
->=20
-> The frame_list is an input, or an output, depending on whether the =
-calling
-> domain is translated or not.  The array does not need marshalling in =
-both
-> directions.
->=20
-> Furthermore, the copy-in loop was very inefficient, copying 4 bytes at =
-at
-> time.  Rewrite it to copy in all nr_frames at once, and then expand
-> compat_pfn_t to xen_pfn_t in place.
->=20
-> Re-position the copy-in loop to simplify continuation support in a =
-future
-> patch, and reduce the scope of certain variables.
->=20
-> No change in guest observed behaviour.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 9/16/20 8:34 PM, David Hildenbrand wrote:
+> Let's prepare for additional flags and avoid long parameter lists of bools.
+> Follow-up patches will also make use of the flags in __free_pages_ok(),
+> however, I wasn't able to come up with a better name for the type - should
+> be good enough for internal purposes.
+> 
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> Cc: Mel Gorman <mgorman@techsingularity.net>
+> Cc: Michal Hocko <mhocko@kernel.org>
+> Cc: Dave Hansen <dave.hansen@intel.com>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+> Cc: Oscar Salvador <osalvador@suse.de>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+
 > ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <iwj@xenproject.org>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Micha=C5=82 Leszczy=C5=84ski <michal.leszczynski@cert.pl>
-> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-> CC: Tamas K Lengyel <tamas@tklengyel.com>
-> ---
->  xen/common/compat/memory.c | 65 =
-++++++++++++++++++++++++++++------------------
->  1 file changed, 40 insertions(+), 25 deletions(-)
->=20
-> diff --git a/xen/common/compat/memory.c b/xen/common/compat/memory.c
-> index ed92e05b08..834c5e19d1 100644
-> --- a/xen/common/compat/memory.c
-> +++ b/xen/common/compat/memory.c
-> @@ -55,6 +55,8 @@ static int get_reserved_device_memory(xen_pfn_t =
-start, xen_ulong_t nr,
->=20
->  int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) =
-compat)
+>  mm/page_alloc.c | 28 ++++++++++++++++++++--------
+>  1 file changed, 20 insertions(+), 8 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 6b699d273d6e..91cefb8157dd 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -77,6 +77,18 @@
+>  #include "shuffle.h"
+>  #include "page_reporting.h"
+>  
+> +/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
+> +typedef int __bitwise fop_t;
+> +
+> +/* No special request */
+> +#define FOP_NONE		((__force fop_t)0)
+> +
+> +/*
+> + * Skip free page reporting notification after buddy merging (will *not* mark
+> + * the page reported, only skip the notification).
+> + */
+> +#define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+> +
+>  /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
+>  static DEFINE_MUTEX(pcp_batch_high_lock);
+>  #define MIN_PERCPU_PAGELIST_FRACTION	(8)
+> @@ -948,10 +960,9 @@ buddy_merge_likely(unsigned long pfn, unsigned long buddy_pfn,
+>   * -- nyc
+>   */
+>  
+> -static inline void __free_one_page(struct page *page,
+> -		unsigned long pfn,
+> -		struct zone *zone, unsigned int order,
+> -		int migratetype, bool report)
+> +static inline void __free_one_page(struct page *page, unsigned long pfn,
+> +				   struct zone *zone, unsigned int order,
+> +				   int migratetype, fop_t fop_flags)
 >  {
-> +    struct vcpu *curr =3D current;
-> +    struct domain *currd =3D curr->domain;
->      int split, op =3D cmd & MEMOP_CMD_MASK;
->      long rc;
->      unsigned int start_extent =3D cmd >> MEMOP_EXTENT_SHIFT;
-> @@ -399,7 +401,7 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->=20
->          case XENMEM_acquire_resource:
->          {
-> -            xen_pfn_t *xen_frame_list;
-> +            xen_pfn_t *xen_frame_list =3D NULL;
->              unsigned int max_nr_frames;
->=20
->              if ( copy_from_guest(&cmp.mar, compat, 1) )
-> @@ -417,28 +419,10 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->              if ( cmp.mar.nr_frames > max_nr_frames )
->                  return -E2BIG;
->=20
-> -            if ( compat_handle_is_null(cmp.mar.frame_list) )
-> -                xen_frame_list =3D NULL;
-> -            else
-> -            {
-> +            /* Marshal the frame list in the remainder of the xlat =
-space. */
-> +            if ( !compat_handle_is_null(cmp.mar.frame_list) )
->                  xen_frame_list =3D (xen_pfn_t *)(nat.mar + 1);
->=20
-> -                if ( !compat_handle_okay(cmp.mar.frame_list,
-> -                                         cmp.mar.nr_frames) )
-> -                    return -EFAULT;
-> -
-> -                for ( i =3D 0; i < cmp.mar.nr_frames; i++ )
-> -                {
-> -                    compat_pfn_t frame;
-> -
-> -                    if ( __copy_from_compat_offset(
-> -                             &frame, cmp.mar.frame_list, i, 1) )
-> -                        return -EFAULT;
-> -
-> -                    xen_frame_list[i] =3D frame;
-> -                }
-> -            }
-> -
->  #define XLAT_mem_acquire_resource_HNDL_frame_list(_d_, _s_) \
->              set_xen_guest_handle((_d_)->frame_list, xen_frame_list)
->=20
-> @@ -446,6 +430,31 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->=20
->  #undef XLAT_mem_acquire_resource_HNDL_frame_list
->=20
-> +            if ( xen_frame_list && cmp.mar.nr_frames )
-> +            {
-> +                /*
-> +                 * frame_list is an input for translated guests, and =
-an output
-> +                 * for untranslated guests.  Only copy in for =
-translated guests.
-> +                 */
-> +                if ( paging_mode_translate(currd) )
-> +                {
-> +                    compat_pfn_t *compat_frame_list =3D (void =
-*)xen_frame_list;
-> +
-> +                    if ( !compat_handle_okay(cmp.mar.frame_list,
-> +                                             cmp.mar.nr_frames) ||
-> +                         __copy_from_compat_offset(
-> +                             compat_frame_list, cmp.mar.frame_list,
-> +                             0, cmp.mar.nr_frames) )
-> +                        return -EFAULT;
-> +
-> +                    /*
-> +                     * Iterate backwards over compat_frame_list[] =
-expanding
-> +                     * compat_pfn_t to xen_pfn_t in place.
-> +                     */
-> +                    for ( int x =3D cmp.mar.nr_frames - 1; x >=3D 0; =
---x )
-
-I know it is legal c99 but personally I still dislike declarations like =
-this, and I've not seen one elsewhere in the Xen code. But I'm not the =
-maintainer, so...
-
-Reviewed-by: Paul Durrant <paul@xen.org>
-
-> +                        xen_frame_list[x] =3D compat_frame_list[x];
-> +                }
-> +            }
->              break;
->          }
->          default:
-> @@ -590,8 +599,6 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->=20
->          case XENMEM_acquire_resource:
->          {
-> -            const xen_pfn_t *xen_frame_list =3D (xen_pfn_t *)(nat.mar =
-+ 1);
-> -            compat_pfn_t *compat_frame_list =3D (compat_pfn_t =
-*)(nat.mar + 1);
->              DEFINE_XEN_GUEST_HANDLE(compat_mem_acquire_resource_t);
->=20
->              if ( compat_handle_is_null(cmp.mar.frame_list) )
-> @@ -601,9 +608,18 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->                                             =
-compat_mem_acquire_resource_t),
->                           nat.mar, nr_frames) )
->                      return -EFAULT;
-> +                break;
->              }
-> -            else
-> +
-> +            /*
-> +             * frame_list is an input for translated guests, and an =
-output for
-> +             * untranslated guests.  Only copy out for untranslated =
-guests.
-> +             */
-> +            if ( !paging_mode_translate(currd) )
->              {
-> +                const xen_pfn_t *xen_frame_list =3D (xen_pfn_t =
-*)(nat.mar + 1);
-> +                compat_pfn_t *compat_frame_list =3D (compat_pfn_t =
-*)(nat.mar + 1);
-> +
->                  /*
->                   * NOTE: the smaller compat array overwrites the =
-native
->                   *       array.
-> @@ -625,7 +641,6 @@ int compat_memory_op(unsigned int cmd, =
-XEN_GUEST_HANDLE_PARAM(void) compat)
->                                               cmp.mar.nr_frames) )
->                      return -EFAULT;
->              }
-> -
->              break;
->          }
->=20
-> --
-> 2.11.0
-
+>  	struct capture_control *capc = task_capc(zone);
+>  	unsigned long buddy_pfn;
+> @@ -1038,7 +1049,7 @@ static inline void __free_one_page(struct page *page,
+>  		add_to_free_list(page, zone, order, migratetype);
+>  
+>  	/* Notify page reporting subsystem of freed page */
+> -	if (report)
+> +	if (!(fop_flags & FOP_SKIP_REPORT_NOTIFY))
+>  		page_reporting_notify_free(order);
+>  }
+>  
+> @@ -1368,7 +1379,7 @@ static void free_pcppages_bulk(struct zone *zone, int count,
+>  		if (unlikely(isolated_pageblocks))
+>  			mt = get_pageblock_migratetype(page);
+>  
+> -		__free_one_page(page, page_to_pfn(page), zone, 0, mt, true);
+> +		__free_one_page(page, page_to_pfn(page), zone, 0, mt, FOP_NONE);
+>  		trace_mm_page_pcpu_drain(page, 0, mt);
+>  	}
+>  	spin_unlock(&zone->lock);
+> @@ -1384,7 +1395,7 @@ static void free_one_page(struct zone *zone,
+>  		is_migrate_isolate(migratetype))) {
+>  		migratetype = get_pfnblock_migratetype(page, pfn);
+>  	}
+> -	__free_one_page(page, pfn, zone, order, migratetype, true);
+> +	__free_one_page(page, pfn, zone, order, migratetype, FOP_NONE);
+>  	spin_unlock(&zone->lock);
+>  }
+>  
+> @@ -3277,7 +3288,8 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
+>  	lockdep_assert_held(&zone->lock);
+>  
+>  	/* Return isolated page to tail of freelist. */
+> -	__free_one_page(page, page_to_pfn(page), zone, order, mt, false);
+> +	__free_one_page(page, page_to_pfn(page), zone, order, mt,
+> +			FOP_SKIP_REPORT_NOTIFY);
+>  }
+>  
+>  /*
+> 
 
 
