@@ -2,119 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB72277846
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 20:09:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E8B277875
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 20:23:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLVg1-0000tB-Nd; Thu, 24 Sep 2020 18:09:05 +0000
+	id 1kLVt2-0002fM-2j; Thu, 24 Sep 2020 18:22:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eJTG=DB=epam.com=prvs=753602e6e8=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1kLVfz-0000t4-Ul
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 18:09:04 +0000
-X-Inumbo-ID: 663684a6-5d79-4a89-ba22-c14db63a3362
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ <SRS0=EOGg=DB=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kLVt0-0002fH-IL
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 18:22:30 +0000
+X-Inumbo-ID: 750e5834-cc72-44ec-b62b-6ee4d2028c49
+Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 663684a6-5d79-4a89-ba22-c14db63a3362;
- Thu, 24 Sep 2020 18:09:02 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08OI0E7x006910; Thu, 24 Sep 2020 18:08:59 GMT
-Received: from eur04-db3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2052.outbound.protection.outlook.com [104.47.12.52])
- by mx0a-0039f301.pphosted.com with ESMTP id 33rnr627ka-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Sep 2020 18:08:59 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VKE0NJqgUU8txTM8vZZvZqVMv5wfitipWcrM/Ep5RWOXZmZERAzV4spK7DjpM49hQeqZZsiFrswpR3LvYq6PyLQR1CSBIHPjcmvBS10g/rJ9kjGnrcKXyv17xKZhbP75ArqvOiMzPU2BgH35B9JUEGQiPYEPgvzpZOnSk8nNNnD1QndC0FgziiZYzIPr0XJ2zUo8D79npEPziY6mytzBt82gyIXnfuUQP2s721JQxbrHliWvKFDmax99q/F6FRgd+arshcU91DLDWzQPjn2ToDlXVqFzK37LV/E7JL0mdRKx3EUlko1ceeeJpy/j0JSACxEiYYJai61aUNXM+CKdqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t4R7a22yPqxkI/V9egN1uWkasVs1HzvAmUlEzZrgXVI=;
- b=RNFFjSIIcrO1mIqfC0Dtq1pKAgAOm+PV+f2STAgzfpEremdpZZztGc4LP60Mji/UROP5XZgmT3KoYjKy/Y28TA9F40bK7ur4f0Xwo1pZQIBDcuAu5/lFns8isBbzbUhA0yFgyAIUaPXZpIvgFQ8P4LIWj5zHSwagp8/wj1JOh72CHzR1jSIIDO5qvt3UsynoxUzJYcHONNTAbyp4etCjfBL/ne+7lOGpz/p3DhSl2I1FEp3J2zdBKCKFEVqNA5vfrtfe/OVJL4ly1FnUYEezfRZwN+wta3o9aAybpZS0ITh9bqxVIAei2QZ3CzxpMp5oRRYL1858bH8FfTmzdqkHcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t4R7a22yPqxkI/V9egN1uWkasVs1HzvAmUlEzZrgXVI=;
- b=t0SZobuEWbhOp8DsQseinO8DU/KdsRb95j5gzeCOe+vMVw5iQF/TUyaVq0EiYYa8qEYWOa3dLc/5shA1QfwUGUNbSYXe2TQ4QRtPHW3fY7Y2b58apiNNMxYb5JaT6DkmIovEc2Io1Pibu2dJsYRPaYCIol3ecaTN47yWLgYxEEHbguEPmwUXaOZSPL3513HGML9l+pVzEN4iKMiqty0hbMRpEF28FajMbVWtCC6la+ryxFYQfsQMC+wBXc+igTYfDVEZ4XwwDUr1XWLfxnUm8N34gwdqCC+Vt/Bcfg3aA+JwEZmUmuKNsVKgZApsAEfLH5kXANiJkoIaLyR/RpX+Ow==
-Received: from VI1PR03MB6400.eurprd03.prod.outlook.com (2603:10a6:800:17e::20)
- by VI1PR03MB3007.eurprd03.prod.outlook.com (2603:10a6:802:3a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.19; Thu, 24 Sep
- 2020 18:08:56 +0000
-Received: from VI1PR03MB6400.eurprd03.prod.outlook.com
- ([fe80::71d4:858b:cc47:7da0]) by VI1PR03MB6400.eurprd03.prod.outlook.com
- ([fe80::71d4:858b:cc47:7da0%4]) with mapi id 15.20.3412.022; Thu, 24 Sep 2020
- 18:08:56 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>,
- "jbeulich@suse.com" <jbeulich@suse.com>, "wl@xen.org" <wl@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "dfaggioli@suse.com" <dfaggioli@suse.com>
-Subject: Re: [RFC PATCH v1 2/6] sched: track time spent in hypervisor tasks
-Thread-Topic: [RFC PATCH v1 2/6] sched: track time spent in hypervisor tasks
-Thread-Index: AQHWQE+SUtF98x/3akmRxwBff1s+m6jUZ0iAgABx6YCAAALVgICj3sIA
-Date: Thu, 24 Sep 2020 18:08:55 +0000
-Message-ID: <87d02bavz7.fsf@epam.com>
-References: <20200612002205.174295-1-volodymyr_babchuk@epam.com>
- <20200612002205.174295-3-volodymyr_babchuk@epam.com>
- <a40aac2a-326b-9efa-fed3-49826bb2ff9c@suse.com>
- <daf3aa1c6fa565076755437e7e74347b58e3a9b6.camel@epam.com>
- <918fa2e1-232c-a3ff-d0a9-776b470ee5db@suse.com>
-In-Reply-To: <918fa2e1-232c-a3ff-d0a9-776b470ee5db@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 27.1
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 086be1df-9ee4-4b61-2722-08d860b4e712
-x-ms-traffictypediagnostic: VI1PR03MB3007:
-x-microsoft-antispam-prvs: <VI1PR03MB30079179BD07EBB12F265C91E6390@VI1PR03MB3007.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: UnAyu9D6++xLQbMCX8kY8o6pjli6Rm2UxTpIjhdjSiJM0gokUWxL1pDHSl8SccQPQIH3BhE544qqhizdQ/Ew4Pe54ESL0UlSGallHuPmUQkOOALjZ+UqZod/NUf3uHRbBfgnlG6+fmN7q+fXhcsc/fV4uoPZZ9LN9/x5bgtwhikwD1zZXxMaW7ShB/5Bqfws2D21A+hHMQB+Ttfahv9sDvaaEH2Oiogmu06V+3w7B70wKXbm6/jujEjyFNIPDAkPpaGxZVtdEi2y0jyYfNmIrbXfFc+NdXZUDnKIQ8T7IHeucrGrWfsDebHW9fkv+rr3rJIr0Urv1ImrnzXMRt2QK6wPDuUkrEon6B8cPFzHrMR4hCcOSIa7p8c9JP/IfVeR
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR03MB6400.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(396003)(136003)(376002)(39860400002)(6916009)(66556008)(71200400001)(316002)(7416002)(76116006)(66946007)(91956017)(36756003)(6512007)(8936002)(186003)(4326008)(64756008)(66476007)(8676002)(2906002)(54906003)(6486002)(55236004)(2616005)(5660300002)(86362001)(83380400001)(66446008)(53546011)(26005)(66574015)(6506007)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: n16TJS6r4YiEEIYDzqNHUGLktxvfA2bvJXrAWOH61cjwbXsCX5gcM/OdUPUp4l7/SJTFV/EhLp4OIHiGo63ZfwuKaQ9nIoFsrJDJNtfrXIKV0TmR4Rs9Rfzz8tJPUU3DlP3Qdrdw9VwK01ker1TEoK4mXdm1TZj9j01CgKVO+8XVUxkcsnzqPBU6TJUa4MRT8fnY+LaGVcQvXI/yNqxeECxtYiqdczO95y1XuZXwQTmHosapvZuUotRLoHywSHcW4+boRkO5uw2zoGaOXBt5lucJoD/7mpg6uzJAcQIf2L2geZFApfAObI+uX8OGIXWkhLE2GT/RiyLWgShhcPnFbRcSPC4M18TJjz+G/cB9lnpAQ/XDR/wg4OQzb6IwWewWy5+unNhH61zkdd+EgVWqqDNKHU2wwl+8sNjQ7VbK2VByKuOYSQNxZZMYfgc6NFz7YDYzga33ygo+u3K+O8qPSUs/MtkPdAH0N0q8cZpaVwkbczH7WiBMj2YnSHi76XL7oqvgHl3H31u23pWrOZf6XR+gV/2rWuDhj4FI2OY8k0mG7nYDk/MtdTh36kOa+8z/7HL0BpeowXEjm+5UqxRmGft+fla6XY9vxNdNOyOarw28CW45Qkxs7P6wcv7PTT6BfqGX/BRa88dzwQr8YqPuyQ==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E37DC9C86EF47246A5F14417300904FC@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ id 750e5834-cc72-44ec-b62b-6ee4d2028c49;
+ Thu, 24 Sep 2020 18:22:28 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id z19so5022092lfr.4
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Sep 2020 11:22:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=PDFVLKcskeFgTuIB3AJsQo6anGx3d66s/34TtD5MJaw=;
+ b=eonV/5gvBiWpGN9obUSsA+8zVkf+K8Fp18Zs9/AMqJkSc8tYVfmAiUR1z+78xe95OQ
+ RKK0z8I8Iupe/5WlY0sptkfhQOV/J9ciBzXM2THswHeEYc26wD8NOigFR/nGOm3s9fUh
+ 4j3ezMySaz6VUrBXNDTJJGjlxX/lRMRNlXXzx4H7vURugALz83Z5C54HH6JgJHolrAYI
+ LfXPeoyeJXT2mPt1bVMnGISBlPJ0AcKOczuqTX+zoG+IH5xjqFtAeG9YkY0atOi9Veeq
+ WOyEviemkaGT66NTA4HmHZzFMti9u2xOk2jrIRZ67ZNoDorkxiWNGXPi2GUpdiGojHgY
+ Ht5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=PDFVLKcskeFgTuIB3AJsQo6anGx3d66s/34TtD5MJaw=;
+ b=WenGuMzTrUrc/Bjg3K5nF0wvthBBwAsc3LhdJhKtQ4IKoHBV1zBIOpAcLi5vFX08YR
+ 6i8Dh1lzmR11Ir5J7xT14I9d2dT++W0D6n6RGOCBA+hrF6vIybmAKzWKoj/drjM0aLGt
+ YbyfRfwPhEJcloJ22XTiH0g1+W7BwwkMRq2MZEwPF9i/6nDwZoNUw2Uzuqj+3ApelGgj
+ NZEyVESO3a3K58qol+Ya+AkGeXyysO8I91crz4tqaJmgszk6ud3CaXTEuuddUzi0CPGV
+ mth6Q9zhtJKSJ5c4FJAV9O/AUMdwyQ4PH3YRFB78tZhC0VBuNFOJXvgDfjlldtSqI3NH
+ RvSw==
+X-Gm-Message-State: AOAM532qH22SToK49c0MatqxpzGMf21EIrmvkZWvpikNXE+e24fDC9T4
+ Kw8CrjkmDydwdqh7szk5zc0=
+X-Google-Smtp-Source: ABdhPJykEtQQBQ+jwdm5z2OA9e0ZOv0wthsRKgfLBCHeyp+qjHpaz3Z6ngxUoww2+q4jDJjDM9zZsw==
+X-Received: by 2002:a19:c7d7:: with SMTP id x206mr47743lff.540.1600971747456; 
+ Thu, 24 Sep 2020 11:22:27 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id k15sm19854lfc.261.2020.09.24.11.22.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Sep 2020 11:22:26 -0700 (PDT)
+Subject: Re: [PATCH V1 09/16] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-10-git-send-email-olekstysh@gmail.com>
+ <be3401e8-db2b-82a5-b117-2c0fc8b85811@xen.org>
+ <7fbab25d-18a9-83d6-2596-f0f9d149058c@gmail.com>
+ <e4009c0f-1057-f031-c3bb-6b7c850a0aa1@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <fcb40929-9487-1d20-3990-09c79cab8df8@gmail.com>
+Date: Thu, 24 Sep 2020 21:22:26 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB6400.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 086be1df-9ee4-4b61-2722-08d860b4e712
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2020 18:08:55.8169 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6Vz1ojLdv66BYUPqKYcTGL1sTMegTcFW/sqGkeb7o5+0Vc1N6eUeR9JLddm/B0K++NKMJOfUasqxoIitKkyhoxlstNgiMUaTg653AWbuDlc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB3007
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-24_11:2020-09-24,
- 2020-09-24 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- mlxlogscore=999 mlxscore=0 lowpriorityscore=0 adultscore=0 clxscore=1011
- bulkscore=0 impostorscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009240132
+In-Reply-To: <e4009c0f-1057-f031-c3bb-6b7c850a0aa1@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,60 +87,448 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQpIZWxsbyBKw7xyZ2VuLA0KDQpKw7xyZ2VuIEdyb8OfIHdyaXRlczoNCg0KPiBPbiAxMi4wNi4y
-MCAxMzozMCwgVm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+PiBPbiBGcmksIDIwMjAtMDYtMTIg
-YXQgMDY6NDMgKzAyMDAsIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+Pj4gT24gMTIuMDYuMjAgMDI6
-MjIsIFZvbG9keW15ciBCYWJjaHVrIHdyb3RlOg0KDQpbLi4uXQ0KPj4+PiArICAgIGRlbHRhID0g
-Tk9XKCkgLSB2LT5oeXBfZW50cnlfdGltZTsNCj4+Pj4gKyAgICBhdG9taWNfYWRkKGRlbHRhLCAm
-di0+c2NoZWRfdW5pdC0+aHlwX3RpbWUpOw0KPj4+PiArDQo+Pj4+ICsjaWZuZGVmIE5ERUJVRw0K
-Pj4+PiArICAgIHYtPmluX2h5cF90YXNrID0gZmFsc2U7DQo+Pj4+ICsjZW5kaWYNCj4+Pj4gK30N
-Cj4+Pj4gKw0KPj4+PiAgICAvKg0KPj4+PiAgICAgKiBEbyB0aGUgYWN0dWFsIG1vdmVtZW50IG9m
-IGFuIHVuaXQgZnJvbSBvbGQgdG8gbmV3IENQVS4gTG9ja3MgZm9yICpib3RoKg0KPj4+PiAgICAg
-KiBDUFVzIG5lZWRzIHRvIGhhdmUgYmVlbiB0YWtlbiBhbHJlYWR5IHdoZW4gY2FsbGluZyB0aGlz
-IQ0KPj4+PiBAQCAtMjYxNSw2ICsyNjQ2LDcgQEAgc3RhdGljIHZvaWQgc2NoZWR1bGUodm9pZCkN
-Cj4+Pj4gICAgICAgICAgIFNDSEVEX1NUQVRfQ1JBTksoc2NoZWRfcnVuKTsNCj4+Pj4gICAgKyAg
-ICB2Y3B1X2VuZF9oeXBfdGFzayhjdXJyZW50KTsNCj4+Pj4gICAgICAgIHJjdV9yZWFkX2xvY2so
-JnNjaGVkX3Jlc19yY3Vsb2NrKTsNCj4+Pj4gICAgICAgICAgIGxvY2sgPSBwY3B1X3NjaGVkdWxl
-X2xvY2tfaXJxKGNwdSk7DQo+Pj4+IGRpZmYgLS1naXQgYS94ZW4vY29tbW9uL3NvZnRpcnEuYyBi
-L3hlbi9jb21tb24vc29mdGlycS5jDQo+Pj4+IGluZGV4IDA2M2U5M2NiZTMuLjAzYTI5Mzg0ZDEg
-MTAwNjQ0DQo+Pj4+IC0tLSBhL3hlbi9jb21tb24vc29mdGlycS5jDQo+Pj4+ICsrKyBiL3hlbi9j
-b21tb24vc29mdGlycS5jDQo+Pj4+IEBAIC03MSw3ICs3MSw5IEBAIHZvaWQgcHJvY2Vzc19wZW5k
-aW5nX3NvZnRpcnFzKHZvaWQpDQo+Pj4+ICAgIHZvaWQgZG9fc29mdGlycSh2b2lkKQ0KPj4+PiAg
-ICB7DQo+Pj4+ICAgICAgICBBU1NFUlRfTk9UX0lOX0FUT01JQygpOw0KPj4+PiArICAgIHZjcHVf
-YmVnaW5faHlwX3Rhc2soY3VycmVudCk7DQo+Pj4+ICAgICAgICBfX2RvX3NvZnRpcnEoMCk7DQo+
-Pj4+ICsgICAgdmNwdV9lbmRfaHlwX3Rhc2soY3VycmVudCk7DQo+Pj4NCj4+PiBUaGlzIHdvbid0
-IHdvcmsgZm9yIHNjaGVkdWxpbmcuIGN1cnJlbnQgd2lsbCBlaXRoZXIgaGF2ZSBjaGFuZ2VkLA0K
-Pj4+IG9yIGluIHg4NiBjYXNlIF9fZG9fc29mdGlycSgpIG1pZ2h0IGp1c3Qgbm90IHJldHVybi4g
-WW91IG5lZWQgdG8NCj4+PiBoYW5kbGUgdGhhdCBjYXNlIGV4cGxpY2l0bHkgaW4gc2NoZWR1bGUo
-KSAoeW91IGRpZCB0aGF0IGZvciB0aGUNCj4+PiBvbGQgdmNwdSwgYnV0IGZvciB0aGUgY2FzZSBz
-Y2hlZHVsZSgpIGlzIHJldHVybmluZyB5b3UgbmVlZCB0bw0KPj4+IGNhbGwgdmNwdV9iZWdpbl9o
-eXBfdGFzayhjdXJyZW50KSB0aGVyZSkuDQo+Pj4NCj4+IFdlbGwsIHRoaXMgaXMgb25lIG9mIHF1
-ZXN0aW9ucywgSSB3YW50ZWQgdG8gZGlzY3Vzcy4gSSBjZXJ0YWlubHkNCj4+IG5lZWQNCj4+IHRv
-IGNhbGwgdmNwdV9iZWdpbl9oeXBfdGFzayhjdXJyZW50KSBhZnRlciBjb250ZXh0IHN3aXRjaC4g
-QnV0IHdoYXQgaXQNCj4+IGlzIHRoZSByaWdodCBwbGFjZT8gSWYgbXkgdW5kZXJzdGFuaW5nIGlz
-IHJpZ2h0LCBjb2RlIG9uIHg4NiBwbGF0Zm9ybQ0KPj4gd2lsbCBuZXZlciByZWFjaCB0aGlzIHBv
-aW50LiBPciBJJ20gd3JvbmcgdGhlcmU/DQo+DQo+IE5vLCB0aGlzIGlzIGNvcnJlY3QuDQo+DQo+
-IFlvdSBjYW4gYWRkIHRoZSBjYWxsIHRvIGNvbnRleHRfc3dpdGNoKCkganVzdCBhZnRlciBzZXRf
-Y3VycmVudCgpIGhhcw0KPiBiZWVuIGNhbGxlZC4NCg0KTG9va3MgbGlrZSBJJ20gbWlzc2luZyBz
-b21ldGhpbmcgdGhlcmUuIElmIEkgZ2V0IHRoaXMgcmlnaHQsIGNvZGUgeW91DQptZW50aW9uZWQg
-aXMgZXhlY3V0ZWQgcmlnaHQgYmVmb3JlIGxlYXZpbmcgaHlwZXJ2aXNvci4NCg0KU28sIGFzIEkg
-c2VlIHRoaXMsIGZ1bmN0aW9ucyBhcmUgY2FsbGVkIGluIHRoZSBmb2xsb3dpbmcgd2F5IChvbiB4
-ODYpOg0KDQoxLiBkb19zb2Z0aXJxKCkgY2FsbHMgdmNwdV9iZWdpbl9oeXBfdGFzaygpIGFuZCB0
-aGVuIGV4ZWN1dGVzDQpfX2RvX3NvZnRpcnEoKQ0KDQoyLiBfX2RvX3NvZnRpcnEoKSBkb2VzIGRp
-ZmZlcmVudCBqb2JzIGFuZCBldmVudHVhbGx5IGNhbGxzIHNjaGVkdWxlKCkNCg0KMy4gc2NoZWR1
-bGUoKSBjYWxscyB2Y3B1X2VuZF9oeXBfdGFzaygpIGFuZCBtYWtlcyBzY2hlZHVsaW5nIGRlY2lz
-aW9uDQp3aGljaCBsZWFkcyB0byBjYWxsIHRvIGNvbnRleHRfc3dpdGNoKCkNCg0KNC4gT24gZW5k
-IGNvbnRleHRfc3dpdGNoKCkgd2Ugd2lsbCBleGl0IGh5cGVydmlzb3IgYW5kIGVudGVyIFZNLiBB
-dA0KbGVhc3QsIHRoaXMgaXMgaG93IEkgdW5kZXJzdGFuZA0KDQogICAgICAgbmV4dGQtPmFyY2gu
-Y3R4dF9zd2l0Y2gtPnRhaWwobmV4dCk7DQoNCmNhbGwuDQoNClNvLCBubyBuZWVkIHRvIGNhbGwg
-dmNwdV9iZWdpbl9oeXBfdGFzaygpIGluIGNvbnRleHRfc3dpdGNoKCkgZm9yIHg4Ni4NCg0KT24g
-QVJNLCB0aGlzIGlzIGRpZmZlcmVudCBzdG9yeS4gVGhlcmUsIEkgYW0gY2FsbGluZw0KdmNwdV9i
-ZWdpbl9oeXBfdGFzaygpIGFmdGVyIHNldF9jdXJyZW50KCkgYmVjYXVzZSBBUk0gY29kZSB3aWxs
-DQpldmVudHVhbGx5IHJldHVybiB0byBkb19zb2Z0aXJxKCkgYW5kIHRoZXJlIHdpbGwgYmUgY2Fs
-bGVkIGNvcnJlc3BvbmRpbmcNCnZjcHVfZW5kX2h5cF90YXNrKCkuDQoNCkkgaGF2ZSBwdXQgYnVu
-Y2ggb2YgQVNTRVJUcyB0byBlbnN1cmUgdGhhdCB2Y3B1X2JlZ2luX2h5cF90YXNrKCkgb3INCnZj
-cHVfZW5kX2h5cF90YXNrKCkgYXJlIG5vdCBjYWxsZWQgdHdpY2UgYW5kIHRoYXQgdmNwdV9lbmRf
-aHlwX3Rhc2soKSBpcw0KY2FsbGVkIGFmdGVyIHZjcHVfYmVnaW5faHlwX3Rhc2soKS4gVGhvc2Ug
-YXNzZXJ0cyBhcmUgbm90IGZhaWxpbmcsIHNvIEkNCmFzc3VtZSB0aGF0IEkgZGlkIGFsbCB0aGlz
-IGluIHRoZSByaWdodCB3YXkgOikNCg0KLS0gDQpWb2xvZHlteXIgQmFiY2h1ayBhdCBFUEFN
+
+On 24.09.20 20:25, Julien Grall wrote:
+
+Hi Julien.
+
+>
+>
+> On 23/09/2020 21:16, Oleksandr wrote:
+>>
+>> On 23.09.20 21:03, Julien Grall wrote:
+>>> Hi,
+>>
+>> Hi Julien
+>>
+>>
+>>>
+>>> On 10/09/2020 21:22, Oleksandr Tyshchenko wrote:
+>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>
+>>> I believe I am the originally author of this code...
+>>
+>> Sorry, will fix
+>>
+>>
+>>>
+>>>> This patch adds basic IOREQ/DM support on Arm. The subsequent
+>>>> patches will improve functionality, add remaining bits as well as
+>>>> address several TODOs.
+>>>
+>>> Find a bit weird to add code with TODOs that are handled in the same 
+>>> series? Can't we just split this patch in smaller one where 
+>>> everything is addressed from start?
+>> Sorry if I wasn't clear in description. Let me please clarify.
+>> Corresponding RFC patch had 3 major TODOs:
+>> 1. Handle properly when hvm_send_ioreq() returns IO_RETRY
+>> 2. Proper ref-counting for the foreign entries in 
+>> set_foreign_p2m_entry()
+>> 3. Check the return value of handle_hvm_io_completion() *and* avoid 
+>> calling handle_hvm_io_completion() on every return.
+>>
+>> TODO #1 was fixed in current patch
+>> TODO #2 was fixed in "xen/mm: Handle properly reference in 
+>> set_foreign_p2m_entry() on Arm"
+>> TODO #3 was partially fixed in current patch (check the return value 
+>> of handle_hvm_io_completion()).
+>> The second part of TODO #3 (avoid calling handle_hvm_io_completion() 
+>> on every return) was moved to a separate patch "xen/ioreq: Introduce 
+>> hvm_domain_has_ioreq_server()"
+>> and fixed (or probably improved is a better word) there along with 
+>> introducing a mechanism to actually improve.
+>
+> Right, none of those TODOs are described in the code. So it makes more 
+> difficult to know what you are actually referring to.
+>
+> I would suggest to reshuffle the series so the TODOs are addressed 
+> before when possible.
+
+ok, I will try to prepare something.
+
+
+>
+>>
+>> Could you please clarify how this patch could be split in smaller one?
+>
+> This patch is going to be reduced a fair bit if you make some of the 
+> structure common. The next steps would be to move anything that is not 
+> directly related to IOREQ out.
+
+
+Thank you for the clarification.
+Yes, however, I believed everything in this patch is directly related to 
+IOREQ...
+
+
+>
+>
+> From a quick look, there are few things that can be moved in separate 
+> patches:
+>    - The addition of the ASSERT_UNREACHABLE()
+
+Did you mean the addition of the ASSERT_UNREACHABLE() to 
+arch_handle_hvm_io_completion/handle_pio can moved to separate patches?
+Sorry, I don't quite understand, for what benefit?
+
+
+>    - The addition of the loop in leave_hypervisor_to_guest() as I 
+> think it deserve some explanation.
+
+Agree that loop in leave_hypervisor_to_guest() needs explanation. Will 
+move to separate patch. But, this way I need to return corresponding 
+TODO back to this patch.
+
+
+>    - The sign extension in handle_ioserv() can possibly be abstracted. 
+> Actually the code is quite similar to handle_read().
+
+Ok, will consider that.
+
+
+>
+>>
+>>>
+>>>>
+>>>> Please note, the "PIO handling" TODO is expected to left unaddressed
+>>>> for the current series. It is not an big issue for now while Xen
+>>>> doesn't have support for vPCI on Arm. On Arm64 they are only used
+>>>> for PCI IO Bar and we would probably want to expose them to emulator
+>>>> as PIO access to make a DM completely arch-agnostic. So "PIO handling"
+>>>> should be implemented when we add support for vPCI.
+>>>>
+>>>> Please note, at the moment build on Arm32 is broken (see cmpxchg
+>>>> usage in hvm_send_buffered_ioreq()) due to the lack of cmpxchg_64
+>>>> support on Arm32. There is a patch on review to address this issue:
+>>>> https://patchwork.kernel.org/patch/11715559/
+>>>
+>>> This has been committed.
+>>
+>> Thank you for the patch, will remove a notice.
+>
+> For future reference, I think such notice would be better after --- as 
+> they don't need to be part of the commit message.
+
+Got it.
+
+
+>
+>
+>>
+>>>
+>>>
+>>>> +    if ( dabt.write )
+>>>> +        return IO_HANDLED;
+>>>> +
+>>>> +    /*
+>>>> +     * Sign extend if required.
+>>>> +     * Note that we expect the read handler to have zeroed the bits
+>>>> +     * outside the requested access size.
+>>>> +     */
+>>>> +    if ( dabt.sign && (r & (1UL << (size - 1))) )
+>>>> +    {
+>>>> +        /*
+>>>> +         * We are relying on register_t using the same as
+>>>> +         * an unsigned long in order to keep the 32-bit assembly
+>>>> +         * code smaller.
+>>>> +         */
+>>>> +        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
+>>>> +        r |= (~0UL) << size;
+>>>> +    }
+>>>> +
+>>>> +    set_user_reg(regs, dabt.reg, r);
+>>>> +
+>>>> +    return IO_HANDLED;
+>>>> +}
+>>>> +
+>>>> +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+>>>> +                             struct vcpu *v, mmio_info_t *info)
+>>>> +{
+>>>> +    struct hvm_vcpu_io *vio = &v->arch.hvm.hvm_io;
+>>>> +    ioreq_t p = {
+>>>> +        .type = IOREQ_TYPE_COPY,
+>>>> +        .addr = info->gpa,
+>>>> +        .size = 1 << info->dabt.size,
+>>>> +        .count = 1,
+>>>> +        .dir = !info->dabt.write,
+>>>> +        /*
+>>>> +         * On x86, df is used by 'rep' instruction to tell the 
+>>>> direction
+>>>> +         * to iterate (forward or backward).
+>>>> +         * On Arm, all the accesses to MMIO region will do a single
+>>>> +         * memory access. So for now, we can safely always set to 0.
+>>>> +         */
+>>>> +        .df = 0,
+>>>> +        .data = get_user_reg(regs, info->dabt.reg),
+>>>> +        .state = STATE_IOREQ_READY,
+>>>> +    };
+>>>> +    struct hvm_ioreq_server *s = NULL;
+>>>> +    enum io_state rc;
+>>>> +
+>>>> +    switch ( vio->io_req.state )
+>>>> +    {
+>>>> +    case STATE_IOREQ_NONE:
+>>>> +        break;
+>>>> +
+>>>> +    case STATE_IORESP_READY:
+>>>> +        return IO_HANDLED;
+>>>> +
+>>>> +    default:
+>>>> +        gdprintk(XENLOG_ERR, "wrong state %u\n", vio->io_req.state);
+>>>> +        return IO_ABORT;
+>>>> +    }
+>>>> +
+>>>> +    s = hvm_select_ioreq_server(v->domain, &p);
+>>>> +    if ( !s )
+>>>> +        return IO_UNHANDLED;
+>>>> +
+>>>> +    if ( !info->dabt.valid )
+>>>> +        return IO_ABORT;
+>>>> +
+>>>> +    vio->io_req = p;
+>>>> +
+>>>> +    rc = hvm_send_ioreq(s, &p, 0);
+>>>> +    if ( rc != IO_RETRY || v->domain->is_shutting_down )
+>>>> +        vio->io_req.state = STATE_IOREQ_NONE;
+>>>> +    else if ( !hvm_ioreq_needs_completion(&vio->io_req) )
+>>>> +        rc = IO_HANDLED;
+>>>> +    else
+>>>> +        vio->io_completion = HVMIO_mmio_completion;
+>>>> +
+>>>> +    return rc;
+>>>> +}
+>>>> +
+>>>> +bool ioreq_handle_complete_mmio(void)
+>>>> +{
+>>>> +    struct vcpu *v = current;
+>>>> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+>>>> +    const union hsr hsr = { .bits = regs->hsr };
+>>>> +    paddr_t addr = v->arch.hvm.hvm_io.io_req.addr;
+>>>> +
+>>>> +    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
+>>>> +    {
+>>>> +        advance_pc(regs, hsr);
+>>>> +        return true;
+>>>> +    }
+>>>> +
+>>>> +    return false;
+>>>> +}
+>>>> +
+>>>> +/*
+>>>> + * Local variables:
+>>>> + * mode: C
+>>>> + * c-file-style: "BSD"
+>>>> + * c-basic-offset: 4
+>>>> + * tab-width: 4
+>>>> + * indent-tabs-mode: nil
+>>>> + * End:
+>>>> + */
+>>>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>>>> index 8f40d0e..121942c 100644
+>>>> --- a/xen/arch/arm/traps.c
+>>>> +++ b/xen/arch/arm/traps.c
+>>>> @@ -21,6 +21,7 @@
+>>>>   #include <xen/hypercall.h>
+>>>>   #include <xen/init.h>
+>>>>   #include <xen/iocap.h>
+>>>> +#include <xen/ioreq.h>
+>>>>   #include <xen/irq.h>
+>>>>   #include <xen/lib.h>
+>>>>   #include <xen/mem_access.h>
+>>>> @@ -1384,6 +1385,9 @@ static arm_hypercall_t arm_hypercall_table[] = {
+>>>>   #ifdef CONFIG_HYPFS
+>>>>       HYPERCALL(hypfs_op, 5),
+>>>>   #endif
+>>>> +#ifdef CONFIG_IOREQ_SERVER
+>>>> +    HYPERCALL(dm_op, 3),
+>>>> +#endif
+>>>>   };
+>>>>     #ifndef NDEBUG
+>>>> @@ -1955,9 +1959,14 @@ static void 
+>>>> do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
+>>>>               case IO_HANDLED:
+>>>>                   advance_pc(regs, hsr);
+>>>>                   return;
+>>>> +            case IO_RETRY:
+>>>> +                /* finish later */
+>>>> +                return;
+>>>>               case IO_UNHANDLED:
+>>>>                   /* IO unhandled, try another way to handle it. */
+>>>>                   break;
+>>>> +            default:
+>>>> +                ASSERT_UNREACHABLE();
+>>>>               }
+>>>>           }
+>>>>   @@ -2249,12 +2258,23 @@ static void check_for_pcpu_work(void)
+>>>>    * Process pending work for the vCPU. Any call should be fast or
+>>>>    * implement preemption.
+>>>>    */
+>>>> -static void check_for_vcpu_work(void)
+>>>> +static bool check_for_vcpu_work(void)
+>>>>   {
+>>>>       struct vcpu *v = current;
+>>>>   +#ifdef CONFIG_IOREQ_SERVER
+>>>> +    bool handled;
+>>>> +
+>>>> +    local_irq_enable();
+>>>> +    handled = handle_hvm_io_completion(v);
+>>>> +    local_irq_disable();
+>>>> +
+>>>> +    if ( !handled )
+>>>> +        return true;
+>>>> +#endif
+>>>> +
+>>>>       if ( likely(!v->arch.need_flush_to_ram) )
+>>>> -        return;
+>>>> +        return false;
+>>>>         /*
+>>>>        * Give a chance for the pCPU to process work before handling 
+>>>> the vCPU
+>>>> @@ -2265,6 +2285,8 @@ static void check_for_vcpu_work(void)
+>>>>       local_irq_enable();
+>>>>       p2m_flush_vm(v);
+>>>>       local_irq_disable();
+>>>> +
+>>>> +    return false;
+>>>>   }
+>>>>     /*
+>>>> @@ -2277,8 +2299,10 @@ void leave_hypervisor_to_guest(void)
+>>>>   {
+>>>>       local_irq_disable();
+>>>>   -    check_for_vcpu_work();
+>>>> -    check_for_pcpu_work();
+>>>> +    do
+>>>> +    {
+>>>> +        check_for_pcpu_work();
+>>>> +    } while ( check_for_vcpu_work() );
+>>>>         vgic_sync_to_lrs();
+>>>>   diff --git a/xen/include/asm-arm/domain.h 
+>>>> b/xen/include/asm-arm/domain.h
+>>>> index 6819a3b..d1c48d7 100644
+>>>> --- a/xen/include/asm-arm/domain.h
+>>>> +++ b/xen/include/asm-arm/domain.h
+>>>> @@ -11,10 +11,27 @@
+>>>>   #include <asm/vgic.h>
+>>>>   #include <asm/vpl011.h>
+>>>>   #include <public/hvm/params.h>
+>>>> +#include <public/hvm/dm_op.h>
+>>>> +#include <public/hvm/ioreq.h>
+>>>> +
+>>>> +#define MAX_NR_IOREQ_SERVERS 8
+>>>>     struct hvm_domain
+>>>>   {
+>>>>       uint64_t              params[HVM_NR_PARAMS];
+>>>> +
+>>>> +    /* Guest page range used for non-default ioreq servers */
+>>>> +    struct {
+>>>> +        unsigned long base;
+>>>> +        unsigned long mask;
+>>>> +        unsigned long legacy_mask; /* indexed by HVM param number */
+>>>> +    } ioreq_gfn;
+>>>> +
+>>>> +    /* Lock protects all other values in the sub-struct and the 
+>>>> default */
+>>>> +    struct {
+>>>> +        spinlock_t              lock;
+>>>> +        struct hvm_ioreq_server *server[MAX_NR_IOREQ_SERVERS];
+>>>> +    } ioreq_server;
+>>>>   };
+>>>>     #ifdef CONFIG_ARM_64
+>>>> @@ -91,6 +108,28 @@ struct arch_domain
+>>>>   #endif
+>>>>   }  __cacheline_aligned;
+>>>>   +enum hvm_io_completion {
+>>>> +    HVMIO_no_completion,
+>>>> +    HVMIO_mmio_completion,
+>>>> +    HVMIO_pio_completion
+>>>> +};
+>>>> +
+>>>> +struct hvm_vcpu_io {
+>>>> +    /* I/O request in flight to device model. */
+>>>> +    enum hvm_io_completion io_completion;
+>>>> +    ioreq_t                io_req;
+>>>> +
+>>>> +    /*
+>>>> +     * HVM emulation:
+>>>> +     *  Linear address @mmio_gla maps to MMIO physical frame 
+>>>> @mmio_gpfn.
+>>>> +     *  The latter is known to be an MMIO frame (not RAM).
+>>>> +     *  This translation is only valid for accesses as per 
+>>>> @mmio_access.
+>>>> +     */
+>>>> +    struct npfec        mmio_access;
+>>>> +    unsigned long       mmio_gla;
+>>>> +    unsigned long       mmio_gpfn;
+>>>> +};
+>>>> +
+>>>
+>>> Why do we need to re-define most of this? Can't this just be in 
+>>> common code?
+>>
+>> Jan asked almost the similar question in "[PATCH V1 02/16] xen/ioreq: 
+>> Make x86's IOREQ feature common".
+>> Please see my answer there:
+>> https://patchwork.kernel.org/patch/11769105/#23637511
+>>
+>> Theoretically we could move this to the common code, but the question 
+>> is how to be with other struct fields the x86's struct hvm_vcpu_io 
+>> has/needs but
+>> Arm's seems not, would it be possible to logically split struct 
+>> hvm_vcpu_io into common and arch parts?
+>>
+>> struct hvm_vcpu_io {
+>>      /* I/O request in flight to device model. */
+>>      enum hvm_io_completion io_completion;
+>>      ioreq_t                io_req;
+>>
+>>      /*
+>>       * HVM emulation:
+>>       *  Linear address @mmio_gla maps to MMIO physical frame 
+>> @mmio_gpfn.
+>>       *  The latter is known to be an MMIO frame (not RAM).
+>>       *  This translation is only valid for accesses as per 
+>> @mmio_access.
+>>       */
+>>      struct npfec        mmio_access;
+>>      unsigned long       mmio_gla;
+>>      unsigned long       mmio_gpfn;
+>>
+>>      /*
+>>       * We may need to handle up to 3 distinct memory accesses per
+>>       * instruction.
+>>       */
+>>      struct hvm_mmio_cache mmio_cache[3];
+>>      unsigned int mmio_cache_count;
+>>
+>>      /* For retries we shouldn't re-fetch the instruction. */
+>>      unsigned int mmio_insn_bytes;
+>>      unsigned char mmio_insn[16];
+>>      struct hvmemul_cache *cache;
+>>
+>>      /*
+>>       * For string instruction emulation we need to be able to signal a
+>>       * necessary retry through other than function return codes.
+>>       */
+>>      bool_t mmio_retry;
+>>
+>>      unsigned long msix_unmask_address;
+>>      unsigned long msix_snoop_address;
+>>      unsigned long msix_snoop_gpa;
+>>
+>>      const struct g2m_ioport *g2m_ioport;
+>> };
+>
+> I think Jan made some suggestion today. Let me know if you require 
+> more input.
+
+
+Yes. I am considering this now. I provided my thoughts on that a little 
+bit earlier. Could you please clarify there.
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
