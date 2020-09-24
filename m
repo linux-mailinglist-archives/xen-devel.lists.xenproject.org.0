@@ -2,70 +2,87 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 886882775D8
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 17:51:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD32527760F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 17:58:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLTWw-0004ny-2P; Thu, 24 Sep 2020 15:51:34 +0000
+	id 1kLTdc-0004zi-Qw; Thu, 24 Sep 2020 15:58:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+2aH=DB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kLTWu-0004nE-Qu
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 15:51:32 +0000
-X-Inumbo-ID: 186f353a-31e8-4a98-9076-4db38e59f626
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qHfM=DB=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1kLTdb-0004zd-97
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 15:58:27 +0000
+X-Inumbo-ID: 7d0b461f-6f03-4038-ae0c-6f9722f9ac01
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 186f353a-31e8-4a98-9076-4db38e59f626;
- Thu, 24 Sep 2020 15:51:31 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1600962691;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9i+i7BpJXewFBZJM7NI3pPS3XI3GQf9hKyQzLllgNDo=;
- b=jVJRbF9TDZydOh//b4dlgvKLJzk31riIQuT30bygcZT25NJa96VUE9cBwLEt+AXRDJ94SG
- QxRu+i4CH7YkadGwXhGWCIx47UChGAP10D4Jio4TEzIy7b+eAYn/izBWys1Q3XdjLOlQ4F
- 0/MaLabmRJ6hqG3ZrzXpiUT9ZpdkbVY=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EB4D0ABD1;
- Thu, 24 Sep 2020 15:51:30 +0000 (UTC)
-Subject: Re: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature common
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-3-git-send-email-olekstysh@gmail.com>
- <7de88222-1a45-7bff-0b45-95f76b4ec019@suse.com>
- <51856cdc-54b4-3d39-bd7b-1b6ac3fc1736@gmail.com>
- <bf128337-699f-5942-b387-aa896000700c@suse.com>
- <97b48017-55e1-8464-031a-b54dd8e4e474@gmail.com>
- <d7d6d211-1a24-b452-d1ea-efb0105995b7@suse.com>
- <7bffd6ec-8c41-202a-655d-df2240c1491a@gmail.com>
- <5e59dd52-71ea-6c63-8f63-13928813bb2f@suse.com>
- <9ebdca87-4105-c27b-635d-7a1b6d4cde82@gmail.com>
- <decab3dd-c754-1c50-6630-95e60ba5eef4@suse.com>
- <2109292f-bdf8-d17d-2563-aa99e39e7c2f@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <cbc10740-d8e2-dc03-a0ab-845a456514c4@suse.com>
-Date: Thu, 24 Sep 2020 17:51:30 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id 7d0b461f-6f03-4038-ae0c-6f9722f9ac01;
+ Thu, 24 Sep 2020 15:58:26 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08OFZKWg125745;
+ Thu, 24 Sep 2020 15:58:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=TItLMSlmVedz8D60wT2v3Gzregj/492Cx/940qop2ac=;
+ b=Wm/rY2eE0euQtNye+YNcOppYVF/IIE0kfCnCnw/ed0fVYmhBz+y8s7IeNNcVaQKYwNpu
+ CB96VViQBWoWtr7cwThuzxIhFun6tQrrBzdJVpTmfIC+MPaeFTMNwvWijxQzKxFiRiwn
+ GGYwaRBzuTvd5MYZGKgXq5UEY8i0+Wb8YRkuhne6BU8XGZ/daibUwAaUv2nqx1dA/5Iu
+ 2C/k8b32RIS3BqkIpFAuOvKsXMFFWZJ3pSqSRfc6zczBOmqvJOiWRq205e46K+Ty7ra5
+ UVJVd0lGq9bHapx+ylptn1mjqKBmIfZBtGTGawaKWsECQRQGWbb2W6vC/mPTyqSplBcO DQ== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 33q5rgqgp7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 24 Sep 2020 15:58:19 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08OFVSk0126419;
+ Thu, 24 Sep 2020 15:58:18 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by userp3030.oracle.com with ESMTP id 33nux303cj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 24 Sep 2020 15:58:18 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08OFwGRO022527;
+ Thu, 24 Sep 2020 15:58:16 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 24 Sep 2020 08:58:16 -0700
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+ id 86D976A0109; Thu, 24 Sep 2020 11:59:46 -0400 (EDT)
+Date: Thu, 24 Sep 2020 11:59:46 -0400
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: SeongJae Park <sjpark@amazon.com>, SeongJae Park <sjpark@amazon.de>,
+ axboe@kernel.dk, aliguori@amazon.com, amit@kernel.org,
+ mheyne@amazon.de, linux-block@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xen-blkback: add a parameter for disabling of persistent
+ grants
+Message-ID: <20200924155946.GB6370@char.us.oracle.com>
+References: <20200924101344.GN19254@Air-de-Roger>
+ <20200924102714.28141-1-sjpark@amazon.com>
+ <20200924104720.GO19254@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <2109292f-bdf8-d17d-2563-aa99e39e7c2f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200924104720.GO19254@Air-de-Roger>
+User-Agent: Mutt/1.9.1 (2017-09-22)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9753
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 adultscore=0
+ bulkscore=0 mlxlogscore=941 phishscore=0 suspectscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009240118
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9753
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ impostorscore=0
+ clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ priorityscore=1501 mlxlogscore=954 adultscore=0 bulkscore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009240118
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,63 +96,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.09.2020 17:38, Oleksandr wrote:
-> On 24.09.20 13:58, Jan Beulich wrote:
->> On 23.09.2020 14:28, Oleksandr wrote:
->>> On 22.09.20 18:52, Jan Beulich wrote:
->>>> On 22.09.2020 17:05, Oleksandr wrote:
->>>>> @@ -247,7 +247,7 @@ static gfn_t hvm_alloc_legacy_ioreq_gfn(struct
->>>>> hvm_ioreq_server *s)
->>>>>         for ( i = HVM_PARAM_IOREQ_PFN; i <= HVM_PARAM_BUFIOREQ_PFN; i++ )
->>>>>         {
->>>>>             if ( !test_and_clear_bit(i, &d->ioreq_gfn.legacy_mask) )
->>>>> -            return _gfn(d->arch.hvm.params[i]);
->>>>> +            return _gfn(ioreq_get_params(d, i));
->>>>>         }
->>>>>
->>>>>         return INVALID_GFN;
->>>>> @@ -279,7 +279,7 @@ static bool hvm_free_legacy_ioreq_gfn(struct
->>>>> hvm_ioreq_server *s,
->>>>>
->>>>>         for ( i = HVM_PARAM_IOREQ_PFN; i <= HVM_PARAM_BUFIOREQ_PFN; i++ )
->>>>>         {
->>>>> -        if ( gfn_eq(gfn, _gfn(d->arch.hvm.params[i])) )
->>>>> +        if ( gfn_eq(gfn, _gfn(ioreq_get_params(d, i))) )
->>>>>                  break;
->>>>>         }
->>>>>         if ( i > HVM_PARAM_BUFIOREQ_PFN )
->>>> And these two are needed by Arm? Shouldn't Arm exclusively use
->>>> the new model, via acquire_resource?
->>> I dropped HVMOP plumbing on Arm as it was requested. Only acquire
->>> interface should be used.
->>> This code is not supposed to be called on Arm, but it is a part of
->>> common code and we need to find a way how to abstract away *arch.hvm.params*
->> ... here I wonder whether you aren't moving more pieces to common
->> code than are actually arch-independent. I think a prereq step
->> missing so far is to clearly identify which pieces of the code
->> are arch-independent, and work towards abstracting away all of the
->> arch-dependent ones.
-> Unfortunately, not all things are clear and obvious from the very beginning.
-> I have to admit, I didn't even imagine earlier that *arch.hvm.* usage in 
-> the common code is a layering violation issue.
-> Hopefully, now it is clear as well as the steps to avoid it in future.
+.snip..
+> > For the reason, I'd like to suggest to keep this as is for now and expand it
+> > with the 'exceptions list' idea or something better, if a real use case comes
+> > out later.
 > 
-> ...
-> 
-> 
-> I saw your advise (but haven't answered yet there) regarding splitting 
-> struct hvm_vcpu_io in
-> [PATCH V1 09/16] arm/ioreq: Introduce arch specific bits for IOREQ/DM 
-> features. I think, it makes sense.
-> The only remaining bits I would like to clarify here is 
-> *arch.hvm.params*. Should we really want to move HVM params field to the 
-> common code
-> rather than abstracting away by proposed macro?
+> I agree. I'm happy to take patches to implement more fine grained
+> control, but that shouldn't prevent us from having a global policy if
+> that's useful to users.
 
-I don't think I suggested doing so. In fact I recall having voiced
-my expectation that Arm wouldn't use this at all. So yes, I agree
-this better wouldn't be moved out of arch.hvm, but instead accesses
-be abstracted by another means.
-
-Jan
+<nods>
 
