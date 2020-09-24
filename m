@@ -2,54 +2,159 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F36277383
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BBD8277386
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 16:03:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLRoi-0002bQ-NW; Thu, 24 Sep 2020 14:01:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
- id 1kLRnD-0000ri-8r
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:00:15 +0000
-X-Inumbo-ID: ccbc45b4-0f19-4ab8-9388-9a5fe68d7736
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ccbc45b4-0f19-4ab8-9388-9a5fe68d7736;
- Thu, 24 Sep 2020 13:59:35 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9236CB0E6;
- Thu, 24 Sep 2020 13:59:34 +0000 (UTC)
-Subject: Re: [PATCH RFC 0/4] mm: place pages to the freelist tail when onling
- and undoing isolation
-To: David Hildenbrand <david@redhat.com>, osalvador@suse.de
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Dave Hansen <dave.hansen@intel.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Mel Gorman <mgorman@techsingularity.net>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Scott Cheloha <cheloha@linux.ibm.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Wei Yang <richard.weiyang@linux.alibaba.com>
-References: <5c0910c2cd0d9d351e509392a45552fb@suse.de>
- <DAC9E747-BDDF-41B6-A89B-604880DD7543@redhat.com>
- <67928cbd-950a-3279-bf9b-29b04c87728b@suse.cz>
- <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
-From: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <3af66d9b-70b1-6c19-0073-fa33c57edcdd@suse.cz>
-Date: Thu, 24 Sep 2020 15:59:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <fee562a3-9f8f-e9b4-68fe-09c5ea885b91@redhat.com>
-Content-Type: text/plain; charset=utf-8
+	id 1kLRpl-0002qt-4U; Thu, 24 Sep 2020 14:02:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W6+g=DB=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kLRpj-0002qU-CD
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 14:02:51 +0000
+X-Inumbo-ID: 6db94f6d-0505-4414-a757-286a3cfda850
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [40.107.20.75]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6db94f6d-0505-4414-a757-286a3cfda850;
+ Thu, 24 Sep 2020 14:02:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EITgrlaxXCrf3TjnxUz2xAEc+4lktCe81bJ+u5lwoqQ=;
+ b=PgoEFJk0R4MSD9xsSCvBPmDzG3j+echmwfNTT9/ba/yxWgWzq3QEFSR7NhyDKbMd8fljDxQcoiYnQB0q+v2s2SjMhcktOvI9Z0yC44R+v6ygM+GNigRoPSgOzmII+IVF67hfIYKL/jdFC66cm2jmsMcOXW2kH6clw6rQNJzQLS8=
+Received: from DB8PR03CA0027.eurprd03.prod.outlook.com (2603:10a6:10:be::40)
+ by AM5PR0801MB1635.eurprd08.prod.outlook.com (2603:10a6:203:3b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Thu, 24 Sep
+ 2020 14:02:49 +0000
+Received: from DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:be:cafe::3c) by DB8PR03CA0027.outlook.office365.com
+ (2603:10a6:10:be::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22 via Frontend
+ Transport; Thu, 24 Sep 2020 14:02:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT031.mail.protection.outlook.com (10.152.20.142) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3412.21 via Frontend Transport; Thu, 24 Sep 2020 14:02:48 +0000
+Received: ("Tessian outbound 7fc8f57bdedc:v64");
+ Thu, 24 Sep 2020 14:02:48 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 15b5b353522057b1
+X-CR-MTA-TID: 64aa7808
+Received: from 00bb86dacad2.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ F93D291E-B7A8-4F80-88F8-B69947C05BFE.1; 
+ Thu, 24 Sep 2020 14:02:34 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 00bb86dacad2.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 24 Sep 2020 14:02:34 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J2q5RP676Qc9B/FWof212v8zbXFM/YyDCPgxouclA2P8w6AlZRFbQABoY6yJ5NMQi7VlYpi9u6JZ3xhyIblNBR00n1cZH2LNoqf7xK0easGns0y8lzMMg9yPkxJDmvb01RDAwqXnH1v7u+sHSRtRhsUDPtEcionaCSBBAKsd01v7vAZ87NVZzBHQtlTPC7VpdbAjITkjDuvk4BXThtVeLdpd1LeLNLxySSa4XK4i4JzrtTm4Um7b5cF28fLKj/RtCN4of+OYylZAZErav11jPmPSR1McbHFrRwoa25ryxl1U9BJ6cXe+RKrnYgRXYHLZNIX++pvlLgO0bxA3ejmrVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EITgrlaxXCrf3TjnxUz2xAEc+4lktCe81bJ+u5lwoqQ=;
+ b=Ohf1qziLg+g1P8pPG6fk50pq54OFlTDpj3TKZsI24yG7s9hLBuqlESDQUqXNFMr+YfAXJbGRvRF6z/4VdHU0bAPE09zechxm2+Ub8rZdHRc6TFRUPNAqz264qOHAzrMEQFhMLR9sZzIKnPFEy/430lG8AA3tk4V8TinlUCaJ5CpNQCSyvDTL5ctswoQBu7+UOPCg9RyVNHww0IIEuQqqJCGbpcKAYnG0BI70TyF11LKH0JX/BZ0SDfKxmigS94o6M4QwsGKmmA3yDQCxBCLdUzqdQA6t7tBiLdqwfEhqSKcU3GNcv2QCn4LgJWjK4RneiI+xeB/ti2ymyi3KHwY4xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EITgrlaxXCrf3TjnxUz2xAEc+4lktCe81bJ+u5lwoqQ=;
+ b=PgoEFJk0R4MSD9xsSCvBPmDzG3j+echmwfNTT9/ba/yxWgWzq3QEFSR7NhyDKbMd8fljDxQcoiYnQB0q+v2s2SjMhcktOvI9Z0yC44R+v6ygM+GNigRoPSgOzmII+IVF67hfIYKL/jdFC66cm2jmsMcOXW2kH6clw6rQNJzQLS8=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB6PR0802MB2296.eurprd08.prod.outlook.com (2603:10a6:4:87::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14; Thu, 24 Sep
+ 2020 14:02:33 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cccc:2933:d4d3:1a9e]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cccc:2933:d4d3:1a9e%6]) with mapi id 15.20.3412.020; Thu, 24 Sep 2020
+ 14:02:33 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>, "open list:X86"
+ <xen-devel@lists.xenproject.org>, Julien Grall <jgrall@amazon.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+ Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
+ <wl@xen.org>
+Subject: Re: [PATCH] SUPPORT.MD: Clarify the support state for the Arm
+ SMMUv{1, 2} drivers
+Thread-Topic: [PATCH] SUPPORT.MD: Clarify the support state for the Arm
+ SMMUv{1, 2} drivers
+Thread-Index: AQHWkYOU18uuLvRXIEaUzkgFl/gQ5Kl2C72AgAAHeICAACwkAIAAPxGAgAFVQAA=
+Date: Thu, 24 Sep 2020 14:02:33 +0000
+Message-ID: <E53A88E5-87E1-4239-85BA-99D585272AB3@arm.com>
+References: <20200923082832.20038-1-julien@xen.org>
+ <1D6392F2-F4EC-4025-A793-22EABF85AA0E@arm.com>
+ <3c64f36f-6b43-6f73-e344-70b084f1f505@xen.org>
+ <C14129BD-09F3-4297-BBD6-9F3C5AA82FA7@arm.com>
+ <alpine.DEB.2.21.2009231034510.1495@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2009231034510.1495@sstabellini-ThinkPad-T480s>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [217.140.99.251]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 25ecfe52-702e-4692-6582-08d860928537
+x-ms-traffictypediagnostic: DB6PR0802MB2296:|AM5PR0801MB1635:
+X-Microsoft-Antispam-PRVS: <AM5PR0801MB1635DFDA6E4E39422C9D4F729D390@AM5PR0801MB1635.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: Ygfa0YxtBHKPBZdm5WuHCFUPuy8aelDO4vQaZVD+B4/ilHyO5uOlT3EDlPzv7eVgYXe6k7Lf01mfopPqw+UACumCuoYDlfmkEa6bAF14hTkxaqCfzERcZwcK3TNW7tr6fQ99DbMn86NlQ856YhUYgFXku2qXWJphnK9DCIlnKVg41Yyl05APuxrr+4TdHJJNawQNET2J/m5az3uCuhx0+6jOGBZ74lPDO8/C6pE/KzL+AD+GRGg/lwxH1grxXRlEl65as+oe35MfmIQOXvIS3CLmULlaHcVa3pt30cOtJy5g/ptY3yVHM0HxsDTyhZfKV/nB8XjkscINcwDnPkC+Ug==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(396003)(136003)(346002)(376002)(8676002)(316002)(6512007)(26005)(186003)(33656002)(36756003)(2616005)(478600001)(8936002)(91956017)(66556008)(53546011)(64756008)(5660300002)(66446008)(54906003)(66946007)(86362001)(6506007)(6916009)(2906002)(83380400001)(6486002)(71200400001)(4326008)(76116006)(66476007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: 3RP85Gm2gm1AKzU0e3SzNoCzL0iuMtCDEqABT5uGea1/ultdlxOjhnZKCWocfnX9mGEt8b7iFjcC+rQ0DLXn/ZYIRlXQw1H5X7Jo7DRi1cH6YEdeYwhU+p/EFETHDCq2NiPYgMogfmUv3V7BBO6BkMLMwrEf33FttOuTZ1mxvH3DdHNPsIt+HlVOJsfe+nm9oQTD/Qkg311D1kdqbTl1u0zd0019zn3bBqUfRo/cpYCpw+B4bcJcyFrdt8zGf1+OKXl4OmxkdAVwQIAUlQs4wjTRbJpdKrMWKDD7iyP9InUvDFI155g35G0BcZb1YL2wXk42KBrmxfRyeVp1mfCT/gNeGxxYmeQYq08o51dgGwzcibGk/T6fKHPGjvj4yMjULJ2uR/tj6sGMVVPZV9EigPUtG1Rhnv34w5Cqb4NHb7wEYdv/UcHVYXVYz2Av+G/oyScLKDisKKszGgEm0prSI7SGXXpVcOUetotJ/an/r0zIT/XE3zfhRlwoWq3OoLYCL9g4qvNW6a33HSobAhe0+lW7d3dH7FvK2b2rlH9t2bGtV/+RLDJg4VAphLXX3EVFjAxgfL9dMQvKW9nnjbEebGlAyEVJRV1+Gcmceb4vLX91oyca3VBhMxpgtp2kQrC+utOn4NYH30Glwip9dTcn0w==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <EFD08BDE1F47984D9036B24B9AFD25B2@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2296
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 7eb07417-252e-4f5c-845f-08d860927c07
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IjVbdVj+rCx6a7eWbdlTRs3x4bcCns0wAr2iWiliSz1/WQKScQjIiYSuH0yIcYhlRYmFADrA6d8vvA5kto5Q4kUMNStFSbmLsQ0uK4f3aN/fAphVJP7Ed1NKL+Y0M0poNb6X36paVzBdor4+EUNLBJdsPdHDCvW5krMOtyRsGYufZhD686dNH0Vrj/exNENFsQSc/dOBOp+PVHjj7XQg1UoGsJ+UMGaO8j7rVL9PXKIOZHILe0nGGw3ZGKsiduFD+5mA3oOZml+mI2zoBgVsqtcJjZuo2ZNp/8IdMJap0fT9t9B9h2SUvV1STsvJd994EOFli1uNEyparFCyIOt6uG5ZkTa+2vohLcx7yHZ2lsInkXFw2eK2pNBtccSwyUi0BcxnZOvTzMdXr04QMNv1xZHziOvLbGhdzN6PRkFYndUvy4lA5XsJzXM1M3InXIWw
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE;
+ SFS:(4636009)(396003)(39850400004)(346002)(376002)(136003)(46966005)(316002)(6862004)(36756003)(47076004)(81166007)(82740400003)(86362001)(356005)(478600001)(4326008)(6512007)(33656002)(83380400001)(70206006)(26005)(8676002)(53546011)(6506007)(5660300002)(70586007)(2616005)(2906002)(82310400003)(6486002)(54906003)(8936002)(186003)(336012);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2020 14:02:48.9337 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25ecfe52-702e-4692-6582-08d860928537
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0801MB1635
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,132 +168,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/23/20 5:26 PM, David Hildenbrand wrote:
-> On 23.09.20 16:31, Vlastimil Babka wrote:
->> On 9/16/20 9:31 PM, David Hildenbrand wrote:
->> 
-> 
-> Hi Vlastimil,
-> 
->> I see the point, but I don't think the head/tail mechanism is great for this. It
->> might sort of work, but with other interfering activity there are no guarantees
->> and it relies on a subtle implementation detail. There are better mechanisms
-> 
-> For the specified use case of adding+onlining a whole bunch of memory
-> this works just fine. We don't care too much about "other interfering
-> activity" as you mention here, or about guarantees - this is a pure
-> optimization that seems to work just fine in practice.
-> 
-> I'm not sure about the "subtle implementation detail" - buddy merging,
-> and head/tail of buddy lists are a basic concept of our page allocator.
+Hi Stefano,
 
-Mel already explained that, so I won't repeat.
+> On 23 Sep 2020, at 18:41, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Wed, 23 Sep 2020, Bertrand Marquis wrote:
+>>> On 23 Sep 2020, at 12:17, Julien Grall <julien@xen.org> wrote:
+>>> On 23/09/2020 11:50, Bertrand Marquis wrote:
+>>>> Hi,
+>>>>> On 23 Sep 2020, at 09:28, Julien Grall <julien@xen.org> wrote:
+>>>>>=20
+>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>=20
+>>>>> SMMUv{1, 2} are both marked as security supported, so we would
+>>>>> technically have to issue an XSA for any IOMMU security bug.
+>>>>>=20
+>>>>> However, at the moment, device passthrough is not security supported
+>>>>> on Arm and there is no plan to change that in the next few months.
+>>>>>=20
+>>>>> Therefore, mark Arm SMMUv{1, 2} as supported but not security support=
+ed.
+>>>>>=20
+>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>>=20
+>>> Thanks!
+>>>=20
+>>>> We will publish in the next week a first implementation of SMMUv3 supp=
+ort which might make sense to have fully Supported.
+>>>=20
+>>> I am not sure whether you include security supported in your "fully sup=
+ported"
+>>=20
+>> If we something is missing we will be happy to fix it to reach this goal=
+.
+>>=20
+>>>=20
+>>> However, I would consider to follow the same model as we did with the I=
+PMMU. The driver would first be marked as a technical preview to allow more=
+ testing in the community.
+>>=20
+>> I was not meaning to have this at the very beginning.
+>> More that it make more sense in general to have SMMUv3 with 2 level of p=
+age table supporting this then old SMMU versions.
+>=20
+> Just as a clarification, the distinction that we are making here is not
+> to "downgrade" SMMUv1/2, but to clarify that it is not security
+> supported. SMMUv1/2 is still fully supported.
+>=20
+> Security support means that the security team will attempt to fix under
+> closed door any bugs affecting it, and pre-disclose the fix at the
+> appropriate time before making it fully public. It is a pretty heavy
+> process in comparison to normal bug fixing and in the case of the SMMU
+> doesn't make a lot of sense because device assignment in general is
+> currently not security supported.
 
-> If that would ever change, the optimization here would be lost and we
-> would have to think of something else. Nothing would actually break -
-> and it's all kept directly in page_alloc.c
+Thanks for the clarification.
+Of course i never wanted to remove or downgrade SMMUv1/2 support,.
 
-Sure, but then it can become a pointless code churn.
+>=20
+> For SMMUv3, I think it makes sense for it to possibly start as "tech
+> preview" for one release or two, then become "supported, not security
+> supported".
 
-> I'd like to stress that what I propose here is both simple and powerful.
-> 
->> possible I think, such as preparing a larger MIGRATE_UNMOVABLE area in the
->> existing memory before we allocate those long-term management structures. Or
->> onlining a bunch of blocks as zone_movable first and only later convert to
->> zone_normal in a controlled way when existing normal zone becomes depeted?
-> 
-> I see the following (more or less complicated) alternatives
-> 
-> 1) Having a larger MIGRATE_UNMOVABLE area
-> 
-> a) Sizing it is difficult. I mean you would have to plan ahead for all
-> memory you might eventually hotplug later - and that could even be
+Ok.
 
-Yeah, hence my worry about existing interfaces that work on 128MB blocks
-individually without a larger strategy.
+>=20
+> Of course if one day we make the decision to turn device assignment
+> security supported, then it makes sense to also change one or more SMMU
+> drivers to security supported.
 
-> impossible if you hotplug quite a lot of memory to a smaller machine.
-> (I've seen people in the vm/container world trying to hotplug 128GB
-> DIMMs to 2GB VMs ... and failing for obvious reasons)
+Make sense yes, one does not go with the other.
 
-Some planning should still be possible to maximize the contiguous area without
-unmovable allocations.
+Regards
+Bertrand
 
-> b) not really desired. You usually want to have most memory movable, not
-> the opposite (just because you might hotplug memory in small chunks later).
-> 
-> 2) smarter onlining
-> 
-> I have prototype patches for better auto-onlining (which I'll share at
-> some point), where I balance between ZONE_NORMAL and ZONE_MOVABLE in a
-> defined ratio. Assuming something very simple, adding separate memory
-> blocks and onlining them based on the current zone ratio (assuming a 1:4
-> normal:movable target ratio) would (without some other policies I have
-> in place) result in something like this for hotplugged memory (via
-> virtio-mem):
-> 
-> [N][M][M][M][M][N][M][M][M][M][N][M][M][M][M]...
-> 
-> (note: layout is suboptimal, just a simple example)
-> 
-> But even here, all [N] memory blocks would immediately be use for
-> allocations for the memmap of successive blocks. It doesn't solve the
-> dependency issues.
-> 
-> Now assume we would want to group [N] in a way to allow for gigantic
-> pages, like
-> 
-> [N][N][N][N][N][N][N][N][M][M][M][M] ....
-> 
-> we would, once again, never be able to allocate a gigantic page because
-> all [N] would contain a memmap.
-
-The second approach should work, if you know how much you are going to online,
-and plan the size the N group accordingly, and if the onlined amount is several
-gigabytes, then only the first one (or first X) will be unusable for a gigantic
-page, but the rest would be? Can't get much better than that.
-
-> 3) conversion from MOVABLE -> NORMAL
-> 
-> While a conversion from MOVABLE to NORMAL would be interesting to see,
-> it's going to be a challenging task to actually implement (people expect
-> that page_zone() remains stable). Without any hacks, we'd have to
-> 
-> 1. offline the selected (MOVABLE) memory block/chunk
-> 2. online the selected memory block/chunk to the NORMAL zone
-> 
-> This is not something we can do out of random context (for example, we
-> need both, the device hotplug lock and the memory hotplug lock, as we
-> might race with user space) - so there might still be a chance of
-> corner-case OOMs.
-
-Right, it's trickier than I thought.
-
-> (I assume there could also be quite a negative performance impact when
-> always relying on the conversion, and not properly planning ahead as in 2.)
-> 
->> 
->> I guess it's an issue that the e.g. 128M block onlines are so disconnected from
->> each other it's hard to employ a strategy that works best for e.g. a whole bunch
->> of GB onlined at once. But I noticed some effort towards new API, so maybe that
->> will be solved there too?
-> 
-> While new interfaces might make it easier to identify boundaries of
-> separate DIMMs (e.g., to online a single DIMM either movable or
-> unmovable - which can partially be done right now when going via memory
-> resource boundaries), it doesn't help for the use case of adding
-> separate memory blocks.
-> 
-> So while having an automatic conversion from MOVABLE -> NORMAL would be
-> interesting, I doubt we'll see it in the foreseeable future. Are there
-> any similarly simple alternatives to optimize this?
-
-I've reviewed the series and I won't block it - yes it's an optimistic approach
-that can break and leave us with code churn. But at least it's not that much
-code and the extra test in  __free_one_page() shouldn't make this hotpath too
-worse. But I still hope we can achieve a more robust solution one day.
-
-> Thanks!
-> 
 
 
