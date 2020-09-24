@@ -2,65 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B36B276EB6
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:28:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1C4A276ED7
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:36:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLOTV-0004zQ-CT; Thu, 24 Sep 2020 10:27:41 +0000
+	id 1kLObm-0005vx-EZ; Thu, 24 Sep 2020 10:36:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=StWZ=DB=amazon.com=prvs=52916e0f7=sjpark@srs-us1.protection.inumbo.net>)
- id 1kLOTU-0004zL-CK
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:27:40 +0000
-X-Inumbo-ID: 82086fc9-c12d-4202-b1d0-0da8f486211c
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ <SRS0=puVB=DB=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kLObk-0005vs-8G
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:36:12 +0000
+X-Inumbo-ID: cca73e52-9f96-4c10-8b01-ebf8098650c3
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82086fc9-c12d-4202-b1d0-0da8f486211c;
- Thu, 24 Sep 2020 10:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1600943260; x=1632479260;
- h=from:to:cc:subject:date:message-id:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=VJUxKkMgAakbT3L/fC0FIlc1ypeBbbtBZnjUiDl52NU=;
- b=ewTYKEnbFo8q0WnujBBJN9csCdOVT+WZ46XNY3KmV9I53lhZG9GPf7Ue
- vHVD71D9vJZ5mftf/tVIE4MgX4ajWNnHa3ZA1xOdPwdrMb3x6KZ32luqS
- oumWMru0uMk+nBo+UKcmtk4tvk3e4vjuog6QZppXEtYcPBPu6+PZK3NZZ g=;
-X-IronPort-AV: E=Sophos;i="5.77,297,1596499200"; d="scan'208";a="78889262"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2b-55156cd4.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 24 Sep 2020 10:27:37 +0000
-Received: from EX13D31EUA004.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2b-55156cd4.us-west-2.amazon.com (Postfix) with ESMTPS
- id A14B3A1FF9; Thu, 24 Sep 2020 10:27:36 +0000 (UTC)
-Received: from u3f2cd687b01c55.ant.amazon.com (10.43.160.244) by
- EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 24 Sep 2020 10:27:30 +0000
-From: SeongJae Park <sjpark@amazon.com>
-To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, SeongJae Park
- <sjpark@amazon.com>, SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
- <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
- <linux-block@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xen-blkback: add a parameter for disabling of persistent
- grants
-Date: Thu, 24 Sep 2020 12:27:14 +0200
-Message-ID: <20200924102714.28141-1-sjpark@amazon.com>
-X-Mailer: git-send-email 2.17.1
+ id cca73e52-9f96-4c10-8b01-ebf8098650c3;
+ Thu, 24 Sep 2020 10:36:11 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id w5so3222084wrp.8
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Sep 2020 03:36:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=phNkZME285VUJc1oyO1kXyPVhxSzLg1oEzRYJAmdsgU=;
+ b=o6dxQfnDjQwCNEcWrdDDXzLj1T5Ghmvuqe62Ss1nWeDNIXHHNymVoqe9W8EwZdH+go
+ hEDcIKVS8ByNgbnAdaoHrCWyhnv1TNqyviERChiQ6j9Px8/BWhQtVV00WMxLBrDJv/Fe
+ svxHquqVrQezv9S/OWeaFg1a2LW9URwK5Z75B8n+wXarms2FpL330jaOTMhzzcD4FkdN
+ C+OUeA3ZPc7OCEqxPxctmZ2w/z391vWyarOhYMR1T6yceOk5gMOApckrn8VxFUvPQKAQ
+ NtkhSxPk1OfRXSO2l//kwL/vjLeC6XDBtl+B0FCPZzTLMwIkA1/x8w7Y1KiPglnHe/nl
+ 8mMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=phNkZME285VUJc1oyO1kXyPVhxSzLg1oEzRYJAmdsgU=;
+ b=Q3KBdEdzPLpJ7JkF3UiQ1t8p2ZNgRdPzKbeNah1dLKzMwk4shdNrU4RExZf+j58ZoF
+ OppOkIMSLhA962RcALZaRvUdXk/qeaLS8m9XLB+UzJ/5nhFdr3H01cT6RNZ3y9vnjMK2
+ ePdUqrMHTy/HxRCyFV+2EjWtsuQo80taJdaYt1GdzwdPFYdwGwivUuhZX/y3YFFnHbHp
+ t29sjJFhoG32qU0h5JCf/9iGK5h3YyMp0JWYtPs6dQ/wbBYrdxxV2v+YADjkhKY+lw0B
+ Fza6uF1vzHQGj5en5syzpN3SG7zxgQOeAaLut4QScWc9tFvLoA3J9shVj4oXdSTSVXO9
+ q3uw==
+X-Gm-Message-State: AOAM5315i2u27PlfM/6Rr386SvbPTDndi/Cth8OCDpBoxFelMl/SZli+
+ ZdCI5zRd8tFdfpsxMXZzFpE=
+X-Google-Smtp-Source: ABdhPJzTPc0LvsCh0Xq+8znANuVSRMkiKOWJhRsv7ooo3S59bQmWs5RID5A9d34xPUnAx5Vj4QDRGA==
+X-Received: by 2002:adf:ec87:: with SMTP id z7mr4737896wrn.57.1600943770391;
+ Thu, 24 Sep 2020 03:36:10 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id h204sm2923900wmf.35.2020.09.24.03.36.08
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 24 Sep 2020 03:36:09 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Xen-devel'" <xen-devel@lists.xenproject.org>
+Cc: "'George Dunlap'" <George.Dunlap@eu.citrix.com>,
+ "'Ian Jackson'" <iwj@xenproject.org>, "'Jan Beulich'" <JBeulich@suse.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
+ "'Julien Grall'" <julien@xen.org>,
+ =?utf-8?Q?'Micha=C5=82_Leszczy=C5=84ski'?= <michal.leszczynski@cert.pl>,
+ "'Hubert Jasudowicz'" <hubert.jasudowicz@cert.pl>,
+ "'Tamas K Lengyel'" <tamas@tklengyel.com>
+References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+ <20200922182444.12350-9-andrew.cooper3@citrix.com>
+In-Reply-To: <20200922182444.12350-9-andrew.cooper3@citrix.com>
+Subject: RE: [PATCH v2 08/11] xen/memory: Indent part of acquire_resource()
+Date: Thu, 24 Sep 2020 11:36:08 +0100
+Message-ID: <004a01d6925e$84126ef0$8c374cd0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200924101344.GN19254@Air-de-Roger>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.43.160.244]
-X-ClientProxiedBy: EX13D40UWC004.ant.amazon.com (10.43.162.175) To
- EX13D31EUA004.ant.amazon.com (10.43.165.161)
-Precedence: Bulk
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIFh6M/JBUQh1P0MghANJzmhArOyAH+X8dcqQm1XqA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -68,51 +86,147 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 24 Sep 2020 12:13:44 +0200 "Roger Pau Monné" <roger.pau@citrix.com> wrote:
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 22 September 2020 19:25
+> To: Xen-devel <xen-devel@lists.xenproject.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
+<George.Dunlap@eu.citrix.com>; Ian
+> Jackson <iwj@xenproject.org>; Jan Beulich <JBeulich@suse.com>; Stefano =
+Stabellini
+> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien Grall =
+<julien@xen.org>; Paul Durrant
+> <paul@xen.org>; Micha=C5=82 Leszczy=C5=84ski =
+<michal.leszczynski@cert.pl>; Hubert Jasudowicz
+> <hubert.jasudowicz@cert.pl>; Tamas K Lengyel <tamas@tklengyel.com>
+> Subject: [PATCH v2 08/11] xen/memory: Indent part of =
+acquire_resource()
+>=20
+> Indent the middle of acquire_resource() inside a do {} while ( 0 ) =
+loop.  This
+> is broken out specifically to make the following change readable.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> On Wed, Sep 23, 2020 at 04:09:30PM -0400, Konrad Rzeszutek Wilk wrote:
-> > On Tue, Sep 22, 2020 at 09:01:25AM +0200, SeongJae Park wrote:
-> > > From: SeongJae Park <sjpark@amazon.de>
-> > > 
-> > > Persistent grants feature provides high scalability.  On some small
-> > > systems, however, it could incur data copy overhead[1] and thus it is
-> > > required to be disabled.  But, there is no option to disable it.  For
-> > > the reason, this commit adds a module parameter for disabling of the
-> > > feature.
-> > 
-> > Would it be better suited to have it per guest?
-> 
-> I think having a per-backend policy that could be specified at the
-> toolstack level would be nice, but I see that as a further
-> improvement.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Agreed.
+> ---
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Ian Jackson <iwj@xenproject.org>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Paul Durrant <paul@xen.org>
+> CC: Micha=C5=82 Leszczy=C5=84ski <michal.leszczynski@cert.pl>
+> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+> CC: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+>  xen/common/memory.c | 66 =
++++++++++++++++++++++++++++--------------------------
+>  1 file changed, 34 insertions(+), 32 deletions(-)
+>=20
+> diff --git a/xen/common/memory.c b/xen/common/memory.c
+> index c559935732..369154b7c0 100644
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1087,44 +1087,46 @@ static int acquire_resource(
+>          goto out;
+>      }
+>=20
+> -    switch ( xmar.type )
+> -    {
+> -    case XENMEM_resource_grant_table:
+> -        rc =3D gnttab_acquire_resource(d, xmar.id, xmar.frame, =
+xmar.nr_frames,
+> -                                     mfn_list);
+> -        break;
+> +    do {
+> +        switch ( xmar.type )
+> +        {
+> +        case XENMEM_resource_grant_table:
+> +            rc =3D gnttab_acquire_resource(d, xmar.id, xmar.frame, =
+xmar.nr_frames,
+> +                                         mfn_list);
+> +            break;
+>=20
+> -    default:
+> -        rc =3D arch_acquire_resource(d, xmar.type, xmar.id, =
+xmar.frame,
+> -                                   xmar.nr_frames, mfn_list);
+> -        break;
+> -    }
+> +        default:
+> +            rc =3D arch_acquire_resource(d, xmar.type, xmar.id, =
+xmar.frame,
+> +                                       xmar.nr_frames, mfn_list);
+> +            break;
+> +        }
+>=20
+> -    if ( rc )
+> -        goto out;
+> +        if ( rc )
+> +            goto out;
+>=20
+> -    if ( !paging_mode_translate(currd) )
+> -    {
+> -        if ( copy_to_guest(xmar.frame_list, mfn_list, xmar.nr_frames) =
+)
+> -            rc =3D -EFAULT;
+> -    }
+> -    else
+> -    {
+> -        xen_pfn_t gfn_list[ARRAY_SIZE(mfn_list)];
+> -        unsigned int i;
+> +        if ( !paging_mode_translate(currd) )
+> +        {
+> +            if ( copy_to_guest(xmar.frame_list, mfn_list, =
+xmar.nr_frames) )
+> +                rc =3D -EFAULT;
+> +        }
+> +        else
+> +        {
+> +            xen_pfn_t gfn_list[ARRAY_SIZE(mfn_list)];
+> +            unsigned int i;
+>=20
+> -        if ( copy_from_guest(gfn_list, xmar.frame_list, =
+xmar.nr_frames) )
+> -            rc =3D -EFAULT;
+> +            if ( copy_from_guest(gfn_list, xmar.frame_list, =
+xmar.nr_frames) )
+> +                rc =3D -EFAULT;
+>=20
+> -        for ( i =3D 0; !rc && i < xmar.nr_frames; i++ )
+> -        {
+> -            rc =3D set_foreign_p2m_entry(currd, gfn_list[i],
+> -                                       _mfn(mfn_list[i]));
+> -            /* rc should be -EIO for any iteration other than the =
+first */
+> -            if ( rc && i )
+> -                rc =3D -EIO;
+> +            for ( i =3D 0; !rc && i < xmar.nr_frames; i++ )
+> +            {
+> +                rc =3D set_foreign_p2m_entry(currd, gfn_list[i],
+> +                                           _mfn(mfn_list[i]));
+> +                /* rc should be -EIO for any iteration other than the =
+first */
+> +                if ( rc && i )
+> +                    rc =3D -EIO;
+> +            }
+>          }
+> -    }
+> +    } while ( 0 );
+>=20
+>   out:
+>      rcu_unlock_domain(d);
+> --
+> 2.11.0
 
-> 
-> Having a global backend domain policy of whether persistent grants are
-> enabled or not seems desirable, and if someone wants even more fine
-> grained control this change is AFAICT not incompatible with a
-> per-backend option anyway.
 
-I think we could extend this design by receiving list of exceptional domains.
-For example, if 'feature_persistent' is True and exceptions list has '123,
-456', domains of domid 123 and 456 will not use persistent grants, and vice
-versa.
-
-I could implement this, but... to be honest, I don't really understand the
-needs of the fine-grained control.  AFAIU, the problem is 'scalability' vs
-'data copy overhead'.  So, only small systems would want to turn persistent
-grants off.  In such a small system, why would we need fine-grained control?
-I'm worrying if I would implement and maintain a feature without real use case.
-
-For the reason, I'd like to suggest to keep this as is for now and expand it
-with the 'exceptions list' idea or something better, if a real use case comes
-out later.
-
-
-Thanks,
-SeongJae Park
 
