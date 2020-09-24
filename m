@@ -2,53 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE39276E84
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B36B276EB6
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 12:28:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLOLv-00042g-HL; Thu, 24 Sep 2020 10:19:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
- id 1kLOLu-00042T-Gh
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:19:50 +0000
-X-Inumbo-ID: f82bdad7-2bf8-422a-bdfd-5b1942aeddcd
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f82bdad7-2bf8-422a-bdfd-5b1942aeddcd;
- Thu, 24 Sep 2020 10:19:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9A3F0AF1F;
- Thu, 24 Sep 2020 10:20:26 +0000 (UTC)
-Subject: Re: [PATCH RFC 1/4] mm/page_alloc: convert "report" flag of
- __free_one_page() to a proper flag
-To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>
-References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-2-david@redhat.com>
-From: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <82ba4aec-0c69-2461-485a-fa4a7777e5c3@suse.cz>
-Date: Thu, 24 Sep 2020 12:19:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 1kLOTV-0004zQ-CT; Thu, 24 Sep 2020 10:27:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=StWZ=DB=amazon.com=prvs=52916e0f7=sjpark@srs-us1.protection.inumbo.net>)
+ id 1kLOTU-0004zL-CK
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 10:27:40 +0000
+X-Inumbo-ID: 82086fc9-c12d-4202-b1d0-0da8f486211c
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 82086fc9-c12d-4202-b1d0-0da8f486211c;
+ Thu, 24 Sep 2020 10:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1600943260; x=1632479260;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=VJUxKkMgAakbT3L/fC0FIlc1ypeBbbtBZnjUiDl52NU=;
+ b=ewTYKEnbFo8q0WnujBBJN9csCdOVT+WZ46XNY3KmV9I53lhZG9GPf7Ue
+ vHVD71D9vJZ5mftf/tVIE4MgX4ajWNnHa3ZA1xOdPwdrMb3x6KZ32luqS
+ oumWMru0uMk+nBo+UKcmtk4tvk3e4vjuog6QZppXEtYcPBPu6+PZK3NZZ g=;
+X-IronPort-AV: E=Sophos;i="5.77,297,1596499200"; d="scan'208";a="78889262"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2b-55156cd4.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 24 Sep 2020 10:27:37 +0000
+Received: from EX13D31EUA004.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-55156cd4.us-west-2.amazon.com (Postfix) with ESMTPS
+ id A14B3A1FF9; Thu, 24 Sep 2020 10:27:36 +0000 (UTC)
+Received: from u3f2cd687b01c55.ant.amazon.com (10.43.160.244) by
+ EX13D31EUA004.ant.amazon.com (10.43.165.161) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 24 Sep 2020 10:27:30 +0000
+From: SeongJae Park <sjpark@amazon.com>
+To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, SeongJae Park
+ <sjpark@amazon.com>, SeongJae Park <sjpark@amazon.de>, <axboe@kernel.dk>,
+ <aliguori@amazon.com>, <amit@kernel.org>, <mheyne@amazon.de>,
+ <linux-block@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xen-blkback: add a parameter for disabling of persistent
+ grants
+Date: Thu, 24 Sep 2020 12:27:14 +0200
+Message-ID: <20200924102714.28141-1-sjpark@amazon.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20200916183411.64756-2-david@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20200924101344.GN19254@Air-de-Roger>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.43.160.244]
+X-ClientProxiedBy: EX13D40UWC004.ant.amazon.com (10.43.162.175) To
+ EX13D31EUA004.ant.amazon.com (10.43.165.161)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -59,103 +71,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/16/20 8:34 PM, David Hildenbrand wrote:
-> Let's prepare for additional flags and avoid long parameter lists of bools.
-> Follow-up patches will also make use of the flags in __free_pages_ok(),
-> however, I wasn't able to come up with a better name for the type - should
-> be good enough for internal purposes.
-> 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> Cc: Mel Gorman <mgorman@techsingularity.net>
-> Cc: Michal Hocko <mhocko@kernel.org>
-> Cc: Dave Hansen <dave.hansen@intel.com>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+On Thu, 24 Sep 2020 12:13:44 +0200 "Roger Pau Monné" <roger.pau@citrix.com> wrote:
 
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-
-> ---
->  mm/page_alloc.c | 28 ++++++++++++++++++++--------
->  1 file changed, 20 insertions(+), 8 deletions(-)
+> On Wed, Sep 23, 2020 at 04:09:30PM -0400, Konrad Rzeszutek Wilk wrote:
+> > On Tue, Sep 22, 2020 at 09:01:25AM +0200, SeongJae Park wrote:
+> > > From: SeongJae Park <sjpark@amazon.de>
+> > > 
+> > > Persistent grants feature provides high scalability.  On some small
+> > > systems, however, it could incur data copy overhead[1] and thus it is
+> > > required to be disabled.  But, there is no option to disable it.  For
+> > > the reason, this commit adds a module parameter for disabling of the
+> > > feature.
+> > 
+> > Would it be better suited to have it per guest?
 > 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 6b699d273d6e..91cefb8157dd 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -77,6 +77,18 @@
->  #include "shuffle.h"
->  #include "page_reporting.h"
->  
-> +/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
-> +typedef int __bitwise fop_t;
-> +
-> +/* No special request */
-> +#define FOP_NONE		((__force fop_t)0)
-> +
-> +/*
-> + * Skip free page reporting notification after buddy merging (will *not* mark
-> + * the page reported, only skip the notification).
-> + */
-> +#define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
-> +
->  /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
->  static DEFINE_MUTEX(pcp_batch_high_lock);
->  #define MIN_PERCPU_PAGELIST_FRACTION	(8)
-> @@ -948,10 +960,9 @@ buddy_merge_likely(unsigned long pfn, unsigned long buddy_pfn,
->   * -- nyc
->   */
->  
-> -static inline void __free_one_page(struct page *page,
-> -		unsigned long pfn,
-> -		struct zone *zone, unsigned int order,
-> -		int migratetype, bool report)
-> +static inline void __free_one_page(struct page *page, unsigned long pfn,
-> +				   struct zone *zone, unsigned int order,
-> +				   int migratetype, fop_t fop_flags)
->  {
->  	struct capture_control *capc = task_capc(zone);
->  	unsigned long buddy_pfn;
-> @@ -1038,7 +1049,7 @@ static inline void __free_one_page(struct page *page,
->  		add_to_free_list(page, zone, order, migratetype);
->  
->  	/* Notify page reporting subsystem of freed page */
-> -	if (report)
-> +	if (!(fop_flags & FOP_SKIP_REPORT_NOTIFY))
->  		page_reporting_notify_free(order);
->  }
->  
-> @@ -1368,7 +1379,7 @@ static void free_pcppages_bulk(struct zone *zone, int count,
->  		if (unlikely(isolated_pageblocks))
->  			mt = get_pageblock_migratetype(page);
->  
-> -		__free_one_page(page, page_to_pfn(page), zone, 0, mt, true);
-> +		__free_one_page(page, page_to_pfn(page), zone, 0, mt, FOP_NONE);
->  		trace_mm_page_pcpu_drain(page, 0, mt);
->  	}
->  	spin_unlock(&zone->lock);
-> @@ -1384,7 +1395,7 @@ static void free_one_page(struct zone *zone,
->  		is_migrate_isolate(migratetype))) {
->  		migratetype = get_pfnblock_migratetype(page, pfn);
->  	}
-> -	__free_one_page(page, pfn, zone, order, migratetype, true);
-> +	__free_one_page(page, pfn, zone, order, migratetype, FOP_NONE);
->  	spin_unlock(&zone->lock);
->  }
->  
-> @@ -3277,7 +3288,8 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
->  	lockdep_assert_held(&zone->lock);
->  
->  	/* Return isolated page to tail of freelist. */
-> -	__free_one_page(page, page_to_pfn(page), zone, order, mt, false);
-> +	__free_one_page(page, page_to_pfn(page), zone, order, mt,
-> +			FOP_SKIP_REPORT_NOTIFY);
->  }
->  
->  /*
-> 
+> I think having a per-backend policy that could be specified at the
+> toolstack level would be nice, but I see that as a further
+> improvement.
 
+Agreed.
+
+> 
+> Having a global backend domain policy of whether persistent grants are
+> enabled or not seems desirable, and if someone wants even more fine
+> grained control this change is AFAICT not incompatible with a
+> per-backend option anyway.
+
+I think we could extend this design by receiving list of exceptional domains.
+For example, if 'feature_persistent' is True and exceptions list has '123,
+456', domains of domid 123 and 456 will not use persistent grants, and vice
+versa.
+
+I could implement this, but... to be honest, I don't really understand the
+needs of the fine-grained control.  AFAIU, the problem is 'scalability' vs
+'data copy overhead'.  So, only small systems would want to turn persistent
+grants off.  In such a small system, why would we need fine-grained control?
+I'm worrying if I would implement and maintain a feature without real use case.
+
+For the reason, I'd like to suggest to keep this as is for now and expand it
+with the 'exceptions list' idea or something better, if a real use case comes
+out later.
+
+
+Thanks,
+SeongJae Park
 
