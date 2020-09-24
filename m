@@ -2,61 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21469277A25
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 22:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08AE2277B24
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 23:37:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLXmh-0005PO-Dc; Thu, 24 Sep 2020 20:24:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kLYuJ-0003Or-Cp; Thu, 24 Sep 2020 21:36:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oT5B=DB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kLXmg-0005PJ-9e
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 20:24:06 +0000
-X-Inumbo-ID: e20569de-928a-4ff0-98be-3e5fe2d73d64
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e20569de-928a-4ff0-98be-3e5fe2d73d64;
- Thu, 24 Sep 2020 20:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1600979043;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=vrsUMuCSqi23XJ0Xy09Z0CHs3L8+lcfKCfX6//biWKg=;
- b=UxvoI45WGSIzH679qNJErYA9AKIydWtoYMr3lDCztcd+DV6tqDBzH0eE
- a2kPp6TtoKxDLgKIoXHNJMCwHnrFWctlP0PVPJAwiZ8y0ZC8KINs8zcp1
- Ss1gQh59T36J91sEEi4OqOb2VJ51o1hZOPeHA/oTxxb0HuIr8EtN71O/C w=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: B7VWk2xeSsxvj4f/e1LuDpnX7K5nwfgh2hcZXE7L5VVb78gJYpyKLyajyWmjPo0/FvoVXUlJ8y
- EPOi0BX8wSNOZHu7KXZSz31i3eNtbup1f4dHA2v8fpn/cdSXlMUyBo3YGi7rCTaJK6/07xQIfY
- NbWT2+JQZaG/AxXc7Cyzts6IjBxIqaageRtd3VjuBwdUGo0nzJZfE5raa6OpuVzf1yN6KkKm3r
- Sa3SwKiKJb3febIDaRIsQ7g1gXiKA0P9/j5MQwTWkEwyAyzI5b8hYUaV45nxhPKa4HawomMorc
- JyQ=
-X-SBRS: None
-X-MesageID: 28526152
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,299,1596513600"; d="scan'208";a="28526152"
-Subject: Re: [PATCH] tools/libs/guest: fix out of tree builds of libxenguest
- users
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20200923052401.24917-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a99b7ed3-cd1c-a63d-cc9b-66749ac94ce4@citrix.com>
-Date: Thu, 24 Sep 2020 21:23:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=fUiC=DB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kLYuH-0003OR-G9
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 21:36:01 +0000
+X-Inumbo-ID: 22058dec-d2c9-4a63-ab49-b7a24925cfc8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 22058dec-d2c9-4a63-ab49-b7a24925cfc8;
+ Thu, 24 Sep 2020 21:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=/27upWmJhY293Yyl81ZEgsi+xzFNJomXBTX1pNlUKvg=; b=r8G+ba9nNv2LcsrHe3jx8xTc1x
+ UWgAgLYS8/pwERjWq0kAIIwpRFCvid/BN2zcFiNgRBrfxS9yz0Ty6E+b7O8PS/a/G87lIn1hV+X0M
+ egsIuKStIvEqZrOjjmnAvWQMIRLHtWyutE5PdArT2he8uOts6ueMVlA4njQq7ylFCmvg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLYuB-0001Qv-1x; Thu, 24 Sep 2020 21:35:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLYuA-0002m2-R7; Thu, 24 Sep 2020 21:35:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLYuA-0005dI-Qd; Thu, 24 Sep 2020 21:35:54 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154651-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200923052401.24917-1-jgross@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+Subject: [xtf test] 154651: tolerable all pass - PUSHED
+X-Osstest-Failures: xtf:test-xtf-amd64-amd64-3:xtf/test-pv32pae-xsa-339:fail:nonblocking
+ xtf:test-xtf-amd64-amd64-1:xtf/test-pv32pae-xsa-339:fail:nonblocking
+ xtf:test-xtf-amd64-amd64-5:xtf/test-pv32pae-xsa-339:fail:nonblocking
+ xtf:test-xtf-amd64-amd64-4:xtf/test-pv32pae-xsa-339:fail:nonblocking
+ xtf:test-xtf-amd64-amd64-2:xtf/test-pv32pae-xsa-339:fail:nonblocking
+X-Osstest-Versions-This: xtf=a1bb00c99b92202ee818d9df6464484f89989d80
+X-Osstest-Versions-That: xtf=17d372b763cb0b2e2e6b5a637c11f3997d2533fa
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Sep 2020 21:35:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +65,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23/09/2020 06:24, Juergen Gross wrote:
-> xenguest.h includes xenctrl_dom.h, which is including the Xen internal
-> xen/libelf/libelf.h. This results in build failures for components
-> using libxenguest when being built outside the Xen build environment.
->
-> Fix that by guarding the include of xenctrl_dom.h with
-> "#ifdef __XEN_TOOLS_".
->
-> Fixes: 7e0165c19387 ("tools/libxc: untangle libxenctrl from libxenguest")
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  tools/libs/guest/include/xenguest.h | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/tools/libs/guest/include/xenguest.h b/tools/libs/guest/include/xenguest.h
-> index 4643384790..5cd502f644 100644
-> --- a/tools/libs/guest/include/xenguest.h
-> +++ b/tools/libs/guest/include/xenguest.h
-> @@ -22,7 +22,9 @@
->  #ifndef XENGUEST_H
->  #define XENGUEST_H
->  
-> +#ifdef __XEN_TOOLS__
->  #include <xenctrl_dom.h>
-> +#endif
+flight 154651 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154651/
 
-I have to admit that this doesn't feel right to put into a public header.
+Failures :-/ but no regressions.
 
-Can't we split xenctrl_dom in half and merge the relevant subsets into
-xen{ctrl,guest}.h ?
+Tests which did not succeed, but are not blocking:
+ test-xtf-amd64-amd64-3       93 xtf/test-pv32pae-xsa-339     fail   never pass
+ test-xtf-amd64-amd64-1       93 xtf/test-pv32pae-xsa-339     fail   never pass
+ test-xtf-amd64-amd64-5       93 xtf/test-pv32pae-xsa-339     fail   never pass
+ test-xtf-amd64-amd64-4       93 xtf/test-pv32pae-xsa-339     fail   never pass
+ test-xtf-amd64-amd64-2       93 xtf/test-pv32pae-xsa-339     fail   never pass
 
-~Andrew
+version targeted for testing:
+ xtf                  a1bb00c99b92202ee818d9df6464484f89989d80
+baseline version:
+ xtf                  17d372b763cb0b2e2e6b5a637c11f3997d2533fa
+
+Last test of basis   152564  2020-08-11 19:41:10 Z   44 days
+Testing same since   154651  2020-09-23 16:09:54 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xtf.git
+   17d372b..a1bb00c  a1bb00c99b92202ee818d9df6464484f89989d80 -> xen-tested-master
 
