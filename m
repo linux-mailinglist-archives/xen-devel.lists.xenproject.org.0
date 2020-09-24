@@ -2,50 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F086A2772F2
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 15:45:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD796277333
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Sep 2020 15:56:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLRYN-00083e-TK; Thu, 24 Sep 2020 13:44:55 +0000
+	id 1kLRip-0000e8-5g; Thu, 24 Sep 2020 13:55:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y/Bv=DB=suse.cz=vbabka@srs-us1.protection.inumbo.net>)
- id 1kLRYN-00083Z-3B
- for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 13:44:55 +0000
-X-Inumbo-ID: bbac984f-6bb1-4304-82c9-aba395c76d9c
+ (envelope-from <SRS0=+2aH=DB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kLRin-0000e3-97
+ for xen-devel@lists.xenproject.org; Thu, 24 Sep 2020 13:55:41 +0000
+X-Inumbo-ID: 3e6dc9d7-68e1-4e77-9cf6-76c2e514519d
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bbac984f-6bb1-4304-82c9-aba395c76d9c;
- Thu, 24 Sep 2020 13:44:54 +0000 (UTC)
+ id 3e6dc9d7-68e1-4e77-9cf6-76c2e514519d;
+ Thu, 24 Sep 2020 13:55:40 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1600955740;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zsz1vcBQ+J5Lsy+LStILTmbU5O9nErEj4ZG9qO/gNhA=;
+ b=NmmS6MebGqsT5fAYizM+b7XHwwX7shkrxaYQCfdp4dvVIbj/IQtZnHoLv1opJj2750PPss
+ C/hm/wkzFqDByTNe1Wyd7nNMf3os9uokHzJiIhggdbObEX90kLzktMDTzXbqLffLGKac4f
+ 7dX58ouklc0sofSv2BSUJseL3e7y+TE=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 235E0ABAD;
- Thu, 24 Sep 2020 13:44:53 +0000 (UTC)
-Subject: Re: [PATCH RFC 4/4] mm/page_alloc: place pages to tail in
- __free_pages_core()
-To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>
-References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-5-david@redhat.com>
-From: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <34a094bd-d37a-b735-14bb-ea65e2e2b7a1@suse.cz>
-Date: Thu, 24 Sep 2020 15:44:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id DB95DAE44;
+ Thu, 24 Sep 2020 13:55:39 +0000 (UTC)
+Subject: Re: [PATCH 1/3] x86/pv: Don't deliver #GP for a SYSENTER with NT set
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Andy Lutomirski <luto@kernel.org>
+References: <20200923101848.29049-1-andrew.cooper3@citrix.com>
+ <20200923101848.29049-2-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <129e6e48-9e20-0367-a5ab-c068fe2a28b3@suse.com>
+Date: Thu, 24 Sep 2020 15:55:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200916183411.64756-5-david@redhat.com>
+In-Reply-To: <20200923101848.29049-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -62,153 +63,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 9/16/20 8:34 PM, David Hildenbrand wrote:
-> __free_pages_core() is used when exposing fresh memory to the buddy
-> during system boot and when onlining memory in generic_online_page().
+On 23.09.2020 12:18, Andrew Cooper wrote:
+> It is a matter of guest kernel policy what to do with offending userspace, and
+> terminating said userspace may not be the action chosen.
 > 
-> generic_online_page() is used in two cases:
+> Linux explicitly tolerates this case.
 > 
-> 1. Direct memory onlining in online_pages().
-> 2. Deferred memory onlining in memory-ballooning-like mechanisms (HyperV
->    balloon and virtio-mem), when parts of a section are kept
->    fake-offline to be fake-onlined later on.
-> 
-> In 1, we already place pages to the tail of the freelist. Pages will be
-> freed to MIGRATE_ISOLATE lists first and moved to the tail of the freelists
-> via undo_isolate_page_range().
-> 
-> In 2, we currently don't implement a proper rule. In case of virtio-mem,
-> where we currently always online MAX_ORDER - 1 pages, the pages will be
-> placed to the HEAD of the freelist - undesireable. While the hyper-v
-> balloon calls generic_online_page() with single pages, usually it will
-> call it on successive single pages in a larger block.
-> 
-> The pages are fresh, so place them to the tail of the freelists and avoid
-> the PCP.
-> 
-> Note: If we detect that the new behavior is undesireable for
-> __free_pages_core() during boot, we can let the caller specify the
-> behavior.
-> 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> Cc: Mel Gorman <mgorman@techsingularity.net>
-> Cc: Michal Hocko <mhocko@kernel.org>
-> Cc: Dave Hansen <dave.hansen@intel.com>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-> Cc: Haiyang Zhang <haiyangz@microsoft.com>
-> Cc: Stephen Hemminger <sthemmin@microsoft.com>
-> Cc: Wei Liu <wei.liu@kernel.org>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+> Reported-by: Andy Lutomirski <luto@kernel.org>
+> Fixes: fdac951560 ("x86: clear EFLAGS.NT in SYSENTER entry path")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-
-> ---
->  mm/page_alloc.c | 32 ++++++++++++++++++++------------
->  1 file changed, 20 insertions(+), 12 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 75b0f49b4022..50746e6dc21b 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -264,7 +264,8 @@ bool pm_suspended_storage(void)
->  unsigned int pageblock_order __read_mostly;
->  #endif
->  
-> -static void __free_pages_ok(struct page *page, unsigned int order);
-> +static void __free_pages_ok(struct page *page, unsigned int order,
-> +			    fop_t fop_flags);
->  
->  /*
->   * results with 256, 32 in the lowmem_reserve sysctl:
-> @@ -676,7 +677,7 @@ static void bad_page(struct page *page, const char *reason)
->  void free_compound_page(struct page *page)
->  {
->  	mem_cgroup_uncharge(page);
-> -	__free_pages_ok(page, compound_order(page));
-> +	__free_pages_ok(page, compound_order(page), FOP_NONE);
->  }
->  
->  void prep_compound_page(struct page *page, unsigned int order)
-> @@ -1402,17 +1403,15 @@ static void free_pcppages_bulk(struct zone *zone, int count,
->  	spin_unlock(&zone->lock);
->  }
->  
-> -static void free_one_page(struct zone *zone,
-> -				struct page *page, unsigned long pfn,
-> -				unsigned int order,
-> -				int migratetype)
-> +static void free_one_page(struct zone *zone, struct page *page, unsigned long pfn,
-> +			  unsigned int order, int migratetype, fop_t fop_flags)
->  {
->  	spin_lock(&zone->lock);
->  	if (unlikely(has_isolate_pageblock(zone) ||
->  		is_migrate_isolate(migratetype))) {
->  		migratetype = get_pfnblock_migratetype(page, pfn);
->  	}
-> -	__free_one_page(page, pfn, zone, order, migratetype, FOP_NONE);
-> +	__free_one_page(page, pfn, zone, order, migratetype, fop_flags);
->  	spin_unlock(&zone->lock);
->  }
->  
-> @@ -1490,7 +1489,8 @@ void __meminit reserve_bootmem_region(phys_addr_t start, phys_addr_t end)
->  	}
->  }
->  
-> -static void __free_pages_ok(struct page *page, unsigned int order)
-> +static void __free_pages_ok(struct page *page, unsigned int order,
-> +			    fop_t fop_flags)
->  {
->  	unsigned long flags;
->  	int migratetype;
-> @@ -1502,7 +1502,8 @@ static void __free_pages_ok(struct page *page, unsigned int order)
->  	migratetype = get_pfnblock_migratetype(page, pfn);
->  	local_irq_save(flags);
->  	__count_vm_events(PGFREE, 1 << order);
-> -	free_one_page(page_zone(page), page, pfn, order, migratetype);
-> +	free_one_page(page_zone(page), page, pfn, order, migratetype,
-> +		      fop_flags);
->  	local_irq_restore(flags);
->  }
->  
-> @@ -1523,7 +1524,13 @@ void __free_pages_core(struct page *page, unsigned int order)
->  
->  	atomic_long_add(nr_pages, &page_zone(page)->managed_pages);
->  	set_page_refcounted(page);
-> -	__free_pages(page, order);
-> +
-> +	/*
-> +	 * Bypass PCP and place fresh pages right to the tail, primarily
-> +	 * relevant for memory onlining.
-> +	 */
-> +	page_ref_dec(page);
-> +	__free_pages_ok(page, order, FOP_TO_TAIL);
->  }
->  
->  #ifdef CONFIG_NEED_MULTIPLE_NODES
-> @@ -3167,7 +3174,8 @@ static void free_unref_page_commit(struct page *page, unsigned long pfn)
->  	 */
->  	if (migratetype >= MIGRATE_PCPTYPES) {
->  		if (unlikely(is_migrate_isolate(migratetype))) {
-> -			free_one_page(zone, page, pfn, 0, migratetype);
-> +			free_one_page(zone, page, pfn, 0, migratetype,
-> +				      FOP_NONE);
->  			return;
->  		}
->  		migratetype = MIGRATE_MOVABLE;
-> @@ -4984,7 +4992,7 @@ static inline void free_the_page(struct page *page, unsigned int order)
->  	if (order == 0)		/* Via pcp? */
->  		free_unref_page(page);
->  	else
-> -		__free_pages_ok(page, order);
-> +		__free_pages_ok(page, order, FOP_NONE);
->  }
->  
->  void __free_pages(struct page *page, unsigned int order)
-> 
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
