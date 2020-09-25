@@ -2,84 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2312278961
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 15:21:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C67278962
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 15:22:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLnfS-00071Z-Lr; Fri, 25 Sep 2020 13:21:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kLnff-00073h-4b; Fri, 25 Sep 2020 13:21:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T0XI=DC=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kLnfR-00071S-7A
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 13:21:41 +0000
-X-Inumbo-ID: 3395e91d-628c-482d-a706-b971f0adecdf
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3395e91d-628c-482d-a706-b971f0adecdf;
- Fri, 25 Sep 2020 13:05:39 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id b19so2383531lji.11
- for <xen-devel@lists.xenproject.org>; Fri, 25 Sep 2020 06:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=w865fNQ8RYmJ0SCr9ba+q/FMFU6vSSFGGySjxoqb7uQ=;
- b=AuOgsydg018M+Gs07A9rYszGRjP+08vrqxYXdacdSF8uODcUigqtET5zHaX5p0R5ev
- lAwb5LFbYFJ1tQQXOWDF7dVHRQEdpmHoKhYV5sVOkeO8Qzt4b9OFjhU8BFRo72E/h6ub
- AYc9spqMUFe+y55g1AI56Y/BsrSr3iOUL/TaQHY1n91WQINa4mIwH5o75eWDqkREbUWL
- PXVNnZam4QwFR/xinTmsiTLGI4XqxoNJimNP83JHrjZ9XeiaCUMY1U4KIzmW4NYlvhx4
- AYpF8e9vl4gTJiupNuuRYbl7PzVeWVRkS5zjHjhgY7cshlcCcY+xk4Ka6XPkE6shzDXa
- 2lFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=w865fNQ8RYmJ0SCr9ba+q/FMFU6vSSFGGySjxoqb7uQ=;
- b=RculYx+eKMYvnn+HKLauQGQJEJmTjl3tPwV1y8slKS+YjBLKVWd6F22HABYxifk19v
- ptikUa8vqp2lOfpKy3QlWFFp0/t8wN9Lkdsmr/ZtqFpQnbE78/QLVyfCjdMkDpIGXnZU
- anFqtT2mTkG/X1tNvgllIv82UKpGcptxYkgNSSgUvpaYWU0Kx3w/VUXAxWugQjLh3RuV
- DUEmWiICcAzvmcMMmLllLk0Pvsn5r6/Wwts4eNguJGXjRcLa9YbwfQ6+w7r9YMvNGoxZ
- Dwj2KGkFhfw+Y+mn9uvsxfi/Gd3h1IVR4q9aT8N+2TpCYEhg34X4Xb3mY6SyVE3XMs6+
- FlKQ==
-X-Gm-Message-State: AOAM5303OMQkCuh5qOw2IrXpATEoPF5gxjD54td3ksBc5Lsk/DV5WWBs
- b+tFlKAPhS5qoSQF8I9fVR0=
-X-Google-Smtp-Source: ABdhPJyOXtT1l5UEPtrO8UfqTXlzI+qfZ+oTKE6NmjU+nxB47eV7GKIO6ipbxO+ww0ZLwQwi4/m1PQ==
-X-Received: by 2002:a05:651c:c8:: with SMTP id 8mr1251136ljr.251.1601039137713; 
- Fri, 25 Sep 2020 06:05:37 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id x14sm2231034lfc.93.2020.09.25.06.05.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Sep 2020 06:05:37 -0700 (PDT)
-Subject: Re: [PATCH V1 13/16] xen/ioreq: Make x86's invalidate qemu mapcache
- handling common
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-14-git-send-email-olekstysh@gmail.com>
- <83dfb207-c191-8dad-1474-ce57b6d51102@suse.com>
- <2cab3ca5-0f2b-a813-099f-95bbf54bb9c8@gmail.com>
- <17f1c7d2-7a84-a6a5-4afb-f82e67bc9fd0@suse.com>
- <0fa6a31c-8da6-2a0a-b110-a697f4955702@gmail.com>
- <3abe3988-f1c0-9bbf-1ff9-ce3ae380c825@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <47ecdde7-6575-bee8-7981-7b1a31715a0b@gmail.com>
-Date: Fri, 25 Sep 2020 16:05:31 +0300
+ <SRS0=8Inn=DC=linux.intel.com=tvrtko.ursulin@srs-us1.protection.inumbo.net>)
+ id 1kLnfd-00073O-90
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 13:21:53 +0000
+X-Inumbo-ID: 164009c7-aca2-4e5f-8bcb-fc221b018831
+Received: from mga09.intel.com (unknown [134.134.136.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 164009c7-aca2-4e5f-8bcb-fc221b018831;
+ Fri, 25 Sep 2020 13:05:49 +0000 (UTC)
+IronPort-SDR: HNPTlGjzuID6UFCPX3jP8hEbAd7UXQlOSQ00AFG/8JpDV7Hk4bSVuGMUOwVnq1p8xZ6j65VKr2
+ s+tYJBxotxvg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9754"; a="162417562"
+X-IronPort-AV: E=Sophos;i="5.77,302,1596524400"; d="scan'208";a="162417562"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2020 06:05:43 -0700
+IronPort-SDR: 5Dwboiqhy5yHPzqfhh5/S6fzq83iIqIUdZO8emD2bnlcA/WE0SaYoeYBpYxDMx5CtVPALBxtts
+ ZUeFrbRupJww==
+X-IronPort-AV: E=Sophos;i="5.77,302,1596524400"; d="scan'208";a="455824158"
+Received: from mlevy2-mobl.ger.corp.intel.com (HELO [10.251.176.131])
+ ([10.251.176.131])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2020 06:05:34 -0700
+Subject: Re: [PATCH 06/11] drm/i915: use vmap in shmem_pin_map
+To: Christoph Hellwig <hch@lst.de>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Minchan Kim <minchan@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Nitin Gupta <ngupta@vflare.org>,
+ x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+References: <20200924135853.875294-1-hch@lst.de>
+ <20200924135853.875294-7-hch@lst.de>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+Message-ID: <9459e195-a412-3357-c53d-4349e600896d@linux.intel.com>
+Date: Fri, 25 Sep 2020 14:05:32 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <3abe3988-f1c0-9bbf-1ff9-ce3ae380c825@suse.com>
+In-Reply-To: <20200924135853.875294-7-hch@lst.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,85 +76,128 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 25.09.20 10:03, Jan Beulich wrote:
+On 24/09/2020 14:58, Christoph Hellwig wrote:
+> shmem_pin_map somewhat awkwardly reimplements vmap using
+> alloc_vm_area and manual pte setup.  The only practical difference
+> is that alloc_vm_area prefeaults the vmalloc area PTEs, which doesn't
+> seem to be required here (and could be added to vmap using a flag if
+> actually required).  Switch to use vmap, and use vfree to free both the
+> vmalloc mapping and the page array, as well as dropping the references
+> to each page.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/gpu/drm/i915/gt/shmem_utils.c | 76 +++++++--------------------
+>   1 file changed, 18 insertions(+), 58 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+> index 43c7acbdc79dea..f011ea42487e11 100644
+> --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
+> +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+> @@ -49,80 +49,40 @@ struct file *shmem_create_from_object(struct drm_i915_gem_object *obj)
+>   	return file;
+>   }
+>   
+> -static size_t shmem_npte(struct file *file)
+> -{
+> -	return file->f_mapping->host->i_size >> PAGE_SHIFT;
+> -}
+> -
+> -static void __shmem_unpin_map(struct file *file, void *ptr, size_t n_pte)
+> -{
+> -	unsigned long pfn;
+> -
+> -	vunmap(ptr);
+> -
+> -	for (pfn = 0; pfn < n_pte; pfn++) {
+> -		struct page *page;
+> -
+> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
+> -						   GFP_KERNEL);
+> -		if (!WARN_ON(IS_ERR(page))) {
+> -			put_page(page);
+> -			put_page(page);
+> -		}
+> -	}
+> -}
+> -
+>   void *shmem_pin_map(struct file *file)
+>   {
+> -	const size_t n_pte = shmem_npte(file);
+> -	pte_t *stack[32], **ptes, **mem;
+> -	struct vm_struct *area;
+> -	unsigned long pfn;
+> -
+> -	mem = stack;
+> -	if (n_pte > ARRAY_SIZE(stack)) {
+> -		mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
+> -		if (!mem)
+> -			return NULL;
+> -	}
+> +	struct page **pages;
+> +	size_t n_pages, i;
+> +	void *vaddr;
+>   
+> -	area = alloc_vm_area(n_pte << PAGE_SHIFT, mem);
+> -	if (!area) {
+> -		if (mem != stack)
+> -			kvfree(mem);
+> +	n_pages = file->f_mapping->host->i_size >> PAGE_SHIFT;
+> +	pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
+> +	if (!pages)
+>   		return NULL;
+> -	}
+>   
+> -	ptes = mem;
+> -	for (pfn = 0; pfn < n_pte; pfn++) {
+> -		struct page *page;
+> -
+> -		page = shmem_read_mapping_page_gfp(file->f_mapping, pfn,
+> -						   GFP_KERNEL);
+> -		if (IS_ERR(page))
+> +	for (i = 0; i < n_pages; i++) {
+> +		pages[i] = shmem_read_mapping_page_gfp(file->f_mapping, i,
+> +						       GFP_KERNEL);
+> +		if (IS_ERR(pages[i]))
+>   			goto err_page;
+> -
+> -		**ptes++ = mk_pte(page,  PAGE_KERNEL);
+>   	}
+>   
+> -	if (mem != stack)
+> -		kvfree(mem);
+> -
+> +	vaddr = vmap(pages, n_pages, VM_MAP_PUT_PAGES, PAGE_KERNEL);
+> +	if (!vaddr)
+> +		goto err_page;
+>   	mapping_set_unevictable(file->f_mapping);
+> -	return area->addr;
+> -
+> +	return vaddr;
+>   err_page:
+> -	if (mem != stack)
+> -		kvfree(mem);
+> -
+> -	__shmem_unpin_map(file, area->addr, pfn);
+> +	while (--i >= 0)
+> +		put_page(pages[i]);
+> +	kvfree(pages);
+>   	return NULL;
+>   }
+>   
+>   void shmem_unpin_map(struct file *file, void *ptr)
+>   {
+>   	mapping_clear_unevictable(file->f_mapping);
+> -	__shmem_unpin_map(file, ptr, shmem_npte(file));
+> +	vfree(ptr);
+>   }
+>   
+>   static int __shmem_rw(struct file *file, loff_t off,
+> 
 
-Hi Jan.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-> On 24.09.2020 18:45, Oleksandr wrote:
->> On 24.09.20 14:16, Jan Beulich wrote:
->>
->> Hi Jan
->>
->>> On 22.09.2020 21:32, Oleksandr wrote:
->>>> On 16.09.20 11:50, Jan Beulich wrote:
->>>>> On 10.09.2020 22:22, Oleksandr Tyshchenko wrote:
->>>>>> --- a/xen/common/memory.c
->>>>>> +++ b/xen/common/memory.c
->>>>>> @@ -1651,6 +1651,11 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>>>>             break;
->>>>>>         }
->>>>>>     
->>>>>> +#ifdef CONFIG_IOREQ_SERVER
->>>>>> +    if ( op == XENMEM_decrease_reservation )
->>>>>> +        curr_d->qemu_mapcache_invalidate = true;
->>>>>> +#endif
->>>>> I don't see why you put this right into decrease_reservation(). This
->>>>> isn't just to avoid the extra conditional, but first and foremost to
->>>>> avoid bypassing the earlier return from the function (in the case of
->>>>> preemption). In the context of this I wonder whether the ordering of
->>>>> operations in hvm_hypercall() is actually correct.
->>>> Good point, indeed we may return earlier in case of preemption, I missed
->>>> that.
->>>> Will move it to decrease_reservation(). But, we may return even earlier
->>>> in case of error...
->>>> Now I am wondering should we move it to the very beginning of command
->>>> processing or not?
->>> In _this_ series I'd strongly recommend you keep things working as
->>> they are. If independently you think you've found a reason to
->>> re-order certain operations, then feel free to send a patch with
->>> suitable justification.
->> Of course, I will try to retain current behavior.
->>
->>
->>>>> I'm also unconvinced curr_d is the right domain in all cases here;
->>>>> while this may be a pre-existing issue in principle, I'm afraid it
->>>>> gets more pronounced by the logic getting moved to common code.
->>>> Sorry I didn't get your concern here.
->>> Well, you need to be concerned whose qemu_mapcache_invalidate flag
->>> you set.
->> May I ask, in what cases the *curr_d* is the right domain?
-> When a domain does a decrease-reservation on itself. I thought
-> that's obvious. But perhaps your question was rather meant a to
-> whether a->domain ever is _not_ the right one?
-No, my question was about *curr_d*. I saw your answer
- > I'm also unconvinced curr_d is the right domain in all cases here;
-and just wanted to clarify these cases. Sorry if I was unclear.
-
-
->
->> We need to make sure that domain is using IOREQ server(s) at least.
->> Hopefully, we have a helper for this
->> which is hvm_domain_has_ioreq_server(). Please clarify, anything else I
->> should taking care of?
-> Nothing I can recall / think of right now, except that the change
-> may want to come under a different title and with a different
-> description.As indicated, I don't think this is correct for PVH
-> Dom0 issuing the request against a HVM DomU, and addressing this
-> will likely want this moved out of hvm_memory_op() anyway. Of
-> course an option is to split this into two patches - the proposed
-> bug fix (perhaps wanting backporting) and then the moving of the
-> field out of arch.hvm. If you feel uneasy about the bug fix part,
-> let me know and I (or maybe Roger) will see to put together a
-> patch.
-
-Thank you for the clarification.
-
-Yes, it would be really nice if you (or maybe Roger) could create a 
-patch for the bug fix part.
-
--- 
 Regards,
 
-Oleksandr Tyshchenko
-
+Tvrtko
 
