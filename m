@@ -2,57 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8220127853E
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 12:34:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5646F278545
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 12:39:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLl3k-0004tv-0x; Fri, 25 Sep 2020 10:34:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O9+A=DC=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kLl3j-0004tn-05
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 10:34:35 +0000
-X-Inumbo-ID: e0c6c3b1-47ef-4672-afe7-7ebb5af40951
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e0c6c3b1-47ef-4672-afe7-7ebb5af40951;
- Fri, 25 Sep 2020 10:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=8seRCI8Qnum4DQX8B2sTDgmO3095sLTy3tXaHpt67cU=; b=q7tpNhCqs3+p5kV0OIzb25Q3TC
- NgFB5hoqC+YdSEhyoRf+pIQUQaqYr1lDDIBShjSGjlLmcuwl9RwWW7T7A1yq23XPp3twCs2/EJvec
- tLtYF1VtdZ2REB4+Wj9P4+F8/9UOvhmZ+JY7po45MbY5Qh34ctzqzCzEA+CZOzQpZ154=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kLl3a-00088d-K3; Fri, 25 Sep 2020 10:34:26 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kLl3a-0001LX-9y; Fri, 25 Sep 2020 10:34:26 +0000
-Subject: Re: [PATCH] evtchn/Flask: pre-allocate node on send path
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Daniel de Graaf <dgdegra@tycho.nsa.gov>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <f633e95e-11e7-ccfc-07ce-7cc817fcd7fe@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8237e286-168f-a4e7-be8b-aba5ff781e7c@xen.org>
-Date: Fri, 25 Sep 2020 11:34:23 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+	id 1kLl7s-00058k-Id; Fri, 25 Sep 2020 10:38:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4q2y=DC=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kLl7q-00058f-Ih
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 10:38:50 +0000
+X-Inumbo-ID: 5cc16fbe-11a0-4fca-87c5-ff03db4ba8c6
+Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5cc16fbe-11a0-4fca-87c5-ff03db4ba8c6;
+ Fri, 25 Sep 2020 10:38:49 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id t10so3085832wrv.1
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Sep 2020 03:38:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=R9fvDIbhyRfM2lABTONP4f5n5PfaAnDmNWcNMtfO/HE=;
+ b=gCAU5U0tS9Bhs1wCqBngxEOhT/SvvoJVt+IWIjS8SKVgJzaSQSGq+qFpeo1iDPtDFH
+ y9Auyls0/oBXgO5HSJaFefjaCq+X3nDlXWfjDB2dtlaBA3cYH7QbbUe5lMci9TaF5wag
+ Fw5dzRTRMdpWW5w5F0beqRY5unbjr3pblebkeA2tFPwP34rT5AWz0KW8Z8BVm8VkMiun
+ Qp3oF2unW92rgiM/oveTgm2hkx8v5/STFgcfAQBVtCTFLW6wzK9PZarZd9shRgRntBui
+ haoblGP3+Gz0hfHdKDBG0WM9W8HRtPr6tMHRhZXwFzbGeLzqNl2dzhKMBcwK0P6f8b6L
+ 091w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=R9fvDIbhyRfM2lABTONP4f5n5PfaAnDmNWcNMtfO/HE=;
+ b=BAsvsXtigPV5tM0KQXnx0wZs3WS7AMGNbY1Qy0IUHgPZEtan/z2lB3Xc7TuzhTgJIh
+ 0/VthiPU6cT2CxCKEC7wr/vsdexWSkW+pAc1lOHl740oIqILZi1cjhYbd1/QhQDqNamx
+ c0oqb0+BwJmUjXJm9t70Gd7KhUZkx2omgQuwqaH7nEl41em5jhFN4y6SUlOq8srUmqV5
+ zL1lyU07uuSfF9SANF3i5BP5wWlzT7dRVqKsLCDCxQyJQPQtRSV9C/8lXrC3N3dEz5xL
+ XP6bSvtqbExyxHHsdwIsD0v+ynlJNMuLIZQGTkmfNCk8Q7mwJQE8xBoCOJkvgJRugbvk
+ oOzw==
+X-Gm-Message-State: AOAM530E/BR/3f2YPbEDOxMMPNkl3EMvVnReMrdwY26BVu/kaUtLpmEi
+ 6XhqAcW46xTYQajWaT38fTw=
+X-Google-Smtp-Source: ABdhPJzWvJoLHw2vkbE1z4xC8Oz9F91KwzZqjAeU2OL7IO5DaQrHtU8fWkl0ReAGxJe0bksPiEKlWA==
+X-Received: by 2002:a5d:4d49:: with SMTP id a9mr4000298wru.363.1601030328909; 
+ Fri, 25 Sep 2020 03:38:48 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id d19sm2350787wmd.0.2020.09.25.03.38.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 25 Sep 2020 03:38:48 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: <xen-devel@lists.xenproject.org>
+Cc: "'Paul Durrant'" <pdurrant@amazon.com>
+References: <20200915141007.25965-1-paul@xen.org>
+In-Reply-To: <20200915141007.25965-1-paul@xen.org>
+Subject: RE: [PATCH v2 0/2] fix 'xl block-detach'
+Date: Fri, 25 Sep 2020 11:38:47 +0100
+Message-ID: <001001d69328$0d2790c0$2776b240$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <f633e95e-11e7-ccfc-07ce-7cc817fcd7fe@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain;
+	charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJeoUus0OdpJ4MR5bCYHg0A3ED8p6hpDT0w
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,32 +78,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+Ping? AFAICT this series is fully acked. Can it be committed soon?
 
-On 24/09/2020 11:53, Jan Beulich wrote:
-> xmalloc() & Co may not be called with IRQs off, or else check_lock()
-> will have its assertion trigger about locks getting acquired
-> inconsistently. Re-arranging the locking in evtchn_send() doesn't seem
-> very reasonable, especially since the per-channel lock was introduced to
-> avoid acquiring the per-domain event lock on the send paths. Issue a
-> second call to xsm_evtchn_send() instead, before acquiring the lock, to
-> give XSM / Flask a chance to pre-allocate whatever it may need.
+  Paul
 
-This is the sort of fall-out I was expecting when we decide to turn off 
-the interrupts for big chunk of code. I couldn't find any at the time 
-though...
+> -----Original Message-----
+> From: Paul Durrant <paul@xen.org>
+> Sent: 15 September 2020 15:10
+> To: xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <pdurrant@amazon.com>
+> Subject: [PATCH v2 0/2] fix 'xl block-detach'
+> 
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> This series makes it behave as the documentation states it should
+> 
+> Paul Durrant (2):
+>   libxl: provide a mechanism to define a device 'safe remove'
+>     function...
+>   xl: implement documented '--force' option for block-detach
+> 
+>  docs/man/xl.1.pod.in         |  4 ++--
+>  tools/libxl/libxl.h          | 33 +++++++++++++++++++++++++--------
+>  tools/libxl/libxl_device.c   |  9 +++++----
+>  tools/libxl/libxl_disk.c     |  4 +++-
+>  tools/libxl/libxl_domain.c   |  2 +-
+>  tools/libxl/libxl_internal.h | 30 +++++++++++++++++++++++-------
+>  tools/xl/xl_block.c          | 21 ++++++++++++++++-----
+>  tools/xl/xl_cmdtable.c       |  3 ++-
+>  8 files changed, 77 insertions(+), 29 deletions(-)
+> 
+> --
+> 2.20.1
 
-Can you remind which caller of send_guest{global, vcpu}_virq() will call 
-them with interrupts off?
 
-Would it be possible to consider deferring the call to a softirq 
-taslket? If so, this would allow us to turn the interrupts again.
-
-Cheers,
-
--- 
-Julien Grall
 
