@@ -2,60 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCDE278CE0
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 17:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D15C3278D22
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 17:48:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLply-0002u0-6q; Fri, 25 Sep 2020 15:36:34 +0000
+	id 1kLpxF-0003rQ-DY; Fri, 25 Sep 2020 15:48:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9v36=DC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kLplw-0002tv-QJ
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 15:36:32 +0000
-X-Inumbo-ID: d892be88-c6c3-4ef4-a088-5eadd72664e3
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=wxjq=DC=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kLpxD-0003rL-Kh
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 15:48:11 +0000
+X-Inumbo-ID: aea96298-592e-4db2-9cfd-4108828ecc37
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d892be88-c6c3-4ef4-a088-5eadd72664e3;
- Fri, 25 Sep 2020 15:36:28 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601048187;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Vfp4iXF0CDopQBe7yaJAku+iQEn0maxwFbemUgqlSVM=;
- b=rgZUPV7p8+/KXKvqXcTLf8ZPC0V2uREMKMukIbx5LHkoEXfqNS0T+5UIEoCjNmY8ysHTf4
- 251hX9yAzkG8Q4PoetEnkH03aCn/CI2XpEeqs7ubABMSvLvY+rZ7oD5VE8LtBck1CMJpm4
- X/Jmo3sIpZY0jytqhZqisRgUxA1pW2M=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 81199ACB5;
- Fri, 25 Sep 2020 15:36:27 +0000 (UTC)
-Subject: Re: [PATCH] evtchn/Flask: pre-allocate node on send path
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Daniel de Graaf <dgdegra@tycho.nsa.gov>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <f633e95e-11e7-ccfc-07ce-7cc817fcd7fe@suse.com>
- <8237e286-168f-a4e7-be8b-aba5ff781e7c@xen.org>
- <706b94ae-ca05-2218-6025-e5d62297dda6@suse.com>
- <3ad0529d-ad55-8864-1df2-193eaf104c1f@xen.org>
- <6d6d7550-8847-267e-49f2-0ca098ef97ad@suse.com>
- <2a62f5e4-9915-bcd7-05b3-77663c995a13@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9adeac3b-2b0f-6e9d-aa82-fd966e984fa0@suse.com>
-Date: Fri, 25 Sep 2020 17:36:29 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id aea96298-592e-4db2-9cfd-4108828ecc37;
+ Fri, 25 Sep 2020 15:48:10 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 08PFltcw064709
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Fri, 25 Sep 2020 11:48:01 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 08PFltxa064708;
+ Fri, 25 Sep 2020 08:47:55 -0700 (PDT) (envelope-from ehem)
+Date: Fri, 25 Sep 2020 08:47:55 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 03/11 RFC] gitignore: Add/Generalize entries
+Message-ID: <20200925154755.GA64406@mattapan.m5p.com>
+References: <202009092153.089LrA2R039188@m5p.com>
+ <afe1939c-01b9-b6c6-a4d7-9762664b9447@suse.com>
+ <20200924214829.GA58232@mattapan.m5p.com>
+ <abaa602b-5eef-d3a4-4bee-9360dcf57031@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <2a62f5e4-9915-bcd7-05b3-77663c995a13@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <abaa602b-5eef-d3a4-4bee-9360dcf57031@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+ autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,37 +58,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.09.2020 16:33, Julien Grall wrote:
-> On 25/09/2020 14:58, Jan Beulich wrote:
->> On 25.09.2020 15:16, Julien Grall wrote:
->>> Fair enough. I would still like to consider a way where we could avoid
->>> to hack xsm_* because we have the interrupts disabled.
->>
->> Well, from a conceptual pov it's at least questionable for XSM to
->> need any memory allocations at all when merely being asked for
->> permission. And indeed the need for it arises solely from its
->> desire to cache the result, for the sake of subsequent lookups.
->>
->> I also find it odd that there's an XSM check on the send path in
->> the first place. This isn't just because it would seem to me that
->> it should be decided at binding time whether sending is permitted
->> - I may easily be missing something in the conceptual model here.
->> It's also because __domain_finalise_shutdown() too uses
->> evtchn_send(), and I didn't think this one should be subject to
->> any XSM check (just like send_guest_*() aren't).
-> 
-> Maybe this is the first question we need to answer?
+On Fri, Sep 25, 2020 at 08:49:01AM +0200, Jan Beulich wrote:
+> I don't think so, no - new ports will similarly have asm-<arch>/config.h,
+> and there shouldn't be a requirement to "git add -f" them at that point.
+> The role of such named files really is too different to have such a top
+> level entry imo.
 
-Indeed that was the question I asked myself before putting together
-the patch. Yet I have no idea who could answer it, with Daniel
-having gone silent for quite long a time now. Hence I didn't even
-put up the question, but instead tried to find a halfway reasonable
-solution. After all it's not just the master branch which is stuck
-right now. And from a backporting perspective having the "fix"
-touch code which hasn't had much churn over the last years may even
-be beneficial. Plus, as said, the minimal change of making Flask
-avoid xmalloc() when IRQs are off is a change that ought to be made
-anyway imo, in order to favor proper functioning over performance.
+Okay.  I had thought autoconf/configure was by far the most common source
+of config.h files, and thus best to have in there, but my local copies
+have been adjusted.  There aren't many config.h entries so dumping an
+attempt at a common pattern is quite appropriate.
 
-Jan
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
