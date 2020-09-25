@@ -2,46 +2,118 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F9C2781E5
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 09:44:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB8278236
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 10:06:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLiP4-0005fm-PI; Fri, 25 Sep 2020 07:44:26 +0000
+	id 1kLijr-000868-7n; Fri, 25 Sep 2020 08:05:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5R+H=DC=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kLiP2-0005fh-HT
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 07:44:24 +0000
-X-Inumbo-ID: 6496b415-ff8d-4752-bf9c-9ef09645e31b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6496b415-ff8d-4752-bf9c-9ef09645e31b;
- Fri, 25 Sep 2020 07:44:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
- bh=iXRb+4174cBaA9P9UUyWjjnQPsNu9uYFSBS56hY8SrA=; b=Ajd59vb3oYvVwi4zpLwUENdpjO
- imK4cpw2M5ZVZ/8ncPq39og8MzX0eVAprXHYFHOP3DvG0iEjZ8Rlmn33oCzaMp0tS5J9BkzvQjSeR
- JqPBrl97YpLpe0EK0AE62LjXm1wuxrRWK+nNo8VR+FLlqgZ552ZE5Ns8/uorRTPP1dPo=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLiOy-00042g-Id; Fri, 25 Sep 2020 07:44:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLiOy-0001pZ-B7; Fri, 25 Sep 2020 07:44:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kLiOy-0007ie-Ad; Fri, 25 Sep 2020 07:44:20 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-4.14-testing bisection] complete test-xtf-amd64-amd64-1
-Message-Id: <E1kLiOy-0007ie-Ad@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Sep 2020 07:44:20 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tfUW=DC=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kLijp-000860-7y
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 08:05:53 +0000
+X-Inumbo-ID: 5383086c-198b-4142-877a-0edaa6242b38
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 5383086c-198b-4142-877a-0edaa6242b38;
+ Fri, 25 Sep 2020 08:05:51 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1601021151;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=vidvUR1epLIvF1mD3Tgv/ZZzHmZGAlTY9AzQCmTllmA=;
+ b=ELfK+bPJetN5PSlQetsG9UG8+2QGoKyP0dIei5WQXFta++ZmPDb3lsvITXz22f5baz8QkR
+ H0kBF36V6kDux5XguE23t0olTQGVT5GXATBHcPcBf1kN2fP9YzvIZRsKm5uoCkkx38jMfp
+ VhP0bcR0RLR0A31jT5UrRKfZ+2RkjQs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-420-cDJODdgCMf-2m7MzQdnr5w-1; Fri, 25 Sep 2020 04:05:48 -0400
+X-MC-Unique: cDJODdgCMf-2m7MzQdnr5w-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E89288CE5F;
+ Fri, 25 Sep 2020 08:05:46 +0000 (UTC)
+Received: from [10.36.112.211] (ovpn-112-211.ams2.redhat.com [10.36.112.211])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D6B117B7A3;
+ Fri, 25 Sep 2020 08:05:42 +0000 (UTC)
+Subject: Re: [PATCH RFC 3/4] mm/page_alloc: always move pages to the tail of
+ the freelist in unset_migratetype_isolate()
+To: Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Vlastimil Babka <vbabka@suse.cz>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
+ Dave Hansen <dave.hansen@intel.com>, Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Scott Cheloha <cheloha@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>
+References: <20200916183411.64756-1-david@redhat.com>
+ <20200916183411.64756-4-david@redhat.com>
+ <9c6cc094-b02a-ac6c-e1ca-370ce7257881@suse.cz>
+ <20200925024552.GA13540@L-31X9LVDL-1304.local>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <dc550ba3-6b65-bb4e-30a3-2740b1e21be9@redhat.com>
+Date: Fri, 25 Sep 2020 10:05:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <20200925024552.GA13540@L-31X9LVDL-1304.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,225 +127,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-4.14-testing
-xenbranch xen-4.14-testing
-job test-xtf-amd64-amd64-1
-testid xtf/test-hvm64-xsa-221
+On 25.09.20 04:45, Wei Yang wrote:
+> On Thu, Sep 24, 2020 at 01:13:29PM +0200, Vlastimil Babka wrote:
+>> On 9/16/20 8:34 PM, David Hildenbrand wrote:
+>>> Page isolation doesn't actually touch the pages, it simply isolates
+>>> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
+>>>
+>>> We already place pages to the tail of the freelists when undoing
+>>> isolation via __putback_isolated_page(), let's do it in any case
+>>> (e.g., if order == pageblock_order) and document the behavior.
+>>>
+>>> This change results in all pages getting onlined via online_pages() to
+>>> be placed to the tail of the freelist.
+>>>
+>>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>>> Cc: Mel Gorman <mgorman@techsingularity.net>
+>>> Cc: Michal Hocko <mhocko@kernel.org>
+>>> Cc: Dave Hansen <dave.hansen@intel.com>
+>>> Cc: Vlastimil Babka <vbabka@suse.cz>
+>>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+>>> Cc: Oscar Salvador <osalvador@suse.de>
+>>> Cc: Mike Rapoport <rppt@kernel.org>
+>>> Cc: Scott Cheloha <cheloha@linux.ibm.com>
+>>> Cc: Michael Ellerman <mpe@ellerman.id.au>
+>>> Signed-off-by: David Hildenbrand <david@redhat.com>
+>>> ---
+>>>  include/linux/page-isolation.h |  2 ++
+>>>  mm/page_alloc.c                | 36 +++++++++++++++++++++++++++++-----
+>>>  mm/page_isolation.c            |  8 ++++++--
+>>>  3 files changed, 39 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/include/linux/page-isolation.h b/include/linux/page-isolation.h
+>>> index 572458016331..a36be2cf4dbb 100644
+>>> --- a/include/linux/page-isolation.h
+>>> +++ b/include/linux/page-isolation.h
+>>> @@ -38,6 +38,8 @@ struct page *has_unmovable_pages(struct zone *zone, struct page *page,
+>>>  void set_pageblock_migratetype(struct page *page, int migratetype);
+>>>  int move_freepages_block(struct zone *zone, struct page *page,
+>>>  				int migratetype, int *num_movable);
+>>> +int move_freepages_block_tail(struct zone *zone, struct page *page,
+>>> +			      int migratetype);
+>>>  
+>>>  /*
+>>>   * Changes migrate type in [start_pfn, end_pfn) to be MIGRATE_ISOLATE.
+>>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>>> index bba9a0f60c70..75b0f49b4022 100644
+>>> --- a/mm/page_alloc.c
+>>> +++ b/mm/page_alloc.c
+>>> @@ -899,6 +899,15 @@ static inline void move_to_free_list(struct page *page, struct zone *zone,
+>>>  	list_move(&page->lru, &area->free_list[migratetype]);
+>>>  }
+>>>  
+>>> +/* Used for pages which are on another list */
+>>> +static inline void move_to_free_list_tail(struct page *page, struct zone *zone,
+>>> +					  unsigned int order, int migratetype)
+>>> +{
+>>> +	struct free_area *area = &zone->free_area[order];
+>>> +
+>>> +	list_move_tail(&page->lru, &area->free_list[migratetype]);
+>>> +}
+>>
+>> There are just 3 callers of move_to_free_list() before this patch, I would just
+>> add the to_tail parameter there instead of new wrapper. For callers with
+>> constant parameter, the inline will eliminate it anyway.
+> 
+> Got the same feeling :-)
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
+I once was told boolean parameters are the root of all evil, so I tried
+to keep them file-local :)
 
-*** Found and reproduced problem changeset ***
+One thing to be aware of is, that inline optimizations won't help as
+long as this function is in mm/page_alloc.c, see below.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  b8c2efbe7b3e8fa5f0b0a3679afccd1204949070
-  Bug not present: f5469067ee0260673ca1e554ff8888512a55ccfc
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154774/
+> 
+>>
+>>>  static inline void del_page_from_free_list(struct page *page, struct zone *zone,
+>>>  					   unsigned int order)
+>>>  {
+>>> @@ -2323,7 +2332,7 @@ static inline struct page *__rmqueue_cma_fallback(struct zone *zone,
+>>>   */
+>>>  static int move_freepages(struct zone *zone,
+>>>  			  struct page *start_page, struct page *end_page,
+>>> -			  int migratetype, int *num_movable)
+>>> +			  int migratetype, int *num_movable, bool to_tail)
+>>>  {
+>>>  	struct page *page;
+>>>  	unsigned int order;
+>>> @@ -2354,7 +2363,10 @@ static int move_freepages(struct zone *zone,
+>>>  		VM_BUG_ON_PAGE(page_zone(page) != zone, page);
+>>>  
+>>>  		order = page_order(page);
+>>> -		move_to_free_list(page, zone, order, migratetype);
+>>> +		if (to_tail)
+>>> +			move_to_free_list_tail(page, zone, order, migratetype);
+>>> +		else
+>>> +			move_to_free_list(page, zone, order, migratetype);
+>>>  		page += 1 << order;
+>>>  		pages_moved += 1 << order;
+>>>  	}
+>>> @@ -2362,8 +2374,9 @@ static int move_freepages(struct zone *zone,
+>>>  	return pages_moved;
+>>>  }
+>>>  
+>>> -int move_freepages_block(struct zone *zone, struct page *page,
+>>> -				int migratetype, int *num_movable)
+>>> +static int __move_freepages_block(struct zone *zone, struct page *page,
+>>> +				  int migratetype, int *num_movable,
+>>> +				  bool to_tail)
+>>>  {
+>>>  	unsigned long start_pfn, end_pfn;
+>>>  	struct page *start_page, *end_page;
+>>> @@ -2384,7 +2397,20 @@ int move_freepages_block(struct zone *zone, struct page *page,
+>>>  		return 0;
+>>>  
+>>>  	return move_freepages(zone, start_page, end_page, migratetype,
+>>> -								num_movable);
+>>> +			      num_movable, to_tail);
+>>> +}
+>>> +
+>>> +int move_freepages_block(struct zone *zone, struct page *page,
+>>> +			 int migratetype, int *num_movable)
+>>> +{
+>>> +	return __move_freepages_block(zone, page, migratetype, num_movable,
+>>> +				      false);
+>>> +}
+>>> +
+>>> +int move_freepages_block_tail(struct zone *zone, struct page *page,
+>>> +			      int migratetype)
+>>> +{
+>>> +	return __move_freepages_block(zone, page, migratetype, NULL, true);
+>>>  }
+>>
+>> Likewise, just 5 callers of move_freepages_block(), all in the files you're
+>> already changing, so no need for this wrappers IMHO.
 
+As long as we don't want to move the implementation to the header, we'll
+need it for the constant propagation to work at compile time (we don't
+really have link-time optimizations). Or am I missing something?
 
-  commit b8c2efbe7b3e8fa5f0b0a3679afccd1204949070
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 16:13:34 2020 +0200
-  
-      evtchn/x86: enforce correct upper limit for 32-bit guests
-      
-      The recording of d->max_evtchns in evtchn_2l_init(), in particular with
-      the limited set of callers of the function, is insufficient. Neither for
-      PV nor for HVM guests the bitness is known at domain_create() time, yet
-      the upper bound in 2-level mode depends upon guest bitness. Recording
-      too high a limit "allows" x86 32-bit domains to open not properly usable
-      event channels, management of which (inside Xen) would then result in
-      corruption of the shared info and vCPU info structures.
-      
-      Keep the upper limit dynamic for the 2-level case, introducing a helper
-      function to retrieve the effective limit. This helper is now supposed to
-      be private to the event channel code. The used in do_poll() and
-      domain_dump_evtchn_info() weren't consistent with port uses elsewhere
-      and hence get switched to port_is_valid().
-      
-      Furthermore FIFO mode's setup_ports() gets adjusted to loop only up to
-      the prior ABI limit, rather than all the way up to the new one.
-      
-      Finally a word on the change to do_poll(): Accessing ->max_evtchns
-      without holding a suitable lock was never safe, as it as well as
-      ->evtchn_port_ops may change behind do_poll()'s back. Using
-      port_is_valid() instead widens some the window for potential abuse,
-      until we've dealt with the race altogether (see XSA-343).
-      
-      This is XSA-342.
-      
-      Reported-by: Julien Grall <jgrall@amazon.com>
-      Fixes: 48974e6ce52e ("evtchn: use a per-domain variable for the max number of event channels")
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
+Thanks!
 
+-- 
+Thanks,
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.14-testing/test-xtf-amd64-amd64-1.xtf--test-hvm64-xsa-221.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.14-testing/test-xtf-amd64-amd64-1.xtf--test-hvm64-xsa-221 --summary-out=tmp/154774.bisection-summary --basis-template=154350 --blessings=real,real-bisect xen-4.14-testing test-xtf-amd64-amd64-1 xtf/test-hvm64-xsa-221
-Searching for failure / basis pass:
- 154641 fail [host=chardonnay1] / 154350 [host=huxelrebe1] 154148 [host=albana0] 154116 [host=godello0] 152545 [host=elbling1] 152537 [host=chardonnay0] 152531 [host=godello0] 152153 [host=godello0] 152124 [host=fiano1] 152081 [host=albana0] 152061 [host=albana1] 152043 [host=huxelrebe1] 151922 [host=elbling1] 151899 ok.
-Failure / basis pass flights: 154641 / 151899
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f37a1cf023b277d0d49323bf322ce3ff0c92262d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9c6f3545aee0808b78a0ad4480b6eb9d24989dc1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 ce3c4493e4e6c94495ddd8538e801a35980bff0d f645a19115e666ce6401ca63b7d7388571463b55
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#9c6f3545aee0808b78a0ad4480b6eb9d24989dc1-fb97626fe04747ec89599dce0992def9a36e2f6b git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db99\
- 34a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc437c386260-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/osstest/seabios.git#88ab0c15525ced2eefe39220742efe4769089ad8-155821a1990b6de78dde5f98fa5ab90e802021e0 git://xenbits.xen.org/xen.git#ce3c4493e4e6c94495ddd8538e801a35980bff0d-f37a1cf023b277d0d49323bf322ce3ff0c92262d git://xenbits.xen.org/xtf.git#f645a19115e666ce6401ca63b7d7388571463b55-17d372b763cb0b2e2e6b5\
- a637c11f3997d2533fa
-Loaded 10498 nodes in revision graph
-Searching for test results:
- 151892 [host=godello1]
- 151899 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9c6f3545aee0808b78a0ad4480b6eb9d24989dc1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 ce3c4493e4e6c94495ddd8538e801a35980bff0d f645a19115e666ce6401ca63b7d7388571463b55
- 151922 [host=elbling1]
- 152061 [host=albana1]
- 152043 [host=huxelrebe1]
- 152081 [host=albana0]
- 152124 [host=fiano1]
- 152153 [host=godello0]
- 152531 [host=godello0]
- 152537 [host=chardonnay0]
- 152545 [host=elbling1]
- 154116 [host=godello0]
- 154148 [host=albana0]
- 154350 [host=huxelrebe1]
- 154617 [host=chardonnay0]
- 154642 [host=chardonnay0]
- 154683 [host=chardonnay0]
- 154685 [host=chardonnay0]
- 154689 [host=chardonnay0]
- 154692 [host=chardonnay0]
- 154695 [host=chardonnay0]
- 154641 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f37a1cf023b277d0d49323bf322ce3ff0c92262d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154697 [host=chardonnay0]
- 154701 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9c6f3545aee0808b78a0ad4480b6eb9d24989dc1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 ce3c4493e4e6c94495ddd8538e801a35980bff0d f645a19115e666ce6401ca63b7d7388571463b55
- 154709 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f37a1cf023b277d0d49323bf322ce3ff0c92262d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154715 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bb4e93925333625cdcd97f6f174f79e7ed48afa7 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 c3a0fc22af90ef28e68b116c6a49d9cec57f71cf 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154716 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 82c65f14d4f7b995d2fb57facc71a8c046880af7 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 c3a0fc22af90ef28e68b116c6a49d9cec57f71cf 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154723 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1b461403ee723dab01d5828714cca0b9396a6b3c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 483b43c4573329a28f1c9e18f90694e5be35ddb9 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154727 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 440121b54280ef1d7196bec1bc45eb5d5625c1cc 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 28855ebcdbfa437e60bc16c761405476fe16bc39 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154731 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 0bc4177e6b0d7a98464913af95d3bfe4b59b7a2c 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154737 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 2ee270e126458471b178ca1e5d7d8d0afc48be39 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154745 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f5469067ee0260673ca1e554ff8888512a55ccfc 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154748 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 b8c2efbe7b3e8fa5f0b0a3679afccd1204949070 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154757 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f5469067ee0260673ca1e554ff8888512a55ccfc 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154765 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 b8c2efbe7b3e8fa5f0b0a3679afccd1204949070 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154769 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f5469067ee0260673ca1e554ff8888512a55ccfc 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154774 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 b8c2efbe7b3e8fa5f0b0a3679afccd1204949070 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Searching for interesting versions
- Result found: flight 151899 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f5469067ee0260673ca1e554ff8888512a55ccfc 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca729cb40) HASH(0x563ca728a988) HASH(0x563ca66eb290) For basis failure, parent search stopping at c3038e718\
- a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 0bc4177e6b0d7a98464913af95d3bfe4b59b7a2c 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca728e4b8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 440121b54280ef1d7196bec1\
- bc45eb5d5625c1cc 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 28855ebcdbfa437e60bc16c761405476fe16bc39 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca728af88) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1b461403ee723dab01d5828714cca0b9396a6b3c 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c38626\
- 0 155821a1990b6de78dde5f98fa5ab90e802021e0 483b43c4573329a28f1c9e18f90694e5be35ddb9 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca728c1b0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 82c65f14d4f7b995d2fb57facc71a8c046880af7 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 c3a0fc22af90ef28e68b116c6a49d9cec57f71cf 17d372b763cb0\
- b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca72785f0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bb4e93925333625cdcd97f6f174f79e7ed48afa7 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 c3a0fc22af90ef28e68b116c6a49d9cec57f71cf 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x563ca726e3b8) For basis failure, parent search stoppi\
- ng at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9c6f3545aee0808b78a0ad4480b6eb9d24989dc1 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 88ab0c15525ced2eefe39220742efe4769089ad8 ce3c4493e4e6c94495ddd8538e801a35980bff0d f645a19115e666ce6401ca63b7d7388571463b55, results HASH(0x563ca728e1b8) HASH(0x563ca7282f40) Result found: flight 154641 (fail), for basis failure (at ancestor ~5143)
- Repro found: flight 154701 (pass), for basis pass
- Repro found: flight 154709 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b 3c659044118e34603161457db9934a34f816d78b ea6d3cd1ed79d824e605a70c3626bc437c386260 155821a1990b6de78dde5f98fa5ab90e802021e0 f5469067ee0260673ca1e554ff8888512a55ccfc 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-No revisions left to test, checking graph state.
- Result found: flight 154745 (pass), for last pass
- Result found: flight 154748 (fail), for first failure
- Repro found: flight 154757 (pass), for last pass
- Repro found: flight 154765 (fail), for first failure
- Repro found: flight 154769 (pass), for last pass
- Repro found: flight 154774 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  b8c2efbe7b3e8fa5f0b0a3679afccd1204949070
-  Bug not present: f5469067ee0260673ca1e554ff8888512a55ccfc
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154774/
-
-
-  commit b8c2efbe7b3e8fa5f0b0a3679afccd1204949070
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 16:13:34 2020 +0200
-  
-      evtchn/x86: enforce correct upper limit for 32-bit guests
-      
-      The recording of d->max_evtchns in evtchn_2l_init(), in particular with
-      the limited set of callers of the function, is insufficient. Neither for
-      PV nor for HVM guests the bitness is known at domain_create() time, yet
-      the upper bound in 2-level mode depends upon guest bitness. Recording
-      too high a limit "allows" x86 32-bit domains to open not properly usable
-      event channels, management of which (inside Xen) would then result in
-      corruption of the shared info and vCPU info structures.
-      
-      Keep the upper limit dynamic for the 2-level case, introducing a helper
-      function to retrieve the effective limit. This helper is now supposed to
-      be private to the event channel code. The used in do_poll() and
-      domain_dump_evtchn_info() weren't consistent with port uses elsewhere
-      and hence get switched to port_is_valid().
-      
-      Furthermore FIFO mode's setup_ports() gets adjusted to loop only up to
-      the prior ABI limit, rather than all the way up to the new one.
-      
-      Finally a word on the change to do_poll(): Accessing ->max_evtchns
-      without holding a suitable lock was never safe, as it as well as
-      ->evtchn_port_ops may change behind do_poll()'s back. Using
-      port_is_valid() instead widens some the window for potential abuse,
-      until we've dealt with the race altogether (see XSA-343).
-      
-      This is XSA-342.
-      
-      Reported-by: Julien Grall <jgrall@amazon.com>
-      Fixes: 48974e6ce52e ("evtchn: use a per-domain variable for the max number of event channels")
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-pnmtopng: 111 colors found
-Revision graph left in /home/logs/results/bisect/xen-4.14-testing/test-xtf-amd64-amd64-1.xtf--test-hvm64-xsa-221.{dot,ps,png,html,svg}.
-----------------------------------------
-154774: tolerable all pass
-
-flight 154774 xen-4.14-testing real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154774/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-xtf-amd64-amd64-1       68 xtf/test-hvm64-xsa-221  fail baseline untested
- test-xtf-amd64-amd64-1       106 xtf/test-pv64-xsa-221  fail baseline untested
-
-
-jobs:
- test-xtf-amd64-amd64-1                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+David / dhildenb
 
 
