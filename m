@@ -2,53 +2,123 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57FDA277E27
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 04:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24E1277E78
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 05:17:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLdkK-0003IS-6N; Fri, 25 Sep 2020 02:46:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kLeDw-0005zk-RP; Fri, 25 Sep 2020 03:16:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zmwo=DC=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
- id 1kLdkI-0003IN-VG
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 02:46:02 +0000
-X-Inumbo-ID: 8be80521-da63-40dd-bd8f-983de450bfff
-Received: from out30-130.freemail.mail.aliyun.com (unknown [115.124.30.130])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8be80521-da63-40dd-bd8f-983de450bfff;
- Fri, 25 Sep 2020 02:45:59 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
- MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
- TI=SMTPD_---0UA.F98P_1601001952; 
-Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
- fp:SMTPD_---0UA.F98P_1601001952) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 25 Sep 2020 10:45:52 +0800
-Date: Fri, 25 Sep 2020 10:45:52 +0800
-From: Wei Yang <richard.weiyang@linux.alibaba.com>
-To: Vlastimil Babka <vbabka@suse.cz>
-Cc: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Scott Cheloha <cheloha@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>
-Subject: Re: [PATCH RFC 3/4] mm/page_alloc: always move pages to the tail of
- the freelist in unset_migratetype_isolate()
-Message-ID: <20200925024552.GA13540@L-31X9LVDL-1304.local>
-References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-4-david@redhat.com>
- <9c6cc094-b02a-ac6c-e1ca-370ce7257881@suse.cz>
+ <SRS0=5R+H=DC=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kLeDv-0005zI-OT
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 03:16:39 +0000
+X-Inumbo-ID: 1ab4e3df-c73b-4e3b-9968-1cd493eb48db
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1ab4e3df-c73b-4e3b-9968-1cd493eb48db;
+ Fri, 25 Sep 2020 03:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=mc1QHSeyAOmgeeNsFU+SYd6m/1R8gewq0ldztqAVNJ8=; b=1CUDfOSCJOhjaSmREfyNofUyx9
+ acmX1fEkvgr7kYnL4COxOeQKbu9Yzpf6I1bMbFYTWD8033mszyOu7lyWpbcOCybK279ivPf045JM7
+ LN08CuDzjz+tJ55oM1uW7VxSmdnK5TeKqDF4RfShm6vmtiioMdVzddvGl0ncUHgXQDkg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLeDn-0006N5-5o; Fri, 25 Sep 2020 03:16:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLeDm-0005Ve-SF; Fri, 25 Sep 2020 03:16:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kLeDm-0003kB-Rl; Fri, 25 Sep 2020 03:16:30 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-154663-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9c6cc094-b02a-ac6c-e1ca-370ce7257881@suse.cz>
+Subject: [xen-4.12-testing test] 154663: regressions - FAIL
+X-Osstest-Failures: xen-4.12-testing:test-xtf-amd64-amd64-2:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-4:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-1:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-3:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-2:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-4:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-1:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-3:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-5:xtf/test-hvm64-xsa-221:fail:regression
+ xen-4.12-testing:test-xtf-amd64-amd64-5:xtf/test-pv64-xsa-221:fail:regression
+ xen-4.12-testing:test-amd64-i386-xl-xsm:guest-start:fail:regression
+ xen-4.12-testing:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+ xen-4.12-testing:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+ xen-4.12-testing:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+ xen-4.12-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ xen-4.12-testing:test-arm64-arm64-xl-seattle:xen-boot:fail:heisenbug
+ xen-4.12-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qcow2:guest-localmigrate/x10:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This: xen=0186e76a62f7409804c2e4785d5a11e7f82a7c52
+X-Osstest-Versions-That: xen=0446e3db13671032b05d19f6117d902f5c5c76fa
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 25 Sep 2020 03:16:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,172 +129,237 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Wei Yang <richard.weiyang@linux.alibaba.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Sep 24, 2020 at 01:13:29PM +0200, Vlastimil Babka wrote:
->On 9/16/20 8:34 PM, David Hildenbrand wrote:
->> Page isolation doesn't actually touch the pages, it simply isolates
->> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
->> 
->> We already place pages to the tail of the freelists when undoing
->> isolation via __putback_isolated_page(), let's do it in any case
->> (e.g., if order == pageblock_order) and document the behavior.
->> 
->> This change results in all pages getting onlined via online_pages() to
->> be placed to the tail of the freelist.
->> 
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
->> Cc: Mel Gorman <mgorman@techsingularity.net>
->> Cc: Michal Hocko <mhocko@kernel.org>
->> Cc: Dave Hansen <dave.hansen@intel.com>
->> Cc: Vlastimil Babka <vbabka@suse.cz>
->> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
->> Cc: Oscar Salvador <osalvador@suse.de>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Cc: Scott Cheloha <cheloha@linux.ibm.com>
->> Cc: Michael Ellerman <mpe@ellerman.id.au>
->> Signed-off-by: David Hildenbrand <david@redhat.com>
->> ---
->>  include/linux/page-isolation.h |  2 ++
->>  mm/page_alloc.c                | 36 +++++++++++++++++++++++++++++-----
->>  mm/page_isolation.c            |  8 ++++++--
->>  3 files changed, 39 insertions(+), 7 deletions(-)
->> 
->> diff --git a/include/linux/page-isolation.h b/include/linux/page-isolation.h
->> index 572458016331..a36be2cf4dbb 100644
->> --- a/include/linux/page-isolation.h
->> +++ b/include/linux/page-isolation.h
->> @@ -38,6 +38,8 @@ struct page *has_unmovable_pages(struct zone *zone, struct page *page,
->>  void set_pageblock_migratetype(struct page *page, int migratetype);
->>  int move_freepages_block(struct zone *zone, struct page *page,
->>  				int migratetype, int *num_movable);
->> +int move_freepages_block_tail(struct zone *zone, struct page *page,
->> +			      int migratetype);
->>  
->>  /*
->>   * Changes migrate type in [start_pfn, end_pfn) to be MIGRATE_ISOLATE.
->> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->> index bba9a0f60c70..75b0f49b4022 100644
->> --- a/mm/page_alloc.c
->> +++ b/mm/page_alloc.c
->> @@ -899,6 +899,15 @@ static inline void move_to_free_list(struct page *page, struct zone *zone,
->>  	list_move(&page->lru, &area->free_list[migratetype]);
->>  }
->>  
->> +/* Used for pages which are on another list */
->> +static inline void move_to_free_list_tail(struct page *page, struct zone *zone,
->> +					  unsigned int order, int migratetype)
->> +{
->> +	struct free_area *area = &zone->free_area[order];
->> +
->> +	list_move_tail(&page->lru, &area->free_list[migratetype]);
->> +}
->
->There are just 3 callers of move_to_free_list() before this patch, I would just
->add the to_tail parameter there instead of new wrapper. For callers with
->constant parameter, the inline will eliminate it anyway.
+flight 154663 xen-4.12-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154663/
 
-Got the same feeling :-)
+Regressions :-(
 
->
->>  static inline void del_page_from_free_list(struct page *page, struct zone *zone,
->>  					   unsigned int order)
->>  {
->> @@ -2323,7 +2332,7 @@ static inline struct page *__rmqueue_cma_fallback(struct zone *zone,
->>   */
->>  static int move_freepages(struct zone *zone,
->>  			  struct page *start_page, struct page *end_page,
->> -			  int migratetype, int *num_movable)
->> +			  int migratetype, int *num_movable, bool to_tail)
->>  {
->>  	struct page *page;
->>  	unsigned int order;
->> @@ -2354,7 +2363,10 @@ static int move_freepages(struct zone *zone,
->>  		VM_BUG_ON_PAGE(page_zone(page) != zone, page);
->>  
->>  		order = page_order(page);
->> -		move_to_free_list(page, zone, order, migratetype);
->> +		if (to_tail)
->> +			move_to_free_list_tail(page, zone, order, migratetype);
->> +		else
->> +			move_to_free_list(page, zone, order, migratetype);
->>  		page += 1 << order;
->>  		pages_moved += 1 << order;
->>  	}
->> @@ -2362,8 +2374,9 @@ static int move_freepages(struct zone *zone,
->>  	return pages_moved;
->>  }
->>  
->> -int move_freepages_block(struct zone *zone, struct page *page,
->> -				int migratetype, int *num_movable)
->> +static int __move_freepages_block(struct zone *zone, struct page *page,
->> +				  int migratetype, int *num_movable,
->> +				  bool to_tail)
->>  {
->>  	unsigned long start_pfn, end_pfn;
->>  	struct page *start_page, *end_page;
->> @@ -2384,7 +2397,20 @@ int move_freepages_block(struct zone *zone, struct page *page,
->>  		return 0;
->>  
->>  	return move_freepages(zone, start_page, end_page, migratetype,
->> -								num_movable);
->> +			      num_movable, to_tail);
->> +}
->> +
->> +int move_freepages_block(struct zone *zone, struct page *page,
->> +			 int migratetype, int *num_movable)
->> +{
->> +	return __move_freepages_block(zone, page, migratetype, num_movable,
->> +				      false);
->> +}
->> +
->> +int move_freepages_block_tail(struct zone *zone, struct page *page,
->> +			      int migratetype)
->> +{
->> +	return __move_freepages_block(zone, page, migratetype, NULL, true);
->>  }
->
->Likewise, just 5 callers of move_freepages_block(), all in the files you're
->already changing, so no need for this wrappers IMHO.
->
->Thanks,
->Vlastimil
->
->>  static void change_pageblock_range(struct page *pageblock_page,
->> diff --git a/mm/page_isolation.c b/mm/page_isolation.c
->> index abfe26ad59fd..84aa1d14751d 100644
->> --- a/mm/page_isolation.c
->> +++ b/mm/page_isolation.c
->> @@ -83,7 +83,7 @@ static void unset_migratetype_isolate(struct page *page, unsigned migratetype)
->>  	 * Because freepage with more than pageblock_order on isolated
->>  	 * pageblock is restricted to merge due to freepage counting problem,
->>  	 * it is possible that there is free buddy page.
->> -	 * move_freepages_block() doesn't care of merge so we need other
->> +	 * move_freepages_block*() don't care about merging, so we need another
->>  	 * approach in order to merge them. Isolation and free will make
->>  	 * these pages to be merged.
->>  	 */
->> @@ -106,9 +106,13 @@ static void unset_migratetype_isolate(struct page *page, unsigned migratetype)
->>  	 * If we isolate freepage with more than pageblock_order, there
->>  	 * should be no freepage in the range, so we could avoid costly
->>  	 * pageblock scanning for freepage moving.
->> +	 *
->> +	 * We didn't actually touch any of the isolated pages, so place them
->> +	 * to the tail of the freelists. This is especially relevant during
->> +	 * memory onlining.
->>  	 */
->>  	if (!isolated_page) {
->> -		nr_pages = move_freepages_block(zone, page, migratetype, NULL);
->> +		nr_pages = move_freepages_block_tail(zone, page, migratetype);
->>  		__mod_zone_freepage_state(zone, nr_pages, migratetype);
->>  	}
->>  	set_pageblock_migratetype(page, migratetype);
->> 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-xtf-amd64-amd64-2       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-4       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-1       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-3       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-2       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-4       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-1       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-3       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-5       68 xtf/test-hvm64-xsa-221   fail REGR. vs. 154601
+ test-xtf-amd64-amd64-5       106 xtf/test-pv64-xsa-221   fail REGR. vs. 154601
+ test-amd64-i386-xl-xsm       12 guest-start              fail REGR. vs. 154601
+ test-amd64-amd64-libvirt-xsm 12 guest-start              fail REGR. vs. 154601
+ test-amd64-amd64-xl-xsm      12 guest-start              fail REGR. vs. 154601
+ test-amd64-i386-libvirt-xsm  12 guest-start              fail REGR. vs. 154601
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154601
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 154601
 
--- 
-Wei Yang
-Help you, Help me
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-seattle   7 xen-boot                   fail pass in 154622
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-seattle 13 migrate-support-check fail in 154622 never pass
+ test-arm64-arm64-xl-seattle 14 saverestore-support-check fail in 154622 never pass
+ test-amd64-amd64-xl-qcow2    17 guest-localmigrate/x10       fail  like 154601
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+
+version targeted for testing:
+ xen                  0186e76a62f7409804c2e4785d5a11e7f82a7c52
+baseline version:
+ xen                  0446e3db13671032b05d19f6117d902f5c5c76fa
+
+Last test of basis   154601  2020-09-22 02:37:00 Z    3 days
+Testing same since   154622  2020-09-22 16:36:57 Z    2 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Don Slutz <don.slutz@gmail.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 473 lines long.)
 
