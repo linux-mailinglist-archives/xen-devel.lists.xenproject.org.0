@@ -2,62 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB8278236
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 10:06:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B00C278241
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 10:11:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLijr-000868-7n; Fri, 25 Sep 2020 08:05:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kLioX-0000Up-1f; Fri, 25 Sep 2020 08:10:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tfUW=DC=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kLijp-000860-7y
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 08:05:53 +0000
-X-Inumbo-ID: 5383086c-198b-4142-877a-0edaa6242b38
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 5383086c-198b-4142-877a-0edaa6242b38;
- Fri, 25 Sep 2020 08:05:51 +0000 (UTC)
+ id 1kLioW-0000Uk-CF
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 08:10:44 +0000
+X-Inumbo-ID: 1b1561f4-43be-466a-8867-fa6edb4c7278
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 1b1561f4-43be-466a-8867-fa6edb4c7278;
+ Fri, 25 Sep 2020 08:10:43 +0000 (UTC)
 Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1601021151;
+ s=mimecast20190719; t=1601021443;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vidvUR1epLIvF1mD3Tgv/ZZzHmZGAlTY9AzQCmTllmA=;
- b=ELfK+bPJetN5PSlQetsG9UG8+2QGoKyP0dIei5WQXFta++ZmPDb3lsvITXz22f5baz8QkR
- H0kBF36V6kDux5XguE23t0olTQGVT5GXATBHcPcBf1kN2fP9YzvIZRsKm5uoCkkx38jMfp
- VhP0bcR0RLR0A31jT5UrRKfZ+2RkjQs=
+ bh=/byDtJ+hFEpNMqKc3hUDjBStSZlH3zG4Opc0r8sKI2o=;
+ b=E9VlY4TjGlawhx0eYvIImX/FoeFNhtVvDvydGdHnEpS6UNz2NmuITjrcKxb0FbKVITGwTz
+ IWKI8cWf5uith0g5jrsyJSUknUeE86wkcgmJkz1gUcnFk3h0EUTYYun2Dg6v1JQVXVYZtX
+ p/EtS5x4BK8DpdcKQT1IncZ8NwBNumQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-420-cDJODdgCMf-2m7MzQdnr5w-1; Fri, 25 Sep 2020 04:05:48 -0400
-X-MC-Unique: cDJODdgCMf-2m7MzQdnr5w-1
+ us-mta-453-TYwMnhjoN7ujcsOecfHMqw-1; Fri, 25 Sep 2020 04:10:40 -0400
+X-MC-Unique: TYwMnhjoN7ujcsOecfHMqw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
  [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E89288CE5F;
- Fri, 25 Sep 2020 08:05:46 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15D3D64142;
+ Fri, 25 Sep 2020 08:10:38 +0000 (UTC)
 Received: from [10.36.112.211] (ovpn-112-211.ams2.redhat.com [10.36.112.211])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D6B117B7A3;
- Fri, 25 Sep 2020 08:05:42 +0000 (UTC)
-Subject: Re: [PATCH RFC 3/4] mm/page_alloc: always move pages to the tail of
- the freelist in unset_migratetype_isolate()
-To: Wei Yang <richard.weiyang@linux.alibaba.com>,
- Vlastimil Babka <vbabka@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B9058702E7;
+ Fri, 25 Sep 2020 08:10:34 +0000 (UTC)
+Subject: Re: [PATCH RFC 2/4] mm/page_alloc: place pages to tail in
+ __putback_isolated_page()
+To: Vlastimil Babka <vbabka@suse.cz>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
  Alexander Duyck <alexander.h.duyck@linux.intel.com>,
  Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>, Oscar Salvador <osalvador@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Scott Cheloha <cheloha@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>
+ Dave Hansen <dave.hansen@intel.com>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Scott Cheloha <cheloha@linux.ibm.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Dan Williams <dan.j.williams@intel.com>
 References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-4-david@redhat.com>
- <9c6cc094-b02a-ac6c-e1ca-370ce7257881@suse.cz>
- <20200925024552.GA13540@L-31X9LVDL-1304.local>
+ <20200916183411.64756-3-david@redhat.com>
+ <6edfc921-eacc-23bd-befa-f947fbcb50ba@suse.cz>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -104,12 +103,12 @@ Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat GmbH
-Message-ID: <dc550ba3-6b65-bb4e-30a3-2740b1e21be9@redhat.com>
-Date: Fri, 25 Sep 2020 10:05:41 +0200
+Message-ID: <af019082-34f2-58d8-ba07-aab410909dbc@redhat.com>
+Date: Fri, 25 Sep 2020 10:10:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200925024552.GA13540@L-31X9LVDL-1304.local>
+In-Reply-To: <6edfc921-eacc-23bd-befa-f947fbcb50ba@suse.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -127,146 +126,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.09.20 04:45, Wei Yang wrote:
-> On Thu, Sep 24, 2020 at 01:13:29PM +0200, Vlastimil Babka wrote:
->> On 9/16/20 8:34 PM, David Hildenbrand wrote:
->>> Page isolation doesn't actually touch the pages, it simply isolates
->>> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
->>>
->>> We already place pages to the tail of the freelists when undoing
->>> isolation via __putback_isolated_page(), let's do it in any case
->>> (e.g., if order == pageblock_order) and document the behavior.
->>>
->>> This change results in all pages getting onlined via online_pages() to
->>> be placed to the tail of the freelist.
->>>
->>> Cc: Andrew Morton <akpm@linux-foundation.org>
->>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
->>> Cc: Mel Gorman <mgorman@techsingularity.net>
->>> Cc: Michal Hocko <mhocko@kernel.org>
->>> Cc: Dave Hansen <dave.hansen@intel.com>
->>> Cc: Vlastimil Babka <vbabka@suse.cz>
->>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
->>> Cc: Oscar Salvador <osalvador@suse.de>
->>> Cc: Mike Rapoport <rppt@kernel.org>
->>> Cc: Scott Cheloha <cheloha@linux.ibm.com>
->>> Cc: Michael Ellerman <mpe@ellerman.id.au>
->>> Signed-off-by: David Hildenbrand <david@redhat.com>
->>> ---
->>>  include/linux/page-isolation.h |  2 ++
->>>  mm/page_alloc.c                | 36 +++++++++++++++++++++++++++++-----
->>>  mm/page_isolation.c            |  8 ++++++--
->>>  3 files changed, 39 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/include/linux/page-isolation.h b/include/linux/page-isolation.h
->>> index 572458016331..a36be2cf4dbb 100644
->>> --- a/include/linux/page-isolation.h
->>> +++ b/include/linux/page-isolation.h
->>> @@ -38,6 +38,8 @@ struct page *has_unmovable_pages(struct zone *zone, struct page *page,
->>>  void set_pageblock_migratetype(struct page *page, int migratetype);
->>>  int move_freepages_block(struct zone *zone, struct page *page,
->>>  				int migratetype, int *num_movable);
->>> +int move_freepages_block_tail(struct zone *zone, struct page *page,
->>> +			      int migratetype);
->>>  
->>>  /*
->>>   * Changes migrate type in [start_pfn, end_pfn) to be MIGRATE_ISOLATE.
->>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->>> index bba9a0f60c70..75b0f49b4022 100644
->>> --- a/mm/page_alloc.c
->>> +++ b/mm/page_alloc.c
->>> @@ -899,6 +899,15 @@ static inline void move_to_free_list(struct page *page, struct zone *zone,
->>>  	list_move(&page->lru, &area->free_list[migratetype]);
->>>  }
->>>  
->>> +/* Used for pages which are on another list */
->>> +static inline void move_to_free_list_tail(struct page *page, struct zone *zone,
->>> +					  unsigned int order, int migratetype)
->>> +{
->>> +	struct free_area *area = &zone->free_area[order];
->>> +
->>> +	list_move_tail(&page->lru, &area->free_list[migratetype]);
->>> +}
->>
->> There are just 3 callers of move_to_free_list() before this patch, I would just
->> add the to_tail parameter there instead of new wrapper. For callers with
->> constant parameter, the inline will eliminate it anyway.
+On 24.09.20 12:37, Vlastimil Babka wrote:
+> On 9/16/20 8:34 PM, David Hildenbrand wrote:
+>> __putback_isolated_page() already documents that pages will be placed to
+>> the tail of the freelist - this is, however, not the case for
+>> "order >= MAX_ORDER - 2" (see buddy_merge_likely()) - which should be
+>> the case for all existing users.
 > 
-> Got the same feeling :-)
+> I think here should be a sentence saying something along "Thus this patch
+> introduces a FOP_TO_TAIL flag to really ensure moving pages to tail."
 
-I once was told boolean parameters are the root of all evil, so I tried
-to keep them file-local :)
-
-One thing to be aware of is, that inline optimizations won't help as
-long as this function is in mm/page_alloc.c, see below.
+Agreed, thanks!
 
 > 
+>> This change affects two users:
+>> - free page reporting
+>> - page isolation, when undoing the isolation.
 >>
->>>  static inline void del_page_from_free_list(struct page *page, struct zone *zone,
->>>  					   unsigned int order)
->>>  {
->>> @@ -2323,7 +2332,7 @@ static inline struct page *__rmqueue_cma_fallback(struct zone *zone,
->>>   */
->>>  static int move_freepages(struct zone *zone,
->>>  			  struct page *start_page, struct page *end_page,
->>> -			  int migratetype, int *num_movable)
->>> +			  int migratetype, int *num_movable, bool to_tail)
->>>  {
->>>  	struct page *page;
->>>  	unsigned int order;
->>> @@ -2354,7 +2363,10 @@ static int move_freepages(struct zone *zone,
->>>  		VM_BUG_ON_PAGE(page_zone(page) != zone, page);
->>>  
->>>  		order = page_order(page);
->>> -		move_to_free_list(page, zone, order, migratetype);
->>> +		if (to_tail)
->>> +			move_to_free_list_tail(page, zone, order, migratetype);
->>> +		else
->>> +			move_to_free_list(page, zone, order, migratetype);
->>>  		page += 1 << order;
->>>  		pages_moved += 1 << order;
->>>  	}
->>> @@ -2362,8 +2374,9 @@ static int move_freepages(struct zone *zone,
->>>  	return pages_moved;
->>>  }
->>>  
->>> -int move_freepages_block(struct zone *zone, struct page *page,
->>> -				int migratetype, int *num_movable)
->>> +static int __move_freepages_block(struct zone *zone, struct page *page,
->>> +				  int migratetype, int *num_movable,
->>> +				  bool to_tail)
->>>  {
->>>  	unsigned long start_pfn, end_pfn;
->>>  	struct page *start_page, *end_page;
->>> @@ -2384,7 +2397,20 @@ int move_freepages_block(struct zone *zone, struct page *page,
->>>  		return 0;
->>>  
->>>  	return move_freepages(zone, start_page, end_page, migratetype,
->>> -								num_movable);
->>> +			      num_movable, to_tail);
->>> +}
->>> +
->>> +int move_freepages_block(struct zone *zone, struct page *page,
->>> +			 int migratetype, int *num_movable)
->>> +{
->>> +	return __move_freepages_block(zone, page, migratetype, num_movable,
->>> +				      false);
->>> +}
->>> +
->>> +int move_freepages_block_tail(struct zone *zone, struct page *page,
->>> +			      int migratetype)
->>> +{
->>> +	return __move_freepages_block(zone, page, migratetype, NULL, true);
->>>  }
+>> This behavior is desireable for pages that haven't really been touched
+>> lately, so exactly the two users that don't actually read/write page
+>> content, but rather move untouched pages.
 >>
->> Likewise, just 5 callers of move_freepages_block(), all in the files you're
->> already changing, so no need for this wrappers IMHO.
+>> The new behavior is especially desirable for memory onlining, where we
+>> allow allocation of newly onlined pages via undo_isolate_page_range()
+>> in online_pages(). Right now, we always place them to the head of the
+>> free list, resulting in undesireable behavior: Assume we add
+>> individual memory chunks via add_memory() and online them right away to
+>> the NORMAL zone. We create a dependency chain of unmovable allocations
+>> e.g., via the memmap. The memmap of the next chunk will be placed onto
+>> previous chunks - if the last block cannot get offlined+removed, all
+>> dependent ones cannot get offlined+removed. While this can already be
+>> observed with individual DIMMs, it's more of an issue for virtio-mem
+>> (and I suspect also ppc DLPAR).
+>>
+>> Note: If we observe a degradation due to the changed page isolation
+>> behavior (which I doubt), we can always make this configurable by the
+>> instance triggering undo of isolation (e.g., alloc_contig_range(),
+>> memory onlining, memory offlining).
+>>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>> Cc: Mel Gorman <mgorman@techsingularity.net>
+>> Cc: Michal Hocko <mhocko@kernel.org>
+>> Cc: Dave Hansen <dave.hansen@intel.com>
+>> Cc: Vlastimil Babka <vbabka@suse.cz>
+>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+>> Cc: Oscar Salvador <osalvador@suse.de>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Scott Cheloha <cheloha@linux.ibm.com>
+>> Cc: Michael Ellerman <mpe@ellerman.id.au>
+>> Signed-off-by: David Hildenbrand <david@redhat.com>
+>> ---
+>>  mm/page_alloc.c | 10 +++++++++-
+>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index 91cefb8157dd..bba9a0f60c70 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -89,6 +89,12 @@ typedef int __bitwise fop_t;
+>>   */
+>>  #define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+>>  
+>> +/*
+>> + * Place the freed page to the tail of the freelist after buddy merging. Will
+>> + * get ignored with page shuffling enabled.
+>> + */
+>> +#define FOP_TO_TAIL		((__force fop_t)BIT(1))
+>> +
+>>  /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
+>>  static DEFINE_MUTEX(pcp_batch_high_lock);
+>>  #define MIN_PERCPU_PAGELIST_FRACTION	(8)
+>> @@ -1040,6 +1046,8 @@ static inline void __free_one_page(struct page *page, unsigned long pfn,
+>>  
+>>  	if (is_shuffle_order(order))
+>>  		to_tail = shuffle_pick_tail();
+>> +	else if (fop_flags & FOP_TO_TAIL)
+>> +		to_tail = true;
+> 
+> Should we really let random shuffling decision have a larger priority than
+> explicit FOP_TO_TAIL request? Wei Yang mentioned that there's a call to
+> shuffle_zone() anyway to process a freshly added memory, so we don't need to do
+> that also during the process of addition itself? Might help with your goal of
+> reducing dependencies even on systems that do have shuffling enabled?
 
-As long as we don't want to move the implementation to the header, we'll
-need it for the constant propagation to work at compile time (we don't
-really have link-time optimizations). Or am I missing something?
+So, we do have cases where generic_online_page() -> __free_pages_core()
+isn't called (see patch #4):
+
+generic_online_page() is used in two cases:
+
+1. Direct memory onlining in online_pages(). Here, we call
+   shuffle_zone().
+2. Deferred memory onlining in memory-ballooning-like mechanisms (HyperV
+   balloon and virtio-mem), when parts of a section are kept
+   fake-offline to be fake-onlined later on.
+
+While we shuffle in the fist instance the whole zone, we wouldn't
+shuffle in the second case.
+
+But maybe this should be tackled (just like when alloc_contig_free() a
+large contiguous range, memory offlining failing, alloc_contig_range()
+failing) by manually shuffling the zone again. That would be cleaner,
+and the right thing to do when exposing large, contiguous ranges again
+to the buddy.
 
 Thanks!
+
 
 -- 
 Thanks,
