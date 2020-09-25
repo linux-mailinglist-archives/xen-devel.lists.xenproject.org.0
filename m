@@ -2,117 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B00C278241
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 10:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8915278289
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 10:20:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLioX-0000Up-1f; Fri, 25 Sep 2020 08:10:45 +0000
+	id 1kLix5-0000ml-5s; Fri, 25 Sep 2020 08:19:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tfUW=DC=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kLioW-0000Uk-CF
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 08:10:44 +0000
-X-Inumbo-ID: 1b1561f4-43be-466a-8867-fa6edb4c7278
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 1b1561f4-43be-466a-8867-fa6edb4c7278;
- Fri, 25 Sep 2020 08:10:43 +0000 (UTC)
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1601021443;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/byDtJ+hFEpNMqKc3hUDjBStSZlH3zG4Opc0r8sKI2o=;
- b=E9VlY4TjGlawhx0eYvIImX/FoeFNhtVvDvydGdHnEpS6UNz2NmuITjrcKxb0FbKVITGwTz
- IWKI8cWf5uith0g5jrsyJSUknUeE86wkcgmJkz1gUcnFk3h0EUTYYun2Dg6v1JQVXVYZtX
- p/EtS5x4BK8DpdcKQT1IncZ8NwBNumQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-453-TYwMnhjoN7ujcsOecfHMqw-1; Fri, 25 Sep 2020 04:10:40 -0400
-X-MC-Unique: TYwMnhjoN7ujcsOecfHMqw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15D3D64142;
- Fri, 25 Sep 2020 08:10:38 +0000 (UTC)
-Received: from [10.36.112.211] (ovpn-112-211.ams2.redhat.com [10.36.112.211])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B9058702E7;
- Fri, 25 Sep 2020 08:10:34 +0000 (UTC)
-Subject: Re: [PATCH RFC 2/4] mm/page_alloc: place pages to tail in
- __putback_isolated_page()
-To: Vlastimil Babka <vbabka@suse.cz>, linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Scott Cheloha <cheloha@linux.ibm.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Dan Williams <dan.j.williams@intel.com>
-References: <20200916183411.64756-1-david@redhat.com>
- <20200916183411.64756-3-david@redhat.com>
- <6edfc921-eacc-23bd-befa-f947fbcb50ba@suse.cz>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat GmbH
-Message-ID: <af019082-34f2-58d8-ba07-aab410909dbc@redhat.com>
-Date: Fri, 25 Sep 2020 10:10:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4q2y=DC=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kLix3-0000mg-Ki
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 08:19:33 +0000
+X-Inumbo-ID: e7838f50-5f89-41be-9d77-15ffcf3df895
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e7838f50-5f89-41be-9d77-15ffcf3df895;
+ Fri, 25 Sep 2020 08:19:32 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id g4so2576205wrs.5
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Sep 2020 01:19:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=u69/Y/I2BU3HbLSsZCtIkwgdhMt+7DVCgrLvdTSWBc8=;
+ b=WGR2SHhzT2MCtOTEqBwvOQrxFWs3lYokrmducqFVTs+BDTnMpWTYouXWoN3QT5FEdd
+ yzMB1b4mMi9THD6m4AYaPS96bT7xU6xo9ee44QxlLaiFWR0u9PjFecDZN8lTIQyVLj0P
+ G3NJGc3dOk+uJltihyYNmw+CvndHwcY+kZR+U0ruS3KBLWOpZ5iVA7UB7DGPmDB+0Ko0
+ WXR07E14B20CWcqmVwVfSZ7j83WXJ73G51JdGYGmRZmYe0oWrCuSnJdtRl33TFOxdYu/
+ SIttgxpTiD2p29FZQy/nXFnbiDpXsOpaXP5mQkD/4KLgTLax2v7kfAPoTy2Q039o04+N
+ 9oIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=u69/Y/I2BU3HbLSsZCtIkwgdhMt+7DVCgrLvdTSWBc8=;
+ b=gIKIh/l77VLa97gwFORphI40MrmGKpuXQigZEfTLlnfg+fK5Vj1BLBzgwq2PoIOjiG
+ nu1tlbNk7BUlc9b2D6j6LqtLrJ/Fm6GZ2mNhnGcWEBaSw1K5EexisQIq7NIENxHqVmTN
+ AC4e1jbay8RAtTmR0LerrqA6beHTDjFrw0+7cjo6GCMxsyYS+DMF3CQoi3OJhGYocs2B
+ Y2+o8jqVkRkeitiJlBnfJsr89+RNYUHGsTkXrUqw7Y0TxmWZ8QZCs4/M+9ztlK9SjAgg
+ LEM0x9urQfKOXHXHpSpLE+lvDOkIAfoG6pP0vWR5fdD5yNX/1RSH2mmUCwaSjfzZBBaa
+ Vc3g==
+X-Gm-Message-State: AOAM530fIvHkpnjIBeloS42AXsqlpzA+8Jk8qX2phxUd8xfeWw+rxswX
+ 0CeOF0cCV3aAFmiFFUjeqVw=
+X-Google-Smtp-Source: ABdhPJxAOs/0DDRrqAofH0plKOGaBHau9dZJDCxobrAQKsJgONXHSxwf9iKbt3A0AFEV61ETWaMFHg==
+X-Received: by 2002:adf:ff90:: with SMTP id j16mr3398662wrr.105.1601021971816; 
+ Fri, 25 Sep 2020 01:19:31 -0700 (PDT)
+Received: from CBGR90WXYV0 (host86-176-94-160.range86-176.btcentralplus.com.
+ [86.176.94.160])
+ by smtp.gmail.com with ESMTPSA id u66sm1983121wmg.44.2020.09.25.01.19.30
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 25 Sep 2020 01:19:30 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+ "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
+ <xen-devel@lists.xenproject.org>
+Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'George Dunlap'" <george.dunlap@citrix.com>,
+ "'Ian Jackson'" <ian.jackson@eu.citrix.com>,
+ "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>, "'Wei Liu'" <wl@xen.org>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'Jun Nakajima'" <jun.nakajima@intel.com>,
+ "'Kevin Tian'" <kevin.tian@intel.com>, "'Tim Deegan'" <tim@xen.org>,
+ "'Julien Grall'" <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-3-git-send-email-olekstysh@gmail.com>
+ <3997a705-ccb1-4b8f-41ca-c5507360c759@xen.org>
+In-Reply-To: <3997a705-ccb1-4b8f-41ca-c5507360c759@xen.org>
+Subject: RE: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature common
+Date: Fri, 25 Sep 2020 09:19:29 +0100
+Message-ID: <000201d69314$97bd8fa0$c738aee0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <6edfc921-eacc-23bd-befa-f947fbcb50ba@suse.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIQ4beZ3sUmYihKXwfoVgy4BRIJGwHfeJxHAedMvHOo5iuCoA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,119 +91,103 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.09.20 12:37, Vlastimil Babka wrote:
-> On 9/16/20 8:34 PM, David Hildenbrand wrote:
->> __putback_isolated_page() already documents that pages will be placed to
->> the tail of the freelist - this is, however, not the case for
->> "order >= MAX_ORDER - 2" (see buddy_merge_likely()) - which should be
->> the case for all existing users.
-> 
-> I think here should be a sentence saying something along "Thus this patch
-> introduces a FOP_TO_TAIL flag to really ensure moving pages to tail."
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 24 September 2020 19:01
+> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; =
+xen-devel@lists.xenproject.org
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Andrew =
+Cooper <andrew.cooper3@citrix.com>;
+> George Dunlap <george.dunlap@citrix.com>; Ian Jackson =
+<ian.jackson@eu.citrix.com>; Jan Beulich
+> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei =
+Liu <wl@xen.org>; Roger Pau
+> Monn=C3=A9 <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>; Jun =
+Nakajima <jun.nakajima@intel.com>;
+> Kevin Tian <kevin.tian@intel.com>; Tim Deegan <tim@xen.org>; Julien =
+Grall <julien.grall@arm.com>
+> Subject: Re: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature =
+common
+>=20
+>=20
+>=20
+> On 10/09/2020 21:21, Oleksandr Tyshchenko wrote:
+> > +static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
+> > +{
+> > +    unsigned int prev_state =3D STATE_IOREQ_NONE;
+> > +    unsigned int state =3D p->state;
+> > +    uint64_t data =3D ~0;
+> > +
+> > +    smp_rmb();
+> > +
+> > +    /*
+> > +     * The only reason we should see this condition be false is =
+when an
+> > +     * emulator dying races with I/O being requested.
+> > +     */
+> > +    while ( likely(state !=3D STATE_IOREQ_NONE) )
+> > +    {
+> > +        if ( unlikely(state < prev_state) )
+> > +        {
+> > +            gdprintk(XENLOG_ERR, "Weird HVM ioreq state transition =
+%u -> %u\n",
+> > +                     prev_state, state);
+> > +            sv->pending =3D false;
+> > +            domain_crash(sv->vcpu->domain);
+> > +            return false; /* bail */
+> > +        }
+> > +
+> > +        switch ( prev_state =3D state )
+> > +        {
+> > +        case STATE_IORESP_READY: /* IORESP_READY -> NONE */
+> > +            p->state =3D STATE_IOREQ_NONE;
+> > +            data =3D p->data;
+> > +            break;
+> > +
+> > +        case STATE_IOREQ_READY:  /* IOREQ_{READY,INPROCESS} -> =
+IORESP_READY */
+> > +        case STATE_IOREQ_INPROCESS:
+> > +            wait_on_xen_event_channel(sv->ioreq_evtchn,
+> > +                                      ({ state =3D p->state;
+> > +                                         smp_rmb();
+> > +                                         state !=3D prev_state; =
+}));
+> > +            continue;
+>=20
+> As I pointed out previously [1], this helper was implemented with the
+> expectation that wait_on_xen_event_channel() will not return if the =
+vCPU
+> got rescheduled.
+>=20
+> However, this assumption doesn't hold on Arm.
+>=20
+> I can see two solution:
+>     1) Re-execute the caller
+>     2) Prevent an IOREQ to disappear until the loop finish.
+>=20
+> @Paul any opinions?
 
-Agreed, thanks!
+The ioreq control plane is largely predicated on there being no pending =
+I/O when the state of a server is modified, and it is assumed that =
+domain_pause() is sufficient to achieve this. If that assumption doesn't =
+hold then we need additional synchronization.
 
-> 
->> This change affects two users:
->> - free page reporting
->> - page isolation, when undoing the isolation.
->>
->> This behavior is desireable for pages that haven't really been touched
->> lately, so exactly the two users that don't actually read/write page
->> content, but rather move untouched pages.
->>
->> The new behavior is especially desirable for memory onlining, where we
->> allow allocation of newly onlined pages via undo_isolate_page_range()
->> in online_pages(). Right now, we always place them to the head of the
->> free list, resulting in undesireable behavior: Assume we add
->> individual memory chunks via add_memory() and online them right away to
->> the NORMAL zone. We create a dependency chain of unmovable allocations
->> e.g., via the memmap. The memmap of the next chunk will be placed onto
->> previous chunks - if the last block cannot get offlined+removed, all
->> dependent ones cannot get offlined+removed. While this can already be
->> observed with individual DIMMs, it's more of an issue for virtio-mem
->> (and I suspect also ppc DLPAR).
->>
->> Note: If we observe a degradation due to the changed page isolation
->> behavior (which I doubt), we can always make this configurable by the
->> instance triggering undo of isolation (e.g., alloc_contig_range(),
->> memory onlining, memory offlining).
->>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
->> Cc: Mel Gorman <mgorman@techsingularity.net>
->> Cc: Michal Hocko <mhocko@kernel.org>
->> Cc: Dave Hansen <dave.hansen@intel.com>
->> Cc: Vlastimil Babka <vbabka@suse.cz>
->> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
->> Cc: Oscar Salvador <osalvador@suse.de>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Cc: Scott Cheloha <cheloha@linux.ibm.com>
->> Cc: Michael Ellerman <mpe@ellerman.id.au>
->> Signed-off-by: David Hildenbrand <david@redhat.com>
->> ---
->>  mm/page_alloc.c | 10 +++++++++-
->>  1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->> index 91cefb8157dd..bba9a0f60c70 100644
->> --- a/mm/page_alloc.c
->> +++ b/mm/page_alloc.c
->> @@ -89,6 +89,12 @@ typedef int __bitwise fop_t;
->>   */
->>  #define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
->>  
->> +/*
->> + * Place the freed page to the tail of the freelist after buddy merging. Will
->> + * get ignored with page shuffling enabled.
->> + */
->> +#define FOP_TO_TAIL		((__force fop_t)BIT(1))
->> +
->>  /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
->>  static DEFINE_MUTEX(pcp_batch_high_lock);
->>  #define MIN_PERCPU_PAGELIST_FRACTION	(8)
->> @@ -1040,6 +1046,8 @@ static inline void __free_one_page(struct page *page, unsigned long pfn,
->>  
->>  	if (is_shuffle_order(order))
->>  		to_tail = shuffle_pick_tail();
->> +	else if (fop_flags & FOP_TO_TAIL)
->> +		to_tail = true;
-> 
-> Should we really let random shuffling decision have a larger priority than
-> explicit FOP_TO_TAIL request? Wei Yang mentioned that there's a call to
-> shuffle_zone() anyway to process a freshly added memory, so we don't need to do
-> that also during the process of addition itself? Might help with your goal of
-> reducing dependencies even on systems that do have shuffling enabled?
+  Paul
 
-So, we do have cases where generic_online_page() -> __free_pages_core()
-isn't called (see patch #4):
-
-generic_online_page() is used in two cases:
-
-1. Direct memory onlining in online_pages(). Here, we call
-   shuffle_zone().
-2. Deferred memory onlining in memory-ballooning-like mechanisms (HyperV
-   balloon and virtio-mem), when parts of a section are kept
-   fake-offline to be fake-onlined later on.
-
-While we shuffle in the fist instance the whole zone, we wouldn't
-shuffle in the second case.
-
-But maybe this should be tackled (just like when alloc_contig_free() a
-large contiguous range, memory offlining failing, alloc_contig_range()
-failing) by manually shuffling the zone again. That would be cleaner,
-and the right thing to do when exposing large, contiguous ranges again
-to the buddy.
-
-Thanks!
-
-
--- 
-Thanks,
-
-David / dhildenb
+>=20
+> Cheers,
+>=20
+> [1]
+> =
+https://lore.kernel.org/xen-devel/6bfc3920-8f29-188c-cff4-2b99dabe166f@xe=
+n.org/
+>=20
+>=20
+> --
+> Julien Grall
 
 
