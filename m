@@ -2,71 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB545278A78
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 16:10:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A45278AE8
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 16:35:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLoQe-00041G-0v; Fri, 25 Sep 2020 14:10:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J1eH=DC=gmail.com=matthew.william.auld@srs-us1.protection.inumbo.net>)
- id 1kLoPf-0003Ka-OL
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 14:09:27 +0000
-X-Inumbo-ID: 27089a99-8e6d-49b2-bcb3-17c2d5968536
-Received: from mail-ua1-x941.google.com (unknown [2607:f8b0:4864:20::941])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27089a99-8e6d-49b2-bcb3-17c2d5968536;
- Fri, 25 Sep 2020 14:09:26 +0000 (UTC)
-Received: by mail-ua1-x941.google.com with SMTP id j12so971066ual.7
- for <xen-devel@lists.xenproject.org>; Fri, 25 Sep 2020 07:09:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=W4ybNDBj3JkG7xwtC+pQm/GVM9Ki73UbHYGcb1DNgoE=;
- b=VAE/JCw4Kc2YKn1yJ8L/Q9+LADI9BPVrPzMbIS0mOQDh1e+IitPGEnQLZfakaeotSX
- fJpnesPgh6fudFH4hBFOTUzOvja6IHah1EG+sAlo5mDeRe30T7WE5Z+EmmrqyLBVjPT2
- Y6MypsxJU5ecTFL5KTTnudzV3iHFKzBhkicIF7nAwXtRPFhwdOi9g9/Y/qXRPNUiOlZ/
- S833Agy78MEYaybNf9Tk+M+dZyKRMHoBkxs25nGIJGGXWhSky07MsU9xI+7dnENL4I7l
- bH2CDxH5hj1vhP5g8v/h/6Mm80YH+iZTF4wuYNk0h7j6DAwbRzp57D1NpHpN8KHRNu/G
- TlSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=W4ybNDBj3JkG7xwtC+pQm/GVM9Ki73UbHYGcb1DNgoE=;
- b=TbnO3r0valohidIm64MHCOhBCOdRKjXtuj4e4fLtkKq5KluTMYFPsPXsdd57XnDhPZ
- VKfxcBQnEFLnY7tL5d+R/adM1YLnLkLLfS98vyi4BG2UQKvJVORGMWzZRYzUeRSXI/9B
- nW7PeppAyH5Hn/UuB1bAw/IFXJFs4hceptYm6IDGYT2KqkeMN4BAfuJOWNjQnGjmJc1f
- lao/G4/Rw4120aTy/v/6hymEJ52pIF3/BC4or03VELcrLdizsLyk6ldqg8YWJeazzz3u
- R3raKpGTvLMeIz5DTVvnG6Xlz4wB6IYeGz/yYZpOG/r3QF7PaH9P40WkxPcK4gZjej2a
- AWVw==
-X-Gm-Message-State: AOAM530N9qaWhOX6T+/7ewvVBpP+yZB8TtP6GDhEJDN3kB7Y7Baoj/wF
- WfTro7WXhVN+MzVCrqBCo4rjIl1Ifa4vfFnNzGs=
-X-Google-Smtp-Source: ABdhPJy0IxUr4anWia0Qm7ztGxjztU5H4LAKNIvZHwQZc9rZ+mSfXU53xRXTbzCYoiyClMt8qe//fl65KD/2aNPSkzU=
-X-Received: by 2002:ab0:6f91:: with SMTP id f17mr2536965uav.129.1601042966264; 
- Fri, 25 Sep 2020 07:09:26 -0700 (PDT)
+	id 1kLonR-0005pH-3o; Fri, 25 Sep 2020 14:34:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O9+A=DC=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kLonP-0005pC-D2
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 14:33:59 +0000
+X-Inumbo-ID: 9d1c90f7-a85f-4448-9ad8-902d31cc482e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9d1c90f7-a85f-4448-9ad8-902d31cc482e;
+ Fri, 25 Sep 2020 14:33:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=r4rcXD54XBavbEAE9wiHYvRdd2l/4vSl11R4OuXXtbk=; b=rFCO2/rn7TR/sdhviDvvVSrlfs
+ hJb4DidCCVIflQeeVpYfhubnuZNB9fLQ4Fgu7x7BeceMWCegIUVSGOLfHdIoCG9S9vPFcP8M6B7o4
+ QH7J/K5DDXfB4dvwCq5xmSVz+yBVHSoB3XYdMW5CnbwVHe2GiwQU3AxCgF23hNrWbjHI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kLonI-0004mk-Mm; Fri, 25 Sep 2020 14:33:52 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kLonI-00084H-DN; Fri, 25 Sep 2020 14:33:52 +0000
+Subject: Re: [PATCH] evtchn/Flask: pre-allocate node on send path
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Daniel de Graaf <dgdegra@tycho.nsa.gov>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <f633e95e-11e7-ccfc-07ce-7cc817fcd7fe@suse.com>
+ <8237e286-168f-a4e7-be8b-aba5ff781e7c@xen.org>
+ <706b94ae-ca05-2218-6025-e5d62297dda6@suse.com>
+ <3ad0529d-ad55-8864-1df2-193eaf104c1f@xen.org>
+ <6d6d7550-8847-267e-49f2-0ca098ef97ad@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2a62f5e4-9915-bcd7-05b3-77663c995a13@xen.org>
+Date: Fri, 25 Sep 2020 15:33:50 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20200924135853.875294-1-hch@lst.de>
- <20200924135853.875294-9-hch@lst.de>
-In-Reply-To: <20200924135853.875294-9-hch@lst.de>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Fri, 25 Sep 2020 15:08:59 +0100
-Message-ID: <CAM0jSHPaqpX2A5T4iybfLF+F=cBX05GW8u54cUe7AG0QKDJt2g@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 08/11] drm/i915: use vmap in
- i915_gem_object_map
-To: Christoph Hellwig <hch@lst.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, 
- ML dri-devel <dri-devel@lists.freedesktop.org>, linux-mm@kvack.org, 
- Peter Zijlstra <peterz@infradead.org>,
- kernel list <linux-kernel@vger.kernel.org>, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, x86@kernel.org, 
- Chris Wilson <chris@chris-wilson.co.uk>, Minchan Kim <minchan@kernel.org>, 
- Matthew Auld <matthew.auld@intel.com>, xen-devel@lists.xenproject.org, 
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Nitin Gupta <ngupta@vflare.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 25 Sep 2020 14:10:26 +0000
+In-Reply-To: <6d6d7550-8847-267e-49f2-0ca098ef97ad@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,210 +70,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 24 Sep 2020 at 14:59, Christoph Hellwig <hch@lst.de> wrote:
->
-> i915_gem_object_map implements fairly low-level vmap functionality in
-> a driver.  Split it into two helpers, one for remapping kernel memory
-> which can use vmap, and one for I/O memory that uses vmap_pfn.
->
-> The only practical difference is that alloc_vm_area prefeaults the
-> vmalloc area PTEs, which doesn't seem to be required here for the
-> kernel memory case (and could be added to vmap using a flag if actually
-> required).
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/gpu/drm/i915/Kconfig              |   1 +
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c | 126 ++++++++++------------
->  2 files changed, 59 insertions(+), 68 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 9afa5c4a6bf006..1e1cb245fca778 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -25,6 +25,7 @@ config DRM_I915
->         select CRC32
->         select SND_HDA_I915 if SND_HDA_CORE
->         select CEC_CORE if CEC_NOTIFIER
-> +       select VMAP_PFN
->         help
->           Choose this option if you have a system that has "Intel Graphics
->           Media Accelerator" or "HD Graphics" integrated graphics,
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> index 6550c0bc824ea2..b519417667eb4b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-> @@ -232,34 +232,21 @@ int __i915_gem_object_put_pages(struct drm_i915_gem_object *obj)
->         return err;
->  }
->
-> -static inline pte_t iomap_pte(resource_size_t base,
-> -                             dma_addr_t offset,
-> -                             pgprot_t prot)
-> -{
-> -       return pte_mkspecial(pfn_pte((base + offset) >> PAGE_SHIFT, prot));
-> -}
-> -
->  /* The 'mapping' part of i915_gem_object_pin_map() below */
-> -static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
-> -                                enum i915_map_type type)
-> +static void *i915_gem_object_map_page(struct drm_i915_gem_object *obj,
-> +               enum i915_map_type type)
->  {
-> -       unsigned long n_pte = obj->base.size >> PAGE_SHIFT;
-> -       struct sg_table *sgt = obj->mm.pages;
-> -       pte_t *stack[32], **mem;
-> -       struct vm_struct *area;
-> +       unsigned long n_pages = obj->base.size >> PAGE_SHIFT, i;
-> +       struct page *stack[32], **pages = stack, *page;
-> +       struct sgt_iter iter;
->         pgprot_t pgprot;
-> +       void *vaddr;
->
-> -       if (!i915_gem_object_has_struct_page(obj) && type != I915_MAP_WC)
-> -               return NULL;
-> -
-> -       if (GEM_WARN_ON(type == I915_MAP_WC &&
-> -                       !static_cpu_has(X86_FEATURE_PAT)))
-> -               return NULL;
-> -
-> -       /* A single page can always be kmapped */
-> -       if (n_pte == 1 && type == I915_MAP_WB) {
-> -               struct page *page = sg_page(sgt->sgl);
-> -
-> +       switch (type) {
-> +       default:
-> +               MISSING_CASE(type);
-> +               fallthrough;    /* to use PAGE_KERNEL anyway */
-> +       case I915_MAP_WB:
->                 /*
->                  * On 32b, highmem using a finite set of indirect PTE (i.e.
->                  * vmap) to provide virtual mappings of the high pages.
-> @@ -277,30 +264,8 @@ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
->                  * So if the page is beyond the 32b boundary, make an explicit
->                  * vmap.
->                  */
-> -               if (!PageHighMem(page))
-> -                       return page_address(page);
-> -       }
-> -
-> -       mem = stack;
-> -       if (n_pte > ARRAY_SIZE(stack)) {
-> -               /* Too big for stack -- allocate temporary array instead */
-> -               mem = kvmalloc_array(n_pte, sizeof(*mem), GFP_KERNEL);
-> -               if (!mem)
-> -                       return NULL;
-> -       }
-> -
-> -       area = alloc_vm_area(obj->base.size, mem);
-> -       if (!area) {
-> -               if (mem != stack)
-> -                       kvfree(mem);
-> -               return NULL;
-> -       }
-> -
-> -       switch (type) {
-> -       default:
-> -               MISSING_CASE(type);
-> -               fallthrough;    /* to use PAGE_KERNEL anyway */
-> -       case I915_MAP_WB:
-> +               if (n_pages == 1 && !PageHighMem(sg_page(obj->mm.pages->sgl)))
-> +                       return page_address(sg_page(obj->mm.pages->sgl));
->                 pgprot = PAGE_KERNEL;
->                 break;
->         case I915_MAP_WC:
-> @@ -308,30 +273,49 @@ static void *i915_gem_object_map(struct drm_i915_gem_object *obj,
->                 break;
->         }
->
-> -       if (i915_gem_object_has_struct_page(obj)) {
-> -               struct sgt_iter iter;
-> -               struct page *page;
-> -               pte_t **ptes = mem;
-> +       if (n_pages > ARRAY_SIZE(stack)) {
-> +               /* Too big for stack -- allocate temporary array instead */
-> +               pages = kvmalloc_array(n_pages, sizeof(*pages), GFP_KERNEL);
-> +               if (!pages)
-> +                       return NULL;
-> +       }
->
-> -               for_each_sgt_page(page, iter, sgt)
-> -                       **ptes++ = mk_pte(page, pgprot);
-> -       } else {
-> -               resource_size_t iomap;
-> -               struct sgt_iter iter;
-> -               pte_t **ptes = mem;
-> -               dma_addr_t addr;
-> +       i = 0;
-> +       for_each_sgt_page(page, iter, obj->mm.pages)
-> +               pages[i++] = page;
-> +       vaddr = vmap(pages, n_pages, 0, pgprot);
-> +       if (pages != stack)
-> +               kvfree(pages);
-> +       return vaddr;
-> +}
->
-> -               iomap = obj->mm.region->iomap.base;
-> -               iomap -= obj->mm.region->region.start;
-> +static void *i915_gem_object_map_pfn(struct drm_i915_gem_object *obj,
-> +               enum i915_map_type type)
-> +{
-> +       resource_size_t iomap = obj->mm.region->iomap.base -
-> +               obj->mm.region->region.start;
-> +       unsigned long n_pfn = obj->base.size >> PAGE_SHIFT;
-> +       unsigned long stack[32], *pfns = stack, i;
-> +       struct sgt_iter iter;
-> +       dma_addr_t addr;
-> +       void *vaddr;
-> +
-> +       if (type != I915_MAP_WC)
-> +               return NULL;
->
-> -               for_each_sgt_daddr(addr, iter, sgt)
-> -                       **ptes++ = iomap_pte(iomap, addr, pgprot);
-> +       if (n_pfn > ARRAY_SIZE(stack)) {
-> +               /* Too big for stack -- allocate temporary array instead */
-> +               pfns = kvmalloc_array(n_pfn, sizeof(*pfns), GFP_KERNEL);
-> +               if (!pfns)
-> +                       return NULL;
->         }
->
-> -       if (mem != stack)
-> -               kvfree(mem);
-> -
-> -       return area->addr;
-> +       for_each_sgt_daddr(addr, iter, obj->mm.pages)
-> +               pfns[i++] = (iomap + addr) >> PAGE_SHIFT;
+Hi Jan,
 
-Missing the i = 0 fix from Dan?
+On 25/09/2020 14:58, Jan Beulich wrote:
+> On 25.09.2020 15:16, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 25/09/2020 13:21, Jan Beulich wrote:
+>>> On 25.09.2020 12:34, Julien Grall wrote:
+>>>> On 24/09/2020 11:53, Jan Beulich wrote:
+>>>>> xmalloc() & Co may not be called with IRQs off, or else check_lock()
+>>>>> will have its assertion trigger about locks getting acquired
+>>>>> inconsistently. Re-arranging the locking in evtchn_send() doesn't seem
+>>>>> very reasonable, especially since the per-channel lock was introduced to
+>>>>> avoid acquiring the per-domain event lock on the send paths. Issue a
+>>>>> second call to xsm_evtchn_send() instead, before acquiring the lock, to
+>>>>> give XSM / Flask a chance to pre-allocate whatever it may need.
+>>>>
+>>>> This is the sort of fall-out I was expecting when we decide to turn off
+>>>> the interrupts for big chunk of code. I couldn't find any at the time
+>>>> though...
+>>>>
+>>>> Can you remind which caller of send_guest{global, vcpu}_virq() will call
+>>>> them with interrupts off?
+>>>
+>>> I don't recall which one of the two it was that I hit; we wanted
+>>> both to use the lock anyway. send_guest_pirq() very clearly also
+>>> gets called with IRQs off.
+>>>
+>>>> Would it be possible to consider deferring the call to a softirq
+>>>> taslket? If so, this would allow us to turn the interrupts again.
+>>>
+>>> Of course this is in principle possible; the question is how
+>>> involved this is going to get.
+>>> However, on x86 oprofile's call to
+>>> send_guest_vcpu_virq() can't easily be replaced - it's dangerous
+>>> enough already that in involves locks in NMI context. I don't
+>>> fancy seeing it use more commonly used ones.
+>>
+>> Fair enough. I would still like to consider a way where we could avoid
+>> to hack xsm_* because we have the interrupts disabled.
+> 
+> Well, from a conceptual pov it's at least questionable for XSM to
+> need any memory allocations at all when merely being asked for
+> permission. And indeed the need for it arises solely from its
+> desire to cache the result, for the sake of subsequent lookups.
+> 
+> I also find it odd that there's an XSM check on the send path in
+> the first place. This isn't just because it would seem to me that
+> it should be decided at binding time whether sending is permitted
+> - I may easily be missing something in the conceptual model here.
+> It's also because __domain_finalise_shutdown() too uses
+> evtchn_send(), and I didn't think this one should be subject to
+> any XSM check (just like send_guest_*() aren't).
 
-> +       vaddr = vmap_pfn(pfns, n_pfn, pgprot_writecombine(PAGE_KERNEL_IO));
-> +       if (pfns != stack)
-> +               kvfree(pfns);
-> +       return vaddr;
->  }
->
->  /* get, pin, and map the pages of the object into kernel space */
-> @@ -383,7 +367,13 @@ void *i915_gem_object_pin_map(struct drm_i915_gem_object *obj,
->         }
->
->         if (!ptr) {
-> -               ptr = i915_gem_object_map(obj, type);
-> +               if (GEM_WARN_ON(type == I915_MAP_WC &&
-> +                               !static_cpu_has(X86_FEATURE_PAT)))
-> +                       ptr = NULL;
-> +               else if (i915_gem_object_has_struct_page(obj))
-> +                       ptr = i915_gem_object_map_page(obj, type);
-> +               else
-> +                       ptr = i915_gem_object_map_pfn(obj, type);
->                 if (!ptr) {
->                         err = -ENOMEM;
->                         goto err_unpin;
-> --
-> 2.28.0
->
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+Maybe this is the first question we need to answer?
+
+> 
+>> AFAICT, we don't need send_guest_global_virq() and evtchn_send() to be
+>> mutually exclusive. Is that correct?
+> 
+> Yes, any number of sends (even to the same port) could in principle
+> run concurrently, I think. Or else the FIFO code would have been
+> broken from the very point where the per-channel lock was
+> introduced and acquiring of the per-domain one then dropped from
+> evtchn_send() (other sending paths weren't using the per-domain one
+> anyway already before that).
+> 
+>> So how about splitting the lock in two? One would be used when the
+>> interrupts have to be disabled while the other would be used when we can
+>> keep interrupts enabled.
+> 
+> Now that's an interesting proposal. I thought one lock per channel
+> was already pretty fine-grained. Now you propose making it two.
+> 
+>> The two locks would have to be taken when the event channel needs to be
+>> modified.
+> 
+> Requiring a total of 6 locks to be acquired when fiddling with
+> interdomain channels... Wow. Definitely more intrusive overall than
+> the change here.
+
+Well hacks are always more self-contained but long term they are a 
+nightmare to maintain :).
+
+6 locks is indeed a lot, but the discussion here shows that the current 
+locking is probably not suitable for the current uses.
+
+I don't have a better solution so far, but I will have a think about it. 
+Meanwhile, it would be good to figure out why xsm_evtchn_send() is needed.
+
+Cheers,
+
+-- 
+Julien Grall
 
