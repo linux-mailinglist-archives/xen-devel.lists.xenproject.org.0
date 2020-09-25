@@ -2,81 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F047278457
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 11:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97622784CD
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 12:12:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLkK1-0000LH-MT; Fri, 25 Sep 2020 09:47:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T0XI=DC=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kLkJz-0000LC-KQ
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 09:47:19 +0000
-X-Inumbo-ID: a9f00d16-0025-4e9b-8596-115b0a811616
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9f00d16-0025-4e9b-8596-115b0a811616;
- Fri, 25 Sep 2020 09:47:18 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id x69so2116131lff.3
- for <xen-devel@lists.xenproject.org>; Fri, 25 Sep 2020 02:47:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=rPeNi6wc4sYC4rvN3x/D23k6Ku3vvzTSn6EM9ZrekB8=;
- b=POgpd9pu+UeaTwT3V0atNp4U2Cfv5/BqDTh/LRlOwMXblL0tW0j8T/XDcZbiKGoFqJ
- hgm6ej7drkjcBHzTfkIxD+LTol+/6cf5dU/c5zIDdFMfAYVFxj9SA0eEXn3lybv77gW1
- YOtKwpxdOIn0NvyoeK2eNRRftq7UQ0QZ43uoNU3L7ge54mtW0h1ym/sTt5gZO74rgfHP
- 7VXooCw7hcep5DDZCc0nBjCRhNftt3/swOvh7kt4LJoRxSPi99L3sBEcQ0ApiyEfdLlD
- jb0eRPR0uJTwq79Qtw9n0SUn4sMWFV7eAVM8gwtvhc8tSfqW0NdAlqZ7oNpVgnoVovgT
- sbEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=rPeNi6wc4sYC4rvN3x/D23k6Ku3vvzTSn6EM9ZrekB8=;
- b=LaFfQO1HOPmXFbnu9riniW7Fr/cEubjVUl+kvazIl2cFSsB2/IpBeEjju71QZq2pqa
- h20CWmfK7WT8clyQAUTSaMryhAKdEF4LJy3y8WTFJo+5QEnGRcZqz04USIFMcxIb96eP
- 4FFh1sGbm2NENsFFVnGaFDeXMQncnLn5viQhHTZOvwPxrik91sBDrQwv3ajzFLq8HNdw
- v3hpiojdymKV4Lm66PDb3p4ba46FcIwSo3hCevGqPDi1BS7Ogtxa8anNMdAjCuytZGnm
- NdgUWXyJJZ4Nc2A6Ho0te9fbUzyIGheI5mYGUtfVBgTIVeXSkF6otQtR/jvBltN+SHQ+
- vQeA==
-X-Gm-Message-State: AOAM5304PIALeF6XMRVb/bjeu9OvYrcGMGds30N6YmMOjqfRHKDPcp13
- umitbR65V9kdMfFv3Nme5DM=
-X-Google-Smtp-Source: ABdhPJxQYtw9o2VugmZPNXQA5MMNpdpu0zhMBbvz5rrtjXfWSp1YwpbgRQFXUPPdlH17IEHTFFT2hA==
-X-Received: by 2002:a19:f00e:: with SMTP id p14mr1009993lfc.69.1601027237543; 
- Fri, 25 Sep 2020 02:47:17 -0700 (PDT)
-Received: from [192.168.1.6] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id 64sm1848492lfk.227.2020.09.25.02.47.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Sep 2020 02:47:16 -0700 (PDT)
-Subject: Re: [PATCH V1 09/16] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	id 1kLkhm-0002xu-QG; Fri, 25 Sep 2020 10:11:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ocWZ=DC=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kLkhl-0002xp-QS
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 10:11:53 +0000
+X-Inumbo-ID: 56cf123d-6c3e-431c-8234-6cdd97da9110
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 56cf123d-6c3e-431c-8234-6cdd97da9110;
+ Fri, 25 Sep 2020 10:11:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1601028711;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=NG0OrJgM5uOXfafgj6N9/hIxz/Mxn1NzqyKKMmujJRs=;
+ b=k6k9NIWYGUGqjHrkfCWCI0YCOS3zb/9xVYikaeqvqaNL9IdDiu4yiys1lKPv0F8vsItlaG
+ RjsujkDUKUOtYVHkr0ofyuZ2UBrbHPj5JnE8M1eCpKBEll0msGPImE0l251H2GLzahDTgl
+ QcPuY+dskEla5387e8iQgzprAvBnOa8=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C0B23ACBA;
+ Fri, 25 Sep 2020 10:11:51 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-10-git-send-email-olekstysh@gmail.com>
- <be3401e8-db2b-82a5-b117-2c0fc8b85811@xen.org>
- <7fbab25d-18a9-83d6-2596-f0f9d149058c@gmail.com>
- <af29723b-8ed6-ca8f-8848-29aa65f42b74@suse.com>
- <ffe5148a-e366-d1f1-0a32-2e385ac1934e@gmail.com>
- <a039e213-d25b-1819-3a37-8ed858fa17b8@gmail.com>
- <42aea418-a8f4-e2c0-fc08-b0c504da31bb@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <895ab16e-7713-ff15-137e-ee9bb7f831b9@gmail.com>
-Date: Fri, 25 Sep 2020 12:47:11 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] x86/xen: disable Firmware First mode for correctable memory
+ errors
+Date: Fri, 25 Sep 2020 12:11:48 +0200
+Message-Id: <20200925101148.21012-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <42aea418-a8f4-e2c0-fc08-b0c504da31bb@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +61,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+When running as Xen dom0 the kernel isn't responsible for selecting the
+error handling mode, this should be handled by the hypervisor.
 
-On 25.09.20 09:51, Jan Beulich wrote:
+So disable setting FF mode when running as Xen pv guest. Not doing so
+might result in boot splats like:
 
-Hi Jan
+[    7.509696] HEST: Enabling Firmware First mode for corrected errors.
+[    7.510382] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 2.
+[    7.510383] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 3.
+[    7.510384] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 4.
+[    7.510384] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 5.
+[    7.510385] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 6.
+[    7.510386] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 7.
+[    7.510386] mce: [Firmware Bug]: Ignoring request to disable invalid MCA bank 8.
 
-> On 24.09.2020 20:02, Oleksandr wrote:
->> On 24.09.20 19:02, Oleksandr wrote:
->> Julien, I noticed that three fields mmio* are not used within current
->> series on Arm. Do we expect them to be used later on?
->> I would rather not add fields which are not used. We could add them when
->> needed.
->>
->> Would be the following acceptable?
->> 1. Both fields "io_completion" and "io_req" (which seems to be the only
->> fields used in common/ioreq.c) are moved to common struct vcpu as part
->> of struct vcpu_io,
->>       enum hvm_io_completion is also moved (and renamed).
->> 2. We remove everything related to hvm_vcpu* from the Arm header.
->> 3. x86's struct hvm_vcpu_io stays as it is (but without two fields
->> "io_completion" and "io_req").
->>       I think, this way we separate a common part and reduce Xen changes
->> (which are getting bigger).
-> If this works, it would be my preference too.
+Reason is that the HEST ACPI table contains the real number of MCA
+banks, while the hypervisor is emulating only 2 banks for guests.
 
-Thanks. I will wait for Julien's input on that and if he doesn't have 
-any objections I will go this direction.
+Cc: stable@vger.kernel.org
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/xen/enlighten_pv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 22e741e0b10c..065c049d0f3c 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1296,6 +1296,14 @@ asmlinkage __visible void __init xen_start_kernel(void)
+ 
+ 	xen_smp_init();
+ 
++#ifdef CONFIG_ACPI
++	/*
++	 * Disable selecting "Firmware First mode" for correctable memory
++	 * errors, as this is the duty of the hypervisor to decide.
++	 */
++	acpi_disable_cmcff = 1;
++#endif
++
+ #ifdef CONFIG_ACPI_NUMA
+ 	/*
+ 	 * The pages we from Xen are not related to machine pages, so
 -- 
-Regards,
-
-Oleksandr Tyshchenko
+2.26.2
 
 
