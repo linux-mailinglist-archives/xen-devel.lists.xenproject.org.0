@@ -2,45 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02F412792B3
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 22:53:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E812793B5
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Sep 2020 23:43:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kLuiD-0006IP-Rt; Fri, 25 Sep 2020 20:53:01 +0000
+	id 1kLvU1-0002Cu-U6; Fri, 25 Sep 2020 21:42:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5R+H=DC=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kLuiB-0006IK-Vr
- for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 20:53:00 +0000
-X-Inumbo-ID: d0f8834e-975e-476a-a222-29c40212cdc6
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=oEdM=DC=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kLvU0-0002Cp-Q1
+ for xen-devel@lists.xenproject.org; Fri, 25 Sep 2020 21:42:24 +0000
+X-Inumbo-ID: eb7d0a93-4281-4cf9-8e76-8aa53950fbb6
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d0f8834e-975e-476a-a222-29c40212cdc6;
- Fri, 25 Sep 2020 20:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
- bh=rUt9LzkCKISU0PvxTpjhZUH29MiTP3otGrfklNQDcks=; b=ZxeZX5GJ9umXyjBXYbIOZFL1Ta
- qkunqYHOXK71mBWS9DOILLMJYpEwGiXyxwzXdguGMFbT7dqknNjov2iUohy3DtS50S9osxHxPkGSn
- jaKdfzlXFNKxpKOpfuOdQGp/lhI2UlM8uywBFYgg5r5TPFLHz287vedDqsZR11Qw7swU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLui8-0004pg-V5; Fri, 25 Sep 2020 20:52:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kLui8-0007Np-OR; Fri, 25 Sep 2020 20:52:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kLui8-0005vU-Nv; Fri, 25 Sep 2020 20:52:56 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable bisection] complete test-xtf-amd64-amd64-4
-Message-Id: <E1kLui8-0005vU-Nv@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Sep 2020 20:52:56 +0000
+ id eb7d0a93-4281-4cf9-8e76-8aa53950fbb6;
+ Fri, 25 Sep 2020 21:42:23 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1601070142;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=brdiBX7/pBWvJkYovNB/4PjqQQ3M4l1nathoh2+W3TY=;
+ b=U6vwwfmctLWa0di2iqdhCFmT6r9yM8GrNJv9E2W5zhyphSn2s6oKiaOzIv3sDoai5GfOjq
+ +eBlOtFIpUXhVrWuD86POo/kimzwIyWhAC0jVPpzP7OKsb628c396ilafsh3bvXb2EJBWY
+ mtSLv6BsZK2ujhF7rNz3S499PNALZNY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B328CAB9F;
+ Fri, 25 Sep 2020 21:42:22 +0000 (UTC)
+Message-ID: <d90516dcec0443bfbdce93e9ef2c87b93a7a6bc8.camel@suse.com>
+Subject: Re: [RFC PATCH v1 2/6] sched: track time spent in hypervisor tasks
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
+ "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "julien@xen.org" <julien@xen.org>, 
+ "jbeulich@suse.com"
+ <jbeulich@suse.com>, "wl@xen.org" <wl@xen.org>, "sstabellini@kernel.org"
+ <sstabellini@kernel.org>, "ian.jackson@eu.citrix.com"
+ <ian.jackson@eu.citrix.com>, "george.dunlap@citrix.com"
+ <george.dunlap@citrix.com>, "andrew.cooper3@citrix.com"
+ <andrew.cooper3@citrix.com>
+Date: Fri, 25 Sep 2020 23:42:20 +0200
+In-Reply-To: <87r1qpa9pk.fsf@epam.com>
+References: <20200612002205.174295-1-volodymyr_babchuk@epam.com>
+ <20200612002205.174295-3-volodymyr_babchuk@epam.com>
+ <a40aac2a-326b-9efa-fed3-49826bb2ff9c@suse.com>
+ <daf3aa1c6fa565076755437e7e74347b58e3a9b6.camel@epam.com>
+ <918fa2e1-232c-a3ff-d0a9-776b470ee5db@suse.com> <87d02bavz7.fsf@epam.com>
+ <66880caef018abdbf9fe99116594a2826efcb603.camel@suse.com>
+ <87r1qpa9pk.fsf@epam.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-kGkEgoXDetvzxsez2QPr"
+User-Agent: Evolution 3.38.0 (by Flathub.org) 
+MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,212 +70,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-xtf-amd64-amd64-4
-testid xtf/test-hvm64-xsa-221
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
+--=-kGkEgoXDetvzxsez2QPr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-*** Found and reproduced problem changeset ***
+On Fri, 2020-09-25 at 20:21 +0000, Volodymyr Babchuk wrote:
+> Hi Dario,
+>=20
+Hi! :-)
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  62bcdc4edbf6d8c6e8a25544d48de22ccf75310d
-  Bug not present: 112992b05b2d2ca63f3c78eefe1cf8d192d7303a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154832/
+> Dario Faggioli writes:
+> > And what about the cases where schedule() does return?
+>=20
+> Can it return on x86? I want to test this case, but how force it?
+> Null
+> scheduler, perhaps?
+>=20
+> > Are these also fine because they're handled within __do_softirq()
+> > (i.e., without actually going back to do_softirq() and hence never
+> > calling end_hyp_task() for a second time)?
+>=20
+> I afraid, that there will be a bug. schedule() calls end_hyp_task(),
+> and
+> if it will eventually return from __do_softirq() to do_softirq(),
+> end_hyp_task() will be called twice.
+>
+Yeah, exactly. That's why I was asking whether you had verified that we
+actually never get to this. Either because we context switch or because
+we stay inside __do_schedule() and never go back to do_schedule().
 
+I was, in fact, referring to all the various cases of handling primary
+and secondary scheduling request, when core-scheduling is enabled.
 
-  commit 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 15:50:09 2020 +0200
-  
-      evtchn/x86: enforce correct upper limit for 32-bit guests
-      
-      The recording of d->max_evtchns in evtchn_2l_init(), in particular with
-      the limited set of callers of the function, is insufficient. Neither for
-      PV nor for HVM guests the bitness is known at domain_create() time, yet
-      the upper bound in 2-level mode depends upon guest bitness. Recording
-      too high a limit "allows" x86 32-bit domains to open not properly usable
-      event channels, management of which (inside Xen) would then result in
-      corruption of the shared info and vCPU info structures.
-      
-      Keep the upper limit dynamic for the 2-level case, introducing a helper
-      function to retrieve the effective limit. This helper is now supposed to
-      be private to the event channel code. The used in do_poll() and
-      domain_dump_evtchn_info() weren't consistent with port uses elsewhere
-      and hence get switched to port_is_valid().
-      
-      Furthermore FIFO mode's setup_ports() gets adjusted to loop only up to
-      the prior ABI limit, rather than all the way up to the new one.
-      
-      Finally a word on the change to do_poll(): Accessing ->max_evtchns
-      without holding a suitable lock was never safe, as it as well as
-      ->evtchn_port_ops may change behind do_poll()'s back. Using
-      port_is_valid() instead widens some the window for potential abuse,
-      until we've dealt with the race altogether (see XSA-343).
-      
-      This is XSA-342.
-      
-      Reported-by: Julien Grall <jgrall@amazon.com>
-      Fixes: 48974e6ce52e ("evtchn: use a per-domain variable for the max number of event channels")
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
+> > > I have put bunch of ASSERTs to ensure that vcpu_begin_hyp_task()
+> > > or
+> > > vcpu_end_hyp_task() are not called twice and that
+> > > vcpu_end_hyp_task()
+> > > is
+> > > called after vcpu_begin_hyp_task(). Those asserts are not
+> > > failing, so
+> > > I
+> > > assume that I did all this in the right way :)
+> > >=20
+> > Yeah, good to know. :-)
+> >=20
+> > Are you doing these tests with both core-scheduling disabled and
+> > enabled?
+>=20
+> Good question. On x86 I am running Xen in QEMU. With -smp=3D2 it sees
+> two
+> CPUs:
+>=20
+> (XEN) Brought up 2 CPUs
+> (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+>=20
+> You are right, I need to try other variants of scheduling
+> granularity.
+>=20
+> Do you by any chance know how to emulate more complex setup in QEMU?
+>
+Like enabling a virtual topology, on top of which you could test core
+(or socket) scheduling? If yes, indeed you can do that in QEMU:
 
+https://www.qemu.org/docs/master/qemu-doc.html
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-hvm64-xsa-221.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+-smp [cpus=3D]n[,cores=3Dcores][,threads=3Dthreads][,dies=3Ddies]
+     [,sockets=3Dsockets][,maxcpus=3Dmaxcpus]
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-hvm64-xsa-221 --summary-out=tmp/154832.bisection-summary --basis-template=154611 --blessings=real,real-bisect xen-unstable test-xtf-amd64-amd64-4 xtf/test-hvm64-xsa-221
-Searching for failure / basis pass:
- 154634 fail [host=albana1] / 154611 [host=huxelrebe1] 154592 [host=godello1] 154576 [host=fiano1] 154556 [host=huxelrebe0] 154521 [host=chardonnay1] 154504 [host=elbling0] 154494 [host=albana0] 154481 [host=chardonnay0] 154465 [host=godello0] 154090 [host=godello0] 154058 [host=pinot1] 154036 [host=godello1] 154016 [host=rimava1] 153983 [host=fiano0] 153957 ok.
-Failure / basis pass flights: 154634 / 153957
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Tree: xtf git://xenbits.xen.org/xtf.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 2785b2a9e04abc148e1c5259f4faee708ea356f4 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 b11910082d90bb1597f6679524eb726a33306672 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc4\
- 37c386260-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/xen.git#b11910082d90bb1597f6679524eb726a33306672-2785b2a9e04abc148e1c5259f4faee708ea356f4 git://xenbits.xen.org/xtf.git#17d372b763cb0b2e2e6b5a637c11f3997d2533fa-17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 153906 [host=huxelrebe1]
- 153931 [host=rimava1]
- 153957 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 b11910082d90bb1597f6679524eb726a33306672 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 153983 [host=fiano0]
- 154016 [host=rimava1]
- 154036 [host=godello1]
- 154058 [host=pinot1]
- 154090 [host=godello0]
- 154465 [host=godello0]
- 154481 [host=chardonnay0]
- 154494 [host=albana0]
- 154504 [host=elbling0]
- 154521 [host=chardonnay1]
- 154556 [host=huxelrebe0]
- 154576 [host=fiano1]
- 154592 [host=godello1]
- 154611 [host=huxelrebe1]
- 154634 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 2785b2a9e04abc148e1c5259f4faee708ea356f4 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154687 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 b11910082d90bb1597f6679524eb726a33306672 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154784 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 2785b2a9e04abc148e1c5259f4faee708ea356f4 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154788 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 b4e41b1750d550bf2b1ccf97ee46f4f682bdbb62 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154792 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 c7e3021a71fdb4f2d5dbad90ba83ce35bc21cda6 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154798 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 8e76aef72820435e766c7f339ed36da33da90c40 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154801 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 112992b05b2d2ca63f3c78eefe1cf8d192d7303a 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154805 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 c0ddc8634845aba50774add6e4b73fdaffc82656 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154813 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154817 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 112992b05b2d2ca63f3c78eefe1cf8d192d7303a 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154820 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154827 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 112992b05b2d2ca63f3c78eefe1cf8d192d7303a 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
- 154832 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-Searching for interesting versions
- Result found: flight 153957 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 112992b05b2d2ca63f3c78eefe1cf8d192d7303a 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x55a10ec6af50) HASH(0x55a10ec6de38) HASH(0x55a10e6f5bc8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05\
- e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 8e76aef72820435e766c7f339ed36da33da90c40 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x55a10ec682e0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 c7e3021a71fdb4f2d5dbad90ba83ce35bc21cda6 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x55a10ec6\
- 5db8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 b4e41b1750d550bf2b1ccf97ee46f4f682bdbb62 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x55a10ec49e80) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3\
- cd1ed79d824e605a70c3626bc437c386260 b11910082d90bb1597f6679524eb726a33306672 17d372b763cb0b2e2e6b5a637c11f3997d2533fa, results HASH(0x55a10ebe2028) HASH(0x55a10ebd9170) Result found: flight 154634 (fail), for basis failure (at ancestor ~343)
- Repro found: flight 154687 (pass), for basis pass
- Repro found: flight 154784 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 112992b05b2d2ca63f3c78eefe1cf8d192d7303a 17d372b763cb0b2e2e6b5a637c11f3997d2533fa
-No revisions left to test, checking graph state.
- Result found: flight 154801 (pass), for last pass
- Result found: flight 154813 (fail), for first failure
- Repro found: flight 154817 (pass), for last pass
- Repro found: flight 154820 (fail), for first failure
- Repro found: flight 154827 (pass), for last pass
- Repro found: flight 154832 (fail), for first failure
+Simulate an SMP system with n CPUs. On the PC target, up to 255 CPUs
+are supported. On Sparc32 target, Linux limits the number of usable
+CPUs to 4. For the PC target, the number of cores per die, the number
+of threads per cores, the number of dies per packages and the total
+number of sockets can be specified. Missing values will be computed. If
+any on the three values is given, the total number of CPUs n can be
+omitted. maxcpus specifies the maximum number of hotpluggable CPUs.
 
-*** Found and reproduced problem changeset ***
+Once you have an SMT virtual topology, you can boot Xen inside, with an
+higher scheduling granularity.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  62bcdc4edbf6d8c6e8a25544d48de22ccf75310d
-  Bug not present: 112992b05b2d2ca63f3c78eefe1cf8d192d7303a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/154832/
+A (rather big!) example would be:
 
+-smp 224,sockets=3D4,cores=3D28,threads=3D2
 
-  commit 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 15:50:09 2020 +0200
-  
-      evtchn/x86: enforce correct upper limit for 32-bit guests
-      
-      The recording of d->max_evtchns in evtchn_2l_init(), in particular with
-      the limited set of callers of the function, is insufficient. Neither for
-      PV nor for HVM guests the bitness is known at domain_create() time, yet
-      the upper bound in 2-level mode depends upon guest bitness. Recording
-      too high a limit "allows" x86 32-bit domains to open not properly usable
-      event channels, management of which (inside Xen) would then result in
-      corruption of the shared info and vCPU info structures.
-      
-      Keep the upper limit dynamic for the 2-level case, introducing a helper
-      function to retrieve the effective limit. This helper is now supposed to
-      be private to the event channel code. The used in do_poll() and
-      domain_dump_evtchn_info() weren't consistent with port uses elsewhere
-      and hence get switched to port_is_valid().
-      
-      Furthermore FIFO mode's setup_ports() gets adjusted to loop only up to
-      the prior ABI limit, rather than all the way up to the new one.
-      
-      Finally a word on the change to do_poll(): Accessing ->max_evtchns
-      without holding a suitable lock was never safe, as it as well as
-      ->evtchn_port_ops may change behind do_poll()'s back. Using
-      port_is_valid() instead widens some the window for potential abuse,
-      until we've dealt with the race altogether (see XSA-343).
-      
-      This is XSA-342.
-      
-      Reported-by: Julien Grall <jgrall@amazon.com>
-      Fixes: 48974e6ce52e ("evtchn: use a per-domain variable for the max number of event channels")
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
+You can even define a virtual NUMA topology, if you want.
 
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-xtf-amd64-amd64-4.xtf--test-hvm64-xsa-221.{dot,ps,png,html,svg}.
-----------------------------------------
-154832: tolerable all pass
+And you can pin the vCPUs to the physical CPUs of the hosts, in such a
+way that the virtual topology is mapped to the physical one. This is
+good for performance but also increase a little bit the accuracy of
+testing.
 
-flight 154832 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154832/
+> Also, what is the preferred way to test/debug Xen on x86?
+>=20
+I test on real hardware, at least most of the times, if this is what
+you're asking.
 
-Failures :-/ but no regressions.
+Checking if the code is "functionally correct" is ok-ish if done in a
+VM first. But then, especially for scheduling related things, where
+timing plays a rather significant role, I personally prefer to test on
+actual hardware sooner rather than later.
 
-Tests which did not succeed,
-including tests which could not be run:
- test-xtf-amd64-amd64-4       68 xtf/test-hvm64-xsa-221  fail baseline untested
- test-xtf-amd64-amd64-4       106 xtf/test-pv64-xsa-221  fail baseline untested
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
+--=-kGkEgoXDetvzxsez2QPr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-jobs:
- test-xtf-amd64-amd64-4                                       pass    
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl9uZD0ACgkQFkJ4iaW4
+c+4+vQ//f99XEctFDArSu6mPKwgyEga+Ch0ZJi7fy1RV7V4R5O7um+gbsdS5xkPI
+Fb3ifZNk2JnQGLmovBqBT58G8SBzkVSpLS5Vo+PuBk9rdcP332jzz029Be4UmZqg
+3FLkQd5TTetWeGILbgRa++0fu6V+5eKiP320O2zhEo5uLdKye9rOHx7v/Go1Hlms
+94CBuBhoNiaxvw1cx8tScCBGLUC2a8jLP1ZTF66CBZ2/XBLzcILrZ7oS+cwFzoMY
+c1R2zbILmdJAiyXhMzHajV02040O2v4x1W8Fts3aFj1yYTSJjw1dr7uR6/dkGkeA
+Lyc0NGP52XoFQG5hXY1h9eMfzS51WKldAwLSrEbIUAC+Lq9QVZc1zbaQQ7aGJU9N
+Lw634ZMV0U1s4u7w8iX2YBh5zU3F+BV18lkyVPYF8DFGzS7b0onGZDCP7kCSMPt1
+WfSOKQnmibFQ8gaIr/2D438f15FuQQPnZVn9VHDRDTHkpWsbAIO8DwYkiLdDxEDt
+QZK8xs8PFKoueCV4YF6wzjLZpsejyG67eWDQf45/01H7+xbSJ5CE84t37NFm46EZ
+Q2ACtc/Lev3f32qajTUQADCqXGSwodD+V7X3Bw/+241iPB5yAmQZwW0H4mLHGYQS
+wOtRyAJo2gjeJDoyYk+lz4ue7nc0MqrLeCc1tUh483c/Bm8jwEU=
+=Hf6u
+-----END PGP SIGNATURE-----
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+--=-kGkEgoXDetvzxsez2QPr--
 
 
