@@ -2,76 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B41D27AB91
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:12:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50CF127AB9F
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:14:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMq8H-0000A8-Hx; Mon, 28 Sep 2020 10:11:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kMqAK-0000HP-V9; Mon, 28 Sep 2020 10:13:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iXz5=DF=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kMq8G-0000A1-9q
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:11:44 +0000
-X-Inumbo-ID: 523afc86-b80d-4d68-b7f9-e8b903ec038b
-Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 523afc86-b80d-4d68-b7f9-e8b903ec038b;
- Mon, 28 Sep 2020 10:11:42 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1601287900;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/LEbaJHkdEDSvABDEX0Mpwgs63YbqlMHeZ5/FcFgS7c=;
- b=WscWB2qjowVUKNzXJ7iKsyolZUkjDBztcYFbIgHrMUrtAEvquCam4/K52jcCtRQM+yKytr
- URMI6z640lbxw7hkIOVx1TRLHMdhaWzx98lhVnLFqthWanJFHVHxlo2eOWubHBSTBu9GDF
- 7G67OuYSeZNyWEttoblh+kzL4D7QpchbFTWBx+ikU8exuLt8q5pjxfqcBdHoB6zPbCD8mH
- lZQfvtFRw5BX5n7PSkSM/ugl/cb4XGqprClPnO9RlJUYEx0yP1D0OFHRQNoIV4NB6Tbt2s
- hzKesgmvohZEey59MwUSx2qdsQEH+kkd6efSVXhIbahzs/eEUDUMLSXdq82ySg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1601287900;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/LEbaJHkdEDSvABDEX0Mpwgs63YbqlMHeZ5/FcFgS7c=;
- b=gKFUKgJag7QuixgLnPA+ShsJ5WL+xoFovrXQai1julVEgAI8XcH7X6h36NY9HKTW9eWOPq
- ZWPyJFpE9hRbkzAA==
-To: Vasily Gorbik <gor@linux.ibm.com>, Qian Cai <cai@redhat.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- linux-s390@vger.kernel.org, Stephen Rothwell <sfr@canb.auug.org.au>,
- linux-next@vger.kernel.org, x86@kernel.org, Joerg Roedel
- <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
- Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
- <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
- <rja@hpe.com>, linux-pci@vger.kernel.org, Bjorn Helgaas
- <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
- <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
- <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
- Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
- <dan.j.williams@intel.com>
-Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
- selectable
-In-Reply-To: <your-ad-here.call-01601123933-ext-6476@work.hours>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112333.992429909@linutronix.de>
- <cdfd63305caa57785b0925dd24c0711ea02c8527.camel@redhat.com>
- <your-ad-here.call-01601123933-ext-6476@work.hours>
-Date: Mon, 28 Sep 2020 12:11:40 +0200
-Message-ID: <87eemmky77.fsf@nanos.tec.linutronix.de>
+ <SRS0=B83a=DF=linux.intel.com=joonas.lahtinen@srs-us1.protection.inumbo.net>)
+ id 1kMqAJ-0000HH-78
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:13:51 +0000
+X-Inumbo-ID: 4f22c3c1-b6d0-4429-98e7-8d52e92587a5
+Received: from mga09.intel.com (unknown [134.134.136.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f22c3c1-b6d0-4429-98e7-8d52e92587a5;
+ Mon, 28 Sep 2020 10:13:49 +0000 (UTC)
+IronPort-SDR: n3bDiMwaEmQk0IRfuEFaVKNMLhruMehtHa8GLh7GBG99HIqEEO7+L5DMhUvCfkCkse0/bKEx4n
+ z8YVkzvUefNA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9757"; a="162854936"
+X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; d="scan'208";a="162854936"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2020 03:13:47 -0700
+IronPort-SDR: oynyLpLaEo8E2hmYKjUK2eLejsF9h1nd7bvB1+8YkaeLPVcxKUTeXs7JzHnC+u3AXBq2RQNnIu
+ AssYzP9UKYBw==
+X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; d="scan'208";a="456766108"
+Received: from jrcarrol-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.31.240])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2020 03:13:41 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200926062959.GA3427@lst.de>
+References: <20200924135853.875294-1-hch@lst.de>
+ <20200925194349.d0ee9dbedb2ec48f0bfcd2ec@linux-foundation.org>
+ <20200926062959.GA3427@lst.de>
+Subject: Re: remove alloc_vm_area v2
+To: Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Rothwell <sfr@canb.auug.org.au>
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Christoph Hellwig <hch@lst.de>, Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Minchan Kim <minchan@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Nitin Gupta <ngupta@vflare.org>,
+ x86@kernel.org, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <160128801808.6464.1013594053120198786@jlahtine-mobl.ger.corp.intel.com>
+User-Agent: alot/0.8.1
+Date: Mon, 28 Sep 2020 13:13:38 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,20 +75,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Sep 26 2020 at 14:38, Vasily Gorbik wrote:
-> On Fri, Sep 25, 2020 at 09:54:52AM -0400, Qian Cai wrote:
-> Yes, as well as on mips and sparc which also don't FORCE_PCI.
-> This seems to work for s390:
->
-> diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
-> index b0b7acf07eb8..41136fbe909b 100644
-> --- a/arch/s390/Kconfig
-> +++ b/arch/s390/Kconfig
-> @@ -192,3 +192,3 @@ config S390
->         select PCI_MSI                  if PCI
-> -       select PCI_MSI_ARCH_FALLBACKS
-> +       select PCI_MSI_ARCH_FALLBACKS   if PCI
->         select SET_FS
++ Dave and Daniel
++ Stephen
 
-lemme fix that for all of them ...
+Quoting Christoph Hellwig (2020-09-26 09:29:59)
+> On Fri, Sep 25, 2020 at 07:43:49PM -0700, Andrew Morton wrote:
+> > On Thu, 24 Sep 2020 15:58:42 +0200 Christoph Hellwig <hch@lst.de> wrote:
+> >=20
+> > > this series removes alloc_vm_area, which was left over from the big
+> > > vmalloc interface rework.  It is a rather arkane interface, basicaly
+> > > the equivalent of get_vm_area + actually faulting in all PTEs in
+> > > the allocated area.  It was originally addeds for Xen (which isn't
+> > > modular to start with), and then grew users in zsmalloc and i915
+> > > which seems to mostly qualify as abuses of the interface, especially
+> > > for i915 as a random driver should not set up PTE bits directly.
+> > >=20
+> > > Note that the i915 patches apply to the drm-tip branch of the drm-tip
+> > > tree, as that tree has recent conflicting commits in the same area.
+> >=20
+> > Is the drm-tip material in linux-next yet?  I'm still seeing a non-triv=
+ial
+> > reject in there at present.
+>=20
+> I assumed it was, but the reject imply that they aren't.  Tvrtko, do you
+> know the details?
+
+I think we have a gap that after splitting the drm-intel-next pull requests=
+ into
+two the drm-intel/for-linux-next branch is now missing material from
+drm-intel/drm-intel-gt-next.
+
+I think a simple course of action might be to start including drm-intel-gt-=
+next
+in linux-next, which would mean that we should update DIM tooling to add
+extra branch "drm-intel/gt-for-linux-next" or so.
+
+Which specific patches are missing in this case?
+
+Regards, Joonas
 
