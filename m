@@ -2,56 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4C727ADF8
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 14:37:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEBF727AE22
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 14:48:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMsPc-0008Tr-Nh; Mon, 28 Sep 2020 12:37:48 +0000
+	id 1kMsZd-00011x-Qs; Mon, 28 Sep 2020 12:48:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=liDW=DF=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kMsPb-0008Te-HU
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 12:37:47 +0000
-X-Inumbo-ID: da147c3e-f1ba-451e-bc4b-ee8c4f50e73c
-Received: from verein.lst.de (unknown [213.95.11.211])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HPfX=DF=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kMsZc-00011s-Qy
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 12:48:08 +0000
+X-Inumbo-ID: d65e8350-d4f4-4482-8678-07977a4ae00e
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id da147c3e-f1ba-451e-bc4b-ee8c4f50e73c;
- Mon, 28 Sep 2020 12:37:46 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 0954568AFE; Mon, 28 Sep 2020 14:37:41 +0200 (CEST)
-Date: Mon, 28 Sep 2020 14:37:41 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Christoph Hellwig <hch@lst.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Rothwell <sfr@canb.auug.org.au>,
- Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Minchan Kim <minchan@kernel.org>,
- Matthew Wilcox <willy@infradead.org>,
- Nitin Gupta <ngupta@vflare.org>, x86@kernel.org,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org
-Subject: Re: remove alloc_vm_area v2
-Message-ID: <20200928123741.GA4999@lst.de>
-References: <20200924135853.875294-1-hch@lst.de>
- <20200925194349.d0ee9dbedb2ec48f0bfcd2ec@linux-foundation.org>
- <20200926062959.GA3427@lst.de>
- <160128801808.6464.1013594053120198786@jlahtine-mobl.ger.corp.intel.com>
+ id d65e8350-d4f4-4482-8678-07977a4ae00e;
+ Mon, 28 Sep 2020 12:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1601297286;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=PBVzVyzYPZC6892HkoORxYNHabSQpp1y2T5oKjMBAu4=;
+ b=HC8R9OeCQwYeCQfVBuQUC0859CXd2kyfR9lbjaECG3T3ElGbSxx2S0kK
+ +lXvBMkhH/L0sIEBiyD57+LJkalofBjVFQhODvMcPREPts/0TjEHRsOdM
+ A4MJCLOijx2JYECj+E9dumUz53eacYvK+dG+w+pE4kxSqH2rJ254vbinH A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 21xcia6cEeq6Skj60pG6Du/4WpwJNOoRApc/nL9jQjAKKiTOdfUiw4ofxABEUoywnvz8IdOizo
+ VEOjvf63KYq2CpxK1G6bbbtNdBTVyy8n7jA/loMRPJbddSfLBOlWOq5zyAQd9MSKVjH7AKIhB0
+ sgF4wNX5yO/Ge5ovnf8TMPI267aAXG4B9pCTzOI8gjEvIDVkFef753Haondiw7TVWMysVR0DuO
+ pdRtvSncV5uMclkjb4DUT6IntNif7MQ9MJzRIknKZFP231VgiZqBLoBIthVNFkSiww9idFMI+T
+ JhU=
+X-SBRS: None
+X-MesageID: 28754082
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,313,1596513600"; d="scan'208";a="28754082"
+Subject: Re: [PATCH 1/5] x86: introduce read_sregs() to allow storing to
+ memory directly
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <ec4b451e-2b93-8526-ef98-7a2d502e31c2@suse.com>
+ <6cd5dfca-a10c-0847-c084-a511ab2cbb1c@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <46c1f7b6-6c96-9c81-849e-4e44ed341ccb@citrix.com>
+Date: Mon, 28 Sep 2020 13:47:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <160128801808.6464.1013594053120198786@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <6cd5dfca-a10c-0847-c084-a511ab2cbb1c@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,21 +73,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 28, 2020 at 01:13:38PM +0300, Joonas Lahtinen wrote:
-> I think we have a gap that after splitting the drm-intel-next pull requests into
-> two the drm-intel/for-linux-next branch is now missing material from
-> drm-intel/drm-intel-gt-next.
-> 
-> I think a simple course of action might be to start including drm-intel-gt-next
-> in linux-next, which would mean that we should update DIM tooling to add
-> extra branch "drm-intel/gt-for-linux-next" or so.
-> 
-> Which specific patches are missing in this case?
+On 28/09/2020 13:05, Jan Beulich wrote:
+> --- a/xen/include/asm-x86/regs.h
+> +++ b/xen/include/asm-x86/regs.h
+> @@ -15,4 +15,18 @@
+>      (diff == 0);                                                              \
+>  })
+>  
+> +#define read_sreg(name) ({                                    \
+> +    unsigned int __sel;                                       \
+> +    asm volatile ( "mov %%" STR(name) ",%0" : "=r" (__sel) ); \
+> +    __sel;                                                    \
+> +})
+> +
+> +static inline void read_sregs(struct cpu_user_regs *regs)
+> +{
+> +    asm volatile ( "mov %%ds, %0" : "=m" (regs->ds) );
+> +    asm volatile ( "mov %%es, %0" : "=m" (regs->es) );
+> +    asm volatile ( "mov %%fs, %0" : "=m" (regs->fs) );
+> +    asm volatile ( "mov %%gs, %0" : "=m" (regs->gs) );
 
-The two dependencies required by my series not in mainline are:
+It occurs to me that reads don't need to be volatile.  There are no side
+effects.
 
-    drm/i915/gem: Avoid implicit vmap for highmem on x86-32
-    drm/i915/gem: Prevent using pgprot_writecombine() if PAT is not supported
-
-so it has to be one or both of those.
+With that fixed, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
