@@ -2,60 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F9727B293
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 18:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB17927B45D
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 20:22:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMwMx-0000Id-Vc; Mon, 28 Sep 2020 16:51:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/rPw=DF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kMwMw-0000IY-H3
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 16:51:18 +0000
-X-Inumbo-ID: f847191f-ab5e-4c09-b7c3-4c75ae7e5c2b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f847191f-ab5e-4c09-b7c3-4c75ae7e5c2b;
- Mon, 28 Sep 2020 16:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=uQ6GllypR7CUv16+GxOGWSuQQ3/xfr60L5/6HyZ/pFs=; b=Ren024ytKM4ngcwZaaiIYUu8dA
- IdtzwcVz4nJYX8IahX4aLFeJIpIT7JQOFouDYQf+j0PfDcHtYDEiNO7UbA96JccsmEZf5PidPxYz0
- q8XyvLMkw+iUiLxq0CozOAEHKdbAZ14+zuyaJMD8NpTdHcwhbLFABiCVnndawjct+Di4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kMwMt-0008PD-V1; Mon, 28 Sep 2020 16:51:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kMwMt-0008Fv-IG; Mon, 28 Sep 2020 16:51:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kMwMt-0002P2-Dv; Mon, 28 Sep 2020 16:51:15 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155022-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1kMxmK-000808-5B; Mon, 28 Sep 2020 18:21:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9ke0=DF=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kMxmI-0007zr-Tl
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 18:21:34 +0000
+X-Inumbo-ID: 9671f3c7-f94e-415b-8358-a955bd578dc3
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 9671f3c7-f94e-415b-8358-a955bd578dc3;
+ Mon, 28 Sep 2020 18:21:27 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1601317287;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=X2Yqja7pye8mZbSjhD7TOoec/V3V4xK4zIbG8NELbbs=;
+ b=e6wNoqgS3EOILJj0kAZQibTqB9+/WwYNffLV9NdOYjmQdLiWHfk98Pxo2d0W9WKJ5ym4sR
+ yQHADpOojKq9DZN56WE7sTXV2OFEa7ER0WJsBhyD5ZTHLJKEM8BEzJpJtV760509FO+dpc
+ cml33Os/F03Za0AnsVKijeuFd4iHmvM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-176-1k86BoS3PJW345UFtvSCfA-1; Mon, 28 Sep 2020 14:21:23 -0400
+X-MC-Unique: 1k86BoS3PJW345UFtvSCfA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 963D510BBEC0;
+ Mon, 28 Sep 2020 18:21:19 +0000 (UTC)
+Received: from t480s.redhat.com (ovpn-112-106.ams2.redhat.com [10.36.112.106])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 59C6127BCF;
+ Mon, 28 Sep 2020 18:21:11 +0000 (UTC)
+From: David Hildenbrand <david@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@redhat.com>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Mel Gorman <mgorman@techsingularity.net>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Scott Cheloha <cheloha@linux.ibm.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Wei Liu <wei.liu@kernel.org>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>
+Subject: [PATCH v1 0/5] mm: place pages to the freelist tail when onling and
+ undoing isolation
+Date: Mon, 28 Sep 2020 20:21:05 +0200
+Message-Id: <20200928182110.7050-1-david@redhat.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155022: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=4bdbf746ac9152e70f264f87db4472707da805ce
-X-Osstest-Versions-That: xen=5bcac985498ed83d89666959175ca9c9ed561ae1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 28 Sep 2020 16:51:15 +0000
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,140 +77,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 155022 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155022/
+When adding separate memory blocks via add_memory*() and onlining them
+immediately, the metadata (especially the memmap) of the next block will be
+placed onto one of the just added+onlined block. This creates a chain
+of unmovable allocations: If the last memory block cannot get
+offlined+removed() so will all dependent ones. We directly have unmovable
+allocations all over the place.
 
-Regressions :-(
+This can be observed quite easily using virtio-mem, however, it can also
+be observed when using DIMMs. The freshly onlined pages will usually be
+placed to the head of the freelists, meaning they will be allocated next,
+turning the just-added memory usually immediately un-removable. The
+fresh pages are cold, prefering to allocate others (that might be hot)
+also feels to be the natural thing to do.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 154728
+It also applies to the hyper-v balloon xen-balloon, and ppc64 dlpar: when
+adding separate, successive memory blocks, each memory block will have
+unmovable allocations on them - for example gigantic pages will fail to
+allocate.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+While the ZONE_NORMAL doesn't provide any guarantees that memory can get
+offlined+removed again (any kind of fragmentation with unmovable
+allocations is possible), there are many scenarios (hotplugging a lot of
+memory, running workload, hotunplug some memory/as much as possible) where
+we can offline+remove quite a lot with this patchset.
 
-version targeted for testing:
- xen                  4bdbf746ac9152e70f264f87db4472707da805ce
-baseline version:
- xen                  5bcac985498ed83d89666959175ca9c9ed561ae1
+a) To visualize the problem, a very simple example:
 
-Last test of basis   154728  2020-09-24 21:01:24 Z    3 days
-Testing same since   155022  2020-09-28 14:00:30 Z    0 days    1 attempts
+Start a VM with 4GB and 8GB of virtio-mem memory:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+ [root@localhost ~]# lsmem
+ RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+ 0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+ 0x0000000100000000-0x000000033fffffff   9G online       yes 32-103
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+ Memory block size:       128M
+ Total online memory:      12G
+ Total offline memory:      0B
 
+Then try to unplug as much as possible using virtio-mem. Observe which
+memory blocks are still around. Without this patch set:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+ [root@localhost ~]# lsmem
+ RANGE                                  SIZE  STATE REMOVABLE   BLOCK
+ 0x0000000000000000-0x00000000bfffffff    3G online       yes    0-23
+ 0x0000000100000000-0x000000013fffffff    1G online       yes   32-39
+ 0x0000000148000000-0x000000014fffffff  128M online       yes      41
+ 0x0000000158000000-0x000000015fffffff  128M online       yes      43
+ 0x0000000168000000-0x000000016fffffff  128M online       yes      45
+ 0x0000000178000000-0x000000017fffffff  128M online       yes      47
+ 0x0000000188000000-0x0000000197ffffff  256M online       yes   49-50
+ 0x00000001a0000000-0x00000001a7ffffff  128M online       yes      52
+ 0x00000001b0000000-0x00000001b7ffffff  128M online       yes      54
+ 0x00000001c0000000-0x00000001c7ffffff  128M online       yes      56
+ 0x00000001d0000000-0x00000001d7ffffff  128M online       yes      58
+ 0x00000001e0000000-0x00000001e7ffffff  128M online       yes      60
+ 0x00000001f0000000-0x00000001f7ffffff  128M online       yes      62
+ 0x0000000200000000-0x0000000207ffffff  128M online       yes      64
+ 0x0000000210000000-0x0000000217ffffff  128M online       yes      66
+ 0x0000000220000000-0x0000000227ffffff  128M online       yes      68
+ 0x0000000230000000-0x0000000237ffffff  128M online       yes      70
+ 0x0000000240000000-0x0000000247ffffff  128M online       yes      72
+ 0x0000000250000000-0x0000000257ffffff  128M online       yes      74
+ 0x0000000260000000-0x0000000267ffffff  128M online       yes      76
+ 0x0000000270000000-0x0000000277ffffff  128M online       yes      78
+ 0x0000000280000000-0x0000000287ffffff  128M online       yes      80
+ 0x0000000290000000-0x0000000297ffffff  128M online       yes      82
+ 0x00000002a0000000-0x00000002a7ffffff  128M online       yes      84
+ 0x00000002b0000000-0x00000002b7ffffff  128M online       yes      86
+ 0x00000002c0000000-0x00000002c7ffffff  128M online       yes      88
+ 0x00000002d0000000-0x00000002d7ffffff  128M online       yes      90
+ 0x00000002e0000000-0x00000002e7ffffff  128M online       yes      92
+ 0x00000002f0000000-0x00000002f7ffffff  128M online       yes      94
+ 0x0000000300000000-0x0000000307ffffff  128M online       yes      96
+ 0x0000000310000000-0x0000000317ffffff  128M online       yes      98
+ 0x0000000320000000-0x0000000327ffffff  128M online       yes     100
+ 0x0000000330000000-0x000000033fffffff  256M online       yes 102-103
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+ Memory block size:       128M
+ Total online memory:     8.1G
+ Total offline memory:      0B
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+With this patch set:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ [root@localhost ~]# lsmem
+ RANGE                                 SIZE  STATE REMOVABLE BLOCK
+ 0x0000000000000000-0x00000000bfffffff   3G online       yes  0-23
+ 0x0000000100000000-0x000000013fffffff   1G online       yes 32-39
 
+ Memory block size:       128M
+ Total online memory:       4G
+ Total offline memory:      0B
 
-Not pushing.
+All memory can get unplugged, all memory block can get removed. Of course,
+no workload ran and the system was basically idle, but it highlights the
+issue - the fairly deterministic chain of unmovable allocations. When a
+huge page for the 2MB memmap is needed, a just-onlined 4MB page will
+be split. The remaining 2MB page will be used for the memmap of the next
+memory block. So one memory block will hold the memmap of the two following
+memory blocks. Finally the pages of the last-onlined memory block will get
+used for the next bigger allocations - if any allocation is unmovable,
+all dependent memory blocks cannot get unplugged and removed until that
+allocation is gone.
 
-------------------------------------------------------------
-commit 4bdbf746ac9152e70f264f87db4472707da805ce
-Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Date:   Mon Sep 28 10:43:10 2020 +0200
+Note that with bigger memory blocks (e.g., 256MB), *all* memory
+blocks are dependent and none can get unplugged again!
 
-    x86/S3: fix shadow stack resume path
-    
-    Fix the resume path to load the shadow stack pointer from saved_ssp (not
-    saved_rsp), to match what suspend path does.
-    
-    Fixes: 633ecc4a7cb2 ("x86/S3: Save and restore Shadow Stack configuration")
-    Backport: 4.14
-    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+b) Experiment with memory intensive workload
 
-commit 28fb8cf323dd93f59a9c851c93ba9b79de8b1c4e
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Mon Sep 28 10:42:29 2020 +0200
+I performed an experiment with an older version of this patch set
+(before we used undo_isolate_page_range() in online_pages():
+Hotplug 56GB to a VM with an initial 4GB, onlining all memory to
+ZONE_NORMAL right from the kernel when adding it. I then run various
+memory intensive workloads that consume most system memory for a total of
+45 minutes. Once finished, I try to unplug as much memory as possible.
 
-    x86/iommu: remove code to fetch MSI message from remap table
-    
-    Remove the code to compose a MSI message based on the information from
-    the MSI registers and the data in the interrupt remapping table.
-    Since the removal of read_msi_msg and its user there's no longer a
-    need for such code, as the last written (untranslated) MSI message is
-    cached internally by Xen.
-    
-    Suggested-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+With this change, I am able to remove via virtio-mem (adding individual
+128MB memory blocks) 413 out of 448 added memory blocks. Via individual
+(256MB) DIMMs 380 out of 448 added memory blocks. (I don't have any numbers
+without this patchset, but looking at the above example, it's at most half
+of the 448 memory blocks for virtio-mem, and most probably none for DIMMs).
 
-commit f9ffd20f946c0315937f85d2f124a9bc4be49473
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Mon Sep 28 10:41:48 2020 +0200
+Again, there are workloads that might behave very differently due to the
+nature of ZONE_NORMAL.
 
-    x86/hpet: remove hpet_msi_read
-    
-    It's dead code, even more now that read_msi_msg has been removed.
-    
-    Suggested-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This change also affects (besodes memory onlining):
+- Other users of undo_isolate_page_range(): Pages are always placed to the
+  tail.
+-- When memory offlining fails
+-- When memory isolation fails after having isolated some pageblocks
+-- When alloc_contig_range() either succeeds or fails
+- Other users of __putback_isolated_page(): Pages are always placed to the
+  tail.
+-- Free page reporting
+- Other users of __free_pages_core()
+-- AFAIKs, any memory that is getting exposed to the buddy during boot.
+   IIUC we will now usually allocate memory from lower addresses within
+   a zone first (especially during boot).
+- Other users of generic_online_page()
+-- Hyper-V balloon
 
-commit fe41405f5ee650d3fe39105cf59193b1494cdcdc
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Sep 28 10:40:53 2020 +0200
+RFC -> v1:
+- Tweak some patch descriptions
+- "mm/page_alloc: place pages to tail in __putback_isolated_page()"
+-- FOP_TO_TAIL now has higher precedence than page shuffling
+-- Add a note that nothing should rely on FOP_TO_TAIL for correctness
+- "mm/page_alloc: always move pages to the tail of the freelist in
+   unset_migratetype_isolate()"
+-- Use "bool" parameter for move_freepages_block() as requested
+- "mm/page_alloc: place pages to tail in __free_pages_core()"
+-- Eliminate set_page_refcounted() + page_ref_dec() and add a comment
+- "mm/memory_hotplug: update comment regarding zone shuffling"
+-- Added
 
-    common/Kconfig: sort HAS_*
-    
-    Later additions look to have been put at the end, with MEM_ACCESS*
-    somewhere in the middle. Re-sort this part of the file, in the hope that
-    future additions will be made noticing the intentions here.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
+David Hildenbrand (5):
+  mm/page_alloc: convert "report" flag of __free_one_page() to a proper
+    flag
+  mm/page_alloc: place pages to tail in __putback_isolated_page()
+  mm/page_alloc: always move pages to the tail of the freelist in
+    unset_migratetype_isolate()
+  mm/page_alloc: place pages to tail in __free_pages_core()
+  mm/memory_hotplug: update comment regarding zone shuffling
 
-commit 643e2f3cbb3b607f3365b230f439845e9bf113b0
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Sep 28 10:39:47 2020 +0200
+ include/linux/page-isolation.h |   4 +-
+ mm/memory_hotplug.c            |  11 ++--
+ mm/page_alloc.c                | 114 ++++++++++++++++++++++++---------
+ mm/page_isolation.c            |  12 +++-
+ 4 files changed, 97 insertions(+), 44 deletions(-)
 
-    EFI: some easy constification
-    
-    Inspired by some of Trammell's suggestions, this harvests some low
-    hanging fruit, without needing to be concerned about the definitions of
-    the EFI interfaces themselves.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Wei Liu <wl@xen.org>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+-- 
+2.26.2
+
 
