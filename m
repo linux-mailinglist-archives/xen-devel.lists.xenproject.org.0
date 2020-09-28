@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8126C27AC47
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB0B27AC4C
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:56:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMqo3-00045x-2t; Mon, 28 Sep 2020 10:54:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kMqpP-0004DF-EL; Mon, 28 Sep 2020 10:56:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMqo1-00045s-I7
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:54:53 +0000
-X-Inumbo-ID: e700fdc8-2518-4c7c-acdc-f143c070f7f2
+ id 1kMqpO-0004D9-C7
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:56:18 +0000
+X-Inumbo-ID: 809d7d92-3d87-4b15-b2fd-40239f5670d4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e700fdc8-2518-4c7c-acdc-f143c070f7f2;
- Mon, 28 Sep 2020 10:54:51 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 809d7d92-3d87-4b15-b2fd-40239f5670d4;
+ Mon, 28 Sep 2020 10:56:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601290491;
+ t=1601290577;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=qws5fKafNcdbnbM1Hj4ODyscdm/15K/S0hw1FOXdRDQ=;
- b=j47a41MCUvc+RoHHPQc7w8vqZcVqupyA6IVzOHn0RSid6nvwXfJnhoi7qC9Cra06qImk3j
- d8Ch3vKpn2DcNIlyO+LYuQq9C8FPLpplA09t16UoDcPlOODuTrNldwDTROtRMH3QaOAXCs
- a1Rc4W0J1dZF1fCY1V2ndtHBEyxvHBY=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SzaITT0sR3eKgr9vS2zQdHUk+Tx53cRBKfsTil/SkmQ=;
+ b=CBAgCk51gqJC4Lfk5Vurzo8R4RD8XfWV6Kbt8GMm1/aUv4ihrpKPqYjok2HK3cYppB1VHw
+ sqOJQBPZMvaPlhRx+eQpwXZ6ynX04iW6itpTnlmPvLT+tECb3RW6LELgutCldqKilExT80
+ X+XX8l1ojLkhnSK3/rjPGdfI7sG+SE0=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0CD01AE07;
- Mon, 28 Sep 2020 10:54:51 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id ED72BAD82;
+ Mon, 28 Sep 2020 10:56:16 +0000 (UTC)
+Subject: [PATCH 01/12] evtchn: refuse EVTCHNOP_status for Xen-bound event
+ channels
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 00/12] evtchn: recent XSAs follow-on
-Message-ID: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
-Date: Mon, 28 Sep 2020 12:54:49 +0200
+References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
+Message-ID: <e7331fa6-e557-4319-6137-2c2525f78822@suse.com>
+Date: Mon, 28 Sep 2020 12:56:15 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -60,21 +63,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-These are grouped into a series largely because of their origin,
-not so much because there are heavy dependencies among them.
+Callers have no business knowing the state of the Xen end of an event
+channel.
 
-01: refuse EVTCHNOP_status for Xen-bound event channels
-02: avoid race in get_xen_consumer()
-03: don't call Xen consumer callback with per-channel lock held
-04: evtchn_set_priority() needs to acquire the per-channel lock
-05: sched: reject poll requests for unusable ports
-06: don't bypass unlinking pIRQ when closing port
-07: cut short evtchn_reset()'s loop in the common case
-08: ECS_CLOSED => ECS_FREE
-09: move FIFO-private struct declarations
-10: fifo: use stable fields when recording "last queue" information
-11: convert vIRQ lock to an r/w one
-12: convert domain event lock to an r/w one
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -933,6 +933,11 @@ int evtchn_status(evtchn_status_t *statu
+     }
+ 
+     chn = evtchn_from_port(d, port);
++    if ( consumer_is_xen(chn) )
++    {
++        rc = -EACCES;
++        goto out;
++    }
+ 
+     rc = xsm_evtchn_status(XSM_TARGET, d, chn);
+     if ( rc )
+
 
