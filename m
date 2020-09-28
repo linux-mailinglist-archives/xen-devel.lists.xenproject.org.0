@@ -2,53 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E44B27ADA3
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 14:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBE727ADBE
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 14:28:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMs5O-0005yG-9w; Mon, 28 Sep 2020 12:16:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kMsGQ-0006uA-Cn; Mon, 28 Sep 2020 12:28:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMs5M-0005yB-PR
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 12:16:52 +0000
-X-Inumbo-ID: 0741a675-e42c-490c-862e-036e7f89735c
+ id 1kMsGO-0006u1-RO
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 12:28:16 +0000
+X-Inumbo-ID: 84b8a98e-e7f3-46c1-813b-53f6c2d65027
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0741a675-e42c-490c-862e-036e7f89735c;
- Mon, 28 Sep 2020 12:16:51 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 84b8a98e-e7f3-46c1-813b-53f6c2d65027;
+ Mon, 28 Sep 2020 12:28:15 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601295410;
+ t=1601296094;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=A+NWyA6qP+2I8QJ/A2fqSRHEitDF4L/YSagZeWY7Rt8=;
- b=h95YEShMC+L9ynPHxIfqGg1k16cLvD6qCG026Huk/yYw1nA8NBRSBA68CcoUotEl7rhtqX
- XU6QlljJ5vDQ8XKG6HrSYye/xs1agTpzkAOHSiNJECUcT3TLDuUiHfK8qQxKwAwdiUmTbr
- r3EPVFSpO5xL8uoeGl2hn5NR9cg/8PQ=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hx/A1tGgugHJMfSXoMmOBIRP3qkG5/Eqz9Ku5cwrG7s=;
+ b=B9DbmEYAoJ4M3rMqNSC5gHSHM3zmWvCFWd3XwpKco7JVFyUoh84VgaLVqq5fbjzBOHg1hS
+ wAuim/YHAblNSBWXpx4lywAVT0fqbRNX97cA4QOKOK/FVAfoX/1af5peU8G+6UviuzRA51
+ LBiB2OiCbsidhqr/FqxbOaLiOUWhFOc=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CD3BAACD5;
- Mon, 28 Sep 2020 12:16:50 +0000 (UTC)
-Subject: Re: [PATCH] x86/PV: make post-migration page state consistent
+ by mx2.suse.de (Postfix) with ESMTP id D98D3AD6B;
+ Mon, 28 Sep 2020 12:28:14 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
- <2e715145-e0b5-07b9-0090-6e1e9a849f33@citrix.com>
- <792f8867-55b5-3ce4-e609-c6f75c35a860@suse.com>
-Message-ID: <da06fe42-6419-0138-e257-dae1c424149f@suse.com>
-Date: Mon, 28 Sep 2020 14:16:49 +0200
+Subject: [PATCH v2 0/6] x86: some assembler macro rework
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Message-ID: <62ffb078-d763-f845-c4b9-eeacb3358d02@suse.com>
+Date: Mon, 28 Sep 2020 14:28:13 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <792f8867-55b5-3ce4-e609-c6f75c35a860@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,74 +58,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.09.2020 14:37, Jan Beulich wrote:
-> On 11.09.2020 13:55, Andrew Cooper wrote:
->> On 11/09/2020 11:34, Jan Beulich wrote:
->>> When a page table page gets de-validated, its type reference count drops
->>> to zero (and PGT_validated gets cleared), but its type remains intact.
->>> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
->>> such pages. An intermediate write to such a page via e.g.
->>> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
->>> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
->>> return. In libxc the decision which pages to normalize / localize
->>> depends solely on the type returned from the domctl. As a result without
->>> further precautions the guest won't be able to tell whether such a page
->>> has had its (apparent) PTE entries transitioned to the new MFNs.
->>
->> I'm afraid I don't follow what the problem is.
->>
->> Yes - unvalidated pages probably ought to be consistently NOTAB, so this
->> is probably a good change, but I don't see how it impacts the migration
->> logic.
-> 
-> It's not the migration logic itself that's impacted, but the state
-> of guest pages after migration. I'm afraid I can only try to expand
-> on the original description.
-> 
-> Case 1: Once an Ln page has been unvalidated, due to the described
-> behavior the migration code in libxc will normalize and then localize
-> it. Therefore the guest could go and directly try to use it as a
-> page table again. This should work as long as all of the entries in
-> the page can still be successfully validated (i.e. unless the guest
-> itself has made changes to the state of other pages).
-> 
-> Case 2: Once an Ln page has been unvalidated, the guest for whatever
-> reason still writes to it through e.g. MMU_NORMAL_PT_UPDATE. Prior
-> to migration, and provided the new entry can be validated (and no
-> other reference page has changed state), the page can still be
-> converted to a proper page table one again. If, however, migration
-> occurs inbetween, the page now won't get normalized and then
-> localized. The MFNs in it are unlikely to make sense anymore, and
-> hence an attempt to make the page a page table again is likely to
-> fail (or if it doesn't fail the result is unlikely to be what's
-> intended).
-> 
-> Since there's no way to make case 2 "work", the only choice is to
-> make case 1 behave like case 2, in order for the behavior to be
-> predictable / consistent.
-> 
->> We already have to cope with a page really changing types in parallel
->> with the normalise/localise logic (that was a "fun" one to debug), which
->> is why errors in that logic are specifically not fatal while the guest
->> is live - the frame gets re-marked as dirty, and deferred until the next
->> round.
->>
->> Errors encountered after the VM has been paused are fatal.
->>
->> However, at no point, even with an unvalidated pagetable type, can the
->> contents of the page be anything other than legal PTEs.  (I think)
-> 
-> Correct, because in order to write to the page one has to either
-> make it a page table one again (and then write through hypercall
-> or for L1 through PTWR) or the mmu-normal-pt-update would first
-> convert the page to a writable one.
+Parts of this were discussed in the context of Andrew's CET-SS work.
+Further parts simply fit the underlying picture. And the two final
+patches get attached here simply because of their dependency: Patch
+4 was sent standalone already as v2, and is unchanged from that,
+while patch 6 is new.
 
-Besides wanting to ping this change / discussion, I'd also like
-to correct myself on this last part of the reply: The above
-applies to pages after having got de-validated. However, prior
-to validation pages have their type changed early (type ref count
-remains zero), but at this point it can't be told yet whether the
-page consists of all legal PTEs.
+1: replace __ASM_{CL,ST}AC
+2: reduce CET-SS related #ifdef-ary
+3: drop ASM_{CL,ST}AC
+4: fold indirect_thunk_asm.h into asm-defns.h
+5: guard against straight-line speculation past RET
+6: limit amount of INT3 in IND_THUNK_*
 
 Jan
 
