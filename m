@@ -2,70 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EFFE27AE89
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 15:01:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C39F27AEA1
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 15:05:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMslr-0002y8-Qi; Mon, 28 Sep 2020 13:00:47 +0000
+	id 1kMsps-00037v-Bo; Mon, 28 Sep 2020 13:04:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RDSs=DF=linaro.org=masami.hiramatsu@srs-us1.protection.inumbo.net>)
- id 1kMslr-0002y2-1n
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 13:00:47 +0000
-X-Inumbo-ID: 67e917f1-4c38-42c7-9ff8-72c3020e8ee5
-Received: from mail-yb1-xb42.google.com (unknown [2607:f8b0:4864:20::b42])
+ <SRS0=HPfX=DF=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kMspr-00037q-JO
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 13:04:55 +0000
+X-Inumbo-ID: 034f00a3-2175-4b8a-9703-88dc0a232e61
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67e917f1-4c38-42c7-9ff8-72c3020e8ee5;
- Mon, 28 Sep 2020 13:00:46 +0000 (UTC)
-Received: by mail-yb1-xb42.google.com with SMTP id b142so849577ybg.9
- for <xen-devel@lists.xenproject.org>; Mon, 28 Sep 2020 06:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=oFrcOReZdA9aaTV6nxtmlXzJnDN9gwExVQg1SmgbdWA=;
- b=TCrqKi+B6guutvw0U0XxRIMEYyV3vRfj8z+o9ynJa0GGs4vEecWvd99kwxDzu71dTV
- +sB76+riAafXReBvQfY3TRJQtXxmijWP0vAzIBQBvgF3CopADhtd+gLCCO7R0jShAQvM
- NW0kHkO+RR633op9fy5wS9Xk6cyvpUmdztXp8r/Wg9QOctd+PlKc+fhhn5+MVbIfpPHT
- bWY5WX+hzA1Pc8HOEVLsSwGvVoAxAhd+VcnlQZhilCI6Krq0b+Vxb67lVZX5CbHMdV4G
- cE1iGs1k+kQ9nUCtRr6vLmkrr+aku2sOOD5mjPiU7Zbzkshui+LMwsVXSoW6fjcUNepA
- p8iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=oFrcOReZdA9aaTV6nxtmlXzJnDN9gwExVQg1SmgbdWA=;
- b=q7Zv5vWi2HhDShozlsQZHwJAHwafk3GZFFCVKexqvFe2RcMCZenkgaHdsVe2jIBdBL
- ZVO0ReBqinq2qM6EhJcBJ6CIuTtkkllgu3BCpv/iVPEjBzBSuvvT95xqsiDShJUM29vb
- 9Ob8ljp1kKutGDuHWIVI3lEHPP2zmVTjbu/j6yeemHZNXDe6f4V27H8AeOa2Ykq8xyhM
- rzSHOL1vrd5uff6UPiSmq2dtv/THyH1dhYaErPeD8Qd1OU1pv/7/PZIkN1Kj4qIULYCQ
- kWf1zDxNYYGs6HA9heFG2kKHGwS0TU03/rBleDz5Vqu2Zz25fBCn5oUhrR/0FayuWk5q
- Jenw==
-X-Gm-Message-State: AOAM531cxx1vgy5NSKh9U0jN5bKqHNzpb3vKAKxdIr3P9SLBmwBZ7Ws1
- gw8X6meo85Eoeu9E/OXUt5EfhIuZ2I9BPxCT0PurFw==
-X-Google-Smtp-Source: ABdhPJzxX7iq30FyjD11pmosXXFRtzx3kB8pOiItxVaha9l2S9BhcQoQLT6Qq0+7PZjkEhGaFO6q2/nvxz+b1tgJgIk=
-X-Received: by 2002:a25:3ce:: with SMTP id 197mr1687970ybd.233.1601298045906; 
- Mon, 28 Sep 2020 06:00:45 -0700 (PDT)
+ id 034f00a3-2175-4b8a-9703-88dc0a232e61;
+ Mon, 28 Sep 2020 13:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1601298294;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=tAn4BHCGeHj98Lir8HpxdV5sxeVSVIeBfnYOW2Ol6Yc=;
+ b=V7kDzjwDu2EoThm7gkBeESX1+0tiMoh3gY8p9bDQ42b43VuavndvsGJw
+ UAqqbjF1fFhxfvWAZcfFYW9ci5OL8gk+fZ55rWbF+HVHM67+DwAFwVI1x
+ GGJ2ai3CFIgXZZB+wswtuluHIsYb3Uc24j0+Ryb40p9wDvYfJF0zJi+vl g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: f+Uu2v9xcybyH/SjMS3wiLkEt749mw3tItEiK/nY34IPte/GT6V+1kEU/eTn6TSjZIEgtEBILT
+ YgLKLYGcRjcNfnFOBCjJjgLHgnegkxJRZG/r4lVpSxlOHK+Q4EZCnQMFdvztu74Vct78IshT1J
+ toTYwNP4eT1mnWLaQ+4581t5hAByJiZRMdz7oHrhHRdSgJ+pkAQrRS6k0D0nfLvQSf3S2gucq9
+ 7XCLhK3gNqcOKWU/oRX5aDGdvdSseeo6+SBD7YoLN8XisIWtZQqq18DnkQ8oIhFYFB1HwUCeUx
+ x44=
+X-SBRS: None
+X-MesageID: 27757949
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,313,1596513600"; d="scan'208";a="27757949"
+Subject: Re: [PATCH 4/5] x86/ELF: also record FS/GS bases in
+ elf_core_save_regs()
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <ec4b451e-2b93-8526-ef98-7a2d502e31c2@suse.com>
+ <518a5f88-3ae4-a3ed-ab13-caaf7e8a7295@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <5e95ba48-68dc-81f4-1d62-f3310b0ba091@citrix.com>
+Date: Mon, 28 Sep 2020 14:04:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200926205542.9261-1-julien@xen.org>
- <CAA93ih3-gTAEzV=yYS-9cHGyN9rfAC28Xeyk8Gsmi7D2BS_OWQ@mail.gmail.com>
-In-Reply-To: <CAA93ih3-gTAEzV=yYS-9cHGyN9rfAC28Xeyk8Gsmi7D2BS_OWQ@mail.gmail.com>
-From: Masami Hiramatsu <masami.hiramatsu@linaro.org>
-Date: Mon, 28 Sep 2020 22:00:35 +0900
-Message-ID: <CAA93ih2EiyCnuL4sw1OLw+XEWa7sN3zJWvsnxHfx9b9Fq+cOxw@mail.gmail.com>
-Subject: Re: [PATCH 0/4] xen/arm: Unbreak ACPI
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- ehem+xen@m5p.com, bertrand.marquis@arm.com, andre.przywara@arm.com, 
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <518a5f88-3ae4-a3ed-ab13-caaf7e8a7295@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,72 +72,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On 28/09/2020 13:06, Jan Beulich wrote:
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I've missed the explanation of the attached patch. This prototype
-patch was also needed for booting up the Xen on my box (for the system
-which has no SPCR).
+Any idea why this wasn't done before?  At a minimum, I'd be tempted to
+put a sentence in the commit message saying "no idea why this wasn't
+done before".
 
-Thank you,
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-2020=E5=B9=B49=E6=9C=8828=E6=97=A5(=E6=9C=88) 15:47 Masami Hiramatsu <masam=
-i.hiramatsu@linaro.org>:
 >
-> Hello,
+> --- a/xen/include/asm-x86/x86_64/elf.h
+> +++ b/xen/include/asm-x86/x86_64/elf.h
+> @@ -1,6 +1,7 @@
+>  #ifndef __X86_64_ELF_H__
+>  #define __X86_64_ELF_H__
+>  
+> +#include <asm/msr.h>
+>  #include <asm/regs.h>
+>  
+>  typedef struct {
+> @@ -59,8 +60,8 @@ static inline void elf_core_save_regs(EL
+>      asm volatile("pushfq; popq %0" :"=m"(core_regs->rflags));
+>      asm volatile("movq %%rsp,%0" : "=m"(core_regs->rsp));
+>      asm volatile("movl %%ss, %%eax;" :"=a"(core_regs->ss));
+> -    /* thread_fs not filled in for now */
+> -    /* thread_gs not filled in for now */
+> +    rdmsrl(MSR_FS_BASE, core_regs->thread_fs);
+> +    rdmsrl(MSR_GS_BASE, core_regs->thread_gs);
+>      core_regs->ds = read_sreg(ds);
+>      core_regs->es = read_sreg(es);
+>      core_regs->fs = read_sreg(fs);
 >
-> This made progress with my Xen boot on DeveloperBox (
-> https://www.96boards.org/product/developerbox/ ) with ACPI.
->
-> Thank you,
->
->
-> 2020=E5=B9=B49=E6=9C=8827=E6=97=A5(=E6=97=A5) 5:56 Julien Grall <julien@x=
-en.org>:
->
-> >
-> > From: Julien Grall <jgrall@amazon.com>
-> >
-> > Hi all,
-> >
-> > Xen on ARM has been broken for quite a while on ACPI systems. This
-> > series aims to fix it.
-> >
-> > Unfortunately I don't have a system with ACPI v6.0 or later (QEMU seems
-> > to only support 5.1). So I did only some light testing.
-> >
-> > I have only build tested the x86 side so far.
-> >
-> > Cheers,
-> >
-> > *** BLURB HERE ***
-> >
-> > Julien Grall (4):
-> >   xen/acpi: Rework acpi_os_map_memory() and acpi_os_unmap_memory()
-> >   xen/arm: acpi: The fixmap area should always be cleared during
-> >     failure/unmap
-> >   xen/arm: Check if the platform is not using ACPI before initializing
-> >     Dom0less
-> >   xen/arm: Introduce fw_unreserved_regions() and use it
-> >
-> >  xen/arch/arm/acpi/lib.c     | 79 ++++++++++++++++++++++++++++++-------
-> >  xen/arch/arm/kernel.c       |  2 +-
-> >  xen/arch/arm/setup.c        | 25 +++++++++---
-> >  xen/arch/x86/acpi/lib.c     | 18 +++++++++
-> >  xen/drivers/acpi/osl.c      | 34 ++++++++--------
-> >  xen/include/asm-arm/setup.h |  2 +-
-> >  xen/include/xen/acpi.h      |  1 +
-> >  7 files changed, 123 insertions(+), 38 deletions(-)
-> >
-> > --
-> > 2.17.1
-> >
->
->
-> --
-> Masami Hiramatsu
 
-
-
---=20
-Masami Hiramatsu
 
