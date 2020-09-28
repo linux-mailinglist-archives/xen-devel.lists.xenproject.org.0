@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84FAD27AC29
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8126C27AC47
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:55:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMqdi-0003AO-2l; Mon, 28 Sep 2020 10:44:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kMqo3-00045x-2t; Mon, 28 Sep 2020 10:54:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMqdg-0003AJ-Ug
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:44:12 +0000
-X-Inumbo-ID: 53b49b73-b04c-48d0-9730-689be1898ccc
+ id 1kMqo1-00045s-I7
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:54:53 +0000
+X-Inumbo-ID: e700fdc8-2518-4c7c-acdc-f143c070f7f2
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53b49b73-b04c-48d0-9730-689be1898ccc;
- Mon, 28 Sep 2020 10:44:11 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e700fdc8-2518-4c7c-acdc-f143c070f7f2;
+ Mon, 28 Sep 2020 10:54:51 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601289851;
+ t=1601290491;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=6o0DLxPL2zFTfmZExqlpwhWQ7/gvc4fAB1mduDmKKJI=;
- b=ZBktpqpiiqVX4OzOQHg4CTqZCF/XkFQFmDyDjpEePTpmp0Gt/1MeIzJenub930pHuy79Tk
- Cgkz4BBTu07Z1eLDcyI7c2IesWbs6dD7lr1iViKj00D/GREVt8Nza2ljCDtSnPm5NfUVuk
- Tc6xVlQGM42V4CU+xZOPyloh73vjogM=
+ bh=qws5fKafNcdbnbM1Hj4ODyscdm/15K/S0hw1FOXdRDQ=;
+ b=j47a41MCUvc+RoHHPQc7w8vqZcVqupyA6IVzOHn0RSid6nvwXfJnhoi7qC9Cra06qImk3j
+ d8Ch3vKpn2DcNIlyO+LYuQq9C8FPLpplA09t16UoDcPlOODuTrNldwDTROtRMH3QaOAXCs
+ a1Rc4W0J1dZF1fCY1V2ndtHBEyxvHBY=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0F22FAC54;
- Mon, 28 Sep 2020 10:44:11 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0CD01AE07;
+ Mon, 28 Sep 2020 10:54:51 +0000 (UTC)
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, "olekstysh@gmail.com" <olekstysh@gmail.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HVM: refine when to send mapcache invalidation request to
- qemu
-Message-ID: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
-Date: Mon, 28 Sep 2020 12:44:09 +0200
+Subject: [PATCH 00/12] evtchn: recent XSAs follow-on
+Message-ID: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
+Date: Mon, 28 Sep 2020 12:54:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -60,80 +60,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-For one it was wrong to send the request only upon a completed
-hypercall: Even if only part of it completed before getting preempted,
-invalidation ought to occur. Therefore fold the two return statements.
+These are grouped into a series largely because of their origin,
+not so much because there are heavy dependencies among them.
 
-And then XENMEM_decrease_reservation isn't the only means by which pages
-can get removed from a guest, yet all removals ought to be signaled to
-qemu. Put setting of the flag into the central p2m_remove_page()
-underlying all respective hypercalls.
+01: refuse EVTCHNOP_status for Xen-bound event channels
+02: avoid race in get_xen_consumer()
+03: don't call Xen consumer callback with per-channel lock held
+04: evtchn_set_priority() needs to acquire the per-channel lock
+05: sched: reject poll requests for unusable ports
+06: don't bypass unlinking pIRQ when closing port
+07: cut short evtchn_reset()'s loop in the common case
+08: ECS_CLOSED => ECS_FREE
+09: move FIFO-private struct declarations
+10: fifo: use stable fields when recording "last queue" information
+11: convert vIRQ lock to an r/w one
+12: convert domain event lock to an r/w one
 
-Plus finally there's no point sending the request for the local domain
-when the domain acted upon is a different one. If anything that domain's
-qemu's mapcache may need invalidating, but it's unclear how useful this
-would be: That remote domain may not execute hypercalls at all, and
-hence may never make it to the point where the request actually gets
-issued. I guess the assumption is that such manipulation is not supposed
-to happen anymore once the guest has been started?
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Putting the check in guest_physmap_remove_page() might also suffice,
-but then a separate is_hvm_domain() would need adding again.
-
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -31,7 +31,6 @@
- 
- static long hvm_memory_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
--    const struct vcpu *curr = current;
-     long rc;
- 
-     switch ( cmd & MEMOP_CMD_MASK )
-@@ -41,14 +40,11 @@ static long hvm_memory_op(int cmd, XEN_G
-         return -ENOSYS;
-     }
- 
--    if ( !curr->hcall_compat )
-+    if ( !current->hcall_compat )
-         rc = do_memory_op(cmd, arg);
-     else
-         rc = compat_memory_op(cmd, arg);
- 
--    if ( (cmd & MEMOP_CMD_MASK) == XENMEM_decrease_reservation )
--        curr->domain->arch.hvm.qemu_mapcache_invalidate = true;
--
-     return rc;
- }
- 
-@@ -326,14 +322,11 @@ int hvm_hypercall(struct cpu_user_regs *
- 
-     HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu -> %lx", eax, regs->rax);
- 
--    if ( curr->hcall_preempted )
--        return HVM_HCALL_preempted;
--
-     if ( unlikely(currd->arch.hvm.qemu_mapcache_invalidate) &&
-          test_and_clear_bool(currd->arch.hvm.qemu_mapcache_invalidate) )
-         send_invalidate_req();
- 
--    return HVM_HCALL_completed;
-+    return curr->hcall_preempted ? HVM_HCALL_preempted : HVM_HCALL_completed;
- }
- 
- /*
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -812,6 +812,9 @@ p2m_remove_page(struct p2m_domain *p2m,
-         }
-     }
- 
-+    if ( p2m->domain == current->domain )
-+        p2m->domain->arch.hvm.qemu_mapcache_invalidate = true;
-+
-     return p2m_set_entry(p2m, gfn, INVALID_MFN, page_order, p2m_invalid,
-                          p2m->default_access);
- }
+Jan
 
