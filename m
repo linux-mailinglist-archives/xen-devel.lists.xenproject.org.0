@@ -2,62 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1649227B235
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 18:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43F9727B293
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 18:51:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMwGf-0007pj-4W; Mon, 28 Sep 2020 16:44:49 +0000
+	id 1kMwMx-0000Id-Vc; Mon, 28 Sep 2020 16:51:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XJ95=DF=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kMwGd-0007pe-8K
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 16:44:47 +0000
-X-Inumbo-ID: efedc8bd-d1f5-44ac-ad23-0553b313b2ea
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=/rPw=DF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kMwMw-0000IY-H3
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 16:51:18 +0000
+X-Inumbo-ID: f847191f-ab5e-4c09-b7c3-4c75ae7e5c2b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id efedc8bd-d1f5-44ac-ad23-0553b313b2ea;
- Mon, 28 Sep 2020 16:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1601311485;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=JY9Z2dHcuqcU9qQco4uleIAaclc1z8mGskHzyhoX9Iw=;
- b=as/t1fn7XLT/DELvvecF1rFRPcY16sT7Iu+dYEvC8YrVHZxEpJfr3yTh
- jKK7k7A+ZlfjD+dkyn+E9LBMeMI0EbZ2yLf7Bxbn4BI8uGA7l1xtafg14
- IcMAkS/oC7PfVAloJSWCJeCD4hq6lZJQy+zczjn+m6lIONa7LxfShtPEC 4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: KL0VG/9xUkfli9jlgo9AMzRulj24El2yFjWi2tfTTmF7za9agzXo1+m+deYsgbm8eQyXZ0YO2J
- hQZrHNSMdoY3xWE7mY5VzQBhfAjhptYi6fnW9rrgPUWd4lm6CIJhMJR4qhG+6TFyZHZ3+Z2epn
- Sy0IK8tFZPGkiY/mpQft/UNso4W6ZDrY7aZjqQuU1Zr3uG2G6xaFx9LMuHqMSJWGaUCW5HWV51
- SGvE1DkKWAFea5z6WauZY+aqZJuCbUDQd/8ye7CGKM+EJrjhm5+CR1TXbSqCJttF+e38UwafTG
- DSM=
-X-SBRS: None
-X-MesageID: 27871142
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,313,1596513600"; d="scan'208";a="27871142"
-Date: Mon, 28 Sep 2020 18:44:35 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
- <George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
- <julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH 12/12] evtchn: convert domain event lock to an r/w one
-Message-ID: <20200928164435.GP19254@Air-de-Roger>
-References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
- <5fee2432-7b94-2f91-5f17-c9eb3ec9f126@suse.com>
+ id f847191f-ab5e-4c09-b7c3-4c75ae7e5c2b;
+ Mon, 28 Sep 2020 16:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=uQ6GllypR7CUv16+GxOGWSuQQ3/xfr60L5/6HyZ/pFs=; b=Ren024ytKM4ngcwZaaiIYUu8dA
+ IdtzwcVz4nJYX8IahX4aLFeJIpIT7JQOFouDYQf+j0PfDcHtYDEiNO7UbA96JccsmEZf5PidPxYz0
+ q8XyvLMkw+iUiLxq0CozOAEHKdbAZ14+zuyaJMD8NpTdHcwhbLFABiCVnndawjct+Di4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kMwMt-0008PD-V1; Mon, 28 Sep 2020 16:51:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kMwMt-0008Fv-IG; Mon, 28 Sep 2020 16:51:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kMwMt-0002P2-Dv; Mon, 28 Sep 2020 16:51:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155022-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <5fee2432-7b94-2f91-5f17-c9eb3ec9f126@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+Subject: [xen-unstable-smoke test] 155022: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=4bdbf746ac9152e70f264f87db4472707da805ce
+X-Osstest-Versions-That: xen=5bcac985498ed83d89666959175ca9c9ed561ae1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 28 Sep 2020 16:51:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,253 +69,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Sep 28, 2020 at 01:02:43PM +0200, Jan Beulich wrote:
-> Especially for the use in evtchn_move_pirqs() (called when moving a vCPU
-> across pCPU-s) and the ones in EOI handling in PCI pass-through code,
-> serializing perhaps an entire domain isn't helpful when no state (which
-> isn't e.g. further protected by the per-channel lock) changes.
-> 
-> Unfortunately this implies dropping of lock profiling for this lock,
-> until r/w locks may get enabled for such functionality.
-> 
-> While ->notify_vcpu_id is now meant to be consistently updated with the
-> per-channel lock held for writing, an extension applies to ECS_PIRQ: The
-> field is also guaranteed to not change with the per-domain event lock
-> held. Therefore the unlink_pirq_port() call from evtchn_bind_vcpu() as
-> well as the link_pirq_port() one from evtchn_bind_pirq() could in
-> principle be moved out of the per-channel locked regions, but this
-> further code churn didn't seem worth it.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> RFC:
-> * In evtchn_bind_vcpu() the question is whether limiting the use of
->   write_lock() to just the ECS_PIRQ case is really worth it.
+flight 155022 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155022/
 
-IMO I would just use use write_lock() at the top of the function in
-place of the current spin_lock. The more fine grained change should be
-done as a follow up patch if it's worth it. TBH event channels
-shouldn't change vCPU that frequently that using a more fine grained
-approach matters much.
+Regressions :-(
 
-> * In flask_get_peer_sid() the question is whether we wouldn't better
->   switch to using the per-channel lock.
->  
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -465,7 +465,7 @@ int msixtbl_pt_register(struct domain *d
->      int r = -EINVAL;
->  
->      ASSERT(pcidevs_locked());
-> -    ASSERT(spin_is_locked(&d->event_lock));
-> +    ASSERT(rw_is_write_locked(&d->event_lock));
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 154728
 
-FWIW, we could switch rw_is_write_locked to use
-_is_write_locked_by_me (or introduce rw_is_write_locked_by_me, albeit
-I think all users of rw_is_write_locked care about the lock being
-taken by them).
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-> @@ -1098,7 +1108,7 @@ int evtchn_reset(struct domain *d, bool
->      if ( d != current->domain && !d->controller_pause_count )
->          return -EINVAL;
->  
-> -    spin_lock(&d->event_lock);
-> +    read_lock(&d->event_lock);
->  
->      /*
->       * If we are resuming, then start where we stopped. Otherwise, check
-> @@ -1109,7 +1119,7 @@ int evtchn_reset(struct domain *d, bool
->      if ( i > d->next_evtchn )
->          d->next_evtchn = i;
+version targeted for testing:
+ xen                  4bdbf746ac9152e70f264f87db4472707da805ce
+baseline version:
+ xen                  5bcac985498ed83d89666959175ca9c9ed561ae1
 
-Using the read lock to write to d->next_evtchn here...
+Last test of basis   154728  2020-09-24 21:01:24 Z    3 days
+Testing same since   155022  2020-09-28 14:00:30 Z    0 days    1 attempts
 
->  
-> -    spin_unlock(&d->event_lock);
-> +    read_unlock(&d->event_lock);
->  
->      if ( !i )
->          return -EBUSY;
-> @@ -1121,14 +1131,14 @@ int evtchn_reset(struct domain *d, bool
->          /* NB: Choice of frequency is arbitrary. */
->          if ( !(i & 0x3f) && hypercall_preempt_check() )
->          {
-> -            spin_lock(&d->event_lock);
-> +            write_lock(&d->event_lock);
->              d->next_evtchn = i;
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-... but the write lock here instead seems inconsistent.
-
-> -            spin_unlock(&d->event_lock);
-> +            write_unlock(&d->event_lock);
->              return -ERESTART;
->          }
->      }
->  
-> -    spin_lock(&d->event_lock);
-> +    write_lock(&d->event_lock);
->  
->      d->next_evtchn = 0;
->  
-> @@ -1557,7 +1568,7 @@ static void domain_dump_evtchn_info(stru
->             "Polling vCPUs: {%*pbl}\n"
->             "    port [p/m/s]\n", d->domain_id, d->max_vcpus, d->poll_mask);
->  
-> -    spin_lock(&d->event_lock);
-> +    read_lock(&d->event_lock);
-
-Since this is a debug key, I would suggest using read_trylock in order
-to prevent blocking if a CPU is stuck while holding the event_lock in
-write mode.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-> --- a/xen/drivers/passthrough/io.c
-> +++ b/xen/drivers/passthrough/io.c
-> @@ -105,7 +105,7 @@ static void pt_pirq_softirq_reset(struct
->  {
->      struct domain *d = pirq_dpci->dom;
->  
-> -    ASSERT(spin_is_locked(&d->event_lock));
-> +    ASSERT(rw_is_write_locked(&d->event_lock));
->  
->      switch ( cmpxchg(&pirq_dpci->state, 1 << STATE_SCHED, 0) )
->      {
-> @@ -162,7 +162,7 @@ static void pt_irq_time_out(void *data)
->      const struct hvm_irq_dpci *dpci;
->      const struct dev_intx_gsi_link *digl;
->  
-> -    spin_lock(&irq_map->dom->event_lock);
-> +    read_lock(&irq_map->dom->event_lock);
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Is it fine to use the lock in read mode here? It's likely to change
-the flags by adding HVM_IRQ_DPCI_EOI_LATCH, and hence should use the
-lock in write mode?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-As I think that's the lock that's supposed to protect changes to the
-flags field?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->  static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
-> @@ -893,7 +893,7 @@ static void hvm_dirq_assist(struct domai
->          return;
->      }
->  
-> -    spin_lock(&d->event_lock);
-> +    read_lock(&d->event_lock);
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-It's also not clear to me that a read lock can be used here, since you
-increase a couple of counters of hvm_pirq_dpci which doesn't seem to
-be protected by any other lock?
 
->      if ( test_and_clear_bool(pirq_dpci->masked) )
->      {
->          struct pirq *pirq = dpci_pirq(pirq_dpci);
-> @@ -947,7 +947,7 @@ static void hvm_dirq_assist(struct domai
->      }
->  
->   out:
-> -    spin_unlock(&d->event_lock);
-> +    read_unlock(&d->event_lock);
->  }
->  
->  static void hvm_pirq_eoi(struct pirq *pirq,
-> @@ -1012,7 +1012,7 @@ void hvm_dpci_eoi(struct domain *d, unsi
->  
->      if ( is_hardware_domain(d) )
->      {
-> -        spin_lock(&d->event_lock);
-> +        read_lock(&d->event_lock);
->          hvm_gsi_eoi(d, guest_gsi, ent);
->          goto unlock;
->      }
-> @@ -1023,7 +1023,7 @@ void hvm_dpci_eoi(struct domain *d, unsi
->          return;
->      }
->  
-> -    spin_lock(&d->event_lock);
-> +    read_lock(&d->event_lock);
->      hvm_irq_dpci = domain_get_irq_dpci(d);
->  
->      if ( !hvm_irq_dpci )
-> @@ -1033,7 +1033,7 @@ void hvm_dpci_eoi(struct domain *d, unsi
->          __hvm_dpci_eoi(d, girq, ent);
+Not pushing.
 
-__hvm_dpci_eoi will call hvm_pirq_eoi and that seems to require a
-write lock, as it modifies pirq_dpci.
+------------------------------------------------------------
+commit 4bdbf746ac9152e70f264f87db4472707da805ce
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Mon Sep 28 10:43:10 2020 +0200
 
->  
->  unlock:
-> -    spin_unlock(&d->event_lock);
-> +    read_unlock(&d->event_lock);
->  }
->  
->  /*
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -883,7 +883,7 @@ static int pci_clean_dpci_irqs(struct do
->      if ( !is_hvm_domain(d) )
->          return 0;
->  
-> -    spin_lock(&d->event_lock);
-> +    write_lock(&d->event_lock);
->      hvm_irq_dpci = domain_get_irq_dpci(d);
->      if ( hvm_irq_dpci != NULL )
->      {
-> @@ -901,14 +901,14 @@ static int pci_clean_dpci_irqs(struct do
->              ret = pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
->          if ( ret )
->          {
-> -            spin_unlock(&d->event_lock);
-> +            read_unlock(&d->event_lock);
+    x86/S3: fix shadow stack resume path
+    
+    Fix the resume path to load the shadow stack pointer from saved_ssp (not
+    saved_rsp), to match what suspend path does.
+    
+    Fixes: 633ecc4a7cb2 ("x86/S3: Save and restore Shadow Stack configuration")
+    Backport: 4.14
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-This should be a write_unlock AFAICT.
+commit 28fb8cf323dd93f59a9c851c93ba9b79de8b1c4e
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Sep 28 10:42:29 2020 +0200
 
->              return ret;
->          }
->  
->          hvm_domain_irq(d)->dpci = NULL;
->          free_hvm_irq_dpci(hvm_irq_dpci);
->      }
-> -    spin_unlock(&d->event_lock);
-> +    write_unlock(&d->event_lock);
->      return 0;
->  }
->  
-> --- a/xen/drivers/passthrough/vtd/x86/hvm.c
-> +++ b/xen/drivers/passthrough/vtd/x86/hvm.c
-> @@ -54,7 +54,7 @@ void hvm_dpci_isairq_eoi(struct domain *
->      if ( !is_iommu_enabled(d) )
->          return;
->  
-> -    spin_lock(&d->event_lock);
-> +    read_lock(&d->event_lock);
+    x86/iommu: remove code to fetch MSI message from remap table
+    
+    Remove the code to compose a MSI message based on the information from
+    the MSI registers and the data in the interrupt remapping table.
+    Since the removal of read_msi_msg and its user there's no longer a
+    need for such code, as the last written (untranslated) MSI message is
+    cached internally by Xen.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I think this also needs to be a write lock, as you modify pirq_dpci
-bits in _hvm_dpci_isairq_eoi.
+commit f9ffd20f946c0315937f85d2f124a9bc4be49473
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Sep 28 10:41:48 2020 +0200
 
->  
->      dpci = domain_get_irq_dpci(d);
->  
-> @@ -63,5 +63,5 @@ void hvm_dpci_isairq_eoi(struct domain *
->          /* Multiple mirq may be mapped to one isa irq */
->          pt_pirq_iterate(d, _hvm_dpci_isairq_eoi, (void *)(long)isairq);
->      }
-> -    spin_unlock(&d->event_lock);
-> +    read_unlock(&d->event_lock);
->  }
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -373,7 +373,7 @@ struct domain
->      unsigned int     xen_evtchns;
->      /* Port to resume from in evtchn_reset(), when in a continuation. */
->      unsigned int     next_evtchn;
-> -    spinlock_t       event_lock;
-> +    rwlock_t         event_lock;
+    x86/hpet: remove hpet_msi_read
+    
+    It's dead code, even more now that read_msi_msg has been removed.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-It would be nice to add a comment regarding what fields does
-event_lock protect. It's kind of a very generic lock name that I think
-has been abused a bit.
+commit fe41405f5ee650d3fe39105cf59193b1494cdcdc
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 28 10:40:53 2020 +0200
 
-Not that it needs to be done in that patch.
+    common/Kconfig: sort HAS_*
+    
+    Later additions look to have been put at the end, with MEM_ACCESS*
+    somewhere in the middle. Re-sort this part of the file, in the hope that
+    future additions will be made noticing the intentions here.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
 
-Thanks, Roger.
+commit 643e2f3cbb3b607f3365b230f439845e9bf113b0
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 28 10:39:47 2020 +0200
+
+    EFI: some easy constification
+    
+    Inspired by some of Trammell's suggestions, this harvests some low
+    hanging fruit, without needing to be concerned about the definitions of
+    the EFI interfaces themselves.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Wei Liu <wl@xen.org>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
