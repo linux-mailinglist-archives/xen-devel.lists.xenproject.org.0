@@ -2,89 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1DE127AD31
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 13:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB55527AD2F
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 13:50:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMreq-00016A-2B; Mon, 28 Sep 2020 11:49:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kMreu-00016p-FT; Mon, 28 Sep 2020 11:49:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/rPw=DF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kMreo-00015F-Jm
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 11:49:26 +0000
-X-Inumbo-ID: 734c0e0b-5bc7-4256-baf5-c9556ef57e77
+ id 1kMres-00015l-Lp
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 11:49:30 +0000
+X-Inumbo-ID: 08da6654-e8a5-43db-9738-f5b8d023cf42
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 734c0e0b-5bc7-4256-baf5-c9556ef57e77;
- Mon, 28 Sep 2020 11:49:19 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 08da6654-e8a5-43db-9738-f5b8d023cf42;
+ Mon, 28 Sep 2020 11:49:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To;
- bh=mX6GY+vEbDlOho0fN9amRTOkbAm3IeNbNJADzGzJx38=; b=Iwlc2Qb+Xs973D3WyaZgtmFytC
- 11GmkOFPQXUjo2ZEfwaSCceDHfvc/Mx4cUM5TVUe4R6d2qzlGEOGJuEcIKxCHx9jEnPTCxiIFSDkL
- ry08fxaidnJeYOF1Sxz5tvmD/dIX6EcAdpnNplQloCVCT+R4K8oOIynGEAZvtHTAi/mk=;
+ bh=URDGfG47qhy0zDtY7Q1sBqbkKFoiXeFApYEEwBkBGow=; b=oG74R5bnA2XcHN3BPKpxsdDDBs
+ Z4/yQF2sDShVBFiEqoH0/t3B4Im6hggChdlDGkNct1MRs+O5IGPbGZFrYo9nijeiN+C4f1hCfhq1Y
+ srBBrHlx3mHCjfEKorI1BEEO+VQa4o4RJGMGwx9szcoJ+LPoVpnBoTXzbPiI72f5uVLs=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kMreh-0001Sa-6D; Mon, 28 Sep 2020 11:49:19 +0000
+ id 1kMrel-0001Se-AX; Mon, 28 Sep 2020 11:49:23 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kMreg-0003vX-TM; Mon, 28 Sep 2020 11:49:18 +0000
+ id 1kMrel-0003vd-3r; Mon, 28 Sep 2020 11:49:23 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kMreg-0002Lo-Ss; Mon, 28 Sep 2020 11:49:18 +0000
+ id 1kMrel-0002Rk-3J; Mon, 28 Sep 2020 11:49:23 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-154974-mainreport@xen.org>
+Message-ID: <osstest-154998-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [seabios test] 154974: trouble:
+Subject: [xen-unstable-smoke test] 154998: trouble:
  blocked/broken/preparing/queued/running
-X-Osstest-Failures: seabios:build-amd64:<job status>:broken:regression
- seabios:build-amd64-pvops:<job status>:broken:regression
- seabios:build-amd64-xsm:<job status>:broken:regression
- seabios:build-amd64:host-install(4):broken:regression
- seabios:build-amd64-pvops:host-install(4):broken:regression
- seabios:build-amd64-xsm:host-install(4):broken:regression
- seabios:build-i386-libvirt:<none executed>:queued:regression
- seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:<none
+X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:<job
+ status>:broken:regression
+ xen-unstable-smoke:build-arm64-xsm:host-install(4):broken:regression
+ xen-unstable-smoke:build-amd64-libvirt:<none executed>:queued:regression
+ xen-unstable-smoke:test-amd64-amd64-libvirt:<none executed>:queued:regression
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:<none
  executed>:queued:regression
- seabios:test-amd64-i386-qemuu-rhel6hvm-amd:<none executed>:queued:regression
- seabios:test-amd64-i386-qemuu-rhel6hvm-intel:<none executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64:<none
- executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:<none
- executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:<none
- executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:<none
- executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-win7-amd64:<none executed>:queued:regression
- seabios:test-amd64-i386-xl-qemuu-ws16-amd64:<none executed>:queued:regression
- seabios:build-i386:hosts-allocate:running:regression
- seabios:build-i386-xsm:hosts-allocate:running:regression
- seabios:build-i386-pvops:host-install(4):running:regression
- seabios:build-i386-pvops:syslog-server:running:regression
- seabios:build-amd64-libvirt:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: seabios=41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5
-X-Osstest-Versions-That: seabios=155821a1990b6de78dde5f98fa5ab90e802021e0
+ xen-unstable-smoke:test-armhf-armhf-xl:<none executed>:queued:regression
+ xen-unstable-smoke:build-amd64:hosts-allocate:running:regression
+ xen-unstable-smoke:build-armhf:host-install(4):running:regression
+ xen-unstable-smoke:build-armhf:syslog-server:running:regression
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: xen=4bdbf746ac9152e70f264f87db4472707da805ce
+X-Osstest-Versions-That: xen=5bcac985498ed83d89666959175ca9c9ed561ae1
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 28 Sep 2020 11:49:18 +0000
+Date: Mon, 28 Sep 2020 11:49:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,90 +74,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 154974 seabios running [real]
-http://logs.test-lab.xenproject.org/osstest/logs/154974/
+flight 154998 xen-unstable-smoke running [real]
+http://logs.test-lab.xenproject.org/osstest/logs/154998/
 
 Failures and problems with tests :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-amd64-pvops               <job status>                 broken
- build-amd64-xsm                 <job status>                 broken
- build-amd64                   4 host-install(4)        broken REGR. vs. 152554
- build-amd64-pvops             4 host-install(4)        broken REGR. vs. 152554
- build-amd64-xsm               4 host-install(4)        broken REGR. vs. 152554
- build-i386-libvirt              <none executed>              queued
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm    <none executed>    queued
- test-amd64-i386-qemuu-rhel6hvm-amd    <none executed>              queued
- test-amd64-i386-qemuu-rhel6hvm-intel    <none executed>              queued
- test-amd64-i386-xl-qemuu-debianhvm-amd64    <none executed>             queued
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow    <none executed>      queued
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm    <none executed>          queued
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict    <none executed> queued
- test-amd64-i386-xl-qemuu-win7-amd64    <none executed>              queued
- test-amd64-i386-xl-qemuu-ws16-amd64    <none executed>              queued
- build-i386                    2 hosts-allocate               running
- build-i386-xsm                2 hosts-allocate               running
- build-i386-pvops              4 host-install(4)              running
- build-i386-pvops              3 syslog-server                running
+ build-arm64-xsm                 <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 154728
+ build-amd64-libvirt             <none executed>              queued
+ test-amd64-amd64-libvirt        <none executed>              queued
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64    <none executed>            queued
+ test-armhf-armhf-xl             <none executed>              queued
+ build-amd64                   2 hosts-allocate               running
+ build-armhf                   4 host-install(4)              running
+ build-armhf                   3 syslog-server                running
 
 Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
 
 version targeted for testing:
- seabios              41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5
+ xen                  4bdbf746ac9152e70f264f87db4472707da805ce
 baseline version:
- seabios              155821a1990b6de78dde5f98fa5ab90e802021e0
+ xen                  5bcac985498ed83d89666959175ca9c9ed561ae1
 
-Last test of basis   152554  2020-08-10 15:41:45 Z   48 days
-Testing same since   154814  2020-09-25 16:10:32 Z    2 days    1 attempts
+Last test of basis   154728  2020-09-24 21:01:24 Z    3 days
+Testing same since                          (not found)         0 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Daniel P. Berrangé <berrange@redhat.com>
-  Matt DeVillier <matt.devillier@puri.sm>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
 jobs:
- build-amd64-xsm                                              broken  
- build-i386-xsm                                               preparing
- build-amd64                                                  broken  
- build-i386                                                   preparing
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           queued  
- build-amd64-pvops                                            broken  
- build-i386-pvops                                             running 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            queued  
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  queued  
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           queued  
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     queued  
- test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
- test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-i386-xl-qemuu-win7-amd64                          queued  
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ws16-amd64                          queued  
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         queued  
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         queued  
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              queued  
+ build-arm64-xsm                                              broken  
+ build-amd64                                                  preparing
+ build-armhf                                                  running 
+ build-amd64-libvirt                                          queued  
+ test-armhf-armhf-xl                                          queued  
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    queued  
+ test-amd64-amd64-libvirt                                     queued  
 
 
 ------------------------------------------------------------
@@ -199,53 +135,84 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-broken-job build-amd64 broken
-broken-job build-amd64-pvops broken
-broken-job build-amd64-xsm broken
-broken-job build-i386-libvirt queued
-broken-job test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm queued
-broken-job test-amd64-i386-qemuu-rhel6hvm-amd queued
-broken-job test-amd64-i386-qemuu-rhel6hvm-intel queued
-broken-job test-amd64-i386-xl-qemuu-debianhvm-amd64 queued
-broken-job test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow queued
-broken-job test-amd64-i386-xl-qemuu-debianhvm-i386-xsm queued
-broken-job test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict queued
-broken-job test-amd64-i386-xl-qemuu-win7-amd64 queued
-broken-job test-amd64-i386-xl-qemuu-ws16-amd64 queued
-broken-step build-amd64 host-install(4)
-broken-step build-amd64-pvops host-install(4)
-broken-step build-amd64-xsm host-install(4)
+broken-job build-amd64-libvirt queued
+broken-job build-arm64-xsm broken
+broken-job test-amd64-amd64-libvirt queued
+broken-job test-amd64-amd64-xl-qemuu-debianhvm-amd64 queued
+broken-job test-armhf-armhf-xl queued
+broken-step build-arm64-xsm host-install(4)
 
 Not pushing.
 
 ------------------------------------------------------------
-commit 41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5
-Author: Matt DeVillier <matt.devillier@puri.sm>
-Date:   Fri Sep 11 12:54:21 2020 -0500
+commit 4bdbf746ac9152e70f264f87db4472707da805ce
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Mon Sep 28 10:43:10 2020 +0200
 
-    usb.c: Fix devices using non-primary interface descriptor
+    x86/S3: fix shadow stack resume path
     
-    A fair number of USB devices (keyboards in particular) use an
-    interface descriptor
-    other than the first available, making them non-functional currently.
-    To correct this, iterate through all available interface descriptors
-    until one with the correct class/subclass is found, then proceed to set the
-    configuration and setup the driver.
+    Fix the resume path to load the shadow stack pointer from saved_ssp (not
+    saved_rsp), to match what suspend path does.
     
-    Tested on an ultimate hacking keyboard (UHK 60)
-    
-    Signed-off-by: Matt DeVillier <matt.devillier@puri.sm>
+    Fixes: 633ecc4a7cb2 ("x86/S3: Save and restore Shadow Stack configuration")
+    Backport: 4.14
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-commit 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5
-Author: Daniel P. Berrangé <berrange@redhat.com>
-Date:   Tue Sep 8 16:16:53 2020 +0100
+commit 28fb8cf323dd93f59a9c851c93ba9b79de8b1c4e
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Sep 28 10:42:29 2020 +0200
 
-    smbios: avoid integer overflow when adding SMBIOS type 0 table
+    x86/iommu: remove code to fetch MSI message from remap table
     
-    SeaBIOS implements the SMBIOS 2.1 entry point which is limited to a
-    maximum length of 0xffff. If the SMBIOS data received from QEMU is large
-    enough, then adding the type 0 table will cause integer overflow. This
-    results in fun behaviour such as KVM crash, or hangs in SeaBIOS.
+    Remove the code to compose a MSI message based on the information from
+    the MSI registers and the data in the interrupt remapping table.
+    Since the removal of read_msi_msg and its user there's no longer a
+    need for such code, as the last written (untranslated) MSI message is
+    cached internally by Xen.
     
-    Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit f9ffd20f946c0315937f85d2f124a9bc4be49473
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Sep 28 10:41:48 2020 +0200
+
+    x86/hpet: remove hpet_msi_read
+    
+    It's dead code, even more now that read_msi_msg has been removed.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit fe41405f5ee650d3fe39105cf59193b1494cdcdc
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 28 10:40:53 2020 +0200
+
+    common/Kconfig: sort HAS_*
+    
+    Later additions look to have been put at the end, with MEM_ACCESS*
+    somewhere in the middle. Re-sort this part of the file, in the hope that
+    future additions will be made noticing the intentions here.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 643e2f3cbb3b607f3365b230f439845e9bf113b0
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 28 10:39:47 2020 +0200
+
+    EFI: some easy constification
+    
+    Inspired by some of Trammell's suggestions, this harvests some low
+    hanging fruit, without needing to be concerned about the definitions of
+    the EFI interfaces themselves.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Wei Liu <wl@xen.org>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
