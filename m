@@ -2,58 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BDA27AAEE
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 11:38:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0CDF27AB68
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 11:59:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMpbd-0004lF-IF; Mon, 28 Sep 2020 09:38:01 +0000
+	id 1kMpvo-0006n2-Rl; Mon, 28 Sep 2020 09:58:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMpbb-0004l2-SE
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 09:37:59 +0000
-X-Inumbo-ID: 858679a5-6445-4d3c-90b0-0b1747c2a94f
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=eCUB=DF=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kMpvn-0006mx-C9
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 09:58:51 +0000
+X-Inumbo-ID: d9336af3-286a-4739-99bc-de6f4ecbd7fd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 858679a5-6445-4d3c-90b0-0b1747c2a94f;
- Mon, 28 Sep 2020 09:37:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601285875;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=w9dQUkERT1iNTaYRUQBUk+/jqzjM/Z8PmRYImsXG1lE=;
- b=T/74WF4W+A8HyQfgsjzBjDf1noWMdIETym02y3C3asTchxql1urvWftW+pHK+zjLX3XiFs
- NMsoso44iIHhIq4W7wUunqWMM3Jjqq7tONrx6CIMkQ5L8PK3F98MLQSkRTSrmfsp7t+jmu
- gu/qFAojTBe1G8kL94TQEITqZ1j1om4=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E27C1AC1D;
- Mon, 28 Sep 2020 09:37:54 +0000 (UTC)
-Subject: Re: [PATCH v2 09/11] xen/memory: Fix mapping grant tables with
- XENMEM_acquire_resource
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
- <michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
- <20200922182444.12350-10-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <eb9768ad-b6cd-b01e-d689-63775f6e5914@suse.com>
-Date: Mon, 28 Sep 2020 11:37:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ id d9336af3-286a-4739-99bc-de6f4ecbd7fd;
+ Mon, 28 Sep 2020 09:58:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=7W0N+aCB3AizjzpgOmgbQuhjWdwGt+J8tfifz02k4nc=; b=1C6C9/8U0bkcVWaGlCFcZ94kEc
+ ma0TmZUjYGB0jjI4keNWyBm65JDwcXbzniyNmvUcdy4aIkYLpFOXDWzxF2pBwpb+rV6MagU4ACqNU
+ Tgx0WwQY/xqCV6MniwF2fs52dQaQ+o/B+5NCAoO1Egu8bolajIm31O5Sb5mgLxezyNxM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kMpvf-0007RK-56; Mon, 28 Sep 2020 09:58:43 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kMpve-0002OY-QM; Mon, 28 Sep 2020 09:58:42 +0000
+Subject: Re: [PATCH 1/4] xen/acpi: Rework acpi_os_map_memory() and
+ acpi_os_unmap_memory()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org,
+ masami.hiramatsu@linaro.org, ehem+xen@m5p.com, bertrand.marquis@arm.com,
+ andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20200926205542.9261-1-julien@xen.org>
+ <20200926205542.9261-2-julien@xen.org>
+ <fe055799-de10-891a-bcee-bbb01a8c0b3d@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b5624bfa-f24b-4c0a-6735-3473892fbd2f@xen.org>
+Date: Mon, 28 Sep 2020 10:58:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200922182444.12350-10-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <fe055799-de10-891a-bcee-bbb01a8c0b3d@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -68,211 +71,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.09.2020 20:24, Andrew Cooper wrote:
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -4632,7 +4632,6 @@ int arch_acquire_resource(struct domain *d, unsigned int type,
->          if ( id != (unsigned int)ioservid )
->              break;
->  
-> -        rc = 0;
->          for ( i = 0; i < nr_frames; i++ )
->          {
->              mfn_t mfn;
-> @@ -4643,6 +4642,9 @@ int arch_acquire_resource(struct domain *d, unsigned int type,
->  
->              mfn_list[i] = mfn_x(mfn);
->          }
-> +        if ( i == nr_frames )
-> +            /* Success.  Passed nr_frames back to the caller. */
-> +            rc = nr_frames;
+Hi Jan,
 
-With this, shouldn't the return type of the function be changed to
-"long"? I realize that's no an issue with XENMEM_resource_ioreq_server
-specifically, but I mean the general case.
+On 28/09/2020 09:18, Jan Beulich wrote:
+> On 26.09.2020 22:55, Julien Grall wrote:
+>> @@ -49,6 +53,12 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+>>       return ((char *) base + offset);
+>>   }
+>>   
+>> +bool __acpi_unmap_table(void *ptr, unsigned long size)
+>> +{
+>> +    return ( vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) &&
+>> +             vaddr < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE) );
+> 
+> Nit: If this wasn't Arm code, I'd ask for the parentheses to be
+> dropped altogether, but at least the stray blanks should go away
+> imo.
 
-> --- a/xen/common/compat/memory.c
-> +++ b/xen/common/compat/memory.c
-> @@ -402,23 +402,10 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
->          case XENMEM_acquire_resource:
->          {
->              xen_pfn_t *xen_frame_list = NULL;
-> -            unsigned int max_nr_frames;
->  
->              if ( copy_from_guest(&cmp.mar, compat, 1) )
->                  return -EFAULT;
->  
-> -            /*
-> -             * The number of frames handled is currently limited to a
-> -             * small number by the underlying implementation, so the
-> -             * scratch space should be sufficient for bouncing the
-> -             * frame addresses.
-> -             */
-> -            max_nr_frames = (COMPAT_ARG_XLAT_SIZE - sizeof(*nat.mar)) /
-> -                sizeof(*xen_frame_list);
-> -
-> -            if ( cmp.mar.nr_frames > max_nr_frames )
-> -                return -E2BIG;
-> -
->              /* Marshal the frame list in the remainder of the xlat space. */
->              if ( !compat_handle_is_null(cmp.mar.frame_list) )
->                  xen_frame_list = (xen_pfn_t *)(nat.mar + 1);
-> @@ -432,6 +419,28 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
->  
->              if ( xen_frame_list && cmp.mar.nr_frames )
->              {
-> +                unsigned int xlat_max_frames =
-> +                    (COMPAT_ARG_XLAT_SIZE - sizeof(*nat.mar)) /
-> +                    sizeof(*xen_frame_list);
-> +
-> +                if ( start_extent >= nat.mar->nr_frames )
-> +                    return -EINVAL;
+I will drop the stray blanks.
 
-Like for patch 2, I don't see why the == case should result in an
-error, at the very least when start_extent is zero.
+> 
+>> --- a/xen/arch/x86/acpi/lib.c
+>> +++ b/xen/arch/x86/acpi/lib.c
+>> @@ -46,6 +46,10 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+>>   	if ((phys + size) <= (1 * 1024 * 1024))
+>>   		return __va(phys);
+>>   
+>> +	/* No arch specific implementation after early boot */
+>> +	if (system_state >= SYS_STATE_boot)
+>> +		return NULL;
+> 
+> Considering the code in context above, the comment isn't entirely
+> correct.
 
-> @@ -611,6 +622,21 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
->                  break;
->              }
->  
-> +            if ( split < 0 )
-> +            {
-> +                /* Contintuation occured. */
+How about "No arch specific implementation after early boot but for the 
+first 1MB"?
 
-Nit: Stray 't'. And missing 'r'?
+> 
+>> @@ -66,6 +70,20 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+>>   	return ((char *) base + offset);
+>>   }
+>>   
+>> +bool __acpi_unmap_table(void *ptr, unsigned long size)
+> 
+> Is there anything standing in the way of making ptr "const void *"?
 
-> @@ -636,15 +662,45 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
->                      compat_frame_list[i] = frame;
->                  }
->  
-> -                if ( __copy_to_compat_offset(cmp.mar.frame_list, 0,
-> -                                             compat_frame_list,
-> -                                             cmp.mar.nr_frames) )
-> +                if ( __copy_to_compat_offset(
-> +                         cmp.mar.frame_list, start_extent,
-> +                         compat_frame_list, done) )
->                      return -EFAULT;
->              }
-> -            break;
-> +
-> +            start_extent += done;
-> +
-> +            /* Completely done. */
-> +            if ( start_extent == cmp.mar.nr_frames )
-> +                break;
-> +
-> +            /*
-> +             * Done a "full" batch, but we were limited by space in the xlat
-> +             * area.  Go around the loop again without necesserily returning
-> +             * to guest context.
-> +             */
-> +            if ( done == nat.mar->nr_frames )
-> +            {
-> +                split = 1;
-> +                break;
-> +            }
-> +
-> +            /* Explicit continuation request from a higher level. */
-> +            if ( done < nat.mar->nr_frames )
-> +                return hypercall_create_continuation(
-> +                    __HYPERVISOR_memory_op, "ih",
-> +                    op | (start_extent << MEMOP_EXTENT_SHIFT), compat);
-> +
-> +            /*
-> +             * Well... Somethings gone wrong with the two levels of chunking.
-> +             * My condolences to whomever next has to debug this mess.
-> +             */
+It might be possible, I will have a look.
 
-Any suggestion how to overcome this "mess"?
+>> +{
+>> +	unsigned long vaddr = (unsigned long)ptr;
+>> +
+>> +	if (vaddr >= DIRECTMAP_VIRT_START &&
+>> +	    vaddr < DIRECTMAP_VIRT_END) {
+>> +		ASSERT(!((__pa(ptr) + size - 1) >> 20));
+>> +		return true;
+>> +	}
+>> +
+>> +	return (vaddr >= __fix_to_virt(FIX_ACPI_END)) &&
+>> +		(vaddr < (__fix_to_virt(FIX_ACPI_BEGIN) + PAGE_SIZE));
+> 
+> Indentation is slightly wrong here.
 
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -4105,6 +4105,9 @@ int gnttab_acquire_resource(
->      for ( i = 0; i < nr_frames; ++i )
->          mfn_list[i] = virt_to_mfn(vaddrs[frame + i]);
->  
-> +    /* Success.  Passed nr_frames back to the caller. */
+This is Linux coding style and therefore is using hard tab. Care to 
+explain the problem?
 
-Nit: "Pass"?
+> Also please consider reducing
+> the number of parentheses here; at the very least the return and
+> the earlier if() want to be consistent in when ones are(n't) used.
 
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1027,17 +1027,31 @@ static unsigned int resource_max_frames(struct domain *d,
->      }
->  }
->  
-> +/*
-> + * Returns -errno on error, or positive in the range [1, nr_frames] on
-> + * success.  Returning less than nr_frames contitutes a request for a
-> + * continuation.
-> + */
-> +static int _acquire_resource(
-> +    struct domain *d, unsigned int type, unsigned int id, unsigned long frame,
-> +    unsigned int nr_frames, xen_pfn_t mfn_list[])
+I will add extra parentheses in the if.
 
-As per the comment the return type may again want to be "long" here.
-Albeit I realize the restriction to (UINT_MAX >> MEMOP_EXTENT_SHIFT)
-makes this (and the other place above) only a latent issue for now,
-so it may well be fine to be left as is.
+> 
+>> --- a/xen/drivers/acpi/osl.c
+>> +++ b/xen/drivers/acpi/osl.c
+>> @@ -92,27 +92,29 @@ acpi_physical_address __init acpi_os_get_root_pointer(void)
+>>   void __iomem *
+>>   acpi_os_map_memory(acpi_physical_address phys, acpi_size size)
+>>   {
+>> -	if (system_state >= SYS_STATE_boot) {
+>> -		mfn_t mfn = _mfn(PFN_DOWN(phys));
+>> -		unsigned int offs = phys & (PAGE_SIZE - 1);
+>> -
+>> -		/* The low first Mb is always mapped on x86. */
+>> -		if (IS_ENABLED(CONFIG_X86) && !((phys + size - 1) >> 20))
+>> -			return __va(phys);
+>> -		return __vmap(&mfn, PFN_UP(offs + size), 1, 1,
+>> -			      ACPI_MAP_MEM_ATTR, VMAP_DEFAULT) + offs;
+>> -	}
+>> -	return __acpi_map_table(phys, size);
+>> +	void *ptr;
+>> +	mfn_t mfn = _mfn(PFN_DOWN(phys));
+>> +	unsigned int offs = phys & (PAGE_SIZE - 1);
+> 
+> Open-coding PAGE_OFFSET()?
 
-> @@ -1087,26 +1098,47 @@ static int acquire_resource(
->          goto out;
->      }
->  
-> +    /*
-> +     * Limiting nr_frames at (UINT_MAX >> MEMOP_EXTENT_SHIFT) isn't ideal.  If
-> +     * it ever becomes a practical problem, we can switch to mutating
-> +     * xmar.{frame,nr_frames,frame_list} in guest memory.
-> +     */
+I was looking for a macro to avoid open-coding but I couldn't find it. I 
+will use it in the next version.
 
-For 64-bit, extending the limit to ULONG_MAX >> MEMOP_EXTENT_SHIFT
-may also be an option.
+>> +	/* Try the arch specific implementation first */
+>> +	ptr = __acpi_map_table(phys, size);
+>> +	if (ptr)
+>> +		return ptr;
+>> +
+>> +	/* No common implementation for early boot map */
+>> +	if (unlikely(system_state < SYS_STATE_boot))
+>> +	     return NULL;
+> 
+> Consistently hard tabs for indentation here, please.
 
-> +    rc = -EINVAL;
-> +    if ( start_extent >= xmar.nr_frames ||
+Will do.
 
-Again, at least when start_extent is zero, == should not result in an
-error.
+>> +	ptr = __vmap(&mfn, PFN_UP(offs + size), 1, 1,
+>> +		     ACPI_MAP_MEM_ATTR, VMAP_DEFAULT);
+>> +
+>> +	return !ptr ? NULL : (ptr + offs);
+> 
+> Slightly odd that you don't let the success case go first,
 
-> +         xmar.nr_frames > (UINT_MAX >> MEMOP_EXTENT_SHIFT) )
-> +        goto out;
-> +
-> +    /* Adjust for work done on previous continuations. */
-> +    xmar.nr_frames -= start_extent;
-> +    xmar.frame += start_extent;
-> +    guest_handle_add_offset(xmar.frame_list, start_extent);
-> +
->      do {
-> -        switch ( xmar.type )
-> -        {
-> -        case XENMEM_resource_grant_table:
-> -            rc = gnttab_acquire_resource(d, xmar.id, xmar.frame, xmar.nr_frames,
-> -                                         mfn_list);
-> -            break;
-> +        /*
-> +         * Arbitrary size.  Not too much stack space, and a reasonable stride
-> +         * for continutation checks.
+I don't really see the problem. Are you nitpicking?
 
-Nit: Stray 't' again.
+> the more that it's minimally shorter:
+> 
+> 	return ptr ? ptr + offs : NULL;
+Cheers,
 
-> @@ -1126,7 +1158,32 @@ static int acquire_resource(
->                      rc = -EIO;
->              }
->          }
-> -    } while ( 0 );
-> +
-> +        if ( rc )
-> +            goto out;
-> +
-> +        xmar.nr_frames -= done;
-> +        xmar.frame += done;
-> +        guest_handle_add_offset(xmar.frame_list, done);
-> +        start_extent += done;
-> +
-> +        /*
-> +         * Explicit contination request from _acquire_resource(), or we've
-
-Nit: Missing 'u' this time round.
-
-Jan
+-- 
+Julien Grall
 
