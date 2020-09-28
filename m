@@ -2,62 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA8027AB86
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:10:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B41D27AB91
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:12:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMq63-0007n7-Ug; Mon, 28 Sep 2020 10:09:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMq63-0007n2-75
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:09:27 +0000
-X-Inumbo-ID: f8d0a3d7-9692-4a39-97d1-26f6832820ee
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f8d0a3d7-9692-4a39-97d1-26f6832820ee;
- Mon, 28 Sep 2020 10:09:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601287765;
+	id 1kMq8H-0000A8-Hx; Mon, 28 Sep 2020 10:11:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iXz5=DF=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kMq8G-0000A1-9q
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:11:44 +0000
+X-Inumbo-ID: 523afc86-b80d-4d68-b7f9-e8b903ec038b
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 523afc86-b80d-4d68-b7f9-e8b903ec038b;
+ Mon, 28 Sep 2020 10:11:42 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1601287900;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UfjCCj3FA9GdPhjgM84xr3tmT4HNQKMl9TzwgTYaZZA=;
- b=mxNz/wTbIAUNLeOt4zpiWCPNW4MRUU8HelgRQKaxJIKvGdZkA+ajNGfqmQaSD98A2spAQr
- EJVdWOsdtPiHVbxi3bBOEycKajtVHH395oYnScA5fM5XpUMpGbOZkO9B+E4dwmNg7l047w
- j+gUVAn9SpVnKTgwDkEsa13zvV58LCM=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5B78CB21B;
- Mon, 28 Sep 2020 10:09:25 +0000 (UTC)
-Subject: Re: [PATCH 1/4] xen/acpi: Rework acpi_os_map_memory() and
- acpi_os_unmap_memory()
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org,
- masami.hiramatsu@linaro.org, ehem+xen@m5p.com, bertrand.marquis@arm.com,
- andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200926205542.9261-1-julien@xen.org>
- <20200926205542.9261-2-julien@xen.org>
- <fe055799-de10-891a-bcee-bbb01a8c0b3d@suse.com>
- <b5624bfa-f24b-4c0a-6735-3473892fbd2f@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a07b59a0-41a3-ee4e-f28a-38499a2a4055@suse.com>
-Date: Mon, 28 Sep 2020 12:09:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ bh=/LEbaJHkdEDSvABDEX0Mpwgs63YbqlMHeZ5/FcFgS7c=;
+ b=WscWB2qjowVUKNzXJ7iKsyolZUkjDBztcYFbIgHrMUrtAEvquCam4/K52jcCtRQM+yKytr
+ URMI6z640lbxw7hkIOVx1TRLHMdhaWzx98lhVnLFqthWanJFHVHxlo2eOWubHBSTBu9GDF
+ 7G67OuYSeZNyWEttoblh+kzL4D7QpchbFTWBx+ikU8exuLt8q5pjxfqcBdHoB6zPbCD8mH
+ lZQfvtFRw5BX5n7PSkSM/ugl/cb4XGqprClPnO9RlJUYEx0yP1D0OFHRQNoIV4NB6Tbt2s
+ hzKesgmvohZEey59MwUSx2qdsQEH+kkd6efSVXhIbahzs/eEUDUMLSXdq82ySg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1601287900;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/LEbaJHkdEDSvABDEX0Mpwgs63YbqlMHeZ5/FcFgS7c=;
+ b=gKFUKgJag7QuixgLnPA+ShsJ5WL+xoFovrXQai1julVEgAI8XcH7X6h36NY9HKTW9eWOPq
+ ZWPyJFpE9hRbkzAA==
+To: Vasily Gorbik <gor@linux.ibm.com>, Qian Cai <cai@redhat.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ linux-s390@vger.kernel.org, Stephen Rothwell <sfr@canb.auug.org.au>,
+ linux-next@vger.kernel.org, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
+ <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
+ <rja@hpe.com>, linux-pci@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Megha Dey <megha.dey@intel.com>, Jason Gunthorpe
+ <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
+ Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
+ <dan.j.williams@intel.com>
+Subject: Re: [patch V2 34/46] PCI/MSI: Make arch_.*_msi_irq[s] fallbacks
+ selectable
+In-Reply-To: <your-ad-here.call-01601123933-ext-6476@work.hours>
+References: <20200826111628.794979401@linutronix.de>
+ <20200826112333.992429909@linutronix.de>
+ <cdfd63305caa57785b0925dd24c0711ea02c8527.camel@redhat.com>
+ <your-ad-here.call-01601123933-ext-6476@work.hours>
+Date: Mon, 28 Sep 2020 12:11:40 +0200
+Message-ID: <87eemmky77.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <b5624bfa-f24b-4c0a-6735-3473892fbd2f@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,65 +85,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.09.2020 11:58, Julien Grall wrote:
-> On 28/09/2020 09:18, Jan Beulich wrote:
->> On 26.09.2020 22:55, Julien Grall wrote:
->>> --- a/xen/arch/x86/acpi/lib.c
->>> +++ b/xen/arch/x86/acpi/lib.c
->>> @@ -46,6 +46,10 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
->>>   	if ((phys + size) <= (1 * 1024 * 1024))
->>>   		return __va(phys);
->>>   
->>> +	/* No arch specific implementation after early boot */
->>> +	if (system_state >= SYS_STATE_boot)
->>> +		return NULL;
->>
->> Considering the code in context above, the comment isn't entirely
->> correct.
-> 
-> How about "No arch specific implementation after early boot but for the 
-> first 1MB"?
+On Sat, Sep 26 2020 at 14:38, Vasily Gorbik wrote:
+> On Fri, Sep 25, 2020 at 09:54:52AM -0400, Qian Cai wrote:
+> Yes, as well as on mips and sparc which also don't FORCE_PCI.
+> This seems to work for s390:
+>
+> diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+> index b0b7acf07eb8..41136fbe909b 100644
+> --- a/arch/s390/Kconfig
+> +++ b/arch/s390/Kconfig
+> @@ -192,3 +192,3 @@ config S390
+>         select PCI_MSI                  if PCI
+> -       select PCI_MSI_ARCH_FALLBACKS
+> +       select PCI_MSI_ARCH_FALLBACKS   if PCI
+>         select SET_FS
 
-That or simply "No further ...".
-
->>> +{
->>> +	unsigned long vaddr = (unsigned long)ptr;
->>> +
->>> +	if (vaddr >= DIRECTMAP_VIRT_START &&
->>> +	    vaddr < DIRECTMAP_VIRT_END) {
->>> +		ASSERT(!((__pa(ptr) + size - 1) >> 20));
->>> +		return true;
->>> +	}
->>> +
->>> +	return (vaddr >= __fix_to_virt(FIX_ACPI_END)) &&
->>> +		(vaddr < (__fix_to_virt(FIX_ACPI_BEGIN) + PAGE_SIZE));
->>
->> Indentation is slightly wrong here.
-> 
-> This is Linux coding style and therefore is using hard tab. Care to 
-> explain the problem?
-
-The two opening parentheses should align with one another,
-shouldn't they?
-
->>> +	ptr = __vmap(&mfn, PFN_UP(offs + size), 1, 1,
->>> +		     ACPI_MAP_MEM_ATTR, VMAP_DEFAULT);
->>> +
->>> +	return !ptr ? NULL : (ptr + offs);
->>
->> Slightly odd that you don't let the success case go first,
-> 
-> I don't really see the problem. Are you nitpicking?
-> 
->> the more that it's minimally shorter:
->>
->> 	return ptr ? ptr + offs : NULL;
-
-Well, I said "slightly odd" as sort of a replacement of "Nit:".
-But I really think it would be more logical the other way
-around, not so much for how it looks like, but to aid the not
-uncommon compiler heuristics of assuming the "true" path is
-the common one.
-
-Jan
+lemme fix that for all of them ...
 
