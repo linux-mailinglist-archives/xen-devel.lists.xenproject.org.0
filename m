@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9041027AC57
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 12:59:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16BB27AC5C
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Sep 2020 13:00:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kMqsE-0004dP-4B; Mon, 28 Sep 2020 10:59:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kMqt3-0005A5-EY; Mon, 28 Sep 2020 11:00:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qi+E=DF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kMqsD-0004dH-64
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 10:59:13 +0000
-X-Inumbo-ID: 3e66c6d3-274f-4454-a73d-b962ecfa2abc
+ id 1kMqt2-00051E-7k
+ for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 11:00:04 +0000
+X-Inumbo-ID: 16044122-9a3f-4be3-aa42-7528e02c1c0d
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e66c6d3-274f-4454-a73d-b962ecfa2abc;
- Mon, 28 Sep 2020 10:59:12 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 16044122-9a3f-4be3-aa42-7528e02c1c0d;
+ Mon, 28 Sep 2020 11:00:03 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1601290751;
+ t=1601290802;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZHDyMtgX+8dhvc5uYQZOZEiupXAKqbAo9RNgQWlQ91k=;
- b=ji1VVHJqQsIf2fqUMHdMRoX1moyqYV7lyuG7ffEh9HGB2Rn9yRDo3ziDDBdHTnCnN/jXXU
- LTsTXPsQYshX2m0Po8wSrCLEWrqfZ/mk83uv3Gt3X5FJi8YU1Giq2lAKSV/Zg3xn83/QbQ
- Vu8mT5zrmtYGmkxCUyuAHUcTZPai3Vw=
+ bh=A+5Stl0rmqhXhbs7D3G+1NwS1Mh9/voMzMez3S4+mu8=;
+ b=hXL/yJOotVbgPrTfvoOP41zdArxO4ahxUVJiXDAFvF6dSbVcUSlLFapdUBGSTIAXxHnEYl
+ Qn9ThH3rsV0VdHgXMuVma4oTsBAMrJ+ObPSPMsMIAwG5wPadZbQ0ItQjZVr63bBdoabIjZ
+ H7Xms+O9Uk2++29LErYL9G7Z+KrHCeo=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A9CD1AD82;
- Mon, 28 Sep 2020 10:59:11 +0000 (UTC)
-Subject: [PATCH 06/12] evtchn: don't bypass unlinking pIRQ when closing port
+ by mx2.suse.de (Postfix) with ESMTP id 4D813B012;
+ Mon, 28 Sep 2020 11:00:02 +0000 (UTC)
+Subject: [PATCH 07/12] evtchn: cut short evtchn_reset()'s loop in the common
+ case
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -40,8 +42,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
-Message-ID: <6add36f5-93de-dc8e-7c14-dc5ae1c794eb@suse.com>
-Date: Mon, 28 Sep 2020 12:59:11 +0200
+Message-ID: <0577c62d-b349-6a60-d8bc-5b23a74342e0@suse.com>
+Date: Mon, 28 Sep 2020 13:00:01 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -62,49 +64,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's no other path causing a terminal unlink_pirq_port() to be called
-(evtchn_bind_vcpu() relinks it right away) and hence _if_ pirq can
-indeed be NULL when closing the port, list corruption would occur when
-bypassing the unlink (unless the structure never gets linked again). As
-we can't come here after evtchn_destroy() anymore, (late) domain
-destruction also isn't a reason for a possible exception, and hence the
-only alternative looks to be that the check was pointless in the first
-place. While I haven't observed the case, from code inspection I'm far
-from sure I can exclude this being possible, so it feels more safe to
-re-arrange the code instead.
+The general expectation is that there are only a few open ports left
+when a domain asks its event channel configuration to be reset.
+Similarly on average half a bucket worth of event channels can be
+expected to be inactive. Try to avoid iterating over all channels, by
+utilizing usage data we're maintaining anyway.
 
-Fixes: c24536b636f2 ("replace d->nr_pirqs sized arrays with radix tree")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/common/event_channel.c
 +++ b/xen/common/event_channel.c
-@@ -615,17 +615,18 @@ int evtchn_close(struct domain *d1, int
-     case ECS_PIRQ: {
-         struct pirq *pirq = pirq_info(d1, chn1->u.pirq.irq);
+@@ -232,7 +232,11 @@ void evtchn_free(struct domain *d, struc
+     evtchn_port_clear_pending(d, chn);
  
--        if ( !pirq )
--            break;
--        if ( !is_hvm_domain(d1) )
--            pirq_guest_unbind(d1, pirq);
--        pirq->evtchn = 0;
--        pirq_cleanup_check(pirq, d1);
--        unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
-+        if ( pirq )
-+        {
-+            if ( !is_hvm_domain(d1) )
-+                pirq_guest_unbind(d1, pirq);
-+            pirq->evtchn = 0;
-+            pirq_cleanup_check(pirq, d1);
- #ifdef CONFIG_X86
--        if ( is_hvm_domain(d1) && domain_pirq_to_irq(d1, pirq->pirq) > 0 )
--            unmap_domain_pirq_emuirq(d1, pirq->pirq);
-+            if ( is_hvm_domain(d1) && domain_pirq_to_irq(d1, pirq->pirq) > 0 )
-+                unmap_domain_pirq_emuirq(d1, pirq->pirq);
- #endif
-+        }
-+        unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
-         break;
-     }
+     if ( consumer_is_xen(chn) )
++    {
+         write_atomic(&d->xen_evtchns, d->xen_evtchns - 1);
++        /* Decrement ->xen_evtchns /before/ ->active_evtchns. */
++        smp_wmb();
++    }
+     write_atomic(&d->active_evtchns, d->active_evtchns - 1);
  
+     /* Reset binding to vcpu0 when the channel is freed. */
+@@ -1073,6 +1077,19 @@ int evtchn_unmask(unsigned int port)
+     return 0;
+ }
+ 
++static bool has_active_evtchns(const struct domain *d)
++{
++    unsigned int xen = read_atomic(&d->xen_evtchns);
++
++    /*
++     * Read ->xen_evtchns /before/ active_evtchns, to prevent
++     * evtchn_reset() exiting its loop early.
++     */
++    smp_rmb();
++
++    return read_atomic(&d->active_evtchns) > xen;
++}
++
+ int evtchn_reset(struct domain *d, bool resuming)
+ {
+     unsigned int i;
+@@ -1097,7 +1114,7 @@ int evtchn_reset(struct domain *d, bool
+     if ( !i )
+         return -EBUSY;
+ 
+-    for ( ; port_is_valid(d, i); i++ )
++    for ( ; port_is_valid(d, i) && has_active_evtchns(d); i++ )
+     {
+         evtchn_close(d, i, 1);
+ 
+@@ -1340,6 +1357,10 @@ int alloc_unbound_xen_event_channel(
+ 
+     spin_unlock_irqrestore(&chn->lock, flags);
+ 
++    /*
++     * Increment ->xen_evtchns /after/ ->active_evtchns. No explicit
++     * barrier needed due to spin-locked region just above.
++     */
+     write_atomic(&ld->xen_evtchns, ld->xen_evtchns + 1);
+ 
+  out:
 
 
