@@ -2,57 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1797527C002
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 10:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D55F227C042
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 10:59:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNBKB-0001NX-Ca; Tue, 29 Sep 2020 08:49:27 +0000
+	id 1kNBTL-0002QN-OF; Tue, 29 Sep 2020 08:58:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pXYx=DG=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kNBK9-0001NS-Ei
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 08:49:25 +0000
-X-Inumbo-ID: 805d3371-ca81-4cca-864e-89111b8c210c
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B4Fm=DG=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
+ id 1kNBTK-0002QI-Cg
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 08:58:54 +0000
+X-Inumbo-ID: e68ace76-8790-4964-9bd7-e7fb23a515af
+Received: from out30-43.freemail.mail.aliyun.com (unknown [115.124.30.43])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 805d3371-ca81-4cca-864e-89111b8c210c;
- Tue, 29 Sep 2020 08:49:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=iG08JebPUihEMEo8XWFgiGnnHff003PLHKIbYZ9ghjU=; b=KDhO6IhGWNdadpqs6r8sBijxqM
- Fk8A3cXuQjU9Oi3gdqbez54tGa1mSElG5FFQ5B3X6n3Fy1CKl08mVEmUePPaxB9o0oYNkYiCPy6Wf
- ZDJuOqusLji56Vg8PoceBmDEO6Pgc5bWcDA/uWZyHmOGuRw4sJ01hPR8bcE9lihOhB/w=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNBK5-0005KG-HJ; Tue, 29 Sep 2020 08:49:21 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNBK5-0007iY-4e; Tue, 29 Sep 2020 08:49:21 +0000
-Subject: Re: [PATCH 01/12] evtchn: refuse EVTCHNOP_status for Xen-bound event
- channels
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
- <e7331fa6-e557-4319-6137-2c2525f78822@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <035484d6-4472-c8ec-bc65-756b94ff98b4@xen.org>
-Date: Tue, 29 Sep 2020 09:49:19 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ id e68ace76-8790-4964-9bd7-e7fb23a515af;
+ Tue, 29 Sep 2020 08:58:52 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R851e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
+ MF=richard.weiyang@linux.alibaba.com; NM=1; PH=DS; RN=15; SR=0;
+ TI=SMTPD_---0UATjWF-_1601369923; 
+Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
+ fp:SMTPD_---0UATjWF-_1601369923) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 29 Sep 2020 16:58:44 +0800
+Date: Tue, 29 Sep 2020 16:58:43 +0800
+From: Wei Yang <richard.weiyang@linux.alibaba.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Oscar Salvador <osalvador@suse.de>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@kernel.org>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Mike Rapoport <rppt@kernel.org>
+Subject: Re: [PATCH v1 1/5] mm/page_alloc: convert "report" flag of
+ __free_one_page() to a proper flag
+Message-ID: <20200929085843.GA36790@L-31X9LVDL-1304.local>
+References: <20200928182110.7050-1-david@redhat.com>
+ <20200928182110.7050-2-david@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <e7331fa6-e557-4319-6137-2c2525f78822@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200928182110.7050-2-david@redhat.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +56,114 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: Wei Yang <richard.weiyang@linux.alibaba.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+On Mon, Sep 28, 2020 at 08:21:06PM +0200, David Hildenbrand wrote:
+>Let's prepare for additional flags and avoid long parameter lists of bools.
+>Follow-up patches will also make use of the flags in __free_pages_ok(),
+>however, I wasn't able to come up with a better name for the type - should
+>be good enough for internal purposes.
+>
+>Reviewed-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+>Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>Cc: Andrew Morton <akpm@linux-foundation.org>
+>Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+>Cc: Mel Gorman <mgorman@techsingularity.net>
+>Cc: Michal Hocko <mhocko@kernel.org>
+>Cc: Dave Hansen <dave.hansen@intel.com>
+>Cc: Vlastimil Babka <vbabka@suse.cz>
+>Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
+>Cc: Oscar Salvador <osalvador@suse.de>
+>Cc: Mike Rapoport <rppt@kernel.org>
+>Signed-off-by: David Hildenbrand <david@redhat.com>
 
-On 28/09/2020 11:56, Jan Beulich wrote:
-> Callers have no business knowing the state of the Xen end of an event
-> channel.
+Reviewed-by: Wei Yang <richard.weiyang@linux.alibaba.com>
+
+>---
+> mm/page_alloc.c | 28 ++++++++++++++++++++--------
+> 1 file changed, 20 insertions(+), 8 deletions(-)
+>
+>diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>index df90e3654f97..daab90e960fe 100644
+>--- a/mm/page_alloc.c
+>+++ b/mm/page_alloc.c
+>@@ -77,6 +77,18 @@
+> #include "shuffle.h"
+> #include "page_reporting.h"
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
+>+/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
+>+typedef int __bitwise fop_t;
+>+
+>+/* No special request */
+>+#define FOP_NONE		((__force fop_t)0)
+>+
+>+/*
+>+ * Skip free page reporting notification for the (possibly merged) page. (will
+>+ * *not* mark the page reported, only skip the notification).
+>+ */
+>+#define FOP_SKIP_REPORT_NOTIFY	((__force fop_t)BIT(0))
+>+
+> /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */
+> static DEFINE_MUTEX(pcp_batch_high_lock);
+> #define MIN_PERCPU_PAGELIST_FRACTION	(8)
+>@@ -948,10 +960,9 @@ buddy_merge_likely(unsigned long pfn, unsigned long buddy_pfn,
+>  * -- nyc
+>  */
 > 
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -933,6 +933,11 @@ int evtchn_status(evtchn_status_t *statu
->       }
->   
->       chn = evtchn_from_port(d, port);
-> +    if ( consumer_is_xen(chn) )
-> +    {
-> +        rc = -EACCES;
-> +        goto out;
-> +    }
->   
->       rc = xsm_evtchn_status(XSM_TARGET, d, chn);
->       if ( rc )
+>-static inline void __free_one_page(struct page *page,
+>-		unsigned long pfn,
+>-		struct zone *zone, unsigned int order,
+>-		int migratetype, bool report)
+>+static inline void __free_one_page(struct page *page, unsigned long pfn,
+>+				   struct zone *zone, unsigned int order,
+>+				   int migratetype, fop_t fop_flags)
+> {
+> 	struct capture_control *capc = task_capc(zone);
+> 	unsigned long buddy_pfn;
+>@@ -1038,7 +1049,7 @@ static inline void __free_one_page(struct page *page,
+> 		add_to_free_list(page, zone, order, migratetype);
 > 
+> 	/* Notify page reporting subsystem of freed page */
+>-	if (report)
+>+	if (!(fop_flags & FOP_SKIP_REPORT_NOTIFY))
+> 		page_reporting_notify_free(order);
+> }
+> 
+>@@ -1379,7 +1390,7 @@ static void free_pcppages_bulk(struct zone *zone, int count,
+> 		if (unlikely(isolated_pageblocks))
+> 			mt = get_pageblock_migratetype(page);
+> 
+>-		__free_one_page(page, page_to_pfn(page), zone, 0, mt, true);
+>+		__free_one_page(page, page_to_pfn(page), zone, 0, mt, FOP_NONE);
+> 		trace_mm_page_pcpu_drain(page, 0, mt);
+> 	}
+> 	spin_unlock(&zone->lock);
+>@@ -1395,7 +1406,7 @@ static void free_one_page(struct zone *zone,
+> 		is_migrate_isolate(migratetype))) {
+> 		migratetype = get_pfnblock_migratetype(page, pfn);
+> 	}
+>-	__free_one_page(page, pfn, zone, order, migratetype, true);
+>+	__free_one_page(page, pfn, zone, order, migratetype, FOP_NONE);
+> 	spin_unlock(&zone->lock);
+> }
+> 
+>@@ -3288,7 +3299,8 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
+> 	lockdep_assert_held(&zone->lock);
+> 
+> 	/* Return isolated page to tail of freelist. */
+>-	__free_one_page(page, page_to_pfn(page), zone, order, mt, false);
+>+	__free_one_page(page, page_to_pfn(page), zone, order, mt,
+>+			FOP_SKIP_REPORT_NOTIFY);
+> }
+> 
+> /*
+>-- 
+>2.26.2
 
 -- 
-Julien Grall
+Wei Yang
+Help you, Help me
 
