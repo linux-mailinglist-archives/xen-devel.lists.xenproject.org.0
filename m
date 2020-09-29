@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F032627C25F
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:28:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.17.72 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B04E27C29A
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:46:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.19.84 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNCrW-00035S-2h; Tue, 29 Sep 2020 10:27:58 +0000
+	id 1kND8u-0004on-M5; Tue, 29 Sep 2020 10:45:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 17.72; Tue, 29 Sep 2020 10:27:58 +0000
+Received: by outflank-mailman (output) from mailman id 19.84; Tue, 29 Sep 2020 10:45:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -22,126 +22,116 @@ Precedence: list
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNCrV-000356-VQ; Tue, 29 Sep 2020 10:27:57 +0000
-Received: by outflank-mailman (input) for mailman id 17;
- Tue, 29 Sep 2020 10:27:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kND8u-0004oS-IW; Tue, 29 Sep 2020 10:45:56 +0000
+Received: by outflank-mailman (input) for mailman id 19;
+ Tue, 29 Sep 2020 10:45:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kNCrU-000351-Om
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:27:56 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 23871d96-2f34-4278-82e6-421d0f19aedb;
- Tue, 29 Sep 2020 10:27:55 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ id 1kND8t-0004oN-G7
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:45:55 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d1073a7a-68dd-481f-b09f-afbc12c3eed8;
+ Tue, 29 Sep 2020 10:45:54 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kNCrU-000351-Om
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:27:56 +0000
-X-Inumbo-ID: 23871d96-2f34-4278-82e6-421d0f19aedb
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 23871d96-2f34-4278-82e6-421d0f19aedb;
-	Tue, 29 Sep 2020 10:27:55 +0000 (UTC)
+	id 1kND8t-0004oN-G7
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:45:55 +0000
+X-Inumbo-ID: d1073a7a-68dd-481f-b09f-afbc12c3eed8
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id d1073a7a-68dd-481f-b09f-afbc12c3eed8;
+	Tue, 29 Sep 2020 10:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601375275;
+  d=citrix.com; s=securemail; t=1601376355;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=NIF2wSzDuVcB6nC4O9YGUS1TPOSCnCUnqQZsCsOO4s8=;
-  b=ClOlJx9i7KTLCFotzk/A5T2g+iFCml/mXyjAQBRXwXhpDteEN5WxtxJC
-   oim1I3HUUWJoZZuwj7mkyIkI1NjBagpeFSAgxVEADG3+VFKHzm53VSz+p
-   HkYUk9mrZRfYC490AAC8G/tnBxk4ghg+Nbr8Zi00vHWaA28XauUetCgkv
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: VtoUKpiXRwSLL6nHHIYMva+55gmMsBJzZjhkPr2gtS5CIQXXpKJvMN448lu2G/FKitrVu/bipr
- jWfa6P7EZHw/Q8jKvPbmVcyM0RT4+cSwtkyDwF4Yc6p02tzft8mFMardF+sREaRGNVMWous6BX
- IeMeHd0A2xmSAD4HptcGlykmW0N+b18khJip4w7+80wHLFf3sUVk+7Sc12WfQjjRZ3JzYpmmMV
- iE7llsG2kmCVU6kq/bMDLDfA25zOovR0uq7M5KXliSh/heNsUGBdgI39Cgm2CMLT+x/X1ly0LW
- 3WE=
+  bh=xqYMuUZMbfL80zcjVAVFuMfFOcXLgr1jlSDNznPi0M0=;
+  b=I3SjIhPLrd/DR+PMhwneL1eXqqDUfbamKiqgRTM/nV7ixsjcf4B6ukFK
+   PE2GoGhtMK9IHkWw0IC4M0yLqIEQleF5aqgAjUwIwU1O9xsPmX6H2paXH
+   hamRBNNNfdlJlcdCo7EKlyB3tc6XWJP6qNNRhz5wI2q2UOrCaTSUipIGW
+   g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: zgMwgsSkk0u8iIM2o3QBfnQWkm3DiTp3c3z2XKZ/WNGiSd7mQZc2ApK1JsDlHiWm+zkvTOmvfy
+ /UTyyQ8R3Iqo0DVslIPEYnKmQP6+01AIBjKIND8MieqKRbyc4HkJXXFwfqq500RVqy7eiFduK0
+ e4Jod04Y7ZWU+7ZBv7c8+GYKxxG/Np1BNxMLa2GWrgY1MxJcZa3QUHRwr3nUMpIDlR325ULzar
+ wYNbtaBDGMni9GfqwfKvSrZ3EDvGwwoFJG766IWoP2zfdeamQcZDL/jFdta1bv4xrLwnYKqbRq
+ utg=
 X-SBRS: None
-X-MesageID: 27934961
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 27848310
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,318,1596513600"; 
-   d="scan'208";a="27934961"
-Date: Tue, 29 Sep 2020 12:27:46 +0200
+   d="scan'208";a="27848310"
+Date: Tue, 29 Sep 2020 12:45:45 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: Ping: [PATCH 2/2] x86/vpic: also execute dpci callback for
- non-specific EOI
-Message-ID: <20200929102746.GQ19254@Air-de-Roger>
-References: <20200820153442.28305-1-roger.pau@citrix.com>
- <20200820153442.28305-3-roger.pau@citrix.com>
- <625060e6-bdd0-c72c-c7fc-9a31588511b3@citrix.com>
- <4ac81e8f-f6e5-7226-49c7-135aa88a7b12@suse.com>
- <8e21a5fc-6c76-171f-8493-4a084ac1a779@suse.com>
+To: Trammell Hudson <hudson@trmm.net>
+CC: <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v6 2/5] efi/boot.c: add file.need_to_free
+Message-ID: <20200929104545.GR19254@Air-de-Roger>
+References: <20200921115113.1278655-1-hudson@trmm.net>
+ <20200921115113.1278655-3-hudson@trmm.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8e21a5fc-6c76-171f-8493-4a084ac1a779@suse.com>
+In-Reply-To: <20200921115113.1278655-3-hudson@trmm.net>
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On Mon, Sep 21, 2020 at 12:05:51PM +0200, Jan Beulich wrote:
-> On 21.08.2020 09:45, Jan Beulich wrote:
-> > On 20.08.2020 18:28, Andrew Cooper wrote:
-> >> On 20/08/2020 16:34, Roger Pau Monne wrote:
-> >>> Currently the dpci EOI callback is only executed for specific EOIs.
-> >>> This is wrong as non-specific EOIs will also clear the ISR bit and
-> >>> thus end the interrupt. Re-arrange the code a bit so that the common
-> >>> EOI handling path can be shared between all EOI modes.
-> >>>
-> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>> ---
-> >>>  xen/arch/x86/hvm/vpic.c | 10 +++++-----
-> >>>  1 file changed, 5 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
-> >>> index feb1db2ee3..3cf12581e9 100644
-> >>> --- a/xen/arch/x86/hvm/vpic.c
-> >>> +++ b/xen/arch/x86/hvm/vpic.c
-> >>> @@ -249,15 +249,15 @@ static void vpic_ioport_write(
-> >>>                  if ( priority == VPIC_PRIO_NONE )
-> >>>                      break;
-> >>>                  pin = (priority + vpic->priority_add) & 7;
-> >>> -                vpic->isr &= ~(1 << pin);
-> >>> -                if ( cmd == 5 )
-> >>> -                    vpic->priority_add = (pin + 1) & 7;
-> >>> -                break;
-> >>> +                goto common_eoi;
-> >>> +
-> >>>              case 3: /* Specific EOI                */
-> >>>              case 7: /* Specific EOI & Rotate       */
-> >>>                  pin = val & 7;
-> >>
-> >> You'll need a /* Fallthrough */ here to keep various things happy.
-> > 
-> > Are you sure? There's ...
-> > 
-> >> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>
-> >> Can fix on commit if you're happy.
-> >>
-> >>> +
-> >>> +            common_eoi:
-> > 
-> > ... an ordinary label here, not a case one.
+On Mon, Sep 21, 2020 at 07:51:10AM -0400, Trammell Hudson wrote:
+> The config file, kernel, initrd, etc should only be freed if they
+> are allocated with the UEFI allocator.
 > 
-> I would have wanted to commit this, but it's still not clear to me
-> whether the adjustment you ask for is really needed.
+> Signed-off-by: Trammell Hudson <hudson@trmm.net>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/common/efi/boot.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 157fe0e8c5..c2ce0c7294 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -102,6 +102,7 @@ union string {
+>  
+>  struct file {
+>      UINTN size;
+> +    bool need_to_free;
+>      union {
+>          EFI_PHYSICAL_ADDRESS addr;
+>          char *str;
+> @@ -280,13 +281,13 @@ void __init noreturn blexit(const CHAR16 *str)
+>      if ( !efi_bs )
+>          efi_arch_halt();
+>  
+> -    if ( cfg.addr )
+> +    if ( cfg.need_to_free )
 
-Hello,
+If you drop the addr check here...
 
-Was about to send a further series I have on top of this and saw this
-is still on my patch queue. I'm happy with either way, but I would
-like to get this committed if possible (as I think from a technical
-PoV we all agree it's correct).
+>          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -    if ( kernel.addr )
+> +    if ( kernel.need_to_free )
+>          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+> -    if ( ramdisk.addr )
+> +    if ( ramdisk.need_to_free )
+>          efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
+> -    if ( xsm.addr )
+> +    if ( xsm.need_to_free )
+>          efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
+>  
+>      efi_arch_blexit();
+> @@ -581,6 +582,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>      }
+>      else
+>      {
+> +        file->need_to_free = true;
+
+... I think you need to clear need_to_free if AllocatePages fails?
 
 Thanks, Roger.
 
