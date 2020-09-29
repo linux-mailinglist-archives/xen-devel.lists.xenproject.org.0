@@ -2,73 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC0D27BE1F
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 09:37:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48CB727BFD4
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 10:44:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNACi-0003B3-A7; Tue, 29 Sep 2020 07:37:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zis1=DG=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kNACh-0003Ay-2I
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 07:37:39 +0000
-X-Inumbo-ID: 28569659-a65b-4e60-ac74-65c9860151cb
-Received: from mail-wm1-x333.google.com (unknown [2a00:1450:4864:20::333])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 28569659-a65b-4e60-ac74-65c9860151cb;
- Tue, 29 Sep 2020 07:37:38 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id w2so3568211wmi.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Sep 2020 00:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:thread-index:content-language;
- bh=+BlHaoelA3/upoGvh6+Yciezwrlus7eXvVe30G+MOC8=;
- b=YJ0njSUJkM+3JrZuGXybYD2vm/byl2tAJcSMDwNyzJBtX7Elf6CstioNq6iKAR82Ig
- LBuZDeGwcC2mYPLnrZvy1tnz8K3V3JHJBFnVZDRPKIJ2hVN5VmDmdrm7kOBR0T+EEDb+
- +bcnJ1GjBncHdbh9bj/R0cfrzXenvPop92QzVr9s6NTtPAS8exDXP1pakvmbUhB6jXE1
- x7draV6LA8ymOKDTjvI5wNs/J6d0iiO7b9hZ8M6gn/+KmNvRamf434sUMl20kzoz1kgQ
- C9RuIVS7bbl5cFdWqVGVdrW+MAAl+b0tgZD6R3TBF8TjNqJ3mxsxRUAYSYTlY5SRIzbQ
- TRfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=+BlHaoelA3/upoGvh6+Yciezwrlus7eXvVe30G+MOC8=;
- b=JHEJF0olFUaO0DIQRmNebac1ULrLykmwczy+WtF7/ECu9m7y765dV4sUuUQBT7wnHY
- fiAhpYZXd94MOTQ92T8VmLglnpaDtfI1QBmpkAOVRbOEahL+zd+2t+eVEo+AOWIGAR7C
- f9UMbdMCxrkv77LpD/S3uyoM6+eVv3+gY6qZ+eOUunejSGVTOZvkcLz4GbC+yEB3PKW0
- 4PeC621KJCMefmauZxT0MyHhzVdRUPwVOEQfBHHDHrf5HSoOROFVZdllL/QqeORW6qDz
- KBxQk1BjULUNhw0J5HNzmMaA5b8W2/3d+3PDn4NQf3xS6QKaukaDgWjTSKHS7II7B/pc
- LUlw==
-X-Gm-Message-State: AOAM533mBjTutf1aLbLh7xre5fyrnSxi3GxR9UIO6FeErSj+k7tiFoU6
- fJeNRlAbJhfbOc5428fm7CU=
-X-Google-Smtp-Source: ABdhPJwJUN1Ye+X19pTSQiRfR0F9C025ODRvvACYGfu8QFJkZ/hII87undBxVOPe7+vLBuTLBERZHg==
-X-Received: by 2002:a1c:dd87:: with SMTP id u129mr3010179wmg.172.1601365057279; 
- Tue, 29 Sep 2020 00:37:37 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-233.amazon.com. [54.240.197.233])
- by smtp.gmail.com with ESMTPSA id e18sm4710456wrx.50.2020.09.29.00.37.36
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 29 Sep 2020 00:37:36 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Ian Jackson'" <iwj@xenproject.org>,
-	"'Wei Liu'" <wl@xen.org>
-Cc: =?iso-8859-1?Q?'Roger_Pau_Monn=E9'?= <roger.pau@citrix.com>,
- "'Paul Durrant'" <paul@xen.org>, <xen-devel@lists.xenproject.org>,
- "'Anthony PERARD'" <anthony.perard@citrix.com>
-Subject: RE: [PATCH 2/2] libxl: do not automatically force detach of block
- devices
-Date: Tue, 29 Sep 2020 08:37:35 +0100
-Message-ID: <003601d69633$66c0faf0$3442f0d0$@xen.org>
+	id 1kNBEU-0001BT-Lz; Tue, 29 Sep 2020 08:43:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6Xo+=DG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kNBET-0001BO-2u
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 08:43:33 +0000
+X-Inumbo-ID: 8c47f868-979e-4fed-b485-222dbb7483c1
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8c47f868-979e-4fed-b485-222dbb7483c1;
+ Tue, 29 Sep 2020 08:43:32 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1601369010;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JuuXIxlq0vRt4sxWiD/nBn72GanQ76CQ+QYyl4s0mpA=;
+ b=DbPRoxMdmCk6sKRsAE0u5tZM/pBbo7kwtzzAmcPqTcpBDbOiW85Q9THijx+JgJMafLhNra
+ O5bbOsip4V0IVQXp82Z23nPnElWpaxaXJMwbQBEbtpJ6jlaNnSZJYjiULkRAjnWaYOs5ra
+ bjNCEyotONxarsReFpfIe6If2DDM/UU=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 48C0DAEA2;
+ Tue, 29 Sep 2020 08:43:30 +0000 (UTC)
+Subject: Re: [PATCH] x86/HVM: refine when to send mapcache invalidation
+ request to qemu
+To: paul@xen.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
+ <002f01d6958a$22e61da0$68b258e0$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <dde50690-52d7-b85c-3715-8660de617835@suse.com>
+Date: Tue, 29 Sep 2020 10:43:29 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdaWM0f1K15UQCVISjCpoxPepwBrjQ==
-Content-Language: en-gb
+In-Reply-To: <002f01d6958a$22e61da0$68b258e0$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,79 +59,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Ian Jackson <iwj@xenproject.org>
-> Sent: 28 September 2020 14:44
-> To: Wei Liu <wl@xen.org>
-> Cc: Roger Pau Monn=E9 <roger.pau@citrix.com>; Paul Durrant =
-<paul@xen.org>; xen-
-> devel@lists.xenproject.org; Durrant, Paul <pdurrant@amazon.co.uk>; =
-Anthony PERARD
-> <anthony.perard@citrix.com>
-> Subject: RE: [EXTERNAL] [PATCH 2/2] libxl: do not automatically force =
-detach of block devices
->=20
-> CAUTION: This email originated from outside of the organization. Do =
-not click links or open
-> attachments unless you can confirm the sender and know the content is =
-safe.
->=20
->=20
->=20
-> Wei Liu writes ("Re: [PATCH 2/2] libxl: do not automatically force =
-detach of block devices"):
-> > On Mon, Sep 14, 2020 at 12:41:09PM +0200, Roger Pau Monn=E9 wrote:
-> > > Maybe a new function should be introduced instead, that attempts =
-to
-> > > remove a device gracefully and fail otherwise?
-> > >
-> > > Then none of the current APIs would change, and xl could use this =
-new
-> > > function to handle VBD removal?
-> >
-> > This sounds fine to me.
->=20
-> I agree.
->=20
-> If there is going to be different default policy for different devices
-> it ought to be in xl, not libxl, but frankly I think this is an
-> anomaly.
->=20
-> I suggest we have a new entrypoint that specifies the fallback
-> behaviour explicitly.
+On 28.09.2020 13:25, Paul Durrant wrote:
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 28 September 2020 11:44
+>>
+>> For one it was wrong to send the request only upon a completed
+>> hypercall: Even if only part of it completed before getting preempted,
+>> invalidation ought to occur. Therefore fold the two return statements.
+>>
+>> And then XENMEM_decrease_reservation isn't the only means by which pages
+>> can get removed from a guest, yet all removals ought to be signaled to
+>> qemu. Put setting of the flag into the central p2m_remove_page()
+>> underlying all respective hypercalls.
+> 
+> Actually, does this catch all the cases? Would it be better to push the
+> check into p2m_set_entry() where we displace a ram entry? (I think it
+> would be possible, for instance, for map_mmio_regions() to directly
+> displace ram).
 
-Indeed. See v2 of my series, posted a couple of weeks ago, specifically:
+I did consider this, but my fear of going too far (and adding perhaps
+many false positives) was too large. For the specific example of
+map_mmio_regions() I'd expect it's the device model anyway which
+calls it, and it hence shouldn't be in need of telling. But yes, if
+there are multiple emulators, others than the one doing the change
+may need knowing.
 
-https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg01029.htm=
-l
+But perhaps PoD is in even more immediate need of this, when
+transitioning a GFN from RAM to PoD, especially outside of the
+context of p2m_pod_decrease_reservation()? In this case things
+happen behind the guest's back, i.e. in particular outside of a
+hypercall, and hence there would again be the problem from where to
+properly send the request. IOW I'm struggling to ascertain whether
+putting another instance of the sending onto the tail of
+hvm_hap_nested_page_fault() would work correctly, or what the
+conditions are for this to be done without interfering with other
+requests which may be pending.
 
->  ISTM that there are three possible behaviours:
->  - fail if the guest does not cooperate
+>> Plus finally there's no point sending the request for the local domain
+>> when the domain acted upon is a different one. If anything that domain's
+>> qemu's mapcache may need invalidating, but it's unclear how useful this
+>> would be: That remote domain may not execute hypercalls at all, and
+>> hence may never make it to the point where the request actually gets
+>> issued. I guess the assumption is that such manipulation is not supposed
+>> to happen anymore once the guest has been started?
+> 
+> Either that or the code was based on a false assumption was always
+> occurring on the current domain.
 
-That is the newly introduced 'safe_remove'
+When the code was added, I think this assumption was reasonable.
+There was not even a remote idea at that point of a HVM(-like)
+domain managing other domains. It was later on when it was missed to
+update this logic.
 
->  - fall back to force remove
+> I also wonder whether the test-and-clear in hvm_hypercall() is really
+> the right thing to do. E.g. if two vcpus decrease reservation at the
+> same time, only one would end up waiting on the send_invalidate_req().
 
-That is the existing 'remove'
+Hmm, yes, the flag wants to be per vCPU. Which will make remote
+manipulation (if such was permitted to occur) even more awkward.
 
->  - rip the device out immediately
+> Also, the pages will have been freed back to heap before invalidate
+> is sent so I guess it is possible for a domain to use its qemu
+> process to attack pages that may have been re-assigned?
 
-That is the existing 'destroy'
+Not for a PV domain - there page refs will be held by the mappings in
+the dm domain(s). For PVH (which isn't supported yet for anything
+other than being an ordinary DomU) this would indeed be a problem,
+for there not being any similar ref-counting when inserting into /
+removing from the p2m.
 
-> The last of these would be useful only in rare situations.  IDK if the
-> length of the timeout (for the first two cases) ought to be a
-> parameter too.
->=20
-
-I think that would be a worthy enhancement but above and beyond the aim =
-of this series.
-
-  Paul
-
-
-
+Jan
 
