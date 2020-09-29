@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C0A127D4EC
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 19:50:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.326.936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6C7227D523
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 19:53:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.330.949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNJky-0006U1-PG; Tue, 29 Sep 2020 17:49:40 +0000
+	id 1kNJot-0007LW-C8; Tue, 29 Sep 2020 17:53:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 326.936; Tue, 29 Sep 2020 17:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 330.949; Tue, 29 Sep 2020 17:53:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,281 +23,71 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNJky-0006Tg-Lx; Tue, 29 Sep 2020 17:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 326;
- Tue, 29 Sep 2020 17:49:39 +0000
+	id 1kNJot-0007L4-8g; Tue, 29 Sep 2020 17:53:43 +0000
+Received: by outflank-mailman (input) for mailman id 330;
+ Tue, 29 Sep 2020 17:53:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5GuN=DG=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1kNJkx-0006Tb-H3
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 17:49:39 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/JXF=DG=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+ id 1kNJoq-0007Kz-VJ
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 17:53:41 +0000
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 815e2cd3-d7b1-414f-b228-014f33e276e9;
- Tue, 29 Sep 2020 17:49:38 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 156ECAFFD;
- Tue, 29 Sep 2020 17:49:37 +0000 (UTC)
+ id c1bcbe4f-8f41-4b72-81dd-aaf9085dd636;
+ Tue, 29 Sep 2020 17:53:39 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5GuN=DG=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
-	id 1kNJkx-0006Tb-H3
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 17:49:39 +0000
-X-Inumbo-ID: 815e2cd3-d7b1-414f-b228-014f33e276e9
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=/JXF=DG=trmm.net=hudson@srs-us1.protection.inumbo.net>)
+	id 1kNJoq-0007Kz-VJ
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 17:53:41 +0000
+X-Inumbo-ID: c1bcbe4f-8f41-4b72-81dd-aaf9085dd636
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 815e2cd3-d7b1-414f-b228-014f33e276e9;
-	Tue, 29 Sep 2020 17:49:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 156ECAFFD;
-	Tue, 29 Sep 2020 17:49:37 +0000 (UTC)
-Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
- type conversion
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
- kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
- tomeu.vizoso@collabora.com, steven.price@arm.com,
- alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
- hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
- oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
- sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
- apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
- chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20200929151437.19717-1-tzimmermann@suse.de>
- <20200929151437.19717-3-tzimmermann@suse.de>
- <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
-Date: Tue, 29 Sep 2020 19:49:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id c1bcbe4f-8f41-4b72-81dd-aaf9085dd636;
+	Tue, 29 Sep 2020 17:53:39 +0000 (UTC)
+Date: Tue, 29 Sep 2020 17:53:29 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
+	s=protonmail; t=1601402018;
+	bh=El1FdZZIm/piWq7aesD/1CvcR56buELVEO02FcYssYU=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=VrJIJINMIIDIkrr3m4DT/QQ5y0tnczmtZIBJP0Jjn775l+yPCekGvZIGV3gWLbbbD
+	 BFAzLjSBooFupgLI0xVasG6ML4zBSFJANQaYkX13F/2SHWm6ivAVJVoysEkTnSyHVG
+	 tQxK+6XErEhs91q/jDQ3L27ZNOqpNIP+Y66Y9WzA=
+To: Jan Beulich <jbeulich@suse.com>
+From: Trammell Hudson <hudson@trmm.net>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Reply-To: Trammell Hudson <hudson@trmm.net>
+Subject: Re: [PATCH v6 2/5] efi/boot.c: add file.need_to_free
+Message-ID: <L6OrPSlho_3FXM64l9Kdq02iwIn1pWxJEbzrnNb-emsJjfdlS9mg4Fbdzusf83Fad4Nmwh0p_cCcmgXgeHGe-0I2Fsui92fR6zca7VYFVwM=@trmm.net>
+In-Reply-To: <b0ab3d15-39e2-9543-d8c1-967e7af66908@suse.com>
+References: <20200921115113.1278655-1-hudson@trmm.net> <20200921115113.1278655-3-hudson@trmm.net> <b0ab3d15-39e2-9543-d8c1-967e7af66908@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n
-Content-Type: multipart/mixed; boundary="KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
- kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
- tomeu.vizoso@collabora.com, steven.price@arm.com,
- alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
- hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
- oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
- sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
- apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
- chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Message-ID: <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
-Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
- type conversion
-References: <20200929151437.19717-1-tzimmermann@suse.de>
- <20200929151437.19717-3-tzimmermann@suse.de>
- <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
-In-Reply-To: <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
-
---KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-Hi Christian
+On Tuesday, September 29, 2020 6:17 AM, Jan Beulich <jbeulich@suse.com> wro=
+te:
+> On 21.09.2020 13:51, Trammell Hudson wrote:
+> [...]
+> > Reviewed-by: Roger Pau Monn=C3=A9 roger.pau@citrix.com
+>
+> Strictly speaking with the changes done from v5 to v6 this tag
+> would have needed dropping. I guess Roger is fine with it being
+> kept, though.
 
-Am 29.09.20 um 17:35 schrieb Christian K=C3=B6nig:
-> Am 29.09.20 um 17:14 schrieb Thomas Zimmermann:
->> The new helper ttm_kmap_obj_to_dma_buf() extracts address and location=
+Ok.
 
->> from and instance of TTM's kmap_obj and initializes struct dma_buf_map=
+> [...]
+> Doesn't this need similar changes in both efi_arch_blexit()?
 
->> with these values. Helpful for TTM-based drivers.
->=20
-> We could completely drop that if we use the same structure inside TTM a=
-s
-> well.
->=20
-> Additional to that which driver is going to use this?
+It does -- I had missed that there was a place to free them
+and had assumed that they were just leaked.  Fixed in v7.
 
-As Daniel mentioned, it's in patch 3. The TTM-based drivers will
-retrieve the pointer via this function.
-
-I do want to see all that being more tightly integrated into TTM, but
-not in this series. This one is about fixing the bochs-on-sparc64
-problem for good. Patch 7 adds an update to TTM to the DRM TODO list.
-
-Best regards
-Thomas
-
->=20
-> Regards,
-> Christian.
->=20
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->> =C2=A0 include/drm/ttm/ttm_bo_api.h | 24 ++++++++++++++++++++++++
->> =C2=A0 include/linux/dma-buf-map.h=C2=A0 | 20 ++++++++++++++++++++
->> =C2=A0 2 files changed, 44 insertions(+)
->>
->> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api=
-=2Eh
->> index c96a25d571c8..62d89f05a801 100644
->> --- a/include/drm/ttm/ttm_bo_api.h
->> +++ b/include/drm/ttm/ttm_bo_api.h
->> @@ -34,6 +34,7 @@
->> =C2=A0 #include <drm/drm_gem.h>
->> =C2=A0 #include <drm/drm_hashtab.h>
->> =C2=A0 #include <drm/drm_vma_manager.h>
->> +#include <linux/dma-buf-map.h>
->> =C2=A0 #include <linux/kref.h>
->> =C2=A0 #include <linux/list.h>
->> =C2=A0 #include <linux/wait.h>
->> @@ -486,6 +487,29 @@ static inline void *ttm_kmap_obj_virtual(struct
->> ttm_bo_kmap_obj *map,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return map->virtual;
->> =C2=A0 }
->> =C2=A0 +/**
->> + * ttm_kmap_obj_to_dma_buf_map
->> + *
->> + * @kmap: A struct ttm_bo_kmap_obj returned from ttm_bo_kmap.
->> + * @map: Returns the mapping as struct dma_buf_map
->> + *
->> + * Converts struct ttm_bo_kmap_obj to struct dma_buf_map. If the memo=
-ry
->> + * is not mapped, the returned mapping is initialized to NULL.
->> + */
->> +static inline void ttm_kmap_obj_to_dma_buf_map(struct ttm_bo_kmap_obj=
-
->> *kmap,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 struct dma_buf_map *map)
->> +{
->> +=C2=A0=C2=A0=C2=A0 bool is_iomem;
->> +=C2=A0=C2=A0=C2=A0 void *vaddr =3D ttm_kmap_obj_virtual(kmap, &is_iom=
-em);
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!vaddr)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_clear(map);
->> +=C2=A0=C2=A0=C2=A0 else if (is_iomem)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr_iome=
-m(map, (void __force __iomem *)vaddr);
->> +=C2=A0=C2=A0=C2=A0 else
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr(map,=
- vaddr);
->> +}
->> +
->> =C2=A0 /**
->> =C2=A0=C2=A0 * ttm_bo_kmap
->> =C2=A0=C2=A0 *
->> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h=
-
->> index fd1aba545fdf..2e8bbecb5091 100644
->> --- a/include/linux/dma-buf-map.h
->> +++ b/include/linux/dma-buf-map.h
->> @@ -45,6 +45,12 @@
->> =C2=A0=C2=A0 *
->> =C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr(&map. 0xdeadbea=
-f);
->> =C2=A0=C2=A0 *
->> + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem()=
-=2E
->> + *
->> + * .. code-block:: c
->> + *
->> + *=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
->> + *
->> =C2=A0=C2=A0 * Test if a mapping is valid with either dma_buf_map_is_s=
-et() or
->> =C2=A0=C2=A0 * dma_buf_map_is_null().
->> =C2=A0=C2=A0 *
->> @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct
->> dma_buf_map *map, void *vaddr)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 map->is_iomem =3D false;
->> =C2=A0 }
->> =C2=A0 +/**
->> + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to
->> an address in I/O memory
->> + * @map:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The dma-buf mappin=
-g structure
->> + * @vaddr_iomem:=C2=A0=C2=A0=C2=A0 An I/O-memory address
->> + *
->> + * Sets the address and the I/O-memory flag.
->> + */
->> +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *ma=
-p,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 void __iomem *vaddr_iomem)
->> +{
->> +=C2=A0=C2=A0=C2=A0 map->vaddr_iomem =3D vaddr_iomem;
->> +=C2=A0=C2=A0=C2=A0 map->is_iomem =3D true;
->> +}
->> +
->> =C2=A0 /**
->> =C2=A0=C2=A0 * dma_buf_map_is_equal - Compares two dma-buf mapping str=
-uctures
->> for equality
->> =C2=A0=C2=A0 * @lhs:=C2=A0=C2=A0=C2=A0 The dma-buf mapping structure
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP--
-
---TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9zc60UHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiNPnwf/aCTKdBejEjGzelqMuF4UePySm/kg
-uxWq4a3bhUNU/jUfaYErgmfPo7k2kd8GBKNwzUIWBmuanOtyVjPUASvzWxWn7GBo
-c0Y2iWSttNk7zk3Qr330IDKDPtQjtzVbklLBu1YsbOQi0WqdzK0uFpRKl9MAvmth
-5mi7+IzMbP/w3eu8z71VaPc7xy5tYCmeeyqeEPIEV3CoY4QnFaJDhRxenlDIZ/bR
-M9RHikgzelrT1Nra42ooEtT6b3mBp4p63jHBHzTQnSjlAYT1khyKFLvQSHjNPyCN
-GMHZqwUnG3U9EMjYvcGsvk7hZ4ROSOwVpq0j00R3hAK5rfbg6C1+v4XNSQ==
-=/tV0
------END PGP SIGNATURE-----
-
---TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n--
+--
+Trammell
 
