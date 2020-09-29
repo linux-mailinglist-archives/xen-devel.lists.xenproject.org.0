@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7D527D28F
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 17:16:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.265.676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B226527D2B5
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 17:28:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.272.688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNHMs-0007mE-OH; Tue, 29 Sep 2020 15:16:38 +0000
+	id 1kNHXk-0000NI-NU; Tue, 29 Sep 2020 15:27:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265.676; Tue, 29 Sep 2020 15:16:38 +0000
+Received: by outflank-mailman (output) from mailman id 272.688; Tue, 29 Sep 2020 15:27:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,221 +23,166 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNHMs-0007lp-Kb; Tue, 29 Sep 2020 15:16:38 +0000
-Received: by outflank-mailman (input) for mailman id 265;
- Tue, 29 Sep 2020 15:16:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GtTE=DG=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kNHMr-0007ld-Ft
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 15:16:37 +0000
-Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id af420b4b-a878-48ab-b5b3-3966eef24bfd;
- Tue, 29 Sep 2020 15:16:36 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 196BC4C3;
- Tue, 29 Sep 2020 11:16:35 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 29 Sep 2020 11:16:35 -0400
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id 580733064685;
- Tue, 29 Sep 2020 11:16:33 -0400 (EDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kNHXk-0000Mv-K5; Tue, 29 Sep 2020 15:27:52 +0000
+Received: by outflank-mailman (input) for mailman id 272;
+ Tue, 29 Sep 2020 15:27:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=F2Z1=DG=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kNHXj-0000Mp-EV
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 15:27:51 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id adab12a4-4423-4b62-bc26-6600fae6c5db;
+ Tue, 29 Sep 2020 15:27:50 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 65DCFAC2B;
+ Tue, 29 Sep 2020 15:27:49 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GtTE=DG=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
-	id 1kNHMr-0007ld-Ft
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 15:16:37 +0000
-X-Inumbo-ID: af420b4b-a878-48ab-b5b3-3966eef24bfd
-Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id af420b4b-a878-48ab-b5b3-3966eef24bfd;
-	Tue, 29 Sep 2020 15:16:36 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
-	by mailout.west.internal (Postfix) with ESMTP id 196BC4C3;
-	Tue, 29 Sep 2020 11:16:35 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute7.internal (MEProxy); Tue, 29 Sep 2020 11:16:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=x7FDb5
-	Qijz/o41mB54lRWou4GDNsWYPzXki/spKsJHk=; b=EO0F5JvQGq/d1qNMT8EqTK
-	iIU5O5teezAtXspHPt9B40A6yHUEYgG24Xl0gzj46+wE9wJ8GrbuagzM/U77G3To
-	3mj6VLbUkXLgG2QvqDbscmFSNdmLrXCuozKTwSwFkSXKLjvDMx0FwbHQEAqcajuz
-	Ejh7LcpuEU8D1MvyhOVB+FLFQwXLAPdQs2b9/m9P29AKE97PS/3ZEcg3XzJ/Gs+Q
-	ftfSEYg5cmteXAUwuK8iVoNvT/2gAix/pdhvlV9S4Jl2ZwvfyuEG9M+axVVD4wsS
-	n5SvxM+Nf0TUvpx48jQaKofjC5/BY0f0VkrfyTPrcL34Z2gQWmsbJ0MKcAV2Q57g
-	==
-X-ME-Sender: <xms:0k9zX86pzq7bGlK9IxrJ4l2CvPu9NM2nTIXLLY_xiX6H1F9oWwuxGQ>
-    <xme:0k9zX958a5A76WAsts2imGveSz9_pPAWVB9gKKBTNOiYDehWpPBryE5Lt3S9v4PYd
-    ZX5GEbju7qx8g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrvdekgdekiecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
-    gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecukfhppeelud
-    drieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
-    ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
-    gtohhm
-X-ME-Proxy: <xmx:0k9zX7f2-6dLTE5Q3h7phwgGmXURaz1vRp_C9NmxqmRN2qTQ9jMsiA>
-    <xmx:0k9zXxLih018EWhY_nDjpyNi-0O_YkVHIyUqdt8GoWOBE3n37YhEGQ>
-    <xmx:0k9zXwIy01juurkAhrk44dXO3V03gHNLDxBZMk_qTMzuXiYPN3VlMQ>
-    <xmx:0k9zX6hd3ln4k_Wi-b5mdNQdLWe9b4D-YPlSlNyjUjhwX5YYrhAQzQ>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
-	by mail.messagingengine.com (Postfix) with ESMTPA id 580733064685;
-	Tue, 29 Sep 2020 11:16:33 -0400 (EDT)
-Date: Tue, 29 Sep 2020 17:16:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Juergen Gross <jgross@suse.de>, Dario Faggioli <dfaggioli@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
+	(envelope-from <SRS0=F2Z1=DG=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kNHXj-0000Mp-EV
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 15:27:51 +0000
+X-Inumbo-ID: adab12a4-4423-4b62-bc26-6600fae6c5db
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id adab12a4-4423-4b62-bc26-6600fae6c5db;
+	Tue, 29 Sep 2020 15:27:50 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601393269;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IaJJU6/iWEJZObLFcLLtbm8F2MnTgDhAi7hI/NYp/7M=;
+	b=uBE8LrBOKeOU0f1khQI/KiCywzJdMjciscq1SmGdvCcP5IH/bTw0dQisOQoIPn1hiuPfca
+	c1fTB8X0+AaHifsbpO4r0ACgiXEuvymKnhhQqJs9iyXWTcQi+zMH3G4QDiRQkhmfjAlZDU
+	X8T1Tqp81ScjgNMRczKU1q+TEfm6Ofs=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 65DCFAC2B;
+	Tue, 29 Sep 2020 15:27:49 +0000 (UTC)
 Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13
-Message-ID: <20200929151627.GE1482@mail-itl>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Juergen Gross <jgross@suse.de>, Dario Faggioli <dfaggioli@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 References: <20200318141635.GW7869@mail-itl>
  <fa845540-fd8e-bc63-a3af-50673dede579@citrix.com>
  <20200318221006.GS18599@mail-itl>
  <413cac496e18bcb04b0691ef633d206f3a14a8e3.camel@suse.com>
- <20200323000946.GH18599@mail-itl>
- <20200929142730.GA25731@mail-itl>
+ <20200323000946.GH18599@mail-itl> <20200929142730.GA25731@mail-itl>
  <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
+ <20200929151627.GE1482@mail-itl>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+Date: Tue, 29 Sep 2020 17:27:48 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="u2zjs13kMz/cGsQm"
-Content-Disposition: inline
-In-Reply-To: <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
+In-Reply-To: <20200929151627.GE1482@mail-itl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+
+On 29.09.20 17:16, Marek Marczykowski-Górecki wrote:
+> On Tue, Sep 29, 2020 at 05:07:11PM +0200, Jürgen Groß wrote:
+>> On 29.09.20 16:27, Marek Marczykowski-Górecki wrote:
+>>> On Mon, Mar 23, 2020 at 01:09:49AM +0100, Marek Marczykowski-Górecki wrote:
+>>>> On Thu, Mar 19, 2020 at 01:28:10AM +0100, Dario Faggioli wrote:
+>>>>> [Adding Juergen]
+>>>>>
+>>>>> On Wed, 2020-03-18 at 23:10 +0100, Marek Marczykowski-Górecki wrote:
+>>>>>> On Wed, Mar 18, 2020 at 02:50:52PM +0000, Andrew Cooper wrote:
+>>>>>>> On 18/03/2020 14:16, Marek Marczykowski-Górecki wrote:
+>>>>>>>> Hi,
+>>>>>>>>
+>>>>>>>> In my test setup (inside KVM with nested virt enabled), I rather
+>>>>>>>> frequently get Xen crash on resume from S3. Full message below.
+>>>>>>>>
+>>>>>>>> This is Xen 4.13.0, with some patches, including "sched: fix
+>>>>>>>> resuming
+>>>>>>>> from S3 with smt=0".
+>>>>>>>>
+>>>>>>>> Contrary to the previous issue, this one does not happen always -
+>>>>>>>> I
+>>>>>>>> would say in about 40% cases on this setup, but very rarely on
+>>>>>>>> physical
+>>>>>>>> setup.
+>>>>>>>>
+>>>>>>>> This is _without_ core scheduling enabled, and also with smt=off.
+>>>>>>>>
+>>>>>>>> Do you think it would be any different on xen-unstable? I cat
+>>>>>>>> try, but
+>>>>>>>> it isn't trivial in this setup, so I'd ask first.
+>>>>>>>>
+>>>>> Well, Juergen has fixed quite a few issues.
+>>>>>
+>>>>> Most of them where triggering with core-scheduling enabled, and I don't
+>>>>> recall any of them which looked similar or related to this.
+>>>>>
+>>>>> Still, it's possible that the same issue causes different symptoms, and
+>>>>> hence that maybe one of the patches would fix this too.
+>>>>
+>>>> I've tested on master (d094e95fb7c), and reproduced exactly the same crash
+>>>> (pasted below for the completeness).
+>>>> But there is more: additionally, in most (all?) cases after resume I've got
+>>>> soft lockup in Linux dom0 in smp_call_function_single() - see below. It
+>>>> didn't happened before and the only change was Xen 4.13 -> master.
+>>>>
+>>>> Xen crash:
+>>>>
+>>>> (XEN) Assertion 'c2rqd(sched_unit_master(unit)) == svc->rqd' failed at credit2.c:2133
+>>>
+>>> Juergen, any idea about this one? This is also happening on the current
+>>> stable-4.14 (28855ebcdbfa).
+>>>
+>>
+>> Oh, sorry I didn't come back to this issue.
+>>
+>> I suspect this is related to stop_machine_run() being called during
+>> suspend(), as I'm seeing very sporadic issues when offlining and then
+>> onlining cpus with core scheduling being active (it seems as if the
+>> dom0 vcpu doing the cpu online activity sometimes is using an old
+>> vcpu state).
+> 
+> Note this is default Xen 4.14 start, so core scheduling is _not_ active:
+
+The similarity in the two failure cases is that multiple cpus are
+affected by the operations during stop_machine_run().
+
+> 
+>      (XEN) Brought up 2 CPUs
+>      (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+>      (XEN) Adding cpu 0 to runqueue 0
+>      (XEN)  First cpu on runqueue, activating
+>      (XEN) Adding cpu 1 to runqueue 1
+>      (XEN)  First cpu on runqueue, activating
+> 
+>> I wasn't able to catch the real problem despite of having tried lots
+>> of approaches using debug patches.
+>>
+>> Recently I suspected the whole problem could be somehow related to
+>> RCU handling, as stop_machine_run() is relying on tasklets which are
+>> executing in idle context, and RCU handling is done in idle context,
+>> too. So there might be some kind of use after free scenario in case
+>> some memory is freed via RCU despite it still being used by a tasklet.
+> 
+> That sounds plausible, even though I don't really know this area of Xen.
+> 
+>> I "just" need to find some time to verify this suspicion. Any help doing
+>> this would be appreciated. :-)
+> 
+> I do have a setup where I can easily-ish reproduce the issue. If there
+> is some debug patch you'd like me to try, I can do that.
+
+Thanks. I might come back to that offer as you are seeing a crash which
+will be much easier to analyze. Catching my error case is much harder as
+it surfaces some time after the real problem in a non destructive way
+(usually I'm seeing a failure to load a library in the program which
+just did its job via exactly the library claiming not being loadable).
 
 
---u2zjs13kMz/cGsQm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13
-
-On Tue, Sep 29, 2020 at 05:07:11PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 29.09.20 16:27, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Mon, Mar 23, 2020 at 01:09:49AM +0100, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > On Thu, Mar 19, 2020 at 01:28:10AM +0100, Dario Faggioli wrote:
-> > > > [Adding Juergen]
-> > > >=20
-> > > > On Wed, 2020-03-18 at 23:10 +0100, Marek Marczykowski-G=C3=B3recki =
-wrote:
-> > > > > On Wed, Mar 18, 2020 at 02:50:52PM +0000, Andrew Cooper wrote:
-> > > > > > On 18/03/2020 14:16, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > Hi,
-> > > > > > >=20
-> > > > > > > In my test setup (inside KVM with nested virt enabled), I rat=
-her
-> > > > > > > frequently get Xen crash on resume from S3. Full message belo=
-w.
-> > > > > > >=20
-> > > > > > > This is Xen 4.13.0, with some patches, including "sched: fix
-> > > > > > > resuming
-> > > > > > > from S3 with smt=3D0".
-> > > > > > >=20
-> > > > > > > Contrary to the previous issue, this one does not happen alwa=
-ys -
-> > > > > > > I
-> > > > > > > would say in about 40% cases on this setup, but very rarely on
-> > > > > > > physical
-> > > > > > > setup.
-> > > > > > >=20
-> > > > > > > This is _without_ core scheduling enabled, and also with smt=
-=3Doff.
-> > > > > > >=20
-> > > > > > > Do you think it would be any different on xen-unstable? I cat
-> > > > > > > try, but
-> > > > > > > it isn't trivial in this setup, so I'd ask first.
-> > > > > > >=20
-> > > > Well, Juergen has fixed quite a few issues.
-> > > >=20
-> > > > Most of them where triggering with core-scheduling enabled, and I d=
-on't
-> > > > recall any of them which looked similar or related to this.
-> > > >=20
-> > > > Still, it's possible that the same issue causes different symptoms,=
- and
-> > > > hence that maybe one of the patches would fix this too.
-> > >=20
-> > > I've tested on master (d094e95fb7c), and reproduced exactly the same =
-crash
-> > > (pasted below for the completeness).
-> > > But there is more: additionally, in most (all?) cases after resume I'=
-ve got
-> > > soft lockup in Linux dom0 in smp_call_function_single() - see below. =
-It
-> > > didn't happened before and the only change was Xen 4.13 -> master.
-> > >=20
-> > > Xen crash:
-> > >=20
-> > > (XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' fail=
-ed at credit2.c:2133
-> >=20
-> > Juergen, any idea about this one? This is also happening on the current
-> > stable-4.14 (28855ebcdbfa).
-> >=20
->=20
-> Oh, sorry I didn't come back to this issue.
->=20
-> I suspect this is related to stop_machine_run() being called during
-> suspend(), as I'm seeing very sporadic issues when offlining and then
-> onlining cpus with core scheduling being active (it seems as if the
-> dom0 vcpu doing the cpu online activity sometimes is using an old
-> vcpu state).
-
-Note this is default Xen 4.14 start, so core scheduling is _not_ active:
-
-    (XEN) Brought up 2 CPUs
-    (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-    (XEN) Adding cpu 0 to runqueue 0
-    (XEN)  First cpu on runqueue, activating
-    (XEN) Adding cpu 1 to runqueue 1
-    (XEN)  First cpu on runqueue, activating
-
-> I wasn't able to catch the real problem despite of having tried lots
-> of approaches using debug patches.
->=20
-> Recently I suspected the whole problem could be somehow related to
-> RCU handling, as stop_machine_run() is relying on tasklets which are
-> executing in idle context, and RCU handling is done in idle context,
-> too. So there might be some kind of use after free scenario in case
-> some memory is freed via RCU despite it still being used by a tasklet.
-
-That sounds plausible, even though I don't really know this area of Xen.
-
-> I "just" need to find some time to verify this suspicion. Any help doing
-> this would be appreciated. :-)
-
-I do have a setup where I can easily-ish reproduce the issue. If there
-is some debug patch you'd like me to try, I can do that.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---u2zjs13kMz/cGsQm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl9zT8oACgkQ24/THMrX
-1yy0+wgAlTQCbE1VMtnsbPhSj25HfxDqWtBKeSLombolY4Yda6qig5dV7l5x5ecN
-gYXXKowgddMz9wDE06D949q86unSbW2HGpadP3aTNdY2vbYS5d99UNUlwJu1RPXr
-zkMyNsGTr3DFAasu2h1m4aNZKuhfn3upuxnE1EsQsWZcsXC8Q5xQ6YE2gUxqLPjV
-aY2B4WAF+He+YI/8+vgPbKdHKkHntmJEk0POwpKp8u+pF3q0xFZZcuTMcF7oCiTx
-/hsvmoF/gCiKZlE7x+wn+jrkZo35AqR9V91MaUBFLRys8Hh3wbWnapjzH7knvXcm
-e4/aZfyBeCxpBTedNwQk1/Vhu0Lz8Q==
-=5hIK
------END PGP SIGNATURE-----
-
---u2zjs13kMz/cGsQm--
+Juergen
 
