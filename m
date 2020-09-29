@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96BD327D9CC
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 23:13:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.375.1105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F1B427DC6A
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 01:04:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377.1116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNMub-0008SC-3Z; Tue, 29 Sep 2020 21:11:49 +0000
+	id 1kNOeu-0000qr-HR; Tue, 29 Sep 2020 23:03:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 375.1105; Tue, 29 Sep 2020 21:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 377.1116; Tue, 29 Sep 2020 23:03:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,196 +23,250 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNMua-0008Rq-W7; Tue, 29 Sep 2020 21:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 375;
- Tue, 29 Sep 2020 21:11:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNOeu-0000qU-E2; Tue, 29 Sep 2020 23:03:44 +0000
+Received: by outflank-mailman (input) for mailman id 377;
+ Tue, 29 Sep 2020 23:03:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SVYV=DG=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1kNMuZ-0008Rl-Q3
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 21:11:47 +0000
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc5a6334-e781-4026-b080-2fa3586bb1c7;
- Tue, 29 Sep 2020 21:11:46 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id y15so6312495wmi.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Sep 2020 14:11:46 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id c4sm7646558wrp.85.2020.09.29.14.11.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Sep 2020 14:11:44 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id EE6BE1FF7E;
- Tue, 29 Sep 2020 22:11:43 +0100 (BST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=2xhW=DG=intel.com=megha.dey@srs-us1.protection.inumbo.net>)
+ id 1kNOes-0000qM-GG
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 23:03:42 +0000
+Received: from mga09.intel.com (unknown [134.134.136.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1c58e4e7-98a9-40af-8128-ab117bad6d05;
+ Tue, 29 Sep 2020 23:03:40 +0000 (UTC)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2020 16:03:39 -0700
+Received: from meghadey-mobl1.amr.corp.intel.com (HELO [10.209.163.104])
+ ([10.209.163.104])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2020 16:03:36 -0700
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=SVYV=DG=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
-	id 1kNMuZ-0008Rl-Q3
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 21:11:47 +0000
-X-Inumbo-ID: cc5a6334-e781-4026-b080-2fa3586bb1c7
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id cc5a6334-e781-4026-b080-2fa3586bb1c7;
-	Tue, 29 Sep 2020 21:11:46 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id y15so6312495wmi.0
-        for <xen-devel@lists.xenproject.org>; Tue, 29 Sep 2020 14:11:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:in-reply-to:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=KlfnmpJFEKVjo/rT+Sjq9sS50kADaeGjXSvbxt3os7A=;
-        b=lJVPjxmbAnfLXPQwnzPWVTEh8NvAK7IuBiOkdaInAlRiSAPH0hcf/1FEwm+I6+YaKq
-         V9eHb55iG9U9rcSeCG1+7SYZ9jAF11OLk16JUPI5oLI0uX3GAg2uVpUad01S6R9SZ+jv
-         SbFHBsOcfc79+XDBfxrknzTki00jwyGDMNseKEGqAYpdVRtskw7LtuF8+0fpoInBv7QP
-         6nDl+qadBQPIKk8SqgOo9AH+jaNS1DhyYh3Jke0nuj+e0kJGb50Vmi0Ko/m2CCO3VbQo
-         N2nKYDh/Lfdogv+7jdSbGaHuriglqVXXeGSnntSUdZlnP9KXufgQf3LZ66LwTerEpsYH
-         IhFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject
-         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
-        bh=KlfnmpJFEKVjo/rT+Sjq9sS50kADaeGjXSvbxt3os7A=;
-        b=DgEBj+yI/yonvxKNMYAXd5vYROumgljbYNB7KTQexlFGQuWCFFyIIeEDg+fTdbDnhs
-         Z4X0ftVLaapP/Tyr6FRqh8GCDaavkAFS7Xlc3+2LxrjQaCrRDpjWrMRpxn9cGeix0uQm
-         wlE6ZYjTsM7i9DPAGkDY911ngshOh3PtJIPJ278yFqxG4mFr+GAKSFQC6bPyXhgZFUwq
-         7Jtq/H0p9kGaZHqTFpFk1tqRW/aqlOaK5X07mdVmu4hbi4h0ax6cHB77M3eQet7fekID
-         s94eKPsj7B7M5JNqdvoB9js1CectwVEU9nU952vgUxxbwSHSL5k5iwOMZaPwHXMnspbu
-         TVlg==
-X-Gm-Message-State: AOAM533iGwNR2ec1MtqDVe0RZTVqMAOgttxNvZ9DmVgXZy1ClVeh4Md0
-	0OvetTO+lgni77XfBFOGc3B0bQ==
-X-Google-Smtp-Source: ABdhPJzqdy88nT3gs77Q4Me+NJg+aFknmtBcwXOEx3NBLX/FyvQxW4u7au7b9iy3yixx3yN1bUecwg==
-X-Received: by 2002:a7b:c44b:: with SMTP id l11mr6436479wmi.52.1601413905949;
-        Tue, 29 Sep 2020 14:11:45 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
-        by smtp.gmail.com with ESMTPSA id c4sm7646558wrp.85.2020.09.29.14.11.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2020 14:11:44 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
-	by zen.linaroharston (Postfix) with ESMTP id EE6BE1FF7E;
-	Tue, 29 Sep 2020 22:11:43 +0100 (BST)
-References: <20200926205542.9261-1-julien@xen.org>
- <87k0wcppnj.fsf@linaro.org> <5afbce1c-0c45-4b8c-771a-f83b91328e4a@xen.org>
-User-agent: mu4e 1.5.5; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, masami.hiramatsu@linaro.org,
- ehem+xen@m5p.com, bertrand.marquis@arm.com, andre.przywara@arm.com, Julien
- Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
- <wl@xen.org>, Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 0/4] xen/arm: Unbreak ACPI
-In-reply-to: <5afbce1c-0c45-4b8c-771a-f83b91328e4a@xen.org>
-Date: Tue, 29 Sep 2020 22:11:43 +0100
-Message-ID: <87d024p9tc.fsf@linaro.org>
+	(envelope-from <SRS0=2xhW=DG=intel.com=megha.dey@srs-us1.protection.inumbo.net>)
+	id 1kNOes-0000qM-GG
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 23:03:42 +0000
+X-Inumbo-ID: 1c58e4e7-98a9-40af-8128-ab117bad6d05
+Received: from mga09.intel.com (unknown [134.134.136.24])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 1c58e4e7-98a9-40af-8128-ab117bad6d05;
+	Tue, 29 Sep 2020 23:03:40 +0000 (UTC)
+IronPort-SDR: egZr6s3kHY1SkIqKezQOstY+5tzvNXzyKjxkPJd412ZJuzXY9bP32/wRjbAUC0r+2ETd2P/K1E
+ 6Ws0FpaCZ/Fg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="163188327"
+X-IronPort-AV: E=Sophos;i="5.77,320,1596524400"; 
+   d="scan'208";a="163188327"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2020 16:03:39 -0700
+IronPort-SDR: /EvObaL5A0efO+V3yWJ7n6DgRY4Jfn26hfbu0C8T5O1RjfwKjT7pd78ZVG7iKsEJ0UgybKhTke
+ epnaRxRgrjvA==
+X-IronPort-AV: E=Sophos;i="5.77,320,1596524400"; 
+   d="scan'208";a="415545172"
+Received: from meghadey-mobl1.amr.corp.intel.com (HELO [10.209.163.104]) ([10.209.163.104])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2020 16:03:36 -0700
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device
+ MSI
+To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>,
+ iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Jon Derrick <jonathan.derrick@intel.com>, Lu Baolu
+ <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Jason Gunthorpe <jgg@mellanox.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+ dave.jiang@intel.com, ravi.v.shankar@intel.com
+References: <20200826111628.794979401@linutronix.de>
+From: "Dey, Megha" <megha.dey@intel.com>
+Message-ID: <10b5d933-f104-7699-341a-0afb16640d54@intel.com>
+Date: Tue, 29 Sep 2020 16:03:36 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200826111628.794979401@linutronix.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
+Hi Thomas,
 
-Julien Grall <julien@xen.org> writes:
-
-> Hi Alex,
+On 8/26/2020 4:16 AM, Thomas Gleixner wrote:
+> This is the second version of providing a base to support device MSI (non
+> PCI based) and on top of that support for IMS (Interrupt Message Storm)
+> based devices in a halfways architecture independent way.
 >
-> On 29/09/2020 16:29, Alex Benn=C3=A9e wrote:
->>=20
->> Julien Grall <julien@xen.org> writes:
->>=20
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> Hi all,
->>>
->>> Xen on ARM has been broken for quite a while on ACPI systems. This
->>> series aims to fix it.
->>>
->>> Unfortunately I don't have a system with ACPI v6.0 or later (QEMU seems
->>> to only support 5.1). So I did only some light testing.
->>=20
->> I was hoping to get more diagnostics out to get it working under QEMU
->> TCG so I think must of missed a step:
->>=20
->>    Loading Xen 4.15-unstable ...
->>    Loading Linux 4.19.0-11-arm64 ...
->>    Loading initial ramdisk ...
->>    Using modules provided by bootloader in FDT
->>    Xen 4.15-unstable (c/s Sat Sep 26 21:55:42 2020 +0100 git:72f3d495d0)=
- EFI loader
->>    ...silence...
->>=20
->> I have a grub installed from testing on a buster base:
->>=20
->>    dpkg --status grub-arm64-efi
->>    Version: 2.04-8
->>=20
->> With:
->>=20
->>    GRUB_CMDLINE_LINUX_DEFAULT=3D""
->>    GRUB_CMDLINE_LINUX=3D"console=3DttyAMA0"
->>    GRUB_CMDLINE_LINUX_XEN_REPLACE=3D"console=3Dhvc0 earlyprintk=3Dxen"
->>    GRUB_CMDLINE_XEN=3D"loglvl=3Dall guest_loglvl=3Dall com1=3D115200,8n1=
-,0x3e8,5console=3Dcom1,vg"
->>=20
->> And I built Xen with --enable-systemd and tweaked the hypervisor .config:
->>=20
->>    CONFIG_EXPERT=3Dy
->>    CONFIG_ACPI=3Dy
->>=20
->> So any pointers to make it more verbose would be helpful.
+> The first version can be found here:
 >
-> The error is hapenning before Xen setup the console. You can get early=20
-> output on QEMU if you rebuild Xen with the following .config options:
+>      https://lore.kernel.org/r/20200821002424.119492231@linutronix.de
 >
-> CONFIG_DEBUG=3Dy
-> CONFIG_EARLY_UART_CHOICE_PL011=3Dy
-> CONFIG_EARLY_UART_PL011=3Dy
-> CONFIG_EARLY_PRINTK=3Dy
-> CONFIG_EARLY_UART_BASE_ADDRESS=3D0x09000000
-> CONFIG_EARLY_UART_PL011_BAUD_RATE=3D0
-> CONFIG_EARLY_PRINTK_INC=3D"debug-pl011.inc"
+> It's still a mixed bag of bug fixes, cleanups and general improvements
+> which are worthwhile independent of device MSI.
+>
+> There are quite a bunch of issues to solve:
+>
+>    - X86 does not use the device::msi_domain pointer for historical reasons
+>      and due to XEN, which makes it impossible to create an architecture
+>      agnostic device MSI infrastructure.
+>
+>    - X86 has it's own msi_alloc_info data type which is pointlessly
+>      different from the generic version and does not allow to share code.
+>
+>    - The logic of composing MSI messages in an hierarchy is busted at the
+>      core level and of course some (x86) drivers depend on that.
+>
+>    - A few minor shortcomings as usual
+>
+> This series addresses that in several steps:
+>
+>   1) Accidental bug fixes
+>
+>        iommu/amd: Prevent NULL pointer dereference
+>
+>   2) Janitoring
+>
+>        x86/init: Remove unused init ops
+>        PCI: vmd: Dont abuse vector irqomain as parent
+>        x86/msi: Remove pointless vcpu_affinity callback
+>
+>   3) Sanitizing the composition of MSI messages in a hierarchy
+>   
+>        genirq/chip: Use the first chip in irq_chip_compose_msi_msg()
+>        x86/msi: Move compose message callback where it belongs
+>
+>   4) Simplification of the x86 specific interrupt allocation mechanism
+>
+>        x86/irq: Rename X86_IRQ_ALLOC_TYPE_MSI* to reflect PCI dependency
+>        x86/irq: Add allocation type for parent domain retrieval
+>        iommu/vt-d: Consolidate irq domain getter
+>        iommu/amd: Consolidate irq domain getter
+>        iommu/irq_remapping: Consolidate irq domain lookup
+>
+>   5) Consolidation of the X86 specific interrupt allocation mechanism to be as close
+>      as possible to the generic MSI allocation mechanism which allows to get rid
+>      of quite a bunch of x86'isms which are pointless
+>
+>        x86/irq: Prepare consolidation of irq_alloc_info
+>        x86/msi: Consolidate HPET allocation
+>        x86/ioapic: Consolidate IOAPIC allocation
+>        x86/irq: Consolidate DMAR irq allocation
+>        x86/irq: Consolidate UV domain allocation
+>        PCI/MSI: Rework pci_msi_domain_calc_hwirq()
+>        x86/msi: Consolidate MSI allocation
+>        x86/msi: Use generic MSI domain ops
+>
+>    6) x86 specific cleanups to remove the dependency on arch_*_msi_irqs()
+>
+>        x86/irq: Move apic_post_init() invocation to one place
+>        x86/pci: Reducde #ifdeffery in PCI init code
+>        x86/irq: Initialize PCI/MSI domain at PCI init time
+>        irqdomain/msi: Provide DOMAIN_BUS_VMD_MSI
+>        PCI: vmd: Mark VMD irqdomain with DOMAIN_BUS_VMD_MSI
+>        PCI/MSI: Provide pci_dev_has_special_msi_domain() helper
+>        x86/xen: Make xen_msi_init() static and rename it to xen_hvm_msi_init()
+>        x86/xen: Rework MSI teardown
+>        x86/xen: Consolidate XEN-MSI init
+>        irqdomain/msi: Allow to override msi_domain_alloc/free_irqs()
+>        x86/xen: Wrap XEN MSI management into irqdomain
+>        iommm/vt-d: Store irq domain in struct device
+>        iommm/amd: Store irq domain in struct device
+>        x86/pci: Set default irq domain in pcibios_add_device()
+>        PCI/MSI: Make arch_.*_msi_irq[s] fallbacks selectable
+>        x86/irq: Cleanup the arch_*_msi_irqs() leftovers
+>        x86/irq: Make most MSI ops XEN private
+>        iommu/vt-d: Remove domain search for PCI/MSI[X]
+>        iommu/amd: Remove domain search for PCI/MSI
+>
+>    7) X86 specific preparation for device MSI
+>
+>        x86/irq: Add DEV_MSI allocation type
+>        x86/msi: Rename and rework pci_msi_prepare() to cover non-PCI MSI
+>
+>    8) Generic device MSI infrastructure
+>        platform-msi: Provide default irq_chip:: Ack
+>        genirq/proc: Take buslock on affinity write
+>        genirq/msi: Provide and use msi_domain_set_default_info_flags()
+>        platform-msi: Add device MSI infrastructure
+>        irqdomain/msi: Provide msi_alloc/free_store() callbacks
+>
+>    9) POC of IMS (Interrupt Message Storm) irq domain and irqchip
+>       implementations for both device array and queue storage.
+>
+>        irqchip: Add IMS (Interrupt Message Storm) driver - NOT FOR MERGING
+>
+> Changes vs. V1:
+>
+>     - Addressed various review comments and addressed the 0day fallout.
+>       - Corrected the XEN logic (Jürgen)
+>       - Make the arch fallback in PCI/MSI opt-in not opt-out (Bjorn)
+>
+>     - Fixed the compose MSI message inconsistency
+>
+>     - Ensure that the necessary flags are set for device SMI
+>
+>     - Make the irq bus logic work for affinity setting to prepare
+>       support for IMS storage in queue memory. It turned out to be
+>       less scary than I feared.
+>
+>     - Remove leftovers in iommu/intel|amd
+>
+>     - Reworked the IMS POC driver to cover queue storage so Jason can have a
+>       look whether that fits the needs of MLX devices.
+>
+> The whole lot is also available from git:
+>
+>     git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git device-msi
+>
+> This has been tested on Intel/AMD/KVM but lacks testing on:
+>
+>      - HYPERV (-ENODEV)
+>      - VMD enabled systems (-ENODEV)
+>      - XEN (-ENOCLUE)
+>      - IMS (-ENODEV)
+>
+>      - Any non-X86 code which might depend on the broken compose MSI message
+>        logic. Marc excpects not much fallout, but agrees that we need to fix
+>        it anyway.
+>
+> #1 - #3 should be applied unconditionally for obvious reasons
+> #4 - #6 are wortwhile cleanups which should be done independent of device MSI
+>
+> #7 - #8 look promising to cleanup the platform MSI implementation
+>       	independent of #8, but I neither had cycles nor the stomach to
+>       	tackle that.
+>
+> #9	is obviously just for the folks interested in IMS
+>
+> Thanks,
+>
+> 	tglx
 
-OK I can see it fails on the ACPI and then tries to fall back to FDT and
-then fails to find the GIC:
+I see that the tip tree (as of 9/29) has most of these patches but 
+notice that the DEV_MSI related patches
 
-  (XEN) CMDLINE[00000000f7bbe000]:chosen placeholder root=3DUUID=3Dcf00cd3a=
--066b-4146-bedf-f811d3343077 ro console=3Dhvc0 earlyprintk=3Dxen
-  (XEN)
-  (XEN) Command line: placeholder loglvl=3Dall guest_loglvl=3Dall com1=3D11=
-5200,8n1,0x3e8,5console=3Dcom1,vg no-real-mode edd=3Doff
-  (XEN) parameter "placeholder" unknown!
-  (XEN) parameter "no-real-mode" unknown!
-  (XEN) parameter "edd" unknown!
-  (XEN) ACPI: RSDP 138560000, 0024 (r2 BOCHS )
-  (XEN) ACPI: XSDT 138550000, 004C (r1 BOCHS  BXPCFACP        1       10000=
-13)
-  (XEN) ACPI: FACP 138510000, 010C (r5 BOCHS  BXPCFACP        1 BXPC       =
- 1)
-  (XEN) ACPI: DSDT 138520000, 14A6 (r2 BOCHS  BXPCDSDT        1 BXPC       =
- 1)
-  (XEN) ACPI: APIC 138500000, 018C (r3 BOCHS  BXPCAPIC        1 BXPC       =
- 1)
-  (XEN) ACPI: GTDT 1384F0000, 0060 (r2 BOCHS  BXPCGTDT        1 BXPC       =
- 1)
-  (XEN) ACPI: MCFG 1384E0000, 003C (r1 BOCHS  BXPCMCFG        1 BXPC       =
- 1)
-  (XEN) ACPI: SPCR 1384D0000, 0050 (r2 BOCHS  BXPCSPCR        1 BXPC       =
- 1)
-  (XEN) Unsupported FADT revision 5.1, should be 6.0+, will disable ACPI
-  (XEN) acpi_boot_table_init: FADT not found (-22)
-  (XEN) Domain heap initialised
-  (XEN) Booting using Device Tree
-  (XEN) Platform: Generic System
-  (XEN)
-  (XEN) ****************************************
-  (XEN) Panic on CPU 0:
-  (XEN) Unable to find compatible GIC in the device tree
-  (XEN) ****************************************
-  (XEN)
-  (XEN) Reboot in five seconds...
+haven't made it. I have tested the tip tree(x86/irq branch) with your 
+DEV_MSI infra patches and our IMS
 
-Despite saying it is going to reboot it never manages to. Any idea how
-it is trying to reset the system?
+patches with the IDXD driver and was wondering if we should push out 
+those patches as part of our patchset?
 
---=20
-Alex Benn=C3=A9e
+Thanks,
+
+Megha
+
 
