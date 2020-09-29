@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B04E27C29A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:46:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.19.84 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD2E927C2E9
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:55:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.21.97 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kND8u-0004on-M5; Tue, 29 Sep 2020 10:45:56 +0000
+	id 1kNDHU-0005jX-Ia; Tue, 29 Sep 2020 10:54:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19.84; Tue, 29 Sep 2020 10:45:56 +0000
+Received: by outflank-mailman (output) from mailman id 21.97; Tue, 29 Sep 2020 10:54:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -22,116 +22,97 @@ Precedence: list
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kND8u-0004oS-IW; Tue, 29 Sep 2020 10:45:56 +0000
-Received: by outflank-mailman (input) for mailman id 19;
- Tue, 29 Sep 2020 10:45:55 +0000
+	id 1kNDHU-0005j8-F5; Tue, 29 Sep 2020 10:54:48 +0000
+Received: by outflank-mailman (input) for mailman id 21;
+ Tue, 29 Sep 2020 10:54:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kND8t-0004oN-G7
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:45:55 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6Xo+=DG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kNDHT-0005j3-19
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:54:47 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d1073a7a-68dd-481f-b09f-afbc12c3eed8;
- Tue, 29 Sep 2020 10:45:54 +0000 (UTC)
+ id ebb8b93b-18be-4643-a8bc-83ea0c5b6fa4;
+ Tue, 29 Sep 2020 10:54:46 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5FA25AF3D;
+ Tue, 29 Sep 2020 10:54:45 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kND8t-0004oN-G7
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:45:55 +0000
-X-Inumbo-ID: d1073a7a-68dd-481f-b09f-afbc12c3eed8
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	(envelope-from <SRS0=6Xo+=DG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kNDHT-0005j3-19
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:54:47 +0000
+X-Inumbo-ID: ebb8b93b-18be-4643-a8bc-83ea0c5b6fa4
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d1073a7a-68dd-481f-b09f-afbc12c3eed8;
-	Tue, 29 Sep 2020 10:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601376355;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=xqYMuUZMbfL80zcjVAVFuMfFOcXLgr1jlSDNznPi0M0=;
-  b=I3SjIhPLrd/DR+PMhwneL1eXqqDUfbamKiqgRTM/nV7ixsjcf4B6ukFK
-   PE2GoGhtMK9IHkWw0IC4M0yLqIEQleF5aqgAjUwIwU1O9xsPmX6H2paXH
-   hamRBNNNfdlJlcdCo7EKlyB3tc6XWJP6qNNRhz5wI2q2UOrCaTSUipIGW
-   g=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: zgMwgsSkk0u8iIM2o3QBfnQWkm3DiTp3c3z2XKZ/WNGiSd7mQZc2ApK1JsDlHiWm+zkvTOmvfy
- /UTyyQ8R3Iqo0DVslIPEYnKmQP6+01AIBjKIND8MieqKRbyc4HkJXXFwfqq500RVqy7eiFduK0
- e4Jod04Y7ZWU+7ZBv7c8+GYKxxG/Np1BNxMLa2GWrgY1MxJcZa3QUHRwr3nUMpIDlR325ULzar
- wYNbtaBDGMni9GfqwfKvSrZ3EDvGwwoFJG766IWoP2zfdeamQcZDL/jFdta1bv4xrLwnYKqbRq
- utg=
-X-SBRS: None
-X-MesageID: 27848310
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,318,1596513600"; 
-   d="scan'208";a="27848310"
-Date: Tue, 29 Sep 2020 12:45:45 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Trammell Hudson <hudson@trmm.net>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v6 2/5] efi/boot.c: add file.need_to_free
-Message-ID: <20200929104545.GR19254@Air-de-Roger>
-References: <20200921115113.1278655-1-hudson@trmm.net>
- <20200921115113.1278655-3-hudson@trmm.net>
+	id ebb8b93b-18be-4643-a8bc-83ea0c5b6fa4;
+	Tue, 29 Sep 2020 10:54:46 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601376885;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=31qGixsXSBuSp1VmiCoWdpsPrUq0aHTCCvmxhQWFeJU=;
+	b=M2MVxnjJ2jmLo0gJXfkUFep+7D13aLeT43zKUO7MZNodW/d8IbnugPL5zWr93oncrPdywd
+	SSaO1gs3cxkKXtKeCO1YcrxcLB/uTSl2aiRUa+5IUiOpIHTWeWwqIMExZ6szV0VT4byFXZ
+	DiWEkjZsVO6SsbImzSOVLP+RFKxopdM=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 5FA25AF3D;
+	Tue, 29 Sep 2020 10:54:45 +0000 (UTC)
+Subject: Re: [PATCH 03/12] evtchn: don't call Xen consumer callback with
+ per-channel lock held
+To: Julien Grall <julien@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
+ <1bf3959d-c097-f8ef-cce4-3a325d0984c4@suse.com>
+ <895e7361-4d63-15b8-76c1-84ea39051b68@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <882edfa8-c2b5-accd-f1eb-fc625aa43439@suse.com>
+Date: Tue, 29 Sep 2020 12:54:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200921115113.1278655-3-hudson@trmm.net>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <895e7361-4d63-15b8-76c1-84ea39051b68@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2020 at 07:51:10AM -0400, Trammell Hudson wrote:
-> The config file, kernel, initrd, etc should only be freed if they
-> are allocated with the UEFI allocator.
+On 29.09.2020 12:16, Julien Grall wrote:
+> On 28/09/2020 11:57, Jan Beulich wrote:
+>> While there don't look to be any problems with this right now, the lock
+>> order implications from holding the lock can be very difficult to follow
+>> (and may be easy to violate unknowingly).
 > 
-> Signed-off-by: Trammell Hudson <hudson@trmm.net>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/common/efi/boot.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+> I think this is a good idea given that we are disabling interrupts now. 
+> Unfortunately...
 > 
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 157fe0e8c5..c2ce0c7294 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -102,6 +102,7 @@ union string {
->  
->  struct file {
->      UINTN size;
-> +    bool need_to_free;
->      union {
->          EFI_PHYSICAL_ADDRESS addr;
->          char *str;
-> @@ -280,13 +281,13 @@ void __init noreturn blexit(const CHAR16 *str)
->      if ( !efi_bs )
->          efi_arch_halt();
->  
-> -    if ( cfg.addr )
-> +    if ( cfg.need_to_free )
+>> The present callbacks don't
+>> (and no such callback should) have any need for the lock to be held.
+> 
+> ... I think the lock is necessary for the vm_event subsystem to avoid 
+> racing with the vm_event_disable().
+> 
+> The notification callback will use a data structure that is freed by 
+> vm_event_disable(). There is a lock, but it is part of the data structure...
 
-If you drop the addr check here...
+Oh, indeed - somehow I didn't spot this despite looking there.
 
->          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
-> -    if ( kernel.addr )
-> +    if ( kernel.need_to_free )
->          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
-> -    if ( ramdisk.addr )
-> +    if ( ramdisk.need_to_free )
->          efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
-> -    if ( xsm.addr )
-> +    if ( xsm.need_to_free )
->          efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
->  
->      efi_arch_blexit();
-> @@ -581,6 +582,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
->      }
->      else
->      {
-> +        file->need_to_free = true;
+> One solution would be to have the lock outside of the data structure.
 
-... I think you need to clear need_to_free if AllocatePages fails?
+I don't think that's viable - the structures are intentionally
+separated from struct vcpu. I see two other options: Either free
+the structure via call_rcu(), or maintain a count of in-progress
+calls, and wait for it to drop to zero when closing the port.
 
-Thanks, Roger.
+VM event maintainers / reviewers - what are your thoughts here?
+
+Jan
 
