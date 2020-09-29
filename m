@@ -2,48 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E95327B76E
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 00:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E09AD27B8A8
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 02:12:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kN1nq-0005Gi-9N; Mon, 28 Sep 2020 22:39:26 +0000
+	id 1kN3EE-0005j3-W8; Tue, 29 Sep 2020 00:10:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oz6v=DF=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1kN1np-0005Gd-1s
- for xen-devel@lists.xenproject.org; Mon, 28 Sep 2020 22:39:25 +0000
-X-Inumbo-ID: 219cae10-197c-4059-86e5-d20f15bc19b0
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=KBKl=DG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kN3EC-0005hK-Ot
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 00:10:44 +0000
+X-Inumbo-ID: 0ae47924-f6f4-4d87-8a7b-5ca26316688b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 219cae10-197c-4059-86e5-d20f15bc19b0;
- Mon, 28 Sep 2020 22:39:24 +0000 (UTC)
-Received: from localhost (52.sub-72-107-123.myvzw.com [72.107.123.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7978B23A40;
- Mon, 28 Sep 2020 22:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601332763;
- bh=kcdtApje+MBHdfUB2c2kJF6E7KxaJcvAdCzfKChA118=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=AZfVaZqOhQrLRTWFaK+3oe/rJbTCK9wNNBBhz2CH0NbvtONNqYw9OzJx54t+PFWoy
- 0bM3QR6hcc+ZKBGNusjuEQiO4mjK94byDszMcY4mEox17to9V+IREFI9tug/q/Uzcm
- TbLFoRYzjg9WiRWwCbkLwifP9Dt4+Uesfg8fvNvk=
-Date: Mon, 28 Sep 2020 17:39:22 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Li Heng <liheng40@huawei.com>
-Cc: konrad.wilk@oracle.com, bhelgaas@google.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH -next] xen: Fix a previous prototype warning in xen.c
-Message-ID: <20200928223922.GA2503371@bjorn-Precision-5520>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ id 0ae47924-f6f4-4d87-8a7b-5ca26316688b;
+ Tue, 29 Sep 2020 00:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To;
+ bh=2Hh2fYY0sQs423MLNmZWHXTRStPqM9b47EgbHavx3qw=; b=ljAEDuVZDenTokifF1z0OGuvoD
+ 04ghpQCN6WVYlR1VMml7BOI4tk422OjD/roh3UmJwsKKXXDuk0b74jd73MVwrE+5+5BCzKl0s0Sov
+ 77/ro8R8gcRJ6WO4yI3m1O00AFgjFQTe10FSPhH74wJkHN/wDXxc8W8dNJXZKidF58qg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kN3E6-0001Gw-6l; Tue, 29 Sep 2020 00:10:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kN3E5-0006Tx-TJ; Tue, 29 Sep 2020 00:10:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kN3E5-0000jf-Sn; Tue, 29 Sep 2020 00:10:37 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155048-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1600958176-23406-1-git-send-email-liheng40@huawei.com>
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155048: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=28804c0ce9fde36feec04ad7f57b2683875da8a0
+X-Osstest-Versions-That: xen=4bdbf746ac9152e70f264f87db4472707da805ce
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 29 Sep 2020 00:10:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,34 +65,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Sep 24, 2020 at 10:36:16PM +0800, Li Heng wrote:
-> Fix the warning:
-> arch/x86/pci/xen.c:423:13: warning:
-> no previous prototype for ‘xen_msi_init’ [-Wmissing-prototypes]
-> 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Li Heng <liheng40@huawei.com>
+flight 155048 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155048/
 
-Applied to pci/misc for v5.10, thanks!
+Failures :-/ but no regressions.
 
-> ---
->  arch/x86/pci/xen.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-> index 89395a5..f663a5f 100644
-> --- a/arch/x86/pci/xen.c
-> +++ b/arch/x86/pci/xen.c
-> @@ -420,7 +420,7 @@ int __init pci_xen_init(void)
->  }
-> 
->  #ifdef CONFIG_PCI_MSI
-> -void __init xen_msi_init(void)
-> +static void __init xen_msi_init(void)
->  {
->  	if (!disable_apic) {
->  		/*
-> --
-> 2.7.4
-> 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  28804c0ce9fde36feec04ad7f57b2683875da8a0
+baseline version:
+ xen                  4bdbf746ac9152e70f264f87db4472707da805ce
+
+Last test of basis   155035  2020-09-28 17:02:03 Z    0 days
+Testing same since   155048  2020-09-28 22:00:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   4bdbf746ac..28804c0ce9  28804c0ce9fde36feec04ad7f57b2683875da8a0 -> smoke
 
