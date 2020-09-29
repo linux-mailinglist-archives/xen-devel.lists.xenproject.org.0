@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8BBC27C241
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:21:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.13.57 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F032627C25F
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Sep 2020 12:28:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.17.72 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNCkz-0002qE-8P; Tue, 29 Sep 2020 10:21:13 +0000
+	id 1kNCrW-00035S-2h; Tue, 29 Sep 2020 10:27:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13.57; Tue, 29 Sep 2020 10:21:13 +0000
+Received: by outflank-mailman (output) from mailman id 17.72; Tue, 29 Sep 2020 10:27:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -22,117 +22,126 @@ Precedence: list
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNCkz-0002pp-5E; Tue, 29 Sep 2020 10:21:13 +0000
-Received: by outflank-mailman (input) for mailman id 13;
- Tue, 29 Sep 2020 10:21:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pXYx=DG=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kNCkx-0002pj-Kl
- for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:21:11 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9384e98a-b3c6-4e35-b5a3-289e7a929b76;
- Tue, 29 Sep 2020 10:21:10 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNCku-0007MZ-P5; Tue, 29 Sep 2020 10:21:08 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNCku-0006hc-HL; Tue, 29 Sep 2020 10:21:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNCrV-000356-VQ; Tue, 29 Sep 2020 10:27:57 +0000
+Received: by outflank-mailman (input) for mailman id 17;
+ Tue, 29 Sep 2020 10:27:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kNCrU-000351-Om
+ for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:27:56 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 23871d96-2f34-4278-82e6-421d0f19aedb;
+ Tue, 29 Sep 2020 10:27:55 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pXYx=DG=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kNCkx-0002pj-Kl
-	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:21:11 +0000
-X-Inumbo-ID: 9384e98a-b3c6-4e35-b5a3-289e7a929b76
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9384e98a-b3c6-4e35-b5a3-289e7a929b76;
-	Tue, 29 Sep 2020 10:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=zOWSCzCjJV+vkikmLnCe/n80ppjpBSIucI+JbmaJ2uc=; b=Ev2qpzETu3ZIKXLxAmAQyftVtw
-	LLwK50kSx9hqqLimPmrqa1xRcOUGcfCNGhxWXXYLM8aq35BToKKOtKjkrSwEMQBo858TONcWgpOxf
-	NQQLYLc3gH4gzX38Y2dP60i7kCkcFc123VSnbGw47LJ1HUNzMcQljOMIkYt8UZJJ1/78=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kNCku-0007MZ-P5; Tue, 29 Sep 2020 10:21:08 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kNCku-0006hc-HL; Tue, 29 Sep 2020 10:21:08 +0000
-Subject: Re: [PATCH 04/12] evtchn: evtchn_set_priority() needs to acquire the
- per-channel lock
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
- <5b1700a8-7900-9450-1c21-323bcde1fccc@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <05977dcd-8283-6022-b183-6a83500f32f6@xen.org>
-Date: Tue, 29 Sep 2020 11:21:06 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+	(envelope-from <SRS0=5FnP=DG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kNCrU-000351-Om
+	for xen-devel@lists.xenproject.org; Tue, 29 Sep 2020 10:27:56 +0000
+X-Inumbo-ID: 23871d96-2f34-4278-82e6-421d0f19aedb
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 23871d96-2f34-4278-82e6-421d0f19aedb;
+	Tue, 29 Sep 2020 10:27:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601375275;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=NIF2wSzDuVcB6nC4O9YGUS1TPOSCnCUnqQZsCsOO4s8=;
+  b=ClOlJx9i7KTLCFotzk/A5T2g+iFCml/mXyjAQBRXwXhpDteEN5WxtxJC
+   oim1I3HUUWJoZZuwj7mkyIkI1NjBagpeFSAgxVEADG3+VFKHzm53VSz+p
+   HkYUk9mrZRfYC490AAC8G/tnBxk4ghg+Nbr8Zi00vHWaA28XauUetCgkv
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: VtoUKpiXRwSLL6nHHIYMva+55gmMsBJzZjhkPr2gtS5CIQXXpKJvMN448lu2G/FKitrVu/bipr
+ jWfa6P7EZHw/Q8jKvPbmVcyM0RT4+cSwtkyDwF4Yc6p02tzft8mFMardF+sREaRGNVMWous6BX
+ IeMeHd0A2xmSAD4HptcGlykmW0N+b18khJip4w7+80wHLFf3sUVk+7Sc12WfQjjRZ3JzYpmmMV
+ iE7llsG2kmCVU6kq/bMDLDfA25zOovR0uq7M5KXliSh/heNsUGBdgI39Cgm2CMLT+x/X1ly0LW
+ 3WE=
+X-SBRS: None
+X-MesageID: 27934961
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,318,1596513600"; 
+   d="scan'208";a="27934961"
+Date: Tue, 29 Sep 2020 12:27:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: Ping: [PATCH 2/2] x86/vpic: also execute dpci callback for
+ non-specific EOI
+Message-ID: <20200929102746.GQ19254@Air-de-Roger>
+References: <20200820153442.28305-1-roger.pau@citrix.com>
+ <20200820153442.28305-3-roger.pau@citrix.com>
+ <625060e6-bdd0-c72c-c7fc-9a31588511b3@citrix.com>
+ <4ac81e8f-f6e5-7226-49c7-135aa88a7b12@suse.com>
+ <8e21a5fc-6c76-171f-8493-4a084ac1a779@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <5b1700a8-7900-9450-1c21-323bcde1fccc@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8e21a5fc-6c76-171f-8493-4a084ac1a779@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-Hi Jan,
-
-On 28/09/2020 11:57, Jan Beulich wrote:
-> evtchn_fifo_set_pending() (invoked with the per-channel lock held) has
-> two uses of the channel's priority field. The field gets updated by
-> evtchn_fifo_set_priority() with only the per-domain event_lock held,
-> i.e. the two reads may observe two different values. While the 2nd use
-> could - afaict - in principle be replaced by q->priority, I think
-> evtchn_set_priority() should acquire the per-channel lock in any event.
+On Mon, Sep 21, 2020 at 12:05:51PM +0200, Jan Beulich wrote:
+> On 21.08.2020 09:45, Jan Beulich wrote:
+> > On 20.08.2020 18:28, Andrew Cooper wrote:
+> >> On 20/08/2020 16:34, Roger Pau Monne wrote:
+> >>> Currently the dpci EOI callback is only executed for specific EOIs.
+> >>> This is wrong as non-specific EOIs will also clear the ISR bit and
+> >>> thus end the interrupt. Re-arrange the code a bit so that the common
+> >>> EOI handling path can be shared between all EOI modes.
+> >>>
+> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>> ---
+> >>>  xen/arch/x86/hvm/vpic.c | 10 +++++-----
+> >>>  1 file changed, 5 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
+> >>> index feb1db2ee3..3cf12581e9 100644
+> >>> --- a/xen/arch/x86/hvm/vpic.c
+> >>> +++ b/xen/arch/x86/hvm/vpic.c
+> >>> @@ -249,15 +249,15 @@ static void vpic_ioport_write(
+> >>>                  if ( priority == VPIC_PRIO_NONE )
+> >>>                      break;
+> >>>                  pin = (priority + vpic->priority_add) & 7;
+> >>> -                vpic->isr &= ~(1 << pin);
+> >>> -                if ( cmd == 5 )
+> >>> -                    vpic->priority_add = (pin + 1) & 7;
+> >>> -                break;
+> >>> +                goto common_eoi;
+> >>> +
+> >>>              case 3: /* Specific EOI                */
+> >>>              case 7: /* Specific EOI & Rotate       */
+> >>>                  pin = val & 7;
+> >>
+> >> You'll need a /* Fallthrough */ here to keep various things happy.
+> > 
+> > Are you sure? There's ...
+> > 
+> >> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>
+> >> Can fix on commit if you're happy.
+> >>
+> >>> +
+> >>> +            common_eoi:
+> > 
+> > ... an ordinary label here, not a case one.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -1132,7 +1132,9 @@ static long evtchn_set_priority(const st
->   {
->       struct domain *d = current->domain;
->       unsigned int port = set_priority->port;
-> +    struct evtchn *chn;
->       long ret;
-> +    unsigned long flags;
->   
->       spin_lock(&d->event_lock);
+> I would have wanted to commit this, but it's still not clear to me
+> whether the adjustment you ask for is really needed.
 
-Is it still necessary to hold d->event_lock?
+Hello,
 
->   
-> @@ -1142,8 +1144,10 @@ static long evtchn_set_priority(const st
->           return -EINVAL;
->       }
->   
-> -    ret = evtchn_port_set_priority(d, evtchn_from_port(d, port),
-> -                                   set_priority->priority);
-> +    chn = evtchn_from_port(d, port);
-> +    spin_lock_irqsave(&chn->lock, flags);
-> +    ret = evtchn_port_set_priority(d, chn, set_priority->priority);
-> +    spin_unlock_irqrestore(&chn->lock, flags);
->   
->       spin_unlock(&d->event_lock);
->   
-> 
+Was about to send a further series I have on top of this and saw this
+is still on my patch queue. I'm happy with either way, but I would
+like to get this committed if possible (as I think from a technical
+PoV we all agree it's correct).
 
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
