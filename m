@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DFFD27F613
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 01:39:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965.3257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6EC27F616
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 01:41:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968.3271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNlgS-0002zv-Rd; Wed, 30 Sep 2020 23:38:52 +0000
+	id 1kNliR-0003ob-AG; Wed, 30 Sep 2020 23:40:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965.3257; Wed, 30 Sep 2020 23:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 968.3271; Wed, 30 Sep 2020 23:40:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,225 +23,194 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNlgS-0002zW-OH; Wed, 30 Sep 2020 23:38:52 +0000
-Received: by outflank-mailman (input) for mailman id 965;
- Wed, 30 Sep 2020 23:38:51 +0000
+	id 1kNliR-0003oB-6f; Wed, 30 Sep 2020 23:40:55 +0000
+Received: by outflank-mailman (input) for mailman id 968;
+ Wed, 30 Sep 2020 23:40:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kNlgR-0002zR-Ew
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:38:51 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kNliP-0003o5-Ro
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:40:53 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4;
- Wed, 30 Sep 2020 23:38:49 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNlgP-0007Iu-HW; Wed, 30 Sep 2020 23:38:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNlgP-0004bH-BF; Wed, 30 Sep 2020 23:38:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kNlgP-0003K4-Ah; Wed, 30 Sep 2020 23:38:49 +0000
+ id d7984949-6e1a-4f5a-9d85-b8eae811b32d;
+ Wed, 30 Sep 2020 23:40:53 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1DF1320B1F;
+ Wed, 30 Sep 2020 23:40:52 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kNlgR-0002zR-Ew
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:38:51 +0000
-X-Inumbo-ID: 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kNliP-0003o5-Ro
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:40:53 +0000
+X-Inumbo-ID: d7984949-6e1a-4f5a-9d85-b8eae811b32d
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4;
-	Wed, 30 Sep 2020 23:38:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8dvKbEQAPfM1WVil/xQMCgzdwrjOXMlMWUvCjHxs5KM=; b=PC35M9rSZ3FLgsoUXFXCnKIkmS
-	HUHGj+BOHbC2NoLDMheCFYpt/xBKwIATkjANVTGpbGlJpnRj1HSI7kbWw+6WPe94ey7YnDuq+AaLV
-	GUIjI7kH49DuGB2fheN+MZsAFSOIaZ43qefvGSTmfwbtN1zJ77q+daqpimCX5MGI3VFE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNlgP-0007Iu-HW; Wed, 30 Sep 2020 23:38:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNlgP-0004bH-BF; Wed, 30 Sep 2020 23:38:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNlgP-0003K4-Ah; Wed, 30 Sep 2020 23:38:49 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155157-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id d7984949-6e1a-4f5a-9d85-b8eae811b32d;
+	Wed, 30 Sep 2020 23:40:53 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 1DF1320B1F;
+	Wed, 30 Sep 2020 23:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1601509252;
+	bh=oG7ii9IEJfscsnafeqju/2puWYFbOdNU+I9kx0WFXrE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dyPYFva0abcqK8JwfUsxtAIcSPezJerh+OuKX7x8+yjWjEhEuzp4onr5lqJLiDri9
+	 TBGYN1A32rurBLBABiA1gqkmuMDYZGVOgPDQy57f1EvzlMglS6avZYLKB46XEmT/ft
+	 uG6kpx04SAFCdC3HnOfzyGGyiJcIrDYse1ej2F+E=
+Date: Wed, 30 Sep 2020 16:40:51 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org, 
+    masami.hiramatsu@linaro.org, ehem+xen@m5p.com, bertrand.marquis@arm.com, 
+    andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 4/4] xen/arm: Introduce fw_unreserved_regions() and use
+ it
+In-Reply-To: <20200926205542.9261-5-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2009301630250.10908@sstabellini-ThinkPad-T480s>
+References: <20200926205542.9261-1-julien@xen.org> <20200926205542.9261-5-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155157: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=11852c7bb070a18c3708b4c001772a23e7d4fc27
-X-Osstest-Versions-That:
-    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 30 Sep 2020 23:38:49 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 155157 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155157/
+On Sat, 26 Sep 2020, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Since commit 6e3e77120378 "xen/arm: setup: Relocate the Device-Tree
+> later on in the boot", the device-tree will not be kept mapped when
+> using ACPI.
+> 
+> However, a few places are calling dt_unreserved_regions() which expects
+> a valid DT. This will lead to a crash.
+> 
+> As the DT should not be used for ACPI (other than for detecting the
+> modules), a new function fw_unreserved_regions() is introduced.
+> 
+> It will behave the same way on DT system. On ACPI system, it will
+> unreserve the whole region.
 
-Regressions :-(
+The patch is good.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 155128
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  11852c7bb070a18c3708b4c001772a23e7d4fc27
-baseline version:
- xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
-
-Last test of basis   155128  2020-09-30 08:01:25 Z    0 days
-Testing same since   155144  2020-09-30 16:01:24 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Juergen Gross <jgross@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I have a small suggestion for improvement that could be done on commit:
+given that bootinfo is actually used on EFI systems (granted, not
+bootinfo.reserved_mem but bootinfo.mem, see
+xen/arch/arm/efi/efi-boot.h:efi_process_memory_map_bootinfo) so
+technically bootinfo could be in-use with ACPI, maybe we could add a
+comment on top of xen/include/asm-arm/setup.h:bootinfo to say that
+reserved_mem is device tree only?
 
 
-Not pushing.
 
-------------------------------------------------------------
-commit 11852c7bb070a18c3708b4c001772a23e7d4fc27
-Author: Juergen Gross <jgross@suse.com>
-Date:   Thu Sep 24 16:36:48 2020 +0200
-
-    tools/xenstore: set maximum number of grants needed
-    
-    When running as a stubdom Xenstore should set the maximum number of
-    grants needed via a call of xengnttab_set_max_grants(), as otherwise
-    the number of domains which can be supported will be 128 only (the
-    default number of grants supported by Mini-OS).
-    
-    We use one grant per domain so the theoretical maximum number is
-    DOMID_FIRST_RESERVED.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit bfcc97c08c2258316d1cd92c23a441d97ad6ff4e
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 29 14:48:52 2020 +0100
-
-    tools/cpuid: Plumb nested_virt down into xc_cpuid_apply_policy()
-    
-    Nested Virt is the final special case in legacy CPUID handling.  Pass the
-    (poorly named) nested_hvm setting down into xc_cpuid_apply_policy() to break
-    the semantic dependency on HVM_PARAM_NESTEDHVM.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 50a5215f30e964a6f16165ab57925ca39f31a849
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Sep 24 20:08:43 2020 +0200
-
-    libxc/bitops: increase potential size of bitmaps
-    
-    If the bitmap is used to represent domU pages, the amount of memory is
-    limited to 8TB due to the 32bit value. Adjust the code to use 64bit
-    values as input. All callers already use some form of 64bit as input,
-    so no further adjustment is required.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 27de84d3ae462bd8311c8267c642ec95afdcf47c
-Author: Anthony PERARD <anthony.perard@citrix.com>
-Date:   Wed Sep 23 12:03:23 2020 +0100
-
-    tools: Fix configure of upstream QEMU
-    
-    QEMU as recently switch its build system to use meson and the
-    ./configure step with meson is more restrictive that the step used to
-    be, most installation path wants to be within prefix, otherwise we
-    have this error message:
-    
-        ERROR: The value of the 'datadir' option is '/usr/share/qemu-xen' which must be a subdir of the prefix '/usr/lib/xen'.
-    
-    In order to workaround the limitation, we will set prefix to the same
-    one as for the rest of Xen installation, and set all the other paths.
-    
-    For reference, a thread in qemu-devel:
-        "configure with datadir outside of --prefix fails with meson"
-        https://lore.kernel.org/qemu-devel/20200918133012.GH2024@perard.uk.xensource.com/t/
-    
-    And an issue in meson:
-        "artificial limitation of directories (forced to be in prefix)"
-        https://github.com/mesonbuild/meson/issues/2561
-    
-    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-    Tested-by: Paul Durrant <paul@xen.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 0d8d289af7a679c028462c4ed5d98586f9ef9648
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Wed Sep 23 08:48:40 2020 +0200
-
-    tools/libxc: report malloc errors in writev_exact
-    
-    The caller of writev_exact should be notified about malloc errors
-    when dealing with partial writes.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-(qemu changes not included)
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+> 
+> Is there any region we should exclude on ACPI?
+> ---
+>  xen/arch/arm/kernel.c       |  2 +-
+>  xen/arch/arm/setup.c        | 22 +++++++++++++++++-----
+>  xen/include/asm-arm/setup.h |  2 +-
+>  3 files changed, 19 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index 032923853f2c..ab78689ed2a6 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -307,7 +307,7 @@ static __init int kernel_decompress(struct bootmodule *mod)
+>       * Free the original kernel, update the pointers to the
+>       * decompressed kernel
+>       */
+> -    dt_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+> +    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+>  
+>      return 0;
+>  }
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 35e5bee04efa..7fcff9af2a7e 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -196,8 +196,9 @@ static void __init processor_id(void)
+>      processor_setup();
+>  }
+>  
+> -void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+> -                                  void (*cb)(paddr_t, paddr_t), int first)
+> +static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+> +                                         void (*cb)(paddr_t, paddr_t),
+> +                                         int first)
+>  {
+>      int i, nr = fdt_num_mem_rsv(device_tree_flattened);
+>  
+> @@ -244,6 +245,17 @@ void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+>      cb(s, e);
+>  }
+>  
+> +void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+> +                                  void (*cb)(paddr_t, paddr_t), int first)
+> +{
+> +    if ( acpi_disabled )
+> +        dt_unreserved_regions(s, e, cb, first);
+> +    else
+> +        cb(s, e);
+> +}
+> +
+> +
+> +
+>  struct bootmodule __init *add_boot_module(bootmodule_kind kind,
+>                                            paddr_t start, paddr_t size,
+>                                            bool domU)
+> @@ -405,7 +417,7 @@ void __init discard_initial_modules(void)
+>               !mfn_valid(maddr_to_mfn(e)) )
+>              continue;
+>  
+> -        dt_unreserved_regions(s, e, init_domheap_pages, 0);
+> +        fw_unreserved_regions(s, e, init_domheap_pages, 0);
+>      }
+>  
+>      mi->nr_mods = 0;
+> @@ -712,7 +724,7 @@ static void __init setup_mm(void)
+>                  n = mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages));
+>              }
+>  
+> -            dt_unreserved_regions(s, e, init_boot_pages, 0);
+> +            fw_unreserved_regions(s, e, init_boot_pages, 0);
+>  
+>              s = n;
+>          }
+> @@ -765,7 +777,7 @@ static void __init setup_mm(void)
+>              if ( e > bank_end )
+>                  e = bank_end;
+>  
+> -            dt_unreserved_regions(s, e, init_boot_pages, 0);
+> +            fw_unreserved_regions(s, e, init_boot_pages, 0);
+>              s = n;
+>          }
+>      }
+> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+> index 2f8f24e286ed..34df23247b87 100644
+> --- a/xen/include/asm-arm/setup.h
+> +++ b/xen/include/asm-arm/setup.h
+> @@ -96,7 +96,7 @@ int construct_dom0(struct domain *d);
+>  void create_domUs(void);
+>  
+>  void discard_initial_modules(void);
+> -void dt_unreserved_regions(paddr_t s, paddr_t e,
+> +void fw_unreserved_regions(paddr_t s, paddr_t e,
+>                             void (*cb)(paddr_t, paddr_t), int first);
+>  
+>  size_t boot_fdt_info(const void *fdt, paddr_t paddr);
+> -- 
+> 2.17.1
+> 
 
