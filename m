@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F7827E90D
+	by mail.lfdr.de (Postfix) with ESMTPS id 7982827E90C
 	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 14:58:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.670.2245 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.669.2233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNbgK-0007Q6-06; Wed, 30 Sep 2020 12:58:04 +0000
+	id 1kNbgE-0007OG-MY; Wed, 30 Sep 2020 12:57:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670.2245; Wed, 30 Sep 2020 12:58:03 +0000
+Received: by outflank-mailman (output) from mailman id 669.2233; Wed, 30 Sep 2020 12:57:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,196 +23,185 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNbgJ-0007Pb-SW; Wed, 30 Sep 2020 12:58:03 +0000
-Received: by outflank-mailman (input) for mailman id 670;
- Wed, 30 Sep 2020 12:58:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
- id 1kNbgI-0007PI-Fl
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:58:02 +0000
-Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e50e89a4-e516-4ae5-8121-b93c38bb7bd8;
- Wed, 30 Sep 2020 12:58:01 +0000 (UTC)
-Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.100]) by
- nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f7480d10000>; Wed, 30 Sep 2020 20:57:53 +0800
-Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL101.nvidia.com
- (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
- 2020 12:57:38 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.173)
- by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 12:57:38 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR1201MB0108.namprd12.prod.outlook.com (2603:10b6:4:58::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.36; Wed, 30 Sep
- 2020 12:57:35 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
- 12:57:35 +0000
-Received: from mlx.ziepe.ca (156.34.48.30) by
- MN2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:208:e8::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3433.32 via Frontend Transport; Wed, 30 Sep 2020 12:57:34 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kNbfp-003wyO-G7; Wed, 30 Sep 2020 09:57:33 -0300
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kNbgE-0007Nr-JG; Wed, 30 Sep 2020 12:57:58 +0000
+Received: by outflank-mailman (input) for mailman id 669;
+ Wed, 30 Sep 2020 12:57:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZKji=DH=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1kNbgD-0007Nm-Fu
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:57:57 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 379c0c68-614a-4749-9aac-6000abee7bc5;
+ Wed, 30 Sep 2020 12:57:56 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
-	id 1kNbgI-0007PI-Fl
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:58:02 +0000
-X-Inumbo-ID: e50e89a4-e516-4ae5-8121-b93c38bb7bd8
-Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id e50e89a4-e516-4ae5-8121-b93c38bb7bd8;
-	Wed, 30 Sep 2020 12:58:01 +0000 (UTC)
-Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.100]) by nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
-	id <B5f7480d10000>; Wed, 30 Sep 2020 20:57:53 +0800
-Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL101.nvidia.com
- (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
- 2020 12:57:38 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.173)
- by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 12:57:38 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UjpbJ1re4W/9wjakAEdLliBAhIS7pf5Q5JGD5OgKeU/xsXuufIHTsAIqNWVC3hFhp2bHFEZjB9Jx8YqbXbA3kBSBmyXz+IEepXO64I2x5GC2y0S63sd1FaJVn7DEPIKHdSsSPFoZTTHYfA8noAxpVGsmAmouHtREEx7qVzj0Hh/lOaBQoFbUuRMn3IYZbxnMhxgNVEhzmlEb9zwAhDBxRbeJ1KR7Oqn475Y8rlvAWSyiwEQzxbpTPeAy+OBbY0Lfbql9xTXvBXIXgbM2QtihuoMtCoS6nVVZGetrBSKUn4B/+vW1x6doREhxK/2yFmwEJytFxSoh3k6JQUrQd6nOrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xUH51rA3HlHLJikqE7iyQmhXDVNQppUQ5K9nEJCgL5c=;
- b=bHLxeNeEd5yreVY5bWEPVBzjz/N8kto8yHsB2Pni3Ev3qLkaP0jScx7dCJMZJKyxNcQwbZw+kdgfD/g6bwML5lBlBm1PVaZB1sKDRGqZFJavvYvbR4Zcu28jLuIDmJSXjwZ5RQyFQtjVuz5u4f1754SRED/IDMLA8mBUyAhCVDtdD8bkjh0QFeHeEq2w+XzHlt9k6fejiJ8V8WMWVfomOLCuiSyb5b4Q+HwHHRy2LPTkdQSDDUHwxVPgyN+GSbitbFe7abYnsZImhiVyZ6nobzfBdDsYFkKi/tQQCpsEDPI98wCqH+IUpQj/hOD47r2OSDWrmlGp5+TWpFTDC1myFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR1201MB0108.namprd12.prod.outlook.com (2603:10b6:4:58::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.36; Wed, 30 Sep
- 2020 12:57:35 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
- 12:57:35 +0000
-Date: Wed, 30 Sep 2020 09:57:33 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Derrick, Jonathan" <jonathan.derrick@intel.com>
-CC: "tglx@linutronix.de" <tglx@linutronix.de>, "Williams, Dan J"
-	<dan.j.williams@intel.com>, "sivanich@hpe.com" <sivanich@hpe.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>, "haiyangz@microsoft.com"
-	<haiyangz@microsoft.com>, "Dey, Megha" <megha.dey@intel.com>, "Lu, Baolu"
-	<baolu.lu@intel.com>, "Jiang, Dave" <dave.jiang@intel.com>, "Tian, Kevin"
-	<kevin.tian@intel.com>, "jgross@suse.com" <jgross@suse.com>,
-	"kys@microsoft.com" <kys@microsoft.com>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>,
-	"rafael@kernel.org" <rafael@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "iommu@lists.linux-foundation.org"
-	<iommu@lists.linux-foundation.org>, "maz@kernel.org" <maz@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "konrad.wilk@oracle.com"
-	<konrad.wilk@oracle.com>, "alex.williamson@redhat.com"
-	<alex.williamson@redhat.com>, "steve.wahl@hpe.com" <steve.wahl@hpe.com>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "rja@hpe.com"
-	<rja@hpe.com>, "joro@8bytes.org" <joro@8bytes.org>, "sthemmin@microsoft.com"
-	<sthemmin@microsoft.com>, "Pan, Jacob jun" <jacob.jun.pan@intel.com>,
-	"lorenzo.pieralisi@arm.com" <lorenzo.pieralisi@arm.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>
-Subject: Re: [patch V2 24/46] PCI: vmd: Mark VMD irqdomain with
- DOMAIN_BUS_VMD_MSI
-Message-ID: <20200930125733.GI816047@nvidia.com>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112333.047315047@linutronix.de>
- <20200831143940.GA1152540@nvidia.com>
- <1d284a478d4e5bf4a247ee83afa1b8b45f9e1b3f.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <1d284a478d4e5bf4a247ee83afa1b8b45f9e1b3f.camel@intel.com>
-X-ClientProxiedBy: MN2PR20CA0001.namprd20.prod.outlook.com
- (2603:10b6:208:e8::14) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+	(envelope-from <SRS0=ZKji=DH=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+	id 1kNbgD-0007Nm-Fu
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:57:57 +0000
+X-Inumbo-ID: 379c0c68-614a-4749-9aac-6000abee7bc5
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 379c0c68-614a-4749-9aac-6000abee7bc5;
+	Wed, 30 Sep 2020 12:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601470676;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2Z1pyMD7Vv/8RG4QYjvMkKMoCNTeNFyh7YXRNLqsoQ8=;
+  b=RWulltq8kxYRXzZbsI9W3YTKmUtGV0DaS+isZq0+WDiRSHszNaSSdyMj
+   Uad3Kh5ATfPhnOMEecX4giADxifj9JWfM6tuPpu9hkW4kmf05ygHBxHaK
+   hpf3le0YgHBrkoqufsBHbLz1D7GkaQYjS+FfDFuZtzVT9l8J7l+tR/vDO
+   U=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: slDMfEAbdZyl2R7EzdPseH/lSV/jhHe5m0WqUMchq2naXYZxmQ88/8A2JteUF+gIpT2hWOxAMh
+ hPCjNl4/0oAnOWVIiJgmZncqduNqXHvEapFMpdP8kPUtC6nK84jaObRn7Z/jilOieexH8A9/2l
+ hUaFENlL9CxJgwBBJE3+uM/Rrd7lKa25DSirxKrmDNrzdXGJc6WcsPz7tSDPSoM/M3Q161y//P
+ qdJgGw8w+JP11LN+2520sJQxyAa7fNBfZmZpGdmacoayBtEwqtMBMlFtYlO8bvxUsGZdmdm5g4
+ n48=
+X-SBRS: None
+X-MesageID: 28971804
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
+   d="scan'208";a="28971804"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+	<ian.jackson@citrix.com>, Wei Liu <wl@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, "Rich
+ Persaud" <persaur@gmail.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: [PATCH RFC] docs: Add minimum version depencency policy document
+Date: Wed, 30 Sep 2020 13:57:36 +0100
+Message-ID: <20200930125736.95203-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (156.34.48.30) by MN2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:208:e8::14) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32 via Frontend Transport; Wed, 30 Sep 2020 12:57:34 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from <jgg@nvidia.com>)	id 1kNbfp-003wyO-G7; Wed, 30 Sep 2020 09:57:33 -0300
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
-	t=1601470673; bh=xUH51rA3HlHLJikqE7iyQmhXDVNQppUQ5K9nEJCgL5c=;
-	h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
-	 From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-LD-Processed;
-	b=fPKN+2fo1SWx2AFfe5Sod7f9GcDofAGU4IIDgZh0mVcj3B1tjR7IeNneStA1aOGzC
-	 NOGoR1HZLm7J4/GUqSByIVkuXKWqM7TZt1zIYQ0XN1nvDf1IEjZrBQuIRxASftKi5w
-	 l7dwWIEpLXdcJ18SDsti6YtKpaSGriuCPFH6FN5rMZ9jlBfxXSFfF1ULUhe5ETStkN
-	 UxSB9/A6OUo8Yi+1YdkuzuDfor8d+BSwbitLNqtZNlhWHXwyMsuon3UNFWr12sRDv8
-	 bmpsocyTHzbsSzP3naiUDslkYVwp2kFLDVW5WWjVPp6H1clZUbMP4lLuVKM+P7kzof
-	 /zTQVFzW2Vwdw==
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Wed, Sep 30, 2020 at 12:45:30PM +0000, Derrick, Jonathan wrote:
-> Hi Jason
-> 
-> On Mon, 2020-08-31 at 11:39 -0300, Jason Gunthorpe wrote:
-> > On Wed, Aug 26, 2020 at 01:16:52PM +0200, Thomas Gleixner wrote:
-> > > From: Thomas Gleixner <tglx@linutronix.de>
-> > > 
-> > > Devices on the VMD bus use their own MSI irq domain, but it is not
-> > > distinguishable from regular PCI/MSI irq domains. This is required
-> > > to exclude VMD devices from getting the irq domain pointer set by
-> > > interrupt remapping.
-> > > 
-> > > Override the default bus token.
-> > > 
-> > > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> > > Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> > >  drivers/pci/controller/vmd.c |    6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > > 
-> > > +++ b/drivers/pci/controller/vmd.c
-> > > @@ -579,6 +579,12 @@ static int vmd_enable_domain(struct vmd_
-> > >  		return -ENODEV;
-> > >  	}
-> > >  
-> > > +	/*
-> > > +	 * Override the irq domain bus token so the domain can be distinguished
-> > > +	 * from a regular PCI/MSI domain.
-> > > +	 */
-> > > +	irq_domain_update_bus_token(vmd->irq_domain, DOMAIN_BUS_VMD_MSI);
-> > > +
-> > 
-> > Having the non-transparent-bridge hold a MSI table and
-> > multiplex/de-multiplex IRQs looks like another good use case for
-> > something close to pci_subdevice_msi_create_irq_domain()?
-> > 
-> > If each device could have its own internal MSI-X table programmed
-> > properly things would work alot better. Disable capture/remap of the
-> > MSI range in the NTB.
+Define a specific criteria for how we determine what tools and
+libraries to be compatible with.  This will clarify issues such as,
+"Should we continue to support Python 2.4" moving forward.
 
-> We can disable the capture and remap in newer devices so we don't even
-> need the irq domain.
+Note that CentOS 7 is set to stop receiving "normal" maintenance
+updates in "Q4 2020"; assuming that 4.15 is released after that, we
+only need to support CentOS / RHEL 8.
 
-You'd still need an irq domain, it just comes from
-pci_subdevice_msi_create_irq_domain() instead of internal to this
-driver.
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
 
-> I would however like to determine if the MSI data bits could be used
-> for individual devices to have the IRQ domain subsystem demultiplex the
-> virq from that and eliminate the IRQ list iteration.
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Rich Persaud <persaur@gmail.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>
+---
+ docs/index.rst                        |  2 +
+ docs/policies/dependency-versions.rst | 76 +++++++++++++++++++++++++++
+ 2 files changed, 78 insertions(+)
+ create mode 100644 docs/policies/dependency-versions.rst
 
-Yes, exactly. This new pci_subdevice_msi_create_irq_domain() creates
-*proper* fully functional interrupts, no need for any IRQ handler in
-this driver.
+diff --git a/docs/index.rst b/docs/index.rst
+index b75487a05d..ac175eacc8 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -57,5 +57,7 @@ Miscellanea
+ -----------
+ 
+ .. toctree::
++   :maxdepth: 1
+ 
++   policies/dependency-versions
+    glossary
+diff --git a/docs/policies/dependency-versions.rst b/docs/policies/dependency-versions.rst
+new file mode 100644
+index 0000000000..d5eeb848d8
+--- /dev/null
++++ b/docs/policies/dependency-versions.rst
+@@ -0,0 +1,76 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Build and runtime dependencies
++==============================
++
++Xen depends on other programs and libraries to build and to run.
++Chosing a minimum version of these tools to support requires a careful
++balance: Supporting older versions of these tools or libraries means
++that Xen can compile on a wider variety of systems; but means that Xen
++cannot take advantage of features available in newer versions.
++Conversely, requiring newer versions means that Xen can take advantage
++of newer features, but cannot work on as wide a variety of systems.
++
++Specific dependencies and versions for a given Xen release will be
++listed in the toplevel README, and/or specified by the ``configure``
++system.  This document lays out the principles by which those versions
++should be chosen.
++
++The general principle is this:
++
++    Xen should build on currently-supported versions of major distros
++    when released.
++
++"Currently-supported" means whatever that distro's version of "full
++support".  For instance, at the time of writing, CentOS 7 and 8 are
++listed as being given "Full Updates", but CentOS 6 is listed as
++"Maintenance updates"; under this criterium, we would try to ensure
++that Xen could build on CentOS 7 and 8, but not on CentOS 6.
++
++Exceptions for specific distros or tools may be made when appropriate.
++
++One exception to this is compiler versions for the hypervisor.
++Support for new instructions, and in particular support for new safety
++features, may require a newer compiler than many distros support.
++These will be specified in the README.
++
++Distros we consider when deciding minimum versions
++--------------------------------------------------
++
++We currently aim to support Xen building and running on the following distributions:
++Debian_,
++Ubuntu_,
++OpenSUSE_,
++Arch Linux,
++SLES_,
++Yocto_,
++CentOS_,
++and RHEL_.
++
++.. _Debian: https://www.debian.org/releases/
++.. _Ubuntu: https://wiki.ubuntu.com/Releases
++.. _OpenSUSE: https://en.opensuse.org/Lifetime
++.. _SLES: https://www.suse.com/lifecycle/
++.. _Yocto: https://wiki.yoctoproject.org/wiki/Releases
++.. _CentOS: https://wiki.centos.org/About/Product
++.. _RHEL: https://access.redhat.com/support/policy/updates/errata
++
++Specific distro versions supported in this release
++--------------------------------------------------
++
++======== ==================
++Distro   Supported releases
++======== ==================
++Debian   10 (Buster)
++Ubuntu   20.10 (Groovy Gorilla), 20.04 (Focal Fossa), 18.04 (Bionic Beaver), 16.04 (Xenial Xerus)
++OpenSUSE Leap 15.2
++SLES     SLES 11, 12, 15
++Yocto    3.1 (Dunfell)
++CentOS   8
++RHEL     8
++======== ==================
++
++.. note::
++
++   We also support Arch Linux, but as it's a rolling distribution, the
++   concept of "security supported releases" doesn't really apply.
+-- 
+2.25.1
 
-> A concern I have about that scheme is virtualization as I think those
-> bits are used to route to the virtual vector.
-
-It should be fine with this patch series, consult with Megha how
-virtualization is working with IDXD/etc
-
-Jason
 
