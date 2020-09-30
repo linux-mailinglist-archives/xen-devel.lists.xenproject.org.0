@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C472E27E7C6
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 13:43:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608.2021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AC3127E7CC
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 13:43:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609.2033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNaVR-0007tD-OB; Wed, 30 Sep 2020 11:42:45 +0000
+	id 1kNaWA-0007zU-4R; Wed, 30 Sep 2020 11:43:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608.2021; Wed, 30 Sep 2020 11:42:45 +0000
+Received: by outflank-mailman (output) from mailman id 609.2033; Wed, 30 Sep 2020 11:43:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,133 +23,156 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNaVR-0007so-L4; Wed, 30 Sep 2020 11:42:45 +0000
-Received: by outflank-mailman (input) for mailman id 608;
- Wed, 30 Sep 2020 11:42:44 +0000
+	id 1kNaWA-0007z5-0i; Wed, 30 Sep 2020 11:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 609;
+ Wed, 30 Sep 2020 11:43:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Npl0=DH=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1kNaVQ-0007sj-O1
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:42:44 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
+ id 1kNaW8-0007yx-8D
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:43:28 +0000
+Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9;
- Wed, 30 Sep 2020 11:42:42 +0000 (UTC)
+ id b60a3a8e-fbd8-4106-9fb0-54f138e2dd0d;
+ Wed, 30 Sep 2020 11:43:26 +0000 (UTC)
+Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.9]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f746f550000>; Wed, 30 Sep 2020 19:43:17 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL101.nvidia.com
+ (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
+ 2020 11:43:05 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.172)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 11:43:05 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB4546.namprd12.prod.outlook.com (2603:10b6:5:2ae::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Wed, 30 Sep
+ 2020 11:43:02 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
+ 11:43:02 +0000
+Received: from mlx.ziepe.ca (156.34.48.30) by
+ BL0PR02CA0003.namprd02.prod.outlook.com (2603:10b6:207:3c::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.34 via Frontend Transport; Wed, 30 Sep 2020 11:43:02 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kNaVh-003vDf-1s; Wed, 30 Sep 2020 08:43:01 -0300
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Npl0=DH=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
-	id 1kNaVQ-0007sj-O1
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:42:44 +0000
-X-Inumbo-ID: 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	(envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
+	id 1kNaW8-0007yx-8D
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:43:28 +0000
+X-Inumbo-ID: b60a3a8e-fbd8-4106-9fb0-54f138e2dd0d
+Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9;
-	Wed, 30 Sep 2020 11:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601466162;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mdXgkOu3ylqnn1zoExFL9VmyUXl2+ZCZhLSNKounvE0=;
-  b=HPDHZ9PyPVQS+nOvE4FpI4pIyqJz8jxo2ZyOoBasxNEWFolkPAXqLitx
-   7QV+ZRVNsfjTelrKqH8n/pTUh7io+gsnWlQWzAMWJ2L86ck1wtYTk2Zl0
-   MemLhbLXv87OPNySpLRB4+qsexd8pY9KXEoYoeM6GVjBqDfa6oGGUBvOj
-   k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: KZcH2yqEPGmYgpzCTQcnwziklCfV47GiZR8knMGcUdCcnTps/6KmpdcJ622fhTxdV82dJAis3J
- 2h8YJqGkF6XeXtdjDeoAvXkVaMoD3BZua/wq0b4bOLKp0EqmXGR1E/Re5SmzzdbDVRO00olDxp
- n2puov22Mo+pb15T1y6U8wsCF0LJOB2Lr4rCT75MECzfp8em1LGtzr7cjm045GJ2e0V1LL+4or
- Oe82Ph0iCoysiNr0mwQwAzK2MvXEHjgVLnsjdS9mCw+L47c/mG3ctCZ8Pw0mSG3vKNXlnL3Njq
- u5k=
-X-SBRS: None
-X-MesageID: 28964510
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
-   d="scan'208";a="28964510"
-Date: Wed, 30 Sep 2020 12:42:35 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Paul Durrant <paul@xen.org>
-CC: <xen-devel@lists.xenproject.org>, <qemu-devel@nongnu.org>, Paul Durrant
-	<pdurrant@amazon.com>, Jerome Leseinne <jerome.leseinne@gmail.com>, "Edwin
- Torok" <edvin.torok@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen-bus: reduce scope of backend watch
-Message-ID: <20200930114235.GL2024@perard.uk.xensource.com>
-References: <20200923155731.29528-1-paul@xen.org>
-MIME-Version: 1.0
+	id b60a3a8e-fbd8-4106-9fb0-54f138e2dd0d;
+	Wed, 30 Sep 2020 11:43:26 +0000 (UTC)
+Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.9]) by nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+	id <B5f746f550000>; Wed, 30 Sep 2020 19:43:17 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL101.nvidia.com
+ (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
+ 2020 11:43:05 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.172)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 11:43:05 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JAHVpach2WYpBrX7bBNfX2SGGy1+cnUCSq0QPfO8RqEJnTo2B6aBwe+MSQ57TGv/981kRQojIBOoMt7yuMguw2Kp5woH1njWSncI8oDfknTIJwdqH2jRA7+wTCkP2+AQVZFwNCFDvCEj1IRJK7vP/GDgwCBNJnVdSdASsdxzPcB8HCqDxR+SLRetk5qcZiPK1nhaTg67XQO/dnLp1eUj8A8ErX0r8Z1kMGv0rd26MZZnTe1hl1UwuTpVA0Tvr23leGuf19KOjyx4ZsaJcJ2DT13mzmLSkXOc1Wkv2vOcA/qNFoGKrFBVmybOi4hngZMvkglRI8qybsbWfn2RFsHGjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ifDjfXqbQdEToOzcs0qsNuogLb2HLWyKHTQc87/3Ewc=;
+ b=GeC4vJWbfjTvUobe+GD7bOGykQaBOHH9lRECgxQuxmBz12RecnpK0daGWL/nq+UA1YjrfFHbvdi+geu9xiLDM2UFIseLWBWZYeg7EYre4CKvrFEJc/Jk0id23iLCbkpwZYjdydGccgoFaSWHhmQZekjrIUnXC6eA0yjnt5fIBL44pomxvYhSNTjTaU3GfCsB/VE3U6YoQ8JWlrPiQ9QxZC0NPmH308QDm1m2EkXgszZiBEFC/nbVG6lDlrUsipDlyAsmxlgi8wPzaI3NKn5QcGELBMWyX+7KDU2Xp7Jjn9IQWbfhb+rrutv5oJ0DZpRhhjf6na7Yl8Tjoo0tYcpwjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB4546.namprd12.prod.outlook.com (2603:10b6:5:2ae::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Wed, 30 Sep
+ 2020 11:43:02 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
+ 11:43:02 +0000
+Date: Wed, 30 Sep 2020 08:43:01 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+CC: "Dey, Megha" <megha.dey@intel.com>, LKML <linux-kernel@vger.kernel.org>,
+	<x86@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	<iommu@lists.linux-foundation.org>, <linux-hyperv@vger.kernel.org>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, Jon Derrick <jonathan.derrick@intel.com>, Lu
+ Baolu <baolu.lu@linux.intel.com>, Wei Liu <wei.liu@kernel.org>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>,
+	Steve Wahl <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, "Russ
+ Anderson" <rja@hpe.com>, <linux-pci@vger.kernel.org>, Bjorn Helgaas
+	<bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, "Konrad
+ Rzeszutek Wilk" <konrad.wilk@oracle.com>, <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Dave
+ Jiang" <dave.jiang@intel.com>, Alex Williamson <alex.williamson@redhat.com>,
+	Jacob Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, "Kevin
+ Tian" <kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+	<ravi.v.shankar@intel.com>
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device
+ MSI
+Message-ID: <20200930114301.GD816047@nvidia.com>
+References: <20200826111628.794979401@linutronix.de>
+ <10b5d933-f104-7699-341a-0afb16640d54@intel.com>
+ <87v9fvix5f.fsf@nanos.tec.linutronix.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20200923155731.29528-1-paul@xen.org>
+In-Reply-To: <87v9fvix5f.fsf@nanos.tec.linutronix.de>
+X-ClientProxiedBy: BL0PR02CA0003.namprd02.prod.outlook.com
+ (2603:10b6:207:3c::16) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (156.34.48.30) by BL0PR02CA0003.namprd02.prod.outlook.com (2603:10b6:207:3c::16) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34 via Frontend Transport; Wed, 30 Sep 2020 11:43:02 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from <jgg@nvidia.com>)	id 1kNaVh-003vDf-1s; Wed, 30 Sep 2020 08:43:01 -0300
+X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+	t=1601466197; bh=ifDjfXqbQdEToOzcs0qsNuogLb2HLWyKHTQc87/3Ewc=;
+	h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+	 From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-LD-Processed;
+	b=kXLhM/c+6HLgKm+6ble3lfNqOcCNe2qhFpXxYQ9VNpltIzypeid1VYh+BMxlOLlye
+	 0+6VDWOyOvDf07+xZGAec4Wvn8k5WI3aiZoShq7j1qgKIq7qgusR0iXtwcLQk/xdjz
+	 +v2330h6r9nb93xOefwM7I/qvuhlV7upcanj1FwilxBqKMT7QRH5pMZ7ET2aXWd8p8
+	 pK/mYHKsauGX6pIvk6Q2HPDPYGpXdDmMnGHCOc+5/StKJ5sjO489/p+d/uJSwbbRw0
+	 QSJd7JK+1Rwde8F4fsYoj/S1iGRvpbBC/PZ0KlECf5FCeVBwjrsxHssfpqgfmeqxU4
+	 fyKeGy0g3j+zQ==
 
-On Wed, Sep 23, 2020 at 04:57:31PM +0100, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
+On Wed, Sep 30, 2020 at 08:41:48AM +0200, Thomas Gleixner wrote:
+> On Tue, Sep 29 2020 at 16:03, Megha Dey wrote:
+> > On 8/26/2020 4:16 AM, Thomas Gleixner wrote:
+> >> #9	is obviously just for the folks interested in IMS
+> >>
+> >
+> > I see that the tip tree (as of 9/29) has most of these patches but 
+> > notice that the DEV_MSI related patches
+> >
+> > haven't made it. I have tested the tip tree(x86/irq branch) with your
+> > DEV_MSI infra patches and our IMS patches with the IDXD driver and was
 > 
-> Currently a single watch on /local/domain/X/backend is registered by each
-> QEMU process running in service domain X (where X is usually 0). The purpose
-> of this watch is to ensure that QEMU is notified when the Xen toolstack
-> creates a new device backend area.
-> Such a backend area is specific to a single frontend area created for a
-> specific guest domain and, since each QEMU process is also created to service
-> a specfic guest domain, it is unnecessary and inefficient to notify all QEMU
-> processes.
-> Only the QEMU process associated with the same guest domain need
-> receive the notification. This patch re-factors the watch registration code
-> such that notifications are targetted appropriately.
+> Your IMS patches? Why do you need something special again?
 > 
-> Reported-by: Jerome Leseinne <jerome.leseinne@gmail.com>
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> > wondering if we should push out those patches as part of our patchset?
 > 
-> diff --git a/hw/xen/xen-backend.c b/hw/xen/xen-backend.c
-> index 10199fb58d..f2711fe4a7 100644
-> --- a/hw/xen/xen-backend.c
-> +++ b/hw/xen/xen-backend.c
-> @@ -41,6 +41,11 @@ static void xen_backend_table_add(XenBackendImpl *impl)
->      g_hash_table_insert(xen_backend_table_get(), (void *)impl->type, impl);
->  }
->  
-> +static void **xen_backend_table_keys(unsigned int *count)
-> +{
-> +    return g_hash_table_get_keys_as_array(xen_backend_table_get(), count);
+> As I don't have any hardware to test that, I was waiting for you and
+> Jason to confirm that this actually works for the two different IMS
+> implementations.
 
-That could be cast to (const gchar **) as the GLib doc suggest, or (const
-char **) since gchar and char are the same.
-https://developer.gnome.org/glib/stable/glib-Hash-Tables.html#g-hash-table-get-keys-as-array
+How urgently do you need this? The code looked good from what I
+understood. It will be a while before we have all the parts to send an
+actual patch though.
 
-> +}
-> +
->  static const XenBackendImpl *xen_backend_table_lookup(const char *type)
->  {
->      return g_hash_table_lookup(xen_backend_table_get(), type);
-> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-> index 9ce1c9540b..c83da93bf3 100644
-> --- a/hw/xen/xen-bus.c
-> +++ b/hw/xen/xen-bus.c
-> @@ -430,7 +430,13 @@ static void xen_bus_unrealize(BusState *bus)
->      trace_xen_bus_unrealize();
->  
->      if (xenbus->backend_watch) {
-> -        xen_bus_remove_watch(xenbus, xenbus->backend_watch, NULL);
-> +        unsigned int i;
-> +
-> +        for (i = 0; i < xenbus->backend_types; i++) {
-> +            xen_bus_remove_watch(xenbus, xenbus->backend_watch[i], NULL);
+We might be able to put together a mockup just to prove it
 
-We should check if backend_watch[i] is NULL.
-
-> +        }
-> +
-> +        g_free(xenbus->backend_watch);
->          xenbus->backend_watch = NULL;
->      }
->  
-
-The rest of the patch looks fine. Next improvement is to only look at
-only one backend type in xen_bus_backend_changed() since there is now a
-watch per backend type :-), but that would be for another day.
-
-Cheers,
-
--- 
-Anthony PERARD
+Jason
 
