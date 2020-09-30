@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8558727E48A
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 11:10:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.508.1645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B63227E4E5
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 11:16:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.510.1657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNY77-0007sx-3a; Wed, 30 Sep 2020 09:09:29 +0000
+	id 1kNYDk-0000M8-Rw; Wed, 30 Sep 2020 09:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508.1645; Wed, 30 Sep 2020 09:09:29 +0000
+Received: by outflank-mailman (output) from mailman id 510.1657; Wed, 30 Sep 2020 09:16:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,124 +23,170 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNY77-0007sY-0N; Wed, 30 Sep 2020 09:09:29 +0000
-Received: by outflank-mailman (input) for mailman id 508;
- Wed, 30 Sep 2020 09:09:27 +0000
+	id 1kNYDk-0000Lj-OK; Wed, 30 Sep 2020 09:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 510;
+ Wed, 30 Sep 2020 09:16:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I3vy=DH=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kNY75-0007sT-Ec
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 09:09:27 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=vfIn=DH=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kNYDj-0000Le-K8
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 09:16:19 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d6cdcc03-982b-4010-a514-f85062369ef9;
- Wed, 30 Sep 2020 09:09:26 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNY70-0005DD-L5; Wed, 30 Sep 2020 09:09:22 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kNY70-0006K0-6R; Wed, 30 Sep 2020 09:09:22 +0000
+ id c2c67d14-66c7-47e2-95f5-5dcce39531d3;
+ Wed, 30 Sep 2020 09:16:18 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DCA8EB05D;
+ Wed, 30 Sep 2020 09:16:17 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=I3vy=DH=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kNY75-0007sT-Ec
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 09:09:27 +0000
-X-Inumbo-ID: d6cdcc03-982b-4010-a514-f85062369ef9
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=vfIn=DH=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kNYDj-0000Le-K8
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 09:16:19 +0000
+X-Inumbo-ID: c2c67d14-66c7-47e2-95f5-5dcce39531d3
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d6cdcc03-982b-4010-a514-f85062369ef9;
-	Wed, 30 Sep 2020 09:09:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=l+CGgoqnpCWqbwDXt4ZKn4jUsLwRZ3pfUyH2A8tOInA=; b=tO4sEIaGozg/H3r6whngH49kVR
-	IxvlDo2sTIP8MpEUYqHZcEZI33iGl1Kx9PWU7Vt5ywXXJ6qP0UvuW4fHjCrOsgMoHD5Di2iNuPS5B
-	GbtD7DlUChCoKhKGnWPBoKO1Xvyn9mKCuGTpqtDqTIfed4UoryK8y8M9YMhvrdoYFN4Q=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kNY70-0005DD-L5; Wed, 30 Sep 2020 09:09:22 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kNY70-0006K0-6R; Wed, 30 Sep 2020 09:09:22 +0000
-Subject: Re: [PATCH 11/12] evtchn: convert vIRQ lock to an r/w one
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
- <6e529147-2a76-bc28-ac16-21fc9a2c8f03@suse.com>
- <56faf769-d305-22d3-c3fe-2f9d767f0f07@xen.org>
- <60490a6c-593b-7aed-5e83-b0418500eed2@suse.com>
- <c4de244b-417e-39cb-59b0-dbda7108dc21@xen.org>
- <03d30b08-c0ce-0d24-444d-ec20f3528039@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c3d565e6-0094-557b-6828-8280de68b590@xen.org>
-Date: Wed, 30 Sep 2020 10:09:20 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.1.0
+	id c2c67d14-66c7-47e2-95f5-5dcce39531d3;
+	Wed, 30 Sep 2020 09:16:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601457378;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=w36Rzrz5XUNYFQzlz0bmqYe/dXsy1jXbycdq061JRBo=;
+	b=UBySA8ygsGeAU+PMR59aYW7hJ7QhySOdAj1PVTvimwPEQRSMQhtaCQWvHmNOT4WOWzUuny
+	pf8xOOcQFr2kVKfJM2IS02N8Tmx2/UZJPqinuSZYKU6bTOHcrjqYflY6p1JrAVbowGto7K
+	GA/F875LBkdNL+wBgc42LxlDl6sW3/w=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id DCA8EB05D;
+	Wed, 30 Sep 2020 09:16:17 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/events: don't use chip_data for legacy IRQs
+Date: Wed, 30 Sep 2020 11:16:14 +0200
+Message-Id: <20200930091614.13660-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <03d30b08-c0ce-0d24-444d-ec20f3528039@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Since commit c330fb1ddc0a ("XEN uses irqdesc::irq_data_common::handler_data to store a per interrupt XEN data pointer which contains XEN specific information.")
+Xen is using the chip_data pointer for storing IRQ specific data. When
+running as a HVM domain this can result in problems for legacy IRQs, as
+those might use chip_data for their own purposes.
 
-On 30/09/2020 07:26, Jan Beulich wrote:
-> On 29.09.2020 19:18, Julien Grall wrote:
->> On 29/09/2020 14:37, Jan Beulich wrote:
->>> On 29.09.2020 15:03, Julien Grall wrote:
->>>> I am thinking that it may be easier to hold the write lock when doing
->>>> the update.
->>>
->>> ... perhaps this is indeed better. I have to admit that I never
->>> fully understood the benefit of using spin_barrier() in this code
->>> (as opposed to the use in evtchn_destroy()).
->>
->> I am not entirely sure either. It looks like it is an attempt to make
->> v->virq_to_evtchn[X] visible without holding a lock.
->>
->> Any holder of the lock after spin_barrier() has completed will read 0
->> and not try to use the lock.
-> 
-> I'm not sure I follow: A holder of the lock is obviously already
-> making use of the lock.
+Use a local array for this purpose in case of legacy IRQs, avoiding the
+double use.
 
-My point is the barrier is meant to split the holders of the lock in two 
-category:
-    - Anyone acquiring the lock before the spin_barrier() completed may 
-see either the port open or close.
-    - Anyone acquiring the lock after the spin_barrier() completed will 
-see a close port.
+Cc: stable@vger.kernel.org
+Fixes: c330fb1ddc0a ("XEN uses irqdesc::irq_data_common::handler_data to store a per interrupt XEN data pointer which contains XEN specific information.")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/xen/events/events_base.c | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-> Or are you talking of two different locks
-> here (recall that before XSA-343 there was just one lock involved
-> in sending)?
-> 
->> But the update of v->virq_to_evtchn[X] should have used either
->> ACCESS_ONCE() or write_atomic().
-> 
-> Of course, like in so many other places in the code base.
-
-This is known. What I meant is if we are going to continue to use a 
-spin_barrier() (or rw_barrier()), then we should also switch to use 
-ACCESS_ONCE()/write_atomic().
-
-Anyway, I think we discussed to acquire the write lock instead. So it 
-should not be a concern.
-
-Cheers,
-
+diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+index 90b8f56fbadb..6f02c18fa65c 100644
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -92,6 +92,8 @@ static bool (*pirq_needs_eoi)(unsigned irq);
+ /* Xen will never allocate port zero for any purpose. */
+ #define VALID_EVTCHN(chn)	((chn) != 0)
+ 
++static struct irq_info *legacy_info_ptrs[NR_IRQS_LEGACY];
++
+ static struct irq_chip xen_dynamic_chip;
+ static struct irq_chip xen_percpu_chip;
+ static struct irq_chip xen_pirq_chip;
+@@ -156,7 +158,18 @@ int get_evtchn_to_irq(evtchn_port_t evtchn)
+ /* Get info for IRQ */
+ struct irq_info *info_for_irq(unsigned irq)
+ {
+-	return irq_get_chip_data(irq);
++	if (irq < nr_legacy_irqs())
++		return legacy_info_ptrs[irq];
++	else
++		return irq_get_chip_data(irq);
++}
++
++static void set_info_for_irq(unsigned int irq, struct irq_info *info)
++{
++	if (irq < nr_legacy_irqs())
++		legacy_info_ptrs[irq] = info;
++	else
++		irq_set_chip_data(irq, info);
+ }
+ 
+ /* Constructors for packed IRQ information. */
+@@ -377,7 +390,7 @@ static void xen_irq_init(unsigned irq)
+ 	info->type = IRQT_UNBOUND;
+ 	info->refcnt = -1;
+ 
+-	irq_set_chip_data(irq, info);
++	set_info_for_irq(irq, info);
+ 
+ 	list_add_tail(&info->list, &xen_irq_list_head);
+ }
+@@ -426,14 +439,14 @@ static int __must_check xen_allocate_irq_gsi(unsigned gsi)
+ 
+ static void xen_free_irq(unsigned irq)
+ {
+-	struct irq_info *info = irq_get_chip_data(irq);
++	struct irq_info *info = info_for_irq(irq);
+ 
+ 	if (WARN_ON(!info))
+ 		return;
+ 
+ 	list_del(&info->list);
+ 
+-	irq_set_chip_data(irq, NULL);
++	set_info_for_irq(irq, NULL);
+ 
+ 	WARN_ON(info->refcnt > 0);
+ 
+@@ -603,7 +616,7 @@ EXPORT_SYMBOL_GPL(xen_irq_from_gsi);
+ static void __unbind_from_irq(unsigned int irq)
+ {
+ 	evtchn_port_t evtchn = evtchn_from_irq(irq);
+-	struct irq_info *info = irq_get_chip_data(irq);
++	struct irq_info *info = info_for_irq(irq);
+ 
+ 	if (info->refcnt > 0) {
+ 		info->refcnt--;
+@@ -1108,7 +1121,7 @@ int bind_ipi_to_irqhandler(enum ipi_vector ipi,
+ 
+ void unbind_from_irqhandler(unsigned int irq, void *dev_id)
+ {
+-	struct irq_info *info = irq_get_chip_data(irq);
++	struct irq_info *info = info_for_irq(irq);
+ 
+ 	if (WARN_ON(!info))
+ 		return;
+@@ -1142,7 +1155,7 @@ int evtchn_make_refcounted(evtchn_port_t evtchn)
+ 	if (irq == -1)
+ 		return -ENOENT;
+ 
+-	info = irq_get_chip_data(irq);
++	info = info_for_irq(irq);
+ 
+ 	if (!info)
+ 		return -ENOENT;
+@@ -1170,7 +1183,7 @@ int evtchn_get(evtchn_port_t evtchn)
+ 	if (irq == -1)
+ 		goto done;
+ 
+-	info = irq_get_chip_data(irq);
++	info = info_for_irq(irq);
+ 
+ 	if (!info)
+ 		goto done;
 -- 
-Julien Grall
+2.26.2
+
 
