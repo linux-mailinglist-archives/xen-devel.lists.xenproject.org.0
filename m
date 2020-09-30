@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7788527EDBB
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 17:46:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.826.2826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C14E27EDF6
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 17:55:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.829.2838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNeJU-0001uV-La; Wed, 30 Sep 2020 15:46:40 +0000
+	id 1kNeRg-0002rb-Ha; Wed, 30 Sep 2020 15:55:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826.2826; Wed, 30 Sep 2020 15:46:40 +0000
+Received: by outflank-mailman (output) from mailman id 829.2838; Wed, 30 Sep 2020 15:55:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,84 +23,104 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNeJU-0001u5-Hy; Wed, 30 Sep 2020 15:46:40 +0000
-Received: by outflank-mailman (input) for mailman id 826;
- Wed, 30 Sep 2020 15:46:39 +0000
+	id 1kNeRg-0002rC-Dt; Wed, 30 Sep 2020 15:55:08 +0000
+Received: by outflank-mailman (input) for mailman id 829;
+ Wed, 30 Sep 2020 15:55:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SQnX=DH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kNeJT-0001tr-3Q
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 15:46:39 +0000
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ <SRS0=HrGX=DH=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+ id 1kNeRe-0002qI-8q
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 15:55:06 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d665ac1c-ea93-4690-8138-e84d50fc5f8f;
- Wed, 30 Sep 2020 15:46:38 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id l15so289324wmh.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 08:46:37 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id u13sm3535906wrm.77.2020.09.30.08.46.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2020 08:46:36 -0700 (PDT)
+ id bda32536-053d-4a9b-b9af-44d4b30145de;
+ Wed, 30 Sep 2020 15:55:05 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=SQnX=DH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
-	id 1kNeJT-0001tr-3Q
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 15:46:39 +0000
-X-Inumbo-ID: d665ac1c-ea93-4690-8138-e84d50fc5f8f
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+	(envelope-from <SRS0=HrGX=DH=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
+	id 1kNeRe-0002qI-8q
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 15:55:06 +0000
+X-Inumbo-ID: bda32536-053d-4a9b-b9af-44d4b30145de
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d665ac1c-ea93-4690-8138-e84d50fc5f8f;
-	Wed, 30 Sep 2020 15:46:38 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id l15so289324wmh.1
-        for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 08:46:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=lT/EjgIk3NLLK25yor6puOeVsEP8+ct95C1qsGEyqeQ=;
-        b=oFztt9VYSLbY7Hrna2njPK0qzYptCg1/VzyxhZzqpkv0ErR000hNlOuHiF76EjYJZY
-         VdRPGidcuU4dGLjd5qsWRp4pBsdbpkXx4k2Cob+1Shd2M5y/sDEfMh6zLMGw69fmp4+s
-         QpJGF4gyaeYQlGnafjYpN6aA/Fp2gjPxm2qnPp/pxfZy1uZSEJ3kLifxnLD0mnlhJfWt
-         ebU0KuxeFS5vCclckYZTo7u3MW4i5lPWL3VfMNcav5MUG/RegYbOgZ67TgGsbrn0MzPG
-         wq7/+yYsbyM7ZpO//BL1TC7wOhymzRC2WwWQySoPFCmED8bBqDL+mVQWRoQN4NNpfbhL
-         YwNA==
-X-Gm-Message-State: AOAM530T2PhcPeMTTvrsC6UB5nJnWU7qBW+Ve2xxbpraSxMrnvXEfz5E
-	6FXmIY50Jk5ToRnr1xnV4cU=
-X-Google-Smtp-Source: ABdhPJzgionQACgjLrOpVOzx/5UHMiozXbc9JAfp06IktIfyLOEhr/YKKd5FiNarlXimpVP3crizpQ==
-X-Received: by 2002:a7b:cc17:: with SMTP id f23mr3531817wmh.166.1601480797265;
-        Wed, 30 Sep 2020 08:46:37 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id u13sm3535906wrm.77.2020.09.30.08.46.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2020 08:46:36 -0700 (PDT)
-Date: Wed, 30 Sep 2020 15:46:35 +0000
-From: Wei Liu <wl@xen.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: Re: [PATCH 3/3] stubdom: add xenstore pvh stubdom
-Message-ID: <20200930154635.jb26daawzldp4gwh@liuwe-devbox-debian-v2>
-References: <20200923064541.19546-1-jgross@suse.com>
- <20200923064541.19546-4-jgross@suse.com>
+	id bda32536-053d-4a9b-b9af-44d4b30145de;
+	Wed, 30 Sep 2020 15:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601481304;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=zzrYign+e+ldn9gBO01TO0yA3HqHycDbFbXdYW2unms=;
+  b=AdlGa5j56cyPKZzgzwUg3M/2ByXohLihp7YqAkdSJWaDosLGXgerrUW2
+   VTH7+cbqiaX2wr7EMUCcuBnq7vjwvTFUNhTsDlA01/gv4izNmyP6pLS3b
+   1lXoOdVjSNurbjMtnikuBoh0FMz/IsfXp3s6aRVTa3YUNTLk71sHsGJfu
+   4=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: FQKndMVcj8I2Ay5isB1bjeNb2zA2NFzdNB+7Sj/4FV24vG6C48Vp7YkIRFU5ZFHQBtvqVZ6Cio
+ /biQOosgkaHPSQm1j4vBQtr8teMdnSxpMkiCes31IZ86xJJeRQcU7Q3JtMPRueG2Ltnq+I9E2D
+ /aXNx4sMjXTDAM3JglhfdjRTQbRvLRZMdKhBPbY+K8MiXYBbzc2DbB3xv/zozlNKL1OjQdqxFK
+ S21jXNmR6XYF6OtjJtIZhxdVKS6juLwZyIhLPYauxMPfFTQu8jBWIynT/YJblXuKD4eMcFa7Zy
+ WcM=
+X-SBRS: None
+X-MesageID: 28256490
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
+   d="scan'208";a="28256490"
+From: Edwin Torok <edvin.torok@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Christian Lindig <christian.lindig@citrix.com>, Roger Pau Monne
+	<roger.pau@citrix.com>, Rob Hoes <Rob.Hoes@citrix.com>, "JBeulich@suse.com"
+	<JBeulich@suse.com>, "wl@xen.org" <wl@xen.org>, "iwj@xenproject.org"
+	<iwj@xenproject.org>
+Subject: Re: [PATCH 3/8] xen/domctl: Introduce and use
+ XEN_DOMCTL_CDF_nested_virt
+Thread-Topic: [PATCH 3/8] xen/domctl: Introduce and use
+ XEN_DOMCTL_CDF_nested_virt
+Thread-Index: AQHWly+mlyDVk2iUSkmQ4hhsZwHZnqmBNDQA
+Date: Wed, 30 Sep 2020 15:55:00 +0000
+Message-ID: <6d960fdffcaf7fc7d64dcb065ec09941d3d47e43.camel@citrix.com>
+References: <20200930134248.4918-1-andrew.cooper3@citrix.com>
+	 <20200930134248.4918-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20200930134248.4918-4-andrew.cooper3@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3211788CB2AE664AB3C05DB9DFDB0446@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200923064541.19546-4-jgross@suse.com>
-User-Agent: NeoMutt/20180716
 
-On Wed, Sep 23, 2020 at 08:45:41AM +0200, Juergen Gross wrote:
-> Add a PVH xenstore stubdom in order to support a Xenstore stubdom on
-> a hypervisor built without PV-support.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Acked-by: Wei Liu <wl@xen.org>
-
-Note to self: may need to regenerate stubdom/configure.
+T24gV2VkLCAyMDIwLTA5LTMwIGF0IDE0OjQyICswMTAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOg0K
+PiBMaWtlIG90aGVyIG1ham9yIGFyZWFzIG9mIGZ1bmN0aW9uYWxpdHksIG5lc3RlZCB2aXJ0IChv
+ciBub3QpIG5lZWRzDQo+IHRvIGJlDQo+IGtub3duIGF0IGRvbWFpbiBjcmVhdGlvbiB0aW1lIGZv
+ciBzZW5zaWJsZSBDUFVJRCBoYW5kbGluZywgYW5kIHdhbnRzDQo+IHRvIGJlDQo+IGtub3duIHRo
+aXMgZWFybHkgZm9yIHNlbnNpYmxlIGluZnJhc3RydWN0dXJlIGhhbmRsaW5nIGluIFhlbi4NCj4g
+DQo+IEludHJvZHVjZSBYRU5fRE9NQ1RMX0NERl9uZXN0ZWRfdmlydCBhbmQgbW9kaWZ5IGxpYnhs
+IHRvIHNldCBpdA0KPiBhcHByb3ByaWF0ZWx5DQo+IHdoZW4gY3JlYXRpbmcgZG9tYWlucy4gIFRo
+ZXJlIGlzIG5vIG5lZWQgdG8gYWRqdXN0IHRoZSBBUk0gbG9naWMgdG8NCj4gcmVqZWN0IHRoZQ0K
+PiB1c2Ugb2YgdGhpcyBuZXcgZmxhZy4NCj4gDQo+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlIHlldC4N
+Cj4gWy4uLl0NCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL29jYW1sL2xpYnMveGMveGVuY3RybC5tbA0K
+PiBiL3Rvb2xzL29jYW1sL2xpYnMveGMveGVuY3RybC5tbA0KPiBpbmRleCA0OTdkZWQ3Y2UyLi5l
+ODc4Njk5YjBhIDEwMDY0NA0KPiAtLS0gYS90b29scy9vY2FtbC9saWJzL3hjL3hlbmN0cmwubWwN
+Cj4gKysrIGIvdG9vbHMvb2NhbWwvbGlicy94Yy94ZW5jdHJsLm1sDQo+IEBAIC02NCw2ICs2NCw3
+IEBAIHR5cGUgZG9tYWluX2NyZWF0ZV9mbGFnID0NCj4gIAl8IENERl9PT1NfT0ZGDQo+ICAJfCBD
+REZfWFNfRE9NQUlODQo+ICAJfCBDREZfSU9NTVUNCj4gKwl8IENERl9ORVNURURfVklSVA0KPiAg
+DQo+ICB0eXBlIGRvbWFpbl9jcmVhdGVfaW9tbXVfb3B0cyA9DQo+ICAJfCBJT01NVV9OT19TSEFS
+RVBUDQo+IGRpZmYgLS1naXQgYS90b29scy9vY2FtbC9saWJzL3hjL3hlbmN0cmwubWxpDQo+IGIv
+dG9vbHMvb2NhbWwvbGlicy94Yy94ZW5jdHJsLm1saQ0KPiBpbmRleCBmN2Y2ZWM1NzBkLi5lNjQ5
+MDdkZjhlIDEwMDY0NA0KPiAtLS0gYS90b29scy9vY2FtbC9saWJzL3hjL3hlbmN0cmwubWxpDQo+
+ICsrKyBiL3Rvb2xzL29jYW1sL2xpYnMveGMveGVuY3RybC5tbGkNCj4gQEAgLTU3LDYgKzU3LDcg
+QEAgdHlwZSBkb21haW5fY3JlYXRlX2ZsYWcgPQ0KPiAgICB8IENERl9PT1NfT0ZGDQo+ICAgIHwg
+Q0RGX1hTX0RPTUFJTg0KPiAgICB8IENERl9JT01NVQ0KPiArICB8IENERl9ORVNURURfVklSVA0K
+DQpPQ2FtbCBjaGFuZ2VzIExHVE0uDQpKdXN0IGEgcmVtaW5kZXIgdGhhdCB3ZSdsbCBuZWVkIHRv
+IGFwcGx5IHRoZSB4ZW5jdHJsIGNoYW5nZXMgdG8gdGhlDQptb2NrIHhlbmN0cmwgdXNlZCBieSB0
+aGUgeGFwaS1wcm9qZWN0IENJIGF0IA0KaHR0cHM6Ly9naXRodWIuY29tL2xpbmRpZy94ZW5jdHJs
+IHRvby4NCg0KQmVzdCByZWdhcmRzLA0KLS1FZHdpbg0K
 
