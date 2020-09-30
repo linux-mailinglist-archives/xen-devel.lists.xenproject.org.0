@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E54A27E7B5
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 13:34:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603.2009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C472E27E7C6
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 13:43:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608.2021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNaNX-0006vl-NT; Wed, 30 Sep 2020 11:34:35 +0000
+	id 1kNaVR-0007tD-OB; Wed, 30 Sep 2020 11:42:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603.2009; Wed, 30 Sep 2020 11:34:35 +0000
+Received: by outflank-mailman (output) from mailman id 608.2021; Wed, 30 Sep 2020 11:42:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,133 +23,133 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNaNX-0006vM-Ja; Wed, 30 Sep 2020 11:34:35 +0000
-Received: by outflank-mailman (input) for mailman id 603;
- Wed, 30 Sep 2020 11:34:33 +0000
+	id 1kNaVR-0007so-L4; Wed, 30 Sep 2020 11:42:45 +0000
+Received: by outflank-mailman (input) for mailman id 608;
+ Wed, 30 Sep 2020 11:42:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kNaNV-0006uZ-Ro
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:34:33 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Npl0=DH=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1kNaVQ-0007sj-O1
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:42:44 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 34c19c03-300a-4613-9cdb-7ce7b14c1452;
- Wed, 30 Sep 2020 11:34:27 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNaNP-0008L4-5P; Wed, 30 Sep 2020 11:34:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNaNO-0007L1-U3; Wed, 30 Sep 2020 11:34:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kNaNO-0001St-Tc; Wed, 30 Sep 2020 11:34:26 +0000
+ id 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9;
+ Wed, 30 Sep 2020 11:42:42 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kNaNV-0006uZ-Ro
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:34:33 +0000
-X-Inumbo-ID: 34c19c03-300a-4613-9cdb-7ce7b14c1452
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=Npl0=DH=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+	id 1kNaVQ-0007sj-O1
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:42:44 +0000
+X-Inumbo-ID: 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 34c19c03-300a-4613-9cdb-7ce7b14c1452;
-	Wed, 30 Sep 2020 11:34:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=i+EHbSfumWBCBpmKpzJyAEhzaHB6LzbzbIrGGRK1y+M=; b=Qz+y04nEL7xJ+huX1AbSkmnp4Y
-	QYNldnvRKqQBo0a5e/reHh2IRBcUDJrNvjC15H2TKsRMbTlxPXfgNAFdkO5r5XGvuRhXFkkqmzmcr
-	1wpYLZAhLFrWn6cWWFF9UyxVy3rup6qs2HPeigyk8ALwWM+mkodJbv0+yMFizLFDNZ0c=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNaNP-0008L4-5P; Wed, 30 Sep 2020 11:34:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNaNO-0007L1-U3; Wed, 30 Sep 2020 11:34:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNaNO-0001St-Tc; Wed, 30 Sep 2020 11:34:26 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155128-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 0a6a49a1-618f-4f95-b9a5-ee53b51b95a9;
+	Wed, 30 Sep 2020 11:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601466162;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mdXgkOu3ylqnn1zoExFL9VmyUXl2+ZCZhLSNKounvE0=;
+  b=HPDHZ9PyPVQS+nOvE4FpI4pIyqJz8jxo2ZyOoBasxNEWFolkPAXqLitx
+   7QV+ZRVNsfjTelrKqH8n/pTUh7io+gsnWlQWzAMWJ2L86ck1wtYTk2Zl0
+   MemLhbLXv87OPNySpLRB4+qsexd8pY9KXEoYoeM6GVjBqDfa6oGGUBvOj
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: KZcH2yqEPGmYgpzCTQcnwziklCfV47GiZR8knMGcUdCcnTps/6KmpdcJ622fhTxdV82dJAis3J
+ 2h8YJqGkF6XeXtdjDeoAvXkVaMoD3BZua/wq0b4bOLKp0EqmXGR1E/Re5SmzzdbDVRO00olDxp
+ n2puov22Mo+pb15T1y6U8wsCF0LJOB2Lr4rCT75MECzfp8em1LGtzr7cjm045GJ2e0V1LL+4or
+ Oe82Ph0iCoysiNr0mwQwAzK2MvXEHjgVLnsjdS9mCw+L47c/mG3ctCZ8Pw0mSG3vKNXlnL3Njq
+ u5k=
+X-SBRS: None
+X-MesageID: 28964510
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
+   d="scan'208";a="28964510"
+Date: Wed, 30 Sep 2020 12:42:35 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Paul Durrant <paul@xen.org>
+CC: <xen-devel@lists.xenproject.org>, <qemu-devel@nongnu.org>, Paul Durrant
+	<pdurrant@amazon.com>, Jerome Leseinne <jerome.leseinne@gmail.com>, "Edwin
+ Torok" <edvin.torok@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] xen-bus: reduce scope of backend watch
+Message-ID: <20200930114235.GL2024@perard.uk.xensource.com>
+References: <20200923155731.29528-1-paul@xen.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155128: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
-X-Osstest-Versions-That:
-    xen=5dba8c2f23049aa68b777a9e7e9f76c12dd00012
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 30 Sep 2020 11:34:26 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200923155731.29528-1-paul@xen.org>
 
-flight 155128 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155128/
+On Wed, Sep 23, 2020 at 04:57:31PM +0100, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> Currently a single watch on /local/domain/X/backend is registered by each
+> QEMU process running in service domain X (where X is usually 0). The purpose
+> of this watch is to ensure that QEMU is notified when the Xen toolstack
+> creates a new device backend area.
+> Such a backend area is specific to a single frontend area created for a
+> specific guest domain and, since each QEMU process is also created to service
+> a specfic guest domain, it is unnecessary and inefficient to notify all QEMU
+> processes.
+> Only the QEMU process associated with the same guest domain need
+> receive the notification. This patch re-factors the watch registration code
+> such that notifications are targetted appropriately.
+> 
+> Reported-by: Jerome Leseinne <jerome.leseinne@gmail.com>
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> 
+> diff --git a/hw/xen/xen-backend.c b/hw/xen/xen-backend.c
+> index 10199fb58d..f2711fe4a7 100644
+> --- a/hw/xen/xen-backend.c
+> +++ b/hw/xen/xen-backend.c
+> @@ -41,6 +41,11 @@ static void xen_backend_table_add(XenBackendImpl *impl)
+>      g_hash_table_insert(xen_backend_table_get(), (void *)impl->type, impl);
+>  }
+>  
+> +static void **xen_backend_table_keys(unsigned int *count)
+> +{
+> +    return g_hash_table_get_keys_as_array(xen_backend_table_get(), count);
 
-Failures :-/ but no regressions.
+That could be cast to (const gchar **) as the GLib doc suggest, or (const
+char **) since gchar and char are the same.
+https://developer.gnome.org/glib/stable/glib-Hash-Tables.html#g-hash-table-get-keys-as-array
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> +}
+> +
+>  static const XenBackendImpl *xen_backend_table_lookup(const char *type)
+>  {
+>      return g_hash_table_lookup(xen_backend_table_get(), type);
+> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
+> index 9ce1c9540b..c83da93bf3 100644
+> --- a/hw/xen/xen-bus.c
+> +++ b/hw/xen/xen-bus.c
+> @@ -430,7 +430,13 @@ static void xen_bus_unrealize(BusState *bus)
+>      trace_xen_bus_unrealize();
+>  
+>      if (xenbus->backend_watch) {
+> -        xen_bus_remove_watch(xenbus, xenbus->backend_watch, NULL);
+> +        unsigned int i;
+> +
+> +        for (i = 0; i < xenbus->backend_types; i++) {
+> +            xen_bus_remove_watch(xenbus, xenbus->backend_watch[i], NULL);
 
-version targeted for testing:
- xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
-baseline version:
- xen                  5dba8c2f23049aa68b777a9e7e9f76c12dd00012
+We should check if backend_watch[i] is NULL.
 
-Last test of basis   155089  2020-09-29 13:00:29 Z    0 days
-Testing same since   155128  2020-09-30 08:01:25 Z    0 days    1 attempts
+> +        }
+> +
+> +        g_free(xenbus->backend_watch);
+>          xenbus->backend_watch = NULL;
+>      }
+>  
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Trammell Hudson <hudson@trmm.net>
+The rest of the patch looks fine. Next improvement is to only look at
+only one backend type in xen_bus_backend_changed() since there is now a
+watch per backend type :-), but that would be for another day.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Cheers,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5dba8c2f23..c73952831f  c73952831f0fc63a984e0d07dff1d20f8617b81f -> smoke
+-- 
+Anthony PERARD
 
