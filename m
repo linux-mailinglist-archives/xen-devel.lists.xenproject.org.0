@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C18D27F350
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 22:24:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.922.3149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E6727F43E
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 23:31:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.933.3178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNidW-0003M9-3v; Wed, 30 Sep 2020 20:23:38 +0000
+	id 1kNjg0-0000r6-5j; Wed, 30 Sep 2020 21:30:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922.3149; Wed, 30 Sep 2020 20:23:38 +0000
+Received: by outflank-mailman (output) from mailman id 933.3178; Wed, 30 Sep 2020 21:30:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,191 +18,182 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNidW-0003Lk-0p; Wed, 30 Sep 2020 20:23:38 +0000
-Received: by outflank-mailman (input) for mailman id 922;
- Wed, 30 Sep 2020 20:23:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNjg0-0000qk-2b; Wed, 30 Sep 2020 21:30:16 +0000
+Received: by outflank-mailman (input) for mailman id 933;
+ Wed, 30 Sep 2020 21:30:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kNidU-0003Lf-Nf
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 20:23:36 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b6250157-7263-42a7-9710-4f9a2df3f69c;
- Wed, 30 Sep 2020 20:23:35 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 74B432076A;
- Wed, 30 Sep 2020 20:23:34 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=QKcH=DH=amazon.com=prvs=5350d769c=anchalag@srs-us1.protection.inumbo.net>)
+ id 1kNjfy-0000qf-5a
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 21:30:14 +0000
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e3e373f3-43c1-41cd-8cc1-d344d1cad338;
+ Wed, 30 Sep 2020 21:30:12 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-1d-16425a8d.us-east-1.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
+ 30 Sep 2020 21:30:11 +0000
+Received: from EX13MTAUWC002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-1d-16425a8d.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 764D6100F36; Wed, 30 Sep 2020 21:30:05 +0000 (UTC)
+Received: from EX13D05UWC003.ant.amazon.com (10.43.162.226) by
+ EX13MTAUWC002.ant.amazon.com (10.43.162.240) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 30 Sep 2020 21:29:45 +0000
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D05UWC003.ant.amazon.com (10.43.162.226) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 30 Sep 2020 21:29:45 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Wed, 30 Sep 2020 21:29:44 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id E3F2F40A16; Wed, 30 Sep 2020 21:29:44 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kNidU-0003Lf-Nf
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 20:23:36 +0000
-X-Inumbo-ID: b6250157-7263-42a7-9710-4f9a2df3f69c
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b6250157-7263-42a7-9710-4f9a2df3f69c;
-	Wed, 30 Sep 2020 20:23:35 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 74B432076A;
-	Wed, 30 Sep 2020 20:23:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1601497414;
-	bh=D8C+uh3doVWpCrpBhbQ7xu5QuCH9wjPpS2s8TayBSxY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=WImI9kIJmgzz7P/QVscS7ReH93+jwiGaUfXotZFuwDjy2holQWz3NLD9wlx//HrYQ
-	 iEOtCDTJwv3HL98KtKDZFHOAy3Y19wmBEoYutbpgJaW2WesczGE2TfT9Iq8GjUCIma
-	 jk3poyMJcvHU44obTOdiwriJAzjJd5XKYoKh66sY=
-Date: Wed, 30 Sep 2020 13:23:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: George Dunlap <george.dunlap@citrix.com>
-cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@citrix.com>, 
-    Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Rich Persaud <persaur@gmail.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [PATCH RFC] docs: Add minimum version depencency policy
- document
-In-Reply-To: <20200930125736.95203-1-george.dunlap@citrix.com>
-Message-ID: <alpine.DEB.2.21.2009301321431.10908@sstabellini-ThinkPad-T480s>
-References: <20200930125736.95203-1-george.dunlap@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=QKcH=DH=amazon.com=prvs=5350d769c=anchalag@srs-us1.protection.inumbo.net>)
+	id 1kNjfy-0000qf-5a
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 21:30:14 +0000
+X-Inumbo-ID: e3e373f3-43c1-41cd-8cc1-d344d1cad338
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id e3e373f3-43c1-41cd-8cc1-d344d1cad338;
+	Wed, 30 Sep 2020 21:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1601501412; x=1633037412;
+  h=date:from:to:cc:message-id:references:mime-version:
+   in-reply-to:subject;
+  bh=PzproGxQQPVApvJjIQ8ERr8X0N8MusoN+Qds32pYVAw=;
+  b=lLRl9zAtVofUfisnLLrR4LJmafT+OBlYDTeszQ8yOb8GTlx9adYT6Dc2
+   qbXQllHCbIQM7eOTg6BOKu67I0hxHd1FJEC4Pu5TmsNhNZK+/MsXiUBjU
+   pheC/7nP+7XV6i0SfL8+j4WjVrWJdbW/C9KIsGuDnmkezhGOmTHqrXoY8
+   M=;
+X-IronPort-AV: E=Sophos;i="5.77,322,1596499200"; 
+   d="scan'208";a="57055348"
+Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend mode
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO email-inbound-relay-1d-16425a8d.us-east-1.amazon.com) ([10.43.8.2])
+  by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP; 30 Sep 2020 21:30:11 +0000
+Received: from EX13MTAUWC002.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+	by email-inbound-relay-1d-16425a8d.us-east-1.amazon.com (Postfix) with ESMTPS id 764D6100F36;
+	Wed, 30 Sep 2020 21:30:05 +0000 (UTC)
+Received: from EX13D05UWC003.ant.amazon.com (10.43.162.226) by
+ EX13MTAUWC002.ant.amazon.com (10.43.162.240) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 30 Sep 2020 21:29:45 +0000
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D05UWC003.ant.amazon.com (10.43.162.226) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 30 Sep 2020 21:29:45 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Wed, 30 Sep 2020 21:29:44 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix, from userid 4335130)
+	id E3F2F40A16; Wed, 30 Sep 2020 21:29:44 +0000 (UTC)
+Date: Wed, 30 Sep 2020 21:29:44 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <boris.ostrovsky@oracle.com>
+CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>,
+	<x86@kernel.org>, <jgross@suse.com>, <linux-pm@vger.kernel.org>,
+	<linux-mm@kvack.org>, <kamatam@amazon.com>, <sstabellini@kernel.org>,
+	<konrad.wilk@oracle.com>, <roger.pau@citrix.com>, <axboe@kernel.dk>,
+	<davem@davemloft.net>, <rjw@rjwysocki.net>, <len.brown@intel.com>,
+	<pavel@ucw.cz>, <peterz@infradead.org>, <eduval@amazon.com>,
+	<sblbir@amazon.com>, <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
+Message-ID: <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <e9b94104-d20a-b6b2-cbe0-f79b1ed09c98@oracle.com>
+ <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
+ <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
+ <20200922231736.GA24215@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200925190423.GA31885@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <274ddc57-5c98-5003-c850-411eed1aea4c@oracle.com>
+ <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 
-On Wed, 30 Sep 2020, George Dunlap wrote:
-> Define a specific criteria for how we determine what tools and
-> libraries to be compatible with.  This will clarify issues such as,
-> "Should we continue to support Python 2.4" moving forward.
+On Mon, Sep 28, 2020 at 02:49:56PM -0400, boris.ostrovsky@oracle.com wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
 > 
-> Note that CentOS 7 is set to stop receiving "normal" maintenance
-> updates in "Q4 2020"; assuming that 4.15 is released after that, we
-> only need to support CentOS / RHEL 8.
 > 
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> ---
 > 
-> CC: Ian Jackson <ian.jackson@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Rich Persaud <persaur@gmail.com>
-> CC: Bertrand Marquis <Bertrand.Marquis@arm.com>
-> ---
->  docs/index.rst                        |  2 +
->  docs/policies/dependency-versions.rst | 76 +++++++++++++++++++++++++++
->  2 files changed, 78 insertions(+)
->  create mode 100644 docs/policies/dependency-versions.rst
+> On 9/25/20 6:28 PM, Anchal Agarwal wrote:
+> > On Fri, Sep 25, 2020 at 04:02:58PM -0400, boris.ostrovsky@oracle.com wrote:
+> >> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> >>
+> >>
+> >>
+> >> On 9/25/20 3:04 PM, Anchal Agarwal wrote:
+> >>> On Tue, Sep 22, 2020 at 11:17:36PM +0000, Anchal Agarwal wrote:
+> >>>> On Tue, Sep 22, 2020 at 12:18:05PM -0400, boris.ostrovsky@oracle.com wrote:
+> >>>>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>> On 9/21/20 5:54 PM, Anchal Agarwal wrote:
 > 
-> diff --git a/docs/index.rst b/docs/index.rst
-> index b75487a05d..ac175eacc8 100644
-> --- a/docs/index.rst
-> +++ b/docs/index.rst
-> @@ -57,5 +57,7 @@ Miscellanea
->  -----------
->  
->  .. toctree::
-> +   :maxdepth: 1
->  
-> +   policies/dependency-versions
->     glossary
-> diff --git a/docs/policies/dependency-versions.rst b/docs/policies/dependency-versions.rst
-> new file mode 100644
-> index 0000000000..d5eeb848d8
-> --- /dev/null
-> +++ b/docs/policies/dependency-versions.rst
-> @@ -0,0 +1,76 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Build and runtime dependencies
-> +==============================
-> +
-> +Xen depends on other programs and libraries to build and to run.
-> +Chosing a minimum version of these tools to support requires a careful
-> +balance: Supporting older versions of these tools or libraries means
-> +that Xen can compile on a wider variety of systems; but means that Xen
-> +cannot take advantage of features available in newer versions.
-> +Conversely, requiring newer versions means that Xen can take advantage
-> +of newer features, but cannot work on as wide a variety of systems.
-> +
-> +Specific dependencies and versions for a given Xen release will be
-> +listed in the toplevel README, and/or specified by the ``configure``
-> +system.  This document lays out the principles by which those versions
-> +should be chosen.
-> +
-> +The general principle is this:
-> +
-> +    Xen should build on currently-supported versions of major distros
-> +    when released.
-> +
-> +"Currently-supported" means whatever that distro's version of "full
-> +support".  For instance, at the time of writing, CentOS 7 and 8 are
-> +listed as being given "Full Updates", but CentOS 6 is listed as
-> +"Maintenance updates"; under this criterium, we would try to ensure
-> +that Xen could build on CentOS 7 and 8, but not on CentOS 6.
-> +
-> +Exceptions for specific distros or tools may be made when appropriate.
-> +
-> +One exception to this is compiler versions for the hypervisor.
-> +Support for new instructions, and in particular support for new safety
-> +features, may require a newer compiler than many distros support.
-> +These will be specified in the README.
-> +
-> +Distros we consider when deciding minimum versions
-> +--------------------------------------------------
-> +
-> +We currently aim to support Xen building and running on the following distributions:
-> +Debian_,
-> +Ubuntu_,
-> +OpenSUSE_,
-> +Arch Linux,
-> +SLES_,
-> +Yocto_,
-> +CentOS_,
-> +and RHEL_.
-
-Alpine Linux should be in the list (consider its usage in container
-environment.)
-
-
-> +
-> +.. _Debian: https://www.debian.org/releases/
-> +.. _Ubuntu: https://wiki.ubuntu.com/Releases
-> +.. _OpenSUSE: https://en.opensuse.org/Lifetime
-> +.. _SLES: https://www.suse.com/lifecycle/
-> +.. _Yocto: https://wiki.yoctoproject.org/wiki/Releases
-> +.. _CentOS: https://wiki.centos.org/About/Product
-> +.. _RHEL: https://access.redhat.com/support/policy/updates/errata
-> +
-> +Specific distro versions supported in this release
-> +--------------------------------------------------
-> +
-> +======== ==================
-> +Distro   Supported releases
-> +======== ==================
-> +Debian   10 (Buster)
-> +Ubuntu   20.10 (Groovy Gorilla), 20.04 (Focal Fossa), 18.04 (Bionic Beaver), 16.04 (Xenial Xerus)
-> +OpenSUSE Leap 15.2
-> +SLES     SLES 11, 12, 15
-> +Yocto    3.1 (Dunfell)
-> +CentOS   8
-> +RHEL     8
-> +======== ==================
+> >>>>> Also, wrt KASLR stuff, that issue is still seen sometimes but I haven't had
+> >>>>> bandwidth to dive deep into the issue and fix it.
+> >>
+> >> So what's the plan there? You first mentioned this issue early this year and judged by your response it is not clear whether you will ever spend time looking at it.
+> >>
+> > I do want to fix it and did do some debugging earlier this year just haven't
+> > gotten back to it. Also, wanted to understand if the issue is a blocker to this
+> > series?
+> 
+> 
+> Integrating code with known bugs is less than ideal.
+> 
+So for this series to be accepted, KASLR needs to be fixed along with other
+comments of course? 
+> 
+> 3% failure for this feature seems to be a manageable number from the reproducability perspective --- you should be able to script this and each iteration should take way under a minute, no?
+> 
 >
-I am still on Alpine Linux 3.7, so I am sure that one works. Probably
-other versions work too.
+Yes it should be doable. The % is not constant here that's the max I have seen.
+Also, if at worse it takes a min per run and I have to run 2000-3000 runs to
+produce failure that will still be slower. I have to dig in to see if I can find
+a better way. 
+
+> > I had some theories when debugging around this like if the random base address picked by kaslr for the
+> > resuming kernel mismatches the suspended kernel and just jogging my memory, I didn't find that as the case.
+> > Another hunch was if physical address of registered vcpu info at boot is different from what suspended kernel
+> > has and that can cause CPU's to get stuck when coming online.
+> 
+> 
+> I'd think if this were the case you'd have 100% failure rate. And we are also re-registering vcpu info on xen restore and I am not aware of any failures due to KASLR.
+> 
+What I meant there wrt VCPU info was that VCPU info is not unregistered during hibernation,
+so Xen still remembers the old physical addresses for the VCPU information, created by the
+booting kernel. But since the hibernation kernel may have different physical
+addresses for VCPU info and if mismatch happens, it may cause issues with resume. 
+During hibernation, the VCPU info register hypercall is not invoked again.
+> 
+> > The issue was only
+> > reproducible 3% of the time out of 3000 runs hence its hard to just reproduce this.
+> >
+> > Moreover, I also wanted to get an insight on if hibernation works correctly with KASLR
+> > generally and its only Xen causing the issue?
+> 
+> 
+> With KASLR being on by default I'd be surprised if it didn't.
+>
+Thant makes it xen specific then. Also, I have not seen the issue on KVM based
+instances.
+> 
+> -boris
+> 
+- Anchal
 
