@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B604C27F0D5
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 19:52:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.860.2991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 074EC27F0E0
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 19:52:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.864.3026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNgHG-0005s4-Ak; Wed, 30 Sep 2020 17:52:30 +0000
+	id 1kNgHV-0006Ao-F9; Wed, 30 Sep 2020 17:52:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860.2991; Wed, 30 Sep 2020 17:52:30 +0000
+Received: by outflank-mailman (output) from mailman id 864.3026; Wed, 30 Sep 2020 17:52:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNgHG-0005rM-53; Wed, 30 Sep 2020 17:52:30 +0000
-Received: by outflank-mailman (input) for mailman id 860;
- Wed, 30 Sep 2020 17:52:28 +0000
+	id 1kNgHV-0006A6-9S; Wed, 30 Sep 2020 17:52:45 +0000
+Received: by outflank-mailman (input) for mailman id 864;
+ Wed, 30 Sep 2020 17:52:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=m0D6=DH=casper.srs.infradead.org=batv+fa6e45c137c1199df5c4+6247+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kNgHE-0005QF-PL
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:28 +0000
+ id 1kNgHT-0005QF-Po
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:43 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2f6f9659-0d07-4c54-97ec-383d34969184;
+ id 4bcea780-63e7-487d-8d34-970fd9affa36;
  Wed, 30 Sep 2020 17:51:57 +0000 (UTC)
 Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kNgGM-0001Ax-Rh; Wed, 30 Sep 2020 17:51:35 +0000
+ id 1kNgGO-0001Bg-9G; Wed, 30 Sep 2020 17:51:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=m0D6=DH=casper.srs.infradead.org=batv+fa6e45c137c1199df5c4+6247+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kNgHE-0005QF-PL
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:28 +0000
-X-Inumbo-ID: 2f6f9659-0d07-4c54-97ec-383d34969184
+	id 1kNgHT-0005QF-Po
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:43 +0000
+X-Inumbo-ID: 4bcea780-63e7-487d-8d34-970fd9affa36
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2f6f9659-0d07-4c54-97ec-383d34969184;
+	id 4bcea780-63e7-487d-8d34-970fd9affa36;
 	Wed, 30 Sep 2020 17:51:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=07YiCh12zxNb+LfRUHOuc0cOw1/oVX+fVA/5cFMfxTE=; b=S0V1ilHwkGgbbTo2M350wdoI3C
-	7lLk66poahAwcksIO1u1LSSIxtPdZ4ajUF7mmZOuiAy4VKWO2BOkh4jmJEgoz+vYl+pxKKmn1L62/
-	cR5OxZR0ZcX8CtFM/89ZjqDZ90kkZgAZeV5ujQjb8OMvbUfBgu6ZTJ+NIRxRgtKUnqSF7fUiBFUNQ
-	fR4r0qk8dSD+qYuIsfTRM+UXKnS/TE4Da87IJGDT47CsLpsTEzDQLDabopXoZRINzBGFNcHo0bZYh
-	hOkxAjzXXVDPEnTyi8auHmOSpSvIRbGjcSC4yKDNp4s2Ir9GCQHS7afLyB8VzQkH75/ca3S3ZtESd
-	mLLKt94A==;
+	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description;
+	bh=EtVpkGxd0Kyhqnh/t2FVgPRi015JMv+YUxF5ITQDDnw=; b=wRGt4EZ+2E5doJTK4BmkM+D/+o
+	Dw04jnAiVsd8EeZlT/iM7dcBWh9nEdUYaM3QlQFzIBfFUrQz6ym6uMLch3YYJ1gNmWsFeQ+DGI5hA
+	6RbHCb4kh/WuFF20eWHk386XzGBd64UtU3AaFJfDc1tqK479wRzY3Y5P1tuGmg4lRK7xW2DHD8lrC
+	u88YURg64H9BWCOi0q1q70JYWCmlUf5QVubTIUQrp/FKxmiaD8hbc53nc5WN+5oxqt01VyTs0zV2m
+	dBOz8RchoXv6Clq4JpwOKYJcyJmPKZuczxlKVrpSuAR61lRlDRmavVeyDRdv+nI8MiK97msrBVpqE
+	sTeju+vA==;
 Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kNgGM-0001Ax-Rh; Wed, 30 Sep 2020 17:51:35 +0000
+	id 1kNgGO-0001Bg-9G; Wed, 30 Sep 2020 17:51:36 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -82,54 +82,69 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
 	linux-mm@kvack.org
-Subject: remove alloc_vm_area v3
-Date: Wed, 30 Sep 2020 19:51:23 +0200
-Message-Id: <20200930175133.1252382-1-hch@lst.de>
+Subject: [PATCH 01/10] mm: update the documentation for vfree
+Date: Wed, 30 Sep 2020 19:51:24 +0200
+Message-Id: <20200930175133.1252382-2-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200930175133.1252382-1-hch@lst.de>
+References: <20200930175133.1252382-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Andrew,
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-this series removes alloc_vm_area, which was left over from the big
-vmalloc interface rework.  It is a rather arkane interface, basicaly
-the equivalent of get_vm_area + actually faulting in all PTEs in
-the allocated area.  It was originally addeds for Xen (which isn't
-modular to start with), and then grew users in zsmalloc and i915
-which seems to mostly qualify as abuses of the interface, especially
-for i915 as a random driver should not set up PTE bits directly.
+ * Document that you can call vfree() on an address returned from vmap()
+ * Remove the note about the minimum size -- the minimum size of a vmalloc
+   allocation is one page
+ * Add a Context: section
+ * Fix capitalisation
+ * Reword the prohibition on calling from NMI context to avoid a double
+   negative
 
-A git tree is also available here:
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ mm/vmalloc.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-    git://git.infradead.org/users/hch/misc.git alloc_vm_area
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index be4724b916b3e7..8770260419af06 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -2321,20 +2321,21 @@ static void __vfree(const void *addr)
+ }
+ 
+ /**
+- * vfree - release memory allocated by vmalloc()
+- * @addr:  memory base address
++ * vfree - Release memory allocated by vmalloc()
++ * @addr:  Memory base address
+  *
+- * Free the virtually continuous memory area starting at @addr, as
+- * obtained from vmalloc(), vmalloc_32() or __vmalloc(). If @addr is
+- * NULL, no operation is performed.
++ * Free the virtually continuous memory area starting at @addr, as obtained
++ * from one of the vmalloc() family of APIs.  This will usually also free the
++ * physical memory underlying the virtual allocation, but that memory is
++ * reference counted, so it will not be freed until the last user goes away.
+  *
+- * Must not be called in NMI context (strictly speaking, only if we don't
+- * have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling
+- * conventions for vfree() arch-depenedent would be a really bad idea)
++ * If @addr is NULL, no operation is performed.
+  *
++ * Context:
+  * May sleep if called *not* from interrupt context.
+- *
+- * NOTE: assumes that the object at @addr has a size >= sizeof(llist_node)
++ * Must not be called in NMI context (strictly speaking, it could be
++ * if we have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling
++ * conventions for vfree() arch-depenedent would be a really bad idea).
+  */
+ void vfree(const void *addr)
+ {
+-- 
+2.28.0
 
-Gitweb:
-
-    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/alloc_vm_area
-
-Changes since v2:
- - add another missing i initialization
- - rebased to mainline instead of drm-tip again
-
-Changes since v1:
- - fix a bug in the zsmalloc changes
- - fix a bug and rebase to include the recent changes in i915
- - add a new vmap flag that allows to free the page array and pages
-   using vfree
- - add a vfree documentation updated from Matthew
-
-Diffstat:
- arch/x86/xen/grant-table.c                |   27 ++++--
- drivers/gpu/drm/i915/Kconfig              |    1 
- drivers/gpu/drm/i915/gem/i915_gem_pages.c |  131 +++++++++++++-----------------
- drivers/gpu/drm/i915/gt/shmem_utils.c     |   76 ++++-------------
- drivers/xen/xenbus/xenbus_client.c        |   30 +++---
- include/linux/vmalloc.h                   |    7 -
- mm/Kconfig                                |    3 
- mm/memory.c                               |   16 ++-
- mm/nommu.c                                |    7 -
- mm/vmalloc.c                              |  123 ++++++++++++++--------------
- mm/zsmalloc.c                             |   10 +-
- 11 files changed, 200 insertions(+), 231 deletions(-)
 
