@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D3F27F194
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 20:48:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.893.3097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4B2527F26C
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 21:15:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.903.3111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNh9G-00032N-2D; Wed, 30 Sep 2020 18:48:18 +0000
+	id 1kNhZ6-0005dK-8j; Wed, 30 Sep 2020 19:15:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 893.3097; Wed, 30 Sep 2020 18:48:18 +0000
+Received: by outflank-mailman (output) from mailman id 903.3111; Wed, 30 Sep 2020 19:15:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,197 +23,225 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNh9F-00031y-VE; Wed, 30 Sep 2020 18:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 893;
- Wed, 30 Sep 2020 18:48:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
- id 1kNh9E-00031t-Dv
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 18:48:16 +0000
-Received: from hqnvemgate26.nvidia.com (unknown [216.228.121.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8e248b30-6de4-48e0-b9e2-ef0ff5b03f6b;
- Wed, 30 Sep 2020 18:48:15 +0000 (UTC)
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f74d2e10003>; Wed, 30 Sep 2020 11:48:01 -0700
-Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
- 2020 18:48:01 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.172)
- by HQMAIL109.nvidia.com (172.20.187.15) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 18:48:01 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB4011.namprd12.prod.outlook.com (2603:10b6:5:1c5::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Wed, 30 Sep
- 2020 18:47:57 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
- 18:47:57 +0000
-Received: from mlx.ziepe.ca (156.34.48.30) by
- MN2PR08CA0012.namprd08.prod.outlook.com (2603:10b6:208:239::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22 via Frontend
- Transport; Wed, 30 Sep 2020 18:47:56 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kNh8t-004KlL-BA; Wed, 30 Sep 2020 15:47:55 -0300
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kNhZ6-0005cv-5K; Wed, 30 Sep 2020 19:15:00 +0000
+Received: by outflank-mailman (input) for mailman id 903;
+ Wed, 30 Sep 2020 19:14:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kNhZ5-0005cq-BS
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 19:14:59 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cc4327c1-a18a-4d6c-9ae5-44175286af9c;
+ Wed, 30 Sep 2020 19:14:57 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNhZ3-0001qO-Ac; Wed, 30 Sep 2020 19:14:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNhZ3-0000Cd-1H; Wed, 30 Sep 2020 19:14:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNhZ2-00044f-S5; Wed, 30 Sep 2020 19:14:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=77zz=DH=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
-	id 1kNh9E-00031t-Dv
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 18:48:16 +0000
-X-Inumbo-ID: 8e248b30-6de4-48e0-b9e2-ef0ff5b03f6b
-Received: from hqnvemgate26.nvidia.com (unknown [216.228.121.65])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 8e248b30-6de4-48e0-b9e2-ef0ff5b03f6b;
-	Wed, 30 Sep 2020 18:48:15 +0000 (UTC)
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
-	id <B5f74d2e10003>; Wed, 30 Sep 2020 11:48:01 -0700
-Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
- 2020 18:48:01 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.172)
- by HQMAIL109.nvidia.com (172.20.187.15) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 18:48:01 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JFKFJ522L2K3NKKekbd7Xexje1LwW+tdbebuZl2r8cmn2hWq30APxFjX5SFKD9LvsqJrheeWQKyg1zBOjEZDbCYiIiGPdtsbzxsLhFd7VSIY4ldqvZyyTW/YMTpoBpGSTyebMfuiPuXEwmwZYOLSTin6OQr0iBj47zmeAM3SAEstPOAYZbcC8Muu9gnOCGnHVeJSLq8ZVCSVM4vR/d6Y1p5c4HKShXi1FH4Lv4cpkLWkUEOvOsv4+9aaq3rsmsHFylgVTrUs8wptjCLtve8LLaXLAjg7l8SqkfJ4ACmkKWpGWABmG27mBQibW3dwZcorgP9a7M9MJsc/yeAJ4piY0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uH2xIbjwd+K0IVVyMbcHdCkr4lTYL7oK9z/oNdMIMes=;
- b=W3N7/kizjs87GIFQsjB60Jf8BNEvRteaJWRYja9byCr/DTKPeeqAZ3vlWKs/1CwcA7a8HGt8yedODr93NLaauN1EC/h9iVNJH3irsFMwhEHzzsTwHqvABmXQr3+xkH2IfHhujrNH9dmQ9T6QxQ4cYu13j6gxexvhq9VlYQ6SpNfFgShkgT99G1zMHtUUF4aMq0Mvt1H87tYyufhk/RTrJCNlYKptZzCkeMPetreYZgNtYvYvu96TbDulBQbEuDrbPIEBvAopfJYfQmHriDDEURLfQ9fbAOmK3u0kD0NfcmBh5NMJdolmWvzA26CI63tkzKNDfEfutoMUtSA+P8fZJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB4011.namprd12.prod.outlook.com (2603:10b6:5:1c5::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Wed, 30 Sep
- 2020 18:47:57 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
- 18:47:57 +0000
-Date: Wed, 30 Sep 2020 15:47:55 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Derrick, Jonathan" <jonathan.derrick@intel.com>
-CC: "tglx@linutronix.de" <tglx@linutronix.de>, "Williams, Dan J"
-	<dan.j.williams@intel.com>, "sivanich@hpe.com" <sivanich@hpe.com>,
-	"jgross@suse.com" <jgross@suse.com>, "haiyangz@microsoft.com"
-	<haiyangz@microsoft.com>, "Dey, Megha" <megha.dey@intel.com>,
-	"kys@microsoft.com" <kys@microsoft.com>, "Jiang, Dave"
-	<dave.jiang@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>, "Lu, Baolu" <baolu.lu@intel.com>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>, "rafael@kernel.org" <rafael@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"maz@kernel.org" <maz@kernel.org>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "konrad.wilk@oracle.com"
-	<konrad.wilk@oracle.com>, "alex.williamson@redhat.com"
-	<alex.williamson@redhat.com>, "steve.wahl@hpe.com" <steve.wahl@hpe.com>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "rja@hpe.com"
-	<rja@hpe.com>, "joro@8bytes.org" <joro@8bytes.org>, "Pan, Jacob jun"
-	<jacob.jun.pan@intel.com>, "sthemmin@microsoft.com" <sthemmin@microsoft.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"lorenzo.pieralisi@arm.com" <lorenzo.pieralisi@arm.com>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>
-Subject: Re: [patch V2 24/46] PCI: vmd: Mark VMD irqdomain with
- DOMAIN_BUS_VMD_MSI
-Message-ID: <20200930184755.GS816047@nvidia.com>
-References: <20200826111628.794979401@linutronix.de>
- <20200826112333.047315047@linutronix.de>
- <20200831143940.GA1152540@nvidia.com>
- <1d284a478d4e5bf4a247ee83afa1b8b45f9e1b3f.camel@intel.com>
- <20200930125733.GI816047@nvidia.com>
- <97a8605902a7ee9f17af471458d1fe3029f2ad20.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <97a8605902a7ee9f17af471458d1fe3029f2ad20.camel@intel.com>
-X-ClientProxiedBy: MN2PR08CA0012.namprd08.prod.outlook.com
- (2603:10b6:208:239::17) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+	(envelope-from <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kNhZ5-0005cq-BS
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 19:14:59 +0000
+X-Inumbo-ID: cc4327c1-a18a-4d6c-9ae5-44175286af9c
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id cc4327c1-a18a-4d6c-9ae5-44175286af9c;
+	Wed, 30 Sep 2020 19:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Wq/rpdeuJeXAusQwPiqbQPCFtyFqxMku9i4UcRMZTW0=; b=5x+FNM0HN99uOPtCF4kEDeVLkr
+	o5fQo4C2KUixh+zco5mAC1p9rGu9DIMFpKuH5rA7N5hWIvpIwBGPFF88t7dhSdZbHjKDTr4mftzTO
+	iZ0IN4lastHM7Pffpk9JNDKEVWXAClguFbCQH1qVKPRbu6iLLJdouxdpl2IYSzxow+RM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNhZ3-0001qO-Ac; Wed, 30 Sep 2020 19:14:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNhZ3-0000Cd-1H; Wed, 30 Sep 2020 19:14:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNhZ2-00044f-S5; Wed, 30 Sep 2020 19:14:56 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155144-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (156.34.48.30) by MN2PR08CA0012.namprd08.prod.outlook.com (2603:10b6:208:239::17) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22 via Frontend Transport; Wed, 30 Sep 2020 18:47:56 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from <jgg@nvidia.com>)	id 1kNh8t-004KlL-BA; Wed, 30 Sep 2020 15:47:55 -0300
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
-	t=1601491681; bh=uH2xIbjwd+K0IVVyMbcHdCkr4lTYL7oK9z/oNdMIMes=;
-	h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
-	 From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-LD-Processed;
-	b=sEwBpB9DmrQB8hhHEgDiIP/Bn8JrOqGZyYNm8LsIuR7+p0ECMKysso2IHcXdL9Ptd
-	 Fyn/UoGY1QBapTDBZYrwH3LzcKDtM6AyZAWN3nOuVBPMxiQPtstC9/S6ds56SPsC0a
-	 GTPgmXx/303x0wa7Mub4lYqE2Q7OqdRzGTV6HuTGR2SwQsshqZgvHM+je1ZzUXXRQ8
-	 ZsX7iC1CxqoQqndWkp96I65Af5pXK90SqRe8I/9hkxMJE6TVFRd48HyY2vps3bD70T
-	 BAhL1SGLRMlb/OzTfPsBBSBYAedtcm4TbKVV4nj12E7zh8DkswOMuF5U4S4pyweOLe
-	 DMMtWh5SVmR4w==
+Subject: [xen-unstable-smoke test] 155144: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=11852c7bb070a18c3708b4c001772a23e7d4fc27
+X-Osstest-Versions-That:
+    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 30 Sep 2020 19:14:56 +0000
 
-On Wed, Sep 30, 2020 at 01:08:27PM +0000, Derrick, Jonathan wrote:
-> +Megha
-> 
-> On Wed, 2020-09-30 at 09:57 -0300, Jason Gunthorpe wrote:
-> > On Wed, Sep 30, 2020 at 12:45:30PM +0000, Derrick, Jonathan wrote:
-> > > Hi Jason
-> > > 
-> > > On Mon, 2020-08-31 at 11:39 -0300, Jason Gunthorpe wrote:
-> > > > On Wed, Aug 26, 2020 at 01:16:52PM +0200, Thomas Gleixner wrote:
-> > > > > From: Thomas Gleixner <tglx@linutronix.de>
-> > > > > 
-> > > > > Devices on the VMD bus use their own MSI irq domain, but it is not
-> > > > > distinguishable from regular PCI/MSI irq domains. This is required
-> > > > > to exclude VMD devices from getting the irq domain pointer set by
-> > > > > interrupt remapping.
-> > > > > 
-> > > > > Override the default bus token.
-> > > > > 
-> > > > > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> > > > > Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> > > > >  drivers/pci/controller/vmd.c |    6 ++++++
-> > > > >  1 file changed, 6 insertions(+)
-> > > > > 
-> > > > > +++ b/drivers/pci/controller/vmd.c
-> > > > > @@ -579,6 +579,12 @@ static int vmd_enable_domain(struct vmd_
-> > > > >  		return -ENODEV;
-> > > > >  	}
-> > > > >  
-> > > > > +	/*
-> > > > > +	 * Override the irq domain bus token so the domain can be distinguished
-> > > > > +	 * from a regular PCI/MSI domain.
-> > > > > +	 */
-> > > > > +	irq_domain_update_bus_token(vmd->irq_domain, DOMAIN_BUS_VMD_MSI);
-> > > > > +
-> > > > 
-> > > > Having the non-transparent-bridge hold a MSI table and
-> > > > multiplex/de-multiplex IRQs looks like another good use case for
-> > > > something close to pci_subdevice_msi_create_irq_domain()?
-> > > > 
-> > > > If each device could have its own internal MSI-X table programmed
-> > > > properly things would work alot better. Disable capture/remap of the
-> > > > MSI range in the NTB.
-> > > We can disable the capture and remap in newer devices so we don't even
-> > > need the irq domain.
-> > 
-> > You'd still need an irq domain, it just comes from
-> > pci_subdevice_msi_create_irq_domain() instead of internal to this
-> > driver.
-> I have this set which disables remapping and bypasses the creation of
-> the IRQ domain:
-> https://patchwork.ozlabs.org/project/linux-pci/list/?series=192936
+flight 155144 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155144/
 
-After Thomas's series VMD needs to supply a hierarchical IRQ domain to
-get the correct PCI originator. This instead of the x86 patch in that
-series. I think that domain should be created by
-pci_subdevice_msi_create_irq_domain(), at least I'd start there.
+Regressions :-(
 
-Jason
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 155128
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  11852c7bb070a18c3708b4c001772a23e7d4fc27
+baseline version:
+ xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
+
+Last test of basis   155128  2020-09-30 08:01:25 Z    0 days
+Testing same since   155144  2020-09-30 16:01:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 11852c7bb070a18c3708b4c001772a23e7d4fc27
+Author: Juergen Gross <jgross@suse.com>
+Date:   Thu Sep 24 16:36:48 2020 +0200
+
+    tools/xenstore: set maximum number of grants needed
+    
+    When running as a stubdom Xenstore should set the maximum number of
+    grants needed via a call of xengnttab_set_max_grants(), as otherwise
+    the number of domains which can be supported will be 128 only (the
+    default number of grants supported by Mini-OS).
+    
+    We use one grant per domain so the theoretical maximum number is
+    DOMID_FIRST_RESERVED.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bfcc97c08c2258316d1cd92c23a441d97ad6ff4e
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 29 14:48:52 2020 +0100
+
+    tools/cpuid: Plumb nested_virt down into xc_cpuid_apply_policy()
+    
+    Nested Virt is the final special case in legacy CPUID handling.  Pass the
+    (poorly named) nested_hvm setting down into xc_cpuid_apply_policy() to break
+    the semantic dependency on HVM_PARAM_NESTEDHVM.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 50a5215f30e964a6f16165ab57925ca39f31a849
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Sep 24 20:08:43 2020 +0200
+
+    libxc/bitops: increase potential size of bitmaps
+    
+    If the bitmap is used to represent domU pages, the amount of memory is
+    limited to 8TB due to the 32bit value. Adjust the code to use 64bit
+    values as input. All callers already use some form of 64bit as input,
+    so no further adjustment is required.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 27de84d3ae462bd8311c8267c642ec95afdcf47c
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Wed Sep 23 12:03:23 2020 +0100
+
+    tools: Fix configure of upstream QEMU
+    
+    QEMU as recently switch its build system to use meson and the
+    ./configure step with meson is more restrictive that the step used to
+    be, most installation path wants to be within prefix, otherwise we
+    have this error message:
+    
+        ERROR: The value of the 'datadir' option is '/usr/share/qemu-xen' which must be a subdir of the prefix '/usr/lib/xen'.
+    
+    In order to workaround the limitation, we will set prefix to the same
+    one as for the rest of Xen installation, and set all the other paths.
+    
+    For reference, a thread in qemu-devel:
+        "configure with datadir outside of --prefix fails with meson"
+        https://lore.kernel.org/qemu-devel/20200918133012.GH2024@perard.uk.xensource.com/t/
+    
+    And an issue in meson:
+        "artificial limitation of directories (forced to be in prefix)"
+        https://github.com/mesonbuild/meson/issues/2561
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Tested-by: Paul Durrant <paul@xen.org>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 0d8d289af7a679c028462c4ed5d98586f9ef9648
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Wed Sep 23 08:48:40 2020 +0200
+
+    tools/libxc: report malloc errors in writev_exact
+    
+    The caller of writev_exact should be notified about malloc errors
+    when dealing with partial writes.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+(qemu changes not included)
 
