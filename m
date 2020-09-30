@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 220FA27E3F6
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 10:41:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.493.1580 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99F327E3FA
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 10:42:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.494.1592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNXgF-0005Qt-Ik; Wed, 30 Sep 2020 08:41:43 +0000
+	id 1kNXgh-0005Wa-Sg; Wed, 30 Sep 2020 08:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493.1580; Wed, 30 Sep 2020 08:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 494.1592; Wed, 30 Sep 2020 08:42:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,127 +23,174 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNXgF-0005QU-Fd; Wed, 30 Sep 2020 08:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 493;
- Wed, 30 Sep 2020 08:41:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kNXgD-0005QP-Pw
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 08:41:41 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f24b9c6f-2f57-4b51-b76c-593640b66fad;
- Wed, 30 Sep 2020 08:41:40 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85CE9B2E0;
- Wed, 30 Sep 2020 08:41:39 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNXgh-0005WB-PJ; Wed, 30 Sep 2020 08:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 494;
+ Wed, 30 Sep 2020 08:42:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6RvT=DH=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1kNXgg-0005W6-LQ
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 08:42:10 +0000
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c97df5f8-0541-4807-9039-815f7af0cb16;
+ Wed, 30 Sep 2020 08:42:09 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 776555C0098;
+ Wed, 30 Sep 2020 04:42:09 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Wed, 30 Sep 2020 04:42:09 -0400
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3471F328005A;
+ Wed, 30 Sep 2020 04:42:07 -0400 (EDT)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kNXgD-0005QP-Pw
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 08:41:41 +0000
-X-Inumbo-ID: f24b9c6f-2f57-4b51-b76c-593640b66fad
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f24b9c6f-2f57-4b51-b76c-593640b66fad;
-	Wed, 30 Sep 2020 08:41:40 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601455300;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K6RlJBpbGy9g+6rSsuOsBzSxm+CkzRz7lMr0onfEVqM=;
-	b=ZmrZVWxoI4ZC7qilB+a93R0Ya//hy6EnV9a4nv8vIUQxJPnzGgEWjgoM6Zuk/dMDDv7jLR
-	nk1o9uAO9N/NI3MIN0cCml5WqMX7z0IaqQSu6/NeSedbnL8+UrTH2vFS9Yf2NWmYbsgtLA
-	BWvINUPK6gopLTnfkm4zRK+o3QNL/Lo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 85CE9B2E0;
-	Wed, 30 Sep 2020 08:41:39 +0000 (UTC)
-Subject: Re: [PATCH 04/12] evtchn: evtchn_set_priority() needs to acquire the
- per-channel lock
-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <George.Dunlap@eu.citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Julien Grall' <julien@xen.org>,
- 'Wei Liu' <wl@xen.org>, 'Stefano Stabellini' <sstabellini@kernel.org>
-References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
- <5b1700a8-7900-9450-1c21-323bcde1fccc@suse.com>
- <004201d696fb$a5bd90b0$f138b210$@xen.org>
- <7b2c9760-63d4-ce3c-b47f-20827f2049fc@suse.com>
- <005f01d69704$c0c11130$42433390$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2d2eb462-bd0e-a467-19a9-2bf2d55adcd8@suse.com>
-Date: Wed, 30 Sep 2020 10:41:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	(envelope-from <SRS0=6RvT=DH=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+	id 1kNXgg-0005W6-LQ
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 08:42:10 +0000
+X-Inumbo-ID: c97df5f8-0541-4807-9039-815f7af0cb16
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id c97df5f8-0541-4807-9039-815f7af0cb16;
+	Wed, 30 Sep 2020 08:42:09 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+	by mailout.nyi.internal (Postfix) with ESMTP id 776555C0098;
+	Wed, 30 Sep 2020 04:42:09 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute7.internal (MEProxy); Wed, 30 Sep 2020 04:42:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=1uykCJ
+	l9z1trDjjDD6M4aj2o9DpKLTXxPN0mLPuzHPc=; b=b4Ai//IVL8ZvDwys3DJ7Sf
+	p7oNgNDRhYbUkVMG+p4wbPOpJBnbaAlZETfY728yAGegSlGy/T5/ILEqcG7XRrxC
+	ag46xTewvcWyY+cuULrvkG5GeFWPn/4YAotkWIzrpH+lWtxXGYdfJt72wD0O3B/x
+	rkVQpiOgZOROI0Kq0Xegq0r2sNp4bf8AUbyQlsB1q5HR3Po73KauLAnAy5L1oYz7
+	dJH/yqXCoUaINO0W3z+2kVmYmorPKwyC9dYcHUK/FY7v1l/K2D4jmnrG3a5ejVkf
+	pJ2Qe94m1sJTWT5XdOEohXWozqNaGI2itFyL+XUYFsTfokvicEEwqDAriogmWOOg
+	==
+X-ME-Sender: <xms:4ER0X704NxP3qs17sQnp02iQFjUPB-ndCxt0z7ps7ExL1YPV832uzw>
+    <xme:4ER0X6ESr0cv7uXyBvxT4OnwSF6fS3Gji2D7Unx6FGCo6XDsGBFmHm5a-DKC3HwxJ
+    mua99tOrLIxXQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfedvgddtvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkeegtdfg
+    vdeihefhhedtvdelieeiueetveehteffjeejjedvieejvefhueeffeegnecuffhomhgrih
+    hnpehgihhthhhusgdrtghomhenucfkphepledurdeigedrudejtddrkeelnecuvehluhhs
+    thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghkse
+    hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:4ER0X77sE5KlZrW4nYJAi1fjZRRT0I-r8nagITP3mN9CVnQlanl3CQ>
+    <xmx:4ER0Xw3tOWE8nEq1CiOl18gbW9D05lNXb73QXjl83NN4ebvSXnbm8Q>
+    <xmx:4ER0X-Fg43pkif_tJHur3HpBbXqGHLT7JbkOYw7ubyxDqe3bTC_GDQ>
+    <xmx:4UR0X6DsQTnsN2wlvUkpmnigJFU5rRlZTyp0RpOWXT18mbIsXuzfkQ>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 3471F328005A;
+	Wed, 30 Sep 2020 04:42:07 -0400 (EDT)
+Date: Wed, 30 Sep 2020 10:42:04 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Denis Efremov <efremov@linux.com>, Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Roman Shaposhnik <roman@zededa.com>,
+	Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: Kernel panic on 'floppy' module load, Xen HVM, since 4.19.143
+Message-ID: <20200930084204.GK3962@mail-itl>
+References: <20200927111405.GJ3962@mail-itl>
+ <26fe7920-d6a8-fb8a-b97c-59565410eff4@suse.com>
+ <20200928093654.GW1482@mail-itl>
+ <fc9c3b03-bb2c-f80d-0540-7456fc0821b2@linux.com>
+ <20200929124126.GD1482@mail-itl>
+ <5115e96f-f054-f720-b718-ceef1950f038@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <005f01d69704$c0c11130$42433390$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="AYsPlKobQGgtCvjI"
+Content-Disposition: inline
+In-Reply-To: <5115e96f-f054-f720-b718-ceef1950f038@suse.com>
 
-On 30.09.2020 10:36, Paul Durrant wrote:
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 30 September 2020 09:32
->>
->> On 30.09.2020 09:31, Paul Durrant wrote:
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 30 September 2020 07:42
->>>>
->>>> On 29.09.2020 18:31, Paul Durrant wrote:
->>>>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Jan Beulich
->>>>>> Sent: 28 September 2020 11:58
->>>>>>
->>>>>> evtchn_fifo_set_pending() (invoked with the per-channel lock held) has
->>>>>> two uses of the channel's priority field.
->>>>>
->>>>> AFAICT it is invoked with only the sending end's lock held...
->>>>>
->>>>>> The field gets updated by
->>>>>> evtchn_fifo_set_priority() with only the per-domain event_lock held,
->>>>>> i.e. the two reads may observe two different values. While the 2nd use
->>>>>> could - afaict - in principle be replaced by q->priority, I think
->>>>>> evtchn_set_priority() should acquire the per-channel lock in any event.
->>>>>>
->>>>>
->>>>> ... so how is this going to help?
->>>>
->>>> I guess the reasoning needs to change here - it should focus solely
->>>> on using the finer grained lock here (as holding the per-domain one
->>>> doesn't help anyway). It would then be patch 10 which addresses the
->>>> (FIFO-specific) concern of possibly reading inconsistent values.
->>>>
->>>
->>> Yes, it looks like patch #10 should ensure consistency.
->>>
->>> Prior to ad34d0656fc at least the first layer of calls done in evtchn_send() didn't take the evtchn
->> itself as an arg. Of course, evtchn_set_pending() then looked up the evtchn and passed it to
->> evtchn_port_set_pending() without any locking in the interdomain case. I wonder whether, to make
->> reasoning easier, there ought to be a rule that ABI entry points are always called with the evtchn
->> lock held?
->>
->> What do you mean by "ABI entry points" here? To me this would sound
->> like what's directly accessible to guests, but that's hardly what
->> you mean. Do you perhaps mean the hooks in struct evtchn_port_ops?
-> 
-> Yes, by ABI I mean 'fifo' or '2l'. (I guess that 'ABI' is just the name I chose to refer to them in the Windows PV driver code).
-> 
->> As per the comment that got added there recently, the locking
->> unfortunately is less consistent there.
->>
-> 
-> I looked to me that most functions were entered with channel lock
-> held so wondered whether it could be a rule.
 
-Well - especially for the sending paths it may be _a_ per-channel lock,
-not _the_ one. While putting together the XSA fixed I had looked some at
-the possibility of having a simple rule here, but acquiring _the_ lock
-on the interdomain sending path looked to be complicating this path
-quite a bit, when it specifically should be as lightweight as possible.
+--AYsPlKobQGgtCvjI
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: Kernel panic on 'floppy' module load, Xen HVM, since 4.19.143
 
-Jan
+On Tue, Sep 29, 2020 at 04:05:21PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> On 29.09.20 14:41, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Tue, Sep 29, 2020 at 03:27:43PM +0300, Denis Efremov wrote:
+> > > Hi,
+> > >=20
+> > > On 9/28/20 12:36 PM, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > On Mon, Sep 28, 2020 at 07:02:19AM +0200, J=C3=BCrgen Gro=C3=9F wro=
+te:
+> > > > > On 27.09.20 13:14, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > > > Hi all,
+> > > > > >=20
+> > > > > > I get kernel panic on 'floppy' module load. If I blacklist the =
+module,
+> > > > > > then everything works.
+> > > > > > The issue happens in Xen HVM, other virtualization modes (PV, P=
+VH) works
+> > > > > > fine. PV dom0 works too. I haven't tried bare metal, but I assu=
+me it
+> > > > > > works fine too.
+> > > > >=20
+> > > > > Could you please try bare metal?
+> > > >=20
+> > > > I don't have any hw with floppy controller at hand...
+> > > > Booting on what I have, it works, loading floppy just says -ENODEV.
+> > >=20
+> > > I saw that the issue was bisected [1] to commit
+> > > c330fb1ddc0a ("XEN uses irqdesc::irq_data_common::handler_data to sto=
+re a
+> > > per interrupt XEN data pointer which contains XEN specific informatio=
+n.")
+> > >=20
+> > > I have hardware, but I've never worked with Xen. It will take me some=
+ time
+> > > to set it up and reproduce the problem. I think I will do it in a wee=
+k.
+> >=20
+> > Can you try to boot 4.19.143 (or any other including that commit)
+> > directly on the hardware and make sure floppy module is loaded? We do
+> > know it's broken in Xen HVM, it would be interested to see if it works
+> > without Xen. Even better if you could use the same kernel config:
+> > https://gist.github.com/marmarek/1e6a359c9a99af3ed8fc16af0f36d8a6
+>=20
+> I think it is not directly related to floppy, but a more general problem
+> for HVM guests.
+>=20
+> I'm suspecting an issue with legacy IRQs. Could you please try the
+> attached patch?
+
+Yes, this fixes the issue.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--AYsPlKobQGgtCvjI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl90RNoACgkQ24/THMrX
+1yx1Mwf+Ne2cnDVvj9o4lWKYLjjUsC0hz+l5jhGK2mJ8O6BJWwftrLptR9iGBodN
+2IgQkSbd9zEhQIRL9Xj/SLerK2SzBFq4iNfzq60az1PilBumz/awss2Iuq7Kg2Y3
+4EMNimTdtqIvU9DmRuMCTwvJ7mvs0wbdPpZUftNkySlP3JWFRg4IE9SaMWXsnKPX
+bkWbVh8b6GctydFp/S/Dxt+e+PQwiBiO/beXY1dVowXIe6SpNurfnGn2oiJ3DNzi
+27T8rzhwc7W/8u+Lfd/M66/awbYmKWace7tB1Ay/0PXgiwR0VSoXrnm2c5m1mouB
+rrjBiTUGUwWXfr7Z2JBa7xURxR3Jpw==
+=J3VH
+-----END PGP SIGNATURE-----
+
+--AYsPlKobQGgtCvjI--
 
