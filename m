@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA34D27EAC6
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 16:19:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.756.2527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA62527EAD7
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 16:24:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762.2541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNcwi-00005n-2V; Wed, 30 Sep 2020 14:19:04 +0000
+	id 1kNd26-0000yT-Nw; Wed, 30 Sep 2020 14:24:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 756.2527; Wed, 30 Sep 2020 14:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 762.2541; Wed, 30 Sep 2020 14:24:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,118 +23,323 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNcwh-00005H-VL; Wed, 30 Sep 2020 14:19:03 +0000
-Received: by outflank-mailman (input) for mailman id 756;
- Wed, 30 Sep 2020 14:19:02 +0000
+	id 1kNd26-0000y4-Kw; Wed, 30 Sep 2020 14:24:38 +0000
+Received: by outflank-mailman (input) for mailman id 762;
+ Wed, 30 Sep 2020 14:24:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4L7U=DH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kNcwg-00005C-4W
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 14:19:02 +0000
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kNd24-0000xz-VE
+ for xen-devel@lists.xen.org; Wed, 30 Sep 2020 14:24:37 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 596c0b25-d3fb-4c1c-bc4a-45aa48cffdc9;
- Wed, 30 Sep 2020 14:19:01 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08UEDpjk177333;
- Wed, 30 Sep 2020 14:18:34 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2130.oracle.com with ESMTP id 33su5b0u9w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 30 Sep 2020 14:18:34 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08UEBmxA154080;
- Wed, 30 Sep 2020 14:16:33 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 33tfjyrgn4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 30 Sep 2020 14:16:33 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08UEGVjd022466;
- Wed, 30 Sep 2020 14:16:31 GMT
-Received: from [10.74.86.12] (/10.74.86.12)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 30 Sep 2020 07:16:31 -0700
+ id d82a2ace-576f-4eb0-8e3d-bbf07ddc8125;
+ Wed, 30 Sep 2020 14:24:35 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 92BC4ABAD;
+ Wed, 30 Sep 2020 14:24:34 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=4L7U=DH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
-	id 1kNcwg-00005C-4W
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 14:19:02 +0000
-X-Inumbo-ID: 596c0b25-d3fb-4c1c-bc4a-45aa48cffdc9
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
+	(envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kNd24-0000xz-VE
+	for xen-devel@lists.xen.org; Wed, 30 Sep 2020 14:24:37 +0000
+X-Inumbo-ID: d82a2ace-576f-4eb0-8e3d-bbf07ddc8125
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 596c0b25-d3fb-4c1c-bc4a-45aa48cffdc9;
-	Wed, 30 Sep 2020 14:19:01 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
-	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08UEDpjk177333;
-	Wed, 30 Sep 2020 14:18:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=ROhrJSPt27ZuEf95a2/EWS5TPJ/S9xyQX7t7cMBghDg=;
- b=FyALsHaDyOG3H3WgXjKFDnkkj7UomwH9gxYTGoso4+41uWXSicDu093xKTKTeZwsWxag
- +AQngnKm0idSDLtvbiIQu7LQX8bNsWyJ6WskdTW7cPZYCb6wm7KeO9r5KBQ3eAUZBEsx
- QcocQHSvEPoyW5huQbhet6UioV+1ambNvKT4+yVSicKYcfk3aAofqdKQgcdAqQwKh3AX
- PI2rT2pBpFhSrqx2QO/HRmCpvQlhRQLcATlT6h2373P7ucfXuBUVKjKKYJ9Can7sZRm0
- eqtsN/b7joglVyFdwOzpczgWxX+hW3mmUAs4pnL8+1wpis4e1QDO0fWoq9sJhKsjG4IN cQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by aserp2130.oracle.com with ESMTP id 33su5b0u9w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 30 Sep 2020 14:18:34 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08UEBmxA154080;
-	Wed, 30 Sep 2020 14:16:33 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3030.oracle.com with ESMTP id 33tfjyrgn4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 30 Sep 2020 14:16:33 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08UEGVjd022466;
-	Wed, 30 Sep 2020 14:16:31 GMT
-Received: from [10.74.86.12] (/10.74.86.12)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Wed, 30 Sep 2020 07:16:31 -0700
-Subject: Re: [PATCH] arch/x86: fix some typos in xen_pagetable_p2m_free()
-To: Hui Su <sh_def@163.com>, jgross@suse.com, sstabellini@kernel.org,
-        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
-        hpa@zytor.com, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org
-References: <20200927172836.GA7423@rlk>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <c38469e1-11c2-601b-efe2-9de176ed95dc@oracle.com>
-Date: Wed, 30 Sep 2020 10:16:28 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.1
+	id d82a2ace-576f-4eb0-8e3d-bbf07ddc8125;
+	Wed, 30 Sep 2020 14:24:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601475874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NdvDZ/8EHzE555s2hS/caQIWcEDRZquVjIg1gnPcRcI=;
+	b=UHIAAibdqEzrNeX99Adpiq0sLWldK5wDknbxjdufrTrbQezriI/CQxvrfey0QiIynGMX2A
+	hvAB4AN0jhdT+eVPblEou7B4QkzTZyM42MQid+3g/4o6xIyPUuAMRffqkrqHB3BioOcymJ
+	ObV3ERTmOUoJgai7AwASsd3naTakg/8=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 92BC4ABAD;
+	Wed, 30 Sep 2020 14:24:34 +0000 (UTC)
+Subject: Re: [XEN PATCH v14 2/8] xen: Add support for VMware cpuid leaves
+To: Don Slutz <don.slutz@gmail.com>
+Cc: xen-devel@lists.xen.org,
+ Aravind Gopalakrishnan <Aravind.Gopalakrishnan@amd.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Ian Jackson <iwj@xenproject.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>
+References: <cover.1597854907.git.don.slutz@gmail.com>
+ <67b90d11eae2c88faab22d458e7e38db0f5aada4.1597854907.git.don.slutz@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <92061c7f-5d85-839b-0e03-0495a942d004@suse.com>
+Date: Wed, 30 Sep 2020 16:24:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200927172836.GA7423@rlk>
+In-Reply-To: <67b90d11eae2c88faab22d458e7e38db0f5aada4.1597854907.git.don.slutz@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9759 signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 spamscore=0 mlxscore=0
- phishscore=0 adultscore=0 bulkscore=0 mlxlogscore=999 suspectscore=2
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009300113
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9759 signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 suspectscore=2
- lowpriorityscore=0 spamscore=0 clxscore=1011 mlxscore=0 impostorscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009300113
+Content-Transfer-Encoding: 7bit
 
+On 19.08.2020 18:51, Don Slutz wrote:
+> Since I need to change xen/arch/x86/hvm/Makefile; also add
+> a newline at end of file.
 
-On 9/27/20 1:28 PM, Hui Su wrote:
-> arch/x86: fix some typos in xen_pagetable_p2m_free():
-> s/Fortunatly/Fortunately
->
-> Signed-off-by: Hui Su <sh_def@163.com>
+Should this have been removed?
 
+Also please update / trim your Cc list. I've dropped / replaced a
+number of entries which I'm sure would have bounced.
 
-Applied to for-linus-5.10 (after rewording slightly the commit message)
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -597,6 +597,11 @@ int arch_domain_create(struct domain *d,
+>      }
+>      d->arch.emulation_flags = emflags;
+>  
+> +    if ( is_hvm_domain(d) )
+> +    {
+> +        d->arch.hvm.vmware_hwver = config->arch.vmware_hwver;
+> +    }
 
+As per the description it's not like any value is okay. Shouldn't
+you refuse bad values in arch_sanitise_domain_config()?
 
+Also please drop the unnecessary braces.
 
--boris
+> --- a/xen/arch/x86/hvm/Makefile
+> +++ b/xen/arch/x86/hvm/Makefile
+> @@ -1,6 +1,7 @@
+>  obj-y += svm/
+>  obj-y += vmx/
+>  obj-y += viridian/
+> +obj-y += vmware/
 
+Generally we try to sort such lists alphabetically. I realize a
+mistake was already made when Viridian gained its own subdir, but
+please don't widen the issue.
+
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -68,6 +68,7 @@
+>  #include <asm/hvm/viridian.h>
+>  #include <asm/hvm/vm_event.h>
+>  #include <asm/altp2m.h>
+> +#include <asm/hvm/vmware.h>
+
+Like above, please try to honor (partial) sorting in #include-s
+as well.
+
+> @@ -4109,6 +4110,13 @@ static int hvm_allow_set_param(struct domain *d,
+>      {
+>      /* The following parameters should only be changed once. */
+>      case HVM_PARAM_VIRIDIAN:
+> +        /* Disallow if vmware_hwver is in use */
+> +        if ( d->arch.hvm.vmware_hwver )
+> +        {
+> +            rc = -EOPNOTSUPP;
+> +            break;
+> +        }
+> +        /* Fall through */
+
+Afaic the comment is too redundant with the code. If at least it
+wouldn't name the field name, but say e.g. "VMware emulation",
+things would already be better. Using something like "can't
+coexist" instead of "disallow" may further improve usefulness.
+
+> --- /dev/null
+> +++ b/xen/arch/x86/hvm/vmware/vmware.c
+> @@ -0,0 +1,82 @@
+> +/*
+> + * arch/x86/hvm/vmware/cpuid.c
+> + *
+> + * Copyright (C) 2012-2015 Verizon Corporation
+> + *
+> + * This file is free software; you can redistribute it and/or modify it
+> + * under the terms of the GNU General Public License Version 2 (GPLv2)
+> + * as published by the Free Software Foundation.
+> + *
+> + * This file is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + * General Public License for more details. <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/sched.h>
+> +#include <xen/version.h>
+> +#include <xen/hypercall.h>
+> +#include <xen/domain_page.h>
+> +#include <xen/param.h>
+> +#include <asm/guest_access.h>
+> +#include <asm/guest/hyperv-tlfs.h>
+> +#include <asm/paging.h>
+> +#include <asm/p2m.h>
+> +#include <asm/apic.h>
+> +#include <asm/hvm/support.h>
+> +#include <public/sched.h>
+> +#include <public/hvm/hvm_op.h>
+
+Please sort each sub-section alphabetically, and please remove
+ones you don't really need - the list looks surprisingly long for
+just CPUID handling.
+
+> +/*
+> + * VMware hardware version 7 defines some of these cpuid levels,
+> + * below is a brief description about those.
+> + *
+> + *     Leaf 0x40000000, Hypervisor CPUID information
+> + * # EAX: The maximum input value for hypervisor CPUID info (0x40000010).
+> + * # EBX, ECX, EDX: Hypervisor vendor ID signature. E.g. "VMwareVMware"
+> + *
+> + *     Leaf 0x40000010, Timing information.
+> + * # EAX: (Virtual) TSC frequency in kHz.
+> + * # EBX: (Virtual) Bus (local apic timer) frequency in kHz.
+> + * # ECX, EDX: RESERVED
+> + */
+> +
+> +void cpuid_vmware_leaves(const struct vcpu *v, uint32_t leaf,
+> +                         uint32_t subleaf, struct cpuid_leaf *res)
+> +{
+> +    struct domain *d = current->domain;
+
+Surely v->domain, and please add const.
+
+> +    ASSERT(has_vmware_cpuid(d));
+> +    ASSERT(leaf >= 0x40000000 && leaf < 0x40000100);
+
+What earlier check guarantees this?
+
+> +    leaf -= 0x40000000;
+> +
+> +    switch ( leaf )
+> +    {
+> +    case 0x0:
+> +        res->a = 0x40000010; /* Maximum leaf */
+> +        memcpy(&res->b, "VMwa", 4);
+> +        memcpy(&res->c, "reVM", 4);
+> +        memcpy(&res->d, "ware", 4);
+> +        break;
+> +
+> +    case 0x10:
+> +        /* (Virtual) TSC frequency in kHz. */
+> +        res->a = d->arch.tsc_khz;
+> +        /* (Virtual) Bus (local apic timer) frequency in kHz. */
+> +        res->b = 1000000ull / APIC_BUS_CYCLE_NS;
+> +        res->c = 0;          /* Reserved */
+> +        res->d = 0;          /* Reserved */
+> +        break;
+> +    }
+
+No further dependency on the selected version?
+
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -885,8 +885,11 @@ static void do_trap(struct cpu_user_regs *regs)
+>  int guest_rdmsr_xen(const struct vcpu *v, uint32_t idx, uint64_t *val)
+>  {
+>      const struct domain *d = v->domain;
+> -    /* Optionally shift out of the way of Viridian architectural MSRs. */
+> -    uint32_t base = is_viridian_domain(d) ? 0x40000200 : 0x40000000;
+> +    /*
+> +     * Optionally shift out of the way of Viridian or VMware
+> +     * architectural leaves.
+> +     */
+> +    uint32_t base = is_viridian_or_vmware_cpuid(d) ? 0x40000200 : 0x40000000;
+>  
+>      switch ( idx - base )
+>      {
+> @@ -901,8 +904,11 @@ int guest_rdmsr_xen(const struct vcpu *v, uint32_t idx, uint64_t *val)
+>  int guest_wrmsr_xen(struct vcpu *v, uint32_t idx, uint64_t val)
+>  {
+>      struct domain *d = v->domain;
+> -    /* Optionally shift out of the way of Viridian architectural MSRs. */
+> -    uint32_t base = is_viridian_domain(d) ? 0x40000200 : 0x40000000;
+> +    /*
+> +     * Optionally shift out of the way of Viridian or VMware
+> +     * architectural leaves.
+> +     */
+> +    uint32_t base = is_viridian_or_vmware_cpuid(d) ? 0x40000200 : 0x40000000;
+>  
+>      switch ( idx - base )
+>      {
+
+How do these (MSR related) changes correspond to the subject of this
+change? (Mentioning why they're needed in the description would help.)
+
+Also your choice of name (is_viridian_or_vmware_cpuid()) wouldn't scale
+if there were one or more further hypervisor emulations added. I don't
+have a good suggestion for a name right away, but one should be found.
+
+> --- a/xen/include/asm-x86/hvm/hvm.h
+> +++ b/xen/include/asm-x86/hvm/hvm.h
+> @@ -474,6 +474,18 @@ static inline bool hvm_get_guest_bndcfgs(struct vcpu *v, u64 *val)
+>  #define has_viridian_synic(d) \
+>      (is_viridian_domain(d) && (viridian_feature_mask(d) & HVMPV_synic))
+>  
+> +#define vmware_feature_mask(d) \
+> +    ((d)->arch.hvm.vmware_hwver)
+
+Why "mask"? This is simply a numeric value, isn't it? Also why do
+this and ...
+
+> +#define is_vmware_domain(d) \
+> +    (is_hvm_domain(d) && vmware_feature_mask(d))
+> +
+> +#define has_vmware_cpuid(d) \
+> +    (is_hvm_domain(d) && (vmware_feature_mask(d) >= 7))
+
+... these not live in the new vmware.h?
+
+> --- /dev/null
+> +++ b/xen/include/asm-x86/hvm/vmware.h
+> @@ -0,0 +1,33 @@
+> +/*
+> + * asm-x86/hvm/vmware.h
+> + *
+> + * Copyright (C) 2012-2015 Verizon Corporation
+> + *
+> + * This file is free software; you can redistribute it and/or modify it
+> + * under the terms of the GNU General Public License Version 2 (GPLv2)
+> + * as published by the Free Software Foundation.
+> + *
+> + * This file is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + * General Public License for more details. <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#ifndef ASM_X86_HVM_VMWARE_H__
+> +#define ASM_X86_HVM_VMWARE_H__
+> +
+> +#include <xen/types.h>
+> +
+> +void cpuid_vmware_leaves(const struct vcpu *v, uint32_t leaf,
+> +                         uint32_t subleaf, struct cpuid_leaf *res);
+
+At the example of this, as per ./CODING_STYLE please avoid the use
+of uint<N>_t when more basic types (unsigned int here) are fine to
+use. With that you won't need xen/types.h anymore. You'll want to
+forward-declare the two struct-s the prototype uses in any event,
+though.
+
+> --- a/xen/include/public/arch-x86/xen.h
+> +++ b/xen/include/public/arch-x86/xen.h
+> @@ -304,6 +304,7 @@ struct xen_arch_domainconfig {
+>                                       XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
+>                                       XEN_X86_EMU_VPCI)
+>      uint32_t emulation_flags;
+> +    uint32_t vmware_hwver;
+>  };
+
+As per the comment above this struct XEN_DOMCTL_INTERFACE_VERSION
+would need bumping with such an addition, unless it already has
+been in the current release cycle.
+
+Also - is VMware really x86-only?
+
+Jan
 
