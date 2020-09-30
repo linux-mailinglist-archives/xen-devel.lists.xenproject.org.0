@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0BD227E6E1
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 12:41:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553.1918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7665927E6E2
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 12:42:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554.1931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZYU-0001Uf-S3; Wed, 30 Sep 2020 10:41:50 +0000
+	id 1kNZYZ-0001c1-CE; Wed, 30 Sep 2020 10:41:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553.1918; Wed, 30 Sep 2020 10:41:50 +0000
+Received: by outflank-mailman (output) from mailman id 554.1931; Wed, 30 Sep 2020 10:41:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,58 +23,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZYU-0001Tn-Le; Wed, 30 Sep 2020 10:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 553;
- Wed, 30 Sep 2020 10:41:48 +0000
+	id 1kNZYZ-0001ai-3l; Wed, 30 Sep 2020 10:41:55 +0000
+Received: by outflank-mailman (input) for mailman id 554;
+ Wed, 30 Sep 2020 10:41:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kNZYS-0000jt-G2
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:48 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1kNZYX-0000jt-GJ
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:53 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ce739a4e-8819-4411-a58e-cff60caf160b;
- Wed, 30 Sep 2020 10:41:35 +0000 (UTC)
+ id 92d92120-ad95-43a9-8df3-5bdbda8f0752;
+ Wed, 30 Sep 2020 10:41:37 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kNZYS-0000jt-G2
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:48 +0000
-X-Inumbo-ID: ce739a4e-8819-4411-a58e-cff60caf160b
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	id 1kNZYX-0000jt-GJ
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:53 +0000
+X-Inumbo-ID: 92d92120-ad95-43a9-8df3-5bdbda8f0752
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id ce739a4e-8819-4411-a58e-cff60caf160b;
-	Wed, 30 Sep 2020 10:41:35 +0000 (UTC)
+	id 92d92120-ad95-43a9-8df3-5bdbda8f0752;
+	Wed, 30 Sep 2020 10:41:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601462495;
+  d=citrix.com; s=securemail; t=1601462497;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=u0qlvgEoh18Z1ueoenyGkoQGiMXqtDDyv8+pdlc35lA=;
-  b=QIjKsRqJGscvnj44aQ0PV2quTtavIxDW/bQP8+ivBuN9OZcXlaskGCH1
-   s7BdGPFisUVmMOoTr/mzBD5SL0XfY5C+cLgcstFjkMsLjF8UEvQHPYI/Y
-   mGvATAeMBG05NvkbZiXgIGpn/X6Y0ReyhOCqhGfeui0CqecLdl+FUnIWt
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: j6atUa/G02FS5MgB9bqwixp2tW7+OKIdlsMD1t2B2gfoB3F0E8D0P0Nqxq8nFut5lA0vJnDCTG
- gRs47h4l0JBPeS2L0UdCA23qsMNnhhHJ25MwKKBMHewJs2jMlK4o76jcfxzVKCEXbqqO++ERD/
- 5k7X78sK1fZmgfDuSBJoDX1GcQyz5Vj40sFg5DLot5BGx4yVjUHIxalPeYb4JWgAs5RJZ9aYfE
- xX/Lf8NpvnB6Z4tEnpCLM+hmBLjVLMjmv4Uoz7KkTrQuFqUYHDf/RGXFiezGNwlLgjEoxZ6Ruf
- PnU=
+  bh=YvWR66vXENt4dXadQOccItvi0fqHZ4YQsWtAm6/3iIg=;
+  b=KZQw4UrBQmTYOJoKjb4ukHNyGvLoDqxfsQogIRf1ZIGR7zQLBjLTyh9s
+   g6MWg+mSeeehUjyq1RszWRDAvzKbWz2jDPRoAxF24fNuY0YnjZctAzpnU
+   PG/gVfXDE4YEDFsMixzKxjXUea8hWWd/pmJpYNu7Lq2/7U40wPT96/b/s
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: w3aRJGMM9yGW2qZvpt0FrU58tBPV9LHmi9f125yKBzdiS+pnF7e44ulXUWi7TGfdxUKzKSlCA+
+ uWPLFIu2rtT3OyxqHgEtlmLO15ahH9czwqhMY6CytIj6ZYeVVkRbPB2QCxG2E86/aQSHm1iqmw
+ ZKc05mHX28Jfa71VcEHfkyRA5K/CLSk9pKeDHZROtRZTeuzHaFtL1X5tOxDPRJzzSraNJhsQbn
+ 1t66EFleVZA516O9PaeeRnPYwGHLqLKSdSMz+fgxD/uT8yAhDgBElIxSf41NJEsMNE+bTpqgXI
+ 1xg=
 X-SBRS: None
-X-MesageID: 28041988
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 28223127
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
-   d="scan'208";a="28041988"
+   d="scan'208";a="28223127"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 10/11] x86/vpt: remove vPT timers per-vCPU lists
-Date: Wed, 30 Sep 2020 12:41:07 +0200
-Message-ID: <20200930104108.35969-11-roger.pau@citrix.com>
+Subject: [PATCH v2 11/11] x86/vpt: introduce a per-vPT lock
+Date: Wed, 30 Sep 2020 12:41:08 +0200
+Message-ID: <20200930104108.35969-12-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930104108.35969-1-roger.pau@citrix.com>
 References: <20200930104108.35969-1-roger.pau@citrix.com>
@@ -82,417 +82,278 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-No longer add vPT timers to lists on specific vCPUs, since there's no
-need anymore to check if timer interrupts have been injected on return
-to HVM guest.
+Introduce a per virtual timer lock that replaces the existing per-vCPU
+and per-domain vPT locks. Since virtual timers are no longer assigned
+or migrated between vCPUs the locking can be simplified to a
+in-structure spinlock that protects all the fields.
 
-Such change allows to get rid of virtual timers vCPU migration, and
-also cleanup some of the virtual timers fields that are no longer
-required.
-
-The model is also slightly different now in that timers are not
-stopped when a vCPU is de-scheduled. Such timers will continue
-running, and when triggered the function will try to inject the
-corresponding interrupt to the guest (which might be different than
-the currently running one). Note that the timer triggering when the
-guest is no longer running can only happen once, as the timer callback
-will not reset the interrupt to fire again. Such resetting if required
-will be done by the EOI callback.
-
-Since virtual timers are no longer added to per-VCPU lists when active
-a new 'masked' field is added to the structure, to signal whether a
-timer has it's interrupt source currently masked.
+This requires introducing a helper to initialize the spinlock, and
+that could be used to initialize other virtual timer fields in the
+future.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - New in this version.
+ - New in his version.
 ---
- xen/arch/x86/domain.c          |   2 +-
- xen/arch/x86/hvm/hvm.c         |   2 -
- xen/arch/x86/hvm/vlapic.c      |   1 -
- xen/arch/x86/hvm/vpt.c         | 153 ++++-----------------------------
- xen/include/asm-x86/hvm/vcpu.h |   3 +-
- xen/include/asm-x86/hvm/vpt.h  |   9 +-
- 6 files changed, 23 insertions(+), 147 deletions(-)
+ xen/arch/x86/emul-i8254.c     |  1 +
+ xen/arch/x86/hvm/hpet.c       |  8 +++++-
+ xen/arch/x86/hvm/hvm.c        |  2 --
+ xen/arch/x86/hvm/rtc.c        |  1 +
+ xen/arch/x86/hvm/vlapic.c     |  1 +
+ xen/arch/x86/hvm/vpt.c        | 48 +++++++++++++++--------------------
+ xen/include/asm-x86/hvm/vpt.h |  9 ++-----
+ 7 files changed, 33 insertions(+), 37 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index e8e91cf080..f373431105 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1964,7 +1964,7 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
-     vpmu_switch_from(prev);
-     np2m_schedule(NP2M_SCHEDLE_OUT);
+diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
+index 73be4188ad..a47138cbab 100644
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -484,6 +484,7 @@ void pit_init(struct domain *d, unsigned long cpu_khz)
+     {
+         register_portio_handler(d, PIT_BASE, 4, handle_pit_io);
+         register_portio_handler(d, 0x61, 1, handle_speaker_io);
++        init_periodic_timer(&pit->pt0);
+     }
  
--    if ( is_hvm_domain(prevd) && !list_empty(&prev->arch.hvm.tm_list) )
-+    if ( is_hvm_domain(prevd) )
-         pt_save_timer(prev);
+     pit_reset(d);
+diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+index ca94e8b453..20593c3862 100644
+--- a/xen/arch/x86/hvm/hpet.c
++++ b/xen/arch/x86/hvm/hpet.c
+@@ -739,12 +739,18 @@ static void hpet_set(HPETState *h)
  
-     local_irq_disable();
+ void hpet_init(struct domain *d)
+ {
++    HPETState *h = domain_vhpet(d);
++    unsigned int i;
++
+     if ( !has_vhpet(d) )
+         return;
+ 
+-    hpet_set(domain_vhpet(d));
++    hpet_set(h);
+     register_mmio_handler(d, &hpet_mmio_ops);
+     d->arch.hvm.params[HVM_PARAM_HPET_ENABLED] = 1;
++
++    for ( i = 0; i < HPET_TIMER_NUM; i++ )
++        init_periodic_timer(&h->pt[i]);
+ }
+ 
+ void hpet_deinit(struct domain *d)
 diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 9636ac6bf1..5a0448aa13 100644
+index 5a0448aa13..7cb4511b60 100644
 --- a/xen/arch/x86/hvm/hvm.c
 +++ b/xen/arch/x86/hvm/hvm.c
-@@ -489,7 +489,6 @@ void hvm_set_info_guest(struct vcpu *v)
- void hvm_migrate_timers(struct vcpu *v)
- {
-     rtc_migrate_timers(v);
--    pt_migrate(v);
- }
+@@ -665,8 +665,6 @@ int hvm_domain_initialise(struct domain *d)
+     /* need link to containing domain */
+     d->arch.hvm.pl_time->domain = d;
  
- void hvm_migrate_pirq(struct hvm_pirq_dpci *pirq_dpci, const struct vcpu *v)
-@@ -1558,7 +1557,6 @@ int hvm_vcpu_initialise(struct vcpu *v)
-     hvm_asid_flush_vcpu(v);
+-    rwlock_init(&d->arch.hvm.pl_time->pt_migrate);
+-
+     /* Set the default IO Bitmap. */
+     if ( is_hardware_domain(d) )
+     {
+diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
+index 3150f5f147..2d540b16ac 100644
+--- a/xen/arch/x86/hvm/rtc.c
++++ b/xen/arch/x86/hvm/rtc.c
+@@ -846,6 +846,7 @@ void rtc_init(struct domain *d)
+     init_timer(&s->update_timer, rtc_update_timer, s, smp_processor_id());
+     init_timer(&s->update_timer2, rtc_update_timer2, s, smp_processor_id());
+     init_timer(&s->alarm_timer, rtc_alarm_cb, s, smp_processor_id());
++    init_periodic_timer(&s->pt);
  
-     spin_lock_init(&v->arch.hvm.tm_lock);
--    INIT_LIST_HEAD(&v->arch.hvm.tm_list);
+     register_portio_handler(d, RTC_PORT(0), 2, handle_rtc_io);
  
-     rc = hvm_vcpu_cacheattr_init(v); /* teardown: vcpu_cacheattr_destroy */
-     if ( rc != 0 )
 diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 35f12e0909..9afcb239af 100644
+index 9afcb239af..fa40fca6c9 100644
 --- a/xen/arch/x86/hvm/vlapic.c
 +++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1330,7 +1330,6 @@ void vlapic_adjust_i8259_target(struct domain *d)
-     if ( d->arch.hvm.i8259_target == v )
-         return;
-     d->arch.hvm.i8259_target = v;
--    pt_adjust_global_vcpu_target(v);
- }
+@@ -1642,6 +1642,7 @@ int vlapic_init(struct vcpu *v)
+         return 0;
+     }
  
- int vlapic_has_pending_irq(struct vcpu *v)
++    init_periodic_timer(&vlapic->pt);
+     vlapic->pt.source = PTSRC_lapic;
+ 
+     if (vlapic->regs_page == NULL)
 diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 787931d7bb..76ace8da80 100644
+index 76ace8da80..47bd3285e1 100644
 --- a/xen/arch/x86/hvm/vpt.c
 +++ b/xen/arch/x86/hvm/vpt.c
-@@ -126,18 +126,6 @@ static int pt_irq_masked(struct periodic_time *pt)
+@@ -126,23 +126,6 @@ static int pt_irq_masked(struct periodic_time *pt)
      return 1;
  }
  
--static void pt_vcpu_lock(struct vcpu *v)
+-static void pt_lock(struct periodic_time *pt)
 -{
--    read_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
--    spin_lock(&v->arch.hvm.tm_lock);
+-    /*
+-     * We cannot use pt_vcpu_lock here, because we need to acquire the
+-     * per-domain lock first and then (re-)fetch the value of pt->vcpu, or
+-     * else we might be using a stale value of pt->vcpu.
+-     */
+-    read_lock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
+-    spin_lock(&pt->vcpu->arch.hvm.tm_lock);
 -}
 -
--static void pt_vcpu_unlock(struct vcpu *v)
+-static void pt_unlock(struct periodic_time *pt)
 -{
--    spin_unlock(&v->arch.hvm.tm_lock);
--    read_unlock(&v->domain->arch.hvm.pl_time->pt_migrate);
+-    spin_unlock(&pt->vcpu->arch.hvm.tm_lock);
+-    read_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
 -}
 -
- static void pt_lock(struct periodic_time *pt)
- {
-     /*
-@@ -151,7 +139,8 @@ static void pt_lock(struct periodic_time *pt)
- 
- static void pt_unlock(struct periodic_time *pt)
- {
--    pt_vcpu_unlock(pt->vcpu);
-+    spin_unlock(&pt->vcpu->arch.hvm.tm_lock);
-+    read_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
- }
- 
  static void pt_process_missed_ticks(struct periodic_time *pt)
-@@ -166,9 +155,7 @@ static void pt_process_missed_ticks(struct periodic_time *pt)
-         return;
- 
-     missed_ticks = missed_ticks / (s_time_t) pt->period + 1;
--    if ( mode_is(pt->vcpu->domain, no_missed_ticks_pending) )
--        pt->do_not_freeze = !pt->pending_intr_nr;
--    else
-+    if ( !mode_is(pt->vcpu->domain, no_missed_ticks_pending) )
-         pt->pending_intr_nr += missed_ticks;
-     pt->scheduled += missed_ticks * pt->period;
- }
-@@ -195,50 +182,20 @@ static void pt_thaw_time(struct vcpu *v)
- 
- void pt_save_timer(struct vcpu *v)
  {
--    struct list_head *head = &v->arch.hvm.tm_list;
--    struct periodic_time *pt;
--
--    if ( v->pause_flags & VPF_blocked )
--        return;
--
--    pt_vcpu_lock(v);
--
--    list_for_each_entry ( pt, head, list )
--        if ( !pt->do_not_freeze )
--            stop_timer(&pt->timer);
+     s_time_t missed_ticks, now = NOW();
+@@ -224,7 +207,7 @@ static void pt_timer_fn(void *data)
+     void *cb_priv;
+     unsigned int irq;
  
-     pt_freeze_time(v);
--
--    pt_vcpu_unlock(v);
- }
+-    pt_lock(pt);
++    spin_lock(&pt->lock);
  
- void pt_restore_timer(struct vcpu *v)
- {
--    struct list_head *head = &v->arch.hvm.tm_list;
--    struct periodic_time *pt;
--
--    pt_vcpu_lock(v);
--
--    list_for_each_entry ( pt, head, list )
--        if ( pt->pending_intr_nr == 0 )
--            set_timer(&pt->timer, pt->scheduled);
--
-     pt_thaw_time(v);
--
--    pt_vcpu_unlock(v);
- }
- 
- static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
- {
--    pt->irq_issued = false;
--
-     if ( pt->one_shot )
-     {
--        if ( pt->on_list )
--            list_del(&pt->list);
--        pt->on_list = false;
-         pt->pending_intr_nr = 0;
--
-         return;
-     }
- 
-@@ -252,7 +209,11 @@ static void pt_irq_fired(struct vcpu *v, struct periodic_time *pt)
-         pt_process_missed_ticks(pt);
- 
-     if ( !pt->pending_intr_nr )
-+    {
-+        /* Make sure timer follows vCPU. */
-+        migrate_timer(&pt->timer, current->processor);
-         set_timer(&pt->timer, pt->scheduled);
-+    }
- }
- 
- static void pt_timer_fn(void *data)
-@@ -268,21 +229,16 @@ static void pt_timer_fn(void *data)
      v = pt->vcpu;
      irq = pt->irq;
- 
--    if ( inject_interrupt(pt) )
-+    pt->masked = !inject_interrupt(pt);
-+    pt->scheduled += pt->period;
-+
-+    if ( pt->masked )
-+        pt->pending_intr_nr++;
-+    else
-     {
--        pt->scheduled += pt->period;
--        pt->do_not_freeze = 0;
-         cb = pt->cb;
+@@ -240,7 +223,7 @@ static void pt_timer_fn(void *data)
          cb_priv = pt->priv;
      }
--    else
--    {
--        /* Masked. */
--        if ( pt->on_list )
--            list_del(&pt->list);
--        pt->on_list = false;
--        pt->pending_intr_nr++;
--    }
  
-     pt_unlock(pt);
+-    pt_unlock(pt);
++    spin_unlock(&pt->lock);
  
-@@ -306,20 +262,14 @@ static void eoi_callback(unsigned int unused, void *data)
+     if ( cb )
+         cb(v, cb_priv);
+@@ -257,7 +240,7 @@ static void eoi_callback(unsigned int unused, void *data)
+     time_cb *cb = NULL;
+     void *cb_priv;
+ 
+-    pt_lock(pt);
++    spin_lock(&pt->lock);
+ 
      pt_irq_fired(pt->vcpu, pt);
      if ( pt->pending_intr_nr )
-     {
--        if ( inject_interrupt(pt) )
-+        pt->masked = !inject_interrupt(pt);
-+        if ( !pt->masked )
-         {
-             pt->pending_intr_nr--;
-             cb = pt->cb;
-             cb_priv = pt->priv;
-             v = pt->vcpu;
+@@ -272,7 +255,7 @@ static void eoi_callback(unsigned int unused, void *data)
          }
--        else
--        {
--            /* Masked. */
--            if ( pt->on_list )
--                list_del(&pt->list);
--            pt->on_list = false;
--        }
      }
  
-     pt_unlock(pt);
-@@ -370,19 +320,6 @@ static bool inject_interrupt(struct periodic_time *pt)
+-    pt_unlock(pt);
++    spin_unlock(&pt->lock);
+ 
+     if ( cb != NULL )
+         cb(v, cb_priv);
+@@ -320,6 +303,11 @@ static bool inject_interrupt(struct periodic_time *pt)
      return true;
  }
  
--void pt_migrate(struct vcpu *v)
--{
--    struct list_head *head = &v->arch.hvm.tm_list;
--    struct periodic_time *pt;
--
--    pt_vcpu_lock(v);
--
--    list_for_each_entry ( pt, head, list )
--        migrate_timer(&pt->timer, v->processor);
--
--    pt_vcpu_unlock(v);
--}
--
++void init_periodic_timer(struct periodic_time *pt)
++{
++    spin_lock_init(&pt->lock);
++}
++
  void create_periodic_time(
      struct vcpu *v, struct periodic_time *pt, uint64_t delta,
      uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level)
-@@ -402,8 +339,7 @@ void create_periodic_time(
-     write_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
+@@ -336,7 +324,7 @@ void create_periodic_time(
+ 
+     destroy_periodic_time(pt);
+ 
+-    write_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
++    spin_lock(&pt->lock);
  
      pt->pending_intr_nr = 0;
--    pt->do_not_freeze = 0;
--    pt->irq_issued = 0;
-+    pt->masked = false;
- 
-     /* Periodic timer must be at least 0.1ms. */
-     if ( (period < 100000) && period )
-@@ -461,9 +397,6 @@ void create_periodic_time(
-         break;
-     }
- 
--    pt->on_list = 1;
--    list_add(&pt->list, &v->arch.hvm.tm_list);
--
+     pt->masked = false;
+@@ -400,18 +388,21 @@ void create_periodic_time(
      init_timer(&pt->timer, pt_timer_fn, pt, v->processor);
      set_timer(&pt->timer, pt->scheduled);
  
-@@ -479,10 +412,8 @@ void destroy_periodic_time(struct periodic_time *pt)
-         return;
- 
-     pt_lock(pt);
--    if ( pt->on_list )
--        list_del(&pt->list);
--    pt->on_list = 0;
-     pt->pending_intr_nr = 0;
-+    pt->masked = false;
- 
-     gsi = pt->irq;
-     switch ( pt->source )
-@@ -503,51 +434,6 @@ void destroy_periodic_time(struct periodic_time *pt)
-     kill_timer(&pt->timer);
+-    write_unlock(&v->domain->arch.hvm.pl_time->pt_migrate);
++    spin_unlock(&pt->lock);
  }
  
--static void pt_adjust_vcpu(struct periodic_time *pt, struct vcpu *v)
--{
--    ASSERT(pt->source == PTSRC_isa || pt->source == PTSRC_ioapic);
--
--    if ( pt->vcpu == NULL )
--        return;
--
--    write_lock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--    pt->vcpu = v;
--    if ( pt->on_list )
--    {
--        list_del(&pt->list);
--        list_add(&pt->list, &v->arch.hvm.tm_list);
--        migrate_timer(&pt->timer, v->processor);
--    }
--    write_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--}
--
--void pt_adjust_global_vcpu_target(struct vcpu *v)
--{
--    struct PITState *vpit;
--    struct pl_time *pl_time;
--    int i;
--
--    if ( !v || !has_vpit(v->domain) )
--        return;
--
--    vpit = &v->domain->arch.vpit;
--
--    spin_lock(&vpit->lock);
--    pt_adjust_vcpu(&vpit->pt0, v);
--    spin_unlock(&vpit->lock);
--
--    pl_time = v->domain->arch.hvm.pl_time;
--
--    spin_lock(&pl_time->vrtc.lock);
--    pt_adjust_vcpu(&pl_time->vrtc.pt, v);
--    spin_unlock(&pl_time->vrtc.lock);
--
--    write_lock(&pl_time->vhpet.lock);
--    for ( i = 0; i < HPET_TIMER_NUM; i++ )
--        pt_adjust_vcpu(&pl_time->vhpet.pt[i], v);
--    write_unlock(&pl_time->vhpet.lock);
--}
--
- static void pt_resume(struct periodic_time *pt)
+ void destroy_periodic_time(struct periodic_time *pt)
  {
-     struct vcpu *v;
-@@ -558,14 +444,13 @@ static void pt_resume(struct periodic_time *pt)
-         return;
+     unsigned int gsi;
  
-     pt_lock(pt);
--    if ( pt->pending_intr_nr && !pt->on_list && inject_interrupt(pt) )
-+    if ( pt->pending_intr_nr && pt->masked && inject_interrupt(pt) )
++    spin_lock(&pt->lock);
+     /* Was this structure previously initialised by create_periodic_time()? */
+     if ( pt->vcpu == NULL )
++    {
++        spin_unlock(&pt->lock);
+         return;
++    }
+ 
+-    pt_lock(pt);
+     pt->pending_intr_nr = 0;
+     pt->masked = false;
+ 
+@@ -425,7 +416,7 @@ void destroy_periodic_time(struct periodic_time *pt)
+         hvm_gsi_unregister_callback(pt->vcpu->domain, gsi, &pt->eoi_cb);
+         break;
+     }
+-    pt_unlock(pt);
++    spin_unlock(&pt->lock);
+ 
+     /*
+      * pt_timer_fn() can run until this kill_timer() returns. We must do this
+@@ -440,10 +431,13 @@ static void pt_resume(struct periodic_time *pt)
+     time_cb *cb = NULL;
+     void *cb_priv;
+ 
++    spin_lock(&pt->lock);
+     if ( pt->vcpu == NULL )
++    {
++        spin_unlock(&pt->lock);
+         return;
++    }
+ 
+-    pt_lock(pt);
+     if ( pt->pending_intr_nr && pt->masked && inject_interrupt(pt) )
      {
          pt->pending_intr_nr--;
-         cb = pt->cb;
-         cb_priv = pt->priv;
+@@ -452,7 +446,7 @@ static void pt_resume(struct periodic_time *pt)
          v = pt->vcpu;
--        pt->on_list = 1;
--        list_add(&pt->list, &pt->vcpu->arch.hvm.tm_list);
-+        pt->masked = false;
+         pt->masked = false;
      }
-     pt_unlock(pt);
+-    pt_unlock(pt);
++    spin_unlock(&pt->lock);
  
-diff --git a/xen/include/asm-x86/hvm/vcpu.h b/xen/include/asm-x86/hvm/vcpu.h
-index 5ccd075815..07a9890ed3 100644
---- a/xen/include/asm-x86/hvm/vcpu.h
-+++ b/xen/include/asm-x86/hvm/vcpu.h
-@@ -166,9 +166,8 @@ struct hvm_vcpu {
-     s64                 cache_tsc_offset;
-     u64                 guest_time;
- 
--    /* Lock and list for virtual platform timers. */
-+    /* Lock for virtual platform timers. */
-     spinlock_t          tm_lock;
--    struct list_head    tm_list;
- 
-     bool                flag_dr_dirty;
-     bool                debug_state_latch;
+     if ( cb )
+         cb(v, cb_priv);
 diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
-index 9440fe4ac7..7c0322727b 100644
+index 7c0322727b..75e0526b17 100644
 --- a/xen/include/asm-x86/hvm/vpt.h
 +++ b/xen/include/asm-x86/hvm/vpt.h
-@@ -31,13 +31,10 @@
- typedef void time_cb(struct vcpu *v, void *opaque);
+@@ -49,6 +49,7 @@ struct periodic_time {
+     time_cb *cb;
+     void *priv;                 /* point back to platform time source */
+     struct hvm_gsi_eoi_callback eoi_cb; /* EOI callback registration data */
++    spinlock_t lock;
+ };
  
- struct periodic_time {
--    struct list_head list;
--    bool on_list;
-     bool one_shot;
--    bool do_not_freeze;
--    bool irq_issued;
-     bool warned_timeout_too_short;
-     bool level;
-+    bool masked;
- #define PTSRC_isa    1 /* ISA time source */
- #define PTSRC_lapic  2 /* LAPIC time source */
- #define PTSRC_ioapic 3 /* IOAPIC time source */
-@@ -147,9 +144,7 @@ struct pl_time {    /* platform time */
  
- void pt_save_timer(struct vcpu *v);
- void pt_restore_timer(struct vcpu *v);
--void pt_migrate(struct vcpu *v);
+@@ -127,13 +128,6 @@ struct pl_time {    /* platform time */
+     struct RTCState  vrtc;
+     struct HPETState vhpet;
+     struct PMTState  vpmt;
+-    /*
+-     * rwlock to prevent periodic_time vCPU migration. Take the lock in read
+-     * mode in order to prevent the vcpu field of periodic_time from changing.
+-     * Lock must be taken in write mode when changes to the vcpu field are
+-     * performed, as it allows exclusive access to all the timers of a domain.
+-     */
+-    rwlock_t pt_migrate;
+     /* guest_time = Xen sys time + stime_offset */
+     int64_t stime_offset;
+     /* Ensures monotonicity in appropriate timer modes. */
+@@ -168,6 +162,7 @@ void create_periodic_time(
+     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
+     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level);
+ void destroy_periodic_time(struct periodic_time *pt);
++void init_periodic_timer(struct periodic_time *pt);
  
--void pt_adjust_global_vcpu_target(struct vcpu *v);
- #define pt_global_vcpu_target(d) \
-     (is_hvm_domain(d) && (d)->arch.hvm.i8259_target ? \
-      (d)->arch.hvm.i8259_target : \
-@@ -158,7 +153,7 @@ void pt_adjust_global_vcpu_target(struct vcpu *v);
- void pt_may_unmask_irq(struct domain *d, struct periodic_time *vlapic_pt);
- 
- /* Is given periodic timer active? */
--#define pt_active(pt) ((pt)->on_list || (pt)->pending_intr_nr)
-+#define pt_active(pt) !(pt)->masked
- 
- /*
-  * Create/destroy a periodic (or one-shot!) timer.
+ int pv_pit_handler(int port, int data, int write);
+ void pit_reset(struct domain *d);
 -- 
 2.28.0
 
