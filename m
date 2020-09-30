@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43ABB27E6CB
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 12:39:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541.1787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA2A27E6D8
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 12:41:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543.1799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZVe-0008Jy-0A; Wed, 30 Sep 2020 10:38:54 +0000
+	id 1kNZY0-0000ij-Dr; Wed, 30 Sep 2020 10:41:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541.1787; Wed, 30 Sep 2020 10:38:53 +0000
+Received: by outflank-mailman (output) from mailman id 543.1799; Wed, 30 Sep 2020 10:41:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,231 +23,125 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZVd-0008JY-Sz; Wed, 30 Sep 2020 10:38:53 +0000
-Received: by outflank-mailman (input) for mailman id 541;
- Wed, 30 Sep 2020 10:38:53 +0000
+	id 1kNZY0-0000iK-AS; Wed, 30 Sep 2020 10:41:20 +0000
+Received: by outflank-mailman (input) for mailman id 543;
+ Wed, 30 Sep 2020 10:41:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YD0F=DH=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1kNZVd-0008JT-5b
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:38:53 +0000
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kNZXz-0000iF-1k
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:19 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6da0caf8-6d3f-45d6-9140-67c912841e26;
- Wed, 30 Sep 2020 10:38:51 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id g4so1221946wrs.5
- for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 03:38:51 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id e13sm2307944wre.60.2020.09.30.03.38.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2020 03:38:49 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id C1AB01FF7E;
- Wed, 30 Sep 2020 11:38:48 +0100 (BST)
+ id 97fcfa9f-16fc-4777-87fa-17718fae858e;
+ Wed, 30 Sep 2020 10:41:16 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=YD0F=DH=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
-	id 1kNZVd-0008JT-5b
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:38:53 +0000
-X-Inumbo-ID: 6da0caf8-6d3f-45d6-9140-67c912841e26
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+	(envelope-from <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kNZXz-0000iF-1k
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:19 +0000
+X-Inumbo-ID: 97fcfa9f-16fc-4777-87fa-17718fae858e
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 6da0caf8-6d3f-45d6-9140-67c912841e26;
-	Wed, 30 Sep 2020 10:38:51 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id g4so1221946wrs.5
-        for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 03:38:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:in-reply-to:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=CsgXB6Hqfw/ebXyOsybxKdmz36dyBiIhsmMQBvB0mZ0=;
-        b=HZl0S8C25bfxaBZL7Vqzxc6U927lUFpm2st8Ww3dw4lEIo2dM9LwhJlJiOlPYyDYzO
-         MavDWcqbYOZAC2bHJAgloFciVI2Opu/LKclIAy1PUDfgWyiB4GjXke9FAVwIjSbek7Yw
-         3HY6yvltgOLZZWaEQ78V8Mck0I103fUTJ0diboWso3t8wG69wduxWKjWJUAB+dlgwlRQ
-         8dLj6ip2QWkLqVsko9q1HkeeG/aSoIcxm/5lu2i8LF85190j+pe5lY5gGukMRYnDQTEo
-         L046vzYHULdazEEbatgGFj/w4tii5iTfPlA3JSwG0AWo1AIIXWt9ujcIcAT7RTDWb4mV
-         zAvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject
-         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
-        bh=CsgXB6Hqfw/ebXyOsybxKdmz36dyBiIhsmMQBvB0mZ0=;
-        b=Zl0QK/WLS2AXUMTCShsHxH/NF18U0fnjc28FaFnwUILsxprfnhrcFPFF54kq1VFyOw
-         HPxzO4lzNGFP1wx1UfYaqYwIuE5Jd9RgkcRGtCMdNcifI5sqA1jUPcCOgJOWQD1jloxY
-         8VhuUe+6Wi1Qe0+T8ZYjGDTMvtHSDuF2nLDev0f17wMyxs+Y3dT7nYSPNol6dYahJUxV
-         q9RqWvCeidL2nwQNAis/YfP73lY7a8SwNz+Dfqy7rLlYaR7CN97BlSBWCGZ6OtR8pvOQ
-         JOHGmK007LKgVl8bjTFXfTvDluu2TIfCWimrmrw017iQpAOHrxmDIot4W90ixOOm1vzt
-         CxEw==
-X-Gm-Message-State: AOAM530GboFFKBy2pGSEbRl97m05C6I72gu3J5M86tTSV5EOsDZBAphR
-	SiZ+ZslqeZHF0Zqz9lMPLKJjtg==
-X-Google-Smtp-Source: ABdhPJwfCuWTFus63duYQtg5ZrNf+pRDB6K8oSzsmRXaf/0t+/M/sWIoVkf6HRH0S/n/1no0UNd9BA==
-X-Received: by 2002:a5d:50cd:: with SMTP id f13mr2357299wrt.211.1601462330741;
-        Wed, 30 Sep 2020 03:38:50 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
-        by smtp.gmail.com with ESMTPSA id e13sm2307944wre.60.2020.09.30.03.38.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2020 03:38:49 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
-	by zen.linaroharston (Postfix) with ESMTP id C1AB01FF7E;
-	Wed, 30 Sep 2020 11:38:48 +0100 (BST)
-References: <20200926205542.9261-1-julien@xen.org>
- <87k0wcppnj.fsf@linaro.org> <5afbce1c-0c45-4b8c-771a-f83b91328e4a@xen.org>
- <87d024p9tc.fsf@linaro.org> <a42d2724-4d9b-a177-35c7-44bd0250f265@xen.org>
-User-agent: mu4e 1.5.5; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, masami.hiramatsu@linaro.org,
- ehem+xen@m5p.com, bertrand.marquis@arm.com, andre.przywara@arm.com, Julien
- Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
- <wl@xen.org>, Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 0/4] xen/arm: Unbreak ACPI
-In-reply-to: <a42d2724-4d9b-a177-35c7-44bd0250f265@xen.org>
-Date: Wed, 30 Sep 2020 11:38:48 +0100
-Message-ID: <874knfpn0n.fsf@linaro.org>
+	id 97fcfa9f-16fc-4777-87fa-17718fae858e;
+	Wed, 30 Sep 2020 10:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601462477;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ARQDwLdxqhpBevIZ1+zHduPOKGjPBte+ojC3lvnRo6g=;
+  b=J+Gs7Q0KNY4+DCZywVd5eK5bAvdY53poEpJdFlpnqVPga6Ybv2FrvZd2
+   hVr7xbYp0uQ6nDOGbBUirQOKeCtmI9fBiPX2GRBHBSHmaBO1PE11rNTxE
+   uXUrvkF4eh0ut9CiXduP5RY7Mca9drMoxUDyidlmvy/pXPmaRy0N4hca0
+   k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 81ITsIQKE+KHrnaYTfF83sP2GczR/zbCTpaarRd5CHsluYaqAaG4/oU2u0jZ43bZqXcnlCYTsI
+ WipO8V6LxU5znMrFnyVGZWymJsoN6xcLihteilzGSeIKquenvZGvE+LXVRwDnZe0zLDTtvei1f
+ GuxE2yXbaWco5RjIICleMYIdXX0WLMZbOaOU0rPN69EuAcgc+nLuzNRDTyl8KvoDw0NXmFko8g
+ P0r4DQTBReqcPXuNIQo47XBHkINOIVWownR7UOS+t5kotEuE0huP/q9sa+8sl3z+5XuHIHCTHC
+ BYc=
+X-SBRS: None
+X-MesageID: 28283478
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
+   d="scan'208";a="28283478"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+	<paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
+	<kevin.tian@intel.com>
+Subject: [PATCH v2 00/11] x86/intr: introduce EOI callbacks and fix vPT
+Date: Wed, 30 Sep 2020 12:40:57 +0200
+Message-ID: <20200930104108.35969-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
+Hello,
 
-Julien Grall <julien@xen.org> writes:
+The following series introduces EOI callbacks and switches a number of
+subsystems to use them. The first one is vmsi and dpci, which are quite
+straight forward to switch since they used to open code hooks in the EOI
+handlers.
 
-> Hi Alex,
->
-> On 29/09/2020 22:11, Alex Benn=C3=A9e wrote:
->>=20
->> Julien Grall <julien@xen.org> writes:
->>=20
->>> Hi Alex,
->>>
->>> On 29/09/2020 16:29, Alex Benn=C3=A9e wrote:
->>>>
->>>> Julien Grall <julien@xen.org> writes:
->>>>
->>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> Hi all,
->>>>>
->>>>> Xen on ARM has been broken for quite a while on ACPI systems. This
->>>>> series aims to fix it.
->>>>>
->>>>> Unfortunately I don't have a system with ACPI v6.0 or later (QEMU see=
-ms
->>>>> to only support 5.1). So I did only some light testing.
->>>>
->>>> I was hoping to get more diagnostics out to get it working under QEMU
->>>> TCG so I think must of missed a step:
->>>>
->>>>     Loading Xen 4.15-unstable ...
->>>>     Loading Linux 4.19.0-11-arm64 ...
->>>>     Loading initial ramdisk ...
->>>>     Using modules provided by bootloader in FDT
->>>>     Xen 4.15-unstable (c/s Sat Sep 26 21:55:42 2020 +0100 git:72f3d495=
-d0) EFI loader
->>>>     ...silence...
->>>>
->>>> I have a grub installed from testing on a buster base:
->>>>
->>>>     dpkg --status grub-arm64-efi
->>>>     Version: 2.04-8
->>>>
->>>> With:
->>>>
->>>>     GRUB_CMDLINE_LINUX_DEFAULT=3D""
->>>>     GRUB_CMDLINE_LINUX=3D"console=3DttyAMA0"
->>>>     GRUB_CMDLINE_LINUX_XEN_REPLACE=3D"console=3Dhvc0 earlyprintk=3Dxen"
->>>>     GRUB_CMDLINE_XEN=3D"loglvl=3Dall guest_loglvl=3Dall com1=3D115200,=
-8n1,0x3e8,5console=3Dcom1,vg"
->>>>
->>>> And I built Xen with --enable-systemd and tweaked the hypervisor .conf=
-ig:
->>>>
->>>>     CONFIG_EXPERT=3Dy
->>>>     CONFIG_ACPI=3Dy
->>>>
->>>> So any pointers to make it more verbose would be helpful.
->>>
->>> The error is hapenning before Xen setup the console. You can get early
->>> output on QEMU if you rebuild Xen with the following .config options:
->>>
->>> CONFIG_DEBUG=3Dy
->>> CONFIG_EARLY_UART_CHOICE_PL011=3Dy
->>> CONFIG_EARLY_UART_PL011=3Dy
->>> CONFIG_EARLY_PRINTK=3Dy
->>> CONFIG_EARLY_UART_BASE_ADDRESS=3D0x09000000
->>> CONFIG_EARLY_UART_PL011_BAUD_RATE=3D0
->>> CONFIG_EARLY_PRINTK_INC=3D"debug-pl011.inc"
->>=20
->> OK I can see it fails on the ACPI and then tries to fall back to FDT and
->> then fails to find the GIC:
->>=20
->>    (XEN) CMDLINE[00000000f7bbe000]:chosen placeholder root=3DUUID=3Dcf00=
-cd3a-066b-4146-bedf-f811d3343077 ro console=3Dhvc0 earlyprintk=3Dxen
->>    (XEN)
->>    (XEN) Command line: placeholder loglvl=3Dall guest_loglvl=3Dall com1=
-=3D115200,8n1,0x3e8,5console=3Dcom1,vg no-real-mode edd=3Doff
->>    (XEN) parameter "placeholder" unknown!
->>    (XEN) parameter "no-real-mode" unknown!
->>    (XEN) parameter "edd" unknown!
->>    (XEN) ACPI: RSDP 138560000, 0024 (r2 BOCHS )
->>    (XEN) ACPI: XSDT 138550000, 004C (r1 BOCHS  BXPCFACP        1       1=
-000013)
->>    (XEN) ACPI: FACP 138510000, 010C (r5 BOCHS  BXPCFACP        1 BXPC   =
-     1)
->>    (XEN) ACPI: DSDT 138520000, 14A6 (r2 BOCHS  BXPCDSDT        1 BXPC   =
-     1)
->>    (XEN) ACPI: APIC 138500000, 018C (r3 BOCHS  BXPCAPIC        1 BXPC   =
-     1)
->>    (XEN) ACPI: GTDT 1384F0000, 0060 (r2 BOCHS  BXPCGTDT        1 BXPC   =
-     1)
->>    (XEN) ACPI: MCFG 1384E0000, 003C (r1 BOCHS  BXPCMCFG        1 BXPC   =
-     1)
->>    (XEN) ACPI: SPCR 1384D0000, 0050 (r2 BOCHS  BXPCSPCR        1 BXPC   =
-     1)
->>    (XEN) Unsupported FADT revision 5.1, should be 6.0+, will disable ACPI
->>    (XEN) acpi_boot_table_init: FADT not found (-22)
->>    (XEN) Domain heap initialised
->>    (XEN) Booting using Device Tree
->>    (XEN) Platform: Generic System
->>    (XEN)
->>    (XEN) ****************************************
->>    (XEN) Panic on CPU 0:
->>    (XEN) Unable to find compatible GIC in the device tree
->>    (XEN) ****************************************
->>    (XEN)
->>    (XEN) Reboot in five seconds...
->>=20
->> Despite saying it is going to reboot it never manages to. Any idea how
->> it is trying to reset the system?
->
-> This is a bit of chicken and eggs problem. To know the reset method, you=
-=20
-> need to parse the ACPI tables. As we can't parse then we don't know the=20
-> reset method. So, Xen will just do an infinite loop.
+Finally HVM virtual timers are also switched to a different model where
+EOI callbacks are used instead of checking at every return to guest
+whether a timer interrupt is being injected. Note that such change also
+fixes a bug in virtual periodic timers that prevented injecting to a vCPU
+different than the one where the timer is assigned (and that would
+currently match the i8259 target).
 
-Well you do get some ACPI tables - downgrading the minimum at least
-restores the reset method detection. I wonder if it would be worth
-defaulting to PSCI if you don't know rather than hang indefinitely?
+Those changes are paired together so that practical applications of
+having EOI callbacks can be seen in action.
 
-FWIW the failure after that is failing to find the GIC - I'm just
-looking at the MADT table parsing now. Why am I getting a sense of
-DejaVu?
+Note that further cleanup can be done, but I think the series is already
+big enough and could benefit from some review in order to know whether
+the direction taken is acceptable. Not posting as RFC as part of the
+series has already been posted before, but some patches could be
+considered RFC.
 
-> It would probably be good to be more forthcoming with the users and say=20
-> it will not reboot.
->
-> Also, IIRC, the time subsystem is not yet initialized. So it might be=20
-> possible to mdelay() doesn't work properly.
+Thanks, Roger.
 
-Surely that's an architectural subsystem so there is no reason that
-couldn't be up and running.
+Roger Pau Monne (11):
+  x86/hvm: drop vcpu parameter from vlapic EOI callbacks
+  x86/hvm: drop domain parameter from vioapic/vpic EOI callbacks
+  x86/vlapic: introduce an EOI callback mechanism
+  x86/vmsi: use the newly introduced EOI callbacks
+  x86/vioapic: switch to use the EOI callback mechanism
+  x86/hvm: allowing registering EOI callbacks for GSIs
+  x86/dpci: move code
+  x86/dpci: switch to use a GSI EOI callback
+  x86/vpt: switch interrupt injection model
+  x86/vpt: remove vPT timers per-vCPU lists
+  x86/vpt: introduce a per-vPT lock
 
->
-> Cheers,
+ xen/arch/x86/domain.c             |   2 +-
+ xen/arch/x86/emul-i8254.c         |   1 +
+ xen/arch/x86/hvm/hpet.c           |   8 +-
+ xen/arch/x86/hvm/hvm.c            |  19 +-
+ xen/arch/x86/hvm/irq.c            |  60 ++++
+ xen/arch/x86/hvm/rtc.c            |   1 +
+ xen/arch/x86/hvm/svm/intr.c       |   3 -
+ xen/arch/x86/hvm/vioapic.c        | 139 +++++----
+ xen/arch/x86/hvm/vlapic.c         |  66 ++++-
+ xen/arch/x86/hvm/vmsi.c           |  36 ++-
+ xen/arch/x86/hvm/vmx/intr.c       |  59 ----
+ xen/arch/x86/hvm/vpic.c           |   8 +-
+ xen/arch/x86/hvm/vpt.c            | 465 +++++++++---------------------
+ xen/drivers/passthrough/io.c      | 215 ++++++++------
+ xen/include/asm-x86/hvm/io.h      |   4 +-
+ xen/include/asm-x86/hvm/irq.h     |  21 ++
+ xen/include/asm-x86/hvm/vcpu.h    |   3 +-
+ xen/include/asm-x86/hvm/vioapic.h |   2 +-
+ xen/include/asm-x86/hvm/vlapic.h  |  18 +-
+ xen/include/asm-x86/hvm/vpt.h     |  23 +-
+ 20 files changed, 574 insertions(+), 579 deletions(-)
 
+-- 
+2.28.0
 
---=20
-Alex Benn=C3=A9e
 
