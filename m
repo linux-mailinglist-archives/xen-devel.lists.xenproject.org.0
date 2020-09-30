@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0834727E0F3
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 08:20:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427.1289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F369427E108
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 08:26:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431.1305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNVTQ-0007Ew-MO; Wed, 30 Sep 2020 06:20:20 +0000
+	id 1kNVZ1-0007UN-Ca; Wed, 30 Sep 2020 06:26:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427.1289; Wed, 30 Sep 2020 06:20:20 +0000
+Received: by outflank-mailman (output) from mailman id 431.1305; Wed, 30 Sep 2020 06:26:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,140 +23,94 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNVTQ-0007EX-JB; Wed, 30 Sep 2020 06:20:20 +0000
-Received: by outflank-mailman (input) for mailman id 427;
- Wed, 30 Sep 2020 06:20:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNVZ1-0007Tx-8M; Wed, 30 Sep 2020 06:26:07 +0000
+Received: by outflank-mailman (input) for mailman id 431;
+ Wed, 30 Sep 2020 06:26:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kNVTP-0007ES-GG
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 06:20:19 +0000
+ id 1kNVYz-0007TQ-JP
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 06:26:05 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9ac3cf3-6526-4644-a108-3f67644b9e2a;
- Wed, 30 Sep 2020 06:20:17 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ec6f1e47-8013-4089-8f09-6d66f70f17de;
+ Wed, 30 Sep 2020 06:26:05 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A179AC3C;
- Wed, 30 Sep 2020 06:20:16 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 3D1F9B163;
+ Wed, 30 Sep 2020 06:26:04 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=FBlW=DH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kNVTP-0007ES-GG
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 06:20:19 +0000
-X-Inumbo-ID: a9ac3cf3-6526-4644-a108-3f67644b9e2a
+	id 1kNVYz-0007TQ-JP
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 06:26:05 +0000
+X-Inumbo-ID: ec6f1e47-8013-4089-8f09-6d66f70f17de
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a9ac3cf3-6526-4644-a108-3f67644b9e2a;
-	Wed, 30 Sep 2020 06:20:17 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id ec6f1e47-8013-4089-8f09-6d66f70f17de;
+	Wed, 30 Sep 2020 06:26:05 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601446816;
+	t=1601447164;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6oCxC0kiEHovonzdgMGSEJ604U3novCmFW9pa5xiCq4=;
-	b=oxqVmUZmyVQZob3bPVBr6wKcsuB8aHGpReXkIhZxp+LRgvzifMlWryOy9QzsyLIAP//4Sn
-	23ZqViYKKu0jBQUOY2/EBt86oIxR85wShpT8Tk2oouV2gilQk4489YajQrDhLhdeDSreAa
-	2TXINssjo+1L8H9FtQPjJ1MCojZvgDg=
+	bh=8iVKlrraCKO0fSyoRY7g721MHT9d02MylafBD5K4sYI=;
+	b=m0ON7+O0sCLaOepQ/wuz+f4+V5ei0u8ryHVFDtta4rdHAiI5kzOoFThsvQ7IZUthedTV6z
+	VX8kZjMF/iN2E3oG0RVKVETzJ71YkuPtgkP6zdIZSyiIB2f8tki1T3Akjd7BlaqGa7zV82
+	QyRuEwaqhensXLQGVDF0wutvowKazVs=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 7A179AC3C;
-	Wed, 30 Sep 2020 06:20:16 +0000 (UTC)
-Subject: Re: [PATCH] evtchn/Flask: pre-allocate node on send path
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Daniel de Graaf <dgdegra@tycho.nsa.gov>,
+	by mx2.suse.de (Postfix) with ESMTP id 3D1F9B163;
+	Wed, 30 Sep 2020 06:26:04 +0000 (UTC)
+Subject: Re: [PATCH 11/12] evtchn: convert vIRQ lock to an r/w one
+To: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <f633e95e-11e7-ccfc-07ce-7cc817fcd7fe@suse.com>
- <8237e286-168f-a4e7-be8b-aba5ff781e7c@xen.org>
- <706b94ae-ca05-2218-6025-e5d62297dda6@suse.com>
- <3ad0529d-ad55-8864-1df2-193eaf104c1f@xen.org>
- <6d6d7550-8847-267e-49f2-0ca098ef97ad@suse.com>
- <2a62f5e4-9915-bcd7-05b3-77663c995a13@xen.org>
- <9adeac3b-2b0f-6e9d-aa82-fd966e984fa0@suse.com>
- <52dba8e8-5976-48a2-7a74-ddf877880c6e@xen.org>
- <CAKf6xpv2ZoOV-VhhtkocvzppFX=ch0XfC7e_Y4sjuwb3T+rtww@mail.gmail.com>
- <9947f7b0-2ca6-4016-6a80-1cec383efcbb@suse.com>
- <CAKf6xptyh3BWwuG4qdfVFomu0H6+5tS+N32bAfHLkoEYmUqiTQ@mail.gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com>
+ <6e529147-2a76-bc28-ac16-21fc9a2c8f03@suse.com>
+ <56faf769-d305-22d3-c3fe-2f9d767f0f07@xen.org>
+ <60490a6c-593b-7aed-5e83-b0418500eed2@suse.com>
+ <c4de244b-417e-39cb-59b0-dbda7108dc21@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4a89f69c-ec67-4749-8f55-46b3e00e4989@suse.com>
-Date: Wed, 30 Sep 2020 08:20:12 +0200
+Message-ID: <03d30b08-c0ce-0d24-444d-ec20f3528039@suse.com>
+Date: Wed, 30 Sep 2020 08:26:04 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xptyh3BWwuG4qdfVFomu0H6+5tS+N32bAfHLkoEYmUqiTQ@mail.gmail.com>
+In-Reply-To: <c4de244b-417e-39cb-59b0-dbda7108dc21@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 29.09.2020 19:20, Jason Andryuk wrote:
-> On Mon, Sep 28, 2020 at 3:49 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 25.09.2020 20:08, Jason Andryuk wrote:
->>>  Also, a domain label can transition (change) at runtime.
->>> Dropping the send check would latch the permission at bind time which
->>> would not necessarily be valid for the security policy.
+On 29.09.2020 19:18, Julien Grall wrote:
+> On 29/09/2020 14:37, Jan Beulich wrote:
+>> On 29.09.2020 15:03, Julien Grall wrote:
+>>> I am thinking that it may be easier to hold the write lock when doing
+>>> the update.
 >>
->> I did realize this as a possibility too, but there the immediate
->> question is: Why for interdomain channels, but then not also for
->> vIRQ-s, for example? In fact, unless I'm overlooking something,
->> for this specific case there's not even any check in the binding
->> logic, not even for global vIRQ-s. (After all there are two
->> aspects in the permissions here: One is to be eligible to send,
->> which ought to not matter when the sender is Xen, while the
->> other is permission to learn / know of certain events, i.e. in
->> particular global vIRQ-s.)
+>> ... perhaps this is indeed better. I have to admit that I never
+>> fully understood the benefit of using spin_barrier() in this code
+>> (as opposed to the use in evtchn_destroy()).
 > 
-> I'm not familiar with vIRQ-s, but I did a little bit of review.  A
-> vIRQ source is always Xen and its destination is a domain, correct?
-> They don't allow a data flow between domains,
-
-Yes and yes.
-
-> so maybe that is why they weren't hooked originally?
-
-Not so much, I assume. Looking a little more closely I find that ...
-
-> Hmmm, even for non-XSM, there is no restriction on binding the "dom0"
-> vIRQ-s?
-
-... while binding is allowed, an event would never be received unless
-the domain was designated as the receiver via
-XEN_DOMCTL_set_virq_handler.
-
->> The fundamental issue here is that the sending path should be
->> fast and hence lightweight. This means (to me) that in
->> particular no memory allocations should occur, and (more
->> generally) no global or domain wide locks should be taken (for
->> rw ones: no write locks).
+> I am not entirely sure either. It looks like it is an attempt to make 
+> v->virq_to_evtchn[X] visible without holding a lock.
 > 
-> Yes, that all seems good and reasonable.  With XSM/Flask you also need
-> the AVC entry for send to be lightweight.
-> 
-> It wouldn't help with the domain transition case, but you could run
-> the xsm send hooks at bind time to pre-populate the cache.
+> Any holder of the lock after spin_barrier() has completed will read 0 
+> and not try to use the lock.
 
-Question is for how long such an entry would remain in the cache,
-i.e. whether pre-filling is useful at all. After all pre-filling
-has the downside of potentially masking real issues when testing
-(as opposed to running in the wild).
+I'm not sure I follow: A holder of the lock is obviously already
+making use of the lock. Or are you talking of two different locks
+here (recall that before XSA-343 there was just one lock involved
+in sending)?
 
->  That would
-> still require avc code to bypass the memory allocation when holding a
-> lock in case the entry isn't found.  Your preallocation idea could be
-> generalized to have avc maintain a reserve of nodes for use when it
-> cannot allocate.  When it can allocate, it would refill the reserve in
-> addition to whatever regular allocation it would perform.  But if it's
-> only evtchn_send that needs special handling, then the complexity may
-> not be worth adding.
+> But the update of v->virq_to_evtchn[X] should have used either 
+> ACCESS_ONCE() or write_atomic().
 
-It was this last aspect which made me not introduce a general
-mechanism.
+Of course, like in so many other places in the code base.
 
 Jan
 
