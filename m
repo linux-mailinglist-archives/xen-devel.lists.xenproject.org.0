@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B727227F5FD
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 01:27:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961.3241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DFFD27F613
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 01:39:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965.3257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNlV1-00021p-MN; Wed, 30 Sep 2020 23:27:03 +0000
+	id 1kNlgS-0002zv-Rd; Wed, 30 Sep 2020 23:38:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961.3241; Wed, 30 Sep 2020 23:27:03 +0000
+Received: by outflank-mailman (output) from mailman id 965.3257; Wed, 30 Sep 2020 23:38:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,225 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNlV1-00021Q-Iz; Wed, 30 Sep 2020 23:27:03 +0000
-Received: by outflank-mailman (input) for mailman id 961;
- Wed, 30 Sep 2020 23:27:02 +0000
+	id 1kNlgS-0002zW-OH; Wed, 30 Sep 2020 23:38:52 +0000
+Received: by outflank-mailman (input) for mailman id 965;
+ Wed, 30 Sep 2020 23:38:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kNlUz-00021L-Ra
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:27:01 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kNlgR-0002zR-Ew
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:38:51 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id df3b5c13-ddbc-4720-b6ac-5a9c2e4c8c72;
- Wed, 30 Sep 2020 23:27:01 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 47205206F4;
- Wed, 30 Sep 2020 23:27:00 +0000 (UTC)
+ id 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4;
+ Wed, 30 Sep 2020 23:38:49 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNlgP-0007Iu-HW; Wed, 30 Sep 2020 23:38:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNlgP-0004bH-BF; Wed, 30 Sep 2020 23:38:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kNlgP-0003K4-Ah; Wed, 30 Sep 2020 23:38:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=BzSz=DH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kNlUz-00021L-Ra
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:27:01 +0000
-X-Inumbo-ID: df3b5c13-ddbc-4720-b6ac-5a9c2e4c8c72
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=ZS8s=DH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kNlgR-0002zR-Ew
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 23:38:51 +0000
+X-Inumbo-ID: 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id df3b5c13-ddbc-4720-b6ac-5a9c2e4c8c72;
-	Wed, 30 Sep 2020 23:27:01 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 47205206F4;
-	Wed, 30 Sep 2020 23:27:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1601508420;
-	bh=cfrFwFkWYhO7Vl/7IfOuT/uOwX+kHaR6TN7ZUiaBmYQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HnGzGK+8hbtGWnAFQv/RftCBnW70CdPVaAjX1qo1OmrUZo+Ohua2mt0sO4PGRSOgT
-	 U79DkMqWklPaG8sDO2ajHzHoGkrFE8dcEU7x+4iChoMhYoQodSp/xqbO4VY5X34H33
-	 HI30XYpXJ5VGVO29AXv4u0dnQBn9iSXkD/jgZK2s=
-Date: Wed, 30 Sep 2020 16:26:59 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org, 
-    masami.hiramatsu@linaro.org, ehem+xen@m5p.com, bertrand.marquis@arm.com, 
-    andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 3/4] xen/arm: Check if the platform is not using ACPI
- before initializing Dom0less
-In-Reply-To: <20200926205542.9261-4-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2009301626300.10908@sstabellini-ThinkPad-T480s>
-References: <20200926205542.9261-1-julien@xen.org> <20200926205542.9261-4-julien@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 01c16bbd-6df2-4cd6-baed-dbd2f0a587a4;
+	Wed, 30 Sep 2020 23:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8dvKbEQAPfM1WVil/xQMCgzdwrjOXMlMWUvCjHxs5KM=; b=PC35M9rSZ3FLgsoUXFXCnKIkmS
+	HUHGj+BOHbC2NoLDMheCFYpt/xBKwIATkjANVTGpbGlJpnRj1HSI7kbWw+6WPe94ey7YnDuq+AaLV
+	GUIjI7kH49DuGB2fheN+MZsAFSOIaZ43qefvGSTmfwbtN1zJ77q+daqpimCX5MGI3VFE=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNlgP-0007Iu-HW; Wed, 30 Sep 2020 23:38:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNlgP-0004bH-BF; Wed, 30 Sep 2020 23:38:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kNlgP-0003K4-Ah; Wed, 30 Sep 2020 23:38:49 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155157-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 155157: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=11852c7bb070a18c3708b4c001772a23e7d4fc27
+X-Osstest-Versions-That:
+    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 30 Sep 2020 23:38:49 +0000
 
-On Sat, 26 Sep 2020, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> Dom0less requires a device-tree. However, since commit 6e3e77120378
-> "xen/arm: setup: Relocate the Device-Tree later on in the boot", the
-> device-tree will not get unflatten when using ACPI.
-> 
-> This will lead to a crash during boot.
-> 
-> Given the complexity to setup dom0less with ACPI (for instance how to
-> assign device?), we should skip any code related to Dom0less when using
-> ACPI.
+flight 155157 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155157/
 
-Yeah...
+Regressions :-(
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 155128
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  11852c7bb070a18c3708b4c001772a23e7d4fc27
+baseline version:
+ xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
+
+Last test of basis   155128  2020-09-30 08:01:25 Z    0 days
+Testing same since   155144  2020-09-30 16:01:24 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
 
 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> ---
->  xen/arch/arm/setup.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index f16b33fa87a2..35e5bee04efa 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -987,7 +987,8 @@ void __init start_xen(unsigned long boot_phys_offset,
->  
->      system_state = SYS_STATE_active;
->  
-> -    create_domUs();
-> +    if ( acpi_disabled )
-> +        create_domUs();
->  
->      domain_unpause_by_systemcontroller(dom0);
->  
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 11852c7bb070a18c3708b4c001772a23e7d4fc27
+Author: Juergen Gross <jgross@suse.com>
+Date:   Thu Sep 24 16:36:48 2020 +0200
+
+    tools/xenstore: set maximum number of grants needed
+    
+    When running as a stubdom Xenstore should set the maximum number of
+    grants needed via a call of xengnttab_set_max_grants(), as otherwise
+    the number of domains which can be supported will be 128 only (the
+    default number of grants supported by Mini-OS).
+    
+    We use one grant per domain so the theoretical maximum number is
+    DOMID_FIRST_RESERVED.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit bfcc97c08c2258316d1cd92c23a441d97ad6ff4e
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 29 14:48:52 2020 +0100
+
+    tools/cpuid: Plumb nested_virt down into xc_cpuid_apply_policy()
+    
+    Nested Virt is the final special case in legacy CPUID handling.  Pass the
+    (poorly named) nested_hvm setting down into xc_cpuid_apply_policy() to break
+    the semantic dependency on HVM_PARAM_NESTEDHVM.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 50a5215f30e964a6f16165ab57925ca39f31a849
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Sep 24 20:08:43 2020 +0200
+
+    libxc/bitops: increase potential size of bitmaps
+    
+    If the bitmap is used to represent domU pages, the amount of memory is
+    limited to 8TB due to the 32bit value. Adjust the code to use 64bit
+    values as input. All callers already use some form of 64bit as input,
+    so no further adjustment is required.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 27de84d3ae462bd8311c8267c642ec95afdcf47c
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Wed Sep 23 12:03:23 2020 +0100
+
+    tools: Fix configure of upstream QEMU
+    
+    QEMU as recently switch its build system to use meson and the
+    ./configure step with meson is more restrictive that the step used to
+    be, most installation path wants to be within prefix, otherwise we
+    have this error message:
+    
+        ERROR: The value of the 'datadir' option is '/usr/share/qemu-xen' which must be a subdir of the prefix '/usr/lib/xen'.
+    
+    In order to workaround the limitation, we will set prefix to the same
+    one as for the rest of Xen installation, and set all the other paths.
+    
+    For reference, a thread in qemu-devel:
+        "configure with datadir outside of --prefix fails with meson"
+        https://lore.kernel.org/qemu-devel/20200918133012.GH2024@perard.uk.xensource.com/t/
+    
+    And an issue in meson:
+        "artificial limitation of directories (forced to be in prefix)"
+        https://github.com/mesonbuild/meson/issues/2561
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Tested-by: Paul Durrant <paul@xen.org>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 0d8d289af7a679c028462c4ed5d98586f9ef9648
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Wed Sep 23 08:48:40 2020 +0200
+
+    tools/libxc: report malloc errors in writev_exact
+    
+    The caller of writev_exact should be notified about malloc errors
+    when dealing with partial writes.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+(qemu changes not included)
 
