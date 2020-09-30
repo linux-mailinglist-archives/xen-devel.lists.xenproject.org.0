@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7665927E6E2
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 12:42:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554.1931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5F6A27E776
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 13:10:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.581.1947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZYZ-0001c1-CE; Wed, 30 Sep 2020 10:41:55 +0000
+	id 1kNZzy-0004dg-I3; Wed, 30 Sep 2020 11:10:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554.1931; Wed, 30 Sep 2020 10:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 581.1947; Wed, 30 Sep 2020 11:10:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,338 +23,219 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNZYZ-0001ai-3l; Wed, 30 Sep 2020 10:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 554;
- Wed, 30 Sep 2020 10:41:53 +0000
+	id 1kNZzy-0004dH-Ec; Wed, 30 Sep 2020 11:10:14 +0000
+Received: by outflank-mailman (input) for mailman id 581;
+ Wed, 30 Sep 2020 11:10:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kNZYX-0000jt-GJ
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:53 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I3vy=DH=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kNZzx-0004cl-18
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:10:13 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 92d92120-ad95-43a9-8df3-5bdbda8f0752;
- Wed, 30 Sep 2020 10:41:37 +0000 (UTC)
+ id a84eeb9b-de5c-43f6-a3fe-c2b85f6b8ec8;
+ Wed, 30 Sep 2020 11:10:11 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kNZzr-0007oC-P6; Wed, 30 Sep 2020 11:10:07 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kNZzr-0001vB-Al; Wed, 30 Sep 2020 11:10:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=153E=DH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kNZYX-0000jt-GJ
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 10:41:53 +0000
-X-Inumbo-ID: 92d92120-ad95-43a9-8df3-5bdbda8f0752
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	(envelope-from <SRS0=I3vy=DH=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kNZzx-0004cl-18
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 11:10:13 +0000
+X-Inumbo-ID: a84eeb9b-de5c-43f6-a3fe-c2b85f6b8ec8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 92d92120-ad95-43a9-8df3-5bdbda8f0752;
-	Wed, 30 Sep 2020 10:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601462497;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YvWR66vXENt4dXadQOccItvi0fqHZ4YQsWtAm6/3iIg=;
-  b=KZQw4UrBQmTYOJoKjb4ukHNyGvLoDqxfsQogIRf1ZIGR7zQLBjLTyh9s
-   g6MWg+mSeeehUjyq1RszWRDAvzKbWz2jDPRoAxF24fNuY0YnjZctAzpnU
-   PG/gVfXDE4YEDFsMixzKxjXUea8hWWd/pmJpYNu7Lq2/7U40wPT96/b/s
-   M=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: w3aRJGMM9yGW2qZvpt0FrU58tBPV9LHmi9f125yKBzdiS+pnF7e44ulXUWi7TGfdxUKzKSlCA+
- uWPLFIu2rtT3OyxqHgEtlmLO15ahH9czwqhMY6CytIj6ZYeVVkRbPB2QCxG2E86/aQSHm1iqmw
- ZKc05mHX28Jfa71VcEHfkyRA5K/CLSk9pKeDHZROtRZTeuzHaFtL1X5tOxDPRJzzSraNJhsQbn
- 1t66EFleVZA516O9PaeeRnPYwGHLqLKSdSMz+fgxD/uT8yAhDgBElIxSf41NJEsMNE+bTpqgXI
- 1xg=
-X-SBRS: None
-X-MesageID: 28223127
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,322,1596513600"; 
-   d="scan'208";a="28223127"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 11/11] x86/vpt: introduce a per-vPT lock
-Date: Wed, 30 Sep 2020 12:41:08 +0200
-Message-ID: <20200930104108.35969-12-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200930104108.35969-1-roger.pau@citrix.com>
-References: <20200930104108.35969-1-roger.pau@citrix.com>
+	id a84eeb9b-de5c-43f6-a3fe-c2b85f6b8ec8;
+	Wed, 30 Sep 2020 11:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=vQhPHK+hACdRQr/fNAeltUsBwc2+DQKQScf+pa4aa0U=; b=cn77hQMQvCrV0q8WGa4p2F4DdU
+	pR1ilzOIwxAl/y1ejkAhaauRBl1VeTq1Xlw+xRNbtEBNFIwvMZC0XfQHm6m28wIXV4sTbIDw6D97v
+	GvkX9KiFtYsfkV4q63YkA3v1CeoON78m2tK5Ee6JZNuxxHRViR2IcykYS2Zx2WxYgHi8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kNZzr-0007oC-P6; Wed, 30 Sep 2020 11:10:07 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kNZzr-0001vB-Al; Wed, 30 Sep 2020 11:10:07 +0000
+Subject: Re: [PATCH 0/4] xen/arm: Unbreak ACPI
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: xen-devel@lists.xenproject.org, masami.hiramatsu@linaro.org,
+ ehem+xen@m5p.com, bertrand.marquis@arm.com, andre.przywara@arm.com,
+ Julien Grall <jgrall@amazon.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20200926205542.9261-1-julien@xen.org> <87k0wcppnj.fsf@linaro.org>
+ <5afbce1c-0c45-4b8c-771a-f83b91328e4a@xen.org> <87d024p9tc.fsf@linaro.org>
+ <a42d2724-4d9b-a177-35c7-44bd0250f265@xen.org> <874knfpn0n.fsf@linaro.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5afcd9d2-aa6f-9901-bd2c-b53c5649e498@xen.org>
+Date: Wed, 30 Sep 2020 12:10:05 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.1.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <874knfpn0n.fsf@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Introduce a per virtual timer lock that replaces the existing per-vCPU
-and per-domain vPT locks. Since virtual timers are no longer assigned
-or migrated between vCPUs the locking can be simplified to a
-in-structure spinlock that protects all the fields.
+Hi Alex,
 
-This requires introducing a helper to initialize the spinlock, and
-that could be used to initialize other virtual timer fields in the
-future.
+On 30/09/2020 11:38, Alex Bennée wrote:
+> 
+> Julien Grall <julien@xen.org> writes:
+> 
+>> Hi Alex,
+>>
+>> On 29/09/2020 22:11, Alex Bennée wrote:
+>>>
+>>> Julien Grall <julien@xen.org> writes:
+>>>
+>>>> Hi Alex,
+>>>>
+>>>> On 29/09/2020 16:29, Alex Bennée wrote:
+>>>>>
+>>>>> Julien Grall <julien@xen.org> writes:
+>>>>>
+>>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> Hi all,
+>>>>>>
+>>>>>> Xen on ARM has been broken for quite a while on ACPI systems. This
+>>>>>> series aims to fix it.
+>>>>>>
+>>>>>> Unfortunately I don't have a system with ACPI v6.0 or later (QEMU seems
+>>>>>> to only support 5.1). So I did only some light testing.
+>>>>>
+>>>>> I was hoping to get more diagnostics out to get it working under QEMU
+>>>>> TCG so I think must of missed a step:
+>>>>>
+>>>>>      Loading Xen 4.15-unstable ...
+>>>>>      Loading Linux 4.19.0-11-arm64 ...
+>>>>>      Loading initial ramdisk ...
+>>>>>      Using modules provided by bootloader in FDT
+>>>>>      Xen 4.15-unstable (c/s Sat Sep 26 21:55:42 2020 +0100 git:72f3d495d0) EFI loader
+>>>>>      ...silence...
+>>>>>
+>>>>> I have a grub installed from testing on a buster base:
+>>>>>
+>>>>>      dpkg --status grub-arm64-efi
+>>>>>      Version: 2.04-8
+>>>>>
+>>>>> With:
+>>>>>
+>>>>>      GRUB_CMDLINE_LINUX_DEFAULT=""
+>>>>>      GRUB_CMDLINE_LINUX="console=ttyAMA0"
+>>>>>      GRUB_CMDLINE_LINUX_XEN_REPLACE="console=hvc0 earlyprintk=xen"
+>>>>>      GRUB_CMDLINE_XEN="loglvl=all guest_loglvl=all com1=115200,8n1,0x3e8,5console=com1,vg"
+>>>>>
+>>>>> And I built Xen with --enable-systemd and tweaked the hypervisor .config:
+>>>>>
+>>>>>      CONFIG_EXPERT=y
+>>>>>      CONFIG_ACPI=y
+>>>>>
+>>>>> So any pointers to make it more verbose would be helpful.
+>>>>
+>>>> The error is hapenning before Xen setup the console. You can get early
+>>>> output on QEMU if you rebuild Xen with the following .config options:
+>>>>
+>>>> CONFIG_DEBUG=y
+>>>> CONFIG_EARLY_UART_CHOICE_PL011=y
+>>>> CONFIG_EARLY_UART_PL011=y
+>>>> CONFIG_EARLY_PRINTK=y
+>>>> CONFIG_EARLY_UART_BASE_ADDRESS=0x09000000
+>>>> CONFIG_EARLY_UART_PL011_BAUD_RATE=0
+>>>> CONFIG_EARLY_PRINTK_INC="debug-pl011.inc"
+>>>
+>>> OK I can see it fails on the ACPI and then tries to fall back to FDT and
+>>> then fails to find the GIC:
+>>>
+>>>     (XEN) CMDLINE[00000000f7bbe000]:chosen placeholder root=UUID=cf00cd3a-066b-4146-bedf-f811d3343077 ro console=hvc0 earlyprintk=xen
+>>>     (XEN)
+>>>     (XEN) Command line: placeholder loglvl=all guest_loglvl=all com1=115200,8n1,0x3e8,5console=com1,vg no-real-mode edd=off
+>>>     (XEN) parameter "placeholder" unknown!
+>>>     (XEN) parameter "no-real-mode" unknown!
+>>>     (XEN) parameter "edd" unknown!
+>>>     (XEN) ACPI: RSDP 138560000, 0024 (r2 BOCHS )
+>>>     (XEN) ACPI: XSDT 138550000, 004C (r1 BOCHS  BXPCFACP        1       1000013)
+>>>     (XEN) ACPI: FACP 138510000, 010C (r5 BOCHS  BXPCFACP        1 BXPC        1)
+>>>     (XEN) ACPI: DSDT 138520000, 14A6 (r2 BOCHS  BXPCDSDT        1 BXPC        1)
+>>>     (XEN) ACPI: APIC 138500000, 018C (r3 BOCHS  BXPCAPIC        1 BXPC        1)
+>>>     (XEN) ACPI: GTDT 1384F0000, 0060 (r2 BOCHS  BXPCGTDT        1 BXPC        1)
+>>>     (XEN) ACPI: MCFG 1384E0000, 003C (r1 BOCHS  BXPCMCFG        1 BXPC        1)
+>>>     (XEN) ACPI: SPCR 1384D0000, 0050 (r2 BOCHS  BXPCSPCR        1 BXPC        1)
+>>>     (XEN) Unsupported FADT revision 5.1, should be 6.0+, will disable ACPI
+>>>     (XEN) acpi_boot_table_init: FADT not found (-22)
+>>>     (XEN) Domain heap initialised
+>>>     (XEN) Booting using Device Tree
+>>>     (XEN) Platform: Generic System
+>>>     (XEN)
+>>>     (XEN) ****************************************
+>>>     (XEN) Panic on CPU 0:
+>>>     (XEN) Unable to find compatible GIC in the device tree
+>>>     (XEN) ****************************************
+>>>     (XEN)
+>>>     (XEN) Reboot in five seconds...
+>>>
+>>> Despite saying it is going to reboot it never manages to. Any idea how
+>>> it is trying to reset the system?
+>>
+>> This is a bit of chicken and eggs problem. To know the reset method, you
+>> need to parse the ACPI tables. As we can't parse then we don't know the
+>> reset method. So, Xen will just do an infinite loop.
+> 
+> Well you do get some ACPI tables - downgrading the minimum at least
+> restores the reset method detection. I wonder if it would be worth
+> defaulting to PSCI if you don't know rather than hang indefinitely?
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in his version.
----
- xen/arch/x86/emul-i8254.c     |  1 +
- xen/arch/x86/hvm/hpet.c       |  8 +++++-
- xen/arch/x86/hvm/hvm.c        |  2 --
- xen/arch/x86/hvm/rtc.c        |  1 +
- xen/arch/x86/hvm/vlapic.c     |  1 +
- xen/arch/x86/hvm/vpt.c        | 48 +++++++++++++++--------------------
- xen/include/asm-x86/hvm/vpt.h |  9 ++-----
- 7 files changed, 33 insertions(+), 37 deletions(-)
+The risk is probably low enough to try to use PSCI even on platform not 
+supporting it.
 
-diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
-index 73be4188ad..a47138cbab 100644
---- a/xen/arch/x86/emul-i8254.c
-+++ b/xen/arch/x86/emul-i8254.c
-@@ -484,6 +484,7 @@ void pit_init(struct domain *d, unsigned long cpu_khz)
-     {
-         register_portio_handler(d, PIT_BASE, 4, handle_pit_io);
-         register_portio_handler(d, 0x61, 1, handle_speaker_io);
-+        init_periodic_timer(&pit->pt0);
-     }
- 
-     pit_reset(d);
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index ca94e8b453..20593c3862 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -739,12 +739,18 @@ static void hpet_set(HPETState *h)
- 
- void hpet_init(struct domain *d)
- {
-+    HPETState *h = domain_vhpet(d);
-+    unsigned int i;
-+
-     if ( !has_vhpet(d) )
-         return;
- 
--    hpet_set(domain_vhpet(d));
-+    hpet_set(h);
-     register_mmio_handler(d, &hpet_mmio_ops);
-     d->arch.hvm.params[HVM_PARAM_HPET_ENABLED] = 1;
-+
-+    for ( i = 0; i < HPET_TIMER_NUM; i++ )
-+        init_periodic_timer(&h->pt[i]);
- }
- 
- void hpet_deinit(struct domain *d)
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 5a0448aa13..7cb4511b60 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -665,8 +665,6 @@ int hvm_domain_initialise(struct domain *d)
-     /* need link to containing domain */
-     d->arch.hvm.pl_time->domain = d;
- 
--    rwlock_init(&d->arch.hvm.pl_time->pt_migrate);
--
-     /* Set the default IO Bitmap. */
-     if ( is_hardware_domain(d) )
-     {
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index 3150f5f147..2d540b16ac 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -846,6 +846,7 @@ void rtc_init(struct domain *d)
-     init_timer(&s->update_timer, rtc_update_timer, s, smp_processor_id());
-     init_timer(&s->update_timer2, rtc_update_timer2, s, smp_processor_id());
-     init_timer(&s->alarm_timer, rtc_alarm_cb, s, smp_processor_id());
-+    init_periodic_timer(&s->pt);
- 
-     register_portio_handler(d, RTC_PORT(0), 2, handle_rtc_io);
- 
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 9afcb239af..fa40fca6c9 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1642,6 +1642,7 @@ int vlapic_init(struct vcpu *v)
-         return 0;
-     }
- 
-+    init_periodic_timer(&vlapic->pt);
-     vlapic->pt.source = PTSRC_lapic;
- 
-     if (vlapic->regs_page == NULL)
-diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 76ace8da80..47bd3285e1 100644
---- a/xen/arch/x86/hvm/vpt.c
-+++ b/xen/arch/x86/hvm/vpt.c
-@@ -126,23 +126,6 @@ static int pt_irq_masked(struct periodic_time *pt)
-     return 1;
- }
- 
--static void pt_lock(struct periodic_time *pt)
--{
--    /*
--     * We cannot use pt_vcpu_lock here, because we need to acquire the
--     * per-domain lock first and then (re-)fetch the value of pt->vcpu, or
--     * else we might be using a stale value of pt->vcpu.
--     */
--    read_lock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--    spin_lock(&pt->vcpu->arch.hvm.tm_lock);
--}
--
--static void pt_unlock(struct periodic_time *pt)
--{
--    spin_unlock(&pt->vcpu->arch.hvm.tm_lock);
--    read_unlock(&pt->vcpu->domain->arch.hvm.pl_time->pt_migrate);
--}
--
- static void pt_process_missed_ticks(struct periodic_time *pt)
- {
-     s_time_t missed_ticks, now = NOW();
-@@ -224,7 +207,7 @@ static void pt_timer_fn(void *data)
-     void *cb_priv;
-     unsigned int irq;
- 
--    pt_lock(pt);
-+    spin_lock(&pt->lock);
- 
-     v = pt->vcpu;
-     irq = pt->irq;
-@@ -240,7 +223,7 @@ static void pt_timer_fn(void *data)
-         cb_priv = pt->priv;
-     }
- 
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb )
-         cb(v, cb_priv);
-@@ -257,7 +240,7 @@ static void eoi_callback(unsigned int unused, void *data)
-     time_cb *cb = NULL;
-     void *cb_priv;
- 
--    pt_lock(pt);
-+    spin_lock(&pt->lock);
- 
-     pt_irq_fired(pt->vcpu, pt);
-     if ( pt->pending_intr_nr )
-@@ -272,7 +255,7 @@ static void eoi_callback(unsigned int unused, void *data)
-         }
-     }
- 
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb != NULL )
-         cb(v, cb_priv);
-@@ -320,6 +303,11 @@ static bool inject_interrupt(struct periodic_time *pt)
-     return true;
- }
- 
-+void init_periodic_timer(struct periodic_time *pt)
-+{
-+    spin_lock_init(&pt->lock);
-+}
-+
- void create_periodic_time(
-     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
-     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level)
-@@ -336,7 +324,7 @@ void create_periodic_time(
- 
-     destroy_periodic_time(pt);
- 
--    write_lock(&v->domain->arch.hvm.pl_time->pt_migrate);
-+    spin_lock(&pt->lock);
- 
-     pt->pending_intr_nr = 0;
-     pt->masked = false;
-@@ -400,18 +388,21 @@ void create_periodic_time(
-     init_timer(&pt->timer, pt_timer_fn, pt, v->processor);
-     set_timer(&pt->timer, pt->scheduled);
- 
--    write_unlock(&v->domain->arch.hvm.pl_time->pt_migrate);
-+    spin_unlock(&pt->lock);
- }
- 
- void destroy_periodic_time(struct periodic_time *pt)
- {
-     unsigned int gsi;
- 
-+    spin_lock(&pt->lock);
-     /* Was this structure previously initialised by create_periodic_time()? */
-     if ( pt->vcpu == NULL )
-+    {
-+        spin_unlock(&pt->lock);
-         return;
-+    }
- 
--    pt_lock(pt);
-     pt->pending_intr_nr = 0;
-     pt->masked = false;
- 
-@@ -425,7 +416,7 @@ void destroy_periodic_time(struct periodic_time *pt)
-         hvm_gsi_unregister_callback(pt->vcpu->domain, gsi, &pt->eoi_cb);
-         break;
-     }
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     /*
-      * pt_timer_fn() can run until this kill_timer() returns. We must do this
-@@ -440,10 +431,13 @@ static void pt_resume(struct periodic_time *pt)
-     time_cb *cb = NULL;
-     void *cb_priv;
- 
-+    spin_lock(&pt->lock);
-     if ( pt->vcpu == NULL )
-+    {
-+        spin_unlock(&pt->lock);
-         return;
-+    }
- 
--    pt_lock(pt);
-     if ( pt->pending_intr_nr && pt->masked && inject_interrupt(pt) )
-     {
-         pt->pending_intr_nr--;
-@@ -452,7 +446,7 @@ static void pt_resume(struct periodic_time *pt)
-         v = pt->vcpu;
-         pt->masked = false;
-     }
--    pt_unlock(pt);
-+    spin_unlock(&pt->lock);
- 
-     if ( cb )
-         cb(v, cb_priv);
-diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
-index 7c0322727b..75e0526b17 100644
---- a/xen/include/asm-x86/hvm/vpt.h
-+++ b/xen/include/asm-x86/hvm/vpt.h
-@@ -49,6 +49,7 @@ struct periodic_time {
-     time_cb *cb;
-     void *priv;                 /* point back to platform time source */
-     struct hvm_gsi_eoi_callback eoi_cb; /* EOI callback registration data */
-+    spinlock_t lock;
- };
- 
- 
-@@ -127,13 +128,6 @@ struct pl_time {    /* platform time */
-     struct RTCState  vrtc;
-     struct HPETState vhpet;
-     struct PMTState  vpmt;
--    /*
--     * rwlock to prevent periodic_time vCPU migration. Take the lock in read
--     * mode in order to prevent the vcpu field of periodic_time from changing.
--     * Lock must be taken in write mode when changes to the vcpu field are
--     * performed, as it allows exclusive access to all the timers of a domain.
--     */
--    rwlock_t pt_migrate;
-     /* guest_time = Xen sys time + stime_offset */
-     int64_t stime_offset;
-     /* Ensures monotonicity in appropriate timer modes. */
-@@ -168,6 +162,7 @@ void create_periodic_time(
-     struct vcpu *v, struct periodic_time *pt, uint64_t delta,
-     uint64_t period, uint8_t irq, time_cb *cb, void *data, bool level);
- void destroy_periodic_time(struct periodic_time *pt);
-+void init_periodic_timer(struct periodic_time *pt);
- 
- int pv_pit_handler(int port, int data, int write);
- void pit_reset(struct domain *d);
+Although, it might be worth to check if EL3 is present to avoid 
+panicking again and again on XGene.
+
+> 
+> FWIW the failure after that is failing to find the GIC - I'm just
+> looking at the MADT table parsing now. Why am I getting a sense of
+> DejaVu?
+
+The ACPI code in Xen is based on the first ACPI implementation in Linux. 
+So it is quite possible you encountered the bug there :).
+
+>> It would probably be good to be more forthcoming with the users and say
+>> it will not reboot.
+>>
+>> Also, IIRC, the time subsystem is not yet initialized. So it might be
+>> possible to mdelay() doesn't work properly.
+> 
+> Surely that's an architectural subsystem so there is no reason that
+> couldn't be up and running.
+
+In theory yes, but the code is also catering some interesting/weird 
+platforms behavior:
+    1) There are (were?) platform where CNTFREQ was not set correctly
+    2) Some platforms, such as the one with Exynos 5, (used to?) require 
+specific code to enable the arch timer.
+
+We are still using the Arndale for automated testing. So we would need 
+to keep the hacks.
+
+But it would be possible to rework the code and try to make the timer 
+available earlier for well-behaved platforms.
+
+Cheers,
+
 -- 
-2.28.0
-
+Julien Grall
 
