@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E3D27E81C
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 14:00:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.630.2129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31BD027E833
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 14:07:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.640.2141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNamr-0001uM-0j; Wed, 30 Sep 2020 12:00:45 +0000
+	id 1kNasd-0002Op-LA; Wed, 30 Sep 2020 12:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630.2129; Wed, 30 Sep 2020 12:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 640.2141; Wed, 30 Sep 2020 12:06:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,170 +23,255 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNamq-0001tb-SQ; Wed, 30 Sep 2020 12:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 630;
- Wed, 30 Sep 2020 12:00:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eJ1H=DH=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1kNamp-0001mg-BR
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:00:43 +0000
-Received: from mx1a.swcp.com (unknown [216.184.2.64])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3235fc8e-2f0f-49ad-87ab-7f89c1a625df;
- Wed, 30 Sep 2020 12:00:42 +0000 (UTC)
-Received: from ame8.swcp.com (ame8.swcp.com [216.184.2.163])
- by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08UC0fgP005394;
- Wed, 30 Sep 2020 06:00:41 -0600
-Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
- by ame8.swcp.com (8.15.2/8.15.2) with ESMTP id 08UC0BdG003035;
- Wed, 30 Sep 2020 06:00:37 -0600 (MDT) (envelope-from hudson@trmm.net)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kNasd-0002OQ-Hj; Wed, 30 Sep 2020 12:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 640;
+ Wed, 30 Sep 2020 12:06:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h8nm=DH=canonical.com=stefan.bader@srs-us1.protection.inumbo.net>)
+ id 1kNasb-0002OL-Ru
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:06:41 +0000
+Received: from youngberry.canonical.com (unknown [91.189.89.112])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 86c98a8b-2120-4e17-965f-9d82e2100535;
+ Wed, 30 Sep 2020 12:06:41 +0000 (UTC)
+Received: from 1.general.smb.uk.vpn ([10.172.193.28])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <stefan.bader@canonical.com>)
+ id 1kNasX-0004Q9-1y; Wed, 30 Sep 2020 12:06:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=eJ1H=DH=trmm.net=hudson@srs-us1.protection.inumbo.net>)
-	id 1kNamp-0001mg-BR
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:00:43 +0000
-X-Inumbo-ID: 3235fc8e-2f0f-49ad-87ab-7f89c1a625df
-Received: from mx1a.swcp.com (unknown [216.184.2.64])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3235fc8e-2f0f-49ad-87ab-7f89c1a625df;
-	Wed, 30 Sep 2020 12:00:42 +0000 (UTC)
-Received: from ame8.swcp.com (ame8.swcp.com [216.184.2.163])
-	by mx1a.swcp.com (8.14.4/8.14.4/Debian-4) with ESMTP id 08UC0fgP005394;
-	Wed, 30 Sep 2020 06:00:41 -0600
-Received-SPF: neutral (ame8.swcp.com: 62.251.112.184 is neither permitted nor denied by domain of hudson@trmm.net) receiver=ame8.swcp.com; client-ip=62.251.112.184; helo=diamond.fritz.box; envelope-from=hudson@trmm.net; x-software=spfmilter 2.001 http://www.acme.com/software/spfmilter/ with libspf2-1.2.10;
-Received: from diamond.fritz.box (62-251-112-184.ip.xs4all.nl [62.251.112.184])
-	by ame8.swcp.com (8.15.2/8.15.2) with ESMTP id 08UC0BdG003035;
-	Wed, 30 Sep 2020 06:00:37 -0600 (MDT)
-	(envelope-from hudson@trmm.net)
-X-Authentication-Warning: ame8.swcp.com: Host 62-251-112-184.ip.xs4all.nl [62.251.112.184] claimed to be diamond.fritz.box
-From: Trammell Hudson <hudson@trmm.net>
-To: xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
-        wl@xen.org
-Subject: [PATCH v8 5/5] efi: Do not use command line if unified config is included
-Date: Wed, 30 Sep 2020 08:00:11 -0400
-Message-Id: <20200930120011.1622924-6-hudson@trmm.net>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200930120011.1622924-1-hudson@trmm.net>
-References: <20200930120011.1622924-1-hudson@trmm.net>
+	(envelope-from <SRS0=h8nm=DH=canonical.com=stefan.bader@srs-us1.protection.inumbo.net>)
+	id 1kNasb-0002OL-Ru
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 12:06:41 +0000
+X-Inumbo-ID: 86c98a8b-2120-4e17-965f-9d82e2100535
+Received: from youngberry.canonical.com (unknown [91.189.89.112])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 86c98a8b-2120-4e17-965f-9d82e2100535;
+	Wed, 30 Sep 2020 12:06:41 +0000 (UTC)
+Received: from 1.general.smb.uk.vpn ([10.172.193.28])
+	by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.86_2)
+	(envelope-from <stefan.bader@canonical.com>)
+	id 1kNasX-0004Q9-1y; Wed, 30 Sep 2020 12:06:37 +0000
+Subject: Re: [PATCH] xen/events: don't use chip_data for legacy IRQs
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
+References: <20200930091614.13660-1-jgross@suse.com>
+From: Stefan Bader <stefan.bader@canonical.com>
+Autocrypt: addr=stefan.bader@canonical.com; prefer-encrypt=mutual; keydata=
+ mQINBE5mmXEBEADoM0yd6ERIuH2sQjbCGtrt0SFCbpAuOgNy7LSDJw2vZHkZ1bLPtpojdQId
+ 258o/4V+qLWaWLjbQdadzodnVUsvb+LUKJhFRB1kmzVYNxiu7AtxOnNmUn9dl1oS90IACo1B
+ BpaMIunnKu1pp7s3sfzWapsNMwHbYVHXyJeaPFtMqOxd1V7bNEAC9uNjqJ3IG15f5/50+N+w
+ LGkd5QJmp6Hs9RgCXQMDn989+qFnJga390C9JPWYye0sLjQeZTuUgdhebP0nvciOlKwaOC8v
+ K3UwEIbjt+eL18kBq4VBgrqQiMupmTP9oQNYEgk2FiW3iAQ9BXE8VGiglUOF8KIe/2okVjdO
+ nl3VgOHumV+emrE8XFOB2pgVmoklYNvOjaIV7UBesO5/16jbhGVDXskpZkrP/Ip+n9XD/EJM
+ ismF8UcvcL4aPwZf9J03fZT4HARXuig/GXdK7nMgCRChKwsAARjw5f8lUx5iR1wZwSa7HhHP
+ rAclUzjFNK2819/Ke5kM1UuT1X9aqL+uLYQEDB3QfJmdzVv5vHON3O7GOfaxBICo4Z5OdXSQ
+ SRetiJ8YeUhKpWSqP59PSsbJg+nCKvWfkl/XUu5cFO4V/+NfivTttnoFwNhi/4lrBKZDhGVm
+ 6Oo/VytPpGHXt29npHb8x0NsQOsfZeam9Z5ysmePwH/53Np8NQARAQABtDVTdGVmYW4gQmFk
+ ZXIgKENhbm9uaWNhbCkgPHN0ZWZhbi5iYWRlckBjYW5vbmljYWwuY29tPokCVwQTAQoAQQIb
+ AwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgAIZARYhBNtdfMrzmU4zldpNPuhnXe7L7s6jBQJd
+ 7mXwBQkRwqX/AAoJEOhnXe7L7s6jwpgQALEz54XvgIhYi8qCwqkopEZXq2fYttMFMEMkW3dA
+ 7Y/m5fnmPs/QYsfpn7LtQcmDGBz4W9YDL/KD+1YF1W1+vzo8NQTeR02DJksaTx2riyzI+zS9
+ YY/c0EvyauOWa8s9YvI9lzN+gWgOKyEK415nybXjU5FEMAF6jAjJ70T+DPeZjGBgkoDPKBRK
+ O3DBgOV23rrAiMx9UXqAbcSUU4i1me6PTZaAbSeIiOPOdJfPgJP8ki3QuGF3ct23dLLlPame
+ cCCgH4ZBMGb8ZQLhRfLNYao0dbDXcqQ+OSFl2pGToiC19MJj1im1Ca8Dc97JRuzkxOFKRfXA
+ 9rYsVy7AV//pfVy3x5tT0fJQtz4UFU4Qzhi/08U2wgl9tsJxP2LCtcoXa7D+3ehe92cQNsrQ
+ Xo6XKNzvOFoXzDBzoVU9SYTv12Y97zECJG11F+QmDiogudy+ioq+R9aKgMUIugnCh45LuZuR
+ yj9quASYn5vf/YywML5vSVKNQ1+0jcO/vkwja4bMU0intA0se8ujjVMV/XXJb80PtghZVVL/
+ +xqnApGilIda5+QEbjdPO8XjNlFO8cIhez81+8m68ybnq5svfee/PJOEZ6jlxG5XIyb3B/ky
+ gZY6kimPLeLcjxK4FVH5teiSB0IfpEMnQNLrjDzXWgmA/Bk7VNycPYOKvZnYuBNgA7wEuQIN
+ BE5mmXEBEADCkRfuS1cAx02yTsk9gyAapcQnpb6EBay40Ch/IPrMF2iG4F0CX6puKubjjVbq
+ L6jEKyksqPb57Vu9WAufy4Rlv3OwzaymmWk00CROCVSuEV+3bikBTnF/l+VVCvccNlpHsADM
+ LncaATvSOj1iCXeikxNAk2LA3g9H8uz7lQUhjni05ixBZGDGbaxB6Odmh58q8k/iooREHyqf
+ leSg1zpuBxYGKVug2daXLSvQI7w59eYO/L1YpLtu1sMzqRyYdSUyCiNcXDO/Ko221o2NfdqQ
+ 9KET1az8QTsBnZeTsjsk4VnYwjc9ZEYN7LATWrhz8vgI2eP80lXxXm9kx81NubnOPxna5vg9
+ DhxZEjo8A+zE4c5bQuSCJ3GTnOalXsAz0Lwk1H1nFwizUqvmPI8eAqZGeZoJ409uDcNi2BrR
+ +W7MjXxPM5k4M2zMiNfIvNBjclBLE/m7nrcxNLOk1z/KQiFVZQhtHXoOTUWmINZ+E3GIJT2D
+ ToFxUoaEW2GdX0rjqEerbUaoo6SBX7HxmjAzseND9IatGTxgN+EhJUiIWK4UOH343erB7Hga
+ 98WeEzZTq7W2NvwnqOVAq2ElnPhHrD98nWIBZPOEu6xgiyvVFfXJGmRBMRBR+8hBjfX0643n
+ Lq3wYOrZbNfP8dJVQZ4GxI6OLTcwYNgifqp/SIJzE1tgkwARAQABiQI8BBgBCgAmAhsMFiEE
+ 2118yvOZTjOV2k0+6Gdd7svuzqMFAl3uZkUFCRGHUtQACgkQ6Gdd7svuzqMZ8A/+OOxzg8PT
+ 7B9o/YvbBuKfnc3WK2xFpYPsiqlRk+7NnV1BXOMpCe9jrKGy1erJg0WBD7BXg7mbQj6KH58o
+ MslCZCkb4N1igwD2JiJo/Lf98DFdw6hUR8Ja/DOVhjpNjfbhF5EIIzkkV8K/pIrkRPOL6uld
+ i2IPowtMky2yoIJ1cQdtREEUL/WcpRoLrW6ZqITx4RxL2nnUSp0kpr3sdsYmUoGKWAfBSO/W
+ TCsypW4Ymd4tWST4NVFYOW2/pkROX8saRdznaCRFnn8QeTSb2WgDmXLLjGKancYmZPNRcdr9
+ OsFcWN2R3ljo6+frW58GoR1To4E7Jr2MucDK8wmvkf08NlnhqOzfaRvgdLLK5l5tv6LZOGCH
+ 17imKDu6cH0qf0EVCCd3Oq8SIosKzcvYJRqwc6CJGJSaz9CNUHCnDUzMZq1Pi+C4FuK2i2jz
+ X+xJRAvEX6xZ0BhfuKnum7KtZmBYACeL4V27Bes6r2YGEf4ZQq9kyNVZ6r+pmcyRS495Y+8r
+ Vgixzb39xyLAzwOFCBpCcsT6MsdsqIx9ir+Dx3aVpU9kxzFLXmj1JnlqCvDx4g8q1kEU9ffD
+ 6bmoRYuE45/feIEQGr1QueKac1rpRHhfohCTZNG2Jx1c6VwZCYvBKkOJMWpQwRtyEcShcX1j
+ quuXTQgSgLXYhq37J+O42GU0Amw=
+Message-ID: <1bf20485-3dd2-109f-5c8a-d2c971e1f6d6@canonical.com>
+Date: Wed, 30 Sep 2020 14:06:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.78
-X-Greylist: Message whitelisted by DRAC access database, not delayed by milter-greylist-4.6.2 (ame8.swcp.com [216.184.2.128]); Wed, 30 Sep 2020 06:00:39 -0600 (MDT)
-X-Virus-Scanned: clamav-milter 0.99.2 at ame8
-X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on ame8.swcp.com
-X-Spam-Status: No, hits=0.7 tests=NO_RECEIVED,NO_RELAYS,SPF_NEUTRAL
-	version=3.4.1
-X-Spam-Level: 
+In-Reply-To: <20200930091614.13660-1-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="4ZWfbxMYEuYb9WBQDNT49jdPyGV9G7x6T"
 
-If a unified Xen image is used, then the bundled configuration,
-Xen command line, dom0 kernel, and ramdisk are prefered over
-any files listed in the config file or provided on the command line.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--4ZWfbxMYEuYb9WBQDNT49jdPyGV9G7x6T
+Content-Type: multipart/mixed; boundary="eo46LUkwhYPCjazyhGffTGoSf3IEADHzU"
 
-Unlike the shim based verification, the PE signature on a unified image
-covers all of the Xen+config+kernel+initrd modules linked into the
-unified image. This also ensures that, on properly configured UEFI Secure Boot
-platforms,  the entire runtime will be measured into the TPM for unsealing
-secrets or remote attestation.
+--eo46LUkwhYPCjazyhGffTGoSf3IEADHzU
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Trammell Hudson <hudson@trmm.net>
----
- xen/common/efi/boot.c | 43 ++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+On 30.09.20 11:16, Juergen Gross wrote:
+> Since commit c330fb1ddc0a ("XEN uses irqdesc::irq_data_common::handler_=
+data to store a per interrupt XEN data pointer which contains XEN specifi=
+c information.")
+> Xen is using the chip_data pointer for storing IRQ specific data. When
+> running as a HVM domain this can result in problems for legacy IRQs, as=
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 072b1cecd1..07ea5b3512 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -950,6 +950,35 @@ static void __init setup_efi_pci(void)
-     efi_bs->FreePool(handles);
- }
- 
-+/*
-+ * Logic should remain sync'ed with linux/arch/x86/xen/efi.c
-+ * Secure Boot is enabled iff 'SecureBoot' is set and the system is
-+ * not in Setup Mode.
-+ */
-+static bool __init efi_secure_boot(void)
-+{
-+    static __initdata EFI_GUID global_guid = EFI_GLOBAL_VARIABLE;
-+    uint8_t secboot, setupmode;
-+    UINTN secboot_size = sizeof(secboot);
-+    UINTN setupmode_size = sizeof(setupmode);
-+    EFI_STATUS rc;
-+
-+    rc = efi_rs->GetVariable(L"SecureBoot", &global_guid,
-+                             NULL, &secboot_size, &secboot);
-+    if ( rc != EFI_SUCCESS )
-+        return false;
-+
-+    rc = efi_rs->GetVariable(L"SetupMode", &global_guid,
-+                             NULL, &setupmode_size, &setupmode);
-+    if ( rc != EFI_SUCCESS )
-+        return false;
-+
-+    if ( secboot > 1 || setupmode > 1 )
-+        blexit(L"Invalid SecureBoot/SetupMode variables");
-+
-+    return secboot == 1 && setupmode == 0;
-+}
-+
- static void __init efi_variables(void)
- {
-     EFI_STATUS status;
-@@ -1126,15 +1155,15 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-     EFI_STATUS status;
--    unsigned int i, argc;
--    CHAR16 **argv, *file_name, *cfg_file_name = NULL, *options = NULL;
-+    unsigned int i, argc = 0;
-+    CHAR16 **argv = NULL, *file_name, *cfg_file_name = NULL, *options = NULL;
-     UINTN gop_mode = ~0;
-     EFI_SHIM_LOCK_PROTOCOL *shim_lock;
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-     union string section = { NULL }, name;
-     bool base_video = false;
-     const char *option_str;
--    bool use_cfg_file;
-+    bool use_cfg_file, secure;
- 
-     __set_bit(EFI_BOOT, &efi_flags);
-     __set_bit(EFI_LOADER, &efi_flags);
-@@ -1153,8 +1182,10 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         PrintErrMesg(L"No Loaded Image Protocol", status);
- 
-     efi_arch_load_addr_check(loaded_image);
-+    secure = efi_secure_boot();
- 
--    if ( use_cfg_file )
-+    if ( use_cfg_file &&
-+         !read_section(loaded_image, L"config", &cfg, NULL) )
-     {
-         UINTN offset = 0;
- 
-@@ -1212,6 +1243,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
- 
-     PrintStr(L"Xen " __stringify(XEN_VERSION) "." __stringify(XEN_SUBVERSION)
-              XEN_EXTRAVERSION " (c/s " XEN_CHANGESET ") EFI loader\r\n");
-+    if ( secure )
-+        PrintStr(L"UEFI Secure Boot enabled\r\n");
- 
-     efi_arch_relocate_image(0);
- 
-@@ -1231,7 +1264,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         /* Get the file system interface. */
-         dir_handle = get_parent_handle(loaded_image, &file_name);
- 
--        if ( read_section(loaded_image, L"config", &cfg, NULL) )
-+        if ( cfg.ptr )
-             PrintStr(L"Using builtin config file\r\n");
-         else if ( !cfg_file_name )
-         {
--- 
-2.25.1
+> those might use chip_data for their own purposes.
+>=20
+> Use a local array for this purpose in case of legacy IRQs, avoiding the=
 
+> double use.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: c330fb1ddc0a ("XEN uses irqdesc::irq_data_common::handler_data t=
+o store a per interrupt XEN data pointer which contains XEN specific info=
+rmation.")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+Tested-by: Stefan Bader <stefan.bader@canonical.com>
+> ---
+>  drivers/xen/events/events_base.c | 29 +++++++++++++++++++++--------
+>  1 file changed, 21 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/even=
+ts_base.c
+> index 90b8f56fbadb..6f02c18fa65c 100644
+> --- a/drivers/xen/events/events_base.c
+> +++ b/drivers/xen/events/events_base.c
+> @@ -92,6 +92,8 @@ static bool (*pirq_needs_eoi)(unsigned irq);
+>  /* Xen will never allocate port zero for any purpose. */
+>  #define VALID_EVTCHN(chn)	((chn) !=3D 0)
+> =20
+> +static struct irq_info *legacy_info_ptrs[NR_IRQS_LEGACY];
+> +
+>  static struct irq_chip xen_dynamic_chip;
+>  static struct irq_chip xen_percpu_chip;
+>  static struct irq_chip xen_pirq_chip;
+> @@ -156,7 +158,18 @@ int get_evtchn_to_irq(evtchn_port_t evtchn)
+>  /* Get info for IRQ */
+>  struct irq_info *info_for_irq(unsigned irq)
+>  {
+> -	return irq_get_chip_data(irq);
+> +	if (irq < nr_legacy_irqs())
+> +		return legacy_info_ptrs[irq];
+> +	else
+> +		return irq_get_chip_data(irq);
+> +}
+> +
+> +static void set_info_for_irq(unsigned int irq, struct irq_info *info)
+> +{
+> +	if (irq < nr_legacy_irqs())
+> +		legacy_info_ptrs[irq] =3D info;
+> +	else
+> +		irq_set_chip_data(irq, info);
+>  }
+> =20
+>  /* Constructors for packed IRQ information. */
+> @@ -377,7 +390,7 @@ static void xen_irq_init(unsigned irq)
+>  	info->type =3D IRQT_UNBOUND;
+>  	info->refcnt =3D -1;
+> =20
+> -	irq_set_chip_data(irq, info);
+> +	set_info_for_irq(irq, info);
+> =20
+>  	list_add_tail(&info->list, &xen_irq_list_head);
+>  }
+> @@ -426,14 +439,14 @@ static int __must_check xen_allocate_irq_gsi(unsi=
+gned gsi)
+> =20
+>  static void xen_free_irq(unsigned irq)
+>  {
+> -	struct irq_info *info =3D irq_get_chip_data(irq);
+> +	struct irq_info *info =3D info_for_irq(irq);
+> =20
+>  	if (WARN_ON(!info))
+>  		return;
+> =20
+>  	list_del(&info->list);
+> =20
+> -	irq_set_chip_data(irq, NULL);
+> +	set_info_for_irq(irq, NULL);
+> =20
+>  	WARN_ON(info->refcnt > 0);
+> =20
+> @@ -603,7 +616,7 @@ EXPORT_SYMBOL_GPL(xen_irq_from_gsi);
+>  static void __unbind_from_irq(unsigned int irq)
+>  {
+>  	evtchn_port_t evtchn =3D evtchn_from_irq(irq);
+> -	struct irq_info *info =3D irq_get_chip_data(irq);
+> +	struct irq_info *info =3D info_for_irq(irq);
+> =20
+>  	if (info->refcnt > 0) {
+>  		info->refcnt--;
+> @@ -1108,7 +1121,7 @@ int bind_ipi_to_irqhandler(enum ipi_vector ipi,
+> =20
+>  void unbind_from_irqhandler(unsigned int irq, void *dev_id)
+>  {
+> -	struct irq_info *info =3D irq_get_chip_data(irq);
+> +	struct irq_info *info =3D info_for_irq(irq);
+> =20
+>  	if (WARN_ON(!info))
+>  		return;
+> @@ -1142,7 +1155,7 @@ int evtchn_make_refcounted(evtchn_port_t evtchn)
+>  	if (irq =3D=3D -1)
+>  		return -ENOENT;
+> =20
+> -	info =3D irq_get_chip_data(irq);
+> +	info =3D info_for_irq(irq);
+> =20
+>  	if (!info)
+>  		return -ENOENT;
+> @@ -1170,7 +1183,7 @@ int evtchn_get(evtchn_port_t evtchn)
+>  	if (irq =3D=3D -1)
+>  		goto done;
+> =20
+> -	info =3D irq_get_chip_data(irq);
+> +	info =3D info_for_irq(irq);
+> =20
+>  	if (!info)
+>  		goto done;
+>=20
+
+
+
+--eo46LUkwhYPCjazyhGffTGoSf3IEADHzU--
+
+--4ZWfbxMYEuYb9WBQDNT49jdPyGV9G7x6T
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE2118yvOZTjOV2k0+6Gdd7svuzqMFAl90dMwACgkQ6Gdd7svu
+zqPQ/A//RDI4BshHv9YGjjm0Nxa2eS5HXqyE3rPLWF+ppy1GjdxTI1X6uPJ5q6Tq
+iQxLlb5X+VILKwYN1VK8pz3Jl/rexaQZEsTOvxswLpGs2CaHWLpBf3GVziewCq6u
+V/JXLRFmgCRq+DQ0IgWnl7FJk/kkUp4mLbdsVBpZxayrinXmdCnSsiCIhEAnOJIm
+ooiiyc7x1OqzmrfJiwFgRchdc3qBGcaXUzZZkJJYT++y/SigfyXY5JUk/fK3VzLi
+RjZ7HqRo19h0SKOn2WA46fqKxHVLkpINt5ixOvGXn5eaUkLmq9GUaejhf0ABuk+y
+gMwSgUYAA08w5VkWOch9Tc+YR8LxlfjTelQWpoGL6DYYIAiavyyNAso6RJwf/bN1
+XcFg+NBYi4XCWAyi77IqPWjIdmMqHMeMzP/PuUe5QOOr2xT0IJbXU1solq9DblqF
+/dcvaUkIOKxS9vhD+n+jPGjDzl3KEhyczQv5M7LwtmcLqh1n3DqTMlZzgu1VhwLH
+XEmZMZTV0QAYuEIhhUePtsivw1RnKxd84nVYF/lx9tDcdqORtLOy9h9IfdF7tBPv
+anROrXIdL2ktJr1k2SjrENmRipmKOeisYE1LOjmaReUi/PiV+SgVmh0132C0Fnih
+FTgJYBZYKyuB/kJKDT0Dyf3h5FuAWlKTK1iR5q9jo4FFEHjME7M=
+=/vXP
+-----END PGP SIGNATURE-----
+
+--4ZWfbxMYEuYb9WBQDNT49jdPyGV9G7x6T--
 
