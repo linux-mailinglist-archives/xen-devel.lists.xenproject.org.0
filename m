@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C45727F0F1
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 19:57:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.877.3039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3024427F119
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 20:12:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.882.3055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNgLZ-0006hN-5f; Wed, 30 Sep 2020 17:56:57 +0000
+	id 1kNgZv-0008Vr-HO; Wed, 30 Sep 2020 18:11:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 877.3039; Wed, 30 Sep 2020 17:56:57 +0000
+Received: by outflank-mailman (output) from mailman id 882.3055; Wed, 30 Sep 2020 18:11:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,185 +23,112 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNgLZ-0006gy-27; Wed, 30 Sep 2020 17:56:57 +0000
-Received: by outflank-mailman (input) for mailman id 877;
- Wed, 30 Sep 2020 17:56:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNgZv-0008VS-EJ; Wed, 30 Sep 2020 18:11:47 +0000
+Received: by outflank-mailman (input) for mailman id 882;
+ Wed, 30 Sep 2020 18:11:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m0D6=DH=casper.srs.infradead.org=batv+fa6e45c137c1199df5c4+6247+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kNgHY-0005QF-Q4
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:48 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ff48d49e-23ae-4a95-8d7b-d03db52e643a;
- Wed, 30 Sep 2020 17:51:59 +0000 (UTC)
-Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kNgGc-0001DO-6R; Wed, 30 Sep 2020 17:51:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=4Fdc=DH=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1kNgZt-0008VN-S6
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 18:11:45 +0000
+Received: from galois.linutronix.de (unknown [193.142.43.55])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f7433716-af24-46bd-88af-00ad162e92a4;
+ Wed, 30 Sep 2020 18:11:44 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=m0D6=DH=casper.srs.infradead.org=batv+fa6e45c137c1199df5c4+6247+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kNgHY-0005QF-Q4
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 17:52:48 +0000
-X-Inumbo-ID: ff48d49e-23ae-4a95-8d7b-d03db52e643a
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ff48d49e-23ae-4a95-8d7b-d03db52e643a;
-	Wed, 30 Sep 2020 17:51:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=ix+nhROFgS2R/TvryqxFuXEm6pOX6uuPKFVKed32kPg=; b=o71az0TAGIt+o23t9vEEPg9kBX
-	49t5J7kjHFOTFFFV1reywEKaB+iF5d6lYqgVAc7lLH43QPfngUbCNFDu6idG354NtO0I20tYUmc/S
-	ZNAXVCDrReTupKXsw6F5l3EHk46VQsKDWXEuoaEZwsGrnxoyazLXMES+Zm9kzi1lpuCrDw+OOKSKn
-	N9e7DoOAmhqH/Xf3idF4DAirJzTM4dZVdj0+5Xss/2Veo4YkuL/fEADv9DU6/Q4fO8Mv09yhcRXRO
-	AJrpiNZlL0BIfp1/UyxfaKevrL7DT2VegvYl4HXyjB6G5Xg6D8J438SNVin3yQs9fbhbLooyU+aY6
-	Vr5NdFSA==;
-Received: from [2001:4bb8:180:7b62:c70:4a89:bc61:4] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kNgGc-0001DO-6R; Wed, 30 Sep 2020 17:51:50 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Nitin Gupta <ngupta@vflare.org>,
-	x86@kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-mm@kvack.org
-Subject: [PATCH 10/10] mm: remove alloc_vm_area
-Date: Wed, 30 Sep 2020 19:51:33 +0200
-Message-Id: <20200930175133.1252382-11-hch@lst.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200930175133.1252382-1-hch@lst.de>
-References: <20200930175133.1252382-1-hch@lst.de>
+	(envelope-from <SRS0=4Fdc=DH=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+	id 1kNgZt-0008VN-S6
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 18:11:45 +0000
+X-Inumbo-ID: f7433716-af24-46bd-88af-00ad162e92a4
+Received: from galois.linutronix.de (unknown [193.142.43.55])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id f7433716-af24-46bd-88af-00ad162e92a4;
+	Wed, 30 Sep 2020 18:11:44 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1601489503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXtBXXhiMVMdTYSCyK9KnC71AtIKQfsWx/V0UzZjSqs=;
+	b=aalLhxTTFAUQOEA4S+jPMN0XZ7VE8ERlzT82B+AOWxenX32nsqgLWa/bYiqvfiOxx0w1Dc
+	sV9R+Hp52bFesJRNB+HmHnqCYvBJXznlZPPdx+d9EwYl8ewLltm1Hcym/Ph1xDZyzKjJhL
+	ZVs5Cw93bo+IiNxdmuCp3JcjzVSx6XSx551yPOrwgtVK/KEsPd0HKXZqyH23xMbaok4fD5
+	my8dTS5Y90I/giCW/fia+Yn5S/NE4gRRwcr5l+mByPUetyDTSTO15kuyfJ0C1TdjqTXL+l
+	vicJtFiTWlmeiyaxl2Tbjh5IEvtXABQE3fDj45VcPymN9gXwFrPKlNHV6tPRrA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1601489503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXtBXXhiMVMdTYSCyK9KnC71AtIKQfsWx/V0UzZjSqs=;
+	b=+0cpSGl+ZP0wOxBV5o33UW0ETwb2OixJ9wUOzToxF/4Yxscw/i8EIRz4QPlc5qG84wdWZD
+	QI0HtoTSaEP0J8Dg==
+To: "Dey\, Megha" <megha.dey@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, Joerg Roedel
+ <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ linux-hyperv@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>, Jon
+ Derrick <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Steve Wahl
+ <steve.wahl@hpe.com>, Dimitri Sivanich <sivanich@hpe.com>, Russ Anderson
+ <rja@hpe.com>, linux-pci@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Dave Jiang <dave.jiang@intel.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Jacob Pan <jacob.jun.pan@intel.com>, Baolu
+ Lu <baolu.lu@intel.com>, Kevin Tian <kevin.tian@intel.com>, Dan Williams
+ <dan.j.williams@intel.com>, ravi.v.shankar@intel.com
+Subject: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare for device MSI
+In-Reply-To: <e07aa723-12cd-7eb7-392a-642f96b98f79@intel.com>
+References: <20200826111628.794979401@linutronix.de> <10b5d933-f104-7699-341a-0afb16640d54@intel.com> <87v9fvix5f.fsf@nanos.tec.linutronix.de> <20200930114301.GD816047@nvidia.com> <87k0wbi94b.fsf@nanos.tec.linutronix.de> <e07aa723-12cd-7eb7-392a-642f96b98f79@intel.com>
+Date: Wed, 30 Sep 2020 20:11:43 +0200
+Message-ID: <878scri17k.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain
 
-All users are gone now.
+Megha,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- include/linux/vmalloc.h |  5 +----
- mm/nommu.c              |  7 ------
- mm/vmalloc.c            | 48 -----------------------------------------
- 3 files changed, 1 insertion(+), 59 deletions(-)
+On Wed, Sep 30 2020 at 10:25, Megha Dey wrote:
+> On 9/30/2020 8:20 AM, Thomas Gleixner wrote:
+>>>> Your IMS patches? Why do you need something special again?
+>
+> By IMS patches, I meant your IMS driver patch that was updated (as it 
+> was untested, it had some compile errors and we removed the IMS_QUEUE
+> parts) :
 
-diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
-index c77efeac242514..938eaf9517e266 100644
---- a/include/linux/vmalloc.h
-+++ b/include/linux/vmalloc.h
-@@ -169,6 +169,7 @@ extern struct vm_struct *__get_vm_area_caller(unsigned long size,
- 					unsigned long flags,
- 					unsigned long start, unsigned long end,
- 					const void *caller);
-+void free_vm_area(struct vm_struct *area);
- extern struct vm_struct *remove_vm_area(const void *addr);
- extern struct vm_struct *find_vm_area(const void *addr);
- 
-@@ -204,10 +205,6 @@ static inline void set_vm_flush_reset_perms(void *addr)
- }
- #endif
- 
--/* Allocate/destroy a 'vmalloc' VM area. */
--extern struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes);
--extern void free_vm_area(struct vm_struct *area);
--
- /* for /dev/kmem */
- extern long vread(char *buf, char *addr, unsigned long count);
- extern long vwrite(char *buf, char *addr, unsigned long count);
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 75a327149af127..9272f30e4c4726 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -354,13 +354,6 @@ void vm_unmap_aliases(void)
- }
- EXPORT_SYMBOL_GPL(vm_unmap_aliases);
- 
--struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
--{
--	BUG();
--	return NULL;
--}
--EXPORT_SYMBOL_GPL(alloc_vm_area);
--
- void free_vm_area(struct vm_struct *area)
- {
- 	BUG();
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index e2a2ded8d93478..3bc5b832451ef2 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3083,54 +3083,6 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
- }
- EXPORT_SYMBOL(remap_vmalloc_range);
- 
--static int f(pte_t *pte, unsigned long addr, void *data)
--{
--	pte_t ***p = data;
--
--	if (p) {
--		*(*p) = pte;
--		(*p)++;
--	}
--	return 0;
--}
--
--/**
-- * alloc_vm_area - allocate a range of kernel address space
-- * @size:	   size of the area
-- * @ptes:	   returns the PTEs for the address space
-- *
-- * Returns:	NULL on failure, vm_struct on success
-- *
-- * This function reserves a range of kernel address space, and
-- * allocates pagetables to map that range.  No actual mappings
-- * are created.
-- *
-- * If @ptes is non-NULL, pointers to the PTEs (in init_mm)
-- * allocated for the VM area are returned.
-- */
--struct vm_struct *alloc_vm_area(size_t size, pte_t **ptes)
--{
--	struct vm_struct *area;
--
--	area = get_vm_area_caller(size, VM_IOREMAP,
--				__builtin_return_address(0));
--	if (area == NULL)
--		return NULL;
--
--	/*
--	 * This ensures that page tables are constructed for this region
--	 * of kernel virtual address space and mapped into init_mm.
--	 */
--	if (apply_to_page_range(&init_mm, (unsigned long)area->addr,
--				size, f, ptes ? &ptes : NULL)) {
--		free_vm_area(area);
--		return NULL;
--	}
--
--	return area;
--}
--EXPORT_SYMBOL_GPL(alloc_vm_area);
--
- void free_vm_area(struct vm_struct *area)
- {
- 	struct vm_struct *ret;
--- 
-2.28.0
+Ok.
 
+> The whole patchset can be found here:
+>
+> https://lore.kernel.org/lkml/f4a085f1-f6de-2539-12fe-c7308d243a4a@intel.com/
+>
+> It would be great if you could review the IMS patches :)
+
+It somehow slipped through the cracks. I'll have a look.
+
+> We were hoping to get IMS in the 5.10 merge window :)
+
+Hope dies last, right?
+
+>>> We might be able to put together a mockup just to prove it
+>> If that makes Megha's stuff going that would of course be appreciated,
+>> but we can defer the IMS_QUEUE part for later. It's orthogonal to the
+>> IMS_ARRAY stuff.
+>
+> In our patch series, we have removed the IMS_QUEUE stuff and retained 
+> only the IMS_ARRAY parts > as that was sufficient for us.
+
+That works. We can add that back when Jason has his puzzle pieces
+sorted.
+
+Thanks,
+
+        tglx
 
