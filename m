@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED1AE27E2E3
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 09:48:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.460.1445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA20227E329
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Sep 2020 09:59:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.462.1457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNWqi-00076g-2L; Wed, 30 Sep 2020 07:48:28 +0000
+	id 1kNX0L-00083a-1r; Wed, 30 Sep 2020 07:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460.1445; Wed, 30 Sep 2020 07:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 462.1457; Wed, 30 Sep 2020 07:58:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,153 +23,229 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNWqh-00076H-V6; Wed, 30 Sep 2020 07:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 460;
- Wed, 30 Sep 2020 07:48:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kNX0K-00083B-US; Wed, 30 Sep 2020 07:58:24 +0000
+Received: by outflank-mailman (input) for mailman id 462;
+ Wed, 30 Sep 2020 07:58:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XJGA=DH=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
- id 1kNWqg-00076C-Hx
- for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 07:48:26 +0000
-Received: from out30-54.freemail.mail.aliyun.com (unknown [115.124.30.54])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f5893384-c70e-479a-9a20-47f4b71eb9d6;
- Wed, 30 Sep 2020 07:48:22 +0000 (UTC)
-Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com
- fp:SMTPD_---0UAYdEKG_1601452096) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 30 Sep 2020 15:48:16 +0800
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=T/h3=DH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kNX0I-000836-Us
+ for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 07:58:23 +0000
+Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4f512365-0318-4194-9af6-457002740be9;
+ Wed, 30 Sep 2020 07:58:21 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id v12so654232wmh.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 00:58:21 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-232.amazon.com. [54.240.197.232])
+ by smtp.gmail.com with ESMTPSA id u13sm1401497wrm.77.2020.09.30.00.58.19
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 30 Sep 2020 00:58:20 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=XJGA=DH=linux.alibaba.com=richard.weiyang@srs-us1.protection.inumbo.net>)
-	id 1kNWqg-00076C-Hx
-	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 07:48:26 +0000
-X-Inumbo-ID: f5893384-c70e-479a-9a20-47f4b71eb9d6
-Received: from out30-54.freemail.mail.aliyun.com (unknown [115.124.30.54])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id f5893384-c70e-479a-9a20-47f4b71eb9d6;
-	Wed, 30 Sep 2020 07:48:22 +0000 (UTC)
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01e04423;MF=richard.weiyang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0UAYdEKG_1601452096;
-Received: from localhost(mailfrom:richard.weiyang@linux.alibaba.com fp:SMTPD_---0UAYdEKG_1601452096)
-          by smtp.aliyun-inc.com(127.0.0.1);
-          Wed, 30 Sep 2020 15:48:16 +0800
-Date: Wed, 30 Sep 2020 15:48:16 +0800
-From: Wei Yang <richard.weiyang@linux.alibaba.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: Wei Yang <richard.weiyang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@kernel.org>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
-	Scott Cheloha <cheloha@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Subject: Re: [PATCH v1 3/5] mm/page_alloc: always move pages to the tail of
- the freelist in unset_migratetype_isolate()
-Message-ID: <20200930074816.GA40431@L-31X9LVDL-1304.local>
-Reply-To: Wei Yang <richard.weiyang@linux.alibaba.com>
-References: <20200928182110.7050-1-david@redhat.com>
- <20200928182110.7050-4-david@redhat.com>
- <20200929091803.GB36904@L-31X9LVDL-1304.local>
- <21d9ea16-863b-19fe-e5b7-841bb4228c6d@redhat.com>
+	(envelope-from <SRS0=T/h3=DH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kNX0I-000836-Us
+	for xen-devel@lists.xenproject.org; Wed, 30 Sep 2020 07:58:23 +0000
+X-Inumbo-ID: 4f512365-0318-4194-9af6-457002740be9
+Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 4f512365-0318-4194-9af6-457002740be9;
+	Wed, 30 Sep 2020 07:58:21 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id v12so654232wmh.3
+        for <xen-devel@lists.xenproject.org>; Wed, 30 Sep 2020 00:58:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=jSch6ZDlTiUgEBsgRAFuaiY6uNH4AelmbpC7MBkS9Ss=;
+        b=BtezLytuBM5ydBqaRRa3KfMavSqxv4Y4nZEYK75H0qh7VzrlXPKbYphcPC58gQaUPM
+         6psyit4MgLI2WvBfIDw96+zsiCQfTRsLkVx5kvT7H+uOMwiqfnVZ4WcyQ/LZcQuXryO1
+         YxKF7cv6AiRTTDnhmSG0FTqTTTuFJdFd/HkfcUuyobT7SnruIJhN/M6ITLBoAD6hnX3G
+         cbzHsdlNimsTO3iarNXO9Y1S/FY9EC8/LcuyBLBNBdunZYdqPHrfVux2MrqfThtdhZxP
+         BXsRg+lhWGc2q9fOZ/zmL9+qjsE5wx8ERyu3QK0FSMEmmpHiFvzkhn9A3deMoqW8D14K
+         oF4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=jSch6ZDlTiUgEBsgRAFuaiY6uNH4AelmbpC7MBkS9Ss=;
+        b=sAFAltnrdnYtjqa1me/rKl0bcn2JvNp5Kx3Es3AMFltt3HrlpCfHf1dit4qhsIBVn9
+         tb/2ILS/7gFfOWcLWDn7kM3J0+XyO7SM9pN0C6Uu6T05ppRQsI74Z2Gow7q0Rakjs7RU
+         2ahoOUXTEhy+Ms9Pu4nE03T2lKIjAv9Zj+xmcqzCORoFiKotJBscmDC7dsg2c655IG9F
+         dYWkDVVcRJfWp7a1fZfk2Xnip11qkk+VLhOtekg+0mHEoGHjK5EqYRKP68BE9aE8AwQz
+         HWhmEXJoqtBolsASF1YZ4GUfabChIP7pgzmlJnf0ue3w6P08oMduQLlAaQEPR97TO9P0
+         TP0g==
+X-Gm-Message-State: AOAM532Z6q3akQ18/lAzzWqXEqLlif7kDs/lyc0fC2YymOeBhVqS4plu
+	8ubNfBL2+ehCy39U8EB1kOs=
+X-Google-Smtp-Source: ABdhPJwGQTDyPShFe1UXb8pJqJ9S5i3vL7xuETzslgay3NoQjGRGCWhhWuQGpdXJdjILEcIRTHcE0g==
+X-Received: by 2002:a7b:c210:: with SMTP id x16mr1509238wmi.37.1601452700885;
+        Wed, 30 Sep 2020 00:58:20 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-232.amazon.com. [54.240.197.232])
+        by smtp.gmail.com with ESMTPSA id u13sm1401497wrm.77.2020.09.30.00.58.19
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 30 Sep 2020 00:58:20 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'George Dunlap'" <George.Dunlap@eu.citrix.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>
+References: <0d5ffc89-4b04-3e06-e950-f0cb171c7419@suse.com> <6e529147-2a76-bc28-ac16-21fc9a2c8f03@suse.com>
+In-Reply-To: <6e529147-2a76-bc28-ac16-21fc9a2c8f03@suse.com>
+Subject: RE: [PATCH 11/12] evtchn: convert vIRQ lock to an r/w one
+Date: Wed, 30 Sep 2020 08:58:19 +0100
+Message-ID: <004b01d696ff$76873e50$6395baf0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <21d9ea16-863b-19fe-e5b7-841bb4228c6d@redhat.com>
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQHyn6bUUfstxLK2yDInWW9SM20ChgJbMrw1qTTuaoA=
 
-On Tue, Sep 29, 2020 at 12:12:14PM +0200, David Hildenbrand wrote:
->On 29.09.20 11:18, Wei Yang wrote:
->> On Mon, Sep 28, 2020 at 08:21:08PM +0200, David Hildenbrand wrote:
->>> Page isolation doesn't actually touch the pages, it simply isolates
->>> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
->>>
->>> We already place pages to the tail of the freelists when undoing
->>> isolation via __putback_isolated_page(), let's do it in any case
->>> (e.g., if order <= pageblock_order) and document the behavior.
->>>
->>> Add a "to_tail" parameter to move_freepages_block() but introduce a
->>> a new move_to_free_list_tail() - similar to add_to_free_list_tail().
->
->s/a a/a/
->
->>>
->>> This change results in all pages getting onlined via online_pages() to
->>> be placed to the tail of the freelist.
->>>
->>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>> Cc: Andrew Morton <akpm@linux-foundation.org>
->>> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
->>> Cc: Mel Gorman <mgorman@techsingularity.net>
->>> Cc: Michal Hocko <mhocko@kernel.org>
->>> Cc: Dave Hansen <dave.hansen@intel.com>
->>> Cc: Vlastimil Babka <vbabka@suse.cz>
->>> Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
->>> Cc: Oscar Salvador <osalvador@suse.de>
->>> Cc: Mike Rapoport <rppt@kernel.org>
->>> Cc: Scott Cheloha <cheloha@linux.ibm.com>
->>> Cc: Michael Ellerman <mpe@ellerman.id.au>
->>> Signed-off-by: David Hildenbrand <david@redhat.com>
->>> ---
->>> include/linux/page-isolation.h |  4 ++--
->>> mm/page_alloc.c                | 35 +++++++++++++++++++++++-----------
->>> mm/page_isolation.c            | 12 +++++++++---
->>> 3 files changed, 35 insertions(+), 16 deletions(-)
->>>
->>> diff --git a/include/linux/page-isolation.h b/include/linux/page-isolation.h
->>> index 572458016331..3eca9b3c5305 100644
->>> --- a/include/linux/page-isolation.h
->>> +++ b/include/linux/page-isolation.h
->>> @@ -36,8 +36,8 @@ static inline bool is_migrate_isolate(int migratetype)
->>> struct page *has_unmovable_pages(struct zone *zone, struct page *page,
->>> 				 int migratetype, int flags);
->>> void set_pageblock_migratetype(struct page *page, int migratetype);
->>> -int move_freepages_block(struct zone *zone, struct page *page,
->>> -				int migratetype, int *num_movable);
->>> +int move_freepages_block(struct zone *zone, struct page *page, int migratetype,
->>> +			 bool to_tail, int *num_movable);
->>>
->>> /*
->>>  * Changes migrate type in [start_pfn, end_pfn) to be MIGRATE_ISOLATE.
->>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->>> index 9e3ed4a6f69a..d5a5f528b8ca 100644
->>> --- a/mm/page_alloc.c
->>> +++ b/mm/page_alloc.c
->>> @@ -905,6 +905,15 @@ static inline void move_to_free_list(struct page *page, struct zone *zone,
->>> 	list_move(&page->lru, &area->free_list[migratetype]);
->>> }
->>>
->>> +/* Used for pages which are on another list */
->>> +static inline void move_to_free_list_tail(struct page *page, struct zone *zone,
->>> +					  unsigned int order, int migratetype)
->>> +{
->>> +	struct free_area *area = &zone->free_area[order];
->>> +
->>> +	list_move_tail(&page->lru, &area->free_list[migratetype]);
->>> +}
->>> +
->> 
->> Would it be better to pass the *to_tail* to move_to_free_list(), so we won't
->> have a new function?
->
->Hi,
->
->thanks for the review!
->
->See discussion in RFC + cover letter:
->
->"Add a "to_tail" parameter to move_freepages_block() but introduce a new
->move_to_free_list_tail() - similar to add_to_free_list_tail()."
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Jan Beulich
+> Sent: 28 September 2020 12:02
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <George.Dunlap@eu.citrix.com>; Ian
+> Jackson <iwj@xenproject.org>; Julien Grall <julien@xen.org>; Wei Liu <wl@xen.org>; Stefano Stabellini
+> <sstabellini@kernel.org>
+> Subject: [PATCH 11/12] evtchn: convert vIRQ lock to an r/w one
+> 
+> There's no need to serialize all sending of vIRQ-s; all that's needed
+> is serialization against the closing of the respective event channels
+> (by means of a barrier). To facilitate the conversion, introduce a new
+> rw_barrier().
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -160,7 +160,7 @@ struct vcpu *vcpu_create(struct domain *
+>      v->vcpu_id = vcpu_id;
+>      v->dirty_cpu = VCPU_CPU_CLEAN;
+> 
+> -    spin_lock_init(&v->virq_lock);
+> +    rwlock_init(&v->virq_lock);
+> 
+>      tasklet_init(&v->continue_hypercall_tasklet, NULL, NULL);
+> 
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -640,7 +640,7 @@ int evtchn_close(struct domain *d1, int
+>              if ( v->virq_to_evtchn[chn1->u.virq] != port1 )
+>                  continue;
+>              v->virq_to_evtchn[chn1->u.virq] = 0;
+> -            spin_barrier(&v->virq_lock);
+> +            rw_barrier(&v->virq_lock);
+>          }
+>          break;
+> 
+> @@ -794,7 +794,7 @@ void send_guest_vcpu_virq(struct vcpu *v
+> 
+>      ASSERT(!virq_is_global(virq));
+> 
+> -    spin_lock_irqsave(&v->virq_lock, flags);
+> +    read_lock_irqsave(&v->virq_lock, flags);
+> 
+>      port = v->virq_to_evtchn[virq];
+>      if ( unlikely(port == 0) )
+> @@ -807,7 +807,7 @@ void send_guest_vcpu_virq(struct vcpu *v
+>      spin_unlock(&chn->lock);
+> 
+>   out:
+> -    spin_unlock_irqrestore(&v->virq_lock, flags);
+> +    read_unlock_irqrestore(&v->virq_lock, flags);
+>  }
+> 
+>  void send_guest_global_virq(struct domain *d, uint32_t virq)
+> @@ -826,7 +826,7 @@ void send_guest_global_virq(struct domai
+>      if ( unlikely(v == NULL) )
+>          return;
+> 
+> -    spin_lock_irqsave(&v->virq_lock, flags);
+> +    read_lock_irqsave(&v->virq_lock, flags);
+> 
+>      port = v->virq_to_evtchn[virq];
+>      if ( unlikely(port == 0) )
+> @@ -838,7 +838,7 @@ void send_guest_global_virq(struct domai
+>      spin_unlock(&chn->lock);
+> 
+>   out:
+> -    spin_unlock_irqrestore(&v->virq_lock, flags);
+> +    read_unlock_irqrestore(&v->virq_lock, flags);
+>  }
+> 
+>  void send_guest_pirq(struct domain *d, const struct pirq *pirq)
+> --- a/xen/common/spinlock.c
+> +++ b/xen/common/spinlock.c
+> @@ -2,7 +2,7 @@
+>  #include <xen/irq.h>
+>  #include <xen/smp.h>
+>  #include <xen/time.h>
+> -#include <xen/spinlock.h>
+> +#include <xen/rwlock.h>
+>  #include <xen/guest_access.h>
+>  #include <xen/preempt.h>
+>  #include <public/sysctl.h>
+> @@ -334,6 +334,12 @@ void _spin_unlock_recursive(spinlock_t *
+>      }
+>  }
+> 
+> +void _rw_barrier(rwlock_t *lock)
+> +{
+> +    check_barrier(&lock->lock.debug);
+> +    do { smp_mb(); } while ( _rw_is_locked(lock) );
+> +}
 
-Hmm, sounds reasonable.
+Should you not have a cpu_relax() somewhere in here?
 
-Reviewed-by: Wei Yang <richard.weiyang@linux.alibaba.com>
+TBH though, the fact this lock is never taken as a writer makes me wonder whether there needs to be a lock at all.
 
--- 
-Wei Yang
-Help you, Help me
+  Paul
+
+> +
+>  #ifdef CONFIG_DEBUG_LOCK_PROFILE
+> 
+>  struct lock_profile_anc {
+> --- a/xen/include/xen/rwlock.h
+> +++ b/xen/include/xen/rwlock.h
+> @@ -237,6 +237,8 @@ static inline int _rw_is_write_locked(rw
+>      return (atomic_read(&lock->cnts) & _QW_WMASK) == _QW_LOCKED;
+>  }
+> 
+> +void _rw_barrier(rwlock_t *lock);
+> +
+>  #define read_lock(l)                  _read_lock(l)
+>  #define read_lock_irq(l)              _read_lock_irq(l)
+>  #define read_lock_irqsave(l, f)                                 \
+> @@ -266,6 +268,7 @@ static inline int _rw_is_write_locked(rw
+>  #define rw_is_locked(l)               _rw_is_locked(l)
+>  #define rw_is_write_locked(l)         _rw_is_write_locked(l)
+> 
+> +#define rw_barrier(l)                 _rw_barrier(l)
+> 
+>  typedef struct percpu_rwlock percpu_rwlock_t;
+> 
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -235,7 +235,7 @@ struct vcpu
+> 
+>      /* IRQ-safe virq_lock protects against delivering VIRQ to stale evtchn. */
+>      evtchn_port_t    virq_to_evtchn[NR_VIRQS];
+> -    spinlock_t       virq_lock;
+> +    rwlock_t         virq_lock;
+> 
+>      /* Tasklet for continue_hypercall_on_cpu(). */
+>      struct tasklet   continue_hypercall_tasklet;
+> 
+
+
 
