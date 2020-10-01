@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6951727FC8E
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 11:37:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1145.3773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 631D127FC8F
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 11:40:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1150.3787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNv1h-0000W7-7U; Thu, 01 Oct 2020 09:37:25 +0000
+	id 1kNv47-0000hR-LI; Thu, 01 Oct 2020 09:39:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1145.3773; Thu, 01 Oct 2020 09:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 1150.3787; Thu, 01 Oct 2020 09:39:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,92 +23,81 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNv1h-0000Vi-4G; Thu, 01 Oct 2020 09:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 1145;
- Thu, 01 Oct 2020 09:37:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNv47-0000h2-IE; Thu, 01 Oct 2020 09:39:55 +0000
+Received: by outflank-mailman (input) for mailman id 1150;
+ Thu, 01 Oct 2020 09:39:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tj+q=DI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kNv1f-0000Uw-Na
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 09:37:23 +0000
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a8d2bfc4-a7d1-4583-a8fb-d9265447f5c0;
- Thu, 01 Oct 2020 09:37:17 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id k15so4844360wrn.10;
- Thu, 01 Oct 2020 02:37:17 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id 185sm8475760wma.18.2020.10.01.02.37.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2020 02:37:15 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=jQH2=DI=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kNv45-0000gw-Un
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 09:39:53 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b1522ba7-08c0-4757-8027-20d3e9bf0d46;
+ Thu, 01 Oct 2020 09:39:53 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Tj+q=DI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
-	id 1kNv1f-0000Uw-Na
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 09:37:23 +0000
-X-Inumbo-ID: a8d2bfc4-a7d1-4583-a8fb-d9265447f5c0
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a8d2bfc4-a7d1-4583-a8fb-d9265447f5c0;
-	Thu, 01 Oct 2020 09:37:17 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id k15so4844360wrn.10;
-        Thu, 01 Oct 2020 02:37:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=LLZQPOYWmcB5OcvPbTDTfwETRWYxrmdG96TWBsyI9VY=;
-        b=fQsXnkvgkJ67zoE2Ehr9TRD7DFy7o+SQPLBHd7yOvQVvVS6f775Un+AFCJ9tuMFiii
-         +XuoU8oOsvuIOVyTlV32Yto8BdlS32gQatTex1u0xUH15R5JkELLljbWdmgTJ51couY6
-         7uqys0pwkBCQAHZUUbHLoRxz4ePzmmLNI0Y23qY+12NiAZlrrcIEkwE8KCeerl5pbR0T
-         gXdrA0hU82lP/tAFaRzHlE5c5gv5iA8BhgNsDZQYyEvQKzxAorQKwHtRizJSm+WpGLup
-         LfekMbbrDN+74pvlDbh/LldElZH7fwFnXFN3SpaJ22JvlQKrj+tHPvz5TTIhMX9nlcr9
-         yFow==
-X-Gm-Message-State: AOAM531Vo1qiH5g2hzalrL34n5xFbqjaHe72SBO0xDoIbxHDBYxGleQw
-	VZPV9IkM7GHbJ9iwl45uJZQ=
-X-Google-Smtp-Source: ABdhPJzE23z/Iabn8OLDLbEXKIeu7gT8UV4Ljqia8gjLDC2AmQKhZJdscRBdzLVrvgBBaC+yFPE1Lg==
-X-Received: by 2002:adf:a3d4:: with SMTP id m20mr8403169wrb.29.1601545036696;
-        Thu, 01 Oct 2020 02:37:16 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id 185sm8475760wma.18.2020.10.01.02.37.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 02:37:15 -0700 (PDT)
-Date: Thu, 1 Oct 2020 09:37:14 +0000
-From: Wei Liu <wl@xen.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	samuel.thibault@ens-lyon.org, wl@xen.org
-Subject: Re: [PATCH 0/2] mini-os: netfront: fix some issues
-Message-ID: <20201001093714.bcfs7rf4myle6t7g@liuwe-devbox-debian-v2>
-References: <20200922105826.26274-1-jgross@suse.com>
+	(envelope-from <SRS0=jQH2=DI=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kNv45-0000gw-Un
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 09:39:53 +0000
+X-Inumbo-ID: b1522ba7-08c0-4757-8027-20d3e9bf0d46
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id b1522ba7-08c0-4757-8027-20d3e9bf0d46;
+	Thu, 01 Oct 2020 09:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601545193;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Sy9RhktHhKCZPoO1SvVPs/IAQLIURM7MzqGmOAdgZzg=;
+  b=EEgUIGJAAMwbGJQhAj1uMboWp1dlKzQFuFPypLgisbQu2XL9Gp6ZmU9S
+   /R0qZm3p8n1U9u6D9FuHrFdlUPH3O5aV3UEG5i3RPFu0nrdTx98uNtMa9
+   VQEjPdlvWQzZxcQiEAGKxAe6/dg4OY+TC+6b72c7PA9381jN+314SksfZ
+   U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: IaA5xlRhdTAheeutYCL7jlOOzM7g/xhjvC2zQvciPT/5e2O0ZyHRykRBh66w9otBVBHHV4HnPV
+ puy9aUKniZdoDi3ldpH+JDHdTRQeViKOeG3fm0t5dO6leVvsZZMVwjGi1bdOjEh0lwujjoL0gn
+ WMXCYk1bxbKHBhPVsGQ+G5aoqt0K92wlaMw4jVi7musKK1uUjbMx3RtfZtmbJh0UVacMpVKqzq
+ LbZ9uL8RYJsLRTdTOiWUgXgk3PI6J4ec3ePtuRsH7XNfaBHz9VAwnIpweBkP3SrICF9FHMDmy0
+ U5E=
+X-SBRS: None
+X-MesageID: 28323557
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,323,1596513600"; 
+   d="scan'208";a="28323557"
+Date: Thu, 1 Oct 2020 11:39:40 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<JBeulich@suse.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/8] xen/domctl: Simplify DOMCTL_CDF_ checking logic
+Message-ID: <20201001093940.GZ19254@Air-de-Roger>
+References: <20200930134248.4918-1-andrew.cooper3@citrix.com>
+ <20200930134248.4918-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200922105826.26274-1-jgross@suse.com>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200930134248.4918-3-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On Tue, Sep 22, 2020 at 12:58:24PM +0200, Juergen Gross wrote:
-> Fix two issues in mini-os netfront:
+On Wed, Sep 30, 2020 at 02:42:42PM +0100, Andrew Cooper wrote:
+> Introduce some local variables to make the resulting logic easier to follow.
+> Join the two IOMMU checks in sanitise_domain_config().  Tweak some of the
+> terminology for better accuracy.
 > 
-> - undo init_netfront interface change and replace it with an alternative
-> - fix mini-os suspend/resume handling in netfront
+> No functional change.
 > 
-> Juergen Gross (2):
->   mini-os: netfront: retrieve netmask and gateway via extra function
->   mini-os: netfront: fix suspend/resume handling
-> 
->  include/netfront.h |   4 +-
->  lwip-net.c         |   4 +-
->  netfront.c         | 173 ++++++++++++++++++++-------------------------
->  test.c             |   2 +-
->  4 files changed, 84 insertions(+), 99 deletions(-)
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Pushed to mini-os.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Wei.
+On an unrelated note, we don't seem to sanitize iommu_opts in
+sanitise_domain_config like we do for flags.
 
-> 
-> -- 
-> 2.26.2
-> 
+Thanks, Roger.
 
