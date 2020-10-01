@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA2B27FDDF
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 12:57:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1197.4009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A58727FDE5
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 12:57:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1198.4021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNwGh-00014a-Bw; Thu, 01 Oct 2020 10:56:59 +0000
+	id 1kNwHM-0001Bm-Mm; Thu, 01 Oct 2020 10:57:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197.4009; Thu, 01 Oct 2020 10:56:59 +0000
+Received: by outflank-mailman (output) from mailman id 1198.4021; Thu, 01 Oct 2020 10:57:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,81 +23,88 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNwGh-00014B-87; Thu, 01 Oct 2020 10:56:59 +0000
-Received: by outflank-mailman (input) for mailman id 1197;
- Thu, 01 Oct 2020 10:56:57 +0000
+	id 1kNwHM-0001BL-Ij; Thu, 01 Oct 2020 10:57:40 +0000
+Received: by outflank-mailman (input) for mailman id 1198;
+ Thu, 01 Oct 2020 10:57:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tj+q=DI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kNwGf-000140-GB
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 10:56:57 +0000
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+ id 1kNwHL-0001BD-7G
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 10:57:39 +0000
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 89ae8e78-3b30-440d-8da1-5d39ff710382;
- Thu, 01 Oct 2020 10:56:56 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id w5so5137633wrp.8
- for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 03:56:56 -0700 (PDT)
+ id ac66f2ce-4205-4de9-82e1-ecc1ec75aed1;
+ Thu, 01 Oct 2020 10:57:38 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id e2so2549043wme.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 03:57:38 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id 76sm8804381wma.42.2020.10.01.03.56.55
+ by smtp.gmail.com with ESMTPSA id q13sm8259640wra.93.2020.10.01.03.57.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2020 03:56:55 -0700 (PDT)
+ Thu, 01 Oct 2020 03:57:37 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Tj+q=DI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
-	id 1kNwGf-000140-GB
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 10:56:57 +0000
-X-Inumbo-ID: 89ae8e78-3b30-440d-8da1-5d39ff710382
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+	id 1kNwHL-0001BD-7G
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 10:57:39 +0000
+X-Inumbo-ID: ac66f2ce-4205-4de9-82e1-ecc1ec75aed1
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 89ae8e78-3b30-440d-8da1-5d39ff710382;
-	Thu, 01 Oct 2020 10:56:56 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id w5so5137633wrp.8
-        for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 03:56:56 -0700 (PDT)
+	id ac66f2ce-4205-4de9-82e1-ecc1ec75aed1;
+	Thu, 01 Oct 2020 10:57:38 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id e2so2549043wme.1
+        for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 03:57:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=1XWcXD6FFUKsSbEt2l0rT2x4DcMcLdIMbmuD92O09kM=;
-        b=g+3plM+bY/dAQX5U4p0NnkOUZf8mc0c/as/7JWYT3iZ52bwDWOHzgtK1rFOgZkgSq5
-         oVoizG2BvO1niR43GuM1nD4SmFjcWuT140P38gLt8g+CQjrIXkvSN5CY0bLrg1kz+1iO
-         R+Pm+pT90sUMRXK4hEp5bh7ulSY0JyOlB+zHEKVonUaGBPDlYcBVULjXj3yUOk00JQho
-         k3xA70rO5JkwLqWtiRp0tK1FC2o7fU8jMs6MjmYi4vC1Wjxqs1rQVcGVrGW+xcxRD8ie
-         fCd8qyD9/kOPKM25Hi/cGd0wtzcGTl4oMiNwHzRiXq3J1q6t2VMrnX0/6+YDx35Qc5p3
-         qItg==
-X-Gm-Message-State: AOAM532uGxm8BtNePe1EYMu6g3aNmhbir0ebArn8W4sRjsy+DtwefGgn
-	Ydjm2v45AsDqh+bKj93fNHo=
-X-Google-Smtp-Source: ABdhPJyOPqp5FcwJ+Ph8VeXnlUdUKpXUf9Ltc/lGefwL1TxBLNHKjGkUP+Tv5huKOtEs16Mdavg8bA==
-X-Received: by 2002:a5d:4603:: with SMTP id t3mr8011710wrq.424.1601549816158;
-        Thu, 01 Oct 2020 03:56:56 -0700 (PDT)
+        bh=dzol3yVXVExT+qqaUvqTP0armzVQ4jkLbrkE6c3+vCE=;
+        b=G964OkoIZYYCkw9m3njlT64p4BIhk6FwqDU2pHdMOfboLVSrlro1JbV4eJeRpqw7uK
+         DGgFIhLODS8vo3+opx0UFNIl8hvLoBNo8MVfscFPOGyZ3OYpN3znrvbJJwVflf+vS2hB
+         LDEwZVHG4gMJDoSK0cXvH9PcQVZeA/zvunUWFyceSMPmf+IEdiu+Eoy75rHdklsZ7rLk
+         n+DmCHaPIjBGOQdzq5HFTklEGeZQkm6Bu9YaNKYgmyDJiK+jNAW1GP/PiFWCBKaoRX3c
+         t7d4Lw1dfh3RokDpLDVT2moySoACQeTBRgQ5SheqH2Ox17/RvrldsLAOn4ZqP+Lkv6j8
+         gHIw==
+X-Gm-Message-State: AOAM5332uAdJw6+sVQkT/UqinoD7rGE1/+vrEumVARsID/CTnx26BuU5
+	nqB8BPJnWfmAPBrT1ZePaNw=
+X-Google-Smtp-Source: ABdhPJyq91TaOQK0xGPuaA9/N+yacyJhyHZmyvQdsU5rZDY9lmb4B9yy1HjQMVX0vTocC38I8Td48Q==
+X-Received: by 2002:a7b:cbd4:: with SMTP id n20mr8311038wmi.105.1601549857646;
+        Thu, 01 Oct 2020 03:57:37 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id 76sm8804381wma.42.2020.10.01.03.56.55
+        by smtp.gmail.com with ESMTPSA id q13sm8259640wra.93.2020.10.01.03.57.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 03:56:55 -0700 (PDT)
-Date: Thu, 1 Oct 2020 10:56:54 +0000
+        Thu, 01 Oct 2020 03:57:37 -0700 (PDT)
+Date: Thu, 1 Oct 2020 10:57:35 +0000
 From: Wei Liu <wl@xen.org>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 4/8] tools/cpuid: Plumb nested_virt down into
- xc_cpuid_apply_policy()
-Message-ID: <20201001105654.kpx2sxehk6ca5vc7@liuwe-devbox-debian-v2>
+Subject: Re: [PATCH 5/8] x86/hvm: Obsolete the use of HVM_PARAM_NESTEDHVM
+Message-ID: <20201001105735.oiywarm7jjkbbjho@liuwe-devbox-debian-v2>
 References: <20200930134248.4918-1-andrew.cooper3@citrix.com>
- <20200930134248.4918-5-andrew.cooper3@citrix.com>
+ <20200930134248.4918-6-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200930134248.4918-5-andrew.cooper3@citrix.com>
+In-Reply-To: <20200930134248.4918-6-andrew.cooper3@citrix.com>
 User-Agent: NeoMutt/20180716
 
-On Wed, Sep 30, 2020 at 02:42:44PM +0100, Andrew Cooper wrote:
-> Nested Virt is the final special case in legacy CPUID handling.  Pass the
-> (poorly named) nested_hvm setting down into xc_cpuid_apply_policy() to break
-> the semantic dependency on HVM_PARAM_NESTEDHVM.
+On Wed, Sep 30, 2020 at 02:42:45PM +0100, Andrew Cooper wrote:
+> With XEN_DOMCTL_CDF_nested_virt now passed properly to domain_create(),
+> reimplement nestedhvm_enabled() to use the property which is fixed for the
+> lifetime of the domain.
 > 
-> No functional change.
+> This makes the call to nestedhvm_vcpu_initialise() from hvm_vcpu_initialise()
+> no longer dead.  It became logically dead with the Xend => XL transition, as
+> they initialise HVM_PARAM_NESTEDHVM in opposite orders with respect to
+> XEN_DOMCTL_max_vcpus.
+> 
+> There is one opencoded user of nestedhvm_enabled() in HVM_PARAM_ALTP2M's
+> safety check.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-This has gone in.
+Reviewed-by: Wei Liu <wl@xen.org>
 
