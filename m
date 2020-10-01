@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F0EE27F6C3
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 02:31:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976.3302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A65D27F715
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 03:13:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981.3318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNmUM-0000Nj-7Z; Thu, 01 Oct 2020 00:30:26 +0000
+	id 1kNn9P-0004hb-Hz; Thu, 01 Oct 2020 01:12:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976.3302; Thu, 01 Oct 2020 00:30:26 +0000
+Received: by outflank-mailman (output) from mailman id 981.3318; Thu, 01 Oct 2020 01:12:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,225 +23,163 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNmUM-0000NJ-48; Thu, 01 Oct 2020 00:30:26 +0000
-Received: by outflank-mailman (input) for mailman id 976;
- Thu, 01 Oct 2020 00:30:25 +0000
+	id 1kNn9P-0004hF-Ea; Thu, 01 Oct 2020 01:12:51 +0000
+Received: by outflank-mailman (input) for mailman id 981;
+ Thu, 01 Oct 2020 01:12:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=thWI=DI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kNmUL-0000NE-3t
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 00:30:25 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=DWMX=DI=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1kNn9N-0004h9-Ne
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 01:12:50 +0000
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81ab1160-02fb-41d7-9c38-ab476fdc1c08;
- Thu, 01 Oct 2020 00:30:24 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E1E9A2184D;
- Thu,  1 Oct 2020 00:30:22 +0000 (UTC)
+ id 6835e8ae-ca98-47e5-b8bd-b803a0fd0424;
+ Thu, 01 Oct 2020 01:12:48 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id B82E15C0193;
+ Wed, 30 Sep 2020 21:12:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Wed, 30 Sep 2020 21:12:48 -0400
+Received: from mail-itl (unknown [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A32673280059;
+ Wed, 30 Sep 2020 21:12:47 -0400 (EDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=thWI=DI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kNmUL-0000NE-3t
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 00:30:25 +0000
-X-Inumbo-ID: 81ab1160-02fb-41d7-9c38-ab476fdc1c08
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=DWMX=DI=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+	id 1kNn9N-0004h9-Ne
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 01:12:50 +0000
+X-Inumbo-ID: 6835e8ae-ca98-47e5-b8bd-b803a0fd0424
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 81ab1160-02fb-41d7-9c38-ab476fdc1c08;
-	Thu, 01 Oct 2020 00:30:24 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id E1E9A2184D;
-	Thu,  1 Oct 2020 00:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1601512223;
-	bh=4PcswBWRr6GsvfgvbHrpwY1GkLAGkSmFWDxYJRxe9Ss=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bjS95EOXuOzPq9TjClXwKrxFFDNV0vUODwM97RUZ8LUGyiJ/QmDVj2t7P8GguNxTN
-	 Eglm/+IqA3oiMIYWaJmlfRgDiZ0stRklvsg430Fnqwsf/aiW2Uo+HbR6DUnDENGxRX
-	 t+So276Ex0JmZyzYUQ3AGMPtegpxAYtqQdoysTJk=
-Date: Wed, 30 Sep 2020 17:30:22 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org, 
-    masami.hiramatsu@linaro.org, ehem+xen@m5p.com, bertrand.marquis@arm.com, 
-    andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Wei Xu <xuwei5@hisilicon.com>
-Subject: Re: [PATCH 2/4] xen/arm: acpi: The fixmap area should always be
- cleared during failure/unmap
-In-Reply-To: <20200926205542.9261-3-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2009301711190.10908@sstabellini-ThinkPad-T480s>
-References: <20200926205542.9261-1-julien@xen.org> <20200926205542.9261-3-julien@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 6835e8ae-ca98-47e5-b8bd-b803a0fd0424;
+	Thu, 01 Oct 2020 01:12:48 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+	by mailout.nyi.internal (Postfix) with ESMTP id B82E15C0193;
+	Wed, 30 Sep 2020 21:12:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute7.internal (MEProxy); Wed, 30 Sep 2020 21:12:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=content-type:date:from:message-id
+	:mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; bh=guF5N7HBSXLVEMnupTPI2tYk4lCVe
+	rMDQ/jjNCH/my8=; b=Zb1wxXZ9ulR+/fg3dOVzIsgX6blqBiyYxHWtnUirGBFmw
+	PUByTS75W+kcPePv7oVMHfO9MDSjhNydQh1tNB1DXvTgbWzIWwNPimrC5RU/THuq
+	rgQ0YJUtM2/X/NPNSzkpUsNZPdGoFf6g2NOckPd3UNStrPqUbysZhiMeQZmFj+4T
+	izOExNbz64e16QV8DhGCn9jOmPNJMOJfWu0CJg8s9LlGYOiA/zD5s4cmqdy6rVDO
+	aIeeTa5qCqTkiNHOI63OEOKr6RXQu6iS6Pp20am/FqqgWuHPu9fjlD/zh2bpxai9
+	sBUVoR6UYNH7zxEgMoirUQeWwQLUba/49rlkSgPGw==
+X-ME-Sender: <xms:EC11X2Q-UuhWa8V40tDU56TYtMpJzT4qoQ2K4egIaaSC-MyW8HSbww>
+    <xme:EC11X7yEOFPwCbtZMsa3NaCIAK_PK0bhkuLqSwlcQQIX07DlJm3rLZJZaD6OGn6KN
+    sUvjNhBzZTfbQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeefgdeghecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkgggtugesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptddugfetudev
+    udeiveevgfetueejlefggffghffhhfehtdfffeefgfduueegfefhnecukfhppeeluddrie
+    egrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
+    fhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hm
+X-ME-Proxy: <xmx:EC11Xz3EAZPYB5_IVFmDSNTRybt0MmIjvjzDKgI2CX2X46Q7LS6K0A>
+    <xmx:EC11XyDILkGVLRWwWTlj08ya17LbCdfyZqZM4-_WkmkaoxdnKyTwcw>
+    <xmx:EC11X_i5e0J4gxGOKPMIr9cXHEKBZiNGmCch63D8SrFAdfX6grfVLQ>
+    <xmx:EC11X6uRHrSaf7f9qNzcM6YKDvx1vww4f28jfXiFGK5ILU7Nxf9Mqw>
+Received: from mail-itl (unknown [91.64.170.89])
+	by mail.messagingengine.com (Postfix) with ESMTPA id A32673280059;
+	Wed, 30 Sep 2020 21:12:47 -0400 (EDT)
+Date: Thu, 1 Oct 2020 03:12:45 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Yet another S3 issue in Xen 4.14
+Message-ID: <20201001011245.GL3962@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Sat, 26 Sep 2020, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> Commit 022387ee1ad3 "xen/arm: mm: Don't open-code Xen PT update in
-> {set, clear}_fixmap()" enforced that each set_fixmap() should be
-> paired with a clear_fixmap(). Any failure to follow the model would
-> result to a platform crash.
-> 
-> Unfortunately, the use of fixmap in the ACPI code was overlooked as it
-> is calling set_fixmap() but not clear_fixmap().
-> 
-> The function __acpi_os_map_table() is reworked so:
->     - We know before the mapping whether the fixmap region is big
->     enough for the mapping.
->     - It will fail if the fixmap is always inuse.
-
-I take you mean "it will fail if the fixmap is *already* in use"?
-
-If so, can it be a problem? Or the expectation is that in practice
-__acpi_os_map_table() will only get called once before SYS_STATE_boot?
-
-Looking at the code it would seem that even before this patch
-__acpi_os_map_table() wasn't able to handle multiple calls before
-SYS_STATE_boot.
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="t5C3/nrmPumNj5sH"
+Content-Disposition: inline
 
 
-> 
-> The function __acpi_os_unmap_table() will now call clear_fixmap().
-> 
-> Reported-by: Wei Xu <xuwei5@hisilicon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ---
-> 
-> The discussion on the original thread [1] suggested to also zap it on
-> x86. This is technically not necessary today, so it is left alone for
-> now.
-> 
-> I looked at making the fixmap code common but the index are inverted
-> between Arm and x86.
-> 
-> [1] https://lore.kernel.org/xen-devel/5E26C935.9080107@hisilicon.com/
-> ---
->  xen/arch/arm/acpi/lib.c | 75 +++++++++++++++++++++++++++++++----------
->  1 file changed, 58 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/arch/arm/acpi/lib.c b/xen/arch/arm/acpi/lib.c
-> index 2192a5519171..eebaca695562 100644
-> --- a/xen/arch/arm/acpi/lib.c
-> +++ b/xen/arch/arm/acpi/lib.c
-> @@ -25,38 +25,79 @@
->  #include <xen/init.h>
->  #include <xen/mm.h>
->  
-> +static bool fixmap_inuse;
-> +
->  char *__acpi_map_table(paddr_t phys, unsigned long size)
->  {
-> -    unsigned long base, offset, mapped_size;
-> -    int idx;
-> +    unsigned long base, offset;
-> +    mfn_t mfn;
-> +    unsigned int idx;
->  
->      /* No arch specific implementation after early boot */
->      if ( system_state >= SYS_STATE_boot )
->          return NULL;
->  
->      offset = phys & (PAGE_SIZE - 1);
-> -    mapped_size = PAGE_SIZE - offset;
-> -    set_fixmap(FIXMAP_ACPI_BEGIN, maddr_to_mfn(phys), PAGE_HYPERVISOR);
-> -    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
-> +    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) + offset;
-> +
-> +    /* Check the fixmap is big enough to map the region */
-> +    if ( (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - base) < size )
-> +        return NULL;
-> +
-> +    /* With the fixmap, we can only map one region at the time */
-> +    if ( fixmap_inuse )
-> +        return NULL;
->  
-> -    /* Most cases can be covered by the below. */
-> +    fixmap_inuse = true;
-> +
-> +    size += offset;
-> +    mfn = maddr_to_mfn(phys);
->      idx = FIXMAP_ACPI_BEGIN;
-> -    while ( mapped_size < size )
-> -    {
-> -        if ( ++idx > FIXMAP_ACPI_END )
-> -            return NULL;    /* cannot handle this */
-> -        phys += PAGE_SIZE;
-> -        set_fixmap(idx, maddr_to_mfn(phys), PAGE_HYPERVISOR);
-> -        mapped_size += PAGE_SIZE;
-> -    }
->  
-> -    return ((char *) base + offset);
-> +    do {
-> +        set_fixmap(idx, mfn, PAGE_HYPERVISOR);
-> +        size -= min(size, (unsigned long)PAGE_SIZE);
-> +        mfn = mfn_add(mfn, 1);
-> +        idx++;
-> +    } while ( size > 0 );
-> +
-> +    return (char *)base;
->  }
->  
->  bool __acpi_unmap_table(void *ptr, unsigned long size)
->  {
-> -    return ( vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) &&
-> -             vaddr < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE) );
-> +    vaddr_t vaddr = (vaddr_t)ptr;
-> +    unsigned int idx;
-> +
-> +    /* We are only handling fixmap address in the arch code */
-> +    if ( vaddr < FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) ||
-> +         vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_END) )
+--t5C3/nrmPumNj5sH
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Yet another S3 issue in Xen 4.14
 
-The "+ PAGE_SIZE" got lost
+Hi,
 
+After patching the previous issue ("x86/S3: Fix Shadow Stack resume
+path") I still encounter issues resume from S3.
+Since I had it working on Xen 4.13 on this particular hardware (Thinkpad
+P52), I bisected it and got this:
 
-> +        return false;
-> +
-> +    /*
-> +     * __acpi_map_table() will always return a pointer in the first page
-> +     * for the ACPI fixmap region. The caller is expected to free with
-> +     * the same address.
-> +     */
-> +    ASSERT((vaddr & PAGE_MASK) == FIXMAP_ADDR(FIXMAP_ACPI_BEGIN));
-> +
-> +    /* The region allocated fit in the ACPI fixmap region. */
-> +    ASSERT(size < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - vaddr));
-> +    ASSERT(fixmap_inuse);
-> +
-> +    fixmap_inuse = false;
-> +
-> +    size += FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) - vaddr;
+commit 4304ff420e51b973ec9eb9dafd64a917dd9c0fb1
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Dec 11 20:59:19 2019 +0000
 
-Sorry I got confused.. Shouldn't this be:
+    x86/S3: Drop {save,restore}_rest_processor_state() completely
+   =20
+    There is no need to save/restore FS/GS/XCR0 state.  It will be handled
+    suitably on the context switch away from the idle.
+   =20
+    The CR4 restoration in restore_rest_processor_state() was actually figh=
+ting
+    later code in enter_state() which tried to keep CR4.MCE clear until eve=
+rything
+    was set up.  Delete the intermediate restoration, and defer final resto=
+ration
+    until after MCE is reconfigured.
+   =20
+    Restoring PAT can be done earlier, and ideally before paging is enabled=
+=2E  By
+    moving it into the trampoline during the setup for 64bit, the call can =
+be
+    dropped from cpu_init().  The EFI path boot path doesn't disable paging=
+, so
+    make the adjustment when switching onto Xen's pagetables.
+   =20
+    The only remaing piece of restoration is load_system_tables(), so suspe=
+nd.c
+    can be deleted in its entirety.
+   =20
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-  size += vaddr - FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
+Parent of this commit suspends and resumes just fine. With this commit
+applied, it (I think) it panics, at least I get reboot after 5s. Sadly, I
+don't have serial console there.
 
-?
+I tried also master and stable-4.14 with this commit reverted (and also
+the other fix applied), but it doesn't work. In this case I get a hang on
+resume (power led still flashing, but fan woke up). There are probably
+some other dependencies.
 
+Any idea?
 
-> +    idx = FIXMAP_ACPI_BEGIN;
-> +
-> +    do
-> +    {
-> +        clear_fixmap(idx);
-> +        size -= min(size, (unsigned long)PAGE_SIZE);
-> +        idx++;
-> +    } while ( size > 0 );
-> +
-> +    return true;
->  }
->  
->  /* True to indicate PSCI 0.2+ is implemented */
-> -- 
-> 2.17.1
-> 
+PS This is different than "Xen crash after S3 suspend - Xen 4.13"
+thread, as this one broke with 4.13 -> 4.14 update.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--t5C3/nrmPumNj5sH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl91LQwACgkQ24/THMrX
+1yyPHQf+KtQAHIHZmQw6/Pz7aQCdVQl7Y9JCjWjdoPCRBake7bYAXTtD75zEjCCJ
+EUE4uysnItG6thJYXYjiWSSqEdoGkP+v0DfDoMQtd0l+gGIMtStCgq34V9zrWn4I
+MS9wUI8wm+fTE803P5JtwiFZg27N2dZDGib5dfgzOWlbByg+VndriVeWo230rxZL
+1gMbvZuBDLwJ62YnwLWq1smkY5y0WzT/Nby10TjQgw2Yd4qxbCAMTW6H6QGP+U3i
+nWhPYdokM5JLm49TfQtUBvuSr7vBRY8XI398wxaXjeVlNqFQ+2RPkWCrl/ONVp+Y
+lS9KqWCJu7Hav3sdSLYMaG9sfOt4BQ==
+=IW0k
+-----END PGP SIGNATURE-----
+
+--t5C3/nrmPumNj5sH--
 
