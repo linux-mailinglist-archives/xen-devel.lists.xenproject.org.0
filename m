@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 193F227FB6F
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 10:24:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1108.3652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD67027FBDD
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 10:50:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1117.3671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNtt0-0001pT-JH; Thu, 01 Oct 2020 08:24:22 +0000
+	id 1kNuGu-0003r3-Qk; Thu, 01 Oct 2020 08:49:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1108.3652; Thu, 01 Oct 2020 08:24:22 +0000
+Received: by outflank-mailman (output) from mailman id 1117.3671; Thu, 01 Oct 2020 08:49:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,233 +23,91 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNtt0-0001os-F6; Thu, 01 Oct 2020 08:24:22 +0000
-Received: by outflank-mailman (input) for mailman id 1108;
- Thu, 01 Oct 2020 08:24:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GG2I=DI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kNtsz-0001mK-JU
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:24:21 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb4d1723-1e22-4c65-8089-b457b6e5fc58;
- Thu, 01 Oct 2020 08:24:15 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNtst-00007p-DJ; Thu, 01 Oct 2020 08:24:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kNtst-0005XZ-2B; Thu, 01 Oct 2020 08:24:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kNtst-0001MU-1Y; Thu, 01 Oct 2020 08:24:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kNuGu-0003qe-Mz; Thu, 01 Oct 2020 08:49:04 +0000
+Received: by outflank-mailman (input) for mailman id 1117;
+ Thu, 01 Oct 2020 08:49:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bOcq=DI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kNuGt-0003qZ-ED
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:49:03 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bb6f5109-3802-4d8b-9998-06c7722580c8;
+ Thu, 01 Oct 2020 08:49:02 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9DCD0B112;
+ Thu,  1 Oct 2020 08:49:01 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GG2I=DI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kNtsz-0001mK-JU
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:24:21 +0000
-X-Inumbo-ID: fb4d1723-1e22-4c65-8089-b457b6e5fc58
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id fb4d1723-1e22-4c65-8089-b457b6e5fc58;
-	Thu, 01 Oct 2020 08:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=IpY0NU6HeH5TDFRT8EP21uCUj7HfyYGEad5EmyhsYig=; b=T8kz79ezQkzbSlIlyrJWflUMl7
-	clTBII7aFLKH8tfTHe4RK84h2TOe2JWiqhOblxCvJEwSwtUnT9A/J8XBzDUpx6ZGFja+xBnfjryRN
-	K9DPeb6dRucIGLHn7VSmrD5SBzG6PkYJ3O8NQgUOo/X3jue8+crdhqwxQXvvMm1mXtTU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNtst-00007p-DJ; Thu, 01 Oct 2020 08:24:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNtst-0005XZ-2B; Thu, 01 Oct 2020 08:24:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kNtst-0001MU-1Y; Thu, 01 Oct 2020 08:24:15 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-4.12-testing bisection] complete test-amd64-i386-xl-xsm
-Message-Id: <E1kNtst-0001MU-1Y@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 01 Oct 2020 08:24:15 +0000
+	(envelope-from <SRS0=bOcq=DI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kNuGt-0003qZ-ED
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:49:03 +0000
+X-Inumbo-ID: bb6f5109-3802-4d8b-9998-06c7722580c8
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id bb6f5109-3802-4d8b-9998-06c7722580c8;
+	Thu, 01 Oct 2020 08:49:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601542141;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v+MoeYfLNvInenjJr0Ucx2IezWcBplPP6iKHM4JqmFo=;
+	b=KQrtL8cA7Z7RMntCRqwoJETZNHAydfERJfiIfXpFpAiI0Gu2Q5H2T2V8L2WTpyHs2iESX4
+	Srguj0bhs/VgXQPpkZsKfV4/LngPNN66SEpHJulg8Baj82FNwx3rTj5fJ5Z/X1NYcj8VcD
+	GHGs/QMgs+rDLCyk7PLCN+w4Sm2MwhY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 9DCD0B112;
+	Thu,  1 Oct 2020 08:49:01 +0000 (UTC)
+Subject: Re: [PATCH V1 02/16] xen/ioreq: Make x86's IOREQ feature common
+To: Julien Grall <julien@xen.org>
+Cc: Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org,
+ paul@xen.org, 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
+ 'Jun Nakajima' <jun.nakajima@intel.com>, 'Kevin Tian'
+ <kevin.tian@intel.com>, 'Tim Deegan' <tim@xen.org>,
+ 'Julien Grall' <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-3-git-send-email-olekstysh@gmail.com>
+ <3997a705-ccb1-4b8f-41ca-c5507360c759@xen.org>
+ <000201d69314$97bd8fa0$c738aee0$@xen.org>
+ <c9131bce-f028-2824-9ffc-b4db08017569@gmail.com>
+ <2cbe7efd-f356-0f1b-0bb1-bfb2243f180c@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0f768df9-6e28-a0ed-92e7-b17303c24996@suse.com>
+Date: Thu, 1 Oct 2020 10:49:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <2cbe7efd-f356-0f1b-0bb1-bfb2243f180c@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-branch xen-4.12-testing
-xenbranch xen-4.12-testing
-job test-amd64-i386-xl-xsm
-testid guest-start
+On 30.09.2020 19:47, Julien Grall wrote:
+> Regarding the fix itself, I am not sure what sort of synchronization we 
+> can do. Are you suggesting to wait for the I/O to complete? If so, how 
+> do we handle the case the IOREQ server died?
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+In simple cases retrying the entire request may be an option. However,
+if the server died after some parts of a multi-part operation were
+done already, I guess the resulting loss of state is bad enough to
+warrant crashing the guest. This shouldn't be much different from e.g.
+a device disappearing from a bare metal system - any partial I/O done
+to/from it will leave the machine in an unpredictable state, which it
+may be too difficult to recover from without rebooting. (Of course,
+staying with this analogue, it may also be okay to simple consider
+the operation "complete", leaving it to the guest to recover. The
+main issue on the hypervisor side then would be to ensure we don't
+expose any uninitialized [due to not having got written to] data to
+the guest.)
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
-  Bug not present: 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155205/
-
-
-  commit 9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 17:10:32 2020 +0200
-  
-      evtchn: convert per-channel lock to be IRQ-safe
-      
-      ... in order for send_guest_{global,vcpu}_virq() to be able to make use
-      of it.
-      
-      This is part of XSA-343.
-      
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Acked-by: Julien Grall <jgrall@amazon.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.12-testing/test-amd64-i386-xl-xsm.guest-start.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.12-testing/test-amd64-i386-xl-xsm.guest-start --summary-out=tmp/155205.bisection-summary --basis-template=154601 --blessings=real,real-bisect xen-4.12-testing test-amd64-i386-xl-xsm guest-start
-Searching for failure / basis pass:
- 155075 fail [host=pinot1] / 154601 [host=fiano1] 154121 [host=chardonnay0] 152525 [host=fiano1] 151715 [host=albana0] 151388 [host=rimava1] 151367 [host=huxelrebe1] 151341 [host=chardonnay1] 151316 [host=chardonnay0] 151292 [host=pinot0] 151276 [host=fiano1] 151248 [host=albana0] 151227 [host=huxelrebe0] 151184 [host=fiano0] 151161 [host=elbling0] 151128 [host=albana1] 151082 ok.
-Failure / basis pass flights: 155075 / 151082
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0186e76a62f7409804c2e4785d5a11e7f82a7c52
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 2e3de6253422112ae43e608661ba94ea6b345694 d58c48df8c6ca819f5e6e6f1740bb114f24f024f
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985-dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484\
- fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#8023a62081ffbe3f734019076ec1a2b4213142bb-8023a62081ffbe3f734019076ec1a2b4213142bb git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345694-155821a1990b6de78dde5f98fa5ab90e802021e0 git://xenbits.xen.org/xen.git#d58c48df8c6ca819f5e6e6f1740bb114f24f024f-0186e76a62f7409804c2e4785d5a11e7f82a7c52
-Loaded 12581 nodes in revision graph
-Searching for test results:
- 151058 [host=elbling1]
- 151082 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 2e3de6253422112ae43e608661ba94ea6b345694 d58c48df8c6ca819f5e6e6f1740bb114f24f024f
- 151161 [host=elbling0]
- 151128 [host=albana1]
- 151227 [host=huxelrebe0]
- 151184 [host=fiano0]
- 151248 [host=albana0]
- 151276 [host=fiano1]
- 151292 [host=pinot0]
- 151341 [host=chardonnay1]
- 151316 [host=chardonnay0]
- 151367 [host=huxelrebe1]
- 151388 [host=rimava1]
- 151715 [host=albana0]
- 152525 [host=fiano1]
- 154121 [host=chardonnay0]
- 154601 [host=fiano1]
- 154622 fail irrelevant
- 154663 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0186e76a62f7409804c2e4785d5a11e7f82a7c52
- 155014 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0186e76a62f7409804c2e4785d5a11e7f82a7c52
- 155077 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 2e3de6253422112ae43e608661ba94ea6b345694 d58c48df8c6ca819f5e6e6f1740bb114f24f024f
- 155138 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0186e76a62f7409804c2e4785d5a11e7f82a7c52
- 155142 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c2db6a86a25508725db8018c62dd39f92ae6ee79 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb d9c812dda519a1a73e8370e1b81ddf46eb22ed16 19e0bbb4eba8d781b972448ec01ede6ca7fa22cb
- 155145 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 20da7ca42a33d3ef767ce4129f11496af7f67c9f d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 1336ca17742471fc4a59879ae2f637a59530a933
- 155075 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0186e76a62f7409804c2e4785d5a11e7f82a7c52
- 155149 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 1336ca17742471fc4a59879ae2f637a59530a933
- 155154 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ed0dce7d5466b6b22ff9e0923f3a3e885540bbfc d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0446e3db13671032b05d19f6117d902f5c5c76fa
- 155163 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 320e7a7369245d4304ac822e67740a7ea147e7a2
- 155172 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 253a1e64d30e09ae089a060e364a01b4d442d550
- 155178 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 8e25d522a3fc236c0c7a02541e8071afa031386b
- 155181 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
- 155186 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
- 155191 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
- 155195 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
- 155201 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
- 155205 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
-Searching for interesting versions
- Result found: flight 151082 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c, results HASH(0x55d81ddbf088) HASH(0x55d81eb1ca80) HASH(0x55d81eb091c0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1\
- e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 253a1e64d30e09ae089a060e364a01b4d442d550, results HASH(0x55d81eae5778) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f73401907\
- 6ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 320e7a7369245d4304ac822e67740a7ea147e7a2, results HASH(0x55d81eaf5300) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ed0dce7d5466b6b22ff9e0923f3a3e885540bbfc d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 0446e3db13671032b05d19f6117d902f5c5c76fa, results HASH(0x55d81eaf03c8) For basis\
-  failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cdfc7ed34fd1ddfc9cb1dfbc339f940950638f8d d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 1336ca17742471fc4a59879ae2f637a59530a933, results HASH(0x55d81eae7780) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 20da7ca42a33d3ef767c\
- e4129f11496af7f67c9f d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 1336ca17742471fc4a59879ae2f637a59530a933, results HASH(0x55d81eae6078) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c2db6a86a25508725db8018c62dd39f92ae6ee79 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb d9c812dda519a1a73e8370e1b81ddf46eb2\
- 2ed16 19e0bbb4eba8d781b972448ec01ede6ca7fa22cb, results HASH(0x55d81eaea6b0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 2e3de6253422112ae43e608661ba94ea6b345694 d58c48df8c6ca819f5e6e6f1740bb114f24f024f, results HASH(0x55d81eaf6a08) HASH(0x55d81eafd948) Result found: flight 154663 (fail), for \
- basis failure (at ancestor ~874)
- Repro found: flight 155077 (pass), for basis pass
- Repro found: flight 155138 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fb97626fe04747ec89599dce0992def9a36e2f6b d0d8ad39ecb51cd7497cd524484fe09f50876798 8023a62081ffbe3f734019076ec1a2b4213142bb 155821a1990b6de78dde5f98fa5ab90e802021e0 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
-No revisions left to test, checking graph state.
- Result found: flight 155181 (pass), for last pass
- Result found: flight 155186 (fail), for first failure
- Repro found: flight 155191 (pass), for last pass
- Repro found: flight 155195 (fail), for first failure
- Repro found: flight 155201 (pass), for last pass
- Repro found: flight 155205 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
-  Bug not present: 9dda47cb702ccb9663aec9c78ac3fdc3d4076b1c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155205/
-
-
-  commit 9c2a02740f7f91543caa8fab6d2ab2bbc7c40742
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Tue Sep 22 17:10:32 2020 +0200
-  
-      evtchn: convert per-channel lock to be IRQ-safe
-      
-      ... in order for send_guest_{global,vcpu}_virq() to be able to make use
-      of it.
-      
-      This is part of XSA-343.
-      
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Acked-by: Julien Grall <jgrall@amazon.com>
-
-pnmtopng: 97 colors found
-Revision graph left in /home/logs/results/bisect/xen-4.12-testing/test-amd64-i386-xl-xsm.guest-start.{dot,ps,png,html,svg}.
-----------------------------------------
-155205: tolerable ALL FAIL
-
-flight 155205 xen-4.12-testing real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155205/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-xsm       12 guest-start             fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-xsm                                       fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Jan
 
