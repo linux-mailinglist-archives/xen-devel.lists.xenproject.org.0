@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7320127FAF9
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 10:04:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096.3597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A85127FB32
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 10:15:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101.3613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNtYp-00089r-Tn; Thu, 01 Oct 2020 08:03:31 +0000
+	id 1kNtk2-0000jc-0P; Thu, 01 Oct 2020 08:15:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096.3597; Thu, 01 Oct 2020 08:03:31 +0000
+Received: by outflank-mailman (output) from mailman id 1101.3613; Thu, 01 Oct 2020 08:15:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,181 +23,229 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNtYp-00089S-Q4; Thu, 01 Oct 2020 08:03:31 +0000
-Received: by outflank-mailman (input) for mailman id 1096;
- Thu, 01 Oct 2020 08:03:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=937a=DI=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kNtYn-00089N-Vl
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:03:30 +0000
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4cbf1905-828f-475f-9b13-84d3264b6b0a;
- Thu, 01 Oct 2020 08:03:28 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id k15so4505948wrn.10
- for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 01:03:28 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-224.amazon.com. [54.240.197.224])
- by smtp.gmail.com with ESMTPSA id l5sm3022012wrv.24.2020.10.01.01.03.26
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 01 Oct 2020 01:03:26 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNtk1-0000jD-T7; Thu, 01 Oct 2020 08:15:05 +0000
+Received: by outflank-mailman (input) for mailman id 1101;
+ Thu, 01 Oct 2020 08:15:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q5fG=DI=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1kNtk0-0000j7-GE
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:15:04 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 332a8b70-41db-4a28-b8c9-7bb8836f2e7d;
+ Thu, 01 Oct 2020 08:15:03 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kNtjy-0008NO-IX; Thu, 01 Oct 2020 08:15:02 +0000
+Received: from host109-146-187-185.range109-146.btcentralplus.com
+ ([109.146.187.185] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kNtjy-000244-8G; Thu, 01 Oct 2020 08:15:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=937a=DI=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kNtYn-00089N-Vl
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:03:30 +0000
-X-Inumbo-ID: 4cbf1905-828f-475f-9b13-84d3264b6b0a
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4cbf1905-828f-475f-9b13-84d3264b6b0a;
-	Thu, 01 Oct 2020 08:03:28 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id k15so4505948wrn.10
-        for <xen-devel@lists.xenproject.org>; Thu, 01 Oct 2020 01:03:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=OTrEnhNBN5R4+dyvqauB0Y5OwRj53IzJUx91Bcl+i78=;
-        b=imOcekMOnoMaah3UJlqcpTJVMYjVhigkPyz40HYVmXhEJ4xWp4/P1BNO1ZVr9chui+
-         +7spsDUSjId3ROYCISatnycAeCmnB5oOcaliX8csdcJswDj4+NH+z5Ohvk7XiF0OkzTz
-         OSI3COJMjpjLSEzPBcyVgJVXNjY1duYV1xTSTjMmCgkSNIAY9ESlRqo/TLU4ftp7leDD
-         0jJsmgC0EyDWxq2Uzx//u2JmVSZ1n2dRFb2FR1Jsrr4NjkNUPyuw14gS+/5m7juQi6Xl
-         a5+POY0TW6Opv4xfeLe/6oniu0rGle8XxdIYJpdgK/NJDvPc205QeL+Q3l+rH85YCNp3
-         jvpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=OTrEnhNBN5R4+dyvqauB0Y5OwRj53IzJUx91Bcl+i78=;
-        b=NRluWBUnSGnyRWQ+/gnEA/9hFrUvzWXQSyGr8Uj1ABf626T95eZC23qLpyMsJRXgO6
-         3IdyxMK2/PvY6DmlFrlSGKDrx/gU0nNuM0MoedHBrU0+qj6MhVlIukzhXum3U6W/ZB+z
-         YAd7s1ucsepWxWL6cFL5LruBwfc4jYHskdJNJsoZeHrTfwrvoCvUWMMFa5UpU+iGxgtN
-         PL39Ihv8MYqqeMJHKABVJsGCntJFd+ZZHMLk9NQfkfzSLqdG/gRaL3erhQl+cbtxYUHT
-         1nf1XNNrTXrBV7zMLMi+pMg+6QNRq7nagHE1a29wMIbrSZMOt0ZcMHIMc2tvkrCMNA2K
-         KXzg==
-X-Gm-Message-State: AOAM531l0+2wzOczcC23Uqn08Zn4M01l2kepIhS4JlNx/4QZ35JmC9/o
-	9YMfodW8PIotK6WhKRxngA8=
-X-Google-Smtp-Source: ABdhPJwan3nlRJEN7HKE69zar2eImtVpRpYFlhfsKXozjX7PA3CNyjJoF03MdM73/nxESr0z2OvvMw==
-X-Received: by 2002:a5d:5583:: with SMTP id i3mr7158520wrv.119.1601539407387;
-        Thu, 01 Oct 2020 01:03:27 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-224.amazon.com. [54.240.197.224])
-        by smtp.gmail.com with ESMTPSA id l5sm3022012wrv.24.2020.10.01.01.03.26
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 01 Oct 2020 01:03:26 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Anthony PERARD'" <anthony.perard@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>,
-	<qemu-devel@nongnu.org>,
-	"'Paul Durrant'" <pdurrant@amazon.com>,
-	"'Jerome Leseinne'" <jerome.leseinne@gmail.com>,
-	"'Edwin Torok'" <edvin.torok@citrix.com>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>
-References: <20200923155731.29528-1-paul@xen.org> <20200930114235.GL2024@perard.uk.xensource.com>
-In-Reply-To: <20200930114235.GL2024@perard.uk.xensource.com>
-Subject: RE: [PATCH] xen-bus: reduce scope of backend watch
-Date: Thu, 1 Oct 2020 09:03:25 +0100
-Message-ID: <008c01d697c9$579520a0$06bf61e0$@xen.org>
+	(envelope-from <SRS0=q5fG=DI=xen.org=paul@srs-us1.protection.inumbo.net>)
+	id 1kNtk0-0000j7-GE
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 08:15:04 +0000
+X-Inumbo-ID: 332a8b70-41db-4a28-b8c9-7bb8836f2e7d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 332a8b70-41db-4a28-b8c9-7bb8836f2e7d;
+	Thu, 01 Oct 2020 08:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=FbjlksMu36p7p6zRsPPG2Wo7gSzgDilHr5PW/goywzg=; b=hilq0i
+	uzkQAjHMtDMOkBwWo43MPEvjvYipGJgep2B5L2FmfnfwnZK9wyo3jCx9MuD6NGa9UJZuERGXmP8g0
+	piILENWxKcwz26eM2X+AzCU2pc07uAvKWdcBEIdS+hvVRF0qI/NiSS8s8crDlSaXGmG/lmc2naT89
+	7Q8NQ2jNLK8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <paul@xen.org>)
+	id 1kNtjy-0008NO-IX; Thu, 01 Oct 2020 08:15:02 +0000
+Received: from host109-146-187-185.range109-146.btcentralplus.com ([109.146.187.185] helo=u2f063a87eabd5f.home)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <paul@xen.org>)
+	id 1kNtjy-000244-8G; Thu, 01 Oct 2020 08:15:02 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org,
+	qemu-devel@nongnu.org
+Cc: Paul Durrant <pdurrant@amazon.com>,
+	Jerome Leseinne <jerome.leseinne@gmail.com>,
+	Edwin Torok <edvin.torok@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>
+Subject: [PATCH v2] xen-bus: reduce scope of backend watch
+Date: Thu,  1 Oct 2020 09:15:00 +0100
+Message-Id: <20201001081500.1026-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQFwzHOYQKlt73iXJ/fB9mI5UZbIzgHcxvtVqj8StGA=
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Anthony PERARD <anthony.perard@citrix.com>
-> Sent: 30 September 2020 12:43
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; qemu-devel@nongnu.org; Paul Durrant <pdurrant@amazon.com>; Jerome
-> Leseinne <jerome.leseinne@gmail.com>; Edwin Torok <edvin.torok@citrix.com>; Stefano Stabellini
-> <sstabellini@kernel.org>
-> Subject: Re: [PATCH] xen-bus: reduce scope of backend watch
-> 
-> On Wed, Sep 23, 2020 at 04:57:31PM +0100, Paul Durrant wrote:
-> > From: Paul Durrant <pdurrant@amazon.com>
-> >
-> > Currently a single watch on /local/domain/X/backend is registered by each
-> > QEMU process running in service domain X (where X is usually 0). The purpose
-> > of this watch is to ensure that QEMU is notified when the Xen toolstack
-> > creates a new device backend area.
-> > Such a backend area is specific to a single frontend area created for a
-> > specific guest domain and, since each QEMU process is also created to service
-> > a specfic guest domain, it is unnecessary and inefficient to notify all QEMU
-> > processes.
-> > Only the QEMU process associated with the same guest domain need
-> > receive the notification. This patch re-factors the watch registration code
-> > such that notifications are targetted appropriately.
-> >
-> > Reported-by: Jerome Leseinne <jerome.leseinne@gmail.com>
-> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> >
-> > diff --git a/hw/xen/xen-backend.c b/hw/xen/xen-backend.c
-> > index 10199fb58d..f2711fe4a7 100644
-> > --- a/hw/xen/xen-backend.c
-> > +++ b/hw/xen/xen-backend.c
-> > @@ -41,6 +41,11 @@ static void xen_backend_table_add(XenBackendImpl *impl)
-> >      g_hash_table_insert(xen_backend_table_get(), (void *)impl->type, impl);
-> >  }
-> >
-> > +static void **xen_backend_table_keys(unsigned int *count)
-> > +{
-> > +    return g_hash_table_get_keys_as_array(xen_backend_table_get(), count);
-> 
-> That could be cast to (const gchar **) as the GLib doc suggest, or (const
-> char **) since gchar and char are the same.
-> https://developer.gnome.org/glib/stable/glib-Hash-Tables.html#g-hash-table-get-keys-as-array
-> 
+From: Paul Durrant <pdurrant@amazon.com>
 
-Ok, I'll re-arrange the const-ing to cast at the inner level.
+Currently a single watch on /local/domain/X/backend is registered by each
+QEMU process running in service domain X (where X is usually 0). The purpose
+of this watch is to ensure that QEMU is notified when the Xen toolstack
+creates a new device backend area.
+Such a backend area is specific to a single frontend area created for a
+specific guest domain and, since each QEMU process is also created to service
+a specfic guest domain, it is unnecessary and inefficient to notify all QEMU
+processes.
+Only the QEMU process associated with the same guest domain need
+receive the notification. This patch re-factors the watch registration code
+such that notifications are targetted appropriately.
 
-> > +}
-> > +
-> >  static const XenBackendImpl *xen_backend_table_lookup(const char *type)
-> >  {
-> >      return g_hash_table_lookup(xen_backend_table_get(), type);
-> > diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-> > index 9ce1c9540b..c83da93bf3 100644
-> > --- a/hw/xen/xen-bus.c
-> > +++ b/hw/xen/xen-bus.c
-> > @@ -430,7 +430,13 @@ static void xen_bus_unrealize(BusState *bus)
-> >      trace_xen_bus_unrealize();
-> >
-> >      if (xenbus->backend_watch) {
-> > -        xen_bus_remove_watch(xenbus, xenbus->backend_watch, NULL);
-> > +        unsigned int i;
-> > +
-> > +        for (i = 0; i < xenbus->backend_types; i++) {
-> > +            xen_bus_remove_watch(xenbus, xenbus->backend_watch[i], NULL);
-> 
-> We should check if backend_watch[i] is NULL.
-> 
+Reported-by: Jerome Leseinne <jerome.leseinne@gmail.com>
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+---
+Cc: Edwin Torok <edvin.torok@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
 
-Yes, I'll add a check.
+v2:
+ - Re-work casting
+ - Check for a NULL watch before trying to remove it
+---
+ hw/xen/xen-backend.c         | 11 ++++++++++
+ hw/xen/xen-bus.c             | 40 ++++++++++++++++++++++++++++--------
+ include/hw/xen/xen-backend.h |  1 +
+ include/hw/xen/xen-bus.h     |  3 ++-
+ 4 files changed, 46 insertions(+), 9 deletions(-)
 
-> > +        }
-> > +
-> > +        g_free(xenbus->backend_watch);
-> >          xenbus->backend_watch = NULL;
-> >      }
-> >
-> 
-> The rest of the patch looks fine. Next improvement is to only look at
-> only one backend type in xen_bus_backend_changed() since there is now a
-> watch per backend type :-), but that would be for another day.
-> 
-
-Might not be too tricky. I'll see if I can come up with a follow-up patch.
-
-  Paul
-
-> Cheers,
-> 
-> --
-> Anthony PERARD
+diff --git a/hw/xen/xen-backend.c b/hw/xen/xen-backend.c
+index 10199fb58d..5b0fb76eae 100644
+--- a/hw/xen/xen-backend.c
++++ b/hw/xen/xen-backend.c
+@@ -41,6 +41,12 @@ static void xen_backend_table_add(XenBackendImpl *impl)
+     g_hash_table_insert(xen_backend_table_get(), (void *)impl->type, impl);
+ }
+ 
++static const char **xen_backend_table_keys(unsigned int *count)
++{
++    return (const char **)g_hash_table_get_keys_as_array(
++        xen_backend_table_get(), count);
++}
++
+ static const XenBackendImpl *xen_backend_table_lookup(const char *type)
+ {
+     return g_hash_table_lookup(xen_backend_table_get(), type);
+@@ -70,6 +76,11 @@ void xen_backend_register(const XenBackendInfo *info)
+     xen_backend_table_add(impl);
+ }
+ 
++const char **xen_backend_get_types(unsigned int *count)
++{
++    return xen_backend_table_keys(count);
++}
++
+ static QLIST_HEAD(, XenBackendInstance) backend_list;
+ 
+ static void xen_backend_list_add(XenBackendInstance *backend)
+diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
+index 9ce1c9540b..8c588920d9 100644
+--- a/hw/xen/xen-bus.c
++++ b/hw/xen/xen-bus.c
+@@ -430,7 +430,15 @@ static void xen_bus_unrealize(BusState *bus)
+     trace_xen_bus_unrealize();
+ 
+     if (xenbus->backend_watch) {
+-        xen_bus_remove_watch(xenbus, xenbus->backend_watch, NULL);
++        unsigned int i;
++
++        for (i = 0; i < xenbus->backend_types; i++) {
++            if (xenbus->backend_watch[i]) {
++                xen_bus_remove_watch(xenbus, xenbus->backend_watch[i], NULL);
++            }
++        }
++
++        g_free(xenbus->backend_watch);
+         xenbus->backend_watch = NULL;
+     }
+ 
+@@ -446,8 +454,11 @@ static void xen_bus_unrealize(BusState *bus)
+ 
+ static void xen_bus_realize(BusState *bus, Error **errp)
+ {
++    char *key = g_strdup_printf("%u", xen_domid);
+     XenBus *xenbus = XEN_BUS(bus);
+     unsigned int domid;
++    const char **type;
++    unsigned int i;
+     Error *local_err = NULL;
+ 
+     trace_xen_bus_realize();
+@@ -469,19 +480,32 @@ static void xen_bus_realize(BusState *bus, Error **errp)
+ 
+     module_call_init(MODULE_INIT_XEN_BACKEND);
+ 
+-    xenbus->backend_watch =
+-        xen_bus_add_watch(xenbus, "", /* domain root node */
+-                          "backend", xen_bus_backend_changed, &local_err);
+-    if (local_err) {
+-        /* This need not be treated as a hard error so don't propagate */
+-        error_reportf_err(local_err,
+-                          "failed to set up enumeration watch: ");
++    type = xen_backend_get_types(&xenbus->backend_types);
++    xenbus->backend_watch = g_new(XenWatch *, xenbus->backend_types);
++
++    for (i = 0; i < xenbus->backend_types; i++) {
++        char *node = g_strdup_printf("backend/%s", type[i]);
++
++        xenbus->backend_watch[i] =
++            xen_bus_add_watch(xenbus, node, key, xen_bus_backend_changed,
++                              &local_err);
++        if (local_err) {
++            /* This need not be treated as a hard error so don't propagate */
++            error_reportf_err(local_err,
++                              "failed to set up '%s' enumeration watch: ",
++                              type[i]);
++        }
++
++        g_free(node);
+     }
+ 
++    g_free(type);
++    g_free(key);
+     return;
+ 
+ fail:
+     xen_bus_unrealize(bus);
++    g_free(key);
+ }
+ 
+ static void xen_bus_unplug_request(HotplugHandler *hotplug,
+diff --git a/include/hw/xen/xen-backend.h b/include/hw/xen/xen-backend.h
+index 010d712638..aac2fd454d 100644
+--- a/include/hw/xen/xen-backend.h
++++ b/include/hw/xen/xen-backend.h
+@@ -31,6 +31,7 @@ void xen_backend_set_device(XenBackendInstance *backend,
+ XenDevice *xen_backend_get_device(XenBackendInstance *backend);
+ 
+ void xen_backend_register(const XenBackendInfo *info);
++const char **xen_backend_get_types(unsigned int *nr);
+ 
+ void xen_backend_device_create(XenBus *xenbus, const char *type,
+                                const char *name, QDict *opts, Error **errp);
+diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
+index 3df696136f..6bdbf3ff82 100644
+--- a/include/hw/xen/xen-bus.h
++++ b/include/hw/xen/xen-bus.h
+@@ -66,7 +66,8 @@ struct XenBus {
+     domid_t backend_id;
+     struct xs_handle *xsh;
+     XenWatchList *watch_list;
+-    XenWatch *backend_watch;
++    unsigned int backend_types;
++    XenWatch **backend_watch;
+     QLIST_HEAD(, XenDevice) inactive_devices;
+ };
+ 
+-- 
+2.20.1
 
 
