@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2506427FF67
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 14:45:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1258.4245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B38A27FFA1
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 14:59:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269.4260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNxxS-0004Hg-Mm; Thu, 01 Oct 2020 12:45:14 +0000
+	id 1kNyAd-0005NG-2q; Thu, 01 Oct 2020 12:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1258.4245; Thu, 01 Oct 2020 12:45:14 +0000
+Received: by outflank-mailman (output) from mailman id 1269.4260; Thu, 01 Oct 2020 12:58:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,159 +23,259 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNxxS-0004HG-JO; Thu, 01 Oct 2020 12:45:14 +0000
-Received: by outflank-mailman (input) for mailman id 1258;
- Thu, 01 Oct 2020 12:45:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kNyAc-0005Mr-VV; Thu, 01 Oct 2020 12:58:50 +0000
+Received: by outflank-mailman (input) for mailman id 1269;
+ Thu, 01 Oct 2020 12:58:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gvi1=DI=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kNxxQ-0004HB-VX
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:45:13 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 80afe216-9c7c-4108-a467-e902c1a5c813;
- Thu, 01 Oct 2020 12:45:12 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091Chq1s130044;
- Thu, 1 Oct 2020 12:44:19 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 33swkm5pva-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 01 Oct 2020 12:44:19 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091CQ6ec104197;
- Thu, 1 Oct 2020 12:44:18 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3030.oracle.com with ESMTP id 33tfk1gcdq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 01 Oct 2020 12:44:18 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 091Ci4s6018950;
- Thu, 1 Oct 2020 12:44:05 GMT
-Received: from [10.74.86.152] (/10.74.86.152)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 01 Oct 2020 05:44:04 -0700
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=uQij=DI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kNyAb-0005Mm-Kq
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:58:49 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cd519763-a09f-4943-8908-0f14a9b74855;
+ Thu, 01 Oct 2020 12:58:47 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=gvi1=DI=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
-	id 1kNxxQ-0004HB-VX
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:45:13 +0000
-X-Inumbo-ID: 80afe216-9c7c-4108-a467-e902c1a5c813
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 80afe216-9c7c-4108-a467-e902c1a5c813;
-	Thu, 01 Oct 2020 12:45:12 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
-	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091Chq1s130044;
-	Thu, 1 Oct 2020 12:44:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=dRio5ZMU9WDz6PjNY704BdYKLFPP9TtV0vYjDf32cpI=;
- b=L1tXWifpPI2khL7ZWsxd+W1OzbP5uZquW/uyQ5eKyU/GjTGSHQi30vn6r3rT7PpE/9Jd
- 1UCv0ETLyOoJYqF9c0WsJVQJTp/y2FpkcoVBlK+ec42xTHc/LafZA0UXKAYkLtOY7ujM
- Gnxq5MbZIjL3GsNTAhwyceyOtdjSI5kJioc9HSNhxr64tFD9dCRDFWuAMO30IbelxaDN
- LVKCtugIDxlclIM7JSu/2UKbH9tOGUVemGFchOa5of7QiKH2ySYHPjihtWRlaI5ETzwu
- VKdojWeV1D7mXjHmrrlmUo3Mi/+h9yjiL8I62ff7BIPsaxYMYEVVGWMnND2ps+MGeZ4i kg== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by aserp2120.oracle.com with ESMTP id 33swkm5pva-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 01 Oct 2020 12:44:19 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091CQ6ec104197;
-	Thu, 1 Oct 2020 12:44:18 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by userp3030.oracle.com with ESMTP id 33tfk1gcdq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 01 Oct 2020 12:44:18 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 091Ci4s6018950;
-	Thu, 1 Oct 2020 12:44:05 GMT
-Received: from [10.74.86.152] (/10.74.86.152)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Thu, 01 Oct 2020 05:44:04 -0700
-Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Anchal Agarwal <anchalag@amazon.com>
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
-        x86@kernel.org, jgross@suse.com, linux-pm@vger.kernel.org,
-        linux-mm@kvack.org, kamatam@amazon.com, sstabellini@kernel.org,
-        konrad.wilk@oracle.com, roger.pau@citrix.com, axboe@kernel.dk,
-        davem@davemloft.net, rjw@rjwysocki.net, len.brown@intel.com,
-        pavel@ucw.cz, peterz@infradead.org, eduval@amazon.com,
-        sblbir@amazon.com, xen-devel@lists.xenproject.org, vkuznets@redhat.com,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dwmw@amazon.co.uk, benh@kernel.crashing.org
-References: <e9b94104-d20a-b6b2-cbe0-f79b1ed09c98@oracle.com>
- <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
- <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
- <20200922231736.GA24215@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200925190423.GA31885@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <274ddc57-5c98-5003-c850-411eed1aea4c@oracle.com>
- <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
- <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
-Date: Thu, 1 Oct 2020 08:43:58 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.1
+	(envelope-from <SRS0=uQij=DI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kNyAb-0005Mm-Kq
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:58:49 +0000
+X-Inumbo-ID: cd519763-a09f-4943-8908-0f14a9b74855
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id cd519763-a09f-4943-8908-0f14a9b74855;
+	Thu, 01 Oct 2020 12:58:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601557128;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=tC8IZ2rjKb4/mSW5V73QWviVu64ioiomUQkuFzhd1wQ=;
+  b=hzbs3XjxEqLCRph5teqaMkrf8x5fkXQ7o2VYcRPIJi8FYocCIgkcQC+9
+   hDMBbM6zF4SMX+XwLGMrI0ahbBw+zWCGvjRhhcYixBAMG9v3uOwSzUAj6
+   DJGEB6e13GeH0QZB/PKlxP2tLtuQkBXsJkKHqaw4GD2n2E2qypbnvYOdk
+   Y=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: vC2etBxWYWR1ygoadZP4GIkq5pGHw14rA3hKun27GlbE7nzJrlX5mWivm+EGA8NPDFb0GGnTUU
+ vYpG3una6dg3ZG47cTZP3Nonik4p4SCh1mch51PEF9HgAZXQDyCnumvvwq1XgLX5JCcolg6UML
+ I1KjWMYC+TsQefUG6B0Us59v0zRqUx4UoWXrOgfWu9w02+hWtxSAWMMNyhTSM6I2ZMEzu9lgw0
+ +blvHj/hob3T91CYbpXBrHjVcM994xOJq4pNo4NOxx0AQdcTihTG3BGFWddXeKZjygw9HMiU85
+ S3M=
+X-SBRS: None
+X-MesageID: 28071257
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,323,1596513600"; 
+   d="scan'208";a="28071257"
+Subject: Re: [PATCH RFC] docs: Add minimum version depencency policy document
+To: George Dunlap <george.dunlap@citrix.com>, <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>, Jan Beulich
+	<jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Rich Persaud <persaur@gmail.com>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>
+References: <20200930125736.95203-1-george.dunlap@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <868b25bd-ab2c-7f33-1dc2-9476c86d8050@citrix.com>
+Date: Thu, 1 Oct 2020 13:58:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9760 signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 spamscore=0 mlxscore=0
- phishscore=0 adultscore=0 bulkscore=0 mlxlogscore=980 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2010010109
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9760 signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 mlxscore=0 phishscore=0
- suspectscore=0 mlxlogscore=979 clxscore=1015 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2010010110
+In-Reply-To: <20200930125736.95203-1-george.dunlap@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
+
+On 30/09/2020 13:57, George Dunlap wrote:
+> Define a specific criteria for how we determine what tools and
+> libraries to be compatible with.  This will clarify issues such as,
+> "Should we continue to support Python 2.4" moving forward.
+
+Luckily that one is settled.  Arguably a better option might be "what is
+the minimum toolchain to support" ?
+
+> Note that CentOS 7 is set to stop receiving "normal" maintenance
+> updates in "Q4 2020"; assuming that 4.15 is released after that, we
+> only need to support CentOS / RHEL 8.
+
+While I appreciate that this doesn't mean "we'll break CentOS 7 in Q4",
+I'm going to have some substantial development issues if C7 actually
+stops working, at least in the short to medium term.
+
+>
+> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+> ---
+>
+> CC: Ian Jackson <ian.jackson@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Rich Persaud <persaur@gmail.com>
+> CC: Bertrand Marquis <Bertrand.Marquis@arm.com>
+> ---
+>  docs/index.rst                        |  2 +
+>  docs/policies/dependency-versions.rst | 76 +++++++++++++++++++++++++++
+>  2 files changed, 78 insertions(+)
+>  create mode 100644 docs/policies/dependency-versions.rst
+>
+> diff --git a/docs/index.rst b/docs/index.rst
+> index b75487a05d..ac175eacc8 100644
+> --- a/docs/index.rst
+> +++ b/docs/index.rst
+> @@ -57,5 +57,7 @@ Miscellanea
+>  -----------
+>  
+>  .. toctree::
+> +   :maxdepth: 1
+>  
+> +   policies/dependency-versions
+
+I think it is great that this is going into Sphinx.
+
+However, I'd prefer to avoid proliferating random things at the top
+level, to try and keep everything in a coherent structure.
 
 
->>>>>>> Also, wrt KASLR stuff, that issue is still seen sometimes but I haven't had
->>>>>>> bandwidth to dive deep into the issue and fix it.
->>>> So what's the plan there? You first mentioned this issue early this year and judged by your response it is not clear whether you will ever spend time looking at it.
->>>>
->>> I do want to fix it and did do some debugging earlier this year just haven't
->>> gotten back to it. Also, wanted to understand if the issue is a blocker to this
->>> series?
->>
->> Integrating code with known bugs is less than ideal.
->>
-> So for this series to be accepted, KASLR needs to be fixed along with other
-> comments of course? 
+For better or worse, I guestimated at "admin guide" (end user and
+sysadmin guide), "guest docs" (VM ABI, and guest kernel developers), and
+"hypervisors docs" (hacking Xen).
 
+I'm happy to shuffle the dividing lines if a better arrangement becomes
+obvious.  This particular doc logically lives with "building Xen from
+source".
 
-Yes, please.
+Alternatively, I considered putting in an explicit "unsorted" section in
+the short term, so content can get added, and still be clear that it
+isn't in its final resting place.
 
+>     glossary
+> diff --git a/docs/policies/dependency-versions.rst b/docs/policies/dependency-versions.rst
+> new file mode 100644
+> index 0000000000..d5eeb848d8
+> --- /dev/null
+> +++ b/docs/policies/dependency-versions.rst
+> @@ -0,0 +1,76 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Build and runtime dependencies
+> +==============================
+> +
+> +Xen depends on other programs and libraries to build and to run.
+> +Chosing a minimum version of these tools to support requires a careful
+> +balance: Supporting older versions of these tools or libraries means
+> +that Xen can compile on a wider variety of systems; but means that Xen
+> +cannot take advantage of features available in newer versions.
+> +Conversely, requiring newer versions means that Xen can take advantage
+> +of newer features, but cannot work on as wide a variety of systems.
+> +
+> +Specific dependencies and versions for a given Xen release will be
+> +listed in the toplevel README, and/or specified by the ``configure``
+> +system.  This document lays out the principles by which those versions
+> +should be chosen.
+> +
+> +The general principle is this:
+> +
+> +    Xen should build on currently-supported versions of major distros
+> +    when released.
+> +
+> +"Currently-supported" means whatever that distro's version of "full
+> +support".  For instance, at the time of writing, CentOS 7 and 8 are
+> +listed as being given "Full Updates", but CentOS 6 is listed as
+> +"Maintenance updates"; under this criterium, we would try to ensure
+> +that Xen could build on CentOS 7 and 8, but not on CentOS 6.
+> +
+> +Exceptions for specific distros or tools may be made when appropriate.
+> +
+> +One exception to this is compiler versions for the hypervisor.
+> +Support for new instructions, and in particular support for new safety
+> +features, may require a newer compiler than many distros support.
+> +These will be specified in the README.
 
+The problem we have is that xen.git contains two very different things. 
+There is the hypervisor itself, which is embedded, and can easily be
+cross compiled, and there is the content of tools/ which depends on a
+lot of distro infrastructure.
 
->>> I had some theories when debugging around this like if the random base address picked by kaslr for the
->>> resuming kernel mismatches the suspended kernel and just jogging my memory, I didn't find that as the case.
->>> Another hunch was if physical address of registered vcpu info at boot is different from what suspended kernel
->>> has and that can cause CPU's to get stuck when coming online.
->>
->> I'd think if this were the case you'd have 100% failure rate. And we are also re-registering vcpu info on xen restore and I am not aware of any failures due to KASLR.
->>
-> What I meant there wrt VCPU info was that VCPU info is not unregistered during hibernation,
-> so Xen still remembers the old physical addresses for the VCPU information, created by the
-> booting kernel. But since the hibernation kernel may have different physical
-> addresses for VCPU info and if mismatch happens, it may cause issues with resume. 
-> During hibernation, the VCPU info register hypercall is not invoked again.
+We expect tools/ to work in any supported distro, without having to do
+weird toolchain gymnastics.
 
+For xen/ at the moment we have a very obsolete toolchain requirements,
+and this is holding us back in some areas.  We're looking to bring that
+forward, and may consider that being newer than some of the old distros
+is necessary.
 
-I still don't think that's the cause but it's certainly worth having a look.
+At the moment however, we have quite a lot of functionality which is
+dependent on being able to detect suitable toolchain.  GCOV and CET-SS
+are examples.  These features will turn themselves off in older distros,
+so while you can "build" Xen that far back, you might not get everything.
 
+For CET in particular, there is no feasible way to support it on older
+toolchains.  (unless someone comes up with an extremely convincing way
+of hand-crafting memory operands using raw .byte's in inline assembler.)
 
--boris
+I definitely don't think it is unreasonable for us to require the use of
+(potentially) bleeding edge toolchains if they want to use (potentially)
+bleeding edge features.  CET-SS isn't bleeding edge any more, but
+CET-IBT is due to the additional linker work required to make it
+function.  A future one which we need to do something about is Control
+Flow Integrity, which is Clang specific, depends on LTO, and caused
+Linux to up their minimum supported version to 10.0.1 which was when all
+the bugfixes got merged.
 
+> +
+> +Distros we consider when deciding minimum versions
+> +--------------------------------------------------
+> +
+> +We currently aim to support Xen building and running on the following distributions:
+> +Debian_,
+> +Ubuntu_,
+> +OpenSUSE_,
+> +Arch Linux,
+
+No link for Arch?
+
+> +SLES_,
+> +Yocto_,
+> +CentOS_,
+> +and RHEL_.
+> +
+> +.. _Debian: https://www.debian.org/releases/
+> +.. _Ubuntu: https://wiki.ubuntu.com/Releases
+> +.. _OpenSUSE: https://en.opensuse.org/Lifetime
+> +.. _SLES: https://www.suse.com/lifecycle/
+> +.. _Yocto: https://wiki.yoctoproject.org/wiki/Releases
+> +.. _CentOS: https://wiki.centos.org/About/Product
+> +.. _RHEL: https://access.redhat.com/support/policy/updates/errata
+> +
+> +Specific distro versions supported in this release
+> +--------------------------------------------------
+> +
+> +======== ==================
+> +Distro   Supported releases
+> +======== ==================
+> +Debian   10 (Buster)
+> +Ubuntu   20.10 (Groovy Gorilla), 20.04 (Focal Fossa), 18.04 (Bionic Beaver), 16.04 (Xenial Xerus)
+> +OpenSUSE Leap 15.2
+> +SLES     SLES 11, 12, 15
+> +Yocto    3.1 (Dunfell)
+> +CentOS   8
+> +RHEL     8
+> +======== ==================
+
+How about a 3rd column for "supported until" ?  It would stop this page
+becoming stale simply over time.
+
+> +
+> +.. note::
+> +
+> +   We also support Arch Linux, but as it's a rolling distribution, the
+> +   concept of "security supported releases" doesn't really apply.
+
+Should we rationalise this list with the docker containers?
+
+~Andrew
 
