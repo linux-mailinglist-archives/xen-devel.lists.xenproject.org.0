@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E157127FF66
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 14:44:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1254.4231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2506427FF67
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Oct 2020 14:45:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1258.4245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNxwG-0004AI-At; Thu, 01 Oct 2020 12:44:00 +0000
+	id 1kNxxS-0004Hg-Mm; Thu, 01 Oct 2020 12:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1254.4231; Thu, 01 Oct 2020 12:44:00 +0000
+Received: by outflank-mailman (output) from mailman id 1258.4245; Thu, 01 Oct 2020 12:45:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,140 +23,159 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kNxwG-00049r-74; Thu, 01 Oct 2020 12:44:00 +0000
-Received: by outflank-mailman (input) for mailman id 1254;
- Thu, 01 Oct 2020 12:43:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kNxxS-0004HG-JO; Thu, 01 Oct 2020 12:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 1258;
+ Thu, 01 Oct 2020 12:45:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uQij=DI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kNxwF-00049h-Df
- for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:43:59 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0453461c-8dd5-41bb-8705-ef9a7c515a29;
- Thu, 01 Oct 2020 12:43:57 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=gvi1=DI=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kNxxQ-0004HB-VX
+ for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:45:13 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 80afe216-9c7c-4108-a467-e902c1a5c813;
+ Thu, 01 Oct 2020 12:45:12 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091Chq1s130044;
+ Thu, 1 Oct 2020 12:44:19 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 33swkm5pva-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 01 Oct 2020 12:44:19 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091CQ6ec104197;
+ Thu, 1 Oct 2020 12:44:18 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 33tfk1gcdq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 01 Oct 2020 12:44:18 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 091Ci4s6018950;
+ Thu, 1 Oct 2020 12:44:05 GMT
+Received: from [10.74.86.152] (/10.74.86.152)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 01 Oct 2020 05:44:04 -0700
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=uQij=DI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kNxwF-00049h-Df
-	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:43:59 +0000
-X-Inumbo-ID: 0453461c-8dd5-41bb-8705-ef9a7c515a29
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0453461c-8dd5-41bb-8705-ef9a7c515a29;
-	Thu, 01 Oct 2020 12:43:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601556237;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=d4T2tjy0itaxm2AaSPrOmsLNIShrIBiR0eAWxmxC0qI=;
-  b=KYLfnaux8gPR6S9f/jDIMHFAf1bPCfat2uxsmwZKMj9V4YvS1G3kiZue
-   wDaGkmvs6XttCD2YObyw01QhakOxo9SSyLcUR3U86QGmV3rSZki+00dHS
-   dX/Mp4ZCV6OWFnJzabui3xNxe0t7AH+zTxUrKXAdIA3wbGSDbW+3MBo21
-   c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: WOn/9cbOVMCFAfKu4pPAN5eUuxTIy+sxxlKrXa63dfN4I4+El8Xopr9kqIsWw3VWVNPGfa5f/4
- KVsmg80Zt6i3+ECiXvIHraqirBMxs4fGDfTIK/rb3hZ1TUZGIKStIgvpmOv0S4upMuUhtc6wqn
- NeXYkgsEMyH2jisoeE/WKAYUoPxlZL9AzfCHKSzb3qgMXk9+PpRIrxpNzkuzEOgmn1cTyz2QFc
- lJtyBgMXfmhBfuI55I7keFkNecEDh1c+P8Tsh+VpQS4LOTNbw5YAZskL2vhlyc5OofrWdjoftU
- h7Q=
-X-SBRS: None
-X-MesageID: 29078407
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,323,1596513600"; 
-   d="scan'208";a="29078407"
-Subject: Re: Yet another S3 issue in Xen 4.14
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
-	<marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>
-References: <20201001011245.GL3962@mail-itl>
- <a80ad59b-feb1-01c8-2b14-dbf6568d0ff5@suse.com>
- <20201001123129.GJ1482@mail-itl>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <1e596ccc-a875-93f1-2619-e4dbcbd88b4d@citrix.com>
-Date: Thu, 1 Oct 2020 13:43:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	(envelope-from <SRS0=gvi1=DI=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+	id 1kNxxQ-0004HB-VX
+	for xen-devel@lists.xenproject.org; Thu, 01 Oct 2020 12:45:13 +0000
+X-Inumbo-ID: 80afe216-9c7c-4108-a467-e902c1a5c813
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 80afe216-9c7c-4108-a467-e902c1a5c813;
+	Thu, 01 Oct 2020 12:45:12 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091Chq1s130044;
+	Thu, 1 Oct 2020 12:44:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=dRio5ZMU9WDz6PjNY704BdYKLFPP9TtV0vYjDf32cpI=;
+ b=L1tXWifpPI2khL7ZWsxd+W1OzbP5uZquW/uyQ5eKyU/GjTGSHQi30vn6r3rT7PpE/9Jd
+ 1UCv0ETLyOoJYqF9c0WsJVQJTp/y2FpkcoVBlK+ec42xTHc/LafZA0UXKAYkLtOY7ujM
+ Gnxq5MbZIjL3GsNTAhwyceyOtdjSI5kJioc9HSNhxr64tFD9dCRDFWuAMO30IbelxaDN
+ LVKCtugIDxlclIM7JSu/2UKbH9tOGUVemGFchOa5of7QiKH2ySYHPjihtWRlaI5ETzwu
+ VKdojWeV1D7mXjHmrrlmUo3Mi/+h9yjiL8I62ff7BIPsaxYMYEVVGWMnND2ps+MGeZ4i kg== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by aserp2120.oracle.com with ESMTP id 33swkm5pva-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 01 Oct 2020 12:44:19 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 091CQ6ec104197;
+	Thu, 1 Oct 2020 12:44:18 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3030.oracle.com with ESMTP id 33tfk1gcdq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 01 Oct 2020 12:44:18 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 091Ci4s6018950;
+	Thu, 1 Oct 2020 12:44:05 GMT
+Received: from [10.74.86.152] (/10.74.86.152)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Thu, 01 Oct 2020 05:44:04 -0700
+Subject: Re: [PATCH v3 01/11] xen/manage: keep track of the on-going suspend
+ mode
+To: Anchal Agarwal <anchalag@amazon.com>
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
+        x86@kernel.org, jgross@suse.com, linux-pm@vger.kernel.org,
+        linux-mm@kvack.org, kamatam@amazon.com, sstabellini@kernel.org,
+        konrad.wilk@oracle.com, roger.pau@citrix.com, axboe@kernel.dk,
+        davem@davemloft.net, rjw@rjwysocki.net, len.brown@intel.com,
+        pavel@ucw.cz, peterz@infradead.org, eduval@amazon.com,
+        sblbir@amazon.com, xen-devel@lists.xenproject.org, vkuznets@redhat.com,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dwmw@amazon.co.uk, benh@kernel.crashing.org
+References: <e9b94104-d20a-b6b2-cbe0-f79b1ed09c98@oracle.com>
+ <20200915180055.GB19975@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <5f1e4772-7bd9-e6c0-3fe6-eef98bb72bd8@oracle.com>
+ <20200921215447.GA28503@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <e3e447e5-2f7a-82a2-31c8-10c2ffcbfb2c@oracle.com>
+ <20200922231736.GA24215@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200925190423.GA31885@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <274ddc57-5c98-5003-c850-411eed1aea4c@oracle.com>
+ <20200925222826.GA11755@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <cc738014-6a79-a5ae-cb2a-a02ff15b4582@oracle.com>
+ <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <8cd59d9c-36b1-21cf-e59f-40c5c20c65f8@oracle.com>
+Date: Thu, 1 Oct 2020 08:43:58 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201001123129.GJ1482@mail-itl>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+In-Reply-To: <20200930212944.GA3138@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9760 signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 spamscore=0 mlxscore=0
+ phishscore=0 adultscore=0 bulkscore=0 mlxlogscore=980 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2010010109
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9760 signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 mlxscore=0 phishscore=0
+ suspectscore=0 mlxlogscore=979 clxscore=1015 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2010010110
 
-On 01/10/2020 13:31, Marek Marczykowski-G=C3=B3recki wrote:
-> On Thu, Oct 01, 2020 at 01:59:32PM +0200, Jan Beulich wrote:
->> On 01.10.2020 03:12, Marek Marczykowski-G=C3=B3recki wrote:
->>> After patching the previous issue ("x86/S3: Fix Shadow Stack resume
->>> path") I still encounter issues resume from S3.
->>> Since I had it working on Xen 4.13 on this particular hardware (Think=
-pad
->>> P52), I bisected it and got this:
->>>
->>> commit 4304ff420e51b973ec9eb9dafd64a917dd9c0fb1
->>> Author: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Date:   Wed Dec 11 20:59:19 2019 +0000
->>>
->>>     x86/S3: Drop {save,restore}_rest_processor_state() completely
->>>    =20
->>>     There is no need to save/restore FS/GS/XCR0 state.  It will be ha=
-ndled
->>>     suitably on the context switch away from the idle.
->>>    =20
->>>     The CR4 restoration in restore_rest_processor_state() was actuall=
-y fighting
->>>     later code in enter_state() which tried to keep CR4.MCE clear unt=
-il everything
->>>     was set up.  Delete the intermediate restoration, and defer final=
- restoration
->>>     until after MCE is reconfigured.
->>>    =20
->>>     Restoring PAT can be done earlier, and ideally before paging is e=
-nabled.  By
->>>     moving it into the trampoline during the setup for 64bit, the cal=
-l can be
->>>     dropped from cpu_init().  The EFI path boot path doesn't disable =
-paging, so
->>>     make the adjustment when switching onto Xen's pagetables.
->>>    =20
->>>     The only remaing piece of restoration is load_system_tables(), so=
- suspend.c
->>>     can be deleted in its entirety.
->>>    =20
->>>     Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>     Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Parent of this commit suspends and resumes just fine. With this commi=
-t
->>> applied, it (I think) it panics, at least I get reboot after 5s. Sadl=
-y, I
->>> don't have serial console there.
->>>
->>> I tried also master and stable-4.14 with this commit reverted (and al=
-so
->>> the other fix applied), but it doesn't work. In this case I get a han=
-g on
->>> resume (power led still flashing, but fan woke up). There are probabl=
-y
->>> some other dependencies.
->> Since bisection may also point you at some intermediate breakage, whic=
-h
->> these last results of yours seem to support, could you check whether
->> 55f8c389d434 put immediately on top of the above commit makes a differ=
-ence,
->> and if so resume bisecting from there?
-> Nope, 4304ff420e51b973ec9eb9dafd64a917dd9c0fb1 with 55f8c389d434 on top=
 
-> it still hangs on resume.
+>>>>>>> Also, wrt KASLR stuff, that issue is still seen sometimes but I haven't had
+>>>>>>> bandwidth to dive deep into the issue and fix it.
+>>>> So what's the plan there? You first mentioned this issue early this year and judged by your response it is not clear whether you will ever spend time looking at it.
+>>>>
+>>> I do want to fix it and did do some debugging earlier this year just haven't
+>>> gotten back to it. Also, wanted to understand if the issue is a blocker to this
+>>> series?
+>>
+>> Integrating code with known bugs is less than ideal.
+>>
+> So for this series to be accepted, KASLR needs to be fixed along with other
+> comments of course? 
 
-Ok.=C2=A0 I'll see about breaking the change apart so we can bisect which=
 
-specific bit of code movement broke things.
+Yes, please.
 
-~Andrew
+
+
+>>> I had some theories when debugging around this like if the random base address picked by kaslr for the
+>>> resuming kernel mismatches the suspended kernel and just jogging my memory, I didn't find that as the case.
+>>> Another hunch was if physical address of registered vcpu info at boot is different from what suspended kernel
+>>> has and that can cause CPU's to get stuck when coming online.
+>>
+>> I'd think if this were the case you'd have 100% failure rate. And we are also re-registering vcpu info on xen restore and I am not aware of any failures due to KASLR.
+>>
+> What I meant there wrt VCPU info was that VCPU info is not unregistered during hibernation,
+> so Xen still remembers the old physical addresses for the VCPU information, created by the
+> booting kernel. But since the hibernation kernel may have different physical
+> addresses for VCPU info and if mismatch happens, it may cause issues with resume. 
+> During hibernation, the VCPU info register hypercall is not invoked again.
+
+
+I still don't think that's the cause but it's certainly worth having a look.
+
+
+-boris
 
 
