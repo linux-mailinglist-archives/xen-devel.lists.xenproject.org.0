@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD23B281622
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 17:09:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2213.6524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE392281636
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 17:10:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2215.6536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOMgG-00038x-Oh; Fri, 02 Oct 2020 15:09:08 +0000
+	id 1kOMhN-0003vI-8f; Fri, 02 Oct 2020 15:10:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2213.6524; Fri, 02 Oct 2020 15:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 2215.6536; Fri, 02 Oct 2020 15:10:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,246 +23,185 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOMgG-00038Y-LD; Fri, 02 Oct 2020 15:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 2213;
- Fri, 02 Oct 2020 15:09:07 +0000
+	id 1kOMhN-0003ut-5J; Fri, 02 Oct 2020 15:10:17 +0000
+Received: by outflank-mailman (input) for mailman id 2215;
+ Fri, 02 Oct 2020 15:10:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bUGt=DJ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kOMgF-00038T-MJ
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:09:07 +0000
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 707efc57-a3bd-488d-802c-6ba9609a5b8e;
- Fri, 02 Oct 2020 15:09:05 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 3DC3E5C00EE;
- Fri,  2 Oct 2020 11:09:05 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 02 Oct 2020 11:09:05 -0400
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id B7E0E3064688;
- Fri,  2 Oct 2020 11:09:03 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sK/c=DJ=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kOMhL-0003un-MG
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:10:15 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 6612e177-224e-4361-8d1b-bce6dafd5429;
+ Fri, 02 Oct 2020 15:10:14 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-318-S07uizV9Mt-88Er9MY70BA-1; Fri, 02 Oct 2020 11:10:10 -0400
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C9F42188C122;
+ Fri,  2 Oct 2020 15:10:07 +0000 (UTC)
+Received: from [10.36.113.228] (ovpn-113-228.ams2.redhat.com [10.36.113.228])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id F12A75C22E;
+ Fri,  2 Oct 2020 15:10:03 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bUGt=DJ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
-	id 1kOMgF-00038T-MJ
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:09:07 +0000
-X-Inumbo-ID: 707efc57-a3bd-488d-802c-6ba9609a5b8e
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 707efc57-a3bd-488d-802c-6ba9609a5b8e;
-	Fri, 02 Oct 2020 15:09:05 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.nyi.internal (Postfix) with ESMTP id 3DC3E5C00EE;
-	Fri,  2 Oct 2020 11:09:05 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Fri, 02 Oct 2020 11:09:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=1C1lvw
-	3bIIFsQ68c3jWIJPGVmAXKj8uzwfQOdS6cth8=; b=UagfYQYyX5zdSAaCIWrNnv
-	bCRiP0wNOWdsw4XxAquusv8aj0Lx2fXpJhlPUCq/YBCBGd1zp+p9s5bkCR0l9NLR
-	7MnsJdQw7G0PoSshgFob7ET8omAVkEHuhIpBrkfvX5Chjplft5K8W0KRgJun62f1
-	xINwzBWPoDsuFNilZ2ZIuYe+kHrRdtmwkiAAcjtYZv4i4rXtML4nMqeQYHOyp1Hy
-	g6QnHi79zT688i/byzu9MbWhHx5mKo6jmfth6z8T+al9qDAsWQb6TSas5lKUd3ib
-	3LU+sxhyh62uXzalmwmVgP/SHvNLjCs9p3ZP+51sSnr2sNCGVHzVbODNChcTsAGg
-	==
-X-ME-Sender: <xms:kEJ3Xwr1vH23wLYZ5iq-yXzcGjCXw9dVZoBA5v8oXF2rFyXbGKrTNw>
-    <xme:kEJ3X2ptySa99uFwIS9yWh453BTGoBOtWLN3j7it82aQetNHYLwhvN_3w_F3NIn7f
-    7aEhoxpYKa9Fw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeeigdekfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeduieeg
-    ieffkefguddvteeffeehhfelfeduveeljeevteffudegkeejudffhfefnecuffhomhgrih
-    hnpeigvghnrdhorhhgnecukfhppeeluddrieegrddujedtrdekleenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:kEJ3X1MqKT0g2H_934bK5SgRQVRGELYUaJJrfYqIWoP9Lg_d3Feo0A>
-    <xmx:kEJ3X34D9UkQmiL0ILbDWVaXnSPkw9N97dY0WK2vFUeBg6nQLitFTw>
-    <xmx:kEJ3X_504VboYh8IBXFhHPufImOVF3z4P46-C_COwzyUeMSVB12maQ>
-    <xmx:kUJ3X4UjAjGIyaOqMQV1szmhKBA0PwedVGp_EQeCtWNt1SodnWV9Ig>
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
-	by mail.messagingengine.com (Postfix) with ESMTPA id B7E0E3064688;
-	Fri,  2 Oct 2020 11:09:03 -0400 (EDT)
-Date: Fri, 2 Oct 2020 17:08:59 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Yet another S3 issue in Xen 4.14
-Message-ID: <20201002150859.GM3962@mail-itl>
-References: <20201001011245.GL3962@mail-itl>
- <a80ad59b-feb1-01c8-2b14-dbf6568d0ff5@suse.com>
- <20201001123129.GJ1482@mail-itl>
- <1e596ccc-a875-93f1-2619-e4dbcbd88b4d@citrix.com>
+	(envelope-from <SRS0=sK/c=DJ=redhat.com=david@srs-us1.protection.inumbo.net>)
+	id 1kOMhL-0003un-MG
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:10:15 +0000
+X-Inumbo-ID: 6612e177-224e-4361-8d1b-bce6dafd5429
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 6612e177-224e-4361-8d1b-bce6dafd5429;
+	Fri, 02 Oct 2020 15:10:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1601651414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qA3VtU+ihW5kV76AISqiMz521DoBLG66Fqr4dX/AO88=;
+	b=PMkRZLpoEJU/LDTzHAMxCSw0BpRAxFXg3J97MAnbskwbZrXxS13wAFAEQvzx1c2xSZ/H0Q
+	7b5kBhILP7qMcg5NOdZ+rPRcyG5VVLO28W2EPSMR6Gn2hjcBElDbZssjBd0A7I5RfCp2lp
+	4gr/U1y2oSnTQAj6pT7XHbFm8dgJLt8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-318-S07uizV9Mt-88Er9MY70BA-1; Fri, 02 Oct 2020 11:10:10 -0400
+X-MC-Unique: S07uizV9Mt-88Er9MY70BA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C9F42188C122;
+	Fri,  2 Oct 2020 15:10:07 +0000 (UTC)
+Received: from [10.36.113.228] (ovpn-113-228.ams2.redhat.com [10.36.113.228])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F12A75C22E;
+	Fri,  2 Oct 2020 15:10:03 +0000 (UTC)
+Subject: Re: [PATCH v1 4/5] mm/page_alloc: place pages to tail in
+ __free_pages_core()
+To: Michal Hocko <mhocko@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@suse.cz>, Oscar Salvador <osalvador@suse.de>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Dave Hansen
+ <dave.hansen@intel.com>, Wei Yang <richard.weiyang@linux.alibaba.com>,
+ Mike Rapoport <rppt@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>
+References: <20200928182110.7050-1-david@redhat.com>
+ <20200928182110.7050-5-david@redhat.com>
+ <20201002134115.GJ4555@dhcp22.suse.cz>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat GmbH
+Message-ID: <7bf5d426-1fdd-4525-25da-a68d92b6c11d@redhat.com>
+Date: Fri, 2 Oct 2020 17:10:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="cGfB/trNgB3WtPHu"
-Content-Disposition: inline
-In-Reply-To: <1e596ccc-a875-93f1-2619-e4dbcbd88b4d@citrix.com>
+In-Reply-To: <20201002134115.GJ4555@dhcp22.suse.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 
+On 02.10.20 15:41, Michal Hocko wrote:
+> On Mon 28-09-20 20:21:09, David Hildenbrand wrote:
+>> __free_pages_core() is used when exposing fresh memory to the buddy
+>> during system boot and when onlining memory in generic_online_page().
+>>
+>> generic_online_page() is used in two cases:
+>>
+>> 1. Direct memory onlining in online_pages().
+>> 2. Deferred memory onlining in memory-ballooning-like mechanisms (HyperV
+>>    balloon and virtio-mem), when parts of a section are kept
+>>    fake-offline to be fake-onlined later on.
+>>
+>> In 1, we already place pages to the tail of the freelist. Pages will be
+>> freed to MIGRATE_ISOLATE lists first and moved to the tail of the freelists
+>> via undo_isolate_page_range().
+>>
+>> In 2, we currently don't implement a proper rule. In case of virtio-mem,
+>> where we currently always online MAX_ORDER - 1 pages, the pages will be
+>> placed to the HEAD of the freelist - undesireable. While the hyper-v
+>> balloon calls generic_online_page() with single pages, usually it will
+>> call it on successive single pages in a larger block.
+>>
+>> The pages are fresh, so place them to the tail of the freelists and avoid
+>> the PCP. In __free_pages_core(), remove the now superflouos call to
+>> set_page_refcounted() and add a comment regarding page initialization and
+>> the refcount.
+>>
+>> Note: In 2. we currently don't shuffle. If ever relevant (page shuffling
+>> is usually of limited use in virtualized environments), we might want to
+>> shuffle after a sequence of generic_online_page() calls in the
+>> relevant callers.
+> 
+> It took some time to get through all the freeing paths with subtle
+> differences but this looks reasonable. You are mentioning that this
+> influences a boot time free memory ordering as well but only very
+> briefly. I do not expect this to make a huge difference but who knows.
+> It makes some sense to add pages in the order they show up in the
+> physical address ordering.
 
---cGfB/trNgB3WtPHu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: Yet another S3 issue in Xen 4.14
+I think boot memory is mostly exposed in the physical address ordering.
+In that case, higher addresses will now be used less likely immediately
+after this patch. I also don't think it's an issue - if we still detect
+it's an issue it's fairly easy to change again.
 
-On Thu, Oct 01, 2020 at 01:43:52PM +0100, Andrew Cooper wrote:
-> On 01/10/2020 13:31, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Oct 01, 2020 at 01:59:32PM +0200, Jan Beulich wrote:
-> >> On 01.10.2020 03:12, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> After patching the previous issue ("x86/S3: Fix Shadow Stack resume
-> >>> path") I still encounter issues resume from S3.
-> >>> Since I had it working on Xen 4.13 on this particular hardware (Think=
-pad
-> >>> P52), I bisected it and got this:
-> >>>
-> >>> commit 4304ff420e51b973ec9eb9dafd64a917dd9c0fb1
-> >>> Author: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>> Date:   Wed Dec 11 20:59:19 2019 +0000
-> >>>
-> >>>     x86/S3: Drop {save,restore}_rest_processor_state() completely
-> >>>    =20
-> >>>     There is no need to save/restore FS/GS/XCR0 state.  It will be ha=
-ndled
-> >>>     suitably on the context switch away from the idle.
-> >>>    =20
-> >>>     The CR4 restoration in restore_rest_processor_state() was actuall=
-y fighting
-> >>>     later code in enter_state() which tried to keep CR4.MCE clear unt=
-il everything
-> >>>     was set up.  Delete the intermediate restoration, and defer final=
- restoration
-> >>>     until after MCE is reconfigured.
-> >>>    =20
-> >>>     Restoring PAT can be done earlier, and ideally before paging is e=
-nabled.  By
-> >>>     moving it into the trampoline during the setup for 64bit, the cal=
-l can be
-> >>>     dropped from cpu_init().  The EFI path boot path doesn't disable =
-paging, so
-> >>>     make the adjustment when switching onto Xen's pagetables.
-> >>>    =20
-> >>>     The only remaing piece of restoration is load_system_tables(), so=
- suspend.c
-> >>>     can be deleted in its entirety.
-> >>>    =20
-> >>>     Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>>     Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >>>
-> >>> Parent of this commit suspends and resumes just fine. With this commit
-> >>> applied, it (I think) it panics, at least I get reboot after 5s. Sadl=
-y, I
-> >>> don't have serial console there.
-> >>>
-> >>> I tried also master and stable-4.14 with this commit reverted (and al=
-so
-> >>> the other fix applied), but it doesn't work. In this case I get a han=
-g on
-> >>> resume (power led still flashing, but fan woke up). There are probably
-> >>> some other dependencies.
-> >> Since bisection may also point you at some intermediate breakage, which
-> >> these last results of yours seem to support, could you check whether
-> >> 55f8c389d434 put immediately on top of the above commit makes a differ=
-ence,
-> >> and if so resume bisecting from there?
-> > Nope, 4304ff420e51b973ec9eb9dafd64a917dd9c0fb1 with 55f8c389d434 on top
-> > it still hangs on resume.
->=20
-> Ok.=C2=A0 I'll see about breaking the change apart so we can bisect which
-> specific bit of code movement broke things.
+Thanks!
 
-I've done another bisect on the commit broken up in separate changes
-(https://xenbits.xen.org/gitweb/?p=3Dpeople/andrewcoop/xen.git;a=3Dshortlog=
-;h=3Drefs/heads/dbg-s3)
-and the bad part seems to be this:
+-- 
+Thanks,
 
-=46rom dbdb32f8c265295d6af7cd4cd0aa12b6d04a0430 Mon Sep 17 00:00:00 2001
-=46rom: Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Fri, 2 Oct 2020 15:40:22 +0100
-Subject: [PATCH 1/1] CR4
+David / dhildenb
 
----
- xen/arch/x86/acpi/power.c   | 9 ++++-----
- xen/arch/x86/acpi/suspend.c | 3 ---
- 2 files changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-index 6dfd4c7891..0cda362045 100644
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -195,7 +195,6 @@ static int enter_state(u32 state)
-     unsigned long flags;
-     int error;
-     struct cpu_info *ci;
--    unsigned long cr4;
-=20
-     if ( (state <=3D ACPI_STATE_S0) || (state > ACPI_S_STATES_MAX) )
-         return -EINVAL;
-@@ -270,15 +269,15 @@ static int enter_state(u32 state)
-=20
-     system_state =3D SYS_STATE_resume;
-=20
--    /* Restore CR4 and EFER from cached values. */
--    cr4 =3D read_cr4();
--    write_cr4(cr4 & ~X86_CR4_MCE);
-+    /* Restore EFER from cached value. */
-     write_efer(read_efer());
-=20
-     device_power_up(SAVED_ALL);
-=20
-     mcheck_init(&boot_cpu_data, false);
--    write_cr4(cr4);
-+
-+    /* Restore CR4 from cached value, now MCE is set up. */
-+    write_cr4(read_cr4());
-=20
-     printk(XENLOG_INFO "Finishing wakeup from ACPI S%d state.\n", state);
-=20
-diff --git a/xen/arch/x86/acpi/suspend.c b/xen/arch/x86/acpi/suspend.c
-index 060a9313b6..ca987d9019 100644
---- a/xen/arch/x86/acpi/suspend.c
-+++ b/xen/arch/x86/acpi/suspend.c
-@@ -23,7 +23,4 @@ void save_rest_processor_state(void)
- void restore_rest_processor_state(void)
- {
-     load_system_tables();
--
--    /* Restore full CR4 (inc MCE) now that the IDT is in place. */
--    write_cr4(mmu_cr4_features);
- }
---=20
-2.20.1
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---cGfB/trNgB3WtPHu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl93QosACgkQ24/THMrX
-1yw2Nwf9EZTu//vxGTNaY+7efJeVkx1/Cg93/vXrihs+AOeS2ZUtZxS9rKnQHjbV
-QpQ4DMtXi9yPINwY0cgUaDGnmqEKkeYEStiljJ/5VObCdlbvCSEDnG19ie13FSgb
-eabCv3WQgzaYMNgojHhPcwA9jQGp0ojLpNqeHizcF4PbOlhHQqwkb9MYFbqzHItL
-fyYT6QiCDvRiTf3k0b0A/MYttm767K7Xy7JHPqNtX+uXYpe4MHarqOMxxbBi7+9c
-+R1a6I9ViwKrDHWUPGm7PuviJQdnOtZpYjxg5UayhSL8H/DYN/FnNZfF94daxSXx
-lwHZSfwBMxa/r1OAuts3EaPZVRS7Xw==
-=p/3W
------END PGP SIGNATURE-----
-
---cGfB/trNgB3WtPHu--
 
