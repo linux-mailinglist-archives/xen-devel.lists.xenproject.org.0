@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B1228181A
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 18:38:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2259.6732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0627F2822F8
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Oct 2020 11:16:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2262.7248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOO4w-0004ci-QZ; Fri, 02 Oct 2020 16:38:42 +0000
+	id 1kOde0-0002hY-VQ; Sat, 03 Oct 2020 09:15:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2259.6732; Fri, 02 Oct 2020 16:38:42 +0000
+Received: by outflank-mailman (output) from mailman id 2262.7248; Sat, 03 Oct 2020 09:15:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,142 +23,247 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOO4w-0004cJ-MF; Fri, 02 Oct 2020 16:38:42 +0000
-Received: by outflank-mailman (input) for mailman id 2259;
- Fri, 02 Oct 2020 16:38:41 +0000
+	id 1kOde0-0002h9-S5; Sat, 03 Oct 2020 09:15:56 +0000
+Received: by outflank-mailman (input) for mailman id 2262;
+ Fri, 02 Oct 2020 16:44:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jYI3=DJ=nxp.com=laurentiu.tudor@srs-us1.protection.inumbo.net>)
- id 1kOO4u-0004cD-QE
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:38:41 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.60]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2c00ff61-f01a-4993-b7cb-bd9becdfc7ee;
- Fri, 02 Oct 2020 16:38:39 +0000 (UTC)
-Received: from VI1PR0402MB3405.eurprd04.prod.outlook.com (2603:10a6:803:3::26)
- by VI1PR0402MB3422.eurprd04.prod.outlook.com (2603:10a6:803:6::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Fri, 2 Oct
- 2020 16:38:37 +0000
-Received: from VI1PR0402MB3405.eurprd04.prod.outlook.com
- ([fe80::f960:c16d:16a5:6e7b]) by VI1PR0402MB3405.eurprd04.prod.outlook.com
- ([fe80::f960:c16d:16a5:6e7b%7]) with mapi id 15.20.3412.029; Fri, 2 Oct 2020
- 16:38:37 +0000
-Received: from [192.168.1.106] (86.123.62.1) by
- AM4PR0202CA0008.eurprd02.prod.outlook.com (2603:10a6:200:89::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32 via Frontend
- Transport; Fri, 2 Oct 2020 16:38:35 +0000
+ <SRS0=J9ZS=DJ=linux.ibm.com=mjrosato@srs-us1.protection.inumbo.net>)
+ id 1kOOAf-0005Vv-9Y
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:44:37 +0000
+Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d086cc1-494d-40ce-8e62-f5aef5229a6b;
+ Fri, 02 Oct 2020 16:44:35 +0000 (UTC)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 092GVwrx006908; Fri, 2 Oct 2020 12:43:16 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn28-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Oct 2020 12:43:16 -0400
+Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 092GWgtP009181;
+ Fri, 2 Oct 2020 12:43:15 -0400
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.27])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn1m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Oct 2020 12:43:15 -0400
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+ by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 092GcU34023331;
+ Fri, 2 Oct 2020 16:43:13 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma05wdc.us.ibm.com with ESMTP id 33sw99y7yv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Oct 2020 16:43:13 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 092GhDIh14615524
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 2 Oct 2020 16:43:13 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 120D4AC05B;
+ Fri,  2 Oct 2020 16:43:13 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4E754AC059;
+ Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
+Received: from oc4221205838.ibm.com (unknown [9.163.4.25])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=jYI3=DJ=nxp.com=laurentiu.tudor@srs-us1.protection.inumbo.net>)
-	id 1kOO4u-0004cD-QE
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:38:41 +0000
-X-Inumbo-ID: 2c00ff61-f01a-4993-b7cb-bd9becdfc7ee
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown [40.107.21.60])
+	(envelope-from <SRS0=J9ZS=DJ=linux.ibm.com=mjrosato@srs-us1.protection.inumbo.net>)
+	id 1kOOAf-0005Vv-9Y
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:44:37 +0000
+X-Inumbo-ID: 1d086cc1-494d-40ce-8e62-f5aef5229a6b
+Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2c00ff61-f01a-4993-b7cb-bd9becdfc7ee;
-	Fri, 02 Oct 2020 16:38:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wc1cgADXlo22tBLRuaCLGpGhncQwEZcRZNz9jS9XlKjK4LJd0H573zPktcue/KJcigv0iRmnO/fMgadKa9z20l7lZC+3/W4Z9/4ABeRRqBLilsGR6KFwMcmSRnVPQK3Oxkvtj0xU0itaJ+InfH6tXnL89G7JkV8GpCfmwhmjF2mklE/hu4G2m0inxhyCcs51OLDj2FkdIWwrTOtMwWFB2a4Cvi37POykEHCaunOU8OLn8NQxSM+ykFxjBhf6St/6l0FJwkN1qaf3v4pMIlAfkZT5teNk3e6GC9oOR+d6sYJW9vLblXeZOplNqDcZHoPsTwit3uGalu+7czZ8VCo4Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mTHHU8JHyLqSMsxY5XKoXaIlmoeMNz1VJwB0pfiKP0A=;
- b=Ci3XbvQF05tYe61B0BIwqBvqqYyBq0+40JWSZewGo5RIGVMCxKUw54Ua0EpvNat5l1UAWxJHNHuwir+XGzVTlcSs02CT0d/JteqHzPn94bKVhjoXmc59N0f4AGPqYHyB7AKdwTp4iQ+zXfAGk926nPaz4Xh7ZnDpx3CHanCe+VWPRLNlHOw3vYhrXiQK87vdLzFgh58f8bLhZ+iUiQ4QuGdFrQFOmOfQGOsOvAcDnWmkOnLJcyr5xAn5uGNpTVCAoFgI1hXbnu1uQ2wqnHGVQZgjcbV3R8x7SxhIu7C5zgsSbB2B0Hi2J87ghFUdegfbkakNM8g+ROU8eI+RAL8jng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mTHHU8JHyLqSMsxY5XKoXaIlmoeMNz1VJwB0pfiKP0A=;
- b=Y3HBvxTL+BUDXDEU1WcK7BAcgvpu+M1T6CYcTccpYIBfC3HR2fNd7z3sf9oll6z4J+JBBI08AJDVfMKv4WMnIA+OpzesZU3Zo3UFVhr3cHOYkKU4VcQ3Lam5Z7tibdxo9oz9ZxRITU5WKYJDA45WjgFjDeJqRmirhyR5CRpVIS4=
-Authentication-Results: nxp.com; dkim=none (message not signed)
- header.d=none;nxp.com; dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR0402MB3405.eurprd04.prod.outlook.com (2603:10a6:803:3::26)
- by VI1PR0402MB3422.eurprd04.prod.outlook.com (2603:10a6:803:6::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Fri, 2 Oct
- 2020 16:38:37 +0000
-Received: from VI1PR0402MB3405.eurprd04.prod.outlook.com
- ([fe80::f960:c16d:16a5:6e7b]) by VI1PR0402MB3405.eurprd04.prod.outlook.com
- ([fe80::f960:c16d:16a5:6e7b%7]) with mapi id 15.20.3412.029; Fri, 2 Oct 2020
- 16:38:37 +0000
-Subject: Re: [PATCH v3] arm,smmu: match start level of page table walk with
- P2M
-To: Julien Grall <julien@xen.org>, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com, will@kernel.org
-Cc: diana.craciun@nxp.com, anda-alexandra.dorneanu@nxp.com
-References: <20201002103344.13015-1-laurentiu.tudor@nxp.com>
- <5e64ee7a-436f-03ba-9516-f4d5639b93ba@xen.org>
-From: Laurentiu Tudor <laurentiu.tudor@nxp.com>
-Message-ID: <7aa85c5d-2853-deda-3929-cf6e65ea4d1b@nxp.com>
-Date: Fri, 2 Oct 2020 19:38:33 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
-In-Reply-To: <5e64ee7a-436f-03ba-9516-f4d5639b93ba@xen.org>
-Content-Type: text/plain; charset=utf-8
+	id 1d086cc1-494d-40ce-8e62-f5aef5229a6b;
+	Fri, 02 Oct 2020 16:44:35 +0000 (UTC)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 092GVwrx006908;
+	Fri, 2 Oct 2020 12:43:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=2+A3Co7DfxkWQ8HV8UobuhVZsZR1j3dufeR3zFyNIJM=;
+ b=ZL6lpAo76UUwp11NPj6zYDs8uDEd5Eg4s8Bnu+x6A9pDfY4v17ur2V5/VQAm1Xsa8WoZ
+ jF57ZhyECCCEOAt7VEtCJ+X/62wSfpjwuK8OmQILaGAJlfyt2IHdnxk4i2PTbV8C5+y2
+ E8QrbmluwZPKJ8nkfjZ4pV2KHv9Srg8dbS4C4+LjouCp1w1golKNt2NX64W5vFoFU3mx
+ GraG/FKAidg+fls6cQa0tWqYA9UpnCVqQINCGpM6utTnAAyg9W8PYf1GW7PzOz6aQuMF
+ ueSdxKKi3wtCWnYS16nDlnkvuNyIusRowWITviL71dULf4YjNRCfBzdgzDBNFIg1cgvz Tg== 
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn28-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2020 12:43:16 -0400
+Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 092GWgtP009181;
+	Fri, 2 Oct 2020 12:43:15 -0400
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com [169.47.144.27])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn1m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2020 12:43:15 -0400
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+	by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 092GcU34023331;
+	Fri, 2 Oct 2020 16:43:13 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com [9.57.198.26])
+	by ppma05wdc.us.ibm.com with ESMTP id 33sw99y7yv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Oct 2020 16:43:13 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com [9.57.199.111])
+	by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 092GhDIh14615524
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 2 Oct 2020 16:43:13 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 120D4AC05B;
+	Fri,  2 Oct 2020 16:43:13 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4E754AC059;
+	Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
+Received: from oc4221205838.ibm.com (unknown [9.163.4.25])
+	by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+	Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
+Subject: Re: [PATCH v3] qemu/atomic.h: rename atomic_ to qatomic_
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: Fam Zheng <fam@euphon.net>, Peter Maydell <peter.maydell@linaro.org>,
+        sheepdog@lists.wpkg.org, Paul Durrant <paul@xen.org>,
+        Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
+        Yuval Shaia <yuval.shaia.ml@gmail.com>,
+        Markus Armbruster
+ <armbru@redhat.com>,
+        Max Filippov <jcmvbkbc@gmail.com>,
+        Alistair Francis <Alistair.Francis@wdc.com>,
+        Gerd Hoffmann <kraxel@redhat.com>, Huacai Chen <chenhc@lemote.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Alberto Garcia <berto@igalia.com>, kvm@vger.kernel.org,
+        Yoshinori Sato <ysato@users.sourceforge.jp>,
+        Juan Quintela <quintela@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Michael Roth <mdroth@linux.vnet.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@de.ibm.com>,
+        Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+        Anthony Perard <anthony.perard@citrix.com>,
+        =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+        Liu Yuan <namei.unix@gmail.com>, Richard Henderson <rth@twiddle.net>,
+        Thomas Huth <thuth@redhat.com>, Eduardo Habkost <ehabkost@redhat.com>,
+        Stefan Weil <sw@weilnetz.de>, Peter Lieven <pl@kamp.de>,
+        "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
+        qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
+        qemu-riscv@nongnu.org, Sunil Muthuswamy <sunilmut@microsoft.com>,
+        John Snow <jsnow@redhat.com>,
+        Hailiang Zhang <zhang.zhanghailiang@huawei.com>,
+        Kevin Wolf <kwolf@redhat.com>,
+        =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?=
+ <berrange@redhat.com>,
+        qemu-block@nongnu.org,
+        Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+        Cornelia Huck <cohuck@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
+        Max Reitz <mreitz@redhat.com>,
+        Sagar Karandikar <sagark@eecs.berkeley.edu>,
+        Palmer Dabbelt <palmer@dabbelt.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+        Aurelien Jarno <aurelien@aurel32.net>
+References: <20200923105646.47864-1-stefanha@redhat.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+Message-ID: <4e65d6fa-0a7e-015b-eb6f-5dd1cc3ddd91@linux.ibm.com>
+Date: Fri, 2 Oct 2020 12:43:03 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <20200923105646.47864-1-stefanha@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM4PR0202CA0008.eurprd02.prod.outlook.com
- (2603:10a6:200:89::18) To VI1PR0402MB3405.eurprd04.prod.outlook.com
- (2603:10a6:803:3::26)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.106] (86.123.62.1) by AM4PR0202CA0008.eurprd02.prod.outlook.com (2603:10a6:200:89::18) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32 via Frontend Transport; Fri, 2 Oct 2020 16:38:35 +0000
-X-Originating-IP: [86.123.62.1]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c87482d6-c5a7-4a0a-4e00-08d866f19c44
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3422:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3422D5287939999D388FF318EC310@VI1PR0402MB3422.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NuMq/uAe2kN2INZvykWPpVUQUsY1C0VRyr3b4BGMkajVR9umuc3RXp9/WhM1BOt7Ac8hYsU4chAOKfbSQwwMOwmqiNGIEppiKJrLV6cWwdEUJVhlaDklUKrCm9Vgw8dwAqR0P9PLijh6TIpRdYM8qtO1Occ16uE5PCBqdeylu67vAnRs5JCVrP1ECi/L+Fkb5A+4wPu3WZEdzMqYHwxCFr58gIh3aytzK3De9O+FV6MZ29JGbGyKaTjWIfa7uPvbSSgBM7xqrWhk4Zup2mf0V6VYcio/zRqae7E8DMyuinGWq/ayVPtmJwSTFfUoYLbMRWUyxQBjydFIZPq1zyYSMMw2fpBhZmFxZLT2sGhY06d+0N/Oe7jWyjdcTS3g6ReTH3owLw/1KZ3oRbsheYlH48NV3CRfHLx5gAO/CI/4CrBIQdk39lsJ2fK0jqytYD08
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0402MB3405.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(376002)(346002)(366004)(39860400002)(8676002)(53546011)(86362001)(4744005)(26005)(66476007)(4326008)(478600001)(316002)(16576012)(31686004)(66556008)(8936002)(6486002)(83380400001)(31696002)(5660300002)(44832011)(52116002)(36756003)(956004)(186003)(2906002)(66946007)(16526019)(2616005)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
-	hSBXJMaHvNelOLgxUzVP/7dPbilCYfjauzXReE/bwyOCexFQfMKQ1xXCoQaVGgxXZxUBHF30WqRJ2Bu3mHfkJjlqobmCDnM5g//3nxMUZyhba+f0j3vh9Li3D4dzikkx0Syk8xQC2+9EiGF/Vjm/qfGkKn+N2JPIl8pcOBPCSA/UcF4zUjyEbCwpK+xRbNVZlq1Qnn0wc9+liErmj3CRyGLXLML/qL1e/UA01PN6gTWMlFfE4odf2vxZTSYPGoDPZcCQFQWbDFssd2oMkG0fOJTg+IWhEckhYhNX9bnimyUZ1Z+D/AqMG6y7mP9Tlpb3VCmJLPXU//nTVCYD40w6tNHToC93TPwTlYYHJHMj1Y5QDl2qtyqZN6cmEodLAget9cGJ9lWa1rkfQhPIs7PZeCtBlfmO3Siehx1DFLg0RlYPGdudXlg4NbjKvAgBbyGcnF2j0g3prljMYRllGN53Sw7yNBeQ+HgCbZYsHb4FSOXbz+2nxGOBcbpsBrCm9+GnfPMeA4eNVI+WTyOOLKmF1hAANO+IDGLcuP810nRjAX7/LJdlgWvqPxH3dfOyd9cUvhNsd1D4abcsYgS3IhHvnY9aS/zXieNZN56NBgzzt4zA1KKzE+7tWT0ZcwJB1TDjKtOEZQybqPi7iEWHI0cHQQ==
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c87482d6-c5a7-4a0a-4e00-08d866f19c44
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3405.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2020 16:38:37.0007
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Em9+gfekvWrqnBR4act4vZhV1ug9BVSB1h9A5yKHI9xHLr1Soph/YoFzZpmgXDohyyZsEMDN1MM91Xeztem6xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3422
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235,18.0.687
+ definitions=2020-10-02_10:2020-10-02,2020-10-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 suspectscore=0
+ phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ clxscore=1011 bulkscore=0 priorityscore=1501 mlxlogscore=999
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2010020121
 
-
-
-On 10/2/2020 7:36 PM, Julien Grall wrote:
-> Hi,
+On 9/23/20 6:56 AM, Stefan Hajnoczi wrote:
+> clang's C11 atomic_fetch_*() functions only take a C11 atomic type
+> pointer argument. QEMU uses direct types (int, etc) and this causes a
+> compiler error when a QEMU code calls these functions in a source file
+> that also included <stdatomic.h> via a system header file:
 > 
-> On 02/10/2020 11:33, laurentiu.tudor@nxp.com wrote:
->> From: Laurentiu Tudor <laurentiu.tudor@nxp.com>
->>
->> Don't hardcode the lookup start level of the page table walk to 1
->> and instead match the one used in P2M. This should fix scenarios
->> involving SMMU where the start level is different than 1.
->> In order for the SMMU driver to also compile on arm32 move the
->> P2M_ROOT_LEVEL in the p2m header file (while at it, for
->> consistency also P2M_ROOT_ORDER) and use the macro in the smmu
->> driver.
->>
->> Signed-off-by: Laurentiu Tudor <laurentiu.tudor@nxp.com>
+>    $ CC=clang CXX=clang++ ./configure ... && make
+>    ../util/async.c:79:17: error: address argument to atomic operation must be a pointer to _Atomic type ('unsigned int *' invalid)
 > 
-> Acked-by: Julien Grall <jgrall@amazon.com>
+> Avoid using atomic_*() names in QEMU's atomic.h since that namespace is
+> used by <stdatomic.h>. Prefix QEMU's APIs with 'q' so that atomic.h
+> and <stdatomic.h> can co-exist. I checked /usr/include on my machine and
+> searched GitHub for existing "qatomic_" users but there seem to be none.
 > 
+> This patch was generated using:
+> 
+>    $ git grep -h -o '\<atomic\(64\)\?_[a-z0-9_]\+' include/qemu/atomic.h | \
+>      sort -u >/tmp/changed_identifiers
+>    $ for identifier in $(</tmp/changed_identifiers); do
+>          sed -i "s%\<$identifier\>%q$identifier%g" \
+>              $(git grep -I -l "\<$identifier\>")
+>      done
+> 
+> I manually fixed line-wrap issues and misaligned rST tables.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+..snip..
+> diff --git a/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h b/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
+> index acd4c8346d..7b4062a1a1 100644
+> --- a/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
+> +++ b/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
+> @@ -68,7 +68,7 @@ static inline int pvrdma_idx_valid(uint32_t idx, uint32_t max_elems)
+>   
+>   static inline int32_t pvrdma_idx(int *var, uint32_t max_elems)
+>   {
+> -	const unsigned int idx = atomic_read(var);
+> +	const unsigned int idx = qatomic_read(var);
+>   
+>   	if (pvrdma_idx_valid(idx, max_elems))
+>   		return idx & (max_elems - 1);
+> @@ -77,17 +77,17 @@ static inline int32_t pvrdma_idx(int *var, uint32_t max_elems)
+>   
+>   static inline void pvrdma_idx_ring_inc(int *var, uint32_t max_elems)
+>   {
+> -	uint32_t idx = atomic_read(var) + 1;	/* Increment. */
+> +	uint32_t idx = qatomic_read(var) + 1;	/* Increment. */
+>   
+>   	idx &= (max_elems << 1) - 1;		/* Modulo size, flip gen. */
+> -	atomic_set(var, idx);
+> +	qatomic_set(var, idx);
+>   }
+>   
+>   static inline int32_t pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
+>   					      uint32_t max_elems, uint32_t *out_tail)
+>   {
+> -	const uint32_t tail = atomic_read(&r->prod_tail);
+> -	const uint32_t head = atomic_read(&r->cons_head);
+> +	const uint32_t tail = qatomic_read(&r->prod_tail);
+> +	const uint32_t head = qatomic_read(&r->cons_head);
+>   
+>   	if (pvrdma_idx_valid(tail, max_elems) &&
+>   	    pvrdma_idx_valid(head, max_elems)) {
+> @@ -100,8 +100,8 @@ static inline int32_t pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
+>   static inline int32_t pvrdma_idx_ring_has_data(const struct pvrdma_ring *r,
+>   					     uint32_t max_elems, uint32_t *out_head)
+>   {
+> -	const uint32_t tail = atomic_read(&r->prod_tail);
+> -	const uint32_t head = atomic_read(&r->cons_head);
+> +	const uint32_t tail = qatomic_read(&r->prod_tail);
+> +	const uint32_t head = qatomic_read(&r->cons_head);
+>   
+>   	if (pvrdma_idx_valid(tail, max_elems) &&
+>   	    pvrdma_idx_valid(head, max_elems)) {
 
-Thanks, Julien!
 
---
-Best Regards, Laurentiu
+It looks like the changes in this file are going to get reverted the 
+next time someone does a linux header sync.
+
 
