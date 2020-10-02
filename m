@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C82E280CD3
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 06:29:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1657.5012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3633D280CF1
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 06:51:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1661.5028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOCfl-0001lS-1C; Fri, 02 Oct 2020 04:27:57 +0000
+	id 1kOD1m-0004Py-0a; Fri, 02 Oct 2020 04:50:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1657.5012; Fri, 02 Oct 2020 04:27:57 +0000
+Received: by outflank-mailman (output) from mailman id 1661.5028; Fri, 02 Oct 2020 04:50:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,104 +23,107 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOCfk-0001l3-U9; Fri, 02 Oct 2020 04:27:56 +0000
-Received: by outflank-mailman (input) for mailman id 1657;
- Fri, 02 Oct 2020 04:27:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kOD1l-0004PZ-T9; Fri, 02 Oct 2020 04:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 1661;
+ Fri, 02 Oct 2020 04:50:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kOCfj-0001ky-To
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 04:27:55 +0000
+ id 1kOD1j-0004PU-QG
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 04:50:39 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cde595ca-9253-4f39-9d72-0ab85d759a4c;
- Fri, 02 Oct 2020 04:27:54 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c38b9e92-c5e8-470d-9eb9-3413a05eee0e;
+ Fri, 02 Oct 2020 04:50:37 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1239AAC19;
- Fri,  2 Oct 2020 04:27:54 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 450E9AD04;
+ Fri,  2 Oct 2020 04:50:36 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kOCfj-0001ky-To
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 04:27:55 +0000
-X-Inumbo-ID: cde595ca-9253-4f39-9d72-0ab85d759a4c
+	id 1kOD1j-0004PU-QG
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 04:50:39 +0000
+X-Inumbo-ID: c38b9e92-c5e8-470d-9eb9-3413a05eee0e
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id cde595ca-9253-4f39-9d72-0ab85d759a4c;
-	Fri, 02 Oct 2020 04:27:54 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id c38b9e92-c5e8-470d-9eb9-3413a05eee0e;
+	Fri, 02 Oct 2020 04:50:37 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601612874;
+	t=1601614236;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=n5hLMCuQD4OyqugOBeWO8nJ7I2YjMYO1ImRm1jNVsq8=;
-	b=gbDYFv1dLPC/dlkm4uHXrs07qez51pZfSyyED8yvIFcWPVhNQdr2Ar9aXBCHOZw/5dHgo3
-	O0eMx0tHQXL/f1svEH9UfChGq1dHbPOom8jx2MxmGYoIOTqXIyD/yKDofF19i4cjAzdlz0
-	DuvCEyjpuPEm9wCfjcfI6fAxf8G9ugY=
+	bh=J/idnfpv/lIDFEdq+x6upDoD3zsCzNiwA4jbuPtNVBQ=;
+	b=HKxElXgq8DYYV/9IkUwE2TxRxC46woRPr7S/o6FFNNi5MHDqW7kuZma7sIjDNTU2vPduKP
+	u4In4r/Cb0KFYS6Zm6agqMor98qGWMtd0qD7FzYXjFi/Kfi3D8zSV15OZQG6e0bkqVWSE4
+	MEckAO/zGyNmFip6mPLJTgoDuDeXO3U=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 1239AAC19;
-	Fri,  2 Oct 2020 04:27:54 +0000 (UTC)
-Subject: Re: Ping: [PATCH 0/6] tools/include: adjustments to the population of
- xen/
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <2a9f86aa-9104-8a45-cd21-72acd693f924@suse.com>
- <673fdaf3-e770-67c8-0a6c-6cdec79df38a@suse.com>
- <9F53B61A-5A50-46DD-BF5B-75F48C91FCFC@arm.com>
- <6B9403A3-66DC-4A69-8006-096420649768@arm.com>
+	by mx2.suse.de (Postfix) with ESMTP id 450E9AD04;
+	Fri,  2 Oct 2020 04:50:36 +0000 (UTC)
+Subject: Re: [PATCH v3] tools/libs/stat: fix broken build
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20200912130836.11024-1-jgross@suse.com>
+ <5232FD74-9636-4EF4-81F8-2EF7EE21D326@arm.com>
+ <87CA2B55-B372-458C-82CC-2423B8AC3EEE@arm.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <dea68b56-990d-a13f-a2c4-171e67eaaf73@suse.com>
-Date: Fri, 2 Oct 2020 06:27:53 +0200
+Message-ID: <f12092a1-119f-ce68-8804-1a8772f1a923@suse.com>
+Date: Fri, 2 Oct 2020 06:50:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <6B9403A3-66DC-4A69-8006-096420649768@arm.com>
+In-Reply-To: <87CA2B55-B372-458C-82CC-2423B8AC3EEE@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.10.20 18:43, Bertrand Marquis wrote:
-> Hi,
+On 01.10.20 18:38, Bertrand Marquis wrote:
+> Hi Juergen,
 > 
->> On 1 Oct 2020, at 17:29, Bertrand Marquis <bertrand.marquis@arm.com> wrote:
+>> On 14 Sep 2020, at 11:58, Bertrand Marquis <bertrand.marquis@arm.com> wrote:
 >>
->> Hi Jan,
 >>
->>> On 1 Oct 2020, at 17:03, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>>> On 12 Sep 2020, at 14:08, Juergen Gross <jgross@suse.com> wrote:
 >>>
->>> On 10.09.2020 14:09, Jan Beulich wrote:
->>>> While looking at what it would take to move around libelf/
->>>> in the hypervisor subtree, I've run into this rule, which I
->>>> think can do with a few improvements and some simplification.
->>>>
->>>> 1: adjust population of acpi/
->>>> 2: fix (drop) dependencies of when to populate xen/
->>>> 3: adjust population of public headers into xen/
->>>> 4: properly install Arm public headers
->>>> 5: adjust x86-specific population of xen/
->>>> 6: drop remaining -f from ln invocations
+>>> Making getBridge() static triggered a build error with some gcc versions:
 >>>
->>> May I ask for an ack or otherwise here?
->>
->> This is going the right way but with this serie (on top of current staging
->> status), I have a compilation error in Yocto while compiling qemu:
->> In file included from /media/extend-drive/bermar01/Development/xen-dev/yocto-build/build/dom0-fvp.prj/tmp/work/armv8a-poky-linux/qemu/5.1.0-r0/recipe-sysroot/usr/include/xenguest.h:25,
->> |                  from /media/extend-drive/bermar01/Development/xen-dev/yocto-build/build/dom0-fvp.prj/tmp/work/armv8a-poky-linux/qemu/5.1.0-r0/qemu-5.1.0/hw/i386/xen/xen_platform.c:41:
->> | /media/extend-drive/bermar01/Development/xen-dev/yocto-build/build/dom0-fvp.prj/tmp/work/armv8a-poky-linux/qemu/5.1.0-r0/recipe-sysroot/usr/include/xenctrl_dom.h:19:10: fatal error: xen/libelf/libelf.h: No such file or directory
->> |    19 | #include <xen/libelf/libelf.h>
->> |       |          ^~~~~~~~~~~~~~~~~~~~~
->> | compilation terminated.
->> | /media/extend-drive/bermar01/Development/xen-dev/yocto-build/build/dom0-fvp.prj/tmp/work/armv8a-poky-linux/qemu/5.1.0-r0/qemu-5.1.0/rules.mak:69: recipe for target 'hw/i386/xen/xen_platform.o’ failed
->>
->> Xen is using xenctrl_dom.h which need the libelf.h header from xen.
+>>> error: 'strncpy' output may be truncated copying 15 bytes from a string of
+>>> length 255 [-Werror=stringop-truncation]
+>>>
+>>> Fix that by using a buffer with 256 bytes instead.
+>>>
+>>> Fixes: 6d0ec053907794 ("tools: split libxenstat into new tools/libs/stat directory")
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > 
-> Actually this is not coming from your serie and this is actually a problem already present on master.
+> Sorry i have to come back on this one.
+> 
+> I still see an error compiling with Yocto on this one:
+> |     inlined from 'xenstat_collect_networks' at xenstat_linux.c:306:2:
+> | xenstat_linux.c:81:6: error: 'strncpy' output may be truncated copying 255 bytes from a string of length 255 [-Werror=stringop-truncation]
+> |    81 |      strncpy(result, de->d_name, resultLen);
+> |       |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> To solve it, I need to define devBridge[257] as devNoBrideg.
 
-... and fixed on staging.
+IMHO this is a real compiler error.
+
+de->d_name is an array of 256 bytes, so doing strncpy() from that to
+another array of 256 bytes with a length of 256 won't truncate anything.
+
+Making devBridge one byte longer would be dangerous, as this would do
+a strncpy with length of 257 from a source with a length of 256 bytes
+only.
+
+BTW, I think Andrew? has tested my patch with a recent gcc which threw
+the original error without my patch, and it was fine with the patch.
+Either your compiler (assuming you are using gcc) has gained that error
+or you are missing an update fixing it.
 
 
 Juergen
