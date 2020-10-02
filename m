@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1373D28187F
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 19:02:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2266.6747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2DC8281895
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 19:04:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2270.6762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOORb-0007Az-Vi; Fri, 02 Oct 2020 17:02:07 +0000
+	id 1kOOTu-0007L1-E3; Fri, 02 Oct 2020 17:04:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2266.6747; Fri, 02 Oct 2020 17:02:07 +0000
+Received: by outflank-mailman (output) from mailman id 2270.6762; Fri, 02 Oct 2020 17:04:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,144 +23,265 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOORb-0007Aa-SQ; Fri, 02 Oct 2020 17:02:07 +0000
-Received: by outflank-mailman (input) for mailman id 2266;
- Fri, 02 Oct 2020 17:02:07 +0000
+	id 1kOOTu-0007Kg-Aq; Fri, 02 Oct 2020 17:04:30 +0000
+Received: by outflank-mailman (input) for mailman id 2270;
+ Fri, 02 Oct 2020 17:04:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kOORb-0007AV-0b
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:02:07 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d3246d4b-9581-471b-8679-15ffe9d4dddf;
- Fri, 02 Oct 2020 17:02:05 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kOORY-0004uM-ND; Fri, 02 Oct 2020 17:02:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kOORY-0008OE-EM; Fri, 02 Oct 2020 17:02:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kOORY-0002Ge-Dr; Fri, 02 Oct 2020 17:02:04 +0000
+ <SRS0=OBi8=DJ=redhat.com=dgilbert@srs-us1.protection.inumbo.net>)
+ id 1kOOTs-0007Kb-Md
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:04:28 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id c79bbc2d-e2b6-4667-a841-b5f3a534b2e5;
+ Fri, 02 Oct 2020 17:04:27 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-454-pVeLMFzAOZyKlcgqQOAWmg-1; Fri, 02 Oct 2020 13:04:25 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE963801AC2;
+ Fri,  2 Oct 2020 17:04:23 +0000 (UTC)
+Received: from work-vm (ovpn-114-192.ams2.redhat.com [10.36.114.192])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D311E73669;
+ Fri,  2 Oct 2020 17:04:14 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kOORb-0007AV-0b
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:02:07 +0000
-X-Inumbo-ID: d3246d4b-9581-471b-8679-15ffe9d4dddf
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d3246d4b-9581-471b-8679-15ffe9d4dddf;
-	Fri, 02 Oct 2020 17:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1EG3lUTtJ3/+gY0btHjrKq7llknwtdBK7mOaTpkfS8w=; b=174p8aC2LqoPT16z3cSoDJ1nXs
-	QBuZfrpxyEcwEDDqmVEG0azrq661oJCqyZsIBJPpWTOlei4r1Lx9nN23Ib4sy6YaoMqkJ3/nH+9ey
-	I0KCA2eADH/dmqW8kNqNTjAL8V8L3kNi5VZmK0XdaI8k8ZHRqRLyjaMzVnhp7RPkf4V4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOORY-0004uM-ND; Fri, 02 Oct 2020 17:02:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOORY-0008OE-EM; Fri, 02 Oct 2020 17:02:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOORY-0002Ge-Dr; Fri, 02 Oct 2020 17:02:04 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155327-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=OBi8=DJ=redhat.com=dgilbert@srs-us1.protection.inumbo.net>)
+	id 1kOOTs-0007Kb-Md
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:04:28 +0000
+X-Inumbo-ID: c79bbc2d-e2b6-4667-a841-b5f3a534b2e5
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id c79bbc2d-e2b6-4667-a841-b5f3a534b2e5;
+	Fri, 02 Oct 2020 17:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1601658267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xgj0hpVcffvhbEeRWVxqdaYvCtQRdJemk3XrZAdr0Dg=;
+	b=C2VSKjEhIEUbOICaFQk2+RdBHLC6stFA0Xgc9L1mnS2Np8Ksnt483YAwEfS7yp6NDtQCfT
+	nFQq9abJuwTdD8ZvLPiz18iqLa4qKekb5xfEmdE0ublgmsk/vUUHsolSfz8f5juSVYRYe9
+	q91rqQ3zWlkh1Wvop7NNXOtMYv0Q6I0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-454-pVeLMFzAOZyKlcgqQOAWmg-1; Fri, 02 Oct 2020 13:04:25 -0400
+X-MC-Unique: pVeLMFzAOZyKlcgqQOAWmg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE963801AC2;
+	Fri,  2 Oct 2020 17:04:23 +0000 (UTC)
+Received: from work-vm (ovpn-114-192.ams2.redhat.com [10.36.114.192])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D311E73669;
+	Fri,  2 Oct 2020 17:04:14 +0000 (UTC)
+Date: Fri, 2 Oct 2020 18:04:12 +0100
+From: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>
+Cc: qemu-devel@nongnu.org, Richard Henderson <rth@twiddle.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	xen-devel@lists.xenproject.org, Gerd Hoffmann <kraxel@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Juan Quintela <quintela@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Eric Blake <eblake@redhat.com>, Paul Durrant <paul@xen.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>
+Subject: Re: [PATCH 5/5] qapi: Restrict Xen migration commands to
+ migration.json
+Message-ID: <20201002170412.GJ3286@work-vm>
+References: <20201002133923.1716645-1-philmd@redhat.com>
+ <20201002133923.1716645-6-philmd@redhat.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155327: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=59b27f360e3d9dc0378c1288e67a91fa41a77158
-X-Osstest-Versions-That:
-    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 02 Oct 2020 17:02:04 +0000
+In-Reply-To: <20201002133923.1716645-6-philmd@redhat.com>
+User-Agent: Mutt/1.14.6 (2020-07-11)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dgilbert@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-flight 155327 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155327/
+* Philippe Mathieu-Daudé (philmd@redhat.com) wrote:
+> Restricting xen-set-global-dirty-log and xen-load-devices-state
+> commands migration.json pulls slightly less QAPI-generated code
+> into user-mode and tools.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 155128
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  59b27f360e3d9dc0378c1288e67a91fa41a77158
-baseline version:
- xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
-
-Last test of basis   155128  2020-09-30 08:01:25 Z    2 days
-Failing since        155144  2020-09-30 16:01:24 Z    2 days   15 attempts
-Testing same since   155310  2020-10-02 08:01:29 Z    0 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
+Looks OK; for migration
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Acked-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> ---
+>  qapi/migration.json    | 41 +++++++++++++++++++++++++++++++++++++++++
+>  qapi/misc.json         | 41 -----------------------------------------
+>  accel/stubs/xen-stub.c |  2 +-
+>  hw/i386/xen/xen-hvm.c  |  2 +-
+>  migration/savevm.c     |  1 -
+>  5 files changed, 43 insertions(+), 44 deletions(-)
+> 
+> diff --git a/qapi/migration.json b/qapi/migration.json
+> index 7f5e6fd681..cb30f4c729 100644
+> --- a/qapi/migration.json
+> +++ b/qapi/migration.json
+> @@ -1551,6 +1551,47 @@
+>  { 'command': 'xen-save-devices-state',
+>    'data': {'filename': 'str', '*live':'bool' } }
+>  
+> +##
+> +# @xen-set-global-dirty-log:
+> +#
+> +# Enable or disable the global dirty log mode.
+> +#
+> +# @enable: true to enable, false to disable.
+> +#
+> +# Returns: nothing
+> +#
+> +# Since: 1.3
+> +#
+> +# Example:
+> +#
+> +# -> { "execute": "xen-set-global-dirty-log",
+> +#      "arguments": { "enable": true } }
+> +# <- { "return": {} }
+> +#
+> +##
+> +{ 'command': 'xen-set-global-dirty-log', 'data': { 'enable': 'bool' } }
+> +
+> +##
+> +# @xen-load-devices-state:
+> +#
+> +# Load the state of all devices from file. The RAM and the block devices
+> +# of the VM are not loaded by this command.
+> +#
+> +# @filename: the file to load the state of the devices from as binary
+> +#            data. See xen-save-devices-state.txt for a description of the binary
+> +#            format.
+> +#
+> +# Since: 2.7
+> +#
+> +# Example:
+> +#
+> +# -> { "execute": "xen-load-devices-state",
+> +#      "arguments": { "filename": "/tmp/resume" } }
+> +# <- { "return": {} }
+> +#
+> +##
+> +{ 'command': 'xen-load-devices-state', 'data': {'filename': 'str'} }
+> +
+>  ##
+>  # @xen-set-replication:
+>  #
+> diff --git a/qapi/misc.json b/qapi/misc.json
+> index 9813893269..afe936b45b 100644
+> --- a/qapi/misc.json
+> +++ b/qapi/misc.json
+> @@ -287,26 +287,6 @@
+>    'data': {'device': 'str', 'target': 'str', '*arg': 'str'},
+>    'features': [ 'deprecated' ] }
+>  
+> -##
+> -# @xen-set-global-dirty-log:
+> -#
+> -# Enable or disable the global dirty log mode.
+> -#
+> -# @enable: true to enable, false to disable.
+> -#
+> -# Returns: nothing
+> -#
+> -# Since: 1.3
+> -#
+> -# Example:
+> -#
+> -# -> { "execute": "xen-set-global-dirty-log",
+> -#      "arguments": { "enable": true } }
+> -# <- { "return": {} }
+> -#
+> -##
+> -{ 'command': 'xen-set-global-dirty-log', 'data': { 'enable': 'bool' } }
+> -
+>  ##
+>  # @getfd:
+>  #
+> @@ -606,24 +586,3 @@
+>  ##
+>  { 'enum': 'ReplayMode',
+>    'data': [ 'none', 'record', 'play' ] }
+> -
+> -##
+> -# @xen-load-devices-state:
+> -#
+> -# Load the state of all devices from file. The RAM and the block devices
+> -# of the VM are not loaded by this command.
+> -#
+> -# @filename: the file to load the state of the devices from as binary
+> -#            data. See xen-save-devices-state.txt for a description of the binary
+> -#            format.
+> -#
+> -# Since: 2.7
+> -#
+> -# Example:
+> -#
+> -# -> { "execute": "xen-load-devices-state",
+> -#      "arguments": { "filename": "/tmp/resume" } }
+> -# <- { "return": {} }
+> -#
+> -##
+> -{ 'command': 'xen-load-devices-state', 'data': {'filename': 'str'} }
+> diff --git a/accel/stubs/xen-stub.c b/accel/stubs/xen-stub.c
+> index 7ba0b697f4..7054965c48 100644
+> --- a/accel/stubs/xen-stub.c
+> +++ b/accel/stubs/xen-stub.c
+> @@ -7,7 +7,7 @@
+>  
+>  #include "qemu/osdep.h"
+>  #include "sysemu/xen.h"
+> -#include "qapi/qapi-commands-misc.h"
+> +#include "qapi/qapi-commands-migration.h"
+>  
+>  bool xen_allowed;
+>  
+> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+> index f3ababf33b..9519c33c09 100644
+> --- a/hw/i386/xen/xen-hvm.c
+> +++ b/hw/i386/xen/xen-hvm.c
+> @@ -24,7 +24,7 @@
+>  #include "hw/xen/xen-bus.h"
+>  #include "hw/xen/xen-x86.h"
+>  #include "qapi/error.h"
+> -#include "qapi/qapi-commands-misc.h"
+> +#include "qapi/qapi-commands-migration.h"
+>  #include "qemu/error-report.h"
+>  #include "qemu/main-loop.h"
+>  #include "qemu/range.h"
+> diff --git a/migration/savevm.c b/migration/savevm.c
+> index 34e4b71052..1fdf3f76c2 100644
+> --- a/migration/savevm.c
+> +++ b/migration/savevm.c
+> @@ -42,7 +42,6 @@
+>  #include "postcopy-ram.h"
+>  #include "qapi/error.h"
+>  #include "qapi/qapi-commands-migration.h"
+> -#include "qapi/qapi-commands-misc.h"
+>  #include "qapi/qmp/qerror.h"
+>  #include "qemu/error-report.h"
+>  #include "sysemu/cpus.h"
+> -- 
+> 2.26.2
+> 
+-- 
+Dr. David Alan Gilbert / dgilbert@redhat.com / Manchester, UK
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 387 lines long.)
 
