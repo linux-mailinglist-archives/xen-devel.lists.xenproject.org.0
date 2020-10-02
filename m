@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AF028101A
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:48:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1778.5458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFE0128101F
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:51:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1788.5472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHfe-0007ue-1g; Fri, 02 Oct 2020 09:48:10 +0000
+	id 1kOHic-0000RM-MM; Fri, 02 Oct 2020 09:51:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1778.5458; Fri, 02 Oct 2020 09:48:09 +0000
+Received: by outflank-mailman (output) from mailman id 1788.5472; Fri, 02 Oct 2020 09:51:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,169 +23,166 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHfd-0007u5-Si; Fri, 02 Oct 2020 09:48:09 +0000
-Received: by outflank-mailman (input) for mailman id 1778;
- Fri, 02 Oct 2020 09:48:08 +0000
+	id 1kOHic-0000Qx-Iy; Fri, 02 Oct 2020 09:51:14 +0000
+Received: by outflank-mailman (input) for mailman id 1788;
+ Fri, 02 Oct 2020 09:51:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z+Ma=DJ=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
- id 1kOHfc-0007tg-0L
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:48:08 +0000
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ (envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kOHib-0000Qr-O0
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:51:13 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc68222b-8951-456d-8e5e-6d0f0603b85d;
- Fri, 02 Oct 2020 09:48:05 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id x14so1055918wrl.12
- for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 02:48:05 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k8sm1015650wrl.42.2020.10.02.02.48.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2020 02:48:03 -0700 (PDT)
+ id 59d77d83-cbb6-4197-a2fd-21bfb9d08e86;
+ Fri, 02 Oct 2020 09:51:12 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kOHia-0003Un-0R; Fri, 02 Oct 2020 09:51:12 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kOHiZ-0000XF-Or; Fri, 02 Oct 2020 09:51:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Z+Ma=DJ=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
-	id 1kOHfc-0007tg-0L
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:48:08 +0000
-X-Inumbo-ID: fc68222b-8951-456d-8e5e-6d0f0603b85d
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+	(envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kOHib-0000Qr-O0
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:51:13 +0000
+X-Inumbo-ID: 59d77d83-cbb6-4197-a2fd-21bfb9d08e86
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id fc68222b-8951-456d-8e5e-6d0f0603b85d;
-	Fri, 02 Oct 2020 09:48:05 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id x14so1055918wrl.12
-        for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 02:48:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffwll.ch; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=XBKf5rCOPo4NoQKS2bCbn6OHpqMgKghSnuzncLMaEsg=;
-        b=NnPhOIiGXFfvJWiXpwMfYCrlYJj3jSqwhM3Fr7FAFgDtN8+LWpUPVsY9CPqHheoz3s
-         duOjN3dl7KGdJpPoH/Rn+jfMpp1zUc3mpthUjoLgdoNEYm7Fr4xKD3gS0xfEr0+XOfv6
-         XtSRuu65opavt6S+qKQAVPJTls41fPewz/rXA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=XBKf5rCOPo4NoQKS2bCbn6OHpqMgKghSnuzncLMaEsg=;
-        b=bjwS1PUB2j6XcjWj8NXAyg/Jiakapp8/GZZhqN+tkJyt926RKTqi2oEDcQ6XbLBQ/L
-         vWecOpIBZ1UYjWFlTl82AXj5PeQLYXbynrBSxq/bkBsqZ5HrOiTjPMBPFnJqbLVNudRg
-         dq00K3+EILirgvKDsrPRwc42MTswNHIWVFm3cEKpGK28X596PH0bX05mrmgPwu3mg1sz
-         xfD4W02OHAlnprZIbIvmUTMt6Sd+on9pmY0iE1EqJPdrI+kkYaIR2hBZBXREEipY/yV5
-         Npz7Ve4Bzq12xnz+vf7ckxzVJi+KK/GRfnBMzwStmyj0XImtg1iTQ/IxxA7pTCgmVM8j
-         7oZg==
-X-Gm-Message-State: AOAM533+5Gvu7S3dBFR8oraXHMYAq3YJP5/EXeuho/EAOgiGhjyMAtYi
-	wTHJqfvqgbpd3SMk3Mn1380qDw==
-X-Google-Smtp-Source: ABdhPJwvtlXjY3abDVfehLG+NbtTw4ENbbSxjUqiw5J1WQgeZzduYuia7fGlp8u2Z6fywLN6MoeKFw==
-X-Received: by 2002:adf:fed1:: with SMTP id q17mr1966851wrs.85.1601632084874;
-        Fri, 02 Oct 2020 02:48:04 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
-        by smtp.gmail.com with ESMTPSA id k8sm1015650wrl.42.2020.10.02.02.48.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 02:48:03 -0700 (PDT)
-Date: Fri, 2 Oct 2020 11:48:00 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
-	daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
-	christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
-	linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
-	inki.dae@samsung.com, jy0922.shim@samsung.com,
-	sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
-	krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com,
-	robh@kernel.org, tomeu.vizoso@collabora.com, steven.price@arm.com,
-	alyssa.rosenzweig@collabora.com, hjc@rock-chips.com,
-	heiko@sntech.de, hdegoede@redhat.com, sean@poorly.run,
-	eric@anholt.net, oleksandr_andrushchenko@epam.com,
-	ray.huang@amd.com, sumit.semwal@linaro.org,
-	emil.velikov@collabora.com, luben.tuikov@amd.com, apaneers@amd.com,
-	linus.walleij@linaro.org, melissa.srw@gmail.com,
-	chris@chris-wilson.co.uk, miaoqinglang@huawei.com,
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org,
-	etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v3 1/7] drm/vram-helper: Remove invariant parameters from
- internal kmap function
-Message-ID: <20201002094800.GG438822@phenom.ffwll.local>
-References: <20200929151437.19717-1-tzimmermann@suse.de>
- <20200929151437.19717-2-tzimmermann@suse.de>
+	id 59d77d83-cbb6-4197-a2fd-21bfb9d08e86;
+	Fri, 02 Oct 2020 09:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=mzDA/S3dz8EW+2wSiGaselJ3IjD2FytsgKUO3naeTfg=; b=yhvS6/lk9H1yA/94pdJPoaM+Qk
+	l2dJpvB+n2IP7JRzyhAbtdFYmJnzlXAut0Gf7dq3yJWEHmxHy6V1wNpyk2+ndp8lMsZWChbUn3XCp
+	P4qJ/YnVVeSasnarqu5m0y93AiarNeaCJVudSXC4+4oM8ONrfUOcRUl84MpjCvOtCuMY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kOHia-0003Un-0R; Fri, 02 Oct 2020 09:51:12 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kOHiZ-0000XF-Or; Fri, 02 Oct 2020 09:51:11 +0000
+Subject: Re: [PATCH v2] arm,smmu: match start level of page table walk with
+ P2M
+To: laurentiu.tudor@nxp.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com, will@kernel.org
+Cc: diana.craciun@nxp.com, anda-alexandra.dorneanu@nxp.com
+References: <20201002094737.9803-1-laurentiu.tudor@nxp.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b5bd3263-42fd-27a3-ebdc-2ae2b5b72f3a@xen.org>
+Date: Fri, 2 Oct 2020 10:51:09 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200929151437.19717-2-tzimmermann@suse.de>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <20201002094737.9803-1-laurentiu.tudor@nxp.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2020 at 05:14:31PM +0200, Thomas Zimmermann wrote:
-> The parameters map and is_iomem are always of the same value. Removed them
-> to prepares the function for conversion to struct dma_buf_map.
+Hi,
+
+On 02/10/2020 10:47, laurentiu.tudor@nxp.com wrote:
+> From: Laurentiu Tudor <laurentiu.tudor@nxp.com>
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
+> Don't hardcode the lookup start level of the page table walk to 1
+> and instead match the one used in P2M. This should fix scenarios
+> involving SMMU where the start level is different than 1.
+> In order for the SMMU driver to also compile on arm32 move the
+> P2M_ROOT_LEVEL in the p2m header file (while at it, for
+> consistency also P2M_ROOT_ORDER) and use the macro in the smmu
+> driver.
+> 
+> Signed-off-by: Laurentiu Tudor <laurentiu.tudor@nxp.com>
 > ---
->  drivers/gpu/drm/drm_gem_vram_helper.c | 17 ++++++-----------
->  1 file changed, 6 insertions(+), 11 deletions(-)
+> Changes in v2:
+>   - made smmu driver compile on arm32
 > 
-> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-> index 3fe4b326e18e..256b346664f2 100644
-> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-> @@ -382,16 +382,16 @@ int drm_gem_vram_unpin(struct drm_gem_vram_object *gbo)
->  }
->  EXPORT_SYMBOL(drm_gem_vram_unpin);
->  
-> -static void *drm_gem_vram_kmap_locked(struct drm_gem_vram_object *gbo,
-> -				      bool map, bool *is_iomem)
-> +static void *drm_gem_vram_kmap_locked(struct drm_gem_vram_object *gbo)
->  {
->  	int ret;
->  	struct ttm_bo_kmap_obj *kmap = &gbo->kmap;
-> +	bool is_iomem;
->  
->  	if (gbo->kmap_use_count > 0)
->  		goto out;
->  
-> -	if (kmap->virtual || !map)
-> +	if (kmap->virtual)
->  		goto out;
->  
->  	ret = ttm_bo_kmap(&gbo->bo, 0, gbo->bo.num_pages, kmap);
-> @@ -399,15 +399,10 @@ static void *drm_gem_vram_kmap_locked(struct drm_gem_vram_object *gbo,
->  		return ERR_PTR(ret);
->  
->  out:
-> -	if (!kmap->virtual) {
-> -		if (is_iomem)
-> -			*is_iomem = false;
-> +	if (!kmap->virtual)
->  		return NULL; /* not mapped; don't increment ref */
-> -	}
->  	++gbo->kmap_use_count;
-> -	if (is_iomem)
-> -		return ttm_kmap_obj_virtual(kmap, is_iomem);
-> -	return kmap->virtual;
-> +	return ttm_kmap_obj_virtual(kmap, &is_iomem);
->  }
->  
->  static void drm_gem_vram_kunmap_locked(struct drm_gem_vram_object *gbo)
-> @@ -452,7 +447,7 @@ void *drm_gem_vram_vmap(struct drm_gem_vram_object *gbo)
->  	ret = drm_gem_vram_pin_locked(gbo, 0);
->  	if (ret)
->  		goto err_ttm_bo_unreserve;
-> -	base = drm_gem_vram_kmap_locked(gbo, true, NULL);
-> +	base = drm_gem_vram_kmap_locked(gbo);
->  	if (IS_ERR(base)) {
->  		ret = PTR_ERR(base);
->  		goto err_drm_gem_vram_unpin_locked;
-> -- 
-> 2.28.0
+>   xen/arch/arm/p2m.c                 |  7 +------
+>   xen/drivers/passthrough/arm/smmu.c |  2 +-
+>   xen/include/asm-arm/p2m.h          | 10 ++++++++++
+>   3 files changed, 12 insertions(+), 7 deletions(-)
 > 
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index ce59f2b503..bb75f12486 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -18,16 +18,10 @@
+>   
+>   #ifdef CONFIG_ARM_64
+>   static unsigned int __read_mostly p2m_root_order;
+> -static unsigned int __read_mostly p2m_root_level;
+> -#define P2M_ROOT_ORDER    p2m_root_order
+> -#define P2M_ROOT_LEVEL p2m_root_level
+>   static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
+>   /* VMID is by default 8 bit width on AArch64 */
+>   #define MAX_VMID       max_vmid
+>   #else
+> -/* First level P2M is always 2 consecutive pages */
+> -#define P2M_ROOT_LEVEL 1
+> -#define P2M_ROOT_ORDER    1
+>   /* VMID is always 8 bit width on AArch32 */
+>   #define MAX_VMID        MAX_VMID_8_BIT
+>   #endif
+> @@ -39,6 +33,7 @@ static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
+>    * restricted by external entity (e.g. IOMMU).
+>    */
+>   unsigned int __read_mostly p2m_ipa_bits = 64;
+> +unsigned int __read_mostly p2m_root_level;
+
+This wants to stay in the #ifdef CONFIG_ARM_64 above and...
+
+>   
+>   /* Helpers to lookup the properties of each level */
+>   static const paddr_t level_masks[] =
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index 94662a8501..4ba6d3ab94 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -1152,7 +1152,7 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain)
+>   	      (TTBCR_RGN_WBWA << TTBCR_IRGN0_SHIFT);
+>   
+>   	if (!stage1)
+> -		reg |= (TTBCR_SL0_LVL_1 << TTBCR_SL0_SHIFT);
+> +		reg |= (2 - P2M_ROOT_LEVEL) << TTBCR_SL0_SHIFT;
+>   
+>   	writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBCR);
+>   
+> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+> index 5fdb6e8183..ab02b36a03 100644
+> --- a/xen/include/asm-arm/p2m.h
+> +++ b/xen/include/asm-arm/p2m.h
+> @@ -12,6 +12,16 @@
+>   
+>   /* Holds the bit size of IPAs in p2m tables.  */
+>   extern unsigned int p2m_ipa_bits;
+> +extern unsigned int p2m_root_level;
+
+... this wants to be in part of the #ifdef below.
+
+> +
+> +#ifdef CONFIG_ARM_64
+> +#define P2M_ROOT_ORDER    p2m_root_order
+
+As you move the define here, you should also move p2m_root_order.
+
+> +#define P2M_ROOT_LEVEL p2m_root_level
+> +#else
+> +/* First level P2M is always 2 consecutive pages */
+> +#define P2M_ROOT_ORDER    1
+> +#define P2M_ROOT_LEVEL 1
+> +#endif
+>   
+>   struct domain;
+
+Cheers,
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Julien Grall
 
