@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92D29281DEB
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 23:57:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2355.6979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B68281DEF
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 23:58:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2356.6992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOT2u-0008L6-Lg; Fri, 02 Oct 2020 21:56:56 +0000
+	id 1kOT4W-0008Ro-2D; Fri, 02 Oct 2020 21:58:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2355.6979; Fri, 02 Oct 2020 21:56:56 +0000
+Received: by outflank-mailman (output) from mailman id 2356.6992; Fri, 02 Oct 2020 21:58:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,143 +23,156 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOT2u-0008Kh-Ib; Fri, 02 Oct 2020 21:56:56 +0000
-Received: by outflank-mailman (input) for mailman id 2355;
- Fri, 02 Oct 2020 21:56:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kOT4V-0008RP-VQ; Fri, 02 Oct 2020 21:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 2356;
+ Fri, 02 Oct 2020 21:58:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kOT2t-0008KD-1U
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:56:55 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31;
- Fri, 02 Oct 2020 21:56:48 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kOT2m-0002bh-5J; Fri, 02 Oct 2020 21:56:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kOT2l-00020N-UX; Fri, 02 Oct 2020 21:56:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kOT2l-0002C6-Tw; Fri, 02 Oct 2020 21:56:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kOT4U-0008RK-65
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:58:34 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f3b16c59-027b-467d-9ca4-6adc4e2e7fb0;
+ Fri, 02 Oct 2020 21:58:32 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kOT2t-0008KD-1U
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:56:55 +0000
-X-Inumbo-ID: 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31;
-	Fri, 02 Oct 2020 21:56:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=vofPTJILwT1ubxLz56+m4WquMlbuXa7ulEIYCagB2Jo=; b=NmwLrbxjDPHNkrgLc6OjvZ+5k/
-	BywzUTaHyK7XsWaHAXBdaubSQj4Gc45mzW7p6KNHCkPMcVVIZoOzbJfCMjfuPU0AqFHi9QgF6ELhJ
-	SAJX4xA4TkKlOhgp6yEtzBuHEIKRJGhi3AiUwD7Za+5j7GLg9ZL9Hx51jqJ0IM/AK9io=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOT2m-0002bh-5J; Fri, 02 Oct 2020 21:56:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOT2l-00020N-UX; Fri, 02 Oct 2020 21:56:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kOT2l-0002C6-Tw; Fri, 02 Oct 2020 21:56:47 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155349-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kOT4U-0008RK-65
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:58:34 +0000
+X-Inumbo-ID: f3b16c59-027b-467d-9ca4-6adc4e2e7fb0
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id f3b16c59-027b-467d-9ca4-6adc4e2e7fb0;
+	Fri, 02 Oct 2020 21:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601675912;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=wB/CsIWii9C2rFRNqdshs8WDQFZ6Xc37HtFtY2Bt9Ms=;
+  b=DplurLX/DcY9G9d4KdJVvS0tG/Gt9piLttiAD7YdmhsXy1UpEvMbjjXE
+   hgdW9HTXxAgjVG7pvDn99TShC0Lz0tVtymG2P5RodaemLob1/izTKQoG0
+   WU/1y9Xm+EjDhmJh9KSpmoCRQ93j5o8lYceN+fxM+aCKSbtrRRIwgJreN
+   4=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: SgbGO3XiL+6vwMkeJmlEmTxwcklwqJXaav01FpSTnt8nCBmopnf+1l3C6B4QZShsh66K8sGMEo
+ hzo42CZjziiJT7GA0apeEG6bT6yTu7rys1TJt62eEmHXvn8EfIux9fXWVR5aT50Sd1lpzxUjjh
+ 6Zkz50E9Plxn0naF+flUOHNlLVMtfNYmpImN+VgwhZ77cHJGsPK2dpL5QjAEVhre+qXnG7A778
+ ajFFgyQl1mkIuVr1JF53dMFlliT9vPxqKwWeoGHUVzsv0JBuB3vArDnmdJ4Ma1KSQgjcapZjKw
+ Pnw=
+X-SBRS: None
+X-MesageID: 29215224
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,329,1596513600"; 
+   d="scan'208";a="29215224"
+Subject: Re: [PATCH v9 2/8] xen/common/domctl: introduce
+ XEN_DOMCTL_get/setdomaincontext
+To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Paul Durrant <pdurrant@amazon.com>, Julien Grall <julien@xen.org>, "Daniel
+ De Graaf" <dgdegra@tycho.nsa.gov>, Ian Jackson <ian.jackson@eu.citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20200924131030.1876-1-paul@xen.org>
+ <20200924131030.1876-3-paul@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <783f8b1b-f11f-d8ff-3643-d35f17c6c363@citrix.com>
+Date: Fri, 2 Oct 2020 22:58:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155349: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8ef6345ef557cc2c47298217635a3088eaa59893
-X-Osstest-Versions-That:
-    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 02 Oct 2020 21:56:47 +0000
+In-Reply-To: <20200924131030.1876-3-paul@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-flight 155349 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155349/
+On 24/09/2020 14:10, Paul Durrant wrote:
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 791f0a2592..743105181f 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -1130,6 +1130,43 @@ struct xen_domctl_vuart_op {
+>                                   */
+>  };
+>  
+> +/*
+> + * XEN_DOMCTL_getdomaincontext
+> + * ---------------------------
+> + *
+> + * buffer (IN):   The buffer into which the context data should be
+> + *                copied, or NULL to query the buffer size that should
+> + *                be allocated.
+> + * size (IN/OUT): If 'buffer' is NULL then the value passed in must be
+> + *                zero, and the value passed out will be the size of the
+> + *                buffer to allocate.
+> + *                If 'buffer' is non-NULL then the value passed in must
+> + *                be the size of the buffer into which data may be copied.
+> + *                The value passed out will be the size of data written.
+> + */
+> +struct xen_domctl_getdomaincontext {
+> +    uint32_t size;
 
-Failures :-/ but no regressions.
+This series is full of mismatched 32/64bit sizes, with several
+truncation bugs in the previous patch.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Just use a 64bit size here.  Life is too short to go searching for all
+the other truncation bug when this stream tips over 4G, and its not like
+there is a shortage of space in this structure.
 
-version targeted for testing:
- xen                  8ef6345ef557cc2c47298217635a3088eaa59893
-baseline version:
- xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
+> +    uint32_t pad;
+> +    XEN_GUEST_HANDLE_64(void) buffer;
+> +};
+> +
+> +/* XEN_DOMCTL_setdomaincontext
+> + * ---------------------------
+> + *
+> + * buffer (IN):   The buffer from which the context data should be
+> + *                copied.
+> + * size (IN):     The size of the buffer from which data may be copied.
+> + *                This data must include DOMAIN_SAVE_CODE_HEADER at the
+> + *                start and terminate with a DOMAIN_SAVE_CODE_END record.
+> + *                Any data beyond the DOMAIN_SAVE_CODE_END record will be
+> + *                ignored.
+> + */
+> +struct xen_domctl_setdomaincontext {
+> +    uint32_t size;
+> +    uint32_t pad;
+> +    XEN_GUEST_HANDLE_64(const_void) buffer;
+> +};
+> +
+>  struct xen_domctl {
+>      uint32_t cmd;
+>  #define XEN_DOMCTL_createdomain                   1
+> @@ -1214,6 +1251,8 @@ struct xen_domctl {
+>  #define XEN_DOMCTL_vuart_op                      81
+>  #define XEN_DOMCTL_get_cpu_policy                82
+>  #define XEN_DOMCTL_set_cpu_policy                83
+> +#define XEN_DOMCTL_getdomaincontext              84
+> +#define XEN_DOMCTL_setdomaincontext              85
 
-Last test of basis   155128  2020-09-30 08:01:25 Z    2 days
-Failing since        155144  2020-09-30 16:01:24 Z    2 days   16 attempts
-Testing same since   155349  2020-10-02 18:00:30 Z    0 days    1 attempts
+So, we've currently got:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Laurentiu Tudor <laurentiu.tudor@nxp.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
+#define XEN_DOMCTL_setvcpucontext                12
+#define XEN_DOMCTL_getvcpucontext                13
+#define XEN_DOMCTL_gethvmcontext                 33
+#define XEN_DOMCTL_sethvmcontext                 34
+#define XEN_DOMCTL_set_ext_vcpucontext           42
+#define XEN_DOMCTL_get_ext_vcpucontext           43
+#define XEN_DOMCTL_gethvmcontext_partial         55
+#define XEN_DOMCTL_setvcpuextstate               62
+#define XEN_DOMCTL_getvcpuextstate               63
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+which are doing alarmingly related things for vcpus.  (As an amusing
+exercise to the reader, figure out which are PV specific and which are
+HVM specific.  Hint: they're not disjoint sets.)
 
 
-Pushing revision :
+I know breaking with tradition is sacrilege, but at the very minimum,
+can we get some underscores in that name so you can at least read the
+words which make it up more easily.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   c73952831f..8ef6345ef5  8ef6345ef557cc2c47298217635a3088eaa59893 -> smoke
+~Andrew
 
