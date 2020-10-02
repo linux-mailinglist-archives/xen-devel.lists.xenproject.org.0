@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA6E281DBA
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 23:38:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2350.6966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D29281DEB
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 23:57:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2355.6979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOSjv-0006ZX-Vx; Fri, 02 Oct 2020 21:37:19 +0000
+	id 1kOT2u-0008L6-Lg; Fri, 02 Oct 2020 21:56:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2350.6966; Fri, 02 Oct 2020 21:37:19 +0000
+Received: by outflank-mailman (output) from mailman id 2355.6979; Fri, 02 Oct 2020 21:56:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,127 +23,143 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOSjv-0006Z8-Sp; Fri, 02 Oct 2020 21:37:19 +0000
-Received: by outflank-mailman (input) for mailman id 2350;
- Fri, 02 Oct 2020 21:37:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kOT2u-0008Kh-Ib; Fri, 02 Oct 2020 21:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 2355;
+ Fri, 02 Oct 2020 21:56:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kOSjt-0006Z0-EF
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:37:17 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7a44ed0-1738-491c-9f8e-d7a7dc6e6b11;
- Fri, 02 Oct 2020 21:37:16 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kOT2t-0008KD-1U
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:56:55 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31;
+ Fri, 02 Oct 2020 21:56:48 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOT2m-0002bh-5J; Fri, 02 Oct 2020 21:56:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOT2l-00020N-UX; Fri, 02 Oct 2020 21:56:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOT2l-0002C6-Tw; Fri, 02 Oct 2020 21:56:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kOSjt-0006Z0-EF
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:37:17 +0000
-X-Inumbo-ID: e7a44ed0-1738-491c-9f8e-d7a7dc6e6b11
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e7a44ed0-1738-491c-9f8e-d7a7dc6e6b11;
-	Fri, 02 Oct 2020 21:37:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601674635;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9XdDMMC3s8tS4ojhpvzgEXNjfjbFKoUyqBzWSCEDShc=;
-  b=Tf0pz0yMjRWUO8AR2Z8oLJ1xclkWr3yWQyTGYLhyi7J37Tdu8G1YK8lY
-   3H2qNSQ3xcvHIlyvvyc7vZC/FBwmcFVQ0Fiq9dy2Xkv5Onj6WMa7YIU2m
-   kbX/7+kiJCIfR/mvH92AArqbQeDQxZmW//OTYScA5d3vTl7qjfbTpGZjb
-   A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: LOKjwRwi/M3m+tachbBjD7pQS5M4HSs1Ov60tAq/bg3etPxr0DT4FvaCy/bxtmMPysh4pxltGS
- dVmmbnCUIbjNUAEbVYumSPTs7u2FhtZjVy486VgtyuYLJjjbYHykqcZFpBbSR7a3cd9ZOF/36l
- uZiGr1TS1p804Snkq0VlAOleswvY/oXZ2V4DZYeArv1va0GXe8YQt3MEDCTTtYK/ob/fFIm4wd
- vrXNGNp6WaiDG2GKuJIk5tlZ0ZiNneJL/qZOAK/hJkTdMOLTRwZDQpzRz/mlc22yAkIEhy6AC2
- taw=
-X-SBRS: None
-X-MesageID: 28463514
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,329,1596513600"; 
-   d="scan'208";a="28463514"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>
-Subject: [PATCH] x86/S3: Restore CR4 earlier during resume
-Date: Fri, 2 Oct 2020 22:36:50 +0100
-Message-ID: <20201002213650.2197-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
+	(envelope-from <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kOT2t-0008KD-1U
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 21:56:55 +0000
+X-Inumbo-ID: 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 2fbe4fd4-6f02-47b3-bb19-b2402fcb7a31;
+	Fri, 02 Oct 2020 21:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vofPTJILwT1ubxLz56+m4WquMlbuXa7ulEIYCagB2Jo=; b=NmwLrbxjDPHNkrgLc6OjvZ+5k/
+	BywzUTaHyK7XsWaHAXBdaubSQj4Gc45mzW7p6KNHCkPMcVVIZoOzbJfCMjfuPU0AqFHi9QgF6ELhJ
+	SAJX4xA4TkKlOhgp6yEtzBuHEIKRJGhi3AiUwD7Za+5j7GLg9ZL9Hx51jqJ0IM/AK9io=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOT2m-0002bh-5J; Fri, 02 Oct 2020 21:56:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOT2l-00020N-UX; Fri, 02 Oct 2020 21:56:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOT2l-0002C6-Tw; Fri, 02 Oct 2020 21:56:47 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155349-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155349: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8ef6345ef557cc2c47298217635a3088eaa59893
+X-Osstest-Versions-That:
+    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 02 Oct 2020 21:56:47 +0000
 
-c/s 4304ff420e5 "x86/S3: Drop {save,restore}_rest_processor_state()
-completely" moved CR4 restoration up into C, to account for the fact that MCE
-was explicitly handled later.
+flight 155349 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155349/
 
-However, time_resume() ends up making an EFI Runtime Service call, and EFI
-explodes without OSFXSR, presumably when trying to spill %xmm registers onto
-the stack.
+Failures :-/ but no regressions.
 
-Given this codepath, and the potential for other issues of a similar kind (TLB
-flushing vs INVPCID, HVM logic vs VMXE, etc), restore CR4 in asm before
-entering C.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Ignore the previous MCE special case, because its not actually necessary.  The
-handler is already suitably configured from before suspend.
+version targeted for testing:
+ xen                  8ef6345ef557cc2c47298217635a3088eaa59893
+baseline version:
+ xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
 
-Fixes: 4304ff420e5 ("x86/S3: Drop {save,restore}_rest_processor_state() completely")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Last test of basis   155128  2020-09-30 08:01:25 Z    2 days
+Failing since        155144  2020-09-30 16:01:24 Z    2 days   16 attempts
+Testing same since   155349  2020-10-02 18:00:30 Z    0 days    1 attempts
 
-This is one definite bug fix.  It doesn't appear to be the only S3 bug
-however.
----
- xen/arch/x86/acpi/power.c       | 3 ---
- xen/arch/x86/acpi/wakeup_prot.S | 5 +++++
- 2 files changed, 5 insertions(+), 3 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Laurentiu Tudor <laurentiu.tudor@nxp.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
-diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-index 4fb1e7a148..7f162a4df9 100644
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -276,9 +276,6 @@ static int enter_state(u32 state)
- 
-     mcheck_init(&boot_cpu_data, false);
- 
--    /* Restore CR4 from cached value, now MCE is set up. */
--    write_cr4(read_cr4());
--
-     printk(XENLOG_INFO "Finishing wakeup from ACPI S%d state.\n", state);
- 
-     if ( (state == ACPI_STATE_S3) && error )
-diff --git a/xen/arch/x86/acpi/wakeup_prot.S b/xen/arch/x86/acpi/wakeup_prot.S
-index c6b3fcc93d..1ee5551fb5 100644
---- a/xen/arch/x86/acpi/wakeup_prot.S
-+++ b/xen/arch/x86/acpi/wakeup_prot.S
-@@ -110,6 +110,11 @@ ENTRY(s3_resume)
- 
-         call    load_system_tables
- 
-+        /* Restore CR4 from the cpuinfo block. */
-+        GET_STACK_END(bx)
-+        mov     STACK_CPUINFO_FIELD(cr4)(%rbx), %rax
-+        mov     %rax, %cr4
-+
- .Lsuspend_err:
-         pop     %r15
-         pop     %r14
--- 
-2.11.0
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   c73952831f..8ef6345ef5  8ef6345ef557cc2c47298217635a3088eaa59893 -> smoke
 
