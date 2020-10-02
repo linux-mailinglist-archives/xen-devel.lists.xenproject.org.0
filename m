@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B6E2810AE
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 12:42:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1865.5650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52FA42810B1
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 12:44:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1866.5661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOIWR-0006Of-UM; Fri, 02 Oct 2020 10:42:43 +0000
+	id 1kOIXg-0006XR-AC; Fri, 02 Oct 2020 10:44:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1865.5650; Fri, 02 Oct 2020 10:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 1866.5661; Fri, 02 Oct 2020 10:44:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,136 +23,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOIWR-0006OG-RL; Fri, 02 Oct 2020 10:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 1865;
- Fri, 02 Oct 2020 10:42:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kOIXg-0006X1-7A; Fri, 02 Oct 2020 10:44:00 +0000
+Received: by outflank-mailman (input) for mailman id 1866;
+ Fri, 02 Oct 2020 10:43:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3+am=DJ=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kOIWQ-0006OB-76
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 10:42:42 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 7c2da763-13a7-4efd-bd07-f7bf653027ec;
- Fri, 02 Oct 2020 10:42:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ABA9231B;
- Fri,  2 Oct 2020 03:42:40 -0700 (PDT)
-Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
- [10.1.198.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 351803F73B;
- Fri,  2 Oct 2020 03:42:39 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kOIXf-0006WE-38
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 10:43:59 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f1ba8aba-4a4b-4e9c-bd8b-d6ef16bc008a;
+ Fri, 02 Oct 2020 10:43:58 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=3+am=DJ=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kOIWQ-0006OB-76
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 10:42:42 +0000
-X-Inumbo-ID: 7c2da763-13a7-4efd-bd07-f7bf653027ec
-Received: from foss.arm.com (unknown [217.140.110.172])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 7c2da763-13a7-4efd-bd07-f7bf653027ec;
-	Fri, 02 Oct 2020 10:42:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ABA9231B;
-	Fri,  2 Oct 2020 03:42:40 -0700 (PDT)
-Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com [10.1.198.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 351803F73B;
-	Fri,  2 Oct 2020 03:42:39 -0700 (PDT)
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH] build: always use BASEDIR for xen sub-directory
-Date: Fri,  2 Oct 2020 11:42:09 +0100
-Message-Id: <556f6327acea2d0343c93da28f1fc17591afd402.1601564274.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.17.1
+	(envelope-from <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kOIXf-0006WE-38
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 10:43:59 +0000
+X-Inumbo-ID: f1ba8aba-4a4b-4e9c-bd8b-d6ef16bc008a
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id f1ba8aba-4a4b-4e9c-bd8b-d6ef16bc008a;
+	Fri, 02 Oct 2020 10:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601635437;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=KqxlULH5hG1JKBjKDC1ojwnlQxBw52oERRltytFhc0w=;
+  b=cZ+IidvkILjnzjbtbOXDFAfzQAWr745S+hWl17Ica2ex5S9Lanlyt/M0
+   Ja1xJWlgWQY/LK/5fCdBZh/TIH7wzMd8gYC/VhsZ5YTKlI3BdxKccsmUo
+   80HA0NqGEKuhSFbYE28QcN8vyCpM0KT1dYJpDRUSubptUoPZqtHI5cREI
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: lgv4ndG40uZ/fXaj7Ly6CF9/N5VJANF0YAmH0/mx2p4CYHYkXwi4Nh3KVau2ff4/GckrzQJzHR
+ Gam4lOKUdntJvonYryqpXwzQ2k9QhHw8e5/j7WCmR/o7+ELrE0FgqYLIavUIXPswSMafJmMANt
+ +0Dze8Lh4kRLSOCtKK/MUFqrNdFz4+PzbCc9Ahp64FCKJbnIaYaOSBSUJIVh0F8sXbSymANaGB
+ WYS2VM13a3Ut8HxZi9vddyvvZgcZNvgAi1sR4uuNNpBdD6nCDddCpTpgsUp8oMdUkOCZeG13bf
+ AQg=
+X-SBRS: None
+X-MesageID: 28418869
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,327,1596513600"; 
+   d="scan'208";a="28418869"
+Subject: Re: [PATCH 1/3] x86/vLAPIC: don't leak regs page from vlapic_init()
+ upon error
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>
+References: <1a55f2f0-f0aa-4a33-1219-1091ed9150df@suse.com>
+ <b437de21-f108-c30e-4e0c-1137ad7d99fe@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <71e0720c-5a50-6844-5631-e1802dfb0b94@citrix.com>
+Date: Fri, 2 Oct 2020 11:43:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <b437de21-f108-c30e-4e0c-1137ad7d99fe@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-Modify Makefiles using $(XEN_ROOT)/xen to use $(BASEDIR) instead.
+On 02/10/2020 11:30, Jan Beulich wrote:
+> Fixes: 8a981e0bf25e ("Make map_domain_page_global fail")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-This is removing the dependency to xen subdirectory preventing using a
-wrong configuration file when xen subdirectory is duplicated for
-compilation tests.
-
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
- xen/common/Makefile                | 6 +++---
- xen/include/xen/lib/x86/Makefile   | 4 ++--
- xen/tools/kconfig/Makefile.kconfig | 2 +-
- xen/xsm/flask/Makefile             | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index b3b60a1ba2..083f62acb6 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -78,14 +78,14 @@ obj-$(CONFIG_UBSAN) += ubsan/
- obj-$(CONFIG_NEEDS_LIBELF) += libelf/
- obj-$(CONFIG_HAS_DEVICE_TREE) += libfdt/
- 
--CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(XEN_ROOT)/xen/)$(KCONFIG_CONFIG)
-+CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(BASEDIR)/)$(KCONFIG_CONFIG)
- config.gz: $(CONF_FILE)
- 	gzip -c $< >$@
- 
- config_data.o: config.gz
- 
--config_data.S: $(XEN_ROOT)/xen/tools/binfile
--	$(SHELL) $(XEN_ROOT)/xen/tools/binfile $@ config.gz xen_config_data
-+config_data.S: $(BASEDIR)/tools/binfile
-+	$(SHELL) $(BASEDIR)/tools/binfile $@ config.gz xen_config_data
- 
- clean::
- 	rm -f config_data.S config.gz 2>/dev/null
-diff --git a/xen/include/xen/lib/x86/Makefile b/xen/include/xen/lib/x86/Makefile
-index 408d69c99e..f1229b9bc8 100644
---- a/xen/include/xen/lib/x86/Makefile
-+++ b/xen/include/xen/lib/x86/Makefile
-@@ -3,6 +3,6 @@ include $(XEN_ROOT)/Config.mk
- .PHONY: all
- all: cpuid-autogen.h
- 
--cpuid-autogen.h: $(XEN_ROOT)/xen/include/public/arch-x86/cpufeatureset.h $(XEN_ROOT)/xen/tools/gen-cpuid.py
--	$(PYTHON) $(XEN_ROOT)/xen/tools/gen-cpuid.py -i $< -o $@.new
-+cpuid-autogen.h: $(BASEDIR)/include/public/arch-x86/cpufeatureset.h $(BASEDIR)/tools/gen-cpuid.py
-+	$(PYTHON) $(BASEDIR)/tools/gen-cpuid.py -i $< -o $@.new
- 	$(call move-if-changed,$@.new,$@)
-diff --git a/xen/tools/kconfig/Makefile.kconfig b/xen/tools/kconfig/Makefile.kconfig
-index 065f4b8471..799321ec4d 100644
---- a/xen/tools/kconfig/Makefile.kconfig
-+++ b/xen/tools/kconfig/Makefile.kconfig
-@@ -9,7 +9,7 @@ Q :=
- kecho := :
- 
- # eventually you'll want to do out of tree builds
--srctree := $(XEN_ROOT)/xen
-+srctree := $(BASEDIR)
- objtree := $(srctree)
- src := tools/kconfig
- obj := $(src)
-diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
-index 50bec20a1e..637159ad82 100644
---- a/xen/xsm/flask/Makefile
-+++ b/xen/xsm/flask/Makefile
-@@ -35,8 +35,8 @@ $(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
- obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
- flask-policy.o: policy.bin
- 
--flask-policy.S: $(XEN_ROOT)/xen/tools/binfile
--	$(SHELL) $(XEN_ROOT)/xen/tools/binfile -i $@ policy.bin xsm_flask_init_policy
-+flask-policy.S: $(BASEDIR)/tools/binfile
-+	$(SHELL) $(BASEDIR)/tools/binfile -i $@ policy.bin xsm_flask_init_policy
- 
- FLASK_BUILD_DIR := $(CURDIR)
- POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
--- 
-2.17.1
-
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
