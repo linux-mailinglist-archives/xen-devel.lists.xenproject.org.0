@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5FC3281436
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 15:40:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2125.6342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1F2028143B
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 15:40:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2126.6354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOLHp-0001y3-8t; Fri, 02 Oct 2020 13:39:49 +0000
+	id 1kOLHt-000241-SV; Fri, 02 Oct 2020 13:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2125.6342; Fri, 02 Oct 2020 13:39:49 +0000
+Received: by outflank-mailman (output) from mailman id 2126.6354; Fri, 02 Oct 2020 13:39:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,78 +23,77 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOLHp-0001xA-2r; Fri, 02 Oct 2020 13:39:49 +0000
-Received: by outflank-mailman (input) for mailman id 2125;
- Fri, 02 Oct 2020 13:39:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kOLHt-000236-Mb; Fri, 02 Oct 2020 13:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 2126;
+ Fri, 02 Oct 2020 13:39:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vuVU=DJ=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kOLHn-0001sI-8c
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 13:39:47 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 071378c0-3579-45d2-b599-f6a9d517486b;
- Fri, 02 Oct 2020 13:39:46 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359-yxHcaOtHPt6Z8bCmYwWpEQ-1; Fri, 02 Oct 2020 09:39:44 -0400
-Received: by mail-wm1-f71.google.com with SMTP id y83so538355wmc.8
- for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 06:39:43 -0700 (PDT)
+ id 1kOLHs-000223-FI
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 13:39:52 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 0514069d-5379-4000-bbbf-b4a2b6d0123c;
+ Fri, 02 Oct 2020 13:39:51 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-596-vfdZeNnmMf-TehhOv5_q6A-1; Fri, 02 Oct 2020 09:39:50 -0400
+Received: by mail-wr1-f72.google.com with SMTP id r16so554198wrm.18
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 06:39:50 -0700 (PDT)
 Received: from localhost.localdomain (74.red-83-53-161.dynamicip.rima-tde.net.
  [83.53.161.74])
- by smtp.gmail.com with ESMTPSA id 13sm1358682wmk.30.2020.10.02.06.39.40
+ by smtp.gmail.com with ESMTPSA id d18sm1779795wrm.10.2020.10.02.06.39.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2020 06:39:41 -0700 (PDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ Fri, 02 Oct 2020 06:39:46 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=vuVU=DJ=redhat.com=philmd@srs-us1.protection.inumbo.net>)
-	id 1kOLHn-0001sI-8c
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 13:39:47 +0000
-X-Inumbo-ID: 071378c0-3579-45d2-b599-f6a9d517486b
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 071378c0-3579-45d2-b599-f6a9d517486b;
-	Fri, 02 Oct 2020 13:39:46 +0000 (UTC)
+	id 1kOLHs-000223-FI
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 13:39:52 +0000
+X-Inumbo-ID: 0514069d-5379-4000-bbbf-b4a2b6d0123c
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 0514069d-5379-4000-bbbf-b4a2b6d0123c;
+	Fri, 02 Oct 2020 13:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601645986;
+	s=mimecast20190719; t=1601645991;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=l++0FncV4p/balcOSro5u4OfFvevG6nmzhJ8fBAOs6w=;
-	b=A62p7juO5/oCRzYcD+UnjZCgVl4O/baHfJCuA60JD6GY0wx84Vx9dEvMnYvJGn2W+Qb1Mh
-	kcJ5wz9eJ0wfDaY2MNdFVa//r7G0kZPxYZABdbdemrzxAoJ7/kRg9K6WgUH0IL4k48XrRF
-	LbpfmxnIzQ1ib2+dZkR0+o3fuWoa4VI=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359-yxHcaOtHPt6Z8bCmYwWpEQ-1; Fri, 02 Oct 2020 09:39:44 -0400
-X-MC-Unique: yxHcaOtHPt6Z8bCmYwWpEQ-1
-Received: by mail-wm1-f71.google.com with SMTP id y83so538355wmc.8
-        for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 06:39:43 -0700 (PDT)
+	bh=tvVXKSfjWkoZJFhCHk1dGuX00kfrmBZkcI+Ka1f3ccA=;
+	b=Y9UNoL+P7MRObMQELlSDzu+JhTudkEbGjlHpGCFRvvloKQZNg78znvFafm/XjHFhgLtM5w
+	JWIeRVQnOL7dZqbgLLEcrun1643CiEcltViAa7G+pdmKJw+sRiQIo1gQHq3/lU24i3PuNt
+	kQDUv8x4Iq3rIeUWVVybXptUDd1UkQE=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-596-vfdZeNnmMf-TehhOv5_q6A-1; Fri, 02 Oct 2020 09:39:50 -0400
+X-MC-Unique: vfdZeNnmMf-TehhOv5_q6A-1
+Received: by mail-wr1-f72.google.com with SMTP id r16so554198wrm.18
+        for <xen-devel@lists.xenproject.org>; Fri, 02 Oct 2020 06:39:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=l++0FncV4p/balcOSro5u4OfFvevG6nmzhJ8fBAOs6w=;
-        b=psaPcu/UzDhKUJKdh55I2jd2eCCbEYKknfAo6zPTDG9+Zi1/ur7lQuSyHqAoUMYjyC
-         /h7zKctrrz+GrC6U08CW/pKsZgT/KMUNfzRwZyNLe7JuniGdmOer1e8ebamSHO3aHJco
-         wCCTC9sQkBUnz61ICzWEPHp4ZKj4+f1Xic6mX/MSWtcx2DJk9KUNhtwBAM/zzYinTZs+
-         0cfIti12g2diov5PzXtZSkPI/fbZn7xzKq/ehqMd2lpDUQFJ25IoqCfBztGvOnaZ+S1N
-         iAVkX5ci8PGLXFmDybgdaHPUn1kDCkRXViNboS3kRpyLsO4KNN8XvIaPQtDKBvIt8rFt
-         Y0hg==
-X-Gm-Message-State: AOAM5324HpPxBVLhdhXyEx1PkxtD7GJA3/yCcAac3QhLIFUSjTGYXx4I
-	k9sp+v8BF4uSQKYCoWDI30CR9QgBnvvVnnfwh9g6W4/ShmgbIubU5ywAmPeMgaXbmrNlKW96l64
-	naimJnnw0Fj0Egf6dfVWPh7K/5ng=
-X-Received: by 2002:a1c:9a0c:: with SMTP id c12mr3069190wme.85.1601645982655;
-        Fri, 02 Oct 2020 06:39:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJytnflmvzG2NbHjeDXeHd5cEjLZ7ujLVl3vbAMVyGFRFjZMyWEyqKmjFZCL5TRb0S/3cpVZiw==
-X-Received: by 2002:a1c:9a0c:: with SMTP id c12mr3069171wme.85.1601645982462;
-        Fri, 02 Oct 2020 06:39:42 -0700 (PDT)
+        bh=tvVXKSfjWkoZJFhCHk1dGuX00kfrmBZkcI+Ka1f3ccA=;
+        b=YtcOiJ5f2FZZhMGhjzYpYlsciTMrkFzBnT0/L9b+vPhFpHqL8I+4arbPA/VA7JBAAI
+         90rY0EBA4IVWzhi/sFeMedQl6nmQDTIngXkMEQaY0Oj37HO4R8ZYsb26mFbeuAHx96J4
+         y7zhO6LzkGVpyy1jZ2qtQPm87fjkAXH0UftLm4GfyWhhYY25eagcEcaCYQs/BTp0RkTa
+         M23mGQ07bHgJKyGieJ8J3MqIl6JkSuhu9YhK/0lP0wL5+n/IsB/4lr9XQEyrVjp2CERF
+         wyiuyYbDcV/Mu9ObX1LMIZLXz082oJZiu+0+LnvgPUQjmIz1yCwua2N67OW3GOpIWDaj
+         4/rQ==
+X-Gm-Message-State: AOAM530GkqkUIdDhqexjKHi2obhXUFWrN8S+rFZ7j1xBYortsVEtVNyI
+	cy40MXQXRS4U2RFhBWKwPc12dXosmBlNKehULdgnstSq4kDivIzQqwg9mVq7cawasnUr7dkjSjD
+	VtNE/pM106XhsulTIOaJx7Berrzw=
+X-Received: by 2002:adf:9bcf:: with SMTP id e15mr3075488wrc.93.1601645987716;
+        Fri, 02 Oct 2020 06:39:47 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwXZ0DUtM8ag+Gzw12Jr6+YpFZwVTHU0tycGVTY/5KbE5Wb3wWL4PNJqnB0Xi/zQrZCrmxEzA==
+X-Received: by 2002:adf:9bcf:: with SMTP id e15mr3075463wrc.93.1601645987503;
+        Fri, 02 Oct 2020 06:39:47 -0700 (PDT)
 Received: from localhost.localdomain (74.red-83-53-161.dynamicip.rima-tde.net. [83.53.161.74])
-        by smtp.gmail.com with ESMTPSA id 13sm1358682wmk.30.2020.10.02.06.39.40
+        by smtp.gmail.com with ESMTPSA id d18sm1779795wrm.10.2020.10.02.06.39.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 06:39:41 -0700 (PDT)
+        Fri, 02 Oct 2020 06:39:46 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <rth@twiddle.net>,
@@ -113,9 +112,9 @@ Cc: Richard Henderson <rth@twiddle.net>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Eduardo Habkost <ehabkost@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [PATCH 3/5] qapi: Restrict '(p)memsave' command to machine code
-Date: Fri,  2 Oct 2020 15:39:21 +0200
-Message-Id: <20201002133923.1716645-4-philmd@redhat.com>
+Subject: [PATCH 4/5] qapi: Restrict 'query-kvm' command to machine code
+Date: Fri,  2 Oct 2020 15:39:22 +0200
+Message-Id: <20201002133923.1716645-5-philmd@redhat.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201002133923.1716645-1-philmd@redhat.com>
 References: <20201002133923.1716645-1-philmd@redhat.com>
@@ -127,158 +126,96 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Restricting memsave/pmemsave to machine.json pulls slightly
+Restricting query-kvm to machine.json pulls slightly
 less QAPI-generated code into user-mode and tools.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- qapi/machine.json | 61 +++++++++++++++++++++++++++++++++++++++++++++++
- qapi/misc.json    | 61 -----------------------------------------------
- 2 files changed, 61 insertions(+), 61 deletions(-)
+ qapi/machine.json | 30 ++++++++++++++++++++++++++++++
+ qapi/misc.json    | 30 ------------------------------
+ 2 files changed, 30 insertions(+), 30 deletions(-)
 
 diff --git a/qapi/machine.json b/qapi/machine.json
-index 55328d4f3c..5a3bbcae01 100644
+index 5a3bbcae01..7c9a263778 100644
 --- a/qapi/machine.json
 +++ b/qapi/machine.json
-@@ -887,6 +887,67 @@
- { 'enum': 'HostMemPolicy',
-   'data': [ 'default', 'preferred', 'bind', 'interleave' ] }
+@@ -561,6 +561,36 @@
+ ##
+ { 'command': 'inject-nmi' }
  
 +##
-+# @memsave:
++# @KvmInfo:
 +#
-+# Save a portion of guest memory to a file.
++# Information about support for KVM acceleration
 +#
-+# @val: the virtual address of the guest to start from
++# @enabled: true if KVM acceleration is active
 +#
-+# @size: the size of memory region to save
-+#
-+# @filename: the file to save the memory to as binary data
-+#
-+# @cpu-index: the index of the virtual CPU to use for translating the
-+#             virtual address (defaults to CPU 0)
-+#
-+# Returns: Nothing on success
++# @present: true if KVM acceleration is built into this executable
 +#
 +# Since: 0.14.0
-+#
-+# Notes: Errors were not reliably returned until 1.1
-+#
-+# Example:
-+#
-+# -> { "execute": "memsave",
-+#      "arguments": { "val": 10,
-+#                     "size": 100,
-+#                     "filename": "/tmp/virtual-mem-dump" } }
-+# <- { "return": {} }
-+#
 +##
-+{ 'command': 'memsave',
-+  'data': {'val': 'int', 'size': 'int', 'filename': 'str', '*cpu-index': 'int'} }
++{ 'struct': 'KvmInfo', 'data': {'enabled': 'bool', 'present': 'bool'} }
 +
 +##
-+# @pmemsave:
++# @query-kvm:
 +#
-+# Save a portion of guest physical memory to a file.
++# Returns information about KVM acceleration
 +#
-+# @val: the physical address of the guest to start from
-+#
-+# @size: the size of memory region to save
-+#
-+# @filename: the file to save the memory to as binary data
-+#
-+# Returns: Nothing on success
++# Returns: @KvmInfo
 +#
 +# Since: 0.14.0
 +#
-+# Notes: Errors were not reliably returned until 1.1
-+#
 +# Example:
 +#
-+# -> { "execute": "pmemsave",
-+#      "arguments": { "val": 10,
-+#                     "size": 100,
-+#                     "filename": "/tmp/physical-mem-dump" } }
-+# <- { "return": {} }
++# -> { "execute": "query-kvm" }
++# <- { "return": { "enabled": true, "present": true } }
 +#
 +##
-+{ 'command': 'pmemsave',
-+  'data': {'val': 'int', 'size': 'int', 'filename': 'str'} }
++{ 'command': 'query-kvm', 'returns': 'KvmInfo' }
 +
  ##
- # @Memdev:
+ # @NumaOptionsType:
  #
 diff --git a/qapi/misc.json b/qapi/misc.json
-index cce2e71e9c..2a5d03a69e 100644
+index 2a5d03a69e..9813893269 100644
 --- a/qapi/misc.json
 +++ b/qapi/misc.json
-@@ -177,67 +177,6 @@
+@@ -68,36 +68,6 @@
  ##
- { 'command': 'stop' }
+ { 'command': 'query-name', 'returns': 'NameInfo', 'allow-preconfig': true }
  
 -##
--# @memsave:
+-# @KvmInfo:
 -#
--# Save a portion of guest memory to a file.
+-# Information about support for KVM acceleration
 -#
--# @val: the virtual address of the guest to start from
+-# @enabled: true if KVM acceleration is active
 -#
--# @size: the size of memory region to save
--#
--# @filename: the file to save the memory to as binary data
--#
--# @cpu-index: the index of the virtual CPU to use for translating the
--#             virtual address (defaults to CPU 0)
--#
--# Returns: Nothing on success
+-# @present: true if KVM acceleration is built into this executable
 -#
 -# Since: 0.14.0
--#
--# Notes: Errors were not reliably returned until 1.1
--#
--# Example:
--#
--# -> { "execute": "memsave",
--#      "arguments": { "val": 10,
--#                     "size": 100,
--#                     "filename": "/tmp/virtual-mem-dump" } }
--# <- { "return": {} }
--#
 -##
--{ 'command': 'memsave',
--  'data': {'val': 'int', 'size': 'int', 'filename': 'str', '*cpu-index': 'int'} }
+-{ 'struct': 'KvmInfo', 'data': {'enabled': 'bool', 'present': 'bool'} }
 -
 -##
--# @pmemsave:
+-# @query-kvm:
 -#
--# Save a portion of guest physical memory to a file.
+-# Returns information about KVM acceleration
 -#
--# @val: the physical address of the guest to start from
--#
--# @size: the size of memory region to save
--#
--# @filename: the file to save the memory to as binary data
--#
--# Returns: Nothing on success
+-# Returns: @KvmInfo
 -#
 -# Since: 0.14.0
 -#
--# Notes: Errors were not reliably returned until 1.1
--#
 -# Example:
 -#
--# -> { "execute": "pmemsave",
--#      "arguments": { "val": 10,
--#                     "size": 100,
--#                     "filename": "/tmp/physical-mem-dump" } }
--# <- { "return": {} }
+-# -> { "execute": "query-kvm" }
+-# <- { "return": { "enabled": true, "present": true } }
 -#
 -##
--{ 'command': 'pmemsave',
--  'data': {'val': 'int', 'size': 'int', 'filename': 'str'} }
+-{ 'command': 'query-kvm', 'returns': 'KvmInfo' }
 -
  ##
- # @cont:
+ # @IOThreadInfo:
  #
 -- 
 2.26.2
