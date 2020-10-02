@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0627F2822F8
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Oct 2020 11:16:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2262.7248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1373D28187F
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 19:02:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2266.6747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOde0-0002hY-VQ; Sat, 03 Oct 2020 09:15:56 +0000
+	id 1kOORb-0007Az-Vi; Fri, 02 Oct 2020 17:02:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2262.7248; Sat, 03 Oct 2020 09:15:56 +0000
+Received: by outflank-mailman (output) from mailman id 2266.6747; Fri, 02 Oct 2020 17:02:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,247 +23,144 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOde0-0002h9-S5; Sat, 03 Oct 2020 09:15:56 +0000
-Received: by outflank-mailman (input) for mailman id 2262;
- Fri, 02 Oct 2020 16:44:37 +0000
+	id 1kOORb-0007Aa-SQ; Fri, 02 Oct 2020 17:02:07 +0000
+Received: by outflank-mailman (input) for mailman id 2266;
+ Fri, 02 Oct 2020 17:02:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J9ZS=DJ=linux.ibm.com=mjrosato@srs-us1.protection.inumbo.net>)
- id 1kOOAf-0005Vv-9Y
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:44:37 +0000
-Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
+ <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kOORb-0007AV-0b
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:02:07 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d086cc1-494d-40ce-8e62-f5aef5229a6b;
- Fri, 02 Oct 2020 16:44:35 +0000 (UTC)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 092GVwrx006908; Fri, 2 Oct 2020 12:43:16 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn28-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Oct 2020 12:43:16 -0400
-Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 092GWgtP009181;
- Fri, 2 Oct 2020 12:43:15 -0400
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.27])
- by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn1m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Oct 2020 12:43:15 -0400
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
- by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 092GcU34023331;
- Fri, 2 Oct 2020 16:43:13 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26]) by ppma05wdc.us.ibm.com with ESMTP id 33sw99y7yv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Oct 2020 16:43:13 +0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 092GhDIh14615524
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 2 Oct 2020 16:43:13 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 120D4AC05B;
- Fri,  2 Oct 2020 16:43:13 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4E754AC059;
- Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
-Received: from oc4221205838.ibm.com (unknown [9.163.4.25])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
+ id d3246d4b-9581-471b-8679-15ffe9d4dddf;
+ Fri, 02 Oct 2020 17:02:05 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOORY-0004uM-ND; Fri, 02 Oct 2020 17:02:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOORY-0008OE-EM; Fri, 02 Oct 2020 17:02:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kOORY-0002Ge-Dr; Fri, 02 Oct 2020 17:02:04 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=J9ZS=DJ=linux.ibm.com=mjrosato@srs-us1.protection.inumbo.net>)
-	id 1kOOAf-0005Vv-9Y
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 16:44:37 +0000
-X-Inumbo-ID: 1d086cc1-494d-40ce-8e62-f5aef5229a6b
-Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
+	(envelope-from <SRS0=6tcj=DJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kOORb-0007AV-0b
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 17:02:07 +0000
+X-Inumbo-ID: d3246d4b-9581-471b-8679-15ffe9d4dddf
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 1d086cc1-494d-40ce-8e62-f5aef5229a6b;
-	Fri, 02 Oct 2020 16:44:35 +0000 (UTC)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 092GVwrx006908;
-	Fri, 2 Oct 2020 12:43:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=2+A3Co7DfxkWQ8HV8UobuhVZsZR1j3dufeR3zFyNIJM=;
- b=ZL6lpAo76UUwp11NPj6zYDs8uDEd5Eg4s8Bnu+x6A9pDfY4v17ur2V5/VQAm1Xsa8WoZ
- jF57ZhyECCCEOAt7VEtCJ+X/62wSfpjwuK8OmQILaGAJlfyt2IHdnxk4i2PTbV8C5+y2
- E8QrbmluwZPKJ8nkfjZ4pV2KHv9Srg8dbS4C4+LjouCp1w1golKNt2NX64W5vFoFU3mx
- GraG/FKAidg+fls6cQa0tWqYA9UpnCVqQINCGpM6utTnAAyg9W8PYf1GW7PzOz6aQuMF
- ueSdxKKi3wtCWnYS16nDlnkvuNyIusRowWITviL71dULf4YjNRCfBzdgzDBNFIg1cgvz Tg== 
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn28-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2020 12:43:16 -0400
-Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 092GWgtP009181;
-	Fri, 2 Oct 2020 12:43:15 -0400
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com [169.47.144.27])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 33x5rycn1m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2020 12:43:15 -0400
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
-	by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 092GcU34023331;
-	Fri, 2 Oct 2020 16:43:13 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com [9.57.198.26])
-	by ppma05wdc.us.ibm.com with ESMTP id 33sw99y7yv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Oct 2020 16:43:13 +0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com [9.57.199.111])
-	by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 092GhDIh14615524
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 2 Oct 2020 16:43:13 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 120D4AC05B;
-	Fri,  2 Oct 2020 16:43:13 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4E754AC059;
-	Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
-Received: from oc4221205838.ibm.com (unknown [9.163.4.25])
-	by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
-	Fri,  2 Oct 2020 16:43:04 +0000 (GMT)
-Subject: Re: [PATCH v3] qemu/atomic.h: rename atomic_ to qatomic_
-To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
-Cc: Fam Zheng <fam@euphon.net>, Peter Maydell <peter.maydell@linaro.org>,
-        sheepdog@lists.wpkg.org, Paul Durrant <paul@xen.org>,
-        Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
-        Yuval Shaia <yuval.shaia.ml@gmail.com>,
-        Markus Armbruster
- <armbru@redhat.com>,
-        Max Filippov <jcmvbkbc@gmail.com>,
-        Alistair Francis <Alistair.Francis@wdc.com>,
-        Gerd Hoffmann <kraxel@redhat.com>, Huacai Chen <chenhc@lemote.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Alberto Garcia <berto@igalia.com>, kvm@vger.kernel.org,
-        Yoshinori Sato <ysato@users.sourceforge.jp>,
-        Juan Quintela <quintela@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Michael Roth <mdroth@linux.vnet.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@de.ibm.com>,
-        Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
-        Anthony Perard <anthony.perard@citrix.com>,
-        =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
-        Liu Yuan <namei.unix@gmail.com>, Richard Henderson <rth@twiddle.net>,
-        Thomas Huth <thuth@redhat.com>, Eduardo Habkost <ehabkost@redhat.com>,
-        Stefan Weil <sw@weilnetz.de>, Peter Lieven <pl@kamp.de>,
-        "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
-        qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
-        qemu-riscv@nongnu.org, Sunil Muthuswamy <sunilmut@microsoft.com>,
-        John Snow <jsnow@redhat.com>,
-        Hailiang Zhang <zhang.zhanghailiang@huawei.com>,
-        Kevin Wolf <kwolf@redhat.com>,
-        =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?=
- <berrange@redhat.com>,
-        qemu-block@nongnu.org,
-        Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
-        Cornelia Huck <cohuck@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
-        Max Reitz <mreitz@redhat.com>,
-        Sagar Karandikar <sagark@eecs.berkeley.edu>,
-        Palmer Dabbelt <palmer@dabbelt.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-        Aurelien Jarno <aurelien@aurel32.net>
-References: <20200923105646.47864-1-stefanha@redhat.com>
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-Message-ID: <4e65d6fa-0a7e-015b-eb6f-5dd1cc3ddd91@linux.ibm.com>
-Date: Fri, 2 Oct 2020 12:43:03 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id d3246d4b-9581-471b-8679-15ffe9d4dddf;
+	Fri, 02 Oct 2020 17:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1EG3lUTtJ3/+gY0btHjrKq7llknwtdBK7mOaTpkfS8w=; b=174p8aC2LqoPT16z3cSoDJ1nXs
+	QBuZfrpxyEcwEDDqmVEG0azrq661oJCqyZsIBJPpWTOlei4r1Lx9nN23Ib4sy6YaoMqkJ3/nH+9ey
+	I0KCA2eADH/dmqW8kNqNTjAL8V8L3kNi5VZmK0XdaI8k8ZHRqRLyjaMzVnhp7RPkf4V4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOORY-0004uM-ND; Fri, 02 Oct 2020 17:02:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOORY-0008OE-EM; Fri, 02 Oct 2020 17:02:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kOORY-0002Ge-Dr; Fri, 02 Oct 2020 17:02:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155327-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200923105646.47864-1-stefanha@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235,18.0.687
- definitions=2020-10-02_10:2020-10-02,2020-10-02 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 suspectscore=0
- phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1011 bulkscore=0 priorityscore=1501 mlxlogscore=999
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2010020121
+Subject: [xen-unstable-smoke test] 155327: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=59b27f360e3d9dc0378c1288e67a91fa41a77158
+X-Osstest-Versions-That:
+    xen=c73952831f0fc63a984e0d07dff1d20f8617b81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 02 Oct 2020 17:02:04 +0000
 
-On 9/23/20 6:56 AM, Stefan Hajnoczi wrote:
-> clang's C11 atomic_fetch_*() functions only take a C11 atomic type
-> pointer argument. QEMU uses direct types (int, etc) and this causes a
-> compiler error when a QEMU code calls these functions in a source file
-> that also included <stdatomic.h> via a system header file:
-> 
->    $ CC=clang CXX=clang++ ./configure ... && make
->    ../util/async.c:79:17: error: address argument to atomic operation must be a pointer to _Atomic type ('unsigned int *' invalid)
-> 
-> Avoid using atomic_*() names in QEMU's atomic.h since that namespace is
-> used by <stdatomic.h>. Prefix QEMU's APIs with 'q' so that atomic.h
-> and <stdatomic.h> can co-exist. I checked /usr/include on my machine and
-> searched GitHub for existing "qatomic_" users but there seem to be none.
-> 
-> This patch was generated using:
-> 
->    $ git grep -h -o '\<atomic\(64\)\?_[a-z0-9_]\+' include/qemu/atomic.h | \
->      sort -u >/tmp/changed_identifiers
->    $ for identifier in $(</tmp/changed_identifiers); do
->          sed -i "s%\<$identifier\>%q$identifier%g" \
->              $(git grep -I -l "\<$identifier\>")
->      done
-> 
-> I manually fixed line-wrap issues and misaligned rST tables.
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-..snip..
-> diff --git a/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h b/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
-> index acd4c8346d..7b4062a1a1 100644
-> --- a/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
-> +++ b/include/standard-headers/drivers/infiniband/hw/vmw_pvrdma/pvrdma_ring.h
-> @@ -68,7 +68,7 @@ static inline int pvrdma_idx_valid(uint32_t idx, uint32_t max_elems)
->   
->   static inline int32_t pvrdma_idx(int *var, uint32_t max_elems)
->   {
-> -	const unsigned int idx = atomic_read(var);
-> +	const unsigned int idx = qatomic_read(var);
->   
->   	if (pvrdma_idx_valid(idx, max_elems))
->   		return idx & (max_elems - 1);
-> @@ -77,17 +77,17 @@ static inline int32_t pvrdma_idx(int *var, uint32_t max_elems)
->   
->   static inline void pvrdma_idx_ring_inc(int *var, uint32_t max_elems)
->   {
-> -	uint32_t idx = atomic_read(var) + 1;	/* Increment. */
-> +	uint32_t idx = qatomic_read(var) + 1;	/* Increment. */
->   
->   	idx &= (max_elems << 1) - 1;		/* Modulo size, flip gen. */
-> -	atomic_set(var, idx);
-> +	qatomic_set(var, idx);
->   }
->   
->   static inline int32_t pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
->   					      uint32_t max_elems, uint32_t *out_tail)
->   {
-> -	const uint32_t tail = atomic_read(&r->prod_tail);
-> -	const uint32_t head = atomic_read(&r->cons_head);
-> +	const uint32_t tail = qatomic_read(&r->prod_tail);
-> +	const uint32_t head = qatomic_read(&r->cons_head);
->   
->   	if (pvrdma_idx_valid(tail, max_elems) &&
->   	    pvrdma_idx_valid(head, max_elems)) {
-> @@ -100,8 +100,8 @@ static inline int32_t pvrdma_idx_ring_has_space(const struct pvrdma_ring *r,
->   static inline int32_t pvrdma_idx_ring_has_data(const struct pvrdma_ring *r,
->   					     uint32_t max_elems, uint32_t *out_head)
->   {
-> -	const uint32_t tail = atomic_read(&r->prod_tail);
-> -	const uint32_t head = atomic_read(&r->cons_head);
-> +	const uint32_t tail = qatomic_read(&r->prod_tail);
-> +	const uint32_t head = qatomic_read(&r->cons_head);
->   
->   	if (pvrdma_idx_valid(tail, max_elems) &&
->   	    pvrdma_idx_valid(head, max_elems)) {
+flight 155327 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155327/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 155128
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  59b27f360e3d9dc0378c1288e67a91fa41a77158
+baseline version:
+ xen                  c73952831f0fc63a984e0d07dff1d20f8617b81f
+
+Last test of basis   155128  2020-09-30 08:01:25 Z    2 days
+Failing since        155144  2020-09-30 16:01:24 Z    2 days   15 attempts
+Testing same since   155310  2020-10-02 08:01:29 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
 
 
-It looks like the changes in this file are going to get reverted the 
-next time someone does a linux header sync.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 387 lines long.)
 
