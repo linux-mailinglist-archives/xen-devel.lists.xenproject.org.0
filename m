@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FDF1280FF9
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:35:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1763.5406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F86280FFE
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:40:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1767.5421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHT4-0006cY-RA; Fri, 02 Oct 2020 09:35:10 +0000
+	id 1kOHXc-0006pb-Ei; Fri, 02 Oct 2020 09:39:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1763.5406; Fri, 02 Oct 2020 09:35:10 +0000
+Received: by outflank-mailman (output) from mailman id 1767.5421; Fri, 02 Oct 2020 09:39:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,142 +23,139 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHT4-0006c9-NR; Fri, 02 Oct 2020 09:35:10 +0000
-Received: by outflank-mailman (input) for mailman id 1763;
- Fri, 02 Oct 2020 09:35:09 +0000
+	id 1kOHXc-0006pE-Aw; Fri, 02 Oct 2020 09:39:52 +0000
+Received: by outflank-mailman (input) for mailman id 1767;
+ Fri, 02 Oct 2020 09:39:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kOHT3-0006c4-Hc
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:35:09 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=5pZ8=DJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kOHXa-0006p9-KD
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:39:50 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 71199e7a-80d8-4089-821a-60ea5555dbc2;
- Fri, 02 Oct 2020 09:35:08 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kOHT1-00039T-SI; Fri, 02 Oct 2020 09:35:07 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kOHT1-0007lP-KB; Fri, 02 Oct 2020 09:35:07 +0000
+ id 7669fb16-605d-4029-89d3-dbd7f3dff688;
+ Fri, 02 Oct 2020 09:39:49 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8E8A0AC54;
+ Fri,  2 Oct 2020 09:39:48 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kOHT3-0006c4-Hc
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:35:09 +0000
-X-Inumbo-ID: 71199e7a-80d8-4089-821a-60ea5555dbc2
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=5pZ8=DJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kOHXa-0006p9-KD
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:39:50 +0000
+X-Inumbo-ID: 7669fb16-605d-4029-89d3-dbd7f3dff688
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 71199e7a-80d8-4089-821a-60ea5555dbc2;
-	Fri, 02 Oct 2020 09:35:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=bzmlFRTi8qSySmtsAyZujowy57sk9C8IZDS0MYALyeg=; b=5yFJcpDUX0l1gDGQXxJkRMHSff
-	mrTp35F0K8BAu1SU+hM/VgdGT/OWAg8KDQPyZTszukVkzgCVIsUwyq6zKrjjVwVvzWXRBqDG/VNmB
-	ZeW5Xq4v1nMr8xBP/BqRYa5+YtiCu2l2EOBRNJvde69+l323PbKT6nKexeSQ80ikGxj0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kOHT1-00039T-SI; Fri, 02 Oct 2020 09:35:07 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kOHT1-0007lP-KB; Fri, 02 Oct 2020 09:35:07 +0000
-Subject: Re: [PATCH] arm,smmu: match start level of page table walk with P2M
-To: Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com,
- will@kernel.org, diana.craciun@nxp.com, anda-alexandra.dorneanu@nxp.com
-References: <20200928135157.3170-1-laurentiu.tudor@nxp.com>
- <alpine.DEB.2.21.2010011647020.10908@sstabellini-ThinkPad-T480s>
- <41f7c87b-0db9-5366-b25f-775bf3d6e3ce@xen.org>
- <625c1142-ae1c-7374-5e77-ab52eb2c326e@nxp.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4c3ecf26-fd53-bc22-d1fb-56f3155f2a72@xen.org>
-Date: Fri, 2 Oct 2020 10:35:05 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.1
+	id 7669fb16-605d-4029-89d3-dbd7f3dff688;
+	Fri, 02 Oct 2020 09:39:49 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601631588;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JjOM2wsX9un7MyyNRT0QnyhHaldtAv+oXZi3z52RjaY=;
+	b=I79Gb8FNHptVGe26fFZc5ZF09u2kas+Cwm8g8XupsS4mA0cZr8yk+mGG71/Wr5A6m5O7mE
+	KafoG6XKXoLXw6nUMWm9BRGr79POqhA8YdPSL8d2g10CY39AyCxPvuIRaeADJ5pOSV4oSg
+	3kWLe9Y+NHm4JvDwVljsKXf4dWaC0ZM=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 8E8A0AC54;
+	Fri,  2 Oct 2020 09:39:48 +0000 (UTC)
+Subject: Re: [PATCH v2 03/11] x86/vlapic: introduce an EOI callback mechanism
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200930104108.35969-1-roger.pau@citrix.com>
+ <20200930104108.35969-4-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a6863a90-584a-af21-4a0a-1b104b750978@suse.com>
+Date: Fri, 2 Oct 2020 11:39:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <625c1142-ae1c-7374-5e77-ab52eb2c326e@nxp.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200930104108.35969-4-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 30.09.2020 12:41, Roger Pau Monne wrote:
+> Add a new vlapic_set_irq_callback helper in order to inject a vector
+> and set a callback to be executed when the guest performs the end of
+> interrupt acknowledgment.
 
-On 02/10/2020 10:29, Laurentiu Tudor wrote:
-> 
-> 
-> On 10/2/2020 11:18 AM, Julien Grall wrote:
->> Hi,
->>
->> On 02/10/2020 00:52, Stefano Stabellini wrote:
->>> On Mon, 28 Sep 2020, laurentiu.tudor@nxp.com wrote:
->>>> From: Laurentiu Tudor <laurentiu.tudor@nxp.com>
->>>>
->>>> Don't hardcode the lookup start level of the page table walk to 1
->>>> and instead match the one used in P2M. This should fix scenarios
->>>> involving SMMU where the start level is different than 1.
->>>>
->>>> Signed-off-by: Laurentiu Tudor <laurentiu.tudor@nxp.com>
->>>
->>> Thank you for the patch, I think it is correct, except that smmu.c today
->>> can be enabled even on arm32 builds, where p2m_root_level would be
->>> uninitialized.
->>>
->>> We need to initialize p2m_root_level at the beginning of
->>> setup_virt_paging under the #ifdef CONFIG_ARM_32. We can statically
->>> initialize it to 1 in that case. Or...
->>>
->>>
->>>> ---
->>>>    xen/arch/arm/p2m.c                 | 2 +-
->>>>    xen/drivers/passthrough/arm/smmu.c | 2 +-
->>>>    xen/include/asm-arm/p2m.h          | 1 +
->>>>    3 files changed, 3 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>>> index ce59f2b503..0181b09dc0 100644
->>>> --- a/xen/arch/arm/p2m.c
->>>> +++ b/xen/arch/arm/p2m.c
->>>> @@ -18,7 +18,6 @@
->>>>      #ifdef CONFIG_ARM_64
->>>>    static unsigned int __read_mostly p2m_root_order;
->>>> -static unsigned int __read_mostly p2m_root_level;
->>>>    #define P2M_ROOT_ORDER    p2m_root_order
->>>>    #define P2M_ROOT_LEVEL p2m_root_level
->>>>    static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
->>>> @@ -39,6 +38,7 @@ static unsigned int __read_mostly max_vmid =
->>>> MAX_VMID_8_BIT;
->>>>     * restricted by external entity (e.g. IOMMU).
->>>>     */
->>>>    unsigned int __read_mostly p2m_ipa_bits = 64;
->>>> +unsigned int __read_mostly p2m_root_level;
->>>
->>> ... we could p2m_root_level = 1; here
->>
->> IMHO, this is going to make the code quite confusing given that only the
->> SMMU would use this variable for arm32.
->>
->> The P2M root level also cannot be changed by the SMMU (at least for
->> now). So I would suggest to introduce a helper (maybe
->> p2m_get_root_level()) and use it in the SMMU code.
->>
->> An alternative would be to move the definition of P2M_ROOT_{ORDER,
->> LEVEL} in p2m.h
-> 
-> Alright, I'll go with this second option if that's ok with you.
+On v1 I did ask
 
-I am fine with that.
+"One thing I don't understand at all for now is how these
+ callbacks are going to be re-instated after migration for
+ not-yet-EOIed interrupts."
 
-Cheers,
+Afaics I didn't get an answer on this.
 
--- 
-Julien Grall
+> ---
+> RFC: should callbacks also be executed in vlapic_do_init (which is
+> called by vlapic_reset). We would need to make sure ISR and IRR
+> are cleared using some kind of test and clear atomic functionality to
+> make this race free.
+
+I guess this can't be decided at this point of the series, as it
+may depend on what exactly the callbacks mean to do. It may even
+be that whether a callback wants to do something depends on
+whether it gets called "normally" or from vlapic_do_init().
+
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -144,7 +144,32 @@ bool vlapic_test_irq(const struct vlapic *vlapic, uint8_t vec)
+>      return vlapic_test_vector(vec, &vlapic->regs->data[APIC_IRR]);
+>  }
+>  
+> -void vlapic_set_irq(struct vlapic *vlapic, uint8_t vec, uint8_t trig)
+> +void vlapic_set_callback(struct vlapic *vlapic, unsigned int vec,
+> +                         vlapic_eoi_callback_t *callback, void *data)
+> +{
+> +    unsigned long flags;
+> +    unsigned int index = vec - 16;
+> +
+> +    if ( !callback || vec < 16 || vec >= X86_NR_VECTORS )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return;
+> +    }
+> +
+> +    spin_lock_irqsave(&vlapic->callback_lock, flags);
+> +    if ( vlapic->callbacks[index].callback &&
+> +         vlapic->callbacks[index].callback != callback )
+> +        printk(XENLOG_G_WARNING
+> +               "%pv overriding vector %#x callback %ps (%p) with %ps (%p)\n",
+> +               vlapic_vcpu(vlapic), vec, vlapic->callbacks[index].callback,
+> +               vlapic->callbacks[index].callback, callback, callback);
+> +    vlapic->callbacks[index].callback = callback;
+> +    vlapic->callbacks[index].data = data;
+
+Should "data" perhaps also be compared in the override check above?
+
+> @@ -1629,9 +1672,23 @@ int vlapic_init(struct vcpu *v)
+>      }
+>      clear_page(vlapic->regs);
+>  
+> +    if ( !vlapic->callbacks )
+> +    {
+> +        vlapic->callbacks = xmalloc_array(typeof(*vlapic->callbacks),
+> +                                          X86_NR_VECTORS - 16);
+> +        if ( !vlapic->callbacks )
+> +        {
+> +            dprintk(XENLOG_ERR, "%pv: alloc vlapic callbacks error\n", v);
+> +            return -ENOMEM;
+> +        }
+> +    }
+> +    memset(vlapic->callbacks, 0, sizeof(*vlapic->callbacks) *
+> +                                 (X86_NR_VECTORS - 16));
+
+While it resembles code earlier in this function, it widens an
+existing memory leak (I'll make a patch for that one) and also
+makes it appear as if this function could be called more than
+once for a vCPU (maybe I'll also make a patch for this).
+
+Jan
 
