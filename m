@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06112815A7
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 16:49:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2207.6496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F152815E3
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 16:57:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2210.6510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOMM4-0001Bq-NU; Fri, 02 Oct 2020 14:48:16 +0000
+	id 1kOMUk-00027P-Jp; Fri, 02 Oct 2020 14:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2207.6496; Fri, 02 Oct 2020 14:48:16 +0000
+Received: by outflank-mailman (output) from mailman id 2210.6510; Fri, 02 Oct 2020 14:57:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,64 +23,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOMM4-0001BR-Jt; Fri, 02 Oct 2020 14:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 2207;
- Fri, 02 Oct 2020 14:48:15 +0000
+	id 1kOMUk-000273-GF; Fri, 02 Oct 2020 14:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 2210;
+ Fri, 02 Oct 2020 14:57:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sK/c=DJ=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kOMM3-0001BL-4I
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 14:48:15 +0000
+ id 1kOMUj-00026y-Jx
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 14:57:13 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 044dae2d-a4af-478f-b111-0a1570f5d0d9;
- Fri, 02 Oct 2020 14:48:13 +0000 (UTC)
+ id 6dad3684-cd3a-48b6-b3a6-dfd46182e2f2;
+ Fri, 02 Oct 2020 14:57:12 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-342-GAWETC74OFW0LAD_iYSeKQ-1; Fri, 02 Oct 2020 10:48:12 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ us-mta-212-DaFlpBKmN3OElTBquMAWlw-1; Fri, 02 Oct 2020 10:57:08 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF4995705A;
- Fri,  2 Oct 2020 14:48:08 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B4FDA8D1AE0;
+ Fri,  2 Oct 2020 14:57:06 +0000 (UTC)
 Received: from [10.36.113.228] (ovpn-113-228.ams2.redhat.com [10.36.113.228])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 81D7C78803;
- Fri,  2 Oct 2020 14:48:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C83CD1992F;
+ Fri,  2 Oct 2020 14:57:03 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=sK/c=DJ=redhat.com=david@srs-us1.protection.inumbo.net>)
-	id 1kOMM3-0001BL-4I
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 14:48:15 +0000
-X-Inumbo-ID: 044dae2d-a4af-478f-b111-0a1570f5d0d9
+	id 1kOMUj-00026y-Jx
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 14:57:13 +0000
+X-Inumbo-ID: 6dad3684-cd3a-48b6-b3a6-dfd46182e2f2
 Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 044dae2d-a4af-478f-b111-0a1570f5d0d9;
-	Fri, 02 Oct 2020 14:48:13 +0000 (UTC)
+	id 6dad3684-cd3a-48b6-b3a6-dfd46182e2f2;
+	Fri, 02 Oct 2020 14:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601650093;
+	s=mimecast20190719; t=1601650632;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IM4pBIGYx/SKM1Dy3xGL2Rgl9xgWx7mTiMJTemJf/pE=;
-	b=Fk5HKHa9A14CVtiB0XFYC/JobBoBQCVJekuDAfrW5dUm2I1MId5ti0RQpIDMn5gYUVTG6I
-	iJfz8SMSFtFwig2ke2v7NvkZ7bMzg4At1qAeblo2J2SKpVRQnOeg8G+ZjxfvLfALOE7IW8
-	kNdSmFbe3FKmbuCpcZQQ+UnOAoCdb+I=
+	bh=IlPnHBv3CyZouuYGTMm8nTfNaMqhdIMUchrOU2xlWpg=;
+	b=V5Spuhl4DaFmEqLYTYmEyQNKuxDlJQrjwr5+BEnQ4if/w3QV8+sik7nQHdRt+k+3AoccD8
+	/EA1njr3cza6HhJX5NfZGfiZBGq6Y8birllrD+DyMt2onyZWBLChW0qL8YDznjgtYmdI6h
+	cIUkd/u6EgDKMgZHZRvNFy0Jf5lhfZ8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-342-GAWETC74OFW0LAD_iYSeKQ-1; Fri, 02 Oct 2020 10:48:12 -0400
-X-MC-Unique: GAWETC74OFW0LAD_iYSeKQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-212-DaFlpBKmN3OElTBquMAWlw-1; Fri, 02 Oct 2020 10:57:08 -0400
+X-MC-Unique: DaFlpBKmN3OElTBquMAWlw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF4995705A;
-	Fri,  2 Oct 2020 14:48:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B4FDA8D1AE0;
+	Fri,  2 Oct 2020 14:57:06 +0000 (UTC)
 Received: from [10.36.113.228] (ovpn-113-228.ams2.redhat.com [10.36.113.228])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 81D7C78803;
-	Fri,  2 Oct 2020 14:48:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C83CD1992F;
+	Fri,  2 Oct 2020 14:57:03 +0000 (UTC)
 Subject: Re: [PATCH v1 1/5] mm/page_alloc: convert "report" flag of
  __free_one_page() to a proper flag
+From: David Hildenbrand <david@redhat.com>
 To: Matthew Wilcox <willy@infradead.org>
 Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
@@ -93,7 +94,7 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
 References: <20200928182110.7050-1-david@redhat.com>
  <20200928182110.7050-2-david@redhat.com>
  <20201002134118.GA20115@casper.infradead.org>
-From: David Hildenbrand <david@redhat.com>
+ <2b1baab8-861d-06a3-8eab-75c4e9e1b19d@redhat.com>
 Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
  dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
@@ -139,99 +140,63 @@ Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  jPrnvUsUUsjRoRNJjKKA/REq+sAnhkNPPZ/NNMjaZ5b8Tovi8C0tmxiCHaQYqj7G2rgnT0kt
  WNyWQQ==
 Organization: Red Hat GmbH
-Message-ID: <2b1baab8-861d-06a3-8eab-75c4e9e1b19d@redhat.com>
-Date: Fri, 2 Oct 2020 16:48:04 +0200
+Message-ID: <9a420e97-cc3d-da6b-5955-e6c31d96164c@redhat.com>
+Date: Fri, 2 Oct 2020 16:57:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20201002134118.GA20115@casper.infradead.org>
+In-Reply-To: <2b1baab8-861d-06a3-8eab-75c4e9e1b19d@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 
-On 02.10.20 15:41, Matthew Wilcox wrote:
-> On Mon, Sep 28, 2020 at 08:21:06PM +0200, David Hildenbrand wrote:
->> Let's prepare for additional flags and avoid long parameter lists of bools.
->> Follow-up patches will also make use of the flags in __free_pages_ok(),
->> however, I wasn't able to come up with a better name for the type - should
->> be good enough for internal purposes.
+On 02.10.20 16:48, David Hildenbrand wrote:
+> On 02.10.20 15:41, Matthew Wilcox wrote:
+>> On Mon, Sep 28, 2020 at 08:21:06PM +0200, David Hildenbrand wrote:
+>>> Let's prepare for additional flags and avoid long parameter lists of bools.
+>>> Follow-up patches will also make use of the flags in __free_pages_ok(),
+>>> however, I wasn't able to come up with a better name for the type - should
+>>> be good enough for internal purposes.
+>>
+>>> +/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
+>>> +typedef int __bitwise fop_t;
+>>
+>> That invites confusion with f_op.  There's no reason to use _t as a suffix
+>> here ... why not free_f?
 > 
->> +/* Free One Page flags: for internal, non-pcp variants of free_pages(). */
->> +typedef int __bitwise fop_t;
+> git grep "bitwise" | grep typedef | grep include/linux
 > 
-> That invites confusion with f_op.  There's no reason to use _t as a suffix
-> here ... why not free_f?
-
-git grep "bitwise" | grep typedef | grep include/linux
-
-indicates that "_t" it the right thing to do.
-
-I want a name that highlights that is is for the internal variants of
-free_page(), free_f / free_t is too generic.
-
-fpi_t (Free Page Internal) ?
-
+> indicates that "_t" it the right thing to do.
 > 
->> +/*
->> + * Skip free page reporting notification for the (possibly merged) page. (will
->> + * *not* mark the page reported, only skip the notification).
+> I want a name that highlights that is is for the internal variants of
+> free_page(), free_f / free_t is too generic.
 > 
-> ... Don't you mean "will not skip marking the page as reported, only
-> skip the notification"?
-
-Yeah, I can use that.
-
-The way free page reporting works is that
-
-1. Free page reporting infrastructure will get notified after buddy
-merging about a newly freed page.
-
-2. Once a certain threshold of free pages is reached, it will pull pages
-from the freelist, report them, and mark them as reported. (see
-mm/page_reporting.c)
-
-During 2., we didn't actually free a "new page", we only temporarily
-removed it from the list, that's why we have to skip the notification.
-
-What we do here is skip 1., not 2.
-
+> fpi_t (Free Page Internal) ?
 > 
-> *reads code*
+>>
+>>> +/*
+>>> + * Skip free page reporting notification for the (possibly merged) page. (will
+>>> + * *not* mark the page reported, only skip the notification).
+>>
+>> ... Don't you mean "will not skip marking the page as reported, only
+>> skip the notification"?
 > 
-> No, I'm still confused.  What does this sentence mean?
-> 
-> Would it help to have a FOP_DEFAULT that has FOP_REPORT_NOTIFY set and
-> then a FOP_SKIP_REPORT_NOTIFY define that is 0?
+> Yeah, I can use that.
 
-Hmm, I'm not entirely sure if that improves the situation. Then, I need
-3 defines instead of two, and an "inverse" documentation for
-FOP_REPORT_NOTIFY.
+Reading again, it doesn't quite fit. Marking pages as reported is
+handled by mm/page_reporting.c
 
-> 
->> -static inline void __free_one_page(struct page *page,
->> -		unsigned long pfn,
->> -		struct zone *zone, unsigned int order,
->> -		int migratetype, bool report)
->> +static inline void __free_one_page(struct page *page, unsigned long pfn,
->> +				   struct zone *zone, unsigned int order,
->> +				   int migratetype, fop_t fop_flags)
-> 
-> Please don't over-indent like this.
-> 
-> static inline void __free_one_page(struct page *page, unsigned long pfn,
-> 		struct zone *zone, unsigned int order, int migratetype,
-> 		fop_t fop_flags)
-> 
-> reads just as well and then if someone needs to delete the 'static'
-> later, they don't need to fiddle around with subsequent lines getting
-> the whitespace to line up again.
-> 
+/*
+ * Skip free page reporting notification for the (possibly merged) page.
+ * This does not hinder free page reporting from grabbing the page,
+ * reporting it and marking it "reported" -  it only skips notifying
+ * the free page reporting infrastructure about a newly freed page. For
+ * example, used  when temporarily pulling a page from the freelist and
+ * putting it back unmodified.
+ */
 
-I don't care too much about this specific instance and can fix it up.
-(this is clearly a matter of personal taste)
-
-Thanks!
+Is that clearer?
 
 -- 
 Thanks,
