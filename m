@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE0128101F
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:51:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1788.5472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144DE281025
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:54:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1793.5486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHic-0000RM-MM; Fri, 02 Oct 2020 09:51:14 +0000
+	id 1kOHlE-0000aw-5A; Fri, 02 Oct 2020 09:53:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1788.5472; Fri, 02 Oct 2020 09:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 1793.5486; Fri, 02 Oct 2020 09:53:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,166 +23,116 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHic-0000Qx-Iy; Fri, 02 Oct 2020 09:51:14 +0000
-Received: by outflank-mailman (input) for mailman id 1788;
- Fri, 02 Oct 2020 09:51:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kOHlE-0000aX-1x; Fri, 02 Oct 2020 09:53:56 +0000
+Received: by outflank-mailman (input) for mailman id 1793;
+ Fri, 02 Oct 2020 09:53:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kOHib-0000Qr-O0
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:51:13 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59d77d83-cbb6-4197-a2fd-21bfb9d08e86;
- Fri, 02 Oct 2020 09:51:12 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kOHia-0003Un-0R; Fri, 02 Oct 2020 09:51:12 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kOHiZ-0000XF-Or; Fri, 02 Oct 2020 09:51:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kOHlC-0000aR-DC
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:53:54 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 86440e6d-0b18-4323-952a-47cb42ee2ce4;
+ Fri, 02 Oct 2020 09:53:53 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9FB2AAD39;
+ Fri,  2 Oct 2020 09:53:52 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=r7zU=DJ=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kOHib-0000Qr-O0
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:51:13 +0000
-X-Inumbo-ID: 59d77d83-cbb6-4197-a2fd-21bfb9d08e86
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 59d77d83-cbb6-4197-a2fd-21bfb9d08e86;
-	Fri, 02 Oct 2020 09:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=mzDA/S3dz8EW+2wSiGaselJ3IjD2FytsgKUO3naeTfg=; b=yhvS6/lk9H1yA/94pdJPoaM+Qk
-	l2dJpvB+n2IP7JRzyhAbtdFYmJnzlXAut0Gf7dq3yJWEHmxHy6V1wNpyk2+ndp8lMsZWChbUn3XCp
-	P4qJ/YnVVeSasnarqu5m0y93AiarNeaCJVudSXC4+4oM8ONrfUOcRUl84MpjCvOtCuMY=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kOHia-0003Un-0R; Fri, 02 Oct 2020 09:51:12 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kOHiZ-0000XF-Or; Fri, 02 Oct 2020 09:51:11 +0000
-Subject: Re: [PATCH v2] arm,smmu: match start level of page table walk with
- P2M
-To: laurentiu.tudor@nxp.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com, will@kernel.org
-Cc: diana.craciun@nxp.com, anda-alexandra.dorneanu@nxp.com
-References: <20201002094737.9803-1-laurentiu.tudor@nxp.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b5bd3263-42fd-27a3-ebdc-2ae2b5b72f3a@xen.org>
-Date: Fri, 2 Oct 2020 10:51:09 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.1
+	(envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kOHlC-0000aR-DC
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:53:54 +0000
+X-Inumbo-ID: 86440e6d-0b18-4323-952a-47cb42ee2ce4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 86440e6d-0b18-4323-952a-47cb42ee2ce4;
+	Fri, 02 Oct 2020 09:53:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1601632432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mCHj6y8mdiCVDqDTzx/FzYO2RGdpOCYbUB/HCAvXXnE=;
+	b=EdZqP89whwOCSUtnqob9vvPhW/FyqKbX5AF0QLUcR/Qy1c7F72gtR1kDiZO6uLcxxWbGyS
+	dF7y9zAKHmm/Ixz9yzqePPZs4s2lJLJ+6KLbs/yV3jFMNn6hrwpz70psNXDJ54A1R4epI5
+	6sLrQvMHPDBBVoDmIPwemyvLKV6Cm/0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 9FB2AAD39;
+	Fri,  2 Oct 2020 09:53:52 +0000 (UTC)
+Subject: Re: Re: [Xen-devel] Xen Solaris support still required? Illumos/Dilos
+ Xen
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Igor Kozhukhov <igor@dilos.org>
+Cc: =?UTF-8?B?UGFzaSBLw6Rya2vDpGluZW4=?= <pasik@iki.fi>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+References: <9ee9bda5-0333-0482-75aa-81a4d352a77e@suse.com>
+ <20161103135632.GF28824@reaktio.net> <20161204165715.GN28824@reaktio.net>
+ <E1236D3A-24CA-4ECF-B7C8-547406C54911@dilos.org>
+ <642cf596-12bc-6f94-3e2a-e0343a250abc@suse.com>
+Message-ID: <746d05db-cbe0-4013-41fb-a4a5b9b71d5c@suse.com>
+Date: Fri, 2 Oct 2020 11:53:52 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201002094737.9803-1-laurentiu.tudor@nxp.com>
+In-Reply-To: <642cf596-12bc-6f94-3e2a-e0343a250abc@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 02/10/2020 10:47, laurentiu.tudor@nxp.com wrote:
-> From: Laurentiu Tudor <laurentiu.tudor@nxp.com>
+On 05.12.16 06:32, Juergen Gross wrote:
+> On 04/12/16 18:11, Igor Kozhukhov wrote:
+>> Hi Pasi,
+>>
+>> i’m using both addresses, but probably @gmale missed some emails with
+>> maillist.
+>>
+>> About DilOS + Xen.
+>>
+>> i’m using xen-3.4 - old version what i backported to DilOS based on old
+>> opensolaris varsion and upadted it to use python2.7 and some others zfs
+>> updates - more updates :)
+>> i tried to port Xen-4.3, but not finished it yet because i have no found
+>> sponsors and i have been moved to some aonther job without DilOS/illumos
+>> activities.
+>> try to do it by free time was/is overhead.
+>>
+>> i have plans try to return back and look at latest Xen.
+>>
+>> right now i try to move DilOS bulid env to use more Debian style build
+>> env and to use gcc-5.4 as primary compiler.
+>> Also, i have SPARC support with DilOS and it eat some additional free time.
+>> please do not drop solaris support :) - i’ll use and update it soon -
+>> probably on next year.
 > 
-> Don't hardcode the lookup start level of the page table walk to 1
-> and instead match the one used in P2M. This should fix scenarios
-> involving SMMU where the start level is different than 1.
-> In order for the SMMU driver to also compile on arm32 move the
-> P2M_ROOT_LEVEL in the p2m header file (while at it, for
-> consistency also P2M_ROOT_ORDER) and use the macro in the smmu
-> driver.
-> 
-> Signed-off-by: Laurentiu Tudor <laurentiu.tudor@nxp.com>
-> ---
-> Changes in v2:
->   - made smmu driver compile on arm32
-> 
->   xen/arch/arm/p2m.c                 |  7 +------
->   xen/drivers/passthrough/arm/smmu.c |  2 +-
->   xen/include/asm-arm/p2m.h          | 10 ++++++++++
->   3 files changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index ce59f2b503..bb75f12486 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -18,16 +18,10 @@
->   
->   #ifdef CONFIG_ARM_64
->   static unsigned int __read_mostly p2m_root_order;
-> -static unsigned int __read_mostly p2m_root_level;
-> -#define P2M_ROOT_ORDER    p2m_root_order
-> -#define P2M_ROOT_LEVEL p2m_root_level
->   static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
->   /* VMID is by default 8 bit width on AArch64 */
->   #define MAX_VMID       max_vmid
->   #else
-> -/* First level P2M is always 2 consecutive pages */
-> -#define P2M_ROOT_LEVEL 1
-> -#define P2M_ROOT_ORDER    1
->   /* VMID is always 8 bit width on AArch32 */
->   #define MAX_VMID        MAX_VMID_8_BIT
->   #endif
-> @@ -39,6 +33,7 @@ static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
->    * restricted by external entity (e.g. IOMMU).
->    */
->   unsigned int __read_mostly p2m_ipa_bits = 64;
-> +unsigned int __read_mostly p2m_root_level;
+> Got it. Thanks for the note and good luck for the port!
 
-This wants to stay in the #ifdef CONFIG_ARM_64 above and...
+As a followup after nearly 4 years:
 
->   
->   /* Helpers to lookup the properties of each level */
->   static const paddr_t level_masks[] =
-> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-> index 94662a8501..4ba6d3ab94 100644
-> --- a/xen/drivers/passthrough/arm/smmu.c
-> +++ b/xen/drivers/passthrough/arm/smmu.c
-> @@ -1152,7 +1152,7 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain)
->   	      (TTBCR_RGN_WBWA << TTBCR_IRGN0_SHIFT);
->   
->   	if (!stage1)
-> -		reg |= (TTBCR_SL0_LVL_1 << TTBCR_SL0_SHIFT);
-> +		reg |= (2 - P2M_ROOT_LEVEL) << TTBCR_SL0_SHIFT;
->   
->   	writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBCR);
->   
-> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
-> index 5fdb6e8183..ab02b36a03 100644
-> --- a/xen/include/asm-arm/p2m.h
-> +++ b/xen/include/asm-arm/p2m.h
-> @@ -12,6 +12,16 @@
->   
->   /* Holds the bit size of IPAs in p2m tables.  */
->   extern unsigned int p2m_ipa_bits;
-> +extern unsigned int p2m_root_level;
+It seems nothing has happened, and Solaris specific coding in Xen is
+bit-rotting further. Last example is xenstored, which lost an interface
+mandatory for Solaris about 1 year ago (nobody noticed, as Solaris
+specific parts are neither built nor tested).
 
-... this wants to be in part of the #ifdef below.
+I stumbled over this one as I did some reorg of the Xen libraries and
+checked all the dependencies between those.
 
-> +
-> +#ifdef CONFIG_ARM_64
-> +#define P2M_ROOT_ORDER    p2m_root_order
+I think at least the no longer working Solaris stuff in xenstored should
+be removed now (in theory it would still be possible to use xenstore-
+stubdom in Solaris), but I honestly think all the other Solaris cruft in
+Xen tools should go away, too, in case nobody is really showing some
+interest in it (e.g. by doing some basic build tests and maybe a small
+functional test for each release of Xen).
 
-As you move the define here, you should also move p2m_root_order.
+So how does the realistic future of a Solaris dom0 look like? Is there
+a non-neglectable chance it will be revived in the near future, or can
+we remove the Solaris abstractions?
 
-> +#define P2M_ROOT_LEVEL p2m_root_level
-> +#else
-> +/* First level P2M is always 2 consecutive pages */
-> +#define P2M_ROOT_ORDER    1
-> +#define P2M_ROOT_LEVEL 1
-> +#endif
->   
->   struct domain;
 
-Cheers,
-
--- 
-Julien Grall
+Juergen
 
