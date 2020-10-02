@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE999280FC1
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:23:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1752.5353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E441280FCB
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 11:25:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1754.5365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHGn-0005Fq-KM; Fri, 02 Oct 2020 09:22:29 +0000
+	id 1kOHJJ-0005PT-1w; Fri, 02 Oct 2020 09:25:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1752.5353; Fri, 02 Oct 2020 09:22:29 +0000
+Received: by outflank-mailman (output) from mailman id 1754.5365; Fri, 02 Oct 2020 09:25:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,92 +18,126 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kOHGn-0005FR-HE; Fri, 02 Oct 2020 09:22:29 +0000
-Received: by outflank-mailman (input) for mailman id 1752;
- Fri, 02 Oct 2020 09:22:27 +0000
+	id 1kOHJI-0005P4-V7; Fri, 02 Oct 2020 09:25:04 +0000
+Received: by outflank-mailman (input) for mailman id 1754;
+ Fri, 02 Oct 2020 09:25:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5pZ8=DJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kOHGl-0005FM-IH
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:22:27 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MyDR=DJ=amazon.co.uk=prvs=537cbcb7c=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1kOHJG-0005Ox-Ny
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:25:02 +0000
+Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ba5acbf-9073-4cfd-85ce-ec1625518d36;
- Fri, 02 Oct 2020 09:22:26 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 685E6AF8D;
- Fri,  2 Oct 2020 09:22:25 +0000 (UTC)
+ id bbd5334f-5bf0-420f-808b-ca31ca0098d7;
+ Fri, 02 Oct 2020 09:25:01 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1e-a70de69e.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
+ 02 Oct 2020 09:25:00 +0000
+Received: from EX13D32EUC004.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1e-a70de69e.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 3F8CBA1CE3; Fri,  2 Oct 2020 09:24:58 +0000 (UTC)
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D32EUC004.ant.amazon.com (10.43.164.121) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 2 Oct 2020 09:24:58 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
+ Fri, 2 Oct 2020 09:24:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5pZ8=DJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kOHGl-0005FM-IH
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:22:27 +0000
-X-Inumbo-ID: 4ba5acbf-9073-4cfd-85ce-ec1625518d36
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=MyDR=DJ=amazon.co.uk=prvs=537cbcb7c=pdurrant@srs-us1.protection.inumbo.net>)
+	id 1kOHJG-0005Ox-Ny
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 09:25:02 +0000
+X-Inumbo-ID: bbd5334f-5bf0-420f-808b-ca31ca0098d7
+Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4ba5acbf-9073-4cfd-85ce-ec1625518d36;
-	Fri, 02 Oct 2020 09:22:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601630545;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HTRfIj5jV+DogS9N9rvaGg5cDF4cbqcTi8FGrtp3xQA=;
-	b=XTH4C4aZekEQ7x3anPzdhK6jZzA05faUoaG147+XKV8KxLCxTc5GZPVyXDeDLVpQXw/9NT
-	Z3vDUlU1Ry2ELBVMQqL6QuRXIS1UrWonKzPGvE6yBxTNz7ic0FV/zNFo0Lg7rF3m0B3c5+
-	76J5cVwaDrfSgSwXpYWfrStBkvH/dyg=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 685E6AF8D;
-	Fri,  2 Oct 2020 09:22:25 +0000 (UTC)
-Subject: Re: [PATCH v2 03/11] x86/vlapic: introduce an EOI callback mechanism
-To: paul@xen.org
-Cc: 'Roger Pau Monne' <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>
+	id bbd5334f-5bf0-420f-808b-ca31ca0098d7;
+	Fri, 02 Oct 2020 09:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+  s=amazon201209; t=1601630701; x=1633166701;
+  h=from:to:cc:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version:subject;
+  bh=bZTRy/oiBMSi7X6q4j6KD9K3dvxlX9rhdFlk5EL90I0=;
+  b=V79OG+WskMU8JkoQnKFrJQN9bWHDpBtX1xCrlxcaNz6JNL+gvbojAbRz
+   IbRZ+n/Wh8hwuA0S11chyqaaE+w3hiaF5uN7K48forSfeGanVgAAIhS3z
+   fwlGINg0DkFitkNnMNdk62auwrrAsdNOjVl9/za3dWWq0d8p6MUfUprlw
+   o=;
+X-IronPort-AV: E=Sophos;i="5.77,326,1596499200"; 
+   d="scan'208";a="59026413"
+Subject: RE: [PATCH v2 01/11] x86/hvm: drop vcpu parameter from vlapic EOI callbacks
+Thread-Topic: [PATCH v2 01/11] x86/hvm: drop vcpu parameter from vlapic EOI callbacks
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-1e-a70de69e.us-east-1.amazon.com) ([10.43.8.6])
+  by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP; 02 Oct 2020 09:25:00 +0000
+Received: from EX13D32EUC004.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+	by email-inbound-relay-1e-a70de69e.us-east-1.amazon.com (Postfix) with ESMTPS id 3F8CBA1CE3;
+	Fri,  2 Oct 2020 09:24:58 +0000 (UTC)
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D32EUC004.ant.amazon.com (10.43.164.121) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 2 Oct 2020 09:24:58 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
+ Fri, 2 Oct 2020 09:24:58 +0000
+From: "Durrant, Paul" <pdurrant@amazon.co.uk>
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>
+Thread-Index: AQHWlxZTwfhKSEHIHk+Wx3kHFgYPGamEA1KAgAAIUXA=
+Date: Fri, 2 Oct 2020 09:24:57 +0000
+Message-ID: <59e20dff55464b7fbee9737348fae751@EX13D32EUC003.ant.amazon.com>
 References: <20200930104108.35969-1-roger.pau@citrix.com>
- <20200930104108.35969-4-roger.pau@citrix.com>
- <006e01d6971f$bb4e0080$31ea0180$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <40ba086b-308d-d126-d255-9a7096863dc2@suse.com>
-Date: Fri, 2 Oct 2020 11:22:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <006e01d6971f$bb4e0080$31ea0180$@xen.org>
-Content-Type: text/plain; charset=utf-8
+ <20200930104108.35969-2-roger.pau@citrix.com>
+ <bafcd30e-f75b-79c8-2424-6a63cb0b96d4@suse.com>
+In-Reply-To: <bafcd30e-f75b-79c8-2424-6a63cb0b96d4@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.164.68]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 
-On 30.09.2020 13:49, Paul Durrant wrote:
->> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Roger Pau Monne
->> Sent: 30 September 2020 11:41
->>
->> @@ -159,8 +184,12 @@ void vlapic_set_irq(struct vlapic *vlapic, uint8_t vec, uint8_t trig)
->>      else
->>          vlapic_clear_vector(vec, &vlapic->regs->data[APIC_TMR]);
->>
->> +    if ( callback )
->> +        vlapic_set_callback(vlapic, vec, callback, data);
->> +
-> 
-> Can this not happen several times before an EOI? I.e. the vector could
-> already be set in IRR, right?
-
-Yes, but I take it the assumption is that it'll always be the same
-callback that ought to get set here. Hence the warning printk() in
-that function in case it isn't.
-
-What I wonder while looking at this function is whether the TMR
-handling is correct. The SDM says "Upon acceptance of an interrupt
-into the IRR, ..." which I read as "when the IRR bit transitions
-from 0 to 1" (but I can see room for reading this differently).
-
-Jan
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
+Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDAyIE9jdG9iZXIgMjAyMCAwOTo0OA0KPiBUbzogUm9nZXIg
+UGF1IE1vbm5lIDxyb2dlci5wYXVAY2l0cml4LmNvbT47IFdlaSBMaXUgPHdsQHhlbi5vcmc+OyBQ
+YXVsIER1cnJhbnQgPHBhdWxAeGVuLm9yZz4NCj4gQ2M6IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
+ZWN0Lm9yZzsgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT47IER1cnJh
+bnQsIFBhdWwNCj4gPHBkdXJyYW50QGFtYXpvbi5jby51az4NCj4gU3ViamVjdDogUkU6IFtFWFRF
+Uk5BTF0gW1BBVENIIHYyIDAxLzExXSB4ODYvaHZtOiBkcm9wIHZjcHUgcGFyYW1ldGVyIGZyb20g
+dmxhcGljIEVPSSBjYWxsYmFja3MNCj4gDQo+IENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRl
+ZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9y
+IG9wZW4NCj4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFu
+ZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiANCj4gDQo+IE9uIDMwLjA5LjIwMjAg
+MTI6NDAsIFJvZ2VyIFBhdSBNb25uZSB3cm90ZToNCj4gPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZt
+L3ZsYXBpYy5jDQo+ID4gKysrIGIveGVuL2FyY2gveDg2L2h2bS92bGFwaWMuYw0KPiA+IEBAIC00
+NTksMTMgKzQ1OSwxMCBAQCB2b2lkIHZsYXBpY19FT0lfc2V0KHN0cnVjdCB2bGFwaWMgKnZsYXBp
+YykNCj4gPg0KPiA+ICB2b2lkIHZsYXBpY19oYW5kbGVfRU9JKHN0cnVjdCB2bGFwaWMgKnZsYXBp
+YywgdTggdmVjdG9yKQ0KPiA+ICB7DQo+ID4gLSAgICBzdHJ1Y3QgdmNwdSAqdiA9IHZsYXBpY192
+Y3B1KHZsYXBpYyk7DQo+ID4gLSAgICBzdHJ1Y3QgZG9tYWluICpkID0gdi0+ZG9tYWluOw0KPiA+
+IC0NCj4gPiAgICAgIGlmICggdmxhcGljX3Rlc3RfdmVjdG9yKHZlY3RvciwgJnZsYXBpYy0+cmVn
+cy0+ZGF0YVtBUElDX1RNUl0pICkNCj4gPiAtICAgICAgICB2aW9hcGljX3VwZGF0ZV9FT0koZCwg
+dmVjdG9yKTsNCj4gPiArICAgICAgICB2aW9hcGljX3VwZGF0ZV9FT0kodmVjdG9yKTsNCj4gPg0K
+PiA+IC0gICAgaHZtX2RwY2lfbXNpX2VvaShkLCB2ZWN0b3IpOw0KPiA+ICsgICAgaHZtX2RwY2lf
+bXNpX2VvaSh2ZWN0b3IpOw0KPiA+ICB9DQo+IA0KPiBXaGF0IGFib3V0IHZpcmlkaWFuX3N5bmlj
+X3dybXNyKCkgLT4gdmxhcGljX0VPSV9zZXQoKSAtPg0KPiB2bGFwaWNfaGFuZGxlX0VPSSgpPyBZ
+b3UnZCBwcm9iYWJseSBoYXZlIG5vdGljZWQgdGhpcyBpZiB5b3UNCj4gaGFkIHRyaWVkIHRvIChj
+b25zaXN0ZW50bHkpIGRyb3AgdGhlIHJlc3BlY3RpdmUgcGFyYW1ldGVycyBmcm9tDQo+IHRoZSBp
+bnRlcm1lZGlhdGUgZnVuY3Rpb25zIGFzIHdlbGwuDQo+IA0KPiBRdWVzdGlvbiBvZiBjb3Vyc2Ug
+aXMgaW4gaG93IGZhciB2aXJpZGlhbl9zeW5pY193cm1zcigpIGZvcg0KPiBIVl9YNjRfTVNSX0VP
+SSBtYWtlcyBtdWNoIHNlbnNlIHdoZW4gdiAhPSBjdXJyZW50LiBQYXVsLCBXZWk/DQo+IA0KDQpJ
+IGRvbid0IHRoaW5rIGl0IG1ha2VzIGFueSBzZW5zZS4gSSB0aGluayBpdCB3b3VsZCBiZSBmaW5l
+IHRvIG9ubHkgZG8gaXQgaWYgdiA9PSBjdXJyZW50Lg0KDQogIFBhdWwNCg0KPiBBIHNlY29uZGFy
+eSBxdWVzdGlvbiBvZiBjb3Vyc2UgaXMgd2hldGhlciBwYXNzaW5nIGFyb3VuZCB0aGUNCj4gcG9p
+bnRlcnMgaXNuJ3QgcmVhbGx5IGNoZWFwZXIgdGhhbiB0aGUgb2J0YWluaW5nIG9mICdjdXJyZW50
+Jy4NCj4gDQo+IEphbg0K
 
