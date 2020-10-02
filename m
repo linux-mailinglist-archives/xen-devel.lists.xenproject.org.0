@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA95F2816DF
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 17:42:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2233.6619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2001E2816EC
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Oct 2020 17:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2239.6668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kONBx-00070i-Gc; Fri, 02 Oct 2020 15:41:53 +0000
+	id 1kOND2-0007aL-94; Fri, 02 Oct 2020 15:43:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2233.6619; Fri, 02 Oct 2020 15:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 2239.6668; Fri, 02 Oct 2020 15:43:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,306 +23,142 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kONBx-000700-Bu; Fri, 02 Oct 2020 15:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 2233;
- Fri, 02 Oct 2020 15:41:51 +0000
+	id 1kOND2-0007Zr-5d; Fri, 02 Oct 2020 15:43:00 +0000
+Received: by outflank-mailman (input) for mailman id 2239;
+ Fri, 02 Oct 2020 15:42:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kONBv-0006v4-Lm
- for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:41:51 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kOND0-0007ZV-0w
+ for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:42:58 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d6be06e3-4dd6-46e8-99d2-81f82e469325;
- Fri, 02 Oct 2020 15:41:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B62D0B26A;
- Fri,  2 Oct 2020 15:41:45 +0000 (UTC)
+ id 8458d17a-c2e9-4f3a-8306-311a986c7892;
+ Fri, 02 Oct 2020 15:42:56 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2E3y=DJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kONBv-0006v4-Lm
-	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:41:51 +0000
-X-Inumbo-ID: d6be06e3-4dd6-46e8-99d2-81f82e469325
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=iJBK=DJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kOND0-0007ZV-0w
+	for xen-devel@lists.xenproject.org; Fri, 02 Oct 2020 15:42:58 +0000
+X-Inumbo-ID: 8458d17a-c2e9-4f3a-8306-311a986c7892
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d6be06e3-4dd6-46e8-99d2-81f82e469325;
-	Fri, 02 Oct 2020 15:41:47 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601653305;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IVXyqd8+BJ9r6/80OoSoimGVYzfPs4ujpYo9jzSMuLs=;
-	b=lGKrfw3ovFXY/f0HnxIqVDT9WUvjzxqKl5mkUEO2DdqbN7vwbeFGwpigFPMLDAIq8iQHxh
-	2BgPOERbcaKx/yQJxlihiJIPA2K/9pohTxv68O+RxGDgtUBu8bnJ6DWOkbb59nQj8lUi1+
-	MMCN6fS6iw7rzh31iqkZ/2m7gjLkzAQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B62D0B26A;
-	Fri,  2 Oct 2020 15:41:45 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 5/5] tools/xenstore: drop creation of read-only socket in xenstored
-Date: Fri,  2 Oct 2020 17:41:41 +0200
-Message-Id: <20201002154141.11677-6-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201002154141.11677-1-jgross@suse.com>
-References: <20201002154141.11677-1-jgross@suse.com>
+	id 8458d17a-c2e9-4f3a-8306-311a986c7892;
+	Fri, 02 Oct 2020 15:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601653376;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=2vB/BhgmcK/033yAkis2WFflAsrHtymEDb+pmWYoL2o=;
+  b=dtowS8WRLEXGxqd8C02Y+S2IfGjviDsqJApFM1qehE/x0TUdGTazemjg
+   yNeA7RsWuPcnBpjnVruR2N5TzvqflUVo7Z4iGcTLSZItrmOnP1XUrGjZK
+   cvi6PgPkNUh109g/E8DDMT+sus3B5DCWdEPLo45udxv4iRQMaPAj7tnSr
+   c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: nd7SNFVxjW5sRcXrQRWBKfq5bq1a61ky3GiRdH5dh+nokrGVxvpLLORvv6oJFes4fAKeHJKH7G
+ FObcTadzFUsgQHvrmzvgnQ5pw3YcBWMmTeXYkVR41vjBlZ4tgw6kCoJ/Oi33UWfuQSb+SUq0b4
+ xWIpgEyVpWAyX32iAfNY5cDPQYlJ3YzO3Ph1cbWeveQIJCkYkBqyfHGbzLPkBYy5m9CGug14CK
+ 1S65GYSgu+A/SpnWLKWMJ9o17/Y6ACkZ3pH8k5k/pDoC7uI85JRXv0ox8v4KZY7MjkugiCK4uu
+ 6AY=
+X-SBRS: None
+X-MesageID: 28440549
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,328,1596513600"; 
+   d="scan'208";a="28440549"
+Subject: Re: Yet another S3 issue in Xen 4.14
+To: Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+CC: xen-devel <xen-devel@lists.xenproject.org>
+References: <20201001011245.GL3962@mail-itl>
+ <a80ad59b-feb1-01c8-2b14-dbf6568d0ff5@suse.com>
+ <20201001123129.GJ1482@mail-itl>
+ <1e596ccc-a875-93f1-2619-e4dbcbd88b4d@citrix.com>
+ <20201002150859.GM3962@mail-itl>
+ <454ac9ce-012f-f2e7-722d-c5304fd3146f@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <aa5e1a7b-3724-bdc1-a313-0598aabd181f@citrix.com>
+Date: Fri, 2 Oct 2020 16:42:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <454ac9ce-012f-f2e7-722d-c5304fd3146f@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-With xs_daemon_open_readonly() now no longer using the read-only socket
-the creation of that socket can be dropped.
+On 02/10/2020 16:39, Jan Beulich wrote:
+> On 02.10.2020 17:08, Marek Marczykowski-Górecki wrote:
+>> I've done another bisect on the commit broken up in separate changes
+>> (https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/dbg-s3)
+>> and the bad part seems to be this:
+>>
+>> From dbdb32f8c265295d6af7cd4cd0aa12b6d04a0430 Mon Sep 17 00:00:00 2001
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Date: Fri, 2 Oct 2020 15:40:22 +0100
+>> Subject: [PATCH 1/1] CR4
+> Interesting - I was wild guessing so yesterday, but couldn't come
+> up with even a vague reason why this would be. I think you could
+> further split it up:
+>
+>> --- a/xen/arch/x86/acpi/power.c
+>> +++ b/xen/arch/x86/acpi/power.c
+>> @@ -195,7 +195,6 @@ static int enter_state(u32 state)
+>>      unsigned long flags;
+>>      int error;
+>>      struct cpu_info *ci;
+>> -    unsigned long cr4;
+>>  
+>>      if ( (state <= ACPI_STATE_S0) || (state > ACPI_S_STATES_MAX) )
+>>          return -EINVAL;
+>> @@ -270,15 +269,15 @@ static int enter_state(u32 state)
+>>  
+>>      system_state = SYS_STATE_resume;
+>>  
+>> -    /* Restore CR4 and EFER from cached values. */
+>> -    cr4 = read_cr4();
+>> -    write_cr4(cr4 & ~X86_CR4_MCE);
+>> +    /* Restore EFER from cached value. */
+>>      write_efer(read_efer());
+> This one should be possible to leave in place despite ...
+>
+>>      device_power_up(SAVED_ALL);
+>>  
+>>      mcheck_init(&boot_cpu_data, false);
+>> -    write_cr4(cr4);
+>> +
+>> +    /* Restore CR4 from cached value, now MCE is set up. */
+>> +    write_cr4(read_cr4());
+> ... this change.
+>
+> Further, while I can't see how the set_in_cr4() in mcheck_init()
+> could badly interact with the CR4 writes here, another option
+> might be to suppress it when system_state == SYS_STATE_resume
+> && c == &boot_cpu_data (or !bsp && c == &boot_cpu_data).
+>
+>> --- a/xen/arch/x86/acpi/suspend.c
+>> +++ b/xen/arch/x86/acpi/suspend.c
+>> @@ -23,7 +23,4 @@ void save_rest_processor_state(void)
+>>  void restore_rest_processor_state(void)
+>>  {
+>>      load_system_tables();
+>> -
+>> -    /* Restore full CR4 (inc MCE) now that the IDT is in place. */
+>> -    write_cr4(mmu_cr4_features);
+>>  }
+> This one should be possible to leave in place despite the other
+> changes.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/xenstore/xenstored_core.c   | 55 +++++++------------------------
- tools/xenstore/xenstored_core.h   |  3 --
- tools/xenstore/xenstored_domain.c |  4 +--
- tools/xenstore/xs_lib.c           |  8 +----
- 4 files changed, 14 insertions(+), 56 deletions(-)
+We're continuing to debug in private.  mmu_cr4_features and read_cr4()
+are equivalent (as expected), but very different from MINIMAL_CR4 which
+is what the trampoline configures, so I think we're suffering a
+CR4-related #UD/#GP somewhere in device_power_up() or mcheck_init().
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 9700772d40..b4be374d3f 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -71,7 +71,6 @@ static unsigned int current_array_size;
- static unsigned int nr_fds;
- 
- static int sock = -1;
--static int ro_sock = -1;
- 
- static bool verbose = false;
- LIST_HEAD(connections);
-@@ -311,8 +310,7 @@ fail:
- 	return -1;
- }
- 
--static void initialize_fds(int *p_sock_pollfd_idx, int *p_ro_sock_pollfd_idx,
--			   int *ptimeout)
-+static void initialize_fds(int *p_sock_pollfd_idx, int *ptimeout)
- {
- 	struct connection *conn;
- 	struct wrl_timestampt now;
-@@ -325,8 +323,6 @@ static void initialize_fds(int *p_sock_pollfd_idx, int *p_ro_sock_pollfd_idx,
- 
- 	if (sock != -1)
- 		*p_sock_pollfd_idx = set_fd(sock, POLLIN|POLLPRI);
--	if (ro_sock != -1)
--		*p_ro_sock_pollfd_idx = set_fd(ro_sock, POLLIN|POLLPRI);
- 	if (reopen_log_pipe[0] != -1)
- 		reopen_log_pipe0_pollfd_idx =
- 			set_fd(reopen_log_pipe[0], POLLIN|POLLPRI);
-@@ -472,9 +468,6 @@ static enum xs_perm_type perm_for_conn(struct connection *conn,
- 	unsigned int i;
- 	enum xs_perm_type mask = XS_PERM_READ|XS_PERM_WRITE|XS_PERM_OWNER;
- 
--	if (!conn->can_write)
--		mask &= ~XS_PERM_WRITE;
--
- 	/* Owners and tools get it all... */
- 	if (!domain_is_unprivileged(conn) || perms[0].id == conn->id
-                 || (conn->target && perms[0].id == conn->target->id))
-@@ -1422,7 +1415,6 @@ struct connection *new_connection(connwritefn_t *write, connreadfn_t *read)
- 	new->pollfd_idx = -1;
- 	new->write = write;
- 	new->read = read;
--	new->can_write = true;
- 	new->transaction_started = 0;
- 	INIT_LIST_HEAD(&new->out_list);
- 	INIT_LIST_HEAD(&new->watches);
-@@ -1435,7 +1427,7 @@ struct connection *new_connection(connwritefn_t *write, connreadfn_t *read)
- }
- 
- #ifdef NO_SOCKETS
--static void accept_connection(int sock, bool canwrite)
-+static void accept_connection(int sock)
- {
- }
- #else
-@@ -1477,7 +1469,7 @@ static int readfd(struct connection *conn, void *data, unsigned int len)
- 	return rc;
- }
- 
--static void accept_connection(int sock, bool canwrite)
-+static void accept_connection(int sock)
- {
- 	int fd;
- 	struct connection *conn;
-@@ -1487,10 +1479,9 @@ static void accept_connection(int sock, bool canwrite)
- 		return;
- 
- 	conn = new_connection(writefd, readfd);
--	if (conn) {
-+	if (conn)
- 		conn->fd = fd;
--		conn->can_write = canwrite;
--	} else
-+	else
- 		close(fd);
- }
- #endif
-@@ -1794,28 +1785,21 @@ static void destroy_fds(void)
- {
- 	if (sock >= 0)
- 		close(sock);
--	if (ro_sock >= 0)
--		close(ro_sock);
- }
- 
- static void init_sockets(void)
- {
- 	struct sockaddr_un addr;
- 	const char *soc_str = xs_daemon_socket();
--	const char *soc_str_ro = xs_daemon_socket_ro();
- 
- 	/* Create sockets for them to listen to. */
- 	atexit(destroy_fds);
- 	sock = socket(PF_UNIX, SOCK_STREAM, 0);
- 	if (sock < 0)
- 		barf_perror("Could not create socket");
--	ro_sock = socket(PF_UNIX, SOCK_STREAM, 0);
--	if (ro_sock < 0)
--		barf_perror("Could not create socket");
- 
- 	/* FIXME: Be more sophisticated, don't mug running daemon. */
- 	unlink(soc_str);
--	unlink(soc_str_ro);
- 
- 	addr.sun_family = AF_UNIX;
- 
-@@ -1825,17 +1809,10 @@ static void init_sockets(void)
- 	if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) != 0)
- 		barf_perror("Could not bind socket to %s", soc_str);
- 
--	if(strlen(soc_str_ro) >= sizeof(addr.sun_path))
--		barf_perror("socket string '%s' too long", soc_str_ro);
--	strcpy(addr.sun_path, soc_str_ro);
--	if (bind(ro_sock, (struct sockaddr *)&addr, sizeof(addr)) != 0)
--		barf_perror("Could not bind socket to %s", soc_str_ro);
--
--	if (chmod(soc_str, 0600) != 0
--	    || chmod(soc_str_ro, 0660) != 0)
-+	if (chmod(soc_str, 0600) != 0)
- 		barf_perror("Could not chmod sockets");
- 
--	if (listen(sock, 1) != 0 || listen(ro_sock, 1) != 0)
-+	if (listen(sock, 1) != 0)
- 		barf_perror("Could not listen on sockets");
- }
- #endif
-@@ -1893,7 +1870,7 @@ int priv_domid = 0;
- int main(int argc, char *argv[])
- {
- 	int opt;
--	int sock_pollfd_idx = -1, ro_sock_pollfd_idx = -1;
-+	int sock_pollfd_idx = -1;
- 	bool dofork = true;
- 	bool outputpid = false;
- 	bool no_domain_init = false;
-@@ -2010,7 +1987,7 @@ int main(int argc, char *argv[])
- 		tracefile = talloc_strdup(NULL, tracefile);
- 
- 	/* Get ready to listen to the tools. */
--	initialize_fds(&sock_pollfd_idx, &ro_sock_pollfd_idx, &timeout);
-+	initialize_fds(&sock_pollfd_idx, &timeout);
- 
- 	/* Tell the kernel we're up and running. */
- 	xenbus_notify_running();
-@@ -2051,21 +2028,11 @@ int main(int argc, char *argv[])
- 				barf_perror("sock poll failed");
- 				break;
- 			} else if (fds[sock_pollfd_idx].revents & POLLIN) {
--				accept_connection(sock, true);
-+				accept_connection(sock);
- 				sock_pollfd_idx = -1;
- 			}
- 		}
- 
--		if (ro_sock_pollfd_idx != -1) {
--			if (fds[ro_sock_pollfd_idx].revents & ~POLLIN) {
--				barf_perror("ro sock poll failed");
--				break;
--			} else if (fds[ro_sock_pollfd_idx].revents & POLLIN) {
--				accept_connection(ro_sock, false);
--				ro_sock_pollfd_idx = -1;
--			}
--		}
--
- 		if (xce_pollfd_idx != -1) {
- 			if (fds[xce_pollfd_idx].revents & ~POLLIN) {
- 				barf_perror("xce_handle poll failed");
-@@ -2128,7 +2095,7 @@ int main(int argc, char *argv[])
- 			}
- 		}
- 
--		initialize_fds(&sock_pollfd_idx, &ro_sock_pollfd_idx, &timeout);
-+		initialize_fds(&sock_pollfd_idx, &timeout);
- 	}
- }
- 
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index c4c32bc88f..1df6ad94ab 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -77,9 +77,6 @@ struct connection
- 	/* Who am I? 0 for socket connections. */
- 	unsigned int id;
- 
--	/* Is this a read-only connection? */
--	bool can_write;
--
- 	/* Buffered incoming data. */
- 	struct buffered_data *in;
- 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 0d5495745b..a2f144f6dd 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -372,7 +372,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
- 	if (get_strings(in, vec, ARRAY_SIZE(vec)) < ARRAY_SIZE(vec))
- 		return EINVAL;
- 
--	if (domain_is_unprivileged(conn) || !conn->can_write)
-+	if (domain_is_unprivileged(conn))
- 		return EACCES;
- 
- 	domid = atoi(vec[0]);
-@@ -438,7 +438,7 @@ int do_set_target(struct connection *conn, struct buffered_data *in)
- 	if (get_strings(in, vec, ARRAY_SIZE(vec)) < ARRAY_SIZE(vec))
- 		return EINVAL;
- 
--	if (domain_is_unprivileged(conn) || !conn->can_write)
-+	if (domain_is_unprivileged(conn))
- 		return EACCES;
- 
- 	domid = atoi(vec[0]);
-diff --git a/tools/xenstore/xs_lib.c b/tools/xenstore/xs_lib.c
-index 3e43f8809d..9f1dc6d559 100644
---- a/tools/xenstore/xs_lib.c
-+++ b/tools/xenstore/xs_lib.c
-@@ -63,13 +63,7 @@ const char *xs_daemon_socket(void)
- 
- const char *xs_daemon_socket_ro(void)
- {
--	static char buf[PATH_MAX];
--	const char *s = xs_daemon_path();
--	if (s == NULL)
--		return NULL;
--	if (snprintf(buf, sizeof(buf), "%s_ro", s) >= PATH_MAX)
--		return NULL;
--	return buf;
-+	return xs_daemon_path();
- }
- 
- const char *xs_domain_dev(void)
--- 
-2.26.2
+Its not INVPCID.  Trying others.
 
+~Andrew
 
