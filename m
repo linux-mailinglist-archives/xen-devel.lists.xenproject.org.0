@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B349628307D
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 08:57:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2858.8158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF8128314F
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 10:02:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2867.8169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPKQY-0008Rs-SX; Mon, 05 Oct 2020 06:56:54 +0000
+	id 1kPLR6-0006cI-7I; Mon, 05 Oct 2020 08:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2858.8158; Mon, 05 Oct 2020 06:56:54 +0000
+Received: by outflank-mailman (output) from mailman id 2867.8169; Mon, 05 Oct 2020 08:01:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,117 +23,102 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPKQY-0008RT-PH; Mon, 05 Oct 2020 06:56:54 +0000
-Received: by outflank-mailman (input) for mailman id 2858;
- Mon, 05 Oct 2020 06:56:53 +0000
+	id 1kPLR6-0006bw-3m; Mon, 05 Oct 2020 08:01:32 +0000
+Received: by outflank-mailman (input) for mailman id 2867;
+ Mon, 05 Oct 2020 08:01:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=g78D=DM=suse.com=mhocko@srs-us1.protection.inumbo.net>)
- id 1kPKQW-0008RO-Vk
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 06:56:53 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id effc1066-6765-4f7d-ad47-fd830e025187;
- Mon, 05 Oct 2020 06:56:51 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 93222B224;
- Mon,  5 Oct 2020 06:56:50 +0000 (UTC)
+ (envelope-from <SRS0=37d/=DM=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1kPLR4-0006bo-L3
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 08:01:30 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 1b69d07c-75ba-4e74-b628-943968820c68;
+ Mon, 05 Oct 2020 08:01:29 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-47-JsmJSc14P12pSFbh1NIEpg-1; Mon, 05 Oct 2020 04:01:25 -0400
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34FCA8030D2;
+ Mon,  5 Oct 2020 08:01:24 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-112-101.ams2.redhat.com
+ [10.36.112.101])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E190B5C225;
+ Mon,  5 Oct 2020 08:01:16 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 55FF310C7796; Mon,  5 Oct 2020 10:01:15 +0200 (CEST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=g78D=DM=suse.com=mhocko@srs-us1.protection.inumbo.net>)
-	id 1kPKQW-0008RO-Vk
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 06:56:53 +0000
-X-Inumbo-ID: effc1066-6765-4f7d-ad47-fd830e025187
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id effc1066-6765-4f7d-ad47-fd830e025187;
-	Mon, 05 Oct 2020 06:56:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1601881010;
+	(envelope-from <SRS0=37d/=DM=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+	id 1kPLR4-0006bo-L3
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 08:01:30 +0000
+X-Inumbo-ID: 1b69d07c-75ba-4e74-b628-943968820c68
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 1b69d07c-75ba-4e74-b628-943968820c68;
+	Mon, 05 Oct 2020 08:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1601884889;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UNEm7Tn9UNlLqhlrULq94v99iXKf+1bbfGtGmTKX+7I=;
-	b=S66gtJ8axc/8vLsDG0Y3zJ3DfLtemEkgIHkSLUIWIDdOmJTl5ozJHZlvC9eijR1y/3zccB
-	UdINSjYVIGbyFe6FVLK6h+OkKKunrDQK6t3reRK6hhZJGiR0LMbXvjHxmXk9olvfWeq9+p
-	FIB95YWX0cll+IESTIBsni+toXRKRnQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 93222B224;
-	Mon,  5 Oct 2020 06:56:50 +0000 (UTC)
-Date: Mon, 5 Oct 2020 08:56:48 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: David Hildenbrand <david@redhat.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Vlastimil Babka <vbabka@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Wei Yang <richard.weiyang@linux.alibaba.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Scott Cheloha <cheloha@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Subject: Re: [PATCH v1 3/5] mm/page_alloc: always move pages to the tail of
- the freelist in unset_migratetype_isolate()
-Message-ID: <20201005065648.GO4555@dhcp22.suse.cz>
-References: <20200928182110.7050-1-david@redhat.com>
- <20200928182110.7050-4-david@redhat.com>
- <20201002132404.GI4555@dhcp22.suse.cz>
- <df0c45bf-223f-1f0b-ce3d-f2b2e05626bd@redhat.com>
+	bh=wJwznd7k4BYmOPHwcumCxFnElmQZhM9x5nROGs39sU4=;
+	b=GlQIPQqxzZKdqAtI7dwkz1XGR4aBnLsjpkZtmoeeHn+nG/qsEa2lSRiBU+6WnGx1bmqJYD
+	N4JyFztSQYfkfytA9bkLvtmb9E69mPtDO3F3DdjAalbp4DJzUA5hRxlFtbwfkxh4RtazdY
+	bHvNMxj5C2gDSCbXlY4vmkBYAncnRrg=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-47-JsmJSc14P12pSFbh1NIEpg-1; Mon, 05 Oct 2020 04:01:25 -0400
+X-MC-Unique: JsmJSc14P12pSFbh1NIEpg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 34FCA8030D2;
+	Mon,  5 Oct 2020 08:01:24 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-112-101.ams2.redhat.com [10.36.112.101])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E190B5C225;
+	Mon,  5 Oct 2020 08:01:16 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+	id 55FF310C7796; Mon,  5 Oct 2020 10:01:15 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Cc: qemu-devel@nongnu.org,  Peter Maydell <peter.maydell@linaro.org>,
+  Stefano Stabellini <sstabellini@kernel.org>,  Eduardo Habkost
+ <ehabkost@redhat.com>,  Juan Quintela <quintela@redhat.com>,  Paul Durrant
+ <paul@xen.org>,  "Dr. David Alan Gilbert" <dgilbert@redhat.com>,  "Michael
+ S. Tsirkin" <mst@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Paolo
+ Bonzini <pbonzini@redhat.com>,  Anthony Perard
+ <anthony.perard@citrix.com>,  xen-devel@lists.xenproject.org,  Richard
+ Henderson <rth@twiddle.net>
+Subject: Re: [PATCH 0/5] qapi: Restrict machine (and migration) specific
+ commands
+References: <20201002133923.1716645-1-philmd@redhat.com>
+Date: Mon, 05 Oct 2020 10:01:15 +0200
+In-Reply-To: <20201002133923.1716645-1-philmd@redhat.com> ("Philippe
+	=?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Fri, 2 Oct 2020 15:39:18
+ +0200")
+Message-ID: <87wo05aypg.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <df0c45bf-223f-1f0b-ce3d-f2b2e05626bd@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=armbru@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 02-10-20 17:20:09, David Hildenbrand wrote:
-> On 02.10.20 15:24, Michal Hocko wrote:
-> > On Mon 28-09-20 20:21:08, David Hildenbrand wrote:
-> >> Page isolation doesn't actually touch the pages, it simply isolates
-> >> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
-> >>
-> >> We already place pages to the tail of the freelists when undoing
-> >> isolation via __putback_isolated_page(), let's do it in any case
-> >> (e.g., if order <= pageblock_order) and document the behavior.
-> >>
-> >> Add a "to_tail" parameter to move_freepages_block() but introduce a
-> >> a new move_to_free_list_tail() - similar to add_to_free_list_tail().
-> >>
-> >> This change results in all pages getting onlined via online_pages() to
-> >> be placed to the tail of the freelist.
-> > 
-> > Is there anything preventing to do this unconditionally? Or in other
-> > words is any of the existing callers of move_freepages_block benefiting
-> > from adding to the head?
-> 
-> 1. mm/page_isolation.c:set_migratetype_isolate()
-> 
-> We move stuff to the MIGRATE_ISOLATE list, we don't care about the order
-> there.
-> 
-> 2. steal_suitable_fallback():
-> 
-> I don't think we care too much about the order when already stealing
-> pageblocks ... and the freelist is empty I guess?
-> 
-> 3. reserve_highatomic_pageblock()/unreserve_highatomic_pageblock()
-> 
-> Not sure if we really care.
+Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> writes:
 
-Honestly, I have no idea. I can imagine that some atomic high order
-workloads (e.g. in net) might benefit from cache line hot pages but I am
-not sure this is really observable. If yes it would likely be better to
-have this documented than relying on wild guess. If we do not have any
-evidence then I would vote for simplicity first and go with
-unconditional add_to_tail which would simply your patch a bit.
+> Reduce the machine code pulled into qemu-storage-daemon.
 
-Maybe Vlastimil or Mel would have a better picture.
+I'm leaving review to Eduardo and Marcel for PATCH 1-4, and to David and
+Juan for PATCH 5.  David already ACKed.
 
--- 
-Michal Hocko
-SUSE Labs
+Can do the pull request.
+
 
