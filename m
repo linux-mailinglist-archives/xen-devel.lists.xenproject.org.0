@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C76283E23
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 20:20:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3077.8910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACED72841F7
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 23:14:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3084.8925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPV4X-0000Io-3Y; Mon, 05 Oct 2020 18:18:53 +0000
+	id 1kPXnR-00085g-NX; Mon, 05 Oct 2020 21:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3077.8910; Mon, 05 Oct 2020 18:18:53 +0000
+Received: by outflank-mailman (output) from mailman id 3084.8925; Mon, 05 Oct 2020 21:13:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,132 +23,180 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPV4X-0000IP-0C; Mon, 05 Oct 2020 18:18:53 +0000
-Received: by outflank-mailman (input) for mailman id 3077;
- Mon, 05 Oct 2020 18:18:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9LJO=DM=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kPV4V-0000IK-Fi
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 18:18:51 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a159c5e6-d111-4224-a8d0-cbf5adb34919;
- Mon, 05 Oct 2020 18:18:50 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kPV4U-00043H-0E; Mon, 05 Oct 2020 18:18:50 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kPV4T-0004A2-Gg; Mon, 05 Oct 2020 18:18:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kPXnR-00085H-KS; Mon, 05 Oct 2020 21:13:25 +0000
+Received: by outflank-mailman (input) for mailman id 3084;
+ Mon, 05 Oct 2020 21:13:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ntw0=DM=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1kPXnQ-00085C-Cu
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 21:13:24 +0000
+Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5e7d79ff-d43c-492e-9d85-c2e4b5b6871a;
+ Mon, 05 Oct 2020 21:13:23 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id A340DC4E;
+ Mon,  5 Oct 2020 17:13:21 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Mon, 05 Oct 2020 17:13:22 -0400
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0E12F306467E;
+ Mon,  5 Oct 2020 17:13:19 -0400 (EDT)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=9LJO=DM=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kPV4V-0000IK-Fi
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 18:18:51 +0000
-X-Inumbo-ID: a159c5e6-d111-4224-a8d0-cbf5adb34919
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a159c5e6-d111-4224-a8d0-cbf5adb34919;
-	Mon, 05 Oct 2020 18:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=DocFb8exhfUXSoZBKE3Y45sf3gaeuZsjqUNzJjJ4OXQ=; b=ubzNNhWRXYmNL10IK204xrjoqE
-	Pn0xi7QMHXGykASr/hURFXjqqO3F3l7tnHrSOKNQmBRbNJwjbQMP4sPc0Wnf2wziEkkFnEtsRPfvs
-	eOxUJMwEzkmxdZuF9SM8DqXkUvo6/yy8fJ72lM2JJMNTBZzSLnpNUquhj1Jfv7uC1JPg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kPV4U-00043H-0E; Mon, 05 Oct 2020 18:18:50 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kPV4T-0004A2-Gg; Mon, 05 Oct 2020 18:18:49 +0000
-Subject: Re: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn
- correctly
-To: Masami Hiramatsu <mhiramat@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- takahiro.akashi@linaro.org
-References: <160190516028.40160.9733543991325671759.stgit@devnote2>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b205ec9c-c307-2b67-c43a-cf2a67179484@xen.org>
-Date: Mon, 5 Oct 2020 19:18:47 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.1
+	(envelope-from <SRS0=Ntw0=DM=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+	id 1kPXnQ-00085C-Cu
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 21:13:24 +0000
+X-Inumbo-ID: 5e7d79ff-d43c-492e-9d85-c2e4b5b6871a
+Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 5e7d79ff-d43c-492e-9d85-c2e4b5b6871a;
+	Mon, 05 Oct 2020 21:13:23 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.west.internal (Postfix) with ESMTP id A340DC4E;
+	Mon,  5 Oct 2020 17:13:21 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Mon, 05 Oct 2020 17:13:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=w44a34
+	Xwd/fuPPnSQTUcs7xTsQtjSseIfEuXyMyPW+o=; b=gtbMI/3i2gHBHgJ2p3qmUw
+	OpEaN0+DWix2rmLzrXpnpz9+BMoNULHCVAwoIjYzcQK/wfYU52SrIRS3xQ2u7nyT
+	EBWW0KWntYtH901W13nxD4Qo38PjQyn+pcr2OP5WSB4WVHFrqRNYu71EWH2lNaPT
+	qN9FFZ/y/DCys0mCXfI4qkAzPKd0gaSRji3H+KzbWI2oqqteMTh5DerjnsOJXAp2
+	OtAAQIrmlwhDPllwn4brwpCc/yvGGYuIV4kJeCVNtKvSMNPbctVb16SPxvyzD8+F
+	GDPxkfwTtYaEV1e/vVIDh89rnEoF7ouUglowVfLUU/87pYe1D+Lu6BYhjd+G5R+A
+	==
+X-ME-Sender: <xms:cIx7Xx-mYogIl_ajypMfdD4Y_E0LlkdA9hoH7n302RC777vuGTHAIg>
+    <xme:cIx7X1uxygEGbXFihGlcQZ0Qsc1cO5mQL4gY860LA4bhfKeChcGY-7vrtDa2_ip7w
+    4tUko7FXT8M5A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgedvgdduieduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+    durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+    drtghomh
+X-ME-Proxy: <xmx:cIx7X_Cd6T-zVK4kPYJvkAWZOUA9PhWhZ_7Drg7dSAb3_f7NZg6Tlw>
+    <xmx:cIx7X1dLgRjFOCYbUN_Dmg0MNuUrwO_pYVku9XSqbjPWm3jDb3azaA>
+    <xmx:cIx7X2MCNbu_i6MJo6_DMZ1ab_vRVSNr2WGMAJAHbpE3fc5DqZOW9Q>
+    <xmx:cYx7X43KX36r3pNap8-fah7oaU7RxVlFFWQ8iVDLO_sApFOQVnbzOw>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 0E12F306467E;
+	Mon,  5 Oct 2020 17:13:19 -0400 (EDT)
+Date: Mon, 5 Oct 2020 23:13:17 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/smpboot: Unconditionally call
+ memguard_unguard_stack() in cpu_smpboot_free()
+Message-ID: <20201005211317.GA29479@mail-itl>
+References: <20201005122325.17395-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <160190516028.40160.9733543991325671759.stgit@devnote2>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fdj2RfSjLxBAspz7"
+Content-Disposition: inline
+In-Reply-To: <20201005122325.17395-1-andrew.cooper3@citrix.com>
 
-Hi Masami,
 
-On 05/10/2020 14:39, Masami Hiramatsu wrote:
-> Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
-> address conversion.
-> 
-> In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-> to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-> assumes the given virtual address is in contiguous kernel memory
-> area, it can not convert the per-cpu memory if it is allocated on
-> vmalloc area (depends on CONFIG_SMP).
+--fdj2RfSjLxBAspz7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] x86/smpboot: Unconditionally call
+ memguard_unguard_stack() in cpu_smpboot_free()
 
-Are you sure about this? I have a .config with CONFIG_SMP=y where the 
-per-cpu region for CPU0 is allocated outside of vmalloc area.
+On Mon, Oct 05, 2020 at 01:23:25PM +0100, Andrew Cooper wrote:
+> For simplicity between various configuration, Xen always uses shadow stack
+> mappings (Read-only + Dirty) for the guard page, irrespective of whether
+> CET-SS is enabled.
+>=20
+> memguard_guard_stack() writes shadow stack tokens with plain writes.  Thi=
+s is
+> necessary to configure the BSP shadow stack correctly, and cannot be
+> implemented with WRSS.
+>=20
+> Therefore, unconditionally call memguard_unguard_stack() to return the
+> mappings to fully writeable, so a subsequent call to memguard_guard_stack=
+()
+> will succeed.
+>=20
+> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-However, I was able to trigger the bug as soon as CONFIG_NUMA_BALANCING 
-was enabled.
+Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
-[...]
-
-> Fixes: 250c9af3d831 ("arm/xen: Add support for 64KB page granularity")
-
-FWIW, I think the bug was already present before 250c9af3d831.
-
-> Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
 > ---
->   arch/arm/xen/enlighten.c |    2 +-
->   include/xen/arm/page.h   |    3 +++
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> index e93145d72c26..a6ab3689b2f4 100644
-> --- a/arch/arm/xen/enlighten.c
-> +++ b/arch/arm/xen/enlighten.c
-> @@ -150,7 +150,7 @@ static int xen_starting_cpu(unsigned int cpu)
->   	pr_info("Xen: initializing cpu%d\n", cpu);
->   	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
->   
-> -	info.mfn = virt_to_gfn(vcpup);
-> +	info.mfn = percpu_to_gfn(vcpup);
->   	info.offset = xen_offset_in_page(vcpup);
->   
->   	err = HYPERVISOR_vcpu_op(VCPUOP_register_vcpu_info, xen_vcpu_nr(cpu),
-> diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
-> index 39df751d0dc4..ac1b65470563 100644
-> --- a/include/xen/arm/page.h
-> +++ b/include/xen/arm/page.h
-> @@ -83,6 +83,9 @@ static inline unsigned long bfn_to_pfn(unsigned long bfn)
->   	})
->   #define gfn_to_virt(m)		(__va(gfn_to_pfn(m) << XEN_PAGE_SHIFT))
->   
-> +#define percpu_to_gfn(v)	\
-> +	(pfn_to_gfn(per_cpu_ptr_to_phys(v) >> XEN_PAGE_SHIFT))
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+>=20
+> This can more easily be demonstrated with CPU hotplug than S3, and the ab=
+sence
+> of bug reports goes to show how rarely hotplug is used.
+> ---
+>  xen/arch/x86/smpboot.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+> index 5708573c41..c193cc0fb8 100644
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -971,16 +971,16 @@ static void cpu_smpboot_free(unsigned int cpu, bool=
+ remove)
+>      if ( IS_ENABLED(CONFIG_PV32) )
+>          FREE_XENHEAP_PAGE(per_cpu(compat_gdt, cpu));
+> =20
+> +    if ( stack_base[cpu] )
+> +        memguard_unguard_stack(stack_base[cpu]);
 > +
->   /* Only used in PV code. But ARM guests are always HVM. */
->   static inline xmaddr_t arbitrary_virt_to_machine(void *vaddr)
->   {
-> 
+>      if ( remove )
+>      {
+>          FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
+>          FREE_XENHEAP_PAGE(idt_tables[cpu]);
+> =20
+>          if ( stack_base[cpu] )
+> -        {
+> -            memguard_unguard_stack(stack_base[cpu]);
+>              FREE_XENHEAP_PAGES(stack_base[cpu], STACK_ORDER);
+> -        }
+>      }
+>  }
+> =20
 
-Cheers,
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
--- 
-Julien Grall
+--fdj2RfSjLxBAspz7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl97jGsACgkQ24/THMrX
+1ywHXAf/dvZP+pfkZeQTZFiuf+zuR0mbcoZx3l8/kJpZS7e7ojsU432zxp4PvB6R
+IYCD62ypvzlq2UA+lwmHSS0rMQl7b9JyHYlV6MdlBQhCUgh4LNtlONkVU02dcRz4
+Sn1xR4p0RN6ibdpRQNhIH0F2Upbr4g/x/ancfsrO0jmkAOb7cD7E89FfIoa0i58x
+0PIKnZQQUsSYbDEdatQZzPlKN313MFA597dHoFv12D97TCxWDRCCnd5WuY63CX82
+csyf4XWNVCI199IUwvQaN2O1NUeWuAbMm/1/0Nqw+1krY279cy/674J5m9m6aIcu
+0up4Op1UOgDEI/DJpXyGCY+x0B8y0g==
+=Sv2R
+-----END PGP SIGNATURE-----
+
+--fdj2RfSjLxBAspz7--
 
