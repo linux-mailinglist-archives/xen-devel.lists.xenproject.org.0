@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5CE2836B9
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 15:40:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3006.8646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0DA02836C6
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 15:43:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3009.8660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPQiB-0006Eh-Bf; Mon, 05 Oct 2020 13:39:31 +0000
+	id 1kPQlT-00072u-TR; Mon, 05 Oct 2020 13:42:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3006.8646; Mon, 05 Oct 2020 13:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 3009.8660; Mon, 05 Oct 2020 13:42:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,185 +23,288 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPQiB-0006EI-8W; Mon, 05 Oct 2020 13:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 3006;
- Mon, 05 Oct 2020 13:39:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kPQlT-00072V-QB; Mon, 05 Oct 2020 13:42:55 +0000
+Received: by outflank-mailman (input) for mailman id 3009;
+ Mon, 05 Oct 2020 13:42:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TAZG=DM=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
- id 1kPQi9-0006ED-Co
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 13:39:29 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f75e4ae2-b7b1-417e-b2fe-1f6d676adb8a;
- Mon, 05 Oct 2020 13:39:28 +0000 (UTC)
-Received: from localhost.localdomain (NE2965lan1.rev.em-net.ne.jp
- [210.141.244.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4CD0420756;
- Mon,  5 Oct 2020 13:39:25 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kPQlS-00072Q-ID
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 13:42:54 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1906c677-7ae0-4d89-9a9e-f6c5f2bb03c9;
+ Mon, 05 Oct 2020 13:42:52 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=TAZG=DM=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
-	id 1kPQi9-0006ED-Co
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 13:39:29 +0000
-X-Inumbo-ID: f75e4ae2-b7b1-417e-b2fe-1f6d676adb8a
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f75e4ae2-b7b1-417e-b2fe-1f6d676adb8a;
-	Mon, 05 Oct 2020 13:39:28 +0000 (UTC)
-Received: from localhost.localdomain (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 4CD0420756;
-	Mon,  5 Oct 2020 13:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1601905167;
-	bh=CKM1wiIeFzqvHmo0o+SIVvTlYWd5wGgfK9tUsLJKEWI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=daqmAbFNxPj/Sj6BaL6WyxNtCjQtE1j7egFu2nYTyIUjjP3v53bMT4MCmakcMkACm
-	 x+QEf4FkSlYnEGwp7xXuqSm7TP8Iwu/6WJY5h42zPj57Xp/nUct9Vzb0lXlNVHgNFX
-	 i1nfKAtvv4K8Dc1qIDXDRjdvfo8SyCXodd0YUUKw=
-From: Masami Hiramatsu <mhiramat@kernel.org>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	takahiro.akashi@linaro.org
-Subject: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn correctly
-Date: Mon,  5 Oct 2020 22:39:20 +0900
-Message-Id: <160190516028.40160.9733543991325671759.stgit@devnote2>
-X-Mailer: git-send-email 2.25.1
-User-Agent: StGit/0.19
+	(envelope-from <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kPQlS-00072Q-ID
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 13:42:54 +0000
+X-Inumbo-ID: 1906c677-7ae0-4d89-9a9e-f6c5f2bb03c9
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 1906c677-7ae0-4d89-9a9e-f6c5f2bb03c9;
+	Mon, 05 Oct 2020 13:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601905372;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=w01SC9C/nCOxtEay1oyxna3Ur1GH+Q+tk1QpjWTLj8Y=;
+  b=O8+j8ysOaUm48UfiA/W3J8uJSwd9Qwcacl0ETrFyOdjpZf9JAVW/ubpu
+   7PRXC6meF7KFpczyz749gTom7dYHKPKYJ6LvH/gJ1dRgfPwc2bwoQJKzw
+   1QOTi9aVyG3tprmvoEOD9IudGAOxKnGbWJ6LESGDmSQ7YBnaOtDDjR3nU
+   c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: lHy3J9jzmyQD+2Rml7BJaQ8PRQyjTSZ8zWj+ZPxzN7PDuStYh6tINEfp79QtkbIB1mD28Hqvf2
+ cpukhGcQQ+ZQAG6GM4vScngz4XmjbFWHkAK6HKpJHa96CwMHoH/bQoCmQ9/p0YxrU1TL3VNBzl
+ kwZmTJ1lFeE3NNzGjCIhZk8XTvNbCNcdWxGExy9hX06O2zndBfibQIlmH6w4nC8EU45S8ilE3C
+ Uj9gOAjybWL5t+BOD/9bPWOlkHM4TMcDiunb43Wtw0ahNt+oloklbDahpl++SqRTsBAHcydX41
+ NVs=
+X-SBRS: None
+X-MesageID: 29310585
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,338,1596513600"; 
+   d="scan'208";a="29310585"
+Subject: Re: [PATCH RFC] docs: Add minimum version depencency policy document
+To: George Dunlap <George.Dunlap@citrix.com>
+CC: "open list:X86" <xen-devel@lists.xenproject.org>, Ian Jackson
+	<Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>, Jan Beulich
+	<jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Rich Persaud <persaur@gmail.com>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>
+References: <20200930125736.95203-1-george.dunlap@citrix.com>
+ <868b25bd-ab2c-7f33-1dc2-9476c86d8050@citrix.com>
+ <F65DC414-FFA4-4990-84FF-A94503B38F3A@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <351673c4-c3a0-a1c4-5738-2339b698417e@citrix.com>
+Date: Mon, 5 Oct 2020 14:41:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <F65DC414-FFA4-4990-84FF-A94503B38F3A@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
-address conversion.
+On 01/10/2020 15:50, George Dunlap wrote:
 
-In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-assumes the given virtual address is in contiguous kernel memory
-area, it can not convert the per-cpu memory if it is allocated on
-vmalloc area (depends on CONFIG_SMP).
+>>> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+>>> ---
+>>>
+>>> CC: Ian Jackson <ian.jackson@citrix.com>
+>>> CC: Wei Liu <wl@xen.org>
+>>> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> CC: Jan Beulich <jbeulich@suse.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Julien Grall <julien@xen.org>
+>>> CC: Rich Persaud <persaur@gmail.com>
+>>> CC: Bertrand Marquis <Bertrand.Marquis@arm.com>
+>>> ---
+>>> docs/index.rst                        |  2 +
+>>> docs/policies/dependency-versions.rst | 76 +++++++++++++++++++++++++++
+>>> 2 files changed, 78 insertions(+)
+>>> create mode 100644 docs/policies/dependency-versions.rst
+>>>
+>>> diff --git a/docs/index.rst b/docs/index.rst
+>>> index b75487a05d..ac175eacc8 100644
+>>> --- a/docs/index.rst
+>>> +++ b/docs/index.rst
+>>> @@ -57,5 +57,7 @@ Miscellanea
+>>> -----------
+>>>
+>>> .. toctree::
+>>> +   :maxdepth: 1
+>>>
+>>> +   policies/dependency-versions
+>> I think it is great that this is going into Sphinx.
+>>
+>> However, I'd prefer to avoid proliferating random things at the top
+>> level, to try and keep everything in a coherent structure.
+> I was hoping for your feedback on where to put this. :-)
+>
+>> For better or worse, I guestimated at "admin guide" (end user and
+>> sysadmin guide), "guest docs" (VM ABI, and guest kernel developers), and
+>> "hypervisors docs" (hacking Xen).
+> Is “hypervisor” in this sense meant to mean the actual hypervisor (xen.git/xen), or the whole hypervisor system (i.e., everything in xen.git)?
 
-Without this fix, the Dom0 kernel will fail to boot with following
-errors.
+"yes".  If it seems like I'm making this up as I go along, then perhaps
+its because I am.
 
-[    0.466172] Xen: initializing cpu0
-[    0.469601] ------------[ cut here ]------------
-[    0.474295] WARNING: CPU: 0 PID: 1 at arch/arm64/xen/../../arm/xen/enlighten.c:153 xen_starting_cpu+0x160/0x180
-[    0.484435] Modules linked in:
-[    0.487565] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.9.0-rc4+ #4
-[    0.493895] Hardware name: Socionext Developer Box (DT)
-[    0.499194] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-[    0.504836] pc : xen_starting_cpu+0x160/0x180
-[    0.509263] lr : xen_starting_cpu+0xb0/0x180
-[    0.513599] sp : ffff8000116cbb60
-[    0.516984] x29: ffff8000116cbb60 x28: ffff80000abec000
-[    0.522366] x27: 0000000000000000 x26: 0000000000000000
-[    0.527754] x25: ffff80001156c000 x24: fffffdffbfcdb600
-[    0.533129] x23: 0000000000000000 x22: 0000000000000000
-[    0.538511] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-[    0.543892] x19: ffff8000113a9988 x18: 0000000000000010
-[    0.549274] x17: 0000000094fe0f81 x16: 00000000deadbeef
-[    0.554655] x15: ffffffffffffffff x14: 0720072007200720
-[    0.560037] x13: 0720072007200720 x12: 0720072007200720
-[    0.565418] x11: 0720072007200720 x10: 0720072007200720
-[    0.570801] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-[    0.576182] x7 : 0000000000000054 x6 : ffff00001b790f00
-[    0.581564] x5 : ffff800010bbf880 x4 : 0000000000000000
-[    0.586945] x3 : 0000000000000000 x2 : ffff80000abec000
-[    0.592327] x1 : 000000000000002f x0 : 0000800000000000
-[    0.597716] Call trace:
-[    0.600232]  xen_starting_cpu+0x160/0x180
-[    0.604309]  cpuhp_invoke_callback+0xac/0x640
-[    0.608736]  cpuhp_issue_call+0xf4/0x150
-[    0.612728]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-[    0.618030]  __cpuhp_setup_state+0x84/0xf8
-[    0.622192]  xen_guest_init+0x324/0x364
-[    0.626097]  do_one_initcall+0x54/0x250
-[    0.630003]  kernel_init_freeable+0x12c/0x2c8
-[    0.634428]  kernel_init+0x1c/0x128
-[    0.637988]  ret_from_fork+0x10/0x18
-[    0.641635] ---[ end trace d95b5309a33f8b27 ]---
-[    0.646337] ------------[ cut here ]------------
-[    0.651005] kernel BUG at arch/arm64/xen/../../arm/xen/enlighten.c:158!
-[    0.657697] Internal error: Oops - BUG: 0 [#1] SMP
-[    0.662548] Modules linked in:
-[    0.665676] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W         5.9.0-rc4+ #4
-[    0.673398] Hardware name: Socionext Developer Box (DT)
-[    0.678695] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-[    0.684338] pc : xen_starting_cpu+0x178/0x180
-[    0.688765] lr : xen_starting_cpu+0x144/0x180
-[    0.693188] sp : ffff8000116cbb60
-[    0.696573] x29: ffff8000116cbb60 x28: ffff80000abec000
-[    0.701955] x27: 0000000000000000 x26: 0000000000000000
-[    0.707344] x25: ffff80001156c000 x24: fffffdffbfcdb600
-[    0.712718] x23: 0000000000000000 x22: 0000000000000000
-[    0.718107] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-[    0.723481] x19: ffff8000113a9988 x18: 0000000000000010
-[    0.728863] x17: 0000000094fe0f81 x16: 00000000deadbeef
-[    0.734245] x15: ffffffffffffffff x14: 0720072007200720
-[    0.739626] x13: 0720072007200720 x12: 0720072007200720
-[    0.745008] x11: 0720072007200720 x10: 0720072007200720
-[    0.750390] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-[    0.755771] x7 : 0000000000000054 x6 : ffff00001b790f00
-[    0.761153] x5 : ffff800010bbf880 x4 : 0000000000000000
-[    0.766534] x3 : 0000000000000000 x2 : 00000000deadbeef
-[    0.771916] x1 : 00000000deadbeef x0 : ffffffffffffffea
-[    0.777304] Call trace:
-[    0.779819]  xen_starting_cpu+0x178/0x180
-[    0.783898]  cpuhp_invoke_callback+0xac/0x640
-[    0.788325]  cpuhp_issue_call+0xf4/0x150
-[    0.792317]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-[    0.797619]  __cpuhp_setup_state+0x84/0xf8
-[    0.801779]  xen_guest_init+0x324/0x364
-[    0.805683]  do_one_initcall+0x54/0x250
-[    0.809590]  kernel_init_freeable+0x12c/0x2c8
-[    0.814016]  kernel_init+0x1c/0x128
-[    0.817583]  ret_from_fork+0x10/0x18
-[    0.821226] Code: d0006980 f9427c00 cb000300 17ffffea (d4210000)
-[    0.827415] ---[ end trace d95b5309a33f8b28 ]---
-[    0.832076] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-[    0.839815] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+> It seems to me that we need something like the latter; in which case maybe we should change that section to “developer documentation” or something, with “hypervisor” as a section under that?
 
-Fixes: 250c9af3d831 ("arm/xen: Add support for 64KB page granularity")
-Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
----
- arch/arm/xen/enlighten.c |    2 +-
- include/xen/arm/page.h   |    3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+My gut feeling is that "developing the hypervisor" is different enough
+from "developing the toolstack" that there will be little overlap in
+content.
 
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index e93145d72c26..a6ab3689b2f4 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -150,7 +150,7 @@ static int xen_starting_cpu(unsigned int cpu)
- 	pr_info("Xen: initializing cpu%d\n", cpu);
- 	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
- 
--	info.mfn = virt_to_gfn(vcpup);
-+	info.mfn = percpu_to_gfn(vcpup);
- 	info.offset = xen_offset_in_page(vcpup);
- 
- 	err = HYPERVISOR_vcpu_op(VCPUOP_register_vcpu_info, xen_vcpu_nr(cpu),
-diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
-index 39df751d0dc4..ac1b65470563 100644
---- a/include/xen/arm/page.h
-+++ b/include/xen/arm/page.h
-@@ -83,6 +83,9 @@ static inline unsigned long bfn_to_pfn(unsigned long bfn)
- 	})
- #define gfn_to_virt(m)		(__va(gfn_to_pfn(m) << XEN_PAGE_SHIFT))
- 
-+#define percpu_to_gfn(v)	\
-+	(pfn_to_gfn(per_cpu_ptr_to_phys(v) >> XEN_PAGE_SHIFT))
-+
- /* Only used in PV code. But ARM guests are always HVM. */
- static inline xmaddr_t arbitrary_virt_to_machine(void *vaddr)
- {
+>
+>> I'm happy to shuffle the dividing lines if a better arrangement becomes
+>> obvious.  This particular doc logically lives with "building Xen from
+>> source".
+> I don’t see a “building Xen from source” section (except for Hypervisor Documentation/Code Coverage/Compiling Xen, which is obviously specific to code coverage).
 
+There isn't one yet.
+
+> If the main target of the page is to tell admins / downstreams what distros we support, then it might go under “Admin Guide” somewhere.  If the main target is to tell developers what versions they have to support / don’t have to support, then putting it under a newly-created “developer documentation” section would probably make the most sense.
+>
+> I think I’d go with the latter, if you’re OK with it.
+
+I don't think this page is applicable to downstreams.  They've already
+got packages and have figured out their own support.
+
+This is purely a statement of what we (upstream) expect/check, which
+will inform developers wishing to work on master.
+
+>
+>
+>>>    glossary
+>>> diff --git a/docs/policies/dependency-versions.rst b/docs/policies/dependency-versions.rst
+>>> new file mode 100644
+>>> index 0000000000..d5eeb848d8
+>>> --- /dev/null
+>>> +++ b/docs/policies/dependency-versions.rst
+>>> @@ -0,0 +1,76 @@
+>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>> +
+>>> +Build and runtime dependencies
+>>> +==============================
+>>> +
+>>> +Xen depends on other programs and libraries to build and to run.
+>>> +Chosing a minimum version of these tools to support requires a careful
+>>> +balance: Supporting older versions of these tools or libraries means
+>>> +that Xen can compile on a wider variety of systems; but means that Xen
+>>> +cannot take advantage of features available in newer versions.
+>>> +Conversely, requiring newer versions means that Xen can take advantage
+>>> +of newer features, but cannot work on as wide a variety of systems.
+>>> +
+>>> +Specific dependencies and versions for a given Xen release will be
+>>> +listed in the toplevel README, and/or specified by the ``configure``
+>>> +system.  This document lays out the principles by which those versions
+>>> +should be chosen.
+>>> +
+>>> +The general principle is this:
+>>> +
+>>> +    Xen should build on currently-supported versions of major distros
+>>> +    when released.
+>>> +
+>>> +"Currently-supported" means whatever that distro's version of "full
+>>> +support".  For instance, at the time of writing, CentOS 7 and 8 are
+>>> +listed as being given "Full Updates", but CentOS 6 is listed as
+>>> +"Maintenance updates"; under this criterium, we would try to ensure
+>>> +that Xen could build on CentOS 7 and 8, but not on CentOS 6.
+>>> +
+>>> +Exceptions for specific distros or tools may be made when appropriate.
+>>> +
+>>> +One exception to this is compiler versions for the hypervisor.
+>>> +Support for new instructions, and in particular support for new safety
+>>> +features, may require a newer compiler than many distros support.
+>>> +These will be specified in the README.
+>> The problem we have is that xen.git contains two very different things.
+>> There is the hypervisor itself, which is embedded, and can easily be
+>> cross compiled, and there is the content of tools/ which depends on a
+>> lot of distro infrastructure.
+>>
+>> We expect tools/ to work in any supported distro, without having to do
+>> weird toolchain gymnastics.
+>>
+>> For xen/ at the moment we have a very obsolete toolchain requirements,
+>> and this is holding us back in some areas.  We're looking to bring that
+>> forward, and may consider that being newer than some of the old distros
+>> is necessary.
+>>
+>> At the moment however, we have quite a lot of functionality which is
+>> dependent on being able to detect suitable toolchain.  GCOV and CET-SS
+>> are examples.  These features will turn themselves off in older distros,
+>> so while you can "build" Xen that far back, you might not get everything.
+>>
+>> For CET in particular, there is no feasible way to support it on older
+>> toolchains.  (unless someone comes up with an extremely convincing way
+>> of hand-crafting memory operands using raw .byte's in inline assembler.)
+>>
+>> I definitely don't think it is unreasonable for us to require the use of
+>> (potentially) bleeding edge toolchains if they want to use (potentially)
+>> bleeding edge features.  CET-SS isn't bleeding edge any more, but
+>> CET-IBT is due to the additional linker work required to make it
+>> function.  A future one which we need to do something about is Control
+>> Flow Integrity, which is Clang specific, depends on LTO, and caused
+>> Linux to up their minimum supported version to 10.0.1 which was when all
+>> the bugfixes got merged.
+> You seem to be explaining why I wrote this paragraph.  Did you have any specific changes you wanted to make? :-)
+
+I don't think the paragraph as written gets this point across.
+
+Even from the first sentence, Xen (the hypervisor) doesn't depend on
+external libraries, whereas Xen (the content of xen.git) does.
+
+>
+>>> +
+>>> +Distros we consider when deciding minimum versions
+>>> +--------------------------------------------------
+>>> +
+>>> +We currently aim to support Xen building and running on the following distributions:
+>>> +Debian_,
+>>> +Ubuntu_,
+>>> +OpenSUSE_,
+>>> +Arch Linux,
+>> No link for Arch?
+> The link points to the page describing the release lifecycles; Arch doesn’t really have that concept (as noted in the next section).
+>
+> I could make it so that links to the release lifecycle page is in the table below instead.
+>
+>>> +SLES_,
+>>> +Yocto_,
+>>> +CentOS_,
+>>> +and RHEL_.
+>>> +
+>>> +.. _Debian: https://www.debian.org/releases/
+>>> +.. _Ubuntu: https://wiki.ubuntu.com/Releases
+>>> +.. _OpenSUSE: https://en.opensuse.org/Lifetime
+>>> +.. _SLES: https://www.suse.com/lifecycle/
+>>> +.. _Yocto: https://wiki.yoctoproject.org/wiki/Releases
+>>> +.. _CentOS: https://wiki.centos.org/About/Product
+>>> +.. _RHEL: https://access.redhat.com/support/policy/updates/errata
+>>> +
+>>> +Specific distro versions supported in this release
+>>> +--------------------------------------------------
+>>> +
+>>> +======== ==================
+>>> +Distro   Supported releases
+>>> +======== ==================
+>>> +Debian   10 (Buster)
+>>> +Ubuntu   20.10 (Groovy Gorilla), 20.04 (Focal Fossa), 18.04 (Bionic Beaver), 16.04 (Xenial Xerus)
+>>> +OpenSUSE Leap 15.2
+>>> +SLES     SLES 11, 12, 15
+>>> +Yocto    3.1 (Dunfell)
+>>> +CentOS   8
+>>> +RHEL     8
+>>> +======== ==================
+>> How about a 3rd column for "supported until" ?  It would stop this page
+>> becoming stale simply over time.
+> If we did that, it would make the table longer, as we’d have a separate row for each distro release rather than each distro.
+>
+> The release manager needs to look at this table before the release; for that they’ll have to go to the release lifecycle page of the various distros anyway, to pick up new versions of the distro.  So I don’t think having the date here adds that much.
+
+Irrespective of the content of the table, I'd recommend Sphinx's
+list-table construct (see the example
+docs/guest-guide/x86/hypercall-abi.rst).  This is deliberately more
+amenable to diffing when changes are made.
+
+Also I need to refresh one of my patches to add another extension for
+hyperlinks.
+
+
+The table on its own isn't terribly helpful, and will go stale.  The
+point of adding a 3rd column is so people don't have to click through
+onto every distro page to find out whether the content of this page is
+still correct.
+
+I'd also recommend merging the hyperlinks into the first column of the
+table as a more obvious place to have the links, rather than in a line
+of text.
+
+~Andrew
 
