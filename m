@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C98A28339A
+	by mail.lfdr.de (Postfix) with ESMTPS id 5836F283398
 	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 11:49:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2946.8427 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.2945.8416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPN7L-0000bT-Pa; Mon, 05 Oct 2020 09:49:15 +0000
+	id 1kPN7K-0000ab-Gh; Mon, 05 Oct 2020 09:49:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2946.8427; Mon, 05 Oct 2020 09:49:15 +0000
+Received: by outflank-mailman (output) from mailman id 2945.8416; Mon, 05 Oct 2020 09:49:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,119 +23,133 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPN7L-0000b4-MB; Mon, 05 Oct 2020 09:49:15 +0000
-Received: by outflank-mailman (input) for mailman id 2946;
- Mon, 05 Oct 2020 09:49:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kPN7K-0000aC-DN; Mon, 05 Oct 2020 09:49:14 +0000
+Received: by outflank-mailman (input) for mailman id 2945;
+ Mon, 05 Oct 2020 09:49:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GPX8=DM=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1kPN7J-0000a7-FF
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:49:13 +0000
+ id 1kPN7I-0000a2-9z
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:49:12 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 455f9f3a-be08-41d9-971d-d689238c76cc;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d5ee281d-a4a4-454e-8da2-b8c551704b45;
  Mon, 05 Oct 2020 09:49:11 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kPN7E-00018P-J6; Mon, 05 Oct 2020 09:49:08 +0000
+ id 1kPN7F-00018R-FE; Mon, 05 Oct 2020 09:49:09 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com
  ([109.146.187.185] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kPN7E-0007gW-5C; Mon, 05 Oct 2020 09:49:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ id 1kPN7F-0007gW-5T; Mon, 05 Oct 2020 09:49:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=GPX8=DM=xen.org=paul@srs-us1.protection.inumbo.net>)
-	id 1kPN7J-0000a7-FF
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:49:13 +0000
-X-Inumbo-ID: 455f9f3a-be08-41d9-971d-d689238c76cc
+	id 1kPN7I-0000a2-9z
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:49:12 +0000
+X-Inumbo-ID: d5ee281d-a4a4-454e-8da2-b8c551704b45
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 455f9f3a-be08-41d9-971d-d689238c76cc;
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id d5ee281d-a4a4-454e-8da2-b8c551704b45;
 	Mon, 05 Oct 2020 09:49:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=CY7G9pKcwkwHIqeom2cVCCCQbNB2Y8JOhpahS3c7oEw=; b=WEJhJ+M1fiy15yd9f7A4qUUk0q
-	YGDPj8j3pEZ2vAz4QEjmZGRyF1L7S8iWjhUiEEIu+vdhG9ye7pUu0vh3nKBlmvkpc/QVDcmOYd7h5
-	hDbwzIIBO+KXBXP9ihFuZIAaSjZ9I+pG1pNGhMrw8FaRzyvcdmWf4INHQGO2pyppF2f0=;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=JndE2IT1FR1VzwIIZT6xeGdSTmev8bp7YBG/Bt30IPQ=; b=LHvT0/yKr0tJ+uY0azfHrBacfx
+	T6bE7maz3Yo3mUsnUWLpLBpdZo8zOS9ZHmdAHl7kQsCRCxn5DAr60IRnS339n+uMzBKrN6ejqkkpV
+	4TTPt5FCqCuCR8jUHZ9c5gkaiwd0rQj4rNdkacPLNpoDo33IF77b2PeMVCChiWcHd71c=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kPN7E-00018P-J6; Mon, 05 Oct 2020 09:49:08 +0000
+	id 1kPN7F-00018R-FE; Mon, 05 Oct 2020 09:49:09 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com ([109.146.187.185] helo=u2f063a87eabd5f.home)
 	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kPN7E-0007gW-5C; Mon, 05 Oct 2020 09:49:08 +0000
+	id 1kPN7F-0007gW-5T; Mon, 05 Oct 2020 09:49:09 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 0/5] iommu page-table memory pool
-Date: Mon,  5 Oct 2020 10:49:00 +0100
-Message-Id: <20201005094905.2929-1-paul@xen.org>
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH 1/5] libxl: remove separate calculation of IOMMU memory overhead
+Date: Mon,  5 Oct 2020 10:49:01 +0100
+Message-Id: <20201005094905.2929-2-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201005094905.2929-1-paul@xen.org>
+References: <20201005094905.2929-1-paul@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-This series introduces a pool of memory analogous to the shadow/HAP pool,
-accounted to the guest domain, from which IOMMU page-tables are allocated.
+When using 'shared_pt' mode the IOMMU is using the EPT PTEs. In 'sync_pt'
+mode these PTEs are instead replicated for the IOMMU to use. Hence, it is
+fairly clear that the memory overhead in this mode is essentially another
+copy of the P2M.
 
-Paul Durrant (5):
-  libxl: remove separate calculation of IOMMU memory overhead
-  iommu / domctl: introduce XEN_DOMCTL_iommu_ctl
-  libxl / iommu / domctl: introduce XEN_DOMCTL_IOMMU_SET_ALLOCATION...
-  iommu: set 'hap_pt_share' and 'need_sync' flags earlier in
-    iommu_domain_init()
-  x86 / iommu: create a dedicated pool of page-table pages
+This patch removes the independent calculation done in
+libxl__get_required_iommu_memory() and instead simply uses 'shadow_memkb'
+as the value of the IOMMU overhead since this is the estimated size of
+the P2M.
 
- tools/flask/policy/modules/dom0.te    |   2 +
- tools/libs/ctrl/include/xenctrl.h     |   5 +
- tools/libs/ctrl/xc_domain.c           |  16 ++++
- tools/libs/light/libxl_create.c       |  22 +----
- tools/libs/light/libxl_x86.c          |  10 ++
- xen/arch/x86/domain.c                 |   4 +-
- xen/drivers/passthrough/iommu.c       |  63 +++++++++---
- xen/drivers/passthrough/x86/iommu.c   | 132 ++++++++++++++++++++++----
- xen/include/asm-arm/iommu.h           |   6 ++
- xen/include/asm-x86/iommu.h           |   7 +-
- xen/include/public/domctl.h           |  22 +++++
- xen/include/xsm/dummy.h               |  17 +++-
- xen/include/xsm/xsm.h                 |  26 +++--
- xen/xsm/dummy.c                       |   6 +-
- xen/xsm/flask/hooks.c                 |  26 +++--
- xen/xsm/flask/policy/access_vectors   |   7 ++
- xen/xsm/flask/policy/security_classes |   1 +
- 17 files changed, 300 insertions(+), 72 deletions(-)
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Cc: George Dunlap <george.dunlap@citrix.com>
 Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: Wei Liu <wl@xen.org>
+Cc: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/libs/light/libxl_create.c | 22 +++++-----------------
+ 1 file changed, 5 insertions(+), 17 deletions(-)
+
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 9a6e92b3a5..f07ba84850 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1001,21 +1001,6 @@ static bool ok_to_default_memkb_in_create(libxl__gc *gc)
+      */
+ }
+ 
+-static unsigned long libxl__get_required_iommu_memory(unsigned long maxmem_kb)
+-{
+-    unsigned long iommu_pages = 0, mem_pages = maxmem_kb / 4;
+-    unsigned int level;
+-
+-    /* Assume a 4 level page table with 512 entries per level */
+-    for (level = 0; level < 4; level++)
+-    {
+-        mem_pages = DIV_ROUNDUP(mem_pages, 512);
+-        iommu_pages += mem_pages;
+-    }
+-
+-    return iommu_pages * 4;
+-}
+-
+ int libxl__domain_config_setdefault(libxl__gc *gc,
+                                     libxl_domain_config *d_config,
+                                     uint32_t domid /* for logging, only */)
+@@ -1168,12 +1153,15 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
+             libxl_get_required_shadow_memory(d_config->b_info.max_memkb,
+                                              d_config->b_info.max_vcpus);
+ 
+-    /* No IOMMU reservation is needed if passthrough mode is not 'sync_pt' */
++    /* No IOMMU reservation is needed if passthrough mode is not 'sync_pt'
++     * otherwise we need a reservation sufficient to accommodate a copy of
++     * the P2M.
++     */
+     if (d_config->b_info.iommu_memkb == LIBXL_MEMKB_DEFAULT
+         && ok_to_default_memkb_in_create(gc))
+         d_config->b_info.iommu_memkb =
+             (d_config->c_info.passthrough == LIBXL_PASSTHROUGH_SYNC_PT)
+-            ? libxl__get_required_iommu_memory(d_config->b_info.max_memkb)
++            ? d_config->b_info.shadow_memkb
+             : 0;
+ 
+     ret = libxl__domain_build_info_setdefault(gc, &d_config->b_info);
 -- 
 2.20.1
 
