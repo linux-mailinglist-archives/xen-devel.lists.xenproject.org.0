@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875D72832D9
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 11:13:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2902.8273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD9D2832DA
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 11:13:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2903.8285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPMXW-0005Ap-UR; Mon, 05 Oct 2020 09:12:14 +0000
+	id 1kPMXz-0005GA-8B; Mon, 05 Oct 2020 09:12:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2902.8273; Mon, 05 Oct 2020 09:12:14 +0000
+Received: by outflank-mailman (output) from mailman id 2903.8285; Mon, 05 Oct 2020 09:12:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,190 +23,192 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPMXW-0005AQ-R7; Mon, 05 Oct 2020 09:12:14 +0000
-Received: by outflank-mailman (input) for mailman id 2902;
- Mon, 05 Oct 2020 09:12:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kPMXV-0005AJ-4p
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:12:13 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 9caff9b9-20c3-4021-9615-d50571bb0b5a;
- Mon, 05 Oct 2020 09:12:12 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-259-YxpvOLN6NPWKnYXBtXMdiw-1; Mon, 05 Oct 2020 05:12:08 -0400
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC8451084D94;
- Mon,  5 Oct 2020 09:11:15 +0000 (UTC)
-Received: from [10.36.114.222] (ovpn-114-222.ams2.redhat.com [10.36.114.222])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2F0E060BFA;
- Mon,  5 Oct 2020 09:11:08 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kPMXz-0005Fo-4A; Mon, 05 Oct 2020 09:12:43 +0000
+Received: by outflank-mailman (input) for mailman id 2903;
+ Mon, 05 Oct 2020 09:12:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vcsX=DM=epam.com=prvs=85474143a1=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1kPMXx-0005FZ-8c
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:12:41 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 851728b0-46e4-46fe-a50a-dc65a2d327ae;
+ Mon, 05 Oct 2020 09:12:38 +0000 (UTC)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09595GJv023244; Mon, 5 Oct 2020 09:12:35 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2058.outbound.protection.outlook.com [104.47.12.58])
+ by mx0a-0039f301.pphosted.com with ESMTP id 33xjp5uvvg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 05 Oct 2020 09:12:35 +0000
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com (2603:10a6:800:17e::20)
+ by VI1PR03MB4847.eurprd03.prod.outlook.com (2603:10a6:803:bb::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Mon, 5 Oct
+ 2020 09:12:32 +0000
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0]) by VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0%4]) with mapi id 15.20.3433.043; Mon, 5 Oct 2020
+ 09:12:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
-	id 1kPMXV-0005AJ-4p
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:12:13 +0000
-X-Inumbo-ID: 9caff9b9-20c3-4021-9615-d50571bb0b5a
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 9caff9b9-20c3-4021-9615-d50571bb0b5a;
-	Mon, 05 Oct 2020 09:12:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601889132;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NXwve0WxqZeoBW32EWOjz60HzfWSOgOTQAftpXofwqM=;
-	b=Vz8KQleqFOYNvn6hQ2AJdms3vAdVE/U0Mxxp8Z8TAXOM5CM+X6ml2VypAWvLN8aA1ZA3lc
-	JabO7yxnWq3K6NazVxvjZnzJ+LIECL69YhguASJqcOwWUIc8Sw1YrjnvyQOi06TzqnzYcr
-	oMim0zQrtq62EKlPMn2jFZiAZYJUkfw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-259-YxpvOLN6NPWKnYXBtXMdiw-1; Mon, 05 Oct 2020 05:12:08 -0400
-X-MC-Unique: YxpvOLN6NPWKnYXBtXMdiw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC8451084D94;
-	Mon,  5 Oct 2020 09:11:15 +0000 (UTC)
-Received: from [10.36.114.222] (ovpn-114-222.ams2.redhat.com [10.36.114.222])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F0E060BFA;
-	Mon,  5 Oct 2020 09:11:08 +0000 (UTC)
-Subject: Re: [PATCH v1 3/5] mm/page_alloc: always move pages to the tail of
- the freelist in unset_migratetype_isolate()
-To: Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@suse.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-hyperv@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
- <osalvador@suse.de>, Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- Dave Hansen <dave.hansen@intel.com>,
- Wei Yang <richard.weiyang@linux.alibaba.com>, Mike Rapoport
- <rppt@kernel.org>, Scott Cheloha <cheloha@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>
-References: <20200928182110.7050-1-david@redhat.com>
- <20200928182110.7050-4-david@redhat.com>
- <20201002132404.GI4555@dhcp22.suse.cz>
- <df0c45bf-223f-1f0b-ce3d-f2b2e05626bd@redhat.com>
- <20201005065648.GO4555@dhcp22.suse.cz>
- <20201005082049.GI3227@techsingularity.net>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat GmbH
-Message-ID: <d466322e-054c-9303-5eb3-833dce410651@redhat.com>
-Date: Mon, 5 Oct 2020 11:11:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <20201005082049.GI3227@techsingularity.net>
-Content-Type: text/plain; charset=iso-8859-15
+	(envelope-from <SRS0=vcsX=DM=epam.com=prvs=85474143a1=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+	id 1kPMXx-0005FZ-8c
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 09:12:41 +0000
+X-Inumbo-ID: 851728b0-46e4-46fe-a50a-dc65a2d327ae
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 851728b0-46e4-46fe-a50a-dc65a2d327ae;
+	Mon, 05 Oct 2020 09:12:38 +0000 (UTC)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+	by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 09595GJv023244;
+	Mon, 5 Oct 2020 09:12:35 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com (mail-db3eur04lp2058.outbound.protection.outlook.com [104.47.12.58])
+	by mx0a-0039f301.pphosted.com with ESMTP id 33xjp5uvvg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2020 09:12:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dxFwJSIKbHI5On33/5odsW1RgwsLb3Z+kwLGSlvn18dpWN3dWekVpAjv1IBzdMjPPCpMs5GirIxeQ705yCThy0svh1FGwZg9hgcScJZ28zZ6zlMx5vx7V2gvNV/4lmHflPvDUeFegPUNERCHkHfY9qNvEaKT0urUQDViHoCZ3/DIY6Cw4qkJRSBB/eO2wImniyf31vTjQy6a0DLiCaZojndIlGqAzBZTXMc412AuZd7q4LBs7dTRCXRaZFtxPscIVKRMDqxnDMFR7+amv/f0FYKWj7NICSYo+3uP5IL14YXQ/c3NONe6L8qsNzoIADm+vnL/zx/+YdbrvzTd5uQb7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QoxAd8gi+GZNq9Lcq2t5WvdxqX9WQ9ewfqYfmUe3/Mg=;
+ b=BZuvlwsunZenyl8uEQd3PxNATQhW+5NoxKiCei6xT4HNkYr+dBLMrY4mS51mtxI0mxanRE12krxmuBckspRPHRG3QsmMB+/tzF4YJTONcpFYJiLNFpTEF48/wpcpKLTz8/1KBkRa+LJxHE2+5IAUUHI8bfhOI2o7XEOA9HRQjw/T18wnmpW+T/ofuv8uicysdpz1gecb5Tt60ms+Eg8YZ634yVARfeqsZuJSuPtyjLKXok0fCRvW3vWsyxsFomvoYo9i2sYwETpsMkS/dgpg3FHhKcmRIJEk2OUfLRReOdLcX1RN6lo3PVwSW8GBi6bqV6VsqFS3DRheFijWWljLDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QoxAd8gi+GZNq9Lcq2t5WvdxqX9WQ9ewfqYfmUe3/Mg=;
+ b=b22kCCOkLOSCyXq0tCq/K7cvt3R2eLRnhicT6DECqIrPlQ4DCAnop25MnBja9a1J3mqpMZ+oePrlp4NrXwqmOs9yH059MSgWmuYHVRyl5qXXcHbKA42bOYKfeVUp9V/fCreSNkPo15FVIc7FmQ4HZ8bvL31QpXmZA2twiC6XrA4+n9B2pvb8loU1tdLEGYxS74Pt9eB49tTh9IsPVyuEM0BrAoHSEyFDJbne5IOHo+OkUxHwxz/kgK4pNsOL47TAukFq+Jutw8kKg2ZWDFl88QCnRvj+AZabaKemCkY1GU1QOzoLU6zVxnPUtM7UuYwYzdFawpLsUdTpg0RcURxclQ==
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com (2603:10a6:800:17e::20)
+ by VI1PR03MB4847.eurprd03.prod.outlook.com (2603:10a6:803:bb::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Mon, 5 Oct
+ 2020 09:12:32 +0000
+Received: from VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0]) by VI1PR03MB6400.eurprd03.prod.outlook.com
+ ([fe80::71d4:858b:cc47:7da0%4]) with mapi id 15.20.3433.043; Mon, 5 Oct 2020
+ 09:12:32 +0000
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>,
+        Julien Grall <julien@xen.org>
+CC: "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm: optee: don't print warning about "wrong" RPC buffer
+Thread-Topic: [PATCH] arm: optee: don't print warning about "wrong" RPC buffer
+Thread-Index: AQHWmveoJ/DTTDqDgE+9I2W9l7TFKg==
+Date: Mon, 5 Oct 2020 09:12:32 +0000
+Message-ID: <20201005091212.186934-1-volodymyr_babchuk@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c0ef2115-fa02-446d-61dd-08d8690ecab4
+x-ms-traffictypediagnostic: VI1PR03MB4847:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: 
+ <VI1PR03MB4847247E34BE2B423D378C51E60C0@VI1PR03MB4847.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Wq5JTLAzaUCyzWTIK3VmAWaRLSimcljm8mQFqnEzZOeYZL/fn4w9NY1NA0xfnUDc03+0RzZamvpCtmLa2PhHS5wwPfzHeLZmqV5QlVA2qhanuwmO81RSR0WV/vUVxT6TNANQS6Pz5UxY/4d4/YdnMrD7/whl78abgY3AjMi4M1IBL1nlF2nw+a2yT6VgXNpdYOwn8NJ4AlvEo72u8yUX33T8CV5FRQAU0mMrmy3H2rRXnVIPMIKPzc/Jz9T39NViwx0+WIQcX/bvz52dLUy2KkBQfEVUzCa0166dazdrSZDOHAqzneNKQ+/sfm81vWSqs/3kJdQQF9WpZimexC4W0w==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB6400.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(39850400004)(376002)(396003)(136003)(346002)(6512007)(478600001)(107886003)(8676002)(2906002)(4326008)(83380400001)(26005)(8936002)(76116006)(5660300002)(316002)(54906003)(36756003)(71200400001)(110136005)(66446008)(64756008)(86362001)(6486002)(91956017)(6506007)(55236004)(66476007)(66946007)(1076003)(186003)(2616005)(66556008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: 
+ H8hp6AX6W847xNUKd9xpQozoVhucOq1LfOt2Rhh1L5DYgunV8xS0BTnimQht3sguG7qNUglky6pGVMochgUdKvPW/eXr36p0kh5Vi33D+RHOxTFyCmgxQjJR/e9qlWzQ2yJ66Db+Kr1N6Vb/1+yZihkUOfn5gwU7SGMVACAqHGFjgyP4Bt69axUErsiwz1AS7fZgYI4HhEPNZLmw88gHyhjvoa+EGFvHUd5QvPiISpycTRRzdS8LJFzK1jkSl5wdiZvwoH2wZZMXQsACOsJLj3uSKJItKjr/WLvHbHNQluC7m1uI6ql3uhaGM1rjqotwa8GwA/0KNqJksFJppCM0priE/Xx+a/D8V3+FaPByQWOVZvzOjHj6TN9wAzCJy2Af/T09dHqN6QE6iv9YumM7WV9cr8u9SxYdM33d/ISPFQGo4Y+tMgnWZEpuCsFosOlo7hwKZd4yTg7ebEgwA9M06J5CRr93NdwSu3Rd5inuJ4sgvhvQMKlnuzeX9ixNiNg6gB7pVJwaeV62PzMnyV4mxJA6FzHasookwP+shxw4Ai3Tivwjg7AglZI72uSnvwSEOSZn7QXzDbN762UOBYPMAaOOjbok9NoiGf0I2k8iAA127jSh7VQM3K/oeNyPbI0qUJPV+xPiY/XzeP8GfNX5sw==
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB6400.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0ef2115-fa02-446d-61dd-08d8690ecab4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2020 09:12:32.3147
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ksyOC71X2v+cSGO/5Jp3/JqA4yUUhb7TkrsDtr0rqieWja+UhnGHdP4YMLSsdee1XTgw2bbIn69241OX1X790/tG87dwjQtlQd/F48PaUQ4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB4847
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235,18.0.687
+ definitions=2020-10-05_06:2020-10-02,2020-10-05 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0
+ priorityscore=1501 spamscore=0 mlxlogscore=999 malwarescore=0
+ lowpriorityscore=0 mlxscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ impostorscore=0 clxscore=1011 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2006250000 definitions=main-2010050069
 
-On 05.10.20 10:20, Mel Gorman wrote:
-> On Mon, Oct 05, 2020 at 08:56:48AM +0200, Michal Hocko wrote:
->> On Fri 02-10-20 17:20:09, David Hildenbrand wrote:
->>> On 02.10.20 15:24, Michal Hocko wrote:
->>>> On Mon 28-09-20 20:21:08, David Hildenbrand wrote:
->>>>> Page isolation doesn't actually touch the pages, it simply isolates
->>>>> pageblocks and moves all free pages to the MIGRATE_ISOLATE freelist.
->>>>>
->>>>> We already place pages to the tail of the freelists when undoing
->>>>> isolation via __putback_isolated_page(), let's do it in any case
->>>>> (e.g., if order <= pageblock_order) and document the behavior.
->>>>>
->>>>> Add a "to_tail" parameter to move_freepages_block() but introduce a
->>>>> a new move_to_free_list_tail() - similar to add_to_free_list_tail().
->>>>>
->>>>> This change results in all pages getting onlined via online_pages() to
->>>>> be placed to the tail of the freelist.
->>>>
->>>> Is there anything preventing to do this unconditionally? Or in other
->>>> words is any of the existing callers of move_freepages_block benefiting
->>>> from adding to the head?
->>>
->>> 1. mm/page_isolation.c:set_migratetype_isolate()
->>>
->>> We move stuff to the MIGRATE_ISOLATE list, we don't care about the order
->>> there.
->>>
->>> 2. steal_suitable_fallback():
->>>
->>> I don't think we care too much about the order when already stealing
->>> pageblocks ... and the freelist is empty I guess?
->>>
->>> 3. reserve_highatomic_pageblock()/unreserve_highatomic_pageblock()
->>>
->>> Not sure if we really care.
->>
->> Honestly, I have no idea. I can imagine that some atomic high order
->> workloads (e.g. in net) might benefit from cache line hot pages but I am
->> not sure this is really observable.
-> 
-> The highatomic reserve is more concerned that about the allocation
-> succeeding than it is about cache hotness.
-> 
+OP-TEE mediator tracks cookie value for a last buffer which
+was requested by OP-TEE. This tracked value serves one important
+purpose: if OP-TEE wants to request another buffer, we know
+that it finished importing previous one and we can free page list
+associated with it.
 
-Thanks Mel and Michal. I'll simplify this patch then - and if it turns
-out to be an actual problem, we can change that one instance, adding a
-proper comment.
+Also, we had false premise that OP_TEE will free requested buffers in
+reversed order. So we checked rpc_data_cookie during handling
+OPTEE_RPC_CMD_SHM_FREE call and printed warning if cookie of buffer
+which is requested to be freed differs from last allocated one.
 
-Thanks!
+During testing RPMB FS services I discovered, that RPMB code frees
+request and response buffers in the same order is it allocated
+them. And this is perfectly fine, actually.
 
--- 
-Thanks,
+So, we are removing mentioned warning message in Xen, as it is
+perfectly normal to free buffers in arbitrary order.
 
-David / dhildenb
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+---
+ xen/arch/arm/tee/optee.c | 20 +-------------------
+ 1 file changed, 1 insertion(+), 19 deletions(-)
 
+diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+index 8a39fe33b0..ee85359742 100644
+--- a/xen/arch/arm/tee/optee.c
++++ b/xen/arch/arm/tee/optee.c
+@@ -1127,25 +1127,7 @@ static int handle_rpc_return(struct optee_domain *ct=
+x,
+          */
+         if ( shm_rpc->xen_arg->cmd =3D=3D OPTEE_RPC_CMD_SHM_FREE )
+         {
+-            uint64_t cookie =3D shm_rpc->xen_arg->params[0].u.value.b;
+-
+-            free_optee_shm_buf(ctx, cookie);
+-
+-            /*
+-             * OP-TEE asks to free the buffer, but this is not the same
+-             * buffer we previously allocated for it. While nothing
+-             * prevents OP-TEE from asking this, it is the strange
+-             * situation. This may or may not be caused by a bug in
+-             * OP-TEE or mediator. But is better to print warning.
+-             */
+-            if ( call->rpc_data_cookie && call->rpc_data_cookie !=3D cooki=
+e )
+-            {
+-                gprintk(XENLOG_ERR,
+-                        "Saved RPC cookie does not corresponds to OP-TEE's=
+ (%"PRIx64" !=3D %"PRIx64")\n",
+-                        call->rpc_data_cookie, cookie);
+-
+-                WARN();
+-            }
++            free_optee_shm_buf(ctx, shm_rpc->xen_arg->params[0].u.value.b)=
+;
+             call->rpc_data_cookie =3D 0;
+         }
+         unmap_domain_page(shm_rpc->xen_arg);
+--=20
+2.27.0
 
