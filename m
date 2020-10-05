@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558052835A2
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 14:16:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2995.8621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AE612835C1
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 14:24:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3003.8634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPPQC-00078v-Ui; Mon, 05 Oct 2020 12:16:52 +0000
+	id 1kPPWy-0008D3-MP; Mon, 05 Oct 2020 12:23:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2995.8621; Mon, 05 Oct 2020 12:16:52 +0000
+Received: by outflank-mailman (output) from mailman id 3003.8634; Mon, 05 Oct 2020 12:23:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,137 +23,114 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPPQC-00078J-QU; Mon, 05 Oct 2020 12:16:52 +0000
-Received: by outflank-mailman (input) for mailman id 2995;
- Mon, 05 Oct 2020 12:16:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1kPPQA-00077V-Ii
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:16:50 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 131a8c6c-be8f-4871-85bd-6525d8b902ee;
- Mon, 05 Oct 2020 12:16:49 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-70-7gZGHkSGNu2LzffQTpddTg-1; Mon, 05 Oct 2020 08:16:45 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 887B4801AB1;
- Mon,  5 Oct 2020 12:16:43 +0000 (UTC)
-Received: from t480s.redhat.com (ovpn-114-222.ams2.redhat.com [10.36.114.222])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A40231A8EC;
- Mon,  5 Oct 2020 12:16:36 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kPPWy-0008Ce-Iw; Mon, 05 Oct 2020 12:23:52 +0000
+Received: by outflank-mailman (input) for mailman id 3003;
+ Mon, 05 Oct 2020 12:23:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kPPWx-0008CZ-F9
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:23:51 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 163ce370-4378-4584-b0e3-3a2dffed9886;
+ Mon, 05 Oct 2020 12:23:50 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
-	id 1kPPQA-00077V-Ii
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:16:50 +0000
-X-Inumbo-ID: 131a8c6c-be8f-4871-85bd-6525d8b902ee
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 131a8c6c-be8f-4871-85bd-6525d8b902ee;
-	Mon, 05 Oct 2020 12:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601900209;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0AsZOi2g9AlkyekUiDSDSjeyhdmKjvuUsI97IJKTuTs=;
-	b=ic+D7sC4ZfZuNEKbtQv8oeu8IIy37KaR3P49BBhgbeAb1izamQ96ydf5IN7P+HF2h0Yi1U
-	YpsIfSCyeKtKWPPL29HKNoM239QISArroBWsyMHU5JhCItKUPl3Hw3rNckzGdnZF7+01GW
-	w5rM/BsDliBg6j4nriLC1X00qZt5xRQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-70-7gZGHkSGNu2LzffQTpddTg-1; Mon, 05 Oct 2020 08:16:45 -0400
-X-MC-Unique: 7gZGHkSGNu2LzffQTpddTg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 887B4801AB1;
-	Mon,  5 Oct 2020 12:16:43 +0000 (UTC)
-Received: from t480s.redhat.com (ovpn-114-222.ams2.redhat.com [10.36.114.222])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A40231A8EC;
-	Mon,  5 Oct 2020 12:16:36 +0000 (UTC)
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org,
-	linux-hyperv@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	David Hildenbrand <david@redhat.com>,
-	Wei Yang <richard.weiyang@linux.alibaba.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@kernel.org>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Oscar Salvador <osalvador@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Subject: [PATCH v2 5/5] mm/memory_hotplug: update comment regarding zone shuffling
-Date: Mon,  5 Oct 2020 14:15:34 +0200
-Message-Id: <20201005121534.15649-6-david@redhat.com>
-In-Reply-To: <20201005121534.15649-1-david@redhat.com>
-References: <20201005121534.15649-1-david@redhat.com>
+	(envelope-from <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kPPWx-0008CZ-F9
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:23:51 +0000
+X-Inumbo-ID: 163ce370-4378-4584-b0e3-3a2dffed9886
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 163ce370-4378-4584-b0e3-3a2dffed9886;
+	Mon, 05 Oct 2020 12:23:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1601900630;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=cHQjS2YzfY3hmqPMISaok0cpm0uhyxwRBIJfBGmxJsw=;
+  b=BCfGzguTV3l5y/oSklJ12c+Ygs1iJ6L+HpEWABT4PIeXACOeawZwtMi3
+   o3ZHaAI/w9L60i3bDFEpH7QruUo1LktQWciIQ/kdeB+fZh72VqKohSp5J
+   3SroHXozak8eGhw9OO8qTdT+qBWNXuNUjS5GqaQ5pLcq6GjG9gVfv4tZ5
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: d2th30ZShL4DN5vYYRgtxC0Yv4Aax/X3IKRTgJq/QXY6dHdrsYq/yToTuvk/NA84G/66bBtsC8
+ tl/287QdgUalR1aWls71VQGtfxHJ7mwFCXh0Scmtp8HZkPqKpEPA2BlV9tAKxDRK9acNNna6bN
+ /xkjuScLwo4bQwwayH4nCo56OrCm4ZxU/yUIBGUkBfE6ncmr8cYsyN5vSSjmif78BAG4g75YGg
+ wQ/Z9f5t97PPqffNn5VTglr9nsJC5eFtKjQEi6qZuLSM4BoQA9H6YQt+HPYhvg+gJ80dNWpjdA
+ Un4=
+X-SBRS: None
+X-MesageID: 29301968
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,338,1596513600"; 
+   d="scan'208";a="29301968"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/smpboot: Unconditionally call memguard_unguard_stack() in cpu_smpboot_free()
+Date: Mon, 5 Oct 2020 13:23:25 +0100
+Message-ID: <20201005122325.17395-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 
-As we no longer shuffle via generic_online_page() and when undoing
-isolation, we can simplify the comment.
+For simplicity between various configuration, Xen always uses shadow stack
+mappings (Read-only + Dirty) for the guard page, irrespective of whether
+CET-SS is enabled.
 
-We now effectively shuffle only once (properly) when onlining new
-memory.
+memguard_guard_stack() writes shadow stack tokens with plain writes.  This is
+necessary to configure the BSP shadow stack correctly, and cannot be
+implemented with WRSS.
 
-Reviewed-by: Wei Yang <richard.weiyang@linux.alibaba.com>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Wei Yang <richard.weiyang@linux.alibaba.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Signed-off-by: David Hildenbrand <david@redhat.com>
+Therefore, unconditionally call memguard_unguard_stack() to return the
+mappings to fully writeable, so a subsequent call to memguard_guard_stack()
+will succeed.
+
+Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- mm/memory_hotplug.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 03a00cb68bf7..b44d4c7ba73b 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -858,13 +858,10 @@ int __ref online_pages(unsigned long pfn, unsigned long nr_pages,
- 	undo_isolate_page_range(pfn, pfn + nr_pages, MIGRATE_MOVABLE);
+This can more easily be demonstrated with CPU hotplug than S3, and the absence
+of bug reports goes to show how rarely hotplug is used.
+---
+ xen/arch/x86/smpboot.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index 5708573c41..c193cc0fb8 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -971,16 +971,16 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
+     if ( IS_ENABLED(CONFIG_PV32) )
+         FREE_XENHEAP_PAGE(per_cpu(compat_gdt, cpu));
  
- 	/*
--	 * When exposing larger, physically contiguous memory areas to the
--	 * buddy, shuffling in the buddy (when freeing onlined pages, putting
--	 * them either to the head or the tail of the freelist) is only helpful
--	 * for maintaining the shuffle, but not for creating the initial
--	 * shuffle. Shuffle the whole zone to make sure the just onlined pages
--	 * are properly distributed across the whole freelist. Make sure to
--	 * shuffle once pageblocks are no longer isolated.
-+	 * Freshly onlined pages aren't shuffled (e.g., all pages are placed to
-+	 * the tail of the freelist when undoing isolation). Shuffle the whole
-+	 * zone to make sure the just onlined pages are properly distributed
-+	 * across the whole freelist - to create an initial shuffle.
- 	 */
- 	shuffle_zone(zone);
++    if ( stack_base[cpu] )
++        memguard_unguard_stack(stack_base[cpu]);
++
+     if ( remove )
+     {
+         FREE_XENHEAP_PAGE(per_cpu(gdt, cpu));
+         FREE_XENHEAP_PAGE(idt_tables[cpu]);
+ 
+         if ( stack_base[cpu] )
+-        {
+-            memguard_unguard_stack(stack_base[cpu]);
+             FREE_XENHEAP_PAGES(stack_base[cpu], STACK_ORDER);
+-        }
+     }
+ }
  
 -- 
-2.26.2
+2.11.0
 
 
