@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC3DA2834A7
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 13:08:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.2972.8542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEB728359F
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Oct 2020 14:16:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.2990.8561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPOLg-0000O6-CG; Mon, 05 Oct 2020 11:08:08 +0000
+	id 1kPPPN-0006fr-9O; Mon, 05 Oct 2020 12:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 2972.8542; Mon, 05 Oct 2020 11:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 2990.8561; Mon, 05 Oct 2020 12:16:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,171 +23,275 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPOLg-0000Nh-8f; Mon, 05 Oct 2020 11:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 2972;
- Mon, 05 Oct 2020 11:08:07 +0000
+	id 1kPPPN-0006fS-6I; Mon, 05 Oct 2020 12:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 2990;
+ Mon, 05 Oct 2020 12:16:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kPOLf-0000Nc-69
- for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 11:08:07 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3fb8e2cf-4f88-4555-a609-829ab9b14a00;
- Mon, 05 Oct 2020 11:08:04 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1kPPPL-0006fN-OP
+ for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:16:00 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a9f24d00-0c45-465e-827f-79b04c7606f5;
+ Mon, 05 Oct 2020 12:15:58 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-587-BY-7UwbeNrSQH1yvi3bonA-1; Mon, 05 Oct 2020 08:15:54 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 110A38030CD;
+ Mon,  5 Oct 2020 12:15:51 +0000 (UTC)
+Received: from t480s.redhat.com (ovpn-114-222.ams2.redhat.com [10.36.114.222])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id ACE6D277C6;
+ Mon,  5 Oct 2020 12:15:36 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=sJhL=DM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kPOLf-0000Nc-69
-	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 11:08:07 +0000
-X-Inumbo-ID: 3fb8e2cf-4f88-4555-a609-829ab9b14a00
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3fb8e2cf-4f88-4555-a609-829ab9b14a00;
-	Mon, 05 Oct 2020 11:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1601896085;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=2oqGIF+RPbEV9LC+XbTk9RHebwJC93BbN0vGQTsrcug=;
-  b=Ij8yW9FGVHNuzj3uI3DlGEZ9Zn7sCh5i9NuEoza9ZenvSRYm7+5Vn01b
-   /1sayXeYnIFQXuE4VOTtxvw2jZc5lLp2XOWnA5MNN4YekOV2hDf8DgdQS
-   MvQV74EbhxFbekEnnnlGEUYDeqK8SwYSw7I0ap+bgI7rmGtYtb02ZiN5k
-   c=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: tM0DIien0snYoU20+2830JM6Bq02tA1Tah1giYqW/Wv9DcdcaYz+GbTMcy1wruIMq1REzzwVh6
- x6vfabkEzy5IPr/O8GUfnQBsIcwAHoEWooq2rta3eG2SX9zaUd6Dr3XvR1RYn0gtWJBu9n19O3
- it7spY0KtAlByKC1SpJDjPeF1udresv5M2069oHWPhCIdDxja7XbTw/rJZqDTkosTbOXpniCAW
- b5LpmAhdAxJzEXVmGVeyHIqcJEd0CBRuHefWSeGbJFd4axPHcOHP7BrbUDyxEnYluv4bxiWA9/
- zHs=
-X-SBRS: None
-X-MesageID: 28253952
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,338,1596513600"; 
-   d="scan'208";a="28253952"
-Subject: Re: [PATCH 7/8] x86/hvm: Drop restore boolean from
- hvm_cr4_guest_valid_bits()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
-	<JBeulich@suse.com>, Wei Liu <wl@xen.org>, Jun Nakajima
-	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-References: <20200930134248.4918-1-andrew.cooper3@citrix.com>
- <20200930134248.4918-8-andrew.cooper3@citrix.com>
- <20201001110003.GE19254@Air-de-Roger>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9c502782-0484-7939-0c97-fe12a94ea2a7@citrix.com>
-Date: Mon, 5 Oct 2020 12:07:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	(envelope-from <SRS0=c+yv=DM=redhat.com=david@srs-us1.protection.inumbo.net>)
+	id 1kPPPL-0006fN-OP
+	for xen-devel@lists.xenproject.org; Mon, 05 Oct 2020 12:16:00 +0000
+X-Inumbo-ID: a9f24d00-0c45-465e-827f-79b04c7606f5
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id a9f24d00-0c45-465e-827f-79b04c7606f5;
+	Mon, 05 Oct 2020 12:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1601900158;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KBX1TXpOrcsq29GpOBaph461kpBMaGykfCUU1aPiYHU=;
+	b=fvHmXnd/fhhhC3C85g5BFdrmIpJzZWl5CQY8AFLn5GsGl0KDJ3JJSe4R3ZvDt25eNjR9m5
+	xo8z6DUemt8FrHNcCRD5m8SUc+Mwt/J4VIvIrWXNXAGx2CNk1585qZjzFvUewNG6lU/qI9
+	K/+lR5RrkkZmAC3aPnEaNTgZhZOnKDQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-587-BY-7UwbeNrSQH1yvi3bonA-1; Mon, 05 Oct 2020 08:15:54 -0400
+X-MC-Unique: BY-7UwbeNrSQH1yvi3bonA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 110A38030CD;
+	Mon,  5 Oct 2020 12:15:51 +0000 (UTC)
+Received: from t480s.redhat.com (ovpn-114-222.ams2.redhat.com [10.36.114.222])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ACE6D277C6;
+	Mon,  5 Oct 2020 12:15:36 +0000 (UTC)
+From: David Hildenbrand <david@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org,
+	linux-hyperv@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	David Hildenbrand <david@redhat.com>,
+	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	Scott Cheloha <cheloha@linux.ibm.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Wei Liu <wei.liu@kernel.org>,
+	Wei Yang <richard.weiyang@linux.alibaba.com>
+Subject: [PATCH v2 0/5] mm: place pages to the freelist tail when onlining and undoing isolation
+Date: Mon,  5 Oct 2020 14:15:29 +0200
+Message-Id: <20201005121534.15649-1-david@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20201001110003.GE19254@Air-de-Roger>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 
-On 01/10/2020 12:00, Roger Pau Monné wrote:
-> On Wed, Sep 30, 2020 at 02:42:47PM +0100, Andrew Cooper wrote:
->> Previously, migration was reordered so the CPUID data was available before
->> register state.  nestedhvm_enabled() has recently been made accurate for the
->> entire lifetime of the domain.
->>
->> Therefore, we can drop the bodge in hvm_cr4_guest_valid_bits() which existed
->> previously to tolerate a guests' CR4 being set/restored before
->> HVM_PARAM_NESTEDHVM.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+When adding separate memory blocks via add_memory*() and onlining them
+immediately, the metadata (especially the memmap) of the next block will be
+placed onto one of the just added+onlined block. This creates a chain
+of unmovable allocations: If the last memory block cannot get
+offlined+removed() so will all dependent ones. We directly have unmovable
+allocations all over the place.
 
-Thanks,
+This can be observed quite easily using virtio-mem, however, it can also
+be observed when using DIMMs. The freshly onlined pages will usually be
+placed to the head of the freelists, meaning they will be allocated next,
+turning the just-added memory usually immediately un-removable. The
+fresh pages are cold, prefering to allocate others (that might be hot)
+also feels to be the natural thing to do.
 
->
-> Thanks, just one nit below.
->
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Jun Nakajima <jun.nakajima@intel.com>
->> CC: Kevin Tian <kevin.tian@intel.com>
->> ---
->>  xen/arch/x86/hvm/domain.c       | 2 +-
->>  xen/arch/x86/hvm/hvm.c          | 8 ++++----
->>  xen/arch/x86/hvm/svm/svmdebug.c | 6 ++++--
->>  xen/arch/x86/hvm/vmx/vmx.c      | 2 +-
->>  xen/arch/x86/hvm/vmx/vvmx.c     | 2 +-
->>  xen/include/asm-x86/hvm/hvm.h   | 2 +-
->>  6 files changed, 12 insertions(+), 10 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/domain.c b/xen/arch/x86/hvm/domain.c
->> index 8e3375265c..0ce132b308 100644
->> --- a/xen/arch/x86/hvm/domain.c
->> +++ b/xen/arch/x86/hvm/domain.c
->> @@ -275,7 +275,7 @@ int arch_set_info_hvm_guest(struct vcpu *v, const vcpu_hvm_context_t *ctx)
->>      if ( v->arch.hvm.guest_efer & EFER_LME )
->>          v->arch.hvm.guest_efer |= EFER_LMA;
->>  
->> -    if ( v->arch.hvm.guest_cr[4] & ~hvm_cr4_guest_valid_bits(d, false) )
->> +    if ( v->arch.hvm.guest_cr[4] & ~hvm_cr4_guest_valid_bits(d) )
->>      {
->>          gprintk(XENLOG_ERR, "Bad CR4 value: %#016lx\n",
->>                  v->arch.hvm.guest_cr[4]);
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index 101a739952..54e32e4fe8 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -972,14 +972,14 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
->>          X86_CR0_CD | X86_CR0_PG)))
->>  
->>  /* These bits in CR4 can be set by the guest. */
->> -unsigned long hvm_cr4_guest_valid_bits(const struct domain *d, bool restore)
->> +unsigned long hvm_cr4_guest_valid_bits(const struct domain *d)
->>  {
->>      const struct cpuid_policy *p = d->arch.cpuid;
->>      bool mce, vmxe;
->>  
->>      /* Logic broken out simply to aid readability below. */
->>      mce  = p->basic.mce || p->basic.mca;
->> -    vmxe = p->basic.vmx && (restore || nestedhvm_enabled(d));
->> +    vmxe = p->basic.vmx && nestedhvm_enabled(d);
->>  
->>      return ((p->basic.vme     ? X86_CR4_VME | X86_CR4_PVI : 0) |
->>              (p->basic.tsc     ? X86_CR4_TSD               : 0) |
->> @@ -1033,7 +1033,7 @@ static int hvm_load_cpu_ctxt(struct domain *d, hvm_domain_context_t *h)
->>          return -EINVAL;
->>      }
->>  
->> -    if ( ctxt.cr4 & ~hvm_cr4_guest_valid_bits(d, true) )
->> +    if ( ctxt.cr4 & ~hvm_cr4_guest_valid_bits(d) )
->>      {
->>          printk(XENLOG_G_ERR "HVM%d restore: bad CR4 %#" PRIx64 "\n",
->>                 d->domain_id, ctxt.cr4);
->> @@ -2425,7 +2425,7 @@ int hvm_set_cr4(unsigned long value, bool may_defer)
->>      struct vcpu *v = current;
->>      unsigned long old_cr;
->>  
->> -    if ( value & ~hvm_cr4_guest_valid_bits(v->domain, false) )
->> +    if ( value & ~hvm_cr4_guest_valid_bits(v->domain) )
->>      {
->>          HVM_DBG_LOG(DBG_LEVEL_1,
->>                      "Guest attempts to set reserved bit in CR4: %lx",
->> diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
->> index ba26b6a80b..f450391df4 100644
->> --- a/xen/arch/x86/hvm/svm/svmdebug.c
->> +++ b/xen/arch/x86/hvm/svm/svmdebug.c
->> @@ -106,6 +106,7 @@ bool svm_vmcb_isvalid(const char *from, const struct vmcb_struct *vmcb,
->>      unsigned long cr0 = vmcb_get_cr0(vmcb);
->>      unsigned long cr3 = vmcb_get_cr3(vmcb);
->>      unsigned long cr4 = vmcb_get_cr4(vmcb);
->> +    unsigned long valid;
-> Could you init valid here at definition time? Also cr4_valid might be
-> a better name since the sacope of the variable is quite wide.
+It also applies to the hyper-v balloon xen-balloon, and ppc64 dlpar: when
+adding separate, successive memory blocks, each memory block will have
+unmovable allocations on them - for example gigantic pages will fail to
+allocate.
 
-I have some further cleanup in mind, which is why I did it like this.
+While the ZONE_NORMAL doesn't provide any guarantees that memory can get
+offlined+removed again (any kind of fragmentation with unmovable
+allocations is possible), there are many scenarios (hotplugging a lot of
+memory, running workload, hotunplug some memory/as much as possible) where
+we can offline+remove quite a lot with this patchset.
 
-~Andrew
+a) To visualize the problem, a very simple example:
+
+Start a VM with 4GB and 8GB of virtio-mem memory:
+
+ [root@localhost ~]# lsmem
+ RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+ 0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+ 0x0000000100000000-0x000000033fffffff   9G online       yes 32-103
+
+ Memory block size:       128M
+ Total online memory:      12G
+ Total offline memory:      0B
+
+Then try to unplug as much as possible using virtio-mem. Observe which
+memory blocks are still around. Without this patch set:
+
+ [root@localhost ~]# lsmem
+ RANGE                                  SIZE  STATE REMOVABLE   BLOCK
+ 0x0000000000000000-0x00000000bfffffff    3G online       yes    0-23
+ 0x0000000100000000-0x000000013fffffff    1G online       yes   32-39
+ 0x0000000148000000-0x000000014fffffff  128M online       yes      41
+ 0x0000000158000000-0x000000015fffffff  128M online       yes      43
+ 0x0000000168000000-0x000000016fffffff  128M online       yes      45
+ 0x0000000178000000-0x000000017fffffff  128M online       yes      47
+ 0x0000000188000000-0x0000000197ffffff  256M online       yes   49-50
+ 0x00000001a0000000-0x00000001a7ffffff  128M online       yes      52
+ 0x00000001b0000000-0x00000001b7ffffff  128M online       yes      54
+ 0x00000001c0000000-0x00000001c7ffffff  128M online       yes      56
+ 0x00000001d0000000-0x00000001d7ffffff  128M online       yes      58
+ 0x00000001e0000000-0x00000001e7ffffff  128M online       yes      60
+ 0x00000001f0000000-0x00000001f7ffffff  128M online       yes      62
+ 0x0000000200000000-0x0000000207ffffff  128M online       yes      64
+ 0x0000000210000000-0x0000000217ffffff  128M online       yes      66
+ 0x0000000220000000-0x0000000227ffffff  128M online       yes      68
+ 0x0000000230000000-0x0000000237ffffff  128M online       yes      70
+ 0x0000000240000000-0x0000000247ffffff  128M online       yes      72
+ 0x0000000250000000-0x0000000257ffffff  128M online       yes      74
+ 0x0000000260000000-0x0000000267ffffff  128M online       yes      76
+ 0x0000000270000000-0x0000000277ffffff  128M online       yes      78
+ 0x0000000280000000-0x0000000287ffffff  128M online       yes      80
+ 0x0000000290000000-0x0000000297ffffff  128M online       yes      82
+ 0x00000002a0000000-0x00000002a7ffffff  128M online       yes      84
+ 0x00000002b0000000-0x00000002b7ffffff  128M online       yes      86
+ 0x00000002c0000000-0x00000002c7ffffff  128M online       yes      88
+ 0x00000002d0000000-0x00000002d7ffffff  128M online       yes      90
+ 0x00000002e0000000-0x00000002e7ffffff  128M online       yes      92
+ 0x00000002f0000000-0x00000002f7ffffff  128M online       yes      94
+ 0x0000000300000000-0x0000000307ffffff  128M online       yes      96
+ 0x0000000310000000-0x0000000317ffffff  128M online       yes      98
+ 0x0000000320000000-0x0000000327ffffff  128M online       yes     100
+ 0x0000000330000000-0x000000033fffffff  256M online       yes 102-103
+
+ Memory block size:       128M
+ Total online memory:     8.1G
+ Total offline memory:      0B
+
+With this patch set:
+
+ [root@localhost ~]# lsmem
+ RANGE                                 SIZE  STATE REMOVABLE BLOCK
+ 0x0000000000000000-0x00000000bfffffff   3G online       yes  0-23
+ 0x0000000100000000-0x000000013fffffff   1G online       yes 32-39
+
+ Memory block size:       128M
+ Total online memory:       4G
+ Total offline memory:      0B
+
+All memory can get unplugged, all memory block can get removed. Of course,
+no workload ran and the system was basically idle, but it highlights the
+issue - the fairly deterministic chain of unmovable allocations. When a
+huge page for the 2MB memmap is needed, a just-onlined 4MB page will
+be split. The remaining 2MB page will be used for the memmap of the next
+memory block. So one memory block will hold the memmap of the two following
+memory blocks. Finally the pages of the last-onlined memory block will get
+used for the next bigger allocations - if any allocation is unmovable,
+all dependent memory blocks cannot get unplugged and removed until that
+allocation is gone.
+
+Note that with bigger memory blocks (e.g., 256MB), *all* memory
+blocks are dependent and none can get unplugged again!
+
+b) Experiment with memory intensive workload
+
+I performed an experiment with an older version of this patch set
+(before we used undo_isolate_page_range() in online_pages():
+Hotplug 56GB to a VM with an initial 4GB, onlining all memory to
+ZONE_NORMAL right from the kernel when adding it. I then run various
+memory intensive workloads that consume most system memory for a total of
+45 minutes. Once finished, I try to unplug as much memory as possible.
+
+With this change, I am able to remove via virtio-mem (adding individual
+128MB memory blocks) 413 out of 448 added memory blocks. Via individual
+(256MB) DIMMs 380 out of 448 added memory blocks. (I don't have any numbers
+without this patchset, but looking at the above example, it's at most half
+of the 448 memory blocks for virtio-mem, and most probably none for DIMMs).
+
+Again, there are workloads that might behave very differently due to the
+nature of ZONE_NORMAL.
+
+This change also affects (besodes memory onlining):
+- Other users of undo_isolate_page_range(): Pages are always placed to the
+  tail.
+-- When memory offlining fails
+-- When memory isolation fails after having isolated some pageblocks
+-- When alloc_contig_range() either succeeds or fails
+- Other users of __putback_isolated_page(): Pages are always placed to the
+  tail.
+-- Free page reporting
+- Other users of __free_pages_core()
+-- AFAIKs, any memory that is getting exposed to the buddy during boot.
+   IIUC we will now usually allocate memory from lower addresses within
+   a zone first (especially during boot).
+- Other users of generic_online_page()
+-- Hyper-V balloon
+
+v1 -> v2:
+- Avoid changing indentation/alignment of function parameters
+- Minor spelling fixes
+- "mm/page_alloc: convert "report" flag of __free_one_page() to a proper
+   flag"
+-- fop_t -> fpi_t
+-- Clarify/extend documentation of FPI_SKIP_REPORT_NOTIFY
+- "mm/page_alloc: move pages to tail in move_to_free_list()"
+-- Perform change for all move_to_free_list()/move_freepages_block() users
+   to simplify.
+-- Adjust subject/description accordingly.
+- "mm/page_alloc: place pages to tail in __free_pages_core()"
+-- s/init_single_page/__init_single_page/
+
+RFC -> v1:
+- Tweak some patch descriptions
+- "mm/page_alloc: place pages to tail in __putback_isolated_page()"
+-- FOP_TO_TAIL now has higher precedence than page shuffling
+-- Add a note that nothing should rely on FOP_TO_TAIL for correctness
+- "mm/page_alloc: always move pages to the tail of the freelist in
+   unset_migratetype_isolate()"
+-- Use "bool" parameter for move_freepages_block() as requested
+- "mm/page_alloc: place pages to tail in __free_pages_core()"
+-- Eliminate set_page_refcounted() + page_ref_dec() and add a comment
+- "mm/memory_hotplug: update comment regarding zone shuffling"
+-- Added
+
+David Hildenbrand (5):
+  mm/page_alloc: convert "report" flag of __free_one_page() to a proper
+    flag
+  mm/page_alloc: place pages to tail in __putback_isolated_page()
+  mm/page_alloc: move pages to tail in move_to_free_list()
+  mm/page_alloc: place pages to tail in __free_pages_core()
+  mm/memory_hotplug: update comment regarding zone shuffling
+
+ mm/memory_hotplug.c | 11 +++---
+ mm/page_alloc.c     | 84 +++++++++++++++++++++++++++++++++++----------
+ mm/page_isolation.c |  5 +++
+ 3 files changed, 75 insertions(+), 25 deletions(-)
+
+-- 
+2.26.2
+
 
