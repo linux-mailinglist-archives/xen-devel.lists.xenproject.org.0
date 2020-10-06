@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3F7284894
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 10:27:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3142.9065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D30284A63
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 12:38:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3177.9179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPiJK-0005TL-VI; Tue, 06 Oct 2020 08:27:02 +0000
+	id 1kPkLE-000147-DN; Tue, 06 Oct 2020 10:37:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3142.9065; Tue, 06 Oct 2020 08:27:02 +0000
+Received: by outflank-mailman (output) from mailman id 3177.9179; Tue, 06 Oct 2020 10:37:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,212 +23,349 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPiJK-0005Sw-Ru; Tue, 06 Oct 2020 08:27:02 +0000
-Received: by outflank-mailman (input) for mailman id 3142;
- Tue, 06 Oct 2020 08:27:01 +0000
+	id 1kPkLE-00013W-8s; Tue, 06 Oct 2020 10:37:08 +0000
+Received: by outflank-mailman (input) for mailman id 3177;
+ Tue, 06 Oct 2020 10:37:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RbFo=DN=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kPiJI-0005Sr-W6
- for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 08:27:01 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=35wL=DN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kPkLC-000133-3A
+ for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 10:37:06 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bba97cb6-e026-43f1-b5e4-9a7d47fe1fab;
- Tue, 06 Oct 2020 08:26:59 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id B855868AFE; Tue,  6 Oct 2020 10:26:56 +0200 (CEST)
+ id 19046129-e125-401b-b33d-0ceb5c6ea206;
+ Tue, 06 Oct 2020 10:37:03 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPkL9-0001OW-Fv; Tue, 06 Oct 2020 10:37:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPkL9-0000hO-5n; Tue, 06 Oct 2020 10:37:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPkL9-0007ZP-5J; Tue, 06 Oct 2020 10:37:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=RbFo=DN=lst.de=hch@srs-us1.protection.inumbo.net>)
-	id 1kPiJI-0005Sr-W6
-	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 08:27:01 +0000
-X-Inumbo-ID: bba97cb6-e026-43f1-b5e4-9a7d47fe1fab
-Received: from verein.lst.de (unknown [213.95.11.211])
+	(envelope-from <SRS0=35wL=DN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kPkLC-000133-3A
+	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 10:37:06 +0000
+X-Inumbo-ID: 19046129-e125-401b-b33d-0ceb5c6ea206
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id bba97cb6-e026-43f1-b5e4-9a7d47fe1fab;
-	Tue, 06 Oct 2020 08:26:59 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id B855868AFE; Tue,  6 Oct 2020 10:26:56 +0200 (CEST)
-Date: Tue, 6 Oct 2020 10:26:56 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Cc: Christoph Hellwig <hch@lst.de>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org
-Subject: Re: xen-swiotlb vs phys_to_dma
-Message-ID: <20201006082656.GB10243@lst.de>
-References: <20201002123436.GA30329@lst.de> <alpine.DEB.2.21.2010021313010.10908@sstabellini-ThinkPad-T480s>
+	id 19046129-e125-401b-b33d-0ceb5c6ea206;
+	Tue, 06 Oct 2020 10:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XgIy8AktR46V73alhobdVfye0ldEZ5uuk4e3w8nazAs=; b=6xzSTTGN6bRiPyJNUIpXWXWPos
+	LGn/Cn/uaohANKU0YmbYNVH/ILgVQqhBTR+aVkLIByv/adzmgO7VtIiph9yh4+L2CbpuTEQY0DO/K
+	3fEPGvVm98bFVLqbnffFcQjdw1TeyQqfrbHEz+8C9nItGfRD3o/smmyt6IDdZNP+GK9k=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPkL9-0001OW-Fv; Tue, 06 Oct 2020 10:37:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPkL9-0000hO-5n; Tue, 06 Oct 2020 10:37:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPkL9-0007ZP-5J; Tue, 06 Oct 2020 10:37:03 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155451-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2010021313010.10908@sstabellini-ThinkPad-T480s>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Subject: [xen-unstable test] 155451: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8ef6345ef557cc2c47298217635a3088eaa59893
+X-Osstest-Versions-That:
+    xen=d4ed1d4132f5825a795d5a78505811ecd2717b5e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Oct 2020 10:37:03 +0000
 
-On Fri, Oct 02, 2020 at 01:21:25PM -0700, Stefano Stabellini wrote:
-> On Fri, 2 Oct 2020, Christoph Hellwig wrote:
-> > Hi Stefano,
-> > 
-> > I've looked over xen-swiotlb in linux-next, that is with your recent
-> > changes to take dma offsets into account.  One thing that puzzles me
-> > is that xen_swiotlb_map_page passes virt_to_phys(xen_io_tlb_start) as
-> > the tbl_dma_addr argument to swiotlb_tbl_map_single, despite the fact
-> > that the argument is a dma_addr_t and both other callers translate
-> > from a physical to the dma address.  Was this an oversight?
-> 
-> Hi Christoph,
-> 
-> It was not an oversight, it was done on purpose, although maybe I could
-> have been wrong. There was a brief discussion on this topic here: 
-> 
-> https://marc.info/?l=linux-kernel&m=159011972107683&w=2
-> https://marc.info/?l=linux-kernel&m=159018047129198&w=2
-> 
-> I'll repeat and summarize here for convenience. 
-> 
-> swiotlb_init_with_tbl is called by xen_swiotlb_init, passing a virtual
-> address (xen_io_tlb_start), which gets converted to phys and stored in
-> io_tlb_start as a physical address at the beginning of swiotlb_init_with_tbl.
+flight 155451 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155451/
 
-Yes.
+Failures :-/ but no regressions.
 
-> Afterwards, xen_swiotlb_map_page calls swiotlb_tbl_map_single. The
-> second parameter, dma_addr_t tbl_dma_addr, is used to calculate the
-> right slot in the swiotlb buffer to use, comparing it against
-> io_tlb_start.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 18 guest-start/debianhvm.repeat fail like 154592
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 154611
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 154611
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 154611
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 154611
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 154611
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 154611
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 154611
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 154611
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 154611
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
 
-It is not compared against io_tlb_start.  It is just used to pick
-a slot that fits the dma_get_seg_boundary limitation in a somewhat
-awkward way.
+version targeted for testing:
+ xen                  8ef6345ef557cc2c47298217635a3088eaa59893
+baseline version:
+ xen                  d4ed1d4132f5825a795d5a78505811ecd2717b5e
 
-> Thus, I think it makes sense for xen_swiotlb_map_page to call
-> swiotlb_tbl_map_single passing an address meant to be compared with
-> io_tlb_start, which is __pa(xen_io_tlb_start), so
-> virt_to_phys(xen_io_tlb_start) seems to be what we want.
+Last test of basis   154611  2020-09-22 11:26:05 Z   13 days
+Failing since        154634  2020-09-23 05:59:56 Z   13 days    6 attempts
+Testing same since   155451  2020-10-04 10:59:30 Z    1 days    1 attempts
 
-No, it doesn't.  tlb_addr is used to ensure the picked slots satisfies
-the segment boundary, and for that you need a dma_addr_t.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Laurentiu Tudor <laurentiu.tudor@nxp.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Olaf Hering <olaf@aepfle.de>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Trammell Hudson <hudson@trmm.net>
+  Wei Liu <wl@xen.org>
 
-The index variable in swiotlb_tbl_map_single is derived from
-io_tlb_index, not io_tlb_start.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-> However, you are right that it is strange that tbl_dma_addr is a
-> dma_addr_t, and maybe it shouldn't be? Maybe the tbl_dma_addr parameter
-> to swiotlb_tbl_map_single should be a phys address instead?
-> Or it could be swiotlb_init_with_tbl to be wrong and it should take a
-> dma address to initialize the swiotlb buffer.
 
-No, it must be a dma_addr_t so that the dma_get_seg_boundary check works.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I think we need something like this (against linux-next):
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
----
-From 07b39a62b235ed2d4b2215700d99968998fbf6c0 Mon Sep 17 00:00:00 2001
-From: Christoph Hellwig <hch@lst.de>
-Date: Tue, 6 Oct 2020 10:22:19 +0200
-Subject: swiotlb: remove the tlb_addr argument to swiotlb_tbl_map_single
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The tlb_addr always must be the dma view of io_tlb_start so that the
-segment boundary checks work.  Remove the argument and do the right
-thing inside swiotlb_tbl_map_single.  This fixes the swiotlb-xen case
-that failed to take DMA offset into account.  The issue probably did
-not show up very much in practice as the typical dma offsets are
-large enough to not affect the segment boundaries for most devices.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/iommu/intel/iommu.c |  5 ++---
- drivers/xen/swiotlb-xen.c   |  3 +--
- include/linux/swiotlb.h     | 10 +++-------
- kernel/dma/swiotlb.c        | 16 ++++++----------
- 4 files changed, 12 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 5ee0b7921b0b37..d473811fcfacd5 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
- 	 * page aligned, we don't need to use a bounce page.
- 	 */
- 	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
--		tlb_addr = swiotlb_tbl_map_single(dev,
--				phys_to_dma_unencrypted(dev, io_tlb_start),
--				paddr, size, aligned_size, dir, attrs);
-+		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
-+						  aligned_size, dir, attrs);
- 		if (tlb_addr == DMA_MAPPING_ERROR) {
- 			goto swiotlb_error;
- 		} else {
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index 030a225624b060..953186f6d7d222 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
- 	 */
- 	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
- 
--	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
--				     phys, size, size, dir, attrs);
-+	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
- 	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
- 		return DMA_MAPPING_ERROR;
- 
-diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-index 513913ff748626..3bb72266a75a1d 100644
---- a/include/linux/swiotlb.h
-+++ b/include/linux/swiotlb.h
-@@ -45,13 +45,9 @@ enum dma_sync_target {
- 	SYNC_FOR_DEVICE = 1,
- };
- 
--extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
--					  dma_addr_t tbl_dma_addr,
--					  phys_addr_t phys,
--					  size_t mapping_size,
--					  size_t alloc_size,
--					  enum dma_data_direction dir,
--					  unsigned long attrs);
-+phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
-+		size_t mapping_size, size_t alloc_size,
-+		enum dma_data_direction dir, unsigned long attrs);
- 
- extern void swiotlb_tbl_unmap_single(struct device *hwdev,
- 				     phys_addr_t tlb_addr,
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 995c1b4cb427ee..8d0b7c3971e81e 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
- 	}
- }
- 
--phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
--				   dma_addr_t tbl_dma_addr,
--				   phys_addr_t orig_addr,
--				   size_t mapping_size,
--				   size_t alloc_size,
--				   enum dma_data_direction dir,
--				   unsigned long attrs)
-+phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
-+		size_t mapping_size, size_t alloc_size,
-+		enum dma_data_direction dir, unsigned long attrs)
- {
-+	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(dev, io_tlb_start);
- 	unsigned long flags;
- 	phys_addr_t tlb_addr;
- 	unsigned int nslots, stride, index, wrap;
-@@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
- 	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
- 			      swiotlb_force);
- 
--	swiotlb_addr = swiotlb_tbl_map_single(dev,
--			phys_to_dma_unencrypted(dev, io_tlb_start),
--			paddr, size, size, dir, attrs);
-+	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
-+					      attrs);
- 	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
- 		return DMA_MAPPING_ERROR;
- 
--- 
-2.28.0
+Pushing revision :
 
+To xenbits.xen.org:/home/xen/git/xen.git
+   d4ed1d4132..8ef6345ef5  8ef6345ef557cc2c47298217635a3088eaa59893 -> master
 
