@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ACC1284FCE
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 18:27:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3283.9511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB4D285145
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 19:58:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3289.9529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPpnO-0003Co-GS; Tue, 06 Oct 2020 16:26:34 +0000
+	id 1kPrCq-0003dq-AV; Tue, 06 Oct 2020 17:56:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3283.9511; Tue, 06 Oct 2020 16:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 3289.9529; Tue, 06 Oct 2020 17:56:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,184 +23,128 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPpnO-0003CP-D0; Tue, 06 Oct 2020 16:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 3283;
- Tue, 06 Oct 2020 16:26:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kPrCq-0003dR-6u; Tue, 06 Oct 2020 17:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 3289;
+ Tue, 06 Oct 2020 17:56:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZSAu=DN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kPpnM-0003CK-49
- for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 16:26:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e313a6df-be03-4653-a797-cec8643e2d98;
- Tue, 06 Oct 2020 16:26:28 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=oh4O=DN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kPrCp-0003dM-8R
+ for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 17:56:55 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 74b18617-d2bc-4839-a928-5fd30d024d84;
+ Tue, 06 Oct 2020 17:56:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id ECA64206D4;
+ Tue,  6 Oct 2020 17:56:52 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZSAu=DN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kPpnM-0003CK-49
-	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 16:26:32 +0000
-X-Inumbo-ID: e313a6df-be03-4653-a797-cec8643e2d98
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id e313a6df-be03-4653-a797-cec8643e2d98;
-	Tue, 06 Oct 2020 16:26:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602001588;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+MnaDUf14ywwIvsahBfXD3XH69/cHlmD0ijO1Ty9M3I=;
-  b=VKxBn0HyvwYxAfFAelhslHDezLz7IZFO8PBBKfY2v4Dmd/VxBduyeEVc
-   KL0M2Kp00HrmR4j2Mv+CbiI5HgxB69aWCJnUpi5G7ZM2MgZ7Qxs+27Chm
-   GL8MNpLjtJQreMhii3J9A+CnufrGKSFhrf4ArRxcgbaTzE9Ue0uezgmje
-   A=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: JYjHCyOE/FjAz3rFkiEHHlkloO1nD65ta8NIAFQyPxoHeebi8JpJr/V5yq10MwT42oobtljxAa
- QIm1HiH4ad+BFydxzkgZj1ZcyAc/WER/4MTKtUdZe7g0/o+gBWFO36uNwFTKgRecoNQhqg5Ocf
- LUY2Q7JH8KrNkt1d1DwHFUIBKjfAw+Ts02UQttyZ+BRGfkxC1WnzjM+lORRxnZtnE8SaFwWnt+
- 7QEyYpxYTZf42f9Cp4mgAXNMWE39KOweYAAT8Kl9cohRuo3gDxI5NghgeI4UDLbkHSCGaZQu3F
- SKY=
-X-SBRS: None
-X-MesageID: 28409371
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,343,1596513600"; 
-   d="scan'208";a="28409371"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "George
- Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] x86/msr: fix handling of MSR_IA32_PERF_{STATUS/CTL}
-Date: Tue, 6 Oct 2020 18:23:27 +0200
-Message-ID: <20201006162327.93055-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.28.0
+	(envelope-from <SRS0=oh4O=DN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kPrCp-0003dM-8R
+	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 17:56:55 +0000
+X-Inumbo-ID: 74b18617-d2bc-4839-a928-5fd30d024d84
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 74b18617-d2bc-4839-a928-5fd30d024d84;
+	Tue, 06 Oct 2020 17:56:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id ECA64206D4;
+	Tue,  6 Oct 2020 17:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1602007013;
+	bh=6xwkV5dowZG+AGFK3o6Fg/zFGiBS1Zab6Mdlj9bmdf8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=p/o8rpkPaWKAOJErXCTTnFk86VLXwqH9uU7bgiHZrpS2zPwxMKi9yqd0krYwsViDK
+	 mZ0wW7xCx8VizqKhE0K8vAJ+jisxAt+oOURnRiiLIw1gUSJsFiL9w30iWr88TAOows
+	 jAoRglv7lDrdcz7rt2IuDEdDREj9qLyTU1PA5sZo=
+Date: Tue, 6 Oct 2020 10:56:52 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Masami Hiramatsu <mhiramat@kernel.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
+    takahiro.akashi@linaro.org, jgross@suse.com, boris.ostrovsky@oracle.com
+Subject: Re: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn
+ correctly
+In-Reply-To: <20201006114058.b93839b1b8f35a470874572b@kernel.org>
+Message-ID: <alpine.DEB.2.21.2010061040350.10908@sstabellini-ThinkPad-T480s>
+References: <160190516028.40160.9733543991325671759.stgit@devnote2> <b205ec9c-c307-2b67-c43a-cf2a67179484@xen.org> <alpine.DEB.2.21.2010051526550.10908@sstabellini-ThinkPad-T480s> <20201006114058.b93839b1b8f35a470874572b@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Currently a PV hardware domain can also be given control over the CPU
-frequency, and such guest is allowed to write to MSR_IA32_PERF_CTL.
-However since commit 322ec7c89f6 the default behavior has been changed
-to reject accesses to not explicitly handled MSRs, preventing PV
-guests that manage CPU frequency from reading
-MSR_IA32_PERF_{STATUS/CTL}.
+On Tue, 6 Oct 2020, Masami Hiramatsu wrote:
+> On Mon, 5 Oct 2020 18:13:22 -0700 (PDT)
+> Stefano Stabellini <sstabellini@kernel.org> wrote:
+> 
+> > On Mon, 5 Oct 2020, Julien Grall wrote:
+> > > Hi Masami,
+> > > 
+> > > On 05/10/2020 14:39, Masami Hiramatsu wrote:
+> > > > Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
+> > > > address conversion.
+> > > > 
+> > > > In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
+> > > > to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
+> > > > assumes the given virtual address is in contiguous kernel memory
+> > > > area, it can not convert the per-cpu memory if it is allocated on
+> > > > vmalloc area (depends on CONFIG_SMP).
+> > > 
+> > > Are you sure about this? I have a .config with CONFIG_SMP=y where the per-cpu
+> > > region for CPU0 is allocated outside of vmalloc area.
+> > > 
+> > > However, I was able to trigger the bug as soon as CONFIG_NUMA_BALANCING was
+> > > enabled.
+> > 
+> > I cannot reproduce the issue with defconfig, but I can with Masami's
+> > kconfig.
+> > 
+> > If I disable just CONFIG_NUMA_BALANCING from Masami's kconfig, the
+> > problem still appears.
+> > 
+> > If I disable CONFIG_NUMA from Masami's kconfig, it works, which is
+> > strange because CONFIG_NUMA is enabled in defconfig, and defconfig
+> > works.
+> 
+> Hmm, strange, because when I disabled CONFIG_NUMA_BALANCING, the issue
+> disappeared.
+> 
+> --- config-5.9.0-rc4+   2020-10-06 11:36:20.620107129 +0900
+> +++ config-5.9.0-rc4+.buggy     2020-10-05 21:04:40.369936461 +0900
+> @@ -131,7 +131,8 @@
+>  CONFIG_ARCH_SUPPORTS_NUMA_BALANCING=y
+>  CONFIG_CC_HAS_INT128=y
+>  CONFIG_ARCH_SUPPORTS_INT128=y
+> -# CONFIG_NUMA_BALANCING is not set
+> +CONFIG_NUMA_BALANCING=y
+> +CONFIG_NUMA_BALANCING_DEFAULT_ENABLED=y
+>  CONFIG_CGROUPS=y
+>  CONFIG_PAGE_COUNTER=y
+>  CONFIG_MEMCG=y
+> 
+> So buggy config just enabled NUMA_BALANCING (and default enabled)
 
-Additionally some HVM guests (Windows at least) will attempt to read
-MSR_IA32_PERF_CTL and will panic if given back a #GP fault:
+Yeah but both NUMA and NUMA_BALANCING are enabled in defconfig which
+works fine...
 
-vmx.c:3035:d8v0 RDMSR 0x00000199 unimplemented
-d8v0 VIRIDIAN CRASH: 3b c0000096 fffff806871c1651 ffffda0253683720 0
+[...]
 
-Move the handling of MSR_IA32_PERF_{STATUS/CTL} to the common MSR
-handling shared between HVM and PV guests, and add an explicit case
-for reads to MSR_IA32_PERF_{STATUS/CTL}.
+> > The fix is fine for me. I tested it and it works. We need to remove the
+> > "Fixes:" line from the commit message. Ideally, replacing it with a
+> > reference to what is the source of the problem.
+> 
+> OK, as I said, it seems commit 9a9ab3cc00dc ("xen/arm: SMP support") has
+> introduced the per-cpu code. So note it instead of Fixes tag.
 
-Restore previous behavior and allow PV guests with the required
-permissions to read the contents of the mentioned MSRs. Non privileged
-guests will get 0 when trying to read those registers, as writes to
-MSR_IA32_PERF_CTL by such guest will already be silently dropped.
-
-Fixes: 322ec7c89f6 ('x86/pv: disallow access to unknown MSRs')
-Fixes: 84e848fd7a1 ('x86/hvm: disallow access to unknown MSRs')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/msr.c             | 20 ++++++++++++++++++++
- xen/arch/x86/pv/emul-priv-op.c | 14 --------------
- xen/include/xen/sched.h        |  6 ++++++
- 3 files changed, 26 insertions(+), 14 deletions(-)
-
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index 81b34fb212..e4c4fa6127 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -242,6 +242,17 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-             goto gp_fault;
-         break;
- 
-+    case MSR_IA32_PERF_STATUS:
-+    case MSR_IA32_PERF_CTL:
-+        if ( cp->x86_vendor != X86_VENDOR_INTEL )
-+            goto gp_fault;
-+        *val = 0;
-+        if ( likely(!is_cpufreq_controller(d)) ||
-+             boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
-+             rdmsr_safe(msr, *val) == 0 )
-+            break;
-+        goto gp_fault;
-+
-     case MSR_X2APIC_FIRST ... MSR_X2APIC_LAST:
-         if ( !is_hvm_domain(d) || v != curr )
-             goto gp_fault;
-@@ -442,6 +453,15 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-             goto gp_fault;
-         break;
- 
-+    case MSR_IA32_PERF_CTL:
-+        if ( cp->x86_vendor != X86_VENDOR_INTEL )
-+            goto gp_fault;
-+        if ( likely(!is_cpufreq_controller(d)) ||
-+             boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
-+             wrmsr_safe(msr, val) == 0 )
-+            break;
-+        goto gp_fault;
-+
-     case MSR_X2APIC_FIRST ... MSR_X2APIC_LAST:
-         if ( !is_hvm_domain(d) || v != curr )
-             goto gp_fault;
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 7cc16d6eda..dbceed8a05 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -849,12 +849,6 @@ static inline uint64_t guest_misc_enable(uint64_t val)
-     return val;
- }
- 
--static inline bool is_cpufreq_controller(const struct domain *d)
--{
--    return ((cpufreq_controller == FREQCTL_dom0_kernel) &&
--            is_hardware_domain(d));
--}
--
- static uint64_t guest_efer(const struct domain *d)
- {
-     uint64_t val;
-@@ -1121,14 +1115,6 @@ static int write_msr(unsigned int reg, uint64_t val,
-             return X86EMUL_OKAY;
-         break;
- 
--    case MSR_IA32_PERF_CTL:
--        if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL )
--            break;
--        if ( likely(!is_cpufreq_controller(currd)) ||
--             wrmsr_safe(reg, val) == 0 )
--            return X86EMUL_OKAY;
--        break;
--
-     case MSR_IA32_THERM_CONTROL:
-     case MSR_IA32_ENERGY_PERF_BIAS:
-         if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL )
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index d8ed83f869..41baa3b7a1 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1069,6 +1069,12 @@ extern enum cpufreq_controller {
-     FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
- } cpufreq_controller;
- 
-+static inline bool is_cpufreq_controller(const struct domain *d)
-+{
-+    return ((cpufreq_controller == FREQCTL_dom0_kernel) &&
-+            is_hardware_domain(d));
-+}
-+
- int cpupool_move_domain(struct domain *d, struct cpupool *c);
- int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op);
- int cpupool_get_id(const struct domain *d);
--- 
-2.28.0
-
+...and commit 9a9ab3cc00dc was already present in 5.8 which also works
+fine with your kconfig. Something else changed in 5.9 causing this
+breakage as a side effect. Commit 9a9ab3cc00dc is there since 2013, I
+think it is OK -- this patch is fixing something else.
 
