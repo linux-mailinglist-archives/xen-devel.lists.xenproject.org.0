@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0DB72852A7
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 21:48:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3298.9559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23DE28536C
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 22:47:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3303.9573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPsvb-00065I-Pn; Tue, 06 Oct 2020 19:47:15 +0000
+	id 1kPtqr-0003Wh-Iq; Tue, 06 Oct 2020 20:46:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3298.9559; Tue, 06 Oct 2020 19:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 3303.9573; Tue, 06 Oct 2020 20:46:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,490 +23,322 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPsvb-00064t-LA; Tue, 06 Oct 2020 19:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 3298;
- Tue, 06 Oct 2020 19:47:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kPtqr-0003WI-FI; Tue, 06 Oct 2020 20:46:25 +0000
+Received: by outflank-mailman (input) for mailman id 3303;
+ Tue, 06 Oct 2020 20:46:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=35wL=DN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kPsvZ-000647-Mj
- for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 19:47:13 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b0e0cbae-2761-4125-b33f-6d0bd5e291b2;
- Tue, 06 Oct 2020 19:47:10 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kPsvV-00056K-Mh; Tue, 06 Oct 2020 19:47:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kPsvV-0002vX-CS; Tue, 06 Oct 2020 19:47:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kPsvV-0004ZX-Bw; Tue, 06 Oct 2020 19:47:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=tUxE=DN=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
+ id 1kPtqp-0003WA-UR
+ for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 20:46:24 +0000
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (unknown
+ [40.107.75.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id beaf8746-f249-432f-b8ca-9e195ae49b96;
+ Tue, 06 Oct 2020 20:46:19 +0000 (UTC)
+Received: from SN4PR0201CA0068.namprd02.prod.outlook.com
+ (2603:10b6:803:20::30) by BL0PR02MB3762.namprd02.prod.outlook.com
+ (2603:10b6:207:41::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Tue, 6 Oct
+ 2020 20:46:17 +0000
+Received: from SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:803:20:cafe::dd) by SN4PR0201CA0068.outlook.office365.com
+ (2603:10b6:803:20::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.38 via Frontend
+ Transport; Tue, 6 Oct 2020 20:46:17 +0000
+Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
+ SN1NAM02FT051.mail.protection.outlook.com (10.152.73.103) with Microsoft SMTP
+ Server id 15.20.3433.39 via Frontend Transport; Tue, 6 Oct 2020 20:46:17
+ +0000
+Received: from [149.199.38.66] (port=51248 helo=smtp.xilinx.com)
+ by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
+ (envelope-from <stefano.stabellini@xilinx.com>)
+ id 1kPtq9-000439-Re; Tue, 06 Oct 2020 13:45:41 -0700
+Received: from [127.0.0.1] (helo=localhost)
+ by smtp.xilinx.com with smtp (Exim 4.63)
+ (envelope-from <stefano.stabellini@xilinx.com>)
+ id 1kPtqi-0001z8-SK; Tue, 06 Oct 2020 13:46:16 -0700
+Received: from [10.23.120.52] (helo=localhost)
+ by xsj-pvapsmtp01 with esmtp (Exim 4.63)
+ (envelope-from <stefanos@xilinx.com>)
+ id 1kPtqe-0001yS-ME; Tue, 06 Oct 2020 13:46:12 -0700
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=35wL=DN=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kPsvZ-000647-Mj
-	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 19:47:13 +0000
-X-Inumbo-ID: b0e0cbae-2761-4125-b33f-6d0bd5e291b2
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b0e0cbae-2761-4125-b33f-6d0bd5e291b2;
-	Tue, 06 Oct 2020 19:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cszU28WJ+YHFVxPEwbkEtiWdVCvhnJFey1uhTGr89Mg=; b=fPjTBD1GMD+m+m9ZcLkirKfdqu
-	/hLniVmtGM7M67+Yae9WZzhDik0DcS9RZO4WdzeOWCD/7uvGYoT4DFgUqYH9p9JWb6os0DTPDf9cK
-	gJVmUJWOwkGGP5XnfH3uREUqryYrTaheSwY4ayRagVxxnP469LXPRghWPIOmyKF6ErHs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kPsvV-00056K-Mh; Tue, 06 Oct 2020 19:47:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kPsvV-0002vX-CS; Tue, 06 Oct 2020 19:47:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kPsvV-0004ZX-Bw; Tue, 06 Oct 2020 19:47:09 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155483-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=tUxE=DN=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
+	id 1kPtqp-0003WA-UR
+	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 20:46:24 +0000
+X-Inumbo-ID: beaf8746-f249-432f-b8ca-9e195ae49b96
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (unknown [40.107.75.55])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id beaf8746-f249-432f-b8ca-9e195ae49b96;
+	Tue, 06 Oct 2020 20:46:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kHWNjGV/BtTptwOTY2Luh8Zb2beLzkmft3OsemzXzWgXbL5iRgjrrbfViO6bko/2MCM9wmUxLtx28qIfDBauQvAyZBnE7O1z4FgZEURIfpJBZRDWxBchSPqImfufQnQwtSlYZqoHQ1344M20hrmg7g2K9nsR33uf/vMgZNZiof43V0jkw5Ody15OcZBNaScN4K/6HXQTPcZaP17EFUlcUOqCBtHrUWk74F/1ebp1d7Q29sw/nxsbHQy6AAN6Zei2Mig2ZNNyiu9j+SiaIHXaQRn4u9av5K9fomTQHstaQaZUWH1flgMmKVYzRal5Rb3G54IPbhsh6Qxe/6gFYQsKuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zmXqAuQ4/OV/KkzpSFzwJ+qvuxQ4uQ2Fjmb++dicujk=;
+ b=XqLllMQexvCtyGPvgMj616vZD0U6iNfQmSKNQxYmv1xjm+15cO86qhktgDxtxWY4kCzcs5+VTyO9glOtyWPZs/2bUPJFLOw7QjMOnkLfolXRsz5XAThOBs6o+p/LSmMnnB1VM8lIujJ9Z2BxajSDWj5R2XYtCahdtZ6S0ZU/ckkVY27M94EmcRO9Bmzb4WgtMsKaRW0A1Ns6nUyjPEOmQDVa6uywPTehE/91LQIR1I3AuWVv2c5q5SwLy1RcOqTauqo12bCdLg/eBeKTfcu3qUClnC8oJUn3o+1mtbpZ0oleaPulRJ0OA6hH0vPqYBgJYHoLGNPMJn8x/Er2vSVVng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.60.83) smtp.rcpttodomain=lst.de smtp.mailfrom=xilinx.com;
+ dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zmXqAuQ4/OV/KkzpSFzwJ+qvuxQ4uQ2Fjmb++dicujk=;
+ b=pK2ea/DD/BV519WphjMZ2rlOWM7Sm7T/HC0p1YtMqxEdU9HAoFnSdxQeIah7aUtLfRUj0dy4BXRSNbFYCNe8W1iXQSPUGd4F2ktGUMx+3z8rzaFg6Km8qQ9bwJcz/zKVZOg3sZNYNjIleW314Vk2c28P0NbcrrhXLLqE9RoO1Nc=
+Received: from SN4PR0201CA0068.namprd02.prod.outlook.com
+ (2603:10b6:803:20::30) by BL0PR02MB3762.namprd02.prod.outlook.com
+ (2603:10b6:207:41::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Tue, 6 Oct
+ 2020 20:46:17 +0000
+Received: from SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:803:20:cafe::dd) by SN4PR0201CA0068.outlook.office365.com
+ (2603:10b6:803:20::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.38 via Frontend
+ Transport; Tue, 6 Oct 2020 20:46:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.60.83)
+ smtp.mailfrom=xilinx.com; lst.de; dkim=none (message not signed)
+ header.d=none;lst.de; dmarc=bestguesspass action=none header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.60.83 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
+Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
+ SN1NAM02FT051.mail.protection.outlook.com (10.152.73.103) with Microsoft SMTP
+ Server id 15.20.3433.39 via Frontend Transport; Tue, 6 Oct 2020 20:46:17
+ +0000
+Received: from [149.199.38.66] (port=51248 helo=smtp.xilinx.com)
+	by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
+	(envelope-from <stefano.stabellini@xilinx.com>)
+	id 1kPtq9-000439-Re; Tue, 06 Oct 2020 13:45:41 -0700
+Received: from [127.0.0.1] (helo=localhost)
+	by smtp.xilinx.com with smtp (Exim 4.63)
+	(envelope-from <stefano.stabellini@xilinx.com>)
+	id 1kPtqi-0001z8-SK; Tue, 06 Oct 2020 13:46:16 -0700
+Received: from [10.23.120.52] (helo=localhost)
+	by xsj-pvapsmtp01 with esmtp (Exim 4.63)
+	(envelope-from <stefanos@xilinx.com>)
+	id 1kPtqe-0001yS-ME; Tue, 06 Oct 2020 13:46:12 -0700
+Date: Tue, 6 Oct 2020 13:46:12 -0700 (PDT)
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Christoph Hellwig <hch@lst.de>
+cc: Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+    xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org
+Subject: Re: xen-swiotlb vs phys_to_dma
+In-Reply-To: <20201006082656.GB10243@lst.de>
+Message-ID: <alpine.DEB.2.21.2010061325230.10908@sstabellini-ThinkPad-T480s>
+References: <20201002123436.GA30329@lst.de> <alpine.DEB.2.21.2010021313010.10908@sstabellini-ThinkPad-T480s> <20201006082656.GB10243@lst.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 155483: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-start:fail:regression
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start:fail:regression
-    qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-start/freebsd.repeat:fail:regression
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=36d9c2883e55c863b622b99f0ebb5143f0001401
-X-Osstest-Versions-That:
-    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Oct 2020 19:47:09 +0000
+Content-Type: text/plain; charset=US-ASCII
+X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
+X-TM-AS-User-Approved-Sender: Yes;Yes
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6b7a1933-3135-4d5a-aa1f-08d86a38df61
+X-MS-TrafficTypeDiagnostic: BL0PR02MB3762:
+X-Microsoft-Antispam-PRVS:
+	<BL0PR02MB37620C11D97A71AEDEE37FFDA00D0@BL0PR02MB3762.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	kAUNYMKZDY1KI8q7XCOOwCL+JOe5ueQCshNmIRay4u7EmS6PSMjPzV9WcAxcYjNuHAH/lqNCkrx9L9xxcxaHRM4qk33OZEcyVo2LjkAEk6IgG4q9qNsmcx4roXq58pvYea7pidA6c9/fLvkDbxzF0GQjmz/EW50e4Sy5XvDThw4WSUxi+RSQe+bmxMHy+tmEWcmz4+XQTM6/9Ugt/goDv43L25Y2OJgO+8lcaRTGIti2SBmNhz4jfyjdNTUzVnQJvjF0gPUj//UKe8eVZ6rorBy+auAW/Bs8koekqlj1/JUzM94qBJtWR8LdM4qIVtp3fKw5Ag+rKlqAvCK5BGjXkyO6dEM8UAoc5SG+Qg2yvavJkQDrN/0vhtTVauTepHTp7pFOt2a0yP4XmHsRXayYpD4RIWNUZKgLc9qy8Nx1n+K57zkALVDZ+ZFTOtSYxdBrtCJbXjyK340zJF/PuWzsQKhuCoajYF733YGdiAmlP1AiOt2DOgfNI9Raxy5+a6KG
+X-Forefront-Antispam-Report:
+	CIP:149.199.60.83;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapsmtpgw01;PTR:unknown-60-83.xilinx.com;CAT:NONE;SFS:(7916004)(346002)(396003)(376002)(39860400002)(136003)(46966005)(2906002)(81166007)(83080400001)(83380400001)(9786002)(70586007)(70206006)(82310400003)(356005)(47076004)(82740400003)(9686003)(5660300002)(966005)(6916009)(33716001)(53546011)(4326008)(336012)(8676002)(426003)(8936002)(478600001)(26005)(186003)(316002)(54906003)(44832011)(6606295002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2020 20:46:17.1297
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b7a1933-3135-4d5a-aa1f-08d86a38df61
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.60.83];Helo=[xsj-pvapsmtpgw01]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR02MB3762
 
-flight 155483 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155483/
+On Tue, 6 Oct 2020, Christoph Hellwig wrote:
+> On Fri, Oct 02, 2020 at 01:21:25PM -0700, Stefano Stabellini wrote:
+> > On Fri, 2 Oct 2020, Christoph Hellwig wrote:
+> > > Hi Stefano,
+> > > 
+> > > I've looked over xen-swiotlb in linux-next, that is with your recent
+> > > changes to take dma offsets into account.  One thing that puzzles me
+> > > is that xen_swiotlb_map_page passes virt_to_phys(xen_io_tlb_start) as
+> > > the tbl_dma_addr argument to swiotlb_tbl_map_single, despite the fact
+> > > that the argument is a dma_addr_t and both other callers translate
+> > > from a physical to the dma address.  Was this an oversight?
+> > 
+> > Hi Christoph,
+> > 
+> > It was not an oversight, it was done on purpose, although maybe I could
+> > have been wrong. There was a brief discussion on this topic here: 
+> > 
+> > https://marc.info/?l=linux-kernel&m=159011972107683&w=2
+> > https://marc.info/?l=linux-kernel&m=159018047129198&w=2
+> > 
+> > I'll repeat and summarize here for convenience. 
+> > 
+> > swiotlb_init_with_tbl is called by xen_swiotlb_init, passing a virtual
+> > address (xen_io_tlb_start), which gets converted to phys and stored in
+> > io_tlb_start as a physical address at the beginning of swiotlb_init_with_tbl.
+> 
+> Yes.
+> 
+> > Afterwards, xen_swiotlb_map_page calls swiotlb_tbl_map_single. The
+> > second parameter, dma_addr_t tbl_dma_addr, is used to calculate the
+> > right slot in the swiotlb buffer to use, comparing it against
+> > io_tlb_start.
+> 
+> It is not compared against io_tlb_start.  It is just used to pick
+> a slot that fits the dma_get_seg_boundary limitation in a somewhat
+> awkward way.
+> 
+> > Thus, I think it makes sense for xen_swiotlb_map_page to call
+> > swiotlb_tbl_map_single passing an address meant to be compared with
+> > io_tlb_start, which is __pa(xen_io_tlb_start), so
+> > virt_to_phys(xen_io_tlb_start) seems to be what we want.
+> 
+> No, it doesn't.  tlb_addr is used to ensure the picked slots satisfies
+> the segment boundary, and for that you need a dma_addr_t.
+> 
+> The index variable in swiotlb_tbl_map_single is derived from
+> io_tlb_index, not io_tlb_start.
+> 
+> > However, you are right that it is strange that tbl_dma_addr is a
+> > dma_addr_t, and maybe it shouldn't be? Maybe the tbl_dma_addr parameter
+> > to swiotlb_tbl_map_single should be a phys address instead?
+> > Or it could be swiotlb_init_with_tbl to be wrong and it should take a
+> > dma address to initialize the swiotlb buffer.
+> 
+> No, it must be a dma_addr_t so that the dma_get_seg_boundary check works.
+>
+> I think we need something like this (against linux-next):
+> 
+> ---
+> >From 07b39a62b235ed2d4b2215700d99968998fbf6c0 Mon Sep 17 00:00:00 2001
+> From: Christoph Hellwig <hch@lst.de>
+> Date: Tue, 6 Oct 2020 10:22:19 +0200
+> Subject: swiotlb: remove the tlb_addr argument to swiotlb_tbl_map_single
+> 
+> The tlb_addr always must be the dma view of io_tlb_start so that the
+> segment boundary checks work.  Remove the argument and do the right
+> thing inside swiotlb_tbl_map_single.  This fixes the swiotlb-xen case
+> that failed to take DMA offset into account.  The issue probably did
+> not show up very much in practice as the typical dma offsets are
+> large enough to not affect the segment boundaries for most devices.
 
-Regressions :-(
+OK, this makes a lot of sense, and I like the patch because it makes the
+swiotlb interface clearer.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-win7-amd64 10 windows-install  fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-qemuu-nested-intel 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install   fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-ws16-amd64 10 windows-install  fail REGR. vs. 152631
- test-amd64-amd64-qemuu-nested-amd 10 debian-hvm-install  fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-i386-qemuu-rhel6hvm-amd 10 redhat-install     fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install   fail REGR. vs. 152631
- test-amd64-i386-qemuu-rhel6hvm-intel 10 redhat-install   fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 152631
- test-amd64-amd64-qemuu-freebsd12-amd64 11 guest-start    fail REGR. vs. 152631
- test-arm64-arm64-libvirt-xsm 12 guest-start              fail REGR. vs. 152631
- test-armhf-armhf-xl-vhd      10 debian-di-install        fail REGR. vs. 152631
- test-armhf-armhf-libvirt     12 guest-start              fail REGR. vs. 152631
- test-amd64-amd64-libvirt-vhd 11 guest-start              fail REGR. vs. 152631
- test-armhf-armhf-libvirt-raw 10 debian-di-install        fail REGR. vs. 152631
- test-amd64-amd64-qemuu-freebsd11-amd64 19 guest-start/freebsd.repeat fail REGR. vs. 152631
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
-
-version targeted for testing:
- qemuu                36d9c2883e55c863b622b99f0ebb5143f0001401
-baseline version:
- qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
-
-Last test of basis   152631  2020-08-20 09:07:46 Z   47 days
-Failing since        152659  2020-08-21 14:07:39 Z   46 days   77 attempts
-Testing same since   155483  2020-10-05 16:14:14 Z    1 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Aaron Lindsay <aaron@os.amperecomputing.com>
-  Alberto Garcia <berto@igalia.com>
-  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alexander Bulekov <alxndr@bu.edu>
-  Alexey Kirillov <lekiravi@yandex-team.ru>
-  Alistair Francis <alistair.francis@wdc.com>
-  Alistair Francis <alistair.francis@xilinx.com>
-  Amey Narkhede <ameynarkhede03@gmail.com>
-  Andrey Konovalov <andreyknvl@google.com>
-  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
-  Ani Sinha <ani@anisinha.ca>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Anton Blanchard <anton@ozlabs.org>
-  Anup Patel <anup.patel@wdc.com>
-  Babu Moger <babu.moger@amd.com>
-  BALATON Zoltan <balaton@eik.bme.hu>
-  Bin Meng <bin.meng@windriver.com>
-  Bruce Rogers <brogers@suse.com>
-  Carlo Marcelo Arenas Belón <carenas@gmail.com>
-  Chen Gang <chengang@emindsoft.com.cn>
-  Chen Qun <kuhn.chenqun@huawei.com>
-  Chih-Min Chao <chihmin.chao@sifive.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Chuan Zheng <zhengchuan@huawei.com>
-  Claudio Fontana <cfontana@suse.de>
-  Claudio Imbrenda <imbrenda@linux.ibm.com>
-  Cleber Rosa <crosa@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Connor Kuehl <ckuehl@redhat.com>
-  Corey Minyard <cminyard@mvista.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Le Goater <clg@kaod.org>
-  César Belley <cesar.belley@lse.epita.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  David Gibson <david@gibson.dropbear.id.au>
-  David Hildenbrand <david@redhat.com>
-  Dima Stepanov <dimastep@yandex-team.ru>
-  Dmitry Fomichev <dmitry.fomichev@wdc.com>
-  Douglas Crosher <dtc-ubuntu@scieneer.com>
-  Dov Murik <dovmurik@linux.vnet.ibm.com>
-  Dr. David Alan Gilbert <dgilbert@redhat.com>
-  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-  Eduardo Habkost <ehabkost@redhat.com>
-  Eduardo Otubo <otubo@redhat.com>
-  Eric Auger <eric.auger@redhat.com>
-  Eric Blake <eblake@redhat.com>
-  Erik Smit <erik.lucas.smit@gmail.com>
-  Fam Zheng <fam@euphon.net>
-  Filip Bozuta <Filip.Bozuta@syrmia.com>
-  Frank Chang <frank.chang@sifive.com>
-  Frediano Ziglio <freddy77@gmail.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gonglei <arei.gonglei@huawei.com>
-  Graeme Gregory <graeme@nuviainc.com>
-  Greg Kurz <groug@kaod.org>
-  Guoqing Zhang <zhangguoqing.kernel@bytedance.com>
-  Gustavo Romero <gromero@linux.ibm.com>
-  haibinzhang(张海斌) <haibinzhang@tencent.com>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Harry G. Coin <hgcoin@gmail.com>
-  Havard Skinnemoen <hskinnemoen@google.com>
-  Helge Deller <deller@gmx.de>
-  Heyi Guo <guoheyi@huawei.com>
-  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
-  Hou Weiying <weiying_hou@outlook.com>
-  Igor Kononenko <i.kononenko@yadro.com>
-  Igor Mammedov <imammedo@redhat.com>
-  Jan Charvat <charvj10@fel.cvut.cz>
-  Janosch Frank <frankja@linux.ibm.com>
-  Jason Wang <jasowang@redhat.com>
-  Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
-  Joel Stanley <joel@jms.id.au>
-  John Snow <jsnow@redhat.com>
-  Jon Doron <arilou@gmail.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Keith Busch <kbusch@kernel.org>
-  Kenta Ishiguro <kentaishiguro@slowstart.org>
-  Kevin Wolf <kwolf@redhat.com>
-  Kito Cheng <kito.cheng@sifive.com>
-  Klaus Jensen <k.jensen@samsung.com>
-  Klaus Jensen <klaus.jensen@cnexlabs.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Laurent Vivier <laurent@vivier.eu>
-  Laurent Vivier <lvivier@redhat.com>
-  Lei YU <yulei.sh@bytedance.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Li Feng <fengli@smartx.com>
-  Li Qiang <liq3ea@163.com>
-  Li Zhijian <lizhijian@cn.fujitsu.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Liao Pingfang <liao.pingfang@zte.com.cn>a
-  Lijun Pan <ljp@linux.ibm.com>
-  LIU Zhiwei <zhiwei_liu@c-sky.com>
-  Longpeng(Mike) <longpeng2@huawei.com>
-  Lukas Straub <lukasstraub2@web.de>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Markus Armbruster <armbru@redhat.com>
-  Matthieu Bucchianeri <matthieu.bucchianeri@leostella.com>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Max Reitz <mreitz@redhat.com>
-  Maxim Levitsky <mlevitsk@redhat.com>
-  Michael Roth <mdroth@linux.vnet.ibm.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michael Walle <michael@walle.cc>
-  Michal Privoznik <mprivozn@redhat.com>
-  Mike Gelfand <mikedld@mikedld.com>
-  Myriad-Dreamin <camiyoru@gmail.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Niek Linnenbank <nieklinnenbank@gmail.com>
-  Nikola Pavlica <pavlica.nikola@gmail.com>
-  Nir Soffer <nirsof@gmail.com>
-  Nir Soffer <nsoffer@redhat.com>
-  Pan Nengyuan <pannengyuan@huawei.com>
-  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Paul Burton <paulburton@kernel.org>
-  Paul Durrant <paul@xen.org>
-  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
-  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
-  Pavel Pisa <pisa@cmp.felk.cvut.cz>
-  Peter Lieven <pl@kamp.de>
-  Peter Maydell <peter.maydell@linaro.org>
-  Peter Xu <peterx@redhat.com>
-  Philippe Mathieu-Daude <philmd@redhat.com>
-  Philippe Mathieu-Daudé <f4bug@amsat.org>
-  Philippe Mathieu-Daudé <philmd@redhat.com>
-  Prasad J Pandit <pjp@fedoraproject.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
-  Sergei Trofimovich <slyfox@gentoo.org>
-  Sergio Lopez <slp@redhat.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stefan Weil <sw@weilnetz.de>
-  Stefano Garzarella <sgarzare@redhat.com>
-  Stephen Long <steplong@quicinc.com>
-  Sunil Muthuswamy <sunilmut@microsoft.com>
-  Sven Schnelle <svens@stackframe.org>
-  Swapnil Ingle <swapnil.ingle@nutanix.com>
-  Thiago Jung Bauermann <bauerman@linux.ibm.com>
-  Thomas Huth <huth@tuxfamily.org>
-  Thomas Huth <thuth@redhat.com>
-  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-  Timothy Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
-  Timothy E Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Vitaly Cheptsov <vit9696@protonmail.com>
-  Vitaly Kuznetsov <vkuznets@redhat.com>
-  Vivek Goyal <vgoyal@redhat.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-  Volker Rümelin <vr_qemu@t-online.de>
-  Xiaoyao Li <xiaoyao.li@intel.com>
-  Yan Jin <jinyan12@huawei.com>
-  YanYing Zhuang <ann.zhuangyanying@huawei.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yifei Jiang <jiangyifei@huawei.com>
-  Ying Fang <fangying1@huawei.com>
-  Yipeng Yin <yinyipeng1@huawei.com>
-  Yonggang Luo <luoyonggang@gmail.com>
-  zhaolichang <zhaolichang@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Ye <yezhenyu2@huawei.com>
-  Zong Li <zong.li@sifive.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-xl-vhd                                      fail    
+Just one comment below.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/iommu/intel/iommu.c |  5 ++---
+>  drivers/xen/swiotlb-xen.c   |  3 +--
+>  include/linux/swiotlb.h     | 10 +++-------
+>  kernel/dma/swiotlb.c        | 16 ++++++----------
+>  4 files changed, 12 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 5ee0b7921b0b37..d473811fcfacd5 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
+>  	 * page aligned, we don't need to use a bounce page.
+>  	 */
+>  	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
+> -		tlb_addr = swiotlb_tbl_map_single(dev,
+> -				phys_to_dma_unencrypted(dev, io_tlb_start),
+> -				paddr, size, aligned_size, dir, attrs);
+> +		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
+> +						  aligned_size, dir, attrs);
+>  		if (tlb_addr == DMA_MAPPING_ERROR) {
+>  			goto swiotlb_error;
+>  		} else {
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 030a225624b060..953186f6d7d222 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+>  	 */
+>  	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
+>  
+> -	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
+> -				     phys, size, size, dir, attrs);
+> +	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
+>  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index 513913ff748626..3bb72266a75a1d 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -45,13 +45,9 @@ enum dma_sync_target {
+>  	SYNC_FOR_DEVICE = 1,
+>  };
+>  
+> -extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> -					  dma_addr_t tbl_dma_addr,
+> -					  phys_addr_t phys,
+> -					  size_t mapping_size,
+> -					  size_t alloc_size,
+> -					  enum dma_data_direction dir,
+> -					  unsigned long attrs);
+> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+> +		size_t mapping_size, size_t alloc_size,
+> +		enum dma_data_direction dir, unsigned long attrs);
+>  
+>  extern void swiotlb_tbl_unmap_single(struct device *hwdev,
+>  				     phys_addr_t tlb_addr,
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 995c1b4cb427ee..8d0b7c3971e81e 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
+>  	}
+>  }
+>  
+> -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> -				   dma_addr_t tbl_dma_addr,
+> -				   phys_addr_t orig_addr,
+> -				   size_t mapping_size,
+> -				   size_t alloc_size,
+> -				   enum dma_data_direction dir,
+> -				   unsigned long attrs)
+> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
+> +		size_t mapping_size, size_t alloc_size,
+> +		enum dma_data_direction dir, unsigned long attrs)
+>  {
+> +	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(dev, io_tlb_start);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+This is supposed to be hwdev, not dev
 
 
-Not pushing.
-
-(No revision log; it would be 39162 lines long.)
+>  	unsigned long flags;
+>  	phys_addr_t tlb_addr;
+>  	unsigned int nslots, stride, index, wrap;
+> @@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+>  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
+>  			      swiotlb_force);
+>  
+> -	swiotlb_addr = swiotlb_tbl_map_single(dev,
+> -			phys_to_dma_unencrypted(dev, io_tlb_start),
+> -			paddr, size, size, dir, attrs);
+> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
+> +					      attrs);
+>  	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
+> -- 
+> 2.28.0
+> 
 
