@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5D6328671D
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:29:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3770.11323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6ED2866F2
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:27:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3690.10853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQEBM-0006iQ-LZ; Wed, 07 Oct 2020 18:28:56 +0000
+	id 1kQE9h-0001uy-16; Wed, 07 Oct 2020 18:27:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3770.11323; Wed, 07 Oct 2020 18:28:56 +0000
+Received: by outflank-mailman (output) from mailman id 3690.10853; Wed, 07 Oct 2020 18:27:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,42 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQEBM-0006fQ-4R; Wed, 07 Oct 2020 18:28:56 +0000
-Received: by outflank-mailman (input) for mailman id 3770;
- Wed, 07 Oct 2020 18:28:53 +0000
+	id 1kQE9f-0001ql-Qy; Wed, 07 Oct 2020 18:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 3690;
+ Wed, 07 Oct 2020 18:27:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE5z-00072Q-Ph
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:23:23 +0000
+ id 1kQE6s-00072Q-Ro
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:18 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ebb28b1-5068-4d39-a376-f39b1a9a02b4;
- Wed, 07 Oct 2020 18:21:27 +0000 (UTC)
+ id 6a26448e-ebaa-49d8-a387-8b29faaad382;
+ Wed, 07 Oct 2020 18:21:56 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDk2-0007CF-7y; Wed, 07 Oct 2020 19:00:42 +0100
+ id 1kQDk2-0007CF-Gl; Wed, 07 Oct 2020 19:00:42 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE5z-00072Q-Ph
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:23:23 +0000
-X-Inumbo-ID: 9ebb28b1-5068-4d39-a376-f39b1a9a02b4
+	id 1kQE6s-00072Q-Ro
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:18 +0000
+X-Inumbo-ID: 6a26448e-ebaa-49d8-a387-8b29faaad382
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9ebb28b1-5068-4d39-a376-f39b1a9a02b4;
-	Wed, 07 Oct 2020 18:21:27 +0000 (UTC)
+	id 6a26448e-ebaa-49d8-a387-8b29faaad382;
+	Wed, 07 Oct 2020 18:21:56 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDk2-0007CF-7y; Wed, 07 Oct 2020 19:00:42 +0100
+	id 1kQDk2-0007CF-Gl; Wed, 07 Oct 2020 19:00:42 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 35/82] resource reporting: Print username when listing "rogue tasks"
-Date: Wed,  7 Oct 2020 18:59:37 +0100
-Message-Id: <20201007180024.7932-36-iwj@xenproject.org>
+Subject: [OSSTEST PATCH 36/82] resource reporting, nfc: Break out report_rogue_task_description
+Date: Wed,  7 Oct 2020 18:59:38 +0100
+Message-Id: <20201007180024.7932-37-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -69,18 +69,56 @@ From: Ian Jackson <ian.jackson@eu.citrix.com>
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- ms-planner | 1 +
- 1 file changed, 1 insertion(+)
+ Osstest/Executive.pm | 14 ++++++++++++++
+ ms-planner           |  6 +-----
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
+diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
+index 5f59c44e..e3ab1dc3 100644
+--- a/Osstest/Executive.pm
++++ b/Osstest/Executive.pm
+@@ -51,6 +51,7 @@ BEGIN {
+                       report_run_getinfo report_altcolour
+                       report_altchangecolour opendb_tests
+                       report_blessingscond report_find_push_age_info
++		      report_rogue_task_description
+ 		      log_stderr_timestamped
+                       tcpconnect_queuedaemon plan_search
+                       manual_allocation_base_jobinfo
+@@ -418,6 +419,19 @@ sub report_blessingscond ($) {
+     return $blessingscond;
+ }
+ 
++sub report_rogue_task_description ($) {
++    my ($arow) = @_;
++    # should have the fields from tasks, except taskid which
++    #  caller must print if they want it.
++    # may also have fields from resources (eg subtask)
++    my $info= "rogue task ";
++    $info .= " $arow->{type} $arow->{refkey}";
++    $info .= " ($arow->{comment})" if defined $arow->{comment};
++    $info .= " $arow->{subtask}";
++    $info .= " (user $arow->{username})";
++    return $info;
++}
++
+ sub report__find_test ($$$$$$$) {
+     my ($blessings, $branches, $tree,
+ 	$revision, $selection, $extracond, $sortlimit) = @_;
 diff --git a/ms-planner b/ms-planner
-index 78d27b2f..41f27fa0 100755
+index 41f27fa0..4b970730 100755
 --- a/ms-planner
 +++ b/ms-planner
-@@ -325,6 +325,7 @@ END
- 	    $info .= " $arow->{type} $arow->{refkey}";
- 	    $info .= " ($arow->{comment})" if defined $arow->{comment};
- 	    $info .= " $arow->{subtask}";
-+	    $info .= " (user $arow->{username})";
+@@ -321,11 +321,7 @@ END
+ 	    $info= "(preparing)";
+ 	} else {
+ 	    print DEBUG "rogue $reso $shareix: $arow->{owntaskid}\n";
+-	    $info= "rogue task";
+-	    $info .= " $arow->{type} $arow->{refkey}";
+-	    $info .= " ($arow->{comment})" if defined $arow->{comment};
+-	    $info .= " $arow->{subtask}";
+-	    $info .= " (user $arow->{username})";
++	    $info= report_rogue_task_description($arow);
  	}
  	$plan->{Allocations}{$reskey}= {
              Task => $arow->{owntaskid},
