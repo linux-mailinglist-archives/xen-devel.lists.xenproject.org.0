@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C8B2861B2
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 16:58:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3549.10155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F5C28621D
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 17:28:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3552.10171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQAtQ-0000Eg-CT; Wed, 07 Oct 2020 14:58:12 +0000
+	id 1kQBLa-0003BM-PC; Wed, 07 Oct 2020 15:27:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3549.10155; Wed, 07 Oct 2020 14:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 3552.10171; Wed, 07 Oct 2020 15:27:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,147 +23,155 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQAtQ-0000EH-9L; Wed, 07 Oct 2020 14:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 3549;
- Wed, 07 Oct 2020 14:58:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQBLa-0003Ax-LE; Wed, 07 Oct 2020 15:27:18 +0000
+Received: by outflank-mailman (input) for mailman id 3552;
+ Wed, 07 Oct 2020 15:27:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MWE0=DO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kQAtO-0000EC-F3
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 14:58:10 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 37f9e5d1-c3bc-4f9c-a7b2-3b36f8c8695d;
- Wed, 07 Oct 2020 14:58:08 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8044F106F;
- Wed,  7 Oct 2020 07:58:08 -0700 (PDT)
-Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
- [10.1.198.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 14DAF3F66B;
- Wed,  7 Oct 2020 07:58:06 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kQBLY-0003Ap-DE
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 15:27:16 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d2efdd02-3d7d-4bfe-a141-a4c6fe8b1839;
+ Wed, 07 Oct 2020 15:27:14 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQBLV-0007N0-Sz; Wed, 07 Oct 2020 15:27:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQBLV-0003vk-Hc; Wed, 07 Oct 2020 15:27:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQBLV-0000C5-Gx; Wed, 07 Oct 2020 15:27:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=MWE0=DO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kQAtO-0000EC-F3
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 14:58:10 +0000
-X-Inumbo-ID: 37f9e5d1-c3bc-4f9c-a7b2-3b36f8c8695d
-Received: from foss.arm.com (unknown [217.140.110.172])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 37f9e5d1-c3bc-4f9c-a7b2-3b36f8c8695d;
-	Wed, 07 Oct 2020 14:58:08 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8044F106F;
-	Wed,  7 Oct 2020 07:58:08 -0700 (PDT)
-Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com [10.1.198.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 14DAF3F66B;
-	Wed,  7 Oct 2020 07:58:06 -0700 (PDT)
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH v2] build: always use BASEDIR for xen sub-directory
-Date: Wed,  7 Oct 2020 15:57:51 +0100
-Message-Id: <df2fc83d3a84dd3fc2e58101ded22847fdbaa862.1602082503.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.17.1
+	(envelope-from <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kQBLY-0003Ap-DE
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 15:27:16 +0000
+X-Inumbo-ID: d2efdd02-3d7d-4bfe-a141-a4c6fe8b1839
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id d2efdd02-3d7d-4bfe-a141-a4c6fe8b1839;
+	Wed, 07 Oct 2020 15:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CpeEjilxo9u+hSrMDe3ruWDV9WxRmFMA73y+wtNuKT8=; b=m6xBndTw6WSkJCKB5KZ0xib8eQ
+	whb4LaWqI+Vgut0uVV+ivhyi/JTgmsunjLAxfTrTJJEJA1JkFTanPgMQem11CBopUmPvLsspP4IEa
+	jyqxonkRUAuFavfGIaTMkPq9bfeum3V9p0fCMRRBrUxJwoM31auZyVVmMMT78gkPkl6A=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQBLV-0007N0-Sz; Wed, 07 Oct 2020 15:27:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQBLV-0003vk-Hc; Wed, 07 Oct 2020 15:27:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQBLV-0000C5-Gx; Wed, 07 Oct 2020 15:27:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155517-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155517: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e4e64408f5c755da3bf7bfd78e70ad9f6c448376
+X-Osstest-Versions-That:
+    xen=93508595d588afe9dca087f95200effb7cedc81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Oct 2020 15:27:13 +0000
 
-Modify Makefiles using $(XEN_ROOT)/xen to use $(BASEDIR) instead.
+flight 155517 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155517/
 
-This is removing the dependency to xen subdirectory preventing using a
-wrong configuration file when xen subdirectory is duplicated for
-compilation tests.
+Regressions :-(
 
-BASEDIR is set in xen/lib/x86/Makefile as this Makefile is directly
-called from the tools build and install process and BASEDIR is not set
-there.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 155495
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-Changes in v2:
- Fix tools installation by setting BASEDIR in lib/x86 Makefile.
----
- xen/common/Makefile                | 6 +++---
- xen/include/xen/lib/x86/Makefile   | 6 ++++--
- xen/tools/kconfig/Makefile.kconfig | 2 +-
- xen/xsm/flask/Makefile             | 4 ++--
- 4 files changed, 10 insertions(+), 8 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index b3b60a1ba2..083f62acb6 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -78,14 +78,14 @@ obj-$(CONFIG_UBSAN) += ubsan/
- obj-$(CONFIG_NEEDS_LIBELF) += libelf/
- obj-$(CONFIG_HAS_DEVICE_TREE) += libfdt/
- 
--CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(XEN_ROOT)/xen/)$(KCONFIG_CONFIG)
-+CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(BASEDIR)/)$(KCONFIG_CONFIG)
- config.gz: $(CONF_FILE)
- 	gzip -c $< >$@
- 
- config_data.o: config.gz
- 
--config_data.S: $(XEN_ROOT)/xen/tools/binfile
--	$(SHELL) $(XEN_ROOT)/xen/tools/binfile $@ config.gz xen_config_data
-+config_data.S: $(BASEDIR)/tools/binfile
-+	$(SHELL) $(BASEDIR)/tools/binfile $@ config.gz xen_config_data
- 
- clean::
- 	rm -f config_data.S config.gz 2>/dev/null
-diff --git a/xen/include/xen/lib/x86/Makefile b/xen/include/xen/lib/x86/Makefile
-index 408d69c99e..c3b9ebe961 100644
---- a/xen/include/xen/lib/x86/Makefile
-+++ b/xen/include/xen/lib/x86/Makefile
-@@ -1,8 +1,10 @@
- include $(XEN_ROOT)/Config.mk
- 
-+BASEDIR = $(XEN_ROOT)/xen
-+
- .PHONY: all
- all: cpuid-autogen.h
- 
--cpuid-autogen.h: $(XEN_ROOT)/xen/include/public/arch-x86/cpufeatureset.h $(XEN_ROOT)/xen/tools/gen-cpuid.py
--	$(PYTHON) $(XEN_ROOT)/xen/tools/gen-cpuid.py -i $< -o $@.new
-+cpuid-autogen.h: $(BASEDIR)/include/public/arch-x86/cpufeatureset.h $(BASEDIR)/tools/gen-cpuid.py
-+	$(PYTHON) $(BASEDIR)/tools/gen-cpuid.py -i $< -o $@.new
- 	$(call move-if-changed,$@.new,$@)
-diff --git a/xen/tools/kconfig/Makefile.kconfig b/xen/tools/kconfig/Makefile.kconfig
-index 065f4b8471..799321ec4d 100644
---- a/xen/tools/kconfig/Makefile.kconfig
-+++ b/xen/tools/kconfig/Makefile.kconfig
-@@ -9,7 +9,7 @@ Q :=
- kecho := :
- 
- # eventually you'll want to do out of tree builds
--srctree := $(XEN_ROOT)/xen
-+srctree := $(BASEDIR)
- objtree := $(srctree)
- src := tools/kconfig
- obj := $(src)
-diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
-index 50bec20a1e..637159ad82 100644
---- a/xen/xsm/flask/Makefile
-+++ b/xen/xsm/flask/Makefile
-@@ -35,8 +35,8 @@ $(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
- obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
- flask-policy.o: policy.bin
- 
--flask-policy.S: $(XEN_ROOT)/xen/tools/binfile
--	$(SHELL) $(XEN_ROOT)/xen/tools/binfile -i $@ policy.bin xsm_flask_init_policy
-+flask-policy.S: $(BASEDIR)/tools/binfile
-+	$(SHELL) $(BASEDIR)/tools/binfile -i $@ policy.bin xsm_flask_init_policy
- 
- FLASK_BUILD_DIR := $(CURDIR)
- POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
--- 
-2.17.1
+version targeted for testing:
+ xen                  e4e64408f5c755da3bf7bfd78e70ad9f6c448376
+baseline version:
+ xen                  93508595d588afe9dca087f95200effb7cedc81f
 
+Last test of basis   155495  2020-10-06 12:00:29 Z    1 days
+Testing same since   155517  2020-10-07 12:01:31 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit e4e64408f5c755da3bf7bfd78e70ad9f6c448376
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Fri Oct 2 11:42:09 2020 +0100
+
+    build: always use BASEDIR for xen sub-directory
+    
+    Modify Makefiles using $(XEN_ROOT)/xen to use $(BASEDIR) instead.
+    
+    This is removing the dependency to xen subdirectory preventing using a
+    wrong configuration file when xen subdirectory is duplicated for
+    compilation tests.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
