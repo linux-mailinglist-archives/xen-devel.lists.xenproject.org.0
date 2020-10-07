@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6B2286027
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 15:30:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3510.10083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F258F286026
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 15:30:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3508.10059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ9WV-0007wB-Kg; Wed, 07 Oct 2020 13:30:27 +0000
+	id 1kQ9WL-0007qY-Ru; Wed, 07 Oct 2020 13:30:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3510.10083; Wed, 07 Oct 2020 13:30:27 +0000
+Received: by outflank-mailman (output) from mailman id 3508.10059; Wed, 07 Oct 2020 13:30:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,30 +23,30 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ9WV-0007vR-GU; Wed, 07 Oct 2020 13:30:27 +0000
-Received: by outflank-mailman (input) for mailman id 3510;
- Wed, 07 Oct 2020 13:30:25 +0000
+	id 1kQ9WL-0007q9-OR; Wed, 07 Oct 2020 13:30:17 +0000
+Received: by outflank-mailman (input) for mailman id 3508;
+ Wed, 07 Oct 2020 13:30:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gg45=DO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kQ9WT-0007q4-Ss
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:30:25 +0000
+ id 1kQ9WJ-0007q4-VW
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:30:15 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 803b2796-2b01-4962-970d-9d3c4ba9ea5f;
+ id 5771a15b-b98b-4cad-8cce-ad1e87e22a25;
  Wed, 07 Oct 2020 13:30:15 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 541FEAF27;
+ by mx2.suse.de (Postfix) with ESMTP id 757FCB234;
  Wed,  7 Oct 2020 13:30:14 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Gg45=DO=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kQ9WT-0007q4-Ss
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:30:25 +0000
-X-Inumbo-ID: 803b2796-2b01-4962-970d-9d3c4ba9ea5f
+	id 1kQ9WJ-0007q4-VW
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:30:15 +0000
+X-Inumbo-ID: 5771a15b-b98b-4cad-8cce-ad1e87e22a25
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 803b2796-2b01-4962-970d-9d3c4ba9ea5f;
+	id 5771a15b-b98b-4cad-8cce-ad1e87e22a25;
 	Wed, 07 Oct 2020 13:30:15 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
@@ -55,12 +55,12 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3mWN7Jm1cNuFETK+fgXLvgGY+7f39A/ML24lxKYie30=;
-	b=sgXW1lw2xTYycx2+CiKHRUPRqfY7jshh3bK5pJhK8uBciUXE/wbknecRq6JpCtiXtDHJmX
-	dh8zNvgrMFerWngwxWYFBITJzGkJhL8/k0ReHRoH6wL1RYXr9jwg8PHqQRYRYjaLM4UXCE
-	7Q+BVFm/77kfL4Dx1pRlk/mzM2T9YSw=
+	bh=A/ul8OKsqutALOib25CsZA6bXQqNHW0GneGeZqHG7q8=;
+	b=TEdU2k071jf8kt1UTSAibopkjVoC1AFCBimdUlaguWnZ/OSyCXE/vMqE3ye6u+nlZBzIr3
+	EJvc4PEbA7d4Sqakuk2YxQXNpdFyYtT3LrlEiIufiegDeKc0eap+JumxzHIcNhnCajiZt9
+	eDofBqBFBltEK+umlJCJWiuwPpjk3v4=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 541FEAF27;
+	by mx2.suse.de (Postfix) with ESMTP id 757FCB234;
 	Wed,  7 Oct 2020 13:30:14 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
@@ -68,124 +68,51 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 1/2] xen/x86: add nmi continuation framework
-Date: Wed,  7 Oct 2020 15:30:10 +0200
-Message-Id: <20201007133011.18871-2-jgross@suse.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 2/2] xen/oprofile: use set_nmi_continuation() for sending virq to guest
+Date: Wed,  7 Oct 2020 15:30:11 +0200
+Message-Id: <20201007133011.18871-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201007133011.18871-1-jgross@suse.com>
 References: <20201007133011.18871-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Actions in NMI context are rather limited as e.g. locking is rather
-fragile.
-
-Add a generic framework to continue processing in softirq context after
-leaving NMI processing. This is working for NMIs happening in guest
-context as NMI exit handling will issue an IPI to itself in case a
-softirq is pending, resulting in the continuation running before the
-guest gets control again.
+Instead of calling send_guest_vcpu_virq() from NMI context use the
+NMI continuation framework for that purpose.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- xen/arch/x86/traps.c      | 37 +++++++++++++++++++++++++++++++++++++
- xen/include/asm-x86/nmi.h |  8 +++++++-
- xen/include/xen/softirq.h |  5 ++++-
- 3 files changed, 48 insertions(+), 2 deletions(-)
+ xen/arch/x86/oprofile/nmi_int.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index bc5b8f8ea3..f433fe5acb 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1799,6 +1799,42 @@ void unset_nmi_callback(void)
-     nmi_callback = dummy_nmi_callback;
+diff --git a/xen/arch/x86/oprofile/nmi_int.c b/xen/arch/x86/oprofile/nmi_int.c
+index 0f103d80a6..659e31fe19 100644
+--- a/xen/arch/x86/oprofile/nmi_int.c
++++ b/xen/arch/x86/oprofile/nmi_int.c
+@@ -83,6 +83,13 @@ void passive_domain_destroy(struct vcpu *v)
+ 		model->free_msr(v);
  }
  
-+static DEFINE_PER_CPU(void (*)(void *), nmi_cont_func);
-+static DEFINE_PER_CPU(void *, nmi_cont_par);
-+
-+static void nmi_cont_softirq(void)
++static void nmi_oprofile_send_virq(void *par)
 +{
-+    unsigned int cpu = smp_processor_id();
-+    void (*func)(void *par) = per_cpu(nmi_cont_func, cpu);
-+    void *par = per_cpu(nmi_cont_par, cpu);
++	struct vcpu *v = par;
 +
-+    /* Reads must be done before following write (local cpu ordering only). */
-+    barrier();
-+
-+    per_cpu(nmi_cont_func, cpu) = NULL;
-+
-+    if ( func )
-+        func(par);
++	send_guest_vcpu_virq(v, VIRQ_XENOPROF);
 +}
 +
-+int set_nmi_continuation(void (*func)(void *par), void *par)
-+{
-+    unsigned int cpu = smp_processor_id();
-+
-+    if ( per_cpu(nmi_cont_func, cpu) )
-+    {
-+        printk("Trying to set NMI continuation while still one active!\n");
-+        return -EBUSY;
-+    }
-+
-+    per_cpu(nmi_cont_func, cpu) = func;
-+    per_cpu(nmi_cont_par, cpu) = par;
-+
-+    raise_softirq(NMI_CONT_SOFTIRQ);
-+
-+    return 0;
-+}
-+
- void do_device_not_available(struct cpu_user_regs *regs)
+ static int nmi_callback(const struct cpu_user_regs *regs, int cpu)
  {
- #ifdef CONFIG_PV
-@@ -2132,6 +2168,7 @@ void __init trap_init(void)
+ 	int xen_mode, ovf;
+@@ -90,7 +97,7 @@ static int nmi_callback(const struct cpu_user_regs *regs, int cpu)
+ 	ovf = model->check_ctrs(cpu, &cpu_msrs[cpu], regs);
+ 	xen_mode = ring_0(regs);
+ 	if ( ovf && is_active(current->domain) && !xen_mode )
+-		send_guest_vcpu_virq(current, VIRQ_XENOPROF);
++		set_nmi_continuation(nmi_oprofile_send_virq, current);
  
-     cpu_init();
- 
-+    open_softirq(NMI_CONT_SOFTIRQ, nmi_cont_softirq);
-     open_softirq(PCI_SERR_SOFTIRQ, pci_serr_softirq);
- }
- 
-diff --git a/xen/include/asm-x86/nmi.h b/xen/include/asm-x86/nmi.h
-index a288f02a50..da40fb6599 100644
---- a/xen/include/asm-x86/nmi.h
-+++ b/xen/include/asm-x86/nmi.h
-@@ -33,5 +33,11 @@ nmi_callback_t *set_nmi_callback(nmi_callback_t *callback);
- void unset_nmi_callback(void);
- 
- DECLARE_PER_CPU(unsigned int, nmi_count);
-- 
-+
-+/**
-+ * set_nmi_continuation
-+ *
-+ * Schedule a function to be started in softirq context after NMI handling.
-+ */
-+int set_nmi_continuation(void (*func)(void *par), void *par);
- #endif /* ASM_NMI_H */
-diff --git a/xen/include/xen/softirq.h b/xen/include/xen/softirq.h
-index 1f6c4783da..14c744bbf7 100644
---- a/xen/include/xen/softirq.h
-+++ b/xen/include/xen/softirq.h
-@@ -3,7 +3,10 @@
- 
- /* Low-latency softirqs come first in the following list. */
- enum {
--    TIMER_SOFTIRQ = 0,
-+#ifdef CONFIG_X86
-+    NMI_CONT_SOFTIRQ,
-+#endif
-+    TIMER_SOFTIRQ,
-     RCU_SOFTIRQ,
-     SCHED_SLAVE_SOFTIRQ,
-     SCHEDULE_SOFTIRQ,
+ 	if ( ovf == 2 )
+ 		current->arch.nmi_pending = true;
 -- 
 2.26.2
 
