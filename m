@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085FA285D09
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 12:39:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3416.9825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9553A285D68
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 12:52:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3418.9837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ6qg-00050d-99; Wed, 07 Oct 2020 10:39:06 +0000
+	id 1kQ726-0006mD-DV; Wed, 07 Oct 2020 10:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3416.9825; Wed, 07 Oct 2020 10:39:06 +0000
+Received: by outflank-mailman (output) from mailman id 3418.9837; Wed, 07 Oct 2020 10:50:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,104 +23,132 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ6qg-00050E-5d; Wed, 07 Oct 2020 10:39:06 +0000
-Received: by outflank-mailman (input) for mailman id 3416;
- Wed, 07 Oct 2020 10:39:04 +0000
+	id 1kQ726-0006lq-9e; Wed, 07 Oct 2020 10:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 3418;
+ Wed, 07 Oct 2020 10:50:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FceR=DO=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kQ6qe-000509-1W
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 10:39:04 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mlZt=DO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kQ725-0006ll-GV
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 10:50:53 +0000
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3aa607b9-3041-4c7d-9b8a-2ba0f52f0ebe;
- Wed, 07 Oct 2020 10:39:03 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kQ6qZ-0001GA-TP; Wed, 07 Oct 2020 10:38:59 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kQ6qZ-0003th-Lr; Wed, 07 Oct 2020 10:38:59 +0000
+ id 2d40c828-6c35-4167-ac62-6500d1c042f1;
+ Wed, 07 Oct 2020 10:50:52 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id n18so1607685wrs.5
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 03:50:52 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id l18sm2349693wrp.84.2020.10.07.03.50.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2020 03:50:50 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=FceR=DO=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kQ6qe-000509-1W
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 10:39:04 +0000
-X-Inumbo-ID: 3aa607b9-3041-4c7d-9b8a-2ba0f52f0ebe
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=mlZt=DO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+	id 1kQ725-0006ll-GV
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 10:50:53 +0000
+X-Inumbo-ID: 2d40c828-6c35-4167-ac62-6500d1c042f1
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3aa607b9-3041-4c7d-9b8a-2ba0f52f0ebe;
-	Wed, 07 Oct 2020 10:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=lfyZLJuMXdhWOK+eBZOGP+LCw9yxvshAac7336OYOIw=; b=AM2Yi6iiGGqo7Y05tN6xp9e66V
-	bF4l3sqaoVOdbDw0x8KGQrg377hzPHo8bDDc/gXoaepo/dbEovkkDmMpA7qUW7ewUV0IknO6Rgece
-	Jb/9MeWFcxsQJZWXoQd387wJrakPUrGl+KcQ7ABDBAXQ3/sNQyE+a75fBglz4PDSWCKs=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kQ6qZ-0001GA-TP; Wed, 07 Oct 2020 10:38:59 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kQ6qZ-0003th-Lr; Wed, 07 Oct 2020 10:38:59 +0000
-Subject: Re: [PATCH V1 13/16] xen/ioreq: Make x86's invalidate qemu mapcache
- handling common
-To: Oleksandr <olekstysh@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
-References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
- <1599769330-17656-14-git-send-email-olekstysh@gmail.com>
- <83dfb207-c191-8dad-1474-ce57b6d51102@suse.com>
- <2cab3ca5-0f2b-a813-099f-95bbf54bb9c8@gmail.com>
- <17f1c7d2-7a84-a6a5-4afb-f82e67bc9fd0@suse.com>
- <0fa6a31c-8da6-2a0a-b110-a697f4955702@gmail.com>
- <3abe3988-f1c0-9bbf-1ff9-ce3ae380c825@suse.com>
- <47ecdde7-6575-bee8-7981-7b1a31715a0b@gmail.com>
- <0aa9a225-1231-fa98-f2a1-caf898a3ed86@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <fa610665-78c2-3bd0-66f4-2aa716bafe64@xen.org>
-Date: Wed, 7 Oct 2020 11:38:56 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.2
+	id 2d40c828-6c35-4167-ac62-6500d1c042f1;
+	Wed, 07 Oct 2020 10:50:52 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id n18so1607685wrs.5
+        for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 03:50:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=czGh4ZowBRDnHUvhZhQVe6BWzab9g6zWKZOGRKWO50c=;
+        b=ULsQmCmyyCoHnjtKeurjgBoXygiMf1BLVk5RM9KcS/4FNrykjmLI3MAf9fr5ZYsd2z
+         z3CEEzv6kkpV/1nL67m8ETDOkU5naAksnvZ9Q18+LQXzbXJ/AJYU/UhHCJdPtfTBjhq5
+         T2ZhjKC02zHVzsawYZ5u5hujYwTqVK31yj89KWNiqH0B+AwX/8e5eQwQQonL/sIgFacQ
+         tiCUkiC0pVheSPeRrPbDGdlM6R87GnVcO/WWTfleZ6ZPvCj6Up5PHHpzTavrpt4mZE/F
+         f01JJXFs6t3mzhbLmBlngXh5wsNv84NUazUW50C+BR4QbEK9sEsl6bZjMljxm/hdJhPm
+         oa4w==
+X-Gm-Message-State: AOAM533xY6SUZeh9tMlk+QM/5tBiS4csDztU5B1RqY99b92tT8Q8rQ8i
+	xGQv9B5bNJXIHEoK/PjdR/I=
+X-Google-Smtp-Source: ABdhPJwKyQC2r4r3wyuItlOKMNZ6CvLXHaDBLFamy19yJ7RJzroqGqQpvuc/FO6BCd2PTm2uQNjC+Q==
+X-Received: by 2002:a5d:46c5:: with SMTP id g5mr2952141wrs.416.1602067851476;
+        Wed, 07 Oct 2020 03:50:51 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+        by smtp.gmail.com with ESMTPSA id l18sm2349693wrp.84.2020.10.07.03.50.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2020 03:50:50 -0700 (PDT)
+Date: Wed, 7 Oct 2020 10:50:49 +0000
+From: Wei Liu <wl@xen.org>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] libxl: only query VNC when enabled
+Message-ID: <20201007105049.vfpunr4g62fqvijr@liuwe-devbox-debian-v2>
+References: <20201001235337.83948-1-jandryuk@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <0aa9a225-1231-fa98-f2a1-caf898a3ed86@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201001235337.83948-1-jandryuk@gmail.com>
+User-Agent: NeoMutt/20180716
 
-Hi Oleksandr,
+On Thu, Oct 01, 2020 at 07:53:37PM -0400, Jason Andryuk wrote:
+> QEMU without VNC support (configure --disable-vnc) will return an error
+> when VNC is queried over QMP since it does not recognize the QMP
+> command.  This will cause libxl to fail starting the domain even if VNC
+> is not enabled.  Therefore only query QEMU for VNC support when using
+> VNC, so a VNC-less QEMU will function in this configuration.
+> 
+> 'goto out' jumps to the call to device_model_postconfig_done(), the
+> final callback after the chain of vnc queries.  This bypasses all the
+> QMP VNC queries.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+>  tools/libs/light/libxl_dm.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> index a944181781..d1ff35dda3 100644
+> --- a/tools/libs/light/libxl_dm.c
+> +++ b/tools/libs/light/libxl_dm.c
+> @@ -3140,6 +3140,7 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+>  {
+>      EGC_GC;
+>      libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
+> +    const libxl_vnc_info *vnc = libxl__dm_vnc(dmss->guest_config);
+>      const libxl__json_object *item = NULL;
+>      const libxl__json_object *o = NULL;
+>      int i = 0;
+> @@ -3197,6 +3198,9 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+>          if (rc) goto out;
+>      }
+>  
+> +    if (!vnc)
+> +        goto out;
+> +
 
-On 02/10/2020 10:55, Oleksandr wrote:
-> If I got it correctly there won't be a suitable common place where to 
-> set qemu_mapcache_invalidate flag anymore
-> as XENMEM_decrease_reservation is not a single place we need to make a 
-> decision whether to set it
-> By principle of analogy, on Arm we probably want to do so in 
-> guest_physmap_remove_page (or maybe better in p2m_remove_mapping).
-> Julien, what do you think?
+I would rather this check be done in device_model_postconfig_vnc.
 
-At the moment, the Arm code doesn't explicitely remove the existing 
-mapping before inserting the new mapping. Instead, this is done 
-implicitely by p2m_set_entry().
+Does the following work for you?
 
-So I think we want to invalidate the QEMU mapcache in p2m_set_entry() if 
-the old entry is a RAM page *and* the new MFN is different.
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index a944181781bb..c5db755a65d7 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -3222,6 +3222,8 @@ static void device_model_postconfig_vnc(libxl__egc *egc,
 
-Cheers,
+     if (rc) goto out;
 
--- 
-Julien Grall
++    if (!vnc) goto out;
++
+     /*
+      * query-vnc response:
+      * { 'enabled': 'bool', '*host': 'str', '*service': 'str' }
+@@ -3255,7 +3257,8 @@ static void device_model_postconfig_vnc(libxl__egc *egc,
+         if (rc) goto out;
+     }
+
+-    if (vnc && vnc->passwd && vnc->passwd[0]) {
++    assert(vnc);
++    if (vnc->passwd && vnc->passwd[0]) {
+         qmp->callback = device_model_postconfig_vnc_passwd;
+         libxl__qmp_param_add_string(gc, &args, "password", vnc->passwd);
+         rc = libxl__ev_qmp_send(egc, qmp, "change-vnc-password", args);
+
 
