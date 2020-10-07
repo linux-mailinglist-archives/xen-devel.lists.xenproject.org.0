@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865DF2866E1
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:26:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3674.10665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DD47286709
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:28:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3712.11107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE9D-0000pI-3P; Wed, 07 Oct 2020 18:26:43 +0000
+	id 1kQEAW-0004Lx-DZ; Wed, 07 Oct 2020 18:28:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3674.10665; Wed, 07 Oct 2020 18:26:43 +0000
+Received: by outflank-mailman (output) from mailman id 3712.11107; Wed, 07 Oct 2020 18:28:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,42 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE9D-0000os-0A; Wed, 07 Oct 2020 18:26:43 +0000
-Received: by outflank-mailman (input) for mailman id 3674;
- Wed, 07 Oct 2020 18:26:41 +0000
+	id 1kQEAV-0004FP-Hu; Wed, 07 Oct 2020 18:28:03 +0000
+Received: by outflank-mailman (input) for mailman id 3712;
+ Wed, 07 Oct 2020 18:27:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE2W-00072Q-HT
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:48 +0000
+ id 1kQE6x-00072Q-S3
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:23 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9dc5c5b6-8d1c-43ed-a943-f114e0982010;
- Wed, 07 Oct 2020 18:19:21 +0000 (UTC)
+ id f8f749b0-926d-4602-b095-e1080888c615;
+ Wed, 07 Oct 2020 18:21:59 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDk7-0007CF-UQ; Wed, 07 Oct 2020 19:00:48 +0100
+ id 1kQDk8-0007CF-6P; Wed, 07 Oct 2020 19:00:48 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE2W-00072Q-HT
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:48 +0000
-X-Inumbo-ID: 9dc5c5b6-8d1c-43ed-a943-f114e0982010
+	id 1kQE6x-00072Q-S3
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:23 +0000
+X-Inumbo-ID: f8f749b0-926d-4602-b095-e1080888c615
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9dc5c5b6-8d1c-43ed-a943-f114e0982010;
-	Wed, 07 Oct 2020 18:19:21 +0000 (UTC)
+	id f8f749b0-926d-4602-b095-e1080888c615;
+	Wed, 07 Oct 2020 18:21:59 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDk7-0007CF-UQ; Wed, 07 Oct 2020 19:00:48 +0100
+	id 1kQDk8-0007CF-6P; Wed, 07 Oct 2020 19:00:48 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 59/82] runvar access: Provide runvar_glob
-Date: Wed,  7 Oct 2020 19:00:01 +0100
-Message-Id: <20201007180024.7932-60-iwj@xenproject.org>
+Subject: [OSSTEST PATCH 60/82] runvar access: Use runvar_glob for dmrestrict runvar search
+Date: Wed,  7 Oct 2020 19:00:02 +0100
+Message-Id: <20201007180024.7932-61-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -67,50 +67,24 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-We will need this because when runvar access is restricted, accessing
-via %r directly won't work.  We want to see what patterns the code is
-interested in (so that interest in a nonexistent runvar is properly
-tracked).
-
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/TestSupport.pm | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ Osstest/Debian.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
-index b1eca0a9..6403e52b 100644
---- a/Osstest/TestSupport.pm
-+++ b/Osstest/TestSupport.pm
-@@ -53,7 +53,7 @@ BEGIN {
-                       store_runvar get_runvar get_runvar_maybe
-                       get_runvar_default need_runvars
-                       unique_incrementing_runvar next_unique_name
--                      stashfilecontents runvar_is_synth
-+                      stashfilecontents runvar_is_synth runvar_glob
+diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
+index 3fa26e45..ae3c1d33 100644
+--- a/Osstest/Debian.pm
++++ b/Osstest/Debian.pm
+@@ -1032,7 +1032,7 @@ END
+     # security.d.o CDN seems unreliable right now
+     # and jessie-updates is no more
  
-                       target_cmd_root_status target_cmd_output_root_status
-                       target_cmd_root target_cmd target_cmd_build
-@@ -3187,6 +3187,20 @@ sub runvar_access_check ($$) {
-     Carp::cluck $m;
- }
- 
-+sub runvar_glob {
-+    my $monitor = tied %r;
-+    my $realr = $monitor || \%r;
-+    my @out;
-+    foreach my $pat (@_) {
-+	if ($monitor) { runvar_access_check($pat, 'scan') }
-+	foreach my $key (sort keys %$realr) {
-+	    next unless fnmatch $pat, $key;
-+	    push @out, $key;
-+	}
-+    }
-+    @out;
-+}
-+
- package RunvarMonitor;
- use Carp;
- use Osstest;
+-    if (grep { m/_dmrestrict$/ && $r{$_} } keys %r and
++    if (grep { $r{$_} } runvar_glob('*_dmrestrict') and
+ 	$suite =~ m/stretch/) {
+ 	preseed_backports_packages($ho, $sfx, \%xopts, $suite,
+ 				   qw(chiark-scripts));
 -- 
 2.20.1
 
