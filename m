@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD242866CD
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:19:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3646.10571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A2972866F4
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:27:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3692.10883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE1u-0007Hr-I3; Wed, 07 Oct 2020 18:19:10 +0000
+	id 1kQE9p-0002JY-5J; Wed, 07 Oct 2020 18:27:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3646.10571; Wed, 07 Oct 2020 18:19:10 +0000
+Received: by outflank-mailman (output) from mailman id 3692.10883; Wed, 07 Oct 2020 18:27:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,43 +23,42 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE1u-0007HF-Cd; Wed, 07 Oct 2020 18:19:10 +0000
-Received: by outflank-mailman (input) for mailman id 3646;
- Wed, 07 Oct 2020 18:19:08 +0000
+	id 1kQE9o-0002Ge-MP; Wed, 07 Oct 2020 18:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 3692;
+ Wed, 07 Oct 2020 18:27:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE1s-00072Q-Fv
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:08 +0000
+ id 1kQE6n-00072Q-RX
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:13 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b62c7e83-dbae-4cf4-a3c7-fb9d424626b2;
- Wed, 07 Oct 2020 18:19:01 +0000 (UTC)
+ id 03699dbd-5e37-4648-863d-40c47704ce6f;
+ Wed, 07 Oct 2020 18:21:54 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDk5-0007CF-9J; Wed, 07 Oct 2020 19:00:45 +0100
+ id 1kQDk5-0007CF-FJ; Wed, 07 Oct 2020 19:00:45 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE1s-00072Q-Fv
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:08 +0000
-X-Inumbo-ID: b62c7e83-dbae-4cf4-a3c7-fb9d424626b2
+	id 1kQE6n-00072Q-RX
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:13 +0000
+X-Inumbo-ID: 03699dbd-5e37-4648-863d-40c47704ce6f
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b62c7e83-dbae-4cf4-a3c7-fb9d424626b2;
-	Wed, 07 Oct 2020 18:19:01 +0000 (UTC)
+	id 03699dbd-5e37-4648-863d-40c47704ce6f;
+	Wed, 07 Oct 2020 18:21:54 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDk5-0007CF-9J; Wed, 07 Oct 2020 19:00:45 +0100
+	id 1kQDk5-0007CF-FJ; Wed, 07 Oct 2020 19:00:45 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
-	Ian Jackson <Ian.Jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 47/82] shared/reuse: Use @ for ts-host-install
-Date: Wed,  7 Oct 2020 18:59:49 +0100
-Message-Id: <20201007180024.7932-48-iwj@xenproject.org>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 48/82] shared/reuse: Use @ for freebsd host prep
+Date: Wed,  7 Oct 2020 18:59:50 +0100
+Message-Id: <20201007180024.7932-49-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -68,58 +67,65 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Pass @ from sg-run-job.  These are all the call sites for
-ts-host-install-*, so we can lose the open-coded test for SharedReady.
+These are all the relevant call sites for ts-freebsd-host-install and
+ts-freebsd-build-prep.  (There's a ts-freebsd-host-install in
+ts-memdisk-try-append but that's for host examination and does not
+uee or want sharing or reuse.)
 
-Signed-off-by: Ian Jackson <Ian.Jackson@eu.citrix.com>
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-run-job      | 6 +++---
- ts-host-install | 1 -
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ sg-run-job              | 12 +++++++++---
+ ts-build-prep-freebsd   |  1 -
+ ts-freebsd-host-install |  1 -
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/sg-run-job b/sg-run-job
-index d46a3a62..c454d4ea 100755
+index c454d4ea..0b2e20e7 100755
 --- a/sg-run-job
 +++ b/sg-run-job
-@@ -85,7 +85,7 @@ proc run-job {job} {
-         }
-     }
+@@ -758,9 +758,15 @@ proc prepare-build-host-linux {} {
  
--    per-host-ts broken  host-install/@(*) ts-host-install-twice
-+    per-host-ts @broken host-install/@(*) ts-host-install-twice
- 
-     per-host-prep
- 
-@@ -675,7 +675,7 @@ proc examine-host-prep {} {
-     run-ts broken  =            ts-hosts-allocate     + host
- }
- proc examine-host-install-debian {} {
--    run-ts broken  host-install ts-host-install-twice + host
-+    run-ts broken host-install  ts-host-install-twice + @host
- }
- proc examine-host-install-xen {} {
-     examine-host-install-debian
-@@ -752,7 +752,7 @@ proc allocate-build-host {ostype} {
- }
- proc prepare-build-host-linux {} {
+ proc prepare-build-host-freebsd {} {
      global jobinfo
--    run-ts broken host-install(*) ts-host-install-twice + --build
-+    run-ts broken host-install(*) ts-host-install-twice + --build @host
-     run-ts . host-build-prep ts-xen-build-prep + @host
+-    if {[recipe-flag testinstall]} { set broken fail } { set broken broken }
+-    run-ts $broken host-install(*) ts-freebsd-host-install
+-    run-ts . host-build-prep ts-build-prep-freebsd
++    if {[recipe-flag testinstall]} {
++	set broken fail
++	set isprep {}
++    } {
++	set broken broken
++	set isprep @
++    }
++    run-ts $broken host-install(*) ts-freebsd-host-install + ${isprep}host
++    run-ts . host-build-prep ts-build-prep-freebsd + ${isprep}host
  }
  
-diff --git a/ts-host-install b/ts-host-install
-index 924c1e06..b0fd2028 100755
---- a/ts-host-install
-+++ b/ts-host-install
-@@ -53,7 +53,6 @@ our ($whhost) = @ARGV;
+ proc need-hosts/coverity {} { return BUILD_LINUX }
+diff --git a/ts-build-prep-freebsd b/ts-build-prep-freebsd
+index ef880503..9606c0f7 100755
+--- a/ts-build-prep-freebsd
++++ b/ts-build-prep-freebsd
+@@ -28,7 +28,6 @@ tsreadconfig();
+ our ($whhost) = @ARGV;
+ $whhost ||= 'host';
+ our $ho= selecthost($whhost);
+-exit 0 if $ho->{SharedReady};
+ 
+ sub install_deps () {
+     my @packages = qw(git glib pkgconf yajl gmake pixman markdown gettext
+diff --git a/ts-freebsd-host-install b/ts-freebsd-host-install
+index 3c3e9c34..9feb98cd 100755
+--- a/ts-freebsd-host-install
++++ b/ts-freebsd-host-install
+@@ -65,7 +65,6 @@ our ($whhost) = @ARGV;
  $whhost ||= 'host';
  our $ho= selecthost($whhost);
  exit 0 if $ho->{Flags}{'no-reinstall'};
 -exit 0 if $ho->{SharedReady};
  
- our %timeout= qw(ReadPreseed  350
-                  Sshd        2400);
+ our $timeout = 1000;
+ 
 -- 
 2.20.1
 
