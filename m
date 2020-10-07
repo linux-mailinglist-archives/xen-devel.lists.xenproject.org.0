@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7D9286A0D
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 23:27:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3813.11383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F3E286A93
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 23:58:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3818.11395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQGwW-0002c7-Gr; Wed, 07 Oct 2020 21:25:48 +0000
+	id 1kQHRe-0006GA-Ai; Wed, 07 Oct 2020 21:57:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3813.11383; Wed, 07 Oct 2020 21:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 3818.11395; Wed, 07 Oct 2020 21:57:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,477 +23,418 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQGwW-0002bi-DO; Wed, 07 Oct 2020 21:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 3813;
- Wed, 07 Oct 2020 21:25:47 +0000
+	id 1kQHRe-0006Fl-76; Wed, 07 Oct 2020 21:57:58 +0000
+Received: by outflank-mailman (input) for mailman id 3818;
+ Wed, 07 Oct 2020 21:57:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cKu2=DO=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1kQGwV-0002bd-CM
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 21:25:47 +0000
-Received: from mail-oo1-xc43.google.com (unknown [2607:f8b0:4864:20::c43])
+ <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kQHRc-0006Fg-Jq
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 21:57:56 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 13118245-8dd5-4776-83ea-040311671c39;
- Wed, 07 Oct 2020 21:25:45 +0000 (UTC)
-Received: by mail-oo1-xc43.google.com with SMTP id h8so974936ooc.12
- for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 14:25:44 -0700 (PDT)
+ id 588a64c3-f3cb-4c30-b65a-e8781db56466;
+ Wed, 07 Oct 2020 21:57:53 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQHRZ-00084g-9F; Wed, 07 Oct 2020 21:57:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQHRY-0007T8-Sk; Wed, 07 Oct 2020 21:57:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQHRY-0005XV-Pk; Wed, 07 Oct 2020 21:57:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cKu2=DO=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
-	id 1kQGwV-0002bd-CM
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 21:25:47 +0000
-X-Inumbo-ID: 13118245-8dd5-4776-83ea-040311671c39
-Received: from mail-oo1-xc43.google.com (unknown [2607:f8b0:4864:20::c43])
+	(envelope-from <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kQHRc-0006Fg-Jq
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 21:57:56 +0000
+X-Inumbo-ID: 588a64c3-f3cb-4c30-b65a-e8781db56466
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 13118245-8dd5-4776-83ea-040311671c39;
-	Wed, 07 Oct 2020 21:25:45 +0000 (UTC)
-Received: by mail-oo1-xc43.google.com with SMTP id h8so974936ooc.12
-        for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 14:25:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=tfaWlfjOG5Lclvg6ocQl8VXO5607RWxeWJyy9KOesYM=;
-        b=UZCOdHk95ZQx91wU3nK7gmYCdNcC6lev8R3ryBUOF1ll11oISKeDBAmLE4vseOxoXa
-         kgsMQ5UZ2si62i6PGHAcl7LBDld7iC+WY7igINshWGEiWpHFu9662TtM0MI0lLt4rwCw
-         u825cUPgTxmJUF4fcjQd1eku4MnY40QaWMCloupWJtYPyhLHqTIbRxf0qA6otj10mX9P
-         1ANUn+wYIOq6E04EjqlEqJvyaHJV6mscxcWZGwyqMtSsrK3lIHhvtOQaSQmQ3J34QVEu
-         6IGMNPRr4X558kBBgq3CI232D/xdeYNJq0XbM37il/OlhEUKWc2Fvav0motQ0ULaBGXE
-         xrnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=tfaWlfjOG5Lclvg6ocQl8VXO5607RWxeWJyy9KOesYM=;
-        b=KY0sUQM/U9+pNpyGraJCwrw9MA4WK+FDAX5L9SHKLHEiW1p+SWeNQcQNn1e9BDM6N0
-         0YFWootpQ3309OX2W7CyFMzTvAcVCbuTULp56ujndT20pe4lKkGa6DurauE040wVLNiz
-         Hb9/C9YvhYUXrgSWFQGTeyuTc27V4UvCFz1UyGeBDa3xnvdqsVTzPIAyUdhDDDM6B6X0
-         SqghBdkpJcHAreUhUe1Y5jPxRBLbcdflBz7BaB15bTmbPZIrhcH9bFDZ0UxconvTpm70
-         a4tA2NwWLDFosrlk2KtloC3tgL6eY3/ltYeWIsGV/l978APHoso4yo7L97v8bXVDfY/Y
-         9p7Q==
-X-Gm-Message-State: AOAM532wo1C1yTINhCztHQXsIePxd0T9XXlBXJBHNrOcxJ9B2cf/ADKb
-	UFXt2yHKDzb2gGGnb6viKHa9Eg2rYgKrL+nucSI=
-X-Google-Smtp-Source: ABdhPJy0+cnlxGAXo2GrThVlb2UBFEAsuPoTD0bxwjkTV5H/gt9N5TeBVaIkyqnuXTKJ0rszsfbs/GWKckyMybVMcNs=
-X-Received: by 2002:a4a:ce90:: with SMTP id f16mr1863791oos.55.1602105943960;
- Wed, 07 Oct 2020 14:25:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <CACMJ4GaWcF74zE5qt31MDvcX1mx1HSW7eaOXpfpWJ2KzQZOg=Q@mail.gmail.com>
- <20201001085500.GX19254@Air-de-Roger>
-In-Reply-To: <20201001085500.GX19254@Air-de-Roger>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 7 Oct 2020 14:25:27 -0700
-Message-ID: <CACMJ4Ga3ygh=7o+rELAiJy2uZoMJqQUV9jQ4zQxvgZSuXzm5QA@mail.gmail.com>
-Subject: Re: VirtIO & Argo: a Linux VirtIO transport driver on Xen
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Rich Persaud <persaur@gmail.com>, 
-	Daniel Smith <dpsmith@apertussolutions.com>
+	id 588a64c3-f3cb-4c30-b65a-e8781db56466;
+	Wed, 07 Oct 2020 21:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=T/OMNqsqH6l0txJSa8yMtdGK3KLfcU8+OnEp8gs3Dkw=; b=2KGVA8inbGiERRyd+YOyUt6x8i
+	eQYdk7eelJBO2BUKUX2qIezb+aG7j4H482x4OJ2Q1pjdUTn1t+XlRvxvTr4D9xE04Dn4zehAl/OkZ
+	PyjMCfEYc6lrVQ7Z5obEAU64EIJYnTxLIdeQgccZe8P4OtFQygpgNkY6FyNQoszjdqH8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQHRZ-00084g-9F; Wed, 07 Oct 2020 21:57:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQHRY-0007T8-Sk; Wed, 07 Oct 2020 21:57:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQHRY-0005XV-Pk; Wed, 07 Oct 2020 21:57:52 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155513-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-5.4 test] 155513: regressions - FAIL
+X-Osstest-Failures:
+    linux-5.4:test-amd64-amd64-examine:memdisk-try-append:fail:regression
+    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=d22f99d235e13356521b374410a6ee24f50b65e6
+X-Osstest-Versions-That:
+    linux=a9518c1aec5b6a8e1a04bbd54e6ba9725ef0db4c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Oct 2020 21:57:52 +0000
 
-Roger: thanks for your interest and fast response to the first post in
-this thread. Responses inline below.
+flight 155513 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155513/
 
-On Thu, Oct 1, 2020 at 1:55 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
-wrote:
->
-> On Wed, Sep 30, 2020 at 09:03:03PM -0700, Christopher Clark wrote:
-> > Hello
-> >
-> > Following up on a topic introduced in last month's community call,
-> > here are some notes on combining existing Linux guest virtio drivers
-> > with Argo inter-VM communication on Xen.  If feasible, this would
-> > combine the compatibility of tested Linux drivers with the mandatory
-> > access control properties of Argo, which could help meet functional
-> > safety and security requirements for Xen on Arm and x86.  This
-> > development work is not resourced, but the initial investigation has
-> > been encouraging.  We are sharing here for comment, aiming to work
-> > with those in the Xen and wider Linux communities who may have similar
-> > requirements.
-> >
-> > Christopher
-> > - 30th September 2020
-> >
-> > ---
-> > This document describes a proposal for development of a new Linux devic=
-e
-> > driver to introduce Hypervisor-Mediated data eXchange (HMX) into the
-> > data transport of the popular VirtIO suite of Linux virtual device
-> > drivers, by using Argo with Xen. This will provide a way to use VirtIO
-> > device drivers within Xen guest VMs with strong isolation properties.
-> >
-> > This work has been developed by Christopher Clark, Daniel Smith and Ric=
-h
-> > Persaud, with Eric Chanudet and Nick Krasnoff.
-> > Christopher is the primary author of this version of this document.
-> >
-> > ----
-> > Contents:
-> >
-> > =3D Context: Introduction to VirtIO
-> > =3D=3D VirtIO Architecture Overview
-> > =3D=3D=3D VirtIO front-end driver classes
-> > =3D=3D=3D VirtIO transport drivers
-> > =3D VirtIO with Argo transport
-> > =3D=3D Using VirtIO with the new Argo transport driver
-> > =3D=3D=3D Host platform software
-> > =3D=3D=3D=3D QEMU
-> > =3D=3D=3D=3D Linux Argo driver
-> > =3D=3D=3D=3D Toolstack
-> > =3D=3D=3D Functionality
-> > =3D=3D=3D Mechanisms
-> > =3D=3D=3D From last discussion
-> > =3D References
-> >
-> > ----
-> > =3D Context: Introduction to VirtIO
-> >
-> > VirtIO is a virtual device driver standard developed originally for the
-> > Linux kernel, drawing upon the lessons learned during the development o=
-f
-> > paravirtualized device drivers for Xen, KVM and other hypervisors. It
-> > aimed to become a =E2=80=9Cde-facto standard for virtual I/O devices=E2=
-=80=9D, and to
-> > some extent has succeeded in doing so. VirtIO is now widely implemented
-> > in both software and hardware, it is commonly the first choice for
-> > virtual driver implementation in new virtualization technologies, and
-> > the specification is now maintained under governance of the OASIS open
-> > standards organization.
-> >
-> > VirtIO=E2=80=99s system architecture abstracts device-specific and
-> > device-class-specific interfaces and functionality from the transport
-> > mechanisms that move data and issue notifications within the kernel and
-> > across virtual machine boundaries. It is attractive to developers
-> > seeking to implement new drivers for a virtual device because VirtIO
-> > provides documented specified interfaces with a well-designed, efficien=
-t
-> > and maintained common core implementation that can significantly reduce
-> > the amount of work required to develop a new virtual device driver.
-> >
-> > VirtIO follows the Xen PV driver model of split-device drivers, where a
-> > front-end device driver runs within the guest virtual machine to provid=
-e
-> > the device abstraction to the guest kernel, and a back-end driver runs
-> > outside the VM, in platform-provided software - eg. within a QEMU devic=
-e
-> > emulator - to communicate with the front-end driver and provide mediate=
-d
-> > access to physical device resources.
-> >
-> > A critical property of the current common VirtIO implementations is tha=
-t
-> > their use of shared memory for data transport prevents enforcement of
-> > strong isolation between the front-end and back-end virtual machines,
-> > since the back-end VirtIO device driver is required to be able to obtai=
-n
-> > direct access to the memory owned by the virtual machine running the
-> > front-end VirtIO device driver. ie. The VM hosting the back-end driver
-> > has significant privilege over any VM running a front-end driver.
-> >
-> > Xen=E2=80=99s PV drivers use the grant-table mechanism to confine share=
-d memory
-> > access to specific memory pages used and permission to access those are
-> > specifically granted by the driver in the VM that owns the memory. Argo
-> > goes further and achieves stronger isolation than this since it require=
-s
-> > no memory sharing between communicating virtual machines.
->
-> Since there's no memory sharing, all data must be copied between
-> buffers (by the hypervisor I assume). Will this result in a noticeable
-> performance penalty?
->
-> OTOH no memory sharing means no need to map foreign memory on the
-> backend, which is costly.
+Regressions :-(
 
-This is a fair question. An important part of this work will be to
-measure and determine what the performance will be; however, this
-approach was not pursued in blind faith since the
-formerly-Bromium-now-HP vSentry product has demonstrated network and
-block devices working over v4v, a mechanism that is closely related to
-Argo, with acceptable performance.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-examine      4 memdisk-try-append       fail REGR. vs. 155222
 
-> > In contrast to Xen=E2=80=99s current driver transport options, the curr=
-ent
-> > implementations of VirtIO transports pass memory addresses directly
-> > across the VM boundary, under the assumption of shared memory access,
-> > and thereby require the back-end to have sufficient privilege to
-> > directly access any memory that the front-end driver refers to. This ha=
-s
-> > presented a challenge for the suitability of using VirtIO drivers for
-> > Xen deployments where isolation is a requirement. Fortunately, a path
-> > exists for integration of the Argo transport into VirtIO which can
-> > address this and enable use of the existing body of VirtIO device
-> > drivers with isolation maintained and mandatory access control enforced=
-:
-> > consequently this system architecture is significantly differentiated
-> > from other options for virtual devices.
-> >
-> > =3D=3D VirtIO Architecture Overview
-> >
-> > In addition to the front-end / back-end split device driver model, ther=
-e
-> > are further standard elements of VirtIO system architecture.
-> >
-> > For detailed reference, VirtIO is described in detail in the =E2=80=9CV=
-irtIO 1.1
-> > specification=E2=80=9D OASIS standards document. [1]
-> >
-> > The front-end device driver architecture imposes tighter constraints on
-> > implementation direction for this project, since it is this that is
-> > already implemented in the wide body of existing VirtIO device drivers
-> > that we are aiming to enable use of.
-> >
-> > The back-end software is implemented in the platform-provided software =
--
-> > ie.  the hypervisor, toolstack, a platform-provided VM or a device
-> > emulator, etc. - where we have more flexibility in implementation
-> > options, and the interface is determined by both the host virtualizatio=
-n
-> > platform and the new transport driver that we are intending to create.
-> >
-> > =3D=3D=3D VirtIO front-end driver classes
-> >
-> > There are multiple classes of VirtIO device driver within the Linux
-> > kernel; these include the general class of front-end VirtIO device
-> > drivers, which provide function-specific logic to implement virtual
-> > devices - eg. a virtual block device driver for storage - and the
-> > _transport_ VirtIO device drivers, which are responsible for device
-> > discovery with the platform and provision of data transport across the
-> > VM boundary between the front-end drivers and the corresponding remote
-> > back-end driver running outside the virtual machine.
-> >
-> > =3D=3D=3D VirtIO transport drivers
-> >
-> > There are several implementations of VirtIO transport device drivers in
-> > Linux, each implement a common interface within the kernel, and they ar=
-e
-> > designed to be interchangeable and compatible with the VirtIO front-end
-> > drivers: so the same front-end driver can use different transports on
-> > different systems. Transports can coexist: different virtual devices ca=
-n
-> > be using different transports within the same virtual machine at the
-> > same time.
->
-> Does this transport layer also define how the device configuration is
-> exposed?
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
 
-Yes, I think that it does.
+version targeted for testing:
+ linux                d22f99d235e13356521b374410a6ee24f50b65e6
+baseline version:
+ linux                a9518c1aec5b6a8e1a04bbd54e6ba9725ef0db4c
 
->
-> >
-> > =3D VirtIO with Argo transport
-> >
-> > Enabling VirtIO to use the Argo interdomain communication mechanism for
-> > data transport across the VM boundary will address critical requirement=
-s:
-> >
-> > * Preserve strong isolation between the two ends of the split device dr=
-iver
-> >
-> >     * ie. remove the need for any shared memory between domains or any
-> >       privilege to map the memory belonging to the other domain
-> >
-> > * Enable enforcement of granular mandatory access control policy over
-> >   the communicating endpoints
-> >
-> >     * ie. Use Xen=E2=80=99s XSM/Flask existing control over Argo commun=
-ication,
-> >       and leverage any new Argo MAC capabilities as they are introduced
-> >       to govern VirtIO devices
-> >
-> > The proposal is to implement a new VirtIO transport driver for Linux
-> > that utilizes Argo. It will be used within guest virtual machines, and
-> > be source-compatible with the existing VirtIO front-end device drivers
-> > in Linux.
-> >
-> > It will be paired with a corresponding new VirtIO-Argo back-end to run
-> > within the Qemu device emulator, in the same fashion as the existing
-> > VirtIO transport back-ends, and the back-end will use a non-VirtIO Linu=
-x
-> > driver to access and utilize Argo.
->
-> IMO it would be better if we could implement the backends in a more
-> lightweight tool, something like kvmtool.
+Last test of basis   155222  2020-10-01 11:40:31 Z    6 days
+Testing same since   155513  2020-10-07 06:19:08 Z    0 days    1 attempts
 
-That's an interesting suggestion, thanks - I would be open to this.
+------------------------------------------------------------
+People who touched revisions under test:
+  "Banerjee, Debabrata" <dbanerje@akamai.com>
+  Adrian Hunter <adrian.hunter@intel.com>
+  Ahmad Fatoum <a.fatoum@pengutronix.de>
+  Al Viro <viro@zeniv.linux.org.uk>
+  Alex Deucher <alexander.deucher@amd.com>
+  Aloka Dixit <alokad@codeaurora.org>
+  Andrew Jeffery <andrew@aj.id.au>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrii Nakryiko <andriin@fb.com>
+  Bartosz Golaszewski <bgolaszewski@baylibre.com>
+  Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+  Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+  Chris Packham <chris.packham@alliedtelesis.co.nz>
+  Christoph Hellwig <hch@lst.de>
+  Christophe Leroy <christophe.leroy@csgroup.eu>
+  Chunyan Zhang <chunyan.zhang@unisoc.com>
+  Corentin Labbe <clabbe@baylibre.com>
+  Damien Le Moal <damien.lemoal@wdc.com>
+  Dan Carpenter <dan.carpenter@oracle.com>
+  Daniel Borkmann <daniel@iogearbox.net>
+  Daniel Lezcano <daniel.lezcano@linaro.org>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  dillon min <dillon.minfei@gmail.com>
+  Dinh Nguyen <dinguyen@kernel.org>
+  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+  Dmitry Torokhov <dmitry.torokhov@gmail.com>
+  Douglas Gilbert <dgilbert@interlog.com>
+  Eric Sandeen <sandeen@redhat.com>
+  Eric Sandeen <sandeen@sandeen.net>
+  Felix Fietkau <nbd@nbd.name>
+  Filipe Manana <fdmanana@suse.com>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Guo Ren <guoren@linux.alibaba.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Harry Cutts <hcutts@chromium.org>
+  Jakub Kicinski <kuba@kernel.org>
+  James Smart <james.smart@broadcom.com>
+  Jean Delvare <jdelvare@suse.de>
+  Jeffrey Mitchell <jeffrey.mitchell@starlab.io>
+  Jens Axboe <axboe@kernel.dk>
+  Jeremy Kerr <jk@codeconstruct.com.au>
+  Jiri Kosina <jkosina@suse.cz>
+  Jochen Friedrich <jochen@scram.de>
+  Joerg Roedel <jroedel@suse.de>
+  Johannes Berg <johannes.berg@intel.com>
+  Jon Hunter <jonathanh@nvidia.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Keith Busch <kbusch@kernel.org>
+  Konstantin Khlebnikov <khlebnikov@yandex-team.ru>
+  Laurent Dufour <ldufour@linux.ibm.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Linux Kernel Functional Testing <lkft@linaro.org>
+  Lucy Yan <lucyyan@google.com>
+  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+  Marek Szyprowski <m.szyprowski@samsung.com>
+  Mark Brown <broonie@kernel.org>
+  Martin Cerveny <m.cerveny@computer.org>
+  Maxime Ripard <maxime@cerno.tech>
+  Michal Hocko <mhocko@suse.com>
+  Naveen N. Rao <naveen.n.rao@linux.vnet.ibm.com>
+  Nicolas VINCENT <nicolas.vincent@vossloh.com>
+  Olympia Giannou <ogiannou@gmail.com>
+  Olympia Giannou <olympia.giannou@leica-geosystems.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Qian Cai <cai@redhat.com>
+  Revanth Rajashekar <revanth.rajashekar@intel.com>
+  Revanth Rajashekar <revanth.rajashekar@intel.com>1
+  Rob Herring <robh@kernel.org>
+  Sasha Levin <sashal@kernel.org>
+  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stephen Boyd <sboyd@kernel.org>
+  Steven Rostedt (VMware) <rostedt@goodmis.org>
+  Sylwester Nawrocki <s.nawrocki@samsung.com>
+  Taiping Lai <taiping.lai@unisoc.com>
+  Tao Ren <rentao.bupt@gmail.com>
+  Thibaut Sautereau <thibaut.sautereau@ssi.gouv.fr>
+  Thierry Reding <treding@nvidia.com>
+  Trond Myklebust <trond.myklebust@hammerspace.com>
+  Ulf Hansson <ulf.hansson@linaro.org>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Vincent Huang <vincent.huang@tw.synaptics.com>
+  Vinod Koul <vkoul@kernel.org>
+  Will McVicker <willmcvicker@google.com>
+  Willy Tarreau <w@1wt.eu>
+  Wolfram Sang <wsa@kernel.org>
+  Xianting Tian <tian.xianting@h3c.com>
+  Xie He <xie.he.0141@gmail.com>
+  Xu Kai <xukai@nationalchip.com>
+  Yu Kuai <yukuai3@huawei.com>
 
->
-> > Open Source VirtIO drivers for Windows are available, and enable Window=
-s
-> > guest VMs to run with virtual devices provided by the VirtIO backends i=
-n
-> > QEMU. The Windows VirtIO device drivers have the same transport
-> > abstraction and separate driver structure, so an Argo transport driver
-> > can also be developed for Windows for source-compatibility with Windows
-> > VirtIO device drivers.
-> >
-> > =3D=3D Using VirtIO with the new Argo transport driver
-> >
-> > VirtIO device drivers are included in the mainline Linux kernel and
-> > enabled in most modern Linux distributions. Adding the new Linux-Argo
-> > guest driver to the upstream Linux kernel will enable seamless
-> > deployment of modern Linux guest VMs on VirtIO-Argo hypervisor
-> > platforms.
-> >
-> > =3D=3D=3D Host platform software
-> >
-> > =3D=3D=3D=3D QEMU
-> >
-> > The QEMU device emulator implements the VirtIO transport that the
-> > front-end will connect to. Current QEMU 5.0 implements both the
-> > virtio-pci and virtio-mmio common transports.
->
-> Oh, I think that answers my question from above, and you would indeed
-> expose the device configuration using an Argo specific virtio device
-> bus.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-Yes.
 
-> Would it be possible to expose the device configuration using
-> virtio-{pci,mmio} but do the data transfer using Argo?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I think potentially yes, with a bit of investigation needed to
-determine exactly how to make that work.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->
-> >
-> > =3D=3D=3D=3D Linux Argo driver
-> >
-> > For QEMU to be able to use Argo, it will need an Argo Linux kernel
-> > device driver, with similar functionality to the existing Argo Linux
-> > driver.
-> >
-> > =3D=3D=3D=3D Toolstack
-> >
-> > The toolstack of the hypervisor is responsible for configuring and
-> > establishing the back-end devices according to the virtual machine
-> > configuration. It will need to be aware of the VirtIO-Argo transport an=
-d
-> > initialize the back-ends for each VM with a suitable configuration for
-> > it.
-> >
-> > Alternatively, in systems that do not run with a toolstack, the DomB
-> > launch domain (when available) can perform any necessary initialization=
-.
-> >
-> > =3D=3D=3D Functionality
-> >
-> > Adding Argo as a transport for VirtIO will retain Argo=E2=80=99s MAC po=
-licy
-> > checks on all data movement, via Xen's XSM/Flask, while allowing use of
-> > the VirtIO virtual device drivers and device implementations.
-> >
-> > With the VirtIO virtual device drivers using the VirtIO-Argo transport
-> > driver, the existing Xen PV drivers, which use the grant tables and
-> > event channels, are not required, and their substitution enables remova=
-l
-> > of shared memory from the data path of the device drivers in use and
-> > makes the virtual device driver data path HMX-compliant.
-> >
-> > In addition, as new virtual device classes in Linux have VirtIO drivers
-> > implemented, these should transparently be enabled with Mandatory Acces=
-s
-> > Control, via the existing virtio-argo transport driver, potentially
-> > without further effort required =E2=80=93 although please note that for=
- some
-> > cases (eg. graphics) optimizing performance characteristics may require
-> > additional effort.
-> >
-> > =3D=3D=3D Mechanisms
-> >
-> > VirtIO transport drivers are responsible for virtual device enumeration=
-,
-> > triggering driver initialization for the devices, and we are proposing
-> > to use ACPI tables to surface the data to the guest for the new driver
-> > to parse for this purpose. Device tree has been raised as an option for
-> > this on Arm and it will be evaluated.
-> >
-> > The VirtIO device drivers will retain use of the virtqueues, but the
-> > descriptors passed between domains by the new transport driver will not
-> > include guest physical addresses, but instead reference data that has
-> > been exchanged via Argo. Each transmission via XEN_ARGO_OP_sendv is
-> > subject to MAC checks by XSM.
-> >
-> > =3D=3D=3D From last discussion
-> >
-> > * Design of how virtual devices are surfaced to the guest VM for
-> >   enumeration by the VirtIO-Argo transport driver
-> >
-> >     * Current plan, from the initial x86 development focus, is to
-> >       populate ACPI tables
->
-> Do we plan to introduce a new ACPI table for virtio-argo devices? Or
-> are there plans to expand an existing table?
->
-> I'm asking because all this would need to be discussed with the UEFI
-> Forum in order to get whatever is needed into the spec (IIRC a
-> separate table is easier because the specification doesn't need to be
-> part of the official ACPI spec).
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-We don't have a decision either way on this at the moment.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> >     * Interest in using Device Tree, for static configurations on Arm,
-> >       was raised on last month's Xen Community Call.
-> >         * is being considered with development of DomB in progress
-> >     * Does not need to be dom0 that populates this for the guest;
-> >       just some domain with suitable permissions to do so
->
-> Hm, while it's true that ACPI tables don't need to be populated by
-> dom0 itself, it must be a domain that has write access to the guest
-> memory, so that it can copy the created ACPI tables into the guest
-> physmap.
 
-Ack.
+Not pushing.
 
-> I think this is all fine, but seems like a very non-trivial amount of
-> work that depends on other entities (the UEFI Forum for ACPI changes
-> and OASIS for the virtio ones).
-
-I think your suggestion that we expose a virtual PCI device (as per
-virtio-pci) to supply the device configuration, as an alternative to
-an ACPI table, is attractive; even more so if there is a means of
-using the existing virtio-pci device driver just with Argo as
-transport.
-
-> It also worries me a bit that we are
-> jumping from not having virtio support at all on Xen to introducing
-> our own transport layer, but I guess that's partly due to the existing
-> virtio transports not being suitable for Xen use-cases.
->
-> Regarding the specific usage of Argo itself, it's my understanding
-> that a normal frontend would look like:
->
-> virtio front -> virtio argo transport -> Argo hypervisor specific driver
->
-> Would it be possible to implement an Argo interface that's hypervisor
-> agnostic? I think that way you would have a much easier time trying
-> to get something like this accepted upstream, if the underlying Argo
-> interface could be implemented by any hypervisor _without_ having to
-> add a new Argo hypervisor specific driver.
->
-> On x86 I guess you could implement the Argo interface using MSRs,
-> which would then allow any hypervisor to provide the same interface
-> and thus there would be no component tied to Xen or any specific
-> hypervisor.
-
-I think the Argo hypervisor interface will have to change anyway, due
-to its use of virtual addresses in hypercall arguments, which I
-understand the maintainers would like to deprecate and replace across
-all of Xen's hypercalls, so I'm open to looking at this when designing
-the next generation hypervisor interface for Argo.
-
-> Finally, has this been raised or commented with OASIS? I'm at least not
-> familiar at all with virtio, and I bet that applies to most of the Xen
-> community, so I think their opinion is likely even more important that
-> the Xen community one.
-
-I haven't taken this proposal to OASIS but if there are supporters of
-this work that would like to engage there, I think it could make sense
-as it develops.
-
-thanks,
-
-Christopher
-
->
-> Thanks, Roger.
+(No revision log; it would be 1759 lines long.)
 
