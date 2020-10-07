@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EF1C286716
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:28:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3745.11249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB10B2866C6
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:18:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3641.10523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQEB4-0005ro-9q; Wed, 07 Oct 2020 18:28:38 +0000
+	id 1kQE1F-0006pV-7P; Wed, 07 Oct 2020 18:18:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3745.11249; Wed, 07 Oct 2020 18:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 3641.10523; Wed, 07 Oct 2020 18:18:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,42 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQEB2-0005nB-Tr; Wed, 07 Oct 2020 18:28:36 +0000
-Received: by outflank-mailman (input) for mailman id 3745;
- Wed, 07 Oct 2020 18:28:33 +0000
+	id 1kQE1F-0006op-3X; Wed, 07 Oct 2020 18:18:29 +0000
+Received: by outflank-mailman (input) for mailman id 3641;
+ Wed, 07 Oct 2020 18:18:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE6J-00072Q-Qi
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:23:43 +0000
+ id 1kQE1C-0006nN-UK
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:18:26 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6619fc8-0a7b-4779-9558-9abc1873d78f;
- Wed, 07 Oct 2020 18:21:37 +0000 (UTC)
+ id 102b99e3-6c34-4092-a542-156eab1bd2f5;
+ Wed, 07 Oct 2020 18:18:19 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDk9-0007CF-AP; Wed, 07 Oct 2020 19:00:49 +0100
+ id 1kQDk9-0007CF-H3; Wed, 07 Oct 2020 19:00:49 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE6J-00072Q-Qi
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:23:43 +0000
-X-Inumbo-ID: e6619fc8-0a7b-4779-9558-9abc1873d78f
+	id 1kQE1C-0006nN-UK
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:18:26 +0000
+X-Inumbo-ID: 102b99e3-6c34-4092-a542-156eab1bd2f5
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e6619fc8-0a7b-4779-9558-9abc1873d78f;
-	Wed, 07 Oct 2020 18:21:37 +0000 (UTC)
+	id 102b99e3-6c34-4092-a542-156eab1bd2f5;
+	Wed, 07 Oct 2020 18:18:19 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDk9-0007CF-AP; Wed, 07 Oct 2020 19:00:49 +0100
+	id 1kQDk9-0007CF-H3; Wed, 07 Oct 2020 19:00:49 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 64/82] hsot reuse: Hash the share type
-Date: Wed,  7 Oct 2020 19:00:06 +0100
-Message-Id: <20201007180024.7932-65-iwj@xenproject.org>
+Subject: [OSSTEST PATCH 65/82] hsot reuse: Make share type hash more easily greppable
+Date: Wed,  7 Oct 2020 19:00:07 +0100
+Message-Id: <20201007180024.7932-66-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -67,65 +67,25 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-We don't really want to duplicate (triplicate, actually) lots of the
-runvars.  This will make the runvars table needlessly bloated.
-
-So hash the values.
+Use - and _ to make up the base64 alphabet instead of + and /
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- README        |  2 +-
- ts-host-reuse | 11 +++++++----
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ ts-host-reuse | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/README b/README
-index a929010c..1703e076 100644
---- a/README
-+++ b/README
-@@ -297,7 +297,7 @@ To run osstest in standalone mode:
-      curl
-      netcat
-      chiark-utils-bin
--     libxml-libxml-perl libfile-fnmatch-perl
-+     libxml-libxml-perl libfile-fnmatch-perl libdigest-sha-perl
-      dctrl-tools
-      libnet-snmp-perl (if you are going to use Masterswitch PDUs)
- 
 diff --git a/ts-host-reuse b/ts-host-reuse
-index c852a858..701070b2 100755
+index 701070b2..0ecbb0bd 100755
 --- a/ts-host-reuse
 +++ b/ts-host-reuse
-@@ -43,6 +43,7 @@ use DBI;
- BEGIN { unshift @INC, qw(.); }
- use Osstest;
- use POSIX;
-+use Digest::SHA qw(sha224_base64);
- use Osstest::TestSupport;
- 
- tsreadconfig();
-@@ -64,16 +65,18 @@ sub sharetype_add ($$) {
- }
- 
- sub compute_test_sharetype () {
--    $sharetype = "test-$flight";
-+    my @runvartexts;
-     my %done;
-     foreach my $key (runvar_glob(@accessible_runvar_pats)) {
- 	next if runvar_is_synth($key);
- 	my $val = $r{$key};
- 	next if $done{$key}++;
--	$val =~ s{[^\"-\~]|\%}{ sprintf "%%%02x", ord $& }ge;
--	$sharetype .= "!$key=$r{$key}";
-+	$val =~ s{[^\!-\~]|\%}{ sprintf "%%%02x", ord $& }ge;
-+	push @runvartexts, "$key=$r{$key}";
+@@ -75,6 +75,7 @@ sub compute_test_sharetype () {
+ 	push @runvartexts, "$key=$r{$key}";
      }
--
-+    my $digest = sha224_base64("@runvartexts");
-+    $sharetype = "test-$flight-$digest";
-+    logm "share type $sharetype; hash is of: @runvartexts";
+     my $digest = sha224_base64("@runvartexts");
++    $digest =~ y{/+}{-_};
+     $sharetype = "test-$flight-$digest";
+     logm "share type $sharetype; hash is of: @runvartexts";
      return $sharetype;
- }
- 
 -- 
 2.20.1
 
