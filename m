@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E95286054
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 15:39:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3516.10095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7236928608E
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 15:54:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3527.10107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ9ex-0008WD-Fb; Wed, 07 Oct 2020 13:39:11 +0000
+	id 1kQ9tU-0001vs-KF; Wed, 07 Oct 2020 13:54:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3516.10095; Wed, 07 Oct 2020 13:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 3527.10107; Wed, 07 Oct 2020 13:54:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,230 +23,172 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ9ex-0008Vo-CO; Wed, 07 Oct 2020 13:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 3516;
- Wed, 07 Oct 2020 13:39:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQ9tU-0001vT-Gr; Wed, 07 Oct 2020 13:54:12 +0000
+Received: by outflank-mailman (input) for mailman id 3527;
+ Wed, 07 Oct 2020 13:54:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MWE0=DO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kQ9ev-0008Vj-RA
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:39:10 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe1f::623])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c5804a8-3a8c-4509-bd6b-467308179d7a;
- Wed, 07 Oct 2020 13:39:07 +0000 (UTC)
-Received: from DB6PR0802CA0030.eurprd08.prod.outlook.com (2603:10a6:4:a3::16)
- by DB6PR0801MB1718.eurprd08.prod.outlook.com (2603:10a6:4:2f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Wed, 7 Oct
- 2020 13:39:05 +0000
-Received: from DB5EUR03FT030.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:a3:cafe::22) by DB6PR0802CA0030.outlook.office365.com
- (2603:10a6:4:a3::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.23 via Frontend
- Transport; Wed, 7 Oct 2020 13:39:05 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT030.mail.protection.outlook.com (10.152.20.144) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.23 via Frontend Transport; Wed, 7 Oct 2020 13:39:05 +0000
-Received: ("Tessian outbound 34b830c8a0ef:v64");
- Wed, 07 Oct 2020 13:39:04 +0000
-Received: from 14f441f6c012.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- C9942248-C7EB-455B-BFC3-EEACB07D8A39.1; 
- Wed, 07 Oct 2020 13:38:37 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 14f441f6c012.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 07 Oct 2020 13:38:37 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB6PR0801MB1799.eurprd08.prod.outlook.com (2603:10a6:4:3a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Wed, 7 Oct
- 2020 13:38:35 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3455.023; Wed, 7 Oct 2020
- 13:38:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=mlZt=DO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kQ9tT-0001vO-Fd
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:54:11 +0000
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ca9907ca-3338-4074-b033-8dbbbaa1233d;
+ Wed, 07 Oct 2020 13:54:10 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id e2so2481975wme.1
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 06:54:10 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id j101sm3474366wrj.9.2020.10.07.06.54.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Oct 2020 06:54:08 -0700 (PDT)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=MWE0=DO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kQ9ev-0008Vj-RA
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:39:10 +0000
-X-Inumbo-ID: 0c5804a8-3a8c-4509-bd6b-467308179d7a
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown [2a01:111:f400:fe1f::623])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0c5804a8-3a8c-4509-bd6b-467308179d7a;
-	Wed, 07 Oct 2020 13:39:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PK77OV8/GB8TglcADKjZCm5195Qv3S+HIUiX4hwY+sg=;
- b=zPa97zxbWDOCkhZRb7fQJD8oBRB3O49XIDsnFdZlnZJUNHcFnSResCCga6xJrUhOECaSEATRd8XrFwgK7S6vt0ItZTfvwMdNj+TJjsTm9d9UvzMlbdANIDkiub0YvcyWHjqLSmbYY2akAnPA51lHfb8DH1skvGNyjQSkHJxCmqc=
-Received: from DB6PR0802CA0030.eurprd08.prod.outlook.com (2603:10a6:4:a3::16)
- by DB6PR0801MB1718.eurprd08.prod.outlook.com (2603:10a6:4:2f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Wed, 7 Oct
- 2020 13:39:05 +0000
-Received: from DB5EUR03FT030.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:a3:cafe::22) by DB6PR0802CA0030.outlook.office365.com
- (2603:10a6:4:a3::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.23 via Frontend
- Transport; Wed, 7 Oct 2020 13:39:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT030.mail.protection.outlook.com (10.152.20.144) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.23 via Frontend Transport; Wed, 7 Oct 2020 13:39:05 +0000
-Received: ("Tessian outbound 34b830c8a0ef:v64"); Wed, 07 Oct 2020 13:39:04 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 065025cdfa2faf93
-X-CR-MTA-TID: 64aa7808
-Received: from 14f441f6c012.1
-	by 64aa7808-outbound-1.mta.getcheckrecipient.com id C9942248-C7EB-455B-BFC3-EEACB07D8A39.1;
-	Wed, 07 Oct 2020 13:38:37 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
-    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 14f441f6c012.1
-    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
-    Wed, 07 Oct 2020 13:38:37 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=It/dmHnwcPXuvLjP2DNIFaY9dmuoOK1OK+GHV+pO4NpfXBcR7kMUyU7gckZTFNr4GXuHX5mj0EnbYO1pVAo3jAiiyhJFzchoI8J+T5WQ/wEQ/XYRMls+5T9s9214zisi+N00KoMaGL8N+FV1mUGtoWn8Oe1jJ4ZQUzpHOpP2Bhp7KoqxkavfexZOoOqPDqxKbyHvv9qyGxebdVKkNy+bMXhLoN1Mtnm3pHjKzi4SEq56HNAf0tdKuDIxPU49FjE3vHKCSJ1OdXRbMv6FahuzDrb0QfhX3dMipBVuKHhe914fhABbTpbqD6+ueE92IBfXsx8HnqMptb/vZ743FBkdog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PK77OV8/GB8TglcADKjZCm5195Qv3S+HIUiX4hwY+sg=;
- b=V5kyYx+X7/pP3KuR8nUibta5rjPJuCUyy5fnqQbmLcq8ZELocOiDqUrtuMFfiFjq+gKM8cTdmGXaJSBWth/ohLXwwMf1Uh7xqeLPXKh6QBPk+Cl7/bVSoPWpEzW6wsBmPqbIKxiRJ7da+30YSEKew4KAUctzNjQoycsBxIe+8uKjZ7KebMNigSFVS1YDffcx1589UyaEwrbhqLKeiQt4qMkoXXNySglDcAOZnCFQBEDALxpq4YCvTx8bA35pPAizHNsU3544R7LgKHmrV5YUfFGrTC04yM37K+JdE/SYcd1zNWgyf0z0oH6f+Vaq/MLjxpsgr9uc/sKYMDQTjzWuvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PK77OV8/GB8TglcADKjZCm5195Qv3S+HIUiX4hwY+sg=;
- b=zPa97zxbWDOCkhZRb7fQJD8oBRB3O49XIDsnFdZlnZJUNHcFnSResCCga6xJrUhOECaSEATRd8XrFwgK7S6vt0ItZTfvwMdNj+TJjsTm9d9UvzMlbdANIDkiub0YvcyWHjqLSmbYY2akAnPA51lHfb8DH1skvGNyjQSkHJxCmqc=
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB6PR0801MB1799.eurprd08.prod.outlook.com (2603:10a6:4:3a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Wed, 7 Oct
- 2020 13:38:35 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3455.023; Wed, 7 Oct 2020
- 13:38:35 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: print update firmware only once
-Thread-Topic: [PATCH] xen/arm: print update firmware only once
-Thread-Index: AQHWnJnyoImxa+IrX0SG4dJuPztv2amMGmgAgAAKsQA=
-Date: Wed, 7 Oct 2020 13:38:34 +0000
-Message-ID: <ED56185C-10BA-4A33-9273-8DBD68900AAB@arm.com>
-References:
- <09d04b34e6b3b77ac206a42657b1b4116e7e11f3.1602068661.git.bertrand.marquis@arm.com>
- <4b3135ff-4795-e189-0430-da5627419e4e@xen.org>
-In-Reply-To: <4b3135ff-4795-e189-0430-da5627419e4e@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.24.250.194]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 833f6051-dbc3-4ea6-7927-08d86ac65bdb
-x-ms-traffictypediagnostic: DB6PR0801MB1799:|DB6PR0801MB1718:
-X-Microsoft-Antispam-PRVS:
-	<DB6PR0801MB1718A85139C60A83858D73AB9D0A0@DB6PR0801MB1718.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8273;OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- AUE5o99U5ZoDixyfuo5NCkTywmKlTf0AJ4wRxtPtMUjde6OagGlzj+2eoMBRGBlkcSITZYGyuzt82Ry6CZzmImhm/8ZBzAFJjJjjQoZ3dJD7w01pl/RqLaBvaTpeHqbiZi5ZneJWrgr7Sc/+e9+K1fDUscgByCLyzP4dMWff+cdu3zXmYljZzLEMweUi3UlyyffygJDFuKJQLfxfw++Nw6Eg3ih7rasN7Fzxhl0Hing+0p0gT0ug9wT0P1xY5PzEv67gOJhPWjFMAiSqgbsEMbcZVCX+ZXcARu5GblyxWb7NlJB2z2+IbxlvGsEYzHe1
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(346002)(376002)(366004)(136003)(396003)(26005)(186003)(71200400001)(316002)(2616005)(91956017)(54906003)(5660300002)(2906002)(76116006)(83380400001)(6506007)(66446008)(64756008)(66476007)(53546011)(66946007)(66556008)(8936002)(478600001)(86362001)(36756003)(8676002)(6916009)(6512007)(15650500001)(33656002)(6486002)(4326008);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- Ah619DZ42B8asoykGnlfiI6lHoUQ6ckBAHyDmwLehDVONWlrTFwQ8DV1oNiB7lRD/q48BgIx68O68UNQCxisiDqXLf+eFUcLe/XmRXhQQ6SdsjQ1NakAxZXsbxdwz2oN12iFKUint1AgkErBanJkN6w3xnzx0kpRjaflFzVMqv7+UMGgokqd4OjaGvkirWmialg0f3NMTwE+b37FRYFBvluf/3O0SzEw47ea4o79fMdIdoVK2oxEIsxTMGyav1jisylH4JTZfA3e+oXgcDThCsrUd5chsUB/4dJE1nwLqd7dfyZcdnUr15BBlqzuIgYGrsJx6vkeMmOsxvaMVPgltWX2ajCLKHZU2sMlvTvJprL4+pO+q7nHMc490d1gjH8dalSCf67Yh3DZuSUG1enwAgRa5PwzvIidoJlcIzoHzYPLPZwXkvJVVjbxMVrJv/HZ4NoLbwMF+O6O5uQOgSBoVyej8Mn2DBDJNllRvEcZrxcP2Pj0ZNINEcCb1sxjB0nAQkyhsyUIhVAPlh489TdchpHL8MTzrGBf9zdF5M5HpLD7kVHPw1AnTzOEwuMIIQL5/hD4Yzw2EsrofMeqWNOGep7ZDXDu4vSdcgGHSnKxULeMoNWe4X9U841q9OwnAZ86hTBZbE8HHhuLqj9WYqbjuQ==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C0C7928BC2C2D94EA5FC4BA61F50E475@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	(envelope-from <SRS0=mlZt=DO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+	id 1kQ9tT-0001vO-Fd
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 13:54:11 +0000
+X-Inumbo-ID: ca9907ca-3338-4074-b033-8dbbbaa1233d
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id ca9907ca-3338-4074-b033-8dbbbaa1233d;
+	Wed, 07 Oct 2020 13:54:10 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id e2so2481975wme.1
+        for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 06:54:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to:user-agent;
+        bh=Zo/HSRFcS5MbMS7Xkqevw1ZyhIhAdgyZoDCbw04hyjo=;
+        b=SynTEO5UEzvRdKZ3oi/M4Of76GN5N7/BlID5em+PTK4vT6xJaODW7fCkemJLEMWAA+
+         BXazAW+MMsaUzffBgnAnsv9svBSLb+NwSrn41wgAupRbj86ahCduBYK1IeB3abNE3hmr
+         HD28WeXgmZpw06TEG7WBNYW5pkZeVGI0WwREFdt74TdYC0V+lvm5coZ8h+r6dkObczfX
+         UhetfffJyc0nI1eKOLD7BpKT5WKhA6onA4x2HKJlCiYVG3uBGpn4QTXNoBdBpPaA6E9o
+         us6yemRSLi8NRZQu+ZtVf5dPmNUqopWXfCcP0qgdd7MPfzTR/1cqQrzAD9A5lP6kDXPD
+         r0kg==
+X-Gm-Message-State: AOAM530mEVR+X2v1k3jBwaSPwZWOANc1q378cNzoOx7+AjGY7Zblvbuh
+	JNwvZhPHPbmQMR5tDKMjryg=
+X-Google-Smtp-Source: ABdhPJzetaI07kCaLps5qwNTlUiopORDMLlfA9xYY5u3Ze9fSbl8fqsQwUuchVAcvZOm+sCltLpzBw==
+X-Received: by 2002:a1c:1dd0:: with SMTP id d199mr3295463wmd.7.1602078849350;
+        Wed, 07 Oct 2020 06:54:09 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+        by smtp.gmail.com with ESMTPSA id j101sm3474366wrj.9.2020.10.07.06.54.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2020 06:54:08 -0700 (PDT)
+Date: Wed, 7 Oct 2020 13:54:07 +0000
+From: Wei Liu <wl@xen.org>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+Subject: Re: [PATCH 3/5] tools/libs/store: drop read-only functionality
+Message-ID: <20201007135407.2hmlwfaeauwrbh5m@liuwe-devbox-debian-v2>
+References: <20201002154141.11677-1-jgross@suse.com>
+ <20201002154141.11677-4-jgross@suse.com>
+ <20201007105448.c7scd5hoellddfwd@liuwe-devbox-debian-v2>
+ <d03ef7db-8752-ac00-99f1-6c40f62e1162@suse.com>
+ <f4b6a87c-ac65-cb3e-d4b2-4504340b81e3@citrix.com>
+ <72542057-f5d8-99d5-55d9-2a21b7cb2d93@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1799
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT030.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	0f27e7ae-38a5-46a2-d464-08d86ac64a11
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	uW2YUZ3OFP0i7Mtpp2J5QdYzaskz/WKbejhIoPX9IXB1PriGg0Lj3G8QvMTFrcVLcyetymMhybBdv+7bXLu6z0Gu7SemFOGbTeDCOgYTXxgtK2f3L3XtU0M8uMNHpRFutg7BgSO1JD9zPxJfiSX67u+pWJWCFkNeRr0e6m3xg17tM+hjv67SFnncP1LCD/5l3vkOx6nms7RUqhJI1BUC8MNWygZxDz6vMci2QBgb7cgmCaV2zW1WBsFTFTgOmI+lWntTqetS/ROVs7NdBfytNO8/+p5y+c+zW5zbvV/nkXVrQ0+kITQqRoGoEJeFkKT/Vwr3/jzVQa3ExlJGnaGz+/nzgJthtC5hOKeLoz20Om+WqXkFmJMJJ0dBH0Q/UB3nT9ep0Ug+rbU2oZC/CQzvCA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(46966005)(6486002)(2616005)(186003)(107886003)(8676002)(6512007)(82310400003)(336012)(316002)(4326008)(6862004)(8936002)(54906003)(53546011)(26005)(6506007)(33656002)(83380400001)(47076004)(478600001)(70206006)(70586007)(81166007)(86362001)(5660300002)(2906002)(356005)(36756003)(15650500001)(82740400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2020 13:39:05.0034
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 833f6051-dbc3-4ea6-7927-08d86ac65bdb
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT030.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1718
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <72542057-f5d8-99d5-55d9-2a21b7cb2d93@suse.com>
+User-Agent: NeoMutt/20180716
 
+On Wed, Oct 07, 2020 at 02:45:29PM +0200, Jürgen Groß wrote:
+> On 07.10.20 13:50, Andrew Cooper wrote:
+> > On 07/10/2020 11:57, Jürgen Groß wrote:
+> > > On 07.10.20 12:54, Wei Liu wrote:
+> > > > On Fri, Oct 02, 2020 at 05:41:39PM +0200, Juergen Gross wrote:
+> > > > > Today it is possible to open the connection in read-only mode via
+> > > > > xs_daemon_open_readonly(). This is working only with Xenstore running
+> > > > > as a daemon in the same domain as the user. Additionally it doesn't
+> > > > > add any security as accessing the socket used for that functionality
+> > > > > requires the same privileges as the socket used for full Xenstore
+> > > > > access.
+> > > > > 
+> > > > > So just drop the read-only semantics in all cases, leaving the
+> > > > > interface existing only for compatibility reasons. This in turn
+> > > > > requires to just ignore the XS_OPEN_READONLY flag.
+> > > > > 
+> > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > > > ---
+> > > > >    tools/libs/store/include/xenstore.h | 8 --------
+> > > > >    tools/libs/store/xs.c               | 7 ++-----
+> > > > >    2 files changed, 2 insertions(+), 13 deletions(-)
+> > > > > 
+> > > > > diff --git a/tools/libs/store/include/xenstore.h
+> > > > > b/tools/libs/store/include/xenstore.h
+> > > > > index cbc7206a0f..158e69ef83 100644
+> > > > > --- a/tools/libs/store/include/xenstore.h
+> > > > > +++ b/tools/libs/store/include/xenstore.h
+> > > > > @@ -60,15 +60,12 @@ typedef uint32_t xs_transaction_t;
+> > > > >    /* Open a connection to the xs daemon.
+> > > > >     * Attempts to make a connection over the socket interface,
+> > > > >     * and if it fails, then over the  xenbus interface.
+> > > > > - * Mode 0 specifies read-write access, XS_OPEN_READONLY for
+> > > > > - * read-only access.
+> > > > >     *
+> > > > >     * * Connections made with xs_open(0) (which might be shared page or
+> > > > >     *   socket based) are only guaranteed to work in the parent after
+> > > > >     *   fork.
+> > > > >     * * xs_daemon_open*() and xs_domain_open() are deprecated synonyms
+> > > > >     *   for xs_open(0).
+> > > > > - * * XS_OPEN_READONLY has no bearing on any of this.
+> > > > >     *
+> > > > >     * Returns a handle or NULL.
+> > > > >     */
+> > > > > @@ -83,11 +80,6 @@ void xs_close(struct xs_handle *xsh /* NULL ok */);
+> > > > >     */
+> > > > >    struct xs_handle *xs_daemon_open(void);
+> > > > >    struct xs_handle *xs_domain_open(void);
+> > > > > -
+> > > > > -/* Connect to the xs daemon (readonly for non-root clients).
+> > > > > - * Returns a handle or NULL.
+> > > > > - * Deprecated, please use xs_open(XS_OPEN_READONLY) instead
+> > > > > - */
+> > > > >    struct xs_handle *xs_daemon_open_readonly(void);
+> > > > >      /* Close the connection to the xs daemon.
+> > > > > diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+> > > > > index 320734416f..4ac73ec317 100644
+> > > > > --- a/tools/libs/store/xs.c
+> > > > > +++ b/tools/libs/store/xs.c
+> > > > > @@ -302,7 +302,7 @@ struct xs_handle *xs_daemon_open(void)
+> > > > >      struct xs_handle *xs_daemon_open_readonly(void)
+> > > > >    {
+> > > > > -    return xs_open(XS_OPEN_READONLY);
+> > > > > +    return xs_open(0);
+> > > > >    }
+> > > > 
+> > > > This changes the semantics of this function, isn't it? In that the user
+> > > > expects a readonly connection but in fact a read-write connection is
+> > > > returned.
+> > > > 
+> > > > Maybe we should return an error here?
+> > > 
+> > > No, as the behavior is this way already if any of the following is true:
+> > > 
+> > > - a guest is opening the connection
+> > > - Xenstore is running in a stubdom
+> > > - oxenstored is being used
+> > 
+> > Right, and these are just some of the reasons why dropping the R/O
+> > socket is a sensible thing to do.
+> > 
+> > However, I do think xenstore.h needs large disclaimers next to the
+> > relevant constants and functions that both XS_OPEN_* flags are now
+> > obsolete and ignored (merged into appropriate patches in the series).
+> 
+> Fine with me.
 
++1 on this. Let me check other patches first. If there is no need for
+another round of posting of this series, the addition of the disclaimers
+can come in a separate patch.
 
-> On 7 Oct 2020, at 14:00, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 07/10/2020 12:05, Bertrand Marquis wrote:
->> Fix enable_smccc_arch_workaround_1 to only print the warning asking to
->> update the firmware once.
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->>  xen/arch/arm/cpuerrata.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
->> index 6c09017515..0c63dfa779 100644
->> --- a/xen/arch/arm/cpuerrata.c
->> +++ b/xen/arch/arm/cpuerrata.c
->> @@ -187,7 +187,7 @@ warn:
->>          ASSERT(system_state < SYS_STATE_active);
->>          warning_add("No support for ARM_SMCCC_ARCH_WORKAROUND_1.\n"
->>                      "Please update your firmware.\n");
->> -        warned =3D false;
->> +        warned =3D true;
->=20
-> Thanks for spotting it. It looks like I introduced this bug in commit 976=
-319fa3de7f98b558c87b350699fffc278effc "xen/arm64: Kill PSCI_GET_VERSION as =
-a variant-2 workaround".
->=20
-> I would suggest to add a fixes tag (can be done on commit).
+Wei.
 
-If you can do it during the commit that works for me.
-
->=20
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-Thanks
-
-Cheers
-Bertrand
-
+> 
+> 
+> Juergen
+> 
 
