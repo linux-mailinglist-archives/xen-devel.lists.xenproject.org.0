@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9971B2866F9
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:27:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3697.10941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B9D286712
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:28:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3728.11192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE9z-0002kP-2o; Wed, 07 Oct 2020 18:27:31 +0000
+	id 1kQEAq-0005EG-TM; Wed, 07 Oct 2020 18:28:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3697.10941; Wed, 07 Oct 2020 18:27:30 +0000
+Received: by outflank-mailman (output) from mailman id 3728.11192; Wed, 07 Oct 2020 18:28:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,124 +23,74 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE9x-0002fj-SJ; Wed, 07 Oct 2020 18:27:29 +0000
-Received: by outflank-mailman (input) for mailman id 3697;
- Wed, 07 Oct 2020 18:27:25 +0000
+	id 1kQEAp-00059i-Ad; Wed, 07 Oct 2020 18:28:23 +0000
+Received: by outflank-mailman (input) for mailman id 3728;
+ Wed, 07 Oct 2020 18:28:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE72-00072Q-S6
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:28 +0000
+ id 1kQE3U-00072Q-JQ
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:20:48 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1300e0d7-471c-47ba-a7b7-9128edadea9e;
- Wed, 07 Oct 2020 18:22:01 +0000 (UTC)
+ id 63ddb3e7-36d5-4845-aacd-4b3ceeeb0b9b;
+ Wed, 07 Oct 2020 18:19:48 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDkB-0007CF-Od; Wed, 07 Oct 2020 19:00:51 +0100
+ id 1kQDkB-0007CF-VH; Wed, 07 Oct 2020 19:00:52 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE72-00072Q-S6
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:24:28 +0000
-X-Inumbo-ID: 1300e0d7-471c-47ba-a7b7-9128edadea9e
+	id 1kQE3U-00072Q-JQ
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:20:48 +0000
+X-Inumbo-ID: 63ddb3e7-36d5-4845-aacd-4b3ceeeb0b9b
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1300e0d7-471c-47ba-a7b7-9128edadea9e;
-	Wed, 07 Oct 2020 18:22:01 +0000 (UTC)
+	id 63ddb3e7-36d5-4845-aacd-4b3ceeeb0b9b;
+	Wed, 07 Oct 2020 18:19:48 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDkB-0007CF-Od; Wed, 07 Oct 2020 19:00:51 +0100
+	id 1kQDkB-0007CF-VH; Wed, 07 Oct 2020 19:00:52 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
-	Ian Jackson <iwj@xenproject.org>
-Subject: [OSSTEST PATCH 75/82] host reuse: New protocol between sg-run-job and ts-host-reuse
-Date: Wed,  7 Oct 2020 19:00:17 +0100
-Message-Id: <20201007180024.7932-76-iwj@xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>
+Subject: [OSSTEST PATCH 76/82] sg-report-flight: Reformat slightly
+Date: Wed,  7 Oct 2020 19:00:18 +0100
+Message-Id: <20201007180024.7932-77-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-
-Abolish post-test-ok (which runs only if successful) and replace it
-with final (which sets the runvar to indicate finality, and runs
-regardless).
-
-This allows a subsequent job which reuses the host to see that this
-job had finished using the host.  This is relevant for builds, where a
-host can be reused even after a failed job.
-
-"Lies", where we claim the use of the host was done, are
-avoided (barring unlikely races) because selecthost de-finalises the
-runvar.
+This is more regular and will make the next commit easier to
+understand.
 
 Signed-off-by: Ian Jackson <iwj@xenproject.org>
 ---
- sg-run-job    |  8 +++++++-
- ts-host-reuse | 25 ++++++++++++++++---------
- 2 files changed, 23 insertions(+), 10 deletions(-)
+ sg-report-flight | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sg-run-job b/sg-run-job
-index 2feb67d9..dd76d4f2 100755
---- a/sg-run-job
-+++ b/sg-run-job
-@@ -124,7 +124,13 @@ proc run-job {job} {
-        set ok 0
-     }
- 
--    if {$ok} { per-host-ts .  =            { ts-host-reuse post-test-ok } }
-+    if {[llength $need_build_host]} {
-+	run-ts !broken =                  ts-host-reuse final host
-+    }
-+    set reuse {}
-+    if {$ok} { lappend reuse --post-test-ok }
-+    eval [list per-host-ts !broken  = { ts-host-reuse final }] $reuse
-+
-     if {$ok} { setstatus pass                                             }
- 
-     if {[llength $need_build_host] && $ok} { jobdb::preserve-task 90 }
-diff --git a/ts-host-reuse b/ts-host-reuse
-index 21d77500..ae967304 100755
---- a/ts-host-reuse
-+++ b/ts-host-reuse
-@@ -154,15 +154,22 @@ sub act_start_test () {
-     host_shared_mark_ready($ho, $sharetype, \%oldstate, 'mid-test');
- }
- 
--sub act_post_test_ok () {
--    die if @ARGV;
--    compute_test_sharetype();
--    $ho = selecthost($whhost);
--    return unless $ho->{Shared};
--    die unless $ho->{Shared}{State} eq 'mid-test';
--    post_test_cleanup();
--    host_update_lifecycle_info($ho, 'final');
--    host_shared_mark_ready($ho, $sharetype, 'mid-test', 'ready');
-+sub act_final () {
-+    if (!@ARGV) {
-+	$ho = selecthost($whhost);
-+	return unless $ho;
-+	host_update_lifecycle_info($ho, 'final');
-+    } elsif ("@ARGV" eq "--post-test-ok") {
-+	compute_test_sharetype();
-+	$ho = selecthost($whhost);
-+	return unless $ho->{Shared};
-+	die unless $ho->{Shared}{State} eq 'mid-test';
-+	post_test_cleanup();
-+	host_update_lifecycle_info($ho, 'final');
-+	host_shared_mark_ready($ho, $sharetype, 'mid-test', 'ready');
-+    } else {
-+	die;
-+    }
- }
- 
- $action =~ y/-/_/;
+diff --git a/sg-report-flight b/sg-report-flight
+index 0413a730..7dc218cf 100755
+--- a/sg-report-flight
++++ b/sg-report-flight
+@@ -1472,9 +1472,11 @@ END
+ 	  $srow->{tident},
+ 	  "$c{ResultsHtmlPubBaseUrl}/host/$srow->{hostname}.html",
+ 	  $srow->{hostname};
+-	my $rel = $srow->{olive} ?
++	my $rel =
++	  $srow->{olive} ?
+ 	  "<td align=\"center\" bgcolor=\"$red\">share</td>"
+-	  : $srow->{prep_started} ?
++	  :
++	  $srow->{prep_started} ?
+ 	  "<td align=\"center\" bgcolor=\"$purple\">prep.</td>"
+ 	  :
+ 	  "<td align=\"center\">reuse</td>";
 -- 
 2.20.1
 
