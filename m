@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D23DE28536C
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Oct 2020 22:47:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3303.9573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8E52856BC
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 04:46:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3310.9583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPtqr-0003Wh-Iq; Tue, 06 Oct 2020 20:46:25 +0000
+	id 1kPzSB-0006MR-RK; Wed, 07 Oct 2020 02:45:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3303.9573; Tue, 06 Oct 2020 20:46:25 +0000
+Received: by outflank-mailman (output) from mailman id 3310.9583; Wed, 07 Oct 2020 02:45:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,322 +23,258 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kPtqr-0003WI-FI; Tue, 06 Oct 2020 20:46:25 +0000
-Received: by outflank-mailman (input) for mailman id 3303;
- Tue, 06 Oct 2020 20:46:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kPzSB-0006M9-Ju; Wed, 07 Oct 2020 02:45:19 +0000
+Received: by outflank-mailman (input) for mailman id 3310;
+ Wed, 07 Oct 2020 02:45:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tUxE=DN=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
- id 1kPtqp-0003WA-UR
- for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 20:46:24 +0000
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (unknown
- [40.107.75.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id beaf8746-f249-432f-b8ca-9e195ae49b96;
- Tue, 06 Oct 2020 20:46:19 +0000 (UTC)
-Received: from SN4PR0201CA0068.namprd02.prod.outlook.com
- (2603:10b6:803:20::30) by BL0PR02MB3762.namprd02.prod.outlook.com
- (2603:10b6:207:41::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Tue, 6 Oct
- 2020 20:46:17 +0000
-Received: from SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
- (2603:10b6:803:20:cafe::dd) by SN4PR0201CA0068.outlook.office365.com
- (2603:10b6:803:20::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.38 via Frontend
- Transport; Tue, 6 Oct 2020 20:46:17 +0000
-Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
- SN1NAM02FT051.mail.protection.outlook.com (10.152.73.103) with Microsoft SMTP
- Server id 15.20.3433.39 via Frontend Transport; Tue, 6 Oct 2020 20:46:17
- +0000
-Received: from [149.199.38.66] (port=51248 helo=smtp.xilinx.com)
- by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
- (envelope-from <stefano.stabellini@xilinx.com>)
- id 1kPtq9-000439-Re; Tue, 06 Oct 2020 13:45:41 -0700
-Received: from [127.0.0.1] (helo=localhost)
- by smtp.xilinx.com with smtp (Exim 4.63)
- (envelope-from <stefano.stabellini@xilinx.com>)
- id 1kPtqi-0001z8-SK; Tue, 06 Oct 2020 13:46:16 -0700
-Received: from [10.23.120.52] (helo=localhost)
- by xsj-pvapsmtp01 with esmtp (Exim 4.63)
- (envelope-from <stefanos@xilinx.com>)
- id 1kPtqe-0001yS-ME; Tue, 06 Oct 2020 13:46:12 -0700
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kPzSA-0006M4-UW
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 02:45:18 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 765fe43d-155e-42d3-ba76-5ec4ad4d1bac;
+ Wed, 07 Oct 2020 02:45:16 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPzS8-00075X-8J; Wed, 07 Oct 2020 02:45:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPzS7-000308-Uh; Wed, 07 Oct 2020 02:45:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kPzS7-0003qf-Sx; Wed, 07 Oct 2020 02:45:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=tUxE=DN=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
-	id 1kPtqp-0003WA-UR
-	for xen-devel@lists.xenproject.org; Tue, 06 Oct 2020 20:46:24 +0000
-X-Inumbo-ID: beaf8746-f249-432f-b8ca-9e195ae49b96
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (unknown [40.107.75.55])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id beaf8746-f249-432f-b8ca-9e195ae49b96;
-	Tue, 06 Oct 2020 20:46:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kHWNjGV/BtTptwOTY2Luh8Zb2beLzkmft3OsemzXzWgXbL5iRgjrrbfViO6bko/2MCM9wmUxLtx28qIfDBauQvAyZBnE7O1z4FgZEURIfpJBZRDWxBchSPqImfufQnQwtSlYZqoHQ1344M20hrmg7g2K9nsR33uf/vMgZNZiof43V0jkw5Ody15OcZBNaScN4K/6HXQTPcZaP17EFUlcUOqCBtHrUWk74F/1ebp1d7Q29sw/nxsbHQy6AAN6Zei2Mig2ZNNyiu9j+SiaIHXaQRn4u9av5K9fomTQHstaQaZUWH1flgMmKVYzRal5Rb3G54IPbhsh6Qxe/6gFYQsKuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zmXqAuQ4/OV/KkzpSFzwJ+qvuxQ4uQ2Fjmb++dicujk=;
- b=XqLllMQexvCtyGPvgMj616vZD0U6iNfQmSKNQxYmv1xjm+15cO86qhktgDxtxWY4kCzcs5+VTyO9glOtyWPZs/2bUPJFLOw7QjMOnkLfolXRsz5XAThOBs6o+p/LSmMnnB1VM8lIujJ9Z2BxajSDWj5R2XYtCahdtZ6S0ZU/ckkVY27M94EmcRO9Bmzb4WgtMsKaRW0A1Ns6nUyjPEOmQDVa6uywPTehE/91LQIR1I3AuWVv2c5q5SwLy1RcOqTauqo12bCdLg/eBeKTfcu3qUClnC8oJUn3o+1mtbpZ0oleaPulRJ0OA6hH0vPqYBgJYHoLGNPMJn8x/Er2vSVVng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.60.83) smtp.rcpttodomain=lst.de smtp.mailfrom=xilinx.com;
- dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zmXqAuQ4/OV/KkzpSFzwJ+qvuxQ4uQ2Fjmb++dicujk=;
- b=pK2ea/DD/BV519WphjMZ2rlOWM7Sm7T/HC0p1YtMqxEdU9HAoFnSdxQeIah7aUtLfRUj0dy4BXRSNbFYCNe8W1iXQSPUGd4F2ktGUMx+3z8rzaFg6Km8qQ9bwJcz/zKVZOg3sZNYNjIleW314Vk2c28P0NbcrrhXLLqE9RoO1Nc=
-Received: from SN4PR0201CA0068.namprd02.prod.outlook.com
- (2603:10b6:803:20::30) by BL0PR02MB3762.namprd02.prod.outlook.com
- (2603:10b6:207:41::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Tue, 6 Oct
- 2020 20:46:17 +0000
-Received: from SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
- (2603:10b6:803:20:cafe::dd) by SN4PR0201CA0068.outlook.office365.com
- (2603:10b6:803:20::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.38 via Frontend
- Transport; Tue, 6 Oct 2020 20:46:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.60.83)
- smtp.mailfrom=xilinx.com; lst.de; dkim=none (message not signed)
- header.d=none;lst.de; dmarc=bestguesspass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.60.83 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
-Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
- SN1NAM02FT051.mail.protection.outlook.com (10.152.73.103) with Microsoft SMTP
- Server id 15.20.3433.39 via Frontend Transport; Tue, 6 Oct 2020 20:46:17
- +0000
-Received: from [149.199.38.66] (port=51248 helo=smtp.xilinx.com)
-	by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
-	(envelope-from <stefano.stabellini@xilinx.com>)
-	id 1kPtq9-000439-Re; Tue, 06 Oct 2020 13:45:41 -0700
-Received: from [127.0.0.1] (helo=localhost)
-	by smtp.xilinx.com with smtp (Exim 4.63)
-	(envelope-from <stefano.stabellini@xilinx.com>)
-	id 1kPtqi-0001z8-SK; Tue, 06 Oct 2020 13:46:16 -0700
-Received: from [10.23.120.52] (helo=localhost)
-	by xsj-pvapsmtp01 with esmtp (Exim 4.63)
-	(envelope-from <stefanos@xilinx.com>)
-	id 1kPtqe-0001yS-ME; Tue, 06 Oct 2020 13:46:12 -0700
-Date: Tue, 6 Oct 2020 13:46:12 -0700 (PDT)
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Christoph Hellwig <hch@lst.de>
-cc: Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-    xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org
-Subject: Re: xen-swiotlb vs phys_to_dma
-In-Reply-To: <20201006082656.GB10243@lst.de>
-Message-ID: <alpine.DEB.2.21.2010061325230.10908@sstabellini-ThinkPad-T480s>
-References: <20201002123436.GA30329@lst.de> <alpine.DEB.2.21.2010021313010.10908@sstabellini-ThinkPad-T480s> <20201006082656.GB10243@lst.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=xB9j=DO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kPzSA-0006M4-UW
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 02:45:18 +0000
+X-Inumbo-ID: 765fe43d-155e-42d3-ba76-5ec4ad4d1bac
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 765fe43d-155e-42d3-ba76-5ec4ad4d1bac;
+	Wed, 07 Oct 2020 02:45:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NISN6PC5srhODdzlthfnnL+uM/l+1zv54Z6ZVcUWauk=; b=lx7bdJg8ntcQwldGtZnsJI9Bwi
+	4AtFVkIpWJvQJ49ulvTJzM5NFwhIi3/9lQpFiAjFLcdWYUibeFqxdUsGABpKiaQ2dBv2YuacrG2zb
+	xg0LLwfym4+jj1Gbl/fXi5KQujA9IOs8sRqwKCV+mkMgJX3s+4J2jgZ4CDWfC8rGglGA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPzS8-00075X-8J; Wed, 07 Oct 2020 02:45:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPzS7-000308-Uh; Wed, 07 Oct 2020 02:45:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kPzS7-0003qf-Sx; Wed, 07 Oct 2020 02:45:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155500-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
-X-TM-AS-User-Approved-Sender: Yes;Yes
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6b7a1933-3135-4d5a-aa1f-08d86a38df61
-X-MS-TrafficTypeDiagnostic: BL0PR02MB3762:
-X-Microsoft-Antispam-PRVS:
-	<BL0PR02MB37620C11D97A71AEDEE37FFDA00D0@BL0PR02MB3762.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	kAUNYMKZDY1KI8q7XCOOwCL+JOe5ueQCshNmIRay4u7EmS6PSMjPzV9WcAxcYjNuHAH/lqNCkrx9L9xxcxaHRM4qk33OZEcyVo2LjkAEk6IgG4q9qNsmcx4roXq58pvYea7pidA6c9/fLvkDbxzF0GQjmz/EW50e4Sy5XvDThw4WSUxi+RSQe+bmxMHy+tmEWcmz4+XQTM6/9Ugt/goDv43L25Y2OJgO+8lcaRTGIti2SBmNhz4jfyjdNTUzVnQJvjF0gPUj//UKe8eVZ6rorBy+auAW/Bs8koekqlj1/JUzM94qBJtWR8LdM4qIVtp3fKw5Ag+rKlqAvCK5BGjXkyO6dEM8UAoc5SG+Qg2yvavJkQDrN/0vhtTVauTepHTp7pFOt2a0yP4XmHsRXayYpD4RIWNUZKgLc9qy8Nx1n+K57zkALVDZ+ZFTOtSYxdBrtCJbXjyK340zJF/PuWzsQKhuCoajYF733YGdiAmlP1AiOt2DOgfNI9Raxy5+a6KG
-X-Forefront-Antispam-Report:
-	CIP:149.199.60.83;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapsmtpgw01;PTR:unknown-60-83.xilinx.com;CAT:NONE;SFS:(7916004)(346002)(396003)(376002)(39860400002)(136003)(46966005)(2906002)(81166007)(83080400001)(83380400001)(9786002)(70586007)(70206006)(82310400003)(356005)(47076004)(82740400003)(9686003)(5660300002)(966005)(6916009)(33716001)(53546011)(4326008)(336012)(8676002)(426003)(8936002)(478600001)(26005)(186003)(316002)(54906003)(44832011)(6606295002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2020 20:46:17.1297
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b7a1933-3135-4d5a-aa1f-08d86a38df61
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.60.83];Helo=[xsj-pvapsmtpgw01]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1NAM02FT051.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR02MB3762
+Subject: [libvirt test] 155500: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=3fdb431718ff2202d7fea7c64073b707db473ece
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Oct 2020 02:45:15 +0000
 
-On Tue, 6 Oct 2020, Christoph Hellwig wrote:
-> On Fri, Oct 02, 2020 at 01:21:25PM -0700, Stefano Stabellini wrote:
-> > On Fri, 2 Oct 2020, Christoph Hellwig wrote:
-> > > Hi Stefano,
-> > > 
-> > > I've looked over xen-swiotlb in linux-next, that is with your recent
-> > > changes to take dma offsets into account.  One thing that puzzles me
-> > > is that xen_swiotlb_map_page passes virt_to_phys(xen_io_tlb_start) as
-> > > the tbl_dma_addr argument to swiotlb_tbl_map_single, despite the fact
-> > > that the argument is a dma_addr_t and both other callers translate
-> > > from a physical to the dma address.  Was this an oversight?
-> > 
-> > Hi Christoph,
-> > 
-> > It was not an oversight, it was done on purpose, although maybe I could
-> > have been wrong. There was a brief discussion on this topic here: 
-> > 
-> > https://marc.info/?l=linux-kernel&m=159011972107683&w=2
-> > https://marc.info/?l=linux-kernel&m=159018047129198&w=2
-> > 
-> > I'll repeat and summarize here for convenience. 
-> > 
-> > swiotlb_init_with_tbl is called by xen_swiotlb_init, passing a virtual
-> > address (xen_io_tlb_start), which gets converted to phys and stored in
-> > io_tlb_start as a physical address at the beginning of swiotlb_init_with_tbl.
-> 
-> Yes.
-> 
-> > Afterwards, xen_swiotlb_map_page calls swiotlb_tbl_map_single. The
-> > second parameter, dma_addr_t tbl_dma_addr, is used to calculate the
-> > right slot in the swiotlb buffer to use, comparing it against
-> > io_tlb_start.
-> 
-> It is not compared against io_tlb_start.  It is just used to pick
-> a slot that fits the dma_get_seg_boundary limitation in a somewhat
-> awkward way.
-> 
-> > Thus, I think it makes sense for xen_swiotlb_map_page to call
-> > swiotlb_tbl_map_single passing an address meant to be compared with
-> > io_tlb_start, which is __pa(xen_io_tlb_start), so
-> > virt_to_phys(xen_io_tlb_start) seems to be what we want.
-> 
-> No, it doesn't.  tlb_addr is used to ensure the picked slots satisfies
-> the segment boundary, and for that you need a dma_addr_t.
-> 
-> The index variable in swiotlb_tbl_map_single is derived from
-> io_tlb_index, not io_tlb_start.
-> 
-> > However, you are right that it is strange that tbl_dma_addr is a
-> > dma_addr_t, and maybe it shouldn't be? Maybe the tbl_dma_addr parameter
-> > to swiotlb_tbl_map_single should be a phys address instead?
-> > Or it could be swiotlb_init_with_tbl to be wrong and it should take a
-> > dma address to initialize the swiotlb buffer.
-> 
-> No, it must be a dma_addr_t so that the dma_get_seg_boundary check works.
->
-> I think we need something like this (against linux-next):
-> 
-> ---
-> >From 07b39a62b235ed2d4b2215700d99968998fbf6c0 Mon Sep 17 00:00:00 2001
-> From: Christoph Hellwig <hch@lst.de>
-> Date: Tue, 6 Oct 2020 10:22:19 +0200
-> Subject: swiotlb: remove the tlb_addr argument to swiotlb_tbl_map_single
-> 
-> The tlb_addr always must be the dma view of io_tlb_start so that the
-> segment boundary checks work.  Remove the argument and do the right
-> thing inside swiotlb_tbl_map_single.  This fixes the swiotlb-xen case
-> that failed to take DMA offset into account.  The issue probably did
-> not show up very much in practice as the typical dma offsets are
-> large enough to not affect the segment boundaries for most devices.
+flight 155500 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155500/
 
-OK, this makes a lot of sense, and I like the patch because it makes the
-swiotlb interface clearer.
+Regressions :-(
 
-Just one comment below.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/iommu/intel/iommu.c |  5 ++---
->  drivers/xen/swiotlb-xen.c   |  3 +--
->  include/linux/swiotlb.h     | 10 +++-------
->  kernel/dma/swiotlb.c        | 16 ++++++----------
->  4 files changed, 12 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 5ee0b7921b0b37..d473811fcfacd5 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
->  	 * page aligned, we don't need to use a bounce page.
->  	 */
->  	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
-> -		tlb_addr = swiotlb_tbl_map_single(dev,
-> -				phys_to_dma_unencrypted(dev, io_tlb_start),
-> -				paddr, size, aligned_size, dir, attrs);
-> +		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
-> +						  aligned_size, dir, attrs);
->  		if (tlb_addr == DMA_MAPPING_ERROR) {
->  			goto swiotlb_error;
->  		} else {
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 030a225624b060..953186f6d7d222 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
->  	 */
->  	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
->  
-> -	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
-> -				     phys, size, size, dir, attrs);
-> +	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
->  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 513913ff748626..3bb72266a75a1d 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -45,13 +45,9 @@ enum dma_sync_target {
->  	SYNC_FOR_DEVICE = 1,
->  };
->  
-> -extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
-> -					  dma_addr_t tbl_dma_addr,
-> -					  phys_addr_t phys,
-> -					  size_t mapping_size,
-> -					  size_t alloc_size,
-> -					  enum dma_data_direction dir,
-> -					  unsigned long attrs);
-> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
-> +		size_t mapping_size, size_t alloc_size,
-> +		enum dma_data_direction dir, unsigned long attrs);
->  
->  extern void swiotlb_tbl_unmap_single(struct device *hwdev,
->  				     phys_addr_t tlb_addr,
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index 995c1b4cb427ee..8d0b7c3971e81e 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
->  	}
->  }
->  
-> -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
-> -				   dma_addr_t tbl_dma_addr,
-> -				   phys_addr_t orig_addr,
-> -				   size_t mapping_size,
-> -				   size_t alloc_size,
-> -				   enum dma_data_direction dir,
-> -				   unsigned long attrs)
-> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
-> +		size_t mapping_size, size_t alloc_size,
-> +		enum dma_data_direction dir, unsigned long attrs)
->  {
-> +	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(dev, io_tlb_start);
+version targeted for testing:
+ libvirt              3fdb431718ff2202d7fea7c64073b707db473ece
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-This is supposed to be hwdev, not dev
+Last test of basis   151777  2020-07-10 04:19:19 Z   88 days
+Failing since        151818  2020-07-11 04:18:52 Z   87 days   82 attempts
+Testing same since   155500  2020-10-06 15:44:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
->  	unsigned long flags;
->  	phys_addr_t tlb_addr;
->  	unsigned int nslots, stride, index, wrap;
-> @@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
->  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
->  			      swiotlb_force);
->  
-> -	swiotlb_addr = swiotlb_tbl_map_single(dev,
-> -			phys_to_dma_unencrypted(dev, io_tlb_start),
-> -			paddr, size, size, dir, attrs);
-> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
-> +					      attrs);
->  	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-> -- 
-> 2.28.0
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 19341 lines long.)
 
