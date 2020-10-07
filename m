@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06102286665
+	by mail.lfdr.de (Postfix) with ESMTPS id 25CC9286669
 	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:01:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3607.10335 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.3608.10347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQDjz-0003sh-Ow; Wed, 07 Oct 2020 18:00:39 +0000
+	id 1kQDk4-0003uk-3C; Wed, 07 Oct 2020 18:00:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3607.10335; Wed, 07 Oct 2020 18:00:39 +0000
+Received: by outflank-mailman (output) from mailman id 3608.10347; Wed, 07 Oct 2020 18:00:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,43 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQDjz-0003sG-LI; Wed, 07 Oct 2020 18:00:39 +0000
-Received: by outflank-mailman (input) for mailman id 3607;
- Wed, 07 Oct 2020 18:00:37 +0000
+	id 1kQDk3-0003u8-W0; Wed, 07 Oct 2020 18:00:43 +0000
+Received: by outflank-mailman (input) for mailman id 3608;
+ Wed, 07 Oct 2020 18:00:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQDjx-0003r9-QR
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:00:37 +0000
+ id 1kQDk2-0003r9-Qd
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:00:42 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a773c96a-06a5-4cda-beea-6bc09cdd1efb;
+ id edf9d6c3-9d9b-4793-83b4-387a7cb6a76d;
  Wed, 07 Oct 2020 18:00:32 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDjr-0007CF-ID; Wed, 07 Oct 2020 19:00:31 +0100
+ id 1kQDjr-0007CF-Pj; Wed, 07 Oct 2020 19:00:31 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQDjx-0003r9-QR
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:00:37 +0000
-X-Inumbo-ID: a773c96a-06a5-4cda-beea-6bc09cdd1efb
+	id 1kQDk2-0003r9-Qd
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:00:42 +0000
+X-Inumbo-ID: edf9d6c3-9d9b-4793-83b4-387a7cb6a76d
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a773c96a-06a5-4cda-beea-6bc09cdd1efb;
+	id edf9d6c3-9d9b-4793-83b4-387a7cb6a76d;
 	Wed, 07 Oct 2020 18:00:32 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDjr-0007CF-ID; Wed, 07 Oct 2020 19:00:31 +0100
+	id 1kQDjr-0007CF-Pj; Wed, 07 Oct 2020 19:00:31 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 01/82] ms-queuedaemon: Update for newer Tcl's socket channel ids
-Date: Wed,  7 Oct 2020 18:59:03 +0100
-Message-Id: <20201007180024.7932-2-iwj@xenproject.org>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+	Ian Jackson <Ian.Jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 02/82] Executive.pm planner: fix typo
+Date: Wed,  7 Oct 2020 18:59:04 +0100
+Message-Id: <20201007180024.7932-3-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -67,49 +68,24 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Now we have things like "sock55599edaf050" where previously we had
-something like "sock142".  So the output is misaligned.
-
-Bump the sizes.  And with these longer names, when showing the front
-of the queue only print the full first entry and the start of the next
-one.
-
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Signed-off-by: Ian Jackson <Ian.Jackson@eu.citrix.com>
 ---
- ms-queuedaemon | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ Osstest/Executive.pm | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/ms-queuedaemon b/ms-queuedaemon
-index a3a009ca..dc858863 100755
---- a/ms-queuedaemon
-+++ b/ms-queuedaemon
-@@ -91,7 +91,7 @@ proc log-event {m} {
- proc log-state {m} {
-     global need_queue_run queue
+diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
+index a0d9f81e..f17e7b70 100644
+--- a/Osstest/Executive.pm
++++ b/Osstest/Executive.pm
+@@ -702,7 +702,7 @@ sub plan_search ($$$$) {
  
--    set lhs [format "N=%d Q=%d (%-15.15s) " \
-+    set lhs [format "N=%d Q=%d (%-20.20s) " \
-                  $need_queue_run [llength $queue] $queue]
+ 	    next PERIOD if $endevt->{Time} <= $try_time;
+             # this period is entirely before the proposed slot;
+-            # it doesn't overlap, but most check subsequent periods
++            # it doesn't overlap, but must check subsequent periods
  
-     foreach-walker w {
-@@ -99,13 +99,13 @@ proc log-state {m} {
- 	if {[info exists queue_running]} {
- 	    append lhs [format "R=%-3d " [llength $queue_running]]
- 	    if {[info exists thinking]} {
--		append lhs [format "T=%-7s " $thinking]
-+		append lhs [format "T=%-16s " $thinking]
- 	    } else {
--		append lhs [format "          "]
-+		append lhs [format "                   "]
- 	    }
--	    append lhs [format "(%-15.15s) " $queue_running]
-+	    append lhs [format "(%-20.20s) " $queue_running]
- 	} else {
--	    append lhs "                                  "
-+	    append lhs "                                                "
- 	}
-     }
- 
+ 	  CHECK:
+ 	    {
 -- 
 2.20.1
 
