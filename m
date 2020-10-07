@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE72E2866C2
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:18:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3639.10498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3AF1286715
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:28:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3742.11231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE13-0006dj-JN; Wed, 07 Oct 2020 18:18:17 +0000
+	id 1kQEAy-0005br-3v; Wed, 07 Oct 2020 18:28:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3639.10498; Wed, 07 Oct 2020 18:18:17 +0000
+Received: by outflank-mailman (output) from mailman id 3742.11231; Wed, 07 Oct 2020 18:28:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,42 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE13-0006d5-FN; Wed, 07 Oct 2020 18:18:17 +0000
-Received: by outflank-mailman (input) for mailman id 3639;
- Wed, 07 Oct 2020 18:18:15 +0000
+	id 1kQEAx-0005ZJ-MC; Wed, 07 Oct 2020 18:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 3742;
+ Wed, 07 Oct 2020 18:28:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE11-0006UA-Rv
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:18:15 +0000
+ id 1kQE4N-00072Q-LN
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:21:43 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05ce08a0-9e4a-472a-ab00-cff487857eab;
- Wed, 07 Oct 2020 18:18:12 +0000 (UTC)
+ id ac7250ff-2574-481e-98fa-ef231cd33e98;
+ Wed, 07 Oct 2020 18:20:17 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDjv-0007CF-MO; Wed, 07 Oct 2020 19:00:35 +0100
+ id 1kQDjv-0007CF-SV; Wed, 07 Oct 2020 19:00:35 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE11-0006UA-Rv
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:18:15 +0000
-X-Inumbo-ID: 05ce08a0-9e4a-472a-ab00-cff487857eab
+	id 1kQE4N-00072Q-LN
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:21:43 +0000
+X-Inumbo-ID: ac7250ff-2574-481e-98fa-ef231cd33e98
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 05ce08a0-9e4a-472a-ab00-cff487857eab;
-	Wed, 07 Oct 2020 18:18:12 +0000 (UTC)
+	id ac7250ff-2574-481e-98fa-ef231cd33e98;
+	Wed, 07 Oct 2020 18:20:17 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDjv-0007CF-MO; Wed, 07 Oct 2020 19:00:35 +0100
+	id 1kQDjv-0007CF-SV; Wed, 07 Oct 2020 19:00:35 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 14/82] target setup refactoring: Merge target_kernkind_*
-Date: Wed,  7 Oct 2020 18:59:16 +0100
-Message-Id: <20201007180024.7932-15-iwj@xenproject.org>
+Subject: [OSSTEST PATCH 15/82] target setup refactoring: Add a doc comment
+Date: Wed,  7 Oct 2020 18:59:17 +0100
+Message-Id: <20201007180024.7932-16-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -67,82 +67,25 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Combine these two functions.  Rename them to a name which doesn't
-mention "kernkind".
-
-No functional change.
-
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/Debian.pm      |  3 +--
- Osstest/TestSupport.pm | 11 ++++-------
- ts-debian-fixup        |  3 +--
- 3 files changed, 6 insertions(+), 11 deletions(-)
+ Osstest/TestSupport.pm | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index b140ede2..85fd16da 100644
---- a/Osstest/Debian.pm
-+++ b/Osstest/Debian.pm
-@@ -68,8 +68,7 @@ sub debian_boot_setup ($$$$$;$) {
-     # $xenhopt==undef => is actually a guest, do not set up a hypervisor
-     my ($ho, $want_kernver, $want_xsm, $xenhopt, $distpath, $hooks) = @_;
- 
--    target_kernkind_check($ho);
--    target_kernkind_console_inittab($ho,$ho,"/");
-+    target_setup_rootdev_console_inittab($ho,$ho,"/");
- 
-     my $kopt;
-     my $console= target_var($ho,'console');
 diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
-index faac106f..fd7b238b 100644
+index fd7b238b..d9bb2585 100644
 --- a/Osstest/TestSupport.pm
 +++ b/Osstest/TestSupport.pm
-@@ -105,7 +105,7 @@ BEGIN {
-                       host_get_free_memory
- 
-                       target_ping_check_down target_ping_check_up
--                      target_kernkind_check target_kernkind_console_inittab
-+                      target_setup_rootdev_console_inittab
-                       target_var target_var_prefix
-                       selectguest prepareguest more_prepareguest_hvm
- 		      guest_template
-@@ -2562,8 +2562,9 @@ sub target_var ($$) {
-     return undef;
+@@ -2563,6 +2563,9 @@ sub target_var ($$) {
  }
  
--sub target_kernkind_check ($) {
--    my ($gho) = @_;
-+sub target_setup_rootdev_console_inittab ($$$) {
-+    my ($ho, $gho, $root) = @_;
-+
+ sub target_setup_rootdev_console_inittab ($$$) {
++    # Operators on $gho.
++    # $gho's filesystem is accessed via $ho and $mountpoint;
++    # so maybe $gho is $ho and $mountpoint is "/".
+     my ($ho, $gho, $root) = @_;
+ 
      my $pfx= target_var_prefix($gho);
-     my $kernkind= $r{$pfx."kernkind"} // 'pvops';
-     my $isguest= exists $gho->{Guest};
-@@ -2573,10 +2574,6 @@ sub target_kernkind_check ($) {
-     } elsif ($kernkind !~ m/2618/) {
-         store_runvar($pfx."console", 'xvc0') if $isguest;
-     }
--}
--
--sub target_kernkind_console_inittab ($$$) {
--    my ($ho, $gho, $root) = @_;
- 
-     my $inittabpath= "$root/etc/inittab";
-     my $console= target_var($gho,'console');
-diff --git a/ts-debian-fixup b/ts-debian-fixup
-index 2184212b..a878fe50 100755
---- a/ts-debian-fixup
-+++ b/ts-debian-fixup
-@@ -209,8 +209,7 @@ sub writecfg () {
- savecfg();
- ether();
- access();
--target_kernkind_check($gho);
--$console = target_kernkind_console_inittab($ho,$gho,"$mountpoint");
-+$console = target_setup_rootdev_console_inittab($ho,$gho,"$mountpoint");
- 
- debian_overlays($ho, \&overlay);
- target_cmd_root($ho, <<END.debian_overlays_fixup_cmd($ho, $mountpoint));
 -- 
 2.20.1
 
