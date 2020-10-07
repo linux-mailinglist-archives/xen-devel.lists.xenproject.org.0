@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB292866CC
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:19:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3645.10559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4303D2866FC
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 20:27:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3699.10967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE1p-0007D5-5O; Wed, 07 Oct 2020 18:19:05 +0000
+	id 1kQEA2-0002tT-NO; Wed, 07 Oct 2020 18:27:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3645.10559; Wed, 07 Oct 2020 18:19:05 +0000
+Received: by outflank-mailman (output) from mailman id 3699.10967; Wed, 07 Oct 2020 18:27:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,43 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQE1p-0007CO-1x; Wed, 07 Oct 2020 18:19:05 +0000
-Received: by outflank-mailman (input) for mailman id 3645;
- Wed, 07 Oct 2020 18:19:03 +0000
+	id 1kQEA1-0002oK-33; Wed, 07 Oct 2020 18:27:33 +0000
+Received: by outflank-mailman (input) for mailman id 3699;
+ Wed, 07 Oct 2020 18:27:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kQE1n-00072Q-Fm
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:03 +0000
+ id 1kQE2b-00072Q-Hn
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:53 +0000
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 348605a2-3329-47c3-ae29-9223e6c5d1b0;
- Wed, 07 Oct 2020 18:18:58 +0000 (UTC)
+ id 1ecb5c37-fa98-4803-bc1c-312631f56aa1;
+ Wed, 07 Oct 2020 18:19:24 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1kQDkB-0007CF-1O; Wed, 07 Oct 2020 19:00:51 +0100
+ id 1kQDkB-0007CF-8n; Wed, 07 Oct 2020 19:00:51 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=1qty=DO=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kQE1n-00072Q-Fm
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:03 +0000
-X-Inumbo-ID: 348605a2-3329-47c3-ae29-9223e6c5d1b0
+	id 1kQE2b-00072Q-Hn
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 18:19:53 +0000
+X-Inumbo-ID: 1ecb5c37-fa98-4803-bc1c-312631f56aa1
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 348605a2-3329-47c3-ae29-9223e6c5d1b0;
-	Wed, 07 Oct 2020 18:18:58 +0000 (UTC)
+	id 1ecb5c37-fa98-4803-bc1c-312631f56aa1;
+	Wed, 07 Oct 2020 18:19:24 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
 	by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
 	(return-path ijackson@chiark.greenend.org.uk)
-	id 1kQDkB-0007CF-1O; Wed, 07 Oct 2020 19:00:51 +0100
+	id 1kQDkB-0007CF-8n; Wed, 07 Oct 2020 19:00:51 +0100
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: [OSSTEST PATCH 72/82] resource reporting: Report host reuse/sharing in job report
-Date: Wed,  7 Oct 2020 19:00:14 +0100
-Message-Id: <20201007180024.7932-73-iwj@xenproject.org>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+	Ian Jackson <iwj@xenproject.org>
+Subject: [OSSTEST PATCH 73/82] host reuse: sg-run-job: Reanme post-test-ok parameter
+Date: Wed,  7 Oct 2020 19:00:15 +0100
+Message-Id: <20201007180024.7932-74-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201007180024.7932-1-iwj@xenproject.org>
 References: <20201007180024.7932-1-iwj@xenproject.org>
@@ -67,376 +68,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Compatibility: in principle this might generate erroneous reports
-which omit sharing/reuse information for allocations made by jobs
-using older versions of osstest.
+This is more accurate.
 
-However, we do not share or reuse hosts across different osstest
-versions, so this cannot occur.
+No overall functional change.
 
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
 ---
- sg-report-flight | 331 ++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 330 insertions(+), 1 deletion(-)
+ sg-run-job    | 2 +-
+ ts-host-reuse | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sg-report-flight b/sg-report-flight
-index a1f424c5..0413a730 100755
---- a/sg-report-flight
-+++ b/sg-report-flight
-@@ -29,9 +29,10 @@ use POSIX;
- use IPC::Open2;
- use Data::Dumper;
- use File::Path;
-+use Carp;
+diff --git a/sg-run-job b/sg-run-job
+index 1e2fcfee..2feb67d9 100755
+--- a/sg-run-job
++++ b/sg-run-job
+@@ -124,7 +124,7 @@ proc run-job {job} {
+        set ok 0
+     }
  
- use Osstest;
--use Osstest::Executive;
-+use Osstest::Executive qw(:DEFAULT :colours);
+-    if {$ok} { per-host-ts .  =            { ts-host-reuse post-test }    }
++    if {$ok} { per-host-ts .  =            { ts-host-reuse post-test-ok } }
+     if {$ok} { setstatus pass                                             }
  
- our $specflight;
- our %specver;
-@@ -1122,6 +1123,68 @@ END
-     return @failures;
+     if {[llength $need_build_host] && $ok} { jobdb::preserve-task 90 }
+diff --git a/ts-host-reuse b/ts-host-reuse
+index 85beb51e..aad45bdd 100755
+--- a/ts-host-reuse
++++ b/ts-host-reuse
+@@ -152,7 +152,7 @@ sub act_start_test () {
+     host_shared_mark_ready($ho, $sharetype, \%oldstate, 'mid-test');
  }
  
-+# Machinery for generating WITH ... VALUES common table expressions.
-+# Use it like this:
-+#
-+#    1. $some_accum = {}
-+#
-+#    2. valuestable_add_row($some_accum, $val, $val, $val)
-+#          # ^ zero or more times
-+#
-+#    3. $qtxt = "WITH\n";
-+#       @qparams = ();
-+#       valuestable_with(\$qtxt, \@qparams, 'cte_name',
-+#              qw(txtcol1 txtcol2 intcol::integer boolcol::bool ...));
-+#
-+# The resulting CTE table will have the name, and column names,
-+# you specified.  For non-TEXT columns you must specify the type
-+# because [Postgre]SQL's type inference doesn't work properly here.
-+#
-+# valuestable_with will always leave $qtxt ending with ",\n"
-+# so you can call it multiple times.
-+
-+sub valuestable_add_row ($@) {
-+    my ($accum, @row) = @_;
-+    # $accum->{Ncols}
-+    # $accum->{Params}[]
-+    # $accum->{Qtxt}
-+    $accum->{Ncols} //= scalar @row;
-+    confess unless $accum->{Ncols} == @row;
-+    push @{ $accum->{Params} }, @row;
-+    $accum->{Qtxt} //= '';
-+    $accum->{Qtxt} =~ s/.$/$&,/;
-+    $accum->{Qtxt} .= "          (".join(',', ('?',) x @row).")\n";
-+}
-+sub valuestable_with ($$$@) {
-+    my ($qtxtr, $paramsr, $ctename, $accum, @cols) = @_;
-+    my $limit = '';
-+    $accum->{Qtxt} //= do {
-+	# Oh my god
-+	# select * from (values );
-+	# => ERROR:  syntax error at or near ")"
-+	$limit = 'LIMIT 0';
-+	"          (".join(',',
-+			   map { m/::/ ? "NULL::$'" : "NULL" }
-+			   @cols).")\n";
-+    };
-+    $accum->{Ncols} //= scalar @cols;
-+    confess "$accum->{Ncols} != ".(scalar @cols)
-+      unless $accum->{Ncols} == @cols;
-+    my $cols = join(', ', @cols);
-+    my $colsnotypes = join(', ', map { m/::/ ? $` : $_ } @cols);
-+    $$qtxtr .= <<END;
-+      $ctename ($colsnotypes) AS (SELECT
-+            $cols FROM (VALUES
-+$accum->{Qtxt}        $limit) $ctename ($colsnotypes)),
-+
-+END
-+    push @$paramsr, @{ $accum->{Params} // [ ] };
-+}
-+
-+sub nullcols {
-+    join ", ", map { m/::/ ? "NULL::$' as $`" : "NULL as $_" } @_;
-+}
-+
- sub htmloutjob ($$) {
-     my ($fi,$job) = @_;
-     return unless defined $htmldir;
-@@ -1213,6 +1276,272 @@ END
- <tr><td>Status:</td><td>$ji->{status}</td></tr>
- </table>
- <p>
-+END
-+
-+    # ---------- resource reuse/sharing report ----------
-+
-+    # We translate the lifecycle runvars into a set of questions
-+    # for the db.  But rather than doing one db query for each
-+    # such question, we aggregate the questions into VALUES
-+    # expressions and ask the db to produce a collated list of
-+    # relevant information.  This has fewer round trips.
-+
-+    my $shareq_elided_accum = {};
-+    my $shareq_tasks_accum = {};
-+    my $shareq_main_accum = {};
-+    foreach my $lc_var_row (@$runvar_table) {
-+	next unless $lc_var_row->{name} =~ m{^(.*_?host)_lifecycle$};
-+	my $tident = $1;
-+	my $hostname = ($runvar_map{$tident} // next)->{val};
-+	my $last_uncompr;
-+	my $sort_index;
-+	print DEBUG "SHARE LC $job $tident $lc_var_row->{val}\n";
-+	foreach (split / /, $lc_var_row->{val}) {
-+	    $sort_index++;
-+	    if (m/^[\@\+]$/) {
-+		valuestable_add_row $shareq_elided_accum,
-+		  $tident, $hostname, undef, $&, $sort_index;
-+		next;
-+	    }
-+	    if (m/^\[(\d+)\]$/) { # elided
-+		valuestable_add_row $shareq_elided_accum,
-+		  $tident, $hostname, $1, undef, $sort_index;
-+		next;
-+	    }
-+	    my $olive = s/^\+//;
-+	    if (m/^\?(\d+)$/) { # tasks
-+		valuestable_add_row $shareq_tasks_accum,
-+		  $tident, $hostname, $olive+0, $1, $sort_index;
-+		next;
-+	    }
-+	    my $oisprep = s/^\@//;
-+	    s{^\d+$}{ join ":$&", @$last_uncompr }e if $last_uncompr;
-+	    if (my ($tprefix, $oflight, $ojob,
-+		    $ostepno, $tsuffix, $oident) =
-+		m{^((?:(\d+)\.)?([^:]+)?)\:(\d+)((?:,([^:]+))?)$}) {
-+		# main
-+		$last_uncompr = [ $tprefix, $tsuffix ];
-+		$oflight ||= $specflight;
-+		$ojob ||= $job;
-+		$oident ||= 'host';
-+		valuestable_add_row $shareq_main_accum,
-+		  $tident, $hostname, $oflight, $ojob, $ostepno,
-+		  $oisprep+0, $oident, $olive+0;
-+		next;
-+	    }
-+	    confess "$tident $hostname $_ ?";
-+	}
-+    }
-+    my @shareq_params;
-+    my $shareq_txt = <<END;
-+      WITH
-+
-+END
-+
-+    valuestable_with \$shareq_txt, \@shareq_params,
-+      'q_elided', $shareq_elided_accum,
-+      qw(tident hostname count::integer sigil sort_index::integer);
-+
-+    valuestable_with \$shareq_txt, \@shareq_params,
-+      'q_tasks', $shareq_tasks_accum,
-+      qw(tident hostname olive::bool taskid::integer sort_index::integer);
-+
-+    valuestable_with \$shareq_txt, \@shareq_params,
-+      'q', $shareq_main_accum,
-+      qw(tident hostname flight::integer job
-+         stepno::integer oisprep::bool oident olive::bool);
-+
-+    # Helpers to reduce typing in the mapping from individual r_*
-+    # table rows to the overall union (sum type) rows.
-+    my $nullcols_main = nullcols(qw(
-+        flight::integer job status oidents
-+        started::integer rest_started::integer finished::integer
-+    ));
-+    my $nullcols_tasks = nullcols(qw(
-+        taskid::integer type refkey username comment
-+    ));
-+    my $nullcols_elided = nullcols(qw(
-+        elided::integer elided_sigil
-+    ));
-+
-+    $shareq_txt .= <<END;
-+      q2 AS
-+      (SELECT q.*,
-+	      (SELECT started
-+		FROM steps s
-+	       WHERE s.flight = q.flight
-+		 AND s.job    = q.job 
-+		 AND s.stepno = q.stepno
-+		 AND oisprep)                    AS prep_started,
-+	      (SELECT started
-+		 FROM steps s
-+		WHERE s.flight = q.flight
-+		  AND s.job    = q.job
-+		  AND s.stepno = q.stepno
-+		  AND NOT oisprep)               AS rest_started,
-+	      (SELECT max(finished)
-+		 FROM steps s
-+		WHERE s.flight = q.flight
-+		  AND s.job    = q.job)          AS finished
-+	FROM Q
-+        ORDER BY q.tident),
-+
-+      r_main AS
-+      (SELECT tident, hostname,
-+              bool_or(olive)                     AS olive,
-+              1                                  AS kind_sort,
-+              flight, job,
-+	      (SELECT status
-+		 FROM jobs
-+		WHERE jobs.flight = q2.flight
-+		  AND jobs.job    = q2.job)      AS status,
-+	      string_agg(DISTINCT oident,',')    AS oidents,
-+	      min(prep_started)                  AS prep_started,
-+	      min(rest_started)                  AS rest_started,
-+	      max(finished)                      AS finished,
-+	      $nullcols_tasks,
-+	      $nullcols_elided,
-+              NULL::integer                      AS sort_index
-+	 FROM q2
-+     GROUP BY tident, hostname, flight, job),
-+
-+      r_tasks AS
-+      (SELECT tident, hostname, olive,
-+              0                                  AS kind_sort,
-+              $nullcols_main,
-+              taskid, type, refkey, username, comment,
-+              $nullcols_elided,
-+              sort_index
-+         FROM q_tasks NATURAL LEFT JOIN tasks),
-+
-+      r_elided AS
-+      (SELECT tident, hostname, FALSE as olive,
-+              2                                  AS kind_sort,
-+              $nullcols_main,
-+              $nullcols_tasks,
-+              count                              AS elided,
-+              sigil                              AS elided_sigil,
-+              sort_index
-+         FROM q_elided)
-+
-+-- The result row is effectively a sum type.  SQL doesn't have those.
-+-- We just pile all the columns of the disjoint types together;
-+-- some of them will be null for some variants.  The perl code can
-+-- easily figure out which of the unioned CTEs a row came from.
-+
-+       SELECT * FROM r_main    UNION
-+       SELECT * FROM r_tasks   UNION
-+       SELECT * FROM r_elided
-+     ORDER BY tident, hostname,
-+	      kind_sort,
-+	      finished, prep_started, rest_started, flight, job, oidents,
-+	      sort_index
-+END
-+
-+    print DEBUG "PREPARING SHAREQ\n";
-+    my $shareq = db_prepare($shareq_txt);
-+    print DEBUG Dumper(\@shareq_params);
-+    $shareq->execute(@shareq_params);
-+
-+    my $share_any;
-+    my $altcolour=1;
-+    while (my $srow = $shareq->fetchrow_hashref()) {
-+	print DEBUG "SHARE SROW ".Dumper($srow);
-+	print H <<END if !$share_any++;
-+<h2>Task(s) which might have affected this job's host(s)</h2>
-+<p>
-+<table rules="all"><tr>
-+<th>role<br>(here)</td>
-+<th>hostname</td>
-+<th>rel.</td><!-- share reuse unknown -->
-+<th>flight</td>
-+<th>job</td>
-+<th>role(s)<br>(there)</td>
-+<th>install / prep.<br>started</td>
-+<th>use</br>started</td>
-+<th>last step<br>ended</td>
-+<th>job<br>status</td>
-+</tr>
-+END
-+	my $bgcolour = report_altcolour($altcolour ^= 1);
-+	printf H <<END, $bgcolour, map { encode_entities $_ }
-+<tr %s>
-+<td align="center">%s</td>
-+<td align="center"><a href="%s">%s</a></td>
-+END
-+	  $srow->{tident},
-+	  "$c{ResultsHtmlPubBaseUrl}/host/$srow->{hostname}.html",
-+	  $srow->{hostname};
-+	my $rel = $srow->{olive} ?
-+	  "<td align=\"center\" bgcolor=\"$red\">share</td>"
-+	  : $srow->{prep_started} ?
-+	  "<td align=\"center\" bgcolor=\"$purple\">prep.</td>"
-+	  :
-+	  "<td align=\"center\">reuse</td>";
-+        if (defined $srow->{flight}) {
-+	    my $furl = "$c{ReportHtmlPubBaseUrl}/$srow->{flight}/";
-+	    my $jurl = "$furl/$srow->{job}/info.html";
-+	    if ($srow->{flight} != $specflight) {
-+		printf H <<END, $rel, map { encode_entities $_ }
-+%s
-+<td align="right"><a href="%s">%s</a></td>
-+<td><a href="%s">%s</a></td>
-+END
-+		  $furl, $srow->{flight},
-+		  $jurl, $srow->{job};
-+	    } elsif ($srow->{job} ne $job) {
-+		printf H <<END, $rel, map { encode_entities $_ }
-+%s
-+<td align="center">this</td>
-+<td><a href="%s">%s</a></td>
-+END
-+		  $jurl, $srow->{job};
-+	    } else {
-+		printf H <<END;
-+<td></td>
-+<td align="center">this</td>
-+<td align="center">this</td>
-+END
-+	    }
-+	    printf H <<END,
-+<td align="center">%s</td>
-+<td>%s</td><td>%s</td><td>%s</td>
-+END
-+	      encode_entities($srow->{oidents}),
-+	      map { $_ ? show_abs_time($_) : '' }
-+	      $srow->{prep_started},
-+	      $srow->{rest_started},
-+	      !$srow->{olive} && $srow->{finished};
-+	    my $info = report_run_getinfo($srow);
-+	    print H <<END, 
-+<td $info->{ColourAttr}>$info->{Content}</td>
-+END
-+	} elsif (defined $srow->{elided}) {
-+	    printf H <<END, $srow->{elided};
-+<td colspan="8" align="center">%d earlier job(s) elided</td>
-+END
-+	} elsif (defined $srow->{elided_sigil}) {
-+	    printf H <<END;
-+<td bgcolor="$yellow" colspan="8" align="center">
-+this job incomplete, unknown number of other jobs elided
-+</td>
-+END
-+	} elsif (defined $srow->{taskid}) {
-+	    printf H <<END, $rel, map { encode_entities $_ }
-+%s
-+<td bgcolor="$yellow" colspan="7" align="center">?%s: %s</td>
-+END
-+	      $srow->{taskid},
-+	      report_rogue_task_description($srow);
-+	} else {
-+	    confess Dumper($srow)." ?";
-+	}
-+	print H <<END;
-+</tr>
-+END
-+    }
-+    print H <<END if $share_any;
-+</table>
- END
- 
-     print H <<END;
+-sub act_post_test () {
++sub act_post_test_ok () {
+     compute_test_sharetype();
+     $ho = selecthost($whhost);
+     return unless $ho->{Shared};
 -- 
 2.20.1
 
