@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09E07285E7B
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 13:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.3474.9924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A00285EA7
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Oct 2020 14:03:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.3478.9937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ7y4-00056u-Mo; Wed, 07 Oct 2020 11:50:48 +0000
+	id 1kQ88r-0006HO-T7; Wed, 07 Oct 2020 12:01:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 3474.9924; Wed, 07 Oct 2020 11:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 3478.9937; Wed, 07 Oct 2020 12:01:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,151 +23,167 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQ7y4-00056X-Jc; Wed, 07 Oct 2020 11:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 3474;
- Wed, 07 Oct 2020 11:50:46 +0000
+	id 1kQ88r-0006Gz-PR; Wed, 07 Oct 2020 12:01:57 +0000
+Received: by outflank-mailman (input) for mailman id 3478;
+ Wed, 07 Oct 2020 12:01:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=01DM=DO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kQ7y2-00056S-Mo
- for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 11:50:46 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=5kpZ=DO=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kQ88q-0006Gu-NQ
+ for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 12:01:56 +0000
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e4c9a103-80d8-4c25-bf56-9188210e164a;
- Wed, 07 Oct 2020 11:50:44 +0000 (UTC)
+ id 64ddcfd9-fa74-4a09-985d-3f699b0cd72c;
+ Wed, 07 Oct 2020 12:01:55 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id 184so1962616lfd.6
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 05:01:55 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id x17sm325927lja.10.2020.10.07.05.01.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Oct 2020 05:01:53 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=01DM=DO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kQ7y2-00056S-Mo
-	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 11:50:46 +0000
-X-Inumbo-ID: e4c9a103-80d8-4c25-bf56-9188210e164a
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+	(envelope-from <SRS0=5kpZ=DO=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+	id 1kQ88q-0006Gu-NQ
+	for xen-devel@lists.xenproject.org; Wed, 07 Oct 2020 12:01:56 +0000
+X-Inumbo-ID: 64ddcfd9-fa74-4a09-985d-3f699b0cd72c
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e4c9a103-80d8-4c25-bf56-9188210e164a;
-	Wed, 07 Oct 2020 11:50:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602071445;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=18DJCBD+ATtqoB+qJkoUQ1HbicG3/05YHWIKTsKOYp8=;
-  b=KKOh6N+bEtYd87oXUd6zmatZSiVrvapxBknq8J+i9JIGMD2EgS/cYnsQ
-   pKuSoDZk0UXZE52mb1ZJs8gjWFMs9gDHY/0sCzJ+myQky1G/3kyZoF7rJ
-   ahelKnPQ7AwnrxfSF7QDYTy/ipAr4x1PqPByP8DWtKA/UxoMDoxSK/Cr4
-   U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: gOdAhJx1i83mMobEWzQhwdrkoS6B0Jpc837YhJDDyUNv9KGhyYtWS6dhjv+LfhcMo8inbar1ny
- 3YpC4FO/vYi/eU0+tCA37sawA7dQYZRju3U8d3yG2VDMCdKOCTFprcNi9RAciN3nSyfCLP2+4b
- 7T1wzhFbo9xjAhNNLV9QraaH4c47CSNBSpgMzi6g35MkOgaZkSU/IIzCKkxma5eSgTfUt3SL1N
- uzwfShoE6uu4fxcQmOdIcraoGGg+u6mVA2cG3+vy/s3FCZ9Y0EABfOGEphNmNLc5C/83hOEMYL
- 760=
-X-SBRS: None
-X-MesageID: 28450333
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,346,1596513600"; 
-   d="scan'208";a="28450333"
-Subject: Re: [PATCH 3/5] tools/libs/store: drop read-only functionality
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Wei Liu <wl@xen.org>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>
-References: <20201002154141.11677-1-jgross@suse.com>
- <20201002154141.11677-4-jgross@suse.com>
- <20201007105448.c7scd5hoellddfwd@liuwe-devbox-debian-v2>
- <d03ef7db-8752-ac00-99f1-6c40f62e1162@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f4b6a87c-ac65-cb3e-d4b2-4504340b81e3@citrix.com>
-Date: Wed, 7 Oct 2020 12:50:38 +0100
+	id 64ddcfd9-fa74-4a09-985d-3f699b0cd72c;
+	Wed, 07 Oct 2020 12:01:55 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id 184so1962616lfd.6
+        for <xen-devel@lists.xenproject.org>; Wed, 07 Oct 2020 05:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=qB9vXmKs4AD/b/cLEPCCdBmQGD4zsABIUtwF1mE8G/w=;
+        b=DlZELsjGyAbmcrdzep0CtK1W6VDd5rpCbH/rytqb+bOgxoXKWYSXFUqkxo5jE7mB2A
+         uNK+Wsh4vA41veKxROYQgXyZSXrnT4eT5DCz0vzgWwR8C7F3bF0GxPESAx17LtSLlTu9
+         5j6O18Drvhfh33ddKhzFOf7YD1yXGrkr/BmWmsWjDr542zByjEUlMd8V/VCiHx+q7s3u
+         Zqka7GWdLwb1Tijsetl1kFKap7N3jBYQyK5nkkPMa6FUEIymQKJpS+hVe4EVB6XINPX6
+         bYEKw8bEmiRacyXPxiwK2+oCS143YiUq7s8pV07c1xDB85uhmk2LaQSmW77U12AZV4wJ
+         1dXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=qB9vXmKs4AD/b/cLEPCCdBmQGD4zsABIUtwF1mE8G/w=;
+        b=NWOtNlvkO6xdPeLM9oS1B7GgTDJnp2Dj2vpy37iVvvr6adOOdSYytfQYi6aQTXxNNK
+         cgMldlyHJbtiQhO2AF9HZpR2xouUgwUXOEXFByFOQbj/WjYsRX88xLKoo4LXJSu4fo37
+         +epgW3CqHBmuUnpAaaEH4cTAh5icRo1sqy2SCoyOyI/BQz3udwRFxxUGxQamBsEp0Ns/
+         8K+rzMxUZDe14PC7zDL8ayRmtz5Y4G5KOAxTg2I2TydyzKfeRebXtS5N36U5ekzOsaOQ
+         eRoZs4g2sI38OgY07rOa9zStxCzLTL/CkKdWZt9hpixxKePXHKfcb1vKFeMCHA9289ws
+         6wlg==
+X-Gm-Message-State: AOAM533T0aAJTJ5Rv5r/Bto/hAKShxK36DTQEWarQAI2TYxXR+vShNGC
+	tbt+AYPsxegJ05WZAH0kvHM=
+X-Google-Smtp-Source: ABdhPJy9LfF4/eI13d4o44aFKpQIlrL6Iu2RuTf4MLfTVS+/5CZeRb8t6ipF/EH7fsUMSm+st+SsCQ==
+X-Received: by 2002:a19:505a:: with SMTP id z26mr797907lfj.442.1602072114548;
+        Wed, 07 Oct 2020 05:01:54 -0700 (PDT)
+Received: from [192.168.1.6] ([212.22.223.21])
+        by smtp.gmail.com with ESMTPSA id x17sm325927lja.10.2020.10.07.05.01.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2020 05:01:53 -0700 (PDT)
+Subject: Re: [PATCH V1 13/16] xen/ioreq: Make x86's invalidate qemu mapcache
+ handling common
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
+References: <1599769330-17656-1-git-send-email-olekstysh@gmail.com>
+ <1599769330-17656-14-git-send-email-olekstysh@gmail.com>
+ <83dfb207-c191-8dad-1474-ce57b6d51102@suse.com>
+ <2cab3ca5-0f2b-a813-099f-95bbf54bb9c8@gmail.com>
+ <17f1c7d2-7a84-a6a5-4afb-f82e67bc9fd0@suse.com>
+ <0fa6a31c-8da6-2a0a-b110-a697f4955702@gmail.com>
+ <3abe3988-f1c0-9bbf-1ff9-ce3ae380c825@suse.com>
+ <47ecdde7-6575-bee8-7981-7b1a31715a0b@gmail.com>
+ <0aa9a225-1231-fa98-f2a1-caf898a3ed86@gmail.com>
+ <fa610665-78c2-3bd0-66f4-2aa716bafe64@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <0e58975f-c0a9-76c6-9856-2a78a67e7f3e@gmail.com>
+Date: Wed, 7 Oct 2020 15:01:47 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d03ef7db-8752-ac00-99f1-6c40f62e1162@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <fa610665-78c2-3bd0-66f4-2aa716bafe64@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+Content-Language: en-US
 
-On 07/10/2020 11:57, Jürgen Groß wrote:
-> On 07.10.20 12:54, Wei Liu wrote:
->> On Fri, Oct 02, 2020 at 05:41:39PM +0200, Juergen Gross wrote:
->>> Today it is possible to open the connection in read-only mode via
->>> xs_daemon_open_readonly(). This is working only with Xenstore running
->>> as a daemon in the same domain as the user. Additionally it doesn't
->>> add any security as accessing the socket used for that functionality
->>> requires the same privileges as the socket used for full Xenstore
->>> access.
->>>
->>> So just drop the read-only semantics in all cases, leaving the
->>> interface existing only for compatibility reasons. This in turn
->>> requires to just ignore the XS_OPEN_READONLY flag.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>>   tools/libs/store/include/xenstore.h | 8 --------
->>>   tools/libs/store/xs.c               | 7 ++-----
->>>   2 files changed, 2 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/tools/libs/store/include/xenstore.h
->>> b/tools/libs/store/include/xenstore.h
->>> index cbc7206a0f..158e69ef83 100644
->>> --- a/tools/libs/store/include/xenstore.h
->>> +++ b/tools/libs/store/include/xenstore.h
->>> @@ -60,15 +60,12 @@ typedef uint32_t xs_transaction_t;
->>>   /* Open a connection to the xs daemon.
->>>    * Attempts to make a connection over the socket interface,
->>>    * and if it fails, then over the  xenbus interface.
->>> - * Mode 0 specifies read-write access, XS_OPEN_READONLY for
->>> - * read-only access.
->>>    *
->>>    * * Connections made with xs_open(0) (which might be shared page or
->>>    *   socket based) are only guaranteed to work in the parent after
->>>    *   fork.
->>>    * * xs_daemon_open*() and xs_domain_open() are deprecated synonyms
->>>    *   for xs_open(0).
->>> - * * XS_OPEN_READONLY has no bearing on any of this.
->>>    *
->>>    * Returns a handle or NULL.
->>>    */
->>> @@ -83,11 +80,6 @@ void xs_close(struct xs_handle *xsh /* NULL ok */);
->>>    */
->>>   struct xs_handle *xs_daemon_open(void);
->>>   struct xs_handle *xs_domain_open(void);
->>> -
->>> -/* Connect to the xs daemon (readonly for non-root clients).
->>> - * Returns a handle or NULL.
->>> - * Deprecated, please use xs_open(XS_OPEN_READONLY) instead
->>> - */
->>>   struct xs_handle *xs_daemon_open_readonly(void);
->>>     /* Close the connection to the xs daemon.
->>> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
->>> index 320734416f..4ac73ec317 100644
->>> --- a/tools/libs/store/xs.c
->>> +++ b/tools/libs/store/xs.c
->>> @@ -302,7 +302,7 @@ struct xs_handle *xs_daemon_open(void)
->>>     struct xs_handle *xs_daemon_open_readonly(void)
->>>   {
->>> -    return xs_open(XS_OPEN_READONLY);
->>> +    return xs_open(0);
->>>   }
->>
->> This changes the semantics of this function, isn't it? In that the user
->> expects a readonly connection but in fact a read-write connection is
->> returned.
->>
->> Maybe we should return an error here?
+
+On 07.10.20 13:38, Julien Grall wrote:
+> Hi Oleksandr,
+
+Hi Julien.
+
+
+
 >
-> No, as the behavior is this way already if any of the following is true:
+> On 02/10/2020 10:55, Oleksandr wrote:
+>> If I got it correctly there won't be a suitable common place where to 
+>> set qemu_mapcache_invalidate flag anymore
+>> as XENMEM_decrease_reservation is not a single place we need to make 
+>> a decision whether to set it
+>> By principle of analogy, on Arm we probably want to do so in 
+>> guest_physmap_remove_page (or maybe better in p2m_remove_mapping).
+>> Julien, what do you think?
 >
-> - a guest is opening the connection
-> - Xenstore is running in a stubdom
-> - oxenstored is being used
+> At the moment, the Arm code doesn't explicitely remove the existing 
+> mapping before inserting the new mapping. Instead, this is done 
+> implicitely by p2m_set_entry().
 
-Right, and these are just some of the reasons why dropping the R/O
-socket is a sensible thing to do.
+Got it.
 
-However, I do think xenstore.h needs large disclaimers next to the
-relevant constants and functions that both XS_OPEN_* flags are now
-obsolete and ignored (merged into appropriate patches in the series).
 
-~Andrew
+>
+>
+> So I think we want to invalidate the QEMU mapcache in p2m_set_entry() 
+> if the old entry is a RAM page *and* the new MFN is different.
+
+Thank you. I hope, the following is close to what was suggested (didn't 
+test yet):
+
+
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index ae8594f..512eea9 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -1073,7 +1073,14 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
+       */
+      if ( p2m_is_valid(orig_pte) &&
+           !mfn_eq(lpae_get_mfn(*entry), lpae_get_mfn(orig_pte)) )
++    {
++#ifdef CONFIG_IOREQ_SERVER
++        if ( domain_has_ioreq_server(p2m->domain) &&
++             (p2m->domain == current->domain) && 
+p2m_is_ram(orig_pte.p2m.type) )
++            p2m->domain->qemu_mapcache_invalidate = true;
++#endif
+          p2m_free_entry(p2m, orig_pte, level);
++    }
+
+  out:
+      unmap_domain_page(table);
+
+
+But, if I got the review comments correctly [1], the 
+qemu_mapcache_invalidate variable should be per-vcpu instead of per-domain?
+
+[1] https://patchwork.kernel.org/patch/11803383/
+
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
