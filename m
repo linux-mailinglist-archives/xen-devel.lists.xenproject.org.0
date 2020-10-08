@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9388287A9E
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 19:09:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4537.11860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A1FC287B02
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 19:31:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4541.11872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQZPA-0003XN-IC; Thu, 08 Oct 2020 17:08:36 +0000
+	id 1kQZkb-00068z-GB; Thu, 08 Oct 2020 17:30:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4537.11860; Thu, 08 Oct 2020 17:08:36 +0000
+Received: by outflank-mailman (output) from mailman id 4541.11872; Thu, 08 Oct 2020 17:30:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,206 +23,198 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQZPA-0003Wy-Ep; Thu, 08 Oct 2020 17:08:36 +0000
-Received: by outflank-mailman (input) for mailman id 4537;
- Thu, 08 Oct 2020 17:08:34 +0000
+	id 1kQZkb-00068a-CI; Thu, 08 Oct 2020 17:30:45 +0000
+Received: by outflank-mailman (input) for mailman id 4541;
+ Thu, 08 Oct 2020 17:30:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kQZP8-0003Wt-3D
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:08:34 +0000
+ id 1kQZkZ-00068P-Oe
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:30:43 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cbc64f9c-ab33-4471-a2d8-7f0f1259b474;
- Thu, 08 Oct 2020 17:08:33 +0000 (UTC)
+ id f807d22a-0b1e-484e-893b-6a2beed58a89;
+ Thu, 08 Oct 2020 17:30:42 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 079F9221FC;
- Thu,  8 Oct 2020 17:08:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6402222200;
+ Thu,  8 Oct 2020 17:30:41 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kQZP8-0003Wt-3D
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:08:34 +0000
-X-Inumbo-ID: cbc64f9c-ab33-4471-a2d8-7f0f1259b474
+	id 1kQZkZ-00068P-Oe
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:30:43 +0000
+X-Inumbo-ID: f807d22a-0b1e-484e-893b-6a2beed58a89
 Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id cbc64f9c-ab33-4471-a2d8-7f0f1259b474;
-	Thu, 08 Oct 2020 17:08:33 +0000 (UTC)
+	id f807d22a-0b1e-484e-893b-6a2beed58a89;
+	Thu, 08 Oct 2020 17:30:42 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 079F9221FC;
-	Thu,  8 Oct 2020 17:08:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 6402222200;
+	Thu,  8 Oct 2020 17:30:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602176912;
-	bh=BqYzm9Yn2mq4gbbl1eMR5Ck0wZRtKdy6D1Ch0d3tuH0=;
+	s=default; t=1602178241;
+	bh=7ueGKOqJhqJU4X35iZZ5iwrpzJ9RJyWVf3WNj3wZ6og=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=R/HPmurTuIbFDHRmZbkTWOYofiZIb8RqOskFuITiU1TEu/enjUe5+NN2WB1U9BtRh
-	 GWAG1K4WBKWtdRKAW5eYmt3L7FCbENPjALzON2dcqcgqcqoQmUoSzKX/NZk3KpnTuP
-	 moJsb/sq5f6rqud85CFB3R2Fv76cktfAUHEaajlk=
-Date: Thu, 8 Oct 2020 10:08:31 -0700 (PDT)
+	b=mG7HHv90QHFOAyD/+NDvDDhgWHFoFKUHwrOoEmgtBWFMY/YSPkpVZxyu3QFBck3AE
+	 2ofxuvpnrGA7qfo+MEdGBfcFVC1sOUy5/kJv0UEtH5Lyd+ZudJ2ECBghtii8yTSwxN
+	 6VzQ6RZLQQKWBm9Q3wvxQQdxqUMr5nr9oXXLFMlQ=
+Date: Thu, 8 Oct 2020 10:30:40 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Masami Hiramatsu <mhiramat@kernel.org>
 cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
     =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-    takahiro.akashi@linaro.org
-Subject: Re: [PATCH v3] arm/arm64: xen: Fix to convert percpu address to gfn
+    takahiro.akashi@linaro.org, jgross@suse.com, boris.ostrovsky@oracle.com
+Subject: Re: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn
  correctly
-In-Reply-To: <160217199753.214054.18187130778764820148.stgit@devnote2>
-Message-ID: <alpine.DEB.2.21.2010081006200.23978@sstabellini-ThinkPad-T480s>
-References: <160217199753.214054.18187130778764820148.stgit@devnote2>
+In-Reply-To: <20201008172806.1591ebb538946c5ee93d372a@kernel.org>
+Message-ID: <alpine.DEB.2.21.2010081030180.23978@sstabellini-ThinkPad-T480s>
+References: <160190516028.40160.9733543991325671759.stgit@devnote2> <b205ec9c-c307-2b67-c43a-cf2a67179484@xen.org> <alpine.DEB.2.21.2010051526550.10908@sstabellini-ThinkPad-T480s> <20201006114058.b93839b1b8f35a470874572b@kernel.org>
+ <alpine.DEB.2.21.2010061040350.10908@sstabellini-ThinkPad-T480s> <20201008172806.1591ebb538946c5ee93d372a@kernel.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Thanks Masami, the patch is already in our queue for going upstream.
+On Thu, 8 Oct 2020, Masami Hiramatsu wrote:
+> On Tue, 6 Oct 2020 10:56:52 -0700 (PDT)
+> Stefano Stabellini <sstabellini@kernel.org> wrote:
+> 
+> > On Tue, 6 Oct 2020, Masami Hiramatsu wrote:
+> > > On Mon, 5 Oct 2020 18:13:22 -0700 (PDT)
+> > > Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > > 
+> > > > On Mon, 5 Oct 2020, Julien Grall wrote:
+> > > > > Hi Masami,
+> > > > > 
+> > > > > On 05/10/2020 14:39, Masami Hiramatsu wrote:
+> > > > > > Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
+> > > > > > address conversion.
+> > > > > > 
+> > > > > > In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
+> > > > > > to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
+> > > > > > assumes the given virtual address is in contiguous kernel memory
+> > > > > > area, it can not convert the per-cpu memory if it is allocated on
+> > > > > > vmalloc area (depends on CONFIG_SMP).
+> > > > > 
+> > > > > Are you sure about this? I have a .config with CONFIG_SMP=y where the per-cpu
+> > > > > region for CPU0 is allocated outside of vmalloc area.
+> > > > > 
+> > > > > However, I was able to trigger the bug as soon as CONFIG_NUMA_BALANCING was
+> > > > > enabled.
+> > > > 
+> > > > I cannot reproduce the issue with defconfig, but I can with Masami's
+> > > > kconfig.
+> > > > 
+> > > > If I disable just CONFIG_NUMA_BALANCING from Masami's kconfig, the
+> > > > problem still appears.
+> > > > 
+> > > > If I disable CONFIG_NUMA from Masami's kconfig, it works, which is
+> > > > strange because CONFIG_NUMA is enabled in defconfig, and defconfig
+> > > > works.
+> > > 
+> > > Hmm, strange, because when I disabled CONFIG_NUMA_BALANCING, the issue
+> > > disappeared.
+> > > 
+> > > --- config-5.9.0-rc4+   2020-10-06 11:36:20.620107129 +0900
+> > > +++ config-5.9.0-rc4+.buggy     2020-10-05 21:04:40.369936461 +0900
+> > > @@ -131,7 +131,8 @@
+> > >  CONFIG_ARCH_SUPPORTS_NUMA_BALANCING=y
+> > >  CONFIG_CC_HAS_INT128=y
+> > >  CONFIG_ARCH_SUPPORTS_INT128=y
+> > > -# CONFIG_NUMA_BALANCING is not set
+> > > +CONFIG_NUMA_BALANCING=y
+> > > +CONFIG_NUMA_BALANCING_DEFAULT_ENABLED=y
+> > >  CONFIG_CGROUPS=y
+> > >  CONFIG_PAGE_COUNTER=y
+> > >  CONFIG_MEMCG=y
+> > > 
+> > > So buggy config just enabled NUMA_BALANCING (and default enabled)
+> > 
+> > Yeah but both NUMA and NUMA_BALANCING are enabled in defconfig which
+> > works fine...
+> 
+> Hmm, I found that the xen_vcpu_info was allocated on km if the Dom0 has
+> enough memory. On my environment, if Xen passed 2GB of RAM to Dom0, it
+> was allocated on kernel linear mapped address, but with 1GB of RAM, it
+> was on vmalloc area.
+> As far as I can see, it seems that the percpu allocates memory from
+> 2nd chunk if the default memory size is small.
+> 
+> I've built a kernel with patch [1] and boot the same kernel up with
+> different dom0_mem option with "trace_event=percpu:*" kernel cmdline.
+> Then got following logs.
+> 
+> Boot with 4GB:
+>           <idle>-0     [000] ....     0.543208: percpu_create_chunk: base_addr=000000005d5ad71c
+>  [...]
+>          systemd-1     [000] ....     0.568931: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=00000000fa92a086 off=32672 ptr=000000008da0b73d
+>          systemd-1     [000] ....     0.568938: xen_guest_init: Xen: alloc xen_vcpu_info ffff800011003fa0 id=000000008da0b73d
+>          systemd-1     [000] ....     0.586635: xen_starting_cpu: Xen: xen_vcpu_info ffff800011003fa0, vcpup ffff00092f4ebfa0 per_cpu_offset[0] ffff80091e4e8000
+> 
+> (NOTE: base_addr and ptr are encoded to the ids, not actual address
+>  because of "%p" printk format)
+> 
+> In this log, we can see the xen_vcpu_info is allocated NOT on the
+> new chunk (this is the 2nd chunk). As you can see, the vcpup is in
+> the kernel linear address in this case, because it came from the
+> 1st kernel embedded chunk.
+> 
+> 
+> Boot with 1GB
+>           <idle>-0     [000] ....     0.516221: percpu_create_chunk: base_addr=000000008456b989
+> [...]
+>          systemd-1     [000] ....     0.541982: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=000000008456b989 off=17920 ptr=00000000c247612d
+>          systemd-1     [000] ....     0.541989: xen_guest_init: Xen: alloc xen_vcpu_info 7dff951f0600 id=00000000c247612d
+>          systemd-1     [000] ....     0.559690: xen_starting_cpu: Xen: xen_vcpu_info 7dff951f0600, vcpup fffffdffbfcdc600 per_cpu_offset[0] ffff80002aaec000
+> 
+> On the other hand, when we boot the dom0 with 1GB memory, the xen_vcpu_info
+> is allocated on the new chunk (the id of base_addr is same).
+> Since the data of new chunk is allocated on vmalloc area, vcpup points
+> the vmalloc address.
+> 
+> So, the bug seems not to depend on the kconfig, but depends on where
+> the percpu memory is allocated from.
+> 
+> > [...]
+> > 
+> > > > The fix is fine for me. I tested it and it works. We need to remove the
+> > > > "Fixes:" line from the commit message. Ideally, replacing it with a
+> > > > reference to what is the source of the problem.
+> > > 
+> > > OK, as I said, it seems commit 9a9ab3cc00dc ("xen/arm: SMP support") has
+> > > introduced the per-cpu code. So note it instead of Fixes tag.
+> > 
+> > ...and commit 9a9ab3cc00dc was already present in 5.8 which also works
+> > fine with your kconfig. Something else changed in 5.9 causing this
+> > breakage as a side effect. Commit 9a9ab3cc00dc is there since 2013, I
+> > think it is OK -- this patch is fixing something else.
+> 
+> I think the commit 9a9ab3cc00dc theoletically wrong because it uses
+> __pa() on percpu address. But that is not guaranteed according to the
+> comment on per_cpu_ptr_to_phys() as below.
+> 
+> ----
+>  * percpu allocator has special setup for the first chunk, which currently
+>  * supports either embedding in linear address space or vmalloc mapping,
+>  * and, from the second one, the backing allocator (currently either vm or
+>  * km) provides translation.
+>  *
+>  * The addr can be translated simply without checking if it falls into the
+>  * first chunk. But the current code reflects better how percpu allocator
+>  * actually works, and the verification can discover both bugs in percpu
+>  * allocator itself and per_cpu_ptr_to_phys() callers. So we keep current
+>  * code.
+> ----
+> 
+> So we must use per_cpu_ptr_to_phys() instead of __pa() macro for percpu
+> address. That's why I pointed this will fix the commit 9a9ab3cc00dc.
 
-On Fri, 9 Oct 2020, Masami Hiramatsu wrote:
-> Use per_cpu_ptr_to_phys() instead of virt_to_phys() and __pa()
-> for per-cpu address conversion.
-> 
-> In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-> to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-> assumes the given virtual address is in linear mapped kernel memory
-> area, it can not convert the per-cpu memory if it is allocated on
-> vmalloc area.
-> 
-> This depends on from where the xen_vcpu_info percpu object is
-> allocated. If CONFIG_NEED_PER_CPU_EMBED_FIRST_CHUNK=y, the
-> first chunk of percpu is on the kernel linear mapped area.
-> If the first chunk is enough large, xen_guest_init() can allocate
-> the xen_vcpu_info on the first chunk. However, if it is not large
-> enough, or other subsystem init functions called earlier than
-> xen_guest_init() runs out the first chunk, the xen_vcpu_info is
-> allocated on the 2nd chunk of percpu, and it can be on vmalloc
-> memory (depends on CONFIG_NEED_PER_CPU_KM=n).
-> 
-> Without this fix and, unfortnunately, xen_vcpu_info is allocated
-> on the vmalloc area, the Dom0 kernel will fail to boot with
-> following errors.
-> 
-> [    0.466172] Xen: initializing cpu0
-> [    0.469601] ------------[ cut here ]------------
-> [    0.474295] WARNING: CPU: 0 PID: 1 at arch/arm64/xen/../../arm/xen/enlighten.c:153 xen_starting_cpu+0x160/0x180
-> [    0.484435] Modules linked in:
-> [    0.487565] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.9.0-rc4+ #4
-> [    0.493895] Hardware name: Socionext Developer Box (DT)
-> [    0.499194] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-> [    0.504836] pc : xen_starting_cpu+0x160/0x180
-> [    0.509263] lr : xen_starting_cpu+0xb0/0x180
-> [    0.513599] sp : ffff8000116cbb60
-> [    0.516984] x29: ffff8000116cbb60 x28: ffff80000abec000
-> [    0.522366] x27: 0000000000000000 x26: 0000000000000000
-> [    0.527754] x25: ffff80001156c000 x24: fffffdffbfcdb600
-> [    0.533129] x23: 0000000000000000 x22: 0000000000000000
-> [    0.538511] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-> [    0.543892] x19: ffff8000113a9988 x18: 0000000000000010
-> [    0.549274] x17: 0000000094fe0f81 x16: 00000000deadbeef
-> [    0.554655] x15: ffffffffffffffff x14: 0720072007200720
-> [    0.560037] x13: 0720072007200720 x12: 0720072007200720
-> [    0.565418] x11: 0720072007200720 x10: 0720072007200720
-> [    0.570801] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-> [    0.576182] x7 : 0000000000000054 x6 : ffff00001b790f00
-> [    0.581564] x5 : ffff800010bbf880 x4 : 0000000000000000
-> [    0.586945] x3 : 0000000000000000 x2 : ffff80000abec000
-> [    0.592327] x1 : 000000000000002f x0 : 0000800000000000
-> [    0.597716] Call trace:
-> [    0.600232]  xen_starting_cpu+0x160/0x180
-> [    0.604309]  cpuhp_invoke_callback+0xac/0x640
-> [    0.608736]  cpuhp_issue_call+0xf4/0x150
-> [    0.612728]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-> [    0.618030]  __cpuhp_setup_state+0x84/0xf8
-> [    0.622192]  xen_guest_init+0x324/0x364
-> [    0.626097]  do_one_initcall+0x54/0x250
-> [    0.630003]  kernel_init_freeable+0x12c/0x2c8
-> [    0.634428]  kernel_init+0x1c/0x128
-> [    0.637988]  ret_from_fork+0x10/0x18
-> [    0.641635] ---[ end trace d95b5309a33f8b27 ]---
-> [    0.646337] ------------[ cut here ]------------
-> [    0.651005] kernel BUG at arch/arm64/xen/../../arm/xen/enlighten.c:158!
-> [    0.657697] Internal error: Oops - BUG: 0 [#1] SMP
-> [    0.662548] Modules linked in:
-> [    0.665676] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W         5.9.0-rc4+ #4
-> [    0.673398] Hardware name: Socionext Developer Box (DT)
-> [    0.678695] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-> [    0.684338] pc : xen_starting_cpu+0x178/0x180
-> [    0.688765] lr : xen_starting_cpu+0x144/0x180
-> [    0.693188] sp : ffff8000116cbb60
-> [    0.696573] x29: ffff8000116cbb60 x28: ffff80000abec000
-> [    0.701955] x27: 0000000000000000 x26: 0000000000000000
-> [    0.707344] x25: ffff80001156c000 x24: fffffdffbfcdb600
-> [    0.712718] x23: 0000000000000000 x22: 0000000000000000
-> [    0.718107] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-> [    0.723481] x19: ffff8000113a9988 x18: 0000000000000010
-> [    0.728863] x17: 0000000094fe0f81 x16: 00000000deadbeef
-> [    0.734245] x15: ffffffffffffffff x14: 0720072007200720
-> [    0.739626] x13: 0720072007200720 x12: 0720072007200720
-> [    0.745008] x11: 0720072007200720 x10: 0720072007200720
-> [    0.750390] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-> [    0.755771] x7 : 0000000000000054 x6 : ffff00001b790f00
-> [    0.761153] x5 : ffff800010bbf880 x4 : 0000000000000000
-> [    0.766534] x3 : 0000000000000000 x2 : 00000000deadbeef
-> [    0.771916] x1 : 00000000deadbeef x0 : ffffffffffffffea
-> [    0.777304] Call trace:
-> [    0.779819]  xen_starting_cpu+0x178/0x180
-> [    0.783898]  cpuhp_invoke_callback+0xac/0x640
-> [    0.788325]  cpuhp_issue_call+0xf4/0x150
-> [    0.792317]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-> [    0.797619]  __cpuhp_setup_state+0x84/0xf8
-> [    0.801779]  xen_guest_init+0x324/0x364
-> [    0.805683]  do_one_initcall+0x54/0x250
-> [    0.809590]  kernel_init_freeable+0x12c/0x2c8
-> [    0.814016]  kernel_init+0x1c/0x128
-> [    0.817583]  ret_from_fork+0x10/0x18
-> [    0.821226] Code: d0006980 f9427c00 cb000300 17ffffea (d4210000)
-> [    0.827415] ---[ end trace d95b5309a33f8b28 ]---
-> [    0.832076] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-> [    0.839815] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
-> 
-> Theoletically, this issue has been introduced by commit 9a9ab3cc00dc
-> ("xen/arm: SMP support") because it uses __pa() on percpu address.
-> 
-> Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  Changes in v3:
->    Update patch description to explain the mechanism of the problem.
-> ---
->  arch/arm/xen/enlighten.c |    2 +-
->  include/xen/arm/page.h   |    3 +++
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> index e93145d72c26..a6ab3689b2f4 100644
-> --- a/arch/arm/xen/enlighten.c
-> +++ b/arch/arm/xen/enlighten.c
-> @@ -150,7 +150,7 @@ static int xen_starting_cpu(unsigned int cpu)
->  	pr_info("Xen: initializing cpu%d\n", cpu);
->  	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
->  
-> -	info.mfn = virt_to_gfn(vcpup);
-> +	info.mfn = percpu_to_gfn(vcpup);
->  	info.offset = xen_offset_in_page(vcpup);
->  
->  	err = HYPERVISOR_vcpu_op(VCPUOP_register_vcpu_info, xen_vcpu_nr(cpu),
-> diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
-> index 39df751d0dc4..ac1b65470563 100644
-> --- a/include/xen/arm/page.h
-> +++ b/include/xen/arm/page.h
-> @@ -83,6 +83,9 @@ static inline unsigned long bfn_to_pfn(unsigned long bfn)
->  	})
->  #define gfn_to_virt(m)		(__va(gfn_to_pfn(m) << XEN_PAGE_SHIFT))
->  
-> +#define percpu_to_gfn(v)	\
-> +	(pfn_to_gfn(per_cpu_ptr_to_phys(v) >> XEN_PAGE_SHIFT))
-> +
->  /* Only used in PV code. But ARM guests are always HVM. */
->  static inline xmaddr_t arbitrary_virt_to_machine(void *vaddr)
->  {
-> 
+Thank you for the analysis. We are going to try to get the patch
+upstream as soon as we can.
 
