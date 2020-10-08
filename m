@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B53BB287BEE
+	by mail.lfdr.de (Postfix) with ESMTPS id AEAD0287BED
 	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 20:58:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4564.12003 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.4566.12029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQb73-0005l4-Jx; Thu, 08 Oct 2020 18:58:01 +0000
+	id 1kQb7C-00060I-EE; Thu, 08 Oct 2020 18:58:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4564.12003; Thu, 08 Oct 2020 18:58:01 +0000
+Received: by outflank-mailman (output) from mailman id 4566.12029; Thu, 08 Oct 2020 18:58:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,67 +23,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQb73-0005k6-6F; Thu, 08 Oct 2020 18:58:01 +0000
-Received: by outflank-mailman (input) for mailman id 4564;
- Thu, 08 Oct 2020 18:57:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQb7C-0005zU-6U; Thu, 08 Oct 2020 18:58:10 +0000
+Received: by outflank-mailman (input) for mailman id 4566;
+ Thu, 08 Oct 2020 18:58:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3RzB=DP=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1kQb71-0005Rd-HC
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:57:59 +0000
+ id 1kQb7A-0005RO-PI
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:58:08 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9873da21-24d2-457c-af46-bf5823508cc0;
- Thu, 08 Oct 2020 18:57:51 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ebdf290f-2615-4289-be82-5b3bb9be3c6f;
+ Thu, 08 Oct 2020 18:57:52 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kQb6s-00042L-4O; Thu, 08 Oct 2020 18:57:50 +0000
+ id 1kQb6t-00042S-7Y; Thu, 08 Oct 2020 18:57:51 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com
  ([109.146.187.185] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kQb6r-0002P9-RT; Thu, 08 Oct 2020 18:57:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ id 1kQb6t-0002P9-03; Thu, 08 Oct 2020 18:57:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=3RzB=DP=xen.org=paul@srs-us1.protection.inumbo.net>)
-	id 1kQb71-0005Rd-HC
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:57:59 +0000
-X-Inumbo-ID: 9873da21-24d2-457c-af46-bf5823508cc0
+	id 1kQb7A-0005RO-PI
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:58:08 +0000
+X-Inumbo-ID: ebdf290f-2615-4289-be82-5b3bb9be3c6f
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9873da21-24d2-457c-af46-bf5823508cc0;
-	Thu, 08 Oct 2020 18:57:51 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id ebdf290f-2615-4289-be82-5b3bb9be3c6f;
+	Thu, 08 Oct 2020 18:57:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=RXDGKqvarznbbGXJp5zFlQUMeIoJk0IJ8cYPeqwtqQs=; b=rAfksRyRfbM1+KyVINSizjKsW7
-	s5ZYQtUw+GOOJZCSzw5hYA6ljgkke3rzD0gwKzLnGthpgP2tGuCHbmeGbgATInoETkuNNvJmdhG35
-	hqVaY2FjQBaANGFUy6bky3cOyVEFeTGprgfM9LU6N+s93WuFwHRk7yURWou6zR2Y6yOQ=;
+	bh=D58UTgHV8FlNHLsedxEWdVpeTR0XSu26cm7AoQLQNpU=; b=Hi+X0PIXwE3MkDPPVg7LgaUgIy
+	1IT8qkoisipVVxs5J/J4D+7PangVK3a9UXTSWQucdbxGtyCTx8gRu9OcvjDB3VPqFHmU+ti3VZyN5
+	FaR26E7S5UZdCNP/drdWiJ7MeGKil7Hu1PmEhpBjbxgscOZeTVqU8ufWNGe7kpH3cC0E=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kQb6s-00042L-4O; Thu, 08 Oct 2020 18:57:50 +0000
+	id 1kQb6t-00042S-7Y; Thu, 08 Oct 2020 18:57:51 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com ([109.146.187.185] helo=u2f063a87eabd5f.home)
 	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kQb6r-0002P9-RT; Thu, 08 Oct 2020 18:57:50 +0000
+	id 1kQb6t-0002P9-03; Thu, 08 Oct 2020 18:57:51 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
-	Wei Liu <wl@xen.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v10 08/11] docs / tools: specify migration v4 to include DOMAIN_CONTEXT
-Date: Thu,  8 Oct 2020 19:57:32 +0100
-Message-Id: <20201008185735.29875-9-paul@xen.org>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v10 09/11] tools/python: modify libxc.py to verify v4 stream
+Date: Thu,  8 Oct 2020 19:57:33 +0100
+Message-Id: <20201008185735.29875-10-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201008185735.29875-1-paul@xen.org>
 References: <20201008185735.29875-1-paul@xen.org>
@@ -93,195 +90,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-A new 'domain context' framework was recently introduced to facilitate
-transfer of state for both PV and HVM guests. Hence this patch mandates the
-presence of a new DOMAIN_CONTEXT record in version 4 of the libxc migration
-stream.
-This record will incorprate the content of the domain's 'shared_info' page
-and the TSC informition so the SHARED_INFO and TSC_INFO records are deprecated.
-It is intended that, in future, this record will contain state currently
-present in the HVM_CONTEXT record. However, for compatibility with earlier
-migration streams, the version 4 stream format continues to specify an
-HVM_CONTEXT record and XEN_DOMCTL_sethvmcontext will continue to accept all
-content of that record that may be present in a version 3 stream.
+This patch adds code to verify the presence of a REC_TYPE_domain_context
+record in a v4 stream, as well as absence of REC_TYPE_shared_info and
+REC_TYPE_tsc_info records.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
-Cc: Wei Liu <wl@xen.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
 Cc: "Marek Marczykowski-Górecki" <marmarek@invisiblethingslab.com>
-
-NOTE: Wei requested ack from Andrew
+Cc: Ian Jackson <iwj@xenproject.org>
+Cc: Wei Liu <wl@xen.org>
 
 v10:
- - Removed changes to xg_sr_common.c and libxc.py to make this a just
-   documentation and header patch
- - Dropped Wei's A-b in light of change
-
-v7:
- - New in v7
+ - New in v10
 ---
- docs/specs/libxc-migration-stream.pandoc | 62 ++++++++++++++++++------
- tools/libs/guest/xg_sr_stream_format.h   |  1 +
- 2 files changed, 49 insertions(+), 14 deletions(-)
+ tools/python/xen/migration/libxc.py | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/docs/specs/libxc-migration-stream.pandoc b/docs/specs/libxc-migration-stream.pandoc
-index 8aeab3b11b..aa6fe284f3 100644
---- a/docs/specs/libxc-migration-stream.pandoc
-+++ b/docs/specs/libxc-migration-stream.pandoc
-@@ -3,7 +3,7 @@
-   Andrew Cooper <<andrew.cooper3@citrix.com>>
-   Wen Congyang <<wency@cn.fujitsu.com>>
-   Yang Hongyang <<hongyang.yang@easystack.cn>>
--% Revision 3
-+% Revision 4
+diff --git a/tools/python/xen/migration/libxc.py b/tools/python/xen/migration/libxc.py
+index 9881f5ced4..24fb50cbda 100644
+--- a/tools/python/xen/migration/libxc.py
++++ b/tools/python/xen/migration/libxc.py
+@@ -59,6 +59,7 @@ REC_TYPE_checkpoint_dirty_pfn_list  = 0x0000000f
+ REC_TYPE_static_data_end            = 0x00000010
+ REC_TYPE_x86_cpuid_policy           = 0x00000011
+ REC_TYPE_x86_msr_policy             = 0x00000012
++REC_TYPE_domain_context             = 0x00000013
  
- Introduction
- ============
-@@ -127,7 +127,7 @@ marker      0xFFFFFFFFFFFFFFFF.
+ rec_type_to_str = {
+     REC_TYPE_end                        : "End",
+@@ -80,6 +81,7 @@ rec_type_to_str = {
+     REC_TYPE_static_data_end            : "Static data end",
+     REC_TYPE_x86_cpuid_policy           : "x86 CPUID policy",
+     REC_TYPE_x86_msr_policy             : "x86 MSR policy",
++    REC_TYPE_domain_context             : "Domain context",
+ }
  
- id          0x58454E46 ("XENF" in ASCII).
+ # page_data
+@@ -156,9 +158,9 @@ class VerifyLibxc(VerifyBase):
+             raise StreamError("Bad image id: Expected 0x%x, got 0x%x" %
+                               (IHDR_IDENT, ident))
  
--version     0x00000003.  The version of this specification.
-+version     0x00000004.  The version of this specification.
+-        if not (2 <= version <= 3):
++        if not (2 <= version <= 4):
+             raise StreamError(
+-                "Unknown image version: Expected 2 <= ver <= 3, got %d" %
++                "Unknown image version: Expected 2 <= ver <= 4, got %d" %
+                 (version, ))
  
- options     bit 0: Endianness.  0 = little-endian, 1 = big-endian.
+         self.version = version
+@@ -362,6 +364,9 @@ class VerifyLibxc(VerifyBase):
+     def verify_record_shared_info(self, content):
+         """ shared info record """
  
-@@ -209,9 +209,9 @@ type         0x00000000: END
- 
-              0x00000006: X86_PV_VCPU_XSAVE
- 
--             0x00000007: SHARED_INFO
-+             0x00000007: SHARED_INFO (deprecated)
- 
--             0x00000008: X86_TSC_INFO
-+             0x00000008: X86_TSC_INFO (deprecated)
- 
-              0x00000009: HVM_CONTEXT
- 
-@@ -233,7 +233,9 @@ type         0x00000000: END
- 
-              0x00000012: X86_MSR_POLICY
- 
--             0x00000013 - 0x7FFFFFFF: Reserved for future _mandatory_
-+             0x00000013: DOMAIN_CONTEXT
++        if self.version >= 4:
++            raise RecordError("Shared info record found in v4 stream")
 +
-+             0x00000014 - 0x7FFFFFFF: Reserved for future _mandatory_
-              records.
+         contentsz = len(content)
+         if contentsz != 4096:
+             raise RecordError("Length expected to be 4906 bytes, not %d" %
+@@ -371,6 +376,9 @@ class VerifyLibxc(VerifyBase):
+     def verify_record_tsc_info(self, content):
+         """ tsc info record """
  
-              0x80000000 - 0xFFFFFFFF: Reserved for future _optional_
-@@ -442,10 +444,11 @@ X86_PV_VCPU_MSRS             XEN_DOMCTL_{get,set}\_vcpu_msrs
- 
- \clearpage
- 
--SHARED_INFO
-------------
-+SHARED_INFO (deprecated)
-+------------------------
- 
--The content of the Shared Info page.
-+The content of the Shared Info page. This is incorporated into the
-+DOMAIN_CONTEXT record as of specification version 4.
- 
-      0     1     2     3     4     5     6     7 octet
-     +-------------------------------------------------+
-@@ -462,11 +465,12 @@ shared_info      Contents of the shared info page.  This record
- 
- \clearpage
- 
--X86_TSC_INFO
--------------
-+X86_TSC_INFO (deprecated)
-+-------------------------
- 
- Domain TSC information, as accessed by the
--XEN_DOMCTL_{get,set}tscinfo hypercall sub-ops.
-+XEN_DOMCTL_{get,set}tscinfo hypercall sub-ops. This is incorporated into the
-+DOMAIN_CONTEXT record as of specification version 4.
- 
-      0     1     2     3     4     5     6     7 octet
-     +------------------------+------------------------+
-@@ -680,6 +684,25 @@ MSR_policy       Array of xen_msr_entry_t[]'s
- 
- \clearpage
- 
-+DOMAIN_CONTEXT
-+--------------
++        if self.version >= 4:
++            raise RecordError("TSC info record found in v4 stream")
 +
-+Domain context, as accessed by the
-+XEN_DOMCTL_{get,set}_domain_context hypercall sub-ops.
-+
-+     0     1     2     3     4     5     6     7 octet
-+    +-------------------------------------------------+
-+    | dom_ctx                                         |
-+    ...
-+    +-------------------------------------------------+
-+
-+--------------------------------------------------------------------
-+Field            Description
-+-----------      ---------------------------------------------------
-+dom_ctx          The Domain Context blob from Xen.
-+--------------------------------------------------------------------
-+
-+\clearpage
+         sz = calcsize(X86_TSC_INFO_FORMAT)
  
- Layout
- ======
-@@ -706,8 +729,7 @@ A typical save record for an x86 PV guest image would look like:
-     * STATIC_DATA_END
- * X86_PV_P2M_FRAMES record
- * Many PAGE_DATA records
--* X86_TSC_INFO
--* SHARED_INFO record
-+* DOMAIN_CONTEXT
- * VCPU context records for each online VCPU
-     * X86_PV_VCPU_BASIC record
-     * X86_PV_VCPU_EXTENDED record
-@@ -735,7 +757,7 @@ A typical save record for an x86 HVM guest image would look like:
-     * X86_{CPUID,MSR}_POLICY
-     * STATIC_DATA_END
- * Many PAGE_DATA records
--* X86_TSC_INFO
-+* DOMAIN_CONTEXT
- * HVM_PARAMS
- * HVM_CONTEXT
- * END record
-@@ -746,6 +768,18 @@ the validity of architectural state in the context.
- Compatibility with older versions
- =================================
+         if len(content) != sz:
+@@ -476,6 +484,14 @@ class VerifyLibxc(VerifyBase):
+             raise RecordError("Record length %u, expected multiple of %u" %
+                               (contentsz, sz))
  
-+v4 compat with v3
-+-----------------
++    def verify_record_domain_context(self, content):
++        """ domain context record """
 +
-+A v4 stream is compatible with a v3 stream, but mandates the presence of a
-+DOMAIN_CONTEXT record. This incorporates context such as the content of
-+the domain's Shared Info page and the TSC information, hence the SHARED_INFO
-+and TSC_INFO records are deprecated.
-+It also supercedes HVM_CONTEXT and, over time, data that is currently part of
-+the HVM_CONTEXT blob will move to the DOMAIN_CONTEXT blob. Xen, however, will
-+continue to accept all defined HVM_CONTEXT records so a v4-compatible
-+receiver can still accept an unmodified v3 stream.
++        if self.version < 4:
++            raise RecordError("Domain context record found in v3 stream")
 +
- v3 compat with v2
- -----------------
++        if len(content) == 0:
++            raise RecordError("Zero length domain context")
  
-diff --git a/tools/libs/guest/xg_sr_stream_format.h b/tools/libs/guest/xg_sr_stream_format.h
-index 8a0da26f75..bc538bc192 100644
---- a/tools/libs/guest/xg_sr_stream_format.h
-+++ b/tools/libs/guest/xg_sr_stream_format.h
-@@ -76,6 +76,7 @@ struct xc_sr_rhdr
- #define REC_TYPE_STATIC_DATA_END            0x00000010U
- #define REC_TYPE_X86_CPUID_POLICY           0x00000011U
- #define REC_TYPE_X86_MSR_POLICY             0x00000012U
-+#define REC_TYPE_DOMAIN_CONTEXT             0x00000013U
- 
- #define REC_TYPE_OPTIONAL             0x80000000U
- 
+ record_verifiers = {
+     REC_TYPE_end:
+@@ -526,4 +542,6 @@ record_verifiers = {
+         VerifyLibxc.verify_record_x86_cpuid_policy,
+     REC_TYPE_x86_msr_policy:
+         VerifyLibxc.verify_record_x86_msr_policy,
++    REC_TYPE_domain_context:
++        VerifyLibxc.verify_record_domain_context,
+     }
 -- 
 2.20.1
 
