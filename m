@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A1FC287B02
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 19:31:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4541.11872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024F8287B3C
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 19:55:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4544.11886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQZkb-00068z-GB; Thu, 08 Oct 2020 17:30:45 +0000
+	id 1kQa7G-00084j-Ft; Thu, 08 Oct 2020 17:54:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4541.11872; Thu, 08 Oct 2020 17:30:45 +0000
+Received: by outflank-mailman (output) from mailman id 4544.11886; Thu, 08 Oct 2020 17:54:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,198 +23,261 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQZkb-00068a-CI; Thu, 08 Oct 2020 17:30:45 +0000
-Received: by outflank-mailman (input) for mailman id 4541;
- Thu, 08 Oct 2020 17:30:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQa7G-00084J-CI; Thu, 08 Oct 2020 17:54:10 +0000
+Received: by outflank-mailman (input) for mailman id 4544;
+ Thu, 08 Oct 2020 17:54:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kQZkZ-00068P-Oe
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:30:43 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f807d22a-0b1e-484e-893b-6a2beed58a89;
- Thu, 08 Oct 2020 17:30:42 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6402222200;
- Thu,  8 Oct 2020 17:30:41 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kQa7E-00083r-Pa
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:54:08 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9d929c6b-27e7-4c74-a8bb-e379378d3bd8;
+ Thu, 08 Oct 2020 17:53:59 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQa75-0002dc-6U; Thu, 08 Oct 2020 17:53:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQa74-0005vW-UT; Thu, 08 Oct 2020 17:53:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQa74-0000ay-Tw; Thu, 08 Oct 2020 17:53:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kQZkZ-00068P-Oe
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:30:43 +0000
-X-Inumbo-ID: f807d22a-0b1e-484e-893b-6a2beed58a89
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f807d22a-0b1e-484e-893b-6a2beed58a89;
-	Thu, 08 Oct 2020 17:30:42 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6402222200;
-	Thu,  8 Oct 2020 17:30:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602178241;
-	bh=7ueGKOqJhqJU4X35iZZ5iwrpzJ9RJyWVf3WNj3wZ6og=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mG7HHv90QHFOAyD/+NDvDDhgWHFoFKUHwrOoEmgtBWFMY/YSPkpVZxyu3QFBck3AE
-	 2ofxuvpnrGA7qfo+MEdGBfcFVC1sOUy5/kJv0UEtH5Lyd+ZudJ2ECBghtii8yTSwxN
-	 6VzQ6RZLQQKWBm9Q3wvxQQdxqUMr5nr9oXXLFMlQ=
-Date: Thu, 8 Oct 2020 10:30:40 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Masami Hiramatsu <mhiramat@kernel.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-    takahiro.akashi@linaro.org, jgross@suse.com, boris.ostrovsky@oracle.com
-Subject: Re: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn
- correctly
-In-Reply-To: <20201008172806.1591ebb538946c5ee93d372a@kernel.org>
-Message-ID: <alpine.DEB.2.21.2010081030180.23978@sstabellini-ThinkPad-T480s>
-References: <160190516028.40160.9733543991325671759.stgit@devnote2> <b205ec9c-c307-2b67-c43a-cf2a67179484@xen.org> <alpine.DEB.2.21.2010051526550.10908@sstabellini-ThinkPad-T480s> <20201006114058.b93839b1b8f35a470874572b@kernel.org>
- <alpine.DEB.2.21.2010061040350.10908@sstabellini-ThinkPad-T480s> <20201008172806.1591ebb538946c5ee93d372a@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kQa7E-00083r-Pa
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:54:08 +0000
+X-Inumbo-ID: 9d929c6b-27e7-4c74-a8bb-e379378d3bd8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 9d929c6b-27e7-4c74-a8bb-e379378d3bd8;
+	Thu, 08 Oct 2020 17:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qupPFbgYLbihB227jMyvtYg07NjSE1npxWzS1YmScJw=; b=bjm3MvPvtsIb0YRenDvbINTHoP
+	ic3HGdjqoyMEt0H3FyiD7D6SfLdbXnTa882MjKXjXr9UKk5a4YABESSe4N3zFJAaJkLZjDaqcqMML
+	GzeJ8A7WyvnL5r8lEQwCcQx6fvYdkg+P3RMpzSzQ2ViOELUUbR4nVIOxE/i36DIfEuiM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQa75-0002dc-6U; Thu, 08 Oct 2020 17:53:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQa74-0005vW-UT; Thu, 08 Oct 2020 17:53:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQa74-0000ay-Tw; Thu, 08 Oct 2020 17:53:58 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155543-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [libvirt test] 155543: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=1bbd33ecba21577c8e8d0233ad70488ee95d5e96
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 08 Oct 2020 17:53:58 +0000
 
-On Thu, 8 Oct 2020, Masami Hiramatsu wrote:
-> On Tue, 6 Oct 2020 10:56:52 -0700 (PDT)
-> Stefano Stabellini <sstabellini@kernel.org> wrote:
-> 
-> > On Tue, 6 Oct 2020, Masami Hiramatsu wrote:
-> > > On Mon, 5 Oct 2020 18:13:22 -0700 (PDT)
-> > > Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > > 
-> > > > On Mon, 5 Oct 2020, Julien Grall wrote:
-> > > > > Hi Masami,
-> > > > > 
-> > > > > On 05/10/2020 14:39, Masami Hiramatsu wrote:
-> > > > > > Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
-> > > > > > address conversion.
-> > > > > > 
-> > > > > > In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-> > > > > > to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-> > > > > > assumes the given virtual address is in contiguous kernel memory
-> > > > > > area, it can not convert the per-cpu memory if it is allocated on
-> > > > > > vmalloc area (depends on CONFIG_SMP).
-> > > > > 
-> > > > > Are you sure about this? I have a .config with CONFIG_SMP=y where the per-cpu
-> > > > > region for CPU0 is allocated outside of vmalloc area.
-> > > > > 
-> > > > > However, I was able to trigger the bug as soon as CONFIG_NUMA_BALANCING was
-> > > > > enabled.
-> > > > 
-> > > > I cannot reproduce the issue with defconfig, but I can with Masami's
-> > > > kconfig.
-> > > > 
-> > > > If I disable just CONFIG_NUMA_BALANCING from Masami's kconfig, the
-> > > > problem still appears.
-> > > > 
-> > > > If I disable CONFIG_NUMA from Masami's kconfig, it works, which is
-> > > > strange because CONFIG_NUMA is enabled in defconfig, and defconfig
-> > > > works.
-> > > 
-> > > Hmm, strange, because when I disabled CONFIG_NUMA_BALANCING, the issue
-> > > disappeared.
-> > > 
-> > > --- config-5.9.0-rc4+   2020-10-06 11:36:20.620107129 +0900
-> > > +++ config-5.9.0-rc4+.buggy     2020-10-05 21:04:40.369936461 +0900
-> > > @@ -131,7 +131,8 @@
-> > >  CONFIG_ARCH_SUPPORTS_NUMA_BALANCING=y
-> > >  CONFIG_CC_HAS_INT128=y
-> > >  CONFIG_ARCH_SUPPORTS_INT128=y
-> > > -# CONFIG_NUMA_BALANCING is not set
-> > > +CONFIG_NUMA_BALANCING=y
-> > > +CONFIG_NUMA_BALANCING_DEFAULT_ENABLED=y
-> > >  CONFIG_CGROUPS=y
-> > >  CONFIG_PAGE_COUNTER=y
-> > >  CONFIG_MEMCG=y
-> > > 
-> > > So buggy config just enabled NUMA_BALANCING (and default enabled)
-> > 
-> > Yeah but both NUMA and NUMA_BALANCING are enabled in defconfig which
-> > works fine...
-> 
-> Hmm, I found that the xen_vcpu_info was allocated on km if the Dom0 has
-> enough memory. On my environment, if Xen passed 2GB of RAM to Dom0, it
-> was allocated on kernel linear mapped address, but with 1GB of RAM, it
-> was on vmalloc area.
-> As far as I can see, it seems that the percpu allocates memory from
-> 2nd chunk if the default memory size is small.
-> 
-> I've built a kernel with patch [1] and boot the same kernel up with
-> different dom0_mem option with "trace_event=percpu:*" kernel cmdline.
-> Then got following logs.
-> 
-> Boot with 4GB:
->           <idle>-0     [000] ....     0.543208: percpu_create_chunk: base_addr=000000005d5ad71c
->  [...]
->          systemd-1     [000] ....     0.568931: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=00000000fa92a086 off=32672 ptr=000000008da0b73d
->          systemd-1     [000] ....     0.568938: xen_guest_init: Xen: alloc xen_vcpu_info ffff800011003fa0 id=000000008da0b73d
->          systemd-1     [000] ....     0.586635: xen_starting_cpu: Xen: xen_vcpu_info ffff800011003fa0, vcpup ffff00092f4ebfa0 per_cpu_offset[0] ffff80091e4e8000
-> 
-> (NOTE: base_addr and ptr are encoded to the ids, not actual address
->  because of "%p" printk format)
-> 
-> In this log, we can see the xen_vcpu_info is allocated NOT on the
-> new chunk (this is the 2nd chunk). As you can see, the vcpup is in
-> the kernel linear address in this case, because it came from the
-> 1st kernel embedded chunk.
-> 
-> 
-> Boot with 1GB
->           <idle>-0     [000] ....     0.516221: percpu_create_chunk: base_addr=000000008456b989
-> [...]
->          systemd-1     [000] ....     0.541982: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=000000008456b989 off=17920 ptr=00000000c247612d
->          systemd-1     [000] ....     0.541989: xen_guest_init: Xen: alloc xen_vcpu_info 7dff951f0600 id=00000000c247612d
->          systemd-1     [000] ....     0.559690: xen_starting_cpu: Xen: xen_vcpu_info 7dff951f0600, vcpup fffffdffbfcdc600 per_cpu_offset[0] ffff80002aaec000
-> 
-> On the other hand, when we boot the dom0 with 1GB memory, the xen_vcpu_info
-> is allocated on the new chunk (the id of base_addr is same).
-> Since the data of new chunk is allocated on vmalloc area, vcpup points
-> the vmalloc address.
-> 
-> So, the bug seems not to depend on the kconfig, but depends on where
-> the percpu memory is allocated from.
-> 
-> > [...]
-> > 
-> > > > The fix is fine for me. I tested it and it works. We need to remove the
-> > > > "Fixes:" line from the commit message. Ideally, replacing it with a
-> > > > reference to what is the source of the problem.
-> > > 
-> > > OK, as I said, it seems commit 9a9ab3cc00dc ("xen/arm: SMP support") has
-> > > introduced the per-cpu code. So note it instead of Fixes tag.
-> > 
-> > ...and commit 9a9ab3cc00dc was already present in 5.8 which also works
-> > fine with your kconfig. Something else changed in 5.9 causing this
-> > breakage as a side effect. Commit 9a9ab3cc00dc is there since 2013, I
-> > think it is OK -- this patch is fixing something else.
-> 
-> I think the commit 9a9ab3cc00dc theoletically wrong because it uses
-> __pa() on percpu address. But that is not guaranteed according to the
-> comment on per_cpu_ptr_to_phys() as below.
-> 
-> ----
->  * percpu allocator has special setup for the first chunk, which currently
->  * supports either embedding in linear address space or vmalloc mapping,
->  * and, from the second one, the backing allocator (currently either vm or
->  * km) provides translation.
->  *
->  * The addr can be translated simply without checking if it falls into the
->  * first chunk. But the current code reflects better how percpu allocator
->  * actually works, and the verification can discover both bugs in percpu
->  * allocator itself and per_cpu_ptr_to_phys() callers. So we keep current
->  * code.
-> ----
-> 
-> So we must use per_cpu_ptr_to_phys() instead of __pa() macro for percpu
-> address. That's why I pointed this will fix the commit 9a9ab3cc00dc.
+flight 155543 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155543/
 
-Thank you for the analysis. We are going to try to get the patch
-upstream as soon as we can.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              1bbd33ecba21577c8e8d0233ad70488ee95d5e96
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   90 days
+Failing since        151818  2020-07-11 04:18:52 Z   89 days   84 attempts
+Testing same since   155543  2020-10-08 04:19:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 19501 lines long.)
 
