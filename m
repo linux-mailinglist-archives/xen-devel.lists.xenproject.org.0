@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024F8287B3C
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 19:55:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4544.11886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0F0287BB1
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 20:28:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4549.11898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQa7G-00084j-Ft; Thu, 08 Oct 2020 17:54:10 +0000
+	id 1kQadT-0002ZX-5A; Thu, 08 Oct 2020 18:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4544.11886; Thu, 08 Oct 2020 17:54:10 +0000
+Received: by outflank-mailman (output) from mailman id 4549.11898; Thu, 08 Oct 2020 18:27:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,261 +23,184 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQa7G-00084J-CI; Thu, 08 Oct 2020 17:54:10 +0000
-Received: by outflank-mailman (input) for mailman id 4544;
- Thu, 08 Oct 2020 17:54:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kQadT-0002Z8-24; Thu, 08 Oct 2020 18:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 4549;
+ Thu, 08 Oct 2020 18:27:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kQa7E-00083r-Pa
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:54:08 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d929c6b-27e7-4c74-a8bb-e379378d3bd8;
- Thu, 08 Oct 2020 17:53:59 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kQa75-0002dc-6U; Thu, 08 Oct 2020 17:53:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kQa74-0005vW-UT; Thu, 08 Oct 2020 17:53:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kQa74-0000ay-Tw; Thu, 08 Oct 2020 17:53:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kQadR-0002Z3-LX
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:27:25 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f;
+ Thu, 08 Oct 2020 18:27:25 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C64D8221FC;
+ Thu,  8 Oct 2020 18:27:23 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kQa7E-00083r-Pa
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 17:54:08 +0000
-X-Inumbo-ID: 9d929c6b-27e7-4c74-a8bb-e379378d3bd8
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 9d929c6b-27e7-4c74-a8bb-e379378d3bd8;
-	Thu, 08 Oct 2020 17:53:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qupPFbgYLbihB227jMyvtYg07NjSE1npxWzS1YmScJw=; b=bjm3MvPvtsIb0YRenDvbINTHoP
-	ic3HGdjqoyMEt0H3FyiD7D6SfLdbXnTa882MjKXjXr9UKk5a4YABESSe4N3zFJAaJkLZjDaqcqMML
-	GzeJ8A7WyvnL5r8lEQwCcQx6fvYdkg+P3RMpzSzQ2ViOELUUbR4nVIOxE/i36DIfEuiM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kQa75-0002dc-6U; Thu, 08 Oct 2020 17:53:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kQa74-0005vW-UT; Thu, 08 Oct 2020 17:53:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kQa74-0000ay-Tw; Thu, 08 Oct 2020 17:53:58 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155543-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kQadR-0002Z3-LX
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:27:25 +0000
+X-Inumbo-ID: 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f;
+	Thu, 08 Oct 2020 18:27:25 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id C64D8221FC;
+	Thu,  8 Oct 2020 18:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1602181644;
+	bh=wnDUWvvrVEzbRJ13dZOZxiSsGeyY7Ar2ucxrfdfKROc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=1o2wv4d3pxDrPmK8k49se0nfi7xezAOBKvfTeXGBnCnCdh2/OAgDIZmIJJGSU0fq/
+	 fna+j6tAKZPsnLeZ0Q/X9imcuXpein0T+bzVvdXzFKh0w8cMrM2vU/WPohw0fyCcj9
+	 SsKlUKLCDGGn+at6Hg/GMX7SMVPkY4viXt/DFtlI=
+Date: Thu, 8 Oct 2020 11:27:22 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "open list:X86" <xen-devel@lists.xenproject.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    "roman@zededa.com" <roman@zededa.com>
+Subject: Re: [PATCH v3] xen/rpi4: implement watchdog-based reset
+In-Reply-To: <1A694341-33AC-41E1-B216-2D3E1A6C45B4@arm.com>
+Message-ID: <alpine.DEB.2.21.2010081103110.23978@sstabellini-ThinkPad-T480s>
+References: <20201007223813.1638-1-sstabellini@kernel.org> <1A694341-33AC-41E1-B216-2D3E1A6C45B4@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [libvirt test] 155543: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=1bbd33ecba21577c8e8d0233ad70488ee95d5e96
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Oct 2020 17:53:58 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 155543 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155543/
+On Thu, 8 Oct 2020, Bertrand Marquis wrote:
+> > On 7 Oct 2020, at 23:38, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > The preferred method to reboot RPi4 is PSCI. If it is not available,
+> > touching the watchdog is required to be able to reboot the board.
+> > 
+> > The implementation is based on
+> > drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux v5.9-rc7.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > Acked-by: Julien Grall <jgrall@amazon.com>
+> 
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> 
+> Maybe a printk if reset was not successful ?
 
-Regressions :-(
+That not quite platform specific but we could add a printk to
+xen/arch/arm/shutdown.c:machine_restart if we are still alive after
+100ms.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- libvirt              1bbd33ecba21577c8e8d0233ad70488ee95d5e96
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z   90 days
-Failing since        151818  2020-07-11 04:18:52 Z   89 days   84 attempts
-Testing same since   155543  2020-10-08 04:19:15 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+I'll commit this patch as is and maybe send another one for
+machine_restart.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 19501 lines long.)
+> > CC: roman@zededa.com
+> > ---
+> > Changes in v3:
+> > - fix typo in commit message
+> > - dprintk -> printk
+> > ---
+> > xen/arch/arm/platforms/brcm-raspberry-pi.c | 61 ++++++++++++++++++++++
+> > 1 file changed, 61 insertions(+)
+> > 
+> > diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > index f5ae58a7d5..811b40b1a6 100644
+> > --- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > +++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > @@ -17,6 +17,10 @@
+> >  * GNU General Public License for more details.
+> >  */
+> > 
+> > +#include <xen/delay.h>
+> > +#include <xen/mm.h>
+> > +#include <xen/vmap.h>
+> > +#include <asm/io.h>
+> > #include <asm/platform.h>
+> > 
+> > static const char *const rpi4_dt_compat[] __initconst =
+> > @@ -37,12 +41,69 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
+> >      * The aux peripheral also shares a page with the aux UART.
+> >      */
+> >     DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
+> > +    /* Special device used for rebooting */
+> > +    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
+> >     { /* sentinel */ },
+> > };
+> > 
+> > +
+> > +#define PM_PASSWORD                 0x5a000000
+> > +#define PM_RSTC                     0x1c
+> > +#define PM_WDOG                     0x24
+> > +#define PM_RSTC_WRCFG_FULL_RESET    0x00000020
+> > +#define PM_RSTC_WRCFG_CLR           0xffffffcf
+> > +
+> > +static void __iomem *rpi4_map_watchdog(void)
+> > +{
+> > +    void __iomem *base;
+> > +    struct dt_device_node *node;
+> > +    paddr_t start, len;
+> > +    int ret;
+> > +
+> > +    node = dt_find_compatible_node(NULL, NULL, "brcm,bcm2835-pm");
+> > +    if ( !node )
+> > +        return NULL;
+> > +
+> > +    ret = dt_device_get_address(node, 0, &start, &len);
+> > +    if ( ret )
+> > +    {
+> > +        printk("Cannot read watchdog register address\n");
+> > +        return NULL;
+> > +    }
+> > +
+> > +    base = ioremap_nocache(start & PAGE_MASK, PAGE_SIZE);
+> > +    if ( !base )
+> > +    {
+> > +        printk("Unable to map watchdog register!\n");
+> > +        return NULL;
+> > +    }
+> > +
+> > +    return base;
+> > +}
+> > +
+> > +static void rpi4_reset(void)
+> > +{
+> > +    uint32_t val;
+> > +    void __iomem *base = rpi4_map_watchdog();
+> > +
+> > +    if ( !base )
+> > +        return;
+> > +
+> > +    /* use a timeout of 10 ticks (~150us) */
+> > +    writel(10 | PM_PASSWORD, base + PM_WDOG);
+> > +    val = readl(base + PM_RSTC);
+> > +    val &= PM_RSTC_WRCFG_CLR;
+> > +    val |= PM_PASSWORD | PM_RSTC_WRCFG_FULL_RESET;
+> > +    writel(val, base + PM_RSTC);
+> > +
+> > +    /* No sleeping, possibly atomic. */
+> > +    mdelay(1);
+> > +}
+> > +
+> > PLATFORM_START(rpi4, "Raspberry Pi 4")
+> >     .compatible     = rpi4_dt_compat,
+> >     .blacklist_dev  = rpi4_blacklist_dev,
+> > +    .reset = rpi4_reset,
+> >     .dma_bitsize    = 30,
+> > PLATFORM_END
+> > 
+> > -- 
+> > 2.17.1
+> > 
+> > 
+> 
 
