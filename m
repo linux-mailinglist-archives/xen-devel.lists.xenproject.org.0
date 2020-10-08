@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B682870A9
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 10:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4295.11527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ADC42870E2
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 10:44:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4361.11556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQRHa-0004Z6-PZ; Thu, 08 Oct 2020 08:28:14 +0000
+	id 1kQRWA-0006Ym-Gf; Thu, 08 Oct 2020 08:43:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4295.11527; Thu, 08 Oct 2020 08:28:14 +0000
+Received: by outflank-mailman (output) from mailman id 4361.11556; Thu, 08 Oct 2020 08:43:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,223 +23,182 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQRHa-0004Yh-MW; Thu, 08 Oct 2020 08:28:14 +0000
-Received: by outflank-mailman (input) for mailman id 4295;
- Thu, 08 Oct 2020 08:28:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQRWA-0006YQ-DN; Thu, 08 Oct 2020 08:43:18 +0000
+Received: by outflank-mailman (input) for mailman id 4361;
+ Thu, 08 Oct 2020 08:43:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CDYt=DP=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
- id 1kQRHY-0004Yc-TP
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 08:28:12 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0eb4a397-8aae-4a6b-a070-667b36fc9c2b;
- Thu, 08 Oct 2020 08:28:12 +0000 (UTC)
-Received: from devnote2 (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F33D921531;
- Thu,  8 Oct 2020 08:28:08 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=uUpI=DP=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kQRW9-0006YK-E6
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 08:43:17 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id aa018b75-b839-4962-849f-ef07e73e739a;
+ Thu, 08 Oct 2020 08:43:14 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=CDYt=DP=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
-	id 1kQRHY-0004Yc-TP
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 08:28:12 +0000
-X-Inumbo-ID: 0eb4a397-8aae-4a6b-a070-667b36fc9c2b
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0eb4a397-8aae-4a6b-a070-667b36fc9c2b;
-	Thu, 08 Oct 2020 08:28:12 +0000 (UTC)
-Received: from devnote2 (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id F33D921531;
-	Thu,  8 Oct 2020 08:28:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602145691;
-	bh=D6jzGaurWgaF827f14jVCgmDfsqRsfIA9V7sMLM5Qr8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=CEx8DnTPNLxslo3VTV38YIJsDXmbj7dSuXipNfQ/bVkdcKbIye6h0DjDBF/8L9jcn
-	 YenNSYNeOEgGgy0B+HUS0qIX829IiQgbB5Lfoy3MTQk9Txsa8G+IH4Ne0jhchtUpsM
-	 u5xIANxOv0MRhjamkpFTXdlbA1kCOvm/QRL8uw8c=
-Date: Thu, 8 Oct 2020 17:28:06 +0900
-From: Masami Hiramatsu <mhiramat@kernel.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, Alex =?UTF-8?B?QmVubsOpZQ==?=
- <alex.bennee@linaro.org>, takahiro.akashi@linaro.org, jgross@suse.com,
- boris.ostrovsky@oracle.com
-Subject: Re: [PATCH] arm/arm64: xen: Fix to convert percpu address to gfn
- correctly
-Message-Id: <20201008172806.1591ebb538946c5ee93d372a@kernel.org>
-In-Reply-To: <alpine.DEB.2.21.2010061040350.10908@sstabellini-ThinkPad-T480s>
-References: <160190516028.40160.9733543991325671759.stgit@devnote2>
-	<b205ec9c-c307-2b67-c43a-cf2a67179484@xen.org>
-	<alpine.DEB.2.21.2010051526550.10908@sstabellini-ThinkPad-T480s>
-	<20201006114058.b93839b1b8f35a470874572b@kernel.org>
-	<alpine.DEB.2.21.2010061040350.10908@sstabellini-ThinkPad-T480s>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+	(envelope-from <SRS0=uUpI=DP=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kQRW9-0006YK-E6
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 08:43:17 +0000
+X-Inumbo-ID: aa018b75-b839-4962-849f-ef07e73e739a
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id aa018b75-b839-4962-849f-ef07e73e739a;
+	Thu, 08 Oct 2020 08:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602146595;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hmfaHDqcevzm6TqwFYb1N7ROXvDqhIsFeaUBR+owTgQ=;
+  b=Lcgljvm0EehTjS+UgyJWGwCcCnhe3Qk/Am/VjWDXJWkE/Q1UMYJXDHUj
+   20atrpLqqeS1BU7k5hiSBA7CGkdKOab0zfrFaAOHTspZJ2sFwWRBWg2WQ
+   Sx78JPrFryxDj9FgOMdaeBURgurHcj4h9su949yMF3Hmax+6WfIYkNv+N
+   k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: T00na4NxHkPyH2ebQCtGS8s6trKNpm+AH5Ip44klzrTCr1jYCODX9BhpN80rTcAPeE8rVKFtJd
+ LGoOPZzk7VoFShWFTNYzMWGpYjvdnJXIei2/+jHjU36PCI5GiNnWfFbCOA1rkzHwraBlMqXMkh
+ 2nKCVqmjLV2YGuy479FWHuMNqfS0slh0ydCepFFLXHQI+34ZGJOi5ubUYwej2D6vCFkHjxZFH9
+ 4LnPPTVUeAK3BEr3Cv3FreH8hjIzwOb1qBLU79cGUg3GC+uJPV5Yhii0875hN0Noc1fMhGqqlZ
+ gHw=
+X-SBRS: None
+X-MesageID: 28888532
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,350,1596513600"; 
+   d="scan'208";a="28888532"
+Date: Thu, 8 Oct 2020 10:43:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/2] xen/x86: add nmi continuation framework
+Message-ID: <20201008084306.GJ19254@Air-de-Roger>
+References: <20201007133011.18871-1-jgross@suse.com>
+ <20201007133011.18871-2-jgross@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20201007133011.18871-2-jgross@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On Tue, 6 Oct 2020 10:56:52 -0700 (PDT)
-Stefano Stabellini <sstabellini@kernel.org> wrote:
-
-> On Tue, 6 Oct 2020, Masami Hiramatsu wrote:
-> > On Mon, 5 Oct 2020 18:13:22 -0700 (PDT)
-> > Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > > On Mon, 5 Oct 2020, Julien Grall wrote:
-> > > > Hi Masami,
-> > > > 
-> > > > On 05/10/2020 14:39, Masami Hiramatsu wrote:
-> > > > > Use per_cpu_ptr_to_phys() instead of virt_to_phys() for per-cpu
-> > > > > address conversion.
-> > > > > 
-> > > > > In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-> > > > > to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-> > > > > assumes the given virtual address is in contiguous kernel memory
-> > > > > area, it can not convert the per-cpu memory if it is allocated on
-> > > > > vmalloc area (depends on CONFIG_SMP).
-> > > > 
-> > > > Are you sure about this? I have a .config with CONFIG_SMP=y where the per-cpu
-> > > > region for CPU0 is allocated outside of vmalloc area.
-> > > > 
-> > > > However, I was able to trigger the bug as soon as CONFIG_NUMA_BALANCING was
-> > > > enabled.
-> > > 
-> > > I cannot reproduce the issue with defconfig, but I can with Masami's
-> > > kconfig.
-> > > 
-> > > If I disable just CONFIG_NUMA_BALANCING from Masami's kconfig, the
-> > > problem still appears.
-> > > 
-> > > If I disable CONFIG_NUMA from Masami's kconfig, it works, which is
-> > > strange because CONFIG_NUMA is enabled in defconfig, and defconfig
-> > > works.
-> > 
-> > Hmm, strange, because when I disabled CONFIG_NUMA_BALANCING, the issue
-> > disappeared.
-> > 
-> > --- config-5.9.0-rc4+   2020-10-06 11:36:20.620107129 +0900
-> > +++ config-5.9.0-rc4+.buggy     2020-10-05 21:04:40.369936461 +0900
-> > @@ -131,7 +131,8 @@
-> >  CONFIG_ARCH_SUPPORTS_NUMA_BALANCING=y
-> >  CONFIG_CC_HAS_INT128=y
-> >  CONFIG_ARCH_SUPPORTS_INT128=y
-> > -# CONFIG_NUMA_BALANCING is not set
-> > +CONFIG_NUMA_BALANCING=y
-> > +CONFIG_NUMA_BALANCING_DEFAULT_ENABLED=y
-> >  CONFIG_CGROUPS=y
-> >  CONFIG_PAGE_COUNTER=y
-> >  CONFIG_MEMCG=y
-> > 
-> > So buggy config just enabled NUMA_BALANCING (and default enabled)
+On Wed, Oct 07, 2020 at 03:30:10PM +0200, Juergen Gross wrote:
+> Actions in NMI context are rather limited as e.g. locking is rather
+> fragile.
 > 
-> Yeah but both NUMA and NUMA_BALANCING are enabled in defconfig which
-> works fine...
+> Add a generic framework to continue processing in softirq context after
+> leaving NMI processing. This is working for NMIs happening in guest
+> context as NMI exit handling will issue an IPI to itself in case a
+> softirq is pending, resulting in the continuation running before the
+> guest gets control again.
 
-Hmm, I found that the xen_vcpu_info was allocated on km if the Dom0 has
-enough memory. On my environment, if Xen passed 2GB of RAM to Dom0, it
-was allocated on kernel linear mapped address, but with 1GB of RAM, it
-was on vmalloc area.
-As far as I can see, it seems that the percpu allocates memory from
-2nd chunk if the default memory size is small.
+There's already kind of a nmi callback framework using nmi_callback.
+I assume that moving this existing callback code to be executed in
+softirq context is not suitable because that would be past the
+execution of an iret instruction?
 
-I've built a kernel with patch [1] and boot the same kernel up with
-different dom0_mem option with "trace_event=percpu:*" kernel cmdline.
-Then got following logs.
+Might be worth mentioning in the commit message.
 
-Boot with 4GB:
-          <idle>-0     [000] ....     0.543208: percpu_create_chunk: base_addr=000000005d5ad71c
- [...]
-         systemd-1     [000] ....     0.568931: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=00000000fa92a086 off=32672 ptr=000000008da0b73d
-         systemd-1     [000] ....     0.568938: xen_guest_init: Xen: alloc xen_vcpu_info ffff800011003fa0 id=000000008da0b73d
-         systemd-1     [000] ....     0.586635: xen_starting_cpu: Xen: xen_vcpu_info ffff800011003fa0, vcpup ffff00092f4ebfa0 per_cpu_offset[0] ffff80091e4e8000
-
-(NOTE: base_addr and ptr are encoded to the ids, not actual address
- because of "%p" printk format)
-
-In this log, we can see the xen_vcpu_info is allocated NOT on the
-new chunk (this is the 2nd chunk). As you can see, the vcpup is in
-the kernel linear address in this case, because it came from the
-1st kernel embedded chunk.
-
-
-Boot with 1GB
-          <idle>-0     [000] ....     0.516221: percpu_create_chunk: base_addr=000000008456b989
-[...]
-         systemd-1     [000] ....     0.541982: percpu_alloc_percpu: reserved=0 is_atomic=0 size=48 align=8 base_addr=000000008456b989 off=17920 ptr=00000000c247612d
-         systemd-1     [000] ....     0.541989: xen_guest_init: Xen: alloc xen_vcpu_info 7dff951f0600 id=00000000c247612d
-         systemd-1     [000] ....     0.559690: xen_starting_cpu: Xen: xen_vcpu_info 7dff951f0600, vcpup fffffdffbfcdc600 per_cpu_offset[0] ffff80002aaec000
-
-On the other hand, when we boot the dom0 with 1GB memory, the xen_vcpu_info
-is allocated on the new chunk (the id of base_addr is same).
-Since the data of new chunk is allocated on vmalloc area, vcpup points
-the vmalloc address.
-
-So, the bug seems not to depend on the kconfig, but depends on where
-the percpu memory is allocated from.
-
-> [...]
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  xen/arch/x86/traps.c      | 37 +++++++++++++++++++++++++++++++++++++
+>  xen/include/asm-x86/nmi.h |  8 +++++++-
+>  xen/include/xen/softirq.h |  5 ++++-
+>  3 files changed, 48 insertions(+), 2 deletions(-)
 > 
-> > > The fix is fine for me. I tested it and it works. We need to remove the
-> > > "Fixes:" line from the commit message. Ideally, replacing it with a
-> > > reference to what is the source of the problem.
-> > 
-> > OK, as I said, it seems commit 9a9ab3cc00dc ("xen/arm: SMP support") has
-> > introduced the per-cpu code. So note it instead of Fixes tag.
-> 
-> ...and commit 9a9ab3cc00dc was already present in 5.8 which also works
-> fine with your kconfig. Something else changed in 5.9 causing this
-> breakage as a side effect. Commit 9a9ab3cc00dc is there since 2013, I
-> think it is OK -- this patch is fixing something else.
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index bc5b8f8ea3..f433fe5acb 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -1799,6 +1799,42 @@ void unset_nmi_callback(void)
+>      nmi_callback = dummy_nmi_callback;
+>  }
+>  
+> +static DEFINE_PER_CPU(void (*)(void *), nmi_cont_func);
+> +static DEFINE_PER_CPU(void *, nmi_cont_par);
+> +
+> +static void nmi_cont_softirq(void)
+> +{
+> +    unsigned int cpu = smp_processor_id();
+> +    void (*func)(void *par) = per_cpu(nmi_cont_func, cpu);
+> +    void *par = per_cpu(nmi_cont_par, cpu);
 
-I think the commit 9a9ab3cc00dc theoletically wrong because it uses
-__pa() on percpu address. But that is not guaranteed according to the
-comment on per_cpu_ptr_to_phys() as below.
+I think you can use this_cpu here and below, and avoid having to worry
+about the processor id at all? Also less likely to mess up and assign
+a NMI callback to a wrong CPU.
 
-----
- * percpu allocator has special setup for the first chunk, which currently
- * supports either embedding in linear address space or vmalloc mapping,
- * and, from the second one, the backing allocator (currently either vm or
- * km) provides translation.
- *
- * The addr can be translated simply without checking if it falls into the
- * first chunk. But the current code reflects better how percpu allocator
- * actually works, and the verification can discover both bugs in percpu
- * allocator itself and per_cpu_ptr_to_phys() callers. So we keep current
- * code.
-----
+> +
+> +    /* Reads must be done before following write (local cpu ordering only). */
+> +    barrier();
 
-So we must use per_cpu_ptr_to_phys() instead of __pa() macro for percpu
-address. That's why I pointed this will fix the commit 9a9ab3cc00dc.
+Is this added because of the usage of RELOC_HIDE by per_cpu?
 
-Thank you,
+> +
+> +    per_cpu(nmi_cont_func, cpu) = NULL;
 
-[1]
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index a6ab3689b2f4..1786b8b51a60 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -149,6 +149,7 @@ static int xen_starting_cpu(unsigned int cpu)
- 
- 	pr_info("Xen: initializing cpu%d\n", cpu);
- 	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
-+	trace_printk("Xen: xen_vcpu_info %lx, vcpup %lx per_cpu_offset[%d] %lx\n", (unsigned long)xen_vcpu_info, (unsigned long)vcpup, cpu, per_cpu_offset(cpu));
- 
- 	info.mfn = percpu_to_gfn(vcpup);
- 	info.offset = xen_offset_in_page(vcpup);
-@@ -356,6 +357,7 @@ static int __init xen_guest_init(void)
- 	xen_vcpu_info = alloc_percpu(struct vcpu_info);
- 	if (xen_vcpu_info == NULL)
- 		return -ENOMEM;
-+	trace_printk("Xen: alloc xen_vcpu_info %lx id=%p\n", (unsigned long)xen_vcpu_info, xen_vcpu_info);
- 
- 	/* Direct vCPU id mapping for ARM guests. */
- 	for_each_possible_cpu(cpu)
+Since we are using RELOC_HIDE, doesn't it imply that the compiler
+cannot reorder this, since it has no idea what variable we are
+accessing?
 
--- 
-Masami Hiramatsu <mhiramat@kernel.org>
+> +
+> +    if ( func )
+> +        func(par);
+> +}
+> +
+> +int set_nmi_continuation(void (*func)(void *par), void *par)
+> +{
+> +    unsigned int cpu = smp_processor_id();
+> +
+> +    if ( per_cpu(nmi_cont_func, cpu) )
+> +    {
+> +        printk("Trying to set NMI continuation while still one active!\n");
+> +        return -EBUSY;
+> +    }
+> +
+> +    per_cpu(nmi_cont_func, cpu) = func;
+> +    per_cpu(nmi_cont_par, cpu) = par;
+> +
+> +    raise_softirq(NMI_CONT_SOFTIRQ);
+> +
+> +    return 0;
+> +}
+> +
+>  void do_device_not_available(struct cpu_user_regs *regs)
+>  {
+>  #ifdef CONFIG_PV
+> @@ -2132,6 +2168,7 @@ void __init trap_init(void)
+>  
+>      cpu_init();
+>  
+> +    open_softirq(NMI_CONT_SOFTIRQ, nmi_cont_softirq);
+>      open_softirq(PCI_SERR_SOFTIRQ, pci_serr_softirq);
+>  }
+>  
+> diff --git a/xen/include/asm-x86/nmi.h b/xen/include/asm-x86/nmi.h
+> index a288f02a50..da40fb6599 100644
+> --- a/xen/include/asm-x86/nmi.h
+> +++ b/xen/include/asm-x86/nmi.h
+> @@ -33,5 +33,11 @@ nmi_callback_t *set_nmi_callback(nmi_callback_t *callback);
+>  void unset_nmi_callback(void);
+>  
+>  DECLARE_PER_CPU(unsigned int, nmi_count);
+> - 
+> +
+> +/**
+> + * set_nmi_continuation
+> + *
+> + * Schedule a function to be started in softirq context after NMI handling.
+> + */
+> +int set_nmi_continuation(void (*func)(void *par), void *par);
+
+I would introduce a type for the nmi callback, as I think it's easier
+than having to retype the prototype everywhere:
+
+typedef void nmi_continuation_t(void *);
+
+Thanks, Roger.
 
