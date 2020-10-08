@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4FF2877CE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 17:47:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4511.11807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381852879B7
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 18:09:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4518.11819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQY7x-0003u1-6j; Thu, 08 Oct 2020 15:46:45 +0000
+	id 1kQYSu-0006Jo-2L; Thu, 08 Oct 2020 16:08:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4511.11807; Thu, 08 Oct 2020 15:46:45 +0000
+Received: by outflank-mailman (output) from mailman id 4518.11819; Thu, 08 Oct 2020 16:08:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,203 +23,135 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQY7x-0003tc-3N; Thu, 08 Oct 2020 15:46:45 +0000
-Received: by outflank-mailman (input) for mailman id 4511;
- Thu, 08 Oct 2020 15:46:44 +0000
+	id 1kQYSt-0006JP-VH; Thu, 08 Oct 2020 16:08:23 +0000
+Received: by outflank-mailman (input) for mailman id 4518;
+ Thu, 08 Oct 2020 16:08:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CDYt=DP=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
- id 1kQY7w-0003tX-0t
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:46:44 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kQYSs-0006JK-Fy
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 16:08:22 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9182a750-5deb-43f4-a89b-75c0cbb7b4d5;
- Thu, 08 Oct 2020 15:46:42 +0000 (UTC)
-Received: from localhost.localdomain (NE2965lan1.rev.em-net.ne.jp
- [210.141.244.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0092220739;
- Thu,  8 Oct 2020 15:46:39 +0000 (UTC)
+ id 95c9804f-915b-4d91-a85f-dc93422bc1fd;
+ Thu, 08 Oct 2020 16:08:20 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQYSq-0000RA-DY; Thu, 08 Oct 2020 16:08:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQYSq-0001Bj-3f; Thu, 08 Oct 2020 16:08:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kQYSq-0001vB-39; Thu, 08 Oct 2020 16:08:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=CDYt=DP=kernel.org=mhiramat@srs-us1.protection.inumbo.net>)
-	id 1kQY7w-0003tX-0t
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:46:44 +0000
-X-Inumbo-ID: 9182a750-5deb-43f4-a89b-75c0cbb7b4d5
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=MKTU=DP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kQYSs-0006JK-Fy
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 16:08:22 +0000
+X-Inumbo-ID: 95c9804f-915b-4d91-a85f-dc93422bc1fd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 9182a750-5deb-43f4-a89b-75c0cbb7b4d5;
-	Thu, 08 Oct 2020 15:46:42 +0000 (UTC)
-Received: from localhost.localdomain (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 0092220739;
-	Thu,  8 Oct 2020 15:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602172001;
-	bh=URIrqbBZFVv8zRZdEp54wBusdj0zVHMR07U5vdNs8mo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=TZ9QNy0j3cHF52KEoAsDg3e2O0fg8cBtYwcgVxf6EsTB8WYcC7QGE6i0PceSPVN/z
-	 2b5yTSx3VmP0gAz5PALL10zmdiXh1x059sJ8/zFq0PKFRzsaQAoFrL8eDPMvP3OOdt
-	 UTkzTKRamDYaHTkQbpzFiTjKWRLx+FAKtndIePUc=
-From: Masami Hiramatsu <mhiramat@kernel.org>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	takahiro.akashi@linaro.org
-Subject: [PATCH v3] arm/arm64: xen: Fix to convert percpu address to gfn correctly
-Date: Fri,  9 Oct 2020 00:46:37 +0900
-Message-Id: <160217199753.214054.18187130778764820148.stgit@devnote2>
-X-Mailer: git-send-email 2.25.1
-User-Agent: StGit/0.19
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+	id 95c9804f-915b-4d91-a85f-dc93422bc1fd;
+	Thu, 08 Oct 2020 16:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eKevr3XPbcAJqjKR7j+3cx6joG4t1vZsoURDsfk+8bY=; b=OezmghDf4oDL/x/li6GUOAY5O0
+	0ZEjtW/sJZjwWjk67K2ZsqWwdHl2tDmVcT1y6gGu2aPIfUWQJQbeI/ykUSiO3Y4BwnW9eRDslJ/ld
+	8xq26rcvpA8yt1lDP+WPGB1DnmUZ5i4bzGYvJQGvVWCCMY4on/5RrvFlJ7TYUkQD36I8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQYSq-0000RA-DY; Thu, 08 Oct 2020 16:08:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQYSq-0001Bj-3f; Thu, 08 Oct 2020 16:08:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kQYSq-0001vB-39; Thu, 08 Oct 2020 16:08:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155547-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155547: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0241809bf838875615797f52af34222e5ab8e98f
+X-Osstest-Versions-That:
+    xen=7a519f8bda6f3505a4c1fbf277f002aa0c12ab9a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 08 Oct 2020 16:08:20 +0000
 
-Use per_cpu_ptr_to_phys() instead of virt_to_phys() and __pa()
-for per-cpu address conversion.
+flight 155547 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155547/
 
-In xen_starting_cpu(), per-cpu xen_vcpu_info address is converted
-to gfn by virt_to_gfn() macro. However, since the virt_to_gfn(v)
-assumes the given virtual address is in linear mapped kernel memory
-area, it can not convert the per-cpu memory if it is allocated on
-vmalloc area.
+Failures :-/ but no regressions.
 
-This depends on from where the xen_vcpu_info percpu object is
-allocated. If CONFIG_NEED_PER_CPU_EMBED_FIRST_CHUNK=y, the
-first chunk of percpu is on the kernel linear mapped area.
-If the first chunk is enough large, xen_guest_init() can allocate
-the xen_vcpu_info on the first chunk. However, if it is not large
-enough, or other subsystem init functions called earlier than
-xen_guest_init() runs out the first chunk, the xen_vcpu_info is
-allocated on the 2nd chunk of percpu, and it can be on vmalloc
-memory (depends on CONFIG_NEED_PER_CPU_KM=n).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Without this fix and, unfortnunately, xen_vcpu_info is allocated
-on the vmalloc area, the Dom0 kernel will fail to boot with
-following errors.
+version targeted for testing:
+ xen                  0241809bf838875615797f52af34222e5ab8e98f
+baseline version:
+ xen                  7a519f8bda6f3505a4c1fbf277f002aa0c12ab9a
 
-[    0.466172] Xen: initializing cpu0
-[    0.469601] ------------[ cut here ]------------
-[    0.474295] WARNING: CPU: 0 PID: 1 at arch/arm64/xen/../../arm/xen/enlighten.c:153 xen_starting_cpu+0x160/0x180
-[    0.484435] Modules linked in:
-[    0.487565] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.9.0-rc4+ #4
-[    0.493895] Hardware name: Socionext Developer Box (DT)
-[    0.499194] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-[    0.504836] pc : xen_starting_cpu+0x160/0x180
-[    0.509263] lr : xen_starting_cpu+0xb0/0x180
-[    0.513599] sp : ffff8000116cbb60
-[    0.516984] x29: ffff8000116cbb60 x28: ffff80000abec000
-[    0.522366] x27: 0000000000000000 x26: 0000000000000000
-[    0.527754] x25: ffff80001156c000 x24: fffffdffbfcdb600
-[    0.533129] x23: 0000000000000000 x22: 0000000000000000
-[    0.538511] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-[    0.543892] x19: ffff8000113a9988 x18: 0000000000000010
-[    0.549274] x17: 0000000094fe0f81 x16: 00000000deadbeef
-[    0.554655] x15: ffffffffffffffff x14: 0720072007200720
-[    0.560037] x13: 0720072007200720 x12: 0720072007200720
-[    0.565418] x11: 0720072007200720 x10: 0720072007200720
-[    0.570801] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-[    0.576182] x7 : 0000000000000054 x6 : ffff00001b790f00
-[    0.581564] x5 : ffff800010bbf880 x4 : 0000000000000000
-[    0.586945] x3 : 0000000000000000 x2 : ffff80000abec000
-[    0.592327] x1 : 000000000000002f x0 : 0000800000000000
-[    0.597716] Call trace:
-[    0.600232]  xen_starting_cpu+0x160/0x180
-[    0.604309]  cpuhp_invoke_callback+0xac/0x640
-[    0.608736]  cpuhp_issue_call+0xf4/0x150
-[    0.612728]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-[    0.618030]  __cpuhp_setup_state+0x84/0xf8
-[    0.622192]  xen_guest_init+0x324/0x364
-[    0.626097]  do_one_initcall+0x54/0x250
-[    0.630003]  kernel_init_freeable+0x12c/0x2c8
-[    0.634428]  kernel_init+0x1c/0x128
-[    0.637988]  ret_from_fork+0x10/0x18
-[    0.641635] ---[ end trace d95b5309a33f8b27 ]---
-[    0.646337] ------------[ cut here ]------------
-[    0.651005] kernel BUG at arch/arm64/xen/../../arm/xen/enlighten.c:158!
-[    0.657697] Internal error: Oops - BUG: 0 [#1] SMP
-[    0.662548] Modules linked in:
-[    0.665676] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W         5.9.0-rc4+ #4
-[    0.673398] Hardware name: Socionext Developer Box (DT)
-[    0.678695] pstate: 00000005 (nzcv daif -PAN -UAO BTYPE=--)
-[    0.684338] pc : xen_starting_cpu+0x178/0x180
-[    0.688765] lr : xen_starting_cpu+0x144/0x180
-[    0.693188] sp : ffff8000116cbb60
-[    0.696573] x29: ffff8000116cbb60 x28: ffff80000abec000
-[    0.701955] x27: 0000000000000000 x26: 0000000000000000
-[    0.707344] x25: ffff80001156c000 x24: fffffdffbfcdb600
-[    0.712718] x23: 0000000000000000 x22: 0000000000000000
-[    0.718107] x21: ffff8000113a99c8 x20: ffff800010fe4f68
-[    0.723481] x19: ffff8000113a9988 x18: 0000000000000010
-[    0.728863] x17: 0000000094fe0f81 x16: 00000000deadbeef
-[    0.734245] x15: ffffffffffffffff x14: 0720072007200720
-[    0.739626] x13: 0720072007200720 x12: 0720072007200720
-[    0.745008] x11: 0720072007200720 x10: 0720072007200720
-[    0.750390] x9 : ffff8000100fbdc0 x8 : ffff800010715208
-[    0.755771] x7 : 0000000000000054 x6 : ffff00001b790f00
-[    0.761153] x5 : ffff800010bbf880 x4 : 0000000000000000
-[    0.766534] x3 : 0000000000000000 x2 : 00000000deadbeef
-[    0.771916] x1 : 00000000deadbeef x0 : ffffffffffffffea
-[    0.777304] Call trace:
-[    0.779819]  xen_starting_cpu+0x178/0x180
-[    0.783898]  cpuhp_invoke_callback+0xac/0x640
-[    0.788325]  cpuhp_issue_call+0xf4/0x150
-[    0.792317]  __cpuhp_setup_state_cpuslocked+0x128/0x2c8
-[    0.797619]  __cpuhp_setup_state+0x84/0xf8
-[    0.801779]  xen_guest_init+0x324/0x364
-[    0.805683]  do_one_initcall+0x54/0x250
-[    0.809590]  kernel_init_freeable+0x12c/0x2c8
-[    0.814016]  kernel_init+0x1c/0x128
-[    0.817583]  ret_from_fork+0x10/0x18
-[    0.821226] Code: d0006980 f9427c00 cb000300 17ffffea (d4210000)
-[    0.827415] ---[ end trace d95b5309a33f8b28 ]---
-[    0.832076] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-[    0.839815] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+Last test of basis   155521  2020-10-07 16:00:31 Z    1 days
+Testing same since   155547  2020-10-08 13:01:25 Z    0 days    1 attempts
 
-Theoletically, this issue has been introduced by commit 9a9ab3cc00dc
-("xen/arm: SMP support") because it uses __pa() on percpu address.
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Edwin Török <edvin.torok@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Wei Liu <wl@xen.org>
 
-Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
- Changes in v3:
-   Update patch description to explain the mechanism of the problem.
----
- arch/arm/xen/enlighten.c |    2 +-
- include/xen/arm/page.h   |    3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index e93145d72c26..a6ab3689b2f4 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -150,7 +150,7 @@ static int xen_starting_cpu(unsigned int cpu)
- 	pr_info("Xen: initializing cpu%d\n", cpu);
- 	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
- 
--	info.mfn = virt_to_gfn(vcpup);
-+	info.mfn = percpu_to_gfn(vcpup);
- 	info.offset = xen_offset_in_page(vcpup);
- 
- 	err = HYPERVISOR_vcpu_op(VCPUOP_register_vcpu_info, xen_vcpu_nr(cpu),
-diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
-index 39df751d0dc4..ac1b65470563 100644
---- a/include/xen/arm/page.h
-+++ b/include/xen/arm/page.h
-@@ -83,6 +83,9 @@ static inline unsigned long bfn_to_pfn(unsigned long bfn)
- 	})
- #define gfn_to_virt(m)		(__va(gfn_to_pfn(m) << XEN_PAGE_SHIFT))
- 
-+#define percpu_to_gfn(v)	\
-+	(pfn_to_gfn(per_cpu_ptr_to_phys(v) >> XEN_PAGE_SHIFT))
-+
- /* Only used in PV code. But ARM guests are always HVM. */
- static inline xmaddr_t arbitrary_virt_to_machine(void *vaddr)
- {
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   7a519f8bda..0241809bf8  0241809bf838875615797f52af34222e5ab8e98f -> smoke
 
