@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0F0287BB1
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 20:28:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4549.11898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7A2287BCB
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 20:39:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4552.11909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQadT-0002ZX-5A; Thu, 08 Oct 2020 18:27:27 +0000
+	id 1kQap9-0003cj-70; Thu, 08 Oct 2020 18:39:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4549.11898; Thu, 08 Oct 2020 18:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 4552.11909; Thu, 08 Oct 2020 18:39:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,184 +23,109 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQadT-0002Z8-24; Thu, 08 Oct 2020 18:27:27 +0000
-Received: by outflank-mailman (input) for mailman id 4549;
- Thu, 08 Oct 2020 18:27:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kQadR-0002Z3-LX
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:27:25 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f;
- Thu, 08 Oct 2020 18:27:25 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C64D8221FC;
- Thu,  8 Oct 2020 18:27:23 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQap9-0003cN-3o; Thu, 08 Oct 2020 18:39:31 +0000
+Received: by outflank-mailman (input) for mailman id 4552;
+ Thu, 08 Oct 2020 18:39:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ogxi=DP=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kQap6-0003cI-Un
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:39:28 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d7b1e3e3-711c-4c1f-ba9e-a206fff3f1b6;
+ Thu, 08 Oct 2020 18:39:27 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 098Id4eR056821
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 8 Oct 2020 14:39:10 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 098Id4tw056820;
+ Thu, 8 Oct 2020 11:39:04 -0700 (PDT) (envelope-from ehem)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kQadR-0002Z3-LX
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:27:25 +0000
-X-Inumbo-ID: 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1b6e95f7-51d0-4987-b2ce-6b6f430cd27f;
-	Thu, 08 Oct 2020 18:27:25 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id C64D8221FC;
-	Thu,  8 Oct 2020 18:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602181644;
-	bh=wnDUWvvrVEzbRJ13dZOZxiSsGeyY7Ar2ucxrfdfKROc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=1o2wv4d3pxDrPmK8k49se0nfi7xezAOBKvfTeXGBnCnCdh2/OAgDIZmIJJGSU0fq/
-	 fna+j6tAKZPsnLeZ0Q/X9imcuXpein0T+bzVvdXzFKh0w8cMrM2vU/WPohw0fyCcj9
-	 SsKlUKLCDGGn+at6Hg/GMX7SMVPkY4viXt/DFtlI=
-Date: Thu, 8 Oct 2020 11:27:22 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "open list:X86" <xen-devel@lists.xenproject.org>, 
-    "julien@xen.org" <julien@xen.org>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    "roman@zededa.com" <roman@zededa.com>
-Subject: Re: [PATCH v3] xen/rpi4: implement watchdog-based reset
-In-Reply-To: <1A694341-33AC-41E1-B216-2D3E1A6C45B4@arm.com>
-Message-ID: <alpine.DEB.2.21.2010081103110.23978@sstabellini-ThinkPad-T480s>
-References: <20201007223813.1638-1-sstabellini@kernel.org> <1A694341-33AC-41E1-B216-2D3E1A6C45B4@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=Ogxi=DP=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+	id 1kQap6-0003cI-Un
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:39:28 +0000
+X-Inumbo-ID: d7b1e3e3-711c-4c1f-ba9e-a206fff3f1b6
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id d7b1e3e3-711c-4c1f-ba9e-a206fff3f1b6;
+	Thu, 08 Oct 2020 18:39:27 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 098Id4eR056821
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 8 Oct 2020 14:39:10 -0400 (EDT)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.15.2/8.15.2/Submit) id 098Id4tw056820;
+	Thu, 8 Oct 2020 11:39:04 -0700 (PDT)
+	(envelope-from ehem)
+Date: Thu, 8 Oct 2020 11:39:04 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Masami Hiramatsu <masami.hiramatsu@linaro.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+        Alex Benn??e <alex.bennee@linaro.org>, bertrand.marquis@arm.com,
+        andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>,
+        Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+        Wei Liu <wl@xen.org>, Roger Pau Monn?? <roger.pau@citrix.com>
+Subject: Re: [PATCH 0/4] xen/arm: Unbreak ACPI
+Message-ID: <20201008183904.GA56716@mattapan.m5p.com>
+References: <20200926205542.9261-1-julien@xen.org>
+ <CAA93ih3-gTAEzV=yYS-9cHGyN9rfAC28Xeyk8Gsmi7D2BS_OWQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA93ih3-gTAEzV=yYS-9cHGyN9rfAC28Xeyk8Gsmi7D2BS_OWQ@mail.gmail.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-On Thu, 8 Oct 2020, Bertrand Marquis wrote:
-> > On 7 Oct 2020, at 23:38, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > The preferred method to reboot RPi4 is PSCI. If it is not available,
-> > touching the watchdog is required to be able to reboot the board.
-> > 
-> > The implementation is based on
-> > drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux v5.9-rc7.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > Acked-by: Julien Grall <jgrall@amazon.com>
-> 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> 
-> Maybe a printk if reset was not successful ?
+On Mon, Sep 28, 2020 at 03:47:52PM +0900, Masami Hiramatsu wrote:
+> This made progress with my Xen boot on DeveloperBox (
+> https://www.96boards.org/product/developerbox/ ) with ACPI.
 
-That not quite platform specific but we could add a printk to
-xen/arch/arm/shutdown.c:machine_restart if we are still alive after
-100ms.
+Adding your patch on top of Julien Grall's patch appears to push the Xen
+boot of my target device (Raspberry PI 4B with Tianocore) further.  Still
+yet to see any output attributable to the Domain 0 kernel though.
 
-I'll commit this patch as is and maybe send another one for
-machine_restart.
+(XEN) *** LOADING DOMAIN 0 ***
+(XEN) Loading d0 kernel from boot module @ 0000000032234000
+(XEN) Loading ramdisk from boot module @ 0000000031747000
+(XEN) Allocating 1:1 mappings totalling 2048MB for dom0:
+(XEN) BANK[0] 0x00000020000000-0x00000030000000 (256MB)
+(XEN) BANK[1] 0x00000040000000-0x000000b0000000 (1792MB)
+(XEN) Grant table range: 0x000000315f3000-0x00000031633000
+(XEN) Allocating PPI 16 for event channel interrupt
+(XEN) Loading zImage from 0000000032234000 to 0000000020080000-0000000021359200
+(XEN) Loading d0 initrd from 0000000031747000 to 0x0000000028200000-0x0000000028cebfe4
+(XEN) Loading d0 DTB to 0x0000000028000000-0x0000000028000273
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: All
+(XEN) Guest Loglevel: All
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) Freed 396kB init memory.
+
+The line, "Loading d0 DTB to 0x0000000028000000-0x0000000028000273" seems
+rather suspicious as I would expect Domain 0 to see ACPI tables, not a
+device tree.
+
+Your (Masami Hiramatsu) patch seems plausible, but things haven't
+progressed enough for me to endorse it.  Looks like something closer to
+the core of ACPI still needs further work, Julien Grall?
 
 
-> > CC: roman@zededa.com
-> > ---
-> > Changes in v3:
-> > - fix typo in commit message
-> > - dprintk -> printk
-> > ---
-> > xen/arch/arm/platforms/brcm-raspberry-pi.c | 61 ++++++++++++++++++++++
-> > 1 file changed, 61 insertions(+)
-> > 
-> > diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-> > index f5ae58a7d5..811b40b1a6 100644
-> > --- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
-> > +++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-> > @@ -17,6 +17,10 @@
-> >  * GNU General Public License for more details.
-> >  */
-> > 
-> > +#include <xen/delay.h>
-> > +#include <xen/mm.h>
-> > +#include <xen/vmap.h>
-> > +#include <asm/io.h>
-> > #include <asm/platform.h>
-> > 
-> > static const char *const rpi4_dt_compat[] __initconst =
-> > @@ -37,12 +41,69 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
-> >      * The aux peripheral also shares a page with the aux UART.
-> >      */
-> >     DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
-> > +    /* Special device used for rebooting */
-> > +    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
-> >     { /* sentinel */ },
-> > };
-> > 
-> > +
-> > +#define PM_PASSWORD                 0x5a000000
-> > +#define PM_RSTC                     0x1c
-> > +#define PM_WDOG                     0x24
-> > +#define PM_RSTC_WRCFG_FULL_RESET    0x00000020
-> > +#define PM_RSTC_WRCFG_CLR           0xffffffcf
-> > +
-> > +static void __iomem *rpi4_map_watchdog(void)
-> > +{
-> > +    void __iomem *base;
-> > +    struct dt_device_node *node;
-> > +    paddr_t start, len;
-> > +    int ret;
-> > +
-> > +    node = dt_find_compatible_node(NULL, NULL, "brcm,bcm2835-pm");
-> > +    if ( !node )
-> > +        return NULL;
-> > +
-> > +    ret = dt_device_get_address(node, 0, &start, &len);
-> > +    if ( ret )
-> > +    {
-> > +        printk("Cannot read watchdog register address\n");
-> > +        return NULL;
-> > +    }
-> > +
-> > +    base = ioremap_nocache(start & PAGE_MASK, PAGE_SIZE);
-> > +    if ( !base )
-> > +    {
-> > +        printk("Unable to map watchdog register!\n");
-> > +        return NULL;
-> > +    }
-> > +
-> > +    return base;
-> > +}
-> > +
-> > +static void rpi4_reset(void)
-> > +{
-> > +    uint32_t val;
-> > +    void __iomem *base = rpi4_map_watchdog();
-> > +
-> > +    if ( !base )
-> > +        return;
-> > +
-> > +    /* use a timeout of 10 ticks (~150us) */
-> > +    writel(10 | PM_PASSWORD, base + PM_WDOG);
-> > +    val = readl(base + PM_RSTC);
-> > +    val &= PM_RSTC_WRCFG_CLR;
-> > +    val |= PM_PASSWORD | PM_RSTC_WRCFG_FULL_RESET;
-> > +    writel(val, base + PM_RSTC);
-> > +
-> > +    /* No sleeping, possibly atomic. */
-> > +    mdelay(1);
-> > +}
-> > +
-> > PLATFORM_START(rpi4, "Raspberry Pi 4")
-> >     .compatible     = rpi4_dt_compat,
-> >     .blacklist_dev  = rpi4_blacklist_dev,
-> > +    .reset = rpi4_reset,
-> >     .dma_bitsize    = 30,
-> > PLATFORM_END
-> > 
-> > -- 
-> > 2.17.1
-> > 
-> > 
-> 
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
