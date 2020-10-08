@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEAD0287BED
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 20:58:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4566.12029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AE7D287C6C
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 21:23:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4612.12174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQb7C-00060I-EE; Thu, 08 Oct 2020 18:58:10 +0000
+	id 1kQbVG-00023I-7b; Thu, 08 Oct 2020 19:23:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4566.12029; Thu, 08 Oct 2020 18:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 4612.12174; Thu, 08 Oct 2020 19:23:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,164 +23,215 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQb7C-0005zU-6U; Thu, 08 Oct 2020 18:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 4566;
- Thu, 08 Oct 2020 18:58:08 +0000
+	id 1kQbVG-00022t-4O; Thu, 08 Oct 2020 19:23:02 +0000
+Received: by outflank-mailman (input) for mailman id 4612;
+ Thu, 08 Oct 2020 19:22:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3RzB=DP=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1kQb7A-0005RO-PI
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:58:08 +0000
+ id 1kQbVD-00022n-0J
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 19:22:59 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ebdf290f-2615-4289-be82-5b3bb9be3c6f;
- Thu, 08 Oct 2020 18:57:52 +0000 (UTC)
+ id 5ca40446-ffd0-4a4d-8213-18c2ccb5eaf2;
+ Thu, 08 Oct 2020 19:22:58 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kQb6t-00042S-7Y; Thu, 08 Oct 2020 18:57:51 +0000
+ id 1kQbVA-0004dz-OJ; Thu, 08 Oct 2020 19:22:56 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com
  ([109.146.187.185] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kQb6t-0002P9-03; Thu, 08 Oct 2020 18:57:51 +0000
+ id 1kQb6t-0002P9-WA; Thu, 08 Oct 2020 18:57:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=3RzB=DP=xen.org=paul@srs-us1.protection.inumbo.net>)
-	id 1kQb7A-0005RO-PI
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 18:58:08 +0000
-X-Inumbo-ID: ebdf290f-2615-4289-be82-5b3bb9be3c6f
+	id 1kQbVD-00022n-0J
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 19:22:59 +0000
+X-Inumbo-ID: 5ca40446-ffd0-4a4d-8213-18c2ccb5eaf2
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id ebdf290f-2615-4289-be82-5b3bb9be3c6f;
-	Thu, 08 Oct 2020 18:57:52 +0000 (UTC)
+	id 5ca40446-ffd0-4a4d-8213-18c2ccb5eaf2;
+	Thu, 08 Oct 2020 19:22:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=D58UTgHV8FlNHLsedxEWdVpeTR0XSu26cm7AoQLQNpU=; b=Hi+X0PIXwE3MkDPPVg7LgaUgIy
-	1IT8qkoisipVVxs5J/J4D+7PangVK3a9UXTSWQucdbxGtyCTx8gRu9OcvjDB3VPqFHmU+ti3VZyN5
-	FaR26E7S5UZdCNP/drdWiJ7MeGKil7Hu1PmEhpBjbxgscOZeTVqU8ufWNGe7kpH3cC0E=;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=Ci9ElP7+t6nSyjJlvsrEVOvf1v3Xr2+ABAE93SLLx1k=; b=df3O5q3+SZF71Hv5AwwF8CGSdI
+	wpSBcvUqgbAeFlsZ3g1+teZRisgnU6KTJuwHTayscSaZuy/sNf4CoFaHS19JHzR1+9LijZ/RL61d5
+	b4azNpI0UfcLk7/yCx98fieKlZW8hjhZwvfylZag2Qun96m+8xX+BW85SeahnMilBHns=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kQb6t-00042S-7Y; Thu, 08 Oct 2020 18:57:51 +0000
+	id 1kQbVA-0004dz-OJ; Thu, 08 Oct 2020 19:22:56 +0000
 Received: from host109-146-187-185.range109-146.btcentralplus.com ([109.146.187.185] helo=u2f063a87eabd5f.home)
 	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kQb6t-0002P9-03; Thu, 08 Oct 2020 18:57:51 +0000
+	id 1kQb6t-0002P9-WA; Thu, 08 Oct 2020 18:57:52 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v10 09/11] tools/python: modify libxc.py to verify v4 stream
-Date: Thu,  8 Oct 2020 19:57:33 +0100
-Message-Id: <20201008185735.29875-10-paul@xen.org>
+Subject: [PATCH v10 10/11] tools/libs/guest: add code to restore a v4 libxc stream
+Date: Thu,  8 Oct 2020 19:57:34 +0100
+Message-Id: <20201008185735.29875-11-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201008185735.29875-1-paul@xen.org>
 References: <20201008185735.29875-1-paul@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-This patch adds code to verify the presence of a REC_TYPE_domain_context
-record in a v4 stream, as well as absence of REC_TYPE_shared_info and
-REC_TYPE_tsc_info records.
+This patch adds the necessary code to accept a v4 stream, and to recognise and
+restore a REC_TYPE_DOMAIN_CONTEXT record.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "Marek Marczykowski-Górecki" <marmarek@invisiblethingslab.com>
 Cc: Ian Jackson <iwj@xenproject.org>
 Cc: Wei Liu <wl@xen.org>
 
 v10:
  - New in v10
+ - Derived from patch #8 of the v9 series
+ - Fix memory leak
 ---
- tools/python/xen/migration/libxc.py | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ tools/libs/guest/xg_sr_common.c          |  1 +
+ tools/libs/guest/xg_sr_common.h          |  3 +++
+ tools/libs/guest/xg_sr_restore.c         | 24 ++++++++++++++++++++++--
+ tools/libs/guest/xg_sr_restore_x86_hvm.c |  9 +++++++++
+ tools/libs/guest/xg_sr_restore_x86_pv.c  |  9 +++++++++
+ 5 files changed, 44 insertions(+), 2 deletions(-)
 
-diff --git a/tools/python/xen/migration/libxc.py b/tools/python/xen/migration/libxc.py
-index 9881f5ced4..24fb50cbda 100644
---- a/tools/python/xen/migration/libxc.py
-+++ b/tools/python/xen/migration/libxc.py
-@@ -59,6 +59,7 @@ REC_TYPE_checkpoint_dirty_pfn_list  = 0x0000000f
- REC_TYPE_static_data_end            = 0x00000010
- REC_TYPE_x86_cpuid_policy           = 0x00000011
- REC_TYPE_x86_msr_policy             = 0x00000012
-+REC_TYPE_domain_context             = 0x00000013
+diff --git a/tools/libs/guest/xg_sr_common.c b/tools/libs/guest/xg_sr_common.c
+index 17567ab133..f813320202 100644
+--- a/tools/libs/guest/xg_sr_common.c
++++ b/tools/libs/guest/xg_sr_common.c
+@@ -39,6 +39,7 @@ static const char *const mandatory_rec_types[] =
+     [REC_TYPE_STATIC_DATA_END]              = "Static data end",
+     [REC_TYPE_X86_CPUID_POLICY]             = "x86 CPUID policy",
+     [REC_TYPE_X86_MSR_POLICY]               = "x86 MSR policy",
++    [REC_TYPE_DOMAIN_CONTEXT]               = "Domain context",
+ };
  
- rec_type_to_str = {
-     REC_TYPE_end                        : "End",
-@@ -80,6 +81,7 @@ rec_type_to_str = {
-     REC_TYPE_static_data_end            : "Static data end",
-     REC_TYPE_x86_cpuid_policy           : "x86 CPUID policy",
-     REC_TYPE_x86_msr_policy             : "x86 MSR policy",
-+    REC_TYPE_domain_context             : "Domain context",
+ const char *rec_type_to_str(uint32_t type)
+diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
+index cc3ad1c394..ba9e5b0a84 100644
+--- a/tools/libs/guest/xg_sr_common.h
++++ b/tools/libs/guest/xg_sr_common.h
+@@ -297,6 +297,9 @@ struct xc_sr_context
+ 
+             /* Sender has invoked verify mode on the stream. */
+             bool verify;
++
++            /* Domain context blob. */
++            struct xc_sr_blob dom_ctx;
+         } restore;
+     };
+ 
+diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
+index b57a787519..9d2bbdfaa3 100644
+--- a/tools/libs/guest/xg_sr_restore.c
++++ b/tools/libs/guest/xg_sr_restore.c
+@@ -35,9 +35,9 @@ static int read_headers(struct xc_sr_context *ctx)
+         return -1;
+     }
+ 
+-    if ( ihdr.version < 2 || ihdr.version > 3 )
++    if ( ihdr.version < 2 || ihdr.version > 4 )
+     {
+-        ERROR("Invalid Version: Expected 2 <= ver <= 3, Got %d",
++        ERROR("Invalid Version: Expected 2 <= ver <= 4, Got %d",
+               ihdr.version);
+         return -1;
+     }
+@@ -682,6 +682,21 @@ int handle_static_data_end(struct xc_sr_context *ctx)
+     return rc;
  }
  
- # page_data
-@@ -156,9 +158,9 @@ class VerifyLibxc(VerifyBase):
-             raise StreamError("Bad image id: Expected 0x%x, got 0x%x" %
-                               (IHDR_IDENT, ident))
- 
--        if not (2 <= version <= 3):
-+        if not (2 <= version <= 4):
-             raise StreamError(
--                "Unknown image version: Expected 2 <= ver <= 3, got %d" %
-+                "Unknown image version: Expected 2 <= ver <= 4, got %d" %
-                 (version, ))
- 
-         self.version = version
-@@ -362,6 +364,9 @@ class VerifyLibxc(VerifyBase):
-     def verify_record_shared_info(self, content):
-         """ shared info record """
- 
-+        if self.version >= 4:
-+            raise RecordError("Shared info record found in v4 stream")
++/*
++ * Process a DOMAIN_CONTEXT record from the stream.
++ */
++static int handle_domain_context(struct xc_sr_context *ctx,
++                                 struct xc_sr_record *rec)
++{
++    xc_interface *xch = ctx->xch;
++    int rc = update_blob(&ctx->restore.dom_ctx, rec->data, rec->length);
 +
-         contentsz = len(content)
-         if contentsz != 4096:
-             raise RecordError("Length expected to be 4906 bytes, not %d" %
-@@ -371,6 +376,9 @@ class VerifyLibxc(VerifyBase):
-     def verify_record_tsc_info(self, content):
-         """ tsc info record """
- 
-+        if self.version >= 4:
-+            raise RecordError("TSC info record found in v4 stream")
++    if ( rc )
++        ERROR("Unable to allocate %u bytes for domain context", rec->length);
 +
-         sz = calcsize(X86_TSC_INFO_FORMAT)
- 
-         if len(content) != sz:
-@@ -476,6 +484,14 @@ class VerifyLibxc(VerifyBase):
-             raise RecordError("Record length %u, expected multiple of %u" %
-                               (contentsz, sz))
- 
-+    def verify_record_domain_context(self, content):
-+        """ domain context record """
++    return rc;
++}
 +
-+        if self.version < 4:
-+            raise RecordError("Domain context record found in v3 stream")
-+
-+        if len(content) == 0:
-+            raise RecordError("Zero length domain context")
+ static int process_record(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+ {
+     xc_interface *xch = ctx->xch;
+@@ -709,6 +724,10 @@ static int process_record(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+         rc = handle_static_data_end(ctx);
+         break;
  
- record_verifiers = {
-     REC_TYPE_end:
-@@ -526,4 +542,6 @@ record_verifiers = {
-         VerifyLibxc.verify_record_x86_cpuid_policy,
-     REC_TYPE_x86_msr_policy:
-         VerifyLibxc.verify_record_x86_msr_policy,
-+    REC_TYPE_domain_context:
-+        VerifyLibxc.verify_record_domain_context,
++    case REC_TYPE_DOMAIN_CONTEXT:
++        rc = handle_domain_context(ctx, rec);
++        break;
++
+     default:
+         rc = ctx->restore.ops.process_record(ctx, rec);
+         break;
+@@ -784,6 +803,7 @@ static void cleanup(struct xc_sr_context *ctx)
+ 
+     free(ctx->restore.buffered_records);
+     free(ctx->restore.populated_pfns);
++    free(ctx->restore.dom_ctx.ptr);
+ 
+     if ( ctx->restore.ops.cleanup(ctx) )
+         PERROR("Failed to clean up");
+diff --git a/tools/libs/guest/xg_sr_restore_x86_hvm.c b/tools/libs/guest/xg_sr_restore_x86_hvm.c
+index d6ea6f3012..6bb164b9f0 100644
+--- a/tools/libs/guest/xg_sr_restore_x86_hvm.c
++++ b/tools/libs/guest/xg_sr_restore_x86_hvm.c
+@@ -225,6 +225,15 @@ static int x86_hvm_stream_complete(struct xc_sr_context *ctx)
+         return rc;
      }
+ 
++    rc = xc_domain_set_context(xch, ctx->domid,
++                               ctx->restore.dom_ctx.ptr,
++                               ctx->restore.dom_ctx.size);
++    if ( rc )
++    {
++        PERROR("Unable to restore Domain context");
++        return rc;
++    }
++
+     rc = xc_dom_gnttab_seed(xch, ctx->domid, true,
+                             ctx->restore.console_gfn,
+                             ctx->restore.xenstore_gfn,
+diff --git a/tools/libs/guest/xg_sr_restore_x86_pv.c b/tools/libs/guest/xg_sr_restore_x86_pv.c
+index dc50b0f5a8..2dafad7b83 100644
+--- a/tools/libs/guest/xg_sr_restore_x86_pv.c
++++ b/tools/libs/guest/xg_sr_restore_x86_pv.c
+@@ -1134,6 +1134,15 @@ static int x86_pv_stream_complete(struct xc_sr_context *ctx)
+     if ( rc )
+         return rc;
+ 
++    rc = xc_domain_set_context(xch, ctx->domid,
++                               ctx->restore.dom_ctx.ptr,
++                               ctx->restore.dom_ctx.size);
++    if ( rc )
++    {
++        PERROR("Unable to restore Domain context");
++        return rc;
++    }
++
+     rc = xc_dom_gnttab_seed(xch, ctx->domid, false,
+                             ctx->restore.console_gfn,
+                             ctx->restore.xenstore_gfn,
 -- 
 2.20.1
 
