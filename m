@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8098F2874EB
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 15:08:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4485.11682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F162874F3
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 15:09:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4486.11695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQVdz-0005UJ-Vv; Thu, 08 Oct 2020 13:07:39 +0000
+	id 1kQVfG-0005b9-Bk; Thu, 08 Oct 2020 13:08:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4485.11682; Thu, 08 Oct 2020 13:07:39 +0000
+Received: by outflank-mailman (output) from mailman id 4486.11695; Thu, 08 Oct 2020 13:08:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,88 +23,95 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQVdz-0005Tu-Sb; Thu, 08 Oct 2020 13:07:39 +0000
-Received: by outflank-mailman (input) for mailman id 4485;
- Thu, 08 Oct 2020 13:07:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kQVfG-0005ak-8A; Thu, 08 Oct 2020 13:08:58 +0000
+Received: by outflank-mailman (input) for mailman id 4486;
+ Thu, 08 Oct 2020 13:08:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+9vM=DP=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kQVdx-0005Tp-OR
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 13:07:37 +0000
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 72637db2-8990-47eb-82d5-53441f9dde86;
- Thu, 08 Oct 2020 13:07:36 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id l11so6396872wmh.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 06:07:36 -0700 (PDT)
+ id 1kQVfF-0005ad-BP
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 13:08:57 +0000
+Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 00b669fc-c15b-4079-a615-b97206f4a653;
+ Thu, 08 Oct 2020 13:08:56 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id f21so6379664wml.3
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 06:08:56 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id b8sm6746188wmb.4.2020.10.08.06.07.34
+ by smtp.gmail.com with ESMTPSA id o3sm2772964wru.15.2020.10.08.06.08.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2020 06:07:34 -0700 (PDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ Thu, 08 Oct 2020 06:08:54 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=+9vM=DP=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
-	id 1kQVdx-0005Tp-OR
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 13:07:37 +0000
-X-Inumbo-ID: 72637db2-8990-47eb-82d5-53441f9dde86
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 72637db2-8990-47eb-82d5-53441f9dde86;
-	Thu, 08 Oct 2020 13:07:36 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id l11so6396872wmh.2
-        for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 06:07:36 -0700 (PDT)
+	id 1kQVfF-0005ad-BP
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 13:08:57 +0000
+X-Inumbo-ID: 00b669fc-c15b-4079-a615-b97206f4a653
+Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 00b669fc-c15b-4079-a615-b97206f4a653;
+	Thu, 08 Oct 2020 13:08:56 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id f21so6379664wml.3
+        for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 06:08:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=KjIx+9Xuwm/NU6V/rg66DBuxDp4aIJaVISlPb6YOr+w=;
-        b=j4wXf5GIjLAUdQykC3KMz4jIOku/ykUGeCwnDbJm5RTyC0sfQcjEKcWlHbk8hXOU5N
-         bFNHvjxL3T4ZuPhDxO0x0SGjwf267imN2CWtlRRGTDEypfFgppnKnJuFY8+QPZnkP1mH
-         PFMql0VqYwHdU1FkbdSt9V+Q4ZYJ7YY4qcIle+ZQvQ++Sql6fdgu3YVr5egK5GZYKuFl
-         NAryzoqswhKVTvqyoyOmKm9yc3EF3ozNzZ4GFhWIddbbt4RXHDpyYLjcbNi4pbcfHkAb
-         W/viHd4UT6fa0XtQuJO6GBX7v9hz4KgS+hGHCWaP6upWELxeV2J61qHVob7Y2/lTEonx
-         OnXw==
-X-Gm-Message-State: AOAM531PVtYkzxnDeKJacCdE4jj50nMipG+kT2Q74f0I6cxjw3gBrVdP
-	DKbHpCbEKQzX3IDoScPtKM4=
-X-Google-Smtp-Source: ABdhPJyLQsnsiC0HvCZsnX9ACo/WUINu6LnF7FIlx5nP90c9nbRejnYyjIcQLj593mOUXLJe4Un4Xg==
-X-Received: by 2002:a1c:6a0a:: with SMTP id f10mr8881256wmc.86.1602162455621;
-        Thu, 08 Oct 2020 06:07:35 -0700 (PDT)
+        bh=3rkwZWPGY+iNfIv5b9/+yjGaZwN2S6ImDZjPfKPPD1Y=;
+        b=NzajfVpP5oXCZJ7YeF97BaaPrFF+FnrjFjjcfZoX8FuL056Dc+7gzqvb1D5fuqaDAk
+         K41c6f1/q5NaTglkRDzZ0gwsE7HEHi8ngIyquAVwY5rclVuCUtuRRXowJ9T+S1Khpa92
+         1g5BBk7xuuB/C1SPdnepLJJW1o3hwZaCfwaqctB2t4iYP+UmuQEnSWKMWlgu1/iCErG7
+         ZRLczH64upXkDdUg+RiHor859PkQpsTS7vCrfHy9Kfcf6+AlkP6ZY6CDSJoDMQtKnznu
+         HwT/OD6yanKs7asBYhwHJGKOHedBB7QamwnlD2CXA5dFQHr27Yrxb6/1bRi4Jpb2Cd+R
+         QN/A==
+X-Gm-Message-State: AOAM532E76eZ9x5Bwsc3NIZ/JTYMBG57LSopbcKk7PldBU58w81mWG4E
+	uRrlUDLDEodwKxFY2VawxaU=
+X-Google-Smtp-Source: ABdhPJyb32ZKFNJY4jHifOiJODc1kdl9Eqf0asg+YnQoCPs0UYzxzNi6VMpQW3j4XS/I1pklMIS7eQ==
+X-Received: by 2002:a1c:bd57:: with SMTP id n84mr8966251wmf.126.1602162535392;
+        Thu, 08 Oct 2020 06:08:55 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id b8sm6746188wmb.4.2020.10.08.06.07.34
+        by smtp.gmail.com with ESMTPSA id o3sm2772964wru.15.2020.10.08.06.08.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2020 06:07:34 -0700 (PDT)
-Date: Thu, 8 Oct 2020 13:07:33 +0000
+        Thu, 08 Oct 2020 06:08:54 -0700 (PDT)
+Date: Thu, 8 Oct 2020 13:08:53 +0000
 From: Wei Liu <wl@xen.org>
 To: Paul Durrant <paul@xen.org>
 Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
 	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH 1/5] libxl: remove separate calculation of IOMMU memory
- overhead
-Message-ID: <20201008130733.7pu73mu4iqjj2svd@liuwe-devbox-debian-v2>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 3/5] libxl / iommu / domctl: introduce
+ XEN_DOMCTL_IOMMU_SET_ALLOCATION...
+Message-ID: <20201008130853.pwzxmex3uufi6emv@liuwe-devbox-debian-v2>
 References: <20201005094905.2929-1-paul@xen.org>
- <20201005094905.2929-2-paul@xen.org>
+ <20201005094905.2929-4-paul@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201005094905.2929-2-paul@xen.org>
+In-Reply-To: <20201005094905.2929-4-paul@xen.org>
 User-Agent: NeoMutt/20180716
 
-On Mon, Oct 05, 2020 at 10:49:01AM +0100, Paul Durrant wrote:
+On Mon, Oct 05, 2020 at 10:49:03AM +0100, Paul Durrant wrote:
 > From: Paul Durrant <pdurrant@amazon.com>
-> 
-> When using 'shared_pt' mode the IOMMU is using the EPT PTEs. In 'sync_pt'
-> mode these PTEs are instead replicated for the IOMMU to use. Hence, it is
-> fairly clear that the memory overhead in this mode is essentially another
-> copy of the P2M.
-> 
-> This patch removes the independent calculation done in
-> libxl__get_required_iommu_memory() and instead simply uses 'shadow_memkb'
-> as the value of the IOMMU overhead since this is the estimated size of
-> the P2M.
-> 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+[...]
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index 6ec6c27c83..9631974dd6 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -520,6 +520,16 @@ int libxl__arch_domain_create(libxl__gc *gc, libxl_domain_config *d_config,
+>                            NULL, 0, &shadow, 0, NULL);
+>      }
+>  
+> +    if (d_config->b_info.iommu_memkb) {
+> +        unsigned int nr_pages = DIV_ROUNDUP(d_config->b_info.iommu_memkb, 4);
+> +
 
-Acked-by: Wei Liu <wl@xen.org>
+Please use XC_PAGE_SHIFT / XC_PAGE_SIZE for the calculation.
+
+Wei.
 
