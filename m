@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 908B428770B
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 17:22:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4499.11747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A5A8287710
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Oct 2020 17:25:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4501.11759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQXjX-0001Px-Uh; Thu, 08 Oct 2020 15:21:31 +0000
+	id 1kQXnb-0001bA-Gp; Thu, 08 Oct 2020 15:25:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4499.11747; Thu, 08 Oct 2020 15:21:31 +0000
+Received: by outflank-mailman (output) from mailman id 4501.11759; Thu, 08 Oct 2020 15:25:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,323 +23,158 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQXjX-0001PV-RX; Thu, 08 Oct 2020 15:21:31 +0000
-Received: by outflank-mailman (input) for mailman id 4499;
- Thu, 08 Oct 2020 15:21:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kQXnb-0001al-DS; Thu, 08 Oct 2020 15:25:43 +0000
+Received: by outflank-mailman (input) for mailman id 4501;
+ Thu, 08 Oct 2020 15:25:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uUpI=DP=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kQXjX-0001PQ-0r
- for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:21:31 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 388cfe01-f52d-4982-8ff6-1300ac48f90d;
- Thu, 08 Oct 2020 15:21:29 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=PeKH=DP=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1kQXna-0001ab-3U
+ for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:25:42 +0000
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1bbdba12-1b0d-4bc8-8db6-ee0ffbb2756b;
+ Thu, 08 Oct 2020 15:25:41 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id b22so6918678lfs.13
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 08:25:41 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=uUpI=DP=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kQXjX-0001PQ-0r
-	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:21:31 +0000
-X-Inumbo-ID: 388cfe01-f52d-4982-8ff6-1300ac48f90d
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 388cfe01-f52d-4982-8ff6-1300ac48f90d;
-	Thu, 08 Oct 2020 15:21:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602170488;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pE04uvuGBd9qJQ4+u9fj1g+5M0gYiYl5ZZNsiR4/NHw=;
-  b=Bpz9mNnvLH4voFS9TyGQC7wmaQKScrPLJjDcX9vt19vTfTDC8HMMv5ix
-   MGnCX+YDj/VutQV4s/r88ri9opB98WJ3q/R8wkzSkbtN4lHcZUG/PvjaO
-   59pytdMVgWK6xFr7/e+GtTRf/0QZ2U6pMwlCPXgVSpgqEg0RbJT48+zsU
-   0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: H8zRRZJ0JgMpUM1nL1yViZ95Dv7T1ujS7DvVa57D+K7tUaiR4qCa43k4Rq/Edf/un+7ijIbUmj
- LcE3pkWo8pYUUM1LUpia/pHv4Ynk/DaraR1ph40leMyeH1ygiKkO28s5/5LaYJAeVGaqxmkYIr
- N6q2t0lQLu+yH/h5F/dSmcgwEn+2aYS2s8ja/ZSXRDJxoIGiw1BLG/mdYfi2Jwu5XweDTI6XRW
- t2Cy25HCus+zI65T5GSKd6ZOuC3ERPNtYW9Cq7yMkP1FnF5ztzZG+dcO7BG3aB4KSbx3cXrX0b
- RmQ=
-X-SBRS: None
-X-MesageID: 29617263
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,351,1596513600"; 
-   d="scan'208";a="29617263"
-Date: Thu, 8 Oct 2020 17:15:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v2 4/4] x86/shadow: refactor shadow_vram_{get,put}_l1e()
-Message-ID: <20201008151556.GL19254@Air-de-Roger>
-References: <c6b9c903-02eb-d473-86e3-ccb67aff6cd7@suse.com>
- <51515581-19f3-5b7c-a2f9-1a0b11f8283a@suse.com>
+	(envelope-from <SRS0=PeKH=DP=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+	id 1kQXna-0001ab-3U
+	for xen-devel@lists.xenproject.org; Thu, 08 Oct 2020 15:25:42 +0000
+X-Inumbo-ID: 1bbdba12-1b0d-4bc8-8db6-ee0ffbb2756b
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 1bbdba12-1b0d-4bc8-8db6-ee0ffbb2756b;
+	Thu, 08 Oct 2020 15:25:41 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id b22so6918678lfs.13
+        for <xen-devel@lists.xenproject.org>; Thu, 08 Oct 2020 08:25:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=o3vUyC3fPQjFS7Epr+zzwzy+oDiIhOKRhXq6Ne0vIDc=;
+        b=vYnmZRqlDZvuIvxvsljC0dYALaxDtlevM+jnRRCQ/e+BFBpth7kHKkBixnjcH8w2JF
+         wEncK+6UMDOzEfoOGC/amtHQKQDRQkVEjGlXQXm2LkMIvljkJeDp2VdBIzRiukpgameq
+         VbZyjV1WPDWCGvKLrK+eNh4KXNM/ODUYFRWemHsQOogSlmmMQ+dzpImtV6cRfi3uwz3T
+         Az0eJttRhqezfrMp6xuvnA3kaWmd2YCDbm7SPTWxobZlmQOauzP1iTuG8UiYyaGOvQd/
+         MBf+7jYZ471cwo+uQeR/AcPFnYKsg0/V/RMayRbL96v0vpQBBzgZd2IZac7xDDjPGeP5
+         G2Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=o3vUyC3fPQjFS7Epr+zzwzy+oDiIhOKRhXq6Ne0vIDc=;
+        b=LVSXnkGl9ORL9WHB1hXB5hZhWfFWPbAH4baEh8YlT6oz35sO+Y6s+ihKA15xUKaysC
+         aJPwGxKtsAPE6Oo2WprNb3Dygll1BTFlWdCRP0eHXNGYrlve0u3hGRn3oi9gg4TlIgtJ
+         vyps/Mg9QdnJaQx4q/zm0RmPATM3g0rhs7rCOX2X3ByndqqwG0sUqUiRWYMZ2KfTHOOs
+         kPkaTDDQwnwzQ7R8k/2YLMAj0SvpI272jxxV6ahXO/CSxjA5iSXNDQDZ3VQs2TeppWFX
+         om+zc3PskwYOgVayeGCeDROoiHbgwUK6gVu0d1Zl9xFIJJOgXZaEBb6p3eBd8HxAQhAw
+         ORrw==
+X-Gm-Message-State: AOAM5309LAu5lHdfFrW2eB63EhLocJd5oGJvnJ/MZxoCXZ1TdjGuP96S
+	8U1qfAfA8/o1P+owhlnaN02mtp1o1mxiHTRrjZDQCTZ+
+X-Google-Smtp-Source: ABdhPJxdvEltAz8+Ft7SbyMeNtROB9GBoZanB+1ucQX5+Hc9rqXsB/E4FP7NGqep70w4X8crYifICgIUUxZRomfH0+8=
+X-Received: by 2002:ac2:44a4:: with SMTP id c4mr3019120lfm.365.1602170739775;
+ Thu, 08 Oct 2020 08:25:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <51515581-19f3-5b7c-a2f9-1a0b11f8283a@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+References: <20201001235337.83948-1-jandryuk@gmail.com> <20201007105049.vfpunr4g62fqvijr@liuwe-devbox-debian-v2>
+ <CAKf6xptt_r6_VuRSwRXQRUR4Q39c_619e4iNxi8uVxV7YOHDBw@mail.gmail.com>
+In-Reply-To: <CAKf6xptt_r6_VuRSwRXQRUR4Q39c_619e4iNxi8uVxV7YOHDBw@mail.gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 8 Oct 2020 11:25:27 -0400
+Message-ID: <CAKf6xpve+8uAbCYRW9n3cr+2tgNbT5UD9UhSkg5ZmLarQgCSXg@mail.gmail.com>
+Subject: Re: [PATCH] libxl: only query VNC when enabled
+To: Wei Liu <wl@xen.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2020 at 03:08:40PM +0200, Jan Beulich wrote:
-> By passing the functions an MFN and flags, only a single instance of
-                           ^ a
-> each is needed; they were pretty large for being inline functions
-> anyway.
-> 
-> While moving the code, also adjust coding style and add const where
-> sensible / possible.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: New.
-> 
-> --- a/xen/arch/x86/mm/shadow/hvm.c
-> +++ b/xen/arch/x86/mm/shadow/hvm.c
-> @@ -903,6 +903,104 @@ int shadow_track_dirty_vram(struct domai
->      return rc;
->  }
->  
-> +void shadow_vram_get_mfn(mfn_t mfn, unsigned int l1f,
-> +                         mfn_t sl1mfn, const void *sl1e,
-> +                         const struct domain *d)
-> +{
-> +    unsigned long gfn;
-> +    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-> +
-> +    ASSERT(is_hvm_domain(d));
-> +
-> +    if ( !dirty_vram /* tracking disabled? */ ||
-> +         !(l1f & _PAGE_RW) /* read-only mapping? */ ||
-> +         !mfn_valid(mfn) /* mfn can be invalid in mmio_direct */)
-> +        return;
-> +
-> +    gfn = gfn_x(mfn_to_gfn(d, mfn));
-> +    /* Page sharing not supported on shadow PTs */
-> +    BUG_ON(SHARED_M2P(gfn));
-> +
-> +    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
-> +    {
-> +        unsigned long i = gfn - dirty_vram->begin_pfn;
-> +        const struct page_info *page = mfn_to_page(mfn);
-> +
-> +        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
-> +            /* Initial guest reference, record it */
-> +            dirty_vram->sl1ma[i] = mfn_to_maddr(sl1mfn) |
-> +                                   PAGE_OFFSET(sl1e);
-> +    }
-> +}
-> +
-> +void shadow_vram_put_mfn(mfn_t mfn, unsigned int l1f,
-> +                         mfn_t sl1mfn, const void *sl1e,
-> +                         const struct domain *d)
-> +{
-> +    unsigned long gfn;
-> +    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-> +
-> +    ASSERT(is_hvm_domain(d));
-> +
-> +    if ( !dirty_vram /* tracking disabled? */ ||
-> +         !(l1f & _PAGE_RW) /* read-only mapping? */ ||
-> +         !mfn_valid(mfn) /* mfn can be invalid in mmio_direct */)
-> +        return;
-> +
-> +    gfn = gfn_x(mfn_to_gfn(d, mfn));
-> +    /* Page sharing not supported on shadow PTs */
-> +    BUG_ON(SHARED_M2P(gfn));
-> +
-> +    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
-> +    {
-> +        unsigned long i = gfn - dirty_vram->begin_pfn;
-> +        const struct page_info *page = mfn_to_page(mfn);
-> +        bool dirty = false;
-> +        paddr_t sl1ma = mfn_to_maddr(sl1mfn) | PAGE_OFFSET(sl1e);
-> +
-> +        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
-> +        {
-> +            /* Last reference */
-> +            if ( dirty_vram->sl1ma[i] == INVALID_PADDR )
-> +            {
-> +                /* We didn't know it was that one, let's say it is dirty */
-> +                dirty = true;
-> +            }
-> +            else
-> +            {
-> +                ASSERT(dirty_vram->sl1ma[i] == sl1ma);
-> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
-> +                if ( l1f & _PAGE_DIRTY )
-> +                    dirty = true;
-> +            }
-> +        }
-> +        else
-> +        {
-> +            /* We had more than one reference, just consider the page dirty. */
-> +            dirty = true;
-> +            /* Check that it's not the one we recorded. */
-> +            if ( dirty_vram->sl1ma[i] == sl1ma )
-> +            {
-> +                /* Too bad, we remembered the wrong one... */
-> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
-> +            }
-> +            else
-> +            {
-> +                /*
-> +                 * Ok, our recorded sl1e is still pointing to this page, let's
-> +                 * just hope it will remain.
-> +                 */
-> +            }
-> +        }
-> +
-> +        if ( dirty )
-> +        {
-> +            dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
+On Thu, Oct 8, 2020 at 9:31 AM Jason Andryuk <jandryuk@gmail.com> wrote:
+>
+> On Wed, Oct 7, 2020 at 6:50 AM Wei Liu <wl@xen.org> wrote:
+> >
+> > On Thu, Oct 01, 2020 at 07:53:37PM -0400, Jason Andryuk wrote:
+> > > QEMU without VNC support (configure --disable-vnc) will return an error
+> > > when VNC is queried over QMP since it does not recognize the QMP
+> > > command.  This will cause libxl to fail starting the domain even if VNC
+> > > is not enabled.  Therefore only query QEMU for VNC support when using
+> > > VNC, so a VNC-less QEMU will function in this configuration.
+> > >
+> > > 'goto out' jumps to the call to device_model_postconfig_done(), the
+> > > final callback after the chain of vnc queries.  This bypasses all the
+> > > QMP VNC queries.
+> > >
+> > > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > > ---
+> > >  tools/libs/light/libxl_dm.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> > > index a944181781..d1ff35dda3 100644
+> > > --- a/tools/libs/light/libxl_dm.c
+> > > +++ b/tools/libs/light/libxl_dm.c
+> > > @@ -3140,6 +3140,7 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+> > >  {
+> > >      EGC_GC;
+> > >      libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
+> > > +    const libxl_vnc_info *vnc = libxl__dm_vnc(dmss->guest_config);
+> > >      const libxl__json_object *item = NULL;
+> > >      const libxl__json_object *o = NULL;
+> > >      int i = 0;
+> > > @@ -3197,6 +3198,9 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+> > >          if (rc) goto out;
+> > >      }
+> > >
+> > > +    if (!vnc)
+> > > +        goto out;
+> > > +
+> >
+> > I would rather this check be done in device_model_postconfig_vnc.
+> >
+> > Does the following work for you?
+>
+> I like your version, but it doesn't work:
+> libxl: debug: libxl_qmp.c:1883:libxl__ev_qmp_send: Domain 1: ev
+> 0x55aa58417d88, cmd 'query-vnc'
+> libxl: error: libxl_qmp.c:1836:qmp_ev_parse_error_messages: Domain
+> 1:The command query-vnc has not been found
+> libxl: error: libxl_dm.c:3321:device_model_postconfig_done: Domain
+> 1:Post DM startup configs failed, rc=-29
+>
+> When QEMU has vnc disabled, it doesn't recognize query-vnc.  I looked
+> at modifying qemu to support query-vnc even with --disable-vnc, but it
+> was messy to untangle the QMP definitions.  Since we are telling libxl
+> not to use VNC, it makes sense not to query about it.
 
-Could you use _set_bit here?
+Oh, I should add that QEMU needs a small patch to allow -vnc none in
+ui/vnc-stub.c when vnc is disabled.  This is because libxl always
+passes -vnc none to ensure a default vnc is not created.
 
-> +            dirty_vram->last_dirty = NOW();
-> +        }
-> +    }
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> --- a/xen/arch/x86/mm/shadow/multi.c
-> +++ b/xen/arch/x86/mm/shadow/multi.c
-> @@ -1047,107 +1047,6 @@ static int shadow_set_l2e(struct domain
->      return flags;
->  }
->  
-> -static inline void shadow_vram_get_l1e(shadow_l1e_t new_sl1e,
-> -                                       shadow_l1e_t *sl1e,
-> -                                       mfn_t sl1mfn,
-> -                                       struct domain *d)
-> -{
-> -#ifdef CONFIG_HVM
-> -    mfn_t mfn = shadow_l1e_get_mfn(new_sl1e);
-> -    int flags = shadow_l1e_get_flags(new_sl1e);
-> -    unsigned long gfn;
-> -    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-> -
-> -    if ( !is_hvm_domain(d) || !dirty_vram /* tracking disabled? */
-> -         || !(flags & _PAGE_RW) /* read-only mapping? */
-> -         || !mfn_valid(mfn) )   /* mfn can be invalid in mmio_direct */
-> -        return;
-> -
-> -    gfn = gfn_x(mfn_to_gfn(d, mfn));
-> -    /* Page sharing not supported on shadow PTs */
-> -    BUG_ON(SHARED_M2P(gfn));
-> -
-> -    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
-> -    {
-> -        unsigned long i = gfn - dirty_vram->begin_pfn;
-> -        struct page_info *page = mfn_to_page(mfn);
-> -
-> -        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
-> -            /* Initial guest reference, record it */
-> -            dirty_vram->sl1ma[i] = mfn_to_maddr(sl1mfn)
-> -                | ((unsigned long)sl1e & ~PAGE_MASK);
-> -    }
-> -#endif
-> -}
-> -
-> -static inline void shadow_vram_put_l1e(shadow_l1e_t old_sl1e,
-> -                                       shadow_l1e_t *sl1e,
-> -                                       mfn_t sl1mfn,
-> -                                       struct domain *d)
-> -{
-> -#ifdef CONFIG_HVM
-> -    mfn_t mfn = shadow_l1e_get_mfn(old_sl1e);
-> -    int flags = shadow_l1e_get_flags(old_sl1e);
-> -    unsigned long gfn;
-> -    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
-> -
-> -    if ( !is_hvm_domain(d) || !dirty_vram /* tracking disabled? */
-> -         || !(flags & _PAGE_RW) /* read-only mapping? */
-> -         || !mfn_valid(mfn) )   /* mfn can be invalid in mmio_direct */
-> -        return;
-> -
-> -    gfn = gfn_x(mfn_to_gfn(d, mfn));
-> -    /* Page sharing not supported on shadow PTs */
-> -    BUG_ON(SHARED_M2P(gfn));
-> -
-> -    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
-> -    {
-> -        unsigned long i = gfn - dirty_vram->begin_pfn;
-> -        struct page_info *page = mfn_to_page(mfn);
-> -        int dirty = 0;
-> -        paddr_t sl1ma = mfn_to_maddr(sl1mfn)
-> -            | ((unsigned long)sl1e & ~PAGE_MASK);
-> -
-> -        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
-> -        {
-> -            /* Last reference */
-> -            if ( dirty_vram->sl1ma[i] == INVALID_PADDR ) {
-> -                /* We didn't know it was that one, let's say it is dirty */
-> -                dirty = 1;
-> -            }
-> -            else
-> -            {
-> -                ASSERT(dirty_vram->sl1ma[i] == sl1ma);
-> -                dirty_vram->sl1ma[i] = INVALID_PADDR;
-> -                if ( flags & _PAGE_DIRTY )
-> -                    dirty = 1;
-> -            }
-> -        }
-> -        else
-> -        {
-> -            /* We had more than one reference, just consider the page dirty. */
-> -            dirty = 1;
-> -            /* Check that it's not the one we recorded. */
-> -            if ( dirty_vram->sl1ma[i] == sl1ma )
-> -            {
-> -                /* Too bad, we remembered the wrong one... */
-> -                dirty_vram->sl1ma[i] = INVALID_PADDR;
-> -            }
-> -            else
-> -            {
-> -                /* Ok, our recorded sl1e is still pointing to this page, let's
-> -                 * just hope it will remain. */
-> -            }
-> -        }
-> -        if ( dirty )
-> -        {
-> -            dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
-> -            dirty_vram->last_dirty = NOW();
-> -        }
-> -    }
-> -#endif
-> -}
-> -
->  static int shadow_set_l1e(struct domain *d,
->                            shadow_l1e_t *sl1e,
->                            shadow_l1e_t new_sl1e,
-> @@ -1156,6 +1055,7 @@ static int shadow_set_l1e(struct domain
->  {
->      int flags = 0;
->      shadow_l1e_t old_sl1e;
-> +    unsigned int old_sl1f;
->  #if SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC
->      mfn_t new_gmfn = shadow_l1e_get_mfn(new_sl1e);
->  #endif
-> @@ -1194,7 +1094,9 @@ static int shadow_set_l1e(struct domain
->                  new_sl1e = shadow_l1e_flip_flags(new_sl1e, rc);
->                  /* fall through */
->              case 0:
-> -                shadow_vram_get_l1e(new_sl1e, sl1e, sl1mfn, d);
-> +                shadow_vram_get_mfn(shadow_l1e_get_mfn(new_sl1e),
-> +                                    shadow_l1e_get_flags(new_sl1e),
-> +                                    sl1mfn, sl1e, d);
+Regards,
+Jason
 
-As you have moved this function into a HVM build time file, don't you
-need to guard this call, or alternatively provide a dummy handler for
-!CONFIG_HVM in private.h?
-
-Same for shadow_vram_put_mfn.
-
-Thanks, Roger.
+>
+> > diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> > index a944181781bb..c5db755a65d7 100644
+> > --- a/tools/libs/light/libxl_dm.c
+> > +++ b/tools/libs/light/libxl_dm.c
+> > @@ -3222,6 +3222,8 @@ static void device_model_postconfig_vnc(libxl__egc *egc,
+> >
+> >      if (rc) goto out;
+> >
+> > +    if (!vnc) goto out;
+> > +
+> >      /*
+> >       * query-vnc response:
+> >       * { 'enabled': 'bool', '*host': 'str', '*service': 'str' }
+> > @@ -3255,7 +3257,8 @@ static void device_model_postconfig_vnc(libxl__egc *egc,
+> >          if (rc) goto out;
+> >      }
+> >
+> > -    if (vnc && vnc->passwd && vnc->passwd[0]) {
+> > +    assert(vnc);
+> > +    if (vnc->passwd && vnc->passwd[0]) {
+> >          qmp->callback = device_model_postconfig_vnc_passwd;
+> >          libxl__qmp_param_add_string(gc, &args, "password", vnc->passwd);
+> >          rc = libxl__ev_qmp_send(egc, qmp, "change-vnc-password", args);
+> >
 
