@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 783D6288C47
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 17:10:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.4794.12632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6F7288CEF
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 17:38:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.4814.12651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQu2E-0005uX-OI; Fri, 09 Oct 2020 15:10:18 +0000
+	id 1kQuSx-00086Y-66; Fri, 09 Oct 2020 15:37:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 4794.12632; Fri, 09 Oct 2020 15:10:18 +0000
+Received: by outflank-mailman (output) from mailman id 4814.12651; Fri, 09 Oct 2020 15:37:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,149 +23,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQu2E-0005u8-L9; Fri, 09 Oct 2020 15:10:18 +0000
-Received: by outflank-mailman (input) for mailman id 4794;
- Fri, 09 Oct 2020 15:10:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQuSx-000869-2y; Fri, 09 Oct 2020 15:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 4814;
+ Fri, 09 Oct 2020 15:37:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=n4y9=DQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kQu2D-0005u3-5t
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 15:10:17 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c9d7ca4-6f8f-4c2d-bb72-efee0b57943b;
- Fri, 09 Oct 2020 15:10:15 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ id 1kQuSv-000864-V1
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 15:37:53 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dcbe69b2-efd8-44e8-bc4a-716041cc72e8;
+ Fri, 09 Oct 2020 15:37:52 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=n4y9=DQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kQu2D-0005u3-5t
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 15:10:17 +0000
-X-Inumbo-ID: 5c9d7ca4-6f8f-4c2d-bb72-efee0b57943b
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 5c9d7ca4-6f8f-4c2d-bb72-efee0b57943b;
-	Fri, 09 Oct 2020 15:10:15 +0000 (UTC)
+	id 1kQuSv-000864-V1
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 15:37:53 +0000
+X-Inumbo-ID: dcbe69b2-efd8-44e8-bc4a-716041cc72e8
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id dcbe69b2-efd8-44e8-bc4a-716041cc72e8;
+	Fri, 09 Oct 2020 15:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602256215;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=DYoNpDoMG9Fehrv+VZjGLyy/ZiJAyI6bFkIjoSqxHU8=;
-  b=e2ZA8UkIbk3StvyGcbkwfNubHPFKqp7kOs5GHb9Y8nvs5q6h1PyDeLWH
-   pMSE7D10QS8joA6pzdOT+AsnuWKkGvXWVpCfbLOZPE5QqTMBygXOIuAtG
-   9RGveAF1Kfp2lKRwPltB+KbZ2k+tfLEKtGHTEZDuuhP6B9XY2N+KWZUTu
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: QfPRStXtVq8jrgtGSQL124vYwOqRWy0phUOvS/zrGho0mRiJQBuHrHoU0GHnr8MXKwZdIihKVX
- VT4GwbOXKUdKgcKFjtRHJ8lwKzttw2ejfv2MOuhkz4Yunyv+ai9pkiihHhIe9mAIQ+PFwkFMQj
- 224i+2lFYUO5KdnnJfVx+GS0a9A6WMg5nh0Y5//nNTh+MvcBJDaJhH1SkYSIMpX9R6D9RHNpSz
- 7L7ChDlQ2BIS3wqM9YkCaFL+y7DZG2jCKyrWNV8mmvrtlcCHh6rGwem+kjb/cbCRtsn2223q0c
- Nvk=
+  d=citrix.com; s=securemail; t=1602257872;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=MqELPW85u3V6N1YuIxAnqJS9yS1izLKsf8w1e9+5eaY=;
+  b=Ewx12Vps+QKuET4TIL7gm974URhEsjUIiKhbyd7djwjKlc61oRuxu93d
+   LYw6+Qs/VOCBWk3vxJqhdI7wcCLjCR21r5UAzWBe8aV8NHcon8ZwagSWo
+   DfNUenVS5WkPvuZ3rSjLakTykhYiL2RZppR5VfCgrAwJZu0Zb/qXw5GE/
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: hls6j+yGQbNmoNMn3vxSr1eOhlrXR539K1m/G0oGpENTckNXZc1c/6UtUR2YI0P+VzsMaiePjs
+ CBdUUqsgOFAteygzV9Khr7vLaXYnzFjXppas0r59BNHfW8CiE/h6qBDCQXUA94kZlnCPrTjGlj
+ abIxhOxtZ8rbmRqy5ne3wWgCPKLg6HZ1ZUXhXkHDkkxhdDyWiLBahJ3thjjzlMECIIBNg17sXi
+ VAlmq++vM3AbHPiJYJDfFIqV/By1eiGzBdSR+YHg9/HJX5XbzBsBHTfT4sA0xIEP3NwBw8hD+1
+ D+k=
 X-SBRS: 2.5
-X-MesageID: 28656374
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 28938944
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,355,1596513600"; 
-   d="scan'208";a="28656374"
+   d="scan'208";a="28938944"
+Subject: Re: [PATCH] x86/ucode: Trivial further cleanup
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<JBeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20201007180120.27203-1-andrew.cooper3@citrix.com>
+ <20201008074920.GI19254@Air-de-Roger>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
-	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH] x86/vmx: Revert "x86/VMX: sanitize rIP before re-entering guest"
-Date: Fri, 9 Oct 2020 16:09:48 +0100
-Message-ID: <20201009150948.31063-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+Message-ID: <42681884-d622-5eca-6384-c4e91bcb3444@citrix.com>
+Date: Fri, 9 Oct 2020 16:37:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20201008074920.GI19254@Air-de-Roger>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-At the time of XSA-170, the x86 instruction emulator really was broken, and
-would allow arbitrary non-canonical values to be loaded into %rip.  This was
-fixed after the embargo by c/s 81d3a0b26c1 "x86emul: limit-check branch
-targets".
+On 08/10/2020 08:49, Roger Pau Monné wrote:
+> On Wed, Oct 07, 2020 at 07:01:20PM +0100, Andrew Cooper wrote:
+>>  * Drop unused include in private.h.
+>>  * Used explicit width integers for Intel header fields.
+>>  * Adjust comment to better describe the extended header.
+>>  * Drop unnecessary __packed attribute for AMD header.
+>>  * Switch mc_patch_data_id to being uint16_t, which is how it is more commonly
+>>    referred to.
+>>  * Fix types and style.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-However, in a demonstration that off-by-one errors really are one of the
-hardest programming issues we face, everyone involved with XSA-170, myself
-included, mistook the statement in the SDM which says:
+Thanks,
 
-  If the processor supports N < 64 linear-address bits, bits 63:N must be identical
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> ---
+>>  xen/arch/x86/cpu/microcode/amd.c     | 10 +++++-----
+>>  xen/arch/x86/cpu/microcode/intel.c   | 34 +++++++++++++++++-----------------
+>>  xen/arch/x86/cpu/microcode/private.h |  2 --
+>>  3 files changed, 22 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+>> index cd532321e8..e913232067 100644
+>> --- a/xen/arch/x86/cpu/microcode/amd.c
+>> +++ b/xen/arch/x86/cpu/microcode/amd.c
+>> @@ -24,7 +24,7 @@
+>>  
+>>  #define pr_debug(x...) ((void)0)
+>>  
+>> -struct __packed equiv_cpu_entry {
+>> +struct equiv_cpu_entry {
+>>      uint32_t installed_cpu;
+>>      uint32_t fixed_errata_mask;
+>>      uint32_t fixed_errata_compare;
+>> @@ -35,7 +35,7 @@ struct __packed equiv_cpu_entry {
+>>  struct microcode_patch {
+>>      uint32_t data_code;
+>>      uint32_t patch_id;
+>> -    uint8_t  mc_patch_data_id[2];
+>> +    uint16_t mc_patch_data_id;
+>>      uint8_t  mc_patch_data_len;
+> I think you could also drop the mc_patch_ prefixes from a couple of
+> fields in this structure, since they serve no purpose AFAICT.
 
-to mean "must be canonical".  A real canonical check is bits 63:N-1.
+Actually, I'll drop this change and leave the field names alone. 
+Stripping that prefix will make the field names logically wrong (e.g.
+data_len isn't the length of the header, or of the entire patch), and
+I've got other work planned to clean this area up.
 
-VMEntries really do tolerate a not-quite-canonical %rip, specifically to cater
-to the boundary condition at 0x0000800000000000.
-
-Now that the emulator has been fixed, revert the XSA-170 change to fix
-architectural behaviour at the boundary case.  The XTF test case for XSA-170
-exercises this corner case, and still passes.
-
-Fixes: ffbbfda377 ("x86/VMX: sanitize rIP before re-entering guest")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Jun Nakajima <jun.nakajima@intel.com>
-CC: Kevin Tian <kevin.tian@intel.com>
----
- xen/arch/x86/hvm/vmx/vmx.c | 34 +---------------------------------
- 1 file changed, 1 insertion(+), 33 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 86b8916a5d..28d09c1ca0 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3650,7 +3650,7 @@ static int vmx_handle_apic_write(void)
- void vmx_vmexit_handler(struct cpu_user_regs *regs)
- {
-     unsigned long exit_qualification, exit_reason, idtv_info, intr_info = 0;
--    unsigned int vector = 0, mode;
-+    unsigned int vector = 0;
-     struct vcpu *v = current;
-     struct domain *currd = v->domain;
- 
-@@ -4280,38 +4280,6 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
- out:
-     if ( nestedhvm_vcpu_in_guestmode(v) )
-         nvmx_idtv_handling();
--
--    /*
--     * VM entry will fail (causing the guest to get crashed) if rIP (and
--     * rFLAGS, but we don't have an issue there) doesn't meet certain
--     * criteria. As we must not allow less than fully privileged mode to have
--     * such an effect on the domain, we correct rIP in that case (accepting
--     * this not being architecturally correct behavior, as the injected #GP
--     * fault will then not see the correct [invalid] return address).
--     * And since we know the guest will crash, we crash it right away if it
--     * already is in most privileged mode.
--     */
--    mode = vmx_guest_x86_mode(v);
--    if ( mode == 8 ? !is_canonical_address(regs->rip)
--                   : regs->rip != regs->eip )
--    {
--        gprintk(XENLOG_WARNING, "Bad rIP %lx for mode %u\n", regs->rip, mode);
--
--        if ( vmx_get_cpl() )
--        {
--            __vmread(VM_ENTRY_INTR_INFO, &intr_info);
--            if ( !(intr_info & INTR_INFO_VALID_MASK) )
--                hvm_inject_hw_exception(TRAP_gp_fault, 0);
--            /* Need to fix rIP nevertheless. */
--            if ( mode == 8 )
--                regs->rip = (long)(regs->rip << (64 - VADDR_BITS)) >>
--                            (64 - VADDR_BITS);
--            else
--                regs->rip = regs->eip;
--        }
--        else
--            domain_crash(v->domain);
--    }
- }
- 
- static void lbr_tsx_fixup(void)
--- 
-2.11.0
-
+~Andrew
 
