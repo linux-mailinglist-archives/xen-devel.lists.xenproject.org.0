@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6DB289AA7
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 23:33:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5220.13643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00AD2289E54
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Oct 2020 06:34:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5223.13884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kR00A-00029e-0b; Fri, 09 Oct 2020 21:32:34 +0000
+	id 1kR6a3-0004r0-Q1; Sat, 10 Oct 2020 04:34:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5220.13643; Fri, 09 Oct 2020 21:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 5223.13884; Sat, 10 Oct 2020 04:34:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,120 +23,125 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kR009-00029F-TG; Fri, 09 Oct 2020 21:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 5220;
- Fri, 09 Oct 2020 21:32:33 +0000
+	id 1kR6a3-0004qZ-Ko; Sat, 10 Oct 2020 04:34:03 +0000
+Received: by outflank-mailman (input) for mailman id 5223;
+ Fri, 09 Oct 2020 21:34:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VNj9=DQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kR008-00029A-VA
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 21:32:32 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=2fBY=DQ=kernel.org=ebiggers@srs-us1.protection.inumbo.net>)
+ id 1kR02A-0002Ir-QK
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 21:34:38 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5a3a0136-83fd-4827-9a2e-82c3571ccd32;
- Fri, 09 Oct 2020 21:32:30 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kR006-00074c-EJ; Fri, 09 Oct 2020 21:32:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kR006-00047s-4H; Fri, 09 Oct 2020 21:32:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kR006-0001a9-3q; Fri, 09 Oct 2020 21:32:30 +0000
+ id 8d3fe240-07e7-4666-9565-bbcad7bef198;
+ Fri, 09 Oct 2020 21:34:38 +0000 (UTC)
+Received: from sol.localdomain (172-10-235-113.lightspeed.sntcca.sbcglobal.net
+ [172.10.235.113])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 44F7C21D6C;
+ Fri,  9 Oct 2020 21:34:36 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VNj9=DQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kR008-00029A-VA
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 21:32:32 +0000
-X-Inumbo-ID: 5a3a0136-83fd-4827-9a2e-82c3571ccd32
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=2fBY=DQ=kernel.org=ebiggers@srs-us1.protection.inumbo.net>)
+	id 1kR02A-0002Ir-QK
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 21:34:38 +0000
+X-Inumbo-ID: 8d3fe240-07e7-4666-9565-bbcad7bef198
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 5a3a0136-83fd-4827-9a2e-82c3571ccd32;
-	Fri, 09 Oct 2020 21:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=NyTuRXjDfm7TCuqhsiTQ17bVnMWKWbbjI9YSBB17sww=; b=Se6O5xZXf+tUufYgZqTJpeIRdI
-	yuV8WevKx4hhN6qI6iFQjKlFwaHzbtJKIGH9YTwoJjde60sbV4yyJcLHtJZGfp/9YSOl+ReHnqDgD
-	UKeu4X+1cTdxP8DrI5LrKqdKITymq4SONO0mny3sg4V111T4162A5ZqvYm8/dGDajzHk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kR006-00074c-EJ; Fri, 09 Oct 2020 21:32:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kR006-00047s-4H; Fri, 09 Oct 2020 21:32:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kR006-0001a9-3q; Fri, 09 Oct 2020 21:32:30 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155594-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 8d3fe240-07e7-4666-9565-bbcad7bef198;
+	Fri, 09 Oct 2020 21:34:38 +0000 (UTC)
+Received: from sol.localdomain (172-10-235-113.lightspeed.sntcca.sbcglobal.net [172.10.235.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 44F7C21D6C;
+	Fri,  9 Oct 2020 21:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1602279277;
+	bh=af4HYKUXjfzQEnpRkoqrLOtb/VuZgD2GaaA85DESAB8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mAKgXcy5CifgRYN2i2C2c94+Jg5oLVaoZk49jTIFxseeqdMtEOOqP5cL66hXhKNTI
+	 eNSQDBkgqgAc1Wd7XIXje+joGiBVI4yatMIDb1+kpBlSLeGvwRiFFGcw+A+0IeryZM
+	 wi38bfOOqpr1rBlahq6SJoGGKG4xvvKCLXOhXA9s=
+Date: Fri, 9 Oct 2020 14:34:34 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: ira.weiny@intel.com
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, linux-aio@kvack.org,
+	linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+	target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
+	ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
+	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+	linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org,
+	x86@kernel.org, amd-gfx@lists.freedesktop.org,
+	linux-afs@lists.infradead.org, cluster-devel@redhat.com,
+	linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
+	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+	Fenghua Yu <fenghua.yu@intel.com>, ecryptfs@vger.kernel.org,
+	linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+	linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
+	linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
+	netdev@vger.kernel.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Subject: Re: [PATCH RFC PKS/PMEM 22/58] fs/f2fs: Utilize new kmap_thread()
+Message-ID: <20201009213434.GA839@sol.localdomain>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-23-ira.weiny@intel.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 155594: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=091ab12b340a05c99ce0e31d29293ce58c7014e2
-X-Osstest-Versions-That:
-    ovmf=69e95b9efed520e643b9e5b0573180aa7c5ecaca
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 09 Oct 2020 21:32:30 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201009195033.3208459-23-ira.weiny@intel.com>
 
-flight 155594 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155594/
+On Fri, Oct 09, 2020 at 12:49:57PM -0700, ira.weiny@intel.com wrote:
+> From: Ira Weiny <ira.weiny@intel.com>
+> 
+> The kmap() calls in this FS are localized to a single thread.  To avoid
+> the over head of global PKRS updates use the new kmap_thread() call.
+> 
+> Cc: Jaegeuk Kim <jaegeuk@kernel.org>
+> Cc: Chao Yu <chao@kernel.org>
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> ---
+>  fs/f2fs/f2fs.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index d9e52a7f3702..ff72a45a577e 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -2410,12 +2410,12 @@ static inline struct page *f2fs_pagecache_get_page(
+>  
+>  static inline void f2fs_copy_page(struct page *src, struct page *dst)
+>  {
+> -	char *src_kaddr = kmap(src);
+> -	char *dst_kaddr = kmap(dst);
+> +	char *src_kaddr = kmap_thread(src);
+> +	char *dst_kaddr = kmap_thread(dst);
+>  
+>  	memcpy(dst_kaddr, src_kaddr, PAGE_SIZE);
+> -	kunmap(dst);
+> -	kunmap(src);
+> +	kunmap_thread(dst);
+> +	kunmap_thread(src);
+>  }
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 091ab12b340a05c99ce0e31d29293ce58c7014e2
-baseline version:
- ovmf                 69e95b9efed520e643b9e5b0573180aa7c5ecaca
+Wouldn't it make more sense to switch cases like this to kmap_atomic()?
+The pages are only mapped to do a memcpy(), then they're immediately unmapped.
 
-Last test of basis   155548  2020-10-08 13:39:54 Z    1 days
-Testing same since   155594  2020-10-09 09:11:36 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Maciej Rabeda <maciej.rabeda@linux.intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   69e95b9efe..091ab12b34  091ab12b340a05c99ce0e31d29293ce58c7014e2 -> xen-tested-master
+- Eric
 
