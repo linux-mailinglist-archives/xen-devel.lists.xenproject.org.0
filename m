@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F90289474
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:54:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5139.13420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6805289484
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:54:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5144.13447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQySq-0005zi-Jk; Fri, 09 Oct 2020 19:54:04 +0000
+	id 1kQySv-00069z-Rh; Fri, 09 Oct 2020 19:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5139.13420; Fri, 09 Oct 2020 19:54:04 +0000
+Received: by outflank-mailman (output) from mailman id 5144.13447; Fri, 09 Oct 2020 19:54:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,49 +23,49 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQySq-0005yK-Bd; Fri, 09 Oct 2020 19:54:04 +0000
-Received: by outflank-mailman (input) for mailman id 5139;
- Fri, 09 Oct 2020 19:54:03 +0000
+	id 1kQySv-00068W-BK; Fri, 09 Oct 2020 19:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 5144;
+ Fri, 09 Oct 2020 19:54:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQySp-0005x6-8P
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:54:03 +0000
-Received: from mga12.intel.com (unknown [192.55.52.136])
+ id 1kQySt-0005x6-77
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:54:07 +0000
+Received: from mga01.intel.com (unknown [192.55.52.88])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f6f54446-46d1-4920-a493-c209ac9ecba7;
- Fri, 09 Oct 2020 19:54:02 +0000 (UTC)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:54:01 -0700
+ id b5bc4318-9a41-4b0b-bc6e-214ad03ae863;
+ Fri, 09 Oct 2020 19:54:06 +0000 (UTC)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:54:04 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:54:00 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:54:03 -0700
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQySp-0005x6-8P
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:54:03 +0000
-X-Inumbo-ID: f6f54446-46d1-4920-a493-c209ac9ecba7
-Received: from mga12.intel.com (unknown [192.55.52.136])
+	id 1kQySt-0005x6-77
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:54:07 +0000
+X-Inumbo-ID: b5bc4318-9a41-4b0b-bc6e-214ad03ae863
+Received: from mga01.intel.com (unknown [192.55.52.88])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f6f54446-46d1-4920-a493-c209ac9ecba7;
-	Fri, 09 Oct 2020 19:54:02 +0000 (UTC)
-IronPort-SDR: s702jsQClR22uyUIa1DJCn3AxvMbIytbcDnPsENmUbh0L/kV/PkPNi2T5tmbu+/56fcl6uR0LT
- +MZiIYckw7Rw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="144851103"
+	id b5bc4318-9a41-4b0b-bc6e-214ad03ae863;
+	Fri, 09 Oct 2020 19:54:06 +0000 (UTC)
+IronPort-SDR: c5c8lWx53OKNfJTf5ukBb57x4xGzHo3/RsCiYSxlMsrD0E9zKISdhlW1OfiP938gwC0kIn9Ony
+ mzjXzkcVlXMQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="182976549"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="144851103"
+   d="scan'208";a="182976549"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:54:01 -0700
-IronPort-SDR: vscQ8/PPGEHFzlszF4epup1/yO0Zdiea6PUky2hcTMxo6TNU67DufPr1A76ntRogBKZEHAEf8L
- bsjRzl3g/9bQ==
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:54:04 -0700
+IronPort-SDR: NEiErKYZfPZGqrWyxIZ0z43ef9+IKjrcXd9NJIRckxXQwdDEMd5poh/dknsqhifod6Ym/UoaZd
+ Mu4h9c7DJvbA==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="529054196"
+   d="scan'208";a="462301216"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:54:00 -0700
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:54:03 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -74,7 +74,6 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
-	Kirti Wankhede <kwankhede@nvidia.com>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -123,9 +122,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 55/58] samples: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:30 -0700
-Message-Id: <20201009195033.3208459-56-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 56/58] dax: Stray access protection for dax_direct_access()
+Date: Fri,  9 Oct 2020 12:50:31 -0700
+Message-Id: <20201009195033.3208459-57-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -134,34 +133,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-These kmap() calls are localized to a single thread.  To avoid the over
-head of global PKRS updates use the new kmap_thread() call.
+dax_direct_access() is a special case of accessing pmem via a page
+offset and without a struct page.
 
-Cc: Kirti Wankhede <kwankhede@nvidia.com>
+Because the dax driver is well aware of the special protections it has
+mapped memory with, call dev_access_[en|dis]able() directly instead of
+the unnecessary overhead of trying to get a page to kmap.
+
+Similar to kmap, we leverage existing functions, dax_read_[un]lock(),
+because they are already required to surround the use of the memory
+returned from dax_direct_access().
+
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- samples/vfio-mdev/mbochs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dax/super.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/samples/vfio-mdev/mbochs.c b/samples/vfio-mdev/mbochs.c
-index 3cc5e5921682..6d95422c0b46 100644
---- a/samples/vfio-mdev/mbochs.c
-+++ b/samples/vfio-mdev/mbochs.c
-@@ -479,12 +479,12 @@ static ssize_t mdev_access(struct mdev_device *mdev, char *buf, size_t count,
- 		pos -= MBOCHS_MMIO_BAR_OFFSET;
- 		poff = pos & ~PAGE_MASK;
- 		pg = __mbochs_get_page(mdev_state, pos >> PAGE_SHIFT);
--		map = kmap(pg);
-+		map = kmap_thread(pg);
- 		if (is_write)
- 			memcpy(map + poff, buf, count);
- 		else
- 			memcpy(buf, map + poff, count);
--		kunmap(pg);
-+		kunmap_thread(pg);
- 		put_page(pg);
+diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+index e84070b55463..0ddb3ee73e36 100644
+--- a/drivers/dax/super.c
++++ b/drivers/dax/super.c
+@@ -30,6 +30,7 @@ static DEFINE_SPINLOCK(dax_host_lock);
  
- 	} else {
+ int dax_read_lock(void)
+ {
++	dev_access_enable(false);
+ 	return srcu_read_lock(&dax_srcu);
+ }
+ EXPORT_SYMBOL_GPL(dax_read_lock);
+@@ -37,6 +38,7 @@ EXPORT_SYMBOL_GPL(dax_read_lock);
+ void dax_read_unlock(int id)
+ {
+ 	srcu_read_unlock(&dax_srcu, id);
++	dev_access_disable(false);
+ }
+ EXPORT_SYMBOL_GPL(dax_read_unlock);
+ 
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
