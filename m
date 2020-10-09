@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D53289806
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 22:06:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5187.13581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C171E289797
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 22:04:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5182.13555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyej-0000nE-FV; Fri, 09 Oct 2020 20:06:21 +0000
+	id 1kQycs-0000Pk-KV; Fri, 09 Oct 2020 20:04:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5187.13581; Fri, 09 Oct 2020 20:06:21 +0000
+Received: by outflank-mailman (output) from mailman id 5182.13555; Fri, 09 Oct 2020 20:04:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,49 +23,49 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyej-0000mn-CH; Fri, 09 Oct 2020 20:06:21 +0000
-Received: by outflank-mailman (input) for mailman id 5187;
- Fri, 09 Oct 2020 20:06:19 +0000
+	id 1kQycs-0000PH-H1; Fri, 09 Oct 2020 20:04:26 +0000
+Received: by outflank-mailman (input) for mailman id 5182;
+ Fri, 09 Oct 2020 20:04:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQySA-0003VG-5y
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:22 +0000
-Received: from mga04.intel.com (unknown [192.55.52.120])
+ id 1kQySF-0003VG-66
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:27 +0000
+Received: from mga07.intel.com (unknown [134.134.136.100])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d452309a-cb21-4eed-9904-b4d3dcf278de;
- Fri, 09 Oct 2020 19:53:17 +0000 (UTC)
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:16 -0700
+ id 1f381d98-fe9e-4d68-8e1c-ef3c87d3dae7;
+ Fri, 09 Oct 2020 19:53:20 +0000 (UTC)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:19 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:15 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:18 -0700
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQySA-0003VG-5y
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:22 +0000
-X-Inumbo-ID: d452309a-cb21-4eed-9904-b4d3dcf278de
-Received: from mga04.intel.com (unknown [192.55.52.120])
+	id 1kQySF-0003VG-66
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:27 +0000
+X-Inumbo-ID: 1f381d98-fe9e-4d68-8e1c-ef3c87d3dae7
+Received: from mga07.intel.com (unknown [134.134.136.100])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d452309a-cb21-4eed-9904-b4d3dcf278de;
-	Fri, 09 Oct 2020 19:53:17 +0000 (UTC)
-IronPort-SDR: dtyJeJMEyuAFFKXUyW3C+SeRkMQE+np3w56zlQF/zJLVZHiNvhryV9Cjmj/btBVNwwF8CfI8kV
- HztKg2hNMEPA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162893592"
+	id 1f381d98-fe9e-4d68-8e1c-ef3c87d3dae7;
+	Fri, 09 Oct 2020 19:53:20 +0000 (UTC)
+IronPort-SDR: oFArxdeaaEdNwkSkWc6QZhEbjIJdqfCt0F9ef7cZ36fUICd3MSKqpYgAseFrbQH6krHzX5t4r4
+ lUxcH/chTKog==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="229715323"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="162893592"
+   d="scan'208";a="229715323"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:16 -0700
-IronPort-SDR: tpdf2AjeaRc5H+9J2CTgDjuzQWeL2r1NHpqYA6zEYh1sueM+cncDhIB0ZXYbhrsfqtXGL/LVMU
- w/znFNAZKmjw==
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:19 -0700
+IronPort-SDR: W4xxziDMxkncUnjnfmhtERgTle+fDEBI/syTBEG/tlt++YK2v+9/w8FvvM36z1FzCpPIzrEgyR
+ 3zBS2pDk0hzg==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="518801571"
+   d="scan'208";a="354959339"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:15 -0700
+  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:18 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -74,6 +74,8 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -122,9 +124,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 41/58] drivers/target: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:16 -0700
-Message-Id: <20201009195033.3208459-42-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 42/58] drivers/scsi: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:17 -0700
+Message-Id: <20201009195033.3208459-43-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -133,73 +135,82 @@ Content-Transfer-Encoding: 8bit
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-These kmap() calls in this driver are localized to a single thread.  To
-avoid the over head of global PKRS updates use the new kmap_thread()
-call.
+These kmap() calls are localized to a single thread.  To avoid the over
+head of global PKRS updates use the new kmap_thread() call.
 
+Cc: "James E.J. Bottomley" <jejb@linux.ibm.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/target/target_core_iblock.c    | 4 ++--
- drivers/target/target_core_rd.c        | 4 ++--
- drivers/target/target_core_transport.c | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/scsi/ipr.c     | 8 ++++----
+ drivers/scsi/pmcraid.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/target/target_core_iblock.c b/drivers/target/target_core_iblock.c
-index 1c181d31f4c8..df7b1568edb3 100644
---- a/drivers/target/target_core_iblock.c
-+++ b/drivers/target/target_core_iblock.c
-@@ -415,7 +415,7 @@ iblock_execute_zero_out(struct block_device *bdev, struct se_cmd *cmd)
- 	unsigned char *buf, *not_zero;
- 	int ret;
+diff --git a/drivers/scsi/ipr.c b/drivers/scsi/ipr.c
+index b0aa58d117cc..a5a0b8feb661 100644
+--- a/drivers/scsi/ipr.c
++++ b/drivers/scsi/ipr.c
+@@ -3923,9 +3923,9 @@ static int ipr_copy_ucode_buffer(struct ipr_sglist *sglist,
+ 			buffer += bsize_elem) {
+ 		struct page *page = sg_page(sg);
  
--	buf = kmap(sg_page(sg)) + sg->offset;
-+	buf = kmap_thread(sg_page(sg)) + sg->offset;
- 	if (!buf)
- 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
- 	/*
-@@ -423,7 +423,7 @@ iblock_execute_zero_out(struct block_device *bdev, struct se_cmd *cmd)
- 	 * incoming WRITE_SAME payload does not contain zeros.
- 	 */
- 	not_zero = memchr_inv(buf, 0x00, cmd->data_length);
--	kunmap(sg_page(sg));
-+	kunmap_thread(sg_page(sg));
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 		memcpy(kaddr, buffer, bsize_elem);
+-		kunmap(page);
++		kunmap_thread(page);
  
- 	if (not_zero)
- 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
-diff --git a/drivers/target/target_core_rd.c b/drivers/target/target_core_rd.c
-index 408bd975170b..dbbdd39c5bf9 100644
---- a/drivers/target/target_core_rd.c
-+++ b/drivers/target/target_core_rd.c
-@@ -159,9 +159,9 @@ static int rd_allocate_sgl_table(struct rd_dev *rd_dev, struct rd_dev_sg_table *
- 			sg_assign_page(&sg[j], pg);
- 			sg[j].length = PAGE_SIZE;
+ 		sg->length = bsize_elem;
  
--			p = kmap(pg);
-+			p = kmap_thread(pg);
- 			memset(p, init_payload, PAGE_SIZE);
--			kunmap(pg);
-+			kunmap_thread(pg);
- 		}
+@@ -3938,9 +3938,9 @@ static int ipr_copy_ucode_buffer(struct ipr_sglist *sglist,
+ 	if (len % bsize_elem) {
+ 		struct page *page = sg_page(sg);
  
- 		page_offset += sg_per_table;
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index ff26ab0a5f60..8d0bae5a92e5 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -1692,11 +1692,11 @@ int target_submit_cmd_map_sgls(struct se_cmd *se_cmd, struct se_session *se_sess
- 			unsigned char *buf = NULL;
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 		memcpy(kaddr, buffer, len % bsize_elem);
+-		kunmap(page);
++		kunmap_thread(page);
  
- 			if (sgl)
--				buf = kmap(sg_page(sgl)) + sgl->offset;
-+				buf = kmap_thread(sg_page(sgl)) + sgl->offset;
+ 		sg->length = len % bsize_elem;
+ 	}
+diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
+index aa9ae2ae8579..4b05ba4b8a11 100644
+--- a/drivers/scsi/pmcraid.c
++++ b/drivers/scsi/pmcraid.c
+@@ -3269,13 +3269,13 @@ static int pmcraid_copy_sglist(
+ 	for (i = 0; i < (len / bsize_elem); i++, sg = sg_next(sg), buffer += bsize_elem) {
+ 		struct page *page = sg_page(sg);
  
- 			if (buf) {
- 				memset(buf, 0, sgl->length);
--				kunmap(sg_page(sgl));
-+				kunmap_thread(sg_page(sgl));
- 			}
- 		}
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 		if (direction == DMA_TO_DEVICE)
+ 			rc = copy_from_user(kaddr, buffer, bsize_elem);
+ 		else
+ 			rc = copy_to_user(buffer, kaddr, bsize_elem);
  
+-		kunmap(page);
++		kunmap_thread(page);
+ 
+ 		if (rc) {
+ 			pmcraid_err("failed to copy user data into sg list\n");
+@@ -3288,14 +3288,14 @@ static int pmcraid_copy_sglist(
+ 	if (len % bsize_elem) {
+ 		struct page *page = sg_page(sg);
+ 
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 
+ 		if (direction == DMA_TO_DEVICE)
+ 			rc = copy_from_user(kaddr, buffer, len % bsize_elem);
+ 		else
+ 			rc = copy_to_user(buffer, kaddr, len % bsize_elem);
+ 
+-		kunmap(page);
++		kunmap_thread(page);
+ 
+ 		sg->length = len % bsize_elem;
+ 	}
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
