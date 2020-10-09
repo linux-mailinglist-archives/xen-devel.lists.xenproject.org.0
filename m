@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62B9228933F
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:52:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5082.13197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C118E28934A
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:52:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5086.13220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyRP-0003ac-1S; Fri, 09 Oct 2020 19:52:35 +0000
+	id 1kQyRT-0003jV-Hv; Fri, 09 Oct 2020 19:52:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5082.13197; Fri, 09 Oct 2020 19:52:34 +0000
+Received: by outflank-mailman (output) from mailman id 5086.13220; Fri, 09 Oct 2020 19:52:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,49 +23,49 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyRO-0003ZT-Qf; Fri, 09 Oct 2020 19:52:34 +0000
-Received: by outflank-mailman (input) for mailman id 5082;
- Fri, 09 Oct 2020 19:52:32 +0000
+	id 1kQyRT-0003hW-2O; Fri, 09 Oct 2020 19:52:39 +0000
+Received: by outflank-mailman (input) for mailman id 5086;
+ Fri, 09 Oct 2020 19:52:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQyRM-0003VG-6w
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:52:32 +0000
+ id 1kQyRR-0003VG-4U
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:52:37 +0000
 Received: from mga18.intel.com (unknown [134.134.136.126])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab7fd60a-f541-4ba8-8f03-1ab0e710db19;
- Fri, 09 Oct 2020 19:52:31 +0000 (UTC)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ id e58c0191-cb0d-42e4-82e6-add0ebb4508f;
+ Fri, 09 Oct 2020 19:52:33 +0000 (UTC)
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:30 -0700
+ 09 Oct 2020 12:52:33 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:29 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:32 -0700
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQyRM-0003VG-6w
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:52:32 +0000
-X-Inumbo-ID: ab7fd60a-f541-4ba8-8f03-1ab0e710db19
+	id 1kQyRR-0003VG-4U
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:52:37 +0000
+X-Inumbo-ID: e58c0191-cb0d-42e4-82e6-add0ebb4508f
 Received: from mga18.intel.com (unknown [134.134.136.126])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ab7fd60a-f541-4ba8-8f03-1ab0e710db19;
-	Fri, 09 Oct 2020 19:52:31 +0000 (UTC)
-IronPort-SDR: ANd9sD4ETF8cDNeNNLHF1xEZdjjzmZGxw88XeOjm10HKAa6Lb2UuTqdSALqYxupiNLRRqyS0Tg
- lhpFpcbFa9GQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153363625"
+	id e58c0191-cb0d-42e4-82e6-add0ebb4508f;
+	Fri, 09 Oct 2020 19:52:33 +0000 (UTC)
+IronPort-SDR: Lo2XtPowmQYnTWHphnBW2bQKZ2oio1YDqSAzSkZkJbRd28sKJh/91jcB/8RpILqScKg5Y2mPSC
+ mGB3S19zQb1Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153363640"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="153363625"
+   d="scan'208";a="153363640"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:52:30 -0700
-IronPort-SDR: R8dnd4Gi4VR6B2jqh++vX5H71gVtYpBk3ChyBwkq2ll0tg176OYljcvG78jHbXA7T9l0eBxuZS
- YLX/odwmLDNw==
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:52:33 -0700
+IronPort-SDR: XHP7HCDttdXyLYHE1MyL2Bm/StJaryejpRmS+iQtfLlXLzP04sJOdLalPQz60Qvt6cf6bIW1lg
+ L4ex5grUzrzg==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="329006590"
+   d="scan'208";a="298419726"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:52:29 -0700
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:52:32 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -74,7 +74,7 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
-	David Howells <dhowells@redhat.com>,
+	Anton Altaparmakov <anton@tuxera.com>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -123,9 +123,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 28/58] fs/cachefiles: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:03 -0700
-Message-Id: <20201009195033.3208459-29-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 29/58] fs/ntfs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:04 -0700
+Message-Id: <20201009195033.3208459-30-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -137,28 +137,34 @@ From: Ira Weiny <ira.weiny@intel.com>
 The kmap() calls in this FS are localized to a single thread.  To avoid
 the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: David Howells <dhowells@redhat.com>
+Cc: Anton Altaparmakov <anton@tuxera.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/cachefiles/rdwr.c | 4 ++--
+ fs/ntfs/aops.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
-index 3080cda9e824..2468e5c067ba 100644
---- a/fs/cachefiles/rdwr.c
-+++ b/fs/cachefiles/rdwr.c
-@@ -936,9 +936,9 @@ int cachefiles_write_page(struct fscache_storage *op, struct page *page)
- 		}
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index bb0a43860ad2..11633d732809 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -1099,7 +1099,7 @@ static int ntfs_write_mst_block(struct page *page,
+ 	if (!nr_bhs)
+ 		goto done;
+ 	/* Map the page so we can access its contents. */
+-	kaddr = kmap(page);
++	kaddr = kmap_thread(page);
+ 	/* Clear the page uptodate flag whilst the mst fixups are applied. */
+ 	BUG_ON(!PageUptodate(page));
+ 	ClearPageUptodate(page);
+@@ -1276,7 +1276,7 @@ static int ntfs_write_mst_block(struct page *page,
+ 		iput(VFS_I(base_tni));
  	}
- 
--	data = kmap(page);
-+	data = kmap_thread(page);
- 	ret = kernel_write(file, data, len, &pos);
+ 	SetPageUptodate(page);
 -	kunmap(page);
 +	kunmap_thread(page);
- 	fput(file);
- 	if (ret != len)
- 		goto error_eio;
+ done:
+ 	if (unlikely(err && err != -ENOMEM)) {
+ 		/*
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
