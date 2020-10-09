@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E00B2892F5
+	by mail.lfdr.de (Postfix) with ESMTPS id DDC422892F7
 	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:51:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5063.13041 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.5064.13052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyQc-0002E2-Re; Fri, 09 Oct 2020 19:51:46 +0000
+	id 1kQyQe-0002Gq-93; Fri, 09 Oct 2020 19:51:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5063.13041; Fri, 09 Oct 2020 19:51:46 +0000
+Received: by outflank-mailman (output) from mailman id 5064.13052; Fri, 09 Oct 2020 19:51:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,49 +23,49 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyQc-0002Cy-LX; Fri, 09 Oct 2020 19:51:46 +0000
-Received: by outflank-mailman (input) for mailman id 5063;
- Fri, 09 Oct 2020 19:51:45 +0000
+	id 1kQyQe-0002Fn-43; Fri, 09 Oct 2020 19:51:48 +0000
+Received: by outflank-mailman (input) for mailman id 5064;
+ Fri, 09 Oct 2020 19:51:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQyQb-0002Bq-9T
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:45 +0000
-Received: from mga05.intel.com (unknown [192.55.52.43])
+ id 1kQyQd-0002Bq-C2
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:47 +0000
+Received: from mga09.intel.com (unknown [134.134.136.24])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 38b255ef-94d7-4d9e-ad22-2e94a778b483;
- Fri, 09 Oct 2020 19:51:43 +0000 (UTC)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:42 -0700
+ id 4d758406-926b-431b-95c2-a5674dadec7e;
+ Fri, 09 Oct 2020 19:51:46 +0000 (UTC)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:45 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:41 -0700
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:44 -0700
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQyQb-0002Bq-9T
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:45 +0000
-X-Inumbo-ID: 38b255ef-94d7-4d9e-ad22-2e94a778b483
-Received: from mga05.intel.com (unknown [192.55.52.43])
+	id 1kQyQd-0002Bq-C2
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:47 +0000
+X-Inumbo-ID: 4d758406-926b-431b-95c2-a5674dadec7e
+Received: from mga09.intel.com (unknown [134.134.136.24])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 38b255ef-94d7-4d9e-ad22-2e94a778b483;
-	Fri, 09 Oct 2020 19:51:43 +0000 (UTC)
-IronPort-SDR: yccRu5+Zi4ddrJLQZ5u/PzNSuD2a4R8EjkuO9u9NWwWg7uNLyxX6g2DNZFA9NwwtOZXVSyBRXE
- JuTWe/GvxnrQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="250226006"
+	id 4d758406-926b-431b-95c2-a5674dadec7e;
+	Fri, 09 Oct 2020 19:51:46 +0000 (UTC)
+IronPort-SDR: FSckl3oZnJbJGVIGFWQtPrkxhCD1TiJIJwZd6ZBxOGULnZQ/lEw9wNGzMvWdPMesk5C6Ybblwm
+ 1voMWuWWnFJQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165642952"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="250226006"
+   d="scan'208";a="165642952"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:42 -0700
-IronPort-SDR: /JTFkd5x0991ia3Dqzqc9DQMEj3VkzRKrzcEaYc1Uf7R2BILbYJ/fow/WUSSa3njc7c47Zr56l
- AjDrFCZ0Z24A==
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:45 -0700
+IronPort-SDR: /XLKsCzQipLZYQ1rW+ETY2grttZNamy0/VnWHXeIGpFKMMZaq8ytLhObxugEuPiPsSx/1cqrId
+ IdubLVsw8k0A==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="389236880"
+   d="scan'208";a="419536913"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:41 -0700
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:44 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -74,9 +74,8 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@google.com>,
-	Aditya Pakki <pakki001@umn.edu>,
+	Bob Peterson <rpeterso@redhat.com>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -125,9 +124,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 15/58] fs/ecryptfs: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:50 -0700
-Message-Id: <20201009195033.3208459-16-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 16/58] fs/gfs2: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:49:51 -0700
+Message-Id: <20201009195033.3208459-17-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -139,76 +138,51 @@ From: Ira Weiny <ira.weiny@intel.com>
 The kmap() calls in this FS are localized to a single thread.  To avoid
 the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Eric Biggers <ebiggers@google.com>
-Cc: Aditya Pakki <pakki001@umn.edu>
+Cc: Bob Peterson <rpeterso@redhat.com>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/ecryptfs/crypto.c     | 8 ++++----
- fs/ecryptfs/read_write.c | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ fs/gfs2/bmap.c       | 4 ++--
+ fs/gfs2/ops_fstype.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index 0681540c48d9..e73e00994bee 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -469,10 +469,10 @@ int ecryptfs_encrypt_page(struct page *page)
+diff --git a/fs/gfs2/bmap.c b/fs/gfs2/bmap.c
+index 0f69fbd4af66..375af4528411 100644
+--- a/fs/gfs2/bmap.c
++++ b/fs/gfs2/bmap.c
+@@ -67,7 +67,7 @@ static int gfs2_unstuffer_page(struct gfs2_inode *ip, struct buffer_head *dibh,
  	}
  
- 	lower_offset = lower_offset_for_page(crypt_stat, page);
--	enc_extent_virt = kmap(enc_extent_page);
-+	enc_extent_virt = kmap_thread(enc_extent_page);
- 	rc = ecryptfs_write_lower(ecryptfs_inode, enc_extent_virt, lower_offset,
- 				  PAGE_SIZE);
--	kunmap(enc_extent_page);
-+	kunmap_thread(enc_extent_page);
- 	if (rc < 0) {
- 		ecryptfs_printk(KERN_ERR,
- 			"Error attempting to write lower page; rc = [%d]\n",
-@@ -518,10 +518,10 @@ int ecryptfs_decrypt_page(struct page *page)
- 	BUG_ON(!(crypt_stat->flags & ECRYPTFS_ENCRYPTED));
+ 	if (!PageUptodate(page)) {
+-		void *kaddr = kmap(page);
++		void *kaddr = kmap_thread(page);
+ 		u64 dsize = i_size_read(inode);
+  
+ 		if (dsize > gfs2_max_stuffed_size(ip))
+@@ -75,7 +75,7 @@ static int gfs2_unstuffer_page(struct gfs2_inode *ip, struct buffer_head *dibh,
  
- 	lower_offset = lower_offset_for_page(crypt_stat, page);
--	page_virt = kmap(page);
-+	page_virt = kmap_thread(page);
- 	rc = ecryptfs_read_lower(page_virt, lower_offset, PAGE_SIZE,
- 				 ecryptfs_inode);
+ 		memcpy(kaddr, dibh->b_data + sizeof(struct gfs2_dinode), dsize);
+ 		memset(kaddr + dsize, 0, PAGE_SIZE - dsize);
+-		kunmap(page);
++		kunmap_thread(page);
+ 
+ 		SetPageUptodate(page);
+ 	}
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 6d18d2c91add..a5d20d9b504a 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -263,9 +263,9 @@ static int gfs2_read_super(struct gfs2_sbd *sdp, sector_t sector, int silent)
+ 		__free_page(page);
+ 		return -EIO;
+ 	}
+-	p = kmap(page);
++	p = kmap_thread(page);
+ 	gfs2_sb_in(sdp, p);
 -	kunmap(page);
 +	kunmap_thread(page);
- 	if (rc < 0) {
- 		ecryptfs_printk(KERN_ERR,
- 			"Error attempting to read lower page; rc = [%d]\n",
-diff --git a/fs/ecryptfs/read_write.c b/fs/ecryptfs/read_write.c
-index 0438997ac9d8..5eca4330c0c0 100644
---- a/fs/ecryptfs/read_write.c
-+++ b/fs/ecryptfs/read_write.c
-@@ -64,11 +64,11 @@ int ecryptfs_write_lower_page_segment(struct inode *ecryptfs_inode,
- 
- 	offset = ((((loff_t)page_for_lower->index) << PAGE_SHIFT)
- 		  + offset_in_page);
--	virt = kmap(page_for_lower);
-+	virt = kmap_thread(page_for_lower);
- 	rc = ecryptfs_write_lower(ecryptfs_inode, virt, offset, size);
- 	if (rc > 0)
- 		rc = 0;
--	kunmap(page_for_lower);
-+	kunmap_thread(page_for_lower);
- 	return rc;
- }
- 
-@@ -251,11 +251,11 @@ int ecryptfs_read_lower_page_segment(struct page *page_for_ecryptfs,
- 	int rc;
- 
- 	offset = ((((loff_t)page_index) << PAGE_SHIFT) + offset_in_page);
--	virt = kmap(page_for_ecryptfs);
-+	virt = kmap_thread(page_for_ecryptfs);
- 	rc = ecryptfs_read_lower(virt, offset, size, ecryptfs_inode);
- 	if (rc > 0)
- 		rc = 0;
--	kunmap(page_for_ecryptfs);
-+	kunmap_thread(page_for_ecryptfs);
- 	flush_dcache_page(page_for_ecryptfs);
- 	return rc;
+ 	__free_page(page);
+ 	return gfs2_check_sb(sdp, silent);
  }
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
