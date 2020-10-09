@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE732892B5
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:51:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5059.12992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E872895C7
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:58:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5170.13496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyQN-0001pI-3A; Fri, 09 Oct 2020 19:51:31 +0000
+	id 1kQyWq-0007G8-O6; Fri, 09 Oct 2020 19:58:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5059.12992; Fri, 09 Oct 2020 19:51:31 +0000
+Received: by outflank-mailman (output) from mailman id 5170.13496; Fri, 09 Oct 2020 19:58:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,49 +23,50 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQyQM-0001oQ-UD; Fri, 09 Oct 2020 19:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 5059;
- Fri, 09 Oct 2020 19:51:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kQyWq-0007Fm-L3; Fri, 09 Oct 2020 19:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 5170;
+ Fri, 09 Oct 2020 19:58:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQyQL-0001nZ-SQ
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:29 +0000
-Received: from mga18.intel.com (unknown [134.134.136.126])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ea353239-8838-4285-98ec-2159d2193702;
- Fri, 09 Oct 2020 19:51:27 +0000 (UTC)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:27 -0700
+ id 1kQyQW-00017t-O1
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:40 +0000
+Received: from mga17.intel.com (unknown [192.55.52.151])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b6a77be5-dfa3-4325-b5d5-64874a8f25aa;
+ Fri, 09 Oct 2020 19:51:30 +0000 (UTC)
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:29 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:25 -0700
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:28 -0700
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQyQL-0001nZ-SQ
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:29 +0000
-X-Inumbo-ID: ea353239-8838-4285-98ec-2159d2193702
-Received: from mga18.intel.com (unknown [134.134.136.126])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ea353239-8838-4285-98ec-2159d2193702;
-	Fri, 09 Oct 2020 19:51:27 +0000 (UTC)
-IronPort-SDR: zN+BPdbSz58gNhMlaTO57LfM2A3FvsmcOIfqRBDPJG4d31G/7sexBRpKrLNyZv1BkBWUCIjw0p
- nEaUVK7qAHXA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153363415"
+	id 1kQyQW-00017t-O1
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:51:40 +0000
+X-Inumbo-ID: b6a77be5-dfa3-4325-b5d5-64874a8f25aa
+Received: from mga17.intel.com (unknown [192.55.52.151])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id b6a77be5-dfa3-4325-b5d5-64874a8f25aa;
+	Fri, 09 Oct 2020 19:51:30 +0000 (UTC)
+IronPort-SDR: hQbQJaHKT1qYoXdodrzz5AwO+ossNkFoGtKaMa110sFHVGe5CcmJs7aOsl7Sse7UQvhIOgTdbb
+ oh4G8BA5Z9wg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="145397298"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="153363415"
+   d="scan'208";a="145397298"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:27 -0700
-IronPort-SDR: zNYl6viNpTmcuoOUFeW6ebDlF6mcWw7xHrLDRpkX9eSJEFyww70EqY5cZFdXSl9ODsqjoVqJW/
- EpbiFUFW5goQ==
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:29 -0700
+IronPort-SDR: 0+lGONiHFSeyE/0kQGUe/v/Z0vqstKsQGCedA4TvP63fkNzDWGjPYFj9hsR1yECUQTFrwG697Z
+ McTBAsxZaLwQ==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="329006240"
+   d="scan'208";a="298419323"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:25 -0700
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:51:28 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -74,9 +75,7 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	David Howells <dhowells@redhat.com>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -125,9 +124,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 11/58] drivers/net: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:46 -0700
-Message-Id: <20201009195033.3208459-12-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 12/58] fs/afs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:49:47 -0700
+Message-Id: <20201009195033.3208459-13-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -136,61 +135,202 @@ Content-Transfer-Encoding: 8bit
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-The kmap() calls in these drivers are localized to a single thread.  To
+The kmap() calls in this FS are localized to a single thread.  To
 avoid the over head of global PKRS updates use the new kmap_thread()
 call.
 
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Jesse Brandeburg <jesse.brandeburg@intel.com>
+Cc: David Howells <dhowells@redhat.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/net/ethernet/intel/igb/igb_ethtool.c     | 4 ++--
- drivers/net/ethernet/intel/ixgbe/ixgbe_ethtool.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/afs/dir.c      | 16 ++++++++--------
+ fs/afs/dir_edit.c | 16 ++++++++--------
+ fs/afs/mntpt.c    |  4 ++--
+ fs/afs/write.c    |  4 ++--
+ 4 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_ethtool.c b/drivers/net/ethernet/intel/igb/igb_ethtool.c
-index 6e8231c1ddf0..ac9189752012 100644
---- a/drivers/net/ethernet/intel/igb/igb_ethtool.c
-+++ b/drivers/net/ethernet/intel/igb/igb_ethtool.c
-@@ -1794,14 +1794,14 @@ static int igb_check_lbtest_frame(struct igb_rx_buffer *rx_buffer,
+diff --git a/fs/afs/dir.c b/fs/afs/dir.c
+index 1d2e61e0ab04..5d01cdb590de 100644
+--- a/fs/afs/dir.c
++++ b/fs/afs/dir.c
+@@ -127,14 +127,14 @@ static bool afs_dir_check_page(struct afs_vnode *dvnode, struct page *page,
+ 	qty /= sizeof(union afs_xdr_dir_block);
  
- 	frame_size >>= 1;
+ 	/* check them */
+-	dbuf = kmap(page);
++	dbuf = kmap_thread(page);
+ 	for (tmp = 0; tmp < qty; tmp++) {
+ 		if (dbuf->blocks[tmp].hdr.magic != AFS_DIR_MAGIC) {
+ 			printk("kAFS: %s(%lx): bad magic %d/%d is %04hx\n",
+ 			       __func__, dvnode->vfs_inode.i_ino, tmp, qty,
+ 			       ntohs(dbuf->blocks[tmp].hdr.magic));
+ 			trace_afs_dir_check_failed(dvnode, off, i_size);
+-			kunmap(page);
++			kunmap_thread(page);
+ 			trace_afs_file_error(dvnode, -EIO, afs_file_error_dir_bad_magic);
+ 			goto error;
+ 		}
+@@ -146,7 +146,7 @@ static bool afs_dir_check_page(struct afs_vnode *dvnode, struct page *page,
+ 		((u8 *)&dbuf->blocks[tmp])[AFS_DIR_BLOCK_SIZE - 1] = 0;
+ 	}
  
--	data = kmap(rx_buffer->page);
-+	data = kmap_thread(rx_buffer->page);
+-	kunmap(page);
++	kunmap_thread(page);
  
- 	if (data[3] != 0xFF ||
- 	    data[frame_size + 10] != 0xBE ||
- 	    data[frame_size + 12] != 0xAF)
- 		match = false;
+ checked:
+ 	afs_stat_v(dvnode, n_read_dir);
+@@ -177,13 +177,13 @@ static bool afs_dir_check_pages(struct afs_vnode *dvnode, struct afs_read *req)
+ 		req->pos, req->index, req->nr_pages, req->offset);
  
--	kunmap(rx_buffer->page);
-+	kunmap_thread(rx_buffer->page);
+ 	for (i = 0; i < req->nr_pages; i++) {
+-		dbuf = kmap(req->pages[i]);
++		dbuf = kmap_thread(req->pages[i]);
+ 		for (j = 0; j < qty; j++) {
+ 			union afs_xdr_dir_block *block = &dbuf->blocks[j];
  
- 	return match;
+ 			pr_warn("[%02x] %32phN\n", i * qty + j, block);
+ 		}
+-		kunmap(req->pages[i]);
++		kunmap_thread(req->pages[i]);
+ 	}
+ 	return false;
  }
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_ethtool.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_ethtool.c
-index 71ec908266a6..7d469425f8b4 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_ethtool.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_ethtool.c
-@@ -1963,14 +1963,14 @@ static bool ixgbe_check_lbtest_frame(struct ixgbe_rx_buffer *rx_buffer,
+@@ -481,7 +481,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
  
- 	frame_size >>= 1;
+ 		limit = blkoff & ~(PAGE_SIZE - 1);
  
--	data = kmap(rx_buffer->page) + rx_buffer->page_offset;
-+	data = kmap_thread(rx_buffer->page) + rx_buffer->page_offset;
+-		dbuf = kmap(page);
++		dbuf = kmap_thread(page);
  
- 	if (data[3] != 0xFF ||
- 	    data[frame_size + 10] != 0xBE ||
- 	    data[frame_size + 12] != 0xAF)
- 		match = false;
+ 		/* deal with the individual blocks stashed on this page */
+ 		do {
+@@ -489,7 +489,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
+ 					       sizeof(union afs_xdr_dir_block)];
+ 			ret = afs_dir_iterate_block(dvnode, ctx, dblock, blkoff);
+ 			if (ret != 1) {
+-				kunmap(page);
++				kunmap_thread(page);
+ 				goto out;
+ 			}
  
--	kunmap(rx_buffer->page);
-+	kunmap_thread(rx_buffer->page);
+@@ -497,7 +497,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
  
- 	return match;
- }
+ 		} while (ctx->pos < dir->i_size && blkoff < limit);
+ 
+-		kunmap(page);
++		kunmap_thread(page);
+ 		ret = 0;
+ 	}
+ 
+diff --git a/fs/afs/dir_edit.c b/fs/afs/dir_edit.c
+index b108528bf010..35ed6828e205 100644
+--- a/fs/afs/dir_edit.c
++++ b/fs/afs/dir_edit.c
+@@ -218,7 +218,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 	need_slots = round_up(12 + name->len + 1 + 4, AFS_DIR_DIRENT_SIZE);
+ 	need_slots /= AFS_DIR_DIRENT_SIZE;
+ 
+-	meta_page = kmap(page0);
++	meta_page = kmap_thread(page0);
+ 	meta = &meta_page->blocks[0];
+ 	if (i_size == 0)
+ 		goto new_directory;
+@@ -247,7 +247,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 				set_page_private(page, 1);
+ 				SetPagePrivate(page);
+ 			}
+-			dir_page = kmap(page);
++			dir_page = kmap_thread(page);
+ 		}
+ 
+ 		/* Abandon the edit if we got a callback break. */
+@@ -284,7 +284,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 
+ 		if (page != page0) {
+ 			unlock_page(page);
+-			kunmap(page);
++			kunmap_thread(page);
+ 			put_page(page);
+ 		}
+ 	}
+@@ -323,7 +323,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 	afs_set_contig_bits(block, slot, need_slots);
+ 	if (page != page0) {
+ 		unlock_page(page);
+-		kunmap(page);
++		kunmap_thread(page);
+ 		put_page(page);
+ 	}
+ 
+@@ -337,7 +337,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 
+ out_unmap:
+ 	unlock_page(page0);
+-	kunmap(page0);
++	kunmap_thread(page0);
+ 	put_page(page0);
+ 	_leave("");
+ 	return;
+@@ -346,7 +346,7 @@ void afs_edit_dir_add(struct afs_vnode *vnode,
+ 	trace_afs_edit_dir(vnode, why, afs_edit_dir_create_inval, 0, 0, 0, 0, name->name);
+ 	clear_bit(AFS_VNODE_DIR_VALID, &vnode->flags);
+ 	if (page != page0) {
+-		kunmap(page);
++		kunmap_thread(page);
+ 		put_page(page);
+ 	}
+ 	goto out_unmap;
+@@ -398,7 +398,7 @@ void afs_edit_dir_remove(struct afs_vnode *vnode,
+ 	need_slots = round_up(12 + name->len + 1 + 4, AFS_DIR_DIRENT_SIZE);
+ 	need_slots /= AFS_DIR_DIRENT_SIZE;
+ 
+-	meta_page = kmap(page0);
++	meta_page = kmap_thread(page0);
+ 	meta = &meta_page->blocks[0];
+ 
+ 	/* Find a page that has sufficient slots available.  Each VM page
+@@ -410,7 +410,7 @@ void afs_edit_dir_remove(struct afs_vnode *vnode,
+ 			page = find_lock_page(vnode->vfs_inode.i_mapping, index);
+ 			if (!page)
+ 				goto error;
+-			dir_page = kmap(page);
++			dir_page = kmap_thread(page);
+ 		} else {
+ 			page = page0;
+ 			dir_page = meta_page;
+diff --git a/fs/afs/mntpt.c b/fs/afs/mntpt.c
+index 79bc5f1338ed..562454e2fd5c 100644
+--- a/fs/afs/mntpt.c
++++ b/fs/afs/mntpt.c
+@@ -139,11 +139,11 @@ static int afs_mntpt_set_params(struct fs_context *fc, struct dentry *mntpt)
+ 			return ret;
+ 		}
+ 
+-		buf = kmap(page);
++		buf = kmap_thread(page);
+ 		ret = -EINVAL;
+ 		if (buf[size - 1] == '.')
+ 			ret = vfs_parse_fs_string(fc, "source", buf, size - 1);
+-		kunmap(page);
++		kunmap_thread(page);
+ 		put_page(page);
+ 		if (ret < 0)
+ 			return ret;
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index 4b2265cb1891..c56e5b4db4ae 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -38,9 +38,9 @@ static int afs_fill_page(struct afs_vnode *vnode, struct key *key,
+ 	if (pos >= vnode->vfs_inode.i_size) {
+ 		p = pos & ~PAGE_MASK;
+ 		ASSERTCMP(p + len, <=, PAGE_SIZE);
+-		data = kmap(page);
++		data = kmap_thread(page);
+ 		memset(data + p, 0, len);
+-		kunmap(page);
++		kunmap_thread(page);
+ 		return 0;
+ 	}
+ 
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
