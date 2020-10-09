@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 559A7289438
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:53:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5124.13364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D05D5289442
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Oct 2020 21:53:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5128.13376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQySV-0005Ug-Dy; Fri, 09 Oct 2020 19:53:43 +0000
+	id 1kQySa-0005bG-OK; Fri, 09 Oct 2020 19:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5124.13364; Fri, 09 Oct 2020 19:53:43 +0000
+Received: by outflank-mailman (output) from mailman id 5128.13376; Fri, 09 Oct 2020 19:53:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,50 +23,50 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kQySV-0005U4-9n; Fri, 09 Oct 2020 19:53:43 +0000
-Received: by outflank-mailman (input) for mailman id 5124;
- Fri, 09 Oct 2020 19:53:42 +0000
+	id 1kQySa-0005aQ-JY; Fri, 09 Oct 2020 19:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 5128;
+ Fri, 09 Oct 2020 19:53:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
- id 1kQyST-0005Ps-UX
- for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:41 +0000
-Received: from mga17.intel.com (unknown [192.55.52.151])
+ id 1kQySY-0005Ps-Ui
+ for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:46 +0000
+Received: from mga03.intel.com (unknown [134.134.136.65])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 805f1667-c4f5-44bc-bab3-1f1b1a4fb193;
- Fri, 09 Oct 2020 19:53:39 +0000 (UTC)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:38 -0700
+ id 1ae675ba-8138-4d44-9dc2-c2b7720986d2;
+ Fri, 09 Oct 2020 19:53:43 +0000 (UTC)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:41 -0700
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:37 -0700
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:40 -0700
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lMaC=DQ=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
-	id 1kQyST-0005Ps-UX
-	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:41 +0000
-X-Inumbo-ID: 805f1667-c4f5-44bc-bab3-1f1b1a4fb193
-Received: from mga17.intel.com (unknown [192.55.52.151])
+	id 1kQySY-0005Ps-Ui
+	for xen-devel@lists.xenproject.org; Fri, 09 Oct 2020 19:53:46 +0000
+X-Inumbo-ID: 1ae675ba-8138-4d44-9dc2-c2b7720986d2
+Received: from mga03.intel.com (unknown [134.134.136.65])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 805f1667-c4f5-44bc-bab3-1f1b1a4fb193;
-	Fri, 09 Oct 2020 19:53:39 +0000 (UTC)
-IronPort-SDR: vf1kLufGuZvoeyE0bw08HZmdaR4ufp6QnkT9XSJmCbKbXRFNpNwX+/QDTcc6JIksyNbs0aO7Y3
- Gm6ahr573jeA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="145397633"
+	id 1ae675ba-8138-4d44-9dc2-c2b7720986d2;
+	Fri, 09 Oct 2020 19:53:43 +0000 (UTC)
+IronPort-SDR: NFNuK0DA20GFM7n/UmsvLHztqJht3MxNKx1+P/wchXae5yacImepU1iGMpU18ZqQI3Wjm8b9Jw
+ njiXbjFJKd6Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165592519"
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="145397633"
+   d="scan'208";a="165592519"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:38 -0700
-IronPort-SDR: 77OyjRxsHRqLdlwGyIEmSTWShPVNVQULX7LnGcMeG3NkwcCC4UbesWRkZ9bTTqcjV6t6jmiGf4
- lDgqS7BTpvKw==
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:41 -0700
+IronPort-SDR: t/zSGeR++7wfj+VtFM7nhfyp5h0blfdWqDlNHnP/5jl48Bm08GFuTiLpDu6MwkEQ7bZpMY8SQr
+ l7ztZVCdgy3g==
 X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; 
-   d="scan'208";a="389237394"
+   d="scan'208";a="419537249"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:37 -0700
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2020 12:53:40 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -75,8 +75,7 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Andy Lutomirski <luto@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>
 Cc: Ira Weiny <ira.weiny@intel.com>,
-	Coly Li <colyli@suse.de>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	x86@kernel.org,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Dan Williams <dan.j.williams@intel.com>,
@@ -125,9 +124,9 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 	linux-cachefs@redhat.com,
 	samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
-Subject: [PATCH RFC PKS/PMEM 48/58] drivers/md: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:23 -0700
-Message-Id: <20201009195033.3208459-49-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 49/58] drivers/misc: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:24 -0700
+Message-Id: <20201009195033.3208459-50-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -139,30 +138,64 @@ From: Ira Weiny <ira.weiny@intel.com>
 These kmap() calls are localized to a single thread.  To avoid the over
 head of global PKRS updates use the new kmap_thread() call.
 
-Cc: Coly Li <colyli@suse.de> (maintainer:BCACHE (BLOCK LAYER CACHE))
-Cc: Kent Overstreet <kent.overstreet@gmail.com> (maintainer:BCACHE (BLOCK LAYER CACHE))
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/md/bcache/request.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/misc/vmw_vmci/vmci_queue_pair.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-index c7cadaafa947..a4571f6d09dd 100644
---- a/drivers/md/bcache/request.c
-+++ b/drivers/md/bcache/request.c
-@@ -44,10 +44,10 @@ static void bio_csum(struct bio *bio, struct bkey *k)
- 	uint64_t csum = 0;
+diff --git a/drivers/misc/vmw_vmci/vmci_queue_pair.c b/drivers/misc/vmw_vmci/vmci_queue_pair.c
+index 8531ae781195..f308abb8ad03 100644
+--- a/drivers/misc/vmw_vmci/vmci_queue_pair.c
++++ b/drivers/misc/vmw_vmci/vmci_queue_pair.c
+@@ -343,7 +343,7 @@ static int qp_memcpy_to_queue_iter(struct vmci_queue *queue,
+ 		size_t to_copy;
  
- 	bio_for_each_segment(bv, bio, iter) {
--		void *d = kmap(bv.bv_page) + bv.bv_offset;
-+		void *d = kmap_thread(bv.bv_page) + bv.bv_offset;
- 
- 		csum = bch_crc64_update(csum, d, bv.bv_len);
--		kunmap(bv.bv_page);
-+		kunmap_thread(bv.bv_page);
+ 		if (kernel_if->host)
+-			va = kmap(kernel_if->u.h.page[page_index]);
++			va = kmap_thread(kernel_if->u.h.page[page_index]);
+ 		else
+ 			va = kernel_if->u.g.vas[page_index + 1];
+ 			/* Skip header. */
+@@ -357,12 +357,12 @@ static int qp_memcpy_to_queue_iter(struct vmci_queue *queue,
+ 		if (!copy_from_iter_full((u8 *)va + page_offset, to_copy,
+ 					 from)) {
+ 			if (kernel_if->host)
+-				kunmap(kernel_if->u.h.page[page_index]);
++				kunmap_thread(kernel_if->u.h.page[page_index]);
+ 			return VMCI_ERROR_INVALID_ARGS;
+ 		}
+ 		bytes_copied += to_copy;
+ 		if (kernel_if->host)
+-			kunmap(kernel_if->u.h.page[page_index]);
++			kunmap_thread(kernel_if->u.h.page[page_index]);
  	}
  
- 	k->ptr[KEY_PTRS(k)] = csum & (~0ULL >> 1);
+ 	return VMCI_SUCCESS;
+@@ -391,7 +391,7 @@ static int qp_memcpy_from_queue_iter(struct iov_iter *to,
+ 		int err;
+ 
+ 		if (kernel_if->host)
+-			va = kmap(kernel_if->u.h.page[page_index]);
++			va = kmap_thread(kernel_if->u.h.page[page_index]);
+ 		else
+ 			va = kernel_if->u.g.vas[page_index + 1];
+ 			/* Skip header. */
+@@ -405,12 +405,12 @@ static int qp_memcpy_from_queue_iter(struct iov_iter *to,
+ 		err = copy_to_iter((u8 *)va + page_offset, to_copy, to);
+ 		if (err != to_copy) {
+ 			if (kernel_if->host)
+-				kunmap(kernel_if->u.h.page[page_index]);
++				kunmap_thread(kernel_if->u.h.page[page_index]);
+ 			return VMCI_ERROR_INVALID_ARGS;
+ 		}
+ 		bytes_copied += to_copy;
+ 		if (kernel_if->host)
+-			kunmap(kernel_if->u.h.page[page_index]);
++			kunmap_thread(kernel_if->u.h.page[page_index]);
+ 	}
+ 
+ 	return VMCI_SUCCESS;
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
