@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCA828A18A
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Oct 2020 23:56:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5543.14412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E8D28A2CA
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Oct 2020 01:03:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5548.14431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRMpV-0001W5-Ta; Sat, 10 Oct 2020 21:55:05 +0000
+	id 1kRNsJ-0008AT-SO; Sat, 10 Oct 2020 23:02:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5543.14412; Sat, 10 Oct 2020 21:55:05 +0000
+Received: by outflank-mailman (output) from mailman id 5548.14431; Sat, 10 Oct 2020 23:02:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,358 +23,480 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRMpV-0001Vg-QT; Sat, 10 Oct 2020 21:55:05 +0000
-Received: by outflank-mailman (input) for mailman id 5543;
- Sat, 10 Oct 2020 21:55:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kRNsJ-0008A4-Od; Sat, 10 Oct 2020 23:02:03 +0000
+Received: by outflank-mailman (input) for mailman id 5548;
+ Sat, 10 Oct 2020 23:02:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cL7A=DR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kRMpU-0001Va-3g
- for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 21:55:04 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3d5ef2e8-270c-4bc7-873f-ad79660b765e;
- Sat, 10 Oct 2020 21:55:01 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kRMpQ-0006e9-Jo; Sat, 10 Oct 2020 21:55:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kRMpQ-0000dv-8d; Sat, 10 Oct 2020 21:55:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kRMpQ-00030u-89; Sat, 10 Oct 2020 21:55:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=LTlF=DR=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
+ id 1kRNsI-00089z-OS
+ for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 23:02:02 +0000
+Received: from mga14.intel.com (unknown [192.55.52.115])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3b02001-4839-4e87-8d2b-07a670331f39;
+ Sat, 10 Oct 2020 23:02:00 +0000 (UTC)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2020 16:01:58 -0700
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2020 16:01:56 -0700
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cL7A=DR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kRMpU-0001Va-3g
-	for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 21:55:04 +0000
-X-Inumbo-ID: 3d5ef2e8-270c-4bc7-873f-ad79660b765e
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3d5ef2e8-270c-4bc7-873f-ad79660b765e;
-	Sat, 10 Oct 2020 21:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=KhGz3ffm07OyR1hYEZJwCUzGwhWT9/mUQ3SaRhDV00Y=; b=euh+TL/1EfmovGEqVlULu3dIfs
-	PGFneQEfDdtV1L2uW2Zz155ZM3biq3kTwEzzfqCCnW97lCwr21AKk9tlBzwDgE5ryZXgmD4Nzt68l
-	No0pJEFmZQ6G25xyF/Qjp+Rz3r4FFeITgSArg8l/bO8BRCWOo+XhUZzZFq+8p8vdLF5g=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRMpQ-0006e9-Jo; Sat, 10 Oct 2020 21:55:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRMpQ-0000dv-8d; Sat, 10 Oct 2020 21:55:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRMpQ-00030u-89; Sat, 10 Oct 2020 21:55:00 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155639-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=LTlF=DR=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
+	id 1kRNsI-00089z-OS
+	for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 23:02:02 +0000
+X-Inumbo-ID: c3b02001-4839-4e87-8d2b-07a670331f39
+Received: from mga14.intel.com (unknown [192.55.52.115])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id c3b02001-4839-4e87-8d2b-07a670331f39;
+	Sat, 10 Oct 2020 23:02:00 +0000 (UTC)
+IronPort-SDR: lE3wQofHjIJVvOhUcpp6rmJ+AcUanf7MWUL1/j73hBpJH+mb8vdnffTAVBkMLCfmYXP2HYk+Iv
+ 8lMoPV62uteQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9770"; a="164823030"
+X-IronPort-AV: E=Sophos;i="5.77,360,1596524400"; 
+   d="scan'208";a="164823030"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2020 16:01:58 -0700
+IronPort-SDR: u8hpYVeZMmLfNxJlrYKazUxwnAD4tdLG9jg9nK8c6q04PE64rSl1u0/Oby62JZ45YUl7qtSnq6
+ /O/xXGC90zkg==
+X-IronPort-AV: E=Sophos;i="5.77,360,1596524400"; 
+   d="scan'208";a="529414067"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2020 16:01:56 -0700
+Date: Sat, 10 Oct 2020 16:01:55 -0700
+From: Ira Weiny <ira.weiny@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	David Airlie <airlied@linux.ie>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, x86@kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Fenghua Yu <fenghua.yu@intel.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-nvdimm@lists.01.org,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	kexec@lists.infradead.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, devel@driverdev.osuosl.org,
+	linux-efi@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-aio@kvack.org,
+	io-uring@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-um@lists.infradead.org, linux-ntfs-dev@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
+	cluster-devel@redhat.com, ecryptfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-afs@lists.infradead.org, linux-rdma@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org, drbd-dev@lists.linbit.com,
+	linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-cachefs@redhat.com, samba-technical@lists.samba.org,
+	intel-wired-lan@lists.osuosl.org
+Subject: Re: [PATCH RFC PKS/PMEM 09/58] drivers/gpu: Utilize new kmap_thread()
+Message-ID: <20201010230155.GX2046448@iweiny-DESK2.sc.intel.com>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-10-ira.weiny@intel.com>
+ <20201009220349.GQ438822@phenom.ffwll.local>
 MIME-Version: 1.0
-Subject: [linux-linus test] 155639: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
-    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-cubietruck:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:guest-saverestore:fail:allowable
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=6f2f486d57c4d562cdf4932320b66fbb878ab1c4
-X-Osstest-Versions-That:
-    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 10 Oct 2020 21:55:00 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201009220349.GQ438822@phenom.ffwll.local>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 
-flight 155639 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155639/
+On Sat, Oct 10, 2020 at 12:03:49AM +0200, Daniel Vetter wrote:
+> On Fri, Oct 09, 2020 at 12:49:44PM -0700, ira.weiny@intel.com wrote:
+> > From: Ira Weiny <ira.weiny@intel.com>
+> > 
+> > These kmap() calls in the gpu stack are localized to a single thread.
+> > To avoid the over head of global PKRS updates use the new kmap_thread()
+> > call.
+> > 
+> > Cc: David Airlie <airlied@linux.ie>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> > Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> 
+> I'm guessing the entire pile goes in through some other tree.
+>
 
-Regressions :-(
+Apologies for not realizing there were multiple maintainers here.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
- test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 152332
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 152332
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 152332
- test-armhf-armhf-xl-cubietruck  8 xen-boot               fail REGR. vs. 152332
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 152332
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 152332
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 152332
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 152332
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 152332
+But, I was thinking it would land together through the mm tree once the core
+support lands.  I've tried to split these out in a way they can be easily
+reviewed/acked by the correct developers.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     17 guest-saverestore        fail REGR. vs. 152332
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 152332
+> If so:
+> 
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> 
+> If you want this to land through maintainer trees, then we need a
+> per-driver split (since aside from amdgpu and radeon they're all different
+> subtrees).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2  fail never pass
+It is just RFC for the moment.  I need to get the core support accepted first
+then this can land.
 
-version targeted for testing:
- linux                6f2f486d57c4d562cdf4932320b66fbb878ab1c4
-baseline version:
- linux                deacdb3e3979979016fcd0ffd518c320a62ad166
+> 
+> btw the two kmap calls in drm you highlight in the cover letter should
+> also be convertible to kmap_thread. We only hold vmalloc mappings for a
+> longer time (or it'd be quite a driver bug). So if you want maybe throw
+> those two as two additional patches on top, and we can do some careful
+> review & testing for them.
 
-Last test of basis   152332  2020-07-31 19:41:23 Z   71 days
-Failing since        152366  2020-08-01 20:49:34 Z   70 days  117 attempts
-Testing same since   155639  2020-10-10 06:58:43 Z    0 days    1 attempts
+Cool.  I'll add them in.
 
-------------------------------------------------------------
-2510 people touched revisions under test,
-not listing them all
+Ira
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-i386-examine                                      fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-xl-raw                                       fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 339458 lines long.)
+> -Daniel
+> 
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c              | 12 ++++++------
+> >  drivers/gpu/drm/gma500/gma_display.c                 |  4 ++--
+> >  drivers/gpu/drm/gma500/mmu.c                         | 10 +++++-----
+> >  drivers/gpu/drm/i915/gem/i915_gem_shmem.c            |  4 ++--
+> >  .../gpu/drm/i915/gem/selftests/i915_gem_context.c    |  4 ++--
+> >  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c   |  8 ++++----
+> >  drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c         |  4 ++--
+> >  drivers/gpu/drm/i915/gt/intel_gtt.c                  |  4 ++--
+> >  drivers/gpu/drm/i915/gt/shmem_utils.c                |  4 ++--
+> >  drivers/gpu/drm/i915/i915_gem.c                      |  8 ++++----
+> >  drivers/gpu/drm/i915/i915_gpu_error.c                |  4 ++--
+> >  drivers/gpu/drm/i915/selftests/i915_perf.c           |  4 ++--
+> >  drivers/gpu/drm/radeon/radeon_ttm.c                  |  4 ++--
+> >  13 files changed, 37 insertions(+), 37 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > index 978bae731398..bd564bccb7a3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -2437,11 +2437,11 @@ static ssize_t amdgpu_ttm_gtt_read(struct file *f, char __user *buf,
+> >  
+> >  		page = adev->gart.pages[p];
+> >  		if (page) {
+> > -			ptr = kmap(page);
+> > +			ptr = kmap_thread(page);
+> >  			ptr += off;
+> >  
+> >  			r = copy_to_user(buf, ptr, cur_size);
+> > -			kunmap(adev->gart.pages[p]);
+> > +			kunmap_thread(adev->gart.pages[p]);
+> >  		} else
+> >  			r = clear_user(buf, cur_size);
+> >  
+> > @@ -2507,9 +2507,9 @@ static ssize_t amdgpu_iomem_read(struct file *f, char __user *buf,
+> >  		if (p->mapping != adev->mman.bdev.dev_mapping)
+> >  			return -EPERM;
+> >  
+> > -		ptr = kmap(p);
+> > +		ptr = kmap_thread(p);
+> >  		r = copy_to_user(buf, ptr + off, bytes);
+> > -		kunmap(p);
+> > +		kunmap_thread(p);
+> >  		if (r)
+> >  			return -EFAULT;
+> >  
+> > @@ -2558,9 +2558,9 @@ static ssize_t amdgpu_iomem_write(struct file *f, const char __user *buf,
+> >  		if (p->mapping != adev->mman.bdev.dev_mapping)
+> >  			return -EPERM;
+> >  
+> > -		ptr = kmap(p);
+> > +		ptr = kmap_thread(p);
+> >  		r = copy_from_user(ptr + off, buf, bytes);
+> > -		kunmap(p);
+> > +		kunmap_thread(p);
+> >  		if (r)
+> >  			return -EFAULT;
+> >  
+> > diff --git a/drivers/gpu/drm/gma500/gma_display.c b/drivers/gpu/drm/gma500/gma_display.c
+> > index 3df6d6e850f5..35f4e55c941f 100644
+> > --- a/drivers/gpu/drm/gma500/gma_display.c
+> > +++ b/drivers/gpu/drm/gma500/gma_display.c
+> > @@ -400,9 +400,9 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
+> >  		/* Copy the cursor to cursor mem */
+> >  		tmp_dst = dev_priv->vram_addr + cursor_gt->offset;
+> >  		for (i = 0; i < cursor_pages; i++) {
+> > -			tmp_src = kmap(gt->pages[i]);
+> > +			tmp_src = kmap_thread(gt->pages[i]);
+> >  			memcpy(tmp_dst, tmp_src, PAGE_SIZE);
+> > -			kunmap(gt->pages[i]);
+> > +			kunmap_thread(gt->pages[i]);
+> >  			tmp_dst += PAGE_SIZE;
+> >  		}
+> >  
+> > diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
+> > index 505044c9a673..fba7a3a461fd 100644
+> > --- a/drivers/gpu/drm/gma500/mmu.c
+> > +++ b/drivers/gpu/drm/gma500/mmu.c
+> > @@ -192,20 +192,20 @@ struct psb_mmu_pd *psb_mmu_alloc_pd(struct psb_mmu_driver *driver,
+> >  		pd->invalid_pte = 0;
+> >  	}
+> >  
+> > -	v = kmap(pd->dummy_pt);
+> > +	v = kmap_thread(pd->dummy_pt);
+> >  	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+> >  		v[i] = pd->invalid_pte;
+> >  
+> > -	kunmap(pd->dummy_pt);
+> > +	kunmap_thread(pd->dummy_pt);
+> >  
+> > -	v = kmap(pd->p);
+> > +	v = kmap_thread(pd->p);
+> >  	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+> >  		v[i] = pd->invalid_pde;
+> >  
+> > -	kunmap(pd->p);
+> > +	kunmap_thread(pd->p);
+> >  
+> >  	clear_page(kmap(pd->dummy_page));
+> > -	kunmap(pd->dummy_page);
+> > +	kunmap_thread(pd->dummy_page);
+> >  
+> >  	pd->tables = vmalloc_user(sizeof(struct psb_mmu_pt *) * 1024);
+> >  	if (!pd->tables)
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > index 38113d3c0138..274424795fb7 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > @@ -566,9 +566,9 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
+> >  		if (err < 0)
+> >  			goto fail;
+> >  
+> > -		vaddr = kmap(page);
+> > +		vaddr = kmap_thread(page);
+> >  		memcpy(vaddr, data, len);
+> > -		kunmap(page);
+> > +		kunmap_thread(page);
+> >  
+> >  		err = pagecache_write_end(file, file->f_mapping,
+> >  					  offset, len, len,
+> > diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> > index 7ffc3c751432..b466c677d007 100644
+> > --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> > +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+> > @@ -1754,7 +1754,7 @@ static int check_scratch_page(struct i915_gem_context *ctx, u32 *out)
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > -	vaddr = kmap(page);
+> > +	vaddr = kmap_thread(page);
+> >  	if (!vaddr) {
+> >  		pr_err("No (mappable) scratch page!\n");
+> >  		return -EINVAL;
+> > @@ -1765,7 +1765,7 @@ static int check_scratch_page(struct i915_gem_context *ctx, u32 *out)
+> >  		pr_err("Inconsistent initial state of scratch page!\n");
+> >  		err = -EINVAL;
+> >  	}
+> > -	kunmap(page);
+> > +	kunmap_thread(page);
+> >  
+> >  	return err;
+> >  }
+> > diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> > index 9c7402ce5bf9..447df22e2e06 100644
+> > --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> > +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> > @@ -143,7 +143,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+> >  	intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
+> >  
+> >  	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+> > -	cpu = kmap(p) + offset_in_page(offset);
+> > +	cpu = kmap_thread(p) + offset_in_page(offset);
+> >  	drm_clflush_virt_range(cpu, sizeof(*cpu));
+> >  	if (*cpu != (u32)page) {
+> >  		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
+> > @@ -161,7 +161,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+> >  	}
+> >  	*cpu = 0;
+> >  	drm_clflush_virt_range(cpu, sizeof(*cpu));
+> > -	kunmap(p);
+> > +	kunmap_thread(p);
+> >  
+> >  out:
+> >  	__i915_vma_put(vma);
+> > @@ -236,7 +236,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+> >  		intel_gt_flush_ggtt_writes(&to_i915(obj->base.dev)->gt);
+> >  
+> >  		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+> > -		cpu = kmap(p) + offset_in_page(offset);
+> > +		cpu = kmap_thread(p) + offset_in_page(offset);
+> >  		drm_clflush_virt_range(cpu, sizeof(*cpu));
+> >  		if (*cpu != (u32)page) {
+> >  			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
+> > @@ -254,7 +254,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+> >  		}
+> >  		*cpu = 0;
+> >  		drm_clflush_virt_range(cpu, sizeof(*cpu));
+> > -		kunmap(p);
+> > +		kunmap_thread(p);
+> >  		if (err)
+> >  			return err;
+> >  
+> > diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+> > index 7fb36b12fe7a..38da348282f1 100644
+> > --- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+> > +++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+> > @@ -731,7 +731,7 @@ static void swizzle_page(struct page *page)
+> >  	char *vaddr;
+> >  	int i;
+> >  
+> > -	vaddr = kmap(page);
+> > +	vaddr = kmap_thread(page);
+> >  
+> >  	for (i = 0; i < PAGE_SIZE; i += 128) {
+> >  		memcpy(temp, &vaddr[i], 64);
+> > @@ -739,7 +739,7 @@ static void swizzle_page(struct page *page)
+> >  		memcpy(&vaddr[i + 64], temp, 64);
+> >  	}
+> >  
+> > -	kunmap(page);
+> > +	kunmap_thread(page);
+> >  }
+> >  
+> >  /**
+> > diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+> > index 2a72cce63fd9..4cfb24e9ed62 100644
+> > --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
+> > +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+> > @@ -312,9 +312,9 @@ static void poison_scratch_page(struct page *page, unsigned long size)
+> >  	do {
+> >  		void *vaddr;
+> >  
+> > -		vaddr = kmap(page);
+> > +		vaddr = kmap_thread(page);
+> >  		memset(vaddr, POISON_FREE, PAGE_SIZE);
+> > -		kunmap(page);
+> > +		kunmap_thread(page);
+> >  
+> >  		page = pfn_to_page(page_to_pfn(page) + 1);
+> >  		size -= PAGE_SIZE;
+> > diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
+> > index 43c7acbdc79d..a40d3130cebf 100644
+> > --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
+> > +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+> > @@ -142,12 +142,12 @@ static int __shmem_rw(struct file *file, loff_t off,
+> >  		if (IS_ERR(page))
+> >  			return PTR_ERR(page);
+> >  
+> > -		vaddr = kmap(page);
+> > +		vaddr = kmap_thread(page);
+> >  		if (write)
+> >  			memcpy(vaddr + offset_in_page(off), ptr, this);
+> >  		else
+> >  			memcpy(ptr, vaddr + offset_in_page(off), this);
+> > -		kunmap(page);
+> > +		kunmap_thread(page);
+> >  		put_page(page);
+> >  
+> >  		len -= this;
+> > diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+> > index 9aa3066cb75d..cae8300fd224 100644
+> > --- a/drivers/gpu/drm/i915/i915_gem.c
+> > +++ b/drivers/gpu/drm/i915/i915_gem.c
+> > @@ -312,14 +312,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
+> >  	char *vaddr;
+> >  	int ret;
+> >  
+> > -	vaddr = kmap(page);
+> > +	vaddr = kmap_thread(page);
+> >  
+> >  	if (needs_clflush)
+> >  		drm_clflush_virt_range(vaddr + offset, len);
+> >  
+> >  	ret = __copy_to_user(user_data, vaddr + offset, len);
+> >  
+> > -	kunmap(page);
+> > +	kunmap_thread(page);
+> >  
+> >  	return ret ? -EFAULT : 0;
+> >  }
+> > @@ -708,7 +708,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+> >  	char *vaddr;
+> >  	int ret;
+> >  
+> > -	vaddr = kmap(page);
+> > +	vaddr = kmap_thread(page);
+> >  
+> >  	if (needs_clflush_before)
+> >  		drm_clflush_virt_range(vaddr + offset, len);
+> > @@ -717,7 +717,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+> >  	if (!ret && needs_clflush_after)
+> >  		drm_clflush_virt_range(vaddr + offset, len);
+> >  
+> > -	kunmap(page);
+> > +	kunmap_thread(page);
+> >  
+> >  	return ret ? -EFAULT : 0;
+> >  }
+> > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > index 3e6cbb0d1150..aecd469b6b6e 100644
+> > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > @@ -1058,9 +1058,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+> >  
+> >  			drm_clflush_pages(&page, 1);
+> >  
+> > -			s = kmap(page);
+> > +			s = kmap_thread(page);
+> >  			ret = compress_page(compress, s, dst, false);
+> > -			kunmap(page);
+> > +			kunmap_thread(page);
+> >  
+> >  			drm_clflush_pages(&page, 1);
+> >  
+> > diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> > index c2d001d9c0ec..7f7ef2d056f4 100644
+> > --- a/drivers/gpu/drm/i915/selftests/i915_perf.c
+> > +++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> > @@ -307,7 +307,7 @@ static int live_noa_gpr(void *arg)
+> >  	}
+> >  
+> >  	/* Poison the ce->vm so we detect writes not to the GGTT gt->scratch */
+> > -	scratch = kmap(ce->vm->scratch[0].base.page);
+> > +	scratch = kmap_thread(ce->vm->scratch[0].base.page);
+> >  	memset(scratch, POISON_FREE, PAGE_SIZE);
+> >  
+> >  	rq = intel_context_create_request(ce);
+> > @@ -405,7 +405,7 @@ static int live_noa_gpr(void *arg)
+> >  out_rq:
+> >  	i915_request_put(rq);
+> >  out_ce:
+> > -	kunmap(ce->vm->scratch[0].base.page);
+> > +	kunmap_thread(ce->vm->scratch[0].base.page);
+> >  	intel_context_put(ce);
+> >  out:
+> >  	stream_destroy(stream);
+> > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+> > index 004344dce140..0aba0cac51e1 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> > @@ -1013,11 +1013,11 @@ static ssize_t radeon_ttm_gtt_read(struct file *f, char __user *buf,
+> >  
+> >  		page = rdev->gart.pages[p];
+> >  		if (page) {
+> > -			ptr = kmap(page);
+> > +			ptr = kmap_thread(page);
+> >  			ptr += off;
+> >  
+> >  			r = copy_to_user(buf, ptr, cur_size);
+> > -			kunmap(rdev->gart.pages[p]);
+> > +			kunmap_thread(rdev->gart.pages[p]);
+> >  		} else
+> >  			r = clear_user(buf, cur_size);
+> >  
+> > -- 
+> > 2.28.0.rc0.12.gb6a658bd00c9
+> > 
+> 
+> -- 
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 
