@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DC528A082
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Oct 2020 15:11:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5420.14168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A39928A08F
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Oct 2020 15:35:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5423.14183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kREdr-0000Fg-Cw; Sat, 10 Oct 2020 13:10:31 +0000
+	id 1kRF10-0002J4-Fn; Sat, 10 Oct 2020 13:34:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5420.14168; Sat, 10 Oct 2020 13:10:31 +0000
+Received: by outflank-mailman (output) from mailman id 5423.14183; Sat, 10 Oct 2020 13:34:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,263 +23,114 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kREdr-0000FJ-9n; Sat, 10 Oct 2020 13:10:31 +0000
-Received: by outflank-mailman (input) for mailman id 5420;
- Sat, 10 Oct 2020 13:10:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kRF10-0002Ie-Ax; Sat, 10 Oct 2020 13:34:26 +0000
+Received: by outflank-mailman (input) for mailman id 5423;
+ Sat, 10 Oct 2020 13:34:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cL7A=DR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kREdp-0000FE-7M
- for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 13:10:29 +0000
+ id 1kRF0y-0002IZ-Kt
+ for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 13:34:24 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 14bd9c86-4713-4b14-afb6-4d2ea481628f;
- Sat, 10 Oct 2020 13:10:25 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 22a56855-9e1a-467c-a54e-6f74addc7d45;
+ Sat, 10 Oct 2020 13:34:22 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kREdl-0003kw-95; Sat, 10 Oct 2020 13:10:25 +0000
+ id 1kRF0w-0004G9-2g; Sat, 10 Oct 2020 13:34:22 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kREdl-0008NX-1c; Sat, 10 Oct 2020 13:10:25 +0000
+ id 1kRF0v-00013m-Qb; Sat, 10 Oct 2020 13:34:21 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kREdl-0000DP-17; Sat, 10 Oct 2020 13:10:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ id 1kRF0v-0008NV-Q6; Sat, 10 Oct 2020 13:34:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=cL7A=DR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kREdp-0000FE-7M
-	for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 13:10:29 +0000
-X-Inumbo-ID: 14bd9c86-4713-4b14-afb6-4d2ea481628f
+	id 1kRF0y-0002IZ-Kt
+	for xen-devel@lists.xenproject.org; Sat, 10 Oct 2020 13:34:24 +0000
+X-Inumbo-ID: 22a56855-9e1a-467c-a54e-6f74addc7d45
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 14bd9c86-4713-4b14-afb6-4d2ea481628f;
-	Sat, 10 Oct 2020 13:10:25 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 22a56855-9e1a-467c-a54e-6f74addc7d45;
+	Sat, 10 Oct 2020 13:34:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=9cKEvzK27ujtKBZ/Ri33penMFcwrR4vjG2oLF3EhfPU=; b=BpIi7weXlqG8ljMo6Z5gwW6bQ0
-	ANBpvQ05NTiHkjSts9ACC8jrQVxWk44U7GIOIUemSNpukFx6s/lYpQqBtj0fj4YPjYIO63Vew9EnA
-	40Pw2P5Rt9p1f3enjgQyb7Fiib0n0kMqtz4cJLgTtufyOLn8LGxguWH006viPwaGrJSA=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=G/Us54dO7fubzSLv/2hAeaOWU/0e2bHLUx33Xjl9ehw=; b=dshM9bVO4BQIuerSqbbSuS7Vqf
+	ab6jbxI6KZKxzhlFOrQxMx3yZz6pH4TZOGK5peSwF69X6azwq+QlGIcYgpj07dhTb9bwc2hpeCUKQ
+	d7YphjsizjiAG3HMw2fr8cbtoSIbDhjRxFdXcaPH+dyg0iil2cqlW9koCruM4UmYGjQk=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kREdl-0003kw-95; Sat, 10 Oct 2020 13:10:25 +0000
+	id 1kRF0w-0004G9-2g; Sat, 10 Oct 2020 13:34:22 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kREdl-0008NX-1c; Sat, 10 Oct 2020 13:10:25 +0000
+	id 1kRF0v-00013m-Qb; Sat, 10 Oct 2020 13:34:21 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kREdl-0000DP-17; Sat, 10 Oct 2020 13:10:25 +0000
+	id 1kRF0v-0008NV-Q6; Sat, 10 Oct 2020 13:34:21 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Subject: [xen-unstable-smoke bisection] complete test-arm64-arm64-xl-xsm
-Message-Id: <E1kREdl-0000DP-17@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-155649-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155649: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
+X-Osstest-Versions-That:
+    xen=25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 10 Oct 2020 13:10:25 +0000
+Date: Sat, 10 Oct 2020 13:34:21 +0000
 
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job test-arm64-arm64-xl-xsm
-testid xen-boot
+flight 155649 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155649/
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8a71d50ed40bfa78c37722dc11995ac2563662c3
-  Bug not present: 4dced5df761e36fa2561f6f0f6563b3580d95e7f
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155652/
-
-
-  commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
-  Author: Trammell Hudson <hudson@trmm.net>
-  Date:   Fri Oct 2 07:18:21 2020 -0400
-  
-      efi: Enable booting unified hypervisor/kernel/initrd images
-      
-      This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
-      configuration file, the Linux kernel and initrd, as well as the XSM,
-      and architectural specific files into a single "unified" EFI executable.
-      This allows an administrator to update the components independently
-      without requiring rebuilding xen, as well as to replace the components
-      in an existing image.
-      
-      The resulting EFI executable can be invoked directly from the UEFI Boot
-      Manager, removing the need to use a separate loader like grub as well
-      as removing dependencies on local filesystem access.  And since it is
-      a single file, it can be signed and validated by UEFI Secure Boot without
-      requring the shim protocol.
-      
-      It is inspired by systemd-boot's unified kernel technique and borrows the
-      function to locate PE sections from systemd's LGPL'ed code.  During EFI
-      boot, Xen looks at its own loaded image to locate the PE sections for
-      the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-      (`.ramdisk`), and XSM config (`.xsm`), which are included after building
-      xen.efi using objcopy to add named sections for each input file.
-      
-      For x86, the CPU ucode can be included in a section named `.ucode`,
-      which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
-      
-      On ARM systems the Device Tree can be included in a section named
-      `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
-      the boot process.
-      
-      Note that the system will fall back to loading files from disk if
-      the named sections do not exist. This allows distributions to continue
-      with the status quo if they want a signed kernel + config, while still
-      allowing a user provided initrd (which is how the shim protocol currently
-      works as well).
-      
-      This patch also adds constness to the section parameter of
-      efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
-      changes pe_find_section() to use a const CHAR16 section name,
-      and adds pe_name_compare() to match section names.
-      
-      Signed-off-by: Trammell Hudson <hudson@trmm.net>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-      [Fix ARM build by including pe.init.o]
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot --summary-out=tmp/155652.bisection-summary --basis-template=155584 --blessings=real,real-bisect xen-unstable-smoke test-arm64-arm64-xl-xsm xen-boot
-Searching for failure / basis pass:
- 155642 fail [host=laxton0] / 155584 ok.
-Failure / basis pass flights: 155642 / 155584
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
-Basis pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9-a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc437c386260-ea6d3cd1ed79d824e605a70c3626bc437c386260 git://xenbits.xen.org/xen.git#25849c8b16f2a5b7fcd0a823e80a5f1b590291f9-8a62dee\
- 9ceff3056c7e0bd9632bac39bee2a51b3
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 155584 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
- 155612 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
- 155614 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
- 155616 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
- 155615 [host=rochester1]
- 155618 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 04be2c3a067899a3860fc2c7bc7a1599502ed1c5
- 155620 [host=rochester1]
- 155623 [host=rochester1]
- 155624 [host=rochester1]
- 155626 [host=rochester1]
- 155628 [host=rochester1]
- 155622 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
- 155629 [host=rochester1]
- 155633 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 4dced5df761e36fa2561f6f0f6563b3580d95e7f
- 155635 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a71d50ed40bfa78c37722dc11995ac2563662c3
- 155638 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 4dced5df761e36fa2561f6f0f6563b3580d95e7f
- 155632 [host=rochester1]
- 155640 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a71d50ed40bfa78c37722dc11995ac2563662c3
- 155641 [host=rochester1]
- 155646 [host=rochester1]
- 155642 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
- 155648 [host=rochester1]
- 155651 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 4dced5df761e36fa2561f6f0f6563b3580d95e7f
- 155652 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 8a71d50ed40bfa78c37722dc11995ac2563662c3
-Searching for interesting versions
- Result found: flight 155584 (pass), for basis pass
- For basis failure, parent search stopping at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 4dced5df761e36fa2561f6f0f6563b3580d95e7f, results HASH(0x5640e46200e8) HASH(0x5640e4617da0) HASH(0x5640e4627028) For basis failure, parent search stopping at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 04be2c3a067899a3860fc2c7bc7a1599502ed1c5, results \
- HASH(0x5640e460f2d8) For basis failure, parent search stopping at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9, results HASH(0x5640e460cbe0) HASH(0x5640e46152f0) Result found: flight 155612 (fail), for basis failure (at ancestor ~422)
- Repro found: flight 155614 (pass), for basis pass
- Repro found: flight 155616 (fail), for basis failure
- 0 revisions at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea6d3cd1ed79d824e605a70c3626bc437c386260 4dced5df761e36fa2561f6f0f6563b3580d95e7f
-No revisions left to test, checking graph state.
- Result found: flight 155633 (pass), for last pass
- Result found: flight 155635 (fail), for first failure
- Repro found: flight 155638 (pass), for last pass
- Repro found: flight 155640 (fail), for first failure
- Repro found: flight 155651 (pass), for last pass
- Repro found: flight 155652 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8a71d50ed40bfa78c37722dc11995ac2563662c3
-  Bug not present: 4dced5df761e36fa2561f6f0f6563b3580d95e7f
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155652/
-
-
-  commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
-  Author: Trammell Hudson <hudson@trmm.net>
-  Date:   Fri Oct 2 07:18:21 2020 -0400
-  
-      efi: Enable booting unified hypervisor/kernel/initrd images
-      
-      This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
-      configuration file, the Linux kernel and initrd, as well as the XSM,
-      and architectural specific files into a single "unified" EFI executable.
-      This allows an administrator to update the components independently
-      without requiring rebuilding xen, as well as to replace the components
-      in an existing image.
-      
-      The resulting EFI executable can be invoked directly from the UEFI Boot
-      Manager, removing the need to use a separate loader like grub as well
-      as removing dependencies on local filesystem access.  And since it is
-      a single file, it can be signed and validated by UEFI Secure Boot without
-      requring the shim protocol.
-      
-      It is inspired by systemd-boot's unified kernel technique and borrows the
-      function to locate PE sections from systemd's LGPL'ed code.  During EFI
-      boot, Xen looks at its own loaded image to locate the PE sections for
-      the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-      (`.ramdisk`), and XSM config (`.xsm`), which are included after building
-      xen.efi using objcopy to add named sections for each input file.
-      
-      For x86, the CPU ucode can be included in a section named `.ucode`,
-      which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
-      
-      On ARM systems the Device Tree can be included in a section named
-      `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
-      the boot process.
-      
-      Note that the system will fall back to loading files from disk if
-      the named sections do not exist. This allows distributions to continue
-      with the status quo if they want a signed kernel + config, while still
-      allowing a user provided initrd (which is how the shim protocol currently
-      works as well).
-      
-      This patch also adds constness to the section parameter of
-      efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
-      changes pe_find_section() to use a const CHAR16 section name,
-      and adds pe_name_compare() to match section names.
-      
-      Signed-off-by: Trammell Hudson <hudson@trmm.net>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-      [Fix ARM build by including pe.init.o]
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot.{dot,ps,png,html,svg}.
-----------------------------------------
-155652: tolerable ALL FAIL
-
-flight 155652 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155652/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-arm64-arm64-xl-xsm       8 xen-boot                fail baseline untested
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 155584
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
+baseline version:
+ xen                  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+
+Last test of basis   155584  2020-10-09 02:01:25 Z    1 days
+Testing same since   155612  2020-10-09 18:01:22 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Trammell Hudson <hudson@trmm.net>
 
 jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
  test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
 ------------------------------------------------------------
@@ -297,4 +148,129 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+------------------------------------------------------------
+commit 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Oct 2 12:30:34 2020 +0200
+
+    x86/vLAPIC: don't leak regs page from vlapic_init() upon error
+    
+    Fixes: 8a981e0bf25e ("Make map_domain_page_global fail")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:21 2020 -0400
+
+    efi: Enable booting unified hypervisor/kernel/initrd images
+    
+    This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
+    configuration file, the Linux kernel and initrd, as well as the XSM,
+    and architectural specific files into a single "unified" EFI executable.
+    This allows an administrator to update the components independently
+    without requiring rebuilding xen, as well as to replace the components
+    in an existing image.
+    
+    The resulting EFI executable can be invoked directly from the UEFI Boot
+    Manager, removing the need to use a separate loader like grub as well
+    as removing dependencies on local filesystem access.  And since it is
+    a single file, it can be signed and validated by UEFI Secure Boot without
+    requring the shim protocol.
+    
+    It is inspired by systemd-boot's unified kernel technique and borrows the
+    function to locate PE sections from systemd's LGPL'ed code.  During EFI
+    boot, Xen looks at its own loaded image to locate the PE sections for
+    the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+    (`.ramdisk`), and XSM config (`.xsm`), which are included after building
+    xen.efi using objcopy to add named sections for each input file.
+    
+    For x86, the CPU ucode can be included in a section named `.ucode`,
+    which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
+    
+    On ARM systems the Device Tree can be included in a section named
+    `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
+    the boot process.
+    
+    Note that the system will fall back to loading files from disk if
+    the named sections do not exist. This allows distributions to continue
+    with the status quo if they want a signed kernel + config, while still
+    allowing a user provided initrd (which is how the shim protocol currently
+    works as well).
+    
+    This patch also adds constness to the section parameter of
+    efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
+    changes pe_find_section() to use a const CHAR16 section name,
+    and adds pe_name_compare() to match section names.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    [Fix ARM build by including pe.init.o]
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4dced5df761e36fa2561f6f0f6563b3580d95e7f
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:20 2020 -0400
+
+    efi/boot.c: add handle_file_info()
+    
+    Add a separate function to display the address ranges used by
+    the files and call `efi_arch_handle_module()` on the modules.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 04be2c3a067899a3860fc2c7bc7a1599502ed1c5
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:19 2020 -0400
+
+    efi/boot.c: add file.need_to_free
+    
+    The config file, kernel, initrd, etc should only be freed if they
+    are allocated with the UEFI allocator.  On x86 the ucode, and on
+    ARM the dtb, are also marked as need_to_free when allocated or
+    expanded.
+    
+    This also fixes a memory leak in ARM fdt_increase_size() if there
+    is an error in building the new device tree.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit afef39241b66df7d5fd66b07dc13350370a4991a
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Apr 1 15:51:08 2020 +0100
+
+    x86/ucode: Trivial further cleanup
+    
+     * Drop unused include in private.h.
+     * Used explicit width integers for Intel header fields.
+     * Adjust comment to better describe the extended header.
+     * Drop unnecessary __packed attribute for AMD header.
+     * Fix types and style.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 8d255609930bed04c6436974bd895be9a405d0c1
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Oct 2 12:20:44 2020 +0100
+
+    x86/hvm: Correct error message in check_segment()
+    
+    The error message is wrong (given AMD's older interpretation of what a NUL
+    segment should contain, attribute wise), and actively unhelpful because you
+    only get it in response to a hypercall where the one piece of information you
+    cannot provide is the segment selector.
+    
+    Fix the message to talk about segment attributes, rather than the selector.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
