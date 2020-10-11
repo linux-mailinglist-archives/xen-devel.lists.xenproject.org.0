@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37C328AAE1
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 00:13:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5736.14869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9501728AB18
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 01:32:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5741.14887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRja5-00038W-Vo; Sun, 11 Oct 2020 22:12:41 +0000
+	id 1kRkoP-0002ML-Q2; Sun, 11 Oct 2020 23:31:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5736.14869; Sun, 11 Oct 2020 22:12:41 +0000
+Received: by outflank-mailman (output) from mailman id 5741.14887; Sun, 11 Oct 2020 23:31:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,254 +23,129 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRja5-000387-SM; Sun, 11 Oct 2020 22:12:41 +0000
-Received: by outflank-mailman (input) for mailman id 5736;
- Sun, 11 Oct 2020 22:12:40 +0000
+	id 1kRkoP-0002Lw-Mq; Sun, 11 Oct 2020 23:31:33 +0000
+Received: by outflank-mailman (input) for mailman id 5741;
+ Sun, 11 Oct 2020 23:31:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fh4T=DS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kRja4-000382-MM
- for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 22:12:40 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=0GLi=DS=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1kRkoN-0002Lo-RF
+ for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 23:31:31 +0000
+Received: from mail-qk1-x731.google.com (unknown [2607:f8b0:4864:20::731])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 40d9be7c-ba64-49dd-8f93-eb7c86f43867;
- Sun, 11 Oct 2020 22:12:38 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kRja1-0005kz-UN; Sun, 11 Oct 2020 22:12:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kRja1-0002Yo-NC; Sun, 11 Oct 2020 22:12:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kRja1-00033f-Mi; Sun, 11 Oct 2020 22:12:37 +0000
+ id 4bced579-d309-47f4-84b2-311d75545f4f;
+ Sun, 11 Oct 2020 23:31:30 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id 188so16252314qkk.12
+ for <xen-devel@lists.xenproject.org>; Sun, 11 Oct 2020 16:31:30 -0700 (PDT)
+Received: from six.home (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
+ by smtp.gmail.com with ESMTPSA id
+ j88sm11321663qte.96.2020.10.11.16.31.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2020 16:31:28 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Fh4T=DS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kRja4-000382-MM
-	for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 22:12:40 +0000
-X-Inumbo-ID: 40d9be7c-ba64-49dd-8f93-eb7c86f43867
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=0GLi=DS=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+	id 1kRkoN-0002Lo-RF
+	for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 23:31:31 +0000
+X-Inumbo-ID: 4bced579-d309-47f4-84b2-311d75545f4f
+Received: from mail-qk1-x731.google.com (unknown [2607:f8b0:4864:20::731])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 40d9be7c-ba64-49dd-8f93-eb7c86f43867;
-	Sun, 11 Oct 2020 22:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=NRDh7tLe8+qgj32/YhNRx+ABjKnk0GEX6413zWqptv8=; b=46YHIvcp+rYm1MWpU2c9UA9Jdy
-	KuieMRTecFUtrFNs0RRLOTv9S2KeHjekpOT+80PHstTrGluURwDcYqRgRDKL7+2Az05csF9cuEj4y
-	NFdNipO7lOB5NwogDTreTBPSnAq9rRdDQCSFSXhmy6XKafjFlgTNlfC6S239PpSeErII=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRja1-0005kz-UN; Sun, 11 Oct 2020 22:12:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRja1-0002Yo-NC; Sun, 11 Oct 2020 22:12:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kRja1-00033f-Mi; Sun, 11 Oct 2020 22:12:37 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155704-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155704: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
-X-Osstest-Versions-That:
-    xen=25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 11 Oct 2020 22:12:37 +0000
+	id 4bced579-d309-47f4-84b2-311d75545f4f;
+	Sun, 11 Oct 2020 23:31:30 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id 188so16252314qkk.12
+        for <xen-devel@lists.xenproject.org>; Sun, 11 Oct 2020 16:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=S6paNgzd2Tf+FILweikzjEXvaD1XAePsH8bNyZZsa2Y=;
+        b=SKP6EWykOTvWJlShn8HrHbgxaG577VSQcIrDuXhwHXrLpUxhWEWC5Nzhm3I87hNsRY
+         aHrKCupp5AK9+D8MT3Gh1lxb5/R1iljFUGLkksHNvoQe9pJX1p7OSl/GXwrWTDwj/+/w
+         oAC0SL7Y6mfuC7b4xkIpwY5FYmx22SePwbxUTaWvE6rEDZ3+lHE4t1O3zZn20GU+r/Xh
+         9tec04fSclONj8uWUqdDVCaJepZp+0tuH4tPWKRWkQk5bMQe/F1Of1sM0zRBhz8F9Sik
+         MYbWQxSXUycXVk1s0b28zYXn6kzI5kSfZLSQpt3yQHSmoYjCV50wJdVRdpQyajz794XC
+         7DRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=S6paNgzd2Tf+FILweikzjEXvaD1XAePsH8bNyZZsa2Y=;
+        b=MkirZ9iQ+aTbOkV6xAGYMAc2NPgnjjAjuvs14L+kOT/rFfM6y1Oa7NhjLWZIBKmtmA
+         XJ4UNqoQUIJ0JbB0NuW3of9zgpI/Lv1Vn9SwrTW2Pm9PdxPGI0PiZt4FfTIUAmvHGo38
+         z2DEduQvd6Z5twYJ43L0Z7tcn2wsTcRWpH01lmjaqJeHusY8ZIfGwKWB0yJVrgTDdQOv
+         ka52/LUBpObEcyI02TnYQG47/Ar4ss4SNcuFCokHaOn98x+nItmoDxp04XwpgSO7pwjR
+         FmC4FcOp6HlkuY2JnL1o/Fd6a6QXFOje8h7FrifV9cw2+tydHPFIuyKd2xBehoDD4LOK
+         T8tg==
+X-Gm-Message-State: AOAM530E4oLglEDLH2aWIcg7HFaauVdfLSImYVXT7LNbTz9upasdCfWR
+	l1a2XDhaSf8CzQgHWFouE7I1nXuthdY=
+X-Google-Smtp-Source: ABdhPJxXrSmqR/mmdlfiMXv7kMhwPsWW1gIISvYdFwOWJSsv4iGOhFneN+X4Ng+95JwwiGWae1XoOg==
+X-Received: by 2002:a05:620a:159b:: with SMTP id d27mr7482994qkk.28.1602459089711;
+        Sun, 11 Oct 2020 16:31:29 -0700 (PDT)
+Received: from six.home (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
+        by smtp.gmail.com with ESMTPSA id j88sm11321663qte.96.2020.10.11.16.31.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2020 16:31:28 -0700 (PDT)
+From: Nick Rosbrook <rosbrookn@gmail.com>
+X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
+To: xen-devel@lists.xenproject.org
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 1/2] golang/xenlight: do not hard code libxl dir in gengotypes.py
+Date: Sun, 11 Oct 2020 19:31:24 -0400
+Message-Id: <8e66cd2d53bb9f14bdfa0a2539773f3a6a3526b6.1602458773.git.rosbrookn@ainfosec.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 155704 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155704/
+Currently, in order to 'import idl' in gengotypes.py, we derive the path
+of the libxl source directory from the XEN_ROOT environment variable, and
+append that to sys.path so python can see idl.py. Since the the recent move of
+libxl to tools/libs/light, this hard coding breaks the build.
 
-Regressions :-(
+Instead, check for the environment variable LIBXL_SRC_DIR, but move this
+check to a try-except block (with empty except). This simply makes the
+real error more visible, and does not strictly require that
+LIBXL_SRC_DIR is used. Finally, update the Makefile to set LIBXL_SRC_DIR
+rather than XEN_ROOT when calling gengotypes.py.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 155584
+Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+---
+ tools/golang/xenlight/Makefile      | 2 +-
+ tools/golang/xenlight/gengotypes.py | 9 ++++++++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/tools/golang/xenlight/Makefile b/tools/golang/xenlight/Makefile
+index fd8e4893db..e394ef9b2b 100644
+--- a/tools/golang/xenlight/Makefile
++++ b/tools/golang/xenlight/Makefile
+@@ -16,7 +16,7 @@ all: build
+ GOXL_GEN_FILES = types.gen.go helpers.gen.go
+ 
+ %.gen.go: gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(LIBXL_SRC_DIR)/idl.py
+-	XEN_ROOT=$(XEN_ROOT) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl
++	LIBXL_SRC_DIR=$(LIBXL_SRC_DIR) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl
+ 
+ # Go will do its own dependency checking, and not actuall go through
+ # with the build if none of the input files have changed.
+diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
+index ebec938224..4ac181ae47 100644
+--- a/tools/golang/xenlight/gengotypes.py
++++ b/tools/golang/xenlight/gengotypes.py
+@@ -3,7 +3,14 @@
+ import os
+ import sys
+ 
+-sys.path.append('{0}/tools/libxl'.format(os.environ['XEN_ROOT']))
++try:
++    sys.path.append(os.environ['LIBXL_SRC_DIR'])
++except:
++    # If we get here, then we expect the 'import idl'
++    # expression to fail. That error is more informative,
++    # so let it happen.
++    pass
++
+ import idl
+ 
+ # Go versions of some builtin types.
+-- 
+2.17.1
 
-version targeted for testing:
- xen                  8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
-baseline version:
- xen                  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
-
-Last test of basis   155584  2020-10-09 02:01:25 Z    2 days
-Testing same since   155612  2020-10-09 18:01:22 Z    2 days   16 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Trammell Hudson <hudson@trmm.net>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Oct 2 12:30:34 2020 +0200
-
-    x86/vLAPIC: don't leak regs page from vlapic_init() upon error
-    
-    Fixes: 8a981e0bf25e ("Make map_domain_page_global fail")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:21 2020 -0400
-
-    efi: Enable booting unified hypervisor/kernel/initrd images
-    
-    This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
-    configuration file, the Linux kernel and initrd, as well as the XSM,
-    and architectural specific files into a single "unified" EFI executable.
-    This allows an administrator to update the components independently
-    without requiring rebuilding xen, as well as to replace the components
-    in an existing image.
-    
-    The resulting EFI executable can be invoked directly from the UEFI Boot
-    Manager, removing the need to use a separate loader like grub as well
-    as removing dependencies on local filesystem access.  And since it is
-    a single file, it can be signed and validated by UEFI Secure Boot without
-    requring the shim protocol.
-    
-    It is inspired by systemd-boot's unified kernel technique and borrows the
-    function to locate PE sections from systemd's LGPL'ed code.  During EFI
-    boot, Xen looks at its own loaded image to locate the PE sections for
-    the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-    (`.ramdisk`), and XSM config (`.xsm`), which are included after building
-    xen.efi using objcopy to add named sections for each input file.
-    
-    For x86, the CPU ucode can be included in a section named `.ucode`,
-    which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
-    
-    On ARM systems the Device Tree can be included in a section named
-    `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
-    the boot process.
-    
-    Note that the system will fall back to loading files from disk if
-    the named sections do not exist. This allows distributions to continue
-    with the status quo if they want a signed kernel + config, while still
-    allowing a user provided initrd (which is how the shim protocol currently
-    works as well).
-    
-    This patch also adds constness to the section parameter of
-    efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
-    changes pe_find_section() to use a const CHAR16 section name,
-    and adds pe_name_compare() to match section names.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    [Fix ARM build by including pe.init.o]
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4dced5df761e36fa2561f6f0f6563b3580d95e7f
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:20 2020 -0400
-
-    efi/boot.c: add handle_file_info()
-    
-    Add a separate function to display the address ranges used by
-    the files and call `efi_arch_handle_module()` on the modules.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 04be2c3a067899a3860fc2c7bc7a1599502ed1c5
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:19 2020 -0400
-
-    efi/boot.c: add file.need_to_free
-    
-    The config file, kernel, initrd, etc should only be freed if they
-    are allocated with the UEFI allocator.  On x86 the ucode, and on
-    ARM the dtb, are also marked as need_to_free when allocated or
-    expanded.
-    
-    This also fixes a memory leak in ARM fdt_increase_size() if there
-    is an error in building the new device tree.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit afef39241b66df7d5fd66b07dc13350370a4991a
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Apr 1 15:51:08 2020 +0100
-
-    x86/ucode: Trivial further cleanup
-    
-     * Drop unused include in private.h.
-     * Used explicit width integers for Intel header fields.
-     * Adjust comment to better describe the extended header.
-     * Drop unnecessary __packed attribute for AMD header.
-     * Fix types and style.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 8d255609930bed04c6436974bd895be9a405d0c1
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Oct 2 12:20:44 2020 +0100
-
-    x86/hvm: Correct error message in check_segment()
-    
-    The error message is wrong (given AMD's older interpretation of what a NUL
-    segment should contain, attribute wise), and actively unhelpful because you
-    only get it in response to a hypercall where the one piece of information you
-    cannot provide is the segment selector.
-    
-    Fix the message to talk about segment attributes, rather than the selector.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
