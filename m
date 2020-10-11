@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0BE28A6B6
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Oct 2020 11:44:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5610.14579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F4E28A6BA
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Oct 2020 11:48:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5613.14593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRXtQ-0004tx-Qn; Sun, 11 Oct 2020 09:43:52 +0000
+	id 1kRXxw-0005Dh-Dg; Sun, 11 Oct 2020 09:48:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5610.14579; Sun, 11 Oct 2020 09:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 5613.14593; Sun, 11 Oct 2020 09:48:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,287 +23,119 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRXtQ-0004tY-NP; Sun, 11 Oct 2020 09:43:52 +0000
-Received: by outflank-mailman (input) for mailman id 5610;
- Sun, 11 Oct 2020 09:43:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kRXxw-0005DI-AK; Sun, 11 Oct 2020 09:48:32 +0000
+Received: by outflank-mailman (input) for mailman id 5613;
+ Sun, 11 Oct 2020 09:48:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DJVw=DS=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
- id 1kRXtP-0004tS-BH
- for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 09:43:51 +0000
-Received: from server.eikelenboom.it (unknown [91.121.65.215])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b8a1d4c0-983c-4068-8f73-ac25a1f009e1;
- Sun, 11 Oct 2020 09:43:48 +0000 (UTC)
-Received: from 76-24-144-85.ftth.glasoperator.nl ([85.144.24.76]:54102
- helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <linux@eikelenboom.it>)
- id 1kRXwS-0006uf-Ue; Sun, 11 Oct 2020 11:47:01 +0200
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=Fh4T=DS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kRXxu-0005Cm-Qd
+ for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 09:48:30 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c817d854-e401-4193-9054-c314dd544e82;
+ Sun, 11 Oct 2020 09:48:24 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kRXxo-0006mE-As; Sun, 11 Oct 2020 09:48:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kRXxo-0000eP-2V; Sun, 11 Oct 2020 09:48:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kRXxo-0002o2-22; Sun, 11 Oct 2020 09:48:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=DJVw=DS=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
-	id 1kRXtP-0004tS-BH
-	for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 09:43:51 +0000
-X-Inumbo-ID: b8a1d4c0-983c-4068-8f73-ac25a1f009e1
-Received: from server.eikelenboom.it (unknown [91.121.65.215])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id b8a1d4c0-983c-4068-8f73-ac25a1f009e1;
-	Sun, 11 Oct 2020 09:43:48 +0000 (UTC)
+	(envelope-from <SRS0=Fh4T=DS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kRXxu-0005Cm-Qd
+	for xen-devel@lists.xenproject.org; Sun, 11 Oct 2020 09:48:30 +0000
+X-Inumbo-ID: c817d854-e401-4193-9054-c314dd544e82
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id c817d854-e401-4193-9054-c314dd544e82;
+	Sun, 11 Oct 2020 09:48:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=TbcVuUDAMh5k/dQPsShWjaIzQRL9Lld6a1obbcUbXcw=; b=f6qzkOfJuQlVCi+hQqNshOWPBk
-	7bvAZvh2M1DG7C784lNEeKEyKmJk/dBOW7Rp5L4gRxI0xGI7DyylKNid00gW0n+e+Y7dhssN2nkri
-	jiJZCH1H72spxtS0OQkVIp2jGWwhH5mt9z72GmzuaQGQ7CXYtXTMbTsBtwDxEqta/XPQ=;
-Received: from 76-24-144-85.ftth.glasoperator.nl ([85.144.24.76]:54102 helo=[172.16.1.50])
-	by server.eikelenboom.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <linux@eikelenboom.it>)
-	id 1kRXwS-0006uf-Ue; Sun, 11 Oct 2020 11:47:01 +0200
-Subject: Re: [SUSPECTED SPAM]Xen-unstable :can't boot HVM guests, bisected to
- commit: "hvmloader: indicate ACPI tables with "ACPI data" type in e820"
-To: Igor Druzhinin <igor.druzhinin@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>
-References: <9293a9e1-e507-4788-5460-d5ec9abc1af9@eikelenboom.it>
- <bbc026b0-06f1-a052-030d-d6757dda89b9@citrix.com>
-From: Sander Eikelenboom <linux@eikelenboom.it>
-Message-ID: <24413d2e-5665-bc36-452b-af5c9b1af0b8@eikelenboom.it>
-Date: Sun, 11 Oct 2020 11:43:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=96X1lfLJoQ2nDZNEucYInMbkLiBWtlGfhJHV6a/4q8M=; b=iCf+5UQZ577JX+PnkiFUrcL5Vn
+	jh3YYvgkSdF3VLOkSSX4XRX3SCXTaoTD+7IPSBNzwuP2Hj0VxkityDjj83ZokU38anrY8cqq4yobp
+	ar5yhsTLilb6zRnQIlS+jXfUWuGqCKC0mg1MgfwqRzj7krIbaruGo9sx5xvOc/wIEHA4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kRXxo-0006mE-As; Sun, 11 Oct 2020 09:48:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kRXxo-0000eP-2V; Sun, 11 Oct 2020 09:48:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kRXxo-0002o2-22; Sun, 11 Oct 2020 09:48:24 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155687-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <bbc026b0-06f1-a052-030d-d6757dda89b9@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-coverity test] 155687: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+X-Osstest-Versions-That:
+    xen=93508595d588afe9dca087f95200effb7cedc81f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 11 Oct 2020 09:48:24 +0000
 
-On 11/10/2020 02:06, Igor Druzhinin wrote:
-> On 10/10/2020 18:51, Sander Eikelenboom wrote:
->> Hi Igor/Jan,
->>
->> I tried to update my AMD machine to current xen-unstable, but
->> unfortunately the HVM guests don't boot after that. The guest keeps
->> using CPU-cycles but I don't get to a command prompt (or any output at
->> all). PVH guests run fine.
->>
->> Bisection leads to commit:
->>
->> 8efa46516c5f4cf185c8df179812c185d3c27eb6
->> hvmloader: indicate ACPI tables with "ACPI data" type in e820
->>
->> I tried xen-unstable with this commit reverted and with that everything
->> works fine.
->>
->> I attached the xl-dmesg output.
-> 
-> What guests are you using? 
-Not sure I understand what you ask for, but:
-dom0 PV
-guest HVM (qemu-xen)
+flight 155687 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155687/
 
-> Could you get serial output from the guest?
-Not getting any, it seems to be stuck in very early boot.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+baseline version:
+ xen                  93508595d588afe9dca087f95200effb7cedc81f
 
-> Is it AMD specific?
-Can't tell, this is the only machine I test xen-unstable on.
-It's a AMD phenom X6.
-Both dom0 and guest kernel are 5.9-rc8.
+Last test of basis   155515  2020-10-07 09:19:32 Z    4 days
+Testing same since   155687  2020-10-11 09:19:29 Z    0 days    1 attempts
 
-Tested with guest config:
-kernel      = '/boot/vmlinuz-xen-guest'
-ramdisk     = '/boot/initrd.img-xen-guest'
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Edwin Török <edvin.torok@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roman Shaposhnik <roman@zededa.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+  Wei Liu <wl@xen.org>
 
-cmdline     = 'root=UUID=7cc4a90d-d6b0-4958-bb7d-50497aa29f18 ro
-nomodeset console=tty1 console=ttyS0 console=hvc0 earlyprintk=xen'
-
-type='hvm'
-
-device_model_version = 'qemu-xen'
-
-cpus        = "2-5"
-vcpus = 2
-
-memory      = '512'
-
-disk        = [
-                  'phy:/dev/xen_vms_ssd/media,xvda,w'
-              ]
-
-name        = 'guest'
-
-vif         = [ 'bridge=xen_bridge,ip=192.168.1.10,mac=00:16:3E:DC:0A:F1' ]
-
-on_poweroff = 'destroy'
-on_reboot   = 'restart'
-on_crash    = 'preserve'
-
-vnc=0
+jobs:
+ coverity-amd64                                               pass    
 
 
->If it's a Linux guest could you get a stacktrace from
-> the guest using xenctx?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-It is, here are few subsequent runs:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~# /usr/local/lib/xen/bin/xenctx -s
-/boot/System.map-5.9.0-rc8-20201010-doflr-mac80211debug+ -f -a -C 4
-vcpu0:
-cs:eip: ca80:00000256
-flags: 00000016 nz a p
-ss:esp: 0000:00006f38
-eax: 029e0012	ebx: 0000fb00	ecx: 028484e3	edx: 00000511
-esi: 00000000	edi: f97b7363	ebp: 00006f38
- ds:     ca80	 es:     0010	 fs:     0000	 gs:     0000
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-cr0: 00000011
-cr2: 00000000
-cr3: 00400000
-cr4: 00000000
-
-dr0: 00000000
-dr1: 00000000
-dr2: 00000000
-dr3: 00000000
-dr6: ffff0ff0
-dr7: 00000400
-Code (instr addr 00000256)
-ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff <00> f0
-53 ff 00 f0 53 ff 00 f0 53
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
 
-vcpu1 offline
-
-~# /usr/local/lib/xen/bin/xenctx -s
-/boot/System.map-5.9.0-rc8-20201010-doflr-mac80211debug+ -f -a -C 4
-vcpu0:
-cs:eip: ca80:00000256
-flags: 00000016 nz a p
-ss:esp: 0000:00006f38
-eax: 029e0012	ebx: 0000fb00	ecx: 028444b7	edx: 00000511
-esi: 00000000	edi: f97bb38f	ebp: 00006f38
- ds:     ca80	 es:     0010	 fs:     0000	 gs:     0000
-
-cr0: 00000011
-cr2: 00000000
-cr3: 00400000
-cr4: 00000000
-
-dr0: 00000000
-dr1: 00000000
-dr2: 00000000
-dr3: 00000000
-dr6: ffff0ff0
-dr7: 00000400
-Code (instr addr 00000256)
-ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff <00> f0
-53 ff 00 f0 53 ff 00 f0 53
-
-
-
-vcpu1 offline
-
-~# /usr/local/lib/xen/bin/xenctx -s
-/boot/System.map-5.9.0-rc8-20201010-doflr-mac80211debug+ -f -a -C 4
-vcpu0:
-cs:eip: ca80:00000256
-flags: 00000016 nz a p
-ss:esp: 0000:00006f38
-eax: 029e0012	ebx: 0000fb00	ecx: 02840901	edx: 00000511
-esi: 00000000	edi: f97bef45	ebp: 00006f38
- ds:     ca80	 es:     0010	 fs:     0000	 gs:     0000
-
-cr0: 00000011
-cr2: 00000000
-cr3: 00400000
-cr4: 00000000
-
-dr0: 00000000
-dr1: 00000000
-dr2: 00000000
-dr3: 00000000
-dr6: ffff0ff0
-dr7: 00000400
-Code (instr addr 00000256)
-ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff <00> f0
-53 ff 00 f0 53 ff 00 f0 53
-
-
-
-vcpu1 offline
-
-~# /usr/local/lib/xen/bin/xenctx -s
-/boot/System.map-5.9.0-rc8-20201010-doflr-mac80211debug+ -f -a -C 4
-vcpu0:
-cs:eip: ca80:00000256
-flags: 00000016 nz a p
-ss:esp: 0000:00006f38
-eax: 029e0012	ebx: 0000fb00	ecx: 0283d4bd	edx: 00000511
-esi: 00000000	edi: f97c2389	ebp: 00006f38
- ds:     ca80	 es:     0010	 fs:     0000	 gs:     0000
-
-cr0: 00000011
-cr2: 00000000
-cr3: 00400000
-cr4: 00000000
-
-dr0: 00000000
-dr1: 00000000
-dr2: 00000000
-dr3: 00000000
-dr6: ffff0ff0
-dr7: 00000400
-Code (instr addr 00000256)
-ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff <00> f0
-53 ff 00 f0 53 ff 00 f0 53
-
-
-
-vcpu1 offline
-
-~# /usr/local/lib/xen/bin/xenctx -s
-/boot/System.map-5.9.0-rc8-20201010-doflr-mac80211debug+ -f -a -C 4
-vcpu0:
-cs:eip: ca80:00000256
-flags: 00000016 nz a p
-ss:esp: 0000:00006f38
-eax: 029e0012	ebx: 0000fb00	ecx: 02838e90	edx: 00000511
-esi: 00000000	edi: f97c69b6	ebp: 00006f38
- ds:     ca80	 es:     0010	 fs:     0000	 gs:     0000
-
-cr0: 00000011
-cr2: 00000000
-cr3: 00400000
-cr4: 00000000
-
-dr0: 00000000
-dr1: 00000000
-dr2: 00000000
-dr3: 00000000
-dr6: ffff0ff0
-dr7: 00000400
-Code (instr addr 00000256)
-ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff 00 f0 53 ff <00> f0
-53 ff 00 f0 53 ff 00 f0 53
-
-
-
-vcpu1 offline
-
-
-> We have tested the change on all modern guests in our Citrix lab and haven't
-> found any problem for several months. 
-
-> Igor
-> 
-
---
-Sander
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   93508595d5..25849c8b16  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9 -> coverity-tested/smoke
 
