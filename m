@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD71F28C066
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 21:04:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6002.15707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3B128C071
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 21:04:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6004.15718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS36v-0000YN-6l; Mon, 12 Oct 2020 19:03:53 +0000
+	id 1kS37B-0000eX-FR; Mon, 12 Oct 2020 19:04:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6002.15707; Mon, 12 Oct 2020 19:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 6004.15718; Mon, 12 Oct 2020 19:04:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,46 +23,46 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS36v-0000Xy-2V; Mon, 12 Oct 2020 19:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 6002;
- Mon, 12 Oct 2020 19:03:51 +0000
+	id 1kS37B-0000e4-C3; Mon, 12 Oct 2020 19:04:09 +0000
+Received: by outflank-mailman (input) for mailman id 6004;
+ Mon, 12 Oct 2020 19:04:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2065=DT=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1kS36t-0000Xi-RD
- for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 19:03:51 +0000
+ id 1kS379-0000dl-RE
+ for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 19:04:07 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 601922c8-2fbb-464d-b661-9d090d713724;
- Mon, 12 Oct 2020 19:03:51 +0000 (UTC)
+ id adaaa76e-c22e-4e52-ab52-8948ed0375e2;
+ Mon, 12 Oct 2020 19:04:07 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7EC6A20BED;
- Mon, 12 Oct 2020 19:03:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 807052222F;
+ Mon, 12 Oct 2020 19:04:05 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=2065=DT=kernel.org=sashal@srs-us1.protection.inumbo.net>)
-	id 1kS36t-0000Xi-RD
-	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 19:03:51 +0000
-X-Inumbo-ID: 601922c8-2fbb-464d-b661-9d090d713724
+	id 1kS379-0000dl-RE
+	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 19:04:07 +0000
+X-Inumbo-ID: adaaa76e-c22e-4e52-ab52-8948ed0375e2
 Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 601922c8-2fbb-464d-b661-9d090d713724;
-	Mon, 12 Oct 2020 19:03:51 +0000 (UTC)
+	id adaaa76e-c22e-4e52-ab52-8948ed0375e2;
+	Mon, 12 Oct 2020 19:04:07 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 7EC6A20BED;
-	Mon, 12 Oct 2020 19:03:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 807052222F;
+	Mon, 12 Oct 2020 19:04:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602529430;
-	bh=Szsd54BcWQq3eUT3m1lvpRPfwDlpauY+yNkZzt0nheY=;
+	s=default; t=1602529446;
+	bh=ExFaKH18wvRgVDPOD9/sVbjT/ogMhKoFhXvzCRb5Nd0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=O6Rvd8fXhZl5UQDkwQwpL2fa2Uj78fMQ7mjrii8k5QK7ZG1kmCenD0gz1gVUfx/hR
-	 IRbbu0rciefc8SkBk+BCF4i9JX2B/4TS2sVZRUEzY95lhuh70zgFtasnncS4a7M9v6
-	 NkmfrZkFfXYStlj6Qb52/bn4eM9i1PikaKQYvlHI=
+	b=c2/Fga9oIooFcFLicvS4AREqLXFoDHw+YRtkOMkPQqKyaN7cKHdGnhkQ1BwLFW3Or
+	 35SAH7VIVhcNi4x1NhwEeu4+CvFspThxvsRIhkM3vn2p3atWPDs0hXZ7dLNnG6Jzk4
+	 ujT6/TDUV8MkRW4Hw81uYLXOL62W0NgP4zkZQSys=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -72,12 +72,12 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 4.19 11/12] arm/arm64: xen: Fix to convert percpu address to gfn correctly
-Date: Mon, 12 Oct 2020 15:03:34 -0400
-Message-Id: <20201012190335.3279538-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 10/11] arm/arm64: xen: Fix to convert percpu address to gfn correctly
+Date: Mon, 12 Oct 2020 15:03:52 -0400
+Message-Id: <20201012190353.3279662-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201012190335.3279538-1-sashal@kernel.org>
-References: <20201012190335.3279538-1-sashal@kernel.org>
+In-Reply-To: <20201012190353.3279662-1-sashal@kernel.org>
+References: <20201012190353.3279662-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -197,10 +197,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 07060e5b58641..05387c94902a4 100644
+index ba7f4c8f5c3e4..b473318da5967 100644
 --- a/arch/arm/xen/enlighten.c
 +++ b/arch/arm/xen/enlighten.c
-@@ -184,7 +184,7 @@ static int xen_starting_cpu(unsigned int cpu)
+@@ -170,7 +170,7 @@ static int xen_starting_cpu(unsigned int cpu)
  	pr_info("Xen: initializing cpu%d\n", cpu);
  	vcpup = per_cpu_ptr(xen_vcpu_info, cpu);
  
