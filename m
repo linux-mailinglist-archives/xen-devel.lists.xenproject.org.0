@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ED6D28C20D
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 22:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6023.15785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6DE28C7C4
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 06:12:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6028.15984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS470-00077h-9s; Mon, 12 Oct 2020 20:08:02 +0000
+	id 1kSBfM-00071A-FV; Tue, 13 Oct 2020 04:12:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6023.15785; Mon, 12 Oct 2020 20:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 6028.15984; Tue, 13 Oct 2020 04:12:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,148 +23,80 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS470-000772-50; Mon, 12 Oct 2020 20:08:02 +0000
-Received: by outflank-mailman (input) for mailman id 6023;
- Mon, 12 Oct 2020 20:08:00 +0000
+	id 1kSBfM-00070o-Bk; Tue, 13 Oct 2020 04:12:00 +0000
+Received: by outflank-mailman (input) for mailman id 6028;
+ Mon, 12 Oct 2020 20:17:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CKVJ=DT=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kS46y-00073L-CB
- for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 20:08:00 +0000
-Received: from mail-qv1-xf44.google.com (unknown [2607:f8b0:4864:20::f44])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zk8D=DT=suse.de=cfontana@srs-us1.protection.inumbo.net>)
+ id 1kS4Fh-0008Eg-Pf
+ for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 20:17:01 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9d8cb4da-0b8c-45fe-83b2-8d614af9c96d;
- Mon, 12 Oct 2020 20:07:59 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id b10so6713792qvf.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 Oct 2020 13:07:59 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:9802:d83e:b724:7fdf])
- by smtp.gmail.com with ESMTPSA id d129sm13418350qkg.127.2020.10.12.13.07.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2020 13:07:58 -0700 (PDT)
+ id e1e5fb89-147b-4516-89b2-995612048671;
+ Mon, 12 Oct 2020 20:17:00 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0CCFFAC12;
+ Mon, 12 Oct 2020 20:17:00 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=CKVJ=DT=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
-	id 1kS46y-00073L-CB
-	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 20:08:00 +0000
-X-Inumbo-ID: 9d8cb4da-0b8c-45fe-83b2-8d614af9c96d
-Received: from mail-qv1-xf44.google.com (unknown [2607:f8b0:4864:20::f44])
+	(envelope-from <SRS0=zk8D=DT=suse.de=cfontana@srs-us1.protection.inumbo.net>)
+	id 1kS4Fh-0008Eg-Pf
+	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 20:17:01 +0000
+X-Inumbo-ID: e1e5fb89-147b-4516-89b2-995612048671
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9d8cb4da-0b8c-45fe-83b2-8d614af9c96d;
-	Mon, 12 Oct 2020 20:07:59 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id b10so6713792qvf.0
-        for <xen-devel@lists.xenproject.org>; Mon, 12 Oct 2020 13:07:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=QY2243JX786fdUoHzoK1Y6Kh1lJrJoZtoq/K0Z9ICJs=;
-        b=rYtSPe2K/v1dU7vZsTf27LfQRM1ImXctJlIOG3nIN7IH978uvQVPQCjWOd6D6XniNU
-         mKQg27mvMRIXMCi4AnPhtDNCrMgkF9YnvVLyst07RQa3J7AoDV9twIKB9nD75/WM1SXf
-         si7oE4eTR1Vtlc59TMUo6Ns6acrzagC9QRh6ajVF6vQJKUtHM3bRSpHWKiraNSDp0oTx
-         PbbHDxkBMZjQDCuFP0KNmVOHAEZYT4PS/s0QVTFGjQsKkfTJRLfrtGTHABYgGkfMvWX9
-         PaucQ1LQGfo7nU2F3n7cPK94O3Z3cTejLMuXEXktHME0VdOtuuhg8oNV+MVp3QdHgj+c
-         eaiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=QY2243JX786fdUoHzoK1Y6Kh1lJrJoZtoq/K0Z9ICJs=;
-        b=N5vQNLrLjLwDg8/qdiFNllK7Dch672r2qLfcGFy+NfatUkDUVJZqqY7uVPaRdSekqQ
-         oPV/WWtZTTWZPRZEZWcZr88j06siplWo/MOrTpfcccIwI5nQ+vSloXnhoxqz3bkGTU8p
-         UvF2gMzqjmmXVh2fwglszh2Zqy+Pb53xsMvft2lJq8eJlwXeNR7Aay0VvhKPckfyWsFX
-         j7VvpuG8lfiolcSIZFS+kVlP/1zi3Rjo1xuRI2GIwIYIgGaMEK/wk0SgGygiW/yYCCEf
-         9JXCx0/BnaGR31zR6atHZzlfZ+cEzfhON94l3fOHanMDTENR+6HWZnfb3KKvYfko9FgV
-         yp3A==
-X-Gm-Message-State: AOAM531FZCITL/VqLXKLmq3mWocvuwU/yCb9SwQlywdZiG3TPM9ZkJ5W
-	XblesAUJ7SoF2wjVHklah+I=
-X-Google-Smtp-Source: ABdhPJw3I51kN+J+TGXLaLkJTSdYuDYY97kg7N1G1MUPkpX1p5tdCYS7ebkzO/aJ0SAisDXB4fym3w==
-X-Received: by 2002:a0c:b29e:: with SMTP id r30mr27540725qve.38.1602533279090;
-        Mon, 12 Oct 2020 13:07:59 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:9802:d83e:b724:7fdf])
-        by smtp.gmail.com with ESMTPSA id d129sm13418350qkg.127.2020.10.12.13.07.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2020 13:07:58 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH 2/2] accel: Add xen CpusAccel using dummy-cpu
-Date: Mon, 12 Oct 2020 16:07:24 -0400
-Message-Id: <20201012200725.64137-3-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201012200725.64137-1-jandryuk@gmail.com>
+	id e1e5fb89-147b-4516-89b2-995612048671;
+	Mon, 12 Oct 2020 20:17:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 0CCFFAC12;
+	Mon, 12 Oct 2020 20:17:00 +0000 (UTC)
+Subject: Re: [PATCH 0/2] Add Xen CpusAccel
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: qemu-devel@nongnu.org, Laurent Vivier <lvivier@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
 References: <20201012200725.64137-1-jandryuk@gmail.com>
+From: Claudio Fontana <cfontana@suse.de>
+Message-ID: <c2b2ed9a-879c-f676-86f0-22b3a77b770f@suse.de>
+Date: Mon, 12 Oct 2020 22:16:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201012200725.64137-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Xen was broken by commit 1583a3898853 ("cpus: extract out qtest-specific
-code to accel/qtest").  Xen relied on qemu_init_vcpu() calling
-qemu_dummy_start_vcpu() in the default case, but that was replaced by
-g_assert_not_reached().
+On 10/12/20 10:07 PM, Jason Andryuk wrote:
+> Xen was left behind when CpusAccel became mandatory and fails the assert
+> in qemu_init_vcpu().  It relied on the same dummy cpu threads as qtest.
+> Move the qtest cpu functions to a common location and reuse them for
+> Xen.
+> 
+> Jason Andryuk (2):
+>   accel: move qtest CpusAccel functions to a common location
+>   accel: Add xen CpusAccel using dummy-cpu
+> 
+>  .../qtest-cpus.c => dummy/dummy-cpus.c}       | 22 +++++--------------
+>  .../qtest-cpus.h => dummy/dummy-cpus.h}       | 10 ++++-----
+>  accel/dummy/meson.build                       |  7 ++++++
+>  accel/meson.build                             |  1 +
+>  accel/qtest/meson.build                       |  1 -
+>  accel/qtest/qtest.c                           |  7 +++++-
+>  accel/xen/xen-all.c                           | 10 +++++++++
+>  7 files changed, 34 insertions(+), 24 deletions(-)
+>  rename accel/{qtest/qtest-cpus.c => dummy/dummy-cpus.c} (76%)
+>  rename accel/{qtest/qtest-cpus.h => dummy/dummy-cpus.h} (59%)
+>  create mode 100644 accel/dummy/meson.build
+> 
 
-Add a minimal "CpusAccel" for xen using the dummy-cpu implementation
-used by qtest.
+Yep, forgot completely, sorry.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- accel/dummy/meson.build |  1 +
- accel/xen/xen-all.c     | 10 ++++++++++
- 2 files changed, 11 insertions(+)
+Acked-by: Claudio Fontana <cfontana@suse.de>
 
-diff --git a/accel/dummy/meson.build b/accel/dummy/meson.build
-index 5fbe27de90..cdff0ba746 100644
---- a/accel/dummy/meson.build
-+++ b/accel/dummy/meson.build
-@@ -4,3 +4,4 @@ dummy_ss.add(files(
- ))
- 
- specific_ss.add_all(when: ['CONFIG_SOFTMMU', 'CONFIG_POSIX'], if_true: dummy_ss)
-+specific_ss.add_all(when: ['CONFIG_XEN'], if_true: dummy_ss)
-diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 60b971d0a8..2d243c58d4 100644
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -16,12 +16,15 @@
- #include "hw/xen/xen_pt.h"
- #include "chardev/char.h"
- #include "sysemu/accel.h"
-+#include "sysemu/cpus.h"
- #include "sysemu/xen.h"
- #include "sysemu/runstate.h"
- #include "migration/misc.h"
- #include "migration/global_state.h"
- #include "hw/boards.h"
- 
-+#include "accel/dummy/dummy-cpus.h"
-+
- //#define DEBUG_XEN
- 
- #ifdef DEBUG_XEN
-@@ -153,6 +156,10 @@ static void xen_setup_post(MachineState *ms, AccelState *accel)
-     }
- }
- 
-+const CpusAccel xen_cpus = {
-+    .create_vcpu_thread = dummy_start_vcpu_thread,
-+};
-+
- static int xen_init(MachineState *ms)
- {
-     MachineClass *mc = MACHINE_GET_CLASS(ms);
-@@ -180,6 +187,9 @@ static int xen_init(MachineState *ms)
-      * opt out of system RAM being allocated by generic code
-      */
-     mc->default_ram_id = NULL;
-+
-+    cpus_register_accel(&xen_cpus);
-+
-     return 0;
- }
- 
--- 
-2.25.1
 
 
