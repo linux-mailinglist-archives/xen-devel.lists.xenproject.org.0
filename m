@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9B228BE58
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 18:45:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5983.15625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E065C28BE84
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 18:54:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5987.15639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS0wh-000391-Mk; Mon, 12 Oct 2020 16:45:11 +0000
+	id 1kS15H-0004Ef-OH; Mon, 12 Oct 2020 16:54:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5983.15625; Mon, 12 Oct 2020 16:45:11 +0000
+Received: by outflank-mailman (output) from mailman id 5987.15639; Mon, 12 Oct 2020 16:54:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,289 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS0wh-00038e-Iw; Mon, 12 Oct 2020 16:45:11 +0000
-Received: by outflank-mailman (input) for mailman id 5983;
- Mon, 12 Oct 2020 16:45:10 +0000
+	id 1kS15H-0004EG-Kl; Mon, 12 Oct 2020 16:54:03 +0000
+Received: by outflank-mailman (input) for mailman id 5987;
+ Mon, 12 Oct 2020 16:54:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I0yg=DT=infradead.org=willy@srs-us1.protection.inumbo.net>)
- id 1kS0we-00038Z-TC
- for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 16:45:09 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ <SRS0=FZzu=DT=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kS15G-0004Dh-6m
+ for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 16:54:02 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0984f5af-c751-45e3-ae05-62bd9db96cb4;
- Mon, 12 Oct 2020 16:45:05 +0000 (UTC)
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kS0wA-0004gO-8Q; Mon, 12 Oct 2020 16:44:38 +0000
+ id e0add593-c459-49ba-92f6-0bac9f370d27;
+ Mon, 12 Oct 2020 16:53:55 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kS158-0002ve-QQ; Mon, 12 Oct 2020 16:53:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kS158-00067R-Hd; Mon, 12 Oct 2020 16:53:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kS158-0003ye-H7; Mon, 12 Oct 2020 16:53:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=I0yg=DT=infradead.org=willy@srs-us1.protection.inumbo.net>)
-	id 1kS0we-00038Z-TC
-	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 16:45:09 +0000
-X-Inumbo-ID: 0984f5af-c751-45e3-ae05-62bd9db96cb4
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+	(envelope-from <SRS0=FZzu=DT=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kS15G-0004Dh-6m
+	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 16:54:02 +0000
+X-Inumbo-ID: e0add593-c459-49ba-92f6-0bac9f370d27
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0984f5af-c751-45e3-ae05-62bd9db96cb4;
-	Mon, 12 Oct 2020 16:45:05 +0000 (UTC)
+	id e0add593-c459-49ba-92f6-0bac9f370d27;
+	Mon, 12 Oct 2020 16:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=l9dol8BjF52rFe8mzz85c9RZmeAYDZ2M1zPXpY3Bxec=; b=cjGmRDHB+K+xo1zaI46uR/JWZM
-	mu6b6OfRoAYfgdNA5Kf5Iurex6D1FcBZ+mRQhj12vLi3isoy7f1JrMIQOIfa61TejqqWEwpL43yKb
-	2mAeiG7QIg8Vb+ajA0gepoKbc6o17WQEzV+UWJKTyQWQStoFHb/kNJEfYbWmPc27vxrcwV1GpTL/g
-	cqcPit9vRB3f1Zs6upmREd44qhzYUWIO5sf13vXmWctx364S7GYQlJM4ZaGSBTPIwUKM8imQUHEl+
-	YU7Gj26Vo02zH0C4u7a3/EscApIpoLOe+KQejmiwTcRHTR/bJWdX/slhogDIyA7BDVBafjowKFz4j
-	1dyYxPzg==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kS0wA-0004gO-8Q; Mon, 12 Oct 2020 16:44:38 +0000
-Date: Mon, 12 Oct 2020 17:44:38 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, Ira Weiny <ira.weiny@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, linux-aio@kvack.org,
-	linux-efi@vger.kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
-	target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
-	ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org,
-	x86@kernel.org, amd-gfx@lists.freedesktop.org,
-	linux-afs@lists.infradead.org, cluster-devel@redhat.com,
-	linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
-	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
-	Fenghua Yu <fenghua.yu@intel.com>, ecryptfs@vger.kernel.org,
-	linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
-	linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
-	linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
-	netdev@vger.kernel.org, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
-Subject: Re: [PATCH RFC PKS/PMEM 22/58] fs/f2fs: Utilize new kmap_thread()
-Message-ID: <20201012164438.GA20115@casper.infradead.org>
-References: <20201009195033.3208459-1-ira.weiny@intel.com>
- <20201009195033.3208459-23-ira.weiny@intel.com>
- <20201009213434.GA839@sol.localdomain>
- <20201010003954.GW20115@casper.infradead.org>
- <20201010013036.GD1122@sol.localdomain>
- <20201012065635.GB2046448@iweiny-DESK2.sc.intel.com>
- <20201012161946.GA858@sol.localdomain>
- <5d621db9-23d4-e140-45eb-d7fca2093d2b@intel.com>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NUay4wAXNlNh4pk1n/OC1VcWKI59uK1zXu6gdyWSUyU=; b=y8coeQ/Afrx4nN6FsbBclLbuCo
+	pBgZtxnlGisUzn/qXSSmwvFNtD+NYklv73PSeNoViKZFsuigOUL5dlRRq5pyb2z9BYU61S3bdcJq8
+	4uIj5RKDJlYA6jygFFxqDu7ml/7lxj31X3hcHow5/PPD2deBq/LKoew+aZQRDvXFFz1c=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kS158-0002ve-QQ; Mon, 12 Oct 2020 16:53:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kS158-00067R-Hd; Mon, 12 Oct 2020 16:53:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kS158-0003ye-H7; Mon, 12 Oct 2020 16:53:54 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155734-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5d621db9-23d4-e140-45eb-d7fca2093d2b@intel.com>
+Subject: [xen-unstable-smoke test] 155734: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=534b3d09958fdc4df64872c2ab19feb4b1eebc5a
+X-Osstest-Versions-That:
+    xen=25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 12 Oct 2020 16:53:54 +0000
 
-On Mon, Oct 12, 2020 at 09:28:29AM -0700, Dave Hansen wrote:
-> kmap_atomic() is always preferred over kmap()/kmap_thread().
-> kmap_atomic() is _much_ more lightweight since its TLB invalidation is
-> always CPU-local and never broadcast.
-> 
-> So, basically, unless you *must* sleep while the mapping is in place,
-> kmap_atomic() is preferred.
+flight 155734 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155734/
 
-But kmap_atomic() disables preemption, so the _ideal_ interface would map
-it only locally, then on preemption make it global.  I don't even know
-if that _can_ be done.  But this email makes it seem like kmap_atomic()
-has no downsides.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 155584
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  534b3d09958fdc4df64872c2ab19feb4b1eebc5a
+baseline version:
+ xen                  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+
+Last test of basis   155584  2020-10-09 02:01:25 Z    3 days
+Failing since        155612  2020-10-09 18:01:22 Z    2 days   21 attempts
+Testing same since   155708  2020-10-11 23:00:25 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Trammell Hudson <hudson@trmm.net>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sun Oct 11 14:24:01 2020 +0200
+
+    tools/libs/store: add disclaimer to header file regarding ignored options
+    
+    Add a disclaimer to the libxenstore header file that all of the open
+    flags (socket only connection, read only connection) are ignored.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 1b810a9d5a39230e76073b1a753cd2c34ded65fc
+Author: Jason Andryuk <jandryuk@gmail.com>
+Date:   Thu Oct 1 19:53:37 2020 -0400
+
+    libxl: only query VNC when enabled
+    
+    QEMU without VNC support (configure --disable-vnc) will return an error
+    when VNC is queried over QMP since it does not recognize the QMP
+    command.  This will cause libxl to fail starting the domain even if VNC
+    is not enabled.  Therefore only query QEMU for VNC support when using
+    VNC, so a VNC-less QEMU will function in this configuration.
+    
+    'goto out' jumps to the call to device_model_postconfig_done(), the
+    final callback after the chain of vnc queries.  This bypasses all the
+    QMP VNC queries.
+    
+    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Oct 2 12:30:34 2020 +0200
+
+    x86/vLAPIC: don't leak regs page from vlapic_init() upon error
+    
+    Fixes: 8a981e0bf25e ("Make map_domain_page_global fail")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:21 2020 -0400
+
+    efi: Enable booting unified hypervisor/kernel/initrd images
+    
+    This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
+    configuration file, the Linux kernel and initrd, as well as the XSM,
+    and architectural specific files into a single "unified" EFI executable.
+    This allows an administrator to update the components independently
+    without requiring rebuilding xen, as well as to replace the components
+    in an existing image.
+    
+    The resulting EFI executable can be invoked directly from the UEFI Boot
+    Manager, removing the need to use a separate loader like grub as well
+    as removing dependencies on local filesystem access.  And since it is
+    a single file, it can be signed and validated by UEFI Secure Boot without
+    requring the shim protocol.
+    
+    It is inspired by systemd-boot's unified kernel technique and borrows the
+    function to locate PE sections from systemd's LGPL'ed code.  During EFI
+    boot, Xen looks at its own loaded image to locate the PE sections for
+    the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
+    (`.ramdisk`), and XSM config (`.xsm`), which are included after building
+    xen.efi using objcopy to add named sections for each input file.
+    
+    For x86, the CPU ucode can be included in a section named `.ucode`,
+    which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
+    
+    On ARM systems the Device Tree can be included in a section named
+    `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
+    the boot process.
+    
+    Note that the system will fall back to loading files from disk if
+    the named sections do not exist. This allows distributions to continue
+    with the status quo if they want a signed kernel + config, while still
+    allowing a user provided initrd (which is how the shim protocol currently
+    works as well).
+    
+    This patch also adds constness to the section parameter of
+    efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
+    changes pe_find_section() to use a const CHAR16 section name,
+    and adds pe_name_compare() to match section names.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    [Fix ARM build by including pe.init.o]
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4dced5df761e36fa2561f6f0f6563b3580d95e7f
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:20 2020 -0400
+
+    efi/boot.c: add handle_file_info()
+    
+    Add a separate function to display the address ranges used by
+    the files and call `efi_arch_handle_module()` on the modules.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 04be2c3a067899a3860fc2c7bc7a1599502ed1c5
+Author: Trammell Hudson <hudson@trmm.net>
+Date:   Fri Oct 2 07:18:19 2020 -0400
+
+    efi/boot.c: add file.need_to_free
+    
+    The config file, kernel, initrd, etc should only be freed if they
+    are allocated with the UEFI allocator.  On x86 the ucode, and on
+    ARM the dtb, are also marked as need_to_free when allocated or
+    expanded.
+    
+    This also fixes a memory leak in ARM fdt_increase_size() if there
+    is an error in building the new device tree.
+    
+    Signed-off-by: Trammell Hudson <hudson@trmm.net>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit afef39241b66df7d5fd66b07dc13350370a4991a
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Apr 1 15:51:08 2020 +0100
+
+    x86/ucode: Trivial further cleanup
+    
+     * Drop unused include in private.h.
+     * Used explicit width integers for Intel header fields.
+     * Adjust comment to better describe the extended header.
+     * Drop unnecessary __packed attribute for AMD header.
+     * Fix types and style.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 8d255609930bed04c6436974bd895be9a405d0c1
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Oct 2 12:20:44 2020 +0100
+
+    x86/hvm: Correct error message in check_segment()
+    
+    The error message is wrong (given AMD's older interpretation of what a NUL
+    segment should contain, attribute wise), and actively unhelpful because you
+    only get it in response to a hypercall where the one piece of information you
+    cannot provide is the segment selector.
+    
+    Fix the message to talk about segment attributes, rather than the selector.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
