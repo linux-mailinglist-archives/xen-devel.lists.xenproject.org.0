@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C875228B142
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 11:15:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.5831.15171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765B228B188
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Oct 2020 11:28:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.5835.15182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRtvL-0005pe-Am; Mon, 12 Oct 2020 09:15:19 +0000
+	id 1kRu7N-0006vX-IE; Mon, 12 Oct 2020 09:27:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 5831.15171; Mon, 12 Oct 2020 09:15:19 +0000
+Received: by outflank-mailman (output) from mailman id 5835.15182; Mon, 12 Oct 2020 09:27:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,100 +23,85 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kRtvL-0005pF-7g; Mon, 12 Oct 2020 09:15:19 +0000
-Received: by outflank-mailman (input) for mailman id 5831;
- Mon, 12 Oct 2020 09:15:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kRu7N-0006vC-Eu; Mon, 12 Oct 2020 09:27:45 +0000
+Received: by outflank-mailman (input) for mailman id 5835;
+ Mon, 12 Oct 2020 09:27:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HuXe=DT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kRtvK-0005pA-9J
- for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 09:15:18 +0000
+ id 1kRu7M-0006v7-8M
+ for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 09:27:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0eeefbd3-d830-4fcc-9034-d937f88127b2;
- Mon, 12 Oct 2020 09:15:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0450a4dc-39fe-4b5e-a12a-22a68f0d597c;
+ Mon, 12 Oct 2020 09:27:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2B50DAF0E;
- Mon, 12 Oct 2020 09:15:15 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id A2806ACE6;
+ Mon, 12 Oct 2020 09:27:42 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=HuXe=DT=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kRtvK-0005pA-9J
-	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 09:15:18 +0000
-X-Inumbo-ID: 0eeefbd3-d830-4fcc-9034-d937f88127b2
+	id 1kRu7M-0006v7-8M
+	for xen-devel@lists.xenproject.org; Mon, 12 Oct 2020 09:27:44 +0000
+X-Inumbo-ID: 0450a4dc-39fe-4b5e-a12a-22a68f0d597c
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0eeefbd3-d830-4fcc-9034-d937f88127b2;
-	Mon, 12 Oct 2020 09:15:15 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0450a4dc-39fe-4b5e-a12a-22a68f0d597c;
+	Mon, 12 Oct 2020 09:27:43 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602494115;
+	t=1602494862;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IDSrsPtVKC/xAOGARSdlQ5HMziWm1Vwrg6lD2YWyBBU=;
-	b=JTmMeqOoncfr6hQZH67pZ0ty/qhF7VDrCLg29+JZ78uFwCoWkiVyy0aTIcUsDjSp+tfqpK
-	SYkx5ZPzYzGuE8A3/nlEzysKuev/hh49+uLMqT+3C9YLyiETLhLtnqZOISkh1O8Zs+GUFt
-	pFrWA3jCOFFFp7/KwKsuCkdX/WyF818=
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=asB2BCdRsDccGAc7GcG/kddQH4nCdr8U8AOZiUpLbWE=;
+	b=ifIHI4wlnNJnZgWMVBBgNCukI5PzuwlTNIBE+fGyfup1hDoJH1FFtNj4Xa9aBv9CuBJE56
+	OCI67kxyPPdNv4UuZyDwc3NAJaOyLLM51Ikq20QsDTvHUl9S2m6wUABHgbcNO+fFvuiV8H
+	8un7TXjM+KNMnl3iu7cFnOYGCbnejyA=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2B50DAF0E;
-	Mon, 12 Oct 2020 09:15:15 +0000 (UTC)
-Subject: Re: [PATCH 2/2] xen/evtchn: rework per event channel lock
+	by mx2.suse.de (Postfix) with ESMTP id A2806ACE6;
+	Mon, 12 Oct 2020 09:27:42 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20201012091058.27023-1-jgross@suse.com>
- <20201012091058.27023-3-jgross@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <3a7c7346-6506-f2e1-ad22-cd18aa1ccfc3@suse.com>
-Date: Mon, 12 Oct 2020 11:15:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 0/2] XSA-343 followup patches
+Date: Mon, 12 Oct 2020 11:27:38 +0200
+Message-Id: <20201012092740.1617-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20201012091058.27023-3-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.10.20 11:10, Juergen Gross wrote:
-> Currently the lock for a single event channel needs to be taken with
-> interrupts off, which causes deadlocks in some cases.
-> 
-> Rework the per event channel lock to be non-blocking for the case of
-> sending an event and removing the need for disabling interrupts for
-> taking the lock.
-> 
-> The lock is needed for avoiding races between sending an event or
-> querying the channel's state against removal of the event channel.
-> 
-> Use a locking scheme similar to a rwlock, but with some modifications:
-> 
-> - sending an event or querying the event channel's state uses an
->    operation similar to read_trylock(), in case of not obtaining the
->    lock the sending is omitted or a default state is returned
-> 
-> - closing an event channel is similar to write_lock(), but without
->    real fairness regarding multiple writers (this saves some space in
->    the event channel structure and multiple writers are impossible as
->    closing an event channel requires the domain's event_lock to be
->    held).
-> 
-> With this locking scheme it is mandatory that a writer will always
-> either start with an unbound or free event channel or will end with
-> an unbound or free event channel, as otherwise the reaction of a reader
-> not getting the lock would be wrong.
-> 
-> Fixes: e045199c7c9c54 ("evtchn: address races with evtchn_reset()")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+The patches for XSA-343 produced some fallout, especially the event
+channel locking has shown to be problematic.
 
-Oh, please ignore. I forgot to add the needed barriers to the locking
-functions.
+Patch 1 is targeting fifo event channels for avoiding any races for the
+case that the fifo queue has been changed for a specific event channel.
 
+The second patch is modifying the per event channel locking scheme in
+order to avoid deadlocks and problems due to the event channel lock
+having been changed to require IRQs off by the XSA-343 patches.
 
-Juergen
+Juergen Gross (2):
+  xen/events: access last_priority and last_vcpu_id together
+  xen/evtchn: rework per event channel lock
+
+ xen/arch/x86/irq.c         |   6 +-
+ xen/arch/x86/pv/shim.c     |   9 +--
+ xen/common/event_channel.c | 109 +++++++++++++++++--------------------
+ xen/common/event_fifo.c    |  25 +++++++--
+ xen/include/xen/event.h    |  56 ++++++++++++++++---
+ xen/include/xen/sched.h    |   5 +-
+ 6 files changed, 126 insertions(+), 84 deletions(-)
+
+-- 
+2.26.2
+
 
