@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DC328D16C
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:43:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6299.16782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D2928D176
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:47:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6301.16794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMS3-00015E-Le; Tue, 13 Oct 2020 15:42:59 +0000
+	id 1kSMWC-0001Fd-86; Tue, 13 Oct 2020 15:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6299.16782; Tue, 13 Oct 2020 15:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 6301.16794; Tue, 13 Oct 2020 15:47:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,104 +23,98 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMS3-00014p-IJ; Tue, 13 Oct 2020 15:42:59 +0000
-Received: by outflank-mailman (input) for mailman id 6299;
- Tue, 13 Oct 2020 15:42:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSMS1-000144-UP
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:42:57 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b0364843-20c5-45f0-a972-d547676dc813;
- Tue, 13 Oct 2020 15:42:56 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 193F9B2BB;
- Tue, 13 Oct 2020 15:42:56 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kSMWC-0001FE-4x; Tue, 13 Oct 2020 15:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 6301;
+ Tue, 13 Oct 2020 15:47:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pNIz=DU=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1kSMWA-0001F7-Vp
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:47:15 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id df3c3e0b-9d39-4f9a-8199-bafa4d4ad748;
+ Tue, 13 Oct 2020 15:47:13 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSMS1-000144-UP
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:42:57 +0000
-X-Inumbo-ID: b0364843-20c5-45f0-a972-d547676dc813
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id b0364843-20c5-45f0-a972-d547676dc813;
-	Tue, 13 Oct 2020 15:42:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602603776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cnDjqizlFPZeibM01x0Xf5XBdXKAaJe7w2xKEueQdxs=;
-	b=XPNk50KXGJLcYjKTQTkDRfgOPYsX+S6FC0Zkbg4OC2MSl+stqBjRze/p68V8LSi5orL/df
-	U9o7cZo1on3Egu04W77qsiJ+E2Fx4pF6rt1wU+9gcfpZL0rneWrWw2e0CxxBp+YgrnNWMj
-	ovAGNkf28JmJhlxqMqS4Z5U0+GE585g=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 193F9B2BB;
-	Tue, 13 Oct 2020 15:42:56 +0000 (UTC)
-Subject: Re: [PATCH v2 04/11] x86/vmsi: use the newly introduced EOI callbacks
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
-References: <20200930104108.35969-1-roger.pau@citrix.com>
- <20200930104108.35969-5-roger.pau@citrix.com>
- <785f80d6-3a0a-6a58-fd9a-05d8ff87f6fe@suse.com>
- <20201013144724.GR19254@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9253f4a9-66f0-e796-da35-22456545edde@suse.com>
-Date: Tue, 13 Oct 2020 17:42:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	(envelope-from <SRS0=pNIz=DU=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+	id 1kSMWA-0001F7-Vp
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:47:15 +0000
+X-Inumbo-ID: df3c3e0b-9d39-4f9a-8199-bafa4d4ad748
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id df3c3e0b-9d39-4f9a-8199-bafa4d4ad748;
+	Tue, 13 Oct 2020 15:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602604033;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=qPWmkc2ZFeFYf0b2dKh9DRNp0gTWx0DBaI4WjaMTVxw=;
+  b=ILzzLaIV0uZY/hOZQ2hC3r+YiNr/hoZjHq3u4AJAi66RK/gKTLwrJtdT
+   7xOhjxdDHcqgY2HRS0NHPfObYJzvnXwcJtMQeuP8U51lKFpC5l7pHvipE
+   LZWuGlkKkajYkqphbUv4DgOyj1AlR4NQi3gbvujfdCfJnZ01w0nHmvLK9
+   A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 3e/y38pEDJMjCMfqTS0H0DHusp9IeEG24VUZjC0eniMrNLV744okFu+MwTwxhh6oGtINSogFDH
+ gNaYfdD5m4KMmkZchp0RddtevJSkd0TLoEK51VBrxOerfB/dNeIvdco8tBIe7jUbcW1cC5bYru
+ cmb5oJKSXbKXtMg1+tWDeQXWUhOd1aBQy5YcU+ISp1vykcgfGpwVOd0TnleZkgTjYa9DU6zg75
+ 4fdTSGfT9ruU0GAGAC/rbkGq/ngg9s5nEyZ7ddUrIyzYUfD/iKvALkdrjvkaGOgpqaVeoAhzud
+ b+k=
+X-SBRS: 2.5
+X-MesageID: 29158354
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,371,1596513600"; 
+   d="scan'208";a="29158354"
+Subject: Re: [PATCH] hvmloader: flip "ACPI data" to ACPI NVS type for ACPI
+ table region
+To: Jan Beulich <jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>, <andrew.cooper3@citrix.com>,
+	<roger.pau@citrix.com>, <wl@xen.org>, <iwj@xenproject.org>
+References: <1602586216-27371-1-git-send-email-igor.druzhinin@citrix.com>
+ <56bea9a9-2509-cc39-a6fd-fb7db3e54d71@suse.com>
+ <83f567a1-35f3-a227-830b-a59b53217f3b@citrix.com>
+ <ad54c16b-c3b0-cff2-921f-b84a735d3149@suse.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <cc0f409e-60c0-41ae-f932-f6c2d7f82baa@citrix.com>
+Date: Tue, 13 Oct 2020 16:47:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201013144724.GR19254@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <ad54c16b-c3b0-cff2-921f-b84a735d3149@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.10.2020 16:47, Roger Pau Monné wrote:
-> On Fri, Oct 02, 2020 at 05:25:34PM +0200, Jan Beulich wrote:
->> On 30.09.2020 12:41, Roger Pau Monne wrote:
->>> @@ -119,7 +126,8 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
->>>  
->>>      ASSERT(pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI);
->>>  
->>> -    vmsi_deliver(d, vector, dest, dest_mode, delivery_mode, trig_mode);
->>> +    vmsi_deliver_callback(d, vector, dest, dest_mode, delivery_mode, trig_mode,
->>> +                          hvm_dpci_msi_eoi, NULL);
->>>  }
+On 13/10/2020 16:35, Jan Beulich wrote:
+> On 13.10.2020 14:59, Igor Druzhinin wrote:
+>> On 13/10/2020 13:51, Jan Beulich wrote:
+>>> As a consequence I think we will also want to adjust Xen itself to
+>>> automatically disable ACPI when it ends up consuming E801 data. Or
+>>> alternatively we should consider dropping all E801-related code (as
+>>> being inapplicable to 64-bit systems).
 >>
->> While I agree with your reply to Paul regarding Dom0, I still think
->> the entire if() in hvm_dpci_msi_eoi() should be converted into a
->> conditional here. There's no point registering the callback if it's
->> not going to do anything.
->>
->> However, looking further, the "!hvm_domain_irq(d)->dpci &&
->> !is_hardware_domain(d)" can be simply dropped altogether, right away.
->> It's now fulfilled by the identical check at the top of
->> hvm_dirq_assist(), thus guarding the sole call site of this function.
->>
->> The !is_iommu_enabled(d) is slightly more involved to prove, but it
->> should also be possible to simply drop. What might help here is a
->> separate change to suppress opening of HVM_DPCI_SOFTIRQ when there's
->> no IOMMU in the system, as then it becomes obvious that this part of
->> the condition is guaranteed by hvm_do_IRQ_dpci(), being the only
->> site where the softirq can get raised (apart from the softirq
->> handler itself).
->>
->> To sum up - the call above can probably stay as is, but the callback
->> can be simplified as a result of the change.
+>> I'm not following here. What Xen has to do with E801? It's a SeaBIOS implemented
+>> call that happened to be used by QEMU option ROM. We cannot drop it from there
+>> as it's part of BIOS spec.
 > 
-> Yes, I agree. Would you be fine with converting the check in the
-> callback into an assert, or would you rather have it removed
-> completely?
+> Any ACPI aware OS has to use E820 (and nothing else). Hence our
+> own use of E801 should either be dropped, or lead to the
+> disabling of ACPI. Otherwise real firmware using logic similar
+> to SeaBIOS'es (but hopefully properly accounting for holes)
+> could make us use ACPI table space as normal RAM.
 
-Either way is fine with me, I think.
+It's not us using it - it's a boot loader from QEMU in a form of option ROM
+that works in 16bit pre-OS environment which is not OS and relies on e801 BIOS call.
+I'm sure any ACPI aware OS does indeed use E820 but the problem here is not an OS.
 
-Jan
+The option ROM is loaded using fw_cfg from QEMU so it's not our code. Technically
+it's one foreign code (QEMU boot loader) talking to another foreign code (SeaBIOS)
+which provides information based on E820 that we gave them.
+
+So I'm afraid decision to dynamically disable ACPI (whatever you mean by this)
+cannot be made by sole usage of this call by a pre-OS boot loader.
+
+Igor
 
