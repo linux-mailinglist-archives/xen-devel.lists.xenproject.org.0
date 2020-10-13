@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F91128CA6A
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 10:44:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6124.16107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B28B28CB09
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 11:30:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6129.16122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSFtY-0001IE-Kb; Tue, 13 Oct 2020 08:42:56 +0000
+	id 1kSGcg-0004ve-BV; Tue, 13 Oct 2020 09:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6124.16107; Tue, 13 Oct 2020 08:42:56 +0000
+Received: by outflank-mailman (output) from mailman id 6129.16122; Tue, 13 Oct 2020 09:29:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,135 +23,94 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSFtY-0001Hs-HD; Tue, 13 Oct 2020 08:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 6124;
- Tue, 13 Oct 2020 08:42:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tg1d=DU=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kSFtW-0001Hn-RZ
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 08:42:54 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id cf8e8f24-b858-40c9-abbd-75f59b91bbf2;
- Tue, 13 Oct 2020 08:42:52 +0000 (UTC)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-MHf93RUlP2CyGjzfHWgdpg-1; Tue, 13 Oct 2020 04:42:50 -0400
-Received: by mail-wr1-f69.google.com with SMTP id 33so10470196wrf.22
- for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 01:42:49 -0700 (PDT)
-Received: from [192.168.1.36] (106.red-83-59-162.dynamicip.rima-tde.net.
- [83.59.162.106])
- by smtp.gmail.com with ESMTPSA id z5sm27778002wrw.37.2020.10.13.01.42.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Oct 2020 01:42:47 -0700 (PDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kSGcg-0004vF-8F; Tue, 13 Oct 2020 09:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 6129;
+ Tue, 13 Oct 2020 09:29:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ic0I=DU=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
+ id 1kSGce-0004vA-Q8
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 09:29:32 +0000
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b72c0482-99b7-4dd0-9f51-e469e445e253;
+ Tue, 13 Oct 2020 09:29:32 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id 13so20253413wmf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 02:29:32 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id q10sm28340120wrp.83.2020.10.13.02.29.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2020 02:29:30 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=tg1d=DU=redhat.com=philmd@srs-us1.protection.inumbo.net>)
-	id 1kSFtW-0001Hn-RZ
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 08:42:54 +0000
-X-Inumbo-ID: cf8e8f24-b858-40c9-abbd-75f59b91bbf2
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id cf8e8f24-b858-40c9-abbd-75f59b91bbf2;
-	Tue, 13 Oct 2020 08:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1602578571;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Cy5Umm45LAZG5+p/FZuyIVT+mHFYq4zbXyNxj1/WCmk=;
-	b=fp4g32Ixj2O4GT/qQpNEXCwagHrT+cUG+1XoU9x1HbuIrOnDZOpBB/HDK99G5d10fsGFli
-	gTJzleIheaQPk0MfRHglVuoivnfDmHrFDOv6Bh9Jsy3dyyQzqsrDKvrGXDW1rhQd2w9wAX
-	IG4q0Hb73JTtnZwtddJnla9fFBpNPg0=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-MHf93RUlP2CyGjzfHWgdpg-1; Tue, 13 Oct 2020 04:42:50 -0400
-X-MC-Unique: MHf93RUlP2CyGjzfHWgdpg-1
-Received: by mail-wr1-f69.google.com with SMTP id 33so10470196wrf.22
-        for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 01:42:49 -0700 (PDT)
+	(envelope-from <SRS0=ic0I=DU=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
+	id 1kSGce-0004vA-Q8
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 09:29:32 +0000
+X-Inumbo-ID: b72c0482-99b7-4dd0-9f51-e469e445e253
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id b72c0482-99b7-4dd0-9f51-e469e445e253;
+	Tue, 13 Oct 2020 09:29:32 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id 13so20253413wmf.0
+        for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 02:29:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Cy5Umm45LAZG5+p/FZuyIVT+mHFYq4zbXyNxj1/WCmk=;
-        b=mqyCVIRDbgn79hI12QobYH6QFszCIX93RXkpE4PnVXybVk4moKFp6M872LiLp1GgYh
-         2Gl8NkVgGZzLJjNU+VtN9xBvehlDY/cesEVaO0gOZsERmwoFjmpSOCrfTjQVorI2ia0F
-         wQ5t6ZHhC+nFI2GOWpU81RqsIOcq06t43mIiIh1wO9Oik+Ssa6XZDyjN3g3xK2/Xgtbl
-         tfb57CyqAW2uOb0Bf1pkI6J3LaN5HxrEqNZQXyLqd8xKwfQzbyFY3lg5XOpGr0vEVjZ5
-         tKLP2mNq1RK+2Nk/gr+AvWAqfvdVYCgjMwINS2XXM9qpcOPJxrdftYIwYMBcx6iP0UTO
-         JiOQ==
-X-Gm-Message-State: AOAM532ZNcF5H7O0aBhhm5qPxsF5E2MWhOvr0tYKkgC+eWYwoTR5kpd5
-	cGqaePd1ErFM+W+g6MUVYJrMP1bRh+7PZIwRnC3br3ZtIss/BgJOHBGIqpiAdpWHoosdAUNPEnt
-	dlGlohLu+RNZc5fw6pZLpi8a7EMo=
-X-Received: by 2002:a1c:2e53:: with SMTP id u80mr14675087wmu.58.1602578568526;
-        Tue, 13 Oct 2020 01:42:48 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzQnxR/4TvkPrJhZ7T2WGOGG1UFL0hib7NXqP0OoMMU4JVYdxRNJTLW0wHk657n/DIXrbAuCQ==
-X-Received: by 2002:a1c:2e53:: with SMTP id u80mr14675071wmu.58.1602578568373;
-        Tue, 13 Oct 2020 01:42:48 -0700 (PDT)
-Received: from [192.168.1.36] (106.red-83-59-162.dynamicip.rima-tde.net. [83.59.162.106])
-        by smtp.gmail.com with ESMTPSA id z5sm27778002wrw.37.2020.10.13.01.42.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2020 01:42:47 -0700 (PDT)
-Subject: Re: [PATCH 0/2] Add Xen CpusAccel
-To: Claudio Fontana <cfontana@suse.de>, Jason Andryuk <jandryuk@gmail.com>
-Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <20201012200725.64137-1-jandryuk@gmail.com>
- <c2b2ed9a-879c-f676-86f0-22b3a77b770f@suse.de>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-Message-ID: <a88a1570-ccbd-987c-17db-53e8643c1ea8@redhat.com>
-Date: Tue, 13 Oct 2020 10:42:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=XztsDfCag2OaDzPERC4MA77k+MHx9zhekJXMdA2e2eU=;
+        b=s95VKn07T2bNtZWZu6p0stAWjlDuBbdq7CSIeJ76quK4ef2L2Mawv2rlKDia3vj4a1
+         VG2E8Db4/VDlIGd/dTTjsSqQIMS2IgPswBo/UaNt7U8z9FhMV2oB1cbTDpKsg6qNUxoY
+         3VeFlDCH2+fUXTAE1UAzVSsic24M0/Xn2eFwsvzCgcOHN3B1L9ydnBEhZVjwF435YGfP
+         lc/Iqvd4xddZJraiRwm/1h7ymAYPlSqAnHrtuo0yy9UdfvqBw1z0cl6mB/l1J2s24J8t
+         l9Y2FUo3GCjapxtlx/DxdkojkjJ6TJHs3oK38jtPxdT8OxCRvuoOfhXl87IhWzjOzEVI
+         Ot+A==
+X-Gm-Message-State: AOAM5303K0+qt2nE17xGMZLnjHDrdt6iCgKFSRSfAo4+YiRCiY8eCEtK
+	9zvbErYfMJWEWVvhf+7P1ko=
+X-Google-Smtp-Source: ABdhPJx0npD3RdFJFlFyHcMgUiTbRjOKNo/TN4PiS1YSPMSJ8oGCSimgWDNQzF8MtoV95myhstqMXw==
+X-Received: by 2002:a05:600c:21d3:: with SMTP id x19mr10039455wmj.170.1602581371318;
+        Tue, 13 Oct 2020 02:29:31 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+        by smtp.gmail.com with ESMTPSA id q10sm28340120wrp.83.2020.10.13.02.29.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2020 02:29:30 -0700 (PDT)
+Date: Tue, 13 Oct 2020 09:29:29 +0000
+From: Wei Liu <wei.liu@kernel.org>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	Olivier Lambert <olivier.lambert@vates.fr>
+Subject: Re: [OSSTEST PATCH 16/82] abolish "kernkind"; desupport non-pvops
+ kernels
+Message-ID: <20201013092929.4xq6l3asckn7setl@liuwe-devbox-debian-v2>
+References: <20201007180024.7932-1-iwj@xenproject.org>
+ <20201007180024.7932-17-iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <c2b2ed9a-879c-f676-86f0-22b3a77b770f@suse.de>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201007180024.7932-17-iwj@xenproject.org>
+User-Agent: NeoMutt/20180716
 
-On 10/12/20 10:16 PM, Claudio Fontana wrote:
-> On 10/12/20 10:07 PM, Jason Andryuk wrote:
->> Xen was left behind when CpusAccel became mandatory and fails the assert
->> in qemu_init_vcpu().  It relied on the same dummy cpu threads as qtest.
->> Move the qtest cpu functions to a common location and reuse them for
->> Xen.
->>
->> Jason Andryuk (2):
->>    accel: move qtest CpusAccel functions to a common location
->>    accel: Add xen CpusAccel using dummy-cpu
->>
->>   .../qtest-cpus.c => dummy/dummy-cpus.c}       | 22 +++++--------------
->>   .../qtest-cpus.h => dummy/dummy-cpus.h}       | 10 ++++-----
->>   accel/dummy/meson.build                       |  7 ++++++
->>   accel/meson.build                             |  1 +
->>   accel/qtest/meson.build                       |  1 -
->>   accel/qtest/qtest.c                           |  7 +++++-
->>   accel/xen/xen-all.c                           | 10 +++++++++
->>   7 files changed, 34 insertions(+), 24 deletions(-)
->>   rename accel/{qtest/qtest-cpus.c => dummy/dummy-cpus.c} (76%)
->>   rename accel/{qtest/qtest-cpus.h => dummy/dummy-cpus.h} (59%)
->>   create mode 100644 accel/dummy/meson.build
->>
+On Wed, Oct 07, 2020 at 06:59:18PM +0100, Ian Jackson wrote:
+> From: Ian Jackson <ian.jackson@eu.citrix.com>
 > 
-> Yep, forgot completely, sorry.
+> This was for distinguishing the old-style Xenolinux kernels from pvops
+> kernels.
+> 
+> We have not actually tested any non-pvops kernels for a very very long
+> time.  Delete this now because the runvar is slightly in the way of
+> test host reuse.
+> 
+> (Sorry for the wide CC but it seems better to make sure anyone who
+> might object can do so.)
 
-Good opportunity to ask the Xen folks to add testing
-to our Gitlab CI, so this doesn't happen again :)
+No objection from me FWIW.
 
-> 
-> Acked-by: Claudio Fontana <cfontana@suse.de>
-> 
-> 
-> 
-
+Wei.
 
