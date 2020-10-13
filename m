@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE1C28CFCA
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 16:06:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6233.16586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0063B28CFDB
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 16:08:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6239.16598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSKwA-0007hN-9g; Tue, 13 Oct 2020 14:05:58 +0000
+	id 1kSKyi-0007vD-NL; Tue, 13 Oct 2020 14:08:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6233.16586; Tue, 13 Oct 2020 14:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 6239.16598; Tue, 13 Oct 2020 14:08:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,141 +23,108 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSKwA-0007gy-53; Tue, 13 Oct 2020 14:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 6233;
- Tue, 13 Oct 2020 14:05:57 +0000
+	id 1kSKyi-0007un-JW; Tue, 13 Oct 2020 14:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 6239;
+ Tue, 13 Oct 2020 14:08:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M+FY=DU=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kSKw9-0007gn-Gq
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:05:57 +0000
-Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
+ <SRS0=COa4=DU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kSKyh-0007ui-36
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:08:35 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bbce91b6-eb35-4f3c-aad1-1bb9acab6041;
- Tue, 13 Oct 2020 14:05:56 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id b69so20908874qkg.8
- for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 07:05:56 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:2df1:3321:942a:fbce])
- by smtp.gmail.com with ESMTPSA id z26sm13793609qki.40.2020.10.13.07.05.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2020 07:05:55 -0700 (PDT)
+ id eb0dd6db-a82e-4a17-9ed5-2c0541fbb029;
+ Tue, 13 Oct 2020 14:08:33 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=M+FY=DU=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
-	id 1kSKw9-0007gn-Gq
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:05:57 +0000
-X-Inumbo-ID: bbce91b6-eb35-4f3c-aad1-1bb9acab6041
-Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
+	(envelope-from <SRS0=COa4=DU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kSKyh-0007ui-36
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:08:35 +0000
+X-Inumbo-ID: eb0dd6db-a82e-4a17-9ed5-2c0541fbb029
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id bbce91b6-eb35-4f3c-aad1-1bb9acab6041;
-	Tue, 13 Oct 2020 14:05:56 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id b69so20908874qkg.8
-        for <xen-devel@lists.xenproject.org>; Tue, 13 Oct 2020 07:05:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Z5sCn2g22QNClDVC8ApV+Mu5VWc6D2QWQMvZw+Aegos=;
-        b=CfvQXnZCbKI+aeJIUwszdFQKsZPrD0OxTTWrzEaSn/d3DDvLCCcXgs0dyeR+jPToj2
-         ukNtrMP4s3qkhNcd4ZKW8eZc9hXTU5do+L9/1IXwwlil/SY1O+BoBGnTsV9LbPuRBOoW
-         wLvovZjgplbCIvu7UWrbpYFfsq6LUq+KITh8knWtWOPyNIDkmkzgC/c/vjm/h9BKZtWR
-         F3MUx8xrMrC6VFmBxyBfXPQUwvR2XyfQNtTxOgCECyVPgaWY048xCzZMVL3/JPU2XvOH
-         +G7OLxyuA3UDUcVKDN5GSAS0q0FP/GZ8g0JPMLVvw8X0pYznkVSbSR2BOS0Poh4A+h+J
-         J4RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Z5sCn2g22QNClDVC8ApV+Mu5VWc6D2QWQMvZw+Aegos=;
-        b=AG4hg/rEiy6IO9qtZMxObc70OtEiA2cRKN+VUG8+22lQwjZ1N5y6uTviHIbnO4k67o
-         d30yXrueHsyZo61OVHtif+Zcf+e3WF4iUwLgtklAfMAXvv+A5IRNPBuCbOx5h/lk0S9L
-         Y6NmOVvrF/x8V5vDQNAY5hot9CS+6LduDf1Gt+m8tFHWAm9wAJXiCCKhtggrs20KsP0G
-         oux9/wJqOlBv2G9R42gO1MCyzXG3rAtvuklP9MiaTcPGfyF86i9Ai9ZJIhA2F7nQO12R
-         MXCBwXIXSapXpO3MFthQqAE3c/pJBdvl9IxNwASn+HBP+y1z6zVLqqgvUzhgwnzmcOqB
-         6xaw==
-X-Gm-Message-State: AOAM530HOA163ed//RvL6zTQ+ae+s2xpAUs7cpusf9/npPeZRzWvTvAb
-	SB8uDpuygBcj5dXQYweziN0=
-X-Google-Smtp-Source: ABdhPJwtxBEnRnNPjEHcuVVHof6O92obazL/vN2TmbQ5O2rfIz0/rAfUoxQkml2srmIG5IH2ZnkKwQ==
-X-Received: by 2002:ae9:ef56:: with SMTP id d83mr100087qkg.83.1602597956496;
-        Tue, 13 Oct 2020 07:05:56 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:2df1:3321:942a:fbce])
-        by smtp.gmail.com with ESMTPSA id z26sm13793609qki.40.2020.10.13.07.05.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 07:05:55 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: Claudio Fontana <cfontana@suse.de>,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH v2 3/3] accel: Add xen CpusAccel using dummy-cpus
-Date: Tue, 13 Oct 2020 10:05:11 -0400
-Message-Id: <20201013140511.5681-4-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201013140511.5681-1-jandryuk@gmail.com>
-References: <20201013140511.5681-1-jandryuk@gmail.com>
+	id eb0dd6db-a82e-4a17-9ed5-2c0541fbb029;
+	Tue, 13 Oct 2020 14:08:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602598112;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iHh7wiC4B2V5XZ/fLiC+j0dCB49+U0P5NCnatMvWJYg=;
+  b=V6QjKksHcEy2Br1Er2GjukL1eHYqmnnp3iZnG47YMvfUsgPCu2b73njX
+   mersdAUI2aBzTvlQxl/O6AUc1Gpi7xREJqVF5Hr9KbYYmuWXs136XssYg
+   ioi38nJV5C9/sMj11qYMJX4XFBDnywd6fRrG3sZXY9rCDxBFK2cwlrGA5
+   k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 9rgqLsVmHgfwkpjldBx0kGqaR1UHeCtVL1Zg8Z8XKV5FVgkcRTGIm5gz4IyAl+77bM55hegEMr
+ JuuCb46Rv3YrTgDWsPWq5H0+3N9e9n/M1YzwfQaQY5bHKkSyIIvdgNeeJajPQa8NCeZHtEY5tD
+ nNI7DjjEoKk9nqX8avbxtRqdfr9LDkLHxQXQfP7D9P5jh+irT6uOG4vOBrQ8SicUcf1dEq2kkP
+ 4pTNzKjT3m9vUr+Jb4rvEPEbrzZtgFkdmWfXHiHVq+aakfmvA2+R7+284AzKEyOmiEyQXMQmSA
+ Ogo=
+X-SBRS: 2.5
+X-MesageID: 28894422
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,371,1596513600"; 
+   d="scan'208";a="28894422"
+Date: Tue, 13 Oct 2020 16:08:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Paul Durrant <pdurrant@amazon.com>
+Subject: Re: [PATCH v2 01/11] x86/hvm: drop vcpu parameter from vlapic EOI
+ callbacks
+Message-ID: <20201013140820.GP19254@Air-de-Roger>
+References: <20200930104108.35969-1-roger.pau@citrix.com>
+ <20200930104108.35969-2-roger.pau@citrix.com>
+ <bafcd30e-f75b-79c8-2424-6a63cb0b96d4@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <bafcd30e-f75b-79c8-2424-6a63cb0b96d4@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-Xen was broken by commit 1583a3898853 ("cpus: extract out qtest-specific
-code to accel/qtest").  Xen relied on qemu_init_vcpu() calling
-qemu_dummy_start_vcpu() in the default case, but that was replaced by
-g_assert_not_reached().
+On Fri, Oct 02, 2020 at 10:48:07AM +0200, Jan Beulich wrote:
+> On 30.09.2020 12:40, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/hvm/vlapic.c
+> > +++ b/xen/arch/x86/hvm/vlapic.c
+> > @@ -459,13 +459,10 @@ void vlapic_EOI_set(struct vlapic *vlapic)
+> >  
+> >  void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
+> >  {
+> > -    struct vcpu *v = vlapic_vcpu(vlapic);
+> > -    struct domain *d = v->domain;
+> > -
+> >      if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
+> > -        vioapic_update_EOI(d, vector);
+> > +        vioapic_update_EOI(vector);
+> >  
+> > -    hvm_dpci_msi_eoi(d, vector);
+> > +    hvm_dpci_msi_eoi(vector);
+> >  }
+> 
+> What about viridian_synic_wrmsr() -> vlapic_EOI_set() ->
+> vlapic_handle_EOI()? You'd probably have noticed this if you
+> had tried to (consistently) drop the respective parameters from
+> the intermediate functions as well.
+> 
+> Question of course is in how far viridian_synic_wrmsr() for
+> HV_X64_MSR_EOI makes much sense when v != current. Paul, Wei?
 
-Add a minimal "CpusAccel" for Xen using the dummy-cpus implementation
-used by qtest.
+There's already an assert at the top of viridian_synic_wrmsr of v ==
+current, which I assume is why I thought this change was fine. I can
+purge the passing of v (current) further, but it wasn't really needed
+for the rest of the series.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- accel/meson.build   | 1 +
- accel/xen/xen-all.c | 8 ++++++++
- 2 files changed, 9 insertions(+)
+> A secondary question of course is whether passing around the
+> pointers isn't really cheaper than the obtaining of 'current'.
 
-diff --git a/accel/meson.build b/accel/meson.build
-index 9a417396bd..b26cca227a 100644
---- a/accel/meson.build
-+++ b/accel/meson.build
-@@ -12,3 +12,4 @@ dummy_ss.add(files(
- ))
- 
- specific_ss.add_all(when: ['CONFIG_SOFTMMU', 'CONFIG_POSIX'], if_true: dummy_ss)
-+specific_ss.add_all(when: ['CONFIG_XEN'], if_true: dummy_ss)
-diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 60b971d0a8..878a4089d9 100644
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -16,6 +16,7 @@
- #include "hw/xen/xen_pt.h"
- #include "chardev/char.h"
- #include "sysemu/accel.h"
-+#include "sysemu/cpus.h"
- #include "sysemu/xen.h"
- #include "sysemu/runstate.h"
- #include "migration/misc.h"
-@@ -153,6 +154,10 @@ static void xen_setup_post(MachineState *ms, AccelState *accel)
-     }
- }
- 
-+const CpusAccel xen_cpus = {
-+    .create_vcpu_thread = dummy_start_vcpu_thread,
-+};
-+
- static int xen_init(MachineState *ms)
- {
-     MachineClass *mc = MACHINE_GET_CLASS(ms);
-@@ -180,6 +185,9 @@ static int xen_init(MachineState *ms)
-      * opt out of system RAM being allocated by generic code
-      */
-     mc->default_ram_id = NULL;
-+
-+    cpus_register_accel(&xen_cpus);
-+
-     return 0;
- }
- 
--- 
-2.25.1
+Well, while there's indeed a performance aspect here, I think
+using current is much clearer than passing a vcpu around. I could
+rename the parameter to curr or some such, but I think using
+current and not passing a vcpu parameter is clearer.
 
+Thanks, Roger.
 
