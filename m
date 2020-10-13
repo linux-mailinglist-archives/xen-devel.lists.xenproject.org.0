@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C0128CC68
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 13:21:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6154.16246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81EC828CC8D
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 13:26:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6159.16270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSINN-0007m8-2F; Tue, 13 Oct 2020 11:21:53 +0000
+	id 1kSIS5-00084p-1d; Tue, 13 Oct 2020 11:26:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6154.16246; Tue, 13 Oct 2020 11:21:53 +0000
+Received: by outflank-mailman (output) from mailman id 6159.16270; Tue, 13 Oct 2020 11:26:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,106 +23,98 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSINM-0007ll-V6; Tue, 13 Oct 2020 11:21:52 +0000
-Received: by outflank-mailman (input) for mailman id 6154;
- Tue, 13 Oct 2020 11:21:52 +0000
+	id 1kSIS4-00084M-UD; Tue, 13 Oct 2020 11:26:44 +0000
+Received: by outflank-mailman (input) for mailman id 6159;
+ Tue, 13 Oct 2020 11:26:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSINM-0007lf-4i
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 11:21:52 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h4xF=DU=casper.srs.infradead.org=batv+347c3dad313745b9998d+6260+infradead.org+hch@srs-us1.protection.inumbo.net>)
+ id 1kSIS2-00083j-EX
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 11:26:42 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a543055-1195-44ac-878f-41d0a4220454;
- Tue, 13 Oct 2020 11:21:51 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 83017AD5F;
- Tue, 13 Oct 2020 11:21:50 +0000 (UTC)
+ id 6054b378-931c-45be-bfa8-50d2f3a59233;
+ Tue, 13 Oct 2020 11:26:40 +0000 (UTC)
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1kSIR6-0001VK-7P; Tue, 13 Oct 2020 11:25:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSINM-0007lf-4i
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 11:21:52 +0000
-X-Inumbo-ID: 4a543055-1195-44ac-878f-41d0a4220454
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=h4xF=DU=casper.srs.infradead.org=batv+347c3dad313745b9998d+6260+infradead.org+hch@srs-us1.protection.inumbo.net>)
+	id 1kSIS2-00083j-EX
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 11:26:42 +0000
+X-Inumbo-ID: 6054b378-931c-45be-bfa8-50d2f3a59233
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4a543055-1195-44ac-878f-41d0a4220454;
-	Tue, 13 Oct 2020 11:21:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602588110;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o/zmrIFIfJ4lqDoscOzH0EH9jaWm465zjwJTXzvEocg=;
-	b=AHq2ZasCYSQ457HHNnUG7DVrZrrvYHZHU1e3+OLYldpDUyPm5lLtyZMspTi7omSSju7U0a
-	YV2gmiudOdTM5LfOYectv339yDEJrjfO0RId/Rh8L57PjgcAIRIcXITlv6a5QFGrH+4JCx
-	3UKeglCyc+01iw4R28D6K1zNFmVAfJo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 83017AD5F;
-	Tue, 13 Oct 2020 11:21:50 +0000 (UTC)
-Subject: Re: [PATCH v2 1/6] x86: replace __ASM_{CL,ST}AC
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <62ffb078-d763-f845-c4b9-eeacb3358d02@suse.com>
- <931e6d88-803e-36d6-da40-080879ec45a2@suse.com>
- <54f12dc6-fb5d-d6b4-3d5f-7267f0e0ef00@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c8d3eb59-4bf1-c832-3ba2-e2d7a72126d1@suse.com>
-Date: Tue, 13 Oct 2020 13:21:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id 6054b378-931c-45be-bfa8-50d2f3a59233;
+	Tue, 13 Oct 2020 11:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ap+vugPRXoOSJhloW5EJc9FGxy9ZwiLwbnG+7+pEMhA=; b=a/Sp1GZZiVtkIrsbDZFKKgQTkQ
+	FS+JHTt9pp+5vCrBdk0ac5b7U8ZgZGFScrKiULCJv4PZD4wWqOSzzq06ZoGh/8vFLI33VuvYYBdii
+	wZ4VlXJvl5fnmlD+q4pIJJmvrTs/0jX/FIDmEAYUX2+Mt6vIwB3sAbRYRgWIA8hB4i4EWyZuWPFOQ
+	rIaV+GwSaVBgBLKvO/SsFSj7I46VHFxg38PLmJQ+Oh1DkRIQcIx5NIWLGcWnDXshQ14JMdlpURiF2
+	LxyBxRGv+1Wkfh31jf6dzRr+U4xHgvz3PsshAxeZoaF0OQPY6Fl5VA2XZOxLonra6CTBCfgsfUBp/
+	6eTYHzgA==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kSIR6-0001VK-7P; Tue, 13 Oct 2020 11:25:44 +0000
+Date: Tue, 13 Oct 2020 12:25:44 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: ira.weiny@intel.com
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>, x86@kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Fenghua Yu <fenghua.yu@intel.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-nvdimm@lists.01.org,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	kexec@lists.infradead.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, devel@driverdev.osuosl.org,
+	linux-efi@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-aio@kvack.org,
+	io-uring@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-um@lists.infradead.org, linux-ntfs-dev@lists.sourceforge.net,
+	reiserfs-devel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
+	cluster-devel@redhat.com, ecryptfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-afs@lists.infradead.org, linux-rdma@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org, drbd-dev@lists.linbit.com,
+	linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-cachefs@redhat.com, samba-technical@lists.samba.org,
+	intel-wired-lan@lists.osuosl.org
+Subject: Re: [PATCH RFC PKS/PMEM 24/58] fs/freevxfs: Utilize new kmap_thread()
+Message-ID: <20201013112544.GA5249@infradead.org>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-25-ira.weiny@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <54f12dc6-fb5d-d6b4-3d5f-7267f0e0ef00@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201009195033.3208459-25-ira.weiny@intel.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 13.10.2020 13:04, Andrew Cooper wrote:
-> On 28/09/2020 13:29, Jan Beulich wrote:
->> --- a/xen/arch/x86/arch.mk
->> +++ b/xen/arch/x86/arch.mk
->> @@ -20,6 +20,7 @@ $(call as-option-add,CFLAGS,CC,"rdrand %
->>  $(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
->>  $(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
->>  $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
->> +$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
-> 
-> Kconfig
+> -	kaddr = kmap(pp);
+> +	kaddr = kmap_thread(pp);
+>  	memcpy(kaddr, vip->vii_immed.vi_immed + offset, PAGE_SIZE);
+> -	kunmap(pp);
+> +	kunmap_thread(pp);
 
-I know that's your view, and you know I disagree. I don't see the
-thread I had started to have lead to any consensus.
+You only Cced me on this particular patch, which means I have absolutely
+no idea what kmap_thread and kunmap_thread actually do, and thus can't
+provide an informed review.
 
->> --- /dev/null
->> +++ b/xen/include/asm-x86/asm-defns.h
->> @@ -0,0 +1,9 @@
->> +#ifndef HAVE_AS_CLAC_STAC
->> +.macro clac
->> +    .byte 0x0f, 0x01, 0xca
->> +.endm
->> +
->> +.macro stac
->> +    .byte 0x0f, 0x01, 0xcb
->> +.endm
->> +#endif
->> --- a/xen/include/asm-x86/asm_defns.h
->> +++ b/xen/include/asm-x86/asm_defns.h
-> 
-> We cannot have two files which differ by the vertical positioning of a dash.
-
-Why "cannot"? One is the helper of the other, so them being named almost
-identically is quite sensible imo (and no-one is supposed to include the
-new one directly). In any event I'd at most see this be "we don't want to".
-
-> How about asm-insn.h for the former, seeing as that is what it contains.
-
-Until "x86: fold indirect_thunk_asm.h into asm-defns.h", where it starts
-to be more than just plain insn replacements. And I suspect more non-insn
-macros will appear over time. I'd have suggested asm-macros.h in case the
-present name really can't be reached consensus on, but we have a
-(generated) file of this name already.
-
-Jan
+That being said I think your life would be a lot easier if you add
+helpers for the above code sequence and its counterpart that copies
+to a potential hughmem page first, as that hides the implementation
+details from most users.
 
