@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18DA628D0A6
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 16:48:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6262.16706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 504DE28D0F5
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:05:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6264.16718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSLaW-0003p2-2w; Tue, 13 Oct 2020 14:47:40 +0000
+	id 1kSLrP-0005bO-JR; Tue, 13 Oct 2020 15:05:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6262.16706; Tue, 13 Oct 2020 14:47:40 +0000
+Received: by outflank-mailman (output) from mailman id 6264.16718; Tue, 13 Oct 2020 15:05:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,151 +23,218 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSLaV-0003od-Vn; Tue, 13 Oct 2020 14:47:39 +0000
-Received: by outflank-mailman (input) for mailman id 6262;
- Tue, 13 Oct 2020 14:47:38 +0000
+	id 1kSLrP-0005az-G2; Tue, 13 Oct 2020 15:05:07 +0000
+Received: by outflank-mailman (input) for mailman id 6264;
+ Tue, 13 Oct 2020 15:05:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=COa4=DU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kSLaU-0003oY-BJ
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:47:38 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d0f0d23f-4518-4c98-bd68-f2d6c5e8025c;
- Tue, 13 Oct 2020 14:47:36 +0000 (UTC)
+ <SRS0=CdNA=DU=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kSLrO-0005au-4k
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:05:06 +0000
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com (unknown
+ [40.107.4.77]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5be091c8-e712-47c5-99b1-fe827e1f074e;
+ Tue, 13 Oct 2020 15:05:04 +0000 (UTC)
+Received: from AM5PR1001CA0047.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::24) by VI1PR08MB2638.eurprd08.prod.outlook.com
+ (2603:10a6:802:1f::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.26; Tue, 13 Oct
+ 2020 15:05:01 +0000
+Received: from AM5EUR03FT041.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:206:15:cafe::d2) by AM5PR1001CA0047.outlook.office365.com
+ (2603:10a6:206:15::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20 via Frontend
+ Transport; Tue, 13 Oct 2020 15:05:01 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT041.mail.protection.outlook.com (10.152.17.186) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3455.23 via Frontend Transport; Tue, 13 Oct 2020 15:05:01 +0000
+Received: ("Tessian outbound 7161e0c2a082:v64");
+ Tue, 13 Oct 2020 15:05:01 +0000
+Received: from f6558cdb2a45.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 0DCE99D7-C113-4D13-BD88-AC7F6B3D6EF7.1; 
+ Tue, 13 Oct 2020 15:04:54 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f6558cdb2a45.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 13 Oct 2020 15:04:54 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB6PR0802MB2294.eurprd08.prod.outlook.com (2603:10a6:4:85::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.22; Tue, 13 Oct
+ 2020 15:04:52 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3455.031; Tue, 13 Oct 2020
+ 15:04:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=COa4=DU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kSLaU-0003oY-BJ
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 14:47:38 +0000
-X-Inumbo-ID: d0f0d23f-4518-4c98-bd68-f2d6c5e8025c
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+	(envelope-from <SRS0=CdNA=DU=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+	id 1kSLrO-0005au-4k
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:05:06 +0000
+X-Inumbo-ID: 5be091c8-e712-47c5-99b1-fe827e1f074e
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com (unknown [40.107.4.77])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d0f0d23f-4518-4c98-bd68-f2d6c5e8025c;
-	Tue, 13 Oct 2020 14:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602600456;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=phnTqfecWLx/M2Er41CQxAFLuKwYNWrujpPQF3vL8JU=;
-  b=X0/d7OajK1SUYHfdgYFETk92OPz49tVKyy4SfO07U1C3N2CvQlTpYLLa
-   BOWFwa5KKMCUlphJdJ0Rc92vtq+sEAAKmf4Gm43QX8pvsUFhd0XzfDKrL
-   I29YupDVbOdEjigkYo3SXfvaRO0m5mabtTcAMY4OmtMTfSvSJKWol+rLx
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 10Nz0ied6Tsvv3gXfKyE6uOmuHA9pU8PUa7lLNmsA/lsMeFrFlyveLmtpFKDybfox3wU/fg64x
- em/c3LWdVEaD8DS5MXakY2HAfEudsYHvFz208qyQORpaKc/ASbTPaa+/S+c2iozBMoAdh6gVC2
- hcVNBi6Ui2v7bTo+DjWBgCJJiMHBuqTQysHc0T4B50CMWP3CLCn2923h4+COSPLk2KNLAkbOVH
- ARBmESJUzrxa6gUhBhSXC+TT2WekIAOE3BLXObcxiI7T/vWUM+/I1IAAq9J9qW1df13OBJx52g
- zOs=
-X-SBRS: 2.5
-X-MesageID: 28875181
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,371,1596513600"; 
-   d="scan'208";a="28875181"
-Date: Tue, 13 Oct 2020 16:47:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+	id 5be091c8-e712-47c5-99b1-fe827e1f074e;
+	Tue, 13 Oct 2020 15:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BKVBFY/fJAo4yBB6RO4M6FqSawyOCSqPYmhV6hs/NM4=;
+ b=1SWJGBoELitopM8HGnlXYG0xB43hPvKligNp7Q2itohoSSYFH2sSVNoCVuOBqKv8BBs53fWW2nZ0+2NJ7hLKL6yzL5T+FQYLX4lr0Invd/BwVip7pnp1hVxxwqXKo9sk/AHuGj9KuEaxXy7qYLkyW03qNZ+NrR7/ckvpEq25XOA=
+Received: from AM5PR1001CA0047.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::24) by VI1PR08MB2638.eurprd08.prod.outlook.com
+ (2603:10a6:802:1f::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.26; Tue, 13 Oct
+ 2020 15:05:01 +0000
+Received: from AM5EUR03FT041.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:206:15:cafe::d2) by AM5PR1001CA0047.outlook.office365.com
+ (2603:10a6:206:15::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20 via Frontend
+ Transport; Tue, 13 Oct 2020 15:05:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT041.mail.protection.outlook.com (10.152.17.186) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3455.23 via Frontend Transport; Tue, 13 Oct 2020 15:05:01 +0000
+Received: ("Tessian outbound 7161e0c2a082:v64"); Tue, 13 Oct 2020 15:05:01 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 116cb439551fccfd
+X-CR-MTA-TID: 64aa7808
+Received: from f6558cdb2a45.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 0DCE99D7-C113-4D13-BD88-AC7F6B3D6EF7.1;
+	Tue, 13 Oct 2020 15:04:54 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f6558cdb2a45.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Tue, 13 Oct 2020 15:04:54 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dihJcuMHmjQxAVERod5fKoXuM+zSlnCms6AG2dshFaa99cp4JNYCQlJ4YVigKSx4jHnSHJ4O9LkOpHW6K52XZumlY1qtNsMrFxpOymigin8xrVpmhqaQAGxM5pX3yR6zwBm+EAhnsSls86ynipHIh523DdveuAaPuW2uOPjIY9x8aaXpVKusN0hjVe0EuiPHqKBy+2RoPuQsYNwO4aFEWMiU85BWZen2VjrupVlquUyjB0snkPoQP1z3/G3KTLA+z/L21ZAp8rwRvOlukTOtopkfPCIFXuM5ZjMi//22+Lot2NqXS/bQl+Cco69hpY/naqMyZEfAOEo2thXQANA3Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BKVBFY/fJAo4yBB6RO4M6FqSawyOCSqPYmhV6hs/NM4=;
+ b=Nd59fCKHo6vVrIUEpnGf7E0LwXgKhQ+W4TFntIgQ8e6zvSmQSnnFAptTyoGRvU8+eMFsr2H7hZrsdcQMHrcRS6soMiJuWgFLN6rO2osPy67eeWjZARvBW7bKn/bQyQAs28FoTm05vfGtvIjYMAWl4GGk1gpIuNgJTWa10dlzifFTmcmjAPtyWFJVUjiPPytPyf+62vB+v4oxDbxGIdibaJ+xUZKHIbj1onOXtMqebl9BNlGT1kw83W2Zc2DlKucbl0oTgDh/PtLSisXi5juguJLnxNZ2W0hP0SEx+ehikhwpicLh3hm0tvQPUbS8FZ/6B5jY10OJOSi+kkFd+aqYeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BKVBFY/fJAo4yBB6RO4M6FqSawyOCSqPYmhV6hs/NM4=;
+ b=1SWJGBoELitopM8HGnlXYG0xB43hPvKligNp7Q2itohoSSYFH2sSVNoCVuOBqKv8BBs53fWW2nZ0+2NJ7hLKL6yzL5T+FQYLX4lr0Invd/BwVip7pnp1hVxxwqXKo9sk/AHuGj9KuEaxXy7qYLkyW03qNZ+NrR7/ckvpEq25XOA=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB6PR0802MB2294.eurprd08.prod.outlook.com (2603:10a6:4:85::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.22; Tue, 13 Oct
+ 2020 15:04:52 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3455.031; Tue, 13 Oct 2020
+ 15:04:52 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
-	<paul@xen.org>
-Subject: Re: [PATCH v2 04/11] x86/vmsi: use the newly introduced EOI callbacks
-Message-ID: <20201013144724.GR19254@Air-de-Roger>
-References: <20200930104108.35969-1-roger.pau@citrix.com>
- <20200930104108.35969-5-roger.pau@citrix.com>
- <785f80d6-3a0a-6a58-fd9a-05d8ff87f6fe@suse.com>
+CC: "open list:X86" <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: Re: [PATCH v2] build: always use BASEDIR for xen sub-directory
+Thread-Topic: [PATCH v2] build: always use BASEDIR for xen sub-directory
+Thread-Index: AQHWnLpvdle2+5+TPkS9pkZxhCxslKmVmiUAgAAQzIA=
+Date: Tue, 13 Oct 2020 15:04:52 +0000
+Message-ID: <A82D6948-1A32-45EA-B8CC-E3F0FBCEAF1F@arm.com>
+References:
+ <df2fc83d3a84dd3fc2e58101ded22847fdbaa862.1602082503.git.bertrand.marquis@arm.com>
+ <f492da43-4fd2-b798-7bb3-3810be5f4893@suse.com>
+In-Reply-To: <f492da43-4fd2-b798-7bb3-3810be5f4893@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.24.250.194]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: db9b9dfd-ceb3-474d-e7ee-08d86f895bb9
+x-ms-traffictypediagnostic: DB6PR0802MB2294:|VI1PR08MB2638:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB263857802364BE9921D01CB99D040@VI1PR08MB2638.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:8273;OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 3+1pfq0jxBSX/6XMvjVr/DeCnjrjhWz3c6EJVp1K5cD1mqt1Bb4IHkaBTLYH5HlMWy2qXfxRFsrJyv5JPnbYTfq1leHecFJpsc9K3bheQwouCLGK+n8Ses3lzFHur7u0Se7CEDrz9AEujEnbnjxxZ8INJygBhrYjOjiGOWU9M3GyVOYMgC3AFFfK30KSjaBiYgKNEyGV/mZ56E3gWXbuVWO221U+w+3k6Q0nHO57GOH4AfeEWDUvz+JiZSB+R9Zu8ItvBWjclANmjlVWkUyngICrS18v1r1FZYY61oe1fWxOzDDJ9tAB9B0s+DR2/MjzcWGkVUT6Rui8P2WzpGupeQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(346002)(136003)(39860400002)(396003)(8676002)(66946007)(91956017)(86362001)(76116006)(186003)(36756003)(8936002)(53546011)(6506007)(316002)(2616005)(64756008)(66556008)(66476007)(26005)(5660300002)(4744005)(2906002)(4326008)(6916009)(6512007)(71200400001)(54906003)(66446008)(7416002)(33656002)(6486002)(478600001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ 6PY950/9JM+tmXuZ2GCfPkFJlFWQ6JJhIsq12hFbAP5ri6bbXyVdjlWB/BqaiQDA5U5acoLLcIA8mqkt3BoYKdDd/q2DPRSOD7bqzvGxVfh7SogHM3Ews1jrqX+RtVDJlqz2WNTwlcR0xLO2k/nrKqbvfc/nhqQe9Ze7rzXb9zvU9009QvElCtx8rQoUIpGpJQNQV0Fr6yjmgUfnxbx62i/V7yN8rpgSGOAdcPtpt0C3GLzNR7TXRupxe/gexA0c8o8qPRA3AB/otuySBJlejKCm2YX+m7Ytd/EBZlgGaX8pUkGNYmQE57deGCtTdODbiWDEXSEXjFKxUQKAHXSIaSpg0Zur0DRgaviTl/e97idgZ8u+tiQsGIeLGyzojDPgDpLQw2xxMWzJxWGipm5OsK7iXmDhKYOW680lrCO/6XoKoSX2teXEvZ6+4VRetuAUJYsRjNBSKV3kan6yDvBlkjn6umFNTnluyXPW+FezoZGXfVfSpa+Vj6xRcOyDRKMAhj6BDBzTzWHXotSAzcR4C6hgHL0f/QCJG7rgyn2xPS03YmdPmWdJoh1fEGjE2z8tpHCYKjovgd/2cHG8lJ2KzgIOVTIWWpGCWgbmXfAtoOJCTdmLIgXHJk4m0G/vmS/zVmSKcyJbIvx04rpD+ih0GQ==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <AD3A460FC5803F4D802977E4C866F7B8@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <785f80d6-3a0a-6a58-fd9a-05d8ff87f6fe@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2294
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT041.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	c4b1bb70-e0fb-4e31-6593-08d86f895670
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/WPLmXVkFf/wscSH0FzIDF3+zZwzKKvzM4zGknHuCEfZU/owEv+U7unNu4v4C+a++lPPLCWYKM7SqMRpqyhaWmsuXT6sB/nLFNeTogpCusgRwppleBTJRwO35bjtXt5zXqL+gB3k0t3ZUMpcbKEkqKLNQE+KVpYn64bMZtOpqOOvN46TOGcbTvCOhREC6ZWJztoFc9Y+KI8vG3cQdgQD5jypeGHNvqy2TO2p8uFRgnLL0WREtCSO0AWP2CblmcdUtxx87kfk54JT6e+euMy/CnjnJUY9mHiH67Oas30OFscv3MPlsdO/MxMFT1KUEfGNxW8GTS+KjqyH9cB4WNURClpaDNcEpewgObgDAgLs0617p1kvbtjuHgJS5a7/ZPjq+Ld8Bw3sxExX+wcJBGNiSw==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(46966005)(82310400003)(478600001)(2906002)(70206006)(4326008)(36756003)(336012)(53546011)(70586007)(6506007)(6486002)(2616005)(81166007)(54906003)(356005)(33656002)(4744005)(26005)(47076004)(82740400003)(186003)(8676002)(8936002)(36906005)(316002)(6512007)(5660300002)(86362001)(6862004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2020 15:05:01.2418
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db9b9dfd-ceb3-474d-e7ee-08d86f895bb9
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT041.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB2638
 
-On Fri, Oct 02, 2020 at 05:25:34PM +0200, Jan Beulich wrote:
-> On 30.09.2020 12:41, Roger Pau Monne wrote:
-> > Remove the unconditional call to hvm_dpci_msi_eoi in vlapic_handle_EOI
-> > and instead use the newly introduced EOI callback mechanism in order
-> > to register a callback for MSI vectors injected from passed through
-> > devices.
-> 
-> What I'm kind of missing here is a word on why this is an improvement:
-> After all ...
-> 
-> > --- a/xen/arch/x86/hvm/vlapic.c
-> > +++ b/xen/arch/x86/hvm/vlapic.c
-> > @@ -496,8 +496,6 @@ void vlapic_handle_EOI(struct vlapic *vlapic, u8 vector)
-> >      if ( vlapic_test_vector(vector, &vlapic->regs->data[APIC_TMR]) )
-> >          vioapic_update_EOI(vector);
-> >  
-> > -    hvm_dpci_msi_eoi(vector);
-> 
-> ... you're exchanging this direct call for a more complex model with
-> an indirect one (to the same function).
 
-Sure. But this direct call will be made for each vlapic EOI, while my
-added callback will only be executed if the vector was injected by
-thee vmsi code, and hence will remove pointless calls to
-hvm_dpci_msi_eoi.
 
-It's IMO not feasible to be adding hardcoded calls to
-vlapic_handle_EOI for each possible subsystem or emulated device that
-wants to be notified of EOIs, hence we need some kind of generic
-framework to achieve this.
+> On 13 Oct 2020, at 15:04, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 07.10.2020 16:57, Bertrand Marquis wrote:
+>> Modify Makefiles using $(XEN_ROOT)/xen to use $(BASEDIR) instead.
+>>=20
+>> This is removing the dependency to xen subdirectory preventing using a
+>> wrong configuration file when xen subdirectory is duplicated for
+>> compilation tests.
+>>=20
+>> BASEDIR is set in xen/lib/x86/Makefile as this Makefile is directly
+>> called from the tools build and install process and BASEDIR is not set
+>> there.
+>>=20
+>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>=20
+> And once again
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+>=20
 
-> > @@ -119,7 +126,8 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
-> >  
-> >      ASSERT(pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI);
-> >  
-> > -    vmsi_deliver(d, vector, dest, dest_mode, delivery_mode, trig_mode);
-> > +    vmsi_deliver_callback(d, vector, dest, dest_mode, delivery_mode, trig_mode,
-> > +                          hvm_dpci_msi_eoi, NULL);
-> >  }
-> 
-> While I agree with your reply to Paul regarding Dom0, I still think
-> the entire if() in hvm_dpci_msi_eoi() should be converted into a
-> conditional here. There's no point registering the callback if it's
-> not going to do anything.
-> 
-> However, looking further, the "!hvm_domain_irq(d)->dpci &&
-> !is_hardware_domain(d)" can be simply dropped altogether, right away.
-> It's now fulfilled by the identical check at the top of
-> hvm_dirq_assist(), thus guarding the sole call site of this function.
-> 
-> The !is_iommu_enabled(d) is slightly more involved to prove, but it
-> should also be possible to simply drop. What might help here is a
-> separate change to suppress opening of HVM_DPCI_SOFTIRQ when there's
-> no IOMMU in the system, as then it becomes obvious that this part of
-> the condition is guaranteed by hvm_do_IRQ_dpci(), being the only
-> site where the softirq can get raised (apart from the softirq
-> handler itself).
-> 
-> To sum up - the call above can probably stay as is, but the callback
-> can be simplified as a result of the change.
+And thanks :-)
 
-Yes, I agree. Would you be fine with converting the check in the
-callback into an assert, or would you rather have it removed
-completely?
+Bertrand
 
-> > --- a/xen/drivers/passthrough/io.c
-> > +++ b/xen/drivers/passthrough/io.c
-> > @@ -874,7 +874,7 @@ static int _hvm_dpci_msi_eoi(struct domain *d,
-> >      return 0;
-> >  }
-> >  
-> > -void hvm_dpci_msi_eoi(unsigned int vector)
-> > +void hvm_dpci_msi_eoi(unsigned int vector, void *data)
-> >  {
-> >      struct domain *d = current->domain;
-> 
-> Instead of passing NULL for data and latching d from current, how
-> about you make the registration pass d to more easily use here?
-
-Yes, I think that's fine - we already have the domain pointer in
-vmsi_deliver_callback so it could be passed as the callback private
-data.
-
-Thanks, Roger.
 
