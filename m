@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B370F28C672
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 02:41:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6046.15847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4475928C673
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 02:45:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6050.15872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS8Mm-0001Bi-Go; Tue, 13 Oct 2020 00:40:36 +0000
+	id 1kS8RI-0001XW-HL; Tue, 13 Oct 2020 00:45:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6046.15847; Tue, 13 Oct 2020 00:40:36 +0000
+Received: by outflank-mailman (output) from mailman id 6050.15872; Tue, 13 Oct 2020 00:45:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,122 +23,152 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kS8Mm-0001BJ-DP; Tue, 13 Oct 2020 00:40:36 +0000
-Received: by outflank-mailman (input) for mailman id 6046;
- Tue, 13 Oct 2020 00:40:34 +0000
+	id 1kS8RI-0001Ws-DW; Tue, 13 Oct 2020 00:45:16 +0000
+Received: by outflank-mailman (input) for mailman id 6050;
+ Tue, 13 Oct 2020 00:45:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hVX3=DU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kS8Mk-0001An-BW
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 00:40:34 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=yijH=DU=ozlabs.org=dgibson@srs-us1.protection.inumbo.net>)
+ id 1kS8RG-0001VJ-Jh
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 00:45:14 +0000
+Received: from ozlabs.org (unknown [203.11.71.1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 17f45ace-568a-4904-90b0-9fa9f4f31097;
- Tue, 13 Oct 2020 00:40:33 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6B68521655;
- Tue, 13 Oct 2020 00:40:32 +0000 (UTC)
+ id 7dc5a121-165f-4f58-ad07-b7d098b9e31f;
+ Tue, 13 Oct 2020 00:45:11 +0000 (UTC)
+Received: by ozlabs.org (Postfix, from userid 1007)
+ id 4C9GzQ2kfkz9sTt; Tue, 13 Oct 2020 11:45:06 +1100 (AEDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hVX3=DU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kS8Mk-0001An-BW
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 00:40:34 +0000
-X-Inumbo-ID: 17f45ace-568a-4904-90b0-9fa9f4f31097
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=yijH=DU=ozlabs.org=dgibson@srs-us1.protection.inumbo.net>)
+	id 1kS8RG-0001VJ-Jh
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 00:45:14 +0000
+X-Inumbo-ID: 7dc5a121-165f-4f58-ad07-b7d098b9e31f
+Received: from ozlabs.org (unknown [203.11.71.1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 17f45ace-568a-4904-90b0-9fa9f4f31097;
-	Tue, 13 Oct 2020 00:40:33 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6B68521655;
-	Tue, 13 Oct 2020 00:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602549632;
-	bh=DcvpmSPD3amwYj0sKLgyCYgJqiHDDrWFFKw+/xE1sFM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Owf9KYTXxzN3Qtmk0YTw10GHvBeeJ46g24zG1QRaTwPouoLyYgSJcvLo9iv4lTX4B
-	 gtiTR8mkFxNzcaEZT9FKoueVdYRVwaDys2b7+kgHArQwjfPf2eoMDbefdH19CyRwED
-	 wylYyT9aSZ1SBDrUyND/8IIH7ctfRwQaIhjy59jw=
-Date: Mon, 12 Oct 2020 17:40:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Trammell Hudson <hudson@trmm.net>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [xen-unstable-smoke test] 155612: regressions - FAIL
-In-Reply-To: <01c8b669-d77e-75c4-7317-213e32eb2b73@xen.org>
-Message-ID: <alpine.DEB.2.21.2010121731570.10386@sstabellini-ThinkPad-T480s>
-References: <osstest-155612-mainreport@xen.org> <0d3766f0-a1a4-bc86-9372-79b1b65eae47@citrix.com> <l13ej-jSgj1tw6_awkBjUgauf1oh4k3PIQavoWsHdhhiH0qLc1hI4x0lK1Sx4S6DseYE2JQ4w1uFwuEgF325BDawQcpOe5sDX95C3MyqXlQ=@trmm.net>
- <01c8b669-d77e-75c4-7317-213e32eb2b73@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 7dc5a121-165f-4f58-ad07-b7d098b9e31f;
+	Tue, 13 Oct 2020 00:45:11 +0000 (UTC)
+Received: by ozlabs.org (Postfix, from userid 1007)
+	id 4C9GzQ2kfkz9sTt; Tue, 13 Oct 2020 11:45:06 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=gibson.dropbear.id.au; s=201602; t=1602549906;
+	bh=6z03D1ZV3p2wtWtAQ8HdiMejCmKYM8pplIFaWXlD8hg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Zfh5tPd5hMeq64adb90DDfNzMuDGuOVRs8Ifdlc8DR3LjBQWAgTUHf/Po97ZEGu8W
+	 ndDXL0gxBLQKs0mJIjAQnOr9ekbU86UYMtLsuFFJ3SbC1eFrK22hbZxekU7OFKMygG
+	 VUdBDaOmeqhjL14Ffsxb4Fm/c008JgvhPTizANX8=
+Date: Tue, 13 Oct 2020 11:42:29 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>
+Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+	qemu-ppc@nongnu.org, qemu-trivial@nongnu.org,
+	Paul Durrant <paul@xen.org>, Aurelien Jarno <aurelien@aurel32.net>,
+	qemu-arm@nongnu.org,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Helge Deller <deller@gmx.de>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Richard Henderson <rth@twiddle.net>,
+	Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+	xen-devel@lists.xenproject.org,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Huacai Chen <chenhc@lemote.com>
+Subject: Re: [PATCH 2/5] hw/pci-host: Use the PCI_BUILD_BDF() macro from
+ 'hw/pci/pci.h'
+Message-ID: <20201013004229.GG71119@yekko.fritz.box>
+References: <20201012124506.3406909-1-philmd@redhat.com>
+ <20201012124506.3406909-3-philmd@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Sat, 10 Oct 2020, Julien Grall wrote:
-> Hi,
-> 
-> On 10/10/2020 12:42, Trammell Hudson wrote:
-> > On Friday, October 9, 2020 10:27 PM, Andrew Cooper
-> > <andrew.cooper3@citrix.com> wrote:
-> > > [...]
-> > > Looks like arm64 is crashing fairly early on boot.
-> > > 
-> > > This is probably caused by "efi: Enable booting unified
-> > > hypervisor/kernel/initrd images".
-> > 
-> > Darn it.  I'm working out how to build and boot qemu aarch64 so
-> > that I can figure out what is going on.
-> 
-> FWIW, in OSSTest, we are chainloading Xen from GRUB. I have tried to
-> chainloading on QEMU but couldn't get to work so far (even without your
-> series).
-> 
-> Although, I have no trouble to boot using the GRUB way (i.e. via multiboot).
-
-It took me a while to set it up, but now I have a test environment based
-on RPi4 where I can chainload Xen from Grub EFI and boot successfully up
-until the rootfs (I don't have a rootfs setup correctly yet, so it
-breaks with the usual "Cannot open root device".) Which means I can get
-both Xen and the Dom0 kernel to boot.
-
-I hope it will be useful in the future, but in this case it didn't help
-because I get the same behavior with and without Trammell's patches. For
-me the chainload boot doesn't break.
-
-Could it be down to the Grub version in-use? I am using UBoot EFI to
-load Grub, but I doubt that could be a meaningful difference.
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="WkfBGePaEyrk4zXB"
+Content-Disposition: inline
+In-Reply-To: <20201012124506.3406909-3-philmd@redhat.com>
 
 
-> > Also, I'm not sure that it is possible to build a unified arm
-> > image right now; objcopy (and all of the obj* tools) say
-> > "File format not recognized" on the xen.efi file.  The MZ file
-> > is not what they are expecting for ARM executables.
-> 
-> IIUC, you are trying to add section into the EFI binary and not the ELF. Is it
-> correct?
-> 
-> I don't know what x86 is doing but for Arm, xen.efi (and Linux Image) is
-> custom built.
+--WkfBGePaEyrk4zXB
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Specifically, see:
+On Mon, Oct 12, 2020 at 02:45:03PM +0200, Philippe Mathieu-Daud=E9 wrote:
+> From: Philippe Mathieu-Daud=E9 <f4bug@amsat.org>
+>=20
+> We already have a generic PCI_BUILD_BDF() macro in "hw/pci/pci.h"
+> to pack these values, use it.
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=E9 <f4bug@amsat.org>
 
-xen/arch/arm/arm64/head.S:efi_head
+pnv part
 
+Acked-by: David Gibson <david@gibson.dropbear.id.au>
 
-> So it may lack information to be recognized by objdump.
-> 
-> My knowledge of objdump is fairly limited. If you are interested to fix it,
-> then I would suggest to ask the binutils community what they expect.
-> 
-> We could then adapt so objdump can recognize it.
+> ---
+>  hw/pci-host/bonito.c   | 3 +--
+>  hw/pci-host/pnv_phb4.c | 2 +-
+>  2 files changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/hw/pci-host/bonito.c b/hw/pci-host/bonito.c
+> index abb3ee86769..b05295639a6 100644
+> --- a/hw/pci-host/bonito.c
+> +++ b/hw/pci-host/bonito.c
+> @@ -196,8 +196,7 @@ FIELD(BONGENCFG, PCIQUEUE,      12, 1)
+>  #define PCI_IDSEL_VIA686B          (1 << PCI_IDSEL_VIA686B_BIT)
+> =20
+>  #define PCI_ADDR(busno , devno , funno , regno)  \
+> -    ((((busno) << 8) & 0xff00) + (((devno) << 3) & 0xf8) + \
+> -    (((funno) & 0x7) << 8) + (regno))
+> +    ((PCI_BUILD_BDF(busno, PCI_DEVFN(devno , funno)) << 8) + (regno))
+> =20
+>  typedef struct BonitoState BonitoState;
+> =20
+> diff --git a/hw/pci-host/pnv_phb4.c b/hw/pci-host/pnv_phb4.c
+> index 03daf40a237..6328e985f81 100644
+> --- a/hw/pci-host/pnv_phb4.c
+> +++ b/hw/pci-host/pnv_phb4.c
+> @@ -889,7 +889,7 @@ static bool pnv_phb4_resolve_pe(PnvPhb4DMASpace *ds)
+>      /* Read RTE */
+>      bus_num =3D pci_bus_num(ds->bus);
+>      addr =3D rtt & PHB_RTT_BASE_ADDRESS_MASK;
+> -    addr +=3D 2 * ((bus_num << 8) | ds->devfn);
+> +    addr +=3D 2 * PCI_BUILD_BDF(bus_num, ds->devfn);
+>      if (dma_memory_read(&address_space_memory, addr, &rte, sizeof(rte)))=
+ {
+>          phb_error(ds->phb, "Failed to read RTT entry at 0x%"PRIx64, addr=
+);
+>          /* Set error bits ? fence ? ... */
 
+--=20
+David Gibson			| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you.  NOT _the_ _other_
+				| _way_ _around_!
+http://www.ozlabs.org/~dgibson
+
+--WkfBGePaEyrk4zXB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdfRlhq5hpmzETofcbDjKyiDZs5IFAl+E9/UACgkQbDjKyiDZ
+s5Ir4RAAgIeuP6joYj5FhZqzV4VbZ4t/QTHS4dXl1LknvyV37IXxicFsUz2A5aIj
+PFrJU+tBknpj/rFbZIw5dWCK1N2kt2FM0fR9pIHzgOlH8Nv4LUawy4Fq4LREQGSV
+LLS5OAEQ+SiphKfeMjYeokeznwVQYKIPGGY2lFk/DPQrHjYOx2Ln6sS3FcAvKO/4
+5H+5b6uWMw9X4quka9o8p56m3/oBUYL3Yoy5wlZO8X8gniZ0GfV9DfqH3otegrZu
+/1mEbsGK0hgILQrKi4mcND7aPFF9ijcGuj9HkS9xz9emXb2y9cXSSmHVr3lFmCsc
+iyXWwqnehxrZn/3mAYmaISt9ACZENDaZ5zHTSvmXrEhz8RBsy0eiqD7i852Y86zZ
+Sw9OuC135HwBDpvqVR2duwhORJt1+OVLFtJjijRImcWZQXiKIsmORRoWhNxRRCjE
+pLsba7IztCdSsn7NMAfJCTZmaaPCq3ckqxj5C8zFOrJrV5P47lPZ+/v13iCZ7P4b
+RZ5QQ35Hf9H8udCCu2cfij/0h9i+00BJO2o7az4htlCG2N3t5b0Fh6RTFWcTHGCe
+WL9V/O16r+GmQ3P3wWCgMejlQ7/E37B3C/RPCCjkD8eNhz8sMc9m4ZvuIk7/Vovi
+72S/ctPCd/MMjoRxjWSRehdhjrvUzRAzEaHlK2+NMCY6mJOLsqk=
+=ZKQ5
+-----END PGP SIGNATURE-----
+
+--WkfBGePaEyrk4zXB--
 
