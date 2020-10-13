@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A6A28CB32
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 11:51:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6137.16147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C578A28CBA8
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 12:30:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6139.16159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSGx1-0007Xn-Cu; Tue, 13 Oct 2020 09:50:35 +0000
+	id 1kSHYe-000226-F2; Tue, 13 Oct 2020 10:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6137.16147; Tue, 13 Oct 2020 09:50:35 +0000
+Received: by outflank-mailman (output) from mailman id 6139.16159; Tue, 13 Oct 2020 10:29:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,169 +23,155 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSGx1-0007XQ-9e; Tue, 13 Oct 2020 09:50:35 +0000
-Received: by outflank-mailman (input) for mailman id 6137;
- Tue, 13 Oct 2020 09:50:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J7Gs=DU=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kSGwz-0007XL-SO
- for xen-devel@lists.xen.org; Tue, 13 Oct 2020 09:50:33 +0000
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0de1c894-d0f1-4dcb-93ab-d6f7ad329001;
- Tue, 13 Oct 2020 09:50:32 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id b8so10004805wrn.0
- for <xen-devel@lists.xen.org>; Tue, 13 Oct 2020 02:50:32 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id t124sm27717735wmg.31.2020.10.13.02.50.30
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 13 Oct 2020 02:50:31 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kSHYe-00021j-Bj; Tue, 13 Oct 2020 10:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 6139;
+ Tue, 13 Oct 2020 10:29:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kSHYc-00021e-Pp
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 10:29:26 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a757acf7-33d2-430e-8b07-e6cbb768f4c4;
+ Tue, 13 Oct 2020 10:29:24 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D2852ADA8;
+ Tue, 13 Oct 2020 10:29:23 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=J7Gs=DU=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kSGwz-0007XL-SO
-	for xen-devel@lists.xen.org; Tue, 13 Oct 2020 09:50:33 +0000
-X-Inumbo-ID: 0de1c894-d0f1-4dcb-93ab-d6f7ad329001
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0de1c894-d0f1-4dcb-93ab-d6f7ad329001;
-	Tue, 13 Oct 2020 09:50:32 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id b8so10004805wrn.0
-        for <xen-devel@lists.xen.org>; Tue, 13 Oct 2020 02:50:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=rukc4O6BWhhiRJWFSR0WSL5dfYldZYGmLkmWRIlbsRA=;
-        b=twLPNP0SSfNVVM+VX7KuHbtc2oPtMdERSPRax91RG8eO5h4yf/Nskn5mIWy/OIWnRh
-         5O+0u303zr/dXnSoIul22NkE7LxQATr1LqGmK/D7osO7gxJ/CWMsmwr0rYEqGlbbAHCY
-         eX5qJY5HibyJIvt1a3XaKixfgggfhISYY9OTphfYv8SIHC+U2wCqUBWtoO1a2JYW4dni
-         LVGqGy5fTEFCrNPSEvVou8dy3PejJ1vrFe2I/VDOHhJuP5l+LmIifiqTindu5aIGMRzr
-         Uuphv/ungBrFZeCk1Mbq6Vq509BctPm2Fpa5S3c6AjEt22q+Jw2DSZiiksB+YZkV6uwA
-         oHng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=rukc4O6BWhhiRJWFSR0WSL5dfYldZYGmLkmWRIlbsRA=;
-        b=BaEKJ/cfEVNMiKXgketCMHdf8QJo2kPa684QsNtmrhE9ckrEpBOgBVbqHpOBdNewUo
-         CIYNhpSuR2Nv5DfPErh+h2BaxiAMunE8ieigPjpY99+/UYwJFe6r7wGMSEtAYAfviNfB
-         OfEttJABBkki1vNHeN0EV4O186iKYkiRmkBCXLoJQku4+Qxj2wwBpzsetCbT8DCHWo6H
-         ssYO/CfB44ouCKtKX969t/4j5A11cTRwsl+gtl6Td+8AHvINiC8N678r9bJo1devlAvt
-         rRRC17huN6LCd+z0Gh1aM8gVzxSil6ApznllqACzfPjB1VcN4RNqtVcrUt9WFiLARChl
-         gv9w==
-X-Gm-Message-State: AOAM5321grnDItWxL43NsWcTDrZK+hTYElseLsc9LdJT36TVaDkA/UPe
-	vE1sd4wPUjrv08/RAvHl3Jc=
-X-Google-Smtp-Source: ABdhPJx9bzXYCNb8lC+HyMSDkZl8ZGHTaJ4auYOiFjy1chHk6eX/HbSb3UPev9K9ERTM4+pVcjdGaQ==
-X-Received: by 2002:a05:6000:110f:: with SMTP id z15mr33251472wrw.87.1602582631708;
-        Tue, 13 Oct 2020 02:50:31 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id t124sm27717735wmg.31.2020.10.13.02.50.30
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 13 Oct 2020 02:50:31 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-Cc: "'Don Slutz'" <don.slutz@gmail.com>,
-	<xen-devel@lists.xen.org>,
-	"'Boris Ostrovsky'" <boris.ostrovsky@oracle.com>,
-	"'Ian Jackson'" <iwj@xenproject.org>,
-	"'Jun Nakajima'" <jun.nakajima@intel.com>,
-	"'Kevin Tian'" <kevin.tian@intel.com>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Tim Deegan'" <tim@xen.org>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	"'Konrad Rzeszutek Wilk'" <konrad.wilk@oracle.com>,
-	"'George Dunlap'" <George.Dunlap@eu.citrix.com>
-References: <cover.1597854907.git.don.slutz@gmail.com> <bfe0b9bb7b283657bc33edb7c4b425930564ca46.1597854908.git.don.slutz@gmail.com> <e7581f3a-71eb-3181-9128-01e22653a47e@suse.com> <000901d69bb8$941489b0$bc3d9d10$@xen.org> <8bf54ee4-2379-f3eb-57a4-ee572978d219@suse.com>
-In-Reply-To: <8bf54ee4-2379-f3eb-57a4-ee572978d219@suse.com>
-Subject: RE: [XEN PATCH v14 7/8] Add IOREQ_TYPE_VMWARE_PORT
-Date: Tue, 13 Oct 2020 10:50:29 +0100
-Message-ID: <005b01d6a146$49b79900$dd26cb00$@xen.org>
+	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kSHYc-00021e-Pp
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 10:29:26 +0000
+X-Inumbo-ID: a757acf7-33d2-430e-8b07-e6cbb768f4c4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id a757acf7-33d2-430e-8b07-e6cbb768f4c4;
+	Tue, 13 Oct 2020 10:29:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602584963;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KyK3FBPEsgk1cDe7NYdwCSADIfUezZUAE+KS8wpVbEQ=;
+	b=obDL5Qh24FeXCwuSarpaVCS2YCKTXhSpnCmC3GVH1B1y++6VzSXfsKRU4FkMoKn/idYLVk
+	bDuBxQ45C2KDp60Fz+lrlqdhDS30sM3IkiIZgtA9xDY87VA2/5ZJEXoGYSif775Y4Kp/Zg
+	L3/N/xCG1hdpz9jD7P0trq5KkFGgMMI=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id D2852ADA8;
+	Tue, 13 Oct 2020 10:29:23 +0000 (UTC)
+Subject: Re: [PATCH v2 4/4] x86/shadow: refactor shadow_vram_{get,put}_l1e()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
+References: <c6b9c903-02eb-d473-86e3-ccb67aff6cd7@suse.com>
+ <51515581-19f3-5b7c-a2f9-1a0b11f8283a@suse.com>
+ <20201008151556.GL19254@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <070ad2c4-1887-67dc-34eb-7107c9360c01@suse.com>
+Date: Tue, 13 Oct 2020 12:29:21 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQE3EbIOCgkLUtOBXNlfcF4M3GLQwwHXOsu5AXIpxzoCBV3QmgKqbpWKqpSetoA=
+In-Reply-To: <20201008151556.GL19254@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 13 October 2020 10:38
-> To: paul@xen.org
-> Cc: 'Don Slutz' <don.slutz@gmail.com>; xen-devel@lists.xen.org; 'Boris =
-Ostrovsky'
-> <boris.ostrovsky@oracle.com>; 'Ian Jackson' <iwj@xenproject.org>; 'Jun =
-Nakajima'
-> <jun.nakajima@intel.com>; 'Kevin Tian' <kevin.tian@intel.com>; =
-'Stefano Stabellini'
-> <sstabellini@kernel.org>; 'Tim Deegan' <tim@xen.org>; 'Andrew Cooper' =
-<andrew.cooper3@citrix.com>;
-> 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>; 'George Dunlap' =
-<George.Dunlap@eu.citrix.com>
-> Subject: Re: [XEN PATCH v14 7/8] Add IOREQ_TYPE_VMWARE_PORT
->=20
-> On 06.10.2020 10:13, Paul Durrant wrote:
-> >
-> >
-> >> -----Original Message-----
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 01 October 2020 15:42
-> >> To: Don Slutz <don.slutz@gmail.com>
-> >> Cc: xen-devel@lists.xen.org; Boris Ostrovsky =
-<boris.ostrovsky@oracle.com>; Ian Jackson
-> >> <iwj@xenproject.org>; Jun Nakajima <jun.nakajima@intel.com>; Kevin =
-Tian <kevin.tian@intel.com>;
-> >> Stefano Stabellini <sstabellini@kernel.org>; Tim Deegan =
-<tim@xen.org>; Andrew Cooper
-> >> <andrew.cooper3@citrix.com>; Konrad Rzeszutek Wilk =
-<konrad.wilk@oracle.com>; George Dunlap
-> >> <George.Dunlap@eu.citrix.com>; Paul Durrant <paul@xen.org>
-> >> Subject: Re: [XEN PATCH v14 7/8] Add IOREQ_TYPE_VMWARE_PORT
-> >>
-> >> On 19.08.2020 18:52, Don Slutz wrote:
-> >>> This adds synchronization of the 6 vcpu registers (only 32bits of
-> >>> them) that QEMU's vmport.c and vmmouse.c needs between Xen and =
-QEMU.
-> >>> This is how VMware defined the use of these registers.
-> >>>
-> >>> This is to avoid a 2nd and 3rd exchange between QEMU and Xen to
-> >>> fetch and put these 6 vcpu registers used by the code in QEMU's
-> >>> vmport.c and vmmouse.c
-> >>
-> >> I'm unconvinced this warrants a new ioreq type, and all the =
-overhead
-> >> associated with it. I'd be curious to know what Paul or the qemu
-> >> folks think here.
-> >>
-> >
-> > The current shared ioreq_t does appear have enough space to =
-accommodate 6 32-bit registers (in the
-> addr, data, count and size) fields co couldn't the new =
-IOREQ_TYPE_VMWARE_PORT type be dealt with by
-> simply unioning the regs with these fields? That avoids the need for a =
-whole new shared page.
->=20
-> Hmm, yes, good point. But this is assuming we're going to be fine with
-> using 32-bit registers now and going forward. Personally I'd prefer a
-> mechanism less constrained by the specific needs of the current VMware
-> interface, i.e. potentially allowing to scale to 64-bit registers as
-> well as any of the remaining 9 ones (leaving aside %rsp).
->=20
+On 08.10.2020 17:15, Roger Pau Monné wrote:
+> On Wed, Sep 16, 2020 at 03:08:40PM +0200, Jan Beulich wrote:
+>> +void shadow_vram_put_mfn(mfn_t mfn, unsigned int l1f,
+>> +                         mfn_t sl1mfn, const void *sl1e,
+>> +                         const struct domain *d)
+>> +{
+>> +    unsigned long gfn;
+>> +    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
+>> +
+>> +    ASSERT(is_hvm_domain(d));
+>> +
+>> +    if ( !dirty_vram /* tracking disabled? */ ||
+>> +         !(l1f & _PAGE_RW) /* read-only mapping? */ ||
+>> +         !mfn_valid(mfn) /* mfn can be invalid in mmio_direct */)
+>> +        return;
+>> +
+>> +    gfn = gfn_x(mfn_to_gfn(d, mfn));
+>> +    /* Page sharing not supported on shadow PTs */
+>> +    BUG_ON(SHARED_M2P(gfn));
+>> +
+>> +    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
+>> +    {
+>> +        unsigned long i = gfn - dirty_vram->begin_pfn;
+>> +        const struct page_info *page = mfn_to_page(mfn);
+>> +        bool dirty = false;
+>> +        paddr_t sl1ma = mfn_to_maddr(sl1mfn) | PAGE_OFFSET(sl1e);
+>> +
+>> +        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
+>> +        {
+>> +            /* Last reference */
+>> +            if ( dirty_vram->sl1ma[i] == INVALID_PADDR )
+>> +            {
+>> +                /* We didn't know it was that one, let's say it is dirty */
+>> +                dirty = true;
+>> +            }
+>> +            else
+>> +            {
+>> +                ASSERT(dirty_vram->sl1ma[i] == sl1ma);
+>> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
+>> +                if ( l1f & _PAGE_DIRTY )
+>> +                    dirty = true;
+>> +            }
+>> +        }
+>> +        else
+>> +        {
+>> +            /* We had more than one reference, just consider the page dirty. */
+>> +            dirty = true;
+>> +            /* Check that it's not the one we recorded. */
+>> +            if ( dirty_vram->sl1ma[i] == sl1ma )
+>> +            {
+>> +                /* Too bad, we remembered the wrong one... */
+>> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
+>> +            }
+>> +            else
+>> +            {
+>> +                /*
+>> +                 * Ok, our recorded sl1e is still pointing to this page, let's
+>> +                 * just hope it will remain.
+>> +                 */
+>> +            }
+>> +        }
+>> +
+>> +        if ( dirty )
+>> +        {
+>> +            dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
+> 
+> Could you use _set_bit here?
 
-I think that should probably be additional work, not needed for this =
-series. We could look to expand and re-structure the ioreq_t structure =
-with some headroom. An emulator aware of the new structure to resource =
-map a different set of shared pages.
+In addition to what Andrew has said - this would be a non cosmetic
+change, which I wouldn't want to do in a patch merely moving this
+code.
 
-  Paul
+>> @@ -1194,7 +1094,9 @@ static int shadow_set_l1e(struct domain
+>>                  new_sl1e = shadow_l1e_flip_flags(new_sl1e, rc);
+>>                  /* fall through */
+>>              case 0:
+>> -                shadow_vram_get_l1e(new_sl1e, sl1e, sl1mfn, d);
+>> +                shadow_vram_get_mfn(shadow_l1e_get_mfn(new_sl1e),
+>> +                                    shadow_l1e_get_flags(new_sl1e),
+>> +                                    sl1mfn, sl1e, d);
+> 
+> As you have moved this function into a HVM build time file, don't you
+> need to guard this call, or alternatively provide a dummy handler for
+> !CONFIG_HVM in private.h?
+> 
+> Same for shadow_vram_put_mfn.
 
-> Jan
+All uses are inside conditionals using shadow_mode_refcounts(), i.e.
+the compiler's DCE pass will eliminate the calls. All we need are
+declarations to be in scope.
 
-
+Jan
 
