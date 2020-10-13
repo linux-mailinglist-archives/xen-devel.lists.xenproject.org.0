@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE2728D391
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 20:23:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6356.16903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C66528D3BB
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 20:37:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6358.16916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSOxO-0007dC-SG; Tue, 13 Oct 2020 18:23:30 +0000
+	id 1kSPAV-0000CG-7z; Tue, 13 Oct 2020 18:37:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6356.16903; Tue, 13 Oct 2020 18:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 6358.16916; Tue, 13 Oct 2020 18:37:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,124 +23,168 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSOxO-0007cr-Ok; Tue, 13 Oct 2020 18:23:30 +0000
-Received: by outflank-mailman (input) for mailman id 6356;
- Tue, 13 Oct 2020 18:23:29 +0000
+	id 1kSPAV-0000Bp-4m; Tue, 13 Oct 2020 18:37:03 +0000
+Received: by outflank-mailman (input) for mailman id 6358;
+ Tue, 13 Oct 2020 18:37:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jd8M=DU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kSOxN-0007cP-Q5
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 18:23:29 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zIOr=DU=fluxnic.net=nico@srs-us1.protection.inumbo.net>)
+ id 1kSPAT-0000B8-6Y
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 18:37:01 +0000
+Received: from pb-sasl-trial2.pobox.com (unknown [64.147.108.86])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2d823fe4-774e-4117-ad0f-49c6244ac1a3;
- Tue, 13 Oct 2020 18:23:23 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kSOxG-0004AK-U1; Tue, 13 Oct 2020 18:23:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kSOxG-0003Py-MC; Tue, 13 Oct 2020 18:23:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kSOxG-0002ic-Lk; Tue, 13 Oct 2020 18:23:22 +0000
+ id d8baad28-1d41-4efd-9377-84e8985dd080;
+ Tue, 13 Oct 2020 18:36:59 +0000 (UTC)
+Received: from pb-sasl-trial2.pobox.com (localhost.local [127.0.0.1])
+ by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id B35092F08C;
+ Tue, 13 Oct 2020 14:36:58 -0400 (EDT)
+ (envelope-from nico@fluxnic.net)
+Received: from pb-smtp1.nyi.icgroup.com (pb-smtp1.pobox.com [10.90.30.53])
+ by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id 7910C2F08B;
+ Tue, 13 Oct 2020 14:36:58 -0400 (EDT)
+ (envelope-from nico@fluxnic.net)
+Received: from yoda.home (unknown [24.203.50.76])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id CD98F955F4;
+ Tue, 13 Oct 2020 14:36:57 -0400 (EDT)
+ (envelope-from nico@fluxnic.net)
+Received: from xanadu.home (xanadu.home [192.168.2.2])
+ by yoda.home (Postfix) with ESMTPSA id CF7492DA0BC7;
+ Tue, 13 Oct 2020 14:36:56 -0400 (EDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Jd8M=DU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kSOxN-0007cP-Q5
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 18:23:29 +0000
-X-Inumbo-ID: 2d823fe4-774e-4117-ad0f-49c6244ac1a3
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=zIOr=DU=fluxnic.net=nico@srs-us1.protection.inumbo.net>)
+	id 1kSPAT-0000B8-6Y
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 18:37:01 +0000
+X-Inumbo-ID: d8baad28-1d41-4efd-9377-84e8985dd080
+Received: from pb-sasl-trial2.pobox.com (unknown [64.147.108.86])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2d823fe4-774e-4117-ad0f-49c6244ac1a3;
-	Tue, 13 Oct 2020 18:23:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=50Zt0/KzVUd9ZS7yG52NlogseuEc0UEv+QWoJi56kI0=; b=pxGNgeTgi1X6uMEzE+2dr4ecpH
-	G5KxkI1yI+RJGGfkf0sroGwODm8bv9nLfp5qTDV55DY1ahOA7GWQqXEBdSymG1J/VP9Cyo5P+78FC
-	I4OG0inCJVnyqQ55mKZDAXdIaBPaUNvDRE2ZBHOUxSML4Z5vfTQZiG54HyRq3LMVQqjI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSOxG-0004AK-U1; Tue, 13 Oct 2020 18:23:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSOxG-0003Py-MC; Tue, 13 Oct 2020 18:23:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSOxG-0002ic-Lk; Tue, 13 Oct 2020 18:23:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155765-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id d8baad28-1d41-4efd-9377-84e8985dd080;
+	Tue, 13 Oct 2020 18:36:59 +0000 (UTC)
+Received: from pb-sasl-trial2.pobox.com (localhost.local [127.0.0.1])
+	by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id B35092F08C;
+	Tue, 13 Oct 2020 14:36:58 -0400 (EDT)
+	(envelope-from nico@fluxnic.net)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pobox.com; h=date:from:to
+	:cc:subject:in-reply-to:message-id:references:mime-version
+	:content-type; s=sasl; bh=1qdRcPgrMg9PaaTRWeHMHkWBgn4=; b=Epy+q5
+	ans9ahJwXxlQvxdjICPrBYTo3ECIn9AzWxzmuo835zX7Go5RA+la+QVdJswbYHqY
+	OA9uOWP+RHqwo1f/1Hjwskkbh9itwsmr5IKrZUme2Q4YRp5bQABuumhmd/Yh0NKM
+	sMhZUgbkZQs79wJJn2wtIPZ7EN0v5uRSG8bTQ=
+Received: from pb-smtp1.nyi.icgroup.com (pb-smtp1.pobox.com [10.90.30.53])
+	by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id 7910C2F08B;
+	Tue, 13 Oct 2020 14:36:58 -0400 (EDT)
+	(envelope-from nico@fluxnic.net)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=fluxnic.net;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references:mime-version:content-type; s=2016-12.pbsmtp; bh=/xoWviDLFg5PKRQ9rObRWDXVC++pmZtYhfbDb0DFq7E=; b=v5OoWtflZD131TYsBl2A9g0L/PCRe2nu6sy2IJY2ys8stI3sGPGydjk9hbVpZeTUKIjemrnRhLwKFlAM+dXEIGXz5t0LfwSiRA8m7hrB4WLH79+9F2ww8ICEhYu0fLjFgoDc1lKWqG4ZKNRDYjtbn/p6CJBipu1Te7ZvLuk/HMw=
+Received: from yoda.home (unknown [24.203.50.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by pb-smtp1.pobox.com (Postfix) with ESMTPSA id CD98F955F4;
+	Tue, 13 Oct 2020 14:36:57 -0400 (EDT)
+	(envelope-from nico@fluxnic.net)
+Received: from xanadu.home (xanadu.home [192.168.2.2])
+	by yoda.home (Postfix) with ESMTPSA id CF7492DA0BC7;
+	Tue, 13 Oct 2020 14:36:56 -0400 (EDT)
+Date: Tue, 13 Oct 2020 14:36:56 -0400 (EDT)
+From: Nicolas Pitre <nico@fluxnic.net>
+To: Ira Weiny <ira.weiny@intel.com>
+cc: Andrew Morton <akpm@linux-foundation.org>, 
+    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+    Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>, 
+    Peter Zijlstra <peterz@infradead.org>, x86@kernel.org, 
+    Dave Hansen <dave.hansen@linux.intel.com>, 
+    Dan Williams <dan.j.williams@intel.com>, Fenghua Yu <fenghua.yu@intel.com>, 
+    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    linux-nvdimm@lists.01.org, linux-fsdevel@vger.kernel.org, 
+    linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+    linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+    bpf@vger.kernel.org, kexec@lists.infradead.org, 
+    linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org, 
+    devel@driverdev.osuosl.org, linux-efi@vger.kernel.org, 
+    linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org, 
+    target-devel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+    ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+    linux-aio@kvack.org, io-uring@vger.kernel.org, 
+    linux-erofs@lists.ozlabs.org, linux-um@lists.infradead.org, 
+    linux-ntfs-dev@lists.sourceforge.net, reiserfs-devel@vger.kernel.org, 
+    linux-f2fs-devel@lists.sourceforge.net, linux-nilfs@vger.kernel.org, 
+    cluster-devel@redhat.com, ecryptfs@vger.kernel.org, 
+    linux-cifs@vger.kernel.org, linux-btrfs@vger.kernel.org, 
+    linux-afs@lists.infradead.org, linux-rdma@vger.kernel.org, 
+    amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+    intel-gfx@lists.freedesktop.org, drbd-dev@lists.linbit.com, 
+    linux-block@vger.kernel.org, xen-devel@lists.xenproject.org, 
+    linux-cachefs@redhat.com, samba-technical@lists.samba.org, 
+    intel-wired-lan@lists.osuosl.org
+Subject: Re: [PATCH RFC PKS/PMEM 33/58] fs/cramfs: Utilize new
+ kmap_thread()
+In-Reply-To: <20201009195033.3208459-34-ira.weiny@intel.com>
+Message-ID: <nycvar.YSQ.7.78.906.2010131436200.2184@knanqh.ubzr>
+References: <20201009195033.3208459-1-ira.weiny@intel.com> <20201009195033.3208459-34-ira.weiny@intel.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 155765: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=9380177354387f03c8ff9eadb7ae94aa453b9469
-X-Osstest-Versions-That:
-    ovmf=5d1af380d3e4bd840fa324db33ca4f739136e654
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 13 Oct 2020 18:23:22 +0000
+Content-Type: text/plain; charset=US-ASCII
+X-Pobox-Relay-ID:
+ 13301A02-0D83-11EB-84D0-D152C8D8090B-78420484!pb-smtp1.pobox.com
 
-flight 155765 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155765/
+On Fri, 9 Oct 2020, ira.weiny@intel.com wrote:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 9380177354387f03c8ff9eadb7ae94aa453b9469
-baseline version:
- ovmf                 5d1af380d3e4bd840fa324db33ca4f739136e654
+> From: Ira Weiny <ira.weiny@intel.com>
+> 
+> The kmap() calls in this FS are localized to a single thread.  To avoid
+> the over head of global PKRS updates use the new kmap_thread() call.
+> 
+> Cc: Nicolas Pitre <nico@fluxnic.net>
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 
-Last test of basis   155757  2020-10-13 01:44:44 Z    0 days
-Testing same since   155765  2020-10-13 06:07:35 Z    0 days    1 attempts
+Acked-by: Nicolas Pitre <nico@fluxnic.net>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  fengyunhua <fengyunhua@byosoft.com.cn>
-  Jan Bobek <jbobek@nvidia.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Yunhua Feng <fengyunhua@byosoft.com.cn>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   5d1af380d3..9380177354  9380177354387f03c8ff9eadb7ae94aa453b9469 -> xen-tested-master
+>  fs/cramfs/inode.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+> index 912308600d39..003c014a42ed 100644
+> --- a/fs/cramfs/inode.c
+> +++ b/fs/cramfs/inode.c
+> @@ -247,8 +247,8 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+>  		struct page *page = pages[i];
+>  
+>  		if (page) {
+> -			memcpy(data, kmap(page), PAGE_SIZE);
+> -			kunmap(page);
+> +			memcpy(data, kmap_thread(page), PAGE_SIZE);
+> +			kunmap_thread(page);
+>  			put_page(page);
+>  		} else
+>  			memset(data, 0, PAGE_SIZE);
+> @@ -826,7 +826,7 @@ static int cramfs_readpage(struct file *file, struct page *page)
+>  
+>  	maxblock = (inode->i_size + PAGE_SIZE - 1) >> PAGE_SHIFT;
+>  	bytes_filled = 0;
+> -	pgdata = kmap(page);
+> +	pgdata = kmap_thread(page);
+>  
+>  	if (page->index < maxblock) {
+>  		struct super_block *sb = inode->i_sb;
+> @@ -914,13 +914,13 @@ static int cramfs_readpage(struct file *file, struct page *page)
+>  
+>  	memset(pgdata + bytes_filled, 0, PAGE_SIZE - bytes_filled);
+>  	flush_dcache_page(page);
+> -	kunmap(page);
+> +	kunmap_thread(page);
+>  	SetPageUptodate(page);
+>  	unlock_page(page);
+>  	return 0;
+>  
+>  err:
+> -	kunmap(page);
+> +	kunmap_thread(page);
+>  	ClearPageUptodate(page);
+>  	SetPageError(page);
+>  	unlock_page(page);
+> -- 
+> 2.28.0.rc0.12.gb6a658bd00c9
+> 
+> 
 
