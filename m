@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3651728D155
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:35:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6293.16757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BED28D167
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:41:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6297.16769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMKW-0008TQ-Hh; Tue, 13 Oct 2020 15:35:12 +0000
+	id 1kSMQR-0000va-AJ; Tue, 13 Oct 2020 15:41:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6293.16757; Tue, 13 Oct 2020 15:35:12 +0000
+Received: by outflank-mailman (output) from mailman id 6297.16769; Tue, 13 Oct 2020 15:41:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,81 +23,92 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMKW-0008T0-EF; Tue, 13 Oct 2020 15:35:12 +0000
-Received: by outflank-mailman (input) for mailman id 6293;
- Tue, 13 Oct 2020 15:35:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kSMQR-0000vF-72; Tue, 13 Oct 2020 15:41:19 +0000
+Received: by outflank-mailman (input) for mailman id 6297;
+ Tue, 13 Oct 2020 15:41:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSMKU-0008Sv-Ap
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:35:10 +0000
+ id 1kSMQQ-0000vA-3c
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:41:18 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 24e32344-1552-474f-a4ea-68b28347f462;
- Tue, 13 Oct 2020 15:35:09 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9edea0e4-ddb0-4520-856b-065138215da2;
+ Tue, 13 Oct 2020 15:41:17 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AE43BAD82;
- Tue, 13 Oct 2020 15:35:08 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id 87C25B1A6;
+ Tue, 13 Oct 2020 15:41:16 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSMKU-0008Sv-Ap
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:35:10 +0000
-X-Inumbo-ID: 24e32344-1552-474f-a4ea-68b28347f462
+	id 1kSMQQ-0000vA-3c
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:41:18 +0000
+X-Inumbo-ID: 9edea0e4-ddb0-4520-856b-065138215da2
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 24e32344-1552-474f-a4ea-68b28347f462;
-	Tue, 13 Oct 2020 15:35:09 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 9edea0e4-ddb0-4520-856b-065138215da2;
+	Tue, 13 Oct 2020 15:41:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602603308;
+	t=1602603676;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TI1G1wW1cp5DQ/cJivBeSTwYJfsSgssahb1Q8w2jMGQ=;
-	b=m32Dm+kEhgE7MjIZuQ8rZz5qUhW36EJDuBNV75ZPP9x6N6sPwHwo8J2eQLqW/2VCPJRf5k
-	yehhGrDHxElTJnK3JMU3KY/s33IH6Z2D73577UIgtFYenkc2mekokNV/++FTIWk49MCWy+
-	fAQbDS/2dacAlloUNVPmYjrkkYGBEvo=
+	bh=U4OemMNmTMTBI16JsiuhCKQ5aOSybutzFsISwsGQk70=;
+	b=ZyP1+fYMd/XVeVjPkNU5lreZtF6BG0RcylFd/KwjLtmSYZPI6QXgx/zYWyCQDoaGi7B6p8
+	7mTbhrBc3eRXBOAfDrSUZrUSZn/Vzg17oHmnghg2bS07iW/zorATPxVlu0I2soFcdXGmYA
+	lEaiflLL/HlPAwrBZF49Rmj533VPqGk=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id AE43BAD82;
-	Tue, 13 Oct 2020 15:35:08 +0000 (UTC)
-Subject: Re: [PATCH] hvmloader: flip "ACPI data" to ACPI NVS type for ACPI
- table region
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, wl@xen.org, iwj@xenproject.org
-References: <1602586216-27371-1-git-send-email-igor.druzhinin@citrix.com>
- <56bea9a9-2509-cc39-a6fd-fb7db3e54d71@suse.com>
- <83f567a1-35f3-a227-830b-a59b53217f3b@citrix.com>
+	by mx2.suse.de (Postfix) with ESMTP id 87C25B1A6;
+	Tue, 13 Oct 2020 15:41:16 +0000 (UTC)
+Subject: Re: [PATCH v2 03/11] x86/vlapic: introduce an EOI callback mechanism
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200930104108.35969-1-roger.pau@citrix.com>
+ <20200930104108.35969-4-roger.pau@citrix.com>
+ <a6863a90-584a-af21-4a0a-1b104b750978@suse.com>
+ <20201013143028.GQ19254@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ad54c16b-c3b0-cff2-921f-b84a735d3149@suse.com>
-Date: Tue, 13 Oct 2020 17:35:07 +0200
+Message-ID: <a8d878fc-4d05-d059-61f4-6994cb595838@suse.com>
+Date: Tue, 13 Oct 2020 17:41:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <83f567a1-35f3-a227-830b-a59b53217f3b@citrix.com>
+In-Reply-To: <20201013143028.GQ19254@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.10.2020 14:59, Igor Druzhinin wrote:
-> On 13/10/2020 13:51, Jan Beulich wrote:
->> As a consequence I think we will also want to adjust Xen itself to
->> automatically disable ACPI when it ends up consuming E801 data. Or
->> alternatively we should consider dropping all E801-related code (as
->> being inapplicable to 64-bit systems).
+On 13.10.2020 16:30, Roger Pau Monné wrote:
+> On Fri, Oct 02, 2020 at 11:39:50AM +0200, Jan Beulich wrote:
+>> On 30.09.2020 12:41, Roger Pau Monne wrote:
+>>> Add a new vlapic_set_irq_callback helper in order to inject a vector
+>>> and set a callback to be executed when the guest performs the end of
+>>> interrupt acknowledgment.
+>>
+>> On v1 I did ask
+>>
+>> "One thing I don't understand at all for now is how these
+>>  callbacks are going to be re-instated after migration for
+>>  not-yet-EOIed interrupts."
+>>
+>> Afaics I didn't get an answer on this.
 > 
-> I'm not following here. What Xen has to do with E801? It's a SeaBIOS implemented
-> call that happened to be used by QEMU option ROM. We cannot drop it from there
-> as it's part of BIOS spec.
+> Oh sorry, I remember your comment and I've changed further patches to
+> address this.
+> 
+> The setter of the callback will be in charge for setting the callback
+> again on resume. That's why vlapic_set_callback is not a static
+> function, and is added to the header.
+> 
+> Patch 5/11 [0] contains an example of hw the vIO-APIC resets the callbacks
+> on load. 
 
-Any ACPI aware OS has to use E820 (and nothing else). Hence our
-own use of E801 should either be dropped, or lead to the
-disabling of ACPI. Otherwise real firmware using logic similar
-to SeaBIOS'es (but hopefully properly accounting for holes)
-could make us use ACPI table space as normal RAM.
+Ah, I see - I didn't get there yet. Could you mention this behavior in
+the description here, or maybe in a code comment next to the declaration
+(or definition) of the function?
 
 Jan
 
