@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CD4128CED7
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 15:00:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6190.16395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C732328CED6
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 15:00:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6191.16407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSJuO-0000WI-IY; Tue, 13 Oct 2020 13:00:04 +0000
+	id 1kSJuT-0000qh-QD; Tue, 13 Oct 2020 13:00:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6190.16395; Tue, 13 Oct 2020 13:00:04 +0000
+Received: by outflank-mailman (output) from mailman id 6191.16407; Tue, 13 Oct 2020 13:00:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,122 +23,155 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSJuO-0000TT-FM; Tue, 13 Oct 2020 13:00:04 +0000
-Received: by outflank-mailman (input) for mailman id 6190;
- Tue, 13 Oct 2020 13:00:03 +0000
+	id 1kSJuT-0000qA-Mp; Tue, 13 Oct 2020 13:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 6191;
+ Tue, 13 Oct 2020 13:00:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pNIz=DU=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kSJuN-0000KO-6c
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 13:00:03 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kSJuR-0000KO-Up
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 13:00:07 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 853db183-e550-4a70-9650-3f3948a48bd8;
- Tue, 13 Oct 2020 13:00:01 +0000 (UTC)
+ id 47549fd2-a6fe-47e4-bcef-258365917fee;
+ Tue, 13 Oct 2020 13:00:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C9AEFB083;
+ Tue, 13 Oct 2020 13:00:02 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pNIz=DU=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
-	id 1kSJuN-0000KO-6c
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 13:00:03 +0000
-X-Inumbo-ID: 853db183-e550-4a70-9650-3f3948a48bd8
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kSJuR-0000KO-Up
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 13:00:07 +0000
+X-Inumbo-ID: 47549fd2-a6fe-47e4-bcef-258365917fee
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 853db183-e550-4a70-9650-3f3948a48bd8;
-	Tue, 13 Oct 2020 13:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602594001;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=eEF6d00dX+EFEhC2CkJXfcJ8wfv347Sg+dKbe2ODmsg=;
-  b=WMD8MnIHw7O+U/AFtgxP+jC+iaOlTua2Z2zmxuddUB5JcS+O02KNcR6F
-   kOZFtfrycHrzkPAK8vvhUBFX/nUTGpCLKX3mMbAmF419Xt/M3Mknf0NiJ
-   GGaSa4jXSAmwEYJnyadpGKQKF/f+4VxpWsD0XlQ29lw2/oTnLmQBPeGnd
-   Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jHa7RTY4w4WYvuOHfw1dKr/I1brbYdIvUy62gGMaQ+GkHGshu7VhSS0qE5qjZJXtVpp+uMQMaU
- 2WkAmLtJz+73iC2/P5Tkc8Tvm8wmPyEhIcOhYMIuQgi6e1xIf8VNabWRsw+fIH9AU7NHk8PObY
- Ky4qnyGzZh7qgSAgiuofcc4Bw9IYTXAZUTcHIXbF6hX8NSIZG0sZprMlqUDj+/fIzdIqyEvuMv
- 3so4zjta87qPVS94D6AsyBMEOC3hK70OgCtqxMUpiONZjsma+lrDLXvJXWD6kNq0HJGSk4VUO5
- AtA=
-X-SBRS: 2.5
-X-MesageID: 29135935
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,370,1596513600"; 
-   d="scan'208";a="29135935"
-Subject: Re: [PATCH] hvmloader: flip "ACPI data" to ACPI NVS type for ACPI
- table region
-To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, <andrew.cooper3@citrix.com>,
-	<roger.pau@citrix.com>, <wl@xen.org>, <iwj@xenproject.org>
-References: <1602586216-27371-1-git-send-email-igor.druzhinin@citrix.com>
- <56bea9a9-2509-cc39-a6fd-fb7db3e54d71@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <83f567a1-35f3-a227-830b-a59b53217f3b@citrix.com>
-Date: Tue, 13 Oct 2020 13:59:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 47549fd2-a6fe-47e4-bcef-258365917fee;
+	Tue, 13 Oct 2020 13:00:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602594002;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=riUAzU8AzOuq9qgpxdP77IOJBHeQh9wIAEwv5T018dQ=;
+	b=EkB/meq1ePDjZeQQq8zGRrPoO4HVoUCTfw1LSIh+DA8WcQhB+fy3uD8nzFwG9LrI9bYEXi
+	DFyxoKUMHefM+Kp6rk+OlyD8AGanPaQJnI6vwZFu7Et+nylqISOw/vs9y6tYZLj6fShcQQ
+	iJEEL1ww/mleQvYdCAp2f/3aMQGsjSE=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id C9AEFB083;
+	Tue, 13 Oct 2020 13:00:02 +0000 (UTC)
+Subject: Re: [PATCH v2 4/4] x86/shadow: refactor shadow_vram_{get,put}_l1e()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Tim Deegan <tim@xen.org>
+References: <c6b9c903-02eb-d473-86e3-ccb67aff6cd7@suse.com>
+ <51515581-19f3-5b7c-a2f9-1a0b11f8283a@suse.com>
+ <20201008151556.GL19254@Air-de-Roger>
+ <e769e1ae-fd2f-881e-4dcc-3cbf40d6b732@citrix.com>
+ <20201010074525.GO19254@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ae60e9a4-b5c5-d54d-dfe6-626996ec52bc@suse.com>
+Date: Tue, 13 Oct 2020 15:00:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <56bea9a9-2509-cc39-a6fd-fb7db3e54d71@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20201010074525.GO19254@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/10/2020 13:51, Jan Beulich wrote:
-> On 13.10.2020 12:50, Igor Druzhinin wrote:
->> ACPI specification contains statements describing memory marked with regular
->> "ACPI data" type as reclaimable by the guest. Although the guest shouldn't
->> really do it if it wants kexec or similar functionality to work, there
->> could still be ambiguities in treating these regions as potentially regular
->> RAM.
+On 10.10.2020 09:45, Roger Pau Monné wrote:
+> On Thu, Oct 08, 2020 at 04:36:47PM +0100, Andrew Cooper wrote:
+>> On 08/10/2020 16:15, Roger Pau Monné wrote:
+>>> On Wed, Sep 16, 2020 at 03:08:40PM +0200, Jan Beulich wrote:
+>>>> +void shadow_vram_put_mfn(mfn_t mfn, unsigned int l1f,
+>>>> +                         mfn_t sl1mfn, const void *sl1e,
+>>>> +                         const struct domain *d)
+>>>> +{
+>>>> +    unsigned long gfn;
+>>>> +    struct sh_dirty_vram *dirty_vram = d->arch.hvm.dirty_vram;
+>>>> +
+>>>> +    ASSERT(is_hvm_domain(d));
+>>>> +
+>>>> +    if ( !dirty_vram /* tracking disabled? */ ||
+>>>> +         !(l1f & _PAGE_RW) /* read-only mapping? */ ||
+>>>> +         !mfn_valid(mfn) /* mfn can be invalid in mmio_direct */)
+>>>> +        return;
+>>>> +
+>>>> +    gfn = gfn_x(mfn_to_gfn(d, mfn));
+>>>> +    /* Page sharing not supported on shadow PTs */
+>>>> +    BUG_ON(SHARED_M2P(gfn));
+>>>> +
+>>>> +    if ( (gfn >= dirty_vram->begin_pfn) && (gfn < dirty_vram->end_pfn) )
+>>>> +    {
+>>>> +        unsigned long i = gfn - dirty_vram->begin_pfn;
+>>>> +        const struct page_info *page = mfn_to_page(mfn);
+>>>> +        bool dirty = false;
+>>>> +        paddr_t sl1ma = mfn_to_maddr(sl1mfn) | PAGE_OFFSET(sl1e);
+>>>> +
+>>>> +        if ( (page->u.inuse.type_info & PGT_count_mask) == 1 )
+>>>> +        {
+>>>> +            /* Last reference */
+>>>> +            if ( dirty_vram->sl1ma[i] == INVALID_PADDR )
+>>>> +            {
+>>>> +                /* We didn't know it was that one, let's say it is dirty */
+>>>> +                dirty = true;
+>>>> +            }
+>>>> +            else
+>>>> +            {
+>>>> +                ASSERT(dirty_vram->sl1ma[i] == sl1ma);
+>>>> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
+>>>> +                if ( l1f & _PAGE_DIRTY )
+>>>> +                    dirty = true;
+>>>> +            }
+>>>> +        }
+>>>> +        else
+>>>> +        {
+>>>> +            /* We had more than one reference, just consider the page dirty. */
+>>>> +            dirty = true;
+>>>> +            /* Check that it's not the one we recorded. */
+>>>> +            if ( dirty_vram->sl1ma[i] == sl1ma )
+>>>> +            {
+>>>> +                /* Too bad, we remembered the wrong one... */
+>>>> +                dirty_vram->sl1ma[i] = INVALID_PADDR;
+>>>> +            }
+>>>> +            else
+>>>> +            {
+>>>> +                /*
+>>>> +                 * Ok, our recorded sl1e is still pointing to this page, let's
+>>>> +                 * just hope it will remain.
+>>>> +                 */
+>>>> +            }
+>>>> +        }
+>>>> +
+>>>> +        if ( dirty )
+>>>> +        {
+>>>> +            dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
+>>> Could you use _set_bit here?
 >>
->> One such an example is SeaBIOS which currently reports "ACPI data" regions as
->> RAM to the guest in its e801 call. The guest then tries to use this region
->> for initrd placement and gets stuck.
+>> __set_bit() uses 4-byte accesses.  This uses 1-byte accesses.
 > 
-> Any theory on why it would get stuck? Having read the thread rooting
-> at Sander's report, it hasn't become clear to me where the collision
-> there is. A consumer of E801 (rather than E820) intends to not use
-> ACPI data, and hence I consider SeaBIOS right in this regard (the
-> lack of considering holes is a problem, though).
-
-QEMU's fw_cfg Linux boot loader (that is used by our direct kernel boot method)
-is usign E801 to find the top of RAM and places images below that address.
-Since now it's 0xfc00000 it gets located right in a PCI hole below - which causes
-the loader to hang.
-
->> --- a/tools/firmware/hvmloader/e820.c
->> +++ b/tools/firmware/hvmloader/e820.c
->> @@ -202,16 +202,17 @@ int build_e820_table(struct e820entry *e820,
->>      nr++;
->>  
->>      /*
->> -     * Mark populated reserved memory that contains ACPI tables as ACPI data.
->> +     * Mark populated reserved memory that contains ACPI tables as ACPI NVS.
->>       * That should help the guest to treat it correctly later: e.g. pass to
->> -     * the next kernel on kexec or reclaim if necessary.
->> +     * the next kernel on kexec and prevent space reclaim which is possible
->> +     * with regular ACPI data type accoring to ACPI spec v6.3.
+> Right, this is allocated using alloc directly, not the bitmap helper,
+> and the size if rounded to byte level, not unsigned int.
 > 
-> Preventing space reclaim is not the business of hvmloader. As per above,
-> an ACPI unaware OS ought to be permitted to use as ordinary RAM all the
-> space the tables occupy. Therefore at the very least the comment needs
-> to reflect that this preventing of space reclaim is a workaround, not
-> correct behavior.
-
-Agree to modify the comment.
-
-> Also as a nit: "according".
+>> Last I checked, there is a boundary issue at the end of the dirty_bitmap.
+>>
+>> Both Julien and I have considered changing our bit infrastructure to use
+>> byte accesses, which would make them more generally useful.
 > 
-> As a consequence I think we will also want to adjust Xen itself to
-> automatically disable ACPI when it ends up consuming E801 data. Or
-> alternatively we should consider dropping all E801-related code (as
-> being inapplicable to 64-bit systems).
+> Does indeed seem useful to me, as we could safely expand the usage of
+> the bitmap ops without risking introducing bugs.
 
-I'm not following here. What Xen has to do with E801? It's a SeaBIOS implemented
-call that happened to be used by QEMU option ROM. We cannot drop it from there
-as it's part of BIOS spec.
+Aren't there architectures being handicapped when it comes to sub-word
+accesses? At least common code may better not make assumptions towards
+more fine grained accesses ...
 
-Igor
+As to x86, couldn't we make the macros evaluate alignof(*(addr)) and
+choose byte-based accesses when it's less than 4?
+
+Jan
 
