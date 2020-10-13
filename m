@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D3D28D527
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 22:03:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6385.16997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82AB28D5B2
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 22:47:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6389.17012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSQVY-0008RT-Rk; Tue, 13 Oct 2020 20:02:52 +0000
+	id 1kSRB2-0003VX-8j; Tue, 13 Oct 2020 20:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6385.16997; Tue, 13 Oct 2020 20:02:52 +0000
+Received: by outflank-mailman (output) from mailman id 6389.17012; Tue, 13 Oct 2020 20:45:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -19,40 +19,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSQVY-0008R4-Ok; Tue, 13 Oct 2020 20:02:52 +0000
-Received: by outflank-mailman (input) for mailman id 6385;
- Tue, 13 Oct 2020 20:02:51 +0000
+	id 1kSRB2-0003V8-5D; Tue, 13 Oct 2020 20:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 6389;
+ Tue, 13 Oct 2020 20:45:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cX9a=DU=ftp.linux.org.uk=viro@srs-us1.protection.inumbo.net>)
- id 1kSQVX-0008Qt-4I
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 20:02:51 +0000
-Received: from ZenIV.linux.org.uk (unknown [2002:c35c:fd02::1])
+ <SRS0=BLCS=DU=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
+ id 1kSRB1-0003V3-C8
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 20:45:43 +0000
+Received: from mga11.intel.com (unknown [192.55.52.93])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a2a18346-39cc-4698-aa73-2500b050fe38;
- Tue, 13 Oct 2020 20:02:49 +0000 (UTC)
-Received: from viro by ZenIV.linux.org.uk with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1kSQUX-00H96b-NT; Tue, 13 Oct 2020 20:01:49 +0000
+ id 718a2f0f-25e0-4289-9c5e-28ef1ae7cf05;
+ Tue, 13 Oct 2020 20:45:41 +0000 (UTC)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2020 13:45:39 -0700
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2020 13:45:37 -0700
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cX9a=DU=ftp.linux.org.uk=viro@srs-us1.protection.inumbo.net>)
-	id 1kSQVX-0008Qt-4I
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 20:02:51 +0000
-X-Inumbo-ID: a2a18346-39cc-4698-aa73-2500b050fe38
-Received: from ZenIV.linux.org.uk (unknown [2002:c35c:fd02::1])
+	(envelope-from <SRS0=BLCS=DU=intel.com=ira.weiny@srs-us1.protection.inumbo.net>)
+	id 1kSRB1-0003V3-C8
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 20:45:43 +0000
+X-Inumbo-ID: 718a2f0f-25e0-4289-9c5e-28ef1ae7cf05
+Received: from mga11.intel.com (unknown [192.55.52.93])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a2a18346-39cc-4698-aa73-2500b050fe38;
-	Tue, 13 Oct 2020 20:02:49 +0000 (UTC)
-Received: from viro by ZenIV.linux.org.uk with local (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kSQUX-00H96b-NT; Tue, 13 Oct 2020 20:01:49 +0000
-Date: Tue, 13 Oct 2020 21:01:49 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
+	id 718a2f0f-25e0-4289-9c5e-28ef1ae7cf05;
+	Tue, 13 Oct 2020 20:45:41 +0000 (UTC)
+IronPort-SDR: wFUUw/A4Px6p+rgwj2h6nhY0lUrBdpzPgrlPqRUfHE8d9ASnLOBl40HHyBhzL2eUaotDpblFwI
+ yTox+D8LAftw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="162519269"
+X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; 
+   d="scan'208";a="162519269"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 13:45:39 -0700
+IronPort-SDR: 9cNNwyFW01V43IRpBEA5F+eU6gGnvdaUqvIfWWDJoXczsQwSY988pJwnA1f05GwG/v1vkNjadd
+ aJS/wzoBibsg==
+X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; 
+   d="scan'208";a="530558193"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 13:45:37 -0700
+Date: Tue, 13 Oct 2020 13:45:37 -0700
+From: Ira Weiny <ira.weiny@intel.com>
 To: Matthew Wilcox <willy@infradead.org>
 Cc: Dan Williams <dan.j.williams@intel.com>,
-	"Weiny, Ira" <ira.weiny@intel.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
 	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
@@ -92,7 +109,7 @@ Cc: Dan Williams <dan.j.williams@intel.com>,
 	linux-cachefs@redhat.com, samba-technical@lists.samba.org,
 	intel-wired-lan@lists.osuosl.org
 Subject: Re: [PATCH RFC PKS/PMEM 33/58] fs/cramfs: Utilize new kmap_thread()
-Message-ID: <20201013200149.GI3576660@ZenIV.linux.org.uk>
+Message-ID: <20201013204537.GH2046448@iweiny-DESK2.sc.intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
  <20201009195033.3208459-34-ira.weiny@intel.com>
  <CAPcyv4gL3jfw4d+SJGPqAD3Dp4F_K=X3domuN4ndAA1FQDGcPg@mail.gmail.com>
@@ -101,10 +118,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20201013193643.GK20115@casper.infradead.org>
-Sender: Al Viro <viro@ftp.linux.org.uk>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 
 On Tue, Oct 13, 2020 at 08:36:43PM +0100, Matthew Wilcox wrote:
-
+> On Tue, Oct 13, 2020 at 11:44:29AM -0700, Dan Williams wrote:
+> > On Fri, Oct 9, 2020 at 12:52 PM <ira.weiny@intel.com> wrote:
+> > >
+> > > From: Ira Weiny <ira.weiny@intel.com>
+> > >
+> > > The kmap() calls in this FS are localized to a single thread.  To avoid
+> > > the over head of global PKRS updates use the new kmap_thread() call.
+> > >
+> > > Cc: Nicolas Pitre <nico@fluxnic.net>
+> > > Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> > > ---
+> > >  fs/cramfs/inode.c | 10 +++++-----
+> > >  1 file changed, 5 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+> > > index 912308600d39..003c014a42ed 100644
+> > > --- a/fs/cramfs/inode.c
+> > > +++ b/fs/cramfs/inode.c
+> > > @@ -247,8 +247,8 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+> > >                 struct page *page = pages[i];
+> > >
+> > >                 if (page) {
+> > > -                       memcpy(data, kmap(page), PAGE_SIZE);
+> > > -                       kunmap(page);
+> > > +                       memcpy(data, kmap_thread(page), PAGE_SIZE);
+> > > +                       kunmap_thread(page);
+> > 
+> > Why does this need a sleepable kmap? This looks like a textbook
+> > kmap_atomic() use case.
+> 
+> There's a lot of code of this form.  Could we perhaps have:
+> 
 > static inline void copy_to_highpage(struct page *to, void *vfrom, unsigned int size)
 > {
 > 	char *vto = kmap_atomic(to);
@@ -115,30 +163,8 @@ On Tue, Oct 13, 2020 at 08:36:43PM +0100, Matthew Wilcox wrote:
 > 
 > in linux/highmem.h ?
 
-You mean, like
-static void memcpy_from_page(char *to, struct page *page, size_t offset, size_t len)
-{
-        char *from = kmap_atomic(page);
-        memcpy(to, from + offset, len);
-        kunmap_atomic(from);
-}
+Christoph had the same idea.  I'll work on it.
 
-static void memcpy_to_page(struct page *page, size_t offset, const char *from, size_t len)
-{
-        char *to = kmap_atomic(page);
-        memcpy(to + offset, from, len);
-        kunmap_atomic(to);
-}
+Ira
 
-static void memzero_page(struct page *page, size_t offset, size_t len)
-{
-        char *addr = kmap_atomic(page);
-        memset(addr + offset, 0, len);
-        kunmap_atomic(addr);
-}
-
-in lib/iov_iter.c?  FWIW, I don't like that "highpage" in the name and
-highmem.h as location - these make perfect sense regardless of highmem;
-they are normal memory operations with page + offset used instead of
-a pointer...
 
