@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B1B28D18F
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:54:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6306.16818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E02F28D1A3
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Oct 2020 17:59:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6308.16830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMct-0002GT-7f; Tue, 13 Oct 2020 15:54:11 +0000
+	id 1kSMhU-0002Rv-QT; Tue, 13 Oct 2020 15:58:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6306.16818; Tue, 13 Oct 2020 15:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 6308.16830; Tue, 13 Oct 2020 15:58:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,100 +23,116 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSMct-0002G4-4R; Tue, 13 Oct 2020 15:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 6306;
- Tue, 13 Oct 2020 15:54:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kSMhU-0002RW-N9; Tue, 13 Oct 2020 15:58:56 +0000
+Received: by outflank-mailman (input) for mailman id 6308;
+ Tue, 13 Oct 2020 15:58:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSMcs-0002Fz-CD
- for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:54:10 +0000
+ id 1kSMhT-0002RR-Us
+ for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:58:55 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d0b96e96-0afc-49fb-9ba4-ff18ca0c4ddc;
- Tue, 13 Oct 2020 15:54:09 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fcf638e8-54c8-4a3b-9bb6-52ebfe7c4989;
+ Tue, 13 Oct 2020 15:58:54 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AD8B9AEC4;
- Tue, 13 Oct 2020 15:54:08 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 1B928AC6D;
+ Tue, 13 Oct 2020 15:58:54 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=VY8U=DU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSMcs-0002Fz-CD
-	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:54:10 +0000
-X-Inumbo-ID: d0b96e96-0afc-49fb-9ba4-ff18ca0c4ddc
+	id 1kSMhT-0002RR-Us
+	for xen-devel@lists.xenproject.org; Tue, 13 Oct 2020 15:58:55 +0000
+X-Inumbo-ID: fcf638e8-54c8-4a3b-9bb6-52ebfe7c4989
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d0b96e96-0afc-49fb-9ba4-ff18ca0c4ddc;
-	Tue, 13 Oct 2020 15:54:09 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id fcf638e8-54c8-4a3b-9bb6-52ebfe7c4989;
+	Tue, 13 Oct 2020 15:58:54 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602604448;
+	t=1602604734;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ASAJNSyPvPqEFLxRCkze7om4ldPd7D5tSkcPDTNicv4=;
-	b=Vv8WlQ7fADAjay2FsEAF4FUrGgyhEKAm9Xp6W5/Vsh9tFig+TII39O2ppSw7o/AznPkS5N
-	yYBMW+rmqaFs2T83hoysYfZq79TgKrMXmBkYWsHvzP2WzjS+blrrlBfNjIa9t2vOeyo4fc
-	fgPWas4bSZq4Eq6DwczyDIdIIIZhN08=
+	bh=7CtD/97jkM0ctnGcvP5fmJmXD0Un5r/DeGz/RrewPpo=;
+	b=f45K6N9WLE7hNv28p/6hezdrGNwbVn/8iYzH2Y5TCINueU1T15foMFDuV6izusFw6/pCCe
+	NdQX8uqVphhQJi4jxgVHhP967HCVDu/BSJDvZYwVkZasmNICh9S0TcrFNoKa6orVL1FYv5
+	janVu5nkvVn00WzJYaRDkMr32hyE5YQ=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id AD8B9AEC4;
-	Tue, 13 Oct 2020 15:54:08 +0000 (UTC)
-Subject: Re: [PATCH] hvmloader: flip "ACPI data" to ACPI NVS type for ACPI
- table region
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, wl@xen.org, iwj@xenproject.org
-References: <1602586216-27371-1-git-send-email-igor.druzhinin@citrix.com>
- <56bea9a9-2509-cc39-a6fd-fb7db3e54d71@suse.com>
- <83f567a1-35f3-a227-830b-a59b53217f3b@citrix.com>
- <ad54c16b-c3b0-cff2-921f-b84a735d3149@suse.com>
- <cc0f409e-60c0-41ae-f932-f6c2d7f82baa@citrix.com>
+	by mx2.suse.de (Postfix) with ESMTP id 1B928AC6D;
+	Tue, 13 Oct 2020 15:58:54 +0000 (UTC)
+Subject: Re: [PATCH] x86/vmx: Revert "x86/VMX: sanitize rIP before re-entering
+ guest"
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>
+References: <20201009150948.31063-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5d7bf2ce-1acb-05ff-a57b-d698e15c4dd1@suse.com>
-Date: Tue, 13 Oct 2020 17:54:07 +0200
+Message-ID: <fb4a7a1d-95ad-0b59-7cb9-4a94c3600960@suse.com>
+Date: Tue, 13 Oct 2020 17:58:50 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <cc0f409e-60c0-41ae-f932-f6c2d7f82baa@citrix.com>
+In-Reply-To: <20201009150948.31063-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 13.10.2020 17:47, Igor Druzhinin wrote:
-> On 13/10/2020 16:35, Jan Beulich wrote:
->> On 13.10.2020 14:59, Igor Druzhinin wrote:
->>> On 13/10/2020 13:51, Jan Beulich wrote:
->>>> As a consequence I think we will also want to adjust Xen itself to
->>>> automatically disable ACPI when it ends up consuming E801 data. Or
->>>> alternatively we should consider dropping all E801-related code (as
->>>> being inapplicable to 64-bit systems).
->>>
->>> I'm not following here. What Xen has to do with E801? It's a SeaBIOS implemented
->>> call that happened to be used by QEMU option ROM. We cannot drop it from there
->>> as it's part of BIOS spec.
->>
->> Any ACPI aware OS has to use E820 (and nothing else). Hence our
->> own use of E801 should either be dropped, or lead to the
->> disabling of ACPI. Otherwise real firmware using logic similar
->> to SeaBIOS'es (but hopefully properly accounting for holes)
->> could make us use ACPI table space as normal RAM.
+On 09.10.2020 17:09, Andrew Cooper wrote:
+> At the time of XSA-170, the x86 instruction emulator really was broken, and
+> would allow arbitrary non-canonical values to be loaded into %rip.  This was
+> fixed after the embargo by c/s 81d3a0b26c1 "x86emul: limit-check branch
+> targets".
 > 
-> It's not us using it - it's a boot loader from QEMU in a form of option ROM
-> that works in 16bit pre-OS environment which is not OS and relies on e801 BIOS call.
-> I'm sure any ACPI aware OS does indeed use E820 but the problem here is not an OS.
+> However, in a demonstration that off-by-one errors really are one of the
+> hardest programming issues we face, everyone involved with XSA-170, myself
+> included, mistook the statement in the SDM which says:
 > 
-> The option ROM is loaded using fw_cfg from QEMU so it's not our code. Technically
-> it's one foreign code (QEMU boot loader) talking to another foreign code (SeaBIOS)
-> which provides information based on E820 that we gave them.
+>   If the processor supports N < 64 linear-address bits, bits 63:N must be identical
 > 
-> So I'm afraid decision to dynamically disable ACPI (whatever you mean by this)
-> cannot be made by sole usage of this call by a pre-OS boot loader.
+> to mean "must be canonical".  A real canonical check is bits 63:N-1.
+> 
+> VMEntries really do tolerate a not-quite-canonical %rip, specifically to cater
+> to the boundary condition at 0x0000800000000000.
+> 
+> Now that the emulator has been fixed, revert the XSA-170 change to fix
+> architectural behaviour at the boundary case.  The XTF test case for XSA-170
+> exercises this corner case, and still passes.
+> 
+> Fixes: ffbbfda377 ("x86/VMX: sanitize rIP before re-entering guest")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I guess this is simply a misunderstanding. I'm not talking about
-your change or hvmloader or the boot loader at all. I was merely
-noticing a consequence of your findings on the behavior of Xen
-itself: Use of ACPI and use of E801 are exclusive of one another.
+But why revert the change rather than fix ...
+
+> @@ -4280,38 +4280,6 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+>  out:
+>      if ( nestedhvm_vcpu_in_guestmode(v) )
+>          nvmx_idtv_handling();
+> -
+> -    /*
+> -     * VM entry will fail (causing the guest to get crashed) if rIP (and
+> -     * rFLAGS, but we don't have an issue there) doesn't meet certain
+> -     * criteria. As we must not allow less than fully privileged mode to have
+> -     * such an effect on the domain, we correct rIP in that case (accepting
+> -     * this not being architecturally correct behavior, as the injected #GP
+> -     * fault will then not see the correct [invalid] return address).
+> -     * And since we know the guest will crash, we crash it right away if it
+> -     * already is in most privileged mode.
+> -     */
+> -    mode = vmx_guest_x86_mode(v);
+> -    if ( mode == 8 ? !is_canonical_address(regs->rip)
+
+... the wrong use of is_canonical_address() here? By reverting
+you open up avenues for XSAs in case we get things wrong elsewhere,
+including ...
+
+> -                   : regs->rip != regs->eip )
+
+... for 32-bit guests.
 
 Jan
 
