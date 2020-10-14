@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F70F28DDE5
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 11:45:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6513.17364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFD728DE42
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 12:06:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6519.17378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSdKn-00070J-39; Wed, 14 Oct 2020 09:44:37 +0000
+	id 1kSdfS-0000Sg-Qr; Wed, 14 Oct 2020 10:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6513.17364; Wed, 14 Oct 2020 09:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 6519.17378; Wed, 14 Oct 2020 10:05:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,94 +23,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSdKm-0006zu-Vy; Wed, 14 Oct 2020 09:44:36 +0000
-Received: by outflank-mailman (input) for mailman id 6513;
- Wed, 14 Oct 2020 09:44:35 +0000
+	id 1kSdfS-0000SK-Nb; Wed, 14 Oct 2020 10:05:58 +0000
+Received: by outflank-mailman (input) for mailman id 6519;
+ Wed, 14 Oct 2020 10:05:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0aJ9=DV=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kSdKl-0006zp-BG
- for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 09:44:35 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.24])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4709c071-a606-4c8e-af65-8719d2203dbd;
- Wed, 14 Oct 2020 09:44:32 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.2.1 DYNA|AUTH)
- with ESMTPSA id e003b5w9E9iQnCc
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 14 Oct 2020 11:44:26 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PlF3=DV=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1kSdfQ-0000SF-Bh
+ for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 10:05:56 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 15fefb76-0b92-48dc-a36a-97eb20914a5c;
+ Wed, 14 Oct 2020 10:05:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3F7B30E;
+ Wed, 14 Oct 2020 03:05:53 -0700 (PDT)
+Received: from e123311-lin.arm.com (unknown [10.57.15.192])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E7773F73C;
+ Wed, 14 Oct 2020 03:05:52 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=0aJ9=DV=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
-	id 1kSdKl-0006zp-BG
-	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 09:44:35 +0000
-X-Inumbo-ID: 4709c071-a606-4c8e-af65-8719d2203dbd
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.24])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4709c071-a606-4c8e-af65-8719d2203dbd;
-	Wed, 14 Oct 2020 09:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1602668671;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
-	Subject:Sender;
-	bh=fe6M6lgrfnf/4gKNSLiJl7iE+2lMWhoUMMKrcJogwPo=;
-	b=K5cxlUvJVCdf5BZpsLGmioZmgTmrQco/gZAS9f+ihzSi7AaW0l+/xl2YbdFD9WUEVG
-	QOai55sN7jsW6oXw7AnbU96RyMY0cm843LkvxmvO8yWmPNbwIYYo0UsoWNRjEXwHR72k
-	Wd3upn5vyvk/MyEfEv4yPiXzoRph8Vmft3vjZ71iBkHj47xSspiNkGgCsYUHRj998fmf
-	3H8+jvsl8Tvq+HsdsjixPZq1XjVgpFlhvxpIDML9gcQt1WCz1zGHbuZ7W8CMAS57mMoF
-	zXrsN+SA/o1x9tWmcCzd5/PE7cMfNkLE6O7lMQ42I8xY0G/vfkGTJ0use0qTnLxe8+Bl
-	ur4Q==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Jjw=="
-X-RZG-CLASS-ID: mo00
-Received: from sender
-	by smtp.strato.de (RZmta 47.2.1 DYNA|AUTH)
-	with ESMTPSA id e003b5w9E9iQnCc
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
-	(Client did not present a certificate);
-	Wed, 14 Oct 2020 11:44:26 +0200 (CEST)
-From: Olaf Hering <olaf@aepfle.de>
+	(envelope-from <SRS0=PlF3=DV=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+	id 1kSdfQ-0000SF-Bh
+	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 10:05:56 +0000
+X-Inumbo-ID: 15fefb76-0b92-48dc-a36a-97eb20914a5c
+Received: from foss.arm.com (unknown [217.140.110.172])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 15fefb76-0b92-48dc-a36a-97eb20914a5c;
+	Wed, 14 Oct 2020 10:05:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3F7B30E;
+	Wed, 14 Oct 2020 03:05:53 -0700 (PDT)
+Received: from e123311-lin.arm.com (unknown [10.57.15.192])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E7773F73C;
+	Wed, 14 Oct 2020 03:05:52 -0700 (PDT)
+From: Michal Orzel <michal.orzel@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1] tools/libs: remove obsolete xc_map_foreign_bulk from error string
-Date: Wed, 14 Oct 2020 11:44:22 +0200
-Message-Id: <20201014094422.19347-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH] xen/arm: Document the erratum #853709 related to Cortex A72
+Date: Wed, 14 Oct 2020 12:05:41 +0200
+Message-Id: <20201014100541.11687-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xc_map_foreign_bulk is an obsolete API, which is only used by
-qemu-xen-traditional.
+Workaround for Cortex-A57 erratum #852523 is already
+in Xen but Cortex-A72 erratum #853709 is not although
+it applies to the same issue.
 
-Adjust the error string to refer to the current API.
-
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 ---
- tools/libs/foreignmemory/freebsd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ docs/misc/arm/silicon-errata.txt | 1 +
+ xen/arch/arm/domain.c            | 6 ++++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/tools/libs/foreignmemory/freebsd.c b/tools/libs/foreignmemory/freebsd.c
-index 6e6bc4b11f..60bc87f530 100644
---- a/tools/libs/foreignmemory/freebsd.c
-+++ b/tools/libs/foreignmemory/freebsd.c
-@@ -66,7 +66,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
-     addr = mmap(addr, num << PAGE_SHIFT, prot, flags | MAP_SHARED, fd, 0);
-     if ( addr == MAP_FAILED )
-     {
--        PERROR("xc_map_foreign_bulk: mmap failed");
-+        PERROR("xenforeignmemory_map: mmap failed");
-         return NULL;
-     }
+diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
+index e15d0923e9..1f18a9df58 100644
+--- a/docs/misc/arm/silicon-errata.txt
++++ b/docs/misc/arm/silicon-errata.txt
+@@ -50,6 +50,7 @@ stable hypervisors.
+ | ARM            | Cortex-A57      | #834220         | ARM64_ERRATUM_834220    |
+ | ARM            | Cortex-A57      | #1319537        | N/A                     |
+ | ARM            | Cortex-A72      | #1319367        | N/A                     |
++| ARM            | Cortex-A72      | #853709         | N/A                     |
+ | ARM            | Cortex-A76      | #1165522        | N/A                     |
+ | ARM            | Neoverse-N1     | #1165522        | N/A
+ | ARM            | MMU-500         | #842869         | N/A                     |
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 3b37f899b9..18cafcdda7 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -216,7 +216,8 @@ static void ctxt_switch_to(struct vcpu *n)
+     WRITE_SYSREG64(n->arch.ttbr1, TTBR1_EL1);
  
-@@ -80,7 +80,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
-     if ( rc < 0 )
-     {
-         int saved_errno = errno;
--        PERROR("xc_map_foreign_bulk: ioctl failed");
-+        PERROR("xenforeignmemory_map: ioctl failed");
-         (void)munmap(addr, num << PAGE_SHIFT);
-         errno = saved_errno;
-         return NULL;
+     /*
+-     * Erratum #852523: DACR32_EL2 must be restored before one of the
++     * Erratum #852523 (Cortex-A57) or erratum #853709 (Cortex-A72):
++     * DACR32_EL2 must be restored before one of the
+      * following sysregs: SCTLR_EL1, TCR_EL1, TTBR0_EL1, TTBR1_EL1 or
+      * CONTEXTIDR_EL1.
+      */
+@@ -245,7 +246,8 @@ static void ctxt_switch_to(struct vcpu *n)
+ 
+     /*
+      * This write to sysreg CONTEXTIDR_EL1 ensures we don't hit erratum
+-     * #852523. I.e DACR32_EL2 is not correctly synchronized.
++     * #852523 (Cortex-A57) or #853709 (Cortex-A72).
++     * I.e DACR32_EL2 is not correctly synchronized.
+      */
+     WRITE_SYSREG(n->arch.contextidr, CONTEXTIDR_EL1);
+     WRITE_SYSREG(n->arch.tpidr_el0, TPIDR_EL0);
+-- 
+2.28.0
+
 
