@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B149F28E810
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 22:47:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7010.18363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBE228E844
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 23:16:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7016.18379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSnfa-00053h-ND; Wed, 14 Oct 2020 20:46:46 +0000
+	id 1kSo7j-0007g5-5W; Wed, 14 Oct 2020 21:15:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7010.18363; Wed, 14 Oct 2020 20:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 7016.18379; Wed, 14 Oct 2020 21:15:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,151 +23,146 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSnfa-00053I-Jg; Wed, 14 Oct 2020 20:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 7010;
- Wed, 14 Oct 2020 20:46:44 +0000
+	id 1kSo7j-0007fg-2E; Wed, 14 Oct 2020 21:15:51 +0000
+Received: by outflank-mailman (input) for mailman id 7016;
+ Wed, 14 Oct 2020 21:15:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zgx5=DV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kSnfY-00053D-K4
- for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 20:46:44 +0000
+ id 1kSo7h-0007fb-LP
+ for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 21:15:49 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 50ac3311-7e5c-4a73-98af-912f2ee08f40;
- Wed, 14 Oct 2020 20:46:44 +0000 (UTC)
+ id 60e7a1a1-c758-4be6-8141-81945d08f9ae;
+ Wed, 14 Oct 2020 21:15:48 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CA7F022248;
- Wed, 14 Oct 2020 20:46:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A70A82173E;
+ Wed, 14 Oct 2020 21:15:47 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=zgx5=DV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kSnfY-00053D-K4
-	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 20:46:44 +0000
-X-Inumbo-ID: 50ac3311-7e5c-4a73-98af-912f2ee08f40
+	id 1kSo7h-0007fb-LP
+	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 21:15:49 +0000
+X-Inumbo-ID: 60e7a1a1-c758-4be6-8141-81945d08f9ae
 Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 50ac3311-7e5c-4a73-98af-912f2ee08f40;
-	Wed, 14 Oct 2020 20:46:44 +0000 (UTC)
+	id 60e7a1a1-c758-4be6-8141-81945d08f9ae;
+	Wed, 14 Oct 2020 21:15:48 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id CA7F022248;
-	Wed, 14 Oct 2020 20:46:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id A70A82173E;
+	Wed, 14 Oct 2020 21:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602708403;
-	bh=XCqiykSQEa9rXNobIGoRiRoA8bmB2pG3qVdERVEa67E=;
+	s=default; t=1602710148;
+	bh=zJ91IA8L6eEdeguMdTlAJYKZ7TdxuGZd5zRwZaypAe0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jwOyaaBvNYUb4WHMvTvyzr2JjO/xaNRdUOMiFVUB9Oc6S6OezD5mRi0WNMLZ7F2yP
-	 SrwF3wWnrKzhDMU81jXNjACy4RC1irvsOfqSDjVkAhQrcsuosaqD7JoKbuT33r6caS
-	 uBVUgQf36ipYYV/7JJVfkc3Q74Lq1e7dnTWkyAwA=
-Date: Wed, 14 Oct 2020 13:46:41 -0700 (PDT)
+	b=GnSvAA0cJE53FVDYImP9/aYZ0KgE/Y6aHxcQapDphxIiUaGb/2COl/utHnPISIU+9
+	 ZY3BMFdfI9fdDP8tKYWPgQ7gRpBYrpfmHa4my/lWo3VQOcelf0I8Q2irxvf+oCX+kB
+	 wMvQelx8WqX3eG0dKIKsD4t4zmfAw83ZywM1TwEA=
+Date: Wed, 14 Oct 2020 14:15:47 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Julien Grall <julien@xen.org>, 
+To: Julien Grall <julien@xen.org>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     "open list:X86" <xen-devel@lists.xenproject.org>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: Re: [PATCH] xen/arm: Warn user on cpu errata 832075
-In-Reply-To: <5A45EDA3-B01B-4AC3-B2CB-77CF90D024AD@arm.com>
-Message-ID: <alpine.DEB.2.21.2010141346130.10386@sstabellini-ThinkPad-T480s>
-References: <f11fe960a111530501fd0c20893bec4e32edf3cb.1602671985.git.bertrand.marquis@arm.com> <c22235d1-9124-74f2-5856-58f7f44dc0b7@xen.org> <5A45EDA3-B01B-4AC3-B2CB-77CF90D024AD@arm.com>
+In-Reply-To: <f49d478f-4efe-955e-c378-f2fa5fbc6a71@xen.org>
+Message-ID: <alpine.DEB.2.21.2010141350170.10386@sstabellini-ThinkPad-T480s>
+References: <f11fe960a111530501fd0c20893bec4e32edf3cb.1602671985.git.bertrand.marquis@arm.com> <26742825-25fc-0f82-2b20-d536e8380b2a@citrix.com> <90BC5355-EB52-469F-B0A6-ACAAB9AD9EF5@arm.com> <f49d478f-4efe-955e-c378-f2fa5fbc6a71@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-897259223-1602708402=:10386"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 14 Oct 2020, Julien Grall wrote:
+> On 14/10/2020 17:03, Bertrand Marquis wrote:
+> > > On 14 Oct 2020, at 12:35, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> > > 
+> > > On 14/10/2020 11:41, Bertrand Marquis wrote:
+> > > > When a Cortex A57 processor is affected by CPU errata 832075, a guest
+> > > > not implementing the workaround for it could deadlock the system.
+> > > > Add a warning during boot informing the user that only trusted guests
+> > > > should be executed on the system.
+> > > > An equivalent warning is already given to the user by KVM on cores
+> > > > affected by this errata.
+> > > > 
+> > > > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > > > ---
+> > > > xen/arch/arm/cpuerrata.c | 21 +++++++++++++++++++++
+> > > > 1 file changed, 21 insertions(+)
+> > > > 
+> > > > diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+> > > > index 6c09017515..8f9ab6dde1 100644
+> > > > --- a/xen/arch/arm/cpuerrata.c
+> > > > +++ b/xen/arch/arm/cpuerrata.c
+> > > > @@ -240,6 +240,26 @@ static int enable_ic_inv_hardening(void *data)
+> > > > 
+> > > > #endif
+> > > > 
+> > > > +#ifdef CONFIG_ARM64_ERRATUM_832075
+> > > > +
+> > > > +static int warn_device_load_acquire_errata(void *data)
+> > > > +{
+> > > > +    static bool warned = false;
+> > > > +
+> > > > +    if ( !warned )
+> > > > +    {
+> > > > +        warning_add("This CPU is affected by the errata 832075.\n"
+> > > > +                    "Guests without required CPU erratum workarounds\n"
+> > > > +                    "can deadlock the system!\n"
+> > > > +                    "Only trusted guests should be used on this
+> > > > system.\n");
+> > > > +        warned = true;
+> > > 
+> > > This is an antipattern, which probably wants fixing elsewhere as well.
+> > > 
+> > > warning_add() is __init.  It's not legitimate to call from a non-init
+> > > function, and a less useless build system would have modpost to object.
+> > > 
+> > > The ARM_SMCCC_ARCH_WORKAROUND_1 instance asserts based on system state,
+> > > but this provides no safety at all.
+> > > 
+> > > 
+> > > What warning_add() actually does is queue messages for some point near
+> > > the end of boot.  It's not clear that this is even a clever thing to do.
+> > > 
+> > > I'm very tempted to suggest a blanket change to printk_once().
+> > 
+> > If this is needed then this could be done in an other serie ?
+>
+> The callback ->enable() will be called when a CPU is onlined/offlined. So this
+> is going to require if you plan to support CPU hotplugs or suspend resume.
+> 
+> > Would be good to keep this patch as purely handling the errata.
 
---8323329-897259223-1602708402=:10386
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+My preference would be to keep this patch small with just the errata,
+maybe using a simple printk_once as Andrew and Julien discussed.
 
-On Wed, 14 Oct 2020, Bertrand Marquis wrote:
-> > On 14 Oct 2020, at 12:11, Julien Grall <julien@xen.org> wrote:
-> > 
-> > Hi Bertrand,
-> > 
-> > On 14/10/2020 11:41, Bertrand Marquis wrote:
-> >> When a Cortex A57 processor is affected by CPU errata 832075, a guest
-> >> not implementing the workaround for it could deadlock the system.
-> >> Add a warning during boot informing the user that only trusted guests
-> >> should be executed on the system.
-> > 
-> > I think we should update SUPPORT.MD to say we will not security support those processors. Stefano, what do you think?
-> 
-> That could make sense to do that yes.
-> If Stefano confirms then i can do this in a v2
+There is another instance of warning_add potentially being called
+outside __init in xen/arch/arm/cpuerrata.c:
+enable_smccc_arch_workaround_1. So if you are up for it, it would be
+good to produce a patch to fix that too.
 
-Yes, I confirm
 
- 
-> >> An equivalent warning is already given to the user by KVM on cores
-> >> affected by this errata.
-> > 
-> > I don't seem to find the warning in Linux. Do you have a link?
+> In the case of this patch, how about moving the warning_add() in
+> enable_errata_workarounds()?
 > 
-> sure:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=abf532cceaca9c21a148498091f87de1b8ae9b49
-> 
-> > 
-> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >> ---
-> >>  xen/arch/arm/cpuerrata.c | 21 +++++++++++++++++++++
-> >>  1 file changed, 21 insertions(+)
-> >> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> >> index 6c09017515..8f9ab6dde1 100644
-> >> --- a/xen/arch/arm/cpuerrata.c
-> >> +++ b/xen/arch/arm/cpuerrata.c
-> >> @@ -240,6 +240,26 @@ static int enable_ic_inv_hardening(void *data)
-> >>    #endif
-> >>  +#ifdef CONFIG_ARM64_ERRATUM_832075
-> >> +
-> >> +static int warn_device_load_acquire_errata(void *data)
-> >> +{
-> >> +    static bool warned = false;
-> >> +
-> >> +    if ( !warned )
-> >> +    {
-> >> +        warning_add("This CPU is affected by the errata 832075.\n"
-> >> +                    "Guests without required CPU erratum workarounds\n"
-> >> +                    "can deadlock the system!\n"
-> >> +                    "Only trusted guests should be used on this system.\n");
-> >> +        warned = true;
-> > 
-> > I was going to suggest to use WARN_ON_ONCE() but it looks like it never made upstream :(.
-> 
-> I did do this as it was done in the smc warning function (that’s why i pushed a patch for it).
-> 
-> Cheers
-> Bertrand
-> 
-> > 
-> >> +    }
-> >> +
-> >> +    return 0;
-> >> +}
-> >> +
-> >> +#endif
-> >> +
-> >>  #ifdef CONFIG_ARM_SSBD
-> >>    enum ssbd_state ssbd_state = ARM_SSBD_RUNTIME;
-> >> @@ -419,6 +439,7 @@ static const struct arm_cpu_capabilities arm_errata[] = {
-> >>          .capability = ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE,
-> >>          MIDR_RANGE(MIDR_CORTEX_A57, 0x00,
-> >>                     (1 << MIDR_VARIANT_SHIFT) | 2),
-> >> +        .enable = warn_device_load_acquire_errata,
-> >>      },
-> >>  #endif
-> >>  #ifdef CONFIG_ARM64_ERRATUM_834220
-> > 
-> > -- 
-> > Julien Grall
-> 
-> 
---8323329-897259223-1602708402=:10386--
+> By then we should now all the errata present on your platform. All CPUs
+> onlined afterwards (i.e. runtime) should always abide to the set discover
+> during boot.
+
+If I understand your suggestion correctly, it would work for
+warn_device_load_acquire_errata, because it is just a warning, but it
+would not work for enable_smccc_arch_workaround_1, because there is
+actually a call to be made there.
+
+Maybe it would be simpler to use printk_once in both cases? I don't have
+a strong preference either way.
 
