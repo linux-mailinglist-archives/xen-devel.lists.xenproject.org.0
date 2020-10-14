@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FFFC28DB03
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 10:19:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6492.17316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CAA928DB04
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 10:20:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6496.17332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSbzR-0007dy-PL; Wed, 14 Oct 2020 08:18:29 +0000
+	id 1kSc1B-0008Qf-BD; Wed, 14 Oct 2020 08:20:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6492.17316; Wed, 14 Oct 2020 08:18:29 +0000
+Received: by outflank-mailman (output) from mailman id 6496.17332; Wed, 14 Oct 2020 08:20:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,121 +23,233 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSbzR-0007dZ-Lb; Wed, 14 Oct 2020 08:18:29 +0000
-Received: by outflank-mailman (input) for mailman id 6492;
- Wed, 14 Oct 2020 08:18:27 +0000
+	id 1kSc1B-0008QG-7p; Wed, 14 Oct 2020 08:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 6496;
+ Wed, 14 Oct 2020 08:20:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mg0A=DV=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kSbzP-0007dU-IN
- for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 08:18:27 +0000
+ id 1kSc1A-0008PY-7F
+ for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 08:20:16 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c150998-d186-4b5e-aee6-56e1dbcd1b6a;
- Wed, 14 Oct 2020 08:18:24 +0000 (UTC)
+ id 0daa6452-db51-4387-822e-75ba7ada142e;
+ Wed, 14 Oct 2020 08:20:08 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kSbzM-0007Cu-Lr; Wed, 14 Oct 2020 08:18:24 +0000
+ id 1kSc11-0007En-LV; Wed, 14 Oct 2020 08:20:07 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kSbzM-0006rQ-DQ; Wed, 14 Oct 2020 08:18:24 +0000
+ id 1kSc11-0006wO-E4; Wed, 14 Oct 2020 08:20:07 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kSbzM-00011A-Cx; Wed, 14 Oct 2020 08:18:24 +0000
+ id 1kSc11-0001W5-Dc; Wed, 14 Oct 2020 08:20:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=mg0A=DV=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kSbzP-0007dU-IN
-	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 08:18:27 +0000
-X-Inumbo-ID: 3c150998-d186-4b5e-aee6-56e1dbcd1b6a
+	id 1kSc1A-0008PY-7F
+	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 08:20:16 +0000
+X-Inumbo-ID: 0daa6452-db51-4387-822e-75ba7ada142e
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3c150998-d186-4b5e-aee6-56e1dbcd1b6a;
-	Wed, 14 Oct 2020 08:18:24 +0000 (UTC)
+	id 0daa6452-db51-4387-822e-75ba7ada142e;
+	Wed, 14 Oct 2020 08:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DhBmb/JYAm2j/M8W3X2MtsKR2r0RGNPzUwv3WVaZvhk=; b=IKYflcgEL/541STf85KqNjLad3
-	lnoWkTtmw1yTABiEW/fmmg8r5BwUafxio3Z5snsMdIEVIqS3fYkqfa8I5QHouB+gkg2za58Rmb2Se
-	Lu9QMbYvtgPCYEXdwClZdePRbVXlbDv6JHHCPMXMmDumOn8Bg2c7AeP27NngI4ECSNd0=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=WzJQ33+E7/n4t96AwyAi1dQagpjDh/T02/jVVZxmMZM=; b=Zy3VTdFaAe/AoHc+s/WqtYQQFE
+	3EezaPiDnbvCAt1idGXPtBM1VMvjNPYzSGX1d4eb8De/1fvBkz1qdeH5haYcr0yocf3aLJRdtHpum
+	LQv+0A0co/4dyMTTDR8QbcKPkAGQYGlCMhucK5nfZ1+wUjo16WXupIhDkj3PLWP/pmg8=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSbzM-0007Cu-Lr; Wed, 14 Oct 2020 08:18:24 +0000
+	id 1kSc11-0007En-LV; Wed, 14 Oct 2020 08:20:07 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSbzM-0006rQ-DQ; Wed, 14 Oct 2020 08:18:24 +0000
+	id 1kSc11-0006wO-E4; Wed, 14 Oct 2020 08:20:07 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSbzM-00011A-Cx; Wed, 14 Oct 2020 08:18:24 +0000
+	id 1kSc11-0001W5-Dc; Wed, 14 Oct 2020 08:20:07 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-155796-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155796: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9e5a9d0e6886f521453a63a2854ff6d06fa0d028
-X-Osstest-Versions-That:
-    xen=25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+Subject: [qemu-mainline bisection] complete test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm
+Message-Id: <E1kSc11-0001W5-Dc@osstest.test-lab.xenproject.org>
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 14 Oct 2020 08:18:24 +0000
+Date: Wed, 14 Oct 2020 08:20:07 +0000
 
-flight 155796 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155796/
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm
+testid debian-hvm-install
 
-Regressions :-(
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Tests which did not succeed and are blocking,
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  c0ddc8634845aba50774add6e4b73fdaffc82656
+  Bug not present: 8d385b247bca40ece40c9279391054bc98934325
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155797/
+
+
+  commit c0ddc8634845aba50774add6e4b73fdaffc82656
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Tue Sep 22 15:51:28 2020 +0200
+  
+      evtchn: convert per-channel lock to be IRQ-safe
+      
+      ... in order for send_guest_{global,vcpu}_virq() to be able to make use
+      of it.
+      
+      This is part of XSA-343.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Julien Grall <jgrall@amazon.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install --summary-out=tmp/155797.bisection-summary --basis-template=152631 --blessings=real,real-bisect qemu-mainline test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm debian-hvm-install
+Searching for failure / basis pass:
+ 155769 fail [host=elbling0] / 155509 [host=huxelrebe0] 155483 [host=albana0] 155434 [host=godello1] 155318 [host=godello0] 155184 [host=albana1] 155098 [host=rimava1] 155018 [host=fiano1] 154629 [host=elbling1] 154607 [host=pinot0] 154583 ok.
+Failure / basis pass flights: 155769 / 154583
+(tree with no url: minios)
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5d1af380d3e4bd840fa324db33ca4f739136e654 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5df6c87e8080e0021e975c8387baa20cfe43c932 155821a1990b6de78dde5f98fa5ab90e802021e0 baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0\
+ dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#ea9af51479fe04955443f0d366376a1008f07c94-5d1af380d3e4bd840fa324db33ca4f739136e654 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#5df6c87e8080e0021e975c8387baa20cfe43c932-a0bdf866873467271eff9a92f179ab0f77d735cb git://xenbits.xen.org/osstest/seabios.git#155821a1990b6de78dde5f98fa5ab90e802021e0-849c5e5\
+ 0b6f474df6cc113130575bcdccfafcd9e git://xenbits.xen.org/xen.git#baa4d064e91b6d2bcfe400bdf71f83b961e4c28e-25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+Loaded 43053 nodes in revision graph
+Searching for test results:
+ 154583 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5df6c87e8080e0021e975c8387baa20cfe43c932 155821a1990b6de78dde5f98fa5ab90e802021e0 baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
+ 154607 [host=pinot0]
+ 154629 [host=elbling1]
+ 155018 [host=fiano1]
+ 155098 [host=rimava1]
+ 155184 [host=albana1]
+ 155318 [host=godello0]
+ 155434 [host=godello1]
+ 155483 [host=albana0]
+ 155509 [host=huxelrebe0]
+ 155518 fail irrelevant
+ 155544 fail irrelevant
+ 155585 fail irrelevant
+ 155613 fail irrelevant
+ 155645 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70c2f10fde5b67b0d7d62ba7ea3271fc514ebcc4 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4a7c0bd9dcb08798c6f82e55b5a3423f7ee669f1 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155665 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4a7c0bd9dcb08798c6f82e55b5a3423f7ee669f1 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155675 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4a7c0bd9dcb08798c6f82e55b5a3423f7ee669f1 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155695 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4a7c0bd9dcb08798c6f82e55b5a3423f7ee669f1 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155703 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 48a340d9b23ffcf7704f2de14d1e505481a84a1c 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155713 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 48a340d9b23ffcf7704f2de14d1e505481a84a1c 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155732 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5df6c87e8080e0021e975c8387baa20cfe43c932 155821a1990b6de78dde5f98fa5ab90e802021e0 baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
+ 155733 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 48a340d9b23ffcf7704f2de14d1e505481a84a1c 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155735 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70c2f10fde5b67b0d7d62ba7ea3271fc514ebcc4 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 eb94b81a94bce112e6b206df846c1551aaf6cab6 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155729 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ae511331e0fb1625ba649f377e81e487de3a5531 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 48a340d9b23ffcf7704f2de14d1e505481a84a1c 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155738 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 69e95b9efed520e643b9e5b0573180aa7c5ecaca 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a1d22c668a7662289b42624fe2aa92c9a23df1d2 849c5e50b6f474df6cc113130575bcdccfafcd9e 0241809bf838875615797f52af34222e5ab8e98f
+ 155742 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d8ca4f90eaeb61bd7e9903b56bf412f0d187137 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 f2687fdb7571a444b5af3509574b659d35ddd601 849c5e50b6f474df6cc113130575bcdccfafcd9e 93508595d588afe9dca087f95200effb7cedc81f
+ 155746 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d8ca4f90eaeb61bd7e9903b56bf412f0d187137 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 671ad7c4468f795b66b4cd8f376f1b1ce6701b63 849c5e50b6f474df6cc113130575bcdccfafcd9e 8ef6345ef557cc2c47298217635a3088eaa59893
+ 155747 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d8ca4f90eaeb61bd7e9903b56bf412f0d187137 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 36d9c2883e55c863b622b99f0ebb5143f0001401 849c5e50b6f474df6cc113130575bcdccfafcd9e 8ef6345ef557cc2c47298217635a3088eaa59893
+ 155749 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d8ca4f90eaeb61bd7e9903b56bf412f0d187137 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0d2a4545bf7e763984d3ee3e802617544cb7fc7a 849c5e50b6f474df6cc113130575bcdccfafcd9e 59b27f360e3d9dc0378c1288e67a91fa41a77158
+ 155750 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 2d8ca4f90eaeb61bd7e9903b56bf412f0d187137 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b23317eec4715aa62de9a6e5490a01122c8eef0e 849c5e50b6f474df6cc113130575bcdccfafcd9e bdb380e1dbdc6b76576ab6db0b8e946cc95edc1c
+ 155752 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d8ab884fe9b4dd148980bf0d8673187f8fb25887 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d17f305a2649fccdc50956b3381456a8fd318903 849c5e50b6f474df6cc113130575bcdccfafcd9e 11852c7bb070a18c3708b4c001772a23e7d4fc27
+ 155743 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155753 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 52dbaaeace647961bae61634c4be49ea2ca3d5cd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7cd77fb02b9a2117a56fed172f09a1820fcd6b0b 41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5 5dba8c2f23049aa68b777a9e7e9f76c12dd00012
+ 155755 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5df6c87e8080e0021e975c8387baa20cfe43c932 155821a1990b6de78dde5f98fa5ab90e802021e0 baa4d064e91b6d2bcfe400bdf71f83b961e4c28e
+ 155761 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155764 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 52dbaaeace647961bae61634c4be49ea2ca3d5cd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 213057383c9f73a17cfe635b204d88e11f918df1 41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5 358d57d411ee759a5a9dbf367179a9ac37faf0b3
+ 155766 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1d058c3e86b079a2e207bb022fd7a97814c9a04f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 92d09502676678c8ebb1ad830666b323d3c88f9d 41289b83ed3847dc45e7af3f1b7cb3cec6b6e7a5 4bdbf746ac9152e70f264f87db4472707da805ce
+ 155754 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155767 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1d058c3e86b079a2e207bb022fd7a97814c9a04f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8053e73fb2d295279b5cc4de7dc06bd581241ca 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 5bcac985498ed83d89666959175ca9c9ed561ae1
+ 155771 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 f7f1d916b22306c35ab9c090aab5233a91b4b7f9 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 5a37207df52066efefe419c677b089a654d37afc
+ 155776 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dd5c7e3c5282b084daa5bbf0ec229cec699b2c17 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0fc0142828b5bc965790a1c5c6e241897d3387cb 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 a6732807d335239fc29bd953538affc458bcc197
+ 155780 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 910093d54fc758e7d69261b344fdc8da3a7bd81e
+ 155781 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00b51fcb1ed7d2d5c2ea2f7dc598187d17c6f2e1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 2785b2a9e04abc148e1c5259f4faee708ea356f4
+ 155783 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 e045199c7c9c5433d7f1461a741ed539a75cbfad
+ 155769 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5d1af380d3e4bd840fa324db33ca4f739136e654 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
+ 155784 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 62bcdc4edbf6d8c6e8a25544d48de22ccf75310d
+ 155787 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 8d385b247bca40ece40c9279391054bc98934325
+ 155789 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 c0ddc8634845aba50774add6e4b73fdaffc82656
+ 155792 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 8d385b247bca40ece40c9279391054bc98934325
+ 155794 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 c0ddc8634845aba50774add6e4b73fdaffc82656
+ 155795 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 8d385b247bca40ece40c9279391054bc98934325
+ 155797 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 c0ddc8634845aba50774add6e4b73fdaffc82656
+Searching for interesting versions
+ Result found: flight 154583 (pass), for basis pass
+ Result found: flight 155743 (fail), for basis failure (at ancestor ~2)
+ Repro found: flight 155755 (pass), for basis pass
+ Repro found: flight 155769 (fail), for basis failure
+ 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ea9af51479fe04955443f0d366376a1008f07c94 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4dad0a9aa818698e0735c8352bf7925a1660df6f 4ea6aa9471f79cc81f957d6c0e2bb238d24675e5 8d385b247bca40ece40c9279391054bc98934325
+No revisions left to test, checking graph state.
+ Result found: flight 155787 (pass), for last pass
+ Result found: flight 155789 (fail), for first failure
+ Repro found: flight 155792 (pass), for last pass
+ Repro found: flight 155794 (fail), for first failure
+ Repro found: flight 155795 (pass), for last pass
+ Repro found: flight 155797 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  c0ddc8634845aba50774add6e4b73fdaffc82656
+  Bug not present: 8d385b247bca40ece40c9279391054bc98934325
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/155797/
+
+
+  commit c0ddc8634845aba50774add6e4b73fdaffc82656
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Tue Sep 22 15:51:28 2020 +0200
+  
+      evtchn: convert per-channel lock to be IRQ-safe
+      
+      ... in order for send_guest_{global,vcpu}_virq() to be able to make use
+      of it.
+      
+      This is part of XSA-343.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Julien Grall <jgrall@amazon.com>
+
+neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.985918 to fit
+Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install.{dot,ps,png,html,svg}.
+----------------------------------------
+155797: tolerable FAIL
+
+flight 155797 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155797/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
 including tests which could not be run:
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 155584
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail baseline untested
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  9e5a9d0e6886f521453a63a2854ff6d06fa0d028
-baseline version:
- xen                  25849c8b16f2a5b7fcd0a823e80a5f1b590291f9
-
-Last test of basis   155584  2020-10-09 02:01:25 Z    5 days
-Failing since        155612  2020-10-09 18:01:22 Z    4 days   34 attempts
-Testing same since   155779  2020-10-13 17:01:26 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Nick Rosbrook <rosbrookn@ainfosec.com>
-  Nick Rosbrook <rosbrookn@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Trammell Hudson <hudson@trmm.net>
-  Wei Liu <wl@xen.org>
 
 jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
  build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
 
 
 ------------------------------------------------------------
@@ -155,224 +267,4 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-
-Not pushing.
-
-------------------------------------------------------------
-commit 9e5a9d0e6886f521453a63a2854ff6d06fa0d028
-Author: Bertrand Marquis <bertrand.marquis@arm.com>
-Date:   Wed Oct 7 15:57:51 2020 +0100
-
-    build: always use BASEDIR for xen sub-directory
-    
-    Modify Makefiles using $(XEN_ROOT)/xen to use $(BASEDIR) instead.
-    
-    This is removing the dependency to xen subdirectory preventing using a
-    wrong configuration file when xen subdirectory is duplicated for
-    compilation tests.
-    
-    BASEDIR is set in xen/lib/x86/Makefile as this Makefile is directly
-    called from the tools build and install process and BASEDIR is not set
-    there.
-    
-    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit a95f31376ba4ae911536c647e1a583d144ccab73
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Sun Oct 11 19:31:25 2020 -0400
-
-    golang/xenlight: standardize generated code comment
-    
-    There is a standard format for generated Go code header comments, as set
-    by [1]. Modify gengotypes.py to follow this standard, and use the
-    additional
-    
-      // source: <IDL file basename>
-    
-    convention used by protoc-gen-go.
-    
-    This change is motivated by the fact that since 41aea82de2, the comment
-    would include the absolute path to libxl_types.idl, therefore creating
-    unintended diffs when generating code across different machines. This
-    approach fixes that problem.
-    
-    [1] https://github.com/golang/go/issues/13560
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit c60f9e4360ec857bb0164387378e12ae8e66e189
-Author: Nick Rosbrook <rosbrookn@gmail.com>
-Date:   Sun Oct 11 19:31:24 2020 -0400
-
-    golang/xenlight: do not hard code libxl dir in gengotypes.py
-    
-    Currently, in order to 'import idl' in gengotypes.py, we derive the path
-    of the libxl source directory from the XEN_ROOT environment variable, and
-    append that to sys.path so python can see idl.py. Since the the recent move of
-    libxl to tools/libs/light, this hard coding breaks the build.
-    
-    Instead, check for the environment variable LIBXL_SRC_DIR, but move this
-    check to a try-except block (with empty except). This simply makes the
-    real error more visible, and does not strictly require that
-    LIBXL_SRC_DIR is used. Finally, update the Makefile to set LIBXL_SRC_DIR
-    rather than XEN_ROOT when calling gengotypes.py.
-    
-    Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-    Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-commit 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Oct 11 14:24:01 2020 +0200
-
-    tools/libs/store: add disclaimer to header file regarding ignored options
-    
-    Add a disclaimer to the libxenstore header file that all of the open
-    flags (socket only connection, read only connection) are ignored.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 1b810a9d5a39230e76073b1a753cd2c34ded65fc
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Thu Oct 1 19:53:37 2020 -0400
-
-    libxl: only query VNC when enabled
-    
-    QEMU without VNC support (configure --disable-vnc) will return an error
-    when VNC is queried over QMP since it does not recognize the QMP
-    command.  This will cause libxl to fail starting the domain even if VNC
-    is not enabled.  Therefore only query QEMU for VNC support when using
-    VNC, so a VNC-less QEMU will function in this configuration.
-    
-    'goto out' jumps to the call to device_model_postconfig_done(), the
-    final callback after the chain of vnc queries.  This bypasses all the
-    QMP VNC queries.
-    
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 8a62dee9ceff3056c7e0bd9632bac39bee2a51b3
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Oct 2 12:30:34 2020 +0200
-
-    x86/vLAPIC: don't leak regs page from vlapic_init() upon error
-    
-    Fixes: 8a981e0bf25e ("Make map_domain_page_global fail")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 8a71d50ed40bfa78c37722dc11995ac2563662c3
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:21 2020 -0400
-
-    efi: Enable booting unified hypervisor/kernel/initrd images
-    
-    This patch adds support for bundling the xen.efi hypervisor, the xen.cfg
-    configuration file, the Linux kernel and initrd, as well as the XSM,
-    and architectural specific files into a single "unified" EFI executable.
-    This allows an administrator to update the components independently
-    without requiring rebuilding xen, as well as to replace the components
-    in an existing image.
-    
-    The resulting EFI executable can be invoked directly from the UEFI Boot
-    Manager, removing the need to use a separate loader like grub as well
-    as removing dependencies on local filesystem access.  And since it is
-    a single file, it can be signed and validated by UEFI Secure Boot without
-    requring the shim protocol.
-    
-    It is inspired by systemd-boot's unified kernel technique and borrows the
-    function to locate PE sections from systemd's LGPL'ed code.  During EFI
-    boot, Xen looks at its own loaded image to locate the PE sections for
-    the Xen configuration (`.config`), dom0 kernel (`.kernel`), dom0 initrd
-    (`.ramdisk`), and XSM config (`.xsm`), which are included after building
-    xen.efi using objcopy to add named sections for each input file.
-    
-    For x86, the CPU ucode can be included in a section named `.ucode`,
-    which is loaded in the efi_arch_cfg_file_late() stage of the boot process.
-    
-    On ARM systems the Device Tree can be included in a section named
-    `.dtb`, which is loaded during the efi_arch_cfg_file_early() stage of
-    the boot process.
-    
-    Note that the system will fall back to loading files from disk if
-    the named sections do not exist. This allows distributions to continue
-    with the status quo if they want a signed kernel + config, while still
-    allowing a user provided initrd (which is how the shim protocol currently
-    works as well).
-    
-    This patch also adds constness to the section parameter of
-    efi_arch_cfg_file_early() and efi_arch_cfg_file_late(),
-    changes pe_find_section() to use a const CHAR16 section name,
-    and adds pe_name_compare() to match section names.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    [Fix ARM build by including pe.init.o]
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4dced5df761e36fa2561f6f0f6563b3580d95e7f
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:20 2020 -0400
-
-    efi/boot.c: add handle_file_info()
-    
-    Add a separate function to display the address ranges used by
-    the files and call `efi_arch_handle_module()` on the modules.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 04be2c3a067899a3860fc2c7bc7a1599502ed1c5
-Author: Trammell Hudson <hudson@trmm.net>
-Date:   Fri Oct 2 07:18:19 2020 -0400
-
-    efi/boot.c: add file.need_to_free
-    
-    The config file, kernel, initrd, etc should only be freed if they
-    are allocated with the UEFI allocator.  On x86 the ucode, and on
-    ARM the dtb, are also marked as need_to_free when allocated or
-    expanded.
-    
-    This also fixes a memory leak in ARM fdt_increase_size() if there
-    is an error in building the new device tree.
-    
-    Signed-off-by: Trammell Hudson <hudson@trmm.net>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit afef39241b66df7d5fd66b07dc13350370a4991a
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Apr 1 15:51:08 2020 +0100
-
-    x86/ucode: Trivial further cleanup
-    
-     * Drop unused include in private.h.
-     * Used explicit width integers for Intel header fields.
-     * Adjust comment to better describe the extended header.
-     * Drop unnecessary __packed attribute for AMD header.
-     * Fix types and style.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 8d255609930bed04c6436974bd895be9a405d0c1
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Oct 2 12:20:44 2020 +0100
-
-    x86/hvm: Correct error message in check_segment()
-    
-    The error message is wrong (given AMD's older interpretation of what a NUL
-    segment should contain, attribute wise), and actively unhelpful because you
-    only get it in response to a hypercall where the one piece of information you
-    cannot provide is the segment selector.
-    
-    Fix the message to talk about segment attributes, rather than the selector.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
