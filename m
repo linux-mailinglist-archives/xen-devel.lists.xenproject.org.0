@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61C9C28E4AB
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 18:42:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.6896.18053 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB02B28E50D
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Oct 2020 19:07:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.6916.18083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSjr2-00076U-UC; Wed, 14 Oct 2020 16:42:20 +0000
+	id 1kSkES-0000mm-Au; Wed, 14 Oct 2020 17:06:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 6896.18053; Wed, 14 Oct 2020 16:42:20 +0000
+Received: by outflank-mailman (output) from mailman id 6916.18083; Wed, 14 Oct 2020 17:06:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,86 +23,87 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSjr2-000768-Qk; Wed, 14 Oct 2020 16:42:20 +0000
-Received: by outflank-mailman (input) for mailman id 6896;
- Wed, 14 Oct 2020 16:42:18 +0000
+	id 1kSkES-0000mN-7P; Wed, 14 Oct 2020 17:06:32 +0000
+Received: by outflank-mailman (input) for mailman id 6916;
+ Wed, 14 Oct 2020 17:06:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nbRJ=DV=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kSjr0-000763-Pb
- for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 16:42:18 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MeL6=DV=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kSkEQ-0000mE-98
+ for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 17:06:30 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35cd91e0-8b3c-4e5c-b9d1-8f569fe15a3f;
- Wed, 14 Oct 2020 16:42:17 +0000 (UTC)
+ id 70251fd8-73ba-4907-8c36-27d714b03d5b;
+ Wed, 14 Oct 2020 17:06:29 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kSkEN-00024b-QI; Wed, 14 Oct 2020 17:06:27 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kSkEN-00082n-JW; Wed, 14 Oct 2020 17:06:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nbRJ=DV=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
-	id 1kSjr0-000763-Pb
-	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 16:42:18 +0000
-X-Inumbo-ID: 35cd91e0-8b3c-4e5c-b9d1-8f569fe15a3f
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	(envelope-from <SRS0=MeL6=DV=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kSkEQ-0000mE-98
+	for xen-devel@lists.xenproject.org; Wed, 14 Oct 2020 17:06:30 +0000
+X-Inumbo-ID: 70251fd8-73ba-4907-8c36-27d714b03d5b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 35cd91e0-8b3c-4e5c-b9d1-8f569fe15a3f;
-	Wed, 14 Oct 2020 16:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602693737;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=7bzHnT69tW0R5VXZ4MQBOqCdfcMHvevAeG9gp5iZwQE=;
-  b=XYd+d7+w7WNW4XT74HqEZh7nUColr0Knw/QZpIpUJbai8N1xDOjnw++3
-   sa2D37aZVWFZBCij5iVTfPF+ixpR54pGfEgBOqbWgZoHauhWAlsb7SoJL
-   k7DxxqM2u/hdALL9a72Qc6/6CbVs8cZnL16ooMO7y7elMW7J1t08Y/JGt
-   0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 7oisZ/rXFwmGBpjwwUY/CpJ+X4cOtC4q8+dVsvSG2yXyhJvCIhj8DZ+bwjlfnkP/ThzrkU8b9v
- uYv8swOSWwupdAhhhH+VZjxHaW7Q6BlyzLc90JgKgw73rJCNkiZyWnmZH0Vgm2xwX0TV9BHAN4
- 47JKsJ6GjKAtUDjKNRcj5HuZNGCMcnd4tstEkc5vPXevA/MrpZRu8GUHYZNxYZTKU7JoaRD4w8
- 5MdtFJx4rADewqgITaaeVcvnLa23U2sfdMQIVbs+0KexfhA82jNk+BFV++uh2kPfZrFVXVpKMa
- bh4=
-X-SBRS: 2.5
-X-MesageID: 29256984
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,375,1596513600"; 
-   d="scan'208";a="29256984"
-Subject: Re: [PATCH 1/2] x86/intel: insert Ice Lake X (server) model numbers
-To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, <andrew.cooper3@citrix.com>,
-	<roger.pau@citrix.com>, <wl@xen.org>, <jun.nakajima@intel.com>,
-	<kevin.tian@intel.com>
-References: <1602558169-23140-1-git-send-email-igor.druzhinin@citrix.com>
- <ca9a1cce-1e51-0f55-4527-42f48bc7d6ab@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <e30f7f98-ee1a-1a24-0496-01911a79c861@citrix.com>
-Date: Wed, 14 Oct 2020 17:42:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 70251fd8-73ba-4907-8c36-27d714b03d5b;
+	Wed, 14 Oct 2020 17:06:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Q4fyAUhdnkBCkpuu4znc9gASkYekK/Z+3FZj3aUhbHo=; b=HxRb6YYIWFHQxObunVomfYbmsc
+	Tf8p/97Fb25Dx3HHwTfvl+cwpygh4RjT+x1cavsfW8VdzIWp0vLDEyneCdCsuPMmRtnv320C/u0VD
+	JTEXDqZJk3+m1h9Kh00cC2wFSF4yqV25mi/EuZM+1lLB+EiV3uYzt8j/v/J7hhOKW4Fs=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kSkEN-00024b-QI; Wed, 14 Oct 2020 17:06:27 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kSkEN-00082n-JW; Wed, 14 Oct 2020 17:06:27 +0000
+Subject: Re: [PATCH] xen/arm: Document the erratum #853709 related to Cortex
+ A72
+To: Michal Orzel <Michal.Orzel@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <20201014100541.11687-1-michal.orzel@arm.com>
+ <ef5fc4c3-5de3-0ec1-fed9-afdb8dd1bfc1@xen.org>
+ <AM6PR08MB4641ACDB3B63F0A065FBD48389050@AM6PR08MB4641.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c4341231-f41d-961f-c9cd-116369a7bc75@xen.org>
+Date: Wed, 14 Oct 2020 18:06:23 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.2
 MIME-Version: 1.0
-In-Reply-To: <ca9a1cce-1e51-0f55-4527-42f48bc7d6ab@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
+In-Reply-To: <AM6PR08MB4641ACDB3B63F0A065FBD48389050@AM6PR08MB4641.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 14/10/2020 16:47, Jan Beulich wrote:
-> On 13.10.2020 05:02, Igor Druzhinin wrote:
->> LBR, C-state MSRs and if_pschange_mc erratum applicability should correspond
->> to Ice Lake desktop according to External Design Specification vol.2.
+
+
+On 14/10/2020 12:06, Michal Orzel wrote:
+> Hi Julien,
 > 
-> Could you tell me where this is publicly available? Even after spending
-> quite a bit of time on searching for it, I can't seem to be able to
-> find it. And the SDM doesn't have enough information (yet).
+> I agree. You can update the commit message.
 
-True that SDM doesn't have this data. As I mentioned that data is taken from
-External Design Specification for Ice Lake server which is accessed using Intel
-account. I'm not completely sure it is right to make changes in open source
-project like Linux or Xen based on information which is not publicly available
-yet. But Intel is frequently doing this with Linux : even my second patch uses
-data taken from one of these documents and was committed by Intel to Linux first.
+Thanks. I have updated the commit message and committed it.
 
-Do we need the information publicly available to commit these changes as well?
-If not, we can run with these changes in our patchqueue until it gets out properly.
+On a different topic, it looks like you are sending the e-mail with 
+HTML. Would you mind to configure it to send plain text?
 
-Igor
+Cheers,
+
+-- 
+Julien Grall
 
