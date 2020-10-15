@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE4B28F2D7
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 14:59:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7344.19184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3251828F2E4
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:05:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7347.19196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT2qb-0003mD-0g; Thu, 15 Oct 2020 12:59:09 +0000
+	id 1kT2wm-0004gU-ND; Thu, 15 Oct 2020 13:05:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7344.19184; Thu, 15 Oct 2020 12:59:08 +0000
+Received: by outflank-mailman (output) from mailman id 7347.19196; Thu, 15 Oct 2020 13:05:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,264 +23,150 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT2qa-0003lm-Tb; Thu, 15 Oct 2020 12:59:08 +0000
-Received: by outflank-mailman (input) for mailman id 7344;
- Thu, 15 Oct 2020 12:59:08 +0000
+	id 1kT2wm-0004g8-Je; Thu, 15 Oct 2020 13:05:32 +0000
+Received: by outflank-mailman (input) for mailman id 7347;
+ Thu, 15 Oct 2020 13:05:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kT2qa-0003kg-3K
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 12:59:08 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kT2wl-0004g3-0Z
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:05:31 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1fb63c6c-19cc-4379-9e04-91d50cc4e98a;
- Thu, 15 Oct 2020 12:59:00 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT2qR-0004JF-Lf; Thu, 15 Oct 2020 12:58:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT2qR-00010g-ED; Thu, 15 Oct 2020 12:58:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kT2qR-0006jk-Dh; Thu, 15 Oct 2020 12:58:59 +0000
+ id 7d378b68-77aa-4a92-9132-2d1aa62a97d0;
+ Thu, 15 Oct 2020 13:05:28 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kT2qa-0003kg-3K
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 12:59:08 +0000
-X-Inumbo-ID: 1fb63c6c-19cc-4379-9e04-91d50cc4e98a
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kT2wl-0004g3-0Z
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:05:31 +0000
+X-Inumbo-ID: 7d378b68-77aa-4a92-9132-2d1aa62a97d0
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 1fb63c6c-19cc-4379-9e04-91d50cc4e98a;
-	Thu, 15 Oct 2020 12:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Fo091tH+ZW2/9lfeeU6AMTDAQyRjqXoOWZLW8yRYRAc=; b=AwpSXlZF3LkgyAknXrC8Q4G8Vx
-	LnInAEqvDIiczYKpIVMZw8vugewkgc6EGtTFGL+5cIgMT5zwzjC6BHgD4ghKBqpVOJmcPuUiZpzLt
-	VfkpbtMZ3qFVZk8xdXAJrKYDepzgtksVWuCIhzkOGlrYc++nLZ1O+/yqlTUEv8rOEHjA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT2qR-0004JF-Lf; Thu, 15 Oct 2020 12:58:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT2qR-00010g-ED; Thu, 15 Oct 2020 12:58:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT2qR-0006jk-Dh; Thu, 15 Oct 2020 12:58:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155831-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 7d378b68-77aa-4a92-9132-2d1aa62a97d0;
+	Thu, 15 Oct 2020 13:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602767128;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=tHYOldh+zzg4BAoHPlXXGno3aTMtmkswwhlSrgFQYqg=;
+  b=anHAGe6dMzgtEim11a7DOt9xPdD8iRY5rMj9A6H4Vh//CpPNe/wwtY+q
+   t4USCESU6Kq7ZOFLz6/KwmzSDaAvm3IU+6tYYFXYqeG9UUXHaSjCKNRz2
+   i0rwDOeltVBURKuGjJwKUbsMlTa2e8P07vhxI9n+9Og72X5DRXCaHZBhj
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: C4m0tNJT9YMeau3EFBnetO+MT6a3OwtKzEXVG3Tyiw8hblwqZmgd6ZmPFsn+czUdALU0uBZuaC
+ 1/jeXe6kOr4NNx1jfddA/NfbnJv3kP5MnUwIU89z/GdTigcs0SkMafxYJoCP/yYbcYtstBdnS2
+ +P0TR41c/Gwu3QXEKUkwNdvD95GajXddUd6fYmTvBe6IMcBUhAHesdReeIm8zm3zwPh7MFiQLx
+ CvWqU6XP+hCZmHzYpgRTDOCg8gh4uiCnTXWGEavfeDmtAOR7QGqM4urGVrWcqGFqTloRWFQ9WY
+ aKk=
+X-SBRS: 2.5
+X-MesageID: 30116032
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
+   d="scan'208";a="30116032"
+Date: Thu, 15 Oct 2020 15:05:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "J. Roeleveld" <joost@antarean.org>
+CC: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: xen-blkback: Scheduled work from previous purge is still busy,
+ cannot purge list
+Message-ID: <20201015130520.GB68032@Air-de-Roger>
+References: <15146361.Z0tdQxPx3m@eve>
+ <1855015.FeAb16qnYt@eve>
+ <20201015120046.GE19243@Air-de-Roger>
+ <11618501.OP9n9qO8XQ@eve>
 MIME-Version: 1.0
-Subject: [libvirt test] 155831: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=cb6c2fa4ed0af096a7779827803c141306a8105a
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Oct 2020 12:58:59 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <11618501.OP9n9qO8XQ@eve>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-flight 155831 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155831/
+On Thu, Oct 15, 2020 at 02:53:34PM +0200, J. Roeleveld wrote:
+> On Thursday, October 15, 2020 2:00:46 PM CEST Roger Pau Monné wrote:
+> > Please don't drop xen-devel mailing list when replying.
+> 
+> My apologies, most mailing lists I am active on have a working "reply" button. 
+> Here I need to use "reply-all".
+> 
+> 
+> > On Thu, Oct 15, 2020 at 01:28:49PM +0200, J. Roeleveld wrote:
+> > > On Thursday, October 15, 2020 12:57:35 PM CEST you wrote:
+> > > > On Tue, Oct 13, 2020 at 07:26:47AM +0200, J. Roeleveld wrote:
+> > > > > Hi All,
+> > > > > 
+> > > > > I am seeing the following message in the "dmesg" output of a driver
+> > > > > domain.
+> > > > > 
+> > > > > [Thu Oct  8 20:57:04 2020] xen-blkback: Scheduled work from previous
+> > > > > purge
+> > > > > is still busy, cannot purge list
+> > > > > [Thu Oct  8 20:57:11 2020] xen-blkback: Scheduled work from previous
+> > > > > purge
+> > > > > is still busy, cannot purge list
+> > > > > [Thu Oct  8 20:57:44 2020] xen-blkback: Scheduled work from previous
+> > > > > purge
+> > > > > is still busy, cannot purge list
+> > > > > [Thu Oct  8 20:57:44 2020] xen-blkback: Scheduled work from previous
+> > > > > purge
+> > > > > is still busy, cannot purge list
+> > > > > 
+> > > > > 
+> > > > > Is this something to worry about? Or can I safely ignore this?
+> > > > 
+> > > > What version of the Linux kernel are you running in that driver
+> > > > domain?
+> > > 
+> > > Host:
+> > > Kernel: 5.4.66
+> > > Xen: 4.12.3
+> > > 
+> > > Driver domain:
+> > > Kernel: 5.4.66
+> > > Xen: 4.12.3
+> > > 
+> > > > Is the domain very busy? That might explain the delay in purging
+> > > > grants.
+> > > 
+> > > No, it's generally asleep, been going through the munin-records and can't
+> > > find any spikes the correlate with the messages either.
+> > > 
+> > > > Also is this an sporadic message, or it's constantly repeating?
+> > > 
+> > > It's sporadic, but occasionally, I get it several times in a row.
+> > > 
+> > > My understanding of the code where this message comes from is far from
+> > > sufficient. Which means I have no clue what it is actually trying to do.
+> > 
+> > There's a recurrent worker thread in blkback that will go and purge
+> > unused cache entries after they have expired. This is done to prevent
+> > the cache from growing unbounded.
+> > 
+> > AFAICT this just means the worker is likely running faster than what
+> > you can proceed, and hence you get another worker run before the old
+> > entries have been removed. Should be safe to ignore, but makes me
+> > wonder if I should add a parameter to tune the periodicity of the
+> > purge work.
+> 
+> In other words, when it "fails" in this manner, the queue will simply be left 
+> and processed the next time?
 
-Regressions :-(
+Yes, exactly.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+> How often does this currently run?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+The purge worked will run every 100ms, and the queued work should be
+terminated before the next run.
 
-version targeted for testing:
- libvirt              cb6c2fa4ed0af096a7779827803c141306a8105a
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> A parameter to tune the periodicity might be an option, for now I feel 
+> confident I can safely ignore these messages.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z   97 days
-Failing since        151818  2020-07-11 04:18:52 Z   96 days   91 attempts
-Testing same since   155831  2020-10-15 04:19:05 Z    0 days    1 attempts
+Sure, I'm testing a patch series to that effect now.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 21162 lines long.)
+Thanks, Roger.
 
