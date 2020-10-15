@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1022C28F6F2
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 18:38:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7564.19880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA67A28F6F4
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 18:39:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7566.19893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT6GX-000401-Uf; Thu, 15 Oct 2020 16:38:09 +0000
+	id 1kT6HY-00046M-9a; Thu, 15 Oct 2020 16:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7564.19880; Thu, 15 Oct 2020 16:38:09 +0000
+Received: by outflank-mailman (output) from mailman id 7566.19893; Thu, 15 Oct 2020 16:39:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,128 +23,84 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT6GX-0003zf-RU; Thu, 15 Oct 2020 16:38:09 +0000
-Received: by outflank-mailman (input) for mailman id 7564;
- Thu, 15 Oct 2020 16:38:08 +0000
+	id 1kT6HY-00045x-6G; Thu, 15 Oct 2020 16:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 7566;
+ Thu, 15 Oct 2020 16:39:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kT6GW-0003za-GM
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 16:38:08 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=VKkI=DW=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1kT6HW-00045r-R8
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 16:39:10 +0000
+Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0573e44a-b5e7-4114-8606-4114c68c410f;
- Thu, 15 Oct 2020 16:38:07 +0000 (UTC)
+ id 80e109db-455d-485e-896b-56324b9a02b6;
+ Thu, 15 Oct 2020 16:39:10 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id d3so4453774wma.4
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 09:39:10 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kT6GW-0003za-GM
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 16:38:08 +0000
-X-Inumbo-ID: 0573e44a-b5e7-4114-8606-4114c68c410f
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	(envelope-from <SRS0=VKkI=DW=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+	id 1kT6HW-00045r-R8
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 16:39:10 +0000
+X-Inumbo-ID: 80e109db-455d-485e-896b-56324b9a02b6
+Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0573e44a-b5e7-4114-8606-4114c68c410f;
-	Thu, 15 Oct 2020 16:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602779888;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=Qj6daUl3a4L1zT29nMoh4pa8HEVDUNhuxBVEfS5VrR0=;
-  b=hnDmHVSLHLgJVG9K+ZY7BNvKNsE8Vtzug6amD2tWZNFjxtXklTVaQ+WR
-   MxH3aU22Vjjh5c5+J02gcYKbY7GiKKB9yMqAYx+Z5t1qz/0+Ghgx4XGux
-   o0t2CHsX9eKHoZ9zajqyPpoisGnJ2Zziq44JIPLY3KQjlTZWbTYZAt2iN
-   0=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 1dZCXaNiv6f3fJrYWfHabfZpoSQ/ExdZYjaapkQ0S1kuJwO3sfOM9HbFuNpN/MxAjkAJRJGbk8
- JPKIVWcaNLrbRS/B/te1m8+nn6O5b8buupV3l4EqsTaN6WSJvDO009kCF8d1YYP7X4QC56oxsn
- izy8usIuT6AtRVcAJ7v6rkH2REAK18MYeiMiGoceEwOmaV/8ay8fS1rd0lanonjaPlrJ1jb9rv
- p3cp7bpXy1lH2Fm0Q3LcUQwuZBX4bVCTO9uh2WiVXF2Vf/EeNYBKsdZR7lBoyrZPlztspRrZmM
- zGo=
-X-SBRS: 2.5
-X-MesageID: 29101339
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
-   d="scan'208";a="29101339"
-Subject: Re: [PATCH v2] x86/smpboot: Don't unconditionally call
- memguard_guard_stack() in cpu_smpboot_alloc()
-To: Jan Beulich <jbeulich@suse.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20201014184708.17758-1-andrew.cooper3@citrix.com>
- <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
- <0a294279-5de5-3b54-b1f9-847de1159447@citrix.com>
- <578a0afd-693a-c704-317e-477e5e27d497@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <5df2626b-8755-8cdb-7cbc-74d51b569a0b@citrix.com>
-Date: Thu, 15 Oct 2020 17:38:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 80e109db-455d-485e-896b-56324b9a02b6;
+	Thu, 15 Oct 2020 16:39:10 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id d3so4453774wma.4
+        for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 09:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=4t3gw4yWmAQOQyd6UUTc0220EM21Rw8nlfAG9nvqlYk=;
+        b=bvxmMSh9hdYzR5Aai56AVw9UTe98y68mbRJMHnMNLxpagXf7jNetayLprkr9u3aoLw
+         mTgInE8Yz/DERCDve3upRRQpxjv0058NrIBd+ILJvR4KAPc1XLH8/8m6Gn02Sq9XDbBg
+         HISI3+7vFYpCiyL0Uz8gaU9F7EssFKTlKP/jEo3/lnk2t7WA2+7h70P23hl/Go/g4jKt
+         a7YyVV8bjqzLR6b7Y6c/mFYzx/dykfXA9RSFuPnIbnQVQbIiZ7Z0DOzmS7Wis85Eec1d
+         ELv2+xSjCv3OflZ9CVajGZm1AqK5e/XjEpcRwMQ0IXyUXEEbty9sFP9S0JDwvuBmNk6x
+         Kakg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=4t3gw4yWmAQOQyd6UUTc0220EM21Rw8nlfAG9nvqlYk=;
+        b=ayZNxeTpScOlF6wP3f19aGiZxXso0Lr0OP8DmlGRbR18ih9DYKZk2PW72DfH5BFKFR
+         4ngPuH84V7ywMhMdzM4EYWoi8YHf5SD3gMxZ5R3Is3Y6zgHNv9zR4MOK72tvm7jFJwLS
+         gV5BAWWPAEyiSBlwvU/4JbjhKXKy+mFxuBb+fSd+GdrOKEF2VYwmbZpONfhnDwC9Vk/C
+         CM4wjBWrjFDP+hQNPGIYrqtlkk7/VwEe+/PLYcg+qEE4LoX9apoXgaJetLL0dd2VCAWV
+         rn6H3xvONcRC6Hj+1OPPkkrswREpYUbkMcUxO9+c2imvV2dvuM037e7xVbl1C+hWmBFv
+         Z3YA==
+X-Gm-Message-State: AOAM5302T8v9F2KWCmq8RBtTdFhgScc5AWixgxaoSPS0HNCSjDD9G6uA
+	QDGnT6gZWNZkWrSUSaIhZ0L1Z4JxXoD5+OzhwrE=
+X-Google-Smtp-Source: ABdhPJx5MLKwCgbdSGo9DPo2IbDvS7j6x2uRxd46dPkJThVy3wsb/cRbLucl0ZdGavyJb23nk5v5sYWMFwecz0ziIqc=
+X-Received: by 2002:a1c:32c6:: with SMTP id y189mr5145549wmy.51.1602779949175;
+ Thu, 15 Oct 2020 09:39:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <578a0afd-693a-c704-317e-477e5e27d497@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+References: <CAKf6xpv-LRCuo-qHHWMuukYtvJiR-i+-YhLUOZeqoAFd-=swEQ@mail.gmail.com>
+ <1a3b90f4-564e-84d3-fd6a-3454e8753579@citrix.com> <20201015113109.GA68032@Air-de-Roger>
+ <CAKf6xpsJYT7VCeaf6TxPNK1QD+3U9E8ST7E+mWtfDjw0k9L9dA@mail.gmail.com>
+In-Reply-To: <CAKf6xpsJYT7VCeaf6TxPNK1QD+3U9E8ST7E+mWtfDjw0k9L9dA@mail.gmail.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Thu, 15 Oct 2020 12:38:33 -0400
+Message-ID: <CABfawhnwdkB01LKYbcNhyyhFXF2LbLFFmeN5kqh7VaYPevjzuw@mail.gmail.com>
+Subject: Re: i915 dma faults on Xen
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 15/10/2020 16:16, Jan Beulich wrote:
-> On 15.10.2020 16:02, Andrew Cooper wrote:
->> On 15/10/2020 09:50, Jan Beulich wrote:
->>> On 14.10.2020 20:47, Andrew Cooper wrote:
->>>> cpu_smpboot_alloc() is designed to be idempotent with respect to partially
->>>> initialised state.  This occurs for S3 and CPU parking, where enough state to
->>>> handle NMIs/#MCs needs to remain valid for the entire lifetime of Xen, even
->>>> when we otherwise want to offline the CPU.
->>>>
->>>> For simplicity between various configuration, Xen always uses shadow stack
->>>> mappings (Read-only + Dirty) for the guard page, irrespective of whether
->>>> CET-SS is enabled.
->>>>
->>>> Unfortunately, the CET-SS changes in memguard_guard_stack() broke idempotency
->>>> by first writing out the supervisor shadow stack tokens with plain writes,
->>>> then changing the mapping to being read-only.
->>>>
->>>> This ordering is strictly necessary to configure the BSP, which cannot have
->>>> the supervisor tokens be written with WRSS.
->>>>
->>>> Instead of calling memguard_guard_stack() unconditionally, call it only when
->>>> actually allocating a new stack.  Xenheap allocates are guaranteed to be
->>>> writeable, and the net result is idempotency WRT configuring stack_base[].
->>>>
->>>> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
->>>> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> ---
->>>> CC: Jan Beulich <JBeulich@suse.com>
->>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>> CC: Wei Liu <wl@xen.org>
->>>>
->>>> This can more easily be demonstrated with CPU hotplug than S3, and the absence
->>>> of bug reports goes to show how rarely hotplug is used.
->>>>
->>>> v2:
->>>>  * Don't break S3/CPU parking in combination with CET-SS.  v1 would, for S3,
->>>>    turn the BSP shadow stack into regular mappings, and #DF as soon as the TLB
->>>>    shootdown completes.
->>> The code change looks correct to me, but since I don't understand
->>> this part I'm afraid I may be overlooking something. I understand
->>> the "turn the BSP shadow stack into regular mappings" relates to
->>> cpu_smpboot_free()'s call to memguard_unguard_stack(), but I
->>> didn't think we come through cpu_smpboot_free() for the BSP upon
->>> entering or leaving S3.
->> The v1 really did fix Marek's repro of the problem.
->>
->> The only possible way this can occur is if, somewhere, there is a call
->> to cpu_smpboot_free() for CPU0 with remove=0 on the S3 path
-> I didn't think it was the BSP's stack that got written to, but the
-> first AP's before letting it run.
+> > Can you paste the memory map as printed by Xen when booting, and what
+> > command line are you using to boot Xen.
+>
+> So this is OpenXT, and it's booting EFI -> xen -> tboot -> xen
 
-Oh yes - my analysis was wrong.  The CPU notifier for CPU 1 to come up
-runs on CPU 0.
+Unrelated comment: since tboot now has a PE build
+(http://hg.code.sf.net/p/tboot/code/rev/5c68f0963a78) I think it would
+be time for OpenXT to drop the weird efi->xen->tboot->xen flow and
+just do efi->tboot->xen. Only reason we did efi->xen->tboot was
+because tboot didn't have a PE build at the time. It's a very hackish
+solution that's no longer needed.
 
-So only the --- text was wrong.  Are you happy with the fix now?
-
-~Andrew
+Tamas
 
