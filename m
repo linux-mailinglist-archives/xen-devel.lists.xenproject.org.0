@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB2228F34F
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:35:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7375.19246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD2A28F356
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:36:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7378.19258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3Oi-0007gE-2l; Thu, 15 Oct 2020 13:34:24 +0000
+	id 1kT3Qa-0007o1-GN; Thu, 15 Oct 2020 13:36:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7375.19246; Thu, 15 Oct 2020 13:34:24 +0000
+Received: by outflank-mailman (output) from mailman id 7378.19258; Thu, 15 Oct 2020 13:36:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,149 +23,185 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3Oh-0007fp-Vm; Thu, 15 Oct 2020 13:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 7375;
- Thu, 15 Oct 2020 13:34:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kT3Qa-0007nb-CV; Thu, 15 Oct 2020 13:36:20 +0000
+Received: by outflank-mailman (input) for mailman id 7378;
+ Thu, 15 Oct 2020 13:36:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kT3Og-0007fk-NO
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:34:22 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a7aa0491-5d1c-4bd0-8ef4-63e719eba775;
- Thu, 15 Oct 2020 13:34:21 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kT3QY-0007nW-MQ
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:36:18 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4cf2745e-ef59-4b97-8303-58daa586badd;
+ Thu, 15 Oct 2020 13:36:15 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kT3QV-00056r-KK; Thu, 15 Oct 2020 13:36:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kT3QV-0002si-9M; Thu, 15 Oct 2020 13:36:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kT3QV-0002ZY-8u; Thu, 15 Oct 2020 13:36:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kT3Og-0007fk-NO
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:34:22 +0000
-X-Inumbo-ID: a7aa0491-5d1c-4bd0-8ef4-63e719eba775
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a7aa0491-5d1c-4bd0-8ef4-63e719eba775;
-	Thu, 15 Oct 2020 13:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602768861;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=bV4hBDKJJRqjaWnsdEfov1P7Xpzf6TANYNVwNbcq1S8=;
-  b=CdnrK1tb3CvcanFPsAeZBZLRTCwbL5Ka/cgZouPVvCnQQDlcZveslawq
-   QYOcf2FNt7Er8r0nOdqLe2m2eoID1aWQNbsCDKJi5Mz7CWiV2A8vMq6Yu
-   EaFJULzeq9sZAMSB6PA2fHcWEeEVB1db1VxvmGNo0fFJJpmbBDS8XbTVH
-   A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: qvHeRrlmREgvUlot+GowN8hNqsH6Ki4z/O5GqfAA3FgsEH4DMHCqJkHJsLuMloBCQhMNARA42o
- goMyLvR/gVbxjfVlDUUTZXLNj78G4RzChZUfTPMLjncfs7vbOpODJEd43O5v2a6Tt0mNAgy0Rc
- /LIRkB5luERpY1JKi/w9ZnsIQYffH6DBDpGPIloQnAVxTRYSBIjHp42bdWhmQZpkl2vjwkmN8h
- Tbje+A8Oid2OnifEVkJXzHKYfJurdpwhKKXqzfDB6i77rAhqjJJxr5lMQsvo9LIrCNajPfkkUu
- koY=
-X-SBRS: 2.5
-X-MesageID: 29140587
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
-   d="scan'208";a="29140587"
-Date: Thu, 15 Oct 2020 15:34:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [PATCH] x86/msr: fix handling of MSR_IA32_PERF_{STATUS/CTL}
-Message-ID: <20201015133412.GC68032@Air-de-Roger>
-References: <20201006162327.93055-1-roger.pau@citrix.com>
- <a98d6cb1-0b1d-8fb8-8718-c65e02e448bb@citrix.com>
- <20201007164117.GH19254@Air-de-Roger>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kT3QY-0007nW-MQ
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:36:18 +0000
+X-Inumbo-ID: 4cf2745e-ef59-4b97-8303-58daa586badd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 4cf2745e-ef59-4b97-8303-58daa586badd;
+	Thu, 15 Oct 2020 13:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=77SdlHpMdodDk5fPOQUN99/yazcZY9MvnwmejtjT22E=; b=ydKv45Zh3opm8Ipwk9amJ8kS/s
+	xmdTXlTp/PBoducB3fPjRobO8nYAlMveGTngDAWtRng6soVwMY3A/0xRGr4jnwZ8EtZvIVRqVOo3/
+	Kd9nKnmS/5yJj+/k7KgqUd16KPLKNpKVl5uV1Ngcgzmw4WXCDeyey3wHe48miMhTcm3Q=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kT3QV-00056r-KK; Thu, 15 Oct 2020 13:36:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kT3QV-0002si-9M; Thu, 15 Oct 2020 13:36:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kT3QV-0002ZY-8u; Thu, 15 Oct 2020 13:36:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155842-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201007164117.GH19254@Air-de-Roger>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 155842: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a8a85f03c826bea045e345fa405f187049d63584
+X-Osstest-Versions-That:
+    xen=f776e5fb3ee699745f6442ec8c47d0fa647e0575
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Oct 2020 13:36:15 +0000
 
-On Wed, Oct 07, 2020 at 06:41:17PM +0200, Roger Pau Monné wrote:
-> On Wed, Oct 07, 2020 at 01:06:08PM +0100, Andrew Cooper wrote:
-> > On 06/10/2020 17:23, Roger Pau Monne wrote:
-> > > Currently a PV hardware domain can also be given control over the CPU
-> > > frequency, and such guest is allowed to write to MSR_IA32_PERF_CTL.
-> > 
-> > This might be how the current logic "works", but its straight up broken.
-> > 
-> > PERF_CTL is thread scope, so unless dom0 is identity pinned and has one
-> > vcpu for every pcpu, it cannot use the interface correctly.
-> 
-> Selecting cpufreq=dom0-kernel will force vCPU pinning. I'm not able
-> however to see anywhere that would force dom0 vCPUs == pCPUs.
-> 
-> > > However since commit 322ec7c89f6 the default behavior has been changed
-> > > to reject accesses to not explicitly handled MSRs, preventing PV
-> > > guests that manage CPU frequency from reading
-> > > MSR_IA32_PERF_{STATUS/CTL}.
-> > >
-> > > Additionally some HVM guests (Windows at least) will attempt to read
-> > > MSR_IA32_PERF_CTL and will panic if given back a #GP fault:
-> > >
-> > > vmx.c:3035:d8v0 RDMSR 0x00000199 unimplemented
-> > > d8v0 VIRIDIAN CRASH: 3b c0000096 fffff806871c1651 ffffda0253683720 0
-> > >
-> > > Move the handling of MSR_IA32_PERF_{STATUS/CTL} to the common MSR
-> > > handling shared between HVM and PV guests, and add an explicit case
-> > > for reads to MSR_IA32_PERF_{STATUS/CTL}.
-> > 
-> > OTOH, PERF_CTL does have a seemingly architectural "please disable turbo
-> > for me" bit, which is supposed to be for calibration loops.  I wonder if
-> > anyone uses this, and whether we ought to honour it (probably not).
-> 
-> If we let guests play with this we would have to save/restore the
-> guest value on context switch. Unless there's a strong case for this,
-> I would say no.
-> 
-> > > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> > > index d8ed83f869..41baa3b7a1 100644
-> > > --- a/xen/include/xen/sched.h
-> > > +++ b/xen/include/xen/sched.h
-> > > @@ -1069,6 +1069,12 @@ extern enum cpufreq_controller {
-> > >      FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
-> > >  } cpufreq_controller;
-> > >  
-> > > +static inline bool is_cpufreq_controller(const struct domain *d)
-> > > +{
-> > > +    return ((cpufreq_controller == FREQCTL_dom0_kernel) &&
-> > > +            is_hardware_domain(d));
-> > 
-> > This won't compile on !CONFIG_X86, due to CONFIG_HAS_CPUFREQ
-> 
-> It does seem to build on Arm, because this is only used in x86 code:
-> 
-> https://gitlab.com/xen-project/people/royger/xen/-/jobs/778207412
-> 
-> The extern declaration of cpufreq_controller is just above, so if you
-> tried to use is_cpufreq_controller on Arm you would get a link time
-> error, otherwise it builds fine. The compiler removes the function on
-> Arm as it has the inline attribute and it's not used.
-> 
-> Alternatively I could look into moving cpufreq_controller (and
-> is_cpufreq_controller) out of sched.h into somewhere else, I haven't
-> looked at why it needs to live there.
-> 
-> > Honestly - I don't see any point to this code.  Its opt-in via the
-> > command line only, and doesn't provide adequate checks for enablement. 
-> > (It's not as if we're lacking complexity or moving parts when it comes
-> > to power/frequency management).
-> 
-> Right, I could do a pre-patch to remove this, but I also don't think
-> we should block this fix on removing FREQCTL_dom0_kernel, so I would
-> rather fix the regression and then remove the feature if we agree it
-> can be removed.
+flight 155842 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155842/
 
-Can we get some consensus on what to do next?
+Regressions :-(
 
-I think I've provided replies to all the points above, and I'm not sure
-what do to next in order to proceed with this patch.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 155828
 
-Thanks, Roger.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  a8a85f03c826bea045e345fa405f187049d63584
+baseline version:
+ xen                  f776e5fb3ee699745f6442ec8c47d0fa647e0575
+
+Last test of basis   155828  2020-10-15 03:00:27 Z    0 days
+Testing same since   155842  2020-10-15 11:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Chen Yu <yu.c.chen@intel.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit a8a85f03c826bea045e345fa405f187049d63584
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Oct 15 12:30:01 2020 +0200
+
+    EFI: further "need_to_free" adjustments
+    
+    When processing "chain" directives, the previously loaded config file
+    gets freed. This needs to be recorded accordingly such that no error
+    path would try to free the same block of memory a 2nd time.
+    
+    Furthermore, neither .addr nor .size being zero has any meaning towards
+    the need to free an allocated chunk anymore. Drop (from read_file()) and
+    replace (in Arm's efi_arch_use_config_file(), to sensibly retain the
+    comment) respective assignments.
+    
+    Fixes: 04be2c3a0678 ("efi/boot.c: add file.need_to_free")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 44ac57af81ff8097e228895738b911ca819bda19
+Author: Chen Yu <yu.c.chen@intel.com>
+Date:   Thu Oct 15 12:29:11 2020 +0200
+
+    x86/mwait-idle: customize IceLake server support
+    
+    On ICX platform, the C1E auto-promotion is enabled by default.
+    As a result, the CPU might fall into C1E more offen than previous
+    platforms. So disable C1E auto-promotion and expose C1E as a separate
+    idle state.
+    
+    Beside C1 and C1E, the exit latency of C6 was measured
+    by a dedicated tool. However the exit latency(41us) exposed
+    by _CST is much smaller than the one we measured(128us). This
+    is probably due to the _CST uses the exit latency when woken
+    up from PC0+C6, rather than PC6+C6 when C6 was measured. Choose
+    the latter as we need the longest latency in theory.
+    
+    Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+    [Linux commit a472ad2bcea479ba068880125d7273fc95c14b70]
+    Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
