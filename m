@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3251828F2E4
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:05:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7347.19196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E7C28F2F0
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:11:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7360.19207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT2wm-0004gU-ND; Thu, 15 Oct 2020 13:05:32 +0000
+	id 1kT31x-0005aC-FE; Thu, 15 Oct 2020 13:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7347.19196; Thu, 15 Oct 2020 13:05:32 +0000
+Received: by outflank-mailman (output) from mailman id 7360.19207; Thu, 15 Oct 2020 13:10:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,150 +23,83 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT2wm-0004g8-Je; Thu, 15 Oct 2020 13:05:32 +0000
-Received: by outflank-mailman (input) for mailman id 7347;
- Thu, 15 Oct 2020 13:05:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kT31x-0005Zq-Bj; Thu, 15 Oct 2020 13:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 7360;
+ Thu, 15 Oct 2020 13:10:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kT2wl-0004g3-0Z
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:05:31 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7d378b68-77aa-4a92-9132-2d1aa62a97d0;
- Thu, 15 Oct 2020 13:05:28 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kT31v-0005Zl-FB
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:10:51 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5abb5e33-7b0f-437a-a9aa-8e1ca1174325;
+ Thu, 15 Oct 2020 13:10:50 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bKTB=DW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kT2wl-0004g3-0Z
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:05:31 +0000
-X-Inumbo-ID: 7d378b68-77aa-4a92-9132-2d1aa62a97d0
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 7d378b68-77aa-4a92-9132-2d1aa62a97d0;
-	Thu, 15 Oct 2020 13:05:28 +0000 (UTC)
+	(envelope-from <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kT31v-0005Zl-FB
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:10:51 +0000
+X-Inumbo-ID: 5abb5e33-7b0f-437a-a9aa-8e1ca1174325
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 5abb5e33-7b0f-437a-a9aa-8e1ca1174325;
+	Thu, 15 Oct 2020 13:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1602767128;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=tHYOldh+zzg4BAoHPlXXGno3aTMtmkswwhlSrgFQYqg=;
-  b=anHAGe6dMzgtEim11a7DOt9xPdD8iRY5rMj9A6H4Vh//CpPNe/wwtY+q
-   t4USCESU6Kq7ZOFLz6/KwmzSDaAvm3IU+6tYYFXYqeG9UUXHaSjCKNRz2
-   i0rwDOeltVBURKuGjJwKUbsMlTa2e8P07vhxI9n+9Og72X5DRXCaHZBhj
-   k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: C4m0tNJT9YMeau3EFBnetO+MT6a3OwtKzEXVG3Tyiw8hblwqZmgd6ZmPFsn+czUdALU0uBZuaC
- 1/jeXe6kOr4NNx1jfddA/NfbnJv3kP5MnUwIU89z/GdTigcs0SkMafxYJoCP/yYbcYtstBdnS2
- +P0TR41c/Gwu3QXEKUkwNdvD95GajXddUd6fYmTvBe6IMcBUhAHesdReeIm8zm3zwPh7MFiQLx
- CvWqU6XP+hCZmHzYpgRTDOCg8gh4uiCnTXWGEavfeDmtAOR7QGqM4urGVrWcqGFqTloRWFQ9WY
- aKk=
+  d=citrix.com; s=securemail; t=1602767450;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=f6Kamy1C8O875JTu/vLF90Ddc8FWBrVKHooa1uTjaeQ=;
+  b=c2vt4C6rqNUF9VdfyCuMKsk1juKOixPSz7EXwnsSpnrpuSppcgHO2Guf
+   IyHizkMxUZHf+wKiv0b202dp3KcKGCBdfepdGOhfYhP1SK8pDO2CLd+cP
+   gq580Wo6KOPHskrPXZc2XVdCcJZZXPz8HnDFD2SomiekpYUwz19qqTRLw
+   Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: TsNzbLxMsk384nJy5Ma5vOQoKEjgU+ipNL1nJSmtDZ6qs87H2v+vbvQIN4MbbD72V2Ey2BJWzK
+ DJ2By9UKxVmig34H8L3MwHOYlSQxz2DBF8RnLL026OOdZRjfNPY566lXkCEMWpefwuzoeGsvFt
+ SnTPGz44+AtTSC4bBi08uZqWHQKJcn+DFJ+74bUEgEdXNlB7yWOUEr2CPons5/qNhxHYKojNNA
+ H5bJ7MetpyQXJ0vK5ZCl6jO/6csbfhHTojPmAvbq5tYkHveVjp4yyTrmmaBCv2pnjkGKD8M7ZL
+ 4Bg=
 X-SBRS: 2.5
-X-MesageID: 30116032
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 29078535
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
-   d="scan'208";a="30116032"
-Date: Thu, 15 Oct 2020 15:05:20 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "J. Roeleveld" <joost@antarean.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: xen-blkback: Scheduled work from previous purge is still busy,
- cannot purge list
-Message-ID: <20201015130520.GB68032@Air-de-Roger>
-References: <15146361.Z0tdQxPx3m@eve>
- <1855015.FeAb16qnYt@eve>
- <20201015120046.GE19243@Air-de-Roger>
- <11618501.OP9n9qO8XQ@eve>
+   d="scan'208";a="29078535"
+Subject: Re: [PATCH 2/2] xen: Kconfig: nest Xen guest options
+To: <boris.ostrovsky@oracle.com>, Jason Andryuk <jandryuk@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20201014175342.152712-1-jandryuk@gmail.com>
+ <20201014175342.152712-3-jandryuk@gmail.com>
+ <6cd9363c-ac0c-ea68-c8e7-9fd3cd30a89b@oracle.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <4e31301b-0e57-ac89-cd71-6ad5e1a66628@citrix.com>
+Date: Thu, 15 Oct 2020 14:10:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <6cd9363c-ac0c-ea68-c8e7-9fd3cd30a89b@oracle.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <11618501.OP9n9qO8XQ@eve>
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-On Thu, Oct 15, 2020 at 02:53:34PM +0200, J. Roeleveld wrote:
-> On Thursday, October 15, 2020 2:00:46 PM CEST Roger Pau Monné wrote:
-> > Please don't drop xen-devel mailing list when replying.
-> 
-> My apologies, most mailing lists I am active on have a working "reply" button. 
-> Here I need to use "reply-all".
-> 
-> 
-> > On Thu, Oct 15, 2020 at 01:28:49PM +0200, J. Roeleveld wrote:
-> > > On Thursday, October 15, 2020 12:57:35 PM CEST you wrote:
-> > > > On Tue, Oct 13, 2020 at 07:26:47AM +0200, J. Roeleveld wrote:
-> > > > > Hi All,
-> > > > > 
-> > > > > I am seeing the following message in the "dmesg" output of a driver
-> > > > > domain.
-> > > > > 
-> > > > > [Thu Oct  8 20:57:04 2020] xen-blkback: Scheduled work from previous
-> > > > > purge
-> > > > > is still busy, cannot purge list
-> > > > > [Thu Oct  8 20:57:11 2020] xen-blkback: Scheduled work from previous
-> > > > > purge
-> > > > > is still busy, cannot purge list
-> > > > > [Thu Oct  8 20:57:44 2020] xen-blkback: Scheduled work from previous
-> > > > > purge
-> > > > > is still busy, cannot purge list
-> > > > > [Thu Oct  8 20:57:44 2020] xen-blkback: Scheduled work from previous
-> > > > > purge
-> > > > > is still busy, cannot purge list
-> > > > > 
-> > > > > 
-> > > > > Is this something to worry about? Or can I safely ignore this?
-> > > > 
-> > > > What version of the Linux kernel are you running in that driver
-> > > > domain?
-> > > 
-> > > Host:
-> > > Kernel: 5.4.66
-> > > Xen: 4.12.3
-> > > 
-> > > Driver domain:
-> > > Kernel: 5.4.66
-> > > Xen: 4.12.3
-> > > 
-> > > > Is the domain very busy? That might explain the delay in purging
-> > > > grants.
-> > > 
-> > > No, it's generally asleep, been going through the munin-records and can't
-> > > find any spikes the correlate with the messages either.
-> > > 
-> > > > Also is this an sporadic message, or it's constantly repeating?
-> > > 
-> > > It's sporadic, but occasionally, I get it several times in a row.
-> > > 
-> > > My understanding of the code where this message comes from is far from
-> > > sufficient. Which means I have no clue what it is actually trying to do.
-> > 
-> > There's a recurrent worker thread in blkback that will go and purge
-> > unused cache entries after they have expired. This is done to prevent
-> > the cache from growing unbounded.
-> > 
-> > AFAICT this just means the worker is likely running faster than what
-> > you can proceed, and hence you get another worker run before the old
-> > entries have been removed. Should be safe to ignore, but makes me
-> > wonder if I should add a parameter to tune the periodicity of the
-> > purge work.
-> 
-> In other words, when it "fails" in this manner, the queue will simply be left 
-> and processed the next time?
+On 15/10/2020 13:37, boris.ostrovsky@oracle.com wrote:
+> On 10/14/20 1:53 PM, Jason Andryuk wrote:
+>> +config XEN_512GB
+>> +	bool "Limit Xen pv-domain memory to 512GB"
+>> +	depends on XEN_PV && X86_64
+>
+> Why is X86_64 needed here?
 
-Yes, exactly.
+>512G support was implemented using a direct-mapped P2M, and is rather
+beyond the virtual address capabilities of 32bit.
 
-> How often does this currently run?
-
-The purge worked will run every 100ms, and the queued work should be
-terminated before the next run.
-
-> A parameter to tune the periodicity might be an option, for now I feel 
-> confident I can safely ignore these messages.
-
-Sure, I'm testing a patch series to that effect now.
-
-Thanks, Roger.
+~Andrew
 
