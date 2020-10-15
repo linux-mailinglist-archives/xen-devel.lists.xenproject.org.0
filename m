@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1DD28F573
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F59028F572
 	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 17:02:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7462.19503 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.7464.19518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT4lh-0000lz-Kt; Thu, 15 Oct 2020 15:02:13 +0000
+	id 1kT4lt-0000pW-3X; Thu, 15 Oct 2020 15:02:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7462.19503; Thu, 15 Oct 2020 15:02:13 +0000
+Received: by outflank-mailman (output) from mailman id 7464.19518; Thu, 15 Oct 2020 15:02:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,154 +23,90 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT4lh-0000lc-H8; Thu, 15 Oct 2020 15:02:13 +0000
-Received: by outflank-mailman (input) for mailman id 7462;
- Thu, 15 Oct 2020 15:02:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kT4lf-0000lX-O8
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 15:02:11 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e95a8884-7c50-489d-880d-aeb685c9c06f;
- Thu, 15 Oct 2020 15:02:10 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4le-00075M-0d; Thu, 15 Oct 2020 15:02:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4ld-0006Eh-RS; Thu, 15 Oct 2020 15:02:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4ld-00044P-Qx; Thu, 15 Oct 2020 15:02:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kT4ls-0000p6-W7; Thu, 15 Oct 2020 15:02:24 +0000
+Received: by outflank-mailman (input) for mailman id 7464;
+ Thu, 15 Oct 2020 15:02:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kT4lr-0000ou-VG
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 15:02:23 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a344ae63-f6b5-4bff-81c2-84fdf5653d82;
+ Thu, 15 Oct 2020 15:02:22 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E8625AF87;
+ Thu, 15 Oct 2020 15:02:21 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kT4lf-0000lX-O8
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 15:02:11 +0000
-X-Inumbo-ID: e95a8884-7c50-489d-880d-aeb685c9c06f
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e95a8884-7c50-489d-880d-aeb685c9c06f;
-	Thu, 15 Oct 2020 15:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=r5BMwGfG0lbeS4mprBv5xIF5Y8QSFwrVoZSMDWk0O+o=; b=5TJtqgKYKT4UTWkvTRmSvlOQC6
-	gPygZUPeJ1DCiMpP3wPomaDIVaPESj0nD63G1gVqm2GQFOohC756/1bqsJEsjnj9cegn3OhbI9I7b
-	e0GOfp+tXoJRA7DaR430jiY5+TvN8Igt2Dbmlqzfq2v+gulceuBqHB5O+TBQhFZiZr2E=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4le-00075M-0d; Thu, 15 Oct 2020 15:02:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4ld-0006Eh-RS; Thu, 15 Oct 2020 15:02:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4ld-00044P-Qx; Thu, 15 Oct 2020 15:02:09 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155839-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kT4lr-0000ou-VG
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 15:02:23 +0000
+X-Inumbo-ID: a344ae63-f6b5-4bff-81c2-84fdf5653d82
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id a344ae63-f6b5-4bff-81c2-84fdf5653d82;
+	Thu, 15 Oct 2020 15:02:22 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602774142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LOAorilrTXfeOIZQ8lkczi+c0MEjjEKFoJ24vlzPups=;
+	b=GUhP8sHjWJlLvc81IjV2qAGyp9DPLy2UZxvgQrm4q9TjosVlEgw5GsrwMe+FKzcnMzexg/
+	rrpix3Sv2u38vnE0/MQBIunUXc2JdRjV2qrE0Hlt+4wL/k8g2+7Rju4hfLCoOX29S/V/TX
+	bNPmYaPvD8NARY29yRsCwl2nEjfKae0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id E8625AF87;
+	Thu, 15 Oct 2020 15:02:21 +0000 (UTC)
+Subject: Re: [PATCH 1/2] xen: Remove Xen PVH/PVHVM dependency on PCI
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20201014175342.152712-1-jandryuk@gmail.com>
+ <20201014175342.152712-2-jandryuk@gmail.com>
+ <b74a3f83-cd8a-34a3-b436-95141f01cb20@suse.com>
+ <CAKf6xps+mAFdfk8uBw=aMsAFNYmt4ETPkB8dwT3sTv-qPbVENw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3919ef15-379b-cc1e-994c-c33b23865afd@suse.com>
+Date: Thu, 15 Oct 2020 17:02:21 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Subject: [seabios test] 155839: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-X-Osstest-Versions-This:
-    seabios=58a44be024f69d2e4d2b58553529230abdd3935e
-X-Osstest-Versions-That:
-    seabios=c685fe3ff2d402caefc1487d99bb486c4a510b8b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Oct 2020 15:02:09 +0000
+In-Reply-To: <CAKf6xps+mAFdfk8uBw=aMsAFNYmt4ETPkB8dwT3sTv-qPbVENw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 155839 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155839/
+On 15.10.2020 16:59, Jason Andryuk wrote:
+> On Thu, Oct 15, 2020 at 4:10 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 14.10.2020 19:53, Jason Andryuk wrote:
+>>> @@ -76,7 +80,9 @@ config XEN_DEBUG_FS
+>>>         Enabling this option may incur a significant performance overhead.
+>>>
+>>>  config XEN_PVH
+>>> -     bool "Support for running as a Xen PVH guest"
+>>> +     bool "Xen PVH guest support"
+>>
+>> Tangential question: Is "guest" here still appropriate, i.e.
+>> isn't this option also controlling whether the kernel can be
+>> used in a PVH Dom0?
+> 
+> Would you like something more generic like "Xen PVH support" and
+> "Support for running in Xen PVH mode"?
 
-Failures :-/ but no regressions.
+Yeah, just dropping "guest" would be fine with me. No idea how
+to reflect that PVH Dom0 isn't supported, yet.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 155770
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 155770
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 155770
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 155770
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2  fail never pass
-
-version targeted for testing:
- seabios              58a44be024f69d2e4d2b58553529230abdd3935e
-baseline version:
- seabios              c685fe3ff2d402caefc1487d99bb486c4a510b8b
-
-Last test of basis   155770  2020-10-13 09:10:37 Z    2 days
-Testing same since   155839  2020-10-15 09:39:29 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   c685fe3..58a44be  58a44be024f69d2e4d2b58553529230abdd3935e -> xen-tested-master
+Jan
 
