@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD2A28F356
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:36:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7378.19258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6E628F413
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 15:58:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7389.19276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3Qa-0007o1-GN; Thu, 15 Oct 2020 13:36:20 +0000
+	id 1kT3l2-0001By-EC; Thu, 15 Oct 2020 13:57:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7378.19258; Thu, 15 Oct 2020 13:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 7389.19276; Thu, 15 Oct 2020 13:57:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,185 +23,171 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3Qa-0007nb-CV; Thu, 15 Oct 2020 13:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 7378;
- Thu, 15 Oct 2020 13:36:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kT3l2-0001BZ-AN; Thu, 15 Oct 2020 13:57:28 +0000
+Received: by outflank-mailman (input) for mailman id 7389;
+ Thu, 15 Oct 2020 13:57:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kT3QY-0007nW-MQ
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:36:18 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4cf2745e-ef59-4b97-8303-58daa586badd;
- Thu, 15 Oct 2020 13:36:15 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT3QV-00056r-KK; Thu, 15 Oct 2020 13:36:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT3QV-0002si-9M; Thu, 15 Oct 2020 13:36:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kT3QV-0002ZY-8u; Thu, 15 Oct 2020 13:36:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=H3IV=DW=gmail.com=ckoenig.leichtzumerken@srs-us1.protection.inumbo.net>)
+ id 1kT3l1-0001BU-0W
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:57:27 +0000
+Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 444ae937-1b94-4f9e-99af-0ca49320a25c;
+ Thu, 15 Oct 2020 13:57:26 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id lw21so3762688ejb.6
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 06:57:25 -0700 (PDT)
+Received: from [192.168.137.56] (tmo-123-114.customers.d1-online.com.
+ [80.187.123.114])
+ by smtp.gmail.com with ESMTPSA id i8sm1619354ejg.84.2020.10.15.06.57.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Oct 2020 06:57:24 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kT3QY-0007nW-MQ
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:36:18 +0000
-X-Inumbo-ID: 4cf2745e-ef59-4b97-8303-58daa586badd
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4cf2745e-ef59-4b97-8303-58daa586badd;
-	Thu, 15 Oct 2020 13:36:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=77SdlHpMdodDk5fPOQUN99/yazcZY9MvnwmejtjT22E=; b=ydKv45Zh3opm8Ipwk9amJ8kS/s
-	xmdTXlTp/PBoducB3fPjRobO8nYAlMveGTngDAWtRng6soVwMY3A/0xRGr4jnwZ8EtZvIVRqVOo3/
-	Kd9nKnmS/5yJj+/k7KgqUd16KPLKNpKVl5uV1Ngcgzmw4WXCDeyey3wHe48miMhTcm3Q=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT3QV-00056r-KK; Thu, 15 Oct 2020 13:36:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT3QV-0002si-9M; Thu, 15 Oct 2020 13:36:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT3QV-0002ZY-8u; Thu, 15 Oct 2020 13:36:15 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155842-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=H3IV=DW=gmail.com=ckoenig.leichtzumerken@srs-us1.protection.inumbo.net>)
+	id 1kT3l1-0001BU-0W
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 13:57:27 +0000
+X-Inumbo-ID: 444ae937-1b94-4f9e-99af-0ca49320a25c
+Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 444ae937-1b94-4f9e-99af-0ca49320a25c;
+	Thu, 15 Oct 2020 13:57:26 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id lw21so3762688ejb.6
+        for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 06:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=eqy7Jg2fPCw6JKPfho3FMkiXLNsZ2vOMeF3B2A8Mojc=;
+        b=rWAhsjFjxNV2tSGmRZgmV07f7lkrurQgCx9bPljwSM5dlr+cFdfNcNP8TqDYr6RpmV
+         kJKrteO6A0BWcah5RksBap2thah0f3FCug6g9rOyet2tvKS6wLurIXPy+sSprVRdDpXO
+         IOnftXETFpeSKiWgWdWvXjoSMVSdBSpoxhozwHThiDlqjFFzd9Q9u5Oejc6caqTfdyr4
+         wAOCXRStBQxEeLEOZzM3R4MwjLF5LE07MQ+q90DEXSJbdui7Ftt93dj8CphKOBSXE/1U
+         TA9yRTGiIYdnvyfGyrO3NxXvENUg3bN9B4wUskFws67k2dcY70IkWJVmV0uurT9DwBTX
+         hYoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:reply-to:subject:to:cc:references:from
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-transfer-encoding:content-language;
+        bh=eqy7Jg2fPCw6JKPfho3FMkiXLNsZ2vOMeF3B2A8Mojc=;
+        b=jgM1GONltGsOosrO+eOeWMTzHs8xGGRjxcuc9y0TmVZEAE+FjxNxNkGFYratgHqeX8
+         7iw8hZ2nXHzS+sf6y4dq9OFUOiPWZgJAXUaqIwRgefseMYthSX54w75e+ZXy5ToaMM/m
+         FJ9vVvsqIUuaM5wUnZfdjZqOYjOjP2tUV7YWIg4iZpYRRVF6OaOiGyGQTrOSGEtnJMC7
+         hT25p6hbZD8vxq1fhpwsSK5ClgEiyerZYiKmiZRh+oErqPNG9WDwhBjXkNkIC6qyEbUb
+         xWYcPLZZHou1DjHh7WwkuBQcSSXL9U9jdDFJdHMn9znuThIoczOIFZtftDh6qgwxJwf/
+         9FNg==
+X-Gm-Message-State: AOAM5307CuF2qI9pU7vlD9khUtkWQtS1YzuNWQ8XS46HczfTmFu2dVhi
+	Cq6BYvL8/7JWmwmmNNBPo60=
+X-Google-Smtp-Source: ABdhPJzF6r3Ll5i0gnC5JVk814gY1eCy0pl3+e4WV+JpVGbNy1VCb75/aaDOiQbf2OJV/MzOqd48ag==
+X-Received: by 2002:a17:906:f4f:: with SMTP id h15mr4501249ejj.17.1602770245105;
+        Thu, 15 Oct 2020 06:57:25 -0700 (PDT)
+Received: from [192.168.137.56] (tmo-123-114.customers.d1-online.com. [80.187.123.114])
+        by smtp.gmail.com with ESMTPSA id i8sm1619354ejg.84.2020.10.15.06.57.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2020 06:57:24 -0700 (PDT)
+Reply-To: christian.koenig@amd.com
+Subject: Re: [PATCH v4 01/10] drm/vram-helper: Remove invariant parameters
+ from internal kmap function
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
+ linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ etnaviv@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, spice-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-2-tzimmermann@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <06cab96a-5224-46dc-dbd2-8eb4950946cc@gmail.com>
+Date: Thu, 15 Oct 2020 15:57:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155842: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a8a85f03c826bea045e345fa405f187049d63584
-X-Osstest-Versions-That:
-    xen=f776e5fb3ee699745f6442ec8c47d0fa647e0575
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Oct 2020 13:36:15 +0000
+In-Reply-To: <20201015123806.32416-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-flight 155842 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155842/
+Am 15.10.20 um 14:37 schrieb Thomas Zimmermann:
+> The parameters map and is_iomem are always of the same value. Removed them
+> to prepares the function for conversion to struct dma_buf_map.
+>
+> v4:
+> 	* don't check for !kmap->virtual; will always be false
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Regressions :-(
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 155828
+> ---
+>   drivers/gpu/drm/drm_gem_vram_helper.c | 18 ++++--------------
+>   1 file changed, 4 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+> index 3213429f8444..2d5ed30518f1 100644
+> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+> @@ -382,32 +382,22 @@ int drm_gem_vram_unpin(struct drm_gem_vram_object *gbo)
+>   }
+>   EXPORT_SYMBOL(drm_gem_vram_unpin);
+>   
+> -static void *drm_gem_vram_kmap_locked(struct drm_gem_vram_object *gbo,
+> -				      bool map, bool *is_iomem)
+> +static void *drm_gem_vram_kmap_locked(struct drm_gem_vram_object *gbo)
+>   {
+>   	int ret;
+>   	struct ttm_bo_kmap_obj *kmap = &gbo->kmap;
+> +	bool is_iomem;
+>   
+>   	if (gbo->kmap_use_count > 0)
+>   		goto out;
+>   
+> -	if (kmap->virtual || !map)
+> -		goto out;
+> -
+>   	ret = ttm_bo_kmap(&gbo->bo, 0, gbo->bo.num_pages, kmap);
+>   	if (ret)
+>   		return ERR_PTR(ret);
+>   
+>   out:
+> -	if (!kmap->virtual) {
+> -		if (is_iomem)
+> -			*is_iomem = false;
+> -		return NULL; /* not mapped; don't increment ref */
+> -	}
+>   	++gbo->kmap_use_count;
+> -	if (is_iomem)
+> -		return ttm_kmap_obj_virtual(kmap, is_iomem);
+> -	return kmap->virtual;
+> +	return ttm_kmap_obj_virtual(kmap, &is_iomem);
+>   }
+>   
+>   static void drm_gem_vram_kunmap_locked(struct drm_gem_vram_object *gbo)
+> @@ -452,7 +442,7 @@ void *drm_gem_vram_vmap(struct drm_gem_vram_object *gbo)
+>   	ret = drm_gem_vram_pin_locked(gbo, 0);
+>   	if (ret)
+>   		goto err_ttm_bo_unreserve;
+> -	base = drm_gem_vram_kmap_locked(gbo, true, NULL);
+> +	base = drm_gem_vram_kmap_locked(gbo);
+>   	if (IS_ERR(base)) {
+>   		ret = PTR_ERR(base);
+>   		goto err_drm_gem_vram_unpin_locked;
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  a8a85f03c826bea045e345fa405f187049d63584
-baseline version:
- xen                  f776e5fb3ee699745f6442ec8c47d0fa647e0575
-
-Last test of basis   155828  2020-10-15 03:00:27 Z    0 days
-Testing same since   155842  2020-10-15 11:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Chen Yu <yu.c.chen@intel.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a8a85f03c826bea045e345fa405f187049d63584
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Oct 15 12:30:01 2020 +0200
-
-    EFI: further "need_to_free" adjustments
-    
-    When processing "chain" directives, the previously loaded config file
-    gets freed. This needs to be recorded accordingly such that no error
-    path would try to free the same block of memory a 2nd time.
-    
-    Furthermore, neither .addr nor .size being zero has any meaning towards
-    the need to free an allocated chunk anymore. Drop (from read_file()) and
-    replace (in Arm's efi_arch_use_config_file(), to sensibly retain the
-    comment) respective assignments.
-    
-    Fixes: 04be2c3a0678 ("efi/boot.c: add file.need_to_free")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 44ac57af81ff8097e228895738b911ca819bda19
-Author: Chen Yu <yu.c.chen@intel.com>
-Date:   Thu Oct 15 12:29:11 2020 +0200
-
-    x86/mwait-idle: customize IceLake server support
-    
-    On ICX platform, the C1E auto-promotion is enabled by default.
-    As a result, the CPU might fall into C1E more offen than previous
-    platforms. So disable C1E auto-promotion and expose C1E as a separate
-    idle state.
-    
-    Beside C1 and C1E, the exit latency of C6 was measured
-    by a dedicated tool. However the exit latency(41us) exposed
-    by _CST is much smaller than the one we measured(128us). This
-    is probably due to the _CST uses the exit latency when woken
-    up from PC0+C6, rather than PC6+C6 when C6 was measured. Choose
-    the latter as we need the longest latency in theory.
-    
-    Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-    [Linux commit a472ad2bcea479ba068880125d7273fc95c14b70]
-    Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
