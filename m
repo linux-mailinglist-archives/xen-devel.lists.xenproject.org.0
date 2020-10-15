@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E642128ED32
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 08:50:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7104.18615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2EF28ED4E
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 09:01:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7108.18629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSx5U-000199-2k; Thu, 15 Oct 2020 06:50:08 +0000
+	id 1kSxFF-00028D-8I; Thu, 15 Oct 2020 07:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7104.18615; Thu, 15 Oct 2020 06:50:08 +0000
+Received: by outflank-mailman (output) from mailman id 7108.18629; Thu, 15 Oct 2020 07:00:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,131 +23,128 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSx5T-00018k-VD; Thu, 15 Oct 2020 06:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 7104;
- Thu, 15 Oct 2020 06:50:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kSx5S-00018f-WB
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 06:50:07 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b2c9666c-9ec0-424b-82f2-7b206ba495b4;
- Thu, 15 Oct 2020 06:50:04 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kSx5Q-0004NK-5N; Thu, 15 Oct 2020 06:50:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kSx5P-0007PQ-UZ; Thu, 15 Oct 2020 06:50:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kSx5P-0007zs-U3; Thu, 15 Oct 2020 06:50:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kSxFF-00027o-4g; Thu, 15 Oct 2020 07:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 7108;
+ Thu, 15 Oct 2020 07:00:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kSxFD-00027j-L1
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 07:00:11 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f1e7be84-3501-444e-b44b-ac9151109f10;
+ Thu, 15 Oct 2020 07:00:10 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 52FC8AD83;
+ Thu, 15 Oct 2020 07:00:09 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kSx5S-00018f-WB
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 06:50:07 +0000
-X-Inumbo-ID: b2c9666c-9ec0-424b-82f2-7b206ba495b4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id b2c9666c-9ec0-424b-82f2-7b206ba495b4;
-	Thu, 15 Oct 2020 06:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=P5NQsLVuaArhw+HQ8iKfZuLQs26Kp6ixwNRImvyxkQw=; b=QwRK+MKV7qi7F0gO5JluhvNWPO
-	2jgcog7uTuvOO7qElWcRyepcgYazbKa9oKitlFK0eND/RHW4RCH1877vtjwO626ymUzmwB/Zrx42e
-	dvE5afcjnPuc+yoZwibkZxVtcVlpG7n75R1pw37qxaLM3FPnZgLXXNEsBTLDiPY7Sq8c=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSx5Q-0004NK-5N; Thu, 15 Oct 2020 06:50:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSx5P-0007PQ-UZ; Thu, 15 Oct 2020 06:50:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kSx5P-0007zs-U3; Thu, 15 Oct 2020 06:50:03 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155828-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kSxFD-00027j-L1
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 07:00:11 +0000
+X-Inumbo-ID: f1e7be84-3501-444e-b44b-ac9151109f10
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id f1e7be84-3501-444e-b44b-ac9151109f10;
+	Thu, 15 Oct 2020 07:00:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602745209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=stXzUWWNNn0tlYniH0/+yke3yDVk8S39bV2uE3ntIgc=;
+	b=GoiSPSALtfp/uFpw8+LcU0TRAdcuBcEoQlikDW7cWDqBLxvZD7zfSMY9QXM+6vumg2WGHE
+	7e4Hs4JFbvg18QxBT45Tz/S0JReTZKlCi2t5B3h1h5RLx8hNj1PQp7aX4bcnx1pQHn1LGj
+	078BOWyRNhkLuWechv9gpKESz08raic=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 52FC8AD83;
+	Thu, 15 Oct 2020 07:00:09 +0000 (UTC)
+Subject: Re: [PATCH] libelf: Handle PVH kernels lacking ENTRY elfnote
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20201014153150.83875-1-jandryuk@gmail.com>
+ <6d373cae-c7dc-e109-1df3-ccbbe4bdd9c8@suse.com>
+ <CAKf6xpv5GNjw0pjOxEqdVj2+C6v+O5PDZG5yYkNfytDjUT_r5w@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4229544b-e98d-6f3c-14aa-a884c403ba74@suse.com>
+Date: Thu, 15 Oct 2020 09:00:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 155828: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f776e5fb3ee699745f6442ec8c47d0fa647e0575
-X-Osstest-Versions-That:
-    xen=884ef07f4f66b9d12fc4811047db95ba649db85c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Oct 2020 06:50:03 +0000
+In-Reply-To: <CAKf6xpv5GNjw0pjOxEqdVj2+C6v+O5PDZG5yYkNfytDjUT_r5w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 155828 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155828/
+On 14.10.2020 18:27, Jason Andryuk wrote:
+> On Wed, Oct 14, 2020 at 12:02 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 14.10.2020 17:31, Jason Andryuk wrote:
+>>> Linux kernels only have an ENTRY elfnote when built with CONFIG_PV.  A
+>>> kernel build CONFIG_PVH=y CONFIG_PV=n lacks the note.  In this case,
+>>> virt_entry will be UNSET_ADDR, overwritten by the ELF header e_entry,
+>>> and fail the check against the virt address range.
+> 
+> Oh, these should be CONFIG_XEN_PVH=y and CONFIG_XEN_PV=n
+> 
+>>> Change the code to only check virt_entry against the virtual address
+>>> range if it was set upon entry to the function.
+>>
+>> Not checking at all seems wrong to me. The ELF spec anyway says
+>> "virtual address", so an out of bounds value is at least suspicious.
+>>
+>>> Maybe the overwriting of virt_entry could be removed, but I don't know
+>>> if there would be unintended consequences where (old?) kernels don't
+>>> have an elfnote, but do have an in-range e_entry?  The failing kernel I
+>>> just looked at has an e_entry of 0x1000000.
+>>
+>> And if you dropped the overwriting, what entry point would we use
+>> in the absence of an ELF note?
+> 
+> elf_xen_note_check currently has:
+> 
+>     /* PVH only requires one ELF note to be set */
+>     if ( parms->phys_entry != UNSET_ADDR32 )
+>     {
+>         elf_msg(elf, "ELF: Found PVH image\n");
+>         return 0;
+>     }
+> 
+>> I'd rather put up the option of adjusting the entry (or the check),
+>> if it looks like a valid physical address.
+> 
+> The function doesn't know if the image will be booted PV or PVH, so I
+> guess we do all the checks, but use 'parms->phys_entry != UNSET_ADDR32
+> && parms->virt_entry == UNSET_ADDR' to conditionally skip checking
+> virt?
 
-Failures :-/ but no regressions.
+Like Jürgen, the purpose of the patch hadn't become clear to me
+from reading the description. As I understand it now, we're currently
+refusing to boot such a kernel for no reason. If that's correct,
+perhaps you could say so in the description in a more direct way?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+As far as actual code adjustments go - how much of
+elf_xen_addr_calc_check() is actually applicable when booting PVH?
 
-version targeted for testing:
- xen                  f776e5fb3ee699745f6442ec8c47d0fa647e0575
-baseline version:
- xen                  884ef07f4f66b9d12fc4811047db95ba649db85c
+And why is there no bounds check of ->phys_entry paralleling the
+->virt_entry one?
 
-Last test of basis   155805  2020-10-14 13:00:28 Z    0 days
-Testing same since   155811  2020-10-14 18:03:04 Z    0 days    4 attempts
+On the whole, as long as we don't know what mode we're planning to
+boot in, we can't skip any checks, as the mere presence of
+XEN_ELFNOTE_PHYS32_ENTRY doesn't mean that's also what gets used.
+Therefore simply bypassing any of the checks is not an option. In
+particular what you suggest would lead to failure to check
+e_entry-derived ->virt_entry when the PVH-specific note is
+present but we're booting in PV mode. For now I don't see how to
+address this without making the function aware of the intended
+booting mode.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Orzel <michal.orzel@arm.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   884ef07f4f..f776e5fb3e  f776e5fb3ee699745f6442ec8c47d0fa647e0575 -> smoke
+Jan
 
