@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 464DB28EECA
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 10:50:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7155.18770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E9F128EF40
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 11:16:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7159.18783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSyxl-0004hR-De; Thu, 15 Oct 2020 08:50:17 +0000
+	id 1kSzLT-0006aa-FA; Thu, 15 Oct 2020 09:14:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7155.18770; Thu, 15 Oct 2020 08:50:17 +0000
+Received: by outflank-mailman (output) from mailman id 7159.18783; Thu, 15 Oct 2020 09:14:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,105 +23,108 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSyxl-0004h4-AZ; Thu, 15 Oct 2020 08:50:17 +0000
-Received: by outflank-mailman (input) for mailman id 7155;
- Thu, 15 Oct 2020 08:50:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSyxj-0004gz-M8
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:50:15 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01d4bdac-761c-43fa-9521-c41563827ea7;
- Thu, 15 Oct 2020 08:50:14 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F3CCAAEC3;
- Thu, 15 Oct 2020 08:50:13 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kSzLT-0006aB-Bw; Thu, 15 Oct 2020 09:14:47 +0000
+Received: by outflank-mailman (input) for mailman id 7159;
+ Thu, 15 Oct 2020 09:14:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0U26=DW=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+ id 1kSzLR-0006a6-Be
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 09:14:45 +0000
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b3ea5527-7da8-44fb-b409-c8f3bb62271f;
+ Thu, 15 Oct 2020 09:14:42 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSyxj-0004gz-M8
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:50:15 +0000
-X-Inumbo-ID: 01d4bdac-761c-43fa-9521-c41563827ea7
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 01d4bdac-761c-43fa-9521-c41563827ea7;
-	Thu, 15 Oct 2020 08:50:14 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602751814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JudKjNd3McfcqlmDvRYCEhEs7qtdjVptmBZId3MhdSU=;
-	b=MXlQQedM4M7GbsDmMmefpR3L3jY1JzLqUpj1UrAFuwu7jvtzQpmBiR2PDgzPuROj7p9wvX
-	oo43ZWy6mYyCaoEONcCXb+4Ouu6Sya1FMwtoFWgDwzJXYKfPxrrncKuaN1F/xPNo5rpiPM
-	WfPPCch0y5NLi4QZ5NsWDYn8GR//Fvk=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id F3CCAAEC3;
-	Thu, 15 Oct 2020 08:50:13 +0000 (UTC)
-Subject: Re: [PATCH v2] x86/smpboot: Don't unconditionally call
- memguard_guard_stack() in cpu_smpboot_alloc()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20201014184708.17758-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
-Date: Thu, 15 Oct 2020 10:50:14 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	(envelope-from <SRS0=0U26=DW=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+	id 1kSzLR-0006a6-Be
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 09:14:45 +0000
+X-Inumbo-ID: b3ea5527-7da8-44fb-b409-c8f3bb62271f
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id b3ea5527-7da8-44fb-b409-c8f3bb62271f;
+	Thu, 15 Oct 2020 09:14:42 +0000 (UTC)
+Date: Thu, 15 Oct 2020 09:14:38 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail; t=1602753281;
+	bh=uApoKZdPH581TK1za6hWeAIesw7Sgfzm/ZWDVQo6M1U=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=mmB0NtwBI4tkQtcwWdtADNP029F3ACb0ygOjVPb0GtOAAe8yXQmLm/53ynPFvHE10
+	 N+3wtBV1+V28LybpwVycFltktdYGHMNrEQOHRUc9x82Cx2U0952y6OjgkJT/gsRX8y
+	 woxSgm0Y54izuoVU1nGQHQ8AQYzylUkfcuO6x3Ds=
+To: Jan Beulich <jbeulich@suse.com>
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
+Message-ID: <U00A4lb9CgpRhV9huYxk5kvyAAam9UcFJ7h2K1a6-M84ef8W58V4Shq7hmU5WKh3rKaVRl6EiTXVmDc-czrBJvyf7h1mjh3Dc3SPvj8qIog=@protonmail.com>
+In-Reply-To: <72589937-a918-96c8-4589-6d30efaead9a@suse.com>
+References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <72589937-a918-96c8-4589-6d30efaead9a@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20201014184708.17758-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
+	autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-On 14.10.2020 20:47, Andrew Cooper wrote:
-> cpu_smpboot_alloc() is designed to be idempotent with respect to partially
-> initialised state.  This occurs for S3 and CPU parking, where enough state to
-> handle NMIs/#MCs needs to remain valid for the entire lifetime of Xen, even
-> when we otherwise want to offline the CPU.
-> 
-> For simplicity between various configuration, Xen always uses shadow stack
-> mappings (Read-only + Dirty) for the guard page, irrespective of whether
-> CET-SS is enabled.
-> 
-> Unfortunately, the CET-SS changes in memguard_guard_stack() broke idempotency
-> by first writing out the supervisor shadow stack tokens with plain writes,
-> then changing the mapping to being read-only.
-> 
-> This ordering is strictly necessary to configure the BSP, which cannot have
-> the supervisor tokens be written with WRSS.
-> 
-> Instead of calling memguard_guard_stack() unconditionally, call it only when
-> actually allocating a new stack.  Xenheap allocates are guaranteed to be
-> writeable, and the net result is idempotency WRT configuring stack_base[].
-> 
-> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
-> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> 
-> This can more easily be demonstrated with CPU hotplug than S3, and the absence
-> of bug reports goes to show how rarely hotplug is used.
-> 
-> v2:
->  * Don't break S3/CPU parking in combination with CET-SS.  v1 would, for S3,
->    turn the BSP shadow stack into regular mappings, and #DF as soon as the TLB
->    shootdown completes.
+Hi Jan, thank you for responding.
 
-The code change looks correct to me, but since I don't understand
-this part I'm afraid I may be overlooking something. I understand
-the "turn the BSP shadow stack into regular mappings" relates to
-cpu_smpboot_free()'s call to memguard_unguard_stack(), but I
-didn't think we come through cpu_smpboot_free() for the BSP upon
-entering or leaving S3.
+Indeed this is for dom0, I only recently tried limiting a domU to 1 core an=
+d observed absolutely no softlocks, UI animations are smooth as butter with=
+ 1 core only.
 
-Jan
+Indeed I believe this is a CPU Scheduling issue, I've tried both the older =
+credit and RTDS however both don't boot correctly.
+The number of cores on this CPU is 8, 16 threads however Qubes by default d=
+isables SMT, sched_credit2_max_cpus_runqueue is 16 by default, I've tried t=
+esting with setting this to 7 or 8 however it'll either not boot, or nothin=
+g will change.
+
+There are a number of credit2 tweak-ables so I'm hoping to play around and =
+drop the `dom0_max_vcpus=3D1`, I suspect `sched_credit2_max_cpus_runqueue` =
+is the main thing to play with.
+
+I did manage to get it booting with sched_credit2_max_cpus_runqueue=3D7 but=
+ it ended up locking up shortly after X launched on dom0
+
+=E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90 Original Me=
+ssage =E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90=E2=80=90
+
+On Thursday, October 15th, 2020 at 7:18 PM, Jan Beulich <jbeulich@suse.com>=
+ wrote:
+
+> On 15.10.2020 02:38, Dylanger Daly wrote:
+>
+> > I'm currently using Xen 4.14 (Qubes 4.1 OS) on a Ryzen 7 4750U PRO, by =
+default I'll experience softlocks where the mouse for example will jolt fro=
+m time to time, in this state it's not usable.
+>
+> From what you say below I imply this is in Dom0?
+>
+> > Adding `dom0_max_vcpus=3D1 dom0_vcpus_pin` to Xen's CMDLINE results in =
+no more jolting however performance isn't what it should be on an 8 core CP=
+U, softlocks are still a problem within domU's, any sort of UI animation fo=
+r example.
+> >
+> > Reverting this commit (8e2aa76dc1670e82eaa15683353853bc66bf54fc) result=
+s in even worse performance with or without the above changes to CMDLINE, a=
+nd it's not usable at all.
+>
+> You saying this surely has a reason, but making the connection would
+>
+> help. I don't consider it surprising that a revert of an improvement
+>
+> makes things worse. You having bothered to find a certain code change
+>
+> also makes me suspect you've experimented with other scheduler
+>
+> related settings - if so, please share all data you've got. (FAOD -
+>
+> with the information provided I have no idea what to suggest, sorry.)
+>
+> Jan
 
