@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC5E28F785
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 19:15:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7659.20209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 456B628F79E
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 19:28:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7682.20243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT6pG-00027w-TH; Thu, 15 Oct 2020 17:14:02 +0000
+	id 1kT72H-0003NF-Fg; Thu, 15 Oct 2020 17:27:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7659.20209; Thu, 15 Oct 2020 17:14:02 +0000
+Received: by outflank-mailman (output) from mailman id 7682.20243; Thu, 15 Oct 2020 17:27:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,94 +23,95 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT6pG-00027X-Pq; Thu, 15 Oct 2020 17:14:02 +0000
-Received: by outflank-mailman (input) for mailman id 7659;
- Thu, 15 Oct 2020 17:14:01 +0000
+	id 1kT72H-0003Mq-Ce; Thu, 15 Oct 2020 17:27:29 +0000
+Received: by outflank-mailman (input) for mailman id 7682;
+ Thu, 15 Oct 2020 17:27:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Un/f=DW=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kT6pF-00027S-HM
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 17:14:01 +0000
-Received: from mail-lj1-x231.google.com (unknown [2a00:1450:4864:20::231])
+ <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kT72F-0003Ml-Mu
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 17:27:27 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8da83e91-9543-46f5-bd76-1909379d005c;
- Thu, 15 Oct 2020 17:14:00 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id p15so3923258ljj.8
- for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 10:14:00 -0700 (PDT)
+ id ef5a5738-dfe6-444d-bb24-b8dea69ba877;
+ Thu, 15 Oct 2020 17:27:26 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Un/f=DW=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
-	id 1kT6pF-00027S-HM
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 17:14:01 +0000
-X-Inumbo-ID: 8da83e91-9543-46f5-bd76-1909379d005c
-Received: from mail-lj1-x231.google.com (unknown [2a00:1450:4864:20::231])
+	(envelope-from <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kT72F-0003Ml-Mu
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 17:27:27 +0000
+X-Inumbo-ID: ef5a5738-dfe6-444d-bb24-b8dea69ba877
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8da83e91-9543-46f5-bd76-1909379d005c;
-	Thu, 15 Oct 2020 17:14:00 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id p15so3923258ljj.8
-        for <xen-devel@lists.xenproject.org>; Thu, 15 Oct 2020 10:14:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1yUvifcv3fU+qGZfXkc7byEgAOcZMg51wV8y/5oEaQ4=;
-        b=Q+YOi/nVndoAd1WZ6kH25jasK5kgj2ioDwaXt6ixjeRMRg6/iOEC+Es/O8aLIyakXp
-         egaeIVzzY25B60hZbYP5YOwQn6AWlyU9FHYcg4MXdubT1PrPwoaCgmERPH+HsTcJNhtz
-         00ywxOC/IRmvRgNhsgIacHbKdjLeNCKg/T8c5XxOK1Raq5mdg76LL/twvP6d42JITF5Z
-         uy8KpLYGrqMqk2Q9zLOlYxLDPCh0pUhI2LitWA60v0cGIKg6S8eT59MpY/u8TTSUX+bc
-         kXwmHkPRwqds3Oj3HkMiICBAK80pLlQGS9KSWrFpbTusWzC4BEKCNRqg8Pd0NxM7Pi/i
-         k/KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1yUvifcv3fU+qGZfXkc7byEgAOcZMg51wV8y/5oEaQ4=;
-        b=KrQq1CX2qJ3UKYfxs2nDAGPILmILHGubC0k+hda0TzYkGkQ+rWeR6iR33hqO8L+wwt
-         AdHDijxFNVuMHoVXdndl5pRw5MlnkKN+VHIYBD09+ESvpM6niSujRKKQ+Nlv0Bp2EKEj
-         iaqNgs+GH/3XfXfxDihiGf0SCjdMphraUltjM0bRS2DHf00rEnsqyt+RLGzhBoUlf5vV
-         Vkfd9Z2PZjBXZDrY5a6NlyahBYdt12j2/+o3S1zLrI8GQiGwcz42sZJRZMjJ7xHY2vCb
-         Y4pRoLCU7JQ7vhhNqjkjiyGYT5ovaONTMCXtFwTK6nTJJX+VvHKntoo47AWEFm5zgsZ2
-         8i+g==
-X-Gm-Message-State: AOAM533ZzpHbXf6py1ECUy3C2gL7RBNOR2ExC+mYIdXc2dQxSbBkcOQs
-	9BIX2ldQVKryoa51GA7SmU3dP965nP+QHoShbmQ=
-X-Google-Smtp-Source: ABdhPJw/inF4ypZZTJUUCINi7YWblL+rCo3QbMKOIKbpJ1ze8axOmb3yYlqUQoverWhcCGGhoJFQixhYXnKi+NwhKY0=
-X-Received: by 2002:a2e:c49:: with SMTP id o9mr1731526ljd.296.1602782039521;
- Thu, 15 Oct 2020 10:13:59 -0700 (PDT)
+	id ef5a5738-dfe6-444d-bb24-b8dea69ba877;
+	Thu, 15 Oct 2020 17:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602782846;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=ZS18iKLT8mnFjsNWylUWI133jb2KC41TKGIcuW2aFw0=;
+  b=SnvrbZMjjk4aRCLyxmGwsCCiVYtDnvoZ4YGXfE0p9X94XiGZ/PYVnRPG
+   HO/Wxo3OyVZ4KqG/eKO3ZguTFKOmlixOvugz/+03LDSs27/geiLpiyd7W
+   N1CJ4CVvPHJyzgNHwivgxSYTkfr6QU0cCNS8Ix7e2R0UfrD295KoVC/h+
+   U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: MZD92vvaZdoGFRWDDsfQCD+rR3JriCQkBt78e42NYxr4Cuk8raootnvOnVdIbDoVx1A5jsdX8E
+ pdwAenzQeVqSfyeXj+9tQ7vpgPl+EzOrA6k19rjmevqIecNheJ+TqlpZ4sylLxupQVr4xXqQXZ
+ 2H8pTFspZdC/RycWSiWnR8t84I/gXl8AFcUxmyokJ09HkH2fpbpTxRcnDzS/njBWUlT4PsXrXT
+ 52rqndaBFUffWSaKEvdfLHR/O49nxma4/t263WZTyEzjv5AxueECAYtVTwkiXACb/N/0vogOUI
+ K+0=
+X-SBRS: 2.5
+X-MesageID: 29106077
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
+   d="scan'208";a="29106077"
+Subject: Re: [PATCH] libelf: Handle PVH kernels lacking ENTRY elfnote
+To: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jandryuk@gmail.com>
+CC: xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+References: <20201014153150.83875-1-jandryuk@gmail.com>
+ <6d373cae-c7dc-e109-1df3-ccbbe4bdd9c8@suse.com>
+ <CAKf6xpv5GNjw0pjOxEqdVj2+C6v+O5PDZG5yYkNfytDjUT_r5w@mail.gmail.com>
+ <4229544b-e98d-6f3c-14aa-a884c403ba74@suse.com>
+ <CAKf6xpt_VhJ5r4scuAkWU3aGxgwiYNtHaBDpMoFJS+q837aFiA@mail.gmail.com>
+ <d8e93366-0f99-37c7-e5f4-8efaf804d2e2@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <d1d45ef5-067d-1edb-fac9-514495277765@citrix.com>
+Date: Thu, 15 Oct 2020 18:27:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <CAKf6xpv-LRCuo-qHHWMuukYtvJiR-i+-YhLUOZeqoAFd-=swEQ@mail.gmail.com>
- <1a3b90f4-564e-84d3-fd6a-3454e8753579@citrix.com> <20201015113109.GA68032@Air-de-Roger>
- <CAKf6xpsJYT7VCeaf6TxPNK1QD+3U9E8ST7E+mWtfDjw0k9L9dA@mail.gmail.com> <CABfawhnwdkB01LKYbcNhyyhFXF2LbLFFmeN5kqh7VaYPevjzuw@mail.gmail.com>
-In-Reply-To: <CABfawhnwdkB01LKYbcNhyyhFXF2LbLFFmeN5kqh7VaYPevjzuw@mail.gmail.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 15 Oct 2020 13:13:47 -0400
-Message-ID: <CAKf6xpuACuY63f+m6U55EVoSBL+RR04OStGPytb-Aeacou32gg@mail.gmail.com>
-Subject: Re: i915 dma faults on Xen
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <d8e93366-0f99-37c7-e5f4-8efaf804d2e2@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-On Thu, Oct 15, 2020 at 12:39 PM Tamas K Lengyel
-<tamas.k.lengyel@gmail.com> wrote:
->
-> > > Can you paste the memory map as printed by Xen when booting, and what
-> > > command line are you using to boot Xen.
-> >
-> > So this is OpenXT, and it's booting EFI -> xen -> tboot -> xen
->
-> Unrelated comment: since tboot now has a PE build
-> (http://hg.code.sf.net/p/tboot/code/rev/5c68f0963a78) I think it would
-> be time for OpenXT to drop the weird efi->xen->tboot->xen flow and
-> just do efi->tboot->xen. Only reason we did efi->xen->tboot was
-> because tboot didn't have a PE build at the time. It's a very hackish
-> solution that's no longer needed.
+On 15/10/2020 16:14, Jan Beulich wrote:
+> On 15.10.2020 16:50, Jason Andryuk wrote:
+>> On Thu, Oct 15, 2020 at 3:00 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>> And why is there no bounds check of ->phys_entry paralleling the
+>>> ->virt_entry one?
+>> What is the purpose of this checking?  It's sanity checking which is
+>> generally good, but what is the harm from failing the checks?  A
+>> corrupt kernel can crash itself?  Maybe you could start executing
+>> something (the initramfs?) instead of the actual kernel?
+> This is at least getting close to a possible security issue.
+> Booting a hacked up binary can be a problem afaik.
 
-Thanks for the pointer, Tamas.  If I recall correctly, there was also
-an issue with ExitBootServices.  Do you know if that has been
-addressed?
+It's only a security issue if the absence of the check is going to cause
+a malfunction outside of guest the guest context.  (e.g. in the
+toolstack's elf parser)
 
-Depending on timing, OpenXT may just move to TrenchBoot for a DRTM solution.
+There are a functionally infinite ways for a guest kernel to crash
+itself early on boot - malforming the ELF header such that the state of
+the guest once executing doesn't boot isn't interesting from this point
+of view.
 
-Regards,
-Jason
+~Andrew
 
