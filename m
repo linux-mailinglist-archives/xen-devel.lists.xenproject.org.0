@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1B8828F43D
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 16:01:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7399.19314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39E2928F43F
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 16:03:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7403.19325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3oU-0002Jl-Le; Thu, 15 Oct 2020 14:01:02 +0000
+	id 1kT3qH-0002Uf-53; Thu, 15 Oct 2020 14:02:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7399.19314; Thu, 15 Oct 2020 14:01:02 +0000
+Received: by outflank-mailman (output) from mailman id 7403.19325; Thu, 15 Oct 2020 14:02:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,194 +23,126 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT3oU-0002JM-Gf; Thu, 15 Oct 2020 14:01:02 +0000
-Received: by outflank-mailman (input) for mailman id 7399;
- Thu, 15 Oct 2020 14:01:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kT3qH-0002UJ-1s; Thu, 15 Oct 2020 14:02:53 +0000
+Received: by outflank-mailman (input) for mailman id 7403;
+ Thu, 15 Oct 2020 14:02:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rpcQ=DW=amd.com=christian.koenig@srs-us1.protection.inumbo.net>)
- id 1kT3oT-0002JF-Ds
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:01:01 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (unknown
- [40.107.102.72]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8420f961-da96-4dd0-9d9b-156bfa83b9e3;
- Thu, 15 Oct 2020 14:01:00 +0000 (UTC)
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4690.namprd12.prod.outlook.com (2603:10b6:208:8e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Thu, 15 Oct
- 2020 14:00:57 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3477.021; Thu, 15 Oct 2020
- 14:00:57 +0000
-Received: from [192.168.137.56] (80.187.123.114) by
- AM0PR08CA0005.eurprd08.prod.outlook.com (2603:10a6:208:d2::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.20 via Frontend Transport; Thu, 15 Oct 2020 14:00:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kT3qE-0002U3-OT
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:02:50 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f95744fe-b802-4a0a-8d5d-e93722dcb3ee;
+ Thu, 15 Oct 2020 14:02:49 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=rpcQ=DW=amd.com=christian.koenig@srs-us1.protection.inumbo.net>)
-	id 1kT3oT-0002JF-Ds
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:01:01 +0000
-X-Inumbo-ID: 8420f961-da96-4dd0-9d9b-156bfa83b9e3
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (unknown [40.107.102.72])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 8420f961-da96-4dd0-9d9b-156bfa83b9e3;
-	Thu, 15 Oct 2020 14:01:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IIEdIhAerksJz7LFA0/2tMVoP1eYy2m2Ya1PNPh5OrBDlo8nj2XEoSxbXWxo4Mz4DolOmzMtA+KEn8NPqB3wSk9m0s6LI/lDt/nJZ9hnUN1NTFw4XWEZa2dFSf9EimZAzUy4pn80DinZrRTZX4USS51MIogLo6gfidx5GriksHEWABTdpSuaHvrZpvThRPVgxiFnvjsGJ3PHFlgNcXfAtpZm/L8qGUaBN41c1wIdCb7/Ae6z4yntsDE9uVAK/FuqGrUhYQmzhO4SyJuZ4YfE747oNTNqVm7I7KSi/SioaWn8VRY/j3oqSSeUcKT+0yGuLT7jwmxpUBlYLCCfKvhhVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KyDMUj3c5Q/kAKqLamJTbfJcmn3zhWOYAX0CC7GZMQ8=;
- b=QTNqZ9bvtZskR6e39cbFMEBGtNy7Gf+S6js8Ub00HbZEp+CGzn2K162OqBmSWT8ES5GJ7/kzJQJPLlLK1j8+u/UGGHOBZTLmSHlyqgg9ab3Il9iXLyehrlLzJUepHURVQIUqsOTAADU8wVy1o7OWjazoxzMRRp+3DxADPI5Gd/9w1vdGMaxEtyMDH9cF0P0e9+DxWgeeDMBABuSGo9BJwCsIn1Gv8EO86RdopZzGKtyLe6df0sx3LnpTVFr7Tfc3hdKOF/S4UnbFmvXSXc5niVn/UlLb2DnpFFaPIy1+EzN6mIfQrZBOBHJynyVzYVZGSyvE5yVcpD0LjkwcAGNy/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KyDMUj3c5Q/kAKqLamJTbfJcmn3zhWOYAX0CC7GZMQ8=;
- b=nOxo+crch41rHvdBum9AtQW7CBZ126KH3aDpN2sdW8FdpdjZbswJpvxloNTgfl1wbbtTMqly2HlxcVx4TvM6PlGXkzFSfFVWW9yGEdv0x9BPzobGw3xK0pMx4gILw82yOirM5xL9KTkjHX/CPtKbLkvdQgS8nhnLq3vxj2lQpBk=
-Authentication-Results: lists.linaro.org; dkim=none (message not signed)
- header.d=none;lists.linaro.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4690.namprd12.prod.outlook.com (2603:10b6:208:8e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Thu, 15 Oct
- 2020 14:00:57 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3477.021; Thu, 15 Oct 2020
- 14:00:57 +0000
-Subject: Re: [PATCH v4 04/10] drm/exynos: Remove empty
- exynos_drm_gem_prime_{vmap,vunmap}()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
- kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
- tomeu.vizoso@collabora.com, steven.price@arm.com,
- alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
- hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
- oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
- sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
- apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
- chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, etnaviv@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- lima@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20201015123806.32416-1-tzimmermann@suse.de>
- <20201015123806.32416-5-tzimmermann@suse.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <7a6f6526-1b67-61c8-2239-50f2bfbdc29d@amd.com>
-Date: Thu, 15 Oct 2020 16:00:42 +0200
+	(envelope-from <SRS0=LoCs=DW=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kT3qE-0002U3-OT
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:02:50 +0000
+X-Inumbo-ID: f95744fe-b802-4a0a-8d5d-e93722dcb3ee
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id f95744fe-b802-4a0a-8d5d-e93722dcb3ee;
+	Thu, 15 Oct 2020 14:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1602770570;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=vJmFyAUEzqg6ecFBFpUq4RyHD+WUMAaJ+2eNPktHAdo=;
+  b=GKJUmsCyZTYXcaefd7ScZW1oB7oJE818VFSmeYN9fLbhoRCxZDr3p9js
+   ZfGU9AAN9NAYqij79+xit7Chfj5jQjYe+Hbg3SUBF4QecnQxQ1dipZFoJ
+   EwOEPuMLVDBPCZovOJLO1/Ip4ge0VKi6x19fQEQeGwiXEaLvFk53G1kxY
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: kmYhWeC8acTVT2lKvp+ywlNO8ZYGSPIKuI/DKZo4eiAkK1F7pCmiWhvLJx9qELnrEVdFxBngDr
+ G5o4oIBM0ghyQjJJh1GYPiMG04gN73CVzZsxTBoYdNQEXepgZuFwqf22b5Ho/nVG5fnmyhjQc9
+ op+OCY8PzgsvZ31UVFzq+17yRc/Dxhjco9Drh/yDAMUk/S/0Nwkjt9EMoLVcVfDL5riA2D786/
+ 6kgGtCRm8XeiWQiLwClixvbrmvXUK9f6dAxCf1tIwnpO8zWLm0lqfeKxEz/IIs6k2P6NH7Ao+J
+ 7Ww=
+X-SBRS: 2.5
+X-MesageID: 29410899
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,379,1596513600"; 
+   d="scan'208";a="29410899"
+Subject: Re: [PATCH v2] x86/smpboot: Don't unconditionally call
+ memguard_guard_stack() in cpu_smpboot_alloc()
+To: Jan Beulich <jbeulich@suse.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20201014184708.17758-1-andrew.cooper3@citrix.com>
+ <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <0a294279-5de5-3b54-b1f9-847de1159447@citrix.com>
+Date: Thu, 15 Oct 2020 15:02:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <20201015123806.32416-5-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Originating-IP: [80.187.123.114]
-X-ClientProxiedBy: AM0PR08CA0005.eurprd08.prod.outlook.com
- (2603:10a6:208:d2::18) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.137.56] (80.187.123.114) by AM0PR08CA0005.eurprd08.prod.outlook.com (2603:10a6:208:d2::18) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20 via Frontend Transport; Thu, 15 Oct 2020 14:00:46 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: dc82f225-0f8a-43ae-cb58-08d87112bccd
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4690:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<BL0PR12MB4690BB9C565CA20B6B0332C883020@BL0PR12MB4690.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+JBOwexIirDjBJSp39MdGx4etjX+D1JSxS0P8TKGjAx1Bmi1T/HpRGzkBUKpTm/XTd+/LrRMDocaj0Ux25QJ6ln93vwns8Cz82KXZp7az7wmFCwWDpKO5vCP3wdZhpKpdPGUQqsKTDxaSn4+A1aVXQOp4XRT0QJbqMPxQi8X7LBscjIL6rbKrxyCaaXEiW3RU34nFc6HjddNFg2AT4/Bh8f0C3aGvk/tUDErgOCm/9tDgXNzjn9lVfTaLEsbwx1LnZADAqpstprcTTr3gIx0vfW6ojRELLMSUc9DWwsuGmk5tjPuih28IqGJm18Oh6fI8Pm17X9yq8xQQYf0gRbte3FCMU0f4zIQiP/BB9JGvacfcxiCYo5ytMK9w9TN1SfHsjr9k38s3MzdcvZ1rClA8wEbsJP6VUXTqHQt7W/Qon9GVQQ+FvBVIvKlzQuqmAMf
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3775.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(366004)(346002)(376002)(956004)(478600001)(31686004)(8676002)(7416002)(4326008)(8936002)(7406005)(52116002)(186003)(2906002)(16526019)(26005)(6486002)(34490700002)(31696002)(83380400001)(16576012)(2616005)(86362001)(6666004)(316002)(66946007)(66556008)(5660300002)(66476007)(36756003)(921003)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
-	L+lw87r0GARxt6cpx/CQ9Knf+dyyeSpa0SnuyLreuQ4Ft54/jY4lbP8rZ5fgVHeZXyxczESkVI0XZU6KBk94qGVEzWZZ5+57Kb77FSr1MnmNvk5plVOe07W0Ju2YnE7dyIT4jMLY5Jaqw1CqI5/d7vfCVjJEriMzHd1ALMy2hXA8wH40hv9U/S/RE7aIjNjSl3FlWorHI/NaKLuCh3VBY5dDrHnxySi4nl6kVkttFn1vl6/Ralb3uGiSNjawA+PQzTCjlxFz5bP2njR4gEsbIBaF4gXPYLh6Tz4LxOhfHFmLj38gWfj7HZdcdMfLfSy/ukOkLME1tQ2gRj3cKz9E9DiMUsGPbP5GaCZzjGzYrCElmJbtLn8ZlrVcx3hrAFHV6g1ZKTCikLz3QTDjKJcV68T4rvyQYR9taf5IJQkqDSbLCTPjFD3+vU6GAAta3DPSJQXGaGUchlpve77w02No8FlfZIYKGJ7n99pRq1GLG0ir7UPHltbBjl3bysAZAQxszNBUZ7+bcXMEj9fa23yQ3FXp4ec8tT6tMVLazB8Djb2GLFu4mBgMuXx83KOgE3CtDf3tvNRHKx4kCrZMtIbBF7NXZigE7/BDE8xK86q78Owkpk4BOQelhulmZKJ1hIPekqr/gm5sTJXpG8JiW5Djxw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc82f225-0f8a-43ae-cb58-08d87112bccd
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2020 14:00:57.0375
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NidAfpRa2NMLEGdnFWdYvsER8j3pbm+Oaf1NwO8cr9OAacK7WMR3KCrCNNQSGLqa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4690
+In-Reply-To: <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-Am 15.10.20 um 14:38 schrieb Thomas Zimmermann:
-> The functions exynos_drm_gem_prime_{vmap,vunmap}() are empty. Remove
-> them before changing the interface to use struct drm_buf_map. As a side
-> effect of removing drm_gem_prime_vmap(), the error code changes from
-> ENOMEM to EOPNOTSUPP.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On 15/10/2020 09:50, Jan Beulich wrote:
+> On 14.10.2020 20:47, Andrew Cooper wrote:
+>> cpu_smpboot_alloc() is designed to be idempotent with respect to partially
+>> initialised state.  This occurs for S3 and CPU parking, where enough state to
+>> handle NMIs/#MCs needs to remain valid for the entire lifetime of Xen, even
+>> when we otherwise want to offline the CPU.
+>>
+>> For simplicity between various configuration, Xen always uses shadow stack
+>> mappings (Read-only + Dirty) for the guard page, irrespective of whether
+>> CET-SS is enabled.
+>>
+>> Unfortunately, the CET-SS changes in memguard_guard_stack() broke idempotency
+>> by first writing out the supervisor shadow stack tokens with plain writes,
+>> then changing the mapping to being read-only.
+>>
+>> This ordering is strictly necessary to configure the BSP, which cannot have
+>> the supervisor tokens be written with WRSS.
+>>
+>> Instead of calling memguard_guard_stack() unconditionally, call it only when
+>> actually allocating a new stack.  Xenheap allocates are guaranteed to be
+>> writeable, and the net result is idempotency WRT configuring stack_base[].
+>>
+>> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
+>> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>>
+>> This can more easily be demonstrated with CPU hotplug than S3, and the absence
+>> of bug reports goes to show how rarely hotplug is used.
+>>
+>> v2:
+>>  * Don't break S3/CPU parking in combination with CET-SS.  v1 would, for S3,
+>>    turn the BSP shadow stack into regular mappings, and #DF as soon as the TLB
+>>    shootdown completes.
+> The code change looks correct to me, but since I don't understand
+> this part I'm afraid I may be overlooking something. I understand
+> the "turn the BSP shadow stack into regular mappings" relates to
+> cpu_smpboot_free()'s call to memguard_unguard_stack(), but I
+> didn't think we come through cpu_smpboot_free() for the BSP upon
+> entering or leaving S3.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+The v1 really did fix Marek's repro of the problem.
 
-> ---
->   drivers/gpu/drm/exynos/exynos_drm_gem.c | 12 ------------
->   drivers/gpu/drm/exynos/exynos_drm_gem.h |  2 --
->   2 files changed, 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> index e7a6eb96f692..13a35623ac04 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> @@ -137,8 +137,6 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
->   static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
->   	.free = exynos_drm_gem_free_object,
->   	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
-> -	.vmap = exynos_drm_gem_prime_vmap,
-> -	.vunmap	= exynos_drm_gem_prime_vunmap,
->   	.vm_ops = &exynos_drm_gem_vm_ops,
->   };
->   
-> @@ -471,16 +469,6 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->   	return &exynos_gem->base;
->   }
->   
-> -void *exynos_drm_gem_prime_vmap(struct drm_gem_object *obj)
-> -{
-> -	return NULL;
-> -}
-> -
-> -void exynos_drm_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
-> -{
-> -	/* Nothing to do */
-> -}
-> -
->   int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
->   			      struct vm_area_struct *vma)
->   {
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> index 74e926abeff0..a23272fb96fb 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> @@ -107,8 +107,6 @@ struct drm_gem_object *
->   exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->   				     struct dma_buf_attachment *attach,
->   				     struct sg_table *sgt);
-> -void *exynos_drm_gem_prime_vmap(struct drm_gem_object *obj);
-> -void exynos_drm_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr);
->   int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
->   			      struct vm_area_struct *vma);
->   
+The only possible way this can occur is if, somewhere, there is a call
+to cpu_smpboot_free() for CPU0 with remove=0 on the S3 path
 
+I have to admit that I can't actually spot where it is.
+
+
+Either way - it doesn't impact the fix, which attempts to make "the
+stack" into a single object.  I experimented with introducing
+smpboot_{alloc,free}_stack(), but the result wasn't clean and I
+abandoned that approach.
+
+~Andrew
 
