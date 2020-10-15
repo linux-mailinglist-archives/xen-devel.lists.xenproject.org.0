@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA8628EEB0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 10:42:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7152.18759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 464DB28EECA
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 10:50:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7155.18770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSyqF-0003m7-KG; Thu, 15 Oct 2020 08:42:31 +0000
+	id 1kSyxl-0004hR-De; Thu, 15 Oct 2020 08:50:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7152.18759; Thu, 15 Oct 2020 08:42:31 +0000
+Received: by outflank-mailman (output) from mailman id 7155.18770; Thu, 15 Oct 2020 08:50:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,88 +23,105 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kSyqF-0003li-Gt; Thu, 15 Oct 2020 08:42:31 +0000
-Received: by outflank-mailman (input) for mailman id 7152;
- Thu, 15 Oct 2020 08:42:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kSyxl-0004h4-AZ; Thu, 15 Oct 2020 08:50:17 +0000
+Received: by outflank-mailman (input) for mailman id 7155;
+ Thu, 15 Oct 2020 08:50:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kSyqD-0003la-Sa
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:42:29 +0000
+ id 1kSyxj-0004gz-M8
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:50:15 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2c34ec67-a9ae-44f0-828d-68c1cc858919;
- Thu, 15 Oct 2020 08:42:29 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 01d4bdac-761c-43fa-9521-c41563827ea7;
+ Thu, 15 Oct 2020 08:50:14 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3E200ADA8;
- Thu, 15 Oct 2020 08:42:28 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id F3CCAAEC3;
+ Thu, 15 Oct 2020 08:50:13 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=MKI8=DW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kSyqD-0003la-Sa
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:42:29 +0000
-X-Inumbo-ID: 2c34ec67-a9ae-44f0-828d-68c1cc858919
+	id 1kSyxj-0004gz-M8
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 08:50:15 +0000
+X-Inumbo-ID: 01d4bdac-761c-43fa-9521-c41563827ea7
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2c34ec67-a9ae-44f0-828d-68c1cc858919;
-	Thu, 15 Oct 2020 08:42:29 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 01d4bdac-761c-43fa-9521-c41563827ea7;
+	Thu, 15 Oct 2020 08:50:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602751348;
+	t=1602751814;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=a/afXgJ3BafDVXWwzXn01PQSSXilZ5CGddn4pqdyalw=;
-	b=TbmAtZm1CKi9kz+eabFy74ONXhZdEYYlaGMLV+rfWAGjnAmU6yfdFoXfSmbAubl//NYcEX
-	47J/NXcBXWUlOxlo3R41jALDRym6F15x1/NlFRHvmOvNwtLreZGjjZVJ0bWuv/nc955ETm
-	/1uTQ6a30+JiFO6T1seADxCnojkW9nU=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JudKjNd3McfcqlmDvRYCEhEs7qtdjVptmBZId3MhdSU=;
+	b=MXlQQedM4M7GbsDmMmefpR3L3jY1JzLqUpj1UrAFuwu7jvtzQpmBiR2PDgzPuROj7p9wvX
+	oo43ZWy6mYyCaoEONcCXb+4Ouu6Sya1FMwtoFWgDwzJXYKfPxrrncKuaN1F/xPNo5rpiPM
+	WfPPCch0y5NLi4QZ5NsWDYn8GR//Fvk=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 3E200ADA8;
-	Thu, 15 Oct 2020 08:42:28 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+	by mx2.suse.de (Postfix) with ESMTP id F3CCAAEC3;
+	Thu, 15 Oct 2020 08:50:13 +0000 (UTC)
+Subject: Re: [PATCH v2] x86/smpboot: Don't unconditionally call
+ memguard_guard_stack() in cpu_smpboot_alloc()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20201014184708.17758-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] tools/gdbsx: drop stray recursion into tools/include/
-Message-ID: <ece6c5c2-43f8-36d2-370c-37d988baeb87@suse.com>
-Date: Thu, 15 Oct 2020 10:42:28 +0200
+Message-ID: <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
+Date: Thu, 15 Oct 2020 10:50:14 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
+In-Reply-To: <20201014184708.17758-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Doing so isn't appropriate here - this gets done very early in the build
-process. If the directory is mean to to be buildable on its own,
-different arrangements would be needed.
+On 14.10.2020 20:47, Andrew Cooper wrote:
+> cpu_smpboot_alloc() is designed to be idempotent with respect to partially
+> initialised state.  This occurs for S3 and CPU parking, where enough state to
+> handle NMIs/#MCs needs to remain valid for the entire lifetime of Xen, even
+> when we otherwise want to offline the CPU.
+> 
+> For simplicity between various configuration, Xen always uses shadow stack
+> mappings (Read-only + Dirty) for the guard page, irrespective of whether
+> CET-SS is enabled.
+> 
+> Unfortunately, the CET-SS changes in memguard_guard_stack() broke idempotency
+> by first writing out the supervisor shadow stack tokens with plain writes,
+> then changing the mapping to being read-only.
+> 
+> This ordering is strictly necessary to configure the BSP, which cannot have
+> the supervisor tokens be written with WRSS.
+> 
+> Instead of calling memguard_guard_stack() unconditionally, call it only when
+> actually allocating a new stack.  Xenheap allocates are guaranteed to be
+> writeable, and the net result is idempotency WRT configuring stack_base[].
+> 
+> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
+> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> 
+> This can more easily be demonstrated with CPU hotplug than S3, and the absence
+> of bug reports goes to show how rarely hotplug is used.
+> 
+> v2:
+>  * Don't break S3/CPU parking in combination with CET-SS.  v1 would, for S3,
+>    turn the BSP shadow stack into regular mappings, and #DF as soon as the TLB
+>    shootdown completes.
 
-The issue has become more pronounced by 47654a0d7320 ("tools/include:
-fix (drop) dependencies of when to populate xen/"), but was there before
-afaict.
+The code change looks correct to me, but since I don't understand
+this part I'm afraid I may be overlooking something. I understand
+the "turn the BSP shadow stack into regular mappings" relates to
+cpu_smpboot_free()'s call to memguard_unguard_stack(), but I
+didn't think we come through cpu_smpboot_free() for the BSP upon
+entering or leaving S3.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/tools/debugger/gdbsx/xg/Makefile
-+++ b/tools/debugger/gdbsx/xg/Makefile
-@@ -12,7 +12,7 @@ CFLAGS += $(CFLAGS_xeninclude)
- all: build
- 
- .PHONY: build
--build: xen-headers xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
-+build: xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
- # build: mk-symlinks xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
- # build: mk-symlinks xg_all.a
- 
-@@ -21,9 +21,6 @@ xg_all.a: $(XG_OBJS) Makefile $(XG_HDRS)
- #	$(LD) -b elf32-i386 $(LDFLAGS) -r -o $@ $^
- #	$(CC) -m32 -c -o $@ $^
- 
--xen-headers:
--	$(MAKE) -C ../../../include
--
- # xg_main.o: xg_main.c Makefile $(XG_HDRS)
- #$(CC) -c $(CFLAGS) -o $@ $<
- 
+Jan
 
