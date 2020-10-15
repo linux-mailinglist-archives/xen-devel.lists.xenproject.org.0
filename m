@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5ACD28F4C9
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 16:33:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7431.19412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E485C28F4E3
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Oct 2020 16:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7435.19424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT4JU-0005rR-GY; Thu, 15 Oct 2020 14:33:04 +0000
+	id 1kT4OC-00062j-42; Thu, 15 Oct 2020 14:37:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7431.19412; Thu, 15 Oct 2020 14:33:04 +0000
+Received: by outflank-mailman (output) from mailman id 7435.19424; Thu, 15 Oct 2020 14:37:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,120 +23,129 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kT4JU-0005qb-Cv; Thu, 15 Oct 2020 14:33:04 +0000
-Received: by outflank-mailman (input) for mailman id 7431;
- Thu, 15 Oct 2020 14:33:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kT4JS-0005pI-B5
- for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:33:02 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eea68783-2e07-4701-adb8-2daf48d18d26;
- Thu, 15 Oct 2020 14:32:56 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4JL-0006S5-Qs; Thu, 15 Oct 2020 14:32:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4JJ-0005FT-AB; Thu, 15 Oct 2020 14:32:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kT4JJ-00024q-9k; Thu, 15 Oct 2020 14:32:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kT4OC-00062K-0T; Thu, 15 Oct 2020 14:37:56 +0000
+Received: by outflank-mailman (input) for mailman id 7435;
+ Thu, 15 Oct 2020 14:37:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sFLp=DW=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kT4OB-00062F-BY
+ for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:37:55 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6bf6c1f-20f0-4240-90a6-afc164980bff;
+ Thu, 15 Oct 2020 14:37:54 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 61299ACDB;
+ Thu, 15 Oct 2020 14:37:53 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pHSr=DW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kT4JS-0005pI-B5
-	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:33:02 +0000
-X-Inumbo-ID: eea68783-2e07-4701-adb8-2daf48d18d26
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id eea68783-2e07-4701-adb8-2daf48d18d26;
-	Thu, 15 Oct 2020 14:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MhROGmAGfqMP7RpVMQFYiq/GjI4lFXEkmt14cQb0Rz8=; b=Ebo2pB5CFDzWXSvCvuMsME8kKv
-	T+EyFvP+DPOx0XbGDn5QokYtM1jlWI0kb4LazP3LwQC5mkHeObzY+vNv2ujdwmRxex1d87yJroJhR
-	kM1wDRCdxYA3El5ygGl4srxm/37GeEPQsGIxcYEj5VNnhNpGqr7t8DaEQR6iSM/Lo4TI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4JL-0006S5-Qs; Thu, 15 Oct 2020 14:32:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4JJ-0005FT-AB; Thu, 15 Oct 2020 14:32:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kT4JJ-00024q-9k; Thu, 15 Oct 2020 14:32:53 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155837-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=sFLp=DW=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kT4OB-00062F-BY
+	for xen-devel@lists.xenproject.org; Thu, 15 Oct 2020 14:37:55 +0000
+X-Inumbo-ID: f6bf6c1f-20f0-4240-90a6-afc164980bff
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id f6bf6c1f-20f0-4240-90a6-afc164980bff;
+	Thu, 15 Oct 2020 14:37:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602772673;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fyAdftOWPrn+xC9V3oziST8/L7BPDtEvR1vWQr/edYo=;
+	b=TKpn88v+tlHuc50Ohx8tQdnLNWyltTr3kRUlCiFRMIiRw5JoK3h+kl0jroxGx8ajrdnqig
+	hajS55X8gQIZxT1Ok5V/Jmb8v3EWIgbKZpPAXSSC/GhHePh1LGd/RWE/f5gXaszt5DqU+w
+	KSo1AK0tMG061dn3oGjEoWnb1+RXGZQ=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 61299ACDB;
+	Thu, 15 Oct 2020 14:37:53 +0000 (UTC)
+Subject: Re: [PATCH 2/2] xen/blkback: turn the cache purge percent into a
+ parameter
+To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Jens Axboe <axboe@kernel.dk>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ SeongJae Park <sjpark@amazon.de>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, "J . Roeleveld" <joost@antarean.org>
+References: <20201015142416.70294-1-roger.pau@citrix.com>
+ <20201015142416.70294-3-roger.pau@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <0b7da9e1-6c59-5b8d-52aa-6293568613d1@suse.com>
+Date: Thu, 15 Oct 2020 16:37:52 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Subject: [ovmf test] 155837: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=19c87b7d446c3273e84b238cb02cd1c0ae69c43e
-X-Osstest-Versions-That:
-    ovmf=b9b7406c43e9d29bde3e9679c1b039cb91109097
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Oct 2020 14:32:53 +0000
+In-Reply-To: <20201015142416.70294-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 155837 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155837/
+On 15.10.20 16:24, Roger Pau Monne wrote:
+> Assume that reads and writes to the variable will be atomic. The worse
+> that could happen is that one of the purges removes a partially
+> written percentage of grants, but the cache itself will recover.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> Cc: SeongJae Park <sjpark@amazon.de>
+> Cc: xen-devel@lists.xenproject.org
+> Cc: linux-block@vger.kernel.org
+> Cc: J. Roeleveld <joost@antarean.org>
+> Cc: Jürgen Groß <jgross@suse.com>
+> ---
+>   Documentation/ABI/testing/sysfs-driver-xen-blkback | 9 +++++++++
+>   drivers/block/xen-blkback/blkback.c                | 7 +++++--
+>   2 files changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkback b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> index 776f25d335ca..7de791ad61f9 100644
+> --- a/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> +++ b/Documentation/ABI/testing/sysfs-driver-xen-blkback
+> @@ -45,3 +45,12 @@ Description:
+>                   to be executed periodically. This parameter controls the time
+>                   interval between consecutive executions of the purge mechanism
+>                   is set in ms.
+> +
+> +What:           /sys/module/xen_blkback/parameters/lru_percent_clean
+> +Date:           October 2020
+> +KernelVersion:  5.10
+> +Contact:        Roger Pau Monné <roger.pau@citrix.com>
+> +Description:
+> +                When the persistent grants list is full we will remove unused
+> +                grants from the list. The percent number of grants to be
+> +                removed at each LRU execution.
+> diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
+> index 6ad9b76fdb2b..772852d45a5a 100644
+> --- a/drivers/block/xen-blkback/blkback.c
+> +++ b/drivers/block/xen-blkback/blkback.c
+> @@ -127,7 +127,10 @@ MODULE_PARM_DESC(lru_internval,
+>    * from the list. The percent number of grants to be removed at each LRU
+>    * execution.
+>    */
+> -#define LRU_PERCENT_CLEAN 5
+> +static unsigned int lru_percent_clean = 5;
+> +module_param_named(lru_percent_clean, lru_percent_clean, uint, 0644);
+> +MODULE_PARM_DESC(lru_percent_clean,
+> +		 "Percentage of persistent grants to remove from the cache when full");
+>   
+>   /* Run-time switchable: /sys/module/blkback/parameters/ */
+>   static unsigned int log_stats;
+> @@ -404,7 +407,7 @@ static void purge_persistent_gnt(struct xen_blkif_ring *ring)
+>   	    !ring->blkif->vbd.overflow_max_grants)) {
+>   		num_clean = 0;
+>   	} else {
+> -		num_clean = (max_pgrants / 100) * LRU_PERCENT_CLEAN;
+> +		num_clean = (max_pgrants / 100) * lru_percent_clean;
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 19c87b7d446c3273e84b238cb02cd1c0ae69c43e
-baseline version:
- ovmf                 b9b7406c43e9d29bde3e9679c1b039cb91109097
-
-Last test of basis   155825  2020-10-15 01:10:19 Z    0 days
-Testing same since   155837  2020-10-15 07:14:20 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Laszlo Ersek <lersek@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Hmm, wouldn't it be better to use (max_grants * lru_percent_clean) / 100
+here in order to support max_grants values less than 100?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b9b7406c43..19c87b7d44  19c87b7d446c3273e84b238cb02cd1c0ae69c43e -> xen-tested-master
+Juergen
 
