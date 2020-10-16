@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6877828FE74
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 08:44:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7781.20507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9452A28FE7A
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 08:46:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7783.20519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTJTK-0006iM-Du; Fri, 16 Oct 2020 06:44:14 +0000
+	id 1kTJUk-0006pq-Py; Fri, 16 Oct 2020 06:45:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7781.20507; Fri, 16 Oct 2020 06:44:14 +0000
+Received: by outflank-mailman (output) from mailman id 7783.20519; Fri, 16 Oct 2020 06:45:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,99 +23,126 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTJTK-0006hx-Ax; Fri, 16 Oct 2020 06:44:14 +0000
-Received: by outflank-mailman (input) for mailman id 7781;
- Fri, 16 Oct 2020 06:44:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kTJUk-0006pR-MM; Fri, 16 Oct 2020 06:45:42 +0000
+Received: by outflank-mailman (input) for mailman id 7783;
+ Fri, 16 Oct 2020 06:45:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kTJTI-0006hs-Su
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 06:44:12 +0000
+ id 1kTJUj-0006pH-0F
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 06:45:41 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0f628764-2c53-4fdd-bc58-e06c0d956297;
- Fri, 16 Oct 2020 06:44:09 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4196fd8b-ea82-4d4f-a40d-cbd7bd9890c4;
+ Fri, 16 Oct 2020 06:45:39 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 813D3ACD9;
- Fri, 16 Oct 2020 06:44:08 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id 2F6FAACD5;
+ Fri, 16 Oct 2020 06:45:39 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kTJTI-0006hs-Su
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 06:44:12 +0000
-X-Inumbo-ID: 0f628764-2c53-4fdd-bc58-e06c0d956297
+	id 1kTJUj-0006pH-0F
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 06:45:41 +0000
+X-Inumbo-ID: 4196fd8b-ea82-4d4f-a40d-cbd7bd9890c4
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0f628764-2c53-4fdd-bc58-e06c0d956297;
-	Fri, 16 Oct 2020 06:44:09 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 4196fd8b-ea82-4d4f-a40d-cbd7bd9890c4;
+	Fri, 16 Oct 2020 06:45:39 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602830648;
+	t=1602830739;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=HwZIN0/5cggcluncTcnNNvqypXWTvfy5WvjBm4xdXaM=;
-	b=sJkyLCgTSNtFUM3cazEmrkG7Zuh0KbzJpwyPmc05eHPcaUBC7sBT7qtIw76r8gyMw8lmLf
-	1I71SbGcXh0HNZHpdwgQKPlEkJ68XttkFLXqEGLbxXVy7sJIcAsALTPL/JQkIpJsM3xPCH
-	oSXrExojoE0S3qS5C+hNDuXZ7TUWJn4=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aOS7bPFV+sLf66LB+makeYj9odLxiFHiWVjcl0XyTw4=;
+	b=shWazdF6MU5052F3s+xyu4OdttfeXqQIWgiFVxdjwnmhEozagM3DGPkS2LJncz3xqKtqcJ
+	aFG/uyfUt7W7uj0Y5Ud7RZkEoKryyTQ/iNtWfIiMAEMTCoXoBVpsBlf86lbH/hNiGT0eWe
+	RWmek9mRAJ2sg0qstLP0skeAHHU3bds=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 813D3ACD9;
-	Fri, 16 Oct 2020 06:44:08 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>
+	by mx2.suse.de (Postfix) with ESMTP id 2F6FAACD5;
+	Fri, 16 Oct 2020 06:45:39 +0000 (UTC)
+Subject: Re: [PATCH v2] x86/smpboot: Don't unconditionally call
+ memguard_guard_stack() in cpu_smpboot_alloc()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20201014184708.17758-1-andrew.cooper3@citrix.com>
+ <0ed412d9-c9a2-194b-c953-c74ee102664f@suse.com>
+ <0a294279-5de5-3b54-b1f9-847de1159447@citrix.com>
+ <578a0afd-693a-c704-317e-477e5e27d497@suse.com>
+ <5df2626b-8755-8cdb-7cbc-74d51b569a0b@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: XENMAPSPACE_gmfn{,_batch,_range} want to special case
- idx == gpfn
-Message-ID: <920fa307-190e-dc11-f338-5b44a2126050@suse.com>
-Date: Fri, 16 Oct 2020 08:44:10 +0200
+Message-ID: <6f3accdd-1581-cc70-10bf-017b762ea56d@suse.com>
+Date: Fri, 16 Oct 2020 08:45:40 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
+In-Reply-To: <5df2626b-8755-8cdb-7cbc-74d51b569a0b@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-In this case up to now we've been freeing the page (through
-guest_remove_page(), with the actual free typically happening at the
-put_page() later in the function), but then failing the call on the
-subsequent GFN consistency check. However, in my opinion such a request
-should complete as an "expensive" no-op (leaving aside the potential
-unsharing of the page).
+On 15.10.2020 18:38, Andrew Cooper wrote:
+> On 15/10/2020 16:16, Jan Beulich wrote:
+>> On 15.10.2020 16:02, Andrew Cooper wrote:
+>>> On 15/10/2020 09:50, Jan Beulich wrote:
+>>>> On 14.10.2020 20:47, Andrew Cooper wrote:
+>>>>> cpu_smpboot_alloc() is designed to be idempotent with respect to partially
+>>>>> initialised state.  This occurs for S3 and CPU parking, where enough state to
+>>>>> handle NMIs/#MCs needs to remain valid for the entire lifetime of Xen, even
+>>>>> when we otherwise want to offline the CPU.
+>>>>>
+>>>>> For simplicity between various configuration, Xen always uses shadow stack
+>>>>> mappings (Read-only + Dirty) for the guard page, irrespective of whether
+>>>>> CET-SS is enabled.
+>>>>>
+>>>>> Unfortunately, the CET-SS changes in memguard_guard_stack() broke idempotency
+>>>>> by first writing out the supervisor shadow stack tokens with plain writes,
+>>>>> then changing the mapping to being read-only.
+>>>>>
+>>>>> This ordering is strictly necessary to configure the BSP, which cannot have
+>>>>> the supervisor tokens be written with WRSS.
+>>>>>
+>>>>> Instead of calling memguard_guard_stack() unconditionally, call it only when
+>>>>> actually allocating a new stack.  Xenheap allocates are guaranteed to be
+>>>>> writeable, and the net result is idempotency WRT configuring stack_base[].
+>>>>>
+>>>>> Fixes: 91d26ed304f ("x86/shstk: Create shadow stacks")
+>>>>> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> ---
+>>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> CC: Wei Liu <wl@xen.org>
+>>>>>
+>>>>> This can more easily be demonstrated with CPU hotplug than S3, and the absence
+>>>>> of bug reports goes to show how rarely hotplug is used.
+>>>>>
+>>>>> v2:
+>>>>>  * Don't break S3/CPU parking in combination with CET-SS.  v1 would, for S3,
+>>>>>    turn the BSP shadow stack into regular mappings, and #DF as soon as the TLB
+>>>>>    shootdown completes.
+>>>> The code change looks correct to me, but since I don't understand
+>>>> this part I'm afraid I may be overlooking something. I understand
+>>>> the "turn the BSP shadow stack into regular mappings" relates to
+>>>> cpu_smpboot_free()'s call to memguard_unguard_stack(), but I
+>>>> didn't think we come through cpu_smpboot_free() for the BSP upon
+>>>> entering or leaving S3.
+>>> The v1 really did fix Marek's repro of the problem.
+>>>
+>>> The only possible way this can occur is if, somewhere, there is a call
+>>> to cpu_smpboot_free() for CPU0 with remove=0 on the S3 path
+>> I didn't think it was the BSP's stack that got written to, but the
+>> first AP's before letting it run.
+> 
+> Oh yes - my analysis was wrong.  The CPU notifier for CPU 1 to come up
+> runs on CPU 0.
+> 
+> So only the --- text was wrong.  Are you happy with the fix now?
 
-This points out that f33d653f46f5 ("x86: replace bad ASSERT() in
-xenmem_add_to_physmap_one()" would really have needed an XSA, despite
-its description claiming otherwise, as in release builds we then put in
-place a P2M entry referencing the about to be freed page.
+Indeed I am:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I've been considering to make such operations "cheap" NOPs rather than
-"expensive" ones, by comparing idx and gpfn early in the function in
-the XENMAPSPACE_gmfn case block, but I've come to the conclusion that
-having the operation perform otherwise normally is better - this way,
-errors that would result if idx != gpfn will still result. While I'm
-open to reasons towards the other alternative, having the added check be
-MFN-based makes crystal clear that we're dealing with the same
-underlying physical resource, i.e. also covers the hypothetical(?) case
-of two GFNs referring to the same MFN.
-
-I'm unconvinced that it is correct for prev_mfn's p2mt to not be
-inspected at all - I don't think things will go right if p2m_shared()
-was true for it. But I'm afraid I'm not up to correcting mem-sharing
-related logic.
-
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -4555,7 +4555,7 @@ int xenmem_add_to_physmap_one(
-         if ( is_special_page(mfn_to_page(prev_mfn)) )
-             /* Special pages are simply unhooked from this phys slot. */
-             rc = guest_physmap_remove_page(d, gpfn, prev_mfn, PAGE_ORDER_4K);
--        else
-+        else if ( !mfn_eq(mfn, prev_mfn) )
-             /* Normal domain memory is freed, to avoid leaking memory. */
-             rc = guest_remove_page(d, gfn_x(gpfn));
-     }
+Jan
 
