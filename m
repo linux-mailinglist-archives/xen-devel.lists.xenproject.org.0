@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22776290047
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 10:56:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7842.20663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB5B62901D4
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 11:27:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7850.20681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTLXZ-0002hT-OW; Fri, 16 Oct 2020 08:56:45 +0000
+	id 1kTM0H-0005N1-8a; Fri, 16 Oct 2020 09:26:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7842.20663; Fri, 16 Oct 2020 08:56:45 +0000
+Received: by outflank-mailman (output) from mailman id 7850.20681; Fri, 16 Oct 2020 09:26:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,96 +23,120 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTLXZ-0002h4-LI; Fri, 16 Oct 2020 08:56:45 +0000
-Received: by outflank-mailman (input) for mailman id 7842;
- Fri, 16 Oct 2020 08:56:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kTLXY-0002gv-6E
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 08:56:44 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c96010d6-d6ae-44c4-b696-86114a01252d;
- Fri, 16 Oct 2020 08:56:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5006EAC0C;
- Fri, 16 Oct 2020 08:56:42 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kTM0H-0005Mc-5I; Fri, 16 Oct 2020 09:26:25 +0000
+Received: by outflank-mailman (input) for mailman id 7850;
+ Fri, 16 Oct 2020 09:26:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VcLu=DX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kTM0F-0005MA-JT
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 09:26:23 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dff46635-d760-4e78-9c72-d9a24daed830;
+ Fri, 16 Oct 2020 09:26:17 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTM09-00088L-3H; Fri, 16 Oct 2020 09:26:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTM08-0001oD-QM; Fri, 16 Oct 2020 09:26:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTM08-0003k3-Ps; Fri, 16 Oct 2020 09:26:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kTLXY-0002gv-6E
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 08:56:44 +0000
-X-Inumbo-ID: c96010d6-d6ae-44c4-b696-86114a01252d
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c96010d6-d6ae-44c4-b696-86114a01252d;
-	Fri, 16 Oct 2020 08:56:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602838602;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2dy94yMzztdQsQpIhT40xhT2ki5Jo8sjdCZ511fC+Pk=;
-	b=tlCeww70D4k6vNbikgYBYG9T5lcdLE5LDlnr7/ldWGNVFpg0pb2ohCbScR+19FcPzANgOX
-	0V/ijDFM8lkuyAcx1E+Nwma1NxCBTesEgCQwz5qhoQMQNNj53ZfPcxH3SXcH/8Ly9zkdao
-	W3HkbuJoycX8Um3SZGv86JDhtWSnICI=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 5006EAC0C;
-	Fri, 16 Oct 2020 08:56:42 +0000 (UTC)
-Subject: Re: [PATCH V2 21/23] xen/arm: Add mapcache invalidation handling
-To: Julien Grall <julien@xen.org>
-Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-22-git-send-email-olekstysh@gmail.com>
- <cad29fdb-089a-541b-6c5b-538d96441714@suse.com>
- <b074eb70-a770-1f96-3d68-b06476b963ca@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e638b6b7-1939-4542-85fa-70d8e1f5e9d6@suse.com>
-Date: Fri, 16 Oct 2020 10:56:43 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	(envelope-from <SRS0=VcLu=DX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kTM0F-0005MA-JT
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 09:26:23 +0000
+X-Inumbo-ID: dff46635-d760-4e78-9c72-d9a24daed830
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id dff46635-d760-4e78-9c72-d9a24daed830;
+	Fri, 16 Oct 2020 09:26:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=K7nFD8ulU1BrdRX4c/Di2KlCmOk8+6M3tyW+QNUYMmg=; b=EPEUgefl94pcNzQg/Fa3gNWw1j
+	kzW3kuLDHsBuNt8Uaa0HjJG6rY4KbNwu+WoNvpF+2ccvIowZPCruVHNwsUc7qRk4B+1KEn+0AgKi6
+	eROLr9g4ULD3dpm3Qx3Q3sAI0Gv+c09ymSaO+07RTrhu2Vg4es+PmC5wCXosYx+FFM+I=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTM09-00088L-3H; Fri, 16 Oct 2020 09:26:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTM08-0001oD-QM; Fri, 16 Oct 2020 09:26:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTM08-0003k3-Ps; Fri, 16 Oct 2020 09:26:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155881-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <b074eb70-a770-1f96-3d68-b06476b963ca@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 155881: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=d25fd8710d6c8fc11582210fb1f8480c0d98416b
+X-Osstest-Versions-That:
+    ovmf=19c87b7d446c3273e84b238cb02cd1c0ae69c43e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 16 Oct 2020 09:26:16 +0000
 
-On 16.10.2020 10:41, Julien Grall wrote:
-> On 16/10/2020 07:29, Jan Beulich wrote:
->> Given how p2m_free_entry() works (or is supposed to work in the
->> long run), is the new code you add guaranteed to only alter leaf
->> entries?
-> 
-> This path may also be called with tables. I think we want to move the 
-> check in p2m_free_entry() so we can find the correct leaf type.
-> 
->> If not, the freeing of page tables needs deferring until
->> after qemu has dropped its mappings.
-> 
-> Freeing the page tables doesn't release a page. So may I ask why we 
-> would need to defer it?
+flight 155881 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155881/
 
-Oh, sorry - qemu of course doesn't use the same p2m, so the
-intermediate page tables are private to the subject guest.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d25fd8710d6c8fc11582210fb1f8480c0d98416b
+baseline version:
+ ovmf                 19c87b7d446c3273e84b238cb02cd1c0ae69c43e
 
->> And with there being refcounting only for foreign pages, how do
->> you prevent the freeing of the page just unmapped before qemu has
->> dropped its possible mapping?
-> QEMU mappings can only be done using the foreign mapping interface. This 
-> means that page reference count will be incremented for each QEMU 
-> mappings. Therefore the page cannot disappear until QEMU dropped the 
-> last reference.
+Last test of basis   155837  2020-10-15 07:14:20 Z    1 days
+Testing same since   155881  2020-10-16 01:40:02 Z    0 days    1 attempts
 
-Okay, sorry for the noise then.
+------------------------------------------------------------
+People who touched revisions under test:
+  Compostella, Jeremy <jeremy.compostella@intel.com>
+  Jeremy Compostella <jeremy.compostella@intel.com>
 
-Jan
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   19c87b7d44..d25fd8710d  d25fd8710d6c8fc11582210fb1f8480c0d98416b -> xen-tested-master
 
