@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB5B62901D4
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 11:27:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7850.20681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822BB2901E3
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 11:32:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7853.20693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTM0H-0005N1-8a; Fri, 16 Oct 2020 09:26:25 +0000
+	id 1kTM69-0006Eq-Uc; Fri, 16 Oct 2020 09:32:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7850.20681; Fri, 16 Oct 2020 09:26:25 +0000
+Received: by outflank-mailman (output) from mailman id 7853.20693; Fri, 16 Oct 2020 09:32:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,120 +23,131 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTM0H-0005Mc-5I; Fri, 16 Oct 2020 09:26:25 +0000
-Received: by outflank-mailman (input) for mailman id 7850;
- Fri, 16 Oct 2020 09:26:23 +0000
+	id 1kTM69-0006ER-RJ; Fri, 16 Oct 2020 09:32:29 +0000
+Received: by outflank-mailman (input) for mailman id 7853;
+ Fri, 16 Oct 2020 09:32:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VcLu=DX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kTM0F-0005MA-JT
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 09:26:23 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kTM68-0006EM-CT
+ for xen-devel@lists.xen.org; Fri, 16 Oct 2020 09:32:28 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dff46635-d760-4e78-9c72-d9a24daed830;
- Fri, 16 Oct 2020 09:26:17 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kTM09-00088L-3H; Fri, 16 Oct 2020 09:26:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kTM08-0001oD-QM; Fri, 16 Oct 2020 09:26:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kTM08-0003k3-Ps; Fri, 16 Oct 2020 09:26:16 +0000
+ id f5f72749-a7be-438b-8077-20b35450b082;
+ Fri, 16 Oct 2020 09:32:27 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 32C3BAD82;
+ Fri, 16 Oct 2020 09:32:26 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VcLu=DX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kTM0F-0005MA-JT
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 09:26:23 +0000
-X-Inumbo-ID: dff46635-d760-4e78-9c72-d9a24daed830
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kTM68-0006EM-CT
+	for xen-devel@lists.xen.org; Fri, 16 Oct 2020 09:32:28 +0000
+X-Inumbo-ID: f5f72749-a7be-438b-8077-20b35450b082
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id dff46635-d760-4e78-9c72-d9a24daed830;
-	Fri, 16 Oct 2020 09:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=K7nFD8ulU1BrdRX4c/Di2KlCmOk8+6M3tyW+QNUYMmg=; b=EPEUgefl94pcNzQg/Fa3gNWw1j
-	kzW3kuLDHsBuNt8Uaa0HjJG6rY4KbNwu+WoNvpF+2ccvIowZPCruVHNwsUc7qRk4B+1KEn+0AgKi6
-	eROLr9g4ULD3dpm3Qx3Q3sAI0Gv+c09ymSaO+07RTrhu2Vg4es+PmC5wCXosYx+FFM+I=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kTM09-00088L-3H; Fri, 16 Oct 2020 09:26:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kTM08-0001oD-QM; Fri, 16 Oct 2020 09:26:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kTM08-0003k3-Ps; Fri, 16 Oct 2020 09:26:16 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-155881-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id f5f72749-a7be-438b-8077-20b35450b082;
+	Fri, 16 Oct 2020 09:32:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602840746;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dYDPGZrXdyi46y7fj9XtittCt4pGBBzOezx1Qmnham4=;
+	b=GYq8SQwC0brftuO1X2jjp6UT1ZNhZ8PGhPWINDzUJ4aPqRMgqA+cd6YVsUXAtTw/D/Q3Ya
+	fc9uYcmzBvBoAn7yvEj8PXHlnURHUg+mGPUjwdDb5Im8vz55zYPJzom+nJ6N4HAD3QLHN3
+	mdQbTRVa7Z9fGaYvdOU3yjivwRYASog=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 32C3BAD82;
+	Fri, 16 Oct 2020 09:32:26 +0000 (UTC)
+Subject: Re: [Xen-devel] [XEN PATCH v14 8/8] Add xentrace to vmware_port
+To: Don Slutz <don.slutz@gmail.com>
+Cc: xen-devel@lists.xen.org,
+ Aravind Gopalakrishnan <Aravind.Gopalakrishnan@amd.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Eddie Dong <eddie.dong@intel.com>, Ian Campbell <ian.campbell@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Keir Fraser <keir@xen.org>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <stefano.stabellini@eu.citrix.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Tim Deegan <tim@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Don Slutz <dslutz@verizon.com>
+References: <cover.1597854907.git.don.slutz@gmail.com>
+ <1bfc92ee47f425235821c3655564a5a4b3d34593.1597854908.git.don.slutz@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5ad14acd-eff3-ea34-93f3-cdc195a3b9bb@suse.com>
+Date: Fri, 16 Oct 2020 11:32:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Subject: [ovmf test] 155881: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d25fd8710d6c8fc11582210fb1f8480c0d98416b
-X-Osstest-Versions-That:
-    ovmf=19c87b7d446c3273e84b238cb02cd1c0ae69c43e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Oct 2020 09:26:16 +0000
+In-Reply-To: <1bfc92ee47f425235821c3655564a5a4b3d34593.1597854908.git.don.slutz@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 155881 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/155881/
+On 19.08.2020 18:52, Don Slutz wrote:
+> From: Don Slutz <dslutz@verizon.com>
+> 
+> Also added missing TRAP_DEBUG & VLAPIC.
+> 
+> Signed-off-by: Don Slutz <dslutz@verizon.com>
+> CC: Don Slutz <don.slutz@gmail.com>
+> ---
+> Acked-by: Ian Campbell <ian.campbell@citrix.com>
+> 
+> v14:
+>   Reworked to current code.
+>   Added VMPORT_SEND because I wanted to see it during testing.
+> 
+> v13:
+>     Please do this by extending the existing infrastructure rather
+>     than special-casing 7 on the side.  (i.e. extend ND to take 7
+>     parameters, and introduce HVMTRACE_7D)
+>     = { d1, d2, d3, d4, d5, d6, d7 } will be far shorter, linewise.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d25fd8710d6c8fc11582210fb1f8480c0d98416b
-baseline version:
- ovmf                 19c87b7d446c3273e84b238cb02cd1c0ae69c43e
+I think this would have wanted to split into two patches right
+at the time: One for the extension, and another for the new
+VMware logic. But see below.
 
-Last test of basis   155837  2020-10-15 07:14:20 Z    1 days
-Testing same since   155881  2020-10-16 01:40:02 Z    0 days    1 attempts
+> @@ -62,6 +63,7 @@ static int vmport_ioport(int dir, uint32_t port, uint32_t bytes, uint32_t *val)
+>      if ( port == BDOOR_PORT && regs->eax == BDOOR_MAGIC )
+>      {
+>          uint32_t new_eax = ~0u;
+> +        uint16_t cmd = regs->ecx;
+>          uint64_t value;
+>          struct vcpu *curr = current;
+>          struct domain *currd = curr->domain;
+> @@ -72,7 +74,7 @@ static int vmport_ioport(int dir, uint32_t port, uint32_t bytes, uint32_t *val)
+>           * leaving the high 32-bits unchanged, unlike what one would
+>           * expect to happen.
+>           */
+> -        switch ( regs->ecx & 0xffff )
+> +        switch ( cmd )
+>          {
+>          case BDOOR_CMD_GETMHZ:
+>              new_eax = currd->arch.tsc_khz / 1000;
+> @@ -147,14 +149,22 @@ static int vmport_ioport(int dir, uint32_t port, uint32_t bytes, uint32_t *val)
+>              break;
+>  
+>          default:
+> +            HVMTRACE_6D(VMPORT_SEND, cmd, regs->ebx, regs->ecx,
+> +                        regs->edx, regs->esi, regs->edi);
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Compostella, Jeremy <jeremy.compostella@intel.com>
-  Jeremy Compostella <jeremy.compostella@intel.com>
+With cmd derived from regs->ecx, why pass the same value twice here?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+>              /* Let backing DM handle */
+>              return X86EMUL_UNHANDLEABLE;
+>          }
+> +        HVMTRACE_7D(VMPORT_HANDLED, cmd, new_eax, regs->ebx, regs->ecx,
+> +                    regs->edx, regs->esi, regs->edi);
 
+None of the cases making it here consumes or alter regs->edi. Why
+record / report its value? Without this, the entire widening to 7
+parameters becomes unnecessary for now, afaics.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   19c87b7d44..d25fd8710d  d25fd8710d6c8fc11582210fb1f8480c0d98416b -> xen-tested-master
+Jan
 
