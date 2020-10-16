@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C713290588
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 14:49:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8074.21494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 625A5290641
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 15:26:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8079.21506 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTPAM-0002yX-Hr; Fri, 16 Oct 2020 12:49:02 +0000
+	id 1kTPje-0006S8-IH; Fri, 16 Oct 2020 13:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8074.21494; Fri, 16 Oct 2020 12:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 8079.21506; Fri, 16 Oct 2020 13:25:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,525 +23,92 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTPAM-0002y8-Du; Fri, 16 Oct 2020 12:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 8074;
- Fri, 16 Oct 2020 12:49:01 +0000
+	id 1kTPje-0006Rj-Ew; Fri, 16 Oct 2020 13:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 8079;
+ Fri, 16 Oct 2020 13:25:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
- id 1kTPAL-0002y3-Ix
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 12:49:01 +0000
-Received: from asavdk4.altibox.net (unknown [109.247.116.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rWFt=DX=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kTPjc-0006Re-Ss
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 13:25:28 +0000
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5af31553-d482-439c-90fc-2b323f01e13f;
- Fri, 16 Oct 2020 12:48:59 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id 383A2806F9;
- Fri, 16 Oct 2020 14:48:52 +0200 (CEST)
+ id e39ba013-943a-48fc-b9ec-fd31ba739f41;
+ Fri, 16 Oct 2020 13:25:27 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id f21so2476948wml.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Oct 2020 06:25:27 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id 64sm2856197wmd.3.2020.10.16.06.25.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Oct 2020 06:25:25 -0700 (PDT)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
-	id 1kTPAL-0002y3-Ix
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 12:49:01 +0000
-X-Inumbo-ID: 5af31553-d482-439c-90fc-2b323f01e13f
-Received: from asavdk4.altibox.net (unknown [109.247.116.15])
+	(envelope-from <SRS0=rWFt=DX=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+	id 1kTPjc-0006Re-Ss
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 13:25:28 +0000
+X-Inumbo-ID: e39ba013-943a-48fc-b9ec-fd31ba739f41
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 5af31553-d482-439c-90fc-2b323f01e13f;
-	Fri, 16 Oct 2020 12:48:59 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by asavdk4.altibox.net (Postfix) with ESMTPS id 383A2806F9;
-	Fri, 16 Oct 2020 14:48:52 +0200 (CEST)
-Date: Fri, 16 Oct 2020 14:48:50 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
-	daniel@ffwll.ch, alexander.deucher@amd.com,
-	christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
-	linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
-	inki.dae@samsung.com, jy0922.shim@samsung.com,
-	sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
-	krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com,
-	robh@kernel.org, tomeu.vizoso@collabora.com, steven.price@arm.com,
-	alyssa.rosenzweig@collabora.com, hjc@rock-chips.com,
-	heiko@sntech.de, hdegoede@redhat.com, sean@poorly.run,
-	eric@anholt.net, oleksandr_andrushchenko@epam.com,
-	ray.huang@amd.com, sumit.semwal@linaro.org,
-	emil.velikov@collabora.com, luben.tuikov@amd.com, apaneers@amd.com,
-	linus.walleij@linaro.org, melissa.srw@gmail.com,
-	chris@chris-wilson.co.uk, miaoqinglang@huawei.com,
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org,
-	etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v4 10/10] drm/fb_helper: Support framebuffers in I/O
- memory
-Message-ID: <20201016124850.GA1174599@ravnborg.org>
-References: <20201015123806.32416-1-tzimmermann@suse.de>
- <20201015123806.32416-11-tzimmermann@suse.de>
- <20201016120347.GB1125266@ravnborg.org>
- <20201016141942.111e17f3@linux-uq9g>
+	id e39ba013-943a-48fc-b9ec-fd31ba739f41;
+	Fri, 16 Oct 2020 13:25:27 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id f21so2476948wml.3
+        for <xen-devel@lists.xenproject.org>; Fri, 16 Oct 2020 06:25:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to:user-agent;
+        bh=HRWYyHhjSt+jchGWaAnnJLVz+GBYjjs43COiHHYA0hM=;
+        b=hMA3PifN+TkFADOuTujDdp5jirqI2pIjbRQLAXcDdK3LSFKlZGQvDVhO39kn4wCI1H
+         JkFevRBKDbIuLL2JSzkwOofK9Vme7R/WXeL/5u7n0/Ffvs3RFl5OXUx1Btce99xgUL0W
+         YuFzrsOxxgEsG+zxBZAU1entG9N7IzT0K+t6C/cC3cJBg7CJQPv/W5BIqJAm/HZ8F2cU
+         ZqtoAk56pbPyq4Scg2MPOTA6lgX8dOSBZMr4GOgAd0fKMuYUKGkvQt52AbVgY7DP3vvr
+         pOJl3eIs1dqLGnlc/XfRy+ZMuEtSruYE7hTCMdWZ3q2sjqz+DFBsjqGv3//wJdPrgzaV
+         lp8Q==
+X-Gm-Message-State: AOAM533fqmlMjRLvGTHNUxWYTDhPzuBfYL2rtyKfjv2SXm/+2m6cwM4I
+	DU0pkrjBt9fq9Zx5KITry8eb+9O+hms=
+X-Google-Smtp-Source: ABdhPJwLvSTIZsKY4SyQhj9apLT9Vhv8yopKQh1i8YJAE4MT93w6G92F34Iql4BfiJQkzZp6Dm8uIQ==
+X-Received: by 2002:a05:600c:2217:: with SMTP id z23mr4025406wml.133.1602854726672;
+        Fri, 16 Oct 2020 06:25:26 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+        by smtp.gmail.com with ESMTPSA id 64sm2856197wmd.3.2020.10.16.06.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2020 06:25:25 -0700 (PDT)
+Date: Fri, 16 Oct 2020 13:25:24 +0000
+From: Wei Liu <wl@xen.org>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [SECOND RESEND] [PATCH] tools/python: Pass linker to Python
+ build process
+Message-ID: <20201016132524.wuli37asps4eshce@liuwe-devbox-debian-v2>
+References: <20201012011139.GA82449@mattapan.m5p.com>
+ <20201015010148.GQ151766@mail-itl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201016141942.111e17f3@linux-uq9g>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=fu7ymmwf c=1 sm=1 tr=0
-	a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
-	a=8nJEP1OIZ-IA:10 a=7gkXJVJtAAAA:8 a=6Hpfs63HWkxrz3fWGNMA:9
-	a=w4pgIJ6L-nyCBc2a:21 a=gikFlJ38tUkSyios:21 a=wPNLvfGTeEIA:10
-	a=qfUslh1TxfEA:10 a=E9Po1WZjFZOl8hwRPBS3:22
+In-Reply-To: <20201015010148.GQ151766@mail-itl>
+User-Agent: NeoMutt/20180716
 
-On Fri, Oct 16, 2020 at 02:19:42PM +0200, Thomas Zimmermann wrote:
-> Hi
+On Thu, Oct 15, 2020 at 03:01:48AM +0200, Marek Marczykowski-Górecki wrote:
+> On Sun, Oct 11, 2020 at 06:11:39PM -0700, Elliott Mitchell wrote:
+> > Unexpectedly the environment variable which needs to be passed is
+> > $LDSHARED and not $LD.  Otherwise Python may find the build `ld` instead
+> > of the host `ld`.
+> > 
+> > Replace $(LDFLAGS) with $(SHLIB_LDFLAGS) as Python needs shared objects
+> > it can load at runtime, not executables.
+> > 
+> > This uses $(CC) instead of $(LD) since Python distutils appends $CFLAGS
+> > to $LDFLAGS which breaks many linkers.
+> > 
+> > Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
 > 
-> On Fri, 16 Oct 2020 14:03:47 +0200 Sam Ravnborg <sam@ravnborg.org> wrote:
-> 
-> > Hi Thomas.
-> > 
-> > On Thu, Oct 15, 2020 at 02:38:06PM +0200, Thomas Zimmermann wrote:
-> > > At least sparc64 requires I/O-specific access to framebuffers. This
-> > > patch updates the fbdev console accordingly.
-> > > 
-> > > For drivers with direct access to the framebuffer memory, the callback
-> > > functions in struct fb_ops test for the type of memory and call the rsp
-> > > fb_sys_ of fb_cfb_ functions.
-> > > 
-> > > For drivers that employ a shadow buffer, fbdev's blit function retrieves
-> > > the framebuffer address as struct dma_buf_map, and uses dma_buf_map
-> > > interfaces to access the buffer.
-> > > 
-> > > The bochs driver on sparc64 uses a workaround to flag the framebuffer as
-> > > I/O memory and avoid a HW exception. With the introduction of struct
-> > > dma_buf_map, this is not required any longer. The patch removes the rsp
-> > > code from both, bochs and fbdev.
-> > > 
-> > > v4:
-> > > 	* move dma_buf_map changes into separate patch (Daniel)
-> > > 	* TODO list: comment on fbdev updates (Daniel)
-> > > 
-> > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > 
-> > The original workaround fixed it so we could run qemu with the
-> > -nographic option.
-> > 
-> > So I went ahead and tried to run quemu version:
-> > v5.0.0-1970-g0b100c8e72-dirty.
-> > And with the BOCHS driver built-in.
-> > 
-> > With the following command line:
-> > qemu-system-sparc64 -m 512 -kernel vmlinux -append console=ttyS0 -nographic
-> > 
-> > Behaviour was the same before and after applying this patch.
-> > (panic due to VFS: Unable to mount root fs on unknown-block(0,0))
-> > So I consider it fixed for real now and not just a workaround.
-> > 
-> > I also tested with:
-> > qemu-system-sparc64 -m 512 -kernel vmlinux -append console=ttyS0 -serial
-> > stdio
-> > 
-> > and it worked in both cases too.
-> 
-> FTR, you booted a kernel and got graphics output. The error is simply that
-> there was no disk to mount?
+> Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-The short version "Yes".
+Thanks. Applied.
 
-The longer version:
-
-With "qemu-system-sparc64 -m 512 -kernel vmlinux -append console=ttyS0
--serial stdio" I got graphical output - one penguin.
-
-With "qemu-system-sparc64 -m 512 -kernel vmlinux -append console=ttyS0
--nographic" I got no graphical output, as implied by the -nographic
-option. But the boot continued - where it would panic before when we
-accessed IO memory as system memory.
-
-In both cases I got an error because I had not specified any rootfs, so
-qemu failed to mount any rootfs. So expected.
-
-	Sam
-
-> 
-> Best regards
-> Thomas
-> 
-> > 
-> > All the comments above so future-me have an easier time finding how to
-> > reproduce.
-> > 
-> > Tested-by: Sam Ravnborg <sam@ravnborg.org>
-> > 
-> > 	Sam
-> > 
-> > > ---
-> > >  Documentation/gpu/todo.rst        |  19 ++-
-> > >  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
-> > >  drivers/gpu/drm/drm_fb_helper.c   | 217 ++++++++++++++++++++++++++++--
-> > >  include/drm/drm_mode_config.h     |  12 --
-> > >  4 files changed, 220 insertions(+), 29 deletions(-)
-> > > 
-> > > diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> > > index 7e6fc3c04add..638b7f704339 100644
-> > > --- a/Documentation/gpu/todo.rst
-> > > +++ b/Documentation/gpu/todo.rst
-> > > @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
-> > >  ------------------------------------------------
-> > >  
-> > >  Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
-> > > -atomic modesetting and GEM vmap support. Current generic fbdev emulation
-> > > -expects the framebuffer in system memory (or system-like memory).
-> > > +atomic modesetting and GEM vmap support. Historically, generic fbdev
-> > > emulation +expected the framebuffer in system memory or system-like
-> > > memory. By employing +struct dma_buf_map, drivers with frambuffers in I/O
-> > > memory can be supported +as well.
-> > >  
-> > >  Contact: Maintainer of the driver you plan to convert
-> > >  
-> > >  Level: Intermediate
-> > >  
-> > > +Reimplement functions in drm_fbdev_fb_ops without fbdev
-> > > +-------------------------------------------------------
-> > > +
-> > > +A number of callback functions in drm_fbdev_fb_ops could benefit from
-> > > +being rewritten without dependencies on the fbdev module. Some of the
-> > > +helpers could further benefit from using struct dma_buf_map instead of
-> > > +raw pointers.
-> > > +
-> > > +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
-> > > +
-> > > +Level: Advanced
-> > > +
-> > > +
-> > >  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
-> > >  -----------------------------------------------------------------
-> > >  
-> > > diff --git a/drivers/gpu/drm/bochs/bochs_kms.c
-> > > b/drivers/gpu/drm/bochs/bochs_kms.c index 13d0d04c4457..853081d186d5
-> > > 100644 --- a/drivers/gpu/drm/bochs/bochs_kms.c
-> > > +++ b/drivers/gpu/drm/bochs/bochs_kms.c
-> > > @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
-> > >  	bochs->dev->mode_config.preferred_depth = 24;
-> > >  	bochs->dev->mode_config.prefer_shadow = 0;
-> > >  	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
-> > > -	bochs->dev->mode_config.fbdev_use_iomem = true;
-> > >  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order =
-> > > true; 
-> > >  	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
-> > > diff --git a/drivers/gpu/drm/drm_fb_helper.c
-> > > b/drivers/gpu/drm/drm_fb_helper.c index 6212cd7cde1d..462b0c130ebb 100644
-> > > --- a/drivers/gpu/drm/drm_fb_helper.c
-> > > +++ b/drivers/gpu/drm/drm_fb_helper.c
-> > > @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct
-> > > work_struct *work) }
-> > >  
-> > >  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper
-> > > *fb_helper,
-> > > -					  struct drm_clip_rect *clip)
-> > > +					  struct drm_clip_rect *clip,
-> > > +					  struct dma_buf_map *dst)
-> > >  {
-> > >  	struct drm_framebuffer *fb = fb_helper->fb;
-> > >  	unsigned int cpp = fb->format->cpp[0];
-> > >  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
-> > >  	void *src = fb_helper->fbdev->screen_buffer + offset;
-> > > -	void *dst = fb_helper->buffer->map.vaddr + offset;
-> > >  	size_t len = (clip->x2 - clip->x1) * cpp;
-> > >  	unsigned int y;
-> > >  
-> > > -	for (y = clip->y1; y < clip->y2; y++) {
-> > > -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
-> > > -			memcpy(dst, src, len);
-> > > -		else
-> > > -			memcpy_toio((void __iomem *)dst, src, len);
-> > > +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip
-> > > rect */ 
-> > > +	for (y = clip->y1; y < clip->y2; y++) {
-> > > +		dma_buf_map_memcpy_to(dst, src, len);
-> > > +		dma_buf_map_incr(dst, fb->pitches[0]);
-> > >  		src += fb->pitches[0];
-> > > -		dst += fb->pitches[0];
-> > >  	}
-> > >  }
-> > >  
-> > > @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct
-> > > work_struct *work) ret = drm_client_buffer_vmap(helper->buffer, &map);
-> > >  			if (ret)
-> > >  				return;
-> > > -			drm_fb_helper_dirty_blit_real(helper,
-> > > &clip_copy);
-> > > +			drm_fb_helper_dirty_blit_real(helper,
-> > > &clip_copy, &map); }
-> > > +
-> > >  		if (helper->fb->funcs->dirty)
-> > >  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
-> > >  						 &clip_copy, 1);
-> > > @@ -755,6 +754,136 @@ void drm_fb_helper_sys_imageblit(struct fb_info
-> > > *info, }
-> > >  EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
-> > >  
-> > > +static ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user
-> > > *buf,
-> > > +				      size_t count, loff_t *ppos)
-> > > +{
-> > > +	unsigned long p = *ppos;
-> > > +	u8 *dst;
-> > > +	u8 __iomem *src;
-> > > +	int c, err = 0;
-> > > +	unsigned long total_size;
-> > > +	unsigned long alloc_size;
-> > > +	ssize_t ret = 0;
-> > > +
-> > > +	if (info->state != FBINFO_STATE_RUNNING)
-> > > +		return -EPERM;
-> > > +
-> > > +	total_size = info->screen_size;
-> > > +
-> > > +	if (total_size == 0)
-> > > +		total_size = info->fix.smem_len;
-> > > +
-> > > +	if (p >= total_size)
-> > > +		return 0;
-> > > +
-> > > +	if (count >= total_size)
-> > > +		count = total_size;
-> > > +
-> > > +	if (count + p > total_size)
-> > > +		count = total_size - p;
-> > > +
-> > > +	src = (u8 __iomem *)(info->screen_base + p);
-> > > +
-> > > +	alloc_size = min(count, PAGE_SIZE);
-> > > +
-> > > +	dst = kmalloc(alloc_size, GFP_KERNEL);
-> > > +	if (!dst)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	while (count) {
-> > > +		c = min(count, alloc_size);
-> > > +
-> > > +		memcpy_fromio(dst, src, c);
-> > > +		if (copy_to_user(buf, dst, c)) {
-> > > +			err = -EFAULT;
-> > > +			break;
-> > > +		}
-> > > +
-> > > +		src += c;
-> > > +		*ppos += c;
-> > > +		buf += c;
-> > > +		ret += c;
-> > > +		count -= c;
-> > > +	}
-> > > +
-> > > +	kfree(dst);
-> > > +
-> > > +	if (err)
-> > > +		return err;
-> > > +
-> > > +	return ret;
-> > > +}
-> > > +
-> > > +static ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char
-> > > __user *buf,
-> > > +				       size_t count, loff_t *ppos)
-> > > +{
-> > > +	unsigned long p = *ppos;
-> > > +	u8 *src;
-> > > +	u8 __iomem *dst;
-> > > +	int c, err = 0;
-> > > +	unsigned long total_size;
-> > > +	unsigned long alloc_size;
-> > > +	ssize_t ret = 0;
-> > > +
-> > > +	if (info->state != FBINFO_STATE_RUNNING)
-> > > +		return -EPERM;
-> > > +
-> > > +	total_size = info->screen_size;
-> > > +
-> > > +	if (total_size == 0)
-> > > +		total_size = info->fix.smem_len;
-> > > +
-> > > +	if (p > total_size)
-> > > +		return -EFBIG;
-> > > +
-> > > +	if (count > total_size) {
-> > > +		err = -EFBIG;
-> > > +		count = total_size;
-> > > +	}
-> > > +
-> > > +	if (count + p > total_size) {
-> > > +		/*
-> > > +		 * The framebuffer is too small. We do the
-> > > +		 * copy operation, but return an error code
-> > > +		 * afterwards. Taken from fbdev.
-> > > +		 */
-> > > +		if (!err)
-> > > +			err = -ENOSPC;
-> > > +		count = total_size - p;
-> > > +	}
-> > > +
-> > > +	alloc_size = min(count, PAGE_SIZE);
-> > > +
-> > > +	src = kmalloc(alloc_size, GFP_KERNEL);
-> > > +	if (!src)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	dst = (u8 __iomem *)(info->screen_base + p);
-> > > +
-> > > +	while (count) {
-> > > +		c = min(count, alloc_size);
-> > > +
-> > > +		if (copy_from_user(src, buf, c)) {
-> > > +			err = -EFAULT;
-> > > +			break;
-> > > +		}
-> > > +		memcpy_toio(dst, src, c);
-> > > +
-> > > +		dst += c;
-> > > +		*ppos += c;
-> > > +		buf += c;
-> > > +		ret += c;
-> > > +		count -= c;
-> > > +	}
-> > > +
-> > > +	kfree(src);
-> > > +
-> > > +	if (err)
-> > > +		return err;
-> > > +
-> > > +	return ret;
-> > > +}
-> > > +
-> > >  /**
-> > >   * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
-> > >   * @info: fbdev registered by the helper
-> > > @@ -2027,6 +2156,66 @@ static int drm_fbdev_fb_mmap(struct fb_info *info,
-> > > struct vm_area_struct *vma) return -ENODEV;
-> > >  }
-> > >  
-> > > +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
-> > > +				 size_t count, loff_t *ppos)
-> > > +{
-> > > +	struct drm_fb_helper *fb_helper = info->par;
-> > > +	struct drm_client_buffer *buffer = fb_helper->buffer;
-> > > +
-> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
-> > > +		return drm_fb_helper_sys_read(info, buf, count, ppos);
-> > > +	else
-> > > +		return drm_fb_helper_cfb_read(info, buf, count, ppos);
-> > > +}
-> > > +
-> > > +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char
-> > > __user *buf,
-> > > +				  size_t count, loff_t *ppos)
-> > > +{
-> > > +	struct drm_fb_helper *fb_helper = info->par;
-> > > +	struct drm_client_buffer *buffer = fb_helper->buffer;
-> > > +
-> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
-> > > +		return drm_fb_helper_sys_write(info, buf, count, ppos);
-> > > +	else
-> > > +		return drm_fb_helper_cfb_write(info, buf, count, ppos);
-> > > +}
-> > > +
-> > > +static void drm_fbdev_fb_fillrect(struct fb_info *info,
-> > > +				  const struct fb_fillrect *rect)
-> > > +{
-> > > +	struct drm_fb_helper *fb_helper = info->par;
-> > > +	struct drm_client_buffer *buffer = fb_helper->buffer;
-> > > +
-> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
-> > > +		drm_fb_helper_sys_fillrect(info, rect);
-> > > +	else
-> > > +		drm_fb_helper_cfb_fillrect(info, rect);
-> > > +}
-> > > +
-> > > +static void drm_fbdev_fb_copyarea(struct fb_info *info,
-> > > +				  const struct fb_copyarea *area)
-> > > +{
-> > > +	struct drm_fb_helper *fb_helper = info->par;
-> > > +	struct drm_client_buffer *buffer = fb_helper->buffer;
-> > > +
-> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
-> > > +		drm_fb_helper_sys_copyarea(info, area);
-> > > +	else
-> > > +		drm_fb_helper_cfb_copyarea(info, area);
-> > > +}
-> > > +
-> > > +static void drm_fbdev_fb_imageblit(struct fb_info *info,
-> > > +				   const struct fb_image *image)
-> > > +{
-> > > +	struct drm_fb_helper *fb_helper = info->par;
-> > > +	struct drm_client_buffer *buffer = fb_helper->buffer;
-> > > +
-> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
-> > > +		drm_fb_helper_sys_imageblit(info, image);
-> > > +	else
-> > > +		drm_fb_helper_cfb_imageblit(info, image);
-> > > +}
-> > > +
-> > >  static const struct fb_ops drm_fbdev_fb_ops = {
-> > >  	.owner		= THIS_MODULE,
-> > >  	DRM_FB_HELPER_DEFAULT_OPS,
-> > > @@ -2034,11 +2223,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
-> > >  	.fb_release	= drm_fbdev_fb_release,
-> > >  	.fb_destroy	= drm_fbdev_fb_destroy,
-> > >  	.fb_mmap	= drm_fbdev_fb_mmap,
-> > > -	.fb_read	= drm_fb_helper_sys_read,
-> > > -	.fb_write	= drm_fb_helper_sys_write,
-> > > -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
-> > > -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
-> > > -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
-> > > +	.fb_read	= drm_fbdev_fb_read,
-> > > +	.fb_write	= drm_fbdev_fb_write,
-> > > +	.fb_fillrect	= drm_fbdev_fb_fillrect,
-> > > +	.fb_copyarea	= drm_fbdev_fb_copyarea,
-> > > +	.fb_imageblit	= drm_fbdev_fb_imageblit,
-> > >  };
-> > >  
-> > >  static struct fb_deferred_io drm_fbdev_defio = {
-> > > diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> > > index 5ffbb4ed5b35..ab424ddd7665 100644
-> > > --- a/include/drm/drm_mode_config.h
-> > > +++ b/include/drm/drm_mode_config.h
-> > > @@ -877,18 +877,6 @@ struct drm_mode_config {
-> > >  	 */
-> > >  	bool prefer_shadow_fbdev;
-> > >  
-> > > -	/**
-> > > -	 * @fbdev_use_iomem:
-> > > -	 *
-> > > -	 * Set to true if framebuffer reside in iomem.
-> > > -	 * When set to true memcpy_toio() is used when copying the
-> > > framebuffer in
-> > > -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
-> > > -	 *
-> > > -	 * FIXME: This should be replaced with a per-mapping is_iomem
-> > > -	 * flag (like ttm does), and then used everywhere in fbdev code.
-> > > -	 */
-> > > -	bool fbdev_use_iomem;
-> > > -
-> > >  	/**
-> > >  	 * @quirk_addfb_prefer_xbgr_30bpp:
-> > >  	 *
-> > > -- 
-> > > 2.28.0
-> 
-> 
-> 
-> -- 
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 Nürnberg, Germany
-> (HRB 36809, AG Nürnberg)
-> Geschäftsführer: Felix Imendörffer
+Wei.
 
