@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D87C2902BB
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:21:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7873.20765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51BA72902BD
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:24:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7876.20777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTMrZ-0002jc-7Z; Fri, 16 Oct 2020 10:21:29 +0000
+	id 1kTMtx-0002uT-Lq; Fri, 16 Oct 2020 10:23:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7873.20765; Fri, 16 Oct 2020 10:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 7876.20777; Fri, 16 Oct 2020 10:23:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,109 +23,116 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTMrZ-0002jD-4N; Fri, 16 Oct 2020 10:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 7873;
- Fri, 16 Oct 2020 10:21:27 +0000
+	id 1kTMtx-0002u7-I5; Fri, 16 Oct 2020 10:23:57 +0000
+Received: by outflank-mailman (input) for mailman id 7876;
+ Fri, 16 Oct 2020 10:23:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kTMrX-0002j8-Se
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:21:27 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=VWaZ=DX=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kTMtw-0002u1-1d
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:23:56 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 25006e1c-c1df-4e4f-ac89-c0ab42d59e66;
- Fri, 16 Oct 2020 10:21:26 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 928EBAEEF;
- Fri, 16 Oct 2020 10:21:25 +0000 (UTC)
+ id eee113c4-05d2-4aaa-a1c3-e126932aaeb1;
+ Fri, 16 Oct 2020 10:23:52 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kTMto-00010x-HV; Fri, 16 Oct 2020 10:23:48 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kTMto-0006UE-9a; Fri, 16 Oct 2020 10:23:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kTMrX-0002j8-Se
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:21:27 +0000
-X-Inumbo-ID: 25006e1c-c1df-4e4f-ac89-c0ab42d59e66
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=VWaZ=DX=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kTMtw-0002u1-1d
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:23:56 +0000
+X-Inumbo-ID: eee113c4-05d2-4aaa-a1c3-e126932aaeb1
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 25006e1c-c1df-4e4f-ac89-c0ab42d59e66;
-	Fri, 16 Oct 2020 10:21:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602843685;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qcmxnvRUtgd5pwtZDJYRsRYYJtUit4eLtWDDXvSIsZA=;
-	b=o1mH86nuLG+oZiXBJ815ysRWI7MJTtTamFh18yR9aCNFHFbcni3mN3kW36LxDyGCP/0lPW
-	YuEdYKoRkZZoaICvm3QkNswkEjnB0sQK0/LiyGr9ow2JI9E1NuoWKoXdC8Dfzn+nDcpSBI
-	KnjwDh4sUmyRSYMXuRsIYBdY4mC3RAo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 928EBAEEF;
-	Fri, 16 Oct 2020 10:21:25 +0000 (UTC)
-Subject: Ping: [PATCH] x86/PV: make post-migration page state consistent
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
-Message-ID: <f4804dc9-4a6f-6601-2fc9-9b6d4a3ae41a@suse.com>
-Date: Fri, 16 Oct 2020 12:21:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	id eee113c4-05d2-4aaa-a1c3-e126932aaeb1;
+	Fri, 16 Oct 2020 10:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=0S/GXTmwpIu6yEEvu7d9OAdDFNc4RY8WZMqCXBptqLA=; b=ZOIqUEDCm9GMujrWg/yoycP/lT
+	0QLMgwksUi4vQDDe4lwtmljVnlkTZWBYiTXaMBpH64PsaGSG46xFs66lD4iij3ELt5F5bfC9ybNh9
+	0f3Ns7RQ2gEQkVSy0D23SrAbKp1+JD5kNdTDbpkVM+t/a38mcm+8bEEQfkrqUur08lzg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kTMto-00010x-HV; Fri, 16 Oct 2020 10:23:48 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kTMto-0006UE-9a; Fri, 16 Oct 2020 10:23:48 +0000
+Subject: Re: Xen Coding style and clang-format
+To: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "George.Dunlap@citrix.com" <George.Dunlap@citrix.com>
+Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "vicooodin@gmail.com" <vicooodin@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "viktor.mitin.19@gmail.com" <viktor.mitin.19@gmail.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <300923eb27aea4d19bff3c21bc51d749c315f8e3.camel@epam.com>
+ <4238269c-3bf4-3acb-7464-3d753f377eef@suse.com>
+ <E068C671-8009-4976-87B8-0709F6A5C3BF@citrix.com>
+ <b16dfb26e0916166180d5cbbe95278dc99277330.camel@epam.com>
+ <B64C5E67-7BEA-4C31-9089-AB8CC1F1E80F@citrix.com>
+ <3ff3f7d16cdab692178ce638da1a6b880817fb7e.camel@epam.com>
+ <64FE5ADB-2359-4A31-B1A1-925750515D98@citrix.com>
+ <b4d7e9a7-6c25-1f7f-86ce-867083beb81a@suse.com>
+ <4d4f351b152df2c50e18676ccd6ab6b4dc667801.camel@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5bd7cc00-c4c9-0737-897d-e76f22e2fd5b@xen.org>
+Date: Fri, 16 Oct 2020 11:23:45 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.2
 MIME-Version: 1.0
-In-Reply-To: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <4d4f351b152df2c50e18676ccd6ab6b4dc667801.camel@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 11.09.2020 12:34, Jan Beulich wrote:
-> When a page table page gets de-validated, its type reference count drops
-> to zero (and PGT_validated gets cleared), but its type remains intact.
-> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
-> such pages. An intermediate write to such a page via e.g.
-> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
-> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
-> return. In libxc the decision which pages to normalize / localize
-> depends solely on the type returned from the domctl. As a result without
-> further precautions the guest won't be able to tell whether such a page
-> has had its (apparent) PTE entries transitioned to the new MFNs.
-> 
-> Add a check of PGT_validated, thus consistently avoiding normalization /
-> localization in the tool stack.
-> 
-> Alongside using XEN_DOMCTL_PFINFO_NOTAB instead of plain zero for the
-> change at hand, also change the variable's initializer to use this
-> constant, too. Take the opportunity and also adjust its type.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Hi,
 
-I think I did address all questions here.
+On 16/10/2020 10:42, Anastasiia Lukianenko wrote:
+> Thanks for your advices, which helped me improve the checker. I
+> understand that there are still some disagreements about the
+> formatting, but as I said before, the checker cannot be very flexible
+> and take into account all the author's ideas.
 
-Jan
+I am not sure what you refer by "author's ideas" here. The checker 
+should follow a coding style (Xen or a modified version):
+    - Anything not following the coding style should be considered as 
+invalid.
+    - Anything not written in the coding style should be left 
+untouched/uncommented by the checker.
 
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -215,7 +215,8 @@ long arch_do_domctl(
->  
->          for ( i = 0; i < num; ++i )
->          {
-> -            unsigned long gfn = 0, type = 0;
-> +            unsigned long gfn = 0;
-> +            unsigned int type = XEN_DOMCTL_PFINFO_NOTAB;
->              struct page_info *page;
->              p2m_type_t t;
->  
-> @@ -255,6 +256,8 @@ long arch_do_domctl(
->  
->                  if ( page->u.inuse.type_info & PGT_pinned )
->                      type |= XEN_DOMCTL_PFINFO_LPINTAB;
-> +                else if ( !(page->u.inuse.type_info & PGT_validated) )
-> +                    type = XEN_DOMCTL_PFINFO_NOTAB;
->  
->                  if ( page->count_info & PGC_broken )
->                      type = XEN_DOMCTL_PFINFO_BROKEN;
-> 
+> I suggest using the
+> checker not as a mandatory check, but as an indication to the author of
+> possible formatting errors that he can correct or ignore.
 
+I can understand that short term we would want to make it optional so 
+either the coding style or the checker can be tuned. But I don't think 
+this is an ideal situation to be in long term.
+
+The goal of the checker is to automatically verify the coding style and 
+get it consistent across Xen. If we make it optional or it is 
+"unreliable", then we lose the two benefits and possibly increase the 
+contributor frustration as the checker would say A but we need B.
+
+Therefore, we need to make sure the checker and the coding style match. 
+I don't have any opinions on the approach to achieve that.
+
+Cheers,
+
+-- 
+Julien Grall
 
