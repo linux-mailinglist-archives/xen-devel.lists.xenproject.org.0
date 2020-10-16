@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B5F2903A0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:59:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7890.20839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969F72903A5
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:59:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7892.20863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTNRi-0005wJ-MM; Fri, 16 Oct 2020 10:58:50 +0000
+	id 1kTNRy-0006AM-DP; Fri, 16 Oct 2020 10:59:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7890.20839; Fri, 16 Oct 2020 10:58:50 +0000
+Received: by outflank-mailman (output) from mailman id 7892.20863; Fri, 16 Oct 2020 10:59:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,637 +23,472 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTNRi-0005vT-If; Fri, 16 Oct 2020 10:58:50 +0000
-Received: by outflank-mailman (input) for mailman id 7890;
- Fri, 16 Oct 2020 10:58:49 +0000
+	id 1kTNRy-00069n-8k; Fri, 16 Oct 2020 10:59:06 +0000
+Received: by outflank-mailman (input) for mailman id 7892;
+ Fri, 16 Oct 2020 10:59:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JQTg=DX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kTNRh-0005rq-5g
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:58:49 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
+ id 1kTNRw-00068y-H4
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:59:04 +0000
+Received: from asavdk3.altibox.net (unknown [109.247.116.14])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30c2c371-37aa-4819-8685-6c2344435553;
- Fri, 16 Oct 2020 10:58:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0506FAF2C;
- Fri, 16 Oct 2020 10:58:43 +0000 (UTC)
+ id 5ff914bb-d76d-4203-9cb2-6f1a8bc04d33;
+ Fri, 16 Oct 2020 10:59:01 +0000 (UTC)
+Received: from ravnborg.org (unknown [188.228.123.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id AF7C420074;
+ Fri, 16 Oct 2020 12:58:55 +0200 (CEST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=JQTg=DX=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kTNRh-0005rq-5g
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:58:49 +0000
-X-Inumbo-ID: 30c2c371-37aa-4819-8685-6c2344435553
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
+	id 1kTNRw-00068y-H4
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:59:04 +0000
+X-Inumbo-ID: 5ff914bb-d76d-4203-9cb2-6f1a8bc04d33
+Received: from asavdk3.altibox.net (unknown [109.247.116.14])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 30c2c371-37aa-4819-8685-6c2344435553;
-	Fri, 16 Oct 2020 10:58:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1602845923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GA8cfExfO91DV4o2HCBW/wxrfYxYGPyymWSFttFyle0=;
-	b=oyWCzUuRnsUKEe6Nm2d3xCa49BRPUirIjlYiXC5qd8xVy+2Au4YfEfAs+HqcFZL0yxGNSY
-	cqULpZD32UO+ZLwkjAw8bRE+gqzcEVzwKCOSkfKhBY1MWig0Ma2Byurbg2V55p2U2267cG
-	UXCMdlpOJeBMFT2d+rTbt59PV34CSOU=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0506FAF2C;
-	Fri, 16 Oct 2020 10:58:43 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 2/2] xen/evtchn: rework per event channel lock
-Date: Fri, 16 Oct 2020 12:58:39 +0200
-Message-Id: <20201016105839.14796-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201016105839.14796-1-jgross@suse.com>
-References: <20201016105839.14796-1-jgross@suse.com>
+	id 5ff914bb-d76d-4203-9cb2-6f1a8bc04d33;
+	Fri, 16 Oct 2020 10:59:01 +0000 (UTC)
+Received: from ravnborg.org (unknown [188.228.123.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by asavdk3.altibox.net (Postfix) with ESMTPS id AF7C420074;
+	Fri, 16 Oct 2020 12:58:55 +0200 (CEST)
+Date: Fri, 16 Oct 2020 12:58:54 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+	daniel@ffwll.ch, alexander.deucher@amd.com,
+	christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
+	linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
+	inki.dae@samsung.com, jy0922.shim@samsung.com,
+	sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+	krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com,
+	robh@kernel.org, tomeu.vizoso@collabora.com, steven.price@arm.com,
+	alyssa.rosenzweig@collabora.com, hjc@rock-chips.com,
+	heiko@sntech.de, hdegoede@redhat.com, sean@poorly.run,
+	eric@anholt.net, oleksandr_andrushchenko@epam.com,
+	ray.huang@amd.com, sumit.semwal@linaro.org,
+	emil.velikov@collabora.com, luben.tuikov@amd.com, apaneers@amd.com,
+	linus.walleij@linaro.org, melissa.srw@gmail.com,
+	chris@chris-wilson.co.uk, miaoqinglang@huawei.com,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org, xen-devel@lists.xenproject.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v4 10/10] drm/fb_helper: Support framebuffers in I/O
+ memory
+Message-ID: <20201016105854.GB1042954@ravnborg.org>
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-11-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201015123806.32416-11-tzimmermann@suse.de>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=S433PrkP c=1 sm=1 tr=0
+	a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
+	a=kj9zAlcOel0A:10 a=7gkXJVJtAAAA:8 a=NqsBjqOBP8_30qnptSgA:9
+	a=cHP_0by8mU2PnoFw:21 a=_eZ05lBCHhpxV7uM:21 a=CjuIK1q_8ugA:10
+	a=qfUslh1TxfEA:10 a=E9Po1WZjFZOl8hwRPBS3:22
 
-Currently the lock for a single event channel needs to be taken with
-interrupts off, which causes deadlocks in some cases.
+Hi Thomas.
 
-Rework the per event channel lock to be non-blocking for the case of
-sending an event and removing the need for disabling interrupts for
-taking the lock.
+On Thu, Oct 15, 2020 at 02:38:06PM +0200, Thomas Zimmermann wrote:
+> At least sparc64 requires I/O-specific access to framebuffers. This
+> patch updates the fbdev console accordingly.
+> 
+> For drivers with direct access to the framebuffer memory, the callback
+> functions in struct fb_ops test for the type of memory and call the rsp
+> fb_sys_ of fb_cfb_ functions.
+> 
+> For drivers that employ a shadow buffer, fbdev's blit function retrieves
+> the framebuffer address as struct dma_buf_map, and uses dma_buf_map
+> interfaces to access the buffer.
+> 
+> The bochs driver on sparc64 uses a workaround to flag the framebuffer as
+> I/O memory and avoid a HW exception. With the introduction of struct
+> dma_buf_map, this is not required any longer. The patch removes the rsp
+> code from both, bochs and fbdev.
+> 
+> v4:
+> 	* move dma_buf_map changes into separate patch (Daniel)
+> 	* TODO list: comment on fbdev updates (Daniel)
 
-The lock is needed for avoiding races between sending an event or
-querying the channel's state against removal of the event channel.
+I have been offline for a while so have not followed all the threads on
+this. So may comments below may well be addressed but I failed to see
+it.
 
-Use a locking scheme similar to a rwlock, but with some modifications:
+If the point about fb_sync is already addressed/considered then:
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
 
-- sending an event or querying the event channel's state uses an
-  operation similar to read_trylock(), in case of not obtaining the
-  lock the sending is omitted or a default state is returned
 
-- closing an event channel is similar to write_lock(), but without
-  real fairness regarding multiple writers (this saves some space in
-  the event channel structure and multiple writers are impossible as
-  closing an event channel requires the domain's event_lock to be
-  held).
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  Documentation/gpu/todo.rst        |  19 ++-
+>  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
+>  drivers/gpu/drm/drm_fb_helper.c   | 217 ++++++++++++++++++++++++++++--
+>  include/drm/drm_mode_config.h     |  12 --
+>  4 files changed, 220 insertions(+), 29 deletions(-)
+> 
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index 7e6fc3c04add..638b7f704339 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
+>  ------------------------------------------------
+>  
+>  Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
+> -atomic modesetting and GEM vmap support. Current generic fbdev emulation
+> -expects the framebuffer in system memory (or system-like memory).
+> +atomic modesetting and GEM vmap support. Historically, generic fbdev emulation
+> +expected the framebuffer in system memory or system-like memory. By employing
+> +struct dma_buf_map, drivers with frambuffers in I/O memory can be supported
+> +as well.
+>  
+>  Contact: Maintainer of the driver you plan to convert
+>  
+>  Level: Intermediate
+>  
+> +Reimplement functions in drm_fbdev_fb_ops without fbdev
+> +-------------------------------------------------------
+> +
+> +A number of callback functions in drm_fbdev_fb_ops could benefit from
+> +being rewritten without dependencies on the fbdev module. Some of the
+> +helpers could further benefit from using struct dma_buf_map instead of
+> +raw pointers.
+> +
+> +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+> +
+> +Level: Advanced
+> +
+> +
+>  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
+>  -----------------------------------------------------------------
+>  
+> diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
+> index 13d0d04c4457..853081d186d5 100644
+> --- a/drivers/gpu/drm/bochs/bochs_kms.c
+> +++ b/drivers/gpu/drm/bochs/bochs_kms.c
+> @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
+>  	bochs->dev->mode_config.preferred_depth = 24;
+>  	bochs->dev->mode_config.prefer_shadow = 0;
+>  	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
+> -	bochs->dev->mode_config.fbdev_use_iomem = true;
+>  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order = true;
+>  
+>  	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
+Good to see this workaround gone again!
 
-Fixes: e045199c7c9c54 ("evtchn: address races with evtchn_reset()")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V3:
-- corrected a copy-and-paste error (Jan Beulich)
-- corrected unlocking in two cases (Jan Beulich)
-- renamed evtchn_read_trylock() (Jan Beulich)
-- added some comments and an ASSERT() for evtchn_write_lock()
-- set EVENT_WRITE_LOCK_INC to INT_MIN
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index 6212cd7cde1d..462b0c130ebb 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+>  }
+>  
+>  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
+> -					  struct drm_clip_rect *clip)
+> +					  struct drm_clip_rect *clip,
+> +					  struct dma_buf_map *dst)
+>  {
+>  	struct drm_framebuffer *fb = fb_helper->fb;
+>  	unsigned int cpp = fb->format->cpp[0];
+>  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+>  	void *src = fb_helper->fbdev->screen_buffer + offset;
+> -	void *dst = fb_helper->buffer->map.vaddr + offset;
+>  	size_t len = (clip->x2 - clip->x1) * cpp;
+>  	unsigned int y;
+>  
+> -	for (y = clip->y1; y < clip->y2; y++) {
+> -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
+> -			memcpy(dst, src, len);
+> -		else
+> -			memcpy_toio((void __iomem *)dst, src, len);
+> +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip rect */
+>  
+> +	for (y = clip->y1; y < clip->y2; y++) {
+> +		dma_buf_map_memcpy_to(dst, src, len);
+> +		dma_buf_map_incr(dst, fb->pitches[0]);
+>  		src += fb->pitches[0];
+> -		dst += fb->pitches[0];
+>  	}
+>  }
+>  
+> @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+>  			ret = drm_client_buffer_vmap(helper->buffer, &map);
+>  			if (ret)
+>  				return;
+> -			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
+> +			drm_fb_helper_dirty_blit_real(helper, &clip_copy, &map);
+>  		}
+> +
+>  		if (helper->fb->funcs->dirty)
+>  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
+>  						 &clip_copy, 1);
+> @@ -755,6 +754,136 @@ void drm_fb_helper_sys_imageblit(struct fb_info *info,
+>  }
+>  EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
+>  
+So far everything looks good.
 
-V2:
-- added needed barriers
+> +static ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+> +				      size_t count, loff_t *ppos)
+> +{
+> +	unsigned long p = *ppos;
+> +	u8 *dst;
+> +	u8 __iomem *src;
+> +	int c, err = 0;
+> +	unsigned long total_size;
+> +	unsigned long alloc_size;
+> +	ssize_t ret = 0;
+> +
+> +	if (info->state != FBINFO_STATE_RUNNING)
+> +		return -EPERM;
+> +
+> +	total_size = info->screen_size;
+> +
+> +	if (total_size == 0)
+> +		total_size = info->fix.smem_len;
+> +
+> +	if (p >= total_size)
+> +		return 0;
+> +
+> +	if (count >= total_size)
+> +		count = total_size;
+> +
+> +	if (count + p > total_size)
+> +		count = total_size - p;
+> +
+> +	src = (u8 __iomem *)(info->screen_base + p);
+screen_base is a char __iomem * - so this cast looks semi redundant.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/arch/x86/irq.c         |   6 +-
- xen/arch/x86/pv/shim.c     |   9 +--
- xen/common/event_channel.c | 109 +++++++++++++++++--------------------
- xen/include/xen/event.h    |  76 ++++++++++++++++++++++----
- xen/include/xen/sched.h    |   2 +-
- 5 files changed, 125 insertions(+), 77 deletions(-)
+> +
+> +	alloc_size = min(count, PAGE_SIZE);
+> +
+> +	dst = kmalloc(alloc_size, GFP_KERNEL);
+> +	if (!dst)
+> +		return -ENOMEM;
+> +
+Same comment as below about fb_sync.
 
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 93c4fb9a79..8d1f9a9fc6 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -2495,14 +2495,12 @@ static void dump_irqs(unsigned char key)
-                 pirq = domain_irq_to_pirq(d, irq);
-                 info = pirq_info(d, pirq);
-                 evtchn = evtchn_from_port(d, info->evtchn);
--                local_irq_disable();
--                if ( spin_trylock(&evtchn->lock) )
-+                if ( evtchn_read_trylock(evtchn) )
-                 {
-                     pending = evtchn_is_pending(d, evtchn);
-                     masked = evtchn_is_masked(d, evtchn);
--                    spin_unlock(&evtchn->lock);
-+                    evtchn_read_unlock(evtchn);
-                 }
--                local_irq_enable();
-                 printk("d%d:%3d(%c%c%c)%c",
-                        d->domain_id, pirq, "-P?"[pending],
-                        "-M?"[masked], info->masked ? 'M' : '-',
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index 9aef7a860a..b4e83e0778 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -660,11 +660,12 @@ void pv_shim_inject_evtchn(unsigned int port)
-     if ( port_is_valid(guest, port) )
-     {
-         struct evtchn *chn = evtchn_from_port(guest, port);
--        unsigned long flags;
- 
--        spin_lock_irqsave(&chn->lock, flags);
--        evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
--        spin_unlock_irqrestore(&chn->lock, flags);
-+        if ( evtchn_read_trylock(chn) )
-+        {
-+            evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
-+            evtchn_read_unlock(chn);
-+        }
-     }
- }
- 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index e365b5498f..3df73dbc71 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -131,7 +131,7 @@ static struct evtchn *alloc_evtchn_bucket(struct domain *d, unsigned int port)
-             return NULL;
-         }
-         chn[i].port = port + i;
--        spin_lock_init(&chn[i].lock);
-+        atomic_set(&chn[i].lock, 0);
-     }
-     return chn;
- }
-@@ -253,7 +253,6 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-     int            port;
-     domid_t        dom = alloc->dom;
-     long           rc;
--    unsigned long  flags;
- 
-     d = rcu_lock_domain_by_any_id(dom);
-     if ( d == NULL )
-@@ -269,14 +268,14 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-     if ( rc )
-         goto out;
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state = ECS_UNBOUND;
-     if ( (chn->u.unbound.remote_domid = alloc->remote_dom) == DOMID_SELF )
-         chn->u.unbound.remote_domid = current->domain->domain_id;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     alloc->port = port;
- 
-@@ -289,32 +288,26 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
- }
- 
- 
--static unsigned long double_evtchn_lock(struct evtchn *lchn,
--                                        struct evtchn *rchn)
-+static void double_evtchn_lock(struct evtchn *lchn, struct evtchn *rchn)
- {
--    unsigned long flags;
--
-     if ( lchn <= rchn )
-     {
--        spin_lock_irqsave(&lchn->lock, flags);
-+        evtchn_write_lock(lchn);
-         if ( lchn != rchn )
--            spin_lock(&rchn->lock);
-+            evtchn_write_lock(rchn);
-     }
-     else
-     {
--        spin_lock_irqsave(&rchn->lock, flags);
--        spin_lock(&lchn->lock);
-+        evtchn_write_lock(rchn);
-+        evtchn_write_lock(lchn);
-     }
--
--    return flags;
- }
- 
--static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn,
--                                 unsigned long flags)
-+static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn)
- {
-     if ( lchn != rchn )
--        spin_unlock(&lchn->lock);
--    spin_unlock_irqrestore(&rchn->lock, flags);
-+        evtchn_write_unlock(lchn);
-+    evtchn_write_unlock(rchn);
- }
- 
- static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-@@ -324,7 +317,6 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-     int            lport, rport = bind->remote_port;
-     domid_t        rdom = bind->remote_dom;
-     long           rc;
--    unsigned long  flags;
- 
-     if ( rdom == DOMID_SELF )
-         rdom = current->domain->domain_id;
-@@ -360,7 +352,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-     if ( rc )
-         goto out;
- 
--    flags = double_evtchn_lock(lchn, rchn);
-+    double_evtchn_lock(lchn, rchn);
- 
-     lchn->u.interdomain.remote_dom  = rd;
-     lchn->u.interdomain.remote_port = rport;
-@@ -377,7 +369,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-      */
-     evtchn_port_set_pending(ld, lchn->notify_vcpu_id, lchn);
- 
--    double_evtchn_unlock(lchn, rchn, flags);
-+    double_evtchn_unlock(lchn, rchn);
- 
-     bind->local_port = lport;
- 
-@@ -400,7 +392,6 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
-     struct domain *d = current->domain;
-     int            virq = bind->virq, vcpu = bind->vcpu;
-     int            rc = 0;
--    unsigned long  flags;
- 
-     if ( (virq < 0) || (virq >= ARRAY_SIZE(v->virq_to_evtchn)) )
-         return -EINVAL;
-@@ -438,14 +429,14 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
- 
-     chn = evtchn_from_port(d, port);
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state          = ECS_VIRQ;
-     chn->notify_vcpu_id = vcpu;
-     chn->u.virq         = virq;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     v->virq_to_evtchn[virq] = bind->port = port;
- 
-@@ -462,7 +453,6 @@ static long evtchn_bind_ipi(evtchn_bind_ipi_t *bind)
-     struct domain *d = current->domain;
-     int            port, vcpu = bind->vcpu;
-     long           rc = 0;
--    unsigned long  flags;
- 
-     if ( domain_vcpu(d, vcpu) == NULL )
-         return -ENOENT;
-@@ -474,13 +464,13 @@ static long evtchn_bind_ipi(evtchn_bind_ipi_t *bind)
- 
-     chn = evtchn_from_port(d, port);
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state          = ECS_IPI;
-     chn->notify_vcpu_id = vcpu;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     bind->port = port;
- 
-@@ -524,7 +514,6 @@ static long evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
-     struct pirq   *info;
-     int            port = 0, pirq = bind->pirq;
-     long           rc;
--    unsigned long  flags;
- 
-     if ( (pirq < 0) || (pirq >= d->nr_pirqs) )
-         return -EINVAL;
-@@ -557,14 +546,14 @@ static long evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
-         goto out;
-     }
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state  = ECS_PIRQ;
-     chn->u.pirq.irq = pirq;
-     link_pirq_port(port, chn, v);
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     bind->port = port;
- 
-@@ -585,7 +574,6 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-     struct evtchn *chn1, *chn2;
-     int            port2;
-     long           rc = 0;
--    unsigned long  flags;
- 
-  again:
-     spin_lock(&d1->event_lock);
-@@ -686,14 +674,14 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-         BUG_ON(chn2->state != ECS_INTERDOMAIN);
-         BUG_ON(chn2->u.interdomain.remote_dom != d1);
- 
--        flags = double_evtchn_lock(chn1, chn2);
-+        double_evtchn_lock(chn1, chn2);
- 
-         evtchn_free(d1, chn1);
- 
-         chn2->state = ECS_UNBOUND;
-         chn2->u.unbound.remote_domid = d1->domain_id;
- 
--        double_evtchn_unlock(chn1, chn2, flags);
-+        double_evtchn_unlock(chn1, chn2);
- 
-         goto out;
- 
-@@ -701,9 +689,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-         BUG();
-     }
- 
--    spin_lock_irqsave(&chn1->lock, flags);
-+    evtchn_write_lock(chn1);
-     evtchn_free(d1, chn1);
--    spin_unlock_irqrestore(&chn1->lock, flags);
-+    evtchn_write_unlock(chn1);
- 
-  out:
-     if ( d2 != NULL )
-@@ -723,7 +711,6 @@ int evtchn_send(struct domain *ld, unsigned int lport)
-     struct evtchn *lchn, *rchn;
-     struct domain *rd;
-     int            rport, ret = 0;
--    unsigned long  flags;
- 
-     if ( !port_is_valid(ld, lport) )
-         return -EINVAL;
-@@ -736,7 +723,8 @@ int evtchn_send(struct domain *ld, unsigned int lport)
- 
-     lchn = evtchn_from_port(ld, lport);
- 
--    spin_lock_irqsave(&lchn->lock, flags);
-+    if ( !evtchn_read_trylock(lchn) )
-+        return 0;
- 
-     /* Guest cannot send via a Xen-attached event channel. */
-     if ( unlikely(consumer_is_xen(lchn)) )
-@@ -771,7 +759,7 @@ int evtchn_send(struct domain *ld, unsigned int lport)
-     }
- 
- out:
--    spin_unlock_irqrestore(&lchn->lock, flags);
-+    evtchn_read_unlock(lchn);
- 
-     return ret;
- }
-@@ -798,9 +786,11 @@ void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq)
- 
-     d = v->domain;
-     chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
--    evtchn_port_set_pending(d, v->vcpu_id, chn);
--    spin_unlock(&chn->lock);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, v->vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- 
-  out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
-@@ -829,9 +819,11 @@ void send_guest_global_virq(struct domain *d, uint32_t virq)
-         goto out;
- 
-     chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
--    evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
--    spin_unlock(&chn->lock);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- 
-  out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
-@@ -841,7 +833,6 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
- {
-     int port;
-     struct evtchn *chn;
--    unsigned long flags;
- 
-     /*
-      * PV guests: It should not be possible to race with __evtchn_close(). The
-@@ -856,9 +847,11 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
-     }
- 
-     chn = evtchn_from_port(d, port);
--    spin_lock_irqsave(&chn->lock, flags);
--    evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- }
- 
- static struct domain *global_virq_handlers[NR_VIRQS] __read_mostly;
-@@ -1060,15 +1053,16 @@ int evtchn_unmask(unsigned int port)
- {
-     struct domain *d = current->domain;
-     struct evtchn *evtchn;
--    unsigned long flags;
- 
-     if ( unlikely(!port_is_valid(d, port)) )
-         return -EINVAL;
- 
-     evtchn = evtchn_from_port(d, port);
--    spin_lock_irqsave(&evtchn->lock, flags);
--    evtchn_port_unmask(d, evtchn);
--    spin_unlock_irqrestore(&evtchn->lock, flags);
-+    if ( evtchn_read_trylock(evtchn) )
-+    {
-+        evtchn_port_unmask(d, evtchn);
-+        evtchn_read_unlock(evtchn);
-+    }
- 
-     return 0;
- }
-@@ -1327,7 +1321,6 @@ int alloc_unbound_xen_event_channel(
- {
-     struct evtchn *chn;
-     int            port, rc;
--    unsigned long  flags;
- 
-     spin_lock(&ld->event_lock);
- 
-@@ -1340,14 +1333,14 @@ int alloc_unbound_xen_event_channel(
-     if ( rc )
-         goto out;
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state = ECS_UNBOUND;
-     chn->xen_consumer = get_xen_consumer(notification_fn);
-     chn->notify_vcpu_id = lvcpu;
-     chn->u.unbound.remote_domid = remote_domid;
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     /*
-      * Increment ->xen_evtchns /after/ ->active_evtchns. No explicit
-@@ -1383,7 +1376,6 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
- {
-     struct evtchn *lchn, *rchn;
-     struct domain *rd;
--    unsigned long flags;
- 
-     if ( !port_is_valid(ld, lport) )
-     {
-@@ -1398,7 +1390,8 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
- 
-     lchn = evtchn_from_port(ld, lport);
- 
--    spin_lock_irqsave(&lchn->lock, flags);
-+    if ( !evtchn_read_trylock(lchn) )
-+        return;
- 
-     if ( likely(lchn->state == ECS_INTERDOMAIN) )
-     {
-@@ -1408,7 +1401,7 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
-         evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
-     }
- 
--    spin_unlock_irqrestore(&lchn->lock, flags);
-+    evtchn_read_unlock(lchn);
- }
- 
- void evtchn_check_pollers(struct domain *d, unsigned int port)
-diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-index 509d3ae861..592e0dc22d 100644
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -105,6 +105,60 @@ void notify_via_xen_event_channel(struct domain *ld, int lport);
- #define bucket_from_port(d, p) \
-     ((group_from_port(d, p))[((p) % EVTCHNS_PER_GROUP) / EVTCHNS_PER_BUCKET])
- 
-+#define EVENT_WRITE_LOCK_INC    INT_MIN
-+
-+/*
-+ * Lock an event channel exclusively. This is allowed only with holding
-+ * d->event_lock AND when the channel is free or unbound either when taking
-+ * or when releasing the lock, as any concurrent operation on the event
-+ * channel using evtchn_read_trylock() will just assume the event channel is
-+ * free or unbound at the moment.
-+ */
-+static inline void evtchn_write_lock(struct evtchn *evtchn)
-+{
-+    int val;
-+
-+    /*
-+     * The lock can't be held by a writer already, as all writers need to
-+     * hold d->event_lock.
-+     */
-+    ASSERT(atomic_read(&evtchn->lock) >= 0);
-+
-+    /* No barrier needed, atomic_add_return() is full barrier. */
-+    for ( val = atomic_add_return(EVENT_WRITE_LOCK_INC, &evtchn->lock);
-+          val != EVENT_WRITE_LOCK_INC;
-+          val = atomic_read(&evtchn->lock) )
-+        cpu_relax();
-+}
-+
-+static inline void evtchn_write_unlock(struct evtchn *evtchn)
-+{
-+    arch_lock_release_barrier();
-+
-+    atomic_sub(EVENT_WRITE_LOCK_INC, &evtchn->lock);
-+}
-+
-+static inline bool evtchn_read_trylock(struct evtchn *evtchn)
-+{
-+    if ( atomic_read(&evtchn->lock) < 0 )
-+        return false;
-+
-+    /* No barrier needed, atomic_inc_return() is full barrier. */
-+    if ( atomic_inc_return(&evtchn->lock) >= 0 )
-+        return true;
-+
-+    atomic_dec(&evtchn->lock);
-+
-+    return false;
-+}
-+
-+static inline void evtchn_read_unlock(struct evtchn *evtchn)
-+{
-+    arch_lock_release_barrier();
-+
-+    atomic_dec(&evtchn->lock);
-+}
-+
- static inline unsigned int max_evtchns(const struct domain *d)
- {
-     return d->evtchn_fifo ? EVTCHN_FIFO_NR_CHANNELS
-@@ -249,12 +303,13 @@ static inline bool evtchn_is_masked(const struct domain *d,
- static inline bool evtchn_port_is_masked(struct domain *d, evtchn_port_t port)
- {
-     struct evtchn *evtchn = evtchn_from_port(d, port);
--    bool rc;
--    unsigned long flags;
-+    bool rc = true;
- 
--    spin_lock_irqsave(&evtchn->lock, flags);
--    rc = evtchn_is_masked(d, evtchn);
--    spin_unlock_irqrestore(&evtchn->lock, flags);
-+    if ( evtchn_read_trylock(evtchn) )
-+    {
-+        rc = evtchn_is_masked(d, evtchn);
-+        evtchn_read_unlock(evtchn);
-+    }
- 
-     return rc;
- }
-@@ -274,12 +329,13 @@ static inline int evtchn_port_poll(struct domain *d, evtchn_port_t port)
-     if ( port_is_valid(d, port) )
-     {
-         struct evtchn *evtchn = evtchn_from_port(d, port);
--        unsigned long flags;
- 
--        spin_lock_irqsave(&evtchn->lock, flags);
--        if ( evtchn_usable(evtchn) )
--            rc = evtchn_is_pending(d, evtchn);
--        spin_unlock_irqrestore(&evtchn->lock, flags);
-+        if ( evtchn_read_trylock(evtchn) )
-+        {
-+            if ( evtchn_usable(evtchn) )
-+                rc = evtchn_is_pending(d, evtchn);
-+            evtchn_read_unlock(evtchn);
-+        }
-     }
- 
-     return rc;
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index a298ff4df8..096e0ec6af 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -85,7 +85,7 @@ extern domid_t hardware_domid;
- 
- struct evtchn
- {
--    spinlock_t lock;
-+    atomic_t lock;         /* kind of rwlock, use evtchn_*_[un]lock()        */
- #define ECS_FREE         0 /* Channel is available for use.                  */
- #define ECS_RESERVED     1 /* Channel is reserved.                           */
- #define ECS_UNBOUND      2 /* Channel is waiting to bind to a remote domain. */
--- 
-2.26.2
 
+> +	while (count) {
+> +		c = min(count, alloc_size);
+> +
+> +		memcpy_fromio(dst, src, c);
+> +		if (copy_to_user(buf, dst, c)) {
+> +			err = -EFAULT;
+> +			break;
+> +		}
+> +
+> +		src += c;
+> +		*ppos += c;
+> +		buf += c;
+> +		ret += c;
+> +		count -= c;
+> +	}
+> +
+> +	kfree(dst);
+> +
+> +	if (err)
+> +		return err;
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
+> +				       size_t count, loff_t *ppos)
+> +{
+> +	unsigned long p = *ppos;
+> +	u8 *src;
+> +	u8 __iomem *dst;
+> +	int c, err = 0;
+> +	unsigned long total_size;
+> +	unsigned long alloc_size;
+> +	ssize_t ret = 0;
+> +
+> +	if (info->state != FBINFO_STATE_RUNNING)
+> +		return -EPERM;
+> +
+> +	total_size = info->screen_size;
+> +
+> +	if (total_size == 0)
+> +		total_size = info->fix.smem_len;
+> +
+> +	if (p > total_size)
+> +		return -EFBIG;
+> +
+> +	if (count > total_size) {
+> +		err = -EFBIG;
+> +		count = total_size;
+> +	}
+> +
+> +	if (count + p > total_size) {
+> +		/*
+> +		 * The framebuffer is too small. We do the
+> +		 * copy operation, but return an error code
+> +		 * afterwards. Taken from fbdev.
+> +		 */
+> +		if (!err)
+> +			err = -ENOSPC;
+> +		count = total_size - p;
+> +	}
+> +
+> +	alloc_size = min(count, PAGE_SIZE);
+> +
+> +	src = kmalloc(alloc_size, GFP_KERNEL);
+> +	if (!src)
+> +		return -ENOMEM;
+> +
+> +	dst = (u8 __iomem *)(info->screen_base + p);
+> +
+
+The fbdev variant call the fb_sync callback here.
+noveau and gma500 implments the fb_sync callback - but no-one else.
+
+
+> +	while (count) {
+> +		c = min(count, alloc_size);
+> +
+> +		if (copy_from_user(src, buf, c)) {
+> +			err = -EFAULT;
+> +			break;
+> +		}
+> +		memcpy_toio(dst, src, c);
+When we rewrite this part to use dma_buf_map_memcpy_to() then we can
+merge the two variants of helper_{sys,cfb}_read()?
+Which is part of the todo - so OK
+> +
+> +		dst += c;
+> +		*ppos += c;
+> +		buf += c;
+> +		ret += c;
+> +		count -= c;
+> +	}
+> +
+> +	kfree(src);
+> +
+> +	if (err)
+> +		return err;
+> +
+> +	return ret;
+> +}
+> +
+>  /**
+>   * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
+>   * @info: fbdev registered by the helper
+> @@ -2027,6 +2156,66 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>  		return -ENODEV;
+>  }
+>  
+> +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
+> +				 size_t count, loff_t *ppos)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> +		return drm_fb_helper_sys_read(info, buf, count, ppos);
+> +	else
+> +		return drm_fb_helper_cfb_read(info, buf, count, ppos);
+> +}
+> +
+> +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
+> +				  size_t count, loff_t *ppos)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> +		return drm_fb_helper_sys_write(info, buf, count, ppos);
+> +	else
+> +		return drm_fb_helper_cfb_write(info, buf, count, ppos);
+> +}
+> +
+> +static void drm_fbdev_fb_fillrect(struct fb_info *info,
+> +				  const struct fb_fillrect *rect)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> +		drm_fb_helper_sys_fillrect(info, rect);
+> +	else
+> +		drm_fb_helper_cfb_fillrect(info, rect);
+> +}
+> +
+> +static void drm_fbdev_fb_copyarea(struct fb_info *info,
+> +				  const struct fb_copyarea *area)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> +		drm_fb_helper_sys_copyarea(info, area);
+> +	else
+> +		drm_fb_helper_cfb_copyarea(info, area);
+> +}
+> +
+> +static void drm_fbdev_fb_imageblit(struct fb_info *info,
+> +				   const struct fb_image *image)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> +		drm_fb_helper_sys_imageblit(info, image);
+> +	else
+> +		drm_fb_helper_cfb_imageblit(info, image);
+> +}
+> +
+>  static const struct fb_ops drm_fbdev_fb_ops = {
+>  	.owner		= THIS_MODULE,
+>  	DRM_FB_HELPER_DEFAULT_OPS,
+> @@ -2034,11 +2223,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
+>  	.fb_release	= drm_fbdev_fb_release,
+>  	.fb_destroy	= drm_fbdev_fb_destroy,
+>  	.fb_mmap	= drm_fbdev_fb_mmap,
+> -	.fb_read	= drm_fb_helper_sys_read,
+> -	.fb_write	= drm_fb_helper_sys_write,
+> -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
+> -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
+> -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
+> +	.fb_read	= drm_fbdev_fb_read,
+> +	.fb_write	= drm_fbdev_fb_write,
+> +	.fb_fillrect	= drm_fbdev_fb_fillrect,
+> +	.fb_copyarea	= drm_fbdev_fb_copyarea,
+> +	.fb_imageblit	= drm_fbdev_fb_imageblit,
+>  };
+>  
+>  static struct fb_deferred_io drm_fbdev_defio = {
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index 5ffbb4ed5b35..ab424ddd7665 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -877,18 +877,6 @@ struct drm_mode_config {
+>  	 */
+>  	bool prefer_shadow_fbdev;
+>  
+> -	/**
+> -	 * @fbdev_use_iomem:
+> -	 *
+> -	 * Set to true if framebuffer reside in iomem.
+> -	 * When set to true memcpy_toio() is used when copying the framebuffer in
+> -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
+> -	 *
+> -	 * FIXME: This should be replaced with a per-mapping is_iomem
+> -	 * flag (like ttm does), and then used everywhere in fbdev code.
+> -	 */
+> -	bool fbdev_use_iomem;
+> -
+>  	/**
+>  	 * @quirk_addfb_prefer_xbgr_30bpp:
+>  	 *
+> -- 
+> 2.28.0
 
