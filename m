@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847F7290291
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:09:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.7870.20752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D87C2902BB
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Oct 2020 12:21:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.7873.20765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTMfe-000168-TN; Fri, 16 Oct 2020 10:09:10 +0000
+	id 1kTMrZ-0002jc-7Z; Fri, 16 Oct 2020 10:21:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 7870.20752; Fri, 16 Oct 2020 10:09:10 +0000
+Received: by outflank-mailman (output) from mailman id 7873.20765; Fri, 16 Oct 2020 10:21:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,197 +23,109 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTMfe-00015n-PU; Fri, 16 Oct 2020 10:09:10 +0000
-Received: by outflank-mailman (input) for mailman id 7870;
- Fri, 16 Oct 2020 10:09:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kTMrZ-0002jD-4N; Fri, 16 Oct 2020 10:21:29 +0000
+Received: by outflank-mailman (input) for mailman id 7873;
+ Fri, 16 Oct 2020 10:21:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
- id 1kTMfc-00015i-Lq
- for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:09:08 +0000
-Received: from asavdk3.altibox.net (unknown [109.247.116.14])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc6680c5-20dc-4e99-95ac-c747aa491c1d;
- Fri, 16 Oct 2020 10:09:06 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id DC35220027;
- Fri, 16 Oct 2020 12:08:55 +0200 (CEST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kTMrX-0002j8-Se
+ for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:21:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 25006e1c-c1df-4e4f-ac89-c0ab42d59e66;
+ Fri, 16 Oct 2020 10:21:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 928EBAEEF;
+ Fri, 16 Oct 2020 10:21:25 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=YFnv=DX=ravnborg.org=sam@srs-us1.protection.inumbo.net>)
-	id 1kTMfc-00015i-Lq
-	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:09:08 +0000
-X-Inumbo-ID: cc6680c5-20dc-4e99-95ac-c747aa491c1d
-Received: from asavdk3.altibox.net (unknown [109.247.116.14])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id cc6680c5-20dc-4e99-95ac-c747aa491c1d;
-	Fri, 16 Oct 2020 10:09:06 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by asavdk3.altibox.net (Postfix) with ESMTPS id DC35220027;
-	Fri, 16 Oct 2020 12:08:55 +0200 (CEST)
-Date: Fri, 16 Oct 2020 12:08:54 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
-	daniel@ffwll.ch, alexander.deucher@amd.com,
-	christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
-	linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
-	inki.dae@samsung.com, jy0922.shim@samsung.com,
-	sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
-	krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com,
-	robh@kernel.org, tomeu.vizoso@collabora.com, steven.price@arm.com,
-	alyssa.rosenzweig@collabora.com, hjc@rock-chips.com,
-	heiko@sntech.de, hdegoede@redhat.com, sean@poorly.run,
-	eric@anholt.net, oleksandr_andrushchenko@epam.com,
-	ray.huang@amd.com, sumit.semwal@linaro.org,
-	emil.velikov@collabora.com, luben.tuikov@amd.com, apaneers@amd.com,
-	linus.walleij@linaro.org, melissa.srw@gmail.com,
-	chris@chris-wilson.co.uk, miaoqinglang@huawei.com,
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org,
-	etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v4 09/10] dma-buf-map: Add memcpy and pointer-increment
- interfaces
-Message-ID: <20201016100854.GA1042954@ravnborg.org>
-References: <20201015123806.32416-1-tzimmermann@suse.de>
- <20201015123806.32416-10-tzimmermann@suse.de>
+	(envelope-from <SRS0=S5YV=DX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kTMrX-0002j8-Se
+	for xen-devel@lists.xenproject.org; Fri, 16 Oct 2020 10:21:27 +0000
+X-Inumbo-ID: 25006e1c-c1df-4e4f-ac89-c0ab42d59e66
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 25006e1c-c1df-4e4f-ac89-c0ab42d59e66;
+	Fri, 16 Oct 2020 10:21:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1602843685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qcmxnvRUtgd5pwtZDJYRsRYYJtUit4eLtWDDXvSIsZA=;
+	b=o1mH86nuLG+oZiXBJ815ysRWI7MJTtTamFh18yR9aCNFHFbcni3mN3kW36LxDyGCP/0lPW
+	YuEdYKoRkZZoaICvm3QkNswkEjnB0sQK0/LiyGr9ow2JI9E1NuoWKoXdC8Dfzn+nDcpSBI
+	KnjwDh4sUmyRSYMXuRsIYBdY4mC3RAo=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 928EBAEEF;
+	Fri, 16 Oct 2020 10:21:25 +0000 (UTC)
+Subject: Ping: [PATCH] x86/PV: make post-migration page state consistent
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
+Message-ID: <f4804dc9-4a6f-6601-2fc9-9b6d4a3ae41a@suse.com>
+Date: Fri, 16 Oct 2020 12:21:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201015123806.32416-10-tzimmermann@suse.de>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=S433PrkP c=1 sm=1 tr=0
-	a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
-	a=kj9zAlcOel0A:10 a=7gkXJVJtAAAA:8 a=0A2xud3A4b7FAmx5SMIA:9
-	a=7a1rlSNJFqSX5uOf:21 a=OU_kl8OV53ZSq-ss:21 a=CjuIK1q_8ugA:10
-	a=E9Po1WZjFZOl8hwRPBS3:22
+In-Reply-To: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Thomas.
-
-On Thu, Oct 15, 2020 at 02:38:05PM +0200, Thomas Zimmermann wrote:
-> To do framebuffer updates, one needs memcpy from system memory and a
-> pointer-increment function. Add both interfaces with documentation.
+On 11.09.2020 12:34, Jan Beulich wrote:
+> When a page table page gets de-validated, its type reference count drops
+> to zero (and PGT_validated gets cleared), but its type remains intact.
+> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
+> such pages. An intermediate write to such a page via e.g.
+> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
+> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
+> return. In libxc the decision which pages to normalize / localize
+> depends solely on the type returned from the domctl. As a result without
+> further precautions the guest won't be able to tell whether such a page
+> has had its (apparent) PTE entries transitioned to the new MFNs.
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Looks good.
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-
-> ---
->  include/linux/dma-buf-map.h | 72 +++++++++++++++++++++++++++++++------
->  1 file changed, 62 insertions(+), 10 deletions(-)
+> Add a check of PGT_validated, thus consistently avoiding normalization /
+> localization in the tool stack.
 > 
-> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
-> index 2e8bbecb5091..6ca0f304dda2 100644
-> --- a/include/linux/dma-buf-map.h
-> +++ b/include/linux/dma-buf-map.h
-> @@ -32,6 +32,14 @@
->   * accessing the buffer. Use the returned instance and the helper functions
->   * to access the buffer's memory in the correct way.
->   *
-> + * The type :c:type:`struct dma_buf_map <dma_buf_map>` and its helpers are
-> + * actually independent from the dma-buf infrastructure. When sharing buffers
-> + * among devices, drivers have to know the location of the memory to access
-> + * the buffers in a safe way. :c:type:`struct dma_buf_map <dma_buf_map>`
-> + * solves this problem for dma-buf and its users. If other drivers or
-> + * sub-systems require similar functionality, the type could be generalized
-> + * and moved to a more prominent header file.
-> + *
->   * Open-coding access to :c:type:`struct dma_buf_map <dma_buf_map>` is
->   * considered bad style. Rather then accessing its fields directly, use one
->   * of the provided helper functions, or implement your own. For example,
-> @@ -51,6 +59,14 @@
->   *
->   *	dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
->   *
-> + * Instances of struct dma_buf_map do not have to be cleaned up, but
-> + * can be cleared to NULL with dma_buf_map_clear(). Cleared mappings
-> + * always refer to system memory.
-> + *
-> + * .. code-block:: c
-> + *
-> + *	dma_buf_map_clear(&map);
-> + *
->   * Test if a mapping is valid with either dma_buf_map_is_set() or
->   * dma_buf_map_is_null().
->   *
-> @@ -73,17 +89,19 @@
->   *	if (dma_buf_map_is_equal(&sys_map, &io_map))
->   *		// always false
->   *
-> - * Instances of struct dma_buf_map do not have to be cleaned up, but
-> - * can be cleared to NULL with dma_buf_map_clear(). Cleared mappings
-> - * always refer to system memory.
-> + * A set up instance of struct dma_buf_map can be used to access or manipulate
-> + * the buffer memory. Depending on the location of the memory, the provided
-> + * helpers will pick the correct operations. Data can be copied into the memory
-> + * with dma_buf_map_memcpy_to(). The address can be manipulated with
-> + * dma_buf_map_incr().
->   *
-> - * The type :c:type:`struct dma_buf_map <dma_buf_map>` and its helpers are
-> - * actually independent from the dma-buf infrastructure. When sharing buffers
-> - * among devices, drivers have to know the location of the memory to access
-> - * the buffers in a safe way. :c:type:`struct dma_buf_map <dma_buf_map>`
-> - * solves this problem for dma-buf and its users. If other drivers or
-> - * sub-systems require similar functionality, the type could be generalized
-> - * and moved to a more prominent header file.
-> + * .. code-block:: c
-> + *
-> + *	const void *src = ...; // source buffer
-> + *	size_t len = ...; // length of src
-> + *
-> + *	dma_buf_map_memcpy_to(&map, src, len);
-> + *	dma_buf_map_incr(&map, len); // go to first byte after the memcpy
->   */
+> Alongside using XEN_DOMCTL_PFINFO_NOTAB instead of plain zero for the
+> change at hand, also change the variable's initializer to use this
+> constant, too. Take the opportunity and also adjust its type.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+I think I did address all questions here.
+
+Jan
+
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -215,7 +215,8 @@ long arch_do_domctl(
 >  
->  /**
-> @@ -210,4 +228,38 @@ static inline void dma_buf_map_clear(struct dma_buf_map *map)
->  	}
->  }
+>          for ( i = 0; i < num; ++i )
+>          {
+> -            unsigned long gfn = 0, type = 0;
+> +            unsigned long gfn = 0;
+> +            unsigned int type = XEN_DOMCTL_PFINFO_NOTAB;
+>              struct page_info *page;
+>              p2m_type_t t;
 >  
-> +/**
-> + * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
-> + * @dst:	The dma-buf mapping structure
-> + * @src:	The source buffer
-> + * @len:	The number of byte in src
-> + *
-> + * Copies data into a dma-buf mapping. The source buffer is in system
-> + * memory. Depending on the buffer's location, the helper picks the correct
-> + * method of accessing the memory.
-> + */
-> +static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *src, size_t len)
-> +{
-> +	if (dst->is_iomem)
-> +		memcpy_toio(dst->vaddr_iomem, src, len);
-> +	else
-> +		memcpy(dst->vaddr, src, len);
-> +}
-> +
-> +/**
-> + * dma_buf_map_incr - Increments the address stored in a dma-buf mapping
-> + * @map:	The dma-buf mapping structure
-> + * @incr:	The number of bytes to increment
-> + *
-> + * Increments the address stored in a dma-buf mapping. Depending on the
-> + * buffer's location, the correct value will be updated.
-> + */
-> +static inline void dma_buf_map_incr(struct dma_buf_map *map, size_t incr)
-> +{
-> +	if (map->is_iomem)
-> +		map->vaddr_iomem += incr;
-> +	else
-> +		map->vaddr += incr;
-> +}
-> +
->  #endif /* __DMA_BUF_MAP_H__ */
-> -- 
-> 2.28.0
+> @@ -255,6 +256,8 @@ long arch_do_domctl(
+>  
+>                  if ( page->u.inuse.type_info & PGT_pinned )
+>                      type |= XEN_DOMCTL_PFINFO_LPINTAB;
+> +                else if ( !(page->u.inuse.type_info & PGT_validated) )
+> +                    type = XEN_DOMCTL_PFINFO_NOTAB;
+>  
+>                  if ( page->count_info & PGC_broken )
+>                      type = XEN_DOMCTL_PFINFO_BROKEN;
+> 
+
 
