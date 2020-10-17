@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC815290EFE
-	for <lists+xen-devel@lfdr.de>; Sat, 17 Oct 2020 07:13:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8263.22026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E72A2910F1
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Oct 2020 11:26:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8281.22054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTeWs-0001kB-Et; Sat, 17 Oct 2020 05:13:18 +0000
+	id 1kTiSr-0006WS-Gp; Sat, 17 Oct 2020 09:25:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8263.22026; Sat, 17 Oct 2020 05:13:18 +0000
+Received: by outflank-mailman (output) from mailman id 8281.22054; Sat, 17 Oct 2020 09:25:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,128 +23,123 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kTeWs-0001jl-Ar; Sat, 17 Oct 2020 05:13:18 +0000
-Received: by outflank-mailman (input) for mailman id 8263;
- Sat, 17 Oct 2020 05:13:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lxxR=DY=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kTeWq-0001jg-W4
- for xen-devel@lists.xenproject.org; Sat, 17 Oct 2020 05:13:17 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d4921258-78b9-42e5-8b72-4b1865cd4ef8;
- Sat, 17 Oct 2020 05:13:15 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09H5Coji026800
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Sat, 17 Oct 2020 01:12:55 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 09H5CnCP026799;
- Fri, 16 Oct 2020 22:12:49 -0700 (PDT) (envelope-from ehem)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kTiSr-0006W3-DJ; Sat, 17 Oct 2020 09:25:25 +0000
+Received: by outflank-mailman (input) for mailman id 8281;
+ Sat, 17 Oct 2020 09:25:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QMVr=DY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kTiSq-0006Vy-0Y
+ for xen-devel@lists.xenproject.org; Sat, 17 Oct 2020 09:25:24 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d8ecbff-6514-47f8-94a6-59c115f7c052;
+ Sat, 17 Oct 2020 09:25:21 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTiSn-0007Xu-Au; Sat, 17 Oct 2020 09:25:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTiSn-0007m6-22; Sat, 17 Oct 2020 09:25:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kTiSn-0005Hb-1c; Sat, 17 Oct 2020 09:25:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=lxxR=DY=m5p.com=ehem@srs-us1.protection.inumbo.net>)
-	id 1kTeWq-0001jg-W4
-	for xen-devel@lists.xenproject.org; Sat, 17 Oct 2020 05:13:17 +0000
-X-Inumbo-ID: d4921258-78b9-42e5-8b72-4b1865cd4ef8
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d4921258-78b9-42e5-8b72-4b1865cd4ef8;
-	Sat, 17 Oct 2020 05:13:15 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
-	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09H5Coji026800
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Sat, 17 Oct 2020 01:12:55 -0400 (EDT)
-	(envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
-	by m5p.com (8.15.2/8.15.2/Submit) id 09H5CnCP026799;
-	Fri, 16 Oct 2020 22:12:49 -0700 (PDT)
-	(envelope-from ehem)
-Date: Fri, 16 Oct 2020 22:12:49 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Masami Hiramatsu <masami.hiramatsu@linaro.org>,
-        Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
-        Alex Benn??e <alex.bennee@linaro.org>, bertrand.marquis@arm.com,
-        andre.przywara@arm.com, Julien Grall <jgrall@amazon.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
-        Wei Liu <wl@xen.org>, Roger Pau Monn?? <roger.pau@citrix.com>
-Subject: Re: Xen-ARM EFI/ACPI problems (was: Re: [PATCH 0/4] xen/arm: Unbreak
- ACPI)
-Message-ID: <20201017051249.GA26457@mattapan.m5p.com>
-References: <20200926205542.9261-1-julien@xen.org>
- <CAA93ih3-gTAEzV=yYS-9cHGyN9rfAC28Xeyk8Gsmi7D2BS_OWQ@mail.gmail.com>
- <CAA93ih2EiyCnuL4sw1OLw+XEWa7sN3zJWvsnxHfx9b9Fq+cOxw@mail.gmail.com>
- <20201016223323.GA23508@mattapan.m5p.com>
+	(envelope-from <SRS0=QMVr=DY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kTiSq-0006Vy-0Y
+	for xen-devel@lists.xenproject.org; Sat, 17 Oct 2020 09:25:24 +0000
+X-Inumbo-ID: 1d8ecbff-6514-47f8-94a6-59c115f7c052
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 1d8ecbff-6514-47f8-94a6-59c115f7c052;
+	Sat, 17 Oct 2020 09:25:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=w2rsnAOCrgTTNyE7wFRQ6UfX9pk2pPmIo2yVrdvpyy0=; b=eJ2LP2Nmq7UtGevhJNDbA0zoiI
+	zc1Okxdj3qxsM/bk4aa/j3msjkrB2LQOBZLUmiT+eBf9XtoU+g1sjzwSBz/XPCubBzk/qE7C0XL2P
+	vjlaYCXUrgVxykppqUWVBnvQLrkQWd9PNMhIR+9/wj+M29Vr0CT8cZU1TUXT1kx9UzqM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTiSn-0007Xu-Au; Sat, 17 Oct 2020 09:25:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTiSn-0007m6-22; Sat, 17 Oct 2020 09:25:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kTiSn-0005Hb-1c; Sat, 17 Oct 2020 09:25:21 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-155908-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201016223323.GA23508@mattapan.m5p.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Subject: [ovmf test] 155908: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=30f0ec8d80072ae3ab58e08014e6b2ffe3ef97e1
+X-Osstest-Versions-That:
+    ovmf=a7d977040bd82b89d1fe5ef32d488bfd10db2dbc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 17 Oct 2020 09:25:21 +0000
 
-On Fri, Oct 16, 2020 at 03:33:23PM -0700, Elliott Mitchell wrote:
-> On the device I'm on (Raspberry PI 4B with Tianocore -> GRUB -> Xen) I
-> discovered a SPCR table shows up if I boot with the device the output is
-> plugged into is powered down.  I'm guessing this causes Tianocore to
-> advise GRUB/Linux/Xen to boot with a serial console (presenting a Serial
-> Port Console Redirect table), whereas if the display device is
-> functioning the absense of SPCR is supposed to indicate console on
-> framebuffer.
-> 
-> This means the ACPI_FAILURE case in acpi_iomem_deny_access() simply needs
-> to be filled in similar to how it likely is on x86.  Allocate a serial
-> port for Xen's use as console, present it to domain 0 as hvc0, and hide
-> it from domain 0.
+flight 155908 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155908/
 
-Looks like things are worse than I thought.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 30f0ec8d80072ae3ab58e08014e6b2ffe3ef97e1
+baseline version:
+ ovmf                 a7d977040bd82b89d1fe5ef32d488bfd10db2dbc
 
-Upon examining some of my `dmesg` copies it looks like Linux interprets
-the ignore_uart field in STAO tables as applying strictly to the UART
-referenced in the SPCR table.  As such, when booted with the framebuffer
-available, Linux thinks it can freely access the UART found in the
-hardware table.  The specification for the STAO table is apparently
-garbage since it only allows a hypervisor to tell a VM to ignore a
-single UART.  Instead it really needs to be possible to mask arbitrary
-devices.  :-(
+Last test of basis   155891  2020-10-16 10:41:44 Z    0 days
+Testing same since   155908  2020-10-16 18:15:11 Z    0 days    1 attempts
 
-As such, for ARM devices which can include framebuffers, I'm guessing Xen
-will need to either pass a modified table to domain 0, or simulate the
-device sufficiently to prevent concurrent access.  This could be as
-simple as simulating a MMIO page which discards all writes.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <Ard.Biesheuvel@arm.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Sami Mujawar <sami.mujawar@arm.com>
 
-
-
-
-
-> Next issue for me will be getting the framebuffer operational.
-> Apparently the Xen-ARM EFI implementation doesn't provide any EFI
-> variables to domain 0?  Jan Beulich, your name was mentioned as person
-> likely to have ideas for getting Linux's efifb code operational Xen-ARM.
-
-There may be multiple pieces to this.
-
-For the framebuffer this might be as simple as parsing the BGRT table and
-ensuring the addresses are directly mapped to domain 0.  I just noticed
-in dmesg, "efi_bgrt: Ignoring BGRT: invalid image address".  I'm guessing
-one thing got remapped, but a second didn't.
-
-The other need for EFI variable access is for modifying EFI's boot
-process.  While I suspect it may be feasible for most users to reboot to
-a kernel directly on hardware to update GRUB/other bootloader, adding an
-extra step increases the potential for a failure at the Wrong Time.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   a7d977040b..30f0ec8d80  30f0ec8d80072ae3ab58e08014e6b2ffe3ef97e1 -> xen-tested-master
 
