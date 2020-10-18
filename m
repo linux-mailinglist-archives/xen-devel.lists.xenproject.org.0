@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64CAA29192B
-	for <lists+xen-devel@lfdr.de>; Sun, 18 Oct 2020 21:07:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8552.22848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C89B929193F
+	for <lists+xen-devel@lfdr.de>; Sun, 18 Oct 2020 21:14:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8554.22860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUE16-0007Ny-8N; Sun, 18 Oct 2020 19:06:52 +0000
+	id 1kUE7l-0008Iq-Vz; Sun, 18 Oct 2020 19:13:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8552.22848; Sun, 18 Oct 2020 19:06:52 +0000
+Received: by outflank-mailman (output) from mailman id 8554.22860; Sun, 18 Oct 2020 19:13:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,51 +23,69 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUE16-0007NZ-4z; Sun, 18 Oct 2020 19:06:52 +0000
-Received: by outflank-mailman (input) for mailman id 8552;
- Sun, 18 Oct 2020 19:06:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t3iQ=DZ=perches.com=joe@srs-us1.protection.inumbo.net>)
- id 1kUE15-0007NT-JW
- for xen-devel@lists.xenproject.org; Sun, 18 Oct 2020 19:06:51 +0000
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.22])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dea77b87-ca3c-4e17-a67a-19b53ed81275;
- Sun, 18 Oct 2020 19:06:49 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay01.hostedemail.com (Postfix) with ESMTP id 70CB3100E7B40;
- Sun, 18 Oct 2020 19:06:49 +0000 (UTC)
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf09.hostedemail.com (Postfix) with ESMTPA;
- Sun, 18 Oct 2020 19:06:42 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kUE7l-0008IR-SJ; Sun, 18 Oct 2020 19:13:45 +0000
+Received: by outflank-mailman (input) for mailman id 8554;
+ Sun, 18 Oct 2020 19:13:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lHmQ=DZ=hansenpartnership.com=james.bottomley@srs-us1.protection.inumbo.net>)
+ id 1kUE7j-0008IM-VF
+ for xen-devel@lists.xenproject.org; Sun, 18 Oct 2020 19:13:45 +0000
+Received: from bedivere.hansenpartnership.com (unknown [2607:fcd0:100:8a00::2])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 392aa003-e3e8-4804-9d9f-4426377877b0;
+ Sun, 18 Oct 2020 19:13:40 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 6E9191280300;
+ Sun, 18 Oct 2020 12:13:38 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id JsjuUxZpqgrR; Sun, 18 Oct 2020 12:13:38 -0700 (PDT)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::c447])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 1ED2912802BA;
+ Sun, 18 Oct 2020 12:13:36 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=t3iQ=DZ=perches.com=joe@srs-us1.protection.inumbo.net>)
-	id 1kUE15-0007NT-JW
-	for xen-devel@lists.xenproject.org; Sun, 18 Oct 2020 19:06:51 +0000
-X-Inumbo-ID: dea77b87-ca3c-4e17-a67a-19b53ed81275
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.22])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id dea77b87-ca3c-4e17-a67a-19b53ed81275;
-	Sun, 18 Oct 2020 19:06:49 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
-	by smtprelay01.hostedemail.com (Postfix) with ESMTP id 70CB3100E7B40;
-	Sun, 18 Oct 2020 19:06:49 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50,0,0,,d41d8cd98f00b204,joe@perches.com,,RULES_HIT:41:355:379:599:800:967:968:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1540:1593:1594:1711:1730:1747:1777:1792:2194:2199:2393:2525:2553:2561:2564:2682:2685:2692:2828:2859:2905:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3352:3622:3865:3866:3867:3868:3870:3871:3872:3873:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4250:4321:5007:6119:6742:6743:7903:8957:8985:9025:10004:10400:10848:11232:11658:11914:12043:12295:12297:12438:12555:12740:12760:12895:12986:13069:13072:13311:13357:13439:14096:14097:14181:14659:14721:14777:21080:21347:21433:21451:21627:21811:21819:30003:30012:30022:30034:30054:30083:30090:30091,0,RBL:none,CacheIP:none,Bayesian:0.5,0.5,0.5,Netcheck:none,DomainCache:0,MSF:not bulk,SPF:,MSBL:0,DNSBL:none,Custom_rules:0:0:0,LFtime:1,LUA_SUMMARY:none
-X-HE-Tag: year67_630d5f827230
-X-Filterd-Recvd-Size: 3209
-Received: from XPS-9350.home (unknown [47.151.133.149])
-	(Authenticated sender: joe@perches.com)
-	by omf09.hostedemail.com (Postfix) with ESMTPA;
-	Sun, 18 Oct 2020 19:06:42 +0000 (UTC)
-Message-ID: <18981cad4ac27b4a22b2e38d40bd112432d4a4e7.camel@perches.com>
+	(envelope-from <SRS0=lHmQ=DZ=hansenpartnership.com=james.bottomley@srs-us1.protection.inumbo.net>)
+	id 1kUE7j-0008IM-VF
+	for xen-devel@lists.xenproject.org; Sun, 18 Oct 2020 19:13:45 +0000
+X-Inumbo-ID: 392aa003-e3e8-4804-9d9f-4426377877b0
+Received: from bedivere.hansenpartnership.com (unknown [2607:fcd0:100:8a00::2])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 392aa003-e3e8-4804-9d9f-4426377877b0;
+	Sun, 18 Oct 2020 19:13:40 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 6E9191280300;
+	Sun, 18 Oct 2020 12:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+	s=20151216; t=1603048418;
+	bh=z260bBy56dgN8y3lDRHRQeuKrIr1eALRZNoNPoXlSSo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=QOZMzgTQH16i5avnDNVW0Ktw3okhOk0UWDzTWl7121p+F93A1Quw31cCRVLQH+SGW
+	 zn7QBaZkwCTKpROUCnm6j2wnXTspVYtdUU68F1++PaWc9wHgdj5YeqG30CVReBaxSQ
+	 7zgTTXbB0BvsKBkgxIK2UI/Iu/DopS5PndAYThf8=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id JsjuUxZpqgrR; Sun, 18 Oct 2020 12:13:38 -0700 (PDT)
+Received: from jarvis.int.hansenpartnership.com (unknown [IPv6:2601:600:8280:66d1::c447])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 1ED2912802BA;
+	Sun, 18 Oct 2020 12:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+	s=20151216; t=1603048418;
+	bh=z260bBy56dgN8y3lDRHRQeuKrIr1eALRZNoNPoXlSSo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=QOZMzgTQH16i5avnDNVW0Ktw3okhOk0UWDzTWl7121p+F93A1Quw31cCRVLQH+SGW
+	 zn7QBaZkwCTKpROUCnm6j2wnXTspVYtdUU68F1++PaWc9wHgdj5YeqG30CVReBaxSQ
+	 7zgTTXbB0BvsKBkgxIK2UI/Iu/DopS5PndAYThf8=
+Message-ID: <45efa7780c79972eae9ca9bdeb9f7edbab4f3643.camel@HansenPartnership.com>
 Subject: Re: [Ocfs2-devel] [RFC] treewide: cleanup unreachable breaks
-From: Joe Perches <joe@perches.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: Matthew Wilcox <willy@infradead.org>, trix@redhat.com
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, 
  clang-built-linux@googlegroups.com, linux-iio@vger.kernel.org, 
@@ -95,12 +113,12 @@ Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
  bpf@vger.kernel.org,  ocfs2-devel@oss.oracle.com,
  linux-power@fi.rohmeurope.com
-Date: Sun, 18 Oct 2020 12:06:40 -0700
+Date: Sun, 18 Oct 2020 12:13:35 -0700
 In-Reply-To: <20201018185943.GM20115@casper.infradead.org>
 References: <20201017160928.12698-1-trix@redhat.com>
 	 <20201018185943.GM20115@casper.infradead.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.36.4-0ubuntu1 
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
@@ -109,22 +127,23 @@ On Sun, 2020-10-18 at 19:59 +0100, Matthew Wilcox wrote:
 > > clang has a number of useful, new warnings see
 > > https://urldefense.com/v3/__https://clang.llvm.org/docs/DiagnosticsReference.html__;!!GqivPVa7Brio!Krxz78O3RKcB9JBMVo_F98FupVhj_jxX60ddN6tKGEbv_cnooXc1nnBmchm-e_O9ieGnyQ$ 
 > 
-> Please get your IT department to remove that stupidity.  If you can't,
-> please send email from a non-Red Hat email address.
+> Please get your IT department to remove that stupidity.  If you
+> can't, please send email from a non-Red Hat email address.
 
-I didn't get it this way, neither did lore.
-It's on your end.
+Actually, the problem is at Oracle's end somewhere in the ocfs2 list
+... if you could fix it, that would be great.  The usual real mailing
+lists didn't get this transformation
 
-https://lore.kernel.org/lkml/20201017160928.12698-1-trix@redhat.com/
+https://lore.kernel.org/bpf/20201017160928.12698-1-trix@redhat.com/
 
-> I don't understand why this is a useful warning to fix.
+but the ocfs2 list archive did:
 
-Precision in coding style intent and code minimization
-would be the biggest factors IMO.
+https://oss.oracle.com/pipermail/ocfs2-devel/2020-October/015330.html
 
-> What actual problem is caused by the code below?
+I bet Oracle IT has put some spam filter on the list that mangles URLs
+this way.
 
-Obviously none.
+James
 
 
 
