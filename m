@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D802922FA
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:30:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8609.23075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F025F2922FB
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:31:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8611.23088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPc5-000620-QQ; Mon, 19 Oct 2020 07:29:49 +0000
+	id 1kUPdF-0006n3-5Z; Mon, 19 Oct 2020 07:31:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8609.23075; Mon, 19 Oct 2020 07:29:49 +0000
+Received: by outflank-mailman (output) from mailman id 8611.23088; Mon, 19 Oct 2020 07:31:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,98 +23,158 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPc5-00061c-NN; Mon, 19 Oct 2020 07:29:49 +0000
-Received: by outflank-mailman (input) for mailman id 8609;
- Mon, 19 Oct 2020 07:29:48 +0000
+	id 1kUPdF-0006me-28; Mon, 19 Oct 2020 07:31:01 +0000
+Received: by outflank-mailman (input) for mailman id 8611;
+ Mon, 19 Oct 2020 07:30:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUPc4-00061X-Mj
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:29:48 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kUPdC-0006mV-Sl
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:30:58 +0000
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c4f8ad6-12a5-453c-a8a3-3a5415855b8b;
- Mon, 19 Oct 2020 07:29:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ACF70AC8B;
- Mon, 19 Oct 2020 07:29:46 +0000 (UTC)
+ id 694a70b5-7173-494f-afe6-49879c748879;
+ Mon, 19 Oct 2020 07:30:58 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id n15so10182132wrq.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:30:58 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+ by smtp.gmail.com with ESMTPSA id c130sm15061465wma.17.2020.10.19.00.30.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 19 Oct 2020 00:30:56 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUPc4-00061X-Mj
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:29:48 +0000
-X-Inumbo-ID: 2c4f8ad6-12a5-453c-a8a3-3a5415855b8b
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kUPdC-0006mV-Sl
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:30:58 +0000
+X-Inumbo-ID: 694a70b5-7173-494f-afe6-49879c748879
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2c4f8ad6-12a5-453c-a8a3-3a5415855b8b;
-	Mon, 19 Oct 2020 07:29:47 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603092586;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SyjgKY1Si4K6wfxaWj8TKW9wqTWRjKNXPgMcltgR6zs=;
-	b=It3YIAh8Tbtoj4VYIigE17U+Z4WsKeAhVF8eWE5FXAR4A6ZqLuM7zWaNhsTQqTZ/HFIJ7T
-	uPA9lwF1okOdmnMGwqeKjUsipEZcYNrQ8teL8XwT1IQC81o/o7tjzBJUvRmoYa8BWPW+jB
-	jxlE2bwvLExroL33LnNQ+y6fVYjtRRM=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id ACF70AC8B;
-	Mon, 19 Oct 2020 07:29:46 +0000 (UTC)
-Subject: Re: [PATCH 2/5] iommu / domctl: introduce XEN_DOMCTL_iommu_ctl
-To: paul@xen.org
-Cc: 'Julien Grall' <julien@xen.org>, xen-devel@lists.xenproject.org,
- 'Paul Durrant' <pdurrant@amazon.com>,
- 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>, 'Ian Jackson'
- <iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>
-References: <20201005094905.2929-1-paul@xen.org>
- <20201005094905.2929-3-paul@xen.org>
- <97648df3-dcce-cd19-9074-6ca63d94b518@xen.org>
- <002a01d6a5e8$c36bb5a0$4a4320e0$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7c4a0cda-5fff-c9ae-2fc1-4256aec5f694@suse.com>
-Date: Mon, 19 Oct 2020 09:29:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	id 694a70b5-7173-494f-afe6-49879c748879;
+	Mon, 19 Oct 2020 07:30:58 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id n15so10182132wrq.2
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:30:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=3UaDZvd2RGQZ+R4RoT1ZOULGUmWOFiVK7Le4dLFx6ew=;
+        b=PNspJM3/4DX0AgPfRv3za0iK/HDPq+1VrPjU24WxPIfpRhRYINDr32iVT2h3dGlVA4
+         cpCMhVKgiqzFjxBK4o0CWNjTdeExnt+1/BZPewr3C3bSdkltiaE457b4DXFxRNfZq7zZ
+         XHcbVoeAkZjheFyynDiD3+CW51cmFDCyiDsOmjxPiUj8HOYLl2QV8c/4i0K/37AzMVoI
+         lRwWG52Fl/xKpq1cRA3KgceACx1Pgut9lHleo1WTKwTTs2hmAPgKVkv5/wXoELEVD76m
+         w1SFwRrSE2Sy5BrLKVfqJIVg3lwupmTJgy5OP37FohDkTaE5hopJA3MrgGjbIAnSP4xH
+         7eMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=3UaDZvd2RGQZ+R4RoT1ZOULGUmWOFiVK7Le4dLFx6ew=;
+        b=DCio7H8LHVTs+0xOzUUtMOKGa/yw2PVtaN0tjqhzupb7ppInslQj8zrwy+xX/7fnpl
+         hWxLAvm0ogbJYBnaj+PGu4Wndu+I2s/VPghPhm+hjAjeOjsGqY5MgfXLdLWydgGTBaD+
+         WEyJbEJBnltIM811pE9yMARbQMIZhgP1aZrhwRxjVBgrdcamRdcahwrgn3wyhu2ZLmw7
+         Z50otAjPT1m/98rE/9oraxg1hNa6ZVy9hIwJTWe1K8/dqFke7SewBkuFJCuBcJA5I0q8
+         BQnw6WuYfw21DxVU3SvHzOIU0C/QST5kbjIYUFkCSTXw1H6dpGLOvR9olvIyD01qXYoH
+         cQvg==
+X-Gm-Message-State: AOAM531BmI8UEu2XzVmzXHxTaMVPeAwmpovJRfbw+J7N9P/yEuljsdAO
+	VxEPoC5GbHXXJzh5aiWOUOI=
+X-Google-Smtp-Source: ABdhPJzAUvEkPsz1TKSyh41TsRpeAIW378YBambYEUCQvhRO6hg9ydpoN8IyhzXe5sBEFx6HJTesmA==
+X-Received: by 2002:adf:f9cb:: with SMTP id w11mr17847067wrr.131.1603092657195;
+        Mon, 19 Oct 2020 00:30:57 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+        by smtp.gmail.com with ESMTPSA id c130sm15061465wma.17.2020.10.19.00.30.55
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 19 Oct 2020 00:30:56 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Anthony PERARD'" <anthony.perard@citrix.com>,
+	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+References: <20201005094905.2929-1-paul@xen.org> <20201005094905.2929-4-paul@xen.org> <471c9800-2ff0-d180-0840-e29dee4d3b4f@xen.org>
+In-Reply-To: <471c9800-2ff0-d180-0840-e29dee4d3b4f@xen.org>
+Subject: RE: [PATCH 3/5] libxl / iommu / domctl: introduce XEN_DOMCTL_IOMMU_SET_ALLOCATION...
+Date: Mon, 19 Oct 2020 08:30:55 +0100
+Message-ID: <002c01d6a5e9$c8a778f0$59f66ad0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <002a01d6a5e8$c36bb5a0$4a4320e0$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH+ubxU5MmdI1NaD6dn626TcODZdgKhLAozArQHbBSpI7R0MA==
+Content-Language: en-gb
 
-On 19.10.2020 09:23, Paul Durrant wrote:
->> From: Julien Grall <julien@xen.org>
->> Sent: 16 October 2020 16:47
->>
->> On 05/10/2020 10:49, Paul Durrant wrote:
->>> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->>> index 791f0a2592..75e855625a 100644
->>> --- a/xen/include/public/domctl.h
->>> +++ b/xen/include/public/domctl.h
->>> @@ -1130,6 +1130,18 @@ struct xen_domctl_vuart_op {
->>>                                    */
->>>   };
->>>
->>> +/*
->>> + * XEN_DOMCTL_iommu_ctl
->>> + *
->>> + * Control of VM IOMMU settings
->>> + */
->>> +
->>> +#define XEN_DOMCTL_IOMMU_INVALID 0
->>
->> I can't find any user of XEN_DOMCTL_IOMMU_INVALID. What's the purpose
->> for it?
->>
-> 
-> It's just a placeholder. I think it's generally safer that a zero opcode value is invalid.
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 16 October 2020 16:55
+> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <pdurrant@amazon.com>; Ian Jackson =
+<iwj@xenproject.org>; Wei Liu <wl@xen.org>; Andrew
+> Cooper <andrew.cooper3@citrix.com>; George Dunlap =
+<george.dunlap@citrix.com>; Jan Beulich
+> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; =
+Anthony PERARD
+> <anthony.perard@citrix.com>; Volodymyr Babchuk =
+<Volodymyr_Babchuk@epam.com>; Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>
+> Subject: Re: [PATCH 3/5] libxl / iommu / domctl: introduce =
+XEN_DOMCTL_IOMMU_SET_ALLOCATION...
+>=20
+> Hi Paul,
+>=20
+> On 05/10/2020 10:49, Paul Durrant wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > ... sub-operation of XEN_DOMCTL_iommu_ctl.
+> >
+> > This patch adds a new sub-operation into the domctl. The code in =
+iommu_ctl()
+> > is extended to call a new arch-specific iommu_set_allocation() =
+function which
+> > will be called with the IOMMU page-table overhead (in 4k pages) in =
+response
+>=20
+> Why 4KB? Wouldn't it be better to use the hypervisor page size =
+instead?
+>=20
 
-But does this then need a #define? Starting valid command from 1
-ought to be sufficient?
+I think I'll follow the shadow/hap code more closely and just pass a =
+value in MB, then any issue with page size is left inside Xen.
 
-Jan
+> > diff --git a/xen/include/public/domctl.h =
+b/xen/include/public/domctl.h
+> > index 75e855625a..6402678838 100644
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -1138,8 +1138,16 @@ struct xen_domctl_vuart_op {
+> >
+> >   #define XEN_DOMCTL_IOMMU_INVALID 0
+> >
+> > +#define XEN_DOMCTL_IOMMU_SET_ALLOCATION 1
+> > +struct xen_domctl_iommu_set_allocation {
+> > +    uint32_t nr_pages;
+>=20
+> Shouldn't this be a 64-bit value?
+
+If I pass the value in MB then 32-bits will cover it, I think. I do need =
+to add padding though.
+
+  Paul
+
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
+
 
