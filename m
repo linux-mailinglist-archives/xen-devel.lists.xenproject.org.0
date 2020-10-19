@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C36292EBD
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 21:46:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8819.23698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2628292EC6
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 21:50:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8822.23711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUb6l-0006bf-Ev; Mon, 19 Oct 2020 19:46:15 +0000
+	id 1kUbAr-0007SP-0I; Mon, 19 Oct 2020 19:50:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8819.23698; Mon, 19 Oct 2020 19:46:15 +0000
+Received: by outflank-mailman (output) from mailman id 8822.23711; Mon, 19 Oct 2020 19:50:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,125 +23,114 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUb6l-0006bK-BB; Mon, 19 Oct 2020 19:46:15 +0000
-Received: by outflank-mailman (input) for mailman id 8819;
- Mon, 19 Oct 2020 19:46:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JRC9=D2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kUb6k-0006bF-IH
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:46:14 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f1b1cd7b-c992-4251-9e39-63d032ae9a08;
- Mon, 19 Oct 2020 19:46:13 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C00BE222EA;
- Mon, 19 Oct 2020 19:46:12 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kUbAq-0007S0-TK; Mon, 19 Oct 2020 19:50:28 +0000
+Received: by outflank-mailman (input) for mailman id 8822;
+ Mon, 19 Oct 2020 19:50:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fLnO=D2=redhat.com=trix@srs-us1.protection.inumbo.net>)
+ id 1kUbAp-0007Rv-W8
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:50:28 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id cf0248a9-b928-4f09-969a-6e7f011d050d;
+ Mon, 19 Oct 2020 19:50:26 +0000 (UTC)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-303-a2_yWrXGPeKRGS6HwGc5WA-1; Mon, 19 Oct 2020 15:50:24 -0400
+Received: by mail-qk1-f200.google.com with SMTP id a81so523241qkg.10
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 12:50:24 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id l25sm401073qtf.18.2020.10.19.12.50.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 12:50:22 -0700 (PDT)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=JRC9=D2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kUb6k-0006bF-IH
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:46:14 +0000
-X-Inumbo-ID: f1b1cd7b-c992-4251-9e39-63d032ae9a08
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f1b1cd7b-c992-4251-9e39-63d032ae9a08;
-	Mon, 19 Oct 2020 19:46:13 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id C00BE222EA;
-	Mon, 19 Oct 2020 19:46:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1603136773;
-	bh=f9jUoDlKj3bp6hvA75GWJ5qRIX5T6tQDnN4TNMvYYm0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bBlNZpMMjp9zWk4KVHSeJMPq8HozfAW5KWCV4EangbvxtVfIG99Ee0alsARAC0Vjt
-	 M1ryLwvqNEqONCRE89uAzXXcwlYpmWrhWfCGBw33uZgIwI5ocLxwq25Bq5Wh5Zy/1M
-	 Y77biisCCLy/ctYk3yUyaCaQPUNNROfcNX+eR9is=
-Date: Mon, 19 Oct 2020 12:46:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>
-Subject: Re: [PATCH] arm: optee: don't print warning about "wrong" RPC
- buffer
-In-Reply-To: <20201005091212.186934-1-volodymyr_babchuk@epam.com>
-Message-ID: <alpine.DEB.2.21.2010191245470.12247@sstabellini-ThinkPad-T480s>
-References: <20201005091212.186934-1-volodymyr_babchuk@epam.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	(envelope-from <SRS0=fLnO=D2=redhat.com=trix@srs-us1.protection.inumbo.net>)
+	id 1kUbAp-0007Rv-W8
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:50:28 +0000
+X-Inumbo-ID: cf0248a9-b928-4f09-969a-6e7f011d050d
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id cf0248a9-b928-4f09-969a-6e7f011d050d;
+	Mon, 19 Oct 2020 19:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1603137026;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type;
+	bh=gurUpVJY92BNatRtGPJGA4twsuCjo97EHFL7kW3iTCQ=;
+	b=iz05p/CCrBPlCjPg3iRXT4Y+T2jxZ0idujFsBeP1HPLER0DIOdRc7hmYxDD+zK3LfV2Llb
+	qkWGhHi8aXc3bO2VgIF+QYKW9MsmAFBwcBVAfPL9as5iCQemzvLbF3hvKg40dF3a7ac/1s
+	W7z3+rC5LY+EZ32kfLrw8GxpaJPjXMk=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-303-a2_yWrXGPeKRGS6HwGc5WA-1; Mon, 19 Oct 2020 15:50:24 -0400
+X-MC-Unique: a2_yWrXGPeKRGS6HwGc5WA-1
+Received: by mail-qk1-f200.google.com with SMTP id a81so523241qkg.10
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 12:50:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=gurUpVJY92BNatRtGPJGA4twsuCjo97EHFL7kW3iTCQ=;
+        b=tmKhMQVUegRsDFfQV3XrMxRWnkOCtZoaqvb+imBO+bPUx5iNCvyRjMm9z6tHKa7+DS
+         tmyqMIPTOsZ6ydT4Y9b9UzkK/3y207NtE1T5lssbBjzT4dKyV0FB3nSRLuTTSTVH2WVw
+         etvAXq3Kh5pMLJOI8Rc8kXy688wO88Wnqw2WFSkUAzYH9TxoBtBWnjdL/Gnoeytvinwc
+         B93cdIidF8orCSuQ03gOxSQeMnUEkx4Gij6GGAVlNAScyYp1vIe+OlAn1JBLiG7TZibo
+         rzyM4P+4gIYX6O+yd6Ef89wXhS6JgfO2JCj/u0wAnDq5VF5h1KQsQgUh+89RczzGGM3Z
+         4dSA==
+X-Gm-Message-State: AOAM533z+pOUGk/fqAqHKwBloZaA4McQWfpEu5xARJw5CkOLc44BR86T
+	sNEGk86kXSXJsaJtvNkIj0vFa2GwZNYQKf/LwynGOQk+rfWlg14sBiWo7UtvJqAee2MvM2UNwBM
+	LmGz+TcpkOjlJmtNKnUiBuUp0zsQ=
+X-Received: by 2002:ac8:705b:: with SMTP id y27mr1114108qtm.192.1603137023756;
+        Mon, 19 Oct 2020 12:50:23 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyvDlls0C3FPTa4CLaTFO3RK5ocpNR7SlP5iafd30354sGejOe41Jo8FGhAcBQn8KNGmwvqIQ==
+X-Received: by 2002:ac8:705b:: with SMTP id y27mr1114095qtm.192.1603137023534;
+        Mon, 19 Oct 2020 12:50:23 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
+        by smtp.gmail.com with ESMTPSA id l25sm401073qtf.18.2020.10.19.12.50.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2020 12:50:22 -0700 (PDT)
+From: trix@redhat.com
+To: konrad.wilk@oracle.com,
+	axboe@kernel.dk
+Cc: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tom Rix <trix@redhat.com>
+Subject: [PATCH] block: xen-blkback: remove unneeded break
+Date: Mon, 19 Oct 2020 12:50:16 -0700
+Message-Id: <20201019195016.15337-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="US-ASCII"
 
-On Mon, 5 Oct 2020, Volodymyr Babchuk wrote:
-> OP-TEE mediator tracks cookie value for a last buffer which
-> was requested by OP-TEE. This tracked value serves one important
-> purpose: if OP-TEE wants to request another buffer, we know
-> that it finished importing previous one and we can free page list
-> associated with it.
-> 
-> Also, we had false premise that OP_TEE will free requested buffers in
-> reversed order. So we checked rpc_data_cookie during handling
-> OPTEE_RPC_CMD_SHM_FREE call and printed warning if cookie of buffer
-> which is requested to be freed differs from last allocated one.
-> 
-> During testing RPMB FS services I discovered, that RPMB code frees
-> request and response buffers in the same order is it allocated
-> them. And this is perfectly fine, actually.
-> 
-> So, we are removing mentioned warning message in Xen, as it is
-> perfectly normal to free buffers in arbitrary order.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+From: Tom Rix <trix@redhat.com>
 
+A break is not needed if it is preceded by a goto
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/block/xen-blkback/blkback.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-I am going to fix the grammar on commit
+diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
+index adfc9352351d..f769fbd1b4c4 100644
+--- a/drivers/block/xen-blkback/blkback.c
++++ b/drivers/block/xen-blkback/blkback.c
+@@ -1269,7 +1269,6 @@ static int dispatch_rw_block_io(struct xen_blkif_ring *ring,
+ 	default:
+ 		operation = 0; /* make gcc happy */
+ 		goto fail_response;
+-		break;
+ 	}
+ 
+ 	/* Check that the number of segments is sane. */
+-- 
+2.18.1
 
-
-> ---
->  xen/arch/arm/tee/optee.c | 20 +-------------------
->  1 file changed, 1 insertion(+), 19 deletions(-)
-> 
-> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-> index 8a39fe33b0..ee85359742 100644
-> --- a/xen/arch/arm/tee/optee.c
-> +++ b/xen/arch/arm/tee/optee.c
-> @@ -1127,25 +1127,7 @@ static int handle_rpc_return(struct optee_domain *ctx,
->           */
->          if ( shm_rpc->xen_arg->cmd == OPTEE_RPC_CMD_SHM_FREE )
->          {
-> -            uint64_t cookie = shm_rpc->xen_arg->params[0].u.value.b;
-> -
-> -            free_optee_shm_buf(ctx, cookie);
-> -
-> -            /*
-> -             * OP-TEE asks to free the buffer, but this is not the same
-> -             * buffer we previously allocated for it. While nothing
-> -             * prevents OP-TEE from asking this, it is the strange
-> -             * situation. This may or may not be caused by a bug in
-> -             * OP-TEE or mediator. But is better to print warning.
-> -             */
-> -            if ( call->rpc_data_cookie && call->rpc_data_cookie != cookie )
-> -            {
-> -                gprintk(XENLOG_ERR,
-> -                        "Saved RPC cookie does not corresponds to OP-TEE's (%"PRIx64" != %"PRIx64")\n",
-> -                        call->rpc_data_cookie, cookie);
-> -
-> -                WARN();
-> -            }
-> +            free_optee_shm_buf(ctx, shm_rpc->xen_arg->params[0].u.value.b);
->              call->rpc_data_cookie = 0;
->          }
->          unmap_domain_page(shm_rpc->xen_arg);
-> -- 
-> 2.27.0
-> 
 
