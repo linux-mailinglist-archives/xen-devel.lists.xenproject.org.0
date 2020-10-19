@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F025F2922FB
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:31:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8611.23088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366FE2922FE
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:33:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8616.23100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPdF-0006n3-5Z; Mon, 19 Oct 2020 07:31:01 +0000
+	id 1kUPfC-0006yQ-Ha; Mon, 19 Oct 2020 07:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8611.23088; Mon, 19 Oct 2020 07:31:01 +0000
+Received: by outflank-mailman (output) from mailman id 8616.23100; Mon, 19 Oct 2020 07:33:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,158 +23,150 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPdF-0006me-28; Mon, 19 Oct 2020 07:31:01 +0000
-Received: by outflank-mailman (input) for mailman id 8611;
- Mon, 19 Oct 2020 07:30:59 +0000
+	id 1kUPfC-0006y1-EB; Mon, 19 Oct 2020 07:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 8616;
+ Mon, 19 Oct 2020 07:33:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kUPdC-0006mV-Sl
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:30:58 +0000
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ id 1kUPfA-0006xw-Kf
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:33:00 +0000
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 694a70b5-7173-494f-afe6-49879c748879;
- Mon, 19 Oct 2020 07:30:58 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id n15so10182132wrq.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:30:58 -0700 (PDT)
+ id 5bea8250-dc53-49df-9d9d-584004cf35b9;
+ Mon, 19 Oct 2020 07:32:59 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id q5so11660151wmq.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:32:59 -0700 (PDT)
 Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
- by smtp.gmail.com with ESMTPSA id c130sm15061465wma.17.2020.10.19.00.30.55
+ by smtp.gmail.com with ESMTPSA id v8sm15657225wmb.20.2020.10.19.00.32.57
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 19 Oct 2020 00:30:56 -0700 (PDT)
+ Mon, 19 Oct 2020 00:32:58 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kUPdC-0006mV-Sl
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:30:58 +0000
-X-Inumbo-ID: 694a70b5-7173-494f-afe6-49879c748879
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+	id 1kUPfA-0006xw-Kf
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:33:00 +0000
+X-Inumbo-ID: 5bea8250-dc53-49df-9d9d-584004cf35b9
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 694a70b5-7173-494f-afe6-49879c748879;
-	Mon, 19 Oct 2020 07:30:58 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id n15so10182132wrq.2
-        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:30:58 -0700 (PDT)
+	id 5bea8250-dc53-49df-9d9d-584004cf35b9;
+	Mon, 19 Oct 2020 07:32:59 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id q5so11660151wmq.0
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:32:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
          :mime-version:content-transfer-encoding:thread-index
          :content-language;
-        bh=3UaDZvd2RGQZ+R4RoT1ZOULGUmWOFiVK7Le4dLFx6ew=;
-        b=PNspJM3/4DX0AgPfRv3za0iK/HDPq+1VrPjU24WxPIfpRhRYINDr32iVT2h3dGlVA4
-         cpCMhVKgiqzFjxBK4o0CWNjTdeExnt+1/BZPewr3C3bSdkltiaE457b4DXFxRNfZq7zZ
-         XHcbVoeAkZjheFyynDiD3+CW51cmFDCyiDsOmjxPiUj8HOYLl2QV8c/4i0K/37AzMVoI
-         lRwWG52Fl/xKpq1cRA3KgceACx1Pgut9lHleo1WTKwTTs2hmAPgKVkv5/wXoELEVD76m
-         w1SFwRrSE2Sy5BrLKVfqJIVg3lwupmTJgy5OP37FohDkTaE5hopJA3MrgGjbIAnSP4xH
-         7eMw==
+        bh=jZa8/08xg2HhiRyEdtd7JzfFusEcmIi51CFreIpCG4Q=;
+        b=oaknzuBuzHg+xmxEA0qkQsjp/Efv6ufRT5UVz5FpHhDcRjL/KWpwbpK+zbzqHLCem+
+         SK9S0ZbEW+ZfGD/lqF3oN4xZ+Yd/Ja+mafVKxSjeMDB4sCt4P7st7UE+4ZI0TGT8rpq6
+         wEI4MpUsde4SgX3VL7GLiImsD9gmR2LLP7vTRxLICUKIic4NtU/aM0VLBS35UqzGAa7y
+         kz8eNgpxbdol3QN+dC+DzkLrzNLNIUngGj40H+n9SBYOSZ1C+cVj+0rkgTPRykDuQdDu
+         hr1Dq0adX2Q94ZTexSCLxct0YPxww8Rx5E+0SIHaEzXTw4BuekNRtTQp2foyVXQptVWN
+         vkpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
          :subject:date:message-id:mime-version:content-transfer-encoding
          :thread-index:content-language;
-        bh=3UaDZvd2RGQZ+R4RoT1ZOULGUmWOFiVK7Le4dLFx6ew=;
-        b=DCio7H8LHVTs+0xOzUUtMOKGa/yw2PVtaN0tjqhzupb7ppInslQj8zrwy+xX/7fnpl
-         hWxLAvm0ogbJYBnaj+PGu4Wndu+I2s/VPghPhm+hjAjeOjsGqY5MgfXLdLWydgGTBaD+
-         WEyJbEJBnltIM811pE9yMARbQMIZhgP1aZrhwRxjVBgrdcamRdcahwrgn3wyhu2ZLmw7
-         Z50otAjPT1m/98rE/9oraxg1hNa6ZVy9hIwJTWe1K8/dqFke7SewBkuFJCuBcJA5I0q8
-         BQnw6WuYfw21DxVU3SvHzOIU0C/QST5kbjIYUFkCSTXw1H6dpGLOvR9olvIyD01qXYoH
-         cQvg==
-X-Gm-Message-State: AOAM531BmI8UEu2XzVmzXHxTaMVPeAwmpovJRfbw+J7N9P/yEuljsdAO
-	VxEPoC5GbHXXJzh5aiWOUOI=
-X-Google-Smtp-Source: ABdhPJzAUvEkPsz1TKSyh41TsRpeAIW378YBambYEUCQvhRO6hg9ydpoN8IyhzXe5sBEFx6HJTesmA==
-X-Received: by 2002:adf:f9cb:: with SMTP id w11mr17847067wrr.131.1603092657195;
-        Mon, 19 Oct 2020 00:30:57 -0700 (PDT)
+        bh=jZa8/08xg2HhiRyEdtd7JzfFusEcmIi51CFreIpCG4Q=;
+        b=qFennhfQc4vI/4aOI60+6Lub8K2pORi5Ty6w1WkA7wG6eDOP8arPTTYeLSXdITFoM6
+         f2AdAa5G23lzA1iKjhk7gTEJbTdHiAJ7SWDmwm88XcDudGm92Vimf3aHJNcC9rGgfPH+
+         hjwkzFrhNotsSLwf2EvaIuwMxIylN9ZH/LHx3ZqO69BUBk0Q30UIzX/9TMHZHUOFQy2j
+         vP7vBWawGk4kPRBL2QesBoI9YYhUo0GW2t4NEH+RS1dc8QiVBdCm2nIKeBvMuVv8U8B0
+         Fw55ccfZ9+4NA6dVBahZwXECdfJo5p1GWLZnicreLre2jAiiaAif+KWcaa8tZ9FD8nft
+         T3SQ==
+X-Gm-Message-State: AOAM531ZwlEWvS5NdbR22G6Al/AR/gVSIswDlm0gbg+wawIVd2spS4L2
+	xrIHdxmiKUkjmlUk+i7HLfU=
+X-Google-Smtp-Source: ABdhPJx2BiYyfhVZ1HGWs4WCT5Aj9TYeliEOXidJVSUkUcsFTbrMhQeZhGr4xK2koWgpYBcfHES3Mw==
+X-Received: by 2002:a1c:9a4b:: with SMTP id c72mr15711301wme.157.1603092778890;
+        Mon, 19 Oct 2020 00:32:58 -0700 (PDT)
 Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
-        by smtp.gmail.com with ESMTPSA id c130sm15061465wma.17.2020.10.19.00.30.55
+        by smtp.gmail.com with ESMTPSA id v8sm15657225wmb.20.2020.10.19.00.32.57
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Oct 2020 00:30:56 -0700 (PDT)
+        Mon, 19 Oct 2020 00:32:58 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
 Reply-To: <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
-	<xen-devel@lists.xenproject.org>
-Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
+To: "'Jan Beulich'" <jbeulich@suse.com>
+Cc: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>,
+	"'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Daniel De Graaf'" <dgdegra@tycho.nsa.gov>,
 	"'Ian Jackson'" <iwj@xenproject.org>,
 	"'Wei Liu'" <wl@xen.org>,
 	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
 	"'George Dunlap'" <george.dunlap@citrix.com>,
-	"'Jan Beulich'" <jbeulich@suse.com>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Anthony PERARD'" <anthony.perard@citrix.com>,
-	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
-References: <20201005094905.2929-1-paul@xen.org> <20201005094905.2929-4-paul@xen.org> <471c9800-2ff0-d180-0840-e29dee4d3b4f@xen.org>
-In-Reply-To: <471c9800-2ff0-d180-0840-e29dee4d3b4f@xen.org>
-Subject: RE: [PATCH 3/5] libxl / iommu / domctl: introduce XEN_DOMCTL_IOMMU_SET_ALLOCATION...
-Date: Mon, 19 Oct 2020 08:30:55 +0100
-Message-ID: <002c01d6a5e9$c8a778f0$59f66ad0$@xen.org>
+	"'Stefano Stabellini'" <sstabellini@kernel.org>
+References: <20201005094905.2929-1-paul@xen.org> <20201005094905.2929-3-paul@xen.org> <97648df3-dcce-cd19-9074-6ca63d94b518@xen.org> <002a01d6a5e8$c36bb5a0$4a4320e0$@xen.org> <7c4a0cda-5fff-c9ae-2fc1-4256aec5f694@suse.com>
+In-Reply-To: <7c4a0cda-5fff-c9ae-2fc1-4256aec5f694@suse.com>
+Subject: RE: [PATCH 2/5] iommu / domctl: introduce XEN_DOMCTL_iommu_ctl
+Date: Mon, 19 Oct 2020 08:32:57 +0100
+Message-ID: <002d01d6a5ea$112d9aa0$3388cfe0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH+ubxU5MmdI1NaD6dn626TcODZdgKhLAozArQHbBSpI7R0MA==
+Thread-Index: AQH+ubxU5MmdI1NaD6dn626TcODZdgGmi3hFAim7XvUAu7WuFwHUyrZTqRtZupA=
 Content-Language: en-gb
 
 > -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 16 October 2020 16:55
-> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
-> Cc: Paul Durrant <pdurrant@amazon.com>; Ian Jackson =
-<iwj@xenproject.org>; Wei Liu <wl@xen.org>; Andrew
-> Cooper <andrew.cooper3@citrix.com>; George Dunlap =
-<george.dunlap@citrix.com>; Jan Beulich
-> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; =
-Anthony PERARD
-> <anthony.perard@citrix.com>; Volodymyr Babchuk =
-<Volodymyr_Babchuk@epam.com>; Roger Pau Monn=C3=A9
-> <roger.pau@citrix.com>
-> Subject: Re: [PATCH 3/5] libxl / iommu / domctl: introduce =
-XEN_DOMCTL_IOMMU_SET_ALLOCATION...
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 19 October 2020 08:30
+> To: paul@xen.org
+> Cc: 'Julien Grall' <julien@xen.org>; xen-devel@lists.xenproject.org; =
+'Paul Durrant'
+> <pdurrant@amazon.com>; 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>; 'Ian =
+Jackson' <iwj@xenproject.org>;
+> 'Wei Liu' <wl@xen.org>; 'Andrew Cooper' <andrew.cooper3@citrix.com>; =
+'George Dunlap'
+> <george.dunlap@citrix.com>; 'Stefano Stabellini' =
+<sstabellini@kernel.org>
+> Subject: Re: [PATCH 2/5] iommu / domctl: introduce =
+XEN_DOMCTL_iommu_ctl
 >=20
-> Hi Paul,
->=20
-> On 05/10/2020 10:49, Paul Durrant wrote:
-> > From: Paul Durrant <pdurrant@amazon.com>
-> >
-> > ... sub-operation of XEN_DOMCTL_iommu_ctl.
-> >
-> > This patch adds a new sub-operation into the domctl. The code in =
-iommu_ctl()
-> > is extended to call a new arch-specific iommu_set_allocation() =
-function which
-> > will be called with the IOMMU page-table overhead (in 4k pages) in =
-response
->=20
-> Why 4KB? Wouldn't it be better to use the hypervisor page size =
-instead?
->=20
-
-I think I'll follow the shadow/hap code more closely and just pass a =
-value in MB, then any issue with page size is left inside Xen.
-
-> > diff --git a/xen/include/public/domctl.h =
+> On 19.10.2020 09:23, Paul Durrant wrote:
+> >> From: Julien Grall <julien@xen.org>
+> >> Sent: 16 October 2020 16:47
+> >>
+> >> On 05/10/2020 10:49, Paul Durrant wrote:
+> >>> diff --git a/xen/include/public/domctl.h =
 b/xen/include/public/domctl.h
-> > index 75e855625a..6402678838 100644
-> > --- a/xen/include/public/domctl.h
-> > +++ b/xen/include/public/domctl.h
-> > @@ -1138,8 +1138,16 @@ struct xen_domctl_vuart_op {
+> >>> index 791f0a2592..75e855625a 100644
+> >>> --- a/xen/include/public/domctl.h
+> >>> +++ b/xen/include/public/domctl.h
+> >>> @@ -1130,6 +1130,18 @@ struct xen_domctl_vuart_op {
+> >>>                                    */
+> >>>   };
+> >>>
+> >>> +/*
+> >>> + * XEN_DOMCTL_iommu_ctl
+> >>> + *
+> >>> + * Control of VM IOMMU settings
+> >>> + */
+> >>> +
+> >>> +#define XEN_DOMCTL_IOMMU_INVALID 0
+> >>
+> >> I can't find any user of XEN_DOMCTL_IOMMU_INVALID. What's the =
+purpose
+> >> for it?
+> >>
 > >
-> >   #define XEN_DOMCTL_IOMMU_INVALID 0
-> >
-> > +#define XEN_DOMCTL_IOMMU_SET_ALLOCATION 1
-> > +struct xen_domctl_iommu_set_allocation {
-> > +    uint32_t nr_pages;
+> > It's just a placeholder. I think it's generally safer that a zero =
+opcode value is invalid.
 >=20
-> Shouldn't this be a 64-bit value?
+> But does this then need a #define? Starting valid command from 1
+> ought to be sufficient?
+>=20
 
-If I pass the value in MB then 32-bits will cover it, I think. I do need =
-to add padding though.
+Seems harmless enough, and it also seemed the best way since to reserve =
+0 since this patch doesn't actually introduce any ops. As it has caused =
+so much controversy though, I'll remove it.
 
   Paul
 
->=20
-> Cheers,
->=20
-> --
-> Julien Grall
+> Jan
 
 
