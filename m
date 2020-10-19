@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81507292A4C
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 17:23:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8743.23463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E73B292A55
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 17:25:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8746.23476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUX03-0007rX-Nl; Mon, 19 Oct 2020 15:23:03 +0000
+	id 1kUX2j-00081b-BN; Mon, 19 Oct 2020 15:25:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8743.23463; Mon, 19 Oct 2020 15:23:03 +0000
+Received: by outflank-mailman (output) from mailman id 8746.23476; Mon, 19 Oct 2020 15:25:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,106 +23,187 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUX03-0007r8-Kd; Mon, 19 Oct 2020 15:23:03 +0000
-Received: by outflank-mailman (input) for mailman id 8743;
- Mon, 19 Oct 2020 15:23:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L3Wa=D2=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kUX02-0007r3-O4
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:23:02 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 78771f21-7380-4f52-9d43-fda1e4067b16;
- Mon, 19 Oct 2020 15:23:00 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kUX2j-00081B-7q; Mon, 19 Oct 2020 15:25:49 +0000
+Received: by outflank-mailman (input) for mailman id 8746;
+ Mon, 19 Oct 2020 15:25:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kUX2h-000816-6g
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:25:47 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 168b3bbc-b38d-4cb9-8b86-068a83c51cf2;
+ Mon, 19 Oct 2020 15:25:45 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 94507AC8B;
+ Mon, 19 Oct 2020 15:25:44 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=L3Wa=D2=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kUX02-0007r3-O4
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:23:02 +0000
-X-Inumbo-ID: 78771f21-7380-4f52-9d43-fda1e4067b16
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 78771f21-7380-4f52-9d43-fda1e4067b16;
-	Mon, 19 Oct 2020 15:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603120980;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=R11Xod3XK+6Hs4DEahgUgiVyeSCOxOG/2tTH0iJS3is=;
-  b=ZKXyNiYLeh5sISGgMWm/HkbIXVlDHW5OXOAT2oGbnlLSm1Iri6rQSrmF
-   I6gRZffp5Y4o4HelOJbmVLW77ALLYK1PA1cRMfz7XjZICkDDbwE+LMIeO
-   pACWaJcTuB5z1752DI+7QmRjEWdEzjb9vByONAKRiGuOZMbkvrJJV+4r0
-   U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: rW5d9cAXVkVUmWSfYS9Q90kGhpwTbSh46fca+7PQKdiRboF5luMIGifyTUo2QhVVwhKOBoD5RZ
- qLiVNoKZJ2bdbFnBTlvBY0GzZssHEaCyXum/5xdHYxPf12hdbVHcFtXfL6TOt7nbpPBa3pje2N
- nMrGu5o2IyJEY4rKuaNIfTqdiTMg6aCDkaXb0HW96zqiRbISlGIoPqJ+AQertp+pridls5+n3F
- OrRyiekNyMayOKcE2xUo9K73gknnlzL4/aqIGL9K5b/3jZN7ZMl7gKmm6cBnEupHcr7X0cGYMS
- Mpc=
-X-SBRS: None
-X-MesageID: 29555130
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,394,1596513600"; 
-   d="scan'208";a="29555130"
-Subject: Re: [PATCH] SVM: avoid VMSAVE in ctxt-switch-to
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a01862b8-6e16-5ddc-7f48-2d3bed2f34b6@suse.com>
- <9d0cae4e-f849-f2a3-4261-d3efb977deeb@citrix.com>
- <b3b581fc-b1c9-cdc2-add6-900a4305623a@suse.com>
- <6af1bbb6-d717-affa-6409-2b983e48ed30@citrix.com>
- <59f3e399-8676-bb44-ec85-500583f97b2f@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <23d02e3b-7dac-ceb8-ebdd-3b77f264d6b4@citrix.com>
-Date: Mon, 19 Oct 2020 16:22:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kUX2h-000816-6g
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:25:47 +0000
+X-Inumbo-ID: 168b3bbc-b38d-4cb9-8b86-068a83c51cf2
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 168b3bbc-b38d-4cb9-8b86-068a83c51cf2;
+	Mon, 19 Oct 2020 15:25:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603121144;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gh2o7skQDVKv2Z2IafZlyzrok3EROZphdgRUYxxQBDE=;
+	b=GiuaglY7qP0hNg1bL8JZAn7L8pW9TynUz3smaxMpYhX7oM+rbpkN9MBinTwwxk1hNqZW7z
+	bCOwcQgr8d58SKMmbtm7THOBa3UxRtaxz9NCwLU5zT4pjg0xnCLYNH0aItowtCGdcdPjCx
+	oP8HalWjXaiVUZnb0ilqNLW8WmonzPs=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 94507AC8B;
+	Mon, 19 Oct 2020 15:25:44 +0000 (UTC)
+Subject: Re: [PATCH v10 05/11] common/domain: add a domain context record for
+ shared_info...
+To: Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20201008185735.29875-1-paul@xen.org>
+ <20201008185735.29875-6-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <053295cf-9150-8ba4-0427-ba65b639f4ae@suse.com>
+Date: Mon, 19 Oct 2020 17:25:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <59f3e399-8676-bb44-ec85-500583f97b2f@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+In-Reply-To: <20201008185735.29875-6-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 19/10/2020 16:02, Jan Beulich wrote:
-> On 19.10.2020 16:30, Andrew Cooper wrote:
->> On 19/10/2020 15:21, Jan Beulich wrote:
->>> On 19.10.2020 16:10, Andrew Cooper wrote:
->>>> On 19/10/2020 14:40, Jan Beulich wrote:
->>>>> Of the state saved by the insn and reloaded by the corresponding VMLOAD
->>>>> - TR, syscall, and sysenter state are invariant while having Xen's state
->>>>>   loaded,
->>>>> - FS, GS, and LDTR are not used by Xen and get suitably set in PV
->>>>>   context switch code.
->>>> I think it would be helpful to state that Xen's state is suitably cached
->>>> in _svm_cpu_up(), as this does now introduce an ordering dependency
->>>> during boot.
->>> I've added a sentence.
->>>
->>>> Is it possibly worth putting an assert checking the TR selector?  That
->>>> ought to be good enough to catch stray init reordering problems.
->>> How would checking just the TR selector help? If other pieces of TR
->>> or syscall/sysenter were out of sync, we'd be hosed, too.
->> They're far less likely to move relative to tr, than everything relative
->> to hvm_up().
->>
->>> I'm also not sure what exactly you mean to do for such an assertion:
->>> Merely check the host VMCB field against TSS_SELECTOR, or do an
->>> actual STR to be closer to what the VMSAVE actually did?
->> ASSERT(str() == TSS_SELECTOR);
-> Oh, that's odd. How would this help with the VMCB?
+On 08.10.2020 20:57, Paul Durrant wrote:
+> @@ -1671,6 +1672,118 @@ int continue_hypercall_on_cpu(
+>      return 0;
+>  }
+>  
+> +static int save_shared_info(struct domain *d, struct domain_ctxt_state *c,
+> +                            bool dry_run)
+> +{
+> +#ifdef CONFIG_COMPAT
+> +    struct domain_context_shared_info s = {
+> +        .flags = has_32bit_shinfo(d) ? DOMAIN_CONTEXT_32BIT_SHARED_INFO : 0,
+> +    };
+> +    size_t size = has_32bit_shinfo(d) ?
+> +        sizeof(struct compat_shared_info) :
+> +        sizeof(struct shared_info);
+> +#else
+> +    struct domain_context_shared_info s = {};
+> +    size_t size = sizeof(struct shared_info);
 
-It wont.
+All of these would imo better be expressed in terms of d->shared_info.
+While chances are zero that these types will change in any way, it
+still sets a bad precedent for people seeing this and then introducing
+similar disconnects elsewhere. (Same in the load handling then.)
 
-We're not checking the behaviour of the VMSAVE instruction.  We just
-want to sanity check that %tr is already configured.
+> +static int load_shared_info(struct domain *d, struct domain_ctxt_state *c)
+> +{
+> +    struct domain_context_shared_info s = {};
+> +    size_t size;
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    rc = domain_load_ctxt_rec_begin(c, DOMAIN_CONTEXT_SHARED_INFO, &i);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( i ) /* expect only a single instance */
+> +        return -ENXIO;
+> +
+> +    rc = domain_load_ctxt_rec_data(c, &s, offsetof(typeof(s), buffer));
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( s.flags & ~DOMAIN_CONTEXT_32BIT_SHARED_INFO )
+> +        return -EINVAL;
+> +
+> +    if ( s.flags & DOMAIN_CONTEXT_32BIT_SHARED_INFO )
+> +    {
+> +#ifdef CONFIG_COMPAT
+> +        d->arch.has_32bit_shinfo = true;
+> +        size = sizeof(struct compat_shared_info);
 
-This version is far more simple than checking VMCB.trsel, which will
-require a map_domain_page().
+I realize this has been more or less this way already in prior
+versions, but aren't you introducing a way to have a degenerate
+64-bit PV guest with 32-bit shared info (or vice versa), in that
+shared info bitness isn't strictly tied to guest bitness anymore?
+Rejecting this case may not need to live here, but it needs to be
+present / added somewhere.
 
-~Andrew
+> +#else
+> +        return -EINVAL;
+> +#endif
+> +    }
+> +    else
+> +        size = sizeof(struct shared_info);
+> +
+> +    if ( is_pv_domain(d) )
+> +    {
+> +        shared_info_t *shinfo = xzalloc(shared_info_t);
+> +
+> +        if ( !shinfo )
+> +            return -ENOMEM;
+> +
+> +        rc = domain_load_ctxt_rec_data(c, shinfo, size);
+> +        if ( rc )
+> +            goto out;
+> +
+> +        memcpy(&shared_info(d, vcpu_info), &__shared_info(d, shinfo, vcpu_info),
+> +               sizeof(shared_info(d, vcpu_info)));
+> +        memcpy(&shared_info(d, arch), &__shared_info(d, shinfo, arch),
+> +               sizeof(shared_info(d, arch)));
+> +
+> +        memset(&shared_info(d, evtchn_pending), 0,
+> +               sizeof(shared_info(d, evtchn_pending)));
+> +        memset(&shared_info(d, evtchn_mask), 0xff,
+> +               sizeof(shared_info(d, evtchn_mask)));
+> +
+> +#ifdef CONFIG_X86
+> +        shared_info(d, arch.pfn_to_mfn_frame_list_list) = 0;
+> +#endif
+> +        for ( i = 0; i < XEN_LEGACY_MAX_VCPUS; i++ )
+> +            shared_info(d, vcpu_info[i].evtchn_pending_sel) = 0;
+
+Again I realize this has been this way in earlier versions, and
+it was also me to ask for streamlining the code, but is this
+actually correct? I ask in particular in light of this comment
+
+/*
+ * Compat field is never larger than native field, so cast to that as it
+ * is the largest memory range it is safe for the caller to modify without
+ * further discrimination between compat and native cases.
+ */
+
+in xen/shared.h, next to the __shared_info() #define. I can't
+help thinking that you'll fill only half of some of the fields
+in the 64-bit case.
+
+> @@ -58,6 +59,16 @@ struct domain_context_start {
+>      uint32_t xen_major, xen_minor;
+>  };
+>  
+> +struct domain_context_shared_info {
+> +    uint32_t flags;
+> +
+> +#define _DOMAIN_CONTEXT_32BIT_SHARED_INFO 0
+
+Is this separate constant actually needed for anything?
+
+Speaking of which - wouldn't all your additions to this header
+better be proper name spacing citizens, by having xen_ / XEN_
+prefixes?
+
+Jan
 
