@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8589F29295B
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 16:31:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8727.23404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106F62929F9
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 17:03:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8734.23428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUWBh-000358-Kr; Mon, 19 Oct 2020 14:31:01 +0000
+	id 1kUWgZ-0005qH-HI; Mon, 19 Oct 2020 15:02:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8727.23404; Mon, 19 Oct 2020 14:31:01 +0000
+Received: by outflank-mailman (output) from mailman id 8734.23428; Mon, 19 Oct 2020 15:02:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,109 +23,105 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUWBh-00034j-Hr; Mon, 19 Oct 2020 14:31:01 +0000
-Received: by outflank-mailman (input) for mailman id 8727;
- Mon, 19 Oct 2020 14:31:01 +0000
+	id 1kUWgZ-0005ps-E5; Mon, 19 Oct 2020 15:02:55 +0000
+Received: by outflank-mailman (input) for mailman id 8734;
+ Mon, 19 Oct 2020 15:02:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUWBg-00034e-Tq
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:31:00 +0000
+ id 1kUWgY-0005pn-0p
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:02:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ad2fe33-7376-4003-a082-c54b18cb8549;
- Mon, 19 Oct 2020 14:30:59 +0000 (UTC)
+ id 290af866-af43-481c-869a-d8cf361f1287;
+ Mon, 19 Oct 2020 15:02:52 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E1BD2AE16;
- Mon, 19 Oct 2020 14:30:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6CF42ADF7;
+ Mon, 19 Oct 2020 15:02:51 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUWBg-00034e-Tq
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:31:00 +0000
-X-Inumbo-ID: 0ad2fe33-7376-4003-a082-c54b18cb8549
+	id 1kUWgY-0005pn-0p
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 15:02:54 +0000
+X-Inumbo-ID: 290af866-af43-481c-869a-d8cf361f1287
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0ad2fe33-7376-4003-a082-c54b18cb8549;
-	Mon, 19 Oct 2020 14:30:59 +0000 (UTC)
+	id 290af866-af43-481c-869a-d8cf361f1287;
+	Mon, 19 Oct 2020 15:02:52 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603117859;
+	t=1603119771;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZtR3m5DNeHACrZG7hBrgHqJDYkbABQ8PlejywjfYnOg=;
-	b=dGFvWwhr35WZ7qVK4QyFy12l3HlmGPhonEVJ/I3taYdFQBceL8hZgey95715viE9x29UgM
-	p+9ddO4bhb1u/C3IYdLJYx+aiN2TDUpn375Qx33/zRenBF95RTP1djNWFwnliUhfqeoGd8
-	u55koVjg29Ks7EEBh1JFDj4KoKXpZjI=
+	bh=YLlIyCd/5KJtDGeP3FKDOG2rOrTGcnbz3rxNcUDALps=;
+	b=KdrRlcJb9E7VlDJEr4Xw9B7gOANr8CuG3e3fRq+m8rSOWT4yjDS/uNExtW3ICv/H4EBGjq
+	40ztMF/c4o9iPbbGP9Fbu1j8Wf8YjZQv7DKQ/cauZ3anVJDzq5PuEBDUXFgFqxeGcwHZu4
+	ss+B9n1skwcIa9KF8JnjjmF+beGsTJM=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E1BD2AE16;
-	Mon, 19 Oct 2020 14:30:58 +0000 (UTC)
-Subject: Re: [PATCH v10 03/11] xen/common/domctl: introduce
- XEN_DOMCTL_get/set_domain_context
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20201008185735.29875-1-paul@xen.org>
- <20201008185735.29875-4-paul@xen.org>
+	by mx2.suse.de (Postfix) with ESMTP id 6CF42ADF7;
+	Mon, 19 Oct 2020 15:02:51 +0000 (UTC)
+Subject: Re: [PATCH] SVM: avoid VMSAVE in ctxt-switch-to
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a01862b8-6e16-5ddc-7f48-2d3bed2f34b6@suse.com>
+ <9d0cae4e-f849-f2a3-4261-d3efb977deeb@citrix.com>
+ <b3b581fc-b1c9-cdc2-add6-900a4305623a@suse.com>
+ <6af1bbb6-d717-affa-6409-2b983e48ed30@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <025d8753-5dd7-a114-6b27-f50ec863582c@suse.com>
-Date: Mon, 19 Oct 2020 16:30:58 +0200
+Message-ID: <59f3e399-8676-bb44-ec85-500583f97b2f@suse.com>
+Date: Mon, 19 Oct 2020 17:02:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <20201008185735.29875-4-paul@xen.org>
+In-Reply-To: <6af1bbb6-d717-affa-6409-2b983e48ed30@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.10.2020 20:57, Paul Durrant wrote:
-> +static int dry_run_end(void *priv, size_t len)
-> +{
-> +    struct domctl_context *c = priv;
-> +
-> +    ASSERT(IS_ALIGNED(c->len, DOMAIN_CONTEXT_RECORD_ALIGN));
-> +
-> +    return 0;
-> +}
-> +
-> +static struct domain_save_ctxt_ops dry_run_ops = {
+On 19.10.2020 16:30, Andrew Cooper wrote:
+> On 19/10/2020 15:21, Jan Beulich wrote:
+>> On 19.10.2020 16:10, Andrew Cooper wrote:
+>>> On 19/10/2020 14:40, Jan Beulich wrote:
+>>>> Of the state saved by the insn and reloaded by the corresponding VMLOAD
+>>>> - TR, syscall, and sysenter state are invariant while having Xen's state
+>>>>   loaded,
+>>>> - FS, GS, and LDTR are not used by Xen and get suitably set in PV
+>>>>   context switch code.
+>>> I think it would be helpful to state that Xen's state is suitably cached
+>>> in _svm_cpu_up(), as this does now introduce an ordering dependency
+>>> during boot.
+>> I've added a sentence.
+>>
+>>> Is it possibly worth putting an assert checking the TR selector?  That
+>>> ought to be good enough to catch stray init reordering problems.
+>> How would checking just the TR selector help? If other pieces of TR
+>> or syscall/sysenter were out of sync, we'd be hosed, too.
+> 
+> They're far less likely to move relative to tr, than everything relative
+> to hvm_up().
+> 
+>> I'm also not sure what exactly you mean to do for such an assertion:
+>> Merely check the host VMCB field against TSS_SELECTOR, or do an
+>> actual STR to be closer to what the VMSAVE actually did?
+> 
+> ASSERT(str() == TSS_SELECTOR);
 
-const? (same for save_ops and load_ops then)
+Oh, that's odd. How would this help with the VMCB? I thought
+you want the VMCB field checked (which is what we're going to
+have host state loaded from, and which hence is what shouldn't
+be wrong). If the assert as you suggests passes, it means
+nothing towards our environment after the next VM exit.
 
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1132,6 +1132,41 @@ struct xen_domctl_vuart_op {
->                                   */
->  };
->  
-> +/*
-> + * XEN_DOMCTL_get_domain_context
-> + * -----------------------------
-> + *
-> + * buffer (IN):   The buffer into which the context data should be
-> + *                copied, or NULL to query the buffer size that should
-> + *                be allocated.
-> + * size (IN/OUT): If 'buffer' is NULL then the value passed in must be
-> + *                zero, and the value passed out will be the size of the
-> + *                buffer to allocate.
-> + *                If 'buffer' is non-NULL then the value passed in must
-> + *                be the size of the buffer into which data may be copied.
-> + *                The value passed out will be the size of data written.
-> + */
-> +struct xen_domctl_get_domain_context {
-> +    uint64_t size;
+> The problem with the other state is that it compiletime/runtime
+> dependent, and we don't want to be opencoding the logic a second time.
 
-uint64_aligned_t (also again below)?
-
-With these adjusted
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Right, but the assertion should be useful at least in some way,
+which may make it unavoidable to duplicate some of the logic.
+In effect the assertion as you're suggesting it does, too, in
+that it further implies VMCB.trsel == TSS_SELECTOR.
 
 Jan
 
