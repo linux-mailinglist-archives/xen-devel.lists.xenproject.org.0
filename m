@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A175292461
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE09292462
 	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 11:09:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8676.23231 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.8677.23241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kURA2-0007oQ-Ev; Mon, 19 Oct 2020 09:08:58 +0000
+	id 1kURA9-0007qK-NN; Mon, 19 Oct 2020 09:09:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8676.23231; Mon, 19 Oct 2020 09:08:58 +0000
+Received: by outflank-mailman (output) from mailman id 8677.23241; Mon, 19 Oct 2020 09:09:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,397 +23,187 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kURA2-0007o1-Bm; Mon, 19 Oct 2020 09:08:58 +0000
-Received: by outflank-mailman (input) for mailman id 8676;
- Mon, 19 Oct 2020 09:08:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cRFv=D2=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1kURA0-0007nw-FS
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:08:56 +0000
+	id 1kURA9-0007pu-K6; Mon, 19 Oct 2020 09:09:05 +0000
+Received: by outflank-mailman (input) for mailman id 8677;
+ Mon, 19 Oct 2020 09:09:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kURA8-0007pe-IU
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:09:04 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 440fc63b-2afa-4e34-950c-39a79c973e54;
- Mon, 19 Oct 2020 09:08:54 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8e6ba33b-a0b9-4a3a-b173-5386f6458568;
+ Mon, 19 Oct 2020 09:09:02 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D8DEBB298;
- Mon, 19 Oct 2020 09:08:53 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 7E45EB290;
+ Mon, 19 Oct 2020 09:09:01 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cRFv=D2=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
-	id 1kURA0-0007nw-FS
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:08:56 +0000
-X-Inumbo-ID: 440fc63b-2afa-4e34-950c-39a79c973e54
+	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kURA8-0007pe-IU
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:09:04 +0000
+X-Inumbo-ID: 8e6ba33b-a0b9-4a3a-b173-5386f6458568
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 440fc63b-2afa-4e34-950c-39a79c973e54;
-	Mon, 19 Oct 2020 09:08:54 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 8e6ba33b-a0b9-4a3a-b173-5386f6458568;
+	Mon, 19 Oct 2020 09:09:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603098541;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ldr9vP5enLyLasdYmjZrwcRMN/AHiax7zlq6K/z5+0k=;
+	b=fe6eBpj6EXE+FDHeLRlspMLdjYW4QogZGp1qr4s/XX8MhgO41iDwu+M139Wvy2bnZ9VvuW
+	TNOGEafp9VCiYZW5tmVXV9SAc3j4Uc2PS9HJyxn18smJfkE3kG6MqI9Pvf1lSI8zY/Asu7
+	48PqwT+Pm8Lvc5KoyQ8onJVGVcgdshg=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D8DEBB298;
-	Mon, 19 Oct 2020 09:08:53 +0000 (UTC)
-Subject: Re: [PATCH v4 05/10] drm/ttm: Add vmap/vunmap to TTM and TTM GEM
- helpers
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
- kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
- krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
- tomeu.vizoso@collabora.com, steven.price@arm.com,
- alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
- hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
- oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
- sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
- apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
- chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20201015123806.32416-1-tzimmermann@suse.de>
- <20201015123806.32416-6-tzimmermann@suse.de>
- <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <87c7c342-88dc-9a36-31f7-dae6edd34626@suse.de>
-Date: Mon, 19 Oct 2020 11:08:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.2
+	by mx2.suse.de (Postfix) with ESMTP id 7E45EB290;
+	Mon, 19 Oct 2020 09:09:01 +0000 (UTC)
+Subject: Re: [PATCH] x86/vmx: Revert "x86/VMX: sanitize rIP before re-entering
+ guest"
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>
+References: <20201009150948.31063-1-andrew.cooper3@citrix.com>
+ <fb4a7a1d-95ad-0b59-7cb9-4a94c3600960@suse.com>
+ <01bb2f27-4e0b-3637-e456-09eb7b9b233e@citrix.com>
+ <1786f728-15c2-3877-c01a-035b11bd8504@suse.com>
+ <82e64d10-50be-68ab-127b-99d205a0a768@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6430fef8-23f1-f4ef-8741-5e089eaa0df9@suse.com>
+Date: Mon, 19 Oct 2020 11:09:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
+In-Reply-To: <82e64d10-50be-68ab-127b-99d205a0a768@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Hi Christian
+On 16.10.2020 17:38, Andrew Cooper wrote:
+> On 15/10/2020 09:01, Jan Beulich wrote:
+>> On 14.10.2020 15:57, Andrew Cooper wrote:
+>>> On 13/10/2020 16:58, Jan Beulich wrote:
+>>>> On 09.10.2020 17:09, Andrew Cooper wrote:
+>>>>> At the time of XSA-170, the x86 instruction emulator really was broken, and
+>>>>> would allow arbitrary non-canonical values to be loaded into %rip.  This was
+>>>>> fixed after the embargo by c/s 81d3a0b26c1 "x86emul: limit-check branch
+>>>>> targets".
+>>>>>
+>>>>> However, in a demonstration that off-by-one errors really are one of the
+>>>>> hardest programming issues we face, everyone involved with XSA-170, myself
+>>>>> included, mistook the statement in the SDM which says:
+>>>>>
+>>>>>   If the processor supports N < 64 linear-address bits, bits 63:N must be identical
+>>>>>
+>>>>> to mean "must be canonical".  A real canonical check is bits 63:N-1.
+>>>>>
+>>>>> VMEntries really do tolerate a not-quite-canonical %rip, specifically to cater
+>>>>> to the boundary condition at 0x0000800000000000.
+>>>>>
+>>>>> Now that the emulator has been fixed, revert the XSA-170 change to fix
+>>>>> architectural behaviour at the boundary case.  The XTF test case for XSA-170
+>>>>> exercises this corner case, and still passes.
+>>>>>
+>>>>> Fixes: ffbbfda377 ("x86/VMX: sanitize rIP before re-entering guest")
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> But why revert the change rather than fix ...
+>>>>
+>>>>> @@ -4280,38 +4280,6 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+>>>>>  out:
+>>>>>      if ( nestedhvm_vcpu_in_guestmode(v) )
+>>>>>          nvmx_idtv_handling();
+>>>>> -
+>>>>> -    /*
+>>>>> -     * VM entry will fail (causing the guest to get crashed) if rIP (and
+>>>>> -     * rFLAGS, but we don't have an issue there) doesn't meet certain
+>>>>> -     * criteria. As we must not allow less than fully privileged mode to have
+>>>>> -     * such an effect on the domain, we correct rIP in that case (accepting
+>>>>> -     * this not being architecturally correct behavior, as the injected #GP
+>>>>> -     * fault will then not see the correct [invalid] return address).
+>>>>> -     * And since we know the guest will crash, we crash it right away if it
+>>>>> -     * already is in most privileged mode.
+>>>>> -     */
+>>>>> -    mode = vmx_guest_x86_mode(v);
+>>>>> -    if ( mode == 8 ? !is_canonical_address(regs->rip)
+>>>> ... the wrong use of is_canonical_address() here? By reverting
+>>>> you open up avenues for XSAs in case we get things wrong elsewhere,
+>>>> including ...
+>>>>
+>>>>> -                   : regs->rip != regs->eip )
+>>>> ... for 32-bit guests.
+>>> Because the only appropriate alternative would be ASSERT_UNREACHABLE()
+>>> and domain crash.
+>>>
+>>> This logic corrupts guest state.
+>>>
+>>> Running with corrupt state is every bit an XSA as hitting a VMEntry
+>>> failure if it can be triggered by userspace, but the latter safer and
+>>> much more obvious.
+>> I disagree. For CPL > 0 we don't "corrupt" guest state any more
+>> than reporting a #GP fault when one is going to be reported
+>> anyway (as long as the VM entry doesn't fail, and hence the
+>> guest won't get crashed). IOW this raising of #GP actually is a
+>> precautionary measure to _avoid_ XSAs.
+> 
+> It does not remove any XSAs.  It merely hides them.
 
-On 15.10.20 16:08, Christian König wrote:
-> Am 15.10.20 um 14:38 schrieb Thomas Zimmermann:
->> The new functions ttm_bo_{vmap,vunmap}() map and unmap a TTM BO in kernel
->> address space. The mapping's address is returned as struct dma_buf_map.
->> Each function is a simplified version of TTM's existing kmap code. Both
->> functions respect the memory's location ani/or writecombine flags.
->>
->> On top TTM's functions, GEM TTM helpers got drm_gem_ttm_{vmap,vunmap}(),
->> two helpers that convert a GEM object into the TTM BO and forward the
->> call
->> to TTM's vmap/vunmap. These helpers can be dropped into the rsp GEM
->> object
->> callbacks.
->>
->> v4:
->>     * drop ttm_kmap_obj_to_dma_buf() in favor of vmap helpers (Daniel,
->>       Christian)
-> 
-> Bunch of minor comments below, but over all look very solid to me.
-> 
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/drm_gem_ttm_helper.c | 38 +++++++++++++++
->>   drivers/gpu/drm/ttm/ttm_bo_util.c    | 72 ++++++++++++++++++++++++++++
->>   include/drm/drm_gem_ttm_helper.h     |  6 +++
->>   include/drm/ttm/ttm_bo_api.h         | 28 +++++++++++
->>   include/linux/dma-buf-map.h          | 20 ++++++++
->>   5 files changed, 164 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_gem_ttm_helper.c
->> b/drivers/gpu/drm/drm_gem_ttm_helper.c
->> index 0e4fb9ba43ad..db4c14d78a30 100644
->> --- a/drivers/gpu/drm/drm_gem_ttm_helper.c
->> +++ b/drivers/gpu/drm/drm_gem_ttm_helper.c
->> @@ -49,6 +49,44 @@ void drm_gem_ttm_print_info(struct drm_printer *p,
->> unsigned int indent,
->>   }
->>   EXPORT_SYMBOL(drm_gem_ttm_print_info);
->>   +/**
->> + * drm_gem_ttm_vmap() - vmap &ttm_buffer_object
->> + * @gem: GEM object.
->> + * @map: [out] returns the dma-buf mapping.
->> + *
->> + * Maps a GEM object with ttm_bo_vmap(). This function can be used as
->> + * &drm_gem_object_funcs.vmap callback.
->> + *
->> + * Returns:
->> + * 0 on success, or a negative errno code otherwise.
->> + */
->> +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
->> +             struct dma_buf_map *map)
->> +{
->> +    struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gem);
->> +
->> +    return ttm_bo_vmap(bo, map);
->> +
->> +}
->> +EXPORT_SYMBOL(drm_gem_ttm_vmap);
->> +
->> +/**
->> + * drm_gem_ttm_vunmap() - vunmap &ttm_buffer_object
->> + * @gem: GEM object.
->> + * @map: dma-buf mapping.
->> + *
->> + * Unmaps a GEM object with ttm_bo_vunmap(). This function can be
->> used as
->> + * &drm_gem_object_funcs.vmap callback.
->> + */
->> +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
->> +            struct dma_buf_map *map)
->> +{
->> +    struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gem);
->> +
->> +    ttm_bo_vunmap(bo, map);
->> +}
->> +EXPORT_SYMBOL(drm_gem_ttm_vunmap);
->> +
->>   /**
->>    * drm_gem_ttm_mmap() - mmap &ttm_buffer_object
->>    * @gem: GEM object.
->> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
->> b/drivers/gpu/drm/ttm/ttm_bo_util.c
->> index bdee4df1f3f2..80c42c774c7d 100644
->> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
->> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
->> @@ -32,6 +32,7 @@
->>   #include <drm/ttm/ttm_bo_driver.h>
->>   #include <drm/ttm/ttm_placement.h>
->>   #include <drm/drm_vma_manager.h>
->> +#include <linux/dma-buf-map.h>
->>   #include <linux/io.h>
->>   #include <linux/highmem.h>
->>   #include <linux/wait.h>
->> @@ -526,6 +527,77 @@ void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map)
->>   }
->>   EXPORT_SYMBOL(ttm_bo_kunmap);
->>   +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map)
->> +{
->> +    struct ttm_resource *mem = &bo->mem;
->> +    int ret;
->> +
->> +    ret = ttm_mem_io_reserve(bo->bdev, mem);
->> +    if (ret)
->> +        return ret;
->> +
->> +    if (mem->bus.is_iomem) {
->> +        void __iomem *vaddr_iomem;
->> +        unsigned long size = bo->num_pages << PAGE_SHIFT;
-> 
-> Please use uint64_t here and make sure to cast bo->num_pages before
-> shifting.
+How that? If we convert the ability of guest user mode to crash
+the guest into deliver of #GP(0), how is there a hidden XSA then?
 
-I thought the rule of thumb is to use u64 in source code. Yet TTM only
-uses uint*_t types. Is there anything special about TTM?
+> There are legal states where RIP is 0x0000800000000000 and #GP is the
+> wrong thing to do.  Any async VMExit (Processor Trace Prefetch in
+> particular), or with debug traps pending.
 
-> 
-> We have an unit tests of allocating a 8GB BO and that should work on a
-> 32bit machine as well :)
-> 
->> +
->> +        if (mem->bus.addr)
->> +            vaddr_iomem = (void *)(((u8 *)mem->bus.addr));
+You realize we're in agreement about this pseudo-canonical check
+needing fixing?
 
-I after reading the patch again, I realized that this is the
-'ttm_bo_map_premapped' case and it's missing from _vunmap(). I see two
-options here: ignore this case in _vunmap(), or do an ioremap()
-unconditionally. Which one is preferable?
+>> Nor do I agree with the "much more obvious" aspect:
+> 
+> A domain crash is far more likely to be reported to xen-devel/security
+> than something which bodges state in an almost-silent way.
+> 
+>> A VM entry
+>> failure requires quite a bit of analysis to recognize what has
+>> caused it; whether a non-pseudo-canonical RIP is what catches your
+>> eye right away is simply unknown. The gprintk() that you delete,
+>> otoh, says very clearly what we have found to be wrong.
+> 
+> Non-canonical values are easier to spot than most of the other rules, IMO.
 
-Best regards
-Thomas
+Which will get less obvious with 5-level paging capable hardware
+in mind.
 
->> +        else if (mem->placement & TTM_PL_FLAG_WC)
+>>> It was the appropriate security fix (give or take the functional bug in
+>>> it) at the time, given the complexity of retrofitting zero length
+>>> instruction fetches to the emulator.
+>>>
+>>> However, it is one of a very long list of guest-state-induced VMEntry
+>>> failures, with non-trivial logic which we assert will pass, on a
+>>> fastpath, where hardware also performs the same checks and we already
+>>> have a runtime safe way of dealing with errors.  (Hence not actually
+>>> using ASSERT_UNREACHABLE() here.)
+>> "Runtime safe" as far as Xen is concerned, I take it. This isn't safe
+>> for the guest at all, as vmx_failed_vmentry() results in an
+>> unconditional domain_crash().
 > 
-> I've just nuked the TTM_PL_FLAG_WC flag in drm-misc-next. There is a new
-> mem->bus.caching enum as replacement.
-> 
->> +            vaddr_iomem = ioremap_wc(mem->bus.offset, size);
->> +        else
->> +            vaddr_iomem = ioremap(mem->bus.offset, size);
->> +
->> +        if (!vaddr_iomem)
->> +            return -ENOMEM;
->> +
->> +        dma_buf_map_set_vaddr_iomem(map, vaddr_iomem);
->> +
->> +    } else {
->> +        struct ttm_operation_ctx ctx = {
->> +            .interruptible = false,
->> +            .no_wait_gpu = false
->> +        };
->> +        struct ttm_tt *ttm = bo->ttm;
->> +        pgprot_t prot;
->> +        void *vaddr;
->> +
->> +        BUG_ON(!ttm);
-> 
-> I think we can drop this, populate will just crash badly anyway.
-> 
->> +
->> +        ret = ttm_tt_populate(bo->bdev, ttm, &ctx);
->> +        if (ret)
->> +            return ret;
->> +
->> +        /*
->> +         * We need to use vmap to get the desired page protection
->> +         * or to make the buffer object look contiguous.
->> +         */
->> +        prot = ttm_io_prot(mem->placement, PAGE_KERNEL);
-> 
-> The calling convention has changed on drm-misc-next as well, but should
-> be trivial to adapt.
-> 
-> Regards,
-> Christian.
-> 
->> +        vaddr = vmap(ttm->pages, bo->num_pages, 0, prot);
->> +        if (!vaddr)
->> +            return -ENOMEM;
->> +
->> +        dma_buf_map_set_vaddr(map, vaddr);
->> +    }
->> +
->> +    return 0;
->> +}
->> +EXPORT_SYMBOL(ttm_bo_vmap);
->> +
->> +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
->> *map)
->> +{
->> +    if (dma_buf_map_is_null(map))
->> +        return;
->> +
->> +    if (map->is_iomem)
->> +        iounmap(map->vaddr_iomem);
->> +    else
->> +        vunmap(map->vaddr);
->> +    dma_buf_map_clear(map);
->> +
->> +    ttm_mem_io_free(bo->bdev, &bo->mem);
->> +}
->> +EXPORT_SYMBOL(ttm_bo_vunmap);
->> +
->>   static int ttm_bo_wait_free_node(struct ttm_buffer_object *bo,
->>                    bool dst_use_tt)
->>   {
->> diff --git a/include/drm/drm_gem_ttm_helper.h
->> b/include/drm/drm_gem_ttm_helper.h
->> index 118cef76f84f..7c6d874910b8 100644
->> --- a/include/drm/drm_gem_ttm_helper.h
->> +++ b/include/drm/drm_gem_ttm_helper.h
->> @@ -10,11 +10,17 @@
->>   #include <drm/ttm/ttm_bo_api.h>
->>   #include <drm/ttm/ttm_bo_driver.h>
->>   +struct dma_buf_map;
->> +
->>   #define drm_gem_ttm_of_gem(gem_obj) \
->>       container_of(gem_obj, struct ttm_buffer_object, base)
->>     void drm_gem_ttm_print_info(struct drm_printer *p, unsigned int
->> indent,
->>                   const struct drm_gem_object *gem);
->> +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
->> +             struct dma_buf_map *map);
->> +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
->> +            struct dma_buf_map *map);
->>   int drm_gem_ttm_mmap(struct drm_gem_object *gem,
->>                struct vm_area_struct *vma);
->>   diff --git a/include/drm/ttm/ttm_bo_api.h
->> b/include/drm/ttm/ttm_bo_api.h
->> index 37102e45e496..2c59a785374c 100644
->> --- a/include/drm/ttm/ttm_bo_api.h
->> +++ b/include/drm/ttm/ttm_bo_api.h
->> @@ -48,6 +48,8 @@ struct ttm_bo_global;
->>     struct ttm_bo_device;
->>   +struct dma_buf_map;
->> +
->>   struct drm_mm_node;
->>     struct ttm_placement;
->> @@ -494,6 +496,32 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
->> unsigned long start_page,
->>    */
->>   void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
->>   +/**
->> + * ttm_bo_vmap
->> + *
->> + * @bo: The buffer object.
->> + * @map: pointer to a struct dma_buf_map representing the map.
->> + *
->> + * Sets up a kernel virtual mapping, using ioremap or vmap to the
->> + * data in the buffer object. The parameter @map returns the virtual
->> + * address as struct dma_buf_map. Unmap the buffer with ttm_bo_vunmap().
->> + *
->> + * Returns
->> + * -ENOMEM: Out of memory.
->> + * -EINVAL: Invalid range.
->> + */
->> +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map);
->> +
->> +/**
->> + * ttm_bo_vunmap
->> + *
->> + * @bo: The buffer object.
->> + * @map: Object describing the map to unmap.
->> + *
->> + * Unmaps a kernel map set up by ttm_bo_vmap().
->> + */
->> +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
->> *map);
->> +
->>   /**
->>    * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer object.
->>    *
->> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
->> index fd1aba545fdf..2e8bbecb5091 100644
->> --- a/include/linux/dma-buf-map.h
->> +++ b/include/linux/dma-buf-map.h
->> @@ -45,6 +45,12 @@
->>    *
->>    *    dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
->>    *
->> + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem().
->> + *
->> + * .. code-block:: c
->> + *
->> + *    dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
->> + *
->>    * Test if a mapping is valid with either dma_buf_map_is_set() or
->>    * dma_buf_map_is_null().
->>    *
->> @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct
->> dma_buf_map *map, void *vaddr)
->>       map->is_iomem = false;
->>   }
->>   +/**
->> + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to
->> an address in I/O memory
->> + * @map:        The dma-buf mapping structure
->> + * @vaddr_iomem:    An I/O-memory address
->> + *
->> + * Sets the address and the I/O-memory flag.
->> + */
->> +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *map,
->> +                           void __iomem *vaddr_iomem)
->> +{
->> +    map->vaddr_iomem = vaddr_iomem;
->> +    map->is_iomem = true;
->> +}
->> +
->>   /**
->>    * dma_buf_map_is_equal - Compares two dma-buf mapping structures
->> for equality
->>    * @lhs:    The dma-buf mapping structure
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> Any VMEntry failure is a bug in Xen.  If userspace can trigger it, it is
+> an XSA, *irrespective* of whether we crash the domain then and there, or
+> whether we let it try and limp on with corrupted state.
 
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 Nürnberg, Germany
-(HRB 36809, AG Nürnberg)
-Geschäftsführer: Felix Imendörffer
+Allowing the guest to continue with corrupted state is not a
+useful thing to do, I agree. However, what falls under
+"corrupted" seems to be different for you and me. I'd not call
+delivery of #GP "corruption" in any way. The primary goal ought
+to be that we don't corrupt the guest kernel view of the world.
+It may then have the opportunity to kill the offending user
+mode process.
+
+Jan
 
