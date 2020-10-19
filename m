@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC19A2928F0
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 16:08:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8715.23355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854682928F1
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 16:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8716.23368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUVok-0000DM-P7; Mon, 19 Oct 2020 14:07:18 +0000
+	id 1kUVpD-0000Ic-3f; Mon, 19 Oct 2020 14:07:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8715.23355; Mon, 19 Oct 2020 14:07:18 +0000
+Received: by outflank-mailman (output) from mailman id 8716.23368; Mon, 19 Oct 2020 14:07:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,192 +23,166 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUVok-0000Cx-M2; Mon, 19 Oct 2020 14:07:18 +0000
-Received: by outflank-mailman (input) for mailman id 8715;
- Mon, 19 Oct 2020 14:07:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUVoj-0000Cs-I6
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:17 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 42ff7a6f-05cd-4561-8917-80d1a0a300d8;
- Mon, 19 Oct 2020 14:07:16 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 63606AE0D;
- Mon, 19 Oct 2020 14:07:15 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kUVpC-0000IC-VW; Mon, 19 Oct 2020 14:07:46 +0000
+Received: by outflank-mailman (input) for mailman id 8716;
+ Mon, 19 Oct 2020 14:07:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jOPR=D2=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1kUVpB-0000I7-Pv
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:45 +0000
+Received: from mail-io1-xd2f.google.com (unknown [2607:f8b0:4864:20::d2f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7f1ed62b-e9c2-4a6a-8006-96f0ed54b4d1;
+ Mon, 19 Oct 2020 14:07:44 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id q25so13106981ioh.4
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 07:07:44 -0700 (PDT)
+Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
+ (209-217-208-226.northland.net. [209.217.208.226])
+ by smtp.gmail.com with ESMTPSA id b2sm10457909ila.62.2020.10.19.07.07.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 19 Oct 2020 07:07:43 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUVoj-0000Cs-I6
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:17 +0000
-X-Inumbo-ID: 42ff7a6f-05cd-4561-8917-80d1a0a300d8
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 42ff7a6f-05cd-4561-8917-80d1a0a300d8;
-	Mon, 19 Oct 2020 14:07:16 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603116435;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1nKgLPlVkEfrTGaZqmrHtaozVAlPCHq7SQ2nOKcKHBM=;
-	b=AB/AIHgRV7vh5gXD9zT5qizeFS3nRofXGBZIcVuTiyBRYTz5C5aAWv80QLswZ1pQ19uKEu
-	vl4RVBs8/NQ7d0KfwdTw82WQjY8vvigfiUwuSgNtUEJpoibmNZCaoTy1wwF69GG2Ray5fL
-	ct5IX9KcDcQPpT2mbCafarpmRfLteuM=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 63606AE0D;
-	Mon, 19 Oct 2020 14:07:15 +0000 (UTC)
-Subject: Re: [PATCH v10 02/11] xen: introduce implementation of save/restore
- of 'domain context'
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <20201008185735.29875-1-paul@xen.org>
- <20201008185735.29875-3-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a0bb2db8-e69a-8107-194c-538e2a85fecf@suse.com>
-Date: Mon, 19 Oct 2020 16:07:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	(envelope-from <SRS0=jOPR=D2=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+	id 1kUVpB-0000I7-Pv
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:45 +0000
+X-Inumbo-ID: 7f1ed62b-e9c2-4a6a-8006-96f0ed54b4d1
+Received: from mail-io1-xd2f.google.com (unknown [2607:f8b0:4864:20::d2f])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 7f1ed62b-e9c2-4a6a-8006-96f0ed54b4d1;
+	Mon, 19 Oct 2020 14:07:44 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id q25so13106981ioh.4
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 07:07:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=7NycqiBF8FosQT/JZwxwlEhE1XoDQEpaYFkJ/zcz7Fc=;
+        b=DFbAyS3DUpQ5fvNvLP1kOGrGm8S7XzL3pJrMIcE+DOPHkOmHX6MA553zoCpLgyQ069
+         UM+mzp57BkYYtZA9biU6c4EQgjkvtAR710tOXivfDbeozhkfJf1T23/sTj7Zbw+Wbi13
+         or81s3aMZ9LP/qvD7mOIukXJbZN2NZ5kOnTuo9MGCOdhBRWavE2llRnUM+14vIN2B4aS
+         XM2tBPdqWrQf46C0HTS3LpczMUmzpsRBIwWzEQFNbTlWXdQqiKlaEtd7F9ZcZdCkLEdE
+         mhN4Ji7sZw+GoSBN/gd861gcqZ9GxMrcnRxFvGuUp/5kEpLO5rea0OhPk3BM2dN75wd3
+         q9lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=7NycqiBF8FosQT/JZwxwlEhE1XoDQEpaYFkJ/zcz7Fc=;
+        b=Tb1BuzA9CzQXqURdlZncXWG+zXA0lCCcEtGIoQJhJKfqSTKu7w8y/XkiKOheMdUXgF
+         68C8mWq82ddWJc32tJmIRjE4ekMWO//WymnNcGiKHW5E9fSh+Sa870VxMBqsb+MqtJ42
+         sfG69OLb/BXqhtCGbZN/Uc2C/3YMR3OKbROme8uJleFZfRKyiMi/dH+KREKqkjv5Johw
+         VPWd/KsQHNeVVB6IoJs0n2TDW0qWOx4gc4uqam+iAt5Uh8/QY3ZyW74hjWX1Ecmn69Lz
+         l8ZTiDtBvDO1h/dovcfGk7eI8wSb5xGAJ0L5nbczEDyjZJosd27Wy1matqVA0LcN8oPA
+         TqDw==
+X-Gm-Message-State: AOAM531mLRplMvnAXtUzc07Lw1EnsbDFbC1utCKi59NLfNhzqCzJQZEN
+	c7kYZkmll/BGkfPrrPo5fd8=
+X-Google-Smtp-Source: ABdhPJyEuAmwLrm+xzUvMjd18feNAgxOua5BKKqkixX1h5HAXuH77RLYRNDAAc+v+XpBFv1ZugUTNA==
+X-Received: by 2002:a6b:6016:: with SMTP id r22mr3570519iog.93.1603116463863;
+        Mon, 19 Oct 2020 07:07:43 -0700 (PDT)
+Received: from FED-nrosbr-BE.crux.rad.ainfosec.com (209-217-208-226.northland.net. [209.217.208.226])
+        by smtp.gmail.com with ESMTPSA id b2sm10457909ila.62.2020.10.19.07.07.41
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 19 Oct 2020 07:07:43 -0700 (PDT)
+Date: Mon, 19 Oct 2020 10:07:39 -0400
+From: Nick Rosbrook <rosbrookn@gmail.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
+	Rich Persaud <persaur@gmail.com>, Ian Jackson <iwj@xenproject.org>,
+	Olivier Lambert <olivier.lambert@vates.fr>,
+	Edwin Torok <edvin.torok@citrix.com>
+Subject: Re: RFC: Early mock-up of a xenopsd based on golang libxl bindings
+Message-ID: <20201019140739.GA347335@FED-nrosbr-BE.crux.rad.ainfosec.com>
+References: <84FEBEAF-5859-421E-B595-2358D8490D3F@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20201008185735.29875-3-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <84FEBEAF-5859-421E-B595-2358D8490D3F@citrix.com>
 
-On 08.10.2020 20:57, Paul Durrant wrote:
-> +void __init domain_register_ctxt_type(unsigned int type, const char *name,
-> +                                      domain_save_ctxt_type save,
-> +                                      domain_load_ctxt_type load)
-> +{
-> +    BUG_ON(type >= ARRAY_SIZE(fns));
-> +
-> +    ASSERT(!fns[type].save);
-> +    ASSERT(!fns[type].load);
-> +
-> +    fns[type].name = name;
+On Fri, Oct 16, 2020 at 04:29:58PM +0000, George Dunlap wrote:
+> https://gitlab.com/martyros/go-xen branch `working/xenops` contains a super-basic mock-up of a unix domain xenopsd based on the golang libxl bindings.
+> 
+> To use:
+> 
+> * Install Xen >= 4.14 on your target system
+> 
+> * Make sure you have go >= 1.11 installed
+> 
+> * Clone & build the server
+> 
+> $ git clone https://gitlab.com/martyros/go-xen
+> 
+> $ cd go-xen
+> 
+> $ git checkout working/xenops
+> 
+> Note that this is *not* a fast-forwarding branch.
+> 
+> $ cd xenops/xenopsd
+> 
+> $ go build
+> 
+> $ ./xenopsd
+> 
+> Theoretically this will now accept jsonrpc v1 calls on `/tmp/xenops`.  I haven’t dug into exactly what the wire protocol looks like, but you can test golang’s version of it by using one of the “client examples”.  In another terminal:
+> 
+> $ cd xenops/client-examples
+> 
+> $ go run get-domains-example.co
+> 
+> It should list the currently-running domains and their domain names.
+> 
+> The core of the actual implementation is in go-xen/xenops/xenops/xenops.go.  Basically, every method you add to the Xenops type of the correct format (described in the “net/rpc” documentation) will be exposed as a method available via RPC.
+> 
+I haven't had a chance to run it yet, but the code all seems very
+straight forward. Looks like a promising approach for prototyping.
+> The current code only does a Unix socket, but it could easily be modified to work over http as well.
+> 
+> Once we have function signatures in the libxl IDL, the xenops methods could all be autogenerated, just like the types are for the golang bindings.
+> 
+It's on my todo list to get that RFC going again. :)
 
-I expect I merely didn't spot this (perhaps just latent) issue in
-earlier versions: If the caller lives in code getting built into
-*.init.o, the string passed in will live in .init.rodata. That's a
-general shortcoming (if you like) of the .o -> .init.o
-tranformation, but I see no good alternative (or else all format
-strings passed to printk() and alike won't get moved either).
-Therefore I wonder whether it wouldn't be safer to have the struct
-field be e.g. char[16], assuming 15 characters will allow for
-meaningful names.
+> It should be noted that at the moment there will be two “layers” of translation both ways here: The golang package will be converting rpc into golang structures, then the libxl libraries will be converting golang structures into C structures; then any return values have to be converted from C structures into golang structures, and then converted a gain from golang structures into json before being sent back over the wire.  This may or may not be a big overhead.
+> 
+> Two things that are currently sub-optimal about the `xenlight` package for this use case.
+> 
+> First, although we have a xenlight.Error type, a lot of the xenlight wrappers return a generic “error”.  I’m not sure how that will end up being converted into json, but we might thing about making the xenlight wrappers all return xenlight.Error instead.
+>
+Returning the "generic error" (i.e. the builtin error interface) is what
+we want. Doing otherwise would be very awkward for callers. E.g., if
+NameToDomid returned (xenlight.Domid, xenlight.Error), we would have:
 
-> +int domain_load_ctxt_rec_data(struct domain_ctxt_state *c, void *dst,
-> +                              size_t len)
-> +{
-> +    int rc = 0;
-> +
-> +    c->len += len;
-> +    if (c->len > c->rec.length)
+  domid, err := ctx.NameToDomid(name)
+  if err != nil { // <- Compile-time error; can't compare int to nil
+   
+  }
 
-Nit: Missing blanks.
+So, callers would need to explicitly convert to `error`, or always make
+sure they declare `var err error` before assignment. 
 
-> +int domain_load_ctxt(struct domain *d, const struct domain_load_ctxt_ops *ops,
-> +                     void *priv)
-> +{
-> +    struct domain_ctxt_state c = { .d = d, .ops.load = ops, .priv = priv, };
-> +    domain_load_ctxt_type load;
-> +    int rc;
-> +
-> +    ASSERT(d != current->domain);
-> +
-> +    rc = c.ops.load->read(c.priv, &c.rec, sizeof(c.rec));
-> +    if ( rc )
-> +        return rc;
-> +
-> +    load = fns[DOMAIN_CONTEXT_START].load;
-> +    BUG_ON(!load);
-> +
-> +    rc = load(d, &c);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    domain_pause(d);
-> +
-> +    for (;;)
+This is essentially why the builtin `error` interface exists. 
 
-Nit: Missing blanks again.
+Re: json, the RPC server will call Error() on any error we return from a
+registered function, and set it in the Error field of the response
+header (see [1]). So, I think it would be our responsibility to add an
+additional "libxl error code" field to our RPC return types.
 
-> +    {
-> +        unsigned int type;
-> +
-> +        rc = c.ops.load->read(c.priv, &c.rec, sizeof(c.rec));
-> +        if ( rc )
-> +            break;
-> +
-> +        type = c.rec.type;
-> +        if ( type == DOMAIN_CONTEXT_END )
-> +            break;
-> +
-> +        rc = -EINVAL;
-> +        if ( type >= ARRAY_SIZE(fns) )
-> +            break;
-> +
-> +        load = fns[type].load;
+> Secondly, at the moment the xenlight types are in the same package as the function wrappers.  This means that in order to build even the client, you need to be able to link against an installed libxl library — even though the final binary won’t need to link against libxl at all, and could theoretically be on a completely separate host.
+> 
+> Unfortunately the way we’ve structured xenlight, it’s not simple to move types.gen.go into its own package, because of the toC and fromC wrappers, which *do* need to link against libxl (for the init and dispose functions).  Nick, we might think about whether we should make separate toC and fromC functions for each of the types, rather than making those methods.
+> 
+Splitting the package would be one option, but we could also just use a
+build tag that allows users to say "I don't need to link agaist libxl, I
+just want the types." E.g., users could run `go build -tags nolibxl`, 
+assuming we put `// +build !nolibxl` in the appropriate .go files.
 
-While this is meant to be used by Dom0 only, I think it would be
-better if it nevertheless used array_access_nospec().
+I can send a proof of concept patch for that.
 
-> +static int load_start(struct domain *d, struct domain_ctxt_state *c)
-> +{
-> +    static struct domain_context_start s;
-> +    unsigned int i;
-> +    int rc = domain_load_ctxt_rec(c, DOMAIN_CONTEXT_START, &i, &s, sizeof(s));
-> +
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( i )
-> +        return -EINVAL;
-> +
-> +    /*
-> +     * Make sure we are not attempting to load an image generated by a newer
-> +     * version of Xen.
-> +     */
-> +    if ( s.xen_major > XEN_VERSION && s.xen_minor > XEN_SUBVERSION )
-> +        return -EOPNOTSUPP;
+Thanks,
+NR
 
-Are you sure this needs to be excluded here and unilaterally?
-And if this is to stay, then it wants to be
-
-    if ( s.xen_major > XEN_VERSION ||
-         (s.xen_major == XEN_VERSION && s.xen_minor > XEN_SUBVERSION) )
-        return -EOPNOTSUPP;
-
-> +/*
-> + * Register save and load handlers for a record type.
-> + *
-> + * Save handlers will be invoked in an order which copes with any inter-
-> + * entry dependencies. For now this means that HEADER will come first and
-> + * END will come last, all others being invoked in order of 'typecode'.
-> + *
-> + * Load handlers will be invoked in the order of entries present in the
-> + * buffer.
-> + */
-> +#define DOMAIN_REGISTER_CTXT_TYPE(x, s, l)                    \
-> +    static int __init __domain_register_##x##_ctxt_type(void) \
-> +    {                                                         \
-> +        domain_register_ctxt_type(                            \
-> +            DOMAIN_CONTEXT_ ## x,                             \
-> +            #x,                                               \
-> +            &(s),                                             \
-> +            &(l));                                            \
-
-I don't think there's a need for each of these to consume a separate
-line.
-
-Jan
+[1] https://golang.org/pkg/net/rpc/#Response
 
