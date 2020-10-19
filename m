@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFC9292883
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 15:46:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8712.23344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC19A2928F0
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 16:08:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8715.23355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUVUp-0006mk-2w; Mon, 19 Oct 2020 13:46:43 +0000
+	id 1kUVok-0000DM-P7; Mon, 19 Oct 2020 14:07:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8712.23344; Mon, 19 Oct 2020 13:46:43 +0000
+Received: by outflank-mailman (output) from mailman id 8715.23355; Mon, 19 Oct 2020 14:07:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,118 +23,192 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUVUo-0006mL-W7; Mon, 19 Oct 2020 13:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 8712;
- Mon, 19 Oct 2020 13:46:41 +0000
+	id 1kUVok-0000Cx-M2; Mon, 19 Oct 2020 14:07:18 +0000
+Received: by outflank-mailman (input) for mailman id 8715;
+ Mon, 19 Oct 2020 14:07:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUVUn-0006mF-9E
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 13:46:41 +0000
+ id 1kUVoj-0000Cs-I6
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:17 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 19610d89-3d32-43b0-af75-7f8cd3222931;
- Mon, 19 Oct 2020 13:46:40 +0000 (UTC)
+ id 42ff7a6f-05cd-4561-8917-80d1a0a300d8;
+ Mon, 19 Oct 2020 14:07:16 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 19102B22A;
- Mon, 19 Oct 2020 13:46:39 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 63606AE0D;
+ Mon, 19 Oct 2020 14:07:15 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUVUn-0006mF-9E
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 13:46:41 +0000
-X-Inumbo-ID: 19610d89-3d32-43b0-af75-7f8cd3222931
+	id 1kUVoj-0000Cs-I6
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 14:07:17 +0000
+X-Inumbo-ID: 42ff7a6f-05cd-4561-8917-80d1a0a300d8
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 19610d89-3d32-43b0-af75-7f8cd3222931;
-	Mon, 19 Oct 2020 13:46:40 +0000 (UTC)
+	id 42ff7a6f-05cd-4561-8917-80d1a0a300d8;
+	Mon, 19 Oct 2020 14:07:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603115199;
+	t=1603116435;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=o3uuDviRWo1QtDtFjPhK/Nzml2kSnSQTZRgY9EKGnbA=;
-	b=pc7syDGASrgxu9p4ycGJlPyBIstMPB88fF1qdLL8pr0c57Qii3W0y/Zxki0PWN8A5aipNq
-	6ZgRhUIb8Y9ikU0eEKZw193t/kgGQ8IDEEBA9PFujmjbzowlAl9HFmLTlj2uBgM3941OZO
-	0voeUVVHnEuqJL22B/Nl7ReB4N4ig/U=
+	bh=1nKgLPlVkEfrTGaZqmrHtaozVAlPCHq7SQ2nOKcKHBM=;
+	b=AB/AIHgRV7vh5gXD9zT5qizeFS3nRofXGBZIcVuTiyBRYTz5C5aAWv80QLswZ1pQ19uKEu
+	vl4RVBs8/NQ7d0KfwdTw82WQjY8vvigfiUwuSgNtUEJpoibmNZCaoTy1wwF69GG2Ray5fL
+	ct5IX9KcDcQPpT2mbCafarpmRfLteuM=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 19102B22A;
-	Mon, 19 Oct 2020 13:46:39 +0000 (UTC)
-Subject: Re: [PATCH v10 01/11] docs / include: introduce a new framework for
- 'domain context' records
+	by mx2.suse.de (Postfix) with ESMTP id 63606AE0D;
+	Mon, 19 Oct 2020 14:07:15 +0000 (UTC)
+Subject: Re: [PATCH v10 02/11] xen: introduce implementation of save/restore
+ of 'domain context'
 To: Paul Durrant <paul@xen.org>
 Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ Wei Liu <wl@xen.org>
 References: <20201008185735.29875-1-paul@xen.org>
- <20201008185735.29875-2-paul@xen.org>
+ <20201008185735.29875-3-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4f0b7537-807c-54cc-0c0b-23e30e833f45@suse.com>
-Date: Mon, 19 Oct 2020 15:46:37 +0200
+Message-ID: <a0bb2db8-e69a-8107-194c-538e2a85fecf@suse.com>
+Date: Mon, 19 Oct 2020 16:07:13 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <20201008185735.29875-2-paul@xen.org>
+In-Reply-To: <20201008185735.29875-3-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 On 08.10.2020 20:57, Paul Durrant wrote:
-> --- /dev/null
-> +++ b/xen/include/public/save.h
-> @@ -0,0 +1,66 @@
-> +/*
-> + * save.h
-> + *
-> + * Structure definitions for common PV/HVM domain state that is held by Xen.
-> + *
-> + * Copyright Amazon.com Inc. or its affiliates.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a copy
-> + * of this software and associated documentation files (the "Software"), to
-> + * deal in the Software without restriction, including without limitation the
-> + * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-> + * sell copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-> + * DEALINGS IN THE SOFTWARE.
-> + */
+> +void __init domain_register_ctxt_type(unsigned int type, const char *name,
+> +                                      domain_save_ctxt_type save,
+> +                                      domain_load_ctxt_type load)
+> +{
+> +    BUG_ON(type >= ARRAY_SIZE(fns));
 > +
-> +#ifndef XEN_PUBLIC_SAVE_H
-> +#define XEN_PUBLIC_SAVE_H
+> +    ASSERT(!fns[type].save);
+> +    ASSERT(!fns[type].load);
 > +
-> +#if defined(__XEN__) || defined(__XEN_TOOLS__)
-> +
-> +#include "xen.h"
-> +
-> +/*
-> + * C structures for the Domain Context v1 format.
-> + * See docs/specs/domain-context.md
-> + */
-> +
-> +struct domain_context_record {
-> +    uint32_t type;
-> +    uint32_t instance;
-> +    uint64_t length;
+> +    fns[type].name = name;
 
-Should this be uint64_aligned_t, such that alignof() will
-produce consistent values regardless of bitness of the invoking
-domain?
+I expect I merely didn't spot this (perhaps just latent) issue in
+earlier versions: If the caller lives in code getting built into
+*.init.o, the string passed in will live in .init.rodata. That's a
+general shortcoming (if you like) of the .o -> .init.o
+tranformation, but I see no good alternative (or else all format
+strings passed to printk() and alike won't get moved either).
+Therefore I wonder whether it wouldn't be safer to have the struct
+field be e.g. char[16], assuming 15 characters will allow for
+meaningful names.
+
+> +int domain_load_ctxt_rec_data(struct domain_ctxt_state *c, void *dst,
+> +                              size_t len)
+> +{
+> +    int rc = 0;
+> +
+> +    c->len += len;
+> +    if (c->len > c->rec.length)
+
+Nit: Missing blanks.
+
+> +int domain_load_ctxt(struct domain *d, const struct domain_load_ctxt_ops *ops,
+> +                     void *priv)
+> +{
+> +    struct domain_ctxt_state c = { .d = d, .ops.load = ops, .priv = priv, };
+> +    domain_load_ctxt_type load;
+> +    int rc;
+> +
+> +    ASSERT(d != current->domain);
+> +
+> +    rc = c.ops.load->read(c.priv, &c.rec, sizeof(c.rec));
+> +    if ( rc )
+> +        return rc;
+> +
+> +    load = fns[DOMAIN_CONTEXT_START].load;
+> +    BUG_ON(!load);
+> +
+> +    rc = load(d, &c);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    domain_pause(d);
+> +
+> +    for (;;)
+
+Nit: Missing blanks again.
+
+> +    {
+> +        unsigned int type;
+> +
+> +        rc = c.ops.load->read(c.priv, &c.rec, sizeof(c.rec));
+> +        if ( rc )
+> +            break;
+> +
+> +        type = c.rec.type;
+> +        if ( type == DOMAIN_CONTEXT_END )
+> +            break;
+> +
+> +        rc = -EINVAL;
+> +        if ( type >= ARRAY_SIZE(fns) )
+> +            break;
+> +
+> +        load = fns[type].load;
+
+While this is meant to be used by Dom0 only, I think it would be
+better if it nevertheless used array_access_nospec().
+
+> +static int load_start(struct domain *d, struct domain_ctxt_state *c)
+> +{
+> +    static struct domain_context_start s;
+> +    unsigned int i;
+> +    int rc = domain_load_ctxt_rec(c, DOMAIN_CONTEXT_START, &i, &s, sizeof(s));
+> +
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( i )
+> +        return -EINVAL;
+> +
+> +    /*
+> +     * Make sure we are not attempting to load an image generated by a newer
+> +     * version of Xen.
+> +     */
+> +    if ( s.xen_major > XEN_VERSION && s.xen_minor > XEN_SUBVERSION )
+> +        return -EOPNOTSUPP;
+
+Are you sure this needs to be excluded here and unilaterally?
+And if this is to stay, then it wants to be
+
+    if ( s.xen_major > XEN_VERSION ||
+         (s.xen_major == XEN_VERSION && s.xen_minor > XEN_SUBVERSION) )
+        return -EOPNOTSUPP;
+
+> +/*
+> + * Register save and load handlers for a record type.
+> + *
+> + * Save handlers will be invoked in an order which copes with any inter-
+> + * entry dependencies. For now this means that HEADER will come first and
+> + * END will come last, all others being invoked in order of 'typecode'.
+> + *
+> + * Load handlers will be invoked in the order of entries present in the
+> + * buffer.
+> + */
+> +#define DOMAIN_REGISTER_CTXT_TYPE(x, s, l)                    \
+> +    static int __init __domain_register_##x##_ctxt_type(void) \
+> +    {                                                         \
+> +        domain_register_ctxt_type(                            \
+> +            DOMAIN_CONTEXT_ ## x,                             \
+> +            #x,                                               \
+> +            &(s),                                             \
+> +            &(l));                                            \
+
+I don't think there's a need for each of these to consume a separate
+line.
 
 Jan
 
