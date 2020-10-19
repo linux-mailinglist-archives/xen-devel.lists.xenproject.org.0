@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2628292EC6
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 21:50:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8822.23711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E5C292F0D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 22:01:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8825.23722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUbAr-0007SP-0I; Mon, 19 Oct 2020 19:50:29 +0000
+	id 1kUbLF-0008UD-PU; Mon, 19 Oct 2020 20:01:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8822.23711; Mon, 19 Oct 2020 19:50:28 +0000
+Received: by outflank-mailman (output) from mailman id 8825.23722; Mon, 19 Oct 2020 20:01:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,114 +23,119 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUbAq-0007S0-TK; Mon, 19 Oct 2020 19:50:28 +0000
-Received: by outflank-mailman (input) for mailman id 8822;
- Mon, 19 Oct 2020 19:50:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fLnO=D2=redhat.com=trix@srs-us1.protection.inumbo.net>)
- id 1kUbAp-0007Rv-W8
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:50:28 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id cf0248a9-b928-4f09-969a-6e7f011d050d;
- Mon, 19 Oct 2020 19:50:26 +0000 (UTC)
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-303-a2_yWrXGPeKRGS6HwGc5WA-1; Mon, 19 Oct 2020 15:50:24 -0400
-Received: by mail-qk1-f200.google.com with SMTP id a81so523241qkg.10
- for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 12:50:24 -0700 (PDT)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id l25sm401073qtf.18.2020.10.19.12.50.21
+	id 1kUbLF-0008To-MW; Mon, 19 Oct 2020 20:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 8825;
+ Mon, 19 Oct 2020 20:01:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=85l8=D2=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1kUbLE-0008Tj-Nl
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 20:01:12 +0000
+Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e333733-8481-45e8-b598-2c21f80f53db;
+ Mon, 19 Oct 2020 20:01:06 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id k6so1300374ior.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 13:01:06 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
+ by smtp.gmail.com with ESMTPSA id
+ r12sm748051ilm.28.2020.10.19.13.01.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2020 12:50:22 -0700 (PDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ Mon, 19 Oct 2020 13:01:05 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=fLnO=D2=redhat.com=trix@srs-us1.protection.inumbo.net>)
-	id 1kUbAp-0007Rv-W8
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 19:50:28 +0000
-X-Inumbo-ID: cf0248a9-b928-4f09-969a-6e7f011d050d
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id cf0248a9-b928-4f09-969a-6e7f011d050d;
-	Mon, 19 Oct 2020 19:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1603137026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type;
-	bh=gurUpVJY92BNatRtGPJGA4twsuCjo97EHFL7kW3iTCQ=;
-	b=iz05p/CCrBPlCjPg3iRXT4Y+T2jxZ0idujFsBeP1HPLER0DIOdRc7hmYxDD+zK3LfV2Llb
-	qkWGhHi8aXc3bO2VgIF+QYKW9MsmAFBwcBVAfPL9as5iCQemzvLbF3hvKg40dF3a7ac/1s
-	W7z3+rC5LY+EZ32kfLrw8GxpaJPjXMk=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-303-a2_yWrXGPeKRGS6HwGc5WA-1; Mon, 19 Oct 2020 15:50:24 -0400
-X-MC-Unique: a2_yWrXGPeKRGS6HwGc5WA-1
-Received: by mail-qk1-f200.google.com with SMTP id a81so523241qkg.10
-        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 12:50:24 -0700 (PDT)
+	(envelope-from <SRS0=85l8=D2=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+	id 1kUbLE-0008Tj-Nl
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 20:01:12 +0000
+X-Inumbo-ID: 1e333733-8481-45e8-b598-2c21f80f53db
+Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 1e333733-8481-45e8-b598-2c21f80f53db;
+	Mon, 19 Oct 2020 20:01:06 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id k6so1300374ior.2
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 13:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+eQKL04xasUcDd+ftioh0iFMePD/ue+0Y1d/ZN01kBg=;
+        b=XCEbA9S54338AP5dTI8F9hUleHSbLlg34igGxVjXXq/rnVp5Yuymde3Slc91gNLSqW
+         7zG7zYxDigc6rWP1HgoqbvZQKysbKtv+CPOgh6CigBHdXZD61lAsG597Zj3Cgb/xYOmu
+         bVOBVpHOgSTFNBCvgEeSv5e09oixObUy0onRC9tWLt6j5o8WJ1g4LzP+O+SA/3F+VhnT
+         ONEs89tl+/fqI3AywtYxKe4oNWZtjXIisalBHbwEM9NLNwH7/2Md8v5sEM7/XyaF2N6e
+         dikejV/M0/v+fQ6GIeTw3ChSn9cq48Opc0AVce6/RlhkmK722QOWmu4lNXGZv2MwUhg6
+         yhiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=gurUpVJY92BNatRtGPJGA4twsuCjo97EHFL7kW3iTCQ=;
-        b=tmKhMQVUegRsDFfQV3XrMxRWnkOCtZoaqvb+imBO+bPUx5iNCvyRjMm9z6tHKa7+DS
-         tmyqMIPTOsZ6ydT4Y9b9UzkK/3y207NtE1T5lssbBjzT4dKyV0FB3nSRLuTTSTVH2WVw
-         etvAXq3Kh5pMLJOI8Rc8kXy688wO88Wnqw2WFSkUAzYH9TxoBtBWnjdL/Gnoeytvinwc
-         B93cdIidF8orCSuQ03gOxSQeMnUEkx4Gij6GGAVlNAScyYp1vIe+OlAn1JBLiG7TZibo
-         rzyM4P+4gIYX6O+yd6Ef89wXhS6JgfO2JCj/u0wAnDq5VF5h1KQsQgUh+89RczzGGM3Z
-         4dSA==
-X-Gm-Message-State: AOAM533z+pOUGk/fqAqHKwBloZaA4McQWfpEu5xARJw5CkOLc44BR86T
-	sNEGk86kXSXJsaJtvNkIj0vFa2GwZNYQKf/LwynGOQk+rfWlg14sBiWo7UtvJqAee2MvM2UNwBM
-	LmGz+TcpkOjlJmtNKnUiBuUp0zsQ=
-X-Received: by 2002:ac8:705b:: with SMTP id y27mr1114108qtm.192.1603137023756;
-        Mon, 19 Oct 2020 12:50:23 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyvDlls0C3FPTa4CLaTFO3RK5ocpNR7SlP5iafd30354sGejOe41Jo8FGhAcBQn8KNGmwvqIQ==
-X-Received: by 2002:ac8:705b:: with SMTP id y27mr1114095qtm.192.1603137023534;
-        Mon, 19 Oct 2020 12:50:23 -0700 (PDT)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
-        by smtp.gmail.com with ESMTPSA id l25sm401073qtf.18.2020.10.19.12.50.21
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+eQKL04xasUcDd+ftioh0iFMePD/ue+0Y1d/ZN01kBg=;
+        b=oWH8MFbXK7WcxK4mHB65egBT9UH8/gC71tgxUqC4DrrQgZ43ucm/y5Z5Hu6nGu+Pz8
+         5ipg6TC8yREC7IYE6sz3SFH4B6PavVRUEoUdTM1scGOE/aV346sPHK91Y0jbZzlcIhjY
+         R2XejfmOy15WyhTPeflSqYt96t6EmN+ROFq6UZ3kxtk0P7VJXokXybWlQ91gB4UVso7P
+         cyL+7SrRPuOS5hmNIkOWSl48Xh7aN397FmJ/DpuIfFD+bMHamB5FM/pchsNNXOQsfsc3
+         PeMi3n1wd09grA/E/yMy1QOmaYbUEYQ1rfNVU9bJ87SrwhKjPUL3Y+OrmCzbxh4Wa1TK
+         Fmtg==
+X-Gm-Message-State: AOAM533v//4/FJPD8BZz5QLeEcn1GVG27rWwUvDOyySO5bTHI7sxD7lS
+	CC58QcalVe8hRxDM+2KU73w=
+X-Google-Smtp-Source: ABdhPJyNHzUu4H6hURcTDLEKIci573YL5yT9qlQBpApJVZ8Ka0Qz6NplrJDui0k+P45kWTlLlZZY2Q==
+X-Received: by 2002:a02:cd2c:: with SMTP id h12mr1404514jaq.138.1603137665874;
+        Mon, 19 Oct 2020 13:01:05 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
+        by smtp.gmail.com with ESMTPSA id r12sm748051ilm.28.2020.10.19.13.01.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2020 12:50:22 -0700 (PDT)
-From: trix@redhat.com
-To: konrad.wilk@oracle.com,
-	axboe@kernel.dk
-Cc: xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tom Rix <trix@redhat.com>
-Subject: [PATCH] block: xen-blkback: remove unneeded break
-Date: Mon, 19 Oct 2020 12:50:16 -0700
-Message-Id: <20201019195016.15337-1-trix@redhat.com>
-X-Mailer: git-send-email 2.18.1
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="US-ASCII"
+        Mon, 19 Oct 2020 13:01:05 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: anthony.perard@citrix.com,
+	xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] libxl: Add suppress-vmdesc to QEMU -machine pc options
+Date: Mon, 19 Oct 2020 16:00:50 -0400
+Message-Id: <20201019200050.103360-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Tom Rix <trix@redhat.com>
+The device model state saved by QMP xen-save-devices-state doesn't
+include the vmdesc json.  When restoring an HVM, xen-load-devices-state
+always triggers "Expected vmdescription section, but got 0".  This is
+not a problem when restore comes from a file.  However, when QEMU runs
+in a linux stubdom and comes over a console, EOF is not received.  This
+causes a delay restoring - though it does restore.
 
-A break is not needed if it is preceded by a goto
+Setting suppress-vmdesc skips looking for the vmdesc during restore and
+avoids the wait.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
+This is a libxl change for the non-xenfv case to match the xenfv change
+made in qemu
+
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- drivers/block/xen-blkback/blkback.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
-index adfc9352351d..f769fbd1b4c4 100644
---- a/drivers/block/xen-blkback/blkback.c
-+++ b/drivers/block/xen-blkback/blkback.c
-@@ -1269,7 +1269,6 @@ static int dispatch_rw_block_io(struct xen_blkif_ring *ring,
- 	default:
- 		operation = 0; /* make gcc happy */
- 		goto fail_response;
--		break;
- 	}
- 
- 	/* Check that the number of segments is sane. */
+Should this also add suppress-vmdesc to xenfv for backwards
+compatibility?  In that case, the change in QEMU is redundent.  Since
+this only really matters for the stubdom case, it could be conditioned
+on that.
+
+ tools/libs/light/libxl_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index d1ff35dda3..7d735ffcd9 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -1778,7 +1778,7 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+             /* Switching here to the machine "pc" which does not add
+              * the xen-platform device instead of the default "xenfv" machine.
+              */
+-            machinearg = libxl__strdup(gc, "pc,accel=xen");
++            machinearg = libxl__strdup(gc, "pc,accel=xen,suppress-vmdesc=on");
+         } else {
+             machinearg = libxl__strdup(gc, "xenfv");
+         }
 -- 
-2.18.1
+2.26.2
 
 
