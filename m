@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 285272922E8
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:21:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8601.23050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E49F2922EE
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 09:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8605.23063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPUE-0005be-Km; Mon, 19 Oct 2020 07:21:42 +0000
+	id 1kUPWA-0005on-3w; Mon, 19 Oct 2020 07:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8601.23050; Mon, 19 Oct 2020 07:21:42 +0000
+Received: by outflank-mailman (output) from mailman id 8605.23063; Mon, 19 Oct 2020 07:23:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,78 +23,172 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUPUE-0005bI-H9; Mon, 19 Oct 2020 07:21:42 +0000
-Received: by outflank-mailman (input) for mailman id 8601;
- Mon, 19 Oct 2020 07:21:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUPUC-0005b8-Mc
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:21:40 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d53d7282-ed35-47c9-9f7f-68a60b4a4cf4;
- Mon, 19 Oct 2020 07:21:39 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A3956AB0E;
- Mon, 19 Oct 2020 07:21:38 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kUPWA-0005oS-0n; Mon, 19 Oct 2020 07:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 8605;
+ Mon, 19 Oct 2020 07:23:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kUPW8-0005oM-U5
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:23:40 +0000
+Received: from mail-wm1-x32d.google.com (unknown [2a00:1450:4864:20::32d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 840569d3-30a6-44ab-9c17-a072b9b8341a;
+ Mon, 19 Oct 2020 07:23:39 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id q5so11632142wmq.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:23:39 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+ by smtp.gmail.com with ESMTPSA id p9sm15195256wma.12.2020.10.19.00.23.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 19 Oct 2020 00:23:38 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUPUC-0005b8-Mc
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:21:40 +0000
-X-Inumbo-ID: d53d7282-ed35-47c9-9f7f-68a60b4a4cf4
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id d53d7282-ed35-47c9-9f7f-68a60b4a4cf4;
-	Mon, 19 Oct 2020 07:21:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603092098;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QX2MHQbpg3wjWq1A1IoLHU+ocuPAEaIOhlM4GNE6C+o=;
-	b=nwKqcS7kPpBWrpUpyuCJRoOpTcJV4fStXdAlG/L0Itto5ZgeKpA3nMTpinwb0tfCwiWZTT
-	8AasZKgHHN+d5OjmabWLIHtbWx+0mTC193mBun4lhksol/AqiOy7cm/ihfdcfxTOxMBT2Y
-	DcXJu06Gdr31Kpw6VJoEgHo9EqSX+7w=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A3956AB0E;
-	Mon, 19 Oct 2020 07:21:38 +0000 (UTC)
-Subject: [PATCH 2/2] tools/libs: fix uninstall rule for header files
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <2c9a0407-1bd1-6898-d1e3-9be4c869684b@suse.com>
-Message-ID: <74c629db-0f63-aba0-f294-9668c29b8f70@suse.com>
-Date: Mon, 19 Oct 2020 09:21:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	(envelope-from <SRS0=CSGA=D2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kUPW8-0005oM-U5
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 07:23:40 +0000
+X-Inumbo-ID: 840569d3-30a6-44ab-9c17-a072b9b8341a
+Received: from mail-wm1-x32d.google.com (unknown [2a00:1450:4864:20::32d])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 840569d3-30a6-44ab-9c17-a072b9b8341a;
+	Mon, 19 Oct 2020 07:23:39 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id q5so11632142wmq.0
+        for <xen-devel@lists.xenproject.org>; Mon, 19 Oct 2020 00:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=Yfcbj1U2V9MXMVv6f17g69PJ8r9vg/TmZ0vVVq4aOuw=;
+        b=g5EQYaV7J/oYzm6yaMgs124XnLHS5mGI531XFf/o3EB+m+nN50W3zIPjbZcaFImcOt
+         c4h3XQCqfa0mb5+hlDWT+c3h4Q3PCyilhAggiidp9W/IRLfJmpYkFSk9131beJjtrmPB
+         utUhFQRSwHN8TZamk2ieJcJuOot/kdR65dWx9dX5BwJTLMpFGADGJCcBGGdV9zm/vNqQ
+         kzogwG+sicy0tA3LPi/lfnQyDKJCoNrYetR36nl0u5+r+UgL6u6VEYvxvZuuk8DZfQeM
+         d0TraeVJc8Aznu6vREtNyT/TbtzLGv6V6bDj+jKmyJeZ6u57n9EbKwLFYKoyqkXrorVH
+         l8Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=Yfcbj1U2V9MXMVv6f17g69PJ8r9vg/TmZ0vVVq4aOuw=;
+        b=C7ieIYNBck0Gdo8xipxcSNCajjZ453AR1NVQ0CpFXcvtPE8G68IBMGVl6pcVxumMVJ
+         YUcP3NV0iskqSbORegx96EVCpXtL54yf53M5FLLfVw6iPuc7QuDNKsq+uHDsi8OG3JMK
+         OfZZZCG25l0s19m31Rllg/M0r0sN/r7T+/9A7HQ7/nCoraYMn0iBypeCNNZwYNjrT/UF
+         3YhdoX0F0EbO4ugyTIaFa60pHPm20jfnjbD5a3uk9tHYaxLK/2iJg+b/iCSSpYrtArCd
+         6Jt2FPGFrael7CYX8hYyMDjWdjgLFNPb7ssvsyYhDJbPkDxz1FqibPP4K4azvTA27DBB
+         Lq/Q==
+X-Gm-Message-State: AOAM532yn2SVXtzwXtAEOLfMuAI+gi/7lfj1Xge8nbVcaV6OnSbLlHZO
+	66EqQYRJKpUBK+tRyScLccs=
+X-Google-Smtp-Source: ABdhPJzXujww7LqkUau/9jCXuYo1aHObW4z53PsBF42iRS+ri+3+VsQDWFzruHwRW+f1D1TBbXcF1A==
+X-Received: by 2002:a1c:1f87:: with SMTP id f129mr16435034wmf.182.1603092218907;
+        Mon, 19 Oct 2020 00:23:38 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+        by smtp.gmail.com with ESMTPSA id p9sm15195256wma.12.2020.10.19.00.23.37
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 19 Oct 2020 00:23:38 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Daniel De Graaf'" <dgdegra@tycho.nsa.gov>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>
+References: <20201005094905.2929-1-paul@xen.org> <20201005094905.2929-3-paul@xen.org> <97648df3-dcce-cd19-9074-6ca63d94b518@xen.org>
+In-Reply-To: <97648df3-dcce-cd19-9074-6ca63d94b518@xen.org>
+Subject: RE: [PATCH 2/5] iommu / domctl: introduce XEN_DOMCTL_iommu_ctl
+Date: Mon, 19 Oct 2020 08:23:36 +0100
+Message-ID: <002a01d6a5e8$c36bb5a0$4a4320e0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <2c9a0407-1bd1-6898-d1e3-9be4c869684b@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH+ubxU5MmdI1NaD6dn626TcODZdgGmi3hFAim7XvWpL9smcA==
+Content-Language: en-gb
 
-This again was working right only as long as $(LIBHEADER) consisted of
-just one entry.
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 16 October 2020 16:47
+> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <pdurrant@amazon.com>; Daniel De Graaf <dgdegra@tycho.nsa.gov>; Ian Jackson
+> <iwj@xenproject.org>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap
+> <george.dunlap@citrix.com>; Jan Beulich <jbeulich@suse.com>; Stefano Stabellini
+> <sstabellini@kernel.org>
+> Subject: Re: [PATCH 2/5] iommu / domctl: introduce XEN_DOMCTL_iommu_ctl
+> 
+> Hi Paul,
+> 
+> On 05/10/2020 10:49, Paul Durrant wrote:
+> > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> > index 791f0a2592..75e855625a 100644
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -1130,6 +1130,18 @@ struct xen_domctl_vuart_op {
+> >                                    */
+> >   };
+> >
+> > +/*
+> > + * XEN_DOMCTL_iommu_ctl
+> > + *
+> > + * Control of VM IOMMU settings
+> > + */
+> > +
+> > +#define XEN_DOMCTL_IOMMU_INVALID 0
+> 
+> I can't find any user of XEN_DOMCTL_IOMMU_INVALID. What's the purpose
+> for it?
+> 
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-An alternative would be to use $(addprefix ) without any shell loop.
+It's just a placeholder. I think it's generally safer that a zero opcode value is invalid.
 
---- a/tools/libs/libs.mk
-+++ b/tools/libs/libs.mk
-@@ -107,7 +107,7 @@ install: build
- .PHONY: uninstall
- uninstall:
- 	rm -f $(DESTDIR)$(PKG_INSTALLDIR)/$(LIB_FILE_NAME).pc
--	for i in $(LIBHEADER); do rm -f $(DESTDIR)$(includedir)/$(LIBHEADER); done
-+	for i in $(LIBHEADER); do rm -f $(DESTDIR)$(includedir)/$$i; done
- 	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so
- 	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so.$(MAJOR)
- 	rm -f $(DESTDIR)$(libdir)/lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)
+> [...]
+> 
+> > diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+> > index b21c3783d3..1a96d3502c 100644
+> > --- a/xen/include/xsm/xsm.h
+> > +++ b/xen/include/xsm/xsm.h
+> > @@ -106,17 +106,19 @@ struct xsm_operations {
+> >       int (*irq_permission) (struct domain *d, int pirq, uint8_t allow);
+> >       int (*iomem_permission) (struct domain *d, uint64_t s, uint64_t e, uint8_t allow);
+> >       int (*iomem_mapping) (struct domain *d, uint64_t s, uint64_t e, uint8_t allow);
+> > -    int (*pci_config_permission) (struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t
+> end, uint8_t access);
+> > +    int (*pci_config_permission) (struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t
+> end, uint8_t access);
+> 
+> I can't figure out what changed here. Is it an intended change?
+> 
+
+No, I'll check and get rid of it.
+
+  Paul
+
+> >
+> > -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
+> > +#if defined(CONFIG_HAS_PASSTHROUGH)
+> > +    int (*iommu_ctl) (struct domain *d, unsigned int op);
+> > +#if defined(CONFIG_HAS_PCI)
+> >       int (*get_device_group) (uint32_t machine_bdf);
+> >       int (*assign_device) (struct domain *d, uint32_t machine_bdf);
+> >       int (*deassign_device) (struct domain *d, uint32_t machine_bdf);
+> >   #endif
+> > -
+> > -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
+> > +#if defined(CONFIG_HAS_DEVICE_TREE)
+> >       int (*assign_dtdevice) (struct domain *d, const char *dtpath);
+> >       int (*deassign_dtdevice) (struct domain *d, const char *dtpath);
+> > +#endif
+> >   #endif
+> 
+> Cheers,
+> 
+> --
+> Julien Grall
 
 
