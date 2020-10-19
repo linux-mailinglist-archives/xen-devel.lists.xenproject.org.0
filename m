@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D1029320C
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 01:37:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8860.23839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73717293221
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 01:51:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8867.23858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUeiQ-0001VU-Fg; Mon, 19 Oct 2020 23:37:22 +0000
+	id 1kUeuX-0002XC-MU; Mon, 19 Oct 2020 23:49:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8860.23839; Mon, 19 Oct 2020 23:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 8867.23858; Mon, 19 Oct 2020 23:49:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,174 +23,226 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUeiQ-0001V9-Bi; Mon, 19 Oct 2020 23:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 8860;
- Mon, 19 Oct 2020 23:37:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kUeuX-0002Wn-I6; Mon, 19 Oct 2020 23:49:53 +0000
+Received: by outflank-mailman (input) for mailman id 8867;
+ Mon, 19 Oct 2020 23:49:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wIFX=D2=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
- id 1kUeiO-0001V4-E4
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:37:20 +0000
-Received: from mail1.protonmail.ch (unknown [185.70.40.18])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21374878-229a-480d-9843-3c83272f1226;
- Mon, 19 Oct 2020 23:37:18 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=uBDh=D2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kUeuW-0002W4-00
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:49:52 +0000
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 151c5437-5ed4-4757-93bd-c745c80acde2;
+ Mon, 19 Oct 2020 23:49:50 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNeWmu008892;
+ Mon, 19 Oct 2020 23:49:25 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 347s8mr587-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 19 Oct 2020 23:49:25 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNdpgP184956;
+ Mon, 19 Oct 2020 23:49:24 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3020.oracle.com with ESMTP id 348acq34kk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 19 Oct 2020 23:49:24 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09JNnFrC018030;
+ Mon, 19 Oct 2020 23:49:15 GMT
+Received: from [10.39.233.101] (/10.39.233.101)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 19 Oct 2020 16:49:14 -0700
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=wIFX=D2=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
-	id 1kUeiO-0001V4-E4
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:37:20 +0000
-X-Inumbo-ID: 21374878-229a-480d-9843-3c83272f1226
-Received: from mail1.protonmail.ch (unknown [185.70.40.18])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 21374878-229a-480d-9843-3c83272f1226;
-	Mon, 19 Oct 2020 23:37:18 +0000 (UTC)
-Date: Mon, 19 Oct 2020 23:37:06 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail; t=1603150637;
-	bh=MEid225IZ3x8VHvybxTNCCYhY9RSdgTQX17KRNNbzcI=;
-	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
-	b=c8RMxPZRjG9aJydHR5NMAFRJXM56b9zrR9jumvoqz/XGCdTZMP1zO6XzeJxzqTZh2
-	 tig0Svx1nTAGzgWxLf8unfZeUYlgHhjp/7pSOMMD6XbWY8W680CvOe2zNyzuHrxBDN
-	 irdiJ4hFrsoXR3zg3sEoDb19neu7gc/cK5Me8rl4=
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-From: Dylanger Daly <dylangerdaly@protonmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
-Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
-Message-ID: <3pKjdPYCiRimYjqHQP0xd_vqhoTOJqthTXOrY_rLeNvnQEpIF24gXDKgRhmr95JfARJzbVJVbfTrrJeiovGVHGbV0QBSZ2jez2Y_wt6db7g=@protonmail.com>
-In-Reply-To: <2cc5da3e-0ad0-4647-f1ca-190788c2910b@citrix.com>
-References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <2cc5da3e-0ad0-4647-f1ca-190788c2910b@citrix.com>
+	(envelope-from <SRS0=uBDh=D2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+	id 1kUeuW-0002W4-00
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:49:52 +0000
+X-Inumbo-ID: 151c5437-5ed4-4757-93bd-c745c80acde2
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 151c5437-5ed4-4757-93bd-c745c80acde2;
+	Mon, 19 Oct 2020 23:49:50 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNeWmu008892;
+	Mon, 19 Oct 2020 23:49:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=bhZdIZ6uyaAnD5Lu5Uhke8liuugcYbL/KEuYLGPYBCw=;
+ b=uOhEmuToYeCEFCRlRVs3zOCo29etlOg6bv8a389akvmhTZ7RlMCAgWL76XFroG40IpCF
+ 1X7V2UD2l/1zSoY6LB1bdV2K04ox9P8SSUzvIE8KwBU4UpZZCYmDCZ0wA9MicERc0wN7
+ mN/VW0GN0i/wk56xsCKVdREgz3I/x32V/KixWQRR3/HJomhjZw4VjIfUHUG3CHc+FQBc
+ QszoDPh2C5grHbcpQuXfDnEEFt9BRJhjW8f/0xgTGXnyqPl3evhpKyE+oaW/Ucz5pPCx
+ /nTmNoPCn2P3GF92zn5veNuIKSUECCmBJ/NhBQ3AhaKi9hcven1z9jGx45E6T5mm0bB4 RA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2120.oracle.com with ESMTP id 347s8mr587-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Oct 2020 23:49:25 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNdpgP184956;
+	Mon, 19 Oct 2020 23:49:24 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+	by userp3020.oracle.com with ESMTP id 348acq34kk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 19 Oct 2020 23:49:24 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09JNnFrC018030;
+	Mon, 19 Oct 2020 23:49:15 GMT
+Received: from [10.39.233.101] (/10.39.233.101)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Mon, 19 Oct 2020 16:49:14 -0700
+Subject: Re: [Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI
+ flr/slot/bus reset with 'reset' SysFS attribute
+To: Rich Persaud <persaur@gmail.com>,
+        =?UTF-8?Q?H=c3=a5kon_Alstadheim?= <hakon@alstadheim.priv.no>,
+        George Dunlap <George.Dunlap@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?B?UGFzaSBLw6Rya2vDpGluZW4=?=
+ <pasik@iki.fi>,
+        xen-devel <xen-devel@lists.xenproject.org>,
+        Juergen Gross <jgross@suse.com>,
+        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+        Jan Beulich <jbeulich@suse.com>, bhelgaas@google.com,
+        Roger Pau Monne <roger.pau@citrix.com>,
+        =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+        Jason Andryuk <jandryuk@gmail.com>,
+        Andrew Cooper <Andrew.Cooper3@citrix.com>,
+        Ian Jackson <Ian.Jackson@citrix.com>,
+        Paul Durrant <pdurrant@amazon.com>,
+        Anthony Perard <anthony.perard@citrix.com>
+References: <2d2693c9-f2a9-7914-7362-947a61c28acd@alstadheim.priv.no>
+ <6D51F096-C247-486B-B4A2-50F85855EA06@gmail.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <1c0c3e2e-51c0-1c94-d5fc-cfcf17f61236@oracle.com>
+Date: Mon, 19 Oct 2020 19:49:11 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.3
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1_nv5ozyXJOfrNDuJXtqBmfNxxUi5U7IULQTexHTkE"
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE
-	shortcircuit=no autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-	mailout.protonmail.ch
-
-This is a multi-part message in MIME format.
-
---b1_nv5ozyXJOfrNDuJXtqBmfNxxUi5U7IULQTexHTkE
+In-Reply-To: <6D51F096-C247-486B-B4A2-50F85855EA06@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-
-PiBEb2VzIGJvb3Rpbmcgd2l0aCBzY2hlZD1jcmVkaXQgYWx0ZXIgdGhlIHN5bXB0b21zPwoKSW5k
-ZWVkIEkndmUgdHJpZWQgdGhpcywgdGhlIHJlc3VsdCBpcyBhbiBvYnNlcnZhYmxlIGRlbGF5LCB1
-bnVzYWJsZSBwZXJmb3JtYW5jZSwgY3JlZGl0MiBzZWVtcyB0byBiZSB0aGUgb25seSB1c2FibGUg
-c2NoZWR1bGVyLCBJJ20gY2VydGFpbiBpdCBoYXMgc29tZXRoaW5nIHRvIGRvIHdpdGggU01UIGJl
-aW5nIGRpc2FibGVkLCByZXN1bHRpbmcgaW4gOCBjb3JlcyBpbnN0ZWFkIG9mIHRoZSBleHBlY3Rl
-ZCAxNiB0aHJlYWRzLgoKPiBBcyBhIHJhbmRvbSB0aG91Z2h0LCBoYXZlIHlvdSB0cmllZCBkaXNh
-YmxpbmcgdXNlIG9mIChkZWVwKSBDLXN0YXRlcz8KClllYWggSSd2ZSB0cmllZCBib3RoIGBwcm9j
-ZXNzb3IubWF4X2NzdGF0ZT0xfDVgCkkndmUgYWxzbyB0cmllZCBhZGRpbmcgYDB4QzAwMTAyOTJg
-IGFuZCBgMHhDMDAxMDI5NmAgTVNScyBpbnRvIGFyY2gveDg2L21zci5jIChndWVzdF97cmRtc3Is
-d3Jtc3J9KQoKVGhlIGFib3ZlIGFsbG93ZWQgbWUgdG8gdXNlIGh0dHBzOi8vZ2l0aHViLmNvbS9y
-NG0wbi9aZW5TdGF0ZXMtTGludXgvYmxvYi9tYXN0ZXIvemVuc3RhdGVzLnB5CgpBZnRlciByZW1v
-dmluZyBgZG9tMF9tYXhfdmNwdXM9MSBkb20wX3ZjcHVzX3BpbmAgZnJvbSBYZW4ncyBDTURMSU5F
-LCBhbmQgZGlzYWJsaW5nIEM2IEkgb2JzZXJ2ZWQgbm8gY2hhbmdlLgoKPiBUaGlzIHdhbnRzIHJl
-cG9ydGluZyAod2l0aCBzdWZmaWNpZW50IGRhdGEsIGkuZS4gYXQgbGVhc3QgYSBzZXJpYWwgbG9n
-KQoKSG0sIEknbSBub3Qgc3VyZSB0aGVyZSdzIFVBUlQgb24gdGhpcyBMYXB0b3AsIGNhbiBJIHNh
-dmUgdGhlIGJvb3QgbG9nIHNvbWV3aGVyZT8K4oCQ4oCQ4oCQ4oCQ4oCQ4oCQ4oCQIE9yaWdpbmFs
-IE1lc3NhZ2Ug4oCQ4oCQ4oCQ4oCQ4oCQ4oCQ4oCQCk9uIFRodXJzZGF5LCBPY3RvYmVyIDE1dGgs
-IDIwMjAgYXQgMTA6NTcgUE0sIEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5j
-b20+IHdyb3RlOgoKPiBPbiAxNS8xMC8yMDIwIDAxOjM4LCBEeWxhbmdlciBEYWx5IHdyb3RlOgo+
-Cj4+IEhpIEFsbCwKPj4KPj4gSSdtIGN1cnJlbnRseSB1c2luZyBYZW4gNC4xNCAoUXViZXMgNC4x
-IE9TKSBvbiBhIFJ5emVuIDcgNDc1MFUgUFJPLCBieSBkZWZhdWx0IEknbGwgZXhwZXJpZW5jZSBz
-b2Z0bG9ja3Mgd2hlcmUgdGhlIG1vdXNlIGZvciBleGFtcGxlIHdpbGwgam9sdCBmcm9tIHRpbWUg
-dG8gdGltZSwgaW4gdGhpcyBzdGF0ZSBpdCdzIG5vdCB1c2FibGUuCj4+Cj4+IEFkZGluZyBgZG9t
-MF9tYXhfdmNwdXM9MSBkb20wX3ZjcHVzX3BpbmAgdG8gWGVuJ3MgQ01ETElORSByZXN1bHRzIGlu
-IG5vIG1vcmUgam9sdGluZyBob3dldmVyIHBlcmZvcm1hbmNlIGlzbid0IHdoYXQgaXQgc2hvdWxk
-IGJlIG9uIGFuIDggY29yZSBDUFUsIHNvZnRsb2NrcyBhcmUgc3RpbGwgYSBwcm9ibGVtIHdpdGhp
-biBkb21VJ3MsIGFueSBzb3J0IG9mIFVJIGFuaW1hdGlvbiBmb3IgZXhhbXBsZS4KPj4KPj4gUmV2
-ZXJ0aW5nIFt0aGlzIGNvbW1pdCAoOGUyYWE3NmRjMTY3MGU4MmVhYTE1NjgzMzUzODUzYmM2NmJm
-NTRmYyldKGh0dHBzOi8vZ2l0aHViLmNvbS94ZW4tcHJvamVjdC94ZW4vY29tbWl0LzhlMmFhNzZk
-YzE2NzBlODJlYWExNTY4MzM1Mzg1M2JjNjZiZjU0ZmMpIHJlc3VsdHMgaW4gZXZlbiB3b3JzZSBw
-ZXJmb3JtYW5jZSB3aXRoIG9yIHdpdGhvdXQgdGhlIGFib3ZlIGNoYW5nZXMgdG8gQ01ETElORSwg
-YW5kIGl0J3Mgbm90IHVzYWJsZSBhdCBhbGwuCj4+Cj4+IERvZXMgYW55b25lIGhhdmUgYW55IHBv
-aW50ZXJzPwo+Cj4gRG9lcyBib290aW5nIHdpdGggc2NoZWQ9Y3JlZGl0IGFsdGVyIHRoZSBzeW1w
-dG9tcz8KPgo+IH5BbmRyZXc=
-
---b1_nv5ozyXJOfrNDuJXtqBmfNxxUi5U7IULQTexHTkE
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
-
-PGRpdj4mZ3Q7Jm5ic3A7PHNwYW4gY2xhc3M9ImhpZ2hsaWdodCIgc3R5bGU9ImJhY2tncm91bmQt
-Y29sb3I6cmdiKDI1NSwgMjU1LCAyNTUpIj48c3BhbiBjbGFzcz0iY29sb3VyIiBzdHlsZT0iY29s
-b3I6cmdiKDM4LCA0MiwgNTEpIj48c3BhbiBjbGFzcz0iZm9udCIgc3R5bGU9ImZvbnQtZmFtaWx5
-Oi1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJnF1b3Q7U2Vnb2UgVUkmcXVvdDss
-IFJvYm90bywgT3h5Z2VuLVNhbnMsIFVidW50dSwgQ2FudGFyZWxsLCAmcXVvdDtIZWx2ZXRpY2Eg
-TmV1ZSZxdW90Oywgc2Fucy1zZXJpZiI+PHNwYW4gY2xhc3M9InNpemUiIHN0eWxlPSJmb250LXNp
-emU6MTRweCI+RG9lcyBib290aW5nIHdpdGggc2NoZWQ9Y3JlZGl0IGFsdGVyIHRoZSBzeW1wdG9t
-cz88L3NwYW4+PC9zcGFuPjwvc3Bhbj48L3NwYW4+PGJyPjwvZGl2PjxkaXY+PGJyPjwvZGl2Pjxk
-aXY+SW5kZWVkIEkndmUgdHJpZWQgdGhpcywgdGhlIHJlc3VsdCBpcyBhbiBvYnNlcnZhYmxlIGRl
-bGF5LCB1bnVzYWJsZSBwZXJmb3JtYW5jZSwgY3JlZGl0MiBzZWVtcyB0byBiZSB0aGUgb25seSB1
-c2FibGUgc2NoZWR1bGVyLCBJJ20gY2VydGFpbiBpdCBoYXMgc29tZXRoaW5nIHRvIGRvIHdpdGgg
-U01UIGJlaW5nIGRpc2FibGVkLCByZXN1bHRpbmcgaW4gOCBjb3JlcyBpbnN0ZWFkIG9mIHRoZSBl
-eHBlY3RlZCAxNiB0aHJlYWRzLjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PiZndDsmbmJz
-cDtBcyBhIHJhbmRvbSB0aG91Z2h0LCBoYXZlIHlvdSB0cmllZCBkaXNhYmxpbmcgdXNlIG9mIChk
-ZWVwKSBDLXN0YXRlcz88YnI+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5ZZWFoIEkndmUgdHJp
-ZWQgYm90aCBgcHJvY2Vzc29yLm1heF9jc3RhdGU9MXw1YDxicj48L2Rpdj48ZGl2PkkndmUgYWxz
-byB0cmllZCBhZGRpbmcgYDB4QzAwMTAyOTJgIGFuZCBgMHhDMDAxMDI5NmAgTVNScyBpbnRvJm5i
-c3A7YXJjaC94ODYvbXNyLmMgKGd1ZXN0X3tyZG1zcix3cm1zcn0pPGJyPjwvZGl2PjxkaXY+PGJy
-PjwvZGl2PjxkaXY+VGhlIGFib3ZlIGFsbG93ZWQgbWUgdG8gdXNlJm5ic3A7PGEgaHJlZj0iaHR0
-cHM6Ly9naXRodWIuY29tL3I0bTBuL1plblN0YXRlcy1MaW51eC9ibG9iL21hc3Rlci96ZW5zdGF0
-ZXMucHkiPmh0dHBzOi8vZ2l0aHViLmNvbS9yNG0wbi9aZW5TdGF0ZXMtTGludXgvYmxvYi9tYXN0
-ZXIvemVuc3RhdGVzLnB5PC9hPjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkFmdGVyIHJl
-bW92aW5nJm5ic3A7PHNwYW4gY2xhc3M9ImhpZ2hsaWdodCIgc3R5bGU9ImJhY2tncm91bmQtY29s
-b3I6cmdiKDI1NSwgMjU1LCAyNTUpIj48c3BhbiBjbGFzcz0iY29sb3VyIiBzdHlsZT0iY29sb3I6
-cmdiKDM4LCA0MiwgNTEpIj48c3BhbiBjbGFzcz0iZm9udCIgc3R5bGU9ImZvbnQtZmFtaWx5Oi1h
-cHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJnF1b3Q7U2Vnb2UgVUkmcXVvdDssIFJv
-Ym90bywgT3h5Z2VuLVNhbnMsIFVidW50dSwgQ2FudGFyZWxsLCAmcXVvdDtIZWx2ZXRpY2EgTmV1
-ZSZxdW90Oywgc2Fucy1zZXJpZiI+PHNwYW4gY2xhc3M9InNpemUiIHN0eWxlPSJmb250LXNpemU6
-MTRweCI+YGRvbTBfbWF4X3ZjcHVzPTEgZG9tMF92Y3B1c19waW5gIGZyb20gWGVuJ3MgQ01ETElO
-RSwgYW5kIGRpc2FibGluZyBDNiBJIG9ic2VydmVkIG5vIGNoYW5nZS48L3NwYW4+PC9zcGFuPjwv
-c3Bhbj48L3NwYW4+PGJyPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4gY2xhc3M9Imhp
-Z2hsaWdodCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6cmdiKDI1NSwgMjU1LCAyNTUpIj48c3Bh
-biBjbGFzcz0iY29sb3VyIiBzdHlsZT0iY29sb3I6cmdiKDM4LCA0MiwgNTEpIj48c3BhbiBjbGFz
-cz0iZm9udCIgc3R5bGU9ImZvbnQtZmFtaWx5Oi1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVt
-Rm9udCwgJnF1b3Q7U2Vnb2UgVUkmcXVvdDssIFJvYm90bywgT3h5Z2VuLVNhbnMsIFVidW50dSwg
-Q2FudGFyZWxsLCAmcXVvdDtIZWx2ZXRpY2EgTmV1ZSZxdW90Oywgc2Fucy1zZXJpZiI+PHNwYW4g
-Y2xhc3M9InNpemUiIHN0eWxlPSJmb250LXNpemU6MTRweCI+Jmd0OyZuYnNwOzwvc3Bhbj48L3Nw
-YW4+PC9zcGFuPjwvc3Bhbj5UaGlzIHdhbnRzIHJlcG9ydGluZyAod2l0aCBzdWZmaWNpZW50IGRh
-dGEsIGkuZS4gYXQgbGVhc3QgYSBzZXJpYWwgbG9nKTwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-SG0sIEknbSBub3Qgc3VyZSB0aGVyZSdzIFVBUlQgb24gdGhpcyBMYXB0b3AsIGNhbiBJIHNhdmUg
-dGhlIGJvb3QgbG9nIHNvbWV3aGVyZT88YnI+PC9kaXY+PGRpdiBjbGFzcz0icHJvdG9ubWFpbF9x
-dW90ZSI+DQogICAgICAgIOKAkOKAkOKAkOKAkOKAkOKAkOKAkCBPcmlnaW5hbCBNZXNzYWdlIOKA
-kOKAkOKAkOKAkOKAkOKAkOKAkDxicj4NCiAgICAgICAgT24gVGh1cnNkYXksIE9jdG9iZXIgMTV0
-aCwgMjAyMCBhdCAxMDo1NyBQTSwgQW5kcmV3IENvb3BlciAmbHQ7YW5kcmV3LmNvb3BlcjNAY2l0
-cml4LmNvbSZndDsgd3JvdGU6PGJyPg0KICAgICAgICA8YmxvY2txdW90ZSBjbGFzcz0icHJvdG9u
-bWFpbF9xdW90ZSIgdHlwZT0iY2l0ZSI+DQogICAgICAgICAgICA8ZGl2IGNsYXNzPSJtb3otY2l0
-ZS1wcmVmaXgiPk9uIDE1LzEwLzIwMjAgMDE6MzgsIER5bGFuZ2VyIERhbHkNCiAgICAgIHdyb3Rl
-Ojxicj4NCiAgICA8L2Rpdj4NCiAgICA8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4NCg0KICAgICAg
-PGRpdj5IaSBBbGwsPGJyPg0KICAgICAgPC9kaXY+DQogICAgICA8ZGl2Pjxicj4NCiAgICAgIDwv
-ZGl2Pg0KICAgICAgPGRpdj5JJ20gY3VycmVudGx5IHVzaW5nIFhlbiA0LjE0IChRdWJlcyA0LjEg
-T1MpIG9uIGEgUnl6ZW4NCiAgICAgICAgNyZuYnNwOzQ3NTBVIFBSTywgYnkgZGVmYXVsdCBJJ2xs
-IGV4cGVyaWVuY2Ugc29mdGxvY2tzIHdoZXJlIHRoZQ0KICAgICAgICBtb3VzZSBmb3IgZXhhbXBs
-ZSB3aWxsIGpvbHQgZnJvbSB0aW1lIHRvIHRpbWUsIGluIHRoaXMgc3RhdGUNCiAgICAgICAgaXQn
-cyBub3QgdXNhYmxlLjxicj4NCiAgICAgIDwvZGl2Pg0KICAgICAgPGRpdj48YnI+DQogICAgICA8
-L2Rpdj4NCiAgICAgIDxkaXY+QWRkaW5nIGBkb20wX21heF92Y3B1cz0xIGRvbTBfdmNwdXNfcGlu
-YCB0byBYZW4ncyBDTURMSU5FDQogICAgICAgIHJlc3VsdHMgaW4gbm8gbW9yZSBqb2x0aW5nIGhv
-d2V2ZXIgcGVyZm9ybWFuY2UgaXNuJ3Qgd2hhdCBpdA0KICAgICAgICBzaG91bGQgYmUgb24gYW4g
-OCBjb3JlIENQVSwgc29mdGxvY2tzIGFyZSBzdGlsbCBhIHByb2JsZW0gd2l0aGluDQogICAgICAg
-IGRvbVUncywgYW55IHNvcnQgb2YgVUkgYW5pbWF0aW9uIGZvciBleGFtcGxlLjxicj4NCiAgICAg
-IDwvZGl2Pg0KICAgICAgPGRpdj48YnI+DQogICAgICA8L2Rpdj4NCiAgICAgIDxkaXY+UmV2ZXJ0
-aW5nJm5ic3A7PGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3hlbi1wcm9qZWN0L3hlbi9jb21t
-aXQvOGUyYWE3NmRjMTY3MGU4MmVhYTE1NjgzMzUzODUzYmM2NmJmNTRmYyIgdGFyZ2V0PSJfYmxh
-bmsiIHRpdGxlPSJodHRwczovL2dpdGh1Yi5jb20veGVuLXByb2plY3QveGVuL2NvbW1pdC84ZTJh
-YTc2ZGMxNjcwZTgyZWFhMTU2ODMzNTM4NTNiYzY2YmY1NGZjIiByZWw9Im5vcmVmZXJyZXIgbm9m
-b2xsb3cgbm9vcGVuZXIiPnRoaXMgY29tbWl0DQogICAgICAgICAgKDhlMmFhNzZkYzE2NzBlODJl
-YWExNTY4MzM1Mzg1M2JjNjZiZjU0ZmMpPC9hPiZuYnNwO3Jlc3VsdHMgaW4gZXZlbg0KICAgICAg
-ICB3b3JzZSBwZXJmb3JtYW5jZSB3aXRoIG9yIHdpdGhvdXQgdGhlIGFib3ZlIGNoYW5nZXMgdG8g
-Q01ETElORSwNCiAgICAgICAgYW5kIGl0J3Mgbm90IHVzYWJsZSBhdCBhbGwuPGJyPg0KICAgICAg
-PC9kaXY+DQogICAgICA8ZGl2Pjxicj4NCiAgICAgIDwvZGl2Pg0KICAgICAgPGRpdj5Eb2VzIGFu
-eW9uZSBoYXZlIGFueSBwb2ludGVycz88YnI+DQogICAgICA8L2Rpdj4NCiAgICA8L2Jsb2NrcXVv
-dGU+DQogICAgPGJyPg0KICAgIERvZXMgYm9vdGluZyB3aXRoIHNjaGVkPWNyZWRpdCBhbHRlciB0
-aGUgc3ltcHRvbXM/PGJyPg0KICAgIDxicj4NCiAgICB+QW5kcmV3PGJyPg0KDQoNCg0KICAgICAg
-ICA8L2Jsb2NrcXVvdGU+PGJyPg0KICAgIDwvZGl2Pg==
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 bulkscore=0 adultscore=0
+ mlxscore=0 malwarescore=0 suspectscore=0 spamscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2010190160
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 suspectscore=0
+ lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
+ phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010190160
 
 
---b1_nv5ozyXJOfrNDuJXtqBmfNxxUi5U7IULQTexHTkE--
+On 10/19/20 6:43 PM, Rich Persaud wrote:
+> On Oct 19, 2020, at 11:52, Håkon Alstadheim <hakon@alstadheim.priv.no> wrote:
+>> ﻿
+>> Den 19.10.2020 17:16, skrev Håkon Alstadheim:
+>>> Den 19.10.2020 13:00, skrev George Dunlap:
+>>>>> On Jan 31, 2020, at 3:33 PM, Wei Liu <wl@xen.org> wrote:
+>>>>>
+>>>>> On Fri, Jan 17, 2020 at 02:13:04PM -0500, Rich Persaud wrote:
+>>>>>> On Aug 26, 2019, at 17:08, Pasi Kärkkäinen <pasik@iki.fi> wrote:
+>>>>>>> ﻿Hi,
+>>>>>>>
+>>>>>>>> On Mon, Oct 08, 2018 at 10:32:45AM -0400, Boris Ostrovsky wrote:
+>>>>>>>>> On 10/3/18 11:51 AM, Pasi Kärkkäinen wrote:
+>>>>>>>>> On Wed, Sep 19, 2018 at 11:05:26AM +0200, Roger Pau Monné wrote:
+>>>>>>>>>> On Tue, Sep 18, 2018 at 02:09:53PM -0400, Boris Ostrovsky wrote:
+>>>>>>>>>>> On 9/18/18 5:32 AM, George Dunlap wrote:
+>>>>>>>>>>>>> On Sep 18, 2018, at 8:15 AM, Pasi Kärkkäinen <pasik@iki.fi> wrote:
+>>>>>>>>>>>>> Hi,
+>>>>>>>>>>>>>> On Mon, Sep 17, 2018 at 02:06:02PM -0400, Boris Ostrovsky wrote:
+>>>>>>>>>>>>>>> What about the toolstack changes? Have they been accepted? I vaguely
+>>>>>>>>>>>>>>> recall there was a discussion about those changes but don't remember how
+>>>>>>>>>>>>>>> it ended.
+>>>>>>>>>>>>>> I don't think toolstack/libxl patch has been applied yet either.
+>>>>>>>>>>>>>> "[PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attribute":
+>>>>>>>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html 
+>>>>>>>>>>>>>> "[PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS attribute":
+>>>>>>>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html 
+>>>>>>>>>>>> Will this patch work for *BSD? Roger?
+>>>>>>>>>>> At least FreeBSD don't support pci-passthrough, so none of this works
+>>>>>>>>>>> ATM. There's no sysfs on BSD, so much of what's in libxl_pci.c will
+>>>>>>>>>>> have to be moved to libxl_linux.c when BSD support is added.
+>>>>>>>>>> Ok. That sounds like it's OK for the initial pci 'reset' implementation in xl/libxl to be linux-only..
+>>>>>>>>> Are these two patches still needed? ISTR they were written originally
+>>>>>>>>> to deal with guest trying to use device that was previously assigned to
+>>>>>>>>> another guest. But pcistub_put_pci_dev() calls
+>>>>>>>>> __pci_reset_function_locked() which first tries FLR, and it looks like
+>>>>>>>>> it was added relatively recently.
+>>>>>>>> Replying to an old thread.. I only now realized I forgot to reply to this message earlier.
+>>>>>>>>
+>>>>>>>> afaik these patches are still needed. Håkon (CC'd) wrote to me in private that
+>>>>>>>> he gets a (dom0) Linux kernel crash if he doesn't have these patches applied.
+
+
+If this is still crashing I'd be curious to see the splat.
+
+
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Here are the links to both the linux kernel and libxl patches:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> "[Xen-devel] [PATCH V3 0/2] Xen/PCIback: PCI reset using 'reset' SysFS attribute":
+>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00659.html
+>>>>>>>>
+>>>>>>>> [Note that PATCH V3 1/2 "Drivers/PCI: Export pcie_has_flr() interface" is already applied in upstream linux kernel, so it's not needed anymore]
+>>>>>>>>
+>>>>>>>> "[Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI flr/slot/bus reset with 'reset' SysFS attribute":
+>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00661.html
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> "[Xen-devel] [PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attribute":
+>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html
+>>>>>>>>
+>>>>>>>> "[Xen-devel] [PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS attribute":
+>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html
+>>>>>>> [dropping Linux mailing lists]
+>>>>>>>
+>>>>>>> What is required to get the Xen patches merged?  Rebasing against Xen
+>>>>>>> master?  OpenXT has been carrying a similar patch for many years and
+>>>>>>> we would like to move to an upstream implementation.  Xen users of PCI
+>>>>>>> passthrough would benefit from more reliable device reset.
+>>>>>> Rebase and resend?
+
+
+If you are is going to resend then please address Jan's comments from https://lists.xen.org/archives/html/xen-devel/2017-12/msg00695.html (although I am not sure in usefulness of the last one)
+
+
+>>>>>>
+>>>>>> Skimming that thread I think the major concern was backward
+>>>>>> compatibility. That seemed to have been addressed.
+>>>>>>
+>>>>>> Unfortunately I don't have the time to dig into Linux to see if the
+>>>>>> claim there is true or not.
+>>>>>>
+>>>>>> It would be helpful to write a concise paragraph to say why backward
+>>>>>> compatibility is not required.
+>>>> Just going through my old “make sure something happens with this” mails.  Did anything ever happen with this?  Who has the ball here / who is this stuck on?
+>>> We're waiting for "somebody" to testify that fixing this will not adversely affect anyone. I'm not qualified, but my strong belief is that since "reset" or "do_flr"  in the linux kernel is not currently implemented/used in any official distribution, it should be OK.
+>>>
+>>> Patches still work in current staging-4.14 btw.
+>>>
+>> Just for the record, attached are the patches I am running on top of linux gentoo-sources-5.9.1  and xen-staging-4.14 respectively. (I am also running with the patch to mark populated reserved memory that contains ACPI tables as "ACPI NVS", not attached here ).
+>>
+>> <pci_brute_reset-home-hack.patch>
+>> <pci_brute_reset-home-hack-doc.patch>
+>> <pci-reset-min-egen.patch>
+> Is there any reason not to merge the Xen patch, while waiting for the Linux patch to be upstreamed?  Similar versions have been deployed in downstream production systems for years, we can at least de-dupe those Xen patches.
+>
+> Do (can) we have an in-tree location to queue Xen-relevant Linux patches while they go through an upstreaming process that may last several (5+ here) years?
+
+
+No (at least as far as I can think of it) but then I can't remember another instance of patches taking that long.
+
+
+-boris
 
 
