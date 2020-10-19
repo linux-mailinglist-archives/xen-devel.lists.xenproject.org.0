@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFCD2923DE
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 10:45:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8667.23219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A175292461
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Oct 2020 11:09:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8676.23231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUQmu-0005sC-D2; Mon, 19 Oct 2020 08:45:04 +0000
+	id 1kURA2-0007oQ-Ev; Mon, 19 Oct 2020 09:08:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8667.23219; Mon, 19 Oct 2020 08:45:04 +0000
+Received: by outflank-mailman (output) from mailman id 8676.23231; Mon, 19 Oct 2020 09:08:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,428 +23,397 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUQmu-0005rm-98; Mon, 19 Oct 2020 08:45:04 +0000
-Received: by outflank-mailman (input) for mailman id 8667;
- Mon, 19 Oct 2020 08:45:03 +0000
+	id 1kURA2-0007o1-Bm; Mon, 19 Oct 2020 09:08:58 +0000
+Received: by outflank-mailman (input) for mailman id 8676;
+ Mon, 19 Oct 2020 09:08:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUQmt-0005re-Bq
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 08:45:03 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cRFv=D2=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kURA0-0007nw-FS
+ for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:08:56 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 13766e3a-8a20-45ae-8533-faba3f602fd7;
- Mon, 19 Oct 2020 08:45:01 +0000 (UTC)
+ id 440fc63b-2afa-4e34-950c-39a79c973e54;
+ Mon, 19 Oct 2020 09:08:54 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EAD76AC19;
- Mon, 19 Oct 2020 08:45:00 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id D8DEBB298;
+ Mon, 19 Oct 2020 09:08:53 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nhcc=D2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUQmt-0005re-Bq
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 08:45:03 +0000
-X-Inumbo-ID: 13766e3a-8a20-45ae-8533-faba3f602fd7
+	(envelope-from <SRS0=cRFv=D2=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+	id 1kURA0-0007nw-FS
+	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 09:08:56 +0000
+X-Inumbo-ID: 440fc63b-2afa-4e34-950c-39a79c973e54
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 13766e3a-8a20-45ae-8533-faba3f602fd7;
-	Mon, 19 Oct 2020 08:45:01 +0000 (UTC)
+	id 440fc63b-2afa-4e34-950c-39a79c973e54;
+	Mon, 19 Oct 2020 09:08:54 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603097101;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0wq4/U2npj/ohoEwA/sWA4Jd1CxybC1RMbF7I0BG8rk=;
-	b=D+IIQ7/BACLyKcfr6fujM8A5D1rK1yNb0h6lYf2Py990qHKg67uB8COCnrA0fCysGoUgrK
-	tZOCMDDuZ5uZPSnMOGYf3HP/MKgvU42Mb7e0l4UEpTZjR192tfrHT2Nqp3kEoFLFRls4Tu
-	Kd1O7eqRJrqd3TzAePlq8VH1j2EV+Bc=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id EAD76AC19;
-	Mon, 19 Oct 2020 08:45:00 +0000 (UTC)
-Subject: [PATCH v3 3/3] x86/shadow: sh_{make,destroy}_monitor_table() are
- "even more" HVM-only
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
-References: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
-Message-ID: <cd39abe3-5a5c-6ebc-a11e-3d4ed1d74907@suse.com>
-Date: Mon, 19 Oct 2020 10:45:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	by mx2.suse.de (Postfix) with ESMTP id D8DEBB298;
+	Mon, 19 Oct 2020 09:08:53 +0000 (UTC)
+Subject: Re: [PATCH v4 05/10] drm/ttm: Add vmap/vunmap to TTM and TTM GEM
+ helpers
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
+ kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-6-tzimmermann@suse.de>
+ <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <87c7c342-88dc-9a36-31f7-dae6edd34626@suse.de>
+Date: Mon, 19 Oct 2020 11:08:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-In-Reply-To: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
+In-Reply-To: <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-With them depending on just the number of shadow levels, there's no need
-for more than one instance of them, and hence no need for any hook (IOW
-452219e24648 ["x86/shadow: monitor table is HVM-only"] didn't go quite
-far enough). Move the functions to hvm.c while dropping the dead
-is_pv_32bit_domain() code paths.
+Hi Christian
 
-While moving the code, replace a stale comment reference to
-sh_install_xen_entries_in_l4(). Doing so made me notice the function
-also didn't have its prototype dropped in 8d7b633adab7 ("x86/mm:
-Consolidate all Xen L4 slot writing into init_xen_l4_slots()"), which
-gets done here as well.
+On 15.10.20 16:08, Christian König wrote:
+> Am 15.10.20 um 14:38 schrieb Thomas Zimmermann:
+>> The new functions ttm_bo_{vmap,vunmap}() map and unmap a TTM BO in kernel
+>> address space. The mapping's address is returned as struct dma_buf_map.
+>> Each function is a simplified version of TTM's existing kmap code. Both
+>> functions respect the memory's location ani/or writecombine flags.
+>>
+>> On top TTM's functions, GEM TTM helpers got drm_gem_ttm_{vmap,vunmap}(),
+>> two helpers that convert a GEM object into the TTM BO and forward the
+>> call
+>> to TTM's vmap/vunmap. These helpers can be dropped into the rsp GEM
+>> object
+>> callbacks.
+>>
+>> v4:
+>>     * drop ttm_kmap_obj_to_dma_buf() in favor of vmap helpers (Daniel,
+>>       Christian)
+> 
+> Bunch of minor comments below, but over all look very solid to me.
+> 
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   drivers/gpu/drm/drm_gem_ttm_helper.c | 38 +++++++++++++++
+>>   drivers/gpu/drm/ttm/ttm_bo_util.c    | 72 ++++++++++++++++++++++++++++
+>>   include/drm/drm_gem_ttm_helper.h     |  6 +++
+>>   include/drm/ttm/ttm_bo_api.h         | 28 +++++++++++
+>>   include/linux/dma-buf-map.h          | 20 ++++++++
+>>   5 files changed, 164 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_gem_ttm_helper.c
+>> b/drivers/gpu/drm/drm_gem_ttm_helper.c
+>> index 0e4fb9ba43ad..db4c14d78a30 100644
+>> --- a/drivers/gpu/drm/drm_gem_ttm_helper.c
+>> +++ b/drivers/gpu/drm/drm_gem_ttm_helper.c
+>> @@ -49,6 +49,44 @@ void drm_gem_ttm_print_info(struct drm_printer *p,
+>> unsigned int indent,
+>>   }
+>>   EXPORT_SYMBOL(drm_gem_ttm_print_info);
+>>   +/**
+>> + * drm_gem_ttm_vmap() - vmap &ttm_buffer_object
+>> + * @gem: GEM object.
+>> + * @map: [out] returns the dma-buf mapping.
+>> + *
+>> + * Maps a GEM object with ttm_bo_vmap(). This function can be used as
+>> + * &drm_gem_object_funcs.vmap callback.
+>> + *
+>> + * Returns:
+>> + * 0 on success, or a negative errno code otherwise.
+>> + */
+>> +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+>> +             struct dma_buf_map *map)
+>> +{
+>> +    struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gem);
+>> +
+>> +    return ttm_bo_vmap(bo, map);
+>> +
+>> +}
+>> +EXPORT_SYMBOL(drm_gem_ttm_vmap);
+>> +
+>> +/**
+>> + * drm_gem_ttm_vunmap() - vunmap &ttm_buffer_object
+>> + * @gem: GEM object.
+>> + * @map: dma-buf mapping.
+>> + *
+>> + * Unmaps a GEM object with ttm_bo_vunmap(). This function can be
+>> used as
+>> + * &drm_gem_object_funcs.vmap callback.
+>> + */
+>> +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
+>> +            struct dma_buf_map *map)
+>> +{
+>> +    struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gem);
+>> +
+>> +    ttm_bo_vunmap(bo, map);
+>> +}
+>> +EXPORT_SYMBOL(drm_gem_ttm_vunmap);
+>> +
+>>   /**
+>>    * drm_gem_ttm_mmap() - mmap &ttm_buffer_object
+>>    * @gem: GEM object.
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> index bdee4df1f3f2..80c42c774c7d 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> @@ -32,6 +32,7 @@
+>>   #include <drm/ttm/ttm_bo_driver.h>
+>>   #include <drm/ttm/ttm_placement.h>
+>>   #include <drm/drm_vma_manager.h>
+>> +#include <linux/dma-buf-map.h>
+>>   #include <linux/io.h>
+>>   #include <linux/highmem.h>
+>>   #include <linux/wait.h>
+>> @@ -526,6 +527,77 @@ void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map)
+>>   }
+>>   EXPORT_SYMBOL(ttm_bo_kunmap);
+>>   +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map)
+>> +{
+>> +    struct ttm_resource *mem = &bo->mem;
+>> +    int ret;
+>> +
+>> +    ret = ttm_mem_io_reserve(bo->bdev, mem);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    if (mem->bus.is_iomem) {
+>> +        void __iomem *vaddr_iomem;
+>> +        unsigned long size = bo->num_pages << PAGE_SHIFT;
+> 
+> Please use uint64_t here and make sure to cast bo->num_pages before
+> shifting.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v3: New.
----
-TBD: In principle both functions could have their first parameter
-     constified. In fact, "destroy" doesn't depend on the vCPU at all
-     and hence could be passed a struct domain *. Not sure whether such
-     an asymmetry would be acceptable.
-     In principle "make" would also not need passing of the number of
-     shadow levels (can be derived from v), which would result in yet
-     another asymmetry.
-     If these asymmetries were acceptable, "make" could then also update
-     v->arch.hvm.monitor_table, instead of doing so at both call sites.
-TBD: Collides with Andrew's "xen/x86: Fix memory leak in vcpu_create()
-     error path".
+I thought the rule of thumb is to use u64 in source code. Yet TTM only
+uses uint*_t types. Is there anything special about TTM?
 
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -2467,7 +2467,9 @@ static void sh_update_paging_modes(struc
- 
-         if ( pagetable_is_null(v->arch.hvm.monitor_table) )
-         {
--            mfn_t mmfn = v->arch.paging.mode->shadow.make_monitor_table(v);
-+            mfn_t mmfn = sh_make_monitor_table(
-+                             v, v->arch.paging.mode->shadow.shadow_levels);
-+
-             v->arch.hvm.monitor_table = pagetable_from_mfn(mmfn);
-             make_cr3(v, mmfn);
-             hvm_update_host_cr3(v);
-@@ -2504,7 +2506,8 @@ static void sh_update_paging_modes(struc
- 
-                 old_mfn = pagetable_get_mfn(v->arch.hvm.monitor_table);
-                 v->arch.hvm.monitor_table = pagetable_null();
--                new_mfn = v->arch.paging.mode->shadow.make_monitor_table(v);
-+                new_mfn = sh_make_monitor_table(
-+                              v, v->arch.paging.mode->shadow.shadow_levels);
-                 v->arch.hvm.monitor_table = pagetable_from_mfn(new_mfn);
-                 SHADOW_PRINTK("new monitor table %"PRI_mfn "\n",
-                                mfn_x(new_mfn));
-@@ -2516,7 +2519,8 @@ static void sh_update_paging_modes(struc
-                 if ( v == current )
-                     write_ptbase(v);
-                 hvm_update_host_cr3(v);
--                old_mode->shadow.destroy_monitor_table(v, old_mfn);
-+                sh_destroy_monitor_table(v, old_mfn,
-+                                         old_mode->shadow.shadow_levels);
-             }
-         }
- 
-@@ -2801,7 +2805,9 @@ void shadow_teardown(struct domain *d, b
-                     mfn_t mfn = pagetable_get_mfn(v->arch.hvm.monitor_table);
- 
-                     if ( mfn_valid(mfn) && (mfn_x(mfn) != 0) )
--                        v->arch.paging.mode->shadow.destroy_monitor_table(v, mfn);
-+                        sh_destroy_monitor_table(
-+                            v, mfn,
-+                            v->arch.paging.mode->shadow.shadow_levels);
-                     v->arch.hvm.monitor_table = pagetable_null();
-                 }
- #endif /* CONFIG_HVM */
---- a/xen/arch/x86/mm/shadow/hvm.c
-+++ b/xen/arch/x86/mm/shadow/hvm.c
-@@ -691,6 +691,88 @@ static void sh_emulate_unmap_dest(struct
-     atomic_inc(&v->domain->arch.paging.shadow.gtable_dirty_version);
- }
- 
-+mfn_t sh_make_monitor_table(struct vcpu *v, unsigned int shadow_levels)
-+{
-+    struct domain *d = v->domain;
-+    mfn_t m4mfn;
-+    l4_pgentry_t *l4e;
-+
-+    ASSERT(!pagetable_get_pfn(v->arch.hvm.monitor_table));
-+
-+    /* Guarantee we can get the memory we need */
-+    shadow_prealloc(d, SH_type_monitor_table, CONFIG_PAGING_LEVELS);
-+    m4mfn = shadow_alloc(d, SH_type_monitor_table, 0);
-+    mfn_to_page(m4mfn)->shadow_flags = 4;
-+
-+    l4e = map_domain_page(m4mfn);
-+
-+    /*
-+     * Create a self-linear mapping, but no shadow-linear mapping.  A
-+     * shadow-linear mapping will either be inserted below when creating
-+     * lower level monitor tables, or later in sh_update_cr3().
-+     */
-+    init_xen_l4_slots(l4e, m4mfn, d, INVALID_MFN, false);
-+
-+    if ( shadow_levels < 4 )
-+    {
-+        mfn_t m3mfn, m2mfn;
-+        l3_pgentry_t *l3e;
-+
-+        /*
-+         * Install an l3 table and an l2 table that will hold the shadow
-+         * linear map entries.  This overrides the empty entry that was
-+         * installed by init_xen_l4_slots().
-+         */
-+        m3mfn = shadow_alloc(d, SH_type_monitor_table, 0);
-+        mfn_to_page(m3mfn)->shadow_flags = 3;
-+        l4e[l4_table_offset(SH_LINEAR_PT_VIRT_START)]
-+            = l4e_from_mfn(m3mfn, __PAGE_HYPERVISOR_RW);
-+
-+        m2mfn = shadow_alloc(d, SH_type_monitor_table, 0);
-+        mfn_to_page(m2mfn)->shadow_flags = 2;
-+        l3e = map_domain_page(m3mfn);
-+        l3e[0] = l3e_from_mfn(m2mfn, __PAGE_HYPERVISOR_RW);
-+        unmap_domain_page(l3e);
-+    }
-+
-+    unmap_domain_page(l4e);
-+
-+    return m4mfn;
-+}
-+
-+void sh_destroy_monitor_table(struct vcpu *v, mfn_t mmfn,
-+                              unsigned int shadow_levels)
-+{
-+    struct domain *d = v->domain;
-+
-+    ASSERT(mfn_to_page(mmfn)->u.sh.type == SH_type_monitor_table);
-+
-+    if ( shadow_levels < 4 )
-+    {
-+        mfn_t m3mfn;
-+        l4_pgentry_t *l4e = map_domain_page(mmfn);
-+        l3_pgentry_t *l3e;
-+        unsigned int linear_slot = l4_table_offset(SH_LINEAR_PT_VIRT_START);
-+
-+        /*
-+         * Need to destroy the l3 and l2 monitor pages used
-+         * for the linear map.
-+         */
-+        ASSERT(l4e_get_flags(l4e[linear_slot]) & _PAGE_PRESENT);
-+        m3mfn = l4e_get_mfn(l4e[linear_slot]);
-+        l3e = map_domain_page(m3mfn);
-+        ASSERT(l3e_get_flags(l3e[0]) & _PAGE_PRESENT);
-+        shadow_free(d, l3e_get_mfn(l3e[0]));
-+        unmap_domain_page(l3e);
-+        shadow_free(d, m3mfn);
-+
-+        unmap_domain_page(l4e);
-+    }
-+
-+    /* Put the memory back in the pool */
-+    shadow_free(d, mmfn);
-+}
-+
- /**************************************************************************/
- /* VRAM dirty tracking support */
- int shadow_track_dirty_vram(struct domain *d,
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -1405,84 +1405,6 @@ make_fl1_shadow(struct domain *d, gfn_t
- }
- 
- 
--#if SHADOW_PAGING_LEVELS == GUEST_PAGING_LEVELS && defined(CONFIG_HVM)
--mfn_t
--sh_make_monitor_table(struct vcpu *v)
--{
--    struct domain *d = v->domain;
--
--    ASSERT(pagetable_get_pfn(v->arch.hvm.monitor_table) == 0);
--
--    /* Guarantee we can get the memory we need */
--    shadow_prealloc(d, SH_type_monitor_table, CONFIG_PAGING_LEVELS);
--
--    {
--        mfn_t m4mfn;
--        l4_pgentry_t *l4e;
--
--        m4mfn = shadow_alloc(d, SH_type_monitor_table, 0);
--        mfn_to_page(m4mfn)->shadow_flags = 4;
--
--        l4e = map_domain_page(m4mfn);
--
--        /*
--         * Create a self-linear mapping, but no shadow-linear mapping.  A
--         * shadow-linear mapping will either be inserted below when creating
--         * lower level monitor tables, or later in sh_update_cr3().
--         */
--        init_xen_l4_slots(l4e, m4mfn, d, INVALID_MFN, false);
--
--#if SHADOW_PAGING_LEVELS < 4
--        {
--            mfn_t m3mfn, m2mfn;
--            l3_pgentry_t *l3e;
--            /* Install an l3 table and an l2 table that will hold the shadow
--             * linear map entries.  This overrides the linear map entry that
--             * was installed by sh_install_xen_entries_in_l4. */
--
--            m3mfn = shadow_alloc(d, SH_type_monitor_table, 0);
--            mfn_to_page(m3mfn)->shadow_flags = 3;
--            l4e[shadow_l4_table_offset(SH_LINEAR_PT_VIRT_START)]
--                = l4e_from_mfn(m3mfn, __PAGE_HYPERVISOR_RW);
--
--            m2mfn = shadow_alloc(d, SH_type_monitor_table, 0);
--            mfn_to_page(m2mfn)->shadow_flags = 2;
--            l3e = map_domain_page(m3mfn);
--            l3e[0] = l3e_from_mfn(m2mfn, __PAGE_HYPERVISOR_RW);
--            unmap_domain_page(l3e);
--
--            if ( is_pv_32bit_domain(d) )
--            {
--                l2_pgentry_t *l2t;
--
--                /* For 32-bit PV guests, we need to map the 32-bit Xen
--                 * area into its usual VAs in the monitor tables */
--                m3mfn = shadow_alloc(d, SH_type_monitor_table, 0);
--                mfn_to_page(m3mfn)->shadow_flags = 3;
--                l4e[0] = l4e_from_mfn(m3mfn, __PAGE_HYPERVISOR_RW);
--
--                m2mfn = shadow_alloc(d, SH_type_monitor_table, 0);
--                mfn_to_page(m2mfn)->shadow_flags = 2;
--                l3e = map_domain_page(m3mfn);
--                l3e[3] = l3e_from_mfn(m2mfn, _PAGE_PRESENT);
--
--                l2t = map_domain_page(m2mfn);
--                init_xen_pae_l2_slots(l2t, d);
--                unmap_domain_page(l2t);
--
--                unmap_domain_page(l3e);
--            }
--
--        }
--#endif /* SHADOW_PAGING_LEVELS < 4 */
--
--        unmap_domain_page(l4e);
--
--        return m4mfn;
--    }
--}
--#endif /* SHADOW_PAGING_LEVELS == GUEST_PAGING_LEVELS */
--
- /**************************************************************************/
- /* These functions also take a virtual address and return the level-N
-  * shadow table mfn and entry, but they create the shadow pagetables if
-@@ -1860,50 +1782,6 @@ void sh_destroy_l1_shadow(struct domain
-     shadow_free(d, smfn);
- }
- 
--#if SHADOW_PAGING_LEVELS == GUEST_PAGING_LEVELS && defined(CONFIG_HVM)
--void sh_destroy_monitor_table(struct vcpu *v, mfn_t mmfn)
--{
--    struct domain *d = v->domain;
--    ASSERT(mfn_to_page(mmfn)->u.sh.type == SH_type_monitor_table);
--
--#if SHADOW_PAGING_LEVELS != 4
--    {
--        mfn_t m3mfn;
--        l4_pgentry_t *l4e = map_domain_page(mmfn);
--        l3_pgentry_t *l3e;
--        int linear_slot = shadow_l4_table_offset(SH_LINEAR_PT_VIRT_START);
--
--        /* Need to destroy the l3 and l2 monitor pages used
--         * for the linear map */
--        ASSERT(l4e_get_flags(l4e[linear_slot]) & _PAGE_PRESENT);
--        m3mfn = l4e_get_mfn(l4e[linear_slot]);
--        l3e = map_domain_page(m3mfn);
--        ASSERT(l3e_get_flags(l3e[0]) & _PAGE_PRESENT);
--        shadow_free(d, l3e_get_mfn(l3e[0]));
--        unmap_domain_page(l3e);
--        shadow_free(d, m3mfn);
--
--        if ( is_pv_32bit_domain(d) )
--        {
--            /* Need to destroy the l3 and l2 monitor pages that map the
--             * Xen VAs at 3GB-4GB */
--            ASSERT(l4e_get_flags(l4e[0]) & _PAGE_PRESENT);
--            m3mfn = l4e_get_mfn(l4e[0]);
--            l3e = map_domain_page(m3mfn);
--            ASSERT(l3e_get_flags(l3e[3]) & _PAGE_PRESENT);
--            shadow_free(d, l3e_get_mfn(l3e[3]));
--            unmap_domain_page(l3e);
--            shadow_free(d, m3mfn);
--        }
--        unmap_domain_page(l4e);
--    }
--#endif
--
--    /* Put the memory back in the pool */
--    shadow_free(d, mmfn);
--}
--#endif
--
- /**************************************************************************/
- /* Functions to destroy non-Xen mappings in a pagetable hierarchy.
-  * These are called from common code when we are running out of shadow
-@@ -4705,8 +4583,6 @@ const struct paging_mode sh_paging_mode
-     .shadow.cmpxchg_guest_entry    = sh_cmpxchg_guest_entry,
- #endif
- #ifdef CONFIG_HVM
--    .shadow.make_monitor_table     = sh_make_monitor_table,
--    .shadow.destroy_monitor_table  = sh_destroy_monitor_table,
- #if SHADOW_OPTIMIZATIONS & SHOPT_WRITABLE_HEURISTIC
-     .shadow.guess_wrmap            = sh_guess_wrmap,
- #endif
---- a/xen/arch/x86/mm/shadow/private.h
-+++ b/xen/arch/x86/mm/shadow/private.h
-@@ -366,9 +366,6 @@ void sh_set_toplevel_shadow(struct vcpu
-                                                  mfn_t gmfn,
-                                                  uint32_t shadow_type));
- 
--/* Install the xen mappings in various flavours of shadow */
--void sh_install_xen_entries_in_l4(struct domain *, mfn_t gl4mfn, mfn_t sl4mfn);
--
- /* Update the shadows in response to a pagetable write from Xen */
- int sh_validate_guest_entry(struct vcpu *v, mfn_t gmfn, void *entry, u32 size);
- 
-@@ -410,6 +407,14 @@ void shadow_update_paging_modes(struct v
-  * With user_only == 1, unhooks only the user-mode mappings. */
- void shadow_unhook_mappings(struct domain *d, mfn_t smfn, int user_only);
- 
-+/*
-+ * sh_{make,destroy}_monitor_table() depend only on the number of shadow
-+ * levels.
-+ */
-+mfn_t sh_make_monitor_table(struct vcpu *v, unsigned int shadow_levels);
-+void sh_destroy_monitor_table(struct vcpu *v, mfn_t mmfn,
-+                              unsigned int shadow_levels);
-+
- /* VRAM dirty tracking helpers. */
- void shadow_vram_get_mfn(mfn_t mfn, unsigned int l1f,
-                          mfn_t sl1mfn, const void *sl1e,
---- a/xen/arch/x86/mm/shadow/types.h
-+++ b/xen/arch/x86/mm/shadow/types.h
-@@ -262,15 +262,6 @@ static inline shadow_l4e_t shadow_l4e_fr
- #define sh_rm_write_access_from_sl1p INTERNAL_NAME(sh_rm_write_access_from_sl1p)
- #endif
- 
--/* sh_make_monitor_table depends only on the number of shadow levels */
--#define sh_make_monitor_table \
--        SHADOW_SH_NAME(sh_make_monitor_table, SHADOW_PAGING_LEVELS)
--#define sh_destroy_monitor_table \
--        SHADOW_SH_NAME(sh_destroy_monitor_table, SHADOW_PAGING_LEVELS)
--
--mfn_t sh_make_monitor_table(struct vcpu *v);
--void sh_destroy_monitor_table(struct vcpu *v, mfn_t mmfn);
--
- #if SHADOW_PAGING_LEVELS == 3
- #define MFN_FITS_IN_HVM_CR3(_MFN) !(mfn_x(_MFN) >> 20)
- #endif
---- a/xen/include/asm-x86/paging.h
-+++ b/xen/include/asm-x86/paging.h
-@@ -107,8 +107,6 @@ struct shadow_paging_mode {
-                                             mfn_t gmfn);
- #endif
- #ifdef CONFIG_HVM
--    mfn_t         (*make_monitor_table    )(struct vcpu *v);
--    void          (*destroy_monitor_table )(struct vcpu *v, mfn_t mmfn);
-     int           (*guess_wrmap           )(struct vcpu *v, 
-                                             unsigned long vaddr, mfn_t gmfn);
-     void          (*pagetable_dying       )(paddr_t gpa);
+> 
+> We have an unit tests of allocating a 8GB BO and that should work on a
+> 32bit machine as well :)
+> 
+>> +
+>> +        if (mem->bus.addr)
+>> +            vaddr_iomem = (void *)(((u8 *)mem->bus.addr));
 
+I after reading the patch again, I realized that this is the
+'ttm_bo_map_premapped' case and it's missing from _vunmap(). I see two
+options here: ignore this case in _vunmap(), or do an ioremap()
+unconditionally. Which one is preferable?
+
+Best regards
+Thomas
+
+>> +        else if (mem->placement & TTM_PL_FLAG_WC)
+> 
+> I've just nuked the TTM_PL_FLAG_WC flag in drm-misc-next. There is a new
+> mem->bus.caching enum as replacement.
+> 
+>> +            vaddr_iomem = ioremap_wc(mem->bus.offset, size);
+>> +        else
+>> +            vaddr_iomem = ioremap(mem->bus.offset, size);
+>> +
+>> +        if (!vaddr_iomem)
+>> +            return -ENOMEM;
+>> +
+>> +        dma_buf_map_set_vaddr_iomem(map, vaddr_iomem);
+>> +
+>> +    } else {
+>> +        struct ttm_operation_ctx ctx = {
+>> +            .interruptible = false,
+>> +            .no_wait_gpu = false
+>> +        };
+>> +        struct ttm_tt *ttm = bo->ttm;
+>> +        pgprot_t prot;
+>> +        void *vaddr;
+>> +
+>> +        BUG_ON(!ttm);
+> 
+> I think we can drop this, populate will just crash badly anyway.
+> 
+>> +
+>> +        ret = ttm_tt_populate(bo->bdev, ttm, &ctx);
+>> +        if (ret)
+>> +            return ret;
+>> +
+>> +        /*
+>> +         * We need to use vmap to get the desired page protection
+>> +         * or to make the buffer object look contiguous.
+>> +         */
+>> +        prot = ttm_io_prot(mem->placement, PAGE_KERNEL);
+> 
+> The calling convention has changed on drm-misc-next as well, but should
+> be trivial to adapt.
+> 
+> Regards,
+> Christian.
+> 
+>> +        vaddr = vmap(ttm->pages, bo->num_pages, 0, prot);
+>> +        if (!vaddr)
+>> +            return -ENOMEM;
+>> +
+>> +        dma_buf_map_set_vaddr(map, vaddr);
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +EXPORT_SYMBOL(ttm_bo_vmap);
+>> +
+>> +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
+>> *map)
+>> +{
+>> +    if (dma_buf_map_is_null(map))
+>> +        return;
+>> +
+>> +    if (map->is_iomem)
+>> +        iounmap(map->vaddr_iomem);
+>> +    else
+>> +        vunmap(map->vaddr);
+>> +    dma_buf_map_clear(map);
+>> +
+>> +    ttm_mem_io_free(bo->bdev, &bo->mem);
+>> +}
+>> +EXPORT_SYMBOL(ttm_bo_vunmap);
+>> +
+>>   static int ttm_bo_wait_free_node(struct ttm_buffer_object *bo,
+>>                    bool dst_use_tt)
+>>   {
+>> diff --git a/include/drm/drm_gem_ttm_helper.h
+>> b/include/drm/drm_gem_ttm_helper.h
+>> index 118cef76f84f..7c6d874910b8 100644
+>> --- a/include/drm/drm_gem_ttm_helper.h
+>> +++ b/include/drm/drm_gem_ttm_helper.h
+>> @@ -10,11 +10,17 @@
+>>   #include <drm/ttm/ttm_bo_api.h>
+>>   #include <drm/ttm/ttm_bo_driver.h>
+>>   +struct dma_buf_map;
+>> +
+>>   #define drm_gem_ttm_of_gem(gem_obj) \
+>>       container_of(gem_obj, struct ttm_buffer_object, base)
+>>     void drm_gem_ttm_print_info(struct drm_printer *p, unsigned int
+>> indent,
+>>                   const struct drm_gem_object *gem);
+>> +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+>> +             struct dma_buf_map *map);
+>> +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
+>> +            struct dma_buf_map *map);
+>>   int drm_gem_ttm_mmap(struct drm_gem_object *gem,
+>>                struct vm_area_struct *vma);
+>>   diff --git a/include/drm/ttm/ttm_bo_api.h
+>> b/include/drm/ttm/ttm_bo_api.h
+>> index 37102e45e496..2c59a785374c 100644
+>> --- a/include/drm/ttm/ttm_bo_api.h
+>> +++ b/include/drm/ttm/ttm_bo_api.h
+>> @@ -48,6 +48,8 @@ struct ttm_bo_global;
+>>     struct ttm_bo_device;
+>>   +struct dma_buf_map;
+>> +
+>>   struct drm_mm_node;
+>>     struct ttm_placement;
+>> @@ -494,6 +496,32 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
+>> unsigned long start_page,
+>>    */
+>>   void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
+>>   +/**
+>> + * ttm_bo_vmap
+>> + *
+>> + * @bo: The buffer object.
+>> + * @map: pointer to a struct dma_buf_map representing the map.
+>> + *
+>> + * Sets up a kernel virtual mapping, using ioremap or vmap to the
+>> + * data in the buffer object. The parameter @map returns the virtual
+>> + * address as struct dma_buf_map. Unmap the buffer with ttm_bo_vunmap().
+>> + *
+>> + * Returns
+>> + * -ENOMEM: Out of memory.
+>> + * -EINVAL: Invalid range.
+>> + */
+>> +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map);
+>> +
+>> +/**
+>> + * ttm_bo_vunmap
+>> + *
+>> + * @bo: The buffer object.
+>> + * @map: Object describing the map to unmap.
+>> + *
+>> + * Unmaps a kernel map set up by ttm_bo_vmap().
+>> + */
+>> +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
+>> *map);
+>> +
+>>   /**
+>>    * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer object.
+>>    *
+>> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
+>> index fd1aba545fdf..2e8bbecb5091 100644
+>> --- a/include/linux/dma-buf-map.h
+>> +++ b/include/linux/dma-buf-map.h
+>> @@ -45,6 +45,12 @@
+>>    *
+>>    *    dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
+>>    *
+>> + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem().
+>> + *
+>> + * .. code-block:: c
+>> + *
+>> + *    dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
+>> + *
+>>    * Test if a mapping is valid with either dma_buf_map_is_set() or
+>>    * dma_buf_map_is_null().
+>>    *
+>> @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct
+>> dma_buf_map *map, void *vaddr)
+>>       map->is_iomem = false;
+>>   }
+>>   +/**
+>> + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to
+>> an address in I/O memory
+>> + * @map:        The dma-buf mapping structure
+>> + * @vaddr_iomem:    An I/O-memory address
+>> + *
+>> + * Sets the address and the I/O-memory flag.
+>> + */
+>> +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *map,
+>> +                           void __iomem *vaddr_iomem)
+>> +{
+>> +    map->vaddr_iomem = vaddr_iomem;
+>> +    map->is_iomem = true;
+>> +}
+>> +
+>>   /**
+>>    * dma_buf_map_is_equal - Compares two dma-buf mapping structures
+>> for equality
+>>    * @lhs:    The dma-buf mapping structure
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 Nürnberg, Germany
+(HRB 36809, AG Nürnberg)
+Geschäftsführer: Felix Imendörffer
 
