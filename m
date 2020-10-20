@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F40F294268
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 20:44:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9767.25745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BAF329426D
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 20:46:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9770.25757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUwaz-00041W-Gi; Tue, 20 Oct 2020 18:42:53 +0000
+	id 1kUweE-0004FK-0i; Tue, 20 Oct 2020 18:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9767.25745; Tue, 20 Oct 2020 18:42:53 +0000
+Received: by outflank-mailman (output) from mailman id 9770.25757; Tue, 20 Oct 2020 18:46:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,139 +23,119 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUwaz-000417-DJ; Tue, 20 Oct 2020 18:42:53 +0000
-Received: by outflank-mailman (input) for mailman id 9767;
- Tue, 20 Oct 2020 18:42:52 +0000
+	id 1kUweD-0004Eu-Tb; Tue, 20 Oct 2020 18:46:13 +0000
+Received: by outflank-mailman (input) for mailman id 9770;
+ Tue, 20 Oct 2020 18:46:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ko+4=D3=perches.com=joe@srs-us1.protection.inumbo.net>)
- id 1kUway-00040w-E5
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 18:42:52 +0000
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.73])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yF9C=D3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kUweC-0004Ep-AA
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 18:46:12 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67f6738a-9a97-4cd4-bdc6-ad77f90ad99f;
- Tue, 20 Oct 2020 18:42:51 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay02.hostedemail.com (Postfix) with ESMTP id 43FA51260;
- Tue, 20 Oct 2020 18:42:51 +0000 (UTC)
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf17.hostedemail.com (Postfix) with ESMTPA;
- Tue, 20 Oct 2020 18:42:43 +0000 (UTC)
+ id 05c95d79-f021-4f54-8eb1-f753cc125ad7;
+ Tue, 20 Oct 2020 18:46:07 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Ko+4=D3=perches.com=joe@srs-us1.protection.inumbo.net>)
-	id 1kUway-00040w-E5
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 18:42:52 +0000
-X-Inumbo-ID: 67f6738a-9a97-4cd4-bdc6-ad77f90ad99f
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.73])
+	(envelope-from <SRS0=yF9C=D3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kUweC-0004Ep-AA
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 18:46:12 +0000
+X-Inumbo-ID: 05c95d79-f021-4f54-8eb1-f753cc125ad7
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 67f6738a-9a97-4cd4-bdc6-ad77f90ad99f;
-	Tue, 20 Oct 2020 18:42:51 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
-	by smtprelay02.hostedemail.com (Postfix) with ESMTP id 43FA51260;
-	Tue, 20 Oct 2020 18:42:51 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50,0,0,,d41d8cd98f00b204,joe@perches.com,,RULES_HIT:41:355:379:599:800:960:967:973:982:988:989:1260:1277:1311:1313:1314:1345:1359:1434:1437:1515:1516:1518:1534:1542:1593:1594:1711:1730:1747:1777:1792:2198:2199:2393:2525:2553:2560:2563:2682:2685:2731:2828:2859:2911:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3354:3622:3865:3866:3867:3868:3870:3871:3872:3873:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4321:4425:5007:6742:6743:7576:7903:8957:9025:10004:10400:10450:10455:10848:11232:11658:11914:12043:12295:12297:12663:12740:12760:12895:13153:13228:13439:14181:14659:14721:19904:19999:21080:21451:21627:21939:21990:30012:30034:30054:30070:30090:30091,0,RBL:none,CacheIP:none,Bayesian:0.5,0.5,0.5,Netcheck:none,DomainCache:0,MSF:not bulk,SPF:,MSBL:0,DNSBL:none,Custom_rules:0:0:0,LFtime:1,LUA_SUMMARY:none
-X-HE-Tag: humor84_3a06a8527241
-X-Filterd-Recvd-Size: 4943
-Received: from XPS-9350.home (unknown [47.151.133.149])
-	(Authenticated sender: joe@perches.com)
-	by omf17.hostedemail.com (Postfix) with ESMTPA;
-	Tue, 20 Oct 2020 18:42:43 +0000 (UTC)
-Message-ID: <3bc5c2e3b3edc22a4d167ec807ecdaaf8dcda76d.camel@perches.com>
-Subject: Re: [RFC] treewide: cleanup unreachable breaks
-From: Joe Perches <joe@perches.com>
-To: Nick Desaulniers <ndesaulniers@google.com>, Tom Rix <trix@redhat.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-edac@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org, 
- openipmi-developer@lists.sourceforge.net, "open list:HARDWARE RANDOM NUMBER
- GENERATOR CORE" <linux-crypto@vger.kernel.org>, Linux ARM
- <linux-arm-kernel@lists.infradead.org>,  linux-power@fi.rohmeurope.com,
- linux-gpio@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux-foundation.org, 
- spice-devel@lists.freedesktop.org, linux-iio@vger.kernel.org, 
- linux-amlogic@lists.infradead.org,
- industrypack-devel@lists.sourceforge.net,  linux-media@vger.kernel.org,
- MPT-FusionLinux.pdl@broadcom.com,  linux-scsi@vger.kernel.org,
- linux-mtd@lists.infradead.org,  linux-can@vger.kernel.org, Network
- Development <netdev@vger.kernel.org>,  intel-wired-lan@lists.osuosl.org,
- ath10k@lists.infradead.org, linux-wireless
- <linux-wireless@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
-  linux-nfc@lists.01.org, linux-nvdimm <linux-nvdimm@lists.01.org>, 
- linux-pci@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, patches@opensource.cirrus.com, 
- storagedev@microchip.com, devel@driverdev.osuosl.org, 
- linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
- usb-storage@lists.one-eyed-alien.net, linux-watchdog@vger.kernel.org, 
- ocfs2-devel@oss.oracle.com, bpf <bpf@vger.kernel.org>, 
- linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
- keyrings@vger.kernel.org, alsa-devel@alsa-project.org, clang-built-linux
- <clang-built-linux@googlegroups.com>, Greg KH <gregkh@linuxfoundation.org>,
-  George Burgess <gbiv@google.com>
-Date: Tue, 20 Oct 2020 11:42:42 -0700
-In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-References: <20201017160928.12698-1-trix@redhat.com>
-	 <20201018054332.GB593954@kroah.com>
-	 <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.36.4-0ubuntu1 
+	id 05c95d79-f021-4f54-8eb1-f753cc125ad7;
+	Tue, 20 Oct 2020 18:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603219568;
+  h=subject:from:to:cc:references:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=wo7w9azPULKlvQIJ7Y/jP3i6QqYtsuiVG3CAvIZ9gac=;
+  b=KxKROrWNZjI+Uf+Nkyo7Op2gcmwsapo0FSbHaRuZV7JyBFX36r321yu/
+   jFyj/KcKRttfKjb0zLuZDGYLfctmKQECrBvWM9oGOgBEUvO+/7cZIUON0
+   ziHtTKcwZMK4rjswcu/5Zx1iG3UFl71ZeDKrKtIAEoj9xX1uV695RjS57
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: z+X/ByM7+eqYJQGmuMfKCkjL/3AomXb9/xzc0yhCt07tJESOqx2KN/GQE8BOdDZq5VHz8TZSfw
+ ueLuPaeSeGLh4G4o9GZctARzR5xAEFhB2EDFJfDNEA01yup/psbA9MPau/NAM8Ia5QrNmOmvFL
+ PydIBlaqs9xQeZfnj7ySBAh2s43PHqM737MlTGt+SelzS44nLNMLiGimj7/+9lWeJWPHDPSFYy
+ jPJ6kmePwh2jaREPAq1IVgQgONJY0BtHYWgJD3kLtN4oLae5chqz0nDvmZt190ZJxWvGo/WWdB
+ awc=
+X-SBRS: None
+X-MesageID: 29394201
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,398,1596513600"; 
+   d="scan'208";a="29394201"
+Subject: Re: [PATCH] x86/pv: Flush TLB in response to paging structure changes
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20201020152405.26892-1-andrew.cooper3@citrix.com>
+ <a50a19ce-321a-ceef-55e4-95ffbebff59d@suse.com>
+ <c359adee-1826-032b-2d07-c06c545e3b96@citrix.com>
+ <b24c21b0-607b-6add-e156-a37fcf7f2352@citrix.com>
+Message-ID: <9b54113c-9df2-2f44-1545-67ffe4831934@citrix.com>
+Date: Tue, 20 Oct 2020 19:46:01 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <b24c21b0-607b-6add-e156-a37fcf7f2352@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL05.citrite.net (10.13.108.178)
 
-On Mon, 2020-10-19 at 12:42 -0700, Nick Desaulniers wrote:
-> On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > > From: Tom Rix <trix@redhat.com>
-> > > 
-> > > This is a upcoming change to clean up a new warning treewide.
-> > > I am wondering if the change could be one mega patch (see below) or
-> > > normal patch per file about 100 patches or somewhere half way by collecting
-> > > early acks.
-> > 
-> > Please break it up into one-patch-per-subsystem, like normal, and get it
-> > merged that way.
-> > 
-> > Sending us a patch, without even a diffstat to review, isn't going to
-> > get you very far...
-> 
-> Tom,
-> If you're able to automate this cleanup, I suggest checking in a
-> script that can be run on a directory.  Then for each subsystem you
-> can say in your commit "I ran scripts/fix_whatever.py on this subdir."
->  Then others can help you drive the tree wide cleanup.  Then we can
-> enable -Wunreachable-code-break either by default, or W=2 right now
-> might be a good idea.
-> 
-> Ah, George (gbiv@, cc'ed), did an analysis recently of
-> `-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
-> `-Wunreachable-code-return` for Android userspace.  From the review:
-> ```
-> Spoilers: of these, it seems useful to turn on
-> -Wunreachable-code-loop-increment and -Wunreachable-code-return by
-> default for Android
-> ...
-> While these conventions about always having break arguably became
-> obsolete when we enabled -Wfallthrough, my sample turned up zero
-> potential bugs caught by this warning, and we'd need to put a lot of
-> effort into getting a clean tree. So this warning doesn't seem to be
-> worth it.
-> ```
-> Looks like there's an order of magnitude of `-Wunreachable-code-break`
-> than the other two.
-> 
-> We probably should add all 3 to W=2 builds (wrapped in cc-option).
-> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-> follow up on.
+On 20/10/2020 18:10, Andrew Cooper wrote:
+> On 20/10/2020 17:20, Andrew Cooper wrote:
+>> On 20/10/2020 16:48, Jan Beulich wrote:
+>>> On 20.10.2020 17:24, Andrew Cooper wrote:
+>>>> With MMU_UPDATE, a PV guest can make changes to higher level pagetables.  This
+>>>> is from Xen's point of view (as the update only affects guest mappings), and
+>>>> the guest is required to flush suitably after making updates.
+>>>>
+>>>> However, Xen's use of linear pagetables (UPDATE_VA_MAPPING, GNTTABOP_map,
+>>>> writeable pagetables, etc.) is an implementation detail outside of the
+>>>> API/ABI.
+>>>>
+>>>> Changes in the paging structure require invalidations in the linear pagetable
+>>>> range for subsequent accesses into the linear pagetables to access non-stale
+>>>> mappings.  Xen must provide suitable flushing to prevent intermixed guest
+>>>> actions from accidentally accessing/modifying the wrong pagetable.
+>>>>
+>>>> For all L2 and higher modifications, flush the full TLB.  (This could in
+>>>> principle be an order 39 flush starting at LINEAR_PT_VIRT_START, but no such
+>>>> mechanism exists in practice.)
+>>>>
+>>>> As this combines with sync_guest for XPTI L4 "shadowing", replace the
+>>>> sync_guest boolean with flush_flags and accumulate flags.  The sync_guest case
+>>>> now always needs to flush, there is no point trying to exclude the current CPU
+>>>> from the flush mask.  Use pt_owner->dirty_cpumask directly.
+>>> Why is there no point? There's no need for the FLUSH_ROOT_PGTBL
+>>> part of the flushing on the local CPU. The draft you had sent
+>>> earlier looked better in this regard.
+>> This was the area which broke.  It is to do with subtle difference in
+>> the scope of L4 updates.
+>>
+>> ROOT_PGTBL needs to resync current (if in use), and be broadcasted if
+>> other references to the pages are found.
+>>
+>> The TLB flush needs to be broadcast to the whole domain dirty mask, as
+>> we can't (easily) know if the update was part of the current structure.
+> Actually - we can know whether an L4 update needs flushing locally or
+> not, in exactly the same way as the sync logic currently works.
+>
+> However, unlike the opencoded get_cpu_info()->root_pgt_changed = true,
+> we can't just flush locally for free.
+>
+> This is quite awkward to express.
 
-I suggest using W=1 as people that are doing cleanups
-generally use that and not W=123 or any other style.
+And not safe.  Flushes may accumulate from multiple levels in a batch,
+and pt_owner may not be equal to current.
 
-Every other use of W= is still quite noisy and these
-code warnings are relatively trivially to fix up.
+I stand by the version submitted as the security fix.
 
-
+~Andrew
 
