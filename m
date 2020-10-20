@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D37D8293251
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 02:21:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8881.23885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7101E293355
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 04:51:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8891.23907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUfO5-0006RX-NT; Tue, 20 Oct 2020 00:20:25 +0000
+	id 1kUhig-0002bP-Va; Tue, 20 Oct 2020 02:49:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8881.23885; Tue, 20 Oct 2020 00:20:25 +0000
+Received: by outflank-mailman (output) from mailman id 8891.23907; Tue, 20 Oct 2020 02:49:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,880 +23,550 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUfO5-0006R8-Jr; Tue, 20 Oct 2020 00:20:25 +0000
-Received: by outflank-mailman (input) for mailman id 8881;
- Tue, 20 Oct 2020 00:20:24 +0000
+	id 1kUhig-0002b4-RH; Tue, 20 Oct 2020 02:49:50 +0000
+Received: by outflank-mailman (input) for mailman id 8891;
+ Tue, 20 Oct 2020 02:49:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3Or1=D3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kUfO4-0006R3-QI
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 00:20:24 +0000
+ id 1kUhif-0002az-Bz
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 02:49:49 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9341acca-2b76-4be8-a888-a4d84ad98dc2;
- Tue, 20 Oct 2020 00:20:18 +0000 (UTC)
+ id 8f3d51a7-68bf-4df4-99fc-467220eae863;
+ Tue, 20 Oct 2020 02:49:45 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kUfNy-0000PB-DY; Tue, 20 Oct 2020 00:20:18 +0000
+ id 1kUhib-0004FP-CY; Tue, 20 Oct 2020 02:49:45 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kUfNy-0001iY-3q; Tue, 20 Oct 2020 00:20:18 +0000
+ id 1kUhib-0008JW-2W; Tue, 20 Oct 2020 02:49:45 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kUfNy-0005uj-3K; Tue, 20 Oct 2020 00:20:18 +0000
+ id 1kUhib-0002pZ-22; Tue, 20 Oct 2020 02:49:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=3Or1=D3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kUfO4-0006R3-QI
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 00:20:24 +0000
-X-Inumbo-ID: 9341acca-2b76-4be8-a888-a4d84ad98dc2
+	id 1kUhif-0002az-Bz
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 02:49:49 +0000
+X-Inumbo-ID: 8f3d51a7-68bf-4df4-99fc-467220eae863
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9341acca-2b76-4be8-a888-a4d84ad98dc2;
-	Tue, 20 Oct 2020 00:20:18 +0000 (UTC)
+	id 8f3d51a7-68bf-4df4-99fc-467220eae863;
+	Tue, 20 Oct 2020 02:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=aJzi1yffyHMfRCZ06fe1HBViR+9WTyOOcxVUi53eVuU=; b=CUHyp+opZYvXv3rV5LBZJUCA3A
-	CGTuFeJj75ec9UA+T/V7yxwTC0G55kZKmISfeykFZA1pdyjDcDvsp1bgMtKSnIsVjSwfaqfn85IyC
-	mCg/B902BUFeX32ZGiPWpImGC+sD/pTTKUNrElp9lRQuYgZVE/KtbR3ZXkg2sDaXPbg0=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=s59cH1v3V87nXJCsollYStDE3xSC+pCMoTmxaVEpRtM=; b=vVm8yrkTXtX6Y4+757YGnwy+Ek
+	pOb0601B2l5ZK6Tlu4Gc1My/JwN6gNzRHB0vdO4fki7MLy77QjL7/11vXm9HhrOZHy3yoS0tMPTay
+	0ugvQ9IoScoriNvcw8Jny4lBQRerpeRlQMDn3/ubTFNxBwxCr8WY7a08YguMjXkJITgw=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kUfNy-0000PB-DY; Tue, 20 Oct 2020 00:20:18 +0000
+	id 1kUhib-0004FP-CY; Tue, 20 Oct 2020 02:49:45 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kUfNy-0001iY-3q; Tue, 20 Oct 2020 00:20:18 +0000
+	id 1kUhib-0008JW-2W; Tue, 20 Oct 2020 02:49:45 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kUfNy-0005uj-3K; Tue, 20 Oct 2020 00:20:18 +0000
+	id 1kUhib-0002pZ-22; Tue, 20 Oct 2020 02:49:45 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete build-arm64
-Message-Id: <E1kUfNy-0005uj-3K@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-155994-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 155994: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-amd64-xsm:xen-build:fail:regression
+    qemu-mainline:build-amd64:xen-build:fail:regression
+    qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+    qemu-mainline:build-arm64:xen-build:fail:regression
+    qemu-mainline:build-i386:xen-build:fail:regression
+    qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    qemuu=d76f4f97eb2772bf85fe286097183d0c7db19ae8
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 20 Oct 2020 00:20:18 +0000
+Date: Tue, 20 Oct 2020 02:49:45 +0000
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-arm64
-testid xen-build
+flight 155994 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/155994/
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  782d7b30dd8e27ba24346e7c411b476db88b59e7
-  Bug not present: e12ce85b2c79d83a340953291912875c30b3af06
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156005/
-
-
-  commit 782d7b30dd8e27ba24346e7c411b476db88b59e7
-  Merge: e12ce85b2c c47110d90f
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Sat Oct 17 20:52:55 2020 +0100
-  
-      Merge remote-tracking branch 'remotes/bonzini-gitlab/tags/for-upstream' into staging
-      
-      * Drop ninjatool and just require ninja (Paolo)
-      * Fix docs build under msys2 (Yonggang)
-      * HAX snafu fix (Claudio)
-      * Disable signal handlers during fuzzing (Alex)
-      * Miscellaneous fixes (Bruce, Greg)
-      
-      # gpg: Signature made Sat 17 Oct 2020 15:45:56 BST
-      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
-      # gpg:                issuer "pbonzini@redhat.com"
-      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
-      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
-      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
-      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
-      
-      * remotes/bonzini-gitlab/tags/for-upstream: (22 commits)
-        ci: include configure and meson logs in all jobs if configure fails
-        hax: unbreak accelerator cpu code after cpus.c split
-        fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
-        cirrus: Enable doc build on msys2/mingw
-        meson: Move the detection logic for sphinx to meson
-        meson: move SPHINX_ARGS references within "if build_docs"
-        docs: Fix Sphinx configuration for msys2/mingw
-        meson: Only install icons and qemu.desktop if have_system
-        configure: fix handling of --docdir parameter
-        meson: cleanup curses/iconv test
-        meson.build: don't condition iconv detection on library detection
-        build: add --enable/--disable-libudev
-        build: replace ninjatool with ninja
-        build: cleanups to Makefile
-        add ninja to dockerfiles, CI configurations and test VMs
-        dockerfiles: enable Centos 8 PowerTools
-        configure: move QEMU_INCLUDES to meson
-        tests: add missing generated sources to testqapi
-        make: run shell with pipefail
-        tests/Makefile.include: unbreak non-tcg builds
-        ...
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit c47110d90fa5401bcc42c17f8ae0724a1c96599a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Oct 16 05:49:28 2020 -0400
-  
-      ci: include configure and meson logs in all jobs if configure fails
-      
-      Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit a1b0e4613006704fb02209df548ce9fde62232e0
-  Author: Claudio Fontana <cfontana@suse.de>
-  Date:   Fri Oct 16 10:00:32 2020 +0200
-  
-      hax: unbreak accelerator cpu code after cpus.c split
-      
-      during my split of cpus.c, code line
-      "current_cpu = cpu"
-      was removed by mistake, causing hax to break.
-      
-      This commit fixes the situation restoring it.
-      
-      Reported-by: Volker Rümelin <vr_qemu@t-online.de>
-      Fixes: e92558e4bf8059ce4f0b310afe218802b72766bc
-      Signed-off-by: Claudio Fontana <cfontana@suse.de>
-      Message-Id: <20201016080032.13914-1-cfontana@suse.de>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit fc69fa216cf52709b1279a592364e50c674db6ff
-  Author: Alexander Bulekov <alxndr@bu.edu>
-  Date:   Wed Oct 14 10:21:57 2020 -0400
-  
-      fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
-      
-      Prior to this patch, the only way I found to terminate the fuzzer was
-      either to:
-       1. Explicitly specify the number of fuzzer runs with the -runs= flag
-       2. SIGKILL the process with "pkill -9 qemu-fuzz-*" or similar
-      
-      In addition to being annoying to deal with, SIGKILLing the process skips
-      over any exit handlers(e.g. registered with atexit()). This is bad,
-      since some fuzzers might create temporary files that should ideally be
-      removed on exit using an exit handler. The only way to achieve a clean
-      exit now is to specify -runs=N , but the desired "N" is tricky to
-      identify prior to fuzzing.
-      
-      Why doesn't the process exit with standard SIGINT,SIGHUP,SIGTERM
-      signals? QEMU installs its own handlers for these signals in
-      os-posix.c:os_setup_signal_handling, which notify the main loop that an
-      exit was requested. The fuzzer, however, does not run qemu_main_loop,
-      which performs the main_loop_should_exit() check.  This means that the
-      fuzzer effectively ignores these signals. As we don't really care about
-      cleanly stopping the disposable fuzzer "VM", this patch uninstalls
-      QEMU's signal handlers. Thus, we can stop the fuzzer with
-      SIG{INT,HUP,TERM} and the fuzzing code can optionally use atexit() to
-      clean up temporary files/resources.
-      
-      Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-      Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-      Message-Id: <20201014142157.46028-1-alxndr@bu.edu>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 5bfb4f52fe897f5594a0089891e19c78d3ecd672
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:26 2020 +0800
-  
-      cirrus: Enable doc build on msys2/mingw
-      
-      Currently rST depends on old version sphinx-2.x.
-      Install it by downloading it.
-      Remove the need of university mirror, the main repo are recovered.
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-5-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e36676604683c1ee12963d83eaaf3d3c2a1790ce
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:25 2020 +0800
-  
-      meson: Move the detection logic for sphinx to meson
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-4-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9dc6ee3fd78a478935eecf936cddd575c6dfb20a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Oct 16 04:05:26 2020 -0400
-  
-      meson: move SPHINX_ARGS references within "if build_docs"
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit a94a689cc5c5b2a1fbba4dd418e456a14e6e12e5
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:23 2020 +0800
-  
-      docs: Fix Sphinx configuration for msys2/mingw
-      
-      Python doesn't support running ../scripts/kernel-doc directly.
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-2-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3856873ee404c028a47115147f21cdc4b0d25566
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Thu Oct 15 14:18:40 2020 -0600
-  
-      meson: Only install icons and qemu.desktop if have_system
-      
-      These files are not needed for a linux-user only install.
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Message-Id: <20201015201840.282956-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit c6502638075557ff38fbb874af32f91186b667eb
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Thu Oct 15 13:07:42 2020 -0600
-  
-      configure: fix handling of --docdir parameter
-      
-      Commit ca8c0909f01 changed qemu_docdir to be docdir, then later uses the
-      qemu_docdir name in the final assignment. Unfortunately, one instance of
-      qemu_docdir was missed: the one which comes from the --docdir parameter.
-      This patch restores the proper handling of the --docdir parameter.
-      
-      Fixes: ca8c0909f01 ("configure: build docdir like other suffixed
-      directories")
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Message-Id: <20201015190742.270629-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 30fe76b17cc5aad395eb8a8a3da59e377a0b3d8e
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 13:26:50 2020 -0400
-  
-      meson: cleanup curses/iconv test
-      
-      Skip the test if it is system emulation is not requested, and
-      differentiate errors for lack of iconv and lack of curses.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit ac0c8351abf79f3b65105ea27bd0491387d804f6
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Wed Oct 14 16:19:39 2020 -0600
-  
-      meson.build: don't condition iconv detection on library detection
-      
-      It isn't necessarily the case that use of iconv requires an additional
-      library. For that reason we shouldn't conditionalize iconv detection on
-      libiconv.found.
-      
-      Fixes: 5285e593c33 (configure: Fixes ncursesw detection under msys2/mingw by convert them to meson)
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Reviewed-by: Yonggang Luo<l <brogers@suse.com>uoyonggang@gmail.com>
-      Reviewed-by:Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201014221939.196958-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 5c53015a480b3fe137ebd8b3b584a595c65e8f21
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 06:09:27 2020 -0400
-  
-      build: add --enable/--disable-libudev
-      
-      Initially, libudev detection was bundled with --enable-mpath because
-      qemu-pr-helper was the only user of libudev.  Recently however the USB
-      U2F emulation has also started using libudev, so add a separate
-      option.  This also allows 1) disabling libudev if desired for static
-      builds and 2) for non-static builds, requiring libudev even if
-      multipath support is undesirable.
-      
-      The multipath test is adjusted, because it is now possible to enter it
-      with configurations that should fail, such as --static --enable-mpath
-      --disable-libudev.
-      
-      Reported-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 09e93326e448ab43fa26a9e2d9cc20ecf951f32b
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Aug 13 09:28:11 2020 -0400
-  
-      build: replace ninjatool with ninja
-      
-      Now that the build is done entirely by Meson, there is no need
-      to keep the Makefile conversion.  Instead, we can ask Ninja about
-      the targets it exposes and forward them.
-      
-      The main advantages are, from smallest to largest:
-      
-      - reducing the possible namespace pollution within the Makefile
-      
-      - removal of a relatively large Python program
-      
-      - faster build because parsing Makefile.ninja is slower than
-      parsing build.ninja; and faster build after Meson runs because
-      we do not have to generate Makefile.ninja.
-      
-      - tracking of command lines, which provides more accurate rebuilds
-      
-      In addition the change removes the requirement for GNU make 3.82, which
-      was annoying on Mac, and avoids bugs on Windows due to ninjatool not
-      knowing how to convert Windows escapes to POSIX escapes.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 2b8575bd5fbc8a8880e9ecfb1c7e7990feb1fea6
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 12:20:02 2020 -0400
-  
-      build: cleanups to Makefile
-      
-      Group similar rules, add comments to "else" and "endif" lines,
-      detect too-old config-host.mak before messing things up.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 345d7053ca4a39b0496366f3c953ae2681570ce3
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Aug 13 09:58:50 2020 -0400
-  
-      add ninja to dockerfiles, CI configurations and test VMs
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Acked-by: Alex Bennée <alex.bennee@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f2f984a3b3bc8322df2efa3937bf11e8ea2bcaa5
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:12:37 2020 -0400
-  
-      dockerfiles: enable Centos 8 PowerTools
-      
-      ninja is included in the CentOS PowerTools repository.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 1e6e616dc21a8117cbe36a7e9026221b566cdf56
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 08:45:42 2020 -0400
-  
-      configure: move QEMU_INCLUDES to meson
-      
-      Confusingly, QEMU_INCLUDES is not used by configure tests.  Moving
-      it to meson.build ensures that Windows paths are specified instead of
-      the msys paths like /c/Users/...
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 97d6efd0a3f3a08942de6c2aee5d2983c54ca84c
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:20:17 2020 -0400
-  
-      tests: add missing generated sources to testqapi
-      
-      Ninja notices them due to a different order in visiting the graph.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3bf4583580ab705de1beff6222e934239c3a0356
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:35:13 2020 -0400
-  
-      make: run shell with pipefail
-      
-      Without pipefail, it is possible to miss failures if the recipes
-      include pipes.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 88da4b043b4f91a265947149b1cd6758c046a4bd
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 13 21:21:21 2020 +0200
-  
-      tests/Makefile.include: unbreak non-tcg builds
-      
-      Remove from check-block the requirement that all TARGET_DIRS are built.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e90df5eada4e6047548203d781bd61ddcc45d7b4
-  Author: Greg Kurz <groug@kaod.org>
-  Date:   Thu Oct 15 16:49:06 2020 +0200
-  
-      Makefile: Ensure cscope.out/tags/TAGS are generated in the source tree
-      
-      Tools usually expect the index files to be in the source tree, eg. emacs.
-      This is already the case when doing out-of-tree builds, but with in-tree
-      builds they end up in the build directory.
-      
-      Force cscope, ctags and etags to put them in the source tree.
-      
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <160277334665.1754102.10921580280105870386.stgit@bahia.lan>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6ebd89cf9ca3f5a6948542c4522b9380b1e9539f
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 03:20:45 2020 -0400
-  
-      submodules: bump meson to 0.55.3
-      
-      This adds some bugfixes, and allows MSYS2 to configure
-      without "--ninja=ninja".
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-arm64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-arm64.xen-build --summary-out=tmp/156005.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline build-arm64 xen-build
-Searching for failure / basis pass:
- 155979 fail [host=rochester0] / 155971 ok.
-Failure / basis pass flights: 155979 / 155971
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
-Basis pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#73e3cb6c7eea4f5db81c87574dcefe1282de4772-709b163940c55604b983400eb49dad144a2aa091 git://git.qemu.org/qemu.git#e12ce85b2c79d83a340953291912875c30b3af06-ba2a9a9e6318bfd93a2306dec40137e198205b86 git://xenbits.xen.org/osstest/seabios.git#58a44be024f69d2e4d2b58553529230abdd3935e-58a44be024f69d2e4d2b58553529230abdd3935e git://xenbits.xen.org/xen.git#0dfddb2116e3757f77a691a3fe335173088d69dc-0dfddb2116e3757f77a6\
- 91a3fe335173088d69dc
-Loaded 29910 nodes in revision graph
-Searching for test results:
- 155953 [host=laxton1]
- 155971 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155979 fail 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155995 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155996 fail 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155997 pass 709b163940c55604b983400eb49dad144a2aa091 dc7a05da69613d5c87ec0359c5dbb9d2b4765301 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155999 pass 709b163940c55604b983400eb49dad144a2aa091 31a6f3534aba275aa9b3da21a58e79065ba865b5 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156000 fail 709b163940c55604b983400eb49dad144a2aa091 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156001 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156002 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156003 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156004 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 156005 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
-Searching for interesting versions
- Result found: flight 155971 (pass), for basis pass
- Result found: flight 155979 (fail), for basis failure
- Repro found: flight 155995 (pass), for basis pass
- Repro found: flight 155996 (fail), for basis failure
- 0 revisions at 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
-No revisions left to test, checking graph state.
- Result found: flight 155971 (pass), for last pass
- Result found: flight 156001 (fail), for first failure
- Repro found: flight 156002 (pass), for last pass
- Repro found: flight 156003 (fail), for first failure
- Repro found: flight 156004 (pass), for last pass
- Repro found: flight 156005 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  782d7b30dd8e27ba24346e7c411b476db88b59e7
-  Bug not present: e12ce85b2c79d83a340953291912875c30b3af06
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156005/
-
-
-  commit 782d7b30dd8e27ba24346e7c411b476db88b59e7
-  Merge: e12ce85b2c c47110d90f
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Sat Oct 17 20:52:55 2020 +0100
-  
-      Merge remote-tracking branch 'remotes/bonzini-gitlab/tags/for-upstream' into staging
-      
-      * Drop ninjatool and just require ninja (Paolo)
-      * Fix docs build under msys2 (Yonggang)
-      * HAX snafu fix (Claudio)
-      * Disable signal handlers during fuzzing (Alex)
-      * Miscellaneous fixes (Bruce, Greg)
-      
-      # gpg: Signature made Sat 17 Oct 2020 15:45:56 BST
-      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
-      # gpg:                issuer "pbonzini@redhat.com"
-      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
-      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
-      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
-      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
-      
-      * remotes/bonzini-gitlab/tags/for-upstream: (22 commits)
-        ci: include configure and meson logs in all jobs if configure fails
-        hax: unbreak accelerator cpu code after cpus.c split
-        fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
-        cirrus: Enable doc build on msys2/mingw
-        meson: Move the detection logic for sphinx to meson
-        meson: move SPHINX_ARGS references within "if build_docs"
-        docs: Fix Sphinx configuration for msys2/mingw
-        meson: Only install icons and qemu.desktop if have_system
-        configure: fix handling of --docdir parameter
-        meson: cleanup curses/iconv test
-        meson.build: don't condition iconv detection on library detection
-        build: add --enable/--disable-libudev
-        build: replace ninjatool with ninja
-        build: cleanups to Makefile
-        add ninja to dockerfiles, CI configurations and test VMs
-        dockerfiles: enable Centos 8 PowerTools
-        configure: move QEMU_INCLUDES to meson
-        tests: add missing generated sources to testqapi
-        make: run shell with pipefail
-        tests/Makefile.include: unbreak non-tcg builds
-        ...
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit c47110d90fa5401bcc42c17f8ae0724a1c96599a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Oct 16 05:49:28 2020 -0400
-  
-      ci: include configure and meson logs in all jobs if configure fails
-      
-      Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit a1b0e4613006704fb02209df548ce9fde62232e0
-  Author: Claudio Fontana <cfontana@suse.de>
-  Date:   Fri Oct 16 10:00:32 2020 +0200
-  
-      hax: unbreak accelerator cpu code after cpus.c split
-      
-      during my split of cpus.c, code line
-      "current_cpu = cpu"
-      was removed by mistake, causing hax to break.
-      
-      This commit fixes the situation restoring it.
-      
-      Reported-by: Volker Rümelin <vr_qemu@t-online.de>
-      Fixes: e92558e4bf8059ce4f0b310afe218802b72766bc
-      Signed-off-by: Claudio Fontana <cfontana@suse.de>
-      Message-Id: <20201016080032.13914-1-cfontana@suse.de>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit fc69fa216cf52709b1279a592364e50c674db6ff
-  Author: Alexander Bulekov <alxndr@bu.edu>
-  Date:   Wed Oct 14 10:21:57 2020 -0400
-  
-      fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
-      
-      Prior to this patch, the only way I found to terminate the fuzzer was
-      either to:
-       1. Explicitly specify the number of fuzzer runs with the -runs= flag
-       2. SIGKILL the process with "pkill -9 qemu-fuzz-*" or similar
-      
-      In addition to being annoying to deal with, SIGKILLing the process skips
-      over any exit handlers(e.g. registered with atexit()). This is bad,
-      since some fuzzers might create temporary files that should ideally be
-      removed on exit using an exit handler. The only way to achieve a clean
-      exit now is to specify -runs=N , but the desired "N" is tricky to
-      identify prior to fuzzing.
-      
-      Why doesn't the process exit with standard SIGINT,SIGHUP,SIGTERM
-      signals? QEMU installs its own handlers for these signals in
-      os-posix.c:os_setup_signal_handling, which notify the main loop that an
-      exit was requested. The fuzzer, however, does not run qemu_main_loop,
-      which performs the main_loop_should_exit() check.  This means that the
-      fuzzer effectively ignores these signals. As we don't really care about
-      cleanly stopping the disposable fuzzer "VM", this patch uninstalls
-      QEMU's signal handlers. Thus, we can stop the fuzzer with
-      SIG{INT,HUP,TERM} and the fuzzing code can optionally use atexit() to
-      clean up temporary files/resources.
-      
-      Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-      Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-      Message-Id: <20201014142157.46028-1-alxndr@bu.edu>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 5bfb4f52fe897f5594a0089891e19c78d3ecd672
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:26 2020 +0800
-  
-      cirrus: Enable doc build on msys2/mingw
-      
-      Currently rST depends on old version sphinx-2.x.
-      Install it by downloading it.
-      Remove the need of university mirror, the main repo are recovered.
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-5-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e36676604683c1ee12963d83eaaf3d3c2a1790ce
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:25 2020 +0800
-  
-      meson: Move the detection logic for sphinx to meson
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-4-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9dc6ee3fd78a478935eecf936cddd575c6dfb20a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Oct 16 04:05:26 2020 -0400
-  
-      meson: move SPHINX_ARGS references within "if build_docs"
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit a94a689cc5c5b2a1fbba4dd418e456a14e6e12e5
-  Author: Yonggang Luo <luoyonggang@gmail.com>
-  Date:   Fri Oct 16 06:06:23 2020 +0800
-  
-      docs: Fix Sphinx configuration for msys2/mingw
-      
-      Python doesn't support running ../scripts/kernel-doc directly.
-      
-      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201015220626.418-2-luoyonggang@gmail.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3856873ee404c028a47115147f21cdc4b0d25566
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Thu Oct 15 14:18:40 2020 -0600
-  
-      meson: Only install icons and qemu.desktop if have_system
-      
-      These files are not needed for a linux-user only install.
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Message-Id: <20201015201840.282956-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit c6502638075557ff38fbb874af32f91186b667eb
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Thu Oct 15 13:07:42 2020 -0600
-  
-      configure: fix handling of --docdir parameter
-      
-      Commit ca8c0909f01 changed qemu_docdir to be docdir, then later uses the
-      qemu_docdir name in the final assignment. Unfortunately, one instance of
-      qemu_docdir was missed: the one which comes from the --docdir parameter.
-      This patch restores the proper handling of the --docdir parameter.
-      
-      Fixes: ca8c0909f01 ("configure: build docdir like other suffixed
-      directories")
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Message-Id: <20201015190742.270629-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 30fe76b17cc5aad395eb8a8a3da59e377a0b3d8e
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 13:26:50 2020 -0400
-  
-      meson: cleanup curses/iconv test
-      
-      Skip the test if it is system emulation is not requested, and
-      differentiate errors for lack of iconv and lack of curses.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit ac0c8351abf79f3b65105ea27bd0491387d804f6
-  Author: Bruce Rogers <brogers@suse.com>
-  Date:   Wed Oct 14 16:19:39 2020 -0600
-  
-      meson.build: don't condition iconv detection on library detection
-      
-      It isn't necessarily the case that use of iconv requires an additional
-      library. For that reason we shouldn't conditionalize iconv detection on
-      libiconv.found.
-      
-      Fixes: 5285e593c33 (configure: Fixes ncursesw detection under msys2/mingw by convert them to meson)
-      
-      Signed-off-by: Bruce Rogers <brogers@suse.com>
-      Reviewed-by: Yonggang Luo<l <brogers@suse.com>uoyonggang@gmail.com>
-      Reviewed-by:Yonggang Luo <luoyonggang@gmail.com>
-      Message-Id: <20201014221939.196958-1-brogers@suse.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 5c53015a480b3fe137ebd8b3b584a595c65e8f21
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 06:09:27 2020 -0400
-  
-      build: add --enable/--disable-libudev
-      
-      Initially, libudev detection was bundled with --enable-mpath because
-      qemu-pr-helper was the only user of libudev.  Recently however the USB
-      U2F emulation has also started using libudev, so add a separate
-      option.  This also allows 1) disabling libudev if desired for static
-      builds and 2) for non-static builds, requiring libudev even if
-      multipath support is undesirable.
-      
-      The multipath test is adjusted, because it is now possible to enter it
-      with configurations that should fail, such as --static --enable-mpath
-      --disable-libudev.
-      
-      Reported-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 09e93326e448ab43fa26a9e2d9cc20ecf951f32b
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Aug 13 09:28:11 2020 -0400
-  
-      build: replace ninjatool with ninja
-      
-      Now that the build is done entirely by Meson, there is no need
-      to keep the Makefile conversion.  Instead, we can ask Ninja about
-      the targets it exposes and forward them.
-      
-      The main advantages are, from smallest to largest:
-      
-      - reducing the possible namespace pollution within the Makefile
-      
-      - removal of a relatively large Python program
-      
-      - faster build because parsing Makefile.ninja is slower than
-      parsing build.ninja; and faster build after Meson runs because
-      we do not have to generate Makefile.ninja.
-      
-      - tracking of command lines, which provides more accurate rebuilds
-      
-      In addition the change removes the requirement for GNU make 3.82, which
-      was annoying on Mac, and avoids bugs on Windows due to ninjatool not
-      knowing how to convert Windows escapes to POSIX escapes.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 2b8575bd5fbc8a8880e9ecfb1c7e7990feb1fea6
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 12:20:02 2020 -0400
-  
-      build: cleanups to Makefile
-      
-      Group similar rules, add comments to "else" and "endif" lines,
-      detect too-old config-host.mak before messing things up.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 345d7053ca4a39b0496366f3c953ae2681570ce3
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Aug 13 09:58:50 2020 -0400
-  
-      add ninja to dockerfiles, CI configurations and test VMs
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Acked-by: Alex Bennée <alex.bennee@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f2f984a3b3bc8322df2efa3937bf11e8ea2bcaa5
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:12:37 2020 -0400
-  
-      dockerfiles: enable Centos 8 PowerTools
-      
-      ninja is included in the CentOS PowerTools repository.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 1e6e616dc21a8117cbe36a7e9026221b566cdf56
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 08:45:42 2020 -0400
-  
-      configure: move QEMU_INCLUDES to meson
-      
-      Confusingly, QEMU_INCLUDES is not used by configure tests.  Moving
-      it to meson.build ensures that Windows paths are specified instead of
-      the msys paths like /c/Users/...
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 97d6efd0a3f3a08942de6c2aee5d2983c54ca84c
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:20:17 2020 -0400
-  
-      tests: add missing generated sources to testqapi
-      
-      Ninja notices them due to a different order in visiting the graph.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3bf4583580ab705de1beff6222e934239c3a0356
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 14 07:35:13 2020 -0400
-  
-      make: run shell with pipefail
-      
-      Without pipefail, it is possible to miss failures if the recipes
-      include pipes.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 88da4b043b4f91a265947149b1cd6758c046a4bd
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 13 21:21:21 2020 +0200
-  
-      tests/Makefile.include: unbreak non-tcg builds
-      
-      Remove from check-block the requirement that all TARGET_DIRS are built.
-      
-      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e90df5eada4e6047548203d781bd61ddcc45d7b4
-  Author: Greg Kurz <groug@kaod.org>
-  Date:   Thu Oct 15 16:49:06 2020 +0200
-  
-      Makefile: Ensure cscope.out/tags/TAGS are generated in the source tree
-      
-      Tools usually expect the index files to be in the source tree, eg. emacs.
-      This is already the case when doing out-of-tree builds, but with in-tree
-      builds they end up in the build directory.
-      
-      Force cscope, ctags and etags to put them in the source tree.
-      
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <160277334665.1754102.10921580280105870386.stgit@bahia.lan>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6ebd89cf9ca3f5a6948542c4522b9380b1e9539f
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 15 03:20:45 2020 -0400
-  
-      submodules: bump meson to 0.55.3
-      
-      This adds some bugfixes, and allows MSYS2 to configure
-      without "--ninja=ninja".
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-arm64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-156005: tolerable ALL FAIL
-
-flight 156005 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156005/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-arm64                   6 xen-build               fail baseline untested
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 152631
+ build-amd64                   6 xen-build                fail REGR. vs. 152631
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 152631
+ build-arm64                   6 xen-build                fail REGR. vs. 152631
+ build-i386                    6 xen-build                fail REGR. vs. 152631
+ build-i386-xsm                6 xen-build                fail REGR. vs. 152631
+ build-armhf                   6 xen-build                fail REGR. vs. 152631
 
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-amd64-pvgrub  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-i386-pvgrub  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ qemuu                d76f4f97eb2772bf85fe286097183d0c7db19ae8
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z   60 days
+Failing since        152659  2020-08-21 14:07:39 Z   59 days  105 attempts
+Testing same since   155981  2020-10-19 16:06:45 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Aaron Lindsay <aaron@os.amperecomputing.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexey Kirillov <lekiravi@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Alistair Francis <alistair.francis@xilinx.com>
+  Amey Narkhede <ameynarkhede03@gmail.com>
+  Andrew Jones <drjones@redhat.com>
+  Andrey Konovalov <andreyknvl@google.com>
+  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
+  Ani Sinha <ani@anisinha.ca>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Blanchard <anton@ozlabs.org>
+  Anup Patel <anup.patel@wdc.com>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Ben Widawsky <ben.widawsky@intel.com>
+  Bin Meng <bin.meng@windriver.com>
+  Bruce Rogers <brogers@suse.com>
+  Carlo Marcelo Arenas Belón <carenas@gmail.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Chen Qun <kuhn.chenqun@huawei.com>
+  Chih-Min Chao <chihmin.chao@sifive.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuan Zheng <zhengchuan@huawei.com>
+  Claudio Fontana <cfontana@suse.de>
+  Claudio Imbrenda <imbrenda@linux.ibm.com>
+  Cleber Rosa <crosa@redhat.com>
+  Colin Xu <colin.xu@intel.com>
+  Collin Walling <walling@linux.ibm.com>
+  Connor Kuehl <ckuehl@redhat.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  César Belley <cesar.belley@lse.epita.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  David Carlier <devnexen@gmail.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Dima Stepanov <dimastep@yandex-team.ru>
+  Dmitry Fomichev <dmitry.fomichev@wdc.com>
+  Douglas Crosher <dtc-ubuntu@scieneer.com>
+  Dov Murik <dovmurik@linux.vnet.ibm.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eduardo Otubo <otubo@redhat.com>
+  Elena Afanasova <eafanasova@gmail.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Erik Kline <ek@google.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Fabiano Rosas <farosas@linux.ibm.com>
+  Fam Zheng <fam@euphon.net>
+  Fan Yang <Fan_Yang@sjtu.edu.cn>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Frank Chang <frank.chang@sifive.com>
+  Frediano Ziglio <freddy77@gmail.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gonglei <arei.gonglei@huawei.com>
+  Graeme Gregory <graeme@nuviainc.com>
+  Greg Kurz <groug@kaod.org>
+  Guoqing Zhang <zhangguoqing.kernel@bytedance.com>
+  Gustavo Romero <gromero@linux.ibm.com>
+  haibinzhang(张海斌) <haibinzhang@tencent.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Harry G. Coin <hgcoin@gmail.com>
+  Havard Skinnemoen <hskinnemoen@google.com>
+  Helge Deller <deller@gmx.de>
+  Heyi Guo <guoheyi@huawei.com>
+  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
+  Hou Weiying <weiying_hou@outlook.com>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Igor Kononenko <i.kononenko@yadro.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Jan Charvat <charvj10@fel.cvut.cz>
+  Jan Henrik Weinstock <jan.weinstock@rwth-aachen.de>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Wang <jasowang@redhat.com>
+  Jens Freimann <jfreimann@redhat.com>
+  Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Joel Stanley <joel@jms.id.au>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Julia Suvorova <jusual@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Keith Busch <kbusch@kernel.org>
+  Kele Huang <kele.hwang@gmail.com>
+  Kenta Ishiguro <kentaishiguro@slowstart.org>
+  Kevin Wolf <kwolf@redhat.com>
+  Kito Cheng <kito.cheng@sifive.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Lei YU <yulei.sh@bytedance.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Li Feng <fengli@smartx.com>
+  Li Qiang <liq3ea@163.com>
+  Li Zhijian <lizhijian@cn.fujitsu.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Liao Pingfang <liao.pingfang@zte.com.cn>a
+  Lijun Pan <ljp@linux.ibm.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Longpeng(Mike) <longpeng2@huawei.com>
+  Luc Michel <luc@lmichel.fr>
+  Lukas Straub <lukasstraub2@web.de>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matthieu Bucchianeri <matthieu.bucchianeri@leostella.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Michael Roth <mdroth@linux.vnet.ibm.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Walle <michael@walle.cc>
+  Michal Privoznik <mprivozn@redhat.com>
+  Mike Gelfand <mikedld@mikedld.com>
+  Myriad-Dreamin <camiyoru@gmail.com>
+  Nathan Chancellor <natechancellor@gmail.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Nikola Pavlica <pavlica.nikola@gmail.com>
+  Nir Soffer <nirsof@gmail.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Burton <paulburton@kernel.org>
+  Paul Durrant <paul@xen.org>
+  Paul Zimmerman <pauldzim@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Pavel Pisa <pisa@cmp.felk.cvut.cz>
+  Peter Lieven <pl@kamp.de>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Robert Hoo <robert.hu@linux.intel.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sergei Trofimovich <slyfox@gentoo.org>
+  Sergey Nizovtsev <snizovtsev@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefan Weil <sw@weilnetz.de>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stephen Long <steplong@quicinc.com>
+  Sunil Muthuswamy <sunilmut@microsoft.com>
+  Sven Schnelle <svens@stackframe.org>
+  Swapnil Ingle <swapnil.ingle@nutanix.com>
+  Thiago Jung Bauermann <bauerman@linux.ibm.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+  Timothy Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Timothy E Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Vitaly Cheptsov <vit9696@protonmail.com>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xiaoyao Li <xiaoyao.li@intel.com>
+  Xinyu Li <precinct@mail.ustc.edu.cn>
+  Xu Zou <iwatchnima@gmail.com>
+  Yan Jin <jinyan12@huawei.com>
+  YanYing Zhuang <ann.zhuangyanying@huawei.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yifei Jiang <jiangyifei@huawei.com>
+  Ying Fang <fangying1@huawei.com>
+  Yipeng Yin <yinyipeng1@huawei.com>
+  Yonggang Luo <luoyonggang@gmail.com>
+  zhaolichang <zhaolichang@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Wang <zhenyuw@linux.intel.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zong Li <zong.li@sifive.com>
 
 jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
  build-arm64                                                  fail    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-cubietruck                               blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-amd64-pvgrub                                blocked 
+ test-amd64-amd64-i386-pvgrub                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-xl-raw                                       blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-armhf-armhf-xl-vhd                                      blocked 
 
 
 ------------------------------------------------------------
@@ -914,4 +584,8 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 47947 lines long.)
 
