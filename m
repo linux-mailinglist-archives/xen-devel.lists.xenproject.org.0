@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73717293221
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 01:51:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8867.23858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D37D8293251
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 02:21:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8881.23885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUeuX-0002XC-MU; Mon, 19 Oct 2020 23:49:53 +0000
+	id 1kUfO5-0006RX-NT; Tue, 20 Oct 2020 00:20:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8867.23858; Mon, 19 Oct 2020 23:49:53 +0000
+Received: by outflank-mailman (output) from mailman id 8881.23885; Tue, 20 Oct 2020 00:20:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,226 +23,895 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUeuX-0002Wn-I6; Mon, 19 Oct 2020 23:49:53 +0000
-Received: by outflank-mailman (input) for mailman id 8867;
- Mon, 19 Oct 2020 23:49:52 +0000
+	id 1kUfO5-0006R8-Jr; Tue, 20 Oct 2020 00:20:25 +0000
+Received: by outflank-mailman (input) for mailman id 8881;
+ Tue, 20 Oct 2020 00:20:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uBDh=D2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kUeuW-0002W4-00
- for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:49:52 +0000
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ <SRS0=3Or1=D3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kUfO4-0006R3-QI
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 00:20:24 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 151c5437-5ed4-4757-93bd-c745c80acde2;
- Mon, 19 Oct 2020 23:49:50 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNeWmu008892;
- Mon, 19 Oct 2020 23:49:25 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 347s8mr587-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 19 Oct 2020 23:49:25 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNdpgP184956;
- Mon, 19 Oct 2020 23:49:24 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3020.oracle.com with ESMTP id 348acq34kk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 19 Oct 2020 23:49:24 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09JNnFrC018030;
- Mon, 19 Oct 2020 23:49:15 GMT
-Received: from [10.39.233.101] (/10.39.233.101)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 19 Oct 2020 16:49:14 -0700
+ id 9341acca-2b76-4be8-a888-a4d84ad98dc2;
+ Tue, 20 Oct 2020 00:20:18 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kUfNy-0000PB-DY; Tue, 20 Oct 2020 00:20:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kUfNy-0001iY-3q; Tue, 20 Oct 2020 00:20:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kUfNy-0005uj-3K; Tue, 20 Oct 2020 00:20:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=uBDh=D2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
-	id 1kUeuW-0002W4-00
-	for xen-devel@lists.xenproject.org; Mon, 19 Oct 2020 23:49:52 +0000
-X-Inumbo-ID: 151c5437-5ed4-4757-93bd-c745c80acde2
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+	(envelope-from <SRS0=3Or1=D3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kUfO4-0006R3-QI
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 00:20:24 +0000
+X-Inumbo-ID: 9341acca-2b76-4be8-a888-a4d84ad98dc2
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 151c5437-5ed4-4757-93bd-c745c80acde2;
-	Mon, 19 Oct 2020 23:49:50 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNeWmu008892;
-	Mon, 19 Oct 2020 23:49:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=bhZdIZ6uyaAnD5Lu5Uhke8liuugcYbL/KEuYLGPYBCw=;
- b=uOhEmuToYeCEFCRlRVs3zOCo29etlOg6bv8a389akvmhTZ7RlMCAgWL76XFroG40IpCF
- 1X7V2UD2l/1zSoY6LB1bdV2K04ox9P8SSUzvIE8KwBU4UpZZCYmDCZ0wA9MicERc0wN7
- mN/VW0GN0i/wk56xsCKVdREgz3I/x32V/KixWQRR3/HJomhjZw4VjIfUHUG3CHc+FQBc
- QszoDPh2C5grHbcpQuXfDnEEFt9BRJhjW8f/0xgTGXnyqPl3evhpKyE+oaW/Ucz5pPCx
- /nTmNoPCn2P3GF92zn5veNuIKSUECCmBJ/NhBQ3AhaKi9hcven1z9jGx45E6T5mm0bB4 RA== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
-	by userp2120.oracle.com with ESMTP id 347s8mr587-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 19 Oct 2020 23:49:25 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
-	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JNdpgP184956;
-	Mon, 19 Oct 2020 23:49:24 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-	by userp3020.oracle.com with ESMTP id 348acq34kk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 19 Oct 2020 23:49:24 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
-	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09JNnFrC018030;
-	Mon, 19 Oct 2020 23:49:15 GMT
-Received: from [10.39.233.101] (/10.39.233.101)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Mon, 19 Oct 2020 16:49:14 -0700
-Subject: Re: [Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI
- flr/slot/bus reset with 'reset' SysFS attribute
-To: Rich Persaud <persaur@gmail.com>,
-        =?UTF-8?Q?H=c3=a5kon_Alstadheim?= <hakon@alstadheim.priv.no>,
-        George Dunlap <George.Dunlap@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?B?UGFzaSBLw6Rya2vDpGluZW4=?=
- <pasik@iki.fi>,
-        xen-devel <xen-devel@lists.xenproject.org>,
-        Juergen Gross <jgross@suse.com>,
-        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-        Jan Beulich <jbeulich@suse.com>, bhelgaas@google.com,
-        Roger Pau Monne <roger.pau@citrix.com>,
-        =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
-        Jason Andryuk <jandryuk@gmail.com>,
-        Andrew Cooper <Andrew.Cooper3@citrix.com>,
-        Ian Jackson <Ian.Jackson@citrix.com>,
-        Paul Durrant <pdurrant@amazon.com>,
-        Anthony Perard <anthony.perard@citrix.com>
-References: <2d2693c9-f2a9-7914-7362-947a61c28acd@alstadheim.priv.no>
- <6D51F096-C247-486B-B4A2-50F85855EA06@gmail.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <1c0c3e2e-51c0-1c94-d5fc-cfcf17f61236@oracle.com>
-Date: Mon, 19 Oct 2020 19:49:11 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.3
-MIME-Version: 1.0
-In-Reply-To: <6D51F096-C247-486B-B4A2-50F85855EA06@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 bulkscore=0 adultscore=0
- mlxscore=0 malwarescore=0 suspectscore=0 spamscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010190160
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 suspectscore=0
- lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
- phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010190160
+	id 9341acca-2b76-4be8-a888-a4d84ad98dc2;
+	Tue, 20 Oct 2020 00:20:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=aJzi1yffyHMfRCZ06fe1HBViR+9WTyOOcxVUi53eVuU=; b=CUHyp+opZYvXv3rV5LBZJUCA3A
+	CGTuFeJj75ec9UA+T/V7yxwTC0G55kZKmISfeykFZA1pdyjDcDvsp1bgMtKSnIsVjSwfaqfn85IyC
+	mCg/B902BUFeX32ZGiPWpImGC+sD/pTTKUNrElp9lRQuYgZVE/KtbR3ZXkg2sDaXPbg0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kUfNy-0000PB-DY; Tue, 20 Oct 2020 00:20:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kUfNy-0001iY-3q; Tue, 20 Oct 2020 00:20:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kUfNy-0005uj-3K; Tue, 20 Oct 2020 00:20:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [qemu-mainline bisection] complete build-arm64
+Message-Id: <E1kUfNy-0005uj-3K@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Oct 2020 00:20:18 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job build-arm64
+testid xen-build
+
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  782d7b30dd8e27ba24346e7c411b476db88b59e7
+  Bug not present: e12ce85b2c79d83a340953291912875c30b3af06
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156005/
 
 
-On 10/19/20 6:43 PM, Rich Persaud wrote:
-> On Oct 19, 2020, at 11:52, Håkon Alstadheim <hakon@alstadheim.priv.no> wrote:
->> ﻿
->> Den 19.10.2020 17:16, skrev Håkon Alstadheim:
->>> Den 19.10.2020 13:00, skrev George Dunlap:
->>>>> On Jan 31, 2020, at 3:33 PM, Wei Liu <wl@xen.org> wrote:
->>>>>
->>>>> On Fri, Jan 17, 2020 at 02:13:04PM -0500, Rich Persaud wrote:
->>>>>> On Aug 26, 2019, at 17:08, Pasi Kärkkäinen <pasik@iki.fi> wrote:
->>>>>>> ﻿Hi,
->>>>>>>
->>>>>>>> On Mon, Oct 08, 2018 at 10:32:45AM -0400, Boris Ostrovsky wrote:
->>>>>>>>> On 10/3/18 11:51 AM, Pasi Kärkkäinen wrote:
->>>>>>>>> On Wed, Sep 19, 2018 at 11:05:26AM +0200, Roger Pau Monné wrote:
->>>>>>>>>> On Tue, Sep 18, 2018 at 02:09:53PM -0400, Boris Ostrovsky wrote:
->>>>>>>>>>> On 9/18/18 5:32 AM, George Dunlap wrote:
->>>>>>>>>>>>> On Sep 18, 2018, at 8:15 AM, Pasi Kärkkäinen <pasik@iki.fi> wrote:
->>>>>>>>>>>>> Hi,
->>>>>>>>>>>>>> On Mon, Sep 17, 2018 at 02:06:02PM -0400, Boris Ostrovsky wrote:
->>>>>>>>>>>>>>> What about the toolstack changes? Have they been accepted? I vaguely
->>>>>>>>>>>>>>> recall there was a discussion about those changes but don't remember how
->>>>>>>>>>>>>>> it ended.
->>>>>>>>>>>>>> I don't think toolstack/libxl patch has been applied yet either.
->>>>>>>>>>>>>> "[PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attribute":
->>>>>>>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html 
->>>>>>>>>>>>>> "[PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS attribute":
->>>>>>>>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html 
->>>>>>>>>>>> Will this patch work for *BSD? Roger?
->>>>>>>>>>> At least FreeBSD don't support pci-passthrough, so none of this works
->>>>>>>>>>> ATM. There's no sysfs on BSD, so much of what's in libxl_pci.c will
->>>>>>>>>>> have to be moved to libxl_linux.c when BSD support is added.
->>>>>>>>>> Ok. That sounds like it's OK for the initial pci 'reset' implementation in xl/libxl to be linux-only..
->>>>>>>>> Are these two patches still needed? ISTR they were written originally
->>>>>>>>> to deal with guest trying to use device that was previously assigned to
->>>>>>>>> another guest. But pcistub_put_pci_dev() calls
->>>>>>>>> __pci_reset_function_locked() which first tries FLR, and it looks like
->>>>>>>>> it was added relatively recently.
->>>>>>>> Replying to an old thread.. I only now realized I forgot to reply to this message earlier.
->>>>>>>>
->>>>>>>> afaik these patches are still needed. Håkon (CC'd) wrote to me in private that
->>>>>>>> he gets a (dom0) Linux kernel crash if he doesn't have these patches applied.
+  commit 782d7b30dd8e27ba24346e7c411b476db88b59e7
+  Merge: e12ce85b2c c47110d90f
+  Author: Peter Maydell <peter.maydell@linaro.org>
+  Date:   Sat Oct 17 20:52:55 2020 +0100
+  
+      Merge remote-tracking branch 'remotes/bonzini-gitlab/tags/for-upstream' into staging
+      
+      * Drop ninjatool and just require ninja (Paolo)
+      * Fix docs build under msys2 (Yonggang)
+      * HAX snafu fix (Claudio)
+      * Disable signal handlers during fuzzing (Alex)
+      * Miscellaneous fixes (Bruce, Greg)
+      
+      # gpg: Signature made Sat 17 Oct 2020 15:45:56 BST
+      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
+      # gpg:                issuer "pbonzini@redhat.com"
+      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
+      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
+      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
+      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
+      
+      * remotes/bonzini-gitlab/tags/for-upstream: (22 commits)
+        ci: include configure and meson logs in all jobs if configure fails
+        hax: unbreak accelerator cpu code after cpus.c split
+        fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
+        cirrus: Enable doc build on msys2/mingw
+        meson: Move the detection logic for sphinx to meson
+        meson: move SPHINX_ARGS references within "if build_docs"
+        docs: Fix Sphinx configuration for msys2/mingw
+        meson: Only install icons and qemu.desktop if have_system
+        configure: fix handling of --docdir parameter
+        meson: cleanup curses/iconv test
+        meson.build: don't condition iconv detection on library detection
+        build: add --enable/--disable-libudev
+        build: replace ninjatool with ninja
+        build: cleanups to Makefile
+        add ninja to dockerfiles, CI configurations and test VMs
+        dockerfiles: enable Centos 8 PowerTools
+        configure: move QEMU_INCLUDES to meson
+        tests: add missing generated sources to testqapi
+        make: run shell with pipefail
+        tests/Makefile.include: unbreak non-tcg builds
+        ...
+      
+      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+  
+  commit c47110d90fa5401bcc42c17f8ae0724a1c96599a
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Fri Oct 16 05:49:28 2020 -0400
+  
+      ci: include configure and meson logs in all jobs if configure fails
+      
+      Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit a1b0e4613006704fb02209df548ce9fde62232e0
+  Author: Claudio Fontana <cfontana@suse.de>
+  Date:   Fri Oct 16 10:00:32 2020 +0200
+  
+      hax: unbreak accelerator cpu code after cpus.c split
+      
+      during my split of cpus.c, code line
+      "current_cpu = cpu"
+      was removed by mistake, causing hax to break.
+      
+      This commit fixes the situation restoring it.
+      
+      Reported-by: Volker Rümelin <vr_qemu@t-online.de>
+      Fixes: e92558e4bf8059ce4f0b310afe218802b72766bc
+      Signed-off-by: Claudio Fontana <cfontana@suse.de>
+      Message-Id: <20201016080032.13914-1-cfontana@suse.de>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit fc69fa216cf52709b1279a592364e50c674db6ff
+  Author: Alexander Bulekov <alxndr@bu.edu>
+  Date:   Wed Oct 14 10:21:57 2020 -0400
+  
+      fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
+      
+      Prior to this patch, the only way I found to terminate the fuzzer was
+      either to:
+       1. Explicitly specify the number of fuzzer runs with the -runs= flag
+       2. SIGKILL the process with "pkill -9 qemu-fuzz-*" or similar
+      
+      In addition to being annoying to deal with, SIGKILLing the process skips
+      over any exit handlers(e.g. registered with atexit()). This is bad,
+      since some fuzzers might create temporary files that should ideally be
+      removed on exit using an exit handler. The only way to achieve a clean
+      exit now is to specify -runs=N , but the desired "N" is tricky to
+      identify prior to fuzzing.
+      
+      Why doesn't the process exit with standard SIGINT,SIGHUP,SIGTERM
+      signals? QEMU installs its own handlers for these signals in
+      os-posix.c:os_setup_signal_handling, which notify the main loop that an
+      exit was requested. The fuzzer, however, does not run qemu_main_loop,
+      which performs the main_loop_should_exit() check.  This means that the
+      fuzzer effectively ignores these signals. As we don't really care about
+      cleanly stopping the disposable fuzzer "VM", this patch uninstalls
+      QEMU's signal handlers. Thus, we can stop the fuzzer with
+      SIG{INT,HUP,TERM} and the fuzzing code can optionally use atexit() to
+      clean up temporary files/resources.
+      
+      Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
+      Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
+      Message-Id: <20201014142157.46028-1-alxndr@bu.edu>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 5bfb4f52fe897f5594a0089891e19c78d3ecd672
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:26 2020 +0800
+  
+      cirrus: Enable doc build on msys2/mingw
+      
+      Currently rST depends on old version sphinx-2.x.
+      Install it by downloading it.
+      Remove the need of university mirror, the main repo are recovered.
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-5-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit e36676604683c1ee12963d83eaaf3d3c2a1790ce
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:25 2020 +0800
+  
+      meson: Move the detection logic for sphinx to meson
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-4-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 9dc6ee3fd78a478935eecf936cddd575c6dfb20a
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Fri Oct 16 04:05:26 2020 -0400
+  
+      meson: move SPHINX_ARGS references within "if build_docs"
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit a94a689cc5c5b2a1fbba4dd418e456a14e6e12e5
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:23 2020 +0800
+  
+      docs: Fix Sphinx configuration for msys2/mingw
+      
+      Python doesn't support running ../scripts/kernel-doc directly.
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-2-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 3856873ee404c028a47115147f21cdc4b0d25566
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Thu Oct 15 14:18:40 2020 -0600
+  
+      meson: Only install icons and qemu.desktop if have_system
+      
+      These files are not needed for a linux-user only install.
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Message-Id: <20201015201840.282956-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit c6502638075557ff38fbb874af32f91186b667eb
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Thu Oct 15 13:07:42 2020 -0600
+  
+      configure: fix handling of --docdir parameter
+      
+      Commit ca8c0909f01 changed qemu_docdir to be docdir, then later uses the
+      qemu_docdir name in the final assignment. Unfortunately, one instance of
+      qemu_docdir was missed: the one which comes from the --docdir parameter.
+      This patch restores the proper handling of the --docdir parameter.
+      
+      Fixes: ca8c0909f01 ("configure: build docdir like other suffixed
+      directories")
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+      Message-Id: <20201015190742.270629-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 30fe76b17cc5aad395eb8a8a3da59e377a0b3d8e
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 13:26:50 2020 -0400
+  
+      meson: cleanup curses/iconv test
+      
+      Skip the test if it is system emulation is not requested, and
+      differentiate errors for lack of iconv and lack of curses.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit ac0c8351abf79f3b65105ea27bd0491387d804f6
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Wed Oct 14 16:19:39 2020 -0600
+  
+      meson.build: don't condition iconv detection on library detection
+      
+      It isn't necessarily the case that use of iconv requires an additional
+      library. For that reason we shouldn't conditionalize iconv detection on
+      libiconv.found.
+      
+      Fixes: 5285e593c33 (configure: Fixes ncursesw detection under msys2/mingw by convert them to meson)
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Reviewed-by: Yonggang Luo<l <brogers@suse.com>uoyonggang@gmail.com>
+      Reviewed-by:Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201014221939.196958-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 5c53015a480b3fe137ebd8b3b584a595c65e8f21
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 06:09:27 2020 -0400
+  
+      build: add --enable/--disable-libudev
+      
+      Initially, libudev detection was bundled with --enable-mpath because
+      qemu-pr-helper was the only user of libudev.  Recently however the USB
+      U2F emulation has also started using libudev, so add a separate
+      option.  This also allows 1) disabling libudev if desired for static
+      builds and 2) for non-static builds, requiring libudev even if
+      multipath support is undesirable.
+      
+      The multipath test is adjusted, because it is now possible to enter it
+      with configurations that should fail, such as --static --enable-mpath
+      --disable-libudev.
+      
+      Reported-by: Peter Maydell <peter.maydell@linaro.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 09e93326e448ab43fa26a9e2d9cc20ecf951f32b
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Aug 13 09:28:11 2020 -0400
+  
+      build: replace ninjatool with ninja
+      
+      Now that the build is done entirely by Meson, there is no need
+      to keep the Makefile conversion.  Instead, we can ask Ninja about
+      the targets it exposes and forward them.
+      
+      The main advantages are, from smallest to largest:
+      
+      - reducing the possible namespace pollution within the Makefile
+      
+      - removal of a relatively large Python program
+      
+      - faster build because parsing Makefile.ninja is slower than
+      parsing build.ninja; and faster build after Meson runs because
+      we do not have to generate Makefile.ninja.
+      
+      - tracking of command lines, which provides more accurate rebuilds
+      
+      In addition the change removes the requirement for GNU make 3.82, which
+      was annoying on Mac, and avoids bugs on Windows due to ninjatool not
+      knowing how to convert Windows escapes to POSIX escapes.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 2b8575bd5fbc8a8880e9ecfb1c7e7990feb1fea6
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 12:20:02 2020 -0400
+  
+      build: cleanups to Makefile
+      
+      Group similar rules, add comments to "else" and "endif" lines,
+      detect too-old config-host.mak before messing things up.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 345d7053ca4a39b0496366f3c953ae2681570ce3
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Aug 13 09:58:50 2020 -0400
+  
+      add ninja to dockerfiles, CI configurations and test VMs
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Acked-by: Alex Bennée <alex.bennee@linaro.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit f2f984a3b3bc8322df2efa3937bf11e8ea2bcaa5
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:12:37 2020 -0400
+  
+      dockerfiles: enable Centos 8 PowerTools
+      
+      ninja is included in the CentOS PowerTools repository.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 1e6e616dc21a8117cbe36a7e9026221b566cdf56
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 08:45:42 2020 -0400
+  
+      configure: move QEMU_INCLUDES to meson
+      
+      Confusingly, QEMU_INCLUDES is not used by configure tests.  Moving
+      it to meson.build ensures that Windows paths are specified instead of
+      the msys paths like /c/Users/...
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 97d6efd0a3f3a08942de6c2aee5d2983c54ca84c
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:20:17 2020 -0400
+  
+      tests: add missing generated sources to testqapi
+      
+      Ninja notices them due to a different order in visiting the graph.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 3bf4583580ab705de1beff6222e934239c3a0356
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:35:13 2020 -0400
+  
+      make: run shell with pipefail
+      
+      Without pipefail, it is possible to miss failures if the recipes
+      include pipes.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 88da4b043b4f91a265947149b1cd6758c046a4bd
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Tue Oct 13 21:21:21 2020 +0200
+  
+      tests/Makefile.include: unbreak non-tcg builds
+      
+      Remove from check-block the requirement that all TARGET_DIRS are built.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit e90df5eada4e6047548203d781bd61ddcc45d7b4
+  Author: Greg Kurz <groug@kaod.org>
+  Date:   Thu Oct 15 16:49:06 2020 +0200
+  
+      Makefile: Ensure cscope.out/tags/TAGS are generated in the source tree
+      
+      Tools usually expect the index files to be in the source tree, eg. emacs.
+      This is already the case when doing out-of-tree builds, but with in-tree
+      builds they end up in the build directory.
+      
+      Force cscope, ctags and etags to put them in the source tree.
+      
+      Signed-off-by: Greg Kurz <groug@kaod.org>
+      Message-Id: <160277334665.1754102.10921580280105870386.stgit@bahia.lan>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 6ebd89cf9ca3f5a6948542c4522b9380b1e9539f
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 03:20:45 2020 -0400
+  
+      submodules: bump meson to 0.55.3
+      
+      This adds some bugfixes, and allows MSYS2 to configure
+      without "--ninja=ninja".
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
 
-If this is still crashing I'd be curious to see the splat.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-arm64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-arm64.xen-build --summary-out=tmp/156005.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline build-arm64 xen-build
+Searching for failure / basis pass:
+ 155979 fail [host=rochester0] / 155971 ok.
+Failure / basis pass flights: 155979 / 155971
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+Basis pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#73e3cb6c7eea4f5db81c87574dcefe1282de4772-709b163940c55604b983400eb49dad144a2aa091 git://git.qemu.org/qemu.git#e12ce85b2c79d83a340953291912875c30b3af06-ba2a9a9e6318bfd93a2306dec40137e198205b86 git://xenbits.xen.org/osstest/seabios.git#58a44be024f69d2e4d2b58553529230abdd3935e-58a44be024f69d2e4d2b58553529230abdd3935e git://xenbits.xen.org/xen.git#0dfddb2116e3757f77a691a3fe335173088d69dc-0dfddb2116e3757f77a6\
+ 91a3fe335173088d69dc
+Loaded 29910 nodes in revision graph
+Searching for test results:
+ 155953 [host=laxton1]
+ 155971 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 155979 fail 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 155995 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 155996 fail 709b163940c55604b983400eb49dad144a2aa091 ba2a9a9e6318bfd93a2306dec40137e198205b86 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 155997 pass 709b163940c55604b983400eb49dad144a2aa091 dc7a05da69613d5c87ec0359c5dbb9d2b4765301 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 155999 pass 709b163940c55604b983400eb49dad144a2aa091 31a6f3534aba275aa9b3da21a58e79065ba865b5 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156000 fail 709b163940c55604b983400eb49dad144a2aa091 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156001 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156002 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156003 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156004 pass 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+ 156005 fail 73e3cb6c7eea4f5db81c87574dcefe1282de4772 782d7b30dd8e27ba24346e7c411b476db88b59e7 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+Searching for interesting versions
+ Result found: flight 155971 (pass), for basis pass
+ Result found: flight 155979 (fail), for basis failure
+ Repro found: flight 155995 (pass), for basis pass
+ Repro found: flight 155996 (fail), for basis failure
+ 0 revisions at 73e3cb6c7eea4f5db81c87574dcefe1282de4772 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
+No revisions left to test, checking graph state.
+ Result found: flight 155971 (pass), for last pass
+ Result found: flight 156001 (fail), for first failure
+ Repro found: flight 156002 (pass), for last pass
+ Repro found: flight 156003 (fail), for first failure
+ Repro found: flight 156004 (pass), for last pass
+ Repro found: flight 156005 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  782d7b30dd8e27ba24346e7c411b476db88b59e7
+  Bug not present: e12ce85b2c79d83a340953291912875c30b3af06
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156005/
 
 
->>>>>>>>
->>>>>>>>
->>>>>>>> Here are the links to both the linux kernel and libxl patches:
->>>>>>>>
->>>>>>>>
->>>>>>>> "[Xen-devel] [PATCH V3 0/2] Xen/PCIback: PCI reset using 'reset' SysFS attribute":
->>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00659.html
->>>>>>>>
->>>>>>>> [Note that PATCH V3 1/2 "Drivers/PCI: Export pcie_has_flr() interface" is already applied in upstream linux kernel, so it's not needed anymore]
->>>>>>>>
->>>>>>>> "[Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI flr/slot/bus reset with 'reset' SysFS attribute":
->>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00661.html
->>>>>>>>
->>>>>>>>
->>>>>>>> "[Xen-devel] [PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attribute":
->>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html
->>>>>>>>
->>>>>>>> "[Xen-devel] [PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS attribute":
->>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html
->>>>>>> [dropping Linux mailing lists]
->>>>>>>
->>>>>>> What is required to get the Xen patches merged?  Rebasing against Xen
->>>>>>> master?  OpenXT has been carrying a similar patch for many years and
->>>>>>> we would like to move to an upstream implementation.  Xen users of PCI
->>>>>>> passthrough would benefit from more reliable device reset.
->>>>>> Rebase and resend?
+  commit 782d7b30dd8e27ba24346e7c411b476db88b59e7
+  Merge: e12ce85b2c c47110d90f
+  Author: Peter Maydell <peter.maydell@linaro.org>
+  Date:   Sat Oct 17 20:52:55 2020 +0100
+  
+      Merge remote-tracking branch 'remotes/bonzini-gitlab/tags/for-upstream' into staging
+      
+      * Drop ninjatool and just require ninja (Paolo)
+      * Fix docs build under msys2 (Yonggang)
+      * HAX snafu fix (Claudio)
+      * Disable signal handlers during fuzzing (Alex)
+      * Miscellaneous fixes (Bruce, Greg)
+      
+      # gpg: Signature made Sat 17 Oct 2020 15:45:56 BST
+      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
+      # gpg:                issuer "pbonzini@redhat.com"
+      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
+      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
+      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
+      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
+      
+      * remotes/bonzini-gitlab/tags/for-upstream: (22 commits)
+        ci: include configure and meson logs in all jobs if configure fails
+        hax: unbreak accelerator cpu code after cpus.c split
+        fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
+        cirrus: Enable doc build on msys2/mingw
+        meson: Move the detection logic for sphinx to meson
+        meson: move SPHINX_ARGS references within "if build_docs"
+        docs: Fix Sphinx configuration for msys2/mingw
+        meson: Only install icons and qemu.desktop if have_system
+        configure: fix handling of --docdir parameter
+        meson: cleanup curses/iconv test
+        meson.build: don't condition iconv detection on library detection
+        build: add --enable/--disable-libudev
+        build: replace ninjatool with ninja
+        build: cleanups to Makefile
+        add ninja to dockerfiles, CI configurations and test VMs
+        dockerfiles: enable Centos 8 PowerTools
+        configure: move QEMU_INCLUDES to meson
+        tests: add missing generated sources to testqapi
+        make: run shell with pipefail
+        tests/Makefile.include: unbreak non-tcg builds
+        ...
+      
+      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+  
+  commit c47110d90fa5401bcc42c17f8ae0724a1c96599a
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Fri Oct 16 05:49:28 2020 -0400
+  
+      ci: include configure and meson logs in all jobs if configure fails
+      
+      Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit a1b0e4613006704fb02209df548ce9fde62232e0
+  Author: Claudio Fontana <cfontana@suse.de>
+  Date:   Fri Oct 16 10:00:32 2020 +0200
+  
+      hax: unbreak accelerator cpu code after cpus.c split
+      
+      during my split of cpus.c, code line
+      "current_cpu = cpu"
+      was removed by mistake, causing hax to break.
+      
+      This commit fixes the situation restoring it.
+      
+      Reported-by: Volker Rümelin <vr_qemu@t-online.de>
+      Fixes: e92558e4bf8059ce4f0b310afe218802b72766bc
+      Signed-off-by: Claudio Fontana <cfontana@suse.de>
+      Message-Id: <20201016080032.13914-1-cfontana@suse.de>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit fc69fa216cf52709b1279a592364e50c674db6ff
+  Author: Alexander Bulekov <alxndr@bu.edu>
+  Date:   Wed Oct 14 10:21:57 2020 -0400
+  
+      fuzz: Disable QEMU's SIG{INT,HUP,TERM} handlers
+      
+      Prior to this patch, the only way I found to terminate the fuzzer was
+      either to:
+       1. Explicitly specify the number of fuzzer runs with the -runs= flag
+       2. SIGKILL the process with "pkill -9 qemu-fuzz-*" or similar
+      
+      In addition to being annoying to deal with, SIGKILLing the process skips
+      over any exit handlers(e.g. registered with atexit()). This is bad,
+      since some fuzzers might create temporary files that should ideally be
+      removed on exit using an exit handler. The only way to achieve a clean
+      exit now is to specify -runs=N , but the desired "N" is tricky to
+      identify prior to fuzzing.
+      
+      Why doesn't the process exit with standard SIGINT,SIGHUP,SIGTERM
+      signals? QEMU installs its own handlers for these signals in
+      os-posix.c:os_setup_signal_handling, which notify the main loop that an
+      exit was requested. The fuzzer, however, does not run qemu_main_loop,
+      which performs the main_loop_should_exit() check.  This means that the
+      fuzzer effectively ignores these signals. As we don't really care about
+      cleanly stopping the disposable fuzzer "VM", this patch uninstalls
+      QEMU's signal handlers. Thus, we can stop the fuzzer with
+      SIG{INT,HUP,TERM} and the fuzzing code can optionally use atexit() to
+      clean up temporary files/resources.
+      
+      Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
+      Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
+      Message-Id: <20201014142157.46028-1-alxndr@bu.edu>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 5bfb4f52fe897f5594a0089891e19c78d3ecd672
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:26 2020 +0800
+  
+      cirrus: Enable doc build on msys2/mingw
+      
+      Currently rST depends on old version sphinx-2.x.
+      Install it by downloading it.
+      Remove the need of university mirror, the main repo are recovered.
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-5-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit e36676604683c1ee12963d83eaaf3d3c2a1790ce
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:25 2020 +0800
+  
+      meson: Move the detection logic for sphinx to meson
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-4-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 9dc6ee3fd78a478935eecf936cddd575c6dfb20a
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Fri Oct 16 04:05:26 2020 -0400
+  
+      meson: move SPHINX_ARGS references within "if build_docs"
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit a94a689cc5c5b2a1fbba4dd418e456a14e6e12e5
+  Author: Yonggang Luo <luoyonggang@gmail.com>
+  Date:   Fri Oct 16 06:06:23 2020 +0800
+  
+      docs: Fix Sphinx configuration for msys2/mingw
+      
+      Python doesn't support running ../scripts/kernel-doc directly.
+      
+      Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201015220626.418-2-luoyonggang@gmail.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 3856873ee404c028a47115147f21cdc4b0d25566
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Thu Oct 15 14:18:40 2020 -0600
+  
+      meson: Only install icons and qemu.desktop if have_system
+      
+      These files are not needed for a linux-user only install.
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Message-Id: <20201015201840.282956-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit c6502638075557ff38fbb874af32f91186b667eb
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Thu Oct 15 13:07:42 2020 -0600
+  
+      configure: fix handling of --docdir parameter
+      
+      Commit ca8c0909f01 changed qemu_docdir to be docdir, then later uses the
+      qemu_docdir name in the final assignment. Unfortunately, one instance of
+      qemu_docdir was missed: the one which comes from the --docdir parameter.
+      This patch restores the proper handling of the --docdir parameter.
+      
+      Fixes: ca8c0909f01 ("configure: build docdir like other suffixed
+      directories")
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+      Message-Id: <20201015190742.270629-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 30fe76b17cc5aad395eb8a8a3da59e377a0b3d8e
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 13:26:50 2020 -0400
+  
+      meson: cleanup curses/iconv test
+      
+      Skip the test if it is system emulation is not requested, and
+      differentiate errors for lack of iconv and lack of curses.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit ac0c8351abf79f3b65105ea27bd0491387d804f6
+  Author: Bruce Rogers <brogers@suse.com>
+  Date:   Wed Oct 14 16:19:39 2020 -0600
+  
+      meson.build: don't condition iconv detection on library detection
+      
+      It isn't necessarily the case that use of iconv requires an additional
+      library. For that reason we shouldn't conditionalize iconv detection on
+      libiconv.found.
+      
+      Fixes: 5285e593c33 (configure: Fixes ncursesw detection under msys2/mingw by convert them to meson)
+      
+      Signed-off-by: Bruce Rogers <brogers@suse.com>
+      Reviewed-by: Yonggang Luo<l <brogers@suse.com>uoyonggang@gmail.com>
+      Reviewed-by:Yonggang Luo <luoyonggang@gmail.com>
+      Message-Id: <20201014221939.196958-1-brogers@suse.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 5c53015a480b3fe137ebd8b3b584a595c65e8f21
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 06:09:27 2020 -0400
+  
+      build: add --enable/--disable-libudev
+      
+      Initially, libudev detection was bundled with --enable-mpath because
+      qemu-pr-helper was the only user of libudev.  Recently however the USB
+      U2F emulation has also started using libudev, so add a separate
+      option.  This also allows 1) disabling libudev if desired for static
+      builds and 2) for non-static builds, requiring libudev even if
+      multipath support is undesirable.
+      
+      The multipath test is adjusted, because it is now possible to enter it
+      with configurations that should fail, such as --static --enable-mpath
+      --disable-libudev.
+      
+      Reported-by: Peter Maydell <peter.maydell@linaro.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 09e93326e448ab43fa26a9e2d9cc20ecf951f32b
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Aug 13 09:28:11 2020 -0400
+  
+      build: replace ninjatool with ninja
+      
+      Now that the build is done entirely by Meson, there is no need
+      to keep the Makefile conversion.  Instead, we can ask Ninja about
+      the targets it exposes and forward them.
+      
+      The main advantages are, from smallest to largest:
+      
+      - reducing the possible namespace pollution within the Makefile
+      
+      - removal of a relatively large Python program
+      
+      - faster build because parsing Makefile.ninja is slower than
+      parsing build.ninja; and faster build after Meson runs because
+      we do not have to generate Makefile.ninja.
+      
+      - tracking of command lines, which provides more accurate rebuilds
+      
+      In addition the change removes the requirement for GNU make 3.82, which
+      was annoying on Mac, and avoids bugs on Windows due to ninjatool not
+      knowing how to convert Windows escapes to POSIX escapes.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 2b8575bd5fbc8a8880e9ecfb1c7e7990feb1fea6
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 12:20:02 2020 -0400
+  
+      build: cleanups to Makefile
+      
+      Group similar rules, add comments to "else" and "endif" lines,
+      detect too-old config-host.mak before messing things up.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 345d7053ca4a39b0496366f3c953ae2681570ce3
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Aug 13 09:58:50 2020 -0400
+  
+      add ninja to dockerfiles, CI configurations and test VMs
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Acked-by: Alex Bennée <alex.bennee@linaro.org>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit f2f984a3b3bc8322df2efa3937bf11e8ea2bcaa5
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:12:37 2020 -0400
+  
+      dockerfiles: enable Centos 8 PowerTools
+      
+      ninja is included in the CentOS PowerTools repository.
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 1e6e616dc21a8117cbe36a7e9026221b566cdf56
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 08:45:42 2020 -0400
+  
+      configure: move QEMU_INCLUDES to meson
+      
+      Confusingly, QEMU_INCLUDES is not used by configure tests.  Moving
+      it to meson.build ensures that Windows paths are specified instead of
+      the msys paths like /c/Users/...
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 97d6efd0a3f3a08942de6c2aee5d2983c54ca84c
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:20:17 2020 -0400
+  
+      tests: add missing generated sources to testqapi
+      
+      Ninja notices them due to a different order in visiting the graph.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 3bf4583580ab705de1beff6222e934239c3a0356
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Wed Oct 14 07:35:13 2020 -0400
+  
+      make: run shell with pipefail
+      
+      Without pipefail, it is possible to miss failures if the recipes
+      include pipes.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 88da4b043b4f91a265947149b1cd6758c046a4bd
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Tue Oct 13 21:21:21 2020 +0200
+  
+      tests/Makefile.include: unbreak non-tcg builds
+      
+      Remove from check-block the requirement that all TARGET_DIRS are built.
+      
+      Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit e90df5eada4e6047548203d781bd61ddcc45d7b4
+  Author: Greg Kurz <groug@kaod.org>
+  Date:   Thu Oct 15 16:49:06 2020 +0200
+  
+      Makefile: Ensure cscope.out/tags/TAGS are generated in the source tree
+      
+      Tools usually expect the index files to be in the source tree, eg. emacs.
+      This is already the case when doing out-of-tree builds, but with in-tree
+      builds they end up in the build directory.
+      
+      Force cscope, ctags and etags to put them in the source tree.
+      
+      Signed-off-by: Greg Kurz <groug@kaod.org>
+      Message-Id: <160277334665.1754102.10921580280105870386.stgit@bahia.lan>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  
+  commit 6ebd89cf9ca3f5a6948542c4522b9380b1e9539f
+  Author: Paolo Bonzini <pbonzini@redhat.com>
+  Date:   Thu Oct 15 03:20:45 2020 -0400
+  
+      submodules: bump meson to 0.55.3
+      
+      This adds some bugfixes, and allows MSYS2 to configure
+      without "--ninja=ninja".
+      
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+
+Revision graph left in /home/logs/results/bisect/qemu-mainline/build-arm64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+156005: tolerable ALL FAIL
+
+flight 156005 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156005/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-arm64                   6 xen-build               fail baseline untested
 
 
-If you are is going to resend then please address Jan's comments from https://lists.xen.org/archives/html/xen-devel/2017-12/msg00695.html (although I am not sure in usefulness of the last one)
+jobs:
+ build-arm64                                                  fail    
 
 
->>>>>>
->>>>>> Skimming that thread I think the major concern was backward
->>>>>> compatibility. That seemed to have been addressed.
->>>>>>
->>>>>> Unfortunately I don't have the time to dig into Linux to see if the
->>>>>> claim there is true or not.
->>>>>>
->>>>>> It would be helpful to write a concise paragraph to say why backward
->>>>>> compatibility is not required.
->>>> Just going through my old “make sure something happens with this” mails.  Did anything ever happen with this?  Who has the ball here / who is this stuck on?
->>> We're waiting for "somebody" to testify that fixing this will not adversely affect anyone. I'm not qualified, but my strong belief is that since "reset" or "do_flr"  in the linux kernel is not currently implemented/used in any official distribution, it should be OK.
->>>
->>> Patches still work in current staging-4.14 btw.
->>>
->> Just for the record, attached are the patches I am running on top of linux gentoo-sources-5.9.1  and xen-staging-4.14 respectively. (I am also running with the patch to mark populated reserved memory that contains ACPI tables as "ACPI NVS", not attached here ).
->>
->> <pci_brute_reset-home-hack.patch>
->> <pci_brute_reset-home-hack-doc.patch>
->> <pci-reset-min-egen.patch>
-> Is there any reason not to merge the Xen patch, while waiting for the Linux patch to be upstreamed?  Similar versions have been deployed in downstream production systems for years, we can at least de-dupe those Xen patches.
->
-> Do (can) we have an in-tree location to queue Xen-relevant Linux patches while they go through an upstreaming process that may last several (5+ here) years?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-No (at least as far as I can think of it) but then I can't remember another instance of patches taking that long.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-
--boris
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
