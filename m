@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D287E293F87
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 17:26:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9699.25526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07158293FBF
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 17:41:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9705.25550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUtWf-0000rR-Ms; Tue, 20 Oct 2020 15:26:13 +0000
+	id 1kUtk7-0002e9-CO; Tue, 20 Oct 2020 15:40:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9699.25526; Tue, 20 Oct 2020 15:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 9705.25550; Tue, 20 Oct 2020 15:40:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,119 +23,99 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUtWf-0000r4-Je; Tue, 20 Oct 2020 15:26:13 +0000
-Received: by outflank-mailman (input) for mailman id 9699;
- Tue, 20 Oct 2020 15:26:12 +0000
+	id 1kUtk7-0002dk-8x; Tue, 20 Oct 2020 15:40:07 +0000
+Received: by outflank-mailman (input) for mailman id 9705;
+ Tue, 20 Oct 2020 15:40:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kUtWe-0000qz-Hs
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 15:26:12 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V8HF=D3=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1kUtk5-0002VV-S7
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 15:40:05 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4c0f42e5-9e30-464b-a217-29fe4522ad1b;
- Tue, 20 Oct 2020 15:26:11 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kUtWY-0005t2-V5; Tue, 20 Oct 2020 15:26:06 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kUtWY-0002ok-N0; Tue, 20 Oct 2020 15:26:06 +0000
+ id e0852ae2-13c7-4a31-9846-626071fd9619;
+ Tue, 20 Oct 2020 15:40:04 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kUtWe-0000qz-Hs
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 15:26:12 +0000
-X-Inumbo-ID: 4c0f42e5-9e30-464b-a217-29fe4522ad1b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=V8HF=D3=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+	id 1kUtk5-0002VV-S7
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 15:40:05 +0000
+X-Inumbo-ID: e0852ae2-13c7-4a31-9846-626071fd9619
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4c0f42e5-9e30-464b-a217-29fe4522ad1b;
-	Tue, 20 Oct 2020 15:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=F9G/pbmQAh/X7hBMDJhhroZkSRlVG49Ud+NSH7WAp/k=; b=lBAEOn7EB87TB72dviHxeU7kdQ
-	RbOoLoC26/PI4QDynGf/vzpySh/gPZSpEg5EZ4f8ke9EDH2giM86VM2PX1oby553zuc//oyNcqhDQ
-	ACjDnGJuBmZR5D0kKBF1p+a+VzzJZEH302DcrSuLqhQ0CMsZdOMLEzfABSpXXzKE2sy0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kUtWY-0005t2-V5; Tue, 20 Oct 2020 15:26:06 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kUtWY-0002ok-N0; Tue, 20 Oct 2020 15:26:06 +0000
-Subject: Re: [PATCH] IOMMU: avoid double flushing in shared page table case
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Paul Durrant <paul@xen.org>
-References: <e54f4fbb-92e2-9785-8648-596c615213a2@suse.com>
- <01a5840e-3250-246c-8d38-29a65d4937ea@xen.org>
- <91fc14a3-6bc0-5929-2087-e4f57901fe14@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <147ab40f-9ee7-a43e-e40f-7620fd9c26ac@xen.org>
-Date: Tue, 20 Oct 2020 16:26:04 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.3
+	id e0852ae2-13c7-4a31-9846-626071fd9619;
+	Tue, 20 Oct 2020 15:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603208404;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6ISmU+JH6ZgpC176exqVC/z/+DWR4Rlaalo9uKhU8Bw=;
+  b=ERYbeiK4/fEXAZffRCOO/2HtsL4AlhMJR8nQ1gjKKO+H7wOgTJcN/Z4f
+   UxjYraCHppCEKTo+tm20HmOQNAqPKQNcaqcqchtfr58n+ktyLPKmrxqDM
+   NHrkYr2PcTDn1HvhZ9F50HVtOBks8LzFtnzw+GDwdI4/fPl9RiPLsobdj
+   o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ty+Xv5mccCX3qSWAgpu110vkMzwbup7wE1qWzSeXT+vIKnmmzjwpV3C1Pa30GbCulyCoJoRiT3
+ CGTVI/Vh5uriWlUeGGp0GM/lw9HV/57Tf6obCdTiF10mKWMgQSSi0iaOFtJ4W7CZAq8owe9Wp5
+ oMPkllspQrg4C/P4zqnfe9jU3Cuea1t0kRpZ/NHO6BTnqSnojfPe8fMkLkVf0Bn3laC6jxbQkA
+ dyfrJHE4ZvBFkEta8WkCyZ8Xb4Z4DMxw8bte4quRNtZOKphHUCYEfFFUQGnOHKx+Dpoxc5/zGX
+ tUM=
+X-SBRS: None
+X-MesageID: 29641228
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,397,1596513600"; 
+   d="scan'208";a="29641228"
+Date: Tue, 20 Oct 2020 16:39:59 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, "Wei
+ Liu" <wl@xen.org>
+Subject: Re: [PATCH] libxl: Add suppress-vmdesc to QEMU -machine pc options
+Message-ID: <20201020153959.GA2214@perard.uk.xensource.com>
+References: <20201019200050.103360-1-jandryuk@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <91fc14a3-6bc0-5929-2087-e4f57901fe14@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20201019200050.103360-1-jandryuk@gmail.com>
 
-Hi Jan,
-
-On 20/10/2020 16:05, Jan Beulich wrote:
-> On 20.10.2020 17:00, Julien Grall wrote:
->> On 20/10/2020 14:52, Jan Beulich wrote:
->>> While the flush coalescing optimization has been helping the non-shared
->>> case, it has actually lead to double flushes in the shared case (which
->>> ought to be the more common one nowadays at least): Once from
->>> *_set_entry() and a second time up the call tree from wherever the
->>> overriding flag gets played with. In alignment with XSA-346 suppress
->>> flushing in this case.
->>>
->>> Similarly avoid excessive setting of IOMMU_FLUSHF_added on the batched
->>> flushes: "idx" hasn't been added a new mapping for.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> TBD: The Arm part really is just for completeness (and hence could also
->>>        be dropped) - the affected mapping spaces aren't currently
->>>        supported there.
->>
->> As I may I have pointed out in the past, there are many ways to screw
->> things up when using iommu_dont_flush_iotlb.
->>
->> So I would rather not introduce any usage on Arm until we see a use-case.
+On Mon, Oct 19, 2020 at 04:00:50PM -0400, Jason Andryuk wrote:
+> The device model state saved by QMP xen-save-devices-state doesn't
+> include the vmdesc json.  When restoring an HVM, xen-load-devices-state
+> always triggers "Expected vmdescription section, but got 0".  This is
+> not a problem when restore comes from a file.  However, when QEMU runs
+> in a linux stubdom and comes over a console, EOF is not received.  This
+> causes a delay restoring - though it does restore.
 > 
-> "Usage" to me would mean a path actually setting the flag.
-> What I'm adding here, basically as a precautionary measure,
-> is a check of the flag.
+> Setting suppress-vmdesc skips looking for the vmdesc during restore and
+> avoids the wait.
+> 
+> This is a libxl change for the non-xenfv case to match the xenfv change
+> made in qemu
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> 
+> Should this also add suppress-vmdesc to xenfv for backwards
+> compatibility?  In that case, the change in QEMU is redundent.  Since
+> this only really matters for the stubdom case, it could be conditioned
+> on that.
 
-The code would always be safe without checking the safe (albeit doing 
-pointless flush). I wouldn't say the same if we check the flag because 
-it is not correct to set it everywhere.
+QEMU doesn't complain about having suppress-vmdesc set on the command
+line and as a default for the xenfv machine, so I don't mind adding it
+to the xenfv machine in libxl, while keeping the change in QEMU.
 
-> Does your use of "usage" imply you
-> don't want that either? Just to be sure; I'm okay to drop
-> the Arm part.
-That's correct, I don't want this check to be present until there is a 
-user. Only then, we can assess whether this is the right approach for Arm.
+The change is already applied to QEMU, so unless there's an issue, I
+don't want to revert it. It might be useful for tool stacks that don't
+use libxl.
 
-Cheers,
+Also, the change matters as well for non-stubdom cases as it removed a
+cryptic error message from qemu-dm's logs :-).
+
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
