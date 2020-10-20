@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F402937F2
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 11:25:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9016.24255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46E8A2937FB
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 11:28:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9019.24267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUntN-0007VR-MH; Tue, 20 Oct 2020 09:25:17 +0000
+	id 1kUnwH-0007hW-7s; Tue, 20 Oct 2020 09:28:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9016.24255; Tue, 20 Oct 2020 09:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 9019.24267; Tue, 20 Oct 2020 09:28:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,227 +23,227 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUntN-0007V2-J0; Tue, 20 Oct 2020 09:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 9016;
- Tue, 20 Oct 2020 09:25:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kUnwH-0007h7-4n; Tue, 20 Oct 2020 09:28:17 +0000
+Received: by outflank-mailman (input) for mailman id 9019;
+ Tue, 20 Oct 2020 09:28:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kUntM-0007Ux-5r
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 09:25:16 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6529c936-f715-4e44-8c76-53f4f8469560;
- Tue, 20 Oct 2020 09:25:14 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kUntH-0006RL-Mt; Tue, 20 Oct 2020 09:25:11 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kUntH-0000eV-Ab; Tue, 20 Oct 2020 09:25:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kUnwG-0007h2-2I
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 09:28:16 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 28d1500d-3cf4-4c7e-8b9c-526fd1e0456f;
+ Tue, 20 Oct 2020 09:28:14 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BD5A6ABCC;
+ Tue, 20 Oct 2020 09:28:13 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kUntM-0007Ux-5r
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 09:25:16 +0000
-X-Inumbo-ID: 6529c936-f715-4e44-8c76-53f4f8469560
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 6529c936-f715-4e44-8c76-53f4f8469560;
-	Tue, 20 Oct 2020 09:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=IP0aLCAZ0NPf9jmG0UGvDcOQv+dvf5RqIa86OPq8vuE=; b=26QXCBC1L8WOiCOqHGNuMPg+kn
-	FG4dvK527rBcxZRKpw6aXamWZUlmK9PMOiuSjCz4qjOhhFXejYP2vm6ois1zxerZQBXzuKFPDfPqO
-	SCHOK5cLu5YGIr7rAvDW1/ypDgPHHl4BwYFZxiAyBxU3qZ2gjyQ+V2oJ4I7+bUpKzJBo=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kUntH-0006RL-Mt; Tue, 20 Oct 2020 09:25:11 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kUntH-0000eV-Ab; Tue, 20 Oct 2020 09:25:11 +0000
-Subject: Re: [PATCH v2 1/2] xen/events: access last_priority and last_vcpu_id
- together
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+	(envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kUnwG-0007h2-2I
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 09:28:16 +0000
+X-Inumbo-ID: 28d1500d-3cf4-4c7e-8b9c-526fd1e0456f
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 28d1500d-3cf4-4c7e-8b9c-526fd1e0456f;
+	Tue, 20 Oct 2020 09:28:14 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603186093;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lt0Wrl6rx3rsiH6AE/De57HWZ93c+gPsRNaUPfUJcpE=;
+	b=uDubRB768QTfgwBcKZMaRAs/ydYCT6r+vC1jryc5aj7gay9u1mcjrO9nhwScZSVzV8iOmv
+	MKx46NDGo1QZOIpsnGD8eoruDZa2k4TPKHa5nPON/9Wlhc/OVCAg6tT364PjL3PD9vSrms
+	crU3Fny5s+rDi0ed24vMQuo8C1/t4uo=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id BD5A6ABCC;
+	Tue, 20 Oct 2020 09:28:13 +0000 (UTC)
+Subject: Re: [PATCH v3 2/2] xen/evtchn: rework per event channel lock
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20201012092740.1617-1-jgross@suse.com>
- <20201012092740.1617-2-jgross@suse.com>
- <9485004c-b739-5590-202b-c8e6f84e5e54@suse.com>
- <821a77d3-7e37-d1d2-d904-94db0177893a@suse.com>
- <350a5738-b239-e36b-59aa-05b8f86648b8@suse.com>
- <548f80a9-0fa3-cd9e-ec44-5cd37d98eadc@xen.org>
- <4f4ecc8d-f5d2-81e9-1615-0f2925b928ba@suse.com>
- <4b77ba6d-bf49-7286-8f2a-53f7b2e7d122@xen.org>
- <4eb073bb-67ca-5376-bae1-e555d3c5fb30@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <2eb42b0e-f31e-2c1e-28bf-32c366fb1688@xen.org>
-Date: Tue, 20 Oct 2020 10:25:07 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.3
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20201016105839.14796-1-jgross@suse.com>
+ <20201016105839.14796-3-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0c5975b1-97ec-9bbb-0ed9-9055556215cd@suse.com>
+Date: Tue, 20 Oct 2020 11:28:13 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <4eb073bb-67ca-5376-bae1-e555d3c5fb30@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201016105839.14796-3-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 16.10.2020 12:58, Juergen Gross wrote:
+> --- a/xen/arch/x86/pv/shim.c
+> +++ b/xen/arch/x86/pv/shim.c
+> @@ -660,11 +660,12 @@ void pv_shim_inject_evtchn(unsigned int port)
+>      if ( port_is_valid(guest, port) )
+>      {
+>          struct evtchn *chn = evtchn_from_port(guest, port);
+> -        unsigned long flags;
+>  
+> -        spin_lock_irqsave(&chn->lock, flags);
+> -        evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
+> -        spin_unlock_irqrestore(&chn->lock, flags);
+> +        if ( evtchn_read_trylock(chn) )
+> +        {
+> +            evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
+> +            evtchn_read_unlock(chn);
+> +        }
 
-On 16/10/2020 13:09, Jan Beulich wrote:
-> On 16.10.2020 11:36, Julien Grall wrote:
->> On 15/10/2020 13:07, Jan Beulich wrote:
->>> On 14.10.2020 13:40, Julien Grall wrote:
->>>> On 13/10/2020 15:26, Jan Beulich wrote:
->>>>> On 13.10.2020 16:20, Jürgen Groß wrote:
->>>>>> Especially Julien was rather worried by the current situation. In
->>>>>> case you can convince him the current handling is fine, we can
->>>>>> easily drop this patch.
->>>>>
->>>>> Julien, in the light of the above - can you clarify the specific
->>>>> concerns you (still) have?
->>>>
->>>> Let me start with that the assumption if evtchn->lock is not held when
->>>> evtchn_fifo_set_pending() is called. If it is held, then my comment is moot.
->>>
->>> But this isn't interesting - we know there are paths where it is
->>> held, and ones (interdomain sending) where it's the remote port's
->>> lock instead which is held. What's important here is that a
->>> _consistent_ lock be held (but it doesn't need to be evtchn's).
->>
->> Yes, a _consistent_ lock *should* be sufficient. But it is better to use
->> the same lock everywhere so it is easier to reason (see more below).
-> 
-> But that's already not the case, due to the way interdomain channels
-> have events sent. You did suggest acquiring both locks, but as
-> indicated at the time I think this goes too far. As far as the doc
-> aspect - we can improve the situation. Iirc it was you who made me
-> add the respective comment ahead of struct evtchn_port_ops.
-> 
->>>>    From my understanding, the goal of lock_old_queue() is to return the
->>>> old queue used.
->>>>
->>>> last_priority and last_vcpu_id may be updated separately and I could not
->>>> convince myself that it would not be possible to return a queue that is
->>>> neither the current one nor the old one.
->>>>
->>>> The following could happen if evtchn->priority and
->>>> evtchn->notify_vcpu_id keeps changing between calls.
->>>>
->>>> pCPU0				| pCPU1
->>>> 				|
->>>> evtchn_fifo_set_pending(v0,...)	|
->>>> 				| evtchn_fifo_set_pending(v1, ...)
->>>>     [...]				|
->>>>     /* Queue has changed */	|
->>>>     evtchn->last_vcpu_id = v0 	|
->>>> 				| -> evtchn_old_queue()
->>>> 				| v = d->vcpu[evtchn->last_vcpu_id];
->>>>      				| old_q = ...
->>>> 				| spin_lock(old_q->...)
->>>> 				| v = ...
->>>> 				| q = ...
->>>> 				| /* q and old_q would be the same */
->>>> 				|
->>>>     evtchn->las_priority = priority|
->>>>
->>>> If my diagram is correct, then pCPU1 would return a queue that is
->>>> neither the current nor old one.
->>>
->>> I think I agree.
->>>
->>>> In which case, I think it would at least be possible to corrupt the
->>>> queue. From evtchn_fifo_set_pending():
->>>>
->>>>            /*
->>>>             * If this event was a tail, the old queue is now empty and
->>>>             * its tail must be invalidated to prevent adding an event to
->>>>             * the old queue from corrupting the new queue.
->>>>             */
->>>>            if ( old_q->tail == port )
->>>>                old_q->tail = 0;
->>>>
->>>> Did I miss anything?
->>>
->>> I don't think you did. The important point though is that a consistent
->>> lock is being held whenever we come here, so two racing set_pending()
->>> aren't possible for one and the same evtchn. As a result I don't think
->>> the patch here is actually needed.
->>
->> I haven't yet read in full details the rest of the patches to say
->> whether this is necessary or not. However, at a first glance, I think
->> this is not a sane to rely on different lock to protect us. And don't
->> get me started on the lack of documentation...
->>
->> Furthermore, the implementation of old_lock_queue() suggests that the
->> code was planned to be lockless. Why would you need the loop otherwise?
-> 
-> The lock-less aspect of this affects multiple accesses to e.g.
-> the same queue, I think.
-I don't think we are talking about the same thing. What I was referring 
-to is the following code:
+Does this want some form of else, e.g. at least a printk_once()?
 
-static struct evtchn_fifo_queue *lock_old_queue(const struct domain *d,
-                                                 struct evtchn *evtchn,
-                                                 unsigned long *flags)
-{
-     struct vcpu *v;
-     struct evtchn_fifo_queue *q, *old_q;
-     unsigned int try;
+> @@ -360,7 +352,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
+>      if ( rc )
+>          goto out;
+>  
+> -    flags = double_evtchn_lock(lchn, rchn);
+> +    double_evtchn_lock(lchn, rchn);
 
-     for ( try = 0; try < 3; try++ )
-     {
-         v = d->vcpu[evtchn->last_vcpu_id];
-         old_q = &v->evtchn_fifo->queue[evtchn->last_priority];
+This introduces an unfortunate conflict with my conversion of
+the per-domain event lock to an rw one: It acquires rd's lock
+in read mode only, while the requirements here would not allow
+doing so. (Same in evtchn_close() then.)
 
-         spin_lock_irqsave(&old_q->lock, *flags);
+> @@ -736,7 +723,8 @@ int evtchn_send(struct domain *ld, unsigned int lport)
+>  
+>      lchn = evtchn_from_port(ld, lport);
+>  
+> -    spin_lock_irqsave(&lchn->lock, flags);
+> +    if ( !evtchn_read_trylock(lchn) )
+> +        return 0;
 
-         v = d->vcpu[evtchn->last_vcpu_id];
-         q = &v->evtchn_fifo->queue[evtchn->last_priority];
+With this, the auxiliary call to xsm_evtchn_send() up from
+here should also go away again (possibly in a separate follow-
+on, which would then likely be a clean revert).
 
-         if ( old_q == q )
-             return old_q;
+> @@ -798,9 +786,11 @@ void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq)
+>  
+>      d = v->domain;
+>      chn = evtchn_from_port(d, port);
+> -    spin_lock(&chn->lock);
+> -    evtchn_port_set_pending(d, v->vcpu_id, chn);
+> -    spin_unlock(&chn->lock);
+> +    if ( evtchn_read_trylock(chn) )
+> +    {
+> +        evtchn_port_set_pending(d, v->vcpu_id, chn);
+> +        evtchn_read_unlock(chn);
+> +    }
+>  
+>   out:
+>      spin_unlock_irqrestore(&v->virq_lock, flags);
+> @@ -829,9 +819,11 @@ void send_guest_global_virq(struct domain *d, uint32_t virq)
+>          goto out;
+>  
+>      chn = evtchn_from_port(d, port);
+> -    spin_lock(&chn->lock);
+> -    evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
+> -    spin_unlock(&chn->lock);
+> +    if ( evtchn_read_trylock(chn) )
+> +    {
+> +        evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
+> +        evtchn_read_unlock(chn);
+> +    }
+>  
+>   out:
+>      spin_unlock_irqrestore(&v->virq_lock, flags);
 
-         spin_unlock_irqrestore(&old_q->lock, *flags);
-     }
+As said before, I think these lock uses can go away altogether.
+I shall put together a patch.
 
-     gprintk(XENLOG_WARNING,
-             "dom%d port %d lost event (too many queue changes)\n",
-             d->domain_id, evtchn->port);
-     return NULL;
-}
+And on the whole I'd really prefer if we first convinced ourselves
+that there's no way to simply get rid of the IRQ-safe locking
+forms instead, before taking a decision to go with this model with
+its extra constraints.
 
-Given that evtchn->last_vcpu_id and evtchn->last_priority can only be 
-modified in evtchn_fifo_set_pending(), this suggests that it is expected 
-for the function to multiple called concurrently on the same event channel.
+> @@ -1060,15 +1053,16 @@ int evtchn_unmask(unsigned int port)
+>  {
+>      struct domain *d = current->domain;
+>      struct evtchn *evtchn;
+> -    unsigned long flags;
+>  
+>      if ( unlikely(!port_is_valid(d, port)) )
+>          return -EINVAL;
+>  
+>      evtchn = evtchn_from_port(d, port);
+> -    spin_lock_irqsave(&evtchn->lock, flags);
+> -    evtchn_port_unmask(d, evtchn);
+> -    spin_unlock_irqrestore(&evtchn->lock, flags);
+> +    if ( evtchn_read_trylock(evtchn) )
+> +    {
+> +        evtchn_port_unmask(d, evtchn);
+> +        evtchn_read_unlock(evtchn);
+> +    }
 
-> I'm unconvinced it was really considered
-> whether racing sending on the same channel is also safe this way.
+I think this wants mentioning together with send / query in the
+description.
 
-How would you explain the 3 try in lock_old_queue then?
+> --- a/xen/include/xen/event.h
+> +++ b/xen/include/xen/event.h
+> @@ -105,6 +105,60 @@ void notify_via_xen_event_channel(struct domain *ld, int lport);
+>  #define bucket_from_port(d, p) \
+>      ((group_from_port(d, p))[((p) % EVTCHNS_PER_GROUP) / EVTCHNS_PER_BUCKET])
+>  
+> +#define EVENT_WRITE_LOCK_INC    INT_MIN
+> +
+> +/*
+> + * Lock an event channel exclusively. This is allowed only with holding
+> + * d->event_lock AND when the channel is free or unbound either when taking
+> + * or when releasing the lock, as any concurrent operation on the event
+> + * channel using evtchn_read_trylock() will just assume the event channel is
+> + * free or unbound at the moment.
 
-> 
->> Therefore, regardless the rest of the discussion, I think this patch
->> would be useful to have for our peace of mind.
-> 
-> That's a fair position to take. My counterargument is mainly
-> that readability (and hence maintainability) suffers with those
-> changes.
+... when the evtchn_read_trylock() returns false.
 
-We surely have different opinion... I don't particularly care about the 
-approach as long as it is *properly* documented.
+> + */
+> +static inline void evtchn_write_lock(struct evtchn *evtchn)
+> +{
+> +    int val;
+> +
+> +    /*
+> +     * The lock can't be held by a writer already, as all writers need to
+> +     * hold d->event_lock.
+> +     */
+> +    ASSERT(atomic_read(&evtchn->lock) >= 0);
+> +
+> +    /* No barrier needed, atomic_add_return() is full barrier. */
+> +    for ( val = atomic_add_return(EVENT_WRITE_LOCK_INC, &evtchn->lock);
+> +          val != EVENT_WRITE_LOCK_INC;
 
-Cheers,
+The _INC suffix is slightly odd for this 2nd use, but I guess
+the dual use will make it so for about any name you may pick.
 
--- 
-Julien Grall
+> +          val = atomic_read(&evtchn->lock) )
+> +        cpu_relax();
+> +}
+> +
+> +static inline void evtchn_write_unlock(struct evtchn *evtchn)
+> +{
+> +    arch_lock_release_barrier();
+> +
+> +    atomic_sub(EVENT_WRITE_LOCK_INC, &evtchn->lock);
+> +}
+> +
+> +static inline bool evtchn_read_trylock(struct evtchn *evtchn)
+> +{
+> +    if ( atomic_read(&evtchn->lock) < 0 )
+> +        return false;
+> +
+> +    /* No barrier needed, atomic_inc_return() is full barrier. */
+> +    if ( atomic_inc_return(&evtchn->lock) >= 0 )
+
+atomic_*_return() return the new value, so I think you mean ">"
+here?
+
+Jan
 
