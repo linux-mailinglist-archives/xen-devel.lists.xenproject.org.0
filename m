@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1566293691
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 10:15:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.8966.24144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48ABD293718
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 10:50:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.8970.24155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUmnv-0000d2-Aw; Tue, 20 Oct 2020 08:15:35 +0000
+	id 1kUnKD-0003IG-V7; Tue, 20 Oct 2020 08:48:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 8966.24144; Tue, 20 Oct 2020 08:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 8970.24155; Tue, 20 Oct 2020 08:48:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,75 +23,181 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUmnv-0000cd-7C; Tue, 20 Oct 2020 08:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 8966;
- Tue, 20 Oct 2020 08:15:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUmnt-0000cY-6H
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 08:15:33 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6c2ee5f0-32e1-4504-874a-3da47fcbb2c5;
- Tue, 20 Oct 2020 08:15:32 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 79859AC6D;
- Tue, 20 Oct 2020 08:15:31 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kUnKD-0003Hv-Rf; Tue, 20 Oct 2020 08:48:57 +0000
+Received: by outflank-mailman (input) for mailman id 8970;
+ Tue, 20 Oct 2020 08:48:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UdfY=D3=oracle.com=john.haxby@srs-us1.protection.inumbo.net>)
+ id 1kUnKC-0003Hq-V4
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 08:48:57 +0000
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d34c97ec-9473-4cef-a996-941de3f98055;
+ Tue, 20 Oct 2020 08:48:54 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8i7rI188082;
+ Tue, 20 Oct 2020 08:48:12 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 347s8msmp0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 20 Oct 2020 08:48:12 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8is45150623;
+ Tue, 20 Oct 2020 08:48:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3030.oracle.com with ESMTP id 348ahw07cp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 20 Oct 2020 08:48:12 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09K8mAEe159753;
+ Tue, 20 Oct 2020 08:48:10 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 348ahw07bh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 20 Oct 2020 08:48:10 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09K8lvTX021447;
+ Tue, 20 Oct 2020 08:47:58 GMT
+Received: from [10.175.164.120] (/10.175.164.120)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 20 Oct 2020 01:47:57 -0700
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUmnt-0000cY-6H
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 08:15:33 +0000
-X-Inumbo-ID: 6c2ee5f0-32e1-4504-874a-3da47fcbb2c5
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 6c2ee5f0-32e1-4504-874a-3da47fcbb2c5;
-	Tue, 20 Oct 2020 08:15:32 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603181731;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5LcSdpqMy4IhpO30RX9eV6Ws/DFikDuqIjDhsqzf0W8=;
-	b=kgPjyDFXCDXNq6FnFRPVAA7+zKAn8tYRRRxrCMuah0Hig6GJXYxjCccKv3/T8fZQqTs4Dy
-	jWejzJa6tNlxZv8OnjMCUeRIGqj7WAtgQpxetyr8sRhc12bgUs4XhrAR1u9LaSNh5IX7Po
-	p3Mu/0xhZW4iO+Pf5YQr9fwAimVirbg=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 79859AC6D;
-	Tue, 20 Oct 2020 08:15:31 +0000 (UTC)
-Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
-To: Dylanger Daly <dylangerdaly@protonmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com>
- <2cc5da3e-0ad0-4647-f1ca-190788c2910b@citrix.com>
- <3pKjdPYCiRimYjqHQP0xd_vqhoTOJqthTXOrY_rLeNvnQEpIF24gXDKgRhmr95JfARJzbVJVbfTrrJeiovGVHGbV0QBSZ2jez2Y_wt6db7g=@protonmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <768d9dbb-4387-099f-b489-7952d7e883b0@suse.com>
-Date: Tue, 20 Oct 2020 10:15:31 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
-MIME-Version: 1.0
-In-Reply-To: <3pKjdPYCiRimYjqHQP0xd_vqhoTOJqthTXOrY_rLeNvnQEpIF24gXDKgRhmr95JfARJzbVJVbfTrrJeiovGVHGbV0QBSZ2jez2Y_wt6db7g=@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+	(envelope-from <SRS0=UdfY=D3=oracle.com=john.haxby@srs-us1.protection.inumbo.net>)
+	id 1kUnKC-0003Hq-V4
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 08:48:57 +0000
+X-Inumbo-ID: d34c97ec-9473-4cef-a996-941de3f98055
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id d34c97ec-9473-4cef-a996-941de3f98055;
+	Tue, 20 Oct 2020 08:48:54 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8i7rI188082;
+	Tue, 20 Oct 2020 08:48:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : message-id :
+ content-type : mime-version : subject : date : in-reply-to : cc : to :
+ references; s=corp-2020-01-29;
+ bh=UBSvDuZX45rcdCwz1yIzvCzCqfd2joSCizhea4x+Xao=;
+ b=q8gn83IPPWdFm1HT3taLhd9DUF/VTUU+yXtsd8f9nD6wriupB19ul4FsqzWGdtIZMcde
+ GW+G9oeRVHaGmJfZ8muagtVwvuWLE6AywXuhak+OXkSgdFP6EIR2H2OqKDUhR7yIW2Vz
+ zpamQMFlTWRfwdWHBA7I0p8HYGgPlEg7NOi5pNpKeOCI5/Zqu82RI3DyvlSb3YeNhNvu
+ 1nAbi2LxPOnr/RtC4QoVHdNGHfdCdQB+x9xvmqx+BqjtbEr8lrxt1aMjIali/bjhTn7W
+ dzqjxrXdOv4FjsFo2kwRKNjQX5RScYby9/qqSUitUFXIKeMy4YBvXYVTZYkhax1TMfnU 0w== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by userp2120.oracle.com with ESMTP id 347s8msmp0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 20 Oct 2020 08:48:12 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8is45150623;
+	Tue, 20 Oct 2020 08:48:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by userp3030.oracle.com with ESMTP id 348ahw07cp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 20 Oct 2020 08:48:12 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09K8mAEe159753;
+	Tue, 20 Oct 2020 08:48:10 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by userp3030.oracle.com with ESMTP id 348ahw07bh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2020 08:48:10 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09K8lvTX021447;
+	Tue, 20 Oct 2020 08:47:58 GMT
+Received: from [10.175.164.120] (/10.175.164.120)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Tue, 20 Oct 2020 01:47:57 -0700
+From: John Haxby <john.haxby@oracle.com>
+Message-Id: <27A23102-A7F5-48C5-8972-48CE4C283C6E@oracle.com>
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
+Subject: Re: [Ocfs2-devel] [RFC] treewide: cleanup unreachable breaks
+Date: Tue, 20 Oct 2020 09:47:45 +0100
+In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
+        clang-built-linux <clang-built-linux@googlegroups.com>,
+        Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
+        nouveau@lists.freedesktop.org, storagedev@microchip.com,
+        dri-devel <dri-devel@lists.freedesktop.org>,
+        virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
+        linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
+        MPT-FusionLinux.pdl@broadcom.com,
+        linux-stm32@st-md-mailman.stormreply.com,
+        usb-storage@lists.one-eyed-alien.net, linux-watchdog@vger.kernel.org,
+        devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-nvdimm <linux-nvdimm@lists.01.org>,
+        amd-gfx list <amd-gfx@lists.freedesktop.org>,
+        linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+        industrypack-devel@lists.sourceforge.net, linux-pci@vger.kernel.org,
+        spice-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+        linux-serial@vger.kernel.org, linux-nfc@lists.01.org,
+        linux-pm@vger.kernel.org, linux-can@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-amlogic@lists.infradead.org,
+        openipmi-developer@lists.sourceforge.net,
+        platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
+        Linux ARM <linux-arm-kernel@lists.infradead.org>,
+        linux-edac@vger.kernel.org, George Burgess <gbiv@google.com>,
+        Network Development <netdev@vger.kernel.org>,
+        linux-usb@vger.kernel.org,
+        linux-wireless <linux-wireless@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        linux-security-module@vger.kernel.org,
+        "open list:HARDWARE RANDOM NUMBER GENERATOR CORE" <linux-crypto@vger.kernel.org>,
+        patches@opensource.cirrus.com, bpf <bpf@vger.kernel.org>,
+        ocfs2-devel@oss.oracle.com, linux-power@fi.rohmeurope.com
+To: Nick Desaulniers <ndesaulniers@google.com>
+References: <20201017160928.12698-1-trix@redhat.com>
+ <20201018054332.GB593954@kroah.com>
+ <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+X-Mailer: Apple Mail (2.3608.120.23.2.4)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 suspectscore=0
+ lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
+ phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010200059
+
+
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 19 Oct 2020, at 20:42, Nick Desaulniers <ndesaulniers@google.com> =
+wrote:
+>=20
+> We probably should add all 3 to W=3D2 builds (wrapped in cc-option).
+> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
+> follow up on.
+
+It looks as though the URL mangling has been fixed.   If anyone sees =
+that specific URL mangled, please let me know.
+
+jch
+
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
 Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
-On 20.10.2020 01:37, Dylanger Daly wrote:
->> This wants reporting (with sufficient data, i.e. at least a serial log)
-> 
-> Hm, I'm not sure there's UART on this Laptop, can I save the boot log somewhere?
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - http://gpgtools.org
 
-If the systems remains sufficiently usable "xl dmesg" will give you
-the log. But you won't be able to get away without a serial-like
-console (USB2 debug port may be an alternative, if you have a
-suitable cable and if the USB topology in the laptop doesn't
-prevent it functioning). Yes, laptops are always problematic in
-this regard.
+iHUEAREIAB0WIQT+pxvb11CFWUkNSOVFC7t+lC+jyAUCX46kMQAKCRBFC7t+lC+j
+yBKiAP90JVXdPzuAwtRGkROpw1eVCo7wCaZ5nOa8Oo0sN6gC9gD/S0eGTqQhmg+n
+sXPJxPYqQsg09qmS6k/HX+AP5Oz2AMo=
+=xx66
+-----END PGP SIGNATURE-----
 
-Jan
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3--
 
