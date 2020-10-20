@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 749072938D9
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 12:06:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9071.24383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC77293948
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 12:38:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9075.24396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUoWr-0003pT-Ds; Tue, 20 Oct 2020 10:06:05 +0000
+	id 1kUp25-0006Xk-RJ; Tue, 20 Oct 2020 10:38:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9071.24383; Tue, 20 Oct 2020 10:06:05 +0000
+Received: by outflank-mailman (output) from mailman id 9075.24396; Tue, 20 Oct 2020 10:38:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,107 +23,137 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUoWr-0003p7-9z; Tue, 20 Oct 2020 10:06:05 +0000
-Received: by outflank-mailman (input) for mailman id 9071;
- Tue, 20 Oct 2020 10:06:03 +0000
+	id 1kUp25-0006XL-No; Tue, 20 Oct 2020 10:38:21 +0000
+Received: by outflank-mailman (input) for mailman id 9075;
+ Tue, 20 Oct 2020 10:38:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUoWp-0003p1-Rg
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:06:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dZuW=D3=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kUp24-0006XG-Ei
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:38:20 +0000
+Received: from mail-ed1-x530.google.com (unknown [2a00:1450:4864:20::530])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 47586c08-a771-4519-ba03-ea7c40b38896;
- Tue, 20 Oct 2020 10:06:01 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C5979B8F2;
- Tue, 20 Oct 2020 10:06:00 +0000 (UTC)
+ id a962fe0b-e350-4eeb-8372-77b2799decca;
+ Tue, 20 Oct 2020 10:38:19 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id t21so1296068eds.6
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Oct 2020 03:38:19 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-230.amazon.com. [54.240.197.230])
+ by smtp.gmail.com with ESMTPSA id g9sm1887628edv.81.2020.10.20.03.38.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 20 Oct 2020 03:38:17 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUoWp-0003p1-Rg
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:06:03 +0000
-X-Inumbo-ID: 47586c08-a771-4519-ba03-ea7c40b38896
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=dZuW=D3=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kUp24-0006XG-Ei
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:38:20 +0000
+X-Inumbo-ID: a962fe0b-e350-4eeb-8372-77b2799decca
+Received: from mail-ed1-x530.google.com (unknown [2a00:1450:4864:20::530])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 47586c08-a771-4519-ba03-ea7c40b38896;
-	Tue, 20 Oct 2020 10:06:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603188360;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VKuxEdiM9Ji36iyr7rdBh7O9VHjAms2kvNny2MEr28s=;
-	b=S5u5hk3vin0Yz2Ak3oultYGGiAFeF56HzMv5m/HGj4gmYI4MHN7HAtxi6j1HSLehHm8h3d
-	rRy4Yfzdr/nRYNohkbMR/WDqlubyDcriISlYJuuNSvDQrbUkw4v6V/0VzoJmRlI0UnEriY
-	69HP1eBz1jR+Q/GR2Jvv3IZ+HAyNe+Y=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C5979B8F2;
-	Tue, 20 Oct 2020 10:06:00 +0000 (UTC)
-Subject: Re: [PATCH v2 1/2] xen/events: access last_priority and last_vcpu_id
- together
-To: Julien Grall <julien@xen.org>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20201012092740.1617-1-jgross@suse.com>
- <20201012092740.1617-2-jgross@suse.com>
- <9485004c-b739-5590-202b-c8e6f84e5e54@suse.com>
- <821a77d3-7e37-d1d2-d904-94db0177893a@suse.com>
- <350a5738-b239-e36b-59aa-05b8f86648b8@suse.com>
- <548f80a9-0fa3-cd9e-ec44-5cd37d98eadc@xen.org>
- <4f4ecc8d-f5d2-81e9-1615-0f2925b928ba@suse.com>
- <4b77ba6d-bf49-7286-8f2a-53f7b2e7d122@xen.org>
- <4eb073bb-67ca-5376-bae1-e555d3c5fb30@suse.com>
- <2eb42b0e-f31e-2c1e-28bf-32c366fb1688@xen.org>
- <abaf4b52-df8d-6df0-9100-a4c9884c09da@suse.com>
- <244a4487-044b-5813-dd03-fe4ff5aac3b3@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6ff40bdc-69f5-2746-a163-c9376d497e49@suse.com>
-Date: Tue, 20 Oct 2020 12:06:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	id a962fe0b-e350-4eeb-8372-77b2799decca;
+	Tue, 20 Oct 2020 10:38:19 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id t21so1296068eds.6
+        for <xen-devel@lists.xenproject.org>; Tue, 20 Oct 2020 03:38:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=j3qlUyBmKXWhPcO4B44JdevayqvreT7vzraRFkngAJM=;
+        b=lr9eO/yjwgM2j9hlfCDgaFQydxTjPObKYevUXLK7IGV2bGTQixUZGWB7b/ZDuv22vY
+         Ew2VdHB1hIBg+6HGUwE63YnISNfixEIxAJkDHWi6LBfCCE+Pjt/uU0NTuYArFWPdRyfC
+         tkYz67XVaYH0POhHSqogZggo2VYotO8GPEpyKCwSP0T67+RELAT6MZV6U56Xz7dQ7n/v
+         rI2W9PqOKtqhICedoXaNuEDB+dWLclml8JaEMJsvlrrUHDlXC1WGg8Z871jy6civBQS6
+         blAfXq7LcTvX01dpn/xztsx6ZxS+0mDqcolq8m8ZjwXAiR4w1BWDsT2jZue0tM/jYJaj
+         cMHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=j3qlUyBmKXWhPcO4B44JdevayqvreT7vzraRFkngAJM=;
+        b=KM2FWv3M7FxbSe+OSmxR52cgWByEpMj5+wlSAKkDFDO2MHALXbp/LZQpv85+vZ6rr/
+         yTc5fC1BuflPnUSoV7q7ugrJYrvvbQ0Fd/Ek0TrnK4wLedzwK18yL0Z/miOxIA/A0A+y
+         h/aVcd/iwvc2g1RFwnQRWqBbZI6klwK7t8Qzm6uXryfji3cd4qeK9hOZOqUYx1j9lwgR
+         qdwcJw1m2GLdtMx24MYJrMn2cxNNCDt4mIBivl6AqnbkyrgsGojCfcGTCHVQiy6H/nzm
+         4GSQ1GzE6b67G3MzkxFVgwwkS6P4GMmcGntrzNIWWaeEkKikJKFcJrr/SQf3O1saYn4o
+         h0kg==
+X-Gm-Message-State: AOAM532qJAcE6dBDWFon8K553F7X7RmelLRD6Vld8sz8O+On8+/iDRq6
+	Did7nRewaruN4mXJ9+bPFfc=
+X-Google-Smtp-Source: ABdhPJzWTlmfDDy3ot2+SujuF15GMmeKMUhcZqFEXGfgSfHdN0gxL1nfWIAH0in6xFaAQIVu8jMtxA==
+X-Received: by 2002:a05:6402:22cb:: with SMTP id dm11mr2100443edb.23.1603190298332;
+        Tue, 20 Oct 2020 03:38:18 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-230.amazon.com. [54.240.197.230])
+        by smtp.gmail.com with ESMTPSA id g9sm1887628edv.81.2020.10.20.03.38.15
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 20 Oct 2020 03:38:17 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
+Cc: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>,
+	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Julien Grall'" <julien.grall@arm.com>
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-5-git-send-email-olekstysh@gmail.com> <004701d6a6c1$6c09f860$441de920$@xen.org> <38ba45dd-f1cd-a289-3ea3-75148782e126@suse.com>
+In-Reply-To: <38ba45dd-f1cd-a289-3ea3-75148782e126@suse.com>
+Subject: RE: [PATCH V2 04/23] xen/ioreq: Provide alias for the handle_mmio()
+Date: Tue, 20 Oct 2020 11:38:15 +0100
+Message-ID: <004a01d6a6cd$1f4684b0$5dd38e10$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <244a4487-044b-5813-dd03-fe4ff5aac3b3@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAG4T9I6AbhrsZgB8lcTCapNMgiw
+Content-Language: en-gb
 
-On 20.10.2020 12:01, Julien Grall wrote:
-> 
-> 
-> On 20/10/2020 10:34, Jan Beulich wrote:
->> On 20.10.2020 11:25, Julien Grall wrote:
->>> Given that evtchn->last_vcpu_id and evtchn->last_priority can only be
->>> modified in evtchn_fifo_set_pending(), this suggests that it is expected
->>> for the function to multiple called concurrently on the same event channel.
->>>
->>>> I'm unconvinced it was really considered
->>>> whether racing sending on the same channel is also safe this way.
->>>
->>> How would you explain the 3 try in lock_old_queue then?
->>
->> Queue changes (as said by the gprintk()) can't result from sending
->> alone, but require re-binding to a different vCPU or altering the
->> priority. 
-> 
-> I agree with that. However, this doesn't change the fact that update to 
-> evtchn->last_priority and evtchn->last_vcpu can only happen when calling 
-> evtchn_fifo_set_pending().
-> 
-> If evtchn_fifo_set_pending() cannot be called concurrently for the same 
-> event, then there is *no* way for evtchn->last_{priority, vcpu} to be 
-> updated concurrently.
-> 
->> I'm simply unconvinced that the code indeed fully reflects
->> the original intentions. 
-> 
-> Do you mind (re-)sharing what was the original intentions?
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 20 October 2020 11:05
+> To: paul@xen.org
+> Cc: 'Oleksandr Tyshchenko' <olekstysh@gmail.com>; =
+xen-devel@lists.xenproject.org; 'Oleksandr
+> Tyshchenko' <oleksandr_tyshchenko@epam.com>; 'Andrew Cooper' =
+<andrew.cooper3@citrix.com>; 'Roger Pau
+> Monn=C3=A9' <roger.pau@citrix.com>; 'Wei Liu' <wl@xen.org>; 'Julien =
+Grall' <julien@xen.org>; 'Stefano
+> Stabellini' <sstabellini@kernel.org>; 'Julien Grall' =
+<julien.grall@arm.com>
+> Subject: Re: [PATCH V2 04/23] xen/ioreq: Provide alias for the =
+handle_mmio()
+>=20
+> On 20.10.2020 11:14, Paul Durrant wrote:
+> >> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf =
+Of Oleksandr Tyshchenko
+> >> Sent: 15 October 2020 17:44
+> >>
+> >> --- a/xen/include/asm-x86/hvm/ioreq.h
+> >> +++ b/xen/include/asm-x86/hvm/ioreq.h
+> >> @@ -181,6 +181,8 @@ static inline bool =
+arch_hvm_ioreq_destroy(struct domain *d)
+> >>  #define IOREQ_STATUS_UNHANDLED   X86EMUL_UNHANDLEABLE
+> >>  #define IOREQ_STATUS_RETRY       X86EMUL_RETRY
+> >>
+> >> +#define ioreq_complete_mmio   handle_mmio
+> >> +
+> >
+> > A #define? Really? Can we not have a static inline?
+>=20
+> I guess this would require further shuffling: handle_mmio() is
+> an inline function in hvm/emulate.h, and hvm/ioreq.h has no
+> need to include the former (and imo it also shouldn't have).
+>=20
 
-If only I knew, I would.
+I see. I think we need an x86 ioreq.c anyway, to deal with the legacy =
+use of magic pages, so it could be dealt with there instead.
 
-Jan
+  Paul
+
+> Jan
+
 
