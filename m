@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D2C293DCE
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 15:53:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9636.25300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D91293DCF
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 15:53:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9639.25313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUs4V-0007XW-Lf; Tue, 20 Oct 2020 13:53:03 +0000
+	id 1kUs5H-0007hx-4y; Tue, 20 Oct 2020 13:53:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9636.25300; Tue, 20 Oct 2020 13:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 9639.25313; Tue, 20 Oct 2020 13:53:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,56 +23,50 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUs4V-0007X7-IM; Tue, 20 Oct 2020 13:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 9636;
- Tue, 20 Oct 2020 13:53:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kUs5H-0007hW-1K; Tue, 20 Oct 2020 13:53:51 +0000
+Received: by outflank-mailman (input) for mailman id 9639;
+ Tue, 20 Oct 2020 13:53:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUs4U-0007X2-Oy
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 13:53:02 +0000
+ id 1kUs5F-0007hP-V8
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 13:53:49 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c6eaa1f2-b3da-41c5-b272-ccffa42e1654;
- Tue, 20 Oct 2020 13:53:01 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8890cbd1-8e0e-4596-9656-c4e317b1876b;
+ Tue, 20 Oct 2020 13:53:49 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C6C9BB2A1;
- Tue, 20 Oct 2020 13:53:00 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id 4DD88AD12;
+ Tue, 20 Oct 2020 13:53:48 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUs4U-0007X2-Oy
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 13:53:02 +0000
-X-Inumbo-ID: c6eaa1f2-b3da-41c5-b272-ccffa42e1654
+	id 1kUs5F-0007hP-V8
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 13:53:49 +0000
+X-Inumbo-ID: 8890cbd1-8e0e-4596-9656-c4e317b1876b
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c6eaa1f2-b3da-41c5-b272-ccffa42e1654;
-	Tue, 20 Oct 2020 13:53:01 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 8890cbd1-8e0e-4596-9656-c4e317b1876b;
+	Tue, 20 Oct 2020 13:53:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603201980;
+	t=1603202028;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=Qw9DdLlTTRCZ41LkBf5W6P/I4UyBKlxJ/5Koa8Aym5M=;
-	b=uD9eaGvggrXjd/5iMNhKtudPbBweYTK0gPxxaRBPCvGy2CItogPjgsU+H0cmg3u8Cc0m07
-	fwQADUANEXGICwgJ1pE7TLBs2o6hnhiYsHXHmmJ4nrYd8ajasCaw/JW/HdCVvZ99AQ3m7Z
-	BstQu+kh/GBTP8KHEmjAhsObnFApJbw=
+	bh=zsOTH7fEV0oWzw80gGikZZVHCHk5yVvlPuzIis7q6zY=;
+	b=OwkHY/Y+ZLh48rMgV+kXwaGMbdC+1OaQla/ALCsaf4/UJJ2+W8dsMwYEgE3X+2fo1BuWC5
+	DnsSdRGqzynFqQx+87In4C5tfnbI/7cD5/dZYUbC77KwV7eMcVvmU7DTLXWeU6dGmVMT1Z
+	WYQbheMWfANq9V6mhNbmtcR801u2UpE=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C6C9BB2A1;
-	Tue, 20 Oct 2020 13:53:00 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 4DD88AD12;
+	Tue, 20 Oct 2020 13:53:48 +0000 (UTC)
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Paul Durrant <paul@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] IOMMU: avoid double flushing in shared page table case
-Message-ID: <e54f4fbb-92e2-9785-8648-596c615213a2@suse.com>
-Date: Tue, 20 Oct 2020 15:52:59 +0200
+Subject: [PATCH] AMD/IOMMU: correct shattering of super pages
+Message-ID: <7b8ad528-b0bd-4d93-f08b-42b5af376561@suse.com>
+Date: Tue, 20 Oct 2020 15:53:48 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
@@ -80,53 +74,109 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-While the flush coalescing optimization has been helping the non-shared
-case, it has actually lead to double flushes in the shared case (which
-ought to be the more common one nowadays at least): Once from
-*_set_entry() and a second time up the call tree from wherever the
-overriding flag gets played with. In alignment with XSA-346 suppress
-flushing in this case.
+Fill the new page table _before_ installing into a live page table
+hierarchy, as installing a blank page first risks I/O faults on
+sub-ranges of the original super page which aren't part of the range
+for which mappings are being updated.
 
-Similarly avoid excessive setting of IOMMU_FLUSHF_added on the batched
-flushes: "idx" hasn't been added a new mapping for.
+While at it also do away with mapping and unmapping the same fresh
+intermediate page table page once per entry to be written.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-TBD: The Arm part really is just for completeness (and hence could also
-     be dropped) - the affected mapping spaces aren't currently
-     supported there.
+Afaict this corrects presently dead code: I don't think there are ways
+for super pages to be created in the first place, i.e. none could ever
+need shattering.
 
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1045,7 +1045,7 @@ static int __p2m_set_entry(struct p2m_do
-         p2m->lowest_mapped_gfn = gfn_min(p2m->lowest_mapped_gfn, sgfn);
+--- a/xen/drivers/passthrough/amd/iommu_map.c
++++ b/xen/drivers/passthrough/amd/iommu_map.c
+@@ -81,19 +81,34 @@ static unsigned int set_iommu_pde_presen
+     return flush_flags;
+ }
+ 
+-static unsigned int set_iommu_pte_present(unsigned long pt_mfn,
+-                                          unsigned long dfn,
+-                                          unsigned long next_mfn,
+-                                          int pde_level,
+-                                          bool iw, bool ir)
++static unsigned int set_iommu_ptes_present(unsigned long pt_mfn,
++                                           unsigned long dfn,
++                                           unsigned long next_mfn,
++                                           unsigned int nr_ptes,
++                                           unsigned int pde_level,
++                                           bool iw, bool ir)
+ {
+     union amd_iommu_pte *table, *pde;
+-    unsigned int flush_flags;
++    unsigned int page_sz, flush_flags = 0;
+ 
+     table = map_domain_page(_mfn(pt_mfn));
+     pde = &table[pfn_to_pde_idx(dfn, pde_level)];
++    page_sz = 1U << (PTE_PER_TABLE_SHIFT * (pde_level - 1));
++
++    if ( (void *)(pde + nr_ptes) > (void *)table + PAGE_SIZE )
++    {
++        ASSERT_UNREACHABLE();
++        return 0;
++    }
++
++    while ( nr_ptes-- )
++    {
++        flush_flags |= set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
++
++        ++pde;
++        next_mfn += page_sz;
++    }
+ 
+-    flush_flags = set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
+     unmap_domain_page(table);
+ 
+     return flush_flags;
+@@ -220,11 +235,8 @@ static int iommu_pde_from_dfn(struct dom
+         /* Split super page frame into smaller pieces.*/
+         if ( pde->pr && !pde->next_level && next_table_mfn )
+         {
+-            int i;
+             unsigned long mfn, pfn;
+-            unsigned int page_sz;
+ 
+-            page_sz = 1 << (PTE_PER_TABLE_SHIFT * (next_level - 1));
+             pfn =  dfn & ~((1 << (PTE_PER_TABLE_SHIFT * next_level)) - 1);
+             mfn = next_table_mfn;
+ 
+@@ -238,17 +250,13 @@ static int iommu_pde_from_dfn(struct dom
+             }
+ 
+             next_table_mfn = mfn_x(page_to_mfn(table));
++
++            set_iommu_ptes_present(next_table_mfn, pfn, mfn, PTE_PER_TABLE_SIZE,
++                                   next_level, true, true);
++            smp_wmb();
+             set_iommu_pde_present(pde, next_table_mfn, next_level, true,
+                                   true);
+ 
+-            for ( i = 0; i < PTE_PER_TABLE_SIZE; i++ )
+-            {
+-                set_iommu_pte_present(next_table_mfn, pfn, mfn, next_level,
+-                                      true, true);
+-                mfn += page_sz;
+-                pfn += page_sz;
+-             }
+-
+             amd_iommu_flush_all_pages(d);
+         }
+ 
+@@ -318,9 +326,9 @@ int amd_iommu_map_page(struct domain *d,
      }
  
--    if ( is_iommu_enabled(p2m->domain) &&
-+    if ( is_iommu_enabled(p2m->domain) && !this_cpu(iommu_dont_flush_iotlb) &&
-          (lpae_is_valid(orig_pte) || lpae_is_valid(*entry)) )
-     {
-         unsigned int flush_flags = 0;
---- a/xen/arch/x86/mm/p2m-ept.c
-+++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -842,7 +842,7 @@ out:
-     if ( rc == 0 && p2m_is_hostp2m(p2m) &&
-          need_modify_vtd_table )
-     {
--        if ( iommu_use_hap_pt(d) )
-+        if ( iommu_use_hap_pt(d) && !this_cpu(iommu_dont_flush_iotlb) )
-             rc = iommu_iotlb_flush(d, _dfn(gfn), 1ul << order,
-                                    (iommu_flags ? IOMMU_FLUSHF_added : 0) |
-                                    (vtd_pte_present ? IOMMU_FLUSHF_modified
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -870,7 +870,7 @@ int xenmem_add_to_physmap(struct domain
-         this_cpu(iommu_dont_flush_iotlb) = 0;
+     /* Install 4k mapping */
+-    *flush_flags |= set_iommu_pte_present(pt_mfn[1], dfn_x(dfn), mfn_x(mfn),
+-                                          1, (flags & IOMMUF_writable),
+-                                          (flags & IOMMUF_readable));
++    *flush_flags |= set_iommu_ptes_present(pt_mfn[1], dfn_x(dfn), mfn_x(mfn),
++                                           1, 1, (flags & IOMMUF_writable),
++                                           (flags & IOMMUF_readable));
  
-         ret = iommu_iotlb_flush(d, _dfn(xatp->idx - done), done,
--                                IOMMU_FLUSHF_added | IOMMU_FLUSHF_modified);
-+                                IOMMU_FLUSHF_modified);
-         if ( unlikely(ret) && rc >= 0 )
-             rc = ret;
+     spin_unlock(&hd->arch.mapping_lock);
  
 
