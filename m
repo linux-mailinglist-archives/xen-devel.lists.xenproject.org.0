@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12E0329394B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 12:41:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9079.24408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E3F293950
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 12:44:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9082.24420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUp50-0007Lf-9r; Tue, 20 Oct 2020 10:41:22 +0000
+	id 1kUp7h-0007X4-Nx; Tue, 20 Oct 2020 10:44:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9079.24408; Tue, 20 Oct 2020 10:41:22 +0000
+Received: by outflank-mailman (output) from mailman id 9082.24420; Tue, 20 Oct 2020 10:44:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,183 +23,201 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUp50-0007LG-6H; Tue, 20 Oct 2020 10:41:22 +0000
-Received: by outflank-mailman (input) for mailman id 9079;
- Tue, 20 Oct 2020 10:41:21 +0000
+	id 1kUp7h-0007Wf-KK; Tue, 20 Oct 2020 10:44:09 +0000
+Received: by outflank-mailman (input) for mailman id 9082;
+ Tue, 20 Oct 2020 10:44:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dZuW=D3=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kUp4z-0007LB-3C
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:41:21 +0000
-Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ryym=D3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kUp7g-0007Vw-CT
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:44:08 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.219])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0cc6fc9e-57af-4ccc-8e40-b2248c23c285;
- Tue, 20 Oct 2020 10:41:20 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id e22so1958841ejr.4
- for <xen-devel@lists.xenproject.org>; Tue, 20 Oct 2020 03:41:20 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-230.amazon.com. [54.240.197.230])
- by smtp.gmail.com with ESMTPSA id v2sm2000163ejh.57.2020.10.20.03.41.18
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 20 Oct 2020 03:41:18 -0700 (PDT)
+ id e1eabbd5-69bf-4743-bda4-65d4484bed17;
+ Tue, 20 Oct 2020 10:44:06 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.2.1 DYNA|AUTH)
+ with ESMTPSA id e003b5w9KAhuBan
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 20 Oct 2020 12:43:56 +0200 (CEST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dZuW=D3=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kUp4z-0007LB-3C
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:41:21 +0000
-X-Inumbo-ID: 0cc6fc9e-57af-4ccc-8e40-b2248c23c285
-Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
+	(envelope-from <SRS0=Ryym=D3=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+	id 1kUp7g-0007Vw-CT
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 10:44:08 +0000
+X-Inumbo-ID: e1eabbd5-69bf-4743-bda4-65d4484bed17
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.219])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0cc6fc9e-57af-4ccc-8e40-b2248c23c285;
-	Tue, 20 Oct 2020 10:41:20 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id e22so1958841ejr.4
-        for <xen-devel@lists.xenproject.org>; Tue, 20 Oct 2020 03:41:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=jMMJAuqMJd9IwVqmRHD9s4S3XfgSMs6de7upEmAz9ms=;
-        b=XocC9RKzCwbr5Y2Xe3XjxoLhS6G71tzSLhFVF+8vmAfEwbWph4Xr7CYoPy+c3l9Cjw
-         HmPUz8FEqSkvFpZQ+lvsusotJXB6JWH6mBkNJAobtRaWKJow0i3/Q19QHt4iDzTh8FNv
-         2FOXdlnPl0gipwTPgMHQXXQRjgOwWR+JcE5PrimYbNdtiugGuPi//qzawJwjR3Gf0Udo
-         C3aI3Pm32Gpmx27Zmgs8D1R9A0K9/pzYcN+BTQdUVAj0fbjYzgrqpGSyerFl83TnYgxA
-         k7RDinNVAjmcP0ving3Y12HDt9FhjDimTLBDOFYqK2ZJzUuPK/U4QCZZdx4sWrNPHfpR
-         +jEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=jMMJAuqMJd9IwVqmRHD9s4S3XfgSMs6de7upEmAz9ms=;
-        b=OhkhGuYeICpIXdmPKQrLdcKP4elEoTXy/3Zi3K9NUoMkrBOT91OKWe7m/+kSxvRIR4
-         6yiNy7UBP4tR38eEuXu0psOOnybbaDaqUsohUc8rMp50WmBz5hxQdIwaSUJMhA1p66tq
-         yQjYXC1fmlFPCtDBFINWdKc6YR9PqON/K6X7G/kPQQsbHw/kAE7+jQaQwH/KIhL5K8nr
-         5SJ9QAh+eJD8DM+JHRidM5lz7JsUSrX3Yhxw5xk0N9blpcFTaq0QfUgf7DKUE5KW13DT
-         cBCG4qsdM6CqBu5xOBYiur64NkGeluwabpcSno+4qk5yvTaLg93PoYibSG14DwMU8lLj
-         jD8w==
-X-Gm-Message-State: AOAM531b0+33SZ8fHpjNmyGo8rl6bYlFJu7ab2Nv5AQ9RT/5G2Uz3njR
-	LQa1kEVscFAKF+fDhXU7CCk=
-X-Google-Smtp-Source: ABdhPJyUVMVtvA5KSETiwHrRy/IApkaY7X05GHs1FxJMaRXedpHnjS5KY7uxC42I3lFy80mFpg1wdA==
-X-Received: by 2002:a17:906:52c6:: with SMTP id w6mr2299919ejn.199.1603190479392;
-        Tue, 20 Oct 2020 03:41:19 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-230.amazon.com. [54.240.197.230])
-        by smtp.gmail.com with ESMTPSA id v2sm2000163ejh.57.2020.10.20.03.41.18
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Oct 2020 03:41:18 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
-	"'Jan Beulich'" <jbeulich@suse.com>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Julien Grall'" <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-9-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1602780274-29141-9-git-send-email-olekstysh@gmail.com>
-Subject: RE: [PATCH V2 08/23] xen/ioreq: Introduce ioreq_params to abstract accesses to arch.hvm.params
-Date: Tue, 20 Oct 2020 11:41:17 +0100
-Message-ID: <004c01d6a6cd$8b3e22e0$a1ba68a0$@xen.org>
+	id e1eabbd5-69bf-4743-bda4-65d4484bed17;
+	Tue, 20 Oct 2020 10:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603190645;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+	Subject:Sender;
+	bh=BeKfgTRL0Ve2EEdsp0Vygx0an64RH8IwvMCvdkEBUoY=;
+	b=kmJfs6ro+FNdeSpJoN+Nn4osjKExM+WW54RKpRn8Al3mBfaZupSGlfsMS0ds9gPFng
+	OF7kIVE2tRosj/knsnnFpa+LIjRNPZ76SeACypioaIec1oRZRxJzaE3lwY+CUk5JJrG8
+	CskaUYwY7xe84ajK0KUHgTkihX1mIU9TxOI0U+3S+0og0I96IRrw5pATcocHLmj7fcLQ
+	uMKFgerb6Qx6484VxxkCfZRyGvkKUKkRp++ZKgkIpaSonwgBseZGwmlDROGjswzBFCxc
+	u+UKJhmdS06adYwAcJa1mEWrMoHUL33FHCA1BmuJ2K1zZ0ts8IfKH6KYFm1UtVBalRJD
+	R0IA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Jjw=="
+X-RZG-CLASS-ID: mo00
+Received: from sender
+	by smtp.strato.de (RZmta 47.2.1 DYNA|AUTH)
+	with ESMTPSA id e003b5w9KAhuBan
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+	(Client did not present a certificate);
+	Tue, 20 Oct 2020 12:43:56 +0200 (CEST)
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1] xl: optionally print timestamps during xl migrate
+Date: Tue, 20 Oct 2020 12:43:53 +0200
+Message-Id: <20201020104353.13425-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAHfL4kBqmlR/vA=
-Content-Language: en-gb
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-> Sent: 15 October 2020 17:44
-> To: xen-devel@lists.xenproject.org
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant =
-<paul@xen.org>; Jan Beulich
-> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
-Pau Monn=C3=A9
-> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; Julien Grall =
-<julien@xen.org>; Stefano Stabellini
-> <sstabellini@kernel.org>; Julien Grall <julien.grall@arm.com>
-> Subject: [PATCH V2 08/23] xen/ioreq: Introduce ioreq_params to =
-abstract accesses to arch.hvm.params
->=20
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->=20
-> We don't want to move HVM params field out of *arch.hvm* in this =
-particular
-> case as although it stores a few IOREQ params, it is not a =
-(completely)
-> IOREQ stuff and is specific to the architecture. Instead, abstract
-> accesses by the proposed macro.
->=20
-> This is a follow up action to reduce layering violation in the common =
-code.
->=20
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> CC: Julien Grall <julien.grall@arm.com>
->=20
+During 'xl -v.. migrate domU host' a large amount of debug is generated.
+It is difficult to map each line to the sending and receiving side.
+Also the time spent for migration is not reported.
 
-Keeping the 'legacy' magic page code under an x86 ioreq.c would avoid =
-the need for this patch.
+With 'xl migrate -T domU host' both sides will print timestamps and
+also the pid of the invoked xl process to make it more obvious which
+side produced a given log line.
 
-  Paul
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ docs/man/xl.1.pod.in   |  4 ++++
+ tools/xl/xl_cmdtable.c |  1 +
+ tools/xl/xl_migrate.c  | 25 +++++++++++++++++++++----
+ 3 files changed, 26 insertions(+), 4 deletions(-)
 
-> ---
-> Please note, this is a split/cleanup/hardening of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
->=20
-> Changes V1 -> V2:
->    - new patch
-> ---
->  xen/common/ioreq.c               | 4 ++--
->  xen/include/asm-x86/hvm/domain.h | 2 ++
->  2 files changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-> index 7f91bc2..a07f1d7 100644
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -223,7 +223,7 @@ static gfn_t hvm_alloc_legacy_ioreq_gfn(struct =
-ioreq_server *s)
->      for ( i =3D HVM_PARAM_IOREQ_PFN; i <=3D HVM_PARAM_BUFIOREQ_PFN; =
-i++ )
->      {
->          if ( !test_and_clear_bit(i, &d->ioreq_gfn.legacy_mask) )
-> -            return _gfn(d->arch.hvm.params[i]);
-> +            return _gfn(ioreq_params(d, i));
->      }
->=20
->      return INVALID_GFN;
-> @@ -255,7 +255,7 @@ static bool hvm_free_legacy_ioreq_gfn(struct =
-ioreq_server *s,
->=20
->      for ( i =3D HVM_PARAM_IOREQ_PFN; i <=3D HVM_PARAM_BUFIOREQ_PFN; =
-i++ )
->      {
-> -        if ( gfn_eq(gfn, _gfn(d->arch.hvm.params[i])) )
-> +        if ( gfn_eq(gfn, _gfn(ioreq_params(d, i))) )
->               break;
->      }
->      if ( i > HVM_PARAM_BUFIOREQ_PFN )
-> diff --git a/xen/include/asm-x86/hvm/domain.h =
-b/xen/include/asm-x86/hvm/domain.h
-> index 5d60737..c3af339 100644
-> --- a/xen/include/asm-x86/hvm/domain.h
-> +++ b/xen/include/asm-x86/hvm/domain.h
-> @@ -63,6 +63,8 @@ struct hvm_pi_ops {
->      void (*vcpu_block)(struct vcpu *);
->  };
->=20
-> +#define ioreq_params(d, i) ((d)->arch.hvm.params[i])
-> +
->  struct hvm_domain {
->      /* Cached CF8 for guest PCI config cycles */
->      uint32_t                pci_cf8;
-> --
-> 2.7.4
-
-
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index 5f7d3a7134..4bde0672fa 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -482,6 +482,10 @@ domain. See the corresponding option of the I<create> subcommand.
+ Send the specified <config> file instead of the file used on creation of the
+ domain.
+ 
++=item B<-T>
++
++Include timestamps in output.
++
+ =item B<--debug>
+ 
+ Display huge (!) amount of debug information during the migration process.
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index 7da6c1b927..fd2dc0aef2 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -167,6 +167,7 @@ struct cmd_spec cmd_table[] = {
+       "                migrate-receive [-d -e]\n"
+       "-e              Do not wait in the background (on <host>) for the death\n"
+       "                of the domain.\n"
++      "-T              Show timestamps during the migration process.\n"
+       "--debug         Print huge (!) amount of debug during the migration process.\n"
+       "-p              Do not unpause domain after migrating it.\n"
+       "-D              Preserve the domain id"
+diff --git a/tools/xl/xl_migrate.c b/tools/xl/xl_migrate.c
+index 0813beb801..856a6e2be1 100644
+--- a/tools/xl/xl_migrate.c
++++ b/tools/xl/xl_migrate.c
+@@ -32,6 +32,8 @@
+ 
+ #ifndef LIBXL_HAVE_NO_SUSPEND_RESUME
+ 
++static bool timestamps;
++
+ static pid_t create_migration_child(const char *rune, int *send_fd,
+                                         int *recv_fd)
+ {
+@@ -187,6 +189,7 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
+     char rc_buf;
+     uint8_t *config_data;
+     int config_len, flags = LIBXL_SUSPEND_LIVE;
++    unsigned xtl_flags = XTL_STDIOSTREAM_HIDE_PROGRESS;
+ 
+     save_domain_core_begin(domid, preserve_domid, override_config_file,
+                            &config_data, &config_len);
+@@ -202,7 +205,9 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
+     migrate_do_preamble(send_fd, recv_fd, child, config_data, config_len,
+                         rune);
+ 
+-    xtl_stdiostream_adjust_flags(logger, XTL_STDIOSTREAM_HIDE_PROGRESS, 0);
++    if (timestamps)
++        xtl_flags |= XTL_STDIOSTREAM_SHOW_DATE | XTL_STDIOSTREAM_SHOW_PID;
++    xtl_stdiostream_adjust_flags(logger, xtl_flags, 0);
+ 
+     if (debug)
+         flags |= LIBXL_SUSPEND_DEBUG;
+@@ -328,6 +333,11 @@ static void migrate_receive(int debug, int daemonize, int monitor,
+     char rc_buf;
+     char *migration_domname;
+     struct domain_create dom_info;
++    unsigned xtl_flags = 0;
++
++    if (timestamps)
++        xtl_flags |= XTL_STDIOSTREAM_SHOW_DATE | XTL_STDIOSTREAM_SHOW_PID;
++    xtl_stdiostream_adjust_flags(logger, xtl_flags, 0);
+ 
+     signal(SIGPIPE, SIG_IGN);
+     /* if we get SIGPIPE we'd rather just have it as an error */
+@@ -491,7 +501,7 @@ int main_migrate_receive(int argc, char **argv)
+         COMMON_LONG_OPTS
+     };
+ 
+-    SWITCH_FOREACH_OPT(opt, "Fedrp", opts, "migrate-receive", 0) {
++    SWITCH_FOREACH_OPT(opt, "FedrpT", opts, "migrate-receive", 0) {
+     case 'F':
+         daemonize = 0;
+         break;
+@@ -517,6 +527,9 @@ int main_migrate_receive(int argc, char **argv)
+     case 'p':
+         pause_after_migration = 1;
+         break;
++    case 'T':
++        timestamps = 1;
++        break;
+     }
+ 
+     if (argc-optind != 0) {
+@@ -545,7 +558,7 @@ int main_migrate(int argc, char **argv)
+         COMMON_LONG_OPTS
+     };
+ 
+-    SWITCH_FOREACH_OPT(opt, "FC:s:epD", opts, "migrate", 2) {
++    SWITCH_FOREACH_OPT(opt, "FC:s:eTpD", opts, "migrate", 2) {
+     case 'C':
+         config_filename = optarg;
+         break;
+@@ -559,6 +572,9 @@ int main_migrate(int argc, char **argv)
+         daemonize = 0;
+         monitor = 0;
+         break;
++    case 'T':
++        timestamps = 1;
++        break;
+     case 'p':
+         pause_after_migration = 1;
+         break;
+@@ -592,11 +608,12 @@ int main_migrate(int argc, char **argv)
+         } else {
+             verbose_len = (minmsglevel_default - minmsglevel) + 2;
+         }
+-        xasprintf(&rune, "exec %s %s xl%s%.*s migrate-receive%s%s%s",
++        xasprintf(&rune, "exec %s %s xl%s%.*s migrate-receive%s%s%s%s",
+                   ssh_command, host,
+                   pass_tty_arg ? " -t" : "",
+                   verbose_len, verbose_buf,
+                   daemonize ? "" : " -e",
++                  timestamps ? " -T" : "",
+                   debug ? " -d" : "",
+                   pause_after_migration ? " -p" : "");
+     }
 
