@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A37B293E4B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 16:10:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9661.25409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 224A8293E55
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 16:11:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9667.25420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUsL6-0001qu-I6; Tue, 20 Oct 2020 14:10:12 +0000
+	id 1kUsLq-00020y-R0; Tue, 20 Oct 2020 14:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9661.25409; Tue, 20 Oct 2020 14:10:12 +0000
+Received: by outflank-mailman (output) from mailman id 9667.25420; Tue, 20 Oct 2020 14:10:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,47 +23,46 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUsL6-0001qV-E2; Tue, 20 Oct 2020 14:10:12 +0000
-Received: by outflank-mailman (input) for mailman id 9661;
- Tue, 20 Oct 2020 14:10:11 +0000
+	id 1kUsLq-00020Y-O0; Tue, 20 Oct 2020 14:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 9667;
+ Tue, 20 Oct 2020 14:10:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kUsL5-0001qB-4T
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 14:10:11 +0000
+ id 1kUsLp-00020L-7E
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 14:10:57 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee25d3e3-9aa1-48b8-ba7d-0f64b2da3bad;
- Tue, 20 Oct 2020 14:10:10 +0000 (UTC)
+ id d8ab37ee-23aa-4929-9bc3-89900844491d;
+ Tue, 20 Oct 2020 14:10:55 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 763AEAC6A;
- Tue, 20 Oct 2020 14:10:09 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2EBC7AC6A;
+ Tue, 20 Oct 2020 14:10:55 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=oMcx=D3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kUsL5-0001qB-4T
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 14:10:11 +0000
-X-Inumbo-ID: ee25d3e3-9aa1-48b8-ba7d-0f64b2da3bad
+	id 1kUsLp-00020L-7E
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 14:10:57 +0000
+X-Inumbo-ID: d8ab37ee-23aa-4929-9bc3-89900844491d
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ee25d3e3-9aa1-48b8-ba7d-0f64b2da3bad;
-	Tue, 20 Oct 2020 14:10:10 +0000 (UTC)
+	id d8ab37ee-23aa-4929-9bc3-89900844491d;
+	Tue, 20 Oct 2020 14:10:55 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603203009;
+	t=1603203055;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iO8TnTaJzqrD1+b+3oC7Ha3LDiV5w9SikaRO6jqv6D8=;
-	b=m+cpOEI8+QL1qSwSA+pUH3g+065t4UMNLiXsXQZfVsSuQPB2/p5GPg3eh0uDqLpgKt0qrn
-	8prfLLpi5eJrPMxWw3O7z004Ix+Z1IN3GVfGuePr0NWjK3iHNDBRa3pRsPCFcY2lMExyQM
-	sa6IlUfPwkFIllZyYWME4leEOkDm8cQ=
+	bh=htCKeLk050dUSTPkbNMbWkMtxwQVWeeYQPtwH2yDG7s=;
+	b=XQDD2rgF+nL8IETAnhFBJqQXLoRjN5PBxYjw/Z+puWmois3/RhdAXqzeqFefDZDN69dJHc
+	sEPPhn3rLphXG9K1Nv28fWAh2QnJQ4+NHu3T8fSJGDYXQuQmKTPQYsxlWRPPQcfLvsFgze
+	QZqX5ENS4U9nIt4RIxpb6Gm/str1lac=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 763AEAC6A;
-	Tue, 20 Oct 2020 14:10:09 +0000 (UTC)
-Subject: [PATCH v2 5/8] evtchn: drop acquiring of per-channel lock from
- send_guest_{global,vcpu}_virq()
+	by mx2.suse.de (Postfix) with ESMTP id 2EBC7AC6A;
+	Tue, 20 Oct 2020 14:10:55 +0000 (UTC)
+Subject: [PATCH v2 6/8] evtchn: convert vIRQ lock to an r/w one
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -71,8 +70,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
-Message-ID: <53eb30ca-9b3f-0ef4-bc90-e1c196b716b3@suse.com>
-Date: Tue, 20 Oct 2020 16:10:09 +0200
+Message-ID: <53a2fc39-1bf1-38ce-bbdf-b512c5279b4f@suse.com>
+Date: Tue, 20 Oct 2020 16:10:54 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
@@ -81,70 +80,104 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-The per-vCPU virq_lock, which is being held anyway, together with there
-not being any call to evtchn_port_set_pending() when v->virq_to_evtchn[]
-is zero, provide sufficient guarantees. Undo the lock addition done for
-XSA-343 (commit e045199c7c9c "evtchn: address races with
-evtchn_reset()"). Update the description next to struct evtchn_port_ops
-accordingly.
+There's no need to serialize all sending of vIRQ-s; all that's needed
+is serialization against the closing of the respective event channels
+(so far by means of a barrier). To facilitate the conversion, switch to
+an ordinary write locked region in evtchn_close().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: New.
+v2: Don't introduce/use rw_barrier() here. Add comment to
+    evtchn_bind_virq(). Re-base.
 
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -160,7 +160,7 @@ struct vcpu *vcpu_create(struct domain *
+     v->vcpu_id = vcpu_id;
+     v->dirty_cpu = VCPU_CPU_CLEAN;
+ 
+-    spin_lock_init(&v->virq_lock);
++    rwlock_init(&v->virq_lock);
+ 
+     tasklet_init(&v->continue_hypercall_tasklet, NULL, NULL);
+ 
 --- a/xen/common/event_channel.c
 +++ b/xen/common/event_channel.c
-@@ -794,7 +794,6 @@ void send_guest_vcpu_virq(struct vcpu *v
-     unsigned long flags;
-     int port;
-     struct domain *d;
--    struct evtchn *chn;
+@@ -449,6 +449,13 @@ int evtchn_bind_virq(evtchn_bind_virq_t
+ 
+     spin_unlock_irqrestore(&chn->lock, flags);
+ 
++    /*
++     * If by any, the update of virq_to_evtchn[] would need guarding by
++     * virq_lock, but since this is the last action here, there's no strict
++     * need to acquire the lock. Hnece holding event_lock isn't helpful
++     * anymore at this point, but utilize that its unlocking acts as the
++     * otherwise necessary smp_wmb() here.
++     */
+     v->virq_to_evtchn[virq] = bind->port = port;
+ 
+  out:
+@@ -638,10 +645,10 @@ int evtchn_close(struct domain *d1, int
+     case ECS_VIRQ:
+         for_each_vcpu ( d1, v )
+         {
+-            if ( v->virq_to_evtchn[chn1->u.virq] != port1 )
+-                continue;
+-            v->virq_to_evtchn[chn1->u.virq] = 0;
+-            spin_barrier(&v->virq_lock);
++            write_lock_irqsave(&v->virq_lock, flags);
++            if ( v->virq_to_evtchn[chn1->u.virq] == port1 )
++                v->virq_to_evtchn[chn1->u.virq] = 0;
++            write_unlock_irqrestore(&v->virq_lock, flags);
+         }
+         break;
+ 
+@@ -797,7 +804,7 @@ void send_guest_vcpu_virq(struct vcpu *v
  
      ASSERT(!virq_is_global(virq));
  
-@@ -805,10 +804,7 @@ void send_guest_vcpu_virq(struct vcpu *v
-         goto out;
+-    spin_lock_irqsave(&v->virq_lock, flags);
++    read_lock_irqsave(&v->virq_lock, flags);
  
-     d = v->domain;
--    chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
--    evtchn_port_set_pending(d, v->vcpu_id, chn);
--    spin_unlock(&chn->lock);
-+    evtchn_port_set_pending(d, v->vcpu_id, evtchn_from_port(d, port));
+     port = v->virq_to_evtchn[virq];
+     if ( unlikely(port == 0) )
+@@ -807,7 +814,7 @@ void send_guest_vcpu_virq(struct vcpu *v
+     evtchn_port_set_pending(d, v->vcpu_id, evtchn_from_port(d, port));
  
   out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
-@@ -837,9 +833,7 @@ void send_guest_global_virq(struct domai
-         goto out;
+-    spin_unlock_irqrestore(&v->virq_lock, flags);
++    read_unlock_irqrestore(&v->virq_lock, flags);
+ }
  
-     chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
+ void send_guest_global_virq(struct domain *d, uint32_t virq)
+@@ -826,7 +833,7 @@ void send_guest_global_virq(struct domai
+     if ( unlikely(v == NULL) )
+         return;
+ 
+-    spin_lock_irqsave(&v->virq_lock, flags);
++    read_lock_irqsave(&v->virq_lock, flags);
+ 
+     port = v->virq_to_evtchn[virq];
+     if ( unlikely(port == 0) )
+@@ -836,7 +843,7 @@ void send_guest_global_virq(struct domai
      evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
--    spin_unlock(&chn->lock);
  
   out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -177,9 +177,16 @@ int evtchn_reset(struct domain *d, bool
-  * Low-level event channel port ops.
-  *
-  * All hooks have to be called with a lock held which prevents the channel
-- * from changing state. This may be the domain event lock, the per-channel
-- * lock, or in the case of sending interdomain events also the other side's
-- * per-channel lock. Exceptions apply in certain cases for the PV shim.
-+ * from changing state. This may be
-+ * - the domain event lock,
-+ * - the per-channel lock,
-+ * - in the case of sending interdomain events the other side's per-channel
-+ *   lock,
-+ * - in the case of sending non-global vIRQ-s the per-vCPU virq_lock (in
-+ *   combination with the ordering enforced through how the vCPU's
-+ *   virq_to_evtchn[] gets updated),
-+ * - in the case of sending global vIRQ-s vCPU 0's virq_lock.
-+ * Exceptions apply in certain cases for the PV shim.
-  */
- struct evtchn_port_ops {
-     void (*init)(struct domain *d, struct evtchn *evtchn);
+-    spin_unlock_irqrestore(&v->virq_lock, flags);
++    read_unlock_irqrestore(&v->virq_lock, flags);
+ }
+ 
+ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -235,7 +235,7 @@ struct vcpu
+ 
+     /* IRQ-safe virq_lock protects against delivering VIRQ to stale evtchn. */
+     evtchn_port_t    virq_to_evtchn[NR_VIRQS];
+-    spinlock_t       virq_lock;
++    rwlock_t         virq_lock;
+ 
+     /* Tasklet for continue_hypercall_on_cpu(). */
+     struct tasklet   continue_hypercall_tasklet;
 
 
