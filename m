@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F184D294121
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 19:10:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9741.25666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B67294135
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Oct 2020 19:13:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9744.25678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUv9X-0003mD-Ey; Tue, 20 Oct 2020 17:10:27 +0000
+	id 1kUvCl-0003yx-Vb; Tue, 20 Oct 2020 17:13:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9741.25666; Tue, 20 Oct 2020 17:10:27 +0000
+Received: by outflank-mailman (output) from mailman id 9744.25678; Tue, 20 Oct 2020 17:13:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,113 +23,150 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kUv9X-0003lo-Br; Tue, 20 Oct 2020 17:10:27 +0000
-Received: by outflank-mailman (input) for mailman id 9741;
- Tue, 20 Oct 2020 17:10:25 +0000
+	id 1kUvCl-0003xl-Rl; Tue, 20 Oct 2020 17:13:47 +0000
+Received: by outflank-mailman (input) for mailman id 9744;
+ Tue, 20 Oct 2020 17:13:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yF9C=D3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kUv9V-0003lj-J7
- for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 17:10:25 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kUvCk-0003wl-I1
+ for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 17:13:46 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ef7c16b3-d160-4b6d-8909-4b6d97b4a918;
- Tue, 20 Oct 2020 17:10:24 +0000 (UTC)
+ id 221f105f-c56e-4973-a7af-79ab9fac0e24;
+ Tue, 20 Oct 2020 17:13:45 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kUvCg-0000FM-0b; Tue, 20 Oct 2020 17:13:42 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kUvCf-0006zy-PL; Tue, 20 Oct 2020 17:13:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=yF9C=D3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kUv9V-0003lj-J7
-	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 17:10:25 +0000
-X-Inumbo-ID: ef7c16b3-d160-4b6d-8909-4b6d97b4a918
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	(envelope-from <SRS0=TRnX=D3=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kUvCk-0003wl-I1
+	for xen-devel@lists.xenproject.org; Tue, 20 Oct 2020 17:13:46 +0000
+X-Inumbo-ID: 221f105f-c56e-4973-a7af-79ab9fac0e24
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ef7c16b3-d160-4b6d-8909-4b6d97b4a918;
-	Tue, 20 Oct 2020 17:10:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603213823;
-  h=subject:from:to:cc:references:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=Iv2tB/XLJiY+MEHRe4shKjglOE0dADFInmu5biQD+Sg=;
-  b=QMhGRCHIA3gv4vyWqi3sKRMEF5Ck87SLRXQP8rHjNOMGT0EogjkeS7cG
-   2vM4bCVBbjwwi0PIk+V2WslNow8kgTUYREdIkdJmlVijIfx/LVPBVO3PR
-   IuGX0X+K58kp9vZFxzzXssFI1TuONN/IejRhE+9IDXF1Xdo8JTtOxb8k/
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: UL76UzMU8x0P3WxZfBQvNqc0HLG6FNzTjs1spCbow5XJ01K8modbxUF4LV9Wc3GiiSJ1/oGQiE
- UJXMFPP/YZT16YFNcZdxYiXz2c4pK2dWqusUcZuBLBx0h37w8okfdME9HAAVspHy+6Kw5uEmjP
- 5vTTSrt7OksI/pmLXAq1VOXAnFV4bXAJTaLBEocJtDWPN7X4Gpy6mGYxakvCFWWhrRdCRqdSbH
- J2+3j5Rp5+McVITilW9EgpD5Xb9vXHQSv2xXXeCorpRDXjviynyRnYSlIvDa1AzdU1iVbu8Sr5
- Eck=
-X-SBRS: None
-X-MesageID: 29466396
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,398,1596513600"; 
-   d="scan'208";a="29466396"
-Subject: Re: [PATCH] x86/pv: Flush TLB in response to paging structure changes
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20201020152405.26892-1-andrew.cooper3@citrix.com>
- <a50a19ce-321a-ceef-55e4-95ffbebff59d@suse.com>
- <c359adee-1826-032b-2d07-c06c545e3b96@citrix.com>
-Message-ID: <b24c21b0-607b-6add-e156-a37fcf7f2352@citrix.com>
-Date: Tue, 20 Oct 2020 18:10:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 221f105f-c56e-4973-a7af-79ab9fac0e24;
+	Tue, 20 Oct 2020 17:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=gEH0W/5uBUfmjQEj5YwJ9g+vVR/8JcE27YLqQ/85Mcw=; b=BCkF5dCIBtzNZF/alEsHdoJfDO
+	aRXOiLLa2DzG7zVy72KdmY1yOsJpbxdNVHc3A8YzuZ+fyc9a3XPCV14ul4zy7kI7xeOmNSxbpiisg
+	o7L6XzVwprG92VBg5a72QB256NUbd6Vh9V8YftBDEv+RvOChPMZwEYH78Urjw+KX3Cyc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kUvCg-0000FM-0b; Tue, 20 Oct 2020 17:13:42 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kUvCf-0006zy-PL; Tue, 20 Oct 2020 17:13:41 +0000
+Subject: Re: Xen Coding style and clang-format
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>
+Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "George.Dunlap@citrix.com" <George.Dunlap@citrix.com>,
+ "vicooodin@gmail.com" <vicooodin@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "viktor.mitin.19@gmail.com" <viktor.mitin.19@gmail.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <300923eb27aea4d19bff3c21bc51d749c315f8e3.camel@epam.com>
+ <4238269c-3bf4-3acb-7464-3d753f377eef@suse.com>
+ <E068C671-8009-4976-87B8-0709F6A5C3BF@citrix.com>
+ <b16dfb26e0916166180d5cbbe95278dc99277330.camel@epam.com>
+ <B64C5E67-7BEA-4C31-9089-AB8CC1F1E80F@citrix.com>
+ <3ff3f7d16cdab692178ce638da1a6b880817fb7e.camel@epam.com>
+ <64FE5ADB-2359-4A31-B1A1-925750515D98@citrix.com>
+ <b4d7e9a7-6c25-1f7f-86ce-867083beb81a@suse.com>
+ <4d4f351b152df2c50e18676ccd6ab6b4dc667801.camel@epam.com>
+ <5bd7cc00-c4c9-0737-897d-e76f22e2fd5b@xen.org>
+ <AM6PR03MB3687A99424FA9FD062F5FE4BF4030@AM6PR03MB3687.eurprd03.prod.outlook.com>
+ <alpine.DEB.2.21.2010191101250.12247@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b0f9c9e0-d43e-e05b-d4ab-40f3bf437643@xen.org>
+Date: Tue, 20 Oct 2020 18:13:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.3
 MIME-Version: 1.0
-In-Reply-To: <c359adee-1826-032b-2d07-c06c545e3b96@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.21.2010191101250.12247@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL05.citrite.net (10.13.108.178)
+Content-Transfer-Encoding: 8bit
 
-On 20/10/2020 17:20, Andrew Cooper wrote:
-> On 20/10/2020 16:48, Jan Beulich wrote:
->> On 20.10.2020 17:24, Andrew Cooper wrote:
->>> With MMU_UPDATE, a PV guest can make changes to higher level pagetables.  This
->>> is from Xen's point of view (as the update only affects guest mappings), and
->>> the guest is required to flush suitably after making updates.
+Hi,
+
+On 19/10/2020 19:07, Stefano Stabellini wrote:
+> On Fri, 16 Oct 2020, Artem Mygaiev wrote:
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: пятница, 16 октября 2020 г. 13:24
+>> To: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>; jbeulich@suse.com; George.Dunlap@citrix.com
+>> Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>; vicooodin@gmail.com; xen-devel@lists.xenproject.org; committers@xenproject.org; viktor.mitin.19@gmail.com; Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> Subject: Re: Xen Coding style and clang-format
+>>
+>>> Hi,
 >>>
->>> However, Xen's use of linear pagetables (UPDATE_VA_MAPPING, GNTTABOP_map,
->>> writeable pagetables, etc.) is an implementation detail outside of the
->>> API/ABI.
+>>> On 16/10/2020 10:42, Anastasiia Lukianenko wrote:
+>>>> Thanks for your advices, which helped me improve the checker. I
+>>>> understand that there are still some disagreements about the
+>>>> formatting, but as I said before, the checker cannot be very flexible
+>>>> and take into account all the author's ideas.
 >>>
->>> Changes in the paging structure require invalidations in the linear pagetable
->>> range for subsequent accesses into the linear pagetables to access non-stale
->>> mappings.  Xen must provide suitable flushing to prevent intermixed guest
->>> actions from accidentally accessing/modifying the wrong pagetable.
+>>> I am not sure what you refer by "author's ideas" here. The checker
+>>> should follow a coding style (Xen or a modified version):
+>>>      - Anything not following the coding style should be considered as
+>>> invalid.
+>>>      - Anything not written in the coding style should be left
+>>> untouched/uncommented by the checker.
 >>>
->>> For all L2 and higher modifications, flush the full TLB.  (This could in
->>> principle be an order 39 flush starting at LINEAR_PT_VIRT_START, but no such
->>> mechanism exists in practice.)
+>>
+>> Agree
+>>
+>>>> I suggest using the
+>>>> checker not as a mandatory check, but as an indication to the author of
+>>>> possible formatting errors that he can correct or ignore.
 >>>
->>> As this combines with sync_guest for XPTI L4 "shadowing", replace the
->>> sync_guest boolean with flush_flags and accumulate flags.  The sync_guest case
->>> now always needs to flush, there is no point trying to exclude the current CPU
->>> from the flush mask.  Use pt_owner->dirty_cpumask directly.
->> Why is there no point? There's no need for the FLUSH_ROOT_PGTBL
->> part of the flushing on the local CPU. The draft you had sent
->> earlier looked better in this regard.
-> This was the area which broke.  It is to do with subtle difference in
-> the scope of L4 updates.
->
-> ROOT_PGTBL needs to resync current (if in use), and be broadcasted if
-> other references to the pages are found.
->
-> The TLB flush needs to be broadcast to the whole domain dirty mask, as
-> we can't (easily) know if the update was part of the current structure.
+>>> I can understand that short term we would want to make it optional so
+>>> either the coding style or the checker can be tuned. But I don't think
+>>> this is an ideal situation to be in long term.
+>>>
+>>> The goal of the checker is to automatically verify the coding style and
+>>> get it consistent across Xen. If we make it optional or it is
+>>> "unreliable", then we lose the two benefits and possibly increase the
+>>> contributor frustration as the checker would say A but we need B.
+>>>
+>>> Therefore, we need to make sure the checker and the coding style match.
+>>> I don't have any opinions on the approach to achieve that.
+>>
+>> Of the list of remaining issues from Anastasiia, looks like only items 5
+>> and 6 are conform to official Xen coding style. As for remainning ones,
+>> I would like to suggest disabling those that are controversial (items 1,
+>> 2, 4, 8, 9, 10). Maybe we want to have further discussion on refining
+>> coding style, we can use these as starting point. If we are open to
+>> extending style now, I would suggest to add rules that seem to be
+>> meaningful (items 3, 7) and keep them in checker.
+> 
+> Good approach. Yes, I would like to keep 3, 7 in the checker.
+> 
+> I would also keep 8 and add a small note to the coding style to say that
+> comments should be aligned where possible.
 
-Actually - we can know whether an L4 update needs flushing locally or
-not, in exactly the same way as the sync logic currently works.
++1 for this. Although, I don't mind the coding style used as long as we 
+have a checker and the code is consistent :).
 
-However, unlike the opencoded get_cpu_info()->root_pgt_changed = true,
-we can't just flush locally for free.
+Cheers,
 
-This is quite awkward to express.
-
-~Andrew
+-- 
+Julien Grall
 
