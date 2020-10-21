@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E31294B0A
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 12:05:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.9954.26269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1AE294B18
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 12:10:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.9962.26281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVAzg-0003Qi-Pr; Wed, 21 Oct 2020 10:05:20 +0000
+	id 1kVB4U-0004JT-Bs; Wed, 21 Oct 2020 10:10:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 9954.26269; Wed, 21 Oct 2020 10:05:20 +0000
+Received: by outflank-mailman (output) from mailman id 9962.26281; Wed, 21 Oct 2020 10:10:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,80 +23,90 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVAzg-0003QE-LC; Wed, 21 Oct 2020 10:05:20 +0000
-Received: by outflank-mailman (input) for mailman id 9954;
- Wed, 21 Oct 2020 10:05:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hwko=D4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kVAzf-0003Q8-1c
- for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 10:05:19 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 42c603b6-fe54-4dec-bdd4-26211da79e55;
- Wed, 21 Oct 2020 10:05:18 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kVB4U-0004J4-8f; Wed, 21 Oct 2020 10:10:18 +0000
+Received: by outflank-mailman (input) for mailman id 9962;
+ Wed, 21 Oct 2020 10:10:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JBpP=D4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kVB4S-0004Iz-6h
+ for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 10:10:16 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6004a910-c7d0-49b7-b173-32f3cfa0e013;
+ Wed, 21 Oct 2020 10:10:15 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 73CECB2B8;
+ Wed, 21 Oct 2020 10:10:14 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Hwko=D4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kVAzf-0003Q8-1c
-	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 10:05:19 +0000
-X-Inumbo-ID: 42c603b6-fe54-4dec-bdd4-26211da79e55
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 42c603b6-fe54-4dec-bdd4-26211da79e55;
-	Wed, 21 Oct 2020 10:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603274719;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=ux6ZeF9tliAVd3JLr0GPv/0u9LqFcQi6AbLVXu+zPmk=;
-  b=R/JHWc+aXDdvODOgC/DMCbQeKhSNFj8VSUeiYu9pvEi8lJ9Rs1HSSLdf
-   kWRr/s+rTQFtYRj1YQ0RwZPNPOkZkXnKAS2OSH/3rZ8OtAkjh9FDYWO/u
-   D7YiUybtlK3vHXNdy1RtakJT7Nk66OLfXsVai73t9nqaP5tuNwWt4J+ba
-   M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: uOfS8XzK4ftBq9H9NxtSJMWreYyTnn31qyjAiOB+B/4aTNNRuR0wBN44Xdawg9bzIN1el9lPOi
- mU38zDvm+1rnedvw0hbSdmRgNIoKQATEPkRdMgoqlBP1F0K+oJl8bxTsg0uyO9HCrs9/HZ1b50
- IRSp5AYuwbONbWa4nkuGqatDtqL1ayI+B52sNzS/Xutx2mzWeBtLiJnxGGss0NoR0RVJS/ERN2
- N3wiBOLyDAkfxs6tLFLUxvT+XgnyofulsHmOuo4KHrcRLglAZHRLpbu3H5rF8SHDjROP33p7JY
- SnI=
-X-SBRS: 2.5
-X-MesageID: 29438825
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,401,1596513600"; 
-   d="scan'208";a="29438825"
-Date: Wed, 21 Oct 2020 12:05:05 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v3 2/3] x86/shadow: refactor shadow_vram_{get,put}_l1e()
-Message-ID: <20201021100505.bxnlpmrqwnb5gqqx@Air-de-Roger>
-References: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
- <bc686036-18c0-ba7b-b8e5-a20b914aac68@suse.com>
+	(envelope-from <SRS0=JBpP=D4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kVB4S-0004Iz-6h
+	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 10:10:16 +0000
+X-Inumbo-ID: 6004a910-c7d0-49b7-b173-32f3cfa0e013
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 6004a910-c7d0-49b7-b173-32f3cfa0e013;
+	Wed, 21 Oct 2020 10:10:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603275014;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JUflINopUiLlYqrN5sufhJ97Pnst6amZ13r1ziOvJmg=;
+	b=RntKs8irZM6otmiq+F1ExDUtCKICWbEFVGqk6Sg9IkgELvmIPYTpxCk1s9KNOcFrfi2wWE
+	SeZoLKc5/mskn7OkqTIa0o+ghw/mU/vyxVs21bhlo/+7wQAuwATvwkEg/1lLH7qX9pP85Q
+	c8oI+OZpxlfOfk20jPjk+5/C0NcAgvw=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 73CECB2B8;
+	Wed, 21 Oct 2020 10:10:14 +0000 (UTC)
+Subject: Re: [xen-unstable test] 156027: regressions - FAIL
+To: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+References: <osstest-156027-mainreport@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>
+Message-ID: <432399e9-9bd2-07d2-c182-353e0b7f21d4@suse.com>
+Date: Wed, 21 Oct 2020 12:10:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bc686036-18c0-ba7b-b8e5-a20b914aac68@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+In-Reply-To: <osstest-156027-mainreport@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2020 at 10:44:31AM +0200, Jan Beulich wrote:
-> By passing the functions an MFN and flags, only a single instance of
-> each is needed; they were pretty large for being inline functions
-> anyway.
+On 20.10.2020 23:37, osstest service owner wrote:
+> flight 156027 xen-unstable real [real]
+> flight 156048 xen-unstable real-retest [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/156027/
+> http://logs.test-lab.xenproject.org/osstest/logs/156048/
+
+Here as well as in the respective 4.14 and 4.13 reports the
+"retest" flights look to not really work, so they don't provide
+any additional useful data. Ian?
+
+> Regressions :-(
 > 
-> While moving the code, also adjust coding style and add const where
-> sensible / possible.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 156013
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Taking together this and the respective 4.14 and 4.13 reports
+there looks to be an interaction problem with qemu: The gpa
+of the physical address of the NPF vCPU1 did encounter last
+points at 04:00.0, i.e. the (emulated) NIC. In the 4.x flights
+no such information is available (on VT-x the gpa of the last
+EPT violation doesn't get dumped when dumping the VMCS), but
+one of them shows Dom0 in the context of
+XEN_DMOP_set_pci_intx_level, again for 04:00.0.
 
-Thanks, Roger.
+In any event the guests in all cases experience soft lockups.
+
+What I'm unable to do for the moment is put in place any kind
+of connection to the commits under test, but it's highly
+likely one of the security fixes committed yesterday.
+
+Jan
 
