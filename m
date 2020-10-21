@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 557D4295053
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 18:01:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10111.26684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 722142950A9
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 18:22:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10113.26697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVGYF-0005sm-4i; Wed, 21 Oct 2020 16:01:23 +0000
+	id 1kVGsP-0007nb-T7; Wed, 21 Oct 2020 16:22:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10111.26684; Wed, 21 Oct 2020 16:01:23 +0000
+Received: by outflank-mailman (output) from mailman id 10113.26697; Wed, 21 Oct 2020 16:22:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,134 +23,137 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVGYF-0005sR-1P; Wed, 21 Oct 2020 16:01:23 +0000
-Received: by outflank-mailman (input) for mailman id 10111;
- Wed, 21 Oct 2020 16:01:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVGsP-0007nC-Pq; Wed, 21 Oct 2020 16:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 10113;
+ Wed, 21 Oct 2020 16:22:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hwko=D4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kVGYD-0005sM-Jj
- for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 16:01:21 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 03e97207-5d55-4983-b852-8b5cc74957ce;
- Wed, 21 Oct 2020 16:01:20 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=286h=D4=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1kVGsO-0007n7-EF
+ for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 16:22:12 +0000
+Received: from mail-lj1-x22a.google.com (unknown [2a00:1450:4864:20::22a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0e174ff0-ac62-4368-8320-3dc07b8e8ea3;
+ Wed, 21 Oct 2020 16:22:11 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id y16so3316806ljk.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Oct 2020 09:22:11 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Hwko=D4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kVGYD-0005sM-Jj
-	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 16:01:21 +0000
-X-Inumbo-ID: 03e97207-5d55-4983-b852-8b5cc74957ce
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 03e97207-5d55-4983-b852-8b5cc74957ce;
-	Wed, 21 Oct 2020 16:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603296079;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=5+br0Xv6fhu7mhelHBzTWatSM7V/mNQlATYx3z4riCo=;
-  b=Tw4+N/XXkZJIGj/fY58xclfXt+qomSZnXrN34bTRPi6d++oTN4WBNJl4
-   TR4p+JelUi/fnUKhsDQVYi7/vglW/if6TzrSyJV1G2Aj9/MnqMHDkuBfz
-   YMthS4+fuLwE4ovvrGxf3rNAL2f3SrvBzkEgqtqUOnaQKtxss2zu9AH/T
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: N42q3vuJLIAiwoCu4Kq/cxmzAQfIFgbCbdyQ7yGARdoQIOLcHZzx1wG3MWOojlhDrHYb4xMjGn
- 4WWm+s5WKDD10Q0TE5VPnc0CAC1CWHXouVf4j2NM7tNBXLlaB5ZgDT2zm5M8nLjJFlJ+0EM/M/
- i5p9JVP4Xo6Xh2QpDAN9u2fHOf2sZKmQOKHebugY5yoChpnIwHbcUCCaaxpJMRuiPwSHuuZGFZ
- 2LYQ0wNn74tldgUgmu6am8HaK3dgnpfo1iZcg2NivF6B+Y5rNbNM17vet/aJDIbXQKXjs7rVqa
- nc8=
-X-SBRS: 2.5
-X-MesageID: 30555846
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,401,1596513600"; 
-   d="scan'208";a="30555846"
-Date: Wed, 21 Oct 2020 18:00:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [PATCH v2 2/8] evtchn: replace FIFO-specific header by generic
- private one
-Message-ID: <20201021160028.j4shjjvdysfti747@Air-de-Roger>
-References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
- <3fea358e-d6d1-21d4-2d83-d9bd457ba3b5@suse.com>
+	(envelope-from <SRS0=286h=D4=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+	id 1kVGsO-0007n7-EF
+	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 16:22:12 +0000
+X-Inumbo-ID: 0e174ff0-ac62-4368-8320-3dc07b8e8ea3
+Received: from mail-lj1-x22a.google.com (unknown [2a00:1450:4864:20::22a])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0e174ff0-ac62-4368-8320-3dc07b8e8ea3;
+	Wed, 21 Oct 2020 16:22:11 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id y16so3316806ljk.1
+        for <xen-devel@lists.xenproject.org>; Wed, 21 Oct 2020 09:22:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=l7c0S9vOF+ht2BiXcHdKl9h63RTgilNPsS+b9BKHDac=;
+        b=PhfaJsniuA4LOyaSRG6ajIIJkvlX2R8YNkrDcalFA1i/L/CzWG7hrmKEpkbF9aGdKU
+         QTMZUx667Dj716CiYgESrAaO7hGTXXrHOfw1sEkhwLIqahdZ2BRi9Gp6QTv78Ctt6XzJ
+         fEi6YPKrjwskbdTKMnVXmK39M4flSaBOuUshcUmHxlfCDKAoBm+XLkggIXTKrWV0gcbB
+         DaGU9BIf+uEjb8IV/7KyLGd3UOhhFMpWGEvHiQpFG4O796gB+PMMqTyx7EH+zn5srNHJ
+         GXAyWwGDZl/n7j01yhiUtbnAWVOlZVbWfLze49Wg+7Sr8Mc2THj3y1AsxhraJ4iKICfY
+         62FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=l7c0S9vOF+ht2BiXcHdKl9h63RTgilNPsS+b9BKHDac=;
+        b=aPcH3lq14Xw8U5ahTNE6Twb1Apzo7EbIOX6yc85plDt7dJkazPP767bprRqpQWHmip
+         mLqwZZQymwxayA9Rst3CTFlKVqAsAvcjPx1G9z9Z+wPrkzASPfHS9zOkESoluCYaxawW
+         dfjIZjfagNnfbwHDVIM29QgNKeOBVa3pRVaKBvgQlfpUDy1AGK5SKNK+EHHqYe34LNWE
+         dtuwN9tee1Az7XgY6HoFj/EiAYP9riD4p6SfZACk12HyKFdmNYxlk8HuPcl7iKUiho+G
+         ac+qmdD3ZciXkU9uF0hOiPVofrK3Sc/NTEVWfcWCk1ewSXS5BuMRTW4YNtm1V0X3ILu2
+         34aw==
+X-Gm-Message-State: AOAM531vtSsEb/GFqeAw3d6lqhncPAzm6RtSeeAGpWX+DBxXOYLsAz9p
+	B/hp7wSvET0Ir3Ukimlz8cbTwPzcJECQsJ1JRiE=
+X-Google-Smtp-Source: ABdhPJxTm93YGz2oS64DClXv+a1gKIcdRnNgChqTsns7+gRnEBNhsiz6jreAYCE/S7nDzhUv4KaSeqgsK0CG+bGx/bw=
+X-Received: by 2002:a2e:96d2:: with SMTP id d18mr1701200ljj.407.1603297329809;
+ Wed, 21 Oct 2020 09:22:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3fea358e-d6d1-21d4-2d83-d9bd457ba3b5@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
+References: <bfd645cf42ef7786183be15c222ad04beed362c0.camel@xen.org>
+In-Reply-To: <bfd645cf42ef7786183be15c222ad04beed362c0.camel@xen.org>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 21 Oct 2020 12:21:58 -0400
+Message-ID: <CAKf6xpt7zgM3HghQru28kovd0m7z84bAR8Uqt6KKxbSrvQv8ZA@mail.gmail.com>
+Subject: Re: XSM and the idle domain
+To: Hongyan Xia <hx242@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2020 at 04:08:33PM +0200, Jan Beulich wrote:
-> Having a FIFO specific header is not (or at least no longer) warranted
-> with just three function declarations left there. Introduce a private
-> header instead, moving there some further items from xen/event.h.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Wed, Oct 21, 2020 at 10:35 AM Hongyan Xia <hx242@xen.org> wrote:
+>
+> Hi,
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi, Hongyan.
 
-> ---
-> v2: New.
-> ---
-> TBD: If - considering the layering violation that's there anyway - we
->      allowed PV shim code to make use of this header, a few more items
->      could be moved out of "public sight".
-> 
-> --- a/xen/common/event_2l.c
-> +++ b/xen/common/event_2l.c
-> @@ -7,11 +7,12 @@
->   * Version 2 or later.  See the file COPYING for more details.
->   */
->  
-> +#include "event_channel.h"
-> +
->  #include <xen/init.h>
->  #include <xen/lib.h>
->  #include <xen/errno.h>
->  #include <xen/sched.h>
-> -#include <xen/event.h>
->  
->  #include <asm/guest_atomics.h>
->  
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -14,17 +14,17 @@
->   * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
-> +#include "event_channel.h"
-> +
->  #include <xen/init.h>
->  #include <xen/lib.h>
->  #include <xen/errno.h>
->  #include <xen/sched.h>
-> -#include <xen/event.h>
->  #include <xen/irq.h>
->  #include <xen/iocap.h>
->  #include <xen/compat.h>
->  #include <xen/guest_access.h>
->  #include <xen/keyhandler.h>
-> -#include <xen/event_fifo.h>
->  #include <asm/current.h>
->  
->  #include <public/xen.h>
-> --- /dev/null
-> +++ b/xen/common/event_channel.h
-> @@ -0,0 +1,63 @@
-> +/* Event channel handling private header. */
+I'm familiar with Flask but not particularly familiar with other XSMs
+or CONFIG_XSM=n.
 
-I've got no idea whether it matters or not, but the code moved here
-from xen/events.h had an explicit copyright banner with Keirs name,
-should this be kept?
+> A while ago there was a quick chat on IRC about how XSM interacts with
+> the idle domain. The conversation did not reach any clear conclusions
+> so it might be a good idea to summarise the questions in an email.
+>
+> Basically there were two questions in that conversation:
+>
+> 1. In its current state, are security modules able to limit what the
+> idle domain can do?
+> 2. Should security modules be able to restrict the idle domain?
+>
+> The first question came up during ongoing work in LiveUpdate. After an
+> LU, the next Xen needs to restore all domains. To do that, some
+> hypercalls need to be issued from the idle domain context and
+> apparently XSM does not like it. We need to introduce hacks in the
+> dummy module to leave the idle domain alone.
 
-Thanks, Roger.
+Is this modifying xsm_default_action() to add an is_idle_domain()
+check which always succeeds?
+
+>Our work is not compiled
+> with CONFIG_XSM at all, but with CONFIG_XSM, are we able to enforce
+> security policies against the idle domain?
+
+It's not clear to me if you want to use CONFIG_XSM, or just don't want
+to break it.
+
+> Of course, without any LU
+> work this does not make any difference because the idle domain does not
+> do any useful work to be restricted anyway.
+
+I think this last sentence is the main point.  It's always been
+labeled xen_t, but since it doesn't go through any of the hook points,
+it hasn't needed any restrictions.  Actually, reviewing the Flask
+policy there is:
+# Domain destruction can result in some access checks for actions performed by
+# the hypervisor.  These should always be allowed.
+allow xen_t resource_type : resource { remove_irq remove_ioport remove_iomem };
+
+> Also, should idle domain be restricted? IMO the idle domain is Xen
+> itself which mostly bootstraps the system and performs limited work
+> when switched to, and is not something a user (either dom0 or domU)
+> directly interacts with. I doubt XSM was designed to include the idle
+> domain (although there is an ID allocated for it in the code), so I
+> would say just exclude idle in all security policy checks.
+
+I think it makes sense to label xen_t, even if it doesn't do anything.
+As you say, it is a distinct entity from dom0 and domU.  Yes, it can
+circumvent the policy, but it's not actively hurting anything.  And it
+can be good to catch when it does start doing something, as you found.
+
+Might it make sense to create a LU domain instead of using the idle
+domain for Live Update?  Another approach could be to run the
+idle_domain as "dom0" during Live Update, and then transition to the
+regular idle_domain when it completes?  You are re-creating dom0, but
+you could flip is_privileged on during live update and then remove it
+once complete.
+
+Regards,
+Jason
 
