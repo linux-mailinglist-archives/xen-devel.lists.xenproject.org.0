@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FC88294D38
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 15:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10077.26559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF020294DB0
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Oct 2020 15:37:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10081.26571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVDpv-00056q-P1; Wed, 21 Oct 2020 13:07:27 +0000
+	id 1kVEII-0007uT-24; Wed, 21 Oct 2020 13:36:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10077.26559; Wed, 21 Oct 2020 13:07:27 +0000
+Received: by outflank-mailman (output) from mailman id 10081.26571; Wed, 21 Oct 2020 13:36:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,218 +23,118 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVDpv-00056R-Ll; Wed, 21 Oct 2020 13:07:27 +0000
-Received: by outflank-mailman (input) for mailman id 10077;
- Wed, 21 Oct 2020 13:07:26 +0000
+	id 1kVEIH-0007u4-Us; Wed, 21 Oct 2020 13:36:45 +0000
+Received: by outflank-mailman (input) for mailman id 10081;
+ Wed, 21 Oct 2020 13:36:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yt4r=D4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kVDpu-00056M-Ok
- for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 13:07:26 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=286h=D4=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1kVEIG-0007tz-FK
+ for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 13:36:44 +0000
+Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aebc959f-3077-4a61-8964-2c036dc670c6;
- Wed, 21 Oct 2020 13:07:25 +0000 (UTC)
+ id 638910aa-936d-4132-9e20-1a64d75b6c20;
+ Wed, 21 Oct 2020 13:36:43 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id a9so3139576lfc.7
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Oct 2020 06:36:43 -0700 (PDT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Yt4r=D4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kVDpu-00056M-Ok
-	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 13:07:26 +0000
-X-Inumbo-ID: aebc959f-3077-4a61-8964-2c036dc670c6
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	(envelope-from <SRS0=286h=D4=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+	id 1kVEIG-0007tz-FK
+	for xen-devel@lists.xenproject.org; Wed, 21 Oct 2020 13:36:44 +0000
+X-Inumbo-ID: 638910aa-936d-4132-9e20-1a64d75b6c20
+Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id aebc959f-3077-4a61-8964-2c036dc670c6;
-	Wed, 21 Oct 2020 13:07:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603285645;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ClnLEGNUPj+vWOEdbAhPiu3vVyLMnxIDNxKGoCjlfbk=;
-  b=LLL5yGPthG6e8IeidMRCp7Innmm0SGzrg4+ZWD1ARqirX69uB4xCA3M2
-   Q4JmvAmxylZk1YX6yHl3vefte7LLgmGVKO34NUlxbwFRrUv0IUmXbu32U
-   NVx9y5Ewdwkm1ttqNpNE+qnFWAR0JfoAyRRXffarP4mtC+oRjw40JkEFp
-   U=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: QzQyDFug2bnDXNed5yYiXo+hSko/zYmU8QQ2+xRD9bJ0g7yu6l7W1VzEcalKqPv3t+mat6uoQl
- bAoB+L4QBLt0rFPJTY3oYhL9DylF0ab4g3tKffZDd6XH5p6HJybUD3u/5Gxjfz/hDvuoLPfzTd
- rVAYeESMVoxulph7lOXVN6VYo1fsXrQoy6aspq2zNrTELMbMTLujkr0XoBpHv4EGG4FJZZNAau
- 8VLiMYevf1MZpEVD3oArMdy2qO4fKLyJR+yoYBAmu+RpmRUKWIXGjmeJX7cKzk/vKkbJAiRHfX
- t3Q=
-X-SBRS: 2.5
-X-MesageID: 30534304
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,401,1596513600"; 
-   d="scan'208";a="30534304"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/pv: Flush TLB in response to paging structure changes
-Date: Wed, 21 Oct 2020 14:07:08 +0100
-Message-ID: <20201021130708.12249-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+	id 638910aa-936d-4132-9e20-1a64d75b6c20;
+	Wed, 21 Oct 2020 13:36:43 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id a9so3139576lfc.7
+        for <xen-devel@lists.xenproject.org>; Wed, 21 Oct 2020 06:36:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=lrH3D/+6YhDxpCFWKiukOFeDa/kuA2Z9B0hdudtFyXU=;
+        b=CfWtwJB9GIYMeENoIM+rvSb94AJ/unbe3PgvR1hVri27vuz5zqfvjBCKlPzqUK6vK5
+         Rfk9JTBIfTvNZaEDrDSdKBOJ0I3PIkO2FHm75nbXfem6jJe5PrEvs6ViMk2zVhxgO7Qs
+         6JElLj1A6/m8z1p3nNM/0Q/MX9FbLR6avS1FXkr5UIZk94RM8AXEoWKT3gA5QkQQrAsJ
+         rzajGxhdtWLxG0Az6YaO9G50j1+QpSt0FwtVyXOff1Q2OOcBC/pmO5FC1fFK3A3Fyl6/
+         eXbthKKY/9YghsZApbck0oVGiGt3BdJgIm4XNusp5pUWMSuCAquhzko5Yh5phlO40G6f
+         DiOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=lrH3D/+6YhDxpCFWKiukOFeDa/kuA2Z9B0hdudtFyXU=;
+        b=s66kk8/uGhDyjGczjHzvvaLtjsraGGYXGVlG9GSK3L3uOvPiPcNFSSz/I5v9NmGNH1
+         +8Kwac6pbTTcFcX04CuwwXwDfSkf7ylgCgB1QaCCaLP5d/zd45ZPOpAKQg7qd2vdR81w
+         yROK6rFVTW2om1ukjZ6s+SONyhp49pahXFKkY2ypOiaswPWDbdtfsecFYnqXV/pf3Gvv
+         DzQYxGQl+wnHezcCs4zNFmdWRR0Zmk89PaR4okU2eWflAgAPsVdCAMd/hIF0AxgiNoDF
+         4/8jALV3q+KBzToo2Le1mrAYdvrXZTMqdrqWPx9mHN0C3cnrwbUBB2LYS6iEeCCXWhA+
+         lzOg==
+X-Gm-Message-State: AOAM530ZG85e/MPSFFAg5V5RtW1FCNzhqKeg9AZrqHN79ajfj7lZC2Zy
+	nv0Ym0di8sxYmcCAKTyWEDGyWYSOfAn+H9wyDPE=
+X-Google-Smtp-Source: ABdhPJwaw0B2BxohZx2W/5ekhIK+Zik2kh8+yEatERPJMG5UG0JGyrU6+fQrIXg1TmtzU3mrOH1+BLaZsvep/tAuT6k=
+X-Received: by 2002:ac2:42ce:: with SMTP id n14mr1243449lfl.412.1603287402490;
+ Wed, 21 Oct 2020 06:36:42 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAKf6xpv-LRCuo-qHHWMuukYtvJiR-i+-YhLUOZeqoAFd-=swEQ@mail.gmail.com>
+ <1a3b90f4-564e-84d3-fd6a-3454e8753579@citrix.com> <20201015113109.GA68032@Air-de-Roger>
+ <CAKf6xpsJYT7VCeaf6TxPNK1QD+3U9E8ST7E+mWtfDjw0k9L9dA@mail.gmail.com>
+ <CAKf6xps1q9zMBeFg7C7ZhD-JcwQ6EG6+bYvvA9QT8PzzxKqMNg@mail.gmail.com>
+ <20201021095809.o53b6hpvjl2lbqsi@Air-de-Roger> <CAKf6xpuTE4gBNe4YXPYh_hAMLaJduDuKL5_6aC4H=y6DRxaxvw@mail.gmail.com>
+ <a4dd7778-9bd4-00c1-3056-96d435b70d70@suse.com>
+In-Reply-To: <a4dd7778-9bd4-00c1-3056-96d435b70d70@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 21 Oct 2020 09:36:30 -0400
+Message-ID: <CAKf6xpvKiWiU5Wsv2C1EiEFr77nMZTd+VHgkdk7qcKw1OFD8Vg@mail.gmail.com>
+Subject: Re: i915 dma faults on Xen
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, intel-gfx@lists.freedesktop.org, 
+	xen-devel <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-With MMU_UPDATE, a PV guest can make changes to higher level pagetables.  This
-is from Xen's point of view (as the update only affects guest mappings), and
-the guest is required to flush suitably after making updates.
+On Wed, Oct 21, 2020 at 8:53 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 21.10.2020 14:45, Jason Andryuk wrote:
+> > On Wed, Oct 21, 2020 at 5:58 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.=
+com> wrote:
+> >> Hm, it's hard to tell what's going on. My limited experience with
+> >> IOMMU faults on broken systems there's a small range that initially
+> >> triggers those, and then the device goes wonky and starts accessing a
+> >> whole load of invalid addresses.
+> >>
+> >> You could try adding those manually using the rmrr Xen command line
+> >> option [0], maybe you can figure out which range(s) are missing?
+> >
+> > They seem to change, so it's hard to know.  Would there be harm in
+> > adding one to cover the end of RAM ( 0x04,7c80,0000 ) to (
+> > 0xff,ffff,ffff )?  Maybe that would just quiet the pointless faults
+> > while leaving the IOMMU enabled?
+>
+> While they may quieten the faults, I don't think those faults are
+> pointless. They indicate some problem with the software (less
+> likely the hardware, possibly the firmware) that you're using.
+> Also there's the question of what the overall behavior is going
+> to be when devices are permitted to access unpopulated address
+> ranges. I assume you did check already that no devices have their
+> BARs placed in that range?
 
-However, Xen's use of linear pagetables (UPDATE_VA_MAPPING, GNTTABOP_map,
-writeable pagetables, etc.) is an implementation detail outside of the
-API/ABI.
+Isn't no-igfx already letting them try to read those unpopulated addresses?
 
-Changes in the paging structure require invalidations in the linear pagetable
-range for subsequent accesses into the linear pagetables to access non-stale
-mappings.  Xen must provide suitable flushing to prevent intermixed guest
-actions from accidentally accessing/modifying the wrong pagetable.
+Looks like all PCI BARs are below 4GB.  The graphics ones are:
+00:02.0 VGA compatible controller: Intel Corporation Device 3ea0 (rev
+02) (prog-if 00 [VGA controller])
+    Subsystem: Dell Device 08b9
+    Flags: bus master, fast devsel, latency 0, IRQ 177
+    Memory at cb000000 (64-bit, non-prefetchable) [size=3D16M]
+    Memory at 80000000 (64-bit, prefetchable) [size=3D256M]
 
-For all L2 and higher modifications, flush the TLB.  PV guests cannot create
-L2 or higher entries with the Global bit set, so no mappings established in
-the linear range can be global.  (This could in principle be an order 39 flush
-starting at LINEAR_PT_VIRT_START, but no such mechanism exists in practice.)
+Yes, I agree the faults aren't pointless.  I'm wondering if it's
+something with the i915 driver or hardware having assumptions that
+aren't met by Xen swiotlb.
 
-This combines with sync_guest for XPTI L4 "shadowing", but has some asymmetry
-between local and remote flush requirements.  Replace the sync_guest boolean
-with flush_flags_{local,all} and accumulate flags, performing all required
-flushing at the end.
-
-This is XSA-286.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-
-v2:
- * Use two separate flush flags.
- * Use non-global flushes.
----
- xen/arch/x86/mm.c | 61 +++++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 43 insertions(+), 18 deletions(-)
-
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 918ee2bbe3..87860c2ca3 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -3887,7 +3887,7 @@ long do_mmu_update(
-     struct vcpu *curr = current, *v = curr;
-     struct domain *d = v->domain, *pt_owner = d, *pg_owner;
-     mfn_t map_mfn = INVALID_MFN, mfn;
--    bool sync_guest = false;
-+    unsigned int flush_flags_local = 0, flush_flags_all = 0;
-     uint32_t xsm_needed = 0;
-     uint32_t xsm_checked = 0;
-     int rc = put_old_guest_table(curr);
-@@ -4037,6 +4037,9 @@ long do_mmu_update(
-                         break;
-                     rc = mod_l2_entry(va, l2e_from_intpte(req.val), mfn,
-                                       cmd == MMU_PT_UPDATE_PRESERVE_AD, v);
-+                    /* Paging structure maybe changed.  Flush linear range. */
-+                    if ( !rc )
-+                        flush_flags_all |= FLUSH_TLB;
-                     break;
- 
-                 case PGT_l3_page_table:
-@@ -4044,6 +4047,9 @@ long do_mmu_update(
-                         break;
-                     rc = mod_l3_entry(va, l3e_from_intpte(req.val), mfn,
-                                       cmd == MMU_PT_UPDATE_PRESERVE_AD, v);
-+                    /* Paging structure maybe changed.  Flush linear range. */
-+                    if ( !rc )
-+                        flush_flags_all |= FLUSH_TLB;
-                     break;
- 
-                 case PGT_l4_page_table:
-@@ -4051,27 +4057,28 @@ long do_mmu_update(
-                         break;
-                     rc = mod_l4_entry(va, l4e_from_intpte(req.val), mfn,
-                                       cmd == MMU_PT_UPDATE_PRESERVE_AD, v);
--                    if ( !rc && pt_owner->arch.pv.xpti )
-+                    /* Paging structure maybe changed.  Flush linear range. */
-+                    if ( !rc )
-                     {
--                        bool local_in_use = false;
-+                        bool local_in_use = mfn_eq(
-+                            pagetable_get_mfn(curr->arch.guest_table), mfn);
- 
--                        if ( mfn_eq(pagetable_get_mfn(curr->arch.guest_table),
--                                    mfn) )
--                        {
--                            local_in_use = true;
--                            get_cpu_info()->root_pgt_changed = true;
--                        }
-+                        flush_flags_all |= FLUSH_TLB;
-+
-+                        if ( local_in_use )
-+                            flush_flags_local |= FLUSH_TLB | FLUSH_ROOT_PGTBL;
- 
-                         /*
-                          * No need to sync if all uses of the page can be
-                          * accounted to the page lock we hold, its pinned
-                          * status, and uses on this (v)CPU.
-                          */
--                        if ( (page->u.inuse.type_info & PGT_count_mask) >
-+                        if ( pt_owner->arch.pv.xpti &&
-+                             (page->u.inuse.type_info & PGT_count_mask) >
-                              (1 + !!(page->u.inuse.type_info & PGT_pinned) +
-                               mfn_eq(pagetable_get_mfn(curr->arch.guest_table_user),
-                                      mfn) + local_in_use) )
--                            sync_guest = true;
-+                            flush_flags_all |= FLUSH_ROOT_PGTBL;
-                     }
-                     break;
- 
-@@ -4173,18 +4180,36 @@ long do_mmu_update(
-     if ( va )
-         unmap_domain_page(va);
- 
--    if ( sync_guest )
-+    /*
-+     * Flushing needs to occur for one of several reasons.
-+     *
-+     * 1) An update to an L2 or higher occured.  This potentially changes the
-+     *    pagetable structure, requiring a flush of the linear range.
-+     * 2) An update to an L4 occured, and XPTI is enabled.  All CPUs running
-+     *    on a copy of this L4 need refreshing.
-+     */
-+    if ( flush_flags_all || flush_flags_local )
-     {
-+        cpumask_t *mask = pt_owner->dirty_cpumask;
-+
-         /*
--         * Force other vCPU-s of the affected guest to pick up L4 entry
--         * changes (if any).
-+         * Local flushing may be asymmetric with remote.  If there is local
-+         * flushing to do, perform it separately and omit the current CPU from
-+         * pt_owner->dirty_cpumask.
-          */
--        unsigned int cpu = smp_processor_id();
--        cpumask_t *mask = per_cpu(scratch_cpumask, cpu);
-+        if ( flush_flags_local )
-+        {
-+            unsigned int cpu = smp_processor_id();
-+
-+            mask = per_cpu(scratch_cpumask, cpu);
-+            cpumask_copy(mask, pt_owner->dirty_cpumask);
-+            __cpumask_clear_cpu(cpu, mask);
-+
-+            flush_local(flush_flags_local);
-+        }
- 
--        cpumask_andnot(mask, pt_owner->dirty_cpumask, cpumask_of(cpu));
-         if ( !cpumask_empty(mask) )
--            flush_mask(mask, FLUSH_TLB_GLOBAL | FLUSH_ROOT_PGTBL);
-+            flush_mask(mask, flush_flags_all);
-     }
- 
-     perfc_add(num_page_updates, i);
--- 
-2.11.0
-
+Regards,
+Jason
 
