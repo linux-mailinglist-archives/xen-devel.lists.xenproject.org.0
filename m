@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C31A295BAB
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 11:25:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10298.27350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B89EB295BB9
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 11:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10300.27361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWpv-0002Ms-P4; Thu, 22 Oct 2020 09:24:43 +0000
+	id 1kVWrF-0002U9-3d; Thu, 22 Oct 2020 09:26:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10298.27350; Thu, 22 Oct 2020 09:24:43 +0000
+Received: by outflank-mailman (output) from mailman id 10300.27361; Thu, 22 Oct 2020 09:26:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,116 +23,123 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWpv-0002MU-Lf; Thu, 22 Oct 2020 09:24:43 +0000
-Received: by outflank-mailman (input) for mailman id 10298;
- Thu, 22 Oct 2020 09:24:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kVWpu-0002MO-AZ
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:24:42 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b05557c5-060e-4f8c-898c-6b503bf7bbc2;
- Thu, 22 Oct 2020 09:24:41 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8F8D1AC3C;
- Thu, 22 Oct 2020 09:24:40 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kVWrF-0002Tn-0B; Thu, 22 Oct 2020 09:26:05 +0000
+Received: by outflank-mailman (input) for mailman id 10300;
+ Thu, 22 Oct 2020 09:26:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kVWrD-0002Ti-Si
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:26:03 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 22415894-75c2-4a61-ab6c-9c8f46d9b6e4;
+ Thu, 22 Oct 2020 09:26:03 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kVWpu-0002MO-AZ
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:24:42 +0000
-X-Inumbo-ID: b05557c5-060e-4f8c-898c-6b503bf7bbc2
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b05557c5-060e-4f8c-898c-6b503bf7bbc2;
-	Thu, 22 Oct 2020 09:24:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603358680;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CvoA3+uVzibS3Bv3IS1AE3ffCg+FdCpAtcx7xV/jTjQ=;
-	b=qHxb0cXD8V947WK/zTGCy4JRPTiiPnWbfjoUGIGDV7kIGwcQV3wtHATNop4KSafd8Iyz7r
-	dBJYSt86g9B3azGQnNR+okxaki8tQWdFxwj+3+cWV+URNQDUZ0IsvxcYdKnXDvEJFSlUs+
-	jbrllajztgztGwWmyQ26pACn0y2fEX0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 8F8D1AC3C;
-	Thu, 22 Oct 2020 09:24:40 +0000 (UTC)
-Subject: Re: [PATCH] x86/alternative: don't call text_poke() in lazy TLB mode
-To: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Andy Lutomirski <luto@kernel.org>
-References: <20201009144225.12019-1-jgross@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <28ccccfe-b95b-5c4d-af27-5004e9f02c40@suse.com>
-Date: Thu, 22 Oct 2020 11:24:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	(envelope-from <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kVWrD-0002Ti-Si
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:26:03 +0000
+X-Inumbo-ID: 22415894-75c2-4a61-ab6c-9c8f46d9b6e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 22415894-75c2-4a61-ab6c-9c8f46d9b6e4;
+	Thu, 22 Oct 2020 09:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603358763;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=sYRjzewN0a2IME8RSLdVajEVL/ZhMXvyWZlOdP+c8j4=;
+  b=iLiJm7pJ3QkqZuHNlQPIUgcNQ60n7RlO5KPciQCuqqjUYL6ANvyHa3g3
+   QfbBpPNd4l0GkQPal645YP8mv40sC9cnmLjBSV/dd3GP7V7G6jMvS4Cni
+   HOurFUlEV/J1bZYyN01zLDshGkpDBEdO/aWuYvUnKh6JttrqvpT1b0VgA
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ir8dgV9DBXFyznyP+Om+OQWgSq8sGtxLnlSKtoxLu0bsQFaqY5g+4++2AmyfuvOcYilZcnDUhf
+ Uz8ldwNgbie06CBHFDfDPUfbGZ8w3/2C0toSHwO+Mj1WDN/Nkvv6riL+pFi9CifqQlX1PvoyPQ
+ 35cBT/sa7yNrMUWgzC7JoRC9gXblozSDYHnPrs8az2mh7AiAjwpLJzvQEktUbZHc4NpWok+6DR
+ wNBDBdFrlteegfPjmDBb/EnL6Ydjsg3LI8K7iiwGst81Zn9wtHU+cvZ9rfPlS0xD4Pqrw0RDWK
+ +f4=
+X-SBRS: 2.5
+X-MesageID: 29524186
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,404,1596513600"; 
+   d="scan'208";a="29524186"
+Date: Thu, 22 Oct 2020 11:25:53 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
+Message-ID: <20201022092553.a45yqdy7zsdivi3r@Air-de-Roger>
+References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
+ <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
+ <20201021154650.zz77ircyuedr7gpm@Air-de-Roger>
+ <3fd4c197-617e-dd48-6781-9ff0b1a82bf8@suse.com>
+ <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
+ <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
+ <20201022082938.jnpw7wvzuvxqa6iy@Air-de-Roger>
+ <2bc15e6b-cc53-3092-2a56-492a302fbc1e@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20201009144225.12019-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bc15e6b-cc53-3092-2a56-492a302fbc1e@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On 09.10.20 16:42, Juergen Gross wrote:
-> When running in lazy TLB mode the currently active page tables might
-> be the ones of a previous process, e.g. when running a kernel thread.
+On Thu, Oct 22, 2020 at 10:56:15AM +0200, Jan Beulich wrote:
+> On 22.10.2020 10:29, Roger Pau Monné wrote:
+> > On Thu, Oct 22, 2020 at 10:15:45AM +0200, Jan Beulich wrote:
+> >> On 22.10.2020 10:11, Roger Pau Monné wrote:
+> >>> On Thu, Oct 22, 2020 at 09:33:27AM +0200, Jan Beulich wrote:
+> >>>> On 21.10.2020 17:46, Roger Pau Monné wrote:
+> >>>>> On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
+> >>>>>> @@ -80,8 +81,9 @@ static uint8_t get_xen_consumer(xen_even
+> >>>>>>  
+> >>>>>>      for ( i = 0; i < ARRAY_SIZE(xen_consumers); i++ )
+> >>>>>>      {
+> >>>>>> +        /* Use cmpxchgptr() in lieu of a global lock. */
+> >>>>>>          if ( xen_consumers[i] == NULL )
+> >>>>>> -            xen_consumers[i] = fn;
+> >>>>>> +            cmpxchgptr(&xen_consumers[i], NULL, fn);
+> >>>>>>          if ( xen_consumers[i] == fn )
+> >>>>>>              break;
+> >>>>>
+> >>>>> I think you could join it as:
+> >>>>>
+> >>>>> if ( !xen_consumers[i] &&
+> >>>>>      !cmpxchgptr(&xen_consumers[i], NULL, fn) )
+> >>>>>     break;
+> >>>>>
+> >>>>> As cmpxchgptr will return the previous value of &xen_consumers[i]?
+> >>>>
+> >>>> But then you also have to check whether the returned value is
+> >>>> fn (or retain the 2nd if()).
+> >>>
+> >>> __cmpxchg comment says that success of the operation is indicated when
+> >>> the returned value equals the old value, so it's my understanding that
+> >>> cmpxchgptr returning NULL would mean the exchange has succeed and that
+> >>> xen_consumers[i] == fn?
+> >>
+> >> Correct. But if xen_consumers[i] == fn before the call, the return
+> >> value will be fn. The cmpxchg() wasn't "successful" in this case
+> >> (it didn't update anything), but the state of the array slot is what
+> >> we want.
+> > 
+> > Oh, I get it now. You don't want the same fn populating more than one
+> > slot.
 > 
-> This can be problematic in case kernel code is being modified via
-> text_poke() in a kernel thread, and on another processor exit_mmap()
-> is active for the process which was running on the first cpu before
-> the kernel thread.
-> 
-> As text_poke() is using a temporary address space and the former
-> address space (obtained via cpu_tlbstate.loaded_mm) is restored
-> afterwards, there is a race possible in case the cpu on which
-> exit_mmap() is running wants to make sure there are no stale
-> references to that address space on any cpu active (this e.g. is
-> required when running as a Xen PV guest, where this problem has been
-> observed and analyzed).
-> 
-> In order to avoid that, drop off TLB lazy mode before switching to the
-> temporary address space.
-> 
-> Fixes: cefa929c034eb5d ("x86/mm: Introduce temporary mm structs")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> FAOD it's not just "want", it's a strict requirement.
 
-Can anyone look at this, please? It is fixing a real problem which has
-been seen several times.
+I wouldn't mind having a comment to that effect in the function, but I
+won't insist.
 
-
-Juergen
-
-> ---
->   arch/x86/kernel/alternative.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-> index cdaab30880b9..cd6be6f143e8 100644
-> --- a/arch/x86/kernel/alternative.c
-> +++ b/arch/x86/kernel/alternative.c
-> @@ -807,6 +807,15 @@ static inline temp_mm_state_t use_temporary_mm(struct mm_struct *mm)
->   	temp_mm_state_t temp_state;
->   
->   	lockdep_assert_irqs_disabled();
-> +
-> +	/*
-> +	 * Make sure not to be in TLB lazy mode, as otherwise we'll end up
-> +	 * with a stale address space WITHOUT being in lazy mode after
-> +	 * restoring the previous mm.
-> +	 */
-> +	if (this_cpu_read(cpu_tlbstate.is_lazy))
-> +		leave_mm(smp_processor_id());
-> +
->   	temp_state.mm = this_cpu_read(cpu_tlbstate.loaded_mm);
->   	switch_mm_irqs_off(NULL, mm, current);
->   
-> 
-
+Thanks, Roger.
 
