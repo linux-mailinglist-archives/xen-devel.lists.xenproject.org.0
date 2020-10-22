@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A3C295A62
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:33:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10269.27248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F29A7295A8A
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:38:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10272.27259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVW1m-0005AV-Pu; Thu, 22 Oct 2020 08:32:54 +0000
+	id 1kVW6m-0005T3-Es; Thu, 22 Oct 2020 08:38:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10269.27248; Thu, 22 Oct 2020 08:32:54 +0000
+Received: by outflank-mailman (output) from mailman id 10272.27259; Thu, 22 Oct 2020 08:38:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,165 +23,501 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVW1m-0005A6-Mp; Thu, 22 Oct 2020 08:32:54 +0000
-Received: by outflank-mailman (input) for mailman id 10269;
- Thu, 22 Oct 2020 08:32:53 +0000
+	id 1kVW6m-0005Sg-9v; Thu, 22 Oct 2020 08:38:04 +0000
+Received: by outflank-mailman (input) for mailman id 10272;
+ Thu, 22 Oct 2020 08:38:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kVW1l-0005A1-5o
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:32:53 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GzMw=D5=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kVW6j-0005Sb-RW
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:38:01 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1061199c-ff37-4d92-8866-0c8d08f4e86b;
- Thu, 22 Oct 2020 08:32:52 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVW1h-0002sq-Q3; Thu, 22 Oct 2020 08:32:49 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVW1h-0005Ik-G4; Thu, 22 Oct 2020 08:32:49 +0000
+ id 870c99d4-9ca0-47e3-8297-72da3ee97f1f;
+ Thu, 22 Oct 2020 08:38:00 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0C486B00D;
+ Thu, 22 Oct 2020 08:37:59 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kVW1l-0005A1-5o
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:32:53 +0000
-X-Inumbo-ID: 1061199c-ff37-4d92-8866-0c8d08f4e86b
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=GzMw=D5=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+	id 1kVW6j-0005Sb-RW
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:38:01 +0000
+X-Inumbo-ID: 870c99d4-9ca0-47e3-8297-72da3ee97f1f
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1061199c-ff37-4d92-8866-0c8d08f4e86b;
-	Thu, 22 Oct 2020 08:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Ju9JlLqIbF4Xjt9bUyXE8qrNmg37IAJ//vMAuq74Q0c=; b=DG9/LHWNFpl5sMA492PwxjWn99
-	gR1/4P8YeSmOyG8UtRej110Zy3KKM+A09UHfonfU2puhTw/HoU/X/i6znYtb4CQBtQTT8sJVim4g9
-	7DQOfbrTWhq9Ic4WeZ6EmuOH+zqbNQhzHHR7BKr3rUT/tqg00O3DmPiv/z1+jPXysS6g=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVW1h-0002sq-Q3; Thu, 22 Oct 2020 08:32:49 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVW1h-0005Ik-G4; Thu, 22 Oct 2020 08:32:49 +0000
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
- <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
-Date: Thu, 22 Oct 2020 09:32:47 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.3.3
+	id 870c99d4-9ca0-47e3-8297-72da3ee97f1f;
+	Thu, 22 Oct 2020 08:38:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 0C486B00D;
+	Thu, 22 Oct 2020 08:37:59 +0000 (UTC)
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ sam@ravnborg.org, alexander.deucher@amd.com, christian.koenig@amd.com,
+ kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ lima@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20201020122046.31167-1-tzimmermann@suse.de>
+ <20201020122046.31167-11-tzimmermann@suse.de>
+ <20201022080534.GT401619@phenom.ffwll.local>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v5 10/10] drm/fb_helper: Support framebuffers in I/O
+ memory
+Message-ID: <794e6ab4-041b-55f9-e95e-55ef0526edd5@suse.de>
+Date: Thu, 22 Oct 2020 10:37:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-In-Reply-To: <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20201022080534.GT401619@phenom.ffwll.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
+Hi
 
-
-On 21/10/2020 12:25, Rahul Singh wrote:
-> Hello Julien,
-
-Hi Rahul,
-
->> On 20 Oct 2020, at 6:03 pm, Julien Grall <julien@xen.org> wrote:
+On 22.10.20 10:05, Daniel Vetter wrote:
+> On Tue, Oct 20, 2020 at 02:20:46PM +0200, Thomas Zimmermann wrote:
+>> At least sparc64 requires I/O-specific access to framebuffers. This
+>> patch updates the fbdev console accordingly.
 >>
->> Hi Rahul,
+>> For drivers with direct access to the framebuffer memory, the callback
+>> functions in struct fb_ops test for the type of memory and call the rsp
+>> fb_sys_ of fb_cfb_ functions. Read and write operations are implemented
+>> internally by DRM's fbdev helper.
 >>
->> Thank you for the contribution. Lets make sure this attempt to SMMUv3 support in Xen will be more successful than the other one :).
-> 
-> Yes sure.
+>> For drivers that employ a shadow buffer, fbdev's blit function retrieves
+>> the framebuffer address as struct dma_buf_map, and uses dma_buf_map
+>> interfaces to access the buffer.
 >>
->> I haven't reviewed the code yet, but I wanted to provide feedback on the commit message.
+>> The bochs driver on sparc64 uses a workaround to flag the framebuffer as
+>> I/O memory and avoid a HW exception. With the introduction of struct
+>> dma_buf_map, this is not required any longer. The patch removes the rsp
+>> code from both, bochs and fbdev.
 >>
->> On 20/10/2020 16:25, Rahul Singh wrote:
->>> Add support for ARM architected SMMUv3 implementations. It is based on
->>> the Linux SMMUv3 driver.
->>> Major differences between the Linux driver are as follows:
->>> 1. Only Stage-2 translation is supported as compared to the Linux driver
->>>     that supports both Stage-1 and Stage-2 translations.
->>> 2. Use P2M  page table instead of creating one as SMMUv3 has the
->>>     capability to share the page tables with the CPU.
->>> 3. Tasklets is used in place of threaded IRQ's in Linux for event queue
->>>     and priority queue IRQ handling.
+>> v5:
+>> 	* implement fb_read/fb_write internally (Daniel, Sam)
+>> v4:
+>> 	* move dma_buf_map changes into separate patch (Daniel)
+>> 	* TODO list: comment on fbdev updates (Daniel)
 >>
->> Tasklets are not a replacement for threaded IRQ. In particular, they will have priority over anything else (IOW nothing will run on the pCPU until they are done).
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Tested-by: Sam Ravnborg <sam@ravnborg.org>
+>> ---
+>>  Documentation/gpu/todo.rst        |  19 ++-
+>>  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
+>>  drivers/gpu/drm/drm_fb_helper.c   | 227 ++++++++++++++++++++++++++++--
+>>  include/drm/drm_mode_config.h     |  12 --
+>>  4 files changed, 230 insertions(+), 29 deletions(-)
 >>
->> Do you know why Linux is using thread. Is it because of long running operations?
+>> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+>> index 7e6fc3c04add..638b7f704339 100644
+>> --- a/Documentation/gpu/todo.rst
+>> +++ b/Documentation/gpu/todo.rst
+>> @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
+>>  ------------------------------------------------
+>>  
+>>  Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
+>> -atomic modesetting and GEM vmap support. Current generic fbdev emulation
+>> -expects the framebuffer in system memory (or system-like memory).
+>> +atomic modesetting and GEM vmap support. Historically, generic fbdev emulation
+>> +expected the framebuffer in system memory or system-like memory. By employing
+>> +struct dma_buf_map, drivers with frambuffers in I/O memory can be supported
+>> +as well.
+>>  
+>>  Contact: Maintainer of the driver you plan to convert
+>>  
+>>  Level: Intermediate
+>>  
+>> +Reimplement functions in drm_fbdev_fb_ops without fbdev
+>> +-------------------------------------------------------
+>> +
+>> +A number of callback functions in drm_fbdev_fb_ops could benefit from
+>> +being rewritten without dependencies on the fbdev module. Some of the
+>> +helpers could further benefit from using struct dma_buf_map instead of
+>> +raw pointers.
+>> +
+>> +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+>> +
+>> +Level: Advanced
+>> +
+>> +
+>>  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
+>>  -----------------------------------------------------------------
+>>  
+>> diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
+>> index 13d0d04c4457..853081d186d5 100644
+>> --- a/drivers/gpu/drm/bochs/bochs_kms.c
+>> +++ b/drivers/gpu/drm/bochs/bochs_kms.c
+>> @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
+>>  	bochs->dev->mode_config.preferred_depth = 24;
+>>  	bochs->dev->mode_config.prefer_shadow = 0;
+>>  	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
+>> -	bochs->dev->mode_config.fbdev_use_iomem = true;
+>>  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order = true;
+>>  
+>>  	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+>> index 6212cd7cde1d..1d3180841778 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+>>  }
+>>  
+>>  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
+>> -					  struct drm_clip_rect *clip)
+>> +					  struct drm_clip_rect *clip,
+>> +					  struct dma_buf_map *dst)
+>>  {
+>>  	struct drm_framebuffer *fb = fb_helper->fb;
+>>  	unsigned int cpp = fb->format->cpp[0];
+>>  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+>>  	void *src = fb_helper->fbdev->screen_buffer + offset;
+>> -	void *dst = fb_helper->buffer->map.vaddr + offset;
+>>  	size_t len = (clip->x2 - clip->x1) * cpp;
+>>  	unsigned int y;
+>>  
+>> -	for (y = clip->y1; y < clip->y2; y++) {
+>> -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
+>> -			memcpy(dst, src, len);
+>> -		else
+>> -			memcpy_toio((void __iomem *)dst, src, len);
+>> +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip rect */
+>>  
+>> +	for (y = clip->y1; y < clip->y2; y++) {
+>> +		dma_buf_map_memcpy_to(dst, src, len);
+>> +		dma_buf_map_incr(dst, fb->pitches[0]);
+>>  		src += fb->pitches[0];
+>> -		dst += fb->pitches[0];
+>>  	}
+>>  }
+>>  
+>> @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+>>  			ret = drm_client_buffer_vmap(helper->buffer, &map);
+>>  			if (ret)
+>>  				return;
+>> -			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
+>> +			drm_fb_helper_dirty_blit_real(helper, &clip_copy, &map);
+>>  		}
+>> +
+>>  		if (helper->fb->funcs->dirty)
+>>  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
+>>  						 &clip_copy, 1);
+>> @@ -2027,6 +2026,206 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>>  		return -ENODEV;
+>>  }
+>>  
+>> +static bool drm_fbdev_use_iomem(struct fb_info *info)
+>> +{
+>> +	struct drm_fb_helper *fb_helper = info->par;
+>> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+>> +
+>> +	return !drm_fbdev_use_shadow_fb(fb_helper) && buffer->map.is_iomem;
+>> +}
+>> +
+>> +static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count, 
+>> +				   loff_t pos)
+>> +{
+>> +	const char __iomem *src = info->screen_base + pos;
 > 
-> Yes you are right because of long running operations Linux is using the threaded IRQs.
-> 
-> SMMUv3 reports fault/events bases on memory-based circular buffer queues not based on the register. As per my understanding, it is time-consuming to process the memory based queues in interrupt context because of that Linux is using threaded IRQ to process the faults/events from SMMU.
-> 
-> I didn’t find any other solution in XEN in place of tasklet to defer the work, that’s why I used tasklet in XEN in replacement of threaded IRQs. If we do all work in interrupt context we will make XEN less responsive.
+> Maybe a bit much a bikeshed, but I'd write this in terms of drm objects,
+> like the dirty_blit function, using the dma_buf_map (instead of the
+> fb_info parameter). And then instead of
+> screen_base and screen_buffer suffixes give them _mem and _iomem suffixes.
 
-So we need to make sure that Xen continue to receives interrupts, but we 
-also need to make sure that a vCPU bound to the pCPU is also responsive.
+Screen_buffer can be a shadow buffer. Until the blit worker (see
+drm_fb_helper_dirty_work() ) completes, it might be more up to date than
+the real buffer that's stored in the client.
 
-> 
-> If you know another solution in XEN that will be used to defer the work in the interrupt please let me know I will try to use that.
-
-One of my work colleague encountered a similar problem recently. He had 
-a long running tasklet and wanted to be broken down in smaller chunk.
-
-We decided to use a timer to reschedule the taslket in the future. This 
-allows the scheduler to run other loads (e.g. vCPU) for some time.
-
-This is pretty hackish but I couldn't find a better solution as tasklet 
-have high priority.
-
-Maybe the other will have a better idea.
+The orignal fbdev code supported an fb_sync callback to synchronize with
+outstanding screen updates (e.g., HW blit ops), but fb_sync is just
+overhead here. Copying from screen_buffer or screen_base always returns
+the most up-to-date image.
 
 > 
->>> 4. Latest version of the Linux SMMUv3 code implements the commands queue
->>>     access functions based on atomic operations implemented in Linux.
+> Same for write below. Or I'm not quite understanding why we do it like
+> this here - I don't think this code will be used outside of the generic
+> fbdev code, so we can always assume that drm_fb_helper->buffer is set up.
+
+It's similar as in the read case. If we write to the client's buffer, an
+outstanding blit worker could write the now-outdated shadow buffer over
+the user's newly written framebuffer data.
+
+Thinking about it, we might want to schedule the blit worker at the end
+of each fb_write, so that the data makes it into the HW buffer in time.
+
+> 
+> The other thing I think we need is some minimal testcases to make sure.
+> The fbtest tool used way back seems to have disappeared, I couldn't find
+> a copy of the source anywhere anymore.
+
+As discussed on IRC, I'll add some testcase to the igt test. I'll share
+the link here when done.
+
+Best regards
+Thomas
+
+> 
+> With all that: Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> 
+> Cheers, Daniel
+> 
+>> +	size_t alloc_size = min(count, PAGE_SIZE);
+>> +	ssize_t ret = 0;
+>> +	char *tmp;
+>> +
+>> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+>> +	if (!tmp)
+>> +		return -ENOMEM;
+>> +
+>> +	while (count) {
+>> +		size_t c = min(count, alloc_size);
+>> +
+>> +		memcpy_fromio(tmp, src, c);
+>> +		if (copy_to_user(buf, tmp, c)) {
+>> +			ret = -EFAULT;
+>> +			break;
+>> +		}
+>> +
+>> +		src += c;
+>> +		buf += c;
+>> +		ret += c;
+>> +		count -= c;
+>> +	}
+>> +
+>> +	kfree(tmp);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_read_screen_buffer(struct fb_info *info, char __user *buf, size_t count,
+>> +				     loff_t pos)
+>> +{
+>> +	const char *src = info->screen_buffer + pos;
+>> +
+>> +	if (copy_to_user(buf, src, count))
+>> +		return -EFAULT;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
+>> +				 size_t count, loff_t *ppos)
+>> +{
+>> +	loff_t pos = *ppos;
+>> +	size_t total_size;
+>> +	ssize_t ret;
+>> +
+>> +	if (info->state != FBINFO_STATE_RUNNING)
+>> +		return -EPERM;
+>> +
+>> +	if (info->screen_size)
+>> +		total_size = info->screen_size;
+>> +	else
+>> +		total_size = info->fix.smem_len;
+>> +
+>> +	if (pos >= total_size)
+>> +		return 0;
+>> +	if (count >= total_size)
+>> +		count = total_size;
+>> +	if (total_size - count < pos)
+>> +		count = total_size - pos;
+>> +
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		ret = fb_read_screen_base(info, buf, count, pos);
+>> +	else
+>> +		ret = fb_read_screen_buffer(info, buf, count, pos);
+>> +
+>> +	if (ret > 0)
+>> +		*ppos = ret;
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
+>> +				    loff_t pos)
+>> +{
+>> +	char __iomem *dst = info->screen_base + pos;
+>> +	size_t alloc_size = min(count, PAGE_SIZE);
+>> +	ssize_t ret = 0;
+>> +	u8 *tmp;
+>> +
+>> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+>> +	if (!tmp)
+>> +		return -ENOMEM;
+>> +
+>> +	while (count) {
+>> +		size_t c = min(count, alloc_size);
+>> +
+>> +		if (copy_from_user(tmp, buf, c)) {
+>> +			ret = -EFAULT;
+>> +			break;
+>> +		}
+>> +		memcpy_toio(dst, tmp, c);
+>> +
+>> +		dst += c;
+>> +		buf += c;
+>> +		ret += c;
+>> +		count -= c;
+>> +	}
+>> +
+>> +	kfree(tmp);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_write_screen_buffer(struct fb_info *info, const char __user *buf, size_t count,
+>> +				      loff_t pos)
+>> +{
+>> +	char *dst = info->screen_buffer + pos;
+>> +
+>> +	if (copy_from_user(dst, buf, count))
+>> +		return -EFAULT;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
+>> +				  size_t count, loff_t *ppos)
+>> +{
+>> +	loff_t pos = *ppos;
+>> +	size_t total_size;
+>> +	ssize_t ret;
+>> +	int err;
+>> +
+>> +	if (info->state != FBINFO_STATE_RUNNING)
+>> +		return -EPERM;
+>> +
+>> +	if (info->screen_size)
+>> +		total_size = info->screen_size;
+>> +	else
+>> +		total_size = info->fix.smem_len;
+>> +
+>> +	if (pos > total_size)
+>> +		return -EFBIG;
+>> +	if (count > total_size) {
+>> +		err = -EFBIG;
+>> +		count = total_size;
+>> +	}
+>> +	if (total_size - count < pos) {
+>> +		if (!err)
+>> +			err = -ENOSPC;
+>> +		count = total_size - pos;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Copy to framebuffer even if we already logged an error. Emulates
+>> +	 * the behavior of the original fbdev implementation.
+>> +	 */
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		ret = fb_write_screen_base(info, buf, count, pos);
+>> +	else
+>> +		ret = fb_write_screen_buffer(info, buf, count, pos);
+>> +
+>> +	if (ret > 0)
+>> +		*ppos = ret;
+>> +
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void drm_fbdev_fb_fillrect(struct fb_info *info,
+>> +				  const struct fb_fillrect *rect)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_fillrect(info, rect);
+>> +	else
+>> +		drm_fb_helper_sys_fillrect(info, rect);
+>> +}
+>> +
+>> +static void drm_fbdev_fb_copyarea(struct fb_info *info,
+>> +				  const struct fb_copyarea *area)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_copyarea(info, area);
+>> +	else
+>> +		drm_fb_helper_sys_copyarea(info, area);
+>> +}
+>> +
+>> +static void drm_fbdev_fb_imageblit(struct fb_info *info,
+>> +				   const struct fb_image *image)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_imageblit(info, image);
+>> +	else
+>> +		drm_fb_helper_sys_imageblit(info, image);
+>> +}
+>> +
+>>  static const struct fb_ops drm_fbdev_fb_ops = {
+>>  	.owner		= THIS_MODULE,
+>>  	DRM_FB_HELPER_DEFAULT_OPS,
+>> @@ -2034,11 +2233,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
+>>  	.fb_release	= drm_fbdev_fb_release,
+>>  	.fb_destroy	= drm_fbdev_fb_destroy,
+>>  	.fb_mmap	= drm_fbdev_fb_mmap,
+>> -	.fb_read	= drm_fb_helper_sys_read,
+>> -	.fb_write	= drm_fb_helper_sys_write,
+>> -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
+>> -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
+>> -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
+>> +	.fb_read	= drm_fbdev_fb_read,
+>> +	.fb_write	= drm_fbdev_fb_write,
+>> +	.fb_fillrect	= drm_fbdev_fb_fillrect,
+>> +	.fb_copyarea	= drm_fbdev_fb_copyarea,
+>> +	.fb_imageblit	= drm_fbdev_fb_imageblit,
+>>  };
+>>  
+>>  static struct fb_deferred_io drm_fbdev_defio = {
+>> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+>> index 5ffbb4ed5b35..ab424ddd7665 100644
+>> --- a/include/drm/drm_mode_config.h
+>> +++ b/include/drm/drm_mode_config.h
+>> @@ -877,18 +877,6 @@ struct drm_mode_config {
+>>  	 */
+>>  	bool prefer_shadow_fbdev;
+>>  
+>> -	/**
+>> -	 * @fbdev_use_iomem:
+>> -	 *
+>> -	 * Set to true if framebuffer reside in iomem.
+>> -	 * When set to true memcpy_toio() is used when copying the framebuffer in
+>> -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
+>> -	 *
+>> -	 * FIXME: This should be replaced with a per-mapping is_iomem
+>> -	 * flag (like ttm does), and then used everywhere in fbdev code.
+>> -	 */
+>> -	bool fbdev_use_iomem;
+>> -
+>>  	/**
+>>  	 * @quirk_addfb_prefer_xbgr_30bpp:
+>>  	 *
+>> -- 
+>> 2.28.0
 >>
->> Can you provide more details?
 > 
-> I tried to port the latest version of the SMMUv3 code than I observed that in order to port that code I have to also port atomic operation implemented in Linux to XEN. As latest Linux code uses atomic operation to process the command queues (atomic_cond_read_relaxed(),atomic_long_cond_read_relaxed() , atomic_fetch_andnot_relaxed()) .
-
-Thank you for the explanation. I think it would be best to import the 
-atomic helpers and use the latest code.
-
-This will ensure that we don't re-introduce bugs and also buy us some 
-time before the Linux and Xen driver diverge again too much.
-
-Stefano, what do you think?
-
-> 
->>
->>>     Atomic functions used by the commands queue access functions is not
->>>     implemented in XEN therefore we decided to port the earlier version
->>>     of the code. Once the proper atomic operations will be available in XEN
->>>     the driver can be updated.
->>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>> ---
->>>   xen/drivers/passthrough/Kconfig       |   10 +
->>>   xen/drivers/passthrough/arm/Makefile  |    1 +
->>>   xen/drivers/passthrough/arm/smmu-v3.c | 2847 +++++++++++++++++++++++++
->>>   3 files changed, 2858 insertions(+)
->>
->> This is quite significant patch to review. Is there any way to get it split (maybe a verbatim Linux copy + Xen modification)?
-> 
-> Yes, I understand this is a quite significant patch to review let me think to get it split. If it is ok for you to review this patch and provide your comments then it will great for us.
-I will try to have a look next week.
-
-Cheers,
 
 -- 
-Julien Grall
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 Nürnberg, Germany
+(HRB 36809, AG Nürnberg)
+Geschäftsführer: Felix Imendörffer
 
