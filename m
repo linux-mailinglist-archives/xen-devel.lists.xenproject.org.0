@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265A92959F0
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:14:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10254.27188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1A102959F5
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:15:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10257.27200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVjQ-0002v9-5q; Thu, 22 Oct 2020 08:13:56 +0000
+	id 1kVVlD-00033Q-HD; Thu, 22 Oct 2020 08:15:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10254.27188; Thu, 22 Oct 2020 08:13:56 +0000
+Received: by outflank-mailman (output) from mailman id 10257.27200; Thu, 22 Oct 2020 08:15:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,95 +23,103 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVjQ-0002uk-2V; Thu, 22 Oct 2020 08:13:56 +0000
-Received: by outflank-mailman (input) for mailman id 10254;
- Thu, 22 Oct 2020 08:13:54 +0000
+	id 1kVVlD-000331-E8; Thu, 22 Oct 2020 08:15:47 +0000
+Received: by outflank-mailman (input) for mailman id 10257;
+ Thu, 22 Oct 2020 08:15:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kVVjO-0002uf-08
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:13:54 +0000
+ id 1kVVlB-00032u-Kn
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:15:45 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 821790a2-601f-4033-bda9-e18cc0bd9a75;
- Thu, 22 Oct 2020 08:13:53 +0000 (UTC)
+ id d149b65c-7f54-416a-82a5-28be2db73798;
+ Thu, 22 Oct 2020 08:15:44 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 63D89AEB6;
- Thu, 22 Oct 2020 08:13:52 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E313DAFB2;
+ Thu, 22 Oct 2020 08:15:43 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kVVjO-0002uf-08
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:13:54 +0000
-X-Inumbo-ID: 821790a2-601f-4033-bda9-e18cc0bd9a75
+	id 1kVVlB-00032u-Kn
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:15:45 +0000
+X-Inumbo-ID: d149b65c-7f54-416a-82a5-28be2db73798
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 821790a2-601f-4033-bda9-e18cc0bd9a75;
-	Thu, 22 Oct 2020 08:13:53 +0000 (UTC)
+	id d149b65c-7f54-416a-82a5-28be2db73798;
+	Thu, 22 Oct 2020 08:15:44 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603354432;
+	t=1603354544;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NiGj3diI1wYoQKy25zHuk6TRVDkf/COt9qFsW9GLczM=;
-	b=sK7JfJlQeZk06be7dZ+pPIYgX/OsXSb0HGzwIfwvVZ2Qwm1TC4hv5/o/nTqxImEI8Hw6cI
-	YHuSA207LuPRJLAZEPJh4FMyYGWKQLgOuj71TIgHM0jX0cru8PrNjZ8CfITB0oLV06oM44
-	aGiH9t6AdB59BM8znqEKnV7nrIxd2bc=
+	bh=mdRP+lPDUxm3vony6awcQ1O4nfPcpohHENFL/HUfsQo=;
+	b=UrBtSx3DwljbXMNXKpJk/zx7mFtkoiyQy8/aZO6Tsg1aApW+BXDwMgv9g2Hxkj9nKW8NNt
+	5l5ezAsvaJTnr83/K96XAwSsL9vGTCXTwpjkpLHrIf9PRWBUJJu45Ir4/0agQo8p8M/OqS
+	zTQOPkhEaB8qL4SeinkAHaGziCNV0Bg=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 63D89AEB6;
-	Thu, 22 Oct 2020 08:13:52 +0000 (UTC)
-Subject: Re: XSM and the idle domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <bfd645cf42ef7786183be15c222ad04beed362c0.camel@xen.org>
- <2dbee673-036a-077e-6cb4-556aac46ac33@apertussolutions.com>
-Cc: Hongyan Xia <hx242@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- andrew.cooper3@citrix.com, jandryuk@gmail.com, dgdegra@tycho.nsa.gov
+	by mx2.suse.de (Postfix) with ESMTP id E313DAFB2;
+	Thu, 22 Oct 2020 08:15:43 +0000 (UTC)
+Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
+ <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
+ <20201021154650.zz77ircyuedr7gpm@Air-de-Roger>
+ <3fd4c197-617e-dd48-6781-9ff0b1a82bf8@suse.com>
+ <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <09aad1f6-b9bd-1ba4-5e08-198ab2815a5b@suse.com>
-Date: Thu, 22 Oct 2020 10:13:53 +0200
+Message-ID: <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
+Date: Thu, 22 Oct 2020 10:15:45 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <2dbee673-036a-077e-6cb4-556aac46ac33@apertussolutions.com>
+In-Reply-To: <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.10.2020 03:23, Daniel P. Smith wrote:
-> On 10/21/20 10:34 AM, Hongyan Xia wrote:
->> Also, should idle domain be restricted? IMO the idle domain is Xen
->> itself which mostly bootstraps the system and performs limited work
->> when switched to, and is not something a user (either dom0 or domU)
->> directly interacts with. I doubt XSM was designed to include the idle
->> domain (although there is an ID allocated for it in the code), so I
->> would say just exclude idle in all security policy checks.
+On 22.10.2020 10:11, Roger Pau Monné wrote:
+> On Thu, Oct 22, 2020 at 09:33:27AM +0200, Jan Beulich wrote:
+>> On 21.10.2020 17:46, Roger Pau Monné wrote:
+>>> On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
+>>>> @@ -80,8 +81,9 @@ static uint8_t get_xen_consumer(xen_even
+>>>>  
+>>>>      for ( i = 0; i < ARRAY_SIZE(xen_consumers); i++ )
+>>>>      {
+>>>> +        /* Use cmpxchgptr() in lieu of a global lock. */
+>>>>          if ( xen_consumers[i] == NULL )
+>>>> -            xen_consumers[i] = fn;
+>>>> +            cmpxchgptr(&xen_consumers[i], NULL, fn);
+>>>>          if ( xen_consumers[i] == fn )
+>>>>              break;
+>>>
+>>> I think you could join it as:
+>>>
+>>> if ( !xen_consumers[i] &&
+>>>      !cmpxchgptr(&xen_consumers[i], NULL, fn) )
+>>>     break;
+>>>
+>>> As cmpxchgptr will return the previous value of &xen_consumers[i]?
+>>
+>> But then you also have to check whether the returned value is
+>> fn (or retain the 2nd if()).
 > 
-> The idle domain is a limited, internal construct within the hypervisor 
-> and should be constrained as part of the hypervisor, which is why its 
-> domain id gets labeled with the same label as the hypervisor. For this 
-> reason I would wholeheartedly disagree with exempting the idle domain id 
-> from XSM hooks as that would effectively be saying the core hypervisor 
-> should not be constrained. The purpose of the XSM hooks is to control 
-> the flow of information in the system in a non-bypassable way. Codifying 
-> bypasses completely subverts the security model behind XSM for which the 
-> flask security server is dependent upon.
+> __cmpxchg comment says that success of the operation is indicated when
+> the returned value equals the old value, so it's my understanding that
+> cmpxchgptr returning NULL would mean the exchange has succeed and that
+> xen_consumers[i] == fn?
 
-While what you say may in general make sense, I have two questions:
-1) When the idle domain is purely an internal construct of Xen, why
-   does it need limiting in any way? In fact, if restricting it in a
-   bad way, aren't you risking to prevent the system from functioning
-   correctly?
-2) LU is merely restoring the prior state of the system. This prior
-   state was reached with security auditing as per the system's
-   policy at the time. Why should there be anything denind in the
-   process of re-establishing this same state? IOW can't XSM checking
-   be globally disabled until the system is ready be run normally
-   again?
-Please forgive if this sounds like rubbish to you - I may not have a
-good enough understanding of the abstract constraints involved here.
+Correct. But if xen_consumers[i] == fn before the call, the return
+value will be fn. The cmpxchg() wasn't "successful" in this case
+(it didn't update anything), but the state of the array slot is what
+we want.
 
 Jan
 
