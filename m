@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB9E295974
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 09:42:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10201.27073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50CB8295973
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 09:42:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10200.27063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVF6-0006Wh-PX; Thu, 22 Oct 2020 07:42:36 +0000
+	id 1kVVF4-0006T5-IP; Thu, 22 Oct 2020 07:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10201.27073; Thu, 22 Oct 2020 07:42:36 +0000
+Received: by outflank-mailman (output) from mailman id 10200.27063; Thu, 22 Oct 2020 07:42:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,31 +23,30 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVF6-0006Vq-Kp; Thu, 22 Oct 2020 07:42:36 +0000
-Received: by outflank-mailman (input) for mailman id 10201;
- Thu, 22 Oct 2020 07:42:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVVF4-0006S8-CK; Thu, 22 Oct 2020 07:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 10200;
+ Thu, 22 Oct 2020 07:42:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kVVF4-0006JP-Ry
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 07:42:34 +0000
+ id 1kVVF2-0006JQ-9x
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 07:42:32 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3ad582b-766e-4735-9d13-9a084aa73deb;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e4234f1f-a4f2-4fce-823b-87302055cb70;
  Thu, 22 Oct 2020 07:42:27 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3E5C2B1A3;
+ by mx2.suse.de (Postfix) with ESMTP id 60548B1A6;
  Thu, 22 Oct 2020 07:42:26 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kVVF4-0006JP-Ry
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 07:42:34 +0000
-X-Inumbo-ID: c3ad582b-766e-4735-9d13-9a084aa73deb
+	id 1kVVF2-0006JQ-9x
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 07:42:32 +0000
+X-Inumbo-ID: e4234f1f-a4f2-4fce-823b-87302055cb70
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c3ad582b-766e-4735-9d13-9a084aa73deb;
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id e4234f1f-a4f2-4fce-823b-87302055cb70;
 	Thu, 22 Oct 2020 07:42:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
@@ -56,53 +55,54 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xSsu2Z5Xpwi6tRqum0tsNqNsbAp7L8TAp9ugr1gvsVI=;
-	b=atQVgRElJPObBm4D7xYVyo/SuLwtBvhCQM9dSvPAK4KyHUJGtLTLR/ibBuL5cHA1w1q9BD
-	TsaPzGWVrDRKrB/bssKNhDFnxlZJ5vs6T7Z0NsBy06HFiVay+eoJpwM7REhV/VPwOYQbl7
-	rhiGlLE8UurIByn89SWD+6pLMzqgBUk=
+	bh=nHAk3DX3D0x2mTNVKivpF51Q9ju8eawUFMYlwMlLqII=;
+	b=vFm0SaytDZT7HUOYCTHQFDI2uCpz4rcWn77wHy8dww39cSM0pDpTkPn9YL7t2Ax4aJ+HEd
+	CKnHFM48SdWPOubGznfdTt+CRYTHR3c+F8RNasbOnBpcyAA1OELv3r1MrFsuGFUS0dqV6z
+	1EeT51axrFMSZOTmfRvoS8dRL0W18j8=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 3E5C2B1A3;
+	by mx2.suse.de (Postfix) with ESMTP id 60548B1A6;
 	Thu, 22 Oct 2020 07:42:26 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 4/5] xen/events: unmask a fifo event channel only if it was masked
-Date: Thu, 22 Oct 2020 09:42:13 +0200
-Message-Id: <20201022074214.21693-5-jgross@suse.com>
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH 5/5] Documentation: add xen.fifo_events kernel parameter description
+Date: Thu, 22 Oct 2020 09:42:14 +0200
+Message-Id: <20201022074214.21693-6-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201022074214.21693-1-jgross@suse.com>
 References: <20201022074214.21693-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unmasking an event channel with fifo events channels being used can
-require a hypercall to be made, so try to avoid that by checking
-whether the event channel was really masked.
+The kernel boot parameter xen.fifo_events isn't listed in
+Documentation/admin-guide/kernel-parameters.txt. Add it.
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- drivers/xen/events/events_fifo.c | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/admin-guide/kernel-parameters.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/xen/events/events_fifo.c b/drivers/xen/events/events_fifo.c
-index 243e7b6d7b96..f60c5a9ec833 100644
---- a/drivers/xen/events/events_fifo.c
-+++ b/drivers/xen/events/events_fifo.c
-@@ -236,6 +236,9 @@ static bool clear_masked_cond(volatile event_word_t *word)
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 02d4adbf98d2..526d65d8573a 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5978,6 +5978,13 @@
+ 			After which time (jiffies) the event handling loop
+ 			should start to delay EOI handling. Default is 2.
  
- 	w = *word;
- 
-+	if (!(w & (1 << EVTCHN_FIFO_MASKED)))
-+		return true;
++	xen.fifo_events=	[XEN]
++			Boolean parameter to disable using fifo event handling
++			even if available. Normally fifo event handling is
++			preferred over the 2-level event handling, as it is
++			fairer and the number of possible event channels is
++			much higher. Default is on (use fifo events).
 +
- 	do {
- 		if (w & (1 << EVTCHN_FIFO_PENDING))
- 			return false;
+ 	nopv=		[X86,XEN,KVM,HYPER_V,VMWARE]
+ 			Disables the PV optimizations forcing the guest to run
+ 			as generic guest with no PV drivers. Currently support
 -- 
 2.26.2
 
