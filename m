@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7FE29670B
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 00:21:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10653.28427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B09B296754
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 00:28:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10656.28440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kViwF-0007RO-S3; Thu, 22 Oct 2020 22:20:03 +0000
+	id 1kVj3l-0008D9-Lz; Thu, 22 Oct 2020 22:27:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10653.28427; Thu, 22 Oct 2020 22:20:03 +0000
+Received: by outflank-mailman (output) from mailman id 10656.28440; Thu, 22 Oct 2020 22:27:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,132 +23,105 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kViwF-0007Qz-OV; Thu, 22 Oct 2020 22:20:03 +0000
-Received: by outflank-mailman (input) for mailman id 10653;
- Thu, 22 Oct 2020 22:20:01 +0000
+	id 1kVj3l-0008Ck-IR; Thu, 22 Oct 2020 22:27:49 +0000
+Received: by outflank-mailman (input) for mailman id 10656;
+ Thu, 22 Oct 2020 22:27:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kViwD-0007Cn-KY
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:20:01 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JUr7=D5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kVj3k-0008Cf-P5
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:27:48 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4f4efc31-ef90-4e2c-ba00-790d42fdab8a;
- Thu, 22 Oct 2020 22:19:53 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kViw5-000447-0k; Thu, 22 Oct 2020 22:19:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kViw4-00023v-NU; Thu, 22 Oct 2020 22:19:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kViw4-0005LV-Mw; Thu, 22 Oct 2020 22:19:52 +0000
+ id 07a2df02-8e59-41bd-a5e5-d38c2e1c3bd2;
+ Thu, 22 Oct 2020 22:27:47 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09MMRYj0083433
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 22 Oct 2020 18:27:39 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 09MMRXj0083432;
+ Thu, 22 Oct 2020 15:27:33 -0700 (PDT) (envelope-from ehem)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kViwD-0007Cn-KY
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:20:01 +0000
-X-Inumbo-ID: 4f4efc31-ef90-4e2c-ba00-790d42fdab8a
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=JUr7=D5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+	id 1kVj3k-0008Cf-P5
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:27:48 +0000
+X-Inumbo-ID: 07a2df02-8e59-41bd-a5e5-d38c2e1c3bd2
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4f4efc31-ef90-4e2c-ba00-790d42fdab8a;
-	Thu, 22 Oct 2020 22:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mRJ5no7t8344JIo3JvCWfylGgDoQhwMO69tXyneu2T0=; b=NZxOC8LQFPgUZmBzN+NAK6elAS
-	e0Y4K7aCTAEKSMlfOkduvgJCNKIGFL53GmCHbeLsChRasgI6NghpwRP4mTVz1cuhr/YwARCSCRJ/Z
-	CHwHTryht4+gIl+Rukg3WrOvky4fFPXZXrRn4IcsRofmcMgpHvrxoeDjJJAHa7ODHBYA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kViw5-000447-0k; Thu, 22 Oct 2020 22:19:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kViw4-00023v-NU; Thu, 22 Oct 2020 22:19:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kViw4-0005LV-Mw; Thu, 22 Oct 2020 22:19:52 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156108-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 07a2df02-8e59-41bd-a5e5-d38c2e1c3bd2;
+	Thu, 22 Oct 2020 22:27:47 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09MMRYj0083433
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 22 Oct 2020 18:27:39 -0400 (EDT)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.15.2/8.15.2/Submit) id 09MMRXj0083432;
+	Thu, 22 Oct 2020 15:27:33 -0700 (PDT)
+	(envelope-from ehem)
+Date: Thu, 22 Oct 2020 15:27:33 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: Remove EXPERT dependancy
+Message-ID: <20201022222733.GA83375@mattapan.m5p.com>
+References: <20201022014310.GA70872@mattapan.m5p.com>
+ <7bf92deb-b1ba-31b2-0357-2639cd2a1bca@xen.org>
+ <alpine.DEB.2.21.2010221403570.12247@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156108: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=861f0c110976fa8879b7bf63d9478b6be83d4ab6
-X-Osstest-Versions-That:
-    xen=3b49791e4cc2f38dd84bf331b75217adaef636e3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Oct 2020 22:19:52 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2010221403570.12247@sstabellini-ThinkPad-T480s>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-flight 156108 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156108/
+On Thu, Oct 22, 2020 at 02:17:13PM -0700, Stefano Stabellini wrote:
+> On Thu, 22 Oct 2020, Julien Grall wrote:
+> > On 22/10/2020 02:43, Elliott Mitchell wrote:
+> > > Linux requires UEFI support to be enabled on ARM64 devices.  While many
+> > > ARM64 devices lack ACPI, the writing seems to be on the wall of UEFI/ACPI
+> > > potentially taking over.  Some common devices may need ACPI table
+> > > support.
+> > > 
+> > > Presently I think it is worth removing the dependancy on CONFIG_EXPERT.
+> > 
+> > The idea behind EXPERT is to gate any feature that is not considered to be
+> > stable/complete enough to be used in production.
+> 
+> Yes, and from that point of view I don't think we want to remove EXPERT
+> from ACPI yet. However, the idea of hiding things behind EXPERT works
+> very well for new esoteric features, something like memory introspection
+> or memory overcommit. It does not work well for things that are actually
+> required to boot on the platform.
+> 
+> Typically ACPI systems don't come with device tree at all (RPi4 being an
+> exception), so users don't really have much of a choice in the matter.
+> 
+> >From that point of view, it would be better to remove EXPERT from ACPI,
+> maybe even build ACPI by default, *but* to add a warning at boot saying
+> something like:
+> 
+> "ACPI support is experimental. Boot using Device Tree if you can."
+> 
+> 
+> That would better convey the risks of using ACPI, while at the same time
+> making it a bit easier for users to boot on their ACPI-only platforms.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  861f0c110976fa8879b7bf63d9478b6be83d4ab6
-baseline version:
- xen                  3b49791e4cc2f38dd84bf331b75217adaef636e3
-
-Last test of basis   156047  2020-10-20 21:00:31 Z    2 days
-Testing same since   156108  2020-10-22 19:02:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+This matches my view.  I was thinking about including "default y", but I
+felt the chances of that getting through were lower.  I concur with a
+warning on boot being a good approach.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3b49791e4c..861f0c1109  861f0c110976fa8879b7bf63d9478b6be83d4ab6 -> smoke
 
