@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6657295B8B
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 11:19:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10292.27326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7401B295BA0
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 11:21:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10295.27338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWkA-0001JH-S5; Thu, 22 Oct 2020 09:18:46 +0000
+	id 1kVWmp-000276-Ac; Thu, 22 Oct 2020 09:21:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10292.27326; Thu, 22 Oct 2020 09:18:46 +0000
+Received: by outflank-mailman (output) from mailman id 10295.27338; Thu, 22 Oct 2020 09:21:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,298 +23,87 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWkA-0001Is-OZ; Thu, 22 Oct 2020 09:18:46 +0000
-Received: by outflank-mailman (input) for mailman id 10292;
- Thu, 22 Oct 2020 09:18:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVWmp-00026h-70; Thu, 22 Oct 2020 09:21:31 +0000
+Received: by outflank-mailman (input) for mailman id 10295;
+ Thu, 22 Oct 2020 09:21:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GzMw=D5=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1kVWk9-0001In-K0
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:18:45 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dacc824b-b3db-416f-badc-cb13f0f9e7d2;
- Thu, 22 Oct 2020 09:18:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E375DB240;
- Thu, 22 Oct 2020 09:18:42 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kVWmn-00026b-PR
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:21:29 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0478d580-44dc-40c7-8dce-2c237b880a2a;
+ Thu, 22 Oct 2020 09:21:28 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GzMw=D5=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
-	id 1kVWk9-0001In-K0
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:18:45 +0000
-X-Inumbo-ID: dacc824b-b3db-416f-badc-cb13f0f9e7d2
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id dacc824b-b3db-416f-badc-cb13f0f9e7d2;
-	Thu, 22 Oct 2020 09:18:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E375DB240;
-	Thu, 22 Oct 2020 09:18:42 +0000 (UTC)
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: luben.tuikov@amd.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- melissa.srw@gmail.com, ray.huang@amd.com, kraxel@redhat.com,
- sam@ravnborg.org, emil.velikov@collabora.com,
- linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
- lima@lists.freedesktop.org, oleksandr_andrushchenko@epam.com,
- krzk@kernel.org, steven.price@arm.com, linux-rockchip@lists.infradead.org,
- kgene@kernel.org, bskeggs@redhat.com, linux+etnaviv@armlinux.org.uk,
- spice-devel@lists.freedesktop.org, alyssa.rosenzweig@collabora.com,
- etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
- xen-devel@lists.xenproject.org, virtualization@lists.linux-foundation.org,
- sean@poorly.run, apaneers@amd.com, linux-arm-kernel@lists.infradead.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- tomeu.vizoso@collabora.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
- sw0312.kim@samsung.com, hjc@rock-chips.com, kyungmin.park@samsung.com,
- miaoqinglang@huawei.com, yuq825@gmail.com, alexander.deucher@amd.com,
- linux-media@vger.kernel.org, christian.koenig@amd.com
-References: <20201020122046.31167-1-tzimmermann@suse.de>
- <20201020122046.31167-9-tzimmermann@suse.de>
- <20201022084919.GU401619@phenom.ffwll.local>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v5 08/10] drm/gem: Store client buffer mappings as struct
- dma_buf_map
-Message-ID: <f2d83a8b-91b3-ac64-b77f-2b1c78729014@suse.de>
-Date: Thu, 22 Oct 2020 11:18:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.2
+	(envelope-from <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kVWmn-00026b-PR
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:21:29 +0000
+X-Inumbo-ID: 0478d580-44dc-40c7-8dce-2c237b880a2a
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0478d580-44dc-40c7-8dce-2c237b880a2a;
+	Thu, 22 Oct 2020 09:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603358488;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=C9aqx/jjtwxMn9vAhpNQPx4C33vcoB8dih4gv2oWmT0=;
+  b=WQnYZYleHNmYc7bL/gPOuftZkn8yTxyu8JGr094ibMOI77KE4A5xo0BY
+   vvflK0ukEYGS1yrkx4J5tjyg+l4I6oCjZNjHzHC2qAy0TCGv36yF965L4
+   9YogE3IAPeCQduybIXt+hDS3LEVPQPeFHFqQkuumEtZ0lDxUwjxcDL60q
+   8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: kc51BmvvoDlcX8H+s15aRLIDcnoWU9hX00MmrF9NuEuAwhoa98UlGweTntLtzSJNZBYC4TObxV
+ bVZ/6LuRPfS8Sg2/LnH5HchSSBoKrWB5ZZcU2Wwyfe6f90rjlOP0RVkkXCHxAdILG5MHvWtZlA
+ G2DctSc7095U7pou1ObfgXyK6BoZEt7oCJ0KWpR+MkWk5QvTz4LqQ3EjwipK5M8sR8zSbygRh2
+ kxF9OK3k/Z7o4SLbBOz0b2O/QhZjYot9FLmKXDJZmOorV1GLHL2LN01Hkg8U639gSRqveDYfuo
+ 6Rs=
+X-SBRS: 2.5
+X-MesageID: 29794353
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,404,1596513600"; 
+   d="scan'208";a="29794353"
+Date: Thu, 22 Oct 2020 11:21:19 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
+Message-ID: <20201022092119.kgm3nrwuwjhphcc7@Air-de-Roger>
+References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
+ <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20201022084919.GU401619@phenom.ffwll.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-Hi
-
-On 22.10.20 10:49, Daniel Vetter wrote:
-> On Tue, Oct 20, 2020 at 02:20:44PM +0200, Thomas Zimmermann wrote:
->> Kernel DRM clients now store their framebuffer address in an instance
->> of struct dma_buf_map. Depending on the buffer's location, the address
->> refers to system or I/O memory.
->>
->> Callers of drm_client_buffer_vmap() receive a copy of the value in
->> the call's supplied arguments. It can be accessed and modified with
->> dma_buf_map interfaces.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->> Tested-by: Sam Ravnborg <sam@ravnborg.org>
->> ---
->>  drivers/gpu/drm/drm_client.c    | 34 +++++++++++++++++++--------------
->>  drivers/gpu/drm/drm_fb_helper.c | 23 +++++++++++++---------
->>  include/drm/drm_client.h        |  7 ++++---
->>  3 files changed, 38 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
->> index ac0082bed966..fe573acf1067 100644
->> --- a/drivers/gpu/drm/drm_client.c
->> +++ b/drivers/gpu/drm/drm_client.c
->> @@ -235,7 +235,7 @@ static void drm_client_buffer_delete(struct drm_client_buffer *buffer)
->>  {
->>  	struct drm_device *dev = buffer->client->dev;
->>  
->> -	drm_gem_vunmap(buffer->gem, buffer->vaddr);
->> +	drm_gem_vunmap(buffer->gem, &buffer->map);
->>  
->>  	if (buffer->gem)
->>  		drm_gem_object_put(buffer->gem);
->> @@ -291,25 +291,31 @@ drm_client_buffer_create(struct drm_client_dev *client, u32 width, u32 height, u
->>  /**
->>   * drm_client_buffer_vmap - Map DRM client buffer into address space
->>   * @buffer: DRM client buffer
->> + * @map_copy: Returns the mapped memory's address
->>   *
->>   * This function maps a client buffer into kernel address space. If the
->> - * buffer is already mapped, it returns the mapping's address.
->> + * buffer is already mapped, it returns the existing mapping's address.
->>   *
->>   * Client buffer mappings are not ref'counted. Each call to
->>   * drm_client_buffer_vmap() should be followed by a call to
->>   * drm_client_buffer_vunmap(); or the client buffer should be mapped
->>   * throughout its lifetime.
->>   *
->> + * The returned address is a copy of the internal value. In contrast to
->> + * other vmap interfaces, you don't need it for the client's vunmap
->> + * function. So you can modify it at will during blit and draw operations.
->> + *
->>   * Returns:
->> - *	The mapped memory's address
->> + *	0 on success, or a negative errno code otherwise.
->>   */
->> -void *drm_client_buffer_vmap(struct drm_client_buffer *buffer)
->> +int
->> +drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct dma_buf_map *map_copy)
->>  {
->> -	struct dma_buf_map map;
->> +	struct dma_buf_map *map = &buffer->map;
->>  	int ret;
->>  
->> -	if (buffer->vaddr)
->> -		return buffer->vaddr;
->> +	if (dma_buf_map_is_set(map))
->> +		goto out;
->>  
->>  	/*
->>  	 * FIXME: The dependency on GEM here isn't required, we could
->> @@ -319,13 +325,14 @@ void *drm_client_buffer_vmap(struct drm_client_buffer *buffer)
->>  	 * fd_install step out of the driver backend hooks, to make that
->>  	 * final step optional for internal users.
->>  	 */
->> -	ret = drm_gem_vmap(buffer->gem, &map);
->> +	ret = drm_gem_vmap(buffer->gem, map);
->>  	if (ret)
->> -		return ERR_PTR(ret);
->> +		return ret;
->>  
->> -	buffer->vaddr = map.vaddr;
->> +out:
->> +	*map_copy = *map;
->>  
->> -	return map.vaddr;
->> +	return 0;
->>  }
->>  EXPORT_SYMBOL(drm_client_buffer_vmap);
->>  
->> @@ -339,10 +346,9 @@ EXPORT_SYMBOL(drm_client_buffer_vmap);
->>   */
->>  void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
->>  {
->> -	struct dma_buf_map map = DMA_BUF_MAP_INIT_VADDR(buffer->vaddr);
->> +	struct dma_buf_map *map = &buffer->map;
->>  
->> -	drm_gem_vunmap(buffer->gem, &map);
->> -	buffer->vaddr = NULL;
->> +	drm_gem_vunmap(buffer->gem, map);
->>  }
->>  EXPORT_SYMBOL(drm_client_buffer_vunmap);
->>  
->> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
->> index c2f72bb6afb1..6212cd7cde1d 100644
->> --- a/drivers/gpu/drm/drm_fb_helper.c
->> +++ b/drivers/gpu/drm/drm_fb_helper.c
->> @@ -378,7 +378,7 @@ static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
->>  	unsigned int cpp = fb->format->cpp[0];
->>  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
->>  	void *src = fb_helper->fbdev->screen_buffer + offset;
->> -	void *dst = fb_helper->buffer->vaddr + offset;
->> +	void *dst = fb_helper->buffer->map.vaddr + offset;
->>  	size_t len = (clip->x2 - clip->x1) * cpp;
->>  	unsigned int y;
->>  
->> @@ -400,7 +400,8 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
->>  	struct drm_clip_rect *clip = &helper->dirty_clip;
->>  	struct drm_clip_rect clip_copy;
->>  	unsigned long flags;
->> -	void *vaddr;
->> +	struct dma_buf_map map;
->> +	int ret;
->>  
->>  	spin_lock_irqsave(&helper->dirty_lock, flags);
->>  	clip_copy = *clip;
->> @@ -413,8 +414,8 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
->>  
->>  		/* Generic fbdev uses a shadow buffer */
->>  		if (helper->buffer) {
->> -			vaddr = drm_client_buffer_vmap(helper->buffer);
->> -			if (IS_ERR(vaddr))
->> +			ret = drm_client_buffer_vmap(helper->buffer, &map);
->> +			if (ret)
->>  				return;
->>  			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
->>  		}
->> @@ -2060,7 +2061,8 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
->>  	struct drm_framebuffer *fb;
->>  	struct fb_info *fbi;
->>  	u32 format;
->> -	void *vaddr;
->> +	struct dma_buf_map map;
->> +	int ret;
->>  
->>  	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
->>  		    sizes->surface_width, sizes->surface_height,
->> @@ -2096,11 +2098,14 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
->>  		fb_deferred_io_init(fbi);
->>  	} else {
->>  		/* buffer is mapped for HW framebuffer */
->> -		vaddr = drm_client_buffer_vmap(fb_helper->buffer);
->> -		if (IS_ERR(vaddr))
->> -			return PTR_ERR(vaddr);
->> +		ret = drm_client_buffer_vmap(fb_helper->buffer, &map);
->> +		if (ret)
->> +			return ret;
->> +		if (map.is_iomem)
->> +			fbi->screen_base = map.vaddr_iomem;
->> +		else
->> +			fbi->screen_buffer = map.vaddr;
->>  
->> -		fbi->screen_buffer = vaddr;
->>  		/* Shamelessly leak the physical address to user-space */
->>  #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
->>  		if (drm_leak_fbdev_smem && fbi->fix.smem_start == 0)
+On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
+> There's no global lock around the updating of this global piece of data.
+> Make use of cmpxchgptr() to avoid two entities racing with their
+> updates.
 > 
-> Just noticed a tiny thing here: I think this needs to be patched to only
-> set smem_start when the map is _not_ iomem. Since virt_to_page isn't
-> defined on iomem at all.
+> While touching the functionality, mark xen_consumers[] read-mostly (or
+> else the if() condition could use the result of cmpxchgptr(), writing to
+> the slot unconditionally).
 > 
-> I guess it'd be neat if we can set this for iomem too, but I have no idea
-> how to convert an iomem pointer back to a bus_addr_t ...
-
-Not that I disagree, but that should be reviewed by the right people.
-The commit at 4be9bd10e22d ("drm/fb_helper: Allow leaking fbdev
-smem_start") appears to work around specific userspace drivers.
-
-Best regards
-Thomas
-
+> The use of cmpxchgptr() here points out (by way of clang warning about
+> it) that its original use of const was slightly wrong. Adjust the
+> placement, or else undefined behavior of const qualifying a function
+> type will result.
 > 
-> Cheers, Daniel
-> 
->> diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
->> index 7aaea665bfc2..f07f2fb02e75 100644
->> --- a/include/drm/drm_client.h
->> +++ b/include/drm/drm_client.h
->> @@ -3,6 +3,7 @@
->>  #ifndef _DRM_CLIENT_H_
->>  #define _DRM_CLIENT_H_
->>  
->> +#include <linux/dma-buf-map.h>
->>  #include <linux/lockdep.h>
->>  #include <linux/mutex.h>
->>  #include <linux/types.h>
->> @@ -141,9 +142,9 @@ struct drm_client_buffer {
->>  	struct drm_gem_object *gem;
->>  
->>  	/**
->> -	 * @vaddr: Virtual address for the buffer
->> +	 * @map: Virtual address for the buffer
->>  	 */
->> -	void *vaddr;
->> +	struct dma_buf_map map;
->>  
->>  	/**
->>  	 * @fb: DRM framebuffer
->> @@ -155,7 +156,7 @@ struct drm_client_buffer *
->>  drm_client_framebuffer_create(struct drm_client_dev *client, u32 width, u32 height, u32 format);
->>  void drm_client_framebuffer_delete(struct drm_client_buffer *buffer);
->>  int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, struct drm_rect *rect);
->> -void *drm_client_buffer_vmap(struct drm_client_buffer *buffer);
->> +int drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct dma_buf_map *map);
->>  void drm_client_buffer_vunmap(struct drm_client_buffer *buffer);
->>  
->>  int drm_client_modeset_create(struct drm_client_dev *client);
->> -- 
->> 2.28.0
->>
-> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 Nürnberg, Germany
-(HRB 36809, AG Nürnberg)
-Geschäftsführer: Felix Imendörffer
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
