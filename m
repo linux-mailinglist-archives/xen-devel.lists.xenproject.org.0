@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE74296095
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 16:02:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10470.27812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31032960BF
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 16:14:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10474.27827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVbAO-0006dY-My; Thu, 22 Oct 2020 14:02:08 +0000
+	id 1kVbLO-0007nW-RI; Thu, 22 Oct 2020 14:13:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10470.27812; Thu, 22 Oct 2020 14:02:08 +0000
+Received: by outflank-mailman (output) from mailman id 10474.27827; Thu, 22 Oct 2020 14:13:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,247 +23,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVbAO-0006d9-Jo; Thu, 22 Oct 2020 14:02:08 +0000
-Received: by outflank-mailman (input) for mailman id 10470;
- Thu, 22 Oct 2020 14:02:07 +0000
+	id 1kVbLO-0007n7-Nr; Thu, 22 Oct 2020 14:13:30 +0000
+Received: by outflank-mailman (input) for mailman id 10474;
+ Thu, 22 Oct 2020 14:13:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kVbAN-0006cb-Ha
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 14:02:07 +0000
+ id 1kVbLN-0007lT-H7
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 14:13:29 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6f7a5567-e46a-47a7-aa0a-54947caf5bd0;
- Thu, 22 Oct 2020 14:01:56 +0000 (UTC)
+ id 3b396133-0dfc-4397-a2d1-dd3b3519ca2b;
+ Thu, 22 Oct 2020 14:13:22 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kVbAC-0001QN-Lh; Thu, 22 Oct 2020 14:01:56 +0000
+ id 1kVbLG-0001fn-7r; Thu, 22 Oct 2020 14:13:22 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kVbAC-0000Vk-DQ; Thu, 22 Oct 2020 14:01:56 +0000
+ id 1kVbLG-0001Bj-0y; Thu, 22 Oct 2020 14:13:22 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kVbAC-0004SO-Cw; Thu, 22 Oct 2020 14:01:56 +0000
+ id 1kVbLG-0006og-0V; Thu, 22 Oct 2020 14:13:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kVbAN-0006cb-Ha
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 14:02:07 +0000
-X-Inumbo-ID: 6f7a5567-e46a-47a7-aa0a-54947caf5bd0
+	id 1kVbLN-0007lT-H7
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 14:13:29 +0000
+X-Inumbo-ID: 3b396133-0dfc-4397-a2d1-dd3b3519ca2b
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 6f7a5567-e46a-47a7-aa0a-54947caf5bd0;
-	Thu, 22 Oct 2020 14:01:56 +0000 (UTC)
+	id 3b396133-0dfc-4397-a2d1-dd3b3519ca2b;
+	Thu, 22 Oct 2020 14:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=b18KICB5AE6D6vU7xswDRyHL2KdsBx3DeONdzHJOv68=; b=GDhphyN2nk+2P+7A3ETJtetwQF
-	vz+n5GL+OWpB1TPZYG87OVaMkTtExj743kHPJBbUUm6iZmWyGYnibORTWQ1tatNqWcEOjAGzMKaEW
-	priR5TVbHL3zxwYo3DKPhnXgnTvJAibeqWS2JvpAgFO6j9d8rVqPXNVwbH8X3VMNA3QM=;
+	bh=kDhvUohDJ+AJnCSr+olybovtBIog6cfMkRcQapbP8WU=; b=H2PMve2s+UNkyesnv1rzfo6qZ/
+	B7YVbbZM/jx7BlGOaHF+dflS8g/ZsAWxmk4VCCNsFfEwmJNwdNfvDpPzRvltlka5aW+nGi1dKYeZJ
+	Xpfmi5AW9h3JGVJ7WxsYDNx1HtAhXOy1cHpjIKLcPgCDNRnnJNO9/ad3AXyyGpl9BFg0=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVbAC-0001QN-Lh; Thu, 22 Oct 2020 14:01:56 +0000
+	id 1kVbLG-0001fn-7r; Thu, 22 Oct 2020 14:13:22 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVbAC-0000Vk-DQ; Thu, 22 Oct 2020 14:01:56 +0000
+	id 1kVbLG-0001Bj-0y; Thu, 22 Oct 2020 14:13:22 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVbAC-0004SO-Cw; Thu, 22 Oct 2020 14:01:56 +0000
+	id 1kVbLG-0006og-0V; Thu, 22 Oct 2020 14:13:22 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-156082-mainreport@xen.org>
+Message-ID: <osstest-156065-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [libvirt test] 156082: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+Subject: [ovmf test] 156065: all pass - PUSHED
 X-Osstest-Versions-This:
-    libvirt=25cb07498e962e9e8452e6b17c397132e8364ec7
+    ovmf=26442d11e620a9e81c019a24a4ff38441c64ba10
 X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+    ovmf=f82b827c92f77eac8debdce6ef9689d156771871
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Oct 2020 14:01:56 +0000
+Date: Thu, 22 Oct 2020 14:13:22 +0000
 
-flight 156082 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156082/
+flight 156065 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156065/
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
-
+Perfect :-)
+All tests in this flight passed as required
 version targeted for testing:
- libvirt              25cb07498e962e9e8452e6b17c397132e8364ec7
+ ovmf                 26442d11e620a9e81c019a24a4ff38441c64ba10
 baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+ ovmf                 f82b827c92f77eac8debdce6ef9689d156771871
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  104 days
-Failing since        151818  2020-07-11 04:18:52 Z  103 days   98 attempts
-Testing same since   156082  2020-10-22 04:19:11 Z    0 days    1 attempts
+Last test of basis   156017  2020-10-20 06:40:54 Z    2 days
+Testing same since   156065  2020-10-21 06:40:48 Z    1 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Jian J Wang <jian.j.wang@intel.com>
 
 jobs:
  build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
  build-i386-xsm                                               pass    
  build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
  build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
  build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
 ------------------------------------------------------------
@@ -282,7 +135,8 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Not pushing.
+Pushing revision :
 
-(No revision log; it would be 22680 lines long.)
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   f82b827c92..26442d11e6  26442d11e620a9e81c019a24a4ff38441c64ba10 -> xen-tested-master
 
