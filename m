@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76098295B10
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:56:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10285.27301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F0B295B7B
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 11:14:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10289.27314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWOS-0007cI-Nf; Thu, 22 Oct 2020 08:56:20 +0000
+	id 1kVWf9-000163-7o; Thu, 22 Oct 2020 09:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10285.27301; Thu, 22 Oct 2020 08:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 10289.27314; Thu, 22 Oct 2020 09:13:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,119 +23,98 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVWOS-0007bt-KN; Thu, 22 Oct 2020 08:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 10285;
- Thu, 22 Oct 2020 08:56:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVWf9-00015e-4i; Thu, 22 Oct 2020 09:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 10289;
+ Thu, 22 Oct 2020 09:13:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kVWOQ-0007bN-7e
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:56:18 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 35c70d9a-87f0-4fb9-b743-cbc7a57f3a85;
- Thu, 22 Oct 2020 08:56:16 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 34B45AC82;
- Thu, 22 Oct 2020 08:56:15 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kVWf8-00015Z-90
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:13:34 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d6d671e3-151e-465f-a228-4bba560ce2f8;
+ Thu, 22 Oct 2020 09:13:33 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kVWf6-0003jb-0d; Thu, 22 Oct 2020 09:13:32 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kVWf5-0000It-Oj; Thu, 22 Oct 2020 09:13:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kVWOQ-0007bN-7e
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:56:18 +0000
-X-Inumbo-ID: 35c70d9a-87f0-4fb9-b743-cbc7a57f3a85
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 35c70d9a-87f0-4fb9-b743-cbc7a57f3a85;
-	Thu, 22 Oct 2020 08:56:16 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603356975;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ffs8HVQOl285t4ppCdKCO8F+D0WzOhc8a+9BPoe5kE0=;
-	b=FNMxUkIX2Cc0okDFSJ4KIbOPkURaV72SDFVT3TdQaXaBXjhJz3nbxpNfz3sLBiU0Dj2w+O
-	kRko8jDaowthsJvyNPrns1KrttHfiwlo7gRn2+YsV1Bm/2MDnEzUL9l4t4VNFsp+XW18wp
-	4SeTAAQOUDyyC+rfnGza+fG4EFpb5Ys=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 34B45AC82;
-	Thu, 22 Oct 2020 08:56:15 +0000 (UTC)
-Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
- <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
- <20201021154650.zz77ircyuedr7gpm@Air-de-Roger>
- <3fd4c197-617e-dd48-6781-9ff0b1a82bf8@suse.com>
- <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
- <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
- <20201022082938.jnpw7wvzuvxqa6iy@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2bc15e6b-cc53-3092-2a56-492a302fbc1e@suse.com>
-Date: Thu, 22 Oct 2020 10:56:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	(envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kVWf8-00015Z-90
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 09:13:34 +0000
+X-Inumbo-ID: d6d671e3-151e-465f-a228-4bba560ce2f8
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id d6d671e3-151e-465f-a228-4bba560ce2f8;
+	Thu, 22 Oct 2020 09:13:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=eVX4KsOWO0VfBR4o9B+a/URh7DqYVZ4bWqLYe2Rt4WE=; b=KKQJmGHgOP/aWsqkQmfpNGhzOz
+	Pkpt4311Ke0/+b0CgyH+hPgvJnEsH9Zq+wnku8uRkpvv5zItOeBSgY4OtYY+V9cjIYivm0kQacXqy
+	sm5H8On5hOuESwPzNTf5SVdCNux8I3/KfeEcOUpOJJuOATuj/dbhKEELyjq+HyvHqe+o=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kVWf6-0003jb-0d; Thu, 22 Oct 2020 09:13:32 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kVWf5-0000It-Oj; Thu, 22 Oct 2020 09:13:31 +0000
+Subject: Re: [PATCH] xen/arm: Remove EXPERT dependancy
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20201022014310.GA70872@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7bf92deb-b1ba-31b2-0357-2639cd2a1bca@xen.org>
+Date: Thu, 22 Oct 2020 10:13:29 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.3
 MIME-Version: 1.0
-In-Reply-To: <20201022082938.jnpw7wvzuvxqa6iy@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201022014310.GA70872@mattapan.m5p.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 22.10.2020 10:29, Roger Pau Monné wrote:
-> On Thu, Oct 22, 2020 at 10:15:45AM +0200, Jan Beulich wrote:
->> On 22.10.2020 10:11, Roger Pau Monné wrote:
->>> On Thu, Oct 22, 2020 at 09:33:27AM +0200, Jan Beulich wrote:
->>>> On 21.10.2020 17:46, Roger Pau Monné wrote:
->>>>> On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
->>>>>> @@ -80,8 +81,9 @@ static uint8_t get_xen_consumer(xen_even
->>>>>>  
->>>>>>      for ( i = 0; i < ARRAY_SIZE(xen_consumers); i++ )
->>>>>>      {
->>>>>> +        /* Use cmpxchgptr() in lieu of a global lock. */
->>>>>>          if ( xen_consumers[i] == NULL )
->>>>>> -            xen_consumers[i] = fn;
->>>>>> +            cmpxchgptr(&xen_consumers[i], NULL, fn);
->>>>>>          if ( xen_consumers[i] == fn )
->>>>>>              break;
->>>>>
->>>>> I think you could join it as:
->>>>>
->>>>> if ( !xen_consumers[i] &&
->>>>>      !cmpxchgptr(&xen_consumers[i], NULL, fn) )
->>>>>     break;
->>>>>
->>>>> As cmpxchgptr will return the previous value of &xen_consumers[i]?
->>>>
->>>> But then you also have to check whether the returned value is
->>>> fn (or retain the 2nd if()).
->>>
->>> __cmpxchg comment says that success of the operation is indicated when
->>> the returned value equals the old value, so it's my understanding that
->>> cmpxchgptr returning NULL would mean the exchange has succeed and that
->>> xen_consumers[i] == fn?
->>
->> Correct. But if xen_consumers[i] == fn before the call, the return
->> value will be fn. The cmpxchg() wasn't "successful" in this case
->> (it didn't update anything), but the state of the array slot is what
->> we want.
+Hi,
+
+On 22/10/2020 02:43, Elliott Mitchell wrote:
+> Linux requires UEFI support to be enabled on ARM64 devices.  While many
+> ARM64 devices lack ACPI, the writing seems to be on the wall of UEFI/ACPI
+> potentially taking over.  Some common devices may need ACPI table
+> support.
 > 
-> Oh, I get it now. You don't want the same fn populating more than one
-> slot.
+> Presently I think it is worth removing the dependancy on CONFIG_EXPERT.
 
-FAOD it's not just "want", it's a strict requirement.
+The idea behind EXPERT is to gate any feature that is not considered to 
+be stable/complete enough to be used in production.
 
-> I assume the reads of xen_consumers are not using ACCESS_ONCE or
-> read_atomic because we rely on the compiler performing such reads as
-> single instructions?
+I don't consider the ACPI complete because the parsing of the IORT (used 
+to discover SMMU and GICv3 ITS) is not there yet.
 
-Yes, as in so many other places in the code base.
+I vaguely remember some issues on system using SMMU (e.g. Thunder-X) 
+because Dom0 will try to use the IOMMU and this would break PV drivers.
 
-Jan
+Therefore I think we at least want to consider to hide SMMUs from dom0 
+before removing EXPERT. Ideally, I would also like the feature to be 
+tested in Osstest.
+
+The good news is Xen Project already has systems (e.g. Thunder-X, 
+Softiron) that can supported ACPI. So it should hopefully be a matter to 
+tell them to boot with ACPI rather than DT.
+
+Cheers,
+
+-- 
+Julien Grall
 
