@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B44295CEB
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 12:48:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10361.27582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53331295D43
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 13:18:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10373.27606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVY9D-0003JD-ON; Thu, 22 Oct 2020 10:48:43 +0000
+	id 1kVYay-0006Gq-6m; Thu, 22 Oct 2020 11:17:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10361.27582; Thu, 22 Oct 2020 10:48:43 +0000
+Received: by outflank-mailman (output) from mailman id 10373.27606; Thu, 22 Oct 2020 11:17:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,97 +23,86 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVY9D-0003Io-Kx; Thu, 22 Oct 2020 10:48:43 +0000
-Received: by outflank-mailman (input) for mailman id 10361;
- Thu, 22 Oct 2020 10:48:42 +0000
+	id 1kVYay-0006GR-3T; Thu, 22 Oct 2020 11:17:24 +0000
+Received: by outflank-mailman (input) for mailman id 10373;
+ Thu, 22 Oct 2020 11:17:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kVY9C-0003Ij-Eu
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:48:42 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kVYaw-0006Fi-IZ
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 11:17:22 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 235be151-fe57-4da3-a2cc-737d36ade19f;
- Thu, 22 Oct 2020 10:48:41 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D57D8ACA3;
- Thu, 22 Oct 2020 10:48:40 +0000 (UTC)
+ id da8b5dac-2abb-45e1-809a-d7e83a5cc64e;
+ Thu, 22 Oct 2020 11:17:21 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kVY9C-0003Ij-Eu
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:48:42 +0000
-X-Inumbo-ID: 235be151-fe57-4da3-a2cc-737d36ade19f
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kVYaw-0006Fi-IZ
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 11:17:22 +0000
+X-Inumbo-ID: da8b5dac-2abb-45e1-809a-d7e83a5cc64e
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 235be151-fe57-4da3-a2cc-737d36ade19f;
-	Thu, 22 Oct 2020 10:48:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603363721;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0b+aO4geVivMxoOImVN5TC2oxRBqcdDWLWc9IG6Dja4=;
-	b=eNZuxA34i5wiLPoll7WkPXL2PX8QR7fJehNfp3WFLosE56YkjFThkSySoANZJSUtVORyjn
-	vTuaFa64zaqVevu+h3k5ObPjj9MuRVNO4EeA082UC/Yf2AJPz+zCqLSmoAHttaXSq3E31/
-	HZtKCZJjbqa6RE6eAcjPoSNlWdpRUa8=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D57D8ACA3;
-	Thu, 22 Oct 2020 10:48:40 +0000 (UTC)
-Subject: Re: [PATCH] x86/alternative: don't call text_poke() in lazy TLB mode
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>
-References: <20201009144225.12019-1-jgross@suse.com>
- <28ccccfe-b95b-5c4d-af27-5004e9f02c40@suse.com>
- <20201022104527.GI2594@hirez.programming.kicks-ass.net>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <61d30267-733f-49b5-8ca1-3246485e8151@suse.com>
-Date: Thu, 22 Oct 2020 12:48:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	id da8b5dac-2abb-45e1-809a-d7e83a5cc64e;
+	Thu, 22 Oct 2020 11:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603365442;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=skjN9q8/nTEh5lu/TM7UYNGn5QCEmu0rcjUMMXxXrQg=;
+  b=PdDpV182p/XGoQe7D1tB7LdH6c3ouo1YHHFf0kzRZ0B+cm0Rd32DOJCm
+   vmAzjAMHM6UDrmgNN8n06HXXmFyUV9Rgan/zsjTbUoJbtYZ3C8UXlbdM0
+   M+lLWcibHgzU3ipq3X0hA6JzNnyfpNfYprf1vcah23unWvz0UQX79zhoo
+   8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: nztF+dxPBXyakSpRbZ4sVTF0NL6HTI1gmkAjNGqe8as/rZW59KAb9IUiA0EB7HuLxSCXBweFOE
+ gm4aMuYyDOB1kXlWxrVcoL5gw7Z21NhGtVIqGQ1wjE2xHc8DUzE66OSGcrqVRHJ0xEZ7vZLoXk
+ ZtUHOq1+UmnvB9OhpJxrba0FZeXrHRHTYfBmzLq1AWtVT0dkaSO/wed5ss/Jug4zrKGhzakg/U
+ vsP4HuZJAVhB3FDJmIxVxOmvRIz5oXAYp1IbOkPLLzU0fpiccDFwH+TWjQJhCJcveTeNAhDy6Z
+ Zao=
+X-SBRS: None
+X-MesageID: 29889853
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,404,1596513600"; 
+   d="scan'208";a="29889853"
+Date: Thu, 22 Oct 2020 13:17:12 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+Subject: Re: [PATCH v2 4/8] evtchn: let evtchn_set_priority() acquire the
+ per-channel lock
+Message-ID: <20201022111712.g7kvaducfgwa6whn@Air-de-Roger>
+References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
+ <266c9178-700b-5663-4b5f-69f160a165ab@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20201022104527.GI2594@hirez.programming.kicks-ass.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <266c9178-700b-5663-4b5f-69f160a165ab@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On 22.10.20 12:45, Peter Zijlstra wrote:
-> On Thu, Oct 22, 2020 at 11:24:39AM +0200, Jürgen Groß wrote:
->> On 09.10.20 16:42, Juergen Gross wrote:
->>> When running in lazy TLB mode the currently active page tables might
->>> be the ones of a previous process, e.g. when running a kernel thread.
->>>
->>> This can be problematic in case kernel code is being modified via
->>> text_poke() in a kernel thread, and on another processor exit_mmap()
->>> is active for the process which was running on the first cpu before
->>> the kernel thread.
->>>
->>> As text_poke() is using a temporary address space and the former
->>> address space (obtained via cpu_tlbstate.loaded_mm) is restored
->>> afterwards, there is a race possible in case the cpu on which
->>> exit_mmap() is running wants to make sure there are no stale
->>> references to that address space on any cpu active (this e.g. is
->>> required when running as a Xen PV guest, where this problem has been
->>> observed and analyzed).
->>>
->>> In order to avoid that, drop off TLB lazy mode before switching to the
->>> temporary address space.
->>>
->>> Fixes: cefa929c034eb5d ("x86/mm: Introduce temporary mm structs")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
->> Can anyone look at this, please? It is fixing a real problem which has
->> been seen several times.
+On Tue, Oct 20, 2020 at 04:09:41PM +0200, Jan Beulich wrote:
+> Some lock wants to be held to make sure the port doesn't change state,
+> but there's no point holding the per-domain event lock here. Switch to
+> using the finer grained per-channel lock instead.
+
+While true that's a fine grained lock, it also disables interrupts,
+which the global event_lock didn't.
+
+> FAOD this doesn't guarantee anything towards in particular
+> evtchn_fifo_set_pending(), as for interdomain channels that function
+> would be called with the remote side's per-channel lock held.
 > 
-> As it happens I picked it up yesterday, just pushed it out for you.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Thank you very much!
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-
-Juergen
+Thanks, Roger.
 
