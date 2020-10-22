@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591AB295A58
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:29:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10264.27236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A3C295A62
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:33:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10269.27248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVyn-0004KZ-B6; Thu, 22 Oct 2020 08:29:49 +0000
+	id 1kVW1m-0005AV-Pu; Thu, 22 Oct 2020 08:32:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10264.27236; Thu, 22 Oct 2020 08:29:49 +0000
+Received: by outflank-mailman (output) from mailman id 10269.27248; Thu, 22 Oct 2020 08:32:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,117 +23,165 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVyn-0004K9-7J; Thu, 22 Oct 2020 08:29:49 +0000
-Received: by outflank-mailman (input) for mailman id 10264;
- Thu, 22 Oct 2020 08:29:47 +0000
+	id 1kVW1m-0005A6-Mp; Thu, 22 Oct 2020 08:32:54 +0000
+Received: by outflank-mailman (input) for mailman id 10269;
+ Thu, 22 Oct 2020 08:32:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kVVyl-0004Jz-RG
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:29:47 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kVW1l-0005A1-5o
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:32:53 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4fcdcffb-567b-4753-8cfb-cab147d634d6;
- Thu, 22 Oct 2020 08:29:46 +0000 (UTC)
+ id 1061199c-ff37-4d92-8866-0c8d08f4e86b;
+ Thu, 22 Oct 2020 08:32:52 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kVW1h-0002sq-Q3; Thu, 22 Oct 2020 08:32:49 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kVW1h-0005Ik-G4; Thu, 22 Oct 2020 08:32:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=mO8V=D5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kVVyl-0004Jz-RG
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:29:47 +0000
-X-Inumbo-ID: 4fcdcffb-567b-4753-8cfb-cab147d634d6
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	(envelope-from <SRS0=GjE6=D5=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kVW1l-0005A1-5o
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:32:53 +0000
+X-Inumbo-ID: 1061199c-ff37-4d92-8866-0c8d08f4e86b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4fcdcffb-567b-4753-8cfb-cab147d634d6;
-	Thu, 22 Oct 2020 08:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603355386;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=bsq6SYNvGXv/qZ1zn6xSGKXNAGCME+xYpuJt65efJN4=;
-  b=hrJxJG6h7TFMKmKRtfFw+93cjfxgzvvSNfBnKqjq0UdnQU4atK7zARle
-   PKjWGx9fO5GHGjfljAMVXEk3TrjimX5r51tVOR0P1ZlP8YAOPPLyNZzd5
-   PnZ2fO8CXABJ3z1bhdv2tsvA++hYzYnpw132MDgDDDWeLLcCFMN1CnBqU
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: xGSNH5C6BRcsV81PAB1fKrRqZZ+ysFNXCIFh/7B3EOXOWBIdXJ1uikSNSEIkP1lhnCOZPhklbV
- jglPQZ7WbI2soeEKGwqvTuOHU9+vsi2M9c1LNE8gJSUk6QChbhN/af9CXm8Bqe4e+Q4kQfFcKj
- iSqt4OxEB48qZDLrunRAHiWUsGxPV+fxlJl98vyJB/5YL4cC+jKTyU3ofMTKexQovZMwZRVI2D
- sTwAo8XYX3poxfPEBaCZDP4W29KIfdXBxdL07onltW3P+65X9g4Hs0x9ApPQY7nhqZO8vv9fk/
- ZdQ=
-X-SBRS: 2.5
-X-MesageID: 29603125
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,404,1596513600"; 
-   d="scan'208";a="29603125"
-Date: Thu, 22 Oct 2020 10:29:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
-Message-ID: <20201022082938.jnpw7wvzuvxqa6iy@Air-de-Roger>
-References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
- <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
- <20201021154650.zz77ircyuedr7gpm@Air-de-Roger>
- <3fd4c197-617e-dd48-6781-9ff0b1a82bf8@suse.com>
- <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
- <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
+	id 1061199c-ff37-4d92-8866-0c8d08f4e86b;
+	Thu, 22 Oct 2020 08:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Ju9JlLqIbF4Xjt9bUyXE8qrNmg37IAJ//vMAuq74Q0c=; b=DG9/LHWNFpl5sMA492PwxjWn99
+	gR1/4P8YeSmOyG8UtRej110Zy3KKM+A09UHfonfU2puhTw/HoU/X/i6znYtb4CQBtQTT8sJVim4g9
+	7DQOfbrTWhq9Ic4WeZ6EmuOH+zqbNQhzHHR7BKr3rUT/tqg00O3DmPiv/z1+jPXysS6g=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kVW1h-0002sq-Q3; Thu, 22 Oct 2020 08:32:49 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kVW1h-0005Ik-G4; Thu, 22 Oct 2020 08:32:49 +0000
+Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
+ <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
+ <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
+Date: Thu, 22 Oct 2020 09:32:47 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.3.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL06.citrite.net (10.13.108.179)
 
-On Thu, Oct 22, 2020 at 10:15:45AM +0200, Jan Beulich wrote:
-> On 22.10.2020 10:11, Roger Pau Monné wrote:
-> > On Thu, Oct 22, 2020 at 09:33:27AM +0200, Jan Beulich wrote:
-> >> On 21.10.2020 17:46, Roger Pau Monné wrote:
-> >>> On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
-> >>>> @@ -80,8 +81,9 @@ static uint8_t get_xen_consumer(xen_even
-> >>>>  
-> >>>>      for ( i = 0; i < ARRAY_SIZE(xen_consumers); i++ )
-> >>>>      {
-> >>>> +        /* Use cmpxchgptr() in lieu of a global lock. */
-> >>>>          if ( xen_consumers[i] == NULL )
-> >>>> -            xen_consumers[i] = fn;
-> >>>> +            cmpxchgptr(&xen_consumers[i], NULL, fn);
-> >>>>          if ( xen_consumers[i] == fn )
-> >>>>              break;
-> >>>
-> >>> I think you could join it as:
-> >>>
-> >>> if ( !xen_consumers[i] &&
-> >>>      !cmpxchgptr(&xen_consumers[i], NULL, fn) )
-> >>>     break;
-> >>>
-> >>> As cmpxchgptr will return the previous value of &xen_consumers[i]?
-> >>
-> >> But then you also have to check whether the returned value is
-> >> fn (or retain the 2nd if()).
-> > 
-> > __cmpxchg comment says that success of the operation is indicated when
-> > the returned value equals the old value, so it's my understanding that
-> > cmpxchgptr returning NULL would mean the exchange has succeed and that
-> > xen_consumers[i] == fn?
+
+
+On 21/10/2020 12:25, Rahul Singh wrote:
+> Hello Julien,
+
+Hi Rahul,
+
+>> On 20 Oct 2020, at 6:03 pm, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Rahul,
+>>
+>> Thank you for the contribution. Lets make sure this attempt to SMMUv3 support in Xen will be more successful than the other one :).
 > 
-> Correct. But if xen_consumers[i] == fn before the call, the return
-> value will be fn. The cmpxchg() wasn't "successful" in this case
-> (it didn't update anything), but the state of the array slot is what
-> we want.
+> Yes sure.
+>>
+>> I haven't reviewed the code yet, but I wanted to provide feedback on the commit message.
+>>
+>> On 20/10/2020 16:25, Rahul Singh wrote:
+>>> Add support for ARM architected SMMUv3 implementations. It is based on
+>>> the Linux SMMUv3 driver.
+>>> Major differences between the Linux driver are as follows:
+>>> 1. Only Stage-2 translation is supported as compared to the Linux driver
+>>>     that supports both Stage-1 and Stage-2 translations.
+>>> 2. Use P2M  page table instead of creating one as SMMUv3 has the
+>>>     capability to share the page tables with the CPU.
+>>> 3. Tasklets is used in place of threaded IRQ's in Linux for event queue
+>>>     and priority queue IRQ handling.
+>>
+>> Tasklets are not a replacement for threaded IRQ. In particular, they will have priority over anything else (IOW nothing will run on the pCPU until they are done).
+>>
+>> Do you know why Linux is using thread. Is it because of long running operations?
+> 
+> Yes you are right because of long running operations Linux is using the threaded IRQs.
+> 
+> SMMUv3 reports fault/events bases on memory-based circular buffer queues not based on the register. As per my understanding, it is time-consuming to process the memory based queues in interrupt context because of that Linux is using threaded IRQ to process the faults/events from SMMU.
+> 
+> I didn’t find any other solution in XEN in place of tasklet to defer the work, that’s why I used tasklet in XEN in replacement of threaded IRQs. If we do all work in interrupt context we will make XEN less responsive.
 
-Oh, I get it now. You don't want the same fn populating more than one
-slot.
+So we need to make sure that Xen continue to receives interrupts, but we 
+also need to make sure that a vCPU bound to the pCPU is also responsive.
 
-I assume the reads of xen_consumers are not using ACCESS_ONCE or
-read_atomic because we rely on the compiler performing such reads as
-single instructions?
+> 
+> If you know another solution in XEN that will be used to defer the work in the interrupt please let me know I will try to use that.
 
-Roger.
+One of my work colleague encountered a similar problem recently. He had 
+a long running tasklet and wanted to be broken down in smaller chunk.
+
+We decided to use a timer to reschedule the taslket in the future. This 
+allows the scheduler to run other loads (e.g. vCPU) for some time.
+
+This is pretty hackish but I couldn't find a better solution as tasklet 
+have high priority.
+
+Maybe the other will have a better idea.
+
+> 
+>>> 4. Latest version of the Linux SMMUv3 code implements the commands queue
+>>>     access functions based on atomic operations implemented in Linux.
+>>
+>> Can you provide more details?
+> 
+> I tried to port the latest version of the SMMUv3 code than I observed that in order to port that code I have to also port atomic operation implemented in Linux to XEN. As latest Linux code uses atomic operation to process the command queues (atomic_cond_read_relaxed(),atomic_long_cond_read_relaxed() , atomic_fetch_andnot_relaxed()) .
+
+Thank you for the explanation. I think it would be best to import the 
+atomic helpers and use the latest code.
+
+This will ensure that we don't re-introduce bugs and also buy us some 
+time before the Linux and Xen driver diverge again too much.
+
+Stefano, what do you think?
+
+> 
+>>
+>>>     Atomic functions used by the commands queue access functions is not
+>>>     implemented in XEN therefore we decided to port the earlier version
+>>>     of the code. Once the proper atomic operations will be available in XEN
+>>>     the driver can be updated.
+>>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+>>> ---
+>>>   xen/drivers/passthrough/Kconfig       |   10 +
+>>>   xen/drivers/passthrough/arm/Makefile  |    1 +
+>>>   xen/drivers/passthrough/arm/smmu-v3.c | 2847 +++++++++++++++++++++++++
+>>>   3 files changed, 2858 insertions(+)
+>>
+>> This is quite significant patch to review. Is there any way to get it split (maybe a verbatim Linux copy + Xen modification)?
+> 
+> Yes, I understand this is a quite significant patch to review let me think to get it split. If it is ok for you to review this patch and provide your comments then it will great for us.
+I will try to have a look next week.
+
+Cheers,
+
+-- 
+Julien Grall
 
