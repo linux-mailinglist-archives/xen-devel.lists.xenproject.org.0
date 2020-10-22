@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66376295C95
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 12:19:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10326.27448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BDF295C9E
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 12:21:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10330.27464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVXgG-00081z-8C; Thu, 22 Oct 2020 10:18:48 +0000
+	id 1kVXim-0000Qp-Qg; Thu, 22 Oct 2020 10:21:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10326.27448; Thu, 22 Oct 2020 10:18:48 +0000
+Received: by outflank-mailman (output) from mailman id 10330.27464; Thu, 22 Oct 2020 10:21:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,336 +23,358 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVXgG-00081a-4h; Thu, 22 Oct 2020 10:18:48 +0000
-Received: by outflank-mailman (input) for mailman id 10326;
- Thu, 22 Oct 2020 10:18:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVXim-0000QQ-M0; Thu, 22 Oct 2020 10:21:24 +0000
+Received: by outflank-mailman (input) for mailman id 10330;
+ Thu, 22 Oct 2020 10:21:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kVXgE-00080w-Qk
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:18:46 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 727ab74d-2c6a-4a96-9ab8-0deb39b41888;
- Thu, 22 Oct 2020 10:18:39 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kVXg6-000592-WE; Thu, 22 Oct 2020 10:18:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kVXg6-0006e6-Lf; Thu, 22 Oct 2020 10:18:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kVXg6-0002IU-LB; Thu, 22 Oct 2020 10:18:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=O+cM=D5=ffwll.ch=daniel.vetter@srs-us1.protection.inumbo.net>)
+ id 1kVXil-0000QL-8I
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:21:23 +0000
+Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd47cfdd-4aa9-457d-9bc5-89abb3bc3ca1;
+ Thu, 22 Oct 2020 10:21:21 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id t15so1020081otk.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Oct 2020 03:21:21 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=A75Z=D5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kVXgE-00080w-Qk
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:18:46 +0000
-X-Inumbo-ID: 727ab74d-2c6a-4a96-9ab8-0deb39b41888
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 727ab74d-2c6a-4a96-9ab8-0deb39b41888;
-	Thu, 22 Oct 2020 10:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=g4VK9AI2JVfBTnqPa+tOzdHlwVNm0JLtQ0JnVnL2DdQ=; b=fzqABLWlMw400E2/pMzj5MOgai
-	Icqm3lZ5RXUEXQn0BMxvQjf+HDxohKH/XFmQRSwIChq0FiROCM+Dklnom2EjqXGVg0qg1SOIgT3qZ
-	FcvbvIspB3lCxAt1Zvuk3LfexR2rkVuvwi3eGe+UQRAPbEBMtax4ng/HazNLKzNr023k=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVXg6-000592-WE; Thu, 22 Oct 2020 10:18:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVXg6-0006e6-Lf; Thu, 22 Oct 2020 10:18:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kVXg6-0002IU-LB; Thu, 22 Oct 2020 10:18:38 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156054-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=O+cM=D5=ffwll.ch=daniel.vetter@srs-us1.protection.inumbo.net>)
+	id 1kVXil-0000QL-8I
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 10:21:23 +0000
+X-Inumbo-ID: bd47cfdd-4aa9-457d-9bc5-89abb3bc3ca1
+Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id bd47cfdd-4aa9-457d-9bc5-89abb3bc3ca1;
+	Thu, 22 Oct 2020 10:21:21 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id t15so1020081otk.0
+        for <xen-devel@lists.xenproject.org>; Thu, 22 Oct 2020 03:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffwll.ch; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=5NIyadkpsx3TzJkX5ZsP+SweN4sKS84ZLyEuupL4jV0=;
+        b=kX5gvpbI6Hf2MYOKYuXkmRgr2kaaY9M5LbYCnRyLjOp/Lz02Os2A6z4Aq+rsZLosJ2
+         M40DsB8reXplQuB/qrDWVA5FqGJtYFM6i8vJW9MvS++v1iXLrhj8qzSZ7rNR1n5yxmI7
+         vyrNJoQc1BgrM//GO5oEndyGtaxbYgwsx17/8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=5NIyadkpsx3TzJkX5ZsP+SweN4sKS84ZLyEuupL4jV0=;
+        b=nAtaoMJpE0h8CcEETHkgrlFCH42ooMtQzcfJiBaEVMUHDDdYQACHMbeHhf8YElXqVm
+         T+ijpZnDgYjvtMCKGcaXREz4uxTHQNX997YnLDb+9bzTB58bbtHpYKxWKIb7ZF1uRdgo
+         QJ6QXAf395LUj8G0xc8rgDMvrqwUR5g1VXybI3d3F/JSGcu6Y74QYNrYJLdw4XaJ/oX1
+         /L3xz+KQ7cRZN9xaT2MlEDTSS4k1urejCWjp/jTCEvZ7QElU0kReao63lwGH/s8yJX3u
+         SQDdJWJ3sBOFAGN9rXYYhrBfWLEUu3LwATnJl7iEA+1Znqp2jOdh9OGWXiXjufIUumuI
+         AQdw==
+X-Gm-Message-State: AOAM532pwJw1mZm9uw46E8RK4/0yTEWZ8Dwj24QfKv6NGVmZKKeI7/JN
+	aojN+XAiaGACIjp/v3h5csTxCK239S1+rAMLEuoh2A==
+X-Google-Smtp-Source: ABdhPJygQ9KUnAKAlt6h9nc1uLqv50lVI2ThhRnR4aecj/Qy/MtijtMr1CHsIeYGKKQcbMMd5YG/A53hu9KqBTBsBQ8=
+X-Received: by 2002:a05:6830:8b:: with SMTP id a11mr1304398oto.303.1603362080697;
+ Thu, 22 Oct 2020 03:21:20 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-4.13-testing test] 156054: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-4.13-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=dc38c1103cfdc643860e10c1b9e925dac83332dc
-X-Osstest-Versions-That:
-    xen=8e7e5857a203c9d9df7733fd68768555c7e76839
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Oct 2020 10:18:38 +0000
+References: <20201020122046.31167-1-tzimmermann@suse.de> <20201020122046.31167-9-tzimmermann@suse.de>
+ <20201022084919.GU401619@phenom.ffwll.local> <f2d83a8b-91b3-ac64-b77f-2b1c78729014@suse.de>
+In-Reply-To: <f2d83a8b-91b3-ac64-b77f-2b1c78729014@suse.de>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 22 Oct 2020 12:21:07 +0200
+Message-ID: <CAKMK7uFek_A-rFjBc7UUny8TUYx_9dk+-QzsTZFc93X0O=b1aA@mail.gmail.com>
+Subject: Re: [PATCH v5 08/10] drm/gem: Store client buffer mappings as struct dma_buf_map
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Luben Tuikov <luben.tuikov@amd.com>, Dave Airlie <airlied@linux.ie>, 
+	Nouveau Dev <nouveau@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, 
+	"Wilson, Chris" <chris@chris-wilson.co.uk>, Melissa Wen <melissa.srw@gmail.com>, 
+	Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>, Sam Ravnborg <sam@ravnborg.org>, 
+	Emil Velikov <emil.velikov@collabora.com>, 
+	linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, 
+	Joonyoung Shim <jy0922.shim@samsung.com>, lima@lists.freedesktop.org, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Steven Price <steven.price@arm.com>, 
+	"open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, Kukjin Kim <kgene@kernel.org>, 
+	Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>, 
+	"open list:DRM DRIVER FOR QXL VIRTUAL GPU" <spice-devel@lists.freedesktop.org>, 
+	Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	The etnaviv authors <etnaviv@lists.freedesktop.org>, Hans de Goede <hdegoede@redhat.com>, 
+	"moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>, 
+	"open list:VIRTIO CORE, NET..." <virtualization@lists.linux-foundation.org>, Sean Paul <sean@poorly.run>, 
+	apaneers@amd.com, Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+	"moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, 
+	amd-gfx list <amd-gfx@lists.freedesktop.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>, 
+	Seung-Woo Kim <sw0312.kim@samsung.com>, Sandy Huang <hjc@rock-chips.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Qinglang Miao <miaoqinglang@huawei.com>, 
+	Qiang Yu <yuq825@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+	"open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 156054 xen-4.13-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156054/
+On Thu, Oct 22, 2020 at 11:18 AM Thomas Zimmermann <tzimmermann@suse.de> wr=
+ote:
+>
+> Hi
+>
+> On 22.10.20 10:49, Daniel Vetter wrote:
+> > On Tue, Oct 20, 2020 at 02:20:44PM +0200, Thomas Zimmermann wrote:
+> >> Kernel DRM clients now store their framebuffer address in an instance
+> >> of struct dma_buf_map. Depending on the buffer's location, the address
+> >> refers to system or I/O memory.
+> >>
+> >> Callers of drm_client_buffer_vmap() receive a copy of the value in
+> >> the call's supplied arguments. It can be accessed and modified with
+> >> dma_buf_map interfaces.
+> >>
+> >> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> >> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> >> Tested-by: Sam Ravnborg <sam@ravnborg.org>
+> >> ---
+> >>  drivers/gpu/drm/drm_client.c    | 34 +++++++++++++++++++-------------=
+-
+> >>  drivers/gpu/drm/drm_fb_helper.c | 23 +++++++++++++---------
+> >>  include/drm/drm_client.h        |  7 ++++---
+> >>  3 files changed, 38 insertions(+), 26 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client=
+.c
+> >> index ac0082bed966..fe573acf1067 100644
+> >> --- a/drivers/gpu/drm/drm_client.c
+> >> +++ b/drivers/gpu/drm/drm_client.c
+> >> @@ -235,7 +235,7 @@ static void drm_client_buffer_delete(struct drm_cl=
+ient_buffer *buffer)
+> >>  {
+> >>      struct drm_device *dev =3D buffer->client->dev;
+> >>
+> >> -    drm_gem_vunmap(buffer->gem, buffer->vaddr);
+> >> +    drm_gem_vunmap(buffer->gem, &buffer->map);
+> >>
+> >>      if (buffer->gem)
+> >>              drm_gem_object_put(buffer->gem);
+> >> @@ -291,25 +291,31 @@ drm_client_buffer_create(struct drm_client_dev *=
+client, u32 width, u32 height, u
+> >>  /**
+> >>   * drm_client_buffer_vmap - Map DRM client buffer into address space
+> >>   * @buffer: DRM client buffer
+> >> + * @map_copy: Returns the mapped memory's address
+> >>   *
+> >>   * This function maps a client buffer into kernel address space. If t=
+he
+> >> - * buffer is already mapped, it returns the mapping's address.
+> >> + * buffer is already mapped, it returns the existing mapping's addres=
+s.
+> >>   *
+> >>   * Client buffer mappings are not ref'counted. Each call to
+> >>   * drm_client_buffer_vmap() should be followed by a call to
+> >>   * drm_client_buffer_vunmap(); or the client buffer should be mapped
+> >>   * throughout its lifetime.
+> >>   *
+> >> + * The returned address is a copy of the internal value. In contrast =
+to
+> >> + * other vmap interfaces, you don't need it for the client's vunmap
+> >> + * function. So you can modify it at will during blit and draw operat=
+ions.
+> >> + *
+> >>   * Returns:
+> >> - *  The mapped memory's address
+> >> + *  0 on success, or a negative errno code otherwise.
+> >>   */
+> >> -void *drm_client_buffer_vmap(struct drm_client_buffer *buffer)
+> >> +int
+> >> +drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct dma_b=
+uf_map *map_copy)
+> >>  {
+> >> -    struct dma_buf_map map;
+> >> +    struct dma_buf_map *map =3D &buffer->map;
+> >>      int ret;
+> >>
+> >> -    if (buffer->vaddr)
+> >> -            return buffer->vaddr;
+> >> +    if (dma_buf_map_is_set(map))
+> >> +            goto out;
+> >>
+> >>      /*
+> >>       * FIXME: The dependency on GEM here isn't required, we could
+> >> @@ -319,13 +325,14 @@ void *drm_client_buffer_vmap(struct drm_client_b=
+uffer *buffer)
+> >>       * fd_install step out of the driver backend hooks, to make that
+> >>       * final step optional for internal users.
+> >>       */
+> >> -    ret =3D drm_gem_vmap(buffer->gem, &map);
+> >> +    ret =3D drm_gem_vmap(buffer->gem, map);
+> >>      if (ret)
+> >> -            return ERR_PTR(ret);
+> >> +            return ret;
+> >>
+> >> -    buffer->vaddr =3D map.vaddr;
+> >> +out:
+> >> +    *map_copy =3D *map;
+> >>
+> >> -    return map.vaddr;
+> >> +    return 0;
+> >>  }
+> >>  EXPORT_SYMBOL(drm_client_buffer_vmap);
+> >>
+> >> @@ -339,10 +346,9 @@ EXPORT_SYMBOL(drm_client_buffer_vmap);
+> >>   */
+> >>  void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
+> >>  {
+> >> -    struct dma_buf_map map =3D DMA_BUF_MAP_INIT_VADDR(buffer->vaddr);
+> >> +    struct dma_buf_map *map =3D &buffer->map;
+> >>
+> >> -    drm_gem_vunmap(buffer->gem, &map);
+> >> -    buffer->vaddr =3D NULL;
+> >> +    drm_gem_vunmap(buffer->gem, map);
+> >>  }
+> >>  EXPORT_SYMBOL(drm_client_buffer_vunmap);
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_=
+helper.c
+> >> index c2f72bb6afb1..6212cd7cde1d 100644
+> >> --- a/drivers/gpu/drm/drm_fb_helper.c
+> >> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> >> @@ -378,7 +378,7 @@ static void drm_fb_helper_dirty_blit_real(struct d=
+rm_fb_helper *fb_helper,
+> >>      unsigned int cpp =3D fb->format->cpp[0];
+> >>      size_t offset =3D clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+> >>      void *src =3D fb_helper->fbdev->screen_buffer + offset;
+> >> -    void *dst =3D fb_helper->buffer->vaddr + offset;
+> >> +    void *dst =3D fb_helper->buffer->map.vaddr + offset;
+> >>      size_t len =3D (clip->x2 - clip->x1) * cpp;
+> >>      unsigned int y;
+> >>
+> >> @@ -400,7 +400,8 @@ static void drm_fb_helper_dirty_work(struct work_s=
+truct *work)
+> >>      struct drm_clip_rect *clip =3D &helper->dirty_clip;
+> >>      struct drm_clip_rect clip_copy;
+> >>      unsigned long flags;
+> >> -    void *vaddr;
+> >> +    struct dma_buf_map map;
+> >> +    int ret;
+> >>
+> >>      spin_lock_irqsave(&helper->dirty_lock, flags);
+> >>      clip_copy =3D *clip;
+> >> @@ -413,8 +414,8 @@ static void drm_fb_helper_dirty_work(struct work_s=
+truct *work)
+> >>
+> >>              /* Generic fbdev uses a shadow buffer */
+> >>              if (helper->buffer) {
+> >> -                    vaddr =3D drm_client_buffer_vmap(helper->buffer);
+> >> -                    if (IS_ERR(vaddr))
+> >> +                    ret =3D drm_client_buffer_vmap(helper->buffer, &m=
+ap);
+> >> +                    if (ret)
+> >>                              return;
+> >>                      drm_fb_helper_dirty_blit_real(helper, &clip_copy)=
+;
+> >>              }
+> >> @@ -2060,7 +2061,8 @@ static int drm_fb_helper_generic_probe(struct dr=
+m_fb_helper *fb_helper,
+> >>      struct drm_framebuffer *fb;
+> >>      struct fb_info *fbi;
+> >>      u32 format;
+> >> -    void *vaddr;
+> >> +    struct dma_buf_map map;
+> >> +    int ret;
+> >>
+> >>      drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
+> >>                  sizes->surface_width, sizes->surface_height,
+> >> @@ -2096,11 +2098,14 @@ static int drm_fb_helper_generic_probe(struct =
+drm_fb_helper *fb_helper,
+> >>              fb_deferred_io_init(fbi);
+> >>      } else {
+> >>              /* buffer is mapped for HW framebuffer */
+> >> -            vaddr =3D drm_client_buffer_vmap(fb_helper->buffer);
+> >> -            if (IS_ERR(vaddr))
+> >> -                    return PTR_ERR(vaddr);
+> >> +            ret =3D drm_client_buffer_vmap(fb_helper->buffer, &map);
+> >> +            if (ret)
+> >> +                    return ret;
+> >> +            if (map.is_iomem)
+> >> +                    fbi->screen_base =3D map.vaddr_iomem;
+> >> +            else
+> >> +                    fbi->screen_buffer =3D map.vaddr;
+> >>
+> >> -            fbi->screen_buffer =3D vaddr;
+> >>              /* Shamelessly leak the physical address to user-space */
+> >>  #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+> >>              if (drm_leak_fbdev_smem && fbi->fix.smem_start =3D=3D 0)
+> >
+> > Just noticed a tiny thing here: I think this needs to be patched to onl=
+y
+> > set smem_start when the map is _not_ iomem. Since virt_to_page isn't
+> > defined on iomem at all.
+> >
+> > I guess it'd be neat if we can set this for iomem too, but I have no id=
+ea
+> > how to convert an iomem pointer back to a bus_addr_t ...
+>
+> Not that I disagree, but that should be reviewed by the right people.
+> The commit at 4be9bd10e22d ("drm/fb_helper: Allow leaking fbdev
+> smem_start") appears to work around specific userspace drivers.
 
-Failures :-/ but no regressions.
+It's for soc drivers, which all use either shmem or cma helpers, so
+all system memory. Which means your patch here doesn't break anything.
+But we need to make sure that if someone enables this it doesn't blow
+up at least when used on a device where we map iomem.
+-Daniel
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 155377
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 155377
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 155377
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 155377
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 155377
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 155377
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 155377
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 155377
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 155377
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 155377
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 155377
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  dc38c1103cfdc643860e10c1b9e925dac83332dc
-baseline version:
- xen                  8e7e5857a203c9d9df7733fd68768555c7e76839
-
-Last test of basis   155377  2020-10-03 13:48:36 Z   18 days
-Testing same since   156030  2020-10-20 13:06:12 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Chen Yu <yu.c.chen@intel.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Hongyan Xia <hongyxia@amazon.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wei.liu2@citrix.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+> Best regards
+> Thomas
+>
+> >
+> > Cheers, Daniel
+> >
+> >> diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
+> >> index 7aaea665bfc2..f07f2fb02e75 100644
+> >> --- a/include/drm/drm_client.h
+> >> +++ b/include/drm/drm_client.h
+> >> @@ -3,6 +3,7 @@
+> >>  #ifndef _DRM_CLIENT_H_
+> >>  #define _DRM_CLIENT_H_
+> >>
+> >> +#include <linux/dma-buf-map.h>
+> >>  #include <linux/lockdep.h>
+> >>  #include <linux/mutex.h>
+> >>  #include <linux/types.h>
+> >> @@ -141,9 +142,9 @@ struct drm_client_buffer {
+> >>      struct drm_gem_object *gem;
+> >>
+> >>      /**
+> >> -     * @vaddr: Virtual address for the buffer
+> >> +     * @map: Virtual address for the buffer
+> >>       */
+> >> -    void *vaddr;
+> >> +    struct dma_buf_map map;
+> >>
+> >>      /**
+> >>       * @fb: DRM framebuffer
+> >> @@ -155,7 +156,7 @@ struct drm_client_buffer *
+> >>  drm_client_framebuffer_create(struct drm_client_dev *client, u32 widt=
+h, u32 height, u32 format);
+> >>  void drm_client_framebuffer_delete(struct drm_client_buffer *buffer);
+> >>  int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, st=
+ruct drm_rect *rect);
+> >> -void *drm_client_buffer_vmap(struct drm_client_buffer *buffer);
+> >> +int drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct d=
+ma_buf_map *map);
+> >>  void drm_client_buffer_vunmap(struct drm_client_buffer *buffer);
+> >>
+> >>  int drm_client_modeset_create(struct drm_client_dev *client);
+> >> --
+> >> 2.28.0
+> >>
+> >
+>
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   8e7e5857a2..dc38c1103c  dc38c1103cfdc643860e10c1b9e925dac83332dc -> stable-4.13
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
