@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A102959F5
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:15:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10257.27200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A231295A55
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Oct 2020 10:29:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10260.27212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVlD-00033Q-HD; Thu, 22 Oct 2020 08:15:47 +0000
+	id 1kVVxG-00046w-My; Thu, 22 Oct 2020 08:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10257.27200; Thu, 22 Oct 2020 08:15:47 +0000
+Received: by outflank-mailman (output) from mailman id 10260.27212; Thu, 22 Oct 2020 08:28:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,103 +23,83 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVVlD-000331-E8; Thu, 22 Oct 2020 08:15:47 +0000
-Received: by outflank-mailman (input) for mailman id 10257;
- Thu, 22 Oct 2020 08:15:45 +0000
+	id 1kVVxG-00046X-Je; Thu, 22 Oct 2020 08:28:14 +0000
+Received: by outflank-mailman (input) for mailman id 10260;
+ Thu, 22 Oct 2020 08:28:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kVVlB-00032u-Kn
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:15:45 +0000
+ (envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kVVxF-00046S-GH
+ for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:28:13 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d149b65c-7f54-416a-82a5-28be2db73798;
- Thu, 22 Oct 2020 08:15:44 +0000 (UTC)
+ id f34b6a47-71c4-4988-a5b4-5c42ab083134;
+ Thu, 22 Oct 2020 08:28:11 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E313DAFB2;
- Thu, 22 Oct 2020 08:15:43 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7C990AFAA;
+ Thu, 22 Oct 2020 08:28:10 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Z30Q=D5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kVVlB-00032u-Kn
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:15:45 +0000
-X-Inumbo-ID: d149b65c-7f54-416a-82a5-28be2db73798
+	(envelope-from <SRS0=dfvK=D5=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kVVxF-00046S-GH
+	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 08:28:13 +0000
+X-Inumbo-ID: f34b6a47-71c4-4988-a5b4-5c42ab083134
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d149b65c-7f54-416a-82a5-28be2db73798;
-	Thu, 22 Oct 2020 08:15:44 +0000 (UTC)
+	id f34b6a47-71c4-4988-a5b4-5c42ab083134;
+	Thu, 22 Oct 2020 08:28:11 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603354544;
+	t=1603355290;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mdRP+lPDUxm3vony6awcQ1O4nfPcpohHENFL/HUfsQo=;
-	b=UrBtSx3DwljbXMNXKpJk/zx7mFtkoiyQy8/aZO6Tsg1aApW+BXDwMgv9g2Hxkj9nKW8NNt
-	5l5ezAsvaJTnr83/K96XAwSsL9vGTCXTwpjkpLHrIf9PRWBUJJu45Ir4/0agQo8p8M/OqS
-	zTQOPkhEaB8qL4SeinkAHaGziCNV0Bg=
+	bh=G7vgWOyisgUYKXsvWM4vAN9Hxh9Ew9zQrWjKc2jf7cc=;
+	b=TRO72CW2ZP+QLGGw7AR30kx3jSRdErch7W5/LxreppU58xFvOcYkzIBllkAjNHYU8lEL0x
+	m16npEtf/ShX1SDZ+TjWZpb+l+GKeN+mmHTMnhnIvZmyEphEy1zo/U/Gw29t4XaPm9bvQQ
+	PHqrwRlQ3Z91UP9I6vAwfRGkAPdjduw=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E313DAFB2;
-	Thu, 22 Oct 2020 08:15:43 +0000 (UTC)
-Subject: Re: [PATCH v2 1/8] evtchn: avoid race in get_xen_consumer()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
- <9ecafa4d-db5b-20a2-3a9d-6a6cda91252c@suse.com>
- <20201021154650.zz77ircyuedr7gpm@Air-de-Roger>
- <3fd4c197-617e-dd48-6781-9ff0b1a82bf8@suse.com>
- <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2172763f-9f3d-588e-b4f2-0f9187a40ff9@suse.com>
-Date: Thu, 22 Oct 2020 10:15:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	by mx2.suse.de (Postfix) with ESMTP id 7C990AFAA;
+	Thu, 22 Oct 2020 08:28:10 +0000 (UTC)
+Subject: Re: [PATCH 3/5] xen/events: only register debug interrupt for 2-level
+ events
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
+References: <20201022074214.21693-1-jgross@suse.com>
+ <20201022074214.21693-4-jgross@suse.com>
+ <9bfc266f-1efb-7910-6ff7-9cea6e40d7c9@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <1a549cfd-0a79-725d-d4a4-795a57092307@suse.com>
+Date: Thu, 22 Oct 2020 10:28:09 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201022081100.bedkkvuqf7ymjpbl@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <9bfc266f-1efb-7910-6ff7-9cea6e40d7c9@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.10.2020 10:11, Roger Pau Monné wrote:
-> On Thu, Oct 22, 2020 at 09:33:27AM +0200, Jan Beulich wrote:
->> On 21.10.2020 17:46, Roger Pau Monné wrote:
->>> On Tue, Oct 20, 2020 at 04:08:13PM +0200, Jan Beulich wrote:
->>>> @@ -80,8 +81,9 @@ static uint8_t get_xen_consumer(xen_even
->>>>  
->>>>      for ( i = 0; i < ARRAY_SIZE(xen_consumers); i++ )
->>>>      {
->>>> +        /* Use cmpxchgptr() in lieu of a global lock. */
->>>>          if ( xen_consumers[i] == NULL )
->>>> -            xen_consumers[i] = fn;
->>>> +            cmpxchgptr(&xen_consumers[i], NULL, fn);
->>>>          if ( xen_consumers[i] == fn )
->>>>              break;
->>>
->>> I think you could join it as:
->>>
->>> if ( !xen_consumers[i] &&
->>>      !cmpxchgptr(&xen_consumers[i], NULL, fn) )
->>>     break;
->>>
->>> As cmpxchgptr will return the previous value of &xen_consumers[i]?
->>
->> But then you also have to check whether the returned value is
->> fn (or retain the 2nd if()).
+On 22.10.20 09:54, Jan Beulich wrote:
+> On 22.10.2020 09:42, Juergen Gross wrote:
+>> --- a/drivers/xen/events/events_base.c
+>> +++ b/drivers/xen/events/events_base.c
+>> @@ -2050,7 +2050,7 @@ void xen_setup_callback_vector(void) {}
+>>   static inline void xen_alloc_callback_vector(void) {}
+>>   #endif
+>>   
+>> -static bool fifo_events = true;
+>> +bool fifo_events = true;
 > 
-> __cmpxchg comment says that success of the operation is indicated when
-> the returned value equals the old value, so it's my understanding that
-> cmpxchgptr returning NULL would mean the exchange has succeed and that
-> xen_consumers[i] == fn?
+> When making this non-static, perhaps better to also prefix it with
+> xen_?
 
-Correct. But if xen_consumers[i] == fn before the call, the return
-value will be fn. The cmpxchg() wasn't "successful" in this case
-(it didn't update anything), but the state of the array slot is what
-we want.
+Fine with me.
 
-Jan
+
+Juergen
 
