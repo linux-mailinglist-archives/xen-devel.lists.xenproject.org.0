@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2392969C5
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 08:33:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10717.28608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98220296A13
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 09:10:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10735.28620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVqdh-0001fp-DN; Fri, 23 Oct 2020 06:33:25 +0000
+	id 1kVrD4-0004n9-88; Fri, 23 Oct 2020 07:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10717.28608; Fri, 23 Oct 2020 06:33:25 +0000
+Received: by outflank-mailman (output) from mailman id 10735.28620; Fri, 23 Oct 2020 07:09:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,160 +23,131 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVqdh-0001fQ-9u; Fri, 23 Oct 2020 06:33:25 +0000
-Received: by outflank-mailman (input) for mailman id 10717;
- Fri, 23 Oct 2020 06:33:23 +0000
+	id 1kVrD4-0004mk-4U; Fri, 23 Oct 2020 07:09:58 +0000
+Received: by outflank-mailman (input) for mailman id 10735;
+ Fri, 23 Oct 2020 07:09:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yJbv=D6=casper.srs.infradead.org=batv+ae109258c1d10f479368+6270+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kVqdd-0001fL-Vk
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:33:23 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed;
- Fri, 23 Oct 2020 06:33:18 +0000 (UTC)
-Received: from [2001:4bb8:18c:20bd:c70:4a89:bc61:3] (helo=localhost)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kVqdU-0005Dv-O2; Fri, 23 Oct 2020 06:33:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8WB0=D6=redhat.com=thuth@srs-us1.protection.inumbo.net>)
+ id 1kVrD1-0004mf-SU
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 07:09:55 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 21626c04-6746-4d8c-901d-3e474dfe8c16;
+ Fri, 23 Oct 2020 07:09:55 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-464-XE4oO9EOOLucvtmUytKZRQ-1; Fri, 23 Oct 2020 03:09:53 -0400
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5EB7425F6;
+ Fri, 23 Oct 2020 07:09:51 +0000 (UTC)
+Received: from thuth.remote.csb (ovpn-112-123.ams2.redhat.com [10.36.112.123])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 328A760C04;
+ Fri, 23 Oct 2020 07:09:48 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=yJbv=D6=casper.srs.infradead.org=batv+ae109258c1d10f479368+6270+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kVqdd-0001fL-Vk
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:33:23 +0000
-X-Inumbo-ID: 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed;
-	Fri, 23 Oct 2020 06:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=VgaUDy/MYBhcMGNLTA5dcYkNxjEeOYucsAXgukb+9OE=; b=F21OlX9RTzKj2RyK9S1jOONSVX
-	fBGHNAfoEYPDghf73ahvw01VvwR8PBi1lgexR2AR9oXWJ8uVIwb97yh6lOectRl76KlmCZaRD7CZB
-	Ne0xWy9GBkkZrB0i0jyH0wgEx7a71zWxL5vUy7EJQ0Y/eO9C5hS6Ecpx9DEFTJOx+t7KW8Cf+A9wz
-	KjFNSkhJly6lhDd+duxQgCu1UbcPA+t2i5M9NdOsDKaAI4qr1LABguhWCwhXX8rdvsbJJE/VUbkbG
-	mIkn/UOMzSrskutaE903B6fgNIIN4QFDY3iMmZhu6C/TArJvku+4c7lzLjoRYMzNsxXu8Tc01GkSV
-	d+cOoHsQ==;
-Received: from [2001:4bb8:18c:20bd:c70:4a89:bc61:3] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kVqdU-0005Dv-O2; Fri, 23 Oct 2020 06:33:13 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: konrad.wilk@oracle.com
-Cc: iommu@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to swiotlb_tbl_map_single
-Date: Fri, 23 Oct 2020 08:33:09 +0200
-Message-Id: <20201023063309.3472987-1-hch@lst.de>
-X-Mailer: git-send-email 2.28.0
+	(envelope-from <SRS0=8WB0=D6=redhat.com=thuth@srs-us1.protection.inumbo.net>)
+	id 1kVrD1-0004mf-SU
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 07:09:55 +0000
+X-Inumbo-ID: 21626c04-6746-4d8c-901d-3e474dfe8c16
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 21626c04-6746-4d8c-901d-3e474dfe8c16;
+	Fri, 23 Oct 2020 07:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1603436994;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IEF8a+t6dhaHnwPQStTb7j17q3j6NEA7UkQplxtsOTw=;
+	b=dD7wUJNkgPjWhEmlzeXAq2epluMt0IW9hpUjASxKC6yuWXIhpPOOZFXHjwvbcn1mwvxkE1
+	cIoIFgtScyWlTF+lmme8K1YzAUxVbfRmc4+3kQPyIadYR8WJ24ULFXSppnRidlGSNRK5GO
+	va0fvrbaBBTbadKTfcFbBiyOMVi9vQo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-464-XE4oO9EOOLucvtmUytKZRQ-1; Fri, 23 Oct 2020 03:09:53 -0400
+X-MC-Unique: XE4oO9EOOLucvtmUytKZRQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5EB7425F6;
+	Fri, 23 Oct 2020 07:09:51 +0000 (UTC)
+Received: from thuth.remote.csb (ovpn-112-123.ams2.redhat.com [10.36.112.123])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 328A760C04;
+	Fri, 23 Oct 2020 07:09:48 +0000 (UTC)
+Subject: Re: [PATCH v2 0/3] Add Xen CpusAccel
+To: Paolo Bonzini <pbonzini@redhat.com>, Jason Andryuk <jandryuk@gmail.com>
+Cc: Laurent Vivier <lvivier@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ QEMU <qemu-devel@nongnu.org>, Claudio Fontana <cfontana@suse.de>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <20201013140511.5681-1-jandryuk@gmail.com>
+ <ddb5c9c2-c206-28d6-2d9d-7954e7022c23@redhat.com>
+ <CAKf6xpvpuG1jVdf3+heXzHFd_kc5kVHYdJgC+8iazFLciqOMZw@mail.gmail.com>
+ <d9f23eee-c0af-d2dd-9b9d-f0255fc8e3d1@redhat.com>
+From: Thomas Huth <thuth@redhat.com>
+Message-ID: <1927b32e-7919-5061-0285-d9c7184d0bae@redhat.com>
+Date: Fri, 23 Oct 2020 09:09:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <d9f23eee-c0af-d2dd-9b9d-f0255fc8e3d1@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=thuth@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-The tbl_dma_addr argument is used to check the DMA boundary for the
-allocations, and thus needs to be a dma_addr_t.  swiotlb-xen instead
-passed a physical address, which could lead to incorrect results for
-strange offsets.  Fix this by removing the parameter entirely and hard
-code the DMA address for io_tlb_start instead.
+On 22/10/2020 17.29, Paolo Bonzini wrote:
+> On 22/10/20 17:17, Jason Andryuk wrote:
+>> On Tue, Oct 13, 2020 at 1:16 PM Paolo Bonzini <pbonzini@redhat.com> wrote:
+>>>
+>>> On 13/10/20 16:05, Jason Andryuk wrote:
+>>>> Xen was left behind when CpusAccel became mandatory and fails the assert
+>>>> in qemu_init_vcpu().  It relied on the same dummy cpu threads as qtest.
+>>>> Move the qtest cpu functions to a common location and reuse them for
+>>>> Xen.
+>>>>
+>>>> v2:
+>>>>   New patch "accel: Remove _WIN32 ifdef from qtest-cpus.c"
+>>>>   Use accel/dummy-cpus.c for filename
+>>>>   Put prototype in include/sysemu/cpus.h
+>>>>
+>>>> Jason Andryuk (3):
+>>>>   accel: Remove _WIN32 ifdef from qtest-cpus.c
+>>>>   accel: move qtest CpusAccel functions to a common location
+>>>>   accel: Add xen CpusAccel using dummy-cpus
+>>>>
+>>>>  accel/{qtest/qtest-cpus.c => dummy-cpus.c} | 27 ++++------------------
+>>>>  accel/meson.build                          |  8 +++++++
+>>>>  accel/qtest/meson.build                    |  1 -
+>>>>  accel/qtest/qtest-cpus.h                   | 17 --------------
+>>>>  accel/qtest/qtest.c                        |  5 +++-
+>>>>  accel/xen/xen-all.c                        |  8 +++++++
+>>>>  include/sysemu/cpus.h                      |  3 +++
+>>>>  7 files changed, 27 insertions(+), 42 deletions(-)
+>>>>  rename accel/{qtest/qtest-cpus.c => dummy-cpus.c} (71%)
+>>>>  delete mode 100644 accel/qtest/qtest-cpus.h
+>>>>
+>>>
+>>> Acked-by: Paolo Bonzini <pbonzini@redhat.com>
+>>
+>> Thank you, Paolo.  Also Anthony Acked and Claudio Reviewed patch 3.
+>> How can we get this into the tree?
+> 
+> I think Anthony should send a pull request?
 
-Fixes: 91ffe4ad534a ("swiotlb-xen: introduce phys_to_dma/dma_to_phys translations")
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
- drivers/iommu/intel/iommu.c |  5 ++---
- drivers/xen/swiotlb-xen.c   |  3 +--
- include/linux/swiotlb.h     | 10 +++-------
- kernel/dma/swiotlb.c        | 16 ++++++----------
- 4 files changed, 12 insertions(+), 22 deletions(-)
+Since Anthony acked patch 3, I think I can also take it through the qtest tree.
 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 8651f6d4dfa032..6b560e6f193096 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
- 	 * page aligned, we don't need to use a bounce page.
- 	 */
- 	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
--		tlb_addr = swiotlb_tbl_map_single(dev,
--				phys_to_dma_unencrypted(dev, io_tlb_start),
--				paddr, size, aligned_size, dir, attrs);
-+		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
-+				aligned_size, dir, attrs);
- 		if (tlb_addr == DMA_MAPPING_ERROR) {
- 			goto swiotlb_error;
- 		} else {
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index 71ce1b7a23d1cc..2b385c1b4a99cb 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
- 	 */
- 	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
- 
--	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
--				     phys, size, size, dir, attrs);
-+	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
- 	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
- 		return DMA_MAPPING_ERROR;
- 
-diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-index 513913ff748626..3bb72266a75a1d 100644
---- a/include/linux/swiotlb.h
-+++ b/include/linux/swiotlb.h
-@@ -45,13 +45,9 @@ enum dma_sync_target {
- 	SYNC_FOR_DEVICE = 1,
- };
- 
--extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
--					  dma_addr_t tbl_dma_addr,
--					  phys_addr_t phys,
--					  size_t mapping_size,
--					  size_t alloc_size,
--					  enum dma_data_direction dir,
--					  unsigned long attrs);
-+phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
-+		size_t mapping_size, size_t alloc_size,
-+		enum dma_data_direction dir, unsigned long attrs);
- 
- extern void swiotlb_tbl_unmap_single(struct device *hwdev,
- 				     phys_addr_t tlb_addr,
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index b4eea0abc3f002..92e2f54f24c01b 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
- 	}
- }
- 
--phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
--				   dma_addr_t tbl_dma_addr,
--				   phys_addr_t orig_addr,
--				   size_t mapping_size,
--				   size_t alloc_size,
--				   enum dma_data_direction dir,
--				   unsigned long attrs)
-+phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
-+		size_t mapping_size, size_t alloc_size,
-+		enum dma_data_direction dir, unsigned long attrs)
- {
-+	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(hwdev, io_tlb_start);
- 	unsigned long flags;
- 	phys_addr_t tlb_addr;
- 	unsigned int nslots, stride, index, wrap;
-@@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
- 	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
- 			      swiotlb_force);
- 
--	swiotlb_addr = swiotlb_tbl_map_single(dev,
--			phys_to_dma_unencrypted(dev, io_tlb_start),
--			paddr, size, size, dir, attrs);
-+	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
-+			attrs);
- 	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
- 		return DMA_MAPPING_ERROR;
- 
--- 
-2.28.0
+ Thomas
+
 
 
