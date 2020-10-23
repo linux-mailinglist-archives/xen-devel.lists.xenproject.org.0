@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1868E2973A5
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:26:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11210.29828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A08929739C
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:26:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11200.29706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVztz-0001hS-7v; Fri, 23 Oct 2020 16:26:51 +0000
+	id 1kVztY-0000wL-OZ; Fri, 23 Oct 2020 16:26:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11210.29828; Fri, 23 Oct 2020 16:26:51 +0000
+Received: by outflank-mailman (output) from mailman id 11200.29706; Fri, 23 Oct 2020 16:26:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,104 +23,225 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVzty-0001eU-NG; Fri, 23 Oct 2020 16:26:50 +0000
-Received: by outflank-mailman (input) for mailman id 11210;
- Fri, 23 Oct 2020 16:26:47 +0000
+	id 1kVztY-0000vi-Ez; Fri, 23 Oct 2020 16:26:24 +0000
+Received: by outflank-mailman (input) for mailman id 11200;
+ Fri, 23 Oct 2020 16:26:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1kVztv-0000v3-IC
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:26:47 +0000
+ id 1kVztW-0000v3-JG
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:26:22 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 528ee80c-e585-44e9-9d9c-44a3707f41eb;
- Fri, 23 Oct 2020 16:26:22 +0000 (UTC)
+ id 27f1b87b-7c40-4f94-ba01-9684c636cdd7;
+ Fri, 23 Oct 2020 16:26:21 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kVztV-0008O8-7t; Fri, 23 Oct 2020 16:26:21 +0000
+ id 1kVztU-0008NS-LH; Fri, 23 Oct 2020 16:26:20 +0000
 Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com
  ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kVzql-000376-RK; Fri, 23 Oct 2020 16:23:32 +0000
+ id 1kVzqm-000376-LC; Fri, 23 Oct 2020 16:23:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
-	id 1kVztv-0000v3-IC
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:26:47 +0000
-X-Inumbo-ID: 528ee80c-e585-44e9-9d9c-44a3707f41eb
+	id 1kVztW-0000v3-JG
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:26:22 +0000
+X-Inumbo-ID: 27f1b87b-7c40-4f94-ba01-9684c636cdd7
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 528ee80c-e585-44e9-9d9c-44a3707f41eb;
-	Fri, 23 Oct 2020 16:26:22 +0000 (UTC)
+	id 27f1b87b-7c40-4f94-ba01-9684c636cdd7;
+	Fri, 23 Oct 2020 16:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=uoyjLt+gARtd7y51vlGjeKLiscOL3AjdBsOhpLXNLIw=; b=Eo22PrB86p+nJTk8ojvcFZIRc
-	U/EWYsurGfPCK+QdMPAdcL8rtyEP0vqJo5RF2acfgCYWlkQVxDoOcfhkUqyN8m+fbnJPdutyhPxID
-	PG1+iiIUBf6pAfdgUWmJjIWIj3PBZPjkQ0W0p8nMzBNyFB/yQBkQ/ErH7Y3EP1+DSCFJY=;
+	 bh=+xRHgG/V1V6jdrFunRi9DByLVqbO+8Hy1Wezh0jszpM=; b=NkS5oRBEuIIoyTRowqey4tbzc
+	k7H9ApuLG8+2rlTdwtjzRw9hxVTW+OnH4/Pg22zcQk2rwzYu6fsYNHCztfy2E6OtGo+OKH/KBtXKS
+	MKaIjOp5uCu8CKbLbUfSaaiUYgrFO1ijieApbV9Tch6gld8WZWZBkRvQwg40HFvYzyRO4=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kVztV-0008O8-7t; Fri, 23 Oct 2020 16:26:21 +0000
+	id 1kVztU-0008NS-LH; Fri, 23 Oct 2020 16:26:20 +0000
 Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
 	by xenbits.xenproject.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kVzql-000376-RK; Fri, 23 Oct 2020 16:23:32 +0000
+	id 1kVzqm-000376-LC; Fri, 23 Oct 2020 16:23:32 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 14/25] libxl: add/recover 'rdm_policy' to/from PCI backend in xenstore
-Date: Fri, 23 Oct 2020 16:23:03 +0000
-Message-Id: <20201023162314.2235-15-paul@xen.org>
+Subject: [PATCH 15/25] libxl: Make sure devices added by pci-attach are reflected in the config
+Date: Fri, 23 Oct 2020 16:23:04 +0000
+Message-Id: <20201023162314.2235-16-paul@xen.org>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20201023162314.2235-1-paul@xen.org>
 References: <20201023162314.2235-1-paul@xen.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-Other parameters, such as 'msitranslate' and 'permissive' are dealt with
-but 'rdm_policy' appears to be have been completely missed.
+Currently libxl__device_pci_add_xenstore() is broken in that does not
+update the domain's configuration for the first device added (which causes
+creation of the overall backend area in xenstore). This can be easily observed
+by running 'xl list -l' after adding a single device: the device will be
+missing.
+
+This patch fixes the problem and adds a DEBUG log line to allow easy
+verification that the domain configuration is being modified.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Ian Jackson <iwj@xenproject.org>
 Cc: Wei Liu <wl@xen.org>
 ---
- tools/libs/light/libxl_pci.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ tools/libs/light/libxl_pci.c | 68 +++++++++++++++++++++++---------------------
+ 1 file changed, 35 insertions(+), 33 deletions(-)
 
 diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 2e8e1c50f1..c5d73133eb 100644
+index c5d73133eb..45685ebec2 100644
 --- a/tools/libs/light/libxl_pci.c
 +++ b/tools/libs/light/libxl_pci.c
-@@ -61,9 +61,9 @@ static void libxl_create_pci_backend_device(libxl__gc *gc,
-         flexarray_append_pair(back, GCSPRINTF("vdevfn-%d", num), GCSPRINTF("%x", pci->vdevfn));
-     flexarray_append(back, GCSPRINTF("opts-%d", num));
-     flexarray_append(back,
--              GCSPRINTF("msitranslate=%d,power_mgmt=%d,permissive=%d",
--                             pci->msitranslate, pci->power_mgmt,
--                             pci->permissive));
-+              GCSPRINTF("msitranslate=%d,power_mgmt=%d,permissive=%d,rdm_policy=%s",
-+                        pci->msitranslate, pci->power_mgmt,
-+                        pci->permissive, libxl_rdm_reserve_policy_to_string(pci->rdm_policy)));
-     flexarray_append_pair(back, GCSPRINTF("state-%d", num), GCSPRINTF("%d", XenbusStateInitialising));
+@@ -79,39 +79,18 @@ static void libxl__device_from_pci(libxl__gc *gc, uint32_t domid,
+     device->kind = LIBXL__DEVICE_KIND_PCI;
  }
  
-@@ -2310,6 +2310,9 @@ static int libxl__device_pci_from_xs_be(libxl__gc *gc,
-             } else if (!strcmp(p, "permissive")) {
-                 p = strtok_r(NULL, ",=", &saveptr);
-                 pci->permissive = atoi(p);
-+            } else if (!strcmp(p, "rdm_policy")) {
-+                p = strtok_r(NULL, ",=", &saveptr);
-+                libxl_rdm_reserve_policy_from_string(p, &pci->rdm_policy);
-             }
-         } while ((p = strtok_r(NULL, ",=", &saveptr)) != NULL);
+-static int libxl__create_pci_backend(libxl__gc *gc, uint32_t domid,
+-                                     const libxl_device_pci *pci,
+-                                     int num)
++static void libxl__create_pci_backend(libxl__gc *gc, uint32_t domid,
++                                      flexarray_t *front, flexarray_t *back)
+ {
+-    flexarray_t *front = NULL;
+-    flexarray_t *back = NULL;
+-    libxl__device device;
+-    int i;
+-
+-    front = flexarray_make(gc, 16, 1);
+-    back = flexarray_make(gc, 16, 1);
+-
+     LOGD(DEBUG, domid, "Creating pci backend");
+ 
+-    /* add pci device */
+-    libxl__device_from_pci(gc, domid, pci, &device);
+-
+     flexarray_append_pair(back, "frontend-id", GCSPRINTF("%d", domid));
+-    flexarray_append_pair(back, "online", "1");
++    flexarray_append_pair(back, "online", GCSPRINTF("%d", 1));
+     flexarray_append_pair(back, "state", GCSPRINTF("%d", XenbusStateInitialising));
+     flexarray_append_pair(back, "domain", libxl__domid_to_name(gc, domid));
+ 
+-    for (i = 0; i < num; i++, pci++)
+-        libxl_create_pci_backend_device(gc, back, i, pci);
+-
+-    flexarray_append_pair(back, "num_devs", GCSPRINTF("%d", num));
+     flexarray_append_pair(front, "backend-id", GCSPRINTF("%d", 0));
+     flexarray_append_pair(front, "state", GCSPRINTF("%d", XenbusStateInitialising));
+-
+-    return libxl__device_generic_add(gc, XBT_NULL, &device,
+-                                     libxl__xs_kvs_of_flexarray(gc, back),
+-                                     libxl__xs_kvs_of_flexarray(gc, front),
+-                                     NULL);
+ }
+ 
+ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+@@ -119,7 +98,7 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+                                           const libxl_device_pci *pci,
+                                           bool starting)
+ {
+-    flexarray_t *back;
++    flexarray_t *front, *back;
+     char *num_devs, *be_path;
+     int num = 0;
+     xs_transaction_t t = XBT_NULL;
+@@ -127,16 +106,22 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+     libxl_domain_config d_config;
+     libxl__flock *lock = NULL;
+     bool is_stubdomain = libxl_is_stubdom(CTX, domid, NULL);
++    libxl__device device;
++
++    libxl__device_from_pci(gc, domid, pci, &device);
+ 
+     /* Stubdomain doesn't have own config. */
+     if (!is_stubdomain)
+         libxl_domain_config_init(&d_config);
+ 
++    front = flexarray_make(gc, 16, 1);
++    back = flexarray_make(gc, 16, 1);
++
+     be_path = libxl__domain_device_backend_path(gc, 0, domid, 0,
+                                                 LIBXL__DEVICE_KIND_PCI);
+     num_devs = libxl__xs_read(gc, XBT_NULL, GCSPRINTF("%s/num_devs", be_path));
+     if (!num_devs)
+-        return libxl__create_pci_backend(gc, domid, pci, 1);
++        libxl__create_pci_backend(gc, domid, front, back);
+ 
+     libxl_domain_type domtype = libxl__domain_type(gc, domid);
+     if (domtype == LIBXL_DOMAIN_TYPE_INVALID)
+@@ -147,13 +132,11 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+             return ERROR_FAIL;
      }
+ 
+-    back = flexarray_make(gc, 16, 1);
+-
+     LOGD(DEBUG, domid, "Adding new pci device to xenstore");
+-    num = atoi(num_devs);
++    num = num_devs ? atoi(num_devs) : 0;
+     libxl_create_pci_backend_device(gc, back, num, pci);
+     flexarray_append_pair(back, "num_devs", GCSPRINTF("%d", num + 1));
+-    if (!starting)
++    if (num && !starting)
+         flexarray_append_pair(back, "state", GCSPRINTF("%d", XenbusStateReconfiguring));
+ 
+     /*
+@@ -170,6 +153,7 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+         rc = libxl__get_domain_configuration(gc, domid, &d_config);
+         if (rc) goto out;
+ 
++        LOGD(DEBUG, domid, "Adding new pci device to config");
+         device_add_domain_config(gc, &d_config, &libxl__pci_devtype,
+                                  pci);
+ 
+@@ -186,7 +170,10 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+             if (rc) goto out;
+         }
+ 
+-        libxl__xs_writev(gc, t, be_path, libxl__xs_kvs_of_flexarray(gc, back));
++        libxl__device_generic_add(gc, t, &device,
++                                  libxl__xs_kvs_of_flexarray(gc, back),
++                                  libxl__xs_kvs_of_flexarray(gc, front),
++                                  NULL);
+ 
+         rc = libxl__xs_transaction_commit(gc, &t);
+         if (!rc) break;
+@@ -1711,8 +1698,23 @@ static void add_pcis_done(libxl__egc *egc, libxl__multidev *multidev,
+     if (rc) goto out;
+ 
+     if (d_config->num_pcis > 0 && !libxl_get_stubdom_id(CTX, domid)) {
+-        rc = libxl__create_pci_backend(gc, domid, d_config->pcis,
+-                                       d_config->num_pcis);
++        flexarray_t *front, *back;
++        unsigned int i;
++        libxl__device device;
++
++        libxl__device_from_pci(gc, domid, &d_config->pcis[0], &device);
++
++        front = flexarray_make(gc, 16, 1);
++        back = flexarray_make(gc, 16, 1);
++
++        libxl__create_pci_backend(gc, domid, front, back);
++        for (i = 0; i < d_config->num_pcis; i++)
++            libxl_create_pci_backend_device(gc, back, i, &d_config->pcis[i]);
++
++        rc = libxl__device_generic_add(gc, XBT_NULL, &device,
++                                       libxl__xs_kvs_of_flexarray(gc, back),
++                                       libxl__xs_kvs_of_flexarray(gc, front),
++                                       NULL);
+         if (rc < 0) {
+             LOGD(ERROR, domid, "libxl_create_pci_backend failed: %d", rc);
+             goto out;
 -- 
 2.11.0
 
