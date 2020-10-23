@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44D4C296B4E
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 10:38:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10779.28762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14FF5296B51
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 10:38:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10782.28776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVsaL-0006Y3-Hf; Fri, 23 Oct 2020 08:38:05 +0000
+	id 1kVsap-0006f4-Rk; Fri, 23 Oct 2020 08:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10779.28762; Fri, 23 Oct 2020 08:38:05 +0000
+Received: by outflank-mailman (output) from mailman id 10782.28776; Fri, 23 Oct 2020 08:38:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,54 +23,54 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVsaL-0006Xg-Dr; Fri, 23 Oct 2020 08:38:05 +0000
-Received: by outflank-mailman (input) for mailman id 10779;
- Fri, 23 Oct 2020 08:38:04 +0000
+	id 1kVsap-0006ee-NI; Fri, 23 Oct 2020 08:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 10782;
+ Fri, 23 Oct 2020 08:38:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kVsaK-0006Xa-HX
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:38:04 +0000
+ id 1kVsao-0006eS-0U
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:38:34 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 14dc6f66-2615-401f-8786-26a944cfd467;
- Fri, 23 Oct 2020 08:38:02 +0000 (UTC)
+ id a0b6461d-c37d-4b85-8b16-55e581202984;
+ Fri, 23 Oct 2020 08:38:33 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0E3A1ADC2;
- Fri, 23 Oct 2020 08:38:02 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 641DDABF4;
+ Fri, 23 Oct 2020 08:38:32 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kVsaK-0006Xa-HX
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:38:04 +0000
-X-Inumbo-ID: 14dc6f66-2615-401f-8786-26a944cfd467
+	id 1kVsao-0006eS-0U
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:38:34 +0000
+X-Inumbo-ID: a0b6461d-c37d-4b85-8b16-55e581202984
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 14dc6f66-2615-401f-8786-26a944cfd467;
-	Fri, 23 Oct 2020 08:38:02 +0000 (UTC)
+	id a0b6461d-c37d-4b85-8b16-55e581202984;
+	Fri, 23 Oct 2020 08:38:33 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603442282;
+	t=1603442312;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=X5eJiPZad/Wxk2WeL4Rv91+7VfsqFeYUymX6fbe2ERc=;
-	b=ISRPQlnJe203eMoqR3qOCAhHEkcd4PKSuBsQLqMx9RhltVPjfWh3GEp0RjBX1Pud8O9LRu
-	UmYn02GqXGA6//LibSLjZN0uzj7pPh59juAYLdYlXjaBUHa2Um7N5PLXveuSJilqMyWkv3
-	6mfwZRlqIyAX4ZDEplSXsl54jrTDUfA=
+	bh=Ic529odUAZBshqLAt5wPXzrnZzZH82DsTSQiP600Yn0=;
+	b=bxP8bIJU47nYZg50sLKyag7ATL/GZjft5keT1ynmaRds0BmNn5YJ6j7cAHnJ3FqDU//c/n
+	tWV2KdZ+dPycpJZUpJ60VJ8VB0fcNetwIrzB67UdBqiDEU+2Hxa8m1W0JYqY2k222gyWQW
+	twYDRzUzPmraEf5J4sjRDVSF0Bb3XtI=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0E3A1ADC2;
-	Fri, 23 Oct 2020 08:38:02 +0000 (UTC)
-Subject: [PATCH v3 5/7] x86: guard against straight-line speculation past RET
+	by mx2.suse.de (Postfix) with ESMTP id 641DDABF4;
+	Fri, 23 Oct 2020 08:38:32 +0000 (UTC)
+Subject: [PATCH v3 6/7] x86: limit amount of INT3 in IND_THUNK_*
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
-Message-ID: <80ceea17-958d-f409-5f39-9f353e780f5b@suse.com>
-Date: Fri, 23 Oct 2020 10:38:04 +0200
+Message-ID: <738249d7-521c-2ea3-332c-f2298b0b25a2@suse.com>
+Date: Fri, 23 Oct 2020 10:38:34 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
@@ -79,71 +79,54 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Under certain conditions CPUs can speculate into the instruction stream
-past a RET instruction. Guard against this just like 3b7dab93f240
-("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
-did - by inserting an "INT $3" insn. It's merely the mechanics of how to
-achieve this that differ: A set of macros gets introduced to post-
-process RET insns issued by the compiler (or living in assembly files).
-
-Unfortunately for clang this requires further features their built-in
-assembler doesn't support: We need to be able to override insn mnemonics
-produced by the compiler (which may be impossible, if internally
-assembly mnemonics never get generated), and we want to use \(text)
-escaping / quoting in the auxiliary macro.
+There's no point having every replacement variant to also specify the
+INT3 - just have it once in the base macro. When patching, NOPs will get
+inserted, which are fine to speculate through (until reaching the INT3).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-TBD: Would be nice to avoid the additions in .init.text, but a query to
-     the binutils folks regarding the ability to identify the section
-     stuff is in (by Peter Zijlstra over a year ago:
-     https://sourceware.org/pipermail/binutils/2019-July/107528.html)
-     has been left without helpful replies.
+I also wonder whether the LFENCE in IND_THUNK_RETPOLINE couldn't be
+replaced by INT3 as well. Of course the effect will be marginal, as the
+size of the thunk will still be 16 bytes when including tail padding
+resulting from alignment.
 ---
-v3: Use .byte 0xc[23] instead of the nested macros.
-v2: Fix build with newer clang. Use int3 mnemonic. Also override retq.
+v3: Add comment.
+v2: New.
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -145,7 +145,15 @@ t2 = $(call as-insn,$(CC) -I$(BASEDIR)/i
- # https://bugs.llvm.org/show_bug.cgi?id=36110
- t3 = $(call as-insn,$(CC),".macro FOO;.endm"$(close); asm volatile $(open)".macro FOO;.endm",-no-integrated-as)
+--- a/xen/arch/x86/indirect-thunk.S
++++ b/xen/arch/x86/indirect-thunk.S
+@@ -11,6 +11,9 @@
  
--CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
-+# Check whether \(text) escaping in macro bodies is supported.
-+t4 = $(call as-insn,$(CC),".macro m ret:req; \\(ret) $$\\ret; .endm; m 8",,-no-integrated-as)
-+
-+# Check whether macros can override insn mnemonics in inline assembly.
-+t5 = $(call as-insn,$(CC),".macro ret; .error; .endm; .macro retq; .error; .endm",-no-integrated-as)
-+
-+acc1 := $(call or,$(t1),$(t2),$(t3),$(t4))
-+
-+CLANG_FLAGS += $(call or,$(acc1),$(t5))
- endif
+ #include <asm/asm_defns.h>
  
- CLANG_FLAGS += -Werror=unknown-warning-option
---- a/xen/include/asm-x86/asm-defns.h
-+++ b/xen/include/asm-x86/asm-defns.h
-@@ -50,3 +50,19 @@
- .macro INDIRECT_JMP arg:req
-     INDIRECT_BRANCH jmp \arg
++/* Don't tranform the "ret" further down. */
++.purgem ret
++
+ .macro IND_THUNK_RETPOLINE reg:req
+         call 2f
+ 1:
+@@ -24,12 +27,10 @@
+ .macro IND_THUNK_LFENCE reg:req
+         lfence
+         jmp *%\reg
+-        int3 /* Halt straight-line speculation */
  .endm
+ 
+ .macro IND_THUNK_JMP reg:req
+         jmp *%\reg
+-        int3 /* Halt straight-line speculation */
+ .endm
+ 
+ /*
+@@ -44,6 +45,8 @@ ENTRY(__x86_indirect_thunk_\reg)
+         __stringify(IND_THUNK_LFENCE \reg), X86_FEATURE_IND_THUNK_LFENCE, \
+         __stringify(IND_THUNK_JMP \reg),    X86_FEATURE_IND_THUNK_JMP
+ 
++        int3 /* Halt straight-line speculation */
 +
-+/*
-+ * To guard against speculation past RET, insert a breakpoint insn
-+ * immediately after them.
-+ */
-+.macro ret operand:vararg
-+    retq \operand
-+.endm
-+.macro retq operand:vararg
-+    .ifb \operand
-+    .byte 0xc3
-+    .else
-+    .byte 0xc2
-+    .word \operand
-+    .endif
-+.endm
+         .size __x86_indirect_thunk_\reg, . - __x86_indirect_thunk_\reg
+         .type __x86_indirect_thunk_\reg, @function
+ .endm
 
 
