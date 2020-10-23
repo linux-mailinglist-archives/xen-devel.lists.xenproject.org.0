@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B368F297356
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:15:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11148.29549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8959C29737F
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:23:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11158.29564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVziR-0006u3-DL; Fri, 23 Oct 2020 16:14:55 +0000
+	id 1kVzqe-00082C-8a; Fri, 23 Oct 2020 16:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11148.29549; Fri, 23 Oct 2020 16:14:55 +0000
+Received: by outflank-mailman (output) from mailman id 11158.29564; Fri, 23 Oct 2020 16:23:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,136 +23,139 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVziR-0006tb-9y; Fri, 23 Oct 2020 16:14:55 +0000
-Received: by outflank-mailman (input) for mailman id 11148;
- Fri, 23 Oct 2020 16:14:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5an6=D6=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1kVziP-0006tE-Nb
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:53 +0000
+	id 1kVzqe-00081k-4d; Fri, 23 Oct 2020 16:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 11158;
+ Fri, 23 Oct 2020 16:23:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1kVzqc-00081e-DL
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:22 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2d8e22ab-e6c9-40b2-8a2d-ca541c165d7c;
- Fri, 23 Oct 2020 16:14:52 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dc477e0e-6fda-4b50-a9de-9e1b26c444c1;
+ Fri, 23 Oct 2020 16:23:21 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kVziO-00086m-GP
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:52 +0000
-Received: from iwj (helo=mynotebook.example.org)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1kVziO-0002NH-FT
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:52 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by mariner.uk.xensource.com with esmtp (Exim 4.89)
- (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1kVziM-0008Eb-Mc; Fri, 23 Oct 2020 17:14:50 +0100
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <paul@xen.org>)
+ id 1kVzqa-0008Is-4H; Fri, 23 Oct 2020 16:23:20 +0000
+Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com
+ ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kVzqZ-000376-P8; Fri, 23 Oct 2020 16:23:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5an6=D6=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
-	id 1kVziP-0006tE-Nb
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:53 +0000
-X-Inumbo-ID: 2d8e22ab-e6c9-40b2-8a2d-ca541c165d7c
+	(envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
+	id 1kVzqc-00081e-DL
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:22 +0000
+X-Inumbo-ID: dc477e0e-6fda-4b50-a9de-9e1b26c444c1
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2d8e22ab-e6c9-40b2-8a2d-ca541c165d7c;
-	Fri, 23 Oct 2020 16:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=bypnxhjVJ8hrVMcfMf2eie599ceBF4c9S0o8XImtOP8=; b=CNMrdGwN7QU51wM8mbKr5MB+Dt
-	BmON7cpvCNnRPx7mC1vI8NYOp0Th1sQomSET6+WarLDKdmzGjku4OFAhxngYTxje4pXPvNJc2KOSy
-	+4kNySUcyd1hyjTlS9v+RrR/UMy/v43mf2wPi2BQ6LO/JE/JDJLuFOIk5gn9xt11bvNI=;
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id dc477e0e-6fda-4b50-a9de-9e1b26c444c1;
+	Fri, 23 Oct 2020 16:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=paZPJP/oEG4bKcO58FfOeXtzFY1cQuLkf+AoEVb8yz0=; b=lQAizG/RYyjlJLRghBHH11uGzI
+	RDI2HOkkUyN4LrVLyossHeD0s6gIhrXAuutTUV4bxLWw/3xENWQ7FfA+T1v9kBumL5x6JlLHvFWgw
+	uaFBi5CwgYi8SjxnjjzkkzURw5vj7vMvQ8iTDFYFLgGkCpugh+vS/Ue90U62dumNWFm8=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <ijackson@chiark.greenend.org.uk>)
-	id 1kVziO-00086m-GP
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:52 +0000
-Received: from iwj (helo=mynotebook.example.org)
-	by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
-	(envelope-from <ijackson@chiark.greenend.org.uk>)
-	id 1kVziO-0002NH-FT
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:14:52 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
-	by mariner.uk.xensource.com with esmtp (Exim 4.89)
-	(envelope-from <ijackson@chiark.greenend.org.uk>)
-	id 1kVziM-0008Eb-Mc; Fri, 23 Oct 2020 17:14:50 +0100
-From: Ian Jackson <iwj@xenproject.org>
+	(envelope-from <paul@xen.org>)
+	id 1kVzqa-0008Is-4H; Fri, 23 Oct 2020 16:23:20 +0000
+Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
+	by xenbits.xenproject.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <paul@xen.org>)
+	id 1kVzqZ-000376-P8; Fri, 23 Oct 2020 16:23:19 +0000
+From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>
-Subject: [OSSTEST PATCH] host reuse fixes: Properly clear out old static tasks from history
-Date: Fri, 23 Oct 2020 17:14:44 +0100
-Message-Id: <20201023161444.2133-1-iwj@xenproject.org>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Cc: Paul Durrant <pdurrant@amazon.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Nick Rosbrook <rosbrookn@ainfosec.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 00/25] xl / libxl: named PCI pass-through devices
+Date: Fri, 23 Oct 2020 16:22:49 +0000
+Message-Id: <20201023162314.2235-1-paul@xen.org>
+X-Mailer: git-send-email 2.11.0
 
-The algorithm for clearing out old lifecycle entries was wrong: it
-would delete all entries for non-live tasks.
+From: Paul Durrant <pdurrant@amazon.com>
 
-In practice this would properly remove all the old entries for
-non-static tasks, since ownd tasks typically don't releease things
-until the task ends (and it becomes non-live).  And it wouldn't remove
-more than it should do unless some now-not-live task had an allocation
-overlapping with us, which is not supposed to be possible if we are
-doing a host wipe.  But it would not remove static tasks ever, since
-they are always live.
+This series adds support for naming devices added to the assignable list
+and then using a name (instead of a BDF) for convenience when attaching
+a device to a domain.
 
-Change to a completely different algorithm:
+The first 15 patches are cleanup. The remaining 10 modify documentation
+and add the new functionality.
 
- * Check that only us (ie, $ttaskid) has (any shares of) this host
-   allocated.  There's a function resource_check_allocated_core which
-   already does this and since we're conceptually part of Executive
-   it is proper for us to call it.  This is just a sanity check.
+Paul Durrant (25):
+  xl / libxl: s/pcidev/pci and remove DEFINE_DEVICE_TYPE_STRUCT_X
+  libxl: use LIBXL_DEFINE_DEVICE_LIST for pci devices
+  libxl: use LIBXL_DEFINE_DEVICE_LIST for nic devices
+  libxl: s/domainid/domid/g in libxl_pci.c
+  libxl: s/detatched/detached in libxl_pci.c
+  libxl: remove extraneous arguments to do_pci_remove() in libxl_pci.c
+  libxl: stop using aodev->device_config in libxl__device_pci_add()...
+  libxl: generalise 'driver_path' xenstore access functions in
+    libxl_pci.c
+  libxl: remove unnecessary check from libxl__device_pci_add()
+  libxl: remove get_all_assigned_devices() from libxl_pci.c
+  libxl: make sure callers of libxl_device_pci_list() free the list
+    after use
+  libxl: add libxl_device_pci_assignable_list_free()...
+  libxl: use COMPARE_PCI() macro is_pci_in_array()...
+  libxl: add/recover 'rdm_policy' to/from PCI backend in xenstore
+  libxl: Make sure devices added by pci-attach are reflected in the
+    config
+  docs/man: extract documentation of PCI_SPEC_STRING from the xl.cfg
+    manpage...
+  docs/man: improve documentation of PCI_SPEC_STRING...
+  docs/man: fix xl(1) documentation for 'pci' operations
+  libxl: introduce 'libxl_pci_bdf' in the idl...
+  libxlu: introduce xlu_pci_parse_spec_string()
+  libxl: modify
+    libxl_device_pci_assignable_add/remove/list/list_free()...
+  docs/man: modify xl(1) in preparation for naming of assignable devices
+  xl / libxl: support naming of assignable devices
+  docs/man: modify xl-pci-configuration(5) to add 'name' field to
+    PCI_SPEC_STRING
+  xl / libxl: support 'xl pci-attach/detach' by name
 
- * Delete all lifecycle entries predating the first entry made by
-   us.  (We could just delete all entries other than ours, but in
-   theory maybe some future code could result in a siutation where
-   someone else could have had another share briefly at some point.)
-
-This removes old junk from the "Tasks that could have affected" in
-reports.
-
-Signed-off-by: Ian Jackson <iwj@xenproject.org>
+ docs/man/xl-pci-configuration.5.pod  |  218 +++++++
+ docs/man/xl.1.pod.in                 |   39 +-
+ docs/man/xl.cfg.5.pod.in             |   68 +--
+ tools/golang/xenlight/helpers.gen.go |   77 ++-
+ tools/golang/xenlight/types.gen.go   |    8 +-
+ tools/include/libxl.h                |   67 ++-
+ tools/include/libxlutil.h            |    8 +-
+ tools/libs/light/libxl_create.c      |    6 +-
+ tools/libs/light/libxl_dm.c          |   18 +-
+ tools/libs/light/libxl_internal.h    |   53 +-
+ tools/libs/light/libxl_nic.c         |   19 +-
+ tools/libs/light/libxl_pci.c         | 1072 ++++++++++++++++++----------------
+ tools/libs/light/libxl_types.idl     |   19 +-
+ tools/libs/util/libxlu_pci.c         |  359 ++++++------
+ tools/ocaml/libs/xl/xenlight_stubs.c |   19 +-
+ tools/xl/xl_cmdtable.c               |   16 +-
+ tools/xl/xl_parse.c                  |   30 +-
+ tools/xl/xl_pci.c                    |  164 +++---
+ tools/xl/xl_sxp.c                    |   12 +-
+ 19 files changed, 1337 insertions(+), 935 deletions(-)
+ create mode 100644 docs/man/xl-pci-configuration.5.pod
 ---
- Osstest/JobDB/Executive.pm | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
-
-diff --git a/Osstest/JobDB/Executive.pm b/Osstest/JobDB/Executive.pm
-index 1dcf55ff..097c8d75 100644
---- a/Osstest/JobDB/Executive.pm
-+++ b/Osstest/JobDB/Executive.pm
-@@ -515,15 +515,19 @@ sub jobdb_host_update_lifecycle_info ($$$) { #method
- 
-     if ($mode eq 'wiped') {
- 	db_retry($flight, [qw(running)], $dbh_tests,[], sub {
--            $dbh_tests->do(<<END, {}, $hostname);
--                DELETE FROM host_lifecycle h
--                      WHERE hostname=?
--                        AND NOT EXISTS(
--                SELECT 1
--		  FROM tasks t
--		 WHERE t.live
--		   AND t.taskid = h.taskid
--                );
-+            my $cshare = Osstest::Executive::resource_check_allocated_core(
-+                "host",$hostname);
-+            die "others have this host allocated when we have just wiped it! "
-+	      .Dumper($cshare)
-+	      if $cshare->{Others};
-+	    $dbh_tests->do(<<END, {}, $hostname, $hostname, $ttaskid);
-+                DELETE FROM host_lifecycle
-+		      WHERE hostname=?
-+			AND lcseq < (
-+			       SELECT min(lcseq) 
-+				FROM host_lifecycle
-+			       WHERE hostname=? and taskid=?
-+			    )
- END
-         });
- 	logm("host lifecycle: $hostname: wiped, cleared out old info");
+Cc: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Christian Lindig <christian.lindig@citrix.com>
+Cc: David Scott <dave@recoil.org>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Ian Jackson <iwj@xenproject.org>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>
+Cc: Wei Liu <wl@xen.org>
 -- 
-2.20.1
+2.11.0
 
 
