@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BD929693E
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 06:55:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10647.28560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC0FD296936
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 06:48:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10685.28548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVp6C-00008J-6A; Fri, 23 Oct 2020 04:54:44 +0000
+	id 1kVozg-0007cV-EY; Fri, 23 Oct 2020 04:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10647.28560; Fri, 23 Oct 2020 04:54:44 +0000
+Received: by outflank-mailman (output) from mailman id 10685.28548; Fri, 23 Oct 2020 04:48:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,85 +23,87 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVp6C-00007u-2f; Fri, 23 Oct 2020 04:54:44 +0000
-Received: by outflank-mailman (input) for mailman id 10647;
- Thu, 22 Oct 2020 20:56:13 +0000
+	id 1kVozg-0007c4-BE; Fri, 23 Oct 2020 04:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 10685;
+ Fri, 23 Oct 2020 04:47:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r7k1=D5=gmail.com=mshivam2196@srs-us1.protection.inumbo.net>)
- id 1kVhd7-00086e-Dk
- for xen-devel@lists.xen.org; Thu, 22 Oct 2020 20:56:13 +0000
-Received: from mail-io1-xd2f.google.com (unknown [2607:f8b0:4864:20::d2f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=H00l=D6=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kVoze-0007bz-TD
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 04:47:58 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c27bbc4e-7323-4c87-802c-bf410cbb119e;
- Thu, 22 Oct 2020 20:56:11 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id u62so3137198iod.8
- for <xen-devel@lists.xen.org>; Thu, 22 Oct 2020 13:56:11 -0700 (PDT)
+ id d9ae739a-e6be-45af-93af-1d9983dcb6c0;
+ Fri, 23 Oct 2020 04:47:58 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 45FADAC12;
+ Fri, 23 Oct 2020 04:47:57 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=r7k1=D5=gmail.com=mshivam2196@srs-us1.protection.inumbo.net>)
-	id 1kVhd7-00086e-Dk
-	for xen-devel@lists.xen.org; Thu, 22 Oct 2020 20:56:13 +0000
-X-Inumbo-ID: c27bbc4e-7323-4c87-802c-bf410cbb119e
-Received: from mail-io1-xd2f.google.com (unknown [2607:f8b0:4864:20::d2f])
+	(envelope-from <SRS0=H00l=D6=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kVoze-0007bz-TD
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 04:47:58 +0000
+X-Inumbo-ID: d9ae739a-e6be-45af-93af-1d9983dcb6c0
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c27bbc4e-7323-4c87-802c-bf410cbb119e;
-	Thu, 22 Oct 2020 20:56:11 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id u62so3137198iod.8
-        for <xen-devel@lists.xen.org>; Thu, 22 Oct 2020 13:56:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=O9q7hsrq3YScP3PTnwo78McfYdpUs5BdfpImePRXR6w=;
-        b=h2fAMiUz/1bM0XB3aF8r5m5jsHr4gxph+aWlCXvxbILScT7zxIO3uPIGXAnsZFQQH/
-         ACvWokJU5zR3gTj2lArhTM7QkEHbi6eZu5bVc8CoU1oWoBvfVBkDBeXU6jx+da82iflp
-         8i3Kmrk8X1+xlBIPV2wv3vkYJLWBxkIpmADBvJYDBE/rtA47yg7ybR5lH67udKRvBMI8
-         Lzewp/rapMRz/eomP/DAomSLg7Mr4gFQ35ujEl+j4xezx7u1IEy1XFc7mYx4YP8llxjo
-         IZmB0mtwmNzlZK7SKciGqZ7SrXufEGHfS9ZXOxuxvqKUno+TbIMk/+bc3ON69ntwxSCG
-         bXDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=O9q7hsrq3YScP3PTnwo78McfYdpUs5BdfpImePRXR6w=;
-        b=fsMfveaMOF9zHeV4oJ36LOLyKcW51BKGRMleoRNmUSlK+o+q+OwPQEUlZlr0xDyD2Z
-         H63hNu/+1Xo5ktgm7HU2zBih0KEAIlDljw68Ydwy51g4Odn7OQIBvU1cv1851I0O439h
-         Vvn6RgypeK8k2YSmmYvG3msw6Juht99S7obWRhN0MVySP2MkrnqzVX3CIb/WV5I7pIo7
-         Pc3eQMYRQNp+pjBmjsuL5MNeMEmqE9kXefv2JG/YZ7FxTgN2yKgKHv3I2QjxCg/3jyPv
-         gcs+RR9RBR2HSCf4kYDAWbCTP+qHYSyAQt5WzqmKZLuFrBjQuuWV2mzdkBQbJMQJWU8i
-         1bBQ==
-X-Gm-Message-State: AOAM532xZu9qzpzkumsSLtglwFh8NLUveDfJrQoH9r5Mi1BR18Bra6Ye
-	BoheKQ+9BuK1EV081/Rbqb/vHfmg2TrzeFQsgr5f8EEN640=
-X-Google-Smtp-Source: ABdhPJyNebN4HW/x7tsIIRIFUsPKtsIq6t7GVJhsrYW0JRm+cMXr3i6jHxlzQWGPU1LXwWX30ysgQg5unN+nXxjavb4=
-X-Received: by 2002:a02:7817:: with SMTP id p23mr3193520jac.57.1603400171351;
- Thu, 22 Oct 2020 13:56:11 -0700 (PDT)
+	id d9ae739a-e6be-45af-93af-1d9983dcb6c0;
+	Fri, 23 Oct 2020 04:47:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603428477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YkR5342vNBYPqcxXX4kwtXys8DqB+7POEMSyGjxkSTk=;
+	b=JSvSZoGnITPdQ1Cf3/SdVPtHe1SfZgCJuOhmzprg/xNV7NKOO0xNUfYfQElaKIqtWjlHpZ
+	Dlkm38ihh6Fwnz457d504pUepkJvGi5sW/4Ak84yGqQm5Bk8PAIhZvCjP+vMvcZ3ciuZMk
+	N4IgcrrobRu3ZBhRUkEMSkXcBsn7GH4=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 45FADAC12;
+	Fri, 23 Oct 2020 04:47:57 +0000 (UTC)
+Subject: Re: BUG: credit=sched2 machine hang when using DRAKVUF
+To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ xen-devel@lists.xenproject.org
+References: <157653679.6164.1603407559737.JavaMail.zimbra@nask.pl>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <a80f05ac-bd18-563e-12f7-1a0f9f0d4f6b@suse.com>
+Date: Fri, 23 Oct 2020 06:47:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-From: Shivam Mehra <mshivam2196@gmail.com>
-Date: Fri, 23 Oct 2020 02:26:00 +0530
-Message-ID: <CANp2S65q-w7s9gBgE7bkx9v=z9DpzCeJXGN8Jc0EKcmMERV1Ow@mail.gmail.com>
-Subject: urgent
-To: xen-devel@lists.xen.org
-Content-Type: multipart/alternative; boundary="000000000000a5710c05b248b1b5"
+In-Reply-To: <157653679.6164.1603407559737.JavaMail.zimbra@nask.pl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
---000000000000a5710c05b248b1b5
-Content-Type: text/plain; charset="UTF-8"
+On 23.10.20 00:59, Michał Leszczyński wrote:
+> Hello,
+> 
+> when using DRAKVUF against a Windows 7 x64 DomU, the whole machine hangs after a few minutes.
+> 
+> The chance for a hang seems to be correlated with number of PCPUs, in this case we have 14 PCPUs and hang is very easily reproducible, while on other machines with 2-4 PCPUs it's very rare (but still occurring sometimes). The issue is observed with the default sched=credit2 and is no longer reproducible once sched=credit is set.
 
-I want to know a few things like how have you implemented the repeated
-migration of VM checkpoints from primary to backup, whenever backup
-receives the checkpoint, it sends an acknowledgement, the primary receives
-this acknowledgement and send a output release signal, Can you shed some
-light on how these things are implemented. how the backup detects that t
-received a checkpoint and it send an acknowledgement now?
+Interesting. Can you please share some more information?
 
---000000000000a5710c05b248b1b5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Which Xen version are you using?
 
-<div dir=3D"ltr">I want to know a few things like how have you implemented =
-the repeated migration of VM checkpoints from primary to backup, whenever b=
-ackup receives the checkpoint, it sends an acknowledgement, the primary rec=
-eives this acknowledgement and send a output release signal, Can you shed s=
-ome light on how these things are implemented. how the backup detects that =
-t received a checkpoint and it send an acknowledgement now?<br></div>
+Is there any additional information in the dom0 log which could be
+related to the hang (earlier WARN() splats, Oopses, Xen related
+messages, hardware failure messages, ...?
 
---000000000000a5710c05b248b1b5--
+Can you please try to get backtraces of all cpus at the time of the
+hang?
+
+It would help to know which cpu was the target of the call of
+smp_call_function_single(), so a disassembly of that function would
+be needed to find that information from the dumped registers.
+
+I'm asking because I've seen a similar problem recently and I was
+rather suspecting a fifo event channel issue than the Xen scheduler,
+but your data suggests it could be the scheduler after all (if it is
+the same issue, of course).
+
+
+Juergen
 
