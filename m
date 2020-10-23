@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E85F296B41
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 10:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10766.28704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6960296B47
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 10:36:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10768.28716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVsWi-0005tv-T7; Fri, 23 Oct 2020 08:34:20 +0000
+	id 1kVsYM-000626-8x; Fri, 23 Oct 2020 08:36:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10766.28704; Fri, 23 Oct 2020 08:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 10768.28716; Fri, 23 Oct 2020 08:36:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,85 +23,165 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVsWi-0005tW-PZ; Fri, 23 Oct 2020 08:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 10766;
- Fri, 23 Oct 2020 08:34:18 +0000
+	id 1kVsYM-00061g-5C; Fri, 23 Oct 2020 08:36:02 +0000
+Received: by outflank-mailman (input) for mailman id 10768;
+ Fri, 23 Oct 2020 08:36:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kVsWg-0005tP-Kg
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:34:18 +0000
+ id 1kVsYL-00061Z-5f
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:36:01 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 041ab3a9-529d-4d1b-9de3-b938425e909f;
- Fri, 23 Oct 2020 08:34:16 +0000 (UTC)
+ id cd7183f6-ea87-4cf3-b687-ddb3e84bd66b;
+ Fri, 23 Oct 2020 08:35:59 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 15FD9ABF4;
- Fri, 23 Oct 2020 08:34:16 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2A1D9AC5F;
+ Fri, 23 Oct 2020 08:35:59 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kVsWg-0005tP-Kg
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:34:18 +0000
-X-Inumbo-ID: 041ab3a9-529d-4d1b-9de3-b938425e909f
+	id 1kVsYL-00061Z-5f
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 08:36:01 +0000
+X-Inumbo-ID: cd7183f6-ea87-4cf3-b687-ddb3e84bd66b
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 041ab3a9-529d-4d1b-9de3-b938425e909f;
-	Fri, 23 Oct 2020 08:34:16 +0000 (UTC)
+	id cd7183f6-ea87-4cf3-b687-ddb3e84bd66b;
+	Fri, 23 Oct 2020 08:35:59 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603442056;
+	t=1603442159;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VH+yNN6+P3LEDkeW4LMEv6Dufqx0Ycnx/RNfURcuaVY=;
-	b=Jl0djD1rtDoKVdyK6tnEd9mLUiCWgrAIw03J476n7O4xz6sZAB6mhOdeiL70VM64963jR1
-	pY5uOZddvwrhe3JT56VKtIvmLb9GA4EewJnEJQxxTRh+Uuu4zxFmInHAHG7/rF31N2pOXY
-	HGO9Fbg0NLoEvCP/zgETR+eZGlhhbQQ=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AnKusbjZAyoMSt2heKF01++irq1SZLWnDVB4dzApjOw=;
+	b=FU7ZfaI1Q8/EcrW577jBaP7DcJS6N2aQXZphcqxIVtQilS8viBNLEg+aZzda2nTW/JKBK8
+	gz5/oVUq4TGa09yxFf6srcggOwuLskZwgE/F2V4EFwZxHinV9zq0blu9DjaSMUlw0UUidE
+	RltHxXaFUFOmOsbcRcOXdFr8PvoSZFo=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 15FD9ABF4;
-	Fri, 23 Oct 2020 08:34:16 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 2A1D9AC5F;
+	Fri, 23 Oct 2020 08:35:59 +0000 (UTC)
+Subject: [PATCH v3 1/7] x86: replace __ASM_{CL,ST}AC
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 0/7] x86: some assembler macro rework
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Message-ID: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
-Date: Fri, 23 Oct 2020 10:34:18 +0200
+References: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
+Message-ID: <cb072975-78f9-eede-4005-b8e1a6d14f88@suse.com>
+Date: Fri, 23 Oct 2020 10:36:01 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
+In-Reply-To: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Parts of this were discussed in the context of Andrew's CET-SS work.
-Further parts simply fit the underlying picture. And a few patches
-towards the end get attached here simply because of their dependency.
-Patch 7 is new.
+Introduce proper assembler macros instead, enabled only when the
+assembler itself doesn't support the insns. To avoid duplicating the
+macros for assembly and C files, have them processed into asm-macros.h.
+This in turn requires adding a multiple inclusion guard when generating
+that header.
 
-All patches except for the new ones in principle have acks / R-b-s
-which would allow them to go in. However, there still the controversy
-on the naming of the newly introduced header in patch 1 (which
-subsequent patches then add to). There hasn't been a name suggestion
-which would - imo - truly represent an improvement.
+No change to generated code.
 
-It's also still not really clear to me what - if any - changes to
-make to patch 2. As said there I'd be willing to drop some of the
-changes made, but not all. Prior discussion hasn't led to a clear
-understanding on my part of what's wanted to be kept / dropped. It
-could have looked like the entire patch was wanted to go away, but I
-don't think I can agree with this. (I could see about moving this to
-the end of the series, to unblock what's currently the remainder.)
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-1: replace __ASM_{CL,ST}AC
-2: reduce CET-SS related #ifdef-ary
-3: drop ASM_{CL,ST}AC
-4: fold indirect_thunk_asm.h into asm-defns.h
-5: guard against straight-line speculation past RET
-6: limit amount of INT3 in IND_THUNK_*
-7: make guarding against straight-line speculation optional
-
-Jan
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -243,7 +243,10 @@ $(BASEDIR)/include/asm-x86/asm-macros.h:
+ 	echo '#if 0' >$@.new
+ 	echo '.if 0' >>$@.new
+ 	echo '#endif' >>$@.new
++	echo '#ifndef __ASM_MACROS_H__' >>$@.new
++	echo '#define __ASM_MACROS_H__' >>$@.new
+ 	echo 'asm ( ".include \"$@\"" );' >>$@.new
++	echo '#endif /* __ASM_MACROS_H__ */' >>$@.new
+ 	echo '#if 0' >>$@.new
+ 	echo '.endif' >>$@.new
+ 	cat $< >>$@.new
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -20,6 +20,7 @@ $(call as-option-add,CFLAGS,CC,"rdrand %
+ $(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+ $(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+ $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
++$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
+ $(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
+ $(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1",-DHAVE_AS_QUOTED_SYM)
+ $(call as-option-add,CFLAGS,CC,"invpcid (%rax)$$(comma)%rax",-DHAVE_AS_INVPCID)
+--- a/xen/arch/x86/asm-macros.c
++++ b/xen/arch/x86/asm-macros.c
+@@ -1 +1,2 @@
++#include <asm/asm-defns.h>
+ #include <asm/alternative-asm.h>
+--- /dev/null
++++ b/xen/include/asm-x86/asm-defns.h
+@@ -0,0 +1,9 @@
++#ifndef HAVE_AS_CLAC_STAC
++.macro clac
++    .byte 0x0f, 0x01, 0xca
++.endm
++
++.macro stac
++    .byte 0x0f, 0x01, 0xcb
++.endm
++#endif
+--- a/xen/include/asm-x86/asm_defns.h
++++ b/xen/include/asm-x86/asm_defns.h
+@@ -13,10 +13,12 @@
+ #include <asm/alternative.h>
+ 
+ #ifdef __ASSEMBLY__
++#include <asm/asm-defns.h>
+ #ifndef CONFIG_INDIRECT_THUNK
+ .equ CONFIG_INDIRECT_THUNK, 0
+ #endif
+ #else
++#include <asm/asm-macros.h>
+ asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
+       __stringify(IS_ENABLED(CONFIG_INDIRECT_THUNK)) );
+ #endif
+@@ -200,34 +202,27 @@ register unsigned long current_stack_poi
+ 
+ #endif
+ 
+-/* "Raw" instruction opcodes */
+-#define __ASM_CLAC      ".byte 0x0f,0x01,0xca"
+-#define __ASM_STAC      ".byte 0x0f,0x01,0xcb"
+-
+ #ifdef __ASSEMBLY__
+ .macro ASM_STAC
+-    ALTERNATIVE "", __ASM_STAC, X86_FEATURE_XEN_SMAP
++    ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
+ .endm
+ .macro ASM_CLAC
+-    ALTERNATIVE "", __ASM_CLAC, X86_FEATURE_XEN_SMAP
++    ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+ .endm
+ #else
+ static always_inline void clac(void)
+ {
+     /* Note: a barrier is implicit in alternative() */
+-    alternative("", __ASM_CLAC, X86_FEATURE_XEN_SMAP);
++    alternative("", "clac", X86_FEATURE_XEN_SMAP);
+ }
+ 
+ static always_inline void stac(void)
+ {
+     /* Note: a barrier is implicit in alternative() */
+-    alternative("", __ASM_STAC, X86_FEATURE_XEN_SMAP);
++    alternative("", "stac", X86_FEATURE_XEN_SMAP);
+ }
+ #endif
+ 
+-#undef __ASM_STAC
+-#undef __ASM_CLAC
+-
+ #ifdef __ASSEMBLY__
+ .macro SAVE_ALL op, compat=0
+ .ifeqs "\op", "CLAC"
 
