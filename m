@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9141A297789
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 21:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11300.29936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C935529789F
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 23:02:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11314.29978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kW2Ti-0002WN-MQ; Fri, 23 Oct 2020 19:11:54 +0000
+	id 1kW4BF-0004kf-SU; Fri, 23 Oct 2020 21:00:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11300.29936; Fri, 23 Oct 2020 19:11:54 +0000
+Received: by outflank-mailman (output) from mailman id 11314.29978; Fri, 23 Oct 2020 21:00:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,64 +23,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kW2Ti-0002Vy-JE; Fri, 23 Oct 2020 19:11:54 +0000
-Received: by outflank-mailman (input) for mailman id 11300;
- Fri, 23 Oct 2020 19:11:53 +0000
+	id 1kW4BF-0004kG-PM; Fri, 23 Oct 2020 21:00:57 +0000
+Received: by outflank-mailman (input) for mailman id 11314;
+ Fri, 23 Oct 2020 21:00:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vJnI=D6=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kW2Tg-0002Vt-UK
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 19:11:52 +0000
+ id 1kW4BE-0004kB-I4
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 21:00:56 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba2479ae-5700-4483-827d-115c31862282;
- Fri, 23 Oct 2020 19:11:50 +0000 (UTC)
+ id 45aa85a2-04d9-49a5-a333-1108ef1d40d3;
+ Fri, 23 Oct 2020 21:00:54 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kW2Td-0003So-UE; Fri, 23 Oct 2020 19:11:49 +0000
+ id 1kW4BC-0005kA-9A; Fri, 23 Oct 2020 21:00:54 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kW2Td-0000Y7-IZ; Fri, 23 Oct 2020 19:11:49 +0000
+ id 1kW4BB-0006Ie-W3; Fri, 23 Oct 2020 21:00:54 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kW2Td-0001JK-I4; Fri, 23 Oct 2020 19:11:49 +0000
+ id 1kW4BB-0006sk-V3; Fri, 23 Oct 2020 21:00:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=vJnI=D6=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kW2Tg-0002Vt-UK
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 19:11:52 +0000
-X-Inumbo-ID: ba2479ae-5700-4483-827d-115c31862282
+	id 1kW4BE-0004kB-I4
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 21:00:56 +0000
+X-Inumbo-ID: 45aa85a2-04d9-49a5-a333-1108ef1d40d3
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ba2479ae-5700-4483-827d-115c31862282;
-	Fri, 23 Oct 2020 19:11:50 +0000 (UTC)
+	id 45aa85a2-04d9-49a5-a333-1108ef1d40d3;
+	Fri, 23 Oct 2020 21:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=p4NiSBxSgX5SSQAh0FsHR5Bw0Jdkg1LcSZ0BSK3dYyc=; b=P+4bgwQH29te/JLfpol2dUK1IV
-	tpFKXR2ZqmlzB7b1oP7m3zyrk6pPbo2pdaRFl7AfEVCQp9GklUKvUpoc65a8McCc9hdA4wU6yPEWO
-	qzK5AsgaWVwR1MoU3yNN2eMPOrCwihKg3gUctoSwakc9H7F7HZHGrECZqQAMepVxmb7Y=;
+	bh=qlrWE3FmFtrcC/EqaSKRUAlRL6mmO+2EIFrsFIJgW00=; b=ARhctkODdgbeATVzZGxWKBNKWD
+	zb8mFeqVA9fupzj2FcIStorrxEQuOhXG6EnnGaODCfewgE/nIKMvE9l3n0iAe5e5Y7bmJxS3KzRkh
+	21UPNniS8C44MWQq1m0fwqR6R0iBR/+HnEXcXZbHhBig+ZJVtur4wco5nLCSh4yV73Js=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kW2Td-0003So-UE; Fri, 23 Oct 2020 19:11:49 +0000
+	id 1kW4BC-0005kA-9A; Fri, 23 Oct 2020 21:00:54 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kW2Td-0000Y7-IZ; Fri, 23 Oct 2020 19:11:49 +0000
+	id 1kW4BB-0006Ie-W3; Fri, 23 Oct 2020 21:00:54 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kW2Td-0001JK-I4; Fri, 23 Oct 2020 19:11:49 +0000
+	id 1kW4BB-0006sk-V3; Fri, 23 Oct 2020 21:00:53 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-156129-mainreport@xen.org>
+Message-ID: <osstest-156133-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156129: regressions - trouble: blocked/fail
+Subject: [xen-unstable-smoke test] 156133: regressions - trouble: blocked/fail
 X-Osstest-Failures:
     xen-unstable-smoke:build-amd64:xen-build:fail:regression
     xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
@@ -95,10 +95,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 23 Oct 2020 19:11:49 +0000
+Date: Fri, 23 Oct 2020 21:00:53 +0000
 
-flight 156129 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156129/
+flight 156133 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156133/
 
 Regressions :-(
 
@@ -121,8 +121,8 @@ baseline version:
  xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
 
 Last test of basis   156117  2020-10-23 09:01:23 Z    0 days
-Failing since        156120  2020-10-23 14:01:24 Z    0 days    2 attempts
-Testing same since   156129  2020-10-23 18:01:24 Z    0 days    1 attempts
+Failing since        156120  2020-10-23 14:01:24 Z    0 days    3 attempts
+Testing same since   156129  2020-10-23 18:01:24 Z    0 days    2 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
