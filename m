@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BFE9297380
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:23:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11162.29613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 610C2297383
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 18:23:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11165.29648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVzqo-0008Dw-Lz; Fri, 23 Oct 2020 16:23:34 +0000
+	id 1kVzqu-0008QW-Ur; Fri, 23 Oct 2020 16:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11162.29613; Fri, 23 Oct 2020 16:23:34 +0000
+Received: by outflank-mailman (output) from mailman id 11165.29648; Fri, 23 Oct 2020 16:23:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,116 +23,170 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVzqo-0008D4-Gv; Fri, 23 Oct 2020 16:23:34 +0000
-Received: by outflank-mailman (input) for mailman id 11162;
- Fri, 23 Oct 2020 16:23:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kVzqu-0008Ok-KU; Fri, 23 Oct 2020 16:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 11165;
+ Fri, 23 Oct 2020 16:23:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1kVzqm-00081e-C8
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:32 +0000
+ id 1kVzqs-00081j-SC
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:38 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5d74bd44-e25a-4dd0-a026-178d0dc88266;
- Fri, 23 Oct 2020 16:23:26 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id aa8e3bea-270a-4ca5-afec-b1e30f05f168;
+ Fri, 23 Oct 2020 16:23:27 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kVzqf-0008JU-6J; Fri, 23 Oct 2020 16:23:25 +0000
+ id 1kVzqg-0008Jb-0D; Fri, 23 Oct 2020 16:23:26 +0000
 Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com
  ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kVzqe-000376-V3; Fri, 23 Oct 2020 16:23:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ id 1kVzqf-000376-Ov; Fri, 23 Oct 2020 16:23:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=X6LH=D6=xen.org=paul@srs-us1.protection.inumbo.net>)
-	id 1kVzqm-00081e-C8
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:32 +0000
-X-Inumbo-ID: 5d74bd44-e25a-4dd0-a026-178d0dc88266
+	id 1kVzqs-00081j-SC
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 16:23:38 +0000
+X-Inumbo-ID: aa8e3bea-270a-4ca5-afec-b1e30f05f168
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 5d74bd44-e25a-4dd0-a026-178d0dc88266;
-	Fri, 23 Oct 2020 16:23:26 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id aa8e3bea-270a-4ca5-afec-b1e30f05f168;
+	Fri, 23 Oct 2020 16:23:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=d5hhK/pKE8zCFXVC7B3RNGDmz0Oe2e31kzCzkBdDeBM=; b=BR9viEbkG0CJzaf6Fobq/85Yi
-	QIo8B/2Mvcg7lWD+3Jf4532XLAir3N9SagRDNWRaDo3lk8vgmbIPuIJGS40SmeKVCSnR6wAtn7+1s
-	gf7mAs1QW3Xo31BOFQVI1QatbHKmbicpV67Ws6KA4Ad6SuZQijq0hsPJ2C7FdYXl6x8mQ=;
+	 bh=ORjVh3eyNwRmvhpvuOMksACO9sNjoM6DFI5Mu3lxT+8=; b=jksCA09h/pKmnh61JI897CrQH
+	j+q+5lCplucUTLHgXEa1w6zqNc8qgoZMNAQMRV82qkkjnmGyV3R9uLsQH5dt4SAuLECFD/qKEuCGm
+	TyBuVraoreUmzOvQsDM4RWiugqXUZilSrdtWxAygRvJrsOUV0VNaws/R5UUhwDYY7kL+s=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kVzqf-0008JU-6J; Fri, 23 Oct 2020 16:23:25 +0000
+	id 1kVzqg-0008Jb-0D; Fri, 23 Oct 2020 16:23:26 +0000
 Received: from ec2-18-200-132-236.eu-west-1.compute.amazonaws.com ([18.200.132.236] helo=ip-10-0-185-232.eu-west-1.compute.internal)
 	by xenbits.xenproject.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1kVzqe-000376-V3; Fri, 23 Oct 2020 16:23:25 +0000
+	id 1kVzqf-000376-Ov; Fri, 23 Oct 2020 16:23:25 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 06/25] libxl: remove extraneous arguments to do_pci_remove() in libxl_pci.c
-Date: Fri, 23 Oct 2020 16:22:55 +0000
-Message-Id: <20201023162314.2235-7-paul@xen.org>
+Subject: [PATCH 07/25] libxl: stop using aodev->device_config in libxl__device_pci_add()...
+Date: Fri, 23 Oct 2020 16:22:56 +0000
+Message-Id: <20201023162314.2235-8-paul@xen.org>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20201023162314.2235-1-paul@xen.org>
 References: <20201023162314.2235-1-paul@xen.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-Both 'domid' and 'pci' are available in 'pci_remove_state' so there is no
-need to also pass them as separate arguments.
+... to hold a pointer to the device.
+
+There is already a 'pci' field in 'pci_add_state' so simply use that from
+the start. This also allows the 'pci' (#3) argument to be dropped from
+do_pci_add().
+
+NOTE: This patch also changes the type of the 'pci_domid' field in
+      'pci_add_state' from 'int' to 'libxl_domid' which is more appropriate
+      given what the field is used for.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Ian Jackson <iwj@xenproject.org>
 Cc: Wei Liu <wl@xen.org>
 ---
- tools/libs/light/libxl_pci.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ tools/libs/light/libxl_pci.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
 diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 3936d60a14..97889fda49 100644
+index 97889fda49..b8d8cc6a69 100644
 --- a/tools/libs/light/libxl_pci.c
 +++ b/tools/libs/light/libxl_pci.c
-@@ -1867,14 +1867,14 @@ static void pci_remove_stubdom_done(libxl__egc *egc,
- static void pci_remove_done(libxl__egc *egc,
-     pci_remove_state *prs, int rc);
+@@ -1055,7 +1055,7 @@ typedef struct pci_add_state {
+     libxl__ev_qmp qmp;
+     libxl__ev_time timeout;
+     libxl_device_pci *pci;
+-    int pci_domid;
++    libxl_domid pci_domid;
+ } pci_add_state;
  
--static void do_pci_remove(libxl__egc *egc, uint32_t domid,
--                          libxl_device_pci *pci, int force,
--                          pci_remove_state *prs)
-+static void do_pci_remove(libxl__egc *egc, pci_remove_state *prs)
+ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
+@@ -1072,7 +1072,6 @@ static void pci_add_dm_done(libxl__egc *,
+ 
+ static void do_pci_add(libxl__egc *egc,
+                        libxl_domid domid,
+-                       libxl_device_pci *pci,
+                        pci_add_state *pas)
  {
-     STATE_AO_GC(prs->aodev->ao);
-     libxl_ctx *ctx = libxl__gc_owner(gc);
-     libxl_device_pci *assigned;
-+    uint32_t domid = prs->domid;
-     libxl_domain_type type = libxl__domain_type(gc, domid);
-+    libxl_device_pci *pci = prs->pci;
-     int rc, num;
+     STATE_AO_GC(pas->aodev->ao);
+@@ -1082,7 +1081,6 @@ static void do_pci_add(libxl__egc *egc,
+     /* init pci_add_state */
+     libxl__xswait_init(&pas->xswait);
+     libxl__ev_qmp_init(&pas->qmp);
+-    pas->pci = pci;
+     pas->pci_domid = domid;
+     libxl__ev_time_init(&pas->timeout);
  
-     assigned = libxl_device_pci_list(ctx, domid, &num);
-@@ -2269,7 +2269,6 @@ static void device_pci_remove_common_next(libxl__egc *egc,
-     EGC_GC;
+@@ -1544,13 +1542,10 @@ void libxl__device_pci_add(libxl__egc *egc, uint32_t domid,
+     int stubdomid = 0;
+     pci_add_state *pas;
+ 
+-    /* Store *pci to be used by callbacks */
+-    aodev->device_config = pci;
+-    aodev->device_type = &libxl__pci_devtype;
+-
+     GCNEW(pas);
+     pas->aodev = aodev;
+     pas->domid = domid;
++    pas->pci = pci;
+     pas->starting = starting;
+     pas->callback = device_pci_add_stubdom_done;
+ 
+@@ -1604,9 +1599,10 @@ void libxl__device_pci_add(libxl__egc *egc, uint32_t domid,
+         GCNEW(pci_s);
+         libxl_device_pci_init(pci_s);
+         libxl_device_pci_copy(CTX, pci_s, pci);
++        pas->pci = pci_s;
+         pas->callback = device_pci_add_stubdom_wait;
+ 
+-        do_pci_add(egc, stubdomid, pci_s, pas); /* must be last */
++        do_pci_add(egc, stubdomid, pas); /* must be last */
+         return;
+     }
+ 
+@@ -1661,9 +1657,8 @@ static void device_pci_add_stubdom_done(libxl__egc *egc,
+     int i;
  
      /* Convenience aliases */
--    libxl_domid domid = prs->domid;
-     libxl_device_pci *const pci = prs->pci;
-     libxl__ao_device *const aodev = prs->aodev;
-     const unsigned int pfunc_mask = prs->pfunc_mask;
-@@ -2287,7 +2286,7 @@ static void device_pci_remove_common_next(libxl__egc *egc,
-             } else {
+-    libxl__ao_device *aodev = pas->aodev;
+     libxl_domid domid = pas->domid;
+-    libxl_device_pci *pci = aodev->device_config;
++    libxl_device_pci *pci = pas->pci;
+ 
+     if (rc) goto out;
+ 
+@@ -1698,7 +1693,7 @@ static void device_pci_add_stubdom_done(libxl__egc *egc,
                  pci->vdevfn = orig_vdev;
              }
--            do_pci_remove(egc, domid, pci, prs->force, prs);
-+            do_pci_remove(egc, prs);
+             pas->callback = device_pci_add_done;
+-            do_pci_add(egc, domid, pci, pas); /* must be last */
++            do_pci_add(egc, domid, pas); /* must be last */
              return;
          }
      }
+@@ -1714,7 +1709,7 @@ static void device_pci_add_done(libxl__egc *egc,
+     EGC_GC;
+     libxl__ao_device *aodev = pas->aodev;
+     libxl_domid domid = pas->domid;
+-    libxl_device_pci *pci = aodev->device_config;
++    libxl_device_pci *pci = pas->pci;
+ 
+     if (rc) {
+         LOGD(ERROR, domid,
 -- 
 2.11.0
 
