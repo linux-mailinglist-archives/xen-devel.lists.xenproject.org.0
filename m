@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33AA2296FD3
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 15:00:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10980.29145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7966D297064
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 15:26:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10984.29158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVwfw-0001dK-VN; Fri, 23 Oct 2020 13:00:08 +0000
+	id 1kVx59-0003p1-5c; Fri, 23 Oct 2020 13:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10980.29145; Fri, 23 Oct 2020 13:00:08 +0000
+Received: by outflank-mailman (output) from mailman id 10984.29158; Fri, 23 Oct 2020 13:26:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,173 +23,102 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVwfw-0001cv-SC; Fri, 23 Oct 2020 13:00:08 +0000
-Received: by outflank-mailman (input) for mailman id 10980;
- Fri, 23 Oct 2020 13:00:07 +0000
+	id 1kVx59-0003oc-2A; Fri, 23 Oct 2020 13:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 10984;
+ Fri, 23 Oct 2020 13:26:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nEE3=D6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kVwfv-0001Z8-6p
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:00:07 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UuJs=D6=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
+ id 1kVx57-0003oW-5Z
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:09 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a89fd82a-be83-484f-886d-862fc6e7d5d6;
- Fri, 23 Oct 2020 13:00:05 +0000 (UTC)
+ id 1cd2bb22-cdc2-426f-bf66-b68664d48636;
+ Fri, 23 Oct 2020 13:26:08 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVwfr-0003Oy-FB; Fri, 23 Oct 2020 13:00:03 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVwfr-0003R5-2y; Fri, 23 Oct 2020 13:00:03 +0000
+ (envelope-from <iwj@xenproject.org>) id 1kVx56-0003u5-6c
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:08 +0000
+Received: from iwj (helo=mynotebook.example.org)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kVx56-0005lC-4K
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:08 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1kVx52-0007fs-Rs; Fri, 23 Oct 2020 14:26:04 +0100
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nEE3=D6=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kVwfv-0001Z8-6p
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:00:07 +0000
-X-Inumbo-ID: a89fd82a-be83-484f-886d-862fc6e7d5d6
+	(envelope-from <SRS0=UuJs=D6=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
+	id 1kVx57-0003oW-5Z
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:09 +0000
+X-Inumbo-ID: 1cd2bb22-cdc2-426f-bf66-b68664d48636
 Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a89fd82a-be83-484f-886d-862fc6e7d5d6;
-	Fri, 23 Oct 2020 13:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=4x5X74mf7UfWgJG24rGYwYtiVhY42QZKSLbEpYcdMjo=; b=XkTTaLM4Qm9JwEnJ1R1Csl1DPr
-	iU0zDxUCvbVRyx82Lyrf9IoQ6bwvGtstRjEAT7MCHsIQHtGYHc2xsqgBY9uMKgw1urup0QF4gW2UK
-	h46bIIBqyV9vRWrHk9mQjWlpS2t79AxYEaAJNHbk5EGVHQCOPuwXYCHPdLcf1ISr5Vss=;
+	id 1cd2bb22-cdc2-426f-bf66-b68664d48636;
+	Fri, 23 Oct 2020 13:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=b9VfwqB3+vPR0wPmnXFCMvn45MMEFkbthDp1NTUn50I=; b=CLI1+68mvERSD0wwVpCkr7Ce/e
+	WzMz1u3R+3rUmcuAo0l6QToEBWd2gAAGAfE19BBQcCJZc8QYZnQN8Ek6UZuo7CpkjvdMIc9vJHoWf
+	gsGL0OgOyJKDcUkZiLAy7lAUY+qpgub0FNY4nRBrf0rU2XwMTGcJ91K/02zlVyWG3qMY=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVwfr-0003Oy-FB; Fri, 23 Oct 2020 13:00:03 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVwfr-0003R5-2y; Fri, 23 Oct 2020 13:00:03 +0000
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
- <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
- <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
- <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
- <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <7314936f-6c1e-5ca6-a33b-973c8e61ba3b@xen.org>
-Date: Fri, 23 Oct 2020 14:00:00 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.0
+	(envelope-from <iwj@xenproject.org>)
+	id 1kVx56-0003u5-6c
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:08 +0000
+Received: from iwj (helo=mynotebook.example.org)
+	by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+	(envelope-from <iwj@xenproject.org>)
+	id 1kVx56-0005lC-4K
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 13:26:08 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+	(envelope-from <iwj@xenproject.org>)
+	id 1kVx52-0007fs-Rs; Fri, 23 Oct 2020 14:26:04 +0100
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24466.55788.624955.556357@mariner.uk.xensource.com>
+Date: Fri, 23 Oct 2020 14:26:04 +0100
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    Samuel Thibault <samuel.thibault@ens-lyon.org>,
+    Christian Lindig <christian.lindig@citrix.com>,
+    David Scott <dave@recoil.org>
+Subject: Re: [PATCH 0/3] tools: avoid creating symbolic links during make
+In-Reply-To: <20201002142214.3438-1-jgross@suse.com>
+References: <20201002142214.3438-1-jgross@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-
-
-On 23/10/2020 12:35, Rahul Singh wrote:
-> Hello,
+Juergen Gross writes ("[PATCH 0/3] tools: avoid creating symbolic links during make"):
+> The rework of the Xen library build introduced creating some additional
+> symbolic links during the build process.
 > 
->> On 23 Oct 2020, at 1:02 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>
->> On Thu, 22 Oct 2020, Julien Grall wrote:
->>>>> On 20/10/2020 16:25, Rahul Singh wrote:
->>>>>> Add support for ARM architected SMMUv3 implementations. It is based on
->>>>>> the Linux SMMUv3 driver.
->>>>>> Major differences between the Linux driver are as follows:
->>>>>> 1. Only Stage-2 translation is supported as compared to the Linux driver
->>>>>>     that supports both Stage-1 and Stage-2 translations.
->>>>>> 2. Use P2M  page table instead of creating one as SMMUv3 has the
->>>>>>     capability to share the page tables with the CPU.
->>>>>> 3. Tasklets is used in place of threaded IRQ's in Linux for event queue
->>>>>>     and priority queue IRQ handling.
->>>>>
->>>>> Tasklets are not a replacement for threaded IRQ. In particular, they will
->>>>> have priority over anything else (IOW nothing will run on the pCPU until
->>>>> they are done).
->>>>>
->>>>> Do you know why Linux is using thread. Is it because of long running
->>>>> operations?
->>>>
->>>> Yes you are right because of long running operations Linux is using the
->>>> threaded IRQs.
->>>>
->>>> SMMUv3 reports fault/events bases on memory-based circular buffer queues not
->>>> based on the register. As per my understanding, it is time-consuming to
->>>> process the memory based queues in interrupt context because of that Linux
->>>> is using threaded IRQ to process the faults/events from SMMU.
->>>>
->>>> I didn’t find any other solution in XEN in place of tasklet to defer the
->>>> work, that’s why I used tasklet in XEN in replacement of threaded IRQs. If
->>>> we do all work in interrupt context we will make XEN less responsive.
->>>
->>> So we need to make sure that Xen continue to receives interrupts, but we also
->>> need to make sure that a vCPU bound to the pCPU is also responsive.
->>>
->>>>
->>>> If you know another solution in XEN that will be used to defer the work in
->>>> the interrupt please let me know I will try to use that.
->>>
->>> One of my work colleague encountered a similar problem recently. He had a long
->>> running tasklet and wanted to be broken down in smaller chunk.
->>>
->>> We decided to use a timer to reschedule the taslket in the future. This allows
->>> the scheduler to run other loads (e.g. vCPU) for some time.
->>>
->>> This is pretty hackish but I couldn't find a better solution as tasklet have
->>> high priority.
->>>
->>> Maybe the other will have a better idea.
->>
->> Julien's suggestion is a good one.
->>
->> But I think tasklets can be configured to be called from the idle_loop,
->> in which case they are not run in interrupt context?
->>
-> 
->   Yes you are right tasklet will be scheduled from the idle_loop that is not interrupt conext.
+> This series is undoing that by moving all official Xen library headers
+> to tools/include and by using include paths and the vpath directive
+> when access to some private headers of another directory is needed.
 
-This depends on your tasklet. Some will run from the softirq context 
-which is usually (for Arm) on the return of an exception.
+I'm OK with these changes and inclined to give my ack and commit all
+three.
 
->>
->>>>>> 4. Latest version of the Linux SMMUv3 code implements the commands queue
->>>>>>     access functions based on atomic operations implemented in Linux.
->>>>>
->>>>> Can you provide more details?
->>>>
->>>> I tried to port the latest version of the SMMUv3 code than I observed that
->>>> in order to port that code I have to also port atomic operation implemented
->>>> in Linux to XEN. As latest Linux code uses atomic operation to process the
->>>> command queues (atomic_cond_read_relaxed(),atomic_long_cond_read_relaxed() ,
->>>> atomic_fetch_andnot_relaxed()) .
->>>
->>> Thank you for the explanation. I think it would be best to import the atomic
->>> helpers and use the latest code.
->>>
->>> This will ensure that we don't re-introduce bugs and also buy us some time
->>> before the Linux and Xen driver diverge again too much.
->>>
->>> Stefano, what do you think?
->>
->> I think you are right.
-> 
-> Yes, I agree with you to have XEN code in sync with Linux code that's why I started with to port the Linux atomic operations to XEN  then I realised that it is not straightforward to port atomic operations and it requires lots of effort and testing. Therefore I decided to port the code before the atomic operation is introduced in Linux.
+I did have one observation: it is rather odd that all the
+autogenerated header files are each generated by the relevant
+tools/libs/foo/Makefile, but the file is in tools/include/.
 
-Hmmm... I would not have expected a lot of effort required to add the 3 
-atomics operations above. Are you trying to also port the LSE support at 
-the same time?
+This is particularly odd given that tools/include/ has a Makefile of
+its own which mostly does install stuff.
 
-Cheers,
+Can we at least have a comment in tools/include/Makefile saying that
+it is forbidden to add rules which build include files here, and
+suggesting to the reader which other Makefiles to read ?
 
--- 
-Julien Grall
+Thanks,
+Ian.
 
