@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008A62969AF
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 08:28:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10703.28596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C2392969C5
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 08:33:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10717.28608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVqYk-0000mK-Lt; Fri, 23 Oct 2020 06:28:18 +0000
+	id 1kVqdh-0001fp-DN; Fri, 23 Oct 2020 06:33:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10703.28596; Fri, 23 Oct 2020 06:28:18 +0000
+Received: by outflank-mailman (output) from mailman id 10717.28608; Fri, 23 Oct 2020 06:33:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,207 +23,160 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVqYk-0000lv-ID; Fri, 23 Oct 2020 06:28:18 +0000
-Received: by outflank-mailman (input) for mailman id 10703;
- Fri, 23 Oct 2020 06:28:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kVqdh-0001fQ-9u; Fri, 23 Oct 2020 06:33:25 +0000
+Received: by outflank-mailman (input) for mailman id 10717;
+ Fri, 23 Oct 2020 06:33:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q3Pz=D6=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1kVqYj-0000lq-9x
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:28:17 +0000
-Received: from mga06.intel.com (unknown [134.134.136.31])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b81548a9-9521-4773-87db-961948c2e7d6;
- Fri, 23 Oct 2020 06:28:13 +0000 (UTC)
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2020 23:28:10 -0700
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga007.jf.intel.com with ESMTP; 22 Oct 2020 23:28:10 -0700
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.172)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:07 -0700
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by MWHPR11MB1711.namprd11.prod.outlook.com (2603:10b6:300:27::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Fri, 23 Oct
- 2020 06:28:02 +0000
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::c88f:585f:f117:930b]) by MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::c88f:585f:f117:930b%8]) with mapi id 15.20.3477.028; Fri, 23 Oct 2020
- 06:28:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=yJbv=D6=casper.srs.infradead.org=batv+ae109258c1d10f479368+6270+infradead.org+hch@srs-us1.protection.inumbo.net>)
+ id 1kVqdd-0001fL-Vk
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:33:23 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed;
+ Fri, 23 Oct 2020 06:33:18 +0000 (UTC)
+Received: from [2001:4bb8:18c:20bd:c70:4a89:bc61:3] (helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kVqdU-0005Dv-O2; Fri, 23 Oct 2020 06:33:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=q3Pz=D6=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
-	id 1kVqYj-0000lq-9x
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:28:17 +0000
-X-Inumbo-ID: b81548a9-9521-4773-87db-961948c2e7d6
-Received: from mga06.intel.com (unknown [134.134.136.31])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id b81548a9-9521-4773-87db-961948c2e7d6;
-	Fri, 23 Oct 2020 06:28:13 +0000 (UTC)
-IronPort-SDR: qgP7VG7/f8BrYJsRkYUIP35PVdvsYFX4XxfuKxMJtfd9qvpYZftsQhkVFiakONLmiG95O8q7eK
- IxLGF49REC4w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="229269346"
-X-IronPort-AV: E=Sophos;i="5.77,407,1596524400"; 
-   d="scan'208";a="229269346"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2020 23:28:10 -0700
-IronPort-SDR: lf498Q5QhkfcmkxGIUFxXi66Ge+t9y1l8e5Y6TgWOkBF9qDl0NVboAtNpz1GwqaAHE53v2a/OR
- 7hlgMRvNxYHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,407,1596524400"; 
-   d="scan'208";a="360131184"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
-  by orsmga007.jf.intel.com with ESMTP; 22 Oct 2020 23:28:10 -0700
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 22 Oct 2020 23:28:09 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.172)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 22 Oct 2020 23:28:07 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c1OQ72WkfJFzQKu5sXnSD2bf2L0ISTvgHZhOcBM5NUZNIvrgsTbbBu/4sJS9N5RTqqtzEA5tnn6nyN/UZfRnLbE1ASaC+dPUNDWJYKpF3303+67hTD4QrheRt7WDM8jB8rwWRMPLsmdnEqn+7a51uppZgG/PGNZFc/23NQeswZCVOZSxhBYBgRC1SxseYstjGMyri02LX3HXTbV9/MPBLn9/Z9pHOzgtuUh/TgDvTvx4EgG5A24d+fkyNQwcWAjir86WJVVWtN1lJ+8LpInvA+Cdh72v4pEUG+4dQ6NIlcmTZ/hLqZU16FRxKyai4Pd4wLb+ZRVriK1wy21oYZQ4Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f8XxxAvJfuAo9wQvDsy7omotezTw048hqHDi1GsBNPI=;
- b=VSvQRoE6rsRX8wLCwgBihczCCQVLQA+JjN15QuGAMJiG1dSB8mvKyz8yPlqyH0oVzYRUR/qf1vlhBuGcTpPD4Pbes0bBrJ8qvqzsH4hSC/JdF9QEX7j8ddes3tiM7qh3ygF4ha55A5ESpIWI+kTfDCTTOn48vw/QRHVZPE4MSDPVlS4faTHjvvQveqgvjkJH5Kt0eXcApXPI/CGYoIhofblH/8rXN1DQsQE8wkv4MVkNfEfCjyO/SW8MXQVp1VdWSna81sRWX5yH0AI04eQf9qbHIfBnf0++Fs0vNQHOCLpmrifHJ8LLtN1vWFJdEIufWEe12FU/NW+TQPH6vzKeiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f8XxxAvJfuAo9wQvDsy7omotezTw048hqHDi1GsBNPI=;
- b=xq2QVaFDDoOU0A4mZCJTMaCNPcv1cCeH0HhA5z3cPwfWjrsS0pqpnqM34wLmwOflob72RkpO9BFX62Z3OwImcnLL+4IWDbcSw2EL6RykM/A0X+qeUhYJYkU+LAa5PLEd0EZ91o6ZW7KYi7kTceRxJkXxZm94eTbvTcfVkWOau6A=
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by MWHPR11MB1711.namprd11.prod.outlook.com (2603:10b6:300:27::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Fri, 23 Oct
- 2020 06:28:02 +0000
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::c88f:585f:f117:930b]) by MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::c88f:585f:f117:930b%8]) with mapi id 15.20.3477.028; Fri, 23 Oct 2020
- 06:28:02 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "Cooper, Andrew" <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, "Nakajima, Jun" <jun.nakajima@intel.com>, "Paul
- Durrant" <paul@xen.org>
-Subject: RE: [PATCH] IOMMU: avoid double flushing in shared page table case
-Thread-Topic: [PATCH] IOMMU: avoid double flushing in shared page table case
-Thread-Index: AQHWpuhdf0WK+guU3Ei2udEaPDozGamkvWZg
-Date: Fri, 23 Oct 2020 06:28:02 +0000
-Message-ID: <MWHPR11MB1645E262F83FEE9E2BDC9E8D8C1A0@MWHPR11MB1645.namprd11.prod.outlook.com>
-References: <e54f4fbb-92e2-9785-8648-596c615213a2@suse.com>
-In-Reply-To: <e54f4fbb-92e2-9785-8648-596c615213a2@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [192.198.147.219]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f1643216-2c13-4392-c6a7-08d8771ccb43
-x-ms-traffictypediagnostic: MWHPR11MB1711:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR11MB1711C0DF10E99A3595A7884E8C1A0@MWHPR11MB1711.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Hvz8lv4n7kMSJv4MMkxQnVI+givG5paqjVIgh/HiI++vwt7/oDQZf3VG/45wVD406ccisAbaWdtCl9ED99wuHGQKqneurfGmX60vu0lG1dXXYvy2apHR099+sP41E/8nMZMCPZTXg4bEEUDFB0LkTfovhjMAGYjmJS5Lo2AdLnGG/4zK0ZA02qD+F1oSz2e2nOkq0uz/UVdi14Rkd7balwzA9MFn6/D9zyV5EyEuw8Y/DLXkBZ1S+Ez9RPw/1B1IrrmA+H6MQBbOgitXUgmNwso3tNRXh0OZuEqZiF3KrZUJeODT43yv1Dhdqa1kf9A8
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR11MB1645.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(376002)(396003)(136003)(39860400002)(346002)(71200400001)(9686003)(83380400001)(64756008)(7696005)(66476007)(2906002)(66556008)(66946007)(76116006)(55016002)(66446008)(26005)(5660300002)(8936002)(186003)(33656002)(478600001)(6506007)(8676002)(54906003)(52536014)(4326008)(110136005)(316002)(86362001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: d8QHoHEyn3FbzLrEmsq8bRcUsbE4Ld8aRlnZ+Id4TvN4fBUVRXv/LHDrcpsjqZLydXfwrJ5+aLHELRySYabtBphb75qebkRNAhxtslCZJtjjDCPWdO0L2/XmJkaY3gsiylzko2gWN/zE8i1Fc1Vtd1q5CjxsHI/ajKE3KxfqNqOG2VlTyLMKjN4BWaIzSZZmu9vsK11xbDt2pXsxWMWia2Vzy8ifTkVhFenWDNayBpQNlzCSYStcvmO9FM8EtMZz7W2v5KhACAfqCSgvg8z5Lg/+8grmxYq9oIW5tn3GqWwxYVX2xDQ+zOTrsaDHvyT+M9kJvWkn+HKFG52aRZXQeni0YN3MLLG1XOAXpEEvLv1Q0W+8YXNMxwr3NAKLgOyO+ZUoiyQ7TEKFZplRv5TSzjgYY0gtdI52phYl3RJHGeqRBlMWHOMnooe3MzesH00C0fsdCbDuz/HWrxaJ9EbdB7SREgdYPwTFCEKU9muLnKzK/qfYgrg5tHxEbHrDNBdblW5GL5gFW5l2GJ7w7H6SWo6O+ttVMkt/AOyKcbB88JWO2w+OfqUE/AF0ZF2ECtTj6wSFCkPwelVZbbPWQOvnmpzyTAW/dD4ajTiFf4HJVfR77P8CIH3h6Tf/bMro2m2/YwVgXua/qTGOEujssOGCBw==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	(envelope-from <SRS0=yJbv=D6=casper.srs.infradead.org=batv+ae109258c1d10f479368+6270+infradead.org+hch@srs-us1.protection.inumbo.net>)
+	id 1kVqdd-0001fL-Vk
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 06:33:23 +0000
+X-Inumbo-ID: 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 3645c3ea-2fe3-4bb8-afb6-0e351b6ed1ed;
+	Fri, 23 Oct 2020 06:33:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=VgaUDy/MYBhcMGNLTA5dcYkNxjEeOYucsAXgukb+9OE=; b=F21OlX9RTzKj2RyK9S1jOONSVX
+	fBGHNAfoEYPDghf73ahvw01VvwR8PBi1lgexR2AR9oXWJ8uVIwb97yh6lOectRl76KlmCZaRD7CZB
+	Ne0xWy9GBkkZrB0i0jyH0wgEx7a71zWxL5vUy7EJQ0Y/eO9C5hS6Ecpx9DEFTJOx+t7KW8Cf+A9wz
+	KjFNSkhJly6lhDd+duxQgCu1UbcPA+t2i5M9NdOsDKaAI4qr1LABguhWCwhXX8rdvsbJJE/VUbkbG
+	mIkn/UOMzSrskutaE903B6fgNIIN4QFDY3iMmZhu6C/TArJvku+4c7lzLjoRYMzNsxXu8Tc01GkSV
+	d+cOoHsQ==;
+Received: from [2001:4bb8:18c:20bd:c70:4a89:bc61:3] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kVqdU-0005Dv-O2; Fri, 23 Oct 2020 06:33:13 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: konrad.wilk@oracle.com
+Cc: iommu@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to swiotlb_tbl_map_single
+Date: Fri, 23 Oct 2020 08:33:09 +0200
+Message-Id: <20201023063309.3472987-1-hch@lst.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1643216-2c13-4392-c6a7-08d8771ccb43
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2020 06:28:02.4831
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s/bwPwXdPK4PLMW685EFm7LgTk/hI+eHiERy7q1/hphXFleW0N6/MIuL+Stl4anwyHVGntCdtMHFK4wDUSlSLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1711
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-PiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFR1ZXNkYXks
-IE9jdG9iZXIgMjAsIDIwMjAgOTo1MyBQTQ0KPiANCj4gV2hpbGUgdGhlIGZsdXNoIGNvYWxlc2Np
-bmcgb3B0aW1pemF0aW9uIGhhcyBiZWVuIGhlbHBpbmcgdGhlIG5vbi1zaGFyZWQNCj4gY2FzZSwg
-aXQgaGFzIGFjdHVhbGx5IGxlYWQgdG8gZG91YmxlIGZsdXNoZXMgaW4gdGhlIHNoYXJlZCBjYXNl
-ICh3aGljaA0KPiBvdWdodCB0byBiZSB0aGUgbW9yZSBjb21tb24gb25lIG5vd2FkYXlzIGF0IGxl
-YXN0KTogT25jZSBmcm9tDQo+ICpfc2V0X2VudHJ5KCkgYW5kIGEgc2Vjb25kIHRpbWUgdXAgdGhl
-IGNhbGwgdHJlZSBmcm9tIHdoZXJldmVyIHRoZQ0KPiBvdmVycmlkaW5nIGZsYWcgZ2V0cyBwbGF5
-ZWQgd2l0aC4gSW4gYWxpZ25tZW50IHdpdGggWFNBLTM0NiBzdXBwcmVzcw0KPiBmbHVzaGluZyBp
-biB0aGlzIGNhc2UuDQo+IA0KPiBTaW1pbGFybHkgYXZvaWQgZXhjZXNzaXZlIHNldHRpbmcgb2Yg
-SU9NTVVfRkxVU0hGX2FkZGVkIG9uIHRoZSBiYXRjaGVkDQo+IGZsdXNoZXM6ICJpZHgiIGhhc24n
-dCBiZWVuIGFkZGVkIGEgbmV3IG1hcHBpbmcgZm9yLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogSmFu
-IEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KDQpSZXZpZXdlZC1ieTogS2V2aW4gVGlhbiA8
-a2V2aW4udGlhbkBpbnRlbC5jb20+DQoNCj4gLS0tDQo+IFRCRDogVGhlIEFybSBwYXJ0IHJlYWxs
-eSBpcyBqdXN0IGZvciBjb21wbGV0ZW5lc3MgKGFuZCBoZW5jZSBjb3VsZCBhbHNvDQo+ICAgICAg
-YmUgZHJvcHBlZCkgLSB0aGUgYWZmZWN0ZWQgbWFwcGluZyBzcGFjZXMgYXJlbid0IGN1cnJlbnRs
-eQ0KPiAgICAgIHN1cHBvcnRlZCB0aGVyZS4NCj4gDQo+IC0tLSBhL3hlbi9hcmNoL2FybS9wMm0u
-Yw0KPiArKysgYi94ZW4vYXJjaC9hcm0vcDJtLmMNCj4gQEAgLTEwNDUsNyArMTA0NSw3IEBAIHN0
-YXRpYyBpbnQgX19wMm1fc2V0X2VudHJ5KHN0cnVjdCBwMm1fZG8NCj4gICAgICAgICAgcDJtLT5s
-b3dlc3RfbWFwcGVkX2dmbiA9IGdmbl9taW4ocDJtLT5sb3dlc3RfbWFwcGVkX2dmbiwgc2dmbik7
-DQo+ICAgICAgfQ0KPiANCj4gLSAgICBpZiAoIGlzX2lvbW11X2VuYWJsZWQocDJtLT5kb21haW4p
-ICYmDQo+ICsgICAgaWYgKCBpc19pb21tdV9lbmFibGVkKHAybS0+ZG9tYWluKQ0KPiAmJiAhdGhp
-c19jcHUoaW9tbXVfZG9udF9mbHVzaF9pb3RsYikgJiYNCj4gICAgICAgICAgIChscGFlX2lzX3Zh
-bGlkKG9yaWdfcHRlKSB8fCBscGFlX2lzX3ZhbGlkKCplbnRyeSkpICkNCj4gICAgICB7DQo+ICAg
-ICAgICAgIHVuc2lnbmVkIGludCBmbHVzaF9mbGFncyA9IDA7DQo+IC0tLSBhL3hlbi9hcmNoL3g4
-Ni9tbS9wMm0tZXB0LmMNCj4gKysrIGIveGVuL2FyY2gveDg2L21tL3AybS1lcHQuYw0KPiBAQCAt
-ODQyLDcgKzg0Miw3IEBAIG91dDoNCj4gICAgICBpZiAoIHJjID09IDAgJiYgcDJtX2lzX2hvc3Rw
-Mm0ocDJtKSAmJg0KPiAgICAgICAgICAgbmVlZF9tb2RpZnlfdnRkX3RhYmxlICkNCj4gICAgICB7
-DQo+IC0gICAgICAgIGlmICggaW9tbXVfdXNlX2hhcF9wdChkKSApDQo+ICsgICAgICAgIGlmICgg
-aW9tbXVfdXNlX2hhcF9wdChkKSAmJiAhdGhpc19jcHUoaW9tbXVfZG9udF9mbHVzaF9pb3RsYikg
-KQ0KPiAgICAgICAgICAgICAgcmMgPSBpb21tdV9pb3RsYl9mbHVzaChkLCBfZGZuKGdmbiksIDF1
-bCA8PCBvcmRlciwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGlvbW11
-X2ZsYWdzID8gSU9NTVVfRkxVU0hGX2FkZGVkIDogMCkgfA0KPiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAodnRkX3B0ZV9wcmVzZW50ID8gSU9NTVVfRkxVU0hGX21vZGlmaWVk
-DQo+IC0tLSBhL3hlbi9jb21tb24vbWVtb3J5LmMNCj4gKysrIGIveGVuL2NvbW1vbi9tZW1vcnku
-Yw0KPiBAQCAtODcwLDcgKzg3MCw3IEBAIGludCB4ZW5tZW1fYWRkX3RvX3BoeXNtYXAoc3RydWN0
-IGRvbWFpbg0KPiAgICAgICAgICB0aGlzX2NwdShpb21tdV9kb250X2ZsdXNoX2lvdGxiKSA9IDA7
-DQo+IA0KPiAgICAgICAgICByZXQgPSBpb21tdV9pb3RsYl9mbHVzaChkLCBfZGZuKHhhdHAtPmlk
-eCAtIGRvbmUpLCBkb25lLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBJT01N
-VV9GTFVTSEZfYWRkZWQgfCBJT01NVV9GTFVTSEZfbW9kaWZpZWQpOw0KPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBJT01NVV9GTFVTSEZfbW9kaWZpZWQpOw0KPiAgICAgICAgICBp
-ZiAoIHVubGlrZWx5KHJldCkgJiYgcmMgPj0gMCApDQo+ICAgICAgICAgICAgICByYyA9IHJldDsN
-Cj4gDQo=
+The tbl_dma_addr argument is used to check the DMA boundary for the
+allocations, and thus needs to be a dma_addr_t.  swiotlb-xen instead
+passed a physical address, which could lead to incorrect results for
+strange offsets.  Fix this by removing the parameter entirely and hard
+code the DMA address for io_tlb_start instead.
+
+Fixes: 91ffe4ad534a ("swiotlb-xen: introduce phys_to_dma/dma_to_phys translations")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ drivers/iommu/intel/iommu.c |  5 ++---
+ drivers/xen/swiotlb-xen.c   |  3 +--
+ include/linux/swiotlb.h     | 10 +++-------
+ kernel/dma/swiotlb.c        | 16 ++++++----------
+ 4 files changed, 12 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index 8651f6d4dfa032..6b560e6f193096 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
+ 	 * page aligned, we don't need to use a bounce page.
+ 	 */
+ 	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
+-		tlb_addr = swiotlb_tbl_map_single(dev,
+-				phys_to_dma_unencrypted(dev, io_tlb_start),
+-				paddr, size, aligned_size, dir, attrs);
++		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
++				aligned_size, dir, attrs);
+ 		if (tlb_addr == DMA_MAPPING_ERROR) {
+ 			goto swiotlb_error;
+ 		} else {
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index 71ce1b7a23d1cc..2b385c1b4a99cb 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+ 	 */
+ 	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
+ 
+-	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
+-				     phys, size, size, dir, attrs);
++	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
+ 	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
+ 		return DMA_MAPPING_ERROR;
+ 
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 513913ff748626..3bb72266a75a1d 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -45,13 +45,9 @@ enum dma_sync_target {
+ 	SYNC_FOR_DEVICE = 1,
+ };
+ 
+-extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+-					  dma_addr_t tbl_dma_addr,
+-					  phys_addr_t phys,
+-					  size_t mapping_size,
+-					  size_t alloc_size,
+-					  enum dma_data_direction dir,
+-					  unsigned long attrs);
++phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
++		size_t mapping_size, size_t alloc_size,
++		enum dma_data_direction dir, unsigned long attrs);
+ 
+ extern void swiotlb_tbl_unmap_single(struct device *hwdev,
+ 				     phys_addr_t tlb_addr,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index b4eea0abc3f002..92e2f54f24c01b 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
+ 	}
+ }
+ 
+-phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+-				   dma_addr_t tbl_dma_addr,
+-				   phys_addr_t orig_addr,
+-				   size_t mapping_size,
+-				   size_t alloc_size,
+-				   enum dma_data_direction dir,
+-				   unsigned long attrs)
++phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
++		size_t mapping_size, size_t alloc_size,
++		enum dma_data_direction dir, unsigned long attrs)
+ {
++	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(hwdev, io_tlb_start);
+ 	unsigned long flags;
+ 	phys_addr_t tlb_addr;
+ 	unsigned int nslots, stride, index, wrap;
+@@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+ 	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
+ 			      swiotlb_force);
+ 
+-	swiotlb_addr = swiotlb_tbl_map_single(dev,
+-			phys_to_dma_unencrypted(dev, io_tlb_start),
+-			paddr, size, size, dir, attrs);
++	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
++			attrs);
+ 	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+ 		return DMA_MAPPING_ERROR;
+ 
+-- 
+2.28.0
+
 
