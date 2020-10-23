@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DCF29677A
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 00:59:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.10659.28452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 102BE2967D1
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 02:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.10663.28464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVjYM-0002f4-7m; Thu, 22 Oct 2020 22:59:26 +0000
+	id 1kVkXv-0001DE-Db; Fri, 23 Oct 2020 00:03:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 10659.28452; Thu, 22 Oct 2020 22:59:26 +0000
+Received: by outflank-mailman (output) from mailman id 10663.28464; Fri, 23 Oct 2020 00:03:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,147 +23,170 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVjYM-0002ee-41; Thu, 22 Oct 2020 22:59:26 +0000
-Received: by outflank-mailman (input) for mailman id 10659;
- Thu, 22 Oct 2020 22:59:24 +0000
+	id 1kVkXv-0001Cp-Ad; Fri, 23 Oct 2020 00:03:03 +0000
+Received: by outflank-mailman (input) for mailman id 10663;
+ Fri, 23 Oct 2020 00:03:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iz3t=D5=nask.pl=michall@srs-us1.protection.inumbo.net>)
- id 1kVjYK-0002eY-DL
- for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:59:24 +0000
-Received: from mx.nask.net.pl (unknown [195.187.55.89])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3H45=D6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kVkXs-0001Ck-Ti
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 00:03:01 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3cc0e301-ef09-4ff5-bb8f-a019eba50933;
- Thu, 22 Oct 2020 22:59:21 +0000 (UTC)
+ id b0f6332b-cb74-4e37-a702-e2b03b2b295c;
+ Fri, 23 Oct 2020 00:02:57 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0303A223C7;
+ Fri, 23 Oct 2020 00:02:55 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=iz3t=D5=nask.pl=michall@srs-us1.protection.inumbo.net>)
-	id 1kVjYK-0002eY-DL
-	for xen-devel@lists.xenproject.org; Thu, 22 Oct 2020 22:59:24 +0000
-X-Inumbo-ID: 3cc0e301-ef09-4ff5-bb8f-a019eba50933
-Received: from mx.nask.net.pl (unknown [195.187.55.89])
+	(envelope-from <SRS0=3H45=D6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kVkXs-0001Ck-Ti
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 00:03:01 +0000
+X-Inumbo-ID: b0f6332b-cb74-4e37-a702-e2b03b2b295c
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3cc0e301-ef09-4ff5-bb8f-a019eba50933;
-	Thu, 22 Oct 2020 22:59:21 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at 
-Date: Fri, 23 Oct 2020 00:59:19 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: xen-devel@lists.xenproject.org
-Message-ID: <157653679.6164.1603407559737.JavaMail.zimbra@nask.pl>
-Subject: BUG: credit=sched2 machine hang when using DRAKVUF
+	id b0f6332b-cb74-4e37-a702-e2b03b2b295c;
+	Fri, 23 Oct 2020 00:02:57 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 0303A223C7;
+	Fri, 23 Oct 2020 00:02:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1603411376;
+	bh=hciVYpkjjxo85dXM0usTEYDPJ+OHhjhnZi3yVCHUB28=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=qh9W9hsCQfQ/mmkw3mkX9kAy5HwoljLNOWTCR1TpBSZKCV7CMixBolJswgEISplVF
+	 0nxV3Vn0R0X7QhGjANjJOj0eAtZDWkcvgUtnssdiiNbQWZrP423IZqxxsSc/gVUWtA
+	 9yD6bXGKn37UfMcI3ksp3r4aZ8qzAsa7s8IgHlkk=
+Date: Thu, 22 Oct 2020 17:02:55 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Rahul Singh <Rahul.Singh@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
+In-Reply-To: <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
+Message-ID: <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
+References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com> <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org> <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com> <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [195.187.238.14]
-X-Mailer: Zimbra 9.0.0_GA_3969 (ZimbraWebClient - GC86 (Win)/9.0.0_GA_3969)
-Thread-Index: ER30NuT7OhIYTWnjxdfF+8Y02MLJ1Q==
-Thread-Topic: credit=sched2 machine hang when using DRAKVUF
+Content-Type: multipart/mixed; BOUNDARY="8323329-1704557436-1603410300=:12247"
+Content-ID: <alpine.DEB.2.21.2010221645420.12247@sstabellini-ThinkPad-T480s>
 
-Hello,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-when using DRAKVUF against a Windows 7 x64 DomU, the whole machine hangs af=
-ter a few minutes.
+--8323329-1704557436-1603410300=:12247
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2010221645421.12247@sstabellini-ThinkPad-T480s>
 
-The chance for a hang seems to be correlated with number of PCPUs, in this =
-case we have 14 PCPUs and hang is very easily reproducible, while on other =
-machines with 2-4 PCPUs it's very rare (but still occurring sometimes). The=
- issue is observed with the default sched=3Dcredit2 and is no longer reprod=
-ucible once sched=3Dcredit is set.
+On Thu, 22 Oct 2020, Julien Grall wrote:
+> > > On 20/10/2020 16:25, Rahul Singh wrote:
+> > > > Add support for ARM architected SMMUv3 implementations. It is based on
+> > > > the Linux SMMUv3 driver.
+> > > > Major differences between the Linux driver are as follows:
+> > > > 1. Only Stage-2 translation is supported as compared to the Linux driver
+> > > >     that supports both Stage-1 and Stage-2 translations.
+> > > > 2. Use P2M  page table instead of creating one as SMMUv3 has the
+> > > >     capability to share the page tables with the CPU.
+> > > > 3. Tasklets is used in place of threaded IRQ's in Linux for event queue
+> > > >     and priority queue IRQ handling.
+> > > 
+> > > Tasklets are not a replacement for threaded IRQ. In particular, they will
+> > > have priority over anything else (IOW nothing will run on the pCPU until
+> > > they are done).
+> > > 
+> > > Do you know why Linux is using thread. Is it because of long running
+> > > operations?
+> > 
+> > Yes you are right because of long running operations Linux is using the
+> > threaded IRQs.
+> > 
+> > SMMUv3 reports fault/events bases on memory-based circular buffer queues not
+> > based on the register. As per my understanding, it is time-consuming to
+> > process the memory based queues in interrupt context because of that Linux
+> > is using threaded IRQ to process the faults/events from SMMU.
+> > 
+> > I didn’t find any other solution in XEN in place of tasklet to defer the
+> > work, that’s why I used tasklet in XEN in replacement of threaded IRQs. If
+> > we do all work in interrupt context we will make XEN less responsive.
+> 
+> So we need to make sure that Xen continue to receives interrupts, but we also
+> need to make sure that a vCPU bound to the pCPU is also responsive.
+> 
+> > 
+> > If you know another solution in XEN that will be used to defer the work in
+> > the interrupt please let me know I will try to use that.
+> 
+> One of my work colleague encountered a similar problem recently. He had a long
+> running tasklet and wanted to be broken down in smaller chunk.
+> 
+> We decided to use a timer to reschedule the taslket in the future. This allows
+> the scheduler to run other loads (e.g. vCPU) for some time.
+> 
+> This is pretty hackish but I couldn't find a better solution as tasklet have
+> high priority.
+> 
+> Maybe the other will have a better idea.
+
+Julien's suggestion is a good one.
+
+But I think tasklets can be configured to be called from the idle_loop,
+in which case they are not run in interrupt context?
+
+Still, tasklets run until completion in Xen, which could take too long.
+The code has to voluntarily release control of the execution flow once
+it realizes it has been running for too long. The rescheduling via a
+timer works.
 
 
-Enclosed: panic log from my Dom0.
+Now, to brainstorm other possible alternatives, for hypercalls we have
+been using hypercall continuations.  Continuations is a way to break a
+hypercall implementation that takes too long into multiple execution
+chunks. It works by calling into itself again: making the same hypercall
+again with updated arguments, so that the scheduler has a chance to do
+other operations in between, including running other tasklets and
+softirqs.
 
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+That works well because  the source of the work is a guest request,
+specifically a hypercall. However, in the case of the SMMU driver, there
+is no hypercall. The Xen driver has to do work in response to an
+interrupt and the work is not tied to one particular domain.
+
+So I don't think the hypercall continuation model could work here. The
+timer seems to be the best option.
 
 
-pa=C5=BA 22 12:20:50 hostname kernel: rcu: INFO: rcu_sched self-detected st=
-all on CPU
-pa=C5=BA 22 12:20:50 hostname kernel: rcu:         3-....: (21002 ticks thi=
-s GP) idle=3D7e2/1/0x4000000000000002 softirq=3D61729/61729 fqs=3D10490
-pa=C5=BA 22 12:20:50 hostname kernel: rcu:          (t=3D21003 jiffies g=3D=
-36437 q=3D9406)
-pa=C5=BA 22 12:20:50 hostname kernel: NMI backtrace for cpu 3
-pa=C5=BA 22 12:20:50 hostname kernel: CPU: 3 PID: 4153 Comm: drakvuf Tainte=
-d: P           OEL    4.19.0-6-amd64 #1 Debian 4.19.67-2+deb10u2
-pa=C5=BA 22 12:20:50 hostname kernel: Hardware name: Dell Inc. PowerEdge R6=
-40/08HT8T, BIOS 2.1.8 04/30/2019
-pa=C5=BA 22 12:20:50 hostname kernel: Call Trace:
-pa=C5=BA 22 12:20:50 hostname kernel:  <IRQ>
-pa=C5=BA 22 12:20:50 hostname kernel:  dump_stack+0x5c/0x80
-pa=C5=BA 22 12:20:50 hostname kernel:  nmi_cpu_backtrace.cold.4+0x13/0x50
-pa=C5=BA 22 12:20:50 hostname kernel:  ? lapic_can_unplug_cpu.cold.29+0x3b/=
-0x3b
-pa=C5=BA 22 12:20:50 hostname kernel:  nmi_trigger_cpumask_backtrace+0xf9/0=
-xfb
-pa=C5=BA 22 12:20:50 hostname kernel:  rcu_dump_cpu_stacks+0x9b/0xcb
-pa=C5=BA 22 12:20:50 hostname kernel:  rcu_check_callbacks.cold.81+0x1db/0x=
-335
-pa=C5=BA 22 12:20:50 hostname kernel:  ? tick_sched_do_timer+0x60/0x60
-pa=C5=BA 22 12:20:50 hostname kernel:  update_process_times+0x28/0x60
-pa=C5=BA 22 12:20:50 hostname kernel:  tick_sched_handle+0x22/0x60
-pa=C5=BA 22 12:20:50 hostname kernel:  tick_sched_timer+0x37/0x70
-pa=C5=BA 22 12:20:50 hostname kernel:  __hrtimer_run_queues+0x100/0x280
-pa=C5=BA 22 12:20:50 hostname kernel:  hrtimer_interrupt+0x100/0x220
-pa=C5=BA 22 12:20:50 hostname kernel:  xen_timer_interrupt+0x1e/0x30
-pa=C5=BA 22 12:20:50 hostname kernel:  __handle_irq_event_percpu+0x46/0x190
-pa=C5=BA 22 12:20:50 hostname kernel:  handle_irq_event_percpu+0x30/0x80
-pa=C5=BA 22 12:20:50 hostname kernel:  handle_percpu_irq+0x40/0x60
-pa=C5=BA 22 12:20:50 hostname kernel:  generic_handle_irq+0x27/0x30
-pa=C5=BA 22 12:20:50 hostname kernel:  __evtchn_fifo_handle_events+0x17d/0x=
-190
-pa=C5=BA 22 12:20:50 hostname kernel:  __xen_evtchn_do_upcall+0x42/0x80
-pa=C5=BA 22 12:20:50 hostname kernel:  xen_evtchn_do_upcall+0x27/0x40
-pa=C5=BA 22 12:20:50 hostname kernel:  xen_do_hypervisor_callback+0x29/0x40
-pa=C5=BA 22 12:20:50 hostname kernel:  </IRQ>
-pa=C5=BA 22 12:20:50 hostname kernel: RIP: e030:smp_call_function_single+0x=
-ce/0xf0
-pa=C5=BA 22 12:20:50 hostname kernel: Code: 8b 4c 24 38 65 48 33 0c 25 28 0=
-0 00 00 75 34 c9 c3 48 89 d1 48 89 f2 48 89 e6 e8 6d fe ff ff 8b 54 24 18 8=
-3 e2 01 74 0b f3 90 <8b> 54 24 18 8
-3 e2 01 75 f5 eb ca 8b 05 b9 99 4d 01 85 c0 75 88 0f
-pa=C5=BA 22 12:20:50 hostname kernel: RSP: e02b:ffffc9004713bd00 EFLAGS: 00=
-000202
-pa=C5=BA 22 12:20:50 hostname kernel: RAX: 0000000000000000 RBX: ffff888b0b=
-6eea40 RCX: 0000000000000200
-pa=C5=BA 22 12:20:50 hostname kernel: RDX: 0000000000000001 RSI: ffffffff82=
-12e4a0 RDI: ffffffff81c2dec0
-pa=C5=BA 22 12:20:50 hostname kernel: RBP: ffffc9004713bd50 R08: 0000000000=
-000000 R09: ffff888c54052480
-pa=C5=BA 22 12:20:50 hostname kernel: R10: ffff888c540524a8 R11: 0000000000=
-000000 R12: ffffc9004713bd60
-pa=C5=BA 22 12:20:50 hostname kernel: R13: 0000000080000000 R14: ffffffff80=
-000000 R15: ffff888b0b6eeab0
-pa=C5=BA 22 12:20:50 hostname kernel:  ? xen_pgd_alloc+0x110/0x110
-pa=C5=BA 22 12:20:50 hostname kernel:  xen_exit_mmap+0xaa/0x100
-pa=C5=BA 22 12:20:50 hostname kernel:  exit_mmap+0x64/0x180
-pa=C5=BA 22 12:20:50 hostname kernel:  ? __raw_spin_unlock+0x5/0x10
-pa=C5=BA 22 12:20:50 hostname kernel:  ? __handle_mm_fault+0x1090/0x1270
-pa=C5=BA 22 12:20:50 hostname kernel:  ? _raw_spin_unlock_irqrestore+0x14/0=
-x20
-pa=C5=BA 22 12:20:50 hostname kernel:  ? exit_robust_list+0x5b/0x130
-pa=C5=BA 22 12:20:50 hostname kernel:  mmput+0x54/0x130
-pa=C5=BA 22 12:20:50 hostname kernel:  do_exit+0x290/0xb90
-pa=C5=BA 22 12:20:50 hostname kernel:  ? handle_mm_fault+0xd6/0x200
-pa=C5=BA 22 12:20:50 hostname kernel:  do_group_exit+0x3a/0xa0
-pa=C5=BA 22 12:20:50 hostname kernel:  __x64_sys_exit_group+0x14/0x20
-pa=C5=BA 22 12:20:50 hostname kernel:  do_syscall_64+0x53/0x110
-pa=C5=BA 22 12:20:50 hostname kernel:  entry_SYSCALL_64_after_hwframe+0x44/=
-0xa9
-pa=C5=BA 22 12:20:50 hostname kernel: RIP: 0033:0x7f98d23ec9d6
-pa=C5=BA 22 12:20:50 hostname kernel: Code: Bad RIP value.
-pa=C5=BA 22 12:20:50 hostname kernel: RSP: 002b:00007ffc4a0327f8 EFLAGS: 00=
-000246 ORIG_RAX: 00000000000000e7
-pa=C5=BA 22 12:20:50 hostname kernel: RAX: ffffffffffffffda RBX: 00007f98d2=
-4dd760 RCX: 00007f98d23ec9d6
-pa=C5=BA 22 12:20:50 hostname kernel: RDX: 0000000000000000 RSI: 0000000000=
-00003c RDI: 0000000000000000
-pa=C5=BA 22 12:20:50 hostname kernel: RBP: 0000000000000000 R08: 0000000000=
-0000e7 R09: ffffffffffffff60
-pa=C5=BA 22 12:20:50 hostname kernel: R10: 0000000000000000 R11: 0000000000=
-000246 R12: 00007f98d24dd760
-pa=C5=BA 22 12:20:50 hostname kernel: R13: 000000000000005a R14: 00007f98d2=
-4e6428 R15: 0000000000000000
+> > > > 4. Latest version of the Linux SMMUv3 code implements the commands queue
+> > > >     access functions based on atomic operations implemented in Linux.
+> > > 
+> > > Can you provide more details?
+> > 
+> > I tried to port the latest version of the SMMUv3 code than I observed that
+> > in order to port that code I have to also port atomic operation implemented
+> > in Linux to XEN. As latest Linux code uses atomic operation to process the
+> > command queues (atomic_cond_read_relaxed(),atomic_long_cond_read_relaxed() ,
+> > atomic_fetch_andnot_relaxed()) .
+> 
+> Thank you for the explanation. I think it would be best to import the atomic
+> helpers and use the latest code.
+> 
+> This will ensure that we don't re-introduce bugs and also buy us some time
+> before the Linux and Xen driver diverge again too much.
+> 
+> Stefano, what do you think?
+
+I think you are right.
+--8323329-1704557436-1603410300=:12247--
 
