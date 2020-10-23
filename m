@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E425297296
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 17:42:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11096.29463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC4B29729A
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Oct 2020 17:42:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11104.29477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVzCx-0002H8-FC; Fri, 23 Oct 2020 15:42:23 +0000
+	id 1kVzDG-0002ap-Qh; Fri, 23 Oct 2020 15:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11096.29463; Fri, 23 Oct 2020 15:42:23 +0000
+Received: by outflank-mailman (output) from mailman id 11104.29477; Fri, 23 Oct 2020 15:42:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,109 +23,83 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kVzCx-0002G3-B0; Fri, 23 Oct 2020 15:42:23 +0000
-Received: by outflank-mailman (input) for mailman id 11096;
- Fri, 23 Oct 2020 15:42:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kVzDG-0002aM-La; Fri, 23 Oct 2020 15:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 11104;
+ Fri, 23 Oct 2020 15:42:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nEE3=D6=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kVzCv-000207-H1
- for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 15:42:21 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3237385-ff05-47ad-a248-91e89864f56d;
- Fri, 23 Oct 2020 15:42:16 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVzCq-0006rW-47; Fri, 23 Oct 2020 15:42:16 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kVzCp-0007wb-Qi; Fri, 23 Oct 2020 15:42:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kVzDF-0002WD-55
+ for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 15:42:41 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8540496d-860c-429e-96fa-8c2ceb2bc626;
+ Fri, 23 Oct 2020 15:42:40 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4400DAF2B;
+ Fri, 23 Oct 2020 15:42:39 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nEE3=D6=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kVzCv-000207-H1
-	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 15:42:21 +0000
-X-Inumbo-ID: b3237385-ff05-47ad-a248-91e89864f56d
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b3237385-ff05-47ad-a248-91e89864f56d;
-	Fri, 23 Oct 2020 15:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=9Jhhh200nUTGbCy8jyEQ9Z0MRCAcS0zUrLABG2/n+kQ=; b=eU6k8QiNQIfc2naCg2wGciaPZ
-	fP1QY7kRegzgMuXtFrMcdCK5j9lxQdhdIer7ua0FYk7Svf07Z5VnSqKPyt83G+8nqUd2mIJfh61nw
-	RdUQVmZd9hfqyEns2XOKDe+9eEgPW3OqR1ZsALtkkvrH1WwSKqH46Xxqu2aCmerLEyJv0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVzCq-0006rW-47; Fri, 23 Oct 2020 15:42:16 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=ufe34d9ed68d054.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kVzCp-0007wb-Qi; Fri, 23 Oct 2020 15:42:16 +0000
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: alex.bennee@linaro.org,
-	masami.hiramatsu@linaro.org,
-	ehem+xen@m5p.com,
-	bertrand.marquis@arm.com,
-	andre.przywara@arm.com,
-	Rahul.Singh@arm.com,
-	Julien Grall <julien.grall@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2 7/7] xen/arm: acpi: Allow Xen to boot with ACPI 5.1
-Date: Fri, 23 Oct 2020 16:41:56 +0100
-Message-Id: <20201023154156.6593-8-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201023154156.6593-1-julien@xen.org>
-References: <20201023154156.6593-1-julien@xen.org>
+	(envelope-from <SRS0=gNxR=D6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kVzDF-0002WD-55
+	for xen-devel@lists.xenproject.org; Fri, 23 Oct 2020 15:42:41 +0000
+X-Inumbo-ID: 8540496d-860c-429e-96fa-8c2ceb2bc626
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 8540496d-860c-429e-96fa-8c2ceb2bc626;
+	Fri, 23 Oct 2020 15:42:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603467759;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HvO0lS572aXuQyWV7KeUQz/6uyXq3Y+9QrhDtWKaEFw=;
+	b=On8fdivDL45GQ3MXIeD3S2COb2X+aKdcUGS2nTXS4GxYpY10gQOuk1n2NAPxZ4iZXx53SD
+	osW/+XVkgxjgEvw2Z0PwDJdIBMX60pFUbgrlfYsYf5JOPxnBGJEAE7ipBWkCtaLgGRyGB2
+	JMF8bKA5Rc7daOsZDEgLV4t0nrI0qS0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 4400DAF2B;
+	Fri, 23 Oct 2020 15:42:39 +0000 (UTC)
+Subject: Re: [PATCH v2 11/11] x86/vpt: introduce a per-vPT lock
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <20200930104108.35969-1-roger.pau@citrix.com>
+ <20200930104108.35969-12-roger.pau@citrix.com>
+ <20200930133048.GV19254@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ae9d0ba6-3aed-7ce6-bea8-a42b60af7137@suse.com>
+Date: Fri, 23 Oct 2020 17:42:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
+MIME-Version: 1.0
+In-Reply-To: <20200930133048.GV19254@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <julien.grall@arm.com>
+On 30.09.2020 15:30, Roger Pau Monné wrote:
+> On Wed, Sep 30, 2020 at 12:41:08PM +0200, Roger Pau Monne wrote:
+>> Introduce a per virtual timer lock that replaces the existing per-vCPU
+>> and per-domain vPT locks. Since virtual timers are no longer assigned
+>> or migrated between vCPUs the locking can be simplified to a
+>> in-structure spinlock that protects all the fields.
+>>
+>> This requires introducing a helper to initialize the spinlock, and
+>> that could be used to initialize other virtual timer fields in the
+>> future.
+>>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Just realized I had the following uncommitted chunk that should have
+> been part of this patch, nothing critical but the tm_lock can now be
+> removed.
 
-At the moment Xen requires the FADT ACPI table to be at least version
-6.0, apparently because of some reliance on other ACPI v6.0 features.
+And then
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-But actually this is overzealous, and Xen works now fine with ACPI v5.1.
-
-Let's relax the version check for the FADT table to allow QEMU to
-run the hypervisor with ACPI.
-
-Signed-off-by: Julien Grall <julien.grall@arm.com>
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-
----
-    Changes in v2:
-        - Patch added
----
- xen/arch/arm/acpi/boot.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/arm/acpi/boot.c b/xen/arch/arm/acpi/boot.c
-index 55c3e5cbc834..7ea2990cb82c 100644
---- a/xen/arch/arm/acpi/boot.c
-+++ b/xen/arch/arm/acpi/boot.c
-@@ -181,8 +181,8 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
-      * we only deal with ACPI 6.0 or newer revision to get GIC and SMP
-      * boot protocol configuration data, or we will disable ACPI.
-      */
--    if ( table->revision > 6
--         || (table->revision == 6 && fadt->minor_revision >= 0) )
-+    if ( table->revision > 5
-+         || (table->revision == 5 && fadt->minor_revision >= 1) )
-         return 0;
- 
-     printk("Unsupported FADT revision %d.%d, should be 6.0+, will disable ACPI\n",
--- 
-2.17.1
-
+Jan
 
