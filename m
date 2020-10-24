@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30AE52979E1
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Oct 2020 02:16:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11361.30119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306402979E5
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Oct 2020 02:18:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11366.30131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kW7ED-0007lc-CW; Sat, 24 Oct 2020 00:16:13 +0000
+	id 1kW7Fs-0007tv-OE; Sat, 24 Oct 2020 00:17:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11361.30119; Sat, 24 Oct 2020 00:16:13 +0000
+Received: by outflank-mailman (output) from mailman id 11366.30131; Sat, 24 Oct 2020 00:17:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,47 +23,48 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kW7ED-0007lD-9C; Sat, 24 Oct 2020 00:16:13 +0000
-Received: by outflank-mailman (input) for mailman id 11361;
- Sat, 24 Oct 2020 00:16:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kW7Fs-0007tW-L6; Sat, 24 Oct 2020 00:17:56 +0000
+Received: by outflank-mailman (input) for mailman id 11366;
+ Sat, 24 Oct 2020 00:17:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BKCc=D7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kW7EB-0007l8-Pw
- for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 00:16:11 +0000
+ id 1kW7Fr-0007tR-4H
+ for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 00:17:55 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8af179f4-5ae2-411a-bb63-7a5fadf00df5;
- Sat, 24 Oct 2020 00:16:11 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9fedbe38-7150-45cb-92f6-55cd505ca8a1;
+ Sat, 24 Oct 2020 00:17:54 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DB8B42225E;
- Sat, 24 Oct 2020 00:16:09 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mail.kernel.org (Postfix) with ESMTPSA id C987020936;
+ Sat, 24 Oct 2020 00:17:52 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=BKCc=D7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kW7EB-0007l8-Pw
-	for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 00:16:11 +0000
-X-Inumbo-ID: 8af179f4-5ae2-411a-bb63-7a5fadf00df5
+	id 1kW7Fr-0007tR-4H
+	for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 00:17:55 +0000
+X-Inumbo-ID: 9fedbe38-7150-45cb-92f6-55cd505ca8a1
 Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8af179f4-5ae2-411a-bb63-7a5fadf00df5;
-	Sat, 24 Oct 2020 00:16:11 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 9fedbe38-7150-45cb-92f6-55cd505ca8a1;
+	Sat, 24 Oct 2020 00:17:54 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id DB8B42225E;
-	Sat, 24 Oct 2020 00:16:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id C987020936;
+	Sat, 24 Oct 2020 00:17:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1603498570;
-	bh=m4P5pbLIFRz1X41Hu460Num+nUlO0E7tg5/DYZmhy8Q=;
+	s=default; t=1603498673;
+	bh=9D5HnOGhWjHnq7RKFQPNreQollNGQIC38+3dRFokapw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SO/Nn9u2Hy66aKZhNOT1wryxULvrEG3h6H7J36LKueQze74vDrWDuo1LK6vCGCh4a
-	 gceZumpiuXri1MCSXyW3PNTp2eAP3Wy1mQe8CKcx91a6cxel9VFjGycq40C9PKV5EH
-	 3RLb1NO50qxo4h+ksUzJIHxA59F6Bq9k7tj8aEuU=
-Date: Fri, 23 Oct 2020 17:16:09 -0700 (PDT)
+	b=h+aOrtnMNu2dxAMND5417GLFFWQkrOb6o3Sw8+CmzGlP3TOTLG5TouhWsB1Fu8Vt/
+	 uVRh9e+ewqm1/8MyAsvqUFM4nvJT7653B4KMsfunu1LOfGdwO6ya4UKmZDt8rQJx/s
+	 5dXW+MqQKDVgfFxtej0SpzgvLfV37j12rND7N61s=
+Date: Fri, 23 Oct 2020 17:17:51 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
@@ -72,13 +73,12 @@ cc: xen-devel@lists.xenproject.org, alex.bennee@linaro.org,
     andre.przywara@arm.com, Rahul.Singh@arm.com, 
     Julien Grall <jgrall@amazon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Wei Xu <xuwei5@hisilicon.com>
-Subject: Re: [PATCH v2 2/7] xen/arm: acpi: The fixmap area should always be
- cleared during failure/unmap
-In-Reply-To: <20201023154156.6593-3-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2010231714510.12247@sstabellini-ThinkPad-T480s>
-References: <20201023154156.6593-1-julien@xen.org> <20201023154156.6593-3-julien@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 4/7] xen/arm: Introduce fw_unreserved_regions() and
+ use it
+In-Reply-To: <20201023154156.6593-5-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2010231717420.12247@sstabellini-ThinkPad-T480s>
+References: <20201023154156.6593-1-julien@xen.org> <20201023154156.6593-5-julien@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -86,151 +86,135 @@ Content-Type: text/plain; charset=US-ASCII
 On Fri, 23 Oct 2020, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> Commit 022387ee1ad3 "xen/arm: mm: Don't open-code Xen PT update in
-> {set, clear}_fixmap()" enforced that each set_fixmap() should be
-> paired with a clear_fixmap(). Any failure to follow the model would
-> result to a platform crash.
+> Since commit 6e3e77120378 "xen/arm: setup: Relocate the Device-Tree
+> later on in the boot", the device-tree will not be kept mapped when
+> using ACPI.
 > 
-> Unfortunately, the use of fixmap in the ACPI code was overlooked as it
-> is calling set_fixmap() but not clear_fixmap().
+> However, a few places are calling dt_unreserved_regions() which expects
+> a valid DT. This will lead to a crash.
 > 
-> The function __acpi_os_map_table() is reworked so:
->     - We know before the mapping whether the fixmap region is big
->     enough for the mapping.
->     - It will fail if the fixmap is already in use. This is not a
->     change of behavior but clarifying the current expectation to avoid
->     hitting a BUG().
+> As the DT should not be used for ACPI (other than for detecting the
+> modules), a new function fw_unreserved_regions() is introduced.
 > 
-> The function __acpi_os_unmap_table() will now call clear_fixmap().
+> It will behave the same way on DT system. On ACPI system, it will
+> unreserve the whole region.
 > 
-> Reported-by: Wei Xu <xuwei5@hisilicon.com>
+> Take the opportunity to clarify that bootinfo.reserved_mem is only used
+> when booting using Device-Tree.
+> 
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
 > 
-> The discussion on the original thread [1] suggested to also zap it on
-> x86. This is technically not necessary today, so it is left alone for
-> now.
-> 
-> I looked at making the fixmap code common but the index are inverted
-> between Arm and x86.
+> Is there any region we should exclude on ACPI?
 > 
 >     Changes in v2:
->         - Clarify the commit message
->         - Fix the size computation in __acpi_unmap_table()
-> 
-> [1] https://lore.kernel.org/xen-devel/5E26C935.9080107@hisilicon.com/
+>         - Add a comment on top of bootinfo.reserved_mem.
 > ---
->  xen/arch/arm/acpi/lib.c | 73 +++++++++++++++++++++++++++++++----------
->  1 file changed, 56 insertions(+), 17 deletions(-)
+>  xen/arch/arm/kernel.c       |  2 +-
+>  xen/arch/arm/setup.c        | 22 +++++++++++++++++-----
+>  xen/include/asm-arm/setup.h |  3 ++-
+>  3 files changed, 20 insertions(+), 7 deletions(-)
 > 
-> diff --git a/xen/arch/arm/acpi/lib.c b/xen/arch/arm/acpi/lib.c
-> index fcc186b03399..b755620e67b5 100644
-> --- a/xen/arch/arm/acpi/lib.c
-> +++ b/xen/arch/arm/acpi/lib.c
-> @@ -25,40 +25,79 @@
->  #include <xen/init.h>
->  #include <xen/mm.h>
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index 032923853f2c..ab78689ed2a6 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -307,7 +307,7 @@ static __init int kernel_decompress(struct bootmodule *mod)
+>       * Free the original kernel, update the pointers to the
+>       * decompressed kernel
+>       */
+> -    dt_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+> +    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
 >  
-> +static bool fixmap_inuse;
-> +
->  char *__acpi_map_table(paddr_t phys, unsigned long size)
->  {
-> -    unsigned long base, offset, mapped_size;
-> -    int idx;
-> +    unsigned long base, offset;
-> +    mfn_t mfn;
-> +    unsigned int idx;
->  
->      /* No arch specific implementation after early boot */
->      if ( system_state >= SYS_STATE_boot )
->          return NULL;
->  
->      offset = phys & (PAGE_SIZE - 1);
-> -    mapped_size = PAGE_SIZE - offset;
-> -    set_fixmap(FIXMAP_ACPI_BEGIN, maddr_to_mfn(phys), PAGE_HYPERVISOR);
-> -    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
-> +    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) + offset;
-> +
-> +    /* Check the fixmap is big enough to map the region */
-> +    if ( (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - base) < size )
-> +        return NULL;
-> +
-> +    /* With the fixmap, we can only map one region at the time */
-> +    if ( fixmap_inuse )
-> +        return NULL;
->  
-> -    /* Most cases can be covered by the below. */
-> +    fixmap_inuse = true;
-> +
-> +    size += offset;
-> +    mfn = maddr_to_mfn(phys);
->      idx = FIXMAP_ACPI_BEGIN;
-> -    while ( mapped_size < size )
-> -    {
-> -        if ( ++idx > FIXMAP_ACPI_END )
-> -            return NULL;    /* cannot handle this */
-> -        phys += PAGE_SIZE;
-> -        set_fixmap(idx, maddr_to_mfn(phys), PAGE_HYPERVISOR);
-> -        mapped_size += PAGE_SIZE;
-> -    }
->  
-> -    return ((char *) base + offset);
-> +    do {
-> +        set_fixmap(idx, mfn, PAGE_HYPERVISOR);
-> +        size -= min(size, (unsigned long)PAGE_SIZE);
-> +        mfn = mfn_add(mfn, 1);
-> +        idx++;
-> +    } while ( size > 0 );
-> +
-> +    return (char *)base;
+>      return 0;
+>  }
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 35e5bee04efa..7fcff9af2a7e 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -196,8 +196,9 @@ static void __init processor_id(void)
+>      processor_setup();
 >  }
 >  
->  bool __acpi_unmap_table(const void *ptr, unsigned long size)
+> -void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+> -                                  void (*cb)(paddr_t, paddr_t), int first)
+> +static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+> +                                         void (*cb)(paddr_t, paddr_t),
+> +                                         int first)
 >  {
->      vaddr_t vaddr = (vaddr_t)ptr;
-> +    unsigned int idx;
-> +
-> +    /* We are only handling fixmap address in the arch code */
-> +    if ( (vaddr < FIXMAP_ADDR(FIXMAP_ACPI_BEGIN)) ||
-> +         (vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_END)) )
-
-Is it missing "+ PAGE_SIZE"?
-
-   if ( (vaddr < FIXMAP_ADDR(FIXMAP_ACPI_BEGIN)) ||
-        (vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE) )
-
-
-> +        return false;
-> +
-> +    /*
-> +     * __acpi_map_table() will always return a pointer in the first page
-> +     * for the ACPI fixmap region. The caller is expected to free with
-> +     * the same address.
-> +     */
-> +    ASSERT((vaddr & PAGE_MASK) == FIXMAP_ADDR(FIXMAP_ACPI_BEGIN));
-> +
-> +    /* The region allocated fit in the ACPI fixmap region. */
-> +    ASSERT(size < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - vaddr));
-> +    ASSERT(fixmap_inuse);
-> +
-> +    fixmap_inuse = false;
-> +
-> +    size += vaddr - FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
-> +    idx = FIXMAP_ACPI_BEGIN;
-> +
-> +    do
-> +    {
-> +        clear_fixmap(idx);
-> +        size -= min(size, (unsigned long)PAGE_SIZE);
-> +        idx++;
-> +    } while ( size > 0 );
+>      int i, nr = fdt_num_mem_rsv(device_tree_flattened);
 >  
-> -    return ((vaddr >= FIXMAP_ADDR(FIXMAP_ACPI_BEGIN)) &&
-> -            (vaddr < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE)));
-> +    return true;
+> @@ -244,6 +245,17 @@ void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+>      cb(s, e);
 >  }
 >  
->  /* True to indicate PSCI 0.2+ is implemented */
-
+> +void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+> +                                  void (*cb)(paddr_t, paddr_t), int first)
+> +{
+> +    if ( acpi_disabled )
+> +        dt_unreserved_regions(s, e, cb, first);
+> +    else
+> +        cb(s, e);
+> +}
+> +
+> +
+> +
+>  struct bootmodule __init *add_boot_module(bootmodule_kind kind,
+>                                            paddr_t start, paddr_t size,
+>                                            bool domU)
+> @@ -405,7 +417,7 @@ void __init discard_initial_modules(void)
+>               !mfn_valid(maddr_to_mfn(e)) )
+>              continue;
+>  
+> -        dt_unreserved_regions(s, e, init_domheap_pages, 0);
+> +        fw_unreserved_regions(s, e, init_domheap_pages, 0);
+>      }
+>  
+>      mi->nr_mods = 0;
+> @@ -712,7 +724,7 @@ static void __init setup_mm(void)
+>                  n = mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages));
+>              }
+>  
+> -            dt_unreserved_regions(s, e, init_boot_pages, 0);
+> +            fw_unreserved_regions(s, e, init_boot_pages, 0);
+>  
+>              s = n;
+>          }
+> @@ -765,7 +777,7 @@ static void __init setup_mm(void)
+>              if ( e > bank_end )
+>                  e = bank_end;
+>  
+> -            dt_unreserved_regions(s, e, init_boot_pages, 0);
+> +            fw_unreserved_regions(s, e, init_boot_pages, 0);
+>              s = n;
+>          }
+>      }
+> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+> index 2f8f24e286ed..28bf622aa196 100644
+> --- a/xen/include/asm-arm/setup.h
+> +++ b/xen/include/asm-arm/setup.h
+> @@ -67,6 +67,7 @@ struct bootcmdlines {
+>  
+>  struct bootinfo {
+>      struct meminfo mem;
+> +    /* The reserved regions are only used when booting using Device-Tree */
+>      struct meminfo reserved_mem;
+>      struct bootmodules modules;
+>      struct bootcmdlines cmdlines;
+> @@ -96,7 +97,7 @@ int construct_dom0(struct domain *d);
+>  void create_domUs(void);
+>  
+>  void discard_initial_modules(void);
+> -void dt_unreserved_regions(paddr_t s, paddr_t e,
+> +void fw_unreserved_regions(paddr_t s, paddr_t e,
+>                             void (*cb)(paddr_t, paddr_t), int first);
+>  
+>  size_t boot_fdt_info(const void *fdt, paddr_t paddr);
+> -- 
+> 2.17.1
+> 
 
