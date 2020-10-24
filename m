@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14CF0297BAB
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Oct 2020 11:41:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.11531.30605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05F4297C0B
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Oct 2020 13:14:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.11543.30627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWG2P-0003zG-Hz; Sat, 24 Oct 2020 09:40:37 +0000
+	id 1kWHTz-0003VG-Oa; Sat, 24 Oct 2020 11:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11531.30605; Sat, 24 Oct 2020 09:40:37 +0000
+Received: by outflank-mailman (output) from mailman id 11543.30627; Sat, 24 Oct 2020 11:13:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,64 +23,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWG2P-0003yr-EN; Sat, 24 Oct 2020 09:40:37 +0000
-Received: by outflank-mailman (input) for mailman id 11531;
- Sat, 24 Oct 2020 09:40:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kWHTz-0003Ur-LN; Sat, 24 Oct 2020 11:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 11543;
+ Sat, 24 Oct 2020 11:13:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IA9X=D7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kWG2N-0003y8-6F
- for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 09:40:35 +0000
+ id 1kWHTy-0003UD-58
+ for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 11:13:10 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d3f4e39b-74b6-446b-b973-20cf095be282;
- Sat, 24 Oct 2020 09:40:31 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bbf8e4bd-ad71-49f3-8711-bc3326c3f3fe;
+ Sat, 24 Oct 2020 11:13:00 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kWG2J-0002RF-Bj; Sat, 24 Oct 2020 09:40:31 +0000
+ id 1kWHTo-0004OZ-6G; Sat, 24 Oct 2020 11:13:00 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kWG2J-0003hK-0C; Sat, 24 Oct 2020 09:40:31 +0000
+ id 1kWHTn-0008D5-TI; Sat, 24 Oct 2020 11:12:59 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kWG2I-0007ZJ-Vw; Sat, 24 Oct 2020 09:40:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ id 1kWHTn-0001o4-Sn; Sat, 24 Oct 2020 11:12:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=IA9X=D7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kWG2N-0003y8-6F
-	for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 09:40:35 +0000
-X-Inumbo-ID: d3f4e39b-74b6-446b-b973-20cf095be282
+	id 1kWHTy-0003UD-58
+	for xen-devel@lists.xenproject.org; Sat, 24 Oct 2020 11:13:10 +0000
+X-Inumbo-ID: bbf8e4bd-ad71-49f3-8711-bc3326c3f3fe
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d3f4e39b-74b6-446b-b973-20cf095be282;
-	Sat, 24 Oct 2020 09:40:31 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id bbf8e4bd-ad71-49f3-8711-bc3326c3f3fe;
+	Sat, 24 Oct 2020 11:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mX0ejg/rfhR/2wZg3DXfE9ohTDW0wvbqW9yl5nu+2Yc=; b=wlyHf5JMgOgi/buC+0M7znmKjV
-	QAYhbqulj5v0XvLhSXSIfzTDZL/H8QAYL8oyIKN+BDe5IGW4EAvonZ7qBiTPosewrKf9CKmbFsdC4
-	j5nc1OvXfL3McJpDOv4d5ImQ9eTAFdtLJCF4NVaKSsyGeOZ4pquEKLzAJ2vyRdTWvBbE=;
+	bh=RuM0hALqdMDT/lexJRP6OIhkiDDlx4a+m8CliTOxZIY=; b=2ARePKv5SuoQbhN+fzknBFT7lA
+	yWGRrh/LhgBGzOwTFLoOa+0qQSu+y/A+4aiBVbkk+gqNJIsVjlAM7stc5Z+alxcuaDctEfLVZqrlN
+	Go8jolTDAmWi5QzgjS1a677UK6l6frVBCvoElksVoed2LgsYbb9LdrSK+l8t4KiVjAEE=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWG2J-0002RF-Bj; Sat, 24 Oct 2020 09:40:31 +0000
+	id 1kWHTo-0004OZ-6G; Sat, 24 Oct 2020 11:13:00 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWG2J-0003hK-0C; Sat, 24 Oct 2020 09:40:31 +0000
+	id 1kWHTn-0008D5-TI; Sat, 24 Oct 2020 11:12:59 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWG2I-0007ZJ-Vw; Sat, 24 Oct 2020 09:40:30 +0000
+	id 1kWHTn-0001o4-Sn; Sat, 24 Oct 2020 11:12:59 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-156170-mainreport@xen.org>
+Message-ID: <osstest-156172-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 156170: regressions - trouble: blocked/fail/pass/starved
+Subject: [qemu-mainline test] 156172: regressions - trouble: blocked/fail/pass/starved
 X-Osstest-Failures:
     qemu-mainline:build-arm64-xsm:xen-build:fail:regression
     qemu-mainline:build-amd64-xsm:xen-build:fail:regression
@@ -163,18 +164,18 @@ X-Osstest-Failures:
     qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
     qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
     qemu-mainline:build-armhf-libvirt:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
     qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
     qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
     qemuu=4c5b97bfd0dd54dc27717ae8d1cd10e14eef1430
 X-Osstest-Versions-That:
     qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 24 Oct 2020 09:40:30 +0000
+Date: Sat, 24 Oct 2020 11:12:59 +0000
 
-flight 156170 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156170/
+flight 156172 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156172/
 
 Regressions :-(
 
@@ -263,8 +264,8 @@ Tests which did not succeed, but are not blocking:
  test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
  build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
  build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
@@ -273,8 +274,8 @@ baseline version:
  qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
 Last test of basis   152631  2020-08-20 09:07:46 Z   65 days
-Failing since        152659  2020-08-21 14:07:39 Z   63 days  129 attempts
-Testing same since   156094  2020-10-22 15:08:36 Z    1 days   14 attempts
+Failing since        152659  2020-08-21 14:07:39 Z   63 days  130 attempts
+Testing same since   156094  2020-10-22 15:08:36 Z    1 days   15 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
