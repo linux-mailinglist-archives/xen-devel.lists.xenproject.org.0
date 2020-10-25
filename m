@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD53E29811A
-	for <lists+xen-devel@lfdr.de>; Sun, 25 Oct 2020 10:51:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.11792.31155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82E64298123
+	for <lists+xen-devel@lfdr.de>; Sun, 25 Oct 2020 11:12:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.11801.31166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWcfc-0002KM-2I; Sun, 25 Oct 2020 09:50:36 +0000
+	id 1kWczv-0004CN-S1; Sun, 25 Oct 2020 10:11:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 11792.31155; Sun, 25 Oct 2020 09:50:36 +0000
+Received: by outflank-mailman (output) from mailman id 11801.31166; Sun, 25 Oct 2020 10:11:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,114 +23,80 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWcfb-0002Jx-VL; Sun, 25 Oct 2020 09:50:35 +0000
-Received: by outflank-mailman (input) for mailman id 11792;
- Sun, 25 Oct 2020 09:50:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ryJk=EA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kWcfa-0002JP-S9
- for xen-devel@lists.xenproject.org; Sun, 25 Oct 2020 09:50:34 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0d787a2-9dcc-4f36-bda3-1279767484ba;
- Sun, 25 Oct 2020 09:50:28 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWcfU-0005Ak-74; Sun, 25 Oct 2020 09:50:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWcfT-0002es-VB; Sun, 25 Oct 2020 09:50:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kWcfT-0000CX-Uf; Sun, 25 Oct 2020 09:50:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kWczv-0004C1-Ov; Sun, 25 Oct 2020 10:11:35 +0000
+Received: by outflank-mailman (input) for mailman id 11801;
+ Sun, 25 Oct 2020 10:11:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hByA=EA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kWczu-0004Bw-5U
+ for xen-devel@lists.xenproject.org; Sun, 25 Oct 2020 10:11:34 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 29e5e7ec-1e6b-4c76-ad3c-9c99d5d5a695;
+ Sun, 25 Oct 2020 10:11:32 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 116C6B919;
+ Sun, 25 Oct 2020 10:11:32 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ryJk=EA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kWcfa-0002JP-S9
-	for xen-devel@lists.xenproject.org; Sun, 25 Oct 2020 09:50:34 +0000
-X-Inumbo-ID: c0d787a2-9dcc-4f36-bda3-1279767484ba
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c0d787a2-9dcc-4f36-bda3-1279767484ba;
-	Sun, 25 Oct 2020 09:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4ezHm1osa7cS3bnpu7U5iF7FGeieEOppDJmGECkT2lo=; b=K/agsyFzLtu5t+Q4CHOVYhjZZQ
-	VrwicDvCuYJQ6JWGlbt+jpoglzzO8T3AJZ2SCvZprCQIR6Ks4QyTFr31fFmpGTzbqJe+8u9yxXgOW
-	NGAS68Ufc1RSrRPF0h+2QlyG8ZkmTYf2QErkCpqgY0uelOFLC6slWxplVoBn2rciwt8Q=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWcfU-0005Ak-74; Sun, 25 Oct 2020 09:50:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWcfT-0002es-VB; Sun, 25 Oct 2020 09:50:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWcfT-0000CX-Uf; Sun, 25 Oct 2020 09:50:27 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156209-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=hByA=EA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kWczu-0004Bw-5U
+	for xen-devel@lists.xenproject.org; Sun, 25 Oct 2020 10:11:34 +0000
+X-Inumbo-ID: 29e5e7ec-1e6b-4c76-ad3c-9c99d5d5a695
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 29e5e7ec-1e6b-4c76-ad3c-9c99d5d5a695;
+	Sun, 25 Oct 2020 10:11:32 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603620692;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=raNB0yYuAFJJIBaE4EtGmLT9bOORIVRZjUCtlK/P0+o=;
+	b=GnGdjSc9xiqh7P1KQxF+XPTCoKY2UUQthboVD3tGA3Y3LfsN1ldW9P6hWtsiJsTkNderJW
+	DXnVS665P4jX0xi21Z5XJyb1EU5uIgyWPDgz7nt/WrE8IPFIkeM5Mn2/Saf5JlbAqoFwpf
+	sz02Cna1LaTL1m1KRYqEzpo2TdYU4NY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 116C6B919;
+	Sun, 25 Oct 2020 10:11:32 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] tools/libs: let build depend on official headers
+Date: Sun, 25 Oct 2020 11:11:29 +0100
+Message-Id: <20201025101129.19685-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 156209: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
-X-Osstest-Versions-That:
-    xen=3b49791e4cc2f38dd84bf331b75217adaef636e3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 25 Oct 2020 09:50:27 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 156209 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156209/
+The build target of a library should depend on the official headers
+of that library, too, as those might be required for building other
+tools.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
-baseline version:
- xen                  3b49791e4cc2f38dd84bf331b75217adaef636e3
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/libs/libs.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Last test of basis   156067  2020-10-21 09:19:38 Z    4 days
-Testing same since   156209  2020-10-25 09:18:26 Z    0 days    1 attempts
+diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
+index 959ff91a56..b0e785b380 100644
+--- a/tools/libs/libs.mk
++++ b/tools/libs/libs.mk
+@@ -57,7 +57,7 @@ $(PKG_CONFIG_LOCAL): PKG_CONFIG_LIBDIR = $(CURDIR)
+ all: build
+ 
+ .PHONY: build
+-build: libs libxen$(LIBNAME).map
++build: libs libxen$(LIBNAME).map $(LIBHEADERS)
+ 
+ .PHONY: libs
+ libs: headers.chk $(LIB) $(PKG_CONFIG_INST) $(PKG_CONFIG_LOCAL)
+-- 
+2.26.2
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3b49791e4c..6ca70821b5  6ca70821b59849ad97c3fadc47e63c1a4af1a78c -> coverity-tested/smoke
 
