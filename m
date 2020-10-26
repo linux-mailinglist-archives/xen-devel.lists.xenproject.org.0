@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3A62986BA
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 07:07:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12044.31568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DD762987A1
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 08:51:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12049.31579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWvdy-0004VS-LS; Mon, 26 Oct 2020 06:06:10 +0000
+	id 1kWxGZ-0005F8-CE; Mon, 26 Oct 2020 07:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12044.31568; Mon, 26 Oct 2020 06:06:10 +0000
+Received: by outflank-mailman (output) from mailman id 12049.31579; Mon, 26 Oct 2020 07:50:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,299 +23,495 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWvdy-0004V2-Hf; Mon, 26 Oct 2020 06:06:10 +0000
-Received: by outflank-mailman (input) for mailman id 12044;
- Mon, 26 Oct 2020 06:06:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kWxGZ-0005El-9F; Mon, 26 Oct 2020 07:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 12049;
+ Mon, 26 Oct 2020 07:50:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kWvdx-0004UU-Ly
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 06:06:09 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3b88ba2c-7a47-43a6-b47a-50702f231869;
- Mon, 26 Oct 2020 06:06:03 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWvdq-0002zK-LR; Mon, 26 Oct 2020 06:06:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWvdq-0001SV-DG; Mon, 26 Oct 2020 06:06:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kWvdq-00046B-Ch; Mon, 26 Oct 2020 06:06:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=83VV=EB=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kWxGY-0005B6-4x
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 07:50:06 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 07514789-9323-478a-82d4-0e786aace9a9;
+ Mon, 26 Oct 2020 07:50:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9151FAEE0;
+ Mon, 26 Oct 2020 07:50:02 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kWvdx-0004UU-Ly
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 06:06:09 +0000
-X-Inumbo-ID: 3b88ba2c-7a47-43a6-b47a-50702f231869
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3b88ba2c-7a47-43a6-b47a-50702f231869;
-	Mon, 26 Oct 2020 06:06:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iCU5AZp+VPXONVIfJKMEYJMYH71qqqs2mg4BjuPeOhU=; b=V5IHYrnZnUonTKyfVTC+XFs0IA
-	WQZGt6UAbBBvTyjTODj5mLjU1dRXlKR9CgBijUzJa69Zf3VwRcUdtD0eMyf+uRsuMwHvz365JxddW
-	a7PvRPccOxQrjir2aEXELpcYo//AvpqLYOpCHsStxmLyPu2SxgP3W82/vg0MB4NpajHU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWvdq-0002zK-LR; Mon, 26 Oct 2020 06:06:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWvdq-0001SV-DG; Mon, 26 Oct 2020 06:06:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWvdq-00046B-Ch; Mon, 26 Oct 2020 06:06:02 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156235-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=83VV=EB=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+	id 1kWxGY-0005B6-4x
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 07:50:06 +0000
+X-Inumbo-ID: 07514789-9323-478a-82d4-0e786aace9a9
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 07514789-9323-478a-82d4-0e786aace9a9;
+	Mon, 26 Oct 2020 07:50:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 9151FAEE0;
+	Mon, 26 Oct 2020 07:50:02 +0000 (UTC)
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: luben.tuikov@amd.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ melissa.srw@gmail.com, ray.huang@amd.com, kraxel@redhat.com,
+ emil.velikov@collabora.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, lima@lists.freedesktop.org,
+ oleksandr_andrushchenko@epam.com, krzk@kernel.org, steven.price@arm.com,
+ linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ alyssa.rosenzweig@collabora.com, linux+etnaviv@armlinux.org.uk,
+ spice-devel@lists.freedesktop.org, bskeggs@redhat.com,
+ etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
+ xen-devel@lists.xenproject.org, virtualization@lists.linux-foundation.org,
+ sean@poorly.run, apaneers@amd.com, linux-arm-kernel@lists.infradead.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ tomeu.vizoso@collabora.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ kyungmin.park@samsung.com, miaoqinglang@huawei.com, yuq825@gmail.com,
+ alexander.deucher@amd.com, linux-media@vger.kernel.org,
+ christian.koenig@amd.com
+References: <20201020122046.31167-1-tzimmermann@suse.de>
+ <20201020122046.31167-11-tzimmermann@suse.de>
+ <20201024203838.GB93644@ravnborg.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v5 10/10] drm/fb_helper: Support framebuffers in I/O
+ memory
+Message-ID: <f97902e4-cf8e-17c6-5a6e-b11da41101c5@suse.de>
+Date: Mon, 26 Oct 2020 08:50:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.3
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156235: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=4ddd6499d999a7d08cabfda5b0262e473dd5beed
-X-Osstest-Versions-That:
-    xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Oct 2020 06:06:02 +0000
+In-Reply-To: <20201024203838.GB93644@ravnborg.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 156235 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156235/
+Hi
 
-Regressions :-(
+Am 24.10.20 um 22:38 schrieb Sam Ravnborg:
+> Hi Thomas.
+> 
+> On Tue, Oct 20, 2020 at 02:20:46PM +0200, Thomas Zimmermann wrote:
+>> At least sparc64 requires I/O-specific access to framebuffers. This
+>> patch updates the fbdev console accordingly.
+>>
+>> For drivers with direct access to the framebuffer memory, the callback
+>> functions in struct fb_ops test for the type of memory and call the rsp
+>> fb_sys_ of fb_cfb_ functions. Read and write operations are implemented
+>> internally by DRM's fbdev helper.
+>>
+>> For drivers that employ a shadow buffer, fbdev's blit function retrieves
+>> the framebuffer address as struct dma_buf_map, and uses dma_buf_map
+>> interfaces to access the buffer.
+>>
+>> The bochs driver on sparc64 uses a workaround to flag the framebuffer as
+>> I/O memory and avoid a HW exception. With the introduction of struct
+>> dma_buf_map, this is not required any longer. The patch removes the rsp
+>> code from both, bochs and fbdev.
+>>
+>> v5:
+>> 	* implement fb_read/fb_write internally (Daniel, Sam)
+>> v4:
+>> 	* move dma_buf_map changes into separate patch (Daniel)
+>> 	* TODO list: comment on fbdev updates (Daniel)
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Tested-by: Sam Ravnborg <sam@ravnborg.org>
+> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+> 
+> But see a few comments below on naming for you to consider.
+> 
+> 	Sam
+> 
+>> ---
+>>  Documentation/gpu/todo.rst        |  19 ++-
+>>  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
+>>  drivers/gpu/drm/drm_fb_helper.c   | 227 ++++++++++++++++++++++++++++--
+>>  include/drm/drm_mode_config.h     |  12 --
+>>  4 files changed, 230 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+>> index 7e6fc3c04add..638b7f704339 100644
+>> --- a/Documentation/gpu/todo.rst
+>> +++ b/Documentation/gpu/todo.rst
+>> @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
+>>  ------------------------------------------------
+>>  
+>>  Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
+>> -atomic modesetting and GEM vmap support. Current generic fbdev emulation
+>> -expects the framebuffer in system memory (or system-like memory).
+>> +atomic modesetting and GEM vmap support. Historically, generic fbdev emulation
+>> +expected the framebuffer in system memory or system-like memory. By employing
+>> +struct dma_buf_map, drivers with frambuffers in I/O memory can be supported
+>> +as well.
+>>  
+>>  Contact: Maintainer of the driver you plan to convert
+>>  
+>>  Level: Intermediate
+>>  
+>> +Reimplement functions in drm_fbdev_fb_ops without fbdev
+>> +-------------------------------------------------------
+>> +
+>> +A number of callback functions in drm_fbdev_fb_ops could benefit from
+>> +being rewritten without dependencies on the fbdev module. Some of the
+>> +helpers could further benefit from using struct dma_buf_map instead of
+>> +raw pointers.
+>> +
+>> +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+>> +
+>> +Level: Advanced
+>> +
+>> +
+>>  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
+>>  -----------------------------------------------------------------
+>>  
+>> diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
+>> index 13d0d04c4457..853081d186d5 100644
+>> --- a/drivers/gpu/drm/bochs/bochs_kms.c
+>> +++ b/drivers/gpu/drm/bochs/bochs_kms.c
+>> @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
+>>  	bochs->dev->mode_config.preferred_depth = 24;
+>>  	bochs->dev->mode_config.prefer_shadow = 0;
+>>  	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
+>> -	bochs->dev->mode_config.fbdev_use_iomem = true;
+>>  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order = true;
+>>  
+>>  	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+>> index 6212cd7cde1d..1d3180841778 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+>>  }
+>>  
+>>  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
+>> -					  struct drm_clip_rect *clip)
+>> +					  struct drm_clip_rect *clip,
+>> +					  struct dma_buf_map *dst)
+>>  {
+>>  	struct drm_framebuffer *fb = fb_helper->fb;
+>>  	unsigned int cpp = fb->format->cpp[0];
+>>  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+>>  	void *src = fb_helper->fbdev->screen_buffer + offset;
+>> -	void *dst = fb_helper->buffer->map.vaddr + offset;
+>>  	size_t len = (clip->x2 - clip->x1) * cpp;
+>>  	unsigned int y;
+>>  
+>> -	for (y = clip->y1; y < clip->y2; y++) {
+>> -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
+>> -			memcpy(dst, src, len);
+>> -		else
+>> -			memcpy_toio((void __iomem *)dst, src, len);
+>> +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip rect */
+>>  
+>> +	for (y = clip->y1; y < clip->y2; y++) {
+>> +		dma_buf_map_memcpy_to(dst, src, len);
+>> +		dma_buf_map_incr(dst, fb->pitches[0]);
+>>  		src += fb->pitches[0];
+>> -		dst += fb->pitches[0];
+>>  	}
+>>  }
+>>  
+>> @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+>>  			ret = drm_client_buffer_vmap(helper->buffer, &map);
+>>  			if (ret)
+>>  				return;
+>> -			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
+>> +			drm_fb_helper_dirty_blit_real(helper, &clip_copy, &map);
+>>  		}
+>> +
+>>  		if (helper->fb->funcs->dirty)
+>>  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
+>>  						 &clip_copy, 1);
+>> @@ -2027,6 +2026,206 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>>  		return -ENODEV;
+>>  }
+>>  
+>> +static bool drm_fbdev_use_iomem(struct fb_info *info)
+>> +{
+>> +	struct drm_fb_helper *fb_helper = info->par;
+>> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+>> +
+>> +	return !drm_fbdev_use_shadow_fb(fb_helper) && buffer->map.is_iomem;
+>> +}
+>> +
+>> +static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count, 
+>> +				   loff_t pos)
+> The naming here confused me - a name like:
+> fb_read_iomem() would have helped me more.
+> With the current naming I shall remember that the screen_base member is
+> the iomem pointer.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 156117
- build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
- build-armhf                   6 xen-build                fail REGR. vs. 156117
+Yeah, true. In terms of naming, I was undecided. I was thinking about
+adopting a naming similar to what you describe, but OTOH we don't use
+sysmem anywhere in the code. I thought about adopting fbdev's conention
+of using _sys_ and _cfb_. But that would make sensein the local context.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+> 
+>> +{
+>> +	const char __iomem *src = info->screen_base + pos;
+>> +	size_t alloc_size = min(count, PAGE_SIZE);
+>> +	ssize_t ret = 0;
+>> +	char *tmp;
+>> +
+>> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+>> +	if (!tmp)
+>> +		return -ENOMEM;
+>> +
+> 
+> I looked around and could not find other places where
+> we copy from iomem to mem to usermem in chunks of PAGE_SIZE.
 
-version targeted for testing:
- xen                  4ddd6499d999a7d08cabfda5b0262e473dd5beed
-baseline version:
- xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+I took this pattern from fbdev's original implementation. I think it's
+done to work nicely with kmalloc.
 
-Last test of basis   156117  2020-10-23 09:01:23 Z    2 days
-Failing since        156120  2020-10-23 14:01:24 Z    2 days   32 attempts
-Testing same since   156129  2020-10-23 18:01:24 Z    2 days   31 attempts
+Best regards
+Thomas
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
+> 
+>> +	while (count) {
+>> +		size_t c = min(count, alloc_size);
+>> +
+>> +		memcpy_fromio(tmp, src, c);
+>> +		if (copy_to_user(buf, tmp, c)) {
+>> +			ret = -EFAULT;
+>> +			break;
+>> +		}
+>> +
+>> +		src += c;
+>> +		buf += c;
+>> +		ret += c;
+>> +		count -= c;
+>> +	}
+>> +
+>> +	kfree(tmp);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_read_screen_buffer(struct fb_info *info, char __user *buf, size_t count,
+>> +				     loff_t pos)
+> And fb_read_sysmem() here.
+> 
+>> +{
+>> +	const char *src = info->screen_buffer + pos;
+>> +
+>> +	if (copy_to_user(buf, src, count))
+>> +		return -EFAULT;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
+>> +				 size_t count, loff_t *ppos)
+>> +{
+>> +	loff_t pos = *ppos;
+>> +	size_t total_size;
+>> +	ssize_t ret;
+>> +
+>> +	if (info->state != FBINFO_STATE_RUNNING)
+>> +		return -EPERM;
+>> +
+>> +	if (info->screen_size)
+>> +		total_size = info->screen_size;
+>> +	else
+>> +		total_size = info->fix.smem_len;
+>> +
+>> +	if (pos >= total_size)
+>> +		return 0;
+>> +	if (count >= total_size)
+>> +		count = total_size;
+>> +	if (total_size - count < pos)
+>> +		count = total_size - pos;
+>> +
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		ret = fb_read_screen_base(info, buf, count, pos);
+>> +	else
+>> +		ret = fb_read_screen_buffer(info, buf, count, pos);
+>> +
+>> +	if (ret > 0)
+>> +		*ppos = ret;
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
+>> +				    loff_t pos)
+> 
+> fb_write_iomem()
+> 
+>> +{
+>> +	char __iomem *dst = info->screen_base + pos;
+>> +	size_t alloc_size = min(count, PAGE_SIZE);
+>> +	ssize_t ret = 0;
+>> +	u8 *tmp;
+>> +
+>> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+>> +	if (!tmp)
+>> +		return -ENOMEM;
+>> +
+>> +	while (count) {
+>> +		size_t c = min(count, alloc_size);
+>> +
+>> +		if (copy_from_user(tmp, buf, c)) {
+>> +			ret = -EFAULT;
+>> +			break;
+>> +		}
+>> +		memcpy_toio(dst, tmp, c);
+>> +
+>> +		dst += c;
+>> +		buf += c;
+>> +		ret += c;
+>> +		count -= c;
+>> +	}
+>> +
+>> +	kfree(tmp);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static ssize_t fb_write_screen_buffer(struct fb_info *info, const char __user *buf, size_t count,
+>> +				      loff_t pos)
+> fb_write_sysmem()
+> 
+>> +{
+>> +	char *dst = info->screen_buffer + pos;
+>> +
+>> +	if (copy_from_user(dst, buf, count))
+>> +		return -EFAULT;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
+>> +				  size_t count, loff_t *ppos)
+>> +{
+>> +	loff_t pos = *ppos;
+>> +	size_t total_size;
+>> +	ssize_t ret;
+>> +	int err;
+>> +
+>> +	if (info->state != FBINFO_STATE_RUNNING)
+>> +		return -EPERM;
+>> +
+>> +	if (info->screen_size)
+>> +		total_size = info->screen_size;
+>> +	else
+>> +		total_size = info->fix.smem_len;
+>> +
+>> +	if (pos > total_size)
+>> +		return -EFBIG;
+>> +	if (count > total_size) {
+>> +		err = -EFBIG;
+>> +		count = total_size;
+>> +	}
+>> +	if (total_size - count < pos) {
+>> +		if (!err)
+>> +			err = -ENOSPC;
+>> +		count = total_size - pos;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Copy to framebuffer even if we already logged an error. Emulates
+>> +	 * the behavior of the original fbdev implementation.
+>> +	 */
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		ret = fb_write_screen_base(info, buf, count, pos);
+>> +	else
+>> +		ret = fb_write_screen_buffer(info, buf, count, pos);
+>> +
+>> +	if (ret > 0)
+>> +		*ppos = ret;
+>> +
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void drm_fbdev_fb_fillrect(struct fb_info *info,
+>> +				  const struct fb_fillrect *rect)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_fillrect(info, rect);
+>> +	else
+>> +		drm_fb_helper_sys_fillrect(info, rect);
+>> +}
+>> +
+>> +static void drm_fbdev_fb_copyarea(struct fb_info *info,
+>> +				  const struct fb_copyarea *area)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_copyarea(info, area);
+>> +	else
+>> +		drm_fb_helper_sys_copyarea(info, area);
+>> +}
+>> +
+>> +static void drm_fbdev_fb_imageblit(struct fb_info *info,
+>> +				   const struct fb_image *image)
+>> +{
+>> +	if (drm_fbdev_use_iomem(info))
+>> +		drm_fb_helper_cfb_imageblit(info, image);
+>> +	else
+>> +		drm_fb_helper_sys_imageblit(info, image);
+>> +}
+>> +
+>>  static const struct fb_ops drm_fbdev_fb_ops = {
+>>  	.owner		= THIS_MODULE,
+>>  	DRM_FB_HELPER_DEFAULT_OPS,
+>> @@ -2034,11 +2233,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
+>>  	.fb_release	= drm_fbdev_fb_release,
+>>  	.fb_destroy	= drm_fbdev_fb_destroy,
+>>  	.fb_mmap	= drm_fbdev_fb_mmap,
+>> -	.fb_read	= drm_fb_helper_sys_read,
+>> -	.fb_write	= drm_fb_helper_sys_write,
+>> -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
+>> -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
+>> -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
+>> +	.fb_read	= drm_fbdev_fb_read,
+>> +	.fb_write	= drm_fbdev_fb_write,
+>> +	.fb_fillrect	= drm_fbdev_fb_fillrect,
+>> +	.fb_copyarea	= drm_fbdev_fb_copyarea,
+>> +	.fb_imageblit	= drm_fbdev_fb_imageblit,
+>>  };
+>>  
+>>  static struct fb_deferred_io drm_fbdev_defio = {
+>> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+>> index 5ffbb4ed5b35..ab424ddd7665 100644
+>> --- a/include/drm/drm_mode_config.h
+>> +++ b/include/drm/drm_mode_config.h
+>> @@ -877,18 +877,6 @@ struct drm_mode_config {
+>>  	 */
+>>  	bool prefer_shadow_fbdev;
+>>  
+>> -	/**
+>> -	 * @fbdev_use_iomem:
+>> -	 *
+>> -	 * Set to true if framebuffer reside in iomem.
+>> -	 * When set to true memcpy_toio() is used when copying the framebuffer in
+>> -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
+>> -	 *
+>> -	 * FIXME: This should be replaced with a per-mapping is_iomem
+>> -	 * flag (like ttm does), and then used everywhere in fbdev code.
+>> -	 */
+>> -	bool fbdev_use_iomem;
+>> -
+>>  	/**
+>>  	 * @quirk_addfb_prefer_xbgr_30bpp:
+>>  	 *
+>> -- 
+>> 2.28.0
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
 
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 4ddd6499d999a7d08cabfda5b0262e473dd5beed
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Sun May 24 22:55:06 2020 -0400
-
-    SUPPORT: Add linux device model stubdom to Toolstack
-    
-    Add qemu-xen linux device model stubdomain to the Toolstack section as a
-    Tech Preview.
-    
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 06f0598b41f23c9e4cf7d8c5a05b282de92f3a35
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Oct 23 18:03:18 2020 +0200
-
-    x86emul: fix PINSRW and adjust other {,V}PINSR*
-    
-    The use of simd_packed_int together with no further update to op_bytes
-    has lead to wrong signaling of #GP(0) for PINSRW without a 16-byte
-    aligned memory operand. Use simd_none instead and override it after
-    general decoding with simd_other, like is done for the B/D/Q siblings.
-    
-    While benign, for consistency also use DstImplicit instead of DstReg
-    in x86_decode_twobyte().
-    
-    PINSR{B,D,Q} also had a stray (redundant) get_fpu() invocation, which
-    gets dropped.
-    
-    For further consistency also
-    - use src.bytes instead of op_bytes in relevant memcpy() invocations,
-    - avoid the pointless updating of op_bytes (all we care about later is
-      that the value be less than 16).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 9af5e2b31b4e6f3892b4614ecd0a619af5d64d7e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/store: don't use symbolic links for external files
-    
-    Instead of using symbolic links to include files from xenstored use
-    the vpath directive and an include path.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 588756db020e73e6f5e4407bbf78fbd53f15b731
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/guest: don't use symbolic links for xenctrl headers
-    
-    Instead of using symbolic links for accessing the xenctrl private
-    headers use an include path instead.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 4664034cdc720a52913bc26358240bb9d3798527
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs: move official headers to common directory
-    
-    Instead of each library having an own include directory move the
-    official headers to tools/include instead. This will drop the need to
-    link those headers to tools/include and there is no need any longer
-    to have library-specific include paths when building Xen.
-    
-    While at it remove setting of the unused variable
-    PKG_CONFIG_CFLAGS_LOCAL in libs/*/Makefile.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 154137dfdba334348887baf0be9693c407f7cef3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Oct 7 08:50:03 2020 +0200
-
-    stubdom: add xenstore pvh stubdom
-    
-    Add a PVH xenstore stubdom in order to support a Xenstore stubdom on
-    a hypervisor built without PV-support.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f89955449c5a47ff688e91873bbce4c3670ed9fe
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:10 2020 +0200
-
-    tools/init-xenstore-domain: support xenstore pvh stubdom
-    
-    Instead of creating the xenstore-stubdom domain first and parsing the
-    kernel later do it the other way round. This enables to probe for the
-    domain type supported by the xenstore-stubdom and to support both, pv
-    and pvh type stubdoms.
-    
-    Try to parse the stubdom image first for PV support, if this fails use
-    HVM. Then create the domain with the appropriate type selected.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 56c1aca6a2bc013f45e7af2fa88605a693402770
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:09 2020 +0200
-
-    tools/init-xenstore-domain: add logging
-    
-    Add a possibility to do logging in init-xenstore-domain: use -v[...]
-    for selecting the log-level as in xl, log to stderr.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 70cf8e9acada638f68c1c597d7580500d9f21c91
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:44 2020 +0200
-
-    maintainers: remove unreachable remus maintainer
-    
-    The mails for Yang Hongyang are bouncing, remove him from MAINTAINERS
-    file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 032a96e5ef38f96eccfebbf8a0dbd83dc7beb625
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:43 2020 +0200
-
-    maintainers: fix libxl paths
-    
-    Fix the paths of libxl in the MAINTAINERS file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-(qemu changes not included)
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 Nürnberg, Germany
+(HRB 36809, AG Nürnberg)
+Geschäftsführer: Felix Imendörffer
 
