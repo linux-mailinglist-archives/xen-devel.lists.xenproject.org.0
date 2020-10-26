@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2D0298DD5
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:28:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12311.32074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9227298DF3
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:31:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12314.32086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2XA-0004dZ-00; Mon, 26 Oct 2020 13:27:36 +0000
+	id 1kX2bD-0005Tp-IF; Mon, 26 Oct 2020 13:31:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12311.32074; Mon, 26 Oct 2020 13:27:35 +0000
+Received: by outflank-mailman (output) from mailman id 12314.32086; Mon, 26 Oct 2020 13:31:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,315 +23,112 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2X9-0004dA-TI; Mon, 26 Oct 2020 13:27:35 +0000
-Received: by outflank-mailman (input) for mailman id 12311;
- Mon, 26 Oct 2020 13:27:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kX2X8-0004cZ-N5
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:27:34 +0000
+	id 1kX2bD-0005TQ-Eo; Mon, 26 Oct 2020 13:31:47 +0000
+Received: by outflank-mailman (input) for mailman id 12314;
+ Mon, 26 Oct 2020 13:31:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kX2bC-0005TL-3r
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:31:46 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5a2c51a6-d350-48c6-8409-ee9184975ff5;
- Mon, 26 Oct 2020 13:27:27 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 24977410-667a-45d5-a7f5-07c358d0e611;
+ Mon, 26 Oct 2020 13:31:45 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kX2X1-0004Jo-20; Mon, 26 Oct 2020 13:27:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kX2X0-0003cj-Qg; Mon, 26 Oct 2020 13:27:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kX2X0-00062T-QB; Mon, 26 Oct 2020 13:27:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <julien@xen.org>)
+ id 1kX2bB-0004PW-1m; Mon, 26 Oct 2020 13:31:45 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kX2bA-0005DO-Qs; Mon, 26 Oct 2020 13:31:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kX2X8-0004cZ-N5
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:27:34 +0000
-X-Inumbo-ID: 5a2c51a6-d350-48c6-8409-ee9184975ff5
+	(envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kX2bC-0005TL-3r
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:31:46 +0000
+X-Inumbo-ID: 24977410-667a-45d5-a7f5-07c358d0e611
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 5a2c51a6-d350-48c6-8409-ee9184975ff5;
-	Mon, 26 Oct 2020 13:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=E5qUQxpcoFMytN1bXMVSRr1BqhvTxlqHN0+UilhCoy8=; b=svzsWaWvt6QRBFTiF3imQLQISh
-	G4Zf4OuWGdQFhptVesrAJ08qazGYelEYnjraeX8NDcP/vxPTA7JKYnjOn7IyhkBLFNrJbivNWUYdG
-	DvjC8Rg4BzHSoOn1/hCHmEZEUnN0qUbenvd6ZFaULQZ5wPphmIcM93/6c4Sm5cEsJxy4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 24977410-667a-45d5-a7f5-07c358d0e611;
+	Mon, 26 Oct 2020 13:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=COH07By8MlJXLmXlds6S5U1Em2gVSNaKhuITL1stUJc=; b=M08Fs8OscJP1U4byw5mjknMsbz
+	or7OcQxCp59keMhStF4aMGrG+aE9nNQcwuYRvErF8P+Ua4M3IlMDEcy/jPKr0aIKb3qqlxE3JMzEq
+	7ZHAt/zgZu37aMVw5olD4n9KTbRIzpcYlpf0GRcpXZyzqsKJQcSLy3Buh2IR1dVeYa6Q=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kX2X1-0004Jo-20; Mon, 26 Oct 2020 13:27:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kX2X0-0003cj-Qg; Mon, 26 Oct 2020 13:27:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kX2X0-00062T-QB; Mon, 26 Oct 2020 13:27:26 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156241-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <julien@xen.org>)
+	id 1kX2bB-0004PW-1m; Mon, 26 Oct 2020 13:31:45 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kX2bA-0005DO-Qs; Mon, 26 Oct 2020 13:31:44 +0000
+Subject: Re: Xen on RP4
+To: Elliott Mitchell <ehem+xen@m5p.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: roman@zededa.com, xen-devel@lists.xenproject.org
+References: <20201012215751.GB89158@mattapan.m5p.com>
+ <c38d78bd-c011-404b-5f59-d10cd7d7f006@xen.org>
+ <20201016003024.GA13290@mattapan.m5p.com>
+ <23885c28-dee5-4e9a-dc43-6ccf19a94df6@xen.org>
+ <20201022021655.GA74011@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010221620230.12247@sstabellini-ThinkPad-T480s>
+ <20201023005629.GA83870@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010221801490.12247@sstabellini-ThinkPad-T480s>
+ <20201023211941.GA90171@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s>
+ <20201024053540.GA97417@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org>
+Date: Mon, 26 Oct 2020 13:31:42 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156241: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=92abe1481c1181b95c7f91846bd1d77f37ee5c5e
-X-Osstest-Versions-That:
-    xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Oct 2020 13:27:26 +0000
+In-Reply-To: <20201024053540.GA97417@mattapan.m5p.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 156241 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156241/
+Hi Elliott,
 
-Regressions :-(
+On 24/10/2020 06:35, Elliott Mitchell wrote:
+> On Fri, Oct 23, 2020 at 04:59:30PM -0700, Stefano Stabellini wrote:
+>> Note that I tried to repro the issue here at my end but it works for me
+>> with device tree. So the swiotlb_init memory allocation failure probably
+>> only shows on ACPI, maybe because ACPI is reserving too much low memory.
+> 
+> Found it.  Take a look at 437b0aa06a014ce174e24c0d3530b3e9ab19b18b
+> 
+>   PLATFORM_START(rpi4, "Raspberry Pi 4")
+>       .compatible     = rpi4_dt_compat,
+>       .blacklist_dev  = rpi4_blacklist_dev,
+> +    .dma_bitsize    = 30,
+>   PLATFORM_END
+> 
+> Where this is used to match against a *device-tree*.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 156117
- build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
- build-armhf                   6 xen-build                fail REGR. vs. 156117
+Right. When we introduced ACPI in Xen, we made the assumption there 
+would be no need for per-platform workaround.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+> ACPI has a distinct
+> means of specifying a limited DMA-width; the above fails, because it
+> assumes a *device-tree*.
 
-version targeted for testing:
- xen                  92abe1481c1181b95c7f91846bd1d77f37ee5c5e
-baseline version:
- xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+Do you know if it would be possible to infer from the ACPI static table 
+the DMA-width?
 
-Last test of basis   156117  2020-10-23 09:01:23 Z    3 days
-Failing since        156120  2020-10-23 14:01:24 Z    2 days   36 attempts
-Testing same since   156241  2020-10-26 12:02:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+If not, is there a way to uniquely identify the platform?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Cheers,
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 92abe1481c1181b95c7f91846bd1d77f37ee5c5e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Sun Oct 25 06:45:46 2020 +0100
-
-    tools/helpers: fix Arm build by excluding init-xenstore-domain
-    
-    The support for PVH xenstore-stubdom has broken the Arm build.
-    
-    Xenstore stubdom isn't supported on Arm, so there is no need to build
-    the init-xenstore-domain helper.
-    
-    Build the helper on x86 only.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 4ddd6499d999a7d08cabfda5b0262e473dd5beed
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Sun May 24 22:55:06 2020 -0400
-
-    SUPPORT: Add linux device model stubdom to Toolstack
-    
-    Add qemu-xen linux device model stubdomain to the Toolstack section as a
-    Tech Preview.
-    
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 06f0598b41f23c9e4cf7d8c5a05b282de92f3a35
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Oct 23 18:03:18 2020 +0200
-
-    x86emul: fix PINSRW and adjust other {,V}PINSR*
-    
-    The use of simd_packed_int together with no further update to op_bytes
-    has lead to wrong signaling of #GP(0) for PINSRW without a 16-byte
-    aligned memory operand. Use simd_none instead and override it after
-    general decoding with simd_other, like is done for the B/D/Q siblings.
-    
-    While benign, for consistency also use DstImplicit instead of DstReg
-    in x86_decode_twobyte().
-    
-    PINSR{B,D,Q} also had a stray (redundant) get_fpu() invocation, which
-    gets dropped.
-    
-    For further consistency also
-    - use src.bytes instead of op_bytes in relevant memcpy() invocations,
-    - avoid the pointless updating of op_bytes (all we care about later is
-      that the value be less than 16).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 9af5e2b31b4e6f3892b4614ecd0a619af5d64d7e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/store: don't use symbolic links for external files
-    
-    Instead of using symbolic links to include files from xenstored use
-    the vpath directive and an include path.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 588756db020e73e6f5e4407bbf78fbd53f15b731
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/guest: don't use symbolic links for xenctrl headers
-    
-    Instead of using symbolic links for accessing the xenctrl private
-    headers use an include path instead.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 4664034cdc720a52913bc26358240bb9d3798527
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs: move official headers to common directory
-    
-    Instead of each library having an own include directory move the
-    official headers to tools/include instead. This will drop the need to
-    link those headers to tools/include and there is no need any longer
-    to have library-specific include paths when building Xen.
-    
-    While at it remove setting of the unused variable
-    PKG_CONFIG_CFLAGS_LOCAL in libs/*/Makefile.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 154137dfdba334348887baf0be9693c407f7cef3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Oct 7 08:50:03 2020 +0200
-
-    stubdom: add xenstore pvh stubdom
-    
-    Add a PVH xenstore stubdom in order to support a Xenstore stubdom on
-    a hypervisor built without PV-support.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f89955449c5a47ff688e91873bbce4c3670ed9fe
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:10 2020 +0200
-
-    tools/init-xenstore-domain: support xenstore pvh stubdom
-    
-    Instead of creating the xenstore-stubdom domain first and parsing the
-    kernel later do it the other way round. This enables to probe for the
-    domain type supported by the xenstore-stubdom and to support both, pv
-    and pvh type stubdoms.
-    
-    Try to parse the stubdom image first for PV support, if this fails use
-    HVM. Then create the domain with the appropriate type selected.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 56c1aca6a2bc013f45e7af2fa88605a693402770
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:09 2020 +0200
-
-    tools/init-xenstore-domain: add logging
-    
-    Add a possibility to do logging in init-xenstore-domain: use -v[...]
-    for selecting the log-level as in xl, log to stderr.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 70cf8e9acada638f68c1c597d7580500d9f21c91
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:44 2020 +0200
-
-    maintainers: remove unreachable remus maintainer
-    
-    The mails for Yang Hongyang are bouncing, remove him from MAINTAINERS
-    file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 032a96e5ef38f96eccfebbf8a0dbd83dc7beb625
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:43 2020 +0200
-
-    maintainers: fix libxl paths
-    
-    Fix the paths of libxl in the MAINTAINERS file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-(qemu changes not included)
+-- 
+Julien Grall
 
