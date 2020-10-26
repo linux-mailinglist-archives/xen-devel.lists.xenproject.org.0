@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC4F3298945
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:13:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12090.31753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83867298956
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:17:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12125.31786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyZX-0005NC-KL; Mon, 26 Oct 2020 09:13:47 +0000
+	id 1kWycZ-0006Eu-5L; Mon, 26 Oct 2020 09:16:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12090.31753; Mon, 26 Oct 2020 09:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 12125.31786; Mon, 26 Oct 2020 09:16:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,240 +23,299 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyZX-0005M6-8g; Mon, 26 Oct 2020 09:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 12090;
- Mon, 26 Oct 2020 09:13:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kWyZV-0004ev-EQ
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:13:45 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c71bdaa5-202f-4353-9cbf-15d9e856f476;
- Mon, 26 Oct 2020 09:13:22 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 64294B234;
- Mon, 26 Oct 2020 09:13:21 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kWycZ-0006EV-1y; Mon, 26 Oct 2020 09:16:55 +0000
+Received: by outflank-mailman (input) for mailman id 12125;
+ Mon, 26 Oct 2020 09:16:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kWycX-0006EQ-F6
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:16:53 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id aa4d873c-c7d4-48e8-81bd-2aec74265b51;
+ Mon, 26 Oct 2020 09:16:50 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWycU-0007SW-01; Mon, 26 Oct 2020 09:16:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWycT-0002VG-Nv; Mon, 26 Oct 2020 09:16:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWycT-0001WY-NU; Mon, 26 Oct 2020 09:16:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kWyZV-0004ev-EQ
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:13:45 +0000
-X-Inumbo-ID: c71bdaa5-202f-4353-9cbf-15d9e856f476
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c71bdaa5-202f-4353-9cbf-15d9e856f476;
-	Mon, 26 Oct 2020 09:13:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603703601;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zwN6kMRipkhMSsm6aORIIrosl9Cg2bYxBav4xp706Is=;
-	b=KUWQ3HmOrCVw2Woxn7ZqwEd2ZJS4dD1x3r4iRWRx7iaQ6h/Wa0CMtME9CsHhcO0Tkzsjb9
-	3ZnecGwimgvPBhBJhdeeyFwcAxOj/9AQ/G8ZWX5Gz5vaaD86LdI02gbRJswM5CnNAMIczy
-	puqEIMPjqKD3mmyoDSGU7EIsbL/aXwo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 64294B234;
-	Mon, 26 Oct 2020 09:13:21 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH 12/12] xen/cpupool: make per-cpupool sched-gran hypfs node writable
-Date: Mon, 26 Oct 2020 10:13:16 +0100
-Message-Id: <20201026091316.25680-13-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201026091316.25680-1-jgross@suse.com>
-References: <20201026091316.25680-1-jgross@suse.com>
-MIME-Version: 1.0
+	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kWycX-0006EQ-F6
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:16:53 +0000
+X-Inumbo-ID: aa4d873c-c7d4-48e8-81bd-2aec74265b51
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id aa4d873c-c7d4-48e8-81bd-2aec74265b51;
+	Mon, 26 Oct 2020 09:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LHVGQkeZMShKVXyJ+zz75hHsfXBF+MjXVc8Auk8SprY=; b=XMyzgXFtUI7mhwzK26OfbvCu0M
+	TBHWU8jjYKmO7OIKzM9JUBYH0+eUtoq6UeKHWyVUHp7eXhnWRj4L3SfEGF7d7Dur3X5E2JFTttUqt
+	GkvhG7lL1I0f+gZn13O7gKUA1HBaKoMQnuble4b7VAtF4YlzYSmPKkMQxdPN5IH2VTmw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWycU-0007SW-01; Mon, 26 Oct 2020 09:16:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWycT-0002VG-Nv; Mon, 26 Oct 2020 09:16:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWycT-0001WY-NU; Mon, 26 Oct 2020 09:16:49 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156237-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 156237: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=4ddd6499d999a7d08cabfda5b0262e473dd5beed
+X-Osstest-Versions-That:
+    xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 26 Oct 2020 09:16:49 +0000
 
-Make /cpupool/<id>/sched-gran in hypfs writable. This will enable per
-cpupool selectable scheduling granularity.
+flight 156237 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156237/
 
-Writing this node is allowed only with no cpu assigned to the cpupool.
-Allowed are values "cpu", "core" and "socket".
+Regressions :-(
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- docs/misc/hypfs-paths.pandoc |  5 ++-
- xen/common/sched/cpupool.c   | 75 +++++++++++++++++++++++++++++++-----
- 2 files changed, 69 insertions(+), 11 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 156117
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
+ build-armhf                   6 xen-build                fail REGR. vs. 156117
 
-diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
-index f1ce24d7fe..e86f7d0dbe 100644
---- a/docs/misc/hypfs-paths.pandoc
-+++ b/docs/misc/hypfs-paths.pandoc
-@@ -184,10 +184,13 @@ A directory of all current cpupools.
- The individual cpupools. Each entry is a directory with the name being the
- cpupool-id (e.g. /cpupool/0/).
- 
--#### /cpupool/*/sched-gran = ("cpu" | "core" | "socket")
-+#### /cpupool/*/sched-gran = ("cpu" | "core" | "socket") [w]
- 
- The scheduling granularity of a cpupool.
- 
-+Writing a value is allowed only for cpupools with no cpu assigned and if the
-+architecture is supporting different scheduling granularities.
-+
- #### /params/
- 
- A directory of runtime parameters.
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index 8674ac0fdd..d0c61fb720 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -78,7 +78,7 @@ static void sched_gran_print(enum sched_gran mode, unsigned int gran)
- }
- 
- #ifdef CONFIG_HAS_SCHED_GRANULARITY
--static int __init sched_select_granularity(const char *str)
-+static int sched_gran_get(const char *str, enum sched_gran *mode)
- {
-     unsigned int i;
- 
-@@ -86,36 +86,43 @@ static int __init sched_select_granularity(const char *str)
-     {
-         if ( strcmp(sg_name[i].name, str) == 0 )
-         {
--            opt_sched_granularity = sg_name[i].mode;
-+            *mode = sg_name[i].mode;
-             return 0;
-         }
-     }
- 
-     return -EINVAL;
- }
-+
-+static int __init sched_select_granularity(const char *str)
-+{
-+    return sched_gran_get(str, &opt_sched_granularity);
-+}
- custom_param("sched-gran", sched_select_granularity);
-+#else
-+static int sched_gran_get(const char *str, enum sched_gran *mode)
-+{
-+    return -EINVAL;
-+}
- #endif
- 
--static unsigned int __init cpupool_check_granularity(void)
-+static unsigned int cpupool_check_granularity(enum sched_gran mode)
- {
-     unsigned int cpu;
-     unsigned int siblings, gran = 0;
- 
--    if ( opt_sched_granularity == SCHED_GRAN_cpu )
-+    if ( mode == SCHED_GRAN_cpu )
-         return 1;
- 
-     for_each_online_cpu ( cpu )
-     {
--        siblings = cpumask_weight(sched_get_opt_cpumask(opt_sched_granularity,
--                                                        cpu));
-+        siblings = cpumask_weight(sched_get_opt_cpumask(mode, cpu));
-         if ( gran == 0 )
-             gran = siblings;
-         else if ( gran != siblings )
-             return 0;
-     }
- 
--    sched_disable_smt_switching = true;
--
-     return gran;
- }
- 
-@@ -127,7 +134,7 @@ static void __init cpupool_gran_init(void)
- 
-     while ( gran == 0 )
-     {
--        gran = cpupool_check_granularity();
-+        gran = cpupool_check_granularity(opt_sched_granularity);
- 
-         if ( gran == 0 )
-         {
-@@ -153,6 +160,9 @@ static void __init cpupool_gran_init(void)
-     if ( fallback )
-         warning_add(fallback);
- 
-+    if ( opt_sched_granularity != SCHED_GRAN_cpu )
-+        sched_disable_smt_switching = true;
-+
-     sched_granularity = gran;
-     sched_gran_print(opt_sched_granularity, sched_granularity);
- }
-@@ -1088,13 +1098,58 @@ static int cpupool_gran_read(const struct hypfs_entry *entry,
-     return copy_to_guest(uaddr, name, strlen(name) + 1) ? -EFAULT : 0;
- }
- 
-+static int cpupool_gran_write(struct hypfs_entry_leaf *leaf,
-+                              XEN_GUEST_HANDLE_PARAM(void) uaddr,
-+                              unsigned int ulen)
-+{
-+    const struct hypfs_dyndir_id *data;
-+    struct cpupool *cpupool;
-+    enum sched_gran gran;
-+    unsigned int sched_gran;
-+    char name[SCHED_GRAN_NAME_LEN];
-+    int ret = 0;
-+
-+    if ( ulen > SCHED_GRAN_NAME_LEN )
-+        return -ENOSPC;
-+
-+    if ( copy_from_guest(name, uaddr, ulen) )
-+        return -EFAULT;
-+
-+    sched_gran = sched_gran_get(name, &gran) ? 0
-+                                             : cpupool_check_granularity(gran);
-+    if ( memchr(name, 0, ulen) != (name + ulen - 1) || sched_gran == 0 )
-+        return -EINVAL;
-+
-+    data = hypfs_get_dyndata();
-+    if ( !data )
-+        return -ENOENT;
-+
-+    spin_lock(&cpupool_lock);
-+
-+    cpupool = __cpupool_find_by_id(data->id, true);
-+    if ( !cpupool )
-+        ret = -ENOENT;
-+    else if ( !cpumask_empty(cpupool->cpu_valid) )
-+        ret = -EBUSY;
-+    else
-+    {
-+        cpupool->gran = gran;
-+        cpupool->sched_gran = sched_gran;
-+    }
-+
-+    spin_unlock(&cpupool_lock);
-+
-+    return ret;
-+}
-+
- static struct hypfs_funcs cpupool_gran_funcs = {
-     .read = cpupool_gran_read,
-+    .write = cpupool_gran_write,
-     .getsize = hypfs_getsize,
- };
- 
- static HYPFS_VARSIZE_INIT(cpupool_gran, XEN_HYPFS_TYPE_STRING, "sched-gran",
--                          0, &cpupool_gran_funcs);
-+                          SCHED_GRAN_NAME_LEN, &cpupool_gran_funcs);
- static char granstr[SCHED_GRAN_NAME_LEN] = {
-     [0 ... SCHED_GRAN_NAME_LEN - 2] = '?',
-     [SCHED_GRAN_NAME_LEN - 1] = 0
--- 
-2.26.2
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
 
+version targeted for testing:
+ xen                  4ddd6499d999a7d08cabfda5b0262e473dd5beed
+baseline version:
+ xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+
+Last test of basis   156117  2020-10-23 09:01:23 Z    3 days
+Failing since        156120  2020-10-23 14:01:24 Z    2 days   34 attempts
+Testing same since   156129  2020-10-23 18:01:24 Z    2 days   33 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 4ddd6499d999a7d08cabfda5b0262e473dd5beed
+Author: Jason Andryuk <jandryuk@gmail.com>
+Date:   Sun May 24 22:55:06 2020 -0400
+
+    SUPPORT: Add linux device model stubdom to Toolstack
+    
+    Add qemu-xen linux device model stubdomain to the Toolstack section as a
+    Tech Preview.
+    
+    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+    Acked-by: George Dunlap <george.dunlap@citrix.com>
+    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+commit 06f0598b41f23c9e4cf7d8c5a05b282de92f3a35
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Oct 23 18:03:18 2020 +0200
+
+    x86emul: fix PINSRW and adjust other {,V}PINSR*
+    
+    The use of simd_packed_int together with no further update to op_bytes
+    has lead to wrong signaling of #GP(0) for PINSRW without a 16-byte
+    aligned memory operand. Use simd_none instead and override it after
+    general decoding with simd_other, like is done for the B/D/Q siblings.
+    
+    While benign, for consistency also use DstImplicit instead of DstReg
+    in x86_decode_twobyte().
+    
+    PINSR{B,D,Q} also had a stray (redundant) get_fpu() invocation, which
+    gets dropped.
+    
+    For further consistency also
+    - use src.bytes instead of op_bytes in relevant memcpy() invocations,
+    - avoid the pointless updating of op_bytes (all we care about later is
+      that the value be less than 16).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 9af5e2b31b4e6f3892b4614ecd0a619af5d64d7e
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Oct 19 17:27:54 2020 +0200
+
+    tools/libs/store: don't use symbolic links for external files
+    
+    Instead of using symbolic links to include files from xenstored use
+    the vpath directive and an include path.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Christian Lindig <christian.lindig@citrix.com>
+    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 588756db020e73e6f5e4407bbf78fbd53f15b731
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Oct 19 17:27:54 2020 +0200
+
+    tools/libs/guest: don't use symbolic links for xenctrl headers
+    
+    Instead of using symbolic links for accessing the xenctrl private
+    headers use an include path instead.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Christian Lindig <christian.lindig@citrix.com>
+    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 4664034cdc720a52913bc26358240bb9d3798527
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Oct 19 17:27:54 2020 +0200
+
+    tools/libs: move official headers to common directory
+    
+    Instead of each library having an own include directory move the
+    official headers to tools/include instead. This will drop the need to
+    link those headers to tools/include and there is no need any longer
+    to have library-specific include paths when building Xen.
+    
+    While at it remove setting of the unused variable
+    PKG_CONFIG_CFLAGS_LOCAL in libs/*/Makefile.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Christian Lindig <christian.lindig@citrix.com>
+    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 154137dfdba334348887baf0be9693c407f7cef3
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Oct 7 08:50:03 2020 +0200
+
+    stubdom: add xenstore pvh stubdom
+    
+    Add a PVH xenstore stubdom in order to support a Xenstore stubdom on
+    a hypervisor built without PV-support.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit f89955449c5a47ff688e91873bbce4c3670ed9fe
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Oct 23 15:53:10 2020 +0200
+
+    tools/init-xenstore-domain: support xenstore pvh stubdom
+    
+    Instead of creating the xenstore-stubdom domain first and parsing the
+    kernel later do it the other way round. This enables to probe for the
+    domain type supported by the xenstore-stubdom and to support both, pv
+    and pvh type stubdoms.
+    
+    Try to parse the stubdom image first for PV support, if this fails use
+    HVM. Then create the domain with the appropriate type selected.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 56c1aca6a2bc013f45e7af2fa88605a693402770
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Oct 23 15:53:09 2020 +0200
+
+    tools/init-xenstore-domain: add logging
+    
+    Add a possibility to do logging in init-xenstore-domain: use -v[...]
+    for selecting the log-level as in xl, log to stderr.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 70cf8e9acada638f68c1c597d7580500d9f21c91
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Sep 9 13:59:44 2020 +0200
+
+    maintainers: remove unreachable remus maintainer
+    
+    The mails for Yang Hongyang are bouncing, remove him from MAINTAINERS
+    file.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+commit 032a96e5ef38f96eccfebbf8a0dbd83dc7beb625
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Sep 9 13:59:43 2020 +0200
+
+    maintainers: fix libxl paths
+    
+    Fix the paths of libxl in the MAINTAINERS file.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+(qemu changes not included)
 
