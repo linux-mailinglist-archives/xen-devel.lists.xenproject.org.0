@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A52C298935
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4A2298936
 	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:13:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12077.31632 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.12078.31641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyZ8-0004fb-6s; Mon, 26 Oct 2020 09:13:22 +0000
+	id 1kWyZ8-0004gG-Fy; Mon, 26 Oct 2020 09:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12077.31632; Mon, 26 Oct 2020 09:13:22 +0000
+Received: by outflank-mailman (output) from mailman id 12078.31641; Mon, 26 Oct 2020 09:13:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,101 +23,87 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyZ7-0004fB-WB; Mon, 26 Oct 2020 09:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 12077;
+	id 1kWyZ8-0004fa-9U; Mon, 26 Oct 2020 09:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 12078;
  Mon, 26 Oct 2020 09:13:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kWyZ6-0004ev-F0
+ id 1kWyZ6-0004f1-Sm
  for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:13:20 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a7ee1994-9d37-4c0e-b1db-66ba1b788599;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dafdec3e-1b45-494f-b5d9-81e097f3cb5a;
  Mon, 26 Oct 2020 09:13:19 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E2543AD09;
- Mon, 26 Oct 2020 09:13:18 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 1018CB234;
+ Mon, 26 Oct 2020 09:13:19 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kWyZ6-0004ev-F0
+	id 1kWyZ6-0004f1-Sm
 	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:13:20 +0000
-X-Inumbo-ID: a7ee1994-9d37-4c0e-b1db-66ba1b788599
+X-Inumbo-ID: dafdec3e-1b45-494f-b5d9-81e097f3cb5a
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a7ee1994-9d37-4c0e-b1db-66ba1b788599;
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id dafdec3e-1b45-494f-b5d9-81e097f3cb5a;
 	Mon, 26 Oct 2020 09:13:19 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1603703599;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WPHkwaEWfDmd0odQcx9LNDu44X1lNTuYJeY875Uf7Qk=;
-	b=Qgn2ng78n2EdKBNLg80HBa9KEs1RO+4k9e8NvY8ZVXNbtnGYkPP0B1sHTudpLgvMh4e6xo
-	oyGeGxRJSBiL8XfeAbZZG7stq98Cw77nY8+X6VQ9Rf06HwKGWOf04p1ou4kiPHf/7Nf/7C
-	zeOECLuVR7Obc314stQ8LuXm9R2WLJU=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S+BqtDReQpO+TXL58A4bLpNMJ+nOUR/20v/rJyuhuj4=;
+	b=jIQEYVwFJQcO6tgFsP5y643ojuRqFb0JEVZyJ8pBXnPRDkcdWxnb7+NoRXv84suKMhSrBV
+	3vDphIgKzxy01drPzNsfPJGIqunAyg2YYodaHLQep5/3+kytO/1QcnD2qqkxeu32O/V7Wd
+	dOpMtsCMVoo/eFfH4gkcMaRo26xLKY0=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E2543AD09;
-	Mon, 26 Oct 2020 09:13:18 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 1018CB234;
+	Mon, 26 Oct 2020 09:13:19 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 00/12] xen: support per-cpupool scheduling granularity
-Date: Mon, 26 Oct 2020 10:13:04 +0100
-Message-Id: <20201026091316.25680-1-jgross@suse.com>
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [PATCH 01/12] xen/cpupool: add cpu to sched_res_mask when removing it from cpupool
+Date: Mon, 26 Oct 2020 10:13:05 +0100
+Message-Id: <20201026091316.25680-2-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201026091316.25680-1-jgross@suse.com>
+References: <20201026091316.25680-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support scheduling granularity per cpupool. Setting the granularity is
-done via hypfs, which needed to gain dynamical entries for that
-purpose.
+When a cpu is removed from a cpupool and added to the free cpus it
+should be added to sched_res_mask, too.
 
-Apart from the hypfs related additional functionality the main change
-for cpupools was the support for moving a domain to a new granularity,
-as this requires to modify the scheduling unit/vcpu relationship.
+The related removal from sched_res_mask in case of core scheduling
+is already done in schedule_cpu_add().
 
-I have tried to do the hypfs modifications in a rather generic way in
-order to be able to use the same infrastructure in other cases, too
-(e.g. for per-domain entries).
+As long as all cpupools share the same scheduling granularity there
+is nothing going wrong with the missing removal, but this will change
+when per-cpupool granularity is fully supported.
 
-The complete series has been tested by creating cpupools with different
-granularities and moving busy and idle domains between those.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Juergen Gross (12):
-  xen/cpupool: add cpu to sched_res_mask when removing it from cpupool
-  xen/cpupool: add missing bits for per-cpupool scheduling granularity
-  xen/sched: support moving a domain between cpupools with different
-    granularity
-  xen/sched: sort included headers in cpupool.c
-  docs: fix hypfs path documentation
-  xen/hypfs: move per-node function pointers into a dedicated struct
-  xen/hypfs: pass real failure reason up from hypfs_get_entry()
-  xen/hypfs: support dynamic hypfs nodes
-  xen/hypfs: add support for id-based dynamic directories
-  xen/hypfs: add cpupool directories
-  xen/hypfs: add scheduling granularity entry to cpupool entries
-  xen/cpupool: make per-cpupool sched-gran hypfs node writable
-
- docs/misc/hypfs-paths.pandoc |  18 ++-
- xen/common/hypfs.c           | 233 +++++++++++++++++++++++++++--------
- xen/common/sched/core.c      | 122 +++++++++++++-----
- xen/common/sched/cpupool.c   | 213 +++++++++++++++++++++++++++++---
- xen/common/sched/private.h   |   1 +
- xen/include/xen/hypfs.h      | 106 +++++++++++-----
- xen/include/xen/param.h      |  15 +--
- 7 files changed, 567 insertions(+), 141 deletions(-)
-
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index ed973e90ec..f8c81592af 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -3189,6 +3189,7 @@ int schedule_cpu_rm(unsigned int cpu)
+             /* Adjust cpu masks of resources (old and new). */
+             cpumask_clear_cpu(cpu_iter, sr->cpus);
+             cpumask_set_cpu(cpu_iter, sr_new[idx]->cpus);
++            cpumask_set_cpu(cpu_iter, &sched_res_mask);
+ 
+             /* Init timer. */
+             init_timer(&sr_new[idx]->s_timer, s_timer_fn, NULL, cpu_iter);
 -- 
 2.26.2
 
