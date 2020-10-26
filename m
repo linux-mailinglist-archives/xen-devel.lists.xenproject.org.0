@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83867298956
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:17:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12125.31786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A32BF29895C
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:20:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12130.31801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWycZ-0006Eu-5L; Mon, 26 Oct 2020 09:16:55 +0000
+	id 1kWyfS-0006R2-PJ; Mon, 26 Oct 2020 09:19:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12125.31786; Mon, 26 Oct 2020 09:16:55 +0000
+Received: by outflank-mailman (output) from mailman id 12130.31801; Mon, 26 Oct 2020 09:19:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,299 +23,195 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWycZ-0006EV-1y; Mon, 26 Oct 2020 09:16:55 +0000
-Received: by outflank-mailman (input) for mailman id 12125;
- Mon, 26 Oct 2020 09:16:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kWycX-0006EQ-F6
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:16:53 +0000
+	id 1kWyfS-0006Qg-Ls; Mon, 26 Oct 2020 09:19:54 +0000
+Received: by outflank-mailman (input) for mailman id 12130;
+ Mon, 26 Oct 2020 09:19:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kWyfR-0006Qa-0Q
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:19:53 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aa4d873c-c7d4-48e8-81bd-2aec74265b51;
- Mon, 26 Oct 2020 09:16:50 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ecb3a476-f323-44eb-a5b0-6d249f5651f9;
+ Mon, 26 Oct 2020 09:19:51 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWycU-0007SW-01; Mon, 26 Oct 2020 09:16:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kWycT-0002VG-Nv; Mon, 26 Oct 2020 09:16:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kWycT-0001WY-NU; Mon, 26 Oct 2020 09:16:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <julien@xen.org>)
+ id 1kWyfP-0007Wa-Gv; Mon, 26 Oct 2020 09:19:51 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kWyfP-0003V7-8L; Mon, 26 Oct 2020 09:19:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kWycX-0006EQ-F6
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:16:53 +0000
-X-Inumbo-ID: aa4d873c-c7d4-48e8-81bd-2aec74265b51
+	(envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kWyfR-0006Qa-0Q
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:19:53 +0000
+X-Inumbo-ID: ecb3a476-f323-44eb-a5b0-6d249f5651f9
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id aa4d873c-c7d4-48e8-81bd-2aec74265b51;
-	Mon, 26 Oct 2020 09:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=LHVGQkeZMShKVXyJ+zz75hHsfXBF+MjXVc8Auk8SprY=; b=XMyzgXFtUI7mhwzK26OfbvCu0M
-	TBHWU8jjYKmO7OIKzM9JUBYH0+eUtoq6UeKHWyVUHp7eXhnWRj4L3SfEGF7d7Dur3X5E2JFTttUqt
-	GkvhG7lL1I0f+gZn13O7gKUA1HBaKoMQnuble4b7VAtF4YlzYSmPKkMQxdPN5IH2VTmw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ecb3a476-f323-44eb-a5b0-6d249f5651f9;
+	Mon, 26 Oct 2020 09:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=TwqRLlzS+yxeNwh1I7UD8QFuBcRJ1HFGwuFy1gl9RIM=; b=onBis+YKjjNCmETM122acl/iET
+	tnYgrOT9FLL/F0YkjiMkz/KnpMdI3UfZRgHGkrpKTv0KUBdrhENx6QVdwYKvLLWp8vK2zTQ/VtQ5z
+	hdvPJgWUBRVvtLmOZmU0WzUky/BQlQqrnFX9h7fKxvgMunUqz/YP6yRY5ld5d92ECREM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWycU-0007SW-01; Mon, 26 Oct 2020 09:16:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWycT-0002VG-Nv; Mon, 26 Oct 2020 09:16:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWycT-0001WY-NU; Mon, 26 Oct 2020 09:16:49 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156237-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <julien@xen.org>)
+	id 1kWyfP-0007Wa-Gv; Mon, 26 Oct 2020 09:19:51 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kWyfP-0003V7-8L; Mon, 26 Oct 2020 09:19:51 +0000
+Subject: Re: [PATCH] xen/arm: Remove EXPERT dependancy
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20201022014310.GA70872@mattapan.m5p.com>
+ <7bf92deb-b1ba-31b2-0357-2639cd2a1bca@xen.org>
+ <alpine.DEB.2.21.2010221403570.12247@sstabellini-ThinkPad-T480s>
+ <b4ec906d-ebb6-add9-1bc0-39ab8d588026@xen.org>
+ <alpine.DEB.2.21.2010230944090.12247@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <bf3b65d2-2642-f1f6-39f1-2f88433e9901@xen.org>
+Date: Mon, 26 Oct 2020 09:19:49 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156237: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=4ddd6499d999a7d08cabfda5b0262e473dd5beed
-X-Osstest-Versions-That:
-    xen=6ca70821b59849ad97c3fadc47e63c1a4af1a78c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Oct 2020 09:16:49 +0000
+In-Reply-To: <alpine.DEB.2.21.2010230944090.12247@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 156237 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156237/
+Hi Stefano,
 
-Regressions :-(
+On 23/10/2020 17:57, Stefano Stabellini wrote:
+> On Fri, 23 Oct 2020, Julien Grall wrote:
+>> Hi Stefano,
+>>
+>> On 22/10/2020 22:17, Stefano Stabellini wrote:
+>>> On Thu, 22 Oct 2020, Julien Grall wrote:
+>>>> On 22/10/2020 02:43, Elliott Mitchell wrote:
+>>>>> Linux requires UEFI support to be enabled on ARM64 devices.  While many
+>>>>> ARM64 devices lack ACPI, the writing seems to be on the wall of
+>>>>> UEFI/ACPI
+>>>>> potentially taking over.  Some common devices may need ACPI table
+>>>>> support.
+>>>>>
+>>>>> Presently I think it is worth removing the dependancy on CONFIG_EXPERT.
+>>>>
+>>>> The idea behind EXPERT is to gate any feature that is not considered to be
+>>>> stable/complete enough to be used in production.
+>>>
+>>> Yes, and from that point of view I don't think we want to remove EXPERT
+>>> from ACPI yet. However, the idea of hiding things behind EXPERT works
+>>> very well for new esoteric features, something like memory introspection
+>>> or memory overcommit.
+>>
+>> Memaccess is not very new ;).
+>>
+>>> It does not work well for things that are actually
+>>> required to boot on the platform.
+>>
+>> I am not sure where is the problem. It is easy to select EXPERT from the
+>> menuconfig. It also hints the user that the feature may not fully work.
+>>
+>>>
+>>> Typically ACPI systems don't come with device tree at all (RPi4 being an
+>>> exception), so users don't really have much of a choice in the matter.
+>>
+>> And they typically have IOMMUs.
+>>
+>>>
+>>>   From that point of view, it would be better to remove EXPERT from ACPI,
+>>> maybe even build ACPI by default, *but* to add a warning at boot saying
+>>> something like:
+>>>
+>>> "ACPI support is experimental. Boot using Device Tree if you can."
+>>>
+>>>
+>>> That would better convey the risks of using ACPI, while at the same time
+>>> making it a bit easier for users to boot on their ACPI-only platforms.
+>>
+>> Right, I agree that this make easier for users to boot Xen on ACPI-only
+>> platform. However, based on above, it is easy enough for a developper to
+>> rebuild Xen with ACPI and EXPERT enabled.
+>>
+>> So what sort of users are you targeting?
+> 
+> Somebody trying Xen for the first time, they might know how to build it
+> but they might not know that ACPI is not available by default, and they
+> might not know that they need to enable EXPERT in order to get the ACPI
+> option in the menu. It is easy to do once you know it is there,
+> otherwise one might not know where to look in the menu.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 156117
- build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
- build-armhf                   6 xen-build                fail REGR. vs. 156117
+Right, EXPERT can now be enabled using Kconfig. So it is not very 
+different from an option Foo has been hidden because the dependency Bar 
+has not been selected.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+It should be easy enough (if it is not we should fix it) to figure out 
+the dependency when searching the option via menuconfig.
 
-version targeted for testing:
- xen                  4ddd6499d999a7d08cabfda5b0262e473dd5beed
-baseline version:
- xen                  6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+> 
+> 
+>> I am sort of okay to remove EXPERT.
+> 
+> OK. This would help (even without building it by default) because as you
+> go and look at the menu the first time, you'll find ACPI among the
+> options right away.
 
-Last test of basis   156117  2020-10-23 09:01:23 Z    3 days
-Failing since        156120  2020-10-23 14:01:24 Z    2 days   34 attempts
-Testing same since   156129  2020-10-23 18:01:24 Z    2 days   33 attempts
+To be honest, this step is probably the easiest in the full process to 
+get Xen build and booted on Arm.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
+I briefly looked at Elliot's v2, and I can't keep thinking that we are 
+trying to re-invent EXPERT for ACPI because we think the feature is 
+*more* important than any other feature gated by EXPERT.
 
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+In fact, all the features behind EXPERT are important. But they have 
+been gated by EXPERT because they are not mature enough.
 
+We already moved EXPERT from a command line option to a menuconfig 
+option. So it should be easy enough to enable it now. If it still not 
+the case, then we should improve it.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+But I don't think ACPI is mature enough to deserve a different 
+treatment. It would be more useful to get to the stage where ACPI can 
+work without any crash/issue first.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> 
+> 
+>> But I still think building ACPI by default
+>> is still wrong because our default .config is meant to be (security)
+>> supported. I don't think ACPI can earn this qualification today.
+> 
+> Certainly we don't want to imply ACPI is security supported. I was
+> looking at SUPPORT.md and it is only says:
+> 
+> """
+> EXPERT and DEBUG Kconfig options are not security supported. Other
+> Kconfig options are supported, if the related features are marked as
+> supported in this document.
+> """
+> 
+> So technically we could enable ACPI in the build by default as ACPI for
+> ARM is marked as experimental. However, I can see that it is not a
+> great idea to enable by default an unsupported option in the kconfig, so
+> from that point of view it might be best to leave ACPI disabled by
+> default. Probably the best compromise at this time.
+ From my understanding, the goal of EXPERT was to gate such features. 
+With your suggestion, it is not clear to me what's the difference 
+between "experimental" and option gated by "EXPERT".
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Do you mind clarifying?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Not pushing.
-
-------------------------------------------------------------
-commit 4ddd6499d999a7d08cabfda5b0262e473dd5beed
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Sun May 24 22:55:06 2020 -0400
-
-    SUPPORT: Add linux device model stubdom to Toolstack
-    
-    Add qemu-xen linux device model stubdomain to the Toolstack section as a
-    Tech Preview.
-    
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 06f0598b41f23c9e4cf7d8c5a05b282de92f3a35
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Oct 23 18:03:18 2020 +0200
-
-    x86emul: fix PINSRW and adjust other {,V}PINSR*
-    
-    The use of simd_packed_int together with no further update to op_bytes
-    has lead to wrong signaling of #GP(0) for PINSRW without a 16-byte
-    aligned memory operand. Use simd_none instead and override it after
-    general decoding with simd_other, like is done for the B/D/Q siblings.
-    
-    While benign, for consistency also use DstImplicit instead of DstReg
-    in x86_decode_twobyte().
-    
-    PINSR{B,D,Q} also had a stray (redundant) get_fpu() invocation, which
-    gets dropped.
-    
-    For further consistency also
-    - use src.bytes instead of op_bytes in relevant memcpy() invocations,
-    - avoid the pointless updating of op_bytes (all we care about later is
-      that the value be less than 16).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 9af5e2b31b4e6f3892b4614ecd0a619af5d64d7e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/store: don't use symbolic links for external files
-    
-    Instead of using symbolic links to include files from xenstored use
-    the vpath directive and an include path.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 588756db020e73e6f5e4407bbf78fbd53f15b731
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs/guest: don't use symbolic links for xenctrl headers
-    
-    Instead of using symbolic links for accessing the xenctrl private
-    headers use an include path instead.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 4664034cdc720a52913bc26358240bb9d3798527
-Author: Juergen Gross <jgross@suse.com>
-Date:   Mon Oct 19 17:27:54 2020 +0200
-
-    tools/libs: move official headers to common directory
-    
-    Instead of each library having an own include directory move the
-    official headers to tools/include instead. This will drop the need to
-    link those headers to tools/include and there is no need any longer
-    to have library-specific include paths when building Xen.
-    
-    While at it remove setting of the unused variable
-    PKG_CONFIG_CFLAGS_LOCAL in libs/*/Makefile.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Christian Lindig <christian.lindig@citrix.com>
-    Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 154137dfdba334348887baf0be9693c407f7cef3
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Oct 7 08:50:03 2020 +0200
-
-    stubdom: add xenstore pvh stubdom
-    
-    Add a PVH xenstore stubdom in order to support a Xenstore stubdom on
-    a hypervisor built without PV-support.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit f89955449c5a47ff688e91873bbce4c3670ed9fe
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:10 2020 +0200
-
-    tools/init-xenstore-domain: support xenstore pvh stubdom
-    
-    Instead of creating the xenstore-stubdom domain first and parsing the
-    kernel later do it the other way round. This enables to probe for the
-    domain type supported by the xenstore-stubdom and to support both, pv
-    and pvh type stubdoms.
-    
-    Try to parse the stubdom image first for PV support, if this fails use
-    HVM. Then create the domain with the appropriate type selected.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 56c1aca6a2bc013f45e7af2fa88605a693402770
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Oct 23 15:53:09 2020 +0200
-
-    tools/init-xenstore-domain: add logging
-    
-    Add a possibility to do logging in init-xenstore-domain: use -v[...]
-    for selecting the log-level as in xl, log to stderr.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 70cf8e9acada638f68c1c597d7580500d9f21c91
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:44 2020 +0200
-
-    maintainers: remove unreachable remus maintainer
-    
-    The mails for Yang Hongyang are bouncing, remove him from MAINTAINERS
-    file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 032a96e5ef38f96eccfebbf8a0dbd83dc7beb625
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Sep 9 13:59:43 2020 +0200
-
-    maintainers: fix libxl paths
-    
-    Fix the paths of libxl in the MAINTAINERS file.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-(qemu changes not included)
+-- 
+Julien Grall
 
