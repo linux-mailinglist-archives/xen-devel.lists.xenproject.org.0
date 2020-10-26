@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A32BF29895C
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:20:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12130.31801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3280229896F
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 10:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12141.31814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyfS-0006R2-PJ; Mon, 26 Oct 2020 09:19:54 +0000
+	id 1kWyqV-00085q-Pb; Mon, 26 Oct 2020 09:31:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12130.31801; Mon, 26 Oct 2020 09:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 12141.31814; Mon, 26 Oct 2020 09:31:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,195 +23,266 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWyfS-0006Qg-Ls; Mon, 26 Oct 2020 09:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 12130;
- Mon, 26 Oct 2020 09:19:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kWyfR-0006Qa-0Q
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:19:53 +0000
+	id 1kWyqV-00085R-MK; Mon, 26 Oct 2020 09:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 12141;
+ Mon, 26 Oct 2020 09:31:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kWyqU-00085M-10
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:31:18 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ecb3a476-f323-44eb-a5b0-6d249f5651f9;
- Mon, 26 Oct 2020 09:19:51 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 08c7d4de-0787-4f43-82c0-979cfea668b3;
+ Mon, 26 Oct 2020 09:31:11 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kWyfP-0007Wa-Gv; Mon, 26 Oct 2020 09:19:51 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kWyfP-0003V7-8L; Mon, 26 Oct 2020 09:19:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWyqN-0007nT-3i; Mon, 26 Oct 2020 09:31:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWyqM-0002qV-OU; Mon, 26 Oct 2020 09:31:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kWyqM-0005Vu-O2; Mon, 26 Oct 2020 09:31:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kWyfR-0006Qa-0Q
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:19:53 +0000
-X-Inumbo-ID: ecb3a476-f323-44eb-a5b0-6d249f5651f9
+	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kWyqU-00085M-10
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 09:31:18 +0000
+X-Inumbo-ID: 08c7d4de-0787-4f43-82c0-979cfea668b3
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ecb3a476-f323-44eb-a5b0-6d249f5651f9;
-	Mon, 26 Oct 2020 09:19:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=TwqRLlzS+yxeNwh1I7UD8QFuBcRJ1HFGwuFy1gl9RIM=; b=onBis+YKjjNCmETM122acl/iET
-	tnYgrOT9FLL/F0YkjiMkz/KnpMdI3UfZRgHGkrpKTv0KUBdrhENx6QVdwYKvLLWp8vK2zTQ/VtQ5z
-	hdvPJgWUBRVvtLmOZmU0WzUky/BQlQqrnFX9h7fKxvgMunUqz/YP6yRY5ld5d92ECREM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 08c7d4de-0787-4f43-82c0-979cfea668b3;
+	Mon, 26 Oct 2020 09:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pg3EQY6zNyUxAc7wD0TFmIU/uRenucI/bSHgOmfkTbc=; b=SF3sxSS1wlTOeOJpd2imXodlFJ
+	m47egVnKO2Ogldpk3aU8xylzab83ctWA+BRtymlQIfHY/cqjam90vf8nrInoVnWE3hjxz4Q3r1z3y
+	fqMvYIdu1XnxqyzNZJEyC33EtkldqMJ2zwQyBTOV+WmdLsVs2qZ4SlDcYynq/bITHkS4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kWyfP-0007Wa-Gv; Mon, 26 Oct 2020 09:19:51 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kWyfP-0003V7-8L; Mon, 26 Oct 2020 09:19:51 +0000
-Subject: Re: [PATCH] xen/arm: Remove EXPERT dependancy
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20201022014310.GA70872@mattapan.m5p.com>
- <7bf92deb-b1ba-31b2-0357-2639cd2a1bca@xen.org>
- <alpine.DEB.2.21.2010221403570.12247@sstabellini-ThinkPad-T480s>
- <b4ec906d-ebb6-add9-1bc0-39ab8d588026@xen.org>
- <alpine.DEB.2.21.2010230944090.12247@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bf3b65d2-2642-f1f6-39f1-2f88433e9901@xen.org>
-Date: Mon, 26 Oct 2020 09:19:49 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.0
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWyqN-0007nT-3i; Mon, 26 Oct 2020 09:31:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWyqM-0002qV-OU; Mon, 26 Oct 2020 09:31:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kWyqM-0005Vu-O2; Mon, 26 Oct 2020 09:31:10 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156233-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2010230944090.12247@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 156233: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=04b1c2d1e2e12abcca22380827edaa058399f4fa
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 26 Oct 2020 09:31:10 +0000
 
-Hi Stefano,
+flight 156233 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156233/
 
-On 23/10/2020 17:57, Stefano Stabellini wrote:
-> On Fri, 23 Oct 2020, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 22/10/2020 22:17, Stefano Stabellini wrote:
->>> On Thu, 22 Oct 2020, Julien Grall wrote:
->>>> On 22/10/2020 02:43, Elliott Mitchell wrote:
->>>>> Linux requires UEFI support to be enabled on ARM64 devices.  While many
->>>>> ARM64 devices lack ACPI, the writing seems to be on the wall of
->>>>> UEFI/ACPI
->>>>> potentially taking over.  Some common devices may need ACPI table
->>>>> support.
->>>>>
->>>>> Presently I think it is worth removing the dependancy on CONFIG_EXPERT.
->>>>
->>>> The idea behind EXPERT is to gate any feature that is not considered to be
->>>> stable/complete enough to be used in production.
->>>
->>> Yes, and from that point of view I don't think we want to remove EXPERT
->>> from ACPI yet. However, the idea of hiding things behind EXPERT works
->>> very well for new esoteric features, something like memory introspection
->>> or memory overcommit.
->>
->> Memaccess is not very new ;).
->>
->>> It does not work well for things that are actually
->>> required to boot on the platform.
->>
->> I am not sure where is the problem. It is easy to select EXPERT from the
->> menuconfig. It also hints the user that the feature may not fully work.
->>
->>>
->>> Typically ACPI systems don't come with device tree at all (RPi4 being an
->>> exception), so users don't really have much of a choice in the matter.
->>
->> And they typically have IOMMUs.
->>
->>>
->>>   From that point of view, it would be better to remove EXPERT from ACPI,
->>> maybe even build ACPI by default, *but* to add a warning at boot saying
->>> something like:
->>>
->>> "ACPI support is experimental. Boot using Device Tree if you can."
->>>
->>>
->>> That would better convey the risks of using ACPI, while at the same time
->>> making it a bit easier for users to boot on their ACPI-only platforms.
->>
->> Right, I agree that this make easier for users to boot Xen on ACPI-only
->> platform. However, based on above, it is easy enough for a developper to
->> rebuild Xen with ACPI and EXPERT enabled.
->>
->> So what sort of users are you targeting?
-> 
-> Somebody trying Xen for the first time, they might know how to build it
-> but they might not know that ACPI is not available by default, and they
-> might not know that they need to enable EXPERT in order to get the ACPI
-> option in the menu. It is easy to do once you know it is there,
-> otherwise one might not know where to look in the menu.
+Regressions :-(
 
-Right, EXPERT can now be enabled using Kconfig. So it is not very 
-different from an option Foo has been hidden because the dependency Bar 
-has not been selected.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-It should be easy enough (if it is not we should fix it) to figure out 
-the dependency when searching the option via menuconfig.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-> 
-> 
->> I am sort of okay to remove EXPERT.
-> 
-> OK. This would help (even without building it by default) because as you
-> go and look at the menu the first time, you'll find ACPI among the
-> options right away.
+version targeted for testing:
+ libvirt              04b1c2d1e2e12abcca22380827edaa058399f4fa
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-To be honest, this step is probably the easiest in the full process to 
-get Xen build and booted on Arm.
+Last test of basis   151777  2020-07-10 04:19:19 Z  108 days
+Failing since        151818  2020-07-11 04:18:52 Z  107 days  102 attempts
+Testing same since   156163  2020-10-24 04:19:13 Z    2 days    3 attempts
 
-I briefly looked at Elliot's v2, and I can't keep thinking that we are 
-trying to re-invent EXPERT for ACPI because we think the feature is 
-*more* important than any other feature gated by EXPERT.
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
-In fact, all the features behind EXPERT are important. But they have 
-been gated by EXPERT because they are not mature enough.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-We already moved EXPERT from a command line option to a menuconfig 
-option. So it should be easy enough to enable it now. If it still not 
-the case, then we should improve it.
 
-But I don't think ACPI is mature enough to deserve a different 
-treatment. It would be more useful to get to the stage where ACPI can 
-work without any crash/issue first.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> 
-> 
->> But I still think building ACPI by default
->> is still wrong because our default .config is meant to be (security)
->> supported. I don't think ACPI can earn this qualification today.
-> 
-> Certainly we don't want to imply ACPI is security supported. I was
-> looking at SUPPORT.md and it is only says:
-> 
-> """
-> EXPERT and DEBUG Kconfig options are not security supported. Other
-> Kconfig options are supported, if the related features are marked as
-> supported in this document.
-> """
-> 
-> So technically we could enable ACPI in the build by default as ACPI for
-> ARM is marked as experimental. However, I can see that it is not a
-> great idea to enable by default an unsupported option in the kconfig, so
-> from that point of view it might be best to leave ACPI disabled by
-> default. Probably the best compromise at this time.
- From my understanding, the goal of EXPERT was to gate such features. 
-With your suggestion, it is not clear to me what's the difference 
-between "experimental" and option gated by "EXPERT".
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Do you mind clarifying?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Not pushing.
+
+(No revision log; it would be 23141 lines long.)
 
