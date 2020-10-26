@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9227298DF3
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:31:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12314.32086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35828298E07
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:35:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12318.32097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2bD-0005Tp-IF; Mon, 26 Oct 2020 13:31:47 +0000
+	id 1kX2eP-0005fH-1j; Mon, 26 Oct 2020 13:35:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12314.32086; Mon, 26 Oct 2020 13:31:47 +0000
+Received: by outflank-mailman (output) from mailman id 12318.32097; Mon, 26 Oct 2020 13:35:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,112 +23,78 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2bD-0005TQ-Eo; Mon, 26 Oct 2020 13:31:47 +0000
-Received: by outflank-mailman (input) for mailman id 12314;
- Mon, 26 Oct 2020 13:31:46 +0000
+	id 1kX2eO-0005es-Uu; Mon, 26 Oct 2020 13:35:04 +0000
+Received: by outflank-mailman (input) for mailman id 12318;
+ Mon, 26 Oct 2020 13:35:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kX2bC-0005TL-3r
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:31:46 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kX2eN-0005em-60
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:35:03 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24977410-667a-45d5-a7f5-07c358d0e611;
- Mon, 26 Oct 2020 13:31:45 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kX2bB-0004PW-1m; Mon, 26 Oct 2020 13:31:45 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kX2bA-0005DO-Qs; Mon, 26 Oct 2020 13:31:44 +0000
+ id c1e74d0d-5a5e-4627-98c8-83a66328c2b4;
+ Mon, 26 Oct 2020 13:35:02 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 22E18AD83;
+ Mon, 26 Oct 2020 13:35:01 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=6Eey=EB=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kX2bC-0005TL-3r
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:31:46 +0000
-X-Inumbo-ID: 24977410-667a-45d5-a7f5-07c358d0e611
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=l58c=EB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kX2eN-0005em-60
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:35:03 +0000
+X-Inumbo-ID: c1e74d0d-5a5e-4627-98c8-83a66328c2b4
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 24977410-667a-45d5-a7f5-07c358d0e611;
-	Mon, 26 Oct 2020 13:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=COH07By8MlJXLmXlds6S5U1Em2gVSNaKhuITL1stUJc=; b=M08Fs8OscJP1U4byw5mjknMsbz
-	or7OcQxCp59keMhStF4aMGrG+aE9nNQcwuYRvErF8P+Ua4M3IlMDEcy/jPKr0aIKb3qqlxE3JMzEq
-	7ZHAt/zgZu37aMVw5olD4n9KTbRIzpcYlpf0GRcpXZyzqsKJQcSLy3Buh2IR1dVeYa6Q=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kX2bB-0004PW-1m; Mon, 26 Oct 2020 13:31:45 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kX2bA-0005DO-Qs; Mon, 26 Oct 2020 13:31:44 +0000
-Subject: Re: Xen on RP4
-To: Elliott Mitchell <ehem+xen@m5p.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: roman@zededa.com, xen-devel@lists.xenproject.org
-References: <20201012215751.GB89158@mattapan.m5p.com>
- <c38d78bd-c011-404b-5f59-d10cd7d7f006@xen.org>
- <20201016003024.GA13290@mattapan.m5p.com>
- <23885c28-dee5-4e9a-dc43-6ccf19a94df6@xen.org>
- <20201022021655.GA74011@mattapan.m5p.com>
- <alpine.DEB.2.21.2010221620230.12247@sstabellini-ThinkPad-T480s>
- <20201023005629.GA83870@mattapan.m5p.com>
- <alpine.DEB.2.21.2010221801490.12247@sstabellini-ThinkPad-T480s>
- <20201023211941.GA90171@mattapan.m5p.com>
- <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s>
- <20201024053540.GA97417@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org>
-Date: Mon, 26 Oct 2020 13:31:42 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.0
+	id c1e74d0d-5a5e-4627-98c8-83a66328c2b4;
+	Mon, 26 Oct 2020 13:35:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603719301;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uDrOTb0Os/dYcoOTbQJ3/XBQHfsOHXatctiWkXpN9w=;
+	b=oSGxm1L+3SyqyqHuoRb6wzTCk4Vz2EwfSDYUKJav5wLxoyLmLJ+oxnvND079Yv3/lMm2/4
+	dPnombvhzXvosOCysJ02C/upxLJq99Em4BFVwSOIecVhdJzWuNLL9G/KA/pReUhCAwKzYb
+	fJQuZKlofsweFhuIGvXA6s8nr62qXcg=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 22E18AD83;
+	Mon, 26 Oct 2020 13:35:01 +0000 (UTC)
+Subject: Re: [xen-unstable-smoke test] 156241: regressions - trouble:
+ blocked/fail
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <osstest-156241-mainreport@xen.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <8528afe9-4225-1942-9f7c-54ec50379345@suse.com>
+Date: Mon, 26 Oct 2020 14:35:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201024053540.GA97417@mattapan.m5p.com>
+In-Reply-To: <osstest-156241-mainreport@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Elliott,
-
-On 24/10/2020 06:35, Elliott Mitchell wrote:
-> On Fri, Oct 23, 2020 at 04:59:30PM -0700, Stefano Stabellini wrote:
->> Note that I tried to repro the issue here at my end but it works for me
->> with device tree. So the swiotlb_init memory allocation failure probably
->> only shows on ACPI, maybe because ACPI is reserving too much low memory.
+On 26.10.20 14:27, osstest service owner wrote:
+> flight 156241 xen-unstable-smoke real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/156241/
 > 
-> Found it.  Take a look at 437b0aa06a014ce174e24c0d3530b3e9ab19b18b
+> Regressions :-(
 > 
->   PLATFORM_START(rpi4, "Raspberry Pi 4")
->       .compatible     = rpi4_dt_compat,
->       .blacklist_dev  = rpi4_blacklist_dev,
-> +    .dma_bitsize    = 30,
->   PLATFORM_END
-> 
-> Where this is used to match against a *device-tree*.
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>   build-amd64                   6 xen-build                fail REGR. vs. 156117
+>   build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
+>   build-armhf                   6 xen-build                fail REGR. vs. 156117
 
-Right. When we introduced ACPI in Xen, we made the assumption there 
-would be no need for per-platform workaround.
+I'm pretty sure these failures will be fixed by my patch
 
-> ACPI has a distinct
-> means of specifying a limited DMA-width; the above fails, because it
-> assumes a *device-tree*.
-
-Do you know if it would be possible to infer from the ACPI static table 
-the DMA-width?
-
-If not, is there a way to uniquely identify the platform?
+"tools/libs: let build depend on official headers"
 
 
-Cheers,
-
--- 
-Julien Grall
+Juergen
 
