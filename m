@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E2CE298E68
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:47:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12334.32142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03924298E7C
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 14:51:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12338.32154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2q2-0006uZ-Q6; Mon, 26 Oct 2020 13:47:06 +0000
+	id 1kX2u0-0007lF-Bk; Mon, 26 Oct 2020 13:51:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12334.32142; Mon, 26 Oct 2020 13:47:06 +0000
+Received: by outflank-mailman (output) from mailman id 12338.32154; Mon, 26 Oct 2020 13:51:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,317 +23,147 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX2q2-0006uA-Mf; Mon, 26 Oct 2020 13:47:06 +0000
-Received: by outflank-mailman (input) for mailman id 12334;
- Mon, 26 Oct 2020 13:47:05 +0000
+	id 1kX2u0-0007kq-7z; Mon, 26 Oct 2020 13:51:12 +0000
+Received: by outflank-mailman (input) for mailman id 12338;
+ Mon, 26 Oct 2020 13:51:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZY59=EB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kX2q1-0006u5-Dc
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:47:05 +0000
-Received: from mail-qt1-x841.google.com (unknown [2607:f8b0:4864:20::841])
+ <SRS0=Dsar=EB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kX2tx-0007kk-UA
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:51:10 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c7492d56-ab58-428c-a0b8-707d243889e2;
- Mon, 26 Oct 2020 13:47:04 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id m14so646035qtc.12
- for <xen-devel@lists.xenproject.org>; Mon, 26 Oct 2020 06:47:04 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:1145:a885:8e8f:3f60])
- by smtp.gmail.com with ESMTPSA id
- o14sm6882324qto.16.2020.10.26.06.47.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 06:47:02 -0700 (PDT)
+ id e895d521-8cdd-46f6-ad31-ddcdb911d708;
+ Mon, 26 Oct 2020 13:51:08 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZY59=EB=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
-	id 1kX2q1-0006u5-Dc
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:47:05 +0000
-X-Inumbo-ID: c7492d56-ab58-428c-a0b8-707d243889e2
-Received: from mail-qt1-x841.google.com (unknown [2607:f8b0:4864:20::841])
+	(envelope-from <SRS0=Dsar=EB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kX2tx-0007kk-UA
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 13:51:10 +0000
+X-Inumbo-ID: e895d521-8cdd-46f6-ad31-ddcdb911d708
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c7492d56-ab58-428c-a0b8-707d243889e2;
-	Mon, 26 Oct 2020 13:47:04 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id m14so646035qtc.12
-        for <xen-devel@lists.xenproject.org>; Mon, 26 Oct 2020 06:47:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=f9KRZ9bVQua0OwnsqOAio9K9V42DH2ndT61btswgFso=;
-        b=C7VNL0Xq9AnuQnEflUVOeIxUOWx/9f6ZH/R2bkQsdLXe+gWIt8ZTMWXuyhLeNnpeLR
-         +Jud2CQH4NzxtHFGKthI9cXw4AxSUsV03N0hAKLWirrc5aoF4Leguy/aMSjAzClc3hCy
-         8xenUSwRIxAJYHEqCe/q+Fr9PL2oaGVakTk6oF1rKxKPr+/onfJ5iN/o4/jkywGQ1AjK
-         Hrb2W7RUjC4IUO/cmRwKymxDsbHRx5Ni9GqS4lnJ7IJpMMeMwtEm+faRJnQV7DaUIIdo
-         IP0UjNPZTk1VA6N1MHuRGC1PB/LG3M2/3e3fUZ93cc6vusFeFPSpuxHiRYYb3APF4m4D
-         Awcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=f9KRZ9bVQua0OwnsqOAio9K9V42DH2ndT61btswgFso=;
-        b=MrvKHsQAEsvdkON/nAuLLcb4KmRG13lGPVUNywyvRP8ch+O4iLnLbx+IglL7TbvRqF
-         Gm+O8+MWG1NqElOmtEGInmp5EThH/r6U5ur1ID7s4QfUTj/p/C3aGVQzMak7qyzt+LrC
-         yNYFIQAqAJuU/IJFhOub6GCOowLnAAxHwNWWmitVpfPVJ/wYIo5dc++0ayWV6Rc7f8HK
-         7FcaF6220PY2UU5+e8mwYVeiOr3KJRFG+B0tw/fdDQlpdctTEz2X/MpBV9rNFTvezW0t
-         cMJH/pYgmz0rndPQL/J4h4MBl09MA16H5+lO+H78kEVzL6bIPyuGTO85BJqTNxbQHkus
-         0mZA==
-X-Gm-Message-State: AOAM531kPlTvdEiHO+LRw/ylArVzoc04Vx4eIjLuivDlLDNUjD1JmciQ
-	IktjO0HIHudxfWzT9wf5UhobPJDXJfc=
-X-Google-Smtp-Source: ABdhPJys3ry2LTW3BPWVb06qQqHt1emPhwO34Z8wtkGbI+CgBitwneTq4c9hiDja2ZIAxUWyVgsY0Q==
-X-Received: by 2002:aed:3325:: with SMTP id u34mr16888054qtd.263.1603720023188;
-        Mon, 26 Oct 2020 06:47:03 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:1145:a885:8e8f:3f60])
-        by smtp.gmail.com with ESMTPSA id o14sm6882324qto.16.2020.10.26.06.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2020 06:47:02 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	hx242@xen.org
-Cc: dpsmith@apertussolutions.com,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [RFC PATCH] xsm: Re-work domain_create and domain_alloc_security
-Date: Mon, 26 Oct 2020 09:46:51 -0400
-Message-Id: <20201026134651.8162-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <CAKf6xpt0Kpi2ST4gfPnLrqUHE+3hHkRYpQAHPjp2vW=cHpqPAA@mail.gmail.com>
-References: <CAKf6xpt0Kpi2ST4gfPnLrqUHE+3hHkRYpQAHPjp2vW=cHpqPAA@mail.gmail.com>
+	id e895d521-8cdd-46f6-ad31-ddcdb911d708;
+	Mon, 26 Oct 2020 13:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603720268;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Kige2qC+WVChCsv8oUthNVYbRyRDIDCpAo5fVpsVfGU=;
+  b=RqTtGMZA1Fxq00PUkHlt7TRoM21mOB7pbO8X65dZdAbdgo1c2E23TCMW
+   XOu4/DTxp8PDzNYn9aEQp869wNvxQIsbMgU406mJUIq4bfGQgWgRtxQqq
+   kDi4XdFQtALITKByDfEpkBgEvDenChi6FZEm8zXgY0FnhNqEC9a/sfgKt
+   4=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: qNdgpFi9PYMhsprorFVrqIiX9PvX/m7CbJkn/iv/QpiWqC0vNd+NguKcQHoZKTCVqg+ch4F2bA
+ bCkh1U6PjZYKnUN4KgHYMsDncR6UIThnDcWTCuNI6Ll8PTqCRI5/pQBS0ODaQD+uSmv4EtsHNa
+ LFGnP5H37dnS51EVCO0kA4xy27CeRNfd1Txe5c1HUcHKhUK+HMg9sbioGMkWVwk+YUgEEkvGPf
+ 39sSELdfS+ANib7WUZaTcn5ku2jv0Lm5u8bKoNMyqRVMnKBe64PmPBNqcd8ta+w1uLRel/6bla
+ 6Bk=
+X-SBRS: None
+X-MesageID: 30026597
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,419,1596513600"; 
+   d="scan'208";a="30026597"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/svm: Merge hsa and host_vmcb to reduce memory overhead
+Date: Mon, 26 Oct 2020 13:50:43 +0000
+Message-ID: <20201026135043.15560-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Untested!
+The format of the Host State Area is, and has always been, a VMCB.  It is
+explicitly safe to put the host VMSAVE data in.
 
-This only really matters for flask, but all of xsm is updated.
+This removes 4k of memory allocation per pCPU.
 
-flask_domain_create() and flask_domain_alloc_security() are a strange
-pair.
-
-flask_domain_create() serves double duty.  It both assigns sid and
-self_sid values and checks if the calling domain has permission to
-create the target domain.  It also has special casing for handling dom0.
-Meanwhile flask_domain_alloc_security() assigns some special sids, but
-waits for others to be assigned in flask_domain_create.  This split
-seems to have come about so that the structures are allocated before
-calling flask_domain_create().  It also means flask_domain_create is
-called in the middle of domain_create.
-
-Re-arrange the two calls.  Let flask_domain_create just check if current
-has permission to create ssidref.  Then it can be moved out to do_domctl
-and gate entry into domain_create.  This avoids doing partial domain
-creation before the permission check.
-
-Have flask_domain_alloc_security() take a ssidref argument.  The ssidref
-was already permission checked earlier, so it can just be assigned.
-Then the self_sid can be calculated here as well rather than in
-flask_domain_create().
-
-The dom0 special casing is moved into flask_domain_alloc_security().
-Maybe this should be just a fall-through for the dom0 already created
-case.  This code may not be needed any longer.
-
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- xen/common/domain.c     |  6 ++----
- xen/common/domctl.c     |  4 ++++
- xen/include/xsm/dummy.h |  6 +++---
- xen/include/xsm/xsm.h   | 12 +++++------
- xen/xsm/flask/hooks.c   | 48 ++++++++++++++++-------------------------
- 5 files changed, 34 insertions(+), 42 deletions(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/hvm/svm/svm.c | 27 ++++-----------------------
+ 1 file changed, 4 insertions(+), 23 deletions(-)
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index f748806a45..6b1f5ed59d 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -407,7 +407,8 @@ struct domain *domain_create(domid_t domid,
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index cfea5b5523..9ec9ad0646 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -72,11 +72,10 @@ static void svm_update_guest_efer(struct vcpu *);
+ static struct hvm_function_table svm_function_table;
  
-     lock_profile_register_struct(LOCKPROF_TYPE_PERDOM, d, domid);
+ /*
+- * Physical addresses of the Host State Area (for hardware) and vmcb (for Xen)
+- * which contains Xen's fs/gs/tr/ldtr and GSBASE/STAR/SYSENTER state when in
+- * guest vcpu context.
++ * Host State Area.  This area is used by the processor in non-root mode, and
++ * contains Xen's fs/gs/tr/ldtr and GSBASE/STAR/SYSENTER state required to
++ * leave guest vcpu context.
+  */
+-static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, hsa);
+ static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, host_vmcb);
+ #ifdef CONFIG_PV
+ static DEFINE_PER_CPU(struct vmcb_struct *, host_vmcb_va);
+@@ -1436,15 +1435,8 @@ static bool svm_event_pending(const struct vcpu *v)
  
--    if ( (err = xsm_alloc_security_domain(d)) != 0 )
-+    if ( (err = xsm_alloc_security_domain(d, config ? config->ssidref :
-+                                                      0)) != 0 )
-         goto fail;
- 
-     atomic_set(&d->refcnt, 1);
-@@ -470,9 +471,6 @@ struct domain *domain_create(domid_t domid,
-         if ( !d->iomem_caps || !d->irq_caps )
-             goto fail;
- 
--        if ( (err = xsm_domain_create(XSM_HOOK, d, config->ssidref)) != 0 )
--            goto fail;
--
-         d->controller_pause_count = 1;
-         atomic_inc(&d->pause_count);
- 
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index af044e2eda..ffdc1a41cd 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -406,6 +406,10 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-         domid_t        dom;
-         static domid_t rover = 0;
- 
-+        ret = xsm_domain_create(XSM_HOOK, op->u.createdomain.ssidref);
-+        if (ret)
-+            break;
-+
-         dom = op->domain;
-         if ( (dom > 0) && (dom < DOMID_FIRST_RESERVED) )
-         {
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index 7ae3c40eb5..29c4ca9951 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -104,10 +104,10 @@ static XSM_INLINE void xsm_security_domaininfo(struct domain *d,
-     return;
- }
- 
--static XSM_INLINE int xsm_domain_create(XSM_DEFAULT_ARG struct domain *d, u32 ssidref)
-+static XSM_INLINE int xsm_domain_create(XSM_DEFAULT_ARG u32 ssidref)
+ static void svm_cpu_dead(unsigned int cpu)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
--    return xsm_default_action(action, current->domain, d);
-+    return xsm_default_action(action, current->domain, NULL);
- }
+-    paddr_t *this_hsa = &per_cpu(hsa, cpu);
+     paddr_t *this_vmcb = &per_cpu(host_vmcb, cpu);
  
- static XSM_INLINE int xsm_getdomaininfo(XSM_DEFAULT_ARG struct domain *d)
-@@ -163,7 +163,7 @@ static XSM_INLINE int xsm_readconsole(XSM_DEFAULT_ARG uint32_t clear)
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_alloc_security_domain(struct domain *d)
-+static XSM_INLINE int xsm_alloc_security_domain(struct domain *d, uint32_t ssidref)
- {
-     return 0;
- }
-diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 358ec13ba8..c1d2ef5832 100644
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -46,7 +46,7 @@ typedef enum xsm_default xsm_default_t;
- struct xsm_operations {
-     void (*security_domaininfo) (struct domain *d,
-                                         struct xen_domctl_getdomaininfo *info);
--    int (*domain_create) (struct domain *d, u32 ssidref);
-+    int (*domain_create) (u32 ssidref);
-     int (*getdomaininfo) (struct domain *d);
-     int (*domctl_scheduler_op) (struct domain *d, int op);
-     int (*sysctl_scheduler_op) (int op);
-@@ -71,7 +71,7 @@ struct xsm_operations {
-     int (*grant_copy) (struct domain *d1, struct domain *d2);
-     int (*grant_query_size) (struct domain *d1, struct domain *d2);
- 
--    int (*alloc_security_domain) (struct domain *d);
-+    int (*alloc_security_domain) (struct domain *d, uint32_t ssidref);
-     void (*free_security_domain) (struct domain *d);
-     int (*alloc_security_evtchn) (struct evtchn *chn);
-     void (*free_security_evtchn) (struct evtchn *chn);
-@@ -202,9 +202,9 @@ static inline void xsm_security_domaininfo (struct domain *d,
-     xsm_ops->security_domaininfo(d, info);
- }
- 
--static inline int xsm_domain_create (xsm_default_t def, struct domain *d, u32 ssidref)
-+static inline int xsm_domain_create (xsm_default_t def, u32 ssidref)
- {
--    return xsm_ops->domain_create(d, ssidref);
-+    return xsm_ops->domain_create(ssidref);
- }
- 
- static inline int xsm_getdomaininfo (xsm_default_t def, struct domain *d)
-@@ -305,9 +305,9 @@ static inline int xsm_grant_query_size (xsm_default_t def, struct domain *d1, st
-     return xsm_ops->grant_query_size(d1, d2);
- }
- 
--static inline int xsm_alloc_security_domain (struct domain *d)
-+static inline int xsm_alloc_security_domain (struct domain *d, uint32_t ssidref)
- {
--    return xsm_ops->alloc_security_domain(d);
-+    return xsm_ops->alloc_security_domain(d, ssidref);
- }
- 
- static inline void xsm_free_security_domain (struct domain *d)
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index de050cc9fe..719fe90f22 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -156,9 +156,11 @@ static int avc_unknown_permission(const char *name, int id)
-     return rc;
- }
- 
--static int flask_domain_alloc_security(struct domain *d)
-+static int flask_domain_alloc_security(struct domain *d, u32 ssidref)
- {
-     struct domain_security_struct *dsec;
-+    static int dom0_created = 0;
-+    int rc;
- 
-     dsec = xzalloc(struct domain_security_struct);
-     if ( !dsec )
-@@ -175,14 +177,24 @@ static int flask_domain_alloc_security(struct domain *d)
-     case DOMID_IO:
-         dsec->sid = SECINITSID_DOMIO;
-         break;
-+    case 0:
-+        if ( !dom0_created ) {
-+            dsec->sid = SECINITSID_DOM0;
-+            dom0_created = 1;
-+        } else {
-+            dsec->sid = SECINITSID_UNLABELED;
-+        }
-+        break;
-     default:
--        dsec->sid = SECINITSID_UNLABELED;
-+        dsec->sid = ssidref;
-     }
- 
-     dsec->self_sid = dsec->sid;
--    d->ssid = dsec;
- 
--    return 0;
-+    rc = security_transition_sid(dsec->sid, dsec->sid, SECCLASS_DOMAIN,
-+                                 &dsec->self_sid);
-+
-+    return rc;
- }
- 
- static void flask_domain_free_security(struct domain *d)
-@@ -507,32 +519,10 @@ static void flask_security_domaininfo(struct domain *d,
-     info->ssidref = domain_sid(d);
- }
- 
--static int flask_domain_create(struct domain *d, u32 ssidref)
-+static int flask_domain_create(u32 ssidref)
- {
--    int rc;
--    struct domain_security_struct *dsec = d->ssid;
--    static int dom0_created = 0;
--
--    if ( is_idle_domain(current->domain) && !dom0_created )
+-    if ( *this_hsa )
 -    {
--        dsec->sid = SECINITSID_DOM0;
--        dom0_created = 1;
+-        free_domheap_page(maddr_to_page(*this_hsa));
+-        *this_hsa = 0;
 -    }
--    else
--    {
--        rc = avc_current_has_perm(ssidref, SECCLASS_DOMAIN,
--                          DOMAIN__CREATE, NULL);
--        if ( rc )
--            return rc;
 -
--        dsec->sid = ssidref;
--    }
--    dsec->self_sid = dsec->sid;
--
--    rc = security_transition_sid(dsec->sid, dsec->sid, SECCLASS_DOMAIN,
--                                 &dsec->self_sid);
--
--    return rc;
-+    return avc_current_has_perm(ssidref, SECCLASS_DOMAIN, DOMAIN__CREATE,
-+                                NULL);
- }
+ #ifdef CONFIG_PV
+     if ( per_cpu(host_vmcb_va, cpu) )
+     {
+@@ -1462,7 +1454,6 @@ static void svm_cpu_dead(unsigned int cpu)
  
- static int flask_getdomaininfo(struct domain *d)
+ static int svm_cpu_up_prepare(unsigned int cpu)
+ {
+-    paddr_t *this_hsa = &per_cpu(hsa, cpu);
+     paddr_t *this_vmcb = &per_cpu(host_vmcb, cpu);
+     nodeid_t node = cpu_to_node(cpu);
+     unsigned int memflags = 0;
+@@ -1471,16 +1462,6 @@ static int svm_cpu_up_prepare(unsigned int cpu)
+     if ( node != NUMA_NO_NODE )
+         memflags = MEMF_node(node);
+ 
+-    if ( !*this_hsa )
+-    {
+-        pg = alloc_domheap_page(NULL, memflags);
+-        if ( !pg )
+-            goto err;
+-
+-        clear_domain_page(page_to_mfn(pg));
+-        *this_hsa = page_to_maddr(pg);
+-    }
+-
+     if ( !*this_vmcb )
+     {
+         pg = alloc_domheap_page(NULL, memflags);
+@@ -1597,7 +1578,7 @@ static int _svm_cpu_up(bool bsp)
+     write_efer(read_efer() | EFER_SVME);
+ 
+     /* Initialize the HSA for this core. */
+-    wrmsrl(MSR_K8_VM_HSAVE_PA, per_cpu(hsa, cpu));
++    wrmsrl(MSR_K8_VM_HSAVE_PA, per_cpu(host_vmcb, cpu));
+ 
+     /* check for erratum 383 */
+     svm_init_erratum_383(c);
 -- 
-2.26.2
+2.11.0
 
 
