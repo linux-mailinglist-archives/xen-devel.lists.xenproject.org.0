@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E692985C8
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 04:04:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12024.31520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21DEA298629
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 05:30:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12031.31535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWsnw-0005Oj-TC; Mon, 26 Oct 2020 03:04:16 +0000
+	id 1kWu8U-0003uA-2U; Mon, 26 Oct 2020 04:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12024.31520; Mon, 26 Oct 2020 03:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 12031.31535; Mon, 26 Oct 2020 04:29:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,65 +23,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kWsnw-0005OK-Os; Mon, 26 Oct 2020 03:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 12024;
- Mon, 26 Oct 2020 03:04:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kWu8T-0003tl-VD; Mon, 26 Oct 2020 04:29:33 +0000
+Received: by outflank-mailman (input) for mailman id 12031;
+ Mon, 26 Oct 2020 04:29:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kWsnu-0005OF-MF
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 03:04:14 +0000
+ id 1kWu8S-0003tg-Tv
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 04:29:33 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7414b8f9-c1a8-4300-ad56-1184d650c2e7;
- Mon, 26 Oct 2020 03:04:10 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3bd54d7f-fa88-4b95-88eb-20e3ef097feb;
+ Mon, 26 Oct 2020 04:29:29 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kWsnp-0007EP-Q9; Mon, 26 Oct 2020 03:04:09 +0000
+ id 1kWu8O-0000gy-Rm; Mon, 26 Oct 2020 04:29:28 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kWsnp-0000vK-Ck; Mon, 26 Oct 2020 03:04:09 +0000
+ id 1kWu8O-0004h1-FX; Mon, 26 Oct 2020 04:29:28 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kWsnp-0004g8-C8; Mon, 26 Oct 2020 03:04:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ id 1kWu8O-00025x-F1; Mon, 26 Oct 2020 04:29:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=WRSk=EB=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kWsnu-0005OF-MF
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 03:04:14 +0000
-X-Inumbo-ID: 7414b8f9-c1a8-4300-ad56-1184d650c2e7
+	id 1kWu8S-0003tg-Tv
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 04:29:33 +0000
+X-Inumbo-ID: 3bd54d7f-fa88-4b95-88eb-20e3ef097feb
 Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 7414b8f9-c1a8-4300-ad56-1184d650c2e7;
-	Mon, 26 Oct 2020 03:04:10 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 3bd54d7f-fa88-4b95-88eb-20e3ef097feb;
+	Mon, 26 Oct 2020 04:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fjt/NhBiWpwexxUfXQ/BtLxm5TNvqdZJyKGKOiSFdaY=; b=qafMmKds/rRrFidvLekFhNxIK0
-	Mfc9iWIYMjynBzwnOftZ0wSQjSv0Tuw6LFrSvn9EH7/yoWlfTviklKowTzLsHh00eTo/hwQ2KqggC
-	NYLgiPJI7HBTXJ9trKYClSZka4vlFBo2KJG7wQiSVThwvT+66nXoC8fhxD3FFO/Sf7EY=;
+	bh=U4GEIyvCBRZ/rIOuhHE42yvqnZ1WMaexAGsLNw9VUp0=; b=jYiiegEIOZUUVUFYI/Q27A6gsO
+	L0EIWtR+JN9y+Uxyd4/wZ6VljKq/cfPfo3ZcZ+lmmRdPJ/b2EEFF3L44ULvqJ6mnUwDVNKlWm6wcD
+	hmTnx0Q6VCQ1RpRGuXJI89+AHPW7L3ScXS1ihffmr/SSSg6kKf776HBtWKCxNZcSd7Iw=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWsnp-0007EP-Q9; Mon, 26 Oct 2020 03:04:09 +0000
+	id 1kWu8O-0000gy-Rm; Mon, 26 Oct 2020 04:29:28 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
 	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWsnp-0000vK-Ck; Mon, 26 Oct 2020 03:04:09 +0000
+	id 1kWu8O-0004h1-FX; Mon, 26 Oct 2020 04:29:28 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
 	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kWsnp-0004g8-C8; Mon, 26 Oct 2020 03:04:09 +0000
+	id 1kWu8O-00025x-F1; Mon, 26 Oct 2020 04:29:28 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-156227-mainreport@xen.org>
+Message-ID: <osstest-156231-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 156227: regressions - trouble: blocked/fail/pass/starved
+Subject: [qemu-mainline test] 156231: regressions - FAIL
 X-Osstest-Failures:
     qemu-mainline:build-amd64-xsm:xen-build:fail:regression
     qemu-mainline:build-amd64:xen-build:fail:regression
@@ -89,8 +88,17 @@ X-Osstest-Failures:
     qemu-mainline:build-arm64:xen-build:fail:regression
     qemu-mainline:build-i386:xen-build:fail:regression
     qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
     qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
     qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
@@ -110,6 +118,7 @@ X-Osstest-Failures:
     qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
     qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
@@ -136,6 +145,8 @@ X-Osstest-Failures:
     qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
@@ -155,27 +166,15 @@ X-Osstest-Failures:
     qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
     qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
     qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    qemu-mainline:build-armhf-libvirt:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
     qemuu=4c5b97bfd0dd54dc27717ae8d1cd10e14eef1430
 X-Osstest-Versions-That:
     qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Oct 2020 03:04:09 +0000
+Date: Mon, 26 Oct 2020 04:29:28 +0000
 
-flight 156227 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156227/
+flight 156231 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156231/
 
 Regressions :-(
 
@@ -187,10 +186,19 @@ including tests which could not be run:
  build-arm64                   6 xen-build                fail REGR. vs. 152631
  build-i386                    6 xen-build                fail REGR. vs. 152631
  build-i386-xsm                6 xen-build                fail REGR. vs. 152631
+ build-armhf                   6 xen-build                fail REGR. vs. 152631
 
 Tests which did not succeed, but are not blocking:
  test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
  test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
  test-amd64-i386-pair          1 build-check(1)               blocked  n/a
  test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
  test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
@@ -210,6 +218,7 @@ Tests which did not succeed, but are not blocking:
  test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
  test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
  test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
  build-i386-libvirt            1 build-check(1)               blocked  n/a
  test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
@@ -236,6 +245,8 @@ Tests which did not succeed, but are not blocking:
  test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
  test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
  test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
  test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
  test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
  test-amd64-i386-xl            1 build-check(1)               blocked  n/a
@@ -255,18 +266,6 @@ Tests which did not succeed, but are not blocking:
  test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
  test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
  test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
  qemuu                4c5b97bfd0dd54dc27717ae8d1cd10e14eef1430
@@ -274,8 +273,8 @@ baseline version:
  qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
 Last test of basis   152631  2020-08-20 09:07:46 Z   66 days
-Failing since        152659  2020-08-21 14:07:39 Z   65 days  149 attempts
-Testing same since   156094  2020-10-22 15:08:36 Z    3 days   34 attempts
+Failing since        152659  2020-08-21 14:07:39 Z   65 days  150 attempts
+Testing same since   156094  2020-10-22 15:08:36 Z    3 days   35 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
@@ -490,11 +489,11 @@ jobs:
  build-i386-xsm                                               fail    
  build-amd64                                                  fail    
  build-arm64                                                  fail    
- build-armhf                                                  starved 
+ build-armhf                                                  fail    
  build-i386                                                   fail    
  build-amd64-libvirt                                          blocked 
  build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          starved 
+ build-armhf-libvirt                                          blocked 
  build-i386-libvirt                                           blocked 
  build-amd64-pvops                                            pass    
  build-arm64-pvops                                            pass    
@@ -503,7 +502,7 @@ jobs:
  test-amd64-amd64-xl                                          blocked 
  test-amd64-coresched-amd64-xl                                blocked 
  test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          starved 
+ test-armhf-armhf-xl                                          blocked 
  test-amd64-i386-xl                                           blocked 
  test-amd64-coresched-i386-xl                                 blocked 
  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
@@ -531,14 +530,14 @@ jobs:
  test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
  test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
  test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-armhf-armhf-xl-arndale                                  starved 
+ test-armhf-armhf-xl-arndale                                  blocked 
  test-amd64-amd64-xl-credit1                                  blocked 
  test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  starved 
+ test-armhf-armhf-xl-credit1                                  blocked 
  test-amd64-amd64-xl-credit2                                  blocked 
  test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-cubietruck                               blocked 
  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
  test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
  test-amd64-i386-freebsd10-i386                               blocked 
@@ -547,10 +546,10 @@ jobs:
  test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
  test-amd64-amd64-dom0pvh-xl-intel                            blocked 
  test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     starved 
+ test-armhf-armhf-libvirt                                     blocked 
  test-amd64-i386-libvirt                                      blocked 
  test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                starved 
+ test-armhf-armhf-xl-multivcpu                                blocked 
  test-amd64-amd64-pair                                        blocked 
  test-amd64-i386-pair                                         blocked 
  test-amd64-amd64-libvirt-pair                                blocked 
@@ -561,10 +560,10 @@ jobs:
  test-amd64-i386-xl-pvshim                                    blocked 
  test-amd64-amd64-pygrub                                      blocked 
  test-amd64-amd64-xl-qcow2                                    blocked 
- test-armhf-armhf-libvirt-raw                                 starved 
+ test-armhf-armhf-libvirt-raw                                 blocked 
  test-amd64-i386-xl-raw                                       blocked 
  test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     starved 
+ test-armhf-armhf-xl-rtds                                     blocked 
  test-arm64-arm64-xl-seattle                                  blocked 
  test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
  test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
@@ -572,7 +571,7 @@ jobs:
  test-amd64-i386-xl-shadow                                    blocked 
  test-arm64-arm64-xl-thunderx                                 blocked 
  test-amd64-amd64-libvirt-vhd                                 blocked 
- test-armhf-armhf-xl-vhd                                      starved 
+ test-armhf-armhf-xl-vhd                                      blocked 
 
 
 ------------------------------------------------------------
