@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213F9298FD7
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 15:49:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12372.32220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 679B4298FF5
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 15:53:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12377.32232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX3oY-0004Nu-1B; Mon, 26 Oct 2020 14:49:38 +0000
+	id 1kX3rf-0005DS-Gt; Mon, 26 Oct 2020 14:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12372.32220; Mon, 26 Oct 2020 14:49:38 +0000
+Received: by outflank-mailman (output) from mailman id 12377.32232; Mon, 26 Oct 2020 14:52:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,94 +23,81 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX3oX-0004NV-U8; Mon, 26 Oct 2020 14:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 12372;
- Mon, 26 Oct 2020 14:49:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kX3rf-0005D3-DY; Mon, 26 Oct 2020 14:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 12377;
+ Mon, 26 Oct 2020 14:52:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kDWn=EB=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kX3oW-0004NM-CV
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:49:36 +0000
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 947a35a7-d3ba-4566-8a2f-8079694e7140;
- Mon, 26 Oct 2020 14:49:35 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id h5so12909753wrv.7
- for <xen-devel@lists.xenproject.org>; Mon, 26 Oct 2020 07:49:34 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id c18sm22280009wrq.5.2020.10.26.07.49.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 07:49:33 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=cOiY=EB=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
+ id 1kX3rd-0005Cu-R9
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:49 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a3e9d222-4b93-4956-936a-306462ed313d;
+ Mon, 26 Oct 2020 14:52:48 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kX3rc-0006AX-Hp
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:48 +0000
+Received: from iwj (helo=mynotebook.example.org)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kX3rc-000431-Fv
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:48 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1kX3rZ-0008BG-91; Mon, 26 Oct 2020 14:52:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=kDWn=EB=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
-	id 1kX3oW-0004NM-CV
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:49:36 +0000
-X-Inumbo-ID: 947a35a7-d3ba-4566-8a2f-8079694e7140
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 947a35a7-d3ba-4566-8a2f-8079694e7140;
-	Mon, 26 Oct 2020 14:49:35 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id h5so12909753wrv.7
-        for <xen-devel@lists.xenproject.org>; Mon, 26 Oct 2020 07:49:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to:user-agent;
-        bh=x/kvi4dGENrB3A6TGaDyypQDm6iRWN/t/maDZTvbmPc=;
-        b=OaqLcDD+95YGk5VJ/zCgDEGFT4hWZDtnd5tKj4xVWGGKIlv+wGzAtZ5UZQv+eKZIqR
-         +nVIw8qpgoQnxXHjWs6VUICcm47MYj2uHzB0ez8RCxV+Is3YjHttOPwuDIos5ISpGuZy
-         LJWa6CDdt7rci8rv5+EX9JE/yAIl4iPJoVqLtzcvQ98/GJdmuMNXDhlE32qwPCkOCh0/
-         R6H3zQKm+gApq3u6RIcTQpPBymUeq47JyeE4gdJNlvUZGnDDyN1PvE4EBTbrK8p/d71q
-         NQamc2RcLkfXN5qs4rk/TtBmGLuy4vZAHCDNqfnQtvqUcKWPVy1JolB+QBo9cSu2r8Ih
-         DWCg==
-X-Gm-Message-State: AOAM5309te1lanFnmlgTBUpERIsiNQ+f68qQtlHYZwGxWhvPs0sCHwxS
-	vjYNyM/oOeahU14MPbrnnO4=
-X-Google-Smtp-Source: ABdhPJw8zbFdbIWfe33eQyaLtKeddr3v1dWgxf8PsVKy/afKJsKkeRRD7jD8iRel3SEF9chhobs2qw==
-X-Received: by 2002:a05:6000:10c6:: with SMTP id b6mr18757084wrx.10.1603723773711;
-        Mon, 26 Oct 2020 07:49:33 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id c18sm22280009wrq.5.2020.10.26.07.49.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2020 07:49:33 -0700 (PDT)
-Date: Mon, 26 Oct 2020 14:49:31 +0000
-From: Wei Liu <wl@xen.org>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: osstest service owner <osstest-admin@xenproject.org>,
-	xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [xen-unstable-smoke test] 156241: regressions - trouble:
- blocked/fail
-Message-ID: <20201026144931.cvrc72esryhcnwxy@liuwe-devbox-debian-v2>
-References: <osstest-156241-mainreport@xen.org>
- <8528afe9-4225-1942-9f7c-54ec50379345@suse.com>
+	(envelope-from <SRS0=cOiY=EB=xenproject.org=iwj@srs-us1.protection.inumbo.net>)
+	id 1kX3rd-0005Cu-R9
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:49 +0000
+X-Inumbo-ID: a3e9d222-4b93-4956-936a-306462ed313d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id a3e9d222-4b93-4956-936a-306462ed313d;
+	Mon, 26 Oct 2020 14:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=J4t3I45qo0MSJRdxlzUiS2RCquAvBHxQiIf0rb90sLg=; b=FYbVfupl8uBi97NgkR99qB8aby
+	WkTOazNURWGuR3U/eIudK1E1jec3QA5GEJkUFKA01eCxWu2mtdna8B0erG8+KBsCGuEbmdiDsXFkM
+	P+wpZuYifnJwMWr87KEK4VoyNg3A9Ft/7x8wlNM6jBdIUMQGuA2EGiPeifU2g+oh1JZc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <iwj@xenproject.org>)
+	id 1kX3rc-0006AX-Hp
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:48 +0000
+Received: from iwj (helo=mynotebook.example.org)
+	by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+	(envelope-from <iwj@xenproject.org>)
+	id 1kX3rc-000431-Fv
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 14:52:48 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+	(envelope-from <iwj@xenproject.org>)
+	id 1kX3rZ-0008BG-91; Mon, 26 Oct 2020 14:52:45 +0000
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8528afe9-4225-1942-9f7c-54ec50379345@suse.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24470.58045.89332.837032@mariner.uk.xensource.com>
+Date: Mon, 26 Oct 2020 14:52:45 +0000
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [OSSTEST PATCH] ts-xen-build-prep: Install ninja
+In-Reply-To: <20201020093549.270000-1-anthony.perard@citrix.com>
+References: <20201020093549.270000-1-anthony.perard@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Mon, Oct 26, 2020 at 02:35:00PM +0100, Jürgen Groß wrote:
-> On 26.10.20 14:27, osstest service owner wrote:
-> > flight 156241 xen-unstable-smoke real [real]
-> > http://logs.test-lab.xenproject.org/osstest/logs/156241/
-> > 
-> > Regressions :-(
-> > 
-> > Tests which did not succeed and are blocking,
-> > including tests which could not be run:
-> >   build-amd64                   6 xen-build                fail REGR. vs. 156117
-> >   build-arm64-xsm               6 xen-build                fail REGR. vs. 156117
-> >   build-armhf                   6 xen-build                fail REGR. vs. 156117
+Anthony PERARD writes ("[OSSTEST PATCH] ts-xen-build-prep: Install ninja"):
+> QEMU upstream now requires ninja to build. (Probably since QEMU commit
+> 09e93326e448 ("build: replace ninjatool with ninja"))
 > 
-> I'm pretty sure these failures will be fixed by my patch
-> 
-> "tools/libs: let build depend on official headers"
-> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-I've applied that patch. Let's see how it goes.
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Wei.
+and pushed, thanks.
+
+Ian.
 
