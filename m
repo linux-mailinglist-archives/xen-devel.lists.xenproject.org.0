@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4EF299239
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 17:22:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12431.32381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 582F829923B
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Oct 2020 17:22:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12432.32394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX5GI-000643-FQ; Mon, 26 Oct 2020 16:22:22 +0000
+	id 1kX5GM-00068J-Qy; Mon, 26 Oct 2020 16:22:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12431.32381; Mon, 26 Oct 2020 16:22:22 +0000
+Received: by outflank-mailman (output) from mailman id 12432.32394; Mon, 26 Oct 2020 16:22:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,42 +23,41 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kX5GI-00063N-B6; Mon, 26 Oct 2020 16:22:22 +0000
-Received: by outflank-mailman (input) for mailman id 12431;
- Mon, 26 Oct 2020 16:22:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kX5GM-00067V-Ml; Mon, 26 Oct 2020 16:22:26 +0000
+Received: by outflank-mailman (input) for mailman id 12432;
+ Mon, 26 Oct 2020 16:22:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ht1Y=EB=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kX5GG-00062S-R0
- for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 16:22:20 +0000
+ id 1kX5GK-00062L-OP
+ for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 16:22:24 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 66440a05-ce01-4d1f-b9fd-bf81bda01c1e;
- Mon, 26 Oct 2020 16:22:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c1702353-f4d9-4f28-b0c4-315701b71e1f;
+ Mon, 26 Oct 2020 16:22:21 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD4311042;
- Mon, 26 Oct 2020 09:22:19 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52B34106F;
+ Mon, 26 Oct 2020 09:22:21 -0700 (PDT)
 Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
  [10.1.198.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C2C2F3F719;
- Mon, 26 Oct 2020 09:22:18 -0700 (PDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1DFC23F719;
+ Mon, 26 Oct 2020 09:22:20 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Ht1Y=EB=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kX5GG-00062S-R0
-	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 16:22:20 +0000
-X-Inumbo-ID: 66440a05-ce01-4d1f-b9fd-bf81bda01c1e
+	id 1kX5GK-00062L-OP
+	for xen-devel@lists.xenproject.org; Mon, 26 Oct 2020 16:22:24 +0000
+X-Inumbo-ID: c1702353-f4d9-4f28-b0c4-315701b71e1f
 Received: from foss.arm.com (unknown [217.140.110.172])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 66440a05-ce01-4d1f-b9fd-bf81bda01c1e;
-	Mon, 26 Oct 2020 16:22:20 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id c1702353-f4d9-4f28-b0c4-315701b71e1f;
+	Mon, 26 Oct 2020 16:22:21 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD4311042;
-	Mon, 26 Oct 2020 09:22:19 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52B34106F;
+	Mon, 26 Oct 2020 09:22:21 -0700 (PDT)
 Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com [10.1.198.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C2C2F3F719;
-	Mon, 26 Oct 2020 09:22:18 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1DFC23F719;
+	Mon, 26 Oct 2020 09:22:20 -0700 (PDT)
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -67,59 +66,69 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/3] xen: Add an unsecure Taint type
-Date: Mon, 26 Oct 2020 16:21:32 +0000
-Message-Id: <d7e82b374cb7c83d6e18774e23bc4d970c4e8b53.1603728729.git.bertrand.marquis@arm.com>
+	Wei Liu <wl@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 3/3] xen/arm: Warn user on cpu errata 832075
+Date: Mon, 26 Oct 2020 16:21:33 +0000
+Message-Id: <4d62bc0844576b80e00ea48e318be238a4d73eae.1603728729.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com>
 References: <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com>
 In-Reply-To: <cover.1603728729.git.bertrand.marquis@arm.com>
 References: <cover.1603728729.git.bertrand.marquis@arm.com>
 
-Define a new Unsecure taint type to be used to signal a system tainted
-due to an unsecure configuration or hardware feature/errata.
+When a Cortex A57 processor is affected by CPU errata 832075, a guest
+not implementing the workaround for it could deadlock the system.
+Add a warning during boot informing the user that only trusted guests
+should be executed on the system.
+An equivalent warning is already given to the user by KVM on cores
+affected by this errata.
+
+Also taint the hypervisor as unsecure when this errata applies and
+mention Cortex A57 r0p0 - r1p2 as not security supported in SUPPORT.md
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/common/kernel.c   | 4 +++-
- xen/include/xen/lib.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ SUPPORT.md               |  1 +
+ xen/arch/arm/cpuerrata.c | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-index c3a943f077..7a345ae45e 100644
---- a/xen/common/kernel.c
-+++ b/xen/common/kernel.c
-@@ -326,6 +326,7 @@ unsigned int tainted;
-  *  'E' - An error (e.g. a machine check exceptions) has been injected.
-  *  'H' - HVM forced emulation prefix is permitted.
-  *  'M' - Machine had a machine check experience.
-+ *  'U' - Platform is unsecure (usually due to an errata on the platform).
-  *
-  *      The string is overwritten by the next call to print_taint().
-  */
-@@ -333,7 +334,8 @@ char *print_tainted(char *str)
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 5fbe5fc444..f7a3b046b0 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -38,6 +38,7 @@ supported in this document.
+ ### ARM v8
+ 
+     Status: Supported
++    Status, Cortex A57 r0p0 - r1p2, not security supported (Errata 832075)
+ 
+ ## Host hardware support
+ 
+diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+index 0430069a84..b35e8cd0b9 100644
+--- a/xen/arch/arm/cpuerrata.c
++++ b/xen/arch/arm/cpuerrata.c
+@@ -503,6 +503,19 @@ void check_local_cpu_errata(void)
+ void __init enable_errata_workarounds(void)
  {
-     if ( tainted )
-     {
--        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c",
-+        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c",
-+                 tainted & TAINT_MACHINE_UNSECURE ? 'U' : ' ',
-                  tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
-                  tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
-                  tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
-diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
-index 1983bd6b86..a9679c913d 100644
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -193,6 +193,7 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c);
- #define TAINT_MACHINE_CHECK             (1u << 1)
- #define TAINT_ERROR_INJECT              (1u << 2)
- #define TAINT_HVM_FEP                   (1u << 3)
-+#define TAINT_MACHINE_UNSECURE          (1u << 4)
- extern unsigned int tainted;
- #define TAINT_STRING_MAX_LEN            20
- extern char *print_tainted(char *str);
+     enable_cpu_capabilities(arm_errata);
++
++#ifdef CONFIG_ARM64_ERRATUM_832075
++    if ( cpus_have_cap(ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE) )
++    {
++        printk_once("**** This CPU is affected by the errata 832075. ****\n"
++                    "**** Guests without CPU erratum workarounds     ****\n"
++                    "**** can deadlock the system!                   ****\n"
++                    "**** Only trusted guests should be used.        ****\n");
++
++        /* Taint the machine has being insecure */
++        add_taint(TAINT_MACHINE_UNSECURE);
++    }
++#endif
+ }
+ 
+ static int cpu_errata_callback(struct notifier_block *nfb,
 -- 
 2.17.1
 
