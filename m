@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371B529C2E8
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 18:41:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13000.33496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F30F29C30E
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 18:43:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13003.33508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXSyR-0007ks-3t; Tue, 27 Oct 2020 17:41:31 +0000
+	id 1kXT05-0007uO-Fa; Tue, 27 Oct 2020 17:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13000.33496; Tue, 27 Oct 2020 17:41:31 +0000
+Received: by outflank-mailman (output) from mailman id 13003.33508; Tue, 27 Oct 2020 17:43:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,133 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXSyR-0007kV-0c; Tue, 27 Oct 2020 17:41:31 +0000
-Received: by outflank-mailman (input) for mailman id 13000;
- Tue, 27 Oct 2020 17:41:29 +0000
+	id 1kXT05-0007ty-CE; Tue, 27 Oct 2020 17:43:13 +0000
+Received: by outflank-mailman (input) for mailman id 13003;
+ Tue, 27 Oct 2020 17:43:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vej7=EC=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kXSyP-0007kP-DJ
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 17:41:29 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kXT03-0007tt-Vv
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 17:43:12 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7b7a67d3-fba9-4632-96f4-d737a761ccfd;
- Tue, 27 Oct 2020 17:41:27 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.2.3 DYNA|AUTH)
- with ESMTPSA id D03373w9RHfQ1cx
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 27 Oct 2020 18:41:26 +0100 (CET)
+ id a5fbf3f4-e7cb-4bd6-b796-07ce57863753;
+ Tue, 27 Oct 2020 17:43:11 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E2B912054F;
+ Tue, 27 Oct 2020 17:43:09 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=vej7=EC=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
-	id 1kXSyP-0007kP-DJ
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 17:41:29 +0000
-X-Inumbo-ID: 7b7a67d3-fba9-4632-96f4-d737a761ccfd
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+	(envelope-from <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kXT03-0007tt-Vv
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 17:43:12 +0000
+X-Inumbo-ID: a5fbf3f4-e7cb-4bd6-b796-07ce57863753
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 7b7a67d3-fba9-4632-96f4-d737a761ccfd;
-	Tue, 27 Oct 2020 17:41:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603820486;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=Message-ID:Subject:To:From:Date:X-RZG-CLASS-ID:X-RZG-AUTH:From:
-	Subject:Sender;
-	bh=dWOUItY+RY70D0NE+mnLyN9YKkUEgUs8fxinAALuBwo=;
-	b=tnNxfJsGYtWWembJ8P4jxCw351zppgZsh+p1YAE4yFxsdImsoNghgN2Y0W3hU14DsR
-	V2a+JlcEXmF14JW5NR36jD4Um7IEunaekudXFgE16AJFydHKvxXm217cMeji4jGD7jVw
-	I8pBJPY406mTnSCaFe4UetrVXHPaSNd5aP/PmUFvvt2H4+OfE1/NLEUmVwvLp90d3D9S
-	dAJlIBdxhVDlmYFijmmiOZ4FEm3kAYLG6rd2NYkc9BuAL7QI8TnLOnQ3lfToRWoL6LwW
-	hsNNM0tuJbjOHimq5w03tAMpWBvxAaSvXnLBfg3OAvaIFQTvEwQAxifulgQDC2nu7rm8
-	Vrpg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+r+/A=="
-X-RZG-CLASS-ID: mo00
-Received: from sender
-	by smtp.strato.de (RZmta 47.2.3 DYNA|AUTH)
-	with ESMTPSA id D03373w9RHfQ1cx
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-	Tue, 27 Oct 2020 18:41:26 +0100 (CET)
-Date: Tue, 27 Oct 2020 18:41:19 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: inconsistent pfn type checking in process_page_data
-Message-ID: <20201027184119.1d3f701e.olaf@aepfle.de>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+	id a5fbf3f4-e7cb-4bd6-b796-07ce57863753;
+	Tue, 27 Oct 2020 17:43:11 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id E2B912054F;
+	Tue, 27 Oct 2020 17:43:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1603820590;
+	bh=7PAIrARo+U5BjdgOi0yQlsQrBkmZ+IVZWY4TopAO5S0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=MMM+0N60ODKjqcP7/UwhGGndw5EYDfe/PwXyJI+6tNbzrhUuGH+SoWyHcSgzjOqNz
+	 fovF3qvrYsGblmTK/PtbuY+/wlQATssJpiclYPtzUGafdoOhjwqfgsoQBeFL/zjs2R
+	 wQhW8o38W5vMUl+wL+KE9PxS4CW7FEyLrSSwW2SI=
+Date: Tue, 27 Oct 2020 10:43:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org, 
+    xen-devel@lists.xenproject.org, hch@lst.de
+Subject: Re: [PATCH] fix swiotlb panic on Xen
+In-Reply-To: <20201027133701.GB6077@char.us.oracle.com>
+Message-ID: <alpine.DEB.2.21.2010271041490.12247@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2010261653320.12247@sstabellini-ThinkPad-T480s> <20201027133701.GB6077@char.us.oracle.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/IUCnAdpwlNNSU68hTJ7Tgwj"; protocol="application/pgp-signature"
-
---Sig_/IUCnAdpwlNNSU68hTJ7Tgwj
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Andrew,
+On Tue, 27 Oct 2020, Konrad Rzeszutek Wilk wrote:
+> On Mon, Oct 26, 2020 at 05:02:14PM -0700, Stefano Stabellini wrote:
+> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > kernel/dma/swiotlb.c:swiotlb_init gets called first and tries to
+> > allocate a buffer for the swiotlb. It does so by calling
+> > 
+> >   memblock_alloc_low(PAGE_ALIGN(bytes), PAGE_SIZE);
+> > 
+> > If the allocation must fail, no_iotlb_memory is set.
+> > 
+> > 
+> > Later during initialization swiotlb-xen comes in
+> > (drivers/xen/swiotlb-xen.c:xen_swiotlb_init) and given that io_tlb_start
+> > is != 0, it thinks the memory is ready to use when actually it is not.
+> > 
+> > When the swiotlb is actually needed, swiotlb_tbl_map_single gets called
+> > and since no_iotlb_memory is set the kernel panics.
+> > 
+> > Instead, if swiotlb-xen.c:xen_swiotlb_init knew the swiotlb hadn't been
+> > initialized, it would do the initialization itself, which might still
+> > succeed.
+> > 
+> > 
+> > Fix the panic by setting io_tlb_start to 0 on swiotlb initialization
+> > failure, and also by setting no_iotlb_memory to false on swiotlb
+> > initialization success.
+> 
+> Should this have a Fixes: flag?
 
-with commit 93c2ff78adcadbe0f8bda57eeb30b1414c966324 a new function process=
-_page_data was added. While filling the mfns array for xenforeignmemory_map=
-, the individual pfn types[] are checked in a different way than the checki=
-ng of the result of the mapping attempt.=20
+That would be
 
-Is there a special reason why the first loop uses the various TAB values, a=
-nd the other loop checks XTAB/BROKEN/XALLOC? The sending side also uses the=
- latter.
+Fixes: ac2cbab21f31 ("x86: Don't panic if can not alloc buffer for swiotlb")
 
 
-Olaf
 
---Sig_/IUCnAdpwlNNSU68hTJ7Tgwj
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl+YW78ACgkQ86SN7mm1
-DoCJbxAAojX1wTd2kFu33GQqzlHl3MmJswVFzS2TlpZHqm6fjQ8wZ10qZp+a7jTW
-ZpuEoJGsFzHPGLWfQ9PRuQlGXGYdov5ZmM2M8OVyBWTYi0BwseP6EpDfnIidbLpP
-BF9g0Q6H7pckvHsoru1+1X68iah00HvovwZAxVuLtQQbufAQ0Ov/qAgM225LSw9x
-7sCHBBUihyrwN18PsLRd0ByqIJwkYryX5q1UObkCrpDzs8XiVwusZSYeXmIZDIf9
-qXQxgnyPonZU69sqz+ym4z5d3NdJnVDPJ/eAi5EnLjZbh09258kpy+tEVyXsSiwP
-EczSwXMIrTi4nv+vE8hr4wecGHf11Sj+b2dEb4imU7ijQmTdiazfIxASjRW/5w9b
-ephGwYrvBZaOYOtzsokLFa1c7zvvQnnLqe/UndAm1sBoOZuTGMG/rOHuIrmZhM7d
-+cmYVGcwi3VUAPVcNC8VHLHzKxCwDwBDDhBuTY8cPAbUBvN1rmjHbLHC4AmDhdZh
-m2gwXWB8Wk5iGEfm8nuZ7d1Hdl4oKyHstMNyWtWfRnJBGeiLEru1tvpKMByTIQhl
-tsP3InZ1cxbarfmZ6RqJ5KDzCe+ZVSVMoENBO9T8mDialSSeCCw4DBmhYAmBA8f1
-K0xBE0uaJH6gY9Z9mtMz9gWdkt5HT0ff85RdfwWi6/IywckYt/w=
-=SMAb
------END PGP SIGNATURE-----
-
---Sig_/IUCnAdpwlNNSU68hTJ7Tgwj--
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > 
+> > diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> > index c19379fabd20..9924214df60a 100644
+> > --- a/kernel/dma/swiotlb.c
+> > +++ b/kernel/dma/swiotlb.c
+> > @@ -231,6 +231,7 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+> >  		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
+> >  	}
+> >  	io_tlb_index = 0;
+> > +	no_iotlb_memory = false;
+> >  
+> >  	if (verbose)
+> >  		swiotlb_print_info();
+> > @@ -262,9 +263,11 @@ swiotlb_init(int verbose)
+> >  	if (vstart && !swiotlb_init_with_tbl(vstart, io_tlb_nslabs, verbose))
+> >  		return;
+> >  
+> > -	if (io_tlb_start)
+> > +	if (io_tlb_start) {
+> >  		memblock_free_early(io_tlb_start,
+> >  				    PAGE_ALIGN(io_tlb_nslabs << IO_TLB_SHIFT));
+> > +		io_tlb_start = 0;
+> > +	}
+> >  	pr_warn("Cannot allocate buffer");
+> >  	no_iotlb_memory = true;
+> >  }
+> > @@ -362,6 +365,7 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+> >  		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
+> >  	}
+> >  	io_tlb_index = 0;
+> > +	no_iotlb_memory = false;
+> >  
+> >  	swiotlb_print_info();
+> >  
+> 
 
