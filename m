@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CEB329C8C7
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 20:26:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13075.33643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB24629C8F5
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 20:31:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13085.33655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXUbQ-0000dU-M8; Tue, 27 Oct 2020 19:25:52 +0000
+	id 1kXUgV-0001VN-9u; Tue, 27 Oct 2020 19:31:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13075.33643; Tue, 27 Oct 2020 19:25:52 +0000
+Received: by outflank-mailman (output) from mailman id 13085.33655; Tue, 27 Oct 2020 19:31:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,192 +23,124 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXUbQ-0000d5-Ip; Tue, 27 Oct 2020 19:25:52 +0000
-Received: by outflank-mailman (input) for mailman id 13075;
- Tue, 27 Oct 2020 19:25:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kXUgV-0001Uy-6i; Tue, 27 Oct 2020 19:31:07 +0000
+Received: by outflank-mailman (input) for mailman id 13085;
+ Tue, 27 Oct 2020 19:31:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o/8F=EC=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
- id 1kXUbP-0000d0-Go
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:25:51 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 482ff22e-0870-4cb3-a176-cbcf0aa7908c;
- Tue, 27 Oct 2020 19:25:49 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJP21A164536;
- Tue, 27 Oct 2020 19:25:45 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 34cc7kuye1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 27 Oct 2020 19:25:45 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJPKpI106279;
- Tue, 27 Oct 2020 19:25:44 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 34cx6wc87t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 27 Oct 2020 19:25:44 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09RJPgg2007991;
- Tue, 27 Oct 2020 19:25:42 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 27 Oct 2020 12:25:42 -0700
-Received: by char.us.oracle.com (Postfix, from userid 1000)
- id 373186A0121; Tue, 27 Oct 2020 15:27:27 -0400 (EDT)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=OCGY=EC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kXUgT-0001Ut-FJ
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:31:05 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 228fdc32-52d5-4ed5-bd28-1f4d7d8ff50f;
+ Tue, 27 Oct 2020 19:31:03 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=o/8F=EC=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
-	id 1kXUbP-0000d0-Go
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:25:51 +0000
-X-Inumbo-ID: 482ff22e-0870-4cb3-a176-cbcf0aa7908c
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 482ff22e-0870-4cb3-a176-cbcf0aa7908c;
-	Tue, 27 Oct 2020 19:25:49 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
-	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJP21A164536;
-	Tue, 27 Oct 2020 19:25:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=WWBVSyjATfqcuJQT+Yh6z4CCuAVHsOU2pwiB2KA9sbQ=;
- b=oNpuOKowZ1S862d6HWXEpBF6XqOjSjkj7XINwdr3XhrVVUdwCe0i0DOho17D9z8Sg05U
- acLF8fHnANx0ayghZdiDrEd+f1qcwfMFFWVCuNDgx2etJMa992mU03XWv+iLd5SHHkJg
- dgLwmAaLRANLtQiU/G7FIKEYp5NrNLWuAjFVPq5hQgbdYNZIQvwVgVtDLB2VrP8l89xY
- ADl0KBMePGoYDy7bLoY7+A5Odim6oCuVb72T1DXy+oCRUA9aG5yJuKHNw/uJ7jox/Di9
- I81V/kb0jh3z4LbGrig8E9z7KewsPBuORax86jP+PrHvghqqOXKeppF15dYGuZqqmQk5 AA== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by aserp2120.oracle.com with ESMTP id 34cc7kuye1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 27 Oct 2020 19:25:45 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJPKpI106279;
-	Tue, 27 Oct 2020 19:25:44 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3030.oracle.com with ESMTP id 34cx6wc87t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2020 19:25:44 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09RJPgg2007991;
-	Tue, 27 Oct 2020 19:25:42 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 27 Oct 2020 12:25:42 -0700
-Received: by char.us.oracle.com (Postfix, from userid 1000)
-	id 373186A0121; Tue, 27 Oct 2020 15:27:27 -0400 (EDT)
-Date: Tue, 27 Oct 2020 15:27:27 -0400
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Elliott Mitchell <ehem+undef@m5p.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-        iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org, hch@lst.de
-Subject: Re: [PATCH] fix swiotlb panic on Xen
-Message-ID: <20201027192726.GA13396@char.us.oracle.com>
-References: <alpine.DEB.2.21.2010261653320.12247@sstabellini-ThinkPad-T480s>
- <20201027175114.GA32110@mattapan.m5p.com>
+	(envelope-from <SRS0=OCGY=EC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kXUgT-0001Ut-FJ
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:31:05 +0000
+X-Inumbo-ID: 228fdc32-52d5-4ed5-bd28-1f4d7d8ff50f
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 228fdc32-52d5-4ed5-bd28-1f4d7d8ff50f;
+	Tue, 27 Oct 2020 19:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1603827063;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=Zl/xKhDItIScI+KG1AgREzYTPuS7GYYGS4lHAOwb8/c=;
+  b=a2G65Kix71UeTzmKzrytPAuV2xS7CKCf7h20u7xLQRhtMhsDBnP7cqn/
+   isdAyeWFJkR7C8QYUHyyTzZiEVNMczDLPlHwvt/LglsN2Ew/QG9/vFkGG
+   lN4nQoEXaE2Et31mFOKWEyOGwizsoePUrrKmE1gc81X9gz5VEMDR/zOF3
+   s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: nnxbZeJ9Zx4r/23DcmJ8Wo+jqjyuTLwQO7ko2iUYKdlQMGeNB4sG5Cuo3oH2/waJGBOLSsHQgf
+ teioAt5wx/H9MHhx2J3IvJ8haASQ+or5eS4lWREvsH4n4Z03Chg6CzU7yi0ZfWEHbja2nlU7Uq
+ TVgkXUdZLArMAOOVU0qFLIPw0R+sNRdHwFs48RYTTS16BGjPx7ePxx5Hv2UyTECXm831Ae0Smc
+ UYH86IWcdiTMygBcG6NPHqm/6VxIJHrmTunWTmQHcGPX3HA3WsPDZ2CsUjg45acz4jsSrCtZVd
+ FUQ=
+X-SBRS: None
+X-MesageID: 30991591
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,424,1596513600"; 
+   d="scan'208";a="30991591"
+Subject: Re: [PATCH] x86/svm: Merge hsa and host_vmcb to reduce memory
+ overhead
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20201026135043.15560-1-andrew.cooper3@citrix.com>
+ <ec123127-786a-02e9-07dd-351f30b6a5b3@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <6acb623c-27bd-2d2d-c7c3-52c9ff1a1bf5@citrix.com>
+Date: Tue, 27 Oct 2020 19:30:45 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201027175114.GA32110@mattapan.m5p.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9787 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 spamscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0 suspectscore=2
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010270112
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9787 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 adultscore=0
- malwarescore=0 spamscore=0 clxscore=1011 mlxscore=0 suspectscore=2
- priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010270112
+In-Reply-To: <ec123127-786a-02e9-07dd-351f30b6a5b3@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-> As the person who first found this and then confirmed this fixes a bug:
-> 
-> Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
+On 27/10/2020 15:24, Jan Beulich wrote:
+> On 26.10.2020 14:50, Andrew Cooper wrote:
+>> The format of the Host State Area is, and has always been, a VMCB.  It is
+>> explicitly safe to put the host VMSAVE data in.
+> Nit: The PM calls this "Host Save Area" or "Host State Save Area"
+> afaics.
+>
+> I recall us discussing this option in the past, and not right
+> away pursuing it because of it not having been explicit at the
+> time. What place in the doc has made this explicit?
 
-Thank you!!
+Sadly still not yet, but the pestering has happened.
 
-I changed the title and added the various tags and will put it in
-linux-next later this week.
+> The main
+> uncertainty (without any explicit statement) on my part would be
+> the risk of VMSAVE writing (for performance reasons) e.g. full
+> cache lines, i.e. more than exactly the bits holding the state
+> to be saved, without first bringing old contents in from memory.
 
-From a1eb2768bf5954d25aa0f0136b38f0aa5d92d984 Mon Sep 17 00:00:00 2001
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date: Mon, 26 Oct 2020 17:02:14 -0700
-Subject: [PATCH] swiotlb: fix "x86: Don't panic if can not alloc buffer for
- swiotlb"
+SEV-ES now requires the hypervisor to program desired exit state in in
+the VMCB, due to differences in how the VMRUN instruction works.  See
+Vol3 15.35.8.  (And yes - this does contradict the earlier statement in
+that a the hypervisor must not write directly into the host state area).
 
-kernel/dma/swiotlb.c:swiotlb_init gets called first and tries to
-allocate a buffer for the swiotlb. It does so by calling
+I have had it confirmed by AMD that it is safe to use in this fashion,
+but if you want more evidence, KVM has had this behaviour on AMD for its
+entire lifetime.
 
-  memblock_alloc_low(PAGE_ALIGN(bytes), PAGE_SIZE);
+>> --- a/xen/arch/x86/hvm/svm/svm.c
+>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>> @@ -72,11 +72,10 @@ static void svm_update_guest_efer(struct vcpu *);
+>>  static struct hvm_function_table svm_function_table;
+>>  
+>>  /*
+>> - * Physical addresses of the Host State Area (for hardware) and vmcb (for Xen)
+>> - * which contains Xen's fs/gs/tr/ldtr and GSBASE/STAR/SYSENTER state when in
+>> - * guest vcpu context.
+>> + * Host State Area.  This area is used by the processor in non-root mode, and
+>> + * contains Xen's fs/gs/tr/ldtr and GSBASE/STAR/SYSENTER state required to
+>> + * leave guest vcpu context.
+>>   */
+>> -static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, hsa);
+>>  static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, host_vmcb);
+> The comment now applies to host_vmcb, so making the dual purpose
+> more obvious would imo be helpful.
 
-If the allocation must fail, no_iotlb_memory is set.
+But it isn't dual purpose.  It *is* host state, both the half which
+VMRUN deals with, and the half which VMLOAD/SAVE deals with (separately,
+to optimise VMRUN).
 
-Later during initialization swiotlb-xen comes in
-(drivers/xen/swiotlb-xen.c:xen_swiotlb_init) and given that io_tlb_start
-is != 0, it thinks the memory is ready to use when actually it is not.
+I suppose technically it gets a little complicated with whose state
+fs/gs/ldtr/gsbase actually is, given the PV VMLOAD-optimised path, but
+the state relevant to Xen's security is tr/syscall/sysenter, which will
+remain correct from the start of day.
 
-When the swiotlb is actually needed, swiotlb_tbl_map_single gets called
-and since no_iotlb_memory is set the kernel panics.
-
-Instead, if swiotlb-xen.c:xen_swiotlb_init knew the swiotlb hadn't been
-initialized, it would do the initialization itself, which might still
-succeed.
-
-Fix the panic by setting io_tlb_start to 0 on swiotlb initialization
-failure, and also by setting no_iotlb_memory to false on swiotlb
-initialization success.
-
-Fixes: ac2cbab21f31 ("x86: Don't panic if can not alloc buffer for swiotlb")
-
-Reported-by: Elliott Mitchell <ehem+xen@m5p.com>
-Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-CC: stable@vger.kernel.org
-Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
----
- kernel/dma/swiotlb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 465a567678d9..e08cac39c0ba 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -229,6 +229,7 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
- 		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
- 	}
- 	io_tlb_index = 0;
-+	no_iotlb_memory = false;
- 
- 	if (verbose)
- 		swiotlb_print_info();
-@@ -260,9 +261,11 @@ swiotlb_init(int verbose)
- 	if (vstart && !swiotlb_init_with_tbl(vstart, io_tlb_nslabs, verbose))
- 		return;
- 
--	if (io_tlb_start)
-+	if (io_tlb_start) {
- 		memblock_free_early(io_tlb_start,
- 				    PAGE_ALIGN(io_tlb_nslabs << IO_TLB_SHIFT));
-+		io_tlb_start = 0;
-+	}
- 	pr_warn("Cannot allocate buffer");
- 	no_iotlb_memory = true;
- }
-@@ -360,6 +363,7 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
- 		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
- 	}
- 	io_tlb_index = 0;
-+	no_iotlb_memory = false;
- 
- 	swiotlb_print_info();
- 
--- 
-2.13.6
-
+~Andrew
 
