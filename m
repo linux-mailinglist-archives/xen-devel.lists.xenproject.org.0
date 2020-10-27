@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB6929CC21
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 23:44:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13123.33709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 178D829CC22
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 23:44:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13133.33721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXXg7-00014a-4z; Tue, 27 Oct 2020 22:42:55 +0000
+	id 1kXXhC-0001Cl-FB; Tue, 27 Oct 2020 22:44:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13123.33709; Tue, 27 Oct 2020 22:42:55 +0000
+Received: by outflank-mailman (output) from mailman id 13133.33721; Tue, 27 Oct 2020 22:44:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,68 +23,66 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXXg7-00014B-1c; Tue, 27 Oct 2020 22:42:55 +0000
-Received: by outflank-mailman (input) for mailman id 13123;
- Tue, 27 Oct 2020 22:42:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kXXhC-0001CK-BW; Tue, 27 Oct 2020 22:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 13133;
+ Tue, 27 Oct 2020 22:44:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kXXg5-000146-H3
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 22:42:53 +0000
+ id 1kXXhA-0001CB-8v
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 22:44:00 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c97c9b4f-c1c7-4621-b03e-5470c1b7e0f8;
- Tue, 27 Oct 2020 22:42:52 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5008af22-287b-4090-a77d-b7afe8327c97;
+ Tue, 27 Oct 2020 22:43:59 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ACB462070E;
- Tue, 27 Oct 2020 22:42:51 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mail.kernel.org (Postfix) with ESMTPSA id 5867C2070E;
+ Tue, 27 Oct 2020 22:43:58 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kXXg5-000146-H3
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 22:42:53 +0000
-X-Inumbo-ID: c97c9b4f-c1c7-4621-b03e-5470c1b7e0f8
+	id 1kXXhA-0001CB-8v
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 22:44:00 +0000
+X-Inumbo-ID: 5008af22-287b-4090-a77d-b7afe8327c97
 Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c97c9b4f-c1c7-4621-b03e-5470c1b7e0f8;
-	Tue, 27 Oct 2020 22:42:52 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 5008af22-287b-4090-a77d-b7afe8327c97;
+	Tue, 27 Oct 2020 22:43:59 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id ACB462070E;
-	Tue, 27 Oct 2020 22:42:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 5867C2070E;
+	Tue, 27 Oct 2020 22:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1603838571;
-	bh=DOYHKDzCBaOnpf3jMoYPK5uiy0h3DwiEWrPZhy4OGS4=;
+	s=default; t=1603838638;
+	bh=s2EsWcdamgqbRhMPT220EeF+aiisPXqfZRmvzzvpkZc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IJabmM6lZap9DQGI8TB5u3T5Aj4TLOqLOnQjHthU2dNBmvjwYWyWef5koU9FS4Mrm
-	 lNqTBx+gd6Vt6+jyJmfYRenBmf8/bjPIidf3aorFugoZx/DhrHF7zK72gjRt/07ZLd
-	 cMvIGv7b4bKmd7wQXe8NqgDxf0eb0MoQ6DyvYDxM=
-Date: Tue, 27 Oct 2020 15:42:51 -0700 (PDT)
+	b=t3izSP5/mRHliBCpcwOaSnnSUNGhNzyYvXZs6ZOHruDLfIP+VoO2AQiKkpJWwoN1a
+	 PEoXcQazy2dYh71B8+ZM98jqdx93YeE3nqwl91rh4gdCjvfNQsVFsmset9ca5CWRZj
+	 M/qSe+ASM7ahJDgDFgPWmMm9PEQUxRbfX2vACB0M=
+Date: Tue, 27 Oct 2020 15:43:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 1/3] xen/arm: use printk_once for errata warning
- prints
-In-Reply-To: <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.21.2010271532200.12247@sstabellini-ThinkPad-T480s>
-References: <cover.1603728729.git.bertrand.marquis@arm.com> <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 2/3] xen: Add an unsecure Taint type
+In-Reply-To: <d7e82b374cb7c83d6e18774e23bc4d970c4e8b53.1603728729.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2010271538080.12247@sstabellini-ThinkPad-T480s>
+References: <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com> <d7e82b374cb7c83d6e18774e23bc4d970c4e8b53.1603728729.git.bertrand.marquis@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 26 Oct 2020, Bertrand Marquis wrote:
-> Replace usage of warning_add by printk_once with a **** prefix and
-> suffix for errata related warnings.
-> 
-> This prevents the need for the assert which is not secure enough to
-> protect this print against wrong usage.
+> Define a new Unsecure taint type to be used to signal a system tainted
+> due to an unsecure configuration or hardware feature/errata.
 > 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
@@ -92,37 +90,44 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/arm/cpuerrata.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
+>  xen/common/kernel.c   | 4 +++-
+>  xen/include/xen/lib.h | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> index 0c63dfa779..0430069a84 100644
-> --- a/xen/arch/arm/cpuerrata.c
-> +++ b/xen/arch/arm/cpuerrata.c
-> @@ -157,7 +157,6 @@ extern char __smccc_workaround_1_smc_start[], __smccc_workaround_1_smc_end[];
->  static int enable_smccc_arch_workaround_1(void *data)
+> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+> index c3a943f077..7a345ae45e 100644
+> --- a/xen/common/kernel.c
+> +++ b/xen/common/kernel.c
+> @@ -326,6 +326,7 @@ unsigned int tainted;
+>   *  'E' - An error (e.g. a machine check exceptions) has been injected.
+>   *  'H' - HVM forced emulation prefix is permitted.
+>   *  'M' - Machine had a machine check experience.
+> + *  'U' - Platform is unsecure (usually due to an errata on the platform).
+>   *
+>   *      The string is overwritten by the next call to print_taint().
+>   */
+> @@ -333,7 +334,8 @@ char *print_tainted(char *str)
 >  {
->      struct arm_smccc_res res;
-> -    static bool warned = false;
->      const struct arm_cpu_capabilities *entry = data;
->  
->      /*
-> @@ -182,13 +181,8 @@ static int enable_smccc_arch_workaround_1(void *data)
->                                       "call ARM_SMCCC_ARCH_WORKAROUND_1");
->  
->  warn:
-> -    if ( !warned )
-> -    {
-> -        ASSERT(system_state < SYS_STATE_active);
-> -        warning_add("No support for ARM_SMCCC_ARCH_WORKAROUND_1.\n"
-> -                    "Please update your firmware.\n");
-> -        warned = true;
-> -    }
-> +    printk_once("**** No support for ARM_SMCCC_ARCH_WORKAROUND_1. ****\n"
-> +                "**** Please update your firmware.                ****\n");
->  
->      return 0;
->  }
+>      if ( tainted )
+>      {
+> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c",
+> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c",
+> +                 tainted & TAINT_MACHINE_UNSECURE ? 'U' : ' ',
+>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
+>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
+>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
+> diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+> index 1983bd6b86..a9679c913d 100644
+> --- a/xen/include/xen/lib.h
+> +++ b/xen/include/xen/lib.h
+> @@ -193,6 +193,7 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c);
+>  #define TAINT_MACHINE_CHECK             (1u << 1)
+>  #define TAINT_ERROR_INJECT              (1u << 2)
+>  #define TAINT_HVM_FEP                   (1u << 3)
+> +#define TAINT_MACHINE_UNSECURE          (1u << 4)
+>  extern unsigned int tainted;
+>  #define TAINT_STRING_MAX_LEN            20
+>  extern char *print_tainted(char *str);
 > -- 
 > 2.17.1
 > 
