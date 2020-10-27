@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBCA429CCA2
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 00:19:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13149.33745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 298BA29CCB2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 00:32:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13171.33757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXYF1-00045d-Gq; Tue, 27 Oct 2020 23:18:59 +0000
+	id 1kXYS5-0005kj-RG; Tue, 27 Oct 2020 23:32:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13149.33745; Tue, 27 Oct 2020 23:18:59 +0000
+Received: by outflank-mailman (output) from mailman id 13171.33757; Tue, 27 Oct 2020 23:32:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,139 +23,268 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXYF1-00045E-Cy; Tue, 27 Oct 2020 23:18:59 +0000
-Received: by outflank-mailman (input) for mailman id 13149;
- Tue, 27 Oct 2020 23:18:58 +0000
+	id 1kXYS5-0005kK-Nu; Tue, 27 Oct 2020 23:32:29 +0000
+Received: by outflank-mailman (input) for mailman id 13171;
+ Tue, 27 Oct 2020 23:32:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OCGY=EC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kXYEz-000459-Tc
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 23:18:58 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kXYS4-0005kF-1w
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 23:32:28 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 904df3fc-12db-4189-8424-63a110050b68;
- Tue, 27 Oct 2020 23:18:56 +0000 (UTC)
+ id fa1f5950-341c-46d5-b464-d499d84a232c;
+ Tue, 27 Oct 2020 23:32:27 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3ED6520747;
+ Tue, 27 Oct 2020 23:32:25 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=OCGY=EC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kXYEz-000459-Tc
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 23:18:58 +0000
-X-Inumbo-ID: 904df3fc-12db-4189-8424-63a110050b68
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	(envelope-from <SRS0=C1L6=EC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kXYS4-0005kF-1w
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 23:32:28 +0000
+X-Inumbo-ID: fa1f5950-341c-46d5-b464-d499d84a232c
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 904df3fc-12db-4189-8424-63a110050b68;
-	Tue, 27 Oct 2020 23:18:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603840736;
-  h=subject:to:references:from:message-id:date:mime-version:
-   in-reply-to;
-  bh=IZ9FHP7UM9ir5vN2+AeRAWVYMbaqA/QaczprssiUnIc=;
-  b=eyuhy0Zd97UDrpZ7EOXuJha2FLUEwBYis8RPlGZyd3CE9abipUKLweY2
-   J31OYHuA3oPQ6kypepPL1HlX0LyCM9d30640XmyK2J5l/YT6eYVF63SxP
-   XqcqHCJ4Smsi2j93UGQDm64WXjUX0NK8+Q6BIyHjJj3LuHUE+MXaQrJdH
-   w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: VnByQLNSlIX7iD4ifp24aPZTiaBZXb++wlCSUecghkT5Hdd25WUekYvZve6UplKRQleaiTQtgd
- WkrGun2nbcO3AwraMFnC1X30E7J8x7f5RaJKoTgfdSlmkQpmbgSBNscY8eIDGePLotzuK//ry1
- L5DelmyXWZixd3tRpj0RZ/+4uARrbr8l6gCwI+f4O21o0HdFrv+CYyVGIA+S+e9u4+C/wFuOAJ
- Hd1YCS/ZbBPfGVL/e8pa9DFPAsbsfR3bylLRs+4CHRGfc+XDkoDzeBpAK/QrGkozEApoZDMhYz
- p/w=
-X-SBRS: None
-X-MesageID: 29977274
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,424,1596513600"; 
-   d="asc'?scan'208";a="29977274"
-Subject: Re: inconsistent pfn type checking in process_page_data
-To: Olaf Hering <olaf@aepfle.de>, <xen-devel@lists.xenproject.org>
-References: <20201027184119.1d3f701e.olaf@aepfle.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6c595f1b-72cf-4f9e-5bad-eb0ebde45630@citrix.com>
-Date: Tue, 27 Oct 2020 23:18:47 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id fa1f5950-341c-46d5-b464-d499d84a232c;
+	Tue, 27 Oct 2020 23:32:27 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 3ED6520747;
+	Tue, 27 Oct 2020 23:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1603841546;
+	bh=qtb3dL32MVZs65s3PVnJxFbnlJZc/NeI8cYzE9m4lzM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=sliiHvdbnq0sWM9OagtFdWu8tsuwhwLB2cz/qmpmVR3ZjBwHGU7hhPHBqvUDGxr0+
+	 YfgSA/LAYbXbCY/KxBHmUkA5QrhPeRXdU44gMPaT4l71rbbKFFAjJz9aq5NM30gY6m
+	 4JBZhiLMhx35Hjuu/Mx6QYcZQ1sge8vobnHbj6RQ=
+Date: Tue, 27 Oct 2020 16:32:24 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1 1/4] xen/ns16550: solve compilation error on ARM with
+ CONFIG_HAS_PCI enabled.
+In-Reply-To: <d1df24d48508c0c01c0b1130ed22f2b4585d04db.1603731279.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2010271621480.12247@sstabellini-ThinkPad-T480s>
+References: <cover.1603731279.git.rahul.singh@arm.com> <d1df24d48508c0c01c0b1130ed22f2b4585d04db.1603731279.git.rahul.singh@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20201027184119.1d3f701e.olaf@aepfle.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature";
-	boundary="PmNP58m8765AuC1cLqKa14r0h9Udv4XtV"
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Type: text/plain; charset=US-ASCII
 
---PmNP58m8765AuC1cLqKa14r0h9Udv4XtV
-Content-Type: multipart/mixed; boundary="Pt76t2PbaCJH0N46DjzEpjw4D9tx0Jp59"
+On Mon, 26 Oct 2020, Rahul Singh wrote:
+> ARM platforms does not support ns16550 PCI support. When CONFIG_HAS_PCI
+                ^ do
 
---Pt76t2PbaCJH0N46DjzEpjw4D9tx0Jp59
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-
-On 27/10/2020 17:41, Olaf Hering wrote:
-> Andrew,
+> is enabled for ARM a compilation error is observed.
+> 
+> Fixed compilation error after introducing new kconfig option
+> CONFIG_HAS_NS16550_PCI for x86 platforms to support ns16550 PCI.
 >
-> with commit 93c2ff78adcadbe0f8bda57eeb30b1414c966324 a new function pro=
-cess_page_data was added. While filling the mfns array for xenforeignmemo=
-ry_map, the individual pfn types[] are checked in a different way than th=
-e checking of the result of the mapping attempt.=20
->
-> Is there a special reason why the first loop uses the various TAB value=
-s, and the other loop checks XTAB/BROKEN/XALLOC? The sending side also us=
-es the latter.
+> No functional change.
 
-Hmm.=A0 (Wow that's more than 5 years old now)
+Written like that it would seem that ARM platforms do not support
+NS16550 on the PCI bus, but actually, it would be theoretically possible
+to have an NS16550 card slotted in a PCI bus on ARM, right?
 
-IIRC, that particular piece of logic took an age to get correct.=A0 Its
-quite possible it ended up being a merge of code which David and I wrote
-at slightly different times.
+The problem is the current limitation in terms of Xen internal
+plumbings, such as lack of MSI support. Is that correct?
 
-Fundamentally, there are 4 bits of page type which encode NOTAB
-(writeable), L{1..4}, Pinned L{1..4}, XTAB (invalid), XALLOC
-(allocate-only - still not sure what the purpose is.=A0 There is no
-producer of this type that I'm aware of) and BROKEN.
-
-By my count, that is 12 legal types, so asymmetric type=3D>"is there data=
-"
-conversions is probably a bad thing.
-
-I suspect we probably want an is_known_page_type() predicate on the
-source side to sanity check data from Xen, and on the destination side
-in handle_page_data() to sanity check data in the stream, and we
-probably want a page_type_has_data() predicate to use in
-write_batch()/process_page_data() to ensure that the handling is consiste=
-nt.
-
-Do you fancy doing a patch?=A0 If not I can put this on my TODO list, but=
-
-no ETA on when I'd get to it.
-
-~Andrew
+If so, I'd update the commit message to reflect the situation a bit
+better.
 
 
---Pt76t2PbaCJH0N46DjzEpjw4D9tx0Jp59--
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>  xen/drivers/char/Kconfig   |  7 +++++++
+>  xen/drivers/char/ns16550.c | 32 ++++++++++++++++----------------
+>  2 files changed, 23 insertions(+), 16 deletions(-)
+> 
+> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+> index b572305657..8887e86afe 100644
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -4,6 +4,13 @@ config HAS_NS16550
+>  	help
+>  	  This selects the 16550-series UART support. For most systems, say Y.
+>  
+> +config HAS_NS16550_PCI
+> +	bool "NS16550 UART PCI support" if X86
+> +	default y
+> +	depends on X86 && HAS_NS16550 && HAS_PCI
+> +	help
+> +	  This selects the 16550-series UART PCI support. For most systems, say Y.
 
---PmNP58m8765AuC1cLqKa14r0h9Udv4XtV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+I think that this should be a silent option:
+if HAS_NS16550 && HAS_PCI && X86 -> automatically enable
+otherwise -> automatically disable
 
------BEGIN PGP SIGNATURE-----
+No need to show it to the user.
 
-iQIzBAEBCAAdFiEEzzVJW36m9w6nfSF2ZcP5BqXXn6AFAl+YqtsACgkQZcP5BqXX
-n6BkrRAAg1pM7SuBZRyjw6qrXtkBnjmCHVa6eI9/BShJvYOoZwKINWlmrTagFX6M
-q/7tqiU+XMMO1XtQ77XrEWUfLdnagxZSj0LcVXo2j9AOILcEfhVjm06kTr/y1Tie
-s8tDBOfTdn+y0kV4ujlCm5sOfBngWEDOtYNXqhTeNZSdbmeeNXLue4ojwLDWP+Vf
-4JK34YO0O4q4cGCclIpubPz0clO5ZzOauyBSno2OKrDvkF2C3NuXyvCkIz69oJ3z
-+LyngRA38nrGXz3pVDZ9fqvVOvnPLIIwh8oyLE2f56084Z00xuHRpYTE69lF/d3B
-frCkPEzOrlQVVepLIlEs0PavRbtvLiV0igzg8IubbBqKWL0c8Zyna4byAR1ZhWkL
-A/Ob7K8RfjoBYDnVCAm5qjQpI4NMU8Sc6chevBqeJqNG9lfKRlhISPRBrncG4jy2
-n0ggAAdrl6Tnnz2o3W+HiTbKz9500Li2xHfhtOyJiRuDvo3tNh8l24i6B52f12iO
-QL6DuQBsmSW7geWl7nBQ9YD1rfkbMQUBRCdnmkAgIF3C/hEJXi2+PpFyqQVZUGqR
-oCsNviC3kvxGhhSuZ0KlKisIZySMpVtk8K8UdFMmpje80PbAovAem+PnVVCoJB52
-AlFe/yx5ffGOSN0ZidQiI2ac5nQAJSQoONAP3vv41G9t9JuC3e0=
-=coZJ
------END PGP SIGNATURE-----
+The rest of course is fine.
 
---PmNP58m8765AuC1cLqKa14r0h9Udv4XtV--
+
+>  config HAS_CADENCE_UART
+>  	bool "Xilinx Cadence UART driver"
+>  	default y
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index d8b52eb813..bd1c2af956 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -16,7 +16,7 @@
+>  #include <xen/timer.h>
+>  #include <xen/serial.h>
+>  #include <xen/iocap.h>
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  #include <xen/pci.h>
+>  #include <xen/pci_regs.h>
+>  #include <xen/pci_ids.h>
+> @@ -54,7 +54,7 @@ enum serial_param_type {
+>      reg_shift,
+>      reg_width,
+>      stop_bits,
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      bridge_bdf,
+>      device,
+>      port_bdf,
+> @@ -83,7 +83,7 @@ static struct ns16550 {
+>      unsigned int timeout_ms;
+>      bool_t intr_works;
+>      bool_t dw_usr_bsy;
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      /* PCI card parameters. */
+>      bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
+>      bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
+> @@ -117,14 +117,14 @@ static const struct serial_param_var __initconst sp_vars[] = {
+>      {"reg-shift", reg_shift},
+>      {"reg-width", reg_width},
+>      {"stop-bits", stop_bits},
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      {"bridge", bridge_bdf},
+>      {"dev", device},
+>      {"port", port_bdf},
+>  #endif
+>  };
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  struct ns16550_config {
+>      u16 vendor_id;
+>      u16 dev_id;
+> @@ -620,7 +620,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
+>  
+>  static void pci_serial_early_init(struct ns16550 *uart)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
+>          return;
+>  
+> @@ -719,7 +719,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
+>  
+>  static void __init ns16550_init_irq(struct serial_port *port)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      struct ns16550 *uart = port->uart;
+>  
+>      if ( uart->msi )
+> @@ -761,7 +761,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
+>      uart->timeout_ms = max_t(
+>          unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( uart->bar || uart->ps_bdf_enable )
+>      {
+>          if ( uart->param && uart->param->mmio &&
+> @@ -841,7 +841,7 @@ static void ns16550_suspend(struct serial_port *port)
+>  
+>      stop_timer(&uart->timer);
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( uart->bar )
+>         uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
+>                                    uart->ps_bdf[2]), PCI_COMMAND);
+> @@ -850,7 +850,7 @@ static void ns16550_suspend(struct serial_port *port)
+>  
+>  static void _ns16550_resume(struct serial_port *port)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      struct ns16550 *uart = port->uart;
+>  
+>      if ( uart->bar )
+> @@ -1013,7 +1013,7 @@ static int __init check_existence(struct ns16550 *uart)
+>      return 1; /* Everything is MMIO */
+>  #endif
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      pci_serial_early_init(uart);
+>  #endif
+>  
+> @@ -1044,7 +1044,7 @@ static int __init check_existence(struct ns16550 *uart)
+>      return (status == 0x90);
+>  }
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  static int __init
+>  pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+>  {
+> @@ -1305,7 +1305,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+>  
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          if ( strncmp(conf, "pci", 3) == 0 )
+>          {
+>              if ( pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
+> @@ -1327,7 +1327,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+>  
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          if ( strncmp(conf, "msi", 3) == 0 )
+>          {
+>              conf += 3;
+> @@ -1339,7 +1339,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+>              uart->irq = simple_strtol(conf, &conf, 10);
+>      }
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+>          conf = parse_pci(conf, NULL, &uart->ps_bdf[0],
+> @@ -1419,7 +1419,7 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
+>              uart->reg_width = simple_strtoul(param_value, NULL, 0);
+>              break;
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          case bridge_bdf:
+>              if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
+>                              &uart->ps_bdf[1], &uart->ps_bdf[2]) )
+> -- 
+> 2.17.1
+> 
 
