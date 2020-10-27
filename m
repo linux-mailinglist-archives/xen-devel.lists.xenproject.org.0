@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA6F829A9A7
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 11:30:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.12758.33057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D15F29A9CF
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 11:37:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.12763.33069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXMFT-0000Pr-IY; Tue, 27 Oct 2020 10:30:39 +0000
+	id 1kXMM2-0000dZ-Ag; Tue, 27 Oct 2020 10:37:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 12758.33057; Tue, 27 Oct 2020 10:30:39 +0000
+Received: by outflank-mailman (output) from mailman id 12763.33069; Tue, 27 Oct 2020 10:37:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,79 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXMFT-0000PS-FP; Tue, 27 Oct 2020 10:30:39 +0000
-Received: by outflank-mailman (input) for mailman id 12758;
- Tue, 27 Oct 2020 10:30:37 +0000
+	id 1kXMM2-0000dA-7O; Tue, 27 Oct 2020 10:37:26 +0000
+Received: by outflank-mailman (input) for mailman id 12763;
+ Tue, 27 Oct 2020 10:37:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vej7=EC=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kXMFR-0000PM-GD
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 10:30:37 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.54])
+ (envelope-from <SRS0=aH5n=EC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kXMM0-0000d5-KX
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 10:37:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 893a64f6-c3c1-4f1d-810b-5a74f4ae42d0;
- Tue, 27 Oct 2020 10:30:35 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.2.2 DYNA|AUTH)
- with ESMTPSA id R05874w9RAUY3b6
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 27 Oct 2020 11:30:34 +0100 (CET)
+ id 4bf5aad6-f7d6-4150-9813-d0ff97f97a7f;
+ Tue, 27 Oct 2020 10:37:23 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 836CCAD21;
+ Tue, 27 Oct 2020 10:37:22 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=vej7=EC=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
-	id 1kXMFR-0000PM-GD
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 10:30:37 +0000
-X-Inumbo-ID: 893a64f6-c3c1-4f1d-810b-5a74f4ae42d0
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.54])
+	(envelope-from <SRS0=aH5n=EC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kXMM0-0000d5-KX
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 10:37:24 +0000
+X-Inumbo-ID: 4bf5aad6-f7d6-4150-9813-d0ff97f97a7f
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 893a64f6-c3c1-4f1d-810b-5a74f4ae42d0;
-	Tue, 27 Oct 2020 10:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603794634;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
-	X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
-	bh=fxoKuNTxv9y4hpE5nRksZZWZ43+oumRhQ3184OpepgQ=;
-	b=BvlBpleoBJEfdjJuFRuOv0k6Syyv3WbvJh6XTVVNldLThIwEX7rThE6YzIxYE+agWh
-	xKeiT2hUDliT7TnULMUi3FxVwHgxV+wz82hIIY9yUhn5GX5y2fJ/TMAuyVcnQLADl6wC
-	o+zv7qakKgF7jKvwjXjczOFFarH1rPL6xrh4Vo19Uzb8ViBSgXczyvudIHTa8v9Nx3Eh
-	2ER8Glh8eU4F55HQWl0GM+mbxx2IUnQFcT3q5jI1jzWQ7YjZ64P5zm0eBsL2Vsb7E/ge
-	nu4FgBsm3XON2mOynndh6bz1yfBXTn8zcqj7joGPsaBeROWQitqNjngOLZK8O+XHcIPG
-	n6aA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+r+/A=="
-X-RZG-CLASS-ID: mo00
-Received: from sender
-	by smtp.strato.de (RZmta 47.2.2 DYNA|AUTH)
-	with ESMTPSA id R05874w9RAUY3b6
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-	Tue, 27 Oct 2020 11:30:34 +0100 (CET)
-Date: Tue, 27 Oct 2020 11:30:24 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: flawed Makefile dependencies in libacpi
-Message-ID: <20201027113024.36948380.olaf@aepfle.de>
-In-Reply-To: <da99d577-ce8d-8fcf-c157-5b91ee895097@suse.com>
-References: <20201027104548.5823c554.olaf@aepfle.de>
-	<d6e3a7b0-129e-9b47-8802-b71eb8642519@suse.com>
-	<da99d577-ce8d-8fcf-c157-5b91ee895097@suse.com>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+	id 4bf5aad6-f7d6-4150-9813-d0ff97f97a7f;
+	Tue, 27 Oct 2020 10:37:23 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603795042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8r7G2jFVLnZt3ajabHoTOfSi+r6FG3WhwJCqBm5PLhg=;
+	b=g5Qk+En3qInviCcwj2jxI/9C2SLlkDVTXpdlOxBX3RB+C2s1w4PLRi1RS0ed1M0fD7Vf+Y
+	dntrp+hqDL21lxChSmSnUKXsjRthYpq2+nDmXU5JMf9+65YQ8uKLFZQNugZvz1vnW1V5t/
+	uMKDWhHsRcUDtTw4tjq+ybvOGM+EgTw=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 836CCAD21;
+	Tue, 27 Oct 2020 10:37:22 +0000 (UTC)
+Subject: Re: [PATCH v1] libacpi: use temporary files for generated files
+To: Olaf Hering <olaf@aepfle.de>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20201026204151.23459-1-olaf@aepfle.de>
+ <68312718-c8ad-040b-be45-192d2c91ba8f@suse.com>
+ <20201027112703.24d55a50.olaf@aepfle.de>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bc7a5e73-af27-45ae-5d82-f53176cd43a9@suse.com>
+Date: Tue, 27 Oct 2020 11:37:22 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/3GDVV37_kR=8HRgDTUmTbvi"; protocol="application/pgp-signature"
+In-Reply-To: <20201027112703.24d55a50.olaf@aepfle.de>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---Sig_/3GDVV37_kR=8HRgDTUmTbvi
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 27.10.2020 11:27, Olaf Hering wrote:
+> Am Tue, 27 Oct 2020 11:16:04 +0100
+> schrieb Jan Beulich <jbeulich@suse.com>:
+> 
+>> This pattern is used when a rule consists of multiple commands
+>> having their output appended to one another's.
+> 
+> My understanding is: a rule is satisfied as soon as the file exists.
 
-Am Tue, 27 Oct 2020 11:25:17 +0100
-schrieb Jan Beulich <jbeulich@suse.com>:
+No - once make has found that a rule's commands need running, it'll
+run the full set and only check again afterwards. If there was a
+racing parallel make, things would be different, but such a race
+would need addressing elsewhere: No two possibly racing threads of
+the make process ought to be creating the same files. The creation
+of the files needs synchronizing in such a case.
 
-> In this context it then is relevant in which context you see the failure =
-- firmware/hvmloader/ or libs/light/ ?
-
-I do not have the log anymore to check this detail.
-
-Olaf
-
---Sig_/3GDVV37_kR=8HRgDTUmTbvi
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl+X9sEACgkQ86SN7mm1
-DoDB8g//f/gY9NKfEv01Ui5VFcmTaxgpmIXbrRPSCAmtS3YEpOOYuHTMCsubcm/2
-6YAyp4RMVhPu5dZBYr8GBu0WpkkaUZda9Ow0GFJtkgOIgnoE6mOE5G43fcXXTQ67
-Zlm0CzSF5lgN9xgHj4vUuelaNAnnoLgEyH15N21BLoNU+dO+UyqyMnbajp90EIiM
-DDDw+SLQPldCAVoAkAe8TjklgzTcV4ymfWkTVzgxqIzhFDJZj1IIDnZrij4wTGXJ
-46D2p8ERHgvwzGlpueDshZ25Vc8Hr69mJAMS7kDwKNol/r7+a1ftCyAMKSI0O1pR
-mamjVMKuSbVN//n+G9XIAcBThgUVyGJnlimoDQp7fTamn5EB85wcHF3D++hsNLXO
-jBEug7F0huzpzN0xluHGw3swX6qzTc1rH5S0xWzB7KgSDenSJcxg3Onowe6/HKtP
-udewETTNGj6xSkeAVM91Lwx16PMyTk0JvFF1FA7QRTCshKDx0LFtmlzXuUJtt6O7
-j9hmRGHZ9w2k/7t5Lpid1reU51x2NX6erTIt+0o4Ud1FO3ITZJSITCwSWX2lg3+T
-OCEBIcsPT3SqWWjhpUm31e6Ri+tw7XtiXMVA0rWzV2Ss8nx//HcYa3BqNBPARj1F
-jf36+3qC1c9cGfy58W3JDBCGbidKZcdifMFwzN4mfHNRBzfRtdI=
-=1Tic
------END PGP SIGNATURE-----
-
---Sig_/3GDVV37_kR=8HRgDTUmTbvi--
+Jan
 
