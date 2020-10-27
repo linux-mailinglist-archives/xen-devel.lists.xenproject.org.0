@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 106E129C88E
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 20:19:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13072.33631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CEB329C8C7
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Oct 2020 20:26:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13075.33643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXUVA-0008Av-Rn; Tue, 27 Oct 2020 19:19:24 +0000
+	id 1kXUbQ-0000dU-M8; Tue, 27 Oct 2020 19:25:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13072.33631; Tue, 27 Oct 2020 19:19:24 +0000
+Received: by outflank-mailman (output) from mailman id 13075.33643; Tue, 27 Oct 2020 19:25:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,425 +23,192 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXUVA-0008AW-O2; Tue, 27 Oct 2020 19:19:24 +0000
-Received: by outflank-mailman (input) for mailman id 13072;
- Tue, 27 Oct 2020 19:19:23 +0000
+	id 1kXUbQ-0000d5-Ip; Tue, 27 Oct 2020 19:25:52 +0000
+Received: by outflank-mailman (input) for mailman id 13075;
+ Tue, 27 Oct 2020 19:25:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zOid=EC=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
- id 1kXUV9-0008AR-3B
- for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:19:23 +0000
-Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+ <SRS0=o/8F=EC=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1kXUbP-0000d0-Go
+ for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:25:51 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 63acae75-877d-4efd-97a8-1f44600a7bac;
- Tue, 27 Oct 2020 19:19:20 +0000 (UTC)
-Received: from [10.137.0.19] (92.188.110.153 [92.188.110.153]) by
- mx.zohomail.com with SMTPS id 1603816117181773.358838387671;
- Tue, 27 Oct 2020 09:28:37 -0700 (PDT)
+ id 482ff22e-0870-4cb3-a176-cbcf0aa7908c;
+ Tue, 27 Oct 2020 19:25:49 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJP21A164536;
+ Tue, 27 Oct 2020 19:25:45 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 34cc7kuye1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 27 Oct 2020 19:25:45 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJPKpI106279;
+ Tue, 27 Oct 2020 19:25:44 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 34cx6wc87t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 27 Oct 2020 19:25:44 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09RJPgg2007991;
+ Tue, 27 Oct 2020 19:25:42 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 27 Oct 2020 12:25:42 -0700
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+ id 373186A0121; Tue, 27 Oct 2020 15:27:27 -0400 (EDT)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=zOid=EC=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
-	id 1kXUV9-0008AR-3B
-	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:19:23 +0000
-X-Inumbo-ID: 63acae75-877d-4efd-97a8-1f44600a7bac
-Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+	(envelope-from <SRS0=o/8F=EC=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+	id 1kXUbP-0000d0-Go
+	for xen-devel@lists.xenproject.org; Tue, 27 Oct 2020 19:25:51 +0000
+X-Inumbo-ID: 482ff22e-0870-4cb3-a176-cbcf0aa7908c
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 63acae75-877d-4efd-97a8-1f44600a7bac;
-	Tue, 27 Oct 2020 19:19:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1603825717; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=I+bObYXksXPPkENKHp5GRUY1gLnldkvJeAoOXacdVnqCG37DcMGKKkAPmv7XA2BINa1bla0hEgKHXcICGIbHUiHJdnYCp5MlOylJXcUoKFqDvKgIccsUswSu23BydLoFxzG4Ek0vVQHAnGp1BIXTvrlRDjoy6l1Z4GMILdf5Tos=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1603825717; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=drxeSLG6Gfp0Frj1rNMIEkfARikmVV9OlVxXZB4J4PQ=; 
-	b=DokHVnk0HXQ7l+HDHg6mM0pgENF3334RfqwKHC7bJvbzm6ELdqJwBB4ZHLtLuhQrIPxNqUf1HJ1a0HJTIqR0xV0Fz+RLdGZ75tvJ6TubRO8/uXhwy7VKRDNtRf7XLI1Yi1uEDbYoSTs1k/+dnrTyOm2hWneS7Qp2b3TcrY2dzFg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=qubes-os.org;
-	spf=pass  smtp.mailfrom=frederic.pierret@qubes-os.org;
-	dmarc=pass header.from=<frederic.pierret@qubes-os.org> header.from=<frederic.pierret@qubes-os.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1603825717;
-	s=s; d=qubes-os.org; i=frederic.pierret@qubes-os.org;
-	h=To:Cc:References:From:Subject:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type;
-	bh=drxeSLG6Gfp0Frj1rNMIEkfARikmVV9OlVxXZB4J4PQ=;
-	b=Bm2ZZ1XnDj5O5QyiQHf5TqwSorTnrSqo7iySE4WvRFzk4lfxBQnaU3vfF5m3PE8E
-	Eqi3/A6UkZny+MaxCuaycrHzrYdNuCRkKftEEIRgM87SnvsD5eA1saG7mfCy5wKqHA/
-	CfSbVHdHUVtSf6Y809k/xNdnzL9WZkN41Tggyi5Y=
-Received: from [10.137.0.19] (92.188.110.153 [92.188.110.153]) by mx.zohomail.com
-	with SMTPS id 1603816117181773.358838387671; Tue, 27 Oct 2020 09:28:37 -0700 (PDT)
-To: Dario Faggioli <dfaggioli@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, "George.Dunlap@citrix.com" <George.Dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <a8e9113c-70ef-53fa-e340-be15eb3cba57@qubes-os.org>
- <30452e9c-bf27-fce2-cc20-4ce91018a15a@citrix.com>
- <deefd340-ec7a-bbb9-7471-d147da174f4a@suse.com>
- <a333ea82c12086874f705fc9ea9baa991235edd4.camel@suse.com>
- <533ce2f2-f268-a70b-fad7-d8f3f4033209@suse.com>
- <182a90a89cc02beec9760559799e74572e18ce49.camel@suse.com>
-From: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
-Autocrypt: addr=frederic.pierret@qubes-os.org; keydata=
- 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
- QMhGv8DnbAdOOOnumAXWq0+wl5uP
-Subject: Re: Recent upgrade of 4.13 -> 4.14 issue
-Message-ID: <26391834-23bc-5f4c-1110-44036e5eec79@qubes-os.org>
-Date: Tue, 27 Oct 2020 17:28:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+	id 482ff22e-0870-4cb3-a176-cbcf0aa7908c;
+	Tue, 27 Oct 2020 19:25:49 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJP21A164536;
+	Tue, 27 Oct 2020 19:25:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=WWBVSyjATfqcuJQT+Yh6z4CCuAVHsOU2pwiB2KA9sbQ=;
+ b=oNpuOKowZ1S862d6HWXEpBF6XqOjSjkj7XINwdr3XhrVVUdwCe0i0DOho17D9z8Sg05U
+ acLF8fHnANx0ayghZdiDrEd+f1qcwfMFFWVCuNDgx2etJMa992mU03XWv+iLd5SHHkJg
+ dgLwmAaLRANLtQiU/G7FIKEYp5NrNLWuAjFVPq5hQgbdYNZIQvwVgVtDLB2VrP8l89xY
+ ADl0KBMePGoYDy7bLoY7+A5Odim6oCuVb72T1DXy+oCRUA9aG5yJuKHNw/uJ7jox/Di9
+ I81V/kb0jh3z4LbGrig8E9z7KewsPBuORax86jP+PrHvghqqOXKeppF15dYGuZqqmQk5 AA== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by aserp2120.oracle.com with ESMTP id 34cc7kuye1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 27 Oct 2020 19:25:45 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09RJPKpI106279;
+	Tue, 27 Oct 2020 19:25:44 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by userp3030.oracle.com with ESMTP id 34cx6wc87t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 27 Oct 2020 19:25:44 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09RJPgg2007991;
+	Tue, 27 Oct 2020 19:25:42 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Tue, 27 Oct 2020 12:25:42 -0700
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+	id 373186A0121; Tue, 27 Oct 2020 15:27:27 -0400 (EDT)
+Date: Tue, 27 Oct 2020 15:27:27 -0400
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Elliott Mitchell <ehem+undef@m5p.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+        xen-devel@lists.xenproject.org, hch@lst.de
+Subject: Re: [PATCH] fix swiotlb panic on Xen
+Message-ID: <20201027192726.GA13396@char.us.oracle.com>
+References: <alpine.DEB.2.21.2010261653320.12247@sstabellini-ThinkPad-T480s>
+ <20201027175114.GA32110@mattapan.m5p.com>
 MIME-Version: 1.0
-In-Reply-To: <182a90a89cc02beec9760559799e74572e18ce49.camel@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Xzf3UU1wKo5qhuk06o60TW6UTKhDHNr4I"
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201027175114.GA32110@mattapan.m5p.com>
+User-Agent: Mutt/1.9.1 (2017-09-22)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9787 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 spamscore=0
+ bulkscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0 suspectscore=2
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2010270112
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9787 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 adultscore=0
+ malwarescore=0 spamscore=0 clxscore=1011 mlxscore=0 suspectscore=2
+ priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010270112
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Xzf3UU1wKo5qhuk06o60TW6UTKhDHNr4I
-Content-Type: multipart/mixed; boundary="X2OPUdNtlN9DfKMj3NwMDcjdeaXbwOqcs";
- protected-headers="v1"
-From: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
-To: Dario Faggioli <dfaggioli@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, "George.Dunlap@citrix.com" <George.Dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Message-ID: <26391834-23bc-5f4c-1110-44036e5eec79@qubes-os.org>
-Subject: Re: Recent upgrade of 4.13 -> 4.14 issue
-References: <a8e9113c-70ef-53fa-e340-be15eb3cba57@qubes-os.org>
- <30452e9c-bf27-fce2-cc20-4ce91018a15a@citrix.com>
- <deefd340-ec7a-bbb9-7471-d147da174f4a@suse.com>
- <a333ea82c12086874f705fc9ea9baa991235edd4.camel@suse.com>
- <533ce2f2-f268-a70b-fad7-d8f3f4033209@suse.com>
- <182a90a89cc02beec9760559799e74572e18ce49.camel@suse.com>
-In-Reply-To: <182a90a89cc02beec9760559799e74572e18ce49.camel@suse.com>
+> As the person who first found this and then confirmed this fixes a bug:
+> 
+> Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
 
---X2OPUdNtlN9DfKMj3NwMDcjdeaXbwOqcs
-Content-Type: multipart/mixed;
- boundary="------------E2315F6D784B7E28DE9D958E"
-Content-Language: en-US
+Thank you!!
 
-This is a multi-part message in MIME format.
---------------E2315F6D784B7E28DE9D958E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+I changed the title and added the various tags and will put it in
+linux-next later this week.
 
+From a1eb2768bf5954d25aa0f0136b38f0aa5d92d984 Mon Sep 17 00:00:00 2001
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Date: Mon, 26 Oct 2020 17:02:14 -0700
+Subject: [PATCH] swiotlb: fix "x86: Don't panic if can not alloc buffer for
+ swiotlb"
 
+kernel/dma/swiotlb.c:swiotlb_init gets called first and tries to
+allocate a buffer for the swiotlb. It does so by calling
 
-Le 10/27/20 =C3=A0 10:22 AM, Dario Faggioli a =C3=A9crit=C2=A0:
-> On Tue, 2020-10-27 at 06:58 +0100, J=C3=BCrgen Gro=C3=9F wrote:
->> On 26.10.20 17:31, Dario Faggioli wrote:
->>>
->>> Or did you have something completely different in mind, and I'm
->>> missing
->>> it?
->>
->> No, I think you are right. I mixed that up with __context_switch()
->> not
->> being called.
->>
-> Right.
->=20
->> Sorry for the noise,
->>
-> Sure, no problem.
->=20
-> In fact, this issue is apparently scheduler independent. It indeed
-> seemd to be related to the other report we have "BUG: credit=3Dsched2
-> machine hang when using DRAKVUF", but there it looks like it is
-> scheduler-dependant.
->=20
-> Might it be something that lies somewhere else, but Credit2 is
-> triggering it faster/easier? (Just thinking out loud...)
->=20
-> For Frederic, what happens is that dom0 hangs, right? So you're able to=
+  memblock_alloc_low(PAGE_ALIGN(bytes), PAGE_SIZE);
 
-> poke at Xen with some debugkeys (like 'r' for the scheduler's status,
-> and the ones for the domain's vCPUs)?
->=20
-> If yes, it may be useful to see the output.
->=20
-> Regards
->=20
+If the allocation must fail, no_iotlb_memory is set.
 
-First of all, sorry for the possible duplicates. I had network issue due =
-to subsequent freezes (...) while writing to you and Marek has not receiv=
-ed my previous mails so here the info.
+Later during initialization swiotlb-xen comes in
+(drivers/xen/swiotlb-xen.c:xen_swiotlb_init) and given that io_tlb_start
+is != 0, it thinks the memory is ready to use when actually it is not.
 
+When the swiotlb is actually needed, swiotlb_tbl_map_single gets called
+and since no_iotlb_memory is set the kernel panics.
 
-To answer your question Dario, yes dom0 hangs totally and VMs too. In the=
- case of `sched=3Dcredit`, I've succeeded to obtain the output of 'r' deb=
-ug-keys in serial console:
-```
-(XEN) sched_smt_power_savings: disabled
-(XEN) NOW=3D72810702614697
-(XEN) Online Cpus: 0-15
-(XEN) Cpupool 0:
-(XEN) Cpus: 0-15
-(XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-(XEN) Scheduler: SMP Credit Scheduler (credit)
-(XEN) info:
-(XEN) 	ncpus              =3D 16
-(XEN) 	master             =3D 0
-(XEN) 	credit             =3D 4800
-(XEN) 	credit balance     =3D 608
-(XEN) 	weight             =3D 12256
-(XEN) 	runq_sort          =3D 996335
-(XEN) 	default-weight     =3D 256
-(XEN) 	tslice             =3D 30ms
-(XEN) 	ratelimit          =3D 1000us
-(XEN) 	credits per msec   =3D 10
-(XEN) 	ticks per tslice   =3D 3
-(XEN) 	migration delay    =3D 0us
-(XEN) idlers: 00000000,00003c99
-(XEN) active units:
-(XEN) 	  1: [0.1] pri=3D-1 flags=3D0 cpu=3D6 credit=3D214 [w=3D2000,cap=3D=
-0]
-(XEN) 	  2: [0.4] pri=3D-1 flags=3D0 cpu=3D8 credit=3D115 [w=3D2000,cap=3D=
-0]
-(XEN) 	  3: [0.5] pri=3D-1 flags=3D0 cpu=3D5 credit=3D239 [w=3D2000,cap=3D=
-0]
-(XEN) 	  4: [0.11] pri=3D-1 flags=3D0 cpu=3D1 credit=3D-55 [w=3D2000,cap=3D=
-0]
-(XEN) 	  5: [0.6] pri=3D-2 flags=3D0 cpu=3D15 credit=3D-177 [w=3D2000,cap=
-=3D0]
-(XEN) 	  6: [0.7] pri=3D-1 flags=3D0 cpu=3D2 credit=3D50 [w=3D2000,cap=3D=
-0]
-(XEN) 	  7: [19.1] pri=3D-2 flags=3D0 cpu=3D9 credit=3D-241 [w=3D256,cap=3D=
-0]
-(XEN) CPUs info:
-(XEN) CPU[00] current=3Dd[IDLE]v0, curr=3Dd[IDLE]v0, prev=3DNULL
-(XEN) CPU[00] nr_run=3D0, sort=3D996334, sibling=3D{0}, core=3D{0-7}
-(XEN) CPU[01] current=3Dd0v11, curr=3Dd0v11, prev=3DNULL
-(XEN) CPU[01] nr_run=3D1, sort=3D996335, sibling=3D{1}, core=3D{0-7}
-(XEN) 	run: [0.11] pri=3D-1 flags=3D0 cpu=3D1 credit=3D-55 [w=3D2000,cap=3D=
-0]
-(XEN) 	  1: [32767.1] pri=3D-64 flags=3D0 cpu=3D1
-(XEN) CPU[02] current=3Dd0v7, curr=3Dd0v7, prev=3DNULL
-(XEN) CPU[02] nr_run=3D1, sort=3D996335, sibling=3D{2}, core=3D{0-7}
-(XEN) 	run: [0.7] pri=3D-1 flags=3D0 cpu=3D2 credit=3D50 [w=3D2000,cap=3D=
-0]
-(XEN) 	  1: [32767.2] pri=3D-64 flags=3D0 cpu=3D2
-(XEN) CPU[03] current=3Dd[IDLE]v3, curr=3Dd[IDLE]v3, prev=3DNULL
-(XEN) CPU[03] nr_run=3D0, sort=3D996329, sibling=3D{3}, core=3D{0-7}
-(XEN) CPU[04] current=3Dd[IDLE]v4, curr=3Dd[IDLE]v4, prev=3DNULL
-(XEN) CPU[04] nr_run=3D0, sort=3D996325, sibling=3D{4}, core=3D{0-7}
-(XEN) CPU[05] current=3Dd0v5, curr=3Dd0v5, prev=3DNULL
-(XEN) CPU[05] nr_run=3D1, sort=3D996334, sibling=3D{5}, core=3D{0-7}
-(XEN) 	run: [0.5] pri=3D-1 flags=3D0 cpu=3D5 credit=3D239 [w=3D2000,cap=3D=
-0]
-(XEN) 	  1: [32767.5] pri=3D-64 flags=3D0 cpu=3D5
-(XEN) CPU[06] current=3Dd0v1, curr=3Dd0v1, prev=3DNULL
-(XEN) CPU[06] nr_run=3D1, sort=3D996334, sibling=3D{6}, core=3D{0-7}
-(XEN) 	run: [0.1] pri=3D-1 flags=3D0 cpu=3D6 credit=3D214 [w=3D2000,cap=3D=
-0]
-(XEN) 	  1: [32767.6] pri=3D-64 flags=3D0 cpu=3D6
-(XEN) CPU[07] current=3Dd[IDLE]v7, curr=3Dd[IDLE]v7, prev=3DNULL
-(XEN) CPU[07] nr_run=3D0, sort=3D996303, sibling=3D{7}, core=3D{0-7}
-(XEN) CPU[08] current=3Dd[IDLE]v8, curr=3Dd[IDLE]v8, prev=3DNULL
-(XEN) CPU[08] nr_run=3D2, sort=3D996335, sibling=3D{8}, core=3D{8-15}
-(XEN) 	  1: [0.4] pri=3D-1 flags=3D0 cpu=3D8 credit=3D115 [w=3D2000,cap=3D=
-0]
-(XEN) CPU[09] current=3Dd19v1, curr=3Dd19v1, prev=3DNULL
-(XEN) CPU[09] nr_run=3D1, sort=3D996335, sibling=3D{9}, core=3D{8-15}
-(XEN) 	run: [19.1] pri=3D-2 flags=3D0 cpu=3D9 credit=3D-241 [w=3D256,cap=3D=
-0]
-(XEN) 	  1: [32767.9] pri=3D-64 flags=3D0 cpu=3D9
-(XEN) CPU[10] current=3Dd[IDLE]v10, curr=3Dd[IDLE]v10, prev=3DNULL
-(XEN) CPU[10] nr_run=3D0, sort=3D996334, sibling=3D{10}, core=3D{8-15}
-(XEN) CPU[11] current=3Dd[IDLE]v11, curr=3Dd[IDLE]v11, prev=3DNULL
-(XEN) CPU[11] nr_run=3D0, sort=3D996331, sibling=3D{11}, core=3D{8-15}
-(XEN) CPU[12] current=3Dd[IDLE]v12, curr=3Dd[IDLE]v12, prev=3DNULL
-(XEN) CPU[12] nr_run=3D0, sort=3D996333, sibling=3D{12}, core=3D{8-15}
-(XEN) CPU[13] current=3Dd[IDLE]v13, curr=3Dd[IDLE]v13, prev=3DNULL
-(XEN) CPU[13] nr_run=3D0, sort=3D996334, sibling=3D{13}, core=3D{8-15}
-(XEN) CPU[14] current=3Dd0v14, curr=3Dd0v14, prev=3DNULL
-(XEN) CPU[14] nr_run=3D1, sort=3D990383, sibling=3D{14}, core=3D{8-15}
-(XEN) 	run: [0.14] pri=3D0 flags=3D0 cpu=3D14 credit=3D-514 [w=3D2000,cap=
-=3D0]
-(XEN) 	  1: [32767.14] pri=3D-64 flags=3D0 cpu=3D14
-(XEN) CPU[15] current=3Dd0v6, curr=3Dd0v6, prev=3DNULL
-(XEN) CPU[15] nr_run=3D1, sort=3D996335, sibling=3D{15}, core=3D{8-15}
-(XEN) 	run: [0.6] pri=3D-2 flags=3D0 cpu=3D15 credit=3D-177 [w=3D2000,cap=
-=3D0]
-(XEN) 	  1: [32767.15] pri=3D-64 flags=3D0 cpu=3D15
-```
+Instead, if swiotlb-xen.c:xen_swiotlb_init knew the swiotlb hadn't been
+initialized, it would do the initialization itself, which might still
+succeed.
 
-I attempt to get '*' but that blocked my serial console, at least I was n=
-ot able to interact with it few minutes later. I'll try to get other info=
- too. I've also uploaded the piece of this huge '*' dump here: https://gi=
-st.github.com/fepitre/36923fbc08cc2fd8bdb59b81e73a6c2e
+Fix the panic by setting io_tlb_start to 0 on swiotlb initialization
+failure, and also by setting no_iotlb_memory to false on swiotlb
+initialization success.
 
-Right after, I've restarted with the default value of 'sched' (credit2) a=
-nd just few minutes later I obtained:
-'r': https://gist.github.com/fepitre/78541f555902275d906d627de2420571
-'q': https://gist.github.com/fepitre/0ddf6b5e8fdb3152d24337d83fdc345e
-'I': https://gist.github.com/fepitre/50c68233d08ad1e495edf7e0e146838b
+Fixes: ac2cbab21f31 ("x86: Don't panic if can not alloc buffer for swiotlb")
 
-Tell me if I can provide any other info from serial console.
+Reported-by: Elliott Mitchell <ehem+xen@m5p.com>
+Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+CC: stable@vger.kernel.org
+Signed-off-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+---
+ kernel/dma/swiotlb.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Regards,
-Fr=C3=A9d=C3=A9ric
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 465a567678d9..e08cac39c0ba 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -229,6 +229,7 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+ 		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
+ 	}
+ 	io_tlb_index = 0;
++	no_iotlb_memory = false;
+ 
+ 	if (verbose)
+ 		swiotlb_print_info();
+@@ -260,9 +261,11 @@ swiotlb_init(int verbose)
+ 	if (vstart && !swiotlb_init_with_tbl(vstart, io_tlb_nslabs, verbose))
+ 		return;
+ 
+-	if (io_tlb_start)
++	if (io_tlb_start) {
+ 		memblock_free_early(io_tlb_start,
+ 				    PAGE_ALIGN(io_tlb_nslabs << IO_TLB_SHIFT));
++		io_tlb_start = 0;
++	}
+ 	pr_warn("Cannot allocate buffer");
+ 	no_iotlb_memory = true;
+ }
+@@ -360,6 +363,7 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+ 		io_tlb_orig_addr[i] = INVALID_PHYS_ADDR;
+ 	}
+ 	io_tlb_index = 0;
++	no_iotlb_memory = false;
+ 
+ 	swiotlb_print_info();
+ 
+-- 
+2.13.6
 
-
-
---------------E2315F6D784B7E28DE9D958E
-Content-Type: application/pgp-keys;
- name="OpenPGP_0x484010B5CDC576E2.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0x484010B5CDC576E2.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFwkq3EBEADcfyaOkeuf+g96S1ieq05tJ8vTGsQrNXQ5RDE7ffagL0+EpfIP3x73x5Q0D=
-y2r
-UVQ+oN1DHcueNL70RtNs9BFnoW0KZnskbT4nEJ9wQCQa22lQaIk9kCNVddh2HJKljtd8vtovi=
-97s
-WIjtzxx5Qwc2md0DY9AHhNC4KqKIW3tSPC17UsI8fASoNAHItYtyn2bO67p8pCIvltoBrYnEl=
-D1P
-yp5IGWiD2/YD325iPl2+qHVkUSWmb92hRRU19Rg+Uds8bVHqhz4cOqIE7jpXgYzTN/kq8sxBM=
-h2O
-rQ/bSxLaccaNApIVSZVSAasVJfdscNDL9fjkHERK/AiSTleHrsgLf4PLw5koqPs/6JEIVI+t0=
-pyg
-+Pa8uwFoeYTPrLSlw0f7bXSmlVfv8g7M7RWmk3T5QIpeHA0j3lEZNbYRXzkI91HCt40X2bTb2=
-jTK
-gvB9jQjEarpk6euvGs2Ig/U4MlUy3pG5Ehd2Ebn8Rz31JXpaA/GPaJ5DjzV0q9mkYkGDLYI3J=
-/J+
-s2u0Kr0VswLaIN3WJn7kKEDwfc4s2kaAYfblE/p0zVirEVBum723MFH4DxhTrOoWgta2nyRHO=
-oi0
-z0EVhYA+D86mFPWKb9roWvtnmFlssggGmqbJEMvtLbYnlSt3v32nfUXh12aQPwU/LCGIzq4oF=
-NVr
-Np3aWPnSajLPpQARAQABzTxGcsOpZMOpcmljIFBpZXJyZXQgKGZlcGl0cmUpIDxmcmVkZXJpY=
-y5w
-aWVycmV0QHF1YmVzLW9zLm9yZz7CwXgEEwECACIFAlwkq3ECGwMGCwkIBwMCBhUIAgkKCwQWA=
-gMB
-Ah4BAheAAAoJEEhAELXNxXbiPLkQAI6kEDyLl0TpvRDOanuD5YkVHLEYVuG62CJNwMjFoFRgZ=
-Jnl
-+Fb5HBgthU9lBdMqNySg+s8yekM9KRlUHKYjwAsyjPIjRtca4bH3V11/waKpvPBgPsC75CxSZ=
-9uI
-TprfEqX7V2OLbrYW94qwR8jX+n/wlEGG3pbfXG7FTnjxQWM0E0aSvO0Yb5EkjiJ7cwEiqvL04=
-Uek
-t5I2Zc8iRDF9kneINiNhzRtvrR1UN6KtiZNSk2NsLOptrUQ/1AU5jwH4mnQQymtYDsWddlRoD=
-RC/
-bsAow7cBudj+lekM3cNRZOazKZx5UPnN8nqvD7FqeAcZBVyrHZ4hcWqABaJEPv6CCHRiLQnGR=
-9ze
-2O5Yh+/BunrOJdjdsib1ZECH9GtIcj4mmPAN84NO4r8a6Sn9jsXkd2Wj2N5wNrZMPslhfiaW2=
-VHT
-fLmAOt+wRwLRsFfqLykF8hMlNXXE4frxotwa6+PTd48Ws9H9aalSs0lebsG0623b4mBjy1cox=
-FUw
-eclPInXsPEdu/Yu2r7xrgGouXH8KgDhqlqq60UaA5n/0XhIeZ8tBTYs+1B5/C9TjvNAUsBkob=
-1Ep
-fW3J4Gq14GqwK+eodOTL5t2f2PWN/IQyop/j0FMgVU5/PUS0pciz5ybyIJBLhbsJBvKbxM/Ny=
-xHr
-mNwGEknpoeq+XT8rEJ+/Ag8Wnjl0zsFNBFwkq3EBEADAPJdyFy4KeYpuGATWwWCNHe8XNVqBp=
-lV0
-yVlT5pSiCyA3UK34JlGX9YJOj/FlMZGgh61vbiK+piRjm/lyb128wpMjnoOmqpbSLbra8NP8M=
-u5F
-ZMcv8OxrSIr/RHq2heFg1j11QOMGwe6vPC918qpzmiaYj2qpKY/RYsG8V+9+dpLEU75+mpHU7=
-GlE
-CfPmHYbnsismL/4+xH+8BG56yg0UFbfrNYonIQFSn5k/w6i7jt7M++ZmWfEV5nCP2qvzeYDGA=
-L6B
-bWVOjuDhrKsAIKnomCyy+MjcVP955PVdN2+OlPJng07oKtQr5aNCaNpv/i4gLO1IScdfDwm6g=
-dfB
-2Zg/7jTJrKw0kWPFl9rHfN7dLAR28u3uT8Rhicjdd7hgYlDWdbImhNL/Z7iL3eayH7T9qAVNU=
-587
-MhWvIREyE1gj22cs0e1m6qMFpbFYG0709N2UwlpAH+Pd35bTi9q2o1pH91xBYH6QvvrwsuVYH=
-wuc
-3xXLRVRXWXY8xvNFSlY1LB8A46JOtV/ZodYDyhxVGbeWp820cb0s1f689XCXqFYAzTfCit+Ee=
-boY
-ORN5CGioXzS+z0S9IhPbdUuvqs7xvC248bM7nm84YdgVM7HWybOtpRpWpycwGs73IvbxyLE9a=
-Pe/
-Zw4PTKWvbJlcFioofLwTQE1XvWomFPD9LLrBl5NUjQARAQABwsFfBBgBAgAJBQJcJKtxAhsMA=
-AoJ
-EEhAELXNxXbilSkP/2NcazvUDGyQLm7tFp4HNqSQfFJ3+chzxfOOdNtdWE+RFetyx9R8DBGrP=
-X8h
-jITWD9ZA2bbZZ+J+a39vyY7bNZkCGbWzPGK//O1cInL4Ecmj7Xm8DXjk3E2Xzv1YrZk/GBz9x=
-K8m
-WXwhn90SHNadEf28ghMXcmUJSqT+KTxQQjUVaEtQDdzQnYQKh/dHxs760QSAnXkWr0YVYxk8q=
-8aa
-+G8iAkNJcb+Wx5gWEw4ft3HpKMRq74OQvWayy0fXpTlusdnvZs0VVMeRpCW6iCt9UmsbfG6Ny=
-f2M
-KKbWRJntjy8mjJiFjiJ2j9s4yNIookRv8IfocULuhnx5FWsvIzX2Vwcd7G5objnY1DlCNQrhJ=
-Us/
-geoCUBjBJp7sfbHakWfTKxZjFsuCXT1dCEN7JXX6ABOshzDTwB0kq7Bq/EkOzPDQGfOPoX2h1=
-KjH
-uvGWw5cBe8WLnEuhIyf/DWfMS1LbjFB4JlMUEcood5xvE4owpfZog+0a9gpBS6cg9bMgRUex1=
-C+w
-3fudJdPQwIRAjJgac0jTT6uDY8re9RhBDv83PRSM7AzxqEFvDj8K46dg1XvJcKs7K5PXpm5Pw=
-4st
-VEAxIks5uR62wxygImkdvgjQRzJe4JWwAniBWsZG+cNYj6xcItqkupIb4PeOWgNQQMhGv8Dnb=
-AdO
-OOnumAXWq0+wl5uP
-=3DRWX1
------END PGP PUBLIC KEY BLOCK-----
-
---------------E2315F6D784B7E28DE9D958E--
-
---X2OPUdNtlN9DfKMj3NwMDcjdeaXbwOqcs--
-
---Xzf3UU1wKo5qhuk06o60TW6UTKhDHNr4I
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEn6ZLkvlecGvyjiymSEAQtc3FduIFAl+YSrIACgkQSEAQtc3F
-duK/MBAAu8TfGJNJGeXnVAkrBK+1Sem2WuLPgMaNusDIkUi1hlKwFw60UGfD+lHI
-4l9jO3Os4jnU0XPuDs06t55HkfjZ19Wi2njZ31ihfTySLKSFyfywYzxH7LuCMDJz
-gxD6gYDN6L/ZFZjdHjqsi7G+lwI91Nu+2BwfMkPagcIhxGJiqrZtE534eO8GA0/J
-LSf1GzHdRrbHzuSx/yNjSc53ky2hfWDSwIfRpIHS1QrEorqNtEI8g+9OHfiQVBZk
-BiVWNx10/mQv5XKj2JxmRSOjFVt2vafA2zewcxuSnp4xQuCdt4U+Ico31btaQ25Z
-xZgtLX7VxrcFMrT7Wavq2+Cp5a0yBu1o97vtpsTWj5XLCFq+T+5M3SLEZFDS4emw
-hudiV2VigkWGE8gGqn8cQ6phBlrytq4LLOF4kWSV2GS+x374mIXZJTE1M0ie3o19
-YLo6+HYQviY02fU8TFnZumTiqKgegaAl319kM9eu1eUqs+vkJ332P8JwxuOADr7/
-8K7sO4+L9WhikrJg357WNm/BmohBLseB9mY20udE4L7iuwu/dD4sc4MN/k2w9PHt
-iV6H7DB36lqz1Ubwi+hr/6tX39bHeE6CtjNnVVt1M/0Q626CwNGlnPO+Qqr5Yo4d
-/jzDa+OFjzWm3COjNf+kIt1y5zaeTK/8RvRAmF0UT+ccXFLKZUE=
-=MUE1
------END PGP SIGNATURE-----
-
---Xzf3UU1wKo5qhuk06o60TW6UTKhDHNr4I--
 
