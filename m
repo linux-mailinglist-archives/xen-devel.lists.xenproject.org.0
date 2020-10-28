@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6E829CE8A
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 08:46:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13331.33894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034D029CE8E
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 08:55:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13336.33907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXg9Y-0003RU-A0; Wed, 28 Oct 2020 07:45:52 +0000
+	id 1kXgI3-0004N4-77; Wed, 28 Oct 2020 07:54:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13331.33894; Wed, 28 Oct 2020 07:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 13336.33907; Wed, 28 Oct 2020 07:54:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,117 +23,144 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXg9Y-0003R5-70; Wed, 28 Oct 2020 07:45:52 +0000
-Received: by outflank-mailman (input) for mailman id 13331;
- Wed, 28 Oct 2020 07:45:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kXgI3-0004Mf-3X; Wed, 28 Oct 2020 07:54:39 +0000
+Received: by outflank-mailman (input) for mailman id 13336;
+ Wed, 28 Oct 2020 07:54:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kXg9W-0003R0-S9
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 07:45:50 +0000
+ id 1kXgI1-0004Ma-3Y
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 07:54:37 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3caef230-27a6-405f-adbe-60eb8dcc4987;
- Wed, 28 Oct 2020 07:45:49 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c85aec63-8c13-41b3-97cb-d387e01ad98b;
+ Wed, 28 Oct 2020 07:54:35 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A059AACDB;
- Wed, 28 Oct 2020 07:45:48 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id C0FC1ADEC;
+ Wed, 28 Oct 2020 07:54:34 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kXg9W-0003R0-S9
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 07:45:50 +0000
-X-Inumbo-ID: 3caef230-27a6-405f-adbe-60eb8dcc4987
+	id 1kXgI1-0004Ma-3Y
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 07:54:37 +0000
+X-Inumbo-ID: c85aec63-8c13-41b3-97cb-d387e01ad98b
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3caef230-27a6-405f-adbe-60eb8dcc4987;
-	Wed, 28 Oct 2020 07:45:49 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id c85aec63-8c13-41b3-97cb-d387e01ad98b;
+	Wed, 28 Oct 2020 07:54:35 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603871148;
+	t=1603871674;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+Wpz5kToeasQpm0ZCbD9yjn9dEBHaiD7pOorXoT+ulA=;
-	b=QQq3/IbjlZ+dN8WfbF4jvMc6EmLI4P50iwmcH20Gdm7Zc9fwJ/brdhO1GGUPpfoPxSgOWr
-	jZ3WtG+UGm3uXUNI+21KZtnQpXb7zsBQIMuoiiOUUGbDCcHkWdmUFm1Y6H515OYnRzoCkC
-	T/92iYdB1x8QBYScT6NOWriNKBdG10g=
+	bh=KpjxqE25mEO15/L9CJ6X7OaXXiqO5bjF9MbVgEdP6Es=;
+	b=vHXw7wBbeJbpOCSdrJZt25UUz3pf3mGv5md+4YnD0AGjsfElDn7mZ+h+Zvrq7cdFXY2ezf
+	2G03Y17j5hbUF0xRv78X5RF2vyV65xRcNQSOdF/eb/nthQITApG0nbjFKL5BpJP3nYahf2
+	6LqxylqEyYk2egjlXUdGCb5XO+y7Xx8=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A059AACDB;
-	Wed, 28 Oct 2020 07:45:48 +0000 (UTC)
-Subject: Re: BUG: credit=sched2 machine hang when using DRAKVUF
-To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-Cc: xen-devel@lists.xenproject.org, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>
-References: <157653679.6164.1603407559737.JavaMail.zimbra@nask.pl>
- <a80f05ac-bd18-563e-12f7-1a0f9f0d4f6b@suse.com>
- <1747162107.4472424.1603850652584.JavaMail.zimbra@nask.pl>
+	by mx2.suse.de (Postfix) with ESMTP id C0FC1ADEC;
+	Wed, 28 Oct 2020 07:54:34 +0000 (UTC)
+Subject: Re: ARM/PCI passthrough: libxl_pci, sysfs and pciback questions
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, "wl@xen.org" <wl@xen.org>,
+ "paul@xen.org" <paul@xen.org>, Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Rahul Singh
+ <Rahul.Singh@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <ad25a5ba-f44c-4e88-f3b0-e0baa5efc5f6@epam.com>
+ <20201027125104.axv26kdqljqsvufn@Air-de-Roger>
+ <ac342c70-8fbb-023d-00b3-4a1bc1d389a7@epam.com>
+ <7f98534d-39fd-cbcb-13dd-bbbd994251f0@suse.com>
+ <1e8b43e5-7d44-a061-f60a-00f75eb19b8b@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <66f4b628-970c-9990-118a-572f971d6ed2@suse.com>
-Date: Wed, 28 Oct 2020 08:45:49 +0100
+Message-ID: <727b84e8-5018-6c5b-552c-e4d204daf6c2@suse.com>
+Date: Wed, 28 Oct 2020 08:54:35 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <1747162107.4472424.1603850652584.JavaMail.zimbra@nask.pl>
+In-Reply-To: <1e8b43e5-7d44-a061-f60a-00f75eb19b8b@epam.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 28.10.2020 03:04, Michał Leszczyński wrote:
-> As I've said before, I'm using RELEASE-4.14.0, this is DELL PowerEdge R640 with 14 PCPUs.
+On 27.10.2020 18:45, Oleksandr Andrushchenko wrote:
+> On 10/27/20 7:18 PM, Jan Beulich wrote:
+>> On 27.10.2020 16:52, Oleksandr Andrushchenko wrote:
+>>> On 10/27/20 2:55 PM, Roger Pau Monné wrote:
+>>>> On Tue, Oct 27, 2020 at 09:59:05AM +0000, Oleksandr Andrushchenko wrote:
+>>>>>     5. An alternative route for 3-4 could be to store that data in XenStore, e.g.
+>>>>>        MMIOs, IRQ, bind sysfs path etc. This would require more code on Xen side to
+>>>>>        access XenStore and won’t work if MMIOs/IRQs are passed via device tree/ACPI
+>>>>>        tables by the bootloaders.
+>>>> As above, I think I need more context to understand what and why you
+>>>> need to save such information.
+>>> Well, with pciback absence we loose a "database" which holds all the knowledge
+>>>
+>>> about which devices are assigned, bound etc.
+>> What hasn't become clear to me (sorry if I've overlooked it) is
+>> why some form of pciback is not an option on Arm.
+> Yes, it is probably possible to run pciback even without running
+> 
+> pcifront instances in guests and only use that functionality
+> 
+> which is needed for the toolstack. We can even have it as is without
+> 
+> modifications given that pcifront won't run and that part of the pciback
+> 
+> related to PCI config space, MSI etc. won't simply be used, but still
+> 
+> present in the pciback driver. We can try that (pciback is x86
+> 
+> only in the kernel).
+> 
+>> Where it would
+>> need to run in your split hardware-domain / Dom0 setup (if I got
+>> that right in the first place) would be a secondary question.
+> 
+> This actually becomes a problem if we think about hwdom != Dom0:
+> 
+> Dom0/toolstack wants to read PCI bus sysfs and it also wants to access
+> 
+> pciback's sysfs entries. So, for Dom0's toolstack to read sysfs in this scenario
+> 
+> we need a bridge between Dom0 and that hwdom to access both PCI
+> 
+> subsystem and pciback's sysfs: this could be implemented as a back-front pair
+> 
+> with a ring and event channel as PV drivers do. This approach of course will
+> 
+> require the toolstack to work in two modes: local sysfs/pciback and remote ones.
+> 
+> In the remote access model the toolstack will need to create a connection to
+> 
+> the hwdom each time it runs and requires sysfs data which should be acceptable.
 
-I.e. you haven't tried the tip of the 4.14 stable branch?
+That's the price to pay for disaggregation, I think. So yes to the
+outline in general, but I'd like such an abstraction to not talk in
+terms of "sysfs" or in fact anything that's OS specific on either
+side. Whether it indeed needs a full new pair of front/back drivers
+is a different question.
 
-> I have the following additional pieces of log (enclosed below). As you could see, the issue is about particular vCPUs of Dom0 not being scheduled for a long time, which really decreases stability of the host system.
+> It can also be possible to have the toolstack always use the remote model even
+> 
+> if it runs locally which will make the toolstack's code support a single model for all
+> 
+> the use-cases.
 
-I have to admit that the log makes me wonder whether this isn't a
-Dom0 internal issue:
+That's certainly one possible way of doing the necessary abstraction,
+I agree.
 
-> [  338.968676] watchdog: BUG: soft lockup - CPU#5 stuck for 22s! [sshd:5991]
-> [  346.963959] watchdog: BUG: soft lockup - CPU#2 stuck for 23s! [xenconsoled:2747]
+> (Never thought if it is possible to run both backend and frontend in the same VM though).
 
-For these two vCPU-s we see ...
-
-> (XEN) Domain info:
-> (XEN)   Domain: 0 w 256 c 0 v 14
-> (XEN)     1: [0.0] flags=20 cpu=0 credit=-10000000 [w=256] load=4594 (~1%)
-> (XEN)     2: [0.1] flags=20 cpu=2 credit=9134904 [w=256] load=262144 (~100%)
-> (XEN)     3: [0.2] flags=22 cpu=4 credit=-10000000 [w=256] load=262144 (~100%)
-> (XEN)     4: [0.3] flags=20 cpu=6 credit=-10000000 [w=256] load=4299 (~1%)
-> (XEN)     5: [0.4] flags=20 cpu=8 credit=-10000000 [w=256] load=4537 (~1%)
-> (XEN)     6: [0.5] flags=22 cpu=10 credit=-10000000 [w=256] load=262144 (~100%)
-
-... that both are fully loaded and ...
-
-> (XEN) Runqueue 0:
-> (XEN) CPU[00] runq=0, sibling={0}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN) CPU[02] runq=0, sibling={2}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN) CPU[04] runq=0, sibling={4}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN)   run: [0.2] flags=22 cpu=4 credit=-10000000 [w=256] load=262144 (~100%)
-> (XEN) CPU[06] runq=0, sibling={6}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN) CPU[08] runq=0, sibling={8}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN) CPU[10] runq=0, sibling={10}, core={0,2,4,6,8,10,12,14,16,18,20,22,24,26}
-> (XEN)   run: [0.5] flags=22 cpu=10 credit=-10000000 [w=256] load=262144 (~100%)
-
-... they're actively running, confirmed another time ...
-
-> (XEN) RUNQ:
-> (XEN) CPUs info:
-> (XEN) CPU[00] current=d[IDLE]v0, curr=d[IDLE]v0, prev=NULL
-> (XEN) CPU[02] current=d[IDLE]v2, curr=d[IDLE]v2, prev=NULL
-> (XEN) CPU[04] current=d0v2, curr=d0v2, prev=NULL
-> (XEN) CPU[06] current=d[IDLE]v6, curr=d[IDLE]v6, prev=NULL
-> (XEN) CPU[08] current=d[IDLE]v8, curr=d[IDLE]v8, prev=NULL
-> (XEN) CPU[10] current=d0v5, curr=d0v5, prev=NULL
-
-... here. Hence an additional question is what exactly they're doing.
-'0' and possibly 'd' debug key output may shed some light on it, but
-to interpret that output the exact kernel and hypervisor binaries
-would need to be known / available.
-
-Furthermore to tell dead lock from live lock, more than one invocation
-of any of the involved debug keys is often helpful.
+Why would it not be? Other back/front pairs certainly can.
 
 Jan
 
