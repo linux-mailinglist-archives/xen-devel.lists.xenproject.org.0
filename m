@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1263F29CF34
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 10:25:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13435.34086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FCA29CF3F
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 10:39:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13444.34097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXhhQ-0005hH-TH; Wed, 28 Oct 2020 09:24:56 +0000
+	id 1kXhv6-0006mD-9b; Wed, 28 Oct 2020 09:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13435.34086; Wed, 28 Oct 2020 09:24:56 +0000
+Received: by outflank-mailman (output) from mailman id 13444.34097; Wed, 28 Oct 2020 09:39:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,361 +23,405 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXhhQ-0005gs-Pz; Wed, 28 Oct 2020 09:24:56 +0000
-Received: by outflank-mailman (input) for mailman id 13435;
- Wed, 28 Oct 2020 09:24:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kXhhP-0005gl-UQ
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 09:24:55 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7387b699-f4a1-4898-bf58-bea01d086430;
- Wed, 28 Oct 2020 09:24:53 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D76F5AD1E;
- Wed, 28 Oct 2020 09:24:52 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kXhv6-0006ls-6R; Wed, 28 Oct 2020 09:39:04 +0000
+Received: by outflank-mailman (input) for mailman id 13444;
+ Wed, 28 Oct 2020 09:39:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u6N/=ED=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kXhv4-0006ln-Oq
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 09:39:02 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fde86503-6033-435c-8cdb-2d4025d92ffd;
+ Wed, 28 Oct 2020 09:38:59 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kXhv1-0005is-HI; Wed, 28 Oct 2020 09:38:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kXhv1-0006WQ-3L; Wed, 28 Oct 2020 09:38:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kXhv1-0004UQ-2K; Wed, 28 Oct 2020 09:38:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kXhhP-0005gl-UQ
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 09:24:55 +0000
-X-Inumbo-ID: 7387b699-f4a1-4898-bf58-bea01d086430
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 7387b699-f4a1-4898-bf58-bea01d086430;
-	Wed, 28 Oct 2020 09:24:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603877092;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BDnAoknm+d841ow9/Slk5qnPpHUKxVRIWzU0TPE9W4Q=;
-	b=IaRkl9wNnRkAYR4tHYkztpaya1S+G4WqI1ofPVXEweLaJHLizWLBP6alUy/hXF9q8YaIW4
-	1bVoFRXzw9WjWgnDGPmRESha8NKmfKLb/wfvunYDHj5k26YTos9zGLIif3KmGJPbbsBvrr
-	FDqdTRFs5ZRo3AYDeZRPdQbC713JjNQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D76F5AD1E;
-	Wed, 28 Oct 2020 09:24:52 +0000 (UTC)
-Subject: [PATCH 5/5] x86/p2m: split write_p2m_entry() hook
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
-References: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
-Message-ID: <7b2b7cc9-8828-41bd-7949-764161bbe7ff@suse.com>
-Date: Wed, 28 Oct 2020 10:24:53 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	(envelope-from <SRS0=u6N/=ED=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kXhv4-0006ln-Oq
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 09:39:02 +0000
+X-Inumbo-ID: fde86503-6033-435c-8cdb-2d4025d92ffd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id fde86503-6033-435c-8cdb-2d4025d92ffd;
+	Wed, 28 Oct 2020 09:38:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EYxvpVH2I8YA2HyPpQr/R10udsfD9bAM7APXHvwkWGc=; b=qSF91LuwmnDXPhqTzLrzJMe4nG
+	UIALLWex2f+71LpM1i0x2aisUkBqEvndeEAuxAAQWxqdZJ7kHn4aCpZo/lhXhX0Kd2VdXERd9JzNk
+	wuvrIFAVnphEf33Ln9KMDigw76YJ8U4EMg9jiitK5gGonJ6Uj5/ZzNITZi1rKZbMbGsw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kXhv1-0005is-HI; Wed, 28 Oct 2020 09:38:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kXhv1-0006WQ-3L; Wed, 28 Oct 2020 09:38:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kXhv1-0004UQ-2K; Wed, 28 Oct 2020 09:38:59 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156262-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-4.11-testing test] 156262: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-localmigrate/x10:fail:regression
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e274c8bdc12eb596e55233040e8b49da27150f31
+X-Osstest-Versions-That:
+    xen=63199dfd3a0418f1677c6ccd7fe05b123af4610a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 28 Oct 2020 09:38:59 +0000
 
-Fair parts of the present handlers are identical; in fact
-nestedp2m_write_p2m_entry() lacks a call to p2m_entry_modify(). Move
-common parts right into write_p2m_entry(), splitting the hooks into a
-"pre" one (needed just by shadow code) and a "post" one.
+flight 156262 xen-4.11-testing real [real]
+flight 156275 xen-4.11-testing real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156262/
+http://logs.test-lab.xenproject.org/osstest/logs/156275/
 
-For the common parts moved I think that the p2m_flush_nestedp2m() is,
-at least from an abstract perspective, also applicable in the shadow
-case. Hence it doesn't get a 3rd hook put in place.
+Regressions :-(
 
-The initial comment that was in hap_write_p2m_entry() gets dropped: Its
-placement was bogus, and looking back the the commit introducing it
-(dd6de3ab9985 "Implement Nested-on-Nested") I can't see either what use
-of a p2m it was meant to be associated with.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 18 guest-localmigrate/x10 fail REGR. vs. 156034
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: This is effectively the alternative to the suggestion in an earlier
-     patch that we might do away with the hook altogether. Of course a
-     hybrid approach would also be possible, by using direct calls here
-     instead of splitting the hook into two.
----
-I'm unsure whether p2m_init_nestedp2m() zapping the "pre" hook is
-actually correct, or whether previously the sh_unshadow_for_p2m_change()
-invocation was wrongly skipped.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail like 156034
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail like 156034
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 156034
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 156034
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 156034
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 156034
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 156034
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 156034
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 156034
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 156034
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 156034
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 156034
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 156034
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -774,55 +774,18 @@ static void hap_update_paging_modes(stru
-     put_gfn(d, cr3_gfn);
- }
- 
--static int
--hap_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn, l1_pgentry_t *p,
--                    l1_pgentry_t new, unsigned int level)
-+static void
-+hap_write_p2m_entry_post(struct p2m_domain *p2m, unsigned int oflags)
- {
-     struct domain *d = p2m->domain;
--    uint32_t old_flags;
--    mfn_t omfn;
--    int rc;
- 
--    /* We know always use the host p2m here, regardless if the vcpu
--     * is in host or guest mode. The vcpu can be in guest mode by
--     * a hypercall which passes a domain and chooses mostly the first
--     * vcpu. */
--
--    paging_lock(d);
--    old_flags = l1e_get_flags(*p);
--    omfn = l1e_get_mfn(*p);
--
--    rc = p2m_entry_modify(p2m, p2m_flags_to_type(l1e_get_flags(new)),
--                          p2m_flags_to_type(old_flags), l1e_get_mfn(new),
--                          omfn, level);
--    if ( rc )
--    {
--        paging_unlock(d);
--        return rc;
--    }
--
--    safe_write_pte(p, new);
--    if ( old_flags & _PAGE_PRESENT )
-+    if ( oflags & _PAGE_PRESENT )
-         guest_flush_tlb_mask(d, d->dirty_cpumask);
--
--    paging_unlock(d);
--
--    if ( nestedhvm_enabled(d) && (old_flags & _PAGE_PRESENT) &&
--         !p2m_get_hostp2m(d)->defer_nested_flush &&
--         /*
--          * We are replacing a valid entry so we need to flush nested p2ms,
--          * unless the only change is an increase in access rights.
--          */
--         (!mfn_eq(omfn, l1e_get_mfn(new)) ||
--          !perms_strictly_increased(old_flags, l1e_get_flags(new))) )
--        p2m_flush_nestedp2m(d);
--
--    return 0;
- }
- 
- void hap_p2m_init(struct p2m_domain *p2m)
- {
--    p2m->write_p2m_entry = hap_write_p2m_entry;
-+    p2m->write_p2m_entry_post = hap_write_p2m_entry_post;
- }
- 
- static unsigned long hap_gva_to_gfn_real_mode(
---- a/xen/arch/x86/mm/hap/nested_hap.c
-+++ b/xen/arch/x86/mm/hap/nested_hap.c
-@@ -71,24 +71,11 @@
- /*        NESTED VIRT P2M FUNCTIONS         */
- /********************************************/
- 
--int
--nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
--    l1_pgentry_t *p, l1_pgentry_t new, unsigned int level)
-+void
-+nestedp2m_write_p2m_entry_post(struct p2m_domain *p2m, unsigned int oflags)
- {
--    struct domain *d = p2m->domain;
--    uint32_t old_flags;
--
--    paging_lock(d);
--
--    old_flags = l1e_get_flags(*p);
--    safe_write_pte(p, new);
--
--    if (old_flags & _PAGE_PRESENT)
--        guest_flush_tlb_mask(d, p2m->dirty_cpumask);
--
--    paging_unlock(d);
--
--    return 0;
-+    if ( oflags & _PAGE_PRESENT )
-+        guest_flush_tlb_mask(p2m->domain, p2m->dirty_cpumask);
- }
- 
- /********************************************/
---- a/xen/arch/x86/mm/p2m-pt.c
-+++ b/xen/arch/x86/mm/p2m-pt.c
-@@ -122,17 +122,55 @@ static int write_p2m_entry(struct p2m_do
- {
-     struct domain *d = p2m->domain;
-     struct vcpu *v = current;
--    int rc = 0;
- 
-     if ( v->domain != d )
-         v = d->vcpu ? d->vcpu[0] : NULL;
-     if ( likely(v && paging_mode_enabled(d) && paging_get_hostmode(v)) ||
-          p2m_is_nestedp2m(p2m) )
--        rc = p2m->write_p2m_entry(p2m, gfn, p, new, level);
-+    {
-+        unsigned int oflags;
-+        mfn_t omfn;
-+        int rc;
-+
-+        paging_lock(d);
-+
-+        if ( p2m->write_p2m_entry_pre )
-+            p2m->write_p2m_entry_pre(d, gfn, p, new, level);
-+
-+        oflags = l1e_get_flags(*p);
-+        omfn = l1e_get_mfn(*p);
-+
-+        rc = p2m_entry_modify(p2m, p2m_flags_to_type(l1e_get_flags(new)),
-+                              p2m_flags_to_type(oflags), l1e_get_mfn(new),
-+                              omfn, level);
-+        if ( rc )
-+        {
-+            paging_unlock(d);
-+            return rc;
-+        }
-+
-+        safe_write_pte(p, new);
-+
-+        if ( p2m->write_p2m_entry_post )
-+            p2m->write_p2m_entry_post(p2m, oflags);
-+
-+        paging_unlock(d);
-+
-+        if ( nestedhvm_enabled(d) && !p2m_is_nestedp2m(p2m) &&
-+             (oflags & _PAGE_PRESENT) &&
-+             !p2m_get_hostp2m(d)->defer_nested_flush &&
-+             /*
-+              * We are replacing a valid entry so we need to flush nested p2ms,
-+              * unless the only change is an increase in access rights.
-+              */
-+             (!mfn_eq(omfn, l1e_get_mfn(new)) ||
-+              !perms_strictly_increased(oflags, l1e_get_flags(new))) )
-+            p2m_flush_nestedp2m(d);
-+    }
-     else
-         safe_write_pte(p, new);
- 
--    return rc;
-+    return 0;
- }
- 
- // Find the next level's P2M entry, checking for out-of-range gfn's...
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -198,7 +198,8 @@ static int p2m_init_nestedp2m(struct dom
-             return -ENOMEM;
-         }
-         p2m->p2m_class = p2m_nested;
--        p2m->write_p2m_entry = nestedp2m_write_p2m_entry;
-+        p2m->write_p2m_entry_pre = NULL;
-+        p2m->write_p2m_entry_post = nestedp2m_write_p2m_entry_post;
-         list_add(&p2m->np2m_list, &p2m_get_hostp2m(d)->np2m_list);
-     }
- 
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -3137,34 +3137,22 @@ static void sh_unshadow_for_p2m_change(s
-     }
- }
- 
--static int
--shadow_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
--                       l1_pgentry_t *p, l1_pgentry_t new,
--                       unsigned int level)
-+static void
-+sh_write_p2m_entry_pre(struct domain *d, unsigned long gfn, l1_pgentry_t *p,
-+                       l1_pgentry_t new, unsigned int level)
- {
--    struct domain *d = p2m->domain;
--    int rc;
--
--    paging_lock(d);
--
-     /* If there are any shadows, update them.  But if shadow_teardown()
-      * has already been called then it's not safe to try. */
-     if ( likely(d->arch.paging.shadow.total_pages != 0) )
-          sh_unshadow_for_p2m_change(d, gfn, p, new, level);
--
--    rc = p2m_entry_modify(p2m, p2m_flags_to_type(l1e_get_flags(new)),
--                          p2m_flags_to_type(l1e_get_flags(*p)),
--                          l1e_get_mfn(new), l1e_get_mfn(*p), level);
--    if ( rc )
--    {
--        paging_unlock(d);
--        return rc;
--    }
--
--    /* Update the entry with new content */
--    safe_write_pte(p, new);
-+}
- 
- #if (SHADOW_OPTIMIZATIONS & SHOPT_FAST_FAULT_PATH)
-+static void
-+sh_write_p2m_entry_post(struct p2m_domain *p2m, unsigned int oflags)
-+{
-+    struct domain *d = p2m->domain;
-+
-     /* If we're doing FAST_FAULT_PATH, then shadow mode may have
-        cached the fact that this is an mmio region in the shadow
-        page tables.  Blow the tables away to remove the cache.
-@@ -3176,16 +3164,15 @@ shadow_write_p2m_entry(struct p2m_domain
-         shadow_blow_tables(d);
-         d->arch.paging.shadow.has_fast_mmio_entries = false;
-     }
--#endif
--
--    paging_unlock(d);
--
--    return 0;
- }
-+#else
-+# define sh_write_p2m_entry_post NULL
-+#endif
- 
- void shadow_p2m_init(struct p2m_domain *p2m)
- {
--    p2m->write_p2m_entry = shadow_write_p2m_entry;
-+    p2m->write_p2m_entry_pre  = sh_write_p2m_entry_pre;
-+    p2m->write_p2m_entry_post = sh_write_p2m_entry_post;
- }
- 
- /**************************************************************************/
---- a/xen/include/asm-x86/p2m.h
-+++ b/xen/include/asm-x86/p2m.h
-@@ -272,10 +272,13 @@ struct p2m_domain {
-                                                   unsigned long first_gfn,
-                                                   unsigned long last_gfn);
-     void               (*memory_type_changed)(struct p2m_domain *p2m);
--    
--    int                (*write_p2m_entry)(struct p2m_domain *p2m,
--                                          unsigned long gfn, l1_pgentry_t *p,
--                                          l1_pgentry_t new, unsigned int level);
-+    void               (*write_p2m_entry_pre)(struct domain *d,
-+                                              unsigned long gfn,
-+                                              l1_pgentry_t *p,
-+                                              l1_pgentry_t new,
-+                                              unsigned int level);
-+    void               (*write_p2m_entry_post)(struct p2m_domain *p2m,
-+                                               unsigned int oflags);
- #if P2M_AUDIT
-     long               (*audit_p2m)(struct p2m_domain *p2m);
- #endif
-@@ -472,7 +475,7 @@ void __put_gfn(struct p2m_domain *p2m, u
-  *
-  * This is also used in the shadow code whenever the paging lock is
-  * held -- in those cases, the caller is protected against concurrent
-- * p2m updates by the fact that shadow_write_p2m_entry() also takes
-+ * p2m updates by the fact that write_p2m_entry() also takes
-  * the paging lock.
-  *
-  * Note that an unlocked accessor only makes sense for a "query" lookup.
-@@ -841,8 +844,8 @@ void np2m_flush_base(struct vcpu *v, uns
- void hap_p2m_init(struct p2m_domain *p2m);
- void shadow_p2m_init(struct p2m_domain *p2m);
- 
--int nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
--    l1_pgentry_t *p, l1_pgentry_t new, unsigned int level);
-+void nestedp2m_write_p2m_entry_post(struct p2m_domain *p2m,
-+                                    unsigned int oflags);
- 
- /*
-  * Alternate p2m: shadow p2m tables used for alternate memory views
+version targeted for testing:
+ xen                  e274c8bdc12eb596e55233040e8b49da27150f31
+baseline version:
+ xen                  63199dfd3a0418f1677c6ccd7fe05b123af4610a
 
+Last test of basis   156034  2020-10-20 13:35:54 Z    7 days
+Testing same since   156262  2020-10-27 18:36:52 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit e274c8bdc12eb596e55233040e8b49da27150f31
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Oct 19 15:51:22 2020 +0100
+
+    x86/pv: Flush TLB in response to paging structure changes
+    
+    With MMU_UPDATE, a PV guest can make changes to higher level pagetables.  This
+    is safe from Xen's point of view (as the update only affects guest mappings),
+    and the guest is required to flush (if necessary) after making updates.
+    
+    However, Xen's use of linear pagetables (UPDATE_VA_MAPPING, GNTTABOP_map,
+    writeable pagetables, etc.) is an implementation detail outside of the
+    API/ABI.
+    
+    Changes in the paging structure require invalidations in the linear pagetable
+    range for subsequent accesses into the linear pagetables to access non-stale
+    mappings.  Xen must provide suitable flushing to prevent intermixed guest
+    actions from accidentally accessing/modifying the wrong pagetable.
+    
+    For all L2 and higher modifications, flush the TLB.  PV guests cannot create
+    L2 or higher entries with the Global bit set, so no mappings established in
+    the linear range can be global.  (This could in principle be an order 39 flush
+    starting at LINEAR_PT_VIRT_START, but no such mechanism exists in practice.)
+    
+    Express the necessary flushes as a set of booleans which accumulate across the
+    operation.  Comment the flushing logic extensively.
+    
+    This is XSA-286.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    (cherry picked from commit 16a20963b3209788f2c0d3a3eebb7d92f03f5883)
+
+commit 1d021db3c8712d25e25f078833baa160c90f260f
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Thu Oct 22 11:28:58 2020 +0100
+
+    x86/pv: Drop FLUSH_TLB_GLOBAL in do_mmu_update() for XPTI
+    
+    c/s 9d1d31ad9498 "x86: slightly reduce Meltdown band-aid overhead" removed the
+    use of Global TLB flushes on the Xen entry path, but added a FLUSH_TLB_GLOBAL
+    to the L4 path in do_mmu_update().
+    
+    However, this was unnecessary.
+    
+    It is the guests responsibility to perform appropriate TLB flushing if the L4
+    modification altered an established mapping in a flush-relevant way.  In this
+    case, an MMUEXT_OP hypercall will follow.  The case which Xen needs to cover
+    is when new mappings are created, and the resync on the exit-to-guest path
+    covers this correctly.
+    
+    There is a corner case with multiple vCPUs in hypercalls at the same time,
+    which 9d1d31ad9498 changed, and this patch changes back to its original XPTI
+    behaviour.
+    
+    Architecturally, established TLB entries can continue to be used until the
+    broadcast flush has completed.  Therefore, even with concurrent hypercalls,
+    the guest cannot depend on older mappings not being used until an MMUEXT_OP
+    hypercall completes.  Xen's implementation of guest-initiated flushes will
+    take correct effect on top of an in-progress hypercall, picking up new mapping
+    setting before the other vCPU's MMUEXT_OP completes.
+    
+    Note: The correctness of this change is not impacted by whether XPTI uses
+    global mappings or not.  Correctness there depends on the behaviour of Xen on
+    the entry/exit paths when switching two/from the XPTI "shadow" pagetables.
+    
+    This is (not really) XSA-286 (but necessary to simplify the logic).
+    
+    Fixes: 9d1d31ad9498 ("x86: slightly reduce Meltdown band-aid overhead")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    (cherry picked from commit 055e1c3a3d95b1e753148369fbc4ba48782dd602)
+(qemu changes not included)
 
