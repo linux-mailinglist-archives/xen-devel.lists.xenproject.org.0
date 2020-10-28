@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9555129D055
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 15:31:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13629.34343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8573729D053
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 15:31:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13630.34357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXmTQ-0000JL-Kw; Wed, 28 Oct 2020 14:30:48 +0000
+	id 1kXmTV-0000MN-3i; Wed, 28 Oct 2020 14:30:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13629.34343; Wed, 28 Oct 2020 14:30:48 +0000
+Received: by outflank-mailman (output) from mailman id 13630.34357; Wed, 28 Oct 2020 14:30:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,50 +23,50 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXmTQ-0000Ir-H6; Wed, 28 Oct 2020 14:30:48 +0000
-Received: by outflank-mailman (input) for mailman id 13629;
- Wed, 28 Oct 2020 14:30:47 +0000
+	id 1kXmTV-0000Lr-0G; Wed, 28 Oct 2020 14:30:53 +0000
+Received: by outflank-mailman (input) for mailman id 13630;
+ Wed, 28 Oct 2020 14:30:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LDgn=ED=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kXmTP-0000IU-13
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 14:30:47 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.219])
+ id 1kXmTT-0000IU-Tx
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 14:30:51 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.166])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 37c6a7fb-b1bb-49f9-8be0-4fe999580628;
- Wed, 28 Oct 2020 14:30:41 +0000 (UTC)
+ id 7528e28e-3a0b-40cf-848b-882835f0625c;
+ Wed, 28 Oct 2020 14:30:42 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.2.3 DYNA|AUTH)
- with ESMTPSA id D03373w9SEUV5Mc
+ with ESMTPSA id D03373w9SEUV5Md
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
  (Client did not present a certificate);
  Wed, 28 Oct 2020 15:30:31 +0100 (CET)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=LDgn=ED=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
-	id 1kXmTP-0000IU-13
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 14:30:47 +0000
-X-Inumbo-ID: 37c6a7fb-b1bb-49f9-8be0-4fe999580628
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.219])
+	id 1kXmTT-0000IU-Tx
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 14:30:51 +0000
+X-Inumbo-ID: 7528e28e-3a0b-40cf-848b-882835f0625c
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.166])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 37c6a7fb-b1bb-49f9-8be0-4fe999580628;
-	Wed, 28 Oct 2020 14:30:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603895440;
+	id 7528e28e-3a0b-40cf-848b-882835f0625c;
+	Wed, 28 Oct 2020 14:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603895441;
 	s=strato-dkim-0002; d=aepfle.de;
 	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
-	bh=8EOjWvQk239Wp/aWNifZAKC+Sjf+9ZihUrmLiKkJAAc=;
-	b=ivPRFXnGxrQjFfk6asYHhqTZi26eH2FBmOVi7PrYd1KIteAhN6/KIJBxRXViC2h5Dw
-	o07Z89ZXmk8scebTQCcXQaTZ/5iw+7mOSM6Zr2kRisOAA6FgkKe0igexBDJyh57znJzz
-	p7wbt/6dM+liiFk7I+fMWz68q19DD4xfbmj/JAhUfTczZLFBsQQY9QsRlvFEaMM6wXFK
-	PiSKi8bT8GfAbVPJRBqBDGOE4KlcxVr9h4Gnz/FruHYMCt9eOIlXL6fiqQ8HzBI+6pa5
-	2vVCK3gYmogcaZQ7oZoyLwnqA5fe3E7l2Shhq85bNy2wo++7O89IEzAxu8YM4+0MHsh7
-	Katg==
+	bh=nOFtdNXlk5HjYyxO1mkGMNqJ+Z1za/MxmXOScJ0HbPg=;
+	b=Vjq9hrSCC0J4X6bcR9uJ0f2dDFFfDSEpA6wPy5IKsY10nhsk25L1NpaCFj4xWmj6HY
+	Qtx7RbNQ/keVcUl6kOpelrdPipY4wZlBYCFvAl0RwtATWzb9+gb7M+W8ZAXVn3gMC0Vg
+	Wj1VXNOJDiNCEJvOR5EAoneEWONksVZzRilTBJ84XM+9FianWfQ8VUulmckugmF8mEIO
+	MMKl9KYWrIO6tW9/DqLhXlgSnfyUehj65B98gmdETtPB/932l2HEsKr/Na3ndtV9Bj65
+	+bBCtTnQnFCpZV/hLZeTHo0zcf5DjNQZAFDMAexgaD95bCg2oO6eLRcmSNh7b5386QgO
+	aKHg==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Jjw=="
 X-RZG-CLASS-ID: mo00
 Received: from sender
 	by smtp.strato.de (RZmta 47.2.3 DYNA|AUTH)
-	with ESMTPSA id D03373w9SEUV5Mc
+	with ESMTPSA id D03373w9SEUV5Md
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
 	(Client did not present a certificate);
 	Wed, 28 Oct 2020 15:30:31 +0100 (CET)
@@ -74,66 +74,54 @@ From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 1/3] tools: add xc_is_known_page_type to libxenctrl
-Date: Wed, 28 Oct 2020 15:30:22 +0100
-Message-Id: <20201028143024.26833-2-olaf@aepfle.de>
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1 2/3] tools: use xc_is_known_page_type
+Date: Wed, 28 Oct 2020 15:30:23 +0100
+Message-Id: <20201028143024.26833-3-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201028143024.26833-1-olaf@aepfle.de>
 References: <20201028143024.26833-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Users of xc_get_pfn_type_batch may want to sanity check the data
-returned by Xen. Add a simple helper for this purpose.
+Verify pfn type on sending side, also verify incoming batch of pfns.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/ctrl/xc_private.h | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ tools/libs/guest/xg_sr_restore.c | 3 +--
+ tools/libs/guest/xg_sr_save.c    | 6 ++++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index 5d2c7274fb..afb08aafe1 100644
---- a/tools/libs/ctrl/xc_private.h
-+++ b/tools/libs/ctrl/xc_private.h
-@@ -421,6 +421,39 @@ void *xc_map_foreign_ranges(xc_interface *xch, uint32_t dom,
- int xc_get_pfn_type_batch(xc_interface *xch, uint32_t dom,
-                           unsigned int num, xen_pfn_t *);
+diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
+index b57a787519..f1c3169229 100644
+--- a/tools/libs/guest/xg_sr_restore.c
++++ b/tools/libs/guest/xg_sr_restore.c
+@@ -406,8 +406,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
+         }
  
-+/* Sanitiy check for types returned by Xen */
-+static inline bool xc_is_known_page_type(xen_pfn_t type)
-+{
-+    bool ret;
-+
-+    switch (type)
-+    {
-+    case XEN_DOMCTL_PFINFO_NOTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L1TAB:
-+    case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L2TAB:
-+    case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L3TAB:
-+    case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L4TAB:
-+    case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_XTAB:
-+    case XEN_DOMCTL_PFINFO_XALLOC:
-+    case XEN_DOMCTL_PFINFO_BROKEN:
-+        ret = true;
-+        break;
-+    default:
-+        ret = false;
-+        break;
-+    }
-+    return ret;
-+}
-+
- void bitmap_64_to_byte(uint8_t *bp, const uint64_t *lp, int nbits);
- void bitmap_byte_to_64(uint64_t *lp, const uint8_t *bp, int nbits);
+         type = (pages->pfn[i] & PAGE_DATA_TYPE_MASK) >> 32;
+-        if ( ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) >= 5) &&
+-             ((type >> XEN_DOMCTL_PFINFO_LTAB_SHIFT) <= 8) )
++        if ( xc_is_known_page_type(type) == false )
+         {
+             ERROR("Invalid type %#"PRIx32" for pfn %#"PRIpfn" (index %u)",
+                   type, pfn, i);
+diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
+index 2ba7c3200c..044d0ae3aa 100644
+--- a/tools/libs/guest/xg_sr_save.c
++++ b/tools/libs/guest/xg_sr_save.c
+@@ -147,6 +147,12 @@ static int write_batch(struct xc_sr_context *ctx)
  
+     for ( i = 0; i < nr_pfns; ++i )
+     {
++        if ( xc_is_known_page_type(types[i]) == false )
++        {
++            ERROR("Wrong type %#"PRIpfn" for pfn %#"PRIpfn, types[i], mfns[i]);
++            goto err;
++        }
++
+         switch ( types[i] )
+         {
+         case XEN_DOMCTL_PFINFO_BROKEN:
 
