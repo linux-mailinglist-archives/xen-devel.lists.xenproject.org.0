@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5503829D1A5
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 20:13:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13826.34584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1608329D1CE
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 20:35:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13837.34600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXqrk-0001Y4-1H; Wed, 28 Oct 2020 19:12:12 +0000
+	id 1kXrEI-0003PP-Us; Wed, 28 Oct 2020 19:35:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13826.34584; Wed, 28 Oct 2020 19:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 13837.34600; Wed, 28 Oct 2020 19:35:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,257 +23,221 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXqrj-0001Xf-Ty; Wed, 28 Oct 2020 19:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 13826;
- Wed, 28 Oct 2020 19:12:10 +0000
+	id 1kXrEI-0003Ow-RO; Wed, 28 Oct 2020 19:35:30 +0000
+Received: by outflank-mailman (input) for mailman id 13837;
+ Wed, 28 Oct 2020 19:35:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HSML=ED=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kXqri-0001Xa-7w
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 19:12:10 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ICLB=ED=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kXrEH-0003Op-NA
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 19:35:29 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab32d74f-daaf-42e1-889c-2a580036df52;
- Wed, 28 Oct 2020 19:12:08 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kXqrf-0001Le-Fc; Wed, 28 Oct 2020 19:12:07 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kXqrf-0004JU-3o; Wed, 28 Oct 2020 19:12:07 +0000
+ id beff49a3-1948-440e-bf4b-7f1b754e902a;
+ Wed, 28 Oct 2020 19:35:28 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E95D4B90E;
+ Wed, 28 Oct 2020 19:35:26 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=HSML=ED=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kXqri-0001Xa-7w
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 19:12:10 +0000
-X-Inumbo-ID: ab32d74f-daaf-42e1-889c-2a580036df52
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=ICLB=ED=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+	id 1kXrEH-0003Op-NA
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 19:35:29 +0000
+X-Inumbo-ID: beff49a3-1948-440e-bf4b-7f1b754e902a
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ab32d74f-daaf-42e1-889c-2a580036df52;
-	Wed, 28 Oct 2020 19:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Mq3kpiFjZWGfYPCI7erEYQQ7uke5ZgawXGto721oxjw=; b=5V/74rfXOkbme76oT8iYcFGJH/
-	Btxb5uvi8pXux0FTSWdeH/OtDjEBsf5XlGbObrpeCuVcl8he3Z5QSSZ9K1iTzRROcvPxv6oecTfQD
-	BMQNPUuGl7Ptla3I2+tPAD+JAbL3bkYKo+xqNT4fDmabbteRht2OhtP4sauhHHRRwgmo=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kXqrf-0001Le-Fc; Wed, 28 Oct 2020 19:12:07 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kXqrf-0004JU-3o; Wed, 28 Oct 2020 19:12:07 +0000
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
- <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
- <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
- <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
- <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
- <7314936f-6c1e-5ca6-a33b-973c8e61ba3b@xen.org>
- <D9F93137-412F-47E5-A55C-85D1F3745618@arm.com>
- <2813ea2b-bfc4-0590-47ef-86089ad65a5d@xen.org>
- <0E2548E0-0504-43B6-8DD7-D5B7BACCEB6E@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bc697327-2750-9a78-042d-d45690d27928@xen.org>
-Date: Wed, 28 Oct 2020 19:12:05 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.0
+	id beff49a3-1948-440e-bf4b-7f1b754e902a;
+	Wed, 28 Oct 2020 19:35:28 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id E95D4B90E;
+	Wed, 28 Oct 2020 19:35:26 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@linux.ie,
+	daniel@ffwll.ch,
+	sam@ravnborg.org,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	kraxel@redhat.com,
+	l.stach@pengutronix.de,
+	linux+etnaviv@armlinux.org.uk,
+	christian.gmeiner@gmail.com,
+	inki.dae@samsung.com,
+	jy0922.shim@samsung.com,
+	sw0312.kim@samsung.com,
+	kyungmin.park@samsung.com,
+	kgene@kernel.org,
+	krzk@kernel.org,
+	yuq825@gmail.com,
+	bskeggs@redhat.com,
+	robh@kernel.org,
+	tomeu.vizoso@collabora.com,
+	steven.price@arm.com,
+	alyssa.rosenzweig@collabora.com,
+	hjc@rock-chips.com,
+	heiko@sntech.de,
+	hdegoede@redhat.com,
+	sean@poorly.run,
+	eric@anholt.net,
+	oleksandr_andrushchenko@epam.com,
+	ray.huang@amd.com,
+	sumit.semwal@linaro.org,
+	emil.velikov@collabora.com,
+	luben.tuikov@amd.com,
+	apaneers@amd.com,
+	linus.walleij@linaro.org,
+	melissa.srw@gmail.com,
+	chris@chris-wilson.co.uk,
+	miaoqinglang@huawei.com
+Cc: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	etnaviv@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	lima@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	spice-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	xen-devel@lists.xenproject.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v6 00/10] Support GEM object mappings from I/O memory
+Date: Wed, 28 Oct 2020 20:35:11 +0100
+Message-Id: <20201028193521.2489-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-In-Reply-To: <0E2548E0-0504-43B6-8DD7-D5B7BACCEB6E@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+DRM's fbdev console uses regular load and store operations to update
+framebuffer memory. The bochs driver on sparc64 requires the use of
+I/O-specific load and store operations. We have a workaround, but need
+a long-term solution to the problem.
 
+This patchset changes GEM's vmap/vunmap interfaces to forward pointers
+of type struct dma_buf_map and updates the generic fbdev emulation to
+use them correctly. This enables I/O-memory operations on all framebuffers
+that require and support them.
 
-On 26/10/2020 11:03, Rahul Singh wrote:
-> Hello Julien,
+Patches #1 to #4 prepare VRAM helpers and drivers.
 
-Hi Rahul,
+Next is the update of the GEM vmap functions. Patch #5 adds vmap and vunmap
+that is usable with TTM-based GEM drivers, and patch #6 updates GEM's
+vmap/vunmap callback to forward instances of type struct dma_buf_map. While
+the patch touches many files throughout the DRM modules, the applied changes
+are mostly trivial interface fixes. Several TTM-based GEM drivers now use
+the new vmap code. Patch #7 updates GEM's internal vmap/vunmap functions to
+forward struct dma_buf_map.
 
->> On 23 Oct 2020, at 4:19 pm, Julien Grall <julien@xen.org> wrote:
->>
->>
->>
->> On 23/10/2020 15:27, Rahul Singh wrote:
->>> Hello Julien,
->>>> On 23 Oct 2020, at 2:00 pm, Julien Grall <julien@xen.org> wrote:
->>>>
->>>>
->>>>
->>>> On 23/10/2020 12:35, Rahul Singh wrote:
->>>>> Hello,
->>>>>> On 23 Oct 2020, at 1:02 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>>>>
->>>>>> On Thu, 22 Oct 2020, Julien Grall wrote:
->>>>>>>>> On 20/10/2020 16:25, Rahul Singh wrote:
->>>>>>>>>> Add support for ARM architected SMMUv3 implementations. It is based on
->>>>>>>>>> the Linux SMMUv3 driver.
->>>>>>>>>> Major differences between the Linux driver are as follows:
->>>>>>>>>> 1. Only Stage-2 translation is supported as compared to the Linux driver
->>>>>>>>>>     that supports both Stage-1 and Stage-2 translations.
->>>>>>>>>> 2. Use P2M  page table instead of creating one as SMMUv3 has the
->>>>>>>>>>     capability to share the page tables with the CPU.
->>>>>>>>>> 3. Tasklets is used in place of threaded IRQ's in Linux for event queue
->>>>>>>>>>     and priority queue IRQ handling.
->>>>>>>>>
->>>>>>>>> Tasklets are not a replacement for threaded IRQ. In particular, they will
->>>>>>>>> have priority over anything else (IOW nothing will run on the pCPU until
->>>>>>>>> they are done).
->>>>>>>>>
->>>>>>>>> Do you know why Linux is using thread. Is it because of long running
->>>>>>>>> operations?
->>>>>>>>
->>>>>>>> Yes you are right because of long running operations Linux is using the
->>>>>>>> threaded IRQs.
->>>>>>>>
->>>>>>>> SMMUv3 reports fault/events bases on memory-based circular buffer queues not
->>>>>>>> based on the register. As per my understanding, it is time-consuming to
->>>>>>>> process the memory based queues in interrupt context because of that Linux
->>>>>>>> is using threaded IRQ to process the faults/events from SMMU.
->>>>>>>>
->>>>>>>> I didn’t find any other solution in XEN in place of tasklet to defer the
->>>>>>>> work, that’s why I used tasklet in XEN in replacement of threaded IRQs. If
->>>>>>>> we do all work in interrupt context we will make XEN less responsive.
->>>>>>>
->>>>>>> So we need to make sure that Xen continue to receives interrupts, but we also
->>>>>>> need to make sure that a vCPU bound to the pCPU is also responsive.
->>>>>>>
->>>>>>>>
->>>>>>>> If you know another solution in XEN that will be used to defer the work in
->>>>>>>> the interrupt please let me know I will try to use that.
->>>>>>>
->>>>>>> One of my work colleague encountered a similar problem recently. He had a long
->>>>>>> running tasklet and wanted to be broken down in smaller chunk.
->>>>>>>
->>>>>>> We decided to use a timer to reschedule the taslket in the future. This allows
->>>>>>> the scheduler to run other loads (e.g. vCPU) for some time.
->>>>>>>
->>>>>>> This is pretty hackish but I couldn't find a better solution as tasklet have
->>>>>>> high priority.
->>>>>>>
->>>>>>> Maybe the other will have a better idea.
->>>>>>
->>>>>> Julien's suggestion is a good one.
->>>>>>
->>>>>> But I think tasklets can be configured to be called from the idle_loop,
->>>>>> in which case they are not run in interrupt context?
->>>>>>
->>>>>   Yes you are right tasklet will be scheduled from the idle_loop that is not interrupt conext.
->>>>
->>>> This depends on your tasklet. Some will run from the softirq context which is usually (for Arm) on the return of an exception.
->>>>
->>> Thanks for the info. I will check and will get better understanding of the tasklet how it will run in XEN.
->>>>>>
->>>>>>>>>> 4. Latest version of the Linux SMMUv3 code implements the commands queue
->>>>>>>>>>     access functions based on atomic operations implemented in Linux.
->>>>>>>>>
->>>>>>>>> Can you provide more details?
->>>>>>>>
->>>>>>>> I tried to port the latest version of the SMMUv3 code than I observed that
->>>>>>>> in order to port that code I have to also port atomic operation implemented
->>>>>>>> in Linux to XEN. As latest Linux code uses atomic operation to process the
->>>>>>>> command queues (atomic_cond_read_relaxed(),atomic_long_cond_read_relaxed() ,
->>>>>>>> atomic_fetch_andnot_relaxed()) .
->>>>>>>
->>>>>>> Thank you for the explanation. I think it would be best to import the atomic
->>>>>>> helpers and use the latest code.
->>>>>>>
->>>>>>> This will ensure that we don't re-introduce bugs and also buy us some time
->>>>>>> before the Linux and Xen driver diverge again too much.
->>>>>>>
->>>>>>> Stefano, what do you think?
->>>>>>
->>>>>> I think you are right.
->>>>> Yes, I agree with you to have XEN code in sync with Linux code that's why I started with to port the Linux atomic operations to XEN  then I realised that it is not straightforward to port atomic operations and it requires lots of effort and testing. Therefore I decided to port the code before the atomic operation is introduced in Linux.
->>>>
->>>> Hmmm... I would not have expected a lot of effort required to add the 3 atomics operations above. Are you trying to also port the LSE support at the same time?
->>> There are other atomic operations used in the SMMUv3 code apart from the 3 atomic operation I mention. I just mention 3 operation as an example.
->>
->> Ok. Do you have a list you could share?
->>
-> 
-> Yes. Please find the list that we have to port to the XEN in order to merge the latest SMMUv3 code.
+With struct dma_buf_map propagated through the layers, patches #8 to #10
+convert DRM clients and generic fbdev emulation to use it. Updating the
+fbdev framebuffer will select the correct functions, either for system or
+I/O memory.
 
-Thanks!
+v6:
+	* don't call page_to_phys() on fbdev framebuffers in I/O memory;
+	  warn instead (Daniel)
+v5:
+	* rebase onto latest TTM changes (Christian)
+	* support TTM premapped memory correctly (Christian)
+	* implement fb_read/fb_write internally (Sam, Daniel)
+	* cleanups
+v4:
+	* provide TTM vmap/vunmap plus GEM helpers and convert drivers
+	  over (Christian, Daniel)
+	* remove several empty functions
+	* more TODOs and documentation (Daniel)
+v3:
+	* recreate the whole patchset on top of struct dma_buf_map
+v2:
+	* RFC patchset
 
-> 
-> If we start to port the below list we might have to port another atomic operation based on which below atomic operations are implemented. I have not spent time on how these atomic operations are implemented in detail but as per my understanding, it required an effort to port them to XEN and required a lot of testing.
+Thomas Zimmermann (10):
+  drm/vram-helper: Remove invariant parameters from internal kmap
+    function
+  drm/cma-helper: Remove empty drm_gem_cma_prime_vunmap()
+  drm/etnaviv: Remove empty etnaviv_gem_prime_vunmap()
+  drm/exynos: Remove empty exynos_drm_gem_prime_{vmap,vunmap}()
+  drm/ttm: Add vmap/vunmap to TTM and TTM GEM helpers
+  drm/gem: Use struct dma_buf_map in GEM vmap ops and convert GEM
+    backends
+  drm/gem: Update internal GEM vmap/vunmap interfaces to use struct
+    dma_buf_map
+  drm/gem: Store client buffer mappings as struct dma_buf_map
+  dma-buf-map: Add memcpy and pointer-increment interfaces
+  drm/fb_helper: Support framebuffers in I/O memory
 
-For the beginning, I think it is fine to implement them with a stronger 
-memory barrier than necessary or in a less efficient. This can be 
-refined afterwards.
+ Documentation/gpu/todo.rst                  |  37 ++-
+ drivers/gpu/drm/Kconfig                     |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  36 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |   1 -
+ drivers/gpu/drm/ast/ast_cursor.c            |  27 +-
+ drivers/gpu/drm/ast/ast_drv.h               |   7 +-
+ drivers/gpu/drm/bochs/bochs_kms.c           |   1 -
+ drivers/gpu/drm/drm_client.c                |  38 +--
+ drivers/gpu/drm/drm_fb_helper.c             | 257 ++++++++++++++++++--
+ drivers/gpu/drm/drm_gem.c                   |  29 ++-
+ drivers/gpu/drm/drm_gem_cma_helper.c        |  27 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c      |  48 ++--
+ drivers/gpu/drm/drm_gem_ttm_helper.c        |  38 +++
+ drivers/gpu/drm/drm_gem_vram_helper.c       | 117 ++++-----
+ drivers/gpu/drm/drm_internal.h              |   5 +-
+ drivers/gpu/drm/drm_prime.c                 |  14 +-
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h       |   3 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c       |   1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  12 +-
+ drivers/gpu/drm/exynos/exynos_drm_gem.c     |  12 -
+ drivers/gpu/drm/exynos/exynos_drm_gem.h     |   2 -
+ drivers/gpu/drm/lima/lima_gem.c             |   6 +-
+ drivers/gpu/drm/lima/lima_sched.c           |  11 +-
+ drivers/gpu/drm/mgag200/mgag200_mode.c      |  10 +-
+ drivers/gpu/drm/nouveau/Kconfig             |   1 +
+ drivers/gpu/drm/nouveau/nouveau_bo.h        |   2 -
+ drivers/gpu/drm/nouveau/nouveau_gem.c       |   6 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.h       |   2 -
+ drivers/gpu/drm/nouveau/nouveau_prime.c     |  20 --
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c |  14 +-
+ drivers/gpu/drm/qxl/qxl_display.c           |  11 +-
+ drivers/gpu/drm/qxl/qxl_draw.c              |  14 +-
+ drivers/gpu/drm/qxl/qxl_drv.h               |  11 +-
+ drivers/gpu/drm/qxl/qxl_object.c            |  31 ++-
+ drivers/gpu/drm/qxl/qxl_object.h            |   2 +-
+ drivers/gpu/drm/qxl/qxl_prime.c             |  12 +-
+ drivers/gpu/drm/radeon/radeon.h             |   1 -
+ drivers/gpu/drm/radeon/radeon_gem.c         |   7 +-
+ drivers/gpu/drm/radeon/radeon_prime.c       |  20 --
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  22 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.h |   4 +-
+ drivers/gpu/drm/tiny/cirrus.c               |  10 +-
+ drivers/gpu/drm/tiny/gm12u320.c             |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c           |  72 ++++++
+ drivers/gpu/drm/udl/udl_modeset.c           |   8 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c       |  11 +-
+ drivers/gpu/drm/vc4/vc4_bo.c                |   7 +-
+ drivers/gpu/drm/vc4/vc4_drv.h               |   2 +-
+ drivers/gpu/drm/vgem/vgem_drv.c             |  16 +-
+ drivers/gpu/drm/vkms/vkms_plane.c           |  15 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c       |  22 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.c     |  18 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.h     |   6 +-
+ include/drm/drm_client.h                    |   7 +-
+ include/drm/drm_gem.h                       |   5 +-
+ include/drm/drm_gem_cma_helper.h            |   3 +-
+ include/drm/drm_gem_shmem_helper.h          |   4 +-
+ include/drm/drm_gem_ttm_helper.h            |   6 +
+ include/drm/drm_gem_vram_helper.h           |  14 +-
+ include/drm/drm_mode_config.h               |  12 -
+ include/drm/ttm/ttm_bo_api.h                |  28 +++
+ include/linux/dma-buf-map.h                 |  93 ++++++-
+ 64 files changed, 859 insertions(+), 438 deletions(-)
 
-Those helpers can directly be defined in the SMMUv3 drivers so we know 
-they are not for general purpose :).
+--
+2.29.0
 
-> 
-> 1. atomic_set_release
-
-This could be implemented as:
-
-smp_mb();
-atomic_set();
-
-> 2. atomic_fetch_andnot_relaxed
-
-This would need to be imported.
-
-> 3. atomic_cond_read_relaxed
-
-This would need to be imported. The simplest version seems to be the 
-generic version provided by include/asm-generic/barrier.h (see 
-smp_cond_load_relaxed).
-
-> 4. atomic_long_cond_read_relaxed
-> 5. atomic_long_xor
-
-The two would require the implementation of atomic64. Volodymyr also 
-required a version. I offered my help, however I didn't find enough time 
-to do it yet :(.
-
-For Arm64, it would be possible to do a copy/paste of the existing 
-helpers and replace anything related to a 32-bit register with a 64-bit one.
-
-For Arm32, they are a bit more complex because you now need to work with 
-2 registers.
-
-However, for your purpose, you would be using atomic_long_t. So the the 
-Arm64 implementation should be sufficient.
-
-> 6. atomic_set_release
-
-Same as 1.
-
-> 7. atomic_cmpxchg_relaxed might be we can use atomic_cmpxchg that is implemented in XEN need to check.
-atomic_cmpxchg() is strongly ordered. So it would be fine to use it for 
-implementing the helper. Although, more inefficient :).
-
-> 8. atomic_dec_return_release
-
-Xen implements a stronger version atomic_dec_return(). You can re-use it 
-here.
-
-> 9. atomic_fetch_inc_relaxed
-
-This would need to be imported.
-
-Cheers,
-
--- 
-Julien Grall
 
