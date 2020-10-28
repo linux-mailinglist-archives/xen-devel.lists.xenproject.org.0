@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB6429CFD7
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 12:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13575.34255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54CD229CFD9
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 12:58:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13579.34269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXk4C-0003An-MS; Wed, 28 Oct 2020 11:56:36 +0000
+	id 1kXk6H-0003KV-3o; Wed, 28 Oct 2020 11:58:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13575.34255; Wed, 28 Oct 2020 11:56:36 +0000
+Received: by outflank-mailman (output) from mailman id 13579.34269; Wed, 28 Oct 2020 11:58:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,86 +23,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXk4C-0003AO-JO; Wed, 28 Oct 2020 11:56:36 +0000
-Received: by outflank-mailman (input) for mailman id 13575;
- Wed, 28 Oct 2020 11:56:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kXk6H-0003K6-0L; Wed, 28 Oct 2020 11:58:45 +0000
+Received: by outflank-mailman (input) for mailman id 13579;
+ Wed, 28 Oct 2020 11:58:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kXk4A-0003AJ-A4
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 11:56:34 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 33d7a09a-d013-412c-800a-b2e549e85790;
- Wed, 28 Oct 2020 11:56:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C289EB036;
- Wed, 28 Oct 2020 11:56:32 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=HSML=ED=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kXk6F-0003K1-JP
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 11:58:43 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8d453875-118b-460e-ab2e-4369c2ed84a3;
+ Wed, 28 Oct 2020 11:58:42 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kXk6C-0000IW-O4; Wed, 28 Oct 2020 11:58:40 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kXk6C-0006qH-GQ; Wed, 28 Oct 2020 11:58:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dk2S=ED=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kXk4A-0003AJ-A4
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 11:56:34 +0000
-X-Inumbo-ID: 33d7a09a-d013-412c-800a-b2e549e85790
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 33d7a09a-d013-412c-800a-b2e549e85790;
-	Wed, 28 Oct 2020 11:56:33 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603886192;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FvcQaZ+Y1Ei0/m74T7rBNWRFLD/qF9LXTrfinx3+oi8=;
-	b=qiJR77FjoRv8c6F3YzSmtUpbWYfCOz9gK7PgAvNIdQlDRiZyouXtO4Y1OilEehr7IsEjSo
-	YkhkQVne5rdoT+49iJfwmVheJyQqo7H3My6Zp4L+xbI/QQ9HgMjM7qs1nuXWMuNnnC3+rW
-	uv872bgu9WJqH1oCtZzCpOyrlAMoL8I=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C289EB036;
-	Wed, 28 Oct 2020 11:56:32 +0000 (UTC)
-Subject: Re: [PATCH v1 4/4] xen/pci: solve compilation error when memory
- paging is not enabled.
-To: Rahul Singh <rahul.singh@arm.com>
+	(envelope-from <SRS0=HSML=ED=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kXk6F-0003K1-JP
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 11:58:43 +0000
+X-Inumbo-ID: 8d453875-118b-460e-ab2e-4369c2ed84a3
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 8d453875-118b-460e-ab2e-4369c2ed84a3;
+	Wed, 28 Oct 2020 11:58:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=7xJfBN7KF962Co3er/XSt9PfLt+of1SSQII+FdJ8PD8=; b=2szqhHfRTEF/LfzHVDz+B4o3Df
+	zf8Z3KQCwCa7hjKHilAGPXnDh1cf23x8LtMaYlz90U4kOpZAm3nGpb0CLWoJHIrz0xgDQXENjxIWb
+	pGuY7lFnzmghzo5GUeXPfWWnV3BKgGffn/m7WPCPDnwhF9rJudSOeXNGBbyUmoNMUOSI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kXk6C-0000IW-O4; Wed, 28 Oct 2020 11:58:40 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kXk6C-0006qH-GQ; Wed, 28 Oct 2020 11:58:40 +0000
+Subject: Re: [PATCH v1 3/4] xen/pci: Move x86 specific code to x86 directory.
+To: Jan Beulich <jbeulich@suse.com>, Rahul Singh <rahul.singh@arm.com>
 Cc: bertrand.marquis@arm.com, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1603731279.git.rahul.singh@arm.com>
- <dc85bb73ca4b6ab8b4a2370f2db7700445fbc5f8.1603731279.git.rahul.singh@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b345b0d4-8045-1d5d-b3c9-498311cfb1ac@suse.com>
-Date: Wed, 28 Oct 2020 12:56:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <70029e8904170c4f19d9f521847050cd00c6e39d.1603731279.git.rahul.singh@arm.com>
+ <301405a2-9ec1-847d-6f61-1067a225a3a9@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a85906e2-6930-7f8a-417b-966a87d6c133@xen.org>
+Date: Wed, 28 Oct 2020 11:58:38 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <dc85bb73ca4b6ab8b4a2370f2db7700445fbc5f8.1603731279.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <301405a2-9ec1-847d-6f61-1067a225a3a9@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 26.10.2020 18:17, Rahul Singh wrote:
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -1419,13 +1419,15 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->      if ( !is_iommu_enabled(d) )
->          return 0;
->  
-> -    /* Prevent device assign if mem paging or mem sharing have been 
-> +#if defined(CONFIG_HAS_MEM_PAGING) || defined(CONFIG_MEM_SHARING)
-> +    /* Prevent device assign if mem paging or mem sharing have been
->       * enabled for this domain */
->      if ( d != dom_io &&
->           unlikely(mem_sharing_enabled(d) ||
->                    vm_event_check_ring(d->vm_event_paging) ||
->                    p2m_get_hostp2m(d)->global_logdirty) )
->          return -EXDEV;
-> +#endif
 
-Besides this also disabling mem-sharing and log-dirty related
-logic, I don't think the change is correct: Each item being
-checked needs individually disabling depending on its associated
-CONFIG_*. For this, perhaps you want to introduce something
-like mem_paging_enabled(d), to avoid the need for #ifdef here?
 
-Jan
+On 28/10/2020 11:51, Jan Beulich wrote:
+> On 26.10.2020 18:17, Rahul Singh wrote:
+>> passthrough/pci.c file is common for all architecture, but there is x86
+>> sepcific code in this file.
+> 
+> The code you move doesn't look to be x86 specific in the sense that
+> it makes no sense on other architectures, but just because certain
+> pieces are missing on Arm. With this I question whether is it really
+> appropriate to move this code. I do realize that in similar earlier
+> cases my questioning was mostly ignored ...
+
+There are no plan to get support for PIRQ on Arm. All the interrupts 
+will be properly sent to the guest using a virtual interrupt controller.
+
+Regarding the code itself, there are still a few bits that are x86 
+specific (see struct dev_intx_gsi_link). So I think the right action 
+for now is to move the code to an x86 directory.
+
+This can be adjusted in the future if there is another architecture that 
+would require to use PIRQ.
+
+Cheers,
+
+-- 
+Julien Grall
 
