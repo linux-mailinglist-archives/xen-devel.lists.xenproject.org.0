@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F7D29D0E5
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 16:57:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13754.34512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2BF29D15E
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 18:45:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13806.34524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXnp3-0000Sn-Ds; Wed, 28 Oct 2020 15:57:13 +0000
+	id 1kXpUc-0001pg-Ca; Wed, 28 Oct 2020 17:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13754.34512; Wed, 28 Oct 2020 15:57:13 +0000
+Received: by outflank-mailman (output) from mailman id 13806.34524; Wed, 28 Oct 2020 17:44:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,130 +23,118 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXnp3-0000SO-AV; Wed, 28 Oct 2020 15:57:13 +0000
-Received: by outflank-mailman (input) for mailman id 13754;
- Wed, 28 Oct 2020 15:57:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kXpUc-0001pH-8k; Wed, 28 Oct 2020 17:44:14 +0000
+Received: by outflank-mailman (input) for mailman id 13806;
+ Wed, 28 Oct 2020 17:44:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=61hT=ED=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1kXnp1-0000SJ-N8
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 15:57:11 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fe21a166-a0ac-47b0-9ecb-1e632dd5374e;
- Wed, 28 Oct 2020 15:57:10 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=i5Ob=ED=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1kXpUa-0001pC-Ur
+ for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 17:44:13 +0000
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 10680334-cc58-45a8-af22-9be9db772c0d;
+ Wed, 28 Oct 2020 17:44:11 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id m13so2361383wrj.7
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Oct 2020 10:44:11 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id f13sm438798wrp.12.2020.10.28.10.44.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2020 10:44:09 -0700 (PDT)
+Received: from zen.lan (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id 5827D1FF7E;
+ Wed, 28 Oct 2020 17:44:08 +0000 (GMT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=61hT=ED=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
-	id 1kXnp1-0000SJ-N8
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 15:57:11 +0000
-X-Inumbo-ID: fe21a166-a0ac-47b0-9ecb-1e632dd5374e
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id fe21a166-a0ac-47b0-9ecb-1e632dd5374e;
-	Wed, 28 Oct 2020 15:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603900630;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zDU992cp5Ht454n786TTTtaGj5ZbiRftTeUs1bN4v+g=;
-  b=a7vzjditLZ/WTRFp8KVfDoMP6Ja0jikuESlAGVtQbHjGVdVOENeuOFJU
-   hRLSOKhadkt8NrIA2W8ZnkJPSBei5tPZEfkGcxp05oYFxv+Y4AM4jXEp/
-   HmPCWzaE9XXr87GBo7tjvXOAMyigG81fkiku94gEStVAS9XKQeylv0LrK
-   0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: oBq1SNoZ9u8Ky4rpMZ7lCGTuYwvzjZ4XAFarFF+kRX0zegxUsMUEZxK4f7vsnRvY8Cntlf7DmV
- 3T60L4MajibiqTIPCEdqtab4XcURprScAIq26w91qgCzwTxZxqXb+UdHgOXzJHa9gkqlOy7P4g
- i4Lf3ZoqqerI6NqQWZ/ZrmsaYGhESIDXw7PzD6PP/7mclj7M1RUqugQiXCa7RVRbJvKlxII8lx
- 2xt6O1f/u4FTJ4Sde4KCcAJ6PFhr+PMv9zWvQlBeQibZ/aI0mXMrifgIKMT7GWx8vr5sidq7E8
- VSU=
-X-SBRS: None
-X-MesageID: 31069753
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,427,1596513600"; 
-   d="scan'208";a="31069753"
-Date: Wed, 28 Oct 2020 15:57:06 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Julien Grall <julien@xen.org>
-CC: Jason Andryuk <jandryuk@gmail.com>, osstest service owner
-	<osstest-admin@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [qemu-mainline test] 156257: regressions - FAIL
-Message-ID: <20201028155706.GE2214@perard.uk.xensource.com>
-References: <osstest-156257-mainreport@xen.org>
- <CAKf6xpss8KpGOvZrKiTPz63bhBVbjxRTYWdHEkzUo2q1KEMjhg@mail.gmail.com>
- <70d87480-6fcf-9fe0-34c0-30bd711406a4@xen.org>
+	(envelope-from <SRS0=i5Ob=ED=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+	id 1kXpUa-0001pC-Ur
+	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 17:44:13 +0000
+X-Inumbo-ID: 10680334-cc58-45a8-af22-9be9db772c0d
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 10680334-cc58-45a8-af22-9be9db772c0d;
+	Wed, 28 Oct 2020 17:44:11 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id m13so2361383wrj.7
+        for <xen-devel@lists.xenproject.org>; Wed, 28 Oct 2020 10:44:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YAl0tecVsURCuewdLjQ48RaCrF96ohlsENSIUfpsU+w=;
+        b=zeafB7Z4qJnIB81bJuKqrWyMO9ds5lDP45CKMEw/pVonwKm9jJoDyipd2H3Vc+mIDd
+         2TKaS8P/pMN1ta1Letyd3LaSmJzn9UmePXvDdcM9gP7wyfaCO0OoNAqNi7MhEYY2hvlE
+         wn2dugs4oD/TNrUzhgBHo79XxSxR+3Fme57x5yWtFr3WksdfLEeu3SK5r6xrVaUnA+Ij
+         rXw2stqIYJj813rwwTXgDnkGdUyC2/vQFSSecLN2D6JQwTuhLJDvU7/T0PwbBnDpaz5x
+         FdHjmjsQkKB3lBqpPZJz4p3gQXTawl7x3qiYhlwGLR031uQS5i3qtFFCh8LpzPDPpwoy
+         JPMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YAl0tecVsURCuewdLjQ48RaCrF96ohlsENSIUfpsU+w=;
+        b=PVeu1RrS5wsW6RsRE//yy/wabhRCm9xHXkCXSilM/pxVVspNw2uJJrtImkmFaVkeHh
+         AbMakfFctuwdA732ltM6VKzVJQmPoqz3AfHrJNLaWJhb1sWRK4pjEsYBmYq445kFFcqX
+         a6As7FEr1tQVLZ7YocbNYTH1o4vlCgdiBFXMbdiuRvVmgy2Mc1+Ifh59LFtl8M83h/OC
+         a59uQRckqpC6xEI3S6VbWmiL5btBks3qk91AEqiYuv6tbCRAyizxdnT3zPNOVaCEfpFk
+         kzJVlxoqkclVWUJRkGfLd8fRTALS1zSv3qR9wT9Sr6c+vc80c05IV1zBI7afSc8s2JWH
+         FS1A==
+X-Gm-Message-State: AOAM532EwLrGjRjih1PS0N58ZN603iFN5Gsp68oJiW4SiBN9cu0UOzQo
+	jQ1rHfvXWcaWCwDh8HwzDC3h8Q==
+X-Google-Smtp-Source: ABdhPJxtamYIDVXm4aGyKgQ9cjhesv/FKnN4U2mpSB4roy/h9H0baZIpnVLxCyBEEchu2j6Kvww+UA==
+X-Received: by 2002:a5d:4051:: with SMTP id w17mr531965wrp.24.1603907050586;
+        Wed, 28 Oct 2020 10:44:10 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+        by smtp.gmail.com with ESMTPSA id f13sm438798wrp.12.2020.10.28.10.44.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2020 10:44:09 -0700 (PDT)
+Received: from zen.lan (localhost [127.0.0.1])
+	by zen.linaroharston (Postfix) with ESMTP id 5827D1FF7E;
+	Wed, 28 Oct 2020 17:44:08 +0000 (GMT)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Masami Hiramatsu <masami.hiramatsu@linaro.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH] meson.build: fix building of Xen support for aarch64
+Date: Wed, 28 Oct 2020 17:44:06 +0000
+Message-Id: <20201028174406.23424-1-alex.bennee@linaro.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <70d87480-6fcf-9fe0-34c0-30bd711406a4@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2020 at 02:49:15PM +0000, Julien Grall wrote:
-> (+ Anthony and Stefano,)
-> 
-> Hi Jason,
-> 
-> On 28/10/2020 13:37, Jason Andryuk wrote:
-> > On Tue, Oct 27, 2020 at 5:23 PM osstest service owner
-> > <osstest-admin@xenproject.org> wrote:
-> > > 
-> > > flight 156257 qemu-mainline real [real]
-> > > flight 156266 qemu-mainline real-retest [real]
-> > > http://logs.test-lab.xenproject.org/osstest/logs/156257/
-> > > http://logs.test-lab.xenproject.org/osstest/logs/156266/
-> > > 
-> > > Regressions :-(
-> > > 
-> > > Tests which did not succeed and are blocking,
-> > > including tests which could not be run:
-> > >   test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
-> > 
-> > QEMU doesn't start with "qemu-system-i386: -xen-domid 1: Option not
-> > supported for this target"
-> > 
-> > This happens if CONFIG_XEN isn't set.
-> > 
-> > QEMU is built with:
-> >                    host CPU: aarch64
-> >             host endianness: little
-> >                 target list: i386-softmmu
-> > 
-> > commit 8a19980e3fc4 "configure: move accelerator logic to meson"
-> > introduced this logic:
-> > +accelerator_targets = { 'CONFIG_KVM': kvm_targets }
-> > +if cpu in ['x86', 'x86_64']
-> > +  accelerator_targets += {
-> > +    'CONFIG_HAX': ['i386-softmmu', 'x86_64-softmmu'],
-> > +    'CONFIG_XEN': ['i386-softmmu', 'x86_64-softmmu'],
-> > +    'CONFIG_HVF': ['x86_64-softmmu'],
-> > +    'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
-> > +  }
-> > +endif
-> 
-> I always wondered when this would come to bite us :). I am surprised it took
-> so long.
-> 
-> > 
-> > I guess something like this would fix it:
-> > if cpu in ['aarch64', 'arm']
-> >    accelerator_targets += { 'CONFIG_XEN': ['i386-softmmu'], }
-> > endif
-> 
-> Per the logic above, I think this correct. @Stefano, @Anthony, can you have
-> a look?
+Xen is supported on aarch64 although weirdly using the i386-softmmu
+model. Checking based on the host CPU meant we never enabled Xen
+support. It would be nice to enable CONFIG_XEN for aarch64-softmmu to
+make it not seem weird but that will require further build surgery.
 
-Yes, that would probably do the trick and restrict to x86 and arm rather
-than any host with xen support. I think this would need a comment
-explaining why we enable xen for i386 target on arm (or at least a
-comment that we use i386 target on arm).
+Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
+Fixes: 8a19980e3f ("configure: move accelerator logic to meson")
+---
+ meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks for the investigation.
-
-Cheers,
-
+diff --git a/meson.build b/meson.build
+index 835424999d..f1fcbfed4c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -81,6 +81,8 @@ if cpu in ['x86', 'x86_64']
+     'CONFIG_HVF': ['x86_64-softmmu'],
+     'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
+   }
++elif cpu in [ 'arm', 'aarch64' ]
++  accelerator_targets += { 'CONFIG_XEN': ['i386-softmmu'] }
+ endif
+ 
+ ##################
 -- 
-Anthony PERARD
+2.20.1
+
 
