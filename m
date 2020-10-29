@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0DD29F6B5
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 22:14:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14917.37166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9E729F6DF
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 22:30:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15022.37558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYFFG-0000Ry-Tj; Thu, 29 Oct 2020 21:14:06 +0000
+	id 1kYFUn-0004JA-Fq; Thu, 29 Oct 2020 21:30:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14917.37166; Thu, 29 Oct 2020 21:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 15022.37558; Thu, 29 Oct 2020 21:30:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,247 +23,213 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYFFG-0000RY-QF; Thu, 29 Oct 2020 21:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 14917;
- Thu, 29 Oct 2020 21:14:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wm+X=EE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kYFFF-0000RM-9U
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:14:05 +0000
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8a7bbdfb-12ad-4d87-9930-5f3852a3d78e;
- Thu, 29 Oct 2020 21:14:03 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id w23so1107662wmi.4
- for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 14:14:03 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kYFUn-0004Hp-Cc; Thu, 29 Oct 2020 21:30:09 +0000
+Received: by outflank-mailman (input) for mailman id 15022;
+ Thu, 29 Oct 2020 21:30:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nYkQ=EE=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kYFUm-0004Es-7w
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:30:08 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0f3d3471-aeb5-4326-92ce-f0fba5042a55;
+ Thu, 29 Oct 2020 21:30:06 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09TLTtIO053328
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 29 Oct 2020 17:30:01 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 09TLTsYY053327;
+ Thu, 29 Oct 2020 14:29:54 -0700 (PDT) (envelope-from ehem)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Wm+X=EE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1kYFFF-0000RM-9U
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:14:05 +0000
-X-Inumbo-ID: 8a7bbdfb-12ad-4d87-9930-5f3852a3d78e
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8a7bbdfb-12ad-4d87-9930-5f3852a3d78e;
-	Thu, 29 Oct 2020 21:14:03 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id w23so1107662wmi.4
-        for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 14:14:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=D8eSB78EFRLXythUPCXWl4F9Wn1YnT4u0iH1EGYuYfw=;
-        b=iy3yWpN/lBOR/vjfFY3UbQ9P1W3O79OVJNRecMBc6P5FVsznAr7L6gjasOgAC0GH5P
-         M5xTeKNeiZokJLh6kfCy9xWoGXvhm984woBtVu/PVVJiGEAttUEiPb77CcviTG+/ZO3v
-         4BLVCsjzgkP7eRq3L5iazPLC7Qr33qRJtLEQg3xmnFiv9pRmypOwwZM/bc0757QxQxrv
-         clEZIA/QcoQkfUakAuMPA6IunPgOiB3wZOrt8iQaHMoJdSGGFaGnnM1vC6q3jF7qiSIe
-         NlN5dxUbf4py6dR9siuE+vEd2dVlYJeo4f/A/On9uYR4pwGp5QlWwmBKXHrVh1rzqDHG
-         dqIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=D8eSB78EFRLXythUPCXWl4F9Wn1YnT4u0iH1EGYuYfw=;
-        b=CDHvtP4RCAEif48IExYYn4mjySy83mhDnx0TqahAvYryEv1lEEYtlIJjxAfzom8mBk
-         MKUMr2NC2lTp8MyEJgJm/aQQ8yqKYX+Ms1/04KwjHIhzkOitDcLNkOopA1xaBmafJOSP
-         TFa5FOxHrYSZwbd3JwV3Eri4Og4y+StrnVsOqZ9i656PCt7KNXqT3+tTGJ+gduIltDSh
-         7RgM3NzrCACMgDZnsGR7wYtBXk9QfajaFm7GMWqEpSE8YyEfzD5zxgWC+eJnZbG6EGhi
-         r3U8E/674NnCfbkAp1Mh+18pHO8A6fdWpc3NmZRwwwbz8Rz8xLXv3xxtTcD1vcSbU0kg
-         8Cfg==
-X-Gm-Message-State: AOAM530dX7+K56+m0pxJM2JsaTqMdpYHcJDbNFxDlzyy9why6iSBBIKE
-	o+hb+uvPdZeTLnOsk0rAkk4WaOiDUn6iYOv/gok=
-X-Google-Smtp-Source: ABdhPJyNiCh2YgVlVzX55ffL1sEm/QYthO4nJNqfoowwh4t07Ek7ExLl31U3s1X09+qzexbbc398gr/bI5Pp1ABmXoM=
-X-Received: by 2002:a1c:acc1:: with SMTP id v184mr808495wme.63.1604006043018;
- Thu, 29 Oct 2020 14:14:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com>
- <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com> <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Thu, 29 Oct 2020 23:13:51 +0200
-Message-ID: <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
-Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
+	(envelope-from <SRS0=nYkQ=EE=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+	id 1kYFUm-0004Es-7w
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:30:08 +0000
+X-Inumbo-ID: 0f3d3471-aeb5-4326-92ce-f0fba5042a55
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 0f3d3471-aeb5-4326-92ce-f0fba5042a55;
+	Thu, 29 Oct 2020 21:30:06 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 09TLTtIO053328
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 29 Oct 2020 17:30:01 -0400 (EDT)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.15.2/8.15.2/Submit) id 09TLTsYY053327;
+	Thu, 29 Oct 2020 14:29:54 -0700 (PDT)
+	(envelope-from ehem)
+Date: Thu, 29 Oct 2020 14:29:54 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant <paul@xen.org>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
-	Julien Grall <julien.grall@arm.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Content-Type: multipart/alternative; boundary="000000000000696d0f05b2d5c215"
+Cc: Julien Grall <julien@xen.org>, roman@zededa.com,
+        xen-devel@lists.xenproject.org
+Subject: Re: Xen on RP4
+Message-ID: <20201029212954.GA50793@mattapan.m5p.com>
+References: <20201023005629.GA83870@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010221801490.12247@sstabellini-ThinkPad-T480s>
+ <20201023211941.GA90171@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s>
+ <20201024053540.GA97417@mattapan.m5p.com>
+ <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org>
+ <20201026160316.GA20589@mattapan.m5p.com>
+ <7a904044-8206-b45d-8ec2-d4e48b07ea83@xen.org>
+ <20201028015423.GA33407@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010281704250.12247@sstabellini-ThinkPad-T480s>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2010281704250.12247@sstabellini-ThinkPad-T480s>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
---000000000000696d0f05b2d5c215
-Content-Type: text/plain; charset="UTF-8"
+On Wed, Oct 28, 2020 at 05:37:02PM -0700, Stefano Stabellini wrote:
+> On Tue, 27 Oct 2020, Elliott Mitchell wrote:
+> > On Mon, Oct 26, 2020 at 06:44:27PM +0000, Julien Grall wrote:
+> > > On 26/10/2020 16:03, Elliott Mitchell wrote:
+> > > > On Mon, Oct 26, 2020 at 01:31:42PM +0000, Julien Grall wrote:
+> > > >> On 24/10/2020 06:35, Elliott Mitchell wrote:
+> > > >>> ACPI has a distinct
+> > > >>> means of specifying a limited DMA-width; the above fails, because it
+> > > >>> assumes a *device-tree*.
+> > > >>
+> > > >> Do you know if it would be possible to infer from the ACPI static table
+> > > >> the DMA-width?
+> > > > 
+> > > > Yes, and it is.  Due to not knowing much about ACPI tables I don't know
+> > > > what the C code would look like though (problem is which documentation
+> > > > should I be looking at first?).
+> > > 
+> > > What you provided below is an excerpt of the DSDT. AFAIK, DSDT content 
+> > > is written in AML. So far the shortest implementation I have seen for 
+> > > the AML parser is around 5000 lines (see [1]). It might be possible to 
+> > > strip some the code, although I think this will still probably too big 
+> > > for a single workaround.
+> > > 
+> > > What I meant by "static table" is a table that looks like a structure 
+> > > and can be parsed in a few lines. If we can't find on contain the DMA 
+> > > window, then the next best solution is to find a way to identity the 
+> > > platform.
+> > > 
+> > > I don't know enough ACPI to know if this solution is possible. A good 
+> > > starter would probably be the ACPI spec [2].
+> > 
+> > Okay, that is worse than I had thought (okay, ACPI is impressively
+> > complex for something nominally firmware-level).
+> >
+> > There are strings in the present Tianocore implementation for Raspberry
+> > PI 4B which could be targeted.  Notably included in the output during
+> > boot listing the tables, "RPIFDN", "RPIFDN RPI" and "RPIFDN RPI4" (I'm
+> > unsure how kosher these are as this wsn't implemented nor blessed by the
+> > Raspberry PI Foundation).
+> > 
+> > I strongly dislike this approach as you soon turn the Xen project into a
+> > database of hardware.  This is already occurring with
+> > xen/arch/arm/platforms and I would love to do something about this.  On
+> > that thought, how about utilizing Xen's command-line for this purpose?
+> 
+> I don't think that a command line option is a good idea: basically it is
+> punting to users the task of platform detection. Also, it means that
+> users will be necessarily forced to edit the uboot script or grub
+> configuration file to boot.
 
-Hi Stefano
+-EINVAL
 
-[sorry for the possible format issue]
+Many Linux installations (near universal on desktop/server, but may be
+uncommon on ARM servers) Xen's command-line comes from grub.cfg.
+grub.cfg is in turn created by a series of scripts with several places
+for users to modify configuration without breaking things.
 
-On Thu, Oct 29, 2020 at 9:53 PM Stefano Stabellini <sstabellini@kernel.org>
-wrote:
+The scripts which create grub.cfg could add a "dma_mem=" option to Xen's
+command-line based upon what the running kernel reports.  If the kernel
+is running on top of Xen, it will still be able to retrieve this
+information out of ACPI.
 
-> On Thu, 29 Oct 2020, Oleksandr Tyshchenko wrote:
-> > On Thu, Oct 29, 2020 at 9:42 AM Masami Hiramatsu <
-> masami.hiramatsu@linaro.org> wrote:
-> >       Hi Oleksandr,
-> >
-> > Hi Masami
-> >
-> > [sorry for the possible format issue]
-> >
-> >
-> >       I would like to try this on my arm64 board.
-> >
-> > Glad to hear you are interested in this topic.
-> >
-> >
-> >       According to your comments in the patch, I made this config file.
-> >       # cat debian.conf
-> >       name = "debian"
-> >       type = "pvh"
-> >       vcpus = 8
-> >       memory = 512
-> >       kernel = "/opt/agl/vmlinuz-5.9.0-1-arm64"
-> >       ramdisk = "/opt/agl/initrd.img-5.9.0-1-arm64"
-> >       cmdline= "console=hvc0 earlyprintk=xen root=/dev/xvda1 rw"
-> >       disk = [ '/opt/agl/debian.qcow2,qcow2,hda' ]
-> >       vif = [ 'mac=00:16:3E:74:3d:76,bridge=xenbr0' ]
-> >       virtio = 1
-> >       vdisk = [ 'backend=Dom0, disks=ro:/dev/sda1' ]
-> >
-> >       And tried to boot a DomU, but I got below error.
-> >
-> >       # xl create -c debian.conf
-> >       Parsing config from debian.conf
-> >       libxl: error: libxl_create.c:1863:domcreate_attach_devices: Domain
-> >       1:unable to add virtio_disk devices
-> >       libxl: error: libxl_domain.c:1218:destroy_domid_pci_done: Domain
-> >       1:xc_domain_pause failed
-> >       libxl: error: libxl_dom.c:39:libxl__domain_type: unable to get
-> domain
-> >       type for domid=1
-> >       libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain
-> >       1:Unable to destroy guest
-> >       libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain
-> >       1:Destruction of domain failed
-> >
-> >
-> >       Could you tell me how can I test it?
-> >
-> >
-> > I assume it is due to the lack of the virtio-disk backend (which I
-> haven't shared yet as I focused on the IOREQ/DM support on Arm in the
-> > first place).
-> > Could you wait a little bit, I am going to share it soon.
->
-> Do you have a quick-and-dirty hack you can share in the meantime? Even
-> just on github as a special branch? It would be very useful to be able
-> to have a test-driver for the new feature.
+This does mean distributions would need to modify scripts, but that is
+doable.  This also means a dumb user could potentially jump in, modify
+the value and thus cause unrecoverable breakage.  Yet on the flip side
+this also allows for the short-term stop-gap of smart users modifying
+the option as appropriate for new hardware.
 
-Well, I will provide a branch on github with our PoC virtio-disk backend by
-the end of this week. It will be possible to test this series with it.
+Certainly it may not be the greatest approach, but it isn't as bad as
+you're claiming.
+
+
+> Note that even if we introduced a new command line, we wouldn't take
+> away the need for xen/arch/arm/platforms anyway.
+
+Perhaps, but it could allow for this setting at least to be moved to
+somewhere outside of Xen.
+
+I'm inclined to agree with Juergen Gro??, this reads kind of like having
+an extra domain run during Xen's initialization which can talk ACPI.
+
+
+> > Have a procedure of during installation/updates retrieve DMA limitation
+> > information from the running OS and the following boot Xen will follow
+> > the appropriate setup.  By its nature, Domain 0 will have the information
+> > needed, just becomes an issue of how hard that is to retrieve...
+> 
+> Historically that is what we used to do for many things related to ACPI,
+> but unfortunately it leads to a pretty bad architecture where Xen
+> depends on Dom0 for booting rather than the other way around. (Dom0
+> should be the one requiring Xen for booting, given that Xen is higher
+> privilege and boots first.)
+> 
+> 
+> I think the best compromise is still to use an ACPI string to detect the
+> platform. For instance, would it be possible to use the OEMID fields in
+> RSDT, XSDT, FADT?  Possibly even a combination of them?
+> 
+> Another option might be to get the platform name from UEFI somehow. 
+
+I included appropriate strings in e-mail.  Suitable strings do appear in
+`dmesg`.
+
+Problem is this feels like you're hard-coding a fixed list of platforms
+Xen can run on.  Instead values like these should be provided by
+firmware.  ACPI includes a method for encoding DMA limitations,
+device-tree really should have one added.  Only challenge for device-tree
+is getting everyone to agree on names and parameters.
+
+
+
+Looking at it, there are really issues with the allocate_memory_11()
+function in xen/arch/arm/domain_build.c.  Two tasks have been merged and
+I'm unsure they were merged correctly.
+
+I'm unaware of any Xen-capable platforms with such, but DMA can have
+distinct restrictions outside of what allocate_memory_11() provides for.
+ACPI allows for explicit address ranges and in the past many devices have
+used addresses that didn't start at zero.
+
+Additionally a device might have several devices with restricted DMA and
+these could have differing non-overlapping ranges.  Domain 0 might need
+memory in several DMA ranges.  Luckily In the past few years I haven't
+read about any potentially Xen-capable devices where DMA-capable memory
+had differing capabilities/performance from non-DMA-capable memory.
+
+Meanwhile for a platform which does have DMA limitations, the kernel and
+boot information for domain 0 shouldn't be placed in DMA-capable memory
+if domain 0 has any memory which isn't DMA-capable.  Yet it appears
+allocate_memory_11() will cause kernel/initrd/boot information to be
+placed in DMA-capable memory.
+
+If my understanding is correct (this is a BIG IF), as a last step
+allocate_memory_11() should reverse the order of memory banks.  Another
+trick is DMA-capable banks need to be subject to ballooning AFTER
+non-DMA-capable banks (I'm unsure how often ballooning is used on ARM).
 
 
 -- 
-Regards,
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-Oleksandr Tyshchenko
 
---000000000000696d0f05b2d5c215
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi Stefano</div><div><br></div><div>[sorry for the po=
-ssible format issue]</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">On Thu, Oct 29, 2020 at 9:53 PM Stefano Stabellini &lt;=
-<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wr=
-ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Thu, 29 =
-Oct 2020, Oleksandr Tyshchenko wrote:<br>
-&gt; On Thu, Oct 29, 2020 at 9:42 AM Masami Hiramatsu &lt;<a href=3D"mailto=
-:masami.hiramatsu@linaro.org" target=3D"_blank">masami.hiramatsu@linaro.org=
-</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Hi Oleksandr,<br>
-&gt; <br>
-&gt; Hi Masami<br>
-&gt; <br>
-&gt; [sorry for the possible format issue]<br>
-&gt; =C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0I would like to try this on my arm64 board.<=
-br>
-&gt; <br>
-&gt; Glad to hear you are interested in this topic.=C2=A0<br>
-&gt; =C2=A0<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0According to your comments in the patch, I m=
-ade this config file.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# cat debian.conf<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0name =3D &quot;debian&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0type =3D &quot;pvh&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0vcpus =3D 8<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0memory =3D 512<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0kernel =3D &quot;/opt/agl/vmlinuz-5.9.0-1-ar=
-m64&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0ramdisk =3D &quot;/opt/agl/initrd.img-5.9.0-=
-1-arm64&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0cmdline=3D &quot;console=3Dhvc0 earlyprintk=
-=3Dxen root=3D/dev/xvda1 rw&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0disk =3D [ &#39;/opt/agl/debian.qcow2,qcow2,=
-hda&#39; ]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0vif =3D [ &#39;mac=3D00:16:3E:74:3d:76,bridg=
-e=3Dxenbr0&#39; ]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0virtio =3D 1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0vdisk =3D [ &#39;backend=3DDom0, disks=3Dro:=
-/dev/sda1&#39; ]<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0And tried to boot a DomU, but I got below er=
-ror.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# xl create -c debian.conf<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Parsing config from debian.conf<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0libxl: error: libxl_create.c:1863:domcreate_=
-attach_devices: Domain<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A01:unable to add virtio_disk devices<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0libxl: error: libxl_domain.c:1218:destroy_do=
-mid_pci_done: Domain<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A01:xc_domain_pause failed<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0libxl: error: libxl_dom.c:39:libxl__domain_t=
-ype: unable to get domain<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0type for domid=3D1<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0libxl: error: libxl_domain.c:1136:domain_des=
-troy_callback: Domain<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A01:Unable to destroy guest<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0libxl: error: libxl_domain.c:1063:domain_des=
-troy_cb: Domain<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A01:Destruction of domain failed<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Could you tell me how can I test it?<br>
-&gt; <br>
-&gt; <br>
-&gt; I assume it is due to the lack of the virtio-disk backend (which I hav=
-en&#39;t shared yet as I focused on the IOREQ/DM support on Arm in the<br>
-&gt; first place).<br>
-&gt; Could you wait a little bit, I am going to share it soon.=C2=A0<br>
-<br>
-Do you have a quick-and-dirty hack you can share in the meantime? Even<br>
-just on github as a special branch? It would be very useful to be able<br>
-to have a test-driver for the new feature.</blockquote><div>Well, I will pr=
-ovide a branch on github with our PoC virtio-disk backend by the end of thi=
-s week. It will be possible to test this series with it.=C2=A0</div></div><=
-br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_sign=
-ature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span s=
-tyle=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"=
-color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></s=
-pan></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"b=
-ackground-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</fo=
-nt></span></div></div></div></div></div></div></div></div>
-
---000000000000696d0f05b2d5c215--
 
