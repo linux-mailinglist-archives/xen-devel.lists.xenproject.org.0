@@ -2,13 +2,17 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BAE929F5B7
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 21:00:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14640.36178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C33329F5BF
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 21:01:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14648.36206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYE6H-0005DV-5U; Thu, 29 Oct 2020 20:00:45 +0000
+	id 1kYE6u-0005P1-Mo; Thu, 29 Oct 2020 20:01:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14640.36178; Thu, 29 Oct 2020 20:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 14648.36206; Thu, 29 Oct 2020 20:01:24 +0000
+Resent-From: Olaf Hering <olaf@aepfle.de>
+Resent-Date: Thu, 29 Oct 2020 21:01:16 +0100
+Resent-Message-ID: <20201029200116.GA7461@aepfle.de>
+Resent-To: xen-devel@lists.xenproject.org
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,129 +27,165 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYE6H-0005D5-23; Thu, 29 Oct 2020 20:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 14640;
- Thu, 29 Oct 2020 20:00:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kYE6F-0005Cs-P6
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:00:43 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 662eb8df-9a22-4d8b-b072-55dbf1eab504;
- Thu, 29 Oct 2020 20:00:43 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 649AE20782;
- Thu, 29 Oct 2020 20:00:40 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kYE6u-0005OY-Io; Thu, 29 Oct 2020 20:01:24 +0000
+Received: by outflank-mailman (input) for mailman id 14648;
+ Thu, 29 Oct 2020 20:01:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=u/HF=EE=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kYE6t-0005OK-Jc
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:01:23 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 986f202c-5778-4c9a-bb07-c7c601215df6;
+ Thu, 29 Oct 2020 20:01:22 +0000 (UTC)
+Received: from aepfle.de by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+ with ESMTPSA id j0b1afw9TK1K4Sw
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate)
+ for <xen-devel@lists.xenproject.org>;
+ Thu, 29 Oct 2020 21:01:20 +0100 (CET)
+Received: from mo4-p00-ob.smtp.rzone.de ([81.169.146.216])
+ by smtpin.rzone.de (RZmta 47.3.0 OK) with ESMTPS id R05ba5w9THK78YQ
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client CN "*.smtp.rzone.de",
+ Issuer "TeleSec ServerPass Class 2 CA" (verified OK (+EmiG)))
+ (Client hostname verified OK) for <olaf@aepfle.de>;
+ Thu, 29 Oct 2020 18:20:07 +0100 (CET)
+Received: from sender by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+ with ESMTPSA id j0b1afw9THK73f5
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate) for <olaf@aepfle.de>;
+ Thu, 29 Oct 2020 18:20:07 +0100 (CET)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kYE6F-0005Cs-P6
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:00:43 +0000
-X-Inumbo-ID: 662eb8df-9a22-4d8b-b072-55dbf1eab504
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 662eb8df-9a22-4d8b-b072-55dbf1eab504;
-	Thu, 29 Oct 2020 20:00:43 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 649AE20782;
-	Thu, 29 Oct 2020 20:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1604001640;
-	bh=s3H1XCFF5/PhNwE1oJWzALManxl6p2C9gIwOpoLw4FM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VDg1NIwJnqhNBblNgJvyzLzdu9tkOe8Yk3ymjeFq5egKWr66e6pdFSNYqrHreC1Rc
-	 OavE6oeqU58PXu22yeKxSMD7OaPFYpu6JHL8+t/vxkfTCH/2FscisuGjEf7Z5ZjCxm
-	 sR99zxoLxDgHNA2tCisgVv90SnKPbdmFkl6U/cu0=
-Date: Thu, 29 Oct 2020 13:00:39 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jason Andryuk <jandryuk@gmail.com>
-cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, QEMU <qemu-devel@nongnu.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Masami Hiramatsu <masami.hiramatsu@linaro.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH] meson.build: fix building of Xen support for aarch64
-In-Reply-To: <CAKf6xpsYorMRYpuPcb8B1zVWz3GHgZZwF+NPVA=nFL2Tr13hqQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2010291300000.12247@sstabellini-ThinkPad-T480s>
-References: <20201028174406.23424-1-alex.bennee@linaro.org> <alpine.DEB.2.21.2010281406080.12247@sstabellini-ThinkPad-T480s> <87d011mjuw.fsf@linaro.org> <CAKf6xpsYorMRYpuPcb8B1zVWz3GHgZZwF+NPVA=nFL2Tr13hqQ@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=u/HF=EE=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+	id 1kYE6t-0005OK-Jc
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:01:23 +0000
+X-Inumbo-ID: 986f202c-5778-4c9a-bb07-c7c601215df6
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.24])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 986f202c-5778-4c9a-bb07-c7c601215df6;
+	Thu, 29 Oct 2020 20:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1604001681;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:
+	Received-SPF:X-RZG-CLASS-ID:Authentication-Results:
+	Authentication-Results:Authentication-Results:Authentication-Results:
+	Authentication-Results:X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+	bh=fdmy2g4paPxwsmM3EZC6IDQ9fD2XxCAjar+up2NIJfk=;
+	b=D6TEPCM5xWICo57a8YcogUGug/dtxj1SgAifJjKPWmPJvcbQaEvJMFy/ypi3Ly7pdz
+	WO+zx+GOT/c20sO0qE/psls+ccYlWoEvhWJAOd0JxI5LwlS9NuCxaWCLN5vowfjO5OQV
+	C2rsnIsEt0JEVaBYssdkGLjgusjIe86idMLtdWsXKta8QYMqjGJ0NPnashNaWop6f59r
+	JRNGG6qm6mNdZbJ6Dr5wCMNi6P4FZSZjc1JOLbm7AVc7dAgwj8Vy0YKESgkcUGoDcJyu
+	FL2ihthfcf5pHDPBq0AEYAmPGkTbS7xTVKqrUMzRlbtvE9PkilKhbk2A+oN96y8f0RlE
+	SxDA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Jjw=="
+X-RZG-CLASS-ID: mo00
+Received: from aepfle.de
+	by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+	with ESMTPSA id j0b1afw9TK1K4Sw
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate)
+	for <xen-devel@lists.xenproject.org>;
+	Thu, 29 Oct 2020 21:01:20 +0100 (CET)
+X-Envelope-From: <olaf@aepfle.de>
+X-Envelope-To: <olaf@aepfle.de>
+X-Delivery-Time: 1603992008
+X-UID: 548113
+Authentication-Results: strato.com; dmarc=none header.from=aepfle.de
+Authentication-Results: strato.com; arc=none
+Authentication-Results: strato.com; dkim=pass header.d=aepfle.de
+Authentication-Results: strato.com; dkim-adsp=pass header.from="olaf@aepfle.de"
+Authentication-Results: strato.com; spf=none smtp.mailfrom="olaf@aepfle.de"
+X-RZG-Expurgate: clean/normal
+X-RZG-Expurgate-ID: 149500::1603992008-0000A3A5-B584449D/0/0
+X-RZG-CLASS-ID: mi00
+Received-SPF: none
+	client-ip=81.169.146.216;
+	helo="mo4-p00-ob.smtp.rzone.de";
+	envelope-from="olaf@aepfle.de";
+	receiver=smtpin.rzone.de;
+	identity=mailfrom;
+Received: from mo4-p00-ob.smtp.rzone.de ([81.169.146.216])
+	by smtpin.rzone.de (RZmta 47.3.0 OK)
+	with ESMTPS id R05ba5w9THK78YQ
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client CN "*.smtp.rzone.de", Issuer "TeleSec ServerPass Class 2 CA" (verified OK (+EmiG)))
+	(Client hostname verified OK)
+	for <olaf@aepfle.de>;
+	Thu, 29 Oct 2020 18:20:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603992007;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+	Subject:Sender;
+	bh=fdmy2g4paPxwsmM3EZC6IDQ9fD2XxCAjar+up2NIJfk=;
+	b=KGuOzy9UMIOA9+8H40XwG5ehFikbu+GO0fsfj7e7HRXYN2yLuQulkdpIcfL8GMQFDY
+	s3ZpCmw+dkV2+laHIncV3rCJ3OSdsBT3W2UPz4Da16HpXlVHFXlwMuc1oN3TflooIkUg
+	kB20FO1gCYR3cw9sXOSLwHWnL0dIZxi8AwFpXEnT05+jGWuPb9zWWfevmY0Y8Z3uxTGJ
+	gXs3254RGdQR/XvxRZdYb71ihP/ChS7lTU3/YVmXsVlGfY6WnTbSxZZ3yJ0/5y9rFLH9
+	v8nZV8+4ZI2latwmgKsBBXn9BofLuL3Li8JGWEO7RdafdzK7+u4j8dz9xTiWh1E+7vOr
+	gLyA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Jjw=="
+X-RZG-CLASS-ID: mo00
+Received: from sender
+	by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+	with ESMTPSA id j0b1afw9THK73f5
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+	(Client did not present a certificate)
+	for <olaf@aepfle.de>;
+	Thu, 29 Oct 2020 18:20:07 +0100 (CET)
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>
+Subject: [PATCH v1 00/23] reduce overhead during live migration
+Date: Thu, 29 Oct 2020 18:19:40 +0100
+Message-Id: <20201029172004.17219-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-510861080-1604001640=:12247"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The current live migration code can easily saturate an 1Gb link.
+There is still room for improvement with faster network connections.
+Even with this series reviewed and applied.
+See description of patch #6.
 
---8323329-510861080-1604001640=:12247
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Olaf
 
-On Thu, 29 Oct 2020, Jason Andryuk wrote:
-> On Thu, Oct 29, 2020 at 6:01 AM Alex Bennée <alex.bennee@linaro.org> wrote:
-> >
-> >
-> > Stefano Stabellini <sstabellini@kernel.org> writes:
-> >
-> > > On Wed, 28 Oct 2020, Alex Bennée wrote:
-> > >> Xen is supported on aarch64 although weirdly using the i386-softmmu
-> > >> model. Checking based on the host CPU meant we never enabled Xen
-> > >> support. It would be nice to enable CONFIG_XEN for aarch64-softmmu to
-> > >> make it not seem weird but that will require further build surgery.
-> > >>
-> > >> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-> > >> Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>
-> > >> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > >> Cc: Anthony Perard <anthony.perard@citrix.com>
-> > >> Cc: Paul Durrant <paul@xen.org>
-> > >> Fixes: 8a19980e3f ("configure: move accelerator logic to meson")
-> > >> ---
-> > >>  meson.build | 2 ++
-> > >>  1 file changed, 2 insertions(+)
-> > >>
-> > >> diff --git a/meson.build b/meson.build
-> > >> index 835424999d..f1fcbfed4c 100644
-> > >> --- a/meson.build
-> > >> +++ b/meson.build
-> > >> @@ -81,6 +81,8 @@ if cpu in ['x86', 'x86_64']
-> > >>      'CONFIG_HVF': ['x86_64-softmmu'],
-> > >>      'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
-> > >>    }
-> > >> +elif cpu in [ 'arm', 'aarch64' ]
-> > >> +  accelerator_targets += { 'CONFIG_XEN': ['i386-softmmu'] }
-> > >>  endif
-> > >
-> > > This looks very reasonable -- the patch makes sense.
-> 
-> A comment would be useful to explain that Arm needs i386-softmmu for
-> the xenpv machine.
-> 
-> > >
-> > > However I have two questions, mostly for my own understanding. I tried
-> > > to repro the aarch64 build problem but it works at my end, even without
-> > > this patch.
-> >
-> > Building on a x86 host or with cross compiler?
-> >
-> > > I wonder why. I suspect it works thanks to these lines in
-> > > meson.build:
-> 
-> I think it's a runtime and not a build problem.  In osstest, Xen
-> support was detected and configured, but CONFIG_XEN wasn't set for
-> Arm.  So at runtime xen_available() returns 0, and QEMU doesn't start
-> with "qemu-system-i386: -xen-domid 1: Option not supported for this
-> target"
-> 
-> I posted my investigation here:
-> https://lore.kernel.org/xen-devel/CAKf6xpss8KpGOvZrKiTPz63bhBVbjxRTYWdHEkzUo2q1KEMjhg@mail.gmail.com/
+Olaf Hering (23):
+  tools: add readv_exact to libxenctrl
+  tools: add xc_is_known_page_type to libxenctrl
+  tools: use xc_is_known_page_type
+  tools: unify type checking for data pfns in migration stream
+  tools: show migration transfer rate in send_dirty_pages
+  tools/guest: prepare to allocate arrays once
+  tools/guest: save: move batch_pfns
+  tools/guest: save: move mfns array
+  tools/guest: save: move types array
+  tools/guest: save: move errors array
+  tools/guest: save: move iov array
+  tools/guest: save: move rec_pfns array
+  tools/guest: save: move guest_data array
+  tools/guest: save: move local_pages array
+  tools/guest: restore: move pfns array
+  tools/guest: restore: move types array
+  tools/guest: restore: move mfns array
+  tools/guest: restore: move map_errs array
+  tools/guest: restore: move mfns array in populate_pfns
+  tools/guest: restore: move pfns array in populate_pfns
+  tools/guest: restore: split record processing
+  tools/guest: restore: split handle_page_data
+  tools/guest: restore: write data directly into guest
 
-Right, but strangely I cannot reproduce it here. I am natively building
-(qemu-user) on aarch64 and for me CONFIG_XEN gets set.
---8323329-510861080-1604001640=:12247--
+ tools/libs/ctrl/xc_private.c          |  54 ++-
+ tools/libs/ctrl/xc_private.h          |  34 ++
+ tools/libs/guest/xg_sr_common.c       |  33 +-
+ tools/libs/guest/xg_sr_common.h       |  86 +++-
+ tools/libs/guest/xg_sr_restore.c      | 562 +++++++++++++++++---------
+ tools/libs/guest/xg_sr_save.c         | 158 ++++----
+ tools/libs/guest/xg_sr_save_x86_hvm.c |   5 +-
+ tools/libs/guest/xg_sr_save_x86_pv.c  |  31 +-
+ 8 files changed, 666 insertions(+), 297 deletions(-)
+
 
