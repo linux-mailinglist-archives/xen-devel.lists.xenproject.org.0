@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC2329E704
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 10:13:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14070.35020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834C429E71B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 10:20:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14076.35032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY3zr-0006MP-NI; Thu, 29 Oct 2020 09:13:27 +0000
+	id 1kY45h-0006ZR-CZ; Thu, 29 Oct 2020 09:19:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14070.35020; Thu, 29 Oct 2020 09:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 14076.35032; Thu, 29 Oct 2020 09:19:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,125 +23,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY3zr-0006M0-KA; Thu, 29 Oct 2020 09:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 14070;
- Thu, 29 Oct 2020 09:13:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hwhy=EE=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kY3zq-0006Lv-GD
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:13:26 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 91c3bf7f-8559-4444-ba46-7dd7c995a9fd;
- Thu, 29 Oct 2020 09:13:21 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kY45h-0006Z2-9X; Thu, 29 Oct 2020 09:19:29 +0000
+Received: by outflank-mailman (input) for mailman id 14076;
+ Thu, 29 Oct 2020 09:19:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=u/HF=EE=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kY45f-0006Yx-Hh
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:19:27 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2777765c-b1d5-4e40-8202-e07cf5be8a41;
+ Thu, 29 Oct 2020 09:19:25 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+ with ESMTPSA id j0b1afw9T9JN15e
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 29 Oct 2020 10:19:23 +0100 (CET)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hwhy=EE=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kY3zq-0006Lv-GD
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:13:26 +0000
-X-Inumbo-ID: 91c3bf7f-8559-4444-ba46-7dd7c995a9fd
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 91c3bf7f-8559-4444-ba46-7dd7c995a9fd;
-	Thu, 29 Oct 2020 09:13:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603962801;
-  h=subject:to:references:from:message-id:date:mime-version:
-   in-reply-to;
-  bh=njeWV/EhVeAwdJZy8iBFwE5E+DJt7jd8mdfipFHfhdM=;
-  b=NT01YFeDqz5LAxxetQyF5jyU0hy4dRtsr39TGk+pPQ4KjoMpouRvMq0g
-   p72gfW8pLSY195OLo0POhtnTH32N6FCufAgw+3q5XYDIZF5HEPNWTvWe4
-   Wau2V4aD4xMosINAO+YpAFYfDn20PiAH7RW0zgyt9RUAI6Djk/9PZIb3W
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 1oI8sBvQvKbsoecTC6ptYy5NGOnI1E5p9u6brqy1o7+v2L1LoBUeAVablw+uWdQdiWliBHNij1
- qNN4GJfs6NJm2xCfOV28Gv8DgEsH8rCdkXyvmOEWZb90lGtbIe/N4gtTynsLFJhxI0KFJ19iPc
- YRvCK3uux0c6cKrJr4RvaYz6lhRtn4G8peMPXefRzPBQ3mp0qn7gbSrv2ab91SOnGpFIWszJNN
- tX4czHOoJswuK1UEDbTC495vDo/BCoFYslcSQy/WPmJcOT7xD1MQsuBLyi/QUxyeDvHywsqXIY
- xEQ=
-X-SBRS: None
-X-MesageID: 30379730
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,429,1596513600"; 
-   d="asc'?scan'208";a="30379730"
+	(envelope-from <SRS0=u/HF=EE=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+	id 1kY45f-0006Yx-Hh
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:19:27 +0000
+X-Inumbo-ID: 2777765c-b1d5-4e40-8202-e07cf5be8a41
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 2777765c-b1d5-4e40-8202-e07cf5be8a41;
+	Thu, 29 Oct 2020 09:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1603963164;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+	X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+	bh=SC8SmVv0c/5jonRmYiSBZn1dYb/iyICnBaU1DZlYyvk=;
+	b=RIOqKxtZiHGnYkqHEtrcD5Ghd+PifK4dLTJ6a8YiA80/7hOvP27VW/SrYYMHr2zbHr
+	47n2vBlXhOLP5tHl6z/D8+jKDvBg38mjlxVToCvRnWwZxPB95hvz10uwGruwp3Zo4FjA
+	bcrxs4ScKEmdDpZCjr/e1r1yKhtMB3uFxqIpXXodtywtBH7Eaa9X+32oxhivn5dhpXFW
+	IU19nLQ+5dA0XY3aCXHEnuzVrCrHB/896cpMQk2fXE+eBR5U5E12IGEFuVg3XAYcFHrv
+	8BPEbzbHuP8t0byUZT0YsBAuL3uJOT9roc5IrZRW7FHvJdfHkngTzPCZGAHNSKfBl6os
+	D0BA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+r+/A=="
+X-RZG-CLASS-ID: mo00
+Received: from sender
+	by smtp.strato.de (RZmta 47.3.0 DYNA|AUTH)
+	with ESMTPSA id j0b1afw9T9JN15e
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+	Thu, 29 Oct 2020 10:19:23 +0100 (CET)
+Date: Thu, 29 Oct 2020 10:19:16 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>
 Subject: Re: call traces in xl dmesg during boot
-To: Olaf Hering <olaf@aepfle.de>, <xen-devel@lists.xenproject.org>
+Message-ID: <20201029101916.46854068.olaf@aepfle.de>
+In-Reply-To: <0831520a-609f-de69-7a07-1b86fe137699@citrix.com>
 References: <20201029092237.50b8a6f6.olaf@aepfle.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <0831520a-609f-de69-7a07-1b86fe137699@citrix.com>
-Date: Thu, 29 Oct 2020 09:13:08 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	<0831520a-609f-de69-7a07-1b86fe137699@citrix.com>
+X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20201029092237.50b8a6f6.olaf@aepfle.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature";
-	boundary="QhF6ym3qSJ5TBsC7AQlvmNYiiDpEja59q"
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+ boundary="Sig_/Dp6PCMwbvN+8upAg5.v.Afa"; protocol="application/pgp-signature"
 
---QhF6ym3qSJ5TBsC7AQlvmNYiiDpEja59q
-Content-Type: multipart/mixed; boundary="fsO1gEleEDsGEEguxrHRzKed47sJ5Yk9Q"
-
---fsO1gEleEDsGEEguxrHRzKed47sJ5Yk9Q
-Content-Type: text/plain; charset=windows-1252
+--Sig_/Dp6PCMwbvN+8upAg5.v.Afa
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
 
-On 29/10/2020 08:22, Olaf Hering wrote:
-> During boot of xen.git#staging, Xen seems to think something pressed de=
-bug keys very early, which shows various call traces in 'xl dmesg'. A reb=
-oot may "fix" it, and no traces are printed.
->
-> Any idea what may cause this behavior? I do not see it on a slightly sm=
-aller box.
+Am Thu, 29 Oct 2020 09:13:08 +0000
+schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
 
-That means Xen is receiving real keystrokes on the UART.
+> You'll need NR_CPUS configured to 512 to boot properly on this system.
 
-I've seen it before on hardware with floating wires in place of a
-properly connected UART, but I've also seen it on systems with an
-incorrectly configured BAUD rate.=A0 Looking at your command line, you
-probably want com1=3D115200,8n1 although this should also be the default.=
+Ah, thanks. My builds use the built-in defaults. I will adjust my future bu=
+ilds.
 
+Olaf
 
-
-Totally unrelated to the problem at hand, but an observation.
-
-(XEN) [000000d6b68c0ecc] WARNING: NR_CPUS limit of 256 reached -
-ignoring further processors
-
-You'll need NR_CPUS configured to 512 to boot properly on this system.
-
-~Andrew
-
-
---fsO1gEleEDsGEEguxrHRzKed47sJ5Yk9Q--
-
---QhF6ym3qSJ5TBsC7AQlvmNYiiDpEja59q
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+--Sig_/Dp6PCMwbvN+8upAg5.v.Afa
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEzzVJW36m9w6nfSF2ZcP5BqXXn6AFAl+ah6QACgkQZcP5BqXX
-n6AclxAAubBpOm2VoMtiRvVgehGi8zG1emDjR1mdOcVDUJOrn9sizO5OFtyN1Oet
-QP3aiKuN1eA3BqRu8qrXai5VlXlXYCZSFFnU7MNqEea2U4ROW4AqfgojkS2NQYMR
-6Py4ppMeQ8fK7pudGQ+kqkKfbHbuYPLHjHVtDpRVPNxZLSBsALH7XcsFOCnxnMxt
-GyFJHuErBMsROh6sFHRBoOC3YnEN+wx7LcI426cqVfzkqPYuzqqAZN7+ITUG4rKq
-s7cNkXVzJHceuszPFe3/bs7hHLscE4Yn6Oamtco2Fq92hB94sLSlbWdkpeEflmbn
-6cOeuBYur6k1RpJ1E0+vK6rNn4TpBU5UL7H/r4BoNWkMIdOcbqwJ/CJH9EuOgc2x
-vTY2sAWN5J/CM1o4BMGpjTTkB/ev3CtZeBbWG62LKReuDGKG/lFzXYe1ffsjHyFs
-qOzoHo1qU5STobxbBZIQJwCfub0Q7lCjw9qgwXvsPAmmBu3+YMv0L8pUnFZhHT4w
-QaF8x3BFQrD3cOJi238h6BDVw8CUQGq6U8bpL4+wZw9ujS7igHPJEMpOOMu7ao0+
-a1DNVHgit27ED3O1yCXb0NV6yu6Zr+FxfPbxxn2+OV1TsOg6LiH7dzVHYfHdZxYm
-T/d4gr9I6dfW3QZOcraROJEwO2/KnaffA96p7wHrbp9yqnV9A0s=
-=Bfn3
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl+aiRQACgkQ86SN7mm1
+DoDusw//WtGwHiY1nnQQZcw2IRrd9VI8SOHnCnYlwMwKyVmxSTn2smxctU0zNNRb
+x12mLuHicVyjgGZizsj1YbzPBBLLY/LCM4LPHrdM4NEXMrkjlML4VFnbehAmoVcI
+Uy4T8d8nbmXlY1eKw1gdCEzmHdYSavmxhdtp5k128v8YOqBfuYm8VPwGysTRo/gO
+PnqPi4FmgOs5mMB1+kN2+SRUG6X5gQFbIgaWe4SUKk0MSnH5BUjpjzy2pginE0wd
+qU7sXDPIjJxeBoynrd5slnS+Ivlc72YoyDlTY0eBubuafSXAeSHMWULrsltZFNXz
+OHOtpR+2flbm3kiuMYxEK9Cb6vULxveNH0mRMn8M+BREphBwetzGZrKcKUJYE8nt
+yD0onmG32JWzNmEMOfw6QiYz034B3rTFTcWJbF8mE+pJhJDXIla2bFBrU+EtpctT
+YgtJoZ8VOo/Om4NEI2Fh1frkHIX559CMHSiZo5/CAjV8P8R+HZyXQqvhc846Bwxs
+C/xhyNfrRfSvLl2UNVn4ggHZzK8w8eWTJ+TpDSROr4DizRjpIiWbSLaCbtlyR95M
+d8fAEDmB2dXLtwSxdRbTSbRbiIUotpdCXTHflT0Pbo8U4yIJZxBHQjLnkm6OiCxm
+Ilp16ESIMuMBFbj4OE3wBxfrRt+SdEgicNarezkYh2sNoHnfjJw=
+=v+Dx
 -----END PGP SIGNATURE-----
 
---QhF6ym3qSJ5TBsC7AQlvmNYiiDpEja59q--
+--Sig_/Dp6PCMwbvN+8upAg5.v.Afa--
 
