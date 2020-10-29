@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1995829E7E5
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 10:55:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14096.35069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9038F29E825
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 11:01:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14110.35081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY4ek-0001mF-QA; Thu, 29 Oct 2020 09:55:42 +0000
+	id 1kY4kP-0002kS-EM; Thu, 29 Oct 2020 10:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14096.35069; Thu, 29 Oct 2020 09:55:42 +0000
+Received: by outflank-mailman (output) from mailman id 14110.35081; Thu, 29 Oct 2020 10:01:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,232 +23,232 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY4ek-0001lt-MV; Thu, 29 Oct 2020 09:55:42 +0000
-Received: by outflank-mailman (input) for mailman id 14096;
- Thu, 29 Oct 2020 09:55:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kY4kP-0002k3-B8; Thu, 29 Oct 2020 10:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 14110;
+ Thu, 29 Oct 2020 10:01:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sh/s=EE=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kY4ej-0001lo-01
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:55:41 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
- [40.107.22.53]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eea2b81a-53e7-4399-b9ea-a3bc850ad0b4;
- Thu, 29 Oct 2020 09:55:40 +0000 (UTC)
-Received: from DB6PR0402CA0009.eurprd04.prod.outlook.com (2603:10a6:4:91::19)
- by AM9PR08MB6274.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.21; Thu, 29 Oct
- 2020 09:55:32 +0000
-Received: from DB5EUR03FT013.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:91:cafe::37) by DB6PR0402CA0009.outlook.office365.com
- (2603:10a6:4:91::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18 via Frontend
- Transport; Thu, 29 Oct 2020 09:55:32 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT013.mail.protection.outlook.com (10.152.20.105) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3520.15 via Frontend Transport; Thu, 29 Oct 2020 09:55:32 +0000
-Received: ("Tessian outbound c189680f801b:v64");
- Thu, 29 Oct 2020 09:55:31 +0000
-Received: from 2af84ba5829e.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 9B6D1991-ED96-42F0-8898-5CBF1A03D10E.1; 
- Thu, 29 Oct 2020 09:55:16 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2af84ba5829e.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 29 Oct 2020 09:55:16 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB7PR08MB3034.eurprd08.prod.outlook.com (2603:10a6:5:24::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Thu, 29 Oct
- 2020 09:55:15 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3477.028; Thu, 29 Oct 2020
- 09:55:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=rF0B=EE=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1kY4kN-0002ju-RO
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 10:01:31 +0000
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 654e3420-3d3c-40e6-9649-47812afaa44d;
+ Thu, 29 Oct 2020 10:01:30 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id k10so722028wrw.13
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 03:01:30 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id m8sm4010179wrw.17.2020.10.29.03.01.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 03:01:28 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id CD4601FF7E;
+ Thu, 29 Oct 2020 10:01:27 +0000 (GMT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=sh/s=EE=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kY4ej-0001lo-01
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 09:55:41 +0000
-X-Inumbo-ID: eea2b81a-53e7-4399-b9ea-a3bc850ad0b4
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown [40.107.22.53])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id eea2b81a-53e7-4399-b9ea-a3bc850ad0b4;
-	Thu, 29 Oct 2020 09:55:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Utgxc1gYS05fnkTtMDjRM647ko6/E1RfiZUyMuo/lg=;
- b=Ma03aF2jF+HuKomvsjrBvO7i9FjszEfVcMqqZdhQRKjYjYx1YBUSvjSK4M2gjfyCmewpCwQZIjADKrde1EZRl1sllGTfku/7UNttAoaT+2TgW7yjslXr2vfDeLufMEq/LOGDB5fm54nWUdVz/PmgmjeuQFVoPME2FozAFdMz5l8=
-Received: from DB6PR0402CA0009.eurprd04.prod.outlook.com (2603:10a6:4:91::19)
- by AM9PR08MB6274.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.21; Thu, 29 Oct
- 2020 09:55:32 +0000
-Received: from DB5EUR03FT013.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:91:cafe::37) by DB6PR0402CA0009.outlook.office365.com
- (2603:10a6:4:91::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18 via Frontend
- Transport; Thu, 29 Oct 2020 09:55:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT013.mail.protection.outlook.com (10.152.20.105) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3520.15 via Frontend Transport; Thu, 29 Oct 2020 09:55:32 +0000
-Received: ("Tessian outbound c189680f801b:v64"); Thu, 29 Oct 2020 09:55:31 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d935657349f6c042
-X-CR-MTA-TID: 64aa7808
-Received: from 2af84ba5829e.1
-	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 9B6D1991-ED96-42F0-8898-5CBF1A03D10E.1;
-	Thu, 29 Oct 2020 09:55:16 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
-    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2af84ba5829e.1
-    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
-    Thu, 29 Oct 2020 09:55:16 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CTqxJ5A17c1AppxU8Ty9usC6Cul2ng6OaePjnTKQfTqYuVuO5kH+/8UcU9nuHrP68RV9DgEPAZbGPRgtm7xzhIuwKkOlsZPFKMdt5N4wQH+RLz1Cm+bzfhhG1OCKMTEFFp0QIyTEIjdSzcEk1u6zBIRz1hqroN+QQ+xmoz6wcLhVWho8wpAYuhoY9c+UwOdRCitPXIUq0KVCr9n8sEYxLSUqNY8A3a1uW11SkzEcxWMmnPigh+2MAA5JPY03OxeA5GEVqTJBVwAq227j3DChPxRVE7HDMql5pf9/3LKlBkL0IuwjGKgPeuYencMWaWf1jVnE+/E/OIA4OGUjClAzyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Utgxc1gYS05fnkTtMDjRM647ko6/E1RfiZUyMuo/lg=;
- b=YVTd1bxdYtUm65d8XGDRa5ROusDy2sowtOPvV2bx/TBWxHwE2qevOTqjMsw2HNVG4vup0oZgJR/eIiX3Yc3+AQXTCOdzXBLZ1SmijqE39bKg0tOOHl7kCgakkNIEkhxR64Jl3QgmFjsn1Qpdn1vbjLz7CwW8orrzdJRdW8iKfSIxeuYx9Fc1q9Zna5xwZRrOwYnDIrPi86YZqVQHVQTDfZKWL/7Oi3Z5ox/PM6fGNpuSKVXyCQpzeifWSk86CnpS4VI1ru7H/6Q/lVIwZwjp3UzfErDKTp0x3TMOWCzSbzMIEEVTH/psuThIO7A6g/9zn09bF0RX15qGDAcmpCtqbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Utgxc1gYS05fnkTtMDjRM647ko6/E1RfiZUyMuo/lg=;
- b=Ma03aF2jF+HuKomvsjrBvO7i9FjszEfVcMqqZdhQRKjYjYx1YBUSvjSK4M2gjfyCmewpCwQZIjADKrde1EZRl1sllGTfku/7UNttAoaT+2TgW7yjslXr2vfDeLufMEq/LOGDB5fm54nWUdVz/PmgmjeuQFVoPME2FozAFdMz5l8=
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB7PR08MB3034.eurprd08.prod.outlook.com (2603:10a6:5:24::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Thu, 29 Oct
- 2020 09:55:15 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::cf6:86:f034:aec4%6]) with mapi id 15.20.3477.028; Thu, 29 Oct 2020
- 09:55:15 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: "open list:X86" <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 3/3] xen/arm: Warn user on cpu errata 832075
-Thread-Topic: [PATCH v2 3/3] xen/arm: Warn user on cpu errata 832075
-Thread-Index: AQHWq7RKM3lRt4XRXUWYGPT9/eCkOKmtW9sAgAD/7gA=
-Date: Thu, 29 Oct 2020 09:55:15 +0000
-Message-ID: <DFD994CA-C456-468C-8442-0F63CE661E78@arm.com>
-References:
- <a6fc6cfd71d6d53cf89bf533a348bda799b25d7d.1603728729.git.bertrand.marquis@arm.com>
- <4d62bc0844576b80e00ea48e318be238a4d73eae.1603728729.git.bertrand.marquis@arm.com>
- <c6790d34-2893-78c4-d49f-7ef4acfceb96@xen.org>
-In-Reply-To: <c6790d34-2893-78c4-d49f-7ef4acfceb96@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.24.250.194]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4b7103a0-f8a7-427a-589d-08d87bf0c630
-x-ms-traffictypediagnostic: DB7PR08MB3034:|AM9PR08MB6274:
-X-Microsoft-Antispam-PRVS:
-	<AM9PR08MB6274149F99E61B6DF8E2C2729D140@AM9PR08MB6274.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- xUBKE3jFKPKzayjOzFiSgOxrMh+ePEb3076dYwiCQzOESVNWFO5U3tPyPwWFpCi6hSb9L+EpuzrIoqhuzD70mzXfzOWIe1PkDTv8ccP2WLgssBbPw5wkhJZMcZE9tkznVE0AR+wvKCpCen8JtPrpEUwl0bH+KrD8ZLrtLS4gTJzyVkrGZizXNLlBvR9WQaYy+9KkitKsZk0ECVllDiD76jLUxS59RRh9JFYYL7j52rY5h1Q5TeoO6A6Vu3ySLsMOnSBGzUQ3UuQTVHNT+ma/rYyN9RQ/YBFUplOMDp0bOCuugL3QZEgndNwD3S8iTl5VWZ9GIWtpXsN+A4iCXZn0+w==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(366004)(396003)(39860400002)(346002)(6512007)(8936002)(66446008)(5660300002)(4326008)(71200400001)(91956017)(66946007)(76116006)(66476007)(64756008)(66556008)(86362001)(36756003)(478600001)(83380400001)(316002)(2616005)(6916009)(54906003)(26005)(8676002)(53546011)(6486002)(186003)(6506007)(2906002)(33656002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- PGMGO8a9OFTdCXUCA6e2ZD2zqSUcLkBX0A4l7h53iKx3cFUH6rWpvJg2+kB8ePwjF9GIEOzDU0ZjP44HS4UpB5ABOsYwkeRTexENDBz8w1uufQvnTeuWWLzWmWYDXwgGOoVBSxH9V/b48bQxm9XMpYa2Tx3O/p4fV4CtJ0VNHg5xE86voAwVANQI2CUnR7bl+pi0GUd7y4+WBcNcy/2RW4EN7Fcxi4menKuhK7SeyDxRy8YwRtbZxwgwZ+MZs3deM/6iCfJgNNn400pAXkpsoBeFfhnl6aoGVpnC/SWAYCs8qwBRfPZ39acFvNylWFV4+jeg8jhX38nPHI7VxqwOTAAO9wcEKBZVHO6BapgQT/tb1Go2vfCp68/mF0qPXyn66ct2qKvrt8tTUdFbhB1pJufPrKShRL4bz0e3EfxdT/3dybMT57vZz7RU1J1n54fx9OCWRetGZl0Sg1/sroc/zHRyEwt96jgsN7mhbwvur27IkWJ38ZCViYrWMWkSlC2FG9SrsK7tkdZayfpkUsHZAEA1v7dDDT5pattAQNOoJCkc5dy0G2jqtIYm/4yEyonWX00I/h8xHJP5Ho4XYhWUJg8AvdSLLB11ROVXtjAHXcLtcyQr2trHmHkwHWFpze6iqxvmnceoN63K7ym/ae+wpg==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1FAF3F81E7FDC3499FD908A83E58482E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	(envelope-from <SRS0=rF0B=EE=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+	id 1kY4kN-0002ju-RO
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 10:01:31 +0000
+X-Inumbo-ID: 654e3420-3d3c-40e6-9649-47812afaa44d
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 654e3420-3d3c-40e6-9649-47812afaa44d;
+	Thu, 29 Oct 2020 10:01:30 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id k10so722028wrw.13
+        for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 03:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=references:user-agent:from:to:cc:subject:in-reply-to:date
+         :message-id:mime-version:content-transfer-encoding;
+        bh=NgsgEF3cxh4a2QJyJ3yz8CSoN5GhmG6ImfMK4QDU38Q=;
+        b=eGHuWm7a8YHGoQQJkRVDw9QsDr2F43cQVL2euxj7XBnjYPtt7Ib7g0Fn20LpIHzM47
+         AeRkPIcP3DbwaJ6NXZg2r6ecLsBsD6o91apVoD6gYryRRyOKYestNhleAmHqSuM1+qyz
+         CYCR7QIFKJXHbeCTDBP3r+bQ1E3vz1F42SOctC7E1xzUbbuFAjnYA/ZXCEOi8hdrXMFo
+         j9SIq0z07Vcs/z9RucelrLvYmvli/8Kkkqepvn/93566Ch38fBldRiJk3vo+rjc1jZiU
+         WsVXVdM7YuZmZ4BHH+ILPVAmBYZw8oz2yEtuSmn16ftgAavQQNSm3t/moMEUu/ymqq+f
+         E1tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject
+         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
+        bh=NgsgEF3cxh4a2QJyJ3yz8CSoN5GhmG6ImfMK4QDU38Q=;
+        b=pz80ILo7qJbyT3qx0c5WrIk2cXJsrtIAqQTIzfpbjtPJemIbVdxrB7Ql+vrKLJSaPx
+         w7usuRmLjHeWOyV1+Uz3f7B0b27eXYyTMYCG7iF/aLFb/FCvi5oQihGKYFdOL6zmrGzk
+         RUmbsHelBaooIHuDBoQa4ZNRbZZEqk18RC/S1MTpBP45qiktLIHLFnYDGyXV8vEDqnJf
+         944osi+Pb/tDMcH/LJoWfeGElG6muJBOY0M5L2h24nVJovaGV7h/uPGSotS0EbWYFwkA
+         LpOdO9YJEfyHyACCfqjuorX216XXHXLKF8P19o4R5dyYy2NJ6g9D/1UFomebooYmETOz
+         +mLg==
+X-Gm-Message-State: AOAM532DQ8DXvZXAP234i/3NWe2cMzwdEBs9YI5JhQwBGLoFmw+D2x0c
+	cydr68Rk5RHsQiSklpID5UL19g==
+X-Google-Smtp-Source: ABdhPJzWpStp+pVp+vl7p4xVCS8J5Ty0ezaMWiGhF7GJHh+IQlKU+PIE3IZJSNl53jpoBI09DxLgvA==
+X-Received: by 2002:a5d:448b:: with SMTP id j11mr4433017wrq.129.1603965689861;
+        Thu, 29 Oct 2020 03:01:29 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+        by smtp.gmail.com with ESMTPSA id m8sm4010179wrw.17.2020.10.29.03.01.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2020 03:01:28 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+	by zen.linaroharston (Postfix) with ESMTP id CD4601FF7E;
+	Thu, 29 Oct 2020 10:01:27 +0000 (GMT)
+References: <20201028174406.23424-1-alex.bennee@linaro.org>
+ <alpine.DEB.2.21.2010281406080.12247@sstabellini-ThinkPad-T480s>
+User-agent: mu4e 1.5.6; emacs 28.0.50
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, Masami Hiramatsu
+ <masami.hiramatsu@linaro.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH] meson.build: fix building of Xen support for aarch64
+In-reply-to: <alpine.DEB.2.21.2010281406080.12247@sstabellini-ThinkPad-T480s>
+Date: Thu, 29 Oct 2020 10:01:27 +0000
+Message-ID: <87d011mjuw.fsf@linaro.org>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3034
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e832afca-666c-469b-6d79-08d87bf0bc30
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gs3JeG89J3Ryfmq8or/WLVbuA+OZ7CqsprQbQ7edIEDEqRQl9XBEDUmXAvaPDuCIqkEy3Qo/SBMtnxxR8QRChvc8xybfbOHwIfNf8GfWXcg9Spa+ZnZeyYwAyc+cPsqMQ0pFm1PV5N0p3Uk67qhwFdxQ2aeqQJ8gqZR/w0pNRLf4jdfYyW+M41MDCFf/h1+1gW3ehLEhra4iGH17QRHYzBOwjnhh0rKXCom0j8j6Z8rQ2oPsS2w0kaejrodtnVaUROaw50A0ebKrmtClv/12mtZLPXqbHa+B+m7e5nQMWy0/OdH1Ig8wKHHNbSk9uu0faoWkqmOMhZsUDMHxyS2sEaddVw++kND08xzFFq2dJy8FNdX6YgFlWezHFCY+llcge5jhHPvtN/Q6Fptauasezw==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(136003)(39860400002)(376002)(396003)(46966005)(70206006)(2906002)(8936002)(53546011)(6862004)(54906003)(83380400001)(81166007)(82740400003)(6506007)(107886003)(4326008)(70586007)(478600001)(356005)(6512007)(8676002)(47076004)(36756003)(6486002)(2616005)(316002)(26005)(86362001)(336012)(186003)(33656002)(82310400003)(5660300002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2020 09:55:32.0209
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b7103a0-f8a7-427a-589d-08d87bf0c630
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6274
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Julien,
 
-> On 28 Oct 2020, at 18:39, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 26/10/2020 16:21, Bertrand Marquis wrote:
->> When a Cortex A57 processor is affected by CPU errata 832075, a guest
->> not implementing the workaround for it could deadlock the system.
->> Add a warning during boot informing the user that only trusted guests
->> should be executed on the system.
->> An equivalent warning is already given to the user by KVM on cores
->> affected by this errata.
->> Also taint the hypervisor as unsecure when this errata applies and
->> mention Cortex A57 r0p0 - r1p2 as not security supported in SUPPORT.md
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->=20
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+Stefano Stabellini <sstabellini@kernel.org> writes:
 
-Thanks
+> On Wed, 28 Oct 2020, Alex Benn=C3=A9e wrote:
+>> Xen is supported on aarch64 although weirdly using the i386-softmmu
+>> model. Checking based on the host CPU meant we never enabled Xen
+>> support. It would be nice to enable CONFIG_XEN for aarch64-softmmu to
+>> make it not seem weird but that will require further build surgery.
+>>=20
+>> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+>> Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>> Cc: Anthony Perard <anthony.perard@citrix.com>
+>> Cc: Paul Durrant <paul@xen.org>
+>> Fixes: 8a19980e3f ("configure: move accelerator logic to meson")
+>> ---
+>>  meson.build | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>=20
+>> diff --git a/meson.build b/meson.build
+>> index 835424999d..f1fcbfed4c 100644
+>> --- a/meson.build
+>> +++ b/meson.build
+>> @@ -81,6 +81,8 @@ if cpu in ['x86', 'x86_64']
+>>      'CONFIG_HVF': ['x86_64-softmmu'],
+>>      'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
+>>    }
+>> +elif cpu in [ 'arm', 'aarch64' ]
+>> +  accelerator_targets +=3D { 'CONFIG_XEN': ['i386-softmmu'] }
+>>  endif
+>
+> This looks very reasonable -- the patch makes sense.
+>
+>
+> However I have two questions, mostly for my own understanding. I tried
+> to repro the aarch64 build problem but it works at my end, even without
+> this patch.
 
->=20
-> If you don't need to resend the series, then I would be happy to fix the =
-typo pointed out by George on commit.
+Building on a x86 host or with cross compiler?
 
-There is only the condensing from Stefano.
-If you can handle that on commit to great but if you need me to send a v3 t=
-o make your life easier do not hesitate to tell me
+> I wonder why. I suspect it works thanks to these lines in
+> meson.build:
+>
+>   if not get_option('xen').disabled() and 'CONFIG_XEN_BACKEND' in config_=
+host
+>     accelerators +=3D 'CONFIG_XEN'
+>     have_xen_pci_passthrough =3D not get_option('xen_pci_passthrough').di=
+sabled() and targetos =3D=3D 'linux'
+>   else
+>     have_xen_pci_passthrough =3D false
+>   endif
+>
+> But I am not entirely sure who is adding CONFIG_XEN_BACKEND to
+> config_host.
 
-Cheers
-Bertrand
+The is part of the top level configure check - which basically checks
+for --enable-xen or autodetects the presence of the userspace libraries.
+I'm not sure if we have a slight over proliferation of symbols for Xen
+support (although I'm about to add more).
 
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
->=20
+> The other question is: does it make sense to print the value of
+> CONFIG_XEN as part of the summary? Something like:
+>
+> diff --git a/meson.build b/meson.build
+> index 47e32e1fcb..c6e7832dc9 100644
+> --- a/meson.build
+> +++ b/meson.build
+> @@ -2070,6 +2070,7 @@ summary_info +=3D {'KVM support':       config_all.=
+has_key('CONFIG_KVM')}
+>  summary_info +=3D {'HAX support':       config_all.has_key('CONFIG_HAX')}
+>  summary_info +=3D {'HVF support':       config_all.has_key('CONFIG_HVF')}
+>  summary_info +=3D {'WHPX support':      config_all.has_key('CONFIG_WHPX'=
+)}
+> +summary_info +=3D {'XEN support':      config_all.has_key('CONFIG_XEN')}
+>  summary_info +=3D {'TCG support':       config_all.has_key('CONFIG_TCG')}
+>  if config_all.has_key('CONFIG_TCG')
+>    summary_info +=3D {'TCG debug enabled': config_host.has_key('CONFIG_DE=
+BUG_TCG')}
+>
+>
+> But I realize there is already:
+>
+> summary_info +=3D {'xen support':       config_host.has_key('CONFIG_XEN_B=
+ACKEND')}
+>
+> so it would be a bit of a duplicate
 
+Hmm so what we have is:
+
+  CONFIG_XEN_BACKEND
+    - ensures that appropriate compiler flags are added
+    - pegs RAM_ADDR_MAX at UINT64_MAX (instead of UINTPTR_MAX)
+  CONFIG_XEN
+    - which controls a bunch of build objects, some of which may be i386 on=
+ly?
+    ./accel/meson.build:15:specific_ss.add_all(when: ['CONFIG_XEN'], if_tru=
+e: dummy_ss)
+    ./accel/stubs/meson.build:2:specific_ss.add(when: 'CONFIG_XEN', if_fals=
+e: files('xen-stub.c'))
+    ./accel/xen/meson.build:1:specific_ss.add(when: 'CONFIG_XEN', if_true: =
+files('xen-all.c'))
+    ./hw/9pfs/meson.build:17:fs_ss.add(when: 'CONFIG_XEN', if_true: files('=
+xen-9p-backend.c'))
+    ./hw/block/dataplane/meson.build:2:specific_ss.add(when: 'CONFIG_XEN', =
+if_true: files('xen-block.c'))
+    ./hw/block/meson.build:14:softmmu_ss.add(when: 'CONFIG_XEN', if_true: f=
+iles('xen-block.c'))
+    ./hw/char/meson.build:23:softmmu_ss.add(when: 'CONFIG_XEN', if_true: fi=
+les('xen_console.c'))
+    ./hw/display/meson.build:18:softmmu_ss.add(when: 'CONFIG_XEN', if_true:=
+ files('xenfb.c'))
+    ./hw/i386/xen/meson.build:1:i386_ss.add(when: 'CONFIG_XEN', if_true: fi=
+les('xen-hvm.c',
+                                                                           =
+    'xen-mapcache.c',
+                                                                           =
+    'xen_apic.c',
+                                                                           =
+    'xen_platform.c',
+                                                                           =
+    'xen_pvdevice.c')
+    ./hw/net/meson.build:2:softmmu_ss.add(when: 'CONFIG_XEN', if_true: file=
+s('xen_nic.c'))
+    ./hw/usb/meson.build:76:softmmu_ss.add(when: ['CONFIG_USB', 'CONFIG_XEN=
+', libusb], if_true: files('xen-usb.c'))
+    ./hw/xen/meson.build:1:softmmu_ss.add(when: ['CONFIG_XEN', xen], if_tru=
+e: files(
+    ./hw/xen/meson.build:20:specific_ss.add_all(when: ['CONFIG_XEN', xen], =
+if_true: xen_specific_ss)
+    ./hw/xenpv/meson.build:3:xenpv_ss.add(when: 'CONFIG_XEN', if_true: file=
+s('xen_machine_pv.c'))
+    - there are also some stubbed inline functions controlled by it
+  CONFIG_XEN_IGD_PASSTHROUGH
+    - specific x86 PC only feature via Kconfig rule
+  CONFIG_XEN_PCI_PASSTHROUGH
+    - control Linux specific specific feature (via meson rule)
+
+
+First obvious question - is everything in hw/i386/xen actually i386
+only? APIC seems pretty PC orientated but what about xen_platform and
+pvdevice? There seem to be some dependancies on xen-mapcache across the
+code.
+
+--=20
+Alex Benn=C3=A9e
 
