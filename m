@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B9929D27A
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Oct 2020 22:32:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13911.34764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A04AB29DD68
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 01:38:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13945.34800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXt2p-0006XB-LQ; Wed, 28 Oct 2020 21:31:47 +0000
+	id 1kXvwD-0005bI-2y; Thu, 29 Oct 2020 00:37:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13911.34764; Wed, 28 Oct 2020 21:31:47 +0000
+Received: by outflank-mailman (output) from mailman id 13945.34800; Thu, 29 Oct 2020 00:37:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,148 +23,133 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kXt2p-0006Wm-I9; Wed, 28 Oct 2020 21:31:47 +0000
-Received: by outflank-mailman (input) for mailman id 13911;
- Wed, 28 Oct 2020 21:31:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kXvwC-0005at-Vr; Thu, 29 Oct 2020 00:37:08 +0000
+Received: by outflank-mailman (input) for mailman id 13945;
+ Thu, 29 Oct 2020 00:37:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dNQY=ED=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kXt2n-0006Wh-E4
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 21:31:45 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9d4f690e-340c-4788-bf34-781eb0f3043f;
- Wed, 28 Oct 2020 21:31:44 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kXvwB-0005ao-0v
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 00:37:07 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 966e97ca-0bed-4ea2-b6bf-fdae3292d422;
+ Thu, 29 Oct 2020 00:37:05 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 531BE20790;
+ Thu, 29 Oct 2020 00:37:03 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dNQY=ED=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kXt2n-0006Wh-E4
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 21:31:45 +0000
-X-Inumbo-ID: 9d4f690e-340c-4788-bf34-781eb0f3043f
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9d4f690e-340c-4788-bf34-781eb0f3043f;
-	Wed, 28 Oct 2020 21:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1603920703;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=QBnCna8eiqqIPimvDphfSIhfLU6HR9J6WeP6SsXBf/8=;
-  b=eqgKbgA/aeH9gtKby9sjF+g+YVYWg22UDxFMKNqQcz3fD73i/8XRfll6
-   OL41LG1rtKaHpwi4jU51ErEhiW40N0jqqDNc4WtgaR85nipb2eUJ1EU2q
-   xATQAXvFt/QE+Y3RxyGZA9lcnr7elUu9q8a93JnMyOmJ6eIrlFkep7sn3
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: rntssEikuZwN3+9nk0j2xv3y/RbMhIv7b3LnGgSSZjJxkGg26dM0/lnzoppw2dHC8c7R1Zc2cc
- x/9A75bH1n20cooh7ZG1rXe71GiTlatBkVi8J+qMbXJENXAFoF1w/jBJWS0OjElKORCPyIfUsZ
- KrbZ0E5j5LttLC5vXeHVBVlD47dFE6S4kW+8llXnXUEO2cjgjNZstck5c8Us55iASDgvEvByCT
- Xm+nWelSZsSSpUO5L6SfcBRE7tQBiAqseBVR8+5R9gelh67Tx6q6ZB5d143IUfkN0E4/iZ0gn6
- M7M=
-X-SBRS: None
-X-MesageID: 30065052
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,428,1596513600"; 
-   d="scan'208";a="30065052"
-Subject: Re: [PATCH v3] x86/pv: inject #UD for entirely missing SYSCALL
- callbacks
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>
-References: <0e76675b-c549-128e-449f-0c7a4df64f11@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <0ac0f006-c529-2437-4286-62158c2c491b@citrix.com>
-Date: Wed, 28 Oct 2020 21:31:33 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	(envelope-from <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kXvwB-0005ao-0v
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 00:37:07 +0000
+X-Inumbo-ID: 966e97ca-0bed-4ea2-b6bf-fdae3292d422
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 966e97ca-0bed-4ea2-b6bf-fdae3292d422;
+	Thu, 29 Oct 2020 00:37:05 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 531BE20790;
+	Thu, 29 Oct 2020 00:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1603931824;
+	bh=3bwGDs8HGM41Ct8ot2Jb1S53HzcX5PtZz45jl85Gooo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=jEJxpCMNa7H3g+F4u32OyRxqoe5FTJ2TdUHrN82DOsa/dsGzZcMB55Jl2TXVuxX8k
+	 lzJYHvjtn0jSSZDxt/OheixiQmXpe7fGqXBnari+b3im4NA+oEloO7ZTwGCi6GIxwo
+	 qIAfjHEjiPv5AEFI6i2WQVNE965Ikzby2jeDgIYw=
+Date: Wed, 28 Oct 2020 17:37:02 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Elliott Mitchell <ehem+xen@m5p.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    roman@zededa.com, xen-devel@lists.xenproject.org
+Subject: Re: Xen on RP4
+In-Reply-To: <20201028015423.GA33407@mattapan.m5p.com>
+Message-ID: <alpine.DEB.2.21.2010281704250.12247@sstabellini-ThinkPad-T480s>
+References: <20201022021655.GA74011@mattapan.m5p.com> <alpine.DEB.2.21.2010221620230.12247@sstabellini-ThinkPad-T480s> <20201023005629.GA83870@mattapan.m5p.com> <alpine.DEB.2.21.2010221801490.12247@sstabellini-ThinkPad-T480s> <20201023211941.GA90171@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s> <20201024053540.GA97417@mattapan.m5p.com> <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org> <20201026160316.GA20589@mattapan.m5p.com> <7a904044-8206-b45d-8ec2-d4e48b07ea83@xen.org>
+ <20201028015423.GA33407@mattapan.m5p.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <0e76675b-c549-128e-449f-0c7a4df64f11@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Type: text/plain; charset=US-ASCII
 
-On 26/10/2020 09:40, Jan Beulich wrote:
-> In the case that no 64-bit SYSCALL callback is registered, the guest
-> will be crashed when 64-bit userspace executes a SYSCALL instruction,
-> which would be a userspace => kernel DoS.  Similarly for 32-bit
-> userspace when no 32-bit SYSCALL callback was registered either.
+On Tue, 27 Oct 2020, Elliott Mitchell wrote:
+> On Mon, Oct 26, 2020 at 06:44:27PM +0000, Julien Grall wrote:
+> > On 26/10/2020 16:03, Elliott Mitchell wrote:
+> > > On Mon, Oct 26, 2020 at 01:31:42PM +0000, Julien Grall wrote:
+> > >> On 24/10/2020 06:35, Elliott Mitchell wrote:
+> > >>> ACPI has a distinct
+> > >>> means of specifying a limited DMA-width; the above fails, because it
+> > >>> assumes a *device-tree*.
+> > >>
+> > >> Do you know if it would be possible to infer from the ACPI static table
+> > >> the DMA-width?
+> > > 
+> > > Yes, and it is.  Due to not knowing much about ACPI tables I don't know
+> > > what the C code would look like though (problem is which documentation
+> > > should I be looking at first?).
+> > 
+> > What you provided below is an excerpt of the DSDT. AFAIK, DSDT content 
+> > is written in AML. So far the shortest implementation I have seen for 
+> > the AML parser is around 5000 lines (see [1]). It might be possible to 
+> > strip some the code, although I think this will still probably too big 
+> > for a single workaround.
+> > 
+> > What I meant by "static table" is a table that looks like a structure 
+> > and can be parsed in a few lines. If we can't find on contain the DMA 
+> > window, then the next best solution is to find a way to identity the 
+> > platform.
+> > 
+> > I don't know enough ACPI to know if this solution is possible. A good 
+> > starter would probably be the ACPI spec [2].
+> 
+> Okay, that is worse than I had thought (okay, ACPI is impressively
+> complex for something nominally firmware-level).
 >
-> This has been the case ever since the introduction of 64bit PV support,
-> but behaves unlike all other SYSCALL/SYSENTER callbacks in Xen, which
-> yield #GP/#UD in userspace before the callback is registered, and are
-> therefore safe by default.
->
-> This change does constitute a change in the PV ABI, for the corner case
-> of a PV guest kernel not registering a 64-bit callback (which has to be
-> considered a defacto requirement of the unwritten PV ABI, considering
-> there is no PV equivalent of EFER.SCE).
->
-> It brings the behaviour in line with PV32 SYSCALL/SYSENTER, and PV64
-> SYSENTER (safe by default, until explicitly enabled).
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <JBeulich@suse.com>
-> ---
-> v3:
->  * Split this change off of "x86/pv: Inject #UD for missing SYSCALL
->    callbacks", to allow the uncontroversial part of that change to go
->    in. Add conditional "rex64" for UREGS_rip adjustment. (Is branching
->    over just the REX prefix too much trickery even for an unlikely to be
->    taken code path?)
+> There are strings in the present Tianocore implementation for Raspberry
+> PI 4B which could be targeted.  Notably included in the output during
+> boot listing the tables, "RPIFDN", "RPIFDN RPI" and "RPIFDN RPI4" (I'm
+> unsure how kosher these are as this wsn't implemented nor blessed by the
+> Raspberry PI Foundation).
+> 
+> I strongly dislike this approach as you soon turn the Xen project into a
+> database of hardware.  This is already occurring with
+> xen/arch/arm/platforms and I would love to do something about this.  On
+> that thought, how about utilizing Xen's command-line for this purpose?
 
-I find this submission confusion seeing as my v3 is already suitably
-acked and ready to commit.  What I haven't had yet enough free time to
-do so.
+I don't think that a command line option is a good idea: basically it is
+punting to users the task of platform detection. Also, it means that
+users will be necessarily forced to edit the uboot script or grub
+configuration file to boot.
 
-> v2:
->  * Drop unnecessary instruction suffixes
->  * Don't truncate #UD entrypoint to 32 bits
->
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -33,11 +33,27 @@ ENTRY(switch_to_kernel)
->          cmoveq VCPU_syscall32_addr(%rbx),%rax
->          testq %rax,%rax
->          cmovzq VCPU_syscall_addr(%rbx),%rax
-> -        movq  %rax,TRAPBOUNCE_eip(%rdx)
->          /* TB_flags = VGCF_syscall_disables_events ? TBF_INTERRUPT : 0 */
->          btl   $_VGCF_syscall_disables_events,VCPU_guest_context_flags(%rbx)
->          setc  %cl
->          leal  (,%rcx,TBF_INTERRUPT),%ecx
-> +
-> +        test  %rax, %rax
-> +UNLIKELY_START(z, syscall_no_callback) /* TB_eip == 0 => #UD */
-> +        mov   VCPU_trap_ctxt(%rbx), %rdi
-> +        movl  $X86_EXC_UD, UREGS_entry_vector(%rsp)
-> +        cmpw  $FLAT_USER_CS32, UREGS_cs(%rsp)
-> +        je    0f
-> +        rex64                           # subl => subq
-> +0:
-> +        subl  $2, UREGS_rip(%rsp)
+Note that even if we introduced a new command line, we wouldn't take
+away the need for xen/arch/arm/platforms anyway.
 
-There was deliberately not a 32bit sub here (see below).
+It would be far better for Xen to autodetect the platform if we can.
 
-As to the construct, I'm having a hard time deciding whether this is an
-excellent idea, or far too clever for its own good.
 
-Some basic perf testing shows that there is a visible difference in
-execution time of these two paths, which means there is some
-optimisation being missed in the frontend for the 32bit case.  However,
-the difference is tiny in the grand scheme of things (about 0.4%
-difference in aggregate time to execute a loop of this pattern with a
-fixed number of iterations.)
+> Have a procedure of during installation/updates retrieve DMA limitation
+> information from the running OS and the following boot Xen will follow
+> the appropriate setup.  By its nature, Domain 0 will have the information
+> needed, just becomes an issue of how hard that is to retrieve...
 
-However, the 32bit case isn't actually interesting here.  A guest can't
-execute a SYSCALL instruction on/across the 4G->0 boundary because the
-M2P is mapped NX up to the 4G boundary, so we can never reach this point
-with %eip < 2.
+Historically that is what we used to do for many things related to ACPI,
+but unfortunately it leads to a pretty bad architecture where Xen
+depends on Dom0 for booting rather than the other way around. (Dom0
+should be the one requiring Xen for booting, given that Xen is higher
+privilege and boots first.)
 
-Therefore, the 64bit-only form is the appropriate one to use, which
-solves any question of cleverness, or potential decode stalls it causes.
 
-~Andrew
+I think the best compromise is still to use an ACPI string to detect the
+platform. For instance, would it be possible to use the OEMID fields in
+RSDT, XSDT, FADT?  Possibly even a combination of them?
+
+Another option might be to get the platform name from UEFI somehow. 
 
