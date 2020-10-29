@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 222F029E345
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 06:11:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.13909.34874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8BB29E341
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 06:06:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.13983.34862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY0DZ-00015C-38; Thu, 29 Oct 2020 05:11:21 +0000
+	id 1kY07J-0000Bz-7e; Thu, 29 Oct 2020 05:04:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 13909.34874; Thu, 29 Oct 2020 05:11:21 +0000
+Received: by outflank-mailman (output) from mailman id 13983.34862; Thu, 29 Oct 2020 05:04:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,1152 +23,510 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY0DY-00014n-VQ; Thu, 29 Oct 2020 05:11:20 +0000
-Received: by outflank-mailman (input) for mailman id 13909;
- Wed, 28 Oct 2020 21:24:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oQrq=ED=kernel.org=arnd@srs-us1.protection.inumbo.net>)
- id 1kXsvm-0005kI-Bo
- for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 21:24:30 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9af3f642-ca11-4ed2-a90c-9bbbc905eaf1;
- Wed, 28 Oct 2020 21:24:29 +0000 (UTC)
-Received: from localhost.localdomain
- (HSI-KBW-46-223-126-90.hsi.kabel-badenwuerttemberg.de [46.223.126.90])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 06BEB2483B;
- Wed, 28 Oct 2020 21:24:23 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kY07J-0000BM-3p; Thu, 29 Oct 2020 05:04:53 +0000
+Received: by outflank-mailman (input) for mailman id 13983;
+ Thu, 29 Oct 2020 05:04:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=m9Pg=EE=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kY07H-0000Ag-9U
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 05:04:51 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f8a6411-812d-403c-b59c-870e6d6bf810;
+ Thu, 29 Oct 2020 05:04:42 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kY077-0002Kr-T6; Thu, 29 Oct 2020 05:04:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kY077-0006Ch-GW; Thu, 29 Oct 2020 05:04:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kY077-00089K-Fm; Thu, 29 Oct 2020 05:04:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=oQrq=ED=kernel.org=arnd@srs-us1.protection.inumbo.net>)
-	id 1kXsvm-0005kI-Bo
-	for xen-devel@lists.xenproject.org; Wed, 28 Oct 2020 21:24:30 +0000
-X-Inumbo-ID: 9af3f642-ca11-4ed2-a90c-9bbbc905eaf1
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9af3f642-ca11-4ed2-a90c-9bbbc905eaf1;
-	Wed, 28 Oct 2020 21:24:29 +0000 (UTC)
-Received: from localhost.localdomain (HSI-KBW-46-223-126-90.hsi.kabel-badenwuerttemberg.de [46.223.126.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 06BEB2483B;
-	Wed, 28 Oct 2020 21:24:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1603920268;
-	bh=74adyFANoxpq7wwxgmpMM8aBwaDT4mxr2cAgEihSj9Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=MvP2qo5b3UYqtfUKUeJsXhDvEKbg6KvcUe2ioGBxUOnMUqK+rjO34oR0n+DZTzvAr
-	 eYPMX/c7ffNKn1EtNa89mNNH4FodNS1wdrSZ5tR7vIRpA7I9hqvX5vYihUon6OcUcw
-	 DDjF1DjtQS1EZT43SQgk2OJfMP/zjCnOK4DfzDM8=
-From: Arnd Bergmann <arnd@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	iommu@lists.linux-foundation.org
-Subject: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
-Date: Wed, 28 Oct 2020 22:20:54 +0100
-Message-Id: <20201028212417.3715575-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
+	(envelope-from <SRS0=m9Pg=EE=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kY07H-0000Ag-9U
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 05:04:51 +0000
+X-Inumbo-ID: 4f8a6411-812d-403c-b59c-870e6d6bf810
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 4f8a6411-812d-403c-b59c-870e6d6bf810;
+	Thu, 29 Oct 2020 05:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qPpn9bumYdpDEwxCkn5FFNIQh5tgfzywDJzVzuw149A=; b=nbRTP/aN97VPAYBv5b6qzycJ+B
+	1Ax1kTXBD1Zv0PRLNA640E9mcKXWVHLmhV3d1RVFz2o0n7u46YNwne8upTXT9Fkjk+WvMlUS2z8M6
+	QRHXwtfZKeNgMI6hMrjdnLWP+ZuQRXUKNKJKd842drpZBp6VZEQF7QWX68D0hx8mzeoQ=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kY077-0002Kr-T6; Thu, 29 Oct 2020 05:04:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kY077-0006Ch-GW; Thu, 29 Oct 2020 05:04:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kY077-00089K-Fm; Thu, 29 Oct 2020 05:04:41 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156267-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 156267: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=725ca3313a5b9cbef89eaa1c728567684f37990a
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Oct 2020 05:04:41 +0000
 
-From: Arnd Bergmann <arnd@arndb.de>
+flight 156267 qemu-mainline real [real]
+flight 156286 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156267/
+http://logs.test-lab.xenproject.org/osstest/logs/156286/
 
-There are hundreds of warnings in a W=2 build about a local
-variable shadowing the global 'apic' definition:
+Regressions :-(
 
-arch/x86/kvm/lapic.h:149:65: warning: declaration of 'apic' shadows a global declaration [-Wshadow]
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 152631
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 152631
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
 
-Avoid this by renaming the global 'apic' variable to the more descriptive
-'x86_system_apic'. It was originally called 'genapic', but both that
-and the current 'apic' seem to be a little overly generic for a global
-variable.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Fixes: c48f14966cc4 ("KVM: inline kvm_apic_present() and kvm_lapic_enabled()")
-Fixes: c8d46cf06dc2 ("x86: rename 'genapic' to 'apic'")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-v2: rename the global instead of the local variable in the header
+version targeted for testing:
+ qemuu                725ca3313a5b9cbef89eaa1c728567684f37990a
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
-This is only tested in an allmodconfig build, after fixing up a
-few mistakes in the original search&replace. It's likely that I
-missed a few others, but this version should be sufficient to
-decide whether this is a good idea in the first place, as well
-as if there are better ideas for the new name.
----
- arch/x86/hyperv/hv_apic.c             | 24 ++++++++++++------------
- arch/x86/hyperv/hv_spinlock.c         |  4 ++--
- arch/x86/include/asm/apic.h           | 18 +++++++++---------
- arch/x86/kernel/acpi/boot.c           |  2 +-
- arch/x86/kernel/apic/apic.c           | 18 +++++++++---------
- arch/x86/kernel/apic/apic_flat_64.c   |  8 ++++----
- arch/x86/kernel/apic/apic_numachip.c  |  4 ++--
- arch/x86/kernel/apic/bigsmp_32.c      |  2 +-
- arch/x86/kernel/apic/hw_nmi.c         |  2 +-
- arch/x86/kernel/apic/io_apic.c        | 19 ++++++++++---------
- arch/x86/kernel/apic/ipi.c            | 22 +++++++++++-----------
- arch/x86/kernel/apic/msi.c            |  2 +-
- arch/x86/kernel/apic/probe_32.c       | 20 ++++++++++----------
- arch/x86/kernel/apic/probe_64.c       | 12 ++++++------
- arch/x86/kernel/apic/vector.c         |  8 ++++----
- arch/x86/kernel/apic/x2apic_cluster.c |  3 ++-
- arch/x86/kernel/apic/x2apic_phys.c    |  2 +-
- arch/x86/kernel/apic/x2apic_uv_x.c    |  2 +-
- arch/x86/kernel/cpu/common.c          | 14 ++++++++------
- arch/x86/kernel/cpu/mce/inject.c      |  4 ++--
- arch/x86/kernel/cpu/topology.c        |  8 ++++----
- arch/x86/kernel/irq_work.c            |  2 +-
- arch/x86/kernel/kvm.c                 |  6 +++---
- arch/x86/kernel/nmi_selftest.c        |  2 +-
- arch/x86/kernel/smpboot.c             | 20 +++++++++++---------
- arch/x86/kernel/vsmp_64.c             |  2 +-
- arch/x86/kvm/vmx/vmx.c                |  2 +-
- arch/x86/mm/srat.c                    |  2 +-
- arch/x86/platform/uv/uv_irq.c         |  4 ++--
- arch/x86/platform/uv/uv_nmi.c         |  2 +-
- arch/x86/xen/apic.c                   |  8 ++++----
- drivers/iommu/amd/iommu.c             | 10 ++++++----
- drivers/iommu/intel/irq_remapping.c   |  4 ++--
- 33 files changed, 135 insertions(+), 127 deletions(-)
+Last test of basis   152631  2020-08-20 09:07:46 Z   69 days
+Failing since        152659  2020-08-21 14:07:39 Z   68 days  158 attempts
+Testing same since   156267  2020-10-27 21:37:56 Z    1 days    1 attempts
 
-diff --git a/arch/x86/hyperv/hv_apic.c b/arch/x86/hyperv/hv_apic.c
-index 284e73661a18..33e2dc78ca11 100644
---- a/arch/x86/hyperv/hv_apic.c
-+++ b/arch/x86/hyperv/hv_apic.c
-@@ -259,14 +259,14 @@ void __init hv_apic_init(void)
- 		/*
- 		 * Set the IPI entry points.
- 		 */
--		orig_apic = *apic;
--
--		apic->send_IPI = hv_send_ipi;
--		apic->send_IPI_mask = hv_send_ipi_mask;
--		apic->send_IPI_mask_allbutself = hv_send_ipi_mask_allbutself;
--		apic->send_IPI_allbutself = hv_send_ipi_allbutself;
--		apic->send_IPI_all = hv_send_ipi_all;
--		apic->send_IPI_self = hv_send_ipi_self;
-+		orig_apic = *x86_system_apic;
-+
-+		x86_system_apic->send_IPI = hv_send_ipi;
-+		x86_system_apic->send_IPI_mask = hv_send_ipi_mask;
-+		x86_system_apic->send_IPI_mask_allbutself = hv_send_ipi_mask_allbutself;
-+		x86_system_apic->send_IPI_allbutself = hv_send_ipi_allbutself;
-+		x86_system_apic->send_IPI_all = hv_send_ipi_all;
-+		x86_system_apic->send_IPI_self = hv_send_ipi_self;
- 	}
- 
- 	if (ms_hyperv.hints & HV_X64_APIC_ACCESS_RECOMMENDED) {
-@@ -285,10 +285,10 @@ void __init hv_apic_init(void)
- 		 */
- 		apic_set_eoi_write(hv_apic_eoi_write);
- 		if (!x2apic_enabled()) {
--			apic->read      = hv_apic_read;
--			apic->write     = hv_apic_write;
--			apic->icr_write = hv_apic_icr_write;
--			apic->icr_read  = hv_apic_icr_read;
-+			x86_system_apic->read      = hv_apic_read;
-+			x86_system_apic->write     = hv_apic_write;
-+			x86_system_apic->icr_write = hv_apic_icr_write;
-+			x86_system_apic->icr_read  = hv_apic_icr_read;
- 		}
- 	}
- }
-diff --git a/arch/x86/hyperv/hv_spinlock.c b/arch/x86/hyperv/hv_spinlock.c
-index f3270c1fc48c..03c8ac56b430 100644
---- a/arch/x86/hyperv/hv_spinlock.c
-+++ b/arch/x86/hyperv/hv_spinlock.c
-@@ -20,7 +20,7 @@ static bool __initdata hv_pvspin = true;
- 
- static void hv_qlock_kick(int cpu)
- {
--	apic->send_IPI(cpu, X86_PLATFORM_IPI_VECTOR);
-+	x86_system_apic->send_IPI(cpu, X86_PLATFORM_IPI_VECTOR);
- }
- 
- static void hv_qlock_wait(u8 *byte, u8 val)
-@@ -64,7 +64,7 @@ PV_CALLEE_SAVE_REGS_THUNK(hv_vcpu_is_preempted);
- 
- void __init hv_init_spinlocks(void)
- {
--	if (!hv_pvspin || !apic ||
-+	if (!hv_pvspin || !x86_system_apic ||
- 	    !(ms_hyperv.hints & HV_X64_CLUSTER_IPI_RECOMMENDED) ||
- 	    !(ms_hyperv.features & HV_MSR_GUEST_IDLE_AVAILABLE)) {
- 		pr_info("PV spinlocks disabled\n");
-diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index 4e3099d9ae62..43a30083af45 100644
---- a/arch/x86/include/asm/apic.h
-+++ b/arch/x86/include/asm/apic.h
-@@ -361,7 +361,7 @@ struct apic {
-  * always just one such driver in use - the kernel decides via an
-  * early probing process which one it picks - and then sticks to it):
-  */
--extern struct apic *apic;
-+extern struct apic *x86_system_apic;
- 
- /*
-  * APIC drivers are probed based on how they are listed in the .apicdrivers
-@@ -395,37 +395,37 @@ extern int lapic_can_unplug_cpu(void);
- 
- static inline u32 apic_read(u32 reg)
- {
--	return apic->read(reg);
-+	return x86_system_apic->read(reg);
- }
- 
- static inline void apic_write(u32 reg, u32 val)
- {
--	apic->write(reg, val);
-+	x86_system_apic->write(reg, val);
- }
- 
- static inline void apic_eoi(void)
- {
--	apic->eoi_write(APIC_EOI, APIC_EOI_ACK);
-+	x86_system_apic->eoi_write(APIC_EOI, APIC_EOI_ACK);
- }
- 
- static inline u64 apic_icr_read(void)
- {
--	return apic->icr_read();
-+	return x86_system_apic->icr_read();
- }
- 
- static inline void apic_icr_write(u32 low, u32 high)
- {
--	apic->icr_write(low, high);
-+	x86_system_apic->icr_write(low, high);
- }
- 
- static inline void apic_wait_icr_idle(void)
- {
--	apic->wait_icr_idle();
-+	x86_system_apic->wait_icr_idle();
- }
- 
- static inline u32 safe_apic_wait_icr_idle(void)
- {
--	return apic->safe_wait_icr_idle();
-+	return x86_system_apic->safe_wait_icr_idle();
- }
- 
- extern void __init apic_set_eoi_write(void (*eoi_write)(u32 reg, u32 v));
-@@ -494,7 +494,7 @@ static inline unsigned int read_apic_id(void)
- {
- 	unsigned int reg = apic_read(APIC_ID);
- 
--	return apic->get_apic_id(reg);
-+	return x86_system_apic->get_apic_id(reg);
- }
- 
- extern int default_apic_id_valid(u32 apicid);
-diff --git a/arch/x86/kernel/acpi/boot.c b/arch/x86/kernel/acpi/boot.c
-index 7bdc0239a943..5e522cbc88dc 100644
---- a/arch/x86/kernel/acpi/boot.c
-+++ b/arch/x86/kernel/acpi/boot.c
-@@ -211,7 +211,7 @@ acpi_parse_x2apic(union acpi_subtable_headers *header, const unsigned long end)
- 	 * to not preallocating memory for all NR_CPUS
- 	 * when we use CPU hotplug.
- 	 */
--	if (!apic->apic_id_valid(apic_id)) {
-+	if (!x86_system_apic->apic_id_valid(apic_id)) {
- 		if (enabled)
- 			pr_warn(PREFIX "x2apic entry ignored\n");
- 		return 0;
-diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-index b3eef1d5c903..df9310b3cf0d 100644
---- a/arch/x86/kernel/apic/apic.c
-+++ b/arch/x86/kernel/apic/apic.c
-@@ -241,7 +241,7 @@ static int modern_apic(void)
- static void __init apic_disable(void)
- {
- 	pr_info("APIC: switched to apic NOOP\n");
--	apic = &apic_noop;
-+	x86_system_apic = &apic_noop;
- }
- 
- void native_apic_wait_icr_idle(void)
-@@ -519,7 +519,7 @@ static int lapic_timer_set_oneshot(struct clock_event_device *evt)
- static void lapic_timer_broadcast(const struct cpumask *mask)
- {
- #ifdef CONFIG_SMP
--	apic->send_IPI_mask(mask, LOCAL_TIMER_VECTOR);
-+	x86_system_apic->send_IPI_mask(mask, LOCAL_TIMER_VECTOR);
- #endif
- }
- 
-@@ -1444,7 +1444,7 @@ static void lapic_setup_esr(void)
- 		return;
- 	}
- 
--	if (apic->disable_esr) {
-+	if (x86_system_apic->disable_esr) {
- 		/*
- 		 * Something untraceable is creating bad interrupts on
- 		 * secondary quads ... for the moment, just leave the
-@@ -1570,7 +1570,7 @@ static void setup_local_APIC(void)
- 
- #ifdef CONFIG_X86_32
- 	/* Pound the ESR really hard over the head with a big hammer - mbligh */
--	if (lapic_is_integrated() && apic->disable_esr) {
-+	if (lapic_is_integrated() && x86_system_apic->disable_esr) {
- 		apic_write(APIC_ESR, 0);
- 		apic_write(APIC_ESR, 0);
- 		apic_write(APIC_ESR, 0);
-@@ -1581,17 +1581,17 @@ static void setup_local_APIC(void)
- 	 * Double-check whether this APIC is really registered.
- 	 * This is meaningless in clustered apic mode, so we skip it.
- 	 */
--	BUG_ON(!apic->apic_id_registered());
-+	BUG_ON(!x86_system_apic->apic_id_registered());
- 
- 	/*
- 	 * Intel recommends to set DFR, LDR and TPR before enabling
- 	 * an APIC.  See e.g. "AP-388 82489DX User's Manual" (Intel
- 	 * document number 292116).  So here it goes...
- 	 */
--	apic->init_apic_ldr();
-+	x86_system_apic->init_apic_ldr();
- 
- #ifdef CONFIG_X86_32
--	if (apic->dest_logical) {
-+	if (x86_system_apic->dest_logical) {
- 		int logical_apicid, ldr_apicid;
- 
- 		/*
-@@ -2463,7 +2463,7 @@ int generic_processor_info(int apicid, int version)
- #endif
- #ifdef CONFIG_X86_32
- 	early_per_cpu(x86_cpu_to_logical_apicid, cpu) =
--		apic->x86_32_early_logical_apicid(cpu);
-+		x86_system_apic->x86_32_early_logical_apicid(cpu);
- #endif
- 	set_cpu_possible(cpu, true);
- 	physid_set(apicid, phys_cpu_present_map);
-@@ -2499,7 +2499,7 @@ void __init apic_set_eoi_write(void (*eoi_write)(u32 reg, u32 v))
- static void __init apic_bsp_up_setup(void)
- {
- #ifdef CONFIG_X86_64
--	apic_write(APIC_ID, apic->set_apic_id(boot_cpu_physical_apicid));
-+	apic_write(APIC_ID, x86_system_apic->set_apic_id(boot_cpu_physical_apicid));
- #else
- 	/*
- 	 * Hack: In case of kdump, after a crash, kernel might be booting
-diff --git a/arch/x86/kernel/apic/apic_flat_64.c b/arch/x86/kernel/apic/apic_flat_64.c
-index 7862b152a052..f8b38e712f7d 100644
---- a/arch/x86/kernel/apic/apic_flat_64.c
-+++ b/arch/x86/kernel/apic/apic_flat_64.c
-@@ -20,8 +20,8 @@
- static struct apic apic_physflat;
- static struct apic apic_flat;
- 
--struct apic *apic __ro_after_init = &apic_flat;
--EXPORT_SYMBOL_GPL(apic);
-+struct apic *x86_system_apic __ro_after_init = &apic_flat;
-+EXPORT_SYMBOL_GPL(x86_system_apic);
- 
- static int flat_acpi_madt_oem_check(char *oem_id, char *oem_table_id)
- {
-@@ -53,7 +53,7 @@ static void _flat_send_IPI_mask(unsigned long mask, int vector)
- 	unsigned long flags;
- 
- 	local_irq_save(flags);
--	__default_send_IPI_dest_field(mask, vector, apic->dest_logical);
-+	__default_send_IPI_dest_field(mask, vector, x86_system_apic->dest_logical);
- 	local_irq_restore(flags);
- }
- 
-@@ -191,7 +191,7 @@ static void physflat_init_apic_ldr(void)
- 
- static int physflat_probe(void)
- {
--	if (apic == &apic_physflat || num_possible_cpus() > 8 ||
-+	if (x86_system_apic == &apic_physflat || num_possible_cpus() > 8 ||
- 	    jailhouse_paravirt())
- 		return 1;
- 
-diff --git a/arch/x86/kernel/apic/apic_numachip.c b/arch/x86/kernel/apic/apic_numachip.c
-index 35edd57f064a..496af13cfe49 100644
---- a/arch/x86/kernel/apic/apic_numachip.c
-+++ b/arch/x86/kernel/apic/apic_numachip.c
-@@ -159,12 +159,12 @@ static void numachip_send_IPI_self(int vector)
- 
- static int __init numachip1_probe(void)
- {
--	return apic == &apic_numachip1;
-+	return x86_system_apic == &apic_numachip1;
- }
- 
- static int __init numachip2_probe(void)
- {
--	return apic == &apic_numachip2;
-+	return x86_system_apic == &apic_numachip2;
- }
- 
- static void fixup_cpu_id(struct cpuinfo_x86 *c, int node)
-diff --git a/arch/x86/kernel/apic/bigsmp_32.c b/arch/x86/kernel/apic/bigsmp_32.c
-index 98d015a4405a..87e2a1a80964 100644
---- a/arch/x86/kernel/apic/bigsmp_32.c
-+++ b/arch/x86/kernel/apic/bigsmp_32.c
-@@ -176,7 +176,7 @@ void __init generic_bigsmp_probe(void)
- 	if (!probe_bigsmp())
- 		return;
- 
--	apic = &apic_bigsmp;
-+	x86_system_apic = &apic_bigsmp;
- 
- 	for_each_possible_cpu(cpu) {
- 		if (early_per_cpu(x86_cpu_to_logical_apicid,
-diff --git a/arch/x86/kernel/apic/hw_nmi.c b/arch/x86/kernel/apic/hw_nmi.c
-index 34a992e275ef..ca2f74d52653 100644
---- a/arch/x86/kernel/apic/hw_nmi.c
-+++ b/arch/x86/kernel/apic/hw_nmi.c
-@@ -31,7 +31,7 @@ u64 hw_nmi_get_sample_period(int watchdog_thresh)
- #ifdef arch_trigger_cpumask_backtrace
- static void nmi_raise_cpu_backtrace(cpumask_t *mask)
- {
--	apic->send_IPI_mask(mask, NMI_VECTOR);
-+	x86_system_apic->send_IPI_mask(mask, NMI_VECTOR);
- }
- 
- void arch_trigger_cpumask_backtrace(const cpumask_t *mask, bool exclude_self)
-diff --git a/arch/x86/kernel/apic/io_apic.c b/arch/x86/kernel/apic/io_apic.c
-index 7b3c7e0d4a09..0ec96c77ae63 100644
---- a/arch/x86/kernel/apic/io_apic.c
-+++ b/arch/x86/kernel/apic/io_apic.c
-@@ -1457,7 +1457,7 @@ void __init setup_ioapic_ids_from_mpc_nocheck(void)
- 	 * This is broken; anything with a real cpu count has to
- 	 * circumvent this idiocy regardless.
- 	 */
--	apic->ioapic_phys_id_map(&phys_cpu_present_map, &phys_id_present_map);
-+	x86_system_apic->ioapic_phys_id_map(&phys_cpu_present_map, &phys_id_present_map);
- 
- 	/*
- 	 * Set the IOAPIC ID to the value stored in the MPC table.
-@@ -1483,7 +1483,7 @@ void __init setup_ioapic_ids_from_mpc_nocheck(void)
- 		 * system must have a unique ID or we get lots of nice
- 		 * 'stuck on smp_invalidate_needed IPI wait' messages.
- 		 */
--		if (apic->check_apicid_used(&phys_id_present_map,
-+		if (x86_system_apic->check_apicid_used(&phys_id_present_map,
- 					    mpc_ioapic_id(ioapic_idx))) {
- 			printk(KERN_ERR "BIOS bug, IO-APIC#%d ID %d is already used!...\n",
- 				ioapic_idx, mpc_ioapic_id(ioapic_idx));
-@@ -1498,7 +1498,7 @@ void __init setup_ioapic_ids_from_mpc_nocheck(void)
- 			ioapics[ioapic_idx].mp_config.apicid = i;
- 		} else {
- 			physid_mask_t tmp;
--			apic->apicid_to_cpu_present(mpc_ioapic_id(ioapic_idx),
-+			x86_system_apic->apicid_to_cpu_present(mpc_ioapic_id(ioapic_idx),
- 						    &tmp);
- 			apic_printk(APIC_VERBOSE, "Setting %d in the "
- 					"phys_id_present_map\n",
-@@ -2462,7 +2462,8 @@ static int io_apic_get_unique_id(int ioapic, int apic_id)
- 	 */
- 
- 	if (physids_empty(apic_id_map))
--		apic->ioapic_phys_id_map(&phys_cpu_present_map, &apic_id_map);
-+		x86_system_apic->ioapic_phys_id_map(&phys_cpu_present_map,
-+						    &apic_id_map);
- 
- 	raw_spin_lock_irqsave(&ioapic_lock, flags);
- 	reg_00.raw = io_apic_read(ioapic, 0);
-@@ -2478,10 +2479,10 @@ static int io_apic_get_unique_id(int ioapic, int apic_id)
- 	 * Every APIC in a system must have a unique ID or we get lots of nice
- 	 * 'stuck on smp_invalidate_needed IPI wait' messages.
- 	 */
--	if (apic->check_apicid_used(&apic_id_map, apic_id)) {
-+	if (x86_system_apic->check_apicid_used(&apic_id_map, apic_id)) {
- 
- 		for (i = 0; i < get_physical_broadcast(); i++) {
--			if (!apic->check_apicid_used(&apic_id_map, i))
-+			if (!x86_system_apic->check_apicid_used(&apic_id_map, i))
- 				break;
- 		}
- 
-@@ -2494,7 +2495,7 @@ static int io_apic_get_unique_id(int ioapic, int apic_id)
- 		apic_id = i;
- 	}
- 
--	apic->apicid_to_cpu_present(apic_id, &tmp);
-+	x86_system_apic->apicid_to_cpu_present(apic_id, &tmp);
- 	physids_or(apic_id_map, apic_id_map, tmp);
- 
- 	if (reg_00.bits.ID != apic_id) {
-@@ -2948,8 +2949,8 @@ static void mp_setup_entry(struct irq_cfg *cfg, struct mp_chip_data *data,
- 			   struct IO_APIC_route_entry *entry)
- {
- 	memset(entry, 0, sizeof(*entry));
--	entry->delivery_mode = apic->irq_delivery_mode;
--	entry->dest_mode     = apic->irq_dest_mode;
-+	entry->delivery_mode = x86_system_apic->irq_delivery_mode;
-+	entry->dest_mode     = x86_system_apic->irq_dest_mode;
- 	entry->dest	     = cfg->dest_apicid;
- 	entry->vector	     = cfg->vector;
- 	entry->trigger	     = data->trigger;
-diff --git a/arch/x86/kernel/apic/ipi.c b/arch/x86/kernel/apic/ipi.c
-index 387154e39e08..96e942c3a4a6 100644
---- a/arch/x86/kernel/apic/ipi.c
-+++ b/arch/x86/kernel/apic/ipi.c
-@@ -52,9 +52,9 @@ void apic_send_IPI_allbutself(unsigned int vector)
- 		return;
- 
- 	if (static_branch_likely(&apic_use_ipi_shorthand))
--		apic->send_IPI_allbutself(vector);
-+		x86_system_apic->send_IPI_allbutself(vector);
- 	else
--		apic->send_IPI_mask_allbutself(cpu_online_mask, vector);
-+		x86_system_apic->send_IPI_mask_allbutself(cpu_online_mask, vector);
- }
- 
- /*
-@@ -68,12 +68,12 @@ void native_smp_send_reschedule(int cpu)
- 		WARN(1, "sched: Unexpected reschedule of offline CPU#%d!\n", cpu);
- 		return;
- 	}
--	apic->send_IPI(cpu, RESCHEDULE_VECTOR);
-+	x86_system_apic->send_IPI(cpu, RESCHEDULE_VECTOR);
- }
- 
- void native_send_call_func_single_ipi(int cpu)
- {
--	apic->send_IPI(cpu, CALL_FUNCTION_SINGLE_VECTOR);
-+	x86_system_apic->send_IPI(cpu, CALL_FUNCTION_SINGLE_VECTOR);
- }
- 
- void native_send_call_func_ipi(const struct cpumask *mask)
-@@ -85,14 +85,14 @@ void native_send_call_func_ipi(const struct cpumask *mask)
- 			goto sendmask;
- 
- 		if (cpumask_test_cpu(cpu, mask))
--			apic->send_IPI_all(CALL_FUNCTION_VECTOR);
-+			x86_system_apic->send_IPI_all(CALL_FUNCTION_VECTOR);
- 		else if (num_online_cpus() > 1)
--			apic->send_IPI_allbutself(CALL_FUNCTION_VECTOR);
-+			x86_system_apic->send_IPI_allbutself(CALL_FUNCTION_VECTOR);
- 		return;
- 	}
- 
- sendmask:
--	apic->send_IPI_mask(mask, CALL_FUNCTION_VECTOR);
-+	x86_system_apic->send_IPI_mask(mask, CALL_FUNCTION_VECTOR);
- }
- 
- #endif /* CONFIG_SMP */
-@@ -224,7 +224,7 @@ void default_send_IPI_mask_allbutself_phys(const struct cpumask *mask,
-  */
- void default_send_IPI_single(int cpu, int vector)
- {
--	apic->send_IPI_mask(cpumask_of(cpu), vector);
-+	x86_system_apic->send_IPI_mask(cpumask_of(cpu), vector);
- }
- 
- void default_send_IPI_allbutself(int vector)
-@@ -260,7 +260,7 @@ void default_send_IPI_mask_sequence_logical(const struct cpumask *mask,
- 	for_each_cpu(query_cpu, mask)
- 		__default_send_IPI_dest_field(
- 			early_per_cpu(x86_cpu_to_logical_apicid, query_cpu),
--			vector, apic->dest_logical);
-+			vector, x86_system_apic->dest_logical);
- 	local_irq_restore(flags);
- }
- 
-@@ -279,7 +279,7 @@ void default_send_IPI_mask_allbutself_logical(const struct cpumask *mask,
- 			continue;
- 		__default_send_IPI_dest_field(
- 			early_per_cpu(x86_cpu_to_logical_apicid, query_cpu),
--			vector, apic->dest_logical);
-+			vector, x86_system_apic->dest_logical);
- 		}
- 	local_irq_restore(flags);
- }
-@@ -297,7 +297,7 @@ void default_send_IPI_mask_logical(const struct cpumask *cpumask, int vector)
- 
- 	local_irq_save(flags);
- 	WARN_ON(mask & ~cpumask_bits(cpu_online_mask)[0]);
--	__default_send_IPI_dest_field(mask, vector, apic->dest_logical);
-+	__default_send_IPI_dest_field(mask, vector, x86_system_apic->dest_logical);
- 	local_irq_restore(flags);
- }
- 
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 6313f0a05db7..5ccbd288841a 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -32,7 +32,7 @@ static void __irq_msi_compose_msg(struct irq_cfg *cfg, struct msi_msg *msg)
- 
- 	msg->address_lo =
- 		MSI_ADDR_BASE_LO |
--		((apic->irq_dest_mode == 0) ?
-+		((x86_system_apic->irq_dest_mode == 0) ?
- 			MSI_ADDR_DEST_MODE_PHYSICAL :
- 			MSI_ADDR_DEST_MODE_LOGICAL) |
- 		MSI_ADDR_REDIRECTION_CPU |
-diff --git a/arch/x86/kernel/apic/probe_32.c b/arch/x86/kernel/apic/probe_32.c
-index 67b6f7c049ec..c007d4c130ab 100644
---- a/arch/x86/kernel/apic/probe_32.c
-+++ b/arch/x86/kernel/apic/probe_32.c
-@@ -113,8 +113,8 @@ static struct apic apic_default __ro_after_init = {
- 
- apic_driver(apic_default);
- 
--struct apic *apic __ro_after_init = &apic_default;
--EXPORT_SYMBOL_GPL(apic);
-+struct apic *x86_system_apic __ro_after_init = &apic_default;
-+EXPORT_SYMBOL_GPL(x86_system_apic);
- 
- static int cmdline_apic __initdata;
- static int __init parse_apic(char *arg)
-@@ -126,7 +126,7 @@ static int __init parse_apic(char *arg)
- 
- 	for (drv = __apicdrivers; drv < __apicdrivers_end; drv++) {
- 		if (!strcmp((*drv)->name, arg)) {
--			apic = *drv;
-+			x86_system_apic = *drv;
- 			cmdline_apic = 1;
- 			return 0;
- 		}
-@@ -164,12 +164,12 @@ void __init default_setup_apic_routing(void)
- 	 * - we find more than 8 CPUs in acpi LAPIC listing with xAPIC support
- 	 */
- 
--	if (!cmdline_apic && apic == &apic_default)
-+	if (!cmdline_apic && x86_system_apic == &apic_default)
- 		generic_bigsmp_probe();
- #endif
- 
--	if (apic->setup_apic_routing)
--		apic->setup_apic_routing();
-+	if (x86_system_apic->setup_apic_routing)
-+		x86_system_apic->setup_apic_routing();
- }
- 
- void __init generic_apic_probe(void)
-@@ -179,7 +179,7 @@ void __init generic_apic_probe(void)
- 
- 		for (drv = __apicdrivers; drv < __apicdrivers_end; drv++) {
- 			if ((*drv)->probe()) {
--				apic = *drv;
-+				x86_system_apic = *drv;
- 				break;
- 			}
- 		}
-@@ -187,7 +187,7 @@ void __init generic_apic_probe(void)
- 		if (drv == __apicdrivers_end)
- 			panic("Didn't find an APIC driver");
- 	}
--	printk(KERN_INFO "Using APIC driver %s\n", apic->name);
-+	printk(KERN_INFO "Using APIC driver %s\n", x86_system_apic->name);
- }
- 
- /* This function can switch the APIC even after the initial ->probe() */
-@@ -202,9 +202,9 @@ int __init default_acpi_madt_oem_check(char *oem_id, char *oem_table_id)
- 			continue;
- 
- 		if (!cmdline_apic) {
--			apic = *drv;
-+			x86_system_apic = *drv;
- 			printk(KERN_INFO "Switched to APIC driver `%s'.\n",
--			       apic->name);
-+			       x86_system_apic->name);
- 		}
- 		return 1;
- 	}
-diff --git a/arch/x86/kernel/apic/probe_64.c b/arch/x86/kernel/apic/probe_64.c
-index c46720f185c0..280c1e755cef 100644
---- a/arch/x86/kernel/apic/probe_64.c
-+++ b/arch/x86/kernel/apic/probe_64.c
-@@ -24,10 +24,10 @@ void __init default_setup_apic_routing(void)
- 
- 	for (drv = __apicdrivers; drv < __apicdrivers_end; drv++) {
- 		if ((*drv)->probe && (*drv)->probe()) {
--			if (apic != *drv) {
--				apic = *drv;
-+			if (x86_system_apic != *drv) {
-+				x86_system_apic = *drv;
- 				pr_info("Switched APIC routing to %s.\n",
--					apic->name);
-+					x86_system_apic->name);
- 			}
- 			break;
- 		}
-@@ -40,10 +40,10 @@ int __init default_acpi_madt_oem_check(char *oem_id, char *oem_table_id)
- 
- 	for (drv = __apicdrivers; drv < __apicdrivers_end; drv++) {
- 		if ((*drv)->acpi_madt_oem_check(oem_id, oem_table_id)) {
--			if (apic != *drv) {
--				apic = *drv;
-+			if (x86_system_apic != *drv) {
-+				x86_system_apic = *drv;
- 				pr_info("Setting APIC routing to %s.\n",
--					apic->name);
-+					x86_system_apic->name);
- 			}
- 			return 1;
- 		}
-diff --git a/arch/x86/kernel/apic/vector.c b/arch/x86/kernel/apic/vector.c
-index 1eac53632786..f6c6cbb592e9 100644
---- a/arch/x86/kernel/apic/vector.c
-+++ b/arch/x86/kernel/apic/vector.c
-@@ -122,7 +122,7 @@ static void apic_update_irq_cfg(struct irq_data *irqd, unsigned int vector,
- 	lockdep_assert_held(&vector_lock);
- 
- 	apicd->hw_irq_cfg.vector = vector;
--	apicd->hw_irq_cfg.dest_apicid = apic->calc_dest_apicid(cpu);
-+	apicd->hw_irq_cfg.dest_apicid = x86_system_apic->calc_dest_apicid(cpu);
- 	irq_data_update_effective_affinity(irqd, cpumask_of(cpu));
- 	trace_vector_config(irqd->irq, vector, cpu,
- 			    apicd->hw_irq_cfg.dest_apicid);
-@@ -800,7 +800,7 @@ static int apic_retrigger_irq(struct irq_data *irqd)
- 	unsigned long flags;
- 
- 	raw_spin_lock_irqsave(&vector_lock, flags);
--	apic->send_IPI(apicd->cpu, apicd->vector);
-+	x86_system_apic->send_IPI(apicd->cpu, apicd->vector);
- 	raw_spin_unlock_irqrestore(&vector_lock, flags);
- 
- 	return 1;
-@@ -876,7 +876,7 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_irq_move_cleanup)
- 		 */
- 		irr = apic_read(APIC_IRR + (vector / 32 * 0x10));
- 		if (irr & (1U << (vector % 32))) {
--			apic->send_IPI_self(IRQ_MOVE_CLEANUP_VECTOR);
-+			x86_system_apic->send_IPI_self(IRQ_MOVE_CLEANUP_VECTOR);
- 			continue;
- 		}
- 		free_moved_vector(apicd);
-@@ -894,7 +894,7 @@ static void __send_cleanup_vector(struct apic_chip_data *apicd)
- 	cpu = apicd->prev_cpu;
- 	if (cpu_online(cpu)) {
- 		hlist_add_head(&apicd->clist, per_cpu_ptr(&cleanup_list, cpu));
--		apic->send_IPI(cpu, IRQ_MOVE_CLEANUP_VECTOR);
-+		x86_system_apic->send_IPI(cpu, IRQ_MOVE_CLEANUP_VECTOR);
- 	} else {
- 		apicd->prev_vector = 0;
- 	}
-diff --git a/arch/x86/kernel/apic/x2apic_cluster.c b/arch/x86/kernel/apic/x2apic_cluster.c
-index b0889c48a2ac..459e5b78edd5 100644
---- a/arch/x86/kernel/apic/x2apic_cluster.c
-+++ b/arch/x86/kernel/apic/x2apic_cluster.c
-@@ -61,7 +61,8 @@ __x2apic_send_IPI_mask(const struct cpumask *mask, int vector, int apic_dest)
- 		if (!dest)
- 			continue;
- 
--		__x2apic_send_IPI_dest(dest, vector, apic->dest_logical);
-+		__x2apic_send_IPI_dest(dest, vector,
-+				       x86_system_apic->dest_logical);
- 		/* Remove cluster CPUs from tmpmask */
- 		cpumask_andnot(tmpmsk, tmpmsk, &cmsk->mask);
- 	}
-diff --git a/arch/x86/kernel/apic/x2apic_phys.c b/arch/x86/kernel/apic/x2apic_phys.c
-index bc9693841353..d4f8fa6cc67c 100644
---- a/arch/x86/kernel/apic/x2apic_phys.c
-+++ b/arch/x86/kernel/apic/x2apic_phys.c
-@@ -92,7 +92,7 @@ static int x2apic_phys_probe(void)
- 	if (x2apic_mode && (x2apic_phys || x2apic_fadt_phys()))
- 		return 1;
- 
--	return apic == &apic_x2apic_phys;
-+	return x86_system_apic == &apic_x2apic_phys;
- }
- 
- /* Common x2apic functions, also used by x2apic_cluster */
-diff --git a/arch/x86/kernel/apic/x2apic_uv_x.c b/arch/x86/kernel/apic/x2apic_uv_x.c
-index 714233cee0b5..9038db84d567 100644
---- a/arch/x86/kernel/apic/x2apic_uv_x.c
-+++ b/arch/x86/kernel/apic/x2apic_uv_x.c
-@@ -796,7 +796,7 @@ static void uv_send_IPI_self(int vector)
- 
- static int uv_probe(void)
- {
--	return apic == &apic_x2apic_uv_x;
-+	return x86_system_apic == &apic_x2apic_uv_x;
- }
- 
- static struct apic apic_x2apic_uv_x __ro_after_init = {
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 35ad8480c464..178817fda45e 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -780,7 +780,8 @@ void detect_ht(struct cpuinfo_x86 *c)
- 		return;
- 
- 	index_msb = get_count_order(smp_num_siblings);
--	c->phys_proc_id = apic->phys_pkg_id(c->initial_apicid, index_msb);
-+	c->phys_proc_id = x86_system_apic->phys_pkg_id(c->initial_apicid,
-+						       index_msb);
- 
- 	smp_num_siblings = smp_num_siblings / c->x86_max_cores;
- 
-@@ -788,8 +789,9 @@ void detect_ht(struct cpuinfo_x86 *c)
- 
- 	core_bits = get_count_order(c->x86_max_cores);
- 
--	c->cpu_core_id = apic->phys_pkg_id(c->initial_apicid, index_msb) &
--				       ((1 << core_bits) - 1);
-+	c->cpu_core_id = x86_system_apic->phys_pkg_id(c->initial_apicid,
-+						      index_msb) &
-+					       ((1 << core_bits) - 1);
- #endif
- }
- 
-@@ -1442,7 +1444,7 @@ static void generic_identify(struct cpuinfo_x86 *c)
- 		c->initial_apicid = (cpuid_ebx(1) >> 24) & 0xFF;
- #ifdef CONFIG_X86_32
- # ifdef CONFIG_SMP
--		c->apicid = apic->phys_pkg_id(c->initial_apicid, 0);
-+		c->apicid = x86_system_apic->phys_pkg_id(c->initial_apicid, 0);
- # else
- 		c->apicid = c->initial_apicid;
- # endif
-@@ -1481,7 +1483,7 @@ static void validate_apic_and_package_id(struct cpuinfo_x86 *c)
- #ifdef CONFIG_SMP
- 	unsigned int apicid, cpu = smp_processor_id();
- 
--	apicid = apic->cpu_present_to_apicid(cpu);
-+	apicid = x86_system_apic->cpu_present_to_apicid(cpu);
- 
- 	if (apicid != c->apicid) {
- 		pr_err(FW_BUG "CPU%u: APIC id mismatch. Firmware: %x APIC: %x\n",
-@@ -1535,7 +1537,7 @@ static void identify_cpu(struct cpuinfo_x86 *c)
- 	apply_forced_caps(c);
- 
- #ifdef CONFIG_X86_64
--	c->apicid = apic->phys_pkg_id(c->initial_apicid, 0);
-+	c->apicid = x86_system_apic->phys_pkg_id(c->initial_apicid, 0);
- #endif
- 
- 	/*
-diff --git a/arch/x86/kernel/cpu/mce/inject.c b/arch/x86/kernel/cpu/mce/inject.c
-index 3a44346f2276..c39ed41fa74a 100644
---- a/arch/x86/kernel/cpu/mce/inject.c
-+++ b/arch/x86/kernel/cpu/mce/inject.c
-@@ -252,8 +252,8 @@ static void __maybe_unused raise_mce(struct mce *m)
- 					mce_irq_ipi, NULL, 0);
- 				preempt_enable();
- 			} else if (m->inject_flags & MCJ_NMI_BROADCAST)
--				apic->send_IPI_mask(mce_inject_cpumask,
--						NMI_VECTOR);
-+				x86_system_apic->send_IPI_mask(mce_inject_cpumask,
-+							       NMI_VECTOR);
- 		}
- 		start = jiffies;
- 		while (!cpumask_empty(mce_inject_cpumask)) {
-diff --git a/arch/x86/kernel/cpu/topology.c b/arch/x86/kernel/cpu/topology.c
-index d3a0791bc052..b4b0e1e77a61 100644
---- a/arch/x86/kernel/cpu/topology.c
-+++ b/arch/x86/kernel/cpu/topology.c
-@@ -137,16 +137,16 @@ int detect_extended_topology(struct cpuinfo_x86 *c)
- 	die_select_mask = (~(-1 << die_plus_mask_width)) >>
- 				core_plus_mask_width;
- 
--	c->cpu_core_id = apic->phys_pkg_id(c->initial_apicid,
-+	c->cpu_core_id = x86_system_apic->phys_pkg_id(c->initial_apicid,
- 				ht_mask_width) & core_select_mask;
--	c->cpu_die_id = apic->phys_pkg_id(c->initial_apicid,
-+	c->cpu_die_id = x86_system_apic->phys_pkg_id(c->initial_apicid,
- 				core_plus_mask_width) & die_select_mask;
--	c->phys_proc_id = apic->phys_pkg_id(c->initial_apicid,
-+	c->phys_proc_id = x86_system_apic->phys_pkg_id(c->initial_apicid,
- 				die_plus_mask_width);
- 	/*
- 	 * Reinit the apicid, now that we have extended initial_apicid.
- 	 */
--	c->apicid = apic->phys_pkg_id(c->initial_apicid, 0);
-+	c->apicid = x86_system_apic->phys_pkg_id(c->initial_apicid, 0);
- 
- 	c->x86_max_cores = (core_level_siblings / smp_num_siblings);
- 	__max_die_per_package = (die_level_siblings / core_level_siblings);
-diff --git a/arch/x86/kernel/irq_work.c b/arch/x86/kernel/irq_work.c
-index 890d4778cd35..7ae01529aa1d 100644
---- a/arch/x86/kernel/irq_work.c
-+++ b/arch/x86/kernel/irq_work.c
-@@ -28,7 +28,7 @@ void arch_irq_work_raise(void)
- 	if (!arch_irq_work_has_interrupt())
- 		return;
- 
--	apic->send_IPI_self(IRQ_WORK_VECTOR);
-+	x86_system_apic->send_IPI_self(IRQ_WORK_VECTOR);
- 	apic_wait_icr_idle();
- }
- #endif
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 7f57ede3cb8e..a587ba6e844d 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -325,7 +325,7 @@ static notrace void kvm_guest_apic_eoi_write(u32 reg, u32 val)
- 	 */
- 	if (__test_and_clear_bit(KVM_PV_EOI_BIT, this_cpu_ptr(&kvm_apic_eoi)))
- 		return;
--	apic->native_eoi_write(APIC_EOI, APIC_EOI_ACK);
-+	x86_system_apic->native_eoi_write(APIC_EOI, APIC_EOI_ACK);
- }
- 
- static void kvm_guest_cpu_init(void)
-@@ -554,8 +554,8 @@ static void kvm_send_ipi_mask_allbutself(const struct cpumask *mask, int vector)
-  */
- static void kvm_setup_pv_ipi(void)
- {
--	apic->send_IPI_mask = kvm_send_ipi_mask;
--	apic->send_IPI_mask_allbutself = kvm_send_ipi_mask_allbutself;
-+	x86_system_apic->send_IPI_mask = kvm_send_ipi_mask;
-+	x86_system_apic->send_IPI_mask_allbutself = kvm_send_ipi_mask_allbutself;
- 	pr_info("setup PV IPIs\n");
- }
- 
-diff --git a/arch/x86/kernel/nmi_selftest.c b/arch/x86/kernel/nmi_selftest.c
-index a1a96df3dff1..ee0f6dc7a2c9 100644
---- a/arch/x86/kernel/nmi_selftest.c
-+++ b/arch/x86/kernel/nmi_selftest.c
-@@ -75,7 +75,7 @@ static void __init test_nmi_ipi(struct cpumask *mask)
- 	/* sync above data before sending NMI */
- 	wmb();
- 
--	apic->send_IPI_mask(mask, NMI_VECTOR);
-+	x86_system_apic->send_IPI_mask(mask, NMI_VECTOR);
- 
- 	/* Don't wait longer than a second */
- 	timeout = USEC_PER_SEC;
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index 9a94934fae5f..51f2800949a9 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -756,7 +756,7 @@ wakeup_secondary_cpu_via_nmi(int apicid, unsigned long start_eip)
- 	/* Target chip */
- 	/* Boot on the stack */
- 	/* Kick the second */
--	apic_icr_write(APIC_DM_NMI | apic->dest_logical, apicid);
-+	apic_icr_write(APIC_DM_NMI | x86_system_apic->dest_logical, apicid);
- 
- 	pr_debug("Waiting for send to finish...\n");
- 	send_status = safe_apic_wait_icr_idle();
-@@ -983,7 +983,7 @@ wakeup_cpu_via_init_nmi(int cpu, unsigned long start_ip, int apicid,
- 	if (!boot_error) {
- 		enable_start_cpu0 = 1;
- 		*cpu0_nmi_registered = 1;
--		if (apic->dest_logical == APIC_DEST_LOGICAL)
-+		if (x86_system_apic->dest_logical == APIC_DEST_LOGICAL)
- 			id = cpu0_logical_apicid;
- 		else
- 			id = apicid;
-@@ -1080,8 +1080,9 @@ static int do_boot_cpu(int apicid, int cpu, struct task_struct *idle,
- 	 * Otherwise,
- 	 * - Use an INIT boot APIC message for APs or NMI for BSP.
- 	 */
--	if (apic->wakeup_secondary_cpu)
--		boot_error = apic->wakeup_secondary_cpu(apicid, start_ip);
-+	if (x86_system_apic->wakeup_secondary_cpu)
-+		boot_error = x86_system_apic->wakeup_secondary_cpu(apicid,
-+								   start_ip);
- 	else
- 		boot_error = wakeup_cpu_via_init_nmi(cpu, start_ip, apicid,
- 						     cpu0_nmi_registered);
-@@ -1132,7 +1133,7 @@ static int do_boot_cpu(int apicid, int cpu, struct task_struct *idle,
- 
- int native_cpu_up(unsigned int cpu, struct task_struct *tidle)
- {
--	int apicid = apic->cpu_present_to_apicid(cpu);
-+	int apicid = x86_system_apic->cpu_present_to_apicid(cpu);
- 	int cpu0_nmi_registered = 0;
- 	unsigned long flags;
- 	int err, ret = 0;
-@@ -1143,7 +1144,7 @@ int native_cpu_up(unsigned int cpu, struct task_struct *tidle)
- 
- 	if (apicid == BAD_APICID ||
- 	    !physid_isset(apicid, phys_cpu_present_map) ||
--	    !apic->apic_id_valid(apicid)) {
-+	    !x86_system_apic->apic_id_valid(apicid)) {
- 		pr_err("%s: bad cpu %d\n", __func__, cpu);
- 		return -EINVAL;
- 	}
-@@ -1280,7 +1281,7 @@ static void __init smp_sanity_check(void)
- 	 * Should not be necessary because the MP table should list the boot
- 	 * CPU too, but we do it for the sake of robustness anyway.
- 	 */
--	if (!apic->check_phys_apicid_present(boot_cpu_physical_apicid)) {
-+	if (!x86_system_apic->check_phys_apicid_present(boot_cpu_physical_apicid)) {
- 		pr_notice("weird, boot CPU (#%d) not listed by the BIOS\n",
- 			  boot_cpu_physical_apicid);
- 		physid_set(hard_smp_processor_id(), phys_cpu_present_map);
-@@ -1467,8 +1468,9 @@ __init void prefill_possible_map(void)
- 			pr_warn("Boot CPU (id %d) not listed by BIOS\n", cpu);
- 
- 			/* Make sure boot cpu is enumerated */
--			if (apic->cpu_present_to_apicid(0) == BAD_APICID &&
--			    apic->apic_id_valid(apicid))
-+			if (x86_system_apic->cpu_present_to_apicid(0) ==
-+					BAD_APICID &&
-+			    x86_system_apic->apic_id_valid(apicid))
- 				generic_processor_info(apicid, boot_cpu_apic_version);
- 		}
- 
-diff --git a/arch/x86/kernel/vsmp_64.c b/arch/x86/kernel/vsmp_64.c
-index 796cfaa46bfa..8928932fdf8f 100644
---- a/arch/x86/kernel/vsmp_64.c
-+++ b/arch/x86/kernel/vsmp_64.c
-@@ -135,7 +135,7 @@ static int apicid_phys_pkg_id(int initial_apic_id, int index_msb)
- static void vsmp_apic_post_init(void)
- {
- 	/* need to update phys_pkg_id */
--	apic->phys_pkg_id = apicid_phys_pkg_id;
-+	x86_system_apic->phys_pkg_id = apicid_phys_pkg_id;
- }
- 
- void __init vsmp_init(void)
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index d14c94d0aff1..be76843a6946 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -3943,7 +3943,7 @@ static inline bool kvm_vcpu_trigger_posted_interrupt(struct kvm_vcpu *vcpu,
- 		 * which has no effect is safe here.
- 		 */
- 
--		apic->send_IPI_mask(get_cpu_mask(vcpu->cpu), pi_vec);
-+		x86_system_apic->send_IPI_mask(get_cpu_mask(vcpu->cpu), pi_vec);
- 		return true;
- 	}
- #endif
-diff --git a/arch/x86/mm/srat.c b/arch/x86/mm/srat.c
-index dac07e4f5834..be3958dbb2af 100644
---- a/arch/x86/mm/srat.c
-+++ b/arch/x86/mm/srat.c
-@@ -40,7 +40,7 @@ acpi_numa_x2apic_affinity_init(struct acpi_srat_x2apic_cpu_affinity *pa)
- 		return;
- 	pxm = pa->proximity_domain;
- 	apic_id = pa->apic_id;
--	if (!apic->apic_id_valid(apic_id)) {
-+	if (!x86_system_apic->apic_id_valid(apic_id)) {
- 		printk(KERN_INFO "SRAT: PXM %u -> X2APIC 0x%04x ignored\n",
- 			 pxm, apic_id);
- 		return;
-diff --git a/arch/x86/platform/uv/uv_irq.c b/arch/x86/platform/uv/uv_irq.c
-index 18ca2261cc9a..2543148067b2 100644
---- a/arch/x86/platform/uv/uv_irq.c
-+++ b/arch/x86/platform/uv/uv_irq.c
-@@ -35,8 +35,8 @@ static void uv_program_mmr(struct irq_cfg *cfg, struct uv_irq_2_mmr_pnode *info)
- 	mmr_value = 0;
- 	entry = (struct uv_IO_APIC_route_entry *)&mmr_value;
- 	entry->vector		= cfg->vector;
--	entry->delivery_mode	= apic->irq_delivery_mode;
--	entry->dest_mode	= apic->irq_dest_mode;
-+	entry->delivery_mode	= x86_system_apic->irq_delivery_mode;
-+	entry->dest_mode	= x86_system_apic->irq_dest_mode;
- 	entry->polarity		= 0;
- 	entry->trigger		= 0;
- 	entry->mask		= 0;
-diff --git a/arch/x86/platform/uv/uv_nmi.c b/arch/x86/platform/uv/uv_nmi.c
-index eafc530c8767..afecd7e8de41 100644
---- a/arch/x86/platform/uv/uv_nmi.c
-+++ b/arch/x86/platform/uv/uv_nmi.c
-@@ -597,7 +597,7 @@ static void uv_nmi_nr_cpus_ping(void)
- 	for_each_cpu(cpu, uv_nmi_cpu_mask)
- 		uv_cpu_nmi_per(cpu).pinging = 1;
- 
--	apic->send_IPI_mask(uv_nmi_cpu_mask, APIC_DM_NMI);
-+	x86_system_apic->send_IPI_mask(uv_nmi_cpu_mask, APIC_DM_NMI);
- }
- 
- /* Clean up flags for CPU's that ignored both NMI and ping */
-diff --git a/arch/x86/xen/apic.c b/arch/x86/xen/apic.c
-index e82fd1910dae..cb34b47e82c8 100644
---- a/arch/x86/xen/apic.c
-+++ b/arch/x86/xen/apic.c
-@@ -191,12 +191,12 @@ static struct apic xen_pv_apic = {
- 
- static void __init xen_apic_check(void)
- {
--	if (apic == &xen_pv_apic)
-+	if (x86_system_apic == &xen_pv_apic)
- 		return;
- 
--	pr_info("Switched APIC routing from %s to %s.\n", apic->name,
-+	pr_info("Switched APIC routing from %s to %s.\n", x86_system_apic->name,
- 		xen_pv_apic.name);
--	apic = &xen_pv_apic;
-+	x86_system_apic = &xen_pv_apic;
- }
- void __init xen_init_apic(void)
- {
-@@ -204,7 +204,7 @@ void __init xen_init_apic(void)
- 	/* On PV guests the APIC CPUID bit is disabled so none of the
- 	 * routines end up executing. */
- 	if (!xen_initial_domain())
--		apic = &xen_pv_apic;
-+		x86_system_apic = &xen_pv_apic;
- 
- 	x86_platform.apic_post_init = xen_apic_check;
- }
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index b9cf59443843..01a62ebb435d 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3671,8 +3671,10 @@ static void irq_remapping_prepare_irte(struct amd_ir_data *data,
- 
- 	data->irq_2_irte.devid = devid;
- 	data->irq_2_irte.index = index + sub_handle;
--	iommu->irte_ops->prepare(data->entry, apic->irq_delivery_mode,
--				 apic->irq_dest_mode, irq_cfg->vector,
-+	iommu->irte_ops->prepare(data->entry,
-+				 x86_system_apic->irq_delivery_mode,
-+				 x86_system_apic->irq_dest_mode,
-+				 irq_cfg->vector,
- 				 irq_cfg->dest_apicid, devid);
- 
- 	switch (info->type) {
-@@ -3943,8 +3945,8 @@ int amd_iommu_deactivate_guest_mode(void *data)
- 	entry->hi.val = 0;
- 
- 	entry->lo.fields_remap.valid       = valid;
--	entry->lo.fields_remap.dm          = apic->irq_dest_mode;
--	entry->lo.fields_remap.int_type    = apic->irq_delivery_mode;
-+	entry->lo.fields_remap.dm          = x86_system_apic->irq_dest_mode;
-+	entry->lo.fields_remap.int_type    = x86_system_apic->irq_delivery_mode;
- 	entry->hi.fields.vector            = cfg->vector;
- 	entry->lo.fields_remap.destination =
- 				APICID_TO_IRTE_DEST_LO(cfg->dest_apicid);
-diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_remapping.c
-index 0cfce1d3b7bb..21b70534b011 100644
---- a/drivers/iommu/intel/irq_remapping.c
-+++ b/drivers/iommu/intel/irq_remapping.c
-@@ -1113,7 +1113,7 @@ static void prepare_irte(struct irte *irte, int vector, unsigned int dest)
- 	memset(irte, 0, sizeof(*irte));
- 
- 	irte->present = 1;
--	irte->dst_mode = apic->irq_dest_mode;
-+	irte->dst_mode = x86_system_apic->irq_dest_mode;
- 	/*
- 	 * Trigger mode in the IRTE will always be edge, and for IO-APIC, the
- 	 * actual level or edge trigger will be setup in the IO-APIC
-@@ -1122,7 +1122,7 @@ static void prepare_irte(struct irte *irte, int vector, unsigned int dest)
- 	 * irq migration in the presence of interrupt-remapping.
- 	*/
- 	irte->trigger_mode = 0;
--	irte->dlvry_mode = apic->irq_delivery_mode;
-+	irte->dlvry_mode = x86_system_apic->irq_delivery_mode;
- 	irte->vector = vector;
- 	irte->dest_id = IRTE_DEST(dest);
- 	irte->redir_hint = 1;
--- 
-2.27.0
+------------------------------------------------------------
+People who touched revisions under test:
+    Aaron Lindsay <aaron@os.amperecomputing.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexey Kirillov <lekiravi@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Alistair Francis <alistair.francis@xilinx.com>
+  Amey Narkhede <ameynarkhede03@gmail.com>
+  Andrew Jones <drjones@redhat.com>
+  Andrey Konovalov <andreyknvl@google.com>
+  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
+  Ani Sinha <ani@anisinha.ca>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Blanchard <anton@ozlabs.org>
+  Anup Patel <anup.patel@wdc.com>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Ben Widawsky <ben.widawsky@intel.com>
+  Bihong Yu <yubihong@huawei.com>
+  Bin Meng <bin.meng@windriver.com>
+  Bruce Rogers <brogers@suse.com>
+  Carlo Marcelo Arenas Belón <carenas@gmail.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Chen Qun <kuhn.chenqun@huawei.com>
+  Chih-Min Chao <chihmin.chao@sifive.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuan Zheng <zhengchuan@huawei.com>
+  Claudio Fontana <cfontana@suse.de>
+  Claudio Imbrenda <imbrenda@linux.ibm.com>
+  Cleber Rosa <crosa@redhat.com>
+  Coiby Xu <coiby.xu@gmail.com>
+  Colin Xu <colin.xu@intel.com>
+  Collin Walling <walling@linux.ibm.com>
+  Connor Kuehl <ckuehl@redhat.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  César Belley <cesar.belley@lse.epita.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  David Carlier <devnexen@gmail.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Dima Stepanov <dimastep@yandex-team.ru>
+  Dmitry Fomichev <dmitry.fomichev@wdc.com>
+  Douglas Crosher <dtc-ubuntu@scieneer.com>
+  Dov Murik <dovmurik@linux.vnet.ibm.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eduardo Otubo <otubo@redhat.com>
+  Elena Afanasova <eafanasova@gmail.com>
+  Emanuele Giuseppe Esposito <e.emanuelegiuseppe@gmail.com>
+  Emmanuel Blot <eblot.ml@gmail.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Erik Kline <ek@google.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Fabiano Rosas <farosas@linux.ibm.com>
+  Fam Zheng <fam@euphon.net>
+  Fan Yang <Fan_Yang@sjtu.edu.cn>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Frank Chang <frank.chang@sifive.com>
+  Frediano Ziglio <freddy77@gmail.com>
+  Georg Kotheimer <georg.kotheimer@kernkonzept.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gonglei <arei.gonglei@huawei.com>
+  Graeme Gregory <graeme@nuviainc.com>
+  Green Wan <green.wan@sifive.com>
+  Greg Kurz <groug@kaod.org>
+  Guoqing Zhang <zhangguoqing.kernel@bytedance.com>
+  Gustavo Romero <gromero@linux.ibm.com>
+  haibinzhang(张海斌) <haibinzhang@tencent.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Harry G. Coin <hgcoin@gmail.com>
+  Havard Skinnemoen <hskinnemoen@google.com>
+  Helge Deller <deller@gmx.de>
+  Heyi Guo <guoheyi@huawei.com>
+  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
+  Hou Weiying <weiying_hou@outlook.com>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Igor Kononenko <i.kononenko@yadro.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Jan Charvat <charvj10@fel.cvut.cz>
+  Jan Henrik Weinstock <jan.weinstock@rwth-aachen.de>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Wang <jasowang@redhat.com>
+  Jens Freimann <jfreimann@redhat.com>
+  Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Joel Stanley <joel@jms.id.au>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Josh DuBois <josh@joshdubois.com>
+  Julia Suvorova <jusual@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Keith Busch <kbusch@kernel.org>
+  Kele Huang <kele.hwang@gmail.com>
+  Kenta Ishiguro <kentaishiguro@slowstart.org>
+  Kevin Wolf <kwolf@redhat.com>
+  Kito Cheng <kito.cheng@sifive.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Lei YU <yulei.sh@bytedance.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Li Feng <fengli@smartx.com>
+  Li Qiang <liq3ea@163.com>
+  Li Zhijian <lizhijian@cn.fujitsu.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Liao Pingfang <liao.pingfang@zte.com.cn>a
+  Lijun Pan <ljp@linux.ibm.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Longpeng(Mike) <longpeng2@huawei.com>
+  Luc Michel <luc@lmichel.fr>
+  Lukas Straub <lukasstraub2@web.de>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matthew Rosato <mjrosato@linux.ibm.com>
+  Matthieu Bucchianeri <matthieu.bucchianeri@leostella.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Michael Roth <mdroth@linux.vnet.ibm.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michael Walle <michael@walle.cc>
+  Michal Privoznik <mprivozn@redhat.com>
+  Mike Gelfand <mikedld@mikedld.com>
+  Misono Tomohiro <misono.tomohiro@jp.fujitsu.com>
+  Myriad-Dreamin <camiyoru@gmail.com>
+  Nathan Chancellor <natechancellor@gmail.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Nikola Pavlica <pavlica.nikola@gmail.com>
+  Nir Soffer <nirsof@gmail.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Burton <paulburton@kernel.org>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Paul Zimmerman <pauldzim@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Pavel Pisa <pisa@cmp.felk.cvut.cz>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Lieven <pl@kamp.de>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Robert Hoo <robert.hu@linux.intel.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sergei Trofimovich <slyfox@gentoo.org>
+  Sergey Nizovtsev <snizovtsev@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefan Reiter <s.reiter@proxmox.com>
+  Stefan Weil <sw@weilnetz.de>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stephen Long <steplong@quicinc.com>
+  Sunil Muthuswamy <sunilmut@microsoft.com>
+  Sven Schnelle <svens@stackframe.org>
+  Swapnil Ingle <swapnil.ingle@nutanix.com>
+  Thiago Jung Bauermann <bauerman@linux.ibm.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+  Timothy Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Timothy E Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Vincenzo Frascino <vincenzo.frascino@arm.com>
+  Vitaly Cheptsov <vit9696@protonmail.com>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xiaoyao Li <xiaoyao.li@intel.com>
+  Xinyu Li <precinct@mail.ustc.edu.cn>
+  Xu Zou <iwatchnima@gmail.com>
+  Yan Jin <jinyan12@huawei.com>
+  YanYing Zhuang <ann.zhuangyanying@huawei.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yifei Jiang <jiangyifei@huawei.com>
+  Ying Fang <fangying1@huawei.com>
+  Yipeng Yin <yinyipeng1@huawei.com>
+  Yonggang Luo <luoyonggang@gmail.com>
+  zhaolichang <zhaolichang@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Wang <zhenyuw@linux.intel.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zong Li <zong.li@sifive.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 52710 lines long.)
 
