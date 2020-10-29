@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9654929F178
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 17:30:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14333.35446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B69F29F1B1
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 17:38:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14339.35457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYAol-00060m-6r; Thu, 29 Oct 2020 16:30:27 +0000
+	id 1kYAwP-0006IU-1q; Thu, 29 Oct 2020 16:38:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14333.35446; Thu, 29 Oct 2020 16:30:27 +0000
+Received: by outflank-mailman (output) from mailman id 14339.35457; Thu, 29 Oct 2020 16:38:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,93 +23,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYAol-00060N-3Y; Thu, 29 Oct 2020 16:30:27 +0000
-Received: by outflank-mailman (input) for mailman id 14333;
- Thu, 29 Oct 2020 16:30:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qEoS=EE=aculab.com=david.laight@srs-us1.protection.inumbo.net>)
- id 1kYAok-00060I-0q
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 16:30:26 +0000
-Received: from eu-smtp-delivery-151.mimecast.com (unknown [185.58.86.151])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 8d2e50c4-db4a-48de-ae1e-01113de221e0;
- Thu, 29 Oct 2020 16:30:25 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-97-MKHylt3TN2qOdBALyCARbQ-1; Thu, 29 Oct 2020 16:30:20 +0000
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Thu, 29 Oct 2020 16:30:19 +0000
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000; 
- Thu, 29 Oct 2020 16:30:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kYAwO-0006I5-Ul; Thu, 29 Oct 2020 16:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 14339;
+ Thu, 29 Oct 2020 16:38:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kYAwN-0006I0-3Z
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 16:38:19 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b31470ea-f733-4d8d-95d2-6e258bb94a65;
+ Thu, 29 Oct 2020 16:38:17 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B5D74AB98;
+ Thu, 29 Oct 2020 16:38:16 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=qEoS=EE=aculab.com=david.laight@srs-us1.protection.inumbo.net>)
-	id 1kYAok-00060I-0q
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 16:30:26 +0000
-X-Inumbo-ID: 8d2e50c4-db4a-48de-ae1e-01113de221e0
-Received: from eu-smtp-delivery-151.mimecast.com (unknown [185.58.86.151])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 8d2e50c4-db4a-48de-ae1e-01113de221e0;
-	Thu, 29 Oct 2020 16:30:25 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-97-MKHylt3TN2qOdBALyCARbQ-1; Thu, 29 Oct 2020 16:30:20 +0000
-X-MC-Unique: MKHylt3TN2qOdBALyCARbQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Thu, 29 Oct 2020 16:30:19 +0000
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
- Thu, 29 Oct 2020 16:30:19 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Arnd Bergmann' <arnd@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>
-CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, the arch/x86 maintainers <x86@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
-	<sthemmin@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>, "Rafael J.
- Wysocki" <rjw@rjwysocki.net>, Vitaly Kuznetsov <vkuznets@redhat.com>,
-	"Wanpeng Li" <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, kvm list <kvm@vger.kernel.org>, "Platform
- Driver" <platform-driver-x86@vger.kernel.org>, xen-devel
-	<xen-devel@lists.xenproject.org>, "open list:IOMMU DRIVERS"
-	<iommu@lists.linux-foundation.org>
-Subject: RE: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
-Thread-Topic: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
-Thread-Index: AQHWrdqfIpyThHXm90WmqPrnIVTaQ6muxUWQ
-Date: Thu, 29 Oct 2020 16:30:19 +0000
-Message-ID: <2a85eaf7d2e54a278493588bae41b06a@AcuMS.aculab.com>
-References: <20201028212417.3715575-1-arnd@kernel.org>
- <ea34f1d3-ed54-a2de-79d9-5cc8decc0ab3@redhat.com>
- <CAK8P3a0e0YAkh_9S1ZG5FW3QozZnp1CwXUfWx9VHWkY=h+FVxw@mail.gmail.com>
-In-Reply-To: <CAK8P3a0e0YAkh_9S1ZG5FW3QozZnp1CwXUfWx9VHWkY=h+FVxw@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	(envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kYAwN-0006I0-3Z
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 16:38:19 +0000
+X-Inumbo-ID: b31470ea-f733-4d8d-95d2-6e258bb94a65
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id b31470ea-f733-4d8d-95d2-6e258bb94a65;
+	Thu, 29 Oct 2020 16:38:17 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603989496;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5Cfzj/gXh0YLmbTsJHNVVlTFt8gFMdLegExytjwGpww=;
+	b=CFmrUdSdEyAq6gRgMTIdkbmmvT/dci+kp5+aBrRVrzYmzEpSvuLIbla5PZe4HFkI6hnNWD
+	MBZHYly2x/3/ITq8RMQLXO+c1Oji9ZSIl3bK/21mIPTfqhTtwAii0Tn8IPTorXvleN2psV
+	BM1Kl/sjOrh0cvICNdF8JONipuAawic=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id B5D74AB98;
+	Thu, 29 Oct 2020 16:38:16 +0000 (UTC)
+Subject: Re: [PATCH] x86/hvm: process softirq while saving/loading entries
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20201029152054.28635-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ab7f64a2-2ea8-0445-7266-c60e58a49a85@suse.com>
+Date: Thu, 29 Oct 2020 17:38:17 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+In-Reply-To: <20201029152054.28635-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-RnJvbTogQXJuZCBCZXJnbWFubg0KPiBTZW50OiAyOSBPY3RvYmVyIDIwMjAgMDk6NTENCi4uLg0K
-PiBJIHRoaW5rIGlkZWFsbHkgdGhlcmUgd291bGQgYmUgbm8gZ2xvYmFsIHZhcmlhYmxlLCB3aXRo
-YWxsIGFjY2Vzc2VzDQo+IGVuY2Fwc3VsYXRlZCBpbiBmdW5jdGlvbiBjYWxscywgcG9zc2libHkg
-dXNpbmcgc3RhdGljX2NhbGwoKSBvcHRpbWl6YXRpb25zDQo+IGlmIGFueSBvZiB0aGVtIGFyZSBw
-ZXJmb3JtYW5jZSBjcml0aWNhbC4NCg0KVGhlcmUgaXNuJ3QgcmVhbGx5IGEgbWFzc2l2ZSBkaWZm
-ZXJlbmNlIGJldHdlZW4gZ2xvYmFsIHZhcmlhYmxlcw0KYW5kIGdsb2JhbCBhY2Nlc3MgZnVuY3Rp
-b25zLg0KDQoJRGF2aWQNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5
-IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRp
-b24gTm86IDEzOTczODYgKFdhbGVzKQ0K
+On 29.10.2020 16:20, Roger Pau Monne wrote:
+> On slow systems with sync_console saving or loading the context of big
+> guests can cause the watchdog to trigger. Fix this by adding a couple
+> of process_pending_softirqs.
 
+Which raises the question in how far this is then also a problem
+for the caller of the underlying hypercall. IOW I wonder whether
+instead we need to make use of continuations here. Nevertheless
+...
+
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
