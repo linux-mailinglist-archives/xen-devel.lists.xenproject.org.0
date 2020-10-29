@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94F829F5C1
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 21:02:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14653.36226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C8A29F5CC
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 21:04:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14661.36238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYE81-0005Zy-5W; Thu, 29 Oct 2020 20:02:33 +0000
+	id 1kYE9X-0005mP-Eh; Thu, 29 Oct 2020 20:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14653.36226; Thu, 29 Oct 2020 20:02:33 +0000
+Received: by outflank-mailman (output) from mailman id 14661.36238; Thu, 29 Oct 2020 20:04:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,124 +23,180 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYE81-0005ZZ-2D; Thu, 29 Oct 2020 20:02:33 +0000
-Received: by outflank-mailman (input) for mailman id 14653;
- Thu, 29 Oct 2020 20:02:31 +0000
+	id 1kYE9X-0005m0-BJ; Thu, 29 Oct 2020 20:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 14661;
+ Thu, 29 Oct 2020 20:04:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uFDJ=EE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kYE7z-0005ZS-Id
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:02:31 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=rF0B=EE=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1kYE9V-0005lv-8r
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:04:05 +0000
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3806ff7d-0309-4d56-a9b8-91c987145fa9;
- Thu, 29 Oct 2020 20:02:29 +0000 (UTC)
+ id 9ee4472f-387b-41ca-9cea-6b3ead444336;
+ Thu, 29 Oct 2020 20:04:03 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id y12so4119077wrp.6
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 13:04:02 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id f20sm1466314wmc.26.2020.10.29.13.04.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 13:04:00 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id BEAC41FF7E;
+ Thu, 29 Oct 2020 20:03:59 +0000 (GMT)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=uFDJ=EE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kYE7z-0005ZS-Id
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:02:31 +0000
-X-Inumbo-ID: 3806ff7d-0309-4d56-a9b8-91c987145fa9
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	(envelope-from <SRS0=rF0B=EE=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+	id 1kYE9V-0005lv-8r
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 20:04:05 +0000
+X-Inumbo-ID: 9ee4472f-387b-41ca-9cea-6b3ead444336
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3806ff7d-0309-4d56-a9b8-91c987145fa9;
-	Thu, 29 Oct 2020 20:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1604001749;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=L1WRBMcR3/QEoUlSDas3ah65/j+icWZ9WixAhllcT58=;
-  b=fY2NtHTl1Yaex5E9kQ9CsV0hhwVwDCd0frL3c6DLYPNaU8UD0wIzd0pY
-   tXTipgTWRuUBDfknL0DxurMk5k77JVl4ByBWspcPXAOkn87mEvyhFscmV
-   Zg1Hc9z1Ti2pNQJZEn7t/xR/e0iqAvVGZOgPLqasusikCnWy4EpFyeW+g
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: I+jgjfee8tjzNJPnwba4aSwNDI2MElLbKfjT9LafAkd7i/c84W/jacY7J0fZyPUIFaJH0rrPEO
- UqNxxS/3ncTSWfL03eA4z5pLf75jAnUpqAWPsE/8LTdbihMwv2eLgylv2ATCNUzqPxtmoqjTFx
- Ea6bc53sOzVT/fK74wvEGQxqyCyLKY8DnquOYr5M0dQS17iMjPLkPLkEP0zZ08R8isHVq2tCrl
- FO+rYsiocMLZyfGyzuEWqjz0gYKxdgOVM4rbWSyCHrFBqmF0pOA0J8Ppw1YO/Xn10d2kGoWx+m
- XdE=
-X-SBRS: None
-X-MesageID: 30437793
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,430,1596513600"; 
-   d="scan'208";a="30437793"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dCnirZTtGBt0LpIk2IxWFqyH1F/GbBUxH7TepdHxYm42pemvoXA9vtOTLRYdbt93X3aO0gqzSaOmVo3S1A34U4A3VawcMYNBOQ1qcE+fgMjKDil7PZskjuJi/kXI0zQj5R02dXxcclzaiIugfTgo785AvwOX/M3eOKVDWxdePnC3dyV04GRknIQbA1IuxkCpw7SBsznUqGr/u9+/uaWBRt94AR1ulI7JVUCMKFQJt8LieTAHd7TVzDjufNW6ptOWW/7CoryZhlwDu52sYDcc8shwdpBvwr9h3IeWYUgN1Mtxkcpf9i/DUT929Q8ufkGuaALvG4rMU6+G/vAjIrIv7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6VbRTD7h4MR94e3q3oI/2ulPLfER4fAOHAUSJ+KE9+0=;
- b=FGuc5gBajUZyGyC/YpoSd/BQtHstNF9FoN1GPpdRb1S9mZEb9odSeEkt805xtPXk55JsjT/tj5g4X4mICrZyEYsnqigv3Ech2chAox7Rk5vLyMfNKeubuj80pu7x/fdLCayQN2cAQWeV8abeK2Tu+CD51h3N4HU/y/eBI+F0HOYbgpWDoKlJAp7J9S8gLQJUEHKh/4prPztH7volT6lwksMVqUb1NLjutxod4UGWlaHS7hUUQHhCE7FvhLaqrPiG0yDNewYy7hkaUy+vWe08PXvNNtXTj+MFAN+06mvB2lKbPeQZFT2IOxlPTxQIB8eyd4SN17x8wtDWM2IUPkat5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+	id 9ee4472f-387b-41ca-9cea-6b3ead444336;
+	Thu, 29 Oct 2020 20:04:03 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id y12so4119077wrp.6
+        for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 13:04:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6VbRTD7h4MR94e3q3oI/2ulPLfER4fAOHAUSJ+KE9+0=;
- b=D0ImmfFgcmuB8/ZP66w/jndcw+0+YdQzU0eSzFgLQjdE7DNnWKwyixV7u3PeEivKHQI+k1l/1YJMWP1KIGzqSOSBeLVc3hSuDY2XAX/ro0pu4GKK/AxFHisvbag30Bb1PQvvK82fUc3APrUcXcJbZryBqE5N7RNgXB4zB5rD2pQ=
-Date: Thu, 29 Oct 2020 21:02:20 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/hvm: process softirq while saving/loading entries
-Message-ID: <20201029200220.aad6yk6x4xet63jh@Air-de-Roger>
-References: <20201029152054.28635-1-roger.pau@citrix.com>
- <ab7f64a2-2ea8-0445-7266-c60e58a49a85@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ab7f64a2-2ea8-0445-7266-c60e58a49a85@suse.com>
-X-ClientProxiedBy: LNXP123CA0020.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:d2::32) To SA0PR03MB5610.namprd03.prod.outlook.com
- (2603:10b6:806:b2::9)
+        d=linaro.org; s=google;
+        h=references:user-agent:from:to:cc:subject:in-reply-to:date
+         :message-id:mime-version:content-transfer-encoding;
+        bh=GlgPpZHPFyGb6ykEqr5MjXdGXxy2SQgZWabctoNQvD4=;
+        b=xgwV+hUK7lV4D03GrJJkVj6yoyPcU5evOBLuWo40ehpfriURrarYr/atO/JUQ5z2m3
+         mpFJDnd51X93Vl8lQTU8DdR3hu+rPWlq2frXOdUyHo5htFzGMLT04yOD0DHX52+qaBgF
+         j/WeQpXMevN1eBEnJcq8WGn22PkV2V6tdV+DZETDVOrSL1Qiefy7VmQXFTWz+/kam2Qr
+         m9gnZ+F43iGuUg0Qo/cDBcqmh7voYNvsy3znx8TxgaTBncVlnYQRzMMw600qSnsQK88o
+         g1zK8IXLLya3X5af4jvSbe+RDQl3R3QDOuSynvf/DyQmW2LcnLtO5ioSlKG/FHhLgVit
+         PkxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject
+         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
+        bh=GlgPpZHPFyGb6ykEqr5MjXdGXxy2SQgZWabctoNQvD4=;
+        b=GXXF0r8NIrqAMpbd9UF1wT8i8Qnv1jywcr6fpk/EyOTEfRCC8s/xK4y7GBiIGbhJ/6
+         1rmbaGkToSkSIhKi7JQX1ALMQL3vzJKp5Bam2Gv1hy3cu8uGZdLic1Afu6U3FCaCLMRK
+         dny9pBNqU6tk+5geavCPbAYOQN2dcnyc0+atFSVgK1A7+kgaiA5Lh7WCUyf/v2aFMK+c
+         NvvJh9Z7iCxyui3Dv++uUIO2Hu6kq1Kps0aV/R8DTGu/Bt86iMCT796kkKWV9CEYrBZ2
+         z3+5lC3eW3dyczCpHLtYinolLYdhrWwvIoSq2Rpf4QyyN6aPch2+NsPwQ6gWvAXwQAKW
+         rouA==
+X-Gm-Message-State: AOAM530rlo/n6YMFeRS5Uj3uBlDG3MGS9L/LJYPC2dy7FGxBRoIG0W/C
+	cNX0pTAMzN9QOa4NqhkHc67LWA==
+X-Google-Smtp-Source: ABdhPJzHtM27tE6YMeBH5RezYAbYcbqowgQsX3y1aonmHNKDBDY1JKY295X5ITmNMm4XDg9aRH0sRQ==
+X-Received: by 2002:adf:e744:: with SMTP id c4mr7774206wrn.222.1604001841949;
+        Thu, 29 Oct 2020 13:04:01 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+        by smtp.gmail.com with ESMTPSA id f20sm1466314wmc.26.2020.10.29.13.04.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2020 13:04:00 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+	by zen.linaroharston (Postfix) with ESMTP id BEAC41FF7E;
+	Thu, 29 Oct 2020 20:03:59 +0000 (GMT)
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
+ <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com>
+ <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com>
+User-agent: mu4e 1.5.6; emacs 28.0.50
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Paul Durrant <paul@xen.org>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
+ =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Julien
+ Grall
+ <julien.grall@arm.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>, Daniel De
+ Graaf <dgdegra@tycho.nsa.gov>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin
+ Tian <kevin.tian@intel.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
+In-reply-to: <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com>
+Date: Thu, 29 Oct 2020 20:03:59 +0000
+Message-ID: <871rhgn6j4.fsf@linaro.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2386b9a7-8292-4439-d41a-08d87c458e34
-X-MS-TrafficTypeDiagnostic: SA0PR03MB5660:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR03MB56606A88181E9AB2604A808E8F140@SA0PR03MB5660.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: l57zALguzYLLwu+XFdGdUvwry8THVleyrEZ3bY8IC4W8KcGuiV5g9YQfsaFmnTKFkdwOph3SG3I5bcrqxuzwPLmGHZry4WysvZk31YseoNOTGte9EKvS+Q82L3qkjlChOtIHswLxCdvaj+gAjYoK1ONfTyrWYclsfVJOQo6T9w/Oifex5QM+uRroxJ6ecq9Ut0B+/fGF4z49PLJCI9dwD17pOMUvQ5/uMVsGOxD8yHNLfWis9Y7bB6SULyA0ilisur5bD0s5aOpZX39ycOPd2TaYFRI0Z3Y0ppqQf7xwd9M57Z+69xoD9pIBnjRHgA5a+hxEmgb7Diitmw4Kk5jThA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(346002)(136003)(396003)(376002)(366004)(39860400002)(4326008)(316002)(6496006)(6486002)(8936002)(478600001)(2906002)(54906003)(5660300002)(9686003)(26005)(33716001)(86362001)(4744005)(6916009)(956004)(53546011)(16526019)(186003)(66946007)(6666004)(8676002)(66476007)(1076003)(66556008)(85182001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: KCGesIU4jrHqxG7dMvYmwYIE3/yVReapqnnX1kSFSy4qLrPqQDBh95rNPo0qZQIkgyROFVOI3aYQsFHnxmbtnc2wWBhwS+Qh9kyhWrdVlG48uJtqF8eYeuS5xrk6mFsJjf7X7QxqJBNjtb3OIaiOYCjExLjP/DZUIwG6y9rLG6L9V6EC36dFaKy8TqjY+0k8o//7mIhZeDw0ZtacmMgZGk/PLN1LRb6myUklUDBkBacX5ph1MvWSUcYDsX0H/vION4FX3h9Rk8zDgEPAdxzmpBUt/I29cSHUkq/qXEIDcRqBGVPcGkeT9AqJ0J1L9gKf0lnltvBK3IAm2askh47TOkiZ++5ATW0K6KlV8lygk+RvUKzpcQxl6QrUFSdCkYu/qsWG/+g/ohrVwYFgZH6md2pOHJHtcFeoebayugD9dXLJXy86npp9Adnirfg8OUBVuF2NP4DBSfXtOsqGquC2m8rnxyFl4BzAdx0EsyWD3VeG2sgJu74ItKiDWefXhzUqdY7fdtXNWWn4TFFRzPFoVoePcN+5qyoJF8/59m4OF0K/O6rqCh6+OLzm2Re9TyqvGghqfujCJMaL0MyeFWy1UPZhaJm0mq2LbbrHKtLTq6E3wgXohfyi3qTWve6EJBRb37X9CExZmxHRRv3ey+DgXA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2386b9a7-8292-4439-d41a-08d87c458e34
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2020 20:02:25.5072
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CxmnpeSXkNNeFL+5Rbzz5HSPdRnQ/efsk7YXfDtM5hLEYD4V1YRu0HNubMdmWzT2FMowKIDT75XeVe4idnZ4jQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5660
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2020 at 05:38:17PM +0100, Jan Beulich wrote:
-> On 29.10.2020 16:20, Roger Pau Monne wrote:
-> > On slow systems with sync_console saving or loading the context of big
-> > guests can cause the watchdog to trigger. Fix this by adding a couple
-> > of process_pending_softirqs.
-> 
-> Which raises the question in how far this is then also a problem
-> for the caller of the underlying hypercall. IOW I wonder whether
-> instead we need to make use of continuations here. Nevertheless
 
-FWIW, I've only hit this with debug builds on boxes that have slow
-serial with sync_console enabled, due to the verbose printks.
+Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
 
-> 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> On Thu, Oct 29, 2020 at 9:42 AM Masami Hiramatsu <
+> masami.hiramatsu@linaro.org> wrote:
+>
+>> Hi Oleksandr,
+>>
+> Hi Masami
+>
+> [sorry for the possible format issue]
+>
+>
+>>
+>> I would like to try this on my arm64 board.
+>>
+> Glad to hear you are interested in this topic.
+>
+>
+>>
+>> According to your comments in the patch, I made this config file.
+>> # cat debian.conf
+>> name =3D "debian"
+>> type =3D "pvh"
+>> vcpus =3D 8
+>> memory =3D 512
+>> kernel =3D "/opt/agl/vmlinuz-5.9.0-1-arm64"
+>> ramdisk =3D "/opt/agl/initrd.img-5.9.0-1-arm64"
+>> cmdline=3D "console=3Dhvc0 earlyprintk=3Dxen root=3D/dev/xvda1 rw"
+>> disk =3D [ '/opt/agl/debian.qcow2,qcow2,hda' ]
+>> vif =3D [ 'mac=3D00:16:3E:74:3d:76,bridge=3Dxenbr0' ]
+>> virtio =3D 1
+>> vdisk =3D [ 'backend=3DDom0, disks=3Dro:/dev/sda1' ]
+>>
+>> And tried to boot a DomU, but I got below error.
+>>
+>> # xl create -c debian.conf
+>> Parsing config from debian.conf
+>> libxl: error: libxl_create.c:1863:domcreate_attach_devices: Domain
+>> 1:unable to add virtio_disk devices
+>> libxl: error: libxl_domain.c:1218:destroy_domid_pci_done: Domain
+>> 1:xc_domain_pause failed
+>> libxl: error: libxl_dom.c:39:libxl__domain_type: unable to get domain
+>> type for domid=3D1
+>> libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain
+>> 1:Unable to destroy guest
+>> libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain
+>> 1:Destruction of domain failed
+>>
+>>
+>> Could you tell me how can I test it?
+>>
+>
+> I assume it is due to the lack of the virtio-disk backend (which I haven't
+> shared yet as I focused on the IOREQ/DM support on Arm in the first place=
+).
+> Could you wait a little bit, I am going to share it soon.
 
-Thanks.
+I assume this is wiring up the required bits of support to handle the
+IOREQ requests in QEMU? We are putting together a PoC demo to show
+a virtio enabled image (AGL) running on both KVM and Xen hypervisors so
+we are keen to see your code as soon as you can share it.
+
+I'm currently preparing a patch series for QEMU which fixes the recent
+breakage caused by changes to the build system. As part of that I've
+separated CONFIG_XEN and CONFIG_XEN_HVM so it's possible to build
+i386-softmmu with unneeded for ARM bits. Hopefully this will allow me to
+create a qemu-aarch64-system binary with just the PV related models in
+it.
+
+Talking to Stefano it probably makes sense going forward to introduce a
+new IOREQ aware machine type for QEMU that doesn't bring in the rest of
+the x86 overhead. I was thinking maybe xenvirt?
+
+You've tested with virtio-block but we'd also like to extend this to
+other arbitrary virtio devices. I guess we will need some sort of
+mechanism to inform the QEMU command line where each device sits in the
+virtio-mmio bus so the FDT Xen delivers to the guest matches up with
+what QEMU is ready to serve requests for?
+
+--=20
+Alex Benn=C3=A9e
 
