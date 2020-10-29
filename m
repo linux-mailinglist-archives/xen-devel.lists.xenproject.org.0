@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D74929EF22
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 16:05:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14271.35377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C5E29EF76
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 16:15:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14277.35388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY9Uh-0005hS-Kl; Thu, 29 Oct 2020 15:05:39 +0000
+	id 1kY9dR-0006eZ-HU; Thu, 29 Oct 2020 15:14:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14271.35377; Thu, 29 Oct 2020 15:05:39 +0000
+Received: by outflank-mailman (output) from mailman id 14277.35388; Thu, 29 Oct 2020 15:14:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,160 +23,84 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY9Uh-0005h3-HZ; Thu, 29 Oct 2020 15:05:39 +0000
-Received: by outflank-mailman (input) for mailman id 14271;
- Thu, 29 Oct 2020 15:05:37 +0000
+	id 1kY9dR-0006eD-ET; Thu, 29 Oct 2020 15:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 14277;
+ Thu, 29 Oct 2020 15:14:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qEoS=EE=aculab.com=david.laight@srs-us1.protection.inumbo.net>)
- id 1kY9Uf-0005gy-QU
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 15:05:37 +0000
-Received: from eu-smtp-delivery-151.mimecast.com (unknown [207.82.80.151])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 2b0dfeee-94b7-4c43-8e36-105c0466feeb;
- Thu, 29 Oct 2020 15:05:36 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-56-P6lCnI4YNLSev_eoOtq5HQ-1; Thu, 29 Oct 2020 15:05:32 +0000
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Thu, 29 Oct 2020 15:05:31 +0000
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000; 
- Thu, 29 Oct 2020 15:05:31 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kY9dP-0006e8-Gt
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 15:14:39 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 78dbd365-d764-406e-bec0-2c668edd3c62;
+ Thu, 29 Oct 2020 15:14:38 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AAD13AC91;
+ Thu, 29 Oct 2020 15:14:37 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=qEoS=EE=aculab.com=david.laight@srs-us1.protection.inumbo.net>)
-	id 1kY9Uf-0005gy-QU
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 15:05:37 +0000
-X-Inumbo-ID: 2b0dfeee-94b7-4c43-8e36-105c0466feeb
-Received: from eu-smtp-delivery-151.mimecast.com (unknown [207.82.80.151])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 2b0dfeee-94b7-4c43-8e36-105c0466feeb;
-	Thu, 29 Oct 2020 15:05:36 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-56-P6lCnI4YNLSev_eoOtq5HQ-1; Thu, 29 Oct 2020 15:05:32 +0000
-X-MC-Unique: P6lCnI4YNLSev_eoOtq5HQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Thu, 29 Oct 2020 15:05:31 +0000
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
- Thu, 29 Oct 2020 15:05:31 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Arnd Bergmann' <arnd@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: Arnd Bergmann <arnd@arndb.de>, "K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
-	<sthemmin@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>, "Rafael J.
- Wysocki" <rjw@rjwysocki.net>, Paolo Bonzini <pbonzini@redhat.com>, "Vitaly
- Kuznetsov" <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, "Jim
- Mattson" <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>
-Subject: RE: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
-Thread-Topic: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
-Thread-Index: AQHWrZenJpzBwTRfbE+Uihb7XQWTqKmurjkg
-Date: Thu, 29 Oct 2020 15:05:31 +0000
-Message-ID: <38b11ed3fec64ebd82d6a92834a4bebe@AcuMS.aculab.com>
-References: <20201028212417.3715575-1-arnd@kernel.org>
-In-Reply-To: <20201028212417.3715575-1-arnd@kernel.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	(envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kY9dP-0006e8-Gt
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 15:14:39 +0000
+X-Inumbo-ID: 78dbd365-d764-406e-bec0-2c668edd3c62
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 78dbd365-d764-406e-bec0-2c668edd3c62;
+	Thu, 29 Oct 2020 15:14:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603984477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oMm5zPzSCOpinbtJseRPVozVV46YNC4lZVuO5Wv53SE=;
+	b=qwlKE0y67hLWNKXrJGKqtVR99n1tU6yiChiyezvSLufQJOeW6emmrYRk5AH/v3OHzsDRbJ
+	i3vRUl046RD61nYf+d0FduPGTH8xM4NMXcXLyemLAVfqUqKzKyQpfxqRX5l6kikAKU+4Oj
+	ECNYMkTO9QXHtKoQe2TZXUOjhQnZVgY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id AAD13AC91;
+	Thu, 29 Oct 2020 15:14:37 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/HVM: send mapcache invalidation request to qemu
+ regardless of preemption
+Message-ID: <d33721a8-af91-7efc-b954-1d775bd4e35c@suse.com>
+Date: Thu, 29 Oct 2020 16:14:38 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-From: Arnd Bergmann
-> Sent: 28 October 2020 21:21
->=20
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> There are hundreds of warnings in a W=3D2 build about a local
-> variable shadowing the global 'apic' definition:
->=20
-> arch/x86/kvm/lapic.h:149:65: warning: declaration of 'apic' shadows a glo=
-bal declaration [-Wshadow]
->=20
-> Avoid this by renaming the global 'apic' variable to the more descriptive
-> 'x86_system_apic'. It was originally called 'genapic', but both that
-> and the current 'apic' seem to be a little overly generic for a global
-> variable.
->=20
-> Fixes: c48f14966cc4 ("KVM: inline kvm_apic_present() and kvm_lapic_enable=
-d()")
-> Fixes: c8d46cf06dc2 ("x86: rename 'genapic' to 'apic'")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> v2: rename the global instead of the local variable in the header
-...
-> diff --git a/arch/x86/hyperv/hv_apic.c b/arch/x86/hyperv/hv_apic.c
-> index 284e73661a18..33e2dc78ca11 100644
-> --- a/arch/x86/hyperv/hv_apic.c
-> +++ b/arch/x86/hyperv/hv_apic.c
-> @@ -259,14 +259,14 @@ void __init hv_apic_init(void)
->  =09=09/*
->  =09=09 * Set the IPI entry points.
->  =09=09 */
-> -=09=09orig_apic =3D *apic;
-> -
-> -=09=09apic->send_IPI =3D hv_send_ipi;
-> -=09=09apic->send_IPI_mask =3D hv_send_ipi_mask;
-> -=09=09apic->send_IPI_mask_allbutself =3D hv_send_ipi_mask_allbutself;
-> -=09=09apic->send_IPI_allbutself =3D hv_send_ipi_allbutself;
-> -=09=09apic->send_IPI_all =3D hv_send_ipi_all;
-> -=09=09apic->send_IPI_self =3D hv_send_ipi_self;
-> +=09=09orig_apic =3D *x86_system_apic;
-> +
-> +=09=09x86_system_apic->send_IPI =3D hv_send_ipi;
-> +=09=09x86_system_apic->send_IPI_mask =3D hv_send_ipi_mask;
-> +=09=09x86_system_apic->send_IPI_mask_allbutself =3D hv_send_ipi_mask_all=
-butself;
-> +=09=09x86_system_apic->send_IPI_allbutself =3D hv_send_ipi_allbutself;
-> +=09=09x86_system_apic->send_IPI_all =3D hv_send_ipi_all;
-> +=09=09x86_system_apic->send_IPI_self =3D hv_send_ipi_self;
->  =09}
->=20
->  =09if (ms_hyperv.hints & HV_X64_APIC_ACCESS_RECOMMENDED) {
-> @@ -285,10 +285,10 @@ void __init hv_apic_init(void)
->  =09=09 */
->  =09=09apic_set_eoi_write(hv_apic_eoi_write);
->  =09=09if (!x2apic_enabled()) {
-> -=09=09=09apic->read      =3D hv_apic_read;
-> -=09=09=09apic->write     =3D hv_apic_write;
-> -=09=09=09apic->icr_write =3D hv_apic_icr_write;
-> -=09=09=09apic->icr_read  =3D hv_apic_icr_read;
-> +=09=09=09x86_system_apic->read      =3D hv_apic_read;
-> +=09=09=09x86_system_apic->write     =3D hv_apic_write;
-> +=09=09=09x86_system_apic->icr_write =3D hv_apic_icr_write;
-> +=09=09=09x86_system_apic->icr_read  =3D hv_apic_icr_read;
->  =09=09}
+Even if only part of a hypercall completed before getting preempted,
+invalidation ought to occur. Therefore fold the two return statements.
 
-For those two just add:
-=09struct apic *apic =3D x86_system_apic;
-before all the assignments.
-Less churn and much better code.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Split off from "x86/HVM: refine when to send mapcache invalidation
+request to qemu".
 
-=09David
-
+--- a/xen/arch/x86/hvm/hypercall.c
++++ b/xen/arch/x86/hvm/hypercall.c
+@@ -326,14 +326,11 @@ int hvm_hypercall(struct cpu_user_regs *
+ 
+     HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu -> %lx", eax, regs->rax);
+ 
+-    if ( curr->hcall_preempted )
+-        return HVM_HCALL_preempted;
 -
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
-
+     if ( unlikely(currd->arch.hvm.qemu_mapcache_invalidate) &&
+          test_and_clear_bool(currd->arch.hvm.qemu_mapcache_invalidate) )
+         send_invalidate_req();
+ 
+-    return HVM_HCALL_completed;
++    return curr->hcall_preempted ? HVM_HCALL_preempted : HVM_HCALL_completed;
+ }
+ 
+ /*
 
