@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4C429ED7B
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 14:48:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14183.35213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F37829EDAB
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 14:54:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14189.35225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY8Hr-0005mN-H0; Thu, 29 Oct 2020 13:48:19 +0000
+	id 1kY8ND-0006gc-5B; Thu, 29 Oct 2020 13:53:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14183.35213; Thu, 29 Oct 2020 13:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 14189.35225; Thu, 29 Oct 2020 13:53:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,114 +23,110 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY8Hr-0005ly-DP; Thu, 29 Oct 2020 13:48:19 +0000
-Received: by outflank-mailman (input) for mailman id 14183;
- Thu, 29 Oct 2020 13:48:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kY8ND-0006gD-1U; Thu, 29 Oct 2020 13:53:51 +0000
+Received: by outflank-mailman (input) for mailman id 14189;
+ Thu, 29 Oct 2020 13:53:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kY8Hp-0005lr-LG
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:48:17 +0000
+ id 1kY8NB-0006fU-J3
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:53:49 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 54443f21-8ce5-473f-baeb-f5eae923dbde;
- Thu, 29 Oct 2020 13:48:16 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c8941dbe-b15e-406d-abae-65774beb4612;
+ Thu, 29 Oct 2020 13:53:48 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 18097AC12;
- Thu, 29 Oct 2020 13:48:16 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 962FDAFB1;
+ Thu, 29 Oct 2020 13:53:47 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kY8Hp-0005lr-LG
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:48:17 +0000
-X-Inumbo-ID: 54443f21-8ce5-473f-baeb-f5eae923dbde
+	id 1kY8NB-0006fU-J3
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:53:49 +0000
+X-Inumbo-ID: c8941dbe-b15e-406d-abae-65774beb4612
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 54443f21-8ce5-473f-baeb-f5eae923dbde;
-	Thu, 29 Oct 2020 13:48:16 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id c8941dbe-b15e-406d-abae-65774beb4612;
+	Thu, 29 Oct 2020 13:53:48 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1603979296;
+	t=1603979627;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=b+W3OIBwFQnB56lPFhfRRpxuzw3xbNI8cjlGnjdVkuM=;
-	b=qn3EYK6oPq6k0BdN7UTWfQ49fcE9w+m1mdkOs++0ONj9VXb5nkbbA/OZ6cM6XZ/xid6UXm
-	PMhJ4TdxpDCK1bP0afIcQpXr3bPSoUDyN1v3qe3psWdPqRgETQDs39S8NO4JVG0mdjUJeC
-	M8ueGSA1LyEMjuKUKr4hZPF/ZkH/YTU=
+	bh=qcmxnvRUtgd5pwtZDJYRsRYYJtUit4eLtWDDXvSIsZA=;
+	b=TyGlzbCkfrF50ZvWzg7t9ja1xNxsHc92k1r9iD/dDoAeBYlmV054eEvVjnpLSs2Dx+RHV3
+	HsPqYAayMtG2EpBnDEIfMwVncrlWTM8iduIJnGBM0xDtA+yv7qzbi4AHiO70SpJ9JRhCop
+	iUZb6ZBXTFvbTOhsDFu5op0IEeEQKvU=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 18097AC12;
-	Thu, 29 Oct 2020 13:48:16 +0000 (UTC)
-Subject: Ping: [PATCH] tools/python: pass more -rpath-link options to ld
+	by mx2.suse.de (Postfix) with ESMTP id 962FDAFB1;
+	Thu, 29 Oct 2020 13:53:47 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
-To: Marek Marczykowski <marmarek@invisiblethingslab.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d10bb94f-c572-6977-40a4-57a61da4094b@suse.com>
-Message-ID: <f449285a-aa96-85a7-59d2-0a9dc6cc50b4@suse.com>
-Date: Thu, 29 Oct 2020 14:48:16 +0100
+Subject: =?UTF-8?Q?Ping=c2=b2=3a_=5bPATCH=5d_x86/PV=3a_make_post-migration_p?=
+ =?UTF-8?Q?age_state_consistent?=
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
+Message-ID: <d1e9190e-a3be-8500-41f7-406af18458fc@suse.com>
+Date: Thu, 29 Oct 2020 14:53:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <d10bb94f-c572-6977-40a4-57a61da4094b@suse.com>
+In-Reply-To: <f7ed53c1-768c-cc71-a432-553b56f7f0a7@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 19.10.2020 10:31, Jan Beulich wrote:
-> With the split of libraries, I've observed a number of warnings from
-> (old?) ld.
+On 11.09.2020 12:34, Jan Beulich wrote:
+> When a page table page gets de-validated, its type reference count drops
+> to zero (and PGT_validated gets cleared), but its type remains intact.
+> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
+> such pages. An intermediate write to such a page via e.g.
+> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
+> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
+> return. In libxc the decision which pages to normalize / localize
+> depends solely on the type returned from the domctl. As a result without
+> further precautions the guest won't be able to tell whether such a page
+> has had its (apparent) PTE entries transitioned to the new MFNs.
+> 
+> Add a check of PGT_validated, thus consistently avoiding normalization /
+> localization in the tool stack.
+> 
+> Alongside using XEN_DOMCTL_PFINFO_NOTAB instead of plain zero for the
+> change at hand, also change the variable's initializer to use this
+> constant, too. Take the opportunity and also adjust its type.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Marek?
+I think I did address all questions here.
 
-> ---
-> It's unclear to me whether this is ld version dependent - the pattern
-> of where I've seen such warnings doesn't suggest a clear version
-> dependency.
-> 
-> --- a/tools/python/setup.py
-> +++ b/tools/python/setup.py
-> @@ -7,10 +7,15 @@ XEN_ROOT = "../.."
->  extra_compile_args  = [ "-fno-strict-aliasing", "-Werror" ]
+Jan
+
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -215,7 +215,8 @@ long arch_do_domctl(
 >  
->  PATH_XEN      = XEN_ROOT + "/tools/include"
-> +PATH_LIBXENTOOLCORE = XEN_ROOT + "/tools/libs/toolcore"
->  PATH_LIBXENTOOLLOG = XEN_ROOT + "/tools/libs/toollog"
-> +PATH_LIBXENCALL = XEN_ROOT + "/tools/libs/call"
->  PATH_LIBXENEVTCHN = XEN_ROOT + "/tools/libs/evtchn"
-> +PATH_LIBXENGNTTAB = XEN_ROOT + "/tools/libs/gnttab"
->  PATH_LIBXENCTRL = XEN_ROOT + "/tools/libs/ctrl"
->  PATH_LIBXENGUEST = XEN_ROOT + "/tools/libs/guest"
-> +PATH_LIBXENDEVICEMODEL = XEN_ROOT + "/tools/libs/devicemodel"
-> +PATH_LIBXENFOREIGNMEMORY = XEN_ROOT + "/tools/libs/foreignmemory"
->  PATH_XENSTORE = XEN_ROOT + "/tools/libs/store"
+>          for ( i = 0; i < num; ++i )
+>          {
+> -            unsigned long gfn = 0, type = 0;
+> +            unsigned long gfn = 0;
+> +            unsigned int type = XEN_DOMCTL_PFINFO_NOTAB;
+>              struct page_info *page;
+>              p2m_type_t t;
 >  
->  xc = Extension("xc",
-> @@ -24,7 +29,13 @@ xc = Extension("xc",
->                 library_dirs       = [ PATH_LIBXENCTRL, PATH_LIBXENGUEST ],
->                 libraries          = [ "xenctrl", "xenguest" ],
->                 depends            = [ PATH_LIBXENCTRL + "/libxenctrl.so", PATH_LIBXENGUEST + "/libxenguest.so" ],
-> -               extra_link_args    = [ "-Wl,-rpath-link="+PATH_LIBXENTOOLLOG ],
-> +               extra_link_args    = [ "-Wl,-rpath-link="+PATH_LIBXENCALL,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENDEVICEMODEL,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENEVTCHN,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENFOREIGNMEMORY,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENGNTTAB,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENTOOLCORE,
-> +                                      "-Wl,-rpath-link="+PATH_LIBXENTOOLLOG ],
->                 sources            = [ "xen/lowlevel/xc/xc.c" ])
+> @@ -255,6 +256,8 @@ long arch_do_domctl(
 >  
->  xs = Extension("xs",
-> @@ -33,6 +44,7 @@ xs = Extension("xs",
->                 library_dirs       = [ PATH_XENSTORE ],
->                 libraries          = [ "xenstore" ],
->                 depends            = [ PATH_XENSTORE + "/libxenstore.so" ],
-> +               extra_link_args    = [ "-Wl,-rpath-link="+PATH_LIBXENTOOLCORE ],
->                 sources            = [ "xen/lowlevel/xs/xs.c" ])
+>                  if ( page->u.inuse.type_info & PGT_pinned )
+>                      type |= XEN_DOMCTL_PFINFO_LPINTAB;
+> +                else if ( !(page->u.inuse.type_info & PGT_validated) )
+> +                    type = XEN_DOMCTL_PFINFO_NOTAB;
 >  
->  plat = os.uname()[0]
+>                  if ( page->count_info & PGC_broken )
+>                      type = XEN_DOMCTL_PFINFO_BROKEN;
 > 
 
 
