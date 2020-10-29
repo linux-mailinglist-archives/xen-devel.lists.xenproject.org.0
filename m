@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE05329ED0F
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 14:38:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.14164.35162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56DE29ED1B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 14:40:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.14168.35174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY87e-0004RM-JX; Thu, 29 Oct 2020 13:37:46 +0000
+	id 1kY8A6-0005Gf-2M; Thu, 29 Oct 2020 13:40:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 14164.35162; Thu, 29 Oct 2020 13:37:46 +0000
+Received: by outflank-mailman (output) from mailman id 14168.35174; Thu, 29 Oct 2020 13:40:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,134 +23,92 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kY87e-0004Qx-GV; Thu, 29 Oct 2020 13:37:46 +0000
-Received: by outflank-mailman (input) for mailman id 14164;
- Thu, 29 Oct 2020 13:37:44 +0000
+	id 1kY8A5-0005GG-V1; Thu, 29 Oct 2020 13:40:17 +0000
+Received: by outflank-mailman (input) for mailman id 14168;
+ Thu, 29 Oct 2020 13:40:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/pEi=EE=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kY87c-0004Qs-Gy
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:37:44 +0000
-Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kY8A4-0005GA-Kj
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:40:16 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eee399a0-b9f9-4d71-a471-c91918496340;
- Thu, 29 Oct 2020 13:37:42 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id a9so3331724lfc.7
- for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 06:37:42 -0700 (PDT)
+ id e56244f9-637f-432b-9926-a2ae2319acb5;
+ Thu, 29 Oct 2020 13:40:15 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F2333AD5F;
+ Thu, 29 Oct 2020 13:40:14 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=/pEi=EE=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
-	id 1kY87c-0004Qs-Gy
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:37:44 +0000
-X-Inumbo-ID: eee399a0-b9f9-4d71-a471-c91918496340
-Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
+	(envelope-from <SRS0=o7xP=EE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kY8A4-0005GA-Kj
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 13:40:16 +0000
+X-Inumbo-ID: e56244f9-637f-432b-9926-a2ae2319acb5
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id eee399a0-b9f9-4d71-a471-c91918496340;
-	Thu, 29 Oct 2020 13:37:42 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id a9so3331724lfc.7
-        for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 06:37:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=YfRB8FQmwaiiY6xcRF4WpyWAS6wFDwuQyJf55DguVeI=;
-        b=Fn544HyQ56FmED4VrrCTbRHrewY2uEkVSqzaOy/OKq87AbdPUFNUyYuUf/nm08B18F
-         iio61xHYwW+0NlEBF+CzvBvhgYlXgOWybJHVIZoxTGgPyVXLGTrW9laQpieRFWS1efHN
-         98NTlo3NyEXCCSY2B2kvZHKdjFr1y+vIRntqxydoyBb4SFvm+DZgT+SDoHafT9QMrEGd
-         +330fhVygOyqlkdKj+YZ9sWNUgIICw5gLXA4G9I1yhnE8kRphXrZ9CgJHUH7AKeN9WW2
-         QOXuca2P4poUhCZ/oNkEDcMIaO3ERXDygL++4LhCSvNvwcF+Fff7OeRQdXA5+MQIVC/9
-         yr0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=YfRB8FQmwaiiY6xcRF4WpyWAS6wFDwuQyJf55DguVeI=;
-        b=SxkMltpS5JPPpXm/TlfMaRhhYzFyHpC8LK+Eivlco2BpYqJifnj+VQOWhtdVQosL0N
-         r69zQJRdLAwhWlLPzgc2wkKI31IwdHl1g9tMaoeUVBF3GjaXNK/D6IQYj4U0dKcXAMll
-         YjeO/KgOOxZkiU/7/B5mMiMwXkoePwMOX2Ed6jmUORKvTKf21Qm6lv4a7qPEt6GVw8C+
-         E00X5FXbmNeYAnp71L9hkCC0ZEZYvqUKEfmbrgO7jt15PN3+Ea5JKSdnxQCTEdlWCaLv
-         MByZ9w7I/z73xqxwiA1sBLRQJZT7ZfSuKEfDPkLEVYR4JIHLRaAb1apUqWLiROhaiQuX
-         0hSw==
-X-Gm-Message-State: AOAM530rIY6gPoWHiQ/lbMymYcMGGsEpJ1K1ZmDI+jlT2Au9lWwx5z+z
-	Xv8hZpvcEmJrq8vlzbEEl3yHNhvXcYjcyYbqO0c=
-X-Google-Smtp-Source: ABdhPJx8m++592/7jOeOjKwbpWqCnQXCFYegDVTkjfLC3umw/45ChrDJ7JUU2KiPV7DSMa6Ey9rVMi+ytX8h8FVXoMk=
-X-Received: by 2002:ac2:455c:: with SMTP id j28mr1530509lfm.320.1603978661669;
- Thu, 29 Oct 2020 06:37:41 -0700 (PDT)
+	id e56244f9-637f-432b-9926-a2ae2319acb5;
+	Thu, 29 Oct 2020 13:40:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1603978815;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q1Bpm8q+ni/LHNqViyLzcib+SJg2pmfkMPF/cyhDaY0=;
+	b=LvC1tcQQM3Qi52PjN8fRYqtdvymULGqB22kJgLpoggxRZvpR00J8JnoSk6s+PyBV/23awh
+	wSn4Y9nigJ1Ld7fjHqnyeDkax8kCQPxYppZM1kQDAK80/Hmt0RbTHo26NWjYVPCiLTiS21
+	tHT0bf4EruNg6EdqP5EkLuRVbmfY1d0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id F2333AD5F;
+	Thu, 29 Oct 2020 13:40:14 +0000 (UTC)
+Subject: Ping: [PATCH v3 0/3] x86: shim building adjustments (plus shadow
+ follow-on)
+From: Jan Beulich <jbeulich@suse.com>
+To: Tim Deegan <tim@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
+Message-ID: <73ec8762-d7c4-c46f-b0bf-f40b89377312@suse.com>
+Date: Thu, 29 Oct 2020 14:40:15 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-References: <20201028174406.23424-1-alex.bennee@linaro.org>
- <alpine.DEB.2.21.2010281406080.12247@sstabellini-ThinkPad-T480s> <87d011mjuw.fsf@linaro.org>
-In-Reply-To: <87d011mjuw.fsf@linaro.org>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 29 Oct 2020 09:37:29 -0400
-Message-ID: <CAKf6xpsYorMRYpuPcb8B1zVWz3GHgZZwF+NPVA=nFL2Tr13hqQ@mail.gmail.com>
-Subject: Re: [PATCH] meson.build: fix building of Xen support for aarch64
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, QEMU <qemu-devel@nongnu.org>, 
-	xen-devel <xen-devel@lists.xenproject.org>, 
-	Masami Hiramatsu <masami.hiramatsu@linaro.org>, Anthony Perard <anthony.perard@citrix.com>, 
-	Paul Durrant <paul@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <d09b0690-c5e0-a90b-b4c0-4396a5f62c59@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2020 at 6:01 AM Alex Benn=C3=A9e <alex.bennee@linaro.org> w=
-rote:
->
->
-> Stefano Stabellini <sstabellini@kernel.org> writes:
->
-> > On Wed, 28 Oct 2020, Alex Benn=C3=A9e wrote:
-> >> Xen is supported on aarch64 although weirdly using the i386-softmmu
-> >> model. Checking based on the host CPU meant we never enabled Xen
-> >> support. It would be nice to enable CONFIG_XEN for aarch64-softmmu to
-> >> make it not seem weird but that will require further build surgery.
-> >>
-> >> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-> >> Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>
-> >> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> >> Cc: Anthony Perard <anthony.perard@citrix.com>
-> >> Cc: Paul Durrant <paul@xen.org>
-> >> Fixes: 8a19980e3f ("configure: move accelerator logic to meson")
-> >> ---
-> >>  meson.build | 2 ++
-> >>  1 file changed, 2 insertions(+)
-> >>
-> >> diff --git a/meson.build b/meson.build
-> >> index 835424999d..f1fcbfed4c 100644
-> >> --- a/meson.build
-> >> +++ b/meson.build
-> >> @@ -81,6 +81,8 @@ if cpu in ['x86', 'x86_64']
-> >>      'CONFIG_HVF': ['x86_64-softmmu'],
-> >>      'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
-> >>    }
-> >> +elif cpu in [ 'arm', 'aarch64' ]
-> >> +  accelerator_targets +=3D { 'CONFIG_XEN': ['i386-softmmu'] }
-> >>  endif
-> >
-> > This looks very reasonable -- the patch makes sense.
+Tim,
 
-A comment would be useful to explain that Arm needs i386-softmmu for
-the xenpv machine.
+On 19.10.2020 10:42, Jan Beulich wrote:
+> The change addressing the shadow related build issue noticed by
+> Andrew went in already. The build breakage goes beyond this
+> specific combination though - PV_SHIM_EXCLUSIVE plus HVM is
+> similarly an issue. This is what the 1st patch tries to take care
+> of, in a shape already on irc noticed to be controversial. I'm
+> submitting the change nevertheless because for the moment there
+> looks to be a majority in favor of going this route. One argument
+> not voiced there yet: What good does it do to allow a user to
+> enable HVM when then on the resulting hypervisor they still can't
+> run HVM guests (for the hypervisor still being a dedicated PV
+> shim one). On top of this, the alternative approach is likely
+> going to get ugly.
+> 
+> The shadow related adjustments are here merely because the want
+> to make them was noticed in the context of the patch which has
+> already gone in.
+> 
+> 1: don't permit HVM and PV_SHIM_EXCLUSIVE at the same time
+> 2: refactor shadow_vram_{get,put}_l1e()
+> 3: sh_{make,destroy}_monitor_table() are "even more" HVM-only
 
-> >
-> > However I have two questions, mostly for my own understanding. I tried
-> > to repro the aarch64 build problem but it works at my end, even without
-> > this patch.
->
-> Building on a x86 host or with cross compiler?
->
-> > I wonder why. I suspect it works thanks to these lines in
-> > meson.build:
+unless you tell me otherwise I'm intending to commit the latter
+two with Roger's acks some time next week. Of course it would
+still be nice to know your view on the first of the TBDs in
+patch 3 (which may result in further changes, in a follow-up).
 
-I think it's a runtime and not a build problem.  In osstest, Xen
-support was detected and configured, but CONFIG_XEN wasn't set for
-Arm.  So at runtime xen_available() returns 0, and QEMU doesn't start
-with "qemu-system-i386: -xen-domid 1: Option not supported for this
-target"
-
-I posted my investigation here:
-https://lore.kernel.org/xen-devel/CAKf6xpss8KpGOvZrKiTPz63bhBVbjxRTYWdHEkzU=
-o2q1KEMjhg@mail.gmail.com/
-
-Regards,
-Jason
+Jan
 
