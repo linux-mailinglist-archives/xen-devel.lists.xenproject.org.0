@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210C629F6F2
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 22:34:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15054.37680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D746829F6F8
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Oct 2020 22:35:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15064.37711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYFZ6-0005Hf-AV; Thu, 29 Oct 2020 21:34:36 +0000
+	id 1kYFZn-0005Uh-TJ; Thu, 29 Oct 2020 21:35:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15054.37680; Thu, 29 Oct 2020 21:34:36 +0000
+Received: by outflank-mailman (output) from mailman id 15064.37711; Thu, 29 Oct 2020 21:35:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -19,151 +19,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYFZ6-0005HD-6P; Thu, 29 Oct 2020 21:34:36 +0000
-Received: by outflank-mailman (input) for mailman id 15054;
- Thu, 29 Oct 2020 21:34:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kYFZn-0005UH-Pl; Thu, 29 Oct 2020 21:35:19 +0000
+Received: by outflank-mailman (input) for mailman id 15064;
+ Thu, 29 Oct 2020 21:35:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kYFZ5-0005H5-8z
- for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:34:35 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 24934f57-594d-41e4-8cfc-adc5ae92920b;
- Thu, 29 Oct 2020 21:34:34 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 50D5620731;
- Thu, 29 Oct 2020 21:34:32 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=iFbr=EE=gmail.com=niveditas98@srs-us1.protection.inumbo.net>)
+ id 1kYFZl-0005Sn-US
+ for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:35:18 +0000
+Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae8c061d-e4c8-4757-95d7-5ce69e755c05;
+ Thu, 29 Oct 2020 21:35:16 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id y20so5310965iod.5
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 14:35:16 -0700 (PDT)
+Received: from rani.riverdale.lan ([2001:470:1f07:5f3::b55f])
+ by smtp.gmail.com with ESMTPSA id r3sm3065346iog.55.2020.10.29.14.35.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 14:35:15 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=IgEN=EE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kYFZ5-0005H5-8z
-	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:34:35 +0000
-X-Inumbo-ID: 24934f57-594d-41e4-8cfc-adc5ae92920b
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 24934f57-594d-41e4-8cfc-adc5ae92920b;
-	Thu, 29 Oct 2020 21:34:34 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 50D5620731;
-	Thu, 29 Oct 2020 21:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1604007273;
-	bh=ZRwgpdl6pgaYDU1dnZVdmAY97Zm/vVutiyjWKLVCaxM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=2dLzgniFXG1XFt8xqj6eErMg/hWz++LxEEABpLTMJ3Km4DYr/8tYR1YNajKPq5XD9
-	 Y3jfjEXTQvRUhZPTfNhmzbPDzblQ6hBOiSVR1nzz5HcgqLau6YmID5tIq9900H/ReL
-	 b09Dz0WT1xdm5zWwwZchDCggZ9E9Kw+W6itBs+KU=
-Date: Thu, 29 Oct 2020 14:34:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Masami Hiramatsu <masami.hiramatsu@linaro.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Julien Grall <julien.grall@arm.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>, 
-    Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
-In-Reply-To: <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2010291434220.12247@sstabellini-ThinkPad-T480s>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com> <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com> <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s>
- <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=iFbr=EE=gmail.com=niveditas98@srs-us1.protection.inumbo.net>)
+	id 1kYFZl-0005Sn-US
+	for xen-devel@lists.xenproject.org; Thu, 29 Oct 2020 21:35:18 +0000
+X-Inumbo-ID: ae8c061d-e4c8-4757-95d7-5ce69e755c05
+Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ae8c061d-e4c8-4757-95d7-5ce69e755c05;
+	Thu, 29 Oct 2020 21:35:16 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id y20so5310965iod.5
+        for <xen-devel@lists.xenproject.org>; Thu, 29 Oct 2020 14:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:from:date:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=o/fZRhurDRoh3x2KXwZGFT2Yi8JsbQLcBDCy2LAivAY=;
+        b=gGuTqV/6UjMeGtDxjXYhwQPHTl/X7tzC8nyDkopIigNmkrO3mCPbuH/1MhlZEXs368
+         ilsmPmjF8/8PcamJS4tzXcIssUUJKuowmvAaZpvnATyfAuLpyzByye2ob5V27GVE8qIT
+         KZP17N/xFAWoIKkVe0RuMkFayeP8BWuJYRQfihoxN9IcITuyVnsNMyFFHot0k3ChkDxn
+         nFZSLwwceJfQxsoqw1O2SZk7WDZNX5WeTFIk5dkyBtO3OtvmEbw8mG/eVrbi8eoLhfOn
+         0GZOx0BOnNgBQieydv87h3zVPKI0C/CSIt6VEOi3C7rjEkzw5bkznPJoY5+aGh/Uu3xA
+         /g8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:from:date:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=o/fZRhurDRoh3x2KXwZGFT2Yi8JsbQLcBDCy2LAivAY=;
+        b=tbSeA/sjjQRG8FMXsZnNz6xN23wihzTrxhUHz2gtIbzV3vG5cdAuglQoDGbD5h9T1x
+         EiDvZcYVq3GCT24NOWXh2nhkrB0/sfVdURs1YTXpiZbIDtweCfbkibrmjGagNYnuQYYo
+         DMtAfo+RI+xyN2nb+FqkGjsrB0UIrn0uLnyTycgqIhi+VkFUDBLdUeFQvEZ7nGWvd9W7
+         HxY+FIjKtB1cEkoY4zKHalsdtW6Il7tPR+tbq0fFL6OEMyeyjiyJBi8Ii/GZA8d7PkF7
+         64JqKUzKsiS/5F1MyhWPxc8X9jBBM5aNsFlJbA+FSh9TYeDfF4LjeBv1geFmKXJPPsP9
+         n50g==
+X-Gm-Message-State: AOAM531UCF/XMYJYG8fLvC1x7y7avh8qRxhwRbEYD0EBSEMtpQj8Oeea
+	pOzXzQeLd6JaIjSJIrb7WmE=
+X-Google-Smtp-Source: ABdhPJyTkgnuu9ypsiIO3xCkmwdOh4o3IIPvbsxF62gfZSdk4g2zCe1B1vFwKdXsPs4FzLAVBSR7HA==
+X-Received: by 2002:a05:6602:22cf:: with SMTP id e15mr5087695ioe.1.1604007316212;
+        Thu, 29 Oct 2020 14:35:16 -0700 (PDT)
+Received: from rani.riverdale.lan ([2001:470:1f07:5f3::b55f])
+        by smtp.gmail.com with ESMTPSA id r3sm3065346iog.55.2020.10.29.14.35.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2020 14:35:15 -0700 (PDT)
+Sender: Arvind Sankar <niveditas98@gmail.com>
+From: Arvind Sankar <nivedita@alum.mit.edu>
+X-Google-Original-From: Arvind Sankar <arvind@rani.riverdale.lan>
+Date: Thu, 29 Oct 2020 17:35:12 -0400
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Arvind Sankar <nivedita@alum.mit.edu>,
+	David Laight <David.Laight@ACULAB.COM>,
+	'Arnd Bergmann' <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>
+Subject: Re: [PATCH] [v2] x86: apic: avoid -Wshadow warning in header
+Message-ID: <20201029213512.GA34524@rani.riverdale.lan>
+References: <20201028212417.3715575-1-arnd@kernel.org>
+ <38b11ed3fec64ebd82d6a92834a4bebe@AcuMS.aculab.com>
+ <20201029165611.GA2557691@rani.riverdale.lan>
+ <93180c2d-268c-3c33-7c54-4221dfe0d7ad@redhat.com>
+ <87v9esojdi.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-477224580-1604007273=:12247"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <87v9esojdi.fsf@nanos.tec.linutronix.de>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Oct 29, 2020 at 09:41:13PM +0100, Thomas Gleixner wrote:
+> On Thu, Oct 29 2020 at 17:59, Paolo Bonzini wrote:
+> > On 29/10/20 17:56, Arvind Sankar wrote:
+> >>> For those two just add:
+> >>> 	struct apic *apic = x86_system_apic;
+> >>> before all the assignments.
+> >>> Less churn and much better code.
+> >>>
+> >> Why would it be better code?
+> >> 
+> >
+> > I think he means the compiler produces better code, because it won't
+> > read the global variable repeatedly.  Not sure if that's true,(*) but I
+> > think I do prefer that version if Arnd wants to do that tweak.
+> 
+> It's not true.
+> 
+>      foo *p = bar;
+> 
+>      p->a = 1;
+>      p->b = 2;
+> 
+> The compiler is free to reload bar after accessing p->a and with
+> 
+>     bar->a = 1;
+>     bar->b = 1;
+> 
+> it can either cache bar in a register or reread it after bar->a
+> 
+> The generated code is the same as long as there is no reason to reload,
+> e.g. register pressure.
+> 
+> Thanks,
+> 
+>         tglx
 
---8323329-477224580-1604007273=:12247
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+It's not quite the same.
 
-On Thu, 29 Oct 2020, Oleksandr Tyshchenko wrote:
-> Hi Stefano
-> 
-> [sorry for the possible format issue]
-> 
-> On Thu, Oct 29, 2020 at 9:53 PM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       On Thu, 29 Oct 2020, Oleksandr Tyshchenko wrote:
->       > On Thu, Oct 29, 2020 at 9:42 AM Masami Hiramatsu <masami.hiramatsu@linaro.org> wrote:
->       >       Hi Oleksandr,
->       >
->       > Hi Masami
->       >
->       > [sorry for the possible format issue]
->       >  
->       >
->       >       I would like to try this on my arm64 board.
->       >
->       > Glad to hear you are interested in this topic. 
->       >  
->       >
->       >       According to your comments in the patch, I made this config file.
->       >       # cat debian.conf
->       >       name = "debian"
->       >       type = "pvh"
->       >       vcpus = 8
->       >       memory = 512
->       >       kernel = "/opt/agl/vmlinuz-5.9.0-1-arm64"
->       >       ramdisk = "/opt/agl/initrd.img-5.9.0-1-arm64"
->       >       cmdline= "console=hvc0 earlyprintk=xen root=/dev/xvda1 rw"
->       >       disk = [ '/opt/agl/debian.qcow2,qcow2,hda' ]
->       >       vif = [ 'mac=00:16:3E:74:3d:76,bridge=xenbr0' ]
->       >       virtio = 1
->       >       vdisk = [ 'backend=Dom0, disks=ro:/dev/sda1' ]
->       >
->       >       And tried to boot a DomU, but I got below error.
->       >
->       >       # xl create -c debian.conf
->       >       Parsing config from debian.conf
->       >       libxl: error: libxl_create.c:1863:domcreate_attach_devices: Domain
->       >       1:unable to add virtio_disk devices
->       >       libxl: error: libxl_domain.c:1218:destroy_domid_pci_done: Domain
->       >       1:xc_domain_pause failed
->       >       libxl: error: libxl_dom.c:39:libxl__domain_type: unable to get domain
->       >       type for domid=1
->       >       libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain
->       >       1:Unable to destroy guest
->       >       libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain
->       >       1:Destruction of domain failed
->       >
->       >
->       >       Could you tell me how can I test it?
->       >
->       >
->       > I assume it is due to the lack of the virtio-disk backend (which I haven't shared yet as I focused on the IOREQ/DM support on
->       Arm in the
->       > first place).
->       > Could you wait a little bit, I am going to share it soon. 
-> 
->       Do you have a quick-and-dirty hack you can share in the meantime? Even
->       just on github as a special branch? It would be very useful to be able
->       to have a test-driver for the new feature.
-> 
-> Well, I will provide a branch on github with our PoC virtio-disk backend by the end of this week. It will be possible to test this series
-> with it. 
+https://godbolt.org/z/4dzPbM
 
-Very good, thank you!
---8323329-477224580-1604007273=:12247--
+With -fno-strict-aliasing, the compiler reloads the pointer if you write
+to the start of what it points to, but not if you write to later
+elements.
 
