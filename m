@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C8312A0438
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 12:35:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15698.38784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D16662A04D6
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 12:56:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15714.38800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYSgx-000053-Bb; Fri, 30 Oct 2020 11:35:35 +0000
+	id 1kYT0A-0001ug-W8; Fri, 30 Oct 2020 11:55:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15698.38784; Fri, 30 Oct 2020 11:35:35 +0000
+Received: by outflank-mailman (output) from mailman id 15714.38800; Fri, 30 Oct 2020 11:55:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,128 +23,145 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYSgx-0008WH-86; Fri, 30 Oct 2020 11:35:35 +0000
-Received: by outflank-mailman (input) for mailman id 15698;
- Fri, 30 Oct 2020 11:35:33 +0000
+	id 1kYT0A-0001uH-Se; Fri, 30 Oct 2020 11:55:26 +0000
+Received: by outflank-mailman (input) for mailman id 15714;
+ Fri, 30 Oct 2020 11:55:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ToGC=EF=redhat.com=ehabkost@srs-us1.protection.inumbo.net>)
- id 1kYSgv-0008W6-Gv
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:35:33 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 9572f6e5-3ad5-4e26-8678-060d743e8873;
- Fri, 30 Oct 2020 11:35:32 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-468-sRWFeep6MQO_UT9sgJT2kA-1; Fri, 30 Oct 2020 07:35:31 -0400
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7781805F02;
- Fri, 30 Oct 2020 11:35:28 +0000 (UTC)
-Received: from localhost (ovpn-114-68.rdu2.redhat.com [10.10.114.68])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1AD9555785;
- Fri, 30 Oct 2020 11:35:17 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kYT08-0001u7-TQ
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:55:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e19e9d48-e24c-4f41-8803-612f4a50ca6b;
+ Fri, 30 Oct 2020 11:55:23 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F0C49AC65;
+ Fri, 30 Oct 2020 11:55:22 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ToGC=EF=redhat.com=ehabkost@srs-us1.protection.inumbo.net>)
-	id 1kYSgv-0008W6-Gv
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:35:33 +0000
-X-Inumbo-ID: 9572f6e5-3ad5-4e26-8678-060d743e8873
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 9572f6e5-3ad5-4e26-8678-060d743e8873;
-	Fri, 30 Oct 2020 11:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604057732;
+	(envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kYT08-0001u7-TQ
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:55:24 +0000
+X-Inumbo-ID: e19e9d48-e24c-4f41-8803-612f4a50ca6b
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id e19e9d48-e24c-4f41-8803-612f4a50ca6b;
+	Fri, 30 Oct 2020 11:55:23 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604058923;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RXJ5yBCLZhaWw7FjwvS2z0av/pFVm25MD3/1mjWwAwA=;
-	b=Gj4+MWXv4yuKsbSqs1PX3WtK5B6bR2BeHeRmlCIb1+jhgBjdI+El/HhDLdQ9dHv49XpiIX
-	chelCa+XfdkRrO8+jjMlqE1Tf3FFAdW+E/RoR2Jy7FQQZvXtKJv1rD4OLpr9xa4O+2UpVZ
-	QwnEp5N8YSweHYdtQySPT5ms9FrFMxk=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-468-sRWFeep6MQO_UT9sgJT2kA-1; Fri, 30 Oct 2020 07:35:31 -0400
-X-MC-Unique: sRWFeep6MQO_UT9sgJT2kA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7781805F02;
-	Fri, 30 Oct 2020 11:35:28 +0000 (UTC)
-Received: from localhost (ovpn-114-68.rdu2.redhat.com [10.10.114.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1AD9555785;
-	Fri, 30 Oct 2020 11:35:17 +0000 (UTC)
-Date: Fri, 30 Oct 2020 07:35:16 -0400
-From: Eduardo Habkost <ehabkost@redhat.com>
-To: =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@gmail.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-Cc: Wainer dos Santos Moschetta <wainersm@redhat.com>,
-	QEMU <qemu-devel@nongnu.org>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Paul Durrant <paul@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"open list:Block layer core" <qemu-block@nongnu.org>,
-	Stefan Berger <stefanb@linux.vnet.ibm.com>,
-	David Hildenbrand <david@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, John Snow <jsnow@redhat.com>,
-	Richard Henderson <rth@twiddle.net>, Kevin Wolf <kwolf@redhat.com>,
-	"Daniel P. Berrange" <berrange@redhat.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Qemu-s390x list <qemu-s390x@nongnu.org>,
-	Max Reitz <mreitz@redhat.com>, Igor Mammedov <imammedo@redhat.com>
-Subject: --enable-xen on gitlab CI? (was Re: [PATCH 09/36] qdev: Make
- qdev_get_prop_ptr() get Object* arg)
-Message-ID: <20201030113516.GP5733@habkost.net>
-References: <20201029220246.472693-1-ehabkost@redhat.com>
- <20201029220246.472693-10-ehabkost@redhat.com>
- <CAJ+F1CKqo3D20=qSAovVKWCGz4otctaWnGC0O5p-Z1ZG9Pj_Mw@mail.gmail.com>
+	bh=PVYKfbprZc9tQbMTNw+ObjaU0eW6IiywFqtHh4qY80I=;
+	b=EHQARCdBo5+9wHj2fq95QYQqzowbZ4n07d2IjH+1QbAO1HL9TYTmAcuNwZ5whVfekpFMBq
+	gtr6Cj4cvmt0WIE7BSISAIWOx/Xvu1H5YeMH9ucA/IdhhEB155yPz12hCK2t1zoEunB1YX
+	u38D9jFqCL0kH10Y9SGm705MQt0Re/w=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id F0C49AC65;
+	Fri, 30 Oct 2020 11:55:22 +0000 (UTC)
+Subject: Re: [PATCH v2 5/8] evtchn: drop acquiring of per-channel lock from
+ send_guest_{global,vcpu}_virq()
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>
+References: <19babf20-3649-5c63-44a9-7edfa81835aa@suse.com>
+ <53eb30ca-9b3f-0ef4-bc90-e1c196b716b3@suse.com>
+ <20201022160055.nlucvj2bsxolxd5o@Air-de-Roger>
+ <dc7de861-a94c-3ef9-8dbd-ee7a5ba293c4@suse.com>
+ <dbb776ad-5b0c-c0a7-8f01-66e60fd7fad9@xen.org>
+ <2cfcda4c-4115-e057-f401-5103f5b5b8e8@suse.com>
+ <08108cd3-530f-3fe9-e1b2-41c7da9f98b7@xen.org>
+ <693bb422-ed13-9327-5f22-12bd6f192916@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <46d5f9cf-c01d-c0c2-777a-c97736633120@suse.com>
+Date: Fri, 30 Oct 2020 12:55:22 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <CAJ+F1CKqo3D20=qSAovVKWCGz4otctaWnGC0O5p-Z1ZG9Pj_Mw@mail.gmail.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=ehabkost@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <693bb422-ed13-9327-5f22-12bd6f192916@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2020 at 11:29:25AM +0400, Marc-André Lureau wrote:
-> On Fri, Oct 30, 2020 at 2:07 AM Eduardo Habkost <ehabkost@redhat.com> wrote:
+On 30.10.2020 12:15, Jürgen Groß wrote:
+> On 30.10.20 11:57, Julien Grall wrote:
+>>
+>>
+>> On 30/10/2020 10:49, Jan Beulich wrote:
+>>> On 30.10.2020 11:38, Julien Grall wrote:
+>>>> On 22/10/2020 17:17, Jan Beulich wrote:
+>>>>> On 22.10.2020 18:00, Roger Pau Monné wrote:
+>>>>>> On Tue, Oct 20, 2020 at 04:10:09PM +0200, Jan Beulich wrote:
+>>>>>>> --- a/xen/include/xen/event.h
+>>>>>>> +++ b/xen/include/xen/event.h
+>>>>>>> @@ -177,9 +177,16 @@ int evtchn_reset(struct domain *d, bool
+>>>>>>>     * Low-level event channel port ops.
+>>>>>>>     *
+>>>>>>>     * All hooks have to be called with a lock held which prevents 
+>>>>>>> the channel
+>>>>>>> - * from changing state. This may be the domain event lock, the 
+>>>>>>> per-channel
+>>>>>>> - * lock, or in the case of sending interdomain events also the 
+>>>>>>> other side's
+>>>>>>> - * per-channel lock. Exceptions apply in certain cases for the PV 
+>>>>>>> shim.
+>>>>>>> + * from changing state. This may be
+>>>>>>> + * - the domain event lock,
+>>>>>>> + * - the per-channel lock,
+>>>>>>> + * - in the case of sending interdomain events the other side's 
+>>>>>>> per-channel
+>>>>>>> + *   lock,
+>>>>>>> + * - in the case of sending non-global vIRQ-s the per-vCPU 
+>>>>>>> virq_lock (in
+>>>>>>> + *   combination with the ordering enforced through how the vCPU's
+>>>>>>> + *   virq_to_evtchn[] gets updated),
+>>>>>>> + * - in the case of sending global vIRQ-s vCPU 0's virq_lock.
+>>>>>>> + * Exceptions apply in certain cases for the PV shim.
+>>>>>>
+>>>>>> Having such a wide locking discipline looks dangerous to me, it's easy
+>>>>>> to get things wrong without notice IMO.
+>>>>>
+>>>>> It is effectively only describing how things are (or were before
+>>>>> XSA-343, getting restored here).
+>>>>
+>>>> I agree with Roger here, the new/old locking discipline is dangerous and
+>>>> it is only a matter of time before it will bite us again.
+>>>>
+>>>> I think we should consider Juergen's series because the locking for the
+>>>> event channel is easier to understand.
+>>>
+>>> We should, yes. The one thing I'm a little uneasy with is the
+>>> new lock "variant" that gets introduced. Custom locking methods
+>>> also are a common source of problems (which isn't to say I see
+>>> any here).
+>>
+>> I am also unease with a new lock "variant". However, this is the best 
+>> proposal I have seen so far to unblock the issue.
+>>
+>> I am open to other suggestion with simple locking discipline.
 > 
-> > Make the code more generic and not specific to TYPE_DEVICE.
-> >
-> > Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
-> >
-> 
-> Nice cleanup!, but fails to build atm
-> 
-> ../hw/block/xen-block.c:403:9: error: ‘dev’ undeclared (first use in this
-> function); did you mean ‘vdev’?
->   403 |     if (dev->realized) {
+> In theory my new lock variant could easily be replaced by a rwlock and
+> using the try-variant for the readers only.
 
-Thanks for catching it!
+Well, only until we would add check_lock() there, which I think
+we should really have (not just on the slow paths, thanks to
+the use of spin_lock() there). The read-vs-write properties
+you're utilizing aren't applicable in the general case afaict,
+and hence such checking would get in the way.
 
-What is necessary to make sure we have a CONFIG_XEN=y job in
-gitlab CI?  Maybe just including xen-devel in some of the
-container images is enough?
+> The disadvantage of that approach would be a growth of struct evtchn.
 
--- 
-Eduardo
+Wasn't it you who had pointed out to me the aligned(64) attribute
+on the struct (in a different context), which afaict would subsume
+any possible growth?
 
+Jan
 
