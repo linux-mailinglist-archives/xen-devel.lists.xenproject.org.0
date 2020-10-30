@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344D22A04F5
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 13:04:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15741.38862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2EB2A0509
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 13:09:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15754.38875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYT92-0003IL-8B; Fri, 30 Oct 2020 12:04:36 +0000
+	id 1kYTD5-0003Ze-P2; Fri, 30 Oct 2020 12:08:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15741.38862; Fri, 30 Oct 2020 12:04:36 +0000
+Received: by outflank-mailman (output) from mailman id 15754.38875; Fri, 30 Oct 2020 12:08:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,96 +23,84 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYT92-0003Hu-4d; Fri, 30 Oct 2020 12:04:36 +0000
-Received: by outflank-mailman (input) for mailman id 15741;
- Fri, 30 Oct 2020 12:04:34 +0000
+	id 1kYTD5-0003ZF-Lh; Fri, 30 Oct 2020 12:08:47 +0000
+Received: by outflank-mailman (input) for mailman id 15754;
+ Fri, 30 Oct 2020 12:08:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+yJr=EF=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
- id 1kYT90-0003HV-Cb
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:04:34 +0000
-Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kYTD4-0003ZA-CY
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:08:46 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b2810f1-8cf9-481b-b5fc-5821381392f9;
- Fri, 30 Oct 2020 12:04:33 +0000 (UTC)
-Received: from localhost.localdomain (92.188.110.153 [92.188.110.153]) by
- mx.zohomail.com with SMTPS id 1604059452261779.7132315246392;
- Fri, 30 Oct 2020 05:04:12 -0700 (PDT)
+ id 54d39326-7a1e-4829-88de-1f68dd07a060;
+ Fri, 30 Oct 2020 12:08:45 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C1B3FB1A6;
+ Fri, 30 Oct 2020 12:08:44 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=+yJr=EF=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
-	id 1kYT90-0003HV-Cb
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:04:34 +0000
-X-Inumbo-ID: 9b2810f1-8cf9-481b-b5fc-5821381392f9
-Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+	(envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kYTD4-0003ZA-CY
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:08:46 +0000
+X-Inumbo-ID: 54d39326-7a1e-4829-88de-1f68dd07a060
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9b2810f1-8cf9-481b-b5fc-5821381392f9;
-	Fri, 30 Oct 2020 12:04:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1604059453; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h2W/bm1nQCWlg1ACXWIM/W7jYwE1/M8+cvSaYI4R6hlLHfbg3mLNQ0qED6cn16J08ByKX0q+h/pOi+FUMTr+vBQmTDELmQuN5FZ45IWhm3TUNsxeLu0QZJcvjeRhrpDpbXcxzYAQAZstas6ubUUEFstJDxE+6UR+d+91ykqs43s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1604059453; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=Y6WrjRh0df8S3a0pQK8pS6X5+OtEoeqlIRQoXLZLNJA=; 
-	b=U0DE2aI/bQpNX0gmyCOwRirI+uW3ElMkcPum6l2F2IoffHAUvty8LZcvMlcdAOYxmblSZjgVRmhtN9thnarFqaw0mTThNeFQwMk+2rrvJ+0S8qO4MCMZdcNLXiIx7z2pw+5uQVWb1dgGlkRLwSI3aXjgEpkEYy9HXOGrn4tp+Tk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=qubes-os.org;
-	spf=pass  smtp.mailfrom=frederic.pierret@qubes-os.org;
-	dmarc=pass header.from=<frederic.pierret@qubes-os.org> header.from=<frederic.pierret@qubes-os.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1604059453;
-	s=s; d=qubes-os.org; i=frederic.pierret@qubes-os.org;
-	h=From:To:Cc:Message-ID:Subject:Date:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y6WrjRh0df8S3a0pQK8pS6X5+OtEoeqlIRQoXLZLNJA=;
-	b=Vmq3Ol+rLzBTjjG3Pd/J4NGWmWdwsU0fCcxHHKkDlE+xgZFT3SiAC2utmW+D4Cov
-	aVZxc0D69HbX+tbI4T1xJqmk8WhQh4Rs41K0Hk2I2aCLf108mpKW+zjJV+st8/VCTny
-	A4zB8KgMaan1vr6l/rv+aizIhcCsSFrrXEyLuNWw=
-Received: from localhost.localdomain (92.188.110.153 [92.188.110.153]) by mx.zohomail.com
-	with SMTPS id 1604059452261779.7132315246392; Fri, 30 Oct 2020 05:04:12 -0700 (PDT)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret=20=28fepitre=29?= <frederic.pierret@qubes-os.org>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret=20=28fepitre=29?= <frederic.pierret@qubes-os.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <ian.jackson@eu.citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Message-ID: <29b0632e30aba9bc2e071f572fb1067108bcae8c.1603725003.git.frederic.pierret@qubes-os.org>
-Subject: [PATCH v1 2/2] xen/common/makefile: remove gzip timestamp
-Date: Fri, 30 Oct 2020 13:03:51 +0100
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1603725003.git.frederic.pierret@qubes-os.org>
+	id 54d39326-7a1e-4829-88de-1f68dd07a060;
+	Fri, 30 Oct 2020 12:08:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604059724;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W7X/iL6SHyoV2HFBiU0f1MfNU1Gk1c3QN/6fMVpXSE=;
+	b=tD1/BUDQqXHqmqqQmO+yafkIBK/Y527xSM3bBFdSJ+P51JE5tuHdAyNAqOx7SX7SuuQ/QO
+	Pt3nX3AbiExBtMCF4DexZt/DE4GBIy4nnBHcAz5OcevBAukdrozTWeCMUsjToUF8ufUSFu
+	2spSZQsGHT4VVkINyRSXuzfBhR5SGPw=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id C1B3FB1A6;
+	Fri, 30 Oct 2020 12:08:44 +0000 (UTC)
+Subject: Re: [PATCH v1 1/2] No insert of the build timestamp into the x86 xen
+ efi binary
+To: =?UTF-8?Q?Fr=c3=a9d=c3=a9ric_Pierret_=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1603725003.git.frederic.pierret@qubes-os.org>
+ <64fc67bc2227d6cf92e079228c9f8d2d6404b001.1603725003.git.frederic.pierret@qubes-os.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <93b0b06e-cb73-66eb-3535-e7ab2ca60bf8@suse.com>
+Date: Fri, 30 Oct 2020 13:08:44 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ZohoMailClient: External
+In-Reply-To: <64fc67bc2227d6cf92e079228c9f8d2d6404b001.1603725003.git.frederic.pierret@qubes-os.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is for improving reproducible builds.
+On 30.10.2020 13:03, Frédéric Pierret (fepitre) wrote:
 
-Signed-off-by: Fr=C3=A9d=C3=A9ric Pierret (fepitre) <frederic.pierret@qubes=
--os.org>
----
- xen/common/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -170,6 +170,7 @@ EFI_LDFLAGS += --major-image-version=$(XEN_VERSION)
+>  EFI_LDFLAGS += --minor-image-version=$(XEN_SUBVERSION)
+>  EFI_LDFLAGS += --major-os-version=2 --minor-os-version=0
+>  EFI_LDFLAGS += --major-subsystem-version=2 --minor-subsystem-version=0
+> +EFI_LDFLAGS += --no-insert-timestamp
 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 06881d023c..32cd650ba8 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -77,7 +77,7 @@ obj-$(CONFIG_HAS_DEVICE_TREE) +=3D libfdt/
-=20
- CONF_FILE :=3D $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(XEN_ROOT)/xen/)$(K=
-CONFIG_CONFIG)
- config.gz: $(CONF_FILE)
--=09gzip -c $< >$@
-+=09gzip -n -c $< >$@
-=20
- config_data.o: config.gz
-=20
---=20
-2.26.2
+Generally I prefer binaries to carry timestamps, when they are
+intended to do so (i.e. when they have a respective field). So
+I think if no timestamp is wanted, it should be as an option
+(not sure about the default).
 
+This said, I didn't think time stamps got meaningfully in the
+way of reproducible builds - ignoring the minor differences
+cause by them, especially when they sit at well known offsets
+in the binaries, shouldn't be a big deal.
 
+Jan
 
