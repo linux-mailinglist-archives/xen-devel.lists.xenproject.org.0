@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 485882A050F
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 13:11:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15764.38899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DE312A0545
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 13:23:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15771.38910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYTFa-0004V2-EV; Fri, 30 Oct 2020 12:11:22 +0000
+	id 1kYTRH-0005Uv-HP; Fri, 30 Oct 2020 12:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15764.38899; Fri, 30 Oct 2020 12:11:22 +0000
+Received: by outflank-mailman (output) from mailman id 15771.38910; Fri, 30 Oct 2020 12:23:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,77 +23,157 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYTFa-0004Ud-BA; Fri, 30 Oct 2020 12:11:22 +0000
-Received: by outflank-mailman (input) for mailman id 15764;
- Fri, 30 Oct 2020 12:11:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kYTFZ-0004UY-6P
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:11:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 03f43499-f522-4ef7-9a0a-3f0e2c9e7cb3;
- Fri, 30 Oct 2020 12:11:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 37D43AAB2;
- Fri, 30 Oct 2020 12:11:19 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kYTRH-0005UY-ER; Fri, 30 Oct 2020 12:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 15771;
+ Fri, 30 Oct 2020 12:23:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=e1N+=EF=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1kYTRF-0005UT-9A
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:23:25 +0000
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3ec2294a-fc3b-4917-821d-2e6810213d68;
+ Fri, 30 Oct 2020 12:23:24 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 686D45C00F8;
+ Fri, 30 Oct 2020 08:23:24 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Fri, 30 Oct 2020 08:23:24 -0400
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 309943064680;
+ Fri, 30 Oct 2020 08:23:23 -0400 (EDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kYTFZ-0004UY-6P
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:11:21 +0000
-X-Inumbo-ID: 03f43499-f522-4ef7-9a0a-3f0e2c9e7cb3
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 03f43499-f522-4ef7-9a0a-3f0e2c9e7cb3;
-	Fri, 30 Oct 2020 12:11:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604059879;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vo7f5wZB1XrJCx2b+xFImObTT4SECdsEuIeC/WuWGxg=;
-	b=jYSgHg9XaQ0Y5yfGAot4kVSuVdaEqvetdCNILzUbr0K31jYiDqrvpogw+hzRxoCigRToL0
-	A+AZNLUJUf+uMjSK7zBPrHe87FZ44BGt5BtbDPe1SBEQzXjHonScJl26bM/JAROsPXnJcr
-	CpEZfVX9QaFfUKzZKZusPMouTUXxIuQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 37D43AAB2;
-	Fri, 30 Oct 2020 12:11:19 +0000 (UTC)
-Subject: Re: [PATCH v1 2/2] xen/common/makefile: remove gzip timestamp
-To: =?UTF-8?Q?Fr=c3=a9d=c3=a9ric_Pierret_=28fepitre=29?=
- <frederic.pierret@qubes-os.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+	(envelope-from <SRS0=e1N+=EF=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+	id 1kYTRF-0005UT-9A
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 12:23:25 +0000
+X-Inumbo-ID: 3ec2294a-fc3b-4917-821d-2e6810213d68
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 3ec2294a-fc3b-4917-821d-2e6810213d68;
+	Fri, 30 Oct 2020 12:23:24 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.nyi.internal (Postfix) with ESMTP id 686D45C00F8;
+	Fri, 30 Oct 2020 08:23:24 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Fri, 30 Oct 2020 08:23:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=pYlWoI
+	HBkx76rcoqE72ZS3cHrDn/k/jdYN8WkyOhYOg=; b=C4AJSjmLgNRYmLCN3koEyK
+	JIJ4P1WtJBvOrV+jCFnxYIjC6wf4kB76ht7kwHSQSZYfm/8v16IW3zdZV2JnvBfm
+	u+hWpSme6giyWIKxmDY9vA0hHjUNoqJQMvlfzcMN0b3JhbGCEIF1oAlMVwSJIqa1
+	Et0j9QJKKfdsl7oKMi0foZupWwZpXSSnmCWH2i9dcXuV/a2UqzFJ8pCceV/gFAqA
+	fMBG+L1RKkYU+BLNyf3ObzGiTWoaH9GbNVh5inzEp0DqHgQ8HB0Ky5AHAOhNuX+Q
+	5NVVVmqMKn3eK1e7DQR5S6e5c0fllw8YSi2K3OgOZ1Agph9Uc4Gag1RMgLF0o95w
+	==
+X-ME-Sender: <xms:vAWcXxchoVnHUzTrsxsZaW3zMddJq411tkCdK0gryC3MO05-cPPLyA>
+    <xme:vAWcX_Pcf6gLSIPSkCryJ5nOvdX9T52Es5nSm_e6Iltdf-6cSvMfcfNK39TP5Wcpq
+    MA5H0fwDlz4ZQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrleehgdefjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgeetvefh
+    ueefueevkeduvdfftefhueetuddvkeehtdelvdevudffvefhteeluefgnecuffhomhgrih
+    hnpehrvghprhhoughutghisghlvgdqsghuihhlughsrdhorhhgnecukfhppeeluddrieeg
+    rddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
+    hrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:vAWcX6i9VwAk9Baqn3zHD-uPgN5PktAkGcMMWedWp76JeYnKVRhf-w>
+    <xmx:vAWcX68chMXxVS6UBu18UzDgiMCAWRLQpEQq1P4VaM1XJWLjT6a1_g>
+    <xmx:vAWcX9s0nTp-YK-4T5kbC84UaWASG-PbV4bxBlW9rOVwxGjPxQP3Bw>
+    <xmx:vAWcX27iiZeQpMaAz8T5O3nr8qzZuAmbySGnIT7fKp7oZpoNGc95qg>
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 309943064680;
+	Fri, 30 Oct 2020 08:23:23 -0400 (EDT)
+Date: Fri, 30 Oct 2020 13:23:19 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 1/2] No insert of the build timestamp into the x86 xen
+ efi binary
+Message-ID: <20201030122319.GA16953@mail-itl>
 References: <cover.1603725003.git.frederic.pierret@qubes-os.org>
- <29b0632e30aba9bc2e071f572fb1067108bcae8c.1603725003.git.frederic.pierret@qubes-os.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a9608920-981f-cfdb-f6c6-fca7e9b68be6@suse.com>
-Date: Fri, 30 Oct 2020 13:11:18 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <64fc67bc2227d6cf92e079228c9f8d2d6404b001.1603725003.git.frederic.pierret@qubes-os.org>
+ <93b0b06e-cb73-66eb-3535-e7ab2ca60bf8@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <29b0632e30aba9bc2e071f572fb1067108bcae8c.1603725003.git.frederic.pierret@qubes-os.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="wRRV7LY7NUeQGEoC"
+Content-Disposition: inline
+In-Reply-To: <93b0b06e-cb73-66eb-3535-e7ab2ca60bf8@suse.com>
 
-On 30.10.2020 13:03, Frédéric Pierret (fepitre) wrote:
-> This is for improving reproducible builds.
-> 
-> Signed-off-by: Frédéric Pierret (fepitre) <frederic.pierret@qubes-os.org>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+--wRRV7LY7NUeQGEoC
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/2] No insert of the build timestamp into the x86 xen
+ efi binary
 
-Albeit I'd like to ask for the title to actually mention whose
-gzip time stamp it is that gets squashed. Perhaps "xen: don't
-have timestamp inserted in config.gz"?
+On Fri, Oct 30, 2020 at 01:08:44PM +0100, Jan Beulich wrote:
+> On 30.10.2020 13:03, Fr=C3=A9d=C3=A9ric Pierret (fepitre) wrote:
+>=20
+> > --- a/xen/arch/x86/Makefile
+> > +++ b/xen/arch/x86/Makefile
+> > @@ -170,6 +170,7 @@ EFI_LDFLAGS +=3D --major-image-version=3D$(XEN_VERS=
+ION)
+> >  EFI_LDFLAGS +=3D --minor-image-version=3D$(XEN_SUBVERSION)
+> >  EFI_LDFLAGS +=3D --major-os-version=3D2 --minor-os-version=3D0
+> >  EFI_LDFLAGS +=3D --major-subsystem-version=3D2 --minor-subsystem-versi=
+on=3D0
+> > +EFI_LDFLAGS +=3D --no-insert-timestamp
+>=20
+> Generally I prefer binaries to carry timestamps, when they are
+> intended to do so (i.e. when they have a respective field). So
+> I think if no timestamp is wanted, it should be as an option
+> (not sure about the default).
 
-Jan
+What about setting it to the SOURCE_DATE_EPOCH[1] variable value, if
+present? Of course if there is an option to set explicit timestamp
+value.
+
+[1] https://reproducible-builds.org/docs/source-date-epoch/
+
+> This said, I didn't think time stamps got meaningfully in the
+> way of reproducible builds - ignoring the minor differences
+> cause by them, especially when they sit at well known offsets
+> in the binaries, shouldn't be a big deal.
+
+It is a big deal. There is a huge difference between running sha256sum
+(or your other favorite hash) on two build artifacts, and using a
+specialized tool/script to compare each file separately. Note the
+xen.efi may be buried very deep in the thing you compare, for example
+inside deb/rpm and then ISO image (installation image), at which point
+it's far from "they sit at well known offsets".
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--wRRV7LY7NUeQGEoC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl+cBbYACgkQ24/THMrX
+1yy9QAf+MMtxtyqczE/lrrkRz58C6qrJyls5kWd5ZSkOjaSkkHkEgyAphd99EX9v
+iSdMjCvpXWlvRnA1YzZ74fBMgnPEOZd88bKM05MohotmoAsMbFUnHAFPDKb2H+P5
+nvdpd6hYinqVZ+OJdW8covmH/gEu1dXV3ZH+2C0WM2OVpKtkpv2yxm6WoBpHN5Lq
+xjB9uxsXjiT+a+IsEe6GpGRCjU2jvCO5bjA3OapyWLbMTr/hPIhXbG6pcACexAfr
+i/LNx2FWoew2a6LcrBFLt3982b7rfHxz6uk162MGzHdQ3QD+86RIJwSYqkYDewCd
+cpZcrR+RJ/FMGe9Ol43uMv7T69BvxA==
+=JH4j
+-----END PGP SIGNATURE-----
+
+--wRRV7LY7NUeQGEoC--
 
