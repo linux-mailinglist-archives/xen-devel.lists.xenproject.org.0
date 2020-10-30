@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2646A2A0431
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 12:34:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15683.38760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596BE2A0433
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 12:34:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15693.38771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYSfA-0008Gv-Fg; Fri, 30 Oct 2020 11:33:44 +0000
+	id 1kYSfu-0008Nb-Qi; Fri, 30 Oct 2020 11:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15683.38760; Fri, 30 Oct 2020 11:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 15693.38771; Fri, 30 Oct 2020 11:34:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,294 +23,162 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYSfA-0008GW-CN; Fri, 30 Oct 2020 11:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 15683;
- Fri, 30 Oct 2020 11:33:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kYSfu-0008NB-N3; Fri, 30 Oct 2020 11:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 15693;
+ Fri, 30 Oct 2020 11:34:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g2dz=EF=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1kYSf8-0008GR-My
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:33:42 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.1.72]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 787a24a7-1e8b-46c3-83ec-badb7adef874;
- Fri, 30 Oct 2020 11:33:39 +0000 (UTC)
-Received: from AM6P191CA0072.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::49)
- by DB6PR0801MB1910.eurprd08.prod.outlook.com (2603:10a6:4:75::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Fri, 30 Oct
- 2020 11:33:36 +0000
-Received: from VE1EUR03FT030.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:7f:cafe::31) by AM6P191CA0072.outlook.office365.com
- (2603:10a6:209:7f::49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19 via Frontend
- Transport; Fri, 30 Oct 2020 11:33:36 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT030.mail.protection.outlook.com (10.152.18.66) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3520.15 via Frontend Transport; Fri, 30 Oct 2020 11:33:36 +0000
-Received: ("Tessian outbound e6c55a0b9ba9:v64");
- Fri, 30 Oct 2020 11:33:35 +0000
-Received: from 2805b5e93a1c.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- F59DCC22-F060-40FE-8114-77FF9587D29A.1; 
- Fri, 30 Oct 2020 11:33:30 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2805b5e93a1c.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 30 Oct 2020 11:33:30 +0000
-Received: from AM6PR08MB3496.eurprd08.prod.outlook.com (2603:10a6:20b:4e::31)
- by AM6PR08MB3911.eurprd08.prod.outlook.com (2603:10a6:20b:80::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Fri, 30 Oct
- 2020 11:33:29 +0000
-Received: from AM6PR08MB3496.eurprd08.prod.outlook.com
- ([fe80::dc5:9a53:a6b1:6a5a]) by AM6PR08MB3496.eurprd08.prod.outlook.com
- ([fe80::dc5:9a53:a6b1:6a5a%4]) with mapi id 15.20.3499.027; Fri, 30 Oct 2020
- 11:33:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=CbTf=EF=linaro.org=masami.hiramatsu@srs-us1.protection.inumbo.net>)
+ id 1kYSfs-0008KU-UF
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:34:28 +0000
+Received: from mail-yb1-xb41.google.com (unknown [2607:f8b0:4864:20::b41])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fb630440-e620-4892-b95c-be87cc13a26c;
+ Fri, 30 Oct 2020 11:34:22 +0000 (UTC)
+Received: by mail-yb1-xb41.google.com with SMTP id n142so4832136ybf.7
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Oct 2020 04:34:22 -0700 (PDT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=g2dz=EF=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
-	id 1kYSf8-0008GR-My
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:33:42 +0000
-X-Inumbo-ID: 787a24a7-1e8b-46c3-83ec-badb7adef874
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown [40.107.1.72])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 787a24a7-1e8b-46c3-83ec-badb7adef874;
-	Fri, 30 Oct 2020 11:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h2qMybRCDFhgG6MNeBGmhEN/2We65xIKDLyNqtdOX5g=;
- b=vxMrH4BY9s4Kds4h7FH1kUwkLzlM3Q7ka74BPYEq+bqQXQNx/1RDKWuyiK+PqKhOnD9lf5JOwID+Sgap1DlDNDaFoVGtaJgDuBDHLx57/9pVgsrvRC4oDy2gUSXNmLZa+TahXJQlREelxgGwRWLGJr3vFetkxTyxgLGeF6XTOQU=
-Received: from AM6P191CA0072.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::49)
- by DB6PR0801MB1910.eurprd08.prod.outlook.com (2603:10a6:4:75::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Fri, 30 Oct
- 2020 11:33:36 +0000
-Received: from VE1EUR03FT030.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:7f:cafe::31) by AM6P191CA0072.outlook.office365.com
- (2603:10a6:209:7f::49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19 via Frontend
- Transport; Fri, 30 Oct 2020 11:33:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT030.mail.protection.outlook.com (10.152.18.66) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3520.15 via Frontend Transport; Fri, 30 Oct 2020 11:33:36 +0000
-Received: ("Tessian outbound e6c55a0b9ba9:v64"); Fri, 30 Oct 2020 11:33:35 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0092c98987175636
-X-CR-MTA-TID: 64aa7808
-Received: from 2805b5e93a1c.1
-	by 64aa7808-outbound-1.mta.getcheckrecipient.com id F59DCC22-F060-40FE-8114-77FF9587D29A.1;
-	Fri, 30 Oct 2020 11:33:30 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
-    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2805b5e93a1c.1
-    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
-    Fri, 30 Oct 2020 11:33:30 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XUv1EJVUJ6kZqLgnlNAR7JsARWTteCCCLX9ifXoYZRAaOVYRexFFNZCvDTCi0mOYRBb/34kHMn/Zf+Ybj0Rh+HrvqCu5urObIZwc5QpAFW0EbdU/hC63nPK6+Eyv7EDcITHqug9g49NiYdbdfOOn6r9vkSRLbtonXXXbNQtPrPXBO5tiLHi1BFe6W0Qv+aFSny0ZpFkMGUR63Mx97mKvY+UtDY2/gaLRMschobu568jEd0D3hDhIUts8QpdawcsTE+VN/toEIx3cRCnmLx5c9uN9o4H9HX6+H1gG0PeRPLIB1hygH/nDxYTzBCkTaZYF5SPjbqu5MAKCAp9XGo8Zrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h2qMybRCDFhgG6MNeBGmhEN/2We65xIKDLyNqtdOX5g=;
- b=fSTa9GSTLD78iG00KF+E1W33cwtWAvrUcChF4EHOc7I6bXgMQJRGfxKDJge+pQIhuiBaO1g05glkT2CI1YR4w75U3i+lfPFHNtclao1RDziimlTcXDYTIFu9sKxXOh5HmKDNi9iRyo2+5tCGjJ93V0GIDOu7vQxniLpssvRnBlRpaIW7U1dcUV+JqwLNmxXCck0Z8BqMKDRL/Fs7xmqhfoQbS/vgtB3HOd913fJLWzntJCI544H+SrmGw9yNF8snQOfwFhilG5giIdtgTp1LY8uoh1iRLN+SP2EhX29+JIb8c2bLXTrWR6kXf+4Rk9V3Wg/YqR6sDd64cgogNUrRaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h2qMybRCDFhgG6MNeBGmhEN/2We65xIKDLyNqtdOX5g=;
- b=vxMrH4BY9s4Kds4h7FH1kUwkLzlM3Q7ka74BPYEq+bqQXQNx/1RDKWuyiK+PqKhOnD9lf5JOwID+Sgap1DlDNDaFoVGtaJgDuBDHLx57/9pVgsrvRC4oDy2gUSXNmLZa+TahXJQlREelxgGwRWLGJr3vFetkxTyxgLGeF6XTOQU=
-Received: from AM6PR08MB3496.eurprd08.prod.outlook.com (2603:10a6:20b:4e::31)
- by AM6PR08MB3911.eurprd08.prod.outlook.com (2603:10a6:20b:80::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Fri, 30 Oct
- 2020 11:33:29 +0000
-Received: from AM6PR08MB3496.eurprd08.prod.outlook.com
- ([fe80::dc5:9a53:a6b1:6a5a]) by AM6PR08MB3496.eurprd08.prod.outlook.com
- ([fe80::dc5:9a53:a6b1:6a5a%4]) with mapi id 15.20.3499.027; Fri, 30 Oct 2020
- 11:33:29 +0000
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Paul
- Durrant <paul@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-Thread-Topic: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-Thread-Index:
- AQHWoVvrkmJwOYERdUOadvid1OghFamgw0AAgAEzsQCAAWIugIABA+CAgADBXICAABfBAIAAGI6AgAAOSACABG94AIADrVCAgAFBfQCAAGM1gIAA0RiAgAAJ+ACAAAarAIAABWQAgAAYtgA=
-Date: Fri, 30 Oct 2020 11:33:29 +0000
-Message-ID: <E52CE228-0D19-491E-BA47-04ED7599DDCE@arm.com>
-References:
- <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
- <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
- <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
- <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
- <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
- <7314936f-6c1e-5ca6-a33b-973c8e61ba3b@xen.org>
- <D9F93137-412F-47E5-A55C-85D1F3745618@arm.com>
- <2813ea2b-bfc4-0590-47ef-86089ad65a5d@xen.org>
- <0E2548E0-0504-43B6-8DD7-D5B7BACCEB6E@arm.com>
- <bc697327-2750-9a78-042d-d45690d27928@xen.org>
- <92A7B6FF-A2CE-4BB1-831A-8F12FB5290B8@arm.com>
- <alpine.DEB.2.21.2010291316290.12247@sstabellini-ThinkPad-T480s>
- <1BE06E0F-26CF-453A-BB06-808CC0F3E09B@arm.com>
- <aae5892a-2532-04f8-02af-84c4d4c4f3fd@xen.org>
- <226DA6DB-D03C-41A7-A68C-53000DFA70F6@arm.com>
- <e5ce30c5-e0e0-90c8-962d-c86b65a82ccd@xen.org>
-In-Reply-To: <e5ce30c5-e0e0-90c8-962d-c86b65a82ccd@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [86.26.38.125]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 40b8455a-5586-44a9-8f90-08d87cc7a3fe
-x-ms-traffictypediagnostic: AM6PR08MB3911:|DB6PR0801MB1910:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<DB6PR0801MB1910864F262630D08D12BB0EFC150@DB6PR0801MB1910.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- nFNxemlv7JUNCkpuPjTFYRMXpwIkNKh6bJ8uIzCew/JPFsXGZ6zFqidiwB6bqRGVDiP0EtnJ8hCHRfj+hDGKxWPHMaS/ftTpSSgXTtaGzFVFfYZCBMUrIlY5IPhaJ2slzAiMIW4Q8g3xaqqkPypo97Btw/VZkkTAQpxW2yADBrfYR5Nupv5UeKvlokSm+MwqUCAq1GExdg7VXX0kI4geeBBKfsXtmaNyOb7Nw9nOx4IFtDUl8LHux4n9UcQ68OxcKv04EojHr58OTz6kt5yaGJQWY34frpq94oMWx4XEdcWvnpdGAOcZdch/93msjMkzPayH7m30BHGbWorApYCbMvY1u0VEf8wg7uktbQbTfXr1EBUvXI+bSHrsEiwVL8Zrl0HRPXKp09jz3lJ9J96yFw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3496.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(366004)(33656002)(36756003)(83380400001)(55236004)(26005)(6506007)(186003)(53546011)(6916009)(316002)(4326008)(76116006)(91956017)(478600001)(66446008)(6512007)(54906003)(2616005)(6486002)(8936002)(66476007)(8676002)(64756008)(2906002)(66556008)(86362001)(966005)(66946007)(71200400001)(5660300002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- TdSMMA6EAAya4WmiJwCSAHuuNWG7IvpDdNpPCivp+g5h4t+qhtuWT4iYUJ/WLQ64nwVMDFzEUxs3BqjcOWLf4iNulrTJ0kWjphQodruSSKHsCcxVKyoDt3wEm59GAQ9FmmlR+V1wNzJRQ/O84Iz+Vt/9ahUH2uxNOK7VWidhtMYg6QuFCgBUfyVgR6ifarBuX8GmnqSx1xghbqIMRoc39+iafsiXf8mkxY0PBEnvFTAvkXHm+0XsQpy3KaGvCxSYelYQ+GMXGvUWMqHYSbED76XuhApUB5zDlThUayHTq3gB480UcilvrAxfplwgqr8J4/tI341EvZJ3xmAhRir5S0IuQWSHWZLTEwBCQnBqSZIMJ8Jopjn93Cf6MLvgGHu/DNrnVdoTFeYRRne3LnDdZxnHffcZ+aTt3hIhpwlfT+QVCbn97hPg5ubI3PPSLOoU9kZrPg0TgFrO704GikLOkTDc6Ik5IDS3/WNlsmHXqmANqS8AqmUO7h2VNoLQ13cxKoLTdsk4gbXYP+0VupxRVGQqFn/VcRCkuLNAtxfgrkiO6cDwjZk9w4rqrgP7xL48XsJW8RIG/Vz0pDGG5RXNa2rKohW5SFuFxayJXm1M0cvCaEMsWp3NrYp5lIds0okcYMjRHjYoxUKa4Brqc1YA0Q==
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <65395984F5DED74A919BFF61F4F68EBC@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	(envelope-from <SRS0=CbTf=EF=linaro.org=masami.hiramatsu@srs-us1.protection.inumbo.net>)
+	id 1kYSfs-0008KU-UF
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 11:34:28 +0000
+X-Inumbo-ID: fb630440-e620-4892-b95c-be87cc13a26c
+Received: from mail-yb1-xb41.google.com (unknown [2607:f8b0:4864:20::b41])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id fb630440-e620-4892-b95c-be87cc13a26c;
+	Fri, 30 Oct 2020 11:34:22 +0000 (UTC)
+Received: by mail-yb1-xb41.google.com with SMTP id n142so4832136ybf.7
+        for <xen-devel@lists.xenproject.org>; Fri, 30 Oct 2020 04:34:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=tEVPYRxN4eP0njqUdgvQzP1KCxEliVxIDNVsR4aplJA=;
+        b=zpVc9gGdOLEOrCPSJjgIOkMzw+k12NzOe3P7qqBULMOQ+erHcuwvb/+Fxl2JM8vj3x
+         rSEoY+i0hBVMrfw1ncSegWuomLAeEXOkPOrUpIjEFSXn+kEgdCLWGHlQJiIq+8QKtfr7
+         VA7nzm7rpnCpK32Tqtmblx5aHAvIb4otQoK6Wjb0OxM68kpKoHeVEQiblv0uPnOhQsd8
+         6syUnmcCxN+vAjO7yYzMBwv4WynPKdRRIyxM8YAWNnvO4V61glc1RewJOy1cZ7lLEcst
+         8+3L9cIqkZsTS+Yj8UnMaisMtRSmKWCr3FGAD+eHOe07EOmgYrEnyZORJ5SfJdudyPmK
+         sUIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=tEVPYRxN4eP0njqUdgvQzP1KCxEliVxIDNVsR4aplJA=;
+        b=Ih1pNLP+A6jStJ1PE5P3uDHbQBFjyLr+m02KjvUL7FQc9pCIYONTyR539Xo5HyU1KA
+         N8FMYpGcbauA2T99VbVCcaXkkfX1My6+wxdAp6h2SFVQs6pWJ58rddiLo9bDAQewqZ36
+         uXAvYibQ4RrCiYwvlxC+WV8GkL8X+LQUbu2EV0mxqJt0S8UT596g8xgMVxYYvj4zJxEG
+         o+MeQVf+XERdLcG8Y0xvdSGTatBldkpfrOC5+KWx6zhuhLp12wyzD52RvTeeGugiS3x1
+         FLQ+UV/bh320HgWKfeu0cBE6/D58hVWLTwGjhhZqV+SX4ycO2fuKuVkXeo1iuVPjImS+
+         h2wg==
+X-Gm-Message-State: AOAM532iVAjjzGCLQagrbfUSyIhadji8k28Bzva1uKGBcnF1DzJqvlww
+	gIeuWSvd+ayxjydlZv0Oowpa31N+EIPxY5IvSC/Zog==
+X-Google-Smtp-Source: ABdhPJyCQOG1RR4L8URruwKEwmpIplJdpAFn1czstD87XYBxGQ3hoV/Yo68snqZ3Dp0/cqXWj816iSIOtxOBbujh5nk=
+X-Received: by 2002:a25:4e46:: with SMTP id c67mr2599406ybb.87.1604057661743;
+ Fri, 30 Oct 2020 04:34:21 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3911
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT030.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bae2347a-cc23-47fd-0dd4-08d87cc79f9c
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PyHIxHDJOHU5TaW0+o6zFNoWiuqhTO6FqbjN1nzVQxY10l48FjViUJ8c8BcRdv1NivbVPcGQHj6M4Fbya/iseCkttKCYGoxi9ZykoayxaSSFNi0iTgeZ1hzzYaLtpBkJKijpT2BeHLqikCk8NYenXBBYoASW5gbTpmhPWsD2D823zR4DFZ7Z5yxbFMzbheiRnxlGr5RCL2KttcL6AwCGxhO7NAK98u2O5sK5oqFyvWOipMEYsOSg6tRU+f1Nv10IRcWB7cHiaDTgedaG3C8H8VDZnpcfQWjkytxac9p8uFD1YHvytJkQguzp63gu0+gYeOJluNtIiFOvSaNo5E4T2KD6cGtbswS4RUvqF0YvkJ0V2OoAyS7LUT3t9nymbn15kEtH0XSRpnEPJFLOdv+HV4WUzoOZF+8C9Iu8kUTWzc2tgBMQ7F7TxZT9cpW2IIcqqBtk8vXJfhinD3FwgqSyp7gG8wyaY4egtUcXx+UuA7o=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(46966005)(336012)(8676002)(36906005)(8936002)(82310400003)(316002)(478600001)(2616005)(6512007)(86362001)(26005)(356005)(54906003)(83380400001)(33656002)(70206006)(6506007)(6486002)(70586007)(55236004)(53546011)(966005)(107886003)(5660300002)(36756003)(186003)(2906002)(6862004)(47076004)(4326008)(82740400003)(81166007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2020 11:33:36.2631
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40b8455a-5586-44a9-8f90-08d87cc7a3fe
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT030.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1910
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
+ <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com>
+ <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com>
+ <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s> <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
+In-Reply-To: <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
+From: Masami Hiramatsu <masami.hiramatsu@linaro.org>
+Date: Fri, 30 Oct 2020 20:34:10 +0900
+Message-ID: <CAA93ih3Z-zxQ33gvr2C43i0J5XP3OBgUhTyMcwhe9zVj-uOONA@mail.gmail.com>
+Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant <paul@xen.org>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
+	Julien Grall <julien.grall@arm.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Julien,
+Hi Oleksandr,
 
-> On 30 Oct 2020, at 10:05 am, Julien Grall <julien@xen.org> wrote:
->=20
->=20
->=20
-> On 30/10/2020 09:45, Rahul Singh wrote:
->> Hello Julien,
->>> On 30 Oct 2020, at 9:21 am, Julien Grall <julien@xen.org> wrote:
->>>=20
->>> Hi,
->>>=20
->>> On 30/10/2020 08:46, Rahul Singh wrote:
->>>> Ok Yes when I ported the driver I port the command queue operation fro=
-m the previous commit where atomic operations is not used and rest all the =
-code is from the latest code. I will again make sure that any bug that is f=
-ixed in Linux should be fixed in XEN also.
->>>=20
->>> I would like to seek some clarifications on the code because there seem=
- to be conflicting information provided in this thread.
->>>=20
->>> The patch (the baseline commit is provided) and the discussion with Ber=
-trand suggests that you took a snapshot of the code last year and adapted f=
-or Xen.
->>>=20
->>> However, here you suggest that you took an hybrid approach where part o=
-f the code is based from last year and other part is based from the latest =
-code (I assume v5.9).
->>>=20
->>> So can you please clarify?
->>>=20
->>> Cheers,
->> Approach I took is to first merge the code  from the commit ( Jul 2, 201=
-9 7c288a5b27934281d9ea8b5807bc727268b7001a ) the snapshot before atomic ope=
-ration is used in SMMUv3 code for command queue operations.
->> After that I fixed  the other code( not related to command queue operati=
-ons.)  from the latest code so that no bug is introduced in XEN because of =
-using the last year commit.
->=20
-> Ok. That was definitely not clear from the commit message. Please make th=
-is clearer in the commit message.
->=20
+2020=E5=B9=B410=E6=9C=8830=E6=97=A5(=E9=87=91) 6:14 Oleksandr Tyshchenko <o=
+lekstysh@gmail.com>:
+>
+> Hi Stefano
+>
+> [sorry for the possible format issue]
+>
+> On Thu, Oct 29, 2020 at 9:53 PM Stefano Stabellini <sstabellini@kernel.or=
+g> wrote:
+>>
+>> On Thu, 29 Oct 2020, Oleksandr Tyshchenko wrote:
+>> > On Thu, Oct 29, 2020 at 9:42 AM Masami Hiramatsu <masami.hiramatsu@lin=
+aro.org> wrote:
+>> >       Hi Oleksandr,
+>> >
+>> > Hi Masami
+>> >
+>> > [sorry for the possible format issue]
+>> >
+>> >
+>> >       I would like to try this on my arm64 board.
+>> >
+>> > Glad to hear you are interested in this topic.
+>> >
+>> >
+>> >       According to your comments in the patch, I made this config file=
+.
+>> >       # cat debian.conf
+>> >       name =3D "debian"
+>> >       type =3D "pvh"
+>> >       vcpus =3D 8
+>> >       memory =3D 512
+>> >       kernel =3D "/opt/agl/vmlinuz-5.9.0-1-arm64"
+>> >       ramdisk =3D "/opt/agl/initrd.img-5.9.0-1-arm64"
+>> >       cmdline=3D "console=3Dhvc0 earlyprintk=3Dxen root=3D/dev/xvda1 r=
+w"
+>> >       disk =3D [ '/opt/agl/debian.qcow2,qcow2,hda' ]
+>> >       vif =3D [ 'mac=3D00:16:3E:74:3d:76,bridge=3Dxenbr0' ]
+>> >       virtio =3D 1
+>> >       vdisk =3D [ 'backend=3DDom0, disks=3Dro:/dev/sda1' ]
+>> >
+>> >       And tried to boot a DomU, but I got below error.
+>> >
+>> >       # xl create -c debian.conf
+>> >       Parsing config from debian.conf
+>> >       libxl: error: libxl_create.c:1863:domcreate_attach_devices: Doma=
+in
+>> >       1:unable to add virtio_disk devices
+>> >       libxl: error: libxl_domain.c:1218:destroy_domid_pci_done: Domain
+>> >       1:xc_domain_pause failed
+>> >       libxl: error: libxl_dom.c:39:libxl__domain_type: unable to get d=
+omain
+>> >       type for domid=3D1
+>> >       libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domai=
+n
+>> >       1:Unable to destroy guest
+>> >       libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain
+>> >       1:Destruction of domain failed
+>> >
+>> >
+>> >       Could you tell me how can I test it?
+>> >
+>> >
+>> > I assume it is due to the lack of the virtio-disk backend (which I hav=
+en't shared yet as I focused on the IOREQ/DM support on Arm in the
+>> > first place).
+>> > Could you wait a little bit, I am going to share it soon.
+>>
+>> Do you have a quick-and-dirty hack you can share in the meantime? Even
+>> just on github as a special branch? It would be very useful to be able
+>> to have a test-driver for the new feature.
+>
+> Well, I will provide a branch on github with our PoC virtio-disk backend =
+by the end of this week. It will be possible to test this series with it.
 
-Ok. I will make this clearer in the commit message.
+Great! OK I'll be waiting for the PoC backend.
 
-> Anway, it means we need to do a full review of the code (rather than a li=
-ght one) because of the hybrid model.
->=20
-> I am still a bit puzzle to why it would require almost of a restart of th=
-e implementation in order to sync the latest code. Does it imply that you a=
-re mostly using the old code?
->=20
-
-SMMuv3 code is divided into below parts :
-
-1. Low-level/High level queue manipulation functions.
-2. Context descriptor manipulation functions.
-3. Stream table manipulation functions.
-4. Interrupt handling.
-5. Linux IOMMU API functions.
-6. Driver initialisation functions( probe/reset ).
-
-Low-level/High-level queue manipulation functions are from the old code, re=
-st is the new code whenever it was possible.
-
-I started with porting the latest code but there are many dependencies for =
-the queue manipulation function so we decided to use the old queue manipula=
-tion function.=20
-As the queue manipulation function is a big part of the code it will requir=
-e a lot of effort and testing to sync with the latest code once the atomic =
-operation is in place to use.
-
-Once atomic operation is available in XEN we have merge the below commit fr=
-om Linux to XEN to make XEN in sync with Linux code.
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/d=
-rivers/iommu/arm-smmu-v3.c?h=3Dv5.8&id=3D587e6c10a7ce89a5924fdbeff2ec524fbd=
-6a124b
-
-> Cheers,
->=20
-> --=20
-> Julien Grall
-
-Regards,
-Rahul
-
+Thank you!
+--=20
+Masami Hiramatsu
 
