@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67BEC2A02B7
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 11:21:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15591.38629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1252A0215
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 11:05:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15593.38581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYRXB-000124-F0; Fri, 30 Oct 2020 10:21:25 +0000
+	id 1kYRHS-0007Tr-60; Fri, 30 Oct 2020 10:05:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15591.38629; Fri, 30 Oct 2020 10:21:25 +0000
+Received: by outflank-mailman (output) from mailman id 15593.38581; Fri, 30 Oct 2020 10:05:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,134 +23,125 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYRXB-00011b-9k; Fri, 30 Oct 2020 10:21:25 +0000
-Received: by outflank-mailman (input) for mailman id 15591;
- Fri, 30 Oct 2020 10:04:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dn1q=EF=linaro.org=srinivas.kandagatla@srs-us1.protection.inumbo.net>)
- id 1kYRGc-0007SB-H0
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:04:18 +0000
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67b18d79-1c8a-4e79-9e70-07f2f4091bd2;
- Fri, 30 Oct 2020 10:04:17 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id t9so5737967wrq.11
- for <xen-devel@lists.xenproject.org>; Fri, 30 Oct 2020 03:04:17 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id h8sm7699531wro.14.2020.10.30.03.04.14
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 30 Oct 2020 03:04:15 -0700 (PDT)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kYRHS-0007TS-2I; Fri, 30 Oct 2020 10:05:10 +0000
+Received: by outflank-mailman (input) for mailman id 15593;
+ Fri, 30 Oct 2020 10:05:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pDD0=EF=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kYRHQ-0007TN-MR
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:05:08 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6;
+ Fri, 30 Oct 2020 10:05:07 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kYRHO-00055Q-2O; Fri, 30 Oct 2020 10:05:06 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kYRHN-0004nw-PK; Fri, 30 Oct 2020 10:05:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Dn1q=EF=linaro.org=srinivas.kandagatla@srs-us1.protection.inumbo.net>)
-	id 1kYRGc-0007SB-H0
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:04:18 +0000
-X-Inumbo-ID: 67b18d79-1c8a-4e79-9e70-07f2f4091bd2
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 67b18d79-1c8a-4e79-9e70-07f2f4091bd2;
-	Fri, 30 Oct 2020 10:04:17 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id t9so5737967wrq.11
-        for <xen-devel@lists.xenproject.org>; Fri, 30 Oct 2020 03:04:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=gQH8tfnS5gABqR+rI2vYNKDqWdjjH0cmP3e9KTBgftU=;
-        b=B9rJTdT06fBjkoaC4E33GsRL6XklEaCtgE6RSNGKr1R6NIN6tshFsvlrm73+qDotTs
-         TgtMR2VLSrECST5bfnSTgKL7Wgi9dLvx0b+wOp98ZwTdU4Ui8lhbwxRwAvAFaXlLlBUv
-         kIF79xh7rAnLeAmFUb7OH8iS2qmajJB6f90j1t67g5Zqi8ZvFcvZqslE0Nw79PSToAvD
-         N9OdQRnS+ec6wQ18zcvo4xYOB+MrwDVlSeHj5ODLObBC4OqIgDsKYG4VpZ7Zwf1s+0XG
-         E8uv8pTzD1YjF2GLDWWylcwx+GDZ++SmMtTJoKDLvlekOLEjOvRKbLbn1NSmNnF0g7r5
-         ocZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=gQH8tfnS5gABqR+rI2vYNKDqWdjjH0cmP3e9KTBgftU=;
-        b=oUhSup3NYXi5nvqmRLfl9GEzUZgcDAzfK5FPd3YumNOQkqdxMquh0lrycpSBPLkMmH
-         uUJ0RRe+AyZGi0zdcOufkbGBhqNg/6HeE+5Evk9OSZRUjw809LsxihdZJTXREcvzM9LO
-         DvSu1j2HK6RSCj3QIwZWjop8zHNZX1ERmBHPWqX//3dvlGRqUPM0VGLgaS1mZIZJOZB7
-         QNDeEo1lFqU2iFKg8lkvy8FhUjaXa6dhinf/XUjoHfpDvt2kUpyp6BMkHB+FOV/swxWr
-         2yWXQAFL1Wr0qENlnIxl08Qa9n2+WlzN2/QYRISMShRziwAlLIA49kiIcaLP/WiesvgS
-         1APg==
-X-Gm-Message-State: AOAM533TVwWRhnAIk2WasG0V41pLxyhfUriCC7VlX+IjbQkg+2rnUXVV
-	U8g6fI2q2AVulx5adAnIuripTUMyKKQIPg==
-X-Google-Smtp-Source: ABdhPJyiqwsuWF8oCOJ2p5mgrL1UOBEF3qjVNKqZ9hb80Q/uxO4LXY5WvIi3i2M6psl12Cn+2MTVIQ==
-X-Received: by 2002:a5d:40c3:: with SMTP id b3mr2187416wrq.157.1604052256376;
-        Fri, 30 Oct 2020 03:04:16 -0700 (PDT)
-Received: from [192.168.86.34] (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
-        by smtp.googlemail.com with ESMTPSA id h8sm7699531wro.14.2020.10.30.03.04.14
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2020 03:04:15 -0700 (PDT)
-Subject: Re: [PATCH v2 19/39] docs: ABI: stable: make files ReST compatible
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jerry Snitselaar <jsnitsel@redhat.com>, Jingoo Han <jingoohan1@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Juergen Gross <jgross@suse.com>, Lee Jones <lee.jones@linaro.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Oded Gabbay <oded.gabbay@gmail.com>,
- Paul Mackerras <paulus@samba.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Tom Rix <trix@redhat.com>,
- Vaibhav Jain <vaibhav@linux.ibm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org
-References: <cover.1604042072.git.mchehab+huawei@kernel.org>
- <467a0dfbcdf00db710a629d3fe4a2563750339d8.1604042072.git.mchehab+huawei@kernel.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <bc393307-d7dc-1666-f25c-6d756ebf5993@linaro.org>
-Date: Fri, 30 Oct 2020 10:04:13 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+	(envelope-from <SRS0=pDD0=EF=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kYRHQ-0007TN-MR
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:05:08 +0000
+X-Inumbo-ID: 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6;
+	Fri, 30 Oct 2020 10:05:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=pw/Gs5Q2MwaWU+ogIPs3aeTqukdsUtygpuCBjVn3MQ0=; b=YVZh5Gl6LdXUeqObSxo1nGNHfq
+	FaT5sN5QWc+Sy6ly2nOtyj1AUZm7GI+b2YVP26AxBfmYT5FoHYDk8+W9NsrR8syk521pQD5YosJiz
+	x/HjvBzY/hGlw5LJ3S587zy9vr9LNkF5v5XJEz+Y0j+WhKbSrw1dh2jYdfRZgBiy6sZI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kYRHO-00055Q-2O; Fri, 30 Oct 2020 10:05:06 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kYRHN-0004nw-PK; Fri, 30 Oct 2020 10:05:05 +0000
+Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
+ <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
+ <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
+ <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
+ <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
+ <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
+ <7314936f-6c1e-5ca6-a33b-973c8e61ba3b@xen.org>
+ <D9F93137-412F-47E5-A55C-85D1F3745618@arm.com>
+ <2813ea2b-bfc4-0590-47ef-86089ad65a5d@xen.org>
+ <0E2548E0-0504-43B6-8DD7-D5B7BACCEB6E@arm.com>
+ <bc697327-2750-9a78-042d-d45690d27928@xen.org>
+ <92A7B6FF-A2CE-4BB1-831A-8F12FB5290B8@arm.com>
+ <alpine.DEB.2.21.2010291316290.12247@sstabellini-ThinkPad-T480s>
+ <1BE06E0F-26CF-453A-BB06-808CC0F3E09B@arm.com>
+ <aae5892a-2532-04f8-02af-84c4d4c4f3fd@xen.org>
+ <226DA6DB-D03C-41A7-A68C-53000DFA70F6@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e5ce30c5-e0e0-90c8-962d-c86b65a82ccd@xen.org>
+Date: Fri, 30 Oct 2020 10:05:02 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <467a0dfbcdf00db710a629d3fe4a2563750339d8.1604042072.git.mchehab+huawei@kernel.org>
+In-Reply-To: <226DA6DB-D03C-41A7-A68C-53000DFA70F6@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 
 
-On 30/10/2020 07:40, Mauro Carvalho Chehab wrote:
-> Several entries at the stable ABI files won't parse if we pass
-> them directly to the ReST output.
+On 30/10/2020 09:45, Rahul Singh wrote:
+> Hello Julien,
 > 
-> Adjust them, in order to allow adding their contents as-is at
-> the stable ABI book.
+>> On 30 Oct 2020, at 9:21 am, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi,
+>>
+>> On 30/10/2020 08:46, Rahul Singh wrote:
+>>> Ok Yes when I ported the driver I port the command queue operation from the previous commit where atomic operations is not used and rest all the code is from the latest code. I will again make sure that any bug that is fixed in Linux should be fixed in XEN also.
+>>
+>> I would like to seek some clarifications on the code because there seem to be conflicting information provided in this thread.
+>>
+>> The patch (the baseline commit is provided) and the discussion with Bertrand suggests that you took a snapshot of the code last year and adapted for Xen.
+>>
+>> However, here you suggest that you took an hybrid approach where part of the code is based from last year and other part is based from the latest code (I assume v5.9).
+>>
+>> So can you please clarify?
+>>
+>> Cheers,
 > 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> ---
->   Documentation/ABI/stable/firewire-cdev        |  4 +
->   Documentation/ABI/stable/sysfs-acpi-pmprofile | 22 +++--
->   Documentation/ABI/stable/sysfs-bus-firewire   |  3 +
->   Documentation/ABI/stable/sysfs-bus-nvmem      | 19 ++--
-
-for nvmem parts:
-
-Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
---srini
-
->   Documentation/ABI/stable/sysfs-bus-usb        |  6 +-
->   .../ABI/stable/sysfs-class-backlight          |  1 +
->   .../ABI/stable/sysfs-class-infiniband         | 93 +++++++++++++------
->   Documentation/ABI/stable/sysfs-class-rfkill   | 13 ++-
->   Documentation/ABI/stable/sysfs-class-tpm      | 90 +++++++++---------
->   Documentation/ABI/stable/sysfs-devices        |  5 +-
->   Documentation/ABI/stable/sysfs-driver-ib_srp  |  1 +
->   .../ABI/stable/sysfs-firmware-efi-vars        |  4 +
->   .../ABI/stable/sysfs-firmware-opal-dump       |  5 +
->   .../ABI/stable/sysfs-firmware-opal-elog       |  2 +
->   Documentation/ABI/stable/sysfs-hypervisor-xen |  3 +
->   Documentation/ABI/stable/vdso                 |  5 +-
->   16 files changed, 176 insertions(+), 100 deletions(-)
+> Approach I took is to first merge the code  from the commit ( Jul 2, 2019 7c288a5b27934281d9ea8b5807bc727268b7001a ) the snapshot before atomic operation is used in SMMUv3 code for command queue operations.
 > 
+> After that I fixed  the other code( not related to command queue operations.)  from the latest code so that no bug is introduced in XEN because of using the last year commit.
+
+Ok. That was definitely not clear from the commit message. Please make 
+this clearer in the commit message.
+
+Anway, it means we need to do a full review of the code (rather than a 
+light one) because of the hybrid model.
+
+I am still a bit puzzle to why it would require almost of a restart of 
+the implementation in order to sync the latest code. Does it imply that 
+you are mostly using the old code?
+
+Cheers,
+
+-- 
+Julien Grall
 
