@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 216802A0B53
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 17:39:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.16055.39317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247892A0B85
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 17:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.16061.39329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYXQR-0005ZP-A5; Fri, 30 Oct 2020 16:38:51 +0000
+	id 1kYXUv-0006QF-S9; Fri, 30 Oct 2020 16:43:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 16055.39317; Fri, 30 Oct 2020 16:38:51 +0000
+Received: by outflank-mailman (output) from mailman id 16061.39329; Fri, 30 Oct 2020 16:43:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,134 +23,179 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYXQR-0005Z0-6w; Fri, 30 Oct 2020 16:38:51 +0000
-Received: by outflank-mailman (input) for mailman id 16055;
- Fri, 30 Oct 2020 16:38:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mU6k=EF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kYXQQ-0005YS-2t
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 16:38:50 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 79eff082-3d0f-4fcb-b135-455fa62458c7;
- Fri, 30 Oct 2020 16:38:43 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kYXQI-0005Ta-KE; Fri, 30 Oct 2020 16:38:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kYXQI-0001ih-Ad; Fri, 30 Oct 2020 16:38:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kYXQI-00039b-A8; Fri, 30 Oct 2020 16:38:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kYXUv-0006Pq-OX; Fri, 30 Oct 2020 16:43:29 +0000
+Received: by outflank-mailman (input) for mailman id 16061;
+ Fri, 30 Oct 2020 16:43:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kYXUu-0006Pl-BF
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 16:43:28 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8df15e29-fa15-4355-a356-17c001ddae72;
+ Fri, 30 Oct 2020 16:43:27 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8A019B8FA;
+ Fri, 30 Oct 2020 16:43:26 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=mU6k=EF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kYXQQ-0005YS-2t
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 16:38:50 +0000
-X-Inumbo-ID: 79eff082-3d0f-4fcb-b135-455fa62458c7
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 79eff082-3d0f-4fcb-b135-455fa62458c7;
-	Fri, 30 Oct 2020 16:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=OFqShuo/caHVvqAqgyN4eB3Mvog/uld8kPsvWT3iaeo=; b=Kwb12axDChh65You/1KQy1pVsT
-	z+EUzHFrk18ynPql+f1b/rMIg6EnXeSdNV2V1/r7Uz+yYeNowzex6Kc29diScgXMJpBmTMH/VOaqu
-	hGzYC1rWVKH459j0AoyGRMHzwGKeWONSKrg9gYo6hrBRV2EhFthc2ttVUJg2369meuJg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYXQI-0005Ta-KE; Fri, 30 Oct 2020 16:38:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYXQI-0001ih-Ad; Fri, 30 Oct 2020 16:38:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYXQI-00039b-A8; Fri, 30 Oct 2020 16:38:42 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156319-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=2BB6=EF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kYXUu-0006Pl-BF
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 16:43:28 +0000
+X-Inumbo-ID: 8df15e29-fa15-4355-a356-17c001ddae72
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 8df15e29-fa15-4355-a356-17c001ddae72;
+	Fri, 30 Oct 2020 16:43:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604076206;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XHbYctlhnOI+j8EwYwcg+4LJQJ2Xt2wV9ITG9UwtcoM=;
+	b=jNRlhrywE+vhLbU52w+miGLN2dhFXfyOCtx6k0djPC3Jdj1AyhayEZEyZhSuxR8ex4796K
+	0xi86yaCXjtWfvVVt8BwWzOS1KYCgISG6Gdc9P7pFYIFTeMeSFJJIDYJuwgpbNq+bbFEjI
+	lIEbJP6U4KiTJyN/q7cnuATi0+N8iAo=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 8A019B8FA;
+	Fri, 30 Oct 2020 16:43:26 +0000 (UTC)
+Subject: Re: [PATCH 5/5] x86 / iommu: create a dedicated pool of page-table
+ pages
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201005094905.2929-1-paul@xen.org>
+ <20201005094905.2929-6-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0729b2b0-cd72-e16c-3ba6-89a86d2db8ac@suse.com>
+Date: Fri, 30 Oct 2020 17:43:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156319: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ca56b06043bb4241eeb0a41a60daffb1408a08d5
-X-Osstest-Versions-That:
-    xen=6e2ee3dfd660d9fde96243da7d565244b4d2f164
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Oct 2020 16:38:42 +0000
+In-Reply-To: <20201005094905.2929-6-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 156319 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156319/
+On 05.10.2020 11:49, Paul Durrant wrote:
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -2304,7 +2304,9 @@ int domain_relinquish_resources(struct domain *d)
+>  
+>      PROGRESS(iommu_pagetables):
+>  
+> -        ret = iommu_free_pgtables(d);
+> +        iommu_free_pgtables(d);
+> +
+> +        ret = iommu_set_allocation(d, 0);
+>          if ( ret )
+>              return ret;
 
-Failures :-/ but no regressions.
+There doesn't look to be a need to call iommu_free_pgtables()
+more than once - how about you move it immediately ahead of
+the (extended) case label?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> +static int set_allocation(struct domain *d, unsigned int nr_pages,
+> +                          bool allow_preempt)
 
-version targeted for testing:
- xen                  ca56b06043bb4241eeb0a41a60daffb1408a08d5
-baseline version:
- xen                  6e2ee3dfd660d9fde96243da7d565244b4d2f164
+Why the allow_preempt parameter when the sole caller passes
+"true"?
 
-Last test of basis   156310  2020-10-30 00:01:28 Z    0 days
-Testing same since   156319  2020-10-30 14:02:33 Z    0 days    1 attempts
+> +/*
+> + * Some IOMMU mappings are set up during domain_create() before the tool-
+> + * stack has a chance to calculate and set the appropriate page-table
+> + * allocation. A hard-coded initial allocation covers this gap.
+> + */
+> +#define INITIAL_ALLOCATION 256
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tim Deegan <tim@xen.org>
+How did you arrive at this number? IOW how many pages do we
+need in reality, and how much leeway have you added in?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+As to the tool stack - why would it "have a chance" to do the
+necessary calculations only pretty late? I wonder whether the
+intended allocation wouldn't better be part of struct
+xen_domctl_createdomain, without the need for a new sub-op.
 
+> @@ -265,38 +350,45 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>          return;
+>  }
+>  
+> -int iommu_free_pgtables(struct domain *d)
+> +void iommu_free_pgtables(struct domain *d)
+>  {
+>      struct domain_iommu *hd = dom_iommu(d);
+> -    struct page_info *pg;
+> -    unsigned int done = 0;
+>  
+> -    while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
+> -    {
+> -        free_domheap_page(pg);
+> +    spin_lock(&hd->arch.pgtables.lock);
+>  
+> -        if ( !(++done & 0xff) && general_preempt_check() )
+> -            return -ERESTART;
+> -    }
+> +    page_list_splice(&hd->arch.pgtables.list, &hd->arch.pgtables.free_list);
+> +    INIT_PAGE_LIST_HEAD(&hd->arch.pgtables.list);
+>  
+> -    return 0;
+> +    spin_unlock(&hd->arch.pgtables.lock);
+>  }
+>  
+>  struct page_info *iommu_alloc_pgtable(struct domain *d)
+>  {
+>      struct domain_iommu *hd = dom_iommu(d);
+> -    unsigned int memflags = 0;
+>      struct page_info *pg;
+>      void *p;
+>  
+> -#ifdef CONFIG_NUMA
+> -    if ( hd->node != NUMA_NO_NODE )
+> -        memflags = MEMF_node(hd->node);
+> -#endif
+> +    spin_lock(&hd->arch.pgtables.lock);
+>  
+> -    pg = alloc_domheap_page(NULL, memflags);
+> + again:
+> +    pg = page_list_remove_head(&hd->arch.pgtables.free_list);
+>      if ( !pg )
+> +    {
+> +        /*
+> +         * The hardware and quarantine domains are not subject to a quota
+> +         * so create page-table pages on demand.
+> +         */
+> +        if ( is_hardware_domain(d) || d == dom_io )
+> +        {
+> +            int rc = create_pgtable(d);
+> +
+> +            if ( !rc )
+> +                goto again;
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This gives the appearance of a potentially infinite loop; it's
+not because the lock is being held, but I still wonder whether
+the impression this gives couldn't be avoided by a slightly
+different code structure.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Also the downside of this is that the amount of pages used by
+hwdom will now never shrink anymore.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> @@ -306,7 +398,6 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
+>  
+>      unmap_domain_page(p);
+>  
+> -    spin_lock(&hd->arch.pgtables.lock);
+>      page_list_add(pg, &hd->arch.pgtables.list);
+>      spin_unlock(&hd->arch.pgtables.lock);
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+You want to drop the lock before the map/clear/unmap, and then
+re-acquire it. Or, on the assumption that putting it on the
+list earlier is fine (which I think it is), move the other two
+lines here up as well.
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6e2ee3dfd6..ca56b06043  ca56b06043bb4241eeb0a41a60daffb1408a08d5 -> smoke
+Jan
 
