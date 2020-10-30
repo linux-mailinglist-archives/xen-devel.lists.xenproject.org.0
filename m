@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D1252A0215
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 11:05:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.15593.38581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E882A025A
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Oct 2020 11:10:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.15601.38593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYRHS-0007Tr-60; Fri, 30 Oct 2020 10:05:10 +0000
+	id 1kYRLz-0007gB-QW; Fri, 30 Oct 2020 10:09:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 15593.38581; Fri, 30 Oct 2020 10:05:10 +0000
+Received: by outflank-mailman (output) from mailman id 15601.38593; Fri, 30 Oct 2020 10:09:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,125 +23,162 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYRHS-0007TS-2I; Fri, 30 Oct 2020 10:05:10 +0000
-Received: by outflank-mailman (input) for mailman id 15593;
- Fri, 30 Oct 2020 10:05:08 +0000
+	id 1kYRLz-0007fm-Mk; Fri, 30 Oct 2020 10:09:51 +0000
+Received: by outflank-mailman (input) for mailman id 15601;
+ Fri, 30 Oct 2020 10:09:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pDD0=EF=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1kYRHQ-0007TN-MR
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:05:08 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fAey=EF=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+ id 1kYRLx-0007fh-U4
+ for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:09:49 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6;
- Fri, 30 Oct 2020 10:05:07 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kYRHO-00055Q-2O; Fri, 30 Oct 2020 10:05:06 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kYRHN-0004nw-PK; Fri, 30 Oct 2020 10:05:05 +0000
+ id 2cc7b6fe-9be9-460c-b18a-20b410598e60;
+ Fri, 30 Oct 2020 10:09:48 +0000 (UTC)
+Received: from coco.lan (unknown [95.90.213.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D913322210;
+ Fri, 30 Oct 2020 10:09:31 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pDD0=EF=xen.org=julien@srs-us1.protection.inumbo.net>)
-	id 1kYRHQ-0007TN-MR
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:05:08 +0000
-X-Inumbo-ID: 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=fAey=EF=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+	id 1kYRLx-0007fh-U4
+	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 10:09:49 +0000
+X-Inumbo-ID: 2cc7b6fe-9be9-460c-b18a-20b410598e60
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2efaa4c0-8a99-4132-8093-c2e3b73fe7c6;
-	Fri, 30 Oct 2020 10:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=pw/Gs5Q2MwaWU+ogIPs3aeTqukdsUtygpuCBjVn3MQ0=; b=YVZh5Gl6LdXUeqObSxo1nGNHfq
-	FaT5sN5QWc+Sy6ly2nOtyj1AUZm7GI+b2YVP26AxBfmYT5FoHYDk8+W9NsrR8syk521pQD5YosJiz
-	x/HjvBzY/hGlw5LJ3S587zy9vr9LNkF5v5XJEz+Y0j+WhKbSrw1dh2jYdfRZgBiy6sZI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kYRHO-00055Q-2O; Fri, 30 Oct 2020 10:05:06 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kYRHN-0004nw-PK; Fri, 30 Oct 2020 10:05:05 +0000
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <cd433f0a-ed0b-ce82-c356-d6deaa053a30@xen.org>
- <BBF09ABE-29A6-4990-8DA2-B44086E9C88C@arm.com>
- <1082f30e-0ce8-00b1-e120-194ff874a9ba@xen.org>
- <alpine.DEB.2.21.2010221631440.12247@sstabellini-ThinkPad-T480s>
- <D8EF4B06-B64D-4264-8C86-DA1B5A1146D2@arm.com>
- <7314936f-6c1e-5ca6-a33b-973c8e61ba3b@xen.org>
- <D9F93137-412F-47E5-A55C-85D1F3745618@arm.com>
- <2813ea2b-bfc4-0590-47ef-86089ad65a5d@xen.org>
- <0E2548E0-0504-43B6-8DD7-D5B7BACCEB6E@arm.com>
- <bc697327-2750-9a78-042d-d45690d27928@xen.org>
- <92A7B6FF-A2CE-4BB1-831A-8F12FB5290B8@arm.com>
- <alpine.DEB.2.21.2010291316290.12247@sstabellini-ThinkPad-T480s>
- <1BE06E0F-26CF-453A-BB06-808CC0F3E09B@arm.com>
- <aae5892a-2532-04f8-02af-84c4d4c4f3fd@xen.org>
- <226DA6DB-D03C-41A7-A68C-53000DFA70F6@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e5ce30c5-e0e0-90c8-962d-c86b65a82ccd@xen.org>
-Date: Fri, 30 Oct 2020 10:05:02 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.0
+	id 2cc7b6fe-9be9-460c-b18a-20b410598e60;
+	Fri, 30 Oct 2020 10:09:48 +0000 (UTC)
+Received: from coco.lan (unknown [95.90.213.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id D913322210;
+	Fri, 30 Oct 2020 10:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604052587;
+	bh=nY70Min4E7MUGYz9J7zA0EKOEj/k9pNAzXLi2/4ZMkk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=UNBtt1Tx2c8WK/B9Q0efliEgvZY5yYooQin4TVgBsznntS8ZFwkniWxmzY7RzT79m
+	 oK9xtt1aioR8FC0aS3pTXQ0Xn3bEUZCk6NmIqh/YY+rYfGes9W0TlZNagZzinCUs9H
+	 0mgCmN5om/0DWDTaU4Jmu0IJpLLZxtrFVkEu873I=
+Date: Fri, 30 Oct 2020 11:09:25 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>, "Gautham R. Shenoy"
+ <ego@linux.vnet.ibm.com>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Javier
+ =?UTF-8?B?R29uesOhbGV6?= <javier@javigon.com>, Jonathan Corbet
+ <corbet@lwn.net>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Andrew Donnellan <ajd@linux.ibm.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Baolin Wang
+ <baolin.wang7@gmail.com>, Benson Leung <bleung@chromium.org>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Bruno Meneguele
+ <bmeneg@redhat.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Dan Murphy
+ <dmurphy@ti.com>, Dan Williams <dan.j.williams@intel.com>, Enric Balletbo i
+ Serra <enric.balletbo@collabora.com>, Felipe Balbi <balbi@kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Guenter Roeck <groeck@chromium.org>, Hanjun
+ Guo <guohanjun@huawei.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Jens Axboe <axboe@kernel.dk>, Johannes
+ Thumshirn <johannes.thumshirn@wdc.com>, Jonathan Cameron
+ <jic23@kernel.org>, Juergen Gross <jgross@suse.com>, Konstantin Khlebnikov
+ <koct9i@gmail.com>, Kranthi Kuntala <kranthi.kuntala@intel.com>, Lakshmi
+ Ramasubramanian <nramas@linux.microsoft.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Len Brown <lenb@kernel.org>, Leonid Maksymchuk
+ <leonmaxx@gmail.com>, Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Mario Limonciello <mario.limonciello@dell.com>, Mark Gross
+ <mgross@linux.intel.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Mika Westerberg
+ <mika.westerberg@linux.intel.com>, Mike Kravetz <mike.kravetz@oracle.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Nayna Jain <nayna@linux.ibm.com>, Nicolas
+ Ferre <nicolas.ferre@microchip.com>, Niklas Cassel <niklas.cassel@wdc.com>,
+ Oded Gabbay <oded.gabbay@gmail.com>, Oleh Kravchenko <oleg@kaa.org.ua>,
+ Orson Zhai <orsonzhai@gmail.com>, Pavel Machek <pavel@ucw.cz>, Pawan Gupta
+ <pawan.kumar.gupta@linux.intel.com>, Peter Meerwald-Stadler
+ <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>, Petr Mladek
+ <pmladek@suse.com>, Philippe Bergheaud <felix@linux.ibm.com>, Richard
+ Cochran <richardcochran@gmail.com>, Sebastian Reichel <sre@kernel.org>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Thomas
+ Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>, Vaibhav Jain
+ <vaibhav@linux.ibm.com>, Vineela Tummalapalli
+ <vineela.tummalapalli@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ <linux-acpi@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-pm@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <linux-usb@vger.kernel.org>,
+ <linuxppc-dev@lists.ozlabs.org>, <netdev@vger.kernel.org>,
+ <xen-devel@lists.xenproject.org>, Jonathan Cameron
+ <Jonathan.Cameron@huawei.com>
+Subject: Re: [PATCH v2 20/39] docs: ABI: testing: make the files compatible
+ with ReST output
+Message-ID: <20201030110925.3e09d59e@coco.lan>
+In-Reply-To: <5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+	<58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+	<5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <226DA6DB-D03C-41A7-A68C-53000DFA70F6@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+Em Fri, 30 Oct 2020 10:19:12 +0100
+Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
 
-
-On 30/10/2020 09:45, Rahul Singh wrote:
-> Hello Julien,
+> Hi Mauro,
 > 
->> On 30 Oct 2020, at 9:21 am, Julien Grall <julien@xen.org> wrote:
->>
->> Hi,
->>
->> On 30/10/2020 08:46, Rahul Singh wrote:
->>> Ok Yes when I ported the driver I port the command queue operation from the previous commit where atomic operations is not used and rest all the code is from the latest code. I will again make sure that any bug that is fixed in Linux should be fixed in XEN also.
->>
->> I would like to seek some clarifications on the code because there seem to be conflicting information provided in this thread.
->>
->> The patch (the baseline commit is provided) and the discussion with Bertrand suggests that you took a snapshot of the code last year and adapted for Xen.
->>
->> However, here you suggest that you took an hybrid approach where part of the code is based from last year and other part is based from the latest code (I assume v5.9).
->>
->> So can you please clarify?
->>
->> Cheers,
+> [...]
 > 
-> Approach I took is to first merge the code  from the commit ( Jul 2, 2019 7c288a5b27934281d9ea8b5807bc727268b7001a ) the snapshot before atomic operation is used in SMMUv3 code for command queue operations.
+> >  
+> > +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> > +KernelVersion:	4.12
+> > +Contact:	benjamin.gaignard@st.com
+> > +Description:
+> > +		Reading returns the list possible quadrature modes.
+> > +
+> > +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> > +KernelVersion:	4.12
+> > +Contact:	benjamin.gaignard@st.com
+> > +Description:
+> > +		Configure the device counter quadrature modes:
+> > +
+> > +		channel_A:
+> > +			Encoder A input servers as the count input and B as
+> > +			the UP/DOWN direction control input.
+> > +
+> > +		channel_B:
+> > +			Encoder B input serves as the count input and A as
+> > +			the UP/DOWN direction control input.
+> > +
+> > +		quadrature:
+> > +			Encoder A and B inputs are mixed to get direction
+> > +			and count with a scale of 0.25.
+> > +  
 > 
-> After that I fixed  the other code( not related to command queue operations.)  from the latest code so that no bug is introduced in XEN because of using the last year commit.
 
-Ok. That was definitely not clear from the commit message. Please make 
-this clearer in the commit message.
+Hi Fabrice,
 
-Anway, it means we need to do a full review of the code (rather than a 
-light one) because of the hybrid model.
+> I just noticed that since Jonathan question in v1.
+> 
+> Above ABI has been moved in the past as discussed in [1]. You can take a
+> look at:
+> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+> 
+> Could you please remove the above chunk ?
+> 
+> With that, for the stm32 part:
+> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 
-I am still a bit puzzle to why it would require almost of a restart of 
-the implementation in order to sync the latest code. Does it imply that 
-you are mostly using the old code?
 
-Cheers,
+Hmm... probably those were re-introduced due to a rebase. This
+series were originally written about 1,5 years ago.
 
--- 
-Julien Grall
+I'll drop those hunks.
+
+Thanks!
+Mauro
 
