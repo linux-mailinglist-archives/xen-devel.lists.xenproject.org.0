@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C3D2A117C
-	for <lists+xen-devel@lfdr.de>; Sat, 31 Oct 2020 00:22:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.16711.41503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A230C2A11E7
+	for <lists+xen-devel@lfdr.de>; Sat, 31 Oct 2020 01:25:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.16717.41516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYdiZ-0002fQ-6W; Fri, 30 Oct 2020 23:21:59 +0000
+	id 1kYegk-0000Ix-Pm; Sat, 31 Oct 2020 00:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 16711.41503; Fri, 30 Oct 2020 23:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 16717.41516; Sat, 31 Oct 2020 00:24:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,136 +23,309 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYdiZ-0002f1-3e; Fri, 30 Oct 2020 23:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 16711;
- Fri, 30 Oct 2020 23:21:57 +0000
+	id 1kYegk-0000IZ-MB; Sat, 31 Oct 2020 00:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 16717;
+ Sat, 31 Oct 2020 00:24:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mU6k=EF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kYdiX-0002eN-DG
- for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 23:21:57 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=YIuu=EG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kYegj-0000IU-4s
+ for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:24:09 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 764c7570-f00a-45aa-89b8-da0585c1006c;
- Fri, 30 Oct 2020 23:21:50 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kYdiP-0006PX-LP; Fri, 30 Oct 2020 23:21:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kYdiP-00056v-DA; Fri, 30 Oct 2020 23:21:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kYdiP-0006S7-Cd; Fri, 30 Oct 2020 23:21:49 +0000
+ id 4d7922a4-6dc5-4d6b-a134-186ea18f9170;
+ Sat, 31 Oct 2020 00:24:08 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
+ (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id CED9E206E5;
+ Sat, 31 Oct 2020 00:24:06 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=mU6k=EF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kYdiX-0002eN-DG
-	for xen-devel@lists.xenproject.org; Fri, 30 Oct 2020 23:21:57 +0000
-X-Inumbo-ID: 764c7570-f00a-45aa-89b8-da0585c1006c
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=YIuu=EG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kYegj-0000IU-4s
+	for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:24:09 +0000
+X-Inumbo-ID: 4d7922a4-6dc5-4d6b-a134-186ea18f9170
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 764c7570-f00a-45aa-89b8-da0585c1006c;
-	Fri, 30 Oct 2020 23:21:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=077PcwWKKu4uOBs58+hF/l5C7or207xi6f3cDQmU0fY=; b=1URAFbjxNmuzGy1FUR6Eks4V1z
-	5n0ZxFAMO2KFhR+G9BxMXpXkB3GGmgogLUzLruy1ZeJdcyYEIQ0tFojfqhoHwRFgK0T9n6A60NDqA
-	zfDV7+2n7fXnjhzOW4no+ovr4NeseF0YSMPeqE0YGsB7NuAnwayXTJr1jmRm/iEcvktQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYdiP-0006PX-LP; Fri, 30 Oct 2020 23:21:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYdiP-00056v-DA; Fri, 30 Oct 2020 23:21:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kYdiP-0006S7-Cd; Fri, 30 Oct 2020 23:21:49 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156322-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156322: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7056f2f89f03f2f804ac7e776c7b2b000cd716cd
-X-Osstest-Versions-That:
-    xen=ca56b06043bb4241eeb0a41a60daffb1408a08d5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Oct 2020 23:21:49 +0000
+	id 4d7922a4-6dc5-4d6b-a134-186ea18f9170;
+	Sat, 31 Oct 2020 00:24:08 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id CED9E206E5;
+	Sat, 31 Oct 2020 00:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604103847;
+	bh=kOMKGMEqKOWTR2tX5PKtfxx/R7DyiG1cHABWKb9Usyc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cadDWJDumStYMN8G1tGMxBd5anO5yPbE3GpezViiyjxvZvmPV+HQ2I9A9/4yw9P3Q
+	 5F5Tw5QniU67DFA2HXww1L3Tqd/kDJPM6al8MuNkI4BC7ZQbwiLjVPO3QmvVL/H5c6
+	 DkpWJHu0bLsN9tsAxYSDoiNOiBLj94jn/Meyba34=
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	andrew.cooper3@citrix.com,
+	george.dunlap@citrix.com,
+	iwj@xenproject.org,
+	jbeulich@suse.com,
+	julien@xen.org,
+	wl@xen.org
+Subject: [RFC PATCH] xen: EXPERT clean-up
+Date: Fri, 30 Oct 2020 17:24:05 -0700
+Message-Id: <20201031002405.4545-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
-flight 156322 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156322/
+A recent thread [1] has exposed a couple of issues with our current way
+of handling EXPERT.
 
-Failures :-/ but no regressions.
+1) It is not obvious that "Configure standard Xen features (expert
+users)" is actually the famous EXPERT we keep talking about on xen-devel
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+2) It is not obvious when we need to enable EXPERT to get a specific
+feature
 
-version targeted for testing:
- xen                  7056f2f89f03f2f804ac7e776c7b2b000cd716cd
-baseline version:
- xen                  ca56b06043bb4241eeb0a41a60daffb1408a08d5
+In particular if you want to enable ACPI support so that you can boot
+Xen on an ACPI platform, you have to enable EXPERT first. But searching
+through the kconfig menu it is really not clear (type '/' and "ACPI"):
+nothing in the description tells you that you need to enable EXPERT to
+get the option.
 
-Last test of basis   156319  2020-10-30 14:02:33 Z    0 days
-Testing same since   156322  2020-10-30 20:02:33 Z    0 days    1 attempts
+So this patch makes things easier by doing two things:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andre Przywara <andre.przywara@arm.com>
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien.grall@arm.com>
-  Rahul Singh <rahul.singh@arm.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+- rename the EXPERT description to clarify the option and make sure to
+include the word "EXPERT" in the oneliner
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+- instead of using "if EXPERT" add EXPERT as a dependency so that when
+searching for a feature on the menu you are told that you need to enable
+EXPERT to get the option
 
+[1] https://marc.info/?l=xen-devel&m=160333101228981
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+CC: andrew.cooper3@citrix.com
+CC: george.dunlap@citrix.com
+CC: iwj@xenproject.org
+CC: jbeulich@suse.com
+CC: julien@xen.org
+CC: wl@xen.org
+---
+ xen/Kconfig              | 13 ++++++-------
+ xen/arch/arm/Kconfig     | 18 ++++++++++--------
+ xen/arch/x86/Kconfig     | 11 ++++++-----
+ xen/common/Kconfig       | 21 ++++++++++++++-------
+ xen/common/sched/Kconfig |  2 +-
+ 5 files changed, 37 insertions(+), 28 deletions(-)
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+diff --git a/xen/Kconfig b/xen/Kconfig
+index 34c318bfa2..5fa2716e2d 100644
+--- a/xen/Kconfig
++++ b/xen/Kconfig
+@@ -35,14 +35,13 @@ config DEFCONFIG_LIST
+ 	default ARCH_DEFCONFIG
+ 
+ config EXPERT
+-	bool "Configure standard Xen features (expert users)"
++	bool "Configure EXPERT features"
+ 	help
+-	  This option allows certain base Xen options and settings
+-	  to be disabled or tweaked. This is for specialized environments
+-	  which can tolerate a "non-standard" Xen.
+-	  Only use this if you really know what you are doing.
+-	  Xen binaries built with this option enabled are not security
+-	  supported.
++	  This option allows certain experimental (see SUPPORT.md) Xen
++	  options and settings to be enabled/disabled. This is for
++	  specialized environments which can tolerate a "non-standard" Xen.
++	  Only use this if you really know what you are doing.  Xen binaries
++	  built with this option enabled are not security supported.
+ 	default n
+ 
+ config LTO
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 2777388265..0223cf11c6 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -32,8 +32,8 @@ menu "Architecture Features"
+ source "arch/Kconfig"
+ 
+ config ACPI
+-	bool "ACPI (Advanced Configuration and Power Interface) Support" if EXPERT
+-	depends on ARM_64
++	bool "ACPI (Advanced Configuration and Power Interface) Support"
++	depends on ARM_64 && EXPERT
+ 	---help---
+ 
+ 	  Advanced Configuration and Power Interface (ACPI) support for Xen is
+@@ -49,8 +49,8 @@ config GICV3
+ 	  If unsure, say Y
+ 
+ config HAS_ITS
+-        bool "GICv3 ITS MSI controller support" if EXPERT
+-        depends on GICV3 && !NEW_VGIC
++        bool "GICv3 ITS MSI controller support"
++        depends on GICV3 && !NEW_VGICi && EXPERT
+ 
+ config HVM
+         def_bool y
+@@ -79,8 +79,8 @@ config SBSA_VUART_CONSOLE
+ 	  SBSA Generic UART implements a subset of ARM PL011 UART.
+ 
+ config ARM_SSBD
+-	bool "Speculative Store Bypass Disable" if EXPERT
+-	depends on HAS_ALTERNATIVE
++	bool "Speculative Store Bypass Disable"
++	depends on HAS_ALTERNATIVE && EXPERT
+ 	default y
+ 	help
+ 	  This enables mitigation of bypassing of previous stores by speculative
+@@ -89,7 +89,8 @@ config ARM_SSBD
+ 	  If unsure, say Y.
+ 
+ config HARDEN_BRANCH_PREDICTOR
+-	bool "Harden the branch predictor against aliasing attacks" if EXPERT
++	bool "Harden the branch predictor against aliasing attacks"
++	depends on EXPERT
+ 	default y
+ 	help
+ 	  Speculation attacks against some high-performance processors rely on
+@@ -106,7 +107,8 @@ config HARDEN_BRANCH_PREDICTOR
+ 	  If unsure, say Y.
+ 
+ config TEE
+-	bool "Enable TEE mediators support" if EXPERT
++	bool "Enable TEE mediators support"
++	depends on EXPERT
+ 	default n
+ 	help
+ 	  This option enables generic TEE mediators support. It allows guests
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 24868aa6ad..071bfbbc40 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -146,9 +146,9 @@ config BIGMEM
+ 	  If unsure, say N.
+ 
+ config HVM_FEP
+-	bool "HVM Forced Emulation Prefix support" if EXPERT
++	bool "HVM Forced Emulation Prefix support"
+ 	default DEBUG
+-	depends on HVM
++	depends on HVM && EXPERT
+ 	---help---
+ 
+ 	  Compiles in a feature that allows HVM guest to arbitrarily
+@@ -165,8 +165,9 @@ config HVM_FEP
+ 	  If unsure, say N.
+ 
+ config TBOOT
+-	bool "Xen tboot support" if EXPERT
++	bool "Xen tboot support"
+ 	default y if !PV_SHIM_EXCLUSIVE
++	depends on EXPERT
+ 	select CRYPTO
+ 	---help---
+ 	  Allows support for Trusted Boot using the Intel(R) Trusted Execution
+@@ -251,8 +252,8 @@ config HYPERV_GUEST
+ endif
+ 
+ config MEM_SHARING
+-	bool "Xen memory sharing support" if EXPERT
+-	depends on HVM
++	bool "Xen memory sharing support"
++	depends on HVM && EXPERT
+ 
+ endmenu
+ 
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 3e2cf25088..7a8c54e66c 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -12,7 +12,8 @@ config CORE_PARKING
+ 	bool
+ 
+ config GRANT_TABLE
+-	bool "Grant table support" if EXPERT
++	bool "Grant table support"
++	depends on EXPERT
+ 	default y
+ 	---help---
+ 	  Grant table provides a generic mechanism to memory sharing
+@@ -151,7 +152,8 @@ config KEXEC
+ 	  If unsure, say Y.
+ 
+ config EFI_SET_VIRTUAL_ADDRESS_MAP
+-    bool "EFI: call SetVirtualAddressMap()" if EXPERT
++    bool "EFI: call SetVirtualAddressMap()"
++    depends on EXPERT
+     ---help---
+       Call EFI SetVirtualAddressMap() runtime service to setup memory map for
+       further runtime services. According to UEFI spec, it isn't strictly
+@@ -162,7 +164,8 @@ config EFI_SET_VIRTUAL_ADDRESS_MAP
+ 
+ config XENOPROF
+ 	def_bool y
+-	prompt "Xen Oprofile Support" if EXPERT
++	prompt "Xen Oprofile Support"
++	depends on EXPERT
+ 	depends on X86
+ 	---help---
+ 	  Xen OProfile (Xenoprof) is a system-wide profiler for Xen virtual
+@@ -199,7 +202,8 @@ config XSM_FLASK
+ 
+ config XSM_FLASK_AVC_STATS
+ 	def_bool y
+-	prompt "Maintain statistics on the FLASK access vector cache" if EXPERT
++	prompt "Maintain statistics on the FLASK access vector cache"
++	depends on EXPERT
+ 	depends on XSM_FLASK
+ 	---help---
+ 	  Maintain counters on the access vector cache that can be viewed using
+@@ -272,7 +276,8 @@ config LATE_HWDOM
+ 	  If unsure, say N.
+ 
+ config ARGO
+-	bool "Argo: hypervisor-mediated interdomain communication" if EXPERT
++	bool "Argo: hypervisor-mediated interdomain communication"
++	depends on EXPERT
+ 	---help---
+ 	  Enables a hypercall for domains to ask the hypervisor to perform
+ 	  data transfer of messages between domains.
+@@ -344,7 +349,8 @@ config SUPPRESS_DUPLICATE_SYMBOL_WARNINGS
+ 	  build becoming overly verbose.
+ 
+ config CMDLINE
+-	string "Built-in hypervisor command string" if EXPERT
++	string "Built-in hypervisor command string"
++	depends on EXPERT
+ 	default ""
+ 	---help---
+ 	  Enter arguments here that should be compiled into the hypervisor
+@@ -377,7 +383,8 @@ config DOM0_MEM
+ 	  Leave empty if you are not sure what to specify.
+ 
+ config TRACEBUFFER
+-	bool "Enable tracing infrastructure" if EXPERT
++	bool "Enable tracing infrastructure"
++	depends on EXPERT
+ 	default y
+ 	---help---
+ 	  Enable tracing infrastructure and pre-defined tracepoints within Xen.
+diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
+index 61231aacaa..ec0385cd07 100644
+--- a/xen/common/sched/Kconfig
++++ b/xen/common/sched/Kconfig
+@@ -1,5 +1,5 @@
+ menu "Schedulers"
+-	visible if EXPERT
++	depends on EXPERT
+ 
+ config SCHED_CREDIT
+ 	bool "Credit scheduler support"
+-- 
+2.17.1
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   ca56b06043..7056f2f89f  7056f2f89f03f2f804ac7e776c7b2b000cd716cd -> smoke
 
