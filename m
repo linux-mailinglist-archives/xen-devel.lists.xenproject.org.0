@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A230C2A11E7
-	for <lists+xen-devel@lfdr.de>; Sat, 31 Oct 2020 01:25:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.16717.41516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B822A1215
+	for <lists+xen-devel@lfdr.de>; Sat, 31 Oct 2020 01:42:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.16727.41528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYegk-0000Ix-Pm; Sat, 31 Oct 2020 00:24:10 +0000
+	id 1kYeyB-00021j-A8; Sat, 31 Oct 2020 00:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 16717.41516; Sat, 31 Oct 2020 00:24:10 +0000
+Received: by outflank-mailman (output) from mailman id 16727.41528; Sat, 31 Oct 2020 00:42:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,309 +23,178 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kYegk-0000IZ-MB; Sat, 31 Oct 2020 00:24:10 +0000
-Received: by outflank-mailman (input) for mailman id 16717;
- Sat, 31 Oct 2020 00:24:09 +0000
+	id 1kYeyB-00021K-6i; Sat, 31 Oct 2020 00:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 16727;
+ Sat, 31 Oct 2020 00:42:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YIuu=EG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kYegj-0000IU-4s
- for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:24:09 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=Q0JK=EG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kYeyA-00021F-Gn
+ for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:42:10 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4d7922a4-6dc5-4d6b-a134-186ea18f9170;
- Sat, 31 Oct 2020 00:24:08 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CED9E206E5;
- Sat, 31 Oct 2020 00:24:06 +0000 (UTC)
+ id 87f1276a-f99f-4ff8-98f9-f93e534152e1;
+ Sat, 31 Oct 2020 00:42:08 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A37C0B07D;
+ Sat, 31 Oct 2020 00:42:07 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=YIuu=EG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kYegj-0000IU-4s
-	for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:24:09 +0000
-X-Inumbo-ID: 4d7922a4-6dc5-4d6b-a134-186ea18f9170
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=Q0JK=EG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+	id 1kYeyA-00021F-Gn
+	for xen-devel@lists.xenproject.org; Sat, 31 Oct 2020 00:42:10 +0000
+X-Inumbo-ID: 87f1276a-f99f-4ff8-98f9-f93e534152e1
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4d7922a4-6dc5-4d6b-a134-186ea18f9170;
-	Sat, 31 Oct 2020 00:24:08 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id CED9E206E5;
-	Sat, 31 Oct 2020 00:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1604103847;
-	bh=kOMKGMEqKOWTR2tX5PKtfxx/R7DyiG1cHABWKb9Usyc=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cadDWJDumStYMN8G1tGMxBd5anO5yPbE3GpezViiyjxvZvmPV+HQ2I9A9/4yw9P3Q
-	 5F5Tw5QniU67DFA2HXww1L3Tqd/kDJPM6al8MuNkI4BC7ZQbwiLjVPO3QmvVL/H5c6
-	 DkpWJHu0bLsN9tsAxYSDoiNOiBLj94jn/Meyba34=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	iwj@xenproject.org,
-	jbeulich@suse.com,
-	julien@xen.org,
-	wl@xen.org
-Subject: [RFC PATCH] xen: EXPERT clean-up
-Date: Fri, 30 Oct 2020 17:24:05 -0700
-Message-Id: <20201031002405.4545-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
+	id 87f1276a-f99f-4ff8-98f9-f93e534152e1;
+	Sat, 31 Oct 2020 00:42:08 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604104927;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2EHFWQ8CihojlaDJ65dYND77qyv6QB1qxRCf5IyZwKA=;
+	b=stQFBsYqbwD9xB527PI9aiX+GapOFIz3OszEpXfLLox0PIOYU6ZiDg86EOnescteMYE+Lq
+	peCfgmS+ZT+wsVahVxv8+ShyURi9+pvdpMpp2J8HnKKUkA1PHGwqvg/2PIn+O7an95uXT3
+	aBjG3bR+C5yAXp1E8rNw9xSHXcCcY9E=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id A37C0B07D;
+	Sat, 31 Oct 2020 00:42:07 +0000 (UTC)
+Message-ID: <cb67b4beb9d9065a61071bf7236f40802ace4203.camel@suse.com>
+Subject: Re: BUG: credit=sched2 machine hang when using DRAKVUF
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Cc: xen-devel@lists.xenproject.org, =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
+	 <jgross@suse.com>
+Date: Sat, 31 Oct 2020 01:42:06 +0100
+In-Reply-To: <66f4b628-970c-9990-118a-572f971d6ed2@suse.com>
+References: <157653679.6164.1603407559737.JavaMail.zimbra@nask.pl>
+	 <a80f05ac-bd18-563e-12f7-1a0f9f0d4f6b@suse.com>
+	 <1747162107.4472424.1603850652584.JavaMail.zimbra@nask.pl>
+	 <66f4b628-970c-9990-118a-572f971d6ed2@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-vSzTJZVszvG3C28vxN6U"
+User-Agent: Evolution 3.38.1 (by Flathub.org) 
+MIME-Version: 1.0
 
-A recent thread [1] has exposed a couple of issues with our current way
-of handling EXPERT.
 
-1) It is not obvious that "Configure standard Xen features (expert
-users)" is actually the famous EXPERT we keep talking about on xen-devel
+--=-vSzTJZVszvG3C28vxN6U
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-2) It is not obvious when we need to enable EXPERT to get a specific
-feature
+On Wed, 2020-10-28 at 08:45 +0100, Jan Beulich wrote:
+> On 28.10.2020 03:04, Micha=C5=82 Leszczy=C5=84ski wrote:
+>=20
+>=20
+> I have to admit that the log makes me wonder whether this isn't a
+> Dom0 internal issue:
+>=20
+> > [=C2=A0 338.968676] watchdog: BUG: soft lockup - CPU#5 stuck for 22s!
+> > [sshd:5991]
+> > [=C2=A0 346.963959] watchdog: BUG: soft lockup - CPU#2 stuck for 23s!
+> > [xenconsoled:2747]
+>=20
+Yeah, weird.
 
-In particular if you want to enable ACPI support so that you can boot
-Xen on an ACPI platform, you have to enable EXPERT first. But searching
-through the kconfig menu it is really not clear (type '/' and "ACPI"):
-nothing in the description tells you that you need to enable EXPERT to
-get the option.
+> For these two vCPU-s we see ...
+>=20
+> > (XEN) Domain info:
+> > (XEN)=C2=A0=C2=A0 Domain: 0 w 256 c 0 v 14
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 1: [0.0] flags=3D20 cpu=3D0 credit=3D-100=
+00000 [w=3D256]
+> > load=3D4594 (~1%)
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 2: [0.1] flags=3D20 cpu=3D2 credit=3D9134=
+904 [w=3D256]
+> > load=3D262144 (~100%)
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 3: [0.2] flags=3D22 cpu=3D4 credit=3D-100=
+00000 [w=3D256]
+> > load=3D262144 (~100%)
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 4: [0.3] flags=3D20 cpu=3D6 credit=3D-100=
+00000 [w=3D256]
+> > load=3D4299 (~1%)
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 5: [0.4] flags=3D20 cpu=3D8 credit=3D-100=
+00000 [w=3D256]
+> > load=3D4537 (~1%)
+> > (XEN)=C2=A0=C2=A0=C2=A0=C2=A0 6: [0.5] flags=3D22 cpu=3D10 credit=3D-10=
+000000 [w=3D256]
+> > load=3D262144 (~100%)
+>=20
+> ... that both are fully loaded and ...
+>=20
+> > [...]
+>=20
+> ... they're actively running,
+>
+True indeed. But as I said in my other reply, it's weird that we have
+so many vCPUs with the artificial value that we use to represent the
+minimum value of credits we allow a vCPU to have.
 
-So this patch makes things easier by doing two things:
+And it's weird that, with some idle CPUs and with two vCPUs running
+vCPUs with negative credits, we have one with positive credits sitting
+in the runqueue.
 
-- rename the EXPERT description to clarify the option and make sure to
-include the word "EXPERT" in the oneliner
+Unless the debug-key captured a transient  state. Like, d0v1 is in the
+runqueue because it just woke-up and the 'r' dump occurred between when
+it's put in the runqueue and when a physical CPU (which is poked during
+the wake-up itself) picks it up.
 
-- instead of using "if EXPERT" add EXPERT as a dependency so that when
-searching for a feature on the menu you are told that you need to enable
-EXPERT to get the option
+It seems unlikely, and this still would not explain nor justify the -
+10000000. But, still, Micha=C5=82, can you perhaps check whether, while the
+issue manifests, poking at the 'r' key a few times always show the same
+(or a similar) situation?
 
-[1] https://marc.info/?l=xen-devel&m=160333101228981
+> > (XEN) RUNQ:
+> > (XEN) CPUs info:
+> > (XEN) CPU[00] current=3Dd[IDLE]v0, curr=3Dd[IDLE]v0, prev=3DNULL
+> > (XEN) CPU[02] current=3Dd[IDLE]v2, curr=3Dd[IDLE]v2, prev=3DNULL
+> > (XEN) CPU[04] current=3Dd0v2, curr=3Dd0v2, prev=3DNULL
+> > (XEN) CPU[06] current=3Dd[IDLE]v6, curr=3Dd[IDLE]v6, prev=3DNULL
+> > (XEN) CPU[08] current=3Dd[IDLE]v8, curr=3Dd[IDLE]v8, prev=3DNULL
+> > (XEN) CPU[10] current=3Dd0v5, curr=3Dd0v5, prev=3DNULL
+>=20
+> ... here. Hence an additional question is what exactly they're doing.
+> '0' and possibly 'd' debug key output may shed some light on it, but
+> to interpret that output the exact kernel and hypervisor binaries
+> would need to be known / available.
+>=20
+Yes, I agree. Even considering all that I said (which seems to point
+back at a Xen issue, rather than kernel), knowing more about what the
+vCPUs are doing could indeed be helpful!
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-CC: andrew.cooper3@citrix.com
-CC: george.dunlap@citrix.com
-CC: iwj@xenproject.org
-CC: jbeulich@suse.com
-CC: julien@xen.org
-CC: wl@xen.org
----
- xen/Kconfig              | 13 ++++++-------
- xen/arch/arm/Kconfig     | 18 ++++++++++--------
- xen/arch/x86/Kconfig     | 11 ++++++-----
- xen/common/Kconfig       | 21 ++++++++++++++-------
- xen/common/sched/Kconfig |  2 +-
- 5 files changed, 37 insertions(+), 28 deletions(-)
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
-diff --git a/xen/Kconfig b/xen/Kconfig
-index 34c318bfa2..5fa2716e2d 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -35,14 +35,13 @@ config DEFCONFIG_LIST
- 	default ARCH_DEFCONFIG
- 
- config EXPERT
--	bool "Configure standard Xen features (expert users)"
-+	bool "Configure EXPERT features"
- 	help
--	  This option allows certain base Xen options and settings
--	  to be disabled or tweaked. This is for specialized environments
--	  which can tolerate a "non-standard" Xen.
--	  Only use this if you really know what you are doing.
--	  Xen binaries built with this option enabled are not security
--	  supported.
-+	  This option allows certain experimental (see SUPPORT.md) Xen
-+	  options and settings to be enabled/disabled. This is for
-+	  specialized environments which can tolerate a "non-standard" Xen.
-+	  Only use this if you really know what you are doing.  Xen binaries
-+	  built with this option enabled are not security supported.
- 	default n
- 
- config LTO
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 2777388265..0223cf11c6 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -32,8 +32,8 @@ menu "Architecture Features"
- source "arch/Kconfig"
- 
- config ACPI
--	bool "ACPI (Advanced Configuration and Power Interface) Support" if EXPERT
--	depends on ARM_64
-+	bool "ACPI (Advanced Configuration and Power Interface) Support"
-+	depends on ARM_64 && EXPERT
- 	---help---
- 
- 	  Advanced Configuration and Power Interface (ACPI) support for Xen is
-@@ -49,8 +49,8 @@ config GICV3
- 	  If unsure, say Y
- 
- config HAS_ITS
--        bool "GICv3 ITS MSI controller support" if EXPERT
--        depends on GICV3 && !NEW_VGIC
-+        bool "GICv3 ITS MSI controller support"
-+        depends on GICV3 && !NEW_VGICi && EXPERT
- 
- config HVM
-         def_bool y
-@@ -79,8 +79,8 @@ config SBSA_VUART_CONSOLE
- 	  SBSA Generic UART implements a subset of ARM PL011 UART.
- 
- config ARM_SSBD
--	bool "Speculative Store Bypass Disable" if EXPERT
--	depends on HAS_ALTERNATIVE
-+	bool "Speculative Store Bypass Disable"
-+	depends on HAS_ALTERNATIVE && EXPERT
- 	default y
- 	help
- 	  This enables mitigation of bypassing of previous stores by speculative
-@@ -89,7 +89,8 @@ config ARM_SSBD
- 	  If unsure, say Y.
- 
- config HARDEN_BRANCH_PREDICTOR
--	bool "Harden the branch predictor against aliasing attacks" if EXPERT
-+	bool "Harden the branch predictor against aliasing attacks"
-+	depends on EXPERT
- 	default y
- 	help
- 	  Speculation attacks against some high-performance processors rely on
-@@ -106,7 +107,8 @@ config HARDEN_BRANCH_PREDICTOR
- 	  If unsure, say Y.
- 
- config TEE
--	bool "Enable TEE mediators support" if EXPERT
-+	bool "Enable TEE mediators support"
-+	depends on EXPERT
- 	default n
- 	help
- 	  This option enables generic TEE mediators support. It allows guests
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 24868aa6ad..071bfbbc40 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -146,9 +146,9 @@ config BIGMEM
- 	  If unsure, say N.
- 
- config HVM_FEP
--	bool "HVM Forced Emulation Prefix support" if EXPERT
-+	bool "HVM Forced Emulation Prefix support"
- 	default DEBUG
--	depends on HVM
-+	depends on HVM && EXPERT
- 	---help---
- 
- 	  Compiles in a feature that allows HVM guest to arbitrarily
-@@ -165,8 +165,9 @@ config HVM_FEP
- 	  If unsure, say N.
- 
- config TBOOT
--	bool "Xen tboot support" if EXPERT
-+	bool "Xen tboot support"
- 	default y if !PV_SHIM_EXCLUSIVE
-+	depends on EXPERT
- 	select CRYPTO
- 	---help---
- 	  Allows support for Trusted Boot using the Intel(R) Trusted Execution
-@@ -251,8 +252,8 @@ config HYPERV_GUEST
- endif
- 
- config MEM_SHARING
--	bool "Xen memory sharing support" if EXPERT
--	depends on HVM
-+	bool "Xen memory sharing support"
-+	depends on HVM && EXPERT
- 
- endmenu
- 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 3e2cf25088..7a8c54e66c 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -12,7 +12,8 @@ config CORE_PARKING
- 	bool
- 
- config GRANT_TABLE
--	bool "Grant table support" if EXPERT
-+	bool "Grant table support"
-+	depends on EXPERT
- 	default y
- 	---help---
- 	  Grant table provides a generic mechanism to memory sharing
-@@ -151,7 +152,8 @@ config KEXEC
- 	  If unsure, say Y.
- 
- config EFI_SET_VIRTUAL_ADDRESS_MAP
--    bool "EFI: call SetVirtualAddressMap()" if EXPERT
-+    bool "EFI: call SetVirtualAddressMap()"
-+    depends on EXPERT
-     ---help---
-       Call EFI SetVirtualAddressMap() runtime service to setup memory map for
-       further runtime services. According to UEFI spec, it isn't strictly
-@@ -162,7 +164,8 @@ config EFI_SET_VIRTUAL_ADDRESS_MAP
- 
- config XENOPROF
- 	def_bool y
--	prompt "Xen Oprofile Support" if EXPERT
-+	prompt "Xen Oprofile Support"
-+	depends on EXPERT
- 	depends on X86
- 	---help---
- 	  Xen OProfile (Xenoprof) is a system-wide profiler for Xen virtual
-@@ -199,7 +202,8 @@ config XSM_FLASK
- 
- config XSM_FLASK_AVC_STATS
- 	def_bool y
--	prompt "Maintain statistics on the FLASK access vector cache" if EXPERT
-+	prompt "Maintain statistics on the FLASK access vector cache"
-+	depends on EXPERT
- 	depends on XSM_FLASK
- 	---help---
- 	  Maintain counters on the access vector cache that can be viewed using
-@@ -272,7 +276,8 @@ config LATE_HWDOM
- 	  If unsure, say N.
- 
- config ARGO
--	bool "Argo: hypervisor-mediated interdomain communication" if EXPERT
-+	bool "Argo: hypervisor-mediated interdomain communication"
-+	depends on EXPERT
- 	---help---
- 	  Enables a hypercall for domains to ask the hypervisor to perform
- 	  data transfer of messages between domains.
-@@ -344,7 +349,8 @@ config SUPPRESS_DUPLICATE_SYMBOL_WARNINGS
- 	  build becoming overly verbose.
- 
- config CMDLINE
--	string "Built-in hypervisor command string" if EXPERT
-+	string "Built-in hypervisor command string"
-+	depends on EXPERT
- 	default ""
- 	---help---
- 	  Enter arguments here that should be compiled into the hypervisor
-@@ -377,7 +383,8 @@ config DOM0_MEM
- 	  Leave empty if you are not sure what to specify.
- 
- config TRACEBUFFER
--	bool "Enable tracing infrastructure" if EXPERT
-+	bool "Enable tracing infrastructure"
-+	depends on EXPERT
- 	default y
- 	---help---
- 	  Enable tracing infrastructure and pre-defined tracepoints within Xen.
-diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
-index 61231aacaa..ec0385cd07 100644
---- a/xen/common/sched/Kconfig
-+++ b/xen/common/sched/Kconfig
-@@ -1,5 +1,5 @@
- menu "Schedulers"
--	visible if EXPERT
-+	depends on EXPERT
- 
- config SCHED_CREDIT
- 	bool "Credit scheduler support"
--- 
-2.17.1
+--=-vSzTJZVszvG3C28vxN6U
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl+cst4ACgkQFkJ4iaW4
+c+7I5w/7BnpDsKNKpgEfi0+Nf9z73RKRy83ITAAuI9caGsTUNMZtaf7Q+hZ/8d6K
+vWoh5y1tlr+1ZRlpxKuzP+J9Z91G33mKL6oqtfRtg7kT+JHRZqeM4tdKwiO4jXJ3
+Hgq0lJrSlFkCJ/Rsi/Fxk0CE9CSg/d28EiIqbnQQHvkl36vojIjYZpcU9ngzv42f
+4JiwG6KCquXmrtmH2JQ3R8ek8vtGsu/qDEuFbgZytANEB4l6SpWHHa2WB+Wh3EA3
+J+GVSnGgTersCg+9O3R9oEFuW8VlBWmXIOskfmEHwo3HmVCz2QXGvjHXGF8KT1RZ
+3vRrEyMrQsB3G2s1T3RlIIrmq/5xc/gLYAdW62cf8zJI6WErrVmS3huS6l3OfwAC
+FYGBqMRaYUv+lRUw22Qnt6ZHvRGs8oxYg3MuZu503CQsD/YkxuiPf61CEvteLQKW
+cFN9WcrGKH/KDgB5w2eQvyEFLBlaE32oCxkdXIWNdcw8x+xwov/GQVnCE4ChK37A
+dzxV+RxVmpiwZah7derhniJFdtQqI8/Ii2UX8RSLuoWxRNWnWeBrxNrREDxzxNgW
+Cs/j0IVZC7WgO/Ydw31hTuDXg2n0PdH2wXmTy5RPm+viBkzAmIKCuyulpYSBe6yl
+IFaN+Q791GqgZAFMQpV4bzGwqu6x2oowTLu3Gzti48mVOH2h8Zk=
+=mhuD
+-----END PGP SIGNATURE-----
+
+--=-vSzTJZVszvG3C28vxN6U--
 
 
