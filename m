@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A75F2A2C39
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Nov 2020 14:59:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.17670.42483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A46B2A2D33
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Nov 2020 15:44:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.17683.42495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZaMl-0003bE-Hg; Mon, 02 Nov 2020 13:59:23 +0000
+	id 1kZb3F-0007qi-03; Mon, 02 Nov 2020 14:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 17670.42483; Mon, 02 Nov 2020 13:59:23 +0000
+Received: by outflank-mailman (output) from mailman id 17683.42495; Mon, 02 Nov 2020 14:43:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,129 +23,226 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZaMl-0003ap-EJ; Mon, 02 Nov 2020 13:59:23 +0000
-Received: by outflank-mailman (input) for mailman id 17670;
- Mon, 02 Nov 2020 13:59:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2ZVo=EI=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kZaMj-0003ak-Hg
- for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 13:59:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c13a6c88-96a8-4279-bf04-683ca3a7aa10;
- Mon, 02 Nov 2020 13:59:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A6BABACB5;
- Mon,  2 Nov 2020 13:59:19 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kZb3E-0007qJ-Sg; Mon, 02 Nov 2020 14:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 17683;
+ Mon, 02 Nov 2020 14:43:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K/pe=EI=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+ id 1kZb3D-0007qD-On
+ for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 14:43:15 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1242c726-ef0d-4624-bcfc-6d2770191fbb;
+ Mon, 02 Nov 2020 14:43:15 +0000 (UTC)
+Received: from coco.lan (ip5f5ad5bd.dynamic.kabel-deutschland.de
+ [95.90.213.189])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 63B96223FB;
+ Mon,  2 Nov 2020 14:42:56 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2ZVo=EI=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kZaMj-0003ak-Hg
-	for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 13:59:21 +0000
-X-Inumbo-ID: c13a6c88-96a8-4279-bf04-683ca3a7aa10
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id c13a6c88-96a8-4279-bf04-683ca3a7aa10;
-	Mon, 02 Nov 2020 13:59:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604325559;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTBSOfCc5O2MV43b/TL4S4stycwueeg7Za2DteTavHc=;
-	b=Q+erQINg9zOG+Rh5R+aq4TYMc/z6iTIi7kWgG+LxADR1gwOtEmD6MqT5Ik8tv1hmamHish
-	ACYQUsaYjP8U4o0tpsRMa/po1GfPM0CufQUQahlNckfoF/F2jZSPOWTkGBdL/GIhfQZ8Ab
-	g8r64n/Jhdb0IFXY29xOUx9nVIP30Us=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A6BABACB5;
-	Mon,  2 Nov 2020 13:59:19 +0000 (UTC)
-Subject: Re: [PATCH v3 2/2] xen/evtchn: rework per event channel lock
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20201016105839.14796-1-jgross@suse.com>
- <20201016105839.14796-3-jgross@suse.com>
- <0c5975b1-97ec-9bbb-0ed9-9055556215cd@suse.com>
- <0c39eb60-9843-9659-f7c5-4e2c3e697ee0@suse.com>
- <c77add99-f92e-126a-5a5e-81a2b5983aa0@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <07cc4218-7aa6-2276-32af-559c0db841b5@suse.com>
-Date: Mon, 2 Nov 2020 14:59:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	(envelope-from <SRS0=K/pe=EI=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+	id 1kZb3D-0007qD-On
+	for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 14:43:15 +0000
+X-Inumbo-ID: 1242c726-ef0d-4624-bcfc-6d2770191fbb
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 1242c726-ef0d-4624-bcfc-6d2770191fbb;
+	Mon, 02 Nov 2020 14:43:15 +0000 (UTC)
+Received: from coco.lan (ip5f5ad5bd.dynamic.kabel-deutschland.de [95.90.213.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 63B96223FB;
+	Mon,  2 Nov 2020 14:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604328194;
+	bh=3oIo7M+kbfes9glXaYwVawYl0ThrpApAaoS3m8AadNs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=o7vSyqavrA+tPEp8JUSX2Gre2OPdTrpaBl//HWqb1ndQojQ2+WQ+GCP6o1zviBXm5
+	 BkixBkiludftpOuYl5RGYgd4ap8zUj38MqoeY5NGyExHQDLlRrYM+dKrsl0Sr0HfH8
+	 qhyJWoyOHNQJOxgn2sog8B5I0MfzAibMKr1lQUA4=
+Date: Mon, 2 Nov 2020 15:42:50 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, Linux Doc Mailing List
+ <linux-doc@vger.kernel.org>, "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, Javier =?UTF-8?B?R29uesOhbGV6?=
+ <javier@javigon.com>, Jonathan Corbet <corbet@lwn.net>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, "Rafael J. Wysocki"
+ <rjw@rjwysocki.net>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Andrew Donnellan <ajd@linux.ibm.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Baolin Wang
+ <baolin.wang7@gmail.com>, Benson Leung <bleung@chromium.org>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Bruno Meneguele
+ <bmeneg@redhat.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Dan Murphy
+ <dmurphy@ti.com>, Dan Williams <dan.j.williams@intel.com>, Enric Balletbo i
+ Serra <enric.balletbo@collabora.com>, Felipe Balbi <balbi@kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Guenter Roeck
+ <groeck@chromium.org>, Hanjun Guo <guohanjun@huawei.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Jens Axboe <axboe@kernel.dk>, Johannes
+ Thumshirn <johannes.thumshirn@wdc.com>, Jonathan Cameron
+ <jic23@kernel.org>, Juergen Gross <jgross@suse.com>, Konstantin Khlebnikov
+ <koct9i@gmail.com>, Kranthi Kuntala <kranthi.kuntala@intel.com>, Lakshmi
+ Ramasubramanian <nramas@linux.microsoft.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Len Brown <lenb@kernel.org>, Leonid Maksymchuk
+ <leonmaxx@gmail.com>, Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Mario Limonciello <mario.limonciello@dell.com>, Mark Gross
+ <mgross@linux.intel.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Mika Westerberg
+ <mika.westerberg@linux.intel.com>, Mike Kravetz <mike.kravetz@oracle.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Nayna Jain <nayna@linux.ibm.com>, Nicolas
+ Ferre <nicolas.ferre@microchip.com>, Niklas Cassel <niklas.cassel@wdc.com>,
+ Oded Gabbay <oded.gabbay@gmail.com>, Oleh Kravchenko <oleg@kaa.org.ua>,
+ Orson Zhai <orsonzhai@gmail.com>, Pavel Machek <pavel@ucw.cz>, Pawan Gupta
+ <pawan.kumar.gupta@linux.intel.com>, Peter Meerwald-Stadler
+ <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>, Petr Mladek
+ <pmladek@suse.com>, Philippe Bergheaud <felix@linux.ibm.com>, Richard
+ Cochran <richardcochran@gmail.com>, Sebastian Reichel <sre@kernel.org>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Thomas
+ Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>, Vaibhav Jain
+ <vaibhav@linux.ibm.com>, Vineela Tummalapalli
+ <vineela.tummalapalli@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Jonathan Cameron
+ <Jonathan.Cameron@huawei.com>
+Subject: Re: [PATCH v2 20/39] docs: ABI: testing: make the files compatible
+ with ReST output
+Message-ID: <20201102154250.45bee17f@coco.lan>
+In-Reply-To: <20201102124641.GA881895@kroah.com>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+	<58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+	<5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+	<20201030110925.3e09d59e@coco.lan>
+	<cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+	<20201102124641.GA881895@kroah.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <c77add99-f92e-126a-5a5e-81a2b5983aa0@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 02.11.20 14:52, Jan Beulich wrote:
-> On 02.11.2020 14:41, Jürgen Groß wrote:
->> On 20.10.20 11:28, Jan Beulich wrote:
->>> On 16.10.2020 12:58, Juergen Gross wrote:
->>>> --- a/xen/arch/x86/pv/shim.c
->>>> +++ b/xen/arch/x86/pv/shim.c
->>>> @@ -660,11 +660,12 @@ void pv_shim_inject_evtchn(unsigned int port)
->>>>        if ( port_is_valid(guest, port) )
->>>>        {
->>>>            struct evtchn *chn = evtchn_from_port(guest, port);
->>>> -        unsigned long flags;
->>>>    
->>>> -        spin_lock_irqsave(&chn->lock, flags);
->>>> -        evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
->>>> -        spin_unlock_irqrestore(&chn->lock, flags);
->>>> +        if ( evtchn_read_trylock(chn) )
->>>> +        {
->>>> +            evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
->>>> +            evtchn_read_unlock(chn);
->>>> +        }
->>>
->>> Does this want some form of else, e.g. at least a printk_once()?
->>
->> No, I don't think so.
->>
->> This is just a race with the port_is_valid() test above where the
->> port is just being switched to invalid.
+Em Mon, 2 Nov 2020 13:46:41 +0100
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
+
+> On Mon, Nov 02, 2020 at 12:04:36PM +0100, Fabrice Gasnier wrote:
+> > On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:  
+> > > Em Fri, 30 Oct 2020 10:19:12 +0100
+> > > Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
+> > >   
+> > >> Hi Mauro,
+> > >>
+> > >> [...]
+> > >>  
+> > >>>  
+> > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> > >>> +KernelVersion:	4.12
+> > >>> +Contact:	benjamin.gaignard@st.com
+> > >>> +Description:
+> > >>> +		Reading returns the list possible quadrature modes.
+> > >>> +
+> > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> > >>> +KernelVersion:	4.12
+> > >>> +Contact:	benjamin.gaignard@st.com
+> > >>> +Description:
+> > >>> +		Configure the device counter quadrature modes:
+> > >>> +
+> > >>> +		channel_A:
+> > >>> +			Encoder A input servers as the count input and B as
+> > >>> +			the UP/DOWN direction control input.
+> > >>> +
+> > >>> +		channel_B:
+> > >>> +			Encoder B input serves as the count input and A as
+> > >>> +			the UP/DOWN direction control input.
+> > >>> +
+> > >>> +		quadrature:
+> > >>> +			Encoder A and B inputs are mixed to get direction
+> > >>> +			and count with a scale of 0.25.
+> > >>> +    
+> > >>  
+> > > 
+> > > Hi Fabrice,
+> > >   
+> > >> I just noticed that since Jonathan question in v1.
+> > >>
+> > >> Above ABI has been moved in the past as discussed in [1]. You can take a
+> > >> look at:
+> > >> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+> > >>
+> > >> Could you please remove the above chunk ?
+> > >>
+> > >> With that, for the stm32 part:
+> > >> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>  
+> > > 
+> > > 
+> > > Hmm... probably those were re-introduced due to a rebase. This
+> > > series were originally written about 1,5 years ago.
+> > > 
+> > > I'll drop those hunks.  
+> > 
+> > Hi Mauro, Greg,
+> > 
+> > I just figured out this patch has been applied with above hunk.
+> > 
+> > This should be dropped: is there a fix on its way already ?
+> > (I may have missed it)  
 > 
-> This may be such a race yes, but why do you think it _will_ be?
+> Can you send a fix for just this hunk?
 
-According to the outlined lock discipline there is no other
-possibility (assuming that the lock discipline is honored).
+Hmm...
 
-I'll have a look whether I can add some ASSERT()s to catch any
-lock discipline violation.
+	$ git grep /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:What:                /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+	Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:What:             /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+	Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:What:               /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
 
-> 
->>>> @@ -360,7 +352,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
->>>>        if ( rc )
->>>>            goto out;
->>>>    
->>>> -    flags = double_evtchn_lock(lchn, rchn);
->>>> +    double_evtchn_lock(lchn, rchn);
->>>
->>> This introduces an unfortunate conflict with my conversion of
->>> the per-domain event lock to an rw one: It acquires rd's lock
->>> in read mode only, while the requirements here would not allow
->>> doing so. (Same in evtchn_close() then.)
->>
->> Is it a problem to use write mode for those cases?
-> 
-> "Problem" can have a wide range of meanings - it's not going to
-> be the end of the world, but I view any use of a write lock as
-> a problem when a read lock would suffice. This can still harm
-> parallelism.
+Even re-doing the changes from 
+changeset b299d00420e2 ("IIO: stm32: Remove quadrature related functions from trigger driver")
+at Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, there's still
+a third duplicate of some of those, as reported by the script:
 
-Both cases are very rare ones in the life time of an event channel. I
-don't think you'll ever be able to measure any performance impact from
-switching these case to a write lock for any well behaved guest.
+	$ ./scripts/get_abi.pl validate 2>&1|grep quadra
+	Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+	Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
 
+As in_count_quadrature_mode_available is also defined at:
+	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2
 
-Juergen
+The best here seems to have a patch that will also drop the other
+duplication of this, probably moving in_count_quadrature_mode_available
+to a generic node probably placing it inside 
+Documentation/ABI/testing/sysfs-bus-iio.
+
+Comments?
+
+Thanks,
+Mauro
+
+PS.: the IIO subsystem is the one that currently has more duplicated
+ABI entries:
+
+$ ./scripts/get_abi.pl validate 2>&1|grep iio
+Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:0  Documentation/ABI/testing/sysfs-bus-iio:394
+Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:1  Documentation/ABI/testing/sysfs-bus-iio:395
+Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:2  Documentation/ABI/testing/sysfs-bus-iio:396
+Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:3  Documentation/ABI/testing/sysfs-bus-iio:397
+Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:4  Documentation/ABI/testing/sysfs-bus-iio:398
+Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:5  Documentation/ABI/testing/sysfs-bus-iio:399
+Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:0  Documentation/ABI/testing/sysfs-bus-iio:599
+Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:36  Documentation/ABI/testing/sysfs-bus-iio:588
+Warning: /sys/bus/iio/devices/iio:deviceX/out_currentY_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als:43  Documentation/ABI/testing/sysfs-bus-iio-health-afe440x:38
+Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:0  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:0
+Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw_available is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:1  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:1
+Warning: /sys/bus/iio/devices/iio:deviceX/sensor_sensitivity is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-distance-srf08:0  Documentation/ABI/testing/sysfs-bus-iio-proximity-as3935:8
+Warning: /sys/bus/iio/devices/triggerX/sampling_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:92  Documentation/ABI/testing/sysfs-bus-iio:45
 
