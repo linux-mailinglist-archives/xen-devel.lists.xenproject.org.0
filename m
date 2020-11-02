@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D8D62A27DE
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Nov 2020 11:12:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.17578.42372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A52212A28BA
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Nov 2020 12:06:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.17601.42384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZWp6-0000ph-Fj; Mon, 02 Nov 2020 10:12:24 +0000
+	id 1kZXds-0005BV-BV; Mon, 02 Nov 2020 11:04:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 17578.42372; Mon, 02 Nov 2020 10:12:24 +0000
+Received: by outflank-mailman (output) from mailman id 17601.42384; Mon, 02 Nov 2020 11:04:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,190 +23,256 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZWp6-0000pI-CB; Mon, 02 Nov 2020 10:12:24 +0000
-Received: by outflank-mailman (input) for mailman id 17578;
- Mon, 02 Nov 2020 10:12:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kZXds-0005B4-7J; Mon, 02 Nov 2020 11:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 17601;
+ Mon, 02 Nov 2020 11:04:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nG/o=EI=epam.com=prvs=95752e5c40=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1kZWp4-0000pD-T7
- for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 10:12:23 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b28e0276-fc8f-442d-b9bd-ae75d3b5f551;
- Mon, 02 Nov 2020 10:12:21 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A2A9jji027951; Mon, 2 Nov 2020 10:12:15 GMT
-Received: from eur01-db5-obe.outbound.protection.outlook.com
- (mail-db5eur01lp2056.outbound.protection.outlook.com [104.47.2.56])
- by mx0a-0039f301.pphosted.com with ESMTP id 34h02rucp0-1
+ <SRS0=dGCx=EI=st.com=fabrice.gasnier@srs-us1.protection.inumbo.net>)
+ id 1kZXdp-0005Az-9B
+ for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 11:04:49 +0000
+Received: from mx07-00178001.pphosted.com (unknown [91.207.212.93])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0f4f80c1-2be4-462c-9ecf-db3daae5b729;
+ Mon, 02 Nov 2020 11:04:47 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A2B2ptP020099; Mon, 2 Nov 2020 12:04:45 +0100
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34h031a3kw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 Nov 2020 10:12:15 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB4018.eurprd03.prod.outlook.com (2603:10a6:208:73::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.29; Mon, 2 Nov
- 2020 10:12:12 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e%9]) with mapi id 15.20.3499.030; Mon, 2 Nov 2020
- 10:12:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ Mon, 02 Nov 2020 12:04:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 614FF100034;
+ Mon,  2 Nov 2020 12:04:43 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E252AD9F8;
+ Mon,  2 Nov 2020 12:04:42 +0100 (CET)
+Received: from [10.211.2.101] (10.75.127.45) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Nov
+ 2020 12:04:37 +0100
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nG/o=EI=epam.com=prvs=95752e5c40=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
-	id 1kZWp4-0000pD-T7
-	for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 10:12:23 +0000
-X-Inumbo-ID: b28e0276-fc8f-442d-b9bd-ae75d3b5f551
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b28e0276-fc8f-442d-b9bd-ae75d3b5f551;
-	Mon, 02 Nov 2020 10:12:21 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
-	by mx0a-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 0A2A9jji027951;
-	Mon, 2 Nov 2020 10:12:15 GMT
-Received: from eur01-db5-obe.outbound.protection.outlook.com (mail-db5eur01lp2056.outbound.protection.outlook.com [104.47.2.56])
-	by mx0a-0039f301.pphosted.com with ESMTP id 34h02rucp0-1
+	(envelope-from <SRS0=dGCx=EI=st.com=fabrice.gasnier@srs-us1.protection.inumbo.net>)
+	id 1kZXdp-0005Az-9B
+	for xen-devel@lists.xenproject.org; Mon, 02 Nov 2020 11:04:49 +0000
+X-Inumbo-ID: 0f4f80c1-2be4-462c-9ecf-db3daae5b729
+Received: from mx07-00178001.pphosted.com (unknown [91.207.212.93])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 0f4f80c1-2be4-462c-9ecf-db3daae5b729;
+	Mon, 02 Nov 2020 11:04:47 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 0A2B2ptP020099;
+	Mon, 2 Nov 2020 12:04:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=c46BUwKMyDOK+b3xICLc4SPGOwqFHPWlLu+N0eBiDsc=;
+ b=qlgXi6rP2TqaGZFGGpTYwMqvPmL90+2jNgkIDUekhb1daD59BN2gIpspD9UJNonwWatj
+ OHUgUW/gkuHA03EmB0FarCr3OF9wq9SA2yCiOWRX+Ek9VIR1j/QRToM/UC2lNjWAf3Kq
+ Gq1pybeCkQlXMIpdTOQ7P/iFELEu7O6whhQllNenKEe5/XK6+0VIIemg87dHr4bkgTaI
+ jiPcxx/TlvDgIqRR4jdhdt3eOubNpSinANuzNPCvX7gJnJy8bY2eDVhF2FtvabV8/mVh
+ TOcw0QoQ4k7AwJJMs4NADeWVkO0Uncs5SNpNP0tOBNteIl80ydQPyt/xaWqAI4BRaYqI hQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com with ESMTP id 34h031a3kw-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2020 10:12:15 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QvU02lfRj6Ic2TkzUWbl49vG1i7F61/iqykKOBe81g2Rwmca6HpPOcdKMW3/xktRn1BAUpq0XlFnNSytjDWwiRhP98oKbK3stEKrjpvZK6cYAtmJ0W9nTpxbw37dBGhxqzw9bTTUh4TdO6ukrHrTvnhikRcDDtY8ZAUNYBXbKOtJ5tJP7p0YG8SVHhgYs06MdN5DOtkwxG6yU5tUnXVwiqH4LADn0QlvD0GRBDE1f+frmx3OVsUK5ETvfRMLu6APodY1Tzmnxi9aJ9rZwmSRg2b+qcg+fRBB2kGaYrQJST0NbbWcjvbZYCC6hS11m9802S1P6rjR9GtiptgGoFlIqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zL3imZAcZA9qSoMPlX7S/WFD8xp3V8WJlIBuF+fohzI=;
- b=cCIahvhaVK0jzSvjc19O46XabJLzmta9BT9K6o08V5vOM1VhdKoJipHPya3b3twXeUOcE+JSP+fBGr+SImOO6xiG+FWQrOoDV3MUCAcDNbhPcNGHRxNnvARss97YTR/rq4aJiFHJeF2gbuVEfml8v8s1hEG68HKJ2O0u9w7Cf8pRkhFAIfW82zuZnf4jJsPlBu8guVWgRaWbQonE/e81LPb4XzndLkRNj5/fYGaO2KRRp9DVkH7T1nFkLlWN4fNodUPGxtSqyCqpwmu8cLjOqFMApm62C4/5U3GOb13yIPYaIT1oUAwTmTGtNjyt5LjUJJ6eAdR/jBOVRM6t9VSFOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zL3imZAcZA9qSoMPlX7S/WFD8xp3V8WJlIBuF+fohzI=;
- b=AFZX+hZusjZqLzjL41M4Lmi/Wm06mF2QQ0fpnvY5aOh6ARWvaTZAhRBI91sIMhVNlWuatPE6SO8KzPgHwNonxYYaY7909Bf6axbiVScTONqxBVh4Vc0nuiBndwYUzqK0XGA95B+o4MXdnHsoxamjYAxIyEg9sSWdN9SZZe+ry9wDf2I5+o/J/PdYT2NdF3nDuBS8QFoiQGk5STUoEUSr1S0bjsHHrpESXN+acvRWS2cSMcFNq/lR/u+vqUupDrhy0jS4kpGPEp9j7QoxtX23jTfgIsVp139dBUatyy73p7H5p/EZE5O6SCX1NZOegjgYff1Odq7JACfZhhlx6hApvQ==
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB4018.eurprd03.prod.outlook.com (2603:10a6:208:73::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.29; Mon, 2 Nov
- 2020 10:12:12 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e%9]) with mapi id 15.20.3499.030; Mon, 2 Nov 2020
- 10:12:12 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
-        Oleksandr Andrushchenko
-	<andr2000@gmail.com>
-CC: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Jan
- Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
+	Mon, 02 Nov 2020 12:04:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 614FF100034;
+	Mon,  2 Nov 2020 12:04:43 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E252AD9F8;
+	Mon,  2 Nov 2020 12:04:42 +0100 (CET)
+Received: from [10.211.2.101] (10.75.127.45) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Nov
+ 2020 12:04:37 +0100
+Subject: Re: [PATCH v2 20/39] docs: ABI: testing: make the files compatible
+ with ReST output
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+        "Gautham R. Shenoy"
+	<ego@linux.vnet.ibm.com>,
+        "Jason A. Donenfeld" <Jason@zx2c4.com>,
+        =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier@javigon.com>,
+        Jonathan Corbet
+	<corbet@lwn.net>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        "Rafael
+ J. Wysocki" <rjw@rjwysocki.net>,
+        Alexander Shishkin
+	<alexander.shishkin@linux.intel.com>,
+        Alexandre Belloni
+	<alexandre.belloni@bootlin.com>,
+        Alexandre Torgue <alexandre.torgue@st.com>,
+        Andrew Donnellan <ajd@linux.ibm.com>,
+        Andy Shevchenko
+	<andriy.shevchenko@linux.intel.com>,
+        Baolin Wang <baolin.wang7@gmail.com>,
+        Benson Leung <bleung@chromium.org>,
+        Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>,
+        Bruno Meneguele <bmeneg@redhat.com>,
+        Chunyan
+ Zhang <zhang.lyra@gmail.com>, Dan Murphy <dmurphy@ti.com>,
+        Dan Williams
+	<dan.j.williams@intel.com>,
+        Enric Balletbo i Serra
+	<enric.balletbo@collabora.com>,
+        Felipe Balbi <balbi@kernel.org>,
+        Frederic
+ Barrat <fbarrat@linux.ibm.com>,
+        Guenter Roeck <groeck@chromium.org>,
+        Hanjun
+ Guo <guohanjun@huawei.com>,
+        Heikki Krogerus
+	<heikki.krogerus@linux.intel.com>,
+        Jens Axboe <axboe@kernel.dk>,
+        Johannes
+ Thumshirn <johannes.thumshirn@wdc.com>,
+        Jonathan Cameron <jic23@kernel.org>, Juergen Gross <jgross@suse.com>,
+        Konstantin Khlebnikov <koct9i@gmail.com>,
+        Kranthi Kuntala <kranthi.kuntala@intel.com>,
+        Lakshmi Ramasubramanian
+	<nramas@linux.microsoft.com>,
+        Lars-Peter Clausen <lars@metafoo.de>, Len Brown
+	<lenb@kernel.org>,
+        Leonid Maksymchuk <leonmaxx@gmail.com>,
+        Ludovic Desroches
+	<ludovic.desroches@microchip.com>,
+        Mario Limonciello
+	<mario.limonciello@dell.com>,
+        Mark Gross <mgross@linux.intel.com>,
+        Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Mika Westerberg <mika.westerberg@linux.intel.com>,
+        Mike Kravetz
+	<mike.kravetz@oracle.com>,
+        Mimi Zohar <zohar@linux.ibm.com>, Nayna Jain
+	<nayna@linux.ibm.com>,
+        Nicolas Ferre <nicolas.ferre@microchip.com>,
+        Niklas
+ Cassel <niklas.cassel@wdc.com>,
+        Oded Gabbay <oded.gabbay@gmail.com>,
+        Oleh
+ Kravchenko <oleg@kaa.org.ua>, Orson Zhai <orsonzhai@gmail.com>,
+        Pavel Machek
+	<pavel@ucw.cz>,
+        Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+        Peter
+ Meerwald-Stadler <pmeerw@pmeerw.net>,
+        Peter Rosin <peda@axentia.se>, Petr
+ Mladek <pmladek@suse.com>,
+        Philippe Bergheaud <felix@linux.ibm.com>,
+        Richard
+ Cochran <richardcochran@gmail.com>,
+        Sebastian Reichel <sre@kernel.org>,
+        Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
         Stefano Stabellini
 	<sstabellini@kernel.org>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-Thread-Topic: [XEN PATCH v1] xen/arm : Add support for SMMUv3 driver
-Thread-Index: AQHWrqmeCV4SGlhADU2GY14D47cn76mwZCkAgAP4JoCAAELzAIAABK0A
-Date: Mon, 2 Nov 2020 10:12:12 +0000
-Message-ID: <1001ace5-c6a2-4a81-ba3d-edabeeea9336@epam.com>
-References: 
- <b085e894773842ac320b818aa6f84289d0a128ed.1602591365.git.rahul.singh@arm.com>
- <09cfc160-3490-0aeb-f872-04fb4ce04364@epam.com>
- <76593217-c7e2-2963-9cbe-d6cc38830710@xen.org>
- <d83f6859-6737-0da8-7c1d-a236e8313869@gmail.com>
- <B8E54A16-8FD4-48E4-82D5-2205EEEB5D2C@arm.com>
-In-Reply-To: <B8E54A16-8FD4-48E4-82D5-2205EEEB5D2C@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [185.199.97.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 19913cd9-188a-405e-f722-08d87f17c44c
-x-ms-traffictypediagnostic: AM0PR03MB4018:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: 
- <AM0PR03MB4018BD5FDEFC3AEDD7B72F7BE7100@AM0PR03MB4018.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- QmCAyQSuA2CxWJ+sxQ27VFpjob+3mVJxoQfNgySvGwIMSMBCTNr/cfIfX+oNmDErpwJhg/Rugd9wYxHGu8duo5qlfGpeM/g+ID+L79Ptf+E+F2JGmxCAH0vzhzEezHbU80A1Ga+sLH54M7bUz7knuhsSAKWlEHzZWO6oQNwsZZxzhiR5KK48/JqD12nx2VfOB5Rqpjlfkj1i7PuJGoB6ArQitjePHVofxmpRdzuhH9MzQyfPUuZwDS3Xe9NuL95nQX6LrHofcFeaKxI8sxF1fvlXwpKD7/BL65vXKopMdTEtkoU22vHf07sY+GcJUQpDWW6exYR5F0dIE/wuL4CC0g==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(5660300002)(186003)(86362001)(478600001)(31686004)(26005)(71200400001)(8936002)(8676002)(2906002)(6512007)(66946007)(316002)(76116006)(36756003)(4326008)(66556008)(66446008)(54906003)(64756008)(107886003)(2616005)(53546011)(31696002)(6506007)(6486002)(66476007)(110136005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 
- 4xBIy1IEY1f8XaPLPa83UGk+E9bKj0vcqJTl9xEptYX28U+nWqYiceGW+Hwjq52Fw3WdhR1TJbIwT65JrEf8EDSKUKsdt5LnphojdY2djAgCauvxrr+RyvGm5Ww5JQK6sEM75DHhXc3gqAt9XkNOykkDrV6LFq+JxaZatYyPnxOV6BOUJbTsLohUhYTHaYKkqFHFlfprdSX+hkUTA+AFPTEIbqyRzjdz4JysBCADJv59d9aDB4Z6Lah9DwdxhAN3OacLjurmS2KlhvQ32h1xcrgg2RopSTBSlS7ozF1+DiXyFjURG6dNL3nOJUgGeSC+dWifxr5DCpKOJ00AD91/tc2U9AmThnm3tSO0VnSFg9/iB1QWZ201NANRSyO/CcEnOEYaFOas1x8reaZGdF9eQxg2CQJGpAjiS823ADYy2RM4+skR+47k5rT03fgUzEwzBfty+ttOoUhnKwRguwYEYGmQO073ogWiYbv4oXjLZBpNFNCItxB/oy9AHodN7VdCpC6yAK7JCJ8L2Z1am1/87/EEJ+/lwTTsMeywY0kWsQwpXDuSADJYCUV0Hcu411tCa4bodh7Yhm4aQVvg+I/FxKditQsK8IFmSTqRQD8XRblT60FcyF4OFSxp7MKg6Q1zN8AQjtIHe+xjS52h+nmfsw==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <16FA9744C5E1C64DAA9B614D3904BE0E@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Thomas
+ Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>,
+        Vaibhav Jain
+	<vaibhav@linux.ibm.com>,
+        Vineela Tummalapalli
+	<vineela.tummalapalli@intel.com>,
+        Vishal Verma <vishal.l.verma@intel.com>, <linux-acpi@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-iio@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+        <linux-pm@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-usb@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+        <netdev@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+        Jonathan Cameron
+	<Jonathan.Cameron@huawei.com>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+ <58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+ <5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+ <20201030110925.3e09d59e@coco.lan>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+Date: Mon, 2 Nov 2020 12:04:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19913cd9-188a-405e-f722-08d87f17c44c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2020 10:12:12.6143
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F+KhXKdUHdhdqzRcCStAvSEceDDIuzx3TIvD0Z3rZRFpjdOAL6DcVQ5dbTB+ckXTRiCbow9CME+67suC4eLYJCv8v5I2FA+dUzGB7KTOmumXxDjt+d0JEug36X+sdn4d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4018
+In-Reply-To: <20201030110925.3e09d59e@coco.lan>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
  definitions=2020-11-02_03:2020-11-02,2020-11-02 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
- adultscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- suspectscore=0 impostorscore=0 spamscore=0 bulkscore=0 mlxscore=0
- mlxlogscore=999 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2009150000 definitions=main-2011020080
 
-SGksDQoNCk9uIDExLzIvMjAgMTE6NTUgQU0sIEJlcnRyYW5kIE1hcnF1aXMgd3JvdGU6DQo+IEhp
-LA0KPg0KPj4gT24gMiBOb3YgMjAyMCwgYXQgMDU6NTUsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtv
-IDxhbmRyMjAwMEBnbWFpbC5jb20+IHdyb3RlOg0KPj4NCj4+IEhpLCBKdWxpZW4hDQo+Pg0KPj4g
-T24gMTAvMzAvMjAgNzoxOCBQTSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIE9sZWtzYW5k
-ciwNCj4+Pg0KPj4+IE9uIDMwLzEwLzIwMjAgMTA6NDQsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtv
-IHdyb3RlOg0KPj4+PiBPbiAxMC8yMC8yMCA2OjI1IFBNLCBSYWh1bCBTaW5naCB3cm90ZToNCj4+
-Pj4+IEFkZCBzdXBwb3J0IGZvciBBUk0gYXJjaGl0ZWN0ZWQgU01NVXYzIGltcGxlbWVudGF0aW9u
-cy4gSXQgaXMgYmFzZWQgb24NCj4+Pj4+IHRoZSBMaW51eCBTTU1VdjMgZHJpdmVyLg0KPj4+Pj4N
-Cj4+Pj4+IE1ham9yIGRpZmZlcmVuY2VzIGJldHdlZW4gdGhlIExpbnV4IGRyaXZlciBhcmUgYXMg
-Zm9sbG93czoNCj4+Pj4+IDEuIE9ubHkgU3RhZ2UtMiB0cmFuc2xhdGlvbiBpcyBzdXBwb3J0ZWQg
-YXMgY29tcGFyZWQgdG8gdGhlIExpbnV4IGRyaXZlcg0KPj4+Pj4gICAgICAgdGhhdCBzdXBwb3J0
-cyBib3RoIFN0YWdlLTEgYW5kIFN0YWdlLTIgdHJhbnNsYXRpb25zLg0KPj4+PiBGaXJzdCBvZiBh
-bGwgdGhhbmsgeW91IGZvciB0aGUgZWZmb3J0cyENCj4+Pj4NCj4+Pj4gSSB0cmllZCB0aGUgcGF0
-Y2ggd2l0aCBRRU1VIGFuZCB3b3VsZCBsaWtlIHRvIGtub3cgaWYgbXkgdW5kZXJzdGFuZGluZyBj
-b3JyZWN0DQo+Pj4+DQo+Pj4+IHRoYXQgdGhpcyBjb21iaW5hdGlvbiB3aWxsIG5vdCB3b3JrIGFz
-IG9mIG5vdzoNCj4+Pj4NCj4+Pj4gKFhFTikgU01NVXYzOiAvc21tdXYzQDkwNTAwMDA6IFNNTVV2
-MzogRFQgdmFsdWUgPSBldmVudHENCj4+Pj4gKFhFTikgRGF0YSBBYm9ydCBUcmFwLiBTeW5kcm9t
-ZT0weDE5NDAwMTANCj4+Pj4gKFhFTikgV2Fsa2luZyBIeXBlcnZpc29yIFZBIDB4NDAwMzEwMDAg
-b24gQ1BVMCB2aWEgVFRCUiAweDAwMDAwMDAwYjg0NjkwMDANCj4+Pj4gKFhFTikgMFRIWzB4MF0g
-PSAweDAwMDAwMDAwYjg0NjhmN2YNCj4+Pj4NCj4+Pj4gW3NuaXBdDQo+Pj4+DQo+Pj4+IElmIHRo
-aXMgaXMgZXhwZWN0ZWQgdGhlbiBpcyB0aGVyZSBhbnkgcGxhbiB0byBtYWtlIFFFTVUgd29yayBh
-cyB3ZWxsPw0KPj4+Pg0KPj4+PiBJIHNlZSBbMV0gc2F5cyB0aGF0ICJPbmx5IHN0YWdlIDEgYW5k
-IEFBcmNoNjQgUFRXIGFyZSBzdXBwb3J0ZWQuIiBvbiBRRU1VIHNpZGUuDQo+Pj4gSnVzdCBmb3Ig
-Y2xhcmljYXRpb24sIHlvdSBhcmUgdHJ5aW5nIHRvIGJvb3QgWGVuIG9uIFFFTVUsIHJpZ2h0Pw0K
-Pj4gRXhhY3RseQ0KPj4+IFlvdSBtaWdodCBiZSBhYmxlIHRvIHVzZSB0aGUgc3RhZ2UtMSBwYWdl
-LXRhYmxlcyB0byBpc29sYXRlIGVhY2ggZGV2aWNlIGluIFhlbi4gSG93ZXZlciwgSSBkb24ndCB0
-aGluayB5b3Ugd2lsbCBiZSBhYmxlIHRvIHNoYXJlIHRoZSBQMk0gYmVjYXVzZSB0aGUgcGFnZS10
-YWJsZXMgbGF5b3V0IGJldHdlZW4gc3RhZ2UtMSBhbmQgc3RhZ2UtMiBpcyBkaWZmZXJlbnQuDQo+
-PiBTbywgaXQgaXMgZXZlbiBtb3JlIHdvcmsgdGhlbg0KPiBPdmVyYWxsIGl0IHdvdWxkIG1ha2Ug
-bW9yZSBzZW5zZSB0byBzcGVuZCBzb21lIHRpbWUgYWRkaW5nIHByb3BlciBzdXBwb3J0IGluIFFl
-bXUgdGhlbiB0cnlpbmcgdG8gbW9kaWZ5IHRoZSBkcml2ZXIgdG8gc3VwcG9ydCBRZW11IHJpZ2h0
-IG5vdy4NCj4NCj4+Pj4NCj4+Pj4gV2UgYXJlIGludGVyZXN0ZWQgaW4gUUVNVS9TTU1VdjMgYXMg
-YSBmbGV4aWJsZSBwbGF0Zm9ybSBmb3IgUENJIHBhc3N0aHJvdWdoDQo+Pj4+DQo+Pj4+IGltcGxl
-bWVudGF0aW9uLCBzbyBpdCBjb3VsZCBhbGxvdyB0ZXN0aW5nIGRpZmZlcmVudCBzZXR1cHMgYW5k
-IGNvbmZpZ3VyYXRpb25zIHdpdGggUUVNVS4NCj4+PiBJIHdvdWxkIHJlY29tbWVuZCB0byBnZXQg
-dGhlIFNNTVUgc3VwcG9ydGluZyBzdXBwb3J0aW5nIHN0YWdlLTIgcGFnZS10YWJsZXMuDQo+PiBZ
-b3UgbWVhbiBpbiBRRU1VPw0KPiBTZWUgYmVmb3JlLg0KPg0KPj4+IFJlZ2FyZGxlc3MgdGhhdCwg
-SSB0aGluayBYZW4gc2hvdWxkIGJlIGFibGUgdG8gc2F5IHRoZSBTTU1VIGlzIG5vdCBzdXBwb3J0
-ZWQgcmF0aGVyIHRoYW4gY3Jhc2hpbmcuDQo+PiBZZXMsIHRoYXQgd291bGQgYmUgbmljZQ0KPiBG
-dWxseSBhZ3JlZSBhbmQgd2Ugd2lsbCBsb29rIGludG8gdGhhdC4NCj4NCj4gQW55dGhpbmcgeW91
-IGNvdWxkIHNoYXJlIHNvIHRoYXQgd2UgY291bGQgcXVpY2tseSByZXByb2R1Y2UgeW91ciBzZXR1
-cCB3b3VsZCBiZSBtb3JlIHRoZW4gZ3JlYXQuDQoNCk5vdGhpbmcgc3BlY2lhbCwNCg0KcWVtdS9h
-YXJjaDY0LXNvZnRtbXUvcWVtdS1zeXN0ZW0tYWFyY2g2NCAtbWFjaGluZSB0eXBlPXZpcnQgLW1h
-Y2hpbmUgdmlydCxnaWMtdmVyc2lvbj0yIFwNCg0KLW1hY2hpbmUgdmlydHVhbGl6YXRpb249dHJ1
-ZSAtY3B1IGNvcnRleC1hNTcgLXNtcCA0IC1tIDIwNDggLW5pYyB1c2VyLGhvc3Rmd2Q9dGNwOjEy
-Ny4wLjAuMToyMjIyLToyMiBcDQoNCi1ub2dyYXBoaWMgLXNlcmlhbCBtb246c3RkaW8gWy4uc25p
-cC4uXQ0KDQpJIGFsc28gc2V0IGlvbW11IHRvIHNtbXV2MyBpbiBteSB0ZXN0cywgUUVNVSBlbXVs
-YXRvciB2ZXJzaW9uIDQuMi4xDQoNCj4NCj4gUmVnYXJkcw0KPiBCZXJ0cmFuZA0KPg0KPj4+IENo
-ZWVycywNCj4+Pg0KPj4gVGhhbmsgeW91LA0KPj4NCj4+IE9sZWtzYW5kcg==
+On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:
+> Em Fri, 30 Oct 2020 10:19:12 +0100
+> Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
+> 
+>> Hi Mauro,
+>>
+>> [...]
+>>
+>>>  
+>>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+>>> +KernelVersion:	4.12
+>>> +Contact:	benjamin.gaignard@st.com
+>>> +Description:
+>>> +		Reading returns the list possible quadrature modes.
+>>> +
+>>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+>>> +KernelVersion:	4.12
+>>> +Contact:	benjamin.gaignard@st.com
+>>> +Description:
+>>> +		Configure the device counter quadrature modes:
+>>> +
+>>> +		channel_A:
+>>> +			Encoder A input servers as the count input and B as
+>>> +			the UP/DOWN direction control input.
+>>> +
+>>> +		channel_B:
+>>> +			Encoder B input serves as the count input and A as
+>>> +			the UP/DOWN direction control input.
+>>> +
+>>> +		quadrature:
+>>> +			Encoder A and B inputs are mixed to get direction
+>>> +			and count with a scale of 0.25.
+>>> +  
+>>
+> 
+> Hi Fabrice,
+> 
+>> I just noticed that since Jonathan question in v1.
+>>
+>> Above ABI has been moved in the past as discussed in [1]. You can take a
+>> look at:
+>> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+>>
+>> Could you please remove the above chunk ?
+>>
+>> With that, for the stm32 part:
+>> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> 
+> 
+> Hmm... probably those were re-introduced due to a rebase. This
+> series were originally written about 1,5 years ago.
+> 
+> I'll drop those hunks.
+
+Hi Mauro, Greg,
+
+I just figured out this patch has been applied with above hunk.
+
+This should be dropped: is there a fix on its way already ?
+(I may have missed it)
+
+Please advise,
+Fabrice
+> 
+> Thanks!
+> Mauro
+> 
 
