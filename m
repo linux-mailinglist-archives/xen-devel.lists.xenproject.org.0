@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051AE2A3FD0
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:18:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18046.42800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1C42A3FDE
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:21:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18053.42812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsSP-0001L5-BU; Tue, 03 Nov 2020 09:18:25 +0000
+	id 1kZsVF-00029n-Q2; Tue, 03 Nov 2020 09:21:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18046.42800; Tue, 03 Nov 2020 09:18:25 +0000
+Received: by outflank-mailman (output) from mailman id 18053.42812; Tue, 03 Nov 2020 09:21:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,62 +23,61 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsSP-0001Kf-8D; Tue, 03 Nov 2020 09:18:25 +0000
-Received: by outflank-mailman (input) for mailman id 18046;
- Tue, 03 Nov 2020 09:18:23 +0000
+	id 1kZsVF-00029O-Mj; Tue, 03 Nov 2020 09:21:21 +0000
+Received: by outflank-mailman (input) for mailman id 18053;
+ Tue, 03 Nov 2020 09:21:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uWmA=EJ=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
- id 1kZsSN-0001Ka-Ng
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:18:23 +0000
+ id 1kZsVE-00029I-4y
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:21:20 +0000
 Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 54e63eb8-de31-40c8-9378-b20d91cbcbe7;
- Tue, 03 Nov 2020 09:18:22 +0000 (UTC)
+ id 808df712-02ad-40a5-b977-bd81c04550e2;
+ Tue, 03 Nov 2020 09:21:19 +0000 (UTC)
 Received: from [10.137.0.19] (92.188.110.153 [92.188.110.153]) by
- mx.zohomail.com with SMTPS id 1604395096815928.1676514834194;
- Tue, 3 Nov 2020 01:18:16 -0800 (PST)
+ mx.zohomail.com with SMTPS id 1604395271618145.04295290782;
+ Tue, 3 Nov 2020 01:21:11 -0800 (PST)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=uWmA=EJ=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
-	id 1kZsSN-0001Ka-Ng
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:18:23 +0000
-X-Inumbo-ID: 54e63eb8-de31-40c8-9378-b20d91cbcbe7
+	id 1kZsVE-00029I-4y
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:21:20 +0000
+X-Inumbo-ID: 808df712-02ad-40a5-b977-bd81c04550e2
 Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 54e63eb8-de31-40c8-9378-b20d91cbcbe7;
-	Tue, 03 Nov 2020 09:18:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1604395098; cv=none; 
+	id 808df712-02ad-40a5-b977-bd81c04550e2;
+	Tue, 03 Nov 2020 09:21:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1604395273; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=k9jdRcOxDXPr5tA2JlsPs03MYPBh6kL1C3c/zZq3f5s+o8NF2K+q+1gITK+UnKDXWu+eduXAufQVTLDtwb0RveSLe4czT49IK2qvGm3NDUrHfdTJicbjCil038P61LSQ3wQEQAxsnFy25RIDHLP/RbttSsORygFPwHFROZygZgg=
+	b=KrHTiuNYwRjlG87inCb9R8Dero7mByvHFhtGlRjpvgtvXMj7kSjB4iRbPoGa4+4fVs93/jyyahAlDK9GGOx3lvk6+aa65Bn7H552EmWv1IFYcTzb0eXnyVCAZthsEQWxZRoTvWhlENS9ourpI3itkMGnFLjbCgcFrswvWEvENQE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1604395098; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=DCXrlknV304fNI7tghg2f9ApOklKQCZfC6k3Qw5tdnM=; 
-	b=KFFyoCipgFUHXwq1Qmat9/q15U3zzTZEgjf1PwvPKcu3JW5hgztg0QYG/o6ZPCHJOxQPH2kKflnbAxiWWB0IIs47Qyo3ncqez9A8vPLsNZLaG4N3Tu3yWbWJ4ug/QgvkYl/NQLpIY9ZKBJJFdnwIzZRc0cQYnDEGznZriyhQLGE=
+	t=1604395273; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=PONRj/GF8R+7Q+1kKZid9bzvtTksyiJqHw0juDmgOks=; 
+	b=Mo8hGUMt+DwotarDnHVKupWYGB1p+Z39/3ey3Xg3+hyeqNwCQtZh+Y4+cVfAMsdHD5MZl4peZ582d9KS5MV9YMsrzS5Bvbv6ecP4RUGeeDcwgtk4LjpSJPoS3A0us9Lr3alqWKoJzZetqhrMvJAQETuc8bx2tNayziCkVXN/I6k=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=qubes-os.org;
 	spf=pass  smtp.mailfrom=frederic.pierret@qubes-os.org;
 	dmarc=pass header.from=<frederic.pierret@qubes-os.org> header.from=<frederic.pierret@qubes-os.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1604395098;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1604395273;
 	s=s; d=qubes-os.org; i=frederic.pierret@qubes-os.org;
 	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type;
-	bh=DCXrlknV304fNI7tghg2f9ApOklKQCZfC6k3Qw5tdnM=;
-	b=WcNn6ppMq63n312cshENASXLUx5/X1R+qh7tOezNykggr0rmrsb4SIcC5s9Gve0F
-	DHJP8K4bSRNmmHXan+cFUD/PdlU40lare3Xie8PIfVmH4pKapFjWw0+15S4wqK+VBhD
-	XA0cQJcmQa7ElcH8UKRdx8RbLBDBL+URS+RTHfiU=
+	bh=PONRj/GF8R+7Q+1kKZid9bzvtTksyiJqHw0juDmgOks=;
+	b=hKlpdPIYEfqzsKk4UnC/Xo2faXfbF6B6Dinw+MQPRoMD5qcJ0rb91W0qaUNng58Z
+	Ip1OlGEiPja+++e1aiCLZSxPflTwmG9+mc08jlAn7RRDyY3YNGVt7SfLYeVaO5UOIAW
+	6OWSsPj8Cbhr4M8hTwssLAMcn6jy8ZhXwQchXo+0=
 Received: from [10.137.0.19] (92.188.110.153 [92.188.110.153]) by mx.zohomail.com
-	with SMTPS id 1604395096815928.1676514834194; Tue, 3 Nov 2020 01:18:16 -0800 (PST)
-Subject: Re: [PATCH v1 1/2] Define build dates/time based on SOURCE_DATE_EPOCH
+	with SMTPS id 1604395271618145.04295290782; Tue, 3 Nov 2020 01:21:11 -0800 (PST)
+Subject: Re: [PATCH v1 2/2] Define SOURCE_DATE_EPOCH based on git log
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1604156731.git.frederic.pierret@qubes-os.org>
- <57423c6627e00fbc3f41d3f6be6ba1e15abb96fc.1604156731.git.frederic.pierret@qubes-os.org>
- <68db059e-bc65-ee1a-ac3c-004b4552133a@suse.com>
+ <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
+ <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
 From: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
 Autocrypt: addr=frederic.pierret@qubes-os.org; keydata=
  xsFNBFwkq3EBEADcfyaOkeuf+g96S1ieq05tJ8vTGsQrNXQ5RDE7ffagL0+EpfIP3x73x5Q0
@@ -123,86 +122,81 @@ Autocrypt: addr=frederic.pierret@qubes-os.org; keydata=
  1C+w3fudJdPQwIRAjJgac0jTT6uDY8re9RhBDv83PRSM7AzxqEFvDj8K46dg1XvJcKs7K5PX
  pm5Pw4stVEAxIks5uR62wxygImkdvgjQRzJe4JWwAniBWsZG+cNYj6xcItqkupIb4PeOWgNQ
  QMhGv8DnbAdOOOnumAXWq0+wl5uP
-Message-ID: <0e312fe7-3dc9-e23e-ec70-70f1d8fc962f@qubes-os.org>
-Date: Tue, 3 Nov 2020 10:18:12 +0100
+Message-ID: <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
+Date: Tue, 3 Nov 2020 10:21:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <68db059e-bc65-ee1a-ac3c-004b4552133a@suse.com>
+In-Reply-To: <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="CGeHsiwKj3rHrUriGhqvWUaQ25MTejxrj"
+ boundary="3AiVYwPScRXDmpiNBK1OElkIBX4VHftoG"
 X-Zoho-Virus-Status: 1
 X-ZohoMailClient: External
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---CGeHsiwKj3rHrUriGhqvWUaQ25MTejxrj
-Content-Type: multipart/mixed; boundary="xulLMhs0LkivEtEoQsCzZJNqJtbG8uxGi";
+--3AiVYwPScRXDmpiNBK1OElkIBX4VHftoG
+Content-Type: multipart/mixed; boundary="Ro7wrEcWLT5ES2cTy32dhAq6Eqe8rkwP9";
  protected-headers="v1"
 From: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Ian Jackson <iwj@xenproject.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <0e312fe7-3dc9-e23e-ec70-70f1d8fc962f@qubes-os.org>
-Subject: Re: [PATCH v1 1/2] Define build dates/time based on SOURCE_DATE_EPOCH
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
+Subject: Re: [PATCH v1 2/2] Define SOURCE_DATE_EPOCH based on git log
 References: <cover.1604156731.git.frederic.pierret@qubes-os.org>
- <57423c6627e00fbc3f41d3f6be6ba1e15abb96fc.1604156731.git.frederic.pierret@qubes-os.org>
- <68db059e-bc65-ee1a-ac3c-004b4552133a@suse.com>
-In-Reply-To: <68db059e-bc65-ee1a-ac3c-004b4552133a@suse.com>
+ <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
+ <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
+In-Reply-To: <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
 
---xulLMhs0LkivEtEoQsCzZJNqJtbG8uxGi
+--Ro7wrEcWLT5ES2cTy32dhAq6Eqe8rkwP9
 Content-Type: multipart/mixed;
- boundary="------------0280C1EE39BC06747DCFA01C"
+ boundary="------------1F1F56FE57EDBD3DA5A1FD01"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------0280C1EE39BC06747DCFA01C
+--------------1F1F56FE57EDBD3DA5A1FD01
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 
-Le 11/3/20 =C3=A0 10:10 AM, Jan Beulich a =C3=A9crit=C2=A0:
+
+Le 11/3/20 =C3=A0 10:15 AM, Jan Beulich a =C3=A9crit=C2=A0:
 > On 31.10.2020 16:14, Fr=C3=A9d=C3=A9ric Pierret (fepitre) wrote:
->> --- a/tools/firmware/hvmloader/Makefile
->> +++ b/tools/firmware/hvmloader/Makefile
->> @@ -21,7 +21,11 @@ XEN_ROOT =3D $(CURDIR)/../../..
->>   include $(XEN_ROOT)/tools/firmware/Rules.mk
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -6,6 +6,8 @@ export XEN_EXTRAVERSION ?=3D -unstable$(XEN_VENDORVERS=
+ION)
+>>   export XEN_FULLVERSION   =3D $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_E=
+XTRAVERSION)
+>>   -include xen-version
 >>  =20
->>   # SMBIOS spec requires format mm/dd/yyyy
->> +ifneq ($(SOURCE_DATE_EPOCH),)
->> +SMBIOS_REL_DATE ?=3D $(shell date -u -d "@$(SOURCE_DATE_EPOCH)" "+%m/=
-%d/%Y" 2>/dev/null)
->> +else
->>   SMBIOS_REL_DATE ?=3D $(shell date +%m/%d/%Y)
->> +endif
+>> +export SOURCE_DATE_EPOCH	?=3D $(shell git log -1 --format=3D%ct 2>/de=
+v/null)
 >=20
-> As this pattern recurs, how about abstracting it away via a
-> definition (perhaps to be placed in ./Config.mk) along the
-> lines of (variable name subject to improvement)
+> In patch 1 you also use the variable under tools/. Why do you
+> place this here rather than in the top level Makefile?
 >=20
-> DATE_EPOCH_OPTS :=3D $(if $(SOURCE_DATE_EPOCH),-u -d "@$(SOURCE_DATE_EP=
-OCH)")
->=20
-> and then here simply
->=20
-> SMBIOS_REL_DATE ?=3D $(shell date $(DATE_EPOCH_OPTS) +%m/%d/%Y)
->=20
-> (i.e. in particular also without any "ifneq()")?
+> This said I'm not convinced anyway that we want this to be the
+> default. I'd rather see this as something to get set by the
+> package build process of distros, outside of any of the source
+> files.
 >=20
 > Jan
 >=20
 
-Hi Jan,
+In fact this was intended to provide a default/example value. Indeed, eac=
+h package manager should
+handle this with changelog or such.
 
-Yes it makes sense. I'll prepare another version with your comments. Than=
-k you.
+This is not mandatory and if not wanted by default, maybe add this exampl=
+e value into the INSTALL documentation?
 
 Fr=C3=A9d=C3=A9ric
 
---------------0280C1EE39BC06747DCFA01C
+--------------1F1F56FE57EDBD3DA5A1FD01
 Content-Type: application/pgp-keys;
  name="OpenPGP_0x484010B5CDC576E2.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -293,31 +287,31 @@ OOnumAXWq0+wl5uP
 =3DRWX1
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0280C1EE39BC06747DCFA01C--
+--------------1F1F56FE57EDBD3DA5A1FD01--
 
---xulLMhs0LkivEtEoQsCzZJNqJtbG8uxGi--
+--Ro7wrEcWLT5ES2cTy32dhAq6Eqe8rkwP9--
 
---CGeHsiwKj3rHrUriGhqvWUaQ25MTejxrj
+--3AiVYwPScRXDmpiNBK1OElkIBX4VHftoG
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEn6ZLkvlecGvyjiymSEAQtc3FduIFAl+hIFUACgkQSEAQtc3F
-duL+mRAAiafGIEjO+CpiVg4+dxeCl9Re561GVlRNQg47vRwECPoeiFzVC85zQrq3
-72caB/hwE8ctYRxQODonT8AAKcFjNH0v3BksT6Yi2mGY6pCi64/DVoyGEDDYzHUp
-nEwtUgbJvIydQtBYXiRlxJUq7ft2VBy3CZLtYFP5TquRHd3KK5dhkbuuk/+ZyGLl
-33naZJpyTUmzvHb7c7uSJSO0n+p1FMvYJrqb5WNEkNbZOYnf0SRKk3pTouKlhbhE
-Nk8hUhNTle3kMBKhbN8EctEhM0UdNc2GcTNyMyqWVeg+teGXAu4I556SJ/HdwLBO
-ecGv6ly7acwgsY+KnfAWJpUrADvJlOSpD4oP5SZ3Otm0vxl2w0u8Q3zdVk88+kQX
-rPnGNPRcJVgU2pvqaRYgKNKveDEUQzGcMb8Om/kAZHdyDYyTwMUEeQLL+vogjxDc
-TYRr5HgKdqrfLumc/XCXu2j29rgBYUHPO7+gRMpAjErPMRxkqVs/0YAGBVl89WT3
-uHTsMjepUAzTwbAiKyTecEAthSnoz5b6gQcr5P+wQdCpElMQ+aCYcQTl+yyPSxbu
-C6HINNl+qilf2R2KIBp8z1bj8AcpIvpl5suyTiMlmq3yj6jHTjAppkD60bPHK3L0
-ExdAkY/YNXiFuTkCHKFO4Wj7q5xRWmbsgC/+it6P9QLZTSbuB2U=
-=y+vN
+iQIzBAEBCAAdFiEEn6ZLkvlecGvyjiymSEAQtc3FduIFAl+hIQQACgkQSEAQtc3F
+duLguBAA19Ez9+SQDToo26C5I2MbJ2MCPLegCxvx2Zh+Enq7j747nzsm30mdbpGs
+/woQS5Og/oiTchCIuu6GdHWtOjmE5NwdYdEwyxAe7pyF32A0jNl66Q8xyYxwDOoL
+nAhDGMqE2ka95ZOjhwJh9919a30tCLTwnLhKR1eBGA2ev8mZdRHJiHqgx+d9a3Dp
+2GW+yroQ4QhbE/anW7tDE5lW57Oxt40hneYw8h82NzGkj3G/081ULbmmplUMLZ7I
+VdsuQmYtdQKg90dCcAisMe5RTpua3JBBvTSBzQpoEmFgwPuwGESn4UZoHdn9Wf98
++qJxO4Mq3JdSA6OvAH2D1KjAQiOp4BwVRtJue+g9nv5hMF5VNLksZdZOhiT5nfn9
+gYjyaRkvkYUZYE2ac2hC7ScBTodCrI6JMjp+oPPqIhaBdG821SmPsyvF/FycNfi5
+lyj2IyoT9dzNCiwCPuOyiKLbWx/DMllK8aoZQEbAu4fs90bw3PP18eboTV8HmaaO
+QnLZjIPewZeA7TMxx5YbQTJVAR73joAGrlZBrb+aRgv9vEcjdrTNw7Kr3HnlVYl/
+yDjvCu2uis02c9SC0bJesMVbVWv++jsu5dDNMVT+EUysFOkPuXswB/4XQC7dLjd2
+FQhPFtObI53cZNts7XJjOMwzCQAviZNg39RCg11NypUGcBUWL40=
+=jRWA
 -----END PGP SIGNATURE-----
 
---CGeHsiwKj3rHrUriGhqvWUaQ25MTejxrj--
+--3AiVYwPScRXDmpiNBK1OElkIBX4VHftoG--
 
