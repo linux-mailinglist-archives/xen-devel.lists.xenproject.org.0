@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B222A408D
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:47:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18133.42980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10522A40FF
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 11:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18141.42992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZstt-0005bZ-Qe; Tue, 03 Nov 2020 09:46:49 +0000
+	id 1kZt7X-0007NV-U3; Tue, 03 Nov 2020 10:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18133.42980; Tue, 03 Nov 2020 09:46:49 +0000
+Received: by outflank-mailman (output) from mailman id 18141.42992; Tue, 03 Nov 2020 10:00:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,158 +23,106 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZstt-0005bA-NC; Tue, 03 Nov 2020 09:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 18133;
- Tue, 03 Nov 2020 09:46:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kZt7X-0007N6-Qg; Tue, 03 Nov 2020 10:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 18141;
+ Tue, 03 Nov 2020 10:00:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ki2W=EJ=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kZsts-0005aR-7f
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:46:48 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e90bc63e-d2db-4c3d-a3d9-67183df2d1c2;
- Tue, 03 Nov 2020 09:46:45 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id C586667373; Tue,  3 Nov 2020 10:46:43 +0100 (CET)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=RD1Y=EJ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1kZt7W-0007N1-Dr
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 10:00:54 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8d9fd4aa-2df8-4af0-a04e-9ca1e8fb4547;
+ Tue, 03 Nov 2020 10:00:52 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kZt7Q-00072x-Lu; Tue, 03 Nov 2020 10:00:48 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kZt7Q-0002iL-Ai; Tue, 03 Nov 2020 10:00:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ki2W=EJ=lst.de=hch@srs-us1.protection.inumbo.net>)
-	id 1kZsts-0005aR-7f
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:46:48 +0000
-X-Inumbo-ID: e90bc63e-d2db-4c3d-a3d9-67183df2d1c2
-Received: from verein.lst.de (unknown [213.95.11.211])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e90bc63e-d2db-4c3d-a3d9-67183df2d1c2;
-	Tue, 03 Nov 2020 09:46:45 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C586667373; Tue,  3 Nov 2020 10:46:43 +0100 (CET)
-Date: Tue, 3 Nov 2020 10:46:43 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: konrad.wilk@oracle.com
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to
- swiotlb_tbl_map_single
-Message-ID: <20201103094643.GA18936@lst.de>
-References: <20201023063309.3472987-1-hch@lst.de>
+	(envelope-from <SRS0=RD1Y=EJ=xen.org=julien@srs-us1.protection.inumbo.net>)
+	id 1kZt7W-0007N1-Dr
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 10:00:54 +0000
+X-Inumbo-ID: 8d9fd4aa-2df8-4af0-a04e-9ca1e8fb4547
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 8d9fd4aa-2df8-4af0-a04e-9ca1e8fb4547;
+	Tue, 03 Nov 2020 10:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=uP2W4gg5bUqMmDSdmcX7RGZycNlWhY3WAnjFDfiGHMg=; b=L6TXfZKWRvZISHxjF4GOInxMLT
+	MjCX4vkf0flN21X6LC6PxA71OsMKBSs8+e4xuYuAXFiDjveBQQ/p7+k/aOOFWMd4JJ2pffV8+1XST
+	k2lUfRMIdlqVMIWFemzZK1OPrsevqGwsCfOIt2Z5xXuWGjWsF8LyAGoobBLpZP74Wc8A=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kZt7Q-00072x-Lu; Tue, 03 Nov 2020 10:00:48 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kZt7Q-0002iL-Ai; Tue, 03 Nov 2020 10:00:48 +0000
+Subject: Re: [PATCH v1 2/2] Define SOURCE_DATE_EPOCH based on git log
+To: =?UTF-8?Q?Fr=c3=a9d=c3=a9ric_Pierret_=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <cover.1604156731.git.frederic.pierret@qubes-os.org>
+ <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <396c2991-1a90-bc1a-70e7-eaaf62c309d8@xen.org>
+Date: Tue, 3 Nov 2020 10:00:46 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201023063309.3472987-1-hch@lst.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-ping?
+Hi Frédéric,
 
-On Fri, Oct 23, 2020 at 08:33:09AM +0200, Christoph Hellwig wrote:
-> The tbl_dma_addr argument is used to check the DMA boundary for the
-> allocations, and thus needs to be a dma_addr_t.  swiotlb-xen instead
-> passed a physical address, which could lead to incorrect results for
-> strange offsets.  Fix this by removing the parameter entirely and hard
-> code the DMA address for io_tlb_start instead.
-> 
-> Fixes: 91ffe4ad534a ("swiotlb-xen: introduce phys_to_dma/dma_to_phys translations")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+On 31/10/2020 15:14, Frédéric Pierret (fepitre) wrote:
 > ---
->  drivers/iommu/intel/iommu.c |  5 ++---
->  drivers/xen/swiotlb-xen.c   |  3 +--
->  include/linux/swiotlb.h     | 10 +++-------
->  kernel/dma/swiotlb.c        | 16 ++++++----------
->  4 files changed, 12 insertions(+), 22 deletions(-)
+>   xen/Makefile | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 8651f6d4dfa032..6b560e6f193096 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
->  	 * page aligned, we don't need to use a bounce page.
->  	 */
->  	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
-> -		tlb_addr = swiotlb_tbl_map_single(dev,
-> -				phys_to_dma_unencrypted(dev, io_tlb_start),
-> -				paddr, size, aligned_size, dir, attrs);
-> +		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
-> +				aligned_size, dir, attrs);
->  		if (tlb_addr == DMA_MAPPING_ERROR) {
->  			goto swiotlb_error;
->  		} else {
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 71ce1b7a23d1cc..2b385c1b4a99cb 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
->  	 */
->  	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
->  
-> -	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
-> -				     phys, size, size, dir, attrs);
-> +	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
->  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 513913ff748626..3bb72266a75a1d 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -45,13 +45,9 @@ enum dma_sync_target {
->  	SYNC_FOR_DEVICE = 1,
->  };
->  
-> -extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
-> -					  dma_addr_t tbl_dma_addr,
-> -					  phys_addr_t phys,
-> -					  size_t mapping_size,
-> -					  size_t alloc_size,
-> -					  enum dma_data_direction dir,
-> -					  unsigned long attrs);
-> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
-> +		size_t mapping_size, size_t alloc_size,
-> +		enum dma_data_direction dir, unsigned long attrs);
->  
->  extern void swiotlb_tbl_unmap_single(struct device *hwdev,
->  				     phys_addr_t tlb_addr,
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index b4eea0abc3f002..92e2f54f24c01b 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
->  	}
->  }
->  
-> -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
-> -				   dma_addr_t tbl_dma_addr,
-> -				   phys_addr_t orig_addr,
-> -				   size_t mapping_size,
-> -				   size_t alloc_size,
-> -				   enum dma_data_direction dir,
-> -				   unsigned long attrs)
-> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
-> +		size_t mapping_size, size_t alloc_size,
-> +		enum dma_data_direction dir, unsigned long attrs)
->  {
-> +	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(hwdev, io_tlb_start);
->  	unsigned long flags;
->  	phys_addr_t tlb_addr;
->  	unsigned int nslots, stride, index, wrap;
-> @@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
->  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
->  			      swiotlb_force);
->  
-> -	swiotlb_addr = swiotlb_tbl_map_single(dev,
-> -			phys_to_dma_unencrypted(dev, io_tlb_start),
-> -			paddr, size, size, dir, attrs);
-> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
-> +			attrs);
->  	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
->  		return DMA_MAPPING_ERROR;
->  
-> -- 
-> 2.28.0
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 30b1847515..4cc35556ef 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -6,6 +6,8 @@ export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
+>   export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+>   -include xen-version
+>   
+> +export SOURCE_DATE_EPOCH	?= $(shell git log -1 --format=%ct 2>/dev/null)
+
+It is possible to download a tarball for Xen release (see [1]). They 
+don't contain the .git directory and therefore this command would fail.
+
+Should we fallback to "date" in this case?
+
+> +
+>   export XEN_WHOAMI	?= $(USER)
+>   export XEN_DOMAIN	?= $(shell ([ -x /bin/dnsdomainname ] && /bin/dnsdomainname) || ([ -x /bin/domainname ] && /bin/domainname || echo [unknown]))
+>   ifneq ($(SOURCE_DATE_EPOCH),)
 > 
-> _______________________________________________
-> iommu mailing list
-> iommu@lists.linux-foundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/iommu
----end quoted text---
+
+Cheers,
+
+[1] https://xenproject.org/downloads/
+
+-- 
+Julien Grall
 
