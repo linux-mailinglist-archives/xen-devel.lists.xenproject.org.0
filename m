@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B62722A3FE0
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:22:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18059.42822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32272A3FE5
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:23:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18063.42836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsWD-0002H8-3n; Tue, 03 Nov 2020 09:22:21 +0000
+	id 1kZsWt-0002R1-HK; Tue, 03 Nov 2020 09:23:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18059.42822; Tue, 03 Nov 2020 09:22:21 +0000
+Received: by outflank-mailman (output) from mailman id 18063.42836; Tue, 03 Nov 2020 09:23:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,145 +23,95 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsWD-0002Gi-0O; Tue, 03 Nov 2020 09:22:21 +0000
-Received: by outflank-mailman (input) for mailman id 18059;
- Tue, 03 Nov 2020 09:22:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kZsWt-0002Qc-E3; Tue, 03 Nov 2020 09:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 18063;
+ Tue, 03 Nov 2020 09:23:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=E907=EJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kZsWB-0002Gb-R0
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:22:19 +0000
+ (envelope-from <SRS0=xm8A=EJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kZsWr-0002QT-FL
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:23:01 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 9478bd21-64a1-4952-a7b0-0e2999bb0843;
- Tue, 03 Nov 2020 09:22:18 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 8cd90120-311d-4a5f-89a9-0a4673ba5589;
+ Tue, 03 Nov 2020 09:23:00 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4BA9EB135;
- Tue,  3 Nov 2020 09:22:18 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 4A9C0AC97;
+ Tue,  3 Nov 2020 09:23:00 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=E907=EJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kZsWB-0002Gb-R0
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:22:19 +0000
-X-Inumbo-ID: 9478bd21-64a1-4952-a7b0-0e2999bb0843
+	(envelope-from <SRS0=xm8A=EJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kZsWr-0002QT-FL
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:23:01 +0000
+X-Inumbo-ID: 8cd90120-311d-4a5f-89a9-0a4673ba5589
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 9478bd21-64a1-4952-a7b0-0e2999bb0843;
-	Tue, 03 Nov 2020 09:22:18 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 8cd90120-311d-4a5f-89a9-0a4673ba5589;
+	Tue, 03 Nov 2020 09:23:00 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604395338;
+	t=1604395380;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/IiJdOQPz7XfvvSH6xuVZ0PEx+N5yh7XsTyq1HCQWm4=;
-	b=JTaZU3a1rHV2JXgPspchjpKviKdR5cU7Sm6LxMIKqzyBtfJzpvAD33MdY1r/8Ewxehwspp
-	BxNSejHYU4Ek05VP1psNPXybEdB6HDqgco+Us1nKpGH6boUgU7vMskBD9MMupFgbMnkkn6
-	XT4GPUgLysH63tg3QeWHVukWWcX1tL8=
+	bh=YzatKUxPuJ4BmtBk4o15c/AANhscTKaCziIkcBaMskc=;
+	b=urT8XrOEb9glwysdL6XbTnDep5UMoa8f1AEEmsD7t4Brwpxd3HXDlDKJK/qPWULSofxPut
+	wXvkSH6nFn15rwY0dUwBQgGNqfcTD28umCD9fFWA1Ue6ARtnol3xDrusot91QTVw+lpr2s
+	QcwJK5RleSnt9JtV36aL5AG24JubVio=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4BA9EB135;
-	Tue,  3 Nov 2020 09:22:18 +0000 (UTC)
-Subject: Re: [PATCH v2 2/2] xen/rwlock: add check_lock() handling to rwlocks
-To: Jan Beulich <jbeulich@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 4A9C0AC97;
+	Tue,  3 Nov 2020 09:23:00 +0000 (UTC)
+Subject: Re: [PATCH v1 2/2] Define SOURCE_DATE_EPOCH based on git log
+To: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201102131239.14134-1-jgross@suse.com>
- <20201102131239.14134-3-jgross@suse.com>
- <fb3a1a5a-15ea-218f-a6d8-8e9d8d1bc2a7@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <890b6547-ca4f-b195-6b9d-9078ba35c357@suse.com>
-Date: Tue, 3 Nov 2020 10:22:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+References: <cover.1604156731.git.frederic.pierret@qubes-os.org>
+ <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
+ <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
+ <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <512c3480-5736-ff1b-3ba1-46eacd04e058@suse.com>
+Date: Tue, 3 Nov 2020 10:23:00 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <fb3a1a5a-15ea-218f-a6d8-8e9d8d1bc2a7@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.11.20 10:02, Jan Beulich wrote:
-> On 02.11.2020 14:12, Juergen Gross wrote:
->> --- a/xen/include/xen/rwlock.h
->> +++ b/xen/include/xen/rwlock.h
->> @@ -56,6 +56,7 @@ static inline int _read_trylock(rwlock_t *lock)
->>       u32 cnts;
->>   
->>       preempt_disable();
->> +    check_lock(&lock->lock.debug, true);
->>       cnts = atomic_read(&lock->cnts);
->>       if ( likely(_can_read_lock(cnts)) )
->>       {
+On 03.11.2020 10:21, Frédéric Pierret wrote:
 > 
-> I'm sorry for being picky, but this still isn't matching
-> _spin_trylock(). Perhaps the difference is really benign, but
-> there the check sits ahead of preempt_disable(). (It has a
-> clear reason to be this way there, but without a clear reason
-> for things to be differently here, I think matching ordering
-> may help, at least to avoid questions.)
-
-I think this is more an optimization opportunity: I'd rather move the
-preempt_disable() into the first if clause, as there is no need to
-disable preemption in case the first read of the lock already leads
-to failure acquiring the lock.
-
-If you want I can prepend a patch doing that optimization.
-
 > 
->> @@ -66,6 +67,7 @@ static inline int _read_trylock(rwlock_t *lock)
->>            */
->>           if ( likely(_can_read_lock(cnts)) )
->>               return 1;
->> +
->>           atomic_sub(_QR_BIAS, &lock->cnts);
->>       }
->>       preempt_enable();
+> Le 11/3/20 à 10:15 AM, Jan Beulich a écrit :
+>> On 31.10.2020 16:14, Frédéric Pierret (fepitre) wrote:
+>>> --- a/xen/Makefile
+>>> +++ b/xen/Makefile
+>>> @@ -6,6 +6,8 @@ export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
+>>>   export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+>>>   -include xen-version
+>>>   
+>>> +export SOURCE_DATE_EPOCH	?= $(shell git log -1 --format=%ct 2>/dev/null)
+>>
+>> In patch 1 you also use the variable under tools/. Why do you
+>> place this here rather than in the top level Makefile?
+>>
+>> This said I'm not convinced anyway that we want this to be the
+>> default. I'd rather see this as something to get set by the
+>> package build process of distros, outside of any of the source
+>> files.
 > 
-> Stray change?
-
-Oh yes, a leftover from the old positioning of check_lock().
-
+> In fact this was intended to provide a default/example value. Indeed, each package manager should
+> handle this with changelog or such.
 > 
->> @@ -87,7 +89,10 @@ static inline void _read_lock(rwlock_t *lock)
->>        * arch_lock_acquire_barrier().
->>        */
->>       if ( likely(_can_read_lock(cnts)) )
->> +    {
->> +        check_lock(&lock->lock.debug, false);
->>           return;
->> +    }
->>   
->>       /* The slowpath will decrement the reader count, if necessary. */
->>       queue_read_lock_slowpath(lock);
->> @@ -162,7 +167,10 @@ static inline void _write_lock(rwlock_t *lock)
->>        * arch_lock_acquire_barrier().
->>        */
->>       if ( atomic_cmpxchg(&lock->cnts, 0, _write_lock_val()) == 0 )
->> +    {
->> +        check_lock(&lock->lock.debug, false);
->>           return;
->> +    }
->>   
->>       queue_write_lock_slowpath(lock);
->>       /*
-> 
-> Maybe also for these two, but likely more importantly for ...
-> 
->> @@ -328,6 +337,8 @@ static inline void _percpu_read_lock(percpu_rwlock_t **per_cpudata,
->>           /* Drop the read lock because we don't need it anymore. */
->>           read_unlock(&percpu_rwlock->rwlock);
->>       }
->> +    else
->> +        check_lock(&percpu_rwlock->rwlock.lock.debug, false);
->>   }
-> 
-> ... this one a brief comment may be warranted to clarify why
-> the call sits here rather than at the top?
+> This is not mandatory and if not wanted by default, maybe add this example value into the INSTALL documentation?
 
-Okay.
+I'm certainly fine with putting this in the docs. (Whether
+INSTALL is the right place I can#t tell.)
 
-
-Juergen
+Jan
 
