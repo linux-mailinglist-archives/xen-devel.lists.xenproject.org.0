@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32272A3FE5
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:23:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18063.42836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B4EF2A401F
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:30:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18076.42872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsWt-0002R1-HK; Tue, 03 Nov 2020 09:23:03 +0000
+	id 1kZse2-0003P2-S2; Tue, 03 Nov 2020 09:30:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18063.42836; Tue, 03 Nov 2020 09:23:03 +0000
+Received: by outflank-mailman (output) from mailman id 18076.42872; Tue, 03 Nov 2020 09:30:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,95 +23,233 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZsWt-0002Qc-E3; Tue, 03 Nov 2020 09:23:03 +0000
-Received: by outflank-mailman (input) for mailman id 18063;
- Tue, 03 Nov 2020 09:23:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xm8A=EJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kZsWr-0002QT-FL
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:23:01 +0000
+	id 1kZse2-0003OQ-NC; Tue, 03 Nov 2020 09:30:26 +0000
+Received: by outflank-mailman (input) for mailman id 18076;
+ Tue, 03 Nov 2020 09:30:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xrPR=EJ=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1kZse1-0003L5-EE
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:30:25 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 8cd90120-311d-4a5f-89a9-0a4673ba5589;
- Tue, 03 Nov 2020 09:23:00 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 2b8da4b5-8bd0-473c-8059-49da96a8f0a8;
+ Tue, 03 Nov 2020 09:30:19 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4A9C0AC97;
- Tue,  3 Nov 2020 09:23:00 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id AEF6BAF5B;
+ Tue,  3 Nov 2020 09:30:18 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xm8A=EJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kZsWr-0002QT-FL
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:23:01 +0000
-X-Inumbo-ID: 8cd90120-311d-4a5f-89a9-0a4673ba5589
+	(envelope-from <SRS0=xrPR=EJ=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+	id 1kZse1-0003L5-EE
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:30:25 +0000
+X-Inumbo-ID: 2b8da4b5-8bd0-473c-8059-49da96a8f0a8
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 8cd90120-311d-4a5f-89a9-0a4673ba5589;
-	Tue, 03 Nov 2020 09:23:00 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 2b8da4b5-8bd0-473c-8059-49da96a8f0a8;
+	Tue, 03 Nov 2020 09:30:19 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604395380;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YzatKUxPuJ4BmtBk4o15c/AANhscTKaCziIkcBaMskc=;
-	b=urT8XrOEb9glwysdL6XbTnDep5UMoa8f1AEEmsD7t4Brwpxd3HXDlDKJK/qPWULSofxPut
-	wXvkSH6nFn15rwY0dUwBQgGNqfcTD28umCD9fFWA1Ue6ARtnol3xDrusot91QTVw+lpr2s
-	QcwJK5RleSnt9JtV36aL5AG24JubVio=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4A9C0AC97;
-	Tue,  3 Nov 2020 09:23:00 +0000 (UTC)
-Subject: Re: [PATCH v1 2/2] Define SOURCE_DATE_EPOCH based on git log
-To: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1604156731.git.frederic.pierret@qubes-os.org>
- <8b0e8b8be9c77476ecc702a7c6216ba50659deec.1604156731.git.frederic.pierret@qubes-os.org>
- <fabf886c-4270-9620-5a72-210a2fccb016@suse.com>
- <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <512c3480-5736-ff1b-3ba1-46eacd04e058@suse.com>
-Date: Tue, 3 Nov 2020 10:23:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	by mx2.suse.de (Postfix) with ESMTP id AEF6BAF5B;
+	Tue,  3 Nov 2020 09:30:18 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@linux.ie,
+	daniel@ffwll.ch,
+	sam@ravnborg.org,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	kraxel@redhat.com,
+	l.stach@pengutronix.de,
+	linux+etnaviv@armlinux.org.uk,
+	christian.gmeiner@gmail.com,
+	inki.dae@samsung.com,
+	jy0922.shim@samsung.com,
+	sw0312.kim@samsung.com,
+	kyungmin.park@samsung.com,
+	kgene@kernel.org,
+	krzk@kernel.org,
+	yuq825@gmail.com,
+	bskeggs@redhat.com,
+	robh@kernel.org,
+	tomeu.vizoso@collabora.com,
+	steven.price@arm.com,
+	alyssa.rosenzweig@collabora.com,
+	hjc@rock-chips.com,
+	heiko@sntech.de,
+	hdegoede@redhat.com,
+	sean@poorly.run,
+	eric@anholt.net,
+	oleksandr_andrushchenko@epam.com,
+	ray.huang@amd.com,
+	sumit.semwal@linaro.org,
+	emil.velikov@collabora.com,
+	luben.tuikov@amd.com,
+	apaneers@amd.com,
+	linus.walleij@linaro.org,
+	melissa.srw@gmail.com,
+	chris@chris-wilson.co.uk,
+	miaoqinglang@huawei.com
+Cc: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	etnaviv@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	lima@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	spice-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	xen-devel@lists.xenproject.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v7 00/10] Support GEM object mappings from I/O memory
+Date: Tue,  3 Nov 2020 10:30:05 +0100
+Message-Id: <20201103093015.1063-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-In-Reply-To: <2898550a-6921-4c5a-920f-37486e2599ea@qubes-os.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03.11.2020 10:21, Frédéric Pierret wrote:
-> 
-> 
-> Le 11/3/20 à 10:15 AM, Jan Beulich a écrit :
->> On 31.10.2020 16:14, Frédéric Pierret (fepitre) wrote:
->>> --- a/xen/Makefile
->>> +++ b/xen/Makefile
->>> @@ -6,6 +6,8 @@ export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
->>>   export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
->>>   -include xen-version
->>>   
->>> +export SOURCE_DATE_EPOCH	?= $(shell git log -1 --format=%ct 2>/dev/null)
->>
->> In patch 1 you also use the variable under tools/. Why do you
->> place this here rather than in the top level Makefile?
->>
->> This said I'm not convinced anyway that we want this to be the
->> default. I'd rather see this as something to get set by the
->> package build process of distros, outside of any of the source
->> files.
-> 
-> In fact this was intended to provide a default/example value. Indeed, each package manager should
-> handle this with changelog or such.
-> 
-> This is not mandatory and if not wanted by default, maybe add this example value into the INSTALL documentation?
+DRM's fbdev console uses regular load and store operations to update
+framebuffer memory. The bochs driver on sparc64 requires the use of
+I/O-specific load and store operations. We have a workaround, but need
+a long-term solution to the problem.
 
-I'm certainly fine with putting this in the docs. (Whether
-INSTALL is the right place I can#t tell.)
+This patchset changes GEM's vmap/vunmap interfaces to forward pointers
+of type struct dma_buf_map and updates the generic fbdev emulation to
+use them correctly. This enables I/O-memory operations on all framebuffers
+that require and support them.
 
-Jan
+Patches #1 to #4 prepare VRAM helpers and drivers.
+
+Next is the update of the GEM vmap functions. Patch #5 adds vmap and vunmap
+that is usable with TTM-based GEM drivers, and patch #6 updates GEM's
+vmap/vunmap callback to forward instances of type struct dma_buf_map. While
+the patch touches many files throughout the DRM modules, the applied changes
+are mostly trivial interface fixes. Several TTM-based GEM drivers now use
+the new vmap code. Patch #7 updates GEM's internal vmap/vunmap functions to
+forward struct dma_buf_map.
+
+With struct dma_buf_map propagated through the layers, patches #8 to #10
+convert DRM clients and generic fbdev emulation to use it. Updating the
+fbdev framebuffer will select the correct functions, either for system or
+I/O memory.
+
+There is also a set of IGT testcases for fbdev at [1]. Reading and writting
+fbdev device files has several corner cases near the EOF that the tests cover
+as well. The original fbdev code has different semantics with the different
+implementations (sys, cfb). Patch #10 and the testcases intend to harmonize
+the behaviour and serve as a reference.
+
+v7:
+	* return number of read/written bytes in fbdev code; if any
+	* init QXL cursor from BO buffer (kernel test robot)
+	* use min_t(size_t,) (kernel test robot)
+v6:
+	* don't call page_to_phys() on fbdev framebuffers in I/O memory;
+	  warn instead (Daniel)
+v5:
+	* rebase onto latest TTM changes (Christian)
+	* support TTM premapped memory correctly (Christian)
+	* implement fb_read/fb_write internally (Sam, Daniel)
+	* cleanups
+v4:
+	* provide TTM vmap/vunmap plus GEM helpers and convert drivers
+	  over (Christian, Daniel)
+	* remove several empty functions
+	* more TODOs and documentation (Daniel)
+v3:
+	* recreate the whole patchset on top of struct dma_buf_map
+v2:
+	* RFC patchset
+
+[1] https://gitlab.freedesktop.org/tzimmermann/igt-gpu-tools/-/merge_requests/1
+
+Thomas Zimmermann (10):
+  drm/vram-helper: Remove invariant parameters from internal kmap
+    function
+  drm/cma-helper: Remove empty drm_gem_cma_prime_vunmap()
+  drm/etnaviv: Remove empty etnaviv_gem_prime_vunmap()
+  drm/exynos: Remove empty exynos_drm_gem_prime_{vmap,vunmap}()
+  drm/ttm: Add vmap/vunmap to TTM and TTM GEM helpers
+  drm/gem: Use struct dma_buf_map in GEM vmap ops and convert GEM
+    backends
+  drm/gem: Update internal GEM vmap/vunmap interfaces to use struct
+    dma_buf_map
+  drm/gem: Store client buffer mappings as struct dma_buf_map
+  dma-buf-map: Add memcpy and pointer-increment interfaces
+  drm/fb_helper: Support framebuffers in I/O memory
+
+ Documentation/gpu/todo.rst                  |  37 ++-
+ drivers/gpu/drm/Kconfig                     |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  36 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |   1 -
+ drivers/gpu/drm/ast/ast_cursor.c            |  27 +--
+ drivers/gpu/drm/ast/ast_drv.h               |   7 +-
+ drivers/gpu/drm/bochs/bochs_kms.c           |   1 -
+ drivers/gpu/drm/drm_client.c                |  38 +--
+ drivers/gpu/drm/drm_fb_helper.c             | 250 ++++++++++++++++++--
+ drivers/gpu/drm/drm_gem.c                   |  29 ++-
+ drivers/gpu/drm/drm_gem_cma_helper.c        |  27 +--
+ drivers/gpu/drm/drm_gem_shmem_helper.c      |  48 ++--
+ drivers/gpu/drm/drm_gem_ttm_helper.c        |  38 +++
+ drivers/gpu/drm/drm_gem_vram_helper.c       | 117 +++++----
+ drivers/gpu/drm/drm_internal.h              |   5 +-
+ drivers/gpu/drm/drm_prime.c                 |  14 +-
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h       |   3 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c       |   1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  12 +-
+ drivers/gpu/drm/exynos/exynos_drm_gem.c     |  12 -
+ drivers/gpu/drm/exynos/exynos_drm_gem.h     |   2 -
+ drivers/gpu/drm/lima/lima_gem.c             |   6 +-
+ drivers/gpu/drm/lima/lima_sched.c           |  11 +-
+ drivers/gpu/drm/mgag200/mgag200_mode.c      |  10 +-
+ drivers/gpu/drm/nouveau/Kconfig             |   1 +
+ drivers/gpu/drm/nouveau/nouveau_bo.h        |   2 -
+ drivers/gpu/drm/nouveau/nouveau_gem.c       |   6 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.h       |   2 -
+ drivers/gpu/drm/nouveau/nouveau_prime.c     |  20 --
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c |  14 +-
+ drivers/gpu/drm/qxl/qxl_display.c           |  15 +-
+ drivers/gpu/drm/qxl/qxl_draw.c              |  14 +-
+ drivers/gpu/drm/qxl/qxl_drv.h               |  11 +-
+ drivers/gpu/drm/qxl/qxl_object.c            |  31 ++-
+ drivers/gpu/drm/qxl/qxl_object.h            |   2 +-
+ drivers/gpu/drm/qxl/qxl_prime.c             |  12 +-
+ drivers/gpu/drm/radeon/radeon.h             |   1 -
+ drivers/gpu/drm/radeon/radeon_gem.c         |   7 +-
+ drivers/gpu/drm/radeon/radeon_prime.c       |  20 --
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  22 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.h |   4 +-
+ drivers/gpu/drm/tiny/cirrus.c               |  10 +-
+ drivers/gpu/drm/tiny/gm12u320.c             |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c           |  72 ++++++
+ drivers/gpu/drm/udl/udl_modeset.c           |   8 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c       |  11 +-
+ drivers/gpu/drm/vc4/vc4_bo.c                |   7 +-
+ drivers/gpu/drm/vc4/vc4_drv.h               |   2 +-
+ drivers/gpu/drm/vgem/vgem_drv.c             |  16 +-
+ drivers/gpu/drm/vkms/vkms_plane.c           |  15 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c       |  22 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.c     |  18 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.h     |   6 +-
+ include/drm/drm_client.h                    |   7 +-
+ include/drm/drm_gem.h                       |   5 +-
+ include/drm/drm_gem_cma_helper.h            |   3 +-
+ include/drm/drm_gem_shmem_helper.h          |   4 +-
+ include/drm/drm_gem_ttm_helper.h            |   6 +
+ include/drm/drm_gem_vram_helper.h           |  14 +-
+ include/drm/drm_mode_config.h               |  12 -
+ include/drm/ttm/ttm_bo_api.h                |  28 +++
+ include/linux/dma-buf-map.h                 |  93 +++++++-
+ 64 files changed, 856 insertions(+), 438 deletions(-)
+
+--
+2.29.0
+
 
