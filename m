@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4D62A5430
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 22:10:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18708.43704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA1022A54E1
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 22:15:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18714.43715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ka3YH-0003Vu-JU; Tue, 03 Nov 2020 21:09:13 +0000
+	id 1ka3eA-0004Ox-9S; Tue, 03 Nov 2020 21:15:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18708.43704; Tue, 03 Nov 2020 21:09:13 +0000
+Received: by outflank-mailman (output) from mailman id 18714.43715; Tue, 03 Nov 2020 21:15:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,146 +23,174 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ka3YH-0003VV-GU; Tue, 03 Nov 2020 21:09:13 +0000
-Received: by outflank-mailman (input) for mailman id 18708;
- Tue, 03 Nov 2020 21:09:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ka3eA-0004Oa-6U; Tue, 03 Nov 2020 21:15:18 +0000
+Received: by outflank-mailman (input) for mailman id 18714;
+ Tue, 03 Nov 2020 21:15:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gHuI=EJ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1ka3YF-0003VQ-8v
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 21:09:11 +0000
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2015d19a-33f9-4d16-9fa4-7c529e393609;
- Tue, 03 Nov 2020 21:09:10 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id a7so24142988lfk.9
- for <xen-devel@lists.xenproject.org>; Tue, 03 Nov 2020 13:09:09 -0800 (PST)
-Received: from [100.64.112.11] (ll-18.209.223.85.sovam.net.ua. [85.223.209.18])
- by smtp.gmail.com with ESMTPSA id k23sm4263023lfm.144.2020.11.03.13.09.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Nov 2020 13:09:07 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=zFvq=EJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1ka3e9-0004OV-GP
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 21:15:17 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 58a7ec15-27f4-4506-b0f8-562db1e86a25;
+ Tue, 03 Nov 2020 21:15:16 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0A405205ED;
+ Tue,  3 Nov 2020 21:15:15 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=gHuI=EJ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1ka3YF-0003VQ-8v
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 21:09:11 +0000
-X-Inumbo-ID: 2015d19a-33f9-4d16-9fa4-7c529e393609
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2015d19a-33f9-4d16-9fa4-7c529e393609;
-	Tue, 03 Nov 2020 21:09:10 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id a7so24142988lfk.9
-        for <xen-devel@lists.xenproject.org>; Tue, 03 Nov 2020 13:09:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=cVJnL9ewxvYcGID+vmkXVywCXdNU0ReBKwTW336NY+8=;
-        b=JdQGgjULIgafS8NgexgfnaV3QmIIAJ1Y05EcQ6vDxxcEEq0tLg+CBRdLBhTgr9bP3K
-         ACsY5PLgFcy3s1d1l7FfTUuU4xtM8wbN2TZNm7UctoTO+FH81CIl7pbpMvEfANtVMJXf
-         7tSo+Tgs08VNE0XnLw3eUsi3yi60thBZlMnjtAIqaY3+aFcmXmLhu4YwInIobwA79yxp
-         1L5X5Ew6An8uH6nZ8S8s0Eext/KsVMZ+Su3hZBmgLK1KLsZ7tqbQcF/41ACsifnJKwYL
-         xVG87gT7TzS5uB9te/EFa0XVML3lNied4X7WrLGVDviO8vM8/0RazYWfFHmLK+lLeaUs
-         +4VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=cVJnL9ewxvYcGID+vmkXVywCXdNU0ReBKwTW336NY+8=;
-        b=b1PgM6Ka/Q0ADGb7RKrh2/H+cdte97bb5ThsxXfm2MOOOqTP1Uzro5PB+olS/54Cea
-         ajLoTbwj+p+tWYUQJiDyI+IlBtLzDNcx3POP+GSFap/6lBeNVI5IWfdJY/Ihtk4WmO91
-         pkuqc0a1U3xCY1i4uOLZhZFB03CiYv0w4gwxgyI4pUzO5lZU7A7SHQG//Ay0o0I/Mn4d
-         O+gUD9e25cB1+Hup8Hyvyx7gwWopdsGx1vwY48AI1YVkE9sKqE6bA1XgN+T0eALPzXKa
-         rOLZ5KZN0KGKf0WHPnDtJLwk3vxHvsFTrgncFn5E22PEhH5WMKevnlpKJiIoqKN99bnA
-         hKmQ==
-X-Gm-Message-State: AOAM532CWCnqfEWV8SJhv7iSyAHItEwjKCyEEMUXBBaOhP5/EL3LbOZJ
-	kbDPOWgJSt1VHL0TDjmdv98=
-X-Google-Smtp-Source: ABdhPJzvh9Qc+v40cQh7jyFuPp1pn7qBhVfemeuTrJZGoZWRgdiaxHrLgPVr9/EvOjphJ7rmMgXcsw==
-X-Received: by 2002:a05:6512:3193:: with SMTP id i19mr8927230lfe.80.1604437748765;
-        Tue, 03 Nov 2020 13:09:08 -0800 (PST)
-Received: from [100.64.112.11] (ll-18.209.223.85.sovam.net.ua. [85.223.209.18])
-        by smtp.gmail.com with ESMTPSA id k23sm4263023lfm.144.2020.11.03.13.09.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2020 13:09:07 -0800 (PST)
-Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
-To: Masami Hiramatsu <masami.hiramatsu@linaro.org>
-Cc: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com>
- <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com>
- <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s>
- <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
- <CAA93ih3Z-zxQ33gvr2C43i0J5XP3OBgUhTyMcwhe9zVj-uOONA@mail.gmail.com>
- <CAPD2p-=2UimQy6VHKw1FgyVi2R94Ux_HFdPYk7=FR3KWSEqiHw@mail.gmail.com>
- <CAA93ih3LcHPLbL7dPof-OAbM2HRJv0neQtMuYDYcYAOYDhVbKA@mail.gmail.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <d1a505ae-58f7-f096-eaaf-d249901c1861@gmail.com>
-Date: Tue, 3 Nov 2020 23:09:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	(envelope-from <SRS0=zFvq=EJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1ka3e9-0004OV-GP
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 21:15:17 +0000
+X-Inumbo-ID: 58a7ec15-27f4-4506-b0f8-562db1e86a25
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 58a7ec15-27f4-4506-b0f8-562db1e86a25;
+	Tue, 03 Nov 2020 21:15:16 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 0A405205ED;
+	Tue,  3 Nov 2020 21:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604438115;
+	bh=AGr0vX1zbmHHU+V7TxZSTvg1FCY0YXQmEyXlBjDXxKk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ND/oASvlXSWl4Zq9BmkcuWjQQgyX3hx9wd32ljNcJryTtBAn9E4JeFGeSOYMapHVw
+	 nGD1GEH5tv2iMv3p2KXvuSwjjfwdq3aojeOcI4moe0t5lXe+LV4lg6fBnZhM9E3koF
+	 t05yMTJrs60izMpL1FSDsoFpGgvMY0sb3CJu3fIg=
+Date: Tue, 3 Nov 2020 13:15:13 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rich Persaud <persaur@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org, 
+    julien@xen.org, wl@xen.org, xen-devel@lists.xenproject.org, 
+    Daniel DeGraaf <dgdegra@tycho.nsa.gov>, 
+    Daniel Smith <dpsmith@apertussolutions.com>, 
+    Roman Shaposhnik <roman@zededa.com>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [RFC PATCH] xen: EXPERT clean-up
+In-Reply-To: <E359BD65-2917-4087-A6E1-0AD5521CF823@gmail.com>
+Message-ID: <alpine.DEB.2.21.2011031307430.5812@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2011031123420.5812@sstabellini-ThinkPad-T480s> <E359BD65-2917-4087-A6E1-0AD5521CF823@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <CAA93ih3LcHPLbL7dPof-OAbM2HRJv0neQtMuYDYcYAOYDhVbKA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: multipart/mixed; boundary="8323329-1293458912-1604438115=:5812"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 03.11.20 16:30, Masami Hiramatsu wrote:
-> Hi Oleksandr,
+--8323329-1293458912-1604438115=:5812
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Hi Masami
+On Tue, 3 Nov 2020, Rich Persaud wrote:
+> On Nov 3, 2020, at 14:37, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > ﻿On Tue, 3 Nov 2020, Jan Beulich wrote:
+> >>> On 02.11.2020 22:41, Stefano Stabellini wrote:
+> >>> On Mon, 2 Nov 2020, Jan Beulich wrote:
+> >>>> On 31.10.2020 01:24, Stefano Stabellini wrote:
+> >>>>> @@ -79,8 +79,8 @@ config SBSA_VUART_CONSOLE
+> >>>>>      SBSA Generic UART implements a subset of ARM PL011 UART.
+> >>>>> 
+> >>>>> config ARM_SSBD
+> >>>>> -    bool "Speculative Store Bypass Disable" if EXPERT
+> >>>>> -    depends on HAS_ALTERNATIVE
+> >>>>> +    bool "Speculative Store Bypass Disable"
+> >>>>> +    depends on HAS_ALTERNATIVE && EXPERT
+> >>>>>    default y
+> >>>> 
+> >>>> At the example of this, I'm afraid when the default isn't "n"
+> >>>> (or there's no default directive at all, as ought to be
+> >>>> equivalent to and preferred over "default n"), such a
+> >>>> transformation is not functionally identical: Before your
+> >>>> change, with !EXPERT this option defaults to y. After your
+> >>>> change this option is unavailable (which resolves to it being
+> >>>> off for all consuming purposes).
+> >>>> 
+> >>>> IOW there are reasons to have "if ..." attached to the prompts
+> >>>> (for this construct indeed only making the prompt conditional,
+> >>>> not the entire option), but there are also cases where the
+> >>>> cleanup you do is indeed desirable / helpful.
+> >>> 
+> >>> Yeah, thanks for catching it, it is obviously a problem.
+> >>> 
+> >>> My intention was just to "tag" somehow the options to EXPERT so that it
+> >>> would show on the menu. Maybe a better, simpler, way to do it is
+> >>> to add the word "EXPERT" to the one line prompt:
+> >>> 
+> >>> config ARM_SSBD
+> >>> -    bool "Speculative Store Bypass Disable" if EXPERT
+> >>> +    bool "Speculative Store Bypass Disable (EXPERT)" if EXPERT
+> >>>    depends on HAS_ALTERNATIVE
+> >>>    default y
+> >>>    help
+> >>> 
+> >>> 
+> >>> What do you think?
+> >> 
+> >> While on the surface this may look like an improvement, I don't
+> >> see how it would actually help: If you read the Kconfig file
+> >> itself, the dependency is seen anyway. And on the menu I don't
+> >> see the point of telling someone who has enabled EXPERT that a
+> >> certain option is (or is not) an expert one. If they think
+> >> they're experts, so should they be treated. (It was, after all,
+> >> a deliberate decision to make enabling expert mode easier, and
+> >> hence easier to use for what one might consider not-really-
+> >> experts. I realize saying so may be considered tendentious; I
+> >> mean it in a purely technical sense, and I'd like to apologize
+> >> in advance to anyone not sharing this as a possible perspective
+> >> to take.)
+> >> 
+> >> Plus, of course, the addition of such (EXPERT) markers to
+> >> future options' prompts is liable to get forgotten now and then,
+> >> so sooner or later we'd likely end up with an inconsistent
+> >> mixture anyway.
+> > 
+> > I tend to agree with you on everything you wrote. The fundamental issue
+> > is that we are (mis)using EXPERT to tag features that are experimental,
+> > as defined by SUPPORT.md.
+> > 
+> > It is important to be able to distinguish clearly at the kconfig level
+> > options that are (security) supported from options that are
+> > unsupported/experimental. Today the only way to do it is with EXPERT
+> > which is not great because:
+> > 
+> > - it doesn't convey the idea that it is for unsupported/experimental
+> >  features
+> > - if you want to enable one unsupported feature, it is not clear what
+> >  you have to do
+> > 
+> > So maybe we should replace EXPERT with UNSUPPORTED (or EXPERIMENTAL) in
+> > the Kconfig menu?
+> > 
+> > It would make it clearer that by enabling UNSUPPORTED you are going to
+> > get a configuration that is not security supported.
+> 
+> If going down this path, there should be one, authoritative, in-tree definition of feature-level support from which Kconfig (build-time policy enforcement) and SUPPORT.md (documentation) can be derived.  Later, even run-time enforcement can be similarly classified.  FuSA may also wish for documented policy to align with enforcement.
 
+The goal is trying to align Kconfig and SUPPORT.md by clarifying the
+EXPERT option, which today is a poor implementation of "experimental".
 
->
-> Thanks for sharing the virtio-disk server, I also tested with a real usb disk.
->
-> In config file:
->
-> virtio = 1
-> vdisk = [ 'backend=Domain-0, disks=ro:/dev/sda1' ]
->
-> And it can be mounted in DomU
->
-> [    2.892874] virtio_blk virtio0: [vda] 1875382927 512-byte logical
-> blocks (960 GB/894 GiB)
-> [    2.892925] vda: detected capacity change from 0 to 960196058624
-> ...
-> root@develbox:~# cat /proc/partitions
-> major minor  #blocks  name
->
->   254        0  937691463 vda
-> ...
-> root@develbox:~# mount /dev/vda /mnt/
-> [  192.260968] EXT4-fs (vda): mounted filesystem with ordered data
-> mode. Opts: (null)
-> mount: /mnt: WARNING: source write-protected, mounted read-only.
->
-> So "ro" flag also correctly works.
-> Great!
->
-> Thank you!
+There could be further improvements down the line, for instance we could
+taint Xen when UNSUPPORTED is selected and even have separate kconfig
+options for UNSUPPORTED, EXPERIMENTAL, and TECHPREVIEW. FuSa is likely
+going to need its own SAFETY option too. Like you suggested, we could
+even have a single source of feature-level support information for both
+Kconfig and SUPPORT.md.
 
-Sounds great. Thank you for testing!
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+However, I didn't want to increase the scope of this one patch. For now,
+it would be a good start if we replaced EXPERT with something that covers
+anything not security supported, for which UNSUPPORTED looks like a good
+name.
+--8323329-1293458912-1604438115=:5812--
 
