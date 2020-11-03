@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FA362A403C
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:30:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18083.42954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B222A408D
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 10:47:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18133.42980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZseJ-0003t8-Ru; Tue, 03 Nov 2020 09:30:43 +0000
+	id 1kZstt-0005bZ-Qe; Tue, 03 Nov 2020 09:46:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18083.42954; Tue, 03 Nov 2020 09:30:43 +0000
+Received: by outflank-mailman (output) from mailman id 18133.42980; Tue, 03 Nov 2020 09:46:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,470 +23,158 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZseJ-0003ri-Gg; Tue, 03 Nov 2020 09:30:43 +0000
-Received: by outflank-mailman (input) for mailman id 18083;
- Tue, 03 Nov 2020 09:30:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xrPR=EJ=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1kZseH-0003LA-Qt
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:30:41 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 3513d16f-a580-434e-bd34-81474ac20a00;
- Tue, 03 Nov 2020 09:30:26 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6DE2AACF5;
- Tue,  3 Nov 2020 09:30:25 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kZstt-0005bA-NC; Tue, 03 Nov 2020 09:46:49 +0000
+Received: by outflank-mailman (input) for mailman id 18133;
+ Tue, 03 Nov 2020 09:46:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ki2W=EJ=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1kZsts-0005aR-7f
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:46:48 +0000
+Received: from verein.lst.de (unknown [213.95.11.211])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e90bc63e-d2db-4c3d-a3d9-67183df2d1c2;
+ Tue, 03 Nov 2020 09:46:45 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id C586667373; Tue,  3 Nov 2020 10:46:43 +0100 (CET)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xrPR=EJ=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
-	id 1kZseH-0003LA-Qt
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:30:41 +0000
-X-Inumbo-ID: 3513d16f-a580-434e-bd34-81474ac20a00
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 3513d16f-a580-434e-bd34-81474ac20a00;
-	Tue, 03 Nov 2020 09:30:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 6DE2AACF5;
-	Tue,  3 Nov 2020 09:30:25 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@linux.ie,
-	daniel@ffwll.ch,
-	sam@ravnborg.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	kraxel@redhat.com,
-	l.stach@pengutronix.de,
-	linux+etnaviv@armlinux.org.uk,
-	christian.gmeiner@gmail.com,
-	inki.dae@samsung.com,
-	jy0922.shim@samsung.com,
-	sw0312.kim@samsung.com,
-	kyungmin.park@samsung.com,
-	kgene@kernel.org,
-	krzk@kernel.org,
-	yuq825@gmail.com,
-	bskeggs@redhat.com,
-	robh@kernel.org,
-	tomeu.vizoso@collabora.com,
-	steven.price@arm.com,
-	alyssa.rosenzweig@collabora.com,
-	hjc@rock-chips.com,
-	heiko@sntech.de,
-	hdegoede@redhat.com,
-	sean@poorly.run,
-	eric@anholt.net,
-	oleksandr_andrushchenko@epam.com,
-	ray.huang@amd.com,
-	sumit.semwal@linaro.org,
-	emil.velikov@collabora.com,
-	luben.tuikov@amd.com,
-	apaneers@amd.com,
-	linus.walleij@linaro.org,
-	melissa.srw@gmail.com,
-	chris@chris-wilson.co.uk,
-	miaoqinglang@huawei.com
-Cc: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org,
-	etnaviv@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	lima@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	spice-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	xen-devel@lists.xenproject.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: [PATCH v7 10/10] drm/fb_helper: Support framebuffers in I/O memory
-Date: Tue,  3 Nov 2020 10:30:15 +0100
-Message-Id: <20201103093015.1063-11-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20201103093015.1063-1-tzimmermann@suse.de>
-References: <20201103093015.1063-1-tzimmermann@suse.de>
+	(envelope-from <SRS0=ki2W=EJ=lst.de=hch@srs-us1.protection.inumbo.net>)
+	id 1kZsts-0005aR-7f
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 09:46:48 +0000
+X-Inumbo-ID: e90bc63e-d2db-4c3d-a3d9-67183df2d1c2
+Received: from verein.lst.de (unknown [213.95.11.211])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id e90bc63e-d2db-4c3d-a3d9-67183df2d1c2;
+	Tue, 03 Nov 2020 09:46:45 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id C586667373; Tue,  3 Nov 2020 10:46:43 +0100 (CET)
+Date: Tue, 3 Nov 2020 10:46:43 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: konrad.wilk@oracle.com
+Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to
+ swiotlb_tbl_map_single
+Message-ID: <20201103094643.GA18936@lst.de>
+References: <20201023063309.3472987-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201023063309.3472987-1-hch@lst.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-At least sparc64 requires I/O-specific access to framebuffers. This
-patch updates the fbdev console accordingly.
+ping?
 
-For drivers with direct access to the framebuffer memory, the callback
-functions in struct fb_ops test for the type of memory and call the rsp
-fb_sys_ of fb_cfb_ functions. Read and write operations are implemented
-internally by DRM's fbdev helper.
-
-For drivers that employ a shadow buffer, fbdev's blit function retrieves
-the framebuffer address as struct dma_buf_map, and uses dma_buf_map
-interfaces to access the buffer.
-
-The bochs driver on sparc64 uses a workaround to flag the framebuffer as
-I/O memory and avoid a HW exception. With the introduction of struct
-dma_buf_map, this is not required any longer. The patch removes the rsp
-code from both, bochs and fbdev.
-
-v7:
-	* use min_t(size_t,) (kernel test robot)
-	* return the number of bytes read/written, if any (fbdev testcase)
-v5:
-	* implement fb_read/fb_write internally (Daniel, Sam)
-v4:
-	* move dma_buf_map changes into separate patch (Daniel)
-	* TODO list: comment on fbdev updates (Daniel)
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-Tested-by: Sam Ravnborg <sam@ravnborg.org>
----
- Documentation/gpu/todo.rst        |  19 ++-
- drivers/gpu/drm/bochs/bochs_kms.c |   1 -
- drivers/gpu/drm/drm_fb_helper.c   | 220 ++++++++++++++++++++++++++++--
- include/drm/drm_mode_config.h     |  12 --
- 4 files changed, 223 insertions(+), 29 deletions(-)
-
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 59f63f1d7680..acca232b025b 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -201,13 +201,28 @@ Convert drivers to use drm_fbdev_generic_setup()
- ------------------------------------------------
- 
- Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
--atomic modesetting and GEM vmap support. Current generic fbdev emulation
--expects the framebuffer in system memory (or system-like memory).
-+atomic modesetting and GEM vmap support. Historically, generic fbdev emulation
-+expected the framebuffer in system memory or system-like memory. By employing
-+struct dma_buf_map, drivers with frambuffers in I/O memory can be supported
-+as well.
- 
- Contact: Maintainer of the driver you plan to convert
- 
- Level: Intermediate
- 
-+Reimplement functions in drm_fbdev_fb_ops without fbdev
-+-------------------------------------------------------
-+
-+A number of callback functions in drm_fbdev_fb_ops could benefit from
-+being rewritten without dependencies on the fbdev module. Some of the
-+helpers could further benefit from using struct dma_buf_map instead of
-+raw pointers.
-+
-+Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
-+
-+Level: Advanced
-+
-+
- drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
- -----------------------------------------------------------------
- 
-diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
-index 13d0d04c4457..853081d186d5 100644
---- a/drivers/gpu/drm/bochs/bochs_kms.c
-+++ b/drivers/gpu/drm/bochs/bochs_kms.c
-@@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
- 	bochs->dev->mode_config.preferred_depth = 24;
- 	bochs->dev->mode_config.prefer_shadow = 0;
- 	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
--	bochs->dev->mode_config.fbdev_use_iomem = true;
- 	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order = true;
- 
- 	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index a0d88130fedb..01ba1da28511 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
- }
- 
- static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
--					  struct drm_clip_rect *clip)
-+					  struct drm_clip_rect *clip,
-+					  struct dma_buf_map *dst)
- {
- 	struct drm_framebuffer *fb = fb_helper->fb;
- 	unsigned int cpp = fb->format->cpp[0];
- 	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
- 	void *src = fb_helper->fbdev->screen_buffer + offset;
--	void *dst = fb_helper->buffer->map.vaddr + offset;
- 	size_t len = (clip->x2 - clip->x1) * cpp;
- 	unsigned int y;
- 
--	for (y = clip->y1; y < clip->y2; y++) {
--		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
--			memcpy(dst, src, len);
--		else
--			memcpy_toio((void __iomem *)dst, src, len);
-+	dma_buf_map_incr(dst, offset); /* go to first pixel within clip rect */
- 
-+	for (y = clip->y1; y < clip->y2; y++) {
-+		dma_buf_map_memcpy_to(dst, src, len);
-+		dma_buf_map_incr(dst, fb->pitches[0]);
- 		src += fb->pitches[0];
--		dst += fb->pitches[0];
- 	}
- }
- 
-@@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
- 			ret = drm_client_buffer_vmap(helper->buffer, &map);
- 			if (ret)
- 				return;
--			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
-+			drm_fb_helper_dirty_blit_real(helper, &clip_copy, &map);
- 		}
-+
- 		if (helper->fb->funcs->dirty)
- 			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
- 						 &clip_copy, 1);
-@@ -2027,6 +2026,199 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 		return -ENODEV;
- }
- 
-+static bool drm_fbdev_use_iomem(struct fb_info *info)
-+{
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_client_buffer *buffer = fb_helper->buffer;
-+
-+	return !drm_fbdev_use_shadow_fb(fb_helper) && buffer->map.is_iomem;
-+}
-+
-+static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count,
-+				   loff_t pos)
-+{
-+	const char __iomem *src = info->screen_base + pos;
-+	size_t alloc_size = min(count, PAGE_SIZE);
-+	ssize_t ret = 0;
-+	int err = 0;
-+	char *tmp;
-+
-+	tmp = kmalloc(alloc_size, GFP_KERNEL);
-+	if (!tmp)
-+		return -ENOMEM;
-+
-+	while (count) {
-+		size_t c = min_t(size_t, count, alloc_size);
-+
-+		memcpy_fromio(tmp, src, c);
-+		if (copy_to_user(buf, tmp, c)) {
-+			err = -EFAULT;
-+			break;
-+		}
-+
-+		src += c;
-+		buf += c;
-+		ret += c;
-+		count -= c;
-+	}
-+
-+	kfree(tmp);
-+
-+	return ret ? ret : err;
-+}
-+
-+static ssize_t fb_read_screen_buffer(struct fb_info *info, char __user *buf, size_t count,
-+				     loff_t pos)
-+{
-+	const char *src = info->screen_buffer + pos;
-+
-+	if (copy_to_user(buf, src, count))
-+		return -EFAULT;
-+
-+	return count;
-+}
-+
-+static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
-+				 size_t count, loff_t *ppos)
-+{
-+	loff_t pos = *ppos;
-+	size_t total_size;
-+	ssize_t ret;
-+
-+	if (info->screen_size)
-+		total_size = info->screen_size;
-+	else
-+		total_size = info->fix.smem_len;
-+
-+	if (pos >= total_size)
-+		return 0;
-+	if (count >= total_size)
-+		count = total_size;
-+	if (total_size - count < pos)
-+		count = total_size - pos;
-+
-+	if (drm_fbdev_use_iomem(info))
-+		ret = fb_read_screen_base(info, buf, count, pos);
-+	else
-+		ret = fb_read_screen_buffer(info, buf, count, pos);
-+
-+	if (ret > 0)
-+		*ppos += ret;
-+
-+	return ret;
-+}
-+
-+static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
-+				    loff_t pos)
-+{
-+	char __iomem *dst = info->screen_base + pos;
-+	size_t alloc_size = min(count, PAGE_SIZE);
-+	ssize_t ret = 0;
-+	int err = 0;
-+	u8 *tmp;
-+
-+	tmp = kmalloc(alloc_size, GFP_KERNEL);
-+	if (!tmp)
-+		return -ENOMEM;
-+
-+	while (count) {
-+		size_t c = min_t(size_t, count, alloc_size);
-+
-+		if (copy_from_user(tmp, buf, c)) {
-+			err = -EFAULT;
-+			break;
-+		}
-+		memcpy_toio(dst, tmp, c);
-+
-+		dst += c;
-+		buf += c;
-+		ret += c;
-+		count -= c;
-+	}
-+
-+	kfree(tmp);
-+
-+	return ret ? ret : err;
-+}
-+
-+static ssize_t fb_write_screen_buffer(struct fb_info *info, const char __user *buf, size_t count,
-+				      loff_t pos)
-+{
-+	char *dst = info->screen_buffer + pos;
-+
-+	if (copy_from_user(dst, buf, count))
-+		return -EFAULT;
-+
-+	return count;
-+}
-+
-+static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
-+				  size_t count, loff_t *ppos)
-+{
-+	loff_t pos = *ppos;
-+	size_t total_size;
-+	ssize_t ret;
-+	int err = 0;
-+
-+	if (info->screen_size)
-+		total_size = info->screen_size;
-+	else
-+		total_size = info->fix.smem_len;
-+
-+	if (pos > total_size)
-+		return -EFBIG;
-+	if (count > total_size) {
-+		err = -EFBIG;
-+		count = total_size;
-+	}
-+	if (total_size - count < pos) {
-+		if (!err)
-+			err = -ENOSPC;
-+		count = total_size - pos;
-+	}
-+
-+	/*
-+	 * Copy to framebuffer even if we already logged an error. Emulates
-+	 * the behavior of the original fbdev implementation.
-+	 */
-+	if (drm_fbdev_use_iomem(info))
-+		ret = fb_write_screen_base(info, buf, count, pos);
-+	else
-+		ret = fb_write_screen_buffer(info, buf, count, pos);
-+
-+	if (ret > 0)
-+		*ppos += ret;
-+
-+	return ret ? ret : err;
-+}
-+
-+static void drm_fbdev_fb_fillrect(struct fb_info *info,
-+				  const struct fb_fillrect *rect)
-+{
-+	if (drm_fbdev_use_iomem(info))
-+		drm_fb_helper_cfb_fillrect(info, rect);
-+	else
-+		drm_fb_helper_sys_fillrect(info, rect);
-+}
-+
-+static void drm_fbdev_fb_copyarea(struct fb_info *info,
-+				  const struct fb_copyarea *area)
-+{
-+	if (drm_fbdev_use_iomem(info))
-+		drm_fb_helper_cfb_copyarea(info, area);
-+	else
-+		drm_fb_helper_sys_copyarea(info, area);
-+}
-+
-+static void drm_fbdev_fb_imageblit(struct fb_info *info,
-+				   const struct fb_image *image)
-+{
-+	if (drm_fbdev_use_iomem(info))
-+		drm_fb_helper_cfb_imageblit(info, image);
-+	else
-+		drm_fb_helper_sys_imageblit(info, image);
-+}
-+
- static const struct fb_ops drm_fbdev_fb_ops = {
- 	.owner		= THIS_MODULE,
- 	DRM_FB_HELPER_DEFAULT_OPS,
-@@ -2034,11 +2226,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
- 	.fb_release	= drm_fbdev_fb_release,
- 	.fb_destroy	= drm_fbdev_fb_destroy,
- 	.fb_mmap	= drm_fbdev_fb_mmap,
--	.fb_read	= drm_fb_helper_sys_read,
--	.fb_write	= drm_fb_helper_sys_write,
--	.fb_fillrect	= drm_fb_helper_sys_fillrect,
--	.fb_copyarea	= drm_fb_helper_sys_copyarea,
--	.fb_imageblit	= drm_fb_helper_sys_imageblit,
-+	.fb_read	= drm_fbdev_fb_read,
-+	.fb_write	= drm_fbdev_fb_write,
-+	.fb_fillrect	= drm_fbdev_fb_fillrect,
-+	.fb_copyarea	= drm_fbdev_fb_copyarea,
-+	.fb_imageblit	= drm_fbdev_fb_imageblit,
- };
- 
- static struct fb_deferred_io drm_fbdev_defio = {
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 5ffbb4ed5b35..ab424ddd7665 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -877,18 +877,6 @@ struct drm_mode_config {
- 	 */
- 	bool prefer_shadow_fbdev;
- 
--	/**
--	 * @fbdev_use_iomem:
--	 *
--	 * Set to true if framebuffer reside in iomem.
--	 * When set to true memcpy_toio() is used when copying the framebuffer in
--	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
--	 *
--	 * FIXME: This should be replaced with a per-mapping is_iomem
--	 * flag (like ttm does), and then used everywhere in fbdev code.
--	 */
--	bool fbdev_use_iomem;
--
- 	/**
- 	 * @quirk_addfb_prefer_xbgr_30bpp:
- 	 *
--- 
-2.29.0
-
+On Fri, Oct 23, 2020 at 08:33:09AM +0200, Christoph Hellwig wrote:
+> The tbl_dma_addr argument is used to check the DMA boundary for the
+> allocations, and thus needs to be a dma_addr_t.  swiotlb-xen instead
+> passed a physical address, which could lead to incorrect results for
+> strange offsets.  Fix this by removing the parameter entirely and hard
+> code the DMA address for io_tlb_start instead.
+> 
+> Fixes: 91ffe4ad534a ("swiotlb-xen: introduce phys_to_dma/dma_to_phys translations")
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>  drivers/iommu/intel/iommu.c |  5 ++---
+>  drivers/xen/swiotlb-xen.c   |  3 +--
+>  include/linux/swiotlb.h     | 10 +++-------
+>  kernel/dma/swiotlb.c        | 16 ++++++----------
+>  4 files changed, 12 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 8651f6d4dfa032..6b560e6f193096 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
+>  	 * page aligned, we don't need to use a bounce page.
+>  	 */
+>  	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
+> -		tlb_addr = swiotlb_tbl_map_single(dev,
+> -				phys_to_dma_unencrypted(dev, io_tlb_start),
+> -				paddr, size, aligned_size, dir, attrs);
+> +		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
+> +				aligned_size, dir, attrs);
+>  		if (tlb_addr == DMA_MAPPING_ERROR) {
+>  			goto swiotlb_error;
+>  		} else {
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 71ce1b7a23d1cc..2b385c1b4a99cb 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+>  	 */
+>  	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
+>  
+> -	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
+> -				     phys, size, size, dir, attrs);
+> +	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
+>  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index 513913ff748626..3bb72266a75a1d 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -45,13 +45,9 @@ enum dma_sync_target {
+>  	SYNC_FOR_DEVICE = 1,
+>  };
+>  
+> -extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> -					  dma_addr_t tbl_dma_addr,
+> -					  phys_addr_t phys,
+> -					  size_t mapping_size,
+> -					  size_t alloc_size,
+> -					  enum dma_data_direction dir,
+> -					  unsigned long attrs);
+> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+> +		size_t mapping_size, size_t alloc_size,
+> +		enum dma_data_direction dir, unsigned long attrs);
+>  
+>  extern void swiotlb_tbl_unmap_single(struct device *hwdev,
+>  				     phys_addr_t tlb_addr,
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index b4eea0abc3f002..92e2f54f24c01b 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
+>  	}
+>  }
+>  
+> -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> -				   dma_addr_t tbl_dma_addr,
+> -				   phys_addr_t orig_addr,
+> -				   size_t mapping_size,
+> -				   size_t alloc_size,
+> -				   enum dma_data_direction dir,
+> -				   unsigned long attrs)
+> +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
+> +		size_t mapping_size, size_t alloc_size,
+> +		enum dma_data_direction dir, unsigned long attrs)
+>  {
+> +	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(hwdev, io_tlb_start);
+>  	unsigned long flags;
+>  	phys_addr_t tlb_addr;
+>  	unsigned int nslots, stride, index, wrap;
+> @@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+>  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
+>  			      swiotlb_force);
+>  
+> -	swiotlb_addr = swiotlb_tbl_map_single(dev,
+> -			phys_to_dma_unencrypted(dev, io_tlb_start),
+> -			paddr, size, size, dir, attrs);
+> +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
+> +			attrs);
+>  	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+>  		return DMA_MAPPING_ERROR;
+>  
+> -- 
+> 2.28.0
+> 
+> _______________________________________________
+> iommu mailing list
+> iommu@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/iommu
+---end quoted text---
 
