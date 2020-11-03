@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37FCB2A47C8
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 15:16:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18342.43344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 499A82A4831
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Nov 2020 15:30:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18354.43357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZx6C-0006Vy-Ai; Tue, 03 Nov 2020 14:15:48 +0000
+	id 1kZxKQ-0008FQ-Hj; Tue, 03 Nov 2020 14:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18342.43344; Tue, 03 Nov 2020 14:15:48 +0000
+Received: by outflank-mailman (output) from mailman id 18354.43357; Tue, 03 Nov 2020 14:30:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,147 +23,236 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kZx6C-0006Va-78; Tue, 03 Nov 2020 14:15:48 +0000
-Received: by outflank-mailman (input) for mailman id 18342;
- Tue, 03 Nov 2020 14:15:47 +0000
+	id 1kZxKQ-0008F1-Ea; Tue, 03 Nov 2020 14:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 18354;
+ Tue, 03 Nov 2020 14:30:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ws1C=EJ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1kZx6A-0006VO-US
- for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 14:15:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id d42fa0d2-2b25-4e99-925e-86b4702fb666;
- Tue, 03 Nov 2020 14:15:45 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 61B36ABF4;
- Tue,  3 Nov 2020 14:15:45 +0000 (UTC)
+ <SRS0=OHVE=EJ=linaro.org=masami.hiramatsu@srs-us1.protection.inumbo.net>)
+ id 1kZxKP-0008Ew-9w
+ for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 14:30:29 +0000
+Received: from mail-yb1-xb42.google.com (unknown [2607:f8b0:4864:20::b42])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ea921a48-e733-47ec-9adb-c0389390518f;
+ Tue, 03 Nov 2020 14:30:28 +0000 (UTC)
+Received: by mail-yb1-xb42.google.com with SMTP id o70so15018120ybc.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Nov 2020 06:30:28 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ws1C=EJ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
-	id 1kZx6A-0006VO-US
-	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 14:15:46 +0000
-X-Inumbo-ID: d42fa0d2-2b25-4e99-925e-86b4702fb666
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id d42fa0d2-2b25-4e99-925e-86b4702fb666;
-	Tue, 03 Nov 2020 14:15:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604412945;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=viJwzLFB/ThmL9uDbtzwZKdx+ghvo51wknw6OEPeAuw=;
-	b=qlhovEST3SDrr3DP5MSZECg1Cngh2Hz6EuN4AT5QOd7K882jL1bKok/dfkLOyHfHP/gaXu
-	0MIv06mGl2pOyilPOoAfaOEx67MFne+q3VAWyoID2cJfRz7MmNYBXj/UdUkdgSaAOkBc3K
-	qSUwJl0WE679H+2JY3rs1Opm+9ggHtc=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 61B36ABF4;
-	Tue,  3 Nov 2020 14:15:45 +0000 (UTC)
-Message-ID: <f9ceee15b46bfe66d126644986c25ced1ed70d0b.camel@suse.com>
-Subject: Re: Recent upgrade of 4.13 -> 4.14 issue
-From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?Fr=E9d=E9ric?= Pierret <frederic.pierret@qubes-os.org>, 
-	"marmarek@invisiblethingslab.com"
-	 <marmarek@invisiblethingslab.com>
-Cc: Juergen Gross <JGross@suse.com>, "George.Dunlap@citrix.com"
-	 <George.Dunlap@citrix.com>, "xen-devel@lists.xenproject.org"
-	 <xen-devel@lists.xenproject.org>, "andrew.cooper3@citrix.com"
-	 <andrew.cooper3@citrix.com>
-Date: Tue, 03 Nov 2020 15:15:44 +0100
-In-Reply-To: <2cbcca0b-8415-8f98-46d8-12279703cbbe@qubes-os.org>
-References: <30452e9c-bf27-fce2-cc20-4ce91018a15a@citrix.com>
-	 <deefd340-ec7a-bbb9-7471-d147da174f4a@suse.com>
-	 <a333ea82c12086874f705fc9ea9baa991235edd4.camel@suse.com>
-	 <533ce2f2-f268-a70b-fad7-d8f3f4033209@suse.com>
-	 <182a90a89cc02beec9760559799e74572e18ce49.camel@suse.com>
-	 <9632dc14-46d5-83c0-7e44-0c3bd4f5154a@qubes-os.org>
-	 <ce07254a-0775-d35c-559b-7d9ab642accf@qubes-os.org>
-	 <b1a18e6ed88db3c40a54c7ca15c3399bdc6f2b9c.camel@suse.com>
-	 <20201031025442.GF1447@mail-itl>
-	 <c17e7a152a7e1922bd9c729f70a96acf4ca5240b.camel@suse.com>
-	 <20201031040817.GG1447@mail-itl>
-	 <2cbcca0b-8415-8f98-46d8-12279703cbbe@qubes-os.org>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-7qIAXVtpKc+TNdafpvN8"
-User-Agent: Evolution 3.38.1 (by Flathub.org) 
+	(envelope-from <SRS0=OHVE=EJ=linaro.org=masami.hiramatsu@srs-us1.protection.inumbo.net>)
+	id 1kZxKP-0008Ew-9w
+	for xen-devel@lists.xenproject.org; Tue, 03 Nov 2020 14:30:29 +0000
+X-Inumbo-ID: ea921a48-e733-47ec-9adb-c0389390518f
+Received: from mail-yb1-xb42.google.com (unknown [2607:f8b0:4864:20::b42])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ea921a48-e733-47ec-9adb-c0389390518f;
+	Tue, 03 Nov 2020 14:30:28 +0000 (UTC)
+Received: by mail-yb1-xb42.google.com with SMTP id o70so15018120ybc.1
+        for <xen-devel@lists.xenproject.org>; Tue, 03 Nov 2020 06:30:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=wAq5NZ6AIfbVNF6x0628HtJVRbDZ70m+AsEhKikldfE=;
+        b=SCqKreICtHxu9tfvcert9PvuT1zMJOQwUO/jpc5PPM+Vkj3r8YLyiu90Jsi269w24v
+         xFNJMmL1tHhplayxiyl1FzNHlwrGjy5zVgA/e3fnampf4VJjWPsH3YJ1DPiFrvATGhuR
+         ghgzIiFFehwGFofiHRnk80IxukqjdCRqRjinfaRC6W7WXHW4SpRJDscKXuZxacEB26+h
+         xdTbWln85QCCPYHeMpaG/292KlyFTLCgsdUzYcXGOTPJUKCLizvayb95vafONJqFxijV
+         LCOgNYEZWlriYQ1So+cfN2zM51aqkVIcFXrWkOPAlhdmpRlqWHpTiTzoiwhfv8jqLUqy
+         sB1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=wAq5NZ6AIfbVNF6x0628HtJVRbDZ70m+AsEhKikldfE=;
+        b=tb2ZDknGXDdn8/LDbdcIOMSUSDhGo6HZkHewzTjDvU3fcmAXz6XlmNiZeS4Jw0YefF
+         SAnSCl3x+VxMxI8p9kHSnCiF7ql7rk+1DM7q8aDi6kjcTNEocCM+txYFfztt1BU1G+Rg
+         WeuB0NfF4Ki3qGAr1StTVJ//0nmn2DJFAus4VxaCKuyGPnxuBdkriEoDqx52ypTgUEiA
+         +35yQjLParNfRJpV3rMWSf6cGmW17XHv8+MSiBH7jqxsZlRZ6gu3BLIZKAr9QXvDaROH
+         1hmlhulPg1e418GN8UX/W2Ulh7jEX97GZ26YBKzHMjQyQuqcQwS0e1VSuvL5tIHzjFEn
+         meZA==
+X-Gm-Message-State: AOAM532b3cC3A9dTTTc3RTkxKcF4ymbPSie5mDnA6BA8zd1vQPEa3f0Z
+	jOC+KF/T74lI6/kQYwlL3J6/RoipmzwmSQpjmUQtLw==
+X-Google-Smtp-Source: ABdhPJxdZrQ3p66qfaPjSfvDDL8bDFYstlPsHVpbA79lF+3WjNQuxp7JYGBUTjjhRPUmFh0QmlTS2xsu34cuKyfYvr8=
+X-Received: by 2002:a25:d0cb:: with SMTP id h194mr26939162ybg.52.1604413827690;
+ Tue, 03 Nov 2020 06:30:27 -0800 (PST)
 MIME-Version: 1.0
-
-
---=-7qIAXVtpKc+TNdafpvN8
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
+ <CAA93ih0o3XmD9neBu1fAkP1iBETu1-4qaQaEsZfEWRfYo7VCZA@mail.gmail.com>
+ <CAPD2p-npnQz+7NtMH81s2C3dsAt_6kxQ68n7LhwYbOuTFaUEvw@mail.gmail.com>
+ <alpine.DEB.2.21.2010291252410.12247@sstabellini-ThinkPad-T480s>
+ <CAPD2p-mH0Hi+JOUB-mt+aZR_gN86EZCpnMPTww0ErMESTwZ=AA@mail.gmail.com>
+ <CAA93ih3Z-zxQ33gvr2C43i0J5XP3OBgUhTyMcwhe9zVj-uOONA@mail.gmail.com> <CAPD2p-=2UimQy6VHKw1FgyVi2R94Ux_HFdPYk7=FR3KWSEqiHw@mail.gmail.com>
+In-Reply-To: <CAPD2p-=2UimQy6VHKw1FgyVi2R94Ux_HFdPYk7=FR3KWSEqiHw@mail.gmail.com>
+From: Masami Hiramatsu <masami.hiramatsu@linaro.org>
+Date: Tue, 3 Nov 2020 23:30:16 +0900
+Message-ID: <CAA93ih3LcHPLbL7dPof-OAbM2HRJv0neQtMuYDYcYAOYDhVbKA@mail.gmail.com>
+Subject: Re: [PATCH V2 00/23] IOREQ feature (+ virtio-mmio) on Arm
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant <paul@xen.org>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
+	Julien Grall <julien.grall@arm.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2020-11-03 at 14:23 +0100, Fr=C3=A9d=C3=A9ric Pierret wrote:
-> Hi,
+Hi Oleksandr,
+
+Thanks for sharing the virtio-disk server, I also tested with a real usb di=
+sk.
+
+In config file:
+
+virtio =3D 1
+vdisk =3D [ 'backend=3DDomain-0, disks=3Dro:/dev/sda1' ]
+
+And it can be mounted in DomU
+
+[    2.892874] virtio_blk virtio0: [vda] 1875382927 512-byte logical
+blocks (960 GB/894 GiB)
+[    2.892925] vda: detected capacity change from 0 to 960196058624
+...
+root@develbox:~# cat /proc/partitions
+major minor  #blocks  name
+
+ 254        0  937691463 vda
+...
+root@develbox:~# mount /dev/vda /mnt/
+[  192.260968] EXT4-fs (vda): mounted filesystem with ordered data
+mode. Opts: (null)
+mount: /mnt: WARNING: source write-protected, mounted read-only.
+
+So "ro" flag also correctly works.
+Great!
+
+Thank you!
+
+2020=E5=B9=B411=E6=9C=881=E6=97=A5(=E6=97=A5) 6:10 Oleksandr Tyshchenko <ol=
+ekstysh@gmail.com>:
 >
-Hi,
-
-> Some new info :). Marek has sent me a patch (=20
-> https://gist.github.com/marmarek/810ae5c079d218928535514b08a07716) to
-> help in debugging this issue.=C2=A0
 >
-Ok, thanks for the update (and thanks Mark for putthing together the
-patch).
+>
+> On Fri, Oct 30, 2020 at 1:34 PM Masami Hiramatsu <masami.hiramatsu@linaro=
+.org> wrote:
+>>
+>> Hi Oleksandr,
+>
+>
+> Hi Masami, all
+>
+> [sorry for the possible format issue]
+>
+>>
+>> >> >
+>> >> >       Could you tell me how can I test it?
+>> >> >
+>> >> >
+>> >> > I assume it is due to the lack of the virtio-disk backend (which I =
+haven't shared yet as I focused on the IOREQ/DM support on Arm in the
+>> >> > first place).
+>> >> > Could you wait a little bit, I am going to share it soon.
+>> >>
+>> >> Do you have a quick-and-dirty hack you can share in the meantime? Eve=
+n
+>> >> just on github as a special branch? It would be very useful to be abl=
+e
+>> >> to have a test-driver for the new feature.
+>> >
+>> > Well, I will provide a branch on github with our PoC virtio-disk backe=
+nd by the end of this week. It will be possible to test this series with it=
+.
+>>
+>> Great! OK I'll be waiting for the PoC backend.
+>>
+>> Thank you!
+>
+>
+> You can find the virtio-disk backend PoC (shared as is) at [1].
+>
+> Brief description...
+>
+> The virtio-disk backend PoC is a completely standalone entity (IOREQ serv=
+er) which emulates a virtio-mmio disk device.
+> It is based on code from DEMU [2] (for IOREQ server purposes) and some co=
+de from kvmtool [3] to implement virtio protocol,
+> disk operations over underlying H/W and Xenbus code to be able to read co=
+nfiguration from the Xenstore
+> (it is configured via domain config file). Last patch in this series (mar=
+ked as RFC) actually adds required bits to the libxl code.
+>
+> Some notes...
+>
+> Backend could be used with current V2 IOREQ series [4] without any modifi=
+cations, all what you need is to enable
+> CONFIG_IOREQ_SERVER on Arm [5], since it is disabled by default within th=
+is series.
+>
+> Please note that in our system we run backend in DomD (driver domain). I =
+haven't tested it in Dom0,
+> since in our system the Dom0 is thin (without any H/W) and only used to l=
+aunch VMs, so there is no underlying block H/W.
+> But, I hope, it is possible to run it in Dom0 as well (at least there is =
+nothing specific to a particular domain in the backend itself, nothing hard=
+coded).
+> If you are going to run a backend in other than Dom0 domain you need to w=
+rite your own policy (FLASK) for the backend (running in that domain)
+> to be able to issue DM related requests, etc. Only for test purposes you =
+could use this patch [6] that tweeks Xen dummy policy (not for upstream).
+>
+> As I mentioned elsewhere you don't need to modify Guest Linux (DomU), jus=
+t enable VirtIO related configs.
+> If I remember correctly, the following would be enough:
+> CONFIG_BLK_MQ_VIRTIO=3Dy
+> CONFIG_VIRTIO_BLK=3Dy
+> CONFIG_VIRTIO=3Dy
+> CONFIG_VIRTIO_BALLOON=3Dy
+> CONFIG_VIRTIO_MMIO=3Dy
+> If I remember correctly, if your Host Linux (Dom0 or DomD) version >=3D 4=
+.17 you don't need to modify it as well.
+> Otherwise, you need to cherry-pick "xen/privcmd: add IOCTL_PRIVCMD_MMAP_R=
+ESOURCE" from the upstream to be able
+> to use the acquire interface for the resource mapping.
+>
+> We usually build a backend in the context of the Yocto build process and =
+run it as a systemd service,
+> but you can also build and run it manually (it should be launched before =
+DomU creation).
+>
+> There are no command line options at all. Everything is configured via do=
+main configuration file:
+> # This option is mandatory, it shows that VirtIO is going to be used by g=
+uest
+> virtio=3D1
+> # Example of domain configuration (two disks are assigned to the guest, t=
+he latter is in readonly mode):
+> vdisk =3D [ 'backend=3DDomD, disks=3Drw:/dev/mmcblk0p3;ro:/dev/mmcblk1p3'=
+ ]
+>
+> Hope that helps. Feel free to ask questions if any.
+>
+> [1] https://github.com/xen-troops/virtio-disk/commits/ioreq_v3
+> [2] https://xenbits.xen.org/gitweb/?p=3Dpeople/pauldu/demu.git;a=3Dsummar=
+y
+> [3] https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/
+> [4] https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml3
+> [5] https://github.com/otyshchenko1/xen/commit/ee221102193f0422a240832edc=
+41d73f6f3da923
+> [6] https://github.com/otyshchenko1/xen/commit/be868a63014b7aa6c9731d5692=
+200d7f2f57c611
+>
+> --
+> Regards,
+>
+> Oleksandr Tyshchenko
 
-> With default credit2 as scheduler, here are some log from two
-> successive crashes:
-> - https://gist.github.com/fepitre/76a1e154249c7326c743d6a6d004a67b
-> - https://gist.github.com/fepitre/ab00091980cb8110fb3d349aecc3a644
->=20
-Right, this is what you see when you poke at the debug keys, after a
-freeze. It would be interesting to see if there is any trace of the
-debug output added in the patch _before_ the crash... But I appreciate
-that it's not really easy to achieve this.
 
-> Also, I've been testing "dom0=3Dpvh" option and the system remains
-> stable since more than 24h. At least, I've not experimented any
-> freeze since I'm using this option.
->=20
-PVH and what scheduler?
 
-I think it's quite clear that this is not a Credit2 bug, as it shows on
-Credit1 as well, but AFAIUI, with Credit2 it shows up more often?
-
-Now we also have a (weak?) dependency on the type of dom0?
-
-What's the configuration that is currently working?
-Credit2 +PVH ?
-Credit1 + PVH ?
-Whatever + PVH ?
-
-Regards
 --=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-7qIAXVtpKc+TNdafpvN8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl+hZhAACgkQFkJ4iaW4
-c+5iLQ/+PJo8dRn3FzNtX1sYTJqKL11g+HK/6jea8VwwYRCF9FBjrbGPxrXwqCog
-XviJZuAdDLDTCVPoMX4QCPAypGDnAoIK1TJgt5DzKNrvy/IS1vgMo8B33Cw8uz4x
-k65HyAXCAjW3yK5FUCEOjSTQhNIigKuKO/dHiMpfwnBAJjh1mCJEQIUpyR1BD4VZ
-iJNjM6Cjiy2GGv966P9mkKF3aGRqI3KtrKq4Hv1GHCPVfEHKYEz8CvfQGTNjKhwo
-TSdx8piqO/DF40h7dKRub3ytUa/56CiIU+YAJYXSQNAdxKY8NiVTBm86KXeFS9Wr
-xneU0leABfOTcGttYnG2BzVlbZ9aqR21RGsBfWK/MkB7XmYAbB97cx/Ix3Hi2NLi
-ZKssk31ImqQoTbVv+kEukmssA6TRvf14ohkqr3TvDP9UKnpsNSOgBAJWn4u55XSH
-i+cIzf4Fr6kxHrNl3G2YBNxCcf2ejxh/1CuZi4Nu8u3PPdo9UE78AvHJ1KXSsiZy
-RsgWyLOeQVLoZDlOPrFavzjWRLR1LG5WzedfX8Aa5Q/TGEqWxY4CdZ5MRm2FtvVr
-wMPryRaMwIUqYJ6W5ZRC+ZXui2xv+baeUsYprC4nXVoe/gKerBxd/2zx//9RWjRR
-BDzHO0pjUXcAtAxQbr8cfoQCASJTW54LtHU4e9zgkxS6VB9IcQU=
-=k401
------END PGP SIGNATURE-----
-
---=-7qIAXVtpKc+TNdafpvN8--
-
+Masami Hiramatsu
 
