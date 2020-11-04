@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 897B42A5E0D
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 07:19:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18787.43794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6F02A5ECF
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 08:35:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18796.43805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaC7F-00064e-H3; Wed, 04 Nov 2020 06:17:53 +0000
+	id 1kaDJR-0004Rl-6Y; Wed, 04 Nov 2020 07:34:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18787.43794; Wed, 04 Nov 2020 06:17:53 +0000
+Received: by outflank-mailman (output) from mailman id 18796.43805; Wed, 04 Nov 2020 07:34:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,129 +23,154 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaC7F-00064F-DW; Wed, 04 Nov 2020 06:17:53 +0000
-Received: by outflank-mailman (input) for mailman id 18787;
- Wed, 04 Nov 2020 06:17:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kaDJR-0004RO-3M; Wed, 04 Nov 2020 07:34:33 +0000
+Received: by outflank-mailman (input) for mailman id 18796;
+ Wed, 04 Nov 2020 07:34:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gD9+=EK=redhat.com=thuth@srs-us1.protection.inumbo.net>)
- id 1kaC7D-000644-3P
- for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 06:17:51 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 982dc919-27f7-41b6-9c1f-d9a924cb2002;
- Wed, 04 Nov 2020 06:17:48 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-10-2YpDW0klNAusxWLWodXMPg-1; Wed, 04 Nov 2020 01:17:44 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5825A801FDA;
- Wed,  4 Nov 2020 06:17:42 +0000 (UTC)
-Received: from thuth.remote.csb (ovpn-112-151.ams2.redhat.com [10.36.112.151])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E59F75B4D7;
- Wed,  4 Nov 2020 06:17:28 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <SRS0=gnt3=EK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kaDJP-0004RJ-Ud
+ for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 07:34:32 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 3511bffa-4372-4e15-9b4a-132b0542cb09;
+ Wed, 04 Nov 2020 07:34:30 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0B347AE1F;
+ Wed,  4 Nov 2020 07:34:30 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=gD9+=EK=redhat.com=thuth@srs-us1.protection.inumbo.net>)
-	id 1kaC7D-000644-3P
-	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 06:17:51 +0000
-X-Inumbo-ID: 982dc919-27f7-41b6-9c1f-d9a924cb2002
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 982dc919-27f7-41b6-9c1f-d9a924cb2002;
-	Wed, 04 Nov 2020 06:17:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604470668;
+	(envelope-from <SRS0=gnt3=EK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kaDJP-0004RJ-Ud
+	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 07:34:32 +0000
+X-Inumbo-ID: 3511bffa-4372-4e15-9b4a-132b0542cb09
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 3511bffa-4372-4e15-9b4a-132b0542cb09;
+	Wed, 04 Nov 2020 07:34:30 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604475270;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xfkrGv1aZf1IL5GXKFktkszgcVsO83XbXo4z4Vxwg7M=;
-	b=hzDDIW3khQquOZolkNc7Tctr/47KImxvqjYs2Ra9dbZCbd5qv7KjiEoGnBC4wu17d6vwl/
-	gMYFGCF5V7jW5IFIlvKsJKnNnvFIF1besSsOVRIYcE/9X8lWuSoGuYJtsfypLHwLciQJog
-	z7rGjHaRmP/cbzAPKxnaQxY60T5ciqI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-10-2YpDW0klNAusxWLWodXMPg-1; Wed, 04 Nov 2020 01:17:44 -0500
-X-MC-Unique: 2YpDW0klNAusxWLWodXMPg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5825A801FDA;
-	Wed,  4 Nov 2020 06:17:42 +0000 (UTC)
-Received: from thuth.remote.csb (ovpn-112-151.ams2.redhat.com [10.36.112.151])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E59F75B4D7;
-	Wed,  4 Nov 2020 06:17:28 +0000 (UTC)
-Subject: Re: [PATCH-for-5.2 2/3] gitlab-ci: Add a job to cover the
- --without-default-devices config
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-Cc: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Greg Kurz <groug@kaod.org>, Christian Schoenebeck <qemu_oss@crudebyte.com>,
- qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, David Hildenbrand <david@redhat.com>,
- qemu-s390x@nongnu.org, Fam Zheng <fam@euphon.net>,
- Richard Henderson <rth@twiddle.net>, Matthew Rosato
- <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>
-References: <20201103164604.2692357-1-philmd@redhat.com>
- <20201103164604.2692357-3-philmd@redhat.com>
- <20201103165247.GT205187@redhat.com>
- <7654e063-98d3-84e0-8116-5a1b41d14636@redhat.com>
- <21e90ddb-fe8a-c780-2741-9b7a2f7f1c9a@redhat.com>
- <alpine.DEB.2.21.2011031722100.3264@sstabellini-ThinkPad-T480s>
-From: Thomas Huth <thuth@redhat.com>
-Message-ID: <9ac5e985-a701-f357-29fb-ef7975f5f2c2@redhat.com>
-Date: Wed, 4 Nov 2020 07:17:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	bh=vOeiraqo5k/9PCWGLJfcX0cIM7vQ7pneAS3SvoRlm80=;
+	b=PJk5dFy37eEw7OICTWUK8jdJp3CguEztZ2s32si1ra6IxRA/c4fawX8qCSwixN9pR9Ck9g
+	p584BDupGlYNai2OMXhSRr0N/JFOIQjwdmMgUuoV1dzWAH35xG4Dy2oz12YHQaXoHOTQlW
+	olIBZqNzljCyKKZULoTNwRKS2EcLT7Y=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 0B347AE1F;
+	Wed,  4 Nov 2020 07:34:30 +0000 (UTC)
+Subject: Re: [RFC PATCH] xen: EXPERT clean-up
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org,
+ julien@xen.org, wl@xen.org, xen-devel@lists.xenproject.org
+References: <20201031002405.4545-1-sstabellini@kernel.org>
+ <cd44d479-8dba-6311-9386-0c8c1134d07e@suse.com>
+ <alpine.DEB.2.21.2011021332460.5812@sstabellini-ThinkPad-T480s>
+ <c127499b-810b-63af-5487-2cc9ecfdba09@suse.com>
+ <alpine.DEB.2.21.2011031123420.5812@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e0842284-a894-1e0b-ffbe-484013acefa5@suse.com>
+Date: Wed, 4 Nov 2020 08:34:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2011031722100.3264@sstabellini-ThinkPad-T480s>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=thuth@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <alpine.DEB.2.21.2011031123420.5812@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 04/11/2020 03.27, Stefano Stabellini wrote:
-[...]
-> Actually I care about Xen and 9pfs support, it is one of the few
-> combinations that I use regularly and it is even enabled in the Xilinx
-> product I look after. But admittedly I don't test QEMU master as much as
-> I should. With the recent changes to the build system it is not very
-> suprising that there are some issues. It would be great to have a Xen
-> and 9pfs test in the gitlab CI-loop.
+On 03.11.2020 20:37, Stefano Stabellini wrote:
+> On Tue, 3 Nov 2020, Jan Beulich wrote:
+>> On 02.11.2020 22:41, Stefano Stabellini wrote:
+>>> On Mon, 2 Nov 2020, Jan Beulich wrote:
+>>>> On 31.10.2020 01:24, Stefano Stabellini wrote:
+>>>>> @@ -79,8 +79,8 @@ config SBSA_VUART_CONSOLE
+>>>>>  	  SBSA Generic UART implements a subset of ARM PL011 UART.
+>>>>>  
+>>>>>  config ARM_SSBD
+>>>>> -	bool "Speculative Store Bypass Disable" if EXPERT
+>>>>> -	depends on HAS_ALTERNATIVE
+>>>>> +	bool "Speculative Store Bypass Disable"
+>>>>> +	depends on HAS_ALTERNATIVE && EXPERT
+>>>>>  	default y
+>>>>
+>>>> At the example of this, I'm afraid when the default isn't "n"
+>>>> (or there's no default directive at all, as ought to be
+>>>> equivalent to and preferred over "default n"), such a
+>>>> transformation is not functionally identical: Before your
+>>>> change, with !EXPERT this option defaults to y. After your
+>>>> change this option is unavailable (which resolves to it being
+>>>> off for all consuming purposes).
+>>>>
+>>>> IOW there are reasons to have "if ..." attached to the prompts
+>>>> (for this construct indeed only making the prompt conditional,
+>>>> not the entire option), but there are also cases where the
+>>>> cleanup you do is indeed desirable / helpful.
+>>>
+>>> Yeah, thanks for catching it, it is obviously a problem.
+>>>
+>>> My intention was just to "tag" somehow the options to EXPERT so that it
+>>> would show on the menu. Maybe a better, simpler, way to do it is
+>>> to add the word "EXPERT" to the one line prompt:
+>>>
+>>>  config ARM_SSBD
+>>> -	bool "Speculative Store Bypass Disable" if EXPERT
+>>> +	bool "Speculative Store Bypass Disable (EXPERT)" if EXPERT
+>>>  	depends on HAS_ALTERNATIVE
+>>>  	default y
+>>>  	help
+>>>
+>>>
+>>> What do you think?
+>>
+>> While on the surface this may look like an improvement, I don't
+>> see how it would actually help: If you read the Kconfig file
+>> itself, the dependency is seen anyway. And on the menu I don't
+>> see the point of telling someone who has enabled EXPERT that a
+>> certain option is (or is not) an expert one. If they think
+>> they're experts, so should they be treated. (It was, after all,
+>> a deliberate decision to make enabling expert mode easier, and
+>> hence easier to use for what one might consider not-really-
+>> experts. I realize saying so may be considered tendentious; I
+>> mean it in a purely technical sense, and I'd like to apologize
+>> in advance to anyone not sharing this as a possible perspective
+>> to take.)
+>>
+>> Plus, of course, the addition of such (EXPERT) markers to
+>> future options' prompts is liable to get forgotten now and then,
+>> so sooner or later we'd likely end up with an inconsistent
+>> mixture anyway.
 > 
+> I tend to agree with you on everything you wrote. The fundamental issue
+> is that we are (mis)using EXPERT to tag features that are experimental,
+> as defined by SUPPORT.md.
 > 
-> FYI I tried to build the latest QEMU on Alpine Linux 3.12 ARM64 and I
-> get:
+> It is important to be able to distinguish clearly at the kconfig level
+> options that are (security) supported from options that are
+> unsupported/experimental. Today the only way to do it is with EXPERT
+> which is not great because:
 > 
->   ninja: unknown tool 'query'
+> - it doesn't convey the idea that it is for unsupported/experimental
+>   features
+> - if you want to enable one unsupported feature, it is not clear what
+>   you have to do
 > 
-> Even after rebuilding ninja master by hand. Any ideas? I don't know much
-> about ninja.
-> 
-> 
-> So I gave up on that and I spinned up a Debian Buster x86 container for
-> this build. That one got past the "ninja: unknown tool 'query'" error.
-> The build completed without problems to the end.
-> 
-> Either way I can't reproduce the build error above.
+> So maybe we should replace EXPERT with UNSUPPORTED (or EXPERIMENTAL) in
+> the Kconfig menu?
 
-Did you run "configure" with "--without-default-devices" ?
+If you mean this to be added to prompt texts, then yes, I'd view
+this as helpful. However, ...
 
- Thomas
+> It would make it clearer that by enabling UNSUPPORTED you are going to
+> get a configuration that is not security supported. And ideally we would
+> also tag features like ACPI as UNSUPPORTED as I suggested above.
 
+... things will get uglier when (just a simple example) something
+is supported on x86, but not on Arm.
 
+Jan
 
