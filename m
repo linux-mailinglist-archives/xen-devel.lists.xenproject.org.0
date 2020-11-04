@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB0C2A63D2
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 13:01:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19059.44268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F5F2A63F5
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 13:12:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19075.44280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaHTH-00076N-KG; Wed, 04 Nov 2020 12:00:59 +0000
+	id 1kaHeT-000874-Ms; Wed, 04 Nov 2020 12:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19059.44268; Wed, 04 Nov 2020 12:00:59 +0000
+Received: by outflank-mailman (output) from mailman id 19075.44280; Wed, 04 Nov 2020 12:12:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,92 +23,133 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaHTH-00075x-H9; Wed, 04 Nov 2020 12:00:59 +0000
-Received: by outflank-mailman (input) for mailman id 19059;
- Wed, 04 Nov 2020 12:00:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kaHeT-00086f-Jg; Wed, 04 Nov 2020 12:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 19075;
+ Wed, 04 Nov 2020 12:12:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vd1q=EK=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
- id 1kaHTG-00075s-Nx
- for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 12:00:58 +0000
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3e54468-407c-4c65-a638-e253e76eee06;
- Wed, 04 Nov 2020 12:00:57 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id c17so2390184wrc.11
- for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 04:00:57 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id t199sm1871437wmt.46.2020.11.04.04.00.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2020 04:00:56 -0800 (PST)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=NDu8=EK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kaHeS-00086a-PP
+ for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 12:12:32 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3183ab08-46a1-4f4d-821d-2a753ca1653d;
+ Wed, 04 Nov 2020 12:12:31 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kaHeR-0004J1-CE; Wed, 04 Nov 2020 12:12:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kaHeR-000480-3B; Wed, 04 Nov 2020 12:12:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kaHeR-00015c-1c; Wed, 04 Nov 2020 12:12:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Vd1q=EK=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
-	id 1kaHTG-00075s-Nx
-	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 12:00:58 +0000
-X-Inumbo-ID: c3e54468-407c-4c65-a638-e253e76eee06
-Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c3e54468-407c-4c65-a638-e253e76eee06;
-	Wed, 04 Nov 2020 12:00:57 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id c17so2390184wrc.11
-        for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 04:00:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=QUSmpWIO++p+EaBmzWHWB9j11K6ZCt/BSPj+8TR1MOs=;
-        b=D9MuESqjHpowOfsrDMcQbbWJN04gOFzE8gcX3zYv8JgQl+0Jfap1n95KvENC3AKKmt
-         eOIEIhvK+DjzbHrM/0uNF04GWz9uoHtAhTp24XGuW8596eKyQAui8csKt01lSvAyNZvv
-         rqBecy1dGNnVMesusVUNS42izR2Atqccowzm7/mdRw0esoRG/L4o/TLc3OlOihw+Ug+A
-         UHSTGsl5q0l2ajeup5cymWwqu1q1O/5tjGJl32eOJMr8oZx7o11dhqlcUnIy50UK+pWX
-         Q62/vlnGFGUT7/rs39O6fQMwX2mIEH74F5IMMlHsQ0vk8mMeS5xaE4JtmMbAx17Gwix7
-         +iYg==
-X-Gm-Message-State: AOAM533k/PK5wYuv06vgtzPqdZU7B/w5tPPdd0MMgWn/hyL5vjiy0SHR
-	eUUm6H5o9ByPtzcu5C4O/kg=
-X-Google-Smtp-Source: ABdhPJyP8064AZcp00/CMnWH1Yf6wcBkvvv9giu/iKtPrEyY0N09EFUoBTXsieznUVpGwXIewZnkPQ==
-X-Received: by 2002:a5d:4148:: with SMTP id c8mr31429901wrq.261.1604491256613;
-        Wed, 04 Nov 2020 04:00:56 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
-        by smtp.gmail.com with ESMTPSA id t199sm1871437wmt.46.2020.11.04.04.00.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2020 04:00:56 -0800 (PST)
-Date: Wed, 4 Nov 2020 12:00:54 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Cc: davem@davemloft.net, kuba@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH 05/12] net: xen-netback: xenbus: Demote nonconformant
- kernel-doc headers
-Message-ID: <20201104120054.jaukbhblpooi5hwf@liuwe-devbox-debian-v2>
-References: <20201104090610.1446616-1-lee.jones@linaro.org>
- <20201104090610.1446616-6-lee.jones@linaro.org>
+	(envelope-from <SRS0=NDu8=EK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kaHeS-00086a-PP
+	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 12:12:32 +0000
+X-Inumbo-ID: 3183ab08-46a1-4f4d-821d-2a753ca1653d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 3183ab08-46a1-4f4d-821d-2a753ca1653d;
+	Wed, 04 Nov 2020 12:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8Zt+WUGH0S9wZtCvq6zG31psDFkjRQMAZgs47S9jW1o=; b=ALpJT6YvRdC1XngtcDBzxoFbqf
+	dJeMgb/r7qxt4Md1IED/aNuoHzV2LZsmzR2rLcI6h2I7iHO9+Jt9nyBN5G7mAt969x9c9OML5lfqW
+	gbIjOognuthfTZdINrd5893sm/q5Ql14BfAsVJHHNQRaigCSPFtw7pOWmOIt5U4fTVO4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kaHeR-0004J1-CE; Wed, 04 Nov 2020 12:12:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kaHeR-000480-3B; Wed, 04 Nov 2020 12:12:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kaHeR-00015c-1c; Wed, 04 Nov 2020 12:12:31 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156395-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201104090610.1446616-6-lee.jones@linaro.org>
-User-Agent: NeoMutt/20180716
+Subject: [xen-unstable-smoke test] 156395: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9ff9705647646aa937b5f5c1426a64c69a62b3bd
+X-Osstest-Versions-That:
+    xen=7056f2f89f03f2f804ac7e776c7b2b000cd716cd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 Nov 2020 12:12:31 +0000
 
-On Wed, Nov 04, 2020 at 09:06:03AM +0000, Lee Jones wrote:
-> Fixes the following W=1 kernel build warning(s):
-> 
->  drivers/net/xen-netback/xenbus.c:419: warning: Function parameter or member 'dev' not described in 'frontend_changed'
->  drivers/net/xen-netback/xenbus.c:419: warning: Function parameter or member 'frontend_state' not described in 'frontend_changed'
->  drivers/net/xen-netback/xenbus.c:1001: warning: Function parameter or member 'dev' not described in 'netback_probe'
->  drivers/net/xen-netback/xenbus.c:1001: warning: Function parameter or member 'id' not described in 'netback_probe'
-> 
-> Cc: Wei Liu <wei.liu@kernel.org>
+flight 156395 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156395/
 
-If this is ever needed:
+Failures :-/ but no regressions.
 
-Acked-by: Wei Liu <wei.liu@kernel.org>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  9ff9705647646aa937b5f5c1426a64c69a62b3bd
+baseline version:
+ xen                  7056f2f89f03f2f804ac7e776c7b2b000cd716cd
+
+Last test of basis   156322  2020-10-30 20:02:33 Z    4 days
+Testing same since   156395  2020-11-04 09:00:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Frédéric Pierret (fepitre) <frederic.pierret@qubes-os.org>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   7056f2f89f..9ff9705647  9ff9705647646aa937b5f5c1426a64c69a62b3bd -> smoke
 
