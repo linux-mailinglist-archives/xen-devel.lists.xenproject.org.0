@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C364C2A5FD0
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 09:44:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.18891.43972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF0A2A6020
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 10:06:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.18908.44004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaEOQ-00041E-MZ; Wed, 04 Nov 2020 08:43:46 +0000
+	id 1kaEkM-00061J-TH; Wed, 04 Nov 2020 09:06:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 18891.43972; Wed, 04 Nov 2020 08:43:46 +0000
+Received: by outflank-mailman (output) from mailman id 18908.44004; Wed, 04 Nov 2020 09:06:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,169 +23,227 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaEOQ-00040p-JE; Wed, 04 Nov 2020 08:43:46 +0000
-Received: by outflank-mailman (input) for mailman id 18891;
- Wed, 04 Nov 2020 08:43:45 +0000
+	id 1kaEkM-00060u-Pk; Wed, 04 Nov 2020 09:06:26 +0000
+Received: by outflank-mailman (input) for mailman id 18908;
+ Wed, 04 Nov 2020 09:06:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ed9z=EK=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1kaEOP-00040k-Ky
- for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 08:43:45 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 68352186-03c0-4acc-91a3-a38114ed8126;
- Wed, 04 Nov 2020 08:43:44 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-524-RJP7EuIzPaOQZilfVSpIUQ-1; Wed, 04 Nov 2020 03:43:42 -0500
-Received: by mail-wr1-f71.google.com with SMTP id p12so1453748wrx.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 00:43:42 -0800 (PST)
-Received: from localhost.localdomain (234.red-83-42-66.dynamicip.rima-tde.net.
- [83.42.66.234])
- by smtp.gmail.com with ESMTPSA id u5sm1311657wml.13.2020.11.04.00.43.39
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=okXs=EK=linaro.org=lee.jones@srs-us1.protection.inumbo.net>)
+ id 1kaEkL-00060O-1U
+ for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 09:06:25 +0000
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1abe8c56-48e0-488e-b8cf-7aec765fbb93;
+ Wed, 04 Nov 2020 09:06:23 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id b8so21210001wrn.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 01:06:23 -0800 (PST)
+Received: from dell.default ([91.110.221.242])
+ by smtp.gmail.com with ESMTPSA id e25sm1607823wrc.76.2020.11.04.01.06.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2020 00:43:40 -0800 (PST)
+ Wed, 04 Nov 2020 01:06:22 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Ed9z=EK=redhat.com=philmd@srs-us1.protection.inumbo.net>)
-	id 1kaEOP-00040k-Ky
-	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 08:43:45 +0000
-X-Inumbo-ID: 68352186-03c0-4acc-91a3-a38114ed8126
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 68352186-03c0-4acc-91a3-a38114ed8126;
-	Wed, 04 Nov 2020 08:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604479424;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AINBmnp1bWLA1LEpK/rcM7CoffR1YWyCikg181rfSi4=;
-	b=JlOwjAsBoxX4KdjWUg+aAwhAOsmaDxiv5iMXa7iMHzscaHs6ktPZv0PLMXhj3YIWPQAgFe
-	JKTBnlHNknkrG+1/5NffNkmMm+jf7KYPp2MrZOp6/dThVfZ+gREr8rReCfiD2ugFAuit3B
-	7qBOFg4YntVyxXIirTBD8Wzm8DH9xBs=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-524-RJP7EuIzPaOQZilfVSpIUQ-1; Wed, 04 Nov 2020 03:43:42 -0500
-X-MC-Unique: RJP7EuIzPaOQZilfVSpIUQ-1
-Received: by mail-wr1-f71.google.com with SMTP id p12so1453748wrx.3
-        for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 00:43:42 -0800 (PST)
+	(envelope-from <SRS0=okXs=EK=linaro.org=lee.jones@srs-us1.protection.inumbo.net>)
+	id 1kaEkL-00060O-1U
+	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 09:06:25 +0000
+X-Inumbo-ID: 1abe8c56-48e0-488e-b8cf-7aec765fbb93
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 1abe8c56-48e0-488e-b8cf-7aec765fbb93;
+	Wed, 04 Nov 2020 09:06:23 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id b8so21210001wrn.0
+        for <xen-devel@lists.xenproject.org>; Wed, 04 Nov 2020 01:06:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZVySsFYAxVyvKjZwFTKaFMnVATseHBsi4tJ0dIp9TLE=;
+        b=K1+Rdz5ogf/5T2jMdF3v9m88jLY/gNqsMKJm061QdgaEQGjK4st39GT4kTZK6c7eAv
+         3cJicgPoZBh9YEvxLFGZcZyHE0XnNqBy1XOiWQuoMPDL9faO4RhxQ9VP++HCtvthQR9S
+         799P3oQD3ZEWTAn8Z+1PDWW2WOSIRjZ/YNizWauRHAov45YgSsQGFvDCGkpGdXI1KiOg
+         QyMiZ+qAf84rNKlDHGrCMb3Z298LfBhK4STT2/MKrClXtDUj1+DxmNn50j9f2xT6h0lS
+         2FLRla4Vx5B06Pb85+k62n0XQr8agXXsfRziu37OjAXEKgzSYzjV1kzmZ4S3HLfgeg3X
+         jRpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=AINBmnp1bWLA1LEpK/rcM7CoffR1YWyCikg181rfSi4=;
-        b=b0wDPtauIvQG5ODGzeD11rOdnmZu03SCZWvs9rsWlgVs6qD6jlcDxbaVVeaaK5t47E
-         w2ASsy8p/lKJVIp26Rb/Ur5BDpKadeCDsWYH12uYkDreLG0eKpkneODVaGkMwy+0MJkz
-         BC+jiMaMq/BATCyelTJCnGo+/SgiBCJ0e58j1k/XJZJUONmBmMECbaBfi6bK4hOkngRq
-         nKgIhtyiQ1kNni44wli5Qqdyti/vHHXisCEMmNq5b6UtB7M8gM/Za/DlVulzPfmT+Tza
-         qu8Dbj8AY+yvM+hZlynMrm2nWobx0XlRMuPravOGNb6decsHtoT7CLV441mh3QRqz7K8
-         2dFA==
-X-Gm-Message-State: AOAM532aHFpx5fPjazEi5WA8FyCDGBliOBIBub3RddYD5C+fOfubmMV9
-	Elrm/E0B/kJ4roGEGVMTmZmHxYuNjgZT4wzOd8ZsOvD7etEJOvpFSD7w32zRa3J1SRSq/XAlS+Q
-	NOZwiZLCZOLk1TJQTdHkpTnevPKY=
-X-Received: by 2002:a1c:6782:: with SMTP id b124mr3528113wmc.117.1604479421393;
-        Wed, 04 Nov 2020 00:43:41 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyO4zhDM8ZE9YI+Bb3lljj4jjXBr4C5MlBdNUU1BGAXUMIJaqRRVxrwdwAf4OskguQTBvWGag==
-X-Received: by 2002:a1c:6782:: with SMTP id b124mr3528078wmc.117.1604479421239;
-        Wed, 04 Nov 2020 00:43:41 -0800 (PST)
-Received: from localhost.localdomain (234.red-83-42-66.dynamicip.rima-tde.net. [83.42.66.234])
-        by smtp.gmail.com with ESMTPSA id u5sm1311657wml.13.2020.11.04.00.43.39
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZVySsFYAxVyvKjZwFTKaFMnVATseHBsi4tJ0dIp9TLE=;
+        b=a1FL8GsqSgKe+OKFkJ/NQsP76ZngEhsvjj7uLBLzTq4Vr+2xRo87W02QehvV8tjKm9
+         YbRF+W9ToOlITbapt9Z2sB/1DOfHVXYCMgOZNjiWKVdIQYpsvskRN6fZiwBrE59se+Su
+         iulQSS1FRfgj+fRq1rYG8WL3lnxlP1bgDCbZea/k6+zoQi9YxJPuUo0Qz4+Bhr/1qXAa
+         a48SxaBR5BgzcfLWGmvwYKp3SVGkxTgEGdMpRFUNRpcxqZ3d8pRPhvNkKHBbuUc1IHXw
+         7OoZAPgnY/EMpeMj/T7s8Matc4qUNG5R1wxruxEDSlJ8JrU4Hog6AphMG39OjW7JQnmv
+         WHPg==
+X-Gm-Message-State: AOAM5318znZdnGV2yF086E/PsziplpR4VVnVrcKeG2gdYEowbTdGStYH
+	vhp8UEunn1r8ZCCRu8OFHmX2Bg==
+X-Google-Smtp-Source: ABdhPJzn8d8Abh2QVS+FdXToKUqdpB6TwiMSAYlD5+ls0hMcq+h/pWmcBsJhdaEKInesWzdpNiQxsw==
+X-Received: by 2002:adf:e384:: with SMTP id e4mr31089426wrm.227.1604480782887;
+        Wed, 04 Nov 2020 01:06:22 -0800 (PST)
+Received: from dell.default ([91.110.221.242])
+        by smtp.gmail.com with ESMTPSA id e25sm1607823wrc.76.2020.11.04.01.06.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2020 00:43:40 -0800 (PST)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Christian Borntraeger <borntraeger@de.ibm.com>,
-	Greg Kurz <groug@kaod.org>,
-	Fam Zheng <fam@euphon.net>,
-	Richard Henderson <rth@twiddle.net>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	qemu-s390x@nongnu.org,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Christian Schoenebeck <qemu_oss@crudebyte.com>,
-	Wainer dos Santos Moschetta <wainersm@redhat.com>,
-	"Daniel P . Berrange" <berrange@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
+        Wed, 04 Nov 2020 01:06:22 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: davem@davemloft.net,
+	kuba@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee.jones@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	bpf@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dany Madden <drt@linux.ibm.com>,
+	Daris A Nevil <dnevil@snmc.com>,
+	Dustin McIntire <dustin@sensoria.com>,
+	Erik Stahlman <erik@vt.edu>,
+	Geoff Levand <geoff@infradead.org>,
+	Grygorii Strashko <grygorii.strashko@ti.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Ishizaki Kou <kou.ishizaki@toshiba.co.jp>,
+	Ivan Khoronzhuk <ivan.khoronzhuk@linaro.org>,
+	Jens Osterkamp <Jens.Osterkamp@de.ibm.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Allen <jallen@linux.vnet.ibm.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	John Williams <john.williams@xilinx.com>,
+	Juergen Gross <jgross@suse.com>,
+	KP Singh <kpsingh@chromium.org>,
+	Kurt Kanzenbach <kurt@linutronix.de>,
+	Lijun Pan <ljp@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-usb@vger.kernel.org,
+	Martin Habets <mhabets@solarflare.com>,
+	Martin KaFai Lau <kafai@fb.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Michal Simek <michal.simek@xilinx.com>,
+	Microchip Linux Driver Support <UNGLinuxDriver@microchip.com>,
+	netdev@vger.kernel.org,
+	Nicolas Pitre <nico@fluxnic.net>,
 	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH-for-5.2 v2 2/4] hw/9pfs: Fix Kconfig dependency problem between 9pfs and Xen
-Date: Wed,  4 Nov 2020 09:43:25 +0100
-Message-Id: <20201104084327.3010593-3-philmd@redhat.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201104084327.3010593-1-philmd@redhat.com>
-References: <20201104084327.3010593-1-philmd@redhat.com>
+	Paul Mackerras <paulus@samba.org>,
+	Peter Cammaert <pc@denkart.be>,
+	Russell King <rmk@arm.linux.org.uk>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Santiago Leon <santi_leon@yahoo.com>,
+	Shannon Nelson <snelson@pensando.io>,
+	Song Liu <songliubraving@fb.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Sukadev Bhattiprolu <sukadev@linux.ibm.com>,
+	Thomas Falcon <tlfalcon@linux.vnet.ibm.com>,
+	Utz Bacher <utz.bacher@de.ibm.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Woojung Huh <woojung.huh@microchip.com>,
+	xen-devel@lists.xenproject.org,
+	Yonghong Song <yhs@fb.com>
+Subject: [PATCH 00/12] [Set 2] Rid W=1 warnings in Net
+Date: Wed,  4 Nov 2020 09:05:58 +0000
+Message-Id: <20201104090610.1446616-1-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Fixes './configure --without-default-devices --enable-xen' build:
+This set is part of a larger effort attempting to clean-up W=1
+kernel builds, which are currently overwhelmingly riddled with
+niggly little warnings.
 
-  /usr/bin/ld: libcommon.fa.p/hw_xen_xen-legacy-backend.c.o: in function `xen_be_register_common':
-  hw/xen/xen-legacy-backend.c:754: undefined reference to `xen_9pfs_ops'
-  /usr/bin/ld: libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x8): undefined reference to `local_ops'
-  /usr/bin/ld: libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x20): undefined reference to `synth_ops'
-  /usr/bin/ld: libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x38): undefined reference to `proxy_ops'
-  collect2: error: ld returned 1 exit status
+This is the last set.
 
-Fixes: b2c00bce54c ("meson: convert hw/9pfs, cleanup")
-Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
----
-I'm not sure b2c00bce54c is the real culprit
+Lee Jones (12):
+  net: usb: lan78xx: Remove lots of set but unused 'ret' variables
+  net: ethernet: smsc: smc911x: Mark 'status' as __maybe_unused
+  net: ethernet: xilinx: xilinx_emaclite: Document 'txqueue' even if it
+    is unused
+  net: ethernet: smsc: smc91x: Demote non-conformant kernel function
+    header
+  net: xen-netback: xenbus: Demote nonconformant kernel-doc headers
+  net: ethernet: ti: am65-cpsw-qos: Demote non-conformant function
+    header
+  net: ethernet: ti: am65-cpts: Document am65_cpts_rx_enable()'s 'en'
+    parameter
+  net: xen-netfront: Demote non-kernel-doc headers to standard comment
+    blocks
+  net: ethernet: ibm: ibmvnic: Fix some kernel-doc misdemeanours
+  net: ethernet: toshiba: ps3_gelic_net: Fix some kernel-doc
+    misdemeanours
+  net: ethernet: toshiba: spider_net: Document a whole bunch of function
+    parameters
+  net: ethernet: ibm: ibmvnic: Fix some kernel-doc issues
 
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
+ drivers/net/ethernet/ibm/ibmvnic.c            |  27 ++-
+ drivers/net/ethernet/smsc/smc911x.c           |   6 +-
+ drivers/net/ethernet/smsc/smc91x.c            |   2 +-
+ drivers/net/ethernet/ti/am65-cpsw-qos.c       |   2 +-
+ drivers/net/ethernet/ti/am65-cpts.c           |   2 +-
+ drivers/net/ethernet/toshiba/ps3_gelic_net.c  |   9 +-
+ drivers/net/ethernet/toshiba/spider_net.c     |  18 +-
+ drivers/net/ethernet/xilinx/xilinx_emaclite.c |   1 +
+ drivers/net/usb/lan78xx.c                     | 212 +++++++++---------
+ drivers/net/xen-netback/xenbus.c              |   4 +-
+ drivers/net/xen-netfront.c                    |   6 +-
+ 11 files changed, 141 insertions(+), 148 deletions(-)
+
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: bpf@vger.kernel.org
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Dany Madden <drt@linux.ibm.com>
+Cc: Daris A Nevil <dnevil@snmc.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Dustin McIntire <dustin@sensoria.com>
+Cc: Erik Stahlman <erik@vt.edu>
+Cc: Geoff Levand <geoff@infradead.org>
+Cc: Grygorii Strashko <grygorii.strashko@ti.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Ishizaki Kou <kou.ishizaki@toshiba.co.jp>
+Cc: Ivan Khoronzhuk <ivan.khoronzhuk@linaro.org>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Jens Osterkamp <Jens.Osterkamp@de.ibm.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: John Allen <jallen@linux.vnet.ibm.com>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: John Williams <john.williams@xilinx.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: KP Singh <kpsingh@chromium.org>
+Cc: Kurt Kanzenbach <kurt@linutronix.de>
+Cc: Lijun Pan <ljp@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-usb@vger.kernel.org
+Cc: Martin Habets <mhabets@solarflare.com>
+Cc: Martin KaFai Lau <kafai@fb.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Michal Simek <michal.simek@xilinx.com>
+Cc: Microchip Linux Driver Support <UNGLinuxDriver@microchip.com>
+Cc: netdev@vger.kernel.org
+Cc: Nicolas Pitre <nico@fluxnic.net>
 Cc: Paul Durrant <paul@xen.org>
+Cc: Paul Mackerras <paulus@samba.org>
+Cc: Peter Cammaert <pc@denkart.be>
+Cc: Russell King <rmk@arm.linux.org.uk>
+Cc: Rusty Russell <rusty@rustcorp.com.au>
+Cc: Santiago Leon <santi_leon@yahoo.com>
+Cc: Shannon Nelson <snelson@pensando.io>
+Cc: Song Liu <songliubraving@fb.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Sukadev Bhattiprolu <sukadev@linux.ibm.com>
+Cc: Thomas Falcon <tlfalcon@linux.vnet.ibm.com>
+Cc: Utz Bacher <utz.bacher@de.ibm.com>
+Cc: Wei Liu <wei.liu@kernel.org>
+Cc: Woojung Huh <woojung.huh@microchip.com>
 Cc: xen-devel@lists.xenproject.org
-Cc: Greg Kurz <groug@kaod.org>
-Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>
----
- hw/9pfs/Kconfig     | 4 ----
- hw/9pfs/meson.build | 2 +-
- 2 files changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/hw/9pfs/Kconfig b/hw/9pfs/Kconfig
-index d3ebd737301..3ae57496613 100644
---- a/hw/9pfs/Kconfig
-+++ b/hw/9pfs/Kconfig
-@@ -2,12 +2,8 @@ config FSDEV_9P
-     bool
-     depends on VIRTFS
- 
--config 9PFS
--    bool
--
- config VIRTIO_9P
-     bool
-     default y
-     depends on VIRTFS && VIRTIO
-     select FSDEV_9P
--    select 9PFS
-diff --git a/hw/9pfs/meson.build b/hw/9pfs/meson.build
-index cc094262122..99be5d91196 100644
---- a/hw/9pfs/meson.build
-+++ b/hw/9pfs/meson.build
-@@ -15,6 +15,6 @@
-   'coxattr.c',
- ))
- fs_ss.add(when: 'CONFIG_XEN', if_true: files('xen-9p-backend.c'))
--softmmu_ss.add_all(when: 'CONFIG_9PFS', if_true: fs_ss)
-+softmmu_ss.add_all(when: 'CONFIG_FSDEV_9P', if_true: fs_ss)
- 
- specific_ss.add(when: 'CONFIG_VIRTIO_9P', if_true: files('virtio-9p-device.c'))
+Cc: Yonghong Song <yhs@fb.com>
 -- 
-2.26.2
+2.25.1
 
 
