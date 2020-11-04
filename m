@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C682A6564
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 14:42:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19130.44362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0742A65CF
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Nov 2020 15:03:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19143.44374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaJ33-0007zh-NM; Wed, 04 Nov 2020 13:42:01 +0000
+	id 1kaJNR-0001TD-G4; Wed, 04 Nov 2020 14:03:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19130.44362; Wed, 04 Nov 2020 13:42:01 +0000
+Received: by outflank-mailman (output) from mailman id 19143.44374; Wed, 04 Nov 2020 14:03:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,200 +23,226 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaJ33-0007zI-Jt; Wed, 04 Nov 2020 13:42:01 +0000
-Received: by outflank-mailman (input) for mailman id 19130;
- Wed, 04 Nov 2020 13:40:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kaJNR-0001Sn-C1; Wed, 04 Nov 2020 14:03:05 +0000
+Received: by outflank-mailman (input) for mailman id 19143;
+ Wed, 04 Nov 2020 14:03:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w5Gd=EK=huawei.com=zhangxinhao1@srs-us1.protection.inumbo.net>)
- id 1kaJ1I-0007xK-8u
- for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 13:40:12 +0000
-Received: from szxga05-in.huawei.com (unknown [45.249.212.191])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a2a619a-caf9-4cf0-bb75-30da3e1cd77a;
- Wed, 04 Nov 2020 13:40:04 +0000 (UTC)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CR76H58CBzhg5H;
- Wed,  4 Nov 2020 21:39:03 +0800 (CST)
-Received: from huawei.com (10.175.101.6) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.487.0; Wed, 4 Nov 2020
- 21:38:59 +0800
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=oYrD=EK=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1kaJNP-0001Si-Az
+ for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 14:03:03 +0000
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 284b590e-2be6-4c20-8c1b-07a31e17e590;
+ Wed, 04 Nov 2020 14:03:01 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A4DsuoD112289;
+ Wed, 4 Nov 2020 14:02:56 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 34hhw2pud5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 04 Nov 2020 14:02:56 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A4E0jWQ009726;
+ Wed, 4 Nov 2020 14:02:55 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 34hw0fjnn9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 04 Nov 2020 14:02:55 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A4E2pcr004324;
+ Wed, 4 Nov 2020 14:02:52 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 04 Nov 2020 06:02:51 -0800
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+ id 8D47C6A00F9; Wed,  4 Nov 2020 09:04:38 -0500 (EST)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=w5Gd=EK=huawei.com=zhangxinhao1@srs-us1.protection.inumbo.net>)
-	id 1kaJ1I-0007xK-8u
-	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 13:40:12 +0000
-X-Inumbo-ID: 4a2a619a-caf9-4cf0-bb75-30da3e1cd77a
-Received: from szxga05-in.huawei.com (unknown [45.249.212.191])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4a2a619a-caf9-4cf0-bb75-30da3e1cd77a;
-	Wed, 04 Nov 2020 13:40:04 +0000 (UTC)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
-	by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CR76H58CBzhg5H;
-	Wed,  4 Nov 2020 21:39:03 +0800 (CST)
-Received: from huawei.com (10.175.101.6) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.487.0; Wed, 4 Nov 2020
- 21:38:59 +0800
-From: Xinhao Zhang <zhangxinhao1@huawei.com>
-To: <qemu-devel@nongnu.org>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <anthony.perard@citrix.com>, <paul@xen.org>,
-	<dengkai1@huawei.com>, <alex.chen@huawei.com>, <qemu-trivial@nongnu.org>
-Subject: [PATCH] hw/xen: Don't use '#' flag of printf format
-Date: Wed, 4 Nov 2020 21:37:09 +0800
-Message-ID: <20201104133709.3326630-1-zhangxinhao1@huawei.com>
-X-Mailer: git-send-email 2.29.0-rc1
+	(envelope-from <SRS0=oYrD=EK=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+	id 1kaJNP-0001Si-Az
+	for xen-devel@lists.xenproject.org; Wed, 04 Nov 2020 14:03:03 +0000
+X-Inumbo-ID: 284b590e-2be6-4c20-8c1b-07a31e17e590
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 284b590e-2be6-4c20-8c1b-07a31e17e590;
+	Wed, 04 Nov 2020 14:03:01 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A4DsuoD112289;
+	Wed, 4 Nov 2020 14:02:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=co77JaRJ5bF4cYzdCBPJuo/NyzpVk8qYpRiUCdlnp68=;
+ b=jVhuBoPc/dJ+iGyewioD5U7LQ3IeSTP587CVWuXApuERGNRAL+7fS27R7ef0ch8tnyWd
+ gZ5sSOV3SuvTV7/6FlY5sBNh337J620i2ZInM/EnkbJEvAtR7q2oJ5VBEpO5c2plxBUZ
+ AczmPAqHZ7dy9av2C/jYX8xIJ2rKtRYSwNOXczHaU7wy2OjpVOXFcqUDtE4RXJPdGaIe
+ gEhBv6gISN1YEgdxfafSqu2yjasV77DQgr/+bou+BP1G41QwnSJET9OnxuIIBSOt2lrr
+ Wb9784lVSgtAAs8p/ECZ/w9Xw9onIViN/QhaW6WkhLJNe5amtRFI4EQJAyvt6lijWXkx hA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2120.oracle.com with ESMTP id 34hhw2pud5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 04 Nov 2020 14:02:56 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A4E0jWQ009726;
+	Wed, 4 Nov 2020 14:02:55 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3020.oracle.com with ESMTP id 34hw0fjnn9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 04 Nov 2020 14:02:55 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A4E2pcr004324;
+	Wed, 4 Nov 2020 14:02:52 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Wed, 04 Nov 2020 06:02:51 -0800
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+	id 8D47C6A00F9; Wed,  4 Nov 2020 09:04:38 -0500 (EST)
+Date: Wed, 4 Nov 2020 09:04:38 -0500
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
+        Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to
+ swiotlb_tbl_map_single
+Message-ID: <20201104140438.GA16892@char.us.oracle.com>
+References: <20201023063309.3472987-1-hch@lst.de>
+ <20201103094643.GA18936@lst.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.101.6]
-X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201103094643.GA18936@lst.de>
+User-Agent: Mutt/1.9.1 (2017-09-22)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9794 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxlogscore=999
+ phishscore=0 bulkscore=0 spamscore=0 malwarescore=0 mlxscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2011040105
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9794 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 malwarescore=0 mlxscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 mlxlogscore=999 phishscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011040104
 
-Fix code style. Don't use '#' flag of printf format ('%#') in
-format strings, use '0x' prefix instead
+On Tue, Nov 03, 2020 at 10:46:43AM +0100, Christoph Hellwig wrote:
+> ping?
 
-Signed-off-by: Xinhao Zhang <zhangxinhao1@huawei.com>
-Signed-off-by: Kai Deng <dengkai1@huawei.com>
----
- hw/xen/xen_pt.c             | 10 +++++-----
- hw/xen/xen_pt_config_init.c |  6 +++---
- hw/xen/xen_pt_msi.c         | 16 ++++++++--------
- 3 files changed, 16 insertions(+), 16 deletions(-)
+Hopefully this goes through. I am in the process of testing it but ran
+into testing issues that I believe are unrelated.
 
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 6d359ee486..a5f3dd590c 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -489,7 +489,7 @@ static int xen_pt_register_regions(XenPCIPassthroughState *s, uint16_t *cmd)
-         pci_register_bar(&s->dev, i, type, &s->bar[i]);
- 
-         XEN_PT_LOG(&s->dev, "IO region %i registered (size=0x%08"PRIx64
--                   " base_addr=0x%08"PRIx64" type: %#x)\n",
-+                   " base_addr=0x%08"PRIx64" type: 0x%x)\n",
-                    i, r->size, r->base_addr, type);
-     }
- 
-@@ -578,7 +578,7 @@ static void xen_pt_check_bar_overlap(PCIBus *bus, PCIDevice *d, void *opaque)
-         if (ranges_overlap(arg->addr, arg->size, r->addr, r->size)) {
-             XEN_PT_WARN(&s->dev,
-                         "Overlapped to device [%02x:%02x.%d] Region: %i"
--                        " (addr: %#"FMT_PCIBUS", len: %#"FMT_PCIBUS")\n",
-+                        " (addr: 0x%"FMT_PCIBUS", len: 0x%"FMT_PCIBUS")\n",
-                         pci_bus_num(bus), PCI_SLOT(d->devfn),
-                         PCI_FUNC(d->devfn), i, r->addr, r->size);
-             arg->rc = true;
-@@ -618,8 +618,8 @@ static void xen_pt_region_update(XenPCIPassthroughState *s,
-     pci_for_each_device(pci_get_bus(d), pci_dev_bus_num(d),
-                         xen_pt_check_bar_overlap, &args);
-     if (args.rc) {
--        XEN_PT_WARN(d, "Region: %d (addr: %#"FMT_PCIBUS
--                    ", len: %#"FMT_PCIBUS") is overlapped.\n",
-+        XEN_PT_WARN(d, "Region: %d (addr: 0x%"FMT_PCIBUS
-+                    ", len: 0x%"FMT_PCIBUS") is overlapped.\n",
-                     bar, sec->offset_within_address_space,
-                     int128_get64(sec->size));
-     }
-@@ -786,7 +786,7 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
- 
-     /* register real device */
-     XEN_PT_LOG(d, "Assigning real physical device %02x:%02x.%d"
--               " to devfn %#x\n",
-+               " to devfn 0x%x\n",
-                s->hostaddr.bus, s->hostaddr.slot, s->hostaddr.function,
-                s->dev.devfn);
- 
-diff --git a/hw/xen/xen_pt_config_init.c b/hw/xen/xen_pt_config_init.c
-index c8724cc7c8..c5c4e943a8 100644
---- a/hw/xen/xen_pt_config_init.c
-+++ b/hw/xen/xen_pt_config_init.c
-@@ -1622,7 +1622,7 @@ static int xen_pt_pcie_size_init(XenPCIPassthroughState *s,
-         case PCI_EXP_TYPE_PCIE_BRIDGE:
-         case PCI_EXP_TYPE_RC_EC:
-         default:
--            XEN_PT_ERR(d, "Unsupported device/port type %#x.\n", type);
-+            XEN_PT_ERR(d, "Unsupported device/port type 0x%x.\n", type);
-             return -1;
-         }
-     }
-@@ -1645,11 +1645,11 @@ static int xen_pt_pcie_size_init(XenPCIPassthroughState *s,
-         case PCI_EXP_TYPE_PCIE_BRIDGE:
-         case PCI_EXP_TYPE_RC_EC:
-         default:
--            XEN_PT_ERR(d, "Unsupported device/port type %#x.\n", type);
-+            XEN_PT_ERR(d, "Unsupported device/port type 0x%x.\n", type);
-             return -1;
-         }
-     } else {
--        XEN_PT_ERR(d, "Unsupported capability version %#x.\n", version);
-+        XEN_PT_ERR(d, "Unsupported capability version 0x%x.\n", version);
-         return -1;
-     }
- 
-diff --git a/hw/xen/xen_pt_msi.c b/hw/xen/xen_pt_msi.c
-index fb4b887b92..b71563f98a 100644
---- a/hw/xen/xen_pt_msi.c
-+++ b/hw/xen/xen_pt_msi.c
-@@ -123,7 +123,7 @@ static int msi_msix_setup(XenPCIPassthroughState *s,
-             *ppirq = XEN_PT_UNASSIGNED_PIRQ;
-         } else {
-             XEN_PT_LOG(&s->dev, "requested pirq %d for MSI%s"
--                       " (vec: %#x, entry: %#x)\n",
-+                       " (vec: 0x%x, entry: 0x%x)\n",
-                        *ppirq, is_msix ? "-X" : "", gvec, msix_entry);
-         }
-     }
-@@ -142,7 +142,7 @@ static int msi_msix_setup(XenPCIPassthroughState *s,
-                                      msix_entry, table_base);
-         if (rc) {
-             XEN_PT_ERR(&s->dev,
--                       "Mapping of MSI%s (err: %i, vec: %#x, entry %#x)\n",
-+                       "Mapping of MSI%s (err: %i, vec: 0x%x, entry 0x%x)\n",
-                        is_msix ? "-X" : "", errno, gvec, msix_entry);
-             return rc;
-         }
-@@ -165,8 +165,8 @@ static int msi_msix_update(XenPCIPassthroughState *s,
-     int rc = 0;
-     uint64_t table_addr = 0;
- 
--    XEN_PT_LOG(d, "Updating MSI%s with pirq %d gvec %#x gflags %#x"
--               " (entry: %#x)\n",
-+    XEN_PT_LOG(d, "Updating MSI%s with pirq %d gvec 0x%x gflags 0x%x"
-+               " (entry: 0x%x)\n",
-                is_msix ? "-X" : "", pirq, gvec, gflags, msix_entry);
- 
-     if (is_msix) {
-@@ -208,11 +208,11 @@ static int msi_msix_disable(XenPCIPassthroughState *s,
-     }
- 
-     if (is_binded) {
--        XEN_PT_LOG(d, "Unbind MSI%s with pirq %d, gvec %#x\n",
-+        XEN_PT_LOG(d, "Unbind MSI%s with pirq %d, gvec 0x%x\n",
-                    is_msix ? "-X" : "", pirq, gvec);
-         rc = xc_domain_unbind_msi_irq(xen_xc, xen_domid, gvec, pirq, gflags);
-         if (rc) {
--            XEN_PT_ERR(d, "Unbinding of MSI%s failed. (err: %d, pirq: %d, gvec: %#x)\n",
-+            XEN_PT_ERR(d, "Unbinding of MSI%s failed. (err: %d, pirq: %d, gvec: 0x%x)\n",
-                        is_msix ? "-X" : "", errno, pirq, gvec);
-             return rc;
-         }
-@@ -539,7 +539,7 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
-     }
- 
-     if (id != PCI_CAP_ID_MSIX) {
--        XEN_PT_ERR(d, "Invalid id %#x base %#x\n", id, base);
-+        XEN_PT_ERR(d, "Invalid id 0x%x base 0x%x\n", id, base);
-         return -1;
-     }
- 
-@@ -582,7 +582,7 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
-         XEN_PT_ERR(d, "Can't open /dev/mem: %s\n", strerror(errno));
-         goto error_out;
-     }
--    XEN_PT_LOG(d, "table_off = %#x, total_entries = %d\n",
-+    XEN_PT_LOG(d, "table_off = 0x%x, total_entries = %d\n",
-                table_off, total_entries);
-     msix->table_offset_adjust = table_off & 0x0fff;
-     msix->phys_iomem_base =
--- 
-2.29.0-rc1
 
+> 
+> On Fri, Oct 23, 2020 at 08:33:09AM +0200, Christoph Hellwig wrote:
+> > The tbl_dma_addr argument is used to check the DMA boundary for the
+> > allocations, and thus needs to be a dma_addr_t.  swiotlb-xen instead
+> > passed a physical address, which could lead to incorrect results for
+> > strange offsets.  Fix this by removing the parameter entirely and hard
+> > code the DMA address for io_tlb_start instead.
+> > 
+> > Fixes: 91ffe4ad534a ("swiotlb-xen: introduce phys_to_dma/dma_to_phys translations")
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > ---
+> >  drivers/iommu/intel/iommu.c |  5 ++---
+> >  drivers/xen/swiotlb-xen.c   |  3 +--
+> >  include/linux/swiotlb.h     | 10 +++-------
+> >  kernel/dma/swiotlb.c        | 16 ++++++----------
+> >  4 files changed, 12 insertions(+), 22 deletions(-)
+> > 
+> > diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> > index 8651f6d4dfa032..6b560e6f193096 100644
+> > --- a/drivers/iommu/intel/iommu.c
+> > +++ b/drivers/iommu/intel/iommu.c
+> > @@ -3815,9 +3815,8 @@ bounce_map_single(struct device *dev, phys_addr_t paddr, size_t size,
+> >  	 * page aligned, we don't need to use a bounce page.
+> >  	 */
+> >  	if (!IS_ALIGNED(paddr | size, VTD_PAGE_SIZE)) {
+> > -		tlb_addr = swiotlb_tbl_map_single(dev,
+> > -				phys_to_dma_unencrypted(dev, io_tlb_start),
+> > -				paddr, size, aligned_size, dir, attrs);
+> > +		tlb_addr = swiotlb_tbl_map_single(dev, paddr, size,
+> > +				aligned_size, dir, attrs);
+> >  		if (tlb_addr == DMA_MAPPING_ERROR) {
+> >  			goto swiotlb_error;
+> >  		} else {
+> > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> > index 71ce1b7a23d1cc..2b385c1b4a99cb 100644
+> > --- a/drivers/xen/swiotlb-xen.c
+> > +++ b/drivers/xen/swiotlb-xen.c
+> > @@ -395,8 +395,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
+> >  	 */
+> >  	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
+> >  
+> > -	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
+> > -				     phys, size, size, dir, attrs);
+> > +	map = swiotlb_tbl_map_single(dev, phys, size, size, dir, attrs);
+> >  	if (map == (phys_addr_t)DMA_MAPPING_ERROR)
+> >  		return DMA_MAPPING_ERROR;
+> >  
+> > diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> > index 513913ff748626..3bb72266a75a1d 100644
+> > --- a/include/linux/swiotlb.h
+> > +++ b/include/linux/swiotlb.h
+> > @@ -45,13 +45,9 @@ enum dma_sync_target {
+> >  	SYNC_FOR_DEVICE = 1,
+> >  };
+> >  
+> > -extern phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> > -					  dma_addr_t tbl_dma_addr,
+> > -					  phys_addr_t phys,
+> > -					  size_t mapping_size,
+> > -					  size_t alloc_size,
+> > -					  enum dma_data_direction dir,
+> > -					  unsigned long attrs);
+> > +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+> > +		size_t mapping_size, size_t alloc_size,
+> > +		enum dma_data_direction dir, unsigned long attrs);
+> >  
+> >  extern void swiotlb_tbl_unmap_single(struct device *hwdev,
+> >  				     phys_addr_t tlb_addr,
+> > diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> > index b4eea0abc3f002..92e2f54f24c01b 100644
+> > --- a/kernel/dma/swiotlb.c
+> > +++ b/kernel/dma/swiotlb.c
+> > @@ -441,14 +441,11 @@ static void swiotlb_bounce(phys_addr_t orig_addr, phys_addr_t tlb_addr,
+> >  	}
+> >  }
+> >  
+> > -phys_addr_t swiotlb_tbl_map_single(struct device *hwdev,
+> > -				   dma_addr_t tbl_dma_addr,
+> > -				   phys_addr_t orig_addr,
+> > -				   size_t mapping_size,
+> > -				   size_t alloc_size,
+> > -				   enum dma_data_direction dir,
+> > -				   unsigned long attrs)
+> > +phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t orig_addr,
+> > +		size_t mapping_size, size_t alloc_size,
+> > +		enum dma_data_direction dir, unsigned long attrs)
+> >  {
+> > +	dma_addr_t tbl_dma_addr = phys_to_dma_unencrypted(hwdev, io_tlb_start);
+> >  	unsigned long flags;
+> >  	phys_addr_t tlb_addr;
+> >  	unsigned int nslots, stride, index, wrap;
+> > @@ -667,9 +664,8 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+> >  	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size,
+> >  			      swiotlb_force);
+> >  
+> > -	swiotlb_addr = swiotlb_tbl_map_single(dev,
+> > -			phys_to_dma_unencrypted(dev, io_tlb_start),
+> > -			paddr, size, size, dir, attrs);
+> > +	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, size, dir,
+> > +			attrs);
+> >  	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+> >  		return DMA_MAPPING_ERROR;
+> >  
+> > -- 
+> > 2.28.0
+> > 
+> > _______________________________________________
+> > iommu mailing list
+> > iommu@lists.linux-foundation.org
+> > https://lists.linuxfoundation.org/mailman/listinfo/iommu
+> ---end quoted text---
 
