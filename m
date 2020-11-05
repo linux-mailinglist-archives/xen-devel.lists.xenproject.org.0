@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84222A8687
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 19:57:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20050.45648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 544CD2A8689
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 19:57:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20051.45660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakRX-0006hb-VQ; Thu, 05 Nov 2020 18:57:07 +0000
+	id 1kakRZ-0006jd-9K; Thu, 05 Nov 2020 18:57:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20050.45648; Thu, 05 Nov 2020 18:57:07 +0000
+Received: by outflank-mailman (output) from mailman id 20051.45660; Thu, 05 Nov 2020 18:57:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,65 +23,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakRX-0006h7-S1; Thu, 05 Nov 2020 18:57:07 +0000
-Received: by outflank-mailman (input) for mailman id 20050;
- Thu, 05 Nov 2020 18:57:06 +0000
+	id 1kakRZ-0006j6-5p; Thu, 05 Nov 2020 18:57:09 +0000
+Received: by outflank-mailman (input) for mailman id 20051;
+ Thu, 05 Nov 2020 18:57:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1kakRW-0006gr-PL
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:57:06 +0000
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1kakRX-0006gr-Hb
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:57:07 +0000
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3df7f1a5-ac49-40de-ac32-b14f6008216d;
- Thu, 05 Nov 2020 18:57:05 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id w1so3009385wrm.4
- for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 10:57:05 -0800 (PST)
+ id cd5a5f0a-c5e6-447d-9134-36238ffbd79f;
+ Thu, 05 Nov 2020 18:57:06 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id b8so3013984wrn.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 10:57:06 -0800 (PST)
 Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com.
  [5.71.162.151])
- by smtp.gmail.com with ESMTPSA id n14sm3451536wrt.8.2020.11.05.10.57.03
+ by smtp.gmail.com with ESMTPSA id n14sm3451536wrt.8.2020.11.05.10.57.04
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 05 Nov 2020 10:57:03 -0800 (PST)
+ Thu, 05 Nov 2020 10:57:04 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	id 1kakRW-0006gr-PL
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:57:06 +0000
-X-Inumbo-ID: 3df7f1a5-ac49-40de-ac32-b14f6008216d
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
+	id 1kakRX-0006gr-Hb
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:57:07 +0000
+X-Inumbo-ID: cd5a5f0a-c5e6-447d-9134-36238ffbd79f
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3df7f1a5-ac49-40de-ac32-b14f6008216d;
-	Thu, 05 Nov 2020 18:57:05 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id w1so3009385wrm.4
-        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 10:57:05 -0800 (PST)
+	id cd5a5f0a-c5e6-447d-9134-36238ffbd79f;
+	Thu, 05 Nov 2020 18:57:06 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id b8so3013984wrn.0
+        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 10:57:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=JXV2grd6INUy3gkR3e7DtGC7TFJVb0kBB00hdfAKmbI=;
-        b=JQMuCwVvrfUlQSiYlywTVwmSgq7MvlOrDxhoITNqLZ0yUQu7Uk+BoyIxaXj6j56MJA
-         WXmv04DJuD9lMEalI2Bv4LQUKFmdIGENeZ0AdGbRSS6bmQ4qaoCjZNkOdHyM351lGzSC
-         1pOBENorcNwxeBsZO6L/xceFIwgu8k3psV+yn1ipXOJzTrj9ZuGYT96SY9tX2z3SEp5d
-         EZRtBqRjSoHA54NUV6URJmI/3SQR2kWouCeeP1M5ZA0HF5ZeGXrK4+PvPeKnn9GNS819
-         5GnhlM/jBhJ6xuWqN7FwJmAbOmvHVY46cQZN8e4ymXQ0Hd9lnrkzWcpgtCnUQBlmETiL
-         Apng==
+        bh=1cxZBd9UtbAwSXXwBERB1exoaCA+r5xNDHyZ9ab9j0k=;
+        b=dn2Sdwt7lDaVlJ36tXFutn/QDnyBoZUaQBm3vtVJR3qQIR4BcilQE16TK0PqCNRMX5
+         x+nO8UUCrLJ3hZUYmFe7hUunJEx5yyuPk2L4Hs887M5FTxQNQ9W0h9gL0w3DKqgNGE8l
+         qbi1dU0GQocRhOABQ1wg7Yh3azozTFGBhKbM1n7Rq52zQRBl9IaDukFFZwCmAyL0FLci
+         ZZAJsJSPYcvpj9s2ON5W/JgSmFey8rKcwthoVAHzB5U8XJtcWhCrgAN5ePYH/jPcinwi
+         P5pq13bukcF6y+IIPY5tWV+RAcpch3a+dMx0wwCNBomVmvc0yyOCSZmD4MhKguXPkomS
+         h9vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=JXV2grd6INUy3gkR3e7DtGC7TFJVb0kBB00hdfAKmbI=;
-        b=iRXBej+Mosg57Hwvp1Vv/di1f9VVJu6c4PG86GFILjd9DPGYK5wTEgQ6XW+MpV/rxi
-         nNPJxosV7LapdWTL12/S3jujQas/AEtf5It7Obj1LTSdZ98VKQ5BQVdng/wTUgmnFS9c
-         UVkptaQLC4oj+/JfaCOZFUEyyi2efuYqBCA1s834NhHJ2DAmFfQgkz25G2u5xIm8vin7
-         5S+nJV3CwqWOL47LEaTdp0Eu0gjbfbdcGMoOQQ9SIoPJ73FkjbdYOgSoV4CCrmdDZCjR
-         LQaNUEHD/7NVAwTyLJKTsoPW8dyVSGFKFPgm7on9ISoT5vi/LH6x/RwZPfmZ1xvUZfAB
-         b+dQ==
-X-Gm-Message-State: AOAM531Cb4GImtruvNIAoz20C9LQ8Wc+FmDQKKL6jPkeG81/Rgii03cY
-	uDaTXXgVTwpbHtYjEK+abPT0UwgFlx0=
-X-Google-Smtp-Source: ABdhPJyCljWIKg/99jagCmcOIk9a+ZtYzbTERdVozWW3gWffCC+jUgvSlr1Z2bFuN9Tx+wIr+rHbgQ==
-X-Received: by 2002:adf:ed4c:: with SMTP id u12mr4564286wro.63.1604602624600;
-        Thu, 05 Nov 2020 10:57:04 -0800 (PST)
+        bh=1cxZBd9UtbAwSXXwBERB1exoaCA+r5xNDHyZ9ab9j0k=;
+        b=fhdLF+qtSki9TQiouQtC3LPNjksMmqbVjNLW0F1Uc0cdP0AJY8tKHUA0QpsnEpLmWg
+         ewbxZyJ6dBci+Yua58fIwuuSY9gHITgTxiG9dA3Gls5Qm7MRNkBK6AUjf7Z5E7KEGzZu
+         NX3U2A5PCHk+XuS3mlihNqfv6gE4GwwQn5Kc395l3GoG1HRVSCgKEJo2jqdC1EEjFBB7
+         v8ZViLLRDSoi+142FFYX5BR9W2MPJM0J+eRKYGXtuobeE2OD68pWNMhymkdm7NQgwJMc
+         woqhZ763zGy8nehBVv3/Z+ToDYudWuH0YFAuX3wtbKEZFjpxRESweqIhabCfgRHFcFBi
+         jEVA==
+X-Gm-Message-State: AOAM530DgMKclVLAIMgZKoh1XgHVCXKVNp6+N3CWTnNwX3jua8lrqQ1C
+	KrGbhniPFizzSw8VE9pIqtyWbvZOooE=
+X-Google-Smtp-Source: ABdhPJyaKSWUq4UC8sHcV/FCKE6XLTUJDppDVYkUNwm0rWqZzMuRQz8ZP2rFjmFOFazXw8vjLY2WAw==
+X-Received: by 2002:a5d:474f:: with SMTP id o15mr4446221wrs.377.1604602625681;
+        Thu, 05 Nov 2020 10:57:05 -0800 (PST)
 Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com. [5.71.162.151])
-        by smtp.gmail.com with ESMTPSA id n14sm3451536wrt.8.2020.11.05.10.57.03
+        by smtp.gmail.com with ESMTPSA id n14sm3451536wrt.8.2020.11.05.10.57.04
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 05 Nov 2020 10:57:03 -0800 (PST)
+        Thu, 05 Nov 2020 10:57:04 -0800 (PST)
 From: Ash Wilding <ash.j.wilding@gmail.com>
 X-Google-Original-From: Ash Wilding
 To: xen-devel@lists.xenproject.org
@@ -89,121 +89,75 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Ash Wilding <ash.j.wilding@gmail.com>
-Subject: [RFC PATCH 1/6] xen/arm: Support detection of CPU features in other ID registers
-Date: Thu,  5 Nov 2020 18:55:58 +0000
-Message-Id: <20201105185603.24149-2-ash.j.wilding@gmail.com>
+Subject: [RFC PATCH 2/6] xen/arm: Add detection of Armv8.1-LSE atomic instructions
+Date: Thu,  5 Nov 2020 18:55:59 +0000
+Message-Id: <20201105185603.24149-3-ash.j.wilding@gmail.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20201105185603.24149-1-ash.j.wilding@gmail.com>
 References: <20201105185603.24149-1-ash.j.wilding@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current Arm boot_cpu_feature64() and boot_cpu_feature32() macros
-are hardcoded to only detect features in ID_AA64PFR{0,1}_EL1 and
-ID_PFR{0,1} respectively.
+Use the new infrastructure for detecting CPU features in other ID
+registers to detect the presence of Armv8.1-LSE atomic instructions,
+as reported by ID_AA64ISAR0_EL1.Atomic.
 
-This patch replaces these macros with a new macro, boot_cpu_feature(),
-which takes an explicit ID register name as an argument.
-
-While we're here, cull cpu_feature64() and cpu_feature32() as they
-have no callers (we only ever use the boot CPU features), and update
-the printk() messages in setup.c to use the new macro.
+While we're here, print detection of these instructions in setup.c's
+processor_id().
 
 Signed-off-by: Ash Wilding <ash.j.wilding@gmail.com>
 ---
- xen/arch/arm/setup.c             |  8 +++---
- xen/include/asm-arm/cpufeature.h | 44 +++++++++++++++-----------------
- 2 files changed, 24 insertions(+), 28 deletions(-)
+ xen/arch/arm/setup.c             |  5 +++--
+ xen/include/asm-arm/cpufeature.h | 10 +++++++++-
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 7fcff9af2a..5121f06fc5 100644
+index 5121f06fc5..138e1957c5 100644
 --- a/xen/arch/arm/setup.c
 +++ b/xen/arch/arm/setup.c
-@@ -134,16 +134,16 @@ static void __init processor_id(void)
-            cpu_has_gicv3 ? " GICv3-SysReg" : "");
+@@ -128,10 +128,11 @@ static void __init processor_id(void)
+            cpu_has_el2_32 ? "64+32" : cpu_has_el2_64 ? "64" : "No",
+            cpu_has_el1_32 ? "64+32" : cpu_has_el1_64 ? "64" : "No",
+            cpu_has_el0_32 ? "64+32" : cpu_has_el0_64 ? "64" : "No");
+-    printk("    Extensions:%s%s%s\n",
++    printk("    Extensions:%s%s%s%s\n",
+            cpu_has_fp ? " FloatingPoint" : "",
+            cpu_has_simd ? " AdvancedSIMD" : "",
+-           cpu_has_gicv3 ? " GICv3-SysReg" : "");
++           cpu_has_gicv3 ? " GICv3-SysReg" : "",
++           cpu_has_lse_atomics ? " LSE-Atomics" : "");
  
      /* Warn user if we find unknown floating-point features */
--    if ( cpu_has_fp && (boot_cpu_feature64(fp) >= 2) )
-+    if ( cpu_has_fp && (boot_cpu_feature(pfr64, fp) >= 2) )
-         printk(XENLOG_WARNING "WARNING: Unknown Floating-point ID:%d, "
-                "this may result in corruption on the platform\n",
--               boot_cpu_feature64(fp));
-+               boot_cpu_feature(pfr64, fp));
- 
-     /* Warn user if we find unknown AdvancedSIMD features */
--    if ( cpu_has_simd && (boot_cpu_feature64(simd) >= 2) )
-+    if ( cpu_has_simd && (boot_cpu_feature(pfr64, simd) >= 2) )
-         printk(XENLOG_WARNING "WARNING: Unknown AdvancedSIMD ID:%d, "
-                "this may result in corruption on the platform\n",
--               boot_cpu_feature64(simd));
-+               boot_cpu_feature(pfr64, simd));
- 
-     printk("  Debug Features: %016"PRIx64" %016"PRIx64"\n",
-            boot_cpu_data.dbg64.bits[0], boot_cpu_data.dbg64.bits[1]);
+     if ( cpu_has_fp && (boot_cpu_feature(pfr64, fp) >= 2) )
 diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-index 10878ead8a..f9281ea343 100644
+index f9281ea343..2366926e82 100644
 --- a/xen/include/asm-arm/cpufeature.h
 +++ b/xen/include/asm-arm/cpufeature.h
-@@ -1,39 +1,35 @@
- #ifndef __ASM_ARM_CPUFEATURE_H
- #define __ASM_ARM_CPUFEATURE_H
+@@ -15,6 +15,7 @@
+ #define cpu_has_fp              (boot_cpu_feature(pfr64, fp) < 8)
+ #define cpu_has_simd            (boot_cpu_feature(pfr64, simd) < 8)
+ #define cpu_has_gicv3           (boot_cpu_feature(pfr64, gic) == 1)
++#define cpu_has_lse_atomics     (boot_cpu_feature(isa64, atomic) == 2)
+ #endif
  
-+#define boot_cpu_feature(idreg, feat) (boot_cpu_data.idreg.feat)
+ #define cpu_has_arm       (boot_cpu_feature(pfr32, arm) == 1)
+@@ -187,8 +188,15 @@ struct cpuinfo_arm {
+         };
+     } mm64;
+ 
+-    struct {
++    union {
+         uint64_t bits[2];
++        struct {
++            unsigned long __res0 : 20;
++            unsigned long atomic : 4;
++            unsigned long __res1 : 40;
 +
- #ifdef CONFIG_ARM_64
--#define cpu_feature64(c, feat)         ((c)->pfr64.feat)
--#define boot_cpu_feature64(feat)       (boot_cpu_data.pfr64.feat)
--
--#define cpu_has_el0_32    (boot_cpu_feature64(el0) == 2)
--#define cpu_has_el0_64    (boot_cpu_feature64(el0) >= 1)
--#define cpu_has_el1_32    (boot_cpu_feature64(el1) == 2)
--#define cpu_has_el1_64    (boot_cpu_feature64(el1) >= 1)
--#define cpu_has_el2_32    (boot_cpu_feature64(el2) == 2)
--#define cpu_has_el2_64    (boot_cpu_feature64(el2) >= 1)
--#define cpu_has_el3_32    (boot_cpu_feature64(el3) == 2)
--#define cpu_has_el3_64    (boot_cpu_feature64(el3) >= 1)
--#define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
--#define cpu_has_simd      (boot_cpu_feature64(simd) < 8)
--#define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
-+#define cpu_has_el0_32          (boot_cpu_feature(pfr64, el0) == 2)
-+#define cpu_has_el0_64          (boot_cpu_feature(pfr64, el0) >= 1)
-+#define cpu_has_el1_32          (boot_cpu_feature(pfr64, el1) == 2)
-+#define cpu_has_el1_64          (boot_cpu_feature(pfr64, el1) >= 1)
-+#define cpu_has_el2_32          (boot_cpu_feature(pfr64, el2) == 2)
-+#define cpu_has_el2_64          (boot_cpu_feature(pfr64, el2) >= 1)
-+#define cpu_has_el3_32          (boot_cpu_feature(pfr64, el3) == 2)
-+#define cpu_has_el3_64          (boot_cpu_feature(pfr64, el3) >= 1)
-+#define cpu_has_fp              (boot_cpu_feature(pfr64, fp) < 8)
-+#define cpu_has_simd            (boot_cpu_feature(pfr64, simd) < 8)
-+#define cpu_has_gicv3           (boot_cpu_feature(pfr64, gic) == 1)
++            unsigned long __res2 : 64;
++        };
+     } isa64;
+ 
  #endif
- 
--#define cpu_feature32(c, feat)         ((c)->pfr32.feat)
--#define boot_cpu_feature32(feat)       (boot_cpu_data.pfr32.feat)
--
--#define cpu_has_arm       (boot_cpu_feature32(arm) == 1)
--#define cpu_has_thumb     (boot_cpu_feature32(thumb) >= 1)
--#define cpu_has_thumb2    (boot_cpu_feature32(thumb) >= 3)
--#define cpu_has_jazelle   (boot_cpu_feature32(jazelle) > 0)
--#define cpu_has_thumbee   (boot_cpu_feature32(thumbee) == 1)
-+#define cpu_has_arm       (boot_cpu_feature(pfr32, arm) == 1)
-+#define cpu_has_thumb     (boot_cpu_feature(pfr32, thumb) >= 1)
-+#define cpu_has_thumb2    (boot_cpu_feature(pfr32, thumb) >= 3)
-+#define cpu_has_jazelle   (boot_cpu_feature(pfr32, jazelle) > 0)
-+#define cpu_has_thumbee   (boot_cpu_feature(pfr32, thumbee) == 1)
- #define cpu_has_aarch32   (cpu_has_arm || cpu_has_thumb)
- 
- #ifdef CONFIG_ARM_32
--#define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
-+#define cpu_has_gentimer  (boot_cpu_feature(pfr32, gentimer) == 1)
- #else
- #define cpu_has_gentimer  (1)
- #endif
--#define cpu_has_security  (boot_cpu_feature32(security) > 0)
-+#define cpu_has_security  (boot_cpu_feature(pfr32, security) > 0)
- 
- #define ARM64_WORKAROUND_CLEAN_CACHE    0
- #define ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE    1
 -- 
 2.24.3 (Apple Git-128)
 
