@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 457C12A8552
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 18:53:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19960.45499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491C32A8568
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 18:56:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19973.45523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kajQz-0000Kd-UZ; Thu, 05 Nov 2020 17:52:29 +0000
+	id 1kajV6-0000eb-PR; Thu, 05 Nov 2020 17:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19960.45499; Thu, 05 Nov 2020 17:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 19973.45523; Thu, 05 Nov 2020 17:56:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,217 +23,141 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kajQz-0000KE-Qi; Thu, 05 Nov 2020 17:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 19960;
- Thu, 05 Nov 2020 17:52:28 +0000
+	id 1kajV6-0000eC-MN; Thu, 05 Nov 2020 17:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 19973;
+ Thu, 05 Nov 2020 17:56:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aWoZ=EL=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1kajQy-0000K9-GG
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:52:28 +0000
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ <SRS0=BrWA=EL=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1kajV5-0000e7-5I
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:43 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 02f3b7a5-5495-46fd-b349-d5c92d25a256;
- Thu, 05 Nov 2020 17:52:27 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id g12so2774371wrp.10
- for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 09:52:27 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id a185sm3323029wmf.24.2020.11.05.09.52.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2020 09:52:15 -0800 (PST)
-Received: from zen.lan (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 154F51FF9D;
- Thu,  5 Nov 2020 17:51:55 +0000 (GMT)
+ id 23483491-a268-4bb1-ae9e-2c096ea8b254;
+ Thu, 05 Nov 2020 17:56:41 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=aWoZ=EL=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
-	id 1kajQy-0000K9-GG
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:52:28 +0000
-X-Inumbo-ID: 02f3b7a5-5495-46fd-b349-d5c92d25a256
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+	(envelope-from <SRS0=BrWA=EL=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+	id 1kajV5-0000e7-5I
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:43 +0000
+X-Inumbo-ID: 23483491-a268-4bb1-ae9e-2c096ea8b254
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 02f3b7a5-5495-46fd-b349-d5c92d25a256;
-	Thu, 05 Nov 2020 17:52:27 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id g12so2774371wrp.10
-        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 09:52:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=PWX79l8aK71+AYI8WeJL1C20BLKUbqb3b0w9LAzwhV8=;
-        b=sKuBjdxgzO5u9D8pgwF/tGU3Jl9e9kVQLXkjUZin+MoLsmfLdqrVeqhqiki4zrHNmt
-         5hy7oStzIxiY+o16gdITJ6d17aQlrLazLaOKd1So+BBwfe/FRh1q20LBPkyH1CYBKIBc
-         89BFyfERsJdvAKbEqLP1/bDRte++Si1BFXcV5wA53Yg3P8t5AiT8ptxNXg/9K4dFdUJ5
-         sPXa8twvD5cGmJ5dvqqFdwnTja/ybh6DzAOswcsvh1WULOZk8Tif6W1wiM9fUjihlpqK
-         kiMe6f4QE/wGEOHChHWXznLNi+6OKoDNmYdzcJDS8aOMnUWcpxcWrDD/Hk5hUq8sEImR
-         ikkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=PWX79l8aK71+AYI8WeJL1C20BLKUbqb3b0w9LAzwhV8=;
-        b=l93Kg90nRJu20jRooqwyZ1DWg2j8+W76gO7/wzUC/XaNcmycjpcBJjiY6XPFw1Drc3
-         dV+gVXYxGD2j+PWCWPWzI34+5L/K0K4+qj9gfSJ3Yzu0GeLvXgOskohu+QqxVJEImHb4
-         UdjKbX1C9rZWCqkO93ojH484gGHIQrfOgT1r3jePnVt1YCVBtwGiKp+lanGUGWYUlniF
-         QqZL747Rfr7zBCiDfBcm86NIE9K/XjPlpWooPYpkH4E+2+tGICFl/p60NWNKWLh3Bmpi
-         8XcwlW7okmvSbE6ZgemwSy6eVv1CQCTGYZBeOqzP8XmpIyRGW5HGQq8moEl1P1StewJ2
-         CCNQ==
-X-Gm-Message-State: AOAM5308b1ppuTNkXw20n0dTnqp1wqeiPYYlqCXTJp8fmhSmVnWnoEQh
-	wij/AW6Fs7z1S/Xm40gLaBzXnA==
-X-Google-Smtp-Source: ABdhPJykPmP1sXUte37eZYccOK8QD1oW46dCne80dIEM79/5lUgUNgxRnHI2ok44wyDkI60skFiMrA==
-X-Received: by 2002:adf:eb4c:: with SMTP id u12mr4588066wrn.73.1604598746349;
-        Thu, 05 Nov 2020 09:52:26 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
-        by smtp.gmail.com with ESMTPSA id a185sm3323029wmf.24.2020.11.05.09.52.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2020 09:52:15 -0800 (PST)
-Received: from zen.lan (localhost [127.0.0.1])
-	by zen.linaroharston (Postfix) with ESMTP id 154F51FF9D;
-	Thu,  5 Nov 2020 17:51:55 +0000 (GMT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: julien@xen.org,
-	stefano.stabellini@linaro.org,
-	stefano.stabellini@xilinx.com,
-	masami.hiramatsu@linaro.org,
-	takahiro.akashi@linaro.org,
-	andre.przywara@arm.com,
-	stratos-dev@op-lists.linaro.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <rth@twiddle.net>,
-	Eduardo Habkost <ehabkost@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [RFC PATCH  14/15] xen: only build HVM support under CONFIG_XEN_HVM
-Date: Thu,  5 Nov 2020 17:51:52 +0000
-Message-Id: <20201105175153.30489-15-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201105175153.30489-1-alex.bennee@linaro.org>
-References: <20201105175153.30489-1-alex.bennee@linaro.org>
+	id 23483491-a268-4bb1-ae9e-2c096ea8b254;
+	Thu, 05 Nov 2020 17:56:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1604599001;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K0wNNSD7lPAQz0Xa+y2jiTrG6iq0yYDdSM3++GMp1WU=;
+  b=MbZM2qe1vY0TXtJMd1g8biALzkbBr87pPVaX1vh0PeE38KZl5ubUru/O
+   KUQunSmzyhv72ZZo6ctwviT9PRwvyeGqQF+H17oHsnjzQBFGFOX930Qw8
+   N5vjOme/haOp9CP6QyVHLdAIe2lojlEVo0DEPwd3vKtNPOvluq8bD2+Ml
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: yMu/qodxUJu7veUJiFWHe4A1EQnXFMXIO0JemC6Xgj3lc0+Lw87Xic7yrsGUEiL3jjbur1Vuu4
+ yMqhC80QvbISiRu27JecULIhN5j/V3V9bSISKafhXR/vRJgCSNh9C9V81STrdCBuDn9woCIbqn
+ zjNq33Pu0GLXhen2BjVIlgw6d+DVGqSoUd3X0AA+r5B44lG55Dap8gcJPemQ/g8yhvpDSf5odk
+ 47RYRS0e+5RGtiYJ/4K0NcKDNQP4sjfI232xFrtQWK9cM7hoK4Mwj14LsNbr6g/Ybjvr6YbxMR
+ a2c=
+X-SBRS: None
+X-MesageID: 30603986
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,454,1596513600"; 
+   d="scan'208";a="30603986"
+Date: Thu, 5 Nov 2020 17:56:37 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, Takahiro Akashi
+	<takahiro.akashi@linaro.org>, Alex Benn??e <alex.bennee@linaro.org>, "Masami
+ Hiramatsu" <masami.hiramatsu@linaro.org>, <ian.jackson@eu.citrix.com>,
+	<wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: BUG: libxl vuart build order
+Message-ID: <20201105175637.GL2214@perard.uk.xensource.com>
+References: <alpine.DEB.2.21.2010261634000.12247@sstabellini-ThinkPad-T480s>
+ <20201027000214.GA14449@laputa> <20201028014105.GA11856@laputa>
+ <alpine.DEB.2.21.2010281437010.12247@sstabellini-ThinkPad-T480s>
+ <20201029114705.GA291577@laputa>
+ <alpine.DEB.2.21.2010291704180.12247@sstabellini-ThinkPad-T480s>
+ <20201030025157.GA18567@laputa>
+ <alpine.DEB.2.21.2010301045250.12247@sstabellini-ThinkPad-T480s>
+ <20201105154147.GJ2214@perard.uk.xensource.com>
+ <alpine.DEB.2.21.2011050826510.2323@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2011050826510.2323@sstabellini-ThinkPad-T480s>
 
-When running on non-x86 systems there is no point building HVM support
-because we will never see such things. To achieve this we need to
-shuffle a little bit of the inline and other stubs about.
+On Thu, Nov 05, 2020 at 08:29:20AM -0800, Stefano Stabellini wrote:
+> On Thu, 5 Nov 2020, Anthony PERARD wrote:
+> > On Fri, Oct 30, 2020 at 10:46:37AM -0700, Stefano Stabellini wrote:
+> > > On Fri, 30 Oct 2020, Takahiro Akashi wrote:
+> > > > === after "xl console -t vuart" ===
+> > > > U-Boot 2020.10-00777-g10cf956a26ba (Oct 29 2020 - 19:31:29 +0900) xenguest
+> > > > 
+> > > > Xen virtual CPU
+> > > > Model: XENVM-4.15
+> > > > DRAM:  128 MiB
+> > > > 
+> > > > In:    sbsa-pl011
+> > > > Out:   sbsa-pl011
+> > > > Err:   sbsa-pl011
+> > > > ===
+> > > > 
+> > > > If possible, I hope that "xl create -c" command would accept "-t vuart"
+> > > > option (or it should automatically selects uart type from the config).
+> > > 
+> > > I think a patch to add the "-t" option to "xl create" would be
+> > > acceptable, right Anthony?
+> > 
+> > I don't know. Why `xl' isn't able to select the vuart as the default one?
+> 
+> Because both consoles are still valid: when the emulated uart is
+> enabled, the normal PV console is also enabled.
+> 
+> 
+> > Maybe a long option would be better in the cases where we would like to
+> > connect to a "secondary" console? I could see `xl create --console=vuart'
+> > been fine, I don't know if that's possible.
+> 
+> That's OK for me but keep in mind that xl console already takes -t
+> vuart. In other words:
 
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
----
- include/sysemu/xen-mapcache.h |  2 +-
- include/sysemu/xen.h          |  9 +++++----
- accel/stubs/xen-all-stub.c    | 11 +++++++++++
- accel/stubs/xen-stub.c        |  2 --
- accel/stubs/meson.build       |  3 ++-
- hw/i386/xen/meson.build       |  2 +-
- 6 files changed, 20 insertions(+), 9 deletions(-)
- create mode 100644 accel/stubs/xen-all-stub.c
+I don't know why we would need the same exact option, `xl console` and
+`xl create` are two different commands. Also, I usually prefer long
+option for less used options as it makes it a bit easier to figure out
+what a command is supposed to do (without checking the man; and when
+there is both long and short options available).
 
-diff --git a/include/sysemu/xen-mapcache.h b/include/sysemu/xen-mapcache.h
-index c8e7c2f6cf..4bba764745 100644
---- a/include/sysemu/xen-mapcache.h
-+++ b/include/sysemu/xen-mapcache.h
-@@ -13,7 +13,7 @@
- 
- typedef hwaddr (*phys_offset_to_gaddr_t)(hwaddr phys_offset,
-                                          ram_addr_t size);
--#ifdef CONFIG_XEN
-+#ifdef CONFIG_XEN_HVM
- 
- void xen_map_cache_init(phys_offset_to_gaddr_t f,
-                         void *opaque);
-diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
-index 0ca25697e4..43d2314441 100644
---- a/include/sysemu/xen.h
-+++ b/include/sysemu/xen.h
-@@ -24,7 +24,7 @@ extern bool xen_allowed;
- 
- #define xen_enabled()           (xen_allowed)
- 
--#ifndef CONFIG_USER_ONLY
-+#ifdef CONFIG_XEN_HVM
- void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
- void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
-                    struct MemoryRegion *mr, Error **errp);
-@@ -33,7 +33,10 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
- #else /* !CONFIG_XEN_IS_POSSIBLE */
- 
- #define xen_enabled() 0
--#ifndef CONFIG_USER_ONLY
-+
-+#endif /* CONFIG_XEN_IS_POSSIBLE */
-+
-+#if !defined(CONFIG_XEN_HVM) && !defined(CONFIG_USER_ONLY)
- static inline void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length)
- {
-     /* nothing */
-@@ -45,6 +48,4 @@ static inline void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
- }
- #endif
- 
--#endif /* CONFIG_XEN_IS_POSSIBLE */
--
- #endif
-diff --git a/accel/stubs/xen-all-stub.c b/accel/stubs/xen-all-stub.c
-new file mode 100644
-index 0000000000..597c5789cc
---- /dev/null
-+++ b/accel/stubs/xen-all-stub.c
-@@ -0,0 +1,11 @@
-+/*
-+ * Copyright (C) 2014       Citrix Systems UK Ltd.
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
-+
-+#include "qemu/osdep.h"
-+#include "sysemu/xen.h"
-+
-+bool xen_allowed;
-diff --git a/accel/stubs/xen-stub.c b/accel/stubs/xen-stub.c
-index 7054965c48..6bc9906239 100644
---- a/accel/stubs/xen-stub.c
-+++ b/accel/stubs/xen-stub.c
-@@ -9,8 +9,6 @@
- #include "sysemu/xen.h"
- #include "qapi/qapi-commands-migration.h"
- 
--bool xen_allowed;
--
- void qmp_xen_set_global_dirty_log(bool enable, Error **errp)
- {
- }
-diff --git a/accel/stubs/meson.build b/accel/stubs/meson.build
-index d65cb6a5e1..dca468c82a 100644
---- a/accel/stubs/meson.build
-+++ b/accel/stubs/meson.build
-@@ -1,7 +1,8 @@
- softmmu_stub_ss = ss.source_set()
- 
- softmmu_stub_ss.add(when: 'CONFIG_HAX', if_false: files('hax-stub.c'))
--softmmu_stub_ss.add(when: 'CONFIG_XEN', if_false: files('xen-stub.c'))
-+softmmu_stub_ss.add(when: 'CONFIG_XEN', if_false: files('xen-all-stub.c'))
-+softmmu_stub_ss.add(when: 'CONFIG_XEN_HVM', if_false: files('xen-stub.c'))
- softmmu_stub_ss.add(when: 'CONFIG_KVM', if_false: files('kvm-stub.c'))
- softmmu_stub_ss.add(when: 'CONFIG_TCG', if_false: files('tcg-stub.c'))
- 
-diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
-index be84130300..576e2cc5dc 100644
---- a/hw/i386/xen/meson.build
-+++ b/hw/i386/xen/meson.build
-@@ -1,4 +1,4 @@
--i386_ss.add(when: 'CONFIG_XEN', if_true: files(
-+i386_ss.add(when: 'CONFIG_XEN_HVM', if_true: files(
-   'xen-hvm.c',
-   'xen-mapcache.c',
-   'xen_apic.c',
+> 1) xl console -t vuart    -> WORKS
+
+-t for `xl console` kind of works well, -t could be a shortcut of "type"
+of console".
+
+> 2) xl create -c -t vuart  -> DOESN'T WORK
+
+But here, -t would not be a "type" of console since we are creating a
+VM. Also `xl create -t vuart` without -c would do nothing, right?
+(create a vm but ignoring the -t).
+
+Anyway, an option to auto-connect to a different console would be
+useful.
+
+> P.S.
+> 
+> Could you also take a quick look at the patch I appended to the previous
+> email? Or would you prefer me to send it out separately as its own
+> patch?
+
+It's probably better to have a patch on its own when it's ready for
+review rather that been embedded in an email in a long
+discussion/debugging thread. That leave a better chance for others to
+spot that a patch exist and review.
+
+Cheers,
+
 -- 
-2.20.1
-
+Anthony PERARD
 
