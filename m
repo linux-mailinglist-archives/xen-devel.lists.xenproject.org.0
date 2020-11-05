@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC6E2A8884
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 22:08:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20172.45858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4222F2A8895
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 22:12:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20180.45871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kamUX-0002Yy-Od; Thu, 05 Nov 2020 21:08:21 +0000
+	id 1kamY2-0003Nh-9p; Thu, 05 Nov 2020 21:11:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20172.45858; Thu, 05 Nov 2020 21:08:21 +0000
+Received: by outflank-mailman (output) from mailman id 20180.45871; Thu, 05 Nov 2020 21:11:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,347 +23,144 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kamUX-0002YZ-Lj; Thu, 05 Nov 2020 21:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 20172;
- Thu, 05 Nov 2020 21:08:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kamY2-0003NG-5I; Thu, 05 Nov 2020 21:11:58 +0000
+Received: by outflank-mailman (input) for mailman id 20180;
+ Thu, 05 Nov 2020 21:11:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f69X=EL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kamUW-0002Xr-Ud
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 21:08:20 +0000
+ id 1kamY0-0003NB-JZ
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 21:11:56 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 16e75f20-b67c-45cb-9569-a0085e12dea3;
- Thu, 05 Nov 2020 21:08:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 18768c3d-33d3-4548-99ac-325cf4fad5e6;
+ Thu, 05 Nov 2020 21:11:55 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 62D9920724;
- Thu,  5 Nov 2020 21:08:18 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mail.kernel.org (Postfix) with ESMTPSA id C858B20724;
+ Thu,  5 Nov 2020 21:11:53 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=f69X=EL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kamUW-0002Xr-Ud
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 21:08:20 +0000
-X-Inumbo-ID: 16e75f20-b67c-45cb-9569-a0085e12dea3
+	id 1kamY0-0003NB-JZ
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 21:11:56 +0000
+X-Inumbo-ID: 18768c3d-33d3-4548-99ac-325cf4fad5e6
 Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 16e75f20-b67c-45cb-9569-a0085e12dea3;
-	Thu, 05 Nov 2020 21:08:20 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 18768c3d-33d3-4548-99ac-325cf4fad5e6;
+	Thu, 05 Nov 2020 21:11:55 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 62D9920724;
-	Thu,  5 Nov 2020 21:08:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id C858B20724;
+	Thu,  5 Nov 2020 21:11:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1604610499;
-	bh=wta6Db5/cjG8npu1YddXPwncS//KQMBzHEcdsir9X/c=;
+	s=default; t=1604610715;
+	bh=zdjGWlZF5+w7QEov4WVg9sEtcjr9gG2zt7rm6H9u/HA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZR7P0wFsk2cEa1hgxYAOXGtGw6iOx/hwCRi0F6hEL9SzT1C6Yt2974qHYCGHNAZnf
-	 1N7bZfRpuhPuHI8gI1u+WU7p81Ptlj2hXyTtNqx7EnCvGr63BLC6K5liyq2eDb5udg
-	 uN+qSigaL06xLc0kiHVEpfF1pHHWcHGQBE4ArGLU=
-Date: Thu, 5 Nov 2020 13:08:17 -0800 (PST)
+	b=Cn4ylwHfRpks84ZmTRHKfKmcbgCRsMloy3+93lAPKL7CQnb0dafUVh9BMIuUATWff
+	 KTSEcoJOqL0cfqZ9GeIt4vFROkGVrpZwBENRuNdSBCb/7O7JD4FH3lVxbzi4+h/f4P
+	 vlIsa4mlFu5rplTh+J09TCjeqbVSdlDhzcHpd4Us=
+Date: Thu, 5 Nov 2020 13:11:52 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 3/4] xen/pci: Move x86 specific code to x86
- directory.
-In-Reply-To: <687101e7e0e6feb64dd8ea63c8cf1aacf1684049.1604417224.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2011051307160.2323@sstabellini-ThinkPad-T480s>
-References: <cover.1604417224.git.rahul.singh@arm.com> <687101e7e0e6feb64dd8ea63c8cf1aacf1684049.1604417224.git.rahul.singh@arm.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Takahiro Akashi <takahiro.akashi@linaro.org>, 
+    Alex Benn??e <alex.bennee@linaro.org>, 
+    Masami Hiramatsu <masami.hiramatsu@linaro.org>, ian.jackson@eu.citrix.com, 
+    wl@xen.org, xen-devel@lists.xenproject.org
+Subject: Re: BUG: libxl vuart build order
+In-Reply-To: <20201105175637.GL2214@perard.uk.xensource.com>
+Message-ID: <alpine.DEB.2.21.2011051309200.2323@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2010261634000.12247@sstabellini-ThinkPad-T480s> <20201027000214.GA14449@laputa> <20201028014105.GA11856@laputa> <alpine.DEB.2.21.2010281437010.12247@sstabellini-ThinkPad-T480s> <20201029114705.GA291577@laputa>
+ <alpine.DEB.2.21.2010291704180.12247@sstabellini-ThinkPad-T480s> <20201030025157.GA18567@laputa> <alpine.DEB.2.21.2010301045250.12247@sstabellini-ThinkPad-T480s> <20201105154147.GJ2214@perard.uk.xensource.com> <alpine.DEB.2.21.2011050826510.2323@sstabellini-ThinkPad-T480s>
+ <20201105175637.GL2214@perard.uk.xensource.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 3 Nov 2020, Rahul Singh wrote:
-> passthrough/pci.c file is common for all architecture, but there is x86
-> sepcific code in this file.
-   ^ specific
+On Thu, 5 Nov 2020, Anthony PERARD wrote:
+> On Thu, Nov 05, 2020 at 08:29:20AM -0800, Stefano Stabellini wrote:
+> > On Thu, 5 Nov 2020, Anthony PERARD wrote:
+> > > On Fri, Oct 30, 2020 at 10:46:37AM -0700, Stefano Stabellini wrote:
+> > > > On Fri, 30 Oct 2020, Takahiro Akashi wrote:
+> > > > > === after "xl console -t vuart" ===
+> > > > > U-Boot 2020.10-00777-g10cf956a26ba (Oct 29 2020 - 19:31:29 +0900) xenguest
+> > > > > 
+> > > > > Xen virtual CPU
+> > > > > Model: XENVM-4.15
+> > > > > DRAM:  128 MiB
+> > > > > 
+> > > > > In:    sbsa-pl011
+> > > > > Out:   sbsa-pl011
+> > > > > Err:   sbsa-pl011
+> > > > > ===
+> > > > > 
+> > > > > If possible, I hope that "xl create -c" command would accept "-t vuart"
+> > > > > option (or it should automatically selects uart type from the config).
+> > > > 
+> > > > I think a patch to add the "-t" option to "xl create" would be
+> > > > acceptable, right Anthony?
+> > > 
+> > > I don't know. Why `xl' isn't able to select the vuart as the default one?
+> > 
+> > Because both consoles are still valid: when the emulated uart is
+> > enabled, the normal PV console is also enabled.
+> > 
+> > 
+> > > Maybe a long option would be better in the cases where we would like to
+> > > connect to a "secondary" console? I could see `xl create --console=vuart'
+> > > been fine, I don't know if that's possible.
+> > 
+> > That's OK for me but keep in mind that xl console already takes -t
+> > vuart. In other words:
+> 
+> I don't know why we would need the same exact option, `xl console` and
+> `xl create` are two different commands. Also, I usually prefer long
+> option for less used options as it makes it a bit easier to figure out
+> what a command is supposed to do (without checking the man; and when
+> there is both long and short options available).
 
-Aside from that:
+That is true. I don't have a strong opinion if it should be "-t" or
+something longer like "--console". Either one works. I tend to like "-t"
+a bit more because it would make it more consident, but I don't think it
+matters much.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+> > 1) xl console -t vuart    -> WORKS
+> 
+> -t for `xl console` kind of works well, -t could be a shortcut of "type"
+> of console".
+> 
+> > 2) xl create -c -t vuart  -> DOESN'T WORK
+> 
+> But here, -t would not be a "type" of console since we are creating a
+> VM. Also `xl create -t vuart` without -c would do nothing, right?
+> (create a vm but ignoring the -t).
+
+Yes, it would do nothing
 
 
-> Move x86 specific code to the x86 directory to avoid compilation error
-> for other architecture.
+> Anyway, an option to auto-connect to a different console would be
+> useful.
+
+Yeah
+
+
+> > P.S.
+> > 
+> > Could you also take a quick look at the patch I appended to the previous
+> > email? Or would you prefer me to send it out separately as its own
+> > patch?
 > 
-> No functional change.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> 
-> Changes is v2:
->  - fixed comments.
->  - rename pci_clean_dpci_irqs() to arch_pci_clean_pirqs().
-> 
-> ---
->  xen/drivers/passthrough/pci.c        | 76 +----------------------
->  xen/drivers/passthrough/x86/Makefile |  1 +
->  xen/drivers/passthrough/x86/iommu.c  |  7 +++
->  xen/drivers/passthrough/x86/pci.c    | 91 ++++++++++++++++++++++++++++
->  xen/include/xen/pci.h                |  2 +
->  5 files changed, 102 insertions(+), 75 deletions(-)
->  create mode 100644 xen/drivers/passthrough/x86/pci.c
-> 
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 2a3bce1462..04d3e2c0f9 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -14,7 +14,6 @@
->   * this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
-> -#include <xen/sched.h>
->  #include <xen/pci.h>
->  #include <xen/pci_regs.h>
->  #include <xen/pci_ids.h>
-> @@ -24,7 +23,6 @@
->  #include <xen/irq.h>
->  #include <xen/param.h>
->  #include <xen/vm_event.h>
-> -#include <asm/hvm/irq.h>
->  #include <xen/delay.h>
->  #include <xen/keyhandler.h>
->  #include <xen/event.h>
-> @@ -847,71 +845,6 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      return ret;
->  }
->  
-> -static int pci_clean_dpci_irq(struct domain *d,
-> -                              struct hvm_pirq_dpci *pirq_dpci, void *arg)
-> -{
-> -    struct dev_intx_gsi_link *digl, *tmp;
-> -
-> -    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
-> -
-> -    if ( pt_irq_need_timer(pirq_dpci->flags) )
-> -        kill_timer(&pirq_dpci->timer);
-> -
-> -    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
-> -    {
-> -        list_del(&digl->list);
-> -        xfree(digl);
-> -    }
-> -
-> -    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
-> -
-> -    if ( !pt_pirq_softirq_active(pirq_dpci) )
-> -        return 0;
-> -
-> -    domain_get_irq_dpci(d)->pending_pirq_dpci = pirq_dpci;
-> -
-> -    return -ERESTART;
-> -}
-> -
-> -static int pci_clean_dpci_irqs(struct domain *d)
-> -{
-> -    struct hvm_irq_dpci *hvm_irq_dpci = NULL;
-> -
-> -    if ( !is_iommu_enabled(d) )
-> -        return 0;
-> -
-> -    if ( !is_hvm_domain(d) )
-> -        return 0;
-> -
-> -    spin_lock(&d->event_lock);
-> -    hvm_irq_dpci = domain_get_irq_dpci(d);
-> -    if ( hvm_irq_dpci != NULL )
-> -    {
-> -        int ret = 0;
-> -
-> -        if ( hvm_irq_dpci->pending_pirq_dpci )
-> -        {
-> -            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci) )
-> -                 ret = -ERESTART;
-> -            else
-> -                 hvm_irq_dpci->pending_pirq_dpci = NULL;
-> -        }
-> -
-> -        if ( !ret )
-> -            ret = pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
-> -        if ( ret )
-> -        {
-> -            spin_unlock(&d->event_lock);
-> -            return ret;
-> -        }
-> -
-> -        hvm_domain_irq(d)->dpci = NULL;
-> -        free_hvm_irq_dpci(hvm_irq_dpci);
-> -    }
-> -    spin_unlock(&d->event_lock);
-> -    return 0;
-> -}
-> -
->  /* Caller should hold the pcidevs_lock */
->  static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
->                             uint8_t devfn)
-> @@ -971,7 +904,7 @@ int pci_release_devices(struct domain *d)
->      int ret;
->  
->      pcidevs_lock();
-> -    ret = pci_clean_dpci_irqs(d);
-> +    ret = arch_pci_clean_pirqs(d);
->      if ( ret )
->      {
->          pcidevs_unlock();
-> @@ -1375,13 +1308,6 @@ static int __init setup_dump_pcidevs(void)
->  }
->  __initcall(setup_dump_pcidevs);
->  
-> -int iommu_update_ire_from_msi(
-> -    struct msi_desc *msi_desc, struct msi_msg *msg)
-> -{
-> -    return iommu_intremap
-> -           ? iommu_call(&iommu_ops, update_ire_from_msi, msi_desc, msg) : 0;
-> -}
-> -
->  static int iommu_add_device(struct pci_dev *pdev)
->  {
->      const struct domain_iommu *hd;
-> diff --git a/xen/drivers/passthrough/x86/Makefile b/xen/drivers/passthrough/x86/Makefile
-> index aa515c680d..d02ff75de5 100644
-> --- a/xen/drivers/passthrough/x86/Makefile
-> +++ b/xen/drivers/passthrough/x86/Makefile
-> @@ -1,2 +1,3 @@
->  obj-$(CONFIG_PCI_ATS) += ats.o
->  obj-y += iommu.o
-> +obj-y += pci.o
-> diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-> index f17b1820f4..875e67b53b 100644
-> --- a/xen/drivers/passthrough/x86/iommu.c
-> +++ b/xen/drivers/passthrough/x86/iommu.c
-> @@ -308,6 +308,13 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
->      return pg;
->  }
->  
-> +int iommu_update_ire_from_msi(
-> +    struct msi_desc *msi_desc, struct msi_msg *msg)
-> +{
-> +    return iommu_intremap
-> +           ? iommu_call(&iommu_ops, update_ire_from_msi, msi_desc, msg) : 0;
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/drivers/passthrough/x86/pci.c b/xen/drivers/passthrough/x86/pci.c
-> new file mode 100644
-> index 0000000000..59588aa8d4
-> --- /dev/null
-> +++ b/xen/drivers/passthrough/x86/pci.c
-> @@ -0,0 +1,91 @@
-> +/*
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/sched.h>
-> +#include <xen/pci.h>
-> +
-> +static int pci_clean_dpci_irq(struct domain *d,
-> +                              struct hvm_pirq_dpci *pirq_dpci, void *arg)
-> +{
-> +    struct dev_intx_gsi_link *digl, *tmp;
-> +
-> +    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
-> +
-> +    if ( pt_irq_need_timer(pirq_dpci->flags) )
-> +        kill_timer(&pirq_dpci->timer);
-> +
-> +    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
-> +    {
-> +        list_del(&digl->list);
-> +        xfree(digl);
-> +    }
-> +
-> +    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
-> +
-> +    if ( !pt_pirq_softirq_active(pirq_dpci) )
-> +        return 0;
-> +
-> +    domain_get_irq_dpci(d)->pending_pirq_dpci = pirq_dpci;
-> +
-> +    return -ERESTART;
-> +}
-> +
-> +int arch_pci_clean_pirqs(struct domain *d)
-> +{
-> +    struct hvm_irq_dpci *hvm_irq_dpci = NULL;
-> +
-> +    if ( !is_iommu_enabled(d) )
-> +        return 0;
-> +
-> +    if ( !is_hvm_domain(d) )
-> +        return 0;
-> +
-> +    spin_lock(&d->event_lock);
-> +    hvm_irq_dpci = domain_get_irq_dpci(d);
-> +    if ( hvm_irq_dpci != NULL )
-> +    {
-> +        int ret = 0;
-> +
-> +        if ( hvm_irq_dpci->pending_pirq_dpci )
-> +        {
-> +            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci) )
-> +                 ret = -ERESTART;
-> +            else
-> +                 hvm_irq_dpci->pending_pirq_dpci = NULL;
-> +        }
-> +
-> +        if ( !ret )
-> +            ret = pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
-> +        if ( ret )
-> +        {
-> +            spin_unlock(&d->event_lock);
-> +            return ret;
-> +        }
-> +
-> +        hvm_domain_irq(d)->dpci = NULL;
-> +        free_hvm_irq_dpci(hvm_irq_dpci);
-> +    }
-> +    spin_unlock(&d->event_lock);
-> +
-> +    return 0;
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
-> index c4d3879761..fd28d11f6e 100644
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -209,4 +209,6 @@ int msixtbl_pt_register(struct domain *, struct pirq *, uint64_t gtable);
->  void msixtbl_pt_unregister(struct domain *, struct pirq *);
->  void msixtbl_pt_cleanup(struct domain *d);
->  
-> +int arch_pci_clean_pirqs(struct domain *d);
-> +
->  #endif /* __XEN_PCI_H__ */
-> -- 
-> 2.17.1
-> 
+> It's probably better to have a patch on its own when it's ready for
+> review rather that been embedded in an email in a long
+> discussion/debugging thread. That leave a better chance for others to
+> spot that a patch exist and review.
+
+All right, I'll resend reparately.
 
