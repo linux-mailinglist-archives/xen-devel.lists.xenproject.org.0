@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 028712A86CF
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 20:11:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20106.45750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 320CD2A86DE
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 20:16:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20125.45766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakes-0000rS-Lm; Thu, 05 Nov 2020 19:10:54 +0000
+	id 1kakja-00017B-FY; Thu, 05 Nov 2020 19:15:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20106.45750; Thu, 05 Nov 2020 19:10:54 +0000
+Received: by outflank-mailman (output) from mailman id 20125.45766; Thu, 05 Nov 2020 19:15:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,167 +23,112 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakes-0000r3-IU; Thu, 05 Nov 2020 19:10:54 +0000
-Received: by outflank-mailman (input) for mailman id 20106;
- Thu, 05 Nov 2020 19:10:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kaker-0000qV-03
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 19:10:53 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 211ec027-b043-4ba8-8a07-e9cb82129c92;
- Thu, 05 Nov 2020 19:10:45 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kakej-00084L-K7; Thu, 05 Nov 2020 19:10:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kakej-0005KT-CI; Thu, 05 Nov 2020 19:10:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kakej-0001HK-Bl; Thu, 05 Nov 2020 19:10:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kakja-00016m-C9; Thu, 05 Nov 2020 19:15:46 +0000
+Received: by outflank-mailman (input) for mailman id 20125;
+ Thu, 05 Nov 2020 19:15:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=68sV=EL=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1kakjZ-00016h-Ob
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 19:15:45 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 92944e74-fcaa-49b9-ae41-4da99521ce84;
+ Thu, 05 Nov 2020 19:15:45 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-264--Qycz7d2O0O_BAs5Y70g2Q-1; Thu, 05 Nov 2020 14:15:42 -0500
+Received: by mail-wm1-f72.google.com with SMTP id u207so997472wmu.4
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 11:15:42 -0800 (PST)
+Received: from [192.168.1.36] (234.red-83-42-66.dynamicip.rima-tde.net.
+ [83.42.66.234])
+ by smtp.gmail.com with ESMTPSA id l1sm4338333wrb.1.2020.11.05.11.15.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Nov 2020 11:15:40 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kaker-0000qV-03
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 19:10:53 +0000
-X-Inumbo-ID: 211ec027-b043-4ba8-8a07-e9cb82129c92
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 211ec027-b043-4ba8-8a07-e9cb82129c92;
-	Thu, 05 Nov 2020 19:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=FDosYbVsN85y4et6g/oPjgXaW9KO+u7Vcu/jcy1ZXds=; b=JHcl3XW5OqyAOBZoPE+djW6bIe
-	JooYZbzjVYuqmrMex6l4pqERJC7CblUthATGHFZfyRh4fJQjawksd+w5UuuQOp4p9Y1eHXzbHMlDi
-	7XP8ZWYN+XRuxxPnQEhRCqByY1ca9TCYfihfG9IYnZMN7j9XjfHEwO1rDm2+mf/NTqWs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakej-00084L-K7; Thu, 05 Nov 2020 19:10:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakej-0005KT-CI; Thu, 05 Nov 2020 19:10:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakej-0001HK-Bl; Thu, 05 Nov 2020 19:10:45 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156407-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=68sV=EL=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+	id 1kakjZ-00016h-Ob
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 19:15:45 +0000
+X-Inumbo-ID: 92944e74-fcaa-49b9-ae41-4da99521ce84
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id 92944e74-fcaa-49b9-ae41-4da99521ce84;
+	Thu, 05 Nov 2020 19:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1604603745;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zfHkRg9lIDVW7VftAA3B1DAo0AYHo0uxnJbSHZqoR04=;
+	b=V0hk9erb1nvkoLwAuWFXHvfTvWotDuxHioT9V0YpPg8SjrZNUvAWPDlvpSlP8w0SpcfP08
+	EpcIluhuRGg9R5+qaQ1lHQ9Ac+Z7Ytcbmo+6Sc+ciOuFM/2MdtCL+HvknQGdc5KhPrELoX
+	+2cNM4IcY+7QfhcMhcGh9fJKxN3afzg=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-264--Qycz7d2O0O_BAs5Y70g2Q-1; Thu, 05 Nov 2020 14:15:42 -0500
+X-MC-Unique: -Qycz7d2O0O_BAs5Y70g2Q-1
+Received: by mail-wm1-f72.google.com with SMTP id u207so997472wmu.4
+        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 11:15:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=zfHkRg9lIDVW7VftAA3B1DAo0AYHo0uxnJbSHZqoR04=;
+        b=EBEBmjtAH/Rf5QXE754QOgoHiw94LpuAvSQAMZqficOYTkefVthhHo3CXqboO2haKu
+         /TLlEwiwSe5r6vlrhf9UIx5/Oj822y2PDJ7pVwhPvxR9/cUpD9/H7jFJKzW7jYckqTsb
+         d4b2+/HzgG0iXxrQlkLzEV6RgjBvrWKtKN3jSf1xYjp3f4qUqbpw3fFYEnOohKVHFJix
+         DHQED81EaVL+rI0qLK38ZZpGOIBwIFg2wMColQkwCo4QSH5HfGN08c/uLM/Tz30hta1r
+         gnA3EVTLgcpEsAEUieZtEsT04zuUfqbr1H02IVeTyfN2haAxAq850dHjZsjtkTEMR5n7
+         ksdw==
+X-Gm-Message-State: AOAM530L3TRB46YnexCxdS6XPBZu2myTb9cmCMcT3GyPjDC6tPysxBJz
+	Fb9iEUaas8F46rKZCNodOdleXnrsfGcFDus3r3LIZ7+11L+Av6gL/P7gkkGqphOItlbnbSzbAqE
+	zxwo7x3grYIkhF4bi07ibHJC3gAM=
+X-Received: by 2002:adf:ef45:: with SMTP id c5mr5021781wrp.117.1604603741631;
+        Thu, 05 Nov 2020 11:15:41 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxjKHKzVkbOCoUNiT6e3SRf5UgENSEyZ68H6dNtmYVGkBBAE0Ev1sUGISelLf4x7w4/vZM17g==
+X-Received: by 2002:adf:ef45:: with SMTP id c5mr5021766wrp.117.1604603741443;
+        Thu, 05 Nov 2020 11:15:41 -0800 (PST)
+Received: from [192.168.1.36] (234.red-83-42-66.dynamicip.rima-tde.net. [83.42.66.234])
+        by smtp.gmail.com with ESMTPSA id l1sm4338333wrb.1.2020.11.05.11.15.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2020 11:15:40 -0800 (PST)
+Subject: Re: [RFC PATCH 11/15] include/hw/xen.h: drop superfluous struct
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ masami.hiramatsu@linaro.org, Paul Durrant <paul@xen.org>,
+ andre.przywara@arm.com, stefano.stabellini@linaro.org,
+ takahiro.akashi@linaro.org, Anthony Perard <anthony.perard@citrix.com>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ stefano.stabellini@xilinx.com, stratos-dev@op-lists.linaro.org
+References: <20201105175153.30489-1-alex.bennee@linaro.org>
+ <20201105175153.30489-12-alex.bennee@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <43ed2ab8-abee-fc88-46cd-ff8d531753fa@redhat.com>
+Date: Thu, 5 Nov 2020 20:15:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Subject: [ovmf test] 156407: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=09af9bd9be2d3e31bba979f8cf6446017b0b863e
-X-Osstest-Versions-That:
-    ovmf=8d5708833509ece6ac63084dc07c8ac53c4d4c1a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Nov 2020 19:10:45 +0000
+In-Reply-To: <20201105175153.30489-12-alex.bennee@linaro.org>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 156407 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156407/
+On 11/5/20 6:51 PM, Alex Bennée wrote:
+> Chardev is already a typedef'ed struct.
+> 
+> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+> ---
+>  include/hw/xen/xen.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Regressions :-(
+Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 156400
-
-version targeted for testing:
- ovmf                 09af9bd9be2d3e31bba979f8cf6446017b0b863e
-baseline version:
- ovmf                 8d5708833509ece6ac63084dc07c8ac53c4d4c1a
-
-Last test of basis   156400  2020-11-04 12:10:58 Z    1 days
-Testing same since   156407  2020-11-05 09:30:19 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Feng <bob.c.feng@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 09af9bd9be2d3e31bba979f8cf6446017b0b863e
-Author: Bob Feng <bob.c.feng@intel.com>
-Date:   Wed Nov 4 11:01:39 2020 +0800
-
-    BaseTools: Enable Module Scope Structure Pcd
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2648
-    
-    This patch is to enable the Module scoped Structure Pcd usage.
-    User can set structure pcd field value in module scope. For example,
-    under the [components] section of a dsc file, user can override some
-    field value for a specific module.
-    
-      Package/Module.inf{
-          <PcdsFixedAtBuild>
-          gUefiTokenSpaceGuid.StructurePcdModule.FieldName | 5
-      }
-    
-    Signed-off-by: Bob Feng <bob.c.feng@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Yuwei Chen <yuwei.chen@intel.com>
-    
-    Tested-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Acked-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit 978b9d511f5b9cb7bc5b09749f86c39bec51525d
-Author: Jeff Brasen <jbrasen@nvidia.com>
-Date:   Thu Oct 29 01:35:02 2020 +0800
-
-    MdeModulePkg/Gcd: Check memory allocation when initializing memory
-    
-    CoreInitializeMemoryServices was not checking for any existing memory
-    allocation created in the HOB producer phase. If there are memory
-    allocations outside of the region covered by the HOB List then Gcd could
-    select that region for memory which can result in the memory allocation
-    to not be handled and memory overwrites.
-    
-    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Regression-tested-by: Laszlo Ersek <lersek@redhat.com>
 
