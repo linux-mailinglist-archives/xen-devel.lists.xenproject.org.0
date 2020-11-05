@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491C32A8568
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 18:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19973.45523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7DE32A856A
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 18:57:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19974.45535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kajV6-0000eb-PR; Thu, 05 Nov 2020 17:56:44 +0000
+	id 1kajVH-0000iO-4f; Thu, 05 Nov 2020 17:56:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19973.45523; Thu, 05 Nov 2020 17:56:44 +0000
+Received: by outflank-mailman (output) from mailman id 19974.45535; Thu, 05 Nov 2020 17:56:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,141 +23,277 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kajV6-0000eC-MN; Thu, 05 Nov 2020 17:56:44 +0000
-Received: by outflank-mailman (input) for mailman id 19973;
- Thu, 05 Nov 2020 17:56:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kajVG-0000hk-W0; Thu, 05 Nov 2020 17:56:54 +0000
+Received: by outflank-mailman (input) for mailman id 19974;
+ Thu, 05 Nov 2020 17:56:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BrWA=EL=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1kajV5-0000e7-5I
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:43 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23483491-a268-4bb1-ae9e-2c096ea8b254;
- Thu, 05 Nov 2020 17:56:41 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kajVG-0000hU-0I
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:54 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0b52e02b-a29d-4066-853d-e0177769699b;
+ Thu, 05 Nov 2020 17:56:48 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kajV9-0006R7-Lv; Thu, 05 Nov 2020 17:56:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kajV9-00022z-EU; Thu, 05 Nov 2020 17:56:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kajV9-0008V2-Dy; Thu, 05 Nov 2020 17:56:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=BrWA=EL=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
-	id 1kajV5-0000e7-5I
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:43 +0000
-X-Inumbo-ID: 23483491-a268-4bb1-ae9e-2c096ea8b254
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 23483491-a268-4bb1-ae9e-2c096ea8b254;
-	Thu, 05 Nov 2020 17:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1604599001;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K0wNNSD7lPAQz0Xa+y2jiTrG6iq0yYDdSM3++GMp1WU=;
-  b=MbZM2qe1vY0TXtJMd1g8biALzkbBr87pPVaX1vh0PeE38KZl5ubUru/O
-   KUQunSmzyhv72ZZo6ctwviT9PRwvyeGqQF+H17oHsnjzQBFGFOX930Qw8
-   N5vjOme/haOp9CP6QyVHLdAIe2lojlEVo0DEPwd3vKtNPOvluq8bD2+Ml
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: yMu/qodxUJu7veUJiFWHe4A1EQnXFMXIO0JemC6Xgj3lc0+Lw87Xic7yrsGUEiL3jjbur1Vuu4
- yMqhC80QvbISiRu27JecULIhN5j/V3V9bSISKafhXR/vRJgCSNh9C9V81STrdCBuDn9woCIbqn
- zjNq33Pu0GLXhen2BjVIlgw6d+DVGqSoUd3X0AA+r5B44lG55Dap8gcJPemQ/g8yhvpDSf5odk
- 47RYRS0e+5RGtiYJ/4K0NcKDNQP4sjfI232xFrtQWK9cM7hoK4Mwj14LsNbr6g/Ybjvr6YbxMR
- a2c=
-X-SBRS: None
-X-MesageID: 30603986
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,454,1596513600"; 
-   d="scan'208";a="30603986"
-Date: Thu, 5 Nov 2020 17:56:37 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, Takahiro Akashi
-	<takahiro.akashi@linaro.org>, Alex Benn??e <alex.bennee@linaro.org>, "Masami
- Hiramatsu" <masami.hiramatsu@linaro.org>, <ian.jackson@eu.citrix.com>,
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: BUG: libxl vuart build order
-Message-ID: <20201105175637.GL2214@perard.uk.xensource.com>
-References: <alpine.DEB.2.21.2010261634000.12247@sstabellini-ThinkPad-T480s>
- <20201027000214.GA14449@laputa> <20201028014105.GA11856@laputa>
- <alpine.DEB.2.21.2010281437010.12247@sstabellini-ThinkPad-T480s>
- <20201029114705.GA291577@laputa>
- <alpine.DEB.2.21.2010291704180.12247@sstabellini-ThinkPad-T480s>
- <20201030025157.GA18567@laputa>
- <alpine.DEB.2.21.2010301045250.12247@sstabellini-ThinkPad-T480s>
- <20201105154147.GJ2214@perard.uk.xensource.com>
- <alpine.DEB.2.21.2011050826510.2323@sstabellini-ThinkPad-T480s>
+	(envelope-from <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kajVG-0000hU-0I
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 17:56:54 +0000
+X-Inumbo-ID: 0b52e02b-a29d-4066-853d-e0177769699b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 0b52e02b-a29d-4066-853d-e0177769699b;
+	Thu, 05 Nov 2020 17:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=z1bnYhdu4MQjpS6lpBvZEtgZ0XafKaPuXajUDRRC4xo=; b=YTtvrVEwKeNmvlooGqwEqsYSlv
+	qvQdM7a2bsFYTCXq1uEEwbAMB5k0vG1ZMyOQQ1/AYXYZrfe0chprgI1QMJ13b209Va1L7XooS6y4C
+	i9aq03V9PjVs2ZHGM/fmGqUWB2+P/xP13RbcyRRmE9eb6qCO53gC9eDjb03+jvKjNv0A=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kajV9-0006R7-Lv; Thu, 05 Nov 2020 17:56:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kajV9-00022z-EU; Thu, 05 Nov 2020 17:56:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kajV9-0008V2-Dy; Thu, 05 Nov 2020 17:56:47 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156405-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2011050826510.2323@sstabellini-ThinkPad-T480s>
+Subject: [libvirt test] 156405: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64:xen-build:fail:regression
+    libvirt:build-i386-xsm:xen-build:fail:regression
+    libvirt:build-armhf:xen-build:fail:regression
+    libvirt:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f035f53baa2e5dc00b8e866e594672a90b4cea78
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 05 Nov 2020 17:56:47 +0000
 
-On Thu, Nov 05, 2020 at 08:29:20AM -0800, Stefano Stabellini wrote:
-> On Thu, 5 Nov 2020, Anthony PERARD wrote:
-> > On Fri, Oct 30, 2020 at 10:46:37AM -0700, Stefano Stabellini wrote:
-> > > On Fri, 30 Oct 2020, Takahiro Akashi wrote:
-> > > > === after "xl console -t vuart" ===
-> > > > U-Boot 2020.10-00777-g10cf956a26ba (Oct 29 2020 - 19:31:29 +0900) xenguest
-> > > > 
-> > > > Xen virtual CPU
-> > > > Model: XENVM-4.15
-> > > > DRAM:  128 MiB
-> > > > 
-> > > > In:    sbsa-pl011
-> > > > Out:   sbsa-pl011
-> > > > Err:   sbsa-pl011
-> > > > ===
-> > > > 
-> > > > If possible, I hope that "xl create -c" command would accept "-t vuart"
-> > > > option (or it should automatically selects uart type from the config).
-> > > 
-> > > I think a patch to add the "-t" option to "xl create" would be
-> > > acceptable, right Anthony?
-> > 
-> > I don't know. Why `xl' isn't able to select the vuart as the default one?
-> 
-> Because both consoles are still valid: when the emulated uart is
-> enabled, the normal PV console is also enabled.
-> 
-> 
-> > Maybe a long option would be better in the cases where we would like to
-> > connect to a "secondary" console? I could see `xl create --console=vuart'
-> > been fine, I don't know if that's possible.
-> 
-> That's OK for me but keep in mind that xl console already takes -t
-> vuart. In other words:
+flight 156405 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156405/
 
-I don't know why we would need the same exact option, `xl console` and
-`xl create` are two different commands. Also, I usually prefer long
-option for less used options as it makes it a bit easier to figure out
-what a command is supposed to do (without checking the man; and when
-there is both long and short options available).
+Regressions :-(
 
-> 1) xl console -t vuart    -> WORKS
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64                   6 xen-build                fail REGR. vs. 151777
+ build-i386-xsm                6 xen-build                fail REGR. vs. 151777
+ build-armhf                   6 xen-build                fail REGR. vs. 151777
 
--t for `xl console` kind of works well, -t could be a shortcut of "type"
-of console".
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-> 2) xl create -c -t vuart  -> DOESN'T WORK
+version targeted for testing:
+ libvirt              f035f53baa2e5dc00b8e866e594672a90b4cea78
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-But here, -t would not be a "type" of console since we are creating a
-VM. Also `xl create -t vuart` without -c would do nothing, right?
-(create a vm but ignoring the -t).
+Last test of basis   151777  2020-07-10 04:19:19 Z  118 days
+Failing since        151818  2020-07-11 04:18:52 Z  117 days  112 attempts
+Testing same since   156405  2020-11-05 04:21:50 Z    0 days    1 attempts
 
-Anyway, an option to auto-connect to a different console would be
-useful.
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
-> P.S.
-> 
-> Could you also take a quick look at the patch I appended to the previous
-> email? Or would you prefer me to send it out separately as its own
-> patch?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  pass    
+ build-armhf                                                  fail    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-It's probably better to have a patch on its own when it's ready for
-review rather that been embedded in an email in a long
-discussion/debugging thread. That leave a better chance for others to
-spot that a patch exist and review.
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Anthony PERARD
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 24784 lines long.)
 
