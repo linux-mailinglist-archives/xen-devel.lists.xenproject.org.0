@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D49572A7E8F
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 13:29:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19776.45134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F14EC2A7F1B
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 13:55:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19788.45155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaeNm-0003TP-J1; Thu, 05 Nov 2020 12:28:50 +0000
+	id 1kaeml-00064m-Lr; Thu, 05 Nov 2020 12:54:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19776.45134; Thu, 05 Nov 2020 12:28:50 +0000
+Received: by outflank-mailman (output) from mailman id 19788.45155; Thu, 05 Nov 2020 12:54:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,110 +23,207 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kaeNm-0003T0-FX; Thu, 05 Nov 2020 12:28:50 +0000
-Received: by outflank-mailman (input) for mailman id 19776;
- Thu, 05 Nov 2020 12:28:48 +0000
+	id 1kaeml-00064N-Ih; Thu, 05 Nov 2020 12:54:39 +0000
+Received: by outflank-mailman (input) for mailman id 19788;
+ Thu, 05 Nov 2020 12:54:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mRUF=EL=crudebyte.com=qemu_oss@srs-us1.protection.inumbo.net>)
- id 1kaeNk-0003Sq-4F
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 12:28:48 +0000
-Received: from lizzy.crudebyte.com (unknown [91.194.90.13])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hyP4=EL=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
+ id 1kaemj-00064I-EO
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 12:54:38 +0000
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59d1186d-e553-43cb-bc94-407a058bac8e;
- Thu, 05 Nov 2020 12:28:47 +0000 (UTC)
+ id f479eb69-954e-471a-8ff1-bc2432bde4a6;
+ Thu, 05 Nov 2020 12:54:36 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id h62so1504242wme.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 04:54:36 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id m12sm2468188wrs.92.2020.11.05.04.54.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 04:54:34 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=mRUF=EL=crudebyte.com=qemu_oss@srs-us1.protection.inumbo.net>)
-	id 1kaeNk-0003Sq-4F
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 12:28:48 +0000
-X-Inumbo-ID: 59d1186d-e553-43cb-bc94-407a058bac8e
-Received: from lizzy.crudebyte.com (unknown [91.194.90.13])
+	(envelope-from <SRS0=hyP4=EL=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
+	id 1kaemj-00064I-EO
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 12:54:38 +0000
+X-Inumbo-ID: f479eb69-954e-471a-8ff1-bc2432bde4a6
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 59d1186d-e553-43cb-bc94-407a058bac8e;
-	Thu, 05 Nov 2020 12:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=crudebyte.com; s=lizzy; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Content-ID:Content-Description;
-	bh=YPq/3yfFXLfPvAw4wtoOounGC9mB9vXYDsxqJBUvGTo=; b=Che2Ca+e11VJP8CmIRlpunNLMr
-	qRQYJY4aEOG0sW7s1/7HUUp1XpWOrnMQhEb929HTWWJVhd+a4HkpskarxDIq0Mx5NJDMkLSzlv4VU
-	yFcXwTsWK9Zs1Mj3kZL1g8mRojrX7WB/Uy3pxPoLLQGo/c55dsUS2KFv/49dHaSDSc5JNGbkRljuE
-	qAnqlj3I9P12l8yLegvSKpZyeBET7x7v9yXLWzM3e8xfxSyep95AX6+4VfUDDJoCdPoah94WEtGnQ
-	Olx7AccVhzmuG0AHKIG/Nk/isz/Zgy/ZfRPtwS4tbj5DgBKVrZ9xU6aBL0JTHG3q1xebPNdtoNHOe
-	kF4G/s6Q==;
-From: Christian Schoenebeck <qemu_oss@crudebyte.com>
-To: Greg Kurz <groug@kaod.org>
-Cc: Philippe =?ISO-8859-1?Q?Mathieu=2DDaud=E9?= <philmd@redhat.com>, qemu-devel@nongnu.org, Fam Zheng <fam@euphon.net>, Thomas Huth <thuth@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, "Daniel P . Berrange" <berrange@redhat.com>, Matthew Rosato <mjrosato@linux.ibm.com>, David Hildenbrand <david@redhat.com>, Alex =?ISO-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>, Cornelia Huck <cohuck@redhat.com>, Wainer dos Santos Moschetta <wainersm@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Christian Borntraeger <borntraeger@de.ibm.com>, qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org, Anthony Perard <anthony.perard@citrix.com>, Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>, Richard Henderson <rth@twiddle.net>
-Subject: Re: [PATCH-for-5.2 v3 2/4] hw/9pfs: Fix Kconfig dependency problem between 9pfs and Xen
-Date: Thu, 05 Nov 2020 13:28:31 +0100
-Message-ID: <2140852.vo20GZeEQY@silver>
-In-Reply-To: <20201105132346.5e0adf94@bahia.lan>
-References: <20201104115706.3101190-1-philmd@redhat.com> <17370310-d69c-91ff-763d-52a1355ad605@redhat.com> <20201105132346.5e0adf94@bahia.lan>
+	id f479eb69-954e-471a-8ff1-bc2432bde4a6;
+	Thu, 05 Nov 2020 12:54:36 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id h62so1504242wme.3
+        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 04:54:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffwll.ch; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=iR+CVMR9Igk+i7q6zQ360QpQoQUWwq9hKMxFO8Y7cGA=;
+        b=bPPrnh4BjIGHxssI9in0eI8avIf6lVSA1Fd+jmaHNuJRYj4GLesWwatvAf+cWdJ1Gn
+         +T1a9zT5WiAc7uq+YkZ1UAi9uQqINJcLFkN5pbawGR6HDSkkCEunVz0GKT5BPbCo522L
+         G94YF8sd+EF3xMH5d9NYF5qFQjmBr4VXc5pXs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=iR+CVMR9Igk+i7q6zQ360QpQoQUWwq9hKMxFO8Y7cGA=;
+        b=Q3ISPAn0Fk5bZU0tEb53lAnqIsght5oC6wa+wtD3fkx3h12NPA1N46Sz3iBvo7yTeQ
+         Ep4i6r1VocrpKOXwazRtAoqAouPTfPP+TDrMt8YjkZfKJdpSh4b9YWsXLhjGHE2LCqYq
+         qiLQVAF9xOi6JrolTkF7AFvoHz49X9UC1Y1lcBKzXX+WKnM0GZU8u2mj6i/smCuiGWMC
+         xBTbptV6f/z9bjxaU+qTZS3JpNecTniLQFJmBPsKZ7oDvvOnV1BW/UOAF/zXJuZiKMsa
+         se6mW4sXrCktHbM0Z6miG21jcpuS45rsF2nlrhZ0AqCO2ZEwWyuYxlptcPTzTji5TrG0
+         Nr/Q==
+X-Gm-Message-State: AOAM532l/jX/UM+2Bygqx6baeyEz6GSqAD6ATdQT2kFlidIs3n5tuHb/
+	XlBr+i/sLJBBSZjNNN4ODRHh3A==
+X-Google-Smtp-Source: ABdhPJwrW3OjL7kR/bAr74WjxI8azvpsj46DeaIlccjHcQq2wan765xbIbWOOKK6+3jptMrcJuyztQ==
+X-Received: by 2002:a1c:6843:: with SMTP id d64mr2670603wmc.131.1604580875284;
+        Thu, 05 Nov 2020 04:54:35 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+        by smtp.gmail.com with ESMTPSA id m12sm2468188wrs.92.2020.11.05.04.54.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2020 04:54:34 -0800 (PST)
+Date: Thu, 5 Nov 2020 13:54:31 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>, Dave Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Lucas Stach <l.stach@pengutronix.de>, linux+etnaviv@armlinux.org.uk,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Joonyoung Shim <jy0922.shim@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Kukjin Kim <kgene@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>, yuq825@gmail.com,
+	Ben Skeggs <bskeggs@redhat.com>, Rob Herring <robh@kernel.org>,
+	Tomeu Vizoso <tomeu.vizoso@collabora.com>, steven.price@arm.com,
+	alyssa.rosenzweig@collabora.com, Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+	Hans de Goede <hdegoede@redhat.com>, Sean Paul <sean@poorly.run>,
+	Eric Anholt <eric@anholt.net>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	ray.huang@amd.com, Sumit Semwal <sumit.semwal@linaro.org>,
+	Emil Velikov <emil.velikov@collabora.com>, luben.tuikov@amd.com,
+	apaneers@amd.com, melissa.srw@gmail.com,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Qinglang Miao <miaoqinglang@huawei.com>,
+	"open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+	amd-gfx@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	etnaviv@lists.freedesktop.org,
+	Linux ARM <linux-arm-kernel@lists.infradead.org>,
+	linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+	lima@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	spice-devel@lists.freedesktop.org,
+	"open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+	xen-devel@lists.xenproject.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v5 09/10] dma-buf-map: Add memcpy and pointer-increment
+ interfaces
+Message-ID: <20201105125431.GW401619@phenom.ffwll.local>
+References: <20201020122046.31167-1-tzimmermann@suse.de>
+ <20201020122046.31167-10-tzimmermann@suse.de>
+ <CACRpkdbvGWKo8y323actUJn9xXmxpgDw1EKLiPH4RqB_kFx=XQ@mail.gmail.com>
+ <27acbd7e-d72e-4e05-c147-b50f56e21589@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27acbd7e-d72e-4e05-c147-b50f56e21589@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 
-On Donnerstag, 5. November 2020 13:23:46 CET Greg Kurz wrote:
-> On Thu, 5 Nov 2020 13:15:59 +0100
->=20
-> Philippe Mathieu-Daud=E9 <philmd@redhat.com> wrote:
-> > On 11/4/20 6:54 PM, Greg Kurz wrote:
-> > > On Wed, 04 Nov 2020 13:18:09 +0100
-> > >=20
-> > > Christian Schoenebeck <qemu_oss@crudebyte.com> wrote:
-> > >> On Mittwoch, 4. November 2020 12:57:04 CET Philippe Mathieu-Daud=E9=
-=20
-wrote:
-> > >>> Commit b2c00bce54c ("meson: convert hw/9pfs, cleanup") introduced
-> > >>> CONFIG_9PFS (probably a wrong conflict resolution). This config is
-> > >>> not used anywhere. Backends depend on CONFIG_FSDEV_9P which itself
-> > >>> depends on CONFIG_VIRTFS.
-> > >>>=20
-> > >>> Remove the invalid CONFIG_9PFS and use CONFIG_FSDEV_9P instead, to
-> > >>>=20
-> > >>> fix the './configure --without-default-devices --enable-xen' build:
-> > >>>   /usr/bin/ld: libcommon.fa.p/hw_xen_xen-legacy-backend.c.o: in
-> > >>>   function
-> > >>>=20
-> > >>> `xen_be_register_common': hw/xen/xen-legacy-backend.c:754: undefined
-> > >>> reference to `xen_9pfs_ops' /usr/bin/ld:
-> > >>> libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x8): undefined
-> > >>> reference to
-> > >>> `local_ops' /usr/bin/ld:
-> > >>> libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x20): undefined
-> > >>> reference
-> > >>> to `synth_ops' /usr/bin/ld:
-> > >>> libcommon.fa.p/fsdev_qemu-fsdev.c.o:(.data.rel+0x38): undefined
-> > >>> reference
-> > >>> to `proxy_ops' collect2: error: ld returned 1 exit status
-> > >>>=20
-> > >>> Fixes: b2c00bce54c ("meson: convert hw/9pfs, cleanup")
-> > >>> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> > >>> Acked-by: Greg Kurz <groug@kaod.org>
-> > >>> Tested-by: Greg Kurz <groug@kaod.org>
-> > >>> Signed-off-by: Philippe Mathieu-Daud=E9 <philmd@redhat.com>
-> > >>=20
-> > >> Acked-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
-> > >=20
-> > > Phil,
-> > >=20
-> > > Same questioning as Connie. Do you intend to get this merged or should
-> > > Christian or I take care of that ?
-> >=20
-> > Same answer too =3D) If you are preparing a pull request, please go ahe=
-ad!
->=20
-> Heh I've just seen your answer.
->=20
-> Christian,
->=20
-> Maybe you can add this patch in your next PR ?
+On Thu, Nov 05, 2020 at 11:37:08AM +0100, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 05.11.20 um 11:07 schrieb Linus Walleij:
+> > Overall I like this, just an inline question:
+> > 
+> > On Tue, Oct 20, 2020 at 2:20 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > 
+> >> To do framebuffer updates, one needs memcpy from system memory and a
+> >> pointer-increment function. Add both interfaces with documentation.
+> > 
+> > (...)
+> >> +/**
+> >> + * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
+> >> + * @dst:       The dma-buf mapping structure
+> >> + * @src:       The source buffer
+> >> + * @len:       The number of byte in src
+> >> + *
+> >> + * Copies data into a dma-buf mapping. The source buffer is in system
+> >> + * memory. Depending on the buffer's location, the helper picks the correct
+> >> + * method of accessing the memory.
+> >> + */
+> >> +static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *src, size_t len)
+> >> +{
+> >> +       if (dst->is_iomem)
+> >> +               memcpy_toio(dst->vaddr_iomem, src, len);
+> >> +       else
+> >> +               memcpy(dst->vaddr, src, len);
+> >> +}
+> > 
+> > Are these going to be really big memcpy() operations?
+> 
+> Individually, each could be a scanline, so a few KiB. (4 bytes *
+> horizontal resolution). Updating a full framebuffer can sum up to
+> several MiB.
+> 
+> > 
+> > Some platforms have DMA offload engines that can perform memcpy(),They could be
+> > drivers/dma, include/linux/dmaengine.h
+> > especially if the CPU doesn't really need to touch the contents
+> > and flush caches etc.
+> > An example exist in some MTD drivers that move large quantities of
+> > data off flash memory like this:
+> > drivers/mtd/nand/raw/cadence-nand-controller.c
+> > 
+> > Notice that DMAengine and DMAbuf does not have much in common,
+> > the names can be deceiving.
+> > 
+> > The value of this varies with the system architecture. It is not just
+> > a question about performance but also about power and the CPU
+> > being able to do other stuff in parallel for large transfers. So *when*
+> > to use this facility to accelerate memcpy() is a delicate question.
+> > 
+> > What I'm after here is if these can be really big, do we want
+> > (in the long run, not now) open up to the idea to slot in
+> > hardware-accelerated memcpy() here?
+> 
+> We currently use this functionality for the graphical framebuffer
+> console that most DRM drivers provide. It's non-accelerated and slow,
+> but this has not been much of a problem so far.
+> 
+> Within DRM, we're more interested in removing console code from drivers
+> and going for the generic implementation.
+> 
+> Most of the graphics HW allocates framebuffers from video RAM, system
+> memory or CMA pools and does not really need these memcpys. Only a few
+> systems with small video RAM require a shadow buffer, which we flush
+> into VRAM as needed. Those might benefit.
+> 
+> OTOH, off-loading memcpys to hardware sounds reasonable if we can hide
+> it from the DRM code. I think it all depends on how invasive that change
+> would be.
 
-Yes, I will prepare a 9p PR today anyway, so I will include this patch.
+I wouldn't, all the additional locks this would pull in sound like
+nightmare. And when an oops happens, this might be the only thing that
+manages to get the oops to the user.
 
-Best regards,
-Christian Schoenebeck
+Unless someone really starts caring about fbcon acceleration I really
+wouldn't bother. Ok maybe it also matters for fbdev, but the problem is
+that the page fault intercepting alone is already expensive, so the only
+real solution if you care about performance in that case is to use kms
+natively, and use a dirty rectangle flip (or the DIRTY syscall).
 
-
+And in there drivers should (and do) use any dma engines they have to
+upload the frames already.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
