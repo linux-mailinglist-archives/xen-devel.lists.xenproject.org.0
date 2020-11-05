@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E66682A82C9
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 16:57:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19895.45385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2996E2A82E7
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 17:01:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19903.45397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kahdA-0005pI-Vg; Thu, 05 Nov 2020 15:56:56 +0000
+	id 1kahgy-0007Ff-GA; Thu, 05 Nov 2020 16:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19895.45385; Thu, 05 Nov 2020 15:56:56 +0000
+Received: by outflank-mailman (output) from mailman id 19903.45397; Thu, 05 Nov 2020 16:00:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,159 +23,97 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kahdA-0005ot-SB; Thu, 05 Nov 2020 15:56:56 +0000
-Received: by outflank-mailman (input) for mailman id 19895;
- Thu, 05 Nov 2020 15:56:55 +0000
+	id 1kahgy-0007FG-Cu; Thu, 05 Nov 2020 16:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 19903;
+ Thu, 05 Nov 2020 16:00:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=N0uV=EL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kahd9-0005oo-Aw
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 15:56:55 +0000
+ id 1kahgx-0007FB-5Q
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 16:00:51 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f3ea6a6a-a16d-4dfc-b43c-aafde0a97eb0;
- Thu, 05 Nov 2020 15:56:54 +0000 (UTC)
+ id 6ef9137a-4b1f-4f5c-933c-55065bd2630e;
+ Thu, 05 Nov 2020 16:00:50 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 899E9AB4C;
- Thu,  5 Nov 2020 15:56:53 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A048CAB4C;
+ Thu,  5 Nov 2020 16:00:49 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=N0uV=EL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kahd9-0005oo-Aw
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 15:56:55 +0000
-X-Inumbo-ID: f3ea6a6a-a16d-4dfc-b43c-aafde0a97eb0
+	id 1kahgx-0007FB-5Q
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 16:00:51 +0000
+X-Inumbo-ID: 6ef9137a-4b1f-4f5c-933c-55065bd2630e
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f3ea6a6a-a16d-4dfc-b43c-aafde0a97eb0;
-	Thu, 05 Nov 2020 15:56:54 +0000 (UTC)
+	id 6ef9137a-4b1f-4f5c-933c-55065bd2630e;
+	Thu, 05 Nov 2020 16:00:50 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604591813;
+	t=1604592049;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VMviCyLoMsssqtC8a0xLl8BceQ2P2ix8lSvSB04SKyQ=;
-	b=Es/zxA4W1Ceh8XlCNJmxsDdGvYZ+Ok+h6CAH1dyo0HX+A4QVVwjNuioNZ94MGDElahDhaE
-	wipi5P21NNFfJiFeZxaXNx5Cjw1vDTAI+YgIKldTuQZoK8JueUL/UFnj1bAj39dTB4RHbV
-	ypszXu3j05m7+TAM6x/8rf7NA2lONXo=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QnSmKXuUvQC0v84Z/vr73YbP+4gA75cbChIWCXLpeiI=;
+	b=MHj6Kq8E14/D6+HbMg4T22qsbktj3J2mj7Zg/JShRnJtXci2+XVxw6+FGex6oLwdk+Vv96
+	+VwvPpPoLfBtPS83MJDN5XINRLztavKpzuT55XDRyZf6mInY8AovN9I8Tbzz1e3rpdgVnD
+	Zeyi2zV7DB16q/7uPq+ZgjJjA/zmGJ0=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 899E9AB4C;
-	Thu,  5 Nov 2020 15:56:53 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+	by mx2.suse.de (Postfix) with ESMTP id A048CAB4C;
+	Thu,  5 Nov 2020 16:00:49 +0000 (UTC)
+Subject: Re: [ANNOUNCE] Call for agenda items for 5 November 2020 Community
+ Call @ 16:00 UTC
+To: George Dunlap <George.Dunlap@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <948CC2D7-B53D-48CD-879B-6C0DDE0B1EE2@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxg: don't use max policy in xc_cpuid_xend_policy()
-Message-ID: <4fa05759-24ac-5ff3-3db9-94537f6be95d@suse.com>
-Date: Thu, 5 Nov 2020 16:56:53 +0100
+Message-ID: <50195240-8375-5f9b-d5b7-2a89ec8c99d0@suse.com>
+Date: Thu, 5 Nov 2020 17:00:49 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
+In-Reply-To: <948CC2D7-B53D-48CD-879B-6C0DDE0B1EE2@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Using max undermines the separation between default and max. For example,
-turning off AVX512F on an MPX-capable system silently turns on MPX,
-despite this not being part of the default policy anymore. Since the
-information is used only for determining what to convert 'x' to (but not
-to e.g. validate '1' settings), the effect of this change is identical
-for guests with (suitable) "cpuid=" settings to that of the changes
-separating default from max and then converting (e.g.) MPX from being
-part of default to only being part of max for guests without (affected)
-"cpuid=" settings.
+On 30.10.2020 15:47, George Dunlap wrote:
+> Hi all,
+> 
+> The proposed agenda is in https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/ and you can edit to add items.  Alternatively, you can reply to this mail directly.
+> 
+> Agenda items appreciated a few days before the call: please put your name besides items if you edit the document.
+> 
+> Note the following administrative conventions for the call:
+> * Unless, agreed in the pervious meeting otherwise, the call is on the 1st Thursday of each month at 1600 British Time (either GMT or BST)
+> * I usually send out a meeting reminder a few days before with a provisional agenda
+> 
+> * To allow time to switch between meetings, we'll plan on starting the agenda at 16:05 sharp.  Aim to join by 16:03 if possible to allocate time to sort out technical difficulties &c
+> 
+> * If you want to be CC'ed please add or remove yourself from the sign-up-sheet at https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
+> 
+> Best Regards
+> George
+> 
+> 
+> 
+> == Dial-in Information ==
+> ## Meeting time
+> 16:00 - 17:00 UTC
+> Further International meeting times: https://www.timeanddate.com/worldclock/meetingdetails.html?year=2020&month=11&day=5&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
+> 
+> 
+> ## Dial in details
+> Web: https://www.gotomeet.me/GeorgeDunlap
+> 
+> You can also dial in using your phone.
+> Access Code: 168-682-109
+> 
+> China (Toll Free): 4008 811084
+> Germany: +49 692 5736 7317
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+FYI: This number continues to not work.
 
---- a/tools/libs/guest/xg_cpuid_x86.c
-+++ b/tools/libs/guest/xg_cpuid_x86.c
-@@ -288,11 +288,11 @@ static int xc_cpuid_xend_policy(
-     unsigned int nr_leaves, nr_msrs;
-     uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
-     /*
--     * Three full policies.  The host, domain max, and domain current for the
--     * domain type.
-+     * Three full policies.  The host, default for the domain type,
-+     * and domain current.
-      */
--    xen_cpuid_leaf_t *host = NULL, *max = NULL, *cur = NULL;
--    unsigned int nr_host, nr_max, nr_cur;
-+    xen_cpuid_leaf_t *host = NULL, *def = NULL, *cur = NULL;
-+    unsigned int nr_host, nr_def, nr_cur;
- 
-     if ( xc_domain_getinfo(xch, domid, 1, &di) != 1 ||
-          di.domid != domid )
-@@ -312,7 +312,7 @@ static int xc_cpuid_xend_policy(
- 
-     rc = -ENOMEM;
-     if ( (host = calloc(nr_leaves, sizeof(*host))) == NULL ||
--         (max  = calloc(nr_leaves, sizeof(*max)))  == NULL ||
-+         (def  = calloc(nr_leaves, sizeof(*def)))  == NULL ||
-          (cur  = calloc(nr_leaves, sizeof(*cur)))  == NULL )
-     {
-         ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
-@@ -330,15 +330,16 @@ static int xc_cpuid_xend_policy(
-         goto fail;
-     }
- 
--    /* Get the domain's max policy. */
-+    /* Get the domain type's default policy. */
-     nr_msrs = 0;
--    nr_max = nr_leaves;
--    rc = xc_get_system_cpu_policy(xch, di.hvm ? XEN_SYSCTL_cpu_policy_hvm_max
--                                              : XEN_SYSCTL_cpu_policy_pv_max,
--                                  &nr_max, max, &nr_msrs, NULL);
-+    nr_def = nr_leaves;
-+    rc = xc_get_system_cpu_policy(xch,
-+                                  di.hvm ? XEN_SYSCTL_cpu_policy_hvm_default
-+                                         : XEN_SYSCTL_cpu_policy_pv_default,
-+                                  &nr_def, def, &nr_msrs, NULL);
-     if ( rc )
-     {
--        PERROR("Failed to obtain %s max policy", di.hvm ? "hvm" : "pv");
-+        PERROR("Failed to obtain %s def policy", di.hvm ? "hvm" : "pv");
-         rc = -errno;
-         goto fail;
-     }
-@@ -359,10 +360,10 @@ static int xc_cpuid_xend_policy(
-     for ( ; xend->leaf != XEN_CPUID_INPUT_UNUSED; ++xend )
-     {
-         xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, nr_cur, xend);
--        const xen_cpuid_leaf_t *max_leaf = find_leaf(max, nr_max, xend);
-+        const xen_cpuid_leaf_t *def_leaf = find_leaf(def, nr_def, xend);
-         const xen_cpuid_leaf_t *host_leaf = find_leaf(host, nr_host, xend);
- 
--        if ( cur_leaf == NULL || max_leaf == NULL || host_leaf == NULL )
-+        if ( cur_leaf == NULL || def_leaf == NULL || host_leaf == NULL )
-         {
-             ERROR("Missing leaf %#x, subleaf %#x", xend->leaf, xend->subleaf);
-             goto fail;
-@@ -371,7 +372,7 @@ static int xc_cpuid_xend_policy(
-         for ( unsigned int i = 0; i < ARRAY_SIZE(xend->policy); i++ )
-         {
-             uint32_t *cur_reg = &cur_leaf->a + i;
--            const uint32_t *max_reg = &max_leaf->a + i;
-+            const uint32_t *def_reg = &def_leaf->a + i;
-             const uint32_t *host_reg = &host_leaf->a + i;
- 
-             if ( xend->policy[i] == NULL )
-@@ -386,7 +387,7 @@ static int xc_cpuid_xend_policy(
-                 else if ( xend->policy[i][j] == '0' )
-                     val = false;
-                 else if ( xend->policy[i][j] == 'x' )
--                    val = test_bit(31 - j, max_reg);
-+                    val = test_bit(31 - j, def_reg);
-                 else if ( xend->policy[i][j] == 'k' ||
-                           xend->policy[i][j] == 's' )
-                     val = test_bit(31 - j, host_reg);
-@@ -419,7 +420,7 @@ static int xc_cpuid_xend_policy(
- 
-  fail:
-     free(cur);
--    free(max);
-+    free(def);
-     free(host);
- 
-     return rc;
+Jan
 
