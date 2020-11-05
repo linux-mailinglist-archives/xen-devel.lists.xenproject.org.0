@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05292A7A65
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 10:25:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19669.44923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E51A2A7B4E
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 11:09:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19679.44935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kabVp-00039p-PQ; Thu, 05 Nov 2020 09:24:57 +0000
+	id 1kacBi-0006ly-6D; Thu, 05 Nov 2020 10:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19669.44923; Thu, 05 Nov 2020 09:24:57 +0000
+Received: by outflank-mailman (output) from mailman id 19679.44935; Thu, 05 Nov 2020 10:08:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,120 +23,141 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kabVp-00039Q-MK; Thu, 05 Nov 2020 09:24:57 +0000
-Received: by outflank-mailman (input) for mailman id 19669;
- Thu, 05 Nov 2020 09:24:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kacBi-0006lZ-2o; Thu, 05 Nov 2020 10:08:14 +0000
+Received: by outflank-mailman (input) for mailman id 19679;
+ Thu, 05 Nov 2020 10:08:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kabVo-00038s-BX
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 09:24:56 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 72582182-07c5-43d6-8afc-28c065756f32;
- Thu, 05 Nov 2020 09:24:49 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kabVh-0003et-7E; Thu, 05 Nov 2020 09:24:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kabVg-0006bB-Vu; Thu, 05 Nov 2020 09:24:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kabVg-0006iI-QO; Thu, 05 Nov 2020 09:24:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=iIoW=EL=linaro.org=linus.walleij@srs-us1.protection.inumbo.net>)
+ id 1kacBg-0006lU-9m
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:08:12 +0000
+Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cc70d049-261d-489f-9eeb-51aa7706f3e9;
+ Thu, 05 Nov 2020 10:08:10 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id 11so969902ljf.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 02:08:10 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kabVo-00038s-BX
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 09:24:56 +0000
-X-Inumbo-ID: 72582182-07c5-43d6-8afc-28c065756f32
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 72582182-07c5-43d6-8afc-28c065756f32;
-	Thu, 05 Nov 2020 09:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ow6uMQ/x8lKkxKZowkXVkBLiCWRNKPixiKWZm3gRc9g=; b=HMKSyJyeySbCxEAtSheh3tc+B2
-	Z2P4K+a0RCgQSsgjN926jvys/NrANPs6V8n4mY3CcUTPZAKo92qdBjR5rbzDIs5KEaITc7A8/9u6j
-	9iifvx/DRTXa538p8mNpT8UuD34hK+kIBbymZgXXRMCfdo1Qag3fwSKKzpfkNM43S80k=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kabVh-0003et-7E; Thu, 05 Nov 2020 09:24:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kabVg-0006bB-Vu; Thu, 05 Nov 2020 09:24:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kabVg-0006iI-QO; Thu, 05 Nov 2020 09:24:48 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156400-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=iIoW=EL=linaro.org=linus.walleij@srs-us1.protection.inumbo.net>)
+	id 1kacBg-0006lU-9m
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:08:12 +0000
+X-Inumbo-ID: cc70d049-261d-489f-9eeb-51aa7706f3e9
+Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id cc70d049-261d-489f-9eeb-51aa7706f3e9;
+	Thu, 05 Nov 2020 10:08:10 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id 11so969902ljf.2
+        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 02:08:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=eEue8Bau+pupF7CyTGHXC2yqWeY8Sj18qJXhmeK0+qY=;
+        b=rvffOctSKYH+6isvUsZ6vjuDGiRiPXrriws2tYpmxIOJoDbVaUBBLJZNLsZfPTViCm
+         OB7UJ7kJVc74V/wH1kAJWs50qUWe8BxYk+3Bh0Ntwrn4R80Kw+RHuzDoPIDkFuxVKOMP
+         awvWPavfta6vj9AUR/6i26T0t+QGvBOviGEDNRn+gsaMK+rwApX3VuBwIy6OffxGwIGI
+         Q9ElrJtiii5nM3Ug/hNAa7sMnYOfnIMkNbbQWWsd9e9E4LqYfoNACefZyIQWVQxYvven
+         erCA3D+b6EoRTgIG3bxLlMg5PeozREFm5ydwy7sAu7xfjUKeSkZzmy6N/j40DftaLQPo
+         OSmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=eEue8Bau+pupF7CyTGHXC2yqWeY8Sj18qJXhmeK0+qY=;
+        b=XmHRlwZC0pXbdpsGhbYa8/73Sgy1YQjrlU6Bdq14F/kyzYMVqD0XkPFW6MQMeFzGJl
+         wxZn7gi23LMws+oe5ZxOv48jojxPljEsas2h5Mg+cE1keqWEsyYEswHP1dgxyQ1P193s
+         X52JSaNS/KyBmJD9bkvF5FB+Ftl7w8wM2pekYE4fLtq8LY32q2inMYSIMV3GX/hltpcV
+         D6ZghUkiV3FjEvLezuQfMs1VaClc5VHRs9HirRwz+iRK/o56PMd65w03Yci9zsHZHy9T
+         RXJaGhX7UH6Ke4+Sz0hU9BIIi3BjytCU4iRRvC6AXpci+LefUvK6cSQj5QASa2YzqgbA
+         XfJA==
+X-Gm-Message-State: AOAM530Agq4euaHA1yF5ilJCMSO1NufsUHC1aQlLKiZ/8yuEn7RIQtPf
+	5BbIoLT+y4eypWFi/FFGecLBcN+nQxK0CPJp8a8DQg==
+X-Google-Smtp-Source: ABdhPJzTsAT/B7g6yG/tiOPWkhIyiq+coc///CuocOp+hPojlZHj2TddLjwWNxDtJai798d/HI10cYYk95MMhchsZzo=
+X-Received: by 2002:a05:651c:1205:: with SMTP id i5mr658065lja.283.1604570889728;
+ Thu, 05 Nov 2020 02:08:09 -0800 (PST)
 MIME-Version: 1.0
-Subject: [ovmf test] 156400: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=8d5708833509ece6ac63084dc07c8ac53c4d4c1a
-X-Osstest-Versions-That:
-    ovmf=375683654d46380e4e557502141e9823f6b68445
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Nov 2020 09:24:48 +0000
+References: <20201020122046.31167-1-tzimmermann@suse.de> <20201020122046.31167-10-tzimmermann@suse.de>
+In-Reply-To: <20201020122046.31167-10-tzimmermann@suse.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 5 Nov 2020 11:07:59 +0100
+Message-ID: <CACRpkdbvGWKo8y323actUJn9xXmxpgDw1EKLiPH4RqB_kFx=XQ@mail.gmail.com>
+Subject: Re: [PATCH v5 09/10] dma-buf-map: Add memcpy and pointer-increment interfaces
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, 
+	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Gerd Hoffmann <kraxel@redhat.com>, Lucas Stach <l.stach@pengutronix.de>, 
+	linux+etnaviv@armlinux.org.uk, 
+	Christian Gmeiner <christian.gmeiner@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+	Joonyoung Shim <jy0922.shim@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Kukjin Kim <kgene@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, yuq825@gmail.com, Ben Skeggs <bskeggs@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>, steven.price@arm.com, 
+	alyssa.rosenzweig@collabora.com, Sandy Huang <hjc@rock-chips.com>, 
+	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Hans de Goede <hdegoede@redhat.com>, Sean Paul <sean@poorly.run>, Eric Anholt <eric@anholt.net>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, ray.huang@amd.com, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Emil Velikov <emil.velikov@collabora.com>, 
+	luben.tuikov@amd.com, apaneers@amd.com, melissa.srw@gmail.com, 
+	Chris Wilson <chris@chris-wilson.co.uk>, Qinglang Miao <miaoqinglang@huawei.com>, 
+	"open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, 
+	virtualization@lists.linux-foundation.org, etnaviv@lists.freedesktop.org, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+	linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, lima@lists.freedesktop.org, 
+	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
+	"open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, xen-devel@lists.xenproject.org, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
 
-flight 156400 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156400/
+Overall I like this, just an inline question:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 8d5708833509ece6ac63084dc07c8ac53c4d4c1a
-baseline version:
- ovmf                 375683654d46380e4e557502141e9823f6b68445
+On Tue, Oct 20, 2020 at 2:20 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
-Last test of basis   156380  2020-11-03 10:11:49 Z    1 days
-Testing same since   156400  2020-11-04 12:10:58 Z    0 days    1 attempts
+> To do framebuffer updates, one needs memcpy from system memory and a
+> pointer-increment function. Add both interfaces with documentation.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Feng <bob.c.feng@intel.com>
+(...)
+> +/**
+> + * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
+> + * @dst:       The dma-buf mapping structure
+> + * @src:       The source buffer
+> + * @len:       The number of byte in src
+> + *
+> + * Copies data into a dma-buf mapping. The source buffer is in system
+> + * memory. Depending on the buffer's location, the helper picks the correct
+> + * method of accessing the memory.
+> + */
+> +static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *src, size_t len)
+> +{
+> +       if (dst->is_iomem)
+> +               memcpy_toio(dst->vaddr_iomem, src, len);
+> +       else
+> +               memcpy(dst->vaddr, src, len);
+> +}
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Are these going to be really big memcpy() operations?
 
+Some platforms have DMA offload engines that can perform memcpy(),
+drivers/dma, include/linux/dmaengine.h
+especially if the CPU doesn't really need to touch the contents
+and flush caches etc.
+An example exist in some MTD drivers that move large quantities of
+data off flash memory like this:
+drivers/mtd/nand/raw/cadence-nand-controller.c
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Notice that DMAengine and DMAbuf does not have much in common,
+the names can be deceiving.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The value of this varies with the system architecture. It is not just
+a question about performance but also about power and the CPU
+being able to do other stuff in parallel for large transfers. So *when*
+to use this facility to accelerate memcpy() is a delicate question.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+What I'm after here is if these can be really big, do we want
+(in the long run, not now) open up to the idea to slot in
+hardware-accelerated memcpy() here?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   375683654d..8d57088335  8d5708833509ece6ac63084dc07c8ac53c4d4c1a -> xen-tested-master
+Yours,
+Linus Walleij
 
