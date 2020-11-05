@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E51A2A7B4E
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 11:09:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19679.44935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 877892A7B8A
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 11:22:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19685.44947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kacBi-0006ly-6D; Thu, 05 Nov 2020 10:08:14 +0000
+	id 1kacPJ-0008Rc-D7; Thu, 05 Nov 2020 10:22:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19679.44935; Thu, 05 Nov 2020 10:08:14 +0000
+Received: by outflank-mailman (output) from mailman id 19685.44947; Thu, 05 Nov 2020 10:22:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,141 +23,96 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kacBi-0006lZ-2o; Thu, 05 Nov 2020 10:08:14 +0000
-Received: by outflank-mailman (input) for mailman id 19679;
- Thu, 05 Nov 2020 10:08:12 +0000
+	id 1kacPJ-0008RD-9f; Thu, 05 Nov 2020 10:22:17 +0000
+Received: by outflank-mailman (input) for mailman id 19685;
+ Thu, 05 Nov 2020 10:22:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iIoW=EL=linaro.org=linus.walleij@srs-us1.protection.inumbo.net>)
- id 1kacBg-0006lU-9m
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:08:12 +0000
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aHwt=EL=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kacPI-0008R8-59
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:22:16 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc70d049-261d-489f-9eeb-51aa7706f3e9;
- Thu, 05 Nov 2020 10:08:10 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id 11so969902ljf.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 02:08:10 -0800 (PST)
+ id da533cfd-0cc0-45b9-9036-151e8f4005b0;
+ Thu, 05 Nov 2020 10:22:15 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6064CABE3;
+ Thu,  5 Nov 2020 10:22:14 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=iIoW=EL=linaro.org=linus.walleij@srs-us1.protection.inumbo.net>)
-	id 1kacBg-0006lU-9m
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:08:12 +0000
-X-Inumbo-ID: cc70d049-261d-489f-9eeb-51aa7706f3e9
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+	(envelope-from <SRS0=aHwt=EL=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kacPI-0008R8-59
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 10:22:16 +0000
+X-Inumbo-ID: da533cfd-0cc0-45b9-9036-151e8f4005b0
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id cc70d049-261d-489f-9eeb-51aa7706f3e9;
-	Thu, 05 Nov 2020 10:08:10 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id 11so969902ljf.2
-        for <xen-devel@lists.xenproject.org>; Thu, 05 Nov 2020 02:08:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=eEue8Bau+pupF7CyTGHXC2yqWeY8Sj18qJXhmeK0+qY=;
-        b=rvffOctSKYH+6isvUsZ6vjuDGiRiPXrriws2tYpmxIOJoDbVaUBBLJZNLsZfPTViCm
-         OB7UJ7kJVc74V/wH1kAJWs50qUWe8BxYk+3Bh0Ntwrn4R80Kw+RHuzDoPIDkFuxVKOMP
-         awvWPavfta6vj9AUR/6i26T0t+QGvBOviGEDNRn+gsaMK+rwApX3VuBwIy6OffxGwIGI
-         Q9ElrJtiii5nM3Ug/hNAa7sMnYOfnIMkNbbQWWsd9e9E4LqYfoNACefZyIQWVQxYvven
-         erCA3D+b6EoRTgIG3bxLlMg5PeozREFm5ydwy7sAu7xfjUKeSkZzmy6N/j40DftaLQPo
-         OSmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=eEue8Bau+pupF7CyTGHXC2yqWeY8Sj18qJXhmeK0+qY=;
-        b=XmHRlwZC0pXbdpsGhbYa8/73Sgy1YQjrlU6Bdq14F/kyzYMVqD0XkPFW6MQMeFzGJl
-         wxZn7gi23LMws+oe5ZxOv48jojxPljEsas2h5Mg+cE1keqWEsyYEswHP1dgxyQ1P193s
-         X52JSaNS/KyBmJD9bkvF5FB+Ftl7w8wM2pekYE4fLtq8LY32q2inMYSIMV3GX/hltpcV
-         D6ZghUkiV3FjEvLezuQfMs1VaClc5VHRs9HirRwz+iRK/o56PMd65w03Yci9zsHZHy9T
-         RXJaGhX7UH6Ke4+Sz0hU9BIIi3BjytCU4iRRvC6AXpci+LefUvK6cSQj5QASa2YzqgbA
-         XfJA==
-X-Gm-Message-State: AOAM530Agq4euaHA1yF5ilJCMSO1NufsUHC1aQlLKiZ/8yuEn7RIQtPf
-	5BbIoLT+y4eypWFi/FFGecLBcN+nQxK0CPJp8a8DQg==
-X-Google-Smtp-Source: ABdhPJzTsAT/B7g6yG/tiOPWkhIyiq+coc///CuocOp+hPojlZHj2TddLjwWNxDtJai798d/HI10cYYk95MMhchsZzo=
-X-Received: by 2002:a05:651c:1205:: with SMTP id i5mr658065lja.283.1604570889728;
- Thu, 05 Nov 2020 02:08:09 -0800 (PST)
+	id da533cfd-0cc0-45b9-9036-151e8f4005b0;
+	Thu, 05 Nov 2020 10:22:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604571734;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PUazweBzSOrJ/GJtnh5fKJx+H3PsKPOK3TrRHz2M8Do=;
+	b=g8u4xtmmSxsyeUKapvsSpqJ/z68+O0NRvdXLRN+mLyKJYCu6sMhsKfISkLCUwzWtutQbOK
+	HedpTfikP1LfAaH6PKczmrcqCLNHP5WNdT0HAehndnI/r4tAV41aasjw0Ju1/BLSL0gSEK
+	s6OlYHhHKKXnroDRu5Lv6NXayNgervI=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 6064CABE3;
+	Thu,  5 Nov 2020 10:22:14 +0000 (UTC)
+Subject: Re: [PATCH v3 1/3] xen/x86: add nmi continuation framework
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20201016085350.10233-1-jgross@suse.com>
+ <20201016085350.10233-2-jgross@suse.com>
+ <12640bbf-475c-3d74-9bb0-57befcadd626@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <3b260972-4155-6c83-a4c3-21d096346337@suse.com>
+Date: Thu, 5 Nov 2020 11:22:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20201020122046.31167-1-tzimmermann@suse.de> <20201020122046.31167-10-tzimmermann@suse.de>
-In-Reply-To: <20201020122046.31167-10-tzimmermann@suse.de>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Nov 2020 11:07:59 +0100
-Message-ID: <CACRpkdbvGWKo8y323actUJn9xXmxpgDw1EKLiPH4RqB_kFx=XQ@mail.gmail.com>
-Subject: Re: [PATCH v5 09/10] dma-buf-map: Add memcpy and pointer-increment interfaces
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Gerd Hoffmann <kraxel@redhat.com>, Lucas Stach <l.stach@pengutronix.de>, 
-	linux+etnaviv@armlinux.org.uk, 
-	Christian Gmeiner <christian.gmeiner@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
-	Joonyoung Shim <jy0922.shim@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, Kukjin Kim <kgene@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, yuq825@gmail.com, Ben Skeggs <bskeggs@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>, steven.price@arm.com, 
-	alyssa.rosenzweig@collabora.com, Sandy Huang <hjc@rock-chips.com>, 
-	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Hans de Goede <hdegoede@redhat.com>, Sean Paul <sean@poorly.run>, Eric Anholt <eric@anholt.net>, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, ray.huang@amd.com, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Emil Velikov <emil.velikov@collabora.com>, 
-	luben.tuikov@amd.com, apaneers@amd.com, melissa.srw@gmail.com, 
-	Chris Wilson <chris@chris-wilson.co.uk>, Qinglang Miao <miaoqinglang@huawei.com>, 
-	"open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, 
-	virtualization@lists.linux-foundation.org, etnaviv@lists.freedesktop.org, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
-	linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, lima@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
-	"open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, xen-devel@lists.xenproject.org, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <12640bbf-475c-3d74-9bb0-57befcadd626@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Overall I like this, just an inline question:
+On 20.10.20 15:33, Jan Beulich wrote:
+> On 16.10.2020 10:53, Juergen Gross wrote:
+>> Actions in NMI context are rather limited as e.g. locking is rather
+>> fragile.
+>>
+>> Add a generic framework to continue processing in normal interrupt
+>> context after leaving NMI processing.
+>>
+>> This is done by a high priority interrupt vector triggered via a
+>> self IPI from NMI context, which will then call the continuation
+>> function specified during NMI handling.
+> 
+> I'm concerned by there being just a single handler allowed, when
+> the series already introduces two uses. A single NMI instance
+> may signal multiple things in one go. At the very least we then
+> need a priority, such that SERR could override oprofile.
 
-On Tue, Oct 20, 2020 at 2:20 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+A different approach could be not to introduce a generic interface,
+but to explicitly call the continuation handlers in the interrupt
+handler.
 
-> To do framebuffer updates, one needs memcpy from system memory and a
-> pointer-increment function. Add both interfaces with documentation.
+Instead of a function pointer, a parameter pointer and a busy
+indicator (probably another function pointer) per cpu, we'd need for
+now only a parameter value per cpu (for the oprofile case) and a
+global flag (for the SERR case).
 
-(...)
-> +/**
-> + * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
-> + * @dst:       The dma-buf mapping structure
-> + * @src:       The source buffer
-> + * @len:       The number of byte in src
-> + *
-> + * Copies data into a dma-buf mapping. The source buffer is in system
-> + * memory. Depending on the buffer's location, the helper picks the correct
-> + * method of accessing the memory.
-> + */
-> +static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *src, size_t len)
-> +{
-> +       if (dst->is_iomem)
-> +               memcpy_toio(dst->vaddr_iomem, src, len);
-> +       else
-> +               memcpy(dst->vaddr, src, len);
-> +}
+The downside would be having to add additional fields for other
+use cases, but for now I think this could be the better way,
+especially as this would remove the theoretical case of multiple
+issues overwriting one another.
 
-Are these going to be really big memcpy() operations?
+Thoughts?
 
-Some platforms have DMA offload engines that can perform memcpy(),
-drivers/dma, include/linux/dmaengine.h
-especially if the CPU doesn't really need to touch the contents
-and flush caches etc.
-An example exist in some MTD drivers that move large quantities of
-data off flash memory like this:
-drivers/mtd/nand/raw/cadence-nand-controller.c
 
-Notice that DMAengine and DMAbuf does not have much in common,
-the names can be deceiving.
-
-The value of this varies with the system architecture. It is not just
-a question about performance but also about power and the CPU
-being able to do other stuff in parallel for large transfers. So *when*
-to use this facility to accelerate memcpy() is a delicate question.
-
-What I'm after here is if these can be really big, do we want
-(in the long run, not now) open up to the idea to slot in
-hardware-accelerated memcpy() here?
-
-Yours,
-Linus Walleij
+Juergen
 
